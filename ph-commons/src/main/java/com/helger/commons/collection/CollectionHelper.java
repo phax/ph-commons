@@ -22,7 +22,6 @@ import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.Enumeration;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.NavigableMap;
@@ -48,9 +47,10 @@ import com.helger.commons.annotation.ReturnsImmutableObject;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.CommonsHashSet;
 import com.helger.commons.collection.ext.CommonsLinkedHashMap;
+import com.helger.commons.collection.ext.CommonsLinkedHashSet;
 import com.helger.commons.collection.ext.CommonsList;
-import com.helger.commons.collection.ext.CommonsSet;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.impl.NonBlockingStack;
@@ -880,26 +880,26 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsSet <ELEMENTTYPE> newSet (@Nonnegative final int nInitialCapacity)
+  public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> newSet (@Nonnegative final int nInitialCapacity)
   {
-    return new CommonsSet <> (nInitialCapacity);
+    return new CommonsHashSet <> (nInitialCapacity);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsSet <ELEMENTTYPE> newSet ()
+  public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> newSet ()
   {
-    return new CommonsSet <> ();
+    return new CommonsHashSet <> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCTYPE, DSTTYPE> CommonsSet <DSTTYPE> newSetMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
-                                                                      @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+  public static <SRCTYPE, DSTTYPE> CommonsHashSet <DSTTYPE> newSetMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
+                                                                          @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
   {
     if (isEmpty (aCollection))
       return newSet (0);
-    final CommonsSet <DSTTYPE> ret = newSet (aCollection.size ());
+    final CommonsHashSet <DSTTYPE> ret = newSet (aCollection.size ());
     for (final SRCTYPE aValue : aCollection)
       ret.add (aMapper.apply (aValue));
     return ret;
@@ -907,12 +907,12 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsSet <ELEMENTTYPE> newSet (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
-                                                               @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
+  public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> newSet (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
+                                                                   @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
   {
     if (isEmpty (aCollection))
       return newSet (0);
-    final CommonsSet <ELEMENTTYPE> ret = newSet (aCollection.size ());
+    final CommonsHashSet <ELEMENTTYPE> ret = newSet (aCollection.size ());
     for (final ELEMENTTYPE aValue : aCollection)
       if (aFilter.test (aValue))
         ret.add (aValue);
@@ -921,9 +921,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsSet <ELEMENTTYPE> newSet (@Nullable final ELEMENTTYPE aValue)
+  public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> newSet (@Nullable final ELEMENTTYPE aValue)
   {
-    final CommonsSet <ELEMENTTYPE> ret = newSet (1);
+    final CommonsHashSet <ELEMENTTYPE> ret = newSet (1);
     ret.add (aValue);
     return ret;
   }
@@ -931,21 +931,21 @@ public final class CollectionHelper
   @Nonnull
   @ReturnsMutableCopy
   @SafeVarargs
-  public static <ELEMENTTYPE> CommonsSet <ELEMENTTYPE> newSet (@Nullable final ELEMENTTYPE... aValues)
+  public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> newSet (@Nullable final ELEMENTTYPE... aValues)
   {
     if (ArrayHelper.isEmpty (aValues))
       return newSet (0);
 
-    final CommonsSet <ELEMENTTYPE> ret = newSet (aValues.length);
+    final CommonsHashSet <ELEMENTTYPE> ret = newSet (aValues.length);
     Collections.addAll (ret, aValues);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsSet <ELEMENTTYPE> newSet (@Nullable final Iterable <? extends ELEMENTTYPE> aCont)
+  public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> newSet (@Nullable final Iterable <? extends ELEMENTTYPE> aCont)
   {
-    final CommonsSet <ELEMENTTYPE> ret = newSet ();
+    final CommonsHashSet <ELEMENTTYPE> ret = newSet ();
     if (aCont != null)
       for (final ELEMENTTYPE aValue : aCont)
         ret.add (aValue);
@@ -954,19 +954,19 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsSet <ELEMENTTYPE> newSet (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
+  public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> newSet (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
     if (isEmpty (aCont))
       return newSet (0);
 
-    return new CommonsSet <> (aCont);
+    return new CommonsHashSet <> (aCont);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsSet <ELEMENTTYPE> newSet (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> newSet (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
   {
-    final CommonsSet <ELEMENTTYPE> ret = newSet ();
+    final CommonsHashSet <ELEMENTTYPE> ret = newSet ();
     if (aIter != null)
       while (aIter.hasNext ())
         ret.add (aIter.next ());
@@ -975,7 +975,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsSet <ELEMENTTYPE> newSet (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> newSet (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter)
   {
     if (aIter == null)
       return newSet (0);
@@ -984,9 +984,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsSet <ELEMENTTYPE> newSet (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
+  public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> newSet (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
   {
-    final CommonsSet <ELEMENTTYPE> ret = newSet ();
+    final CommonsHashSet <ELEMENTTYPE> ret = newSet ();
     if (aEnum != null)
       while (aEnum.hasMoreElements ())
         ret.add (aEnum.nextElement ());
@@ -1133,26 +1133,26 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> LinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nonnegative final int nInitialCapacity)
+  public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nonnegative final int nInitialCapacity)
   {
-    return new LinkedHashSet <> (nInitialCapacity);
+    return new CommonsLinkedHashSet <> (nInitialCapacity);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> LinkedHashSet <ELEMENTTYPE> newOrderedSet ()
+  public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> newOrderedSet ()
   {
-    return new LinkedHashSet <> ();
+    return new CommonsLinkedHashSet <> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <SRCTYPE, DSTTYPE> LinkedHashSet <DSTTYPE> newOrderedSetMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
-                                                                                @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+  public static <SRCTYPE, DSTTYPE> CommonsLinkedHashSet <DSTTYPE> newOrderedSetMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
+                                                                                       @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
   {
     if (isEmpty (aCollection))
       return newOrderedSet (0);
-    final LinkedHashSet <DSTTYPE> ret = newOrderedSet (aCollection.size ());
+    final CommonsLinkedHashSet <DSTTYPE> ret = newOrderedSet (aCollection.size ());
     for (final SRCTYPE aValue : aCollection)
       ret.add (aMapper.apply (aValue));
     return ret;
@@ -1160,12 +1160,12 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> LinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
-                                                                         @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
+  public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
+                                                                                @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
   {
     if (isEmpty (aCollection))
       return newOrderedSet (0);
-    final LinkedHashSet <ELEMENTTYPE> ret = newOrderedSet (aCollection.size ());
+    final CommonsLinkedHashSet <ELEMENTTYPE> ret = newOrderedSet (aCollection.size ());
     for (final ELEMENTTYPE aValue : aCollection)
       if (aFilter.test (aValue))
         ret.add (aValue);
@@ -1174,9 +1174,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> LinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final ELEMENTTYPE aValue)
+  public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final ELEMENTTYPE aValue)
   {
-    final LinkedHashSet <ELEMENTTYPE> ret = newOrderedSet (1);
+    final CommonsLinkedHashSet <ELEMENTTYPE> ret = newOrderedSet (1);
     ret.add (aValue);
     return ret;
   }
@@ -1184,21 +1184,21 @@ public final class CollectionHelper
   @Nonnull
   @ReturnsMutableCopy
   @SafeVarargs
-  public static <ELEMENTTYPE> LinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final ELEMENTTYPE... aValues)
+  public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final ELEMENTTYPE... aValues)
   {
     if (ArrayHelper.isEmpty (aValues))
       return newOrderedSet (0);
 
-    final LinkedHashSet <ELEMENTTYPE> ret = newOrderedSet (aValues.length);
+    final CommonsLinkedHashSet <ELEMENTTYPE> ret = newOrderedSet (aValues.length);
     Collections.addAll (ret, aValues);
     return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> LinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final Iterable <? extends ELEMENTTYPE> aCont)
+  public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final Iterable <? extends ELEMENTTYPE> aCont)
   {
-    final LinkedHashSet <ELEMENTTYPE> ret = newOrderedSet ();
+    final CommonsLinkedHashSet <ELEMENTTYPE> ret = newOrderedSet ();
     if (aCont != null)
       for (final ELEMENTTYPE aValue : aCont)
         ret.add (aValue);
@@ -1207,19 +1207,19 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> LinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
+  public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
     if (isEmpty (aCont))
       return newOrderedSet (0);
 
-    return new LinkedHashSet <> (aCont);
+    return new CommonsLinkedHashSet <> (aCont);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> LinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nonnull final Iterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nonnull final Iterator <? extends ELEMENTTYPE> aIter)
   {
-    final LinkedHashSet <ELEMENTTYPE> ret = newOrderedSet ();
+    final CommonsLinkedHashSet <ELEMENTTYPE> ret = newOrderedSet ();
     if (aIter != null)
       while (aIter.hasNext ())
         ret.add (aIter.next ());
@@ -1228,7 +1228,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> LinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter)
+  public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final IIterableIterator <? extends ELEMENTTYPE> aIter)
   {
     if (aIter == null)
       return newOrderedSet (0);
@@ -1237,9 +1237,9 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> LinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
+  public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
   {
-    final LinkedHashSet <ELEMENTTYPE> ret = newOrderedSet ();
+    final CommonsLinkedHashSet <ELEMENTTYPE> ret = newOrderedSet ();
     if (aEnum != null)
       while (aEnum.hasMoreElements ())
         ret.add (aEnum.nextElement ());

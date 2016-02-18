@@ -15,7 +15,7 @@ public interface ICommonsSet <ELEMENTTYPE> extends Set <ELEMENTTYPE>, ICommonsCo
   @ReturnsMutableCopy
   default ICommonsSet <ELEMENTTYPE> getCopy ()
   {
-    return new CommonsSet <> (this);
+    return new CommonsHashSet <> (this);
   }
 
   @Nonnull
@@ -25,7 +25,7 @@ public interface ICommonsSet <ELEMENTTYPE> extends Set <ELEMENTTYPE>, ICommonsCo
     if (aFilter == null)
       return getCopy ();
 
-    final ICommonsSet <ELEMENTTYPE> ret = new CommonsSet <> (size ());
+    final ICommonsSet <ELEMENTTYPE> ret = new CommonsHashSet <> (size ());
     findAll (aFilter, ret::add);
     return ret;
   }
@@ -34,7 +34,7 @@ public interface ICommonsSet <ELEMENTTYPE> extends Set <ELEMENTTYPE>, ICommonsCo
   @ReturnsMutableCopy
   default <DSTTYPE> ICommonsSet <DSTTYPE> getAllMapped (@Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
   {
-    final ICommonsSet <DSTTYPE> ret = new CommonsSet <> (size ());
+    final ICommonsSet <DSTTYPE> ret = new CommonsHashSet <> (size ());
     findAllMapped (aMapper, ret::add);
     return ret;
   }
@@ -44,7 +44,7 @@ public interface ICommonsSet <ELEMENTTYPE> extends Set <ELEMENTTYPE>, ICommonsCo
   default <DSTTYPE> ICommonsSet <DSTTYPE> getAllMapped (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
                                                         @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
   {
-    final ICommonsSet <DSTTYPE> ret = new CommonsSet <> ();
+    final ICommonsSet <DSTTYPE> ret = new CommonsHashSet <> ();
     findAllMapped (aFilter, aMapper, ret::add);
     return ret;
   }
@@ -53,7 +53,7 @@ public interface ICommonsSet <ELEMENTTYPE> extends Set <ELEMENTTYPE>, ICommonsCo
   @ReturnsMutableCopy
   default <DSTTYPE extends ELEMENTTYPE> ICommonsSet <DSTTYPE> getAllInstanceOf (@Nonnull final Class <DSTTYPE> aDstClass)
   {
-    final ICommonsSet <DSTTYPE> ret = new CommonsSet <> ();
+    final ICommonsSet <DSTTYPE> ret = new CommonsHashSet <> ();
     findAllInstanceOf (aDstClass, ret::add);
     return ret;
   }
