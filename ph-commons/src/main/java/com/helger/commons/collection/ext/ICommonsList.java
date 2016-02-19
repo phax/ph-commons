@@ -27,6 +27,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.lang.ICloneable;
+import com.helger.commons.state.EChange;
 
 public interface ICommonsList <ELEMENTTYPE> extends
                               List <ELEMENTTYPE>,
@@ -124,6 +125,43 @@ public interface ICommonsList <ELEMENTTYPE> extends
   default ELEMENTTYPE setLast (@Nullable final ELEMENTTYPE aNewElement)
   {
     return set (size () - 1, aNewElement);
+  }
+
+  /**
+   * Remove the element at the specified index from the passed list. This works
+   * if the list is not <code>null</code> and the index is &ge; 0 and &lt;
+   * <code>list.size()</code>
+   *
+   * @param nIndex
+   *        The index to be removed. May be arbitrary.
+   * @return {@link EChange#CHANGED} if removal was successful
+   * @see #removeAndReturnElementAtIndex(int)
+   */
+  @Nonnull
+  default EChange removeAtIndex (final int nIndex)
+  {
+    if (nIndex < 0 || nIndex >= size ())
+      return EChange.UNCHANGED;
+    remove (nIndex);
+    return EChange.CHANGED;
+  }
+
+  /**
+   * Remove the element at the specified index from the passed list. This works
+   * if the list is not <code>null</code> and the index is &ge; 0 and &lt;
+   * <code>list.size()</code>
+   *
+   * @param nIndex
+   *        The index to be removed. May be arbitrary.
+   * @return <code>null</code> if removal failed or the removed element. Note:
+   *         the removed element may also be <code>null</code> so it may be
+   *         tricky to determine if removal succeeded or not!
+   * @see #removeAtIndex(int)
+   */
+  @Nullable
+  default ELEMENTTYPE removeAndReturnElementAtIndex (final int nIndex)
+  {
+    return nIndex < 0 || nIndex >= size () ? null : remove (nIndex);
   }
 
   @Nullable
