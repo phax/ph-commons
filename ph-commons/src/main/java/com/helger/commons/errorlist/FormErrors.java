@@ -160,6 +160,22 @@ public class FormErrors implements Serializable, IFieldErrorList
   }
 
   /**
+   * Add a field specific error message for multiple fields.
+   *
+   * @param aFieldNames
+   *        The field names for which the message is to be recorded. May neither
+   *        be <code>null</code> nor empty.
+   * @param sText
+   *        The text to use. May neither be <code>null</code> nor empty.
+   */
+  public void addFieldError (@Nonnull @Nonempty final String [] aFieldNames, @Nonnull @Nonempty final String sText)
+  {
+    ValueEnforcer.notEmptyNoNullValue (aFieldNames, "FieldNames");
+    for (final String sFieldName : aFieldNames)
+      addFieldError (sFieldName, sText);
+  }
+
+  /**
    * Check if no message is contained overall.
    *
    * @return <code>true</code> if neither a form-global nor a form-field
