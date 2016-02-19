@@ -16,7 +16,6 @@
  */
 package com.helger.commons.xml;
 
-import java.util.EnumMap;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -28,9 +27,10 @@ import org.w3c.dom.DOMImplementation;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.CommonsEnumMap;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.xml.dom.EXMLDOMFeature;
 import com.helger.commons.xml.dom.EXMLDOMFeatureVersion;
 import com.helger.commons.xml.dom.EXMLDOMNodeType;
@@ -43,11 +43,10 @@ import com.helger.commons.xml.dom.EXMLDOMNodeType;
 public final class XMLDebug
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (XMLDebug.class);
-  private static final Map <EXMLDOMFeatureVersion, ICommonsList <String>> s_aSupportedFeatures;
+  private static final ICommonsMap <EXMLDOMFeatureVersion, ICommonsList <String>> s_aSupportedFeatures = new CommonsEnumMap <> (EXMLDOMFeatureVersion.class);
 
   static
   {
-    s_aSupportedFeatures = new EnumMap <> (EXMLDOMFeatureVersion.class);
     for (final EXMLDOMFeatureVersion eFeatureVersion : EXMLDOMFeatureVersion.values ())
       s_aSupportedFeatures.put (eFeatureVersion, new CommonsArrayList <> ());
 
@@ -92,7 +91,7 @@ public final class XMLDebug
   @ReturnsMutableCopy
   public static Map <EXMLDOMFeatureVersion, ICommonsList <String>> getAllSupportedFeatures ()
   {
-    return CollectionHelper.newMap (s_aSupportedFeatures);
+    return s_aSupportedFeatures.getClone ();
   }
 
   @Nullable

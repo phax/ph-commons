@@ -16,7 +16,6 @@
  */
 package com.helger.commons.xml.serialize.read;
 
-import java.util.EnumMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -36,6 +35,8 @@ import org.xml.sax.ext.LexicalHandler;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.callback.exception.IExceptionCallback;
+import com.helger.commons.collection.ext.CommonsEnumMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -56,8 +57,8 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
   private DTDHandler m_aDTDHandler;
   private ContentHandler m_aContentHandler;
   private ErrorHandler m_aErrorHandler;
-  private final EnumMap <EXMLParserProperty, Object> m_aProperties = new EnumMap <EXMLParserProperty, Object> (EXMLParserProperty.class);
-  private final EnumMap <EXMLParserFeature, Boolean> m_aFeatures = new EnumMap <EXMLParserFeature, Boolean> (EXMLParserFeature.class);
+  private final ICommonsMap <EXMLParserProperty, Object> m_aProperties = new CommonsEnumMap <> (EXMLParserProperty.class);
+  private final ICommonsMap <EXMLParserFeature, Boolean> m_aFeatures = new CommonsEnumMap <> (EXMLParserFeature.class);
   private IExceptionCallback <Throwable> m_aExceptionHandler;
   private boolean m_bRequiresNewXMLParserExplicitly;
 
@@ -187,9 +188,9 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
 
   @Nonnull
   @ReturnsMutableCopy
-  public Map <EXMLParserProperty, Object> getAllPropertyValues ()
+  public ICommonsMap <EXMLParserProperty, Object> getAllPropertyValues ()
   {
-    return new EnumMap <EXMLParserProperty, Object> (m_aProperties);
+    return m_aProperties.getClone ();
   }
 
   @Nonnull
@@ -261,9 +262,9 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
 
   @Nonnull
   @ReturnsMutableCopy
-  public Map <EXMLParserFeature, Boolean> getAllFeatureValues ()
+  public ICommonsMap <EXMLParserFeature, Boolean> getAllFeatureValues ()
   {
-    return new EnumMap <EXMLParserFeature, Boolean> (m_aFeatures);
+    return m_aFeatures.getClone ();
   }
 
   @Nonnull

@@ -17,7 +17,6 @@
 package com.helger.commons.xml.serialize.read;
 
 import java.util.Locale;
-import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -27,6 +26,7 @@ import org.xml.sax.ErrorHandler;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.callback.exception.IExceptionCallback;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.xml.EXMLParserFeature;
 import com.helger.commons.xml.EXMLParserProperty;
 
@@ -58,7 +58,7 @@ public interface IBaseXMLReaderSettings
    */
   @Nonnull
   @ReturnsMutableCopy
-  Map <EXMLParserProperty, Object> getAllPropertyValues ();
+  ICommonsMap <EXMLParserProperty, Object> getAllPropertyValues ();
 
   /**
    * @return The locale to be used for error messages. By default it is
@@ -89,7 +89,7 @@ public interface IBaseXMLReaderSettings
    */
   @Nonnull
   @ReturnsMutableCopy
-  Map <EXMLParserFeature, Boolean> getAllFeatureValues ();
+  ICommonsMap <EXMLParserFeature, Boolean> getAllFeatureValues ();
 
   /**
    * @return A special error handler to be used or <code>null</code> if no

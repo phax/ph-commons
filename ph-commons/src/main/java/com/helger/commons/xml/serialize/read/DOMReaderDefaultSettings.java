@@ -16,7 +16,6 @@
  */
 package com.helger.commons.xml.serialize.read;
 
-import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -33,6 +32,8 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.callback.exception.IExceptionCallback;
+import com.helger.commons.collection.ext.CommonsEnumMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.state.EChange;
 import com.helger.commons.xml.EXMLParserFeature;
@@ -72,9 +73,9 @@ public final class DOMReaderDefaultSettings
   @GuardedBy ("s_aRWLock")
   private static boolean s_bDefaultXIncludeAware = XMLFactory.DEFAULT_DOM_XINCLUDE_AWARE;
   @GuardedBy ("s_aRWLock")
-  private static final EnumMap <EXMLParserProperty, Object> s_aDefaultProperties = new EnumMap <> (EXMLParserProperty.class);
+  private static final ICommonsMap <EXMLParserProperty, Object> s_aDefaultProperties = new CommonsEnumMap <> (EXMLParserProperty.class);
   @GuardedBy ("s_aRWLock")
-  private static final EnumMap <EXMLParserFeature, Boolean> s_aDefaultFeatures = new EnumMap <> (EXMLParserFeature.class);
+  private static final ICommonsMap <EXMLParserFeature, Boolean> s_aDefaultFeatures = new CommonsEnumMap <> (EXMLParserFeature.class);
 
   // DocumentBuilder properties
   @GuardedBy ("s_aRWLock")
@@ -191,9 +192,9 @@ public final class DOMReaderDefaultSettings
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Map <EXMLParserProperty, Object> getAllPropertyValues ()
+  public static ICommonsMap <EXMLParserProperty, Object> getAllPropertyValues ()
   {
-    return s_aRWLock.readLocked ( () -> new EnumMap <EXMLParserProperty, Object> (s_aDefaultProperties));
+    return s_aRWLock.readLocked ( () -> s_aDefaultProperties.getClone ());
   }
 
   public static void setPropertyValue (@Nonnull final EXMLParserProperty eProperty,
@@ -256,7 +257,7 @@ public final class DOMReaderDefaultSettings
   @ReturnsMutableCopy
   public static Map <EXMLParserFeature, Boolean> getAllFeatureValues ()
   {
-    return s_aRWLock.readLocked ( () -> new EnumMap <EXMLParserFeature, Boolean> (s_aDefaultFeatures));
+    return s_aRWLock.readLocked ( () -> s_aDefaultFeatures.getClone ());
   }
 
   public static void setFeatureValue (@Nonnull final EXMLParserFeature eFeature, final boolean bValue)
