@@ -22,7 +22,6 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.Closeable;
 import java.io.DataInput;
 import java.io.DataInputStream;
 import java.io.DataOutput;
@@ -135,7 +134,7 @@ public final class StreamHelper
    * @return {@link ESuccess#SUCCESS} if the object was successfully closed.
    */
   @Nonnull
-  public static ESuccess closeWithoutFlush (@Nullable @WillClose final Closeable aCloseable)
+  public static ESuccess closeWithoutFlush (@Nullable @WillClose final AutoCloseable aCloseable)
   {
     if (aCloseable != null)
     {
@@ -145,10 +144,10 @@ public final class StreamHelper
         aCloseable.close ();
         return ESuccess.SUCCESS;
       }
-      catch (final IOException ex)
+      catch (final Exception ex)
       {
         if (!isKnownEOFException (ex))
-          s_aLogger.error ("Failed to close stream " +
+          s_aLogger.error ("Failed to close object " +
                            aCloseable.getClass ().getName (),
                            ex instanceof IMockException ? null : ex);
       }
@@ -166,7 +165,7 @@ public final class StreamHelper
    * @return {@link ESuccess} if the object was successfully closed.
    */
   @Nonnull
-  public static ESuccess close (@Nullable @WillClose final Closeable aCloseable)
+  public static ESuccess close (@Nullable @WillClose final AutoCloseable aCloseable)
   {
     if (aCloseable != null)
     {
@@ -185,7 +184,7 @@ public final class StreamHelper
         // Happens if a java.io.FilterInputStream or java.io.FilterOutputStream
         // has no underlying stream!
       }
-      catch (final IOException ex)
+      catch (final Exception ex)
       {
         if (!isKnownEOFException (ex))
           s_aLogger.error ("Failed to close object " +
