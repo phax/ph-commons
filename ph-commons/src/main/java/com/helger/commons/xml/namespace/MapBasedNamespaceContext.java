@@ -18,7 +18,6 @@ package com.helger.commons.xml.namespace;
 
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -31,6 +30,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.collection.multimap.IMultiMapSetBased;
 import com.helger.commons.collection.multimap.MultiHashMapHashSetBased;
 import com.helger.commons.equals.EqualsHelper;
@@ -196,7 +196,7 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
   @Nullable
   public Iterator <String> getCustomPrefixes (@Nonnull final String sNamespaceURI)
   {
-    final Set <String> aAllPrefixes = m_aNS2Prefix.get (sNamespaceURI);
+    final ICommonsSet <String> aAllPrefixes = m_aNS2Prefix.get (sNamespaceURI);
     return aAllPrefixes == null ? null : aAllPrefixes.iterator ();
   }
 
@@ -204,7 +204,7 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
   @Nullable
   public String getCustomPrefix (@Nonnull final String sNamespaceURI)
   {
-    final Set <String> aAllPrefixes = m_aNS2Prefix.get (sNamespaceURI);
+    final ICommonsSet <String> aAllPrefixes = m_aNS2Prefix.get (sNamespaceURI);
     return CollectionHelper.getFirstElement (aAllPrefixes);
   }
 

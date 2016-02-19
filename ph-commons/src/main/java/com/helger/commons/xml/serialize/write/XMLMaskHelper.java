@@ -31,6 +31,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.xml.EXMLVersion;
 
@@ -580,9 +581,9 @@ public final class XMLMaskHelper
     {
       if (XMLCharHelper.containsInvalidXMLChar (eXMLVersion, eXMLCharMode, aChars))
       {
-        final Set <Character> aAllInvalidChars = XMLCharHelper.getAllInvalidXMLChars (eXMLVersion,
-                                                                                      eXMLCharMode,
-                                                                                      aChars);
+        final ICommonsSet <Character> aAllInvalidChars = XMLCharHelper.getAllInvalidXMLChars (eXMLVersion,
+                                                                                              eXMLCharMode,
+                                                                                              aChars);
         eIncorrectCharHandling.notifyOnInvalidXMLCharacter (s, aAllInvalidChars);
         if (eIncorrectCharHandling.isReplaceWithNothing ())
         {
@@ -631,7 +632,9 @@ public final class XMLMaskHelper
     if (eIncorrectCharHandling.isTestRequired () &&
         XMLCharHelper.containsInvalidXMLChar (eXMLVersion, eXMLCharMode, aChars))
     {
-      final Set <Character> aAllInvalidChars = XMLCharHelper.getAllInvalidXMLChars (eXMLVersion, eXMLCharMode, aChars);
+      final ICommonsSet <Character> aAllInvalidChars = XMLCharHelper.getAllInvalidXMLChars (eXMLVersion,
+                                                                                            eXMLCharMode,
+                                                                                            aChars);
       eIncorrectCharHandling.notifyOnInvalidXMLCharacter (s, aAllInvalidChars);
       if (eIncorrectCharHandling.isReplaceWithNothing ())
       {
@@ -669,9 +672,9 @@ public final class XMLMaskHelper
     {
       if (XMLCharHelper.containsInvalidXMLChar (eXMLVersion, eXMLCharMode, aChars))
       {
-        final Set <Character> aAllInvalidChars = XMLCharHelper.getAllInvalidXMLChars (eXMLVersion,
-                                                                                      eXMLCharMode,
-                                                                                      aChars);
+        final ICommonsSet <Character> aAllInvalidChars = XMLCharHelper.getAllInvalidXMLChars (eXMLVersion,
+                                                                                              eXMLCharMode,
+                                                                                              aChars);
         eIncorrectCharHandling.notifyOnInvalidXMLCharacter (s, aAllInvalidChars);
         if (eIncorrectCharHandling.isReplaceWithNothing ())
         {

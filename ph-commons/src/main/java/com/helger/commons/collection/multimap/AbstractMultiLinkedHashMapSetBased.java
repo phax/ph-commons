@@ -27,7 +27,7 @@ import com.helger.commons.collection.ext.ICommonsSet;
 
 /**
  * Abstract multi map based on {@link CommonsLinkedHashMap} and
- * {@link java.util.Set} values.<br>
+ * {@link ICommonsSet} values.<br>
  *
  * @author Philip Helger
  * @param <KEYTYPE>

@@ -6,6 +6,8 @@ import java.util.Comparator;
 
 import org.junit.Test;
 
+import com.helger.commons.mock.CommonsTestHelper;
+
 /**
  * Test class for class {@link CommonsHashMap}.
  *
@@ -21,8 +23,11 @@ public final class CommonsHashMapTest
     aTest.put ("bbb", "blb");
     aTest.put ("ccc", "blc");
 
-    assertEquals ("aaa", aTest.getSortedByKey (Comparator.naturalOrder ()).copyOfKeySet ().getAtIndex (0));
-    assertEquals ("bbb", aTest.getSortedByKey (Comparator.naturalOrder ()).copyOfKeySet ().getAtIndex (1));
-    assertEquals ("ccc", aTest.getSortedByKey (Comparator.naturalOrder ()).copyOfKeySet ().getAtIndex (2));
+    final ICommonsSet <String> aSortedKeys = aTest.getSortedByKey (Comparator.naturalOrder ()).copyOfKeySet ();
+    assertEquals ("aaa", aSortedKeys.getAtIndex (0));
+    assertEquals ("bbb", aSortedKeys.getAtIndex (1));
+    assertEquals ("ccc", aSortedKeys.getAtIndex (2));
+
+    CommonsTestHelper.testDefaultSerialization (aTest);
   }
 }

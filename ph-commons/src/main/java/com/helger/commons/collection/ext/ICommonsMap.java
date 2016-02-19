@@ -1,5 +1,6 @@
 package com.helger.commons.collection.ext;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Map;
@@ -13,8 +14,10 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.state.EChange;
 
-public interface ICommonsMap <KEYTYPE, VALUETYPE>
-                             extends Map <KEYTYPE, VALUETYPE>, ICloneable <ICommonsMap <KEYTYPE, VALUETYPE>>
+public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
+                             Map <KEYTYPE, VALUETYPE>,
+                             ICloneable <ICommonsMap <KEYTYPE, VALUETYPE>>,
+                             Serializable
 {
   @Nonnull
   @ReturnsMutableCopy

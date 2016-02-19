@@ -37,6 +37,7 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.PrimitiveCollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsCopyOnWriteArrayList;
+import com.helger.commons.collection.ext.CommonsCopyOnWriteArraySet;
 import com.helger.commons.collection.ext.CommonsHashSet;
 import com.helger.commons.collection.ext.CommonsLinkedHashSet;
 import com.helger.commons.collection.ext.CommonsLinkedList;
@@ -133,8 +134,8 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     // to CopyOnWriteArraySet<?>
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (CopyOnWriteArraySet.class, aSource -> {
       if (aSource instanceof Collection <?>)
-        return new CopyOnWriteArraySet <> ((Collection <?>) aSource);
-      final CopyOnWriteArraySet <Object> ret = new CopyOnWriteArraySet <> ();
+        return new CommonsCopyOnWriteArraySet <> ((Collection <?>) aSource);
+      final CommonsCopyOnWriteArraySet <Object> ret = new CommonsCopyOnWriteArraySet <> ();
       ret.add (aSource);
       return ret;
     });

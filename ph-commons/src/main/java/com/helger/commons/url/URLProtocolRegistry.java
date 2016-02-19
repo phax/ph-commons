@@ -16,8 +16,6 @@
  */
 package com.helger.commons.url;
 
-import java.util.Set;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -33,6 +31,7 @@ import com.helger.commons.annotation.Singleton;
 import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsCollection;
 import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.ServiceLoaderHelper;
 
@@ -209,7 +208,7 @@ public final class URLProtocolRegistry
     // Load all SPI implementations
     for (final IURLProtocolRegistrarSPI aRegistrar : ServiceLoaderHelper.getAllSPIImplementations (IURLProtocolRegistrarSPI.class))
     {
-      final Set <? extends IURLProtocol> aURLProtocols = aRegistrar.getAllProtocols ();
+      final ICommonsSet <? extends IURLProtocol> aURLProtocols = aRegistrar.getAllProtocols ();
       if (aURLProtocols != null)
         for (final IURLProtocol aSPIProtocol : aURLProtocols)
           registerProtocol (aSPIProtocol);

@@ -175,15 +175,9 @@ public enum EXMLIncorrectCharacterHandling
   {
     if (CollectionHelper.isEmpty (aInvalidChars))
       return "NONE";
-    final StringBuilder aSB = new StringBuilder ();
-    for (final Character aChar : aInvalidChars)
-    {
-      if (aSB.length () > 0)
-        aSB.append (", ");
-      final int nChar = aChar.charValue ();
-      aSB.append ("0x").append (StringHelper.getHexStringLeadingZero (nChar, 2));
-    }
-    return aSB.toString ();
+    return StringHelper.getImploded (", ",
+                                     aInvalidChars,
+                                     aChar -> "0x" + StringHelper.getHexStringLeadingZero (aChar.charValue (), 2));
   }
 
   /**

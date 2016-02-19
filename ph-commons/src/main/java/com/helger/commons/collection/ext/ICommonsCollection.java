@@ -14,6 +14,8 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.iterate.IIterableIterator;
+import com.helger.commons.collection.iterate.IterableIterator;
 import com.helger.commons.state.EChange;
 
 public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYPE>, Serializable
@@ -203,18 +205,67 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
     return CollectionHelper.getSorted (this, aComparator);
   }
 
-  @Nonnull
   default void addIf (@Nullable final ELEMENTTYPE aValue, @Nonnull final Predicate <ELEMENTTYPE> aFilter)
   {
     if (aFilter.test (aValue))
       add (aValue);
   }
 
-  @Nonnull
   default void addIfNotNull (@Nullable final ELEMENTTYPE aValue)
   {
     if (aValue != null)
       add (aValue);
+  }
+
+  /**
+   * Add an array of elements
+   *
+   * @param aValues
+   *        The values to be added. May be <code>null</code>.
+   */
+  default void addAll (@SuppressWarnings ("unchecked") @Nullable final ELEMENTTYPE... aValues)
+  {
+    if (aValues != null)
+      for (final ELEMENTTYPE aValue : aValues)
+        add (aValue);
+  }
+
+  /**
+   * Clear and add the passed value
+   *
+   * @param aValue
+   *        The value to be added.
+   */
+  default void set (@Nullable final ELEMENTTYPE aValue)
+  {
+    clear ();
+    add (aValue);
+  }
+
+  /**
+   * Clear and add all provided values.
+   *
+   * @param aValues
+   *        The values to be added. May be <code>null</code>.
+   */
+  default void setAll (@Nullable final Collection <? extends ELEMENTTYPE> aValues)
+  {
+    clear ();
+    if (aValues != null)
+      addAll (aValues);
+  }
+
+  /**
+   * Clear and add all provided values.
+   *
+   * @param aValues
+   *        The values to be added. May be <code>null</code>.
+   */
+  default void setAll (@SuppressWarnings ("unchecked") @Nullable final ELEMENTTYPE... aValues)
+  {
+    clear ();
+    if (aValues != null)
+      addAll (aValues);
   }
 
   @Nonnull
@@ -230,5 +281,11 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
   default Collection <ELEMENTTYPE> getAsUnmodifiable ()
   {
     return Collections.unmodifiableCollection (this);
+  }
+
+  @Nonnull
+  default IIterableIterator <ELEMENTTYPE> iterator2 ()
+  {
+    return new IterableIterator <> (this);
   }
 }

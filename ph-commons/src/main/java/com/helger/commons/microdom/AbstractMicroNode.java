@@ -16,10 +16,6 @@
  */
 package com.helger.commons.microdom;
 
-import java.util.EnumMap;
-import java.util.Map;
-import java.util.Set;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -29,6 +25,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsEnumMap;
 import com.helger.commons.collection.ext.CommonsLinkedHashSet;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
@@ -49,7 +46,7 @@ public abstract class AbstractMicroNode implements IMicroNode
 {
   /** The parent node of this node. */
   private AbstractMicroNodeWithChildren m_aParentNode;
-  private Map <EMicroEvent, ICommonsSet <IMicroEventTarget>> m_aEventTargets;
+  private ICommonsMap <EMicroEvent, ICommonsSet <IMicroEventTarget>> m_aEventTargets;
 
   /**
    * Callback that is invoked once a child is to be appended.
@@ -551,7 +548,7 @@ public abstract class AbstractMicroNode implements IMicroNode
     if (m_aEventTargets != null && !m_aEventTargets.isEmpty ())
     {
       // Get all event handler
-      final Set <IMicroEventTarget> aTargets = m_aEventTargets.get (eEventType);
+      final ICommonsSet <IMicroEventTarget> aTargets = m_aEventTargets.get (eEventType);
       if (aTargets != null && !aTargets.isEmpty ())
       {
         // fire the event
@@ -580,7 +577,7 @@ public abstract class AbstractMicroNode implements IMicroNode
     ValueEnforcer.notNull (aTarget, "EventTarget");
 
     if (m_aEventTargets == null)
-      m_aEventTargets = new EnumMap <> (EMicroEvent.class);
+      m_aEventTargets = new CommonsEnumMap <> (EMicroEvent.class);
     ICommonsSet <IMicroEventTarget> aSet = m_aEventTargets.get (eEventType);
     if (aSet == null)
     {
@@ -607,7 +604,7 @@ public abstract class AbstractMicroNode implements IMicroNode
 
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsMap <EMicroEvent, Set <IMicroEventTarget>> getAllEventTargets ()
+  public ICommonsMap <EMicroEvent, ICommonsSet <IMicroEventTarget>> getAllEventTargets ()
   {
     return CollectionHelper.newMap (m_aEventTargets);
   }

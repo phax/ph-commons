@@ -16,11 +16,10 @@
  */
 package com.helger.commons.url;
 
-import java.util.Set;
-
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.IsSPIInterface;
+import com.helger.commons.collection.ext.ICommonsSet;
 
 /**
  * Interface for a registrar providing custom URL protocols
@@ -37,5 +36,5 @@ public interface IURLProtocolRegistrarSPI
    *         <code>null</code> elements!
    */
   @Nullable
-  Set <? extends IURLProtocol> getAllProtocols ();
+  ICommonsSet <? extends IURLProtocol> getAllProtocols ();
 }

@@ -21,7 +21,6 @@ import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URL;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -31,9 +30,9 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsWeakHashMap;
 import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
 
@@ -212,16 +211,16 @@ public final class ClassHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Set <Class <?>> getAllPrimitiveClasses ()
+  public static ICommonsSet <Class <?>> getAllPrimitiveClasses ()
   {
-    return CollectionHelper.newSet (PRIMITIVE_TO_WRAPPER.keySet ());
+    return PRIMITIVE_TO_WRAPPER.copyOfKeySet ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Set <Class <?>> getAllPrimitiveWrapperClasses ()
+  public static ICommonsSet <Class <?>> getAllPrimitiveWrapperClasses ()
   {
-    return CollectionHelper.newSet (WRAPPER_TO_PRIMITIVE.keySet ());
+    return WRAPPER_TO_PRIMITIVE.copyOfKeySet ();
   }
 
   public static boolean isStringClass (@Nullable final Class <?> aClass)

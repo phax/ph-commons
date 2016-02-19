@@ -17,13 +17,13 @@
 package com.helger.commons.tree.withid.folder;
 
 import java.util.Collection;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.aggregate.IAggregator;
+import com.helger.commons.collection.ext.ICommonsSet;
 
 /**
  * Root class for a simple tree. The elements of the tree are not sorted by any
@@ -76,8 +76,8 @@ public class DefaultFolderTree <KEYTYPE, DATATYPE, COLLTYPE extends Collection <
    * @return The created default folder tree
    */
   @Nonnull
-  public static <KEYTYPE, DATATYPE> DefaultFolderTree <KEYTYPE, DATATYPE, Set <DATATYPE>> createForSet (@Nonnull final IAggregator <KEYTYPE, KEYTYPE> aKeyCombinator)
+  public static <KEYTYPE, DATATYPE> DefaultFolderTree <KEYTYPE, DATATYPE, ICommonsSet <DATATYPE>> createForSet (@Nonnull final IAggregator <KEYTYPE, KEYTYPE> aKeyCombinator)
   {
-    return new DefaultFolderTree <KEYTYPE, DATATYPE, Set <DATATYPE>> (aKeyCombinator);
+    return new DefaultFolderTree <> (aKeyCombinator);
   }
 }

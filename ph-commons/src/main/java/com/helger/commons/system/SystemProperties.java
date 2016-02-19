@@ -16,10 +16,8 @@
  */
 package com.helger.commons.system;
 
-import java.util.Collections;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -31,8 +29,9 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsCopyOnWriteArraySet;
 import com.helger.commons.collection.ext.CommonsHashMap;
-import com.helger.commons.collection.ext.CommonsHashSet;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.lang.priviledged.IPrivilegedAction;
@@ -77,7 +76,7 @@ public final class SystemProperties
   public static final String SYSTEM_PROPERTY_SUN_IO_SERIALIZATION_EXTENDEDDEBUGINFO = "sun.io.serialization.extendedDebugInfo";
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (SystemProperties.class);
-  private static final Set <String> s_aWarnedPropertyNames = Collections.synchronizedSet (new CommonsHashSet <> ());
+  private static final ICommonsSet <String> s_aWarnedPropertyNames = new CommonsCopyOnWriteArraySet <> ();
 
   @PresentForCodeCoverage
   private static final SystemProperties s_aInstance = new SystemProperties ();
@@ -122,9 +121,9 @@ public final class SystemProperties
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static Set <String> getAllWarnedPropertyNames ()
+  public static ICommonsSet <String> getAllWarnedPropertyNames ()
   {
-    return new CommonsHashSet <String> (s_aWarnedPropertyNames);
+    return CollectionHelper.newSet (s_aWarnedPropertyNames);
   }
 
   /**

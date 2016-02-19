@@ -17,7 +17,6 @@
 package com.helger.commons.lang;
 
 import java.lang.ref.WeakReference;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.GuardedBy;
@@ -36,7 +35,6 @@ import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.collection.iterate.IIterableIterator;
-import com.helger.commons.collection.iterate.IterableIterator;
 import com.helger.commons.collection.lru.LRUMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.state.EChange;
@@ -61,7 +59,7 @@ public final class ClassHierarchyCache
       ValueEnforcer.notNull (aClass, "Class");
 
       // Check the whole class hierarchy of the source class
-      final Set <Class <?>> aUniqueOrderedClasses = new CommonsLinkedHashSet <> ();
+      final ICommonsSet <Class <?>> aUniqueOrderedClasses = new CommonsLinkedHashSet <> ();
       final ICommonsList <Class <?>> aOpenSrc = new CommonsArrayList <> ();
       aOpenSrc.add (aClass);
       while (!aOpenSrc.isEmpty ())
@@ -79,7 +77,7 @@ public final class ClassHierarchyCache
 
       // Now convert to list of WeakReference
       for (final Class <?> aCurClass : aUniqueOrderedClasses)
-        m_aList.add (new WeakReference <Class <?>> (aCurClass));
+        m_aList.add (new WeakReference <> (aCurClass));
     }
 
     @Nonnull
@@ -115,7 +113,7 @@ public final class ClassHierarchyCache
     @Nonnull
     public IIterableIterator <WeakReference <Class <?>>> iterator ()
     {
-      return new IterableIterator <> (m_aList);
+      return m_aList.iterator2 ();
     }
 
     @Override
@@ -196,7 +194,7 @@ public final class ClassHierarchyCache
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static Set <Class <?>> getClassHierarchy (@Nonnull final Class <?> aClass)
+  public static ICommonsSet <Class <?>> getClassHierarchy (@Nonnull final Class <?> aClass)
   {
     return getClassList (aClass).getAsSet ();
   }

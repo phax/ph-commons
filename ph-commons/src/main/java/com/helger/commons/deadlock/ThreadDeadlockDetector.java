@@ -21,8 +21,6 @@ import java.lang.management.ThreadInfo;
 import java.lang.management.ThreadMXBean;
 import java.util.Arrays;
 import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.CopyOnWriteArraySet;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -35,8 +33,9 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsCopyOnWriteArraySet;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.state.EChange;
 
 /**
@@ -50,7 +49,7 @@ public class ThreadDeadlockDetector
   private static final Logger s_aLogger = LoggerFactory.getLogger (ThreadDeadlockDetector.class);
 
   private final ThreadMXBean m_aMBean = ManagementFactory.getThreadMXBean ();
-  private final Set <IThreadDeadlockCallback> m_aCallbacks = new CopyOnWriteArraySet <IThreadDeadlockCallback> ();
+  private final ICommonsSet <IThreadDeadlockCallback> m_aCallbacks = new CommonsCopyOnWriteArraySet <> ();
 
   /**
    * This is the main method to be invoked to find deadlocked threads. In case a
@@ -119,10 +118,7 @@ public class ThreadDeadlockDetector
   @Nonnull
   public EChange removeAllCallbacks ()
   {
-    if (m_aCallbacks.isEmpty ())
-      return EChange.UNCHANGED;
-    m_aCallbacks.clear ();
-    return EChange.CHANGED;
+    return m_aCallbacks.removeAll ();
   }
 
   @Nonnegative
@@ -135,6 +131,6 @@ public class ThreadDeadlockDetector
   @ReturnsMutableCopy
   public ICommonsList <IThreadDeadlockCallback> getAllCallbacks ()
   {
-    return CollectionHelper.newList (m_aCallbacks);
+    return m_aCallbacks.getCopyAsList ();
   }
 }

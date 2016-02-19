@@ -17,12 +17,12 @@
 package com.helger.commons.tree.withid;
 
 import java.util.Comparator;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.state.EChange;
 import com.helger.commons.tree.IBasicTreeItem;
@@ -66,7 +66,7 @@ public interface ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
    */
   @Nullable
   @ReturnsMutableCopy
-  Set <KEYTYPE> getAllChildDataIDs ();
+  ICommonsSet <KEYTYPE> getAllChildDataIDs ();
 
   /**
    * Check if a direct child item with the given ID is present

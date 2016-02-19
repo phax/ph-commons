@@ -18,13 +18,13 @@ package com.helger.commons.xml.serialize.write;
 
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.namespace.QName;
 
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -38,23 +38,23 @@ public class XMLBracketModeDeterminatorHTML5 implements IXMLBracketModeDetermina
 {
   // Source: http://www.w3.org/TR/html-markup/syntax.html#void-element
   // Added myself: frame
-  private static final Set <String> VOID_ELEMENTS = CollectionHelper.newSet ("AREA",
-                                                                             "BASE",
-                                                                             "BR",
-                                                                             "COL",
-                                                                             "COMMAND",
-                                                                             "EMBED",
-                                                                             "FRAME",
-                                                                             "HR",
-                                                                             "IMG",
-                                                                             "INPUT",
-                                                                             "KEYGEN",
-                                                                             "LINK",
-                                                                             "META",
-                                                                             "PARAM",
-                                                                             "SOURCE",
-                                                                             "TRACKE",
-                                                                             "WBR");
+  private static final ICommonsSet <String> VOID_ELEMENTS = CollectionHelper.newSet ("AREA",
+                                                                                     "BASE",
+                                                                                     "BR",
+                                                                                     "COL",
+                                                                                     "COMMAND",
+                                                                                     "EMBED",
+                                                                                     "FRAME",
+                                                                                     "HR",
+                                                                                     "IMG",
+                                                                                     "INPUT",
+                                                                                     "KEYGEN",
+                                                                                     "LINK",
+                                                                                     "META",
+                                                                                     "PARAM",
+                                                                                     "SOURCE",
+                                                                                     "TRACKE",
+                                                                                     "WBR");
 
   private static boolean _isVoidElement (@Nonnull final String sTagName)
   {

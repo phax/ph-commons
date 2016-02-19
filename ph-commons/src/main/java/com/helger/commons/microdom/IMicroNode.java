@@ -17,7 +17,6 @@
 package com.helger.commons.microdom;
 
 import java.io.Serializable;
-import java.util.Set;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -633,7 +632,7 @@ public interface IMicroNode extends
    */
   @Nonnull
   @ReturnsMutableCopy
-  ICommonsMap <EMicroEvent, Set <IMicroEventTarget>> getAllEventTargets ();
+  ICommonsMap <EMicroEvent, ICommonsSet <IMicroEventTarget>> getAllEventTargets ();
 
   /**
    * Get all event targets for a certain event.

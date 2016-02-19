@@ -18,13 +18,13 @@ package com.helger.commons.xml.serialize.write;
 
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.namespace.QName;
 
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -36,19 +36,19 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public class XMLBracketModeDeterminatorHTML4 implements IXMLBracketModeDeterminator
 {
-  private static final Set <String> VOID_ELEMENTS = CollectionHelper.newSet ("AREA",
-                                                                             "BASE",
-                                                                             "BASEFONT",
-                                                                             "BR",
-                                                                             "COL",
-                                                                             "FRAME",
-                                                                             "HR",
-                                                                             "IMG",
-                                                                             "INPUT",
-                                                                             "ISINDEX",
-                                                                             "LINK",
-                                                                             "META",
-                                                                             "PARAM");
+  private static final ICommonsSet <String> VOID_ELEMENTS = CollectionHelper.newSet ("AREA",
+                                                                                     "BASE",
+                                                                                     "BASEFONT",
+                                                                                     "BR",
+                                                                                     "COL",
+                                                                                     "FRAME",
+                                                                                     "HR",
+                                                                                     "IMG",
+                                                                                     "INPUT",
+                                                                                     "ISINDEX",
+                                                                                     "LINK",
+                                                                                     "META",
+                                                                                     "PARAM");
 
   private static boolean _isVoidElement (@Nonnull final String sTagName)
   {

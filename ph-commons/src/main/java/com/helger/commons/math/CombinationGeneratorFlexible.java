@@ -16,7 +16,6 @@
  */
 package com.helger.commons.math;
 
-import java.util.Set;
 import java.util.function.Consumer;
 
 import javax.annotation.Nonnegative;
@@ -120,8 +119,8 @@ public final class CombinationGeneratorFlexible <DATATYPE>
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <DATATYPE> Set <ICommonsList <DATATYPE>> getCombinations (@Nonnull final ICommonsList <DATATYPE> aElements,
-                                                                          final boolean bAllowEmpty)
+  public static <DATATYPE> ICommonsSet <ICommonsList <DATATYPE>> getCombinations (@Nonnull final ICommonsList <DATATYPE> aElements,
+                                                                                  final boolean bAllowEmpty)
   {
     return new CombinationGeneratorFlexible <DATATYPE> (aElements.size (), bAllowEmpty).getCombinations (aElements);
   }

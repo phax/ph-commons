@@ -51,6 +51,7 @@ import com.helger.commons.collection.ext.CommonsTreeMap;
 import com.helger.commons.collection.ext.CommonsTreeSet;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.state.EChange;
@@ -361,15 +362,15 @@ public final class CollectionHelper
    */
   @Nullable
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> getDifference (@Nullable final Collection <? extends ELEMENTTYPE> aCollection1,
-                                                               @Nullable final Collection <? extends ELEMENTTYPE> aCollection2)
+  public static <ELEMENTTYPE> ICommonsSet <ELEMENTTYPE> getDifference (@Nullable final Collection <? extends ELEMENTTYPE> aCollection1,
+                                                                       @Nullable final Collection <? extends ELEMENTTYPE> aCollection2)
   {
     if (isEmpty (aCollection1))
       return newSet (0);
     if (isEmpty (aCollection2))
       return newSet (aCollection1);
 
-    final Set <ELEMENTTYPE> ret = newSet (aCollection1);
+    final ICommonsSet <ELEMENTTYPE> ret = newSet (aCollection1);
     ret.removeAll (aCollection2);
     return ret;
   }
@@ -391,15 +392,15 @@ public final class CollectionHelper
    */
   @Nullable
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> getIntersected (@Nullable final Collection <? extends ELEMENTTYPE> aCollection1,
-                                                                @Nullable final Collection <? extends ELEMENTTYPE> aCollection2)
+  public static <ELEMENTTYPE> ICommonsSet <ELEMENTTYPE> getIntersected (@Nullable final Collection <? extends ELEMENTTYPE> aCollection1,
+                                                                        @Nullable final Collection <? extends ELEMENTTYPE> aCollection2)
   {
     if (isEmpty (aCollection1))
       return newSet (0);
     if (isEmpty (aCollection2))
       return newSet (0);
 
-    final Set <ELEMENTTYPE> ret = newSet (aCollection1);
+    final ICommonsSet <ELEMENTTYPE> ret = newSet (aCollection1);
     ret.retainAll (aCollection2);
     return ret;
   }
@@ -2086,8 +2087,8 @@ public final class CollectionHelper
 
   @Nullable
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> getConcatenatedSet (@Nullable final Collection <? extends ELEMENTTYPE> aCont1,
-                                                                    @Nullable final Collection <? extends ELEMENTTYPE> aCont2)
+  public static <ELEMENTTYPE> ICommonsSet <ELEMENTTYPE> getConcatenatedSet (@Nullable final Collection <? extends ELEMENTTYPE> aCont1,
+                                                                            @Nullable final Collection <? extends ELEMENTTYPE> aCont2)
   {
     final int nSize1 = getSize (aCont1);
     if (nSize1 == 0)
@@ -2097,7 +2098,7 @@ public final class CollectionHelper
     if (nSize2 == 0)
       return newSet (aCont1);
 
-    final Set <ELEMENTTYPE> ret = newSet (nSize1 + nSize2);
+    final ICommonsSet <ELEMENTTYPE> ret = newSet (nSize1 + nSize2);
     ret.addAll (aCont1);
     ret.addAll (aCont2);
     return ret;
@@ -2106,8 +2107,8 @@ public final class CollectionHelper
   @Nonnull
   @ReturnsMutableCopy
   @SafeVarargs
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> getConcatenatedSet (@Nullable final Collection <? extends ELEMENTTYPE> aCont1,
-                                                                    @Nullable final ELEMENTTYPE... aCont2)
+  public static <ELEMENTTYPE> ICommonsSet <ELEMENTTYPE> getConcatenatedSet (@Nullable final Collection <? extends ELEMENTTYPE> aCont1,
+                                                                            @Nullable final ELEMENTTYPE... aCont2)
   {
     final int nSize1 = getSize (aCont1);
     if (nSize1 == 0)
@@ -2117,7 +2118,7 @@ public final class CollectionHelper
     if (nSize2 == 0)
       return newSet (aCont1);
 
-    final Set <ELEMENTTYPE> ret = newSet (nSize1 + nSize2);
+    final ICommonsSet <ELEMENTTYPE> ret = newSet (nSize1 + nSize2);
     ret.addAll (aCont1);
     Collections.addAll (ret, aCont2);
     return ret;
@@ -2125,8 +2126,8 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> getConcatenatedSet (@Nullable final ELEMENTTYPE [] aCont1,
-                                                                    @Nullable final Collection <? extends ELEMENTTYPE> aCont2)
+  public static <ELEMENTTYPE> ICommonsSet <ELEMENTTYPE> getConcatenatedSet (@Nullable final ELEMENTTYPE [] aCont1,
+                                                                            @Nullable final Collection <? extends ELEMENTTYPE> aCont2)
   {
     final int nSize1 = ArrayHelper.getSize (aCont1);
     if (nSize1 == 0)
@@ -2136,7 +2137,7 @@ public final class CollectionHelper
     if (nSize2 == 0)
       return newSet (aCont1);
 
-    final Set <ELEMENTTYPE> ret = newSet (nSize1 + nSize2);
+    final ICommonsSet <ELEMENTTYPE> ret = newSet (nSize1 + nSize2);
     Collections.addAll (ret, aCont1);
     ret.addAll (aCont2);
     return ret;

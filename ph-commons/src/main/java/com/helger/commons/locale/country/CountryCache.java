@@ -17,7 +17,6 @@
 package com.helger.commons.locale.country;
 
 import java.util.Locale;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -125,9 +124,9 @@ public final class CountryCache
    */
   @Nonnull
   @ReturnsMutableCopy
-  public Set <String> getAllCountries ()
+  public ICommonsSet <String> getAllCountries ()
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.newSet (m_aCountries));
+    return m_aRWLock.readLocked ( () -> m_aCountries.getClone ());
   }
 
   /**
@@ -135,7 +134,7 @@ public final class CountryCache
    */
   @Nonnull
   @ReturnsMutableCopy
-  public Set <Locale> getAllCountryLocales ()
+  public ICommonsSet <Locale> getAllCountryLocales ()
   {
     return m_aRWLock.readLocked ( () -> CollectionHelper.newSetMapped (m_aCountries,
                                                                        sCountry -> LocaleCache.getInstance ()
