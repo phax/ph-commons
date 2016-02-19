@@ -736,7 +736,6 @@ public final class CollectionHelper
   {
     if (isEmpty (aMap))
       return newOrderedMap (0);
-
     return new CommonsLinkedHashMap <> (aMap);
   }
 
@@ -1217,9 +1216,7 @@ public final class CollectionHelper
   public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final Iterable <? extends ELEMENTTYPE> aCont)
   {
     final CommonsLinkedHashSet <ELEMENTTYPE> ret = newOrderedSet ();
-    if (aCont != null)
-      for (final ELEMENTTYPE aValue : aCont)
-        ret.add (aValue);
+    ret.addAll (aCont);
     return ret;
   }
 
@@ -1229,7 +1226,6 @@ public final class CollectionHelper
   {
     if (isEmpty (aCont))
       return newOrderedSet (0);
-
     return new CommonsLinkedHashSet <> (aCont);
   }
 
