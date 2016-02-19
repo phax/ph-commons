@@ -29,9 +29,9 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsCopyOnWriteArraySet;
 import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.CommonsHashSet;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.lang.priviledged.IPrivilegedAction;
@@ -123,7 +123,8 @@ public final class SystemProperties
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllWarnedPropertyNames ()
   {
-    return CollectionHelper.newSet (s_aWarnedPropertyNames);
+    // Convert from CopyOnWrite to regular HashSet
+    return new CommonsHashSet <> (s_aWarnedPropertyNames);
   }
 
   /**

@@ -29,7 +29,6 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
@@ -298,7 +297,7 @@ public class FileMonitor
   @ReturnsMutableCopy
   Collection <FileMonitorAgent> getAllAgents ()
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.newList (m_aMonitorMap.values ()));
+    return m_aRWLock.readLocked ( () -> m_aMonitorMap.copyOfValues ());
   }
 
   void applyPendingDeletes ()

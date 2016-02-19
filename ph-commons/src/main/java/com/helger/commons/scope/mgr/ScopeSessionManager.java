@@ -31,7 +31,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.Singleton;
 import com.helger.commons.annotation.UsedViaReflection;
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.CommonsHashSet;
 import com.helger.commons.collection.ext.ICommonsMap;
@@ -222,7 +221,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
   @ReturnsMutableCopy
   public Collection <? extends ISessionScope> getAllSessionScopes ()
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.newList (m_aSessionScopes.values ()));
+    return m_aRWLock.readLocked ( () -> m_aSessionScopes.copyOfValues ());
   }
 
   private void _checkIfAnySessionsExist ()

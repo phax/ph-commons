@@ -34,6 +34,7 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsLinkedHashSet;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsOrderedSet;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.collection.multimap.IMultiMapListBased;
 import com.helger.commons.collection.multimap.MultiTreeMapArrayListBased;
@@ -328,9 +329,9 @@ public class MimeTypeInfoManager
    */
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsSet <IMimeType> getAllMimeTypes ()
+  public ICommonsOrderedSet <IMimeType> getAllMimeTypes ()
   {
-    final ICommonsSet <IMimeType> ret = new CommonsLinkedHashSet <> ();
+    final ICommonsOrderedSet <IMimeType> ret = new CommonsLinkedHashSet <> ();
     m_aRWLock.readLocked ( () -> m_aList.forEach (i -> ret.addAll (i.getAllMimeTypes ())));
     return ret;
   }
@@ -341,9 +342,9 @@ public class MimeTypeInfoManager
    */
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsSet <String> getAllMimeTypeStrings ()
+  public ICommonsOrderedSet <String> getAllMimeTypeStrings ()
   {
-    final ICommonsSet <String> ret = new CommonsLinkedHashSet <> ();
+    final ICommonsOrderedSet <String> ret = new CommonsLinkedHashSet <> ();
     m_aRWLock.readLocked ( () -> m_aList.forEach (i -> ret.addAll (i.getAllMimeTypeStrings ())));
     return ret;
   }
@@ -465,11 +466,11 @@ public class MimeTypeInfoManager
    */
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsSet <IMimeType> getAllMimeTypesForExtension (@Nonnull final String sExtension)
+  public ICommonsOrderedSet <IMimeType> getAllMimeTypesForExtension (@Nonnull final String sExtension)
   {
     ValueEnforcer.notNull (sExtension, "Extension");
 
-    final ICommonsSet <IMimeType> ret = new CommonsLinkedHashSet <> ();
+    final ICommonsOrderedSet <IMimeType> ret = new CommonsLinkedHashSet <> ();
     final ICommonsList <MimeTypeInfo> aInfos = getAllInfosOfExtension (sExtension);
     if (aInfos != null)
       for (final MimeTypeInfo aInfo : aInfos)
@@ -487,11 +488,11 @@ public class MimeTypeInfoManager
    */
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsSet <String> getAllMimeTypeStringsForExtension (@Nonnull final String sExtension)
+  public ICommonsOrderedSet <String> getAllMimeTypeStringsForExtension (@Nonnull final String sExtension)
   {
     ValueEnforcer.notNull (sExtension, "Extension");
 
-    final ICommonsSet <String> ret = new CommonsLinkedHashSet <> ();
+    final ICommonsOrderedSet <String> ret = new CommonsLinkedHashSet <> ();
     final ICommonsList <MimeTypeInfo> aInfos = getAllInfosOfExtension (sExtension);
     if (aInfos != null)
       for (final MimeTypeInfo aInfo : aInfos)
@@ -550,9 +551,9 @@ public class MimeTypeInfoManager
    */
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsSet <String> getAllExtensionsOfMimeType (@Nullable final IMimeType aMimeType)
+  public ICommonsOrderedSet <String> getAllExtensionsOfMimeType (@Nullable final IMimeType aMimeType)
   {
-    final ICommonsSet <String> ret = new CommonsLinkedHashSet <> ();
+    final ICommonsOrderedSet <String> ret = new CommonsLinkedHashSet <> ();
     final ICommonsList <MimeTypeInfo> aInfos = getAllInfosOfMimeType (aMimeType);
     if (aInfos != null)
       for (final MimeTypeInfo aInfo : aInfos)
@@ -591,9 +592,9 @@ public class MimeTypeInfoManager
    */
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsSet <String> getAllGlobsOfMimeType (@Nullable final IMimeType aMimeType)
+  public ICommonsOrderedSet <String> getAllGlobsOfMimeType (@Nullable final IMimeType aMimeType)
   {
-    final ICommonsSet <String> ret = new CommonsLinkedHashSet <> ();
+    final ICommonsOrderedSet <String> ret = new CommonsLinkedHashSet <> ();
     final ICommonsList <MimeTypeInfo> aInfos = getAllInfosOfMimeType (aMimeType);
     if (aInfos != null)
       for (final MimeTypeInfo aInfo : aInfos)

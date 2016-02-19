@@ -20,8 +20,11 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.collection.CollectionHelper;
 
 public class CommonsHashSet <ELEMENTTYPE> extends HashSet <ELEMENTTYPE> implements ICommonsSet <ELEMENTTYPE>
 {
@@ -38,9 +41,29 @@ public class CommonsHashSet <ELEMENTTYPE> extends HashSet <ELEMENTTYPE> implemen
     super (nInitialCapacity, fLoadFactor);
   }
 
-  public CommonsHashSet (@Nonnull final Collection <? extends ELEMENTTYPE> aCont)
+  public CommonsHashSet (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
-    super (aCont);
+    super (CollectionHelper.getSize (aCont));
+    if (aCont != null)
+      addAll (aCont);
+  }
+
+  public CommonsHashSet (@Nullable final Iterable <? extends ELEMENTTYPE> aIterable)
+  {
+    addAll (aIterable);
+  }
+
+  public CommonsHashSet (@Nullable final ELEMENTTYPE aValue)
+  {
+    super (1);
+    add (aValue);
+  }
+
+  @SafeVarargs
+  public CommonsHashSet (@Nullable final ELEMENTTYPE... aValues)
+  {
+    super (ArrayHelper.getSize (aValues));
+    addAll (aValues);
   }
 
   @Nonnull

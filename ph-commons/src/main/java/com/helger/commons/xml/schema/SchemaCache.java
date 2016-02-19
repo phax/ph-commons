@@ -35,7 +35,7 @@ import com.helger.commons.annotation.ELockType;
 import com.helger.commons.annotation.IsLocked;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.cache.AbstractNotifyingCache;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.state.EChange;
@@ -142,7 +142,7 @@ public class SchemaCache extends AbstractNotifyingCache <ICommonsList <? extends
   {
     ValueEnforcer.notNull (aResource, "Resource");
 
-    return getFromCache (CollectionHelper.newList (aResource));
+    return getFromCache (new CommonsArrayList <> (aResource));
   }
 
   /**
@@ -159,7 +159,7 @@ public class SchemaCache extends AbstractNotifyingCache <ICommonsList <? extends
   {
     ValueEnforcer.notEmptyNoNullValue (aResources, "Resources");
 
-    return getFromCache (CollectionHelper.newList (aResources));
+    return getFromCache (new CommonsArrayList <> (aResources));
   }
 
   /**
@@ -176,7 +176,7 @@ public class SchemaCache extends AbstractNotifyingCache <ICommonsList <? extends
   {
     ValueEnforcer.notEmptyNoNullValue (aResources, "Resources");
 
-    return getFromCache (CollectionHelper.newList (aResources));
+    return getFromCache (new CommonsArrayList <> (aResources));
   }
 
   /**
@@ -258,7 +258,7 @@ public class SchemaCache extends AbstractNotifyingCache <ICommonsList <? extends
   @Nonnull
   public EChange removeFromCache (@Nonnull final IReadableResource aKey)
   {
-    return removeFromCache (CollectionHelper.newList (aKey));
+    return removeFromCache (new CommonsArrayList <> (aKey));
   }
 
   @Override

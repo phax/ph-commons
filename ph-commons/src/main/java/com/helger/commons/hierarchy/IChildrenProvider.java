@@ -16,10 +16,10 @@
  */
 package com.helger.commons.hierarchy;
 
-import java.util.Collection;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nullable;
+
+import com.helger.commons.collection.ext.ICommonsCollection;
 
 /**
  * This interface can be used to generically resolved children of a certain
@@ -81,5 +81,5 @@ public interface IChildrenProvider <CHILDTYPE>
    *         the same object returned <code>true</code>.
    */
   @Nullable
-  Collection <? extends CHILDTYPE> getAllChildren (CHILDTYPE aCurrent);
+  ICommonsCollection <? extends CHILDTYPE> getAllChildren (CHILDTYPE aCurrent);
 }

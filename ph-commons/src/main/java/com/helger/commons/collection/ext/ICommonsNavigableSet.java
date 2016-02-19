@@ -22,6 +22,8 @@ import java.util.SortedSet;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
+
 public interface ICommonsNavigableSet <ELEMENTTYPE> extends NavigableSet <ELEMENTTYPE>, ICommonsSortedSet <ELEMENTTYPE>
 {
   @Nonnull
@@ -29,4 +31,8 @@ public interface ICommonsNavigableSet <ELEMENTTYPE> extends NavigableSet <ELEMEN
   {
     return Collections.unmodifiableSortedSet (this);
   }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  ICommonsNavigableSet <ELEMENTTYPE> getClone ();
 }

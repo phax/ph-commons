@@ -29,6 +29,7 @@ import com.helger.commons.collection.ext.CommonsEnumMap;
 import com.helger.commons.collection.ext.CommonsLinkedHashSet;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsOrderedSet;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -46,7 +47,7 @@ public abstract class AbstractMicroNode implements IMicroNode
 {
   /** The parent node of this node. */
   private AbstractMicroNodeWithChildren m_aParentNode;
-  private ICommonsMap <EMicroEvent, ICommonsSet <IMicroEventTarget>> m_aEventTargets;
+  private ICommonsMap <EMicroEvent, ICommonsOrderedSet <IMicroEventTarget>> m_aEventTargets;
 
   /**
    * Callback that is invoked once a child is to be appended.
@@ -407,7 +408,7 @@ public abstract class AbstractMicroNode implements IMicroNode
     final int nIndex = aParentChildren.indexOf (this);
     if (nIndex == -1)
       throw new IllegalStateException ("this is no part of it's parents children");
-    return CollectionHelper.getAtIndex (aParentChildren, nIndex - 1);
+    return aParentChildren.getAtIndex (nIndex - 1);
   }
 
   @Nullable
@@ -419,7 +420,7 @@ public abstract class AbstractMicroNode implements IMicroNode
     final int nIndex = aParentChildren.indexOf (this);
     if (nIndex == -1)
       throw new IllegalStateException ("this is no part of it's parents children");
-    return CollectionHelper.getAtIndex (aParentChildren, nIndex + 1);
+    return aParentChildren.getAtIndex (nIndex + 1);
   }
 
   public final boolean hasParent ()
@@ -578,7 +579,7 @@ public abstract class AbstractMicroNode implements IMicroNode
 
     if (m_aEventTargets == null)
       m_aEventTargets = new CommonsEnumMap <> (EMicroEvent.class);
-    ICommonsSet <IMicroEventTarget> aSet = m_aEventTargets.get (eEventType);
+    ICommonsOrderedSet <IMicroEventTarget> aSet = m_aEventTargets.get (eEventType);
     if (aSet == null)
     {
       aSet = new CommonsLinkedHashSet <> ();

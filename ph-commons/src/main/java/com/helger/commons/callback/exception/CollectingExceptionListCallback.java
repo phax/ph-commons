@@ -21,7 +21,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -35,7 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public class CollectingExceptionListCallback <EXTYPE extends Throwable> implements IExceptionCallback <EXTYPE>
 {
-  private final ICommonsList <EXTYPE> m_aExceptions = CollectionHelper.newList ();
+  private final ICommonsList <EXTYPE> m_aExceptions = new CommonsArrayList <> ();
 
   public void onException (@Nullable final EXTYPE aEx)
   {

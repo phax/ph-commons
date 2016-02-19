@@ -20,10 +20,13 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.CollectionHelper;
 
-public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTYPE> implements ICommonsSet <ELEMENTTYPE>
+public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTYPE>
+                                  implements ICommonsOrderedSet <ELEMENTTYPE>
 {
   public CommonsLinkedHashSet ()
   {}
@@ -38,16 +41,22 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
     super (nInitialCapacity, fLoadFactor);
   }
 
-  public CommonsLinkedHashSet (@Nonnull final Collection <? extends ELEMENTTYPE> aCont)
+  public CommonsLinkedHashSet (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
-    super (aCont);
+    super (CollectionHelper.getSize (aCont));
+    if (aCont != null)
+      addAll (aCont);
   }
 
-  @Nonnull
-  @ReturnsMutableCopy
-  public <T> CommonsLinkedHashSet <T> createInstance ()
+  public CommonsLinkedHashSet (@Nullable final Iterable <? extends ELEMENTTYPE> aIterable)
   {
-    return new CommonsLinkedHashSet <> ();
+    addAll (aIterable);
+  }
+
+  public CommonsLinkedHashSet (@Nullable final ELEMENTTYPE aValue)
+  {
+    super (1);
+    add (aValue);
   }
 
   @Nonnull

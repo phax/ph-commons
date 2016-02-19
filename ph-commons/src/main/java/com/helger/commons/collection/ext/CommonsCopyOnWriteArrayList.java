@@ -20,6 +20,7 @@ import java.util.Collection;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 
@@ -29,9 +30,26 @@ public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayL
   public CommonsCopyOnWriteArrayList ()
   {}
 
-  public CommonsCopyOnWriteArrayList (@Nonnull final Collection <? extends ELEMENTTYPE> aCont)
+  public CommonsCopyOnWriteArrayList (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
-    super (aCont);
+    if (aCont != null)
+      addAll (aCont);
+  }
+
+  public CommonsCopyOnWriteArrayList (@Nullable final Iterable <? extends ELEMENTTYPE> aIterable)
+  {
+    addAll (aIterable);
+  }
+
+  public CommonsCopyOnWriteArrayList (@Nullable final ELEMENTTYPE aValue)
+  {
+    add (aValue);
+  }
+
+  @SafeVarargs
+  public CommonsCopyOnWriteArrayList (@Nullable final ELEMENTTYPE... aValues)
+  {
+    addAll (aValues);
   }
 
   @Nonnull

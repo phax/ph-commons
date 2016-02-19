@@ -526,26 +526,29 @@ public enum EXMLParserFeature implements IHasName
   /**
    * This map contains all necessary settings to avoid XXE attacks.
    */
-  public static final Map <EXMLParserFeature, Boolean> AVOID_XXE_SETTINGS = CollectionHelper.makeUnmodifiable (CollectionHelper.newMap (new EXMLParserFeature [] { DISALLOW_DOCTYPE_DECL,
-                                                                                                                                                                   EXTERNAL_GENERAL_ENTITIES,
-                                                                                                                                                                   EXTERNAL_PARAMETER_ENTITIES },
-                                                                                                                                        new Boolean [] { Boolean.TRUE,
-                                                                                                                                                         Boolean.FALSE,
-                                                                                                                                                         Boolean.FALSE }));
+  public static final Map <EXMLParserFeature, Boolean> AVOID_XXE_SETTINGS = CollectionHelper.newMap (new EXMLParserFeature [] { DISALLOW_DOCTYPE_DECL,
+                                                                                                                                EXTERNAL_GENERAL_ENTITIES,
+                                                                                                                                EXTERNAL_PARAMETER_ENTITIES },
+                                                                                                     new Boolean [] { Boolean.TRUE,
+                                                                                                                      Boolean.FALSE,
+                                                                                                                      Boolean.FALSE })
+                                                                                            .getAsUnmodifiable ();
 
   /**
    * This map contains all necessary settings to avoid entity expansion overflow
    * attacks.
    */
-  public static final Map <EXMLParserFeature, Boolean> AVOID_DOS_SETTINGS = CollectionHelper.makeUnmodifiable (CollectionHelper.newMap (new EXMLParserFeature [] { SECURE_PROCESSING },
-                                                                                                                                        new Boolean [] { Boolean.TRUE }));
+  public static final Map <EXMLParserFeature, Boolean> AVOID_DOS_SETTINGS = CollectionHelper.newMap (new EXMLParserFeature [] { SECURE_PROCESSING },
+                                                                                                     new Boolean [] { Boolean.TRUE })
+                                                                                            .getAsUnmodifiable ();
 
   /**
    * This map contains all necessary settings to avoid all known XML attacks. It
    * includes {@link #AVOID_XXE_SETTINGS} and {@link #AVOID_DOS_SETTINGS}.
    */
-  public static final Map <EXMLParserFeature, Boolean> AVOID_XML_ATTACKS = CollectionHelper.makeUnmodifiable (CollectionHelper.newMap (ArrayHelper.newArray (AVOID_XXE_SETTINGS,
-                                                                                                                                                             AVOID_DOS_SETTINGS)));
+  public static final Map <EXMLParserFeature, Boolean> AVOID_XML_ATTACKS = CollectionHelper.newMap (ArrayHelper.newArray (AVOID_XXE_SETTINGS,
+                                                                                                                          AVOID_DOS_SETTINGS))
+                                                                                           .getAsUnmodifiable ();
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (EXMLParserFeature.class);
 

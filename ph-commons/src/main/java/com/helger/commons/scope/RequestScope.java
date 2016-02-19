@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -122,12 +122,12 @@ public class RequestScope extends AbstractMapBasedScope implements IRequestScope
     if (aValue instanceof String [])
     {
       // multiple values passed in the request
-      return CollectionHelper.newList ((String []) aValue);
+      return new CommonsArrayList <> ((String []) aValue);
     }
     if (aValue instanceof String)
     {
       // single value passed in the request
-      return CollectionHelper.newList ((String) aValue);
+      return new CommonsArrayList <> ((String) aValue);
     }
     return getAttributeAsListCustom (sName, aValue, aDefault);
   }

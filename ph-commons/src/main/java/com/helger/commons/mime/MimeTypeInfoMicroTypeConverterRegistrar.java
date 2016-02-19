@@ -22,7 +22,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.collection.ext.CommonsLinkedHashSet;
-import com.helger.commons.collection.ext.ICommonsSet;
+import com.helger.commons.collection.ext.ICommonsOrderedSet;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.microdom.MicroElement;
 import com.helger.commons.microdom.convert.IMicroTypeConverter;
@@ -55,7 +55,7 @@ public final class MimeTypeInfoMicroTypeConverterRegistrar implements IMicroType
     @Nullable
     public MimeTypeInfo convertToNative (@Nonnull final IMicroElement aElement)
     {
-      final ICommonsSet <MimeTypeWithSource> aMimeTypes = new CommonsLinkedHashSet <> ();
+      final ICommonsOrderedSet <MimeTypeWithSource> aMimeTypes = new CommonsLinkedHashSet <> ();
       for (final IMicroElement eMimeType : aElement.getAllChildElements (ELEMENT_MIMETYPE))
       {
         final MimeType aMimeType = MimeTypeParser.parseMimeType (eMimeType.getTextContentTrimmed ());
@@ -65,15 +65,15 @@ public final class MimeTypeInfoMicroTypeConverterRegistrar implements IMicroType
 
       final String sComment = MicroHelper.getChildTextContent (aElement, ELEMENT_COMMENT);
 
-      final ICommonsSet <String> aParentTypes = new CommonsLinkedHashSet <> ();
+      final ICommonsOrderedSet <String> aParentTypes = new CommonsLinkedHashSet <> ();
       for (final IMicroElement eParentType : aElement.getAllChildElements (ELEMENT_PARENT_TYPE))
         aParentTypes.add (eParentType.getTextContentTrimmed ());
 
-      final ICommonsSet <String> aGlobs = new CommonsLinkedHashSet <> ();
+      final ICommonsOrderedSet <String> aGlobs = new CommonsLinkedHashSet <> ();
       for (final IMicroElement eGlob : aElement.getAllChildElements (ELEMENT_GLOB))
         aGlobs.add (eGlob.getTextContentTrimmed ());
 
-      final ICommonsSet <ExtensionWithSource> aExtensions = new CommonsLinkedHashSet <> ();
+      final ICommonsOrderedSet <ExtensionWithSource> aExtensions = new CommonsLinkedHashSet <> ();
       for (final IMicroElement eExtension : aElement.getAllChildElements (ELEMENT_EXTENSION))
       {
         // May be null if the empty extension ("") is used

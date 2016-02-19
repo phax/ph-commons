@@ -20,6 +20,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 
@@ -28,9 +29,26 @@ public class CommonsLinkedList <ELEMENTTYPE> extends LinkedList <ELEMENTTYPE> im
   public CommonsLinkedList ()
   {}
 
-  public CommonsLinkedList (@Nonnull final Collection <? extends ELEMENTTYPE> aCont)
+  public CommonsLinkedList (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
-    super (aCont);
+    if (aCont != null)
+      addAll (aCont);
+  }
+
+  public CommonsLinkedList (@Nullable final Iterable <? extends ELEMENTTYPE> aIterable)
+  {
+    addAll (aIterable);
+  }
+
+  public CommonsLinkedList (@Nullable final ELEMENTTYPE aValue)
+  {
+    add (aValue);
+  }
+
+  @SafeVarargs
+  public CommonsLinkedList (@Nullable final ELEMENTTYPE... aValues)
+  {
+    addAll (aValues);
   }
 
   @Nonnull

@@ -16,7 +16,6 @@
  */
 package com.helger.commons.hierarchy;
 
-import java.util.Collection;
 import java.util.Comparator;
 
 import javax.annotation.Nonnull;
@@ -24,7 +23,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsCollection;
 import com.helger.commons.collection.ext.ICommonsList;
 
 /**
@@ -60,9 +59,9 @@ public class ChildrenProviderHasChildrenSorting <CHILDTYPE extends IHasChildren 
   public ICommonsList <? extends CHILDTYPE> getAllChildren (@Nullable final CHILDTYPE aCurrent)
   {
     // Get all children of the passed element
-    final Collection <? extends CHILDTYPE> ret = aCurrent == null ? null : aCurrent.getAllChildren ();
+    final ICommonsCollection <? extends CHILDTYPE> ret = aCurrent == null ? null : aCurrent.getAllChildren ();
 
     // If there is anything to sort do it now
-    return ret == null ? null : CollectionHelper.getSorted (ret, m_aComparator);
+    return ret == null ? null : ret.getSorted (m_aComparator);
   }
 }

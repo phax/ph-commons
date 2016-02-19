@@ -16,11 +16,11 @@
  */
 package com.helger.commons.hierarchy;
 
-import java.util.Collection;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
+
+import com.helger.commons.collection.ext.ICommonsCollection;
 
 /**
  * A standard implementation of the {@link IChildrenProvider} interface that
@@ -46,7 +46,7 @@ public class ChildrenProviderHasChildren <CHILDTYPE extends IHasChildren <CHILDT
   }
 
   @Nullable
-  public Collection <? extends CHILDTYPE> getAllChildren (@Nullable final CHILDTYPE aCurrent)
+  public ICommonsCollection <? extends CHILDTYPE> getAllChildren (@Nullable final CHILDTYPE aCurrent)
   {
     return aCurrent == null ? null : aCurrent.getAllChildren ();
   }

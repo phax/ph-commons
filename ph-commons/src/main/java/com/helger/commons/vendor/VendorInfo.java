@@ -25,7 +25,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.email.EmailAddressHelper;
 import com.helger.commons.string.StringHelper;
@@ -165,21 +165,21 @@ public final class VendorInfo
   @ReturnsMutableCopy
   public static ICommonsList <String> getFileHeaderLines ()
   {
-    return CollectionHelper.newList ("THIS FILE IS GENERATED - DO NOT EDIT",
-                                     "",
-                                     "Copyright",
-                                     "",
-                                     "Copyright (c) " +
-                                         getVendorName () +
-                                         " " +
-                                         getInceptionYear () +
-                                         " - " +
-                                         CGlobal.CURRENT_YEAR,
-                                     getVendorURL (),
-                                     "",
-                                     "All Rights Reserved",
-                                     "Use, duplication or disclosure restricted by " + getVendorName (),
-                                     "",
-                                     getVendorLocation () + ", " + getInceptionYear () + " - " + CGlobal.CURRENT_YEAR);
+    return new CommonsArrayList <> ("THIS FILE IS GENERATED - DO NOT EDIT",
+                                    "",
+                                    "Copyright",
+                                    "",
+                                    "Copyright (c) " +
+                                        getVendorName () +
+                                        " " +
+                                        getInceptionYear () +
+                                        " - " +
+                                        CGlobal.CURRENT_YEAR,
+                                    getVendorURL (),
+                                    "",
+                                    "All Rights Reserved",
+                                    "Use, duplication or disclosure restricted by " + getVendorName (),
+                                    "",
+                                    getVendorLocation () + ", " + getInceptionYear () + " - " + CGlobal.CURRENT_YEAR);
   }
 }

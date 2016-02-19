@@ -25,9 +25,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.ext.CommonsHashSet;
 import com.helger.commons.collection.ext.CommonsLinkedHashSet;
-import com.helger.commons.collection.ext.ICommonsSet;
+import com.helger.commons.collection.ext.ICommonsOrderedSet;
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.microdom.IMicroDocument;
@@ -88,7 +87,7 @@ public final class MainReadSharedMimeInfo
     for (final IMicroElement eSrcMimeType : aDoc.getDocumentElement ().getAllChildElements (NS, "mime-type"))
     {
       final String sMIMEType = eSrcMimeType.getAttributeValue ("type");
-      final ICommonsSet <MimeTypeWithSource> aLocalNames = new CommonsLinkedHashSet <> ();
+      final ICommonsOrderedSet <MimeTypeWithSource> aLocalNames = new CommonsLinkedHashSet <> ();
 
       // Names
       aLocalNames.add (new MimeTypeWithSource (sMIMEType));
@@ -108,7 +107,7 @@ public final class MainReadSharedMimeInfo
         }
 
       // Sub class of
-      final ICommonsSet <String> aSubClassOf = new CommonsLinkedHashSet <> ();
+      final ICommonsOrderedSet <String> aSubClassOf = new CommonsLinkedHashSet <> ();
       for (final IMicroElement eSrcChild : eSrcMimeType.getAllChildElements (NS, "sub-class-of"))
       {
         final String s = eSrcChild.getAttributeValue ("type");
@@ -116,8 +115,8 @@ public final class MainReadSharedMimeInfo
       }
 
       boolean bHasAnyGlob = false;
-      final ICommonsSet <String> aGlobs = new CommonsLinkedHashSet <> ();
-      final ICommonsSet <ExtensionWithSource> aExts = new CommonsLinkedHashSet <> ();
+      final ICommonsOrderedSet <String> aGlobs = new CommonsLinkedHashSet <> ();
+      final ICommonsOrderedSet <ExtensionWithSource> aExts = new CommonsLinkedHashSet <> ();
       for (final IMicroElement eSrcChild : eSrcMimeType.getAllChildElements (NS, "glob"))
       {
         final String sPattern = eSrcChild.getAttributeValue ("pattern");
@@ -220,11 +219,11 @@ public final class MainReadSharedMimeInfo
           // No such mapping from ext to mime type
 
           // Create a new entry
-          aMgr.registerMimeType (new MimeTypeInfo (CollectionHelper.newSet (new MimeTypeWithSource (sOldMimeType)),
+          aMgr.registerMimeType (new MimeTypeInfo (CollectionHelper.newOrderedSet (new MimeTypeWithSource (sOldMimeType)),
                                                    null,
-                                                   new CommonsHashSet <> (),
-                                                   new CommonsHashSet <> (),
-                                                   CollectionHelper.newSet (new ExtensionWithSource (sOldExt)),
+                                                   new CommonsLinkedHashSet <> (),
+                                                   new CommonsLinkedHashSet <> (),
+                                                   CollectionHelper.newOrderedSet (new ExtensionWithSource (sOldExt)),
                                                    "old"));
           if (false)
             s_aLogger.info ("Creating new: " + sOldMimeType + " = '" + sOldExt + "'");

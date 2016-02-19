@@ -26,7 +26,7 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.resource.URLResource;
 import com.helger.commons.io.stream.StreamHelper;
@@ -40,7 +40,7 @@ import com.helger.commons.lang.ClassLoaderHelper;
 public final class XMLResourceBundleControl extends ResourceBundle.Control
 {
   private static final String FORMAT_XML = "xml";
-  private static final ICommonsList <String> FORMATS = CollectionHelper.newList (FORMAT_XML);
+  private static final ICommonsList <String> FORMATS = new CommonsArrayList <> (FORMAT_XML);
 
   @Override
   @ReturnsMutableCopy

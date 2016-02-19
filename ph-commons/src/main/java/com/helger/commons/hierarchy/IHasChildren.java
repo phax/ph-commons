@@ -16,10 +16,10 @@
  */
 package com.helger.commons.hierarchy;
 
-import java.util.Collection;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nullable;
+
+import com.helger.commons.collection.ext.ICommonsCollection;
 
 /**
  * A simple interface, indicating that an item has direct children.
@@ -59,5 +59,5 @@ public interface IHasChildren <CHILDTYPE>
    *         .
    */
   @Nullable
-  Collection <? extends CHILDTYPE> getAllChildren ();
+  ICommonsCollection <? extends CHILDTYPE> getAllChildren ();
 }

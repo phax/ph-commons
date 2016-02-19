@@ -26,7 +26,6 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
@@ -444,7 +443,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   public final void reorderChildrenByItems (@Nonnull final Comparator <? super ITEMTYPE> aComparator)
   {
     if (m_aChildren != null)
-      CollectionHelper.getSortedInline (m_aChildren, aComparator);
+      m_aChildren.sort (aComparator);
   }
 
   @Override

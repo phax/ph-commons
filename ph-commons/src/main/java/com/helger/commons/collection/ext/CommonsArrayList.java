@@ -19,23 +19,47 @@ package com.helger.commons.collection.ext;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.collection.CollectionHelper;
 
 public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYPE>
 {
   public CommonsArrayList ()
   {}
 
-  public CommonsArrayList (final int nInitialCapacity)
+  public CommonsArrayList (@Nonnegative final int nInitialCapacity)
   {
     super (nInitialCapacity);
   }
 
-  public CommonsArrayList (@Nonnull final Collection <? extends ELEMENTTYPE> aCont)
+  public CommonsArrayList (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
-    super (aCont);
+    super (CollectionHelper.getSize (aCont));
+    if (aCont != null)
+      addAll (aCont);
+  }
+
+  public CommonsArrayList (@Nullable final Iterable <? extends ELEMENTTYPE> aIterable)
+  {
+    addAll (aIterable);
+  }
+
+  public CommonsArrayList (@Nullable final ELEMENTTYPE aValue)
+  {
+    super (1);
+    add (aValue);
+  }
+
+  @SafeVarargs
+  public CommonsArrayList (@Nullable final ELEMENTTYPE... aValues)
+  {
+    super (ArrayHelper.getSize (aValues));
+    addAll (aValues);
   }
 
   @Nonnull

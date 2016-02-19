@@ -26,6 +26,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.ext.CommonsLinkedHashSet;
+import com.helger.commons.collection.ext.ICommonsOrderedSet;
 import com.helger.commons.collection.ext.ICommonsSet;
 
 /**
@@ -717,13 +718,13 @@ public final class XMLCharHelper
 
   @Nullable
   @ReturnsMutableCopy
-  public static ICommonsSet <Character> getAllInvalidXMLNameChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
-                                                                   @Nullable final char [] aChars)
+  public static ICommonsOrderedSet <Character> getAllInvalidXMLNameChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                                                          @Nullable final char [] aChars)
   {
     if (ArrayHelper.isEmpty (aChars))
       return null;
 
-    final ICommonsSet <Character> aRes = new CommonsLinkedHashSet <> ();
+    final ICommonsOrderedSet <Character> aRes = new CommonsLinkedHashSet <> ();
     int nIndex = 0;
     for (final char c : aChars)
     {
@@ -792,13 +793,13 @@ public final class XMLCharHelper
 
   @Nullable
   @ReturnsMutableCopy
-  public static ICommonsSet <Character> getAllInvalidXMLTextChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
-                                                                   @Nullable final char [] aChars)
+  public static ICommonsOrderedSet <Character> getAllInvalidXMLTextChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                                                          @Nullable final char [] aChars)
   {
     if (ArrayHelper.isEmpty (aChars))
       return null;
 
-    final ICommonsSet <Character> aRes = new CommonsLinkedHashSet <> ();
+    final ICommonsOrderedSet <Character> aRes = new CommonsLinkedHashSet <> ();
     for (final char c : aChars)
       if (isInvalidXMLTextChar (eXMLVersion, c))
         aRes.add (Character.valueOf (c));
@@ -855,13 +856,13 @@ public final class XMLCharHelper
 
   @Nullable
   @ReturnsMutableCopy
-  public static ICommonsSet <Character> getAllInvalidXMLCDATAChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
-                                                                    @Nullable final char [] aChars)
+  public static ICommonsOrderedSet <Character> getAllInvalidXMLCDATAChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                                                           @Nullable final char [] aChars)
   {
     if (ArrayHelper.isEmpty (aChars))
       return null;
 
-    final ICommonsSet <Character> aRes = new CommonsLinkedHashSet <> ();
+    final ICommonsOrderedSet <Character> aRes = new CommonsLinkedHashSet <> ();
     for (final char c : aChars)
       if (isInvalidXMLCDATAChar (eXMLVersion, c))
         aRes.add (Character.valueOf (c));
@@ -918,13 +919,13 @@ public final class XMLCharHelper
 
   @Nullable
   @ReturnsMutableCopy
-  public static ICommonsSet <Character> getAllInvalidXMLAttributeValueChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
-                                                                             @Nullable final char [] aChars)
+  public static ICommonsOrderedSet <Character> getAllInvalidXMLAttributeValueChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                                                                    @Nullable final char [] aChars)
   {
     if (ArrayHelper.isEmpty (aChars))
       return null;
 
-    final ICommonsSet <Character> aRes = new CommonsLinkedHashSet <> ();
+    final ICommonsOrderedSet <Character> aRes = new CommonsLinkedHashSet <> ();
     for (final char c : aChars)
       if (isInvalidXMLAttributeValueChar (eXMLVersion, c))
         aRes.add (Character.valueOf (c));

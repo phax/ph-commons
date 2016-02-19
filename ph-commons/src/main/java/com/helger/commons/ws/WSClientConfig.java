@@ -414,7 +414,7 @@ public class WSClientConfig
     ValueEnforcer.notEmpty (sName, "Name");
     ValueEnforcer.notNull (sValue, "Value");
 
-    _getHeaderMap ().put (sName, CollectionHelper.newList (sValue));
+    _getHeaderMap ().put (sName, new CommonsArrayList <> (sValue));
     return this;
   }
 
@@ -443,7 +443,7 @@ public class WSClientConfig
     if (aValues.isEmpty ())
       removeHTTPHeader (sName);
     else
-      _getHeaderMap ().put (sName, CollectionHelper.newList (aValues));
+      _getHeaderMap ().put (sName, new CommonsArrayList <> (aValues));
     return this;
   }
 
@@ -516,8 +516,8 @@ public class WSClientConfig
   public ICommonsList <String> getAllHTTPHeaderValues (@Nullable final String sName)
   {
     if (m_aHTTPHeaders == null || StringHelper.hasNoText (sName))
-      return CollectionHelper.newList (0);
-    return CollectionHelper.newList (m_aHTTPHeaders.get (sName));
+      return new CommonsArrayList <> (0);
+    return new CommonsArrayList <> (m_aHTTPHeaders.get (sName));
   }
 
   @Nonnull

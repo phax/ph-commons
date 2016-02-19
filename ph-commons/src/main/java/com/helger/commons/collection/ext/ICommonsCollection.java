@@ -20,6 +20,8 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -244,6 +246,43 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
     if (aValues != null)
       for (final ELEMENTTYPE aValue : aValues)
         add (aValue);
+  }
+
+  default void addAll (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
+  {
+    if (aEnum != null)
+      while (aEnum.hasMoreElements ())
+        add (aEnum.nextElement ());
+  }
+
+  default void addAll (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
+  {
+    if (aIter != null)
+      while (aIter.hasNext ())
+        add (aIter.next ());
+  }
+
+  default void addAll (@Nullable final Iterable <? extends ELEMENTTYPE> aIterable)
+  {
+    if (aIterable != null)
+      for (final ELEMENTTYPE aElement : aIterable)
+        add (aElement);
+  }
+
+  default <SRCTYPE> void addAllMapped (@Nullable final Iterable <? extends SRCTYPE> aValues,
+                                       @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+  {
+    if (aValues != null)
+      for (final SRCTYPE aValue : aValues)
+        add (aMapper.apply (aValue));
+  }
+
+  default <SRCTYPE> void addAllMapped (@Nullable final SRCTYPE [] aValues,
+                                       @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+  {
+    if (aValues != null)
+      for (final SRCTYPE aValue : aValues)
+        add (aMapper.apply (aValue));
   }
 
   /**

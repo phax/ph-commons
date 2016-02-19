@@ -19,23 +19,47 @@ package com.helger.commons.collection.ext;
 import java.util.Collection;
 import java.util.Vector;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.collection.CollectionHelper;
 
 public class CommonsVector <ELEMENTTYPE> extends Vector <ELEMENTTYPE> implements ICommonsList <ELEMENTTYPE>
 {
   public CommonsVector ()
   {}
 
-  public CommonsVector (final int nInitialCapacity)
+  public CommonsVector (@Nonnegative final int nInitialCapacity)
   {
     super (nInitialCapacity);
   }
 
-  public CommonsVector (@Nonnull final Collection <? extends ELEMENTTYPE> aCont)
+  public CommonsVector (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
-    super (aCont);
+    super (CollectionHelper.getSize (aCont));
+    if (aCont != null)
+      addAll (aCont);
+  }
+
+  public CommonsVector (@Nullable final Iterable <? extends ELEMENTTYPE> aIterable)
+  {
+    addAll (aIterable);
+  }
+
+  public CommonsVector (@Nullable final ELEMENTTYPE aValue)
+  {
+    super (1);
+    add (aValue);
+  }
+
+  @SafeVarargs
+  public CommonsVector (@Nullable final ELEMENTTYPE... aValues)
+  {
+    super (ArrayHelper.getSize (aValues));
+    addAll (aValues);
   }
 
   @Nonnull

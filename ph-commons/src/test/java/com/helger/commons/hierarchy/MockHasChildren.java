@@ -16,22 +16,21 @@
  */
 package com.helger.commons.hierarchy;
 
-import java.util.Collection;
-import java.util.List;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsCollection;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.id.IHasID;
 
 public final class MockHasChildren implements IHasChildren <MockHasChildren>, IHasID <String>
 {
   private final String m_sID;
-  private final List <MockHasChildren> m_aList;
+  private final ICommonsList <MockHasChildren> m_aList;
 
   public MockHasChildren (@Nonnull final String sID, @Nullable final MockHasChildren... aList)
   {
@@ -46,7 +45,7 @@ public final class MockHasChildren implements IHasChildren <MockHasChildren>, IH
 
   public boolean hasChildren ()
   {
-    return !m_aList.isEmpty ();
+    return m_aList.isNotEmpty ();
   }
 
   @Nonnegative
@@ -57,17 +56,14 @@ public final class MockHasChildren implements IHasChildren <MockHasChildren>, IH
 
   @Nonnull
   @ReturnsMutableCopy
-  public Collection <? extends MockHasChildren> getAllChildren ()
+  public ICommonsCollection <? extends MockHasChildren> getAllChildren ()
   {
-    return CollectionHelper.newList (m_aList);
+    return m_aList.getClone ();
   }
 
   @Nullable
   public MockHasChildren getChildWithID (final String sID)
   {
-    for (final MockHasChildren aChild : m_aList)
-      if (EqualsHelper.equals (aChild.m_sID, sID))
-        return aChild;
-    return null;
+    return m_aList.findFirst (c -> EqualsHelper.equals (c.m_sID, sID));
   }
 }

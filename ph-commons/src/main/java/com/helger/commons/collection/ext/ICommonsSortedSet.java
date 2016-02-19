@@ -22,6 +22,8 @@ import java.util.SortedSet;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
+
 public interface ICommonsSortedSet <ELEMENTTYPE> extends SortedSet <ELEMENTTYPE>, ICommonsSet <ELEMENTTYPE>
 {
   @Nullable
@@ -41,4 +43,8 @@ public interface ICommonsSortedSet <ELEMENTTYPE> extends SortedSet <ELEMENTTYPE>
   {
     return Collections.unmodifiableSortedSet (this);
   }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  ICommonsSortedSet <ELEMENTTYPE> getClone ();
 }

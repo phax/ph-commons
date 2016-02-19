@@ -33,6 +33,7 @@ import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsLinkedHashSet;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsOrderedSet;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.collection.lru.LRUMap;
@@ -59,7 +60,7 @@ public final class ClassHierarchyCache
       ValueEnforcer.notNull (aClass, "Class");
 
       // Check the whole class hierarchy of the source class
-      final ICommonsSet <Class <?>> aUniqueOrderedClasses = new CommonsLinkedHashSet <> ();
+      final ICommonsOrderedSet <Class <?>> aUniqueOrderedClasses = new CommonsLinkedHashSet <> ();
       final ICommonsList <Class <?>> aOpenSrc = new CommonsArrayList <> ();
       aOpenSrc.add (aClass);
       while (!aOpenSrc.isEmpty ())
@@ -82,10 +83,10 @@ public final class ClassHierarchyCache
 
     @Nonnull
     @ReturnsMutableCopy
-    public ICommonsSet <Class <?>> getAsSet ()
+    public ICommonsOrderedSet <Class <?>> getAsSet ()
     {
       // Use a linked hash set, to maintain the order
-      final ICommonsSet <Class <?>> ret = new CommonsLinkedHashSet <> (m_aList.size ());
+      final ICommonsOrderedSet <Class <?>> ret = new CommonsLinkedHashSet <> (m_aList.size ());
       for (final WeakReference <Class <?>> aRef : m_aList)
       {
         final Class <?> aClass = aRef.get ();

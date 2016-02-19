@@ -16,9 +16,9 @@
  */
 package com.helger.commons.hierarchy;
 
-import java.util.Collection;
-
 import javax.annotation.Nullable;
+
+import com.helger.commons.collection.ext.ICommonsCollection;
 
 public class MockChildrenProvider implements IChildrenProvider <MockHasChildren>
 {
@@ -45,7 +45,7 @@ public class MockChildrenProvider implements IChildrenProvider <MockHasChildren>
   }
 
   @Nullable
-  public Collection <? extends MockHasChildren> getAllChildren (@Nullable final MockHasChildren aCurrent)
+  public ICommonsCollection <? extends MockHasChildren> getAllChildren (@Nullable final MockHasChildren aCurrent)
   {
     return aCurrent != null ? aCurrent.getAllChildren () : m_aRootItem != null ? m_aRootItem.getAllChildren () : null;
   }

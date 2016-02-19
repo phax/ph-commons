@@ -16,10 +16,11 @@
  */
 package com.helger.commons.statistics.util;
 
+import java.util.Comparator;
+
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.microdom.IMicroElement;
 import com.helger.commons.statistics.IStatisticsHandlerCache;
 import com.helger.commons.statistics.IStatisticsHandlerCounter;
@@ -87,7 +88,7 @@ public class StatisticsVisitorCallbackToXML extends DefaultStatisticsVisitorCall
                                                .setAttribute (StatisticsExporter.ATTR_NAME, sName)
                                                .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT,
                                                               aHandler.getInvocationCount ());
-      for (final String sKey : CollectionHelper.getSorted (aHandler.getAllKeys ()))
+      for (final String sKey : aHandler.getAllKeys ().getSorted (Comparator.naturalOrder ()))
       {
         eKeyedTimer.appendElement (StatisticsExporter.ELEMENT_KEY)
                    .setAttribute (StatisticsExporter.ATTR_NAME, sKey)
@@ -122,7 +123,7 @@ public class StatisticsVisitorCallbackToXML extends DefaultStatisticsVisitorCall
                                               .setAttribute (StatisticsExporter.ATTR_NAME, sName)
                                               .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT,
                                                              aHandler.getInvocationCount ());
-      for (final String sKey : CollectionHelper.getSorted (aHandler.getAllKeys ()))
+      for (final String sKey : aHandler.getAllKeys ().getSorted (Comparator.naturalOrder ()))
       {
         eKeyedSize.appendElement (StatisticsExporter.ELEMENT_KEY)
                   .setAttribute (StatisticsExporter.ATTR_NAME, sKey)
@@ -154,7 +155,7 @@ public class StatisticsVisitorCallbackToXML extends DefaultStatisticsVisitorCall
                                                  .setAttribute (StatisticsExporter.ATTR_NAME, sName)
                                                  .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT,
                                                                 aHandler.getInvocationCount ());
-      for (final String sKey : CollectionHelper.getSorted (aHandler.getAllKeys ()))
+      for (final String sKey : aHandler.getAllKeys ().getSorted (Comparator.naturalOrder ()))
       {
         eKeyedCounter.appendElement (StatisticsExporter.ELEMENT_KEY)
                      .setAttribute (StatisticsExporter.ATTR_NAME, sKey)

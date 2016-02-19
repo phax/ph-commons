@@ -28,9 +28,8 @@ import javax.xml.xpath.XPathFunctionResolver;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.ext.CommonsHashMap;
-import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.CommonsLinkedHashMap;
+import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ICloneable;
@@ -47,14 +46,14 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICloneable <MapBasedXPathFunctionResolver>
 {
-  private final ICommonsMap <XPathFunctionKey, XPathFunction> m_aMap;
+  private final ICommonsOrderedMap <XPathFunctionKey, XPathFunction> m_aMap;
 
   /**
    * Default ctor.
    */
   public MapBasedXPathFunctionResolver ()
   {
-    m_aMap = new CommonsHashMap <> ();
+    m_aMap = new CommonsLinkedHashMap <> ();
   }
 
   /**
@@ -185,7 +184,7 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
     if (aName != null)
     {
       // Make a copy of the key set to allow for inline modification
-      for (final XPathFunctionKey aKey : CollectionHelper.newList (m_aMap.keySet ()))
+      for (final XPathFunctionKey aKey : m_aMap.copyOfKeySet ())
         if (aKey.getFunctionName ().equals (aName))
           eChange = eChange.or (removeFunction (aKey));
     }
@@ -198,9 +197,9 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
    */
   @Nonnull
   @ReturnsMutableCopy
-  public Map <XPathFunctionKey, XPathFunction> getAllFunctions ()
+  public ICommonsOrderedMap <XPathFunctionKey, XPathFunction> getAllFunctions ()
   {
-    return CollectionHelper.newMap (m_aMap);
+    return m_aMap.getClone ();
   }
 
   /**
@@ -220,10 +219,7 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
   @Nonnull
   public EChange clear ()
   {
-    if (m_aMap.isEmpty ())
-      return EChange.UNCHANGED;
-    m_aMap.clear ();
-    return EChange.CHANGED;
+    return m_aMap.removeAll ();
   }
 
   @Nullable

@@ -39,21 +39,21 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default ICommonsSet <KEYTYPE> copyOfKeySet ()
   {
-    return CollectionHelper.newSet (keySet ());
+    return new CommonsHashSet <> (keySet ());
   }
 
   @Nonnull
   @ReturnsMutableCopy
   default ICommonsList <VALUETYPE> copyOfValues ()
   {
-    return CollectionHelper.newList (values ());
+    return new CommonsArrayList <> (values ());
   }
 
   @Nonnull
   @ReturnsMutableCopy
   default ICommonsSet <Map.Entry <KEYTYPE, VALUETYPE>> copyOfEntrySet ()
   {
-    return CollectionHelper.newSet (entrySet ());
+    return new CommonsHashSet <> (entrySet ());
   }
 
   /**
@@ -156,6 +156,19 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   {
     if (aValue != null)
       put (aKey, aValue);
+  }
+
+  /**
+   * Clear and add all provided values.
+   *
+   * @param aValues
+   *        The values to be added. May be <code>null</code>.
+   */
+  default void setAll (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aValues)
+  {
+    clear ();
+    if (aValues != null)
+      putAll (aValues);
   }
 
   @Nonnull

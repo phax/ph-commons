@@ -23,6 +23,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.ICommonsCollection;
 import com.helger.commons.scope.singleton.AbstractSessionSingleton;
 import com.helger.commons.state.EChange;
 import com.helger.commons.tree.withid.DefaultTreeItemWithID;
@@ -65,7 +66,7 @@ public abstract class AbstractSessionSingletonTreeWithUniqueID <KEYTYPE, VALUETY
 
   @Nonnull
   @ReturnsMutableCopy
-  public final Collection <? extends DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> getAllChildren ()
+  public final ICommonsCollection <? extends DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> getAllChildren ()
   {
     return m_aTree.getAllChildren ();
   }
@@ -95,7 +96,7 @@ public abstract class AbstractSessionSingletonTreeWithUniqueID <KEYTYPE, VALUETY
   }
 
   @Nullable
-  public Collection <? extends DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> getAllChildren (@Nullable final DefaultTreeItemWithID <KEYTYPE, VALUETYPE> aCurrent)
+  public ICommonsCollection <? extends DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> getAllChildren (@Nullable final DefaultTreeItemWithID <KEYTYPE, VALUETYPE> aCurrent)
   {
     return m_aTree.getAllChildren (aCurrent);
   }

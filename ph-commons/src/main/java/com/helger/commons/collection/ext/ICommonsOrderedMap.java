@@ -16,23 +16,44 @@
  */
 package com.helger.commons.collection.ext;
 
-import java.util.Collections;
-import java.util.NavigableMap;
+import java.util.Map;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.CollectionHelper;
 
-public interface ICommonsNavigableMap <KEYTYPE, VALUETYPE>
-                                      extends NavigableMap <KEYTYPE, VALUETYPE>, ICommonsSortedMap <KEYTYPE, VALUETYPE>
+public interface ICommonsOrderedMap <KEYTYPE, VALUETYPE> extends ICommonsMap <KEYTYPE, VALUETYPE>
 {
   @Nonnull
-  default NavigableMap <KEYTYPE, VALUETYPE> getAsUnmodifiable ()
+  @ReturnsMutableCopy
+  default ICommonsOrderedSet <KEYTYPE> copyOfKeySet ()
   {
-    return Collections.unmodifiableNavigableMap (this);
+    return new CommonsLinkedHashSet <> (keySet ());
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  ICommonsNavigableMap <KEYTYPE, VALUETYPE> getClone ();
+  default ICommonsOrderedSet <Map.Entry <KEYTYPE, VALUETYPE>> copyOfEntrySet ()
+  {
+    return new CommonsLinkedHashSet <> (entrySet ());
+  }
+
+  @Nullable
+  default KEYTYPE getLastKey ()
+  {
+    return isEmpty () ? null : CollectionHelper.getLastElement (keySet ());
+  }
+
+  @Nullable
+  default VALUETYPE getLastValue ()
+  {
+    final KEYTYPE aKey = getLastKey ();
+    return aKey == null ? null : get (aKey);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  ICommonsOrderedMap <KEYTYPE, VALUETYPE> getClone ();
 }

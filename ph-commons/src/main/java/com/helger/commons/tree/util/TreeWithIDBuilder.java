@@ -25,7 +25,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.hierarchy.IChildrenProvider;
@@ -121,7 +121,7 @@ public final class TreeWithIDBuilder
     ValueEnforcer.notNull (aAll, "All");
     ValueEnforcer.notNull (aParentResolver, "ParentResolver");
 
-    return _buildTree (CollectionHelper.newList (aAll), aParentResolver);
+    return _buildTree (new CommonsArrayList <> (aAll), aParentResolver);
   }
 
   /**
@@ -149,7 +149,7 @@ public final class TreeWithIDBuilder
     ValueEnforcer.notNull (aAll, "All");
     ValueEnforcer.notNull (aParentResolver, "ParentResolver");
 
-    return _buildTree (CollectionHelper.newList (aAll), aParentResolver);
+    return _buildTree (new CommonsArrayList <> (aAll), aParentResolver);
   }
 
   /**

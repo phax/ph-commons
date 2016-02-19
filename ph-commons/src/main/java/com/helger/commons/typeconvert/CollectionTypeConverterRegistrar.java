@@ -74,70 +74,56 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (ArrayList.class, aSource -> {
       if (aSource instanceof Collection <?>)
         return new CommonsArrayList <> ((Collection <?>) aSource);
-      final CommonsArrayList <Object> ret = new CommonsArrayList <> (1);
-      ret.add (aSource);
-      return ret;
+      return new CommonsArrayList <> (aSource);
     });
 
     // to CommonsVector<?>
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (Vector.class, aSource -> {
       if (aSource instanceof Collection <?>)
         return new CommonsVector <> ((Collection <?>) aSource);
-      final CommonsVector <Object> ret = new CommonsVector <> (1);
-      ret.add (aSource);
-      return ret;
+      return new CommonsVector <> (aSource);
     });
 
     // to LinkedList<?>
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (LinkedList.class, aSource -> {
       if (aSource instanceof Collection <?>)
         return new CommonsLinkedList <> ((Collection <?>) aSource);
-      final CommonsLinkedList <Object> ret = new CommonsLinkedList <> ();
-      ret.add (aSource);
-      return ret;
+      return new CommonsLinkedList <> (aSource);
     });
 
     // to CopyOnWriteArrayList<?>
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (CopyOnWriteArrayList.class, aSource -> {
       if (aSource instanceof Collection <?>)
         return new CommonsCopyOnWriteArrayList <> ((Collection <?>) aSource);
-      final CommonsCopyOnWriteArrayList <Object> ret = new CommonsCopyOnWriteArrayList <> ();
-      ret.add (aSource);
-      return ret;
+      return new CommonsCopyOnWriteArrayList <> (aSource);
     });
 
     // to List<?>
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (List.class, aSource -> {
       if (aSource instanceof Collection <?>)
-        return CollectionHelper.newList ((Collection <?>) aSource);
-      return CollectionHelper.newList (aSource);
+        return new CommonsArrayList <> ((Collection <?>) aSource);
+      return new CommonsArrayList <> (aSource);
     });
 
     // to CommonsTreeSet<?>
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (TreeSet.class, aSource -> {
       if (aSource instanceof Collection <?>)
         return new CommonsTreeSet <> ((Collection <?>) aSource);
-      final CommonsTreeSet <Object> ret = new CommonsTreeSet <> ();
-      ret.add (aSource);
-      return ret;
+      return new CommonsTreeSet <> (aSource);
     });
 
     // to CommonsLinkedHashSet<?>
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (LinkedHashSet.class, aSource -> {
       if (aSource instanceof Collection <?>)
         return new CommonsLinkedHashSet <> ((Collection <?>) aSource);
-      final CommonsLinkedHashSet <Object> ret = new CommonsLinkedHashSet <> (1);
-      ret.add (aSource);
-      return ret;
+      return new CommonsLinkedHashSet <> (aSource);
     });
 
     // to CopyOnWriteArraySet<?>
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (CopyOnWriteArraySet.class, aSource -> {
       if (aSource instanceof Collection <?>)
         return new CommonsCopyOnWriteArraySet <> ((Collection <?>) aSource);
-      final CommonsCopyOnWriteArraySet <Object> ret = new CommonsCopyOnWriteArraySet <> ();
-      ret.add (aSource);
-      return ret;
+      return new CommonsCopyOnWriteArraySet <> (aSource);
     });
 
     // to Set<?>

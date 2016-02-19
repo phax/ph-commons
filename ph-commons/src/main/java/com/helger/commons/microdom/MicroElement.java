@@ -30,6 +30,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.ext.ICommonsSet;
@@ -125,7 +126,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   {
     if (hasNoAttributes ())
       return null;
-    return CollectionHelper.newList (m_aAttrs.values ());
+    return m_aAttrs.copyOfValues ();
   }
 
   @Nonnull
@@ -142,7 +143,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   {
     if (hasNoAttributes ())
       return null;
-    final ICommonsMap <IMicroQName, String> ret = CollectionHelper.newOrderedMap ();
+    final ICommonsMap <IMicroQName, String> ret = new CommonsLinkedHashMap <> ();
     for (final MicroAttribute aAttr : m_aAttrs.values ())
       ret.put (aAttr.getAttributeQName (), aAttr.getAttributeValue ());
     return ret;
@@ -314,7 +315,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     if (sAttrValue != null)
     {
       if (m_aAttrs == null)
-        m_aAttrs = CollectionHelper.newOrderedMap ();
+        m_aAttrs = new CommonsLinkedHashMap <> ();
       m_aAttrs.put (aAttrName, new MicroAttribute (aAttrName, sAttrValue));
     }
     else
@@ -757,7 +758,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
 
     // Copy attributes
     if (m_aAttrs != null)
-      ret.m_aAttrs = CollectionHelper.newOrderedMap (m_aAttrs);
+      ret.m_aAttrs = new CommonsLinkedHashMap <> (m_aAttrs);
 
     // Deep clone all child nodes
     if (hasChildren ())

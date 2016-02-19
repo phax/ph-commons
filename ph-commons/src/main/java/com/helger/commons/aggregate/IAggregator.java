@@ -55,68 +55,68 @@ public interface IAggregator <SRCTYPE, DSTTYPE> extends Function <Collection <SR
   @Nonnull
   static <SRCTYPE, DSTTYPE> IAggregator <SRCTYPE, DSTTYPE> createNull ()
   {
-    return x -> null;
+    return aCollection -> null;
   }
 
   @Nonnull
   static <SRCTYPE, DSTTYPE> IAggregator <SRCTYPE, DSTTYPE> createConstant (@Nullable final DSTTYPE aValue)
   {
-    return x -> aValue;
+    return aCollection -> aValue;
   }
 
   @Nonnull
   static <SRCTYPE> IAggregator <SRCTYPE, Collection <SRCTYPE>> createUseAll ()
   {
-    return x -> x;
+    return aCollection -> aCollection;
   }
 
   @Nonnull
   static <SRCTYPE> IAggregator <SRCTYPE, SRCTYPE> createUseFirst ()
   {
-    return x -> CollectionHelper.getFirstElement (x);
+    return aCollection -> CollectionHelper.getFirstElement (aCollection);
   }
 
   @Nonnull
   static <SRCTYPE> IAggregator <SRCTYPE, SRCTYPE> createUseLast ()
   {
-    return x -> CollectionHelper.getLastElement (x);
+    return aCollection -> CollectionHelper.getLastElement (aCollection);
   }
 
   @Nonnull
   static IAggregator <String, String> createStringAll ()
   {
-    return x -> StringHelper.getImploded (x);
+    return aCollection -> StringHelper.getImploded (aCollection);
   }
 
   @Nonnull
   static IAggregator <String, String> createStringAll (final char cSep)
   {
-    return x -> StringHelper.getImploded (cSep, x);
+    return aCollection -> StringHelper.getImploded (cSep, aCollection);
   }
 
   @Nonnull
   static IAggregator <String, String> createStringAll (@Nonnull final String sSep)
   {
     ValueEnforcer.notNull (sSep, "Separator");
-    return x -> StringHelper.getImploded (sSep, x);
+    return aCollection -> StringHelper.getImploded (sSep, aCollection);
   }
 
   @Nonnull
   static IAggregator <String, String> createStringIgnoreEmpty ()
   {
-    return x -> StringHelper.getImplodedNonEmpty (x);
+    return aCollection -> StringHelper.getImplodedNonEmpty (aCollection);
   }
 
   @Nonnull
   static IAggregator <String, String> createStringIgnoreEmpty (final char cSep)
   {
-    return x -> StringHelper.getImplodedNonEmpty (cSep, x);
+    return aCollection -> StringHelper.getImplodedNonEmpty (cSep, aCollection);
   }
 
   @Nonnull
   static IAggregator <String, String> createStringIgnoreEmpty (@Nonnull final String sSep)
   {
     ValueEnforcer.notNull (sSep, "Separator");
-    return x -> StringHelper.getImplodedNonEmpty (sSep, x);
+    return aCollection -> StringHelper.getImplodedNonEmpty (sSep, aCollection);
   }
 }

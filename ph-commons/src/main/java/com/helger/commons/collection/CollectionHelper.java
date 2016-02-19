@@ -993,9 +993,7 @@ public final class CollectionHelper
   public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> newSet (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
   {
     final CommonsHashSet <ELEMENTTYPE> ret = newSet ();
-    if (aIter != null)
-      while (aIter.hasNext ())
-        ret.add (aIter.next ());
+    ret.addAll (aIter);
     return ret;
   }
 
@@ -1013,9 +1011,7 @@ public final class CollectionHelper
   public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> newSet (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
   {
     final CommonsHashSet <ELEMENTTYPE> ret = newSet ();
-    if (aEnum != null)
-      while (aEnum.hasMoreElements ())
-        ret.add (aEnum.nextElement ());
+    ret.addAll (aEnum);
     return ret;
   }
 
@@ -1131,9 +1127,7 @@ public final class CollectionHelper
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> newSortedSet (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
   {
     final CommonsTreeSet <ELEMENTTYPE> ret = newSortedSet ();
-    if (aIter != null)
-      while (aIter.hasNext ())
-        ret.add (aIter.next ());
+    ret.addAll (aIter);
     return ret;
   }
 
@@ -1151,9 +1145,7 @@ public final class CollectionHelper
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> newSortedSet (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
   {
     final CommonsTreeSet <ELEMENTTYPE> ret = newSortedSet ();
-    if (aEnum != null)
-      while (aEnum.hasMoreElements ())
-        ret.add (aEnum.nextElement ());
+    ret.addAll (aEnum);
     return ret;
   }
 
@@ -1246,9 +1238,7 @@ public final class CollectionHelper
   public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nonnull final Iterator <? extends ELEMENTTYPE> aIter)
   {
     final CommonsLinkedHashSet <ELEMENTTYPE> ret = newOrderedSet ();
-    if (aIter != null)
-      while (aIter.hasNext ())
-        ret.add (aIter.next ());
+    ret.addAll (aIter);
     return ret;
   }
 
@@ -1266,9 +1256,7 @@ public final class CollectionHelper
   public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
   {
     final CommonsLinkedHashSet <ELEMENTTYPE> ret = newOrderedSet ();
-    if (aEnum != null)
-      while (aEnum.hasMoreElements ())
-        ret.add (aEnum.nextElement ());
+    ret.addAll (aEnum);
     return ret;
   }
 
@@ -1332,7 +1320,7 @@ public final class CollectionHelper
       return newList (0);
 
     final CommonsArrayList <ELEMENTTYPE> ret = newList (aValues.length);
-    Collections.addAll (ret, aValues);
+    ret.addAll (aValues);
     return ret;
   }
 
@@ -1346,8 +1334,7 @@ public final class CollectionHelper
       return newList (0);
 
     final CommonsArrayList <DSTTYPE> ret = newList (aValues.length);
-    for (final SRCTYPE aValue : aValues)
-      ret.add (aMapper.apply (aValue));
+    ret.addAllMapped (aValues, aMapper);
     return ret;
   }
 
@@ -1357,9 +1344,7 @@ public final class CollectionHelper
                                                                                  @Nonnull final Function <? super ELEMENTTYPE, ? extends DSTTYPE> aMapper)
   {
     final CommonsArrayList <DSTTYPE> ret = newList ();
-    if (aIter != null)
-      for (final ELEMENTTYPE aObj : aIter)
-        ret.add (aMapper.apply (aObj));
+    ret.addAllMapped (aIter, aMapper);
     return ret;
   }
 
@@ -1371,8 +1356,7 @@ public final class CollectionHelper
     if (isEmpty (aCollection))
       return newList (0);
     final CommonsArrayList <DSTTYPE> ret = newList (aCollection.size ());
-    for (final SRCTYPE aValue : aCollection)
-      ret.add (aMapper.apply (aValue));
+    ret.addAllMapped (aCollection, aMapper);
     return ret;
   }
 
@@ -1392,9 +1376,7 @@ public final class CollectionHelper
   public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> newList (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
   {
     final CommonsArrayList <ELEMENTTYPE> ret = newList ();
-    if (aEnum != null)
-      while (aEnum.hasMoreElements ())
-        ret.add (aEnum.nextElement ());
+    ret.addAll (aEnum);
     return ret;
   }
 
@@ -1403,9 +1385,7 @@ public final class CollectionHelper
   public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> newList (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
   {
     final CommonsArrayList <ELEMENTTYPE> ret = newList ();
-    if (aIter != null)
-      while (aIter.hasNext ())
-        ret.add (aIter.next ());
+    ret.addAll (aIter);
     return ret;
   }
 

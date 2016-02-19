@@ -35,9 +35,20 @@ public class CommonsTreeSet <ELEMENTTYPE> extends TreeSet <ELEMENTTYPE> implemen
     super (aComparator);
   }
 
-  public CommonsTreeSet (@Nonnull final Collection <? extends ELEMENTTYPE> aCont)
+  public CommonsTreeSet (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
-    super (aCont);
+    if (aCont != null)
+      addAll (aCont);
+  }
+
+  public CommonsTreeSet (@Nullable final Iterable <? extends ELEMENTTYPE> aIterable)
+  {
+    addAll (aIterable);
+  }
+
+  public CommonsTreeSet (@Nullable final ELEMENTTYPE aValue)
+  {
+    add (aValue);
   }
 
   @Nonnull

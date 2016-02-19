@@ -16,7 +16,6 @@
  */
 package com.helger.commons.locale;
 
-import java.util.Collection;
 import java.util.Locale;
 
 import javax.annotation.Nonnegative;
@@ -24,6 +23,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.ICommonsCollection;
 
 /**
  * Base interface for objects having zero or more locales.
@@ -37,7 +37,7 @@ public interface IHasLocales
    */
   @Nonnull
   @ReturnsMutableCopy
-  Collection <Locale> getAllLocales ();
+  ICommonsCollection <Locale> getAllLocales ();
 
   /**
    * @return The number of contained locales. Always &ge; 0.

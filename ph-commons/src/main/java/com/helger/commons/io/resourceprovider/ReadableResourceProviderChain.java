@@ -24,7 +24,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.resource.IReadableResource;
@@ -45,14 +45,14 @@ public class ReadableResourceProviderChain implements IReadableResourceProvider
   {
     ValueEnforcer.notEmptyNoNullValue (aResProviders, "ResourceProviders");
 
-    m_aReadingResourceProviders = CollectionHelper.newList (aResProviders);
+    m_aReadingResourceProviders = new CommonsArrayList <> (aResProviders);
   }
 
   public ReadableResourceProviderChain (@Nonnull final Iterable <? extends IReadableResourceProvider> aResProviders)
   {
     ValueEnforcer.notEmptyNoNullValue (aResProviders, "ResourceProviders");
 
-    m_aReadingResourceProviders = CollectionHelper.newList (aResProviders);
+    m_aReadingResourceProviders = new CommonsArrayList <> (aResProviders);
   }
 
   @Nonnull

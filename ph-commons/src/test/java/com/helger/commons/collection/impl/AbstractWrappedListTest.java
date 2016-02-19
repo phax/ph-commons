@@ -24,12 +24,12 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.lang.GenericReflection;
 
 /**
@@ -39,14 +39,6 @@ import com.helger.commons.lang.GenericReflection;
  */
 public final class AbstractWrappedListTest
 {
-  private static class FacadedList <T> extends WrappedList <T>
-  {
-    public FacadedList (final List <T> aList)
-    {
-      super (aList);
-    }
-  }
-
   private static <T> void _testList (final List <T> aList, final Class <T> aClass) throws InstantiationException,
                                                                                    IllegalAccessException
   {
@@ -123,6 +115,6 @@ public final class AbstractWrappedListTest
   @Test
   public void testList () throws InstantiationException, IllegalAccessException
   {
-    _testList (new FacadedList <String> (new ArrayList <String> ()), String.class);
+    _testList (new WrappedList <> (new CommonsArrayList <> ()), String.class);
   }
 }

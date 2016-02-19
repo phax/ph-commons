@@ -22,6 +22,8 @@ import java.util.SortedMap;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
+
 public interface ICommonsSortedMap <KEYTYPE, VALUETYPE>
                                    extends SortedMap <KEYTYPE, VALUETYPE>, ICommonsMap <KEYTYPE, VALUETYPE>
 {
@@ -56,4 +58,8 @@ public interface ICommonsSortedMap <KEYTYPE, VALUETYPE>
   {
     return Collections.unmodifiableSortedMap (this);
   }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  ICommonsSortedMap <KEYTYPE, VALUETYPE> getClone ();
 }

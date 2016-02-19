@@ -49,7 +49,7 @@ import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.misc.SizeHelper;
@@ -930,7 +930,7 @@ public final class FileHelper
         s_aLogger.warn ("Directory is missing the listing permission: " + aDirectory.getAbsolutePath ());
       }
     }
-    return CollectionHelper.newList (aSelectedContent);
+    return new CommonsArrayList <> (aSelectedContent);
   }
 
   /**

@@ -27,7 +27,7 @@ import javax.xml.xpath.XPathVariableResolver;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -66,7 +66,7 @@ public class MapBasedXPathVariableResolverQName implements
    */
   public MapBasedXPathVariableResolverQName (@Nullable final Map <QName, ?> aVars)
   {
-    m_aMap = CollectionHelper.newMap (aVars);
+    m_aMap = new CommonsHashMap <> (aVars);
   }
 
   /**
@@ -227,9 +227,7 @@ public class MapBasedXPathVariableResolverQName implements
    */
   public void setAllVariables (@Nullable final Map <QName, ?> aVars)
   {
-    m_aMap.clear ();
-    if (aVars != null)
-      m_aMap.putAll (aVars);
+    m_aMap.setAll (aVars);
   }
 
   @Nullable

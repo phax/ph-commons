@@ -29,7 +29,7 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.string.StringHelper;
 
@@ -119,7 +119,7 @@ public final class RegExHelper
   public static ICommonsList <String> getSplitToList (@Nullable final CharSequence sText,
                                                       @Nonnull @RegEx final String sRegEx)
   {
-    return CollectionHelper.newList (getSplitToArray (sText, sRegEx));
+    return new CommonsArrayList <> (getSplitToArray (sText, sRegEx));
   }
 
   /**
@@ -145,7 +145,7 @@ public final class RegExHelper
                                                       @Nonnull @RegEx final String sRegEx,
                                                       @Nonnegative final int nLimit)
   {
-    return CollectionHelper.newList (getSplitToArray (sText, sRegEx, nLimit));
+    return new CommonsArrayList <> (getSplitToArray (sText, sRegEx, nLimit));
   }
 
   /**

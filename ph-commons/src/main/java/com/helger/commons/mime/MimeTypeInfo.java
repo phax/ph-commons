@@ -27,6 +27,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsLinkedHashSet;
+import com.helger.commons.collection.ext.ICommonsOrderedSet;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -176,29 +177,29 @@ public final class MimeTypeInfo
     }
   }
 
-  private final ICommonsSet <MimeTypeWithSource> m_aMimeTypes;
+  private final ICommonsOrderedSet <MimeTypeWithSource> m_aMimeTypes;
   private final String m_sComment;
-  private final ICommonsSet <String> m_aParentTypes;
-  private final ICommonsSet <String> m_aGlobs;
-  private final ICommonsSet <ExtensionWithSource> m_aExtensions;
+  private final ICommonsOrderedSet <String> m_aParentTypes;
+  private final ICommonsOrderedSet <String> m_aGlobs;
+  private final ICommonsOrderedSet <ExtensionWithSource> m_aExtensions;
   private final String m_sSource;
 
-  public MimeTypeInfo (@Nonnull @Nonempty final ICommonsSet <MimeTypeWithSource> aMimeTypes,
+  public MimeTypeInfo (@Nonnull @Nonempty final ICommonsOrderedSet <MimeTypeWithSource> aMimeTypes,
                        @Nullable final String sComment,
-                       @Nonnull final ICommonsSet <String> aParentTypes,
-                       @Nonnull final ICommonsSet <String> aGlobs,
-                       @Nonnull final ICommonsSet <ExtensionWithSource> aExtensions,
+                       @Nonnull final ICommonsOrderedSet <String> aParentTypes,
+                       @Nonnull final ICommonsOrderedSet <String> aGlobs,
+                       @Nonnull final ICommonsOrderedSet <ExtensionWithSource> aExtensions,
                        @Nullable final String sSource)
   {
     ValueEnforcer.notEmptyNoNullValue (aMimeTypes, "MimeTypes");
     ValueEnforcer.notNull (aParentTypes, "ParentTypes");
     ValueEnforcer.notNull (aGlobs, "Globs");
     ValueEnforcer.notNull (aExtensions, "Extensions");
-    m_aMimeTypes = CollectionHelper.newOrderedSet (aMimeTypes);
+    m_aMimeTypes = aMimeTypes.getClone ();
     m_sComment = sComment;
-    m_aParentTypes = CollectionHelper.newOrderedSet (aParentTypes);
-    m_aGlobs = CollectionHelper.newOrderedSet (aGlobs);
-    m_aExtensions = CollectionHelper.newOrderedSet (aExtensions);
+    m_aParentTypes = aParentTypes.getClone ();
+    m_aGlobs = aGlobs.getClone ();
+    m_aExtensions = aExtensions.getClone ();
     m_sSource = sSource;
   }
 
@@ -247,7 +248,7 @@ public final class MimeTypeInfo
   @Nonnull
   public MimeTypeWithSource getPrimaryMimeTypeWithSource ()
   {
-    return CollectionHelper.getFirstElement (m_aMimeTypes);
+    return m_aMimeTypes.getFirst ();
   }
 
   @Nonnull
@@ -275,9 +276,9 @@ public final class MimeTypeInfo
 
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsSet <String> getAllParentTypes ()
+  public ICommonsOrderedSet <String> getAllParentTypes ()
   {
-    return CollectionHelper.newOrderedSet (m_aParentTypes);
+    return m_aParentTypes.getClone ();
   }
 
   public boolean hasAnyParentType ()
@@ -287,15 +288,15 @@ public final class MimeTypeInfo
 
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsSet <String> getAllGlobs ()
+  public ICommonsOrderedSet <String> getAllGlobs ()
   {
-    return CollectionHelper.newOrderedSet (m_aGlobs);
+    return m_aGlobs.getClone ();
   }
 
   @Nullable
   public String getPrimaryGlob ()
   {
-    return CollectionHelper.getFirstElement (m_aGlobs);
+    return m_aGlobs.getFirst ();
   }
 
   public boolean hasAnyGlob ()
@@ -305,25 +306,24 @@ public final class MimeTypeInfo
 
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsSet <ExtensionWithSource> getAllExtensionsWithSource ()
+  public ICommonsOrderedSet <ExtensionWithSource> getAllExtensionsWithSource ()
   {
-    return CollectionHelper.newOrderedSet (m_aExtensions);
+    return m_aExtensions.getClone ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsSet <String> getAllExtensions ()
+  public ICommonsOrderedSet <String> getAllExtensions ()
   {
-    final ICommonsSet <String> ret = new CommonsLinkedHashSet <> ();
-    for (final ExtensionWithSource aItem : m_aExtensions)
-      ret.add (aItem.getExtension ());
+    final ICommonsOrderedSet <String> ret = new CommonsLinkedHashSet <> ();
+    ret.addAllMapped (m_aExtensions, ExtensionWithSource::getExtension);
     return ret;
   }
 
   @Nullable
   public ExtensionWithSource getPrimaryExtensionWithSource ()
   {
-    return CollectionHelper.getFirstElement (m_aExtensions);
+    return m_aExtensions.getFirst ();
   }
 
   @Nullable
@@ -335,7 +335,7 @@ public final class MimeTypeInfo
 
   public boolean hasAnyExtension ()
   {
-    return !m_aExtensions.isEmpty ();
+    return m_aExtensions.isNotEmpty ();
   }
 
   public boolean containsExtension (@Nullable final String sExtension)

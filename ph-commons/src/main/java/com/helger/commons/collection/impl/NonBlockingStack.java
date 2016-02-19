@@ -24,7 +24,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
@@ -52,7 +51,7 @@ public class NonBlockingStack <ELEMENTTYPE> extends CommonsArrayList <ELEMENTTYP
   @SafeVarargs
   public NonBlockingStack (@Nullable final ELEMENTTYPE... aElements)
   {
-    CollectionHelper.getConcatenatedInline (this, aElements);
+    addAll (aElements);
   }
 
   public NonBlockingStack (@Nullable final Collection <? extends ELEMENTTYPE> aCollection)

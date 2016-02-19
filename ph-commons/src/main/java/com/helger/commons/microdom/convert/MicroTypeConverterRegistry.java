@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Singleton;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.CommonsWeakHashMap;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
@@ -177,7 +177,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
   public void iterateAllRegisteredMicroTypeConverters (@Nonnull final IMicroTypeConverterCallback aCallback)
   {
     // Create a static copy of the map (HashMap not weak!)
-    final ICommonsMap <Class <?>, IMicroTypeConverter> aCopy = m_aRWLock.readLocked ( () -> CollectionHelper.newMap (m_aMap));
+    final ICommonsMap <Class <?>, IMicroTypeConverter> aCopy = m_aRWLock.readLocked ( () -> new CommonsHashMap <> (m_aMap));
 
     // And iterate the copy
     for (final Map.Entry <Class <?>, IMicroTypeConverter> aEntry : aCopy.entrySet ())

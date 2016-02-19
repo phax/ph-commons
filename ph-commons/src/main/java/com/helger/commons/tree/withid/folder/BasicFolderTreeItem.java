@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.aggregate.IAggregator;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -103,7 +103,7 @@ public class BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collection
     if (aParent == null)
       return getID ();
 
-    final ICommonsList <KEYTYPE> aList = CollectionHelper.newList (aParent.getGlobalUniqueDataID (), getID ());
+    final ICommonsList <KEYTYPE> aList = new CommonsArrayList <> (aParent.getGlobalUniqueDataID (), getID ());
     return m_aKeyCombinator.apply (aList);
   }
 

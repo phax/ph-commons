@@ -16,12 +16,13 @@
  */
 package com.helger.commons.statistics.util;
 
+import java.util.Comparator;
+
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.statistics.IStatisticsHandlerCache;
 import com.helger.commons.statistics.IStatisticsHandlerCounter;
@@ -57,7 +58,7 @@ public final class StatisticsVisitor
     ValueEnforcer.notNull (aCallback, "Callback");
 
     // For all cache handler
-    ICommonsList <String> aHandlers = CollectionHelper.getSorted (StatisticsManager.getAllCacheHandler ());
+    ICommonsList <String> aHandlers = StatisticsManager.getAllCacheHandler ().getSorted (Comparator.naturalOrder ());
     for (final String sName : aHandlers)
     {
       final IStatisticsHandlerCache aHandler = StatisticsManager.getCacheHandler (sName);
@@ -65,7 +66,7 @@ public final class StatisticsVisitor
     }
 
     // For all timer handler
-    aHandlers = CollectionHelper.getSorted (StatisticsManager.getAllTimerHandler ());
+    aHandlers = StatisticsManager.getAllTimerHandler ().getSorted (Comparator.naturalOrder ());
     for (final String sName : aHandlers)
     {
       final IStatisticsHandlerTimer aHandler = StatisticsManager.getTimerHandler (sName);
@@ -73,7 +74,7 @@ public final class StatisticsVisitor
     }
 
     // For all keyed timer handler
-    aHandlers = CollectionHelper.getSorted (StatisticsManager.getAllKeyedTimerHandler ());
+    aHandlers = StatisticsManager.getAllKeyedTimerHandler ().getSorted (Comparator.naturalOrder ());
     for (final String sName : aHandlers)
     {
       final IStatisticsHandlerKeyedTimer aHandler = StatisticsManager.getKeyedTimerHandler (sName);
@@ -81,7 +82,7 @@ public final class StatisticsVisitor
     }
 
     // For all size handler
-    aHandlers = CollectionHelper.getSorted (StatisticsManager.getAllSizeHandler ());
+    aHandlers = StatisticsManager.getAllSizeHandler ().getSorted (Comparator.naturalOrder ());
     for (final String sName : aHandlers)
     {
       final IStatisticsHandlerSize aHandler = StatisticsManager.getSizeHandler (sName);
@@ -89,7 +90,7 @@ public final class StatisticsVisitor
     }
 
     // For all keyed size handler
-    aHandlers = CollectionHelper.getSorted (StatisticsManager.getAllKeyedSizeHandler ());
+    aHandlers = StatisticsManager.getAllKeyedSizeHandler ().getSorted (Comparator.naturalOrder ());
     for (final String sName : aHandlers)
     {
       final IStatisticsHandlerKeyedSize aHandler = StatisticsManager.getKeyedSizeHandler (sName);
@@ -97,7 +98,7 @@ public final class StatisticsVisitor
     }
 
     // For all counter handler
-    aHandlers = CollectionHelper.getSorted (StatisticsManager.getAllCounterHandler ());
+    aHandlers = StatisticsManager.getAllCounterHandler ().getSorted (Comparator.naturalOrder ());
     for (final String sName : aHandlers)
     {
       final IStatisticsHandlerCounter aHandler = StatisticsManager.getCounterHandler (sName);
@@ -105,7 +106,7 @@ public final class StatisticsVisitor
     }
 
     // For all keyed counter handler
-    aHandlers = CollectionHelper.getSorted (StatisticsManager.getAllKeyedCounterHandler ());
+    aHandlers = StatisticsManager.getAllKeyedCounterHandler ().getSorted (Comparator.naturalOrder ());
     for (final String sName : aHandlers)
     {
       final IStatisticsHandlerKeyedCounter aHandler = StatisticsManager.getKeyedCounterHandler (sName);

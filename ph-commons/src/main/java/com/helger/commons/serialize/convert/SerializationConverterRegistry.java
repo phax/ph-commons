@@ -31,7 +31,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Singleton;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.CommonsWeakHashMap;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
@@ -171,7 +171,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
   public void iterateAllRegisteredSerializationConverters (@Nonnull final ISerializationConverterCallback aCallback)
   {
     // Create a static (non weak) copy of the map
-    final Map <Class <?>, ISerializationConverter <?>> aCopy = m_aRWLock.readLocked ( () -> CollectionHelper.newMap (m_aMap));
+    final Map <Class <?>, ISerializationConverter <?>> aCopy = m_aRWLock.readLocked ( () -> new CommonsHashMap <> (m_aMap));
 
     // And iterate the copy
     for (final Map.Entry <Class <?>, ISerializationConverter <?>> aEntry : aCopy.entrySet ())

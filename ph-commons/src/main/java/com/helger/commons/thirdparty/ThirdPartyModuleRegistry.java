@@ -30,7 +30,7 @@ import com.helger.commons.annotation.MustBeLocked;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.Singleton;
 import com.helger.commons.collection.ext.CommonsLinkedHashSet;
-import com.helger.commons.collection.ext.ICommonsSet;
+import com.helger.commons.collection.ext.ICommonsOrderedSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.commons.state.EChange;
@@ -54,7 +54,7 @@ public final class ThirdPartyModuleRegistry
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
-  private final ICommonsSet <IThirdPartyModule> m_aModules = new CommonsLinkedHashSet <> ();
+  private final ICommonsOrderedSet <IThirdPartyModule> m_aModules = new CommonsLinkedHashSet <> ();
 
   private ThirdPartyModuleRegistry ()
   {
@@ -91,7 +91,7 @@ public final class ThirdPartyModuleRegistry
 
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsSet <IThirdPartyModule> getAllRegisteredThirdPartyModules ()
+  public ICommonsOrderedSet <IThirdPartyModule> getAllRegisteredThirdPartyModules ()
   {
     return m_aRWLock.readLocked ( () -> m_aModules.getClone ());
   }
