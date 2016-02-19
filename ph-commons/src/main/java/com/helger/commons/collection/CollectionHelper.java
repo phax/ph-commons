@@ -1356,6 +1356,17 @@ public final class CollectionHelper
     return ret;
   }
 
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE, DSTTYPE> CommonsArrayList <DSTTYPE> newListMapped (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
+                                                                                 @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
+                                                                                 @Nonnull final Function <? super ELEMENTTYPE, ? extends DSTTYPE> aMapper)
+  {
+    final CommonsArrayList <DSTTYPE> ret = newList ();
+    findAllMapped (aCollection, aFilter, aMapper, ret::add);
+    return ret;
+  }
+
   /**
    * Compared to {@link Collections#list(Enumeration)} this method is more
    * flexible in Generics parameter.
@@ -2362,16 +2373,6 @@ public final class CollectionHelper
     return aDefault;
   }
 
-  @Nonnull
-  @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> getAll (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
-                                                                     @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
-  {
-    final CommonsArrayList <ELEMENTTYPE> ret = newList ();
-    findAll (aCollection, aFilter, ret::add);
-    return ret;
-  }
-
   public static <ELEMENTTYPE> void findAll (@Nullable final Iterable <? extends ELEMENTTYPE> aSrc,
                                             @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
                                             @Nonnull final Collection <? super ELEMENTTYPE> aDst)
@@ -2392,16 +2393,6 @@ public final class CollectionHelper
           aConsumer.accept (aElement);
   }
 
-  @Nonnull
-  @ReturnsMutableCopy
-  public static <ELEMENTTYPE, DSTTYPE> CommonsArrayList <DSTTYPE> getAllMapped (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
-                                                                                @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
-  {
-    final CommonsArrayList <DSTTYPE> ret = newList ();
-    findAllMapped (aCollection, aMapper, ret::add);
-    return ret;
-  }
-
   public static <SRCTYPE, DSTTYPE> void findAllMapped (@Nullable final Iterable <? extends SRCTYPE> aSrc,
                                                        @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
                                                        @Nonnull final Collection <? super DSTTYPE> aDst)
@@ -2419,17 +2410,6 @@ public final class CollectionHelper
     if (isNotEmpty (aSrc))
       for (final SRCTYPE aElement : aSrc)
         aConsumer.accept (aMapper.apply (aElement));
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static <ELEMENTTYPE, DSTTYPE> CommonsArrayList <DSTTYPE> getAllMapped (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
-                                                                                @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                                                                @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
-  {
-    final CommonsArrayList <DSTTYPE> ret = newList ();
-    findAllMapped (aCollection, aFilter, aMapper, ret::add);
-    return ret;
   }
 
   public static <SRCTYPE, DSTTYPE> void findAllMapped (@Nullable final Iterable <? extends SRCTYPE> aSrc,

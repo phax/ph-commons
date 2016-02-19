@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
@@ -47,6 +48,32 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   default ICommonsList <VALUETYPE> copyOfValues ()
   {
     return new CommonsArrayList <> (values ());
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  default ICommonsList <VALUETYPE> copyOfValues (@Nullable final Predicate <? super VALUETYPE> aFilter)
+  {
+    if (aFilter == null)
+      return copyOfValues ();
+    return CollectionHelper.newList (values (), aFilter);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  default <DSTTYPE> ICommonsList <DSTTYPE> copyOfValuesMapped (@Nonnull final Function <? super VALUETYPE, ? extends DSTTYPE> aMapper)
+  {
+    return CollectionHelper.newListMapped (values (), aMapper);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  default <DSTTYPE> ICommonsList <DSTTYPE> copyOfValuesMapped (@Nullable final Predicate <? super VALUETYPE> aFilter,
+                                                               @Nonnull final Function <? super VALUETYPE, ? extends DSTTYPE> aMapper)
+  {
+    if (aFilter == null)
+      return copyOfValuesMapped (aMapper);
+    return CollectionHelper.newListMapped (values (), aFilter, aMapper);
   }
 
   @Nonnull

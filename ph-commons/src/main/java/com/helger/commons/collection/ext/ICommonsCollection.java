@@ -51,7 +51,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
   @ReturnsMutableCopy
   default ICommonsList <ELEMENTTYPE> getCopyAsList ()
   {
-    return CollectionHelper.newList (this);
+    return new CommonsArrayList <> (this);
   }
 
   default void findAll (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
