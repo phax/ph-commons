@@ -41,7 +41,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsLinkedHashMap;
-import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.filter.IFilter;
 import com.helger.commons.string.StringHelper;
@@ -535,14 +535,14 @@ public final class XMLHelper
 
   @Nullable
   @ReturnsMutableCopy
-  public static ICommonsMap <String, String> getAllAttributesAsMap (@Nullable final Element aSrcNode)
+  public static ICommonsOrderedMap <String, String> getAllAttributesAsMap (@Nullable final Element aSrcNode)
   {
     if (aSrcNode != null)
     {
       final NamedNodeMap aNNM = aSrcNode.getAttributes ();
       if (aNNM != null)
       {
-        final ICommonsMap <String, String> aMap = new CommonsLinkedHashMap <> (aNNM.getLength ());
+        final ICommonsOrderedMap <String, String> aMap = new CommonsLinkedHashMap <> (aNNM.getLength ());
         final int nMax = aNNM.getLength ();
         for (int i = 0; i < nMax; ++i)
         {

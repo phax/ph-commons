@@ -26,7 +26,7 @@ import javax.xml.namespace.QName;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.microdom.IMicroCDATA;
 import com.helger.commons.microdom.IMicroComment;
 import com.helger.commons.microdom.IMicroContainer;
@@ -216,7 +216,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
     final boolean bIsFirstChildElement = bHasChildren && !_isInlineNode (aElement.getFirstChild ());
 
     // get all attributes (order is important!)
-    final ICommonsMap <QName, String> aAttrMap = new CommonsLinkedHashMap <> ();
+    final ICommonsOrderedMap <QName, String> aAttrMap = new CommonsLinkedHashMap <> ();
 
     m_aNSStack.push ();
 

@@ -32,8 +32,8 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.collection.ext.ICommonsMap;
-import com.helger.commons.collection.ext.ICommonsSet;
+import com.helger.commons.collection.ext.ICommonsOrderedMap;
+import com.helger.commons.collection.ext.ICommonsOrderedSet;
 import com.helger.commons.collection.iterate.EmptyIterator;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.equals.EqualsHelper;
@@ -55,7 +55,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
 
   private String m_sNamespaceURI;
   private final String m_sTagName;
-  private ICommonsMap <IMicroQName, MicroAttribute> m_aAttrs;
+  private ICommonsOrderedMap <IMicroQName, MicroAttribute> m_aAttrs;
 
   public MicroElement (@Nonnull @Nonempty final String sTagName)
   {
@@ -139,11 +139,11 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
 
   @Nullable
   @ReturnsMutableCopy
-  public ICommonsMap <IMicroQName, String> getAllQAttributes ()
+  public ICommonsOrderedMap <IMicroQName, String> getAllQAttributes ()
   {
     if (hasNoAttributes ())
       return null;
-    final ICommonsMap <IMicroQName, String> ret = new CommonsLinkedHashMap <> ();
+    final ICommonsOrderedMap <IMicroQName, String> ret = new CommonsLinkedHashMap <> ();
     for (final MicroAttribute aAttr : m_aAttrs.values ())
       ret.put (aAttr.getAttributeQName (), aAttr.getAttributeValue ());
     return ret;
@@ -151,16 +151,16 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
 
   @Nullable
   @ReturnsMutableCopy
-  public ICommonsSet <String> getAllAttributeNames ()
+  public ICommonsOrderedSet <String> getAllAttributeNames ()
   {
     if (hasNoAttributes ())
       return null;
-    return CollectionHelper.newSetMapped (m_aAttrs.keySet (), IMicroQName::getName);
+    return CollectionHelper.newOrderedSetMapped (m_aAttrs.keySet (), IMicroQName::getName);
   }
 
   @Nullable
   @ReturnsMutableCopy
-  public ICommonsSet <IMicroQName> getAllAttributeQNames ()
+  public ICommonsOrderedSet <IMicroQName> getAllAttributeQNames ()
   {
     if (hasNoAttributes ())
       return null;

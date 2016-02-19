@@ -55,7 +55,7 @@ import com.helger.commons.codec.IEncoder;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.io.file.FilenameHelper;
@@ -473,7 +473,7 @@ public final class URLHelper
         }
 
     String sPath;
-    ICommonsMap <String, String> aParams = null;
+    ICommonsOrderedMap <String, String> aParams = null;
     String sAnchor;
 
     // First get the anchor out
@@ -509,10 +509,10 @@ public final class URLHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ICommonsMap <String, String> getQueryStringAsMap (@Nullable final String sQueryString,
-                                                                  @Nullable final IDecoder <String, String> aParameterDecoder)
+  public static ICommonsOrderedMap <String, String> getQueryStringAsMap (@Nullable final String sQueryString,
+                                                                         @Nullable final IDecoder <String, String> aParameterDecoder)
   {
-    final ICommonsMap <String, String> aMap = new CommonsLinkedHashMap <> ();
+    final ICommonsOrderedMap <String, String> aMap = new CommonsLinkedHashMap <> ();
     if (StringHelper.hasText (sQueryString))
     {
       for (final String sKeyValuePair : StringHelper.getExploded (AMPERSAND, sQueryString))

@@ -29,7 +29,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsLinkedHashMap;
-import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.collection.multimap.IMultiMapSetBased;
 import com.helger.commons.collection.multimap.MultiHashMapHashSetBased;
@@ -48,7 +48,7 @@ import com.helger.commons.string.ToStringGenerator;
 public class MapBasedNamespaceContext extends AbstractNamespaceContext implements ICloneable <MapBasedNamespaceContext>
 {
   private String m_sDefaultNamespaceURI;
-  private final ICommonsMap <String, String> m_aPrefix2NS = new CommonsLinkedHashMap <> ();
+  private final ICommonsOrderedMap <String, String> m_aPrefix2NS = new CommonsLinkedHashMap <> ();
   private final IMultiMapSetBased <String, String> m_aNS2Prefix = new MultiHashMapHashSetBased <> ();
 
   public MapBasedNamespaceContext ()
@@ -217,7 +217,7 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
 
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsMap <String, String> getPrefixToNamespaceURIMap ()
+  public ICommonsOrderedMap <String, String> getPrefixToNamespaceURIMap ()
   {
     return m_aPrefix2NS.getClone ();
   }

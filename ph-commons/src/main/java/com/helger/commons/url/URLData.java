@@ -25,7 +25,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
@@ -45,7 +45,7 @@ public class URLData implements IURLData
   public static final URLData EMPTY_URL_DATA = new URLData ("");
 
   private final String m_sPath;
-  private final ICommonsMap <String, String> m_aParams;
+  private final ICommonsOrderedMap <String, String> m_aParams;
   private final String m_sAnchor;
 
   public URLData (@Nonnull final String sPath)
@@ -53,13 +53,13 @@ public class URLData implements IURLData
     this (sPath, null, null);
   }
 
-  public URLData (@Nonnull final String sPath, @Nullable final ICommonsMap <String, String> aParams)
+  public URLData (@Nonnull final String sPath, @Nullable final ICommonsOrderedMap <String, String> aParams)
   {
     this (sPath, aParams, null);
   }
 
   public URLData (@Nonnull final String sPath,
-                  @Nullable final ICommonsMap <String, String> aParams,
+                  @Nullable final ICommonsOrderedMap <String, String> aParams,
                   @Nullable final String sAnchor)
   {
     m_sPath = ValueEnforcer.notNull (sPath, "Path");
@@ -86,14 +86,14 @@ public class URLData implements IURLData
 
   @Nullable
   @ReturnsMutableObject ("Performance reasons")
-  public ICommonsMap <String, String> directGetAllParams ()
+  public ICommonsOrderedMap <String, String> directGetAllParams ()
   {
     return m_aParams;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsMap <String, String> getAllParams ()
+  public ICommonsOrderedMap <String, String> getAllParams ()
   {
     return m_aParams.getClone ();
   }

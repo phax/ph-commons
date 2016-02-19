@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsOrderedMap;
 
 /**
  * Base interface representing the basic elements of a URL from a high level
@@ -77,7 +77,7 @@ public interface IURLData extends Serializable
    */
   @Nullable
   @ReturnsMutableObject ("design")
-  ICommonsMap <String, String> directGetAllParams ();
+  ICommonsOrderedMap <String, String> directGetAllParams ();
 
   /**
    * @return A map of all query string parameters in the order they were passed
@@ -85,7 +85,7 @@ public interface IURLData extends Serializable
    */
   @Nonnull
   @ReturnsMutableCopy
-  ICommonsMap <String, String> getAllParams ();
+  ICommonsOrderedMap <String, String> getAllParams ();
 
   /**
    * @return <code>true</code> if an anchor is present, <code>false</code>
