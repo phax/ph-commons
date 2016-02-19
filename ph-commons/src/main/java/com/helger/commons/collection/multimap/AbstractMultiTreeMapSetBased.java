@@ -18,16 +18,17 @@ package com.helger.commons.collection.multimap;
 
 import java.util.Comparator;
 import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.collection.ext.ICommonsSet;
+
 /**
  * Abstract multi map based on
  * {@link com.helger.commons.collection.ext.CommonsTreeMap} and
- * {@link java.util.Set} values.<br>
+ * {@link ICommonsSet} values.<br>
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -36,8 +37,8 @@ import javax.annotation.concurrent.NotThreadSafe;
  *        value type
  */
 @NotThreadSafe
-public abstract class AbstractMultiTreeMapSetBased <KEYTYPE, VALUETYPE>
-                                                   extends AbstractMultiTreeMap <KEYTYPE, VALUETYPE, Set <VALUETYPE>>
+public abstract class AbstractMultiTreeMapSetBased <KEYTYPE, VALUETYPE> extends
+                                                   AbstractMultiTreeMap <KEYTYPE, VALUETYPE, ICommonsSet <VALUETYPE>>
                                                    implements IMultiMapSetBased <KEYTYPE, VALUETYPE>
 {
   public AbstractMultiTreeMapSetBased ()
@@ -53,12 +54,13 @@ public abstract class AbstractMultiTreeMapSetBased <KEYTYPE, VALUETYPE>
     super (aKey, aValue);
   }
 
-  public AbstractMultiTreeMapSetBased (@Nullable final KEYTYPE aKey, @Nullable final Set <VALUETYPE> aCollection)
+  public AbstractMultiTreeMapSetBased (@Nullable final KEYTYPE aKey,
+                                       @Nullable final ICommonsSet <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }
 
-  public AbstractMultiTreeMapSetBased (@Nullable final Map <? extends KEYTYPE, ? extends Set <VALUETYPE>> aCont)
+  public AbstractMultiTreeMapSetBased (@Nullable final Map <? extends KEYTYPE, ? extends ICommonsSet <VALUETYPE>> aCont)
   {
     super (aCont);
   }

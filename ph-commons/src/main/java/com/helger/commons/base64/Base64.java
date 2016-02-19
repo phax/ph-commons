@@ -2418,7 +2418,7 @@ public final class Base64
   @ReturnsMutableCopy
   public static byte [] decodeFromFile (@Nonnull final String filename) throws IOException
   {
-    // Set up some useful variables
+    // Setup some useful variables
     final File file = new File (filename);
 
     // Check for size of file
@@ -2466,7 +2466,7 @@ public final class Base64
   @Nonnull
   public static String encodeFromFile (@Nonnull final String filename) throws IOException
   {
-    // Set up some useful variables
+    // Setup some useful variables
     final File file = new File (filename);
 
     // Open a stream

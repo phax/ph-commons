@@ -18,7 +18,6 @@ package com.helger.commons.collection.multimap;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -26,6 +25,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.collection.ext.CommonsConcurrentHashMap;
 
 /**
  * Abstract multi map based on {@link java.util.concurrent.ConcurrentHashMap}.
@@ -42,7 +42,7 @@ import com.helger.commons.annotation.ReturnsMutableObject;
  */
 @NotThreadSafe
 public abstract class AbstractMultiConcurrentHashMap <KEYTYPE, VALUETYPE, COLLTYPE extends Collection <VALUETYPE>>
-                                                     extends ConcurrentHashMap <KEYTYPE, COLLTYPE>
+                                                     extends CommonsConcurrentHashMap <KEYTYPE, COLLTYPE>
                                                      implements IMultiMap <KEYTYPE, VALUETYPE, COLLTYPE>
 {
   public AbstractMultiConcurrentHashMap ()
@@ -72,12 +72,6 @@ public abstract class AbstractMultiConcurrentHashMap <KEYTYPE, VALUETYPE, COLLTY
   @ReturnsMutableObject ("design")
   public COLLTYPE getOrCreate (@Nonnull final KEYTYPE aKey)
   {
-    COLLTYPE aCont = get (aKey);
-    if (aCont == null)
-    {
-      aCont = createNewCollection ();
-      super.put (aKey, aCont);
-    }
-    return aCont;
+    return computeIfAbsent (aKey, k -> createNewCollection ());
   }
 }

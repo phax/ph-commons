@@ -17,7 +17,6 @@
 package com.helger.commons.collection.multimap;
 
 import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -25,6 +24,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.ICommonsSet;
 
 /**
  * Multi map based on {@link java.util.HashMap} and {@link CommonsHashSet}
@@ -47,12 +47,12 @@ public class MultiHashMapHashSetBased <KEYTYPE, VALUETYPE> extends AbstractMulti
     super (aKey, aValue);
   }
 
-  public MultiHashMapHashSetBased (@Nullable final KEYTYPE aKey, @Nullable final Set <VALUETYPE> aCollection)
+  public MultiHashMapHashSetBased (@Nullable final KEYTYPE aKey, @Nullable final ICommonsSet <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }
 
-  public MultiHashMapHashSetBased (@Nullable final Map <? extends KEYTYPE, ? extends Set <VALUETYPE>> aCont)
+  public MultiHashMapHashSetBased (@Nullable final Map <? extends KEYTYPE, ? extends ICommonsSet <VALUETYPE>> aCont)
   {
     super (aCont);
   }

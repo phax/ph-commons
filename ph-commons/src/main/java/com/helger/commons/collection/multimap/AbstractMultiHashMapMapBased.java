@@ -16,12 +16,14 @@
  */
 package com.helger.commons.collection.multimap;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
+
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 
 /**
  * Abstract multi map based on {@link java.util.HashMap}.
@@ -36,7 +38,7 @@ import javax.annotation.concurrent.NotThreadSafe;
  */
 @NotThreadSafe
 public abstract class AbstractMultiHashMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
-                                                   extends HashMap <KEYTYPE1, Map <KEYTYPE2, VALUETYPE>>
+                                                   extends CommonsHashMap <KEYTYPE1, ICommonsMap <KEYTYPE2, VALUETYPE>>
                                                    implements IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
 {
   public AbstractMultiHashMapMapBased ()
@@ -49,29 +51,24 @@ public abstract class AbstractMultiHashMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYP
     putSingle (aKey, aInnerKey, aValue);
   }
 
-  public AbstractMultiHashMapMapBased (@Nullable final KEYTYPE1 aKey, @Nullable final Map <KEYTYPE2, VALUETYPE> aValue)
+  public AbstractMultiHashMapMapBased (@Nullable final KEYTYPE1 aKey,
+                                       @Nullable final ICommonsMap <KEYTYPE2, VALUETYPE> aValue)
   {
     put (aKey, aValue);
   }
 
-  public AbstractMultiHashMapMapBased (@Nullable final Map <? extends KEYTYPE1, ? extends Map <KEYTYPE2, VALUETYPE>> aCont)
+  public AbstractMultiHashMapMapBased (@Nullable final Map <? extends KEYTYPE1, ? extends ICommonsMap <KEYTYPE2, VALUETYPE>> aCont)
   {
     if (aCont != null)
       putAll (aCont);
   }
 
   @Nonnull
-  protected abstract Map <KEYTYPE2, VALUETYPE> createNewInnerMap ();
+  protected abstract ICommonsMap <KEYTYPE2, VALUETYPE> createNewInnerMap ();
 
   @Nonnull
-  public Map <KEYTYPE2, VALUETYPE> getOrCreate (@Nullable final KEYTYPE1 aKey)
+  public ICommonsMap <KEYTYPE2, VALUETYPE> getOrCreate (@Nullable final KEYTYPE1 aKey)
   {
-    Map <KEYTYPE2, VALUETYPE> aCont = get (aKey);
-    if (aCont == null)
-    {
-      aCont = createNewInnerMap ();
-      super.put (aKey, aCont);
-    }
-    return aCont;
+    return computeIfAbsent (aKey, k -> createNewInnerMap ());
   }
 }

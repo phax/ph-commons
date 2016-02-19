@@ -30,11 +30,11 @@ public final class MultiConcurrentHashMapHashSetBasedTest extends AbstractMultiM
   {
     IMultiMapSetBased <String, String> aMultiMap = new MultiConcurrentHashMapHashSetBased <String, String> ();
     testEmpty (aMultiMap);
-    aMultiMap = new MultiConcurrentHashMapHashSetBased <String, String> (getKey1 (), getValue1 ());
+    aMultiMap = new MultiConcurrentHashMapHashSetBased <> (getKey1 (), getValue1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiConcurrentHashMapHashSetBased <String, String> (getKey1 (), getValueSet1 ());
+    aMultiMap = new MultiConcurrentHashMapHashSetBased <> (getKey1 (), getValueSet1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiConcurrentHashMapHashSetBased <String, String> (getMapSet1 ());
+    aMultiMap = new MultiConcurrentHashMapHashSetBased <> (getMapSet1 ());
     testOne (aMultiMap);
   }
 }

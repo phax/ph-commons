@@ -18,7 +18,6 @@ package com.helger.commons.collection.multimap;
 
 import java.util.Comparator;
 import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -27,6 +26,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsLinkedHashSet;
 import com.helger.commons.collection.ext.CommonsTreeMap;
+import com.helger.commons.collection.ext.ICommonsSet;
 
 /**
  * Multi map based on {@link CommonsTreeMap} and {@link CommonsLinkedHashSet}
@@ -55,12 +55,13 @@ public class MultiTreeMapLinkedHashSetBased <KEYTYPE, VALUETYPE>
     super (aKey, aValue);
   }
 
-  public MultiTreeMapLinkedHashSetBased (@Nullable final KEYTYPE aKey, @Nullable final Set <VALUETYPE> aCollection)
+  public MultiTreeMapLinkedHashSetBased (@Nullable final KEYTYPE aKey,
+                                         @Nullable final ICommonsSet <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }
 
-  public MultiTreeMapLinkedHashSetBased (@Nullable final Map <? extends KEYTYPE, ? extends Set <VALUETYPE>> aCont)
+  public MultiTreeMapLinkedHashSetBased (@Nullable final Map <? extends KEYTYPE, ? extends ICommonsSet <VALUETYPE>> aCont)
   {
     super (aCont);
   }

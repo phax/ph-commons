@@ -16,13 +16,14 @@
  */
 package com.helger.commons.collection.multimap;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 
 public class MultiLinkedHashMapHashMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
                                             extends AbstractMultiLinkedHashMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
@@ -38,12 +39,12 @@ public class MultiLinkedHashMapHashMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
   }
 
   public MultiLinkedHashMapHashMapBased (@Nullable final KEYTYPE1 aKey,
-                                         @Nullable final Map <KEYTYPE2, VALUETYPE> aValue)
+                                         @Nullable final ICommonsMap <KEYTYPE2, VALUETYPE> aValue)
   {
     super (aKey, aValue);
   }
 
-  public MultiLinkedHashMapHashMapBased (@Nullable final Map <? extends KEYTYPE1, ? extends Map <KEYTYPE2, VALUETYPE>> aCont)
+  public MultiLinkedHashMapHashMapBased (@Nullable final Map <? extends KEYTYPE1, ? extends ICommonsMap <KEYTYPE2, VALUETYPE>> aCont)
   {
     super (aCont);
   }
@@ -51,8 +52,8 @@ public class MultiLinkedHashMapHashMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
   @Override
   @Nonnull
   @ReturnsMutableCopy
-  protected HashMap <KEYTYPE2, VALUETYPE> createNewInnerMap ()
+  protected CommonsHashMap <KEYTYPE2, VALUETYPE> createNewInnerMap ()
   {
-    return new HashMap <KEYTYPE2, VALUETYPE> ();
+    return new CommonsHashMap <KEYTYPE2, VALUETYPE> ();
   }
 }

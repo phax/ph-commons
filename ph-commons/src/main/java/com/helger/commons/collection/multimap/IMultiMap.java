@@ -18,12 +18,14 @@ package com.helger.commons.collection.multimap;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.function.BiConsumer;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.state.EChange;
 
 /**
@@ -37,7 +39,8 @@ import com.helger.commons.state.EChange;
  * @param <COLLTYPE>
  *        Container type containing value types
  */
-public interface IMultiMap <KEYTYPE, VALUETYPE, COLLTYPE extends Collection <VALUETYPE>> extends Map <KEYTYPE, COLLTYPE>
+public interface IMultiMap <KEYTYPE, VALUETYPE, COLLTYPE extends Collection <VALUETYPE>>
+                           extends ICommonsMap <KEYTYPE, COLLTYPE>
 {
   /**
    * Get or create the collection of the specified key.
@@ -125,5 +128,12 @@ public interface IMultiMap <KEYTYPE, VALUETYPE, COLLTYPE extends Collection <VAL
     for (final Collection <?> aChild : values ())
       ret += aChild.size ();
     return ret;
+  }
+
+  default void forEachSingle (@Nonnull final BiConsumer <KEYTYPE, VALUETYPE> aConsumer)
+  {
+    for (final Map.Entry <KEYTYPE, COLLTYPE> aEntry : entrySet ())
+      for (final VALUETYPE aValue : aEntry.getValue ())
+        aConsumer.accept (aEntry.getKey (), aValue);
   }
 }

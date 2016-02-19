@@ -23,6 +23,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.function.ITriConsumer;
 import com.helger.commons.state.EChange;
 
 /**
@@ -36,7 +38,8 @@ import com.helger.commons.state.EChange;
  * @param <VALUETYPE>
  *        Element type
  */
-public interface IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE> extends Map <KEYTYPE1, Map <KEYTYPE2, VALUETYPE>>
+public interface IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
+                                   extends ICommonsMap <KEYTYPE1, ICommonsMap <KEYTYPE2, VALUETYPE>>
 {
   /**
    * Get or create the collection of the specified key.
@@ -145,5 +148,12 @@ public interface IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE> extends Map <
     for (final Map <?, ?> aChild : values ())
       ret += aChild.size ();
     return ret;
+  }
+
+  default void forEachSingle (@Nonnull final ITriConsumer <KEYTYPE1, KEYTYPE2, VALUETYPE> aConsumer)
+  {
+    for (final Entry <KEYTYPE1, ICommonsMap <KEYTYPE2, VALUETYPE>> aEntry : entrySet ())
+      for (final Map.Entry <KEYTYPE2, VALUETYPE> aEntry2 : aEntry.getValue ().entrySet ())
+        aConsumer.accept (aEntry.getKey (), aEntry2.getKey (), aEntry2.getValue ());
   }
 }

@@ -23,6 +23,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsTreeMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 
 public class MultiLinkedHashMapTreeMapBased <KEYTYPE1, KEYTYPE2 extends Comparable <? super KEYTYPE2>, VALUETYPE>
                                             extends AbstractMultiLinkedHashMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
@@ -38,12 +39,12 @@ public class MultiLinkedHashMapTreeMapBased <KEYTYPE1, KEYTYPE2 extends Comparab
   }
 
   public MultiLinkedHashMapTreeMapBased (@Nullable final KEYTYPE1 aKey,
-                                         @Nullable final Map <KEYTYPE2, VALUETYPE> aValue)
+                                         @Nullable final ICommonsMap <KEYTYPE2, VALUETYPE> aValue)
   {
     super (aKey, aValue);
   }
 
-  public MultiLinkedHashMapTreeMapBased (@Nullable final Map <? extends KEYTYPE1, ? extends Map <KEYTYPE2, VALUETYPE>> aCont)
+  public MultiLinkedHashMapTreeMapBased (@Nullable final Map <? extends KEYTYPE1, ? extends ICommonsMap <KEYTYPE2, VALUETYPE>> aCont)
   {
     super (aCont);
   }

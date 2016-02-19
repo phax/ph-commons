@@ -16,10 +16,10 @@
  */
 package com.helger.commons.collection.multimap;
 
-import java.util.Set;
+import com.helger.commons.collection.ext.ICommonsSet;
 
 /**
- * Interface for a multi map that uses a {@link Set} for the storage.
+ * Interface for a multi map that uses a {@link ICommonsSet} for the storage.
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -27,7 +27,7 @@ import java.util.Set;
  * @param <VALUETYPE>
  *        Element type
  */
-public interface IMultiMapSetBased <KEYTYPE, VALUETYPE> extends IMultiMap <KEYTYPE, VALUETYPE, Set <VALUETYPE>>
+public interface IMultiMapSetBased <KEYTYPE, VALUETYPE> extends IMultiMap <KEYTYPE, VALUETYPE, ICommonsSet <VALUETYPE>>
 {
   /* empty */
 }

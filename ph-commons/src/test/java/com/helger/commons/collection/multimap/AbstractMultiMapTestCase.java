@@ -25,13 +25,14 @@ import static org.junit.Assert.assertTrue;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.Nonnull;
 
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsSet;
 
 /**
  * Abstract class for class {@link IMultiMap} implementations.
@@ -59,19 +60,19 @@ public abstract class AbstractMultiMapTestCase
   }
 
   @Nonnull
-  protected final Set <String> getValueSet1 ()
+  protected final ICommonsSet <String> getValueSet1 ()
   {
     return CollectionHelper.newSet (getValue1 ());
   }
 
   @Nonnull
-  protected final Map <String, ICommonsList <String>> getMapList1 ()
+  protected final ICommonsMap <String, ICommonsList <String>> getMapList1 ()
   {
     return CollectionHelper.newMap (getKey1 (), getValueList1 ());
   }
 
   @Nonnull
-  protected final Map <String, Set <String>> getMapSet1 ()
+  protected final ICommonsMap <String, ICommonsSet <String>> getMapSet1 ()
   {
     return CollectionHelper.newMap (getKey1 (), getValueSet1 ());
   }

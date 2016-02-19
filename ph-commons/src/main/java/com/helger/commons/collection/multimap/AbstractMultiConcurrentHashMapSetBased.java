@@ -17,15 +17,16 @@
 package com.helger.commons.collection.multimap;
 
 import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.collection.ext.ICommonsSet;
+
 /**
  * Abstract multi map based on {@link java.util.concurrent.ConcurrentHashMap}
- * and {@link java.util.Set} values.<br>
+ * and {@link ICommonsSet} values.<br>
  * Important note: <code>null</code> keys are not allowed here!
  *
  * @author Philip Helger
@@ -36,7 +37,7 @@ import javax.annotation.concurrent.NotThreadSafe;
  */
 @NotThreadSafe
 public abstract class AbstractMultiConcurrentHashMapSetBased <KEYTYPE, VALUETYPE> extends
-                                                             AbstractMultiConcurrentHashMap <KEYTYPE, VALUETYPE, Set <VALUETYPE>>
+                                                             AbstractMultiConcurrentHashMap <KEYTYPE, VALUETYPE, ICommonsSet <VALUETYPE>>
                                                              implements IMultiMapSetBased <KEYTYPE, VALUETYPE>
 {
   public AbstractMultiConcurrentHashMapSetBased ()
@@ -48,12 +49,12 @@ public abstract class AbstractMultiConcurrentHashMapSetBased <KEYTYPE, VALUETYPE
   }
 
   public AbstractMultiConcurrentHashMapSetBased (@Nonnull final KEYTYPE aKey,
-                                                 @Nonnull final Set <VALUETYPE> aCollection)
+                                                 @Nonnull final ICommonsSet <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }
 
-  public AbstractMultiConcurrentHashMapSetBased (@Nullable final Map <? extends KEYTYPE, ? extends Set <VALUETYPE>> aCont)
+  public AbstractMultiConcurrentHashMapSetBased (@Nullable final Map <? extends KEYTYPE, ? extends ICommonsSet <VALUETYPE>> aCont)
   {
     super (aCont);
   }

@@ -68,12 +68,6 @@ public abstract class AbstractMultiLinkedHashMap <KEYTYPE, VALUETYPE, COLLTYPE e
   @Nonnull
   public COLLTYPE getOrCreate (@Nullable final KEYTYPE aKey)
   {
-    COLLTYPE aCont = get (aKey);
-    if (aCont == null)
-    {
-      aCont = createNewCollection ();
-      super.put (aKey, aCont);
-    }
-    return aCont;
+    return computeIfAbsent (aKey, k -> createNewCollection ());
   }
 }

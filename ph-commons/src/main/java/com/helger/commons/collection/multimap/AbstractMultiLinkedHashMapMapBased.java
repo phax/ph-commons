@@ -23,6 +23,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.collection.ext.CommonsLinkedHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 
 /**
  * Abstract multi map based on {@link CommonsLinkedHashMap}.
@@ -37,7 +38,7 @@ import com.helger.commons.collection.ext.CommonsLinkedHashMap;
  */
 @NotThreadSafe
 public abstract class AbstractMultiLinkedHashMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE> extends
-                                                         CommonsLinkedHashMap <KEYTYPE1, Map <KEYTYPE2, VALUETYPE>>
+                                                         CommonsLinkedHashMap <KEYTYPE1, ICommonsMap <KEYTYPE2, VALUETYPE>>
                                                          implements IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
 {
   public AbstractMultiLinkedHashMapMapBased ()
@@ -51,29 +52,23 @@ public abstract class AbstractMultiLinkedHashMapMapBased <KEYTYPE1, KEYTYPE2, VA
   }
 
   public AbstractMultiLinkedHashMapMapBased (@Nullable final KEYTYPE1 aKey,
-                                             @Nullable final Map <KEYTYPE2, VALUETYPE> aValue)
+                                             @Nullable final ICommonsMap <KEYTYPE2, VALUETYPE> aValue)
   {
     put (aKey, aValue);
   }
 
-  public AbstractMultiLinkedHashMapMapBased (@Nullable final Map <? extends KEYTYPE1, ? extends Map <KEYTYPE2, VALUETYPE>> aCont)
+  public AbstractMultiLinkedHashMapMapBased (@Nullable final Map <? extends KEYTYPE1, ? extends ICommonsMap <KEYTYPE2, VALUETYPE>> aCont)
   {
     if (aCont != null)
       putAll (aCont);
   }
 
   @Nonnull
-  protected abstract Map <KEYTYPE2, VALUETYPE> createNewInnerMap ();
+  protected abstract ICommonsMap <KEYTYPE2, VALUETYPE> createNewInnerMap ();
 
   @Nonnull
-  public Map <KEYTYPE2, VALUETYPE> getOrCreate (@Nullable final KEYTYPE1 aKey)
+  public ICommonsMap <KEYTYPE2, VALUETYPE> getOrCreate (@Nullable final KEYTYPE1 aKey)
   {
-    Map <KEYTYPE2, VALUETYPE> aCont = get (aKey);
-    if (aCont == null)
-    {
-      aCont = createNewInnerMap ();
-      super.put (aKey, aCont);
-    }
-    return aCont;
+    return computeIfAbsent (aKey, k -> createNewInnerMap ());
   }
 }

@@ -17,13 +17,13 @@
 package com.helger.commons.collection.multimap;
 
 import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.collection.ext.CommonsLinkedHashMap;
+import com.helger.commons.collection.ext.ICommonsSet;
 
 /**
  * Abstract multi map based on {@link CommonsLinkedHashMap} and
@@ -37,7 +37,7 @@ import com.helger.commons.collection.ext.CommonsLinkedHashMap;
  */
 @NotThreadSafe
 public abstract class AbstractMultiLinkedHashMapSetBased <KEYTYPE, VALUETYPE> extends
-                                                         AbstractMultiLinkedHashMap <KEYTYPE, VALUETYPE, Set <VALUETYPE>>
+                                                         AbstractMultiLinkedHashMap <KEYTYPE, VALUETYPE, ICommonsSet <VALUETYPE>>
                                                          implements IMultiMapSetBased <KEYTYPE, VALUETYPE>
 {
   public AbstractMultiLinkedHashMapSetBased ()
@@ -48,12 +48,13 @@ public abstract class AbstractMultiLinkedHashMapSetBased <KEYTYPE, VALUETYPE> ex
     super (aKey, aValue);
   }
 
-  public AbstractMultiLinkedHashMapSetBased (@Nullable final KEYTYPE aKey, @Nullable final Set <VALUETYPE> aCollection)
+  public AbstractMultiLinkedHashMapSetBased (@Nullable final KEYTYPE aKey,
+                                             @Nullable final ICommonsSet <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }
 
-  public AbstractMultiLinkedHashMapSetBased (@Nullable final Map <? extends KEYTYPE, ? extends Set <VALUETYPE>> aCont)
+  public AbstractMultiLinkedHashMapSetBased (@Nullable final Map <? extends KEYTYPE, ? extends ICommonsSet <VALUETYPE>> aCont)
   {
     super (aCont);
   }

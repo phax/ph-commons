@@ -74,12 +74,6 @@ public abstract class AbstractMultiTreeMap <KEYTYPE, VALUETYPE, COLLTYPE extends
   @Nonnull
   public COLLTYPE getOrCreate (@Nullable final KEYTYPE aKey)
   {
-    COLLTYPE aCont = get (aKey);
-    if (aCont == null)
-    {
-      aCont = createNewCollection ();
-      super.put (aKey, aCont);
-    }
-    return aCont;
+    return computeIfAbsent (aKey, k -> createNewCollection ());
   }
 }
