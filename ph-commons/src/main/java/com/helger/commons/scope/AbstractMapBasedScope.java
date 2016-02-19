@@ -16,9 +16,7 @@
  */
 package com.helger.commons.scope;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -35,6 +33,9 @@ import com.helger.commons.callback.INonThrowingCallableWithParameter;
 import com.helger.commons.callback.INonThrowingRunnableWithParameter;
 import com.helger.commons.callback.adapter.AdapterRunnableToCallableWithParameter;
 import com.helger.commons.collection.attr.MapBasedAttributeContainerAny;
+import com.helger.commons.collection.ext.CommonsConcurrentHashMap;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
@@ -67,7 +68,7 @@ public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAn
    */
   public AbstractMapBasedScope (@Nonnull @Nonempty final String sScopeID)
   {
-    super (true, new ConcurrentHashMap <String, Object> ());
+    super (true, new CommonsConcurrentHashMap <> ());
     m_sScopeID = ValueEnforcer.notEmpty (sScopeID, "ScopeID");
   }
 
@@ -196,9 +197,9 @@ public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAn
 
   @Nonnull
   @ReturnsMutableCopy
-  public final Map <String, IScopeRenewalAware> getAllScopeRenewalAwareAttributes ()
+  public final ICommonsMap <String, IScopeRenewalAware> getAllScopeRenewalAwareAttributes ()
   {
-    final Map <String, IScopeRenewalAware> ret = new HashMap <> ();
+    final ICommonsMap <String, IScopeRenewalAware> ret = new CommonsHashMap <> ();
     for (final Map.Entry <String, Object> aEntry : getAllAttributes ().entrySet ())
     {
       final Object aValue = aEntry.getValue ();

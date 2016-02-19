@@ -16,9 +16,7 @@
  */
 package com.helger.commons.text.resolve;
 
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.annotation.Nonnull;
@@ -32,7 +30,9 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.debug.GlobalDebug;
@@ -70,7 +70,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
   @GuardedBy ("m_aRWLock")
   private boolean m_bUseResourceBundleCache = DEFAULT_USE_RESOURCE_BUNDLE_CACHE;
   @GuardedBy ("m_aRWLock")
-  private final Map <String, ResourceBundle> m_aResourceBundleCache = new HashMap <String, ResourceBundle> ();
+  private final ICommonsMap <String, ResourceBundle> m_aResourceBundleCache = new CommonsHashMap <> ();
 
   public EnumTextResolverWithPropertiesOverrideAndFallback ()
   {}

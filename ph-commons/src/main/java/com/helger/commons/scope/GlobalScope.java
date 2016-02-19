@@ -16,9 +16,6 @@
  */
 package com.helger.commons.scope;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -31,7 +28,8 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.scope.mgr.MetaScopeFactory;
@@ -51,7 +49,7 @@ public class GlobalScope extends AbstractMapBasedScope implements IGlobalScope
   private static final Logger s_aLogger = LoggerFactory.getLogger (GlobalScope.class);
 
   /** Contained application scopes */
-  private final Map <String, IApplicationScope> m_aAppScopes = new HashMap <> ();
+  private final ICommonsMap <String, IApplicationScope> m_aAppScopes = new CommonsHashMap <> ();
 
   public GlobalScope (@Nonnull @Nonempty final String sScopeID)
   {
@@ -152,9 +150,9 @@ public class GlobalScope extends AbstractMapBasedScope implements IGlobalScope
 
   @Nonnull
   @ReturnsMutableCopy
-  public Map <String, IApplicationScope> getAllApplicationScopes ()
+  public ICommonsMap <String, IApplicationScope> getAllApplicationScopes ()
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.newMap (m_aAppScopes));
+    return m_aRWLock.readLocked ( () -> m_aAppScopes.getClone ());
   }
 
   @Nonnegative

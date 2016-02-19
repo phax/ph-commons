@@ -17,13 +17,25 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE>
                              extends Map <KEYTYPE, VALUETYPE>, ICloneable <ICommonsMap <KEYTYPE, VALUETYPE>>
 {
   @Nonnull
-  ICommonsSet <KEYTYPE> keySet ();
+  @ReturnsMutableCopy
+  default ICommonsSet <KEYTYPE> copyOfKeySet ()
+  {
+    return CollectionHelper.newSet (keySet ());
+  }
 
   @Nonnull
-  ICommonsCollection <VALUETYPE> values ();
+  @ReturnsMutableCopy
+  default ICommonsList <VALUETYPE> copyOfValues ()
+  {
+    return CollectionHelper.newList (values ());
+  }
 
   @Nonnull
-  ICommonsSet <Map.Entry <KEYTYPE, VALUETYPE>> entrySet ();
+  @ReturnsMutableCopy
+  default ICommonsSet <Map.Entry <KEYTYPE, VALUETYPE>> copyOfEntrySet ()
+  {
+    return CollectionHelper.newSet (entrySet ());
+  }
 
   /**
    * @return <code>true</code> if the map is not empty, <code>false</code>

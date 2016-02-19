@@ -19,7 +19,6 @@ package com.helger.commons.serialize.convert;
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.util.Map;
-import java.util.WeakHashMap;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -33,6 +32,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Singleton;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsWeakHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.ClassHierarchyCache;
 import com.helger.commons.lang.GenericReflection;
@@ -60,7 +61,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
 
   // WeakHashMap because key is a class
   @GuardedBy ("m_aRWLock")
-  private final Map <Class <?>, ISerializationConverter <?>> m_aMap = new WeakHashMap <> ();
+  private final ICommonsMap <Class <?>, ISerializationConverter <?>> m_aMap = new CommonsWeakHashMap <> ();
 
   private SerializationConverterRegistry ()
   {
@@ -169,7 +170,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
    */
   public void iterateAllRegisteredSerializationConverters (@Nonnull final ISerializationConverterCallback aCallback)
   {
-    // Create a copy of the map
+    // Create a static (non weak) copy of the map
     final Map <Class <?>, ISerializationConverter <?>> aCopy = m_aRWLock.readLocked ( () -> CollectionHelper.newMap (m_aMap));
 
     // And iterate the copy

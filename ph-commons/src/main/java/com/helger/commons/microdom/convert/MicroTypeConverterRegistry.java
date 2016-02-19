@@ -18,7 +18,6 @@ package com.helger.commons.microdom.convert;
 
 import java.lang.ref.WeakReference;
 import java.util.Map;
-import java.util.WeakHashMap;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -31,6 +30,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Singleton;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsWeakHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.ClassHierarchyCache;
 import com.helger.commons.lang.ServiceLoaderHelper;
@@ -60,7 +61,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
   // WeakHashMap because key is a class
-  private final Map <Class <?>, IMicroTypeConverter> m_aMap = new WeakHashMap <> ();
+  private final ICommonsMap <Class <?>, IMicroTypeConverter> m_aMap = new CommonsWeakHashMap <> ();
 
   private MicroTypeConverterRegistry ()
   {
@@ -175,8 +176,8 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
    */
   public void iterateAllRegisteredMicroTypeConverters (@Nonnull final IMicroTypeConverterCallback aCallback)
   {
-    // Create a copy of the map
-    final Map <Class <?>, IMicroTypeConverter> aCopy = m_aRWLock.readLocked ( () -> CollectionHelper.newMap (m_aMap));
+    // Create a static copy of the map (HashMap not weak!)
+    final ICommonsMap <Class <?>, IMicroTypeConverter> aCopy = m_aRWLock.readLocked ( () -> CollectionHelper.newMap (m_aMap));
 
     // And iterate the copy
     for (final Map.Entry <Class <?>, IMicroTypeConverter> aEntry : aCopy.entrySet ())

@@ -16,13 +16,12 @@
  */
 package com.helger.commons.scope;
 
-import java.util.Map;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.state.EContinue;
 
 /**
@@ -103,7 +102,7 @@ public interface ISessionScope extends IScope
    *         scopes. The key is the application ID and the value is the scope.
    */
   @Nonnull
-  Map <String, ISessionApplicationScope> getAllSessionApplicationScopes ();
+  ICommonsMap <String, ISessionApplicationScope> getAllSessionApplicationScopes ();
 
   /**
    * @return The number of contained session application scopes. Always &ge; 0.

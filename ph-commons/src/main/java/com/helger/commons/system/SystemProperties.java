@@ -345,7 +345,7 @@ public final class SystemProperties
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllPropertyNames ()
   {
-    return getAllProperties ().keySet ().getClone ();
+    return getAllProperties ().copyOfKeySet ();
   }
 
   /**

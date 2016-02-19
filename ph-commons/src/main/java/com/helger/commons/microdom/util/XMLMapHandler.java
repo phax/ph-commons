@@ -18,7 +18,6 @@ package com.helger.commons.microdom.util;
 
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -32,6 +31,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.IHasOutputStream;
@@ -81,7 +82,7 @@ public final class XMLMapHandler
 
   @Nullable
   @ReturnsMutableCopy
-  public static Map <String, String> readMap (@Nonnull final IHasInputStream aISP)
+  public static ICommonsMap <String, String> readMap (@Nonnull final IHasInputStream aISP)
   {
     ValueEnforcer.notNull (aISP, "InputStreamProvider");
 
@@ -105,9 +106,9 @@ public final class XMLMapHandler
    */
   @Nullable
   @ReturnsMutableCopy
-  public static Map <String, String> readMap (@Nonnull @WillClose final InputStream aIS)
+  public static ICommonsMap <String, String> readMap (@Nonnull @WillClose final InputStream aIS)
   {
-    final Map <String, String> ret = new HashMap <String, String> ();
+    final ICommonsMap <String, String> ret = new CommonsHashMap <> ();
     if (readMap (aIS, ret).isFailure ())
       return null;
     return ret;

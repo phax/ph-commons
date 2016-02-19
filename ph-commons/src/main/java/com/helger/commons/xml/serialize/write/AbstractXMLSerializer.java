@@ -18,7 +18,6 @@ package com.helger.commons.xml.serialize.write;
 
 import java.io.OutputStream;
 import java.io.Writer;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Nonnegative;
@@ -36,7 +35,9 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.io.stream.NonBlockingBufferedWriter;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
@@ -72,7 +73,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
     @SuppressWarnings ("hiding")
     private static final Logger s_aLogger = LoggerFactory.getLogger (NamespaceLevel.class);
     private String m_sDefaultNamespaceURI;
-    private Map <String, String> m_aURL2PrefixMap;
+    private ICommonsMap <String, String> m_aURL2PrefixMap;
 
     /**
      * Ctor
@@ -131,7 +132,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
       else
       {
         if (m_aURL2PrefixMap == null)
-          m_aURL2PrefixMap = new HashMap <String, String> ();
+          m_aURL2PrefixMap = new CommonsHashMap <> ();
         m_aURL2PrefixMap.put (sNamespaceURI, sPrefix);
       }
     }

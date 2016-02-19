@@ -16,13 +16,12 @@
  */
 package com.helger.commons.scope;
 
-import java.util.Map;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.collection.ext.ICommonsMap;
 
 /**
  * Interface for a single global scope object.
@@ -51,7 +50,7 @@ public interface IGlobalScope extends IScope
    *         The key is the application ID and the value is the scope.
    */
   @Nonnull
-  Map <String, IApplicationScope> getAllApplicationScopes ();
+  ICommonsMap <String, IApplicationScope> getAllApplicationScopes ();
 
   /**
    * @return The number of contained application scopes. Always &ge; 0.

@@ -16,12 +16,11 @@
  */
 package com.helger.commons.collection.attr;
 
-import java.util.Map;
-
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.ReturnsImmutableObject;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.ICommonsMap;
 
 /**
  * Base interface for objects having read-only attributes
@@ -48,7 +47,7 @@ public interface IHasAttributes <KEYTYPE, VALUETYPE>
    */
   @Nonnull
   @ReturnsMutableCopy
-  default Map <KEYTYPE, VALUETYPE> getAllAttributes ()
+  default ICommonsMap <KEYTYPE, VALUETYPE> getAllAttributes ()
   {
     return getAttributes ().getAllAttributes ();
   }

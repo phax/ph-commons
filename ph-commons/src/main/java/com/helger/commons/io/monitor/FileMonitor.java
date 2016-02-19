@@ -18,8 +18,6 @@ package com.helger.commons.io.monitor;
 
 import java.io.File;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Stack;
 
 import javax.annotation.Nonnegative;
@@ -32,6 +30,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -60,7 +60,7 @@ public class FileMonitor
    * Map from filename to File being monitored.
    */
   @GuardedBy ("m_aRWLock")
-  private final Map <String, FileMonitorAgent> m_aMonitorMap = new HashMap <> ();
+  private final ICommonsMap <String, FileMonitorAgent> m_aMonitorMap = new CommonsHashMap <> ();
 
   /**
    * File objects to be removed from the monitor map.

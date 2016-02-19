@@ -16,9 +16,6 @@
  */
 package com.helger.commons.scope;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -30,7 +27,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.scope.mgr.MetaScopeFactory;
 import com.helger.commons.scope.spi.ScopeSPIManager;
@@ -49,7 +47,7 @@ public class SessionScope extends AbstractMapBasedScope implements ISessionScope
   private static final Logger s_aLogger = LoggerFactory.getLogger (SessionScope.class);
 
   /** The contained session application scopes */
-  private final Map <String, ISessionApplicationScope> m_aSessionAppScopes = new HashMap <> ();
+  private final ICommonsMap <String, ISessionApplicationScope> m_aSessionAppScopes = new CommonsHashMap <> ();
 
   public SessionScope (@Nonnull @Nonempty final String sScopeID)
   {
@@ -201,9 +199,9 @@ public class SessionScope extends AbstractMapBasedScope implements ISessionScope
 
   @Nonnull
   @ReturnsMutableCopy
-  public Map <String, ISessionApplicationScope> getAllSessionApplicationScopes ()
+  public ICommonsMap <String, ISessionApplicationScope> getAllSessionApplicationScopes ()
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.newMap (m_aSessionAppScopes));
+    return m_aRWLock.readLocked ( () -> m_aSessionAppScopes.getClone ());
   }
 
   @Nonnegative

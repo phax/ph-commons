@@ -21,9 +21,7 @@ import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URL;
-import java.util.Map;
 import java.util.Set;
-import java.util.WeakHashMap;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -34,6 +32,8 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsWeakHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
 
@@ -46,8 +46,8 @@ import com.helger.commons.string.StringHelper;
 public final class ClassHelper
 {
   // WeakHashMap because class is used as a key
-  private static final Map <Class <?>, Class <?>> PRIMITIVE_TO_WRAPPER = new WeakHashMap <> (8);
-  private static final Map <Class <?>, Class <?>> WRAPPER_TO_PRIMITIVE = new WeakHashMap <> (8);
+  private static final ICommonsMap <Class <?>, Class <?>> PRIMITIVE_TO_WRAPPER = new CommonsWeakHashMap <> (8);
+  private static final ICommonsMap <Class <?>, Class <?>> WRAPPER_TO_PRIMITIVE = new CommonsWeakHashMap <> (8);
 
   static
   {

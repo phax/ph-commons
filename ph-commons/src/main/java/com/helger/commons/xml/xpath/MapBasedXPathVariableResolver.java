@@ -28,6 +28,7 @@ import javax.xml.xpath.XPathVariableResolver;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ICloneable;
@@ -46,7 +47,7 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICloneable <MapBasedXPathVariableResolver>
 {
-  private final Map <String, Object> m_aMap;
+  private final ICommonsMap <String, Object> m_aMap;
 
   /**
    * Default ctor.
@@ -76,7 +77,7 @@ public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICl
   public MapBasedXPathVariableResolver (@Nonnull final MapBasedXPathVariableResolver aOther)
   {
     ValueEnforcer.notNull (aOther, "Other");
-    m_aMap = CollectionHelper.newMap (aOther.m_aMap);
+    m_aMap = aOther.m_aMap.getClone ();
   }
 
   /**
@@ -191,9 +192,9 @@ public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICl
    */
   @Nonnull
   @ReturnsMutableCopy
-  public Map <String, ?> getAllVariables ()
+  public ICommonsMap <String, ?> getAllVariables ()
   {
-    return CollectionHelper.newMap (m_aMap);
+    return m_aMap.getClone ();
   }
 
   /**
@@ -213,10 +214,7 @@ public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICl
   @Nonnull
   public EChange clear ()
   {
-    if (m_aMap.isEmpty ())
-      return EChange.UNCHANGED;
-    m_aMap.clear ();
-    return EChange.CHANGED;
+    return m_aMap.removeAll ();
   }
 
   /**

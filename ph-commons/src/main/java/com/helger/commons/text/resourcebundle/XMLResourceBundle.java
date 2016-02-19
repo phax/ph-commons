@@ -19,7 +19,6 @@ package com.helger.commons.text.resourcebundle;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
@@ -34,8 +33,9 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.IteratorHelper;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 
 /**
  * Helper class to handle XML based properties. It is read-only.<br>
@@ -45,11 +45,10 @@ import com.helger.commons.collection.IteratorHelper;
  *
  * @author Philip Helger
  */
-// SKIPJDK5
 @Immutable
 public final class XMLResourceBundle extends ResourceBundle
 {
-  private final Map <String, String> m_aValues = new HashMap <String, String> ();
+  private final ICommonsMap <String, String> m_aValues = new CommonsHashMap <> ();
 
   @DevelopersNote ("Don't use it manually - use the static methods of this class!")
   XMLResourceBundle (@Nonnull @WillNotClose final InputStream aIS) throws IOException
@@ -69,9 +68,9 @@ public final class XMLResourceBundle extends ResourceBundle
 
   @Nonnull
   @ReturnsMutableCopy
-  public Map <String, String> getAllValues ()
+  public ICommonsMap <String, String> getAllValues ()
   {
-    return CollectionHelper.newMap (m_aValues);
+    return m_aValues.getClone ();
   }
 
   /**

@@ -16,9 +16,6 @@
  */
 package com.helger.commons.url;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnegative;
@@ -33,7 +30,9 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.Singleton;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsCollection;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.ServiceLoaderHelper;
 
@@ -60,7 +59,7 @@ public final class URLProtocolRegistry
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
-  private final Map <String, IURLProtocol> m_aProtocols = new HashMap <String, IURLProtocol> ();
+  private final ICommonsMap <String, IURLProtocol> m_aProtocols = new CommonsHashMap <> ();
 
   private URLProtocolRegistry ()
   {
@@ -108,9 +107,9 @@ public final class URLProtocolRegistry
    */
   @Nonnull
   @ReturnsMutableCopy
-  public Collection <IURLProtocol> getAllProtocols ()
+  public ICommonsCollection <IURLProtocol> getAllProtocols ()
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.newList (m_aProtocols.values ()));
+    return m_aRWLock.readLocked ( () -> m_aProtocols.copyOfValues ());
   }
 
   @Nonnegative

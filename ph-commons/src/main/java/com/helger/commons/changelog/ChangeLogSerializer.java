@@ -22,8 +22,6 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -37,6 +35,8 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.datetime.DateTimeFormatterCache;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.resource.URLResource;
@@ -216,36 +216,36 @@ public final class ChangeLogSerializer
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Map <URI, ChangeLog> readAllChangeLogs ()
+  public static ICommonsMap <URI, ChangeLog> readAllChangeLogs ()
   {
     return readAllChangeLogs (s_aDefaultCallback);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Map <URI, ChangeLog> readAllChangeLogs (@Nullable final ClassLoader aClassLoader)
+  public static ICommonsMap <URI, ChangeLog> readAllChangeLogs (@Nullable final ClassLoader aClassLoader)
   {
     return readAllChangeLogs (s_aDefaultCallback, aClassLoader);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Map <URI, ChangeLog> readAllChangeLogs (@Nonnull final IHasClassLoader aClassLoaderProvider)
+  public static ICommonsMap <URI, ChangeLog> readAllChangeLogs (@Nonnull final IHasClassLoader aClassLoaderProvider)
   {
     return readAllChangeLogs (s_aDefaultCallback, aClassLoaderProvider.getClassLoader ());
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Map <URI, ChangeLog> readAllChangeLogs (@Nonnull final IChangeLogSerializerCallback aErrorCallback)
+  public static ICommonsMap <URI, ChangeLog> readAllChangeLogs (@Nonnull final IChangeLogSerializerCallback aErrorCallback)
   {
     return readAllChangeLogs (aErrorCallback, (ClassLoader) null);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Map <URI, ChangeLog> readAllChangeLogs (@Nonnull final IChangeLogSerializerCallback aErrorCallback,
-                                                        @Nullable final ClassLoader aClassLoader)
+  public static ICommonsMap <URI, ChangeLog> readAllChangeLogs (@Nonnull final IChangeLogSerializerCallback aErrorCallback,
+                                                                @Nullable final ClassLoader aClassLoader)
   {
     ValueEnforcer.notNull (aErrorCallback, "ErrorCallback");
 
@@ -254,7 +254,7 @@ public final class ChangeLogSerializer
       final ClassLoader aRealClassLoader = aClassLoader != null ? aClassLoader
                                                                 : ClassLoaderHelper.getDefaultClassLoader ();
 
-      final Map <URI, ChangeLog> ret = new HashMap <URI, ChangeLog> ();
+      final ICommonsMap <URI, ChangeLog> ret = new CommonsHashMap <> ();
       // Find all change log XML files in the classpath
       for (final URL aURL : CollectionHelper.newList (ClassLoaderHelper.getResources (aRealClassLoader,
                                                                                       CChangeLog.CHANGELOG_XML_FILENAME)))

@@ -21,8 +21,8 @@ public final class CommonsHashMapTest
     aTest.put ("bbb", "blb");
     aTest.put ("ccc", "blc");
 
-    assertEquals ("aaa", aTest.getSortedByKey (Comparator.naturalOrder ()).keySet ().getAtIndex (0));
-    assertEquals ("bbb", aTest.getSortedByKey (Comparator.naturalOrder ()).keySet ().getAtIndex (1));
-    assertEquals ("ccc", aTest.getSortedByKey (Comparator.naturalOrder ()).keySet ().getAtIndex (2));
+    assertEquals ("aaa", aTest.getSortedByKey (Comparator.naturalOrder ()).copyOfKeySet ().getAtIndex (0));
+    assertEquals ("bbb", aTest.getSortedByKey (Comparator.naturalOrder ()).copyOfKeySet ().getAtIndex (1));
+    assertEquals ("ccc", aTest.getSortedByKey (Comparator.naturalOrder ()).copyOfKeySet ().getAtIndex (2));
   }
 }

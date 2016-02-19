@@ -23,6 +23,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.ICommonsMap;
 
 /**
  * Base class for all kind of string-object mapping container. This
@@ -56,7 +57,7 @@ public class MapBasedAttributeContainerAny <KEYTYPE> extends MapBasedAttributeCo
     super (aCont);
   }
 
-  protected MapBasedAttributeContainerAny (final boolean bDummy, @Nonnull final Map <KEYTYPE, Object> aAttrMap)
+  protected MapBasedAttributeContainerAny (final boolean bDummy, @Nonnull final ICommonsMap <KEYTYPE, Object> aAttrMap)
   {
     super (bDummy, aAttrMap);
   }
@@ -66,6 +67,6 @@ public class MapBasedAttributeContainerAny <KEYTYPE> extends MapBasedAttributeCo
   @ReturnsMutableCopy
   public MapBasedAttributeContainerAny <KEYTYPE> getClone ()
   {
-    return new MapBasedAttributeContainerAny <KEYTYPE> (this);
+    return new MapBasedAttributeContainerAny <> (this);
   }
 }

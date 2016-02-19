@@ -33,9 +33,9 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.locale.LocaleHelper;
@@ -157,7 +157,7 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
 
   @Nonnull
   @ReturnsMutableObject ("Internal use only")
-  protected final Map <Locale, String> internalGetMap ()
+  protected final ICommonsMap <Locale, String> internalGetMap ()
   {
     return m_aTexts;
   }
@@ -186,9 +186,9 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
 
   @Nonnull
   @ReturnsMutableCopy
-  public final Set <Locale> getAllLocales ()
+  public final ICommonsSet <Locale> getAllLocales ()
   {
-    return CollectionHelper.newSet (m_aTexts.keySet ());
+    return m_aTexts.copyOfKeySet ();
   }
 
   @Nonnegative
@@ -215,7 +215,7 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
   @ReturnsMutableCopy
   public final ICommonsMap <Locale, String> getAllTexts ()
   {
-    return CollectionHelper.newMap (m_aTexts);
+    return m_aTexts.getClone ();
   }
 
   @Nonnegative

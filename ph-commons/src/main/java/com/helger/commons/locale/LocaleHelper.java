@@ -19,7 +19,6 @@ package com.helger.commons.locale;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.function.Function;
 
 import javax.annotation.Nonnull;
@@ -38,6 +37,7 @@ import com.helger.commons.cache.AbstractNotifyingCache;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
@@ -161,7 +161,7 @@ public final class LocaleHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static Map <Locale, String> getAllLocaleDisplayNames (@Nonnull final Locale aContentLocale)
+  public static ICommonsMap <Locale, String> getAllLocaleDisplayNames (@Nonnull final Locale aContentLocale)
   {
     ValueEnforcer.notNull (aContentLocale, "ContentLocale");
 

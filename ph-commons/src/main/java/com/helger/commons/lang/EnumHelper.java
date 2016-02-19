@@ -16,8 +16,6 @@
  */
 package com.helger.commons.lang;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
@@ -33,7 +31,9 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.id.IHasIntID;
@@ -53,7 +53,7 @@ public final class EnumHelper
   private static final Object [] NOT_CACHABLE = ArrayHelper.EMPTY_OBJECT_ARRAY;
   private static final SimpleReadWriteLock s_aRWLockInt = new SimpleReadWriteLock ();
   @GuardedBy ("s_aRWLockInt")
-  private static final Map <String, Object []> s_aIntCache = new HashMap <> ();
+  private static final ICommonsMap <String, Object []> s_aIntCache = new CommonsHashMap <> ();
 
   @PresentForCodeCoverage
   private static final EnumHelper s_aInstance = new EnumHelper ();

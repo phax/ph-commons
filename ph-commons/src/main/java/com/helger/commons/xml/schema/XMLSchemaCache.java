@@ -16,9 +16,6 @@
  */
 package com.helger.commons.xml.schema;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
@@ -30,6 +27,8 @@ import org.w3c.dom.ls.LSResourceResolver;
 import org.xml.sax.ErrorHandler;
 
 import com.helger.commons.annotation.Singleton;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.IHasClassLoader;
 import com.helger.commons.xml.ls.SimpleLSResourceResolver;
@@ -93,7 +92,7 @@ public class XMLSchemaCache extends SchemaCache
 
   private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("s_aRWLock")
-  private static final Map <String, XMLSchemaCache> s_aPerClassLoaderCache = new HashMap <> ();
+  private static final ICommonsMap <String, XMLSchemaCache> s_aPerClassLoaderCache = new CommonsHashMap <> ();
 
   @Nonnull
   public static XMLSchemaCache getInstanceOfClassLoader (@Nullable final IHasClassLoader aClassLoaderProvider)

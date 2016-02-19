@@ -16,11 +16,9 @@
  */
 package com.helger.commons.collection.attr;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -29,7 +27,10 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsCollection;
+import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -48,22 +49,22 @@ import com.helger.commons.string.ToStringGenerator;
 public class MapBasedReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> implements IAttributeContainer <KEYTYPE, VALUETYPE>
 {
   /** Main attribute storage. */
-  protected final Map <KEYTYPE, VALUETYPE> m_aAttrs;
+  protected final ICommonsMap <KEYTYPE, VALUETYPE> m_aAttrs;
 
   public MapBasedReadOnlyAttributeContainer (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
-    this (true, new HashMap <KEYTYPE, VALUETYPE> ());
+    this (true, new CommonsHashMap <> ());
     m_aAttrs.put (aKey, aValue);
   }
 
   public MapBasedReadOnlyAttributeContainer (@Nonnull final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
-    this (true, new HashMap <KEYTYPE, VALUETYPE> (aMap));
+    this (true, new CommonsHashMap <> (aMap));
   }
 
   public MapBasedReadOnlyAttributeContainer (@Nonnull final IAttributeContainer <? extends KEYTYPE, ? extends VALUETYPE> aCont)
   {
-    this (true, new HashMap <KEYTYPE, VALUETYPE> (aCont.getAllAttributes ()));
+    this (true, new CommonsHashMap <> (aCont.getAllAttributes ()));
   }
 
   /**
@@ -74,7 +75,8 @@ public class MapBasedReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> implements 
    * @param aAttrMap
    *        The attribute map to be used.
    */
-  protected MapBasedReadOnlyAttributeContainer (final boolean bDummy, @Nonnull final Map <KEYTYPE, VALUETYPE> aAttrMap)
+  protected MapBasedReadOnlyAttributeContainer (final boolean bDummy,
+                                                @Nonnull final ICommonsMap <KEYTYPE, VALUETYPE> aAttrMap)
   {
     m_aAttrs = ValueEnforcer.notNull (aAttrMap, "AttrMap");
   }
@@ -93,23 +95,23 @@ public class MapBasedReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> implements 
 
   @Nonnull
   @ReturnsMutableCopy
-  public Map <KEYTYPE, VALUETYPE> getAllAttributes ()
+  public ICommonsMap <KEYTYPE, VALUETYPE> getAllAttributes ()
   {
-    return CollectionHelper.newMap (m_aAttrs);
+    return m_aAttrs.getClone ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public Set <KEYTYPE> getAllAttributeNames ()
+  public ICommonsSet <KEYTYPE> getAllAttributeNames ()
   {
-    return CollectionHelper.newSet (m_aAttrs.keySet ());
+    return m_aAttrs.copyOfKeySet ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public Collection <VALUETYPE> getAllAttributeValues ()
+  public ICommonsCollection <VALUETYPE> getAllAttributeValues ()
   {
-    return CollectionHelper.newList (m_aAttrs.values ());
+    return m_aAttrs.copyOfValues ();
   }
 
   @Nullable

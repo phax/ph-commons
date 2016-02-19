@@ -17,7 +17,6 @@
 package com.helger.commons.lang;
 
 import java.lang.ref.WeakReference;
-import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
@@ -34,6 +33,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsLinkedHashSet;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.collection.iterate.IterableIterator;
@@ -129,7 +129,7 @@ public final class ClassHierarchyCache
 
   private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("s_aRWLock")
-  private static final Map <String, ClassList> s_aClassHierarchy = new LRUMap <> (1000);
+  private static final ICommonsMap <String, ClassList> s_aClassHierarchy = new LRUMap <> (1000);
 
   @PresentForCodeCoverage
   private static final ClassHierarchyCache s_aInstance = new ClassHierarchyCache ();

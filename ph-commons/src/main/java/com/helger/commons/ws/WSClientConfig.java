@@ -46,6 +46,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.multimap.IMultiMapListBased;
 import com.helger.commons.collection.multimap.MultiLinkedHashMapArrayListBased;
 import com.helger.commons.lang.ClassLoaderHelper;
@@ -521,7 +522,7 @@ public class WSClientConfig
 
   @Nonnull
   @ReturnsMutableCopy
-  public Map <String, ICommonsList <String>> getAllHTTPHeaders ()
+  public ICommonsMap <String, ICommonsList <String>> getAllHTTPHeaders ()
   {
     return CollectionHelper.newOrderedMap (m_aHTTPHeaders);
   }

@@ -154,7 +154,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   {
     if (hasNoAttributes ())
       return null;
-    return m_aAttrs.keySet ().getAllMapped (IMicroQName::getName);
+    return CollectionHelper.newSetMapped (m_aAttrs.keySet (), IMicroQName::getName);
   }
 
   @Nullable
@@ -163,7 +163,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   {
     if (hasNoAttributes ())
       return null;
-    return m_aAttrs.keySet ().getClone ();
+    return m_aAttrs.copyOfKeySet ();
   }
 
   @Nullable

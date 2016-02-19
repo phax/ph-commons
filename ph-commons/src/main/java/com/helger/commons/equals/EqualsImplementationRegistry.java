@@ -18,9 +18,6 @@ package com.helger.commons.equals;
 
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.WeakHashMap;
 import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
@@ -35,6 +32,9 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Singleton;
 import com.helger.commons.annotation.UseDirectEqualsAndHashCode;
 import com.helger.commons.cache.AnnotationUsageCache;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.CommonsWeakHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.ClassHierarchyCache;
@@ -83,13 +83,13 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
 
   // Use a weak hash map, because the key is a class
   @GuardedBy ("m_aRWLock")
-  private final Map <Class <?>, IEqualsImplementation <?>> m_aMap = new WeakHashMap <Class <?>, IEqualsImplementation <?>> ();
+  private final ICommonsMap <Class <?>, IEqualsImplementation <?>> m_aMap = new CommonsWeakHashMap <> ();
 
   // Cache for classes where direct implementation should be used
   private final AnnotationUsageCache m_aDirectEquals = new AnnotationUsageCache (UseDirectEqualsAndHashCode.class);
 
   // Cache for classes that implement equals directly
-  private final Map <String, Boolean> m_aImplementsEquals = new HashMap <String, Boolean> ();
+  private final ICommonsMap <String, Boolean> m_aImplementsEquals = new CommonsHashMap <> ();
 
   private EqualsImplementationRegistry ()
   {

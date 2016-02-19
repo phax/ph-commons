@@ -16,7 +16,6 @@
  */
 package com.helger.commons.collection.attr;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -26,6 +25,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ICloneable;
@@ -51,26 +52,26 @@ public class MapBasedAttributeContainer <KEYTYPE, VALUETYPE>
 {
   public MapBasedAttributeContainer ()
   {
-    this (true, new HashMap <KEYTYPE, VALUETYPE> ());
+    this (true, new CommonsHashMap <> ());
   }
 
   public MapBasedAttributeContainer (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
-    this (true, new HashMap <KEYTYPE, VALUETYPE> ());
+    this (true, new CommonsHashMap <> ());
     m_aAttrs.put (aKey, aValue);
   }
 
   public MapBasedAttributeContainer (@Nonnull final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
-    this (true, new HashMap <KEYTYPE, VALUETYPE> (aMap));
+    this (true, new CommonsHashMap <> (aMap));
   }
 
   public MapBasedAttributeContainer (@Nonnull final IAttributeContainer <? extends KEYTYPE, ? extends VALUETYPE> aCont)
   {
-    this (true, new HashMap <KEYTYPE, VALUETYPE> (aCont.getAllAttributes ()));
+    this (true, new CommonsHashMap <> (aCont.getAllAttributes ()));
   }
 
-  protected MapBasedAttributeContainer (final boolean bDummy, @Nonnull final Map <KEYTYPE, VALUETYPE> aAttrMap)
+  protected MapBasedAttributeContainer (final boolean bDummy, @Nonnull final ICommonsMap <KEYTYPE, VALUETYPE> aAttrMap)
   {
     super (bDummy, aAttrMap);
   }
@@ -189,7 +190,7 @@ public class MapBasedAttributeContainer <KEYTYPE, VALUETYPE>
   @ReturnsMutableCopy
   public MapBasedAttributeContainer <KEYTYPE, VALUETYPE> getClone ()
   {
-    return new MapBasedAttributeContainer <KEYTYPE, VALUETYPE> (m_aAttrs);
+    return new MapBasedAttributeContainer <> (m_aAttrs);
   }
 
   @Override

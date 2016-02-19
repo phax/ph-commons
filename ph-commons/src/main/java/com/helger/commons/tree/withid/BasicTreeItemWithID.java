@@ -17,9 +17,6 @@
 package com.helger.commons.tree.withid;
 
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -31,7 +28,10 @@ import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.GenericReflection;
@@ -70,7 +70,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   private DATATYPE m_aData;
 
   // child map & list
-  private Map <KEYTYPE, ITEMTYPE> m_aChildMap = null;
+  private ICommonsMap <KEYTYPE, ITEMTYPE> m_aChildMap = null;
   private ICommonsList <ITEMTYPE> m_aChildren = null;
 
   /**
@@ -213,7 +213,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
 
   public final boolean hasChildren ()
   {
-    return m_aChildMap != null && !m_aChildMap.isEmpty ();
+    return m_aChildMap != null && m_aChildMap.isNotEmpty ();
   }
 
   @Nonnegative
@@ -231,11 +231,11 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
 
   @Nullable
   @ReturnsMutableCopy
-  public final Set <KEYTYPE> getAllChildDataIDs ()
+  public final ICommonsSet <KEYTYPE> getAllChildDataIDs ()
   {
     if (m_aChildMap == null)
       return null;
-    return CollectionHelper.newSet (m_aChildMap.keySet ());
+    return m_aChildMap.copyOfKeySet ();
   }
 
   @Nullable
@@ -307,7 +307,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
       aItem.setData (aData);
       if (m_aChildMap == null)
       {
-        m_aChildMap = new HashMap <> ();
+        m_aChildMap = new CommonsHashMap <> ();
         m_aChildren = new CommonsArrayList <> ();
       }
       m_aChildMap.put (aDataID, aItem);
@@ -381,7 +381,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     }
     else
     {
-      m_aChildMap = new HashMap <> ();
+      m_aChildMap = new CommonsHashMap <> ();
       m_aChildren = new CommonsArrayList <> ();
     }
 

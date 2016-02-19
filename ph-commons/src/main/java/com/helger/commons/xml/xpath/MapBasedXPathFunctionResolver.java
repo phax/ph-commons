@@ -16,7 +16,6 @@
  */
 package com.helger.commons.xml.xpath;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Nonnegative;
@@ -30,6 +29,8 @@ import javax.xml.xpath.XPathFunctionResolver;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ICloneable;
@@ -46,14 +47,14 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICloneable <MapBasedXPathFunctionResolver>
 {
-  private final Map <XPathFunctionKey, XPathFunction> m_aMap;
+  private final ICommonsMap <XPathFunctionKey, XPathFunction> m_aMap;
 
   /**
    * Default ctor.
    */
   public MapBasedXPathFunctionResolver ()
   {
-    m_aMap = new HashMap <> ();
+    m_aMap = new CommonsHashMap <> ();
   }
 
   /**
@@ -65,7 +66,7 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
   public MapBasedXPathFunctionResolver (@Nonnull final MapBasedXPathFunctionResolver aOther)
   {
     ValueEnforcer.notNull (aOther, "Other");
-    m_aMap = CollectionHelper.newMap (aOther.m_aMap);
+    m_aMap = aOther.m_aMap.getClone ();
   }
 
   /**

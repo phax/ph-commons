@@ -16,10 +16,7 @@
  */
 package com.helger.commons.locale;
 
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -34,8 +31,10 @@ import com.helger.commons.annotation.ELockType;
 import com.helger.commons.annotation.MustBeLocked;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.Singleton;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.string.StringHelper;
@@ -63,7 +62,7 @@ public final class LocaleCache
 
   /** maps a string to a locale. */
   @GuardedBy ("m_aRWLock")
-  private final Map <String, Locale> m_aLocales = new HashMap <String, Locale> ();
+  private final ICommonsMap <String, Locale> m_aLocales = new CommonsHashMap <> ();
 
   private LocaleCache ()
   {
@@ -202,10 +201,10 @@ public final class LocaleCache
    */
   @Nonnull
   @ReturnsMutableCopy
-  public Set <Locale> getAllLocales ()
+  public ICommonsList <Locale> getAllLocales ()
   {
     return m_aRWLock.readLocked ( () -> {
-      final Set <Locale> ret = CollectionHelper.newSet (m_aLocales.values ());
+      final ICommonsList <Locale> ret = m_aLocales.copyOfValues ();
       ret.remove (CGlobal.LOCALE_ALL);
       ret.remove (CGlobal.LOCALE_INDEPENDENT);
       return ret;

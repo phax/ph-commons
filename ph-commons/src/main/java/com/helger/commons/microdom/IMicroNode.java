@@ -17,7 +17,6 @@
 package com.helger.commons.microdom;
 
 import java.io.Serializable;
-import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Nonnegative;
@@ -27,6 +26,8 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.hierarchy.IHasChildrenSorted;
 import com.helger.commons.hierarchy.IHasParent;
 import com.helger.commons.lang.ICloneable;
@@ -632,7 +633,7 @@ public interface IMicroNode extends
    */
   @Nonnull
   @ReturnsMutableCopy
-  Map <EMicroEvent, Set <IMicroEventTarget>> getAllEventTargets ();
+  ICommonsMap <EMicroEvent, Set <IMicroEventTarget>> getAllEventTargets ();
 
   /**
    * Get all event targets for a certain event.
@@ -643,7 +644,7 @@ public interface IMicroNode extends
    */
   @Nonnull
   @ReturnsMutableCopy
-  Set <IMicroEventTarget> getAllEventTargets (@Nullable EMicroEvent eEvent);
+  ICommonsSet <IMicroEventTarget> getAllEventTargets (@Nullable EMicroEvent eEvent);
 
   /**
    * As instances of this class may not implement equals/hashCode we need a way

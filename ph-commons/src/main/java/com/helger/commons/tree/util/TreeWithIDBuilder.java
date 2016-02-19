@@ -17,9 +17,7 @@
 package com.helger.commons.tree.util;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -28,6 +26,8 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.hierarchy.IChildrenProvider;
 import com.helger.commons.hierarchy.IHasParent;
 import com.helger.commons.hierarchy.IParentProvider;
@@ -53,8 +53,8 @@ public final class TreeWithIDBuilder
   private static <KEYTYPE, DATATYPE extends IHasID <KEYTYPE>> DefaultTreeWithID <KEYTYPE, DATATYPE> _buildTree (@Nonnull final List <DATATYPE> aOpen,
                                                                                                                 @Nonnull final IParentProvider <DATATYPE> aParentResolver)
   {
-    final DefaultTreeWithID <KEYTYPE, DATATYPE> aTree = new DefaultTreeWithID <KEYTYPE, DATATYPE> ();
-    final Map <KEYTYPE, DefaultTreeItemWithID <KEYTYPE, DATATYPE>> aIDMap = new HashMap <KEYTYPE, DefaultTreeItemWithID <KEYTYPE, DATATYPE>> ();
+    final DefaultTreeWithID <KEYTYPE, DATATYPE> aTree = new DefaultTreeWithID <> ();
+    final ICommonsMap <KEYTYPE, DefaultTreeItemWithID <KEYTYPE, DATATYPE>> aIDMap = new CommonsHashMap <> ();
     int nMovedToBackCount = 0;
     while (!aOpen.isEmpty ())
     {

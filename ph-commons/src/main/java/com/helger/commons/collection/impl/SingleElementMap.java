@@ -35,7 +35,7 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * Map implementation that can only keep 0 or 1 element.
+ * {@link ICommonsMap} implementation that can only keep 0 or 1 element.
  *
  * @author Philip Helger
  * @param <KEYTYPE>

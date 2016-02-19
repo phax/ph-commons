@@ -31,6 +31,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsLinkedHashSet;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -606,14 +607,14 @@ public abstract class AbstractMicroNode implements IMicroNode
 
   @Nonnull
   @ReturnsMutableCopy
-  public Map <EMicroEvent, Set <IMicroEventTarget>> getAllEventTargets ()
+  public ICommonsMap <EMicroEvent, Set <IMicroEventTarget>> getAllEventTargets ()
   {
     return CollectionHelper.newMap (m_aEventTargets);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public Set <IMicroEventTarget> getAllEventTargets (@Nullable final EMicroEvent eEvent)
+  public ICommonsSet <IMicroEventTarget> getAllEventTargets (@Nullable final EMicroEvent eEvent)
   {
     return CollectionHelper.newSet (m_aEventTargets == null ? null : m_aEventTargets.get (eEvent));
   }

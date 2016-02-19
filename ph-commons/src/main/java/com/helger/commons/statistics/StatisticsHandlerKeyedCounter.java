@@ -17,9 +17,6 @@
 package com.helger.commons.statistics;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.CheckForSigned;
@@ -31,7 +28,9 @@ import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -84,7 +83,7 @@ public class StatisticsHandlerKeyedCounter implements IMutableStatisticsHandlerK
 
   private final transient SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   private final AtomicInteger m_aInvocationCount = new AtomicInteger ();
-  private final Map <String, Value> m_aMap = new HashMap <String, Value> ();
+  private final ICommonsMap <String, Value> m_aMap = new CommonsHashMap <> ();
 
   @Nonnegative
   public int getInvocationCount ()
@@ -111,9 +110,9 @@ public class StatisticsHandlerKeyedCounter implements IMutableStatisticsHandlerK
 
   @Nonnull
   @ReturnsMutableCopy
-  public Set <String> getAllKeys ()
+  public ICommonsSet <String> getAllKeys ()
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.newSet (m_aMap.keySet ()));
+    return m_aRWLock.readLocked ( () -> m_aMap.copyOfKeySet ());
   }
 
   @CheckForSigned

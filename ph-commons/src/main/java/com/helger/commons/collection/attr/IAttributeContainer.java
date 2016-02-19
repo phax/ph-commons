@@ -19,10 +19,8 @@ package com.helger.commons.collection.attr;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -30,6 +28,9 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.ICommonsCollection;
+import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.typeconvert.TypeConverter;
 
@@ -78,7 +79,7 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends Serializable
    */
   @Nonnull
   @ReturnsMutableCopy
-  Map <KEYTYPE, VALUETYPE> getAllAttributes ();
+  ICommonsMap <KEYTYPE, VALUETYPE> getAllAttributes ();
 
   /**
    * Get the attribute value associated to the given attribute name.
@@ -406,14 +407,14 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends Serializable
    */
   @Nonnull
   @ReturnsMutableCopy
-  Set <KEYTYPE> getAllAttributeNames ();
+  ICommonsSet <KEYTYPE> getAllAttributeNames ();
 
   /**
    * @return A non-<code>null</code> collection of all attribute values.
    */
   @Nonnull
   @ReturnsMutableCopy
-  Collection <VALUETYPE> getAllAttributeValues ();
+  ICommonsCollection <VALUETYPE> getAllAttributeValues ();
 
   /**
    * @return An iterator over all entries.

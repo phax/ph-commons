@@ -16,13 +16,12 @@
  */
 package com.helger.commons.statistics;
 
-import java.util.Set;
-
 import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.ICommonsSet;
 
 /**
  * Base interface for keyed statistic handlers
@@ -37,7 +36,7 @@ public interface IStatisticsHandlerKeyed extends IStatisticsHandler
    */
   @Nonnull
   @ReturnsMutableCopy
-  Set <String> getAllKeys ();
+  ICommonsSet <String> getAllKeys ();
 
   /**
    * Get the invocation count for a single key.

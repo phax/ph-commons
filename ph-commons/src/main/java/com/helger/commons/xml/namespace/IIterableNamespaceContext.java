@@ -16,13 +16,12 @@
  */
 package com.helger.commons.xml.namespace;
 
-import java.util.Map;
-
 import javax.annotation.Nonnull;
 import javax.xml.namespace.NamespaceContext;
 
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.ICommonsMap;
 
 /**
  * A special namespace context interface that allows the iteration of the
@@ -40,5 +39,5 @@ public interface IIterableNamespaceContext extends NamespaceContext
    */
   @Nonnull
   @ReturnsMutableCopy
-  Map <String, String> getPrefixToNamespaceURIMap ();
+  ICommonsMap <String, String> getPrefixToNamespaceURIMap ();
 }

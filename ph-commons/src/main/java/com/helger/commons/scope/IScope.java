@@ -16,8 +16,6 @@
  */
 package com.helger.commons.scope;
 
-import java.util.Map;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -25,6 +23,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.callback.INonThrowingCallableWithParameter;
 import com.helger.commons.callback.INonThrowingRunnableWithParameter;
 import com.helger.commons.collection.attr.IMutableAttributeContainerAny;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.id.IHasID;
 
 /**
@@ -114,5 +113,5 @@ public interface IScope extends IMutableAttributeContainerAny <String>, IHasID <
    */
   @Nonnull
   @ReturnsMutableCopy
-  Map <String, IScopeRenewalAware> getAllScopeRenewalAwareAttributes ();
+  ICommonsMap <String, IScopeRenewalAware> getAllScopeRenewalAwareAttributes ();
 }

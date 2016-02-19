@@ -16,9 +16,6 @@
  */
 package com.helger.commons.tree.withid.unique;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -28,7 +25,9 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.tree.withid.ITreeItemWithID;
@@ -50,14 +49,14 @@ public abstract class AbstractTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, IT
                                                           implements
                                                           ITreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, ITEMTYPE>
 {
-  private final Map <KEYTYPE, ITEMTYPE> m_aItemStore;
+  private final ICommonsMap <KEYTYPE, ITEMTYPE> m_aItemStore;
 
   public AbstractTreeItemWithUniqueIDFactory ()
   {
-    this (new HashMap <KEYTYPE, ITEMTYPE> ());
+    this (new CommonsHashMap <> ());
   }
 
-  public AbstractTreeItemWithUniqueIDFactory (@Nonnull final Map <KEYTYPE, ITEMTYPE> aItemStore)
+  public AbstractTreeItemWithUniqueIDFactory (@Nonnull final ICommonsMap <KEYTYPE, ITEMTYPE> aItemStore)
   {
     m_aItemStore = ValueEnforcer.notNull (aItemStore, "ItemStore");
   }
@@ -132,7 +131,7 @@ public abstract class AbstractTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, IT
   @ReturnsMutableCopy
   public final ICommonsList <ITEMTYPE> getAllItems ()
   {
-    return CollectionHelper.newList (m_aItemStore.values ());
+    return m_aItemStore.copyOfValues ();
   }
 
   @Nonnull
