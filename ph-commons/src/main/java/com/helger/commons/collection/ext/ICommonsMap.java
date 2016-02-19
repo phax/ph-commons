@@ -159,6 +159,18 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   }
 
   /**
+   * Add all provided values.
+   *
+   * @param aValues
+   *        The values to be added. May be <code>null</code>.
+   */
+  default void addAll (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aValues)
+  {
+    if (aValues != null)
+      putAll (aValues);
+  }
+
+  /**
    * Clear and add all provided values.
    *
    * @param aValues
@@ -167,8 +179,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   default void setAll (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aValues)
   {
     clear ();
-    if (aValues != null)
-      putAll (aValues);
+    addAll (aValues);
   }
 
   @Nonnull

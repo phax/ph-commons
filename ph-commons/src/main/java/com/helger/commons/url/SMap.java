@@ -151,14 +151,6 @@ public class SMap extends CommonsLinkedHashMap <String, String>
     return add (sName, "");
   }
 
-  @Nonnull
-  public SMap addAll (@Nullable final Map <String, String> aMap)
-  {
-    if (aMap != null)
-      super.putAll (aMap);
-    return this;
-  }
-
   @Override
   @Nonnull
   public SMap getClone ()
