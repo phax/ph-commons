@@ -1893,7 +1893,7 @@ public final class CollectionHelper
    * @see #removeAndReturnElementAtIndex(List, int)
    */
   @Nonnull
-  public static EChange removeElementAtIndex (@Nullable final List <?> aList, final int nIndex)
+  public static EChange removeAtIndex (@Nullable final List <?> aList, final int nIndex)
   {
     if (aList == null || nIndex < 0 || nIndex >= aList.size ())
       return EChange.UNCHANGED;
@@ -1915,7 +1915,7 @@ public final class CollectionHelper
    * @return <code>null</code> if removal failed or the removed element. Note:
    *         the removed element may also be <code>null</code> so it may be
    *         tricky to determine if removal succeeded or not!
-   * @see #removeElementAtIndex(List, int)
+   * @see #removeAtIndex(List, int)
    */
   @Nullable
   public static <ELEMENTTYPE> ELEMENTTYPE removeAndReturnElementAtIndex (@Nullable final List <ELEMENTTYPE> aList,
