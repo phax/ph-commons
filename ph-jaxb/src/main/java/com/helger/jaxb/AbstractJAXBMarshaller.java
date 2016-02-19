@@ -44,15 +44,12 @@ import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.error.IResourceErrorGroup;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.lang.IHasClassLoader;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.xml.schema.XMLSchemaCache;
-import com.helger.jaxb.validation.AbstractValidationEventHandler;
 import com.helger.jaxb.validation.CollectingLoggingValidationEventHandlerFactory;
-import com.helger.jaxb.validation.CollectingValidationEventHandler;
 import com.helger.jaxb.validation.IValidationEventHandlerFactory;
 
 /**
@@ -76,8 +73,6 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
   private final ICommonsList <IReadableResource> m_aXSDs = new CommonsArrayList <> ();
   private final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> m_aWrapper;
   private IValidationEventHandlerFactory m_aVEHFactory = new CollectingLoggingValidationEventHandlerFactory ();
-  @Deprecated
-  private ValidationEventHandler m_aLastEventHandler;
   private boolean m_bReadSecure = DEFAULT_READ_SECURE;
   private boolean m_bWriteFormatted = DEFAULT_WRITE_FORMATTED;
   private ClassLoader m_aClassLoader;
@@ -143,87 +138,6 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
   public final IValidationEventHandlerFactory getValidationEventHandlerFactory ()
   {
     return m_aVEHFactory;
-  }
-
-  /**
-   * Get the last created validation event handler. This may be required when
-   * collecting all errors using a {@link CollectingValidationEventHandler}.
-   *
-   * @return The last created validation event handler. Or <code>null</code> if
-   *         none was created so far.
-   */
-  @Nullable
-  @Deprecated
-  public final ValidationEventHandler getLastValidationEventHandler ()
-  {
-    return m_aLastEventHandler;
-  }
-
-  /**
-   * Get the last created collecting validation event handler. This may be
-   * required when collecting all errors.
-   *
-   * @return The last created collecting validation event handler. Or
-   *         <code>null</code> if none was created so far.
-   */
-  @Nullable
-  @Deprecated
-  public final CollectingValidationEventHandler getCollectingValidationEventHandler ()
-  {
-    ValidationEventHandler aHandler = m_aLastEventHandler;
-    while (aHandler != null)
-    {
-      if (aHandler instanceof CollectingValidationEventHandler)
-      {
-        // Take the first match!
-        return (CollectingValidationEventHandler) aHandler;
-      }
-
-      if (aHandler instanceof AbstractValidationEventHandler)
-      {
-        // Go to the parent handler
-        aHandler = ((AbstractValidationEventHandler) aHandler).getWrappedHandler ();
-      }
-      else
-      {
-        // Don't know how to descend
-        aHandler = null;
-      }
-    }
-
-    return null;
-  }
-
-  /**
-   * Get the parsing errors from the last read/write actions. Works only if the
-   * last created validation event handler is a
-   * {@link CollectingValidationEventHandler} or wraps one.
-   *
-   * @return All events for evaluation or <code>null</code> in case no
-   *         {@link CollectingValidationEventHandler} is present.
-   */
-  @Nullable
-  @Deprecated
-  public final IResourceErrorGroup getLastValidationErrors ()
-  {
-    final CollectingValidationEventHandler aHandler = getCollectingValidationEventHandler ();
-    return aHandler == null ? null : aHandler.getResourceErrors ();
-  }
-
-  /**
-   * Clear the latest parsing errors. Works only if the last created validation
-   * event handler is a {@link CollectingValidationEventHandler} or wraps one.
-   *
-   * @return {@link EChange#CHANGED} if a
-   *         {@link CollectingValidationEventHandler} was found, and at least
-   *         one element was removed from it.
-   */
-  @Nonnull
-  @Deprecated
-  public final EChange clearLastValidationErrors ()
-  {
-    final CollectingValidationEventHandler aHandler = getCollectingValidationEventHandler ();
-    return aHandler == null ? EChange.UNCHANGED : aHandler.clearResourceErrors ();
   }
 
   /**
@@ -329,11 +243,8 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
     if (m_aVEHFactory != null)
     {
       // Create and set a new event handler
-      m_aLastEventHandler = m_aVEHFactory.create (aUnmarshaller.getEventHandler ());
-      aUnmarshaller.setEventHandler (m_aLastEventHandler);
+      aUnmarshaller.setEventHandler (m_aVEHFactory.create (aUnmarshaller.getEventHandler ()));
     }
-    else
-      m_aLastEventHandler = null;
 
     // Set XSD (if any)
     final Schema aValidationSchema = createValidationSchema ();
@@ -421,11 +332,8 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
     if (m_aVEHFactory != null)
     {
       // Create and set the event handler
-      m_aLastEventHandler = m_aVEHFactory.create (aMarshaller.getEventHandler ());
-      aMarshaller.setEventHandler (m_aLastEventHandler);
+      aMarshaller.setEventHandler (m_aVEHFactory.create (aMarshaller.getEventHandler ()));
     }
-    else
-      m_aLastEventHandler = null;
 
     JAXBMarshallerHelper.setFormattedOutput (aMarshaller, m_bWriteFormatted);
 
