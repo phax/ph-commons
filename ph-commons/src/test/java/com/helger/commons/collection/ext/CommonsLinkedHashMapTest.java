@@ -14,41 +14,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.codec;
+package com.helger.commons.collection.ext;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Arrays;
+import java.util.Comparator;
 
 import org.junit.Test;
 
+import com.helger.commons.mock.CommonsTestHelper;
+
 /**
- * Test class for class {@link Base64Codec}
+ * Test class for class {@link CommonsLinkedHashMap}.
  *
  * @author Philip Helger
  */
-public final class Base64CodecTest
+public final class CommonsLinkedHashMapTest
 {
   @Test
-  public void testGetEncodedLength ()
+  public void testBasic ()
   {
-    final Base64Codec aBase64 = new Base64Codec ();
-    for (int i = 0; i < 256; ++i)
-    {
-      final byte [] aBuf = new byte [i];
-      Arrays.fill (aBuf, (byte) i);
-      assertEquals (aBase64.getEncoded (aBuf).length, aBase64.getEncodedLength (i));
-    }
-  }
+    final ICommonsMap <String, String> aTest = new CommonsLinkedHashMap <> ();
+    aTest.put ("aaa", "bla");
+    aTest.put ("bbb", "blb");
+    aTest.put ("ccc", "blc");
 
-  @Test
-  public void testGetDecodedLength ()
-  {
-    final Base64Codec aBase64 = new Base64Codec ();
-    assertEquals (0, aBase64.getDecodedLength (0));
-    for (int i = 1; i <= 4; ++i)
-      assertEquals (3, aBase64.getDecodedLength (i));
-    for (int i = 5; i <= 8; ++i)
-      assertEquals (6, aBase64.getDecodedLength (i));
+    final ICommonsSet <String> aSortedKeys = aTest.getSortedByKey (Comparator.naturalOrder ()).copyOfKeySet ();
+    assertEquals ("aaa", aSortedKeys.getAtIndex (0));
+    assertEquals ("bbb", aSortedKeys.getAtIndex (1));
+    assertEquals ("ccc", aSortedKeys.getAtIndex (2));
+
+    CommonsTestHelper.testDefaultSerialization (aTest);
+    CommonsTestHelper.testGetClone (aTest);
   }
 }
