@@ -2272,30 +2272,6 @@ public final class CollectionHelper
     return newList (aCont.subList (nStartIndex, nEndIndex));
   }
 
-  /**
-   * Get a map where keys and values are exchanged.
-   *
-   * @param <KEYTYPE>
-   *        Original key type.
-   * @param <VALUETYPE>
-   *        Original value type.
-   * @param aMap
-   *        The input map to convert. May not be <code>null</code>.
-   * @return The swapped hash map (unsorted!)
-   */
-  @Nullable
-  @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> ICommonsMap <VALUETYPE, KEYTYPE> getSwappedKeyValues (@Nullable final Map <KEYTYPE, VALUETYPE> aMap)
-  {
-    if (isEmpty (aMap))
-      return null;
-
-    final ICommonsMap <VALUETYPE, KEYTYPE> ret = newMap (aMap.size ());
-    for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : aMap.entrySet ())
-      ret.put (aEntry.getValue (), aEntry.getKey ());
-    return ret;
-  }
-
   public static <ELEMENTTYPE> boolean contains (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
                                                 @Nullable final ELEMENTTYPE aSearch)
   {

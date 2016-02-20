@@ -17,11 +17,13 @@
 package com.helger.commons.collection.ext;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.Comparator;
 
 import org.junit.Test;
 
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -46,5 +48,18 @@ public final class CommonsHashMapTest
 
     CommonsTestHelper.testDefaultSerialization (aTest);
     CommonsTestHelper.testGetClone (aTest);
+  }
+
+  @Test
+  public void testGetSwappedKeyValues ()
+  {
+    final ICommonsMap <String, Integer> aMap = CollectionHelper.newMap (new String [] { "a", "b", "c" },
+                                                                        new Integer [] { Integer.valueOf (0),
+                                                                                         Integer.valueOf (1),
+                                                                                         Integer.valueOf (2) });
+    final ICommonsMap <Integer, String> aMap2 = aMap.getSwappedKeyValues ();
+    assertEquals (aMap.size (), aMap2.size ());
+    assertEquals (aMap, aMap2.getSwappedKeyValues ());
+    assertNotNull (CollectionHelper.newMap ().getSwappedKeyValues ());
   }
 }

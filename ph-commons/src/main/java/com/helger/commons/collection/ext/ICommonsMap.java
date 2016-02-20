@@ -99,7 +99,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    *         first element otherwise.
    */
   @Nullable
-  default Map.Entry <KEYTYPE, VALUETYPE> getFirstElement ()
+  default Map.Entry <KEYTYPE, VALUETYPE> getFirstEntry ()
   {
     return isEmpty () ? null : entrySet ().iterator ().next ();
   }
@@ -125,6 +125,26 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   default VALUETYPE getFirstValue ()
   {
     return isEmpty () ? null : values ().iterator ().next ();
+  }
+
+  @Nullable
+  default Map.Entry <KEYTYPE, VALUETYPE> findFirstEntry (@Nullable final Predicate <? super Map.Entry <KEYTYPE, VALUETYPE>> aFilter)
+  {
+    return CollectionHelper.findFirst (entrySet (), aFilter);
+  }
+
+  @Nullable
+  default KEYTYPE findFirstKey (@Nullable final Predicate <? super Map.Entry <KEYTYPE, VALUETYPE>> aFilter)
+  {
+    final Map.Entry <KEYTYPE, VALUETYPE> aEntry = findFirstEntry (aFilter);
+    return aEntry == null ? null : aEntry.getKey ();
+  }
+
+  @Nullable
+  default VALUETYPE findFirstValue (@Nullable final Predicate <? super Map.Entry <KEYTYPE, VALUETYPE>> aFilter)
+  {
+    final Map.Entry <KEYTYPE, VALUETYPE> aEntry = findFirstEntry (aFilter);
+    return aEntry == null ? null : aEntry.getValue ();
   }
 
   /**
@@ -166,7 +186,10 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default ICommonsMap <VALUETYPE, KEYTYPE> getSwappedKeyValues ()
   {
-    return CollectionHelper.getSwappedKeyValues (this);
+    final ICommonsMap <VALUETYPE, KEYTYPE> ret = new CommonsHashMap <> ();
+    for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : entrySet ())
+      ret.put (aEntry.getValue (), aEntry.getKey ());
+    return ret;
   }
 
   @Nonnull

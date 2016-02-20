@@ -35,7 +35,6 @@ import static com.helger.commons.collection.CollectionHelper.getSorted;
 import static com.helger.commons.collection.CollectionHelper.getSortedByKey;
 import static com.helger.commons.collection.CollectionHelper.getSortedByValue;
 import static com.helger.commons.collection.CollectionHelper.getSubList;
-import static com.helger.commons.collection.CollectionHelper.getSwappedKeyValues;
 import static com.helger.commons.collection.CollectionHelper.isEmpty;
 import static com.helger.commons.collection.CollectionHelper.makeUnmodifiable;
 import static com.helger.commons.collection.CollectionHelper.makeUnmodifiableNotNull;
@@ -1766,17 +1765,6 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
 
     aSubList = getSubList (aSource, 4, 2);
     assertNotNull (aSubList);
-  }
-
-  @Test
-  public void testGetSwappedKeyValues ()
-  {
-    final Map <String, Integer> aMap = newMap (new String [] { "a", "b", "c" }, new Integer [] { I0, I1, I2 });
-    final Map <Integer, String> aMap2 = getSwappedKeyValues (aMap);
-    assertEquals (aMap.size (), aMap2.size ());
-    assertEquals (aMap, getSwappedKeyValues (aMap2));
-    assertNull (getSwappedKeyValues (newMap ()));
-    assertNull (getSwappedKeyValues (null));
   }
 
   @Test
