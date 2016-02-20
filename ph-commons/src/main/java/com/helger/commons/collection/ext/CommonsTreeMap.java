@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 
 public class CommonsTreeMap <KEYTYPE, VALUETYPE> extends TreeMap <KEYTYPE, VALUETYPE>
-                            implements ICommonsMap <KEYTYPE, VALUETYPE>
+                            implements ICommonsNavigableMap <KEYTYPE, VALUETYPE>
 {
   public CommonsTreeMap ()
   {}
@@ -36,9 +36,10 @@ public class CommonsTreeMap <KEYTYPE, VALUETYPE> extends TreeMap <KEYTYPE, VALUE
     super (aComparator);
   }
 
-  public CommonsTreeMap (@Nonnull final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
+  public CommonsTreeMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
-    super (aMap);
+    if (aMap != null)
+      putAll (aMap);
   }
 
   @Nonnull

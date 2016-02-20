@@ -19,6 +19,7 @@ package com.helger.commons.collection.ext;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -31,12 +32,12 @@ public class CommonsHashMap <KEYTYPE, VALUETYPE> extends HashMap <KEYTYPE, VALUE
   public CommonsHashMap ()
   {}
 
-  public CommonsHashMap (final int nInitialCapacity)
+  public CommonsHashMap (@Nonnegative final int nInitialCapacity)
   {
     super (nInitialCapacity);
   }
 
-  public CommonsHashMap (final int nInitialCapacity, final float fLoadFactor)
+  public CommonsHashMap (@Nonnegative final int nInitialCapacity, final float fLoadFactor)
   {
     super (nInitialCapacity, fLoadFactor);
   }

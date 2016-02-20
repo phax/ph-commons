@@ -19,9 +19,12 @@ package com.helger.commons.collection.ext;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.CollectionHelper;
 
 public class CommonsLinkedHashMap <KEYTYPE, VALUETYPE> extends LinkedHashMap <KEYTYPE, VALUETYPE>
                                   implements ICommonsOrderedMap <KEYTYPE, VALUETYPE>
@@ -29,22 +32,26 @@ public class CommonsLinkedHashMap <KEYTYPE, VALUETYPE> extends LinkedHashMap <KE
   public CommonsLinkedHashMap ()
   {}
 
-  public CommonsLinkedHashMap (final int nInitialCapacity)
+  public CommonsLinkedHashMap (@Nonnegative final int nInitialCapacity)
   {
     super (nInitialCapacity);
   }
 
-  public CommonsLinkedHashMap (final int nInitialCapacity, final float fLoadFactor)
+  public CommonsLinkedHashMap (@Nonnegative final int nInitialCapacity, final float fLoadFactor)
   {
     super (nInitialCapacity, fLoadFactor);
   }
 
-  public CommonsLinkedHashMap (@Nonnull final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
+  public CommonsLinkedHashMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
-    super (aMap);
+    super (CollectionHelper.getSize (aMap));
+    if (aMap != null)
+      putAll (aMap);
   }
 
-  public CommonsLinkedHashMap (final int nInitialCapacity, final float fLoadFactor, final boolean bAccessOrder)
+  public CommonsLinkedHashMap (@Nonnegative final int nInitialCapacity,
+                               final float fLoadFactor,
+                               final boolean bAccessOrder)
   {
     super (nInitialCapacity, fLoadFactor, bAccessOrder);
   }

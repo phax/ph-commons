@@ -20,8 +20,10 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.CollectionHelper;
 
 public class CommonsConcurrentHashMap <KEYTYPE, VALUETYPE> extends ConcurrentHashMap <KEYTYPE, VALUETYPE>
                                       implements ICommonsMap <KEYTYPE, VALUETYPE>
@@ -39,9 +41,11 @@ public class CommonsConcurrentHashMap <KEYTYPE, VALUETYPE> extends ConcurrentHas
     super (nInitialCapacity, fLoadFactor);
   }
 
-  public CommonsConcurrentHashMap (@Nonnull final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
+  public CommonsConcurrentHashMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
-    super (aMap);
+    super (CollectionHelper.getSize (aMap));
+    if (aMap != null)
+      putAll (aMap);
   }
 
   @Nonnull

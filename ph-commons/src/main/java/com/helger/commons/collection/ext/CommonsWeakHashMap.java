@@ -19,9 +19,12 @@ package com.helger.commons.collection.ext;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.CollectionHelper;
 
 public class CommonsWeakHashMap <KEYTYPE, VALUETYPE> extends WeakHashMap <KEYTYPE, VALUETYPE>
                                 implements ICommonsMap <KEYTYPE, VALUETYPE>
@@ -29,19 +32,21 @@ public class CommonsWeakHashMap <KEYTYPE, VALUETYPE> extends WeakHashMap <KEYTYP
   public CommonsWeakHashMap ()
   {}
 
-  public CommonsWeakHashMap (final int nInitialCapacity)
+  public CommonsWeakHashMap (@Nonnegative final int nInitialCapacity)
   {
     super (nInitialCapacity);
   }
 
-  public CommonsWeakHashMap (final int nInitialCapacity, final float fLoadFactor)
+  public CommonsWeakHashMap (@Nonnegative final int nInitialCapacity, final float fLoadFactor)
   {
     super (nInitialCapacity, fLoadFactor);
   }
 
-  public CommonsWeakHashMap (@Nonnull final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
+  public CommonsWeakHashMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
-    super (aMap);
+    super (CollectionHelper.getSize (aMap));
+    if (aMap != null)
+      putAll (aMap);
   }
 
   @Nonnull
