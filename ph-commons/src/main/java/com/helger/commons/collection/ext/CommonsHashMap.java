@@ -20,8 +20,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.CollectionHelper;
 
 public class CommonsHashMap <KEYTYPE, VALUETYPE> extends HashMap <KEYTYPE, VALUETYPE>
                             implements ICommonsMap <KEYTYPE, VALUETYPE>
@@ -39,9 +41,11 @@ public class CommonsHashMap <KEYTYPE, VALUETYPE> extends HashMap <KEYTYPE, VALUE
     super (nInitialCapacity, fLoadFactor);
   }
 
-  public CommonsHashMap (@Nonnull final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
+  public CommonsHashMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
-    super (aMap);
+    super (CollectionHelper.getSize (aMap));
+    if (aMap != null)
+      putAll (aMap);
   }
 
   @Nonnull
