@@ -938,9 +938,7 @@ public final class CollectionHelper
     if (isEmpty (aCollection))
       return newSet (0);
     final CommonsHashSet <ELEMENTTYPE> ret = newSet (aCollection.size ());
-    for (final ELEMENTTYPE aValue : aCollection)
-      if (aFilter.test (aValue))
-        ret.add (aValue);
+    findAll (aCollection, aFilter, ret::add);
     return ret;
   }
 
@@ -971,9 +969,7 @@ public final class CollectionHelper
   public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> newSet (@Nullable final Iterable <? extends ELEMENTTYPE> aCont)
   {
     final CommonsHashSet <ELEMENTTYPE> ret = newSet ();
-    if (aCont != null)
-      for (final ELEMENTTYPE aValue : aCont)
-        ret.add (aValue);
+    ret.addAll (aCont);
     return ret;
   }
 
@@ -1072,10 +1068,7 @@ public final class CollectionHelper
                                                                                                                   @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
   {
     final CommonsTreeSet <ELEMENTTYPE> ret = newSortedSet ();
-    if (isNotEmpty (aCollection))
-      for (final ELEMENTTYPE aValue : aCollection)
-        if (aFilter.test (aValue))
-          ret.add (aValue);
+    findAll (aCollection, aFilter, ret::add);
     return ret;
   }
 
@@ -1095,8 +1088,7 @@ public final class CollectionHelper
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> newSortedSet (@Nullable final ELEMENTTYPE... aValues)
   {
     final CommonsTreeSet <ELEMENTTYPE> ret = newSortedSet ();
-    if (ArrayHelper.isNotEmpty (aValues))
-      Collections.addAll (ret, aValues);
+    ret.addAll (aValues);
     return ret;
   }
 
@@ -1105,9 +1097,7 @@ public final class CollectionHelper
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> newSortedSet (@Nullable final Iterable <? extends ELEMENTTYPE> aCont)
   {
     final CommonsTreeSet <ELEMENTTYPE> ret = newSortedSet ();
-    if (aCont != null)
-      for (final ELEMENTTYPE aValue : aCont)
-        ret.add (aValue);
+    ret.addAll (aCont);
     return ret;
   }
 
@@ -1183,9 +1173,7 @@ public final class CollectionHelper
     if (isEmpty (aCollection))
       return newOrderedSet (0);
     final CommonsLinkedHashSet <ELEMENTTYPE> ret = newOrderedSet (aCollection.size ());
-    for (final ELEMENTTYPE aValue : aCollection)
-      if (aFilter.test (aValue))
-        ret.add (aValue);
+    findAll (aCollection, aFilter, ret::add);
     return ret;
   }
 
@@ -1291,9 +1279,7 @@ public final class CollectionHelper
     if (isEmpty (aCollection))
       return newList (0);
     final CommonsArrayList <ELEMENTTYPE> ret = newList (aCollection.size ());
-    for (final ELEMENTTYPE aValue : aCollection)
-      if (aFilter.test (aValue))
-        ret.add (aValue);
+    findAll (aCollection, aFilter, ret::add);
     return ret;
   }
 
