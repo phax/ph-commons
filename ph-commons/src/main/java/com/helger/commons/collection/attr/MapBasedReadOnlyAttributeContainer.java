@@ -57,7 +57,7 @@ public class MapBasedReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> implements 
     m_aAttrs.put (aKey, aValue);
   }
 
-  public MapBasedReadOnlyAttributeContainer (@Nonnull final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
+  public MapBasedReadOnlyAttributeContainer (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
     this (true, new CommonsHashMap <> (aMap));
   }

@@ -61,7 +61,7 @@ public class MapBasedAttributeContainer <KEYTYPE, VALUETYPE>
     m_aAttrs.put (aKey, aValue);
   }
 
-  public MapBasedAttributeContainer (@Nonnull final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
+  public MapBasedAttributeContainer (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
     this (true, new CommonsHashMap <> (aMap));
   }

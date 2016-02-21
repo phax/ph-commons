@@ -21,7 +21,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -107,13 +106,7 @@ public final class MapBasedAttributeContainerTest
                                                                                                                                                 new Object [] { "value",
                                                                                                                                                                 "value" })));
 
-    try
-    {
-      new MapBasedAttributeContainerAny <String> ((Map <String, Object>) null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
+    assertTrue (new MapBasedAttributeContainerAny <> ((Map <String, Object>) null).isEmpty ());
   }
 
   @Test

@@ -21,7 +21,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -82,12 +81,6 @@ public final class MapBasedReadOnlyAttributeContainerTest
                                                                                                                                                 new Serializable [] { "value",
                                                                                                                                                                       "value" })));
 
-    try
-    {
-      new MapBasedReadOnlyAttributeContainer <String, Serializable> ((Map <String, Serializable>) null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
+    assertTrue (new MapBasedReadOnlyAttributeContainer <> ((Map <String, Serializable>) null).isEmpty ());
   }
 }

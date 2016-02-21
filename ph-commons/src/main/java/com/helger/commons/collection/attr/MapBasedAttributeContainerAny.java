@@ -47,7 +47,7 @@ public class MapBasedAttributeContainerAny <KEYTYPE> extends MapBasedAttributeCo
     super (sKey, aValue);
   }
 
-  public MapBasedAttributeContainerAny (@Nonnull final Map <? extends KEYTYPE, ? extends Object> aMap)
+  public MapBasedAttributeContainerAny (@Nullable final Map <? extends KEYTYPE, ? extends Object> aMap)
   {
     super (aMap);
   }
