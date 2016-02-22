@@ -17,6 +17,7 @@ g2H2fW9l6WnbuAqn0nczMTxhdQUlWWLWHKk0HGnlTu/8VuPyScZ0Jku7XmoWSJiKeBbooBZHaCxLv5Wb
 jqzjt7PQc1sXnCIeqBxIrJXfXUQkTQ9KV3iDL49IdV1AeMIi2Gpf0uxuCink65AFwn0uUeyfS00k0FROJzh+7bbvkheMWIAawOf6
 GgAm8tAjsmE4yejBl1E4xYKoHXY2Gs1tI+/v6CQ7R5VbA+Z/LiCTO8cozl2zI0DlN7VRVDmBt0WqUCdkZKF22jd1heuPx9yNRo8H
 uHu4/XKtXs21U040Z0DoVZZqk3ZyVEdkfRdnkj3BuOkCuf4zPS+3+3y5QWWRmsTruVHETwUq3vBbo9DLEUbxU6qag/Nnao="
+    - MAVEN_OPTS=-Xmx1024m
 
 before_script:
 # should be empty

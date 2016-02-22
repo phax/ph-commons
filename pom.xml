@@ -112,4 +112,16 @@
     <module>ph-less-commons</module>
     <module>ph-jaxb</module>
   </modules>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <argLine>-Xmx1024m</argLine>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
