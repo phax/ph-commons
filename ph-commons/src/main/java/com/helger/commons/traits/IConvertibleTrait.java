@@ -356,7 +356,7 @@ public interface IConvertibleTrait
    * @see #getConvertedValue(Class)
    */
   @Nullable
-  default java.sql.Date getAsDate () throws TypeConverterException
+  default java.sql.Date getAsSqlDate () throws TypeConverterException
   {
     return getConvertedValue (java.sql.Date.class);
   }
@@ -392,7 +392,7 @@ public interface IConvertibleTrait
    * @see #getConvertedValue(Class)
    */
   @Nullable
-  default java.sql.Time getAsTime () throws TypeConverterException
+  default java.sql.Time getAsSqlTime () throws TypeConverterException
   {
     return getConvertedValue (java.sql.Time.class);
   }
@@ -404,7 +404,7 @@ public interface IConvertibleTrait
    * @see #getConvertedValue(Class)
    */
   @Nullable
-  default java.sql.Timestamp getAsTimestamp () throws TypeConverterException
+  default java.sql.Timestamp getAsSqlTimestamp () throws TypeConverterException
   {
     return getConvertedValue (java.sql.Timestamp.class);
   }
