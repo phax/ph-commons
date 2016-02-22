@@ -97,6 +97,32 @@ public interface IConvertibleByKeyTrait <KEYTYPE>
   }
 
   /**
+   * Get the contained value casted to the specified class.
+   *
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @param aDefault
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
+   * @param aClass
+   *        The class to cast to.
+   * @return The object value casted to the passed class. May be
+   *         <code>null</code> if the contained value is <code>null</code>.
+   * @throws ClassCastException
+   *         in case the value types are not convertible
+   * @param <T>
+   *        Destination type
+   */
+  @Nullable
+  default <T> T getCastedValue (@Nullable final KEYTYPE aKey,
+                                @Nullable final T aDefault,
+                                @Nonnull final Class <T> aClass) throws ClassCastException
+  {
+    final Object aValue = getValue (aKey);
+    return aValue == null ? aDefault : aClass.cast (aValue);
+  }
+
+  /**
    * Get the contained value converted using TypeConverter to the passed class.
    *
    * @param aKey
@@ -114,6 +140,32 @@ public interface IConvertibleByKeyTrait <KEYTYPE>
   default <T> T getConvertedValue (@Nullable final KEYTYPE aKey, @Nonnull final Class <T> aClass)
   {
     return TypeConverter.convertIfNecessary (getValue (aKey), aClass);
+  }
+
+  /**
+   * Get the contained value converted using TypeConverter to the passed class.
+   *
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @param aDefault
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
+   * @param aClass
+   *        The class to convert to.
+   * @return The object value casted to the passed class. May be
+   *         <code>null</code> if the contained value is <code>null</code>.
+   * @throws TypeConverterException
+   *         in case of an error
+   * @param <T>
+   *        Destination type
+   */
+  @Nullable
+  default <T> T getConvertedValue (@Nullable final KEYTYPE aKey,
+                                   @Nullable final T aDefault,
+                                   @Nonnull final Class <T> aClass)
+  {
+    final Object aValue = getValue (aKey);
+    return aValue == null ? aDefault : TypeConverter.convertIfNecessary (aValue, aClass);
   }
 
   default boolean getAsBoolean (@Nullable final KEYTYPE aKey) throws TypeConverterException
@@ -199,10 +251,10 @@ public interface IConvertibleByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (String.class)</code>
+   * @return <code>getConvertedValue (aKey,String.class)</code>
    * @throws TypeConverterException
    *         in case of an error
-   * @see #getConvertedValue(Object, Class)
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default String getAsString (@Nullable final KEYTYPE aKey) throws TypeConverterException
@@ -213,10 +265,28 @@ public interface IConvertibleByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (BigDecimal.class)</code>
+   * @param sDefault
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
+   * @return <code>getConvertedValue (aKey,sDefault, String.class)</code>
    * @throws TypeConverterException
    *         in case of an error
-   * @see #getConvertedValue(Object, Class)
+   * @see #getConvertedValue(Object,Object,Class)
+   */
+  @Nullable
+  default String getAsString (@Nullable final KEYTYPE aKey,
+                              @Nullable final String sDefault) throws TypeConverterException
+  {
+    return getConvertedValue (aKey, sDefault, String.class);
+  }
+
+  /**
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @return <code>getConvertedValue (aKey,BigDecimal.class)</code>
+   * @throws TypeConverterException
+   *         in case of an error
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default BigDecimal getAsBigDecimal (@Nullable final KEYTYPE aKey) throws TypeConverterException
@@ -227,10 +297,28 @@ public interface IConvertibleByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (BigInteger.class)</code>
+   * @param aDefault
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
+   * @return <code>getConvertedValue (aKey,aDefault,BigDecimal.class)</code>
    * @throws TypeConverterException
    *         in case of an error
-   * @see #getConvertedValue(Object, Class)
+   * @see #getConvertedValue(Object,Object,Class)
+   */
+  @Nullable
+  default BigDecimal getAsBigDecimal (@Nullable final KEYTYPE aKey,
+                                      @Nullable final BigDecimal aDefault) throws TypeConverterException
+  {
+    return getConvertedValue (aKey, aDefault, BigDecimal.class);
+  }
+
+  /**
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @return <code>getConvertedValue (aKey,BigInteger.class)</code>
+   * @throws TypeConverterException
+   *         in case of an error
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default BigInteger getAsBigInteger (@Nullable final KEYTYPE aKey) throws TypeConverterException
@@ -241,10 +329,28 @@ public interface IConvertibleByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (LocalDate.class)</code>
+   * @param aDefault
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
+   * @return <code>getConvertedValue (aKey,aDefault,BigInteger.class)</code>
    * @throws TypeConverterException
    *         in case of an error
-   * @see #getConvertedValue(Object, Class)
+   * @see #getConvertedValue(Object,Object, Class)
+   */
+  @Nullable
+  default BigInteger getAsBigInteger (@Nullable final KEYTYPE aKey,
+                                      @Nullable final BigInteger aDefault) throws TypeConverterException
+  {
+    return getConvertedValue (aKey, aDefault, BigInteger.class);
+  }
+
+  /**
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @return <code>getConvertedValue (aKey,LocalDate.class)</code>
+   * @throws TypeConverterException
+   *         in case of an error
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default LocalDate getAsLocalDate (@Nullable final KEYTYPE aKey) throws TypeConverterException
@@ -255,10 +361,28 @@ public interface IConvertibleByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (LocalTime.class)</code>
+   * @param aDefault
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
+   * @return <code>getConvertedValue (aKey,aDefault,LocalDate.class)</code>
    * @throws TypeConverterException
    *         in case of an error
-   * @see #getConvertedValue(Object, Class)
+   * @see #getConvertedValue(Object,Object,Class)
+   */
+  @Nullable
+  default LocalDate getAsLocalDate (@Nullable final KEYTYPE aKey,
+                                    @Nullable final LocalDate aDefault) throws TypeConverterException
+  {
+    return getConvertedValue (aKey, aDefault, LocalDate.class);
+  }
+
+  /**
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @return <code>getConvertedValue (aKey,LocalTime.class)</code>
+   * @throws TypeConverterException
+   *         in case of an error
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default LocalTime getAsLocalTime (@Nullable final KEYTYPE aKey) throws TypeConverterException
@@ -269,10 +393,28 @@ public interface IConvertibleByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (LocalDateTime.class)</code>
+   * @param aDefault
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
+   * @return <code>getConvertedValue (aKey,aDefault,LocalTime.class)</code>
    * @throws TypeConverterException
    *         in case of an error
-   * @see #getConvertedValue(Object, Class)
+   * @see #getConvertedValue(Object,Object,Class)
+   */
+  @Nullable
+  default LocalTime getAsLocalTime (@Nullable final KEYTYPE aKey,
+                                    @Nullable final LocalTime aDefault) throws TypeConverterException
+  {
+    return getConvertedValue (aKey, aDefault, LocalTime.class);
+  }
+
+  /**
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @return <code>getConvertedValue (aKey,LocalDateTime.class)</code>
+   * @throws TypeConverterException
+   *         in case of an error
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default LocalDateTime getAsLocalDateTime (@Nullable final KEYTYPE aKey) throws TypeConverterException
@@ -283,10 +425,28 @@ public interface IConvertibleByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (byte[].class)</code>
+   * @param aDefault
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
+   * @return <code>getConvertedValue (aKey,aDefault,LocalDateTime.class)</code>
    * @throws TypeConverterException
    *         in case of an error
-   * @see #getConvertedValue(Object, Class)
+   * @see #getConvertedValue(Object,Object,Class)
+   */
+  @Nullable
+  default LocalDateTime getAsLocalDateTime (@Nullable final KEYTYPE aKey,
+                                            @Nullable final LocalDateTime aDefault) throws TypeConverterException
+  {
+    return getConvertedValue (aKey, aDefault, LocalDateTime.class);
+  }
+
+  /**
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @return <code>getConvertedValue (aKey,byte[].class)</code>
+   * @throws TypeConverterException
+   *         in case of an error
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default byte [] getAsByteArray (@Nullable final KEYTYPE aKey) throws TypeConverterException
@@ -297,10 +457,10 @@ public interface IConvertibleByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (Boolean.class)</code>
+   * @return <code>getConvertedValue (aKey,Boolean.class)</code>
    * @throws TypeConverterException
    *         in case of an error
-   * @see #getConvertedValue(Object, Class)
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default Boolean getAsBooleanObj (@Nullable final KEYTYPE aKey) throws TypeConverterException
@@ -311,10 +471,10 @@ public interface IConvertibleByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (Byte.class)</code>
+   * @return <code>getConvertedValue (aKey,Byte.class)</code>
    * @throws TypeConverterException
    *         in case of an error
-   * @see #getConvertedValue(Object, Class)
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default Byte getAsByteObj (@Nullable final KEYTYPE aKey) throws TypeConverterException
@@ -325,10 +485,10 @@ public interface IConvertibleByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (Character.class)</code>
+   * @return <code>getConvertedValue (aKey,Character.class)</code>
    * @throws TypeConverterException
    *         in case of an error
-   * @see #getConvertedValue(Object, Class)
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default Character getAsCharObj (@Nullable final KEYTYPE aKey) throws TypeConverterException
@@ -339,10 +499,10 @@ public interface IConvertibleByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (Double.class)</code>
+   * @return <code>getConvertedValue (aKey,Double.class)</code>
    * @throws TypeConverterException
    *         in case of an error
-   * @see #getConvertedValue(Object, Class)
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default Double getAsDoubleObj (@Nullable final KEYTYPE aKey)
@@ -353,10 +513,10 @@ public interface IConvertibleByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (Float.class)</code>
+   * @return <code>getConvertedValue (aKey,Float.class)</code>
    * @throws TypeConverterException
    *         in case of an error
-   * @see #getConvertedValue(Object, Class)
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default Float getAsFloatObj (@Nullable final KEYTYPE aKey) throws TypeConverterException
@@ -367,10 +527,10 @@ public interface IConvertibleByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (Integer.class)</code>
+   * @return <code>getConvertedValue (aKey,Integer.class)</code>
    * @throws TypeConverterException
    *         in case of an error
-   * @see #getConvertedValue(Object, Class)
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default Integer getAsIntObj (@Nullable final KEYTYPE aKey) throws TypeConverterException
@@ -381,10 +541,10 @@ public interface IConvertibleByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (Long.class)</code>
+   * @return <code>getConvertedValue (aKey,Long.class)</code>
    * @throws TypeConverterException
    *         in case of an error
-   * @see #getConvertedValue(Object, Class)
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default Long getAsLongObj (@Nullable final KEYTYPE aKey) throws TypeConverterException
@@ -395,10 +555,10 @@ public interface IConvertibleByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (Short.class)</code>
+   * @return <code>getConvertedValue (aKey,Short.class)</code>
    * @throws TypeConverterException
    *         in case of an error
-   * @see #getConvertedValue(Object, Class)
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default Short getAsShortObj (@Nullable final KEYTYPE aKey) throws TypeConverterException
@@ -409,10 +569,10 @@ public interface IConvertibleByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (Blob.class)</code>
+   * @return <code>getConvertedValue (aKey,Blob.class)</code>
    * @throws TypeConverterException
    *         in case of an error
-   * @see #getConvertedValue(Object, Class)
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default java.sql.Blob getAsSqlBlob (@Nullable final KEYTYPE aKey) throws TypeConverterException
@@ -423,10 +583,10 @@ public interface IConvertibleByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (Clob.class)</code>
+   * @return <code>getConvertedValue (aKey,Clob.class)</code>
    * @throws TypeConverterException
    *         in case of an error
-   * @see #getConvertedValue(Object, Class)
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default java.sql.Clob getAsSqlClob (@Nullable final KEYTYPE aKey) throws TypeConverterException
@@ -437,10 +597,10 @@ public interface IConvertibleByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (Date.class)</code>
+   * @return <code>getConvertedValue (aKey,Date.class)</code>
    * @throws TypeConverterException
    *         in case of an error
-   * @see #getConvertedValue(Object, Class)
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default java.sql.Date getAsSqlDate (@Nullable final KEYTYPE aKey) throws TypeConverterException
@@ -451,10 +611,10 @@ public interface IConvertibleByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (NClob.class)</code>
+   * @return <code>getConvertedValue (aKey,NClob.class)</code>
    * @throws TypeConverterException
    *         in case of an error
-   * @see #getConvertedValue(Object, Class)
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default java.sql.NClob getAsSqlNClob (@Nullable final KEYTYPE aKey) throws TypeConverterException
@@ -465,10 +625,10 @@ public interface IConvertibleByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (RowId.class)</code>
+   * @return <code>getConvertedValue (aKey,RowId.class)</code>
    * @throws TypeConverterException
    *         in case of an error
-   * @see #getConvertedValue(Object, Class)
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default java.sql.RowId getAsSqlRowId (@Nullable final KEYTYPE aKey) throws TypeConverterException
@@ -479,10 +639,10 @@ public interface IConvertibleByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (Time.class)</code>
+   * @return <code>getConvertedValue (aKey,Time.class)</code>
    * @throws TypeConverterException
    *         in case of an error
-   * @see #getConvertedValue(Object, Class)
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default java.sql.Time getAsSqlTime (@Nullable final KEYTYPE aKey) throws TypeConverterException
@@ -493,10 +653,10 @@ public interface IConvertibleByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (Timestamp.class)</code>
+   * @return <code>getConvertedValue (aKey,Timestamp.class)</code>
    * @throws TypeConverterException
    *         in case of an error
-   * @see #getConvertedValue(Object, Class)
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default java.sql.Timestamp getAsSqlTimestamp (@Nullable final KEYTYPE aKey) throws TypeConverterException

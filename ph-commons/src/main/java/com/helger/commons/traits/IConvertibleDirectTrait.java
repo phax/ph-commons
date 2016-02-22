@@ -87,6 +87,28 @@ public interface IConvertibleDirectTrait
   }
 
   /**
+   * Get the contained value casted to the specified class.
+   *
+   * @param aDefault
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
+   * @param aClass
+   *        The class to cast to.
+   * @return The object value casted to the passed class. May be
+   *         <code>null</code> if the contained value is <code>null</code>.
+   * @throws ClassCastException
+   *         in case the value types are not convertible
+   * @param <T>
+   *        Destination type
+   */
+  @Nullable
+  default <T> T getCastedValue (@Nullable final T aDefault, @Nonnull final Class <T> aClass) throws ClassCastException
+  {
+    final Object aValue = getValue ();
+    return aValue == null ? aDefault : aClass.cast (aValue);
+  }
+
+  /**
    * Get the contained value converted using TypeConverter to the passed class.
    *
    * @param aClass
@@ -102,6 +124,28 @@ public interface IConvertibleDirectTrait
   default <T> T getConvertedValue (@Nonnull final Class <T> aClass)
   {
     return TypeConverter.convertIfNecessary (getValue (), aClass);
+  }
+
+  /**
+   * Get the contained value converted using TypeConverter to the passed class.
+   *
+   * @param aDefault
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
+   * @param aClass
+   *        The class to convert to.
+   * @return The object value casted to the passed class. May be
+   *         <code>null</code> if the contained value is <code>null</code>.
+   * @throws TypeConverterException
+   *         in case of an error
+   * @param <T>
+   *        Destination type
+   */
+  @Nullable
+  default <T> T getConvertedValue (@Nullable final T aDefault, @Nonnull final Class <T> aClass)
+  {
+    final Object aValue = getValue ();
+    return aValue == null ? aDefault : TypeConverter.convertIfNecessary (aValue, aClass);
   }
 
   default boolean getAsBoolean () throws TypeConverterException
@@ -197,6 +241,21 @@ public interface IConvertibleDirectTrait
   }
 
   /**
+   * @param sDefault
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
+   * @return <code>getConvertedValue (sDefault, String.class)</code>
+   * @throws TypeConverterException
+   *         in case of an error
+   * @see #getConvertedValue(Object,Class)
+   */
+  @Nullable
+  default String getAsString (@Nullable final String sDefault) throws TypeConverterException
+  {
+    return getConvertedValue (sDefault, String.class);
+  }
+
+  /**
    * @return <code>getConvertedValue (BigDecimal.class)</code>
    * @throws TypeConverterException
    *         in case of an error
@@ -206,6 +265,21 @@ public interface IConvertibleDirectTrait
   default BigDecimal getAsBigDecimal () throws TypeConverterException
   {
     return getConvertedValue (BigDecimal.class);
+  }
+
+  /**
+   * @param aDefault
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
+   * @return <code>getConvertedValue (sDefault, BigDecimal.class)</code>
+   * @throws TypeConverterException
+   *         in case of an error
+   * @see #getConvertedValue(Object,Class)
+   */
+  @Nullable
+  default BigDecimal getAsBigDecimal (@Nullable final BigDecimal aDefault) throws TypeConverterException
+  {
+    return getConvertedValue (aDefault, BigDecimal.class);
   }
 
   /**
@@ -221,6 +295,21 @@ public interface IConvertibleDirectTrait
   }
 
   /**
+   * @param aDefault
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
+   * @return <code>getConvertedValue (sDefault, BigInteger.class)</code>
+   * @throws TypeConverterException
+   *         in case of an error
+   * @see #getConvertedValue(Object,Class)
+   */
+  @Nullable
+  default BigInteger getAsBigInteger (@Nullable final BigInteger aDefault) throws TypeConverterException
+  {
+    return getConvertedValue (aDefault, BigInteger.class);
+  }
+
+  /**
    * @return <code>getConvertedValue (LocalDate.class)</code>
    * @throws TypeConverterException
    *         in case of an error
@@ -230,6 +319,21 @@ public interface IConvertibleDirectTrait
   default LocalDate getAsLocalDate () throws TypeConverterException
   {
     return getConvertedValue (LocalDate.class);
+  }
+
+  /**
+   * @param aDefault
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
+   * @return <code>getConvertedValue (aDefault, LocalDate.class)</code>
+   * @throws TypeConverterException
+   *         in case of an error
+   * @see #getConvertedValue(Object,Class)
+   */
+  @Nullable
+  default LocalDate getAsLocalDate (@Nullable final LocalDate aDefault) throws TypeConverterException
+  {
+    return getConvertedValue (aDefault, LocalDate.class);
   }
 
   /**
@@ -245,6 +349,21 @@ public interface IConvertibleDirectTrait
   }
 
   /**
+   * @param aDefault
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
+   * @return <code>getConvertedValue (aDefault, LocalTime.class)</code>
+   * @throws TypeConverterException
+   *         in case of an error
+   * @see #getConvertedValue(Object,Class)
+   */
+  @Nullable
+  default LocalTime getAsLocalTime (@Nullable final LocalTime aDefault) throws TypeConverterException
+  {
+    return getConvertedValue (aDefault, LocalTime.class);
+  }
+
+  /**
    * @return <code>getConvertedValue (LocalDateTime.class)</code>
    * @throws TypeConverterException
    *         in case of an error
@@ -252,6 +371,21 @@ public interface IConvertibleDirectTrait
    */
   @Nullable
   default LocalDateTime getAsLocalDateTime () throws TypeConverterException
+  {
+    return getConvertedValue (LocalDateTime.class);
+  }
+
+  /**
+   * @param aDefault
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
+   * @return <code>getConvertedValue (aDefault, LocalDateTime.class)</code>
+   * @throws TypeConverterException
+   *         in case of an error
+   * @see #getConvertedValue(Object,Class)
+   */
+  @Nullable
+  default LocalDateTime getAsLocalDateTime (@Nullable final LocalDateTime aDefault) throws TypeConverterException
   {
     return getConvertedValue (LocalDateTime.class);
   }
