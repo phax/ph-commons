@@ -26,6 +26,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.typeconvert.TypeConverter;
 import com.helger.commons.typeconvert.TypeConverterException;
 
@@ -73,6 +74,46 @@ public interface IConvertibleByIndexTrait
   default boolean hasNoValue (@Nonnegative final int nIndex)
   {
     return getValue (nIndex) == null;
+  }
+
+  /**
+   * Get the contained value casted to the return type.
+   *
+   * @param nIndex
+   *        The index to be accessed. Should be &ge; 0.
+   * @return The object value casted to the passed class. May be
+   *         <code>null</code> if the contained value is <code>null</code>.
+   * @throws ClassCastException
+   *         in case the value types are not convertible
+   * @param <T>
+   *        Destination type
+   */
+  @Nullable
+  default <T> T getCastedValue (@Nonnegative final int nIndex) throws ClassCastException
+  {
+    return GenericReflection.uncheckedCast (getValue (nIndex));
+  }
+
+  /**
+   * Get the contained value casted to the return type.
+   *
+   * @param nIndex
+   *        The index to be accessed. Should be &ge; 0.
+   * @param aDefault
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
+   * @return The object value casted to the passed class. May be
+   *         <code>null</code> if the contained value is <code>null</code>.
+   * @throws ClassCastException
+   *         in case the value types are not convertible
+   * @param <T>
+   *        Destination type
+   */
+  @Nullable
+  default <T> T getCastedValue (@Nonnegative final int nIndex, @Nullable final T aDefault) throws ClassCastException
+  {
+    final Object aValue = getValue (nIndex);
+    return aValue == null ? aDefault : GenericReflection.uncheckedCast (aValue);
   }
 
   /**

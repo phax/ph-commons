@@ -25,6 +25,7 @@ import java.time.LocalTime;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.typeconvert.TypeConverter;
 import com.helger.commons.typeconvert.TypeConverterException;
 
@@ -74,6 +75,46 @@ public interface IConvertibleByKeyTrait <KEYTYPE>
   default boolean hasNoValue (@Nullable final KEYTYPE aKey)
   {
     return getValue (aKey) == null;
+  }
+
+  /**
+   * Get the contained value casted to the return type.
+   *
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @return The object value casted to the passed class. May be
+   *         <code>null</code> if the contained value is <code>null</code>.
+   * @throws ClassCastException
+   *         in case the value types are not convertible
+   * @param <T>
+   *        Destination type
+   */
+  @Nullable
+  default <T> T getCastedValue (@Nullable final KEYTYPE aKey) throws ClassCastException
+  {
+    return GenericReflection.uncheckedCast (getValue (aKey));
+  }
+
+  /**
+   * Get the contained value casted to the return type.
+   *
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @param aDefault
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
+   * @return The object value casted to the passed class. May be
+   *         <code>null</code> if the contained value is <code>null</code>.
+   * @throws ClassCastException
+   *         in case the value types are not convertible
+   * @param <T>
+   *        Destination type
+   */
+  @Nullable
+  default <T> T getCastedValue (@Nullable final KEYTYPE aKey, @Nullable final T aDefault) throws ClassCastException
+  {
+    final Object aValue = getValue (aKey);
+    return aValue == null ? aDefault : GenericReflection.uncheckedCast (aValue);
   }
 
   /**

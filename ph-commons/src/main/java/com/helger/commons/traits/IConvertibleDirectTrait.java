@@ -25,6 +25,7 @@ import java.time.LocalTime;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.typeconvert.TypeConverter;
 import com.helger.commons.typeconvert.TypeConverterException;
 
@@ -66,6 +67,42 @@ public interface IConvertibleDirectTrait
   default boolean hasNoValue ()
   {
     return getValue () == null;
+  }
+
+  /**
+   * Get the contained value casted to the return type.
+   *
+   * @return The object value casted to the passed class. May be
+   *         <code>null</code> if the contained value is <code>null</code>.
+   * @throws ClassCastException
+   *         in case the value types are not convertible
+   * @param <T>
+   *        Destination type
+   */
+  @Nullable
+  default <T> T getCastedValue () throws ClassCastException
+  {
+    return GenericReflection.uncheckedCast (getValue ());
+  }
+
+  /**
+   * Get the contained value casted to the return type.
+   *
+   * @param aDefault
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
+   * @return The object value casted to the passed class. May be
+   *         <code>null</code> if the contained value is <code>null</code>.
+   * @throws ClassCastException
+   *         in case the value types are not convertible
+   * @param <T>
+   *        Destination type
+   */
+  @Nullable
+  default <T> T getCastedValue (@Nullable final T aDefault) throws ClassCastException
+  {
+    final Object aValue = getValue ();
+    return aValue == null ? aDefault : GenericReflection.uncheckedCast (aValue);
   }
 
   /**
