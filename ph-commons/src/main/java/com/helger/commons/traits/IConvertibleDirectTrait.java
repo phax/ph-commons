@@ -18,6 +18,9 @@ package com.helger.commons.traits;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -31,7 +34,7 @@ import com.helger.commons.typeconvert.TypeConverterException;
  * @author Philip Helger
  */
 @FunctionalInterface
-public interface IConvertibleTrait
+public interface IConvertibleDirectTrait
 {
   @Nullable
   Object getValue ();
@@ -218,6 +221,42 @@ public interface IConvertibleTrait
   }
 
   /**
+   * @return <code>getConvertedValue (LocalDate.class)</code>
+   * @throws TypeConverterException
+   *         in case of an error
+   * @see #getConvertedValue(Class)
+   */
+  @Nullable
+  default LocalDate getAsLocalDate () throws TypeConverterException
+  {
+    return getConvertedValue (LocalDate.class);
+  }
+
+  /**
+   * @return <code>getConvertedValue (LocalTime.class)</code>
+   * @throws TypeConverterException
+   *         in case of an error
+   * @see #getConvertedValue(Class)
+   */
+  @Nullable
+  default LocalTime getAsLocalTime () throws TypeConverterException
+  {
+    return getConvertedValue (LocalTime.class);
+  }
+
+  /**
+   * @return <code>getConvertedValue (LocalDateTime.class)</code>
+   * @throws TypeConverterException
+   *         in case of an error
+   * @see #getConvertedValue(Class)
+   */
+  @Nullable
+  default LocalDateTime getAsLocalDateTime () throws TypeConverterException
+  {
+    return getConvertedValue (LocalDateTime.class);
+  }
+
+  /**
    * @return <code>getConvertedValue (byte[].class)</code>
    * @throws TypeConverterException
    *         in case of an error
@@ -332,7 +371,7 @@ public interface IConvertibleTrait
    * @see #getConvertedValue(Class)
    */
   @Nullable
-  default java.sql.Blob getAsBlob () throws TypeConverterException
+  default java.sql.Blob getAsSqlBlob () throws TypeConverterException
   {
     return getConvertedValue (java.sql.Blob.class);
   }
@@ -344,7 +383,7 @@ public interface IConvertibleTrait
    * @see #getConvertedValue(Class)
    */
   @Nullable
-  default java.sql.Clob getAsClob () throws TypeConverterException
+  default java.sql.Clob getAsSqlClob () throws TypeConverterException
   {
     return getConvertedValue (java.sql.Clob.class);
   }
@@ -368,7 +407,7 @@ public interface IConvertibleTrait
    * @see #getConvertedValue(Class)
    */
   @Nullable
-  default java.sql.NClob getAsNClob () throws TypeConverterException
+  default java.sql.NClob getAsSqlNClob () throws TypeConverterException
   {
     return getConvertedValue (java.sql.NClob.class);
   }
@@ -380,7 +419,7 @@ public interface IConvertibleTrait
    * @see #getConvertedValue(Class)
    */
   @Nullable
-  default java.sql.RowId getAsRowId () throws TypeConverterException
+  default java.sql.RowId getAsSqlRowId () throws TypeConverterException
   {
     return getConvertedValue (java.sql.RowId.class);
   }
@@ -417,7 +456,7 @@ public interface IConvertibleTrait
    * @return The convertible object
    */
   @Nonnull
-  static IConvertibleTrait wrap (@Nullable final Object o)
+  static IConvertibleDirectTrait wrap (@Nullable final Object o)
   {
     return () -> o;
   }
