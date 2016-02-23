@@ -17,6 +17,7 @@
 package com.helger.commons.url;
 
 import java.math.BigInteger;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.function.Predicate;
@@ -55,6 +56,16 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
   public SimpleURL ()
   {
     this (URLData.EMPTY_URL_DATA);
+  }
+
+  public SimpleURL (@Nonnull final URL aURL)
+  {
+    this (aURL, URLHelper.CHARSET_URL_OBJ);
+  }
+
+  public SimpleURL (@Nonnull final URL aURL, @Nonnull final Charset aCharset)
+  {
+    this (aURL.toExternalForm (), aCharset);
   }
 
   public SimpleURL (@Nonnull final String sHref)
