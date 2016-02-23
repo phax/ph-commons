@@ -78,8 +78,8 @@ public final class EnumHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static <ENUMTYPE extends Enum <ENUMTYPE>> ICommonsList <ENUMTYPE> findAll (@Nonnull final Class <ENUMTYPE> aClass,
-                                                                                    @Nullable final Predicate <ENUMTYPE> aFilter)
+  public static <ENUMTYPE extends Enum <ENUMTYPE>> ICommonsList <ENUMTYPE> getAll (@Nonnull final Class <ENUMTYPE> aClass,
+                                                                                   @Nullable final Predicate <ENUMTYPE> aFilter)
   {
     return ArrayHelper.getAll (aClass.getEnumConstants (), aFilter);
   }
