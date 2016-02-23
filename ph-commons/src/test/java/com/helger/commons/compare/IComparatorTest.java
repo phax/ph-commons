@@ -35,7 +35,7 @@ import com.helger.commons.mock.CommonsTestHelper;
  *
  * @author Philip Helger
  */
-public final class ISerializableComparatorTest extends AbstractCommonsTestCase
+public final class IComparatorTest extends AbstractCommonsTestCase
 {
   @Test
   public void testCollating ()
