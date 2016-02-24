@@ -34,17 +34,80 @@ import com.helger.commons.statistics.IStatisticsHandlerTimer;
  */
 public interface IStatisticsVisitorCallback extends ICallback
 {
-  void onCache (@Nonnull String sName, @Nonnull IStatisticsHandlerCache aHandler);
+  /**
+   * Called per cache entry
+   * 
+   * @param sName
+   *        Name. Never <code>null</code>.
+   * @param aHandler
+   *        Statistics handler. Never <code>null</code>.
+   */
+  default void onCache (@Nonnull final String sName, @Nonnull final IStatisticsHandlerCache aHandler)
+  {}
 
-  void onTimer (@Nonnull String sName, @Nonnull IStatisticsHandlerTimer aHandler);
+  /**
+   * Called per timer entry
+   * 
+   * @param sName
+   *        Name. Never <code>null</code>.
+   * @param aHandler
+   *        Statistics handler. Never <code>null</code>.
+   */
+  default void onTimer (@Nonnull final String sName, @Nonnull final IStatisticsHandlerTimer aHandler)
+  {}
 
-  void onKeyedTimer (@Nonnull String sName, @Nonnull IStatisticsHandlerKeyedTimer aHandler);
+  /**
+   * Called per keyed-timer entry
+   * 
+   * @param sName
+   *        Name. Never <code>null</code>.
+   * @param aHandler
+   *        Statistics handler. Never <code>null</code>.
+   */
+  default void onKeyedTimer (@Nonnull final String sName, @Nonnull final IStatisticsHandlerKeyedTimer aHandler)
+  {}
 
-  void onSize (@Nonnull String sName, @Nonnull IStatisticsHandlerSize aHandler);
+  /**
+   * Called per size entry
+   * 
+   * @param sName
+   *        Name. Never <code>null</code>.
+   * @param aHandler
+   *        Statistics handler. Never <code>null</code>.
+   */
+  default void onSize (@Nonnull final String sName, @Nonnull final IStatisticsHandlerSize aHandler)
+  {}
 
-  void onKeyedSize (@Nonnull String sName, @Nonnull IStatisticsHandlerKeyedSize aHandler);
+  /**
+   * Called per keyed-size entry
+   * 
+   * @param sName
+   *        Name. Never <code>null</code>.
+   * @param aHandler
+   *        Statistics handler. Never <code>null</code>.
+   */
+  default void onKeyedSize (@Nonnull final String sName, @Nonnull final IStatisticsHandlerKeyedSize aHandler)
+  {}
 
-  void onCounter (@Nonnull String sName, @Nonnull IStatisticsHandlerCounter aHandler);
+  /**
+   * Called per counter entry
+   * 
+   * @param sName
+   *        Name. Never <code>null</code>.
+   * @param aHandler
+   *        Statistics handler. Never <code>null</code>.
+   */
+  default void onCounter (@Nonnull final String sName, @Nonnull final IStatisticsHandlerCounter aHandler)
+  {}
 
-  void onKeyedCounter (@Nonnull String sName, @Nonnull IStatisticsHandlerKeyedCounter aHandler);
+  /**
+   * Called per keyed-counter entry
+   * 
+   * @param sName
+   *        Name. Never <code>null</code>.
+   * @param aHandler
+   *        Statistics handler. Never <code>null</code>.
+   */
+  default void onKeyedCounter (@Nonnull final String sName, @Nonnull final IStatisticsHandlerKeyedCounter aHandler)
+  {}
 }

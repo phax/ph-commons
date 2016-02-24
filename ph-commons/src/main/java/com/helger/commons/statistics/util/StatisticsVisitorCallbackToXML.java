@@ -36,7 +36,7 @@ import com.helger.commons.statistics.IStatisticsHandlerTimer;
  *
  * @author Philip Helger
  */
-public class StatisticsVisitorCallbackToXML extends DefaultStatisticsVisitorCallback
+public class StatisticsVisitorCallbackToXML implements IStatisticsVisitorCallback
 {
   private final IMicroElement m_eRoot;
 

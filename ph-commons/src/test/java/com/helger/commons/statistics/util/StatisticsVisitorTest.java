@@ -29,6 +29,7 @@ public final class StatisticsVisitorTest
   public void testWalkStatistics ()
   {
     // Just walk and do nothing :)
-    StatisticsVisitor.visitStatistics (new DefaultStatisticsVisitorCallback ());
+    StatisticsVisitor.visitStatistics (new IStatisticsVisitorCallback ()
+    {});
   }
 }
