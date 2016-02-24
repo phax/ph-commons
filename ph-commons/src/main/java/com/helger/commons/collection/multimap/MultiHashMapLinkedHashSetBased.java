@@ -24,7 +24,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsLinkedHashSet;
-import com.helger.commons.collection.ext.ICommonsSet;
+import com.helger.commons.collection.ext.ICommonsOrderedSet;
 
 /**
  * Multi map based on {@link java.util.HashMap} and {@link CommonsLinkedHashSet}
@@ -37,8 +37,8 @@ import com.helger.commons.collection.ext.ICommonsSet;
  *        value type
  */
 @NotThreadSafe
-public class MultiHashMapLinkedHashSetBased <KEYTYPE, VALUETYPE>
-                                            extends AbstractMultiHashMapSetBased <KEYTYPE, VALUETYPE>
+public class MultiHashMapLinkedHashSetBased <KEYTYPE, VALUETYPE> extends
+                                            AbstractMultiHashMapSetBased <KEYTYPE, VALUETYPE, ICommonsOrderedSet <VALUETYPE>>
 {
   public MultiHashMapLinkedHashSetBased ()
   {}
@@ -49,12 +49,12 @@ public class MultiHashMapLinkedHashSetBased <KEYTYPE, VALUETYPE>
   }
 
   public MultiHashMapLinkedHashSetBased (@Nullable final KEYTYPE aKey,
-                                         @Nullable final ICommonsSet <VALUETYPE> aCollection)
+                                         @Nullable final ICommonsOrderedSet <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }
 
-  public MultiHashMapLinkedHashSetBased (@Nullable final Map <? extends KEYTYPE, ? extends ICommonsSet <VALUETYPE>> aCont)
+  public MultiHashMapLinkedHashSetBased (@Nullable final Map <? extends KEYTYPE, ? extends ICommonsOrderedSet <VALUETYPE>> aCont)
   {
     super (aCont);
   }

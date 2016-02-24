@@ -24,7 +24,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsTreeSet;
-import com.helger.commons.collection.ext.ICommonsSet;
+import com.helger.commons.collection.ext.ICommonsNavigableSet;
 
 /**
  * Multi map based on
@@ -38,8 +38,8 @@ import com.helger.commons.collection.ext.ICommonsSet;
  *        value type
  */
 @NotThreadSafe
-public class MultiLinkedHashMapTreeSetBased <KEYTYPE, VALUETYPE extends Comparable <? super VALUETYPE>>
-                                            extends AbstractMultiLinkedHashMapSetBased <KEYTYPE, VALUETYPE>
+public class MultiLinkedHashMapTreeSetBased <KEYTYPE, VALUETYPE extends Comparable <? super VALUETYPE>> extends
+                                            AbstractMultiLinkedHashMapSetBased <KEYTYPE, VALUETYPE, ICommonsNavigableSet <VALUETYPE>>
 {
   public MultiLinkedHashMapTreeSetBased ()
   {}
@@ -50,12 +50,12 @@ public class MultiLinkedHashMapTreeSetBased <KEYTYPE, VALUETYPE extends Comparab
   }
 
   public MultiLinkedHashMapTreeSetBased (@Nullable final KEYTYPE aKey,
-                                         @Nullable final ICommonsSet <VALUETYPE> aCollection)
+                                         @Nullable final ICommonsNavigableSet <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }
 
-  public MultiLinkedHashMapTreeSetBased (@Nullable final Map <? extends KEYTYPE, ? extends ICommonsSet <VALUETYPE>> aCont)
+  public MultiLinkedHashMapTreeSetBased (@Nullable final Map <? extends KEYTYPE, ? extends ICommonsNavigableSet <VALUETYPE>> aCont)
   {
     super (aCont);
   }

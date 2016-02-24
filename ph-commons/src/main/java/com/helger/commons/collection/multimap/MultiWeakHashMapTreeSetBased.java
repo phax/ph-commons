@@ -24,7 +24,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsTreeSet;
-import com.helger.commons.collection.ext.ICommonsSet;
+import com.helger.commons.collection.ext.ICommonsNavigableSet;
 
 /**
  * Multi map based on {@link java.util.WeakHashMap} and {@link CommonsTreeSet}
@@ -37,8 +37,8 @@ import com.helger.commons.collection.ext.ICommonsSet;
  *        value type
  */
 @NotThreadSafe
-public class MultiWeakHashMapTreeSetBased <KEYTYPE, VALUETYPE extends Comparable <? super VALUETYPE>>
-                                          extends AbstractMultiWeakHashMapSetBased <KEYTYPE, VALUETYPE>
+public class MultiWeakHashMapTreeSetBased <KEYTYPE, VALUETYPE extends Comparable <? super VALUETYPE>> extends
+                                          AbstractMultiWeakHashMapSetBased <KEYTYPE, VALUETYPE, ICommonsNavigableSet <VALUETYPE>>
 {
   public MultiWeakHashMapTreeSetBased ()
   {}
@@ -48,12 +48,13 @@ public class MultiWeakHashMapTreeSetBased <KEYTYPE, VALUETYPE extends Comparable
     super (aKey, aValue);
   }
 
-  public MultiWeakHashMapTreeSetBased (@Nonnull final KEYTYPE aKey, @Nullable final ICommonsSet <VALUETYPE> aCollection)
+  public MultiWeakHashMapTreeSetBased (@Nonnull final KEYTYPE aKey,
+                                       @Nullable final ICommonsNavigableSet <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }
 
-  public MultiWeakHashMapTreeSetBased (@Nullable final Map <? extends KEYTYPE, ? extends ICommonsSet <VALUETYPE>> aCont)
+  public MultiWeakHashMapTreeSetBased (@Nullable final Map <? extends KEYTYPE, ? extends ICommonsNavigableSet <VALUETYPE>> aCont)
   {
     super (aCont);
   }

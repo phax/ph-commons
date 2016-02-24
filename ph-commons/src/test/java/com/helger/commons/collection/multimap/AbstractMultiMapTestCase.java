@@ -32,6 +32,8 @@ import javax.annotation.Nonnull;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsNavigableSet;
+import com.helger.commons.collection.ext.ICommonsOrderedSet;
 import com.helger.commons.collection.ext.ICommonsSet;
 
 /**
@@ -66,6 +68,18 @@ public abstract class AbstractMultiMapTestCase
   }
 
   @Nonnull
+  protected final ICommonsOrderedSet <String> getValueSetOrdered1 ()
+  {
+    return CollectionHelper.newOrderedSet (getValue1 ());
+  }
+
+  @Nonnull
+  protected final ICommonsNavigableSet <String> getValueSetNavigable1 ()
+  {
+    return CollectionHelper.newSortedSet (getValue1 ());
+  }
+
+  @Nonnull
   protected final ICommonsMap <String, ICommonsList <String>> getMapList1 ()
   {
     return CollectionHelper.newMap (getKey1 (), getValueList1 ());
@@ -75,6 +89,18 @@ public abstract class AbstractMultiMapTestCase
   protected final ICommonsMap <String, ICommonsSet <String>> getMapSet1 ()
   {
     return CollectionHelper.newMap (getKey1 (), getValueSet1 ());
+  }
+
+  @Nonnull
+  protected final ICommonsMap <String, ICommonsOrderedSet <String>> getMapSetOrdered1 ()
+  {
+    return CollectionHelper.newMap (getKey1 (), getValueSetOrdered1 ());
+  }
+
+  @Nonnull
+  protected final ICommonsMap <String, ICommonsNavigableSet <String>> getMapSetNavigable1 ()
+  {
+    return CollectionHelper.newMap (getKey1 (), getValueSetNavigable1 ());
   }
 
   protected final <COLLTYPE extends Collection <String>> void testEmpty (final IMultiMap <String, String, COLLTYPE> aMultiMap)

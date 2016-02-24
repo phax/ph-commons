@@ -24,7 +24,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsTreeSet;
-import com.helger.commons.collection.ext.ICommonsSet;
+import com.helger.commons.collection.ext.ICommonsNavigableSet;
 
 /**
  * Multi map based on {@link java.util.concurrent.ConcurrentHashMap} and
@@ -38,8 +38,8 @@ import com.helger.commons.collection.ext.ICommonsSet;
  *        value type
  */
 @NotThreadSafe
-public class MultiConcurrentHashMapTreeSetBased <KEYTYPE, VALUETYPE extends Comparable <? super VALUETYPE>>
-                                                extends AbstractMultiConcurrentHashMapSetBased <KEYTYPE, VALUETYPE>
+public class MultiConcurrentHashMapTreeSetBased <KEYTYPE, VALUETYPE extends Comparable <? super VALUETYPE>> extends
+                                                AbstractMultiConcurrentHashMapSetBased <KEYTYPE, VALUETYPE, ICommonsNavigableSet <VALUETYPE>>
 {
   public MultiConcurrentHashMapTreeSetBased ()
   {}
@@ -50,12 +50,12 @@ public class MultiConcurrentHashMapTreeSetBased <KEYTYPE, VALUETYPE extends Comp
   }
 
   public MultiConcurrentHashMapTreeSetBased (@Nonnull final KEYTYPE aKey,
-                                             @Nonnull final ICommonsSet <VALUETYPE> aCollection)
+                                             @Nonnull final ICommonsNavigableSet <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }
 
-  public MultiConcurrentHashMapTreeSetBased (@Nullable final Map <? extends KEYTYPE, ? extends ICommonsSet <VALUETYPE>> aCont)
+  public MultiConcurrentHashMapTreeSetBased (@Nullable final Map <? extends KEYTYPE, ? extends ICommonsNavigableSet <VALUETYPE>> aCont)
   {
     super (aCont);
   }

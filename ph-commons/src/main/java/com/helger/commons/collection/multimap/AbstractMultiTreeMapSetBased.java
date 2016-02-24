@@ -35,11 +35,13 @@ import com.helger.commons.collection.ext.ICommonsSet;
  *        key type
  * @param <VALUETYPE>
  *        value type
+ * @param <COLLTYPE>
+ *        Set type containing value types
  */
 @NotThreadSafe
-public abstract class AbstractMultiTreeMapSetBased <KEYTYPE, VALUETYPE> extends
-                                                   AbstractMultiTreeMap <KEYTYPE, VALUETYPE, ICommonsSet <VALUETYPE>>
-                                                   implements IMultiMapSetBased <KEYTYPE, VALUETYPE>
+public abstract class AbstractMultiTreeMapSetBased <KEYTYPE, VALUETYPE, COLLTYPE extends ICommonsSet <VALUETYPE>>
+                                                   extends AbstractMultiTreeMap <KEYTYPE, VALUETYPE, COLLTYPE>
+                                                   implements IMultiMapSetBased <KEYTYPE, VALUETYPE, COLLTYPE>
 {
   public AbstractMultiTreeMapSetBased ()
   {}
@@ -54,13 +56,12 @@ public abstract class AbstractMultiTreeMapSetBased <KEYTYPE, VALUETYPE> extends
     super (aKey, aValue);
   }
 
-  public AbstractMultiTreeMapSetBased (@Nullable final KEYTYPE aKey,
-                                       @Nullable final ICommonsSet <VALUETYPE> aCollection)
+  public AbstractMultiTreeMapSetBased (@Nullable final KEYTYPE aKey, @Nullable final COLLTYPE aCollection)
   {
     super (aKey, aCollection);
   }
 
-  public AbstractMultiTreeMapSetBased (@Nullable final Map <? extends KEYTYPE, ? extends ICommonsSet <VALUETYPE>> aCont)
+  public AbstractMultiTreeMapSetBased (@Nullable final Map <? extends KEYTYPE, ? extends COLLTYPE> aCont)
   {
     super (aCont);
   }

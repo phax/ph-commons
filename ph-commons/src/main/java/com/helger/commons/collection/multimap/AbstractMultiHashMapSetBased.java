@@ -33,11 +33,13 @@ import com.helger.commons.collection.ext.ICommonsSet;
  *        key type
  * @param <VALUETYPE>
  *        value type
+ * @param <COLLTYPE>
+ *        Set type containing value types
  */
 @NotThreadSafe
-public abstract class AbstractMultiHashMapSetBased <KEYTYPE, VALUETYPE> extends
-                                                   AbstractMultiHashMap <KEYTYPE, VALUETYPE, ICommonsSet <VALUETYPE>>
-                                                   implements IMultiMapSetBased <KEYTYPE, VALUETYPE>
+public abstract class AbstractMultiHashMapSetBased <KEYTYPE, VALUETYPE, COLLTYPE extends ICommonsSet <VALUETYPE>>
+                                                   extends AbstractMultiHashMap <KEYTYPE, VALUETYPE, COLLTYPE>
+                                                   implements IMultiMapSetBased <KEYTYPE, VALUETYPE, COLLTYPE>
 {
   public AbstractMultiHashMapSetBased ()
   {}
@@ -47,13 +49,12 @@ public abstract class AbstractMultiHashMapSetBased <KEYTYPE, VALUETYPE> extends
     super (aKey, aValue);
   }
 
-  public AbstractMultiHashMapSetBased (@Nullable final KEYTYPE aKey,
-                                       @Nullable final ICommonsSet <VALUETYPE> aCollection)
+  public AbstractMultiHashMapSetBased (@Nullable final KEYTYPE aKey, @Nullable final COLLTYPE aCollection)
   {
     super (aKey, aCollection);
   }
 
-  public AbstractMultiHashMapSetBased (@Nullable final Map <? extends KEYTYPE, ? extends ICommonsSet <VALUETYPE>> aCont)
+  public AbstractMultiHashMapSetBased (@Nullable final Map <? extends KEYTYPE, ? extends COLLTYPE> aCont)
   {
     super (aCont);
   }

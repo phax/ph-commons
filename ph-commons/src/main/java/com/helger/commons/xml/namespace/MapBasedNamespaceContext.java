@@ -31,7 +31,6 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.collection.ext.ICommonsSet;
-import com.helger.commons.collection.multimap.IMultiMapSetBased;
 import com.helger.commons.collection.multimap.MultiHashMapHashSetBased;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -49,7 +48,7 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
 {
   private String m_sDefaultNamespaceURI;
   private final ICommonsOrderedMap <String, String> m_aPrefix2NS = new CommonsLinkedHashMap <> ();
-  private final IMultiMapSetBased <String, String> m_aNS2Prefix = new MultiHashMapHashSetBased <> ();
+  private final MultiHashMapHashSetBased <String, String> m_aNS2Prefix = new MultiHashMapHashSetBased <> ();
 
   public MapBasedNamespaceContext ()
   {}

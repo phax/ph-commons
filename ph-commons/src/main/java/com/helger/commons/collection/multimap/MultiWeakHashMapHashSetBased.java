@@ -37,8 +37,8 @@ import com.helger.commons.collection.ext.ICommonsSet;
  *        value type
  */
 @NotThreadSafe
-public class MultiWeakHashMapHashSetBased <KEYTYPE, VALUETYPE>
-                                          extends AbstractMultiWeakHashMapSetBased <KEYTYPE, VALUETYPE>
+public class MultiWeakHashMapHashSetBased <KEYTYPE, VALUETYPE> extends
+                                          AbstractMultiWeakHashMapSetBased <KEYTYPE, VALUETYPE, ICommonsSet <VALUETYPE>>
 {
   public MultiWeakHashMapHashSetBased ()
   {}

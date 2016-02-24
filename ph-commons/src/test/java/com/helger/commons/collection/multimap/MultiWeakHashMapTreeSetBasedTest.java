@@ -18,6 +18,8 @@ package com.helger.commons.collection.multimap;
 
 import org.junit.Test;
 
+import com.helger.commons.collection.ext.ICommonsSet;
+
 /**
  * Test class for class {@link MultiWeakHashMapTreeSetBased}.
  *
@@ -28,13 +30,13 @@ public final class MultiWeakHashMapTreeSetBasedTest extends AbstractMultiMapTest
   @Test
   public void testAll ()
   {
-    IMultiMapSetBased <String, String> aMultiMap = new MultiWeakHashMapTreeSetBased <String, String> ();
+    IMultiMapSetBased <String, String, ? extends ICommonsSet <String>> aMultiMap = new MultiWeakHashMapTreeSetBased <> ();
     testEmpty (aMultiMap);
-    aMultiMap = new MultiWeakHashMapTreeSetBased <String, String> (getKey1 (), getValue1 ());
+    aMultiMap = new MultiWeakHashMapTreeSetBased <> (getKey1 (), getValue1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiWeakHashMapTreeSetBased <String, String> (getKey1 (), getValueSet1 ());
+    aMultiMap = new MultiWeakHashMapTreeSetBased <> (getKey1 (), getValueSetNavigable1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiWeakHashMapTreeSetBased <String, String> (getMapSet1 ());
+    aMultiMap = new MultiWeakHashMapTreeSetBased <> (getMapSetNavigable1 ());
     testOne (aMultiMap);
   }
 }

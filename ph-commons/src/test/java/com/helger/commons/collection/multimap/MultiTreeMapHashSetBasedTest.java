@@ -18,6 +18,8 @@ package com.helger.commons.collection.multimap;
 
 import org.junit.Test;
 
+import com.helger.commons.collection.ext.ICommonsSet;
+
 /**
  * Test class for class {@link MultiTreeMapHashSetBased}.
  *
@@ -28,13 +30,13 @@ public final class MultiTreeMapHashSetBasedTest extends AbstractMultiMapTestCase
   @Test
   public void testAll ()
   {
-    IMultiMapSetBased <String, String> aMultiMap = new MultiTreeMapHashSetBased <String, String> ();
+    IMultiMapSetBased <String, String, ? extends ICommonsSet <String>> aMultiMap = new MultiTreeMapHashSetBased <> ();
     testEmpty (aMultiMap);
-    aMultiMap = new MultiTreeMapHashSetBased <String, String> (getKey1 (), getValue1 ());
+    aMultiMap = new MultiTreeMapHashSetBased <> (getKey1 (), getValue1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiTreeMapHashSetBased <String, String> (getKey1 (), getValueSet1 ());
+    aMultiMap = new MultiTreeMapHashSetBased <> (getKey1 (), getValueSet1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiTreeMapHashSetBased <String, String> (getMapSet1 ());
+    aMultiMap = new MultiTreeMapHashSetBased <> (getMapSet1 ());
     testOne (aMultiMap);
   }
 }
