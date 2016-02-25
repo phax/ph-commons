@@ -17,6 +17,7 @@
 package com.helger.commons.callback;
 
 import java.io.Serializable;
+import java.util.function.Consumer;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -26,7 +27,11 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.ICommonsList;
 
 /**
- * Read-only interface for a list of {@link ICallback} objects
+ * Read-only interface for a list of {@link ICallback} objects.<br>
+ * Note: Does not implement Iterable because the returned iterator would either
+ * be an Iterator over the list in which case you can use
+ * {@link #getAllCallbacks()} directly or the returned Iterator would not be
+ * thread-safe and that is not an option for this type.
  *
  * @author Philip Helger
  * @param <CALLBACKTYPE>
@@ -63,4 +68,13 @@ public interface ICallbackList <CALLBACKTYPE extends ICallback> extends Serializ
    *         <code>false</code> otherwise.
    */
   boolean hasCallbacks ();
+
+  /**
+   * Invoke all registered callbacks in a safe manner.
+   *
+   * @param aConsumer
+   *        The action to be performed with the respective callback. May not be
+   *        <code>null</code>.
+   */
+  void forEach (@Nonnull Consumer <CALLBACKTYPE> aConsumer);
 }

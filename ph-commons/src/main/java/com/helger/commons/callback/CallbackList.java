@@ -16,11 +16,16 @@
  */
 package com.helger.commons.callback;
 
+import java.util.function.Consumer;
+
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
@@ -42,6 +47,8 @@ import com.helger.commons.string.ToStringGenerator;
 public class CallbackList <CALLBACKTYPE extends ICallback>
                           implements ICallbackList <CALLBACKTYPE>, ICloneable <CallbackList <CALLBACKTYPE>>
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (CallbackList.class);
+
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
   @GuardedBy ("m_aRWLock")
@@ -126,7 +133,20 @@ public class CallbackList <CALLBACKTYPE extends ICallback>
   @Nonnull
   public CallbackList <CALLBACKTYPE> getClone ()
   {
-    return m_aRWLock.readLocked ( () -> new CallbackList <CALLBACKTYPE> (this));
+    return m_aRWLock.readLocked ( () -> new CallbackList <> (this));
+  }
+
+  public void forEach (@Nonnull final Consumer <CALLBACKTYPE> aConsumer)
+  {
+    for (final CALLBACKTYPE aCallback : getAllCallbacks ())
+      try
+      {
+        aConsumer.accept (aCallback);
+      }
+      catch (final Throwable t)
+      {
+        s_aLogger.error ("Failed to invoke callback " + aCallback, t);
+      }
   }
 
   @Override
