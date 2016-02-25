@@ -17,6 +17,7 @@
 package com.helger.commons.callback;
 
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -34,6 +35,7 @@ import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.state.EChange;
+import com.helger.commons.state.EContinue;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -147,6 +149,22 @@ public class CallbackList <CALLBACKTYPE extends ICallback>
       {
         s_aLogger.error ("Failed to invoke callback " + aCallback, t);
       }
+  }
+
+  @Nonnull
+  public EContinue forEachWithReturn (@Nonnull final Function <CALLBACKTYPE, EContinue> aFunction)
+  {
+    for (final CALLBACKTYPE aCallback : getAllCallbacks ())
+      try
+      {
+        if (aFunction.apply (aCallback).isBreak ())
+          return EContinue.BREAK;
+      }
+      catch (final Throwable t)
+      {
+        s_aLogger.error ("Failed to invoke callback " + aCallback, t);
+      }
+    return EContinue.CONTINUE;
   }
 
   @Override

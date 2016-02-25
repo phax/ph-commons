@@ -66,16 +66,12 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
   @Nonnull
   private EContinue _beforeChange ()
   {
-    for (final IChangeCallback <IMutableMultilingualText> aCallback : m_aChangeNotifyCallbacks.getAllCallbacks ())
-      if (aCallback.beforeChange (this).isBreak ())
-        return EContinue.BREAK;
-    return EContinue.CONTINUE;
+    return m_aChangeNotifyCallbacks.forEachWithReturn (aCB -> aCB.beforeChange (this));
   }
 
   private void _afterChange ()
   {
-    for (final IChangeCallback <IMutableMultilingualText> aCallback : m_aChangeNotifyCallbacks.getAllCallbacks ())
-      aCallback.afterChange (this);
+    m_aChangeNotifyCallbacks.forEach (aCB -> aCB.afterChange (this));
   }
 
   @Nonnull

@@ -18,6 +18,7 @@ package com.helger.commons.callback;
 
 import java.io.Serializable;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -25,6 +26,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.state.EContinue;
 
 /**
  * Read-only interface for a list of {@link ICallback} objects.<br>
@@ -73,8 +75,22 @@ public interface ICallbackList <CALLBACKTYPE extends ICallback> extends Serializ
    * Invoke all registered callbacks in a safe manner.
    *
    * @param aConsumer
-   *        The action to be performed with the respective callback. May not be
-   *        <code>null</code>.
+   *        The action to be performed with the respective callback. This method
+   *        cannot return a value. May not be <code>null</code>.
    */
   void forEach (@Nonnull Consumer <CALLBACKTYPE> aConsumer);
+
+  /**
+   * Invoke all registered callbacks in a safe manner.
+   *
+   * @param aFunction
+   *        The action to be performed with the respective callback. The first
+   *        callback that returns {@link EContinue#BREAK} stops the process. May
+   *        not be <code>null</code>.
+   * @return {@link EContinue#CONTINUE} if all callbacks returned
+   *         {@link EContinue#CONTINUE}, {@link EContinue#BREAK} if at least one
+   *         invocation returned {@link EContinue#BREAK}.
+   */
+  @Nonnull
+  EContinue forEachWithReturn (@Nonnull Function <CALLBACKTYPE, EContinue> aFunction);
 }

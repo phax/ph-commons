@@ -21,6 +21,7 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.callback.CallbackList;
 import com.helger.commons.callback.IChangeCallback;
 import com.helger.commons.state.EChange;
@@ -89,5 +90,6 @@ public interface IMutableMultilingualText extends IMultilingualText, IClearable
    * @return The change notify callbacks. Never <code>null</code>.
    */
   @Nonnull
+  @ReturnsMutableObject ("Design")
   CallbackList <IChangeCallback <IMutableMultilingualText>> getChangeNotifyCallbacks ();
 }
