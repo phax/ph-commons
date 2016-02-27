@@ -39,6 +39,8 @@ public interface ICommonsList <ELEMENTTYPE> extends
    * {@link CommonsArrayList}.
    *
    * @return A new empty list. Never <code>null</code>.
+   * @param <T>
+   *        List element type
    */
   @Nonnull
   @ReturnsMutableCopy

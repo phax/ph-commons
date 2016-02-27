@@ -2448,6 +2448,8 @@ public final class CollectionHelper
    * @return <code>true</code> only if the passed collection is neither
    *         <code>null</code> nor empty and if only matching elements are
    *         contained.
+   * @param <ELEMENTTYPE>
+   *        Collection data type
    */
   public static <ELEMENTTYPE> boolean containsOnly (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
                                                     @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)

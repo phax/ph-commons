@@ -43,6 +43,10 @@ public interface ITypeConverterRegistry
    *        instancable class. May not equal the source class.
    * @param aConverter
    *        The convert to use. May not be <code>null</code>.
+   * @param <SRC>
+   *        Source type
+   * @param <DST>
+   *        Destination type
    */
   <SRC, DST> void registerTypeConverter (@Nonnull Class <SRC> aSrcClass,
                                          @Nonnull Class <DST> aDstClass,
@@ -59,6 +63,8 @@ public interface ITypeConverterRegistry
    *        instancable class. May not equal the source class.
    * @param aConverter
    *        The convert to use. May not be <code>null</code>.
+   * @param <DST>
+   *        Destination type
    */
   <DST> void registerTypeConverter (@Nonnull Class <?> [] aSrcClasses,
                                     @Nonnull Class <DST> aDstClass,

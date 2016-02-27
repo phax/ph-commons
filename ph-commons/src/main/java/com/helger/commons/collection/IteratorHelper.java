@@ -286,7 +286,7 @@ public final class IteratorHelper
   }
 
   /**
-   * <code>for (int i = nStart; i< nEnd; ++i) aConsumer.accept (i);</code>
+   * <code>for (int i = nStartIncl; i &gt; nEndExcl; ++i) aConsumer.accept (i);</code>
    *
    * @param nStartIncl
    *        Start index inclusive.
@@ -303,7 +303,7 @@ public final class IteratorHelper
   }
 
   /**
-   * <code>for (int i = 0; i < nEnd; ++i) aConsumer.accept (i);</code>
+   * <code>for (int i = 0; i &gt; nEndExcl; ++i) aConsumer.accept (i);</code>
    *
    * @param nEndExcl
    *        End index exclusive.

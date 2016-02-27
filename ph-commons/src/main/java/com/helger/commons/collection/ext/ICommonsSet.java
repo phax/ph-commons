@@ -35,8 +35,10 @@ public interface ICommonsSet <ELEMENTTYPE> extends
   /**
    * Create a new empty set. Overwrite this if you don't want to use
    * {@link CommonsHashSet}.
-   * 
+   *
    * @return A new empty set. Never <code>null</code>.
+   * @param <T>
+   *        Set element type
    */
   @Nonnull
   @ReturnsMutableCopy

@@ -689,6 +689,8 @@ public final class StringHelper
    *        The mapping function to convert from ELEMENTTYPE to String. May not
    *        be <code>null</code>.
    * @return The concatenated string.
+   * @param <ELEMENTTYPE>
+   *        Iterable element type
    */
   @Nonnull
   public static <ELEMENTTYPE> String getImploded (@Nullable final Iterable <? extends ELEMENTTYPE> aElements,
@@ -1244,6 +1246,8 @@ public final class StringHelper
    *        The mapping function to convert from ELEMENTTYPE to String. May not
    *        be <code>null</code>.
    * @return The concatenated string.
+   * @param <ELEMENTTYPE>
+   *        Iterable element type
    */
   @Nonnull
   public static <ELEMENTTYPE> String getImplodedNonEmpty (@Nullable final Iterable <? extends ELEMENTTYPE> aElements,
@@ -1420,6 +1424,8 @@ public final class StringHelper
    *        The mapping function to convert from ELEMENTTYPE to String. May not
    *        be <code>null</code>.
    * @return The concatenated string.
+   * @param <ELEMENTTYPE>
+   *        Array component type
    */
   @Nonnull
   public static <ELEMENTTYPE> String getImplodedNonEmpty (@Nonnull final String sSep,
@@ -1448,6 +1454,8 @@ public final class StringHelper
    *        The mapping function to convert from ELEMENTTYPE to String. May not
    *        be <code>null</code>.
    * @return The concatenated string.
+   * @param <ELEMENTTYPE>
+   *        Array component type
    */
   @Nonnull
   public static <ELEMENTTYPE> String getImplodedNonEmpty (final char cSep,
@@ -1525,6 +1533,8 @@ public final class StringHelper
    *        The mapping function to convert from ELEMENTTYPE to String. May not
    *        be <code>null</code>.
    * @return The concatenated string.
+   * @param <ELEMENTTYPE>
+   *        Array component type
    */
   @Nonnull
   public static <ELEMENTTYPE> String getImplodedNonEmpty (@Nonnull final String sSep,
@@ -1574,6 +1584,8 @@ public final class StringHelper
    *        The mapping function to convert from ELEMENTTYPE to String. May not
    *        be <code>null</code>.
    * @return The concatenated string.
+   * @param <ELEMENTTYPE>
+   *        Array component type
    */
   @Nonnull
   public static <ELEMENTTYPE> String getImplodedNonEmpty (final char cSep,
