@@ -157,7 +157,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    */
   @Nonnull
   @ReturnsMutableCopy
-  default ICommonsMap <KEYTYPE, VALUETYPE> getSortedByKey (@Nonnull final Comparator <? super KEYTYPE> aKeyComparator)
+  default ICommonsOrderedMap <KEYTYPE, VALUETYPE> getSortedByKey (@Nonnull final Comparator <? super KEYTYPE> aKeyComparator)
   {
     return CollectionHelper.getSortedByKey (this, aKeyComparator);
   }
@@ -172,7 +172,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    */
   @Nonnull
   @ReturnsMutableCopy
-  default ICommonsMap <KEYTYPE, VALUETYPE> getSortedByValue (@Nonnull final Comparator <? super VALUETYPE> aValueComparator)
+  default ICommonsOrderedMap <KEYTYPE, VALUETYPE> getSortedByValue (@Nonnull final Comparator <? super VALUETYPE> aValueComparator)
   {
     return CollectionHelper.getSortedByValue (this, aValueComparator);
   }

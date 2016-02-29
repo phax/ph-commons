@@ -51,6 +51,7 @@ import com.helger.commons.collection.ext.CommonsTreeMap;
 import com.helger.commons.collection.ext.CommonsTreeSet;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.lang.ClassHelper;
@@ -1633,7 +1634,7 @@ public final class CollectionHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> ICommonsMap <KEYTYPE, VALUETYPE> getSortedByKey (@Nullable final Map <KEYTYPE, VALUETYPE> aMap)
+  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> ICommonsOrderedMap <KEYTYPE, VALUETYPE> getSortedByKey (@Nullable final Map <KEYTYPE, VALUETYPE> aMap)
   {
     if (isEmpty (aMap))
       return newOrderedMap (0);
@@ -1660,8 +1661,8 @@ public final class CollectionHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> ICommonsMap <KEYTYPE, VALUETYPE> getSortedByKey (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
-                                                                                      @Nonnull final Comparator <? super KEYTYPE> aKeyComparator)
+  public static <KEYTYPE, VALUETYPE> ICommonsOrderedMap <KEYTYPE, VALUETYPE> getSortedByKey (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
+                                                                                             @Nonnull final Comparator <? super KEYTYPE> aKeyComparator)
   {
     ValueEnforcer.notNull (aKeyComparator, "KeyComparator");
 
@@ -1688,7 +1689,7 @@ public final class CollectionHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE extends Comparable <? super VALUETYPE>> ICommonsMap <KEYTYPE, VALUETYPE> getSortedByValue (@Nullable final Map <KEYTYPE, VALUETYPE> aMap)
+  public static <KEYTYPE, VALUETYPE extends Comparable <? super VALUETYPE>> ICommonsOrderedMap <KEYTYPE, VALUETYPE> getSortedByValue (@Nullable final Map <KEYTYPE, VALUETYPE> aMap)
   {
     if (isEmpty (aMap))
       return newOrderedMap (0);
@@ -1715,8 +1716,8 @@ public final class CollectionHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <KEYTYPE, VALUETYPE> ICommonsMap <KEYTYPE, VALUETYPE> getSortedByValue (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
-                                                                                        @Nonnull final Comparator <? super VALUETYPE> aValueComparator)
+  public static <KEYTYPE, VALUETYPE> ICommonsOrderedMap <KEYTYPE, VALUETYPE> getSortedByValue (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
+                                                                                               @Nonnull final Comparator <? super VALUETYPE> aValueComparator)
   {
     ValueEnforcer.notNull (aValueComparator, "ValueComparator");
 
