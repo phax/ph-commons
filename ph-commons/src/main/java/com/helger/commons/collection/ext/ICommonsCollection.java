@@ -331,6 +331,12 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
   }
 
   @Nonnull
+  default EChange removeObject (@Nullable final ELEMENTTYPE aElement)
+  {
+    return EChange.valueOf (remove (aElement));
+  }
+
+  @Nonnull
   default Collection <ELEMENTTYPE> getAsUnmodifiable ()
   {
     return Collections.unmodifiableCollection (this);
