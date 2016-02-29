@@ -16,8 +16,6 @@
  */
 package com.helger.commons.microdom;
 
-import java.util.Iterator;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -234,7 +232,7 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return Never <code>null</code>.
    */
   @Nonnull
-  Iterator <? extends IMicroAttribute> getAttributeIterator ();
+  Iterable <? extends IMicroAttribute> getAttributesIterable ();
 
   /**
    * Get a map of all fully qualified attribute names and values. Is ensured to

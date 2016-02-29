@@ -16,7 +16,7 @@
  */
 package com.helger.commons.microdom;
 
-import java.util.Iterator;
+import java.util.Collections;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -34,7 +34,6 @@ import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.collection.ext.ICommonsOrderedSet;
-import com.helger.commons.collection.iterate.EmptyIterator;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.state.EChange;
@@ -130,11 +129,11 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   }
 
   @Nonnull
-  public Iterator <? extends IMicroAttribute> getAttributeIterator ()
+  public Iterable <? extends IMicroAttribute> getAttributesIterable ()
   {
     if (hasNoAttributes ())
-      return new EmptyIterator <> ();
-    return m_aAttrs.values ().iterator ();
+      return Collections.emptyList ();
+    return m_aAttrs.values ();
   }
 
   @Nullable

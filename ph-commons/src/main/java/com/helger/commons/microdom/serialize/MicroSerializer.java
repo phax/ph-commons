@@ -17,7 +17,6 @@
 package com.helger.commons.microdom.serialize;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -27,6 +26,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsOrderedMap;
+import com.helger.commons.microdom.IMicroAttribute;
 import com.helger.commons.microdom.IMicroCDATA;
 import com.helger.commons.microdom.IMicroComment;
 import com.helger.commons.microdom.IMicroContainer;
@@ -241,12 +241,12 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
       if (aElement.hasAttributes ())
       {
         // Delivers an ordered copy!
-        for (final Map.Entry <IMicroQName, String> aEntry : aElement.getAllQAttributes ().entrySet ())
+        for (final IMicroAttribute aAttr : aElement.getAttributesIterable ())
         {
-          final IMicroQName aAttrName = aEntry.getKey ();
+          final IMicroQName aAttrName = aAttr.getAttributeQName ();
           final String sAttrNamespaceURI = StringHelper.getNotNull (aAttrName.getNamespaceURI ());
           final String sAttrName = aAttrName.getName ();
-          final String sAttrValue = aEntry.getValue ();
+          final String sAttrValue = aAttr.getAttributeValue ();
           String sAttrNSPrefix = null;
           if (bEmitNamespaces)
           {
@@ -257,7 +257,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
           }
 
           if (sAttrNSPrefix != null)
-            aAttrMap.put (new QName (sAttrNamespaceURI, aAttrName.getName (), sAttrNSPrefix), sAttrValue);
+            aAttrMap.put (aAttrName.getAsXMLQName (sAttrNSPrefix), sAttrValue);
           else
             aAttrMap.put (aAttrName.getAsXMLQName (), sAttrValue);
         }
