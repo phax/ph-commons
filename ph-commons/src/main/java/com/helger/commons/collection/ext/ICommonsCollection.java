@@ -303,11 +303,10 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @param aValues
    *        The values to be added. May be <code>null</code>.
    */
-  default void setAll (@Nullable final Collection <? extends ELEMENTTYPE> aValues)
+  default void setAll (@Nullable final Iterable <? extends ELEMENTTYPE> aValues)
   {
     clear ();
-    if (aValues != null)
-      addAll (aValues);
+    addAll (aValues);
   }
 
   /**
@@ -319,8 +318,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
   default void setAll (@SuppressWarnings ("unchecked") @Nullable final ELEMENTTYPE... aValues)
   {
     clear ();
-    if (aValues != null)
-      addAll (aValues);
+    addAll (aValues);
   }
 
   @Nonnull
