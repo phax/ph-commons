@@ -23,6 +23,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.CollectionHelper;
 
 public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTYPE>
@@ -57,6 +58,13 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
   {
     super (1);
     add (aValue);
+  }
+
+  @SafeVarargs
+  public CommonsLinkedHashSet (@Nullable final ELEMENTTYPE... aValues)
+  {
+    super (ArrayHelper.getSize (aValues));
+    addAll (aValues);
   }
 
   @Nonnull

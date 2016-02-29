@@ -51,6 +51,12 @@ public class CommonsTreeSet <ELEMENTTYPE> extends TreeSet <ELEMENTTYPE> implemen
     add (aValue);
   }
 
+  @SafeVarargs
+  public CommonsTreeSet (@Nullable final ELEMENTTYPE... aValues)
+  {
+    addAll (aValues);
+  }
+
   @Nonnull
   @ReturnsMutableCopy
   public <T> CommonsTreeSet <T> createInstance ()
