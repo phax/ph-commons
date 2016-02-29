@@ -208,6 +208,16 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
       put (aKey, aValue);
   }
 
+  @Nonnull
+  default <ELEMENTTYPE> void putAll (@Nullable final ELEMENTTYPE [] aElements,
+                                     @Nonnull final Function <? super ELEMENTTYPE, ? extends KEYTYPE> aKeyMapper,
+                                     @Nonnull final Function <? super ELEMENTTYPE, ? extends VALUETYPE> aValueMapper)
+  {
+    if (aElements != null)
+      for (final ELEMENTTYPE aElement : aElements)
+        put (aKeyMapper.apply (aElement), aValueMapper.apply (aElement));
+  }
+
   /**
    * Add all provided values.
    *

@@ -16,8 +16,6 @@
  */
 package com.helger.commons.scope.mgr;
 
-import java.util.Collection;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -33,6 +31,7 @@ import com.helger.commons.annotation.Singleton;
 import com.helger.commons.annotation.UsedViaReflection;
 import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.scope.IScope;
@@ -219,7 +218,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
    */
   @Nonnull
   @ReturnsMutableCopy
-  public Collection <? extends ISessionScope> getAllSessionScopes ()
+  public ICommonsList <ISessionScope> getAllSessionScopes ()
   {
     return m_aRWLock.readLocked ( () -> m_aSessionScopes.copyOfValues ());
   }
