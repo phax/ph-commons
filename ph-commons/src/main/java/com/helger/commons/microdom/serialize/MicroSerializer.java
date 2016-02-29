@@ -72,36 +72,40 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
   {
     ValueEnforcer.notNull (aNode, "Node");
 
-    if (aNode.isElement ())
-      _writeElement (aXMLWriter, aParentNode, aPrevSibling, (IMicroElement) aNode, aNextSibling);
-    else
-      if (aNode.isText ())
+    switch (aNode.getType ())
+    {
+      case ELEMENT:
+        _writeElement (aXMLWriter, aParentNode, aPrevSibling, (IMicroElement) aNode, aNextSibling);
+        break;
+      case TEXT:
         _writeText (aXMLWriter, (IMicroText) aNode);
-      else
-        if (aNode.isCDATA ())
-          _writeCDATA (aXMLWriter, (IMicroCDATA) aNode);
-        else
-          if (aNode.isComment ())
-            _writeComment (aXMLWriter, (IMicroComment) aNode);
-          else
-            if (aNode.isEntityReference ())
-              _writeEntityReference (aXMLWriter, (IMicroEntityReference) aNode);
-            else
-              if (aNode.isDocument ())
-                _writeDocument (aXMLWriter, (IMicroDocument) aNode);
-              else
-                if (aNode.isDocumentType ())
-                  _writeDocumentType (aXMLWriter, (IMicroDocumentType) aNode);
-                else
-                  if (aNode.isProcessingInstruction ())
-                    _writeProcessingInstruction (aXMLWriter, (IMicroProcessingInstruction) aNode);
-                  else
-                    if (aNode.isContainer ())
-                      _writeContainer (aXMLWriter, aParentNode, (IMicroContainer) aNode);
-                    else
-                      throw new IllegalArgumentException ("Passed node type " +
-                                                          aNode.getClass ().getName () +
-                                                          " is not yet supported");
+        break;
+      case CDATA:
+        _writeCDATA (aXMLWriter, (IMicroCDATA) aNode);
+        break;
+      case COMMENT:
+        _writeComment (aXMLWriter, (IMicroComment) aNode);
+        break;
+      case ENTITY_REFERENCE:
+        _writeEntityReference (aXMLWriter, (IMicroEntityReference) aNode);
+        break;
+      case DOCUMENT:
+        _writeDocument (aXMLWriter, (IMicroDocument) aNode);
+        break;
+      case DOCUMENT_TYPE:
+        _writeDocumentType (aXMLWriter, (IMicroDocumentType) aNode);
+        break;
+      case PROCESSING_INSTRUCTION:
+        _writeProcessingInstruction (aXMLWriter, (IMicroProcessingInstruction) aNode);
+        break;
+      case CONTAINER:
+        _writeContainer (aXMLWriter, aParentNode, (IMicroContainer) aNode);
+        break;
+      default:
+        throw new IllegalArgumentException ("Passed node type " +
+                                            aNode.getClass ().getName () +
+                                            " is not yet supported");
+    }
   }
 
   /**
