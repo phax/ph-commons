@@ -42,4 +42,13 @@ public interface IWrapper <DATATYPE>
   {
     return get () != null;
   }
+
+  /**
+   * @return <code>true</code> if the contained value is <code>null</code>,
+   *         <code>false</code> if it is not <code>null</code>.
+   */
+  default boolean isNotSet ()
+  {
+    return get () == null;
+  }
 }
