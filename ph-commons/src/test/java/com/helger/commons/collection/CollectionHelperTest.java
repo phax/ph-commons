@@ -170,7 +170,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     final Set <String> s = newSet ("s1", "s2");
     assertNotNull (makeUnmodifiable (s));
     assertTrue (s != makeUnmodifiable (s));
-    final SortedSet <String> ss = new TreeSet <String> (s);
+    final SortedSet <String> ss = new TreeSet <> (s);
     assertNotNull (makeUnmodifiable (ss));
     assertTrue (ss != makeUnmodifiable (ss));
     final Map <String, String> m = newMap ("s1", "s2");
