@@ -17,6 +17,7 @@
 package com.helger.commons.collection.ext;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -183,6 +184,13 @@ public interface ICommonsList <ELEMENTTYPE> extends
   default List <ELEMENTTYPE> getAsUnmodifiable ()
   {
     return Collections.unmodifiableList (this);
+  }
+
+  @Nonnull
+  default ICommonsList <ELEMENTTYPE> getSorted (@Nonnull final Comparator <? super ELEMENTTYPE> aComparator)
+  {
+    sort (aComparator);
+    return this;
   }
 
   default void reverse ()

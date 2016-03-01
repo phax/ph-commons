@@ -220,7 +220,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
   @Nonnull
   default ICommonsList <ELEMENTTYPE> getSorted (@Nonnull final Comparator <? super ELEMENTTYPE> aComparator)
   {
-    return CollectionHelper.getSorted (this, aComparator);
+    return new CommonsArrayList <> (this).getSorted (aComparator);
   }
 
   default void addIf (@Nullable final ELEMENTTYPE aValue, @Nonnull final Predicate <ELEMENTTYPE> aFilter)
