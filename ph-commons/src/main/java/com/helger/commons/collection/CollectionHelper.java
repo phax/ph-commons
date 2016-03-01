@@ -1738,7 +1738,7 @@ public final class CollectionHelper
       return newList (0);
 
     final CommonsArrayList <ELEMENTTYPE> ret = newList (aCollection);
-    Collections.reverse (ret);
+    ret.reverse ();
     return ret;
   }
 
