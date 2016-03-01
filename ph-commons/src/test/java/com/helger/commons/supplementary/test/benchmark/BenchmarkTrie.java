@@ -25,9 +25,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.TreeMap;
 
 import com.helger.commons.charset.CCharset;
+import com.helger.commons.collection.ext.CommonsTreeMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
@@ -177,12 +178,12 @@ public final class BenchmarkTrie extends AbstractBenchmarkTask
 
   private static final class StringMapTreeMap extends StringMapBase
   {
-    private final Map <String, String> m_aMap;
+    private final ICommonsMap <String, String> m_aMap;
 
     public StringMapTreeMap (final String [] aStrings)
     {
       super (aStrings);
-      m_aMap = new TreeMap <String, String> ();
+      m_aMap = new CommonsTreeMap <> ();
     }
 
     @Override

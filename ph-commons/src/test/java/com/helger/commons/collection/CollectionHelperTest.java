@@ -176,7 +176,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     final Map <String, String> m = newMap ("s1", "s2");
     assertNotNull (makeUnmodifiable (m));
     assertTrue (m != makeUnmodifiable (m));
-    final SortedMap <String, String> sm = new TreeMap <String, String> (m);
+    final SortedMap <String, String> sm = new TreeMap <> (m);
     assertNotNull (makeUnmodifiable (sm));
     assertTrue (sm != makeUnmodifiable (sm));
   }
@@ -201,13 +201,13 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     final Set <String> s = newSet ("s1", "s2");
     assertNotNull (makeUnmodifiableNotNull (s));
     assertNotSame (s, makeUnmodifiableNotNull (s));
-    final SortedSet <String> ss = new TreeSet <String> (s);
+    final SortedSet <String> ss = new TreeSet <> (s);
     assertNotNull (makeUnmodifiableNotNull (ss));
     assertNotSame (ss, makeUnmodifiableNotNull (ss));
     final Map <String, String> m = newMap ("s1", "s2");
     assertNotNull (makeUnmodifiableNotNull (m));
     assertNotSame (m, makeUnmodifiableNotNull (m));
-    final SortedMap <String, String> sm = new TreeMap <String, String> (m);
+    final SortedMap <String, String> sm = new TreeMap <> (m);
     assertNotNull (makeUnmodifiableNotNull (sm));
     assertNotSame (sm, makeUnmodifiableNotNull (sm));
   }
