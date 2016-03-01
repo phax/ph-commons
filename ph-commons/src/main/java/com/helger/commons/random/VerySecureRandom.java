@@ -75,10 +75,10 @@ public final class VerySecureRandom
         // http://docs.oracle.com/javase/6/docs/technotes/guides/security/crypto/CryptoSpec.html
         // http://docs.oracle.com/javase/7/docs/technotes/guides/security/crypto/CryptoSpec.html
         // http://docs.oracle.com/javase/8/docs/technotes/guides/security/crypto/CryptoSpec.html
-        aSecureRandom = SecureRandom.getInstance ("SHA1PRNG");
+        aSecureRandom = SecureRandom.getInstanceStrong ();
 
         if (s_aLogger.isDebugEnabled ())
-          s_aLogger.debug ("Using SecureRandom: SHA1PRNG");
+          s_aLogger.debug ("Using SecureRandom: Strong default");
       }
       catch (final Throwable t2)
       {
@@ -97,6 +97,9 @@ public final class VerySecureRandom
 
   static
   {
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("Strong SecureRandoms: " + java.security.Security.getProperty ("securerandom.strongAlgorithms"));
+
     // Find a good description that states how it is done this way:
     // https://www.cigital.com/blog/proper-use-of-javas-securerandom/
 
