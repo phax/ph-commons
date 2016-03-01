@@ -184,4 +184,9 @@ public interface ICommonsList <ELEMENTTYPE> extends
   {
     return Collections.unmodifiableList (this);
   }
+
+  default void reverse ()
+  {
+    Collections.reverse (this);
+  }
 }
