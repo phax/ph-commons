@@ -16,7 +16,6 @@
  */
 package com.helger.commons.xml;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -26,6 +25,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -58,7 +59,7 @@ public class RecursiveChildNodeIterator implements IIterableIterator <Node>
   {
     ValueEnforcer.notNull (aParent, "Parent");
 
-    final List <Node> aNodes = new ArrayList <> ();
+    final ICommonsList <Node> aNodes = new CommonsArrayList <> ();
     _recursiveFillListPrefix (aParent, aNodes);
     m_aIter = aNodes.iterator ();
   }
