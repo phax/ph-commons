@@ -40,14 +40,14 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default ICommonsSet <KEYTYPE> copyOfKeySet ()
   {
-    return new CommonsHashSet <> (keySet ());
+    return new CommonsHashSet<> (keySet ());
   }
 
   @Nonnull
   @ReturnsMutableCopy
   default ICommonsList <VALUETYPE> copyOfValues ()
   {
-    return new CommonsArrayList <> (values ());
+    return new CommonsArrayList<> (values ());
   }
 
   @Nonnull
@@ -80,7 +80,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default ICommonsSet <Map.Entry <KEYTYPE, VALUETYPE>> copyOfEntrySet ()
   {
-    return new CommonsHashSet <> (entrySet ());
+    return new CommonsHashSet<> (entrySet ());
   }
 
   /**
@@ -186,7 +186,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default ICommonsMap <VALUETYPE, KEYTYPE> getSwappedKeyValues ()
   {
-    final ICommonsMap <VALUETYPE, KEYTYPE> ret = new CommonsHashMap <> ();
+    final ICommonsMap <VALUETYPE, KEYTYPE> ret = new CommonsHashMap<> ();
     for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : entrySet ())
       ret.put (aEntry.getValue (), aEntry.getKey ());
     return ret;
@@ -249,6 +249,12 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
       return EChange.UNCHANGED;
     clear ();
     return EChange.CHANGED;
+  }
+
+  @Nonnull
+  default EChange removeObject (@Nullable final KEYTYPE aKey)
+  {
+    return EChange.valueOf (remove (aKey) != null);
   }
 
   @Nonnull
