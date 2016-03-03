@@ -209,7 +209,7 @@ public final class XMLReaderFactoryCommons
       // 1. try the JVM-instance-wide system property
       try
       {
-        className = SystemProperties.getPropertyValue (PROPERTY_NAME);
+        className = SystemProperties.getPropertyValueOrNull (PROPERTY_NAME);
         if (className != null)
           s_sPreviouslyReadClassname = className;
       }
