@@ -16,6 +16,8 @@
  */
 package com.helger.commons.collection.ext;
 
+import java.util.function.Predicate;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -28,7 +30,28 @@ public interface ICommonsOrderedSet <ELEMENTTYPE> extends ICommonsSet <ELEMENTTY
   @ReturnsMutableCopy
   default <T> ICommonsOrderedSet <T> createInstance ()
   {
-    return new CommonsLinkedHashSet <> ();
+    return new CommonsLinkedHashSet<> ();
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  default ICommonsOrderedSet <ELEMENTTYPE> getAll (@Nullable final Predicate <? super ELEMENTTYPE> aFilter)
+  {
+    if (aFilter == null)
+      return getClone ();
+
+    final ICommonsOrderedSet <ELEMENTTYPE> ret = createInstance ();
+    findAll (aFilter, ret::add);
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  default <DSTTYPE extends ELEMENTTYPE> ICommonsOrderedSet <DSTTYPE> getAllInstanceOf (@Nonnull final Class <DSTTYPE> aDstClass)
+  {
+    final ICommonsOrderedSet <DSTTYPE> ret = createInstance ();
+    findAllInstanceOf (aDstClass, ret::add);
+    return ret;
   }
 
   @Nullable
