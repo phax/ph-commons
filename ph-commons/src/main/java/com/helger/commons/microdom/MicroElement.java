@@ -179,44 +179,9 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   }
 
   @Nullable
-  public MicroAttribute getAttributeObj (@Nullable final String sAttrName)
-  {
-    return getAttributeObj (null, sAttrName);
-  }
-
-  @Nullable
-  public MicroAttribute getAttributeObj (@Nullable final String sNamespaceURI, @Nullable final String sAttrName)
-  {
-    if (StringHelper.hasNoText (sAttrName))
-      return null;
-    return getAttributeObj (new MicroQName (sNamespaceURI, sAttrName));
-  }
-
-  @Nullable
   public MicroAttribute getAttributeObj (@Nullable final IMicroQName aQName)
   {
     return aQName == null || m_aAttrs == null ? null : m_aAttrs.get (aQName);
-  }
-
-  @Nullable
-  public String getAttributeValue (@Nullable final String sAttrName)
-  {
-    final MicroAttribute aAttr = getAttributeObj (sAttrName);
-    return aAttr == null ? null : aAttr.getAttributeValue ();
-  }
-
-  @Nullable
-  public String getAttributeValue (@Nullable final String sNamespaceURI, @Nullable final String sAttrName)
-  {
-    final MicroAttribute aAttr = getAttributeObj (sNamespaceURI, sAttrName);
-    return aAttr == null ? null : aAttr.getAttributeValue ();
-  }
-
-  @Nullable
-  public String getAttributeValue (@Nullable final IMicroQName aAttrName)
-  {
-    final MicroAttribute aAttr = getAttributeObj (aAttrName);
-    return aAttr == null ? null : aAttr.getAttributeValue ();
   }
 
   @Nullable
@@ -256,55 +221,15 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     return _getConvertedToType (sAttrValue, aDstClass);
   }
 
-  public boolean hasAttribute (@Nullable final String sAttrName)
-  {
-    return hasAttribute (null, sAttrName);
-  }
-
-  public boolean hasAttribute (@Nullable final String sNamespaceURI, @Nullable final String sAttrName)
-  {
-    if (StringHelper.hasNoText (sAttrName))
-      return false;
-    return hasAttribute (new MicroQName (sNamespaceURI, sAttrName));
-  }
-
   public boolean hasAttribute (@Nullable final IMicroQName aAttrName)
   {
     return m_aAttrs != null && aAttrName != null && m_aAttrs.containsKey (aAttrName);
   }
 
   @Nonnull
-  public EChange removeAttribute (@Nullable final String sAttrName)
-  {
-    return removeAttribute (null, sAttrName);
-  }
-
-  @Nonnull
-  public EChange removeAttribute (@Nullable final String sNamespaceURI, @Nullable final String sAttrName)
-  {
-    if (StringHelper.hasNoText (sAttrName))
-      return EChange.UNCHANGED;
-    return removeAttribute (new MicroQName (sNamespaceURI, sAttrName));
-  }
-
-  @Nonnull
   public EChange removeAttribute (@Nullable final IMicroQName aAttrName)
   {
     return EChange.valueOf (m_aAttrs != null && aAttrName != null && m_aAttrs.remove (aAttrName) != null);
-  }
-
-  @Nonnull
-  public MicroElement setAttribute (@Nonnull @Nonempty final String sAttrName, @Nullable final String sAttrValue)
-  {
-    return setAttribute (new MicroQName (sAttrName), sAttrValue);
-  }
-
-  @Nonnull
-  public MicroElement setAttribute (@Nullable final String sNamespaceURI,
-                                    @Nonnull @Nonempty final String sAttrName,
-                                    @Nullable final String sAttrValue)
-  {
-    return setAttribute (new MicroQName (sNamespaceURI, sAttrName), sAttrValue);
   }
 
   @Nonnull
@@ -323,118 +248,11 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   }
 
   @Nonnull
-  public MicroElement setAttribute (@Nonnull final String sAttrName,
-                                    @Nonnull final IHasAttributeValue aAttrValueProvider)
-  {
-    return setAttribute (new MicroQName (sAttrName), aAttrValueProvider);
-  }
-
-  @Nonnull
-  public MicroElement setAttribute (@Nullable final String sNamespaceURI,
-                                    @Nonnull final String sAttrName,
-                                    @Nonnull final IHasAttributeValue aAttrValueProvider)
-  {
-    return setAttribute (new MicroQName (sNamespaceURI, sAttrName), aAttrValueProvider);
-  }
-
-  @Nonnull
-  public MicroElement setAttribute (@Nonnull final IMicroQName aAttrName,
-                                    @Nonnull final IHasAttributeValue aAttrValueProvider)
-  {
-    ValueEnforcer.notNull (aAttrValueProvider, "AttrValueProvider");
-
-    return setAttribute (aAttrName, aAttrValueProvider.getAttrValue ());
-  }
-
-  @Nonnull
-  public IMicroElement setAttribute (@Nonnull final String sAttrName, final boolean bAttrValue)
-  {
-    return setAttribute (sAttrName, Boolean.toString (bAttrValue));
-  }
-
-  @Nonnull
-  public IMicroElement setAttribute (@Nullable final String sNamespaceURI,
-                                     @Nonnull final String sAttrName,
-                                     final boolean bAttrValue)
-  {
-    return setAttribute (sNamespaceURI, sAttrName, Boolean.toString (bAttrValue));
-  }
-
-  @Nonnull
-  public IMicroElement setAttribute (@Nonnull final IMicroQName aAttrName, final boolean bAttrValue)
-  {
-    return setAttribute (aAttrName, Boolean.toString (bAttrValue));
-  }
-
-  @Nonnull
-  public IMicroElement setAttribute (@Nonnull final String sAttrName, final int nAttrValue)
-  {
-    return setAttribute (sAttrName, Integer.toString (nAttrValue));
-  }
-
-  @Nonnull
-  public IMicroElement setAttribute (@Nullable final String sNamespaceURI,
-                                     @Nonnull final String sAttrName,
-                                     final int nAttrValue)
-  {
-    return setAttribute (sNamespaceURI, sAttrName, Integer.toString (nAttrValue));
-  }
-
-  @Nonnull
-  public IMicroElement setAttribute (@Nonnull final IMicroQName aAttrName, final int nAttrValue)
-  {
-    return setAttribute (aAttrName, Integer.toString (nAttrValue));
-  }
-
-  @Nonnull
-  public IMicroElement setAttribute (@Nonnull final String sAttrName, final long nAttrValue)
-  {
-    return setAttribute (sAttrName, Long.toString (nAttrValue));
-  }
-
-  @Nonnull
-  public IMicroElement setAttribute (@Nullable final String sNamespaceURI,
-                                     @Nonnull final String sAttrName,
-                                     final long nAttrValue)
-  {
-    return setAttribute (sNamespaceURI, sAttrName, Long.toString (nAttrValue));
-  }
-
-  @Nonnull
-  public IMicroElement setAttribute (@Nonnull final IMicroQName aAttrName, final long nAttrValue)
-  {
-    return setAttribute (aAttrName, Long.toString (nAttrValue));
-  }
-
-  @Nonnull
-  public IMicroElement setAttributeWithConversion (@Nonnull final String sAttrName, @Nullable final Object aAttrValue)
-  {
-    return setAttributeWithConversion (new MicroQName (sAttrName), aAttrValue);
-  }
-
-  @Nonnull
-  public IMicroElement setAttributeWithConversion (@Nullable final String sNamespaceURI,
-                                                   @Nonnull final String sAttrName,
-                                                   @Nullable final Object aAttrValue)
-  {
-    return setAttributeWithConversion (new MicroQName (sNamespaceURI, sAttrName), aAttrValue);
-  }
-
-  @Nonnull
-  public IMicroElement setAttributeWithConversion (@Nonnull final IMicroQName aAttrName,
-                                                   @Nullable final Object aAttrValue)
-  {
-    final String sAttrValue = TypeConverter.convertIfNecessary (aAttrValue, String.class);
-    return setAttribute (aAttrName, sAttrValue);
-  }
-
-  @Nonnull
   public EChange removeAllAttributes ()
   {
-    if (CollectionHelper.isEmpty (m_aAttrs))
+    if (m_aAttrs == null)
       return EChange.UNCHANGED;
-    m_aAttrs.clear ();
-    return EChange.CHANGED;
+    return m_aAttrs.removeAll ();
   }
 
   @Nullable
@@ -450,21 +268,6 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
       return EChange.UNCHANGED;
     m_sNamespaceURI = sNamespaceURI;
     return EChange.CHANGED;
-  }
-
-  public boolean hasNamespaceURI ()
-  {
-    return StringHelper.hasText (m_sNamespaceURI);
-  }
-
-  public boolean hasNoNamespaceURI ()
-  {
-    return StringHelper.hasNoText (m_sNamespaceURI);
-  }
-
-  public boolean hasNamespaceURI (@Nullable final String sNamespaceURI)
-  {
-    return EqualsHelper.equals (m_sNamespaceURI, sNamespaceURI);
   }
 
   @Nullable

@@ -20,11 +20,15 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.collection.ext.ICommonsOrderedSet;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.state.EChange;
+import com.helger.commons.string.StringHelper;
+import com.helger.commons.typeconvert.TypeConverter;
 
 /**
  * Represents a single element (=tag) of a document.
@@ -59,7 +63,10 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return <code>true</code> if such an attribute is present,
    *         <code>false</code> otherwise
    */
-  boolean hasAttribute (@Nullable String sAttrName);
+  default boolean hasAttribute (@Nullable final String sAttrName)
+  {
+    return hasAttribute (null, sAttrName);
+  }
 
   /**
    * Check if this element has an attribute with the specified name.
@@ -71,7 +78,12 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return <code>true</code> if such an attribute is present,
    *         <code>false</code> otherwise
    */
-  boolean hasAttribute (@Nullable String sNamespaceURI, @Nullable String sAttrName);
+  default boolean hasAttribute (@Nullable final String sNamespaceURI, @Nullable final String sAttrName)
+  {
+    if (StringHelper.hasNoText (sAttrName))
+      return false;
+    return hasAttribute (new MicroQName (sNamespaceURI, sAttrName));
+  }
 
   /**
    * Check if this element has an attribute with the specified name.
@@ -91,7 +103,10 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return <code>null</code> of no such attribute object exists.
    */
   @Nullable
-  IMicroAttribute getAttributeObj (@Nullable String sAttrName);
+  default IMicroAttribute getAttributeObj (@Nullable final String sAttrName)
+  {
+    return getAttributeObj (null, sAttrName);
+  }
 
   /**
    * Get the attribute object with the specified namespace URI and local name.
@@ -103,7 +118,12 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return <code>null</code> of no such attribute object exists.
    */
   @Nullable
-  IMicroAttribute getAttributeObj (@Nullable String sNamespaceURI, @Nullable String sAttrName);
+  default IMicroAttribute getAttributeObj (@Nullable final String sNamespaceURI, @Nullable final String sAttrName)
+  {
+    if (StringHelper.hasNoText (sAttrName))
+      return null;
+    return getAttributeObj (new MicroQName (sNamespaceURI, sAttrName));
+  }
 
   /**
    * Get the attribute object with the specified qualified name.
@@ -124,7 +144,11 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return The assigned attribute value or <code>null</code>.
    */
   @Nullable
-  String getAttributeValue (@Nullable String sAttrName);
+  default String getAttributeValue (@Nullable final String sAttrName)
+  {
+    final IMicroAttribute aAttr = getAttributeObj (sAttrName);
+    return aAttr == null ? null : aAttr.getAttributeValue ();
+  }
 
   /**
    * Get the attribute value of the given attribute name. If this element has no
@@ -137,7 +161,11 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return The assigned attribute value or <code>null</code>.
    */
   @Nullable
-  String getAttributeValue (@Nullable String sNamespaceURI, @Nullable String sAttrName);
+  default String getAttributeValue (@Nullable final String sNamespaceURI, @Nullable final String sAttrName)
+  {
+    final IMicroAttribute aAttr = getAttributeObj (sNamespaceURI, sAttrName);
+    return aAttr == null ? null : aAttr.getAttributeValue ();
+  }
 
   /**
    * Get the attribute value of the given attribute name. If this element has no
@@ -149,7 +177,11 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return The assigned attribute value or <code>null</code>.
    */
   @Nullable
-  String getAttributeValue (@Nullable IMicroQName aAttrName);
+  default String getAttributeValue (@Nullable final IMicroQName aAttrName)
+  {
+    final IMicroAttribute aAttr = getAttributeObj (aAttrName);
+    return aAttr == null ? null : aAttr.getAttributeValue ();
+  }
 
   /**
    * Get the attribute value of the given attribute name. If this element has no
@@ -286,7 +318,10 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return this
    */
   @Nonnull
-  IMicroElement setAttribute (@Nonnull String sAttrName, @Nullable String sAttrValue);
+  default IMicroElement setAttribute (@Nonnull final String sAttrName, @Nullable final String sAttrValue)
+  {
+    return setAttribute (new MicroQName (sAttrName), sAttrValue);
+  }
 
   /**
    * Set an attribute value of this element.
@@ -301,7 +336,12 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return this
    */
   @Nonnull
-  IMicroElement setAttribute (@Nullable String sNamespaceURI, @Nonnull String sAttrName, @Nullable String sAttrValue);
+  default IMicroElement setAttribute (@Nullable final String sNamespaceURI,
+                                      @Nonnull final String sAttrName,
+                                      @Nullable final String sAttrValue)
+  {
+    return setAttribute (new MicroQName (sNamespaceURI, sAttrName), sAttrValue);
+  }
 
   /**
    * Set an attribute value of this element.
@@ -329,7 +369,11 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return this
    */
   @Nonnull
-  IMicroElement setAttribute (@Nonnull String sAttrName, @Nonnull IHasAttributeValue aAttrValueProvider);
+  default IMicroElement setAttribute (@Nonnull final String sAttrName,
+                                      @Nonnull final IHasAttributeValue aAttrValueProvider)
+  {
+    return setAttribute (new MicroQName (sAttrName), aAttrValueProvider);
+  }
 
   /**
    * Set an attribute value of this element.
@@ -345,9 +389,12 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return this
    */
   @Nonnull
-  IMicroElement setAttribute (@Nullable String sNamespaceURI,
-                              @Nonnull String sAttrName,
-                              @Nonnull IHasAttributeValue aAttrValueProvider);
+  default IMicroElement setAttribute (@Nullable final String sNamespaceURI,
+                                      @Nonnull final String sAttrName,
+                                      @Nonnull final IHasAttributeValue aAttrValueProvider)
+  {
+    return setAttribute (new MicroQName (sNamespaceURI, sAttrName), aAttrValueProvider);
+  }
 
   /**
    * Set an attribute value of this element.
@@ -362,7 +409,12 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return this
    */
   @Nonnull
-  IMicroElement setAttribute (@Nonnull IMicroQName aAttrName, @Nonnull IHasAttributeValue aAttrValueProvider);
+  default IMicroElement setAttribute (@Nonnull final IMicroQName aAttrName,
+                                      @Nonnull final IHasAttributeValue aAttrValueProvider)
+  {
+    ValueEnforcer.notNull (aAttrValueProvider, "AttrValueProvider");
+    return setAttribute (aAttrName, aAttrValueProvider.getAttrValue ());
+  }
 
   /**
    * Set an attribute value of this element. This is a shortcut for
@@ -378,7 +430,10 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return this
    */
   @Nonnull
-  IMicroElement setAttribute (@Nonnull String sAttrName, boolean bAttrValue);
+  default IMicroElement setAttribute (@Nonnull final String sAttrName, final boolean bAttrValue)
+  {
+    return setAttribute (sAttrName, Boolean.toString (bAttrValue));
+  }
 
   /**
    * Set an attribute value of this element. This is a shortcut for
@@ -396,7 +451,12 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return this
    */
   @Nonnull
-  IMicroElement setAttribute (@Nullable String sNamespaceURI, @Nonnull String sAttrName, boolean bAttrValue);
+  default IMicroElement setAttribute (@Nullable final String sNamespaceURI,
+                                      @Nonnull final String sAttrName,
+                                      final boolean bAttrValue)
+  {
+    return setAttribute (sNamespaceURI, sAttrName, Boolean.toString (bAttrValue));
+  }
 
   /**
    * Set an attribute value of this element. This is a shortcut for
@@ -413,7 +473,10 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return this
    */
   @Nonnull
-  IMicroElement setAttribute (@Nonnull IMicroQName aAttrName, boolean bAttrValue);
+  default IMicroElement setAttribute (@Nonnull final IMicroQName aAttrName, final boolean bAttrValue)
+  {
+    return setAttribute (aAttrName, Boolean.toString (bAttrValue));
+  }
 
   /**
    * Set an attribute value of this element. This is a shortcut for
@@ -426,7 +489,10 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return this
    */
   @Nonnull
-  IMicroElement setAttribute (@Nonnull String sAttrName, int nAttrValue);
+  default IMicroElement setAttribute (@Nonnull final String sAttrName, final int nAttrValue)
+  {
+    return setAttribute (sAttrName, Integer.toString (nAttrValue));
+  }
 
   /**
    * Set an attribute value of this element. This is a shortcut for
@@ -442,7 +508,12 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return this
    */
   @Nonnull
-  IMicroElement setAttribute (@Nullable String sNamespaceURI, @Nonnull String sAttrName, int nAttrValue);
+  default IMicroElement setAttribute (@Nullable final String sNamespaceURI,
+                                      @Nonnull final String sAttrName,
+                                      final int nAttrValue)
+  {
+    return setAttribute (sNamespaceURI, sAttrName, Integer.toString (nAttrValue));
+  }
 
   /**
    * Set an attribute value of this element. This is a shortcut for
@@ -456,7 +527,10 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return this
    */
   @Nonnull
-  IMicroElement setAttribute (@Nonnull IMicroQName aAttrName, int nAttrValue);
+  default IMicroElement setAttribute (@Nonnull final IMicroQName aAttrName, final int nAttrValue)
+  {
+    return setAttribute (aAttrName, Integer.toString (nAttrValue));
+  }
 
   /**
    * Set an attribute value of this element. This is a shortcut for
@@ -469,7 +543,10 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return this
    */
   @Nonnull
-  IMicroElement setAttribute (@Nonnull String sAttrName, long nAttrValue);
+  default IMicroElement setAttribute (@Nonnull final String sAttrName, final long nAttrValue)
+  {
+    return setAttribute (sAttrName, Long.toString (nAttrValue));
+  }
 
   /**
    * Set an attribute value of this element. This is a shortcut for
@@ -484,7 +561,12 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return this
    */
   @Nonnull
-  IMicroElement setAttribute (@Nullable String sNamespaceURI, @Nonnull String sAttrName, long nAttrValue);
+  default IMicroElement setAttribute (@Nullable final String sNamespaceURI,
+                                      @Nonnull final String sAttrName,
+                                      final long nAttrValue)
+  {
+    return setAttribute (sNamespaceURI, sAttrName, Long.toString (nAttrValue));
+  }
 
   /**
    * Set an attribute value of this element. This is a shortcut for
@@ -498,7 +580,10 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return this
    */
   @Nonnull
-  IMicroElement setAttribute (@Nonnull IMicroQName aAttrName, long nAttrValue);
+  default IMicroElement setAttribute (@Nonnull final IMicroQName aAttrName, final long nAttrValue)
+  {
+    return setAttribute (aAttrName, Long.toString (nAttrValue));
+  }
 
   /**
    * Set an attribute value of this element. If the type of the value is not
@@ -513,7 +598,10 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return this
    */
   @Nonnull
-  IMicroElement setAttributeWithConversion (@Nonnull String sAttrName, @Nullable Object aAttrValue);
+  default IMicroElement setAttributeWithConversion (@Nonnull final String sAttrName, @Nullable final Object aAttrValue)
+  {
+    return setAttributeWithConversion (new MicroQName (sAttrName), aAttrValue);
+  }
 
   /**
    * Set an attribute value of this element. If the type of the value is not
@@ -530,9 +618,12 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return this
    */
   @Nonnull
-  IMicroElement setAttributeWithConversion (@Nullable String sNamespaceURI,
-                                            @Nonnull String sAttrName,
-                                            @Nullable Object aAttrValue);
+  default IMicroElement setAttributeWithConversion (@Nullable final String sNamespaceURI,
+                                                    @Nonnull final String sAttrName,
+                                                    @Nullable final Object aAttrValue)
+  {
+    return setAttributeWithConversion (new MicroQName (sNamespaceURI, sAttrName), aAttrValue);
+  }
 
   /**
    * Set an attribute value of this element. If the type of the value is not
@@ -548,7 +639,12 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return this
    */
   @Nonnull
-  IMicroElement setAttributeWithConversion (@Nonnull IMicroQName aAttrName, @Nullable Object aAttrValue);
+  default IMicroElement setAttributeWithConversion (@Nonnull final IMicroQName aAttrName,
+                                                    @Nullable final Object aAttrValue)
+  {
+    final String sAttrValue = TypeConverter.convertIfNecessary (aAttrValue, String.class);
+    return setAttribute (aAttrName, sAttrValue);
+  }
 
   /**
    * Remove the attribute with the given name.
@@ -560,7 +656,10 @@ public interface IMicroElement extends IMicroNodeWithChildren
    *         element.
    */
   @Nonnull
-  EChange removeAttribute (@Nullable String sAttrName);
+  default EChange removeAttribute (@Nullable final String sAttrName)
+  {
+    return removeAttribute (null, sAttrName);
+  }
 
   /**
    * Remove the attribute with the given name.
@@ -574,7 +673,12 @@ public interface IMicroElement extends IMicroNodeWithChildren
    *         element.
    */
   @Nonnull
-  EChange removeAttribute (@Nullable String sNamespaceURI, @Nullable String sAttrName);
+  default EChange removeAttribute (@Nullable final String sNamespaceURI, @Nullable final String sAttrName)
+  {
+    if (StringHelper.hasNoText (sAttrName))
+      return EChange.UNCHANGED;
+    return removeAttribute (new MicroQName (sNamespaceURI, sAttrName));
+  }
 
   /**
    * Remove the attribute with the given name.
@@ -624,7 +728,10 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return <code>true</code> if this element has a specified namespace URI,
    *         <code>false</code> otherwise
    */
-  boolean hasNamespaceURI ();
+  default boolean hasNamespaceURI ()
+  {
+    return getNamespaceURI () != null;
+  }
 
   /**
    * Check if this element has no namespace URI.
@@ -632,7 +739,10 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return <code>true</code> if this element has no namespace URI,
    *         <code>false</code> otherwise
    */
-  boolean hasNoNamespaceURI ();
+  default boolean hasNoNamespaceURI ()
+  {
+    return getNamespaceURI () == null;
+  }
 
   /**
    * Check if this element has the specified namespace URI.
@@ -642,7 +752,10 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return <code>true</code> if this element has the specified namespace URI,
    *         <code>false</code> otherwise
    */
-  boolean hasNamespaceURI (@Nullable String sNamespaceURI);
+  default boolean hasNamespaceURI (@Nullable final String sNamespaceURI)
+  {
+    return EqualsHelper.equals (getNamespaceURI (), sNamespaceURI);
+  }
 
   /**
    * Get the local name of the element. Is the same name as returned by
