@@ -87,6 +87,12 @@ public interface ICommonsSet <ELEMENTTYPE> extends
     return ret;
   }
 
+  default void replace (@Nullable final ELEMENTTYPE aElement)
+  {
+    remove (aElement);
+    add (aElement);
+  }
+
   @Nonnull
   default Set <ELEMENTTYPE> getAsUnmodifiable ()
   {
