@@ -22,6 +22,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
+import javax.xml.bind.JAXBElement;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -185,6 +186,20 @@ public final class CloneHelper
     final ICommonsList <DATATYPE> ret = new CommonsArrayList<> ();
     for (final DATATYPE aItem : aList)
       ret.add (getCloneIfNotNull (aItem));
+    return ret;
+  }
+
+  @Nullable
+  public static <DATATYPE> JAXBElement <DATATYPE> getClonedJAXBElement (@Nullable final JAXBElement <DATATYPE> aObj)
+  {
+    if (aObj == null)
+      return null;
+
+    final JAXBElement <DATATYPE> ret = new JAXBElement <DATATYPE> (aObj.getName (),
+                                                                   aObj.getDeclaredType (),
+                                                                   aObj.getScope (),
+                                                                   getClonedValue (aObj.getValue ()));
+    ret.setNil (aObj.isNil ());
     return ret;
   }
 }
