@@ -154,7 +154,25 @@ public final class CloneHelper
 
   /**
    * Get a list where each contained item is also cloned. Like a deep copy.
-   * 
+   *
+   * @param aList
+   *        Source list. May not be <code>null</code>.
+   * @return The cloned list. Never <code>null</code> but maybe empty if the
+   *         source list is empty.
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <DATATYPE> ICommonsList <DATATYPE> getGenericClonedList (@Nullable final List <DATATYPE> aList)
+  {
+    final ICommonsList <DATATYPE> ret = new CommonsArrayList<> ();
+    for (final DATATYPE aItem : aList)
+      ret.add (getClonedValue (aItem));
+    return ret;
+  }
+
+  /**
+   * Get a list where each contained item is also cloned. Like a deep copy.
+   *
    * @param aList
    *        Source list. May not be <code>null</code>.
    * @return The cloned list. Never <code>null</code> but maybe empty if the
@@ -166,7 +184,7 @@ public final class CloneHelper
   {
     final ICommonsList <DATATYPE> ret = new CommonsArrayList<> ();
     for (final DATATYPE aItem : aList)
-      ret.add (aItem.getClone ());
+      ret.add (getCloneIfNotNull (aItem));
     return ret;
   }
 }
