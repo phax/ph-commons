@@ -16,7 +16,6 @@
  */
 package com.helger.commons.system;
 
-import java.util.Map;
 import java.util.Properties;
 
 import javax.annotation.Nonnull;
@@ -34,6 +33,7 @@ import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.CommonsHashSet;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.ext.ICommonsSet;
+import com.helger.commons.lang.PropertiesHelper;
 import com.helger.commons.lang.priviledged.IPrivilegedAction;
 
 /**
@@ -356,15 +356,10 @@ public final class SystemProperties
   @ReturnsMutableCopy
   public static ICommonsMap <String, String> getAllProperties ()
   {
-    final ICommonsMap <String, String> ret = new CommonsHashMap <> ();
     final Properties aProperties = IPrivilegedAction.systemGetProperties ().invokeSafe ();
-    if (aProperties != null)
-      for (final Map.Entry <Object, Object> aEntry : aProperties.entrySet ())
-      {
-        final String sKey = (String) aEntry.getKey ();
-        ret.put (sKey, (String) aEntry.getValue ());
-      }
-    return ret;
+    if (aProperties == null)
+      return new CommonsHashMap <> ();
+    return PropertiesHelper.getAsStringMap (aProperties);
   }
 
   /**

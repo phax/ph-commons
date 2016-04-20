@@ -3,6 +3,7 @@ package com.helger.commons.lang;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Reader;
 import java.net.MalformedURLException;
 import java.util.Map;
 import java.util.Properties;
@@ -103,9 +104,32 @@ public final class PropertiesHelper
     }
   }
 
+  @Nullable
+  public static ICommonsMap <String, String> loadProperties (@Nonnull @WillClose final Reader aReader)
+  {
+    ValueEnforcer.notNull (aReader, "Reader");
+
+    final Reader aBufferedReader = StreamHelper.getBuffered (aReader);
+    try
+    {
+      final Properties aProps = new Properties ();
+      aProps.load (aBufferedReader);
+      return getAsStringMap (aProps);
+    }
+    catch (final IOException ex)
+    {
+      return null;
+    }
+    finally
+    {
+      StreamHelper.close (aBufferedReader);
+      StreamHelper.close (aReader);
+    }
+  }
+
   /**
    * Copy of Oracle internal PropertyExpander.expand method
-   * 
+   *
    * @param sValue
    *        Source value. May be <code>null</code>.
    * @return <code>null</code> if source is <code>null</code>.
