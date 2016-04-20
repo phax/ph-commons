@@ -17,6 +17,7 @@
 package com.helger.commons.lang;
 
 import java.lang.reflect.Constructor;
+import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -26,6 +27,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 
 /**
  * Helper class for cloning objects.
@@ -146,5 +150,23 @@ public final class CloneHelper
     if (aObject == null)
       return null;
     return aObject.getClone ();
+  }
+
+  /**
+   * Get a list where each contained item is also cloned. Like a deep copy.
+   * 
+   * @param aList
+   *        Source list. May not be <code>null</code>.
+   * @return The cloned list. Never <code>null</code> but maybe empty if the
+   *         source list is empty.
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <DATATYPE extends ICloneable <DATATYPE>> ICommonsList <DATATYPE> getClonedList (@Nullable final List <DATATYPE> aList)
+  {
+    final ICommonsList <DATATYPE> ret = new CommonsArrayList<> ();
+    for (final DATATYPE aItem : aList)
+      ret.add (aItem.getClone ());
+    return ret;
   }
 }
