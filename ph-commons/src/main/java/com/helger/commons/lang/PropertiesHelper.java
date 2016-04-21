@@ -41,7 +41,7 @@ public final class PropertiesHelper
   {
     ValueEnforcer.notNull (aProps, "Props");
 
-    final ICommonsMap <String, String> ret = new CommonsHashMap <> ();
+    final ICommonsMap <String, String> ret = new CommonsHashMap<> ();
     for (final Map.Entry <Object, Object> aEntry : aProps.entrySet ())
       ret.put ((String) aEntry.getKey (), (String) aEntry.getValue ());
     return ret;
@@ -89,9 +89,9 @@ public final class PropertiesHelper
     final InputStream aBufferedIS = StreamHelper.getBuffered (aIS);
     try
     {
-      final Properties aProps = new Properties ();
+      final NonBlockingProperties aProps = new NonBlockingProperties ();
       aProps.load (aBufferedIS);
-      return getAsStringMap (aProps);
+      return aProps;
     }
     catch (final IOException ex)
     {
@@ -112,9 +112,9 @@ public final class PropertiesHelper
     final Reader aBufferedReader = StreamHelper.getBuffered (aReader);
     try
     {
-      final Properties aProps = new Properties ();
+      final NonBlockingProperties aProps = new NonBlockingProperties ();
       aProps.load (aBufferedReader);
-      return getAsStringMap (aProps);
+      return aProps;
     }
     catch (final IOException ex)
     {
