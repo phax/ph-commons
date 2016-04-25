@@ -16,9 +16,11 @@
  */
 package com.helger.commons.collection.ext;
 
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -40,6 +42,13 @@ public class CommonsTreeMap <KEYTYPE, VALUETYPE> extends TreeMap <KEYTYPE, VALUE
   {
     if (aMap != null)
       putAll (aMap);
+  }
+
+  public <COLLTYPE> CommonsTreeMap (@Nullable final Collection <? extends COLLTYPE> aValues,
+                                    @Nonnull final Function <? super COLLTYPE, ? extends KEYTYPE> aKeyMapper,
+                                    @Nonnull final Function <? super COLLTYPE, ? extends VALUETYPE> aValueMapper)
+  {
+    putAll (aValues, aKeyMapper, aValueMapper);
   }
 
   @Nonnull

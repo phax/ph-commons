@@ -16,8 +16,10 @@
  */
 package com.helger.commons.collection.ext;
 
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -54,6 +56,14 @@ public class CommonsLinkedHashMap <KEYTYPE, VALUETYPE> extends LinkedHashMap <KE
                                final boolean bAccessOrder)
   {
     super (nInitialCapacity, fLoadFactor, bAccessOrder);
+  }
+
+  public <COLLTYPE> CommonsLinkedHashMap (@Nullable final Collection <? extends COLLTYPE> aValues,
+                                          @Nonnull final Function <? super COLLTYPE, ? extends KEYTYPE> aKeyMapper,
+                                          @Nonnull final Function <? super COLLTYPE, ? extends VALUETYPE> aValueMapper)
+  {
+    super (CollectionHelper.getSize (aValues));
+    putAll (aValues, aKeyMapper, aValueMapper);
   }
 
   @Nonnull

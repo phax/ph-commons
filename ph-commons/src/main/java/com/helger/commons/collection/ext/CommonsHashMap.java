@@ -16,8 +16,10 @@
  */
 package com.helger.commons.collection.ext;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -47,6 +49,14 @@ public class CommonsHashMap <KEYTYPE, VALUETYPE> extends HashMap <KEYTYPE, VALUE
     super (CollectionHelper.getSize (aMap));
     if (aMap != null)
       putAll (aMap);
+  }
+
+  public <COLLTYPE> CommonsHashMap (@Nullable final Collection <? extends COLLTYPE> aValues,
+                                    @Nonnull final Function <? super COLLTYPE, ? extends KEYTYPE> aKeyMapper,
+                                    @Nonnull final Function <? super COLLTYPE, ? extends VALUETYPE> aValueMapper)
+  {
+    super (CollectionHelper.getSize (aValues));
+    putAll (aValues, aKeyMapper, aValueMapper);
   }
 
   @Nonnull

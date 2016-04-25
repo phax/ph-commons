@@ -17,6 +17,7 @@
 package com.helger.commons.collection.ext;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Map;
@@ -26,6 +27,7 @@ import java.util.function.Predicate;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.lang.ICloneable;
@@ -40,14 +42,14 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default ICommonsSet <KEYTYPE> copyOfKeySet ()
   {
-    return new CommonsHashSet<> (keySet ());
+    return new CommonsHashSet <> (keySet ());
   }
 
   @Nonnull
   @ReturnsMutableCopy
   default ICommonsList <VALUETYPE> copyOfValues ()
   {
-    return new CommonsArrayList<> (values ());
+    return new CommonsArrayList <> (values ());
   }
 
   @Nonnull
@@ -80,7 +82,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default ICommonsSet <Map.Entry <KEYTYPE, VALUETYPE>> copyOfEntrySet ()
   {
-    return new CommonsHashSet<> (entrySet ());
+    return new CommonsHashSet <> (entrySet ());
   }
 
   /**
@@ -186,7 +188,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default ICommonsMap <VALUETYPE, KEYTYPE> getSwappedKeyValues ()
   {
-    final ICommonsMap <VALUETYPE, KEYTYPE> ret = new CommonsHashMap<> ();
+    final ICommonsMap <VALUETYPE, KEYTYPE> ret = new CommonsHashMap <> ();
     for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : entrySet ())
       ret.put (aEntry.getValue (), aEntry.getKey ());
     return ret;
@@ -240,6 +242,28 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   {
     clear ();
     addAll (aValues);
+  }
+
+  /**
+   * Add all items from the passed collection to this map using the provided key
+   * and value mapper.
+   * 
+   * @param aValues
+   *        Source collection. May be <code>null</code>.
+   * @param aKeyMapper
+   *        The key mapper. May not be <code>null</code>.
+   * @param aValueMapper
+   *        The value mapper. May not be <code>null</code>.
+   */
+  default <COLLTYPE> void putAll (@Nullable final Collection <? extends COLLTYPE> aValues,
+                                  @Nonnull final Function <? super COLLTYPE, ? extends KEYTYPE> aKeyMapper,
+                                  @Nonnull final Function <? super COLLTYPE, ? extends VALUETYPE> aValueMapper)
+  {
+    ValueEnforcer.notNull (aKeyMapper, "KeyMapper");
+    ValueEnforcer.notNull (aValueMapper, "ValueMapper");
+    if (aValues != null)
+      for (final COLLTYPE aItem : aValues)
+        put (aKeyMapper.apply (aItem), aValueMapper.apply (aItem));
   }
 
   @Nonnull
