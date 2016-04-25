@@ -30,6 +30,8 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public final class MicroDocumentType extends AbstractMicroNode implements IMicroDocumentType
 {
+  public static final String NODE_NAME = "#doctype";
+
   private final String m_sQualifiedName;
   private final String m_sPublicID;
   private final String m_sSystemID;
@@ -61,7 +63,7 @@ public final class MicroDocumentType extends AbstractMicroNode implements IMicro
   @Nonnull
   public String getNodeName ()
   {
-    return "#doctype";
+    return NODE_NAME;
   }
 
   @Nonnull

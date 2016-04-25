@@ -401,6 +401,8 @@ public abstract class AbstractMicroNode implements IMicroNode
     final int nIndex = aParentChildren.indexOf (this);
     if (nIndex == -1)
       throw new IllegalStateException ("this is no part of it's parents children");
+
+    // getAtIndex handles index underflow
     return aParentChildren.getAtIndex (nIndex - 1);
   }
 
@@ -413,6 +415,8 @@ public abstract class AbstractMicroNode implements IMicroNode
     final int nIndex = aParentChildren.indexOf (this);
     if (nIndex == -1)
       throw new IllegalStateException ("this is no part of it's parents children");
+
+    // getAtIndex handles index overflow
     return aParentChildren.getAtIndex (nIndex + 1);
   }
 
@@ -543,7 +547,7 @@ public abstract class AbstractMicroNode implements IMicroNode
     {
       // Get all event handler
       final ICommonsSet <IMicroEventTarget> aTargets = m_aEventTargets.get (eEventType);
-      if (aTargets != null && !aTargets.isEmpty ())
+      if (aTargets != null && aTargets.isNotEmpty ())
       {
         // fire the event
         for (final IMicroEventTarget aTarget : aTargets)
@@ -571,11 +575,11 @@ public abstract class AbstractMicroNode implements IMicroNode
     ValueEnforcer.notNull (aTarget, "EventTarget");
 
     if (m_aEventTargets == null)
-      m_aEventTargets = new CommonsEnumMap <> (EMicroEvent.class);
+      m_aEventTargets = new CommonsEnumMap<> (EMicroEvent.class);
     ICommonsOrderedSet <IMicroEventTarget> aSet = m_aEventTargets.get (eEventType);
     if (aSet == null)
     {
-      aSet = new CommonsLinkedHashSet <> ();
+      aSet = new CommonsLinkedHashSet<> ();
       m_aEventTargets.put (eEventType, aSet);
     }
     return EChange.valueOf (aSet.add (aTarget));
@@ -587,7 +591,7 @@ public abstract class AbstractMicroNode implements IMicroNode
     ValueEnforcer.notNull (eEventType, "EventType");
     ValueEnforcer.notNull (aTarget, "EventTarget");
 
-    if (m_aEventTargets != null && !m_aEventTargets.isEmpty ())
+    if (m_aEventTargets != null && m_aEventTargets.isNotEmpty ())
     {
       final ICommonsSet <IMicroEventTarget> aSet = m_aEventTargets.get (eEventType);
       if (aSet != null && !aSet.isEmpty ())

@@ -218,8 +218,8 @@ public final class MicroElementTest extends AbstractCommonsTestCase
     final IMicroContainer aCont2 = aCont.appendContainer ();
     aCont2.appendElement ("el");
     assertTrue (eRoot.hasChildren ());
-    assertFalse (eRoot.hasChildElements ());
-    assertNull (eRoot.getFirstChildElement ());
+    assertTrue (eRoot.hasChildElements ());
+    assertNotNull (eRoot.getFirstChildElement ());
   }
 
   @Test

@@ -46,7 +46,7 @@ public final class MicroContainerTest
     assertNull (e.getAllChildren ());
     assertNull (e.getFirstChild ());
     assertNull (e.getLastChild ());
-    assertTrue (e.getAllChildrenRecursive ().isEmpty ());
+    assertNull (e.getAllChildrenRecursive ());
     assertEquals (0, e.getChildCount ());
     assertNotNull (e.getNodeName ());
     assertNotNull (e.getNodeValue ());

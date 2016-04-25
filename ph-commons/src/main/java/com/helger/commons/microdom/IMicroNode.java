@@ -50,7 +50,8 @@ public interface IMicroNode extends
                             Serializable
 {
   /**
-   * @return Just an abstract name that depends on the implementing class.
+   * @return Just an abstract name that depends on the implementing class. For
+   *         {@link IMicroElement} nodes this is the same as the tag name.
    */
   @Nonnull
   @Nonempty
@@ -150,12 +151,10 @@ public interface IMicroNode extends
 
   default void forAllChildrenRecursive (@Nonnull final Consumer <? super IMicroNode> aConsumer)
   {
-    if (hasChildren ())
-      for (final IMicroNode aCurrent : getAllChildren ())
-      {
-        aConsumer.accept (aCurrent);
-        aCurrent.forAllChildrenRecursive (aConsumer);
-      }
+    forAllChildren (aChildNode -> {
+      aConsumer.accept (aChildNode);
+      aChildNode.forAllChildrenRecursive (aConsumer);
+    });
   }
 
   /**
@@ -243,7 +242,7 @@ public interface IMicroNode extends
     if (hasNoChildren ())
       return null;
 
-    final ICommonsList <IMicroNode> ret = new CommonsArrayList <> ();
+    final ICommonsList <IMicroNode> ret = new CommonsArrayList<> ();
     forAllChildrenRecursive (aNode -> ret.add (aNode));
     return ret;
   }

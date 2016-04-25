@@ -43,6 +43,7 @@ import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.typeconvert.TypeConverter;
+import com.helger.commons.wrapper.Wrapper;
 import com.helger.commons.xml.CXML;
 import com.helger.commons.xml.CXMLRegEx;
 
@@ -108,7 +109,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
 
   public boolean hasAttributes ()
   {
-    return m_aAttrs != null && !m_aAttrs.isEmpty ();
+    return m_aAttrs != null && m_aAttrs.isNotEmpty ();
   }
 
   public boolean hasNoAttributes ()
@@ -145,9 +146,9 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   {
     if (hasNoAttributes ())
       return null;
-    return new CommonsLinkedHashMap <> (m_aAttrs.values (),
-                                        IMicroAttribute::getAttributeQName,
-                                        IMicroAttribute::getAttributeValue);
+    return new CommonsLinkedHashMap<> (m_aAttrs.values (),
+                                       IMicroAttribute::getAttributeQName,
+                                       IMicroAttribute::getAttributeValue);
   }
 
   @Nullable
@@ -174,9 +175,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   {
     if (hasNoAttributes ())
       return null;
-    final ICommonsList <String> ret = new CommonsArrayList <> ();
-    ret.addAllMapped (m_aAttrs.values (), IMicroAttribute::getAttributeValue);
-    return ret;
+    return CollectionHelper.newListMapped (m_aAttrs.values (), IMicroAttribute::getAttributeValue);
   }
 
   @Nullable
@@ -240,7 +239,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     if (sAttrValue != null)
     {
       if (m_aAttrs == null)
-        m_aAttrs = new CommonsLinkedHashMap <> ();
+        m_aAttrs = new CommonsLinkedHashMap<> ();
       m_aAttrs.put (aAttrName, new MicroAttribute (aAttrName, sAttrValue));
     }
     else
@@ -300,27 +299,16 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     });
   }
 
-  // private static IMicroElement _findFirstChildElement (@Nonnull final
-  // IMicroNode aStartNode,
-  // @Nonnull final Predicate <? super IMicroElement> aFilter)
-  // {
-  // return aStartNode.findFirstChildMapped (aChildNode -> {
-  // if (aChildNode.isElement ())
-  // {
-  // final IMicroElement aChildElement = (IMicroElement) aChildNode;
-  // if (aFilter == null || aFilter.test (aChildElement))
-  // return aChildElement;
-  // }
-  // else
-  // if (aChildNode.isContainer ())
-  // {
-  // final IMicroElement ret = _findFirstChildElement (aChildNode, aFilter);
-  // if (ret != null)
-  // return ret;
-  // }
-  // return null;
-  // } , aChild -> (IMicroElement) aChild);
-  // }
+  private static IMicroElement _findFirstChildElement (@Nonnull final IMicroNode aStartNode,
+                                                       @Nonnull final Predicate <? super IMicroElement> aFilter)
+  {
+    final Wrapper <IMicroElement> ret = new Wrapper<> ();
+    _forAllChildElements (aStartNode, aFilter, aChildElement -> {
+      if (ret.isNotSet ())
+        ret.set (aChildElement);
+    });
+    return ret.get ();
+  }
 
   private static boolean _hasChildElement (@Nonnull final IMicroNode aStartNode,
                                            @Nonnull final Predicate <? super IMicroElement> aFilter)
@@ -334,8 +322,10 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
       }
       else
         if (aChildNode.isContainer ())
+        {
           if (_hasChildElement (aChildNode, aFilter))
             return true;
+        }
       return false;
     });
   }
@@ -352,7 +342,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   @ReturnsMutableCopy
   public ICommonsList <IMicroElement> getAllChildElements ()
   {
-    final ICommonsList <IMicroElement> ret = new CommonsArrayList <> ();
+    final ICommonsList <IMicroElement> ret = new CommonsArrayList<> ();
     _forAllChildElements (this, null, ret::add);
     return ret;
   }
@@ -361,7 +351,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   @ReturnsMutableCopy
   public ICommonsList <IMicroElement> getAllChildElements (@Nullable final String sTagName)
   {
-    final ICommonsList <IMicroElement> ret = new CommonsArrayList <> ();
+    final ICommonsList <IMicroElement> ret = new CommonsArrayList<> ();
     _forAllChildElements (this, aChildElement -> aChildElement.hasTagName (sTagName), ret::add);
     return ret;
   }
@@ -374,7 +364,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     if (StringHelper.hasNoText (sNamespaceURI))
       return getAllChildElements (sLocalName);
 
-    final ICommonsList <IMicroElement> ret = new CommonsArrayList <> ();
+    final ICommonsList <IMicroElement> ret = new CommonsArrayList<> ();
     _forAllChildElements (this,
                           aChildElement -> aChildElement.hasNamespaceURI (sNamespaceURI) &&
                                            aChildElement.hasLocalName (sLocalName),
@@ -386,7 +376,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   @ReturnsMutableCopy
   public ICommonsList <IMicroElement> getAllChildElementsRecursive ()
   {
-    final ICommonsList <IMicroElement> ret = new CommonsArrayList <> ();
+    final ICommonsList <IMicroElement> ret = new CommonsArrayList<> ();
     _forAllChildElements (this, null, aChildElement -> {
       ret.add (aChildElement);
       ret.addAll (aChildElement.getAllChildElementsRecursive ());
@@ -409,50 +399,21 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     if (StringHelper.hasNoText (sNamespaceURI))
       return hasChildElements (sLocalName);
 
-    return _hasChildElement (this, aChildElement -> aChildElement.hasNamespaceURI (sNamespaceURI) &&
-                                                    aChildElement.hasLocalName (sLocalName));
+    return _hasChildElement (this,
+                             aChildElement -> aChildElement.hasNamespaceURI (sNamespaceURI) &&
+                                              aChildElement.hasLocalName (sLocalName));
   }
 
   @Nullable
   public IMicroElement getFirstChildElement ()
   {
-    if (hasChildren ())
-      for (final IMicroNode aChild : directGetAllChildren ())
-        if (aChild.isElement ())
-          return (IMicroElement) aChild;
-        else
-          if (aChild.isContainer () && aChild.hasChildren ())
-          {
-            for (final IMicroNode aContChild : aChild.getAllChildren ())
-              if (aContChild.isElement ())
-                return (IMicroElement) aContChild;
-          }
-    return null;
+    return _findFirstChildElement (this, null);
   }
 
   @Nullable
   public IMicroElement getFirstChildElement (@Nullable final String sTagName)
   {
-    if (hasChildren ())
-      for (final IMicroNode aChild : directGetAllChildren ())
-        if (aChild.isElement ())
-        {
-          final IMicroElement aChildElement = (IMicroElement) aChild;
-          if (aChildElement.getTagName ().equals (sTagName))
-            return aChildElement;
-        }
-        else
-          if (aChild.isContainer () && aChild.hasChildren ())
-          {
-            for (final IMicroNode aContChild : aChild.getAllChildren ())
-              if (aContChild.isElement ())
-              {
-                final IMicroElement aContChildElement = (IMicroElement) aContChild;
-                if (aContChildElement.getTagName ().equals (sTagName))
-                  return aContChildElement;
-              }
-          }
-    return null;
+    return _findFirstChildElement (this, aChildElement -> aChildElement.hasTagName (sTagName));
   }
 
   @Nullable
@@ -461,27 +422,9 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     if (StringHelper.hasNoText (sNamespaceURI))
       return getFirstChildElement (sLocalName);
 
-    if (hasChildren ())
-      for (final IMicroNode aChild : directGetAllChildren ())
-        if (aChild.isElement ())
-        {
-          final IMicroElement aChildElement = (IMicroElement) aChild;
-          if (aChildElement.hasNamespaceURI (sNamespaceURI) && aChildElement.getLocalName ().equals (sLocalName))
-            return aChildElement;
-        }
-        else
-          if (aChild.isContainer () && aChild.hasChildren ())
-          {
-            for (final IMicroNode aContChild : aChild.getAllChildren ())
-              if (aContChild.isElement ())
-              {
-                final IMicroElement aContChildElement = (IMicroElement) aContChild;
-                if (aContChildElement.hasNamespaceURI (sNamespaceURI) &&
-                    aContChildElement.getLocalName ().equals (sLocalName))
-                  return aContChildElement;
-              }
-          }
-    return null;
+    return _findFirstChildElement (this,
+                                   aChildElement -> aChildElement.hasNamespaceURI (sNamespaceURI) &&
+                                                    aChildElement.hasLocalName (sLocalName));
   }
 
   @Nonnull
@@ -491,12 +434,10 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
 
     // Copy attributes
     if (m_aAttrs != null)
-      ret.m_aAttrs = new CommonsLinkedHashMap <> (m_aAttrs);
+      ret.m_aAttrs = new CommonsLinkedHashMap<> (m_aAttrs);
 
     // Deep clone all child nodes
-    if (hasChildren ())
-      for (final IMicroNode aChildNode : directGetAllChildren ())
-        ret.appendChild (aChildNode.getClone ());
+    forAllChildren (aChildNode -> ret.appendChild (aChildNode.getClone ()));
     return ret;
   }
 
