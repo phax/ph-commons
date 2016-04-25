@@ -16,13 +16,16 @@
  */
 package com.helger.commons.microdom;
 
-import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.ext.CommonsArrayList;
@@ -190,6 +193,74 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   }
 
   @Override
+  public final void forAllChildren (@Nonnull final Consumer <? super IMicroNode> aConsumer)
+  {
+    ValueEnforcer.notNull (aConsumer, "Consumer");
+    if (m_aChildren != null)
+      m_aChildren.forEach (aConsumer);
+  }
+
+  @Override
+  public final void forAllChildren (@Nonnull final Predicate <? super IMicroNode> aFilter,
+                                    @Nonnull final Consumer <? super IMicroNode> aConsumer)
+  {
+    ValueEnforcer.notNull (aFilter, "Filter");
+    ValueEnforcer.notNull (aConsumer, "Consumer");
+    if (m_aChildren != null)
+      m_aChildren.findAll (aFilter, aConsumer);
+  }
+
+  public final <DSTTYPE> void forAllChildrenMapped (@Nonnull final Predicate <? super IMicroNode> aFilter,
+                                                    @Nonnull final Function <? super IMicroNode, ? extends DSTTYPE> aMapper,
+                                                    @Nonnull final Consumer <? super DSTTYPE> aConsumer)
+  {
+    ValueEnforcer.notNull (aFilter, "Filter");
+    ValueEnforcer.notNull (aMapper, "Mapper");
+    ValueEnforcer.notNull (aConsumer, "Consumer");
+    if (m_aChildren != null)
+      m_aChildren.findAllMapped (aFilter, aMapper, aConsumer);
+  }
+
+  public final void forAllChildrenRecursive (@Nonnull final Consumer <? super IMicroNode> aConsumer)
+  {
+    if (m_aChildren != null)
+      for (final IMicroNode aCurrent : m_aChildren)
+      {
+        aConsumer.accept (aCurrent);
+        aCurrent.forAllChildrenRecursive (aConsumer);
+      }
+  }
+
+  @Override
+  @Nullable
+  public IMicroNode findFirstChild (@Nonnull final Predicate <? super IMicroNode> aFilter)
+  {
+    ValueEnforcer.notNull (aFilter, "Filter");
+    if (m_aChildren == null)
+      return null;
+    return m_aChildren.findFirst (aFilter);
+  }
+
+  @Override
+  @Nullable
+  public <DSTTYPE> DSTTYPE findFirstChildMapped (@Nonnull final Predicate <? super IMicroNode> aFilter,
+                                                 @Nonnull final Function <? super IMicroNode, ? extends DSTTYPE> aMapper)
+  {
+    ValueEnforcer.notNull (aFilter, "Filter");
+    if (m_aChildren == null)
+      return null;
+    return m_aChildren.findFirstMapped (aFilter, aMapper);
+  }
+
+  public boolean containsAnyChild (@Nonnull final Predicate <? super IMicroNode> aFilter)
+  {
+    ValueEnforcer.notNull (aFilter, "Filter");
+    if (m_aChildren == null)
+      return false;
+    return m_aChildren.containsAny (aFilter);
+  }
+
+  @Override
   @Nullable
   public final IMicroNode getChildAtIndex (@Nonnegative final int nIndex)
   {
@@ -216,26 +287,6 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
     return m_aChildren == null ? null : m_aChildren.getLast ();
   }
 
-  private void _fillListPrefix (@Nonnull final IMicroNode aCurNode, @Nonnull final List <IMicroNode> aNodes)
-  {
-    if (aCurNode.hasChildren ())
-      for (final IMicroNode aCurrent : aCurNode.getAllChildren ())
-      {
-        aNodes.add (aCurrent);
-        _fillListPrefix (aCurrent, aNodes);
-      }
-  }
-
-  @Override
-  @Nonnull
-  @ReturnsMutableCopy
-  public final ICommonsList <IMicroNode> getAllChildrenRecursive ()
-  {
-    final ICommonsList <IMicroNode> ret = new CommonsArrayList <> ();
-    _fillListPrefix (this, ret);
-    return ret;
-  }
-
   @Nullable
   public String getTextContent ()
   {
@@ -243,7 +294,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
       return null;
 
     final StringBuilder aSB = new StringBuilder ();
-    for (final IMicroNode aChild : directGetAllChildren ())
+    for (final IMicroNode aChild : m_aChildren)
     {
       final EMicroNodeType eType = aChild.getType ();
       if (eType.isText ())

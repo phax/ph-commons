@@ -30,6 +30,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.iterate.IIterableIterator;
@@ -272,6 +273,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
   default <SRCTYPE> void addAllMapped (@Nullable final Iterable <? extends SRCTYPE> aValues,
                                        @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
+    ValueEnforcer.notNull (aMapper, "Mapper");
     if (aValues != null)
       for (final SRCTYPE aValue : aValues)
         add (aMapper.apply (aValue));
@@ -280,6 +282,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
   default <SRCTYPE> void addAllMapped (@Nullable final SRCTYPE [] aValues,
                                        @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
+    ValueEnforcer.notNull (aMapper, "Mapper");
     if (aValues != null)
       for (final SRCTYPE aValue : aValues)
         add (aMapper.apply (aValue));

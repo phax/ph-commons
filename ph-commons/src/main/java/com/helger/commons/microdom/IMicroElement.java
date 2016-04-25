@@ -768,6 +768,20 @@ public interface IMicroElement extends IMicroNodeWithChildren
   String getLocalName ();
 
   /**
+   * Check if this element has the provided local name. The local name is the
+   * same name as returned by {@link #getTagName()} but is only present if a
+   * namespace URI is present.
+   *
+   * @param sLocalName
+   *        The local name to compare against. May be <code>null</code>.
+   * @return <code>true</code> if local name and the passed name match.
+   */
+  default boolean hasLocalName (@Nullable final String sLocalName)
+  {
+    return EqualsHelper.equals (getLocalName (), sLocalName);
+  }
+
+  /**
    * Get the name of the tag. It never contains XML schema prefixes or the like.
    * Is the same as {@link #getLocalName()} if a namespace URI is present.
    *
@@ -775,6 +789,18 @@ public interface IMicroElement extends IMicroNodeWithChildren
    */
   @Nonnull
   String getTagName ();
+
+  /**
+   * Check if this element has the provided tag name.
+   *
+   * @param sTagName
+   *        The tag name to compare against. May be <code>null</code>.
+   * @return <code>true</code> if tag name and the passed name match.
+   */
+  default boolean hasTagName (@Nullable final String sTagName)
+  {
+    return getTagName ().equals (sTagName);
+  }
 
   /**
    * @return The number of all direct child elements. Always &ge; 0.

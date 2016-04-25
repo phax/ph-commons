@@ -115,9 +115,7 @@ public final class MicroDocument extends AbstractMicroNodeWithChildren implement
   {
     final MicroDocument ret = new MicroDocument ();
     ret.setStandalone (m_bIsStandalone);
-    if (hasChildren ())
-      for (final IMicroNode aChildNode : getAllChildren ())
-        ret.appendChild (aChildNode.getClone ());
+    forAllChildren (aChildNode -> ret.appendChild (aChildNode.getClone ()));
     return ret;
   }
 

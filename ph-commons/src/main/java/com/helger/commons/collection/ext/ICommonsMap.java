@@ -194,30 +194,90 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
     return ret;
   }
 
+  /**
+   * Put the passed value into the map if the provided predicate is fulfilled.
+   *
+   * @param aKey
+   *        Key to use. May not be <code>null</code> for certain map types.
+   * @param aValue
+   *        The value to be added. May be <code>null</code> in which case
+   *        nothing happens.
+   * @param aFilter
+   *        The value predicate to be checked before insertion. May not be
+   *        <code>null</code>.
+   */
   @Nonnull
   default void putIf (@Nonnull final KEYTYPE aKey,
                       @Nullable final VALUETYPE aValue,
                       @Nonnull final Predicate <VALUETYPE> aFilter)
   {
+    ValueEnforcer.notNull (aFilter, "Filter");
     if (aFilter.test (aValue))
       put (aKey, aValue);
   }
 
-  @Nonnull
+  /**
+   * Put the passed value into the map if it is not <code>null</code>.
+   *
+   * @param aKey
+   *        Key to use. May not be <code>null</code> for certain map types.
+   * @param aValue
+   *        The value to be added. May be <code>null</code> in which case
+   *        nothing happens.
+   */
   default void putIfNotNull (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
     if (aValue != null)
       put (aKey, aValue);
   }
 
+  /**
+   * Add all items from the passed array to this map using the provided key and
+   * value mapper.
+   *
+   * @param aElements
+   *        Source collection. May be <code>null</code>.
+   * @param aKeyMapper
+   *        The key mapper. May not be <code>null</code>.
+   * @param aValueMapper
+   *        The value mapper. May not be <code>null</code>.
+   * @param <ELEMENTTYPE>
+   *        Array element type
+   */
   @Nonnull
   default <ELEMENTTYPE> void putAll (@Nullable final ELEMENTTYPE [] aElements,
                                      @Nonnull final Function <? super ELEMENTTYPE, ? extends KEYTYPE> aKeyMapper,
                                      @Nonnull final Function <? super ELEMENTTYPE, ? extends VALUETYPE> aValueMapper)
   {
+    ValueEnforcer.notNull (aKeyMapper, "KeyMapper");
+    ValueEnforcer.notNull (aValueMapper, "ValueMapper");
     if (aElements != null)
       for (final ELEMENTTYPE aElement : aElements)
         put (aKeyMapper.apply (aElement), aValueMapper.apply (aElement));
+  }
+
+  /**
+   * Add all items from the passed collection to this map using the provided key
+   * and value mapper.
+   *
+   * @param aElements
+   *        Source collection. May be <code>null</code>.
+   * @param aKeyMapper
+   *        The key mapper. May not be <code>null</code>.
+   * @param aValueMapper
+   *        The value mapper. May not be <code>null</code>.
+   * @param <ELEMENTTYPE>
+   *        Collection element type
+   */
+  default <ELEMENTTYPE> void putAll (@Nullable final Collection <? extends ELEMENTTYPE> aElements,
+                                     @Nonnull final Function <? super ELEMENTTYPE, ? extends KEYTYPE> aKeyMapper,
+                                     @Nonnull final Function <? super ELEMENTTYPE, ? extends VALUETYPE> aValueMapper)
+  {
+    ValueEnforcer.notNull (aKeyMapper, "KeyMapper");
+    ValueEnforcer.notNull (aValueMapper, "ValueMapper");
+    if (aElements != null)
+      for (final ELEMENTTYPE aItem : aElements)
+        put (aKeyMapper.apply (aItem), aValueMapper.apply (aItem));
   }
 
   /**
@@ -242,28 +302,6 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   {
     clear ();
     addAll (aValues);
-  }
-
-  /**
-   * Add all items from the passed collection to this map using the provided key
-   * and value mapper.
-   * 
-   * @param aValues
-   *        Source collection. May be <code>null</code>.
-   * @param aKeyMapper
-   *        The key mapper. May not be <code>null</code>.
-   * @param aValueMapper
-   *        The value mapper. May not be <code>null</code>.
-   */
-  default <COLLTYPE> void putAll (@Nullable final Collection <? extends COLLTYPE> aValues,
-                                  @Nonnull final Function <? super COLLTYPE, ? extends KEYTYPE> aKeyMapper,
-                                  @Nonnull final Function <? super COLLTYPE, ? extends VALUETYPE> aValueMapper)
-  {
-    ValueEnforcer.notNull (aKeyMapper, "KeyMapper");
-    ValueEnforcer.notNull (aValueMapper, "ValueMapper");
-    if (aValues != null)
-      for (final COLLTYPE aItem : aValues)
-        put (aKeyMapper.apply (aItem), aValueMapper.apply (aItem));
   }
 
   @Nonnull

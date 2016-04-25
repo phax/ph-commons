@@ -17,6 +17,8 @@
 package com.helger.commons.microdom;
 
 import java.util.Collections;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -36,6 +38,7 @@ import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.collection.ext.ICommonsOrderedSet;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.mutable.MutableInt;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -142,10 +145,9 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   {
     if (hasNoAttributes ())
       return null;
-    final ICommonsOrderedMap <IMicroQName, String> ret = new CommonsLinkedHashMap <> ();
-    for (final MicroAttribute aAttr : m_aAttrs.values ())
-      ret.put (aAttr.getAttributeQName (), aAttr.getAttributeValue ());
-    return ret;
+    return new CommonsLinkedHashMap <> (m_aAttrs.values (),
+                                        IMicroAttribute::getAttributeQName,
+                                        IMicroAttribute::getAttributeValue);
   }
 
   @Nullable
@@ -173,8 +175,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     if (hasNoAttributes ())
       return null;
     final ICommonsList <String> ret = new CommonsArrayList <> ();
-    for (final MicroAttribute aName : m_aAttrs.values ())
-      ret.add (aName.getAttributeValue ());
+    ret.addAllMapped (m_aAttrs.values (), IMicroAttribute::getAttributeValue);
     return ret;
   }
 
@@ -282,26 +283,69 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     return m_sTagName;
   }
 
+  private static void _forAllChildElements (@Nonnull final IMicroNode aStartNode,
+                                            @Nonnull final Predicate <? super IMicroElement> aFilter,
+                                            @Nonnull final Consumer <? super IMicroElement> aConsumer)
+  {
+    aStartNode.forAllChildren (aChildNode -> {
+      if (aChildNode.isElement ())
+      {
+        final IMicroElement aChildElement = (IMicroElement) aChildNode;
+        if (aFilter == null || aFilter.test (aChildElement))
+          aConsumer.accept (aChildElement);
+      }
+      else
+        if (aChildNode.isContainer ())
+          _forAllChildElements (aChildNode, aFilter, aConsumer);
+    });
+  }
+
+  // private static IMicroElement _findFirstChildElement (@Nonnull final
+  // IMicroNode aStartNode,
+  // @Nonnull final Predicate <? super IMicroElement> aFilter)
+  // {
+  // return aStartNode.findFirstChildMapped (aChildNode -> {
+  // if (aChildNode.isElement ())
+  // {
+  // final IMicroElement aChildElement = (IMicroElement) aChildNode;
+  // if (aFilter == null || aFilter.test (aChildElement))
+  // return aChildElement;
+  // }
+  // else
+  // if (aChildNode.isContainer ())
+  // {
+  // final IMicroElement ret = _findFirstChildElement (aChildNode, aFilter);
+  // if (ret != null)
+  // return ret;
+  // }
+  // return null;
+  // } , aChild -> (IMicroElement) aChild);
+  // }
+
+  private static boolean _hasChildElement (@Nonnull final IMicroNode aStartNode,
+                                           @Nonnull final Predicate <? super IMicroElement> aFilter)
+  {
+    return aStartNode.containsAnyChild (aChildNode -> {
+      if (aChildNode.isElement ())
+      {
+        final IMicroElement aChildElement = (IMicroElement) aChildNode;
+        if (aFilter == null || aFilter.test (aChildElement))
+          return true;
+      }
+      else
+        if (aChildNode.isContainer ())
+          if (_hasChildElement (aChildNode, aFilter))
+            return true;
+      return false;
+    });
+  }
+
   @Nonnegative
   public int getChildElementCount ()
   {
-    int ret = 0;
-    if (hasChildren ())
-      for (final IMicroNode aChild : directGetAllChildren ())
-      {
-        if (aChild.isElement ())
-        {
-          ++ret;
-        }
-        else
-          if (aChild.isContainer () && aChild.hasChildren ())
-          {
-            for (final IMicroNode aContChild : aChild.getAllChildren ())
-              if (aContChild.isElement ())
-                ++ret;
-          }
-      }
-    return ret;
+    final MutableInt ret = new MutableInt ();
+    _forAllChildElements (this, null, aChildElement -> ret.inc ());
+    return ret.intValue ();
   }
 
   @Nonnull
@@ -309,21 +353,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   public ICommonsList <IMicroElement> getAllChildElements ()
   {
     final ICommonsList <IMicroElement> ret = new CommonsArrayList <> ();
-    if (hasChildren ())
-      for (final IMicroNode aChild : directGetAllChildren ())
-      {
-        if (aChild.isElement ())
-        {
-          ret.add ((IMicroElement) aChild);
-        }
-        else
-          if (aChild.isContainer () && aChild.hasChildren ())
-          {
-            for (final IMicroNode aContChild : aChild.getAllChildren ())
-              if (aContChild.isElement ())
-                ret.add ((IMicroElement) aContChild);
-          }
-      }
+    _forAllChildElements (this, null, ret::add);
     return ret;
   }
 
@@ -332,26 +362,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   public ICommonsList <IMicroElement> getAllChildElements (@Nullable final String sTagName)
   {
     final ICommonsList <IMicroElement> ret = new CommonsArrayList <> ();
-    if (hasChildren ())
-      for (final IMicroNode aChild : directGetAllChildren ())
-        if (aChild.isElement ())
-        {
-          final IMicroElement aChildElement = (IMicroElement) aChild;
-          if (aChildElement.getTagName ().equals (sTagName))
-            ret.add (aChildElement);
-        }
-        else
-          if (aChild.isContainer () && aChild.hasChildren ())
-          {
-            for (final IMicroNode aContChild : aChild.getAllChildren ())
-              if (aContChild.isElement ())
-              {
-                final IMicroElement aContChildElement = (IMicroElement) aContChild;
-                if (aContChildElement.getTagName ().equals (sTagName))
-                  ret.add (aContChildElement);
-              }
-          }
-
+    _forAllChildElements (this, aChildElement -> aChildElement.hasTagName (sTagName), ret::add);
     return ret;
   }
 
@@ -364,26 +375,10 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
       return getAllChildElements (sLocalName);
 
     final ICommonsList <IMicroElement> ret = new CommonsArrayList <> ();
-    if (hasChildren ())
-      for (final IMicroNode aChild : directGetAllChildren ())
-        if (aChild.isElement ())
-        {
-          final IMicroElement aChildElement = (IMicroElement) aChild;
-          if (aChildElement.hasNamespaceURI (sNamespaceURI) && aChildElement.getLocalName ().equals (sLocalName))
-            ret.add (aChildElement);
-        }
-        else
-          if (aChild.isContainer () && aChild.hasChildren ())
-          {
-            for (final IMicroNode aContChild : aChild.getAllChildren ())
-              if (aContChild.isElement ())
-              {
-                final IMicroElement aContChildElement = (IMicroElement) aContChild;
-                if (aContChildElement.hasNamespaceURI (sNamespaceURI) &&
-                    aContChildElement.getLocalName ().equals (sLocalName))
-                  ret.add (aContChildElement);
-              }
-          }
+    _forAllChildElements (this,
+                          aChildElement -> aChildElement.hasNamespaceURI (sNamespaceURI) &&
+                                           aChildElement.hasLocalName (sLocalName),
+                          ret::add);
     return ret;
   }
 
@@ -392,66 +387,21 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   public ICommonsList <IMicroElement> getAllChildElementsRecursive ()
   {
     final ICommonsList <IMicroElement> ret = new CommonsArrayList <> ();
-    if (hasChildren ())
-      for (final IMicroNode aChild : directGetAllChildren ())
-        if (aChild.isElement ())
-        {
-          final IMicroElement aChildElement = (IMicroElement) aChild;
-          ret.add (aChildElement);
-          ret.addAll (aChildElement.getAllChildElementsRecursive ());
-        }
-        else
-          if (aChild.isContainer () && aChild.hasChildren ())
-          {
-            for (final IMicroNode aContChild : aChild.getAllChildren ())
-              if (aContChild.isElement ())
-              {
-                final MicroElement aContChildElement = (MicroElement) aContChild;
-                ret.add (aContChildElement);
-                ret.addAll (aContChildElement.getAllChildElementsRecursive ());
-              }
-          }
+    _forAllChildElements (this, null, aChildElement -> {
+      ret.add (aChildElement);
+      ret.addAll (aChildElement.getAllChildElementsRecursive ());
+    });
     return ret;
   }
 
   public boolean hasChildElements ()
   {
-    if (hasChildren ())
-      for (final IMicroNode aChild : directGetAllChildren ())
-        if (aChild.isElement ())
-        {
-          return true;
-        }
-        else
-          if (aChild.isContainer () && aChild.hasChildren ())
-          {
-            for (final IMicroNode aContChild : aChild.getAllChildren ())
-              if (aContChild.isElement ())
-                return true;
-          }
-    return false;
+    return _hasChildElement (this, null);
   }
 
   public boolean hasChildElements (@Nullable final String sTagName)
   {
-    if (hasChildren ())
-      for (final IMicroNode aChild : directGetAllChildren ())
-        if (aChild.isElement ())
-        {
-          if (((IMicroElement) aChild).getTagName ().equals (sTagName))
-            return true;
-        }
-        else
-          if (aChild.isContainer () && aChild.hasChildren ())
-          {
-            for (final IMicroNode aContChild : aChild.getAllChildren ())
-              if (aContChild.isElement ())
-              {
-                if (((IMicroElement) aContChild).getTagName ().equals (sTagName))
-                  return true;
-              }
-          }
-    return false;
+    return _hasChildElement (this, aChildElement -> aChildElement.hasTagName (sTagName));
   }
 
   public boolean hasChildElements (@Nullable final String sNamespaceURI, @Nullable final String sLocalName)
@@ -459,27 +409,8 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     if (StringHelper.hasNoText (sNamespaceURI))
       return hasChildElements (sLocalName);
 
-    if (hasChildren ())
-      for (final IMicroNode aChild : directGetAllChildren ())
-        if (aChild.isElement ())
-        {
-          final IMicroElement aChildElement = (IMicroElement) aChild;
-          if (aChildElement.hasNamespaceURI (sNamespaceURI) && aChildElement.getLocalName ().equals (sLocalName))
-            return true;
-        }
-        else
-          if (aChild.isContainer () && aChild.hasChildren ())
-          {
-            for (final IMicroNode aContChild : aChild.getAllChildren ())
-              if (aContChild.isElement ())
-              {
-                final IMicroElement aContChildElement = (IMicroElement) aContChild;
-                if (aContChildElement.hasNamespaceURI (sNamespaceURI) &&
-                    aContChildElement.getLocalName ().equals (sLocalName))
-                  return true;
-              }
-          }
-    return false;
+    return _hasChildElement (this, aChildElement -> aChildElement.hasNamespaceURI (sNamespaceURI) &&
+                                                    aChildElement.hasLocalName (sLocalName));
   }
 
   @Nullable

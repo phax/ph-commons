@@ -59,9 +59,7 @@ public final class MicroContainer extends AbstractMicroNodeWithChildren implemen
   public IMicroContainer getClone ()
   {
     final IMicroContainer ret = new MicroContainer ();
-    if (hasChildren ())
-      for (final IMicroNode aChildNode : getAllChildren ())
-        ret.appendChild (aChildNode.getClone ());
+    forAllChildren (aChildNode -> ret.appendChild (aChildNode.getClone ()));
     return ret;
   }
 

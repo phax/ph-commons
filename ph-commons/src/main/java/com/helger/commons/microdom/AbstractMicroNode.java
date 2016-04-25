@@ -392,13 +392,6 @@ public abstract class AbstractMicroNode implements IMicroNode
     return null;
   }
 
-  @OverrideOnDemand
-  @Nullable
-  public ICommonsList <IMicroNode> getAllChildrenRecursive ()
-  {
-    return null;
-  }
-
   @Nullable
   public final IMicroNode getPreviousSibling ()
   {

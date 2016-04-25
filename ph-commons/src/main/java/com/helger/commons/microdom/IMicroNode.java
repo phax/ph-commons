@@ -17,13 +17,18 @@
 package com.helger.commons.microdom;
 
 import java.io.Serializable;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.ext.ICommonsSet;
@@ -76,6 +81,142 @@ public interface IMicroNode extends
   ICommonsList <IMicroNode> getAllChildren ();
 
   /**
+   * Iterate all direct children (if at least one is present) and invoked the
+   * provided consumer.<br>
+   * Note: use this only for reading. Writing operations will cause concurrent
+   * modification exceptions!
+   *
+   * @param aConsumer
+   *        The consumer to be invoked for all direct child nodes. May not be
+   *        <code>null</code>.
+   */
+  default void forAllChildren (@Nonnull final Consumer <? super IMicroNode> aConsumer)
+  {
+    ValueEnforcer.notNull (aConsumer, "Consumer");
+    if (hasChildren ())
+      getAllChildren ().forEach (aConsumer);
+  }
+
+  /**
+   * Iterate all direct children (if at least one is present) and invoked the
+   * provided consumer if the passed predicate is fulfilled.<br>
+   * Note: use this only for reading. Writing operations will cause concurrent
+   * modification exceptions!
+   *
+   * @param aFilter
+   *        The filter that is applied to all child nodes. May not be
+   *        <code>null</code>.
+   * @param aConsumer
+   *        The consumer to be invoked for all child nodes matching the filter.
+   *        May not be <code>null</code>.
+   */
+  default void forAllChildren (@Nonnull final Predicate <? super IMicroNode> aFilter,
+                               @Nonnull final Consumer <? super IMicroNode> aConsumer)
+  {
+    ValueEnforcer.notNull (aFilter, "Filter");
+    ValueEnforcer.notNull (aConsumer, "Consumer");
+    if (hasChildren ())
+      getAllChildren ().findAll (aFilter, aConsumer);
+  }
+
+  /**
+   * Iterate all direct children (if at least one is present) and invoked the
+   * provided consumer if the passed predicate is fulfilled.<br>
+   * Note: use this only for reading. Writing operations will cause concurrent
+   * modification exceptions!
+   *
+   * @param aFilter
+   *        The filter that is applied to all child nodes. May not be
+   *        <code>null</code>.
+   * @param aMapper
+   *        The mapping function from micro node to the target type. May not be
+   *        <code>null</code>.
+   * @param aConsumer
+   *        The consumer to be invoked for all child nodes matching the filter.
+   *        May not be <code>null</code>.
+   * @param <DSTTYPE>
+   *        The destination data type.
+   */
+  default <DSTTYPE> void forAllChildrenMapped (@Nonnull final Predicate <? super IMicroNode> aFilter,
+                                               @Nonnull final Function <? super IMicroNode, ? extends DSTTYPE> aMapper,
+                                               @Nonnull final Consumer <? super DSTTYPE> aConsumer)
+  {
+    ValueEnforcer.notNull (aFilter, "Filter");
+    ValueEnforcer.notNull (aMapper, "Mapper");
+    ValueEnforcer.notNull (aConsumer, "Consumer");
+    if (hasChildren ())
+      getAllChildren ().findAllMapped (aFilter, aMapper, aConsumer);
+  }
+
+  default void forAllChildrenRecursive (@Nonnull final Consumer <? super IMicroNode> aConsumer)
+  {
+    if (hasChildren ())
+      for (final IMicroNode aCurrent : getAllChildren ())
+      {
+        aConsumer.accept (aCurrent);
+        aCurrent.forAllChildrenRecursive (aConsumer);
+      }
+  }
+
+  /**
+   * Find the first direct child that matches the passed predicate.
+   *
+   * @param aFilter
+   *        The filter that is applied on each direct child node. May not be
+   *        <code>null</code>.
+   * @return <code>null</code> if no direct child matches the passed filter or
+   *         if no child is present at all.
+   */
+  @Nullable
+  default IMicroNode findFirstChild (@Nonnull final Predicate <? super IMicroNode> aFilter)
+  {
+    ValueEnforcer.notNull (aFilter, "Filter");
+    if (hasNoChildren ())
+      return null;
+    return getAllChildren ().findFirst (aFilter);
+  }
+
+  /**
+   * Find the first direct child that matches the passed predicate.
+   *
+   * @param aFilter
+   *        The filter that is applied on each direct child node. May not be
+   *        <code>null</code>.
+   * @param aMapper
+   *        The mapping function from micro node to the target type. May not be
+   *        <code>null</code>.
+   * @return <code>null</code> if no direct child matches the passed filter or
+   *         if no child is present at all.
+   */
+  @Nullable
+  default <DSTTYPE> DSTTYPE findFirstChildMapped (@Nonnull final Predicate <? super IMicroNode> aFilter,
+                                                  @Nonnull final Function <? super IMicroNode, ? extends DSTTYPE> aMapper)
+  {
+    ValueEnforcer.notNull (aFilter, "Filter");
+    ValueEnforcer.notNull (aMapper, "Mapper");
+    if (hasNoChildren ())
+      return null;
+    return getAllChildren ().findFirstMapped (aFilter, aMapper);
+  }
+
+  /**
+   * Check if any direct child matching the provided filter is contained.
+   *
+   * @param aFilter
+   *        The filter that is applied to all child nodes. May not be
+   *        <code>null</code>.
+   * @return <code>true</code> if any child matching the provided filter is
+   *         contained, <code>false</code> otherwise.
+   */
+  default boolean containsAnyChild (@Nonnull final Predicate <? super IMicroNode> aFilter)
+  {
+    ValueEnforcer.notNull (aFilter, "Filter");
+    if (hasNoChildren ())
+      return false;
+    return getAllChildren ().containsAny (aFilter);
+  }
+
+  /**
    * @return The first child node of this node, or <code>null</code> if this
    *         node has no children.
    */
@@ -97,7 +238,15 @@ public interface IMicroNode extends
    *         <code>null</code> if this node has no children.
    */
   @Nullable
-  ICommonsList <IMicroNode> getAllChildrenRecursive ();
+  default ICommonsList <IMicroNode> getAllChildrenRecursive ()
+  {
+    if (hasNoChildren ())
+      return null;
+
+    final ICommonsList <IMicroNode> ret = new CommonsArrayList <> ();
+    forAllChildrenRecursive (aNode -> ret.add (aNode));
+    return ret;
+  }
 
   /**
    * @return The previous node on the same level as this node, or

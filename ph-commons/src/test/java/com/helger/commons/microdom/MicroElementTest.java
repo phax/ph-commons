@@ -196,10 +196,10 @@ public final class MicroElementTest extends AbstractCommonsTestCase
     assertNotNull (eRoot.getFirstChildElement ("level1"));
     assertNotNull (eRoot.getFirstChildElement ("level2a"));
 
-    // special
+    // special (element -> container)
     eRoot = new MicroElement ("root");
     assertNull (eRoot.getFirstChildElement ());
-    final IMicroContainer aCont = eRoot.appendContainer ();
+    IMicroContainer aCont = eRoot.appendContainer ();
     assertTrue (eRoot.hasChildren ());
     assertFalse (eRoot.hasChildElements ());
     assertNull (eRoot.getFirstChildElement ());
@@ -207,6 +207,19 @@ public final class MicroElementTest extends AbstractCommonsTestCase
     assertTrue (eRoot.hasChildren ());
     assertTrue (eRoot.hasChildElements ());
     assertNotNull (eRoot.getFirstChildElement ());
+
+    // special (element -> container -> container)
+    eRoot = new MicroElement ("root");
+    assertNull (eRoot.getFirstChildElement ());
+    aCont = eRoot.appendContainer ();
+    assertTrue (eRoot.hasChildren ());
+    assertFalse (eRoot.hasChildElements ());
+    assertNull (eRoot.getFirstChildElement ());
+    final IMicroContainer aCont2 = aCont.appendContainer ();
+    aCont2.appendElement ("el");
+    assertTrue (eRoot.hasChildren ());
+    assertFalse (eRoot.hasChildElements ());
+    assertNull (eRoot.getFirstChildElement ());
   }
 
   @Test
