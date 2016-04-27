@@ -26,6 +26,7 @@ import com.helger.commons.state.EContinue;
  *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface IMicroTypeConverterCallback
 {
   /**

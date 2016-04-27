@@ -29,7 +29,6 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Singleton;
-import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.CommonsWeakHashMap;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
@@ -54,6 +53,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
     private static final MicroTypeConverterRegistry s_aInstance = new MicroTypeConverterRegistry ();
   }
 
+  public static final boolean DEFAULT_USE_CLASS_HIERARCHY = false;
   private static final Logger s_aLogger = LoggerFactory.getLogger (MicroTypeConverterRegistry.class);
 
   private static boolean s_bDefaultInstantiated = false;
@@ -62,6 +62,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
 
   // WeakHashMap because key is a class
   private final ICommonsMap <Class <?>, IMicroTypeConverter> m_aMap = new CommonsWeakHashMap <> ();
+  private boolean m_bUseClassHierarchy = DEFAULT_USE_CLASS_HIERARCHY;
 
   private MicroTypeConverterRegistry ()
   {
@@ -82,6 +83,16 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
     final MicroTypeConverterRegistry ret = SingletonHolder.s_aInstance;
     s_bDefaultInstantiated = true;
     return ret;
+  }
+
+  public boolean isUseClassHierarchy ()
+  {
+    return m_bUseClassHierarchy;
+  }
+
+  public void setUseClassHierarchy (final boolean bUseClassHierarchy)
+  {
+    m_bUseClassHierarchy = bUseClassHierarchy;
   }
 
   public void registerMicroElementTypeConverter (@Nonnull final Class <?> aClass,
@@ -111,17 +122,26 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
       if (m_aMap.containsKey (aClass))
         throw new IllegalArgumentException ("A micro type converter for class " + aClass + " is already registered!");
 
-      // Automatically register the class, and all parent classes/interfaces
-      for (final WeakReference <Class <?>> aCurWRSrcClass : ClassHierarchyCache.getClassHierarchyIterator (aClass))
+      if (m_bUseClassHierarchy)
       {
-        final Class <?> aCurSrcClass = aCurWRSrcClass.get ();
-        if (aCurSrcClass != null)
-          if (!m_aMap.containsKey (aCurSrcClass))
-          {
-            m_aMap.put (aCurSrcClass, aConverter);
-            if (s_aLogger.isDebugEnabled ())
-              s_aLogger.debug ("Registered micro type converter for '" + aCurSrcClass.toString () + "'");
-          }
+        // Automatically register the class, and all parent classes/interfaces
+        for (final WeakReference <Class <?>> aCurWRSrcClass : ClassHierarchyCache.getClassHierarchyIterator (aClass))
+        {
+          final Class <?> aCurSrcClass = aCurWRSrcClass.get ();
+          if (aCurSrcClass != null)
+            if (!m_aMap.containsKey (aCurSrcClass))
+            {
+              m_aMap.put (aCurSrcClass, aConverter);
+              if (s_aLogger.isDebugEnabled ())
+                s_aLogger.debug ("Registered micro type converter for '" + aCurSrcClass.toString () + "'");
+            }
+        }
+      }
+      else
+      {
+        m_aMap.put (aClass, aConverter);
+        if (s_aLogger.isDebugEnabled ())
+          s_aLogger.debug ("Registered micro type converter for '" + aClass.toString () + "'");
       }
     });
   }
@@ -140,7 +160,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
     return m_aRWLock.readLocked ( () -> {
       // Check for an exact match first
       IMicroTypeConverter ret = m_aMap.get (aDstClass);
-      if (ret == null)
+      if (ret == null && m_bUseClassHierarchy)
       {
         // No exact match found - try fuzzy
         for (final WeakReference <Class <?>> aCurWRDstClass : ClassHierarchyCache.getClassHierarchyIterator (aDstClass))
@@ -177,7 +197,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
   public void iterateAllRegisteredMicroTypeConverters (@Nonnull final IMicroTypeConverterCallback aCallback)
   {
     // Create a static copy of the map (HashMap not weak!)
-    final ICommonsMap <Class <?>, IMicroTypeConverter> aCopy = m_aRWLock.readLocked ( () -> new CommonsHashMap <> (m_aMap));
+    final ICommonsMap <Class <?>, IMicroTypeConverter> aCopy = m_aRWLock.readLocked ( () -> m_aMap.getClone ());
 
     // And iterate the copy
     for (final Map.Entry <Class <?>, IMicroTypeConverter> aEntry : aCopy.entrySet ())

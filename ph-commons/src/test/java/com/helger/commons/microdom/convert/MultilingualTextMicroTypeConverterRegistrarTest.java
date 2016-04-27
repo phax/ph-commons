@@ -19,7 +19,6 @@ package com.helger.commons.microdom.convert;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 import java.util.Locale;
 
@@ -88,8 +87,8 @@ public final class MultilingualTextMicroTypeConverterRegistrarTest
 
     // The result must be a ReadonlyMultiLingualText because it is the first
     // registered converter
-    final IMultilingualText aMLT2 = MicroTypeConverter.convertToNative (aElement, IMultilingualText.class);
-    assertTrue (aMLT2 instanceof ReadOnlyMultilingualText);
+    final ReadOnlyMultilingualText aMLT2 = MicroTypeConverter.convertToNative (aElement,
+                                                                               ReadOnlyMultilingualText.class);
     assertEquals (new ReadOnlyMultilingualText (aMLT), aMLT2);
     assertNull (MicroTypeConverter.convertToNative (null, AbstractReadOnlyMapBasedMultilingualText.class));
 
