@@ -26,7 +26,6 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.lang.ICloneable;
-import com.helger.commons.state.EChange;
 
 public interface ICommonsSet <ELEMENTTYPE> extends
                              Set <ELEMENTTYPE>,
@@ -90,18 +89,18 @@ public interface ICommonsSet <ELEMENTTYPE> extends
 
   /**
    * Replace an existing item in this Set.
-   * 
+   *
    * @param aElement
    *        The new element to be added.
-   * @return {@link EChange#CHANGED} if a previous item was removed,
+   * @return <code>true</code> if a previous item was removed,
    *         <code>false</code> if this element was simply added.
    */
   @Nonnull
-  default EChange replace (@Nullable final ELEMENTTYPE aElement)
+  default boolean replace (@Nullable final ELEMENTTYPE aElement)
   {
-    final EChange eChange = EChange.valueOf (remove (aElement));
+    final boolean bRemoved = remove (aElement);
     add (aElement);
-    return eChange;
+    return bRemoved;
   }
 
   @Nonnull
