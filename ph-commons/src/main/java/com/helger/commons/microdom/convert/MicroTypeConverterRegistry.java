@@ -92,7 +92,12 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
 
   public void setUseClassHierarchy (final boolean bUseClassHierarchy)
   {
-    m_bUseClassHierarchy = bUseClassHierarchy;
+    if (m_bUseClassHierarchy != bUseClassHierarchy)
+    {
+      m_bUseClassHierarchy = bUseClassHierarchy;
+      // Must re-initialize so that all registrations are performed
+      reinitialize ();
+    }
   }
 
   public void registerMicroElementTypeConverter (@Nonnull final Class <?> aClass,
@@ -160,29 +165,35 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
     return m_aRWLock.readLocked ( () -> {
       // Check for an exact match first
       IMicroTypeConverter ret = m_aMap.get (aDstClass);
-      if (ret == null && m_bUseClassHierarchy)
+      if (ret != null)
       {
-        // No exact match found - try fuzzy
-        for (final WeakReference <Class <?>> aCurWRDstClass : ClassHierarchyCache.getClassHierarchyIterator (aDstClass))
+        if (s_aLogger.isTraceEnabled ())
+          s_aLogger.trace ("Using micro type converter " + ret + " for class " + aDstClass + " based on direct match");
+      }
+      else
+        if (m_bUseClassHierarchy)
         {
-          final Class <?> aCurDstClass = aCurWRDstClass.get ();
-          if (aCurDstClass != null)
+          // No exact match found - try fuzzy
+          for (final WeakReference <Class <?>> aCurWRDstClass : ClassHierarchyCache.getClassHierarchyIterator (aDstClass))
           {
-            ret = m_aMap.get (aCurDstClass);
-            if (ret != null)
+            final Class <?> aCurDstClass = aCurWRDstClass.get ();
+            if (aCurDstClass != null)
             {
-              if (s_aLogger.isTraceEnabled ())
-                s_aLogger.trace ("Using micro type converter " +
-                                 ret +
-                                 " for class " +
-                                 aDstClass +
-                                 " based on " +
-                                 aCurDstClass);
-              break;
+              ret = m_aMap.get (aCurDstClass);
+              if (ret != null)
+              {
+                if (s_aLogger.isTraceEnabled ())
+                  s_aLogger.trace ("Using micro type converter " +
+                                   ret +
+                                   " for class " +
+                                   aDstClass +
+                                   " based on " +
+                                   aCurDstClass);
+                break;
+              }
             }
           }
         }
-      }
       return ret;
     });
   }
