@@ -169,7 +169,6 @@ public final class HashCodeGeneratorTest
     final HashCodeGenerator aHC2 = new HashCodeGenerator (getClass ());
     _appendFields (aHC2);
     assertEquals (aHC.getHashCode (), aHC2.getHashCode ());
-    assertEquals (aHC.getHashCodeObj (), aHC2.getHashCodeObj ());
 
     try
     {
@@ -182,7 +181,6 @@ public final class HashCodeGeneratorTest
 
     // Must still be the same
     assertEquals (aHC.getHashCode (), aHC2.getHashCode ());
-    assertEquals (aHC.getHashCodeObj (), aHC2.getHashCodeObj ());
   }
 
   @Test

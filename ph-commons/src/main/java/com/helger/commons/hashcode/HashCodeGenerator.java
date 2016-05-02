@@ -523,6 +523,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *         object. Never <code>null</code>.
    */
   @Nonnull
+  @Deprecated
   public Integer getHashCodeObj ()
   {
     return Integer.valueOf (getHashCode ());
