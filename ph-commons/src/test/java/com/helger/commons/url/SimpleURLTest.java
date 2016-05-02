@@ -18,6 +18,9 @@ package com.helger.commons.url;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+import java.util.Map;
+
 import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
@@ -170,9 +173,9 @@ public final class SimpleURLTest
     // 2. plus params in href
     aURL = new SimpleURL ("http://www.helger.com?x=y", new SMap ("a", "b"));
     assertEquals ("http://www.helger.com?x=y&a=b", aURL.getAsStringWithEncodedParameters ());
-    // 3. overwrite parameter in href
+    // 3. add parameter with same name in href
     aURL = new SimpleURL ("http://www.helger.com?a=a", new SMap ("a", "b"));
-    assertEquals ("http://www.helger.com?a=b", aURL.getAsStringWithEncodedParameters ());
+    assertEquals ("http://www.helger.com?a=a&a=b", aURL.getAsStringWithEncodedParameters ());
     // 4. only params
     aURL = new SimpleURL ("", new SMap ("a", "b"));
     assertEquals ("?a=b", aURL.getAsStringWithEncodedParameters ());
@@ -200,7 +203,10 @@ public final class SimpleURLTest
     aURL = new SimpleURL ("#main");
     assertEquals ("#main", aURL.getAsStringWithEncodedParameters ());
     // 5a. only anchor
-    aURL = new SimpleURL ("", null, "main");
+    aURL = new SimpleURL ("", (Map <String, String>) null, "main");
+    assertEquals ("#main", aURL.getAsStringWithEncodedParameters ());
+    // 5b. only anchor
+    aURL = new SimpleURL ("", (List <URLParameter>) null, "main");
     assertEquals ("#main", aURL.getAsStringWithEncodedParameters ());
 
     // Copy ctor

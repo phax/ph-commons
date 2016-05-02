@@ -87,8 +87,8 @@ public final class URLHelperTest
     assertEquals (EURLProtocol.HTTP, aData.getProtocol ());
     assertEquals ("http://www.helger.com/folder", aData.getPath ());
     assertEquals (2, aData.getParamCount ());
-    assertEquals ("y", aData.getAllParams ().get ("x"));
-    assertEquals ("b", aData.getAllParams ().get ("a"));
+    assertEquals ("y", aData.getParam ("x"));
+    assertEquals ("b", aData.getParam ("a"));
     assertEquals ("c", aData.getAnchor ());
 
     aData = URLHelper.getAsURLData ("?x=y&a=b#c");
@@ -96,8 +96,8 @@ public final class URLHelperTest
     assertNull (aData.getProtocol ());
     assertEquals ("", aData.getPath ());
     assertEquals (2, aData.getParamCount ());
-    assertEquals ("y", aData.getAllParams ().get ("x"));
-    assertEquals ("b", aData.getAllParams ().get ("a"));
+    assertEquals ("y", aData.getParam ("x"));
+    assertEquals ("b", aData.getParam ("a"));
     assertEquals ("c", aData.getAnchor ());
 
     aData = URLHelper.getAsURLData ("?x=y&=b#c");
@@ -105,7 +105,7 @@ public final class URLHelperTest
     assertNull (aData.getProtocol ());
     assertEquals ("", aData.getPath ());
     assertEquals (1, aData.getParamCount ());
-    assertEquals ("y", aData.getAllParams ().get ("x"));
+    assertEquals ("y", aData.getParam ("x"));
     assertEquals ("c", aData.getAnchor ());
   }
 
@@ -159,19 +159,22 @@ public final class URLHelperTest
   public void testGetApplicationFormEncoded ()
   {
     final URLParameterEncoder enc = new URLParameterEncoder (CCharset.CHARSET_UTF_8_OBJ);
-    assertNull (URLHelper.getQueryParametersAsString (null, enc));
-    assertNull (URLHelper.getQueryParametersAsString (new SMap (), enc));
-    assertEquals ("a=b", URLHelper.getQueryParametersAsString (new SMap ().add ("a", "b"), enc));
-    assertEquals ("a=b&c=d", URLHelper.getQueryParametersAsString (new SMap ().add ("a", "b").add ("c", "d"), enc));
+    assertNull (URLHelper.getQueryParametersAsString ((URLParameterList) null, enc));
+    assertNull (URLHelper.getQueryParametersAsString (new URLParameterList (), enc));
+    assertEquals ("a=b", URLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b"), enc));
+    assertEquals ("a=b&c=d",
+                  URLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b").add ("c", "d"), enc));
     assertEquals ("a=b&c=d&e=f+g",
-                  URLHelper.getQueryParametersAsString (new SMap ().add ("a", "b").add ("c", "d").add ("e", "f g"),
+                  URLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b")
+                                                                               .add ("c", "d")
+                                                                               .add ("e", "f g"),
                                                         enc));
     assertEquals ("a=b&c=d%26e",
-                  URLHelper.getQueryParametersAsString (new SMap ().add ("a", "b").add ("c", "d&e"), enc));
+                  URLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b").add ("c", "d&e"), enc));
 
     // Using identity encoder
     assertEquals ("a=b&c=d&e",
-                  URLHelper.getQueryParametersAsString (new SMap ().add ("a", "b").add ("c", "d&e"), null));
+                  URLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b").add ("c", "d&e"), null));
   }
 
   @Test

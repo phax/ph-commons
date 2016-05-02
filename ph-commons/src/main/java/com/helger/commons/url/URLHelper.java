@@ -33,6 +33,7 @@ import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.util.BitSet;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.jar.JarEntry;
@@ -53,9 +54,7 @@ import com.helger.commons.charset.CCharset;
 import com.helger.commons.codec.IDecoder;
 import com.helger.commons.codec.IEncoder;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.io.file.FilenameHelper;
@@ -471,7 +470,7 @@ public final class URLHelper
         }
 
     String sPath;
-    ICommonsOrderedMap <String, String> aParams = null;
+    URLParameterList aParams = null;
     String sAnchor;
 
     // First get the anchor out
@@ -507,10 +506,10 @@ public final class URLHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ICommonsOrderedMap <String, String> getParsedQueryParameters (@Nullable final String sQueryString,
-                                                                              @Nullable final IDecoder <String, String> aParameterDecoder)
+  public static URLParameterList getParsedQueryParameters (@Nullable final String sQueryString,
+                                                           @Nullable final IDecoder <String, String> aParameterDecoder)
   {
-    final ICommonsOrderedMap <String, String> aMap = new CommonsLinkedHashMap<> ();
+    final URLParameterList aMap = new URLParameterList ();
     if (StringHelper.hasText (sQueryString))
     {
       for (final String sKeyValuePair : StringHelper.getExploded (AMPERSAND, sQueryString))
@@ -527,10 +526,10 @@ public final class URLHelper
             if (aParameterDecoder != null)
             {
               // Now decode the name and the value
-              aMap.put (aParameterDecoder.getDecoded (sKey), aParameterDecoder.getDecoded (sValue));
+              aMap.add (aParameterDecoder.getDecoded (sKey), aParameterDecoder.getDecoded (sValue));
             }
             else
-              aMap.put (sKey, sValue);
+              aMap.add (sKey, sValue);
           }
         }
     }
@@ -539,15 +538,9 @@ public final class URLHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Map <String, String> getParsedQueryParameters (@Nullable final String sQueryString)
+  public static URLParameterList getParsedQueryParameters (@Nullable final String sQueryString)
   {
     return getParsedQueryParameters (sQueryString, null);
-  }
-
-  @Nonnull
-  public static String getURLString (@Nonnull final IURLData aURL, @Nullable final Charset aParameterCharset)
-  {
-    return getURLString (aURL.getPath (), aURL.getAllParams (), aURL.getAnchor (), aParameterCharset);
   }
 
   /**
@@ -646,6 +639,39 @@ public final class URLHelper
    * @return <code>null</code> if no parameter is present.
    */
   @Nullable
+  public static String getQueryParametersAsString (@Nullable final List <URLParameter> aQueryParams,
+                                                   @Nullable final IEncoder <String, String> aQueryParameterEncoder)
+  {
+    if (CollectionHelper.isEmpty (aQueryParams))
+      return null;
+
+    final StringBuilder aSB = new StringBuilder ();
+    // add all values
+    for (final URLParameter aParam : aQueryParams)
+    {
+      // Separator
+      if (aSB.length () > 0)
+        aSB.append (AMPERSAND);
+      aParam.appendTo (aSB, aQueryParameterEncoder);
+    }
+
+    return aSB.toString ();
+  }
+
+  /**
+   * Create a parameter string. This is also suitable for POST body (e.g. for
+   * web form submission).
+   *
+   * @param aQueryParams
+   *        Parameter map. May be <code>null</code> or empty.
+   * @param aQueryParameterEncoder
+   *        The encoder to be used to encode parameter names and parameter
+   *        values. May be <code>null</code>. This may be e.g. a
+   *        {@link URLParameterEncoder}.
+   * @return <code>null</code> if no parameter is present.
+   */
+  @Nullable
+  @Deprecated
   public static String getQueryParametersAsString (@Nullable final Map <String, String> aQueryParams,
                                                    @Nullable final IEncoder <String, String> aQueryParameterEncoder)
   {
@@ -679,14 +705,20 @@ public final class URLHelper
     return aSB.toString ();
   }
 
+  @Nonnull
+  public static String getURLString (@Nonnull final IURLData aURL, @Nullable final Charset aParameterCharset)
+  {
+    return getURLString (aURL.getPath (), aURL.directGetAllParams (), aURL.getAnchor (), aParameterCharset);
+  }
+
   /**
    * Get the final representation of the URL using the specified elements.
    *
    * @param sPath
    *        The main path. May be <code>null</code>.
    * @param aQueryParams
-   *        The set of query parameters to be appended. May be <code>null</code>
-   *        .
+   *        The list of query parameters to be appended. May be
+   *        <code>null</code> .
    * @param sAnchor
    *        An optional anchor to be added. May be <code>null</code>.
    * @param aQueryParameterEncoder
@@ -696,7 +728,7 @@ public final class URLHelper
    */
   @Nullable
   public static String getURLString (@Nullable final String sPath,
-                                     @Nullable final Map <String, String> aQueryParams,
+                                     @Nullable final List <URLParameter> aQueryParams,
                                      @Nullable final String sAnchor,
                                      @Nullable final IEncoder <String, String> aQueryParameterEncoder)
   {
@@ -709,7 +741,7 @@ public final class URLHelper
    * @param sPath
    *        The main path. May be <code>null</code>.
    * @param aQueryParams
-   *        The set of parameters to be appended. May be <code>null</code>.
+   *        The list of parameters to be appended. May be <code>null</code>.
    * @param sAnchor
    *        An optional anchor to be added. May be <code>null</code>.
    * @param aParameterCharset
@@ -719,7 +751,7 @@ public final class URLHelper
    */
   @Nullable
   public static String getURLString (@Nullable final String sPath,
-                                     @Nullable final Map <String, String> aQueryParams,
+                                     @Nullable final List <URLParameter> aQueryParams,
                                      @Nullable final String sAnchor,
                                      @Nullable final Charset aParameterCharset)
   {

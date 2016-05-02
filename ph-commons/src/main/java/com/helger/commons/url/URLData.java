@@ -26,9 +26,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
-import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
@@ -47,7 +45,7 @@ public class URLData implements IURLData
   public static final URLData EMPTY_URL_DATA = new URLData ("");
 
   private final String m_sPath;
-  private final ICommonsOrderedMap <String, String> m_aParams;
+  private final URLParameterList m_aParams;
   private final String m_sAnchor;
 
   public URLData (@Nonnull final String sPath)
@@ -55,14 +53,12 @@ public class URLData implements IURLData
     this (sPath, null, null);
   }
 
-  public URLData (@Nonnull final String sPath, @Nullable final ICommonsOrderedMap <String, String> aParams)
+  public URLData (@Nonnull final String sPath, @Nullable final URLParameterList aParams)
   {
     this (sPath, aParams, null);
   }
 
-  public URLData (@Nonnull final String sPath,
-                  @Nullable final ICommonsOrderedMap <String, String> aParams,
-                  @Nullable final String sAnchor)
+  public URLData (@Nonnull final String sPath, @Nullable final URLParameterList aParams, @Nullable final String sAnchor)
   {
     m_sPath = ValueEnforcer.notNull (sPath, "Path");
     m_aParams = aParams;
@@ -86,40 +82,44 @@ public class URLData implements IURLData
     return CollectionHelper.getSize (m_aParams);
   }
 
-  public final boolean containsParam (@Nullable final String sKey)
+  public final boolean containsParam (@Nullable final String sName)
   {
-    return m_aParams != null && m_aParams.containsKey (sKey);
+    return getParam (sName) != null;
   }
 
   @Nullable
-  public final String getParam (@Nullable final String sKey)
+  public final String getParam (@Nullable final String sName)
   {
     if (m_aParams != null)
-    {
-      return m_aParams.get (sKey);
-    }
+      for (final URLParameter aParam : m_aParams)
+        if (aParam.hasName (sName))
+          return aParam.getValue ();
     return null;
   }
 
   @Nullable
-  public final ICommonsList <String> getAllParams (@Nullable final String sKey)
+  public final ICommonsList <String> getAllParams (@Nullable final String sName)
   {
-    final String sValue = getParam (sKey);
-    return sValue == null ? new CommonsArrayList<> () : new CommonsArrayList<> (sValue);
+    final ICommonsList <String> ret = new CommonsArrayList <> ();
+    if (m_aParams != null)
+      for (final URLParameter aParam : m_aParams)
+        if (aParam.hasName (sName))
+          ret.add (aParam.getValue ());
+    return ret;
   }
 
   @Nullable
-  @ReturnsMutableObject ("Performance reasons")
-  public ICommonsOrderedMap <String, String> directGetAllParams ()
+  @ReturnsMutableObject ("design")
+  public final URLParameterList directGetAllParams ()
   {
     return m_aParams;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsOrderedMap <String, String> getAllParams ()
+  public final URLParameterList getAllParams ()
   {
-    return new CommonsLinkedHashMap<> (m_aParams);
+    return new URLParameterList (m_aParams);
   }
 
   @Nullable
