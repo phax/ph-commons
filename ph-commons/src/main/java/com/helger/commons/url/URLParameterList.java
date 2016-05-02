@@ -11,6 +11,11 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.CommonsLinkedHashSet;
+import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsOrderedSet;
+import com.helger.commons.collection.multimap.IMultiMapListBased;
+import com.helger.commons.collection.multimap.MultiLinkedHashMapArrayListBased;
 
 /**
  * A list of URL parameters with a sanity API. It allows for multiple URL
@@ -99,6 +104,15 @@ public class URLParameterList extends CommonsArrayList <URLParameter>
     return this;
   }
 
+  @Nonnull
+  public URLParameterList addAll (@Nonnull @Nonempty final String sName, @Nullable final String... aValues)
+  {
+    if (aValues != null)
+      for (final String sValue : aValues)
+        add (sName, sValue);
+    return this;
+  }
+
   /**
    * Remove all parameter with the given name.
    *
@@ -127,6 +141,52 @@ public class URLParameterList extends CommonsArrayList <URLParameter>
   {
     removeIf (aParam -> aParam.hasName (sName) && aParam.hasValue (sValue));
     return this;
+  }
+
+  public boolean contains (@Nullable final String sName)
+  {
+    return sName != null && containsAny (aParam -> aParam.hasName (sName));
+  }
+
+  public boolean contains (@Nullable final String sName, @Nullable final String sValue)
+  {
+    return sName != null &&
+           sValue != null &&
+           containsAny (aParam -> aParam.hasName (sName) && aParam.hasValue (sValue));
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public ICommonsOrderedSet <String> getAllParamNames ()
+  {
+    final ICommonsOrderedSet <String> ret = new CommonsLinkedHashSet <> ();
+    forEach (aParam -> ret.add (aParam.getName ()));
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public ICommonsList <String> getAllParamValues (@Nullable final String sName)
+  {
+    final ICommonsList <String> ret = new CommonsArrayList <> ();
+    if (sName != null)
+      findAll (aParam -> aParam.hasName (sName), aParam -> ret.add (aParam.getValue ()));
+    return ret;
+  }
+
+  @Nullable
+  public String getFirstParamValue (@Nullable final String sName)
+  {
+    return sName == null ? null : findFirstMapped (aParam -> aParam.hasName (sName), aParam -> aParam.getValue ());
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public IMultiMapListBased <String, String> getAsMultiMap ()
+  {
+    final IMultiMapListBased <String, String> ret = new MultiLinkedHashMapArrayListBased <> ();
+    forEach (aParam -> ret.putSingle (aParam.getName (), aParam.getValue ()));
+    return ret;
   }
 
   @Override
