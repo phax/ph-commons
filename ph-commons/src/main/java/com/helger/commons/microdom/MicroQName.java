@@ -31,6 +31,7 @@ import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.hashcode.IHashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.xml.CXML;
@@ -50,7 +51,7 @@ public final class MicroQName implements IMicroQName, Comparable <MicroQName>
   private final String m_sNamespaceURI;
   private final String m_sName;
   // Status vars
-  private Integer m_aHashCode;
+  private transient int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
   public MicroQName (@Nonnull @Nonempty final String sName)
   {
@@ -147,9 +148,10 @@ public final class MicroQName implements IMicroQName, Comparable <MicroQName>
   @Override
   public int hashCode ()
   {
-    if (m_aHashCode == null)
-      m_aHashCode = new HashCodeGenerator (this).append (m_sNamespaceURI).append (m_sName).getHashCodeObj ();
-    return m_aHashCode.intValue ();
+    int ret = m_nHashCode;
+    if (ret == IHashCodeGenerator.ILLEGAL_HASHCODE)
+      ret = m_nHashCode = new HashCodeGenerator (this).append (m_sNamespaceURI).append (m_sName).getHashCode ();
+    return ret;
   }
 
   @Override

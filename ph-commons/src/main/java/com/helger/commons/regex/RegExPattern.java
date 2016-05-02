@@ -30,6 +30,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.hashcode.IHashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -49,7 +50,7 @@ public final class RegExPattern implements Serializable
   private Pattern m_aPattern;
 
   // Status vars
-  private Integer m_aHashCode;
+  private transient int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
   public static boolean areDebugConsistencyChecksEnabled ()
   {
@@ -178,9 +179,10 @@ public final class RegExPattern implements Serializable
   public int hashCode ()
   {
     // m_aPattern is a state variable
-    if (m_aHashCode == null)
-      m_aHashCode = new HashCodeGenerator (this).append (m_sRegEx).append (m_nOptions).getHashCodeObj ();
-    return m_aHashCode.intValue ();
+    int ret = m_nHashCode;
+    if (ret == IHashCodeGenerator.ILLEGAL_HASHCODE)
+      ret = m_nHashCode = new HashCodeGenerator (this).append (m_sRegEx).append (m_nOptions).getHashCode ();
+    return ret;
   }
 
   @Override

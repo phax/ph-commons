@@ -31,6 +31,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.hashcode.IHashCodeGenerator;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.FilenameHelper;
@@ -49,7 +50,8 @@ public class FileSystemResource implements IReadWriteResource
 {
   private final File m_aFile;
   private final String m_sPath;
-  private Integer m_aHashCode;
+  // Status var
+  private transient int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
   public FileSystemResource (@Nonnull final URI aURI)
   {
@@ -206,9 +208,10 @@ public class FileSystemResource implements IReadWriteResource
   public int hashCode ()
   {
     // We need a cached one!
-    if (m_aHashCode == null)
-      m_aHashCode = new HashCodeGenerator (this).append (m_aFile).getHashCodeObj ();
-    return m_aHashCode.intValue ();
+    int ret = m_nHashCode;
+    if (ret == IHashCodeGenerator.ILLEGAL_HASHCODE)
+      ret = m_nHashCode = new HashCodeGenerator (this).append (m_aFile).getHashCode ();
+    return ret;
   }
 
   @Override

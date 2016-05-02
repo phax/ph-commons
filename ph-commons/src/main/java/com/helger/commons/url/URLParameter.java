@@ -8,6 +8,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.codec.IEncoder;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.hashcode.IHashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -21,6 +22,9 @@ public class URLParameter
 {
   private final String m_sName;
   private final String m_sValue;
+
+  // Status vars
+  private transient int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
   public URLParameter (@Nonnull @Nonempty final String sName)
   {
@@ -96,7 +100,10 @@ public class URLParameter
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_sName).append (m_sValue).getHashCode ();
+    int ret = m_nHashCode;
+    if (ret == IHashCodeGenerator.ILLEGAL_HASHCODE)
+      ret = m_nHashCode = new HashCodeGenerator (this).append (m_sName).append (m_sValue).getHashCode ();
+    return ret;
   }
 
   @Override

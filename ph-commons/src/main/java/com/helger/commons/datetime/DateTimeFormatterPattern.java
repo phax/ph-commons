@@ -27,6 +27,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.hashcode.IHashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -44,7 +45,7 @@ public final class DateTimeFormatterPattern
   private final DateTimeFormatter m_aFormatter;
 
   // Status vars
-  private Integer m_aHashCode;
+  private transient int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
   public DateTimeFormatterPattern (@Nonnull @Nonempty final String sPattern,
                                    @Nonnull final ResolverStyle eResolverStyle) throws IllegalArgumentException
@@ -102,10 +103,10 @@ public final class DateTimeFormatterPattern
   @Override
   public int hashCode ()
   {
-    // m_aPattern is a state variable
-    if (m_aHashCode == null)
-      m_aHashCode = new HashCodeGenerator (this).append (m_sPattern).append (m_eResolverStyle).getHashCodeObj ();
-    return m_aHashCode.intValue ();
+    int ret = m_nHashCode;
+    if (ret == IHashCodeGenerator.ILLEGAL_HASHCODE)
+      ret = m_nHashCode = new HashCodeGenerator (this).append (m_sPattern).append (m_eResolverStyle).getHashCode ();
+    return ret;
   }
 
   @Override

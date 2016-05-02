@@ -24,6 +24,7 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.hashcode.IHashCodeGenerator;
 import com.helger.commons.name.IHasName;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -41,7 +42,7 @@ public class ObjectType implements Comparable <ObjectType>, Serializable, IHasNa
 {
   private final String m_sName;
   // The mutable m_aHashCode does not contradict thread safety
-  private Integer m_aHashCode;
+  private transient int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
   public ObjectType (@Nonnull @Nonempty final String sName)
   {
@@ -75,9 +76,10 @@ public class ObjectType implements Comparable <ObjectType>, Serializable, IHasNa
   public int hashCode ()
   {
     // We want a cached one!
-    if (m_aHashCode == null)
-      m_aHashCode = new HashCodeGenerator (this).append (m_sName).getHashCodeObj ();
-    return m_aHashCode.intValue ();
+    int ret = m_nHashCode;
+    if (ret == IHashCodeGenerator.ILLEGAL_HASHCODE)
+      ret = m_nHashCode = new HashCodeGenerator (this).append (m_sName).getHashCode ();
+    return ret;
   }
 
   @Override
