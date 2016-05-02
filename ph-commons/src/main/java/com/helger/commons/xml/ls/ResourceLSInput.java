@@ -18,6 +18,7 @@ package com.helger.commons.xml.ls;
 
 import java.io.InputStream;
 import java.io.Reader;
+import java.nio.charset.Charset;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -26,6 +27,7 @@ import org.w3c.dom.ls.LSInput;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.UnsupportedOperation;
+import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.ToStringGenerator;
@@ -38,7 +40,7 @@ import com.helger.commons.string.ToStringGenerator;
 public class ResourceLSInput implements LSInput
 {
   private final IHasInputStream m_aISP;
-  private String m_sEncoding;
+  private Charset m_aEncoding;
   private String m_sPublicId;
   private String m_sSystemId;
   private boolean m_bCertifiedText;
@@ -110,12 +112,12 @@ public class ResourceLSInput implements LSInput
   @Nullable
   public String getEncoding ()
   {
-    return m_sEncoding;
+    return m_aEncoding != null ? m_aEncoding.name () : null;
   }
 
   public void setEncoding (@Nullable final String sEncoding)
   {
-    m_sEncoding = sEncoding;
+    m_aEncoding = sEncoding == null ? null : CharsetManager.getCharsetFromName (sEncoding);
   }
 
   @Nullable
@@ -155,7 +157,7 @@ public class ResourceLSInput implements LSInput
   public String toString ()
   {
     return new ToStringGenerator (this).append ("ISP", m_aISP)
-                                       .appendIfNotNull ("encoding", m_sEncoding)
+                                       .appendIfNotNull ("encoding", m_aEncoding)
                                        .appendIfNotNull ("publicId", m_sPublicId)
                                        .appendIfNotNull ("systemId", m_sSystemId)
                                        .append ("certifiedText", m_bCertifiedText)
