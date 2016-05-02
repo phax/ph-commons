@@ -19,7 +19,6 @@ package com.helger.commons.url;
 import java.nio.charset.Charset;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 
@@ -31,16 +30,6 @@ import com.helger.commons.ValueEnforcer;
  */
 public interface ISimpleURL extends IURLData
 {
-  /**
-   * Get the parameter value of the given key.
-   *
-   * @param sKey
-   *        The key to check. May be <code>null</code>.
-   * @return <code>null</code> if no such parameter is present.
-   */
-  @Nullable
-  String getParam (@Nullable String sKey);
-
   /**
    * @return The final string representation of this URL not encoding the
    *         request parameters.

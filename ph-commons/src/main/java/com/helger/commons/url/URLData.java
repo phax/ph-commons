@@ -25,10 +25,12 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.CommonsLinkedHashMap;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -84,6 +86,28 @@ public class URLData implements IURLData
     return CollectionHelper.getSize (m_aParams);
   }
 
+  public final boolean containsParam (@Nullable final String sKey)
+  {
+    return m_aParams != null && m_aParams.containsKey (sKey);
+  }
+
+  @Nullable
+  public final String getParam (@Nullable final String sKey)
+  {
+    if (m_aParams != null)
+    {
+      return m_aParams.get (sKey);
+    }
+    return null;
+  }
+
+  @Nullable
+  public final ICommonsList <String> getAllParams (@Nullable final String sKey)
+  {
+    final String sValue = getParam (sKey);
+    return sValue == null ? new CommonsArrayList<> () : new CommonsArrayList<> (sValue);
+  }
+
   @Nullable
   @ReturnsMutableObject ("Performance reasons")
   public ICommonsOrderedMap <String, String> directGetAllParams ()
@@ -95,12 +119,7 @@ public class URLData implements IURLData
   @ReturnsMutableCopy
   public ICommonsOrderedMap <String, String> getAllParams ()
   {
-    return m_aParams.getClone ();
-  }
-
-  public boolean hasAnchor ()
-  {
-    return StringHelper.hasText (m_sAnchor);
+    return new CommonsLinkedHashMap<> (m_aParams);
   }
 
   @Nullable

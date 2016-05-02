@@ -78,8 +78,6 @@ import com.helger.commons.wrapper.Wrapper;
 public final class URLHelper
 {
   /** Default URL charset is UTF-8 */
-  public static final String CHARSET_URL = CCharset.CHARSET_UTF_8;
-  /** Default URL charset is UTF-8 */
   public static final Charset CHARSET_URL_OBJ = CCharset.CHARSET_UTF_8_OBJ;
 
   /** Separator before first param: ? */
@@ -512,7 +510,7 @@ public final class URLHelper
   public static ICommonsOrderedMap <String, String> getQueryStringAsMap (@Nullable final String sQueryString,
                                                                          @Nullable final IDecoder <String, String> aParameterDecoder)
   {
-    final ICommonsOrderedMap <String, String> aMap = new CommonsLinkedHashMap <> ();
+    final ICommonsOrderedMap <String, String> aMap = new CommonsLinkedHashMap<> ();
     if (StringHelper.hasText (sQueryString))
     {
       for (final String sKeyValuePair : StringHelper.getExploded (AMPERSAND, sQueryString))

@@ -32,12 +32,13 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsLinkedHashMap;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ICloneable;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -81,13 +82,7 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
   public SimpleURL (@Nonnull final String sHref, @Nullable final Map <String, String> aParams)
   {
     this (sHref);
-    if (CollectionHelper.isNotEmpty (aParams))
-    {
-      // m_aParams may already be non-null
-      if (m_aParams == null)
-        m_aParams = new CommonsLinkedHashMap <> ();
-      m_aParams.putAll (aParams);
-    }
+    addAll (aParams);
   }
 
   public SimpleURL (@Nonnull final String sHref,
@@ -95,13 +90,7 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
                     @Nullable final Map <String, String> aParams)
   {
     this (sHref, aCharset);
-    if (CollectionHelper.isNotEmpty (aParams))
-    {
-      // m_aParams may already be non-null
-      if (m_aParams == null)
-        m_aParams = new CommonsLinkedHashMap <> ();
-      m_aParams.putAll (aParams);
-    }
+    addAll (aParams);
   }
 
   public SimpleURL (@Nonnull final String sHref,
@@ -148,10 +137,26 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
     return CollectionHelper.getSize (m_aParams);
   }
 
+  public final boolean containsParam (@Nullable final String sKey)
+  {
+    return m_aParams != null && m_aParams.containsKey (sKey);
+  }
+
   @Nullable
   public final String getParam (@Nullable final String sKey)
   {
-    return m_aParams == null ? null : m_aParams.get (sKey);
+    if (m_aParams != null)
+    {
+      return m_aParams.get (sKey);
+    }
+    return null;
+  }
+
+  @Nullable
+  public final ICommonsList <String> getAllParams (@Nullable final String sKey)
+  {
+    final String sValue = getParam (sKey);
+    return sValue == null ? new CommonsArrayList<> () : new CommonsArrayList<> (sValue);
   }
 
   @Nonnull
@@ -165,7 +170,7 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
   @ReturnsMutableCopy
   public final ICommonsOrderedMap <String, String> getAllParams ()
   {
-    return CollectionHelper.newOrderedMap (m_aParams);
+    return new CommonsLinkedHashMap<> (m_aParams);
   }
 
   /**
@@ -189,7 +194,7 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
     ValueEnforcer.notNull (sValue, "Value");
 
     if (m_aParams == null)
-      m_aParams = new CommonsLinkedHashMap <> ();
+      m_aParams = new CommonsLinkedHashMap<> ();
     m_aParams.put (sKey, sValue);
     return this;
   }
@@ -250,19 +255,16 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
   }
 
   @Nonnull
-  public SimpleURL addAll (@Nullable final Map <String, String> aParams)
+  public final SimpleURL addAll (@Nullable final Map <String, String> aParams)
   {
     if (CollectionHelper.isNotEmpty (aParams))
-    {
-      if (m_aParams == null)
-        m_aParams = new CommonsLinkedHashMap <> ();
-      m_aParams.putAll (aParams);
-    }
+      for (final Map.Entry <String, String> aEntry : aParams.entrySet ())
+        add (aEntry.getKey (), aEntry.getValue ());
     return this;
   }
 
   /**
-   * Remove the parameter with the given key.
+   * Remove all parameter with the given name.
    *
    * @param sKey
    *        The key to remove
@@ -276,9 +278,21 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
     return this;
   }
 
-  public final boolean hasAnchor ()
+  /**
+   * Remove all parameter with the given name.
+   *
+   * @param sKey
+   *        The key to remove. May be <code>null</code>.
+   * @param sValue
+   *        The value to be removed. May be <code>null</code>.
+   * @return this
+   */
+  @Nonnull
+  public SimpleURL remove (@Nullable final String sKey, @Nullable final String sValue)
   {
-    return StringHelper.hasText (m_sAnchor);
+    if (m_aParams != null)
+      m_aParams.remove (sKey, sValue);
+    return this;
   }
 
   @Nullable

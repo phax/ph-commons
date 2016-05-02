@@ -21,7 +21,9 @@ import javax.annotation.Nonnull;
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 
 /**
- * Interface for a simple URL provider.
+ * Interface for a simple URL provider.<br>
+ * Note: cannot be a functional interface because it requires equals and
+ * hashCode to be implemented!
  *
  * @author Philip Helger
  */

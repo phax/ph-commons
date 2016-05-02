@@ -24,7 +24,10 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsOrderedMap;
+import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.string.StringHelper;
 
 /**
  * Base interface representing the basic elements of a URL from a high level
@@ -72,6 +75,22 @@ public interface IURLData extends Serializable
   @Nonnegative
   int getParamCount ();
 
+  boolean containsParam (@Nullable String sKey);
+
+  /**
+   * Get the first parameter value of the given key.
+   *
+   * @param sKey
+   *        The key to check. May be <code>null</code>.
+   * @return <code>null</code> if no such parameter is present.
+   */
+  @Nullable
+  String getParam (@Nullable String sKey);
+
+  @Nonnull
+  @ReturnsMutableCopy
+  ICommonsList <String> getAllParams (@Nullable String sKey);
+
   /**
    * @return A map of all query string parameters. May be <code>null</code>.
    */
@@ -88,15 +107,30 @@ public interface IURLData extends Serializable
   ICommonsOrderedMap <String, String> getAllParams ();
 
   /**
-   * @return <code>true</code> if an anchor is present, <code>false</code>
-   *         otherwise.
-   */
-  boolean hasAnchor ();
-
-  /**
    * @return The name of the anchor (everything after the "#") or
    *         <code>null</code> if none is defined.
    */
   @Nullable
   String getAnchor ();
+
+  /**
+   * @return <code>true</code> if an anchor is present, <code>false</code>
+   *         otherwise.
+   */
+  default boolean hasAnchor ()
+  {
+    return StringHelper.hasText (getAnchor ());
+  }
+
+  /**
+   * Check if this URL has an anchor with the passed name.
+   *
+   * @param sAnchor
+   *        The anchor name to check.
+   * @return <code>true</code> if the passed anchor is present.
+   */
+  default boolean hasAnchor (@Nullable final String sAnchor)
+  {
+    return EqualsHelper.equals (sAnchor, getAnchor ());
+  }
 }
