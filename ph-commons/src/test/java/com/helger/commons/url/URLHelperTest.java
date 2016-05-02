@@ -159,18 +159,19 @@ public final class URLHelperTest
   public void testGetApplicationFormEncoded ()
   {
     final URLParameterEncoder enc = new URLParameterEncoder (CCharset.CHARSET_UTF_8_OBJ);
-    assertEquals ("", URLHelper.getApplicationFormEncoded (null, enc));
-    assertEquals ("", URLHelper.getApplicationFormEncoded (new SMap (), enc));
-    assertEquals ("a=b", URLHelper.getApplicationFormEncoded (new SMap ().add ("a", "b"), enc));
-    assertEquals ("a=b&c=d", URLHelper.getApplicationFormEncoded (new SMap ().add ("a", "b").add ("c", "d"), enc));
+    assertNull (URLHelper.getQueryParametersAsString (null, enc));
+    assertNull (URLHelper.getQueryParametersAsString (new SMap (), enc));
+    assertEquals ("a=b", URLHelper.getQueryParametersAsString (new SMap ().add ("a", "b"), enc));
+    assertEquals ("a=b&c=d", URLHelper.getQueryParametersAsString (new SMap ().add ("a", "b").add ("c", "d"), enc));
     assertEquals ("a=b&c=d&e=f+g",
-                  URLHelper.getApplicationFormEncoded (new SMap ().add ("a", "b").add ("c", "d").add ("e", "f g"),
-                                                       enc));
+                  URLHelper.getQueryParametersAsString (new SMap ().add ("a", "b").add ("c", "d").add ("e", "f g"),
+                                                        enc));
     assertEquals ("a=b&c=d%26e",
-                  URLHelper.getApplicationFormEncoded (new SMap ().add ("a", "b").add ("c", "d&e"), enc));
+                  URLHelper.getQueryParametersAsString (new SMap ().add ("a", "b").add ("c", "d&e"), enc));
 
     // Using identity encoder
-    assertEquals ("a=b&c=d&e", URLHelper.getApplicationFormEncoded (new SMap ().add ("a", "b").add ("c", "d&e"), null));
+    assertEquals ("a=b&c=d&e",
+                  URLHelper.getQueryParametersAsString (new SMap ().add ("a", "b").add ("c", "d&e"), null));
   }
 
   @Test

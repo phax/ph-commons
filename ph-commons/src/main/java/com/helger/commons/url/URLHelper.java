@@ -495,7 +495,7 @@ public final class URLHelper
 
       // Maybe empty, if the URL ends with a '?'
       if (StringHelper.hasText (sQueryString))
-        aParams = getQueryStringAsMap (sQueryString, aParameterDecoder);
+        aParams = getParsedQueryParameters (sQueryString, aParameterDecoder);
 
       sPath = sRemainingHref.substring (0, nQuestionIndex).trim ();
     }
@@ -507,8 +507,8 @@ public final class URLHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static ICommonsOrderedMap <String, String> getQueryStringAsMap (@Nullable final String sQueryString,
-                                                                         @Nullable final IDecoder <String, String> aParameterDecoder)
+  public static ICommonsOrderedMap <String, String> getParsedQueryParameters (@Nullable final String sQueryString,
+                                                                              @Nullable final IDecoder <String, String> aParameterDecoder)
   {
     final ICommonsOrderedMap <String, String> aMap = new CommonsLinkedHashMap<> ();
     if (StringHelper.hasText (sQueryString))
@@ -539,9 +539,9 @@ public final class URLHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Map <String, String> getQueryStringAsMap (@Nullable final String sQueryString)
+  public static Map <String, String> getParsedQueryParameters (@Nullable final String sQueryString)
   {
-    return getQueryStringAsMap (sQueryString, null);
+    return getParsedQueryParameters (sQueryString, null);
   }
 
   @Nonnull
@@ -633,6 +633,18 @@ public final class URLHelper
     return aSB.toString ();
   }
 
+  /**
+   * Create a parameter string. This is also suitable for POST body (e.g. for
+   * web form submission).
+   *
+   * @param aQueryParams
+   *        Parameter map. May be <code>null</code> or empty.
+   * @param aQueryParameterEncoder
+   *        The encoder to be used to encode parameter names and parameter
+   *        values. May be <code>null</code>. This may be e.g. a
+   *        {@link URLParameterEncoder}.
+   * @return <code>null</code> if no parameter is present.
+   */
   @Nullable
   public static String getQueryParametersAsString (@Nullable final Map <String, String> aQueryParams,
                                                    @Nullable final IEncoder <String, String> aQueryParameterEncoder)
@@ -1041,51 +1053,6 @@ public final class URLHelper
       // Close the OutputStream opened for POSTing
       StreamHelper.close (aOpenedOS.get ());
     }
-  }
-
-  /**
-   * Create a parameter string suitable for POST body (e.g. for web form
-   * submission).
-   *
-   * @param aParams
-   *        Parameter map. May be <code>null</code> or empty.
-   * @param aParameterEncoder
-   *        The encoder to be used to encode parameter names and parameter
-   *        values. May be <code>null</code>. This may be e.g. a
-   *        {@link URLParameterEncoder}.
-   * @return A non-<code>null</code> string
-   */
-  @Nonnull
-  public static String getApplicationFormEncoded (@Nullable final Map <String, String> aParams,
-                                                  @Nullable final IEncoder <String, String> aParameterEncoder)
-  {
-    if (CollectionHelper.isEmpty (aParams))
-      return "";
-
-    final StringBuilder aSB = new StringBuilder ();
-    if (aParams != null)
-      for (final Map.Entry <String, String> aEntry : aParams.entrySet ())
-      {
-        // Separator
-        if (aSB.length () > 0)
-          aSB.append (AMPERSAND);
-
-        // Key
-        final String sKey = aEntry.getKey ();
-        if (aParameterEncoder != null)
-          aSB.append (aParameterEncoder.getEncoded (sKey));
-        else
-          aSB.append (sKey);
-
-        // Value
-        final String sValue = aEntry.getValue ();
-        if (StringHelper.hasText (sValue))
-          if (aParameterEncoder != null)
-            aSB.append (EQUALS).append (aParameterEncoder.getEncoded (sValue));
-          else
-            aSB.append (EQUALS).append (sValue);
-      }
-    return aSB.toString ();
   }
 
   @Nonnull

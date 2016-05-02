@@ -1,0 +1,107 @@
+package com.helger.commons.url;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
+
+import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.codec.IEncoder;
+import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.string.ToStringGenerator;
+
+/**
+ * This class represents a single URL parameter. It consists of a mandatory name
+ * and an optional value.
+ *
+ * @author Philip Helger
+ */
+@Immutable
+public class URLParameter
+{
+  private final String m_sName;
+  private final String m_sValue;
+
+  public URLParameter (@Nonnull @Nonempty final String sName)
+  {
+    this (sName, "");
+  }
+
+  public URLParameter (@Nonnull @Nonempty final String sName, @Nonnull final String sValue)
+  {
+    m_sName = ValueEnforcer.notEmpty (sName, "Name");
+    m_sValue = ValueEnforcer.notNull (sValue, "Value");
+  }
+
+  /**
+   * @return The name of the URL parameter. Neither <code>null</code> nor empty.
+   */
+  @Nonnull
+  @Nonempty
+  public String getName ()
+  {
+    return m_sName;
+  }
+
+  /**
+   * @return The value of the URL parameter. Never <code>null</code> but maybe
+   *         empty.
+   */
+  @Nonnull
+  public String getValue ()
+  {
+    return m_sValue;
+  }
+
+  /**
+   * @return <code>true</code> if this parameter has a value, <code>false</code>
+   *         otherwise.
+   */
+  public boolean hasValue ()
+  {
+    return !m_sValue.isEmpty ();
+  }
+
+  public void appendTo (@Nonnull final StringBuilder aSB,
+                        @Nullable final IEncoder <String, String> aQueryParameterEncoder)
+  {
+    // Name
+    if (aQueryParameterEncoder != null)
+      aSB.append (aQueryParameterEncoder.getEncoded (m_sName));
+    else
+      aSB.append (m_sName);
+
+    // Value
+    if (hasValue ())
+    {
+      aSB.append (URLHelper.EQUALS);
+      if (aQueryParameterEncoder != null)
+        aSB.append (aQueryParameterEncoder.getEncoded (m_sValue));
+      else
+        aSB.append (m_sValue);
+    }
+  }
+
+  @Override
+  public boolean equals (final Object o)
+  {
+    if (o == this)
+      return true;
+    if (o == null || !getClass ().equals (o.getClass ()))
+      return false;
+    final URLParameter rhs = (URLParameter) o;
+    return m_sName.equals (rhs.m_sName) && m_sValue.equals (rhs.m_sValue);
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    return new HashCodeGenerator (this).append (m_sName).append (m_sValue).getHashCode ();
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (null).append ("name", m_sName).append ("value", m_sValue).toString ();
+  }
+}
