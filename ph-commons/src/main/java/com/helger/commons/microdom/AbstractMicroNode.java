@@ -16,6 +16,8 @@
  */
 package com.helger.commons.microdom;
 
+import java.util.function.Consumer;
+
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -362,6 +364,11 @@ public abstract class AbstractMicroNode implements IMicroNode
   public ICommonsList <IMicroNode> getAllChildren ()
   {
     return null;
+  }
+
+  public void forAllChildren (@Nonnull final Consumer <? super IMicroNode> aConsumer)
+  {
+    // empty
   }
 
   @OverrideOnDemand

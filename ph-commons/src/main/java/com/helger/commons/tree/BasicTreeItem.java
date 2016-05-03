@@ -17,6 +17,7 @@
 package com.helger.commons.tree;
 
 import java.util.Comparator;
+import java.util.function.Consumer;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -188,6 +189,12 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
     return m_aChildren == null ? null : m_aChildren.getClone ();
   }
 
+  public final void forAllChildren (@Nonnull final Consumer <? super ITEMTYPE> aConsumer)
+  {
+    if (m_aChildren != null)
+      m_aChildren.forEach (aConsumer);
+  }
+
   @Nullable
   @ReturnsMutableCopy
   public final ICommonsList <DATATYPE> getAllChildDatas ()
@@ -269,7 +276,7 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
 
     // Ensure children are present
     if (m_aChildren == null)
-      m_aChildren = new CommonsArrayList <> ();
+      m_aChildren = new CommonsArrayList<> ();
 
     return EChange.valueOf (m_aChildren.add (aChild));
   }

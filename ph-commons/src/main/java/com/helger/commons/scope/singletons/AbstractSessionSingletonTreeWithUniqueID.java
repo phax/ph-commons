@@ -17,6 +17,7 @@
 package com.helger.commons.scope.singletons;
 
 import java.util.Collection;
+import java.util.function.Consumer;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -48,7 +49,7 @@ public abstract class AbstractSessionSingletonTreeWithUniqueID <KEYTYPE, VALUETY
                                                                implements
                                                                ITreeWithGlobalUniqueID <KEYTYPE, VALUETYPE, DefaultTreeItemWithID <KEYTYPE, VALUETYPE>>
 {
-  protected final DefaultTreeWithGlobalUniqueID <KEYTYPE, VALUETYPE> m_aTree = new DefaultTreeWithGlobalUniqueID <> ();
+  protected final DefaultTreeWithGlobalUniqueID <KEYTYPE, VALUETYPE> m_aTree = new DefaultTreeWithGlobalUniqueID<> ();
 
   public AbstractSessionSingletonTreeWithUniqueID ()
   {}
@@ -69,6 +70,11 @@ public abstract class AbstractSessionSingletonTreeWithUniqueID <KEYTYPE, VALUETY
   public final ICommonsCollection <? extends DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> getAllChildren ()
   {
     return m_aTree.getAllChildren ();
+  }
+
+  public void forAllChildren (@Nonnull final Consumer <? super DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> aConsumer)
+  {
+    m_aTree.forAllChildren (aConsumer);
   }
 
   @Nonnull

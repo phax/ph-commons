@@ -16,6 +16,8 @@
  */
 package com.helger.commons.tree;
 
+import java.util.function.Consumer;
+
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
@@ -68,7 +70,12 @@ public class BasicTree <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE
   @ReturnsMutableCopy
   public final ICommonsCollection <? extends ITEMTYPE> getAllChildren ()
   {
-    return new CommonsArrayList <> (m_aRootItem);
+    return new CommonsArrayList<> (m_aRootItem);
+  }
+
+  public void forAllChildren (@Nonnull final Consumer <? super ITEMTYPE> aConsumer)
+  {
+    aConsumer.accept (m_aRootItem);
   }
 
   @Nonnull

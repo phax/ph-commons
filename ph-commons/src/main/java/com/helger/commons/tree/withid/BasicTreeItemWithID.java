@@ -17,6 +17,7 @@
 package com.helger.commons.tree.withid;
 
 import java.util.Comparator;
+import java.util.function.Consumer;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -228,6 +229,12 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     return m_aChildren == null ? null : m_aChildren.getClone ();
   }
 
+  public final void forAllChildren (@Nonnull final Consumer <? super ITEMTYPE> aConsumer)
+  {
+    if (m_aChildren != null)
+      m_aChildren.forEach (aConsumer);
+  }
+
   @Nullable
   @ReturnsMutableCopy
   public final ICommonsSet <KEYTYPE> getAllChildDataIDs ()
@@ -306,8 +313,8 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
       aItem.setData (aData);
       if (m_aChildMap == null)
       {
-        m_aChildMap = new CommonsHashMap <> ();
-        m_aChildren = new CommonsArrayList <> ();
+        m_aChildMap = new CommonsHashMap<> ();
+        m_aChildren = new CommonsArrayList<> ();
       }
       m_aChildMap.put (aDataID, aItem);
       m_aChildren.add (aItem);
@@ -380,8 +387,8 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     }
     else
     {
-      m_aChildMap = new CommonsHashMap <> ();
-      m_aChildren = new CommonsArrayList <> ();
+      m_aChildMap = new CommonsHashMap<> ();
+      m_aChildren = new CommonsArrayList<> ();
     }
 
     m_aChildMap.put (aDataID, aChild);

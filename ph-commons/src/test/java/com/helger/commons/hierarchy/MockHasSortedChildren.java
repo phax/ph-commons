@@ -16,6 +16,8 @@
  */
 package com.helger.commons.hierarchy;
 
+import java.util.function.Consumer;
+
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -57,6 +59,11 @@ public final class MockHasSortedChildren implements IHasChildrenSorted <MockHasS
   public ICommonsList <? extends MockHasSortedChildren> getAllChildren ()
   {
     return m_aList.getClone ();
+  }
+
+  public void forAllChildren (@Nonnull final Consumer <? super MockHasSortedChildren> aConsumer)
+  {
+    m_aList.forEach (aConsumer);
   }
 
   @Nullable

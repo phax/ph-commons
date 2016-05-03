@@ -16,7 +16,10 @@
  */
 package com.helger.commons.hierarchy;
 
+import java.util.function.Consumer;
+
 import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.collection.ext.ICommonsCollection;
@@ -60,4 +63,14 @@ public interface IHasChildren <CHILDTYPE>
    */
   @Nullable
   ICommonsCollection <? extends CHILDTYPE> getAllChildren ();
+
+  /**
+   * Perform something on all children (if any).<br>
+   * Important: you may not invoke any modifying methods on the children owner
+   * because otherwise you may get a ConcurrentModificationException.
+   *
+   * @param aConsumer
+   *        The consumer to be invoked. May not be <code>null</code>.
+   */
+  void forAllChildren (@Nonnull Consumer <? super CHILDTYPE> aConsumer);
 }
