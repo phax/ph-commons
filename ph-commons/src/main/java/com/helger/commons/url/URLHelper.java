@@ -106,7 +106,7 @@ public final class URLHelper
   /** Internal debug logging flag */
   private static final boolean DEBUG_GET_IS = false;
 
-  private static BitSet NO_URL_ENCODE = new BitSet (256);
+  private static final BitSet NO_URL_ENCODE = new BitSet (256);
   private static final int CASE_DIFF = ('a' - 'A');
 
   static

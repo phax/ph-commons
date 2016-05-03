@@ -16,7 +16,7 @@
  */
 package com.helger.jaxb.builder;
 
-public class InternalArchiveDocumentType extends JAXBDocumentType
+public final class InternalArchiveDocumentType extends JAXBDocumentType
 {
   public InternalArchiveDocumentType ()
   {
