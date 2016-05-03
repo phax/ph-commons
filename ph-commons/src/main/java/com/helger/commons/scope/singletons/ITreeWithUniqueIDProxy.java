@@ -97,6 +97,11 @@ public interface ITreeWithUniqueIDProxy <KEYTYPE, VALUETYPE> extends
     return getProxyTree ().hasChildren (aCurrent);
   }
 
+  default boolean hasNoChildren (@Nullable final DefaultTreeItemWithID <KEYTYPE, VALUETYPE> aCurrent)
+  {
+    return getProxyTree ().hasNoChildren (aCurrent);
+  }
+
   @Nonnegative
   default int getChildCount (@Nullable final DefaultTreeItemWithID <KEYTYPE, VALUETYPE> aCurrent)
   {

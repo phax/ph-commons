@@ -32,6 +32,7 @@ import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.ext.ICommonsSet;
+import com.helger.commons.hierarchy.IHasChildrenRecursive;
 import com.helger.commons.hierarchy.IHasChildrenSorted;
 import com.helger.commons.hierarchy.IHasParent;
 import com.helger.commons.lang.ICloneable;
@@ -46,6 +47,7 @@ import com.helger.commons.state.EChange;
 public interface IMicroNode extends
                             ICloneable <IMicroNode>,
                             IHasChildrenSorted <IMicroNode>,
+                            IHasChildrenRecursive <IMicroNode>,
                             IHasParent <IMicroNode>,
                             Serializable
 {
@@ -66,12 +68,6 @@ public interface IMicroNode extends
   {
     return "";
   }
-
-  /**
-   * @return <code>true</code> if at least one child is present,
-   *         <code>false</code> otherwise
-   */
-  boolean hasChildren ();
 
   /**
    * Get a list of all direct child nodes.
@@ -108,14 +104,6 @@ public interface IMicroNode extends
     ValueEnforcer.notNull (aConsumer, "Consumer");
     if (hasChildren ())
       getAllChildren ().findAllMapped (aFilter, aMapper, aConsumer);
-  }
-
-  default void forAllChildrenRecursive (@Nonnull final Consumer <? super IMicroNode> aConsumer)
-  {
-    forAllChildren (aChildNode -> {
-      aConsumer.accept (aChildNode);
-      aChildNode.forAllChildrenRecursive (aConsumer);
-    });
   }
 
   /**

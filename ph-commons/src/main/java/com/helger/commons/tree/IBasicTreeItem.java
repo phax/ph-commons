@@ -21,6 +21,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.hierarchy.IHasChildrenRecursive;
 import com.helger.commons.hierarchy.IHasChildrenSorted;
 import com.helger.commons.hierarchy.IHasParent;
 import com.helger.commons.state.ESuccess;
@@ -38,6 +39,7 @@ import com.helger.commons.traits.IGenericImplTrait;
 public interface IBasicTreeItem <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> extends
                                 IHasParent <ITEMTYPE>,
                                 IHasChildrenSorted <ITEMTYPE>,
+                                IHasChildrenRecursive <ITEMTYPE>,
                                 IGenericImplTrait <ITEMTYPE>
 {
   /**
