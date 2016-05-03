@@ -74,7 +74,11 @@ public interface IHasChildren <CHILDTYPE>
    * @param aConsumer
    *        The consumer to be invoked. May not be <code>null</code>.
    */
-  void forAllChildren (@Nonnull Consumer <? super CHILDTYPE> aConsumer);
+  default void forAllChildren (@Nonnull final Consumer <? super CHILDTYPE> aConsumer)
+  {
+    if (hasChildren ())
+      getAllChildren ().forEach (aConsumer);
+  }
 
   /**
    * Iterate all direct children (if at least one is present) and invoke the
@@ -89,7 +93,12 @@ public interface IHasChildren <CHILDTYPE>
    *        The consumer to be invoked for all children matching the filter. May
    *        not be <code>null</code>.
    */
-  void forAllChildren (@Nonnull Predicate <? super CHILDTYPE> aFilter, @Nonnull Consumer <? super CHILDTYPE> aConsumer);
+  default void forAllChildren (@Nonnull final Predicate <? super CHILDTYPE> aFilter,
+                               @Nonnull final Consumer <? super CHILDTYPE> aConsumer)
+  {
+    if (hasChildren ())
+      getAllChildren ().findAll (aFilter, aConsumer);
+  }
 
   /**
    * Iterate all direct children (if at least one is present) and invoked the
@@ -109,7 +118,11 @@ public interface IHasChildren <CHILDTYPE>
    * @param <DSTTYPE>
    *        The destination data type.
    */
-  <DSTTYPE> void forAllChildrenMapped (@Nonnull final Predicate <? super CHILDTYPE> aFilter,
-                                       @Nonnull final Function <? super CHILDTYPE, ? extends DSTTYPE> aMapper,
-                                       @Nonnull final Consumer <? super DSTTYPE> aConsumer);
+  default <DSTTYPE> void forAllChildrenMapped (@Nonnull final Predicate <? super CHILDTYPE> aFilter,
+                                               @Nonnull final Function <? super CHILDTYPE, ? extends DSTTYPE> aMapper,
+                                               @Nonnull final Consumer <? super DSTTYPE> aConsumer)
+  {
+    if (hasChildren ())
+      getAllChildren ().findAllMapped (aFilter, aMapper, aConsumer);
+  }
 }

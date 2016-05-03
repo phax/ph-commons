@@ -16,10 +16,6 @@
  */
 package com.helger.commons.hierarchy;
 
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -63,39 +59,9 @@ public final class MockHasSortedChildren implements IHasChildrenSorted <MockHasS
     return m_aList.getClone ();
   }
 
-  public void forAllChildren (@Nonnull final Consumer <? super MockHasSortedChildren> aConsumer)
-  {
-    m_aList.forEach (aConsumer);
-  }
-
-  public void forAllChildren (@Nonnull final Predicate <? super MockHasSortedChildren> aFilter,
-                              @Nonnull final Consumer <? super MockHasSortedChildren> aConsumer)
-  {
-    m_aList.findAll (aFilter, aConsumer);
-  }
-
-  public <DSTTYPE> void forAllChildrenMapped (@Nonnull final Predicate <? super MockHasSortedChildren> aFilter,
-                                              @Nonnull final Function <? super MockHasSortedChildren, ? extends DSTTYPE> aMapper,
-                                              @Nonnull final Consumer <? super DSTTYPE> aConsumer)
-  {
-    m_aList.findAllMapped (aFilter, aMapper, aConsumer);
-  }
-
   @Nullable
   public MockHasSortedChildren getChildAtIndex (final int nIndex)
   {
     return m_aList.get (nIndex);
-  }
-
-  @Nullable
-  public MockHasSortedChildren getFirstChild ()
-  {
-    return CollectionHelper.getFirstElement (m_aList);
-  }
-
-  @Nullable
-  public MockHasSortedChildren getLastChild ()
-  {
-    return CollectionHelper.getLastElement (m_aList);
   }
 }

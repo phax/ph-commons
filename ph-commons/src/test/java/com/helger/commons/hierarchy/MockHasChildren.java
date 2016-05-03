@@ -16,10 +16,6 @@
  */
 package com.helger.commons.hierarchy;
 
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -63,24 +59,6 @@ public final class MockHasChildren implements IHasChildren <MockHasChildren>, IH
   public ICommonsCollection <? extends MockHasChildren> getAllChildren ()
   {
     return m_aList.getClone ();
-  }
-
-  public void forAllChildren (@Nonnull final Consumer <? super MockHasChildren> aConsumer)
-  {
-    m_aList.forEach (aConsumer);
-  }
-
-  public void forAllChildren (@Nonnull final Predicate <? super MockHasChildren> aFilter,
-                              @Nonnull final Consumer <? super MockHasChildren> aConsumer)
-  {
-    m_aList.findAll (aFilter, aConsumer);
-  }
-
-  public <DSTTYPE> void forAllChildrenMapped (@Nonnull final Predicate <? super MockHasChildren> aFilter,
-                                              @Nonnull final Function <? super MockHasChildren, ? extends DSTTYPE> aMapper,
-                                              @Nonnull final Consumer <? super DSTTYPE> aConsumer)
-  {
-    m_aList.findAllMapped (aFilter, aMapper, aConsumer);
   }
 
   @Nullable

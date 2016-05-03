@@ -216,27 +216,6 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
       m_aChildren.findAllMapped (aFilter, aMapper, aConsumer);
   }
 
-  @Override
-  @Nullable
-  public IMicroNode findFirstChild (@Nonnull final Predicate <? super IMicroNode> aFilter)
-  {
-    ValueEnforcer.notNull (aFilter, "Filter");
-    if (m_aChildren == null)
-      return null;
-    return m_aChildren.findFirst (aFilter);
-  }
-
-  @Override
-  @Nullable
-  public <DSTTYPE> DSTTYPE findFirstChildMapped (@Nonnull final Predicate <? super IMicroNode> aFilter,
-                                                 @Nonnull final Function <? super IMicroNode, ? extends DSTTYPE> aMapper)
-  {
-    ValueEnforcer.notNull (aFilter, "Filter");
-    if (m_aChildren == null)
-      return null;
-    return m_aChildren.findFirstMapped (aFilter, aMapper);
-  }
-
   public boolean containsAnyChild (@Nonnull final Predicate <? super IMicroNode> aFilter)
   {
     ValueEnforcer.notNull (aFilter, "Filter");
@@ -263,6 +242,21 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   public final IMicroNode getFirstChild ()
   {
     return m_aChildren == null ? null : m_aChildren.getFirst ();
+  }
+
+  @Override
+  @Nullable
+  public final IMicroNode findFirstChild (@Nonnull final Predicate <? super IMicroNode> aFilter)
+  {
+    return m_aChildren == null ? null : m_aChildren.findFirst (aFilter);
+  }
+
+  @Override
+  @Nullable
+  public final <DSTTYPE> DSTTYPE findFirstChildMapped (@Nonnull final Predicate <? super IMicroNode> aFilter,
+                                                       @Nonnull final Function <? super IMicroNode, ? extends DSTTYPE> aMapper)
+  {
+    return m_aChildren == null ? null : m_aChildren.findFirstMapped (aFilter, aMapper);
   }
 
   @Override

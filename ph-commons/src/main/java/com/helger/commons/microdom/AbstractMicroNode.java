@@ -407,6 +407,19 @@ public abstract class AbstractMicroNode implements IMicroNode
     return null;
   }
 
+  @Nullable
+  public IMicroNode findFirstChild (@Nonnull final Predicate <? super IMicroNode> aFilter)
+  {
+    return null;
+  }
+
+  @Nullable
+  public <DSTTYPE> DSTTYPE findFirstChildMapped (@Nonnull final Predicate <? super IMicroNode> aFilter,
+                                                 @Nonnull final Function <? super IMicroNode, ? extends DSTTYPE> aMapper)
+  {
+    return null;
+  }
+
   @OverrideOnDemand
   @Nullable
   public IMicroNode getLastChild ()

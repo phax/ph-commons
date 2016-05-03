@@ -17,7 +17,6 @@
 package com.helger.commons.microdom;
 
 import java.io.Serializable;
-import java.util.function.Function;
 import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
@@ -75,47 +74,6 @@ public interface IMicroNode extends
    */
   @Nullable
   ICommonsList <IMicroNode> getAllChildren ();
-
-  /**
-   * Find the first direct child that matches the passed predicate.
-   *
-   * @param aFilter
-   *        The filter that is applied on each direct child node. May not be
-   *        <code>null</code>.
-   * @return <code>null</code> if no direct child matches the passed filter or
-   *         if no child is present at all.
-   */
-  @Nullable
-  default IMicroNode findFirstChild (@Nonnull final Predicate <? super IMicroNode> aFilter)
-  {
-    ValueEnforcer.notNull (aFilter, "Filter");
-    if (hasNoChildren ())
-      return null;
-    return getAllChildren ().findFirst (aFilter);
-  }
-
-  /**
-   * Find the first direct child that matches the passed predicate.
-   *
-   * @param aFilter
-   *        The filter that is applied on each direct child node. May not be
-   *        <code>null</code>.
-   * @param aMapper
-   *        The mapping function from micro node to the target type. May not be
-   *        <code>null</code>.
-   * @return <code>null</code> if no direct child matches the passed filter or
-   *         if no child is present at all.
-   */
-  @Nullable
-  default <DSTTYPE> DSTTYPE findFirstChildMapped (@Nonnull final Predicate <? super IMicroNode> aFilter,
-                                                  @Nonnull final Function <? super IMicroNode, ? extends DSTTYPE> aMapper)
-  {
-    ValueEnforcer.notNull (aFilter, "Filter");
-    ValueEnforcer.notNull (aMapper, "Mapper");
-    if (hasNoChildren ())
-      return null;
-    return getAllChildren ().findFirstMapped (aFilter, aMapper);
-  }
 
   /**
    * Check if any direct child matching the provided filter is contained.

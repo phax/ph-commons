@@ -16,7 +16,11 @@
  */
 package com.helger.commons.hierarchy;
 
+import java.util.function.Function;
+import java.util.function.Predicate;
+
 import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.collection.ext.ICommonsList;
@@ -60,6 +64,44 @@ public interface IHasChildrenSorted <CHILDTYPE> extends IHasChildren <CHILDTYPE>
   default CHILDTYPE getFirstChild ()
   {
     return getChildAtIndex (0);
+  }
+
+  /**
+   * Find the first direct child that matches the passed predicate.
+   *
+   * @param aFilter
+   *        The filter that is applied on each direct child node. May not be
+   *        <code>null</code>.
+   * @return <code>null</code> if no direct child matches the passed filter or
+   *         if no child is present at all.
+   */
+  @Nullable
+  default CHILDTYPE findFirstChild (@Nonnull final Predicate <? super CHILDTYPE> aFilter)
+  {
+    if (hasNoChildren ())
+      return null;
+    return getAllChildren ().findFirst (aFilter);
+  }
+
+  /**
+   * Find the first direct child that matches the passed predicate.
+   *
+   * @param aFilter
+   *        The filter that is applied on each direct child node. May not be
+   *        <code>null</code>.
+   * @param aMapper
+   *        The mapping function from micro node to the target type. May not be
+   *        <code>null</code>.
+   * @return <code>null</code> if no direct child matches the passed filter or
+   *         if no child is present at all.
+   */
+  @Nullable
+  default <DSTTYPE> DSTTYPE findFirstChildMapped (@Nonnull final Predicate <? super CHILDTYPE> aFilter,
+                                                  @Nonnull final Function <? super CHILDTYPE, ? extends DSTTYPE> aMapper)
+  {
+    if (hasNoChildren ())
+      return null;
+    return getAllChildren ().findFirstMapped (aFilter, aMapper);
   }
 
   /**

@@ -236,13 +236,26 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
   }
 
   @Nullable
-  public ITEMTYPE getFirstChild ()
+  public final ITEMTYPE getFirstChild ()
   {
     return m_aChildren == null ? null : m_aChildren.getFirst ();
   }
 
   @Nullable
-  public ITEMTYPE getLastChild ()
+  public final ITEMTYPE findFirstChild (@Nonnull final Predicate <? super ITEMTYPE> aFilter)
+  {
+    return m_aChildren == null ? null : m_aChildren.findFirst (aFilter);
+  }
+
+  @Nullable
+  public final <DSTTYPE> DSTTYPE findFirstChildMapped (@Nonnull final Predicate <? super ITEMTYPE> aFilter,
+                                                       @Nonnull final Function <? super ITEMTYPE, ? extends DSTTYPE> aMapper)
+  {
+    return m_aChildren == null ? null : m_aChildren.findFirstMapped (aFilter, aMapper);
+  }
+
+  @Nullable
+  public final ITEMTYPE getLastChild ()
   {
     return m_aChildren == null ? null : m_aChildren.getLast ();
   }
