@@ -38,7 +38,7 @@ public final class CustomLicenseTest
   @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testAll ()
   {
-    final CustomLicense cl = new CustomLicense ("cl1", "License", new Version ("1.2"), "url");
+    final CustomLicense cl = new CustomLicense ("cl1", "License", Version.parse ("1.2"), "url");
     assertEquals ("cl1", cl.getID ());
     assertEquals ("License", cl.getDisplayName ());
     assertEquals ("1.2", cl.getVersion ().getAsString ());
@@ -58,22 +58,22 @@ public final class CustomLicenseTest
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (cl,
                                                                        new CustomLicense ("cl1",
                                                                                           "License",
-                                                                                          new Version ("1.2"),
+                                                                                          Version.parse ("1.2"),
                                                                                           "url"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (cl,
                                                                            new CustomLicense ("cl12",
                                                                                               "License",
-                                                                                              new Version ("1.2"),
+                                                                                              Version.parse ("1.2"),
                                                                                               "url"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (cl,
                                                                            new CustomLicense ("cl1",
                                                                                               "License2",
-                                                                                              new Version ("1.2"),
+                                                                                              Version.parse ("1.2"),
                                                                                               "url"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (cl,
                                                                            new CustomLicense ("cl1",
                                                                                               "License",
-                                                                                              new Version ("1.1"),
+                                                                                              Version.parse ("1.1"),
                                                                                               "url"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (cl,
                                                                            new CustomLicense ("cl1",
@@ -83,12 +83,12 @@ public final class CustomLicenseTest
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (cl,
                                                                            new CustomLicense ("cl1",
                                                                                               "License",
-                                                                                              new Version ("1.2"),
+                                                                                              Version.parse ("1.2"),
                                                                                               "url2"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (cl,
                                                                            new CustomLicense ("cl1",
                                                                                               "License",
-                                                                                              new Version ("1.2"),
+                                                                                              Version.parse ("1.2"),
                                                                                               null));
 
     try

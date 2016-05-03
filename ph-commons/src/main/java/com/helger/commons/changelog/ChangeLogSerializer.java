@@ -206,7 +206,7 @@ public final class ChangeLogSerializer
             s_aLogger.warn ("Failed to parse release date '" + sDate + "'");
             continue;
           }
-          ret.addRelease (new ChangeLogRelease (aLocalDate, new Version (sVersion, false)));
+          ret.addRelease (new ChangeLogRelease (aLocalDate, Version.parse (sVersion, false)));
         }
         else
           aErrorCallback.accept ("Changelog contains unsupported element '" + sTagName + "!");
@@ -254,7 +254,7 @@ public final class ChangeLogSerializer
       final ClassLoader aRealClassLoader = aClassLoader != null ? aClassLoader
                                                                 : ClassLoaderHelper.getDefaultClassLoader ();
 
-      final ICommonsMap <URI, ChangeLog> ret = new CommonsHashMap <> ();
+      final ICommonsMap <URI, ChangeLog> ret = new CommonsHashMap<> ();
       // Find all change log XML files in the classpath
       for (final URL aURL : CollectionHelper.newList (ClassLoaderHelper.getResources (aRealClassLoader,
                                                                                       CChangeLog.CHANGELOG_XML_FILENAME)))

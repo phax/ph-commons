@@ -122,28 +122,28 @@ public final class VersionTest
   public void testVersionString ()
   {
     // check valid
-    Version v = new Version ("1.2.3.alpha");
+    Version v = Version.parse ("1.2.3.alpha");
     assertEquals (v.getMajor (), 1);
     assertEquals (v.getMinor (), 2);
     assertEquals (v.getMicro (), 3);
     assertEquals (v.getQualifier (), "alpha");
 
     // no qualifier
-    v = new Version ("4.5.6");
+    v = Version.parse ("4.5.6");
     assertEquals (v.getMajor (), 4);
     assertEquals (v.getMinor (), 5);
     assertEquals (v.getMicro (), 6);
     assertNull (v.getQualifier ());
 
     // no micro
-    v = new Version ("7.8");
+    v = Version.parse ("7.8");
     assertEquals (v.getMajor (), 7);
     assertEquals (v.getMinor (), 8);
     assertEquals (0, v.getMicro ());
     assertNull (v.getQualifier ());
 
     // no minor
-    v = new Version ("9");
+    v = Version.parse ("9");
     assertEquals (v.getMajor (), 9);
     assertEquals (0, v.getMinor ());
     assertEquals (0, v.getMicro ());
@@ -152,7 +152,7 @@ public final class VersionTest
     try
     {
       // try negative value - needs to fail
-      new Version ("-1.1.1");
+      Version.parse ("-1.1.1");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -160,7 +160,7 @@ public final class VersionTest
 
     try
     {
-      new Version ("1.-1.1");
+      Version.parse ("1.-1.1");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -168,112 +168,112 @@ public final class VersionTest
 
     try
     {
-      new Version ("1.1.-1");
+      Version.parse ("1.1.-1");
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
 
     // empty string
-    v = new Version ("");
+    v = Version.parse ("");
     assertEquals (0, v.getMajor ());
     assertEquals (0, v.getMinor ());
     assertEquals (0, v.getMicro ());
     assertNull (v.getQualifier ());
 
     // very weird stuff - fails because String.split does not split
-    v = new Version ("...");
+    v = Version.parse ("...");
     assertEquals (0, v.getMajor ());
     assertEquals (0, v.getMinor ());
     assertEquals (0, v.getMicro ());
     assertNull (v.getQualifier ());
 
     // very weird stuff - fails because String.split does not split
-    v = new Version ("..");
+    v = Version.parse ("..");
     assertEquals (0, v.getMajor ());
     assertEquals (0, v.getMinor ());
     assertEquals (0, v.getMicro ());
     assertNull (v.getQualifier ());
 
     // very weird stuff - fails because String.split does not split
-    v = new Version (".");
+    v = Version.parse (".");
     assertEquals (0, v.getMajor ());
     assertEquals (0, v.getMinor ());
     assertEquals (0, v.getMicro ());
     assertNull (v.getQualifier ());
 
     // null string
-    v = new Version (null);
+    v = Version.parse (null);
     assertEquals (0, v.getMajor ());
     assertEquals (0, v.getMinor ());
     assertEquals (0, v.getMicro ());
     assertNull (v.getQualifier ());
 
     // alphabetic string
-    v = new Version ("a.b.c.d", true);
+    v = Version.parse ("a.b.c.d", true);
     assertEquals (0, v.getMajor ());
     assertEquals (0, v.getMinor ());
     assertEquals (0, v.getMicro ());
     assertEquals ("d", v.getQualifier ());
 
     // alphabetic string
-    v = new Version ("a.b.c.d", false);
+    v = Version.parse ("a.b.c.d", false);
     assertEquals (0, v.getMajor ());
     assertEquals (0, v.getMinor ());
     assertEquals (0, v.getMicro ());
     assertEquals ("a.b.c.d", v.getQualifier ());
 
     // alphabetic string
-    v = new Version ("a.b.c", true);
+    v = Version.parse ("a.b.c", true);
     assertEquals (0, v.getMajor ());
     assertEquals (0, v.getMinor ());
     assertEquals (0, v.getMicro ());
     assertNull (v.getQualifier ());
 
     // alphabetic string
-    v = new Version ("a.b.c", false);
+    v = Version.parse ("a.b.c", false);
     assertEquals (0, v.getMajor ());
     assertEquals (0, v.getMinor ());
     assertEquals (0, v.getMicro ());
     assertEquals ("a.b.c", v.getQualifier ());
 
     // alphabetic string
-    v = new Version ("a5.b5.c5", true);
+    v = Version.parse ("a5.b5.c5", true);
     assertEquals (0, v.getMajor ());
     assertEquals (0, v.getMinor ());
     assertEquals (0, v.getMicro ());
     assertNull (v.getQualifier ());
 
     // alphabetic string
-    v = new Version ("a5.b5.c5", false);
+    v = Version.parse ("a5.b5.c5", false);
     assertEquals (0, v.getMajor ());
     assertEquals (0, v.getMinor ());
     assertEquals (0, v.getMicro ());
     assertEquals ("a5.b5.c5", v.getQualifier ());
 
     // invalid numeric string
-    v = new Version ("3a.3b.3c", true);
+    v = Version.parse ("3a.3b.3c", true);
     assertEquals (0, v.getMajor ());
     assertEquals (0, v.getMinor ());
     assertEquals (0, v.getMicro ());
     assertNull (v.getQualifier ());
 
     // invalid numeric string
-    v = new Version ("3a.3b.3c", false);
+    v = Version.parse ("3a.3b.3c", false);
     assertEquals (0, v.getMajor ());
     assertEquals (0, v.getMinor ());
     assertEquals (0, v.getMicro ());
     assertEquals ("3a.3b.3c", v.getQualifier ());
 
     // Dash separator
-    v = new Version ("3.0.0-RC1", true);
+    v = Version.parse ("3.0.0-RC1", true);
     assertEquals (3, v.getMajor ());
     assertEquals (0, v.getMinor ());
     assertEquals (0, v.getMicro ());
     assertNull (v.getQualifier ());
 
     // Dash separator
-    v = new Version ("3.0.0-RC1", false);
+    v = Version.parse ("3.0.0-RC1", false);
     assertEquals (3, v.getMajor ());
     assertEquals (0, v.getMinor ());
     assertEquals (0, v.getMicro ());
@@ -285,12 +285,12 @@ public final class VersionTest
   {
     final Version v1 = new Version (1, 2, 3);
     final Version v2 = new Version (1, 2, 3);
-    final Version v3 = new Version ("1.2.3");
-    final Version v4 = new Version ("1.2.3.alpha");
-    final Version v5 = new Version ("1.2.3.beta");
-    final Version v6 = new Version ("1.2");
-    final Version v7 = new Version ("1");
-    final Version v8 = new Version (null);
+    final Version v3 = Version.parse ("1.2.3");
+    final Version v4 = Version.parse ("1.2.3.alpha");
+    final Version v5 = Version.parse ("1.2.3.beta");
+    final Version v6 = Version.parse ("1.2");
+    final Version v7 = Version.parse ("1");
+    final Version v8 = Version.parse (null);
     final Version v9 = new Version (0, 0, 0);
 
     // check v1
@@ -407,12 +407,12 @@ public final class VersionTest
   {
     final Version v1 = new Version (1, 2, 3);
     final Version v2 = new Version (1, 2, 3);
-    final Version v3 = new Version ("1.2.3");
-    final Version v4 = new Version ("1.2.3.alpha");
-    final Version v5 = new Version ("1.2.3.beta");
-    final Version v6 = new Version ("1.2");
-    final Version v7 = new Version ("1");
-    final Version v8 = new Version (null);
+    final Version v3 = Version.parse ("1.2.3");
+    final Version v4 = Version.parse ("1.2.3.alpha");
+    final Version v5 = Version.parse ("1.2.3.beta");
+    final Version v6 = Version.parse ("1.2");
+    final Version v7 = Version.parse ("1");
+    final Version v8 = Version.parse (null);
     final Version v9 = new Version (0, 0, 0);
 
     // test v1
@@ -519,8 +519,8 @@ public final class VersionTest
 
     assertFalse (v1.equals ("anyString"));
 
-    assertEquals (new Version ("2.1.0"), new Version ("2.1"));
-    assertEquals (new Version ("2.0.0"), new Version ("2"));
+    assertEquals (Version.parse ("2.1.0"), Version.parse ("2.1"));
+    assertEquals (Version.parse ("2.0.0"), Version.parse ("2"));
   }
 
   @Test
@@ -528,67 +528,67 @@ public final class VersionTest
   {
     Version v = new Version (1, 2, 3);
     assertEquals ("1.2.3", v.getAsString ());
-    assertEquals (v, new Version (v.getAsString ()));
+    assertEquals (v, Version.parse (v.getAsString ()));
 
-    v = new Version ("1.2.3.");
+    v = Version.parse ("1.2.3.");
     assertEquals ("1.2.3", v.getAsString ());
-    assertEquals (v, new Version (v.getAsString ()));
+    assertEquals (v, Version.parse (v.getAsString ()));
 
-    v = new Version ("1.2.3.alpha");
+    v = Version.parse ("1.2.3.alpha");
     assertEquals ("1.2.3.alpha", v.getAsString ());
-    assertEquals (v, new Version (v.getAsString ()));
+    assertEquals (v, Version.parse (v.getAsString ()));
 
-    v = new Version ("1.2.0.alpha");
+    v = Version.parse ("1.2.0.alpha");
     assertEquals ("1.2.0.alpha", v.getAsString ());
-    assertEquals (v, new Version (v.getAsString ()));
+    assertEquals (v, Version.parse (v.getAsString ()));
 
-    v = new Version ("1.2.3");
+    v = Version.parse ("1.2.3");
     assertEquals ("1.2.3", v.getAsString ());
-    assertEquals (v, new Version (v.getAsString ()));
+    assertEquals (v, Version.parse (v.getAsString ()));
 
-    v = new Version ("1.2.0");
+    v = Version.parse ("1.2.0");
     assertEquals ("1.2", v.getAsString ());
-    assertEquals (v, new Version (v.getAsString ()));
+    assertEquals (v, Version.parse (v.getAsString ()));
 
-    v = new Version ("1.0.2");
+    v = Version.parse ("1.0.2");
     assertEquals ("1.0.2", v.getAsString ());
-    assertEquals (v, new Version (v.getAsString ()));
+    assertEquals (v, Version.parse (v.getAsString ()));
 
-    v = new Version ("4.5");
+    v = Version.parse ("4.5");
     assertEquals ("4.5", v.getAsString ());
-    assertEquals (v, new Version (v.getAsString ()));
+    assertEquals (v, Version.parse (v.getAsString ()));
 
-    v = new Version ("4.0");
+    v = Version.parse ("4.0");
     assertEquals ("4", v.getAsString ());
-    assertEquals (v, new Version (v.getAsString ()));
+    assertEquals (v, Version.parse (v.getAsString ()));
 
-    v = new Version ("6");
+    v = Version.parse ("6");
     assertEquals ("6", v.getAsString ());
-    assertEquals (v, new Version (v.getAsString ()));
+    assertEquals (v, Version.parse (v.getAsString ()));
 
-    v = new Version (null);
+    v = Version.parse (null);
     assertEquals (Version.DEFAULT_VERSION_STRING, v.getAsString ());
-    assertEquals (v, new Version (v.getAsString ()));
+    assertEquals (v, Version.parse (v.getAsString ()));
 
-    v = new Version (".2");
+    v = Version.parse (".2");
     assertEquals ("0.2", v.getAsString ());
-    assertEquals (v, new Version (v.getAsString ()));
+    assertEquals (v, Version.parse (v.getAsString ()));
 
-    v = new Version ("..2");
+    v = Version.parse ("..2");
     assertEquals ("0.0.2", v.getAsString ());
-    assertEquals (v, new Version (v.getAsString ()));
+    assertEquals (v, Version.parse (v.getAsString ()));
 
-    v = new Version ("...2");
+    v = Version.parse ("...2");
     assertEquals ("0.0.0.2", v.getAsString ());
-    assertEquals (v, new Version (v.getAsString ()));
+    assertEquals (v, Version.parse (v.getAsString ()));
 
-    v = new Version ("3.0.0-RC1", true);
+    v = Version.parse ("3.0.0-RC1", true);
     assertEquals ("3", v.getAsString ());
-    assertEquals (v, new Version (v.getAsString ()));
+    assertEquals (v, Version.parse (v.getAsString ()));
 
-    v = new Version ("3.0.0-RC1", false);
+    v = Version.parse ("3.0.0-RC1", false);
     assertEquals ("3.0.0.RC1", v.getAsString ());
-    assertEquals (v, new Version (v.getAsString ()));
+    assertEquals (v, Version.parse (v.getAsString ()));
   }
 
   @Test
@@ -597,89 +597,89 @@ public final class VersionTest
     Version v = new Version (1, 2, 3);
     assertEquals ("1.2.3", v.getAsString (true));
     assertEquals ("1.2.3", v.getAsString (true, true));
-    assertEquals (v, new Version (v.getAsString (true)));
+    assertEquals (v, Version.parse (v.getAsString (true)));
 
-    v = new Version ("1.2.3.");
+    v = Version.parse ("1.2.3.");
     assertEquals ("1.2.3", v.getAsString (true));
-    assertEquals (v, new Version (v.getAsString (true)));
+    assertEquals (v, Version.parse (v.getAsString (true)));
 
-    v = new Version ("1.2.3.alpha");
+    v = Version.parse ("1.2.3.alpha");
     assertEquals ("1.2.3.alpha", v.getAsString (true));
-    assertEquals (v, new Version (v.getAsString (true)));
+    assertEquals (v, Version.parse (v.getAsString (true)));
 
-    v = new Version ("1.2.0.alpha");
+    v = Version.parse ("1.2.0.alpha");
     assertEquals ("1.2.0.alpha", v.getAsString (true));
-    assertEquals (v, new Version (v.getAsString (true)));
+    assertEquals (v, Version.parse (v.getAsString (true)));
 
-    v = new Version ("1.2.3");
+    v = Version.parse ("1.2.3");
     assertEquals ("1.2.3", v.getAsString (true));
     assertEquals ("1.2.3", v.getAsString (false));
     assertEquals ("1.2.3", v.getAsString (false, true));
-    assertEquals (v, new Version (v.getAsString (true)));
+    assertEquals (v, Version.parse (v.getAsString (true)));
 
-    v = new Version ("1.2.0");
+    v = Version.parse ("1.2.0");
     assertEquals ("1.2.0", v.getAsString (true));
     assertEquals ("1.2", v.getAsString (false));
     assertEquals ("1.2", v.getAsString (false, true));
-    assertEquals (v, new Version (v.getAsString (true)));
+    assertEquals (v, Version.parse (v.getAsString (true)));
 
-    v = new Version ("1.0.2");
+    v = Version.parse ("1.0.2");
     assertEquals ("1.0.2", v.getAsString (true));
     assertEquals ("1.0.2", v.getAsString (false));
     assertEquals ("1.0.2", v.getAsString (false, true));
-    assertEquals (v, new Version (v.getAsString (true)));
+    assertEquals (v, Version.parse (v.getAsString (true)));
 
-    v = new Version ("4.5");
+    v = Version.parse ("4.5");
     assertEquals ("4.5.0", v.getAsString (true));
     assertEquals ("4.5", v.getAsString (false));
     assertEquals ("4.5", v.getAsString (false, true));
-    assertEquals (v, new Version (v.getAsString (true)));
+    assertEquals (v, Version.parse (v.getAsString (true)));
 
-    v = new Version ("4.0");
+    v = Version.parse ("4.0");
     assertEquals ("4.0.0", v.getAsString (true));
     assertEquals ("4", v.getAsString (false));
     assertEquals ("4.0", v.getAsString (false, true));
-    assertEquals (v, new Version (v.getAsString (true)));
+    assertEquals (v, Version.parse (v.getAsString (true)));
 
-    v = new Version ("6");
+    v = Version.parse ("6");
     assertEquals ("6.0.0", v.getAsString (true));
     assertEquals ("6", v.getAsString (false));
     assertEquals ("6.0", v.getAsString (false, true));
-    assertEquals (v, new Version (v.getAsString (true)));
+    assertEquals (v, Version.parse (v.getAsString (true)));
 
-    v = new Version (null);
+    v = Version.parse (null);
     assertEquals ("0.0.0", v.getAsString (true));
     assertEquals ("0", v.getAsString (false));
     assertEquals ("0.0", v.getAsString (false, true));
-    assertEquals (v, new Version (v.getAsString (true)));
+    assertEquals (v, Version.parse (v.getAsString (true)));
 
-    v = new Version (".2");
+    v = Version.parse (".2");
     assertEquals ("0.2.0", v.getAsString (true));
-    assertEquals (v, new Version (v.getAsString (true)));
+    assertEquals (v, Version.parse (v.getAsString (true)));
 
-    v = new Version ("..2");
+    v = Version.parse ("..2");
     assertEquals ("0.0.2", v.getAsString (true));
-    assertEquals (v, new Version (v.getAsString (true)));
+    assertEquals (v, Version.parse (v.getAsString (true)));
 
-    v = new Version ("...2");
+    v = Version.parse ("...2");
     assertEquals ("0.0.0.2", v.getAsString (true));
-    assertEquals (v, new Version (v.getAsString (true)));
+    assertEquals (v, Version.parse (v.getAsString (true)));
 
-    v = new Version ("3.0.0-RC1", true);
+    v = Version.parse ("3.0.0-RC1", true);
     assertEquals ("3.0.0", v.getAsString (true));
-    assertEquals (v, new Version (v.getAsString (true)));
+    assertEquals (v, Version.parse (v.getAsString (true)));
 
-    v = new Version ("3.0.0-RC1", false);
+    v = Version.parse ("3.0.0-RC1", false);
     assertEquals ("3.0.0.RC1", v.getAsString (true));
-    assertEquals (v, new Version (v.getAsString (true)));
+    assertEquals (v, Version.parse (v.getAsString (true)));
 
-    v = new Version ("3-RC1", true);
+    v = Version.parse ("3-RC1", true);
     assertEquals ("0.0.0", v.getAsString (true));
-    assertEquals (v, new Version (v.getAsString (true)));
+    assertEquals (v, Version.parse (v.getAsString (true)));
 
-    v = new Version ("3-RC1", false);
+    v = Version.parse ("3-RC1", false);
     assertEquals ("3.0.0.RC1", v.getAsString (true));
-    assertEquals (v, new Version (v.getAsString (true)));
+    assertEquals (v, Version.parse (v.getAsString (true)));
   }
 
   @Test
@@ -688,18 +688,19 @@ public final class VersionTest
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, "4"),
                                                                        new Version (1, 2, 3, "4"));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, "4"),
-                                                                       new Version ("1.2.3.4"));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new Version (1), new Version ("1"));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new Version ("1"), new Version ("   1"));
+                                                                       Version.parse ("1.2.3.4"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new Version (1), Version.parse ("1"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (Version.parse ("1"), Version.parse ("   1"));
 
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, "4"),
                                                                            new Version (1, 2, 3));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, "4"),
                                                                            new Version (1, 2, 3, "5"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, "4"),
-                                                                           new Version ("1.3.3.4"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Version (2), new Version ("1"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Version ("1"), new Version ("   11"));
+                                                                           Version.parse ("1.3.3.4"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Version (2), Version.parse ("1"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (Version.parse ("1"),
+                                                                           Version.parse ("   11"));
   }
 
   @Test
@@ -723,6 +724,6 @@ public final class VersionTest
   public void testSerialization () throws Exception
   {
     CommonsTestHelper.testDefaultSerialization (new Version (1, 2, 3));
-    CommonsTestHelper.testDefaultSerialization (new Version ("1.2a"));
+    CommonsTestHelper.testDefaultSerialization (Version.parse ("1.2a"));
   }
 }

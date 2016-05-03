@@ -56,7 +56,7 @@ public final class ThirdPartyModuleTest
     assertNull (mod.getWebSiteURL ());
     assertTrue (mod.isOptional ());
 
-    mod = new ThirdPartyModule ("displayname", "owner", ELicense.APACHE1, new Version ("1.1"), null);
+    mod = new ThirdPartyModule ("displayname", "owner", ELicense.APACHE1, Version.parse ("1.1"), null);
     assertEquals ("displayname", mod.getDisplayName ());
     assertEquals ("owner", mod.getCopyrightOwner ());
     assertEquals (ELicense.APACHE1, mod.getLicense ());
@@ -64,7 +64,7 @@ public final class ThirdPartyModuleTest
     assertNull (mod.getWebSiteURL ());
     assertFalse (mod.isOptional ());
 
-    mod = new ThirdPartyModule ("displayname", "owner", ELicense.APACHE1, new Version ("1.1"), "url", true);
+    mod = new ThirdPartyModule ("displayname", "owner", ELicense.APACHE1, Version.parse ("1.1"), "url", true);
     assertEquals ("displayname", mod.getDisplayName ());
     assertEquals ("owner", mod.getCopyrightOwner ());
     assertEquals (ELicense.APACHE1, mod.getLicense ());
@@ -107,56 +107,56 @@ public final class ThirdPartyModuleTest
     final ThirdPartyModule mod = new ThirdPartyModule ("displayname",
                                                        "owner",
                                                        ELicense.APACHE1,
-                                                       new Version ("1.1"),
+                                                       Version.parse ("1.1"),
                                                        "url",
                                                        true);
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (mod,
                                                                        new ThirdPartyModule ("displayname",
                                                                                              "owner",
                                                                                              ELicense.APACHE1,
-                                                                                             new Version ("1.1"),
+                                                                                             Version.parse ("1.1"),
                                                                                              "url",
                                                                                              true));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mod,
                                                                            new ThirdPartyModule ("displayname2",
                                                                                                  "owner",
                                                                                                  ELicense.APACHE1,
-                                                                                                 new Version ("1.1"),
+                                                                                                 Version.parse ("1.1"),
                                                                                                  "url",
                                                                                                  true));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mod,
                                                                            new ThirdPartyModule ("displayname",
                                                                                                  "owner2",
                                                                                                  ELicense.APACHE1,
-                                                                                                 new Version ("1.1"),
+                                                                                                 Version.parse ("1.1"),
                                                                                                  "url",
                                                                                                  true));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mod,
                                                                            new ThirdPartyModule ("displayname",
                                                                                                  "owner",
                                                                                                  ELicense.APACHE2,
-                                                                                                 new Version ("1.1"),
+                                                                                                 Version.parse ("1.1"),
                                                                                                  "url",
                                                                                                  true));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mod,
                                                                            new ThirdPartyModule ("displayname",
                                                                                                  "owner",
                                                                                                  ELicense.APACHE1,
-                                                                                                 new Version ("1.1.2"),
+                                                                                                 Version.parse ("1.1.2"),
                                                                                                  "url",
                                                                                                  true));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mod,
                                                                            new ThirdPartyModule ("displayname",
                                                                                                  "owner",
                                                                                                  ELicense.APACHE1,
-                                                                                                 new Version ("1.1"),
+                                                                                                 Version.parse ("1.1"),
                                                                                                  "url2",
                                                                                                  true));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mod,
                                                                            new ThirdPartyModule ("displayname",
                                                                                                  "owner",
                                                                                                  ELicense.APACHE1,
-                                                                                                 new Version ("1.1"),
+                                                                                                 Version.parse ("1.1"),
                                                                                                  "url",
                                                                                                  false));
   }

@@ -79,82 +79,85 @@ public final class VersionRange implements Comparable <VersionRange>, Serializab
    *
    * @param sVersionString
    *        the version range in a string format as depicted above
+   * @return The parsed {@link VersionRange} object
    * @throws IllegalArgumentException
    *         if the floor version is &lt; than the ceiling version
    */
-  public VersionRange (@Nullable final String sVersionString)
+  @Nonnull
+  public static VersionRange parse (@Nullable final String sVersionString)
   {
     final String s = sVersionString == null ? "" : sVersionString.trim ();
-
     if (s.length () == 0)
     {
       // empty string == range [0.0, infinity)
-      m_bIncludeFloor = true;
-      m_aFloorVersion = new Version (Version.DEFAULT_VERSION_STRING);
-      m_bIncludeCeil = false;
-      m_aCeilVersion = null;
+      return new VersionRange (Version.DEFAULT_VERSION, true, null, false);
+    }
+
+    Version aFloorVersion;
+    boolean bIncludeFloor;
+    Version aCeilVersion;
+    boolean bIncludeCeil;
+
+    int i = 0;
+    // parse initial token
+    if (s.charAt (i) == '[')
+    {
+      bIncludeFloor = true;
+      i++;
     }
     else
-    {
-      int i = 0;
-      // parse initial token
-      if (s.charAt (i) == '[')
+      if (s.charAt (i) == '(')
       {
-        m_bIncludeFloor = true;
+        bIncludeFloor = false;
         i++;
       }
       else
-        if (s.charAt (i) == '(')
-        {
-          m_bIncludeFloor = false;
-          i++;
-        }
-        else
-          m_bIncludeFloor = true;
+        bIncludeFloor = true;
 
-      // check last token
-      int j = 0;
-      if (StringHelper.endsWith (s, ']'))
+    // check last token
+    int j = 0;
+    if (StringHelper.endsWith (s, ']'))
+    {
+      bIncludeCeil = true;
+      j++;
+    }
+    else
+      if (StringHelper.endsWith (s, ')'))
       {
-        m_bIncludeCeil = true;
+        bIncludeCeil = false;
         j++;
       }
       else
-        if (StringHelper.endsWith (s, ')'))
-        {
-          m_bIncludeCeil = false;
-          j++;
-        }
-        else
-          m_bIncludeCeil = false;
+        bIncludeCeil = false;
 
-      // get length of version stuff
-      final int nRestLen = s.length () - i - j;
-      if (nRestLen == 0)
-      {
-        // only delimiter braces present?
-        m_aFloorVersion = new Version (Version.DEFAULT_VERSION_STRING);
-        m_aCeilVersion = null;
-      }
+    // get length of version stuff
+    final int nRestLen = s.length () - i - j;
+    if (nRestLen == 0)
+    {
+      // only delimiter braces present?
+      aFloorVersion = Version.DEFAULT_VERSION;
+      aCeilVersion = null;
+    }
+    else
+    {
+      final String [] parts = StringHelper.getExplodedArray (',', s.substring (i, s.length () - j));
+      final String sFloor = parts[0].trim ();
+      final String sCeiling = parts.length > 1 ? parts[1].trim () : null;
+
+      // get floor version
+      aFloorVersion = Version.parse (sFloor);
+
+      if (StringHelper.hasNoText (sCeiling))
+        aCeilVersion = null;
       else
-      {
-        final String [] parts = StringHelper.getExplodedArray (',', s.substring (i, s.length () - j));
-        final String sFloor = parts[0].trim ();
-        final String sCeiling = parts.length > 1 ? parts[1].trim () : null;
-
-        // get floor version
-        m_aFloorVersion = new Version (sFloor);
-
-        if (StringHelper.hasNoText (sCeiling))
-          m_aCeilVersion = null;
-        else
-          m_aCeilVersion = new Version (sCeiling);
-      }
+        aCeilVersion = Version.parse (sCeiling);
     }
 
     // check if floor <= ceil
-    if (m_aCeilVersion != null && m_aFloorVersion.compareTo (m_aCeilVersion) > 0)
+    if (aCeilVersion != null && aFloorVersion.compareTo (aCeilVersion) > 0)
       throw new IllegalArgumentException ("Floor version may not be greater than the ceiling version!");
+
+    return new VersionRange (aFloorVersion, bIncludeFloor, aCeilVersion, bIncludeCeil);
   }
 
   /**
