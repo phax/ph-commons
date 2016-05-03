@@ -403,9 +403,7 @@ public final class MicroHelper
   public static IMicroContainer getAllChildrenAsContainer (@Nonnull final IMicroNode aParent)
   {
     final IMicroContainer ret = new MicroContainer ();
-    if (aParent.hasChildren ())
-      for (final IMicroNode aChildNode : aParent.getAllChildren ())
-        ret.appendChild (aChildNode.getClone ());
+    aParent.forAllChildren (aChildNode -> ret.appendChild (aChildNode.getClone ()));
     return ret;
   }
 
@@ -425,9 +423,7 @@ public final class MicroHelper
   public static IMicroContainer getAllOriginalChildrenAsContainer (@Nonnull final IMicroNode aParent)
   {
     final IMicroContainer ret = new MicroContainer ();
-    if (aParent.hasChildren ())
-      for (final IMicroNode aChildNode : aParent.getAllChildren ())
-        ret.appendChild (aChildNode.detachFromParent ());
+    aParent.forAllChildren (aChildNode -> ret.appendChild (aChildNode.detachFromParent ()));
     return ret;
   }
 }
