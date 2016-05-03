@@ -16,20 +16,10 @@
  */
 package com.helger.commons.scope.singletons;
 
-import java.util.Collection;
-import java.util.function.Consumer;
-
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.ICommonsCollection;
 import com.helger.commons.scope.singleton.AbstractSessionSingleton;
-import com.helger.commons.state.EChange;
-import com.helger.commons.tree.withid.DefaultTreeItemWithID;
 import com.helger.commons.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
-import com.helger.commons.tree.withid.unique.ITreeWithGlobalUniqueID;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -46,111 +36,16 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 @SuppressFBWarnings ("SE_BAD_FIELD")
 public abstract class AbstractSessionSingletonTreeWithUniqueID <KEYTYPE, VALUETYPE> extends AbstractSessionSingleton
-                                                               implements
-                                                               ITreeWithGlobalUniqueID <KEYTYPE, VALUETYPE, DefaultTreeItemWithID <KEYTYPE, VALUETYPE>>
+                                                               implements ITreeWithUniqueIDProxy <KEYTYPE, VALUETYPE>
 {
   protected final DefaultTreeWithGlobalUniqueID <KEYTYPE, VALUETYPE> m_aTree = new DefaultTreeWithGlobalUniqueID<> ();
 
   public AbstractSessionSingletonTreeWithUniqueID ()
   {}
 
-  public final boolean hasChildren ()
-  {
-    return m_aTree.hasChildren ();
-  }
-
-  @Nonnegative
-  public int getChildCount ()
-  {
-    return m_aTree.getChildCount ();
-  }
-
   @Nonnull
-  @ReturnsMutableCopy
-  public final ICommonsCollection <? extends DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> getAllChildren ()
+  public final DefaultTreeWithGlobalUniqueID <KEYTYPE, VALUETYPE> getProxyTree ()
   {
-    return m_aTree.getAllChildren ();
-  }
-
-  public void forAllChildren (@Nonnull final Consumer <? super DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> aConsumer)
-  {
-    m_aTree.forAllChildren (aConsumer);
-  }
-
-  @Nonnull
-  public DefaultTreeItemWithID <KEYTYPE, VALUETYPE> getRootItem ()
-  {
-    return m_aTree.getRootItem ();
-  }
-
-  @Nullable
-  public DefaultTreeItemWithID <KEYTYPE, VALUETYPE> getChildWithID (@Nullable final DefaultTreeItemWithID <KEYTYPE, VALUETYPE> aCurrent,
-                                                                    @Nullable final KEYTYPE aID)
-  {
-    return m_aTree.getChildWithID (aCurrent, aID);
-  }
-
-  public boolean hasChildren (@Nullable final DefaultTreeItemWithID <KEYTYPE, VALUETYPE> aCurrent)
-  {
-    return m_aTree.hasChildren (aCurrent);
-  }
-
-  @Nonnegative
-  public int getChildCount (@Nullable final DefaultTreeItemWithID <KEYTYPE, VALUETYPE> aCurrent)
-  {
-    return m_aTree.getChildCount (aCurrent);
-  }
-
-  @Nullable
-  public ICommonsCollection <? extends DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> getAllChildren (@Nullable final DefaultTreeItemWithID <KEYTYPE, VALUETYPE> aCurrent)
-  {
-    return m_aTree.getAllChildren (aCurrent);
-  }
-
-  @Nullable
-  public DefaultTreeItemWithID <KEYTYPE, VALUETYPE> getItemWithID (@Nullable final KEYTYPE aDataID)
-  {
-    return m_aTree.getItemWithID (aDataID);
-  }
-
-  @Nonnegative
-  public int getItemCount ()
-  {
-    return m_aTree.getItemCount ();
-  }
-
-  @Nonnull
-  public Collection <DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> getAllItems ()
-  {
-    return m_aTree.getAllItems ();
-  }
-
-  public boolean isItemSameOrDescendant (@Nullable final KEYTYPE aParentItemID, @Nullable final KEYTYPE aChildItemID)
-  {
-    return m_aTree.isItemSameOrDescendant (aParentItemID, aChildItemID);
-  }
-
-  public boolean containsItemWithID (@Nullable final KEYTYPE aDataID)
-  {
-    return m_aTree.containsItemWithID (aDataID);
-  }
-
-  @Nullable
-  public VALUETYPE getItemDataWithID (@Nullable final KEYTYPE aDataID)
-  {
-    return m_aTree.getItemDataWithID (aDataID);
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public Collection <VALUETYPE> getAllItemDatas ()
-  {
-    return m_aTree.getAllItemDatas ();
-  }
-
-  @Nonnull
-  public EChange removeItemWithID (@Nullable final KEYTYPE aDataID)
-  {
-    return m_aTree.removeItemWithID (aDataID);
+    return m_aTree;
   }
 }

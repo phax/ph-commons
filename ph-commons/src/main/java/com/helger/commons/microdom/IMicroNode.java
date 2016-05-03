@@ -83,45 +83,6 @@ public interface IMicroNode extends
 
   /**
    * Iterate all direct children (if at least one is present) and invoked the
-   * provided consumer.<br>
-   * Note: use this only for reading. Writing operations will cause concurrent
-   * modification exceptions!
-   *
-   * @param aConsumer
-   *        The consumer to be invoked for all direct child nodes. May not be
-   *        <code>null</code>.
-   */
-  default void forAllChildren (@Nonnull final Consumer <? super IMicroNode> aConsumer)
-  {
-    ValueEnforcer.notNull (aConsumer, "Consumer");
-    if (hasChildren ())
-      getAllChildren ().forEach (aConsumer);
-  }
-
-  /**
-   * Iterate all direct children (if at least one is present) and invoked the
-   * provided consumer if the passed predicate is fulfilled.<br>
-   * Note: use this only for reading. Writing operations will cause concurrent
-   * modification exceptions!
-   *
-   * @param aFilter
-   *        The filter that is applied to all child nodes. May not be
-   *        <code>null</code>.
-   * @param aConsumer
-   *        The consumer to be invoked for all child nodes matching the filter.
-   *        May not be <code>null</code>.
-   */
-  default void forAllChildren (@Nonnull final Predicate <? super IMicroNode> aFilter,
-                               @Nonnull final Consumer <? super IMicroNode> aConsumer)
-  {
-    ValueEnforcer.notNull (aFilter, "Filter");
-    ValueEnforcer.notNull (aConsumer, "Consumer");
-    if (hasChildren ())
-      getAllChildren ().findAll (aFilter, aConsumer);
-  }
-
-  /**
-   * Iterate all direct children (if at least one is present) and invoked the
    * provided consumer if the passed predicate is fulfilled.<br>
    * Note: use this only for reading. Writing operations will cause concurrent
    * modification exceptions!

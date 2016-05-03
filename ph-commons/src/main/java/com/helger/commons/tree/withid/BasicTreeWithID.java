@@ -17,6 +17,7 @@
 package com.helger.commons.tree.withid;
 
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -83,6 +84,13 @@ public class BasicTreeWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithI
   public void forAllChildren (@Nonnull final Consumer <? super ITEMTYPE> aConsumer)
   {
     aConsumer.accept (m_aRootItem);
+  }
+
+  public void forAllChildren (@Nonnull final Predicate <? super ITEMTYPE> aFilter,
+                              @Nonnull final Consumer <? super ITEMTYPE> aConsumer)
+  {
+    if (aFilter.test (m_aRootItem))
+      aConsumer.accept (m_aRootItem);
   }
 
   @Nonnull

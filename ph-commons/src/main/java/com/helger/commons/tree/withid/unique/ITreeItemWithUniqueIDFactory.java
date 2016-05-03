@@ -16,13 +16,12 @@
  */
 package com.helger.commons.tree.withid.unique;
 
-import java.util.Collection;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.ICommonsCollection;
 import com.helger.commons.tree.withid.ITreeItemWithID;
 import com.helger.commons.tree.withid.ITreeItemWithIDFactory;
 
@@ -72,7 +71,7 @@ public interface ITreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, ITEMTYPE exten
    */
   @Nonnull
   @ReturnsMutableCopy
-  Collection <ITEMTYPE> getAllItems ();
+  ICommonsCollection <ITEMTYPE> getAllItems ();
 
   /**
    * @return A collection that contains all item datas created by this factory
@@ -80,5 +79,5 @@ public interface ITreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, ITEMTYPE exten
    */
   @Nonnull
   @ReturnsMutableCopy
-  Collection <DATATYPE> getAllItemDatas ();
+  ICommonsCollection <DATATYPE> getAllItemDatas ();
 }

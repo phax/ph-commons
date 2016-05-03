@@ -17,6 +17,7 @@
 package com.helger.commons.hierarchy;
 
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -66,11 +67,26 @@ public interface IHasChildren <CHILDTYPE>
 
   /**
    * Perform something on all children (if any).<br>
-   * Important: you may not invoke any modifying methods on the children owner
-   * because otherwise you may get a ConcurrentModificationException.
+   * Note: use this only for reading. Writing operations will potentially cause
+   * concurrent modification exceptions!
    *
    * @param aConsumer
    *        The consumer to be invoked. May not be <code>null</code>.
    */
   void forAllChildren (@Nonnull Consumer <? super CHILDTYPE> aConsumer);
+
+  /**
+   * Iterate all direct children (if at least one is present) and invoke the
+   * provided consumer if the passed predicate is fulfilled.<br>
+   * Note: use this only for reading. Writing operations will potentially cause
+   * concurrent modification exceptions!
+   *
+   * @param aFilter
+   *        The filter that is applied to all child nodes. May not be
+   *        <code>null</code>.
+   * @param aConsumer
+   *        The consumer to be invoked for all child nodes matching the filter.
+   *        May not be <code>null</code>.
+   */
+  void forAllChildren (@Nonnull Predicate <? super CHILDTYPE> aFilter, @Nonnull Consumer <? super CHILDTYPE> aConsumer);
 }

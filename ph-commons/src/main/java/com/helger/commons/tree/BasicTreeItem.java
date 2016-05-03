@@ -18,6 +18,7 @@ package com.helger.commons.tree;
 
 import java.util.Comparator;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -193,6 +194,13 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
   {
     if (m_aChildren != null)
       m_aChildren.forEach (aConsumer);
+  }
+
+  public final void forAllChildren (@Nonnull final Predicate <? super ITEMTYPE> aFilter,
+                                    @Nonnull final Consumer <? super ITEMTYPE> aConsumer)
+  {
+    if (m_aChildren != null)
+      m_aChildren.findAll (aFilter, aConsumer);
   }
 
   @Nullable

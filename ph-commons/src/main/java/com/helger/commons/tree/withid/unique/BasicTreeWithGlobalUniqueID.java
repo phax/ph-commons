@@ -16,14 +16,13 @@
  */
 package com.helger.commons.tree.withid.unique;
 
-import java.util.Collection;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.ICommonsCollection;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
@@ -99,14 +98,14 @@ public class BasicTreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends IT
 
   @Nonnull
   @ReturnsMutableCopy
-  public final Collection <ITEMTYPE> getAllItems ()
+  public final ICommonsCollection <ITEMTYPE> getAllItems ()
   {
     return m_aFactory.getAllItems ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public final Collection <DATATYPE> getAllItemDatas ()
+  public final ICommonsCollection <DATATYPE> getAllItemDatas ()
   {
     return m_aFactory.getAllItemDatas ();
   }

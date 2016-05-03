@@ -17,6 +17,7 @@
 package com.helger.commons.hierarchy;
 
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -66,6 +67,12 @@ public final class MockHasChildren implements IHasChildren <MockHasChildren>, IH
   public void forAllChildren (@Nonnull final Consumer <? super MockHasChildren> aConsumer)
   {
     m_aList.forEach (aConsumer);
+  }
+
+  public void forAllChildren (@Nonnull final Predicate <? super MockHasChildren> aFilter,
+                              @Nonnull final Consumer <? super MockHasChildren> aConsumer)
+  {
+    m_aList.findAll (aFilter, aConsumer);
   }
 
   @Nullable
