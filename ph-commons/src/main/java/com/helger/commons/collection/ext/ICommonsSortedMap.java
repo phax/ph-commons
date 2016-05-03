@@ -17,6 +17,7 @@
 package com.helger.commons.collection.ext;
 
 import java.util.Collections;
+import java.util.Map;
 import java.util.SortedMap;
 
 import javax.annotation.Nonnull;
@@ -27,6 +28,20 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 public interface ICommonsSortedMap <KEYTYPE, VALUETYPE>
                                    extends SortedMap <KEYTYPE, VALUETYPE>, ICommonsMap <KEYTYPE, VALUETYPE>
 {
+  @Nonnull
+  @ReturnsMutableCopy
+  default ICommonsOrderedSet <KEYTYPE> copyOfKeySet ()
+  {
+    return new CommonsLinkedHashSet<> (keySet ());
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  default ICommonsOrderedSet <Map.Entry <KEYTYPE, VALUETYPE>> copyOfEntrySet ()
+  {
+    return new CommonsLinkedHashSet<> (entrySet ());
+  }
+
   @Nullable
   default KEYTYPE getFirstKey ()
   {
