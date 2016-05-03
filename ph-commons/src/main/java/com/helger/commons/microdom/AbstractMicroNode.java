@@ -17,6 +17,7 @@
 package com.helger.commons.microdom;
 
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
@@ -374,6 +375,13 @@ public abstract class AbstractMicroNode implements IMicroNode
 
   public void forAllChildren (@Nonnull final Predicate <? super IMicroNode> aFilter,
                               @Nonnull final Consumer <? super IMicroNode> aConsumer)
+  {
+    // empty
+  }
+
+  public <DSTTYPE> void forAllChildrenMapped (@Nonnull final Predicate <? super IMicroNode> aFilter,
+                                              @Nonnull final Function <? super IMicroNode, ? extends DSTTYPE> aMapper,
+                                              @Nonnull final Consumer <? super DSTTYPE> aConsumer)
   {
     // empty
   }

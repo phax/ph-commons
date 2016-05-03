@@ -17,6 +17,7 @@
 package com.helger.commons.tree.withid;
 
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
@@ -68,7 +69,7 @@ public class BasicTreeWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithI
   }
 
   @Nonnegative
-  public int getChildCount ()
+  public final int getChildCount ()
   {
     // Exactly 1 root item is present
     return 1;
@@ -81,16 +82,24 @@ public class BasicTreeWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithI
     return new CommonsArrayList<> (m_aRootItem);
   }
 
-  public void forAllChildren (@Nonnull final Consumer <? super ITEMTYPE> aConsumer)
+  public final void forAllChildren (@Nonnull final Consumer <? super ITEMTYPE> aConsumer)
   {
     aConsumer.accept (m_aRootItem);
   }
 
-  public void forAllChildren (@Nonnull final Predicate <? super ITEMTYPE> aFilter,
-                              @Nonnull final Consumer <? super ITEMTYPE> aConsumer)
+  public final void forAllChildren (@Nonnull final Predicate <? super ITEMTYPE> aFilter,
+                                    @Nonnull final Consumer <? super ITEMTYPE> aConsumer)
   {
     if (aFilter.test (m_aRootItem))
       aConsumer.accept (m_aRootItem);
+  }
+
+  public final <DSTTYPE> void forAllChildrenMapped (@Nonnull final Predicate <? super ITEMTYPE> aFilter,
+                                                    @Nonnull final Function <? super ITEMTYPE, ? extends DSTTYPE> aMapper,
+                                                    @Nonnull final Consumer <? super DSTTYPE> aConsumer)
+  {
+    if (aFilter.test (m_aRootItem))
+      aConsumer.accept (aMapper.apply (m_aRootItem));
   }
 
   @Nonnull

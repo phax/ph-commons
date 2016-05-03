@@ -17,7 +17,6 @@
 package com.helger.commons.microdom;
 
 import java.io.Serializable;
-import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -76,35 +75,6 @@ public interface IMicroNode extends
    */
   @Nullable
   ICommonsList <IMicroNode> getAllChildren ();
-
-  /**
-   * Iterate all direct children (if at least one is present) and invoked the
-   * provided consumer if the passed predicate is fulfilled.<br>
-   * Note: use this only for reading. Writing operations will cause concurrent
-   * modification exceptions!
-   *
-   * @param aFilter
-   *        The filter that is applied to all child nodes. May not be
-   *        <code>null</code>.
-   * @param aMapper
-   *        The mapping function from micro node to the target type. May not be
-   *        <code>null</code>.
-   * @param aConsumer
-   *        The consumer to be invoked for all child nodes matching the filter.
-   *        May not be <code>null</code>.
-   * @param <DSTTYPE>
-   *        The destination data type.
-   */
-  default <DSTTYPE> void forAllChildrenMapped (@Nonnull final Predicate <? super IMicroNode> aFilter,
-                                               @Nonnull final Function <? super IMicroNode, ? extends DSTTYPE> aMapper,
-                                               @Nonnull final Consumer <? super DSTTYPE> aConsumer)
-  {
-    ValueEnforcer.notNull (aFilter, "Filter");
-    ValueEnforcer.notNull (aMapper, "Mapper");
-    ValueEnforcer.notNull (aConsumer, "Consumer");
-    if (hasChildren ())
-      getAllChildren ().findAllMapped (aFilter, aMapper, aConsumer);
-  }
 
   /**
    * Find the first direct child that matches the passed predicate.

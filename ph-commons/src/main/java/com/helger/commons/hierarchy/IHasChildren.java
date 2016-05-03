@@ -17,6 +17,7 @@
 package com.helger.commons.hierarchy;
 
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
@@ -82,11 +83,33 @@ public interface IHasChildren <CHILDTYPE>
    * concurrent modification exceptions!
    *
    * @param aFilter
-   *        The filter that is applied to all child nodes. May not be
+   *        The filter that is applied to all children. May not be
    *        <code>null</code>.
    * @param aConsumer
-   *        The consumer to be invoked for all child nodes matching the filter.
-   *        May not be <code>null</code>.
+   *        The consumer to be invoked for all children matching the filter. May
+   *        not be <code>null</code>.
    */
   void forAllChildren (@Nonnull Predicate <? super CHILDTYPE> aFilter, @Nonnull Consumer <? super CHILDTYPE> aConsumer);
+
+  /**
+   * Iterate all direct children (if at least one is present) and invoked the
+   * provided consumer if the passed predicate is fulfilled.<br>
+   * Note: use this only for reading. Writing operations will potentially cause
+   * concurrent modification exceptions!
+   *
+   * @param aFilter
+   *        The filter that is applied to all children. May not be
+   *        <code>null</code>.
+   * @param aMapper
+   *        The mapping function from child type to the target type. May not be
+   *        <code>null</code>.
+   * @param aConsumer
+   *        The consumer to be invoked for all target types matching the filter.
+   *        May not be <code>null</code>.
+   * @param <DSTTYPE>
+   *        The destination data type.
+   */
+  <DSTTYPE> void forAllChildrenMapped (@Nonnull final Predicate <? super CHILDTYPE> aFilter,
+                                       @Nonnull final Function <? super CHILDTYPE, ? extends DSTTYPE> aMapper,
+                                       @Nonnull final Consumer <? super DSTTYPE> aConsumer);
 }

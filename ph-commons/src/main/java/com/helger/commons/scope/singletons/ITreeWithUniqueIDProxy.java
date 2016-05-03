@@ -17,6 +17,7 @@
 package com.helger.commons.scope.singletons;
 
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
@@ -77,6 +78,13 @@ public interface ITreeWithUniqueIDProxy <KEYTYPE, VALUETYPE> extends
                                @Nonnull final Consumer <? super DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> aConsumer)
   {
     getProxyTree ().forAllChildren (aFilter, aConsumer);
+  }
+
+  default <DSTTYPE> void forAllChildrenMapped (@Nonnull final Predicate <? super DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> aFilter,
+                                               @Nonnull final Function <? super DefaultTreeItemWithID <KEYTYPE, VALUETYPE>, ? extends DSTTYPE> aMapper,
+                                               @Nonnull final Consumer <? super DSTTYPE> aConsumer)
+  {
+    getProxyTree ().forAllChildrenMapped (aFilter, aMapper, aConsumer);
   }
 
   @Nonnull

@@ -195,7 +195,6 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   @Override
   public final void forAllChildren (@Nonnull final Consumer <? super IMicroNode> aConsumer)
   {
-    ValueEnforcer.notNull (aConsumer, "Consumer");
     if (m_aChildren != null)
       m_aChildren.forEach (aConsumer);
   }
@@ -204,31 +203,17 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   public final void forAllChildren (@Nonnull final Predicate <? super IMicroNode> aFilter,
                                     @Nonnull final Consumer <? super IMicroNode> aConsumer)
   {
-    ValueEnforcer.notNull (aFilter, "Filter");
-    ValueEnforcer.notNull (aConsumer, "Consumer");
     if (m_aChildren != null)
       m_aChildren.findAll (aFilter, aConsumer);
   }
 
+  @Override
   public final <DSTTYPE> void forAllChildrenMapped (@Nonnull final Predicate <? super IMicroNode> aFilter,
                                                     @Nonnull final Function <? super IMicroNode, ? extends DSTTYPE> aMapper,
                                                     @Nonnull final Consumer <? super DSTTYPE> aConsumer)
   {
-    ValueEnforcer.notNull (aFilter, "Filter");
-    ValueEnforcer.notNull (aMapper, "Mapper");
-    ValueEnforcer.notNull (aConsumer, "Consumer");
     if (m_aChildren != null)
       m_aChildren.findAllMapped (aFilter, aMapper, aConsumer);
-  }
-
-  public final void forAllChildrenRecursive (@Nonnull final Consumer <? super IMicroNode> aConsumer)
-  {
-    if (m_aChildren != null)
-      for (final IMicroNode aCurrent : m_aChildren)
-      {
-        aConsumer.accept (aCurrent);
-        aCurrent.forAllChildrenRecursive (aConsumer);
-      }
   }
 
   @Override
