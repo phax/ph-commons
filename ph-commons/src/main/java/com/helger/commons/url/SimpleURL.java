@@ -19,6 +19,7 @@ package com.helger.commons.url;
 import java.math.BigInteger;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
@@ -33,9 +34,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
-import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ICloneable;
@@ -51,7 +50,7 @@ import com.helger.commons.string.ToStringGenerator;
 public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
 {
   private final String m_sPath;
-  private ICommonsOrderedMap <String, String> m_aParams;
+  private final URLParameterList m_aParams = new URLParameterList ();
   private String m_sAnchor;
 
   public SimpleURL ()
@@ -86,27 +85,36 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
   }
 
   public SimpleURL (@Nonnull final String sHref,
-                    @Nonnull final Charset aCharset,
-                    @Nullable final Map <String, String> aParams)
-  {
-    this (sHref, aCharset);
-    addAll (aParams);
-  }
-
-  public SimpleURL (@Nonnull final String sHref,
                     @Nullable final Map <String, String> aParams,
                     @Nullable final String sAnchor)
   {
-    this (sHref, aParams);
+    this (sHref, URLHelper.CHARSET_URL_OBJ, aParams, sAnchor);
+  }
+
+  public SimpleURL (@Nonnull final String sHref,
+                    @Nonnull final Charset aCharset,
+                    @Nullable final Map <String, String> aParams,
+                    @Nullable final String sAnchor)
+  {
+    this (sHref, aCharset);
+    addAll (aParams);
     m_sAnchor = sAnchor;
   }
 
   public SimpleURL (@Nonnull final String sHref,
-                    @Nonnull final Charset aCharset,
-                    @Nullable final Map <String, String> aParams,
+                    @Nullable final List <URLParameter> aParams,
                     @Nullable final String sAnchor)
   {
-    this (sHref, aCharset, aParams);
+    this (sHref, URLHelper.CHARSET_URL_OBJ, aParams, sAnchor);
+  }
+
+  public SimpleURL (@Nonnull final String sHref,
+                    @Nonnull final Charset aCharset,
+                    @Nullable final List <URLParameter> aParams,
+                    @Nullable final String sAnchor)
+  {
+    this (sHref, aCharset);
+    addAll (aParams);
     m_sAnchor = sAnchor;
   }
 
@@ -116,7 +124,7 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
 
     m_sPath = aURL.getPath ();
     if (aURL.hasParams ())
-      m_aParams = aURL.getAllParams ();
+      m_aParams.addAll (aURL.directGetAllParams ());
     m_sAnchor = aURL.getAnchor ();
   }
 
@@ -128,113 +136,123 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
 
   public final boolean hasParams ()
   {
-    return CollectionHelper.isNotEmpty (m_aParams);
+    return m_aParams.isNotEmpty ();
   }
 
   @Nonnegative
   public final int getParamCount ()
   {
-    return CollectionHelper.getSize (m_aParams);
+    return m_aParams.size ();
   }
 
-  public final boolean containsParam (@Nullable final String sKey)
+  public final boolean containsParam (@Nullable final String sName)
   {
-    return m_aParams != null && m_aParams.containsKey (sKey);
+    return getParam (sName) != null;
   }
 
   @Nullable
-  public final String getParam (@Nullable final String sKey)
+  public final String getParam (@Nullable final String sName)
   {
-    if (m_aParams != null)
-    {
-      return m_aParams.get (sKey);
-    }
+    for (final URLParameter aParam : m_aParams)
+      if (aParam.hasName (sName))
+        return aParam.getValue ();
     return null;
   }
 
   @Nullable
-  public final ICommonsList <String> getAllParams (@Nullable final String sKey)
+  public final ICommonsList <String> getAllParams (@Nullable final String sName)
   {
-    final String sValue = getParam (sKey);
-    return sValue == null ? new CommonsArrayList<> () : new CommonsArrayList<> (sValue);
+    final ICommonsList <String> ret = new CommonsArrayList <> ();
+    for (final URLParameter aParam : m_aParams)
+      if (aParam.hasName (sName))
+        ret.add (aParam.getValue ());
+    return ret;
   }
 
   @Nonnull
   @ReturnsMutableObject ("design")
-  public final ICommonsOrderedMap <String, String> directGetAllParams ()
+  public final URLParameterList directGetAllParams ()
   {
     return m_aParams;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public final ICommonsOrderedMap <String, String> getAllParams ()
+  public final URLParameterList getAllParams ()
   {
-    return new CommonsLinkedHashMap<> (m_aParams);
+    return m_aParams.getClone ();
   }
 
   /**
    * Add a parameter without a value
    *
-   * @param sKey
+   * @param sName
    *        The name of the parameter. May neither be <code>null</code> nor
    *        empty.
    * @return this
    */
   @Nonnull
-  public SimpleURL add (@Nonnull @Nonempty final String sKey)
+  public SimpleURL add (@Nonnull @Nonempty final String sName)
   {
-    return add (sKey, "");
+    return add (sName, "");
   }
 
   @Nonnull
-  public SimpleURL add (@Nonnull @Nonempty final String sKey, @Nonnull final String sValue)
+  public SimpleURL add (@Nonnull final Map.Entry <String, String> aEntry)
   {
-    ValueEnforcer.notEmpty (sKey, "Key");
-    ValueEnforcer.notNull (sValue, "Value");
+    return add (aEntry.getKey (), aEntry.getValue ());
+  }
 
-    if (m_aParams == null)
-      m_aParams = new CommonsLinkedHashMap<> ();
-    m_aParams.put (sKey, sValue);
+  @Nonnull
+  public SimpleURL add (@Nonnull @Nonempty final String sName, @Nonnull final String sValue)
+  {
+    return add (new URLParameter (sName, sValue));
+  }
+
+  @Nonnull
+  public SimpleURL add (@Nonnull final URLParameter aParam)
+  {
+    ValueEnforcer.notNull (aParam, "Param");
+    m_aParams.add (aParam);
     return this;
   }
 
   @Nonnull
-  public SimpleURL add (@Nonnull @Nonempty final String sKey, final boolean bValue)
+  public SimpleURL add (@Nonnull @Nonempty final String sName, final boolean bValue)
   {
-    return add (sKey, Boolean.toString (bValue));
+    return add (sName, Boolean.toString (bValue));
   }
 
   @Nonnull
-  public SimpleURL add (@Nonnull @Nonempty final String sKey, final int nValue)
+  public SimpleURL add (@Nonnull @Nonempty final String sName, final int nValue)
   {
-    return add (sKey, Integer.toString (nValue));
+    return add (sName, Integer.toString (nValue));
   }
 
   @Nonnull
-  public SimpleURL add (@Nonnull @Nonempty final String sKey, final long nValue)
+  public SimpleURL add (@Nonnull @Nonempty final String sName, final long nValue)
   {
-    return add (sKey, Long.toString (nValue));
+    return add (sName, Long.toString (nValue));
   }
 
   @Nonnull
-  public SimpleURL add (@Nonnull @Nonempty final String sKey, @Nonnull final BigInteger aValue)
+  public SimpleURL add (@Nonnull @Nonempty final String sName, @Nonnull final BigInteger aValue)
   {
-    return add (sKey, aValue.toString ());
+    return add (sName, aValue.toString ());
   }
 
   @Nonnull
-  public SimpleURL addIfNonNull (@Nonnull @Nonempty final String sKey, @Nullable final String sValue)
+  public SimpleURL addIfNonNull (@Nonnull @Nonempty final String sName, @Nullable final String sValue)
   {
     if (sValue != null)
-      add (sKey, sValue);
+      add (sName, sValue);
     return this;
   }
 
   /**
    * Add the parameter of the passed value predicate evaluates to true.
    *
-   * @param sKey
+   * @param sName
    *        Parameter name. May neither be <code>null</code> nor empty.
    * @param sValue
    *        Parameter value. May not be <code>null</code> if the predicate
@@ -245,12 +263,12 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
    * @return this for chaining
    */
   @Nonnull
-  public SimpleURL addIf (@Nonnull @Nonempty final String sKey,
+  public SimpleURL addIf (@Nonnull @Nonempty final String sName,
                           @Nullable final String sValue,
                           @Nonnull final Predicate <String> aFilter)
   {
     if (aFilter.test (sValue))
-      add (sKey, sValue);
+      add (sName, sValue);
     return this;
   }
 
@@ -263,35 +281,42 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
     return this;
   }
 
-  /**
-   * Remove all parameter with the given name.
-   *
-   * @param sKey
-   *        The key to remove
-   * @return this
-   */
   @Nonnull
-  public SimpleURL remove (@Nullable final String sKey)
+  public final SimpleURL addAll (@Nullable final List <? extends URLParameter> aParams)
   {
-    if (m_aParams != null)
-      m_aParams.remove (sKey);
+    if (CollectionHelper.isNotEmpty (aParams))
+      for (final URLParameter aParam : aParams)
+        add (aParam);
     return this;
   }
 
   /**
    * Remove all parameter with the given name.
    *
-   * @param sKey
+   * @param sName
+   *        The key to remove
+   * @return this
+   */
+  @Nonnull
+  public SimpleURL remove (@Nullable final String sName)
+  {
+    m_aParams.remove (sName);
+    return this;
+  }
+
+  /**
+   * Remove all parameter with the given name.
+   *
+   * @param sName
    *        The key to remove. May be <code>null</code>.
    * @param sValue
    *        The value to be removed. May be <code>null</code>.
    * @return this
    */
   @Nonnull
-  public SimpleURL remove (@Nullable final String sKey, @Nullable final String sValue)
+  public SimpleURL remove (@Nullable final String sName, @Nullable final String sValue)
   {
-    if (m_aParams != null)
-      m_aParams.remove (sKey, sValue);
+    m_aParams.remove (sName, sValue);
     return this;
   }
 
@@ -323,7 +348,7 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
       return false;
     final SimpleURL rhs = (SimpleURL) o;
     return m_sPath.equals (rhs.m_sPath) &&
-           EqualsHelper.equals (m_aParams, rhs.m_aParams) &&
+           m_aParams.equals (rhs.m_aParams) &&
            EqualsHelper.equals (m_sAnchor, rhs.m_sAnchor);
   }
 
@@ -337,7 +362,7 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
   public String toString ()
   {
     return new ToStringGenerator (null).append ("path", m_sPath)
-                                       .appendIfNotNull ("params", m_aParams)
+                                       .appendIf ("params", m_aParams, ICommonsList::isNotEmpty)
                                        .appendIfNotNull ("anchor", m_sAnchor)
                                        .toString ();
   }

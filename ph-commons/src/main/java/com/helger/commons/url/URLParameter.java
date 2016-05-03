@@ -48,6 +48,18 @@ public class URLParameter
   }
 
   /**
+   * Check if this parameter has the specified name.
+   *
+   * @param sName
+   *        The name to check. May be <code>null</code>.
+   * @return <code>true</code> if name matches, <code>false</code> otherwise.
+   */
+  public boolean hasName (@Nullable final String sName)
+  {
+    return m_sName.equals (sName);
+  }
+
+  /**
    * @return The value of the URL parameter. Never <code>null</code> but maybe
    *         empty.
    */
@@ -64,6 +76,18 @@ public class URLParameter
   public boolean hasValue ()
   {
     return !m_sValue.isEmpty ();
+  }
+
+  /**
+   * Check if this parameter has the specified value.
+   *
+   * @param sValue
+   *        The value to check. May be <code>null</code>.
+   * @return <code>true</code> if value matches, <code>false</code> otherwise.
+   */
+  public boolean hasValue (@Nullable final String sValue)
+  {
+    return m_sValue.equals (sValue);
   }
 
   public void appendTo (@Nonnull final StringBuilder aSB,

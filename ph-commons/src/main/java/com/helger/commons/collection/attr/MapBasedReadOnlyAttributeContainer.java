@@ -19,6 +19,7 @@ package com.helger.commons.collection.attr;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.function.BiConsumer;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -98,6 +99,11 @@ public class MapBasedReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> implements 
   public ICommonsMap <KEYTYPE, VALUETYPE> getAllAttributes ()
   {
     return m_aAttrs.getClone ();
+  }
+
+  public void forAllAttributes (@Nonnull final BiConsumer <? super KEYTYPE, ? super VALUETYPE> aConsumer)
+  {
+    m_aAttrs.forEach (aConsumer);
   }
 
   @Nonnull
