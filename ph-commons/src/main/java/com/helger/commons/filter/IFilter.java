@@ -21,6 +21,7 @@ import java.util.Objects;
 import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * A generic filter interface for simple object selection. If you need an
@@ -77,5 +78,31 @@ public interface IFilter <DATATYPE> extends Serializable, Predicate <DATATYPE>
   static <DATATYPE> IFilter <DATATYPE> isNull ()
   {
     return (t) -> t == null;
+  }
+
+  @Nullable
+  static <DATATYPE> Predicate <DATATYPE> and (@Nullable final Predicate <DATATYPE> aFirst,
+                                              @Nullable final Predicate <DATATYPE> aSecond)
+  {
+    if (aFirst != null)
+    {
+      if (aSecond != null)
+        return aFirst.and (aSecond);
+      return aFirst;
+    }
+    return aSecond;
+  }
+
+  @Nullable
+  static <DATATYPE> Predicate <DATATYPE> or (@Nullable final Predicate <DATATYPE> aFirst,
+                                             @Nullable final Predicate <DATATYPE> aSecond)
+  {
+    if (aFirst != null)
+    {
+      if (aSecond != null)
+        return aFirst.or (aSecond);
+      return aFirst;
+    }
+    return aSecond;
   }
 }
