@@ -95,6 +95,16 @@ public final class Base32CodecTest
                                                                                               CHARSET,
                                                                                               EMessageDigestAlgorithm.SHA_256),
                                               CHARSET));
+    assertEquals ("XJ4BNP4PAHH6UQKBIDPF3LRCEOYAGYNDSYLXVHFUCD7WD4QACWWQ",
+                  aBase32.getEncodedAsString (MessageDigestGeneratorHelper.getAllDigestBytes ("abc",
+                                                                                              CHARSET,
+                                                                                              EMessageDigestAlgorithm.SHA_256),
+                                              CHARSET));
+    assertEquals ("WXKAIXB7IZX2SH7CZRVL46JDFINFPTPRAT32E3TRNYFB4J4J354A",
+                  aBase32.getEncodedAsString (MessageDigestGeneratorHelper.getAllDigestBytes ("ABC",
+                                                                                              CHARSET,
+                                                                                              EMessageDigestAlgorithm.SHA_256),
+                                              CHARSET));
   }
 
   @Test
