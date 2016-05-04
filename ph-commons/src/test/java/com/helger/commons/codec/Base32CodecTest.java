@@ -26,6 +26,8 @@ import java.util.Arrays;
 import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
+import com.helger.commons.messagedigest.EMessageDigestAlgorithm;
+import com.helger.commons.messagedigest.MessageDigestGeneratorHelper;
 
 /**
  * Test class for class {@link Base32Codec}
@@ -87,6 +89,12 @@ public final class Base32CodecTest
     assertEquals ("MZXW6YTB", aBase32.getEncodedAsString ("fooba", CHARSET));
     assertEquals ("MZXW6YTBOI", aBase32.getEncodedAsString ("foobar", CHARSET));
     assertEquals ("AAAAAAAA", aBase32.getEncodedAsString (new byte [] { 0, 0, 0, 0, 0 }, CHARSET));
+
+    assertEquals ("4444WYPIXHSTJGGABKB7QMG63KJNR7IFMXRALGPORDXI6ZF64HUA",
+                  aBase32.getEncodedAsString (MessageDigestGeneratorHelper.getAllDigestBytes ("urn:oasis:names:tc:ebcore:partyid-type:iso6523:0060:1234567890128",
+                                                                                              CHARSET,
+                                                                                              EMessageDigestAlgorithm.SHA_256),
+                                              CHARSET));
   }
 
   @Test
