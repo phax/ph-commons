@@ -19,7 +19,6 @@ package com.helger.commons.url;
 import java.math.BigInteger;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
@@ -102,7 +101,7 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
   }
 
   public SimpleURL (@Nonnull final String sHref,
-                    @Nullable final List <URLParameter> aParams,
+                    @Nullable final Iterable <? extends URLParameter> aParams,
                     @Nullable final String sAnchor)
   {
     this (sHref, URLHelper.CHARSET_URL_OBJ, aParams, sAnchor);
@@ -110,7 +109,7 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
 
   public SimpleURL (@Nonnull final String sHref,
                     @Nonnull final Charset aCharset,
-                    @Nullable final List <URLParameter> aParams,
+                    @Nullable final Iterable <? extends URLParameter> aParams,
                     @Nullable final String sAnchor)
   {
     this (sHref, aCharset);
@@ -162,7 +161,7 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
   @Nullable
   public final ICommonsList <String> getAllParams (@Nullable final String sName)
   {
-    final ICommonsList <String> ret = new CommonsArrayList<> ();
+    final ICommonsList <String> ret = new CommonsArrayList <> ();
     for (final URLParameter aParam : m_aParams)
       if (aParam.hasName (sName))
         ret.add (aParam.getValue ());
@@ -237,9 +236,9 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
   }
 
   @Nonnull
-  public SimpleURL add (@Nonnull @Nonempty final String sName, @Nonnull final BigInteger aValue)
+  public SimpleURL add (@Nonnull @Nonempty final String sName, @Nullable final BigInteger aValue)
   {
-    return add (sName, aValue.toString ());
+    return add (sName, aValue != null ? aValue.toString () : null);
   }
 
   /**
@@ -275,7 +274,7 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
   }
 
   @Nonnull
-  public final SimpleURL addAll (@Nullable final List <? extends URLParameter> aParams)
+  public final SimpleURL addAll (@Nullable final Iterable <? extends URLParameter> aParams)
   {
     if (CollectionHelper.isNotEmpty (aParams))
       for (final URLParameter aParam : aParams)
@@ -284,10 +283,11 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
   }
 
   /**
-   * Remove all parameter with the given name.
+   * Remove all parameters with the given name.
    *
    * @param sName
-   *        The key to remove
+   *        The key to remove. May be <code>null</code> in which case nothing
+   *        happens.
    * @return this
    */
   @Nonnull

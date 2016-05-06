@@ -185,6 +185,19 @@ public final class SimpleURLTest
     // 4b. only params
     aURL = new SimpleURL ("#", new SMap ("a", "b"));
     assertEquals ("?a=b", aURL.getAsStringWithEncodedParameters ());
+    assertEquals ("?a=b", aURL.getAsStringWithEncodedParameters ());
+    // 4c. only params
+    aURL = new SimpleURL ("#", new SMap ().add ("a", null));
+    assertEquals ("?a", aURL.getAsStringWithEncodedParameters ());
+    // 4d. only params
+    aURL = new SimpleURL ("#", new SMap ().add ("a", ""));
+    assertEquals ("?a", aURL.getAsStringWithEncodedParameters ());
+    // 4e. only params
+    aURL = new SimpleURL ("#").add ("a");
+    assertEquals ("?a", aURL.getAsStringWithEncodedParameters ());
+    // 4f. only params
+    aURL = new SimpleURL ("#").add ("a", (String) null);
+    assertEquals ("?a", aURL.getAsStringWithEncodedParameters ());
 
     // anchor
     // 1. default
