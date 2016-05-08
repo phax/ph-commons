@@ -29,7 +29,7 @@ jdk:
   - oraclejdk8
   
 install:
-  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U -P travis-install
   
 cache:
   directories:
