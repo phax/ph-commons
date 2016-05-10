@@ -61,6 +61,11 @@
     </developer>
   </developers>
   
+  <properties>
+    <!-- For surefire plugin (use property for JaCoCo integration -->
+    <argLine>-Xmx1024m</argLine>
+  </properties>
+  
   <dependencyManagement>
     <dependencies>
       <!-- We need annotations and not jsr305 because SuppressFBWarnings annotation is required! -->
@@ -112,16 +117,4 @@
     <module>ph-less-commons</module>
     <module>ph-jaxb</module>
   </modules>
-  
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-          <argLine>-Xmx1024m</argLine>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 </project>
