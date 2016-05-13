@@ -24,7 +24,7 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import com.helger.commons.random.VerySecureRandom;
+import com.helger.commons.random.RandomHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -40,7 +40,7 @@ public final class NonBlockingByteArrayInputStreamTest
   public void testAll () throws IOException
   {
     final byte [] buf = new byte [100];
-    VerySecureRandom.getInstance ().nextBytes (buf);
+    RandomHelper.getRandom ().nextBytes (buf);
     try
     {
       new NonBlockingByteArrayInputStream (null);

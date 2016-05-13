@@ -36,7 +36,7 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.IteratorHelper;
 import com.helger.commons.exception.LoggedRuntimeException;
 import com.helger.commons.io.file.SimpleFileIO;
-import com.helger.commons.random.VerySecureRandom;
+import com.helger.commons.random.RandomHelper;
 import com.helger.commons.state.EChange;
 import com.helger.commons.system.SystemHelper;
 
@@ -215,7 +215,7 @@ public final class HashCodeGeneratorTest
     final AtomicBoolean b = new AtomicBoolean (false);
     final Runnable r = () -> {
       final byte [] aBytes = new byte [10000];
-      VerySecureRandom.getInstance ().nextBytes (aBytes);
+      RandomHelper.getRandom ().nextBytes (aBytes);
       int i = 0;
       try
       {

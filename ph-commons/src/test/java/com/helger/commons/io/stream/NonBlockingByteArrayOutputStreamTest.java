@@ -22,7 +22,7 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import com.helger.commons.random.VerySecureRandom;
+import com.helger.commons.random.RandomHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -48,7 +48,7 @@ public final class NonBlockingByteArrayOutputStreamTest
 
     final NonBlockingByteArrayOutputStream b = new NonBlockingByteArrayOutputStream ();
     final byte [] buf = new byte [100];
-    VerySecureRandom.getInstance ().nextBytes (buf);
+    RandomHelper.getRandom ().nextBytes (buf);
     try
     {
       b.write (null, 0, 10);

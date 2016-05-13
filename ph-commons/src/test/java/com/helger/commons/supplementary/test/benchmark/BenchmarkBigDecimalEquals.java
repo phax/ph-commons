@@ -20,7 +20,7 @@ import java.math.BigDecimal;
 
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.random.VerySecureRandom;
+import com.helger.commons.random.RandomHelper;
 
 /**
  * This code benchmarks the performance of copying an array purely in Java
@@ -44,8 +44,8 @@ public final class BenchmarkBigDecimalEquals extends AbstractBenchmarkTask
   {
     final BigDecimal [] aNums = new BigDecimal [1000];
     for (int i = 0; i < aNums.length; ++i)
-      aNums[i] = BigDecimal.valueOf (VerySecureRandom.getInstance ().nextDouble () *
-                                     (50 + VerySecureRandom.getInstance ().nextDouble ()));
+      aNums[i] = BigDecimal.valueOf (RandomHelper.getRandom ().nextDouble () *
+                                     (50 + RandomHelper.getRandom ().nextDouble ()));
     s_aLogger.info ("Starting");
 
     final double dTime1 = benchmarkTask (new BigDecimalCompare (aNums));

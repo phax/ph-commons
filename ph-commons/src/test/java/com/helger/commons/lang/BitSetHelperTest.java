@@ -23,7 +23,7 @@ import java.util.BitSet;
 
 import org.junit.Test;
 
-import com.helger.commons.random.VerySecureRandom;
+import com.helger.commons.random.RandomHelper;
 
 /**
  * Test class for class {@link BitSetHelper}.
@@ -66,7 +66,7 @@ public final class BitSetHelperTest
 
     for (int i = 0; i < 1024; ++i)
     {
-      final int nValue = VerySecureRandom.getInstance ().nextInt ();
+      final int nValue = RandomHelper.getRandom ().nextInt ();
       assertEquals (nValue, BitSetHelper.getExtractedIntValue (BitSetHelper.createBitSet (nValue)));
     }
 
@@ -96,7 +96,7 @@ public final class BitSetHelperTest
 
     for (int i = 0; i < 1024; ++i)
     {
-      final long nValue = VerySecureRandom.getInstance ().nextLong ();
+      final long nValue = RandomHelper.getRandom ().nextLong ();
       assertEquals (nValue, BitSetHelper.getExtractedLongValue (BitSetHelper.createBitSet (nValue)));
     }
 

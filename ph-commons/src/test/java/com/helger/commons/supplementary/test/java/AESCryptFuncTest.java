@@ -32,7 +32,7 @@ import com.helger.commons.CGlobal;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.random.VerySecureRandom;
+import com.helger.commons.random.RandomHelper;
 import com.helger.commons.system.CryptoPolicy;
 
 public final class AESCryptFuncTest
@@ -91,7 +91,7 @@ public final class AESCryptFuncTest
       {
         // Why so ever - create an AES key on our own!
         final byte [] aBytes = new byte [nKeyLengthBytes];
-        VerySecureRandom.getInstance ().nextBytes (aBytes);
+        RandomHelper.getRandom ().nextBytes (aBytes);
         return new AESSecretKey (aBytes);
       }
     }

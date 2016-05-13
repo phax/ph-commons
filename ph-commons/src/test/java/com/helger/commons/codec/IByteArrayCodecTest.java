@@ -26,7 +26,7 @@ import org.junit.Test;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.random.VerySecureRandom;
+import com.helger.commons.random.RandomHelper;
 
 /**
  * Test class for class {@link ICodec}
@@ -76,7 +76,7 @@ public final class IByteArrayCodecTest
 
     // Get random bytes
     final byte [] aRandomBytes = new byte [256];
-    VerySecureRandom.getInstance ().nextBytes (aRandomBytes);
+    RandomHelper.getRandom ().nextBytes (aRandomBytes);
     _testCodec (c, aRandomBytes);
 
     for (int i = 0; i < 256; ++i)

@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.random.VerySecureRandom;
+import com.helger.commons.random.RandomHelper;
 
 /**
  * Test class for class {@link LZWCodec}.
@@ -4361,7 +4361,7 @@ public final class LZWCodecTest
   {
     // check larger buffers with potential overflows
     final byte [] buf = new byte [14200];
-    VerySecureRandom.getInstance ().nextBytes (buf);
+    RandomHelper.getRandom ().nextBytes (buf);
     _testEncodeDecode (buf);
   }
 }

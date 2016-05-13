@@ -28,7 +28,7 @@ import javax.annotation.Nonnull;
 import org.junit.Test;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.random.VerySecureRandom;
+import com.helger.commons.random.RandomHelper;
 
 public final class IntObjectMapTest
 {
@@ -97,9 +97,9 @@ public final class IntObjectMapTest
 
   private void _testPutRandom (final float fillFactor)
   {
-    final Random aRandom = VerySecureRandom.getInstance ();
+    final Random aRandom = RandomHelper.getRandom ();
     final int SIZE = 100 * 1000;
-    final Set <Integer> set = new HashSet <Integer> (SIZE);
+    final Set <Integer> set = new HashSet <> (SIZE);
     final int [] vals = new int [SIZE];
     while (set.size () < SIZE)
       set.add (Integer.valueOf (aRandom.nextInt ()));
