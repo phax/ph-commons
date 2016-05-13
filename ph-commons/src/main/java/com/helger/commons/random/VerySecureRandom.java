@@ -19,12 +19,14 @@ package com.helger.commons.random;
 import java.security.SecureRandom;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 
 /**
@@ -35,8 +37,10 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 @Immutable
 public final class VerySecureRandom
 {
+  public static final int DEFAULT_RE_SEED_INTERVAL = 20;
   private static final Logger s_aLogger = LoggerFactory.getLogger (VerySecureRandom.class);
 
+  private static final int SEED_BYTE_COUNT = 16;
   private static final SecureRandom s_aSecureRandom;
 
   /**
@@ -105,8 +109,8 @@ public final class VerySecureRandom
 
     // Initialize SecureRandom
     // This is a lengthy operation, to be done only upon
-    // initialization of the application. Especial with Java <= 1.5 this whole
-    // block takes more or less forever.
+    // initialization of the application. Especial with Java <= 1.5 on Linux
+    // this whole block takes more or less forever.
     final SecureRandom aSecureRandom = _createSecureRandomInstance ();
 
     // Seed first with the current time
@@ -119,7 +123,7 @@ public final class VerySecureRandom
       s_aLogger.debug ("Generating intial seed for VerySecureRandom");
 
     // Create secure number generators with the random seed
-    final byte [] aSeed = aSecureRandom.generateSeed (16);
+    final byte [] aSeed = aSecureRandom.generateSeed (SEED_BYTE_COUNT);
 
     // Initialize main secure random
     s_aSecureRandom = _createSecureRandomInstance ();
@@ -132,7 +136,35 @@ public final class VerySecureRandom
   private VerySecureRandom ()
   {}
 
+  private static final AtomicInteger s_aReSeedInterval = new AtomicInteger (DEFAULT_RE_SEED_INTERVAL);
   private static final AtomicInteger s_aCounter = new AtomicInteger (0);
+
+  /**
+   * Set the interval of {@link #getInstance()} calls after which the random
+   * should be re-seeded.
+   *
+   * @param nReseedInterval
+   *        The re-seed interval. Must be &ge; 0. The value of 0 means: don't
+   *        re-seed. The default value is {@value #DEFAULT_RE_SEED_INTERVAL}.
+   */
+  public static void setReSeedInterval (@Nonnegative final int nReseedInterval)
+  {
+    ValueEnforcer.isGE0 (nReseedInterval, "ReseedInterval");
+    s_aReSeedInterval.set (nReseedInterval);
+  }
+
+  /**
+   * Get the interval of {@link #getInstance()} calls after which the random
+   * should be re-seeded.
+   *
+   * @return The re-seed interval. Always &ge; 0. The value of 0 means: don't
+   *         re-seed. The default value is {@value #DEFAULT_RE_SEED_INTERVAL}.
+   */
+  @Nonnegative
+  public static int getReSeedInterval ()
+  {
+    return s_aReSeedInterval.get ();
+  }
 
   /**
    * @return The {@link SecureRandom} instance that does the hard work. Never
@@ -141,14 +173,16 @@ public final class VerySecureRandom
   @Nonnull
   public static SecureRandom getInstance ()
   {
-    if ((s_aCounter.incrementAndGet () % 20) == 0)
-    {
-      if (s_aLogger.isDebugEnabled ())
-        s_aLogger.debug ("Re-seeding VerySecureRandom");
+    final int nReSeedInterval = getReSeedInterval ();
+    if (nReSeedInterval > 0)
+      if ((s_aCounter.incrementAndGet () % nReSeedInterval) == 0)
+      {
+        if (s_aLogger.isDebugEnabled ())
+          s_aLogger.debug ("Re-seeding VerySecureRandom");
 
-      // Re-seed sometimes :)
-      s_aSecureRandom.setSeed (s_aSecureRandom.generateSeed (10));
-    }
+        // Re-seed
+        s_aSecureRandom.setSeed (s_aSecureRandom.generateSeed (SEED_BYTE_COUNT));
+      }
 
     return s_aSecureRandom;
   }
