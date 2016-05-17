@@ -16,8 +16,6 @@
  */
 package com.helger.commons.collection.multimap;
 
-import javax.annotation.Nonnull;
-
 import com.helger.commons.collection.ext.ICommonsSet;
 
 /**
@@ -34,6 +32,5 @@ import com.helger.commons.collection.ext.ICommonsSet;
 public interface IMultiMapSetBased <KEYTYPE, VALUETYPE, COLLTYPE extends ICommonsSet <VALUETYPE>>
                                    extends IMultiMap <KEYTYPE, VALUETYPE, COLLTYPE>
 {
-  @Nonnull
-  IMultiMapSetBased <KEYTYPE, VALUETYPE, COLLTYPE> getClone ();
+  /* empty */
 }
