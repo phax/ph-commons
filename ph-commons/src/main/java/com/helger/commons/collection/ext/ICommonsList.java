@@ -94,7 +94,7 @@ public interface ICommonsList <ELEMENTTYPE> extends
   /**
    * Special forEach that takes an {@link ObjIntConsumer} which is provided the
    * value AND the index.
-   * 
+   *
    * @param aConsumer
    *        The consumer to use. May not be <code>null</code>.
    */
@@ -205,7 +205,7 @@ public interface ICommonsList <ELEMENTTYPE> extends
   }
 
   @Nonnull
-  default ICommonsList <ELEMENTTYPE> getSorted (@Nonnull final Comparator <? super ELEMENTTYPE> aComparator)
+  default ICommonsList <ELEMENTTYPE> getSortedInline (@Nonnull final Comparator <? super ELEMENTTYPE> aComparator)
   {
     sort (aComparator);
     return this;
