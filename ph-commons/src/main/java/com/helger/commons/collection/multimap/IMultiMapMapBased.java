@@ -41,6 +41,9 @@ import com.helger.commons.state.EChange;
 public interface IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
                                    extends ICommonsMap <KEYTYPE1, ICommonsMap <KEYTYPE2, VALUETYPE>>
 {
+  @Nonnull
+  IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE> getClone ();
+
   /**
    * Get or create the collection of the specified key.
    *

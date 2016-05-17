@@ -35,6 +35,9 @@ import com.helger.commons.state.EChange;
 public interface IMultiMapListBased <KEYTYPE, VALUETYPE>
                                     extends IMultiMap <KEYTYPE, VALUETYPE, ICommonsList <VALUETYPE>>
 {
+  @Nonnull
+  IMultiMapListBased <KEYTYPE, VALUETYPE> getClone ();
+
   /**
    * Add a single value into the container identified by the passed key at the
    * specified index.
