@@ -52,7 +52,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
   @ReturnsMutableCopy
   default ICommonsList <ELEMENTTYPE> getCopyAsList ()
   {
-    return new CommonsArrayList <> (this);
+    return new CommonsArrayList<> (this);
   }
 
   default void findAll (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
@@ -221,7 +221,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
   @Nonnull
   default ICommonsList <ELEMENTTYPE> getSorted (@Nonnull final Comparator <? super ELEMENTTYPE> aComparator)
   {
-    return new CommonsArrayList <> (this).getSorted (aComparator);
+    return new CommonsArrayList<> (this).getSortedInline (aComparator);
   }
 
   default void addIf (@Nullable final ELEMENTTYPE aValue, @Nonnull final Predicate <ELEMENTTYPE> aFilter)
@@ -348,6 +348,6 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
   @Nonnull
   default IIterableIterator <ELEMENTTYPE> iterator2 ()
   {
-    return new IterableIterator <> (this);
+    return new IterableIterator<> (this);
   }
 }
