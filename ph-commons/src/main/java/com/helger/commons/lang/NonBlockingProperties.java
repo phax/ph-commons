@@ -31,7 +31,7 @@ import javax.annotation.Nullable;
 import javax.annotation.WillNotClose;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.collection.ext.CommonsTreeMap;
+import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.io.stream.NonBlockingBufferedWriter;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
@@ -80,7 +80,7 @@ import com.helger.commons.system.ENewLineMode;
  * @author Xueming Shen
  * @author Philip Helger
  */
-public class NonBlockingProperties extends CommonsTreeMap <String, String>
+public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
 {
   /**
    * A property list that contains default values for any keys not found in this
