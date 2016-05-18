@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.util.List;
+import java.util.function.Consumer;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -112,6 +113,26 @@ public final class SimpleFileIO
   {
     if (aFile != null)
       StreamHelper.readStreamLines (FileHelper.getInputStream (aFile), aCharset, aTargetList);
+  }
+
+  /**
+   * Get the content of the passed file as a list of lines, whereas each line
+   * does not contain a separator.
+   *
+   * @param aFile
+   *        The file to read. May be <code>null</code>.
+   * @param aCharset
+   *        The character set to use. May not be <code>null</code>.
+   * @param aConsumer
+   *        The consumer to be invoked for each line. May not be
+   *        <code>null</code>.
+   */
+  public static void readFileLines (@Nullable final File aFile,
+                                    @Nonnull final Charset aCharset,
+                                    @Nonnull final Consumer <String> aConsumer)
+  {
+    if (aFile != null)
+      StreamHelper.readStreamLines (FileHelper.getInputStream (aFile), aCharset, aConsumer);
   }
 
   @Nonnull
