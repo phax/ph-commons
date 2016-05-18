@@ -906,7 +906,7 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
    *         <code>null</code>.
    */
   @Nonnull
-  public static NonBlockingProperties create (@Nullable final Properties aProperties)
+  public static NonBlockingProperties create (@Nullable final Map <Object, Object> aProperties)
   {
     final NonBlockingProperties ret = new NonBlockingProperties ();
     if (aProperties != null)
