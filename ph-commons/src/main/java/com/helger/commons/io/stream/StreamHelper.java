@@ -40,6 +40,7 @@ import java.io.Writer;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.ObjIntConsumer;
 
 import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnegative;
@@ -386,7 +387,7 @@ public final class StreamHelper
   @Nonnegative
   private static long _copyInputStreamToOutputStream (@Nonnull @WillNotClose final InputStream aIS,
                                                       @Nonnull @WillNotClose final OutputStream aOS,
-                                                      @Nonnull @WillNotClose final byte [] aBuffer) throws IOException
+                                                      @Nonnull final byte [] aBuffer) throws IOException
   {
     long nTotalBytesWritten = 0;
     int nBytesRead;
@@ -676,8 +677,8 @@ public final class StreamHelper
    *         {@link ESuccess#FAILURE}</code> otherwise
    */
   @Nonnull
-  public static ESuccess copyReaderToWriterAndCloseWriter (@WillClose @Nullable final Reader aReader,
-                                                           @WillClose @Nullable final Writer aWriter)
+  public static ESuccess copyReaderToWriterAndCloseWriter (@Nullable @WillClose final Reader aReader,
+                                                           @Nullable @WillClose final Writer aWriter)
   {
     try
     {
@@ -706,8 +707,8 @@ public final class StreamHelper
    *         {@link ESuccess#FAILURE}</code> otherwise
    */
   @Nonnull
-  public static ESuccess copyReaderToWriterWithLimitAndCloseWriter (@WillClose @Nullable final Reader aReader,
-                                                                    @WillClose @Nullable final Writer aWriter,
+  public static ESuccess copyReaderToWriterWithLimitAndCloseWriter (@Nullable @WillClose final Reader aReader,
+                                                                    @Nullable @WillClose final Writer aWriter,
                                                                     @Nonnegative final long nLimit)
   {
     try
@@ -816,8 +817,8 @@ public final class StreamHelper
   }
 
   @Nonnegative
-  private static long _copyReaderToWriter (@Nonnull final Reader aReader,
-                                           @Nonnull final Writer aWriter,
+  private static long _copyReaderToWriter (@Nonnull @WillNotClose final Reader aReader,
+                                           @Nonnull @WillNotClose final Writer aWriter,
                                            @Nonnull final char [] aBuffer) throws IOException
   {
     long nTotalCharsWritten = 0;
@@ -832,8 +833,8 @@ public final class StreamHelper
   }
 
   @Nonnegative
-  private static long _copyReaderToWriterWithLimit (@Nonnull final Reader aReader,
-                                                    @Nonnull final Writer aWriter,
+  private static long _copyReaderToWriterWithLimit (@Nonnull @WillNotClose final Reader aReader,
+                                                    @Nonnull @WillNotClose final Writer aWriter,
                                                     @Nonnull final char [] aBuffer,
                                                     @Nonnegative final long nLimit) throws IOException
   {
@@ -914,8 +915,8 @@ public final class StreamHelper
    *         {@link ESuccess#FAILURE}</code> otherwise
    */
   @Nonnull
-  public static ESuccess copyReaderToWriter (@WillClose @Nullable final Reader aReader,
-                                             @WillNotClose @Nullable final Writer aWriter,
+  public static ESuccess copyReaderToWriter (@Nullable @WillClose final Reader aReader,
+                                             @Nullable @WillNotClose final Writer aWriter,
                                              @Nonnull @Nonempty final char [] aBuffer,
                                              @Nullable final MutableLong aCopyCharCount,
                                              @Nullable final Long aLimit)
@@ -1125,7 +1126,7 @@ public final class StreamHelper
       return null;
 
     // Read stream and collect all read lines in a list
-    final ICommonsList <String> ret = new CommonsArrayList <> ();
+    final ICommonsList <String> ret = new CommonsArrayList<> ();
     readStreamLines (aIS, aCharset, nLinesToSkip, nLinesToRead, ret::add);
     return ret;
   }
@@ -1441,7 +1442,7 @@ public final class StreamHelper
    *         In case reading fails
    */
   @Nonnegative
-  public static int readFully (@Nonnull final InputStream aIS,
+  public static int readFully (@Nonnull @WillNotClose final InputStream aIS,
                                @Nonnull final byte [] aBuffer,
                                @Nonnegative final int nOfs,
                                @Nonnegative final int nLen) throws IOException
@@ -1463,6 +1464,82 @@ public final class StreamHelper
       nTotalBytesRead += nBytesRead;
     }
     return nTotalBytesRead;
+  }
+
+  private static void _readUntilEOF (@Nonnull @WillNotClose final InputStream aIS,
+                                     @Nonnull final byte [] aBuffer,
+                                     @Nonnull final ObjIntConsumer <byte []> aConsumer) throws IOException
+  {
+    ValueEnforcer.notNull (aIS, "InputStream");
+    ValueEnforcer.notNull (aBuffer, "Buffer");
+    ValueEnforcer.notNull (aConsumer, "Consumer");
+
+    int nBytesRead;
+    // Potentially blocking read
+    while ((nBytesRead = aIS.read (aBuffer, 0, aBuffer.length)) > -1)
+      aConsumer.accept (aBuffer, nBytesRead);
+  }
+
+  public static void readUntilEOF (@Nonnull @WillClose final InputStream aIS,
+                                   @Nonnull final ObjIntConsumer <byte []> aConsumer) throws IOException
+  {
+    readUntilEOF (aIS, new byte [DEFAULT_BUFSIZE], aConsumer);
+  }
+
+  public static void readUntilEOF (@Nonnull @WillClose final InputStream aIS,
+                                   @Nonnull final byte [] aBuffer,
+                                   @Nonnull final ObjIntConsumer <byte []> aConsumer) throws IOException
+  {
+    ValueEnforcer.notNull (aIS, "InputStream");
+    ValueEnforcer.notNull (aBuffer, "Buffer");
+    ValueEnforcer.notNull (aConsumer, "Consumer");
+
+    try
+    {
+      _readUntilEOF (aIS, aBuffer, aConsumer);
+    }
+    finally
+    {
+      close (aIS);
+    }
+  }
+
+  private static void _readUntilEOF (@Nonnull @WillNotClose final Reader aReader,
+                                     @Nonnull final char [] aBuffer,
+                                     @Nonnull final ObjIntConsumer <char []> aConsumer) throws IOException
+  {
+    ValueEnforcer.notNull (aReader, "Reader");
+    ValueEnforcer.notNull (aBuffer, "Buffer");
+    ValueEnforcer.notNull (aConsumer, "Consumer");
+
+    int nCharsRead;
+    // Potentially blocking read
+    while ((nCharsRead = aReader.read (aBuffer, 0, aBuffer.length)) > -1)
+      aConsumer.accept (aBuffer, nCharsRead);
+  }
+
+  public static void readUntilEOF (@Nonnull @WillClose final Reader aReader,
+                                   @Nonnull final ObjIntConsumer <char []> aConsumer) throws IOException
+  {
+    readUntilEOF (aReader, new char [DEFAULT_BUFSIZE], aConsumer);
+  }
+
+  public static void readUntilEOF (@Nonnull @WillClose final Reader aReader,
+                                   @Nonnull final char [] aBuffer,
+                                   @Nonnull final ObjIntConsumer <char []> aConsumer) throws IOException
+  {
+    ValueEnforcer.notNull (aReader, "Reader");
+    ValueEnforcer.notNull (aBuffer, "Buffer");
+    ValueEnforcer.notNull (aConsumer, "Consumer");
+
+    try
+    {
+      _readUntilEOF (aReader, aBuffer, aConsumer);
+    }
+    finally
+    {
+      close (aReader);
+    }
   }
 
   public static boolean isBuffered (@Nullable final InputStream aIS)
