@@ -61,6 +61,19 @@ public class LRUMap <KEYTYPE, VALUETYPE> extends CommonsLinkedHashMap <KEYTYPE, 
     m_nMaxSize = nMaxSize;
   }
 
+  public LRUMap (@Nonnull final LRUMap <KEYTYPE, VALUETYPE> rhs)
+  {
+    this (rhs.m_nMaxSize);
+    putAll (rhs);
+  }
+
+  @Override
+  @Nonnull
+  public LRUMap <KEYTYPE, VALUETYPE> getClone ()
+  {
+    return new LRUMap <> (this);
+  }
+
   /**
    * @return The maximum number of elements that can reside inside this object.
    *         Never &lt; 0.

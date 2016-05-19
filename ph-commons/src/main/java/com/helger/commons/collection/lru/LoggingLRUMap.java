@@ -54,6 +54,19 @@ public class LoggingLRUMap <KEYTYPE, VALUETYPE> extends LRUMap <KEYTYPE, VALUETY
     super (nMaxSize);
   }
 
+  public LoggingLRUMap (@Nonnull final LoggingLRUMap <KEYTYPE, VALUETYPE> rhs)
+  {
+    super (rhs);
+    setMapName (rhs.m_sMapName);
+  }
+
+  @Override
+  @Nonnull
+  public LoggingLRUMap <KEYTYPE, VALUETYPE> getClone ()
+  {
+    return new LoggingLRUMap <> (this);
+  }
+
   @Nullable
   public String getMapName ()
   {

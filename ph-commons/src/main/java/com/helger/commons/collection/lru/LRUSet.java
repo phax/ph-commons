@@ -16,7 +16,6 @@
  */
 package com.helger.commons.collection.lru;
 
-import java.io.Serializable;
 import java.util.AbstractSet;
 import java.util.Iterator;
 import java.util.Map;
@@ -28,6 +27,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.UseDirectEqualsAndHashCode;
+import com.helger.commons.collection.ext.ICommonsOrderedSet;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -42,7 +42,7 @@ import com.helger.commons.string.ToStringGenerator;
  */
 @NotThreadSafe
 @UseDirectEqualsAndHashCode
-public class LRUSet <ELEMENTTYPE> extends AbstractSet <ELEMENTTYPE> implements Serializable
+public class LRUSet <ELEMENTTYPE> extends AbstractSet <ELEMENTTYPE> implements ICommonsOrderedSet <ELEMENTTYPE>
 {
   @UseDirectEqualsAndHashCode
   private final class LRUCacheMap extends LRUMap <ELEMENTTYPE, Boolean>
@@ -50,6 +50,11 @@ public class LRUSet <ELEMENTTYPE> extends AbstractSet <ELEMENTTYPE> implements S
     LRUCacheMap (@Nonnegative final int nMaxSize)
     {
       super (nMaxSize);
+    }
+
+    LRUCacheMap (@Nonnull final LRUCacheMap rhs)
+    {
+      super (rhs);
     }
 
     @Override
@@ -65,6 +70,17 @@ public class LRUSet <ELEMENTTYPE> extends AbstractSet <ELEMENTTYPE> implements S
   public LRUSet (@Nonnegative final int nMaxSize)
   {
     m_aMap = new LRUCacheMap (nMaxSize);
+  }
+
+  public LRUSet (@Nonnegative final LRUSet <ELEMENTTYPE> rhs)
+  {
+    m_aMap = new LRUCacheMap (rhs.m_aMap);
+  }
+
+  @Nonnull
+  public LRUSet <ELEMENTTYPE> getClone ()
+  {
+    return new LRUSet <> (this);
   }
 
   /**
