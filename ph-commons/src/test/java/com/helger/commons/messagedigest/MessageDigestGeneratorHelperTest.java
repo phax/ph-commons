@@ -38,7 +38,7 @@ public final class MessageDigestGeneratorHelperTest
     for (final EMessageDigestAlgorithm eAlgo : EMessageDigestAlgorithm.values ())
     {
       // Create 2 MDGens
-      final IMessageDigestGenerator aMD1 = new MessageDigestGenerator (eAlgo);
+      final IMessageDigestGenerator aMD1 = new NonBlockingMessageDigestGenerator (eAlgo);
       final IMessageDigestGenerator aMD2 = new NonBlockingMessageDigestGenerator (eAlgo);
       for (int i = 0; i < 255; ++i)
       {
@@ -51,8 +51,6 @@ public final class MessageDigestGeneratorHelperTest
 
       // Results must be equal
       assertArrayEquals (aMD1.getAllDigestBytes (), aMD2.getAllDigestBytes ());
-      assertEquals (MessageDigestGeneratorHelper.getLongFromDigest (aMD1.getAllDigestBytes ()),
-                    MessageDigestGeneratorHelper.getLongFromDigest (aMD2.getAllDigestBytes ()));
       assertEquals (MessageDigestGeneratorHelper.getHexValueFromDigest (aMD1.getAllDigestBytes ()),
                     MessageDigestGeneratorHelper.getHexValueFromDigest (aMD2.getAllDigestBytes ()));
 

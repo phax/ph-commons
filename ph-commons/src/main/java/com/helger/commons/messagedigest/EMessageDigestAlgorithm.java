@@ -16,6 +16,10 @@
  */
 package com.helger.commons.messagedigest;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.Provider;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -53,6 +57,20 @@ public enum EMessageDigestAlgorithm
   public String getAlgorithm ()
   {
     return m_sAlgorithm;
+  }
+
+  @Nonnull
+  public MessageDigest getMessageDigest () throws NoSuchAlgorithmException
+  {
+    return MessageDigest.getInstance (m_sAlgorithm);
+  }
+
+  @Nonnull
+  public MessageDigest getMessageDigest (@Nullable final Provider aSecurityProvider) throws NoSuchAlgorithmException
+  {
+    if (aSecurityProvider == null)
+      return getMessageDigest ();
+    return MessageDigest.getInstance (m_sAlgorithm, aSecurityProvider);
   }
 
   @Nullable

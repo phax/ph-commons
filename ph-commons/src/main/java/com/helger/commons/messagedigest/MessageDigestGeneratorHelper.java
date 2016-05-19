@@ -25,7 +25,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.WillClose;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
@@ -47,17 +46,6 @@ public final class MessageDigestGeneratorHelper
 
   private MessageDigestGeneratorHelper ()
   {}
-
-  public static long getLongFromDigest (@Nonnull final byte [] aDigest)
-  {
-    long nDigest = 0;
-    for (int i = 0; i < aDigest.length; i += 2)
-    {
-      // Since we have bytes, we can use the 8 bits constant
-      nDigest += (byte) (aDigest[i] << CGlobal.BITS_PER_BYTE) | aDigest[i + 1];
-    }
-    return nDigest;
-  }
 
   @Nonnull
   public static String getHexValueFromDigest (@Nonnull final byte [] aDigest)
@@ -177,21 +165,14 @@ public final class MessageDigestGeneratorHelper
     ValueEnforcer.notNull (aIS, "InputStream");
     ValueEnforcer.notNull (aMDGen, "MDGen");
 
-    final byte [] aBuf = new byte [2048];
     try
     {
-      int nBytesRead;
-      while ((nBytesRead = aIS.read (aBuf)) > -1)
-        aMDGen.update (aBuf, 0, nBytesRead);
+      StreamHelper.readUntilEOF (aIS, (aBytes, nBytesRead) -> aMDGen.update (aBytes, 0, nBytesRead));
       return aMDGen.getAllDigestBytes ();
     }
     catch (final IOException ex)
     {
       throw new IllegalStateException ("Failed to read from InputStream for digesting!", ex);
-    }
-    finally
-    {
-      StreamHelper.close (aIS);
     }
   }
 }

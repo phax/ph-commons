@@ -18,7 +18,6 @@ package com.helger.commons.messagedigest;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
 import java.security.Provider;
 import java.util.Arrays;
 
@@ -53,28 +52,20 @@ public final class NonBlockingMessageDigestGenerator implements IMessageDigestGe
   private byte [] m_aDigest;
 
   @Nonnull
-  private static MessageDigest _createMD (@Nullable final String sProvider,
+  private static MessageDigest _createMD (@Nullable final Provider aProvider,
                                           @Nonnull final EMessageDigestAlgorithm... aAlgorithms)
   {
     MessageDigest aMessageDigest = null;
     for (final EMessageDigestAlgorithm eMD : aAlgorithms)
       try
       {
-        if (sProvider == null)
-          aMessageDigest = MessageDigest.getInstance (eMD.getAlgorithm ());
-        else
-          aMessageDigest = MessageDigest.getInstance (eMD.getAlgorithm (), sProvider);
+        aMessageDigest = eMD.getMessageDigest (aProvider);
         break;
       }
       catch (final NoSuchAlgorithmException ex)
       {
         // Unknown algorithm -> goto next
         s_aLogger.warn ("Unsupported message digest algorithm '" + eMD.getAlgorithm () + "' found");
-      }
-      catch (final NoSuchProviderException ex)
-      {
-        // Unknown provider - stop iteration
-        throw new IllegalArgumentException ("Unsupported security provider '" + sProvider + "' found", ex);
       }
 
     if (aMessageDigest == null)
@@ -99,13 +90,13 @@ public final class NonBlockingMessageDigestGenerator implements IMessageDigestGe
    * Create a default hash generator with the default algorithm and the
    * specified security provider
    *
-   * @param sProvider
+   * @param aProvider
    *        Security provider to be used. May be <code>null</code> to indicate
    *        the default.
    */
-  public NonBlockingMessageDigestGenerator (@Nullable final String sProvider)
+  public NonBlockingMessageDigestGenerator (@Nullable final Provider aProvider)
   {
-    this (sProvider, EMessageDigestAlgorithm.DEFAULT);
+    this (aProvider, EMessageDigestAlgorithm.DEFAULT);
   }
 
   /**
@@ -127,7 +118,7 @@ public final class NonBlockingMessageDigestGenerator implements IMessageDigestGe
   /**
    * Create a hash generator with a set of possible algorithms to use.
    *
-   * @param sProvider
+   * @param aProvider
    *        Security provider to be used. May be <code>null</code> to indicate
    *        the default.
    * @param aAlgorithms
@@ -138,11 +129,11 @@ public final class NonBlockingMessageDigestGenerator implements IMessageDigestGe
    * @throws IllegalArgumentException
    *         If no algorithm was passed or if no applicable algorithm was used.
    */
-  public NonBlockingMessageDigestGenerator (@Nullable final String sProvider,
+  public NonBlockingMessageDigestGenerator (@Nullable final Provider aProvider,
                                             @Nonnull @Nonempty final EMessageDigestAlgorithm... aAlgorithms)
   {
     ValueEnforcer.notEmpty (aAlgorithms, "Algortihms");
-    m_aMessageDigest = _createMD (sProvider, aAlgorithms);
+    m_aMessageDigest = _createMD (aProvider, aAlgorithms);
   }
 
   @Nonnull

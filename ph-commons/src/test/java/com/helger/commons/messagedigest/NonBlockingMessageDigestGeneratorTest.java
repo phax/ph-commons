@@ -42,22 +42,19 @@ public final class NonBlockingMessageDigestGeneratorTest
     assertEquals (aAlgo[0].getAlgorithm (), y.getAlgorithmName ());
     y.update ("Any ", CCharset.CHARSET_ISO_8859_1_OBJ);
     y.update ("string", CCharset.CHARSET_ISO_8859_1_OBJ);
-    assertEquals (x.getDigestLong (), y.getDigestLong ());
     assertEquals (x.getDigestHexString (), y.getDigestHexString ());
-    assertEquals (x.getDigestLong (), x.getDigestLong ());
     assertEquals (x.getDigestHexString (), x.getDigestHexString ());
-    assertEquals (y.getDigestLong (), y.getDigestLong ());
     assertEquals (y.getDigestHexString (), y.getDigestHexString ());
 
-    long nSaved = 0;
+    String sSaved = null;
     for (int i = 0; i < 5; ++i)
     {
       final IMessageDigestGenerator z = new NonBlockingMessageDigestGenerator (aAlgo);
       z.update ((byte) 12);
       if (i == 0)
-        nSaved = z.getDigestLong ();
+        sSaved = z.getDigestHexString ();
       else
-        assertEquals (z.getDigestLong (), nSaved);
+        assertEquals (z.getDigestHexString (), sSaved);
     }
   }
 
@@ -98,7 +95,7 @@ public final class NonBlockingMessageDigestGeneratorTest
     catch (final IllegalArgumentException ex)
     {}
 
-    final IMessageDigestGenerator md = new MessageDigestGenerator ();
+    final IMessageDigestGenerator md = new NonBlockingMessageDigestGenerator ();
     try
     {
       md.update ((byte []) null);

@@ -147,18 +147,6 @@ public interface IMessageDigestGenerator
   byte [] getAllDigestBytes (@Nonnegative int nLength);
 
   /**
-   * This method finalizes the hash generation and creates the index. Calls
-   * {@link #getAllDigestBytes()} internally so no further update is possible
-   * after this method is called.
-   *
-   * @return the generated hash value.
-   */
-  default long getDigestLong ()
-  {
-    return MessageDigestGeneratorHelper.getLongFromDigest (getAllDigestBytes ());
-  }
-
-  /**
    * This method converts the current hash digest to a hex string. Calls
    * {@link #getAllDigestBytes()} internally so no further update is possible
    * after this method is called.
