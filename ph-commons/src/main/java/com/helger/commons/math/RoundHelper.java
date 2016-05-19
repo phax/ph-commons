@@ -20,6 +20,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.Locale;
 
 import javax.annotation.Nonnegative;
@@ -185,7 +186,7 @@ public final class RoundHelper
       return Double.toString (dValue);
 
     // Avoid negative scales
-    final DecimalFormat aDF = new DecimalFormat ();
+    final DecimalFormat aDF = (DecimalFormat) NumberFormat.getInstance (aLocale);
     aDF.setDecimalFormatSymbols (DecimalFormatSymbols.getInstance (aLocale));
     aDF.setMaximumFractionDigits (nScale);
     aDF.setMinimumFractionDigits (nScale);

@@ -18,6 +18,7 @@ package com.helger.commons.log;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -45,7 +46,7 @@ public class LogMessage implements IErrorBase <LogMessage>
                      @Nonnull final Serializable aMsg,
                      @Nullable final Throwable aThrowable)
   {
-    this (LocalDateTime.now (), aErrorLevel, aMsg, aThrowable);
+    this (LocalDateTime.now (ZoneId.systemDefault ()), aErrorLevel, aMsg, aThrowable);
   }
 
   public LogMessage (@Nonnull final LocalDateTime aIssueDT,

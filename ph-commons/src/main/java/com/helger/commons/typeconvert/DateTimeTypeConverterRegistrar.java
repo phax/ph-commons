@@ -22,6 +22,8 @@ import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
@@ -60,14 +62,16 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
 
     // Destination: GregorianCalendar
     aRegistry.registerTypeConverter (String.class, GregorianCalendar.class, aSource -> {
-      final GregorianCalendar aCal = new GregorianCalendar ();
+      final GregorianCalendar aCal = new GregorianCalendar (TimeZone.getDefault (),
+                                                            Locale.getDefault (Locale.Category.FORMAT));
       aCal.setTimeInMillis (StringParser.parseLong (aSource, 0));
       return aCal;
     });
     aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (Number.class,
                                                                          GregorianCalendar.class,
                                                                          aSource -> {
-                                                                           final GregorianCalendar aCal = new GregorianCalendar ();
+                                                                           final GregorianCalendar aCal = new GregorianCalendar (TimeZone.getDefault (),
+                                                                                                                                 Locale.getDefault (Locale.Category.FORMAT));
                                                                            aCal.setTimeInMillis (aSource.longValue ());
                                                                            return aCal;
                                                                          });
@@ -78,7 +82,7 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
 
     // Source: Date
     aRegistry.registerTypeConverter (Date.class, Calendar.class, aSource -> {
-      final Calendar aCal = Calendar.getInstance ();
+      final Calendar aCal = Calendar.getInstance (TimeZone.getDefault (), Locale.getDefault (Locale.Category.FORMAT));
       aCal.setTime (aSource);
       return aCal;
     });

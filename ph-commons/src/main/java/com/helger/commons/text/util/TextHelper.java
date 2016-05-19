@@ -68,7 +68,7 @@ public final class TextHelper
       return sText;
     }
 
-    return MessageFormat.format (sText, aArgs);
+    return new MessageFormat (sText, Locale.getDefault (Locale.Category.FORMAT)).format (aArgs);
   }
 
   @Nullable
