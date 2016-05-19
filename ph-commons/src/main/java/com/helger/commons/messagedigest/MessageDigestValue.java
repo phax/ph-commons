@@ -17,11 +17,14 @@
 package com.helger.commons.messagedigest;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.security.MessageDigest;
 import java.util.Arrays;
 
 import javax.annotation.Nonnull;
+import javax.annotation.WillClose;
 import javax.annotation.WillNotClose;
 import javax.annotation.concurrent.Immutable;
 
@@ -31,6 +34,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -69,7 +73,7 @@ public class MessageDigestValue implements Serializable
   @Nonnull
   @Nonempty
   @ReturnsMutableCopy
-  public byte [] getDigestBytes ()
+  public byte [] getAllDigestBytes ()
   {
     return ArrayHelper.getCopy (m_aDigestBytes);
   }
@@ -94,7 +98,7 @@ public class MessageDigestValue implements Serializable
    */
   @Nonnull
   @Nonempty
-  public String getDigestString ()
+  public String getHexEncodedDigestString ()
   {
     return StringHelper.getHexEncoded (m_aDigestBytes);
   }
@@ -139,7 +143,29 @@ public class MessageDigestValue implements Serializable
   public static MessageDigestValue create (@Nonnull final byte [] aBytes,
                                            @Nonnull final EMessageDigestAlgorithm eAlgorithm)
   {
-    final byte [] aDigestBytes = MessageDigestGeneratorHelper.getAllDigestBytes (aBytes, eAlgorithm);
-    return new MessageDigestValue (eAlgorithm, aDigestBytes);
+    final MessageDigest aMD = eAlgorithm.createMessageDigest ();
+    aMD.update (aBytes);
+    return new MessageDigestValue (eAlgorithm, aMD.digest ());
+  }
+
+  /**
+   * Create a new {@link MessageDigestValue} object based on the passed source
+   * {@link InputStream}.
+   *
+   * @param aIS
+   *        The input stream to read from. May not be <code>null</code>.
+   * @param eAlgorithm
+   *        The algorithm to be used. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   * @throws IOException
+   *         In case reading throws an IOException
+   */
+  @Nonnull
+  public static MessageDigestValue create (@Nonnull @WillClose final InputStream aIS,
+                                           @Nonnull final EMessageDigestAlgorithm eAlgorithm) throws IOException
+  {
+    final MessageDigest aMD = eAlgorithm.createMessageDigest ();
+    StreamHelper.readUntilEOF (aIS, (aBytes, nBytes) -> aMD.update (aBytes, 0, nBytes));
+    return new MessageDigestValue (eAlgorithm, aMD.digest ());
   }
 }

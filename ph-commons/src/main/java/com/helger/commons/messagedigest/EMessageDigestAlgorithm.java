@@ -40,11 +40,6 @@ public enum EMessageDigestAlgorithm
   SHA_384 ("SHA-384"),
   SHA_512 ("SHA-512");
 
-  /**
-   * The default algorithm that should be used.
-   */
-  public static final EMessageDigestAlgorithm DEFAULT = SHA_512;
-
   private final String m_sAlgorithm;
 
   private EMessageDigestAlgorithm (@Nonnull @Nonempty final String sAlgorithm)
@@ -60,17 +55,24 @@ public enum EMessageDigestAlgorithm
   }
 
   @Nonnull
-  public MessageDigest getMessageDigest () throws NoSuchAlgorithmException
+  public MessageDigest createMessageDigest ()
   {
-    return MessageDigest.getInstance (m_sAlgorithm);
+    return createMessageDigest (null);
   }
 
   @Nonnull
-  public MessageDigest getMessageDigest (@Nullable final Provider aSecurityProvider) throws NoSuchAlgorithmException
+  public MessageDigest createMessageDigest (@Nullable final Provider aSecurityProvider)
   {
-    if (aSecurityProvider == null)
-      return getMessageDigest ();
-    return MessageDigest.getInstance (m_sAlgorithm, aSecurityProvider);
+    try
+    {
+      if (aSecurityProvider == null)
+        return MessageDigest.getInstance (m_sAlgorithm);
+      return MessageDigest.getInstance (m_sAlgorithm, aSecurityProvider);
+    }
+    catch (final NoSuchAlgorithmException ex)
+    {
+      throw new IllegalStateException ("Failed to resolve MessageDigest algorithm '" + m_sAlgorithm + "'", ex);
+    }
   }
 
   @Nullable
