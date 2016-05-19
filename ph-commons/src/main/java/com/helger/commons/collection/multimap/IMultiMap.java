@@ -25,6 +25,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.collection.ext.ICommonsCollection;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.state.EChange;
 
@@ -39,7 +40,7 @@ import com.helger.commons.state.EChange;
  * @param <COLLTYPE>
  *        Container type containing value types
  */
-public interface IMultiMap <KEYTYPE, VALUETYPE, COLLTYPE extends Collection <VALUETYPE>>
+public interface IMultiMap <KEYTYPE, VALUETYPE, COLLTYPE extends ICommonsCollection <VALUETYPE>>
                            extends ICommonsMap <KEYTYPE, COLLTYPE>
 {
   /**

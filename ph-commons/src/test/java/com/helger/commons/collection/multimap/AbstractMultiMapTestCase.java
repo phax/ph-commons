@@ -30,6 +30,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsCollection;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.ext.ICommonsNavigableSet;
@@ -103,14 +104,14 @@ public abstract class AbstractMultiMapTestCase
     return CollectionHelper.newMap (getKey1 (), getValueSetNavigable1 ());
   }
 
-  protected final <COLLTYPE extends Collection <String>> void testEmpty (final IMultiMap <String, String, COLLTYPE> aMultiMap)
+  protected final <COLLTYPE extends ICommonsCollection <String>> void testEmpty (final IMultiMap <String, String, COLLTYPE> aMultiMap)
   {
     assertTrue (aMultiMap.isEmpty ());
     aMultiMap.putSingle (getKey1 (), getValue1 ());
     testOne (aMultiMap);
   }
 
-  protected final <COLLTYPE extends Collection <String>> void testOne (final IMultiMap <String, String, COLLTYPE> aMultiMap)
+  protected final <COLLTYPE extends ICommonsCollection <String>> void testOne (final IMultiMap <String, String, COLLTYPE> aMultiMap)
   {
     assertEquals (1, aMultiMap.size ());
     aMultiMap.putSingle ("Boris", "Wien");
