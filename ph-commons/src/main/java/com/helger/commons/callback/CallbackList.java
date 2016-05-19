@@ -30,8 +30,9 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.CommonsLinkedHashSet;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsOrderedSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.state.EChange;
@@ -54,7 +55,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback>
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
   @GuardedBy ("m_aRWLock")
-  private final ICommonsList <CALLBACKTYPE> m_aCallbacks = new CommonsArrayList <> ();
+  private final ICommonsOrderedSet <CALLBACKTYPE> m_aCallbacks = new CommonsLinkedHashSet <> ();
 
   public CallbackList ()
   {}
@@ -112,7 +113,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback>
   @ReturnsMutableCopy
   public ICommonsList <CALLBACKTYPE> getAllCallbacks ()
   {
-    return m_aRWLock.readLocked ( () -> m_aCallbacks.getClone ());
+    return m_aRWLock.readLocked ( () -> m_aCallbacks.getCopyAsList ());
   }
 
   @Nullable
