@@ -23,11 +23,11 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsLinkedHashMap;
-import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsOrderedMap;
 
 public class MultiLinkedHashMapLinkedHashMapBased <KEYTYPE1, KEYTYPE2 extends Comparable <? super KEYTYPE2>, VALUETYPE>
                                                   extends
-                                                  AbstractMultiLinkedHashMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
+                                                  AbstractMultiLinkedHashMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE, ICommonsOrderedMap <KEYTYPE2, VALUETYPE>>
 {
   public MultiLinkedHashMapLinkedHashMapBased ()
   {}
@@ -40,12 +40,12 @@ public class MultiLinkedHashMapLinkedHashMapBased <KEYTYPE1, KEYTYPE2 extends Co
   }
 
   public MultiLinkedHashMapLinkedHashMapBased (@Nullable final KEYTYPE1 aKey,
-                                               @Nullable final ICommonsMap <KEYTYPE2, VALUETYPE> aValue)
+                                               @Nullable final Map <? extends KEYTYPE2, ? extends VALUETYPE> aValue)
   {
     super (aKey, aValue);
   }
 
-  public MultiLinkedHashMapLinkedHashMapBased (@Nullable final Map <? extends KEYTYPE1, ? extends ICommonsMap <KEYTYPE2, VALUETYPE>> aCont)
+  public MultiLinkedHashMapLinkedHashMapBased (@Nullable final Map <? extends KEYTYPE1, ? extends Map <? extends KEYTYPE2, ? extends VALUETYPE>> aCont)
   {
     super (aCont);
   }
@@ -55,6 +55,6 @@ public class MultiLinkedHashMapLinkedHashMapBased <KEYTYPE1, KEYTYPE2 extends Co
   @ReturnsMutableCopy
   protected CommonsLinkedHashMap <KEYTYPE2, VALUETYPE> createNewInnerMap ()
   {
-    return new CommonsLinkedHashMap <> ();
+    return new CommonsLinkedHashMap<> ();
   }
 }

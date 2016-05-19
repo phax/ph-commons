@@ -25,8 +25,8 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsMap;
 
-public class MultiHashMapHashMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
-                                      extends AbstractMultiHashMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
+public class MultiHashMapHashMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE> extends
+                                      AbstractMultiHashMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE, ICommonsMap <KEYTYPE2, VALUETYPE>>
 {
   public MultiHashMapHashMapBased ()
   {}
@@ -39,12 +39,12 @@ public class MultiHashMapHashMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
   }
 
   public MultiHashMapHashMapBased (@Nullable final KEYTYPE1 aKey,
-                                   @Nullable final ICommonsMap <KEYTYPE2, VALUETYPE> aValue)
+                                   @Nullable final Map <? extends KEYTYPE2, ? extends VALUETYPE> aValue)
   {
     super (aKey, aValue);
   }
 
-  public MultiHashMapHashMapBased (@Nullable final Map <? extends KEYTYPE1, ? extends ICommonsMap <KEYTYPE2, VALUETYPE>> aCont)
+  public MultiHashMapHashMapBased (@Nullable final Map <? extends KEYTYPE1, ? extends Map <? extends KEYTYPE2, ? extends VALUETYPE>> aCont)
   {
     super (aCont);
   }
@@ -54,6 +54,6 @@ public class MultiHashMapHashMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
   @ReturnsMutableCopy
   protected CommonsHashMap <KEYTYPE2, VALUETYPE> createNewInnerMap ()
   {
-    return new CommonsHashMap <> ();
+    return new CommonsHashMap<> ();
   }
 }

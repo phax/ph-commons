@@ -37,9 +37,11 @@ import com.helger.commons.state.EChange;
  *        Key type of inner map
  * @param <VALUETYPE>
  *        Element type
+ * @param <MAPTYPE>
+ *        Inner map type
  */
-public interface IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
-                                   extends ICommonsMap <KEYTYPE1, ICommonsMap <KEYTYPE2, VALUETYPE>>
+public interface IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE, MAPTYPE extends ICommonsMap <KEYTYPE2, VALUETYPE>>
+                                   extends ICommonsMap <KEYTYPE1, MAPTYPE>
 {
   /**
    * Get or create the collection of the specified key.
@@ -51,7 +53,7 @@ public interface IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
    */
   @Nonnull
   @ReturnsMutableObject ("design")
-  Map <KEYTYPE2, VALUETYPE> getOrCreate (@Nonnull KEYTYPE1 aKey);
+  MAPTYPE getOrCreate (@Nonnull KEYTYPE1 aKey);
 
   /**
    * Add a single value into the container identified by the passed key.
@@ -101,7 +103,7 @@ public interface IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
   @Nonnull
   default EChange removeSingle (@Nonnull final KEYTYPE1 aKey, @Nonnull final KEYTYPE2 aInnerKey)
   {
-    final Map <KEYTYPE2, VALUETYPE> aCont = get (aKey);
+    final MAPTYPE aCont = get (aKey);
     return aCont == null ? EChange.UNCHANGED : EChange.valueOf (aCont.remove (aInnerKey) != null);
   }
 
@@ -117,7 +119,7 @@ public interface IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
   @Nullable
   default VALUETYPE getSingle (@Nonnull final KEYTYPE1 aKey, @Nonnull final KEYTYPE2 aInnerKey)
   {
-    final Map <KEYTYPE2, VALUETYPE> aCont = get (aKey);
+    final MAPTYPE aCont = get (aKey);
     return aCont == null ? null : aCont.get (aInnerKey);
   }
 
@@ -133,7 +135,7 @@ public interface IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
    */
   default boolean containsSingle (@Nonnull final KEYTYPE1 aKey, @Nonnull final KEYTYPE2 aInnerKey)
   {
-    final Map <KEYTYPE2, VALUETYPE> aCont = get (aKey);
+    final MAPTYPE aCont = get (aKey);
     return aCont != null && aCont.containsKey (aInnerKey);
   }
 
@@ -152,7 +154,7 @@ public interface IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
 
   default void forEachSingle (@Nonnull final ITriConsumer <KEYTYPE1, KEYTYPE2, VALUETYPE> aConsumer)
   {
-    for (final Entry <KEYTYPE1, ICommonsMap <KEYTYPE2, VALUETYPE>> aEntry : entrySet ())
+    for (final Entry <KEYTYPE1, MAPTYPE> aEntry : entrySet ())
       for (final Map.Entry <KEYTYPE2, VALUETYPE> aEntry2 : aEntry.getValue ().entrySet ())
         aConsumer.accept (aEntry.getKey (), aEntry2.getKey (), aEntry2.getValue ());
   }

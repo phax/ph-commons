@@ -27,7 +27,7 @@ import com.helger.commons.collection.ext.ICommonsMap;
 
 public class MultiLinkedHashMapWeakHashMapBased <KEYTYPE1, KEYTYPE2 extends Comparable <? super KEYTYPE2>, VALUETYPE>
                                                 extends
-                                                AbstractMultiLinkedHashMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
+                                                AbstractMultiLinkedHashMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE, ICommonsMap <KEYTYPE2, VALUETYPE>>
 {
   public MultiLinkedHashMapWeakHashMapBased ()
   {}
@@ -40,12 +40,12 @@ public class MultiLinkedHashMapWeakHashMapBased <KEYTYPE1, KEYTYPE2 extends Comp
   }
 
   public MultiLinkedHashMapWeakHashMapBased (@Nullable final KEYTYPE1 aKey,
-                                             @Nullable final ICommonsMap <KEYTYPE2, VALUETYPE> aValue)
+                                             @Nullable final Map <? extends KEYTYPE2, ? extends VALUETYPE> aValue)
   {
     super (aKey, aValue);
   }
 
-  public MultiLinkedHashMapWeakHashMapBased (@Nullable final Map <? extends KEYTYPE1, ? extends ICommonsMap <KEYTYPE2, VALUETYPE>> aCont)
+  public MultiLinkedHashMapWeakHashMapBased (@Nullable final Map <? extends KEYTYPE1, ? extends Map <? extends KEYTYPE2, ? extends VALUETYPE>> aCont)
   {
     super (aCont);
   }
@@ -55,6 +55,6 @@ public class MultiLinkedHashMapWeakHashMapBased <KEYTYPE1, KEYTYPE2 extends Comp
   @ReturnsMutableCopy
   protected CommonsWeakHashMap <KEYTYPE2, VALUETYPE> createNewInnerMap ()
   {
-    return new CommonsWeakHashMap <> ();
+    return new CommonsWeakHashMap<> ();
   }
 }

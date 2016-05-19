@@ -26,8 +26,8 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsMap;
 
-public class MultiTreeMapHashMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
-                                      extends AbstractMultiTreeMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
+public class MultiTreeMapHashMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE> extends
+                                      AbstractMultiTreeMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE, ICommonsMap <KEYTYPE2, VALUETYPE>>
 {
   public MultiTreeMapHashMapBased ()
   {}
@@ -45,12 +45,12 @@ public class MultiTreeMapHashMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
   }
 
   public MultiTreeMapHashMapBased (@Nullable final KEYTYPE1 aKey,
-                                   @Nullable final ICommonsMap <KEYTYPE2, VALUETYPE> aValue)
+                                   @Nullable final ICommonsMap <? extends KEYTYPE2, ? extends VALUETYPE> aValue)
   {
     super (aKey, aValue);
   }
 
-  public MultiTreeMapHashMapBased (@Nullable final Map <? extends KEYTYPE1, ? extends ICommonsMap <KEYTYPE2, VALUETYPE>> aCont)
+  public MultiTreeMapHashMapBased (@Nullable final Map <? extends KEYTYPE1, ? extends Map <? extends KEYTYPE2, ? extends VALUETYPE>> aCont)
   {
     super (aCont);
   }
@@ -60,6 +60,6 @@ public class MultiTreeMapHashMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
   @ReturnsMutableCopy
   protected CommonsHashMap <KEYTYPE2, VALUETYPE> createNewInnerMap ()
   {
-    return new CommonsHashMap <> ();
+    return new CommonsHashMap<> ();
   }
 }

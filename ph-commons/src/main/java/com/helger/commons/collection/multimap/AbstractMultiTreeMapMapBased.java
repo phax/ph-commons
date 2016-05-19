@@ -36,11 +36,13 @@ import com.helger.commons.collection.ext.ICommonsMap;
  *        inner key type
  * @param <VALUETYPE>
  *        value type
+ * @param <MAPTYPE>
+ *        Inner map type
  */
 @NotThreadSafe
-public abstract class AbstractMultiTreeMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
-                                                   extends CommonsTreeMap <KEYTYPE1, ICommonsMap <KEYTYPE2, VALUETYPE>>
-                                                   implements IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
+public abstract class AbstractMultiTreeMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE, MAPTYPE extends ICommonsMap <KEYTYPE2, VALUETYPE>>
+                                                   extends CommonsTreeMap <KEYTYPE1, MAPTYPE>
+                                                   implements IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE, MAPTYPE>
 {
   public AbstractMultiTreeMapMapBased ()
   {}
@@ -58,22 +60,29 @@ public abstract class AbstractMultiTreeMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYP
   }
 
   public AbstractMultiTreeMapMapBased (@Nullable final KEYTYPE1 aKey,
-                                       @Nullable final ICommonsMap <KEYTYPE2, VALUETYPE> aValue)
+                                       @Nullable final Map <? extends KEYTYPE2, ? extends VALUETYPE> aValue)
   {
-    put (aKey, aValue);
+    final MAPTYPE aMap = createNewInnerMap ();
+    aMap.putAll (aValue);
+    put (aKey, aMap);
   }
 
-  public AbstractMultiTreeMapMapBased (@Nullable final Map <? extends KEYTYPE1, ? extends ICommonsMap <KEYTYPE2, VALUETYPE>> aCont)
+  public AbstractMultiTreeMapMapBased (@Nullable final Map <? extends KEYTYPE1, ? extends Map <? extends KEYTYPE2, ? extends VALUETYPE>> aCont)
   {
     if (aCont != null)
-      putAll (aCont);
+      for (final Map.Entry <? extends KEYTYPE1, ? extends Map <? extends KEYTYPE2, ? extends VALUETYPE>> aEntry : aCont.entrySet ())
+      {
+        final MAPTYPE aMap = createNewInnerMap ();
+        aMap.putAll (aEntry.getValue ());
+        put (aEntry.getKey (), aMap);
+      }
   }
 
   @Nonnull
-  protected abstract ICommonsMap <KEYTYPE2, VALUETYPE> createNewInnerMap ();
+  protected abstract MAPTYPE createNewInnerMap ();
 
   @Nonnull
-  public ICommonsMap <KEYTYPE2, VALUETYPE> getOrCreate (@Nullable final KEYTYPE1 aKey)
+  public MAPTYPE getOrCreate (@Nullable final KEYTYPE1 aKey)
   {
     return computeIfAbsent (aKey, k -> createNewInnerMap ());
   }

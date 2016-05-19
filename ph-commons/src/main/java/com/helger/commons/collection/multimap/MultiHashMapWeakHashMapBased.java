@@ -25,8 +25,8 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsWeakHashMap;
 import com.helger.commons.collection.ext.ICommonsMap;
 
-public class MultiHashMapWeakHashMapBased <KEYTYPE1, KEYTYPE2 extends Comparable <? super KEYTYPE2>, VALUETYPE>
-                                          extends AbstractMultiHashMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE>
+public class MultiHashMapWeakHashMapBased <KEYTYPE1, KEYTYPE2 extends Comparable <? super KEYTYPE2>, VALUETYPE> extends
+                                          AbstractMultiHashMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE, ICommonsMap <KEYTYPE2, VALUETYPE>>
 {
   public MultiHashMapWeakHashMapBased ()
   {}
@@ -39,12 +39,12 @@ public class MultiHashMapWeakHashMapBased <KEYTYPE1, KEYTYPE2 extends Comparable
   }
 
   public MultiHashMapWeakHashMapBased (@Nullable final KEYTYPE1 aKey,
-                                       @Nullable final ICommonsMap <KEYTYPE2, VALUETYPE> aValue)
+                                       @Nullable final Map <? extends KEYTYPE2, ? extends VALUETYPE> aValue)
   {
     super (aKey, aValue);
   }
 
-  public MultiHashMapWeakHashMapBased (@Nullable final Map <? extends KEYTYPE1, ? extends ICommonsMap <KEYTYPE2, VALUETYPE>> aCont)
+  public MultiHashMapWeakHashMapBased (@Nullable final Map <? extends KEYTYPE1, ? extends Map <? extends KEYTYPE2, ? extends VALUETYPE>> aCont)
   {
     super (aCont);
   }
@@ -54,6 +54,6 @@ public class MultiHashMapWeakHashMapBased <KEYTYPE1, KEYTYPE2 extends Comparable
   @ReturnsMutableCopy
   protected CommonsWeakHashMap <KEYTYPE2, VALUETYPE> createNewInnerMap ()
   {
-    return new CommonsWeakHashMap <> ();
+    return new CommonsWeakHashMap<> ();
   }
 }
