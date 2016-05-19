@@ -42,14 +42,14 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default ICommonsSet <KEYTYPE> copyOfKeySet ()
   {
-    return new CommonsHashSet <> (keySet ());
+    return new CommonsHashSet<> (keySet ());
   }
 
   @Nonnull
   @ReturnsMutableCopy
   default ICommonsList <VALUETYPE> copyOfValues ()
   {
-    return new CommonsArrayList <> (values ());
+    return new CommonsArrayList<> (values ());
   }
 
   @Nonnull
@@ -82,7 +82,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default ICommonsSet <Map.Entry <KEYTYPE, VALUETYPE>> copyOfEntrySet ()
   {
-    return new CommonsHashSet <> (entrySet ());
+    return new CommonsHashSet<> (entrySet ());
   }
 
   /**
@@ -149,6 +149,21 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
     return aEntry == null ? null : aEntry.getValue ();
   }
 
+  default boolean containsAnyEntry (@Nullable final Predicate <? super Map.Entry <KEYTYPE, VALUETYPE>> aFilter)
+  {
+    return CollectionHelper.containsAny (entrySet (), aFilter);
+  }
+
+  default boolean containsAnyKey (@Nullable final Predicate <? super KEYTYPE> aFilter)
+  {
+    return CollectionHelper.containsAny (keySet (), aFilter);
+  }
+
+  default boolean containsAnyValue (@Nullable final Predicate <? super VALUETYPE> aFilter)
+  {
+    return CollectionHelper.containsAny (values (), aFilter);
+  }
+
   /**
    * Get the map sorted by its keys. The comparison order is defined by the
    * passed comparator object.
@@ -188,7 +203,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default ICommonsMap <VALUETYPE, KEYTYPE> getSwappedKeyValues ()
   {
-    final ICommonsMap <VALUETYPE, KEYTYPE> ret = new CommonsHashMap <> ();
+    final ICommonsMap <VALUETYPE, KEYTYPE> ret = new CommonsHashMap<> ();
     for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : entrySet ())
       ret.put (aEntry.getValue (), aEntry.getKey ());
     return ret;
