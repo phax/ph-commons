@@ -78,7 +78,25 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
   private ClassLoader m_aClassLoader;
 
   /**
-   * Constructor.
+   * Constructor without XSD paths.
+   *
+   * @param aType
+   *        The class of the JAXB document implementation type. May not be
+   *        <code>null</code>.
+   * @param aWrapper
+   *        Wrap the passed domain object into a {@link JAXBElement} for
+   *        marshalling (writing). This can usually be done using the
+   *        respective's package ObjectFactory implementation. May not be
+   *        <code>null</code>.
+   */
+  protected AbstractJAXBMarshaller (@Nonnull final Class <JAXBTYPE> aType,
+                                    @Nonnull final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
+  {
+    this (aType, null, aWrapper);
+  }
+
+  /**
+   * Constructor with XSD paths.
    *
    * @param aType
    *        The class of the JAXB document implementation type. May not be
