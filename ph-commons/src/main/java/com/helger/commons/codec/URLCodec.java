@@ -42,7 +42,7 @@ public class URLCodec implements IByteArrayCodec
   private static final byte PLUS = '+';
 
   /**
-   * BitSet of www-form-url safe characters.
+   * BitSet of www-form-url safe characters. RFC 3986 unreserved characters
    */
   private static final BitSet PRINTABLE_CHARS = new BitSet (256);
 
@@ -60,7 +60,7 @@ public class URLCodec implements IByteArrayCodec
     PRINTABLE_CHARS.set ('-');
     PRINTABLE_CHARS.set ('_');
     PRINTABLE_CHARS.set ('.');
-    PRINTABLE_CHARS.set ('*');
+    PRINTABLE_CHARS.set ('~');
     // blank to be replaced with +
     PRINTABLE_CHARS.set (SPACE);
   }
@@ -106,12 +106,13 @@ public class URLCodec implements IByteArrayCodec
    * @param b
    *        byte to encode
    * @param aOS
-   *        the output stream to write to
+   *        the output stream to write to. May not be <code>null</code>.
    * @throws IOException
    *         In case writing to the OutputStream failed
    */
   public static final void writeEncodedURLByte (final int b, @Nonnull final OutputStream aOS) throws IOException
   {
+    // Hax chars should be upper case as defined in RFC 3986 section 2.1
     final char cHigh = StringHelper.getHexCharUpperCase ((b >> 4) & 0xF);
     final char cLow = StringHelper.getHexCharUpperCase (b & 0xF);
     aOS.write (ESCAPE_CHAR);
