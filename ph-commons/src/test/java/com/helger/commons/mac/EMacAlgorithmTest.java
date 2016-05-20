@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.messagedigest;
+package com.helger.commons.mac;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNotNull;
@@ -22,8 +22,11 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
-import java.security.MessageDigest;
+import java.security.InvalidKeyException;
 import java.util.Locale;
+
+import javax.crypto.Mac;
+import javax.crypto.SecretKey;
 
 import org.junit.Test;
 
@@ -32,39 +35,41 @@ import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.string.StringHelper;
 
 /**
- * Test class for class {@link EMessageDigestAlgorithm}.
+ * Test class for class {@link EMacAlgorithm}.
  *
  * @author Philip Helger
  */
-public final class EMessageDigestAlgorithmTest
+public final class EMacAlgorithmTest
 {
   @Test
   public void testAll ()
   {
-    for (final EMessageDigestAlgorithm eAlgo : EMessageDigestAlgorithm.values ())
+    for (final EMacAlgorithm eAlgo : EMacAlgorithm.values ())
     {
       assertTrue (StringHelper.hasText (eAlgo.getAlgorithm ()));
-      assertNotNull (eAlgo.createMessageDigest ());
-      assertSame (eAlgo, EMessageDigestAlgorithm.getFromStringIgnoreCase (eAlgo.getAlgorithm ()));
-      assertSame (eAlgo,
-                  EMessageDigestAlgorithm.getFromStringIgnoreCase (eAlgo.getAlgorithm ().toLowerCase (Locale.US)));
-      assertSame (eAlgo,
-                  EMessageDigestAlgorithm.getFromStringIgnoreCase (eAlgo.getAlgorithm ().toUpperCase (Locale.US)));
-      assertSame (eAlgo, EMessageDigestAlgorithm.valueOf (eAlgo.name ()));
+      assertNotNull (eAlgo.createMac ());
+      assertSame (eAlgo, EMacAlgorithm.getFromStringIgnoreCase (eAlgo.getAlgorithm ()));
+      assertSame (eAlgo, EMacAlgorithm.getFromStringIgnoreCase (eAlgo.getAlgorithm ().toLowerCase (Locale.US)));
+      assertSame (eAlgo, EMacAlgorithm.getFromStringIgnoreCase (eAlgo.getAlgorithm ().toUpperCase (Locale.US)));
+      assertSame (eAlgo, EMacAlgorithm.valueOf (eAlgo.name ()));
     }
-    assertNull (EMessageDigestAlgorithm.getFromStringIgnoreCase (null));
-    assertNull (EMessageDigestAlgorithm.getFromStringIgnoreCase ("bla"));
+    assertNull (EMacAlgorithm.getFromStringIgnoreCase (null));
+    assertNull (EMacAlgorithm.getFromStringIgnoreCase ("bla"));
   }
 
   @Test
-  public void testConsistency ()
+  public void testConsistency () throws InvalidKeyException
   {
     // For all algorithms
-    for (final EMessageDigestAlgorithm eAlgo : EMessageDigestAlgorithm.values ())
+    for (final EMacAlgorithm eAlgo : EMacAlgorithm.values ())
     {
-      // Create 2 MDGens
-      final MessageDigest aMD1 = eAlgo.createMessageDigest ();
-      final MessageDigest aMD2 = eAlgo.createMessageDigest ();
+      final SecretKey aSigningKey = eAlgo.createSecretKey ("keyForTestingPurposesOnly".getBytes (CCharset.CHARSET_ISO_8859_1_OBJ));
+
+      // Create 2 Macs
+      final Mac aMD1 = eAlgo.createMac ();
+      aMD1.init (aSigningKey);
+      final Mac aMD2 = eAlgo.createMac ();
+      aMD2.init (aSigningKey);
       for (int i = 0; i < 255; ++i)
       {
         final byte [] aBytes = CharsetManager.getAsBytes ("abc" + i + "def", CCharset.CHARSET_ISO_8859_1_OBJ);
@@ -75,7 +80,7 @@ public final class EMessageDigestAlgorithmTest
       }
 
       // Results must be equal
-      assertArrayEquals (aMD1.digest (), aMD2.digest ());
+      assertArrayEquals (aMD1.doFinal (), aMD2.doFinal ());
     }
   }
 }
