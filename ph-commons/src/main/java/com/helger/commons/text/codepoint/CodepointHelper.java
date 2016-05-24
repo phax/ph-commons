@@ -186,7 +186,7 @@ public final class CodepointHelper
    */
   public static void insert (@Nonnull final CharSequence aSeq, final int nIndex, final int nCodepoint)
   {
-    if (!(aSeq instanceof StringBuilder) && !(aSeq instanceof StringBuffer))
+    if (!(aSeq instanceof StringBuilder))
     {
       insert (new StringBuilder (aSeq), nIndex, nCodepoint);
     }
@@ -202,10 +202,7 @@ public final class CodepointHelper
           nI--;
         }
       }
-      if (aSeq instanceof StringBuffer)
-        ((StringBuffer) aSeq).insert (nI, getAsCharArray (nCodepoint));
-      else
-        ((StringBuilder) aSeq).insert (nI, getAsCharArray (nCodepoint));
+      ((StringBuilder) aSeq).insert (nI, Character.toChars (nCodepoint));
     }
   }
 
@@ -308,19 +305,6 @@ public final class CodepointHelper
   /**
    * @param nCodepoint
    *        codepoint
-   * @return the char[] representation of the codepoint, automatically dealing
-   *         with surrogate pairs
-   */
-  @Nonnull
-  @Nonempty
-  public static char [] getAsCharArray (final int nCodepoint)
-  {
-    return Character.toChars (nCodepoint);
-  }
-
-  /**
-   * @param nCodepoint
-   *        codepoint
    * @return the String representation of the codepoint, automatically dealing
    *         with surrogate pairs
    */
@@ -328,7 +312,7 @@ public final class CodepointHelper
   @Nonempty
   public static String getAsString (final int nCodepoint)
   {
-    return new String (getAsCharArray (nCodepoint));
+    return new String (Character.toChars (nCodepoint));
   }
 
   // Left-to-right embedding

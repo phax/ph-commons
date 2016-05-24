@@ -242,7 +242,7 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
   @ReturnsMutableCopy
   public char [] getAsChars ()
   {
-    return CodepointHelper.getAsCharArray (m_nValue);
+    return Character.toChars (m_nValue);
   }
 
   /**
