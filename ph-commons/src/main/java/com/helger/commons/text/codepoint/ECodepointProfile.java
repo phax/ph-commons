@@ -26,8 +26,8 @@ import javax.annotation.Nonnull;
 public enum ECodepointProfile
 {
   NONE (codepoint -> true),
-  ALPHA (codepoint -> !CodepointHelper.isAlpha (codepoint)),
-  ALPHANUM (codepoint -> !CodepointHelper.isAlphaDigit (codepoint)),
+  ALPHA (codepoint -> !Character.isLetter (codepoint)),
+  ALPHANUM (codepoint -> !Character.isLetterOrDigit (codepoint)),
   FRAGMENT (codepoint -> !CodepointHelper.isFragment (codepoint)),
   IFRAGMENT (codepoint -> !CodepointHelper.is_ifragment (codepoint)),
   PATH (codepoint -> !CodepointHelper.isPath (codepoint)),
@@ -79,8 +79,8 @@ public enum ECodepointProfile
     return m_aFilter;
   }
 
-  public boolean check (final int codepoint)
+  public boolean check (final int nCodepoint)
   {
-    return m_aFilter.test (codepoint);
+    return m_aFilter.test (nCodepoint);
   }
 }

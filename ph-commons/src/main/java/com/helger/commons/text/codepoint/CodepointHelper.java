@@ -409,83 +409,9 @@ public final class CodepointHelper
     }
   }
 
-  /**
-   * @param aCodepoint
-   *        codepoint
-   * @return <code>true</code> if the codepoint is a digit
-   */
-  public static boolean isDigit (@Nonnull final Codepoint aCodepoint)
-  {
-    return isDigit (aCodepoint.getValue ());
-  }
-
-  /**
-   * @param nCodepoint
-   *        codepoint
-   * @return <code>true</code> if the codepoint is a digit
-   */
-  public static boolean isDigit (final int nCodepoint)
-  {
-    return Character.isDigit (nCodepoint);
-  }
-
-  /**
-   * @param aCodepoint
-   *        codepoint
-   * @return <code>true</code> if the codepoint is part of the ASCII alphabet
-   *         (a-z, A-Z)
-   */
-  public static boolean isAlpha (@Nonnull final Codepoint aCodepoint)
-  {
-    return isAlpha (aCodepoint.getValue ());
-  }
-
-  /**
-   * @param nCodepoint
-   *        codepoint
-   * @return <code>true</code> if the codepoint is part of the ASCII alphabet
-   *         (a-z, A-Z)
-   */
-  public static boolean isAlpha (final int nCodepoint)
-  {
-    return Character.isLetter (nCodepoint);
-  }
-
-  /**
-   * @param aCodepoint
-   *        codepoint
-   * @return <code>true</code> if isAlpha and isDigit both return
-   *         <code>true</code>
-   */
-  public static boolean isAlphaDigit (@Nonnull final Codepoint aCodepoint)
-  {
-    return isAlphaDigit (aCodepoint.getValue ());
-  }
-
-  /**
-   * @param nCodepoint
-   *        codepoint
-   * @return <code>true</code> if isAlpha and isDigit both return
-   *         <code>true</code>
-   */
-  public static boolean isAlphaDigit (final int nCodepoint)
-  {
-    return Character.isLetterOrDigit (nCodepoint);
-  }
-
   public static boolean isHex (final int nCodepoint)
   {
-    return isDigit (nCodepoint) || inRange (nCodepoint, 'a', 'f') || inRange (nCodepoint, 'A', 'F');
-  }
-
-  /**
-   * @param aCodepoint
-   *        codepoint
-   * @return <code>true</code> if the codepoint is a bidi control character
-   */
-  public static boolean isBidi (@Nonnull final Codepoint aCodepoint)
-  {
-    return isBidi (aCodepoint.getValue ());
+    return Character.isDigit (nCodepoint) || inRange (nCodepoint, 'a', 'f') || inRange (nCodepoint, 'A', 'F');
   }
 
   /**
@@ -554,7 +480,10 @@ public final class CodepointHelper
 
   public static boolean isPctEnc (final int codepoint)
   {
-    return codepoint == '%' || isDigit (codepoint) || inRange (codepoint, 'A', 'F') || inRange (codepoint, 'a', 'f');
+    return codepoint == '%' ||
+           Character.isDigit (codepoint) ||
+           inRange (codepoint, 'A', 'F') ||
+           inRange (codepoint, 'a', 'f');
   }
 
   public static boolean isMark (final int codepoint)
@@ -573,7 +502,11 @@ public final class CodepointHelper
 
   public static boolean isUnreserved (final int codepoint)
   {
-    return isAlphaDigit (codepoint) || codepoint == '-' || codepoint == '.' || codepoint == '_' || codepoint == '~';
+    return Character.isLetterOrDigit (codepoint) ||
+           codepoint == '-' ||
+           codepoint == '.' ||
+           codepoint == '_' ||
+           codepoint == '~';
   }
 
   public static boolean isReserved (final int codepoint)
@@ -643,7 +576,7 @@ public final class CodepointHelper
 
   public static boolean isScheme (final int codepoint)
   {
-    return isAlphaDigit (codepoint) || codepoint == '+' || codepoint == '-' || codepoint == '.';
+    return Character.isLetterOrDigit (codepoint) || codepoint == '+' || codepoint == '-' || codepoint == '.';
   }
 
   public static boolean isUserInfo (final int codepoint)
@@ -691,7 +624,7 @@ public final class CodepointHelper
 
   public static boolean is_iunreserved (final int codepoint)
   {
-    return isAlphaDigit (codepoint) || isMark (codepoint) || is_ucschar (codepoint);
+    return Character.isLetterOrDigit (codepoint) || isMark (codepoint) || is_ucschar (codepoint);
   }
 
   public static boolean is_ipchar (final int codepoint)
@@ -791,7 +724,7 @@ public final class CodepointHelper
   {
     return is_iuserinfo (codepoint) ||
            is_iregname (codepoint) ||
-           isAlphaDigit (codepoint) ||
+           Character.isLetterOrDigit (codepoint) ||
            codepoint == '.' ||
            codepoint == ':' ||
            codepoint == '@' ||

@@ -30,6 +30,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Represents a single Unicode Codepoint
@@ -38,7 +39,7 @@ import com.helger.commons.hashcode.HashCodeGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class Codepoint implements Serializable, Comparable <Codepoint>
+public class Codepoint implements Serializable, Comparable <Codepoint>
 {
   private final int m_nValue;
 
@@ -46,14 +47,14 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
    * Create a Codepoint from a byte array with the specified charset encoding.
    * Length must equal 1
    *
-   * @param bytes
+   * @param aBytes
    *        Bytes
-   * @param encoding
+   * @param aEncoding
    *        Charset
    */
-  public Codepoint (@Nonnull final byte [] bytes, @Nonnull final Charset encoding)
+  public Codepoint (@Nonnull final byte [] aBytes, @Nonnull final Charset aEncoding)
   {
-    this (CharsetManager.getAsString (bytes, encoding));
+    this (CharsetManager.getAsString (aBytes, aEncoding));
   }
 
   private static int _getValueFromCharSequence (@Nonnull final CharSequence s)
@@ -70,69 +71,69 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
   /**
    * Create a Codepoint from a CharSequence. Length must equal 1 or 2
    *
-   * @param value
+   * @param aCS
    *        {@link CharSequence}
    */
-  public Codepoint (@Nonnull final CharSequence value)
+  public Codepoint (@Nonnull final CharSequence aCS)
   {
-    this (_getValueFromCharSequence (value));
+    this (_getValueFromCharSequence (aCS));
   }
 
   /**
    * Create a Codepoint from a String. Length must equal 1 or 2
    *
-   * @param value
+   * @param sValue
    *        String
    */
-  public Codepoint (@Nonnull final String value)
+  public Codepoint (@Nonnull final String sValue)
   {
-    this (value.toCharArray ());
+    this (sValue.toCharArray ());
   }
 
-  private static int _getValueFromCharArray (@Nonnull final char [] s)
+  private static int _getValueFromCharArray (@Nonnull final char [] aChars)
   {
-    ValueEnforcer.notEmpty (s, "CharArray");
-    final int nLength = s.length;
+    ValueEnforcer.notEmpty (aChars, "CharArray");
+    final int nLength = aChars.length;
     if (nLength == 1)
-      return s[0];
+      return aChars[0];
     if (nLength > 2)
-      throw new IllegalArgumentException ("Too many chars: " + Arrays.toString (s));
-    return Character.toCodePoint (s[0], s[1]);
+      throw new IllegalArgumentException ("Too many chars: " + Arrays.toString (aChars));
+    return Character.toCodePoint (aChars[0], aChars[1]);
   }
 
   /**
    * Create a Codepoint from a char array. Length must equal 1 or 2
    *
-   * @param value
+   * @param aChars
    *        char array
    */
-  public Codepoint (@Nonnull final char [] value)
+  public Codepoint (@Nonnull final char [] aChars)
   {
-    this (_getValueFromCharArray (value));
+    this (_getValueFromCharArray (aChars));
   }
 
   /**
    * Create a codepoint from a single char
    *
-   * @param value
+   * @param cChar
    *        single char
    */
-  public Codepoint (final char value)
+  public Codepoint (final char cChar)
   {
-    this ((int) value);
+    this ((int) cChar);
   }
 
   /**
    * Create a codepoint from a surrogate pair
    *
-   * @param high
+   * @param cHigh
    *        high surrogate
-   * @param low
+   * @param cLow
    *        low surrogate
    */
-  public Codepoint (final char high, final char low)
+  public Codepoint (final char cHigh, final char cLow)
   {
-    this (Character.toCodePoint (high, low));
+    this (Character.toCodePoint (cHigh, cLow));
   }
 
   /**
@@ -163,7 +164,7 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
    * @return The codepoint value
    */
   @Nonnegative
-  public int getValue ()
+  public final int getValue ()
   {
     return m_nValue;
   }
@@ -171,7 +172,7 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
   /**
    * @return <code>true</code> if this codepoint is supplementary
    */
-  public boolean isSupplementary ()
+  public final boolean isSupplementary ()
   {
     return Character.isSupplementaryCodePoint (m_nValue);
   }
@@ -179,7 +180,7 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
   /**
    * @return <code>true</code> if this codepoint is a low surrogate
    */
-  public boolean isLowSurrogate ()
+  public final boolean isLowSurrogate ()
   {
     return Character.isLowSurrogate ((char) m_nValue);
   }
@@ -187,7 +188,7 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
   /**
    * @return <code>true</code> if this codepoint is a high surrogate
    */
-  public boolean isHighSurrogate ()
+  public final boolean isHighSurrogate ()
   {
     return Character.isHighSurrogate ((char) m_nValue);
   }
@@ -195,7 +196,7 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
   /**
    * @return Get the high surrogate of this Codepoint
    */
-  public char getHighSurrogate ()
+  public final char getHighSurrogate ()
   {
     return CodepointHelper.getHighSurrogate (m_nValue);
   }
@@ -203,7 +204,7 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
   /**
    * @return Get the low surrogate of this Codepoint
    */
-  public char getLowSurrogate ()
+  public final char getLowSurrogate ()
   {
     return CodepointHelper.getLowSurrogate (m_nValue);
   }
@@ -211,24 +212,24 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
   /**
    * @return <code>true</code> if this Codepoint is a bidi control char
    */
-  public boolean isBidi ()
+  public final boolean isBidi ()
   {
     return CodepointHelper.isBidi (m_nValue);
   }
 
-  public boolean isDigit ()
+  public final boolean isDigit ()
   {
-    return CodepointHelper.isDigit (m_nValue);
+    return Character.isDigit (m_nValue);
   }
 
-  public boolean isAlpha ()
+  public final boolean isAlpha ()
   {
-    return CodepointHelper.isAlpha (m_nValue);
+    return Character.isLetter (m_nValue);
   }
 
-  public boolean isAlphaDigit ()
+  public final boolean isAlphaDigit ()
   {
-    return CodepointHelper.isAlpha (m_nValue);
+    return Character.isLetterOrDigit (m_nValue);
   }
 
   @Nonnull
@@ -275,7 +276,7 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
    *
    * @return Plane number
    **/
-  public int getPlane ()
+  public final int getPlane ()
   {
     return m_nValue / (0xFFFF + 1);
   }
@@ -284,7 +285,7 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
    * @return Get the next codepoint
    */
   @Nonnull
-  public Codepoint next ()
+  public final Codepoint next ()
   {
     if (m_nValue == 0x10ffff)
       throw new IndexOutOfBoundsException ();
@@ -295,11 +296,16 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
    * @return Get the previous codepoint
    */
   @Nonnull
-  public Codepoint previous ()
+  public final Codepoint previous ()
   {
     if (m_nValue == 0)
       throw new IndexOutOfBoundsException ();
     return new Codepoint (m_nValue - 1);
+  }
+
+  public void appendTo (@Nonnull final StringBuilder aSB)
+  {
+    aSB.append (getAsChars ());
   }
 
   public int compareTo (@Nonnull final Codepoint o)
@@ -322,5 +328,11 @@ public final class Codepoint implements Serializable, Comparable <Codepoint>
   public int hashCode ()
   {
     return new HashCodeGenerator (this).append (m_nValue).getHashCode ();
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (null).append ("value", m_nValue).toString ();
   }
 }
