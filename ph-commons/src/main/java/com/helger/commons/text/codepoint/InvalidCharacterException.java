@@ -14,24 +14,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.lesscommons.i18n;
+package com.helger.commons.text.codepoint;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.channels.Channels;
-import java.nio.charset.Charset;
-
-import javax.annotation.Nonnull;
-import javax.annotation.WillClose;
+import com.helger.commons.string.StringHelper;
 
 /**
  * @author Apache Abdera
  */
-public class CodepointIteratorInputStream extends CodepointIteratorReadableByteChannel
+public class InvalidCharacterException extends RuntimeException
 {
-  public CodepointIteratorInputStream (@Nonnull @WillClose final InputStream aIS,
-                                       @Nonnull final Charset aCharset) throws IOException
+  private final int m_nInput;
+
+  public InvalidCharacterException (final int nInput)
   {
-    super (Channels.newChannel (aIS), aCharset);
+    m_nInput = nInput;
+  }
+
+  public int getInput ()
+  {
+    return m_nInput;
+  }
+
+  @Override
+  public String getMessage ()
+  {
+    return "Invalid Character 0x" + StringHelper.getHexStringLeadingZero (m_nInput, 2) + "(" + (char) m_nInput + ")";
   }
 }

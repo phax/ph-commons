@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.lesscommons.i18n;
+package com.helger.commons.text.codepoint;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
@@ -24,10 +24,10 @@ import javax.annotation.Nonnull;
 /**
  * @author Apache Abdera
  */
-public class CodepointIteratorByteArray extends CodepointIteratorByteBuffer
+public class CodepointIteratorByteBuffer extends CodepointIteratorCharBuffer
 {
-  public CodepointIteratorByteArray (@Nonnull final byte [] aBytes, @Nonnull final Charset aCharset)
+  public CodepointIteratorByteBuffer (@Nonnull final ByteBuffer aBytes, @Nonnull final Charset aCharset)
   {
-    super (ByteBuffer.wrap (aBytes), aCharset);
+    super (aCharset.decode (aBytes));
   }
 }

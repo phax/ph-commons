@@ -14,22 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.lesscommons.i18n;
+package com.helger.commons.text.codepoint;
 
-import java.io.Reader;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 
 import javax.annotation.Nonnull;
-import javax.annotation.WillClose;
-
-import com.helger.commons.io.stream.StreamHelper;
 
 /**
  * @author Apache Abdera
  */
-public class CodepointIteratorReader extends CodepointIteratorCharArray
+public class CodepointIteratorByteArray extends CodepointIteratorByteBuffer
 {
-  public CodepointIteratorReader (@Nonnull @WillClose final Reader aReader)
+  public CodepointIteratorByteArray (@Nonnull final byte [] aBytes, @Nonnull final Charset aCharset)
   {
-    super (StreamHelper.getAllCharacters (aReader));
+    super (ByteBuffer.wrap (aBytes), aCharset);
   }
 }

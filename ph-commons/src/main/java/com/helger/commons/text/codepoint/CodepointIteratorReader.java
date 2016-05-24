@@ -14,36 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.lesscommons.i18n;
+package com.helger.commons.text.codepoint;
 
-import java.nio.CharBuffer;
+import java.io.Reader;
 
 import javax.annotation.Nonnull;
+import javax.annotation.WillClose;
+
+import com.helger.commons.io.stream.StreamHelper;
 
 /**
  * @author Apache Abdera
  */
-public class CodepointIteratorCharBuffer extends AbstractCodepointIterator
+public class CodepointIteratorReader extends CodepointIteratorCharArray
 {
-  private final char [] m_aBuffer;
-
-  public CodepointIteratorCharBuffer (@Nonnull final CharBuffer aBuffer)
+  public CodepointIteratorReader (@Nonnull @WillClose final Reader aReader)
   {
-    super (aBuffer.position (), aBuffer.limit ());
-    m_aBuffer = aBuffer.array ();
-  }
-
-  @Override
-  protected char get ()
-  {
-    return m_nPosition < m_nLimit ? m_aBuffer[m_nPosition++] : (char) -1;
-  }
-
-  @Override
-  protected char get (final int index)
-  {
-    if (index < 0 || index >= m_nLimit)
-      throw new ArrayIndexOutOfBoundsException (index);
-    return m_aBuffer[index];
+    super (StreamHelper.getAllCharacters (aReader));
   }
 }

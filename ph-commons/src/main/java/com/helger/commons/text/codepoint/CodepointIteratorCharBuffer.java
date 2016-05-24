@@ -14,30 +14,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.lesscommons.i18n;
+package com.helger.commons.text.codepoint;
 
-import com.helger.commons.string.StringHelper;
+import java.nio.CharBuffer;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author Apache Abdera
  */
-public class InvalidCharacterException extends RuntimeException
+public class CodepointIteratorCharBuffer extends AbstractCodepointIterator
 {
-  private final int m_nInput;
+  private final char [] m_aBuffer;
 
-  public InvalidCharacterException (final int nInput)
+  public CodepointIteratorCharBuffer (@Nonnull final CharBuffer aBuffer)
   {
-    m_nInput = nInput;
-  }
-
-  public int getInput ()
-  {
-    return m_nInput;
+    super (aBuffer.position (), aBuffer.limit ());
+    m_aBuffer = aBuffer.array ();
   }
 
   @Override
-  public String getMessage ()
+  protected char get ()
   {
-    return "Invalid Character 0x" + StringHelper.getHexStringLeadingZero (m_nInput, 2) + "(" + (char) m_nInput + ")";
+    return m_nPosition < m_nLimit ? m_aBuffer[m_nPosition++] : (char) -1;
+  }
+
+  @Override
+  protected char get (final int index)
+  {
+    if (index < 0 || index >= m_nLimit)
+      throw new ArrayIndexOutOfBoundsException (index);
+    return m_aBuffer[index];
   }
 }

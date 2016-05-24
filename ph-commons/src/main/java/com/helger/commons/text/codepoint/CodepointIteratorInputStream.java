@@ -14,20 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.lesscommons.i18n;
+package com.helger.commons.text.codepoint;
 
-import java.nio.ByteBuffer;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.channels.Channels;
 import java.nio.charset.Charset;
 
 import javax.annotation.Nonnull;
+import javax.annotation.WillClose;
 
 /**
  * @author Apache Abdera
  */
-public class CodepointIteratorByteBuffer extends CodepointIteratorCharBuffer
+public class CodepointIteratorInputStream extends CodepointIteratorReadableByteChannel
 {
-  public CodepointIteratorByteBuffer (@Nonnull final ByteBuffer aBytes, @Nonnull final Charset aCharset)
+  public CodepointIteratorInputStream (@Nonnull @WillClose final InputStream aIS,
+                                       @Nonnull final Charset aCharset) throws IOException
   {
-    super (aCharset.decode (aBytes));
+    super (Channels.newChannel (aIS), aCharset);
   }
 }
