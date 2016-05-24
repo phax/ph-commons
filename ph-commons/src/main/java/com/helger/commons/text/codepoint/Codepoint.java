@@ -41,7 +41,7 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public class Codepoint implements Serializable, Comparable <Codepoint>
 {
-  protected final int m_nValue;
+  private final int m_nValue;
 
   /**
    * Create a Codepoint from a byte array with the specified charset encoding.
@@ -163,7 +163,7 @@ public class Codepoint implements Serializable, Comparable <Codepoint>
   /**
    * Special protected constructor that allows creating special codepoints that
    * are invalid.
-   * 
+   *
    * @param nValue
    *        The codepoint value to be used. Must not be a valid codepoint.
    * @param bDummyUnchecked
@@ -226,22 +226,22 @@ public class Codepoint implements Serializable, Comparable <Codepoint>
   /**
    * @return <code>true</code> if this Codepoint is a bidi control char
    */
-  public final boolean isBidi ()
+  public boolean isBidi ()
   {
     return CodepointHelper.isBidi (m_nValue);
   }
 
-  public final boolean isDigit ()
+  public boolean isDigit ()
   {
     return Character.isDigit (m_nValue);
   }
 
-  public final boolean isAlpha ()
+  public boolean isAlpha ()
   {
     return Character.isLetter (m_nValue);
   }
 
-  public final boolean isAlphaDigit ()
+  public boolean isAlphaDigit ()
   {
     return Character.isLetterOrDigit (m_nValue);
   }
