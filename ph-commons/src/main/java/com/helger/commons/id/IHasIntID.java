@@ -33,6 +33,15 @@ public interface IHasIntID
    */
   int getID ();
 
+  /**
+   * @return The {@link Integer} representation of the contained "int" ID.
+   */
+  @Nonnull
+  default Integer getIDObj ()
+  {
+    return Integer.valueOf (getID ());
+  }
+
   @Nonnull
   static Comparator <IHasIntID> getComparatorID ()
   {

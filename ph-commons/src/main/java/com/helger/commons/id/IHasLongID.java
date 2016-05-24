@@ -33,6 +33,15 @@ public interface IHasLongID
    */
   long getID ();
 
+  /**
+   * @return The {@link Long} representation of the contained "long" ID.
+   */
+  @Nonnull
+  default Long getIDObj ()
+  {
+    return Long.valueOf (getID ());
+  }
+
   @Nonnull
   static Comparator <IHasLongID> getComparatorID ()
   {
