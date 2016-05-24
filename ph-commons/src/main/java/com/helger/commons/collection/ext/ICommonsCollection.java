@@ -224,31 +224,53 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
     return new CommonsArrayList<> (this).getSortedInline (aComparator);
   }
 
-  default void addIf (@Nullable final ELEMENTTYPE aValue, @Nonnull final Predicate <ELEMENTTYPE> aFilter)
+  /**
+   * Add the passed element to this collection if passed predicate is fulfilled
+   *
+   * @param aElement
+   *        The element to be added. May be <code>null</code>.
+   * @param aFilter
+   *        The predicate to be executed. May not be <code>null</code>.
+   */
+  default void addIf (@Nullable final ELEMENTTYPE aElement, @Nonnull final Predicate <ELEMENTTYPE> aFilter)
   {
-    if (aFilter.test (aValue))
-      add (aValue);
-  }
-
-  default void addIfNotNull (@Nullable final ELEMENTTYPE aValue)
-  {
-    if (aValue != null)
-      add (aValue);
+    if (aFilter.test (aElement))
+      add (aElement);
   }
 
   /**
-   * Add an array of elements
+   * Add the passed element to this collection if it is non-<code>null</code>.
    *
-   * @param aValues
-   *        The values to be added. May be <code>null</code>.
+   * @param aElement
+   *        The element to be added if non-<code>null</code>.
+   * @see #add(Object)
    */
-  default void addAll (@SuppressWarnings ("unchecked") @Nullable final ELEMENTTYPE... aValues)
+  default void addIfNotNull (@Nullable final ELEMENTTYPE aElement)
   {
-    if (aValues != null)
-      for (final ELEMENTTYPE aValue : aValues)
-        add (aValue);
+    if (aElement != null)
+      add (aElement);
   }
 
+  /**
+   * Add an array of elements to this collection.
+   *
+   * @param aElements
+   *        The elements to be added. May be <code>null</code>.
+   */
+  default void addAll (@SuppressWarnings ("unchecked") @Nullable final ELEMENTTYPE... aElements)
+  {
+    if (aElements != null)
+      for (final ELEMENTTYPE aElement : aElements)
+        add (aElement);
+  }
+
+  /**
+   * Add all elements of the passed enumeration to this collection.
+   *
+   * @param aEnum
+   *        The enumeration to be iterated and the elements to be added. May be
+   *        <code>null</code>.
+   */
   default void addAll (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
   {
     if (aEnum != null)
@@ -256,6 +278,13 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
         add (aEnum.nextElement ());
   }
 
+  /**
+   * Add all elements of the passed iterator to this collection.
+   *
+   * @param aIter
+   *        The iterator to be iterated and the elements to be added. May be
+   *        <code>null</code>.
+   */
   default void addAll (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
   {
     if (aIter != null)
@@ -263,10 +292,16 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
         add (aIter.next ());
   }
 
-  default void addAll (@Nullable final Iterable <? extends ELEMENTTYPE> aIterable)
+  /**
+   * Add all elements of the passed iterable to this collection.
+   *
+   * @param aElements
+   *        The elements to be added. May be <code>null</code>.
+   */
+  default void addAll (@Nullable final Iterable <? extends ELEMENTTYPE> aElements)
   {
-    if (aIterable != null)
-      for (final ELEMENTTYPE aElement : aIterable)
+    if (aElements != null)
+      for (final ELEMENTTYPE aElement : aElements)
         add (aElement);
   }
 
