@@ -41,7 +41,7 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public class Codepoint implements Serializable, Comparable <Codepoint>
 {
-  private final int m_nValue;
+  protected final int m_nValue;
 
   /**
    * Create a Codepoint from a byte array with the specified charset encoding.
