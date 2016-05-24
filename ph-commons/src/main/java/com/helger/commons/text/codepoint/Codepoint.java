@@ -161,6 +161,20 @@ public class Codepoint implements Serializable, Comparable <Codepoint>
   }
 
   /**
+   * Special protected constructor that allows creating special codepoints that
+   * are invalid.
+   * 
+   * @param nValue
+   *        The codepoint value to be used. Must not be a valid codepoint.
+   * @param bDummyUnchecked
+   *        Dummy parameter to create a different signature
+   */
+  protected Codepoint (@Nonnegative final int nValue, final boolean bDummyUnchecked)
+  {
+    m_nValue = nValue;
+  }
+
+  /**
    * @return The codepoint value
    */
   @Nonnegative
