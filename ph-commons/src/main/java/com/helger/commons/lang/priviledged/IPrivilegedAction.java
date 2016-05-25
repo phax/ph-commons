@@ -16,7 +16,6 @@
  */
 package com.helger.commons.lang.priviledged;
 
-import java.lang.reflect.AccessibleObject;
 import java.security.PrivilegedAction;
 import java.util.Properties;
 
@@ -37,23 +36,6 @@ public interface IPrivilegedAction <T> extends PrivilegedAction <T>
       return run ();
     }
     return AccessControllerHelper.call (this);
-  }
-
-  @Nonnull
-  static IPrivilegedAction <Object> setAccessible (@Nonnull final AccessibleObject aObject)
-  {
-    return setAccessible (aObject, true);
-  }
-
-  @Nonnull
-  static IPrivilegedAction <Object> setAccessible (@Nonnull final AccessibleObject aObject, final boolean bAccessible)
-  {
-    // A value of true indicates that the reflected object should suppress
-    // Java language access checking when it is used.
-    return () -> {
-      aObject.setAccessible (bAccessible);
-      return null;
-    };
   }
 
   @Nonnull

@@ -52,7 +52,7 @@ public final class Utf8ResourceBundle
   @Nonnull
   public static ResourceBundle getBundle (@Nonnull final String sBaseName)
   {
-    return _createUtf8PropertyResourceBundle (ResourceBundle.getBundle (sBaseName));
+    return _createUtf8PropertyResourceBundle (ResourceBundle.getBundle (sBaseName, Locale.getDefault ()));
   }
 
   @Nonnull

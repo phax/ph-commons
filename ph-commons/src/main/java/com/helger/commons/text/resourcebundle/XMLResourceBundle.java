@@ -104,7 +104,9 @@ public final class XMLResourceBundle extends ResourceBundle
   @Nonnull
   public static XMLResourceBundle getXMLBundle (@Nonnull final String sBaseName)
   {
-    return (XMLResourceBundle) ResourceBundle.getBundle (sBaseName, new XMLResourceBundleControl ());
+    return (XMLResourceBundle) ResourceBundle.getBundle (sBaseName,
+                                                         Locale.getDefault (),
+                                                         new XMLResourceBundleControl ());
   }
 
   @Nonnull

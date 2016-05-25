@@ -41,7 +41,6 @@ import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.exception.LoggedRuntimeException;
 import com.helger.commons.lang.ClassHelper;
-import com.helger.commons.lang.priviledged.IPrivilegedAction;
 import com.helger.commons.mutable.MutableBoolean;
 import com.helger.commons.scope.IScope;
 import com.helger.commons.scope.IScopeDestructionAware;
@@ -454,10 +453,9 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
       // Alternatively find the no-argument constructor
       final Constructor <T> aCtor = aClass.getDeclaredConstructor ((Class <?> []) null);
 
+      // Don't call "aCtor.setAccessible ()" because on
       // Ubuntu: java.security.AccessControlException: access denied
       // (java.lang.reflect.ReflectPermission suppressAccessChecks)
-      if (false)
-        IPrivilegedAction.setAccessible (aCtor).invokeSafe ();
 
       // Invoke default ctor
       final T ret = aCtor.newInstance ((Object []) null);
