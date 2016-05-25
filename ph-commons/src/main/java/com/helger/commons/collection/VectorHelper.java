@@ -43,14 +43,14 @@ public final class VectorHelper
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nonnegative final int nInitialCapacity)
   {
-    return new CommonsVector <> (nInitialCapacity);
+    return new CommonsVector<> (nInitialCapacity);
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector ()
   {
-    return new CommonsVector <> ();
+    return new CommonsVector<> ();
   }
 
   @Nonnull
@@ -180,7 +180,7 @@ public final class VectorHelper
     if (CollectionHelper.isEmpty (aCont))
       return newVector (0);
 
-    return newVector (aCont);
+    return newVector ((Iterable <? extends ELEMENTTYPE>) aCont);
   }
 
   @Nonnull

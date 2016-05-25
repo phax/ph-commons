@@ -34,16 +34,16 @@ public class MainCreateCollectionHelperCode2
         // Collection<Primitive> newPrimitiveCollection (Primitive...)
         String sType;
         if (eCollectionType == ECollectionType.VECTOR)
-          sType = "VectorHelper";
+          sType = "VectorHelper.";
         else
           if (eCollectionType == ECollectionType.STACK)
-            sType = "StackHelper";
+            sType = "StackHelper.";
           else
             if (eCollectionType == ECollectionType.QUEUE)
-              sType = "QueueHelper";
+              sType = "QueueHelper.";
             else
-              sType = "CollectionHelper";
-        final String sNew = sType + ".new" + eCollectionType.m_sSuffix;
+              sType = "";
+        final String sNew = sType + "new" + eCollectionType.m_sSuffix;
         final String sMapped = sNew + "Mapped";
         aSB.append (sNew + "();\n");
         aSB.append (sNew + "(\"a\");\n");
