@@ -111,7 +111,8 @@ public final class JavaDecimalFormatFuncTest
      * the pattern and then create a number format with this pattern. Something
      * like the following:
      */
-    NumberFormat curFormat = NumberFormat.getCurrencyInstance (LocaleCache.getInstance ().getLocale ("fr"));
+    final Locale aLocale = LocaleCache.getInstance ().getLocale ("fr");
+    NumberFormat curFormat = NumberFormat.getCurrencyInstance (aLocale);
     assertTrue (curFormat instanceof DecimalFormat);
 
     final String pattern = ((DecimalFormat) curFormat).toPattern ();
@@ -120,8 +121,8 @@ public final class JavaDecimalFormatFuncTest
     final String patternWithoutCurSym = pattern.replaceAll ("\u00A4", "");
     assertEquals ("#,##0.00 ", patternWithoutCurSym);
 
-    curFormat = new DecimalFormat (patternWithoutCurSym);
-    ((DecimalFormat) curFormat).setDecimalFormatSymbols (DecimalFormatSymbols.getInstance (CGlobal.LOCALE_FIXED_NUMBER_FORMAT));
+    curFormat = new DecimalFormat (patternWithoutCurSym,
+                                   DecimalFormatSymbols.getInstance (CGlobal.LOCALE_FIXED_NUMBER_FORMAT));
     assertEquals ("3.12 ", curFormat.format (3.1234));
   }
 

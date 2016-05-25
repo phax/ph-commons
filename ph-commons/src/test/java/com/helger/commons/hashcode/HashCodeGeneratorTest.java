@@ -93,8 +93,8 @@ public final class HashCodeGeneratorTest
     aHC.append (new long [] { 0x2f99887766554433L, -567895678900L });
     aHC.append (new short [] { 4701, -32767 });
     aHC.append (EChange.values ());
-    aHC.append (new Object [] { EChange.CHANGED, BigDecimal.ONE, System.out });
-    aHC.append (CollectionHelper.newList (EChange.CHANGED, BigDecimal.ONE, System.out));
+    aHC.append (new Object [] { EChange.CHANGED, BigDecimal.ONE, "out" });
+    aHC.append (CollectionHelper.newList (EChange.CHANGED, BigDecimal.ONE, "out"));
 
     // Arrays as objects
     aHC.append ((Object) new boolean [] { false, true });
@@ -106,12 +106,12 @@ public final class HashCodeGeneratorTest
     aHC.append ((Object) new long [] { 0x2f99887766554433L, -567895678900L });
     aHC.append ((Object) new short [] { 4701, -32767 });
     aHC.append ((Object) EChange.values ());
-    aHC.append ((Object) new Object [] { EChange.CHANGED, BigDecimal.ONE, System.out });
-    aHC.append ((Object) CollectionHelper.newList (EChange.CHANGED, BigDecimal.ONE, System.out));
+    aHC.append ((Object) new Object [] { EChange.CHANGED, BigDecimal.ONE, "out" });
+    aHC.append ((Object) CollectionHelper.newList (EChange.CHANGED, BigDecimal.ONE, "out"));
 
     // Array objects filled and containing nulls
     aHC.append (new Enum [] { EChange.CHANGED, null, EChange.UNCHANGED });
-    aHC.append (new Object [] { EChange.CHANGED, BigDecimal.TEN, null, System.out, null });
+    aHC.append (new Object [] { EChange.CHANGED, BigDecimal.TEN, null, "out", null });
 
     // Array objects empty
     aHC.append (new boolean [0]);

@@ -18,15 +18,30 @@ package com.helger.commons.supplementary.test;
 
 import java.lang.reflect.Field;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class MainTestSecurityManager
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (MainTestSecurityManager.class);
+
   /**
    * Run as follows: <br>
    * -Djava.security.manager
    * -Djava.security.policy=src/test/resources/grant-all.policy
-   * -Djava.security.debug=all
+   * -Djava.security.debug=all<br>
+   * Content of grant-all.policy:
+   *
+   * <pre>
+   * grant {
+  // permission java.security.AllPermission;
+  permission java.util.PropertyPermission  "java.security.policy", "write";
+  permission java.lang.RuntimePermission   "accessDeclaredMembers";
+  permission java.lang.reflect.ReflectPermission "suppressAccessChecks";
+  };
+   * </pre>
    *
    * @param args
    *        main args
@@ -46,6 +61,6 @@ public final class MainTestSecurityManager
     final Object obj = field.get (originalString);// will fail
     final char [] chars = (char []) obj;
     chars[0] = 'e';
-    System.out.println ("originalString: " + originalString);
+    s_aLogger.info ("originalString: " + originalString);
   }
 }

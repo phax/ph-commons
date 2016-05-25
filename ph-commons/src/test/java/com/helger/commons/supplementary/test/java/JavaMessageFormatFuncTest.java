@@ -19,6 +19,7 @@ package com.helger.commons.supplementary.test.java;
 import static org.junit.Assert.assertEquals;
 
 import java.text.MessageFormat;
+import java.util.Locale;
 
 import org.junit.Test;
 
@@ -27,8 +28,9 @@ public final class JavaMessageFormatFuncTest
   @Test
   public void testBasicFormat ()
   {
-    assertEquals ("Hallo Welt!", MessageFormat.format ("Hallo {0}!", "Welt"));
-    assertEquals ("Hallo Welt!", MessageFormat.format ("{1} {0}!", "Welt", "Hallo"));
-    assertEquals ("Hallo 17!", MessageFormat.format ("Hallo {0}!", Integer.valueOf (17)));
+    assertEquals ("Hallo Welt!", new MessageFormat ("Hallo {0}!", Locale.US).format (new Object [] { "Welt" }));
+    assertEquals ("Hallo Welt!", new MessageFormat ("{1} {0}!", Locale.US).format (new Object [] { "Welt", "Hallo" }));
+    assertEquals ("Hallo 17!",
+                  new MessageFormat ("Hallo {0}!", Locale.US).format (new Object [] { Integer.valueOf (17) }));
   }
 }

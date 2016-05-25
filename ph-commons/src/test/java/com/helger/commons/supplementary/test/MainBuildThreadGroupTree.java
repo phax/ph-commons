@@ -16,10 +16,15 @@
  */
 package com.helger.commons.supplementary.test;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class MainBuildThreadGroupTree
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (MainBuildThreadGroupTree.class);
+
   @SuppressFBWarnings ("IL_INFINITE_LOOP")
   private static String _getTGName (final ThreadGroup aParamTG)
   {
@@ -73,6 +78,6 @@ public final class MainBuildThreadGroupTree
     }
     /* Dump the vector */
     for (final String s : threadInfo)
-      System.out.println (s);
+      s_aLogger.info (s);
   }
 }

@@ -22,11 +22,16 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.stream.StreamHelper;
 
 public final class MainValidFileNames
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (MainValidFileNames.class);
+
   private MainValidFileNames ()
   {}
 
@@ -35,13 +40,13 @@ public final class MainValidFileNames
     final String fileName = sName + ".txt";
     final File f = new File (fileName);
 
-    System.out.println ("--- testing name: " + sName + " ---");
-    System.out.println (sName + ".exists()=" + f.exists ());
-    System.out.println (sName + ".getAbsolutePath()=" + f.getAbsolutePath ());
-    System.out.println (sName + ".canRead()=" + FileHelper.canRead (f));
-    System.out.println (sName + ".canWrite()=" + FileHelper.canWrite (f));
+    s_aLogger.info ("--- testing name: " + sName + " ---");
+    s_aLogger.info (sName + ".exists()=" + f.exists ());
+    s_aLogger.info (sName + ".getAbsolutePath()=" + f.getAbsolutePath ());
+    s_aLogger.info (sName + ".canRead()=" + FileHelper.canRead (f));
+    s_aLogger.info (sName + ".canWrite()=" + FileHelper.canWrite (f));
 
-    System.out.println ("Writing into " + fileName + " ...");
+    s_aLogger.info ("Writing into " + fileName + " ...");
 
     try (OutputStream out = FileHelper.getOutputStream (f))
     {
@@ -49,27 +54,27 @@ public final class MainValidFileNames
     } // try
     catch (final IOException ex)
     {
-      System.err.println (ex);
+      s_aLogger.error ("IOEx", ex);
     }
 
-    System.out.println (sName + ".exists()=" + f.exists ());
-    System.out.println (sName + ".getAbsolutePath()=" + f.getAbsolutePath ());
-    System.out.println (sName + ".canRead()=" + FileHelper.canRead (f));
-    System.out.println (sName + ".canWrite()=" + FileHelper.canWrite (f));
-    System.out.println ("Reading from " + fileName + " ...");
+    s_aLogger.info (sName + ".exists()=" + f.exists ());
+    s_aLogger.info (sName + ".getAbsolutePath()=" + f.getAbsolutePath ());
+    s_aLogger.info (sName + ".canRead()=" + FileHelper.canRead (f));
+    s_aLogger.info (sName + ".canWrite()=" + FileHelper.canWrite (f));
+    s_aLogger.info ("Reading from " + fileName + " ...");
     FileInputStream in = null;
     try
     {
       in = new FileInputStream (f);
-      System.out.println (in.read ());
+      s_aLogger.info (Character.toString ((char) in.read ()));
     }
     catch (final FileNotFoundException ex)
     {
-      System.err.println (fileName + " is not found");
+      s_aLogger.error (fileName + " is not found");
     }
     catch (final IOException ex)
     {
-      System.err.println (ex);
+      s_aLogger.error ("IOEx", ex);
     }
     finally
     {

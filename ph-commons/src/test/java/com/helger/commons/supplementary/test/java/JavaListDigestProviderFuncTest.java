@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 
 public final class JavaListDigestProviderFuncTest
 {
@@ -33,8 +34,7 @@ public final class JavaListDigestProviderFuncTest
   @Test
   public void testListAllDigestProvider ()
   {
-    for (final Provider element : CollectionHelper.getSorted (CollectionHelper.newList (Security.getProviders ()),
-                                                              Comparator.comparing (Provider::getName)))
+    for (final Provider element : new CommonsArrayList<> (Security.getProviders ()).getSortedInline (Comparator.comparing (Provider::getName)))
     {
       s_aLogger.info ("Provider: '" + element + "'");
 

@@ -58,28 +58,28 @@ public final class BenchmarkSynchronizedVsLock extends AbstractBenchmarkTask
     for (int i = 1; i <= SystemHelper.getNumberOfProcessors () * 2; ++i)
     {
       double dTime = benchmarkTask (_getRunnable (i, new UseSynchronizedMethod ()));
-      System.out.println ("Time using synchronized method[" + i + "]:               " + dTime + " ns");
+      s_aLogger.info ("Time using synchronized method[" + i + "]:               " + dTime + " ns");
 
       dTime = benchmarkTask (_getRunnable (i, new UseSynchronizedBlock ()));
-      System.out.println ("Time using synchronized block[" + i + "]:                " + dTime + " ns");
+      s_aLogger.info ("Time using synchronized block[" + i + "]:                " + dTime + " ns");
 
       dTime = benchmarkTask (_getRunnable (i, new UseUnfairLock ()));
-      System.out.println ("Time using unfair Lock[" + i + "]:                       " + dTime + " ns");
+      s_aLogger.info ("Time using unfair Lock[" + i + "]:                       " + dTime + " ns");
 
       dTime = benchmarkTask (_getRunnable (i, new UseFairLock ()));
-      System.out.println ("Time using fair Lock[" + i + "]:                         " + dTime + " ns");
+      s_aLogger.info ("Time using fair Lock[" + i + "]:                         " + dTime + " ns");
 
       dTime = benchmarkTask (_getRunnable (i, new UseUnfairReadLock ()));
-      System.out.println ("Time using unfair ReadWriteLock.readLock ()[" + i + "]:  " + dTime + " ns");
+      s_aLogger.info ("Time using unfair ReadWriteLock.readLock ()[" + i + "]:  " + dTime + " ns");
 
       dTime = benchmarkTask (_getRunnable (i, new UseFairReadLock ()));
-      System.out.println ("Time using fair ReadWriteLock.readLock ()[" + i + "]:    " + dTime + " ns");
+      s_aLogger.info ("Time using fair ReadWriteLock.readLock ()[" + i + "]:    " + dTime + " ns");
 
       dTime = benchmarkTask (_getRunnable (i, new UseUnfairWriteLock ()));
-      System.out.println ("Time using unfair ReadWriteLock.writeLock ()[" + i + "]: " + dTime + " ns");
+      s_aLogger.info ("Time using unfair ReadWriteLock.writeLock ()[" + i + "]: " + dTime + " ns");
 
       dTime = benchmarkTask (_getRunnable (i, new UseFairWriteLock ()));
-      System.out.println ("Time using fair ReadWriteLock.writeLock ()[" + i + "]:   " + dTime + " ns");
+      s_aLogger.info ("Time using fair ReadWriteLock.writeLock ()[" + i + "]:   " + dTime + " ns");
     }
   }
 

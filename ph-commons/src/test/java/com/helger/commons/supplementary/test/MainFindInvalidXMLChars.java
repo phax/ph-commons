@@ -22,6 +22,8 @@ import java.util.List;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -33,6 +35,8 @@ import com.helger.commons.xml.transform.XMLTransformerFactory;
 
 public final class MainFindInvalidXMLChars
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (MainFindInvalidXMLChars.class);
+
   private static String _getFormatted (final List <Integer> x)
   {
     if (x.isEmpty ())
@@ -207,12 +211,12 @@ public final class MainFindInvalidXMLChars
         aForbiddenCV.add (Integer.valueOf (i));
       }
     }
-    System.out.println ("Forbidden Element Name Start:       " + _getFormatted (aForbiddenE1));
-    System.out.println ("Forbidden Element Name InBetween:   " + _getFormatted (aForbiddenE2));
-    System.out.println ("Forbidden Attribute Name Start:     " + _getFormatted (aForbiddenAN1));
-    System.out.println ("Forbidden Attribute Name InBetween: " + _getFormatted (aForbiddenAN2));
-    System.out.println ("Forbidden Attribute Value: " + _getFormatted (aForbiddenAV));
-    System.out.println ("Forbidden Text Value:      " + _getFormatted (aForbiddenTV));
-    System.out.println ("Forbidden CDATA Value:     " + _getFormatted (aForbiddenCV));
+    s_aLogger.info ("Forbidden Element Name Start:       " + _getFormatted (aForbiddenE1));
+    s_aLogger.info ("Forbidden Element Name InBetween:   " + _getFormatted (aForbiddenE2));
+    s_aLogger.info ("Forbidden Attribute Name Start:     " + _getFormatted (aForbiddenAN1));
+    s_aLogger.info ("Forbidden Attribute Name InBetween: " + _getFormatted (aForbiddenAN2));
+    s_aLogger.info ("Forbidden Attribute Value: " + _getFormatted (aForbiddenAV));
+    s_aLogger.info ("Forbidden Text Value:      " + _getFormatted (aForbiddenTV));
+    s_aLogger.info ("Forbidden CDATA Value:     " + _getFormatted (aForbiddenCV));
   }
 }

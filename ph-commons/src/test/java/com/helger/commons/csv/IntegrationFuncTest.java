@@ -36,13 +36,18 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.nio.charset.Charset;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import com.helger.commons.charset.CCharset;
 
 public final class IntegrationFuncTest
 {
@@ -66,8 +71,9 @@ public final class IntegrationFuncTest
   {
     final String [] [] data = new String [] [] { { "hello, a test", "one nested \" test" },
                                                  { "\"\"", "test", null, "8" } };
+    final Charset aCharset = CCharset.CHARSET_UTF_8_OBJ;
 
-    try (final CSVWriter writer = new CSVWriter (new FileWriter (m_aTempFile)))
+    try (final CSVWriter writer = new CSVWriter (new OutputStreamWriter (new FileOutputStream (m_aTempFile), aCharset)))
     {
       for (final String [] aData : data)
       {
@@ -75,7 +81,7 @@ public final class IntegrationFuncTest
       }
     }
 
-    try (final CSVReader reader = new CSVReader (new FileReader (m_aTempFile)))
+    try (final CSVReader reader = new CSVReader (new InputStreamReader (new FileInputStream (m_aTempFile), aCharset)))
     {
       List <String> line;
       for (int row = 0; (line = reader.readNext ()) != null; row++)

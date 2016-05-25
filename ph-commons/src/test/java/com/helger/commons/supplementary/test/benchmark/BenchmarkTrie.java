@@ -20,14 +20,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import com.helger.commons.charset.CCharset;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsTreeMap;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
@@ -52,9 +52,10 @@ public final class BenchmarkTrie extends AbstractBenchmarkTask
     execute ();
   }
 
-  private static List <String> _readWordList (final IReadableResource aRes, final Charset aCharset) throws IOException
+  private static ICommonsList <String> _readWordList (final IReadableResource aRes,
+                                                      final Charset aCharset) throws IOException
   {
-    final List <String> ret = new ArrayList <String> ();
+    final ICommonsList <String> ret = new CommonsArrayList<> ();
     final BufferedReader aBR = new BufferedReader (new InputStreamReader (aRes.getInputStream (), aCharset));
     String sLine;
     while ((sLine = aBR.readLine ()) != null)
@@ -67,7 +68,7 @@ public final class BenchmarkTrie extends AbstractBenchmarkTask
     return ret;
   }
 
-  private static int _getMaxStringLength (final List <String> l)
+  private static int _getMaxStringLength (final Iterable <String> l)
   {
     int m = 0;
     for (final String s : l)
@@ -77,8 +78,8 @@ public final class BenchmarkTrie extends AbstractBenchmarkTask
 
   private static void execute () throws IOException
   {
-    final List <String> aStrings = _readWordList (new ClassPathResource ("wordlist/english-words.95"),
-                                                  CCharset.CHARSET_ISO_8859_1_OBJ);
+    final ICommonsList <String> aStrings = _readWordList (new ClassPathResource ("wordlist/english-words.95"),
+                                                          CCharset.CHARSET_ISO_8859_1_OBJ);
     if (true)
     {
       // 309 chars
@@ -183,7 +184,7 @@ public final class BenchmarkTrie extends AbstractBenchmarkTask
     public StringMapTreeMap (final String [] aStrings)
     {
       super (aStrings);
-      m_aMap = new CommonsTreeMap <> ();
+      m_aMap = new CommonsTreeMap<> ();
     }
 
     @Override

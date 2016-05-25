@@ -35,9 +35,14 @@ public final class JavaListAllLocalesFuncTest
   {
     for (final Locale aLocale : CollectionHelper.getSorted (Locale.getAvailableLocales (),
                                                             IComparator.getComparatorCollating (Locale::getCountry,
-                                                                                                            Locale.US)))
+                                                                                                Locale.US)))
       if (aLocale.getCountry ().length () > 0)
-        s_aLogger.info (aLocale.getCountry () + " " + aLocale.getDisplayCountry () + " (" + aLocale.toString () + ")");
+        s_aLogger.info (aLocale.getCountry () +
+                        " " +
+                        aLocale.getDisplayCountry (Locale.US) +
+                        " (" +
+                        aLocale.toString () +
+                        ")");
   }
 
   @Test
@@ -48,6 +53,6 @@ public final class JavaListAllLocalesFuncTest
       if (aLocale.getLanguage ().equals ("sr") ||
           aLocale.getLanguage ().equals ("sh") ||
           aLocale.getLanguage ().equals ("bs"))
-        s_aLogger.info (aLocale.toString () + ": " + aLocale.getDisplayName ());
+        s_aLogger.info (aLocale.toString () + ": " + aLocale.getDisplayName (Locale.US));
   }
 }

@@ -17,8 +17,14 @@
 package com.helger.commons.supplementary.test.benchmark;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.FieldPosition;
 import java.util.Arrays;
+import java.util.Locale;
+import java.util.Locale.Category;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Based on
@@ -28,6 +34,8 @@ import java.util.Arrays;
  */
 public final class MainDoubleToString
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (MainDoubleToString.class);
+
   private static final char NO_PREFIX_OR_SUFFIX = '\uFFFF';
   // Hardcode some byte arrays to make them quickly available
   private static final char [] NEGATIVE_INFINITY = { '-', 'I', 'n', 'f', 'i', 'n', 'i', 't', 'y' };
@@ -1246,54 +1254,55 @@ public final class MainDoubleToString
     long time1;
     final MainDoubleToString a = new MainDoubleToString ();
 
-    System.out.println ("The " + name);
-    System.out.println ("    " + Arrays.toString (arr));
-    System.out.println ("are appended to a StringBuilder one by one " + repeat + " times.");
+    s_aLogger.info ("The " + name);
+    s_aLogger.info ("    " + Arrays.toString (arr));
+    s_aLogger.info ("are appended to a StringBuilder one by one " + repeat + " times.");
     Runtime.getRuntime ().gc ();
 
-    System.out.println ("Starting test");
+    s_aLogger.info ("Starting test");
     time1 = System.currentTimeMillis ();
     StringBuilder s1 = new StringBuilder ();
     for (int i = repeat; i > 0; i--)
       for (int j = arr.length - 1; j >= 0; j--)
         a.append (s1, arr[j]);
     time1 = System.currentTimeMillis () - time1;
-    System.out.println ("  The append        took " + time1 + " milliseconds");
+    s_aLogger.info ("  The append        took " + time1 + " milliseconds");
     s1 = null;
     Runtime.getRuntime ().gc ();
 
-    System.out.println ("Starting test");
+    s_aLogger.info ("Starting test");
     time1 = System.currentTimeMillis ();
     StringBuilder s2 = new StringBuilder ();
     for (int i = repeat; i > 0; i--)
       for (int j = arr.length - 1; j >= 0; j--)
         a.appendFormatted (s2, arr[j], 4, ',', '.', 3, '-', NO_PREFIX_OR_SUFFIX);
     time1 = System.currentTimeMillis () - time1;
-    System.out.println ("  The format append took " + time1 + " milliseconds");
+    s_aLogger.info ("  The format append took " + time1 + " milliseconds");
     s2 = null;
     Runtime.getRuntime ().gc ();
 
-    System.out.println ("Starting test");
+    s_aLogger.info ("Starting test");
     StringBuilder s3 = new StringBuilder ();
     time1 = System.currentTimeMillis ();
     for (int i = repeat; i > 0; i--)
       for (int j = arr.length - 1; j >= 0; j--)
         s3.append (arr[j]);
     time1 = System.currentTimeMillis () - time1;
-    System.out.println ("  The StringBuilder took " + time1 + " milliseconds");
+    s_aLogger.info ("  The StringBuilder took " + time1 + " milliseconds");
     s3 = null;
     Runtime.getRuntime ().gc ();
 
     StringBuffer sb1 = new StringBuffer ();
-    System.out.println ("Starting test");
+    s_aLogger.info ("Starting test");
     time1 = System.currentTimeMillis ();
-    final DecimalFormat format = new DecimalFormat ("#,##0.0000");
+    final DecimalFormat format = new DecimalFormat ("#,##0.0000",
+                                                    DecimalFormatSymbols.getInstance (Locale.getDefault (Category.FORMAT)));
     final FieldPosition f = new FieldPosition (0);
     for (int i = repeat; i > 0; i--)
       for (int j = arr.length - 1; j >= 0; j--)
         format.format (arr[j], sb1, f);
     time1 = System.currentTimeMillis () - time1;
-    System.out.println ("  The DecimalFormat took " + time1 + " milliseconds");
+    s_aLogger.info ("  The DecimalFormat took " + time1 + " milliseconds");
     sb1 = null;
     Runtime.getRuntime ().gc ();
 
@@ -1330,11 +1339,11 @@ public final class MainDoubleToString
       format.format (arr[j], sb1, f);
     }
 
-    System.out.println ("    " + s1);
-    System.out.println ("    " + s2);
-    System.out.println ("    " + s3);
-    System.out.println ("    " + sb1);
-    System.out.println ();
+    s_aLogger.info ("    " + s1);
+    s_aLogger.info ("    " + s2);
+    s_aLogger.info ("    " + s3);
+    s_aLogger.info ("    " + sb1);
+    s_aLogger.info ("");
   }
 
   public void append (final StringBuilder s, final double pd)

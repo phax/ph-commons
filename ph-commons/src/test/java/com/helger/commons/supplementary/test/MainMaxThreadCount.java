@@ -16,6 +16,9 @@
  */
 package com.helger.commons.supplementary.test;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.thread.ThreadHelper;
 
 /**
@@ -26,6 +29,8 @@ import com.helger.commons.thread.ThreadHelper;
  */
 public final class MainMaxThreadCount
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (MainMaxThreadCount.class);
+
   private MainMaxThreadCount ()
   {}
 
@@ -48,7 +53,7 @@ public final class MainMaxThreadCount
     while (true)
     {
       new TestThread ().start ();
-      System.out.println ("Started #" + ++nCount);
+      s_aLogger.info ("Started #" + ++nCount);
     }
   }
 }

@@ -62,7 +62,7 @@ public final class JavaFileAccessFuncTest
     {
       try
       {
-        final InputStreamReader aISR = new InputStreamReader (m_aIS);
+        final InputStreamReader aISR = new InputStreamReader (m_aIS, CCharset.CHARSET_ISO_8859_1_OBJ);
         final BufferedReader aBR = new BufferedReader (aISR);
         String line;
         while ((line = aBR.readLine ()) != null)
@@ -70,17 +70,16 @@ public final class JavaFileAccessFuncTest
       }
       catch (final Exception ex)
       {
-        ex.printStackTrace ();
+        s_aLogger.error ("Internal error", ex);
       }
     }
   }
 
-  @SuppressWarnings ("unused")
   private static final Logger s_aLogger = LoggerFactory.getLogger (JavaFileAccessFuncTest.class);
 
   private static synchronized void _println (final String s)
   {
-    System.out.println (s);
+    s_aLogger.info (s);
   }
 
   private static void _exec (@Nonnull final String... aCmdArray) throws IOException, InterruptedException

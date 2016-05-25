@@ -16,6 +16,9 @@
  */
 package com.helger.commons.supplementary.tools.collection;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.collection.PrimitiveCollectionHelper;
 
 /**
@@ -25,9 +28,11 @@ import com.helger.commons.collection.PrimitiveCollectionHelper;
  */
 public class MainCreatePrimitiveCollectionHelperCode
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (MainCreatePrimitiveCollectionHelperCode.class);
+
   public static void main (final String [] args)
   {
-    final StringBuilder aSB = new StringBuilder ();
+    final StringBuilder aSB = new StringBuilder ().append ("\n");
     for (final ECollectionType eCollectionType : ECollectionType.values ())
       if (!eCollectionType.isMap ())
         for (final EPrimitiveType ePrim : EPrimitiveType.values ())
@@ -83,6 +88,6 @@ public class MainCreatePrimitiveCollectionHelperCode
                .append ("}\n");
         }
 
-    System.out.println (aSB.toString ());
+    s_aLogger.info (aSB.toString ());
   }
 }

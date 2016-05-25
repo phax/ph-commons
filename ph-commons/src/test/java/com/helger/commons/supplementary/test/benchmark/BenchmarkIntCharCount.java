@@ -16,18 +16,23 @@
  */
 package com.helger.commons.supplementary.test.benchmark;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.timing.StopWatch;
 
 public final class BenchmarkIntCharCount
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (BenchmarkIntCharCount.class);
+
+  @FunctionalInterface
   interface IDoIt
   {
     int getCharacterCount (int n);
   }
 
   public static final IDoIt s_a1 = n -> StringHelper.getCharacterCount (n);
-
   public static final IDoIt s_a2 = n -> Integer.toString (n).length ();
 
   public static void main (final String [] args)
@@ -40,14 +45,14 @@ public final class BenchmarkIntCharCount
     for (int i = nMinValue; i <= nMaxValue; ++i)
       nSum1 += s_a1.getCharacterCount (i);
     aSW1.stop ();
-    System.out.println ("Version 1 took " + aSW1.getMillis ());
+    s_aLogger.info ("Version 1 took " + aSW1.getMillis ());
 
     final StopWatch aSW2 = StopWatch.createdStarted ();
     int nSum2 = 0;
     for (int i = nMinValue; i <= nMaxValue; ++i)
       nSum2 += s_a2.getCharacterCount (i);
     aSW2.stop ();
-    System.out.println ("Version 2 took " + aSW2.getMillis ());
+    s_aLogger.info ("Version 2 took " + aSW2.getMillis ());
 
     if (nSum1 != nSum2)
       throw new RuntimeException ("Dont match! " + nSum1 + " -- " + nSum2);

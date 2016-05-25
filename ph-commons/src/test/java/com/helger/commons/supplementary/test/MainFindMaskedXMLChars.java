@@ -22,6 +22,8 @@ import java.util.List;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -35,6 +37,8 @@ import com.helger.commons.xml.transform.XMLTransformerFactory;
 
 public final class MainFindMaskedXMLChars
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (MainFindMaskedXMLChars.class);
+
   private static String _getFormatted (final List <Integer> x)
   {
     if (x.isEmpty ())
@@ -215,12 +219,12 @@ public final class MainFindMaskedXMLChars
       if (sXML.indexOf ("<[CDATA[") >= 0 && _containsER (sXML, i))
         aMaskedCV.add (Integer.valueOf (i));
     }
-    System.out.println ("Masked Element Name Start:       " + _getFormatted (aMaskedE1));
-    System.out.println ("Masked Element Name InBetween:   " + _getFormatted (aMaskedE2));
-    System.out.println ("Masked Attribute Name Start:     " + _getFormatted (aMaskedAN1));
-    System.out.println ("Masked Attribute Name InBetween: " + _getFormatted (aMaskedAN2));
-    System.out.println ("Masked Attribute Value: " + _getFormatted (aMaskedAV));
-    System.out.println ("Masked Text Value:      " + _getFormatted (aMaskedTV));
-    System.out.println ("Masked CDATA Value:     " + _getFormatted (aMaskedCV));
+    s_aLogger.info ("Masked Element Name Start:       " + _getFormatted (aMaskedE1));
+    s_aLogger.info ("Masked Element Name InBetween:   " + _getFormatted (aMaskedE2));
+    s_aLogger.info ("Masked Attribute Name Start:     " + _getFormatted (aMaskedAN1));
+    s_aLogger.info ("Masked Attribute Name InBetween: " + _getFormatted (aMaskedAN2));
+    s_aLogger.info ("Masked Attribute Value: " + _getFormatted (aMaskedAV));
+    s_aLogger.info ("Masked Text Value:      " + _getFormatted (aMaskedTV));
+    s_aLogger.info ("Masked CDATA Value:     " + _getFormatted (aMaskedCV));
   }
 }

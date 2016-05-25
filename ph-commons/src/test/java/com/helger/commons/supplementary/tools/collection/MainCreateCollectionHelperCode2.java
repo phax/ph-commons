@@ -16,6 +16,9 @@
  */
 package com.helger.commons.supplementary.tools.collection;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.collection.PrimitiveCollectionHelper;
 
 /**
@@ -25,9 +28,11 @@ import com.helger.commons.collection.PrimitiveCollectionHelper;
  */
 public class MainCreateCollectionHelperCode2
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (MainCreateCollectionHelperCode2.class);
+
   public static void main (final String [] args)
   {
-    final StringBuilder aSB = new StringBuilder ();
+    final StringBuilder aSB = new StringBuilder ().append ("\n");
     for (final ECollectionType eCollectionType : ECollectionType.values ())
       if (!eCollectionType.isMap ())
       {
@@ -57,6 +62,6 @@ public class MainCreateCollectionHelperCode2
         aSB.append (sMapped + "(new Object[]{\"a\"}, Object::toString);\n");
       }
 
-    System.out.print (aSB.toString ());
+    s_aLogger.info (aSB.toString ());
   }
 }

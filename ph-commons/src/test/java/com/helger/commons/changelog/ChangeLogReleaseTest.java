@@ -22,6 +22,7 @@ import static org.junit.Assert.fail;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.ZoneId;
 
 import org.junit.Test;
 
@@ -38,7 +39,7 @@ public final class ChangeLogReleaseTest
   @Test
   public void testAll ()
   {
-    final LocalDate aDate = LocalDate.now ();
+    final LocalDate aDate = LocalDate.now (ZoneId.systemDefault ());
     final Version aVersion = new Version (1, 2, 3);
 
     final ChangeLogRelease aRelease = new ChangeLogRelease (aDate, aVersion);

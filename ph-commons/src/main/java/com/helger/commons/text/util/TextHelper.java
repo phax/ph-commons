@@ -20,7 +20,6 @@ import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -68,7 +67,8 @@ public final class TextHelper
       return sText;
     }
 
-    return new MessageFormat (sText, Locale.getDefault (Locale.Category.FORMAT)).format (aArgs);
+    final MessageFormat aMF = new MessageFormat (sText, Locale.getDefault (Locale.Category.FORMAT));
+    return aMF.format (aArgs);
   }
 
   @Nullable
@@ -154,7 +154,7 @@ public final class TextHelper
 
     final MultilingualText ret = new MultilingualText ();
     final LocaleCache aLC = LocaleCache.getInstance ();
-    for (final Entry <String, String> aEntry : aMap.entrySet ())
+    for (final Map.Entry <String, String> aEntry : aMap.entrySet ())
     {
       final String sText = aEntry.getValue ();
       if (sText != null)

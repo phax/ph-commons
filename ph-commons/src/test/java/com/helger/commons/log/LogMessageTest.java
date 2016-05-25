@@ -23,6 +23,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 import org.junit.Test;
 
@@ -41,7 +42,7 @@ public final class LogMessageTest
   public void testAll ()
   {
     final LogMessage lm = new LogMessage (EErrorLevel.WARN, "Msg", new MockException ());
-    final LocalDateTime aNow = LocalDateTime.now ();
+    final LocalDateTime aNow = LocalDateTime.now (ZoneId.systemDefault ());
     assertTrue (lm.getIssueDateTime ().equals (aNow) || lm.getIssueDateTime ().isBefore (aNow));
     assertSame (EErrorLevel.WARN, lm.getErrorLevel ());
     assertEquals ("Msg", lm.getMessage ());

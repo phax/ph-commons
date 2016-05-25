@@ -19,8 +19,13 @@ package com.helger.commons.supplementary.test;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public final class MainReadWriteLockReentrance
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (MainReadWriteLockReentrance.class);
+
   public static void main (final String [] args)
   {
     final ReadWriteLock aRWLock = new ReentrantReadWriteLock ();
@@ -28,7 +33,7 @@ public final class MainReadWriteLockReentrance
     aRWLock.readLock ().lock ();
     try
     {
-      System.out.println ("in readLock");
+      s_aLogger.info ("in readLock");
     }
     finally
     {
@@ -38,7 +43,7 @@ public final class MainReadWriteLockReentrance
     aRWLock.writeLock ().lock ();
     try
     {
-      System.out.println ("in writeLock");
+      s_aLogger.info ("in writeLock");
     }
     finally
     {
@@ -51,7 +56,7 @@ public final class MainReadWriteLockReentrance
       aRWLock.readLock ().lock ();
       try
       {
-        System.out.println ("in double readLock");
+        s_aLogger.info ("in double readLock");
       }
       finally
       {
@@ -69,7 +74,7 @@ public final class MainReadWriteLockReentrance
       aRWLock.writeLock ().lock ();
       try
       {
-        System.out.println ("in double writeLock");
+        s_aLogger.info ("in double writeLock");
       }
       finally
       {
@@ -90,7 +95,7 @@ public final class MainReadWriteLockReentrance
         aRWLock.writeLock ().lock ();
         try
         {
-          System.out.println ("in readLock and writeLock");
+          s_aLogger.info ("in readLock and writeLock");
         }
         finally
         {
@@ -109,7 +114,7 @@ public final class MainReadWriteLockReentrance
       aRWLock.readLock ().lock ();
       try
       {
-        System.out.println ("in writeLock and readLock");
+        s_aLogger.info ("in writeLock and readLock");
       }
       finally
       {
@@ -121,6 +126,6 @@ public final class MainReadWriteLockReentrance
       aRWLock.writeLock ().unlock ();
     }
 
-    System.out.println ("-done-");
+    s_aLogger.info ("-done-");
   }
 }

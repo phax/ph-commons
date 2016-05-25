@@ -17,6 +17,7 @@
 package com.helger.commons.supplementary.test.benchmark;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,7 +58,7 @@ public abstract class AbstractBenchmarkTask
   protected static void logSystemInfo ()
   {
     s_aLogger.info ("Runtime: Date=" +
-                    LocalDateTime.now ().toString () +
+                    LocalDateTime.now (ZoneId.systemDefault ()).toString () +
                     "; Java=" +
                     SystemProperties.getJavaVersion () +
                     "; OS=" +

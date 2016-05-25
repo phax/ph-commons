@@ -47,7 +47,7 @@ public final class ObjectPoolTest
       {
         try
         {
-          final ObjectPool <String> aOP = new ObjectPool <String> (ITEMS, () -> "any");
+          final ObjectPool <String> aOP = new ObjectPool<> (ITEMS, () -> "any");
           for (int i = 0; i < ITEMS; ++i)
             assertEquals ("any", aOP.borrowObject ());
 
@@ -63,7 +63,7 @@ public final class ObjectPoolTest
         }
         catch (final Throwable t)
         {
-          t.printStackTrace ();
+          s_aLogger.error ("Failure", t);
         }
         s_aLogger.info ("Done");
       }

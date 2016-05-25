@@ -23,7 +23,6 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.compare.IComparator;
 import com.helger.commons.system.SystemHelper;
 import com.helger.commons.system.SystemProperties;
@@ -34,8 +33,8 @@ public final class MainJavaEncodingInfo
 
   public static void main (final String [] args)
   {
-    for (final Map.Entry <String, String> aEntry : CollectionHelper.getSortedByKey (SystemProperties.getAllProperties (),
-                                                                                    IComparator.getComparatorCollating (Locale.US))
+    for (final Map.Entry <String, String> aEntry : SystemProperties.getAllProperties ()
+                                                                   .getSortedByKey (IComparator.getComparatorCollating (Locale.US))
                                                                    .entrySet ())
       s_aLogger.info (aEntry.getKey () + " == " + aEntry.getValue ());
     s_aLogger.info ("Default Locale: " + SystemHelper.getSystemLocale ());
@@ -44,6 +43,6 @@ public final class MainJavaEncodingInfo
       s_aLogger.info ("  " + aLocale);
     s_aLogger.info ("All charsets:");
     for (final Map.Entry <String, Charset> aEntry : Charset.availableCharsets ().entrySet ())
-      s_aLogger.info ("  " + aEntry.getKey () + " -- " + aEntry.getValue ().displayName ());
+      s_aLogger.info ("  " + aEntry.getKey () + " -- " + aEntry.getValue ().displayName (Locale.US));
   }
 }
