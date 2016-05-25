@@ -18,6 +18,7 @@ package com.helger.commons.collection;
 
 import java.util.Collection;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -60,6 +61,19 @@ public final class StackHelper
     return ret;
   }
 
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <SRCTYPE, DSTTYPE> NonBlockingStack <DSTTYPE> newStackMapped (@Nullable final SRCTYPE [] aArray,
+                                                                              @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+  {
+    if (ArrayHelper.isEmpty (aArray))
+      return newStack (0);
+    final NonBlockingStack <DSTTYPE> ret = newStack (aArray.length);
+    for (final SRCTYPE aValue : aArray)
+      ret.push (aMapper.apply (aValue));
+    return ret;
+  }
+
   /**
    * Create a new stack with a single element.
    *
@@ -94,6 +108,18 @@ public final class StackHelper
   public static <ELEMENTTYPE> NonBlockingStack <ELEMENTTYPE> newStack (@Nullable final ELEMENTTYPE... aValues)
   {
     return new NonBlockingStack <> (aValues);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE> NonBlockingStack <ELEMENTTYPE> newStack (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
+                                                                       @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
+  {
+    if (CollectionHelper.isEmpty (aCollection))
+      return newStack (0);
+    final NonBlockingStack <ELEMENTTYPE> ret = newStack (aCollection.size ());
+    CollectionHelper.findAll (aCollection, aFilter, ret::add);
+    return ret;
   }
 
   /**

@@ -22,6 +22,7 @@ import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.PriorityQueue;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -60,6 +61,19 @@ public final class QueueHelper
       return newQueue (0);
     final PriorityQueue <DSTTYPE> ret = newQueue (aCollection.size ());
     for (final SRCTYPE aValue : aCollection)
+      ret.add (aMapper.apply (aValue));
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <SRCTYPE, DSTTYPE> PriorityQueue <DSTTYPE> newQueueMapped (@Nullable final SRCTYPE [] aArray,
+                                                                           @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+  {
+    if (ArrayHelper.isEmpty (aArray))
+      return newQueue (0);
+    final PriorityQueue <DSTTYPE> ret = newQueue (aArray.length);
+    for (final SRCTYPE aValue : aArray)
       ret.add (aMapper.apply (aValue));
     return ret;
   }
@@ -138,6 +152,18 @@ public final class QueueHelper
     if (CollectionHelper.isEmpty (aCont))
       return newQueue (0);
     return new PriorityQueue <> (aCont);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
+                                                                    @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
+  {
+    if (CollectionHelper.isEmpty (aCollection))
+      return newQueue (0);
+    final PriorityQueue <ELEMENTTYPE> ret = newQueue (aCollection.size ());
+    CollectionHelper.findAll (aCollection, aFilter, ret::add);
+    return ret;
   }
 
   @Nonnull

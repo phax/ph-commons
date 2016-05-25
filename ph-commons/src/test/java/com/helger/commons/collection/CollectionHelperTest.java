@@ -72,6 +72,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.SortedSet;
@@ -90,6 +91,7 @@ import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.collection.iterate.IterableIterator;
 import com.helger.commons.compare.IComparator;
 import com.helger.commons.mock.AbstractCommonsTestCase;
+import com.helger.commons.supplementary.tools.collection.MainCreateCollectionHelperCode2;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -1797,4 +1799,82 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertTrue (containsAnyNullElement (newList (null, Integer.valueOf (5))));
   }
 
+  /**
+   * Created by {@link MainCreateCollectionHelperCode2} to check if all APIs are
+   * present
+   */
+  @Test
+  public void testNew ()
+  {
+    CollectionHelper.newList ();
+    CollectionHelper.newList ("a");
+    CollectionHelper.newList (new String [] { "a" });
+    CollectionHelper.newList (new CommonsArrayList <> ("a"));
+    CollectionHelper.newList (new IterableIterator <String> (new CommonsArrayList <> ("a")));
+    CollectionHelper.newList ((Iterable <String>) new CommonsArrayList <> ("a"));
+    CollectionHelper.newList (new CommonsArrayList <> ("a").iterator ());
+    CollectionHelper.newList (new CommonsArrayList <> ("a"), Objects::nonNull);
+    CollectionHelper.newListMapped (new CommonsArrayList <Object> ("a"), Object::toString);
+    CollectionHelper.newListMapped (new Object [] { "a" }, Object::toString);
+    VectorHelper.newVector ();
+    VectorHelper.newVector ("a");
+    VectorHelper.newVector (new String [] { "a" });
+    VectorHelper.newVector (new CommonsArrayList <> ("a"));
+    VectorHelper.newVector (new IterableIterator <String> (new CommonsArrayList <> ("a")));
+    VectorHelper.newVector ((Iterable <String>) new CommonsArrayList <> ("a"));
+    VectorHelper.newVector (new CommonsArrayList <> ("a").iterator ());
+    VectorHelper.newVector (new CommonsArrayList <> ("a"), Objects::nonNull);
+    VectorHelper.newVectorMapped (new CommonsArrayList <Object> ("a"), Object::toString);
+    VectorHelper.newVectorMapped (new Object [] { "a" }, Object::toString);
+    CollectionHelper.newSet ();
+    CollectionHelper.newSet ("a");
+    CollectionHelper.newSet (new String [] { "a" });
+    CollectionHelper.newSet (new CommonsArrayList <> ("a"));
+    CollectionHelper.newSet (new IterableIterator <String> (new CommonsArrayList <> ("a")));
+    CollectionHelper.newSet ((Iterable <String>) new CommonsArrayList <> ("a"));
+    CollectionHelper.newSet (new CommonsArrayList <> ("a").iterator ());
+    CollectionHelper.newSet (new CommonsArrayList <> ("a"), Objects::nonNull);
+    CollectionHelper.newSetMapped (new CommonsArrayList <Object> ("a"), Object::toString);
+    CollectionHelper.newSetMapped (new Object [] { "a" }, Object::toString);
+    CollectionHelper.newOrderedSet ();
+    CollectionHelper.newOrderedSet ("a");
+    CollectionHelper.newOrderedSet (new String [] { "a" });
+    CollectionHelper.newOrderedSet (new CommonsArrayList <> ("a"));
+    CollectionHelper.newOrderedSet (new IterableIterator <String> (new CommonsArrayList <> ("a")));
+    CollectionHelper.newOrderedSet ((Iterable <String>) new CommonsArrayList <> ("a"));
+    CollectionHelper.newOrderedSet (new CommonsArrayList <> ("a").iterator ());
+    CollectionHelper.newOrderedSet (new CommonsArrayList <> ("a"), Objects::nonNull);
+    CollectionHelper.newOrderedSetMapped (new CommonsArrayList <Object> ("a"), Object::toString);
+    CollectionHelper.newOrderedSetMapped (new Object [] { "a" }, Object::toString);
+    CollectionHelper.newSortedSet ();
+    CollectionHelper.newSortedSet ("a");
+    CollectionHelper.newSortedSet (new String [] { "a" });
+    CollectionHelper.newSortedSet (new CommonsArrayList <> ("a"));
+    CollectionHelper.newSortedSet (new IterableIterator <String> (new CommonsArrayList <> ("a")));
+    CollectionHelper.newSortedSet ((Iterable <String>) new CommonsArrayList <> ("a"));
+    CollectionHelper.newSortedSet (new CommonsArrayList <> ("a").iterator ());
+    CollectionHelper.newSortedSet (new CommonsArrayList <> ("a"), Objects::nonNull);
+    CollectionHelper.newSortedSetMapped (new CommonsArrayList <Object> ("a"), Object::toString);
+    CollectionHelper.newSortedSetMapped (new Object [] { "a" }, Object::toString);
+    StackHelper.newStack ();
+    StackHelper.newStack ("a");
+    StackHelper.newStack (new String [] { "a" });
+    StackHelper.newStack (new CommonsArrayList <> ("a"));
+    StackHelper.newStack (new IterableIterator <String> (new CommonsArrayList <> ("a")));
+    StackHelper.newStack ((Iterable <String>) new CommonsArrayList <> ("a"));
+    StackHelper.newStack (new CommonsArrayList <> ("a").iterator ());
+    StackHelper.newStack (new CommonsArrayList <> ("a"), Objects::nonNull);
+    StackHelper.newStackMapped (new CommonsArrayList <Object> ("a"), Object::toString);
+    StackHelper.newStackMapped (new Object [] { "a" }, Object::toString);
+    QueueHelper.newQueue ();
+    QueueHelper.newQueue ("a");
+    QueueHelper.newQueue (new String [] { "a" });
+    QueueHelper.newQueue (new CommonsArrayList <> ("a"));
+    QueueHelper.newQueue (new IterableIterator <String> (new CommonsArrayList <> ("a")));
+    QueueHelper.newQueue ((Iterable <String>) new CommonsArrayList <> ("a"));
+    QueueHelper.newQueue (new CommonsArrayList <> ("a").iterator ());
+    QueueHelper.newQueue (new CommonsArrayList <> ("a"), Objects::nonNull);
+    QueueHelper.newQueueMapped (new CommonsArrayList <Object> ("a"), Object::toString);
+    QueueHelper.newQueueMapped (new Object [] { "a" }, Object::toString);
+  }
 }

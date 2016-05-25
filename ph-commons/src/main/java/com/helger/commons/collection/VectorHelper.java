@@ -68,6 +68,19 @@ public final class VectorHelper
 
   @Nonnull
   @ReturnsMutableCopy
+  public static <SRCTYPE, DSTTYPE> CommonsVector <DSTTYPE> newVectorMapped (@Nullable final SRCTYPE [] aArray,
+                                                                            @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+  {
+    if (ArrayHelper.isEmpty (aArray))
+      return newVector (0);
+    final CommonsVector <DSTTYPE> ret = newVector (aArray.length);
+    for (final SRCTYPE aValue : aArray)
+      ret.add (aMapper.apply (aValue));
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
                                                                      @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
   {
