@@ -35,15 +35,15 @@ import com.helger.commons.xml.serialize.read.DOMReader;
 public final class XMLSystemProperties
 {
   // JDK XML properties
-  public static final String SYSTEM_PROPERTY_JDX_XML_ENTITY_EXPANSION_LIMIT = "jdx.xml.entityExpansionLimit";
+  public static final String SYSTEM_PROPERTY_JDX_XML_ENTITY_EXPANSION_LIMIT = "jdk.xml.entityExpansionLimit";
   public static final String SYSTEM_PROPERTY_ENTITY_EXPANSION_LIMIT = "entityExpansionLimit";
-  public static final String SYSTEM_PROPERTY_JDX_XML_ELEMENT_ATTRIBUTE_LIMIT = "jdx.xml.elementAttributeLimit";
+  public static final String SYSTEM_PROPERTY_JDX_XML_ELEMENT_ATTRIBUTE_LIMIT = "jdk.xml.elementAttributeLimit";
   public static final String SYSTEM_PROPERTY_ELEMENT_ATTRIBUTE_LIMIT = "elementAttributeLimit";
-  public static final String SYSTEM_PROPERTY_JDX_XML_MAX_OCCUR = "jdx.xml.maxOccur";
-  public static final String SYSTEM_PROPERTY_MAX_OCCUR = "maxOccur";
-  public static final String SYSTEM_PROPERTY_JDX_XML_TOTAL_ENTITY_SIZE_LIMIT = "jdx.xml.totalEntitySizeLimit";
-  public static final String SYSTEM_PROPERTY_JDX_XML_MAX_GENERAL_ENTITY_SIZE_LIMIT = "jdx.xml.maxGeneralEntitySizeLimit";
-  public static final String SYSTEM_PROPERTY_JDX_XML_MAX_PARAMETER_ENTITY_SIZE_LIMIT = "jdx.xml.maxParameterEntitySizeLimit";
+  public static final String SYSTEM_PROPERTY_JDX_XML_MAX_OCCUR = "jdk.xml.maxOccurLimit";
+  public static final String SYSTEM_PROPERTY_MAX_OCCUR = "maxOccurLimit";
+  public static final String SYSTEM_PROPERTY_JDX_XML_TOTAL_ENTITY_SIZE_LIMIT = "jdk.xml.totalEntitySizeLimit";
+  public static final String SYSTEM_PROPERTY_JDX_XML_MAX_GENERAL_ENTITY_SIZE_LIMIT = "jdk.xml.maxGeneralEntitySizeLimit";
+  public static final String SYSTEM_PROPERTY_JDX_XML_MAX_PARAMETER_ENTITY_SIZE_LIMIT = "jdk.xml.maxParameterEntitySizeLimit";
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (XMLSystemProperties.class);
 
