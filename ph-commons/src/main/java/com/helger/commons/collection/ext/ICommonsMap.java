@@ -21,6 +21,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -162,6 +163,16 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   default boolean containsAnyValue (@Nullable final Predicate <? super VALUETYPE> aFilter)
   {
     return CollectionHelper.containsAny (values (), aFilter);
+  }
+
+  default void forEachKey (@Nonnull final Consumer <? super KEYTYPE> aConsumer)
+  {
+    forEach ( (k, v) -> aConsumer.accept (k));
+  }
+
+  default void forEachValue (@Nonnull final Consumer <? super VALUETYPE> aConsumer)
+  {
+    forEach ( (k, v) -> aConsumer.accept (v));
   }
 
   /**
