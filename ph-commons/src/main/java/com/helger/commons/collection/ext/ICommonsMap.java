@@ -20,7 +20,11 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.ConcurrentModificationException;
 import java.util.Map;
+import java.util.Objects;
+import java.util.function.BiConsumer;
+import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -173,6 +177,47 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   default void forEachValue (@Nonnull final Consumer <? super VALUETYPE> aConsumer)
   {
     forEach ( (k, v) -> aConsumer.accept (v));
+  }
+
+  default void forEach (@Nullable final BiPredicate <? super KEYTYPE, ? super VALUETYPE> aFilter,
+                        @Nonnull final BiConsumer <? super KEYTYPE, ? super VALUETYPE> aConsumer)
+  {
+    Objects.requireNonNull (aConsumer);
+    for (final Map.Entry <KEYTYPE, VALUETYPE> entry : entrySet ())
+    {
+      KEYTYPE aKey;
+      VALUETYPE aValue;
+      try
+      {
+        aKey = entry.getKey ();
+        aValue = entry.getValue ();
+      }
+      catch (final IllegalStateException ise)
+      {
+        // this usually means the entry is no longer in the map.
+        throw new ConcurrentModificationException (ise);
+      }
+      if (aFilter == null || aFilter.test (aKey, aValue))
+        aConsumer.accept (aKey, aValue);
+    }
+  }
+
+  default void forEachKey (@Nullable final Predicate <? super KEYTYPE> aFilter,
+                           @Nonnull final Consumer <? super KEYTYPE> aConsumer)
+  {
+    if (aFilter == null)
+      forEachKey (aConsumer);
+    else
+      forEach ( (k, v) -> aFilter.test (k), (k, v) -> aConsumer.accept (k));
+  }
+
+  default void forEachValue (@Nullable final Predicate <? super VALUETYPE> aFilter,
+                             @Nonnull final Consumer <? super VALUETYPE> aConsumer)
+  {
+    if (aFilter == null)
+      forEachValue (aConsumer);
+    else
+      forEach ( (k, v) -> aFilter.test (v), (k, v) -> aConsumer.accept (v));
   }
 
   /**
