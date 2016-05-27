@@ -343,6 +343,13 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   public void close ()
   {}
 
+  /**
+   * <code>flush</code> has no effect - simply drop the Exception
+   */
+  @Override
+  public void flush ()
+  {}
+
   @Override
   public String toString ()
   {
