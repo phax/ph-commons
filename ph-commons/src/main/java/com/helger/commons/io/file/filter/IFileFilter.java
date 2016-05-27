@@ -192,10 +192,16 @@ public interface IFileFilter extends FileFilter, FilenameFilter, IFilter <File>
   }
 
   /**
+   * Create a file filter that matches, if it matches one of the provided
+   * regular expressions
+   *
    * @param aRegExs
    *        The regular expressions to match against. May neither be
    *        <code>null</code> nor empty.
    * @return The created {@link IFileFilter}. Never <code>null</code>.
+   * @see #filenameMatchNoRegEx(String...)
+   * @see #filenameMatchAny(String...)
+   * @see #filenameMatchNone(String...)
    */
   @Nonnull
   static IFileFilter filenameMatchAnyRegEx (@Nonnull @Nonempty final String... aRegExs)
@@ -215,10 +221,16 @@ public interface IFileFilter extends FileFilter, FilenameFilter, IFilter <File>
   }
 
   /**
+   * Create a file filter that matches, if it matches none of the provided
+   * regular expressions
+   *
    * @param aRegExs
    *        The regular expressions to match against. May neither be
    *        <code>null</code> nor empty.
    * @return The created {@link IFileFilter}. Never <code>null</code>.
+   * @see #filenameMatchAnyRegEx(String...)
+   * @see #filenameMatchAny(String...)
+   * @see #filenameMatchNone(String...)
    */
   @Nonnull
   static IFileFilter filenameMatchNoRegEx (@Nonnull @Nonempty final String... aRegExs)
@@ -232,6 +244,64 @@ public interface IFileFilter extends FileFilter, FilenameFilter, IFilter <File>
         return false;
       for (final String sRegEx : aRegExs)
         if (RegExHelper.stringMatchesPattern (sRegEx, sRealName))
+          return false;
+      return true;
+    };
+  }
+
+  /**
+   * Create a file filter that matches, if it matches one of the provided
+   * filenames.
+   *
+   * @param aFilenames
+   *        The names to match against. May neither be <code>null</code> nor
+   *        empty.
+   * @return The created {@link IFileFilter}. Never <code>null</code>.
+   * @see #filenameMatchAnyRegEx(String...)
+   * @see #filenameMatchNoRegEx(String...)
+   * @see #filenameMatchNone(String...)
+   */
+  @Nonnull
+  static IFileFilter filenameMatchAny (@Nonnull @Nonempty final String... aFilenames)
+  {
+    ValueEnforcer.notEmpty (aFilenames, "Filenames");
+    return aFile -> {
+      if (aFile != null)
+      {
+        final String sRealName = FilenameHelper.getSecureFilename (aFile.getName ());
+        if (sRealName != null)
+          for (final String sFilename : aFilenames)
+            if (sFilename.equals (sRealName))
+              return true;
+      }
+      return false;
+    };
+  }
+
+  /**
+   * Create a file filter that matches, if it matches none of the provided
+   * filenames.
+   *
+   * @param aFilenames
+   *        The filenames to match against. May neither be <code>null</code> nor
+   *        empty.
+   * @return The created {@link IFileFilter}. Never <code>null</code>.
+   * @see #filenameMatchAnyRegEx(String...)
+   * @see #filenameMatchNoRegEx(String...)
+   * @see #filenameMatchAny(String...)
+   */
+  @Nonnull
+  static IFileFilter filenameMatchNone (@Nonnull @Nonempty final String... aFilenames)
+  {
+    ValueEnforcer.notEmpty (aFilenames, "Filenames");
+    return aFile -> {
+      if (aFile == null)
+        return false;
+      final String sRealName = FilenameHelper.getSecureFilename (aFile.getName ());
+      if (sRealName == null)
+        return false;
+      for (final String sFilename : aFilenames)
+        if (sFilename.equals (sRealName))
           return false;
       return true;
     };
