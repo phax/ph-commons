@@ -1865,13 +1865,15 @@ public final class Base64
     if ((options & GZIP) != 0)
     {
       // GZip -> Base64 -> ByteArray
-      final NonBlockingByteArrayOutputStream baos = new NonBlockingByteArrayOutputStream ();
-      try (final Base64OutputStream b64os = new Base64OutputStream (baos, ENCODE | options);
-          final GZIPOutputStream gzos = new GZIPOutputStream (b64os))
+      try (final NonBlockingByteArrayOutputStream baos = new NonBlockingByteArrayOutputStream ())
       {
-        gzos.write (source, off, len);
+        try (final Base64OutputStream b64os = new Base64OutputStream (baos, ENCODE | options);
+            final GZIPOutputStream gzos = new GZIPOutputStream (b64os))
+        {
+          gzos.write (source, off, len);
+        }
+        return baos.toByteArray ();
       }
-      return baos.toByteArray ();
     }
 
     // Else, don't compress. Better not to use streams at all then.
@@ -1908,7 +1910,7 @@ public final class Base64
           e++;
           lineLength = 0;
         }
-      } // en dfor: each piece of array
+      } // end for: each piece of array
 
       if (d < len)
       {
