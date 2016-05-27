@@ -28,7 +28,7 @@ import javax.annotation.Nonnull;
 public interface ICodec <DATATYPE> extends IEncoder <DATATYPE, DATATYPE>, IDecoder <DATATYPE, DATATYPE>
 {
   @Nonnull
-  static <T> ICodec <T> identity ()
+  static <T> IdentityCodec <T> identity ()
   {
     return new IdentityCodec <T> ();
   }
