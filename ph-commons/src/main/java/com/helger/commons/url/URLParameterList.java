@@ -175,7 +175,7 @@ public class URLParameterList extends CommonsArrayList <URLParameter>
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllParamNames ()
   {
-    final ICommonsOrderedSet <String> ret = new CommonsLinkedHashSet <> ();
+    final ICommonsOrderedSet <String> ret = new CommonsLinkedHashSet<> ();
     forEach (aParam -> ret.add (aParam.getName ()));
     return ret;
   }
@@ -184,23 +184,34 @@ public class URLParameterList extends CommonsArrayList <URLParameter>
   @ReturnsMutableCopy
   public ICommonsList <String> getAllParamValues (@Nullable final String sName)
   {
-    final ICommonsList <String> ret = new CommonsArrayList <> ();
+    final ICommonsList <String> ret = new CommonsArrayList<> ();
     if (sName != null)
       findAll (aParam -> aParam.hasName (sName), aParam -> ret.add (aParam.getValue ()));
     return ret;
   }
 
+  /**
+   * Get the value of the first parameter with the provided name
+   *
+   * @param sName
+   *        The parameter name to search
+   * @return <code>null</code> if no such parameter is present.
+   */
   @Nullable
   public String getFirstParamValue (@Nullable final String sName)
   {
     return sName == null ? null : findFirstMapped (aParam -> aParam.hasName (sName), aParam -> aParam.getValue ());
   }
 
+  /**
+   * @return A new multi map (map from String to List of String) with all
+   *         values. Order may be lost. Never <code>null</code>.
+   */
   @Nonnull
   @ReturnsMutableCopy
   public IMultiMapListBased <String, String> getAsMultiMap ()
   {
-    final IMultiMapListBased <String, String> ret = new MultiLinkedHashMapArrayListBased <> ();
+    final IMultiMapListBased <String, String> ret = new MultiLinkedHashMapArrayListBased<> ();
     forEach (aParam -> ret.putSingle (aParam.getName (), aParam.getValue ()));
     return ret;
   }
