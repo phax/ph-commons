@@ -20,9 +20,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.ConcurrentModificationException;
 import java.util.Map;
-import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
@@ -47,14 +45,14 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default ICommonsSet <KEYTYPE> copyOfKeySet ()
   {
-    return new CommonsHashSet<> (keySet ());
+    return new CommonsHashSet <> (keySet ());
   }
 
   @Nonnull
   @ReturnsMutableCopy
   default ICommonsList <VALUETYPE> copyOfValues ()
   {
-    return new CommonsArrayList<> (values ());
+    return new CommonsArrayList <> (values ());
   }
 
   @Nonnull
@@ -87,7 +85,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default ICommonsSet <Map.Entry <KEYTYPE, VALUETYPE>> copyOfEntrySet ()
   {
-    return new CommonsHashSet<> (entrySet ());
+    return new CommonsHashSet <> (entrySet ());
   }
 
   /**
@@ -182,23 +180,15 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   default void forEach (@Nullable final BiPredicate <? super KEYTYPE, ? super VALUETYPE> aFilter,
                         @Nonnull final BiConsumer <? super KEYTYPE, ? super VALUETYPE> aConsumer)
   {
-    Objects.requireNonNull (aConsumer);
-    for (final Map.Entry <KEYTYPE, VALUETYPE> entry : entrySet ())
+    if (aFilter == null)
+      forEach (aConsumer);
+    else
     {
-      KEYTYPE aKey;
-      VALUETYPE aValue;
-      try
-      {
-        aKey = entry.getKey ();
-        aValue = entry.getValue ();
-      }
-      catch (final IllegalStateException ise)
-      {
-        // this usually means the entry is no longer in the map.
-        throw new ConcurrentModificationException (ise);
-      }
-      if (aFilter == null || aFilter.test (aKey, aValue))
-        aConsumer.accept (aKey, aValue);
+      // Use eventually present more performant forEach
+      forEach ( (k, v) -> {
+        if (aFilter.test (k, v))
+          aConsumer.accept (k, v);
+      });
     }
   }
 
@@ -259,7 +249,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default ICommonsMap <VALUETYPE, KEYTYPE> getSwappedKeyValues ()
   {
-    final ICommonsMap <VALUETYPE, KEYTYPE> ret = new CommonsHashMap<> ();
+    final ICommonsMap <VALUETYPE, KEYTYPE> ret = new CommonsHashMap <> ();
     for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : entrySet ())
       ret.put (aEntry.getValue (), aEntry.getKey ());
     return ret;
