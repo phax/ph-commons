@@ -99,6 +99,13 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
     PRINTABLE_CHARS.set ('~');
   }
 
+  @Nonnull
+  @ReturnsMutableCopy
+  public static BitSet getAllPrintableChars ()
+  {
+    return (BitSet) PRINTABLE_CHARS.clone ();
+  }
+
   private static final byte BLANK = ' ';
   private static final byte UNDERSCORE = '_';
 
