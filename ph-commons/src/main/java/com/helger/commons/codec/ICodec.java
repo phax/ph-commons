@@ -17,7 +17,6 @@
 package com.helger.commons.codec;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * Interface for a single encoder + decoder.
@@ -31,19 +30,6 @@ public interface ICodec <DATATYPE> extends IEncoder <DATATYPE, DATATYPE>, IDecod
   @Nonnull
   static <T> ICodec <T> identity ()
   {
-    return new ICodec <T> ()
-    {
-      @Nullable
-      public T getEncoded (@Nullable final T aInput)
-      {
-        return aInput;
-      }
-
-      @Nullable
-      public T getDecoded (@Nullable final T aInput)
-      {
-        return aInput;
-      }
-    };
+    return new IdentityCodec <T> ();
   }
 }
