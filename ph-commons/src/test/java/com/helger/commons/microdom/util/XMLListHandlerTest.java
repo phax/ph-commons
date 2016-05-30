@@ -24,14 +24,14 @@ import static org.junit.Assert.fail;
 
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.IHasOutputStream;
 import com.helger.commons.io.resource.ClassPathResource;
@@ -50,7 +50,7 @@ public final class XMLListHandlerTest
   @Test
   public void testRead ()
   {
-    List <String> aList = new ArrayList <String> ();
+    ICommonsList <String> aList = new CommonsArrayList <> ();
     final IReadableResource aRes = new ClassPathResource ("xml/list.xml");
     XMLListHandler.readList (aRes, aList);
     assertEquals (3, aList.size ());
@@ -70,7 +70,7 @@ public final class XMLListHandlerTest
     assertEquals ("a", aList.get (0));
     assertEquals ("a", aList.get (1));
 
-    final Set <String> aSet = new HashSet <String> ();
+    final ICommonsSet <String> aSet = new CommonsHashSet <> ();
     XMLListHandler.readList (new StringInputStreamProvider (sXML, CCharset.CHARSET_ISO_8859_1_OBJ), aSet);
     assertEquals (1, aSet.size ());
     assertTrue (aSet.contains ("a"));
@@ -82,7 +82,7 @@ public final class XMLListHandlerTest
   @Test
   public void testReadInvalid ()
   {
-    final List <String> aList = new ArrayList <String> ();
+    final ICommonsList <String> aList = new CommonsArrayList <> ();
     final IReadableResource aRes = new ClassPathResource ("xml/list.xml");
     try
     {
@@ -131,7 +131,7 @@ public final class XMLListHandlerTest
   @Test
   public void testWriteInvalid ()
   {
-    final List <String> aList = new ArrayList <String> ();
+    final ICommonsList <String> aList = new CommonsArrayList <> ();
     try
     {
       XMLListHandler.writeList (aList, (IHasOutputStream) null);

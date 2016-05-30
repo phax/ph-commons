@@ -202,7 +202,7 @@ public class CombinationGenerator <DATATYPE> implements IIterableIterator <IComm
                                                     @Nonnegative final int nSlotCount,
                                                     @Nonnull final Collection <ICommonsList <DATATYPE>> aResultList)
   {
-    for (final ICommonsList <DATATYPE> aPermutation : new CombinationGenerator <DATATYPE> (aInput, nSlotCount))
+    for (final ICommonsList <DATATYPE> aPermutation : new CombinationGenerator <> (aInput, nSlotCount))
       aResultList.add (aPermutation);
   }
 }

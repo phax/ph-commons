@@ -55,7 +55,7 @@ public class MainCreateCollectionHelperCode2
         aSB.append (sNew + "(new String[]{\"a\"});\n");
         aSB.append (sNew + "(new CommonsArrayList<> (\"a\"));\n");
         aSB.append (sNew + "(new IterableIterator<String> (new CommonsArrayList<> (\"a\")));\n");
-        aSB.append (sNew + "((Iterable<String>) new CommonsArrayList<> (\"a\"));\n");
+        aSB.append (sNew + "((Iterable<>) new CommonsArrayList<> (\"a\"));\n");
         aSB.append (sNew + "(new CommonsArrayList<> (\"a\").iterator ());\n");
         aSB.append (sNew + "(new CommonsArrayList<> (\"a\"), Objects::nonNull);\n");
         aSB.append (sMapped + "(new CommonsArrayList<Object> (\"a\"), Object::toString);\n");

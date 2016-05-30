@@ -28,15 +28,15 @@ public final class MultiTreeMapArrayListBasedTest extends AbstractMultiMapTestCa
   @Test
   public void testAll ()
   {
-    MultiTreeMapArrayListBased <String, String> aMultiMap = new MultiTreeMapArrayListBased <String, String> ();
+    MultiTreeMapArrayListBased <String, String> aMultiMap = new MultiTreeMapArrayListBased <> ();
     testEmpty (aMultiMap);
-    aMultiMap = new MultiTreeMapArrayListBased <String, String> (getKey1 (), getValue1 ());
+    aMultiMap = new MultiTreeMapArrayListBased <> (getKey1 (), getValue1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiTreeMapArrayListBased <String, String> (getKey1 (), getValueList1 ());
+    aMultiMap = new MultiTreeMapArrayListBased <> (getKey1 (), getValueList1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiTreeMapArrayListBased <String, String> (getMapList1 ());
+    aMultiMap = new MultiTreeMapArrayListBased <> (getMapList1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiTreeMapArrayListBased <String, String> ();
+    aMultiMap = new MultiTreeMapArrayListBased <> ();
     testList (aMultiMap);
   }
 }

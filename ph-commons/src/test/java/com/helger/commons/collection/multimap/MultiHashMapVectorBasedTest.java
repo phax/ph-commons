@@ -28,16 +28,16 @@ public final class MultiHashMapVectorBasedTest extends AbstractMultiMapTestCase
   @Test
   public void testAll ()
   {
-    MultiHashMapVectorBased <String, String> aMultiMap = new MultiHashMapVectorBased <String, String> ();
+    MultiHashMapVectorBased <String, String> aMultiMap = new MultiHashMapVectorBased <> ();
 
     testEmpty (aMultiMap);
-    aMultiMap = new MultiHashMapVectorBased <String, String> (getKey1 (), getValue1 ());
+    aMultiMap = new MultiHashMapVectorBased <> (getKey1 (), getValue1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiHashMapVectorBased <String, String> (getKey1 (), getValueList1 ());
+    aMultiMap = new MultiHashMapVectorBased <> (getKey1 (), getValueList1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiHashMapVectorBased <String, String> (getMapList1 ());
+    aMultiMap = new MultiHashMapVectorBased <> (getMapList1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiHashMapVectorBased <String, String> ();
+    aMultiMap = new MultiHashMapVectorBased <> ();
     testList (aMultiMap);
   }
 }

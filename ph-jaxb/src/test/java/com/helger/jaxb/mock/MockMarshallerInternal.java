@@ -32,9 +32,9 @@ public final class MockMarshallerInternal extends AbstractJAXBMarshaller <com.he
     // No XSD available
     super (com.helger.jaxb.mock.internal.MockJAXBArchive.class,
            null,
-           o -> new JAXBElement <com.helger.jaxb.mock.internal.MockJAXBArchive> (new QName ("urn:test:internal", "any"),
-                                                                                 com.helger.jaxb.mock.internal.MockJAXBArchive.class,
-                                                                                 o));
+           o -> new JAXBElement <> (new QName ("urn:test:internal", "any"),
+                                    com.helger.jaxb.mock.internal.MockJAXBArchive.class,
+                                    o));
   }
 
   @Override

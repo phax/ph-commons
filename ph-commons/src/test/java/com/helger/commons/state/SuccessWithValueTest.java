@@ -36,7 +36,7 @@ public final class SuccessWithValueTest
   @Test
   public void testAll ()
   {
-    SuccessWithValue <String> x = new SuccessWithValue <String> (ESuccess.SUCCESS, "bla");
+    SuccessWithValue <String> x = new SuccessWithValue <> (ESuccess.SUCCESS, "bla");
     assertTrue (x.isSuccess ());
     assertFalse (x.isFailure ());
     assertEquals ("bla", x.get ());
@@ -49,12 +49,12 @@ public final class SuccessWithValueTest
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x, SuccessWithValue.createFailure ("bla"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x, SuccessWithValue.createSuccess ("Other"));
 
-    x = new SuccessWithValue <String> (ESuccess.SUCCESS, null);
+    x = new SuccessWithValue <> (ESuccess.SUCCESS, null);
     assertNull (x.get ());
 
     try
     {
-      new SuccessWithValue <String> (null, "bla");
+      new SuccessWithValue <> (null, "bla");
       fail ();
     }
     catch (final NullPointerException ex)

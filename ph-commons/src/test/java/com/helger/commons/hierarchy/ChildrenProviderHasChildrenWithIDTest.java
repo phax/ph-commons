@@ -35,7 +35,7 @@ public final class ChildrenProviderHasChildrenWithIDTest
   @Test
   public void testAll ()
   {
-    final ChildrenProviderHasChildrenWithID <String, MockHasSortedChildren> cr = new ChildrenProviderHasChildrenWithID <String, MockHasSortedChildren> ();
+    final ChildrenProviderHasChildrenWithID <String, MockHasSortedChildren> cr = new ChildrenProviderHasChildrenWithID <> ();
     assertFalse (cr.hasChildren (null));
     assertEquals (0, cr.getChildCount (null));
     assertNull (cr.getAllChildren (null));

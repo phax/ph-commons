@@ -36,7 +36,7 @@ public final class IntObjectMapTest
 
   protected IntObjectMap <String> makeMap (final int size, final float fillFactor)
   {
-    return new IntObjectMap <String> (size, fillFactor);
+    return new IntObjectMap <> (size, fillFactor);
   }
 
   @Nonnull

@@ -84,7 +84,7 @@ public class AdapterRunnableToCallable <DATATYPE> implements INonThrowingCallabl
   @Nonnull
   public static AdapterRunnableToCallable <Object> createAdapter (@Nonnull final Runnable aRunnable)
   {
-    return new AdapterRunnableToCallable <Object> (aRunnable);
+    return new AdapterRunnableToCallable <> (aRunnable);
   }
 
   /**
@@ -103,6 +103,6 @@ public class AdapterRunnableToCallable <DATATYPE> implements INonThrowingCallabl
   public static <DATATYPE> AdapterRunnableToCallable <DATATYPE> createAdapter (@Nonnull final Runnable aRunnable,
                                                                                @Nullable final DATATYPE aResult)
   {
-    return new AdapterRunnableToCallable <DATATYPE> (aRunnable, aResult);
+    return new AdapterRunnableToCallable <> (aRunnable, aResult);
   }
 }

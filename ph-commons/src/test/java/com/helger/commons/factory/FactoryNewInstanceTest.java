@@ -85,7 +85,7 @@ public final class FactoryNewInstanceTest
     // null parameter
     try
     {
-      new FactoryNewInstance <Object> (null, true);
+      new FactoryNewInstance <> (null, true);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -94,7 +94,7 @@ public final class FactoryNewInstanceTest
     // class is abstract -> cannot create instance
     try
     {
-      new FactoryNewInstance <AbstractClass> (AbstractClass.class, true);
+      new FactoryNewInstance <> (AbstractClass.class, true);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -103,7 +103,7 @@ public final class FactoryNewInstanceTest
     // class has no default constructor -> cannot create instance
     try
     {
-      new FactoryNewInstance <ClassWithoutDefaultCtor> (ClassWithoutDefaultCtor.class, true);
+      new FactoryNewInstance <> (ClassWithoutDefaultCtor.class, true);
       fail ();
     }
     catch (final IllegalArgumentException ex)

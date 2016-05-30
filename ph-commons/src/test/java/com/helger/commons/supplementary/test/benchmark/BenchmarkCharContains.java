@@ -16,12 +16,11 @@
  */
 package com.helger.commons.supplementary.test.benchmark;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.timing.StopWatch;
 
@@ -47,7 +46,7 @@ public final class BenchmarkCharContains
 
   public static void main (final String [] args)
   {
-    final List <String> aStrs = new ArrayList <String> ();
+    final ICommonsList <String> aStrs = new CommonsArrayList <> ();
 
     for (int j = 0; j < 100; ++j)
       for (int i = 'a'; i <= 'z'; ++i)

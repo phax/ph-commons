@@ -41,7 +41,7 @@ public final class ArrayEnumerationTest
   @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testAll ()
   {
-    ArrayEnumeration <String> ae = new ArrayEnumeration <String> ("Hallo", "Welt", "from", "Copenhagen");
+    ArrayEnumeration <String> ae = new ArrayEnumeration <> ("Hallo", "Welt", "from", "Copenhagen");
     for (int i = 0; i < 10; ++i)
       assertTrue (ae.hasMoreElements ());
     assertEquals ("Hallo", ae.nextElement ());
@@ -68,7 +68,7 @@ public final class ArrayEnumerationTest
 
     try
     {
-      new ArrayEnumeration <String> ((String []) null);
+      new ArrayEnumeration <> ((String []) null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -76,7 +76,7 @@ public final class ArrayEnumerationTest
 
     try
     {
-      new ArrayEnumeration <String> ((String []) null, -1, 5);
+      new ArrayEnumeration <> ((String []) null, -1, 5);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -84,7 +84,7 @@ public final class ArrayEnumerationTest
 
     try
     {
-      new ArrayEnumeration <String> (new String [] { "x", "y" }, -1, 5);
+      new ArrayEnumeration <> (new String [] { "x", "y" }, -1, 5);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -92,7 +92,7 @@ public final class ArrayEnumerationTest
 
     try
     {
-      new ArrayEnumeration <String> (new String [] { "x", "y" }, 0, -1);
+      new ArrayEnumeration <> (new String [] { "x", "y" }, 0, -1);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -100,27 +100,27 @@ public final class ArrayEnumerationTest
 
     try
     {
-      new ArrayEnumeration <String> (new String [] { "x", "y" }, 5, 2);
+      new ArrayEnumeration <> (new String [] { "x", "y" }, 5, 2);
       fail ();
     }
     catch (final ArrayIndexOutOfBoundsException ex)
     {}
 
     // equals...
-    ae = new ArrayEnumeration <String> ("Hallo", "Welt", "from", "Copenhagen");
+    ae = new ArrayEnumeration <> ("Hallo", "Welt", "from", "Copenhagen");
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ae,
-                                                                       new ArrayEnumeration <String> ("Hallo",
-                                                                                                      "Welt",
-                                                                                                      "from",
-                                                                                                      "Copenhagen"));
+                                                                       new ArrayEnumeration <> ("Hallo",
+                                                                                                "Welt",
+                                                                                                "from",
+                                                                                                "Copenhagen"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ae,
-                                                                           new ArrayEnumeration <String> ("Hallo",
-                                                                                                          "Welt",
-                                                                                                          "from"));
+                                                                           new ArrayEnumeration <> ("Hallo",
+                                                                                                    "Welt",
+                                                                                                    "from"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ae,
-                                                                           new ArrayEnumeration <Integer> (Integer.valueOf (5)));
+                                                                           new ArrayEnumeration <> (Integer.valueOf (5)));
     // Different index
-    final ArrayEnumeration <String> ae2 = new ArrayEnumeration <String> ("Hallo", "Welt", "from", "Copenhagen");
+    final ArrayEnumeration <String> ae2 = new ArrayEnumeration <> ("Hallo", "Welt", "from", "Copenhagen");
     ae2.nextElement ();
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ae, ae2);
   }

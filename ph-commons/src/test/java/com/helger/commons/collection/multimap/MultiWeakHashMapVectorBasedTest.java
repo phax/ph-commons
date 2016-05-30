@@ -28,16 +28,16 @@ public final class MultiWeakHashMapVectorBasedTest extends AbstractMultiMapTestC
   @Test
   public void testAll ()
   {
-    MultiWeakHashMapVectorBased <String, String> aMultiMap = new MultiWeakHashMapVectorBased <String, String> ();
+    MultiWeakHashMapVectorBased <String, String> aMultiMap = new MultiWeakHashMapVectorBased <> ();
 
     testEmpty (aMultiMap);
-    aMultiMap = new MultiWeakHashMapVectorBased <String, String> (getKey1 (), getValue1 ());
+    aMultiMap = new MultiWeakHashMapVectorBased <> (getKey1 (), getValue1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiWeakHashMapVectorBased <String, String> (getKey1 (), getValueList1 ());
+    aMultiMap = new MultiWeakHashMapVectorBased <> (getKey1 (), getValueList1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiWeakHashMapVectorBased <String, String> (getMapList1 ());
+    aMultiMap = new MultiWeakHashMapVectorBased <> (getMapList1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiWeakHashMapVectorBased <String, String> ();
+    aMultiMap = new MultiWeakHashMapVectorBased <> ();
     testList (aMultiMap);
   }
 }

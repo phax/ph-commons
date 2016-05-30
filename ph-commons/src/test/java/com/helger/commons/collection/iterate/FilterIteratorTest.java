@@ -54,7 +54,7 @@ public final class FilterIteratorTest
     try
     {
       // both null
-      new FilterIterator <String> ((Iterator <String>) null, null);
+      new FilterIterator <> ((Iterator <String>) null, null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -63,7 +63,7 @@ public final class FilterIteratorTest
     try
     {
       // filter is null
-      new FilterIterator <String> (it, null);
+      new FilterIterator <> (it, null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -72,7 +72,7 @@ public final class FilterIteratorTest
     try
     {
       // iterator is null
-      new FilterIterator <String> ((Iterator <String>) null, aFilter);
+      new FilterIterator <> ((Iterator <String>) null, aFilter);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -91,7 +91,7 @@ public final class FilterIteratorTest
     try
     {
       // both null
-      new FilterIterator <String> ((Iterable <String>) null, null);
+      new FilterIterator <> ((Iterable <String>) null, null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -100,7 +100,7 @@ public final class FilterIteratorTest
     try
     {
       // filter is null
-      new FilterIterator <String> (aList, null);
+      new FilterIterator <> (aList, null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -109,7 +109,7 @@ public final class FilterIteratorTest
     try
     {
       // iterator is null
-      new FilterIterator <String> ((Iterable <String>) null, aFilter);
+      new FilterIterator <> ((Iterable <String>) null, aFilter);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -120,8 +120,8 @@ public final class FilterIteratorTest
   public void testIteration1 ()
   {
     final List <String> aList = CollectionHelper.newList ("s1", "s2", null, "s3");
-    new FilterIterator <String> (new IterableIterator <> (aList), Objects::nonNull);
-    final FilterIterator <String> it = new FilterIterator <String> (aList, Objects::nonNull);
+    new FilterIterator <> (new IterableIterator <> (aList), Objects::nonNull);
+    final FilterIterator <String> it = new FilterIterator <> (aList, Objects::nonNull);
     assertNotNull (it);
     assertSame (it, it.iterator ());
 
@@ -147,7 +147,7 @@ public final class FilterIteratorTest
   public void testIteration2 ()
   {
     final List <String> aList = CollectionHelper.newList ("s1", "s2", null, "s3");
-    final FilterIterator <String> it = new FilterIterator <String> (aList.iterator (), Objects::nonNull);
+    final FilterIterator <String> it = new FilterIterator <> (aList.iterator (), Objects::nonNull);
     assertNotNull (it);
     assertSame (it, it.iterator ());
 
@@ -179,7 +179,7 @@ public final class FilterIteratorTest
   {
     // filtered element in the middle
     final List <String> aList = CollectionHelper.newList ("s1", null, "s2", null, "s3");
-    final FilterIterator <String> it = new FilterIterator <String> (aList, Objects::nonNull);
+    final FilterIterator <String> it = new FilterIterator <> (aList, Objects::nonNull);
     assertNotNull (it);
 
     assertEquals ("s1", it.next ());
@@ -201,7 +201,7 @@ public final class FilterIteratorTest
   {
     // filtered elements at the end
     final List <String> aList = CollectionHelper.newList ("s1", "s2", "s3", null, null);
-    final FilterIterator <String> it = new FilterIterator <String> (aList, Objects::nonNull);
+    final FilterIterator <String> it = new FilterIterator <> (aList, Objects::nonNull);
     assertNotNull (it);
 
     assertEquals ("s1", it.next ());
@@ -223,7 +223,7 @@ public final class FilterIteratorTest
   {
     // filtered elements at the beginning
     final List <String> aList = CollectionHelper.newList (null, null, "s1", "s2", "s3");
-    final FilterIterator <String> it = new FilterIterator <String> (aList, Objects::nonNull);
+    final FilterIterator <String> it = new FilterIterator <> (aList, Objects::nonNull);
     assertNotNull (it);
 
     assertEquals ("s1", it.next ());

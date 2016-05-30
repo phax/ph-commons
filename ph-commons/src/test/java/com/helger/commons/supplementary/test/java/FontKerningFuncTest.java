@@ -27,7 +27,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.concurrent.Immutable;
@@ -38,6 +37,8 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.system.EOperatingSystem;
@@ -123,7 +124,7 @@ public final class FontKerningFuncTest
           m_aKerning = Collections.emptyMap ();
           return;
         }
-        m_aKerning = new HashMap <KerningKey, Integer> (2048);
+        m_aKerning = new CommonsHashMap <> (2048);
         if (m_nHeadOffset < m_nKernOffset)
         {
           _readHEAD (aDIS);
@@ -279,7 +280,7 @@ public final class FontKerningFuncTest
       GraphicsEnvironment.getLocalGraphicsEnvironment ();
       final int nFontSize = 25;
 
-      final Map <TextAttribute, Object> aTextAttributes = new HashMap <TextAttribute, Object> ();
+      final ICommonsMap <TextAttribute, Object> aTextAttributes = new CommonsHashMap <> ();
       aTextAttributes.put (TextAttribute.FAMILY, "Arial");
       aTextAttributes.put (TextAttribute.SIZE, Float.valueOf (nFontSize));
       final Font aFont = Font.getFont (aTextAttributes);

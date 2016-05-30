@@ -58,7 +58,7 @@ public final class TreeVisitorTest
 
   private static DefaultTree <String> _createTree (final int nLevels, final int nItemsPerLevel)
   {
-    final DefaultTree <String> t = new DefaultTree <String> ();
+    final DefaultTree <String> t = new DefaultTree <> ();
     _fillTree (t.getRootItem (), nLevels, nItemsPerLevel);
     return t;
   }
@@ -170,7 +170,7 @@ public final class TreeVisitorTest
 
   private static DefaultTreeWithID <String, Object> _createTreeWithID (final int nLevels, final int nItemsPerLevel)
   {
-    final DefaultTreeWithID <String, Object> t = new DefaultTreeWithID <String, Object> ();
+    final DefaultTreeWithID <String, Object> t = new DefaultTreeWithID <> ();
     _fillTreeWithID (t.getRootItem (), nLevels, nItemsPerLevel);
     return t;
   }

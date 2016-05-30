@@ -43,7 +43,7 @@ public final class EmptySortedSet <T> extends AbstractSet <T> implements SortedS
   @Nonnull
   public Iterator <T> iterator ()
   {
-    return new EmptyIterator <T> ();
+    return new EmptyIterator <> ();
   }
 
   @Override

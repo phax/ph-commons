@@ -50,7 +50,7 @@ public final class CombinationGeneratorFlexibleTest extends AbstractCombinationG
     final ICommonsList <String> aElements = CollectionHelper.newList ("A", "B", "B");
 
     // Allow empty
-    CombinationGeneratorFlexible <String> aGenerator = new CombinationGeneratorFlexible <String> (3, true);
+    CombinationGeneratorFlexible <String> aGenerator = new CombinationGeneratorFlexible <> (3, true);
 
     Set <ICommonsList <String>> aResults = aGenerator.getCombinations (aElements);
     assertEquals (6, aResults.size ());

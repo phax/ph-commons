@@ -35,7 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public class IterableIterator <ELEMENTTYPE> implements IIterableIterator <ELEMENTTYPE>
 {
-  private static final IterableIterator <Object> s_aEmpty = new IterableIterator <Object> (new EmptyIterator <Object> ());
+  private static final IterableIterator <Object> s_aEmpty = new IterableIterator <> (new EmptyIterator <> ());
 
   private final Iterator <ELEMENTTYPE> m_aIter;
 

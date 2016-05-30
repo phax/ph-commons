@@ -133,6 +133,6 @@ public class SingleElementListIterator <ELEMENTTYPE> implements ListIterator <EL
   @Nonnull
   public static <T> ListIterator <T> create (@Nullable final T aElement)
   {
-    return new SingleElementListIterator <T> (aElement);
+    return new SingleElementListIterator <> (aElement);
   }
 }

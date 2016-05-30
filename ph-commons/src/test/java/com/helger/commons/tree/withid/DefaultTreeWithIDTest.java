@@ -35,11 +35,11 @@ public final class DefaultTreeWithIDTest
   @Test
   public void testBasic ()
   {
-    final DefaultTreeWithID <String, String> t = new DefaultTreeWithID <String, String> ();
+    final DefaultTreeWithID <String, String> t = new DefaultTreeWithID <> ();
     assertNotNull (t.getRootItem ());
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (t, new DefaultTreeWithID <String, String> ());
-    final DefaultTreeWithID <String, String> t2 = new DefaultTreeWithID <String, String> ();
+    final DefaultTreeWithID <String, String> t2 = new DefaultTreeWithID <> ();
     t2.getRootItem ().createChildItem ("dataid", "data");
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (t, t2);
 
@@ -54,7 +54,7 @@ public final class DefaultTreeWithIDTest
     try
     {
       // factory creating a null root
-      new DefaultTreeWithID <String, String> (new DefaultTreeItemWithIDFactory <String, String> ()
+      new DefaultTreeWithID <> (new DefaultTreeItemWithIDFactory <String, String> ()
       {
         @Override
         @SuppressFBWarnings (value = "NP_NONNULL_RETURN_VIOLATION", justification = "We want to test returning null!")
@@ -71,12 +71,12 @@ public final class DefaultTreeWithIDTest
     try
     {
       // factory creating a root item with a parent
-      new DefaultTreeWithID <String, String> (new DefaultTreeItemWithIDFactory <String, String> ()
+      new DefaultTreeWithID <> (new DefaultTreeItemWithIDFactory <String, String> ()
       {
         @Override
         public DefaultTreeItemWithID <String, String> createRoot ()
         {
-          return new DefaultTreeItemWithID <String, String> (super.createRoot (), "DataIDroot");
+          return new DefaultTreeItemWithID <> (super.createRoot (), "DataIDroot");
         }
       });
       fail ();

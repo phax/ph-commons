@@ -65,12 +65,12 @@ public final class EnumerationFromIterator <ELEMENTTYPE> implements Enumeration 
   @Nonnull
   public static <ELEMENTTYPE> EnumerationFromIterator <ELEMENTTYPE> create (@Nonnull final Iterator <? extends ELEMENTTYPE> aIter)
   {
-    return new EnumerationFromIterator <ELEMENTTYPE> (aIter);
+    return new EnumerationFromIterator <> (aIter);
   }
 
   @Nonnull
   public static <ELEMENTTYPE> EnumerationFromIterator <ELEMENTTYPE> create (@Nonnull final Iterable <? extends ELEMENTTYPE> aCont)
   {
-    return new EnumerationFromIterator <ELEMENTTYPE> (aCont);
+    return new EnumerationFromIterator <> (aCont);
   }
 }

@@ -16,9 +16,6 @@
  */
 package com.helger.commons.supplementary.test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
@@ -27,6 +24,8 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.commons.xml.EXMLVersion;
@@ -39,7 +38,7 @@ public final class MainFindMaskedXMLChars
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (MainFindMaskedXMLChars.class);
 
-  private static String _getFormatted (final List <Integer> x)
+  private static String _getFormatted (final ICommonsList <Integer> x)
   {
     if (x.isEmpty ())
       return "false";
@@ -137,7 +136,7 @@ public final class MainFindMaskedXMLChars
     final EXMLSerializeVersion eXMLSerializeVersion = EXMLSerializeVersion.getFromXMLVersionOrThrow (eXMLVersion);
     final int nMax = Character.MAX_VALUE + 1;
 
-    final List <Integer> aMaskedE1 = new ArrayList <Integer> ();
+    final ICommonsList <Integer> aMaskedE1 = new CommonsArrayList <> ();
     for (int i = 0; i < nMax; ++i)
       if (!XMLCharHelper.isInvalidXMLNameStartChar (eXMLSerializeVersion, (char) i))
       {
@@ -148,7 +147,7 @@ public final class MainFindMaskedXMLChars
         if (_containsER (aSW.getAsString (), i))
           aMaskedE1.add (Integer.valueOf (i));
       }
-    final List <Integer> aMaskedE2 = new ArrayList <Integer> ();
+    final ICommonsList <Integer> aMaskedE2 = new CommonsArrayList <> ();
     for (int i = 0; i < nMax; ++i)
       if (!XMLCharHelper.isInvalidXMLNameChar (eXMLSerializeVersion, (char) i))
       {
@@ -159,7 +158,7 @@ public final class MainFindMaskedXMLChars
         if (_containsER (aSW.getAsString (), i))
           aMaskedE2.add (Integer.valueOf (i));
       }
-    final List <Integer> aMaskedAN1 = new ArrayList <Integer> ();
+    final ICommonsList <Integer> aMaskedAN1 = new CommonsArrayList <> ();
     for (int i = 0; i < nMax; ++i)
       if (!XMLCharHelper.isInvalidXMLNameStartChar (eXMLSerializeVersion, (char) i))
       {
@@ -171,7 +170,7 @@ public final class MainFindMaskedXMLChars
         if (_containsER (aSW.getAsString (), i))
           aMaskedAN1.add (Integer.valueOf (i));
       }
-    final List <Integer> aMaskedAN2 = new ArrayList <Integer> ();
+    final ICommonsList <Integer> aMaskedAN2 = new CommonsArrayList <> ();
     for (int i = 0; i < nMax; ++i)
       if (!XMLCharHelper.isInvalidXMLNameChar (eXMLSerializeVersion, (char) i))
       {
@@ -183,7 +182,7 @@ public final class MainFindMaskedXMLChars
         if (_containsER (aSW.getAsString (), i))
           aMaskedAN2.add (Integer.valueOf (i));
       }
-    final List <Integer> aMaskedAV = new ArrayList <Integer> ();
+    final ICommonsList <Integer> aMaskedAV = new CommonsArrayList <> ();
     for (int i = 0; i < nMax; ++i)
       if (!XMLCharHelper.isInvalidXMLAttributeValueChar (eXMLSerializeVersion, (char) i))
       {
@@ -195,7 +194,7 @@ public final class MainFindMaskedXMLChars
         if (_containsER (aSW.getAsString (), i))
           aMaskedAV.add (Integer.valueOf (i));
       }
-    final List <Integer> aMaskedTV = new ArrayList <Integer> ();
+    final ICommonsList <Integer> aMaskedTV = new CommonsArrayList <> ();
     for (int i = 0; i < nMax; ++i)
       if (!XMLCharHelper.isInvalidXMLTextChar (eXMLSerializeVersion, (char) i))
       {
@@ -207,7 +206,7 @@ public final class MainFindMaskedXMLChars
         if (_containsER (aSW.getAsString (), i))
           aMaskedTV.add (Integer.valueOf (i));
       }
-    final List <Integer> aMaskedCV = new ArrayList <Integer> ();
+    final ICommonsList <Integer> aMaskedCV = new CommonsArrayList <> ();
     for (int i = 0; i < nMax; ++i)
     {
       final Document aDoc = XMLFactory.newDocument (eXMLVersion);

@@ -37,7 +37,7 @@ public final class SafeVectorTest
   public void testSafeVectorNullFactory ()
   {
     // create with a "null"-creating factory
-    final SafeVector <String> sv = new SafeVector <String> ();
+    final SafeVector <String> sv = new SafeVector <> ();
     assertEquals (sv.size (), 0);
 
     // no such index 0 -> create using the factory
@@ -65,7 +65,7 @@ public final class SafeVectorTest
     {}
 
     // create with a "null"-creating factory
-    final SafeVector <String> sv = new SafeVector <String> (FactoryNewInstance.create (String.class));
+    final SafeVector <String> sv = new SafeVector <> (FactoryNewInstance.create (String.class));
     assertEquals (sv.size (), 0);
 
     // no such index 0 -> create using the factory
@@ -84,11 +84,11 @@ public final class SafeVectorTest
   @Test
   public void testEqualsAndHashcode ()
   {
-    final SafeVector <String> sl = new SafeVector <String> ();
+    final SafeVector <String> sl = new SafeVector <> ();
     sl.set (10, "any");
     assertNull (sl.get (9));
 
-    final SafeVector <String> sl2 = new SafeVector <String> ();
+    final SafeVector <String> sl2 = new SafeVector <> ();
     sl2.set (10, "any");
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (sl, sl2);

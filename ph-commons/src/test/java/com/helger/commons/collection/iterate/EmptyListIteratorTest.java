@@ -34,7 +34,7 @@ public final class EmptyListIteratorTest
   @Test
   public void testAll ()
   {
-    final EmptyListIterator <String> eit = new EmptyListIterator <String> ();
+    final EmptyListIterator <String> eit = new EmptyListIterator <> ();
     assertFalse (eit.hasNext ());
     assertFalse (eit.hasPrevious ());
     assertEquals (-1, eit.previousIndex ());

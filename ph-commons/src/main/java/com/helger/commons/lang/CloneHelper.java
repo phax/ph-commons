@@ -165,7 +165,7 @@ public final class CloneHelper
   @ReturnsMutableCopy
   public static <DATATYPE> ICommonsList <DATATYPE> getGenericClonedList (@Nullable final List <DATATYPE> aList)
   {
-    final ICommonsList <DATATYPE> ret = new CommonsArrayList<> ();
+    final ICommonsList <DATATYPE> ret = new CommonsArrayList <> ();
     for (final DATATYPE aItem : aList)
       ret.add (getClonedValue (aItem));
     return ret;
@@ -183,7 +183,7 @@ public final class CloneHelper
   @ReturnsMutableCopy
   public static <DATATYPE extends ICloneable <DATATYPE>> ICommonsList <DATATYPE> getClonedList (@Nullable final List <DATATYPE> aList)
   {
-    final ICommonsList <DATATYPE> ret = new CommonsArrayList<> ();
+    final ICommonsList <DATATYPE> ret = new CommonsArrayList <> ();
     for (final DATATYPE aItem : aList)
       ret.add (getCloneIfNotNull (aItem));
     return ret;
@@ -195,10 +195,10 @@ public final class CloneHelper
     if (aObj == null)
       return null;
 
-    final JAXBElement <DATATYPE> ret = new JAXBElement <DATATYPE> (aObj.getName (),
-                                                                   aObj.getDeclaredType (),
-                                                                   aObj.getScope (),
-                                                                   getClonedValue (aObj.getValue ()));
+    final JAXBElement <DATATYPE> ret = new JAXBElement <> (aObj.getName (),
+                                                           aObj.getDeclaredType (),
+                                                           aObj.getScope (),
+                                                           getClonedValue (aObj.getValue ()));
     ret.setNil (aObj.isNil ());
     return ret;
   }

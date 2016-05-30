@@ -19,12 +19,13 @@ package com.helger.commons.random;
 import static org.junit.Assert.assertTrue;
 
 import java.security.SecureRandom;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.ICommonsSet;
 
 /**
  * Test class for class {@link VerySecureRandom}.
@@ -45,7 +46,7 @@ public final class VerySecureRandomTest
     for (int j = 0; j < 2; ++j)
     {
       s_aLogger.info ("Round " + (j + 1) + " with int");
-      final Set <Integer> aInts = new HashSet <Integer> ();
+      final ICommonsSet <Integer> aInts = new CommonsHashSet <> ();
       int nDuplicates = 0;
       for (int i = 0; i < MAX_RUNS; ++i)
       {
@@ -63,7 +64,7 @@ public final class VerySecureRandomTest
 
       s_aLogger.info ("Round " + (j + 1) + " with long");
       nDuplicates = 0;
-      final Set <Long> aLongs = new HashSet <Long> ();
+      final ICommonsSet <Long> aLongs = new CommonsHashSet <> ();
       for (int i = 0; i < MAX_RUNS; ++i)
       {
         final long n1 = aRandom.nextLong ();

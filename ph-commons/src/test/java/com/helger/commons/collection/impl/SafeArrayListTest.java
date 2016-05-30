@@ -37,7 +37,7 @@ public final class SafeArrayListTest
   public void testSafeArrayListNullFactory ()
   {
     // create with a "null"-creating factory
-    final SafeArrayList <String> sv = new SafeArrayList <String> ();
+    final SafeArrayList <String> sv = new SafeArrayList <> ();
     assertEquals (sv.size (), 0);
 
     // no such index 0 -> create using the factory
@@ -84,11 +84,11 @@ public final class SafeArrayListTest
   @Test
   public void testEqualsAndHashcode ()
   {
-    final SafeArrayList <String> sl = new SafeArrayList <String> ();
+    final SafeArrayList <String> sl = new SafeArrayList <> ();
     sl.set (10, "any");
     assertNull (sl.get (9));
 
-    final SafeArrayList <String> sl2 = new SafeArrayList <String> ();
+    final SafeArrayList <String> sl2 = new SafeArrayList <> ();
     sl2.set (10, "any");
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (sl, sl2);

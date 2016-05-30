@@ -28,15 +28,15 @@ public final class MultiTreeMapVectorBasedTest extends AbstractMultiMapTestCase
   @Test
   public void testAll ()
   {
-    MultiTreeMapVectorBased <String, String> aMultiMap = new MultiTreeMapVectorBased <String, String> ();
+    MultiTreeMapVectorBased <String, String> aMultiMap = new MultiTreeMapVectorBased <> ();
     testEmpty (aMultiMap);
-    aMultiMap = new MultiTreeMapVectorBased <String, String> (getKey1 (), getValue1 ());
+    aMultiMap = new MultiTreeMapVectorBased <> (getKey1 (), getValue1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiTreeMapVectorBased <String, String> (getKey1 (), getValueList1 ());
+    aMultiMap = new MultiTreeMapVectorBased <> (getKey1 (), getValueList1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiTreeMapVectorBased <String, String> (getMapList1 ());
+    aMultiMap = new MultiTreeMapVectorBased <> (getMapList1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiTreeMapVectorBased <String, String> ();
+    aMultiMap = new MultiTreeMapVectorBased <> ();
     testList (aMultiMap);
   }
 }

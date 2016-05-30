@@ -33,7 +33,7 @@ public final class LRUMapTest
   @Test
   public void testLRUCache ()
   {
-    final LRUMap <Integer, String> aCache = new LRUMap <Integer, String> (MAX_SIZE);
+    final LRUMap <Integer, String> aCache = new LRUMap <> (MAX_SIZE);
     for (int i = 0; i < MAX_SIZE * 2; ++i)
     {
       if (i < MAX_SIZE)

@@ -36,7 +36,7 @@ public final class ChangeWithValueTest
   @Test
   public void testAll ()
   {
-    ChangeWithValue <String> x = new ChangeWithValue <String> (EChange.CHANGED, "bla");
+    ChangeWithValue <String> x = new ChangeWithValue <> (EChange.CHANGED, "bla");
     assertTrue (x.isChanged ());
     assertFalse (x.isUnchanged ());
     assertEquals ("bla", x.get ());
@@ -49,12 +49,12 @@ public final class ChangeWithValueTest
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x, ChangeWithValue.createUnchanged ("bla"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x, ChangeWithValue.createChanged ("Other"));
 
-    x = new ChangeWithValue <String> (EChange.CHANGED, null);
+    x = new ChangeWithValue <> (EChange.CHANGED, null);
     assertNull (x.get ());
 
     try
     {
-      new ChangeWithValue <String> (null, "bla");
+      new ChangeWithValue <> (null, "bla");
       fail ();
     }
     catch (final NullPointerException ex)

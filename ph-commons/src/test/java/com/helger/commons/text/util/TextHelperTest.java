@@ -21,14 +21,14 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import org.junit.Test;
 
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.text.IMultilingualText;
 import com.helger.commons.text.MultilingualText;
@@ -61,7 +61,7 @@ public final class TextHelperTest extends AbstractCommonsTestCase
     assertTrue (aMLT.setText (Locale.GERMAN, "Moin").isChanged ());
     assertEquals (aMLT.getSize (), 2);
 
-    final List <Locale> aLocaleList = new ArrayList <Locale> ();
+    final ICommonsList <Locale> aLocaleList = new CommonsArrayList <> ();
     aLocaleList.add (Locale.ENGLISH);
     final MultilingualText aMLT2 = TextHelper.getCopyWithLocales (aMLT, aLocaleList);
     assertTrue (aMLT2.containsLocale (Locale.ENGLISH));
@@ -74,7 +74,7 @@ public final class TextHelperTest extends AbstractCommonsTestCase
   @Test
   public void testCreateMultilingualTextFromMap ()
   {
-    final Map <String, String> aParamNames = new HashMap <String, String> ();
+    final ICommonsMap <String, String> aParamNames = new CommonsHashMap <> ();
     IMultilingualText aMLT = TextHelper.createMultilingualTextFromMap (aParamNames);
     assertEquals (aMLT.getSize (), 0);
 

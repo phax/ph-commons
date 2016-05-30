@@ -118,7 +118,7 @@ public final class JAXBContextCacheTest
     final JAXBContext aCtx = JAXBContextCache.getInstance ().getFromCache (String.class);
     final Marshaller m = aCtx.createMarshaller ();
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    m.marshal (new JAXBElement <String> (new QName ("element"), String.class, sMsg), aSW);
+    m.marshal (new JAXBElement <> (new QName ("element"), String.class, sMsg), aSW);
     assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><element>" +
                   sMsg +
                   "</element>",
@@ -133,7 +133,7 @@ public final class JAXBContextCacheTest
                                                                            ClassLoaderHelper.getSystemClassLoader ());
     final Marshaller m = aCtx.createMarshaller ();
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    m.marshal (new JAXBElement <String> (new QName ("element"), String.class, sMsg), aSW);
+    m.marshal (new JAXBElement <> (new QName ("element"), String.class, sMsg), aSW);
     assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><element>" +
                   sMsg +
                   "</element>",

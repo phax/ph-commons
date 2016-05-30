@@ -96,7 +96,7 @@ public final class Pair <DATA1TYPE, DATA2TYPE>
   @Nonnull
   public Pair <DATA1TYPE, DATA2TYPE> getClone ()
   {
-    return new Pair <DATA1TYPE, DATA2TYPE> (this);
+    return new Pair <> (this);
   }
 
   @Override
@@ -125,6 +125,6 @@ public final class Pair <DATA1TYPE, DATA2TYPE>
   @Nonnull
   public static <T, U> Pair <T, U> create (@Nullable final T aFirst, @Nullable final U aSecond)
   {
-    return new Pair <T, U> (aFirst, aSecond);
+    return new Pair <> (aFirst, aSecond);
   }
 }

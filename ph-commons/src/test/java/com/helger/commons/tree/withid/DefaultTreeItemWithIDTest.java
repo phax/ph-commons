@@ -43,7 +43,7 @@ public final class DefaultTreeItemWithIDTest
   @Test
   public void testBasic ()
   {
-    final DefaultTreeWithID <String, String> t = new DefaultTreeWithID <String, String> ();
+    final DefaultTreeWithID <String, String> t = new DefaultTreeWithID <> ();
 
     // tree root
     assertNotNull (t.getRootItem ());
@@ -88,7 +88,7 @@ public final class DefaultTreeItemWithIDTest
   @Test
   public void testAdd ()
   {
-    final DefaultTreeWithID <String, String> t = new DefaultTreeWithID <String, String> ();
+    final DefaultTreeWithID <String, String> t = new DefaultTreeWithID <> ();
 
     // root item
     final DefaultTreeItemWithID <String, String> ti = t.getRootItem ().createChildItem ("root", "Hallo");
@@ -120,7 +120,7 @@ public final class DefaultTreeItemWithIDTest
   @Test
   public void testDelete ()
   {
-    final DefaultTreeWithID <String, String> t = new DefaultTreeWithID <String, String> ();
+    final DefaultTreeWithID <String, String> t = new DefaultTreeWithID <> ();
     // No children present
     assertFalse (t.getRootItem ().removeChild ("root1").isChanged ());
 
@@ -146,7 +146,7 @@ public final class DefaultTreeItemWithIDTest
   @Test
   public void testReorderByItem ()
   {
-    final DefaultTreeWithID <String, String> t = new DefaultTreeWithID <String, String> ();
+    final DefaultTreeWithID <String, String> t = new DefaultTreeWithID <> ();
 
     // root item
     final DefaultTreeItemWithID <String, String> ti = t.getRootItem ().createChildItem ("root", "Hallo");
@@ -182,7 +182,7 @@ public final class DefaultTreeItemWithIDTest
   @Test
   public void testReorderByKey ()
   {
-    final DefaultTreeWithID <String, String> t = new DefaultTreeWithID <String, String> ();
+    final DefaultTreeWithID <String, String> t = new DefaultTreeWithID <> ();
 
     // root item
     final DefaultTreeItemWithID <String, String> ti = t.getRootItem ().createChildItem ("root", "Hallo");
@@ -216,13 +216,13 @@ public final class DefaultTreeItemWithIDTest
   @Test
   public void testCtor ()
   {
-    final DefaultTreeWithID <String, Object> t = new DefaultTreeWithID <String, Object> ();
+    final DefaultTreeWithID <String, Object> t = new DefaultTreeWithID <> ();
     assertNotNull (t.getRootItem ());
     assertTrue (t.toString ().length () > 0);
 
     try
     {
-      new DefaultTreeItemWithID <Object, Object> (null);
+      new DefaultTreeItemWithID <> (null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -239,8 +239,8 @@ public final class DefaultTreeItemWithIDTest
   @Test
   public void testStdMethods ()
   {
-    final DefaultTreeWithID <String, String> t = new DefaultTreeWithID <String, String> ();
-    final DefaultTreeWithID <String, String> t2 = new DefaultTreeWithID <String, String> ();
+    final DefaultTreeWithID <String, String> t = new DefaultTreeWithID <> ();
+    final DefaultTreeWithID <String, String> t2 = new DefaultTreeWithID <> ();
     t2.getRootItem ().createChildItem ("dataid", "Data");
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (t.getRootItem (),
@@ -251,7 +251,7 @@ public final class DefaultTreeItemWithIDTest
   @Test
   public void testInvalid ()
   {
-    final DefaultTreeWithID <String, String> t = new DefaultTreeWithID <String, String> ();
+    final DefaultTreeWithID <String, String> t = new DefaultTreeWithID <> ();
 
     try
     {

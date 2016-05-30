@@ -20,12 +20,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.CommonsTreeMap;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
@@ -55,7 +54,7 @@ public final class BenchmarkTrie extends AbstractBenchmarkTask
   private static ICommonsList <String> _readWordList (final IReadableResource aRes,
                                                       final Charset aCharset) throws IOException
   {
-    final ICommonsList <String> ret = new CommonsArrayList<> ();
+    final ICommonsList <String> ret = new CommonsArrayList <> ();
     final BufferedReader aBR = new BufferedReader (new InputStreamReader (aRes.getInputStream (), aCharset));
     String sLine;
     while ((sLine = aBR.readLine ()) != null)
@@ -150,12 +149,12 @@ public final class BenchmarkTrie extends AbstractBenchmarkTask
 
   private static final class StringMapHashMap extends StringMapBase
   {
-    private final Map <String, String> m_aMap;
+    private final ICommonsMap <String, String> m_aMap;
 
     public StringMapHashMap (final String [] aStrings)
     {
       super (aStrings);
-      m_aMap = new HashMap <String, String> ();
+      m_aMap = new CommonsHashMap <> ();
     }
 
     @Override
@@ -184,7 +183,7 @@ public final class BenchmarkTrie extends AbstractBenchmarkTask
     public StringMapTreeMap (final String [] aStrings)
     {
       super (aStrings);
-      m_aMap = new CommonsTreeMap<> ();
+      m_aMap = new CommonsTreeMap <> ();
     }
 
     @Override
@@ -213,7 +212,7 @@ public final class BenchmarkTrie extends AbstractBenchmarkTask
     public StringMapTST (final String [] aStrings)
     {
       super (aStrings);
-      m_aMap = new StringTrieFuncTest <String> ();
+      m_aMap = new StringTrieFuncTest <> ();
     }
 
     @Override

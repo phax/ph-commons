@@ -74,7 +74,7 @@ public final class TreeXMLConverterTest extends AbstractCommonsTestCase
   @Test
   public void testTree ()
   {
-    final DefaultTree <MockHasName> aTree = new DefaultTree <MockHasName> ();
+    final DefaultTree <MockHasName> aTree = new DefaultTree <> ();
     aTree.getRootItem ().createChildItem (new MockHasName ("name2"));
     aTree.getRootItem ().createChildItem (new MockHasName ("name1"));
 

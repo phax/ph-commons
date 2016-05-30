@@ -51,7 +51,7 @@ public final class SingleElementListTest
   @Test
   public void testBasicStartFromEmpty ()
   {
-    final SingleElementList <String> aList = new SingleElementList <String> ();
+    final SingleElementList <String> aList = new SingleElementList <> ();
 
     // empty list
     assertTrue (aList.isEmpty ());
@@ -123,7 +123,7 @@ public final class SingleElementListTest
   @Test
   public void testBasicStartWithElement ()
   {
-    final SingleElementList <String> aList = new SingleElementList <String> ("any");
+    final SingleElementList <String> aList = new SingleElementList <> ("any");
     assertFalse (aList.isEmpty ());
     assertEquals (1, aList.size ());
     assertTrue (aList.contains ("any"));
@@ -165,7 +165,7 @@ public final class SingleElementListTest
   @Test
   public void testAddAll ()
   {
-    final SingleElementList <String> aList = new SingleElementList <String> ("init");
+    final SingleElementList <String> aList = new SingleElementList <> ("init");
 
     try
     {
@@ -195,7 +195,7 @@ public final class SingleElementListTest
   @Test
   public void testSubList ()
   {
-    final SingleElementList <String> aList = new SingleElementList <String> ("init");
+    final SingleElementList <String> aList = new SingleElementList <> ("init");
     assertEquals (0, aList.subList (0, 0).size ());
     assertEquals (1, aList.subList (0, 1).size ());
     assertEquals (0, aList.subList (1, 1).size ());
@@ -239,7 +239,7 @@ public final class SingleElementListTest
     assertTrue (aList.remove ("Hallo"));
     assertFalse (aList.remove ("Hallo"));
 
-    aList = new SingleElementList <String> ();
+    aList = new SingleElementList <> ();
     assertEquals (0, aList.size ());
     assertFalse (aList.iterator ().hasNext ());
     assertFalse (aList.listIterator ().hasNext ());

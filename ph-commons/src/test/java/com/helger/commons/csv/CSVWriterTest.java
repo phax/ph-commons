@@ -45,12 +45,13 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.commons.string.StringHelper;
 
@@ -207,7 +208,7 @@ public final class CSVWriterTest
   @Test
   public void testWriteAll () throws IOException
   {
-    final List <List <String>> allElements = new ArrayList <List <String>> ();
+    final ICommonsList <ICommonsList <String>> allElements = new CommonsArrayList <> ();
     allElements.add (StringHelper.getExploded ('#', "Name#Phone#Email"));
     allElements.add (StringHelper.getExploded ('#', "Glen#1234#glen@abcd.com"));
     allElements.add (StringHelper.getExploded ('#', "John#5678#john@efgh.com"));
@@ -231,7 +232,7 @@ public final class CSVWriterTest
   @Test
   public void testWriteAllObjects () throws IOException
   {
-    final List <List <String>> allElements = new ArrayList <List <String>> ();
+    final ICommonsList <ICommonsList <String>> allElements = new CommonsArrayList <> ();
     allElements.add (StringHelper.getExploded ('#', "Name#Phone#Email"));
     allElements.add (StringHelper.getExploded ('#', "Glen#1234#glen@abcd.com"));
     allElements.add (StringHelper.getExploded ('#', "John#5678#john@efgh.com"));

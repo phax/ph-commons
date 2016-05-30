@@ -25,7 +25,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -37,6 +36,8 @@ import com.helger.commons.CGlobal;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 
@@ -1587,7 +1588,7 @@ public final class StringHelperTest extends AbstractCommonsTestCase
   @Test
   public void testReplaceMultipleMap ()
   {
-    final Map <String, String> aMap = new HashMap <String, String> ();
+    final ICommonsMap <String, String> aMap = new CommonsHashMap <> ();
     aMap.put ("Hallo", "Hi");
     aMap.put ("Welt", "world");
     aMap.put ("!", "???");

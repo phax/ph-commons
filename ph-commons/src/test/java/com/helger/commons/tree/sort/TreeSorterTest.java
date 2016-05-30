@@ -41,7 +41,7 @@ public final class TreeSorterTest
   @Test
   public void testTreeString ()
   {
-    final DefaultTree <String> aTree = new DefaultTree <String> ();
+    final DefaultTree <String> aTree = new DefaultTree <> ();
     assertNotNull (aTree.getRootItem ());
     final DefaultTreeItem <String> i1 = aTree.getRootItem ().createChildItem ("Windows");
     i1.createChildItem ("sxs");
@@ -72,7 +72,7 @@ public final class TreeSorterTest
   @Test
   public void testTreeNumeric ()
   {
-    final DefaultTree <BigDecimal> aTree = new DefaultTree <BigDecimal> ();
+    final DefaultTree <BigDecimal> aTree = new DefaultTree <> ();
     final DefaultTreeItem <BigDecimal> i1 = aTree.getRootItem ().createChildItem (BigDecimal.valueOf (2));
     i1.createChildItem (BigDecimal.valueOf (20));
     i1.createChildItem (BigDecimal.valueOf (22));

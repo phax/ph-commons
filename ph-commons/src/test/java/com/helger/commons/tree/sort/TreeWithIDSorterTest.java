@@ -39,7 +39,7 @@ public final class TreeWithIDSorterTest
   @Test
   public void testTreeWithIDValue ()
   {
-    final DefaultTreeWithID <String, String> aTree = new DefaultTreeWithID <String, String> ();
+    final DefaultTreeWithID <String, String> aTree = new DefaultTreeWithID <> ();
     assertNotNull (aTree.getRootItem ());
     final DefaultTreeItemWithID <String, String> i1 = aTree.getRootItem ().createChildItem ("r1", "Windows");
     i1.createChildItem ("w1", "sxs");

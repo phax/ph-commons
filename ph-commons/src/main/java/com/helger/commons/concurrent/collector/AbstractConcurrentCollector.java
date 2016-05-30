@@ -80,7 +80,7 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements
    */
   public AbstractConcurrentCollector (@Nonnegative final int nMaxQueueSize)
   {
-    this (new ArrayBlockingQueue <Object> (ValueEnforcer.isGT0 (nMaxQueueSize, "MaxQueueSize")));
+    this (new ArrayBlockingQueue <> (ValueEnforcer.isGT0 (nMaxQueueSize, "MaxQueueSize")));
   }
 
   /**

@@ -37,7 +37,7 @@ public final class CacheWithConversionTest
   public void testAll ()
   {
     final Map <String, Integer> aMap = CollectionHelper.newMap ("In", Integer.valueOf (1));
-    final CacheWithConversion <String, Integer> aCache = new CacheWithConversion <String, Integer> ("test");
+    final CacheWithConversion <String, Integer> aCache = new CacheWithConversion <> ("test");
     assertEquals ("test", aCache.getName ());
     // Get from map
     assertEquals (Integer.valueOf (1), aCache.getFromCache ("In", aMap::get));
@@ -65,7 +65,7 @@ public final class CacheWithConversionTest
     final Map <String, Integer> aMap = CollectionHelper.newMap (new String [] { "In", "In2" },
                                                                 new Integer [] { Integer.valueOf (1),
                                                                                  Integer.valueOf (2) });
-    final CacheWithConversion <String, Integer> aCache = new CacheWithConversion <String, Integer> (1, "test");
+    final CacheWithConversion <String, Integer> aCache = new CacheWithConversion <> (1, "test");
     assertEquals ("test", aCache.getName ());
     assertEquals (1, aCache.getMaxSize ());
     // Get from map

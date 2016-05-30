@@ -40,18 +40,16 @@ public final class MapBasedReadOnlyAttributeContainerTest
   @Test
   public void testInit ()
   {
-    MapBasedReadOnlyAttributeContainer <String, Serializable> x = new MapBasedReadOnlyAttributeContainer <String, Serializable> (CollectionHelper.newMap (new String [] {},
-                                                                                                                                                          new Serializable [] {}));
+    MapBasedReadOnlyAttributeContainer <String, Serializable> x = new MapBasedReadOnlyAttributeContainer <> (CollectionHelper.newMap (new String [] {},
+                                                                                                                                      new Serializable [] {}));
     assertNotNull (x.getAllAttributeNames ());
     assertTrue (x.getAllAttributeNames ().isEmpty ());
     assertTrue (x.isEmpty ());
 
-    x = new MapBasedReadOnlyAttributeContainer <String, Serializable> (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                "key2",
-                                                                                                                "key3" },
-                                                                                                new Serializable [] { "value",
-                                                                                                                      "value2",
-                                                                                                                      null }));
+    x = new MapBasedReadOnlyAttributeContainer <> (CollectionHelper.newMap (new String [] { "key", "key2", "key3" },
+                                                                            new Serializable [] { "value",
+                                                                                                  "value2",
+                                                                                                  null }));
     assertEquals (3, x.getAttributeCount ());
     assertFalse (x.isEmpty ());
     assertEquals ("value2", x.getAttributeObject ("key2"));
@@ -64,22 +62,22 @@ public final class MapBasedReadOnlyAttributeContainerTest
     assertFalse (x.getAllAttributes ().isEmpty ());
     assertFalse (x.getAllAttributeNames ().isEmpty ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MapBasedReadOnlyAttributeContainer <String, Serializable> (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                                                                               "key2" },
-                                                                                                                                                               new Serializable [] { "value",
-                                                                                                                                                                                     "value2" })),
-                                                                       new MapBasedReadOnlyAttributeContainer <String, Serializable> (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                                                                               "key2" },
-                                                                                                                                                               new Serializable [] { "value",
-                                                                                                                                                                                     "value2" })));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MapBasedReadOnlyAttributeContainer <String, Serializable> (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                                                                                   "key2" },
-                                                                                                                                                                   new Serializable [] { "value",
-                                                                                                                                                                                         "value2" })),
-                                                                           new MapBasedAttributeContainerAny <String> (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                                                                "key2" },
-                                                                                                                                                new Serializable [] { "value",
-                                                                                                                                                                      "value" })));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MapBasedReadOnlyAttributeContainer <> (CollectionHelper.newMap (new String [] { "key",
+                                                                                                                                                           "key2" },
+                                                                                                                                           new Serializable [] { "value",
+                                                                                                                                                                 "value2" })),
+                                                                       new MapBasedReadOnlyAttributeContainer <> (CollectionHelper.newMap (new String [] { "key",
+                                                                                                                                                           "key2" },
+                                                                                                                                           new Serializable [] { "value",
+                                                                                                                                                                 "value2" })));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MapBasedReadOnlyAttributeContainer <> (CollectionHelper.newMap (new String [] { "key",
+                                                                                                                                                               "key2" },
+                                                                                                                                               new Serializable [] { "value",
+                                                                                                                                                                     "value2" })),
+                                                                           new MapBasedAttributeContainerAny <> (CollectionHelper.newMap (new String [] { "key",
+                                                                                                                                                          "key2" },
+                                                                                                                                          new Serializable [] { "value",
+                                                                                                                                                                "value" })));
 
     assertTrue (new MapBasedReadOnlyAttributeContainer <> ((Map <String, Serializable>) null).isEmpty ());
   }

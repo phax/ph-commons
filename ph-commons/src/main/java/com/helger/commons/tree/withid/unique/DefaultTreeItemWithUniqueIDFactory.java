@@ -39,12 +39,12 @@ public class DefaultTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE> extends
   protected DefaultTreeItemWithID <KEYTYPE, DATATYPE> internalCreate (@Nonnull final DefaultTreeItemWithID <KEYTYPE, DATATYPE> aParent,
                                                                       @Nonnull final KEYTYPE aDataID)
   {
-    return new DefaultTreeItemWithID <KEYTYPE, DATATYPE> (aParent, aDataID);
+    return new DefaultTreeItemWithID <> (aParent, aDataID);
   }
 
   @Nonnull
   public DefaultTreeItemWithID <KEYTYPE, DATATYPE> createRoot ()
   {
-    return new DefaultTreeItemWithID <KEYTYPE, DATATYPE> (this);
+    return new DefaultTreeItemWithID <> (this);
   }
 }

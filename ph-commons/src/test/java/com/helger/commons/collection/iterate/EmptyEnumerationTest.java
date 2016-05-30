@@ -33,7 +33,7 @@ public final class EmptyEnumerationTest
   @Test
   public void testAll ()
   {
-    final EmptyEnumeration <String> es = new EmptyEnumeration <String> ();
+    final EmptyEnumeration <String> es = new EmptyEnumeration <> ();
     assertFalse (es.hasMoreElements ());
     try
     {

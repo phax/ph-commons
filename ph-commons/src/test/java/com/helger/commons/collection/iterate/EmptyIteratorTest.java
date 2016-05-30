@@ -33,7 +33,7 @@ public final class EmptyIteratorTest
   @Test
   public void testAll ()
   {
-    final EmptyIterator <String> eit = new EmptyIterator <String> ();
+    final EmptyIterator <String> eit = new EmptyIterator <> ();
     assertFalse (eit.hasNext ());
 
     try

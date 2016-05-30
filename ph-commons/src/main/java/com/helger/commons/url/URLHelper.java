@@ -32,7 +32,6 @@ import java.net.URLConnection;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.util.BitSet;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -54,7 +53,9 @@ import com.helger.commons.charset.CCharset;
 import com.helger.commons.codec.IDecoder;
 import com.helger.commons.codec.IEncoder;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.io.file.FilenameHelper;
@@ -393,7 +394,7 @@ public final class URLHelper
     // Ever trickier is the when running multiple threads for reading XML (e.g.
     // in the unit test) this code would wait forever in the static initializer
     // because XMLMapHandler internally also acquires an XML reader....
-    final Map <String, String> aCleanURLMap = new HashMap <String, String> ();
+    final ICommonsMap <String, String> aCleanURLMap = new CommonsHashMap <> ();
     if (XMLMapHandler.readMap (new ClassPathResource ("codelists/cleanurl-data.xml"), aCleanURLMap).isFailure ())
       throw new InitializationException ("Failed to init CleanURL data!");
 
@@ -1046,7 +1047,7 @@ public final class URLHelper
     ValueEnforcer.notNull (aURL, "URL");
     ValueEnforcer.notNull (aContentBytes, "ContentBytes");
 
-    final Wrapper <OutputStream> aOpenedOS = new Wrapper <OutputStream> ();
+    final Wrapper <OutputStream> aOpenedOS = new Wrapper <> ();
     final Consumer <URLConnection> aPOSTModifier = aURLConnection -> {
       final HttpURLConnection aHTTPURLConnection = (HttpURLConnection) aURLConnection;
       try

@@ -37,7 +37,7 @@ public final class SingleElementListIteratorTest
   @Test
   public void testAll ()
   {
-    final SingleElementListIterator <String> eit = new SingleElementListIterator <String> ("any");
+    final SingleElementListIterator <String> eit = new SingleElementListIterator <> ("any");
     assertTrue (eit.hasNext ());
     assertFalse (eit.hasPrevious ());
     assertEquals (-1, eit.previousIndex ());
@@ -92,11 +92,11 @@ public final class SingleElementListIteratorTest
     catch (final UnsupportedOperationException ex)
     {}
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new SingleElementListIterator <String> ("any"),
-                                                                       new SingleElementListIterator <String> ("any"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SingleElementListIterator <String> ("any"),
-                                                                           new SingleElementListIterator <String> ("any2"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SingleElementListIterator <String> ("any"),
-                                                                           new SingleElementListIterator <Integer> (Integer.valueOf (1)));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new SingleElementListIterator <> ("any"),
+                                                                       new SingleElementListIterator <> ("any"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SingleElementListIterator <> ("any"),
+                                                                           new SingleElementListIterator <> ("any2"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SingleElementListIterator <> ("any"),
+                                                                           new SingleElementListIterator <> (Integer.valueOf (1)));
   }
 }

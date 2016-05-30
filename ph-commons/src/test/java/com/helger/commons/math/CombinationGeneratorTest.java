@@ -46,7 +46,7 @@ public final class CombinationGeneratorTest
   public void testStringCombination ()
   {
     final ICommonsList <String> aElements = CollectionHelper.newList (A, B, B, C);
-    final CombinationGenerator <String> x = new CombinationGenerator <String> (aElements, 3);
+    final CombinationGenerator <String> x = new CombinationGenerator <> (aElements, 3);
     assertEquals (BigInteger.valueOf (4), x.getTotalCombinations ());
     assertEquals (BigInteger.valueOf (4), x.getCombinationsLeft ());
 
@@ -103,21 +103,21 @@ public final class CombinationGeneratorTest
     {}
     try
     {
-      new CombinationGenerator <String> (CollectionHelper.<String> newList (), 3);
+      new CombinationGenerator <> (CollectionHelper.<String> newList (), 3);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
     try
     {
-      new CombinationGenerator <String> (CollectionHelper.newList ("a"), 3);
+      new CombinationGenerator <> (CollectionHelper.newList ("a"), 3);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
     try
     {
-      new CombinationGenerator <String> (CollectionHelper.newList ("a", "b"), -1);
+      new CombinationGenerator <> (CollectionHelper.newList ("a", "b"), -1);
       fail ();
     }
     catch (final IllegalArgumentException ex)

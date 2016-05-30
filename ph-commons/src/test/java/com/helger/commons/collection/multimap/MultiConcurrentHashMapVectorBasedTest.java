@@ -28,15 +28,15 @@ public final class MultiConcurrentHashMapVectorBasedTest extends AbstractMultiMa
   @Test
   public void testAll ()
   {
-    MultiConcurrentHashMapVectorBased <String, String> aMultiMap = new MultiConcurrentHashMapVectorBased <String, String> ();
+    MultiConcurrentHashMapVectorBased <String, String> aMultiMap = new MultiConcurrentHashMapVectorBased <> ();
     testEmpty (aMultiMap);
-    aMultiMap = new MultiConcurrentHashMapVectorBased <String, String> (getKey1 (), getValue1 ());
+    aMultiMap = new MultiConcurrentHashMapVectorBased <> (getKey1 (), getValue1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiConcurrentHashMapVectorBased <String, String> (getKey1 (), getValueList1 ());
+    aMultiMap = new MultiConcurrentHashMapVectorBased <> (getKey1 (), getValueList1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiConcurrentHashMapVectorBased <String, String> (getMapList1 ());
+    aMultiMap = new MultiConcurrentHashMapVectorBased <> (getMapList1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiConcurrentHashMapVectorBased <String, String> ();
+    aMultiMap = new MultiConcurrentHashMapVectorBased <> ();
     testList (aMultiMap);
   }
 }

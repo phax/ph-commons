@@ -43,7 +43,7 @@ public final class ConcurrentCollectorSingleTest
     catch (final IllegalArgumentException ex)
     {}
 
-    ConcurrentCollectorSingle <String> ccm = new ConcurrentCollectorSingle <String> (5);
+    ConcurrentCollectorSingle <String> ccm = new ConcurrentCollectorSingle <> (5);
     assertEquals (0, ccm.getQueueLength ());
 
     try
@@ -64,7 +64,7 @@ public final class ConcurrentCollectorSingleTest
     catch (final IllegalStateException ex)
     {}
 
-    ccm = new ConcurrentCollectorSingle <String> (5);
+    ccm = new ConcurrentCollectorSingle <> (5);
     ccm.setPerformer (aCurrentObject -> {});
     assertNotNull (ccm);
   }

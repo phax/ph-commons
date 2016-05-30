@@ -86,7 +86,7 @@ public final class LRUSetTest
     aCache.clear ();
     assertEquals (0, aCache.size ());
 
-    final LRUSet <String> ret = new LRUSet <String> (4);
+    final LRUSet <String> ret = new LRUSet <> (4);
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ret, new LRUSet <> (4));
     ret.add ("a");
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ret, new LRUSet <> (4));

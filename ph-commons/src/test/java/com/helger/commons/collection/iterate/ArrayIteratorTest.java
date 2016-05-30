@@ -77,7 +77,7 @@ public final class ArrayIteratorTest
 
     try
     {
-      new ArrayIterator <String> ((String []) null);
+      new ArrayIterator <> ((String []) null);
       fail ();
     }
     catch (final NullPointerException ex)

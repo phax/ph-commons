@@ -37,7 +37,7 @@ public final class SingleElementEnumerationTest
   @Test
   public void testAll ()
   {
-    final SingleElementEnumeration <String> eit = new SingleElementEnumeration <String> ("any");
+    final SingleElementEnumeration <String> eit = new SingleElementEnumeration <> ("any");
     assertTrue (eit.hasMoreElements ());
 
     assertEquals ("any", eit.nextElement ());
@@ -50,11 +50,11 @@ public final class SingleElementEnumerationTest
     {}
     assertFalse (eit.hasMoreElements ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new SingleElementEnumeration <String> ("any"),
-                                                                       new SingleElementEnumeration <String> ("any"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SingleElementEnumeration <String> ("any"),
-                                                                           new SingleElementEnumeration <String> ("any2"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SingleElementEnumeration <String> ("any"),
-                                                                           new SingleElementEnumeration <Integer> (Integer.valueOf (1)));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new SingleElementEnumeration <> ("any"),
+                                                                       new SingleElementEnumeration <> ("any"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SingleElementEnumeration <> ("any"),
+                                                                           new SingleElementEnumeration <> ("any2"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SingleElementEnumeration <> ("any"),
+                                                                           new SingleElementEnumeration <> (Integer.valueOf (1)));
   }
 }

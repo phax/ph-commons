@@ -28,15 +28,15 @@ public final class MultiLinkedHashMapArrayListBasedTest extends AbstractMultiMap
   @Test
   public void testAll ()
   {
-    MultiLinkedHashMapArrayListBased <String, String> aMultiMap = new MultiLinkedHashMapArrayListBased <String, String> ();
+    MultiLinkedHashMapArrayListBased <String, String> aMultiMap = new MultiLinkedHashMapArrayListBased <> ();
     testEmpty (aMultiMap);
-    aMultiMap = new MultiLinkedHashMapArrayListBased <String, String> (getKey1 (), getValue1 ());
+    aMultiMap = new MultiLinkedHashMapArrayListBased <> (getKey1 (), getValue1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiLinkedHashMapArrayListBased <String, String> (getKey1 (), getValueList1 ());
+    aMultiMap = new MultiLinkedHashMapArrayListBased <> (getKey1 (), getValueList1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiLinkedHashMapArrayListBased <String, String> (getMapList1 ());
+    aMultiMap = new MultiLinkedHashMapArrayListBased <> (getMapList1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiLinkedHashMapArrayListBased <String, String> ();
+    aMultiMap = new MultiLinkedHashMapArrayListBased <> ();
     testList (aMultiMap);
   }
 }

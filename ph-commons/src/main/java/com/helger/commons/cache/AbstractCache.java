@@ -113,8 +113,7 @@ public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements IMutableCach
   @OverrideOnDemand
   protected Map <KEYTYPE, VALUETYPE> createCache ()
   {
-    return hasMaxSize () ? new SoftLinkedHashMap <KEYTYPE, VALUETYPE> (m_nMaxSize)
-                         : new SoftHashMap <KEYTYPE, VALUETYPE> ();
+    return hasMaxSize () ? new SoftLinkedHashMap <> (m_nMaxSize) : new SoftHashMap <> ();
   }
 
   /**

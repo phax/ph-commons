@@ -95,6 +95,6 @@ public class SingleElementIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYP
   @Nonnull
   public static <T> Iterator <T> create (@Nullable final T aElement)
   {
-    return new SingleElementIterator <T> (aElement);
+    return new SingleElementIterator <> (aElement);
   }
 }

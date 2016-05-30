@@ -16,8 +16,6 @@
  */
 package com.helger.commons.supplementary.test.benchmark;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Nonnegative;
@@ -25,6 +23,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsCollection;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.string.StringHelper;
 
 public final class StringTrieFuncTest <DATATYPE>
@@ -123,7 +124,7 @@ public final class StringTrieFuncTest <DATATYPE>
     for (int i = nIndex; i < aChars.length; ++i)
     {
       final char c = aChars[i];
-      final Node <DATATYPE> aNode = new Node <DATATYPE> (c);
+      final Node <DATATYPE> aNode = new Node <> (c);
       if (aLastNode != null)
         aLastNode.m_aMid = aNode;
       if (ret == null)
@@ -229,9 +230,9 @@ public final class StringTrieFuncTest <DATATYPE>
   }
 
   @Nonnull
-  public Collection <String> getAllKeys ()
+  public ICommonsCollection <String> getAllKeys ()
   {
-    final List <String> aList = new ArrayList <String> ();
+    final ICommonsList <String> aList = new CommonsArrayList <> ();
     _collect (m_aRoot, "", aList);
     return aList;
   }
@@ -254,12 +255,12 @@ public final class StringTrieFuncTest <DATATYPE>
 
   // all keys starting with given prefix
   @Nonnull
-  public Collection <String> prefixMatch (@Nonnull @Nonempty final String sPrefix)
+  public ICommonsCollection <String> prefixMatch (@Nonnull @Nonempty final String sPrefix)
   {
     if (StringHelper.hasNoText (sPrefix))
       throw new IllegalArgumentException ("prefix must have length >= 1");
 
-    final List <String> aList = new ArrayList <String> ();
+    final ICommonsList <String> aList = new CommonsArrayList <> ();
     final char [] aPrefix = sPrefix.toCharArray ();
     final Node <DATATYPE> aNode = _get (m_aRoot, aPrefix, 0);
     if (aNode != null)
@@ -273,9 +274,9 @@ public final class StringTrieFuncTest <DATATYPE>
 
   // return all keys matching given wilcard pattern
   @Nonnull
-  public Collection <String> wildcardMatch (@Nonnull final String sPattern)
+  public ICommonsCollection <String> wildcardMatch (@Nonnull final String sPattern)
   {
-    final List <String> queue = new ArrayList <String> ();
+    final ICommonsList <String> queue = new CommonsArrayList <> ();
     collect (m_aRoot, "", 0, sPattern, queue);
     return queue;
   }

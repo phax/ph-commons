@@ -45,7 +45,6 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
@@ -53,6 +52,8 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 
 /**
  * Test class for class {@link CSVReader}.
@@ -562,7 +563,7 @@ public final class CSVReaderTest
   @Test
   public void testIteratorFunctionality () throws IOException
   {
-    final List <List <String>> expectedResult = new ArrayList <List <String>> ();
+    final ICommonsList <ICommonsList <String>> expectedResult = new CommonsArrayList <> ();
     expectedResult.add (CollectionHelper.newList ("a", "b", "c"));
     expectedResult.add (CollectionHelper.newList ("a", "b,b,b", "c"));
     expectedResult.add (CollectionHelper.newList ("", "", ""));
@@ -571,9 +572,9 @@ public final class CSVReaderTest
     expectedResult.add (CollectionHelper.newList ("\"\"", "test"));
     expectedResult.add (CollectionHelper.newList ("a\nb", "b", "\nd", "e"));
     int idx = 0;
-    for (final List <String> line : m_aCSVReader)
+    for (final ICommonsList <String> line : m_aCSVReader)
     {
-      final List <String> expectedLine = expectedResult.get (idx++);
+      final ICommonsList <String> expectedLine = expectedResult.get (idx++);
       assertEquals (expectedLine, line);
     }
   }

@@ -31,7 +31,7 @@ public final class DefaultTreeItemWithIDFactoryTest
   @Test
   public void testAll ()
   {
-    final DefaultTreeItemWithIDFactory <String, String> x = new DefaultTreeItemWithIDFactory <String, String> ();
+    final DefaultTreeItemWithIDFactory <String, String> x = new DefaultTreeItemWithIDFactory <> ();
     final DefaultTreeItemWithID <String, String> r = x.createRoot ();
     assertNotNull (r);
     assertNotNull (x.create (r, "any"));

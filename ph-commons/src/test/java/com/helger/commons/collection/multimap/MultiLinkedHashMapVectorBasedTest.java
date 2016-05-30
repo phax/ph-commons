@@ -28,15 +28,15 @@ public final class MultiLinkedHashMapVectorBasedTest extends AbstractMultiMapTes
   @Test
   public void testAll ()
   {
-    MultiLinkedHashMapVectorBased <String, String> aMultiMap = new MultiLinkedHashMapVectorBased <String, String> ();
+    MultiLinkedHashMapVectorBased <String, String> aMultiMap = new MultiLinkedHashMapVectorBased <> ();
     testEmpty (aMultiMap);
-    aMultiMap = new MultiLinkedHashMapVectorBased <String, String> (getKey1 (), getValue1 ());
+    aMultiMap = new MultiLinkedHashMapVectorBased <> (getKey1 (), getValue1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiLinkedHashMapVectorBased <String, String> (getKey1 (), getValueList1 ());
+    aMultiMap = new MultiLinkedHashMapVectorBased <> (getKey1 (), getValueList1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiLinkedHashMapVectorBased <String, String> (getMapList1 ());
+    aMultiMap = new MultiLinkedHashMapVectorBased <> (getMapList1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiLinkedHashMapVectorBased <String, String> ();
+    aMultiMap = new MultiLinkedHashMapVectorBased <> ();
     testList (aMultiMap);
   }
 }

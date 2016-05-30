@@ -90,6 +90,6 @@ public class SingleElementEnumeration <ELEMENTTYPE> implements Enumeration <ELEM
   @Nonnull
   public static <T> Enumeration <T> create (@Nullable final T aElement)
   {
-    return new SingleElementEnumeration <T> (aElement);
+    return new SingleElementEnumeration <> (aElement);
   }
 }

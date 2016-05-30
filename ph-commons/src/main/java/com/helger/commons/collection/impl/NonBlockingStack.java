@@ -164,7 +164,7 @@ public class NonBlockingStack <ELEMENTTYPE> extends CommonsArrayList <ELEMENTTYP
   @Nonnull
   public NonBlockingStack <ELEMENTTYPE> getClone ()
   {
-    return new NonBlockingStack <ELEMENTTYPE> (this);
+    return new NonBlockingStack <> (this);
   }
 
   @Override

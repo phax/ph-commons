@@ -62,7 +62,7 @@ public class SoftLinkedHashMap <K, V> extends AbstractSoftMap <K, V>
     @Override
     protected final boolean removeEldestEntry (@Nonnull final Map.Entry <K, SoftValue <K, V>> aEldest)
     {
-      final MapEntry <K, V> aEntry = new MapEntry <K, V> (aEldest.getKey (), aEldest.getValue ().get ());
+      final MapEntry <K, V> aEntry = new MapEntry <> (aEldest.getKey (), aEldest.getValue ().get ());
       return m_aCallback.removeEldestSoftEntry (aEntry);
     }
   }

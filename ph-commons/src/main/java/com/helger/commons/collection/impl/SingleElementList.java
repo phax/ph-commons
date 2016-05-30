@@ -156,7 +156,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
   @Nonnull
   public Iterator <ELEMENTTYPE> iterator ()
   {
-    return m_bHasElement ? SingleElementIterator.create (m_aElement) : new EmptyIterator <ELEMENTTYPE> ();
+    return m_bHasElement ? SingleElementIterator.create (m_aElement) : new EmptyIterator <> ();
   }
 
   public int lastIndexOf (@Nullable final Object aElement)
@@ -167,7 +167,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
   @Nonnull
   public ListIterator <ELEMENTTYPE> listIterator ()
   {
-    return m_bHasElement ? SingleElementListIterator.create (m_aElement) : new EmptyListIterator <ELEMENTTYPE> ();
+    return m_bHasElement ? SingleElementListIterator.create (m_aElement) : new EmptyListIterator <> ();
   }
 
   @Nonnull
@@ -248,7 +248,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
 
     // Empty
     if (!m_bHasElement || nFromIndex == nToIndex)
-      return new CommonsArrayList <ELEMENTTYPE> (0);
+      return new CommonsArrayList <> (0);
 
     return this;
   }

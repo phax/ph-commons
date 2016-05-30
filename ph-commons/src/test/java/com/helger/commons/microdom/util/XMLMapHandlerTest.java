@@ -24,12 +24,13 @@ import static org.junit.Assert.fail;
 
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.IHasOutputStream;
 import com.helger.commons.io.resource.ClassPathResource;
@@ -48,7 +49,7 @@ public final class XMLMapHandlerTest
   @Test
   public void testReadBuildInfo ()
   {
-    final Map <String, String> aMap = new HashMap <String, String> ();
+    final ICommonsMap <String, String> aMap = new CommonsHashMap <> ();
     final IReadableResource aRes = new ClassPathResource ("xml/buildinfo.xml");
     assertTrue (XMLMapHandler.readMap (aRes, aMap).isSuccess ());
     assertNull (XMLMapHandler.readMap (new ClassPathResource ("test1.txt")));
@@ -65,7 +66,7 @@ public final class XMLMapHandlerTest
   @Test
   public void testReadInvalid ()
   {
-    final Map <String, String> aMap = new HashMap <String, String> ();
+    final ICommonsMap <String, String> aMap = new CommonsHashMap <> ();
     final IReadableResource aRes = new ClassPathResource ("xml/buildinfo.xml");
 
     try
@@ -118,7 +119,7 @@ public final class XMLMapHandlerTest
   @Test
   public void testWriteInvalid ()
   {
-    final Map <String, String> aMap = new HashMap <String, String> ();
+    final ICommonsMap <String, String> aMap = new CommonsHashMap <> ();
 
     try
     {

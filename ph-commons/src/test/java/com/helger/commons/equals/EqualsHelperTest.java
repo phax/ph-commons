@@ -24,16 +24,11 @@ import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Stack;
-import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
@@ -45,7 +40,13 @@ import com.helger.commons.collection.IteratorHelper;
 import com.helger.commons.collection.QueueHelper;
 import com.helger.commons.collection.StackHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.CommonsLinkedHashSet;
+import com.helger.commons.collection.ext.CommonsTreeSet;
 import com.helger.commons.collection.ext.CommonsVector;
+import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.collection.impl.NonBlockingStack;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsAssert;
@@ -322,14 +323,14 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
   @Test
   public void testList ()
   {
-    final List <String> aCont = CollectionHelper.newList ("a", "b", "c");
+    final ICommonsList <String> aCont = CollectionHelper.newList ("a", "b", "c");
     assertTrue (EqualsHelper.equalsCollection (aCont, aCont));
     assertTrue (EqualsHelper.equalsCollection (aCont, CollectionHelper.makeUnmodifiable (aCont)));
     assertTrue (EqualsHelper.equalsCollection (aCont, Collections.synchronizedList (aCont)));
-    assertTrue (EqualsHelper.equalsCollection (aCont, new CommonsArrayList <String> (aCont)));
-    assertTrue (EqualsHelper.equalsCollection (aCont, new LinkedList <String> (aCont)));
-    assertTrue (EqualsHelper.equalsCollection (aCont, new CommonsVector <String> (aCont)));
-    assertTrue (EqualsHelper.equalsCollection (aCont, new NonBlockingStack <String> (aCont)));
+    assertTrue (EqualsHelper.equalsCollection (aCont, new CommonsArrayList <> (aCont)));
+    assertTrue (EqualsHelper.equalsCollection (aCont, new LinkedList <> (aCont)));
+    assertTrue (EqualsHelper.equalsCollection (aCont, new CommonsVector <> (aCont)));
+    assertTrue (EqualsHelper.equalsCollection (aCont, new NonBlockingStack <> (aCont)));
     assertTrue (EqualsHelper.equalsCollection (aCont, QueueHelper.newQueue (aCont)));
     assertTrue (EqualsHelper.equalsCollection (QueueHelper.newQueue (aCont), aCont));
     assertTrue (EqualsHelper.equalsCollection (QueueHelper.newQueue (aCont), QueueHelper.newQueue (aCont)));
@@ -352,19 +353,19 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
   @Test
   public void testSet ()
   {
-    final Set <String> aCont = CollectionHelper.newSet ("a", "b", "c");
+    final ICommonsSet <String> aCont = CollectionHelper.newSet ("a", "b", "c");
     assertTrue (EqualsHelper.equalsCollection (aCont, aCont));
     assertTrue (EqualsHelper.equalsCollection (aCont, CollectionHelper.makeUnmodifiable (aCont)));
     assertTrue (EqualsHelper.equalsCollection (aCont, Collections.synchronizedSet (aCont)));
-    assertTrue (EqualsHelper.equalsCollection (aCont, new HashSet <String> (aCont)));
-    assertTrue (EqualsHelper.equalsCollection (aCont, new LinkedHashSet <String> (aCont)));
-    assertTrue (EqualsHelper.equalsCollection (aCont, new TreeSet <String> (aCont)));
-    assertTrue (EqualsHelper.equalsCollection (new HashSet <String> (), new LinkedHashSet <String> ()));
-    assertTrue (EqualsHelper.equalsCollection (new TreeSet <String> (), new HashSet <String> ()));
+    assertTrue (EqualsHelper.equalsCollection (aCont, new CommonsHashSet <> (aCont)));
+    assertTrue (EqualsHelper.equalsCollection (aCont, new CommonsLinkedHashSet <> (aCont)));
+    assertTrue (EqualsHelper.equalsCollection (aCont, new CommonsTreeSet <> (aCont)));
+    assertTrue (EqualsHelper.equalsCollection (new CommonsHashSet <String> (), new CommonsLinkedHashSet <String> ()));
+    assertTrue (EqualsHelper.equalsCollection (new CommonsTreeSet <String> (), new CommonsHashSet <String> ()));
 
-    assertFalse (EqualsHelper.equalsCollection (aCont, new HashSet <String> ()));
-    assertFalse (EqualsHelper.equalsCollection (new HashSet <String> (), aCont));
-    assertFalse (EqualsHelper.equalsCollection (aCont, new TreeSet <String> ()));
+    assertFalse (EqualsHelper.equalsCollection (aCont, new CommonsHashSet <String> ()));
+    assertFalse (EqualsHelper.equalsCollection (new CommonsHashSet <String> (), aCont));
+    assertFalse (EqualsHelper.equalsCollection (aCont, new CommonsTreeSet <String> ()));
     assertFalse (EqualsHelper.equalsCollection (aCont, CollectionHelper.newSet ("a", "b")));
     assertFalse (EqualsHelper.equalsCollection (aCont, CollectionHelper.newSet ("A", "b", "c")));
     assertFalse (EqualsHelper.equalsCollection (aCont, CollectionHelper.newSet ("a", "B", "c")));
@@ -382,10 +383,11 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
     assertTrue (EqualsHelper.equalsCollection (aMap, CollectionHelper.makeUnmodifiable (aMap)));
     assertTrue (EqualsHelper.equalsCollection (aMap, Collections.synchronizedMap (aMap)));
     assertTrue (EqualsHelper.equalsCollection (aMap, new SMap ("a", "b").add ("c", "d")));
-    assertTrue (EqualsHelper.equalsCollection (new HashMap <Integer, Integer> (), new HashMap <Double, Float> ()));
+    assertTrue (EqualsHelper.equalsCollection (new CommonsHashMap <Integer, Integer> (),
+                                               new CommonsHashMap <Double, Float> ()));
 
-    assertFalse (EqualsHelper.equalsCollection (aMap, new HashMap <Integer, Integer> ()));
-    assertFalse (EqualsHelper.equalsCollection (new HashMap <Integer, Integer> (), aMap));
+    assertFalse (EqualsHelper.equalsCollection (aMap, new CommonsHashMap <Integer, Integer> ()));
+    assertFalse (EqualsHelper.equalsCollection (new CommonsHashMap <Integer, Integer> (), aMap));
     assertFalse (EqualsHelper.equalsCollection (aMap, new SMap ("a", "b")));
     assertFalse (EqualsHelper.equalsCollection (aMap, new SMap ("A", "b").add ("c", "d")));
     assertFalse (EqualsHelper.equalsCollection (aMap, new SMap ("a", "B").add ("c", "d")));
@@ -419,8 +421,8 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
   @Test
   public void testArrayComplex ()
   {
-    final List <String> [] aArray = ArrayHelper.newArray (CollectionHelper.newList ("a", "b"),
-                                                          CollectionHelper.newList ("c", "d"));
+    final ICommonsList <String> [] aArray = ArrayHelper.newArray (CollectionHelper.newList ("a", "b"),
+                                                                  CollectionHelper.newList ("c", "d"));
     assertTrue (EqualsHelper.equalsCollection (aArray, aArray));
     assertTrue (EqualsHelper.equalsCollection (aArray, ArrayHelper.newArray (CollectionHelper.newList ("a", "b"),
                                                                              CollectionHelper.newList ("c", "d"))));
@@ -448,7 +450,7 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
   @Test
   public void testComplex ()
   {
-    final Map <List <String>, Set <String>> aMap = new HashMap <List <String>, Set <String>> ();
+    final Map <ICommonsList <String>, ICommonsSet <String>> aMap = new CommonsHashMap <> ();
     aMap.put (CollectionHelper.newList ("a", "b", "c"), CollectionHelper.newSet ("a", "b", "c"));
     aMap.put (CollectionHelper.newList ("a", "b", "d"), CollectionHelper.newSet ("a", "b", "d"));
     assertTrue (EqualsHelper.equalsCollection (aMap, CollectionHelper.newMap (aMap)));
@@ -457,14 +459,14 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
     assertFalse (EqualsHelper.equalsCollection (aMap, CollectionHelper.newList ("a", "b", "c")));
     assertFalse (EqualsHelper.equalsCollection (aMap, CollectionHelper.newSet ("a", "b", "c")));
     assertFalse (EqualsHelper.equalsCollection (aMap, new SMap ().add ("a", "b")));
-    final Map <List <String>, String> aMap2 = new HashMap <List <String>, String> ();
+    final Map <List <String>, String> aMap2 = new CommonsHashMap <> ();
     aMap2.put (CollectionHelper.newList ("a", "b", "c"), "d");
     aMap2.put (CollectionHelper.newList ("a", "b", "d"), "e");
     aMap2.put (CollectionHelper.newList ("a", "b", "e"), null);
     aMap2.put (null, "g");
     assertFalse (EqualsHelper.equalsCollection (aMap, aMap2));
     assertFalse (EqualsHelper.equalsCollection (aMap2, aMap));
-    final Map <String, List <String>> aMap3 = new HashMap <String, List <String>> ();
+    final Map <String, List <String>> aMap3 = new CommonsHashMap <> ();
     aMap3.put ("d", CollectionHelper.newList ("a", "b", "c"));
     aMap3.put ("e", CollectionHelper.newList ("a", "b", "d"));
     aMap3.put (null, CollectionHelper.newList ("a", "b", "e"));
@@ -481,10 +483,10 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
     assertTrue (EqualsHelper.equalsCollection (aCont.iterator (),
                                                CollectionHelper.makeUnmodifiable (aCont).iterator ()));
     assertTrue (EqualsHelper.equalsCollection (aCont.iterator (), Collections.synchronizedList (aCont).iterator ()));
-    assertTrue (EqualsHelper.equalsCollection (aCont.iterator (), new CommonsArrayList <String> (aCont).iterator ()));
-    assertTrue (EqualsHelper.equalsCollection (aCont.iterator (), new LinkedList <String> (aCont).iterator ()));
-    assertTrue (EqualsHelper.equalsCollection (aCont.iterator (), new CommonsVector <String> (aCont).iterator ()));
-    assertTrue (EqualsHelper.equalsCollection (aCont.iterator (), new NonBlockingStack <String> (aCont).iterator ()));
+    assertTrue (EqualsHelper.equalsCollection (aCont.iterator (), new CommonsArrayList <> (aCont).iterator ()));
+    assertTrue (EqualsHelper.equalsCollection (aCont.iterator (), new LinkedList <> (aCont).iterator ()));
+    assertTrue (EqualsHelper.equalsCollection (aCont.iterator (), new CommonsVector <> (aCont).iterator ()));
+    assertTrue (EqualsHelper.equalsCollection (aCont.iterator (), new NonBlockingStack <> (aCont).iterator ()));
     assertTrue (EqualsHelper.equalsCollection (aCont.iterator (), QueueHelper.newQueue (aCont).iterator ()));
     assertTrue (EqualsHelper.equalsCollection (QueueHelper.newQueue (aCont), aCont));
     assertTrue (EqualsHelper.equalsCollection (QueueHelper.newQueue (aCont), QueueHelper.newQueue (aCont)));
@@ -557,13 +559,13 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
     assertTrue (EqualsHelper.equalsCollection (IteratorHelper.getEnumeration (aCont),
                                                IteratorHelper.getEnumeration (Collections.synchronizedList (aCont))));
     assertTrue (EqualsHelper.equalsCollection (IteratorHelper.getEnumeration (aCont),
-                                               IteratorHelper.getEnumeration (new CommonsArrayList <String> (aCont))));
+                                               IteratorHelper.getEnumeration (new CommonsArrayList <> (aCont))));
     assertTrue (EqualsHelper.equalsCollection (IteratorHelper.getEnumeration (aCont),
-                                               IteratorHelper.getEnumeration (new LinkedList <String> (aCont))));
+                                               IteratorHelper.getEnumeration (new LinkedList <> (aCont))));
     assertTrue (EqualsHelper.equalsCollection (IteratorHelper.getEnumeration (aCont),
-                                               IteratorHelper.getEnumeration (new CommonsVector <String> (aCont))));
+                                               IteratorHelper.getEnumeration (new CommonsVector <> (aCont))));
     assertTrue (EqualsHelper.equalsCollection (IteratorHelper.getEnumeration (aCont),
-                                               IteratorHelper.getEnumeration (new NonBlockingStack <String> (aCont))));
+                                               IteratorHelper.getEnumeration (new NonBlockingStack <> (aCont))));
     assertTrue (EqualsHelper.equalsCollection (IteratorHelper.getEnumeration (aCont),
                                                IteratorHelper.getEnumeration (QueueHelper.newQueue (aCont))));
     assertTrue (EqualsHelper.equalsCollection (QueueHelper.newQueue (aCont), aCont));

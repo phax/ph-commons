@@ -16,17 +16,18 @@
  */
 package com.helger.commons.supplementary.test.benchmark;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import com.helger.commons.charset.CCharset;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
+import com.helger.commons.io.stream.NonBlockingBufferedReader;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.locale.LocaleFormatter;
 import com.helger.commons.string.StringHelper;
@@ -66,8 +67,9 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
 
   private static List <String> _readWordList (final IReadableResource aRes, final Charset aCharset) throws IOException
   {
-    final List <String> ret = new ArrayList <String> ();
-    final BufferedReader aBR = new BufferedReader (new InputStreamReader (aRes.getInputStream (), aCharset));
+    final ICommonsList <String> ret = new CommonsArrayList <> ();
+    final NonBlockingBufferedReader aBR = new NonBlockingBufferedReader (new InputStreamReader (aRes.getInputStream (),
+                                                                                                aCharset));
     String sLine;
     int nIdx = 0;
     while ((sLine = aBR.readLine ()) != null)

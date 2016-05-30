@@ -35,13 +35,13 @@ public class DefaultTreeItemFactory <DATATYPE> extends AbstractTreeItemFactory <
   @Nonnull
   public DefaultTreeItem <DATATYPE> createRoot ()
   {
-    return new DefaultTreeItem <DATATYPE> (this);
+    return new DefaultTreeItem <> (this);
   }
 
   @Nonnull
   public DefaultTreeItem <DATATYPE> create (@Nonnull final DefaultTreeItem <DATATYPE> aParent)
   {
     ValueEnforcer.notNull (aParent, "Parent");
-    return new DefaultTreeItem <DATATYPE> (aParent);
+    return new DefaultTreeItem <> (aParent);
   }
 }

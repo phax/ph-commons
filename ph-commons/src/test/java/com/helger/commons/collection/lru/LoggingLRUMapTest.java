@@ -34,7 +34,7 @@ public final class LoggingLRUMapTest
   @Test
   public void testAll ()
   {
-    final LoggingLRUMap <String, String> c = new LoggingLRUMap <String, String> (5);
+    final LoggingLRUMap <String, String> c = new LoggingLRUMap <> (5);
     assertNull (c.getMapName ());
     c.setMapName ("name");
     assertEquals ("name", c.getMapName ());

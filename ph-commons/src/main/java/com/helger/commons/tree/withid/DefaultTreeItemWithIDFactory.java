@@ -38,7 +38,7 @@ public class DefaultTreeItemWithIDFactory <KEYTYPE, DATATYPE> extends
   @Nonnull
   public DefaultTreeItemWithID <KEYTYPE, DATATYPE> createRoot ()
   {
-    return new DefaultTreeItemWithID <KEYTYPE, DATATYPE> (this);
+    return new DefaultTreeItemWithID <> (this);
   }
 
   @Nonnull
@@ -47,6 +47,6 @@ public class DefaultTreeItemWithIDFactory <KEYTYPE, DATATYPE> extends
   {
     ValueEnforcer.notNull (aParent, "Parent");
 
-    return new DefaultTreeItemWithID <KEYTYPE, DATATYPE> (aParent, aDataID);
+    return new DefaultTreeItemWithID <> (aParent, aDataID);
   }
 }

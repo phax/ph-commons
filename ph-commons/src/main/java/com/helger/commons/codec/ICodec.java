@@ -30,6 +30,6 @@ public interface ICodec <DATATYPE> extends IEncoder <DATATYPE, DATATYPE>, IDecod
   @Nonnull
   static <T> IdentityCodec <T> identity ()
   {
-    return new IdentityCodec <T> ();
+    return new IdentityCodec <> ();
   }
 }

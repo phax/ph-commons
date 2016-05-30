@@ -79,7 +79,7 @@ public final class MockJAXBArchive
   public List <MockJAXBCollection> getCollection ()
   {
     if (m_aCollection == null)
-      m_aCollection = new ArrayList <MockJAXBCollection> ();
+      m_aCollection = new ArrayList <> ();
     return m_aCollection;
   }
 

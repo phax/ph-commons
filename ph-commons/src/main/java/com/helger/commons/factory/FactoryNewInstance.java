@@ -93,6 +93,6 @@ public class FactoryNewInstance <DATATYPE> implements IFactory <DATATYPE>
   public static <DATATYPE> FactoryNewInstance <DATATYPE> create (@Nullable final Class <DATATYPE> aClass,
                                                                  final boolean bCheckInstancable)
   {
-    return new FactoryNewInstance <DATATYPE> (aClass, bCheckInstancable);
+    return new FactoryNewInstance <> (aClass, bCheckInstancable);
   }
 }

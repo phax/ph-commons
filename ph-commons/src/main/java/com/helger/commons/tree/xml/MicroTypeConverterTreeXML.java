@@ -133,7 +133,7 @@ public final class MicroTypeConverterTreeXML <DATATYPE> implements IConverterTre
   public static <DATATYPE> MicroTypeConverterTreeXML <DATATYPE> create (@Nonnull @Nonempty final String sElementName,
                                                                         @Nonnull final Class <? extends DATATYPE> aNativeClass)
   {
-    return new MicroTypeConverterTreeXML <DATATYPE> (sElementName, aNativeClass);
+    return new MicroTypeConverterTreeXML <> (sElementName, aNativeClass);
   }
 
   /**
@@ -155,6 +155,6 @@ public final class MicroTypeConverterTreeXML <DATATYPE> implements IConverterTre
                                                                         @Nonnull @Nonempty final String sElementName,
                                                                         @Nonnull final Class <? extends DATATYPE> aNativeClass)
   {
-    return new MicroTypeConverterTreeXML <DATATYPE> (sNamespaceURI, sElementName, aNativeClass);
+    return new MicroTypeConverterTreeXML <> (sNamespaceURI, sElementName, aNativeClass);
   }
 }

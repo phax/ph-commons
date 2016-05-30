@@ -16,7 +16,6 @@
  */
 package com.helger.commons.text.display;
 
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -24,11 +23,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.text.util.TextHelper;
 
 public final class MockHasDisplayText implements IHasDisplayText
 {
-  private final Map <Locale, String> m_aNames = new HashMap <Locale, String> ();
+  private final ICommonsMap <Locale, String> m_aNames = new CommonsHashMap <> ();
 
   public MockHasDisplayText (@Nonnull final Locale aLocale, @Nullable final String sText)
   {

@@ -106,7 +106,7 @@ final class FileMonitorAgent
     // See which new children are not listed in the current children
     // map.
     final ICommonsSet <String> aNewChildren = new CommonsHashSet <> ();
-    final NonBlockingStack <File> aNewCreatedChildren = new NonBlockingStack <File> ();
+    final NonBlockingStack <File> aNewCreatedChildren = new NonBlockingStack <> ();
 
     final File [] aNewChildrenList = m_aFile.listFiles ();
     if (aNewChildrenList != null)

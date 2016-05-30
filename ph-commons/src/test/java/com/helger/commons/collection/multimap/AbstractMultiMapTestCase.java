@@ -25,11 +25,11 @@ import static org.junit.Assert.assertTrue;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.Nonnull;
 
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsConcurrentHashMap;
 import com.helger.commons.collection.ext.ICommonsCollection;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
@@ -132,7 +132,7 @@ public abstract class AbstractMultiMapTestCase
     aCont = aMultiMap.get ("Anyone");
     assertNull (aCont);
 
-    final Map <String, String> aMap = new ConcurrentHashMap <String, String> ();
+    final Map <String, String> aMap = new CommonsConcurrentHashMap <> ();
     aMap.put ("Philip", "Vienna");
     aMap.put ("Rene", "Essling");
     assertEquals (2, aMap.size ());

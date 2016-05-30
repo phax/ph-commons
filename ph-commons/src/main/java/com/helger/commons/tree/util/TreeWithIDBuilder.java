@@ -195,7 +195,7 @@ public final class TreeWithIDBuilder
   {
     ValueEnforcer.notNull (aChildrenResolver, "ChildrenResolver");
 
-    final DefaultTreeWithID <KEYTYPE, DATATYPE> aTree = new DefaultTreeWithID <KEYTYPE, DATATYPE> ();
+    final DefaultTreeWithID <KEYTYPE, DATATYPE> aTree = new DefaultTreeWithID <> ();
 
     // get all root objects
     if (aChildrenResolver.hasChildren (null))

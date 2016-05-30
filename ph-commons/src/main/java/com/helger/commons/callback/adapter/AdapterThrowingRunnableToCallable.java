@@ -91,7 +91,7 @@ public class AdapterThrowingRunnableToCallable <DATATYPE, EXTYPE extends Excepti
   @Nonnull
   public static <EXTYPE extends Exception> AdapterThrowingRunnableToCallable <Object, EXTYPE> createAdapter (@Nonnull final IThrowingRunnable <EXTYPE> aRunnable)
   {
-    return new AdapterThrowingRunnableToCallable <Object, EXTYPE> (aRunnable);
+    return new AdapterThrowingRunnableToCallable <> (aRunnable);
   }
 
   /**
@@ -112,6 +112,6 @@ public class AdapterThrowingRunnableToCallable <DATATYPE, EXTYPE extends Excepti
   public static <DATATYPE, EXTYPE extends Exception> AdapterThrowingRunnableToCallable <DATATYPE, EXTYPE> createAdapter (@Nonnull final IThrowingRunnable <EXTYPE> aRunnable,
                                                                                                                          @Nullable final DATATYPE aResult)
   {
-    return new AdapterThrowingRunnableToCallable <DATATYPE, EXTYPE> (aRunnable, aResult);
+    return new AdapterThrowingRunnableToCallable <> (aRunnable, aResult);
   }
 }

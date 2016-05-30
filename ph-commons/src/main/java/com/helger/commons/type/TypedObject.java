@@ -112,7 +112,7 @@ public final class TypedObject <IDTYPE extends Serializable> implements ITypedOb
   @Nonnull
   public static <IDTYPE extends Serializable> TypedObject <IDTYPE> create (@Nonnull final ITypedObject <IDTYPE> aObj)
   {
-    return new TypedObject <IDTYPE> (aObj);
+    return new TypedObject <> (aObj);
   }
 
   /**
@@ -130,6 +130,6 @@ public final class TypedObject <IDTYPE extends Serializable> implements ITypedOb
   public static <IDTYPE extends Serializable> TypedObject <IDTYPE> create (@Nonnull final ObjectType aObjectType,
                                                                            @Nonnull final IDTYPE aID)
   {
-    return new TypedObject <IDTYPE> (aObjectType, aID);
+    return new TypedObject <> (aObjectType, aID);
   }
 }

@@ -34,7 +34,7 @@ public final class DefaultTreeItemTest
   @Test
   public void testCtor ()
   {
-    final DefaultTreeItemFactory <String> tif = new DefaultTreeItemFactory <String> ();
+    final DefaultTreeItemFactory <String> tif = new DefaultTreeItemFactory <> ();
     final DefaultTreeItem <String> t = tif.createRoot ();
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (t, tif.createRoot ());
     final DefaultTreeItem <String> c = t.createChildItem ("any");
@@ -51,7 +51,7 @@ public final class DefaultTreeItemTest
   @Test
   public void testLevel ()
   {
-    final DefaultTreeItemFactory <String> tif = new DefaultTreeItemFactory <String> ();
+    final DefaultTreeItemFactory <String> tif = new DefaultTreeItemFactory <> ();
     final DefaultTreeItem <String> t = tif.createRoot ();
     assertEquals (0, t.getLevel ());
     final DefaultTreeItem <String> c = t.createChildItem ("any");

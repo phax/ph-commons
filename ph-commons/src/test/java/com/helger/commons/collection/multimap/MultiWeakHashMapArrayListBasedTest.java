@@ -28,15 +28,15 @@ public final class MultiWeakHashMapArrayListBasedTest extends AbstractMultiMapTe
   @Test
   public void testAll ()
   {
-    MultiWeakHashMapArrayListBased <String, String> aMultiMap = new MultiWeakHashMapArrayListBased <String, String> ();
+    MultiWeakHashMapArrayListBased <String, String> aMultiMap = new MultiWeakHashMapArrayListBased <> ();
     testEmpty (aMultiMap);
-    aMultiMap = new MultiWeakHashMapArrayListBased <String, String> (getKey1 (), getValue1 ());
+    aMultiMap = new MultiWeakHashMapArrayListBased <> (getKey1 (), getValue1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiWeakHashMapArrayListBased <String, String> (getKey1 (), getValueList1 ());
+    aMultiMap = new MultiWeakHashMapArrayListBased <> (getKey1 (), getValueList1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiWeakHashMapArrayListBased <String, String> (getMapList1 ());
+    aMultiMap = new MultiWeakHashMapArrayListBased <> (getMapList1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiWeakHashMapArrayListBased <String, String> ();
+    aMultiMap = new MultiWeakHashMapArrayListBased <> ();
     testList (aMultiMap);
   }
 }

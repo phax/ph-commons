@@ -35,7 +35,7 @@ public final class ChildrenProviderHasChildrenSortedTest
   @Test
   public void testAll ()
   {
-    final ChildrenProviderHasChildrenSorted <MockHasSortedChildren> cr = new ChildrenProviderHasChildrenSorted <MockHasSortedChildren> ();
+    final ChildrenProviderHasChildrenSorted <MockHasSortedChildren> cr = new ChildrenProviderHasChildrenSorted <> ();
     assertFalse (cr.hasChildren (null));
     assertEquals (0, cr.getChildCount (null));
     assertNull (cr.getAllChildren (null));

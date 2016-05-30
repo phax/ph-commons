@@ -16,7 +16,6 @@
  */
 package com.helger.commons.supplementary.test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.transform.dom.DOMSource;
@@ -27,6 +26,8 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.commons.xml.EXMLVersion;
 import com.helger.commons.xml.XMLFactory;
@@ -94,7 +95,7 @@ public final class MainFindInvalidXMLChars
   {
     final EXMLVersion eXMLVersion = EXMLVersion.XML_10;
     final int nMax = Character.MAX_VALUE + 1;
-    final List <Integer> aForbiddenE1 = new ArrayList <Integer> ();
+    final ICommonsList <Integer> aForbiddenE1 = new CommonsArrayList <> ();
     for (int i = 0; i < nMax; ++i)
     {
       final Document aDoc = XMLFactory.newDocument (eXMLVersion);
@@ -110,7 +111,7 @@ public final class MainFindInvalidXMLChars
         aForbiddenE1.add (Integer.valueOf (i));
       }
     }
-    final List <Integer> aForbiddenE2 = new ArrayList <Integer> ();
+    final ICommonsList <Integer> aForbiddenE2 = new CommonsArrayList <> ();
     for (int i = 0; i < nMax; ++i)
     {
       final Document aDoc = XMLFactory.newDocument (eXMLVersion);
@@ -126,7 +127,7 @@ public final class MainFindInvalidXMLChars
         aForbiddenE2.add (Integer.valueOf (i));
       }
     }
-    final List <Integer> aForbiddenAN1 = new ArrayList <Integer> ();
+    final ICommonsList <Integer> aForbiddenAN1 = new CommonsArrayList <> ();
     for (int i = 0; i < nMax; ++i)
     {
       final Document aDoc = XMLFactory.newDocument (eXMLVersion);
@@ -143,7 +144,7 @@ public final class MainFindInvalidXMLChars
         aForbiddenAN1.add (Integer.valueOf (i));
       }
     }
-    final List <Integer> aForbiddenAN2 = new ArrayList <Integer> ();
+    final ICommonsList <Integer> aForbiddenAN2 = new CommonsArrayList <> ();
     for (int i = 0; i < nMax; ++i)
     {
       final Document aDoc = XMLFactory.newDocument (eXMLVersion);
@@ -160,7 +161,7 @@ public final class MainFindInvalidXMLChars
         aForbiddenAN2.add (Integer.valueOf (i));
       }
     }
-    final List <Integer> aForbiddenAV = new ArrayList <Integer> ();
+    final ICommonsList <Integer> aForbiddenAV = new CommonsArrayList <> ();
     for (int i = 0; i < nMax; ++i)
     {
       final Document aDoc = XMLFactory.newDocument (eXMLVersion);
@@ -177,7 +178,7 @@ public final class MainFindInvalidXMLChars
         aForbiddenAV.add (Integer.valueOf (i));
       }
     }
-    final List <Integer> aForbiddenTV = new ArrayList <Integer> ();
+    final ICommonsList <Integer> aForbiddenTV = new CommonsArrayList <> ();
     for (int i = 0; i < nMax; ++i)
     {
       final Document aDoc = XMLFactory.newDocument (eXMLVersion);
@@ -194,7 +195,7 @@ public final class MainFindInvalidXMLChars
         aForbiddenTV.add (Integer.valueOf (i));
       }
     }
-    final List <Integer> aForbiddenCV = new ArrayList <Integer> ();
+    final ICommonsList <Integer> aForbiddenCV = new CommonsArrayList <> ();
     for (int i = 0; i < nMax; ++i)
     {
       final Document aDoc = XMLFactory.newDocument (eXMLVersion);

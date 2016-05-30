@@ -39,7 +39,7 @@ public final class DefaultTreeTest
   @Test
   public void testBasic ()
   {
-    final DefaultTree <String> t = new DefaultTree <String> ();
+    final DefaultTree <String> t = new DefaultTree <> ();
 
     // root item
     final DefaultTreeItem <String> ti = t.getRootItem ().createChildItem ("Hallo");
@@ -67,7 +67,7 @@ public final class DefaultTreeTest
   @Test
   public void testEqualsHashCode ()
   {
-    final DefaultTree <String> t = new DefaultTree <String> ();
+    final DefaultTree <String> t = new DefaultTree <> ();
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (t, new DefaultTree <String> ());
     t.getRootItem ().createChildItem ("data");
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (t, new DefaultTree <String> ());
@@ -76,7 +76,7 @@ public final class DefaultTreeTest
   @Test
   public void testDelete ()
   {
-    final DefaultTree <String> t = new DefaultTree <String> ();
+    final DefaultTree <String> t = new DefaultTree <> ();
 
     // root item
     final DefaultTreeItem <String> ti = t.getRootItem ().createChildItem ("Hallo");
@@ -93,7 +93,7 @@ public final class DefaultTreeTest
   @Test
   public void testReorder ()
   {
-    final DefaultTree <String> t = new DefaultTree <String> ();
+    final DefaultTree <String> t = new DefaultTree <> ();
 
     // root item
     final DefaultTreeItem <String> ti = t.getRootItem ().createChildItem ("Hallo");
@@ -125,10 +125,10 @@ public final class DefaultTreeTest
   @Test
   public void testChangeParent ()
   {
-    final DefaultTree <String> t1 = new DefaultTree <String> ();
+    final DefaultTree <String> t1 = new DefaultTree <> ();
     final DefaultTreeItem <String> t1i1 = t1.getRootItem ().createChildItem ("Hallo");
     final DefaultTreeItem <String> t1i2 = t1i1.createChildItem ("Hallo");
-    final DefaultTree <String> t2 = new DefaultTree <String> ();
+    final DefaultTree <String> t2 = new DefaultTree <> ();
     final DefaultTreeItem <String> t2i1 = t2.getRootItem ().createChildItem ("Hallo");
     final DefaultTreeItem <String> t2i2 = t2i1.createChildItem ("Hallo");
 
@@ -155,7 +155,7 @@ public final class DefaultTreeTest
   @Test
   public void testCtor ()
   {
-    final DefaultTree <String> t = new DefaultTree <String> ();
+    final DefaultTree <String> t = new DefaultTree <> ();
     assertNotNull (t.getRootItem ());
     assertTrue (t.toString ().length () > 0);
   }

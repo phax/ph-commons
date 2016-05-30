@@ -204,7 +204,7 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
     try
     {
       // The temporary list that contains all objects to be delivered
-      final ICommonsList <DATATYPE> aObjectsToPerform = new CommonsArrayList <DATATYPE> ();
+      final ICommonsList <DATATYPE> aObjectsToPerform = new CommonsArrayList <> ();
       boolean bQueueIsStopped = false;
 
       while (true)

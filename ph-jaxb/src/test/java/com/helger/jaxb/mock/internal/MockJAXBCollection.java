@@ -85,7 +85,7 @@ public final class MockJAXBCollection
   public List <MockJAXBIssue> getIssue ()
   {
     if (m_aIssue == null)
-      m_aIssue = new ArrayList <MockJAXBIssue> ();
+      m_aIssue = new ArrayList <> ();
     return m_aIssue;
   }
 

@@ -30,7 +30,7 @@ public final class DefaultTreeItemWithUniqueIDFactoryTest
   @Test
   public void testUniqueness ()
   {
-    final DefaultTreeItemWithUniqueIDFactory <String, String> x = new DefaultTreeItemWithUniqueIDFactory <String, String> ();
+    final DefaultTreeItemWithUniqueIDFactory <String, String> x = new DefaultTreeItemWithUniqueIDFactory <> ();
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (x,
                                                                        new DefaultTreeItemWithUniqueIDFactory <String, String> ());

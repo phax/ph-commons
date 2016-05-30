@@ -28,15 +28,15 @@ public final class MultiHashMapArrayListBasedTest extends AbstractMultiMapTestCa
   @Test
   public void testAll ()
   {
-    MultiHashMapArrayListBased <String, String> aMultiMap = new MultiHashMapArrayListBased <String, String> ();
+    MultiHashMapArrayListBased <String, String> aMultiMap = new MultiHashMapArrayListBased <> ();
     testEmpty (aMultiMap);
-    aMultiMap = new MultiHashMapArrayListBased <String, String> (getKey1 (), getValue1 ());
+    aMultiMap = new MultiHashMapArrayListBased <> (getKey1 (), getValue1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiHashMapArrayListBased <String, String> (getKey1 (), getValueList1 ());
+    aMultiMap = new MultiHashMapArrayListBased <> (getKey1 (), getValueList1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiHashMapArrayListBased <String, String> (getMapList1 ());
+    aMultiMap = new MultiHashMapArrayListBased <> (getMapList1 ());
     testOne (aMultiMap);
-    aMultiMap = new MultiHashMapArrayListBased <String, String> ();
+    aMultiMap = new MultiHashMapArrayListBased <> ();
     testList (aMultiMap);
   }
 }
