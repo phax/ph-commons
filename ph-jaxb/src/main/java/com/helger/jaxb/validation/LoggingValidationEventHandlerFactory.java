@@ -52,7 +52,7 @@ public class LoggingValidationEventHandlerFactory implements IValidationEventHan
   }
 
   @Nonnull
-  public LoggingValidationEventHandler create (@Nullable final ValidationEventHandler aOldEventHandler)
+  public LoggingValidationEventHandler apply (@Nullable final ValidationEventHandler aOldEventHandler)
   {
     return new LoggingValidationEventHandler (m_bEncapsulateHandler ? aOldEventHandler : null);
   }

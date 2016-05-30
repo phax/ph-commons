@@ -53,7 +53,7 @@ public class CollectingLoggingValidationEventHandlerFactory implements IValidati
   }
 
   @Nonnull
-  public CollectingValidationEventHandler create (@Nullable final ValidationEventHandler aOldEventHandler)
+  public CollectingValidationEventHandler apply (@Nullable final ValidationEventHandler aOldEventHandler)
   {
     return new CollectingValidationEventHandler (new LoggingValidationEventHandler (m_bEncapsulateHandler ? aOldEventHandler
                                                                                                           : null));

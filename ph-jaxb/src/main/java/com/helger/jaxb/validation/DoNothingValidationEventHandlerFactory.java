@@ -32,7 +32,7 @@ public class DoNothingValidationEventHandlerFactory implements IValidationEventH
   {}
 
   @Nonnull
-  public DoNothingValidationEventHandler create (@Nullable final ValidationEventHandler aOldEventHandler)
+  public DoNothingValidationEventHandler apply (@Nullable final ValidationEventHandler aOldEventHandler)
   {
     return new DoNothingValidationEventHandler ();
   }

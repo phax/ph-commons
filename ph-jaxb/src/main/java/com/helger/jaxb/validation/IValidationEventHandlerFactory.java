@@ -16,6 +16,8 @@
  */
 package com.helger.jaxb.validation;
 
+import java.util.function.Function;
+
 import javax.annotation.Nullable;
 import javax.xml.bind.ValidationEventHandler;
 
@@ -25,7 +27,7 @@ import javax.xml.bind.ValidationEventHandler;
  * @author Philip Helger
  */
 @FunctionalInterface
-public interface IValidationEventHandlerFactory
+public interface IValidationEventHandlerFactory extends Function <ValidationEventHandler, ValidationEventHandler>
 {
   /**
    * Create a validation event handler
@@ -36,5 +38,5 @@ public interface IValidationEventHandlerFactory
    *         indicate that the default event handler should be used.
    */
   @Nullable
-  ValidationEventHandler create (@Nullable ValidationEventHandler aOldEventHandler);
+  ValidationEventHandler apply (@Nullable ValidationEventHandler aOldEventHandler);
 }

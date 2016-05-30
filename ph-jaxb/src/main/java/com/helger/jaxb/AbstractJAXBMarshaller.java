@@ -271,7 +271,9 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
     if (m_aVEHFactory != null)
     {
       // Create and set a new event handler
-      aUnmarshaller.setEventHandler (m_aVEHFactory.create (aUnmarshaller.getEventHandler ()));
+      final ValidationEventHandler aEvHdl = m_aVEHFactory.apply (aUnmarshaller.getEventHandler ());
+      if (aEvHdl != null)
+        aUnmarshaller.setEventHandler (aEvHdl);
     }
 
     // Set XSD (if any)
@@ -359,7 +361,9 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
     if (m_aVEHFactory != null)
     {
       // Create and set the event handler
-      aMarshaller.setEventHandler (m_aVEHFactory.create (aMarshaller.getEventHandler ()));
+      final ValidationEventHandler aEvHdl = m_aVEHFactory.apply (aMarshaller.getEventHandler ());
+      if (aEvHdl != null)
+        aMarshaller.setEventHandler (aEvHdl);
     }
 
     JAXBMarshallerHelper.setFormattedOutput (aMarshaller, m_bWriteFormatted);
