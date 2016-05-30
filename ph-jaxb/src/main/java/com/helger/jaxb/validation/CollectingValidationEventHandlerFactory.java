@@ -35,6 +35,7 @@ public class CollectingValidationEventHandlerFactory implements IValidationEvent
   public static final boolean DEFAULT_ENCAPSULATE_HANDLER = true;
 
   private final boolean m_bEncapsulateHandler;
+  private CollectingValidationEventHandler m_aLastHandler;
 
   public CollectingValidationEventHandlerFactory ()
   {
@@ -54,6 +55,17 @@ public class CollectingValidationEventHandlerFactory implements IValidationEvent
   @Nonnull
   public CollectingValidationEventHandler apply (@Nullable final ValidationEventHandler aOldEventHandler)
   {
-    return new CollectingValidationEventHandler (m_bEncapsulateHandler ? aOldEventHandler : null);
+    m_aLastHandler = new CollectingValidationEventHandler (m_bEncapsulateHandler ? aOldEventHandler : null);
+    return m_aLastHandler;
+  }
+
+  /**
+   * @return The last validation event handler that was created. May be
+   *         <code>null</code> if no handler was created so far.
+   */
+  @Nullable
+  public CollectingValidationEventHandler getLastCreatedHandler ()
+  {
+    return m_aLastHandler;
   }
 }
