@@ -66,6 +66,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
 {
   public static final boolean DEFAULT_READ_SECURE = true;
   public static final boolean DEFAULT_WRITE_FORMATTED = false;
+  public static final boolean DEFAULT_USE_CONTEXT_CACHE = true;
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractJAXBMarshaller.class);
 
@@ -75,6 +76,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
   private IValidationEventHandlerFactory m_aVEHFactory = new CollectingLoggingValidationEventHandlerFactory ();
   private boolean m_bReadSecure = DEFAULT_READ_SECURE;
   private boolean m_bWriteFormatted = DEFAULT_WRITE_FORMATTED;
+  private boolean m_bUseContextCache = DEFAULT_USE_CONTEXT_CACHE;
   private ClassLoader m_aClassLoader;
 
   /**
@@ -204,6 +206,28 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
   }
 
   /**
+   * Change whether the context cache should be used or not. Since creating the
+   * JAXB context is quite cost intensive it is recommended to leave it enabled.
+   *
+   * @param bUseContextCache
+   *        <code>true</code> to use it (default), <code>false</code> if not.
+   * @return {@link EChange}
+   */
+  @Nonnull
+  public final EChange setUseContextCache (final boolean bUseContextCache)
+  {
+    if (bUseContextCache == m_bUseContextCache)
+      return EChange.UNCHANGED;
+    m_bUseContextCache = bUseContextCache;
+    return EChange.CHANGED;
+  }
+
+  public final boolean isUseContextCache ()
+  {
+    return m_bUseContextCache;
+  }
+
+  /**
    * @return A list of all XSD resources used for validation. Never
    *         <code>null</code>.
    */
@@ -213,19 +237,6 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
   public final ICommonsList <IReadableResource> getOriginalXSDs ()
   {
     return m_aXSDs.getClone ();
-  }
-
-  /**
-   * Should the {@link JAXBContextCache} be used? Since creating the JAXB
-   * context is quite cost intensive this is recommended.
-   *
-   * @return <code>true</code> if the {@link JAXBContextCache} should be used,
-   *         <code>false</code> otherwise. It's <code>true</code> by default.
-   */
-  @OverrideOnDemand
-  protected boolean useJAXBContextCache ()
-  {
-    return true;
   }
 
   /**
@@ -251,10 +262,9 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
   private Unmarshaller _createUnmarshaller (@Nullable final ClassLoader aClassLoader) throws JAXBException
   {
     final Package aPackage = m_aType.getPackage ();
-    final JAXBContext aJAXBContext = useJAXBContextCache () ? JAXBContextCache.getInstance ().getFromCache (aPackage,
-                                                                                                            aClassLoader)
-                                                            : JAXBContext.newInstance (aPackage.getName (),
-                                                                                       aClassLoader);
+    final JAXBContext aJAXBContext = m_bUseContextCache ? JAXBContextCache.getInstance ().getFromCache (aPackage,
+                                                                                                        aClassLoader)
+                                                        : JAXBContext.newInstance (aPackage.getName (), aClassLoader);
 
     // create an Unmarshaller
     final Unmarshaller aUnmarshaller = aJAXBContext.createUnmarshaller ();
@@ -340,10 +350,9 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
   private Marshaller _createMarshaller () throws JAXBException
   {
     final Package aPackage = m_aType.getPackage ();
-    final JAXBContext aJAXBContext = useJAXBContextCache () ? JAXBContextCache.getInstance ().getFromCache (aPackage,
-                                                                                                            m_aClassLoader)
-                                                            : JAXBContext.newInstance (aPackage.getName (),
-                                                                                       m_aClassLoader);
+    final JAXBContext aJAXBContext = m_bUseContextCache ? JAXBContextCache.getInstance ().getFromCache (aPackage,
+                                                                                                        m_aClassLoader)
+                                                        : JAXBContext.newInstance (aPackage.getName (), m_aClassLoader);
 
     // create an Unmarshaller
     final Marshaller aMarshaller = aJAXBContext.createMarshaller ();
