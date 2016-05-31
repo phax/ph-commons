@@ -112,7 +112,7 @@ public class URLCodec implements IByteArrayCodec
    */
   public static final void writeEncodedURLByte (final int b, @Nonnull final OutputStream aOS) throws IOException
   {
-    // Hax chars should be upper case as defined in RFC 3986 section 2.1
+    // Hex chars should be upper case as defined in RFC 3986 section 2.1
     final char cHigh = StringHelper.getHexCharUpperCase ((b >> 4) & 0xF);
     final char cLow = StringHelper.getHexCharUpperCase (b & 0xF);
     aOS.write (ESCAPE_CHAR);
