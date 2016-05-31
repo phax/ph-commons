@@ -185,12 +185,28 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
     return isEmpty () ? null : values ().iterator ().next ();
   }
 
+  /**
+   * Find the first entry that matches the passed filter.
+   *
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @return <code>null</code> if no matching element was found. I no filter was
+   *         provided, the result is the same as {@link #getFirstEntry()}.
+   */
   @Nullable
   default Map.Entry <KEYTYPE, VALUETYPE> findFirstEntry (@Nullable final Predicate <? super Map.Entry <KEYTYPE, VALUETYPE>> aFilter)
   {
     return CollectionHelper.findFirst (entrySet (), aFilter);
   }
 
+  /**
+   * Find the first key that matches the passed filter.
+   *
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @return <code>null</code> if no matching element was found. I no filter was
+   *         provided, the result is the same as {@link #getFirstKey()}.
+   */
   @Nullable
   default KEYTYPE findFirstKey (@Nullable final Predicate <? super Map.Entry <KEYTYPE, VALUETYPE>> aFilter)
   {
@@ -198,6 +214,14 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
     return aEntry == null ? null : aEntry.getKey ();
   }
 
+  /**
+   * Find the first value that matches the passed filter.
+   *
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @return <code>null</code> if no matching element was found. I no filter was
+   *         provided, the result is the same as {@link #getFirstValue()}.
+   */
   @Nullable
   default VALUETYPE findFirstValue (@Nullable final Predicate <? super Map.Entry <KEYTYPE, VALUETYPE>> aFilter)
   {
@@ -205,31 +229,82 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
     return aEntry == null ? null : aEntry.getValue ();
   }
 
+  /**
+   * Check if at least one entry matches the passed filter.
+   *
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @return <code>true</code> if the map is not empty and contains at least one
+   *         element matching the filter, <code>false</code> otherwise. If no
+   *         filter is provided the return value is identical to
+   *         {@link #isNotEmpty()}.
+   */
   default boolean containsAnyEntry (@Nullable final Predicate <? super Map.Entry <KEYTYPE, VALUETYPE>> aFilter)
   {
     return CollectionHelper.containsAny (entrySet (), aFilter);
   }
 
+  /**
+   * Check if at least one key matches the passed filter.
+   *
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @return <code>true</code> if the map is not empty and contains at least one
+   *         key matching the filter, <code>false</code> otherwise. If no filter
+   *         is provided the return value is identical to {@link #isNotEmpty()}.
+   */
   default boolean containsAnyKey (@Nullable final Predicate <? super KEYTYPE> aFilter)
   {
     return CollectionHelper.containsAny (keySet (), aFilter);
   }
 
+  /**
+   * Check if at least one value matches the passed filter.
+   *
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @return <code>true</code> if the map is not empty and contains at least one
+   *         value matching the filter, <code>false</code> otherwise. If no
+   *         filter is provided the return value is identical to
+   *         {@link #isNotEmpty()}.
+   */
   default boolean containsAnyValue (@Nullable final Predicate <? super VALUETYPE> aFilter)
   {
     return CollectionHelper.containsAny (values (), aFilter);
   }
 
+  /**
+   * Invoke the provided consumer on each key.
+   *
+   * @param aConsumer
+   *        The consumer to be invoked. May not be <code>null</code>.
+   */
   default void forEachKey (@Nonnull final Consumer <? super KEYTYPE> aConsumer)
   {
     forEach ( (k, v) -> aConsumer.accept (k));
   }
 
+  /**
+   * Invoke the provided consumer on each value.
+   *
+   * @param aConsumer
+   *        The consumer to be invoked. May not be <code>null</code>.
+   */
   default void forEachValue (@Nonnull final Consumer <? super VALUETYPE> aConsumer)
   {
     forEach ( (k, v) -> aConsumer.accept (v));
   }
 
+  /**
+   * Invoke the provided consumer on each entry (pair of key and value) that
+   * matches the provided filter.
+   *
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @param aConsumer
+   *        The consumer to be invoked. May not be <code>null</code>.
+   * @see #forEach(BiConsumer)
+   */
   default void forEach (@Nullable final BiPredicate <? super KEYTYPE, ? super VALUETYPE> aFilter,
                         @Nonnull final BiConsumer <? super KEYTYPE, ? super VALUETYPE> aConsumer)
   {
@@ -245,6 +320,16 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
     }
   }
 
+  /**
+   * Invoke the provided consumer on each key that matches the provided filter.
+   *
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @param aConsumer
+   *        The consumer to be invoked. May not be <code>null</code>.
+   * @see #forEachKey(Consumer)
+   * @see #forEach(BiPredicate, BiConsumer)
+   */
   default void forEachKey (@Nullable final Predicate <? super KEYTYPE> aFilter,
                            @Nonnull final Consumer <? super KEYTYPE> aConsumer)
   {
@@ -254,6 +339,17 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
       forEach ( (k, v) -> aFilter.test (k), (k, v) -> aConsumer.accept (k));
   }
 
+  /**
+   * Invoke the provided consumer on each value that matches the provided
+   * filter.
+   *
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @param aConsumer
+   *        The consumer to be invoked. May not be <code>null</code>.
+   * @see #forEachValue(Consumer)
+   * @see #forEach(BiPredicate, BiConsumer)
+   */
   default void forEachValue (@Nullable final Predicate <? super VALUETYPE> aFilter,
                              @Nonnull final Consumer <? super VALUETYPE> aConsumer)
   {
@@ -418,6 +514,15 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
     addAll (aValues);
   }
 
+  /**
+   * Remove all elements from this collection. This is similar to
+   * {@link #clear()} but it returns a different value whether something was
+   * cleared or not.
+   *
+   * @return {@link EChange#CHANGED} if the collection was not empty and
+   *         something was removed, {@link EChange#UNCHANGED} otherwise.
+   * @see #clear()
+   */
   @Nonnull
   default EChange removeAll ()
   {
@@ -427,12 +532,25 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
     return EChange.CHANGED;
   }
 
+  /**
+   * Remove the object with the passed key from this map.
+   *
+   * @param aKey
+   *        The key to be removed. May be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the removal was successful,
+   *         {@link EChange#UNCHANGED} if removal fails.
+   * @see #remove(Object)
+   */
   @Nonnull
   default EChange removeObject (@Nullable final KEYTYPE aKey)
   {
     return EChange.valueOf (remove (aKey) != null);
   }
 
+  /**
+   * @return An unmodifiable version of this map. Never <code>null</code>.
+   * @see Collections
+   */
   @Nonnull
   default Map <KEYTYPE, VALUETYPE> getAsUnmodifiable ()
   {
