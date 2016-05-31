@@ -31,6 +31,14 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.state.EChange;
 
+/**
+ * A special List interface with extended functionality based on
+ * {@link ICommonsCollection}.
+ *
+ * @author Philip Helger
+ * @param <ELEMENTTYPE>
+ *        The data type of the elements in the list.
+ */
 public interface ICommonsList <ELEMENTTYPE> extends
                               List <ELEMENTTYPE>,
                               ICommonsCollection <ELEMENTTYPE>,
@@ -51,6 +59,16 @@ public interface ICommonsList <ELEMENTTYPE> extends
     return new CommonsArrayList<> ();
   }
 
+  /**
+   * Get all elements matching the provided filter. If no filter is provided,
+   * the return value is same as {@link #getClone()}.
+   *
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @return A non-<code>null</code> copy of this list containing all matching
+   *         entries (or all entries if no filter is provided).
+   * @see #findAll(Predicate, java.util.function.Consumer)
+   */
   @Nonnull
   @ReturnsMutableCopy
   default ICommonsList <ELEMENTTYPE> getAll (@Nullable final Predicate <? super ELEMENTTYPE> aFilter)
@@ -63,6 +81,14 @@ public interface ICommonsList <ELEMENTTYPE> extends
     return ret;
   }
 
+  /**
+   * Create a new list where all existing elements are mapped with the provided
+   * function.
+   * 
+   * @param aMapper
+   *        The mapping function to be executed. May not be <code>null</code>.
+   * @return A new non-<code>null</code> list with all mapped elements.
+   */
   @Nonnull
   @ReturnsMutableCopy
   default <DSTTYPE> ICommonsList <DSTTYPE> getAllMapped (@Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)

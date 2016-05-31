@@ -2515,7 +2515,9 @@ public final class CollectionHelper
 
   /**
    * Check if the passed collection contains only elements matching the
-   * predicate. An empty collection does not fulfill this requirement!
+   * predicate. An empty collection does not fulfill this requirement! If no
+   * filter is provided the return value is identical to
+   * {@link #isNotEmpty(Iterable)}
    *
    * @param aCollection
    *        The collection to check. May be <code>null</code>.
@@ -2524,18 +2526,19 @@ public final class CollectionHelper
    *        <code>null</code>.
    * @return <code>true</code> only if the passed collection is neither
    *         <code>null</code> nor empty and if only matching elements are
-   *         contained.
+   *         contained, or if no filter is provided and the collection is not
+   *         empty.
    * @param <ELEMENTTYPE>
    *        Collection data type
    */
   public static <ELEMENTTYPE> boolean containsOnly (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
-                                                    @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
+                                                    @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     if (isEmpty (aCollection))
       return false;
 
     if (aFilter == null)
-      return true;
+      return isNotEmpty (aCollection);
 
     for (final ELEMENTTYPE aElement : aCollection)
       if (!aFilter.test (aElement))
@@ -2656,6 +2659,33 @@ public final class CollectionHelper
 
   @Nullable
   public static <SRCTYPE, DSTTYPE> DSTTYPE getAtIndexMapped (@Nullable final Iterable <? extends SRCTYPE> aCollection,
+                                                             @Nonnegative final int nIndex,
+                                                             @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper)
+  {
+    return getAtIndexMapped (aCollection, nIndex, aMapper, null);
+  }
+
+  @Nullable
+  public static <SRCTYPE, DSTTYPE> DSTTYPE getAtIndexMapped (@Nullable final Iterable <? extends SRCTYPE> aCollection,
+                                                             @Nonnegative final int nIndex,
+                                                             @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
+                                                             @Nullable final DSTTYPE aDefault)
+  {
+    if (nIndex >= 0)
+    {
+      int nCurIndex = 0;
+      for (final SRCTYPE aElement : aCollection)
+      {
+        if (nCurIndex == nIndex)
+          return aMapper.apply (aElement);
+        ++nCurIndex;
+      }
+    }
+    return aDefault;
+  }
+
+  @Nullable
+  public static <SRCTYPE, DSTTYPE> DSTTYPE getAtIndexMapped (@Nullable final Iterable <? extends SRCTYPE> aCollection,
                                                              @Nullable final Predicate <? super SRCTYPE> aFilter,
                                                              @Nonnegative final int nIndex,
                                                              @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper)
@@ -2670,11 +2700,14 @@ public final class CollectionHelper
                                                              @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
                                                              @Nullable final DSTTYPE aDefault)
   {
+    if (aFilter == null)
+      return getAtIndexMapped (aCollection, nIndex, aMapper, aDefault);
+
     if (nIndex >= 0)
     {
       int nCurIndex = 0;
       for (final SRCTYPE aElement : aCollection)
-        if (aFilter == null || aFilter.test (aElement))
+        if (aFilter.test (aElement))
         {
           if (nCurIndex == nIndex)
             return aMapper.apply (aElement);
