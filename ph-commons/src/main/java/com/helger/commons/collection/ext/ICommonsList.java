@@ -84,10 +84,12 @@ public interface ICommonsList <ELEMENTTYPE> extends
   /**
    * Create a new list where all existing elements are mapped with the provided
    * function.
-   * 
+   *
    * @param aMapper
    *        The mapping function to be executed. May not be <code>null</code>.
    * @return A new non-<code>null</code> list with all mapped elements.
+   * @see #getAllMapped(Predicate, Function)
+   * @see #findAllMapped(Function, java.util.function.Consumer)
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -98,6 +100,20 @@ public interface ICommonsList <ELEMENTTYPE> extends
     return ret;
   }
 
+  /**
+   * Create a new list where all elements matching the filter are mapped with
+   * the provided function.
+   *
+   * @param aFilter
+   *        The filter to be applied. Maybe <code>null</code>.
+   * @param aMapper
+   *        The mapping function to be executed. May not be <code>null</code>.
+   * @return A new non-<code>null</code> list with all mapped elements. If no
+   *         filter is provided the result is the same as of
+   *         {@link #getAllMapped(Function)}.
+   * @see #getAllMapped(Function)
+   * @see #findAllMapped(Predicate, Function, java.util.function.Consumer)
+   */
   @Nonnull
   @ReturnsMutableCopy
   default <DSTTYPE> ICommonsList <DSTTYPE> getAllMapped (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
@@ -108,6 +124,15 @@ public interface ICommonsList <ELEMENTTYPE> extends
     return ret;
   }
 
+  /**
+   * Get all instances of the provided class that are contained in this list.
+   *
+   * @param aDstClass
+   *        The class to search all instances of. May not be <code>null</code>.
+   * @return A list with all instances of the provided class, already casted.
+   *         Never <code>null</code>.
+   * @see #findAllInstanceOf(Class, java.util.function.Consumer)
+   */
   @Nonnull
   @ReturnsMutableCopy
   default <DSTTYPE extends ELEMENTTYPE> ICommonsList <DSTTYPE> getAllInstanceOf (@Nonnull final Class <DSTTYPE> aDstClass)
@@ -134,27 +159,61 @@ public interface ICommonsList <ELEMENTTYPE> extends
     }
   }
 
+  /**
+   * @return The first element of the list or <code>null</code> if the list is
+   *         empty.
+   * @see #getFirst(Object)
+   * @see #findFirst(Predicate)
+   */
   @Nullable
   default ELEMENTTYPE getFirst ()
   {
-    return isEmpty () ? null : get (0);
-  }
-
-  @Nullable
-  default ELEMENTTYPE getLast ()
-  {
-    final int nSize = size ();
-    return nSize == 0 ? null : get (nSize - 1);
+    return getFirst (null);
   }
 
   /**
-   * Safe list element accessor method.
-   *
-   * @param nIndex
-   *        The index to access. Should be &ge; 0.
    * @param aDefault
-   *        The value to be returned, if the index is out of bounds.
-   * @return The default parameter if the element cannot be accessed.
+   *        The default value to be returned if this list is empty. May be
+   *        <code>null</code>.
+   * @return The first element of the list or the provided default value if the
+   *         list is empty.
+   * @see #getFirst()
+   * @see #findFirst(Predicate)
+   */
+  @Nullable
+  default ELEMENTTYPE getFirst (@Nullable final ELEMENTTYPE aDefault)
+  {
+    return isEmpty () ? aDefault : get (0);
+  }
+
+  /**
+   * @return The last element of the list or <code>null</code> if the list is
+   *         empty.
+   * @see #getLast(Object)
+   */
+  @Nullable
+  default ELEMENTTYPE getLast ()
+  {
+    return getLast (null);
+  }
+
+  /**
+   * @param aDefault
+   *        The default value to be returned if this list is empty. May be
+   *        <code>null</code>.
+   * @return The last element of the list or <code>null</code> if the list is
+   *         empty.
+   * @see #getLast()
+   */
+  @Nullable
+  default ELEMENTTYPE getLast (@Nullable final ELEMENTTYPE aDefault)
+  {
+    final int nSize = size ();
+    return nSize == 0 ? aDefault : get (nSize - 1);
+  }
+
+  /*
+   * Special overload with the index-based access.
    */
   @Nullable
   default ELEMENTTYPE getAtIndex (@Nonnegative final int nIndex, @Nullable final ELEMENTTYPE aDefault)
@@ -162,12 +221,28 @@ public interface ICommonsList <ELEMENTTYPE> extends
     return nIndex >= 0 && nIndex < size () ? get (nIndex) : aDefault;
   }
 
+  /**
+   * Set the first element of this list.
+   *
+   * @param aNewElement
+   *        The new element at index 0.
+   * @return The previous element. May be <code>null</code>.
+   * @set {@link #set(int, Object)}
+   */
   @Nullable
   default ELEMENTTYPE setFirst (@Nullable final ELEMENTTYPE aNewElement)
   {
     return set (0, aNewElement);
   }
 
+  /**
+   * Set the last element of this list.
+   *
+   * @param aNewElement
+   *        The new element at index <code>size()-1</code>.
+   * @return The previous element. May be <code>null</code>.
+   * @set {@link #set(int, Object)}
+   */
   @Nullable
   default ELEMENTTYPE setLast (@Nullable final ELEMENTTYPE aNewElement)
   {
@@ -211,12 +286,24 @@ public interface ICommonsList <ELEMENTTYPE> extends
     return nIndex < 0 || nIndex >= size () ? null : remove (nIndex);
   }
 
+  /**
+   * Remove the first element of the list.
+   *
+   * @return <code>null</code> if the list is empty or the previously contained
+   *         element at index 0.
+   */
   @Nullable
   default ELEMENTTYPE removeFirst ()
   {
     return isEmpty () ? null : remove (0);
   }
 
+  /**
+   * Remove the last element of the list.
+   *
+   * @return <code>null</code> if the list is empty or the previously contained
+   *         element at index <code>size()-1</code>.
+   */
   @Nullable
   default ELEMENTTYPE removeLast ()
   {
@@ -230,6 +317,13 @@ public interface ICommonsList <ELEMENTTYPE> extends
     return Collections.unmodifiableList (this);
   }
 
+  /**
+   * Sort this line without creating a copy.
+   *
+   * @param aComparator
+   *        The comparator used for sorting. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @Nonnull
   default ICommonsList <ELEMENTTYPE> getSortedInline (@Nonnull final Comparator <? super ELEMENTTYPE> aComparator)
   {
@@ -237,8 +331,15 @@ public interface ICommonsList <ELEMENTTYPE> extends
     return this;
   }
 
-  default void reverse ()
+  /**
+   * Reverse the order of this list.
+   * 
+   * @return this for chaining
+   */
+  @Nonnull
+  default ICommonsList <ELEMENTTYPE> reverse ()
   {
     Collections.reverse (this);
+    return this;
   }
 }
