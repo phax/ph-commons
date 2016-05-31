@@ -410,14 +410,14 @@ public final class CollectionHelper
   @ReturnsMutableCopy
   public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> newMap (@Nonnegative final int nInitialCapacity)
   {
-    return new CommonsHashMap <> (nInitialCapacity);
+    return new CommonsHashMap<> (nInitialCapacity);
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> newMap ()
   {
-    return new CommonsHashMap <> ();
+    return new CommonsHashMap<> ();
   }
 
   @Nonnull
@@ -550,7 +550,7 @@ public final class CollectionHelper
     if (isEmpty (aMap))
       return newMap (0);
 
-    return new CommonsHashMap <> (aMap);
+    return new CommonsHashMap<> (aMap);
   }
 
   @Nonnull
@@ -583,14 +583,14 @@ public final class CollectionHelper
   @ReturnsMutableCopy
   public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nonnegative final int nInitialCapacity)
   {
-    return new CommonsLinkedHashMap <> (nInitialCapacity);
+    return new CommonsLinkedHashMap<> (nInitialCapacity);
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap ()
   {
-    return new CommonsLinkedHashMap <> ();
+    return new CommonsLinkedHashMap<> ();
   }
 
   @Nonnull
@@ -737,7 +737,7 @@ public final class CollectionHelper
   {
     if (isEmpty (aMap))
       return newOrderedMap (0);
-    return new CommonsLinkedHashMap <> (aMap);
+    return new CommonsLinkedHashMap<> (aMap);
   }
 
   @Nonnull
@@ -770,7 +770,7 @@ public final class CollectionHelper
   @ReturnsMutableCopy
   public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> CommonsTreeMap <KEYTYPE, VALUETYPE> newSortedMap ()
   {
-    return new CommonsTreeMap <> (Comparator.nullsFirst (Comparator.naturalOrder ()));
+    return new CommonsTreeMap<> (Comparator.nullsFirst (Comparator.naturalOrder ()));
   }
 
   @Nonnull
@@ -908,14 +908,14 @@ public final class CollectionHelper
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> newSet (@Nonnegative final int nInitialCapacity)
   {
-    return new CommonsHashSet <> (nInitialCapacity);
+    return new CommonsHashSet<> (nInitialCapacity);
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> newSet ()
   {
-    return new CommonsHashSet <> ();
+    return new CommonsHashSet<> ();
   }
 
   @Nonnull
@@ -995,7 +995,7 @@ public final class CollectionHelper
     if (isEmpty (aCont))
       return newSet (0);
 
-    return new CommonsHashSet <> (aCont);
+    return new CommonsHashSet<> (aCont);
   }
 
   @Nonnull
@@ -1062,7 +1062,7 @@ public final class CollectionHelper
   @ReturnsMutableCopy
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> newSortedSet ()
   {
-    return new CommonsTreeSet <> (Comparator.nullsFirst (Comparator.naturalOrder ()));
+    return new CommonsTreeSet<> (Comparator.nullsFirst (Comparator.naturalOrder ()));
   }
 
   @Nonnull
@@ -1169,14 +1169,14 @@ public final class CollectionHelper
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nonnegative final int nInitialCapacity)
   {
-    return new CommonsLinkedHashSet <> (nInitialCapacity);
+    return new CommonsLinkedHashSet<> (nInitialCapacity);
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> newOrderedSet ()
   {
-    return new CommonsLinkedHashSet <> ();
+    return new CommonsLinkedHashSet<> ();
   }
 
   @Nonnull
@@ -1254,7 +1254,7 @@ public final class CollectionHelper
   {
     if (isEmpty (aCont))
       return newOrderedSet (0);
-    return new CommonsLinkedHashSet <> (aCont);
+    return new CommonsLinkedHashSet<> (aCont);
   }
 
   @Nonnull
@@ -1291,7 +1291,7 @@ public final class CollectionHelper
   {
     ValueEnforcer.isGE0 (nElements, "Elements");
 
-    final CommonsArrayList <ELEMENTTYPE> ret = new CommonsArrayList <> (nElements);
+    final CommonsArrayList <ELEMENTTYPE> ret = new CommonsArrayList<> (nElements);
     for (int i = 0; i < nElements; ++i)
       ret.add (aValue);
     return ret;
@@ -1301,14 +1301,14 @@ public final class CollectionHelper
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> newList (@Nonnegative final int nInitialCapacity)
   {
-    return new CommonsArrayList <> (nInitialCapacity);
+    return new CommonsArrayList<> (nInitialCapacity);
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> newList ()
   {
-    return new CommonsArrayList <> ();
+    return new CommonsArrayList<> ();
   }
 
   @Nonnull
@@ -1440,7 +1440,7 @@ public final class CollectionHelper
     if (isEmpty (aCont))
       return newList (0);
 
-    return new CommonsArrayList <> (aCont);
+    return new CommonsArrayList<> (aCont);
   }
 
   @Nonnull
@@ -2210,7 +2210,7 @@ public final class CollectionHelper
       return newMap (aMap1);
 
     // create and fill result map
-    final ICommonsMap <KEY, VALUE> ret = new CommonsHashMap <> (aMap1);
+    final ICommonsMap <KEY, VALUE> ret = new CommonsHashMap<> (aMap1);
     ret.putAll (aMap2);
     return ret;
   }
@@ -2436,8 +2436,45 @@ public final class CollectionHelper
           aConsumer.accept (aMapper.apply (aElement));
   }
 
+  /**
+   * Count the number of elements in the passed iterable (collection) matching
+   * the provided filter.
+   *
+   * @param aCollection
+   *        The collection to count. May not be <code>null</code>.
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @return The number of matching elements. Always &ge; 0. If no filter is
+   *         provided this is the same as {@link #getSize(Iterable)}.
+   */
   @Nonnegative
   public static <ELEMENTTYPE> int getCount (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
+                                            @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
+  {
+    if (aFilter == null)
+      return getSize (aCollection);
+
+    int ret = 0;
+    if (isNotEmpty (aCollection))
+      for (final ELEMENTTYPE aElement : aCollection)
+        if (aFilter.test (aElement))
+          ret++;
+    return ret;
+  }
+
+  /**
+   * Count the number of elements in the passed collection matching the provided
+   * filter.
+   *
+   * @param aCollection
+   *        The collection to count. May not be <code>null</code>.
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @return The number of matching elements. Always &ge; 0. If no filter is
+   *         provided this is the same as {@link #getSize(Collection)}.
+   */
+  @Nonnegative
+  public static <ELEMENTTYPE> int getCount (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
                                             @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     if (aFilter == null)
@@ -2496,6 +2533,9 @@ public final class CollectionHelper
   {
     if (isEmpty (aCollection))
       return false;
+
+    if (aFilter == null)
+      return true;
 
     for (final ELEMENTTYPE aElement : aCollection)
       if (!aFilter.test (aElement))
