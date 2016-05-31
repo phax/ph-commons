@@ -41,20 +41,43 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
                              ICloneable <ICommonsMap <KEYTYPE, VALUETYPE>>,
                              Serializable
 {
+  /**
+   * @return A new non-<code>null</code> set with all keys.
+   * @see #keySet()
+   */
   @Nonnull
   @ReturnsMutableCopy
   default ICommonsSet <KEYTYPE> copyOfKeySet ()
   {
-    return new CommonsHashSet <> (keySet ());
+    return new CommonsHashSet<> (keySet ());
   }
 
+  /**
+   * @return A new non-<code>null</code> set with all values.
+   * @see #values()
+   * @see #copyOfValues(Predicate)
+   * @see #copyOfValuesMapped(Function)
+   * @see #copyOfValuesMapped(Predicate, Function)
+   */
   @Nonnull
   @ReturnsMutableCopy
   default ICommonsList <VALUETYPE> copyOfValues ()
   {
-    return new CommonsArrayList <> (values ());
+    return new CommonsArrayList<> (values ());
   }
 
+  /**
+   * Create a copy of all values matching the passed filter.
+   *
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @return A new list with all matching values. If no filter is provided the
+   *         returned value is identical as of {@link #copyOfValues()}
+   * @see #values()
+   * @see #copyOfValues()
+   * @see #copyOfValuesMapped(Function)
+   * @see #copyOfValuesMapped(Predicate, Function)
+   */
   @Nonnull
   @ReturnsMutableCopy
   default ICommonsList <VALUETYPE> copyOfValues (@Nullable final Predicate <? super VALUETYPE> aFilter)
@@ -64,6 +87,17 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
     return CollectionHelper.newList (values (), aFilter);
   }
 
+  /**
+   * Create a copy of all values after applying the passed mapping function.
+   *
+   * @param aMapper
+   *        The mapping function to be applied. May not be <code>null</code>.
+   * @return A new list with all mapped values.
+   * @see #values()
+   * @see #copyOfValues()
+   * @see #copyOfValuesMapped(Function)
+   * @see #copyOfValuesMapped(Predicate, Function)
+   */
   @Nonnull
   @ReturnsMutableCopy
   default <DSTTYPE> ICommonsList <DSTTYPE> copyOfValuesMapped (@Nonnull final Function <? super VALUETYPE, ? extends DSTTYPE> aMapper)
@@ -71,6 +105,22 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
     return CollectionHelper.newListMapped (values (), aMapper);
   }
 
+  /**
+   * Create a copy of all values matching the passed filter which are then
+   * converted using the provided function.
+   *
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @param aMapper
+   *        The mapping function to be applied. May not be <code>null</code>.
+   * @return A new list with all matching converted values. If no filter is
+   *         provided the returned value is identical as of
+   *         {@link #copyOfValuesMapped(Function)}
+   * @see #values()
+   * @see #copyOfValues()
+   * @see #copyOfValues(Predicate)
+   * @see #copyOfValuesMapped(Predicate, Function)
+   */
   @Nonnull
   @ReturnsMutableCopy
   default <DSTTYPE> ICommonsList <DSTTYPE> copyOfValuesMapped (@Nullable final Predicate <? super VALUETYPE> aFilter,
@@ -81,11 +131,14 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
     return CollectionHelper.newListMapped (values (), aFilter, aMapper);
   }
 
+  /**
+   * @return A new non-<code>null</code> copy of the entry set.
+   */
   @Nonnull
   @ReturnsMutableCopy
   default ICommonsSet <Map.Entry <KEYTYPE, VALUETYPE>> copyOfEntrySet ()
   {
-    return new CommonsHashSet <> (entrySet ());
+    return new CommonsHashSet<> (entrySet ());
   }
 
   /**
@@ -249,7 +302,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default ICommonsMap <VALUETYPE, KEYTYPE> getSwappedKeyValues ()
   {
-    final ICommonsMap <VALUETYPE, KEYTYPE> ret = new CommonsHashMap <> ();
+    final ICommonsMap <VALUETYPE, KEYTYPE> ret = new CommonsHashMap<> ();
     for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : entrySet ())
       ret.put (aEntry.getValue (), aEntry.getKey ());
     return ret;
