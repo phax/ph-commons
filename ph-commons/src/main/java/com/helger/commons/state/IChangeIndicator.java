@@ -41,12 +41,24 @@ public interface IChangeIndicator
   @Nonnull
   default EChange or (@Nonnull final IChangeIndicator aChange)
   {
-    return EChange.valueOf (isChanged () || aChange.isChanged ());
+    return or (aChange.isChanged ());
+  }
+
+  @Nonnull
+  default EChange or (final boolean bChange)
+  {
+    return EChange.valueOf (isChanged () || bChange);
   }
 
   @Nonnull
   default EChange and (@Nonnull final IChangeIndicator aChange)
   {
-    return EChange.valueOf (isChanged () && aChange.isChanged ());
+    return and (aChange.isChanged ());
+  }
+
+  @Nonnull
+  default EChange and (final boolean bChange)
+  {
+    return EChange.valueOf (isChanged () && bChange);
   }
 }

@@ -41,12 +41,24 @@ public interface IValidityIndicator
   @Nonnull
   default EValidity or (@Nonnull final IValidityIndicator aValidity)
   {
-    return EValidity.valueOf (isValid () || aValidity.isValid ());
+    return or (aValidity.isValid ());
+  }
+
+  @Nonnull
+  default EValidity or (final boolean bValid)
+  {
+    return EValidity.valueOf (isValid () || bValid);
   }
 
   @Nonnull
   default EValidity and (@Nonnull final IValidityIndicator aValidity)
   {
-    return EValidity.valueOf (isValid () && aValidity.isValid ());
+    return and (aValidity.isValid ());
+  }
+
+  @Nonnull
+  default EValidity and (final boolean bValid)
+  {
+    return EValidity.valueOf (isValid () && bValid);
   }
 }
