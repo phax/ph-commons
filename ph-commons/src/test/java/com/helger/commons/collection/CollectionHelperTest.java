@@ -69,10 +69,7 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -80,17 +77,25 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.SortedSet;
-import java.util.TreeMap;
-import java.util.TreeSet;
 
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
 
 import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.CommonsLinkedHashSet;
+import com.helger.commons.collection.ext.CommonsTreeMap;
+import com.helger.commons.collection.ext.CommonsTreeSet;
 import com.helger.commons.collection.ext.CommonsVector;
+import com.helger.commons.collection.ext.ICommonsCollection;
+import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsSet;
+import com.helger.commons.collection.ext.ICommonsSortedMap;
+import com.helger.commons.collection.ext.ICommonsSortedSet;
 import com.helger.commons.collection.impl.NonBlockingStack;
 import com.helger.commons.collection.iterate.ArrayEnumeration;
 import com.helger.commons.collection.iterate.IIterableIterator;
@@ -137,7 +142,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
 
     assertEquals (4, getDifference (l1, new CommonsVector <String> ()).size ());
     assertEquals (4, getDifference (l1, null).size ());
-    assertEquals (0, getDifference (new HashSet <String> (), l2).size ());
+    assertEquals (0, getDifference (new CommonsHashSet <String> (), l2).size ());
     assertEquals (0, getDifference (null, l2).size ());
   }
 
@@ -170,22 +175,22 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertNull (makeUnmodifiable ((Map <?, ?>) null));
     assertNull (makeUnmodifiable ((SortedMap <?, ?>) null));
 
-    final Collection <String> c = newList ("s1", "s2");
+    final ICommonsCollection <String> c = newList ("s1", "s2");
     assertNotNull (makeUnmodifiable (c));
     assertTrue (c != makeUnmodifiable (c));
-    final List <String> l = newList ("s1", "s2");
+    final ICommonsList <String> l = newList ("s1", "s2");
     assertNotNull (makeUnmodifiable (l));
     assertTrue (l != makeUnmodifiable (l));
-    final Set <String> s = newSet ("s1", "s2");
+    final ICommonsSet <String> s = newSet ("s1", "s2");
     assertNotNull (makeUnmodifiable (s));
     assertTrue (s != makeUnmodifiable (s));
-    final SortedSet <String> ss = new TreeSet<> (s);
+    final ICommonsSortedSet <String> ss = new CommonsTreeSet<> (s);
     assertNotNull (makeUnmodifiable (ss));
     assertTrue (ss != makeUnmodifiable (ss));
-    final Map <String, String> m = newMap ("s1", "s2");
+    final ICommonsMap <String, String> m = newMap ("s1", "s2");
     assertNotNull (makeUnmodifiable (m));
     assertTrue (m != makeUnmodifiable (m));
-    final SortedMap <String, String> sm = new TreeMap<> (m);
+    final ICommonsSortedMap <String, String> sm = new CommonsTreeMap<> (m);
     assertNotNull (makeUnmodifiable (sm));
     assertTrue (sm != makeUnmodifiable (sm));
   }
@@ -201,22 +206,22 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertNotNull (makeUnmodifiableNotNull ((Map <?, ?>) null));
     assertNotNull (makeUnmodifiableNotNull ((SortedMap <?, ?>) null));
 
-    final Collection <String> c = newList ("s1", "s2");
+    final ICommonsCollection <String> c = newList ("s1", "s2");
     assertNotNull (makeUnmodifiableNotNull (c));
     assertTrue (c != makeUnmodifiableNotNull (c));
-    final List <String> l = newList ("s1", "s2");
+    final ICommonsList <String> l = newList ("s1", "s2");
     assertNotNull (makeUnmodifiableNotNull (l));
     assertTrue (l != makeUnmodifiableNotNull (l));
-    final Set <String> s = newSet ("s1", "s2");
+    final ICommonsSet <String> s = newSet ("s1", "s2");
     assertNotNull (makeUnmodifiableNotNull (s));
     assertNotSame (s, makeUnmodifiableNotNull (s));
-    final SortedSet <String> ss = new TreeSet<> (s);
+    final ICommonsSortedSet <String> ss = new CommonsTreeSet<> (s);
     assertNotNull (makeUnmodifiableNotNull (ss));
     assertNotSame (ss, makeUnmodifiableNotNull (ss));
-    final Map <String, String> m = newMap ("s1", "s2");
+    final ICommonsMap <String, String> m = newMap ("s1", "s2");
     assertNotNull (makeUnmodifiableNotNull (m));
     assertNotSame (m, makeUnmodifiableNotNull (m));
-    final SortedMap <String, String> sm = new TreeMap<> (m);
+    final ICommonsSortedMap <String, String> sm = new CommonsTreeMap<> (m);
     assertNotNull (makeUnmodifiableNotNull (sm));
     assertNotSame (sm, makeUnmodifiableNotNull (sm));
   }
@@ -778,7 +783,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   @Test
   public void testNewSortedSet_Empty ()
   {
-    final SortedSet <String> aSet = CollectionHelper.<String> newSortedSet ();
+    final SortedSet <String> aSet = CollectionHelper.newSortedSet ();
     assertNotNull (aSet);
     assertEquals (0, aSet.size ());
   }
@@ -1320,7 +1325,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertTrue (isEmpty ((List <?>) null));
     assertTrue (isEmpty ((Map <?, ?>) null));
     assertTrue (isEmpty (new CommonsVector<> ()));
-    assertTrue (isEmpty (new HashMap<> ()));
+    assertTrue (isEmpty (new CommonsHashMap<> ()));
     assertFalse (isEmpty (newList ("d", "c", "b", "a")));
     assertTrue (isEmpty ((Iterable <?>) new NonBlockingStack<> ()));
   }
@@ -1332,10 +1337,10 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertTrue (isEmpty ((Map <?, ?>) null));
     assertTrue (isEmpty (new CommonsArrayList <String> ()));
     assertTrue (isEmpty (new CommonsVector <String> ()));
-    assertTrue (isEmpty (new HashSet <String> ()));
-    assertTrue (isEmpty (new TreeSet <String> ()));
-    assertTrue (isEmpty (new HashMap <String, String> ()));
-    assertTrue (isEmpty (new LinkedHashMap <String, String> ()));
+    assertTrue (isEmpty (new CommonsHashSet <String> ()));
+    assertTrue (isEmpty (new CommonsTreeSet <String> ()));
+    assertTrue (isEmpty (new CommonsHashMap <String, String> ()));
+    assertTrue (isEmpty (new CommonsLinkedHashMap <String, String> ()));
 
     assertFalse (isEmpty (newList ("Hallo")));
     assertFalse (isEmpty (newMap ("Hallo", "Welt")));
@@ -1501,8 +1506,8 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertEquals ("s3", getLastElement ((Iterable <String>) aSet));
     assertEquals ("s3", removeLastElement (aList));
     assertNull (getLastElement (new CommonsArrayList <String> ()));
-    assertNull (getLastElement (new HashSet <String> ()));
-    assertNull (getLastElement ((Iterable <String>) new HashSet <String> ()));
+    assertNull (getLastElement (new CommonsHashSet <String> ()));
+    assertNull (getLastElement ((Iterable <String>) new CommonsHashSet <String> ()));
     assertNull (getLastElement ((List <String>) null));
     assertNull (getLastElement ((Set <String>) null));
     assertNull (getLastElement ((Iterable <String>) null));
@@ -1528,7 +1533,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   public void testIsEmpty_Map ()
   {
     assertTrue (isEmpty ((Map <?, ?>) null));
-    assertTrue (isEmpty (new HashMap <String, Double> ()));
+    assertTrue (isEmpty (new CommonsHashMap <String, Double> ()));
     assertFalse (isEmpty (newMap ("any", "value")));
   }
 
@@ -1544,7 +1549,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   public void testGetSize_Map ()
   {
     assertEquals (0, getSize ((Map <?, ?>) null));
-    assertEquals (0, getSize (new HashMap <BigDecimal, String> ()));
+    assertEquals (0, getSize (new CommonsHashMap <BigDecimal, String> ()));
     assertEquals (1, getSize (newMap ("key", "value")));
   }
 

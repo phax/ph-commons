@@ -19,15 +19,15 @@ package com.helger.commons.supplementary.test.java;
 import java.text.Collator;
 import java.text.ParseException;
 import java.text.RuleBasedCollator;
-import java.util.HashSet;
 import java.util.Locale;
-import java.util.Set;
 
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.compare.IComparator;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.string.StringHelper;
@@ -39,7 +39,7 @@ public final class JavaCollatorFuncTest
   @Test
   public void testCollation () throws ParseException
   {
-    final Set <String> aSet = new HashSet <> ();
+    final ICommonsSet <String> aSet = new CommonsHashSet<> ();
     aSet.add ("a");
     aSet.add ("A");
     aSet.add ("Ä");

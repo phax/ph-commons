@@ -19,15 +19,15 @@ package com.helger.commons.collection.map;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-import java.util.HashSet;
 import java.util.Random;
-import java.util.Set;
 
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
 
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.random.RandomHelper;
 
 public final class IntObjectMapTest
@@ -36,7 +36,7 @@ public final class IntObjectMapTest
 
   protected IntObjectMap <String> makeMap (final int size, final float fillFactor)
   {
-    return new IntObjectMap <> (size, fillFactor);
+    return new IntObjectMap<> (size, fillFactor);
   }
 
   @Nonnull
@@ -99,7 +99,7 @@ public final class IntObjectMapTest
   {
     final Random aRandom = RandomHelper.getRandom ();
     final int SIZE = 100 * 1000;
-    final Set <Integer> set = new HashSet <> (SIZE);
+    final ICommonsSet <Integer> set = new CommonsHashSet<> (SIZE);
     final int [] vals = new int [SIZE];
     while (set.size () < SIZE)
       set.add (Integer.valueOf (aRandom.nextInt ()));
