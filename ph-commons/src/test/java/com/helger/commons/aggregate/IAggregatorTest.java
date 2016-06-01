@@ -22,7 +22,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -86,7 +85,7 @@ public final class IAggregatorTest
     assertNotNull (a1.toString ());
     final List <String> l = CollectionHelper.newList ("a", null, "b", "", "c");
     assertEquals ("a", a1.apply (l));
-    assertNull (a1.apply (new ArrayList <String> ()));
+    assertNull (a1.apply (new CommonsArrayList <String> ()));
     assertNull (a1.apply ((Collection <String>) null));
   }
 
@@ -103,7 +102,7 @@ public final class IAggregatorTest
     assertNotNull (a1.toString ());
     final List <String> l = CollectionHelper.newList ("a", null, "b", "", "c");
     assertEquals ("c", a1.apply (l));
-    assertNull (a1.apply (new ArrayList <String> ()));
+    assertNull (a1.apply (new CommonsArrayList <String> ()));
     assertNull (a1.apply ((Collection <String>) null));
   }
 

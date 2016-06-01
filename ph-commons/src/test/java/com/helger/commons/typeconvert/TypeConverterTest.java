@@ -26,9 +26,6 @@ import static org.junit.Assert.fail;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -43,6 +40,9 @@ import org.junit.Test;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.ext.CommonsLinkedHashSet;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.locale.ELocaleName;
@@ -346,10 +346,10 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
   {
     final boolean [] aBooleans = new boolean [] { true, false, true };
     assertFalse (TypeConverter.convertIfNecessary (aBooleans, List.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aBooleans, ArrayList.class).isEmpty ());
+    assertFalse (TypeConverter.convertIfNecessary (aBooleans, CommonsArrayList.class).isEmpty ());
     assertFalse (TypeConverter.convertIfNecessary (aBooleans, Set.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aBooleans, HashSet.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aBooleans, LinkedHashSet.class).isEmpty ());
+    assertFalse (TypeConverter.convertIfNecessary (aBooleans, CommonsHashSet.class).isEmpty ());
+    assertFalse (TypeConverter.convertIfNecessary (aBooleans, CommonsLinkedHashSet.class).isEmpty ());
     assertEquals (3, TypeConverter.convertIfNecessary (aBooleans, String [].class).length);
   }
 
@@ -358,10 +358,10 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
   {
     final byte [] aBytes = new byte [] { 5, 6, 7 };
     assertFalse (TypeConverter.convertIfNecessary (aBytes, List.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aBytes, ArrayList.class).isEmpty ());
+    assertFalse (TypeConverter.convertIfNecessary (aBytes, CommonsArrayList.class).isEmpty ());
     assertFalse (TypeConverter.convertIfNecessary (aBytes, Set.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aBytes, HashSet.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aBytes, LinkedHashSet.class).isEmpty ());
+    assertFalse (TypeConverter.convertIfNecessary (aBytes, CommonsHashSet.class).isEmpty ());
+    assertFalse (TypeConverter.convertIfNecessary (aBytes, CommonsLinkedHashSet.class).isEmpty ());
     assertEquals (3, TypeConverter.convertIfNecessary (aBytes, String [].class).length);
   }
 
@@ -370,10 +370,10 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
   {
     final char [] aChars = new char [] { 'a', 'b', 'c' };
     assertFalse (TypeConverter.convertIfNecessary (aChars, List.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aChars, ArrayList.class).isEmpty ());
+    assertFalse (TypeConverter.convertIfNecessary (aChars, CommonsArrayList.class).isEmpty ());
     assertFalse (TypeConverter.convertIfNecessary (aChars, Set.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aChars, HashSet.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aChars, LinkedHashSet.class).isEmpty ());
+    assertFalse (TypeConverter.convertIfNecessary (aChars, CommonsHashSet.class).isEmpty ());
+    assertFalse (TypeConverter.convertIfNecessary (aChars, CommonsLinkedHashSet.class).isEmpty ());
     assertEquals (3, TypeConverter.convertIfNecessary (aChars, String [].class).length);
   }
 
@@ -382,10 +382,10 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
   {
     final double [] aDoubles = new double [] { 7, 3.14, 47.11 };
     assertFalse (TypeConverter.convertIfNecessary (aDoubles, List.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aDoubles, ArrayList.class).isEmpty ());
+    assertFalse (TypeConverter.convertIfNecessary (aDoubles, CommonsArrayList.class).isEmpty ());
     assertFalse (TypeConverter.convertIfNecessary (aDoubles, Set.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aDoubles, HashSet.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aDoubles, LinkedHashSet.class).isEmpty ());
+    assertFalse (TypeConverter.convertIfNecessary (aDoubles, CommonsHashSet.class).isEmpty ());
+    assertFalse (TypeConverter.convertIfNecessary (aDoubles, CommonsLinkedHashSet.class).isEmpty ());
     assertEquals (3, TypeConverter.convertIfNecessary (aDoubles, String [].class).length);
   }
 
@@ -394,10 +394,10 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
   {
     final float [] aFloats = new float [] { 5, 1.1f, 12234.5f };
     assertFalse (TypeConverter.convertIfNecessary (aFloats, List.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aFloats, ArrayList.class).isEmpty ());
+    assertFalse (TypeConverter.convertIfNecessary (aFloats, CommonsArrayList.class).isEmpty ());
     assertFalse (TypeConverter.convertIfNecessary (aFloats, Set.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aFloats, HashSet.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aFloats, LinkedHashSet.class).isEmpty ());
+    assertFalse (TypeConverter.convertIfNecessary (aFloats, CommonsHashSet.class).isEmpty ());
+    assertFalse (TypeConverter.convertIfNecessary (aFloats, CommonsLinkedHashSet.class).isEmpty ());
     assertEquals (3, TypeConverter.convertIfNecessary (aFloats, String [].class).length);
   }
 
@@ -406,10 +406,10 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
   {
     final int [] aInts = new int [] { 6, 8, 110 };
     assertFalse (TypeConverter.convertIfNecessary (aInts, List.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aInts, ArrayList.class).isEmpty ());
+    assertFalse (TypeConverter.convertIfNecessary (aInts, CommonsArrayList.class).isEmpty ());
     assertFalse (TypeConverter.convertIfNecessary (aInts, Set.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aInts, HashSet.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aInts, LinkedHashSet.class).isEmpty ());
+    assertFalse (TypeConverter.convertIfNecessary (aInts, CommonsHashSet.class).isEmpty ());
+    assertFalse (TypeConverter.convertIfNecessary (aInts, CommonsLinkedHashSet.class).isEmpty ());
     assertEquals (3, TypeConverter.convertIfNecessary (aInts, String [].class).length);
   }
 
@@ -418,10 +418,10 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
   {
     final long [] aLongs = new long [] { 10, 111, 1212 };
     assertFalse (TypeConverter.convertIfNecessary (aLongs, List.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aLongs, ArrayList.class).isEmpty ());
+    assertFalse (TypeConverter.convertIfNecessary (aLongs, CommonsArrayList.class).isEmpty ());
     assertFalse (TypeConverter.convertIfNecessary (aLongs, Set.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aLongs, HashSet.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aLongs, LinkedHashSet.class).isEmpty ());
+    assertFalse (TypeConverter.convertIfNecessary (aLongs, CommonsHashSet.class).isEmpty ());
+    assertFalse (TypeConverter.convertIfNecessary (aLongs, CommonsLinkedHashSet.class).isEmpty ());
     assertEquals (3, TypeConverter.convertIfNecessary (aLongs, String [].class).length);
   }
 
@@ -430,10 +430,10 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
   {
     final short [] aShorts = new short [] { 4, 5, 4 };
     assertFalse (TypeConverter.convertIfNecessary (aShorts, List.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aShorts, ArrayList.class).isEmpty ());
+    assertFalse (TypeConverter.convertIfNecessary (aShorts, CommonsArrayList.class).isEmpty ());
     assertFalse (TypeConverter.convertIfNecessary (aShorts, Set.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aShorts, HashSet.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aShorts, LinkedHashSet.class).isEmpty ());
+    assertFalse (TypeConverter.convertIfNecessary (aShorts, CommonsHashSet.class).isEmpty ());
+    assertFalse (TypeConverter.convertIfNecessary (aShorts, CommonsLinkedHashSet.class).isEmpty ());
     assertEquals (3, TypeConverter.convertIfNecessary (aShorts, String [].class).length);
   }
 

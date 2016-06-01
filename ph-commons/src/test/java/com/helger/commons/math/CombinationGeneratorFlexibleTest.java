@@ -21,9 +21,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.junit.Ignore;
@@ -31,7 +28,9 @@ import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.CommonsHashSet;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.timing.StopWatch;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -50,26 +49,26 @@ public final class CombinationGeneratorFlexibleTest extends AbstractCombinationG
     final ICommonsList <String> aElements = CollectionHelper.newList ("A", "B", "B");
 
     // Allow empty
-    CombinationGeneratorFlexible <String> aGenerator = new CombinationGeneratorFlexible <> (3, true);
+    CombinationGeneratorFlexible <String> aGenerator = new CombinationGeneratorFlexible<> (3, true);
 
     Set <ICommonsList <String>> aResults = aGenerator.getCombinations (aElements);
     assertEquals (6, aResults.size ());
-    assertTrue (aResults.contains (new ArrayList <> ()));
+    assertTrue (aResults.contains (new CommonsArrayList<> ()));
 
-    aResults = aGenerator.getCombinations (new CommonsArrayList <> ());
+    aResults = aGenerator.getCombinations (new CommonsArrayList<> ());
     assertEquals (1, aResults.size ());
-    assertTrue (aResults.contains (new ArrayList <> ()));
+    assertTrue (aResults.contains (new CommonsArrayList<> ()));
 
     // Not allowing empty
-    aGenerator = new CombinationGeneratorFlexible <> (3, false);
+    aGenerator = new CombinationGeneratorFlexible<> (3, false);
 
     aResults = aGenerator.getCombinations (aElements);
     assertEquals (5, aResults.size ());
-    assertFalse (aResults.contains (new ArrayList <> ()));
+    assertFalse (aResults.contains (new CommonsArrayList<> ()));
 
-    aResults = aGenerator.getCombinations (new CommonsArrayList <> ());
+    aResults = aGenerator.getCombinations (new CommonsArrayList<> ());
     assertEquals (1, aResults.size ());
-    assertTrue (aResults.contains (new ArrayList <> ()));
+    assertTrue (aResults.contains (new CommonsArrayList<> ()));
 
     try
     {
@@ -119,17 +118,17 @@ public final class CombinationGeneratorFlexibleTest extends AbstractCombinationG
     final ICommonsList <String> aInputList = CollectionHelper.newList ("a", "b", "c", "d", "e", "f", "g", "h");
 
     // Build all permutations of the input list, using all available slots
-    final Set <ICommonsList <String>> aSimplePermutations = new HashSet <> ();
+    final ICommonsSet <ICommonsList <String>> aSimplePermutations = new CommonsHashSet<> ();
     CombinationGenerator.addAllPermutations (aInputList, aInputList.size (), aSimplePermutations);
 
     // Flexible combination generator
-    final Set <ICommonsList <String>> aFlexiblePermutations = CombinationGeneratorFlexible.getCombinations (aInputList,
-                                                                                                            true);
+    final ICommonsSet <ICommonsList <String>> aFlexiblePermutations = CombinationGeneratorFlexible.getCombinations (aInputList,
+                                                                                                                    true);
     assertTrue (aFlexiblePermutations.size () >= aSimplePermutations.size ());
 
     // Now the assumptions: I assume that all permutations from the flexible
     // generator are also contained in all permutations
-    for (final List <String> aList : aFlexiblePermutations)
+    for (final ICommonsList <String> aList : aFlexiblePermutations)
       assertTrue (aList.toString (), aSimplePermutations.contains (aList));
   }
 }

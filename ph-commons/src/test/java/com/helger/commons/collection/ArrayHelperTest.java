@@ -51,7 +51,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
@@ -59,6 +58,7 @@ import java.util.function.Function;
 import org.junit.Test;
 
 import com.helger.commons.CGlobal;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsAssert;
 import com.helger.commons.string.StringParser;
@@ -479,7 +479,7 @@ public final class ArrayHelperTest extends AbstractCommonsTestCase
   public void testAsObjectArray ()
   {
     assertNull (getAsObjectArray (null));
-    assertNull (getAsObjectArray (new ArrayList <String> ()));
+    assertNull (getAsObjectArray (new CommonsArrayList <String> ()));
     assertArrayEquals (new Object [] { "Hallo" }, getAsObjectArray (CollectionHelper.newList ("Hallo")));
     assertArrayEquals (new Object [] { "Hallo", "Welt" },
                        getAsObjectArray (CollectionHelper.newList ("Hallo", "Welt")));
@@ -672,7 +672,7 @@ public final class ArrayHelperTest extends AbstractCommonsTestCase
     assertNotNull (x);
     assertEquals (3, x.length);
 
-    x = newArray (new ArrayList <String> (), String.class);
+    x = newArray (new CommonsArrayList <String> (), String.class);
     assertNotNull (x);
 
     x = newArray ((List <String>) null, String.class);
@@ -1202,7 +1202,7 @@ public final class ArrayHelperTest extends AbstractCommonsTestCase
     assertEquals (2, x[1].intValue ());
     assertEquals (3, x[2].intValue ());
 
-    x = ArrayHelper.newArrayMapped (new ArrayList <String> (), aMapper, Integer.class);
+    x = ArrayHelper.newArrayMapped (new CommonsArrayList <String> (), aMapper, Integer.class);
     assertNotNull (x);
     assertEquals (0, x.length);
 

@@ -16,7 +16,6 @@
  */
 package com.helger.jaxb.mock.external;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -26,6 +25,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+
+import com.helger.commons.collection.ext.CommonsArrayList;
 
 /**
  * <p>
@@ -85,7 +86,7 @@ public final class MockJAXBCollection
   public List <MockJAXBIssue> getIssue ()
   {
     if (m_aIssue == null)
-      m_aIssue = new ArrayList <> ();
+      m_aIssue = new CommonsArrayList<> ();
     return m_aIssue;
   }
 

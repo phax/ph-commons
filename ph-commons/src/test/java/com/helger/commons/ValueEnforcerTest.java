@@ -16,11 +16,10 @@
  */
 package com.helger.commons;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import org.junit.Test;
 
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.CommonsVector;
 
 /**
@@ -75,18 +74,18 @@ public final class ValueEnforcerTest
   @Test (expected = IllegalArgumentException.class)
   public void testNotEmpty7 ()
   {
-    ValueEnforcer.notEmpty (new ArrayList <> (), "null");
+    ValueEnforcer.notEmpty (new CommonsArrayList<> (), "null");
   }
 
   @Test (expected = IllegalArgumentException.class)
   public void testNotEmpty8 ()
   {
-    ValueEnforcer.notEmpty (new CommonsVector <> (), "null");
+    ValueEnforcer.notEmpty (new CommonsVector<> (), "null");
   }
 
   @Test (expected = IllegalArgumentException.class)
   public void testNotEmpty9 ()
   {
-    ValueEnforcer.notEmpty (new HashMap <> (), "null");
+    ValueEnforcer.notEmpty (new CommonsHashMap<> (), "null");
   }
 }
