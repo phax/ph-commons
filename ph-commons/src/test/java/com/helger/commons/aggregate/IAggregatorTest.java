@@ -29,6 +29,7 @@ import java.util.List;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -44,7 +45,7 @@ public final class IAggregatorTest
   {
     final IAggregator <String, String> a1 = IAggregator.createNull ();
     assertNull (a1.apply (CollectionHelper.newList ("a", "b")));
-    assertNull (a1.apply (new ArrayList <String> ()));
+    assertNull (a1.apply (new CommonsArrayList <String> ()));
   }
 
   @Test
@@ -52,7 +53,7 @@ public final class IAggregatorTest
   {
     final IAggregator <String, String> a1 = IAggregator.createConstant ("foo");
     assertEquals ("foo", a1.apply (CollectionHelper.newList ("a", "b")));
-    assertEquals ("foo", a1.apply (new ArrayList <String> ()));
+    assertEquals ("foo", a1.apply (new CommonsArrayList <String> ()));
   }
 
   @Test
