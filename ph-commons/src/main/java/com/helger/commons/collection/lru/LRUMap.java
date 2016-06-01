@@ -71,7 +71,7 @@ public class LRUMap <KEYTYPE, VALUETYPE> extends CommonsLinkedHashMap <KEYTYPE, 
   @Nonnull
   public LRUMap <KEYTYPE, VALUETYPE> getClone ()
   {
-    return new LRUMap <> (this);
+    return new LRUMap<> (this);
   }
 
   /**
@@ -117,7 +117,7 @@ public class LRUMap <KEYTYPE, VALUETYPE> extends CommonsLinkedHashMap <KEYTYPE, 
   {
     if (o == this)
       return true;
-    // Special case because LinkedHashMap implementation is a bit bogus
+    // Special case because base implementation is a bit bogus
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final LRUMap <?, ?> rhs = (LRUMap <?, ?>) o;
@@ -127,7 +127,7 @@ public class LRUMap <KEYTYPE, VALUETYPE> extends CommonsLinkedHashMap <KEYTYPE, 
   @Override
   public int hashCode ()
   {
-    // Special case because LinkedHashMap implementation is a bit bogus
+    // Special case because base implementation is a bit bogus
     final HashCodeGenerator aHCG = new HashCodeGenerator (this).append (m_nMaxSize);
     for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : entrySet ())
       aHCG.append (aEntry.getKey ()).append (aEntry.getValue ());

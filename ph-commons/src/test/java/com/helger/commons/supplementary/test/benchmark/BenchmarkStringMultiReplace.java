@@ -16,10 +16,10 @@
  */
 package com.helger.commons.supplementary.test.benchmark;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.regex.Pattern;
 
+import com.helger.commons.collection.ext.CommonsLinkedHashMap;
+import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -151,7 +151,7 @@ public final class BenchmarkStringMultiReplace extends AbstractBenchmarkTask
 
     public void run ()
     {
-      final Map <String, String> aMap = new LinkedHashMap <> ();
+      final ICommonsOrderedMap <String, String> aMap = new CommonsLinkedHashMap<> ();
       for (int i = 0; i < RSRC.length; ++i)
         aMap.put (RSRC[i], RDST[i]);
 
