@@ -17,6 +17,8 @@
 package com.helger.commons.timing;
 
 import java.io.Serializable;
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -170,6 +172,15 @@ public class StopWatch implements IStoppable, Serializable
   }
 
   /**
+   * @return The elapsed duration. Never <code>null</code>.
+   */
+  @Nonnull
+  public Duration getDuration ()
+  {
+    return Duration.of (m_nDurationNanos, ChronoUnit.NANOS);
+  }
+
+  /**
    * Stop the stop watch and get the elapsed nanoseconds since the start. If the
    * stop watch was started and stopped multiple times, the duration is added.
    *
@@ -207,6 +218,19 @@ public class StopWatch implements IStoppable, Serializable
   {
     stop ();
     return getSeconds ();
+  }
+
+  /**
+   * Stop the stop watch and get the duration since the start. If the stop watch
+   * was started and stopped multiple times, the duration is added.
+   *
+   * @return The elapsed duration or 0 if the stop watch was never started.
+   */
+  @Nonnull
+  public Duration stopAndGetDuration ()
+  {
+    stop ();
+    return getDuration ();
   }
 
   @Override
