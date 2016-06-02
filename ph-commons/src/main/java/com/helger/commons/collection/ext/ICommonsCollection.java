@@ -59,7 +59,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
   @ReturnsMutableCopy
   default ICommonsList <ELEMENTTYPE> getCopyAsList ()
   {
-    return new CommonsArrayList<> (this);
+    return new CommonsArrayList <> (this);
   }
 
   /**
@@ -553,7 +553,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
   @Nonnull
   default ICommonsList <ELEMENTTYPE> getSorted (@Nonnull final Comparator <? super ELEMENTTYPE> aComparator)
   {
-    return new CommonsArrayList<> (this).getSortedInline (aComparator);
+    return new CommonsArrayList <> (this).getSortedInline (aComparator);
   }
 
   /**
@@ -724,6 +724,68 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
   }
 
   /**
+   * Add all passed elements matching the provided filter after performing a
+   * mapping using the provided function.
+   *
+   * @param aElements
+   *        The elements to be added after mapping. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @param aMapper
+   *        The mapping function to be executed for all provided elements. May
+   *        not be <code>null</code>.
+   * @return {@link EChange#CHANGED} if at least one element was added,
+   *         {@link EChange#UNCHANGED}. Never <code>null</code>.
+   * @param <SRCTYPE>
+   *        The source type to be mapped from
+   */
+  @Nonnull
+  default <SRCTYPE> EChange addAllMapped (@Nullable final Iterable <? extends SRCTYPE> aElements,
+                                          @Nullable final Predicate <? super SRCTYPE> aFilter,
+                                          @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+  {
+    ValueEnforcer.notNull (aMapper, "Mapper");
+
+    EChange eChange = EChange.UNCHANGED;
+    if (aElements != null)
+      for (final SRCTYPE aValue : aElements)
+        if (aFilter == null || aFilter.test (aValue))
+          eChange = eChange.or (add (aMapper.apply (aValue)));
+    return eChange;
+  }
+
+  /**
+   * Add all passed elements matching the provided filter after performing a
+   * mapping using the provided function.
+   *
+   * @param aElements
+   *        The elements to be added after mapping. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @param aMapper
+   *        The mapping function to be executed for all provided elements. May
+   *        not be <code>null</code>.
+   * @return {@link EChange#CHANGED} if at least one element was added,
+   *         {@link EChange#UNCHANGED}. Never <code>null</code>.
+   * @param <SRCTYPE>
+   *        The source type to be mapped from
+   */
+  @Nonnull
+  default <SRCTYPE> EChange addAllMapped (@Nullable final SRCTYPE [] aElements,
+                                          @Nullable final Predicate <? super SRCTYPE> aFilter,
+                                          @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+  {
+    ValueEnforcer.notNull (aMapper, "Mapper");
+
+    EChange eChange = EChange.UNCHANGED;
+    if (aElements != null)
+      for (final SRCTYPE aValue : aElements)
+        if (aFilter == null || aFilter.test (aValue))
+          eChange = eChange.or (add (aMapper.apply (aValue)));
+    return eChange;
+  }
+
+  /**
    * Clear all elements and add only the passed value.
    *
    * @param aValue
@@ -818,6 +880,6 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
   @Nonnull
   default IIterableIterator <ELEMENTTYPE> iterator2 ()
   {
-    return new IterableIterator<> (this);
+    return new IterableIterator <> (this);
   }
 }
