@@ -2446,6 +2446,8 @@ public final class CollectionHelper
    *        The filter to be applied. May be <code>null</code>.
    * @return The number of matching elements. Always &ge; 0. If no filter is
    *         provided this is the same as {@link #getSize(Iterable)}.
+   * @param <ELEMENTTYPE>
+   *        The element type to count
    */
   @Nonnegative
   public static <ELEMENTTYPE> int getCount (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
@@ -2472,6 +2474,8 @@ public final class CollectionHelper
    *        The filter to be applied. May be <code>null</code>.
    * @return The number of matching elements. Always &ge; 0. If no filter is
    *         provided this is the same as {@link #getSize(Collection)}.
+   * @param <ELEMENTTYPE>
+   *        The element type to count
    */
   @Nonnegative
   public static <ELEMENTTYPE> int getCount (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,

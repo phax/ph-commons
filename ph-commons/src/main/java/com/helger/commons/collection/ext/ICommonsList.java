@@ -88,6 +88,8 @@ public interface ICommonsList <ELEMENTTYPE> extends
    * @param aMapper
    *        The mapping function to be executed. May not be <code>null</code>.
    * @return A new non-<code>null</code> list with all mapped elements.
+   * @param <DSTTYPE>
+   *        The destination type to be mapped to
    * @see #getAllMapped(Predicate, Function)
    * @see #findAllMapped(Function, java.util.function.Consumer)
    */
@@ -111,6 +113,8 @@ public interface ICommonsList <ELEMENTTYPE> extends
    * @return A new non-<code>null</code> list with all mapped elements. If no
    *         filter is provided the result is the same as of
    *         {@link #getAllMapped(Function)}.
+   * @param <DSTTYPE>
+   *        The destination type to be mapped to
    * @see #getAllMapped(Function)
    * @see #findAllMapped(Predicate, Function, java.util.function.Consumer)
    */
@@ -131,6 +135,8 @@ public interface ICommonsList <ELEMENTTYPE> extends
    *        The class to search all instances of. May not be <code>null</code>.
    * @return A list with all instances of the provided class, already casted.
    *         Never <code>null</code>.
+   * @param <DSTTYPE>
+   *        The destination type to be casted to
    * @see #findAllInstanceOf(Class, java.util.function.Consumer)
    */
   @Nonnull
@@ -227,7 +233,7 @@ public interface ICommonsList <ELEMENTTYPE> extends
    * @param aNewElement
    *        The new element at index 0.
    * @return The previous element. May be <code>null</code>.
-   * @set {@link #set(int, Object)}
+   * @see #set(int, Object)
    */
   @Nullable
   default ELEMENTTYPE setFirst (@Nullable final ELEMENTTYPE aNewElement)
@@ -241,7 +247,7 @@ public interface ICommonsList <ELEMENTTYPE> extends
    * @param aNewElement
    *        The new element at index <code>size()-1</code>.
    * @return The previous element. May be <code>null</code>.
-   * @set {@link #set(int, Object)}
+   * @see #set(int, Object)
    */
   @Nullable
   default ELEMENTTYPE setLast (@Nullable final ELEMENTTYPE aNewElement)
@@ -333,7 +339,7 @@ public interface ICommonsList <ELEMENTTYPE> extends
 
   /**
    * Reverse the order of this list.
-   * 
+   *
    * @return this for chaining
    */
   @Nonnull

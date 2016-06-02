@@ -93,6 +93,8 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    * @param aMapper
    *        The mapping function to be applied. May not be <code>null</code>.
    * @return A new list with all mapped values.
+   * @param <DSTTYPE>
+   *        The destination type to be mapped to
    * @see #values()
    * @see #copyOfValues()
    * @see #copyOfValuesMapped(Function)
@@ -116,6 +118,8 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    * @return A new list with all matching converted values. If no filter is
    *         provided the returned value is identical as of
    *         {@link #copyOfValuesMapped(Function)}
+   * @param <DSTTYPE>
+   *        The destination type to be mapped to
    * @see #values()
    * @see #copyOfValues()
    * @see #copyOfValues(Predicate)

@@ -17,7 +17,6 @@
 package com.helger.commons.lang;
 
 import java.lang.reflect.Constructor;
-import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -137,12 +136,12 @@ public final class CloneHelper
    * Get a clone (= deep copy) of the passed value for all objects implementing
    * {@link ICloneable}.
    *
-   * @param <DATATYPE>
-   *        The data type to be cloned
    * @param aObject
    *        The object to be copied. May be <code>null</code>.
    * @return <code>null</code> if the passed value is <code>null</code> or a
    *         clone of the object.
+   * @param <DATATYPE>
+   *        The data type to be cloned
    */
   @Nullable
   public static <DATATYPE extends ICloneable <DATATYPE>> DATATYPE getCloneIfNotNull (@Nullable final DATATYPE aObject)
@@ -157,17 +156,20 @@ public final class CloneHelper
    * Get a list where each contained item is also cloned. Like a deep copy.
    *
    * @param aList
-   *        Source list. May not be <code>null</code>.
+   *        Source list. May be <code>null</code>.
    * @return The cloned list. Never <code>null</code> but maybe empty if the
    *         source list is empty.
+   * @param <DATATYPE>
+   *        The list element type to be cloned
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <DATATYPE> ICommonsList <DATATYPE> getGenericClonedList (@Nullable final List <DATATYPE> aList)
+  public static <DATATYPE> ICommonsList <DATATYPE> getGenericClonedList (@Nullable final Iterable <DATATYPE> aList)
   {
-    final ICommonsList <DATATYPE> ret = new CommonsArrayList <> ();
-    for (final DATATYPE aItem : aList)
-      ret.add (getClonedValue (aItem));
+    final ICommonsList <DATATYPE> ret = new CommonsArrayList<> ();
+    if (aList != null)
+      for (final DATATYPE aItem : aList)
+        ret.add (getClonedValue (aItem));
     return ret;
   }
 
@@ -175,17 +177,20 @@ public final class CloneHelper
    * Get a list where each contained item is also cloned. Like a deep copy.
    *
    * @param aList
-   *        Source list. May not be <code>null</code>.
+   *        Source list. May be <code>null</code>.
    * @return The cloned list. Never <code>null</code> but maybe empty if the
    *         source list is empty.
+   * @param <DATATYPE>
+   *        The set element type to be cloned
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <DATATYPE extends ICloneable <DATATYPE>> ICommonsList <DATATYPE> getClonedList (@Nullable final List <DATATYPE> aList)
+  public static <DATATYPE extends ICloneable <DATATYPE>> ICommonsList <DATATYPE> getClonedList (@Nullable final Iterable <DATATYPE> aList)
   {
-    final ICommonsList <DATATYPE> ret = new CommonsArrayList <> ();
-    for (final DATATYPE aItem : aList)
-      ret.add (getCloneIfNotNull (aItem));
+    final ICommonsList <DATATYPE> ret = new CommonsArrayList<> ();
+    if (aList != null)
+      for (final DATATYPE aItem : aList)
+        ret.add (getCloneIfNotNull (aItem));
     return ret;
   }
 
@@ -195,10 +200,10 @@ public final class CloneHelper
     if (aObj == null)
       return null;
 
-    final JAXBElement <DATATYPE> ret = new JAXBElement <> (aObj.getName (),
-                                                           aObj.getDeclaredType (),
-                                                           aObj.getScope (),
-                                                           getClonedValue (aObj.getValue ()));
+    final JAXBElement <DATATYPE> ret = new JAXBElement<> (aObj.getName (),
+                                                          aObj.getDeclaredType (),
+                                                          aObj.getScope (),
+                                                          getClonedValue (aObj.getValue ()));
     ret.setNil (aObj.isNil ());
     return ret;
   }

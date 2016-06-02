@@ -104,6 +104,8 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @param aDst
    *        The destination collection to be filled. May not be
    *        <code>null</code>.
+   * @param <DSTTYPE>
+   *        The destination type to be mapped to
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -123,6 +125,8 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @param aConsumer
    *        The consumer to be invoked for all mapped elements. May not be
    *        <code>null</code>.
+   * @param <DSTTYPE>
+   *        The destination type to be mapped to
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -145,6 +149,8 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @param aDst
    *        The destination collection to be filled. May not be
    *        <code>null</code>.
+   * @param <DSTTYPE>
+   *        The destination type to be mapped to
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -168,6 +174,8 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @param aConsumer
    *        The consumer to be invoked for all matching mapped elements. May not
    *        be <code>null</code>.
+   * @param <DSTTYPE>
+   *        The destination type to be mapped to
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -189,6 +197,8 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @param aConsumer
    *        The consumer to be invoked for all instances of the provided class.
    *        May not be <code>null</code>.
+   * @param <DSTTYPE>
+   *        The destination type to be casted to
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -252,6 +262,8 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    *        May not be <code>null</code>.
    * @return <code>null</code> if no element matches the filter or if the
    *         collection is empty, the first matching element otherwise.
+   * @param <DSTTYPE>
+   *        The destination type to be mapped to
    * @see #findFirstMapped(Predicate, Function, Object)
    */
   @Nullable
@@ -278,6 +290,8 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    *        <code>null</code>.
    * @return The provided default value if no element matches the filter or if
    *         the collection is empty, the first matching element otherwise.
+   * @param <DSTTYPE>
+   *        The destination type to be mapped to
    * @see #findFirstMapped(Predicate, Function)
    */
   @Nullable
@@ -437,6 +451,8 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    *        The mapping function to be executed for the matching element. May
    *        not be <code>null</code>.
    * @return <code>null</code> if the element cannot be accessed.
+   * @param <DSTTYPE>
+   *        The destination type to be mapped to
    * @see #getAtIndexMapped(int,Function, Object)
    */
   @Nullable
@@ -459,6 +475,8 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    *        The value to be returned, if the index is out of bounds. May be
    *        <code>null</code>.
    * @return The default parameter if the element cannot be accessed
+   * @param <DSTTYPE>
+   *        The destination type to be mapped to
    * @see #getAtIndexMapped(int, Function)
    */
   @Nullable
@@ -482,6 +500,8 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    *        not be <code>null</code>.
    * @return <code>null</code> if no such element at the specified index was
    *         found.
+   * @param <DSTTYPE>
+   *        The destination type to be mapped to
    * @see #getAtIndexMapped(Predicate, int, Function, Object)
    */
   @Nullable
@@ -508,6 +528,8 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    *        found.
    * @return The provided default value if no such element at the specified
    *         index was found.
+   * @param <DSTTYPE>
+   *        The destination type to be mapped to
    * @see #getAtIndexMapped(Predicate, int, Function)
    */
   @Nullable
@@ -658,6 +680,8 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    *        not be <code>null</code>.
    * @return {@link EChange#CHANGED} if at least one element was added,
    *         {@link EChange#UNCHANGED}. Never <code>null</code>.
+   * @param <SRCTYPE>
+   *        The source type to be mapped from
    */
   @Nonnull
   default <SRCTYPE> EChange addAllMapped (@Nullable final Iterable <? extends SRCTYPE> aElements,
@@ -683,6 +707,8 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    *        not be <code>null</code>.
    * @return {@link EChange#CHANGED} if at least one element was added,
    *         {@link EChange#UNCHANGED}. Never <code>null</code>.
+   * @param <SRCTYPE>
+   *        The source type to be mapped from
    */
   @Nonnull
   default <SRCTYPE> EChange addAllMapped (@Nullable final SRCTYPE [] aElements,

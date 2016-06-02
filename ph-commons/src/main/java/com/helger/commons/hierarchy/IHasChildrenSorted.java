@@ -94,6 +94,8 @@ public interface IHasChildrenSorted <CHILDTYPE> extends IHasChildren <CHILDTYPE>
    *        <code>null</code>.
    * @return <code>null</code> if no direct child matches the passed filter or
    *         if no child is present at all.
+   * @param <DSTTYPE>
+   *        The destination type to be mapped to
    */
   @Nullable
   default <DSTTYPE> DSTTYPE findFirstChildMapped (@Nonnull final Predicate <? super CHILDTYPE> aFilter,
