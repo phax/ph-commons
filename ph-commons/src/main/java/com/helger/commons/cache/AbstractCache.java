@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.ELockType;
 import com.helger.commons.annotation.MustBeLocked;
 import com.helger.commons.annotation.Nonempty;
@@ -68,6 +69,7 @@ public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements IMutableCach
   protected final IMutableStatisticsHandlerCache m_aCacheAccessStats;
   private final IMutableStatisticsHandlerCounter m_aCacheRemoveStats;
   private final IMutableStatisticsHandlerCounter m_aCacheClearStats;
+  @CodingStyleguideUnaware
   private Map <KEYTYPE, VALUETYPE> m_aCache;
 
   public AbstractCache (@Nonnull final String sCacheName)
@@ -111,6 +113,7 @@ public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements IMutableCach
   @Nonnull
   @ReturnsMutableCopy
   @OverrideOnDemand
+  @CodingStyleguideUnaware
   protected Map <KEYTYPE, VALUETYPE> createCache ()
   {
     return hasMaxSize () ? new SoftLinkedHashMap <> (m_nMaxSize) : new SoftHashMap <> ();

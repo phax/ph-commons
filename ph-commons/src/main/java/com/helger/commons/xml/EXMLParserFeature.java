@@ -526,6 +526,7 @@ public enum EXMLParserFeature implements IHasName
   /**
    * This map contains all necessary settings to avoid XXE attacks.
    */
+  @CodingStyleguideUnaware
   public static final Map <EXMLParserFeature, Boolean> AVOID_XXE_SETTINGS = CollectionHelper.newMap (new EXMLParserFeature [] { DISALLOW_DOCTYPE_DECL,
                                                                                                                                 EXTERNAL_GENERAL_ENTITIES,
                                                                                                                                 EXTERNAL_PARAMETER_ENTITIES },
@@ -538,6 +539,7 @@ public enum EXMLParserFeature implements IHasName
    * This map contains all necessary settings to avoid entity expansion overflow
    * attacks.
    */
+  @CodingStyleguideUnaware
   public static final Map <EXMLParserFeature, Boolean> AVOID_DOS_SETTINGS = CollectionHelper.newMap (new EXMLParserFeature [] { SECURE_PROCESSING },
                                                                                                      new Boolean [] { Boolean.TRUE })
                                                                                             .getAsUnmodifiable ();
@@ -546,6 +548,7 @@ public enum EXMLParserFeature implements IHasName
    * This map contains all necessary settings to avoid all known XML attacks. It
    * includes {@link #AVOID_XXE_SETTINGS} and {@link #AVOID_DOS_SETTINGS}.
    */
+  @CodingStyleguideUnaware
   public static final Map <EXMLParserFeature, Boolean> AVOID_XML_ATTACKS = CollectionHelper.newMap (ArrayHelper.newArray (AVOID_XXE_SETTINGS,
                                                                                                                           AVOID_DOS_SETTINGS))
                                                                                            .getAsUnmodifiable ();
@@ -633,6 +636,6 @@ public enum EXMLParserFeature implements IHasName
   {
     ValueEnforcer.notNull (eFeatureType, "FeatureType");
 
-    return ArrayHelper.getAll (values (), eFeature -> eFeature.getFeatureType () == eFeatureType);
+    return EnumHelper.getAll (EXMLParserFeature.class, eFeature -> eFeature.getFeatureType () == eFeatureType);
   }
 }

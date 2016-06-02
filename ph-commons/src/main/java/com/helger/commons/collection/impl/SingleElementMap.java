@@ -16,18 +16,20 @@
  */
 package com.helger.commons.collection.impl;
 
+import java.util.Collection;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.ReturnsImmutableObject;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsHashSet;
-import com.helger.commons.collection.ext.ICommonsCollection;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.equals.EqualsHelper;
@@ -144,21 +146,23 @@ public class SingleElementMap <KEYTYPE, VALUETYPE> implements ICommonsMap <KEYTY
 
   @ReturnsImmutableObject
   @Nonnull
-  public ICommonsSet <KEYTYPE> keySet ()
+  @CodingStyleguideUnaware
+  public Set <KEYTYPE> keySet ()
   {
-    return m_bHasElement ? CollectionHelper.newSet (m_aKey) : CollectionHelper.newSet ();
+    return m_bHasElement ? new CommonsHashSet <> (m_aKey) : new CommonsHashSet <> ();
   }
 
   @ReturnsImmutableObject
   @Nonnull
-  public ICommonsCollection <VALUETYPE> values ()
+  public Collection <VALUETYPE> values ()
   {
-    return m_bHasElement ? CollectionHelper.newList (m_aValue) : CollectionHelper.newList ();
+    return m_bHasElement ? new CommonsArrayList <> (m_aValue) : new CommonsArrayList <> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsSet <Map.Entry <KEYTYPE, VALUETYPE>> entrySet ()
+  @CodingStyleguideUnaware
+  public Set <Map.Entry <KEYTYPE, VALUETYPE>> entrySet ()
   {
     final ICommonsSet <Map.Entry <KEYTYPE, VALUETYPE>> aSet = new CommonsHashSet <> (size ());
     if (m_bHasElement)

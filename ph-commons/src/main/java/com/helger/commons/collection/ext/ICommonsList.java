@@ -27,6 +27,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.state.EChange;
@@ -56,7 +57,7 @@ public interface ICommonsList <ELEMENTTYPE> extends
   @ReturnsMutableCopy
   default <T> ICommonsList <T> createInstance ()
   {
-    return new CommonsArrayList<> ();
+    return new CommonsArrayList <> ();
   }
 
   /**
@@ -318,6 +319,7 @@ public interface ICommonsList <ELEMENTTYPE> extends
   }
 
   @Nonnull
+  @CodingStyleguideUnaware
   default List <ELEMENTTYPE> getAsUnmodifiable ()
   {
     return Collections.unmodifiableList (this);

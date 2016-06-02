@@ -26,6 +26,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.Nonempty;
 
 @Immutable
@@ -323,6 +324,7 @@ public final class ValueEnforcer
    *         if the passed value is empty
    */
   @Nonnull
+  @CodingStyleguideUnaware
   public static <T extends Collection <?>> T notEmpty (final T aValue, final String sName)
   {
     notNull (aValue, sName);
@@ -346,6 +348,7 @@ public final class ValueEnforcer
    *         if the passed value is empty
    */
   @Nonnull
+  @CodingStyleguideUnaware
   public static <T extends Iterable <?>> T notEmpty (final T aValue, final String sName)
   {
     notNull (aValue, sName);
@@ -368,6 +371,7 @@ public final class ValueEnforcer
    *         if the passed value is empty
    */
   @Nonnull
+  @CodingStyleguideUnaware
   public static <T extends Map <?, ?>> T notEmpty (final T aValue, final String sName)
   {
     notNull (aValue, sName);
@@ -454,6 +458,7 @@ public final class ValueEnforcer
    *         <code>null</code> value is contained
    */
   @Nullable
+  @CodingStyleguideUnaware
   public static <T extends Map <?, ?>> T noNullValue (final T aValue, final String sName)
   {
     if (aValue != null)
@@ -531,6 +536,7 @@ public final class ValueEnforcer
    *         value is contained
    */
   @Nonnull
+  @CodingStyleguideUnaware
   public static <T extends Map <?, ?>> T notNullNoNullValue (final T aValue, final String sName)
   {
     notNull (aValue, sName);
@@ -600,6 +606,7 @@ public final class ValueEnforcer
    *         contained
    */
   @Nonnull
+  @CodingStyleguideUnaware
   public static <T extends Map <?, ?>> T notEmptyNoNullValue (final T aValue, final String sName)
   {
     notEmpty (aValue, sName);

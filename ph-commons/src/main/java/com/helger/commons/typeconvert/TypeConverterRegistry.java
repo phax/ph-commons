@@ -18,7 +18,6 @@ package com.helger.commons.typeconvert;
 
 import java.lang.ref.WeakReference;
 import java.util.Map;
-import java.util.WeakHashMap;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -34,7 +33,9 @@ import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.annotation.Singleton;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.CommonsWeakHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.multimap.IMultiMapListBased;
 import com.helger.commons.collection.multimap.MultiTreeMapArrayListBased;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
@@ -69,7 +70,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
 
   // Use a weak hash map, because the key is a class
   @GuardedBy ("m_aRWLock")
-  private final Map <Class <?>, Map <Class <?>, ITypeConverter <?, ?>>> m_aConverter = new WeakHashMap <> ();
+  private final ICommonsMap <Class <?>, ICommonsMap <Class <?>, ITypeConverter <?, ?>>> m_aConverter = new CommonsWeakHashMap <> ();
   @GuardedBy ("m_aRWLock")
   private final IMultiMapListBased <ITypeConverterRule.ESubType, ITypeConverterRule <?, ?>> m_aRules = new MultiTreeMapArrayListBased <> ();
 
@@ -93,22 +94,16 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
 
   @Nonnull
   @ReturnsMutableObject ("internal use only")
-  private Map <Class <?>, ITypeConverter <?, ?>> _getOrCreateConverterMap (@Nonnull final Class <?> aClass)
+  private ICommonsMap <Class <?>, ITypeConverter <?, ?>> _getOrCreateConverterMap (@Nonnull final Class <?> aClass)
   {
-    Map <Class <?>, ITypeConverter <?, ?>> ret = m_aRWLock.readLocked ( () -> m_aConverter.get (aClass));
+    ICommonsMap <Class <?>, ITypeConverter <?, ?>> ret = m_aRWLock.readLocked ( () -> m_aConverter.get (aClass));
 
     if (ret == null)
     {
       ret = m_aRWLock.writeLocked ( () -> {
         // Try again in write lock
-        Map <Class <?>, ITypeConverter <?, ?>> aWLRet = m_aConverter.get (aClass);
-        if (aWLRet == null)
-        {
-          // Weak hash map because key is a class
-          aWLRet = new WeakHashMap <> ();
-          m_aConverter.put (aClass, aWLRet);
-        }
-        return aWLRet;
+        // Weak hash map because key is a class
+        return m_aConverter.computeIfAbsent (aClass, k -> new CommonsWeakHashMap <> ());
       });
     }
     return ret;

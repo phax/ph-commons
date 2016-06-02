@@ -25,6 +25,8 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotation.CodingStyleguideUnaware;
+import com.helger.commons.collection.ext.ICommonsSortedSet;
 import com.helger.commons.collection.iterate.EmptyIterator;
 
 /**
@@ -34,7 +36,7 @@ import com.helger.commons.collection.iterate.EmptyIterator;
  * @param <T>
  *        Content type
  */
-public final class EmptySortedSet <T> extends AbstractSet <T> implements SortedSet <T>
+public final class EmptySortedSet <T> extends AbstractSet <T> implements ICommonsSortedSet <T>
 {
   public EmptySortedSet ()
   {}
@@ -72,18 +74,21 @@ public final class EmptySortedSet <T> extends AbstractSet <T> implements SortedS
   }
 
   @Nonnull
+  @CodingStyleguideUnaware
   public SortedSet <T> subSet (final Object fromElement, final Object toElement)
   {
     return this;
   }
 
   @Nonnull
+  @CodingStyleguideUnaware
   public SortedSet <T> headSet (final Object toElement)
   {
     return this;
   }
 
   @Nonnull
+  @CodingStyleguideUnaware
   public SortedSet <T> tailSet (final Object fromElement)
   {
     return this;
@@ -99,5 +104,11 @@ public final class EmptySortedSet <T> extends AbstractSet <T> implements SortedS
   public T last ()
   {
     return null;
+  }
+
+  @Nonnull
+  public ICommonsSortedSet <T> getClone ()
+  {
+    return this;
   }
 }

@@ -224,23 +224,18 @@ public final class DOMReaderDefaultSettings
     if (eProperty == null)
       return EChange.UNCHANGED;
 
-    return EChange.valueOf (s_aRWLock.writeLocked ( () -> s_aDefaultProperties.remove (eProperty) != null));
+    return s_aRWLock.writeLocked ( () -> s_aDefaultProperties.removeObject (eProperty));
   }
 
   @Nonnull
   public static EChange removeAllPropertyValues ()
   {
-    return s_aRWLock.writeLocked ( () -> {
-      if (s_aDefaultProperties.isEmpty ())
-        return EChange.UNCHANGED;
-      s_aDefaultProperties.clear ();
-      return EChange.CHANGED;
-    });
+    return s_aRWLock.writeLocked ( () -> s_aDefaultProperties.removeAll ());
   }
 
   public static boolean hasAnyFeature ()
   {
-    return s_aRWLock.readLocked ( () -> !s_aDefaultFeatures.isEmpty ());
+    return s_aRWLock.readLocked ( () -> s_aDefaultFeatures.isNotEmpty ());
   }
 
   @Nullable
@@ -255,7 +250,7 @@ public final class DOMReaderDefaultSettings
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Map <EXMLParserFeature, Boolean> getAllFeatureValues ()
+  public static ICommonsMap <EXMLParserFeature, Boolean> getAllFeatureValues ()
   {
     return s_aRWLock.readLocked ( () -> s_aDefaultFeatures.getClone ());
   }

@@ -27,10 +27,12 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.annotation.ReturnsImmutableObject;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsLinkedHashMap;
+import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -41,6 +43,7 @@ import com.helger.commons.string.StringHelper;
 @Immutable
 public final class CharsetManager
 {
+  @CodingStyleguideUnaware
   private static final SortedMap <String, Charset> s_aAllCharsets;
 
   static
@@ -115,10 +118,10 @@ public final class CharsetManager
    *         charset provider.
    */
   @Nonnull
-  @ReturnsImmutableObject
-  public static SortedMap <String, Charset> getAllCharsets ()
+  @ReturnsMutableCopy
+  public static ICommonsOrderedMap <String, Charset> getAllCharsets ()
   {
-    return s_aAllCharsets;
+    return new CommonsLinkedHashMap <> (s_aAllCharsets);
   }
 
   @Nonnull

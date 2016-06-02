@@ -22,11 +22,13 @@ import java.util.SortedSet;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 
 public interface ICommonsNavigableSet <ELEMENTTYPE> extends NavigableSet <ELEMENTTYPE>, ICommonsSortedSet <ELEMENTTYPE>
 {
   @Nonnull
+  @CodingStyleguideUnaware
   default SortedSet <ELEMENTTYPE> getAsUnmodifiable ()
   {
     return Collections.unmodifiableSortedSet (this);

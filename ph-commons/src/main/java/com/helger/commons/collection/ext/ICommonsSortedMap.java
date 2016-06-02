@@ -23,6 +23,7 @@ import java.util.SortedMap;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 
 public interface ICommonsSortedMap <KEYTYPE, VALUETYPE>
@@ -32,14 +33,14 @@ public interface ICommonsSortedMap <KEYTYPE, VALUETYPE>
   @ReturnsMutableCopy
   default ICommonsOrderedSet <KEYTYPE> copyOfKeySet ()
   {
-    return new CommonsLinkedHashSet<> (keySet ());
+    return new CommonsLinkedHashSet <> (keySet ());
   }
 
   @Nonnull
   @ReturnsMutableCopy
   default ICommonsOrderedSet <Map.Entry <KEYTYPE, VALUETYPE>> copyOfEntrySet ()
   {
-    return new CommonsLinkedHashSet<> (entrySet ());
+    return new CommonsLinkedHashSet <> (entrySet ());
   }
 
   @Nullable
@@ -69,6 +70,7 @@ public interface ICommonsSortedMap <KEYTYPE, VALUETYPE>
   }
 
   @Nonnull
+  @CodingStyleguideUnaware
   default SortedMap <KEYTYPE, VALUETYPE> getAsUnmodifiable ()
   {
     return Collections.unmodifiableSortedMap (this);

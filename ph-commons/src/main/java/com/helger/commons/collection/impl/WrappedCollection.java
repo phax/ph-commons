@@ -26,6 +26,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.ext.ICommonsCollection;
 
@@ -40,6 +41,7 @@ import com.helger.commons.collection.ext.ICommonsCollection;
 @NotThreadSafe
 public class WrappedCollection <ELEMENTTYPE> implements ICommonsCollection <ELEMENTTYPE>
 {
+  @CodingStyleguideUnaware
   private final Collection <ELEMENTTYPE> m_aSrc;
 
   public WrappedCollection (@Nonnull final Collection <ELEMENTTYPE> aSet)
@@ -49,6 +51,7 @@ public class WrappedCollection <ELEMENTTYPE> implements ICommonsCollection <ELEM
 
   @Nonnull
   @ReturnsMutableObject ("design")
+  @CodingStyleguideUnaware
   protected Collection <ELEMENTTYPE> getSource ()
   {
     return m_aSrc;

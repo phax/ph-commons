@@ -24,6 +24,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -49,7 +50,7 @@ public interface IAggregator <SRCTYPE, DSTTYPE> extends Function <Collection <SR
   @SuppressWarnings ("unchecked")
   default DSTTYPE apply (@Nonnull final SRCTYPE... aObjects)
   {
-    return apply (CollectionHelper.newList (aObjects));
+    return apply (new CommonsArrayList <> (aObjects));
   }
 
   @Nonnull

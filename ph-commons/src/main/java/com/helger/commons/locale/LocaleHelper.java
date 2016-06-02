@@ -28,6 +28,7 @@ import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.ELockType;
 import com.helger.commons.annotation.IsLocked;
 import com.helger.commons.annotation.PresentForCodeCoverage;
@@ -68,6 +69,7 @@ public final class LocaleHelper
     @Nullable
     @IsLocked (ELockType.WRITE)
     @ReturnsImmutableObject
+    @CodingStyleguideUnaware
     protected List <Locale> getValueToCache (@Nullable final Locale aBaseLocale)
     {
       if (aBaseLocale == null)
@@ -194,6 +196,7 @@ public final class LocaleHelper
    */
   @Nonnull
   @ReturnsImmutableObject
+  @CodingStyleguideUnaware
   public static List <Locale> getCalculatedLocaleListForResolving (@Nonnull final Locale aLocale)
   {
     ValueEnforcer.notNull (aLocale, "Locale");

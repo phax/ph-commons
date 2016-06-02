@@ -26,6 +26,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.ext.ICommonsSet;
@@ -41,6 +42,7 @@ import com.helger.commons.collection.ext.ICommonsSet;
 @NotThreadSafe
 public class WrappedSet <ELEMENTTYPE> implements ICommonsSet <ELEMENTTYPE>
 {
+  @CodingStyleguideUnaware
   private final Set <ELEMENTTYPE> m_aSrc;
 
   public WrappedSet (@Nonnull final Set <ELEMENTTYPE> aSet)
@@ -50,6 +52,7 @@ public class WrappedSet <ELEMENTTYPE> implements ICommonsSet <ELEMENTTYPE>
 
   @Nonnull
   @ReturnsMutableObject ("design")
+  @CodingStyleguideUnaware
   protected Set <ELEMENTTYPE> getSource ()
   {
     return m_aSrc;

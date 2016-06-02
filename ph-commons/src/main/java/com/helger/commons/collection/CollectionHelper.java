@@ -38,6 +38,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsImmutableObject;
 import com.helger.commons.annotation.ReturnsMutableCopy;
@@ -166,55 +167,10 @@ public final class CollectionHelper
     }
   }
 
-  @Nonnull
-  public static <ELEMENTTYPE> List <ELEMENTTYPE> getNotNull (@Nullable final List <ELEMENTTYPE> aList)
-  {
-    return aList == null ? newList (0) : aList;
-  }
-
-  @Nonnull
-  public static <ELEMENTTYPE> Set <ELEMENTTYPE> getNotNull (@Nullable final Set <ELEMENTTYPE> aSet)
-  {
-    return aSet == null ? newSet (0) : aSet;
-  }
-
-  @Nonnull
-  public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> getNotNull (@Nullable final Map <KEYTYPE, VALUETYPE> aMap)
-  {
-    return aMap == null ? newMap (0) : aMap;
-  }
-
-  // @Nonnull
-  // public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>>
-  // SortedSet <ELEMENTTYPE> getNotNull (@Nullable final SortedSet <ELEMENTTYPE>
-  // aSortedSet)
-  // {
-  // return aSortedSet == null ? newSortedSet () : aSortedSet;
-  // }
-  //
-  // @Nonnull
-  // public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE>
-  // SortedMap <KEYTYPE, VALUETYPE> getNotNull (@Nullable final SortedMap
-  // <KEYTYPE, VALUETYPE> aSortedMap)
-  // {
-  // return aSortedMap == null ? newSortedMap () : aSortedMap;
-  // }
-
-  @Nonnull
-  public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> NavigableSet <ELEMENTTYPE> getNotNull (@Nullable final NavigableSet <ELEMENTTYPE> aNavigableSet)
-  {
-    return aNavigableSet == null ? newSortedSet () : aNavigableSet;
-  }
-
-  @Nonnull
-  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> NavigableMap <KEYTYPE, VALUETYPE> getNotNull (@Nullable final NavigableMap <KEYTYPE, VALUETYPE> aNavigableMap)
-  {
-    return aNavigableMap == null ? newSortedMap () : aNavigableMap;
-  }
-
   @SafeVarargs
   @Nullable
   @ReturnsImmutableObject
+  @CodingStyleguideUnaware
   public static <ELEMENTTYPE> List <ELEMENTTYPE> makeUnmodifiable (@Nullable final ELEMENTTYPE... aArray)
   {
     return aArray == null ? null : Collections.unmodifiableList (newList (aArray));
@@ -222,6 +178,7 @@ public final class CollectionHelper
 
   @Nullable
   @ReturnsImmutableObject
+  @CodingStyleguideUnaware
   public static <ELEMENTTYPE> Collection <ELEMENTTYPE> makeUnmodifiable (@Nullable final Collection <ELEMENTTYPE> aCollection)
   {
     return aCollection == null ? null : Collections.unmodifiableCollection (aCollection);
@@ -229,6 +186,7 @@ public final class CollectionHelper
 
   @Nullable
   @ReturnsImmutableObject
+  @CodingStyleguideUnaware
   public static <ELEMENTTYPE> List <ELEMENTTYPE> makeUnmodifiable (@Nullable final List <ELEMENTTYPE> aList)
   {
     return aList == null ? null : Collections.unmodifiableList (aList);
@@ -236,6 +194,7 @@ public final class CollectionHelper
 
   @Nullable
   @ReturnsImmutableObject
+  @CodingStyleguideUnaware
   public static <ELEMENTTYPE> Set <ELEMENTTYPE> makeUnmodifiable (@Nullable final Set <ELEMENTTYPE> aSet)
   {
     return aSet == null ? null : Collections.unmodifiableSet (aSet);
@@ -243,6 +202,7 @@ public final class CollectionHelper
 
   @Nullable
   @ReturnsImmutableObject
+  @CodingStyleguideUnaware
   public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> makeUnmodifiable (@Nullable final Map <KEYTYPE, VALUETYPE> aMap)
   {
     return aMap == null ? null : Collections.unmodifiableMap (aMap);
@@ -270,6 +230,7 @@ public final class CollectionHelper
 
   @Nullable
   @ReturnsImmutableObject
+  @CodingStyleguideUnaware
   public static <ELEMENTTYPE> NavigableSet <ELEMENTTYPE> makeUnmodifiable (@Nullable final NavigableSet <ELEMENTTYPE> aNavigableSet)
   {
     return aNavigableSet == null ? null : Collections.unmodifiableNavigableSet (aNavigableSet);
@@ -277,6 +238,7 @@ public final class CollectionHelper
 
   @Nullable
   @ReturnsImmutableObject
+  @CodingStyleguideUnaware
   public static <KEYTYPE, VALUETYPE> NavigableMap <KEYTYPE, VALUETYPE> makeUnmodifiable (@Nullable final NavigableMap <KEYTYPE, VALUETYPE> aNavigableMap)
   {
     return aNavigableMap == null ? null : Collections.unmodifiableNavigableMap (aNavigableMap);
@@ -284,6 +246,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsImmutableObject
+  @CodingStyleguideUnaware
   public static <ELEMENTTYPE> Collection <ELEMENTTYPE> makeUnmodifiableNotNull (@Nullable final Collection <ELEMENTTYPE> aCollection)
   {
     return aCollection == null ? Collections.emptyList () : Collections.unmodifiableCollection (aCollection);
@@ -291,6 +254,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsImmutableObject
+  @CodingStyleguideUnaware
   public static <ELEMENTTYPE> List <ELEMENTTYPE> makeUnmodifiableNotNull (@Nullable final List <ELEMENTTYPE> aList)
   {
     return aList == null ? Collections.emptyList () : Collections.unmodifiableList (aList);
@@ -298,6 +262,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsImmutableObject
+  @CodingStyleguideUnaware
   public static <ELEMENTTYPE> Set <ELEMENTTYPE> makeUnmodifiableNotNull (@Nullable final Set <ELEMENTTYPE> aSet)
   {
     return aSet == null ? Collections.emptySet () : Collections.unmodifiableSet (aSet);
@@ -305,6 +270,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsImmutableObject
+  @CodingStyleguideUnaware
   public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> makeUnmodifiableNotNull (@Nullable final Map <KEYTYPE, VALUETYPE> aMap)
   {
     return aMap == null ? Collections.emptyMap () : Collections.unmodifiableMap (aMap);
@@ -332,6 +298,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsImmutableObject
+  @CodingStyleguideUnaware
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> NavigableSet <ELEMENTTYPE> makeUnmodifiableNotNull (@Nullable final NavigableSet <ELEMENTTYPE> aNavigableSet)
   {
     return aNavigableSet == null ? Collections.emptyNavigableSet ()
@@ -340,6 +307,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsImmutableObject
+  @CodingStyleguideUnaware
   public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> NavigableMap <KEYTYPE, VALUETYPE> makeUnmodifiableNotNull (@Nullable final NavigableMap <KEYTYPE, VALUETYPE> aNavigableMap)
   {
     return aNavigableMap == null ? Collections.emptyNavigableMap ()
@@ -410,14 +378,14 @@ public final class CollectionHelper
   @ReturnsMutableCopy
   public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> newMap (@Nonnegative final int nInitialCapacity)
   {
-    return new CommonsHashMap<> (nInitialCapacity);
+    return new CommonsHashMap <> (nInitialCapacity);
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> newMap ()
   {
-    return new CommonsHashMap<> ();
+    return new CommonsHashMap <> ();
   }
 
   @Nonnull
@@ -550,7 +518,7 @@ public final class CollectionHelper
     if (isEmpty (aMap))
       return newMap (0);
 
-    return new CommonsHashMap<> (aMap);
+    return new CommonsHashMap <> (aMap);
   }
 
   @Nonnull
@@ -583,14 +551,14 @@ public final class CollectionHelper
   @ReturnsMutableCopy
   public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nonnegative final int nInitialCapacity)
   {
-    return new CommonsLinkedHashMap<> (nInitialCapacity);
+    return new CommonsLinkedHashMap <> (nInitialCapacity);
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap ()
   {
-    return new CommonsLinkedHashMap<> ();
+    return new CommonsLinkedHashMap <> ();
   }
 
   @Nonnull
@@ -737,7 +705,7 @@ public final class CollectionHelper
   {
     if (isEmpty (aMap))
       return newOrderedMap (0);
-    return new CommonsLinkedHashMap<> (aMap);
+    return new CommonsLinkedHashMap <> (aMap);
   }
 
   @Nonnull
@@ -770,7 +738,7 @@ public final class CollectionHelper
   @ReturnsMutableCopy
   public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> CommonsTreeMap <KEYTYPE, VALUETYPE> newSortedMap ()
   {
-    return new CommonsTreeMap<> (Comparator.nullsFirst (Comparator.naturalOrder ()));
+    return new CommonsTreeMap <> (Comparator.nullsFirst (Comparator.naturalOrder ()));
   }
 
   @Nonnull
@@ -908,14 +876,14 @@ public final class CollectionHelper
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> newSet (@Nonnegative final int nInitialCapacity)
   {
-    return new CommonsHashSet<> (nInitialCapacity);
+    return new CommonsHashSet <> (nInitialCapacity);
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> newSet ()
   {
-    return new CommonsHashSet<> ();
+    return new CommonsHashSet <> ();
   }
 
   @Nonnull
@@ -995,7 +963,7 @@ public final class CollectionHelper
     if (isEmpty (aCont))
       return newSet (0);
 
-    return new CommonsHashSet<> (aCont);
+    return new CommonsHashSet <> (aCont);
   }
 
   @Nonnull
@@ -1062,7 +1030,7 @@ public final class CollectionHelper
   @ReturnsMutableCopy
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> newSortedSet ()
   {
-    return new CommonsTreeSet<> (Comparator.nullsFirst (Comparator.naturalOrder ()));
+    return new CommonsTreeSet <> (Comparator.nullsFirst (Comparator.naturalOrder ()));
   }
 
   @Nonnull
@@ -1169,14 +1137,14 @@ public final class CollectionHelper
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> newOrderedSet (@Nonnegative final int nInitialCapacity)
   {
-    return new CommonsLinkedHashSet<> (nInitialCapacity);
+    return new CommonsLinkedHashSet <> (nInitialCapacity);
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> newOrderedSet ()
   {
-    return new CommonsLinkedHashSet<> ();
+    return new CommonsLinkedHashSet <> ();
   }
 
   @Nonnull
@@ -1254,7 +1222,7 @@ public final class CollectionHelper
   {
     if (isEmpty (aCont))
       return newOrderedSet (0);
-    return new CommonsLinkedHashSet<> (aCont);
+    return new CommonsLinkedHashSet <> (aCont);
   }
 
   @Nonnull
@@ -1291,7 +1259,7 @@ public final class CollectionHelper
   {
     ValueEnforcer.isGE0 (nElements, "Elements");
 
-    final CommonsArrayList <ELEMENTTYPE> ret = new CommonsArrayList<> (nElements);
+    final CommonsArrayList <ELEMENTTYPE> ret = new CommonsArrayList <> (nElements);
     for (int i = 0; i < nElements; ++i)
       ret.add (aValue);
     return ret;
@@ -1301,14 +1269,14 @@ public final class CollectionHelper
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> newList (@Nonnegative final int nInitialCapacity)
   {
-    return new CommonsArrayList<> (nInitialCapacity);
+    return new CommonsArrayList <> (nInitialCapacity);
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> newList ()
   {
-    return new CommonsArrayList<> ();
+    return new CommonsArrayList <> ();
   }
 
   @Nonnull
@@ -1440,7 +1408,7 @@ public final class CollectionHelper
     if (isEmpty (aCont))
       return newList (0);
 
-    return new CommonsArrayList<> (aCont);
+    return new CommonsArrayList <> (aCont);
   }
 
   @Nonnull
@@ -1640,6 +1608,7 @@ public final class CollectionHelper
 
   @Nullable
   @ReturnsMutableObject ("design")
+  @CodingStyleguideUnaware
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>, LISTTYPE extends List <ELEMENTTYPE>> LISTTYPE getSortedInline (@Nullable final LISTTYPE aList)
   {
     if (isNotEmpty (aList))
@@ -1649,6 +1618,7 @@ public final class CollectionHelper
 
   @Nullable
   @ReturnsMutableObject ("design")
+  @CodingStyleguideUnaware
   public static <ELEMENTTYPE, LISTTYPE extends List <ELEMENTTYPE>> LISTTYPE getSortedInline (@Nullable final LISTTYPE aList,
                                                                                              @Nonnull final Comparator <? super ELEMENTTYPE> aComparator)
   {
@@ -1783,6 +1753,7 @@ public final class CollectionHelper
 
   @Nullable
   @ReturnsMutableObject ("semantics of this method")
+  @CodingStyleguideUnaware
   public static <ELEMENTTYPE, LISTTYPE extends List <ELEMENTTYPE>> LISTTYPE getReverseInlineList (@Nullable final LISTTYPE aList)
   {
     if (aList == null)
@@ -2159,6 +2130,7 @@ public final class CollectionHelper
   @Nonnull
   @ReturnsMutableObject ("design")
   @SafeVarargs
+  @CodingStyleguideUnaware
   public static <ELEMENTTYPE, COLLTYPE extends Collection <? super ELEMENTTYPE>> COLLTYPE getConcatenatedInline (@Nonnull final COLLTYPE aCont,
                                                                                                                  @Nullable final ELEMENTTYPE... aElementsToAdd)
   {
@@ -2171,6 +2143,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableObject ("design")
+  @CodingStyleguideUnaware
   public static <ELEMENTTYPE, COLLTYPE extends Collection <? super ELEMENTTYPE>> COLLTYPE getConcatenatedInline (@Nonnull final COLLTYPE aCont,
                                                                                                                  @Nullable final Collection <? extends ELEMENTTYPE> aElementsToAdd)
   {
@@ -2210,7 +2183,7 @@ public final class CollectionHelper
       return newMap (aMap1);
 
     // create and fill result map
-    final ICommonsMap <KEY, VALUE> ret = new CommonsHashMap<> (aMap1);
+    final ICommonsMap <KEY, VALUE> ret = new CommonsHashMap <> (aMap1);
     ret.putAll (aMap2);
     return ret;
   }

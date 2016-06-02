@@ -21,12 +21,14 @@ import java.util.NavigableMap;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 
 public interface ICommonsNavigableMap <KEYTYPE, VALUETYPE>
                                       extends NavigableMap <KEYTYPE, VALUETYPE>, ICommonsSortedMap <KEYTYPE, VALUETYPE>
 {
   @Nonnull
+  @CodingStyleguideUnaware
   default NavigableMap <KEYTYPE, VALUETYPE> getAsUnmodifiable ()
   {
     return Collections.unmodifiableNavigableMap (this);

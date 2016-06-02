@@ -31,6 +31,7 @@ import javax.annotation.WillNotClose;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.IteratorHelper;
@@ -79,6 +80,7 @@ public final class XMLResourceBundle extends ResourceBundle
    * @return all resource names
    */
   @Override
+  @CodingStyleguideUnaware
   protected Set <String> handleKeySet ()
   {
     return m_aValues.keySet ();

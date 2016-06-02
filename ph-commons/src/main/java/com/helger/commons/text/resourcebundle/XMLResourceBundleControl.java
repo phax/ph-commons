@@ -19,12 +19,14 @@ package com.helger.commons.text.resourcebundle;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
@@ -44,7 +46,8 @@ public final class XMLResourceBundleControl extends ResourceBundle.Control
 
   @Override
   @ReturnsMutableCopy
-  public ICommonsList <String> getFormats (@Nonnull final String sBaseName)
+  @CodingStyleguideUnaware
+  public List <String> getFormats (@Nonnull final String sBaseName)
   {
     ValueEnforcer.notNull (sBaseName, "BaseName");
     return FORMATS.getClone ();

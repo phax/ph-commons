@@ -31,6 +31,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.lang.ICloneable;
@@ -49,7 +50,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default ICommonsSet <KEYTYPE> copyOfKeySet ()
   {
-    return new CommonsHashSet<> (keySet ());
+    return new CommonsHashSet <> (keySet ());
   }
 
   /**
@@ -63,7 +64,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default ICommonsList <VALUETYPE> copyOfValues ()
   {
-    return new CommonsArrayList<> (values ());
+    return new CommonsArrayList <> (values ());
   }
 
   /**
@@ -142,7 +143,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default ICommonsSet <Map.Entry <KEYTYPE, VALUETYPE>> copyOfEntrySet ()
   {
-    return new CommonsHashSet<> (entrySet ());
+    return new CommonsHashSet <> (entrySet ());
   }
 
   /**
@@ -402,7 +403,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default ICommonsMap <VALUETYPE, KEYTYPE> getSwappedKeyValues ()
   {
-    final ICommonsMap <VALUETYPE, KEYTYPE> ret = new CommonsHashMap<> ();
+    final ICommonsMap <VALUETYPE, KEYTYPE> ret = new CommonsHashMap <> ();
     for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : entrySet ())
       ret.put (aEntry.getValue (), aEntry.getKey ());
     return ret;
@@ -556,6 +557,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    * @see Collections
    */
   @Nonnull
+  @CodingStyleguideUnaware
   default Map <KEYTYPE, VALUETYPE> getAsUnmodifiable ()
   {
     return Collections.unmodifiableMap (this);

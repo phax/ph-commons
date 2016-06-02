@@ -28,6 +28,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.lang.GenericReflection;
@@ -125,6 +126,7 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V>
       }
     }
 
+    @CodingStyleguideUnaware
     private final Set <Entry <K, SoftValue <K, V>>> m_aSrcEntrySet;
     private final ReferenceQueue <V> m_aQueue;
 
@@ -235,6 +237,7 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V>
   }
 
   /** The internal HashMap that will hold the SoftReference. */
+  @CodingStyleguideUnaware
   protected final Map <K, SoftValue <K, V>> m_aSrcMap;
   /** Reference queue for cleared SoftReference objects. */
   private final ReferenceQueue <V> m_aQueue = new ReferenceQueue <> ();
@@ -330,6 +333,7 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V>
 
   @Override
   @ReturnsMutableObject ("design")
+  @CodingStyleguideUnaware
   public Set <Map.Entry <K, V>> entrySet ()
   {
     final Set <Map.Entry <K, SoftValue <K, V>>> aSrcEntrySet = m_aSrcMap.entrySet ();

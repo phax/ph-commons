@@ -31,6 +31,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.iterate.IIterableIterator;
@@ -865,6 +866,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @see Collections
    */
   @Nonnull
+  @CodingStyleguideUnaware
   default Collection <ELEMENTTYPE> getAsUnmodifiable ()
   {
     return Collections.unmodifiableCollection (this);

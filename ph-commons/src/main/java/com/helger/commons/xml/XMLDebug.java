@@ -89,7 +89,7 @@ public final class XMLDebug
 
   @Nonnull
   @ReturnsMutableCopy
-  public static Map <EXMLDOMFeatureVersion, ICommonsList <String>> getAllSupportedFeatures ()
+  public static ICommonsMap <EXMLDOMFeatureVersion, ICommonsList <String>> getAllSupportedFeatures ()
   {
     return s_aSupportedFeatures.getClone ();
   }

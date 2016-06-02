@@ -16,12 +16,11 @@
  */
 package com.helger.commons.tree.withid.unique;
 
-import java.util.Collection;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.collection.ext.ICommonsCollection;
 import com.helger.commons.hierarchy.IChildrenProviderWithID;
 import com.helger.commons.state.EChange;
 import com.helger.commons.tree.withid.ITreeItemWithID;
@@ -84,13 +83,13 @@ public interface ITreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends IT
    * @return A non-<code>null</code> collection of all items.
    */
   @Nonnull
-  Collection <ITEMTYPE> getAllItems ();
+  ICommonsCollection <ITEMTYPE> getAllItems ();
 
   /**
    * @return A non-<code>null</code> collection of all item datas.
    */
   @Nonnull
-  Collection <DATATYPE> getAllItemDatas ();
+  ICommonsCollection <DATATYPE> getAllItemDatas ();
 
   /**
    * Remove the item with the specified ID

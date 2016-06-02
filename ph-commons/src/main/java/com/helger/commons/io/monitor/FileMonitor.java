@@ -17,7 +17,6 @@
 package com.helger.commons.io.monitor;
 
 import java.io.File;
-import java.util.Collection;
 import java.util.Stack;
 
 import javax.annotation.Nonnegative;
@@ -30,6 +29,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsCollection;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.state.EChange;
@@ -295,7 +295,7 @@ public class FileMonitor
 
   @Nonnull
   @ReturnsMutableCopy
-  Collection <FileMonitorAgent> getAllAgents ()
+  ICommonsCollection <FileMonitorAgent> getAllAgents ()
   {
     return m_aRWLock.readLocked ( () -> m_aMonitorMap.copyOfValues ());
   }

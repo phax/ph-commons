@@ -24,6 +24,7 @@ import java.util.function.Predicate;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.lang.ICloneable;
 
@@ -104,6 +105,7 @@ public interface ICommonsSet <ELEMENTTYPE> extends
   }
 
   @Nonnull
+  @CodingStyleguideUnaware
   default Set <ELEMENTTYPE> getAsUnmodifiable ()
   {
     return Collections.unmodifiableSet (this);

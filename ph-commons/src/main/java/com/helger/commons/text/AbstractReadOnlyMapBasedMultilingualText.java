@@ -31,6 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.ext.CommonsHashMap;
@@ -147,7 +148,7 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
   @Nonnull
   protected final EChange internalRemoveText (@Nullable final Locale aContentLocale)
   {
-    return EChange.valueOf (m_aTexts.remove (aContentLocale) != null);
+    return m_aTexts.removeObject (aContentLocale);
   }
 
   protected final void internalClear ()
@@ -179,6 +180,7 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
 
   @Nonnull
   @ReturnsMutableObject ("Internal use only")
+  @CodingStyleguideUnaware
   protected final Set <Locale> internalGetAllLocales ()
   {
     return m_aTexts.keySet ();

@@ -26,6 +26,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.commons.collection.ArrayHelper;
@@ -239,6 +240,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
   }
 
   @Nonnull
+  @CodingStyleguideUnaware
   public ICommonsList <ELEMENTTYPE> subList (@Nonnegative final int nFromIndex, @Nonnegative final int nToIndex)
   {
     if (nFromIndex < 0 || nFromIndex > (m_bHasElement ? 1 : 0))

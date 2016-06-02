@@ -22,6 +22,7 @@ import java.util.SortedSet;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 
 public interface ICommonsSortedSet <ELEMENTTYPE> extends SortedSet <ELEMENTTYPE>, ICommonsSet <ELEMENTTYPE>
@@ -29,16 +30,29 @@ public interface ICommonsSortedSet <ELEMENTTYPE> extends SortedSet <ELEMENTTYPE>
   @Nullable
   default ELEMENTTYPE getFirst ()
   {
-    return isEmpty () ? null : first ();
+    return getFirst (null);
+  }
+
+  @Nullable
+  default ELEMENTTYPE getFirst (@Nullable final ELEMENTTYPE aDefault)
+  {
+    return isEmpty () ? aDefault : first ();
   }
 
   @Nullable
   default ELEMENTTYPE getLast ()
   {
-    return isEmpty () ? null : last ();
+    return getLast (null);
+  }
+
+  @Nullable
+  default ELEMENTTYPE getLast (@Nullable final ELEMENTTYPE aDefault)
+  {
+    return isEmpty () ? aDefault : last ();
   }
 
   @Nonnull
+  @CodingStyleguideUnaware
   default SortedSet <ELEMENTTYPE> getAsUnmodifiable ()
   {
     return Collections.unmodifiableSortedSet (this);

@@ -37,6 +37,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
@@ -1694,6 +1695,7 @@ public final class StringHelper
    */
   @Nonnull
   @ReturnsMutableObject ("The passed parameter")
+  @CodingStyleguideUnaware
   public static <COLLTYPE extends Collection <String>> COLLTYPE getExploded (final char cSep,
                                                                              @Nullable final String sElements,
                                                                              final int nMaxItems,
@@ -1801,6 +1803,7 @@ public final class StringHelper
    * @return The passed collection and never <code>null</code>.
    */
   @Nonnull
+  @CodingStyleguideUnaware
   public static <COLLTYPE extends Collection <String>> COLLTYPE getExploded (@Nonnull final String sSep,
                                                                              @Nullable final String sElements,
                                                                              final int nMaxItems,
