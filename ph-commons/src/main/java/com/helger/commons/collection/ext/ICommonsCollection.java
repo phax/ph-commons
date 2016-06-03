@@ -108,8 +108,6 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @param <DSTTYPE>
    *        The destination type to be mapped to
    */
-  @Nonnull
-  @ReturnsMutableCopy
   default <DSTTYPE> void findAllMapped (@Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper,
                                         @Nonnull final Collection <? super DSTTYPE> aDst)
   {
@@ -129,8 +127,6 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @param <DSTTYPE>
    *        The destination type to be mapped to
    */
-  @Nonnull
-  @ReturnsMutableCopy
   default <DSTTYPE> void findAllMapped (@Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper,
                                         @Nonnull final Consumer <? super DSTTYPE> aConsumer)
   {
@@ -153,8 +149,6 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @param <DSTTYPE>
    *        The destination type to be mapped to
    */
-  @Nonnull
-  @ReturnsMutableCopy
   default <DSTTYPE> void findAllMapped (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
                                         @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper,
                                         @Nonnull final Collection <? super DSTTYPE> aDst)
@@ -178,8 +172,6 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @param <DSTTYPE>
    *        The destination type to be mapped to
    */
-  @Nonnull
-  @ReturnsMutableCopy
   default <DSTTYPE> void findAllMapped (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
                                         @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper,
                                         @Nonnull final Consumer <? super DSTTYPE> aConsumer)
@@ -201,8 +193,6 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @param <DSTTYPE>
    *        The destination type to be casted to
    */
-  @Nonnull
-  @ReturnsMutableCopy
   default <DSTTYPE extends ELEMENTTYPE> void findAllInstanceOf (@Nonnull final Class <DSTTYPE> aDstClass,
                                                                 @Nonnull final Consumer <? super DSTTYPE> aConsumer)
   {

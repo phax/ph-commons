@@ -58,8 +58,8 @@ public final class ErrorListTest
     assertEquals (0, aList.getAllItemTextsOfFields ("field1", "field2").size ());
     assertEquals (0, aList.getAllItemTextsOfFieldsStartingWith ("field").size ());
     assertEquals (0, aList.getAllItemTextsOfFieldsRegExp ("field\\d").size ());
-    assertEquals (0, aList.getStructuredByID ().size ());
-    assertEquals (0, aList.getStructuredByFieldName ().size ());
+    assertEquals (0, aList.getGroupedByID ().size ());
+    assertEquals (0, aList.getGroupedByFieldName ().size ());
 
     aList.addInfo ("TestInfo");
     assertFalse (aList.isEmpty ());
@@ -84,8 +84,8 @@ public final class ErrorListTest
     assertEquals (0, aList.getAllItemTextsOfFields ("field1", "field2").size ());
     assertEquals (0, aList.getAllItemTextsOfFieldsStartingWith ("field").size ());
     assertEquals (0, aList.getAllItemTextsOfFieldsRegExp ("field\\d").size ());
-    assertEquals (1, aList.getStructuredByID ().size ());
-    assertEquals (1, aList.getStructuredByFieldName ().size ());
+    assertEquals (1, aList.getGroupedByID ().size ());
+    assertEquals (1, aList.getGroupedByFieldName ().size ());
 
     aList.addError ("TestError");
     assertFalse (aList.isEmpty ());
@@ -110,8 +110,8 @@ public final class ErrorListTest
     assertEquals (0, aList.getAllItemTextsOfFields ("field1", "field2").size ());
     assertEquals (0, aList.getAllItemTextsOfFieldsStartingWith ("field").size ());
     assertEquals (0, aList.getAllItemTextsOfFieldsRegExp ("field\\d").size ());
-    assertEquals (1, aList.getStructuredByID ().size ());
-    assertEquals (1, aList.getStructuredByFieldName ().size ());
+    assertEquals (1, aList.getGroupedByID ().size ());
+    assertEquals (1, aList.getGroupedByFieldName ().size ());
 
     aList.addWarning ("TestWarning");
     assertFalse (aList.isEmpty ());
@@ -136,8 +136,8 @@ public final class ErrorListTest
     assertEquals (0, aList.getAllItemTextsOfFields ("field1", "field2").size ());
     assertEquals (0, aList.getAllItemTextsOfFieldsStartingWith ("field").size ());
     assertEquals (0, aList.getAllItemTextsOfFieldsRegExp ("field\\d").size ());
-    assertEquals (1, aList.getStructuredByID ().size ());
-    assertEquals (1, aList.getStructuredByFieldName ().size ());
+    assertEquals (1, aList.getGroupedByID ().size ());
+    assertEquals (1, aList.getGroupedByFieldName ().size ());
   }
 
   @Test
@@ -170,8 +170,8 @@ public final class ErrorListTest
     assertEquals (0, aList.getAllItemTextsOfFields ("field1", "field2").size ());
     assertEquals (0, aList.getAllItemTextsOfFieldsStartingWith ("field").size ());
     assertEquals (0, aList.getAllItemTextsOfFieldsRegExp ("field\\d").size ());
-    assertEquals (0, aList.getStructuredByID ().size ());
-    assertEquals (0, aList.getStructuredByFieldName ().size ());
+    assertEquals (0, aList.getGroupedByID ().size ());
+    assertEquals (0, aList.getGroupedByFieldName ().size ());
 
     aList.addInfo ("field1", "TestInfo");
     assertFalse (aList.isEmpty ());
@@ -200,8 +200,8 @@ public final class ErrorListTest
     assertEquals (1, aList.getAllItemTextsOfFields ("field1", "field2").size ());
     assertEquals (1, aList.getAllItemTextsOfFieldsStartingWith ("field").size ());
     assertEquals (1, aList.getAllItemTextsOfFieldsRegExp ("field\\d").size ());
-    assertEquals (1, aList.getStructuredByID ().size ());
-    assertEquals (1, aList.getStructuredByFieldName ().size ());
+    assertEquals (1, aList.getGroupedByID ().size ());
+    assertEquals (1, aList.getGroupedByFieldName ().size ());
 
     aList.addError ("field2", "TestError");
     assertFalse (aList.isEmpty ());
@@ -230,8 +230,8 @@ public final class ErrorListTest
     assertEquals (2, aList.getAllItemTextsOfFields ("field1", "field2").size ());
     assertEquals (2, aList.getAllItemTextsOfFieldsStartingWith ("field").size ());
     assertEquals (2, aList.getAllItemTextsOfFieldsRegExp ("field\\d").size ());
-    assertEquals (1, aList.getStructuredByID ().size ());
-    assertEquals (2, aList.getStructuredByFieldName ().size ());
+    assertEquals (1, aList.getGroupedByID ().size ());
+    assertEquals (2, aList.getGroupedByFieldName ().size ());
 
     aList.addWarning ("field1", "TestWarning");
     assertFalse (aList.isEmpty ());
@@ -260,8 +260,8 @@ public final class ErrorListTest
     assertEquals (3, aList.getAllItemTextsOfFields ("field1", "field2").size ());
     assertEquals (3, aList.getAllItemTextsOfFieldsStartingWith ("field").size ());
     assertEquals (3, aList.getAllItemTextsOfFieldsRegExp ("field\\d").size ());
-    assertEquals (1, aList.getStructuredByID ().size ());
-    assertEquals (2, aList.getStructuredByFieldName ().size ());
+    assertEquals (1, aList.getGroupedByID ().size ());
+    assertEquals (2, aList.getGroupedByFieldName ().size ());
 
     // Clear list
     assertTrue (aList.clear ().isChanged ());
@@ -293,7 +293,7 @@ public final class ErrorListTest
     assertEquals (0, aList.getAllItemTextsOfFields ("field1", "field2").size ());
     assertEquals (0, aList.getAllItemTextsOfFieldsStartingWith ("field").size ());
     assertEquals (0, aList.getAllItemTextsOfFieldsRegExp ("field\\d").size ());
-    assertEquals (0, aList.getStructuredByID ().size ());
-    assertEquals (0, aList.getStructuredByFieldName ().size ());
+    assertEquals (0, aList.getGroupedByID ().size ());
+    assertEquals (0, aList.getGroupedByFieldName ().size ());
   }
 }

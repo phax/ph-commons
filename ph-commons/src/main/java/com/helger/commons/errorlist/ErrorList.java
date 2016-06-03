@@ -446,7 +446,7 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
 
   @Nonnull
   @ReturnsMutableCopy
-  public IMultiMapListBased <String, IError> getStructuredByID ()
+  public IMultiMapListBased <String, IError> getGroupedByID ()
   {
     final IMultiMapListBased <String, IError> ret = new MultiLinkedHashMapArrayListBased <> ();
     for (final IError aError : m_aItems)
@@ -456,7 +456,7 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
 
   @Nonnull
   @ReturnsMutableCopy
-  public IMultiMapListBased <String, IError> getStructuredByFieldName ()
+  public IMultiMapListBased <String, IError> getGroupedByFieldName ()
   {
     final IMultiMapListBased <String, IError> ret = new MultiLinkedHashMapArrayListBased <> ();
     for (final IError aError : m_aItems)

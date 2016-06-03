@@ -24,7 +24,6 @@ import java.util.function.LongSupplier;
 import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.callback.IThrowingCallable;
@@ -103,7 +102,8 @@ public class SimpleLock extends ReentrantLock
   }
 
   /**
-   * Execute the provided callable in a read lock.
+   * Execute the provided callable in a read lock. Note: no
+   * nullable/non-nullable can be assumed.
    *
    * @param aSupplier
    *        Callable to be executed. May not be <code>null</code>.
@@ -111,7 +111,6 @@ public class SimpleLock extends ReentrantLock
    * @param <T>
    *        Return type
    */
-  @Nullable
   public <T> T locked (@Nonnull final Supplier <T> aSupplier)
   {
     ValueEnforcer.notNull (aSupplier, "Supplier");
@@ -128,7 +127,8 @@ public class SimpleLock extends ReentrantLock
   }
 
   /**
-   * Execute the provided callable in a read lock.
+   * Execute the provided callable in a read lock. Note: no
+   * nullable/non-nullable can be assumed.
    *
    * @param aCallable
    *        Callable to be executed. May not be <code>null</code>.
@@ -140,7 +140,6 @@ public class SimpleLock extends ReentrantLock
    * @param <EXTYPE>
    *        Exception type to be thrown
    */
-  @Nullable
   public <T, EXTYPE extends Exception> T lockedThrowing (@Nonnull final IThrowingCallable <T, EXTYPE> aCallable) throws EXTYPE
   {
     ValueEnforcer.notNull (aCallable, "Callable");

@@ -96,7 +96,6 @@ public interface ICommonsSet <ELEMENTTYPE> extends
    * @return <code>true</code> if a previous item was removed,
    *         <code>false</code> if this element was simply added.
    */
-  @Nonnull
   default boolean replace (@Nullable final ELEMENTTYPE aElement)
   {
     final boolean bRemoved = remove (aElement);

@@ -377,16 +377,16 @@ public class FormErrors implements Serializable, IFieldErrorList
 
   @Nonnull
   @ReturnsMutableCopy
-  public IMultiMapListBased <String, IError> getStructuredByFieldName ()
+  public IMultiMapListBased <String, IError> getGroupedByFieldName ()
   {
-    return m_aFormFieldErrs.getStructuredByFieldName ();
+    return m_aFormFieldErrs.getGroupedByFieldName ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public IMultiMapListBased <String, IError> getStructuredByID ()
+  public IMultiMapListBased <String, IError> getGroupedByID ()
   {
-    return m_aFormFieldErrs.getStructuredByID ();
+    return m_aFormFieldErrs.getGroupedByID ();
   }
 
   @Nonnull

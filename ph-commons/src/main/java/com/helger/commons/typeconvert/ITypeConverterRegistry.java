@@ -100,7 +100,6 @@ public interface ITypeConverterRegistry
     registerTypeConverterRule (new TypeConverterRuleFixedSourceAnyDestination <> (aSrcClass, aInBetweenConverter));
   }
 
-  @Nonnull
   default <SRC, DST> void registerTypeConverterRuleFixedSourceAssignableDestination (@Nonnull final Class <SRC> aSrcClass,
                                                                                      @Nonnull final Class <DST> aDstClass,
                                                                                      @Nonnull final Function <SRC, DST> aConverter)

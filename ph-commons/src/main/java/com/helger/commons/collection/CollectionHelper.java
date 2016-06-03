@@ -2294,7 +2294,6 @@ public final class CollectionHelper
     return aCollection.contains (aSearch);
   }
 
-  @SuppressWarnings ("null")
   @Nullable
   public static <ELEMENTTYPE> ELEMENTTYPE findFirst (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
                                                      @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
@@ -2318,7 +2317,6 @@ public final class CollectionHelper
     return aDefault;
   }
 
-  @SuppressWarnings ("null")
   @Nullable
   public static <ELEMENTTYPE, DSTTYPE> DSTTYPE findFirstMapped (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
                                                                 @Nullable final Predicate <? super ELEMENTTYPE> aFilter,

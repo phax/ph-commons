@@ -421,7 +421,6 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    *        The value predicate to be checked before insertion. May not be
    *        <code>null</code>.
    */
-  @Nonnull
   default void putIf (@Nonnull final KEYTYPE aKey,
                       @Nullable final VALUETYPE aValue,
                       @Nonnull final Predicate <VALUETYPE> aFilter)
@@ -459,7 +458,6 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    * @param <ELEMENTTYPE>
    *        Array element type
    */
-  @Nonnull
   default <ELEMENTTYPE> void putAll (@Nullable final ELEMENTTYPE [] aElements,
                                      @Nonnull final Function <? super ELEMENTTYPE, ? extends KEYTYPE> aKeyMapper,
                                      @Nonnull final Function <? super ELEMENTTYPE, ? extends VALUETYPE> aValueMapper)

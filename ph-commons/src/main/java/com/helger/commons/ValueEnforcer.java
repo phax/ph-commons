@@ -98,7 +98,6 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is not <code>null</code>.
    */
-  @Nonnull
   public static void isNull (final Object aValue, final String sName)
   {
     if (aValue != null)

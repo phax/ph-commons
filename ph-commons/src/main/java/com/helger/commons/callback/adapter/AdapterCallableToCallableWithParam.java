@@ -56,7 +56,7 @@ public class AdapterCallableToCallableWithParam <DATATYPE, PARAMTYPE, EXTYPE ext
   }
 
   @Nonnull
-  public DATATYPE call (@Nonnull final PARAMTYPE aParam) throws EXTYPE
+  public DATATYPE call (final PARAMTYPE aParam) throws EXTYPE
   {
     return m_aCallable.call ();
   }

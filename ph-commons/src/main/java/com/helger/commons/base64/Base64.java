@@ -1822,8 +1822,7 @@ public final class Base64
     }
     catch (final IOException ex)
     {
-      assert false : "IOExceptions only come from GZipping, which is turned off: " + ex.getMessage ();
-      encoded = null;
+      throw new IllegalStateException ("IOExceptions only come from GZipping, which is turned off", ex);
     }
     return encoded;
   }
@@ -2235,7 +2234,7 @@ public final class Base64
     // Check to see if it's gzip-compressed
     // GZIP Magic Two-Byte Number: 0x8b1f (35615)
     final boolean dontGunzip = (options & DONT_GUNZIP) != 0;
-    if ((bytes != null) && (bytes.length >= 4) && (!dontGunzip))
+    if (bytes.length >= 4 && !dontGunzip)
     {
       final int head = (bytes[0] & 0xff) | ((bytes[1] << 8) & 0xff00);
       if (GZIPInputStream.GZIP_MAGIC == head)

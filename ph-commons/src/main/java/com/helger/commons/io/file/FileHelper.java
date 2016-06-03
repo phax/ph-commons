@@ -390,7 +390,7 @@ public final class FileHelper
   }
 
   @CheckForSigned
-  public static long getFileSize (@Nonnull @WillNotClose final FileChannel aChannel)
+  public static long getFileSize (@Nullable final FileChannel aChannel)
   {
     if (aChannel != null)
       try
@@ -466,7 +466,10 @@ public final class FileHelper
     ValueEnforcer.notNull (aFile, "File");
     ValueEnforcer.notNull (aCharset, "Charset");
 
-    return new NonBlockingBufferedReader (getReader (aFile, aCharset));
+    final Reader aReader = getReader (aFile, aCharset);
+    if (aReader == null)
+      return null;
+    return new NonBlockingBufferedReader (aReader);
   }
 
   /**
@@ -645,7 +648,11 @@ public final class FileHelper
     ValueEnforcer.notNull (aFile, "File");
     ValueEnforcer.notNull (aCharset, "Charset");
 
-    return new NonBlockingBufferedWriter (getWriter (aFile, eAppend, aCharset));
+    final Writer aWriter = getWriter (aFile, eAppend, aCharset);
+    if (aWriter == null)
+      return null;
+
+    return new NonBlockingBufferedWriter (aWriter);
   }
 
   @Nonnull

@@ -4147,7 +4147,6 @@ public final class ArrayHelper
     return true;
   }
 
-  @SuppressWarnings ("null")
   @Nullable
   public static <ELEMENTTYPE> ELEMENTTYPE findFirst (@Nullable final ELEMENTTYPE [] aArray,
                                                      @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
@@ -4171,7 +4170,6 @@ public final class ArrayHelper
     return aDefault;
   }
 
-  @SuppressWarnings ("null")
   @Nullable
   public static <ELEMENTTYPE, RETTYPE> RETTYPE findFirstMapped (@Nullable final ELEMENTTYPE [] aArray,
                                                                 @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
@@ -4204,7 +4202,7 @@ public final class ArrayHelper
   @Nonnull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> getAll (@Nullable final ELEMENTTYPE [] aArray,
-                                                                @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
+                                                                     @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     if (aFilter == null)
       return CollectionHelper.newList (aArray);
@@ -4220,8 +4218,8 @@ public final class ArrayHelper
   @Nonnull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE, RETTYPE> CommonsArrayList <RETTYPE> getAllMapped (@Nullable final ELEMENTTYPE [] aArray,
-                                                                           @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                                                           @Nonnull final Function <? super ELEMENTTYPE, RETTYPE> aMapper)
+                                                                                @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
+                                                                                @Nonnull final Function <? super ELEMENTTYPE, RETTYPE> aMapper)
   {
     ValueEnforcer.notNull (aMapper, "Mapper");
     if (aFilter == null)

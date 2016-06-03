@@ -90,7 +90,8 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V>
       return m_aSoftValue;
     }
 
-    public final SoftValue <K, V> setValue (final SoftValue <K, V> aNew)
+    @Nonnull
+    public final SoftValue <K, V> setValue (@Nonnull final SoftValue <K, V> aNew)
     {
       final SoftValue <K, V> aOld = aNew;
       m_aSoftValue = aNew;

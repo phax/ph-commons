@@ -24,7 +24,6 @@ import java.util.function.LongSupplier;
 import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import com.helger.commons.callback.IThrowingCallable;
 import com.helger.commons.callback.IThrowingRunnable;
@@ -102,7 +101,8 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
   }
 
   /**
-   * Execute the provided callable in a read lock.
+   * Execute the provided callable in a read lock. Note: no
+   * nullable/non-nullable can be assumed.
    *
    * @param aSupplier
    *        Callable to be executed. May not be <code>null</code>.
@@ -110,7 +110,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @param <T>
    *        Return type
    */
-  @Nullable
   public <T> T readLocked (@Nonnull final Supplier <T> aSupplier)
   {
     readLock ().lock ();
@@ -125,7 +124,8 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
   }
 
   /**
-   * Execute the provided callable in a read lock.
+   * Execute the provided callable in a read lock. Note: no
+   * nullable/non-nullable can be assumed.
    *
    * @param aCallable
    *        Callable to be executed. May not be <code>null</code>.
@@ -137,7 +137,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @param <EXTYPE>
    *        Exception type to be thrown
    */
-  @Nullable
   public <T, EXTYPE extends Exception> T readLockedThrowing (@Nonnull final IThrowingCallable <T, EXTYPE> aCallable) throws EXTYPE
   {
     readLock ().lock ();
@@ -274,7 +273,8 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
   }
 
   /**
-   * Execute the provided callable in a write lock.
+   * Execute the provided callable in a write lock. Note: no
+   * nullable/non-nullable can be assumed.
    *
    * @param aSupplier
    *        Callable to be executed. May not be <code>null</code>.
@@ -282,7 +282,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @param <T>
    *        Return type
    */
-  @Nullable
   public <T> T writeLocked (@Nonnull final Supplier <T> aSupplier)
   {
     writeLock ().lock ();
@@ -297,7 +296,8 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
   }
 
   /**
-   * Execute the provided callable in a write lock.
+   * Execute the provided callable in a write lock. Note: no
+   * nullable/non-nullable can be assumed.
    *
    * @param aCallable
    *        Callable to be executed. May not be <code>null</code>.
@@ -309,7 +309,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @param <EXTYPE>
    *        Exception type to be thrown
    */
-  @Nullable
   public <T, EXTYPE extends Exception> T writeLockedThrowing (@Nonnull final IThrowingCallable <T, EXTYPE> aCallable) throws EXTYPE
   {
     writeLock ().lock ();

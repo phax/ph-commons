@@ -182,7 +182,7 @@ public interface IFieldErrorList
    */
   @Nonnull
   @ReturnsMutableCopy
-  IMultiMapListBased <String, IError> getStructuredByID ();
+  IMultiMapListBased <String, IError> getGroupedByID ();
 
   /**
    * @return A map with all items mapped from error field name to its
@@ -190,5 +190,5 @@ public interface IFieldErrorList
    */
   @Nonnull
   @ReturnsMutableCopy
-  IMultiMapListBased <String, IError> getStructuredByFieldName ();
+  IMultiMapListBased <String, IError> getGroupedByFieldName ();
 }

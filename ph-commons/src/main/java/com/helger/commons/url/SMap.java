@@ -60,7 +60,7 @@ public class SMap extends CommonsLinkedHashMap <String, String>
     add (sName, sValue);
   }
 
-  public SMap (@Nonnull final String sName, @Nonnull final int nValue)
+  public SMap (@Nonnull final String sName, final int nValue)
   {
     add (sName, nValue);
   }
