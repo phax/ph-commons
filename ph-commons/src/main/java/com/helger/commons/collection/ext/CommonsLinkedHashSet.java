@@ -18,6 +18,7 @@ package com.helger.commons.collection.ext;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -60,6 +61,21 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
   public CommonsLinkedHashSet (@Nullable final Iterable <? extends ELEMENTTYPE> aIterable)
   {
     addAll (aIterable);
+  }
+
+  public <T> CommonsLinkedHashSet (@Nullable final Collection <? extends T> aValues,
+                                   @Nonnull final Function <? super T, ? extends ELEMENTTYPE> aMapper)
+  {
+    super (CollectionHelper.getSize (aValues));
+    if (aValues != null)
+      addAllMapped (aValues, aMapper);
+  }
+
+  public <T> CommonsLinkedHashSet (@Nullable final Iterable <? extends T> aValues,
+                                   @Nonnull final Function <? super T, ? extends ELEMENTTYPE> aMapper)
+  {
+    if (aValues != null)
+      addAllMapped (aValues, aMapper);
   }
 
   public CommonsLinkedHashSet (@Nullable final ELEMENTTYPE aValue)

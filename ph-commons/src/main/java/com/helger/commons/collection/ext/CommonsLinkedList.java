@@ -18,6 +18,7 @@ package com.helger.commons.collection.ext;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -45,6 +46,13 @@ public class CommonsLinkedList <ELEMENTTYPE> extends LinkedList <ELEMENTTYPE> im
   public CommonsLinkedList (@Nullable final Iterable <? extends ELEMENTTYPE> aIterable)
   {
     addAll (aIterable);
+  }
+
+  public <T> CommonsLinkedList (@Nullable final Iterable <? extends T> aValues,
+                                @Nonnull final Function <? super T, ? extends ELEMENTTYPE> aMapper)
+  {
+    if (aValues != null)
+      addAllMapped (aValues, aMapper);
   }
 
   public CommonsLinkedList (@Nullable final ELEMENTTYPE aValue)

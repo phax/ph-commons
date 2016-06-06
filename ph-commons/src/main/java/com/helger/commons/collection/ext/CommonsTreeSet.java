@@ -19,6 +19,7 @@ package com.helger.commons.collection.ext;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.TreeSet;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -52,6 +53,13 @@ public class CommonsTreeSet <ELEMENTTYPE> extends TreeSet <ELEMENTTYPE> implemen
   public CommonsTreeSet (@Nullable final Iterable <? extends ELEMENTTYPE> aIterable)
   {
     addAll (aIterable);
+  }
+
+  public <T> CommonsTreeSet (@Nullable final Iterable <? extends T> aValues,
+                             @Nonnull final Function <? super T, ? extends ELEMENTTYPE> aMapper)
+  {
+    if (aValues != null)
+      addAllMapped (aValues, aMapper);
   }
 
   public CommonsTreeSet (@Nullable final ELEMENTTYPE aValue)

@@ -18,6 +18,7 @@ package com.helger.commons.collection.ext;
 
 import java.util.Collection;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -47,6 +48,13 @@ public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayL
   public CommonsCopyOnWriteArrayList (@Nullable final Iterable <? extends ELEMENTTYPE> aIterable)
   {
     addAll (aIterable);
+  }
+
+  public <T> CommonsCopyOnWriteArrayList (@Nullable final Iterable <? extends T> aValues,
+                                          @Nonnull final Function <? super T, ? extends ELEMENTTYPE> aMapper)
+  {
+    if (aValues != null)
+      addAllMapped (aValues, aMapper);
   }
 
   public CommonsCopyOnWriteArrayList (@Nullable final ELEMENTTYPE aValue)

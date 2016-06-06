@@ -18,6 +18,7 @@ package com.helger.commons.collection.ext;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.function.Function;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -54,6 +55,21 @@ public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
   public CommonsArrayList (@Nullable final Iterable <? extends ELEMENTTYPE> aIterable)
   {
     addAll (aIterable);
+  }
+
+  public <T> CommonsArrayList (@Nullable final Collection <? extends T> aValues,
+                               @Nonnull final Function <? super T, ? extends ELEMENTTYPE> aMapper)
+  {
+    super (CollectionHelper.getSize (aValues));
+    if (aValues != null)
+      addAllMapped (aValues, aMapper);
+  }
+
+  public <T> CommonsArrayList (@Nullable final Iterable <? extends T> aValues,
+                               @Nonnull final Function <? super T, ? extends ELEMENTTYPE> aMapper)
+  {
+    if (aValues != null)
+      addAllMapped (aValues, aMapper);
   }
 
   public CommonsArrayList (@Nullable final ELEMENTTYPE aValue)
