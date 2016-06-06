@@ -27,6 +27,13 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.CollectionHelper;
 
+/**
+ * A special {@link ArrayList} implementation based on {@link ICommonsList}.
+ *
+ * @author Philip Helger
+ * @param <ELEMENTTYPE>
+ *        List element type
+ */
 public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYPE>
 {
   public CommonsArrayList ()
@@ -60,6 +67,13 @@ public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
   {
     super (ArrayHelper.getSize (aValues));
     addAll (aValues);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public <T> CommonsArrayList <T> createInstance ()
+  {
+    return new CommonsArrayList <> ();
   }
 
   @Nonnull

@@ -28,6 +28,15 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 
+/**
+ * A special {@link HashMap} implementation based on {@link ICommonsMap}.
+ *
+ * @author Philip Helger
+ * @param <KEYTYPE>
+ *        Map key type
+ * @param <VALUETYPE>
+ *        Map value type
+ */
 public class CommonsHashMap <KEYTYPE, VALUETYPE> extends HashMap <KEYTYPE, VALUETYPE>
                             implements ICommonsMap <KEYTYPE, VALUETYPE>
 {
@@ -57,6 +66,13 @@ public class CommonsHashMap <KEYTYPE, VALUETYPE> extends HashMap <KEYTYPE, VALUE
   {
     super (CollectionHelper.getSize (aValues));
     putAll (aValues, aKeyMapper, aValueMapper);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public <K, V> CommonsHashMap <K, V> createInstance ()
+  {
+    return new CommonsHashMap <> ();
   }
 
   @Nonnull

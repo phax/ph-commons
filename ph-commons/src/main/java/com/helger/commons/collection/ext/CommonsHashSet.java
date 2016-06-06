@@ -26,6 +26,13 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.CollectionHelper;
 
+/**
+ * A special {@link HashSet} implementation based on {@link ICommonsSet}.
+ *
+ * @author Philip Helger
+ * @param <ELEMENTTYPE>
+ *        Set element type
+ */
 public class CommonsHashSet <ELEMENTTYPE> extends HashSet <ELEMENTTYPE> implements ICommonsSet <ELEMENTTYPE>
 {
   public CommonsHashSet ()
@@ -64,6 +71,13 @@ public class CommonsHashSet <ELEMENTTYPE> extends HashSet <ELEMENTTYPE> implemen
   {
     super (ArrayHelper.getSize (aValues));
     addAll (aValues);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public <T> CommonsHashSet <T> createInstance ()
+  {
+    return new CommonsHashSet <> ();
   }
 
   @Nonnull

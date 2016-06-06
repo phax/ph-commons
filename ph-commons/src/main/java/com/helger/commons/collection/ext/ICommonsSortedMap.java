@@ -26,9 +26,29 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 
+/**
+ * A special {@link SortedMap} based interface with extended functionality based
+ * on {@link ICommonsMap}.
+ *
+ * @author Philip Helger
+ * @param <KEYTYPE>
+ *        Map key type
+ * @param <VALUETYPE>
+ *        Map value type
+ */
 public interface ICommonsSortedMap <KEYTYPE, VALUETYPE>
                                    extends SortedMap <KEYTYPE, VALUETYPE>, ICommonsMap <KEYTYPE, VALUETYPE>
 {
+  /**
+   * Create a new {@link CommonsTreeMap}.
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  default <K, V> ICommonsSortedMap <K, V> createInstance ()
+  {
+    return new CommonsTreeMap <> ();
+  }
+
   @Nonnull
   @ReturnsMutableCopy
   default ICommonsOrderedSet <KEYTYPE> copyOfKeySet ()
@@ -44,29 +64,41 @@ public interface ICommonsSortedMap <KEYTYPE, VALUETYPE>
   }
 
   @Nullable
-  default KEYTYPE getFirstKey ()
+  default KEYTYPE getFirstKey (@Nullable final KEYTYPE aDefault)
   {
-    return isEmpty () ? null : firstKey ();
+    return isEmpty () ? aDefault : firstKey ();
   }
 
   @Nullable
-  default VALUETYPE getFirstValue ()
+  default VALUETYPE getFirstValue (@Nullable final VALUETYPE aDefault)
   {
-    final KEYTYPE aKey = getFirstKey ();
-    return aKey == null ? null : get (aKey);
+    final KEYTYPE aKey = getFirstKey (null);
+    return aKey == null ? aDefault : get (aKey);
   }
 
   @Nullable
   default KEYTYPE getLastKey ()
   {
-    return isEmpty () ? null : lastKey ();
+    return getLastKey (null);
+  }
+
+  @Nullable
+  default KEYTYPE getLastKey (@Nullable final KEYTYPE aDefault)
+  {
+    return isEmpty () ? aDefault : lastKey ();
   }
 
   @Nullable
   default VALUETYPE getLastValue ()
   {
-    final KEYTYPE aKey = getLastKey ();
-    return aKey == null ? null : get (aKey);
+    return getLastValue (null);
+  }
+
+  @Nullable
+  default VALUETYPE getLastValue (@Nullable final VALUETYPE aDefault)
+  {
+    final KEYTYPE aKey = getLastKey (null);
+    return aKey == null ? aDefault : get (aKey);
   }
 
   @Nonnull

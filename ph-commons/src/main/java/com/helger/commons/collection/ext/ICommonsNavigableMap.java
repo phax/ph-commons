@@ -24,6 +24,15 @@ import javax.annotation.Nonnull;
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 
+/**
+ * A special {@link NavigableMap} interface based on {@link ICommonsSortedMap}.
+ * 
+ * @author Philip Helger
+ * @param <KEYTYPE>
+ *        Map key type
+ * @param <VALUETYPE>
+ *        Map value type
+ */
 public interface ICommonsNavigableMap <KEYTYPE, VALUETYPE>
                                       extends NavigableMap <KEYTYPE, VALUETYPE>, ICommonsSortedMap <KEYTYPE, VALUETYPE>
 {

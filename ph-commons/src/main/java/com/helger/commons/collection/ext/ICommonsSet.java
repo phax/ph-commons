@@ -28,6 +28,14 @@ import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.lang.ICloneable;
 
+/**
+ * A special {@link Set} interface with extended functionality based on
+ * {@link ICommonsCollection}.
+ *
+ * @author Philip Helger
+ * @param <ELEMENTTYPE>
+ *        The data type of the elements in the list.
+ */
 public interface ICommonsSet <ELEMENTTYPE> extends
                              Set <ELEMENTTYPE>,
                              ICommonsCollection <ELEMENTTYPE>,

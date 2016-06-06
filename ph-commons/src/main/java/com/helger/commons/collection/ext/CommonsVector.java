@@ -27,6 +27,13 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.CollectionHelper;
 
+/**
+ * A special {@link Vector} implementation based on {@link ICommonsList}.
+ *
+ * @author Philip Helger
+ * @param <ELEMENTTYPE>
+ *        List element type
+ */
 public class CommonsVector <ELEMENTTYPE> extends Vector <ELEMENTTYPE> implements ICommonsList <ELEMENTTYPE>
 {
   public CommonsVector ()

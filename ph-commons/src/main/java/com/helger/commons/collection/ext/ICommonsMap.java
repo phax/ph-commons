@@ -37,11 +37,37 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.state.EChange;
 
+/**
+ * A special {@link Map} interface with extended functionality
+ *
+ * @author Philip Helger
+ * @param <KEYTYPE>
+ *        Map key type
+ * @param <VALUETYPE>
+ *        Map value type
+ */
 public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
                              Map <KEYTYPE, VALUETYPE>,
                              ICloneable <ICommonsMap <KEYTYPE, VALUETYPE>>,
                              Serializable
 {
+  /**
+   * Create a new empty map. Overwrite this if you don't want to use
+   * {@link CommonsHashMap}.
+   *
+   * @return A new empty map. Never <code>null</code>.
+   * @param <K>
+   *        Map key type
+   * @param <V>
+   *        Map value type
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  default <K, V> ICommonsMap <K, V> createInstance ()
+  {
+    return new CommonsHashMap <> ();
+  }
+
   /**
    * @return A new non-<code>null</code> set with all keys.
    * @see #keySet()
@@ -156,38 +182,87 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   }
 
   /**
-   * Get the first element of this map.
+   * Get the first element of this map or <code>null</code>.
    *
-   * @return <code>null</code> if the map is <code>null</code> or empty, the
-   *         first element otherwise.
+   * @return <code>null</code> if the map is empty, the first element otherwise.
+   * @see #getFirstEntry(java.util.Map.Entry)
    */
   @Nullable
   default Map.Entry <KEYTYPE, VALUETYPE> getFirstEntry ()
   {
-    return isEmpty () ? null : entrySet ().iterator ().next ();
+    return getFirstEntry (null);
   }
 
   /**
-   * Get the first key of this map.
+   * Get the first element of this map or the provided default value.
    *
-   * @return <code>null</code> if the map is <code>null</code> or empty, the
-   *         first key otherwise.
+   * @param aDefault
+   *        The default value to be returned if this map is empty. May be
+   *        <code>null</code>.
+   * @return The provided default value if the map is empty, the first entry
+   *         otherwise.
+   * @see #getFirstEntry()
+   */
+  @Nullable
+  default Map.Entry <KEYTYPE, VALUETYPE> getFirstEntry (@Nullable final Map.Entry <KEYTYPE, VALUETYPE> aDefault)
+  {
+    return isEmpty () ? aDefault : entrySet ().iterator ().next ();
+  }
+
+  /**
+   * Get the first key of this map or <code>null</code>.
+   *
+   * @return <code>null</code> if the map is empty, the first key otherwise.
+   * @see #getFirstKey(Object)
    */
   @Nullable
   default KEYTYPE getFirstKey ()
   {
-    return isEmpty () ? null : keySet ().iterator ().next ();
+    return getFirstKey (null);
   }
 
   /**
-   * Get the first value of this map.
+   * Get the first key of this map or the provided default value.
+   *
+   * @param aDefault
+   *        The default value to be returned if this map is empty. May be
+   *        <code>null</code>.
+   * @return The provided default value if the map is empty, the first key
+   *         otherwise.
+   * @see #getFirstKey()
+   */
+  @Nullable
+  default KEYTYPE getFirstKey (@Nullable final KEYTYPE aDefault)
+  {
+    return isEmpty () ? aDefault : keySet ().iterator ().next ();
+  }
+
+  /**
+   * Get the first value of this map or <code>null</code>.
    *
    * @return <code>null</code> if the map is empty, the first value otherwise.
+   * @see #getFirstValue(Object)
    */
   @Nullable
   default VALUETYPE getFirstValue ()
   {
-    return isEmpty () ? null : values ().iterator ().next ();
+    return getFirstValue (null);
+  }
+
+  /**
+   * Get the first value of this map or the provided default value.
+   *
+   * @param aDefault
+   *        The default value to be returned if this map is empty. May be
+   *        <code>null</code>.
+   * @return The provided default value if the map is empty, the first value
+   *         otherwise.
+   * @see #getFirstValue()
+   */
+  @Nullable
+  default VALUETYPE getFirstValue (@Nullable final VALUETYPE aDefault)
+  {
+    return isEmpty () ? aDefault : values ().iterator ().next ();
   }
 
   /**
@@ -397,13 +472,14 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   /**
    * Get a map where keys and values are exchanged.
    *
-   * @return The swapped hash map (unsorted!)
+   * @return The swapped hash map based on the type returned by
+   *         {@link #createInstance()}.
    */
   @Nullable
   @ReturnsMutableCopy
   default ICommonsMap <VALUETYPE, KEYTYPE> getSwappedKeyValues ()
   {
-    final ICommonsMap <VALUETYPE, KEYTYPE> ret = new CommonsHashMap <> ();
+    final ICommonsMap <VALUETYPE, KEYTYPE> ret = createInstance ();
     for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : entrySet ())
       ret.put (aEntry.getValue (), aEntry.getKey ());
     return ret;

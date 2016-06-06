@@ -24,6 +24,14 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 
+/**
+ * A special {@link CommonsCopyOnWriteArrayList} implementation based on
+ * {@link ICommonsList}.
+ *
+ * @author Philip Helger
+ * @param <ELEMENTTYPE>
+ *        List element type
+ */
 public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayList <ELEMENTTYPE>
                                          implements ICommonsList <ELEMENTTYPE>
 {

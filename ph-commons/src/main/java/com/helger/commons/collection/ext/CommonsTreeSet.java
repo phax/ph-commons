@@ -25,6 +25,14 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 
+/**
+ * A special {@link TreeSet} implementation based on
+ * {@link ICommonsNavigableSet}.
+ *
+ * @author Philip Helger
+ * @param <ELEMENTTYPE>
+ *        Set element type
+ */
 public class CommonsTreeSet <ELEMENTTYPE> extends TreeSet <ELEMENTTYPE> implements ICommonsNavigableSet <ELEMENTTYPE>
 {
   public CommonsTreeSet ()

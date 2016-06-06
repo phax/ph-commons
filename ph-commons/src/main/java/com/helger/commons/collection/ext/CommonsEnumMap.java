@@ -22,6 +22,15 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 
+/**
+ * A special {@link EnumMap} implementation based on {@link ICommonsMap}.
+ *
+ * @author Philip Helger
+ * @param <KEYTYPE>
+ *        Map key type
+ * @param <VALUETYPE>
+ *        Map value type
+ */
 public class CommonsEnumMap <KEYTYPE extends Enum <KEYTYPE>, VALUETYPE> extends EnumMap <KEYTYPE, VALUETYPE>
                             implements ICommonsMap <KEYTYPE, VALUETYPE>
 {
@@ -34,6 +43,9 @@ public class CommonsEnumMap <KEYTYPE extends Enum <KEYTYPE>, VALUETYPE> extends 
   {
     super (aMap);
   }
+
+  // Cannot overwrite createInstance because of the special key type generics
+  // constraints
 
   @Nonnull
   @ReturnsMutableCopy

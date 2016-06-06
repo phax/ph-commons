@@ -16,6 +16,7 @@
  */
 package com.helger.commons.collection.ext;
 
+import java.util.Set;
 import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
@@ -24,13 +25,21 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 
+/**
+ * A special ordered {@link Set} based interface with extended functionality
+ * based on {@link ICommonsSet}.
+ *
+ * @author Philip Helger
+ * @param <ELEMENTTYPE>
+ *        Set element type
+ */
 public interface ICommonsOrderedSet <ELEMENTTYPE> extends ICommonsSet <ELEMENTTYPE>
 {
   @Nonnull
   @ReturnsMutableCopy
   default <T> ICommonsOrderedSet <T> createInstance ()
   {
-    return new CommonsLinkedHashSet<> ();
+    return new CommonsLinkedHashSet <> ();
   }
 
   @Nonnull
@@ -57,13 +66,25 @@ public interface ICommonsOrderedSet <ELEMENTTYPE> extends ICommonsSet <ELEMENTTY
   @Nullable
   default ELEMENTTYPE getFirst ()
   {
-    return CollectionHelper.getFirstElement (this);
+    return getFirst (null);
+  }
+
+  @Nullable
+  default ELEMENTTYPE getFirst (@Nullable final ELEMENTTYPE aDefault)
+  {
+    return isEmpty () ? aDefault : iterator ().next ();
   }
 
   @Nullable
   default ELEMENTTYPE getLast ()
   {
-    return CollectionHelper.getLastElement (this);
+    return getLast (null);
+  }
+
+  @Nullable
+  default ELEMENTTYPE getLast (@Nullable final ELEMENTTYPE aDefault)
+  {
+    return isEmpty () ? aDefault : CollectionHelper.getLastElement (this);
   }
 
   @Nonnull

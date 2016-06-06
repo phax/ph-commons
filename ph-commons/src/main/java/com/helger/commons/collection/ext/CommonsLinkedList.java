@@ -24,6 +24,13 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 
+/**
+ * A special {@link LinkedList} implementation based on {@link ICommonsList}.
+ *
+ * @author Philip Helger
+ * @param <ELEMENTTYPE>
+ *        List element type
+ */
 public class CommonsLinkedList <ELEMENTTYPE> extends LinkedList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYPE>
 {
   public CommonsLinkedList ()

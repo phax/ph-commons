@@ -33,7 +33,7 @@ import com.helger.commons.lang.ICloneable;
 import com.helger.commons.state.EChange;
 
 /**
- * A special List interface with extended functionality based on
+ * A special {@link List} interface with extended functionality based on
  * {@link ICommonsCollection}.
  *
  * @author Philip Helger

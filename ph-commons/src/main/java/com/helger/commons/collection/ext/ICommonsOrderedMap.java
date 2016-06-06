@@ -24,8 +24,25 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 
+/**
+ * A special {@link Map} interface for ordered maps (like
+ * {@link CommonsLinkedHashMap}) based on {@link ICommonsMap}.
+ *
+ * @author Philip Helger
+ * @param <KEYTYPE>
+ *        May key type
+ * @param <VALUETYPE>
+ *        Map value type
+ */
 public interface ICommonsOrderedMap <KEYTYPE, VALUETYPE> extends ICommonsMap <KEYTYPE, VALUETYPE>
 {
+  @Nonnull
+  @ReturnsMutableCopy
+  default <K, V> ICommonsOrderedMap <K, V> createInstance ()
+  {
+    return new CommonsLinkedHashMap <> ();
+  }
+
   @Nonnull
   @ReturnsMutableCopy
   default ICommonsOrderedSet <KEYTYPE> copyOfKeySet ()
@@ -43,14 +60,26 @@ public interface ICommonsOrderedMap <KEYTYPE, VALUETYPE> extends ICommonsMap <KE
   @Nullable
   default KEYTYPE getLastKey ()
   {
-    return isEmpty () ? null : CollectionHelper.getLastElement (keySet ());
+    return getLastKey (null);
+  }
+
+  @Nullable
+  default KEYTYPE getLastKey (@Nullable final KEYTYPE aDefault)
+  {
+    return isEmpty () ? aDefault : CollectionHelper.getLastElement (keySet ());
   }
 
   @Nullable
   default VALUETYPE getLastValue ()
   {
+    return getLastValue (null);
+  }
+
+  @Nullable
+  default VALUETYPE getLastValue (@Nullable final VALUETYPE aDefault)
+  {
     final KEYTYPE aKey = getLastKey ();
-    return aKey == null ? null : get (aKey);
+    return aKey == null ? aDefault : get (aKey);
   }
 
   @Nonnull

@@ -25,6 +25,14 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 
+/**
+ * A special {@link SortedSet} based interface with extended functionality based
+ * on {@link ICommonsSet}.
+ *
+ * @author Philip Helger
+ * @param <ELEMENTTYPE>
+ *        Set element type
+ */
 public interface ICommonsSortedSet <ELEMENTTYPE> extends SortedSet <ELEMENTTYPE>, ICommonsSet <ELEMENTTYPE>
 {
   @Nullable

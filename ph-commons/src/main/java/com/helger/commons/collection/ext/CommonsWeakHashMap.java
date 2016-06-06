@@ -28,6 +28,15 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 
+/**
+ * A special {@link WeakHashMap} implementation based on {@link ICommonsMap}.
+ *
+ * @author Philip Helger
+ * @param <KEYTYPE>
+ *        Map key type
+ * @param <VALUETYPE>
+ *        Map value type
+ */
 public class CommonsWeakHashMap <KEYTYPE, VALUETYPE> extends WeakHashMap <KEYTYPE, VALUETYPE>
                                 implements ICommonsMap <KEYTYPE, VALUETYPE>
 {
@@ -57,6 +66,13 @@ public class CommonsWeakHashMap <KEYTYPE, VALUETYPE> extends WeakHashMap <KEYTYP
   {
     super (CollectionHelper.getSize (aValues));
     putAll (aValues, aKeyMapper, aValueMapper);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public <K, V> CommonsWeakHashMap <K, V> createInstance ()
+  {
+    return new CommonsWeakHashMap <> ();
   }
 
   @Nonnull

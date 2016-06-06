@@ -27,6 +27,16 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 
+/**
+ * A special {@link TreeMap} implementation based on
+ * {@link ICommonsNavigableMap}.
+ *
+ * @author Philip Helger
+ * @param <KEYTYPE>
+ *        Map key type
+ * @param <VALUETYPE>
+ *        Map value type
+ */
 public class CommonsTreeMap <KEYTYPE, VALUETYPE> extends TreeMap <KEYTYPE, VALUETYPE>
                             implements ICommonsNavigableMap <KEYTYPE, VALUETYPE>
 {
@@ -49,6 +59,13 @@ public class CommonsTreeMap <KEYTYPE, VALUETYPE> extends TreeMap <KEYTYPE, VALUE
                                     @Nonnull final Function <? super COLLTYPE, ? extends VALUETYPE> aValueMapper)
   {
     putAll (aValues, aKeyMapper, aValueMapper);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public <K, V> CommonsTreeMap <K, V> createInstance ()
+  {
+    return new CommonsTreeMap <> ();
   }
 
   @Nonnull

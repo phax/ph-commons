@@ -28,6 +28,16 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 
+/**
+ * A special {@link LinkedHashMap} implementation based on
+ * {@link ICommonsOrderedMap}.
+ *
+ * @author Philip Helger
+ * @param <KEYTYPE>
+ *        Map key type
+ * @param <VALUETYPE>
+ *        Map value type
+ */
 public class CommonsLinkedHashMap <KEYTYPE, VALUETYPE> extends LinkedHashMap <KEYTYPE, VALUETYPE>
                                   implements ICommonsOrderedMap <KEYTYPE, VALUETYPE>
 {
@@ -64,6 +74,13 @@ public class CommonsLinkedHashMap <KEYTYPE, VALUETYPE> extends LinkedHashMap <KE
   {
     super (CollectionHelper.getSize (aValues));
     putAll (aValues, aKeyMapper, aValueMapper);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public <K, V> CommonsLinkedHashMap <K, V> createInstance ()
+  {
+    return new CommonsLinkedHashMap <> ();
   }
 
   @Nonnull

@@ -24,6 +24,14 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 
+/**
+ * A special {@link CopyOnWriteArraySet} implementation based on
+ * {@link ICommonsSet}.
+ *
+ * @author Philip Helger
+ * @param <ELEMENTTYPE>
+ *        Set element type
+ */
 public class CommonsCopyOnWriteArraySet <ELEMENTTYPE> extends CopyOnWriteArraySet <ELEMENTTYPE>
                                         implements ICommonsSet <ELEMENTTYPE>
 {

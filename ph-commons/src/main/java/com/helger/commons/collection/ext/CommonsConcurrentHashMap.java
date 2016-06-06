@@ -27,6 +27,16 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 
+/**
+ * A special {@link ConcurrentHashMap} implementation based on
+ * {@link ICommonsMap}.
+ *
+ * @author Philip Helger
+ * @param <KEYTYPE>
+ *        Map key type
+ * @param <VALUETYPE>
+ *        Map value type
+ */
 public class CommonsConcurrentHashMap <KEYTYPE, VALUETYPE> extends ConcurrentHashMap <KEYTYPE, VALUETYPE>
                                       implements ICommonsMap <KEYTYPE, VALUETYPE>
 {
@@ -56,6 +66,13 @@ public class CommonsConcurrentHashMap <KEYTYPE, VALUETYPE> extends ConcurrentHas
   {
     super (CollectionHelper.getSize (aValues));
     putAll (aValues, aKeyMapper, aValueMapper);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public <K, V> CommonsConcurrentHashMap <K, V> createInstance ()
+  {
+    return new CommonsConcurrentHashMap <> ();
   }
 
   @Nonnull

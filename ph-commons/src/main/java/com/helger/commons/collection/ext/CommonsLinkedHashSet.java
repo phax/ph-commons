@@ -26,6 +26,14 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.CollectionHelper;
 
+/**
+ * A special {@link LinkedHashSet} implementation based on
+ * {@link ICommonsOrderedSet}.
+ *
+ * @author Philip Helger
+ * @param <ELEMENTTYPE>
+ *        Set element type
+ */
 public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTYPE>
                                   implements ICommonsOrderedSet <ELEMENTTYPE>
 {
@@ -65,6 +73,13 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
   {
     super (ArrayHelper.getSize (aValues));
     addAll (aValues);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public <T> CommonsLinkedHashSet <T> createInstance ()
+  {
+    return new CommonsLinkedHashSet <> ();
   }
 
   @Nonnull
