@@ -38,7 +38,10 @@ public interface IMicroAttribute extends Serializable, ICloneable <IMicroAttribu
    * @return May be <code>null</code> if this attribute has no namespace URI.
    */
   @Nullable
-  String getNamespaceURI ();
+  default String getNamespaceURI ()
+  {
+    return getAttributeQName ().getNamespaceURI ();
+  }
 
   /**
    * Check if this attribute has a specified namespace URI.
@@ -46,7 +49,10 @@ public interface IMicroAttribute extends Serializable, ICloneable <IMicroAttribu
    * @return <code>true</code> if this attribute has a specified namespace URI,
    *         <code>false</code> otherwise
    */
-  boolean hasNamespaceURI ();
+  default boolean hasNamespaceURI ()
+  {
+    return getAttributeQName ().hasNamespaceURI ();
+  }
 
   /**
    * Check if this attribute has no namespace URI.
@@ -54,7 +60,10 @@ public interface IMicroAttribute extends Serializable, ICloneable <IMicroAttribu
    * @return <code>true</code> if this attribute has no namespace URI,
    *         <code>false</code> otherwise
    */
-  boolean hasNoNamespaceURI ();
+  default boolean hasNoNamespaceURI ()
+  {
+    return getAttributeQName ().hasNoNamespaceURI ();
+  }
 
   /**
    * Check if this attribute has the specified namespace URI.
@@ -64,16 +73,22 @@ public interface IMicroAttribute extends Serializable, ICloneable <IMicroAttribu
    * @return <code>true</code> if this attribute has the specified namespace
    *         URI, <code>false</code> otherwise
    */
-  boolean hasNamespaceURI (@Nullable String sNamespaceURI);
+  default boolean hasNamespaceURI (@Nullable final String sNamespaceURI)
+  {
+    return getAttributeQName ().hasNamespaceURI (sNamespaceURI);
+  }
 
   /**
-   * Get the name of the attribute. It never contains XML schema prefixes or the
-   * like.
+   * Get the (local) name of the attribute. It never contains XML schema
+   * prefixes or the like.
    *
    * @return The name of the attribute and never <code>null</code>.
    */
   @Nonnull
-  String getAttributeName ();
+  default String getAttributeName ()
+  {
+    return getAttributeQName ().getName ();
+  }
 
   /**
    * Get the qualified name of the attribute. It never contains XML schema
@@ -89,7 +104,10 @@ public interface IMicroAttribute extends Serializable, ICloneable <IMicroAttribu
    * @return The regular XML QName of this attribute using an empty prefix.
    */
   @Nonnull
-  QName getAsXMLQName ();
+  default QName getAsXMLQName ()
+  {
+    return getAttributeQName ().getAsXMLQName ();
+  }
 
   /**
    * @param sPrefix
@@ -98,7 +116,10 @@ public interface IMicroAttribute extends Serializable, ICloneable <IMicroAttribu
    * @return The regular XML QName of this attribute using the provided prefix.
    */
   @Nonnull
-  QName getAsXMLQName (@Nonnull String sPrefix);
+  default QName getAsXMLQName (@Nonnull final String sPrefix)
+  {
+    return getAttributeQName ().getAsXMLQName (sPrefix);
+  }
 
   /**
    * @return The value associated with this attribute. Never <code>null</code>.

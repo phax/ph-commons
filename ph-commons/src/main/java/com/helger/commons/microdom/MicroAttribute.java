@@ -19,7 +19,6 @@ package com.helger.commons.microdom;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
-import javax.xml.namespace.QName;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
@@ -54,45 +53,6 @@ public class MicroAttribute implements IMicroAttribute
   {
     m_aQName = ValueEnforcer.notNull (aQName, "QName");
     m_sAttributeValue = ValueEnforcer.notNull (sAttributeValue, "AttributeValue");
-  }
-
-  @Nullable
-  public String getNamespaceURI ()
-  {
-    return m_aQName.getNamespaceURI ();
-  }
-
-  public boolean hasNamespaceURI ()
-  {
-    return m_aQName.hasNamespaceURI ();
-  }
-
-  public boolean hasNoNamespaceURI ()
-  {
-    return m_aQName.hasNoNamespaceURI ();
-  }
-
-  public boolean hasNamespaceURI (@Nullable final String sNamespaceURI)
-  {
-    return m_aQName.hasNamespaceURI (sNamespaceURI);
-  }
-
-  @Nonnull
-  public String getAttributeName ()
-  {
-    return m_aQName.getName ();
-  }
-
-  @Nonnull
-  public QName getAsXMLQName ()
-  {
-    return m_aQName.getAsXMLQName ();
-  }
-
-  @Nonnull
-  public QName getAsXMLQName (@Nonnull final String sPrefix)
-  {
-    return m_aQName.getAsXMLQName (sPrefix);
   }
 
   @Nonnull
