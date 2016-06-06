@@ -16,6 +16,9 @@
  */
 package com.helger.commons.microdom;
 
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -26,6 +29,7 @@ import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.collection.ext.ICommonsOrderedSet;
 import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.function.ITriConsumer;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.typeconvert.TypeConverter;
@@ -306,6 +310,34 @@ public interface IMicroElement extends IMicroNodeWithChildren
   @Nullable
   @ReturnsMutableCopy
   ICommonsList <String> getAllAttributeValues ();
+
+  /**
+   * Iterate all attribute objects.
+   *
+   * @param aConsumer
+   *        The consumer. May not be <code>null</code>. May only perform reading
+   *        operations!
+   */
+  void forAllAttributes (@Nonnull Consumer <? super IMicroAttribute> aConsumer);
+
+  /**
+   * Iterate all attribute objects.
+   *
+   * @param aConsumer
+   *        The consumer that takes the QName and the value. May not be
+   *        <code>null</code>. May only perform reading operations!
+   */
+  void forAllAttributes (@Nonnull BiConsumer <? super IMicroQName, ? super String> aConsumer);
+
+  /**
+   * Iterate all attribute objects.
+   *
+   * @param aConsumer
+   *        The consumer that takes the namespace URI, the attribute local name
+   *        and the attribute value. May not be <code>null</code>. May only
+   *        perform reading operations!
+   */
+  void forAllAttributes (@Nonnull ITriConsumer <? super String, ? super String, ? super String> aConsumer);
 
   /**
    * Set an attribute value of this element.

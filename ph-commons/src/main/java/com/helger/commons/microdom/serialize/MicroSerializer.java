@@ -26,7 +26,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsOrderedMap;
-import com.helger.commons.microdom.IMicroAttribute;
 import com.helger.commons.microdom.IMicroCDATA;
 import com.helger.commons.microdom.IMicroComment;
 import com.helger.commons.microdom.IMicroContainer;
@@ -237,31 +236,26 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
         sElementNSPrefix = m_aNSStack.getElementNamespacePrefixToUse (sElementNamespaceURI, bIsRootElement, aAttrMap);
       }
 
-      // Get all attributes
-      if (aElement.hasAttributes ())
-      {
-        // Delivers an ordered copy!
-        for (final IMicroAttribute aAttr : aElement.getAttributesIterable ())
+      // For all attributes (in the correct order)
+      aElement.forAllAttributes (aAttr -> {
+        final IMicroQName aAttrName = aAttr.getAttributeQName ();
+        final String sAttrNamespaceURI = StringHelper.getNotNull (aAttrName.getNamespaceURI ());
+        final String sAttrName = aAttrName.getName ();
+        final String sAttrValue = aAttr.getAttributeValue ();
+        String sAttrNSPrefix = null;
+        if (bEmitNamespaces)
         {
-          final IMicroQName aAttrName = aAttr.getAttributeQName ();
-          final String sAttrNamespaceURI = StringHelper.getNotNull (aAttrName.getNamespaceURI ());
-          final String sAttrName = aAttrName.getName ();
-          final String sAttrValue = aAttr.getAttributeValue ();
-          String sAttrNSPrefix = null;
-          if (bEmitNamespaces)
-          {
-            sAttrNSPrefix = m_aNSStack.getAttributeNamespacePrefixToUse (sAttrNamespaceURI,
-                                                                         sAttrName,
-                                                                         sAttrValue,
-                                                                         aAttrMap);
-          }
-
-          if (sAttrNSPrefix != null)
-            aAttrMap.put (aAttrName.getAsXMLQName (sAttrNSPrefix), sAttrValue);
-          else
-            aAttrMap.put (aAttrName.getAsXMLQName (), sAttrValue);
+          sAttrNSPrefix = m_aNSStack.getAttributeNamespacePrefixToUse (sAttrNamespaceURI,
+                                                                       sAttrName,
+                                                                       sAttrValue,
+                                                                       aAttrMap);
         }
-      }
+
+        if (sAttrNSPrefix != null)
+          aAttrMap.put (aAttrName.getAsXMLQName (sAttrNSPrefix), sAttrValue);
+        else
+          aAttrMap.put (aAttrName.getAsXMLQName (), sAttrValue);
+      });
 
       // Determine indent
       final IMicroElement aParentElement = aParentNode != null && aParentNode.isElement () ? (IMicroElement) aParentNode
