@@ -31,7 +31,6 @@ package com.helger.commons.function;
 @FunctionalInterface
 public interface IToBooleanFunction <T>
 {
-
   /**
    * Applies this function to the given argument.
    *

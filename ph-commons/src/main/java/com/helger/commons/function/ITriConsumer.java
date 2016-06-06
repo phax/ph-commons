@@ -40,7 +40,6 @@ import javax.annotation.Nonnull;
 @FunctionalInterface
 public interface ITriConsumer <T, U, V>
 {
-
   /**
    * Performs this operation on the given arguments.
    *
@@ -68,7 +67,7 @@ public interface ITriConsumer <T, U, V>
    *         if {@code after} is null
    */
   @Nonnull
-  default ITriConsumer <T, U, V> andThen (final ITriConsumer <? super T, ? super U, ? super V> after)
+  default ITriConsumer <T, U, V> andThen (@Nonnull final ITriConsumer <? super T, ? super U, ? super V> after)
   {
     Objects.requireNonNull (after);
     return (t, u, v) -> {
