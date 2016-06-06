@@ -96,6 +96,11 @@
         <artifactId>ph-jaxb</artifactId>
         <version>${project.version}</version>
       </dependency>
+      <dependency>
+        <groupId>com.helger</groupId>
+        <artifactId>ph-tree</artifactId>
+        <version>${project.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -116,5 +121,6 @@
     <module>ph-commons</module>
     <module>ph-less-commons</module>
     <module>ph-jaxb</module>
+    <module>ph-tree</module>
   </modules>
 </project>
