@@ -39,7 +39,6 @@ import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.function.IBreakableConsumer;
 import com.helger.commons.function.ITriConsumer;
-import com.helger.commons.mutable.MutableInt;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.EContinue;
 import com.helger.commons.string.StringHelper;
@@ -278,6 +277,82 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     return m_sTagName;
   }
 
+  @Nonnull
+  @ReturnsMutableCopy
+  public ICommonsList <IMicroElement> getAllChildElementsRecursive ()
+  {
+    final ICommonsList <IMicroElement> ret = new CommonsArrayList <> ();
+    _forAllChildElements (this, null, aChildElement -> {
+      ret.add (aChildElement);
+      ret.addAll (aChildElement.getAllChildElementsRecursive ());
+    });
+    return ret;
+  }
+
+  private static boolean _containsChildElementRecursive (@Nonnull final IMicroNode aStartNode,
+                                                         @Nonnull final Predicate <? super IMicroElement> aFilter)
+  {
+    return aStartNode.containsAnyChild (aChildNode -> {
+      if (aChildNode.isElement ())
+      {
+        final IMicroElement aChildElement = (IMicroElement) aChildNode;
+        if (aFilter == null || aFilter.test (aChildElement))
+          return true;
+      }
+      else
+        if (aChildNode.isContainer ())
+        {
+          if (_containsChildElementRecursive (aChildNode, aFilter))
+            return true;
+        }
+      return false;
+    });
+  }
+
+  public boolean containsAnyChildElement (@Nullable final Predicate <? super IMicroElement> aFilter)
+  {
+    return _containsChildElementRecursive (this, aFilter);
+  }
+
+  @Nonnull
+  private static EContinue _forAllChildElementsBreakable (@Nonnull final IMicroNode aStartNode,
+                                                          @Nonnull final Predicate <? super IMicroElement> aFilter,
+                                                          @Nonnull final IBreakableConsumer <? super IMicroElement> aConsumer)
+  {
+    return aStartNode.forAllChildrenBreakable (aChildNode -> {
+      if (aChildNode.isElement ())
+      {
+        final IMicroElement aChildElement = (IMicroElement) aChildNode;
+        if (aFilter == null || aFilter.test (aChildElement))
+          if (aConsumer.accept (aChildElement).isBreak ())
+            return EContinue.BREAK;
+      }
+      else
+        if (aChildNode.isContainer ())
+          if (_forAllChildElementsBreakable (aChildNode, aFilter, aConsumer).isBreak ())
+            return EContinue.BREAK;
+      return EContinue.CONTINUE;
+    });
+  }
+
+  private static IMicroElement _findFirstChildElement (@Nonnull final IMicroNode aStartNode,
+                                                       @Nullable final Predicate <? super IMicroElement> aFilter)
+  {
+    final Wrapper <IMicroElement> ret = new Wrapper <> ();
+    _forAllChildElementsBreakable (aStartNode, aFilter, x -> {
+      assert ret.isNotSet ();
+      ret.set (x);
+      return EContinue.BREAK;
+    });
+    return ret.get ();
+  }
+
+  @Nullable
+  public IMicroElement findFirstChildElement (@Nullable final Predicate <? super IMicroElement> aFilter)
+  {
+    return _findFirstChildElement (this, aFilter);
+  }
+
   private static void _forAllChildElements (@Nonnull final IMicroNode aStartNode,
                                             @Nonnull final Predicate <? super IMicroElement> aFilter,
                                             @Nonnull final Consumer <? super IMicroElement> aConsumer)
@@ -295,150 +370,17 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     });
   }
 
-  private static void _forAllChildElementsBreakable (@Nonnull final IMicroNode aStartNode,
-                                                     @Nonnull final Predicate <? super IMicroElement> aFilter,
-                                                     @Nonnull final IBreakableConsumer <? super IMicroElement> aConsumer)
+  public void forAllChildElements (@Nonnull final Predicate <? super IMicroElement> aFilter,
+                                   @Nonnull final Consumer <? super IMicroElement> aConsumer)
   {
-    aStartNode.forAllChildrenBreakable (aChildNode -> {
-      if (aChildNode.isElement ())
-      {
-        final IMicroElement aChildElement = (IMicroElement) aChildNode;
-        if (aFilter == null || aFilter.test (aChildElement))
-          if (aConsumer.accept (aChildElement).isBreak ())
-            return EContinue.BREAK;
-      }
-      else
-        if (aChildNode.isContainer ())
-          _forAllChildElementsBreakable (aChildNode, aFilter, aConsumer);
-      return EContinue.CONTINUE;
-    });
-  }
-
-  private static IMicroElement _findFirstChildElement (@Nonnull final IMicroNode aStartNode,
-                                                       @Nullable final Predicate <? super IMicroElement> aFilter)
-  {
-    final Wrapper <IMicroElement> ret = new Wrapper <> ();
-    _forAllChildElementsBreakable (aStartNode, aFilter, x -> {
-      assert ret.isNotSet ();
-      ret.set (x);
-      return EContinue.BREAK;
-    });
-    return ret.get ();
-  }
-
-  private static boolean _hasChildElement (@Nonnull final IMicroNode aStartNode,
-                                           @Nonnull final Predicate <? super IMicroElement> aFilter)
-  {
-    return aStartNode.containsAnyChild (aChildNode -> {
-      if (aChildNode.isElement ())
-      {
-        final IMicroElement aChildElement = (IMicroElement) aChildNode;
-        if (aFilter == null || aFilter.test (aChildElement))
-          return true;
-      }
-      else
-        if (aChildNode.isContainer ())
-        {
-          if (_hasChildElement (aChildNode, aFilter))
-            return true;
-        }
-      return false;
-    });
-  }
-
-  @Nonnegative
-  public int getChildElementCount ()
-  {
-    final MutableInt ret = new MutableInt ();
-    _forAllChildElements (this, null, aChildElement -> ret.inc ());
-    return ret.intValue ();
+    _forAllChildElements (this, aFilter, aConsumer);
   }
 
   @Nonnull
-  @ReturnsMutableCopy
-  public ICommonsList <IMicroElement> getAllChildElements ()
+  public EContinue forAllChildElementsBreakable (@Nonnull final Predicate <? super IMicroElement> aFilter,
+                                                 @Nonnull final IBreakableConsumer <? super IMicroElement> aConsumer)
   {
-    final ICommonsList <IMicroElement> ret = new CommonsArrayList <> ();
-    _forAllChildElements (this, null, ret::add);
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public ICommonsList <IMicroElement> getAllChildElements (@Nullable final String sTagName)
-  {
-    final ICommonsList <IMicroElement> ret = new CommonsArrayList <> ();
-    _forAllChildElements (this, aChildElement -> aChildElement.hasTagName (sTagName), ret::add);
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public ICommonsList <IMicroElement> getAllChildElements (@Nullable final String sNamespaceURI,
-                                                           @Nullable final String sLocalName)
-  {
-    if (StringHelper.hasNoText (sNamespaceURI))
-      return getAllChildElements (sLocalName);
-
-    final ICommonsList <IMicroElement> ret = new CommonsArrayList <> ();
-    _forAllChildElements (this,
-                          aChildElement -> aChildElement.hasNamespaceURI (sNamespaceURI) &&
-                                           aChildElement.hasLocalName (sLocalName),
-                          ret::add);
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public ICommonsList <IMicroElement> getAllChildElementsRecursive ()
-  {
-    final ICommonsList <IMicroElement> ret = new CommonsArrayList <> ();
-    _forAllChildElements (this, null, aChildElement -> {
-      ret.add (aChildElement);
-      ret.addAll (aChildElement.getAllChildElementsRecursive ());
-    });
-    return ret;
-  }
-
-  public boolean hasChildElements ()
-  {
-    return _hasChildElement (this, null);
-  }
-
-  public boolean hasChildElements (@Nullable final String sTagName)
-  {
-    return _hasChildElement (this, aChildElement -> aChildElement.hasTagName (sTagName));
-  }
-
-  public boolean hasChildElements (@Nullable final String sNamespaceURI, @Nullable final String sLocalName)
-  {
-    if (StringHelper.hasNoText (sNamespaceURI))
-      return hasChildElements (sLocalName);
-
-    return _hasChildElement (this, aChildElement -> aChildElement.hasNamespaceURI (sNamespaceURI) &&
-                                                    aChildElement.hasLocalName (sLocalName));
-  }
-
-  @Nullable
-  public IMicroElement getFirstChildElement ()
-  {
-    return _findFirstChildElement (this, null);
-  }
-
-  @Nullable
-  public IMicroElement getFirstChildElement (@Nullable final String sTagName)
-  {
-    return _findFirstChildElement (this, aChildElement -> aChildElement.hasTagName (sTagName));
-  }
-
-  @Nullable
-  public IMicroElement getFirstChildElement (@Nullable final String sNamespaceURI, @Nullable final String sLocalName)
-  {
-    if (StringHelper.hasNoText (sNamespaceURI))
-      return getFirstChildElement (sLocalName);
-
-    return _findFirstChildElement (this, aChildElement -> aChildElement.hasNamespaceURI (sNamespaceURI) &&
-                                                          aChildElement.hasLocalName (sLocalName));
+    return _forAllChildElementsBreakable (this, aFilter, aConsumer);
   }
 
   @Nonnull

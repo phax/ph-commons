@@ -26,6 +26,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.collection.ext.ICommonsCollection;
 import com.helger.commons.function.IBreakableConsumer;
+import com.helger.commons.state.EContinue;
 
 /**
  * A simple interface, indicating that an item has direct children.
@@ -88,11 +89,15 @@ public interface IHasChildren <CHILDTYPE>
    *
    * @param aConsumer
    *        The breakable consumer to be invoked. May not be <code>null</code>.
+   * @return {@link EContinue#BREAK} if iteration was stopped,
+   *         {@link EContinue#CONTINUE} otherwise.
    */
-  default void forAllChildrenBreakable (@Nonnull final IBreakableConsumer <? super CHILDTYPE> aConsumer)
+  @Nonnull
+  default EContinue forAllChildrenBreakable (@Nonnull final IBreakableConsumer <? super CHILDTYPE> aConsumer)
   {
     if (hasChildren ())
-      getAllChildren ().forEachBreakable (aConsumer);
+      return getAllChildren ().forEachBreakable (aConsumer);
+    return EContinue.CONTINUE;
   }
 
   /**

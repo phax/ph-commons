@@ -32,8 +32,10 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.function.IBreakableConsumer;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
+import com.helger.commons.state.EContinue;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -197,6 +199,14 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
       m_aChildren.forEach (aConsumer);
   }
 
+  @Nonnull
+  public final EContinue forAllChildrenBreakable (@Nonnull final IBreakableConsumer <? super ITEMTYPE> aConsumer)
+  {
+    if (m_aChildren != null)
+      return m_aChildren.forEachBreakable (aConsumer);
+    return EContinue.CONTINUE;
+  }
+
   public final void forAllChildren (@Nonnull final Predicate <? super ITEMTYPE> aFilter,
                                     @Nonnull final Consumer <? super ITEMTYPE> aConsumer)
   {
@@ -306,7 +316,7 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
 
     // Ensure children are present
     if (m_aChildren == null)
-      m_aChildren = new CommonsArrayList<> ();
+      m_aChildren = new CommonsArrayList <> ();
 
     return EChange.valueOf (m_aChildren.add (aChild));
   }

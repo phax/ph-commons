@@ -37,6 +37,7 @@ import com.helger.commons.collection.ext.ICommonsOrderedSet;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.function.IBreakableConsumer;
 import com.helger.commons.state.EChange;
+import com.helger.commons.state.EContinue;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.typeconvert.TypeConverter;
 
@@ -374,9 +375,10 @@ public abstract class AbstractMicroNode implements IMicroNode
     // empty
   }
 
-  public void forAllChildrenBreakable (@Nonnull final IBreakableConsumer <? super IMicroNode> aConsumer)
+  @Nonnull
+  public EContinue forAllChildrenBreakable (@Nonnull final IBreakableConsumer <? super IMicroNode> aConsumer)
   {
-    // empty
+    return EContinue.CONTINUE;
   }
 
   public void forAllChildren (@Nonnull final Predicate <? super IMicroNode> aFilter,

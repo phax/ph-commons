@@ -32,6 +32,7 @@ import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.function.IBreakableConsumer;
 import com.helger.commons.state.EChange;
+import com.helger.commons.state.EContinue;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.typeconvert.TypeConverter;
@@ -201,10 +202,12 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   }
 
   @Override
-  public void forAllChildrenBreakable (@Nonnull final IBreakableConsumer <? super IMicroNode> aConsumer)
+  @Nonnull
+  public EContinue forAllChildrenBreakable (@Nonnull final IBreakableConsumer <? super IMicroNode> aConsumer)
   {
     if (m_aChildren != null)
-      m_aChildren.forEachBreakable (aConsumer);
+      return m_aChildren.forEachBreakable (aConsumer);
+    return EContinue.CONTINUE;
   }
 
   @Override

@@ -39,6 +39,7 @@ import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.collection.iterate.IterableIterator;
 import com.helger.commons.function.IBreakableConsumer;
 import com.helger.commons.state.EChange;
+import com.helger.commons.state.EContinue;
 
 /**
  * Case collection interface for my extended collection classes.
@@ -68,16 +69,20 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
   /**
    * A special version of {@link #forEach(Consumer)} that can break iteration if
    * a certain requirement is fulfilled.
-   * 
+   *
    * @param aConsumer
    *        The consumer to be invoked. May not be <code>null</code>.
+   * @return {@link EContinue#BREAK} if iteration was stopped,
+   *         {@link EContinue#CONTINUE} otherwise.
    */
-  default void forEachBreakable (final IBreakableConsumer <? super ELEMENTTYPE> aConsumer)
+  @Nonnull
+  default EContinue forEachBreakable (final IBreakableConsumer <? super ELEMENTTYPE> aConsumer)
   {
     Objects.requireNonNull (aConsumer);
     for (final ELEMENTTYPE aElement : this)
       if (aConsumer.accept (aElement).isBreak ())
-        break;
+        return EContinue.BREAK;
+    return EContinue.CONTINUE;
   }
 
   /**

@@ -18,6 +18,7 @@ package com.helger.commons.microdom;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -25,12 +26,17 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.collection.ext.ICommonsOrderedSet;
 import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.filter.IFilter;
+import com.helger.commons.function.IBreakableConsumer;
 import com.helger.commons.function.ITriConsumer;
+import com.helger.commons.mutable.MutableInt;
 import com.helger.commons.state.EChange;
+import com.helger.commons.state.EContinue;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.typeconvert.TypeConverter;
 
@@ -807,10 +813,42 @@ public interface IMicroElement extends IMicroNodeWithChildren
   }
 
   /**
+   * Get the number of all direct child elements.
+   *
    * @return The number of all direct child elements. Always &ge; 0.
    */
   @Nonnegative
-  int getChildElementCount ();
+  default int getChildElementCount ()
+  {
+    return getChildElementCount ((Predicate <IMicroElement>) null);
+  }
+
+  /**
+   * Get the number of direct child elements that match the provided filter.
+   *
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @return The number of all direct child elements that match the provided
+   *         filter. Always &ge; 0.
+   */
+  @Nonnegative
+  default int getChildElementCount (@Nullable final Predicate <? super IMicroElement> aFilter)
+  {
+    final MutableInt ret = new MutableInt ();
+    forAllChildElements (aFilter, aChildElement -> ret.inc ());
+    return ret.intValue ();
+  }
+
+  @Nonnull
+  static IFilter <IMicroElement> filterNamespaceURIAndName (@Nullable final String sNamespaceURI,
+                                                            @Nullable final String sTagOrLocalName)
+  {
+    if (StringHelper.hasNoText (sNamespaceURI))
+      return aChildElement -> aChildElement.hasTagName (sTagOrLocalName);
+
+    return aChildElement -> aChildElement.hasNamespaceURI (sNamespaceURI) &&
+                            aChildElement.hasLocalName (sTagOrLocalName);
+  }
 
   /**
    * Get a list of all direct child elements. Text nodes and other other child
@@ -821,7 +859,10 @@ public interface IMicroElement extends IMicroNodeWithChildren
    */
   @Nonnull
   @ReturnsMutableCopy
-  ICommonsList <IMicroElement> getAllChildElements ();
+  default ICommonsList <IMicroElement> getAllChildElements ()
+  {
+    return getAllChildElements ((Predicate <IMicroElement>) null);
+  }
 
   /**
    * Get a list of all direct child elements having the specified tag name.
@@ -833,7 +874,10 @@ public interface IMicroElement extends IMicroNodeWithChildren
    */
   @Nonnull
   @ReturnsMutableCopy
-  ICommonsList <IMicroElement> getAllChildElements (@Nullable String sTagName);
+  default ICommonsList <IMicroElement> getAllChildElements (@Nullable final String sTagName)
+  {
+    return getAllChildElements (filterNamespaceURIAndName (null, sTagName));
+  }
 
   /**
    * Get a list of all direct child elements having the specified namespace and
@@ -847,7 +891,29 @@ public interface IMicroElement extends IMicroNodeWithChildren
    */
   @Nonnull
   @ReturnsMutableCopy
-  ICommonsList <IMicroElement> getAllChildElements (@Nullable String sNamespaceURI, @Nullable String sLocalName);
+  default ICommonsList <IMicroElement> getAllChildElements (@Nullable final String sNamespaceURI,
+                                                            @Nullable final String sLocalName)
+  {
+    return getAllChildElements (filterNamespaceURIAndName (sNamespaceURI, sLocalName));
+  }
+
+  /**
+   * Get a list of all direct child elements matching the provided filter. Micro
+   * container children are inlined.
+   *
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code> in which all
+   *        direct child elements are returned.
+   * @return A new list and never <code>null</code>.
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  default ICommonsList <IMicroElement> getAllChildElements (@Nullable final Predicate <? super IMicroElement> aFilter)
+  {
+    final ICommonsList <IMicroElement> ret = new CommonsArrayList <> ();
+    forAllChildElements (aFilter, ret::add);
+    return ret;
+  }
 
   /**
    * Recursively get all child elements. Micro container children are inlined.
@@ -860,27 +926,34 @@ public interface IMicroElement extends IMicroNodeWithChildren
   ICommonsList <IMicroElement> getAllChildElementsRecursive ();
 
   /**
-   * Check if this element has at least one child element. Micro container
-   * children are also checked.
+   * Check if this element has at least one direct child element. Micro
+   * container children are also checked.
    *
    * @return <code>true</code> if this element has at least one child element
    */
-  boolean hasChildElements ();
+  default boolean hasChildElements ()
+  {
+    return containsAnyChildElement (null);
+  }
 
   /**
-   * Check if this element has at least one child element with the specified tag
-   * name. Micro container children are also checked.
+   * Check if this element has at least one direct child element with the
+   * specified tag name. Micro container children are also checked.
    *
    * @param sTagName
    *        The tag name to check. May be <code>null</code>.
    * @return <code>true</code> if this element has at least one child element
    *         with the specified tag name
    */
-  boolean hasChildElements (@Nullable String sTagName);
+  default boolean hasChildElements (@Nullable final String sTagName)
+  {
+    return containsAnyChildElement (filterNamespaceURIAndName (null, sTagName));
+  }
 
   /**
-   * Check if this element has at least one child element with the specified
-   * namespace URI and tag name. Micro container children are also checked.
+   * Check if this element has at least one direct child element with the
+   * specified namespace URI and tag name. Micro container children are also
+   * checked.
    *
    * @param sNamespaceURI
    *        The namespace URI to check. May be <code>null</code>.
@@ -889,7 +962,22 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return <code>true</code> if this element has at least one child element
    *         with the specified namespace URI and tag name
    */
-  boolean hasChildElements (@Nullable String sNamespaceURI, @Nullable String sLocalName);
+  default boolean hasChildElements (@Nullable final String sNamespaceURI, @Nullable final String sLocalName)
+  {
+    return containsAnyChildElement (filterNamespaceURIAndName (sNamespaceURI, sLocalName));
+  }
+
+  /**
+   * Check if this element has at least one direct child element that matches
+   * the provided filter. Micro container children are also checked.
+   *
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @return <code>true</code> if this element has at least one direct child
+   *         element that matches the passed filter, <code>false</code>
+   *         otherwise.
+   */
+  boolean containsAnyChildElement (@Nullable Predicate <? super IMicroElement> aFilter);
 
   /**
    * Get the first child element of this element. Micro container children are
@@ -899,7 +987,10 @@ public interface IMicroElement extends IMicroNodeWithChildren
    *         child element.
    */
   @Nullable
-  IMicroElement getFirstChildElement ();
+  default IMicroElement getFirstChildElement ()
+  {
+    return findFirstChildElement (null);
+  }
 
   /**
    * Get the first child element with the given tag name. Micro container
@@ -910,7 +1001,10 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return <code>null</code> if no such child element is present
    */
   @Nullable
-  IMicroElement getFirstChildElement (@Nullable String sTagName);
+  default IMicroElement getFirstChildElement (@Nullable final String sTagName)
+  {
+    return findFirstChildElement (filterNamespaceURIAndName (null, sTagName));
+  }
 
   /**
    * Get the first child element with the given tag name and the given
@@ -923,7 +1017,31 @@ public interface IMicroElement extends IMicroNodeWithChildren
    * @return <code>null</code> if no such child element is present
    */
   @Nullable
-  IMicroElement getFirstChildElement (@Nullable String sNamespaceURI, @Nullable String sLocalName);
+  default IMicroElement getFirstChildElement (@Nullable final String sNamespaceURI, @Nullable final String sLocalName)
+  {
+    return findFirstChildElement (filterNamespaceURIAndName (sNamespaceURI, sLocalName));
+  }
+
+  @Nullable
+  IMicroElement findFirstChildElement (@Nullable Predicate <? super IMicroElement> aFilter);
+
+  default void forAllChildElements (@Nonnull final Consumer <? super IMicroElement> aConsumer)
+  {
+    forAllChildElements (null, aConsumer);
+  }
+
+  void forAllChildElements (@Nullable Predicate <? super IMicroElement> aFilter,
+                            @Nonnull Consumer <? super IMicroElement> aConsumer);
+
+  @Nonnull
+  default EContinue forAllChildElementsBreakable (@Nonnull final IBreakableConsumer <? super IMicroElement> aConsumer)
+  {
+    return forAllChildElementsBreakable (null, aConsumer);
+  }
+
+  @Nonnull
+  EContinue forAllChildElementsBreakable (@Nullable Predicate <? super IMicroElement> aFilter,
+                                          @Nonnull IBreakableConsumer <? super IMicroElement> aConsumer);
 
   /**
    * {@inheritDoc}

@@ -130,11 +130,10 @@ public class MimeTypeInfoManager
     if (aDoc == null)
       throw new IllegalArgumentException ("Failed to read MimeTypeInfo resource " + aRes);
 
-    for (final IMicroElement eItem : aDoc.getDocumentElement ().getAllChildElements ())
-    {
+    aDoc.getDocumentElement ().forAllChildElements (eItem -> {
       final MimeTypeInfo aInfo = MicroTypeConverter.convertToNative (eItem, MimeTypeInfo.class);
       registerMimeType (aInfo);
-    }
+    });
     return this;
   }
 
