@@ -35,6 +35,7 @@ import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.ext.ICommonsOrderedSet;
 import com.helger.commons.collection.ext.ICommonsSet;
+import com.helger.commons.function.IBreakableConsumer;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.typeconvert.TypeConverter;
@@ -373,6 +374,11 @@ public abstract class AbstractMicroNode implements IMicroNode
     // empty
   }
 
+  public void forAllChildrenBreakable (@Nonnull final IBreakableConsumer <? super IMicroNode> aConsumer)
+  {
+    // empty
+  }
+
   public void forAllChildren (@Nonnull final Predicate <? super IMicroNode> aFilter,
                               @Nonnull final Consumer <? super IMicroNode> aConsumer)
   {
@@ -610,11 +616,11 @@ public abstract class AbstractMicroNode implements IMicroNode
     ValueEnforcer.notNull (aTarget, "EventTarget");
 
     if (m_aEventTargets == null)
-      m_aEventTargets = new CommonsEnumMap<> (EMicroEvent.class);
+      m_aEventTargets = new CommonsEnumMap <> (EMicroEvent.class);
     ICommonsOrderedSet <IMicroEventTarget> aSet = m_aEventTargets.get (eEventType);
     if (aSet == null)
     {
-      aSet = new CommonsLinkedHashSet<> ();
+      aSet = new CommonsLinkedHashSet <> ();
       m_aEventTargets.put (eEventType, aSet);
     }
     return EChange.valueOf (aSet.add (aTarget));

@@ -32,7 +32,8 @@ public enum EHierarchyVisitorReturn
   /**
    * Skip the child elements of the current element and go to the next sibling.
    * This can only be returned before children are iterated.<br>
-   * Important: this enum constant is never explicitly queried but it IS used!
+   * Important: this enum constant is never explicitly queried but it is
+   * implicitly used!
    */
   USE_NEXT_SIBLING,
 

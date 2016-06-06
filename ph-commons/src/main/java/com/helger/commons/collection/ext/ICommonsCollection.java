@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -36,6 +37,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.collection.iterate.IterableIterator;
+import com.helger.commons.function.IBreakableConsumer;
 import com.helger.commons.state.EChange;
 
 /**
@@ -61,6 +63,21 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
   default ICommonsList <ELEMENTTYPE> getCopyAsList ()
   {
     return new CommonsArrayList <> (this);
+  }
+
+  /**
+   * A special version of {@link #forEach(Consumer)} that can break iteration if
+   * a certain requirement is fulfilled.
+   * 
+   * @param aConsumer
+   *        The consumer to be invoked. May not be <code>null</code>.
+   */
+  default void forEachBreakable (final IBreakableConsumer <? super ELEMENTTYPE> aConsumer)
+  {
+    Objects.requireNonNull (aConsumer);
+    for (final ELEMENTTYPE aElement : this)
+      if (aConsumer.accept (aElement).isBreak ())
+        break;
   }
 
   /**

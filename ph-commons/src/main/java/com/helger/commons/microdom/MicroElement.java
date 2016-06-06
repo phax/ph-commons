@@ -37,9 +37,11 @@ import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.collection.ext.ICommonsOrderedSet;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.function.IBreakableConsumer;
 import com.helger.commons.function.ITriConsumer;
 import com.helger.commons.mutable.MutableInt;
 import com.helger.commons.state.EChange;
+import com.helger.commons.state.EContinue;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.typeconvert.TypeConverter;
@@ -293,13 +295,33 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     });
   }
 
+  private static void _forAllChildElementsBreakable (@Nonnull final IMicroNode aStartNode,
+                                                     @Nonnull final Predicate <? super IMicroElement> aFilter,
+                                                     @Nonnull final IBreakableConsumer <? super IMicroElement> aConsumer)
+  {
+    aStartNode.forAllChildrenBreakable (aChildNode -> {
+      if (aChildNode.isElement ())
+      {
+        final IMicroElement aChildElement = (IMicroElement) aChildNode;
+        if (aFilter == null || aFilter.test (aChildElement))
+          if (aConsumer.accept (aChildElement).isBreak ())
+            return EContinue.BREAK;
+      }
+      else
+        if (aChildNode.isContainer ())
+          _forAllChildElementsBreakable (aChildNode, aFilter, aConsumer);
+      return EContinue.CONTINUE;
+    });
+  }
+
   private static IMicroElement _findFirstChildElement (@Nonnull final IMicroNode aStartNode,
-                                                       @Nonnull final Predicate <? super IMicroElement> aFilter)
+                                                       @Nullable final Predicate <? super IMicroElement> aFilter)
   {
     final Wrapper <IMicroElement> ret = new Wrapper <> ();
-    _forAllChildElements (aStartNode, aFilter, aChildElement -> {
-      if (ret.isNotSet ())
-        ret.set (aChildElement);
+    _forAllChildElementsBreakable (aStartNode, aFilter, x -> {
+      assert ret.isNotSet ();
+      ret.set (x);
+      return EContinue.BREAK;
     });
     return ret.get ();
   }
