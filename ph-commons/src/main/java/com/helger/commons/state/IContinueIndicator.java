@@ -41,12 +41,24 @@ public interface IContinueIndicator
   @Nonnull
   default EContinue or (@Nonnull final IContinueIndicator aContinue)
   {
-    return EContinue.valueOf (isContinue () || aContinue.isContinue ());
+    return or (aContinue.isContinue ());
+  }
+
+  @Nonnull
+  default EContinue or (final boolean bContinue)
+  {
+    return EContinue.valueOf (isContinue () || bContinue);
   }
 
   @Nonnull
   default EContinue and (@Nonnull final IContinueIndicator aContinue)
   {
-    return EContinue.valueOf (isContinue () && aContinue.isContinue ());
+    return and (aContinue.isContinue ());
+  }
+
+  @Nonnull
+  default EContinue and (final boolean bContinue)
+  {
+    return EContinue.valueOf (isContinue () && bContinue);
   }
 }
