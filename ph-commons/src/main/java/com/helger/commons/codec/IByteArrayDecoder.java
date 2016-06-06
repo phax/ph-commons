@@ -89,7 +89,7 @@ public interface IByteArrayDecoder extends IDecoder <byte [], byte []>
    */
   @Nullable
   @ReturnsMutableCopy
-  default public byte [] getDecoded (@Nullable final String sEncoded, @Nonnull final Charset aCharset)
+  default byte [] getDecoded (@Nullable final String sEncoded, @Nonnull final Charset aCharset)
   {
     if (sEncoded == null)
       return null;

@@ -123,7 +123,7 @@ public interface IByteArrayStreamDecoder extends IByteArrayDecoder
    *         in case something goes wrong
    */
   @Nullable
-  default public String getDecodedAsString (@Nullable final String sEncoded, @Nonnull final Charset aCharset)
+  default String getDecodedAsString (@Nullable final String sEncoded, @Nonnull final Charset aCharset)
   {
     if (sEncoded == null)
       return null;

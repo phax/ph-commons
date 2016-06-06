@@ -124,7 +124,7 @@ public interface IByteArrayStreamEncoder extends IByteArrayEncoder
    */
   @Nullable
   @ReturnsMutableCopy
-  default public byte [] getEncoded (@Nullable final String sDecoded, @Nonnull final Charset aCharset)
+  default byte [] getEncoded (@Nullable final String sDecoded, @Nonnull final Charset aCharset)
   {
     if (sDecoded == null)
       return null;
@@ -170,7 +170,7 @@ public interface IByteArrayStreamEncoder extends IByteArrayEncoder
    *         In case something goes wrong
    */
   @Nullable
-  default public String getEncodedAsString (@Nullable final String sDecoded, @Nonnull final Charset aCharset)
+  default String getEncodedAsString (@Nullable final String sDecoded, @Nonnull final Charset aCharset)
   {
     if (sDecoded == null)
       return null;
