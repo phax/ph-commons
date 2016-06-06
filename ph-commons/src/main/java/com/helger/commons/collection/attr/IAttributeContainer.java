@@ -45,7 +45,8 @@ import com.helger.commons.typeconvert.TypeConverter;
  * @param <VALUETYPE>
  *        Value type
  */
-public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends Serializable
+public interface IAttributeContainer <KEYTYPE, VALUETYPE>
+                                     extends Iterable <Map.Entry <KEYTYPE, VALUETYPE>>, Serializable
 {
   /**
    * @return The number of contained attributes. Always &ge; 0.
@@ -431,5 +432,5 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends Serializable
    * @return An iterator over all entries.
    */
   @Nonnull
-  Iterator <Map.Entry <KEYTYPE, VALUETYPE>> getIterator ();
+  Iterator <Map.Entry <KEYTYPE, VALUETYPE>> iterator ();
 }

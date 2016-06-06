@@ -66,9 +66,10 @@ public class MapBasedAttributeContainer <KEYTYPE, VALUETYPE>
     this (true, new CommonsHashMap <> (aMap));
   }
 
-  public MapBasedAttributeContainer (@Nonnull final IAttributeContainer <? extends KEYTYPE, ? extends VALUETYPE> aCont)
+  public MapBasedAttributeContainer (@Nonnull final IAttributeContainer <KEYTYPE, VALUETYPE> aCont)
   {
-    this (true, new CommonsHashMap <> (aCont.getAllAttributes ()));
+    // Must already be a copy!
+    this (true, aCont.getAllAttributes ());
   }
 
   protected MapBasedAttributeContainer (final boolean bDummy, @Nonnull final ICommonsMap <KEYTYPE, VALUETYPE> aAttrMap)

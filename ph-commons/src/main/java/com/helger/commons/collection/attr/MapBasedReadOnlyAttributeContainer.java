@@ -83,7 +83,7 @@ public class MapBasedReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> implements 
   }
 
   @Nonnull
-  public Iterator <Map.Entry <KEYTYPE, VALUETYPE>> getIterator ()
+  public Iterator <Map.Entry <KEYTYPE, VALUETYPE>> iterator ()
   {
     return m_aAttrs.entrySet ().iterator ();
   }

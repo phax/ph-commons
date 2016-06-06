@@ -52,7 +52,7 @@ public class MapBasedAttributeContainerAny <KEYTYPE> extends MapBasedAttributeCo
     super (aMap);
   }
 
-  public MapBasedAttributeContainerAny (@Nonnull final IAttributeContainer <? extends KEYTYPE, ? extends Object> aCont)
+  public MapBasedAttributeContainerAny (@Nonnull final IAttributeContainer <KEYTYPE, Object> aCont)
   {
     super (aCont);
   }
