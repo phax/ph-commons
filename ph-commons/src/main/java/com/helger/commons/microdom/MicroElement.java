@@ -16,7 +16,6 @@
  */
 package com.helger.commons.microdom;
 
-import java.util.Collections;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -33,7 +32,6 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsLinkedHashMap;
-import com.helger.commons.collection.ext.CommonsLinkedHashSet;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.collection.ext.ICommonsOrderedSet;
@@ -134,14 +132,6 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     return m_aAttrs.copyOfValues ();
   }
 
-  @Nonnull
-  public Iterable <? extends IMicroAttribute> getAttributesIterable ()
-  {
-    if (hasNoAttributes ())
-      return Collections.emptyList ();
-    return m_aAttrs.values ();
-  }
-
   @Nullable
   @ReturnsMutableCopy
   public ICommonsOrderedMap <IMicroQName, String> getAllQAttributes ()
@@ -155,29 +145,11 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
 
   @Nullable
   @ReturnsMutableCopy
-  public ICommonsOrderedSet <String> getAllAttributeNames ()
-  {
-    if (hasNoAttributes ())
-      return null;
-    return new CommonsLinkedHashSet <> (m_aAttrs.keySet (), IMicroQName::getName);
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
   public ICommonsOrderedSet <IMicroQName> getAllAttributeQNames ()
   {
     if (hasNoAttributes ())
       return null;
     return m_aAttrs.copyOfKeySet ();
-  }
-
-  @Nullable
-  @ReturnsMutableCopy
-  public ICommonsList <String> getAllAttributeValues ()
-  {
-    if (hasNoAttributes ())
-      return null;
-    return new CommonsArrayList <> (m_aAttrs.values (), IMicroAttribute::getAttributeValue);
   }
 
   public void forAllAttributes (@Nonnull final Consumer <? super IMicroAttribute> aConsumer)

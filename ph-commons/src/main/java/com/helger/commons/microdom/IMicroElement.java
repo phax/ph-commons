@@ -263,14 +263,6 @@ public interface IMicroElement extends IMicroNodeWithChildren
   ICommonsList <? extends IMicroAttribute> getAllAttributeObjs ();
 
   /**
-   * Get an iterator over all attributes.
-   *
-   * @return Never <code>null</code>.
-   */
-  @Nonnull
-  Iterable <? extends IMicroAttribute> getAttributesIterable ();
-
-  /**
    * Get a map of all fully qualified attribute names and values. Is ensured to
    * be not <code>null</code> if {@link #hasAttributes()} returns
    * <code>true</code>.
@@ -289,27 +281,7 @@ public interface IMicroElement extends IMicroNodeWithChildren
    */
   @Nullable
   @ReturnsMutableCopy
-  ICommonsOrderedSet <String> getAllAttributeNames ();
-
-  /**
-   * Get a set of all attribute names. Is ensured to be not <code>null</code> if
-   * {@link #hasAttributes()} returns <code>true</code>.
-   *
-   * @return May be <code>null</code>.
-   */
-  @Nullable
-  @ReturnsMutableCopy
   ICommonsOrderedSet <IMicroQName> getAllAttributeQNames ();
-
-  /**
-   * Get a set of all attribute values. Is ensured to be not <code>null</code>
-   * if {@link #hasAttributes()} returns <code>true</code>.
-   *
-   * @return May be <code>null</code>.
-   */
-  @Nullable
-  @ReturnsMutableCopy
-  ICommonsList <String> getAllAttributeValues ();
 
   /**
    * Iterate all attribute objects.
