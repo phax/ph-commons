@@ -29,9 +29,9 @@ import org.junit.Test;
 
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.xml.transform.TransformSourceFactory;
 import com.helger.jaxb.JAXBContextCache;
 import com.helger.jaxb.mock.external.MockJAXBArchive;
+import com.helger.xml.transform.TransformSourceFactory;
 
 /**
  * Test class for class {@link CollectingValidationEventHandler}.

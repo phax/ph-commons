@@ -29,11 +29,6 @@ import com.helger.commons.hierarchy.ChildrenProviderHasChildrenSorting;
 import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
 import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
 import com.helger.commons.id.IHasID;
-import com.helger.commons.microdom.IMicroDocument;
-import com.helger.commons.microdom.IMicroElement;
-import com.helger.commons.microdom.MicroElement;
-import com.helger.commons.microdom.util.ChildrenProviderElementWithName;
-import com.helger.commons.microdom.util.MicroVisitor;
 import com.helger.tree.IBasicTree;
 import com.helger.tree.ITreeItem;
 import com.helger.tree.util.TreeVisitor;
@@ -41,6 +36,11 @@ import com.helger.tree.withid.BasicTreeWithID;
 import com.helger.tree.withid.DefaultTreeWithID;
 import com.helger.tree.withid.ITreeItemWithID;
 import com.helger.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
+import com.helger.xml.microdom.IMicroDocument;
+import com.helger.xml.microdom.IMicroElement;
+import com.helger.xml.microdom.MicroElement;
+import com.helger.xml.microdom.util.ChildrenProviderElementWithName;
+import com.helger.xml.microdom.util.MicroVisitor;
 
 /**
  * Convert a tree to XML

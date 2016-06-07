@@ -34,7 +34,7 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.xml.schema.XMLSchemaCache;
+import com.helger.xml.schema.XMLSchemaCache;
 
 /**
  * Stand alone implementation of {@link IJAXBDocumentType}. It is not

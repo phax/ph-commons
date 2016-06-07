@@ -48,9 +48,9 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.lang.IHasClassLoader;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.ESuccess;
-import com.helger.commons.xml.schema.XMLSchemaCache;
 import com.helger.jaxb.validation.CollectingLoggingValidationEventHandlerFactory;
 import com.helger.jaxb.validation.IValidationEventHandlerFactory;
+import com.helger.xml.schema.XMLSchemaCache;
 
 /**
  * This is the abstract reader and writer base class for JAXB enabled document

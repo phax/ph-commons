@@ -23,13 +23,13 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.microdom.IMicroElement;
-import com.helger.commons.microdom.convert.MicroTypeConverter;
+import com.helger.xml.microdom.IMicroElement;
+import com.helger.xml.microdom.convert.MicroTypeConverter;
 
 /**
  * A special implementation of {@link IConverterTreeXML} that uses the
  * conversion rules stored in the
- * {@link com.helger.commons.microdom.convert.MicroTypeConverterRegistry}.
+ * {@link com.helger.xml.microdom.convert.MicroTypeConverterRegistry}.
  *
  * @author Philip Helger
  * @param <DATATYPE>

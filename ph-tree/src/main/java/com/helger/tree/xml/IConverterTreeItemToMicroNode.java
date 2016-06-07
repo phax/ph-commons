@@ -19,7 +19,7 @@ package com.helger.tree.xml;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.microdom.IMicroElement;
+import com.helger.xml.microdom.IMicroElement;
 
 /**
  * Interface used to convert a single tree item data value to a micro node.

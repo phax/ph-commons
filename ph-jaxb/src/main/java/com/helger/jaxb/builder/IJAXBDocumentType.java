@@ -30,8 +30,8 @@ import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.error.IResourceErrorGroup;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.xml.schema.IHasSchema;
-import com.helger.commons.xml.schema.XMLSchemaValidationHelper;
+import com.helger.xml.schema.IHasSchema;
+import com.helger.xml.schema.XMLSchemaValidationHelper;
 
 /**
  * Base interface describing a single JAXB based document type, independent of
@@ -102,7 +102,7 @@ public interface IJAXBDocumentType extends IHasSchema, Serializable
    *        The class loader to be used. May be <code>null</code> indicating
    *        that the default class loader should be used.
    * @return The compiled {@link Schema} object retrieved by the
-   *         {@link com.helger.commons.xml.schema.XMLSchemaCache}. May be
+   *         {@link com.helger.xml.schema.XMLSchemaCache}. May be
    *         <code>null</code> if no XSD was provided.
    */
   @Nullable

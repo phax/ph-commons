@@ -37,9 +37,9 @@ import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.xml.XMLHelper;
 import com.helger.jaxb.IJAXBReader;
 import com.helger.jaxb.validation.LoggingValidationEventHandler;
+import com.helger.xml.XMLHelper;
 
 /**
  * Builder class for reading JAXB documents.

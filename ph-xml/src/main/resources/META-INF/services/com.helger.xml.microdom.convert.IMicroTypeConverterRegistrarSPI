@@ -1,0 +1,3 @@
+com.helger.xml.microdom.convert.BasicMicroTypeConverterRegistrar
+com.helger.xml.microdom.convert.MultilingualTextMicroTypeConverterRegistrar
+com.helger.xml.util.mime.MimeTypeInfoMicroTypeConverterRegistrar

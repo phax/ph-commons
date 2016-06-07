@@ -35,7 +35,7 @@ import org.junit.Test;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.commons.lang.ClassLoaderHelper;
-import com.helger.commons.xml.transform.TransformSourceFactory;
+import com.helger.xml.transform.TransformSourceFactory;
 
 /**
  * Test class for class {@link JAXBContextCache}.

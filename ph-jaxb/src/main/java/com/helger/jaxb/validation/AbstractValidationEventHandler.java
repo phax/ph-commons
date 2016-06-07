@@ -37,7 +37,7 @@ import com.helger.commons.error.IResourceLocation;
 import com.helger.commons.error.ResourceError;
 import com.helger.commons.error.ResourceLocation;
 import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.xml.serialize.write.XMLWriter;
+import com.helger.xml.serialize.write.XMLWriter;
 
 /**
  * An abstract implementation of the JAXB {@link ValidationEventHandler}

@@ -35,10 +35,10 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.mutable.MutableBoolean;
-import com.helger.commons.xml.namespace.MapBasedNamespaceContext;
 import com.helger.jaxb.mock.MockMarshallerExternal;
 import com.helger.jaxb.mock.MockMarshallerInternal;
 import com.helger.jaxb.mock.internal.MockJAXBCollection;
+import com.helger.xml.namespace.MapBasedNamespaceContext;
 
 /**
  * Test class for class {@link JAXBMarshallerHelper}.

@@ -21,9 +21,9 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
 import javax.xml.namespace.QName;
 
-import com.helger.commons.xml.namespace.MapBasedNamespaceContext;
 import com.helger.jaxb.AbstractJAXBMarshaller;
 import com.helger.jaxb.JAXBMarshallerHelper;
+import com.helger.xml.namespace.MapBasedNamespaceContext;
 
 public final class MockMarshallerInternal extends AbstractJAXBMarshaller <com.helger.jaxb.mock.internal.MockJAXBArchive>
 {

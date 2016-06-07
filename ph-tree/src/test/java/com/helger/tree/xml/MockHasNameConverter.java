@@ -19,10 +19,10 @@ package com.helger.tree.xml;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.microdom.IMicroElement;
-import com.helger.commons.microdom.util.MicroHelper;
 import com.helger.tree.mock.MockHasName;
 import com.helger.tree.xml.IConverterTreeXML;
+import com.helger.xml.microdom.IMicroElement;
+import com.helger.xml.microdom.util.MicroHelper;
 
 public final class MockHasNameConverter implements IConverterTreeXML <MockHasName>
 {

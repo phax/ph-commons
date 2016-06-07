@@ -24,15 +24,15 @@ import java.util.Comparator;
 import org.junit.Test;
 
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.microdom.IMicroDocument;
-import com.helger.commons.microdom.IMicroElement;
-import com.helger.commons.microdom.serialize.MicroReader;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.tree.DefaultTree;
 import com.helger.tree.IBasicTreeItem;
 import com.helger.tree.mock.MockHasName;
 import com.helger.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
 import com.helger.tree.xml.TreeXMLConverter;
+import com.helger.xml.microdom.IMicroDocument;
+import com.helger.xml.microdom.IMicroElement;
+import com.helger.xml.microdom.serialize.MicroReader;
 
 /**
  * Test class for class {@link TreeXMLConverter}.

@@ -34,8 +34,8 @@ import com.helger.commons.io.stream.ByteBufferOutputStream;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.state.ESuccess;
-import com.helger.commons.xml.XMLFactory;
-import com.helger.commons.xml.transform.TransformResultFactory;
+import com.helger.xml.XMLFactory;
+import com.helger.xml.transform.TransformResultFactory;
 
 /**
  * Interface for writing JAXB documents to various destinations.
