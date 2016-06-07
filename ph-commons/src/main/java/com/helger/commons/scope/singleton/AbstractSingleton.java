@@ -39,7 +39,6 @@ import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.debug.GlobalDebug;
-import com.helger.commons.exception.LoggedRuntimeException;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.mutable.MutableBoolean;
 import com.helger.commons.scope.IScope;
@@ -463,7 +462,9 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
     }
     catch (final Throwable t)
     {
-      throw LoggedRuntimeException.newException (t);
+      if (t instanceof RuntimeException)
+        throw (RuntimeException) t;
+      throw new RuntimeException (t);
     }
   }
 

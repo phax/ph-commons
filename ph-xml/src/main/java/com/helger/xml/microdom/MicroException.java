@@ -16,14 +16,12 @@
  */
 package com.helger.xml.microdom;
 
-import com.helger.commons.exception.LoggedRuntimeException;
-
 /**
  * Special MicroDOM exception.
  *
  * @author Philip Helger
  */
-public class MicroException extends LoggedRuntimeException
+public class MicroException extends RuntimeException
 {
   public MicroException (final String sMsg)
   {
