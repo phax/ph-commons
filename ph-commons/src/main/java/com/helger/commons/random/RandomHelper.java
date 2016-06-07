@@ -21,6 +21,7 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 /**
@@ -55,5 +56,13 @@ public final class RandomHelper
     if (isUseSecureRandom ())
       return VerySecureRandom.getInstance ();
     return new Random ();
+  }
+
+  @Nullable
+  public static SecureRandom getSecureRandom ()
+  {
+    if (isUseSecureRandom ())
+      return VerySecureRandom.getInstance ();
+    return null;
   }
 }
