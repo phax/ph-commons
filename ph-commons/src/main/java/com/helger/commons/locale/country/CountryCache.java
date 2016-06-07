@@ -30,7 +30,6 @@ import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.Singleton;
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsHashSet;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
@@ -63,7 +62,7 @@ public final class CountryCache
 
   /** Contains all known countries (as ISO 3166 2-letter codes). */
   @GuardedBy ("m_aRWLock")
-  private final ICommonsSet <String> m_aCountries = new CommonsHashSet <> ();
+  private final ICommonsSet <String> m_aCountries = new CommonsHashSet<> ();
 
   private CountryCache ()
   {
@@ -136,11 +135,9 @@ public final class CountryCache
   @ReturnsMutableCopy
   public ICommonsSet <Locale> getAllCountryLocales ()
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.newSetMapped (m_aCountries,
-                                                                       sCountry -> LocaleCache.getInstance ()
-                                                                                              .getLocale ("",
-                                                                                                          sCountry,
-                                                                                                          "")));
+    return m_aRWLock.readLocked ( () -> new CommonsHashSet<> (m_aCountries,
+                                                              sCountry -> LocaleCache.getInstance ()
+                                                                                     .getLocale ("", sCountry, "")));
   }
 
   /**

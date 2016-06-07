@@ -24,7 +24,7 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -52,8 +52,8 @@ public final class ResourceErrorGroupTest
     assertFalse (aREG.isEmpty ());
     assertEquals (2, aREG.getSize ());
 
-    aREG = new ResourceErrorGroup (CollectionHelper.newList (new ResourceError (loc, EErrorLevel.ERROR, "mock error"),
-                                                             new ResourceError (loc, EErrorLevel.WARN, "mock msg")));
+    aREG = new ResourceErrorGroup (new CommonsArrayList<> (new ResourceError (loc, EErrorLevel.ERROR, "mock error"),
+                                                           new ResourceError (loc, EErrorLevel.WARN, "mock msg")));
     assertFalse (aREG.isEmpty ());
     assertEquals (2, aREG.getSize ());
 
@@ -197,7 +197,7 @@ public final class ResourceErrorGroupTest
     assertFalse (aREG.containsNoFailure ());
     assertFalse (aREG.containsNoError ());
 
-    assertEquals (1, CollectionHelper.newList (aREG2).size ());
+    assertEquals (1, new CommonsArrayList<> (aREG2).size ());
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ResourceErrorGroup (),
                                                                        new ResourceErrorGroup ());

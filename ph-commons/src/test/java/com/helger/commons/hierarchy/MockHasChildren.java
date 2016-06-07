@@ -21,7 +21,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsCollection;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.equals.EqualsHelper;
@@ -35,7 +35,7 @@ public final class MockHasChildren implements IHasChildren <MockHasChildren>, IH
   public MockHasChildren (@Nonnull final String sID, @Nullable final MockHasChildren... aList)
   {
     m_sID = sID;
-    m_aList = CollectionHelper.newList (aList);
+    m_aList = new CommonsArrayList<> (aList);
   }
 
   public String getID ()

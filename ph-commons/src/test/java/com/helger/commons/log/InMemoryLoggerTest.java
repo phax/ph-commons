@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.error.EErrorLevel;
 
 /**
@@ -50,6 +50,6 @@ public final class InMemoryLoggerTest
     assertEquals (5, log.getAllMessages ().size ());
     assertNotNull (log.toString ());
     log.log (EErrorLevel.WARN, "msg");
-    assertFalse (CollectionHelper.newList (log).isEmpty ());
+    assertFalse (new CommonsArrayList<> (log).isEmpty ());
   }
 }

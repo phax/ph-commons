@@ -23,11 +23,11 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 
 /**
  * Test class for class {@link GenericReflection}.
@@ -39,9 +39,9 @@ public final class GenericReflectionTest
   @Test
   public void testUncheckedCast ()
   {
-    final List <String> l = CollectionHelper.newList ("a", "b");
+    final ICommonsList <String> l = new CommonsArrayList<> ("a", "b");
     final Object o = l;
-    final List <String> l2 = GenericReflection.uncheckedCast (o);
+    final ICommonsList <String> l2 = GenericReflection.uncheckedCast (o);
     assertSame (l, l2);
   }
 

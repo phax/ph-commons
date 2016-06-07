@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Comparator;
 
 import javax.annotation.Nonnull;
 
@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.FileOperationManager;
 import com.helger.commons.io.file.FileOperations;
@@ -143,8 +143,8 @@ public final class JavaFileAccessFuncTest
       _exec ("chmod", "-v", "711", fTempDir.getAbsolutePath ());
 
       // Test there readability
-      final List <File> aFiles = FileHelper.getDirectoryContent (fTempDir);
-      for (final File f : CollectionHelper.getSorted (aFiles))
+      final ICommonsList <File> aFiles = FileHelper.getDirectoryContent (fTempDir);
+      for (final File f : aFiles.getSorted (Comparator.naturalOrder ()))
       {
         final boolean bCanRead = FileHelper.canRead (f);
         final boolean bCanWrite = FileHelper.canWrite (f);

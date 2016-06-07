@@ -23,12 +23,11 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 import java.util.Collection;
-import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -43,7 +42,7 @@ public final class IAggregatorTest
   public void testNull ()
   {
     final IAggregator <String, String> a1 = IAggregator.createNull ();
-    assertNull (a1.apply (CollectionHelper.newList ("a", "b")));
+    assertNull (a1.apply (new CommonsArrayList<> ("a", "b")));
     assertNull (a1.apply (new CommonsArrayList <String> ()));
   }
 
@@ -51,7 +50,7 @@ public final class IAggregatorTest
   public void testConstant ()
   {
     final IAggregator <String, String> a1 = IAggregator.createConstant ("foo");
-    assertEquals ("foo", a1.apply (CollectionHelper.newList ("a", "b")));
+    assertEquals ("foo", a1.apply (new CommonsArrayList<> ("a", "b")));
     assertEquals ("foo", a1.apply (new CommonsArrayList <String> ()));
   }
 
@@ -67,7 +66,7 @@ public final class IAggregatorTest
     assertFalse (a1.hashCode () == 0);
     assertFalse (a1.hashCode () == "any other".hashCode ());
     assertNotNull (a1.toString ());
-    final List <String> l = CollectionHelper.newList ("a", null, "b", "", "c");
+    final ICommonsList <String> l = new CommonsArrayList<> ("a", null, "b", "", "c");
     assertEquals (l, a1.apply (l));
     assertEquals (l, a2.apply (l));
   }
@@ -83,7 +82,7 @@ public final class IAggregatorTest
     assertFalse (a1.hashCode () == 0);
     assertFalse (a1.hashCode () == "any other".hashCode ());
     assertNotNull (a1.toString ());
-    final List <String> l = CollectionHelper.newList ("a", null, "b", "", "c");
+    final ICommonsList <String> l = new CommonsArrayList<> ("a", null, "b", "", "c");
     assertEquals ("a", a1.apply (l));
     assertNull (a1.apply (new CommonsArrayList <String> ()));
     assertNull (a1.apply ((Collection <String>) null));
@@ -100,7 +99,7 @@ public final class IAggregatorTest
     assertFalse (a1.hashCode () == 0);
     assertFalse (a1.hashCode () == "any other".hashCode ());
     assertNotNull (a1.toString ());
-    final List <String> l = CollectionHelper.newList ("a", null, "b", "", "c");
+    final ICommonsList <String> l = new CommonsArrayList<> ("a", null, "b", "", "c");
     assertEquals ("c", a1.apply (l));
     assertNull (a1.apply (new CommonsArrayList <String> ()));
     assertNull (a1.apply ((Collection <String>) null));

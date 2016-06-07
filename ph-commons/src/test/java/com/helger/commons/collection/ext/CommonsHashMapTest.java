@@ -36,7 +36,7 @@ public final class CommonsHashMapTest
   @Test
   public void testBasic ()
   {
-    final ICommonsMap <String, String> aTest = new CommonsHashMap <> ();
+    final ICommonsMap <String, String> aTest = new CommonsHashMap<> ();
     aTest.put ("aaa", "bla");
     aTest.put ("bbb", "blb");
     aTest.put ("ccc", "blc");
@@ -60,6 +60,6 @@ public final class CommonsHashMapTest
     final ICommonsMap <Integer, String> aMap2 = aMap.getSwappedKeyValues ();
     assertEquals (aMap.size (), aMap2.size ());
     assertEquals (aMap, aMap2.getSwappedKeyValues ());
-    assertNotNull (CollectionHelper.newMap ().getSwappedKeyValues ());
+    assertNotNull (new CommonsHashMap<> ().getSwappedKeyValues ());
   }
 }

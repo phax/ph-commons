@@ -35,8 +35,8 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsImmutableObject;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.cache.AbstractNotifyingCache;
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.regex.RegExHelper;
@@ -76,7 +76,7 @@ public final class LocaleHelper
         return null;
 
       // List has a maximum of 3 entries
-      final ICommonsList <Locale> ret = new CommonsArrayList <> (3);
+      final ICommonsList <Locale> ret = new CommonsArrayList<> (3);
       final String sLanguage = aBaseLocale.getLanguage ();
       if (sLanguage.length () > 0)
       {
@@ -167,9 +167,9 @@ public final class LocaleHelper
   {
     ValueEnforcer.notNull (aContentLocale, "ContentLocale");
 
-    return CollectionHelper.newMapMapped (LocaleCache.getInstance ().getAllLocales (),
-                                          Function.identity (),
-                                          aLocale -> getLocaleDisplayName (aLocale, aContentLocale));
+    return new CommonsHashMap<> (LocaleCache.getInstance ().getAllLocales (),
+                                 Function.identity (),
+                                 aLocale -> getLocaleDisplayName (aLocale, aContentLocale));
   }
 
   /**

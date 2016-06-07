@@ -26,7 +26,6 @@ import java.util.Set;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsHashSet;
 import com.helger.commons.collection.ext.ICommonsList;
@@ -46,7 +45,7 @@ public final class CombinationGeneratorFlexibleTest extends AbstractCombinationG
   @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testStringCombination ()
   {
-    final ICommonsList <String> aElements = CollectionHelper.newList ("A", "B", "B");
+    final ICommonsList <String> aElements = new CommonsArrayList<> ("A", "B", "B");
 
     // Allow empty
     CombinationGeneratorFlexible <String> aGenerator = new CombinationGeneratorFlexible<> (3, true);
@@ -115,7 +114,7 @@ public final class CombinationGeneratorFlexibleTest extends AbstractCombinationG
   @Test
   public void testRedundancy ()
   {
-    final ICommonsList <String> aInputList = CollectionHelper.newList ("a", "b", "c", "d", "e", "f", "g", "h");
+    final ICommonsList <String> aInputList = new CommonsArrayList<> ("a", "b", "c", "d", "e", "f", "g", "h");
 
     // Build all permutations of the input list, using all available slots
     final ICommonsSet <ICommonsList <String>> aSimplePermutations = new CommonsHashSet<> ();

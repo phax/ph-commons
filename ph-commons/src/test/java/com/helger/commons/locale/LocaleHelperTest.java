@@ -32,7 +32,8 @@ import org.junit.Test;
 import org.junit.rules.TestRule;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.junit.DebugModeTestRule;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.system.SystemHelper;
@@ -154,7 +155,7 @@ public final class LocaleHelperTest extends AbstractCommonsTestCase
   @Test
   public void testGetLocaleToUseOrFallback ()
   {
-    final List <Locale> aLocales = CollectionHelper.newList (L_DE, L_EN, CGlobal.LOCALE_ALL);
+    final ICommonsList <Locale> aLocales = new CommonsArrayList<> (L_DE, L_EN, CGlobal.LOCALE_ALL);
     try
     {
       LocaleHelper.getLocaleToUseOrFallback (null, aLocales, null);
@@ -177,12 +178,11 @@ public final class LocaleHelperTest extends AbstractCommonsTestCase
                   LocaleHelper.getLocaleToUseOrFallback (CGlobal.LOCALE_INDEPENDENT, aLocales, null));
     assertEquals (CGlobal.LOCALE_INDEPENDENT,
                   LocaleHelper.getLocaleToUseOrFallback (L_FR,
-                                                         CollectionHelper.newList (CGlobal.LOCALE_INDEPENDENT),
+                                                         new CommonsArrayList<> (CGlobal.LOCALE_INDEPENDENT),
                                                          null));
-    assertNull (LocaleHelper.getLocaleToUseOrFallback (L_FR, CollectionHelper.newList (L_DE, L_EN), null));
-    assertEquals (L_FR_FR,
-                  LocaleHelper.getLocaleToUseOrFallback (L_FR, CollectionHelper.newList (L_DE, L_EN), L_FR_FR));
-    assertEquals (L_FR_FR, LocaleHelper.getLocaleToUseOrFallback (L_FR, CollectionHelper.newList (L_FR_FR), null));
+    assertNull (LocaleHelper.getLocaleToUseOrFallback (L_FR, new CommonsArrayList<> (L_DE, L_EN), null));
+    assertEquals (L_FR_FR, LocaleHelper.getLocaleToUseOrFallback (L_FR, new CommonsArrayList<> (L_DE, L_EN), L_FR_FR));
+    assertEquals (L_FR_FR, LocaleHelper.getLocaleToUseOrFallback (L_FR, new CommonsArrayList<> (L_FR_FR), null));
   }
 
   @Test

@@ -28,7 +28,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.lang.GenericReflection;
 
@@ -65,16 +64,16 @@ public final class AbstractWrappedListTest
     assertEquals (2, aList.size ());
 
     // add all
-    aList.addAll (CollectionHelper.newList (aClass.newInstance (), aClass.newInstance ()));
+    aList.addAll (new CommonsArrayList<> (aClass.newInstance (), aClass.newInstance ()));
 
     // add all
-    aList.addAll (1, CollectionHelper.newList (aClass.newInstance (), aClass.newInstance ()));
+    aList.addAll (1, new CommonsArrayList<> (aClass.newInstance (), aClass.newInstance ()));
 
     // and empty instance is already contained
     assertTrue (aList.contains (aClass.newInstance ()));
 
     // contains all
-    assertTrue (aList.containsAll (CollectionHelper.newList (aClass.newInstance (), aClass.newInstance ())));
+    assertTrue (aList.containsAll (new CommonsArrayList<> (aClass.newInstance (), aClass.newInstance ())));
 
     // indexOf
     assertEquals (0, aList.indexOf (aClass.newInstance ()));
@@ -90,11 +89,11 @@ public final class AbstractWrappedListTest
     assertNotNull (aList.remove (0));
     assertEquals (nOldSize - 2, aList.size ());
 
-    assertTrue (aList.removeAll (CollectionHelper.newList (aClass.newInstance ())));
+    assertTrue (aList.removeAll (new CommonsArrayList<> (aClass.newInstance ())));
     assertEquals (1, aList.size ());
     assertNull (aList.get (0));
 
-    assertTrue (aList.retainAll (CollectionHelper.newList (aClass.newInstance ())));
+    assertTrue (aList.retainAll (new CommonsArrayList<> (aClass.newInstance ())));
     assertEquals (0, aList.size ());
 
     // re-fill
@@ -115,6 +114,6 @@ public final class AbstractWrappedListTest
   @Test
   public void testList () throws InstantiationException, IllegalAccessException
   {
-    _testList (new WrappedList <> (new CommonsArrayList <> ()), String.class);
+    _testList (new WrappedList<> (new CommonsArrayList<> ()), String.class);
   }
 }

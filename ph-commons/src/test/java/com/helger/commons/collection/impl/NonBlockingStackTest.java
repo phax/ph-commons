@@ -25,7 +25,7 @@ import java.util.EmptyStackException;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsHashSet;
 import com.helger.commons.mock.CommonsTestHelper;
 
@@ -49,7 +49,7 @@ public final class NonBlockingStackTest
     st = new NonBlockingStack<> ((String []) null);
     assertTrue (st.isEmpty ());
     assertFalse (st.iterator ().hasNext ());
-    st = new NonBlockingStack<> (CollectionHelper.newList ("s", "t"));
+    st = new NonBlockingStack<> (new CommonsArrayList<> ("s", "t"));
     assertEquals (2, st.size ());
     assertEquals ("s", st.firstElement ());
     assertTrue (st.iterator ().hasNext ());
@@ -132,7 +132,7 @@ public final class NonBlockingStackTest
     catch (final EmptyStackException ex)
     {}
 
-    aStack.addAll (CollectionHelper.newList ("g", "h"));
+    aStack.addAll (new CommonsArrayList<> ("g", "h"));
     assertEquals (2, aStack.size ());
     assertEquals ("g", aStack.firstElement ());
     assertEquals ("h", aStack.peek ());
@@ -143,13 +143,13 @@ public final class NonBlockingStackTest
                                                                        new NonBlockingStack <String> ());
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new NonBlockingStack<> ("a", "b"),
                                                                        new NonBlockingStack<> ("a", "b"));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new NonBlockingStack<> (CollectionHelper.newList ("a",
-                                                                                                                         "b")),
-                                                                       new NonBlockingStack<> (CollectionHelper.newList ("a",
-                                                                                                                         "b")));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new NonBlockingStack<> (CollectionHelper.newList ("a",
-                                                                                                                             "b")),
-                                                                           new NonBlockingStack<> (CollectionHelper.newList ("a")));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new NonBlockingStack<> (new CommonsArrayList<> ("a",
+                                                                                                                       "b")),
+                                                                       new NonBlockingStack<> (new CommonsArrayList<> ("a",
+                                                                                                                       "b")));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new NonBlockingStack<> (new CommonsArrayList<> ("a",
+                                                                                                                           "b")),
+                                                                           new NonBlockingStack<> (new CommonsArrayList<> ("a")));
     CommonsTestHelper.testGetClone (new NonBlockingStack<> ("a", "b"));
     CommonsTestHelper.testGetClone (new NonBlockingStack <String> ());
   }

@@ -45,8 +45,9 @@ import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.collection.multimap.IMultiMapListBased;
 import com.helger.commons.collection.multimap.MultiLinkedHashMapArrayListBased;
 import com.helger.commons.lang.ClassLoaderHelper;
@@ -79,7 +80,7 @@ public class WSClientConfig
   private String m_sSOAPAction;
   private IMultiMapListBased <String, String> m_aHTTPHeaders;
   private ETriState m_eCookiesSupport = ETriState.UNDEFINED;
-  private final ICommonsList <Handler <? extends MessageContext>> m_aHandlers = new CommonsArrayList <> ();
+  private final ICommonsList <Handler <? extends MessageContext>> m_aHandlers = new CommonsArrayList<> ();
 
   private boolean m_bWorkAroundMASM0003 = true;
 
@@ -342,7 +343,7 @@ public class WSClientConfig
   private IMultiMapListBased <String, String> _getHeaderMap ()
   {
     if (m_aHTTPHeaders == null)
-      m_aHTTPHeaders = new MultiLinkedHashMapArrayListBased <> ();
+      m_aHTTPHeaders = new MultiLinkedHashMapArrayListBased<> ();
     return m_aHTTPHeaders;
   }
 
@@ -414,7 +415,7 @@ public class WSClientConfig
     ValueEnforcer.notEmpty (sName, "Name");
     ValueEnforcer.notNull (sValue, "Value");
 
-    _getHeaderMap ().put (sName, new CommonsArrayList <> (sValue));
+    _getHeaderMap ().put (sName, new CommonsArrayList<> (sValue));
     return this;
   }
 
@@ -443,7 +444,7 @@ public class WSClientConfig
     if (aValues.isEmpty ())
       removeHTTPHeader (sName);
     else
-      _getHeaderMap ().put (sName, new CommonsArrayList <> (aValues));
+      _getHeaderMap ().put (sName, new CommonsArrayList<> (aValues));
     return this;
   }
 
@@ -516,15 +517,15 @@ public class WSClientConfig
   public ICommonsList <String> getAllHTTPHeaderValues (@Nullable final String sName)
   {
     if (m_aHTTPHeaders == null || StringHelper.hasNoText (sName))
-      return new CommonsArrayList <> (0);
-    return new CommonsArrayList <> (m_aHTTPHeaders.get (sName));
+      return new CommonsArrayList<> (0);
+    return new CommonsArrayList<> (m_aHTTPHeaders.get (sName));
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsMap <String, ICommonsList <String>> getAllHTTPHeaders ()
+  public ICommonsOrderedMap <String, ICommonsList <String>> getAllHTTPHeaders ()
   {
-    return CollectionHelper.newOrderedMap (m_aHTTPHeaders);
+    return new CommonsLinkedHashMap<> (m_aHTTPHeaders);
   }
 
   /**

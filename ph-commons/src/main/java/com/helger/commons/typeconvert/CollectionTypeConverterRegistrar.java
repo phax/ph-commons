@@ -33,7 +33,6 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.base64.Base64;
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.PrimitiveCollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsCopyOnWriteArrayList;
@@ -73,64 +72,64 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     // to CommonsList<?>
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (ArrayList.class, aSource -> {
       if (aSource instanceof Collection <?>)
-        return new CommonsArrayList <> ((Collection <?>) aSource);
-      return new CommonsArrayList <> (aSource);
+        return new CommonsArrayList<> ((Collection <?>) aSource);
+      return new CommonsArrayList<> (aSource);
     });
 
     // to CommonsVector<?>
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (Vector.class, aSource -> {
       if (aSource instanceof Collection <?>)
-        return new CommonsVector <> ((Collection <?>) aSource);
-      return new CommonsVector <> (aSource);
+        return new CommonsVector<> ((Collection <?>) aSource);
+      return new CommonsVector<> (aSource);
     });
 
     // to LinkedList<?>
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (LinkedList.class, aSource -> {
       if (aSource instanceof Collection <?>)
-        return new CommonsLinkedList <> ((Collection <?>) aSource);
-      return new CommonsLinkedList <> (aSource);
+        return new CommonsLinkedList<> ((Collection <?>) aSource);
+      return new CommonsLinkedList<> (aSource);
     });
 
     // to CopyOnWriteArrayList<?>
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (CopyOnWriteArrayList.class, aSource -> {
       if (aSource instanceof Collection <?>)
-        return new CommonsCopyOnWriteArrayList <> ((Collection <?>) aSource);
-      return new CommonsCopyOnWriteArrayList <> (aSource);
+        return new CommonsCopyOnWriteArrayList<> ((Collection <?>) aSource);
+      return new CommonsCopyOnWriteArrayList<> (aSource);
     });
 
     // to List<?>
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (List.class, aSource -> {
       if (aSource instanceof Collection <?>)
-        return new CommonsArrayList <> ((Collection <?>) aSource);
-      return new CommonsArrayList <> (aSource);
+        return new CommonsArrayList<> ((Collection <?>) aSource);
+      return new CommonsArrayList<> (aSource);
     });
 
     // to CommonsTreeSet<?>
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (TreeSet.class, aSource -> {
       if (aSource instanceof Collection <?>)
-        return new CommonsTreeSet <> ((Collection <?>) aSource);
-      return new CommonsTreeSet <> (aSource);
+        return new CommonsTreeSet<> ((Collection <?>) aSource);
+      return new CommonsTreeSet<> (aSource);
     });
 
     // to CommonsLinkedHashSet<?>
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (LinkedHashSet.class, aSource -> {
       if (aSource instanceof Collection <?>)
-        return new CommonsLinkedHashSet <> ((Collection <?>) aSource);
-      return new CommonsLinkedHashSet <> (aSource);
+        return new CommonsLinkedHashSet<> ((Collection <?>) aSource);
+      return new CommonsLinkedHashSet<> (aSource);
     });
 
     // to CopyOnWriteArraySet<?>
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (CopyOnWriteArraySet.class, aSource -> {
       if (aSource instanceof Collection <?>)
-        return new CommonsCopyOnWriteArraySet <> ((Collection <?>) aSource);
-      return new CommonsCopyOnWriteArraySet <> (aSource);
+        return new CommonsCopyOnWriteArraySet<> ((Collection <?>) aSource);
+      return new CommonsCopyOnWriteArraySet<> (aSource);
     });
 
     // to Set<?>
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (Set.class, aSource -> {
       if (aSource instanceof Collection <?>)
-        return CollectionHelper.newSet ((Collection <?>) aSource);
-      return CollectionHelper.newSet (aSource);
+        return new CommonsHashSet<> ((Collection <?>) aSource);
+      return new CommonsHashSet<> (aSource);
     });
 
     // boolean[]

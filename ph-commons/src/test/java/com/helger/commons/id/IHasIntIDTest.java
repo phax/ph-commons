@@ -18,11 +18,10 @@ package com.helger.commons.id;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.List;
-
 import org.junit.Test;
 
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 
 /**
  * Test class for class {@link IHasIntID}.
@@ -34,15 +33,15 @@ public final class IHasIntIDTest
   @Test
   public void testAll ()
   {
-    final List <? extends IHasIntID> aList = CollectionHelper.newList (new MockHasIntID (5),
-                                                                       new MockHasIntID (3),
-                                                                       new MockHasIntID (7));
-    CollectionHelper.getSortedInline (aList, IHasIntID.getComparatorID ());
+    final ICommonsList <? extends IHasIntID> aList = new CommonsArrayList<> (new MockHasIntID (5),
+                                                                             new MockHasIntID (3),
+                                                                             new MockHasIntID (7));
+    aList.getSortedInline (IHasIntID.getComparatorID ());
     assertEquals (3, aList.get (0).getID ());
     assertEquals (5, aList.get (1).getID ());
     assertEquals (7, aList.get (2).getID ());
 
-    CollectionHelper.getSortedInline (aList, IHasIntID.getComparatorID ().reversed ());
+    aList.getSortedInline (IHasIntID.getComparatorID ().reversed ());
     assertEquals (7, aList.get (0).getID ());
     assertEquals (5, aList.get (1).getID ());
     assertEquals (3, aList.get (2).getID ());

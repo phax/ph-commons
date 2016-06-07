@@ -26,7 +26,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -106,7 +106,7 @@ public class MimeType implements IMimeType, Comparable <MimeType>
     m_eContentType = eContentType;
     m_sContentSubType = sContentSubType;
     m_sMainTypeAsString = m_eContentType.getText () + CMimeType.SEPARATOR_CONTENTTYPE_SUBTYPE + m_sContentSubType;
-    m_aParameters = CollectionHelper.newList (aParameters);
+    m_aParameters = new CommonsArrayList<> (aParameters);
   }
 
   @Nonnull

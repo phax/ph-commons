@@ -34,11 +34,11 @@ public final class JavaListDigestProviderFuncTest
   @Test
   public void testListAllDigestProvider ()
   {
-    for (final Provider element : new CommonsArrayList<> (Security.getProviders ()).getSortedInline (Comparator.comparing (Provider::getName)))
+    for (final Provider aElement : new CommonsArrayList<> (Security.getProviders ()).getSortedInline (Comparator.comparing (Provider::getName)))
     {
-      s_aLogger.info ("Provider: '" + element + "'");
+      s_aLogger.info ("Provider: '" + aElement + "'");
 
-      for (final Object sAlgo : CollectionHelper.getSortedByKey (element, Comparator.comparing (Object::toString))
+      for (final Object sAlgo : CollectionHelper.getSortedByKey (aElement, Comparator.comparing (Object::toString))
                                                 .keySet ())
         s_aLogger.info ("\t" + sAlgo);
     }
