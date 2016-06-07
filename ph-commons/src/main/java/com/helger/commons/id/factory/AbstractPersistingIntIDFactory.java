@@ -20,6 +20,8 @@ import javax.annotation.Nonnegative;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.ELockType;
+import com.helger.commons.annotation.IsLocked;
 import com.helger.commons.concurrent.SimpleLock;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
@@ -77,6 +79,7 @@ public abstract class AbstractPersistingIntIDFactory implements IIntIDFactory
    *         {@link com.helger.commons.CGlobal#ILLEGAL_UINT} in case of an
    *         error.
    */
+  @IsLocked (ELockType.WRITE)
   protected abstract int readAndUpdateIDCounter (@Nonnegative int nReserveCount);
 
   /*
