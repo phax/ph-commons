@@ -37,6 +37,7 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.Iterator;
+import java.util.function.Consumer;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -361,7 +362,7 @@ public class CSVReader implements Closeable, Iterable <ICommonsList <String>>
   @ReturnsMutableCopy
   public ICommonsList <ICommonsList <String>> readAll () throws IOException
   {
-    final ICommonsList <ICommonsList <String>> ret = new CommonsArrayList <> ();
+    final ICommonsList <ICommonsList <String>> ret = new CommonsArrayList<> ();
     while (m_bHasNext)
     {
       final ICommonsList <String> aNextLineAsTokens = readNext ();
@@ -369,6 +370,25 @@ public class CSVReader implements Closeable, Iterable <ICommonsList <String>>
         ret.add (aNextLineAsTokens);
     }
     return ret;
+  }
+
+  /**
+   * Reads the entire file line by line and invoke a callback for each line.
+   *
+   * @param aLineConsumer
+   *        The consumer that is invoked for every line. May not be
+   *        <code>null</code>.
+   * @throws IOException
+   *         if bad things happen during the read
+   */
+  public void readAll (@Nonnull final Consumer <? super ICommonsList <String>> aLineConsumer) throws IOException
+  {
+    while (m_bHasNext)
+    {
+      final ICommonsList <String> aNextLineAsTokens = readNext ();
+      if (aNextLineAsTokens != null)
+        aLineConsumer.accept (aNextLineAsTokens);
+    }
   }
 
   /**
