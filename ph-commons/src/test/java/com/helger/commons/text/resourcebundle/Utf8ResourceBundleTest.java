@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 
@@ -45,6 +45,6 @@ public final class Utf8ResourceBundleTest extends AbstractCommonsTestCase
                                                             ClassLoaderHelper.getDefaultClassLoader ());
     assertNotNull (rb);
     assertTrue (rb instanceof Utf8PropertyResourceBundle);
-    assertEquals (2, new CommonsArrayList<> (rb.getKeys ()).size ());
+    assertEquals (2, CollectionHelper.newList (rb.getKeys ()).size ());
   }
 }
