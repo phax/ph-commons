@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.xml.util.mime;
+package com.helger.commons.mime;
 
 import static org.junit.Assert.assertEquals;
 
@@ -22,8 +22,8 @@ import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.mime.CMimeType;
+import com.helger.commons.mime.MimeTypeDeterminator;
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.xml.util.mime.MimeTypeDeterminator;
 
 /**
  * Test class for class {@link MimeTypeDeterminator}

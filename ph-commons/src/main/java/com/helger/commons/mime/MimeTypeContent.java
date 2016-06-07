@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.xml.util.mime;
+package com.helger.commons.mime;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -31,7 +31,6 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.mime.IMimeType;
 import com.helger.commons.string.ToStringGenerator;
 
 /**

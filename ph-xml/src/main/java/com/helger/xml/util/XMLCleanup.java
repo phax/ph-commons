@@ -21,7 +21,6 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.xml.microdom.convert.MicroTypeConverterRegistry;
 import com.helger.xml.schema.XMLSchemaCache;
-import com.helger.xml.util.mime.MimeTypeDeterminator;
 import com.helger.xml.util.mime.MimeTypeInfoManager;
 
 /**
@@ -45,8 +44,6 @@ public final class XMLCleanup
    */
   public static void cleanup ()
   {
-    if (MimeTypeDeterminator.isInstantiated ())
-      MimeTypeDeterminator.getInstance ().reinitialize ();
     if (MimeTypeInfoManager.isDefaultInstantiated ())
       MimeTypeInfoManager.getDefaultInstance ().reinitializeToDefault ();
     if (MicroTypeConverterRegistry.isInstantiated ())

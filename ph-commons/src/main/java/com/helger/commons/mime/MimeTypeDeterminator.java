@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.xml.util.mime;
+package com.helger.commons.mime;
 
 import java.nio.charset.Charset;
 
@@ -39,8 +39,6 @@ import com.helger.commons.collection.ext.ICommonsCollection;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
-import com.helger.commons.mime.CMimeType;
-import com.helger.commons.mime.IMimeType;
 import com.helger.commons.state.EChange;
 
 /**

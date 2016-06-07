@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.xml.util.mime;
+package com.helger.commons.mime;
 
 import java.nio.charset.Charset;
 
@@ -22,8 +22,6 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.charset.CharsetManager;
-import com.helger.commons.mime.CMimeType;
-import com.helger.commons.mime.IMimeType;
 
 /**
  * Contains some utility methods for handling MIME types.
