@@ -70,6 +70,10 @@
       <groupId>com.helger</groupId>
       <artifactId>ph-commons</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-xml</artifactId>
+    </dependency>
 
     <!-- The following dependencies are required if external JAXB should be used -->    
     <dependency>

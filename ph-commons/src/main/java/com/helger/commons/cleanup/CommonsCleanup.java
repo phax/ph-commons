@@ -28,9 +28,6 @@ import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.locale.LocaleHelper;
 import com.helger.commons.locale.country.CountryCache;
-import com.helger.commons.microdom.convert.MicroTypeConverterRegistry;
-import com.helger.commons.mime.MimeTypeDeterminator;
-import com.helger.commons.mime.MimeTypeInfoManager;
 import com.helger.commons.regex.RegExCache;
 import com.helger.commons.scope.spi.ScopeSPIManager;
 import com.helger.commons.serialize.convert.SerializationConverterRegistry;
@@ -41,7 +38,6 @@ import com.helger.commons.text.resourcebundle.ResourceBundleHelper;
 import com.helger.commons.thirdparty.ThirdPartyModuleRegistry;
 import com.helger.commons.typeconvert.TypeConverterRegistry;
 import com.helger.commons.url.URLProtocolRegistry;
-import com.helger.commons.xml.schema.XMLSchemaCache;
 
 /**
  * The sole purpose of this class to clear all caches, that reside in this
@@ -69,12 +65,6 @@ public final class CommonsCleanup
       LocaleCache.getInstance ().reinitialize ();
     if (CountryCache.isInstantiated ())
       CountryCache.getInstance ().reinitialize ();
-    if (MimeTypeDeterminator.isInstantiated ())
-      MimeTypeDeterminator.getInstance ().reinitialize ();
-    if (MimeTypeInfoManager.isDefaultInstantiated ())
-      MimeTypeInfoManager.getDefaultInstance ().reinitializeToDefault ();
-    if (MicroTypeConverterRegistry.isInstantiated ())
-      MicroTypeConverterRegistry.getInstance ().reinitialize ();
     if (SerializationConverterRegistry.isInstantiated ())
       SerializationConverterRegistry.getInstance ().reinitialize ();
     if (ThirdPartyModuleRegistry.isInstantiated ())
@@ -101,9 +91,6 @@ public final class CommonsCleanup
       RegExCache.getInstance ().clearCache ();
     CollatorHelper.clearCache ();
     LocaleHelper.clearCache ();
-    if (XMLSchemaCache.isInstantiated ())
-      XMLSchemaCache.getInstance ().clearCache ();
-    XMLSchemaCache.clearPerClassLoaderCache ();
     StatisticsManager.clearCache ();
     SystemProperties.clearWarnedPropertyNames ();
 

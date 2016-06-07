@@ -1147,7 +1147,8 @@ public final class StreamHelper
                                       @Nonnull @Nonempty final Charset aCharset,
                                       @Nonnull final Consumer <String> aLineCallback)
   {
-    readStreamLines (aIS, aCharset, 0, CGlobal.ILLEGAL_UINT, aLineCallback);
+    if (aIS != null)
+      readStreamLines (aIS, aCharset, 0, CGlobal.ILLEGAL_UINT, aLineCallback);
   }
 
   private static void _readFromReader (final int nLinesToSkip,

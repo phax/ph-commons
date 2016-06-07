@@ -20,7 +20,6 @@ import java.io.CharArrayWriter;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.JarURLConnection;
 import java.net.MalformedURLException;
@@ -57,17 +56,14 @@ import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.debug.GlobalDebug;
-import com.helger.commons.exception.InitializationException;
 import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.ClassLoaderHelper;
-import com.helger.commons.microdom.util.XMLMapHandler;
-import com.helger.commons.mime.IMimeType;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.string.StringParser;
 import com.helger.commons.wrapper.IMutableWrapper;
-import com.helger.commons.wrapper.Wrapper;
 
 /**
  * URL utilities.
@@ -394,9 +390,27 @@ public final class URLHelper
     // Ever trickier is the when running multiple threads for reading XML (e.g.
     // in the unit test) this code would wait forever in the static initializer
     // because XMLMapHandler internally also acquires an XML reader....
-    final ICommonsMap <String, String> aCleanURLMap = new CommonsHashMap <> ();
-    if (XMLMapHandler.readMap (new ClassPathResource ("codelists/cleanurl-data.xml"), aCleanURLMap).isFailure ())
-      throw new InitializationException ("Failed to init CleanURL data!");
+    final ICommonsMap <String, String> aCleanURLMap = new CommonsHashMap<> ();
+    StreamHelper.readStreamLines (ClassPathResource.getInputStream ("codelists/cleanurl-data.dat"),
+                                  CCharset.CHARSET_UTF_8_OBJ,
+                                  sLine -> {
+                                    if (sLine.length () > 0 && sLine.charAt (0) == '"')
+                                    {
+                                      final String [] aParts = StringHelper.getExplodedArray ('=', sLine, 2);
+                                      String sKey = StringHelper.trimStartAndEnd (aParts[0], '"');
+                                      if (sKey.startsWith ("&#"))
+                                      {
+                                        // E.g. "&#12345;"
+                                        sKey = StringHelper.trimStartAndEnd (sKey, "&#", ";");
+                                        sKey = Character.toString ((char) StringParser.parseInt (sKey, -1));
+                                      }
+                                      final String sValue = StringHelper.trimStartAndEnd (aParts[1], '"');
+                                      aCleanURLMap.put (sKey, sValue);
+                                    }
+                                  });
+    // if (XMLMapHandler.readMap (new ClassPathResource
+    // ("codelists/cleanurl-data.xml"), aCleanURLMap).isFailure ())
+    // throw new InitializationException ("Failed to init CleanURL data!");
 
     s_aCleanURLOld = new char [aCleanURLMap.size ()];
     s_aCleanURLNew = new char [aCleanURLMap.size ()] [];
@@ -1003,89 +1017,6 @@ public final class URLHelper
       }
     }
     return null;
-  }
-
-  /**
-   * POST something to a URL.
-   *
-   * @param aURL
-   *        The destination URL. May not be <code>null</code>.
-   * @param nConnectTimeoutMS
-   *        Connect timeout milliseconds. 0 == infinite. &lt; 0: ignored.
-   * @param nReadTimeoutMS
-   *        Read timeout milliseconds. 0 == infinite. &lt; 0: ignored.
-   * @param aContentType
-   *        The MIME type to be send as the <code>Content-Type</code> header.
-   *        May be <code>null</code>.
-   * @param aContentBytes
-   *        The main content to be send via POST. May not be <code>null</code>
-   *        but maybe empty. The <code>Content-Length</code> HTTP header is
-   *        automatically filled with the specified byte length.
-   * @param aAdditionalHTTPHeaders
-   *        An optional map of HTTP headers to be send. This map should not
-   *        contain the <code>Content-Type</code> and the
-   *        <code>Content-Length</code> headers. May be <code>null</code>.
-   * @param aConnectionModifier
-   *        An optional callback object to modify the URLConnection before it is
-   *        opened.
-   * @param aExceptionHolder
-   *        An optional exception holder for further outside investigation.
-   * @return <code>null</code> if the input stream could not be opened.
-   * @deprecated Use Apache http client or the like for a much better handling
-   */
-  @Nullable
-  @Deprecated
-  public static InputStream postAndGetInputStream (@Nonnull final URL aURL,
-                                                   final int nConnectTimeoutMS,
-                                                   final int nReadTimeoutMS,
-                                                   @Nullable final IMimeType aContentType,
-                                                   @Nonnull final byte [] aContentBytes,
-                                                   @Nullable final Map <String, String> aAdditionalHTTPHeaders,
-                                                   @Nullable final Consumer <URLConnection> aConnectionModifier,
-                                                   @Nullable final IMutableWrapper <IOException> aExceptionHolder)
-  {
-    ValueEnforcer.notNull (aURL, "URL");
-    ValueEnforcer.notNull (aContentBytes, "ContentBytes");
-
-    final Wrapper <OutputStream> aOpenedOS = new Wrapper <> ();
-    final Consumer <URLConnection> aPOSTModifier = aURLConnection -> {
-      final HttpURLConnection aHTTPURLConnection = (HttpURLConnection) aURLConnection;
-      try
-      {
-        aHTTPURLConnection.setRequestMethod ("POST");
-        aHTTPURLConnection.setDoInput (true);
-        aHTTPURLConnection.setDoOutput (true);
-        if (aContentType != null)
-          aHTTPURLConnection.setRequestProperty ("Content-Type", aContentType.getAsString ());
-        aHTTPURLConnection.setRequestProperty ("Content-Length", Integer.toString (aContentBytes.length));
-        if (aAdditionalHTTPHeaders != null)
-          for (final Map.Entry <String, String> aEntry : aAdditionalHTTPHeaders.entrySet ())
-            aHTTPURLConnection.setRequestProperty (aEntry.getKey (), aEntry.getValue ());
-
-        final OutputStream aOS = aHTTPURLConnection.getOutputStream ();
-        aOpenedOS.set (aOS);
-        aOS.write (aContentBytes);
-        aOS.flush ();
-      }
-      catch (final IOException ex)
-      {
-        throw new IllegalStateException ("Failed to POST data to " + aURL.toExternalForm (), ex);
-      }
-
-      // Run provided modifier (if any)
-      if (aConnectionModifier != null)
-        aConnectionModifier.accept (aURLConnection);
-    };
-
-    try
-    {
-      return getInputStream (aURL, nConnectTimeoutMS, nReadTimeoutMS, aPOSTModifier, aExceptionHolder);
-    }
-    finally
-    {
-      // Close the OutputStream opened for POSTing
-      StreamHelper.close (aOpenedOS.get ());
-    }
   }
 
   @Nonnull

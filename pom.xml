@@ -88,7 +88,7 @@
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
-        <artifactId>ph-less-commons</artifactId>
+        <artifactId>ph-xml</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -99,6 +99,11 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>ph-tree</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger</groupId>
+        <artifactId>ph-less-commons</artifactId>
         <version>${project.version}</version>
       </dependency>
     </dependencies>
@@ -119,8 +124,9 @@
   
   <modules>
     <module>ph-commons</module>
-    <module>ph-less-commons</module>
+    <module>ph-xml</module>
     <module>ph-jaxb</module>
     <module>ph-tree</module>
+    <module>ph-less-commons</module>
   </modules>
 </project>

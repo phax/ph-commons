@@ -16,6 +16,10 @@
  */
 package com.helger.commons.equals;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -24,7 +28,6 @@ import org.w3c.dom.Node;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsAssert;
-import com.helger.commons.xml.XMLFactory;
 
 /**
  * Test class for class {@link EqualsImplementationRegistry}.
@@ -34,13 +37,16 @@ import com.helger.commons.xml.XMLFactory;
 public final class EqualsImplementationRegistryTest extends AbstractCommonsTestCase
 {
   @Test
-  public void testEquals ()
+  public void testEquals () throws ParserConfigurationException
   {
-    final Document d1 = XMLFactory.newDocument ();
+    final DocumentBuilderFactory aDocumentBuilderFactory = DocumentBuilderFactory.newInstance ();
+    final DocumentBuilder aDB = aDocumentBuilderFactory.newDocumentBuilder ();
+
+    final Document d1 = aDB.newDocument ();
     final Node aRoot1 = d1.appendChild (d1.createElementNS ("urn:my:helger:test-namespace", "root"));
     ((Element) aRoot1.appendChild (d1.createElement ("child"))).setAttribute ("any", "works");
 
-    final Document d2 = XMLFactory.newDocument ();
+    final Document d2 = aDB.newDocument ();
     final Node aRoot2 = d2.appendChild (d2.createElementNS ("urn:my:helger:test-namespace", "root"));
     ((Element) aRoot2.appendChild (d2.createElement ("child"))).setAttribute ("any", "works");
 

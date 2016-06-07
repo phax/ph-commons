@@ -16,9 +16,6 @@
  */
 package com.helger.commons.mock;
 
-import static org.junit.Assert.assertNotNull;
-
-import java.io.File;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -29,34 +26,19 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
-import javax.jws.WebService;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.callback.IThrowingRunnable;
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.ext.CommonsVector;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.concurrent.ManagedExecutorService;
 import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.io.file.FileHelper;
-import com.helger.commons.io.file.iterate.FileSystemIterator;
-import com.helger.commons.io.stream.NonBlockingBufferedReader;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.io.streamprovider.ByteArrayInputStreamProvider;
-import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.lang.StackTraceHelper;
-import com.helger.commons.microdom.IMicroDocument;
-import com.helger.commons.microdom.IMicroElement;
-import com.helger.commons.microdom.convert.MicroTypeConverter;
-import com.helger.commons.microdom.serialize.MicroReader;
-import com.helger.commons.microdom.serialize.MicroWriter;
 import com.helger.commons.string.StringHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -70,8 +52,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 @Immutable
 public final class CommonsTestHelper
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (CommonsTestHelper.class);
-
   @PresentForCodeCoverage
   private static final CommonsTestHelper s_aInstance = new CommonsTestHelper ();
 
@@ -101,7 +81,7 @@ public final class CommonsTestHelper
       _fail (sMsg);
   }
 
-  private static <T> void _assertEquals (@Nonnull final String sMsg, @Nullable final T aObj1, @Nullable final T aObj2)
+  public static <T> void _assertEquals (@Nonnull final String sMsg, @Nullable final T aObj1, @Nullable final T aObj2)
   {
     if (!EqualsHelper.equals (aObj1, aObj2))
       _fail (sMsg + "\nOBJ1: " + aObj1 + "\nOBJ2: " + aObj2);
@@ -298,45 +278,6 @@ public final class CommonsTestHelper
   }
 
   /**
-   * Test if the {@link MicroTypeConverter} is OK. It converts it to XML and
-   * back and than uses
-   * {@link #testDefaultImplementationWithEqualContentObject(Object, Object)} to
-   * check for equality.
-   *
-   * @param <T>
-   *        The data type to be used and returned
-   * @param aObj
-   *        The object to test
-   * @return The object read after conversion
-   */
-  public static <T> T testMicroTypeConversion (@Nonnull final T aObj)
-  {
-    assertNotNull (aObj);
-
-    // Write to XML
-    final IMicroElement e = MicroTypeConverter.convertToMicroElement (aObj, "test");
-    assertNotNull (e);
-
-    // Read from XML
-    final Object aObj2 = MicroTypeConverter.convertToNative (e, aObj.getClass ());
-    assertNotNull (aObj2);
-
-    // Write to XML again
-    final IMicroElement e2 = MicroTypeConverter.convertToMicroElement (aObj2, "test");
-    assertNotNull (e2);
-
-    // Ensure XML representation is identical
-    final String sXML1 = MicroWriter.getXMLString (e);
-    final String sXML2 = MicroWriter.getXMLString (e2);
-    _assertEquals ("XML representation must be identical", sXML1, sXML2);
-
-    // Ensure they are equals
-    testDefaultImplementationWithEqualContentObject (aObj, aObj2);
-
-    return GenericReflection.uncheckedCast (aObj2);
-  }
-
-  /**
    * Run something in parallel
    *
    * @param nCalls
@@ -352,7 +293,7 @@ public final class CommonsTestHelper
 
     // More than 20s thread would be overkill!
     final ExecutorService aES = Executors.newFixedThreadPool (20);
-    final ICommonsList <String> aErrors = new CommonsVector <> ();
+    final ICommonsList <String> aErrors = new CommonsVector<> ();
     for (int i = 0; i < nCalls; ++i)
     {
       aES.submit ( () -> {
@@ -372,203 +313,5 @@ public final class CommonsTestHelper
     // No errors should have occurred
     if (!aErrors.isEmpty ())
       _fail (StringHelper.getImploded (aErrors));
-  }
-
-  @Nonnegative
-  public static int testIfAllSPIImplementationsAreValid (@Nonnull final String sBaseDir,
-                                                         final boolean bContinueOnError) throws Exception
-  {
-    int nTotalImplementationCount = 0;
-    final File aBaseDir = new File (sBaseDir);
-    if (aBaseDir.exists () && aBaseDir.isDirectory ())
-      for (final File aFile : new FileSystemIterator (sBaseDir))
-        if (aFile.isFile ())
-        {
-          s_aLogger.info ("Checking SPI file " + aFile.getAbsolutePath ());
-
-          // Check if interface exists
-          try
-          {
-            Class.forName (aFile.getName ());
-          }
-          catch (final Throwable t)
-          {
-            final String sMsg = "No interface representing " +
-                                aFile.getName () +
-                                " exists: " +
-                                ClassHelper.getClassLocalName (t) +
-                                " - " +
-                                t.getMessage ();
-            s_aLogger.warn (sMsg);
-            if (!bContinueOnError)
-              throw new Exception (sMsg);
-          }
-
-          // Check content
-          try (
-              final NonBlockingBufferedReader aReader = new NonBlockingBufferedReader (StreamHelper.createReader (FileHelper.getInputStream (aFile),
-                                                                                                                  CCharset.CHARSET_SERVICE_LOADER_OBJ)))
-          {
-            int nCount = 0;
-            String sLine;
-            while ((sLine = aReader.readLine ()) != null)
-            {
-              final String sClassName = StringHelper.trim (sLine);
-              if (StringHelper.hasText (sClassName))
-              {
-                // Resolve class
-                Class.forName (sLine);
-                ++nCount;
-                ++nTotalImplementationCount;
-              }
-            }
-            if (nCount == 0)
-              s_aLogger.warn ("  Contains no single valid implementation!");
-            else
-              s_aLogger.info ("  All implementations (" + nCount + ") are valid!");
-          }
-          catch (final Throwable t)
-          {
-            // Ensure the path name of the currently checked file is contained
-            // in the exception text!
-            s_aLogger.warn ("  Error checking content: " + t.getMessage ());
-            if (!bContinueOnError)
-              throw new Exception ("Error checking SPI file " + aFile.getAbsolutePath (), t);
-          }
-        }
-    return nTotalImplementationCount;
-  }
-
-  @Nonnegative
-  public static int testIfAllSPIImplementationsAreValid () throws Exception
-  {
-    return testIfAllSPIImplementationsAreValid (false);
-  }
-
-  @Nonnegative
-  public static int testIfAllSPIImplementationsAreValid (final boolean bContinueOnError) throws Exception
-  {
-    int ret = 0;
-    ret += testIfAllSPIImplementationsAreValid ("src/main/resources/META-INF/services", bContinueOnError);
-    ret += testIfAllSPIImplementationsAreValid ("src/test/resources/META-INF/services", bContinueOnError);
-    return ret;
-  }
-
-  @Nonnegative
-  public static int testIfAllSunJaxwsFilesAreValid (@Nonnull final String sBaseDir,
-                                                    final boolean bContinueOnError) throws Exception
-  {
-    final int nTotalImplementationCount = 0;
-    final File aFile = new File (sBaseDir, "sun-jaxws.xml");
-    if (aFile.isFile ())
-    {
-      s_aLogger.info ("Checking file " + aFile.getAbsolutePath ());
-
-      final IMicroDocument aDoc = MicroReader.readMicroXML (aFile);
-      if (aDoc == null)
-      {
-        final String sMsg = "The file is invalid XML!";
-        s_aLogger.warn (sMsg);
-        if (!bContinueOnError)
-          throw new Exception (sMsg);
-      }
-      else
-      {
-        for (final IMicroElement eEndpoint : aDoc.getDocumentElement ().getAllChildElements ("endpoint"))
-        {
-          final String sName = eEndpoint.getAttributeValue ("name");
-          final String sImplementation = eEndpoint.getAttributeValue ("implementation");
-
-          // Check if implementation class exists
-          Class <?> aImplClass = null;
-          try
-          {
-            aImplClass = Class.forName (sImplementation);
-          }
-          catch (final Throwable t)
-          {
-            final String sMsg = "The implementation class '" +
-                                sImplementation +
-                                "' of endpoint '" +
-                                sName +
-                                "' is invalid - " +
-                                t.getMessage ();
-            s_aLogger.warn (sMsg);
-            if (!bContinueOnError)
-              throw new Exception (sMsg);
-          }
-
-          if (aImplClass != null)
-          {
-            if (s_aLogger.isDebugEnabled ())
-              s_aLogger.debug ("Implementation class '" + sImplementation + "' found");
-
-            final WebService aWebService = aImplClass.getAnnotation (WebService.class);
-            if (aWebService == null)
-            {
-              final String sMsg = "The implementation class '" +
-                                  sImplementation +
-                                  "' is missing the @WebService annotation";
-              s_aLogger.warn (sMsg);
-              if (!bContinueOnError)
-                throw new Exception (sMsg);
-            }
-            else
-            {
-              final String sEndpointInterface = aWebService.endpointInterface ();
-
-              // Check if interface exists
-              Class <?> aInterfaceClass = null;
-              try
-              {
-                aInterfaceClass = Class.forName (sEndpointInterface);
-              }
-              catch (final Throwable t)
-              {
-                final String sMsg = "The endpoint interface class '" +
-                                    sEndpointInterface +
-                                    "' of implementation class '" +
-                                    sImplementation +
-                                    "' is invalid - " +
-                                    t.getMessage ();
-                s_aLogger.warn (sMsg);
-                if (!bContinueOnError)
-                  throw new Exception (sMsg);
-              }
-
-              if (aInterfaceClass != null)
-              {
-                if (!aInterfaceClass.isInterface ())
-                {
-                  final String sMsg = "The endpoint interface class '" +
-                                      sEndpointInterface +
-                                      "' of endpoint '" +
-                                      sName +
-                                      "' is not an interface!";
-                  s_aLogger.warn (sMsg);
-                  if (!bContinueOnError)
-                    throw new Exception (sMsg);
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    return nTotalImplementationCount;
-  }
-
-  @Nonnegative
-  public static int testIfAllSunJaxwsFilesAreValid (final boolean bContinueOnError) throws Exception
-  {
-    int ret = 0;
-    ret += testIfAllSunJaxwsFilesAreValid ("src/main/resources/WEB-INF", bContinueOnError);
-    ret += testIfAllSunJaxwsFilesAreValid ("src/main/webapp/WEB-INF", bContinueOnError);
-    return ret;
-  }
-
-  public static void testIfAllSunJaxwsFilesAreValid () throws Exception
-  {
-    testIfAllSunJaxwsFilesAreValid (false);
   }
 }

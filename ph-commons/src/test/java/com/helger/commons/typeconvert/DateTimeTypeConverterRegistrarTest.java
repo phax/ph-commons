@@ -21,13 +21,11 @@ import static org.junit.Assert.assertNotNull;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.OffsetDateTime;
-import java.time.Period;
 import java.time.Year;
 import java.time.YearMonth;
 import java.time.ZonedDateTime;
@@ -45,15 +43,12 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.microdom.convert.MicroTypeConverter;
 import com.helger.commons.mutable.MutableByte;
 import com.helger.commons.mutable.MutableDouble;
 import com.helger.commons.mutable.MutableFloat;
 import com.helger.commons.mutable.MutableInt;
 import com.helger.commons.mutable.MutableLong;
 import com.helger.commons.mutable.MutableShort;
-import com.helger.commons.typeconvert.DateTimeTypeConverterRegistrar;
-import com.helger.commons.typeconvert.TypeConverter;
 
 /**
  * Test class for class {@link DateTimeTypeConverterRegistrar}.
@@ -79,7 +74,6 @@ public final class DateTimeTypeConverterRegistrarTest
                                                            new MutableInt (4711),
                                                            new MutableLong (4567890987654l),
                                                            new MutableShort (65532) };
-  private static final String ELEMENT_NAME = "element";
 
   @Test
   public void testDateTime ()
@@ -209,19 +203,5 @@ public final class DateTimeTypeConverterRegistrarTest
           }
         }
     }
-  }
-
-  @Test
-  public void testMicroTypeConversion ()
-  {
-    assertNotNull (MicroTypeConverter.convertToMicroElement (PDTFactory.createGregorianCalendar (), ELEMENT_NAME));
-    assertNotNull (MicroTypeConverter.convertToMicroElement (new Date (), ELEMENT_NAME));
-    assertNotNull (MicroTypeConverter.convertToMicroElement (PDTFactory.getCurrentZonedDateTime (), ELEMENT_NAME));
-    assertNotNull (MicroTypeConverter.convertToMicroElement (PDTFactory.getCurrentOffsetDateTime (), ELEMENT_NAME));
-    assertNotNull (MicroTypeConverter.convertToMicroElement (PDTFactory.getCurrentLocalDateTime (), ELEMENT_NAME));
-    assertNotNull (MicroTypeConverter.convertToMicroElement (PDTFactory.getCurrentLocalDate (), ELEMENT_NAME));
-    assertNotNull (MicroTypeConverter.convertToMicroElement (PDTFactory.getCurrentLocalTime (), ELEMENT_NAME));
-    assertNotNull (MicroTypeConverter.convertToMicroElement (Duration.ofHours (3), ELEMENT_NAME));
-    assertNotNull (MicroTypeConverter.convertToMicroElement (Period.ofDays (8), ELEMENT_NAME));
   }
 }

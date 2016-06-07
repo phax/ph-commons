@@ -50,7 +50,7 @@ public class ChangeLogEntry extends AbstractChangeLogEntry
   private final EChangeLogCategory m_eCategory;
   private final boolean m_bIsIncompatible;
   private final IMutableMultilingualText m_aTexts = new MultilingualText ();
-  private final ICommonsList <String> m_aIssues = new CommonsArrayList <> ();
+  private final ICommonsList <String> m_aIssues = new CommonsArrayList<> ();
 
   /**
    * Constructor.
@@ -135,7 +135,7 @@ public class ChangeLogEntry extends AbstractChangeLogEntry
    * @return {@link EChange}
    */
   @Nonnull
-  EChange setText (@Nonnull final IMultilingualText aMLT)
+  public EChange setText (@Nonnull final IMultilingualText aMLT)
   {
     ValueEnforcer.notNull (aMLT, "MLT");
 

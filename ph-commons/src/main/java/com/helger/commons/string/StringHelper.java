@@ -1778,7 +1778,7 @@ public final class StringHelper
     return getExploded (cSep,
                         sElements,
                         nMaxItems,
-                        nMaxItems >= 1 ? new CommonsArrayList <> (nMaxItems) : new CommonsArrayList <> ());
+                        nMaxItems >= 1 ? new CommonsArrayList<> (nMaxItems) : new CommonsArrayList<> ());
   }
 
   /**
@@ -1895,7 +1895,7 @@ public final class StringHelper
     return getExploded (sSep,
                         sElements,
                         nMaxItems,
-                        nMaxItems >= 1 ? new CommonsArrayList <> (nMaxItems) : new CommonsArrayList <> ());
+                        nMaxItems >= 1 ? new CommonsArrayList<> (nMaxItems) : new CommonsArrayList<> ());
   }
 
   /**
@@ -1915,7 +1915,7 @@ public final class StringHelper
   @ReturnsMutableCopy
   public static CommonsHashSet <String> getExplodedToSet (@Nonnull final String sSep, @Nullable final String sElements)
   {
-    return getExploded (sSep, sElements, -1, new CommonsHashSet <> ());
+    return getExploded (sSep, sElements, -1, new CommonsHashSet<> ());
   }
 
   /**
@@ -1937,7 +1937,7 @@ public final class StringHelper
   public static CommonsLinkedHashSet <String> getExplodedToOrderedSet (@Nonnull final String sSep,
                                                                        @Nullable final String sElements)
   {
-    return getExploded (sSep, sElements, -1, new CommonsLinkedHashSet <> ());
+    return getExploded (sSep, sElements, -1, new CommonsLinkedHashSet<> ());
   }
 
   /**
@@ -1958,7 +1958,7 @@ public final class StringHelper
   public static CommonsTreeSet <String> getExplodedToSortedSet (@Nonnull final String sSep,
                                                                 @Nullable final String sElements)
   {
-    return getExploded (sSep, sElements, -1, new CommonsTreeSet <> ());
+    return getExploded (sSep, sElements, -1, new CommonsTreeSet<> ());
   }
 
   /**
@@ -3067,6 +3067,52 @@ public final class StringHelper
   {
     final String sInbetween = trimStart (sSrc, sLead);
     return trimEnd (sInbetween, sTail);
+  }
+
+  /**
+   * Trim the passed lead and tail from the source value. If the source value
+   * does not start with the passed trimmed value, nothing happens.
+   *
+   * @param sSrc
+   *        The input source string
+   * @param cValueToTrim
+   *        The char to be trimmed of the beginning and the end
+   * @return The trimmed string, or the original input string, if the value to
+   *         trim was not found
+   * @see #trimStart(String, String)
+   * @see #trimEnd(String, String)
+   * @see #trimStartAndEnd(String, String, String)
+   */
+  @Nullable
+  @CheckReturnValue
+  public static String trimStartAndEnd (@Nullable final String sSrc, final char cValueToTrim)
+  {
+    return trimStartAndEnd (sSrc, cValueToTrim, cValueToTrim);
+  }
+
+  /**
+   * Trim the passed lead and tail from the source value. If the source value
+   * does not start with the passed lead and does not end with the passed tail,
+   * nothing happens.
+   *
+   * @param sSrc
+   *        The input source string
+   * @param cLead
+   *        The char to be trimmed of the beginning
+   * @param cTail
+   *        The char to be trimmed of the end
+   * @return The trimmed string, or the original input string, if the lead and
+   *         the tail were not found
+   * @see #trimStart(String, char)
+   * @see #trimEnd(String, char)
+   * @see #trimStartAndEnd(String, char)
+   */
+  @Nullable
+  @CheckReturnValue
+  public static String trimStartAndEnd (@Nullable final String sSrc, final char cLead, final char cTail)
+  {
+    final String sInbetween = trimStart (sSrc, cLead);
+    return trimEnd (sInbetween, cTail);
   }
 
   /**

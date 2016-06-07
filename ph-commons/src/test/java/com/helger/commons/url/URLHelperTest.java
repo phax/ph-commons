@@ -32,10 +32,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.mime.CMimeType;
 
 /**
  * Test class for class {@link URLHelper}.
@@ -123,35 +121,6 @@ public final class URLHelperTest
     {
       // ignore
       s_aLogger.info ("Failed to GET: " + t.getMessage ());
-    }
-  }
-
-  @SuppressWarnings ("deprecation")
-  @Test
-  @Ignore ("Works only when being online")
-  public void testPosttInputStream ()
-  {
-    try
-    {
-      final InputStream aIS = URLHelper.postAndGetInputStream (new URL ("http://localhost:8080/view/?menuitem=e2p"),
-                                                               1000,
-                                                               -1,
-                                                               CMimeType.APPLICATION_X_WWW_FORM_URLENCODED,
-                                                               CharsetManager.getAsBytes ("sender=true",
-                                                                                          CCharset.CHARSET_UTF_8_OBJ),
-                                                               null,
-                                                               null,
-                                                               null);
-      final byte [] aContent = StreamHelper.getAllBytes (aIS);
-      s_aLogger.info ("Read " +
-                      aContent.length +
-                      " bytes: " +
-                      CharsetManager.getAsString (aContent, CCharset.CHARSET_UTF_8_OBJ));
-    }
-    catch (final Throwable t)
-    {
-      // ignore
-      s_aLogger.info ("Failed to POST: " + t.getMessage ());
     }
   }
 
