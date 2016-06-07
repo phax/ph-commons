@@ -35,7 +35,6 @@ import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.IteratorHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsHashSet;
-import com.helger.commons.exception.LoggedRuntimeException;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.random.RandomHelper;
 import com.helger.commons.state.EChange;
@@ -70,12 +69,12 @@ public final class HashCodeGeneratorTest
     aHC.append (BigDecimal.ZERO);
     aHC.append (new StringBuffer ("Hallo"));
     aHC.append (new StringBuilder ("Hallo Welt"));
-    aHC.append (new CommonsHashSet<> ("Hallo", "Welt", "from", "unit", "test"));
+    aHC.append (new CommonsHashSet <> ("Hallo", "Welt", "from", "unit", "test"));
     aHC.append (IteratorHelper.getIterator ("Hallo", "Welt", "from", "unit", "test"));
     aHC.append (IteratorHelper.getEnumeration ("Hallo", "Welt", "from", "unit", "test"));
 
     // Multi values containing null
-    aHC.append (new CommonsHashSet<> ("Hallo", null, null, "unit", "test"));
+    aHC.append (new CommonsHashSet <> ("Hallo", null, null, "unit", "test"));
 
     // Objects null
     aHC.append ((Enum <?>) null);
@@ -95,7 +94,7 @@ public final class HashCodeGeneratorTest
     aHC.append (new short [] { 4701, -32767 });
     aHC.append (EChange.values ());
     aHC.append (new Object [] { EChange.CHANGED, BigDecimal.ONE, "out" });
-    aHC.append (new CommonsArrayList<> (EChange.CHANGED, BigDecimal.ONE, "out"));
+    aHC.append (new CommonsArrayList <> (EChange.CHANGED, BigDecimal.ONE, "out"));
 
     // Arrays as objects
     aHC.append ((Object) new boolean [] { false, true });
@@ -108,7 +107,7 @@ public final class HashCodeGeneratorTest
     aHC.append ((Object) new short [] { 4701, -32767 });
     aHC.append ((Object) EChange.values ());
     aHC.append ((Object) new Object [] { EChange.CHANGED, BigDecimal.ONE, "out" });
-    aHC.append ((Object) new CommonsArrayList<> (EChange.CHANGED, BigDecimal.ONE, "out"));
+    aHC.append ((Object) new CommonsArrayList <> (EChange.CHANGED, BigDecimal.ONE, "out"));
 
     // Array objects filled and containing nulls
     aHC.append (new Enum [] { EChange.CHANGED, null, EChange.UNCHANGED });
@@ -224,7 +223,7 @@ public final class HashCodeGeneratorTest
         for (; i < aBytes.length; ++i)
           hc.append (i);
       }
-      catch (final LoggedRuntimeException ex)
+      catch (final RuntimeException ex)
       {
         final StringBuilder aSB = new StringBuilder ("new byte[]{");
         for (int j = 0; j < i; ++j)

@@ -21,8 +21,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.error.EErrorLevel;
-import com.helger.commons.exception.LoggedException;
-import com.helger.commons.exception.LoggedRuntimeException;
 
 /**
  * Test class for class {@link LogHelper}.
@@ -38,8 +36,8 @@ public final class LogHelperTest
     for (final EErrorLevel eLevel : EErrorLevel.values ())
     {
       LogHelper.log (aLogger, eLevel, "my message");
-      LogHelper.log (aLogger, eLevel, "my message with exception", new LoggedException ());
-      LogHelper.log (aLogger, eLevel, "my message with exception", new LoggedRuntimeException ());
+      LogHelper.log (aLogger, eLevel, "my message with exception", new Exception ());
+      LogHelper.log (aLogger, eLevel, "my message with exception", new RuntimeException ());
     }
   }
 }

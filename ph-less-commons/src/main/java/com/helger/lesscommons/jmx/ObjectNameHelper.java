@@ -29,7 +29,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
-import com.helger.commons.exception.LoggedRuntimeException;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.string.StringHelper;
 
@@ -89,7 +88,7 @@ public final class ObjectNameHelper
     }
     catch (final JMException ex)
     {
-      throw LoggedRuntimeException.newException ("Failed to create ObjectName with parameter " + aParams, ex);
+      throw new RuntimeException ("Failed to create ObjectName with parameter " + aParams, ex);
     }
   }
 
