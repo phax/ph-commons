@@ -19,6 +19,7 @@ package com.helger.commons.collection;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -4208,10 +4209,7 @@ public final class ArrayHelper
       return CollectionHelper.newList (aArray);
 
     final CommonsArrayList <ELEMENTTYPE> ret = new CommonsArrayList <> ();
-    if (isNotEmpty (aArray))
-      for (final ELEMENTTYPE aElement : aArray)
-        if (aFilter.test (aElement))
-          ret.add (aElement);
+    forEach (aArray, aFilter, ret::add);
     return ret;
   }
 
@@ -4226,10 +4224,7 @@ public final class ArrayHelper
       return CollectionHelper.newListMapped (aArray, aMapper);
 
     final CommonsArrayList <RETTYPE> ret = new CommonsArrayList <> ();
-    if (isNotEmpty (aArray))
-      for (final ELEMENTTYPE aElement : aArray)
-        if (aFilter.test (aElement))
-          ret.add (aMapper.apply (aElement));
+    forEach (aArray, aFilter, aElement -> ret.add (aMapper.apply (aElement)));
     return ret;
   }
 
@@ -4259,5 +4254,28 @@ public final class ArrayHelper
         if (aFilter.test (aElement))
           return true;
     return false;
+  }
+
+  public static <ELEMENTTYPE> void forEach (@Nullable final ELEMENTTYPE [] aArray,
+                                            @Nonnull final Consumer <? super ELEMENTTYPE> aConsumer)
+  {
+    if (isNotEmpty (aArray))
+      for (final ELEMENTTYPE aElement : aArray)
+        aConsumer.accept (aElement);
+  }
+
+  public static <ELEMENTTYPE> void forEach (@Nullable final ELEMENTTYPE [] aArray,
+                                            @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
+                                            @Nonnull final Consumer <? super ELEMENTTYPE> aConsumer)
+  {
+    if (aFilter == null)
+      forEach (aArray, aConsumer);
+    else
+    {
+      if (isNotEmpty (aArray))
+        for (final ELEMENTTYPE aElement : aArray)
+          if (aFilter.test (aElement))
+            aConsumer.accept (aElement);
+    }
   }
 }
