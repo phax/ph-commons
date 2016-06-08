@@ -89,13 +89,13 @@ public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
   @ReturnsMutableCopy
   public <T> CommonsArrayList <T> createInstance ()
   {
-    return new CommonsArrayList <> ();
+    return new CommonsArrayList<> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public CommonsArrayList <ELEMENTTYPE> getClone ()
   {
-    return new CommonsArrayList <> (this);
+    return new CommonsArrayList<> (this);
   }
 }

@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -48,7 +49,7 @@ public class CommonsConcurrentHashMap <KEYTYPE, VALUETYPE> extends ConcurrentHas
     super (nInitialCapacity);
   }
 
-  public CommonsConcurrentHashMap (final int nInitialCapacity, final float fLoadFactor)
+  public CommonsConcurrentHashMap (final int nInitialCapacity, @Nonnegative final float fLoadFactor)
   {
     super (nInitialCapacity, fLoadFactor);
   }
@@ -72,13 +73,13 @@ public class CommonsConcurrentHashMap <KEYTYPE, VALUETYPE> extends ConcurrentHas
   @ReturnsMutableCopy
   public <K, V> CommonsConcurrentHashMap <K, V> createInstance ()
   {
-    return new CommonsConcurrentHashMap <> ();
+    return new CommonsConcurrentHashMap<> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public CommonsConcurrentHashMap <KEYTYPE, VALUETYPE> getClone ()
   {
-    return new CommonsConcurrentHashMap <> (this);
+    return new CommonsConcurrentHashMap<> (this);
   }
 }

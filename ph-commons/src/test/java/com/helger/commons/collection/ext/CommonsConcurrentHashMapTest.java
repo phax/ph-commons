@@ -28,21 +28,21 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
- * Test class for class {@link CommonsHashMap}.
+ * Test class for class {@link CommonsConcurrentHashMap}.
  *
  * @author Philip Helger
  */
-public final class CommonsHashMapTest
+public final class CommonsConcurrentHashMapTest
 {
   @Test
   public void testBasic ()
   {
-    final ICommonsMap <String, String> aTest = new CommonsHashMap<> ();
+    final ICommonsMap <String, String> aTest = new CommonsConcurrentHashMap<> ();
     aTest.put ("aaa", "bla");
     aTest.put ("bbb", "blb");
     aTest.put ("ccc", "blc");
 
-    final ICommonsOrderedSet <String> aSortedKeys = aTest.getSortedByKey (Comparator.naturalOrder ()).copyOfKeySet ();
+    final ICommonsSet <String> aSortedKeys = aTest.getSortedByKey (Comparator.naturalOrder ()).copyOfKeySet ();
     assertEquals ("aaa", aSortedKeys.getAtIndex (0));
     assertEquals ("bbb", aSortedKeys.getAtIndex (1));
     assertEquals ("ccc", aSortedKeys.getAtIndex (2));
@@ -54,19 +54,21 @@ public final class CommonsHashMapTest
   @Test
   public void testCtor ()
   {
-    CommonsHashMap <String, Integer> aTest = new CommonsHashMap<> ();
+    CommonsConcurrentHashMap <String, Integer> aTest = new CommonsConcurrentHashMap<> ();
     assertEquals (0, aTest.size ());
-    aTest = new CommonsHashMap<> (7_000_123);
+    aTest = new CommonsConcurrentHashMap<> (7_000_123);
     assertEquals (0, aTest.size ());
-    aTest = new CommonsHashMap<> (7_000_123, 0.1f);
+    aTest = new CommonsConcurrentHashMap<> (7_000_123, 0.1f);
     assertEquals (0, aTest.size ());
-    aTest = new CommonsHashMap<> (new CommonsArrayList<> ("test", "any", "foo"),
-                                  Function.identity (),
-                                  x -> Integer.valueOf (x.length ()));
+    aTest = new CommonsConcurrentHashMap<> (new CommonsArrayList<> ("test", "any", "foo"),
+                                            Function.identity (),
+                                            x -> Integer.valueOf (x.length ()));
     assertEquals (3, aTest.size ());
-    aTest = new CommonsHashMap<> (new CommonsHashMap <String, Integer> (new CommonsArrayList<> ("test", "any", "foo"),
-                                                                        Function.identity (),
-                                                                        x -> Integer.valueOf (x.length ())));
+    aTest = new CommonsConcurrentHashMap<> (new CommonsConcurrentHashMap <String, Integer> (new CommonsArrayList<> ("test",
+                                                                                                                    "any",
+                                                                                                                    "foo"),
+                                                                                            Function.identity (),
+                                                                                            x -> Integer.valueOf (x.length ())));
     assertEquals (3, aTest.size ());
   }
 
@@ -80,6 +82,6 @@ public final class CommonsHashMapTest
     final ICommonsMap <Integer, String> aMapSwapped = aMap.getSwappedKeyValues ();
     assertEquals (aMap.size (), aMapSwapped.size ());
     assertEquals (aMap, aMapSwapped.getSwappedKeyValues ());
-    assertNotNull (new CommonsHashMap<> ().getSwappedKeyValues ());
+    assertNotNull (new CommonsConcurrentHashMap<> ().getSwappedKeyValues ());
   }
 }

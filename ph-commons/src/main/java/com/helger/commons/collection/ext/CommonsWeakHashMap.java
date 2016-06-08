@@ -48,7 +48,7 @@ public class CommonsWeakHashMap <KEYTYPE, VALUETYPE> extends WeakHashMap <KEYTYP
     super (nInitialCapacity);
   }
 
-  public CommonsWeakHashMap (@Nonnegative final int nInitialCapacity, final float fLoadFactor)
+  public CommonsWeakHashMap (@Nonnegative final int nInitialCapacity, @Nonnegative final float fLoadFactor)
   {
     super (nInitialCapacity, fLoadFactor);
   }
@@ -72,13 +72,13 @@ public class CommonsWeakHashMap <KEYTYPE, VALUETYPE> extends WeakHashMap <KEYTYP
   @ReturnsMutableCopy
   public <K, V> CommonsWeakHashMap <K, V> createInstance ()
   {
-    return new CommonsWeakHashMap <> ();
+    return new CommonsWeakHashMap<> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public CommonsWeakHashMap <KEYTYPE, VALUETYPE> getClone ()
   {
-    return new CommonsWeakHashMap <> (this);
+    return new CommonsWeakHashMap<> (this);
   }
 }

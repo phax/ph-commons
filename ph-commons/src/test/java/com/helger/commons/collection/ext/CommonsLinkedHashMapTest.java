@@ -19,6 +19,7 @@ package com.helger.commons.collection.ext;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Comparator;
+import java.util.function.Function;
 
 import org.junit.Test;
 
@@ -34,17 +35,40 @@ public final class CommonsLinkedHashMapTest
   @Test
   public void testBasic ()
   {
-    final ICommonsMap <String, String> aTest = new CommonsLinkedHashMap <> ();
+    final ICommonsMap <String, String> aTest = new CommonsLinkedHashMap<> ();
     aTest.put ("aaa", "bla");
     aTest.put ("bbb", "blb");
     aTest.put ("ccc", "blc");
 
-    final ICommonsSet <String> aSortedKeys = aTest.getSortedByKey (Comparator.naturalOrder ()).copyOfKeySet ();
+    final ICommonsOrderedSet <String> aSortedKeys = aTest.getSortedByKey (Comparator.naturalOrder ()).copyOfKeySet ();
     assertEquals ("aaa", aSortedKeys.getAtIndex (0));
     assertEquals ("bbb", aSortedKeys.getAtIndex (1));
     assertEquals ("ccc", aSortedKeys.getAtIndex (2));
 
     CommonsTestHelper.testDefaultSerialization (aTest);
     CommonsTestHelper.testGetClone (aTest);
+  }
+
+  @Test
+  public void testCtor ()
+  {
+    CommonsLinkedHashMap <String, Integer> aTest = new CommonsLinkedHashMap<> ();
+    assertEquals (0, aTest.size ());
+    aTest = new CommonsLinkedHashMap<> (7_000_123);
+    assertEquals (0, aTest.size ());
+    aTest = new CommonsLinkedHashMap<> (7_000_123, 0.1f);
+    assertEquals (0, aTest.size ());
+    aTest = new CommonsLinkedHashMap<> (7_000_123, 0.1f, false);
+    assertEquals (0, aTest.size ());
+    aTest = new CommonsLinkedHashMap<> (new CommonsArrayList<> ("test", "any", "foo"),
+                                        Function.identity (),
+                                        x -> Integer.valueOf (x.length ()));
+    assertEquals (3, aTest.size ());
+    aTest = new CommonsLinkedHashMap<> (new CommonsLinkedHashMap <String, Integer> (new CommonsArrayList<> ("test",
+                                                                                                            "any",
+                                                                                                            "foo"),
+                                                                                    Function.identity (),
+                                                                                    x -> Integer.valueOf (x.length ())));
+    assertEquals (3, aTest.size ());
   }
 }

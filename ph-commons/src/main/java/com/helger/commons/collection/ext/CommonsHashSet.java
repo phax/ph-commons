@@ -20,6 +20,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.function.Function;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -44,7 +45,7 @@ public class CommonsHashSet <ELEMENTTYPE> extends HashSet <ELEMENTTYPE> implemen
     super (nInitialCapacity);
   }
 
-  public CommonsHashSet (final int nInitialCapacity, final float fLoadFactor)
+  public CommonsHashSet (final int nInitialCapacity, @Nonnegative final float fLoadFactor)
   {
     super (nInitialCapacity, fLoadFactor);
   }
@@ -93,13 +94,13 @@ public class CommonsHashSet <ELEMENTTYPE> extends HashSet <ELEMENTTYPE> implemen
   @ReturnsMutableCopy
   public <T> CommonsHashSet <T> createInstance ()
   {
-    return new CommonsHashSet <> ();
+    return new CommonsHashSet<> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public CommonsHashSet <ELEMENTTYPE> getClone ()
   {
-    return new CommonsHashSet <> (this);
+    return new CommonsHashSet<> (this);
   }
 }

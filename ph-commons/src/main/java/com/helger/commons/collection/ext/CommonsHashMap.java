@@ -48,7 +48,7 @@ public class CommonsHashMap <KEYTYPE, VALUETYPE> extends HashMap <KEYTYPE, VALUE
     super (nInitialCapacity);
   }
 
-  public CommonsHashMap (@Nonnegative final int nInitialCapacity, final float fLoadFactor)
+  public CommonsHashMap (@Nonnegative final int nInitialCapacity, @Nonnegative final float fLoadFactor)
   {
     super (nInitialCapacity, fLoadFactor);
   }
@@ -72,13 +72,13 @@ public class CommonsHashMap <KEYTYPE, VALUETYPE> extends HashMap <KEYTYPE, VALUE
   @ReturnsMutableCopy
   public <K, V> CommonsHashMap <K, V> createInstance ()
   {
-    return new CommonsHashMap <> ();
+    return new CommonsHashMap<> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public CommonsHashMap <KEYTYPE, VALUETYPE> getClone ()
   {
-    return new CommonsHashMap <> (this);
+    return new CommonsHashMap<> (this);
   }
 }
