@@ -43,7 +43,6 @@ import com.helger.xml.schema.XMLSchemaCache;
 import com.helger.xml.serialize.read.DOMReader;
 import com.helger.xml.serialize.read.DOMReaderSettings;
 import com.helger.xml.serialize.write.XMLWriterSettings;
-import com.helger.xml.util.changelog.ChangeLogSerializer;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -65,8 +64,8 @@ public final class ChangeLogSerializerTest
     assertEquals (new Version (1, 0), aCL.getVersion ());
     assertEquals ("ph-xml", aCL.getComponent ());
     assertTrue (aCL.getAllEntries ().size () > 0);
-    assertTrue (aCL.getAllReleases ().size () == 0);
-    assertNull (aCL.getLatestRelease ());
+    assertTrue (aCL.getAllReleases ().size () > 0);
+    assertNotNull (aCL.getLatestRelease ());
     for (final EChangeLogCategory eCat : EChangeLogCategory.values ())
       assertNotNull (aCL.getAllEntriesOfCategory (eCat));
 

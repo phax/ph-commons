@@ -18,6 +18,12 @@
 
 -->
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="ph-xml">
+  <release date="2016-06-08" version="8.0.0" />
+  <entry date="2016-06-08" category="tech" action="change">
+    <change>
+      <text locale="en">Updated to JDK 8</text>
+    </change>
+  </entry>
   <entry date="2016-06-07" category="tech" action="add">
     <change>
       <text locale="en">Initial fork from ph-xml</text>
