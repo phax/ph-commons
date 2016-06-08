@@ -22,6 +22,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.commons.mutable.MutableInt;
+import com.helger.commons.state.EContinue;
 
 /**
  * Test class for class {@link CommonsArrayList}.
@@ -73,5 +75,17 @@ public final class CommonsArrayListTest
                                                                                  Integer.valueOf (4)),
                                     x -> x.toString ());
     assertEquals (3, aTest.size ());
+  }
+
+  @Test
+  public void testForEachBreakable ()
+  {
+    final CommonsArrayList <String> aTest = new CommonsArrayList<> ("a", "b", "c");
+    final MutableInt aCounter = new MutableInt (0);
+    aTest.forEachBreakable (x -> {
+      aCounter.inc ();
+      return x.equals ("b") ? EContinue.BREAK : EContinue.CONTINUE;
+    });
+    assertEquals (2, aCounter.intValue ());
   }
 }

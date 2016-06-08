@@ -63,7 +63,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
   @ReturnsMutableCopy
   default ICommonsList <ELEMENTTYPE> getCopyAsList ()
   {
-    return new CommonsArrayList <> (this);
+    return new CommonsArrayList<> (this);
   }
 
   /**
@@ -86,22 +86,6 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
   }
 
   /**
-   * Find all elements matching the supplied filter and add the matching
-   * elements to the supplied target collection
-   *
-   * @param aFilter
-   *        The filter to be applied. May be <code>null</code>.
-   * @param aDst
-   *        The destination collection to be filled. May not be
-   *        <code>null</code>.
-   */
-  default void findAll (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                        @Nonnull final Collection <? super ELEMENTTYPE> aDst)
-  {
-    findAll (aFilter, aDst::add);
-  }
-
-  /**
    * Find all elements matching the supplied filter and invoke the provided
    * consumer for each matching element.
    *
@@ -115,25 +99,6 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
                         @Nonnull final Consumer <? super ELEMENTTYPE> aConsumer)
   {
     CollectionHelper.findAll (this, aFilter, aConsumer);
-  }
-
-  /**
-   * Convert all elements using the provided function and add it to the the
-   * provided target collection.
-   *
-   * @param aMapper
-   *        The mapping function to be executed for all elements. May not be
-   *        <code>null</code>.
-   * @param aDst
-   *        The destination collection to be filled. May not be
-   *        <code>null</code>.
-   * @param <DSTTYPE>
-   *        The destination type to be mapped to
-   */
-  default <DSTTYPE> void findAllMapped (@Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper,
-                                        @Nonnull final Collection <? super DSTTYPE> aDst)
-  {
-    findAllMapped (aMapper, aDst::add);
   }
 
   /**
@@ -153,29 +118,6 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
                                         @Nonnull final Consumer <? super DSTTYPE> aConsumer)
   {
     CollectionHelper.findAllMapped (this, aMapper, aConsumer);
-  }
-
-  /**
-   * Find all elements matching the provided filter, convert the matching
-   * elements using the provided function and add it to the the provided target
-   * collection.
-   *
-   * @param aFilter
-   *        The filter to be applied. May be <code>null</code>.
-   * @param aMapper
-   *        The mapping function to be executed for all elements. May not be
-   *        <code>null</code>.
-   * @param aDst
-   *        The destination collection to be filled. May not be
-   *        <code>null</code>.
-   * @param <DSTTYPE>
-   *        The destination type to be mapped to
-   */
-  default <DSTTYPE> void findAllMapped (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                        @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper,
-                                        @Nonnull final Collection <? super DSTTYPE> aDst)
-  {
-    findAllMapped (aFilter, aMapper, aDst::add);
   }
 
   /**
@@ -566,7 +508,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
   @Nonnull
   default ICommonsList <ELEMENTTYPE> getSorted (@Nonnull final Comparator <? super ELEMENTTYPE> aComparator)
   {
-    return new CommonsArrayList <> (this).getSortedInline (aComparator);
+    return new CommonsArrayList<> (this).getSortedInline (aComparator);
   }
 
   /**
@@ -894,6 +836,6 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
   @Nonnull
   default IIterableIterator <ELEMENTTYPE> iterator2 ()
   {
-    return new IterableIterator <> (this);
+    return new IterableIterator<> (this);
   }
 }
