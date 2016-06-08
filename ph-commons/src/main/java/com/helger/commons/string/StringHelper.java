@@ -1778,7 +1778,7 @@ public final class StringHelper
     return getExploded (cSep,
                         sElements,
                         nMaxItems,
-                        nMaxItems >= 1 ? new CommonsArrayList<> (nMaxItems) : new CommonsArrayList<> ());
+                        nMaxItems >= 1 ? new CommonsArrayList <> (nMaxItems) : new CommonsArrayList <> ());
   }
 
   /**
@@ -1895,7 +1895,7 @@ public final class StringHelper
     return getExploded (sSep,
                         sElements,
                         nMaxItems,
-                        nMaxItems >= 1 ? new CommonsArrayList<> (nMaxItems) : new CommonsArrayList<> ());
+                        nMaxItems >= 1 ? new CommonsArrayList <> (nMaxItems) : new CommonsArrayList <> ());
   }
 
   /**
@@ -1915,7 +1915,7 @@ public final class StringHelper
   @ReturnsMutableCopy
   public static CommonsHashSet <String> getExplodedToSet (@Nonnull final String sSep, @Nullable final String sElements)
   {
-    return getExploded (sSep, sElements, -1, new CommonsHashSet<> ());
+    return getExploded (sSep, sElements, -1, new CommonsHashSet <> ());
   }
 
   /**
@@ -1937,7 +1937,7 @@ public final class StringHelper
   public static CommonsLinkedHashSet <String> getExplodedToOrderedSet (@Nonnull final String sSep,
                                                                        @Nullable final String sElements)
   {
-    return getExploded (sSep, sElements, -1, new CommonsLinkedHashSet<> ());
+    return getExploded (sSep, sElements, -1, new CommonsLinkedHashSet <> ());
   }
 
   /**
@@ -1958,7 +1958,7 @@ public final class StringHelper
   public static CommonsTreeSet <String> getExplodedToSortedSet (@Nonnull final String sSep,
                                                                 @Nullable final String sElements)
   {
-    return getExploded (sSep, sElements, -1, new CommonsTreeSet<> ());
+    return getExploded (sSep, sElements, -1, new CommonsTreeSet <> ());
   }
 
   /**
@@ -3366,12 +3366,12 @@ public final class StringHelper
   }
 
   /**
-   * This is a fast replacement for
-   * {@link String#replace(CharSequence, CharSequence)} for characters. The
-   * problem with the mentioned String method is, that is uses internally
-   * regular expressions which use a synchronized block to compile the patterns.
-   * This method is inherently thread safe since {@link String} is immutable and
-   * we're operating on different temporary {@link StringBuilder} objects.
+   * This is a fast replacement for {@link String#replace(char, char)} for
+   * characters. The problem with the mentioned String method is, that is uses
+   * internally regular expressions which use a synchronized block to compile
+   * the patterns. This method is inherently thread safe since {@link String} is
+   * immutable and we're operating on different temporary {@link StringBuilder}
+   * objects.
    *
    * @param sInputString
    *        The input string where the text should be replace. If this parameter

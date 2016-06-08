@@ -431,7 +431,8 @@ public final class FilenameHelper
   @Nullable
   public static String getPathUsingUnixSeparator (@Nullable final String sAbsoluteFilename)
   {
-    return sAbsoluteFilename == null ? null : sAbsoluteFilename.replace (WINDOWS_SEPARATOR, UNIX_SEPARATOR);
+    return sAbsoluteFilename == null ? null
+                                     : StringHelper.replaceAll (sAbsoluteFilename, WINDOWS_SEPARATOR, UNIX_SEPARATOR);
   }
 
   /**
@@ -462,7 +463,8 @@ public final class FilenameHelper
   @Nullable
   public static String getPathUsingWindowsSeparator (@Nullable final String sAbsoluteFilename)
   {
-    return sAbsoluteFilename == null ? null : sAbsoluteFilename.replace (UNIX_SEPARATOR, WINDOWS_SEPARATOR);
+    return sAbsoluteFilename == null ? null
+                                     : StringHelper.replaceAll (sAbsoluteFilename, UNIX_SEPARATOR, WINDOWS_SEPARATOR);
   }
 
   /**
@@ -622,7 +624,7 @@ public final class FilenameHelper
 
       // Replace all characters that are illegal inside a file name
       for (final char cIllegal : ILLEGAL_CHARACTERS)
-        ret = ret.replace (cIllegal, ILLEGAL_FILENAME_CHAR_REPLACEMENT);
+        ret = StringHelper.replaceAll (ret, cIllegal, ILLEGAL_FILENAME_CHAR_REPLACEMENT);
 
       // Check if a file matches an illegal prefix
       for (final String sIllegalPrefix : ILLEGAL_PREFIXES)

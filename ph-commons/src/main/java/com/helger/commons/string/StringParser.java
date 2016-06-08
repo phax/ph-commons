@@ -59,7 +59,7 @@ public final class StringParser
   @Nonempty
   private static String _getUnifiedDecimal (@Nonnull @Nonempty final String sStr)
   {
-    return sStr.replace (',', '.');
+    return StringHelper.replaceAll (sStr, ',', '.');
   }
 
   // ---[boolean]---
