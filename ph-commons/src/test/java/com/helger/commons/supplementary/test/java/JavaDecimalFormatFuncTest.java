@@ -28,6 +28,7 @@ import org.junit.Test;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.locale.LocaleCache;
+import com.helger.commons.string.StringHelper;
 
 public final class JavaDecimalFormatFuncTest
 {
@@ -118,7 +119,7 @@ public final class JavaDecimalFormatFuncTest
     final String pattern = ((DecimalFormat) curFormat).toPattern ();
     assertEquals ("#,##0.00 \u00A4", pattern);
 
-    final String patternWithoutCurSym = pattern.replaceAll ("\u00A4", "");
+    final String patternWithoutCurSym = StringHelper.removeAll (pattern, '\u00A4');
     assertEquals ("#,##0.00 ", patternWithoutCurSym);
 
     curFormat = new DecimalFormat (patternWithoutCurSym,
