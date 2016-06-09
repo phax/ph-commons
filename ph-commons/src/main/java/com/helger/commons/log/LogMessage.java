@@ -18,13 +18,13 @@ package com.helger.commons.log;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.error.IErrorLevel;
 import com.helger.commons.errorlist.IErrorBase;
 import com.helger.commons.string.ToStringGenerator;
@@ -46,7 +46,7 @@ public class LogMessage implements IErrorBase <LogMessage>
                      @Nonnull final Serializable aMsg,
                      @Nullable final Throwable aThrowable)
   {
-    this (LocalDateTime.now (ZoneId.systemDefault ()), aErrorLevel, aMsg, aThrowable);
+    this (PDTFactory.getCurrentLocalDateTime (), aErrorLevel, aMsg, aThrowable);
   }
 
   public LogMessage (@Nonnull final LocalDateTime aIssueDT,
