@@ -16,7 +16,10 @@
  */
 package com.helger.jaxb.builder;
 
+import java.util.function.Consumer;
+
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -29,7 +32,9 @@ import javax.xml.validation.Schema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.callback.exception.IExceptionCallback;
 import com.helger.commons.lang.GenericReflection;
 
 /**
@@ -45,11 +50,51 @@ import com.helger.commons.lang.GenericReflection;
 public abstract class AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE extends AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE>>
                                                  extends AbstractJAXBBuilder <IMPLTYPE>
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractWritingJAXBBuilder.class);
+  public static class DefaultExceptionHandler implements IExceptionCallback <JAXBException>
+  {
+    private static final Logger s_aLogger = LoggerFactory.getLogger (DefaultExceptionHandler.class);
+
+    public void onException (@Nonnull final JAXBException ex)
+    {
+      if (ex instanceof MarshalException)
+        s_aLogger.error ("Marshal exception writing object", ex);
+      else
+        s_aLogger.warn ("JAXB Exception writing object", ex);
+    }
+  }
+
+  private IExceptionCallback <JAXBException> m_aExceptionHandler = new DefaultExceptionHandler ();
+  private Consumer <Marshaller> m_aMarshallerCustomizer;
 
   public AbstractWritingJAXBBuilder (@Nonnull final IJAXBDocumentType aDocType)
   {
     super (aDocType);
+  }
+
+  @Nonnull
+  public IExceptionCallback <JAXBException> getExceptionHandler ()
+  {
+    return m_aExceptionHandler;
+  }
+
+  @Nonnull
+  public IMPLTYPE setExceptionHandler (@Nonnull final IExceptionCallback <JAXBException> aExceptionHandler)
+  {
+    m_aExceptionHandler = ValueEnforcer.notNull (aExceptionHandler, "ExceptionHandler");
+    return thisAsT ();
+  }
+
+  @Nullable
+  public Consumer <Marshaller> getMarshallerCustomizer ()
+  {
+    return m_aMarshallerCustomizer;
+  }
+
+  @Nonnull
+  public IMPLTYPE setMarshallerCustomizer (@Nullable final Consumer <Marshaller> aMarshallerCustomizer)
+  {
+    m_aMarshallerCustomizer = aMarshallerCustomizer;
+    return thisAsT ();
   }
 
   /**
@@ -74,25 +119,6 @@ public abstract class AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE extends Abs
       aMarshaller.setSchema (aSchema);
 
     return aMarshaller;
-  }
-
-  /**
-   * Customize the marshaller
-   *
-   * @param aMarshaller
-   *        The marshaller to customize. Never <code>null</code>.
-   */
-  @OverrideOnDemand
-  protected void customizeMarshaller (@Nonnull final Marshaller aMarshaller)
-  {}
-
-  @OverrideOnDemand
-  protected void handleWriteException (@Nonnull final JAXBException ex)
-  {
-    if (ex instanceof MarshalException)
-      s_aLogger.error ("Marshal exception writing object", ex);
-    else
-      s_aLogger.warn ("JAXB Exception writing object", ex);
   }
 
   @Nonnull

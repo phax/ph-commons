@@ -16,6 +16,8 @@
  */
 package com.helger.jaxb.builder;
 
+import java.util.function.Consumer;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
@@ -33,7 +35,7 @@ import org.w3c.dom.Node;
 import org.xml.sax.SAXParseException;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.callback.exception.IExceptionCallback;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -54,10 +56,35 @@ import com.helger.xml.XMLHelper;
 public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JAXBTYPE, IMPLTYPE>>
                                extends AbstractJAXBBuilder <IMPLTYPE> implements IJAXBReader <JAXBTYPE>
 {
+  public static class DefaultExceptionHandler implements IExceptionCallback <JAXBException>
+  {
+    private static final Logger s_aLogger0 = LoggerFactory.getLogger (DefaultExceptionHandler.class);
+
+    public void onException (@Nonnull final JAXBException ex)
+    {
+      if (ex instanceof UnmarshalException)
+      {
+        // The JAXB specification does not mandate how the JAXB provider
+        // must behave when attempting to unmarshal invalid XML data. In
+        // those cases, the JAXB provider is allowed to terminate the
+        // call to unmarshal with an UnmarshalException.
+        final Throwable aLinked = ((UnmarshalException) ex).getLinkedException ();
+        if (aLinked instanceof SAXParseException)
+          s_aLogger0.error ("Failed to parse XML document: " + aLinked.getMessage ());
+        else
+          s_aLogger0.error ("Unmarshal exception reading document", ex);
+      }
+      else
+        s_aLogger0.warn ("JAXB Exception reading document", ex);
+    }
+  }
+
   private static final Logger s_aLogger = LoggerFactory.getLogger (JAXBReaderBuilder.class);
 
   private final Class <JAXBTYPE> m_aImplClass;
   private ValidationEventHandler m_aEventHandler = JAXBBuilderDefaultSettings.getDefaultValidationEventHandler ();
+  private IExceptionCallback <JAXBException> m_aExceptionHandler = new DefaultExceptionHandler ();
+  private Consumer <Unmarshaller> m_aUnmarshallerCustomizer;
 
   public JAXBReaderBuilder (@Nonnull final IJAXBDocumentType aDocType)
   {
@@ -101,6 +128,32 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
     return thisAsT ();
   }
 
+  @Nonnull
+  public IExceptionCallback <JAXBException> getExceptionHandler ()
+  {
+    return m_aExceptionHandler;
+  }
+
+  @Nonnull
+  public IMPLTYPE setExceptionHandler (@Nonnull final IExceptionCallback <JAXBException> aExceptionHandler)
+  {
+    m_aExceptionHandler = ValueEnforcer.notNull (aExceptionHandler, "ExceptionHandler");
+    return thisAsT ();
+  }
+
+  @Nullable
+  public Consumer <Unmarshaller> getUnmarshallerCustomizer ()
+  {
+    return m_aUnmarshallerCustomizer;
+  }
+
+  @Nonnull
+  public IMPLTYPE setUnmarshallerCustomizer (@Nullable final Consumer <Unmarshaller> aUnmarshallerCustomizer)
+  {
+    m_aUnmarshallerCustomizer = aUnmarshallerCustomizer;
+    return thisAsT ();
+  }
+
   public final boolean isReadSecure ()
   {
     return true;
@@ -124,35 +177,6 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
       aUnmarshaller.setSchema (aSchema);
 
     return aUnmarshaller;
-  }
-
-  /**
-   * Customize the unmarshaller
-   *
-   * @param aUnmarshaller
-   *        The unmarshaller to customize. Never <code>null</code>.
-   */
-  @OverrideOnDemand
-  protected void customizeUnmarshaller (@Nonnull final Unmarshaller aUnmarshaller)
-  {}
-
-  @OverrideOnDemand
-  protected void handleReadException (@Nonnull final JAXBException ex)
-  {
-    if (ex instanceof UnmarshalException)
-    {
-      // The JAXB specification does not mandate how the JAXB provider
-      // must behave when attempting to unmarshal invalid XML data. In
-      // those cases, the JAXB provider is allowed to terminate the
-      // call to unmarshal with an UnmarshalException.
-      final Throwable aLinked = ((UnmarshalException) ex).getLinkedException ();
-      if (aLinked instanceof SAXParseException)
-        s_aLogger.error ("Failed to parse XML document: " + aLinked.getMessage ());
-      else
-        s_aLogger.error ("Unmarshal exception reading document", ex);
-    }
-    else
-      s_aLogger.warn ("JAXB Exception reading document", ex);
   }
 
   /**
@@ -189,7 +213,8 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
       final Unmarshaller aUnmarshaller = createUnmarshaller ();
 
       // Customize on demand
-      customizeUnmarshaller (aUnmarshaller);
+      if (m_aUnmarshallerCustomizer != null)
+        m_aUnmarshallerCustomizer.accept (aUnmarshaller);
 
       // start unmarshalling
       ret = aUnmarshaller.unmarshal (aNode, m_aImplClass).getValue ();
@@ -200,7 +225,7 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
     }
     catch (final JAXBException ex)
     {
-      handleReadException (ex);
+      m_aExceptionHandler.onException (ex);
     }
 
     return ret;
@@ -234,7 +259,8 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
       final Unmarshaller aUnmarshaller = createUnmarshaller ();
 
       // Customize on demand
-      customizeUnmarshaller (aUnmarshaller);
+      if (m_aUnmarshallerCustomizer != null)
+        m_aUnmarshallerCustomizer.accept (aUnmarshaller);
 
       // start unmarshalling
       ret = aUnmarshaller.unmarshal (aSource, m_aImplClass).getValue ();
@@ -245,7 +271,7 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
     }
     catch (final JAXBException ex)
     {
-      handleReadException (ex);
+      m_aExceptionHandler.onException (ex);
     }
 
     return ret;

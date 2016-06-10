@@ -16,6 +16,8 @@
  */
 package com.helger.jaxb.builder;
 
+import java.util.function.Consumer;
+
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.bind.JAXBElement;
@@ -69,7 +71,9 @@ public class JAXBValidationBuilder <JAXBTYPE, IMPLTYPE extends JAXBValidationBui
       aMarshaller.setEventHandler (aEventHandler);
 
       // Customize on demand
-      customizeMarshaller (aMarshaller);
+      final Consumer <Marshaller> aCustomizer = getMarshallerCustomizer ();
+      if (aCustomizer != null)
+        aCustomizer.accept (aMarshaller);
 
       // start marshalling
       final JAXBElement <?> aJAXBElement = createJAXBElement (aJAXBDocument);

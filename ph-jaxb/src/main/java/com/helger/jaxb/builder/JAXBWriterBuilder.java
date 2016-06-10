@@ -17,6 +17,7 @@
 package com.helger.jaxb.builder;
 
 import java.nio.charset.Charset;
+import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -256,7 +257,9 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
       final Marshaller aMarshaller = createMarshaller ();
 
       // Customize on demand
-      customizeMarshaller (aMarshaller);
+      final Consumer <Marshaller> aCustomizer = getMarshallerCustomizer ();
+      if (aCustomizer != null)
+        aCustomizer.accept (aMarshaller);
 
       // start marshalling
       final JAXBElement <JAXBTYPE> aJAXBElement = createJAXBElement (aJAXBDocument);
@@ -265,7 +268,7 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
     }
     catch (final JAXBException ex)
     {
-      handleWriteException (ex);
+      getExceptionHandler ().onException (ex);
     }
     return ESuccess.FAILURE;
   }
