@@ -136,6 +136,7 @@ public class GlobalScope extends AbstractMapBasedScope implements IGlobalScope
         if (aWLAppScope == null)
         {
           aWLAppScope = createApplicationScope (sApplicationID);
+          // First add to map, than init
           m_aAppScopes.put (sApplicationID, aWLAppScope);
           aWLAppScope.initScope ();
 

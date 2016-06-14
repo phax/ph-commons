@@ -170,6 +170,7 @@ public class SessionScope extends AbstractMapBasedScope implements ISessionScope
         {
           // Definitively not present
           aWLSessionAppScope = createSessionApplicationScope (sAppScopeID);
+          // First put to map, than init scope
           m_aSessionAppScopes.put (sAppScopeID, aWLSessionAppScope);
           aWLSessionAppScope.initScope ();
 
