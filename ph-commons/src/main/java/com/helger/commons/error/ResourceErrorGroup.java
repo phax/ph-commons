@@ -17,6 +17,7 @@
 package com.helger.commons.error;
 
 import java.util.Iterator;
+import java.util.function.Consumer;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -255,6 +256,11 @@ public class ResourceErrorGroup implements IResourceErrorGroup, ICloneable <Reso
   public ICommonsList <IResourceError> getAllResourceErrors ()
   {
     return m_aErrors.getClone ();
+  }
+
+  public void forEachResourceError (@Nonnull final Consumer <? super IResourceError> aConsumer)
+  {
+    m_aErrors.forEach (aConsumer);
   }
 
   @Nonnull

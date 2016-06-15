@@ -16,12 +16,15 @@
  */
 package com.helger.jaxb.validation;
 
+import java.util.function.Consumer;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 import javax.xml.bind.ValidationEventHandler;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.error.IHasResourceErrorGroup;
@@ -63,6 +66,19 @@ public class CollectingValidationEventHandler extends AbstractValidationEventHan
   public IResourceErrorGroup getResourceErrors ()
   {
     return m_aRWLock.readLocked ( () -> m_aErrors.getClone ());
+  }
+
+  /**
+   * Call the provided consumer for all contained resource errors.
+   *
+   * @param aConsumer
+   *        The consumer to be invoked. May not be <code>null</code>. May only
+   *        perform reading actions!
+   */
+  public void forEachResourceError (@Nonnull final Consumer <? super IResourceError> aConsumer)
+  {
+    ValueEnforcer.notNull (aConsumer, "Consumer");
+    m_aRWLock.readLocked ( () -> m_aErrors.forEachResourceError (aConsumer));
   }
 
   /**

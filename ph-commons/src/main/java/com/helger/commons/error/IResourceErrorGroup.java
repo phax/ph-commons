@@ -17,6 +17,7 @@
 package com.helger.commons.error;
 
 import java.io.Serializable;
+import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
 
@@ -55,4 +56,16 @@ public interface IResourceErrorGroup extends IHasSize, Iterable <IResourceError>
    */
   @Nonnull
   ICommonsList <IResourceError> getAllResourceErrors ();
+
+  /**
+   * Call the provided consumer for all contained resource errors.
+   * 
+   * @param aConsumer
+   *        The consumer to be invoked. May not be <code>null</code>. May only
+   *        perform reading actions!
+   */
+  default void forEachResourceError (@Nonnull final Consumer <? super IResourceError> aConsumer)
+  {
+    getAllResourceErrors ().forEach (aConsumer);
+  }
 }
