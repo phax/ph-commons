@@ -25,6 +25,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.IntConsumer;
 
@@ -1701,10 +1702,40 @@ public final class StringHelper
                                                                              final int nMaxItems,
                                                                              @Nonnull final COLLTYPE aCollection)
   {
-    ValueEnforcer.notNull (aCollection, "Collection");
+    explode (cSep, sElements, nMaxItems, aCollection::add);
+    return aCollection;
+  }
+
+  /**
+   * Take a concatenated String and return the passed Collection of all elements
+   * in the passed string, using specified separator string.
+   *
+   * @param cSep
+   *        The separator to use.
+   * @param sElements
+   *        The concatenated String to convert. May be <code>null</code> or
+   *        empty.
+   * @param nMaxItems
+   *        The maximum number of items to explode. If the passed value is &le;
+   *        0 all items are used. If max items is 1, than the result string is
+   *        returned as is. If max items is larger than the number of elements
+   *        found, it has no effect.
+   * @param aConsumer
+   *        The non-<code>null</code> target collection that should be filled
+   *        with the exploded elements
+   */
+  @Nonnull
+  @ReturnsMutableObject ("The passed parameter")
+  @CodingStyleguideUnaware
+  public static void explode (final char cSep,
+                              @Nullable final String sElements,
+                              final int nMaxItems,
+                              @Nonnull final Consumer <String> aConsumer)
+  {
+    ValueEnforcer.notNull (aConsumer, "Consumer");
 
     if (nMaxItems == 1)
-      aCollection.add (sElements);
+      aConsumer.accept (sElements);
     else
       if (hasText (sElements))
       {
@@ -1716,7 +1747,7 @@ public final class StringHelper
         int nItemsAdded = 0;
         while ((nMatchIndex = sElements.indexOf (cSep, nStartIndex)) >= 0)
         {
-          aCollection.add (sElements.substring (nStartIndex, nMatchIndex));
+          aConsumer.accept (sElements.substring (nStartIndex, nMatchIndex));
           // 1 == length of separator char
           nStartIndex = nMatchIndex + 1;
           ++nItemsAdded;
@@ -1726,9 +1757,8 @@ public final class StringHelper
             break;
           }
         }
-        aCollection.add (sElements.substring (nStartIndex));
+        aConsumer.accept (sElements.substring (nStartIndex));
       }
-    return aCollection;
   }
 
   /**
@@ -1809,43 +1839,75 @@ public final class StringHelper
                                                                              final int nMaxItems,
                                                                              @Nonnull final COLLTYPE aCollection)
   {
-    ValueEnforcer.notNull (sSep, "Separator");
-    ValueEnforcer.notNull (aCollection, "Collection");
+    explode (sSep, sElements, nMaxItems, aCollection::add);
+    return aCollection;
+  }
 
-    if (nMaxItems == 1)
-      aCollection.add (sElements);
-    else
+  /**
+   * Take a concatenated String, split it by the passed separator, limit the
+   * results to the provided number of maximum items and call the Consumer for
+   * every matched part.
+   *
+   * @param sSep
+   *        The separator to use. May not be <code>null</code>.
+   * @param sElements
+   *        The concatenated String to convert. May be <code>null</code> or
+   *        empty.
+   * @param nMaxItems
+   *        The maximum number of items to explode. If the passed value is &le;
+   *        0 all items are used. If max items is 1, than the result string is
+   *        returned as is. If max items is larger than the number of elements
+   *        found, it has no effect.
+   * @param aConsumer
+   *        The non-<code>null</code> target collection that should be filled
+   *        with the exploded elements
+   */
+  @Nonnull
+  public static void explode (@Nonnull final String sSep,
+                              @Nullable final String sElements,
+                              final int nMaxItems,
+                              @Nonnull final Consumer <String> aConsumer)
+  {
+    ValueEnforcer.notNull (sSep, "Separator");
+    ValueEnforcer.notNull (aConsumer, "Collection");
+
+    if (sSep.length () == 1)
     {
       // If the separator consists only of a single character, use the
       // char-optimized version for better performance
       // Note: do it before the "hasText (sElements)" check, because the same
       // check is performed in the char version as well
-      if (sSep.length () == 1)
-        return getExploded (sSep.charAt (0), sElements, nMaxItems, aCollection);
-
-      if (hasText (sElements))
+      explode (sSep.charAt (0), sElements, nMaxItems, aConsumer);
+    }
+    else
+    {
+      if (nMaxItems == 1)
+        aConsumer.accept (sElements);
+      else
       {
-        // Do not use RegExPool.stringReplacePattern because of package
-        // dependencies
-        // Do not use String.split because it trims empty tokens from the end
-        int nStartIndex = 0;
-        int nMatchIndex;
-        int nItemsAdded = 0;
-        while ((nMatchIndex = sElements.indexOf (sSep, nStartIndex)) >= 0)
+        if (hasText (sElements))
         {
-          aCollection.add (sElements.substring (nStartIndex, nMatchIndex));
-          nStartIndex = nMatchIndex + sSep.length ();
-          ++nItemsAdded;
-          if (nMaxItems > 0 && nItemsAdded == nMaxItems - 1)
+          // Do not use RegExPool.stringReplacePattern because of package
+          // dependencies
+          // Do not use String.split because it trims empty tokens from the end
+          int nStartIndex = 0;
+          int nMatchIndex;
+          int nItemsAdded = 0;
+          while ((nMatchIndex = sElements.indexOf (sSep, nStartIndex)) >= 0)
           {
-            // We have exactly one item the left: the rest of the string
-            break;
+            aConsumer.accept (sElements.substring (nStartIndex, nMatchIndex));
+            nStartIndex = nMatchIndex + sSep.length ();
+            ++nItemsAdded;
+            if (nMaxItems > 0 && nItemsAdded == nMaxItems - 1)
+            {
+              // We have exactly one item the left: the rest of the string
+              break;
+            }
           }
+          aConsumer.accept (sElements.substring (nStartIndex));
         }
-        aCollection.add (sElements.substring (nStartIndex));
       }
     }
-    return aCollection;
   }
 
   /**
