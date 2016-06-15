@@ -324,6 +324,38 @@ public interface IConvertibleByIndexTrait
   /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
+   * @return <code>getConvertedValue (nIndex,char[].class)</code>
+   * @throws TypeConverterException
+   *         in case of an error
+   * @see #getConvertedValue(int,Class)
+   */
+  @Nullable
+  default char [] getAsCharArray (@Nonnegative final int nIndex) throws TypeConverterException
+  {
+    return getConvertedValue (nIndex, char [].class);
+  }
+
+  /**
+   * @param nIndex
+   *        The index to be accessed. Should be &ge; 0.
+   * @param aDefault
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
+   * @return <code>getConvertedValue (nIndex,aDefault, char[].class)</code>
+   * @throws TypeConverterException
+   *         in case of an error
+   * @see #getConvertedValue(int,Object,Class)
+   */
+  @Nullable
+  default char [] getAsCharArray (@Nonnegative final int nIndex,
+                                  @Nullable final char [] aDefault) throws TypeConverterException
+  {
+    return getConvertedValue (nIndex, aDefault, char [].class);
+  }
+
+  /**
+   * @param nIndex
+   *        The index to be accessed. Should be &ge; 0.
    * @return <code>getConvertedValue (nIndex,BigDecimal.class)</code>
    * @throws TypeConverterException
    *         in case of an error

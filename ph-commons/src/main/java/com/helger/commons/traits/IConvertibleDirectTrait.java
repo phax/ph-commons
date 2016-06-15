@@ -293,6 +293,33 @@ public interface IConvertibleDirectTrait
   }
 
   /**
+   * @return <code>getConvertedValue (char[].class)</code>
+   * @throws TypeConverterException
+   *         in case of an error
+   * @see #getConvertedValue(Class)
+   */
+  @Nullable
+  default char [] getAsCharArray () throws TypeConverterException
+  {
+    return getConvertedValue (char [].class);
+  }
+
+  /**
+   * @param aDefault
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
+   * @return <code>getConvertedValue (aDefault, char[].class)</code>
+   * @throws TypeConverterException
+   *         in case of an error
+   * @see #getConvertedValue(Object,Class)
+   */
+  @Nullable
+  default char [] getAsCharArray (@Nullable final char [] aDefault) throws TypeConverterException
+  {
+    return getConvertedValue (aDefault, char [].class);
+  }
+
+  /**
    * @return <code>getConvertedValue (BigDecimal.class)</code>
    * @throws TypeConverterException
    *         in case of an error

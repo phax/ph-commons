@@ -324,6 +324,38 @@ public interface IConvertibleByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
+   * @return <code>getConvertedValue (aKey,char [].class)</code>
+   * @throws TypeConverterException
+   *         in case of an error
+   * @see #getConvertedValue(Object,Class)
+   */
+  @Nullable
+  default char [] getAsCharArray (@Nullable final KEYTYPE aKey) throws TypeConverterException
+  {
+    return getConvertedValue (aKey, char [].class);
+  }
+
+  /**
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @param aDefault
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
+   * @return <code>getConvertedValue (aKey, aDefault, char[].class)</code>
+   * @throws TypeConverterException
+   *         in case of an error
+   * @see #getConvertedValue(Object,Object,Class)
+   */
+  @Nullable
+  default char [] getAsCharArray (@Nullable final KEYTYPE aKey,
+                                  @Nullable final char [] aDefault) throws TypeConverterException
+  {
+    return getConvertedValue (aKey, aDefault, char [].class);
+  }
+
+  /**
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
    * @return <code>getConvertedValue (aKey,BigDecimal.class)</code>
    * @throws TypeConverterException
    *         in case of an error
