@@ -50,7 +50,7 @@ public class ASCII85Codec implements IByteArrayStreamDecoder
   {
     if (aEncodedBuffer == null)
       return;
-    ValueEnforcer.isTrue (nLen >= 4, "Buffer too small: " + nLen);
+    ValueEnforcer.isTrue (nLen >= 4, () -> "Buffer too small: " + nLen);
 
     try
     {

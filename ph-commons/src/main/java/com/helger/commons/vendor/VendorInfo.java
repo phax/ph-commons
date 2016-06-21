@@ -152,8 +152,7 @@ public final class VendorInfo
   public static void setVendorEmail (@Nonnull @Nonempty final String sVendorEmail)
   {
     ValueEnforcer.notEmpty (sVendorEmail, "VendorEmail");
-    if (!EmailAddressHelper.isValid (sVendorEmail))
-      throw new IllegalArgumentException ("Illegal vendor email: " + sVendorEmail);
+    ValueEnforcer.isTrue (EmailAddressHelper.isValid (sVendorEmail), () -> "Illegal vendor email: " + sVendorEmail);
     s_sVendorEmail = sVendorEmail;
     s_sVendorEmailSuffix = StringHelper.getFromFirstIncl (sVendorEmail, '@');
   }

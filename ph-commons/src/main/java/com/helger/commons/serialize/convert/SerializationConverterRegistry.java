@@ -105,8 +105,8 @@ public final class SerializationConverterRegistry implements ISerializationConve
   {
     ValueEnforcer.notNull (aClass, "Class");
     ValueEnforcer.notNull (aConverter, "Converter");
-    if (Serializable.class.isAssignableFrom (aClass))
-      throw new IllegalArgumentException ("The provided " + aClass.toString () + " is already Serializable!");
+    ValueEnforcer.isFalse (Serializable.class.isAssignableFrom (aClass),
+                           () -> "The provided " + aClass.toString () + " is already implementing Serializable!");
 
     m_aRWLock.writeLocked ( () -> {
       // The main class should not already be registered

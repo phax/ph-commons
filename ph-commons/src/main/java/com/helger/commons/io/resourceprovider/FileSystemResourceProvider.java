@@ -62,8 +62,8 @@ public final class FileSystemResourceProvider implements IWritableResourceProvid
   {
     if (aBasePath != null)
     {
-      ValueEnforcer.isTrue (aBasePath.exists (), "Passed base path '" + aBasePath + "' does not exist!");
-      ValueEnforcer.isTrue (aBasePath.isDirectory (), "Passed base path '" + aBasePath + "' is not a directory!");
+      ValueEnforcer.isTrue (aBasePath.exists (), () -> "Passed base path '" + aBasePath + "' does not exist!");
+      ValueEnforcer.isTrue (aBasePath.isDirectory (), () -> "Passed base path '" + aBasePath + "' is not a directory!");
       if (!FileHelper.canRead (aBasePath))
         s_aLogger.warn ("Cannot read passed base path '" + aBasePath + "'!");
       if (!FileHelper.canWrite (aBasePath))

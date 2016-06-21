@@ -58,8 +58,8 @@ public class FileLongIDFactory extends AbstractPersistingLongIDFactory
   {
     super (nReserveCount);
     ValueEnforcer.notNull (aFile, "File");
-    if (!FileHelper.canReadAndWriteFile (aFile))
-      throw new IllegalArgumentException ("Cannot read and/or write the file " + aFile + "!");
+    ValueEnforcer.isTrue (FileHelper.canReadAndWriteFile (aFile),
+                          () -> "Cannot read and/or write the file " + aFile + "!");
     m_aFile = aFile;
   }
 

@@ -390,7 +390,7 @@ public final class URLHelper
     // Ever trickier is the when running multiple threads for reading XML (e.g.
     // in the unit test) this code would wait forever in the static initializer
     // because XMLMapHandler internally also acquires an XML reader....
-    final ICommonsMap <String, String> aCleanURLMap = new CommonsHashMap<> ();
+    final ICommonsMap <String, String> aCleanURLMap = new CommonsHashMap <> ();
     StreamHelper.readStreamLines (ClassPathResource.getInputStream ("codelists/cleanurl-data.dat"),
                                   CCharset.CHARSET_UTF_8_OBJ,
                                   sLine -> {
@@ -1023,8 +1023,7 @@ public final class URLHelper
   public static File getAsFile (@Nonnull final URL aURL)
   {
     ValueEnforcer.notNull (aURL, "URL");
-    if (!PROTOCOL_FILE.equals (aURL.getProtocol ()))
-      throw new IllegalArgumentException ("Not a file URL: " + aURL.toExternalForm ());
+    ValueEnforcer.isEqual (PROTOCOL_FILE, aURL.getProtocol (), () -> "Not a file URL: " + aURL.toExternalForm ());
 
     String sPath;
     File aFile;

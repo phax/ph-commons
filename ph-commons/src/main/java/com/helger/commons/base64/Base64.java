@@ -1592,9 +1592,9 @@ public final class Base64
    * Example:
    * <code>encodeObject( myObj, Base64.GZIP | Base64.DO_BREAK_LINES )</code>
    *
-   * @param serializableObject
+   * @param aSerializableObject
    *        The object to encode
-   * @param options
+   * @param nOptions
    *        Specified options
    * @return The Base64-encoded object
    * @see Base64#GZIP
@@ -1604,22 +1604,22 @@ public final class Base64
    * @since 2.0
    */
   @Nonnull
-  public static String encodeObject (@Nonnull final Serializable serializableObject,
-                                     final int options) throws IOException
+  public static String encodeObject (@Nonnull final Serializable aSerializableObject,
+                                     final int nOptions) throws IOException
   {
-    ValueEnforcer.notNull (serializableObject, "Object");
+    ValueEnforcer.notNull (aSerializableObject, "Object");
 
     // ObjectOutputStream -> (GZIP) -> Base64 -> ByteArrayOutputStream
     final NonBlockingByteArrayOutputStream baos = new NonBlockingByteArrayOutputStream ();
-    try (final Base64OutputStream b64os = new Base64OutputStream (baos, ENCODE | options))
+    try (final Base64OutputStream b64os = new Base64OutputStream (baos, ENCODE | nOptions))
     {
-      if ((options & GZIP) != 0)
+      if ((nOptions & GZIP) != 0)
       {
         // Gzip
         try (GZIPOutputStream gzos = new GZIPOutputStream (b64os);
-            ObjectOutputStream oos = new ObjectOutputStream (gzos))
+             ObjectOutputStream oos = new ObjectOutputStream (gzos))
         {
-          oos.writeObject (serializableObject);
+          oos.writeObject (aSerializableObject);
         }
       }
       else
@@ -1627,7 +1627,7 @@ public final class Base64
         // Not gzipped
         try (ObjectOutputStream oos = new ObjectOutputStream (b64os))
         {
-          oos.writeObject (serializableObject);
+          oos.writeObject (aSerializableObject);
         }
       }
     }
@@ -1832,13 +1832,13 @@ public final class Base64
    * array instead of instantiating a String. This is more efficient if you're
    * working with I/O streams and have large data sets to encode.
    *
-   * @param source
+   * @param aSource
    *        The data to convert
-   * @param off
+   * @param nOfs
    *        Offset in array where conversion should begin
-   * @param len
+   * @param nLen
    *        Length of data to convert
-   * @param options
+   * @param nOptions
    *        Specified options
    * @return The Base64-encoded data as a String
    * @see Base64#GZIP
@@ -1853,23 +1853,23 @@ public final class Base64
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static byte [] encodeBytesToBytes (@Nonnull final byte [] source,
-                                            @Nonnegative final int off,
-                                            @Nonnegative final int len,
-                                            final int options) throws IOException
+  public static byte [] encodeBytesToBytes (@Nonnull final byte [] aSource,
+                                            @Nonnegative final int nOfs,
+                                            @Nonnegative final int nLen,
+                                            final int nOptions) throws IOException
   {
-    ValueEnforcer.isArrayOfsLen (source, off, len);
+    ValueEnforcer.isArrayOfsLen (aSource, nOfs, nLen);
 
     // Compress?
-    if ((options & GZIP) != 0)
+    if ((nOptions & GZIP) != 0)
     {
       // GZip -> Base64 -> ByteArray
       try (final NonBlockingByteArrayOutputStream baos = new NonBlockingByteArrayOutputStream ())
       {
-        try (final Base64OutputStream b64os = new Base64OutputStream (baos, ENCODE | options);
-            final GZIPOutputStream gzos = new GZIPOutputStream (b64os))
+        try (final Base64OutputStream b64os = new Base64OutputStream (baos, ENCODE | nOptions);
+             final GZIPOutputStream gzos = new GZIPOutputStream (b64os))
         {
-          gzos.write (source, off, len);
+          gzos.write (aSource, nOfs, nLen);
         }
         return baos.toByteArray ();
       }
@@ -1877,7 +1877,7 @@ public final class Base64
 
     // Else, don't compress. Better not to use streams at all then.
     {
-      final boolean breakLines = (options & DO_BREAK_LINES) != 0;
+      final boolean breakLines = (nOptions & DO_BREAK_LINES) != 0;
 
       // int len43 = len * 4 / 3;
       // byte[] outBuff = new byte[ ( len43 ) // Main 4:3
@@ -1886,7 +1886,7 @@ public final class Base64
       // Try to determine more precisely how big the array needs to be.
       // If we get it right, we don't have to do an array copy, and
       // we save a bunch of memory.
-      int encLen = (len / 3) * 4 + (len % 3 > 0 ? 4 : 0); // Bytes needed for
+      int encLen = (nLen / 3) * 4 + (nLen % 3 > 0 ? 4 : 0); // Bytes needed for
                                                           // actual encoding
       if (breakLines)
       {
@@ -1896,11 +1896,11 @@ public final class Base64
 
       int d = 0;
       int e = 0;
-      final int len2 = len - 2;
+      final int len2 = nLen - 2;
       int lineLength = 0;
       for (; d < len2; d += 3, e += 4)
       {
-        _encode3to4 (source, d + off, 3, outBuff, e, options);
+        _encode3to4 (aSource, d + nOfs, 3, outBuff, e, nOptions);
 
         lineLength += 4;
         if (breakLines && lineLength >= MAX_LINE_LENGTH)
@@ -1911,9 +1911,9 @@ public final class Base64
         }
       } // end for: each piece of array
 
-      if (d < len)
+      if (d < nLen)
       {
-        _encode3to4 (source, d + off, len - d, outBuff, e, options);
+        _encode3to4 (aSource, d + nOfs, nLen - d, outBuff, e, nOptions);
         e += 4;
       }
 
@@ -2104,13 +2104,13 @@ public final class Base64
    * Still, if you need more speed and reduced memory footprint (and aren't
    * gzipping), consider this method.
    *
-   * @param source
+   * @param aSource
    *        The Base64 encoded data
-   * @param off
+   * @param nOfs
    *        The offset of where to begin decoding
-   * @param len
+   * @param nLen
    *        The length of characters to decode
-   * @param options
+   * @param nOptions
    *        Can specify options such as alphabet type to use
    * @return decoded data
    * @throws IOException
@@ -2119,24 +2119,25 @@ public final class Base64
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static byte [] decode (@Nonnull final byte [] source,
-                                final int off,
-                                final int len,
-                                final int options) throws IOException
+  public static byte [] decode (@Nonnull final byte [] aSource,
+                                final int nOfs,
+                                final int nLen,
+                                final int nOptions) throws IOException
   {
     // Lots of error checking and exception throwing
-    ValueEnforcer.isArrayOfsLen (source, off, len);
+    ValueEnforcer.isArrayOfsLen (aSource, nOfs, nLen);
 
-    if (len == 0)
+    if (nLen == 0)
       return ArrayHelper.EMPTY_BYTE_ARRAY;
 
-    ValueEnforcer.isTrue (len >= 4,
-                          "Base64-encoded string must have at least four characters, but length specified was " + len);
+    ValueEnforcer.isTrue (nLen >= 4,
+                          () -> "Base64-encoded string must have at least four characters, but length specified was " +
+                                nLen);
 
-    final byte [] aDecodabet = _getDecodabet (options);
+    final byte [] aDecodabet = _getDecodabet (nOptions);
 
     // Estimate on array size
-    final int len34 = len * 3 / 4;
+    final int len34 = nLen * 3 / 4;
     // Upper limit on size of output
     final byte [] outBuff = new byte [len34];
     // Keep track of where we're writing
@@ -2151,10 +2152,10 @@ public final class Base64
     // Special value from DECODABET
     byte sbiDecode;
 
-    for (i = off; i < off + len; i++)
+    for (i = nOfs; i < nOfs + nLen; i++)
     {
       // Loop through source
-      sbiDecode = aDecodabet[source[i] & 0xFF];
+      sbiDecode = aDecodabet[aSource[i] & 0xFF];
 
       // White space, Equals sign, or legit Base64 character
       // Note the values such as -5 and -9 in the
@@ -2163,14 +2164,14 @@ public final class Base64
       {
         if (sbiDecode >= EQUALS_SIGN_ENC)
         {
-          b4[b4Posn++] = source[i]; // Save non-whitespace
+          b4[b4Posn++] = aSource[i]; // Save non-whitespace
           if (b4Posn > 3)
           { // Time to decode?
-            outBuffPosn += _decode4to3 (b4, 0, outBuff, outBuffPosn, options);
+            outBuffPosn += _decode4to3 (b4, 0, outBuff, outBuffPosn, nOptions);
             b4Posn = 0;
 
             // If that was the equals sign, break out of 'for' loop
-            if (source[i] == EQUALS_SIGN)
+            if (aSource[i] == EQUALS_SIGN)
               break;
           }
         }
@@ -2178,13 +2179,13 @@ public final class Base64
       else
       {
         // There's a bad input character in the Base64 stream.
-        throw new IOException ("Bad Base64 input character decimal " + (source[i] & 0xFF) + " in array position " + i);
+        throw new IOException ("Bad Base64 input character decimal " + (aSource[i] & 0xFF) + " in array position " + i);
       }
     }
 
-    final byte [] out = new byte [outBuffPosn];
-    System.arraycopy (outBuff, 0, out, 0, outBuffPosn);
-    return out;
+    final byte [] aOut = new byte [outBuffPosn];
+    System.arraycopy (outBuff, 0, aOut, 0, outBuffPosn);
+    return aOut;
   }
 
   /**
@@ -2240,8 +2241,8 @@ public final class Base64
       if (GZIPInputStream.GZIP_MAGIC == head)
       {
         try (final NonBlockingByteArrayOutputStream baos = new NonBlockingByteArrayOutputStream ();
-            final NonBlockingByteArrayInputStream bais = new NonBlockingByteArrayInputStream (bytes);
-            final GZIPInputStream gzis = new GZIPInputStream (bais))
+             final NonBlockingByteArrayInputStream bais = new NonBlockingByteArrayInputStream (bytes);
+             final GZIPInputStream gzis = new GZIPInputStream (bais))
         {
           final byte [] buffer = new byte [2048];
           int length;
@@ -2429,9 +2430,8 @@ public final class Base64
     final byte [] buffer = new byte [(int) file.length ()];
 
     // Open a stream
-    try (
-        final Base64InputStream bis = new Base64InputStream (StreamHelper.getBuffered (FileHelper.getInputStream (file)),
-                                                             DECODE))
+    try (final Base64InputStream bis = new Base64InputStream (StreamHelper.getBuffered (FileHelper.getInputStream (file)),
+                                                              DECODE))
     {
       int nOfs = 0;
       int numBytes;
@@ -2471,9 +2471,8 @@ public final class Base64
     final File file = new File (filename);
 
     // Open a stream
-    try (
-        final Base64InputStream bis = new Base64InputStream (StreamHelper.getBuffered (FileHelper.getInputStream (file)),
-                                                             ENCODE))
+    try (final Base64InputStream bis = new Base64InputStream (StreamHelper.getBuffered (FileHelper.getInputStream (file)),
+                                                              ENCODE))
     {
       // Need max() for math on small files (v2.2.1);
       // Need +1 for a few corner cases (v2.3.5)

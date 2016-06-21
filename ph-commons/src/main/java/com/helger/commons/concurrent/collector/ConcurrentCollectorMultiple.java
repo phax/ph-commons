@@ -74,8 +74,11 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
   {
     super (nMaxQueueSize);
     ValueEnforcer.isGT0 (nMaxPerformCount, "MaxPerformCount");
-    if (nMaxPerformCount > nMaxQueueSize)
-      throw new IllegalArgumentException ("max perform size is illegal: " + nMaxPerformCount);
+    ValueEnforcer.isTrue (nMaxPerformCount <= nMaxQueueSize,
+                          () -> "max perform size is illegal " +
+                                nMaxPerformCount +
+                                " - must be <= queue size " +
+                                nMaxQueueSize);
     m_nMaxPerformCount = nMaxPerformCount;
   }
 

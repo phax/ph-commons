@@ -49,8 +49,8 @@ public class FileSystemByteStreamProvider implements IInputStreamProvider, IOutp
   public FileSystemByteStreamProvider (@Nonnull final File aBasePath)
   {
     ValueEnforcer.notNull (aBasePath, "BasePath");
-    ValueEnforcer.isTrue (aBasePath.exists (), "Base path does not exist: " + aBasePath);
-    ValueEnforcer.isTrue (aBasePath.isDirectory (), "Only directories are allowed as base path: " + aBasePath);
+    ValueEnforcer.isTrue (aBasePath.exists (), () -> "Base path does not exist: " + aBasePath);
+    ValueEnforcer.isTrue (aBasePath.isDirectory (), () -> "Only directories are allowed as base path: " + aBasePath);
     m_aBasePath = aBasePath;
   }
 

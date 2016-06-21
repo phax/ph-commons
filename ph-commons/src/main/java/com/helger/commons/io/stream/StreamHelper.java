@@ -490,8 +490,7 @@ public final class StreamHelper
                                                         @Nullable final Long aLimit)
   {
     ValueEnforcer.notEmpty (aBuffer, "Buffer");
-    if (aLimit != null && aLimit.longValue () < 0)
-      throw new IllegalArgumentException ("Limit may not be negative!");
+    ValueEnforcer.isTrue (aLimit == null || aLimit.longValue () >= 0, () -> "Limit may not be negative: " + aLimit);
 
     try
     {
@@ -922,8 +921,7 @@ public final class StreamHelper
                                              @Nullable final Long aLimit)
   {
     ValueEnforcer.notEmpty (aBuffer, "Buffer");
-    if (aLimit != null)
-      ValueEnforcer.isGE0 (aLimit.longValue (), "Limit");
+    ValueEnforcer.isTrue (aLimit == null || aLimit.longValue () >= 0, () -> "Limit may not be negative: " + aLimit);
 
     try
     {
@@ -1126,7 +1124,7 @@ public final class StreamHelper
       return null;
 
     // Read stream and collect all read lines in a list
-    final ICommonsList <String> ret = new CommonsArrayList<> ();
+    final ICommonsList <String> ret = new CommonsArrayList <> ();
     readStreamLines (aIS, aCharset, nLinesToSkip, nLinesToRead, ret::add);
     return ret;
   }
@@ -1223,8 +1221,9 @@ public final class StreamHelper
     ValueEnforcer.notNull (aCharset, "Charset");
     ValueEnforcer.isGE0 (nLinesToSkip, "LinesToSkip");
     final boolean bReadAllLines = nLinesToRead == CGlobal.ILLEGAL_UINT;
-    if (nLinesToRead < 0 && !bReadAllLines)
-      throw new IllegalArgumentException ("Line count may not be that negative: " + nLinesToRead);
+    ValueEnforcer.isTrue (bReadAllLines ||
+                          nLinesToRead >= 0,
+                          () -> "Line count may not be that negative: " + nLinesToRead);
     ValueEnforcer.notNull (aLineCallback, "LineCallback");
 
     if (aIS != null)

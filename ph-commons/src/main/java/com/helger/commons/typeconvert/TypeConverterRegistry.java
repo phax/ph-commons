@@ -126,16 +126,14 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
                                        @Nonnull final ITypeConverter <?, ?> aConverter)
   {
     ValueEnforcer.notNull (aSrcClass, "SrcClass");
-    if (!ClassHelper.isPublic (aSrcClass))
-      throw new IllegalArgumentException ("Source " + aSrcClass + " is no public class!");
+    ValueEnforcer.isTrue (ClassHelper.isPublic (aSrcClass), () -> "Source " + aSrcClass + " is no public class!");
     ValueEnforcer.notNull (aDstClass, "DstClass");
-    if (!ClassHelper.isPublic (aDstClass))
-      throw new IllegalArgumentException ("Destination " + aDstClass + " is no public class!");
-    if (aSrcClass.equals (aDstClass))
-      throw new IllegalArgumentException ("Source and destination class are equal and therefore no converter is required.");
+    ValueEnforcer.isTrue (ClassHelper.isPublic (aDstClass), () -> "Destination " + aDstClass + " is no public class!");
+    ValueEnforcer.isFalse (aSrcClass.equals (aDstClass),
+                           "Source and destination class are equal and therefore no converter is required.");
     ValueEnforcer.notNull (aConverter, "Converter");
-    if (aConverter instanceof ITypeConverterRule)
-      throw new IllegalArgumentException ("Type converter rules must be registered via registerTypeConverterRule");
+    ValueEnforcer.isFalse (aConverter instanceof ITypeConverterRule,
+                           "Type converter rules must be registered via registerTypeConverterRule");
     if (ClassHelper.areConvertibleClasses (aSrcClass, aDstClass))
       s_aLogger.warn ("No type converter needed between " +
                       aSrcClass +

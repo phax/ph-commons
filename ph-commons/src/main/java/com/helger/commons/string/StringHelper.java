@@ -498,7 +498,7 @@ public final class StringHelper
                                        @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (aInput, nOfs, nLen);
-    ValueEnforcer.isTrue ((nLen % 2) == 0, "Passed chars have no even length: " + nLen);
+    ValueEnforcer.isTrue ((nLen % 2) == 0, () -> "Passed chars have no even length: " + nLen);
 
     final byte [] ret = new byte [nLen / 2];
     int nRetIdx = 0;
@@ -3501,8 +3501,8 @@ public final class StringHelper
   {
     ValueEnforcer.notEmpty (sSearchText, "SearchText");
     ValueEnforcer.notNull (sReplacementText, "ReplacementText");
-    if (sReplacementText.contains (sSearchText))
-      throw new IllegalArgumentException ("Loop detection: replacementText must not contain searchText");
+    ValueEnforcer.isFalse (sReplacementText.contains (sSearchText),
+                           "Loop detection: replacementText must not contain searchText");
 
     // Is input string empty?
     if (hasNoText (sInputString))
@@ -3604,8 +3604,7 @@ public final class StringHelper
   {
     ValueEnforcer.notNull (aSearchChars, "SearchChars");
     ValueEnforcer.notNull (aReplacementStrings, "ReplacementStrings");
-    if (aSearchChars.length != aReplacementStrings.length)
-      throw new IllegalArgumentException ("array length mismatch");
+    ValueEnforcer.isEqual (aSearchChars.length, aReplacementStrings.length, "array length mismatch");
 
     // Any input text?
     if (aInput == null || aInput.length == 0)
@@ -3712,8 +3711,7 @@ public final class StringHelper
   {
     ValueEnforcer.notNull (aSearchChars, "SearchChars");
     ValueEnforcer.notNull (aReplacementStrings, "ReplacementStrings");
-    if (aSearchChars.length != aReplacementStrings.length)
-      throw new IllegalArgumentException ("array length mismatch");
+    ValueEnforcer.isEqual (aSearchChars.length, aReplacementStrings.length, "array length mismatch");
     ValueEnforcer.notNull (aTarget, "Target");
 
     if (aInput == null || aInput.length == 0)

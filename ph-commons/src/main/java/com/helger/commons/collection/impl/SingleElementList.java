@@ -92,8 +92,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
 
   public void add (@Nonnegative final int nIndex, @Nullable final ELEMENTTYPE aElement)
   {
-    if (nIndex != 0)
-      throw new IllegalArgumentException ("Only 1 elements is allowed: " + nIndex);
+    ValueEnforcer.isTrue (nIndex == 0, () -> "Only 1 elements is allowed: " + nIndex);
     if (m_bHasElement)
       throw new IllegalStateException ("List already contains an element");
     m_aElement = aElement;
@@ -103,8 +102,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
   public boolean addAll (@Nonnull final Collection <? extends ELEMENTTYPE> aElements)
   {
     ValueEnforcer.notNull (aElements, "Elements");
-    if (aElements.size () > 1)
-      throw new IllegalArgumentException ("Cannot add lists with more than one element!");
+    ValueEnforcer.isTrue (aElements.size () <= 1, "Cannot add lists with more than one element!");
     if (m_bHasElement)
       throw new IllegalStateException ("List already contains an element");
     final Iterator <? extends ELEMENTTYPE> i = aElements.iterator ();
