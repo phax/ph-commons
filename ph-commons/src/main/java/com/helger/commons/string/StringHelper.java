@@ -4702,7 +4702,9 @@ public final class StringHelper
   }
 
   /**
-   * Iterate all code points and pass them to the provided consumer.
+   * Iterate all code points and pass them to the provided consumer. This
+   * implementation is approximately 20% quicker than
+   * <code>CharSequence.codePoints().forEachOrdered(c)</code>
    *
    * @param sInputString
    *        Input String to use. May be <code>null</code> or empty.
