@@ -125,7 +125,7 @@ public final class StringHelper
    */
   public static boolean hasNoText (@Nullable final String sStr)
   {
-    return sStr == null || sStr.length () == 0;
+    return sStr == null || sStr.isEmpty ();
   }
 
   /**
@@ -136,6 +136,7 @@ public final class StringHelper
    * @return <code>true</code> if the string is <code>null</code> or empty,
    *         <code>false</code> otherwise
    */
+  @Deprecated
   public static boolean isEmpty (@Nullable final CharSequence aCS)
   {
     return hasNoText (aCS);
@@ -149,6 +150,7 @@ public final class StringHelper
    * @return <code>true</code> if the string is <code>null</code> or empty,
    *         <code>false</code> otherwise
    */
+  @Deprecated
   public static boolean isEmpty (@Nullable final String sStr)
   {
     return hasNoText (sStr);
@@ -164,7 +166,7 @@ public final class StringHelper
    */
   public static boolean hasNoTextAfterTrim (@Nullable final String s)
   {
-    return s == null || s.trim ().length () == 0;
+    return s == null || s.trim ().isEmpty ();
   }
 
   /**
@@ -175,6 +177,7 @@ public final class StringHelper
    * @return <code>true</code> if the string is <code>null</code> or empty or
    *         consists only of whitespaces, <code>false</code> otherwise
    */
+  @Deprecated
   public static boolean isEmptyAfterTrim (@Nullable final String s)
   {
     return hasNoTextAfterTrim (s);
@@ -203,7 +206,7 @@ public final class StringHelper
    */
   public static boolean hasText (@Nullable final String sStr)
   {
-    return sStr != null && sStr.length () > 0;
+    return sStr != null && !sStr.isEmpty ();
   }
 
   /**
@@ -214,6 +217,7 @@ public final class StringHelper
    * @return <code>true</code> if the string contains at least one char,
    *         <code>false</code> otherwise
    */
+  @Deprecated
   public static boolean isNotEmpty (@Nullable final CharSequence aCS)
   {
     return hasText (aCS);
@@ -227,6 +231,7 @@ public final class StringHelper
    * @return <code>true</code> if the string contains at least one char,
    *         <code>false</code> otherwise
    */
+  @Deprecated
   public static boolean isNotEmpty (@Nullable final String sStr)
   {
     return hasText (sStr);
@@ -243,7 +248,7 @@ public final class StringHelper
    */
   public static boolean hasTextAfterTrim (@Nullable final String s)
   {
-    return s != null && s.trim ().length () > 0;
+    return s != null && !s.trim ().isEmpty ();
   }
 
   /**
@@ -255,6 +260,7 @@ public final class StringHelper
    *         empty nor consists only of whitespaces, <code>false</code>
    *         otherwise
    */
+  @Deprecated
   public static boolean isNotEmptyAfterTrim (@Nullable final String s)
   {
     return hasTextAfterTrim (s);
