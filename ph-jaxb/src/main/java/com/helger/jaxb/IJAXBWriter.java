@@ -25,6 +25,9 @@ import java.nio.ByteBuffer;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.WillClose;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.transform.Result;
 
 import org.w3c.dom.Document;
@@ -46,6 +49,12 @@ import com.helger.xml.transform.TransformResultFactory;
  */
 public interface IJAXBWriter <JAXBTYPE>
 {
+  @FunctionalInterface
+  public interface IJAXBMarshaller <JAXBTYPE>
+  {
+    void doMarshal (@Nonnull Marshaller aMarshaller, @Nonnull JAXBElement <JAXBTYPE> aJAXBElement) throws JAXBException;
+  }
+
   /**
    * Write the passed object to a {@link File}.
    *
@@ -147,12 +156,27 @@ public interface IJAXBWriter <JAXBTYPE>
    *
    * @param aObject
    *        The object to be converted. May not be <code>null</code>.
+   * @param aMarshallerFunc
+   *        The marshalling function. May not be <code>null</code>.
+   * @return {@link ESuccess}
+   */
+  @Nonnull
+  ESuccess write (@Nonnull JAXBTYPE aObject, @Nonnull IJAXBMarshaller <JAXBTYPE> aMarshallerFunc);
+
+  /**
+   * Convert the passed object to XML.
+   *
+   * @param aObject
+   *        The object to be converted. May not be <code>null</code>.
    * @param aResult
    *        The result object holder. May not be <code>null</code>.
    * @return {@link ESuccess}
    */
   @Nonnull
-  ESuccess write (@Nonnull JAXBTYPE aObject, @Nonnull Result aResult);
+  default ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull final Result aResult)
+  {
+    return write (aObject, (m, e) -> m.marshal (e, aResult));
+  }
 
   /**
    * Convert the passed object to a new DOM document.

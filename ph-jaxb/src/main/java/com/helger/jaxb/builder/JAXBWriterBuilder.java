@@ -27,7 +27,6 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.ValidationEventHandler;
 import javax.xml.namespace.NamespaceContext;
-import javax.xml.transform.Result;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -226,21 +225,12 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
     return aMarshaller;
   }
 
-  /**
-   * Convert the passed JAXB document to a custom {@link Result}.
-   *
-   * @param aJAXBDocument
-   *        The source object to write. May not be <code>null</code>.
-   * @param aResult
-   *        The result object to write to. May not be <code>null</code>.
-   * @return {@link ESuccess#SUCCESS} in case of success,
-   *         {@link ESuccess#FAILURE} in case of an error
-   */
   @Nonnull
-  public ESuccess write (@Nonnull final JAXBTYPE aJAXBDocument, @Nonnull final Result aResult)
+  public ESuccess write (@Nonnull final JAXBTYPE aJAXBDocument,
+                         @Nonnull final IJAXBMarshaller <JAXBTYPE> aMarshallerFunc)
   {
     ValueEnforcer.notNull (aJAXBDocument, "JAXBDocument");
-    ValueEnforcer.notNull (aResult, "Result");
+    ValueEnforcer.notNull (aMarshallerFunc, "MarshallerFunc");
 
     // Avoid class cast exception later on
     if (!m_aDocType.getImplementationClass ().getPackage ().equals (aJAXBDocument.getClass ().getPackage ()))
@@ -263,7 +253,7 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
 
       // start marshalling
       final JAXBElement <JAXBTYPE> aJAXBElement = createJAXBElement (aJAXBDocument);
-      aMarshaller.marshal (aJAXBElement, aResult);
+      aMarshallerFunc.doMarshal (aMarshaller, aJAXBElement);
       return ESuccess.SUCCESS;
     }
     catch (final JAXBException ex)

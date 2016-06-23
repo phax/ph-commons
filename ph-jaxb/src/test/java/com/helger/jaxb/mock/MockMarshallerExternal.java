@@ -32,9 +32,9 @@ public final class MockMarshallerExternal extends AbstractJAXBMarshaller <com.he
     // No XSD available
     super (com.helger.jaxb.mock.external.MockJAXBArchive.class,
            null,
-           o -> new JAXBElement <> (new QName ("urn:test:external", "any"),
-                                    com.helger.jaxb.mock.external.MockJAXBArchive.class,
-                                    o));
+           x -> new JAXBElement<> (new QName ("urn:test:external", "any"),
+                                   com.helger.jaxb.mock.external.MockJAXBArchive.class,
+                                   x));
   }
 
   @Override

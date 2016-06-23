@@ -30,7 +30,6 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.UnmarshalException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.ValidationEventHandler;
-import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.validation.Schema;
 
@@ -71,7 +70,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractJAXBMarshaller.class);
 
   private final Class <JAXBTYPE> m_aType;
-  private final ICommonsList <IReadableResource> m_aXSDs = new CommonsArrayList <> ();
+  private final ICommonsList <IReadableResource> m_aXSDs = new CommonsArrayList<> ();
   private final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> m_aWrapper;
   private IValidationEventHandlerFactory m_aVEHFactory = new CollectingLoggingValidationEventHandlerFactory ();
   private boolean m_bReadSecure = DEFAULT_READ_SECURE;
@@ -397,20 +396,12 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
       s_aLogger.warn ("JAXB Exception writing object", ex);
   }
 
-  /**
-   * Convert the passed object to XML.
-   *
-   * @param aObject
-   *        The object to be converted. May not be <code>null</code>.
-   * @param aResult
-   *        The result object holder. May not be <code>null</code>.
-   * @return {@link ESuccess}
-   */
   @Nonnull
-  public final ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull final Result aResult)
+  public final ESuccess write (@Nonnull final JAXBTYPE aObject,
+                               @Nonnull final IJAXBMarshaller <JAXBTYPE> aMarshallerFunc)
   {
     ValueEnforcer.notNull (aObject, "Object");
-    ValueEnforcer.notNull (aResult, "Result");
+    ValueEnforcer.notNull (aMarshallerFunc, "MarshallerFunc");
 
     try
     {
@@ -418,7 +409,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
       customizeMarshaller (aMarshaller);
 
       final JAXBElement <JAXBTYPE> aJAXBElement = m_aWrapper.apply (aObject);
-      aMarshaller.marshal (aJAXBElement, aResult);
+      aMarshallerFunc.doMarshal (aMarshaller, aJAXBElement);
       return ESuccess.SUCCESS;
     }
     catch (final JAXBException ex)
