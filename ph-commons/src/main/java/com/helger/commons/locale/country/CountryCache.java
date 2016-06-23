@@ -62,7 +62,7 @@ public final class CountryCache
 
   /** Contains all known countries (as ISO 3166 2-letter codes). */
   @GuardedBy ("m_aRWLock")
-  private final ICommonsSet <String> m_aCountries = new CommonsHashSet <> ();
+  private final ICommonsSet <String> m_aCountries = new CommonsHashSet<> ();
 
   private CountryCache ()
   {
@@ -87,7 +87,7 @@ public final class CountryCache
   {
     ValueEnforcer.notNull (sCountry, "Country");
     final String sValidCountry = LocaleHelper.getValidCountryCode (sCountry);
-    ValueEnforcer.notNull (sValidCountry, () -> "illegal country code '" + sCountry + "'");
+    ValueEnforcer.isTrue (sValidCountry != null, () -> "illegal country code '" + sCountry + "'");
     ValueEnforcer.isTrue (sCountry.equals (sValidCountry), () -> "invalid casing of '" + sCountry + "'");
 
     return EChange.valueOf (m_aRWLock.writeLocked ( () -> m_aCountries.add (sValidCountry)));
@@ -133,9 +133,9 @@ public final class CountryCache
   @ReturnsMutableCopy
   public ICommonsSet <Locale> getAllCountryLocales ()
   {
-    return m_aRWLock.readLocked ( () -> new CommonsHashSet <> (m_aCountries,
-                                                               sCountry -> LocaleCache.getInstance ()
-                                                                                      .getLocale ("", sCountry, "")));
+    return m_aRWLock.readLocked ( () -> new CommonsHashSet<> (m_aCountries,
+                                                              sCountry -> LocaleCache.getInstance ()
+                                                                                     .getLocale ("", sCountry, "")));
   }
 
   /**
