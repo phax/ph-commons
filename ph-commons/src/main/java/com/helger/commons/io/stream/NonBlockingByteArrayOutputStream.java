@@ -17,6 +17,7 @@
 package com.helger.commons.io.stream;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.nio.charset.Charset;
@@ -28,6 +29,7 @@ import javax.annotation.WillNotClose;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.lang.IHasSize;
@@ -173,6 +175,32 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
     finally
     {
       StreamHelper.close (aOS);
+    }
+  }
+
+  /**
+   * Reads the given {@link InputStream} completely into the buffer.
+   *
+   * @param aIS
+   *        the InputStream to read from. May not be <code>null</code>. Is not
+   *        closed internally.
+   * @throws IOException
+   *         If reading fails
+   */
+  public void readFrom (@Nonnull @WillNotClose final InputStream aIS) throws IOException
+  {
+    while (true)
+    {
+      if (m_nCount == m_aBuf.length)
+      {
+        // reallocate
+        m_aBuf = _enlarge (m_aBuf, m_aBuf.length << 1);
+      }
+
+      final int nBytesRead = aIS.read (m_aBuf, m_nCount, m_aBuf.length - m_nCount);
+      if (nBytesRead < 0)
+        return;
+      m_nCount += nBytesRead;
     }
   }
 
@@ -332,6 +360,17 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.isBetweenInclusive (nLength, "Length", 0, m_nCount);
     return CharsetManager.getAsString (m_aBuf, nIndex, nLength, aCharset);
+  }
+
+  /**
+   * @return The internally used byte buffer. Never <code>null</code>. Handle
+   *         with care!
+   */
+  @Nonnull
+  @ReturnsMutableObject ("by design")
+  public byte [] directGetBuffer ()
+  {
+    return m_aBuf;
   }
 
   /**
