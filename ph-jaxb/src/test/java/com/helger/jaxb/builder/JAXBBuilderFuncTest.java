@@ -21,6 +21,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
+
 import org.junit.Test;
 import org.w3c.dom.Document;
 
@@ -103,5 +110,24 @@ public final class JAXBBuilderFuncTest
     assertNotNull (aArc2);
 
     assertEquals (aWriter.getAsString (aArc), aWriter.getAsString (aArc2));
+  }
+
+  @Test
+  public void testStreamWriter () throws XMLStreamException, IOException
+  {
+    final XMLOutputFactory aOF = XMLOutputFactory.newInstance ();
+    final XMLStreamWriter aSW = aOF.createXMLStreamWriter (new FileWriter ("target/stream-writer-test.xml"));
+
+    final com.helger.jaxb.mock.internal.MockJAXBArchive aArc = new com.helger.jaxb.mock.internal.MockJAXBArchive ();
+    aArc.setVersion ("1.23");
+    IteratorHelper.forEach (5, i -> {
+      final com.helger.jaxb.mock.internal.MockJAXBCollection aCollection = new com.helger.jaxb.mock.internal.MockJAXBCollection ();
+      aCollection.setDescription ("Internal bla foo");
+      aCollection.setID (i);
+      aArc.getCollection ().add (aCollection);
+    });
+
+    final MockInternalArchiveWriterBuilder aWriter = new MockInternalArchiveWriterBuilder ();
+    aWriter.write (aArc, aSW);
   }
 }

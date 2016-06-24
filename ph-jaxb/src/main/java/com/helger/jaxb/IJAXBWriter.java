@@ -28,6 +28,7 @@ import javax.annotation.WillClose;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.stream.XMLStreamException;
 import javax.xml.transform.Result;
 
 import org.w3c.dom.Document;
@@ -211,9 +212,26 @@ public interface IJAXBWriter <JAXBTYPE>
    * @return {@link ESuccess}
    */
   @Nonnull
-  default ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull final javax.xml.stream.XMLStreamWriter aWriter)
+  default ESuccess write (@Nonnull final JAXBTYPE aObject,
+                          @Nonnull @WillClose final javax.xml.stream.XMLStreamWriter aWriter)
   {
-    return write (aObject, (m, e) -> m.marshal (e, aWriter));
+    try
+    {
+      return write (aObject, (m, e) -> m.marshal (e, aWriter));
+    }
+    finally
+    {
+      // Needs to be manually closed
+      try
+      {
+        aWriter.flush ();
+        aWriter.close ();
+      }
+      catch (final XMLStreamException ex)
+      {
+        throw new IllegalStateException ("Failed to close XMLStreamWriter", ex);
+      }
+    }
   }
 
   /**
