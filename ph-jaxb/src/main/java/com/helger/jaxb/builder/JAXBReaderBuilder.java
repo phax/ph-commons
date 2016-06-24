@@ -226,6 +226,9 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
     return ToStringGenerator.getDerived (super.toString ())
                             .append ("ImplClass", m_aImplClass)
                             .append ("EventHandler", m_aEventHandler)
+                            .append ("ExceptionHandler", m_aExceptionHandler)
+                            .append ("UnmarshallerCustomizer", m_aUnmarshallerCustomizer)
+                            .append ("ReadSecure", m_bReadSecure)
                             .toString ();
   }
 }
