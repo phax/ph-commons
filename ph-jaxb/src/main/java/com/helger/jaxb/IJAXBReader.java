@@ -23,6 +23,9 @@ import java.nio.ByteBuffer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.Source;
 import javax.xml.transform.sax.SAXSource;
 
@@ -47,6 +50,21 @@ import com.helger.xml.transform.TransformSourceFactory;
  */
 public interface IJAXBReader <JAXBTYPE>
 {
+  /**
+   * A special bi-consumer that additionally can throw a {@link JAXBException}
+   *
+   * @author Philip Helger
+   * @param <JAXBTYPE>
+   *        The JAXB type to be written
+   */
+  @FunctionalInterface
+  public interface IJAXBUnmarshaller <JAXBTYPE>
+  {
+    @Nonnull
+    JAXBElement <JAXBTYPE> doUnmarshal (@Nonnull Unmarshaller aUnmarshaller,
+                                        @Nonnull Class <JAXBTYPE> aClass) throws JAXBException;
+  }
+
   /**
    * Check if secure reading is enabled. Secure reading means that documents are
    * checked for XXE and XML bombs (infinite entity expansions). By default

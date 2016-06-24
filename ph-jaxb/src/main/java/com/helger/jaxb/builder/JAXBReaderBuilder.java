@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.UnmarshalException;
 import javax.xml.bind.Unmarshaller;
@@ -85,6 +86,7 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
   private ValidationEventHandler m_aEventHandler = JAXBBuilderDefaultSettings.getDefaultValidationEventHandler ();
   private IExceptionCallback <JAXBException> m_aExceptionHandler = new DefaultExceptionHandler ();
   private Consumer <Unmarshaller> m_aUnmarshallerCustomizer;
+  private boolean m_bReadSecure = true;
 
   public JAXBReaderBuilder (@Nonnull final IJAXBDocumentType aDocType)
   {
@@ -156,7 +158,14 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
 
   public final boolean isReadSecure ()
   {
-    return true;
+    return m_bReadSecure;
+  }
+
+  @Nonnull
+  public IMPLTYPE setReadSecure (final boolean bReadSecure)
+  {
+    m_bReadSecure = bReadSecure;
+    return thisAsT ();
   }
 
   @Nonnull
@@ -198,7 +207,7 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
     final String sNodeNamespaceURI = StringHelper.getNotNull (XMLHelper.getNamespaceURI (aNode));
 
     // Avoid class cast exception later on
-    if (!m_aDocType.getNamespaceURI ().equals (sNodeNamespaceURI))
+    if (!getJAXBDocumentType ().getNamespaceURI ().equals (sNodeNamespaceURI))
     {
       s_aLogger.error ("You cannot read a node with a namespace URI of '" +
                        sNodeNamespaceURI +
@@ -210,14 +219,16 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
     JAXBTYPE ret = null;
     try
     {
+      // Create unmarshaller
       final Unmarshaller aUnmarshaller = createUnmarshaller ();
 
       // Customize on demand
       if (m_aUnmarshallerCustomizer != null)
         m_aUnmarshallerCustomizer.accept (aUnmarshaller);
 
-      // start unmarshalling
-      ret = aUnmarshaller.unmarshal (aNode, m_aImplClass).getValue ();
+      // main unmarshalling
+      final JAXBElement <JAXBTYPE> aElement = aUnmarshaller.unmarshal (aNode, m_aImplClass);
+      ret = aElement.getValue ();
       if (ret == null)
         throw new IllegalStateException ("Failed to read JAXB document of class " +
                                          m_aImplClass.getName () +
@@ -225,7 +236,7 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
     }
     catch (final JAXBException ex)
     {
-      m_aExceptionHandler.onException (ex);
+      getExceptionHandler ().onException (ex);
     }
 
     return ret;
@@ -256,14 +267,16 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
     JAXBTYPE ret = null;
     try
     {
+      // Create unmarshaller
       final Unmarshaller aUnmarshaller = createUnmarshaller ();
 
       // Customize on demand
       if (m_aUnmarshallerCustomizer != null)
         m_aUnmarshallerCustomizer.accept (aUnmarshaller);
 
-      // start unmarshalling
-      ret = aUnmarshaller.unmarshal (aSource, m_aImplClass).getValue ();
+      // main unmarshalling
+      final JAXBElement <JAXBTYPE> aElement = aUnmarshaller.unmarshal (aSource, m_aImplClass);
+      ret = aElement.getValue ();
       if (ret == null)
         throw new IllegalStateException ("Failed to read JAXB document of class " +
                                          m_aImplClass.getName () +
@@ -271,7 +284,7 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
     }
     catch (final JAXBException ex)
     {
-      m_aExceptionHandler.onException (ex);
+      getExceptionHandler ().onException (ex);
     }
 
     return ret;

@@ -33,6 +33,7 @@ import org.w3c.dom.Document;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.IteratorHelper;
+import com.helger.xml.microdom.IMicroDocument;
 
 public final class JAXBBuilderFuncTest
 {
@@ -45,6 +46,8 @@ public final class JAXBBuilderFuncTest
     final MockExternalArchiveWriterBuilder aWriter = new MockExternalArchiveWriterBuilder ();
     final Document aDoc = aWriter.getAsDocument (aArc);
     assertNotNull (aDoc);
+    final IMicroDocument aDoc2 = aWriter.getAsMicroDocument (aArc);
+    assertNotNull (aDoc2);
 
     final com.helger.jaxb.mock.external.MockJAXBArchive aArc2 = new MockExternalArchiveReaderBuilder ().read (aDoc);
     assertNotNull (aArc2);
@@ -105,6 +108,8 @@ public final class JAXBBuilderFuncTest
     final MockInternalArchiveWriterBuilder aWriter = new MockInternalArchiveWriterBuilder ();
     final Document aDoc = aWriter.getAsDocument (aArc);
     assertNotNull (aDoc);
+    final IMicroDocument aDoc2 = aWriter.getAsMicroDocument (aArc);
+    assertNotNull (aDoc2);
 
     final com.helger.jaxb.mock.internal.MockJAXBArchive aArc2 = new MockInternalArchiveReaderBuilder ().read (aDoc);
     assertNotNull (aArc2);
