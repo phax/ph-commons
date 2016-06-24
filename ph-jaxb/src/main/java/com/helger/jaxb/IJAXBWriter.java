@@ -49,6 +49,13 @@ import com.helger.xml.transform.TransformResultFactory;
  */
 public interface IJAXBWriter <JAXBTYPE>
 {
+  /**
+   * A special bi-consumer that additionally can throw a {@link JAXBException}
+   *
+   * @author Philip Helger
+   * @param <JAXBTYPE>
+   *        The JAXB type to be written
+   */
   @FunctionalInterface
   public interface IJAXBMarshaller <JAXBTYPE>
   {
@@ -176,6 +183,37 @@ public interface IJAXBWriter <JAXBTYPE>
   default ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull final Result aResult)
   {
     return write (aObject, (m, e) -> m.marshal (e, aResult));
+  }
+
+  /**
+   * Convert the passed object to XML.
+   *
+   * @param aObject
+   *        The object to be converted. May not be <code>null</code>.
+   * @param aHandler
+   *        XML will be sent to this handler as SAX2 events. May not be
+   *        <code>null</code>.
+   * @return {@link ESuccess}
+   */
+  @Nonnull
+  default ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull final org.xml.sax.ContentHandler aHandler)
+  {
+    return write (aObject, (m, e) -> m.marshal (e, aHandler));
+  }
+
+  /**
+   * Convert the passed object to XML.
+   *
+   * @param aObject
+   *        The object to be converted. May not be <code>null</code>.
+   * @param aWriter
+   *        XML will be sent to this writer. May not be <code>null</code>.
+   * @return {@link ESuccess}
+   */
+  @Nonnull
+  default ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull final javax.xml.stream.XMLStreamWriter aWriter)
+  {
+    return write (aObject, (m, e) -> m.marshal (e, aWriter));
   }
 
   /**
