@@ -26,6 +26,8 @@ import javax.annotation.Nullable;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.stream.XMLEventReader;
+import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.Source;
 import javax.xml.transform.sax.SAXSource;
 
@@ -39,7 +41,6 @@ import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.sax.InputSourceFactory;
 import com.helger.xml.serialize.read.SAXReaderFactory;
 import com.helger.xml.serialize.read.SAXReaderSettings;
-import com.helger.xml.transform.TransformSourceFactory;
 
 /**
  * Interface for reading JAXB documents from various sources.
@@ -225,6 +226,16 @@ public interface IJAXBReader <JAXBTYPE>
   }
 
   /**
+   * Read a document using the passed handler.
+   *
+   * @param aHandler
+   *        The unmarshalling handler. May not be <code>null</code>.
+   * @return <code>null</code> in case reading fails.
+   */
+  @Nullable
+  JAXBTYPE read (@Nonnull IJAXBUnmarshaller <JAXBTYPE> aHandler);
+
+  /**
    * Read a document from the specified source. The secure reading feature has
    * <b>NO</b> affect when using this method because the parameter type is too
    * generic.
@@ -234,7 +245,11 @@ public interface IJAXBReader <JAXBTYPE>
    * @return <code>null</code> in case reading fails.
    */
   @Nullable
-  JAXBTYPE read (@Nonnull Source aSource);
+  default JAXBTYPE read (@Nonnull final Source aSource)
+  {
+    ValueEnforcer.notNull (aSource, "Source");
+    return read ( (aUnmarshaller, aClass) -> aUnmarshaller.unmarshal (aSource, aClass));
+  }
 
   /**
    * Read a document from the specified DOM node. The secure reading feature has
@@ -250,6 +265,34 @@ public interface IJAXBReader <JAXBTYPE>
   default JAXBTYPE read (@Nonnull final Node aNode)
   {
     ValueEnforcer.notNull (aNode, "Node");
-    return read (TransformSourceFactory.create (aNode));
+    return read ( (aUnmarshaller, aClass) -> aUnmarshaller.unmarshal (aNode, aClass));
+  }
+
+  /**
+   * Unmarshal root element to JAXB and return the resulting content tree.
+   *
+   * @param aReader
+   *        The parser to be read. May not be <code>null</code>.
+   * @return <code>null</code> in case reading fails.
+   */
+  @Nullable
+  default JAXBTYPE read (@Nonnull final XMLStreamReader aReader)
+  {
+    ValueEnforcer.notNull (aReader, "Reader");
+    return read ( (aUnmarshaller, aClass) -> aUnmarshaller.unmarshal (aReader, aClass));
+  }
+
+  /**
+   * Unmarshal root element to JAXB and return the resulting content tree.
+   *
+   * @param aReader
+   *        The parser to be read. May not be <code>null</code>.
+   * @return <code>null</code> in case reading fails.
+   */
+  @Nullable
+  default JAXBTYPE read (@Nonnull final XMLEventReader aReader)
+  {
+    ValueEnforcer.notNull (aReader, "Reader");
+    return read ( (aUnmarshaller, aClass) -> aUnmarshaller.unmarshal (aReader, aClass));
   }
 }

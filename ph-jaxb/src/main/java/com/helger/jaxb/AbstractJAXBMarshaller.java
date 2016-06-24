@@ -30,7 +30,6 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.UnmarshalException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.ValidationEventHandler;
-import javax.xml.transform.Source;
 import javax.xml.validation.Schema;
 
 import org.slf4j.Logger;
@@ -314,25 +313,16 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
       s_aLogger.warn ("JAXB Exception reading document", ex);
   }
 
-  /**
-   * Read a document from the specified source. The secure reading feature has
-   * <b>NO</b> affect when using this method because the parameter type is too
-   * generic.
-   *
-   * @param aSource
-   *        The source to read. May not be <code>null</code>.
-   * @return <code>null</code> in case reading fails.
-   */
   @Nullable
-  public final JAXBTYPE read (@Nonnull final Source aSource)
+  public final JAXBTYPE read (@Nonnull final IJAXBUnmarshaller <JAXBTYPE> aHandler)
   {
-    ValueEnforcer.notNull (aSource, "Source");
+    ValueEnforcer.notNull (aHandler, "Handler");
 
     try
     {
       final Unmarshaller aUnmarshaller = _createUnmarshaller (m_aClassLoader);
       customizeUnmarshaller (aUnmarshaller);
-      return aUnmarshaller.unmarshal (aSource, m_aType).getValue ();
+      return aHandler.doUnmarshal (aUnmarshaller, m_aType).getValue ();
     }
     catch (final JAXBException ex)
     {

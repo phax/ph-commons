@@ -27,22 +27,18 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.UnmarshalException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.ValidationEventHandler;
-import javax.xml.transform.Source;
 import javax.xml.validation.Schema;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Node;
 import org.xml.sax.SAXParseException;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.callback.exception.IExceptionCallback;
 import com.helger.commons.lang.GenericReflection;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.jaxb.IJAXBReader;
 import com.helger.jaxb.validation.LoggingValidationEventHandler;
-import com.helger.xml.XMLHelper;
 
 /**
  * Builder class for reading JAXB documents.
@@ -188,81 +184,15 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
     return aUnmarshaller;
   }
 
-  /**
-   * Convert the passed XML node into a domain object.<br>
-   * Note: this is the generic API for reading all types of JAXB documents.
-   *
-   * @param aNode
-   *        The XML node to be converted. May not be <code>null</code>.
-   * @return <code>null</code> in case conversion to the specified class failed.
-   *         See the log output for details.
-   */
   @Nullable
-  public JAXBTYPE read (@Nonnull final Node aNode)
+  public JAXBTYPE read (@Nonnull final IJAXBUnmarshaller <JAXBTYPE> aHandler)
   {
-    ValueEnforcer.notNull (aNode, "Node");
-
-    // Convert null to empty string to be comparable to the m_aDocType
-    // implementation
-    final String sNodeNamespaceURI = StringHelper.getNotNull (XMLHelper.getNamespaceURI (aNode));
-
-    // Avoid class cast exception later on
-    if (!getJAXBDocumentType ().getNamespaceURI ().equals (sNodeNamespaceURI))
-    {
-      s_aLogger.error ("You cannot read a node with a namespace URI of '" +
-                       sNodeNamespaceURI +
-                       "' as a " +
-                       m_aImplClass.getName ());
-      return null;
-    }
-
-    JAXBTYPE ret = null;
-    try
-    {
-      // Create unmarshaller
-      final Unmarshaller aUnmarshaller = createUnmarshaller ();
-
-      // Customize on demand
-      if (m_aUnmarshallerCustomizer != null)
-        m_aUnmarshallerCustomizer.accept (aUnmarshaller);
-
-      // main unmarshalling
-      final JAXBElement <JAXBTYPE> aElement = aUnmarshaller.unmarshal (aNode, m_aImplClass);
-      ret = aElement.getValue ();
-      if (ret == null)
-        throw new IllegalStateException ("Failed to read JAXB document of class " +
-                                         m_aImplClass.getName () +
-                                         " - without exception!");
-    }
-    catch (final JAXBException ex)
-    {
-      getExceptionHandler ().onException (ex);
-    }
-
-    return ret;
-  }
-
-  /**
-   * Interpret the passed {@link Source} as a JAXB document.<br>
-   * Note: this is the generic API for reading all types of JAXB documents.
-   *
-   * @param aSource
-   *        The source to read from. May not be <code>null</code>.
-   * @return The evaluated JAXB document or <code>null</code> in case of a
-   *         parsing error
-   */
-  @Nullable
-  public JAXBTYPE read (@Nonnull final Source aSource)
-  {
-    ValueEnforcer.notNull (aSource, "Source");
+    ValueEnforcer.notNull (aHandler, "Handler");
 
     // as we don't have a node, we need to trust the implementation class
     final Schema aSchema = getSchema ();
     if (aSchema == null)
-    {
-      s_aLogger.error ("Don't know how to read JAXB document of type " + m_aImplClass.getName ());
-      return null;
-    }
+      s_aLogger.warn ("Don't know how to read JAXB document of type " + m_aImplClass.getName ());
 
     JAXBTYPE ret = null;
     try
@@ -275,7 +205,7 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
         m_aUnmarshallerCustomizer.accept (aUnmarshaller);
 
       // main unmarshalling
-      final JAXBElement <JAXBTYPE> aElement = aUnmarshaller.unmarshal (aSource, m_aImplClass);
+      final JAXBElement <JAXBTYPE> aElement = aHandler.doUnmarshal (aUnmarshaller, m_aImplClass);
       ret = aElement.getValue ();
       if (ret == null)
         throw new IllegalStateException ("Failed to read JAXB document of class " +
