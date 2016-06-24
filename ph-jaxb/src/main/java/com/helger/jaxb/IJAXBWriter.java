@@ -39,6 +39,8 @@ import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.state.ESuccess;
 import com.helger.xml.XMLFactory;
+import com.helger.xml.microdom.IMicroDocument;
+import com.helger.xml.microdom.serialize.MicroSAXHandler;
 import com.helger.xml.transform.TransformResultFactory;
 
 /**
@@ -246,6 +248,20 @@ public interface IJAXBWriter <JAXBTYPE>
   {
     final Document aDoc = XMLFactory.newDocument ();
     return write (aObject, TransformResultFactory.create (aDoc)).isSuccess () ? aDoc : null;
+  }
+
+  /**
+   * Convert the passed object to a new micro document.
+   *
+   * @param aObject
+   *        The object to be converted. May not be <code>null</code>.
+   * @return <code>null</code> if converting the document failed.
+   */
+  @Nullable
+  default IMicroDocument getAsMicroDocument (@Nonnull final JAXBTYPE aObject)
+  {
+    final MicroSAXHandler aHandler = new MicroSAXHandler (false, null);
+    return write (aObject, aHandler).isSuccess () ? aHandler.getDocument () : null;
   }
 
   /**

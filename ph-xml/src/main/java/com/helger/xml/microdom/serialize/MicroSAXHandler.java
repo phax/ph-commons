@@ -56,7 +56,7 @@ import com.helger.xml.sax.AbstractSAXErrorHandler;
  *
  * @author Philip Helger
  */
-final class MicroSAXHandler implements EntityResolver, DTDHandler, ContentHandler, ErrorHandler, LexicalHandler
+public final class MicroSAXHandler implements EntityResolver, DTDHandler, ContentHandler, ErrorHandler, LexicalHandler
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (MicroSAXHandler.class);
 
@@ -68,7 +68,7 @@ final class MicroSAXHandler implements EntityResolver, DTDHandler, ContentHandle
   private final boolean m_bSaveIgnorableWhitespaces;
   private final EntityResolver m_aEntityResolver;
 
-  MicroSAXHandler (final boolean bSaveIgnorableWhitespaces, @Nullable final EntityResolver aEntityResolver)
+  public MicroSAXHandler (final boolean bSaveIgnorableWhitespaces, @Nullable final EntityResolver aEntityResolver)
   {
     m_bSaveIgnorableWhitespaces = bSaveIgnorableWhitespaces;
     m_aEntityResolver = aEntityResolver;
@@ -314,6 +314,10 @@ final class MicroSAXHandler implements EntityResolver, DTDHandler, ContentHandle
     }
   }
 
+  /**
+   * @return The created and filled micro document. May be <code>null</code> if
+   *         no document start event came in.
+   */
   @Nullable
   public IMicroDocument getDocument ()
   {
