@@ -24,6 +24,15 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 
+/**
+ * Extension to {@link PrivilegedAction} with an {@link #invokeSafe()} method
+ * that invokes the {@link java.security.AccessController} only if a security
+ * manager is present.
+ *
+ * @author Philip Helger
+ * @param <T>
+ *        The action return type.
+ */
 @FunctionalInterface
 public interface IPrivilegedAction <T> extends PrivilegedAction <T>
 {
