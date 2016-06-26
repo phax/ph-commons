@@ -14,12 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.collection.lru;
+package com.helger.commons.collection.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
+
+import com.helger.commons.collection.impl.LRUMap;
 
 /**
  * Test for class {@link LRUMap}
