@@ -100,73 +100,69 @@ In general I tried to make the source comments as useful as possible. Therefore 
   * `com.helger.commons.math` - basic math related utility interfaces and classes
   * `com.helger.commons.messagedigest` - contains utility methods to easily create message digest (like MD5 or SHA-1).
   * `com.helger.commons.mime` - everything related to MIME types, including a structured data model as well as a parser and a determinator from byte array.
-  * `com.helger.commons.mime.convert` - contains a converter from MIME type information to Micro DOM.
   * `com.helger.commons.mock` - utility classes for unit testing with JUnit.
   * `com.helger.commons.mutable` - contains mutable object wrappers for atomic values like boolean, int, long etc. which are not thread-safe.
   * `com.helger.commons.name` - base interfaces and classes for objects having a name or a description.
-  * `com.helger.commons.parent` - base interfaces for defining parent-child hierarchical relations.
-  * `com.helger.commons.parent.impl` - implementations of the parent-child relation interfaces
-  * `com.helger.commons.parent.utils` - utility classes for the parent-child relations.
   * `com.helger.commons.pool` - generic pool of arbitrary objects.
-  * `com.helger.commons.priviledged` - a set of typed `PrivilegedAction` implementations used quite frequently.
   * `com.helger.commons.random` - contains an even securer random than `SecureRandom`
   * `com.helger.commons.regex` - contains a pool for pre-compiled regular expressions and utility classes to use this pool implicitly.
-  * `com.helger.commons.scopes` - base definitions for scope handling
-  * `com.helger.commons.scopes.domain` - interfaces for the five base scope types: global, application, session, session application and request
-  * `com.helger.commons.scopes.factory` - factory for creating scope implementations
-  * `com.helger.commons.scopes.impl` - default implementations of the five base scope types
-  * `com.helger.commons.scopes.mgr` - scope manager
-  * `com.helger.commons.scopes.mock` - JUnit test support for scopes
-  * `com.helger.commons.scopes.singleton` - base classes for singletons in the five base scope types
-  * `com.helger.commons.scopes.singleton.tree` - special tree class singletons for easy proxying of the tree interfaces.
-  * `com.helger.commons.scopes.spi` - SPI interfaces for scope lifecycle interference
-  * `com.helger.commons.scopes.util` - some scope aware base classes
+  * `com.helger.commons.scope` - base interfaces and implementations for scope handling
+  * `com.helger.commons.scope.mgr` - scope manager
+  * `com.helger.commons.scope.mock` - JUnit test support for scopes
+  * `com.helger.commons.scope.singleton` - base classes for singletons in the five base scope types
+  * `com.helger.commons.scope.singletons` - specific singleton implementations
+  * `com.helger.commons.scope.spi` - SPI interfaces for scope lifecycle interference
+  * `com.helger.commons.scope.util` - some scope aware base classes
+  * `com.helger.commons.script` - helper class for javax.script package
   * `com.helger.commons.serialize.convert` - a registry for registering custom `Serializable` implementations for classes that don't implement `Serializable` themselves. Registration is done via SPI.
-  * `com.helger.commons.serialize.convert.impl` - default registration implementations for the serializable type converter.
   * `com.helger.commons.state` - contains a lot of small "state" enumerations like `EChange`, `ESuccess` or `ELeftRight` plus the corresponding base interfaces.
-  * `com.helger.commons.state.impl` - contains additional state classes that combine a state with an arbitrary data object.
-  * `com.helger.commons.stats` - thread-safe in-memory statistics categorized into cache, counter, keyed counter, keyed size, keyed timer, size and timer.
-  * `com.helger.commons.stats.util` - contains classes for exporting statistic data to XML
-  * `com.helger.commons.stats.visit` - a generic visitor for statistical data to easily implement exports in other data formats.
+  * `com.helger.commons.statistics` - thread-safe in-memory statistics categorized into cache, counter, keyed counter, keyed size, keyed timer, size and timer.
+  * `com.helger.commons.statistics.util` - contains classes for exporting statistic data to XML
   * `com.helger.commons.string` - contains the basic class `StringHelper` for all kind of `String` related actions as well as `StringParser` for converting Strings to numerical values and finally `ToStringGenerator` as a utility class to easily implement `toString()` methods.
-  * `com.helger.commons.string.utils` - utility string classes for Levenshtein distance, roman numerals and a simple scanner.
+  * `com.helger.commons.string.util` - utility string classes for Levenshtein distance, roman numerals and a simple scanner.
   * `com.helger.commons.system` - contains information helper classes for the Java version, the JVM vendor, the newline mode of the current operating system, the processor architecture used etc.
   * `com.helger.commons.text` - interfaces for handling multilingual text in different aspects and ways
-  * `com.helger.commons.text.impl` - the default implementations of the interfaces defined in the parent package
+  * `com.helger.commons.text.codepoint` - helper classes for code point handling
+  * `com.helger.commons.text.display` - special 'Display text' interfaces
   * `com.helger.commons.text.resolve` - contains the stuff for multilingual text resolving based on an enumeration, and falling back to a properties file if needed.
-  * `com.helger.commons.text.resource` - utility classes for handling `ResourceBundle`s in an easy way, as well as UTF-8 and XML resource bundles.
+  * `com.helger.commons.text.resourcebundle` - utility classes for handling `ResourceBundle`s in an easy way, as well as UTF-8 and XML resource bundles.
+  * `com.helger.commons.text.util` - text handling helper classes.
   * `com.helger.commons.thirdparty` - contains a domain model and a registry for handling referenced thirdparty libraries.
+  * `com.helger.commons.thread` - thread handling helper classes.
   * `com.helger.commons.timing` - contains a simple stop watch class.
+  * `com.helger.commons.traits` - contains interfaces with default methods to easily extend the functionality of an existing object.
   * `com.helger.commons.type` - base interfaces for "typed" objects, meaning objects that have a combination of type and ID (in case the ID is not unique).
   *  `com.helger.commons.typeconvert` - contains a generic type converter registry and different resolvers. The registration is done via SPI.
-  * `com.helger.commons.typeconvert.impl` - contains the default type converters provided by this project.
   * `com.helger.commons.typeconvert.rule` - contains special "rule based" type converters, where a direct match "by class" is not useful.
   * `com.helger.commons.url` - URL related tools containing a minimum data model for URLs
-  * `com.helger.commons.url.encode` - specialized URL parameter encoder and decoder.
-  * `com.helger.commons.utils` - additional utils not matching a specific package.
   * `com.helger.commons.vendor` - package containing data to represent the vendor of an application
   * `com.helger.commons.version` - contains a numerical version object as well as a version range object.
-  * `com.helger.commons.vminit` - specialized callback for the JVM startup and shutdown
+  * `com.helger.commons.wrapper` - a generic `Wrapper` interface and class
+  * `com.helger.commons.ws` - some Web Service client caller goodies
+    
 
 #ph-xml
 A special XML reading and writing project.
 
-  * `com.helger.commons.microdom` - contains the "Micro DOM" interface - a DOM like structure, but much easier to use than standard DOM.
-  * `com.helger.commons.microdom.convert` - contains a central registry for converting arbitrary objects from and to Micro DOM.
-  * `com.helger.commons.microdom.convert.impl` - default ceonverter implementations, referenced via SPI.
-  * `com.helger.commons.microdom.impl` - contains the default implementations for the Micro DOM interfaces.
-  * `com.helger.commons.microdom.reader` - contains specialized readers for `List`- and `Map`-like structures.
-  * `com.helger.commons.microdom.serialize` - contains reader and writer for Micro DOM elements to read from (`MicroReader`) and write to (`MicroWriter`) XML documents.
-  * `com.helger.commons.microdom.utils` - contains utility classes for working with Micro DOM.
-  * `com.helger.commons.xml` - utility classes to work with standard W3C nodes
-  * `com.helger.commons.xml.dom` - XML utility classes only relevant for DOM
-  * `com.helger.commons.xml.ls` - XML utility classes for LS (serialization) support
-  * `com.helger.commons.xml.namespace` - XML namespace support classes
-  * `com.helger.commons.xml.sax` - XML helper classes supporting SAX
-  * `com.helger.commons.xml.schema` - utility classes to handle XML Schema (XSD)
-  * `com.helger.commons.xml.serialize` - XML reading and writing classes for SAX and DOM
-  * `com.helger.commons.xml.transform` - utility classes for XSLT processing and URL processing
-  * `com.helger.commons.xml.xpath` - utility classes for XPath handling incl. function and variable resolver
+  * `com.helger.xml` - utility classes to work with standard W3C nodes
+  * `com.helger.xml.dom` - XML utility classes only relevant for DOM
+  * `com.helger.xml.ls` - XML utility classes for LS (serialization) support
+  * `com.helger.xml.microdom` - contains the "Micro DOM" interfaces and implementations - a DOM like structure, but much easier to use than standard DOM.
+  * `com.helger.xml.microdom.convert` - contains a central registry for converting arbitrary objects from and to Micro DOM.
+  * `com.helger.xml.microdom.serialize` - contains reader and writer for Micro DOM elements to read from (`MicroReader`) and write to (`MicroWriter`) XML documents.
+  * `com.helger.xml.microdom.util` - contains utility classes for working with Micro DOM.
+  * `com.helger.xml.mock` - contains mock/testing classes
+  * `com.helger.xml.namespace` - XML namespace support classes
+  * `com.helger.xml.sax` - XML helper classes supporting SAX
+  * `com.helger.xml.schema` - utility classes to handle XML Schema (XSD)
+  * `com.helger.xml.serialize.read` - XML reading classes for SAX and DOM
+  * `com.helger.xml.serialize.write` - XML writing classes for SAX and DOM
+  * `com.helger.xml.transform` - utility classes for XSLT processing and URL processing
+  * `com.helger.xml.util` - general helper classes.
+  * `com.helger.xml.util.changelog` - changelog XML serializer.
+  * `com.helger.xml.util.mime` - contains a converter from MIME type information to Micro DOM.
+  * `com.helger.xml.util.statistics` - statistics to XML converter.
+  * `com.helger.xml.xpath` - utility classes for XPath handling incl. function and variable resolver
 
 ##Maven usage
 Add the following to your pom.xml to use this artifact:
@@ -181,9 +177,10 @@ Add the following to your pom.xml to use this artifact:
 #ph-jaxb
 A special JAXB helper project. It supports both the JDK included JAXB as well as an external JAXB that is used via a separate Maven artefact.
 
-  * `com.helger.commons.jaxb` - JAXB context cache.
-  * `com.helger.commons.jaxb.utils` - abstract JAXB marshaller for easy reading and writing from and to different sources and targets.
-  * `com.helger.commons.jaxb.validation` - validation event handler for JAXB marshalling/unmarshalling.
+  * `com.helger.jaxb` - JAXB context cache, abstract reader, writer and validator interfaces.
+  * `com.helger.jaxb.builder` - Abstract builder for JAXB based readers, writers and validators. 
+  * `com.helger.jaxb.utils` - abstract JAXB marshaller for easy reading and writing from and to different sources and targets.
+  * `com.helger.jaxb.validation` - validation event handler (factories) for JAXB marshalling/unmarshalling.
 
 ##Maven usage
 Add the following to your pom.xml to use this artifact:
@@ -198,16 +195,15 @@ Add the following to your pom.xml to use this artifact:
 #ph-tree
 A special tree management project.
 
-  * `com.helger.commons.tree` - contains interfaces for a basic tree and a basic tree item
-  * `com.helger.commons.tree.simple` - contains a simple generic tree implementation.
-  * `com.helger.commons.tree.utils.build` - contains a utility class to build a tree from hierarchical parent-child relations.
-  * `com.helger.commons.tree.utils.search` - search within a tree with ID
-  * `com.helger.commons.tree.utils.sort` - utility classes to sort trees by ID or by values.
-  * `com.helger.commons.tree.utils.walk` - utility classes to visit all leafs of a tree
-  * `com.helger.commons.tree.utils.xml` - convert a tree into a generic XML.
-  * `com.helger.commons.tree.withid` - contains a generic tree, where each item has an ID (which must not be unique)
-  * `com.helger.commons.tree.withid.folder` - a specialized tree which separates into "files" and "folders"
-  * `com.helger.commons.tree.withid.unique` - a special tree where each item has an ID that must be unique so that each leaf can be identified easily.
+  * `com.helger.tree` - contains interfaces and implementations for a basic tree and a basic tree item
+  * `com.helger.tree.io` - special file system tree
+  * `com.helger.tree.singleton` - special tree class singletons for easy proxying of the tree interfaces.
+  * `com.helger.tree.sort` - utility classes to sort trees by ID or by values.
+  * `com.helger.tree.util` - contains a utility class to build a tree from hierarchical parent-child relations, search a tree and visit a tree.
+  * `com.helger.tree.withid` - contains a generic tree, where each item has an ID (which must not be unique)
+  * `com.helger.tree.withid.folder` - a specialized tree which separates into "files" and "folders"
+  * `com.helger.tree.withid.unique` - a special tree where each item has an ID that must be unique so that each leaf can be identified easily.
+  * `com.helger.tree.xml` - convert a tree into a generic XML.
 
 ##Maven usage
 Add the following to your pom.xml to use this artifact:
@@ -223,8 +219,9 @@ Add the following to your pom.xml to use this artifact:
 A library with less common elements. First available with ph-commons 8.
 A few elements from ph-commons 6 which I'm not really using. But to avoid loss of information this project was added.  
 
-  * `com.helger.commons.i18n` - internationalization (i18n) helper classes, especially for code point handling. Ripped from Apache Abdera.
-  * `com.helger.commons.jmx` - very basic JMX utility classes.
+  * `com.helger.lesscommons.charset` - special String encoder/decoder based on ByteBuffer
+  * `com.helger.lesscommons.i18n` - internationalization (i18n) helper classes, especially for code point handling. Ripped from Apache Abdera.
+  * `com.helger.lesscommons.jmx` - very basic JMX utility classes.
 
 ##Maven usage
 Add the following to your pom.xml to use this artifact:
