@@ -13,6 +13,7 @@ This project was the following modules:
 
 ##News
 
+  * 2016-06-26: Version 8.1.0 was released. Minor small API optimizations for JAXB. `ValueEnforcer` supports `Supplier`. GZIP based readable and writable resources added.
   * 2016-06-08: Version 8.0.0 was released. It splits the old big ph-commons library into slightly smaller pieces: `ph-commons`, `ph-xml`, `ph-jaxb`, `ph-tree` and `ph-less-commons`.
 
 ##Maven usage
@@ -21,7 +22,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-commons</artifactId>
-  <version>8.0.0</version>
+  <version>8.1.0</version>
 </dependency>
 ```
 
@@ -170,7 +171,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-xml</artifactId>
-  <version>8.0.0</version>
+  <version>8.1.0</version>
 </dependency>
 ```
 
@@ -188,7 +189,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-jaxb</artifactId>
-  <version>8.0.0</version>
+  <version>8.1.0</version>
 </dependency>
 ```
 
@@ -211,7 +212,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-tree</artifactId>
-  <version>8.0.0</version>
+  <version>8.1.0</version>
 </dependency>
 ```
 
@@ -229,7 +230,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-less-commons</artifactId>
-  <version>8.0.0</version>
+  <version>8.1.0</version>
 </dependency>
 ```
 
