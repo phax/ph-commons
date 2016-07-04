@@ -13,8 +13,17 @@ This project was the following modules:
 
 ##News
 
-  * 2016-06-26: Version 8.1.0 was released. Minor small API optimizations for JAXB. `ValueEnforcer` supports `Supplier`. GZIP based readable and writable resources added.
-  * 2016-06-08: Version 8.0.0 was released. It splits the old big ph-commons library into slightly smaller pieces: `ph-commons`, `ph-xml`, `ph-jaxb`, `ph-tree` and `ph-less-commons`.
+  * 8.2.0
+    * Added new sub-project `ph-security` that contains MessageDigest, HMac, Keystore etc. stuff
+  * 8.1.0 - 2016-06-26: 
+    * Minor small API optimizations for JAXB.
+    * `ValueEnforcer` supports `Supplier`.
+    * GZIP based readable and writable resources added.
+  * 8.0.0 - 2016-06-08: 
+    * It splits the old big ph-commons library into slightly smaller pieces: `ph-commons`, `ph-xml`, `ph-jaxb`, `ph-tree` and `ph-less-commons`.
+    * The first version that requires JDK 8
+    * Multiple API changes to better support functional style
+    * Base32 codec added
 
 ##Maven usage
 Add the following to your pom.xml to use this artifact:
