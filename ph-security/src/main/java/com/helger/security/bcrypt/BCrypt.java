@@ -16,6 +16,7 @@ package com.helger.security.bcrypt;
 
 import java.security.SecureRandom;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.charset.CCharset;
@@ -1485,7 +1486,7 @@ public class BCrypt
    *        a "pointer" (as a one-entry array) to the current offset into data
    * @return the next word of material from data
    */
-  private static int _streamtoword (final byte [] data, final int [] offp)
+  private static int _streamtoword (@Nonnull final byte [] data, @Nonnull final int [] offp)
   {
     int word = 0;
     int off = offp[0];
@@ -1549,7 +1550,7 @@ public class BCrypt
    * @param key
    *        password information
    */
-  private void _ekskey (final byte [] data, final byte [] key)
+  private void _ekskey (@Nonnull final byte [] data, @Nonnull final byte [] key)
   {
     final int [] koffp = { 0 };
     final int [] doffp = { 0 };
@@ -1591,6 +1592,7 @@ public class BCrypt
    *        the plaintext to encrypt
    * @return an array containing the binary hashed password
    */
+  @Nonnull
   public byte [] crypt_raw (final byte [] password, final byte [] salt, final int log_rounds, final int [] cdata)
   {
     if (log_rounds < 4 || log_rounds > 30)
@@ -1633,6 +1635,7 @@ public class BCrypt
    *        the salt to hash with (perhaps generated using BCrypt.gensalt)
    * @return the hashed password
    */
+  @Nonnull
   public static String hashpw (@Nonnull final String sPassword, @Nonnull final String sSalt)
   {
     if (sSalt.charAt (0) != '$' || sSalt.charAt (1) != '2')
@@ -1688,10 +1691,11 @@ public class BCrypt
    *        an instance of SecureRandom to use
    * @return an encoded salt value
    */
-  public static String gensalt (final int log_rounds, final SecureRandom aRandom)
+  @Nonnull
+  public static String gensalt (@Nonnegative final int log_rounds, @Nonnull final SecureRandom aRandom)
   {
     final StringBuilder rs = new StringBuilder ();
-    final byte rnd[] = new byte [BCRYPT_SALT_LEN];
+    final byte [] rnd = new byte [BCRYPT_SALT_LEN];
 
     aRandom.nextBytes (rnd);
 
@@ -1715,7 +1719,8 @@ public class BCrypt
    *        factor therefore increases as 2**log_rounds.
    * @return an encoded salt value
    */
-  public static String gensalt (final int log_rounds)
+  @Nonnull
+  public static String gensalt (@Nonnegative final int log_rounds)
   {
     return gensalt (log_rounds, VerySecureRandom.getInstance ());
   }
@@ -1726,6 +1731,7 @@ public class BCrypt
    *
    * @return an encoded salt value
    */
+  @Nonnull
   public static String gensalt ()
   {
     return gensalt (GENSALT_DEFAULT_LOG2_ROUNDS);
@@ -1738,9 +1744,10 @@ public class BCrypt
    *        the plaintext password to verify
    * @param sHashed
    *        the previously-hashed password
-   * @return true if the passwords match, false otherwise
+   * @return <code>true</code> if the passwords match, <code>false</code>
+   *         otherwise
    */
-  public static boolean checkpw (final String sPlaintext, final String sHashed)
+  public static boolean checkpw (@Nonnull final String sPlaintext, @Nonnull final String sHashed)
   {
     final String try_pw = hashpw (sPlaintext, sHashed);
     final byte [] hashed_bytes = sHashed.getBytes (CCharset.CHARSET_UTF_8_OBJ);
