@@ -55,7 +55,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback>
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
   @GuardedBy ("m_aRWLock")
-  private final ICommonsOrderedSet <CALLBACKTYPE> m_aCallbacks = new CommonsLinkedHashSet <> ();
+  private final ICommonsOrderedSet <CALLBACKTYPE> m_aCallbacks = new CommonsLinkedHashSet<> ();
 
   public CallbackList ()
   {}
@@ -95,7 +95,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback>
     if (aCallback == null)
       return EChange.UNCHANGED;
 
-    return EChange.valueOf (m_aRWLock.writeLocked ( () -> m_aCallbacks.remove (aCallback)));
+    return m_aRWLock.writeLocked ( () -> m_aCallbacks.removeObject (aCallback));
   }
 
   /**
@@ -136,7 +136,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback>
   @Nonnull
   public CallbackList <CALLBACKTYPE> getClone ()
   {
-    return m_aRWLock.readLocked ( () -> new CallbackList <> (this));
+    return m_aRWLock.readLocked ( () -> new CallbackList<> (this));
   }
 
   public void forEach (@Nonnull final Consumer <CALLBACKTYPE> aConsumer)

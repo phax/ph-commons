@@ -512,6 +512,23 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
   }
 
   /**
+   * add the provided element to the collection using {@link #add(Object)} but
+   * returning a more structured return value.
+   *
+   * @param aElement
+   *        The element to be add. May be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the element was added successfully,
+   *         {@link EChange#UNCHANGED} otherwise (e.g. because if is already
+   *         contained).
+   * @see #add(Object)
+   */
+  @Nonnull
+  default EChange addObject (@Nullable final ELEMENTTYPE aElement)
+  {
+    return EChange.valueOf (add (aElement));
+  }
+
+  /**
    * Add the passed element to this collection if passed predicate is fulfilled
    *
    * @param aElement
@@ -527,7 +544,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
   {
     if (aFilter != null && !aFilter.test (aElement))
       return EChange.UNCHANGED;
-    return EChange.valueOf (add (aElement));
+    return addObject (aElement);
   }
 
   /**
@@ -547,7 +564,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
   {
     if (aElement == null)
       return EChange.UNCHANGED;
-    return EChange.valueOf (add (aElement));
+    return addObject (aElement);
   }
 
   /**

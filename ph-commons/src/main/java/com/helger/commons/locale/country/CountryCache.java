@@ -90,7 +90,7 @@ public final class CountryCache
     ValueEnforcer.isTrue (sValidCountry != null, () -> "illegal country code '" + sCountry + "'");
     ValueEnforcer.isTrue (sCountry.equals (sValidCountry), () -> "invalid casing of '" + sCountry + "'");
 
-    return EChange.valueOf (m_aRWLock.writeLocked ( () -> m_aCountries.add (sValidCountry)));
+    return m_aRWLock.writeLocked ( () -> m_aCountries.addObject (sValidCountry));
   }
 
   @Nullable

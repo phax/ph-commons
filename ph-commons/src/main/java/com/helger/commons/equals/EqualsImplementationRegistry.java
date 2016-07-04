@@ -83,13 +83,13 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
 
   // Use a weak hash map, because the key is a class
   @GuardedBy ("m_aRWLock")
-  private final ICommonsMap <Class <?>, IEqualsImplementation <?>> m_aMap = new CommonsWeakHashMap <> ();
+  private final ICommonsMap <Class <?>, IEqualsImplementation <?>> m_aMap = new CommonsWeakHashMap<> ();
 
   // Cache for classes where direct implementation should be used
   private final AnnotationUsageCache m_aDirectEquals = new AnnotationUsageCache (UseDirectEqualsAndHashCode.class);
 
   // Cache for classes that implement equals directly
-  private final ICommonsMap <String, Boolean> m_aImplementsEquals = new CommonsHashMap <> ();
+  private final ICommonsMap <String, Boolean> m_aImplementsEquals = new CommonsHashMap<> ();
 
   private EqualsImplementationRegistry ()
   {
@@ -140,7 +140,7 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
   @Nonnull
   public EChange unregisterEqualsImplementation (@Nonnull final Class <?> aClass)
   {
-    return EChange.valueOf (m_aRWLock.writeLocked ( () -> m_aMap.remove (aClass) != null));
+    return m_aRWLock.writeLocked ( () -> m_aMap.removeObject (aClass));
   }
 
   private boolean _isUseDirectEquals (@Nonnull final Class <?> aClass)

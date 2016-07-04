@@ -54,7 +54,7 @@ public final class ThirdPartyModuleRegistry
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
-  private final ICommonsOrderedSet <IThirdPartyModule> m_aModules = new CommonsLinkedHashSet <> ();
+  private final ICommonsOrderedSet <IThirdPartyModule> m_aModules = new CommonsLinkedHashSet<> ();
 
   private ThirdPartyModuleRegistry ()
   {
@@ -80,7 +80,7 @@ public final class ThirdPartyModuleRegistry
   {
     ValueEnforcer.notNull (aModule, "Module");
 
-    return EChange.valueOf (m_aModules.add (aModule));
+    return m_aModules.addObject (aModule);
   }
 
   @Nonnull

@@ -65,7 +65,7 @@ public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICl
    */
   public MapBasedXPathVariableResolver (@Nullable final Map <String, ?> aVars)
   {
-    m_aMap = new CommonsHashMap <> (aVars);
+    m_aMap = new CommonsHashMap<> (aVars);
   }
 
   /**
@@ -166,7 +166,9 @@ public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICl
   @Nonnull
   public EChange removeVariable (@Nullable final String sName)
   {
-    return EChange.valueOf (m_aMap.remove (sName) != null);
+    if (sName == null)
+      return EChange.UNCHANGED;
+    return m_aMap.removeObject (sName);
   }
 
   /**

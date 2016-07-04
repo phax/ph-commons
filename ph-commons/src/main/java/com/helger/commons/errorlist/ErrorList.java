@@ -50,7 +50,7 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
 {
-  private final ICommonsList <IError> m_aItems = new CommonsArrayList <> ();
+  private final ICommonsList <IError> m_aItems = new CommonsArrayList<> ();
 
   public ErrorList ()
   {}
@@ -408,7 +408,7 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
   @ReturnsMutableCopy
   public ICommonsList <String> getAllItemTextsOfFields (@Nullable final String... aSearchFieldNames)
   {
-    final ICommonsList <String> ret = new CommonsArrayList <> ();
+    final ICommonsList <String> ret = new CommonsArrayList<> ();
     if (ArrayHelper.isNotEmpty (aSearchFieldNames))
       m_aItems.findAll (e -> ArrayHelper.contains (aSearchFieldNames, e.getErrorFieldName ()),
                         e -> ret.add (e.getErrorText ()));
@@ -419,7 +419,7 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
   @ReturnsMutableCopy
   public ICommonsList <String> getAllItemTextsOfFieldsStartingWith (@Nullable final String... aSearchFieldNames)
   {
-    final ICommonsList <String> ret = new CommonsArrayList <> ();
+    final ICommonsList <String> ret = new CommonsArrayList<> ();
     if (ArrayHelper.isNotEmpty (aSearchFieldNames))
       m_aItems.findAll (e -> e.hasErrorFieldName (), e -> {
         final String sErrorFieldName = e.getErrorFieldName ();
@@ -448,7 +448,7 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
   @ReturnsMutableCopy
   public IMultiMapListBased <String, IError> getGroupedByID ()
   {
-    final IMultiMapListBased <String, IError> ret = new MultiLinkedHashMapArrayListBased <> ();
+    final IMultiMapListBased <String, IError> ret = new MultiLinkedHashMapArrayListBased<> ();
     for (final IError aError : m_aItems)
       ret.putSingle (aError.getErrorID (), aError);
     return ret;
@@ -458,7 +458,7 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
   @ReturnsMutableCopy
   public IMultiMapListBased <String, IError> getGroupedByFieldName ()
   {
-    final IMultiMapListBased <String, IError> ret = new MultiLinkedHashMapArrayListBased <> ();
+    final IMultiMapListBased <String, IError> ret = new MultiLinkedHashMapArrayListBased<> ();
     for (final IError aError : m_aItems)
       ret.putSingle (aError.getErrorFieldName (), aError);
     return ret;
@@ -467,7 +467,9 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
   @Nonnull
   public EChange remove (@Nullable final IError aError)
   {
-    return EChange.valueOf (aError != null && m_aItems.remove (aError));
+    if (aError == null)
+      return EChange.UNCHANGED;
+    return m_aItems.removeObject (aError);
   }
 
   @Nonnull

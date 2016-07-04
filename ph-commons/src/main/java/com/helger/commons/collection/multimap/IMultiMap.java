@@ -66,7 +66,7 @@ public interface IMultiMap <KEYTYPE, VALUETYPE, COLLTYPE extends ICommonsCollect
   @Nonnull
   default EChange putSingle (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
-    return EChange.valueOf (getOrCreate (aKey).add (aValue));
+    return getOrCreate (aKey).addObject (aValue);
   }
 
   /**
@@ -98,7 +98,7 @@ public interface IMultiMap <KEYTYPE, VALUETYPE, COLLTYPE extends ICommonsCollect
   default EChange removeSingle (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
     final COLLTYPE aCont = get (aKey);
-    return aCont == null ? EChange.UNCHANGED : EChange.valueOf (aCont.remove (aValue));
+    return aCont == null ? EChange.UNCHANGED : aCont.removeObject (aValue);
   }
 
   /**

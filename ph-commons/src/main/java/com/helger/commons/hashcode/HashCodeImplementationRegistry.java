@@ -81,13 +81,13 @@ public final class HashCodeImplementationRegistry implements IHashCodeImplementa
 
   // Use a weak hash map, because the key is a class
   @GuardedBy ("m_aRWLock")
-  private final ICommonsMap <Class <?>, IHashCodeImplementation> m_aMap = new CommonsWeakHashMap <> ();
+  private final ICommonsMap <Class <?>, IHashCodeImplementation> m_aMap = new CommonsWeakHashMap<> ();
 
   // Cache for classes where direct implementation should be used
   private final AnnotationUsageCache m_aDirectHashCode = new AnnotationUsageCache (UseDirectEqualsAndHashCode.class);
 
   // Cache for classes that implement hashCode directly
-  private final ICommonsMap <String, Boolean> m_aImplementsHashCode = new CommonsHashMap <> ();
+  private final ICommonsMap <String, Boolean> m_aImplementsHashCode = new CommonsHashMap<> ();
 
   private HashCodeImplementationRegistry ()
   {
@@ -138,7 +138,7 @@ public final class HashCodeImplementationRegistry implements IHashCodeImplementa
   @Nonnull
   public EChange unregisterHashCodeImplementation (@Nonnull final Class <?> aClass)
   {
-    return EChange.valueOf (m_aRWLock.writeLocked ( () -> m_aMap.remove (aClass) != null));
+    return m_aRWLock.writeLocked ( () -> m_aMap.removeObject (aClass));
   }
 
   private boolean _isUseDirectHashCode (@Nonnull final Class <?> aClass)

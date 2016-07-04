@@ -73,9 +73,9 @@ public final class DOMReaderDefaultSettings
   @GuardedBy ("s_aRWLock")
   private static boolean s_bDefaultXIncludeAware = XMLFactory.DEFAULT_DOM_XINCLUDE_AWARE;
   @GuardedBy ("s_aRWLock")
-  private static final ICommonsMap <EXMLParserProperty, Object> s_aDefaultProperties = new CommonsEnumMap <> (EXMLParserProperty.class);
+  private static final ICommonsMap <EXMLParserProperty, Object> s_aDefaultProperties = new CommonsEnumMap<> (EXMLParserProperty.class);
   @GuardedBy ("s_aRWLock")
-  private static final ICommonsMap <EXMLParserFeature, Boolean> s_aDefaultFeatures = new CommonsEnumMap <> (EXMLParserFeature.class);
+  private static final ICommonsMap <EXMLParserFeature, Boolean> s_aDefaultFeatures = new CommonsEnumMap<> (EXMLParserFeature.class);
 
   // DocumentBuilder properties
   @GuardedBy ("s_aRWLock")
@@ -288,7 +288,7 @@ public final class DOMReaderDefaultSettings
     if (eFeature == null)
       return EChange.UNCHANGED;
 
-    return EChange.valueOf (s_aRWLock.writeLocked ( () -> s_aDefaultFeatures.remove (eFeature) != null));
+    return s_aRWLock.writeLocked ( () -> s_aDefaultFeatures.removeObject (eFeature));
   }
 
   @Nonnull

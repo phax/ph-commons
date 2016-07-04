@@ -47,7 +47,7 @@ public class FileMonitorManager implements Runnable
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
   /** All FileMonitors contained */
-  private final ICommonsList <FileMonitor> m_aMonitorList = new CommonsArrayList <> ();
+  private final ICommonsList <FileMonitor> m_aMonitorList = new CommonsArrayList<> ();
 
   /** The low priority thread used for checking the files being monitored. */
   private Thread m_aMonitorThread;
@@ -137,12 +137,14 @@ public class FileMonitorManager implements Runnable
    *
    * @param aMonitor
    *        The monitor to be added. May not be <code>null</code>.
+   * @return {@link EChange}
    */
-  public void addFileMonitor (@Nonnull final FileMonitor aMonitor)
+  @Nonnull
+  public EChange addFileMonitor (@Nonnull final FileMonitor aMonitor)
   {
     ValueEnforcer.notNull (aMonitor, "Monitor");
 
-    m_aRWLock.writeLocked ( () -> m_aMonitorList.add (aMonitor));
+    return m_aRWLock.writeLocked ( () -> m_aMonitorList.addObject (aMonitor));
   }
 
   /**
@@ -158,7 +160,7 @@ public class FileMonitorManager implements Runnable
     if (aMonitor == null)
       return EChange.UNCHANGED;
 
-    return EChange.valueOf (m_aRWLock.writeLocked ( () -> m_aMonitorList.remove (aMonitor)));
+    return m_aRWLock.writeLocked ( () -> m_aMonitorList.removeObject (aMonitor));
   }
 
   @Nonnull

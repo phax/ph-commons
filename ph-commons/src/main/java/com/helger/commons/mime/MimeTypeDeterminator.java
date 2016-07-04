@@ -73,7 +73,7 @@ public final class MimeTypeDeterminator
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
   // Contains all byte[] to mime type mappings
-  private final ICommonsSet <MimeTypeContent> m_aMimeTypeContents = new CommonsHashSet <> ();
+  private final ICommonsSet <MimeTypeContent> m_aMimeTypeContents = new CommonsHashSet<> ();
 
   private MimeTypeDeterminator ()
   {
@@ -96,7 +96,7 @@ public final class MimeTypeDeterminator
     // Add all XML mime types: as the combination of all BOMs and all character
     // encodings as determined by
     // http://www.w3.org/TR/REC-xml/#sec-guessing
-    final ICommonsList <byte []> aXMLStuff = new CommonsArrayList <> ();
+    final ICommonsList <byte []> aXMLStuff = new CommonsArrayList<> ();
     // UCS4
     aXMLStuff.add (new byte [] { 0x3c, 0x00, 0x00, 0x00, 0x3f, 0x00, 0x00, 0x00 });
     aXMLStuff.add (new byte [] { 0x00, 0x3c, 0x00, 0x00, 0x00, 0x3f, 0x00, 0x00 });
@@ -147,7 +147,7 @@ public final class MimeTypeDeterminator
   {
     ValueEnforcer.notNull (aMimeTypeContent, "MimeTypeContent");
 
-    return EChange.valueOf (m_aRWLock.writeLocked ( () -> m_aMimeTypeContents.add (aMimeTypeContent)));
+    return m_aRWLock.writeLocked ( () -> m_aMimeTypeContents.addObject (aMimeTypeContent));
   }
 
   /**
@@ -164,7 +164,7 @@ public final class MimeTypeDeterminator
     if (aMimeTypeContent == null)
       return EChange.UNCHANGED;
 
-    return EChange.valueOf (m_aRWLock.writeLocked ( () -> m_aMimeTypeContents.remove (aMimeTypeContent)));
+    return m_aRWLock.writeLocked ( () -> m_aMimeTypeContents.removeObject (aMimeTypeContent));
   }
 
   /**

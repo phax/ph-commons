@@ -66,9 +66,9 @@ public final class SAXReaderDefaultSettings
   @GuardedBy ("s_aRWLock")
   private static ErrorHandler s_aDefaultErrorHandler = new LoggingSAXErrorHandler ();
   @GuardedBy ("s_aRWLock")
-  private static final ICommonsMap <EXMLParserProperty, Object> s_aDefaultProperties = new CommonsEnumMap <> (EXMLParserProperty.class);
+  private static final ICommonsMap <EXMLParserProperty, Object> s_aDefaultProperties = new CommonsEnumMap<> (EXMLParserProperty.class);
   @GuardedBy ("s_aRWLock")
-  private static final ICommonsMap <EXMLParserFeature, Boolean> s_aDefaultFeatures = new CommonsEnumMap <> (EXMLParserFeature.class);
+  private static final ICommonsMap <EXMLParserFeature, Boolean> s_aDefaultFeatures = new CommonsEnumMap<> (EXMLParserFeature.class);
   @GuardedBy ("s_aRWLock")
   private static IExceptionCallback <Throwable> s_aDefaultExceptionHandler = new XMLLoggingExceptionCallback ();
   @GuardedBy ("s_aRWLock")
@@ -206,7 +206,7 @@ public final class SAXReaderDefaultSettings
     if (eProperty == null)
       return EChange.UNCHANGED;
 
-    return EChange.valueOf (s_aRWLock.writeLocked ( () -> s_aDefaultProperties.remove (eProperty) != null));
+    return s_aRWLock.writeLocked ( () -> s_aDefaultProperties.removeObject (eProperty));
   }
 
   @Nonnull
@@ -275,7 +275,7 @@ public final class SAXReaderDefaultSettings
     if (eFeature == null)
       return EChange.UNCHANGED;
 
-    return EChange.valueOf (s_aRWLock.writeLocked ( () -> s_aDefaultFeatures.remove (eFeature) != null));
+    return s_aRWLock.writeLocked ( () -> s_aDefaultFeatures.removeObject (eFeature));
   }
 
   @Nonnull

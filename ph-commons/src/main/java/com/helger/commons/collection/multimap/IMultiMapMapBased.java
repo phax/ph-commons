@@ -104,7 +104,7 @@ public interface IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE, MAPTYPE exten
   default EChange removeSingle (@Nonnull final KEYTYPE1 aKey, @Nonnull final KEYTYPE2 aInnerKey)
   {
     final MAPTYPE aCont = get (aKey);
-    return aCont == null ? EChange.UNCHANGED : EChange.valueOf (aCont.remove (aInnerKey) != null);
+    return aCont == null ? EChange.UNCHANGED : aCont.removeObject (aInnerKey);
   }
 
   /**

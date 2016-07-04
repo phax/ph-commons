@@ -57,8 +57,8 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
   private DTDHandler m_aDTDHandler;
   private ContentHandler m_aContentHandler;
   private ErrorHandler m_aErrorHandler;
-  private final ICommonsMap <EXMLParserProperty, Object> m_aProperties = new CommonsEnumMap <> (EXMLParserProperty.class);
-  private final ICommonsMap <EXMLParserFeature, Boolean> m_aFeatures = new CommonsEnumMap <> (EXMLParserFeature.class);
+  private final ICommonsMap <EXMLParserProperty, Object> m_aProperties = new CommonsEnumMap<> (EXMLParserProperty.class);
+  private final ICommonsMap <EXMLParserFeature, Boolean> m_aFeatures = new CommonsEnumMap<> (EXMLParserFeature.class);
   private IExceptionCallback <Throwable> m_aExceptionHandler;
   private boolean m_bRequiresNewXMLParserExplicitly;
 
@@ -226,16 +226,15 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
   @Nonnull
   public final EChange removePropertyValue (@Nullable final EXMLParserProperty eProperty)
   {
-    return EChange.valueOf (eProperty != null && m_aProperties.remove (eProperty) != null);
+    if (eProperty == null)
+      return EChange.UNCHANGED;
+    return m_aProperties.removeObject (eProperty);
   }
 
   @Nonnull
   public final EChange removeAllPropertyValues ()
   {
-    if (m_aProperties.isEmpty ())
-      return EChange.UNCHANGED;
-    m_aProperties.clear ();
-    return EChange.CHANGED;
+    return m_aProperties.removeAll ();
   }
 
   @Nullable
@@ -300,16 +299,15 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
   @Nonnull
   public final EChange removeFeature (@Nullable final EXMLParserFeature eFeature)
   {
-    return EChange.valueOf (eFeature != null && m_aFeatures.remove (eFeature) != null);
+    if (eFeature == null)
+      return EChange.UNCHANGED;
+    return m_aFeatures.removeObject (eFeature);
   }
 
   @Nonnull
   public final EChange removeAllFeatures ()
   {
-    if (m_aFeatures.isEmpty ())
-      return EChange.UNCHANGED;
-    m_aFeatures.clear ();
-    return EChange.CHANGED;
+    return m_aFeatures.removeAll ();
   }
 
   public boolean requiresNewXMLParser ()

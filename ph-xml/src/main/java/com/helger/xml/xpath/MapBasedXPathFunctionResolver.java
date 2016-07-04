@@ -53,7 +53,7 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
    */
   public MapBasedXPathFunctionResolver ()
   {
-    m_aMap = new CommonsLinkedHashMap <> ();
+    m_aMap = new CommonsLinkedHashMap<> ();
   }
 
   /**
@@ -166,7 +166,9 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
   @Nonnull
   public EChange removeFunction (@Nullable final XPathFunctionKey aKey)
   {
-    return EChange.valueOf (m_aMap.remove (aKey) != null);
+    if (aKey == null)
+      return EChange.UNCHANGED;
+    return m_aMap.removeObject (aKey);
   }
 
   /**

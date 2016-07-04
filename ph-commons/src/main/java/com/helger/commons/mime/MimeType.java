@@ -212,7 +212,7 @@ public class MimeType implements IMimeType, Comparable <MimeType>
   @Nonnull
   public EChange removeParameter (@Nullable final MimeTypeParameter aParameter)
   {
-    return EChange.valueOf (m_aParameters.remove (aParameter));
+    return m_aParameters.removeObject (aParameter);
   }
 
   /**
@@ -225,7 +225,7 @@ public class MimeType implements IMimeType, Comparable <MimeType>
   @Nonnull
   public EChange removeParameterAtIndex (final int nIndex)
   {
-    return EChange.valueOf (m_aParameters.remove (nIndex) != null);
+    return m_aParameters.removeAtIndex (nIndex);
   }
 
   /**

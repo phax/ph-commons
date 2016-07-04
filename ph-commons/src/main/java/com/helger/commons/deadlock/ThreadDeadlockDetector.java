@@ -49,7 +49,7 @@ public class ThreadDeadlockDetector
   private static final Logger s_aLogger = LoggerFactory.getLogger (ThreadDeadlockDetector.class);
 
   private final ThreadMXBean m_aMBean = ManagementFactory.getThreadMXBean ();
-  private final ICommonsSet <IThreadDeadlockCallback> m_aCallbacks = new CommonsCopyOnWriteArraySet <> ();
+  private final ICommonsSet <IThreadDeadlockCallback> m_aCallbacks = new CommonsCopyOnWriteArraySet<> ();
 
   /**
    * This is the main method to be invoked to find deadlocked threads. In case a
@@ -106,13 +106,13 @@ public class ThreadDeadlockDetector
   {
     ValueEnforcer.notNull (aCallback, "Callback");
 
-    return EChange.valueOf (m_aCallbacks.add (aCallback));
+    return m_aCallbacks.addObject (aCallback);
   }
 
   @Nonnull
   public EChange removeCallback (@Nullable final IThreadDeadlockCallback aCallback)
   {
-    return EChange.valueOf (m_aCallbacks.remove (aCallback));
+    return m_aCallbacks.removeObject (aCallback);
   }
 
   @Nonnull

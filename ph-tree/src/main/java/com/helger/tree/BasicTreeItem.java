@@ -316,9 +316,9 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
 
     // Ensure children are present
     if (m_aChildren == null)
-      m_aChildren = new CommonsArrayList <> ();
+      m_aChildren = new CommonsArrayList<> ();
 
-    return EChange.valueOf (m_aChildren.add (aChild));
+    return m_aChildren.addObject (aChild);
   }
 
   @Nonnull
@@ -326,7 +326,9 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
   {
     ValueEnforcer.notNull (aChild, "Child");
 
-    return EChange.valueOf (m_aChildren != null && m_aChildren.remove (aChild));
+    if (m_aChildren == null)
+      return EChange.UNCHANGED;
+    return m_aChildren.removeObject (aChild);
   }
 
   public final void reorderChildItems (@Nonnull final Comparator <? super ITEMTYPE> aComparator)

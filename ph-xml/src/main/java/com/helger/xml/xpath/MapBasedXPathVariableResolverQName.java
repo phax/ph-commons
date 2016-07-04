@@ -66,7 +66,7 @@ public class MapBasedXPathVariableResolverQName implements
    */
   public MapBasedXPathVariableResolverQName (@Nullable final Map <QName, ?> aVars)
   {
-    m_aMap = new CommonsHashMap <> (aVars);
+    m_aMap = new CommonsHashMap<> (aVars);
   }
 
   /**
@@ -168,7 +168,9 @@ public class MapBasedXPathVariableResolverQName implements
   @Nonnull
   public EChange removeVariable (@Nullable final QName aName)
   {
-    return EChange.valueOf (m_aMap.remove (aName) != null);
+    if (aName == null)
+      return EChange.UNCHANGED;
+    return m_aMap.removeObject (aName);
   }
 
   /**

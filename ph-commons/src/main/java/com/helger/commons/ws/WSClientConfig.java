@@ -461,7 +461,7 @@ public class WSClientConfig
     if (m_aHTTPHeaders == null || StringHelper.hasNoText (sName))
       return EChange.UNCHANGED;
 
-    return EChange.valueOf (m_aHTTPHeaders.remove (sName) != null);
+    return m_aHTTPHeaders.removeObject (sName);
   }
 
   /**
