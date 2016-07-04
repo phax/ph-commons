@@ -2011,6 +2011,27 @@ public final class CollectionHelper
     return aIterable == null ? 0 : IteratorHelper.getSize (aIterable.iterator ());
   }
 
+  /**
+   * Retrieve the size of the passed {@link Enumeration}.
+   *
+   * @param aEnumeration
+   *        Enumeration to check. May be <code>null</code>.
+   * @return The number objects or 0 if the passed parameter is
+   *         <code>null</code>.
+   */
+  @Nonnegative
+  public static int getSize (@Nullable final Enumeration <?> aEnumeration)
+  {
+    int ret = 0;
+    if (aEnumeration != null)
+      while (aEnumeration.hasMoreElements ())
+      {
+        aEnumeration.nextElement ();
+        ++ret;
+      }
+    return ret;
+  }
+
   @Nullable
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> getConcatenatedList (@Nullable final Collection <? extends ELEMENTTYPE> aCollection1,
