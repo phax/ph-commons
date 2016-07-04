@@ -17,6 +17,7 @@
 package com.helger.commons.type;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Base interface for all objects having a certain {@link ObjectType}.
@@ -31,4 +32,9 @@ public interface IHasObjectType
    */
   @Nonnull
   ObjectType getObjectType ();
+
+  default boolean hasObjectType (@Nullable final ObjectType aOT)
+  {
+    return aOT != null && getObjectType ().equals (aOT);
+  }
 }
