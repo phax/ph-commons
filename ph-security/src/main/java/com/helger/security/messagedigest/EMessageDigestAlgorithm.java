@@ -14,34 +14,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.mac;
+package com.helger.security.messagedigest;
 
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Provider;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.string.StringHelper;
 
 /**
- * A selection of common hash algorithms.
+ * A selection of common message digest (hash) algorithms.
  *
  * @author Philip Helger
  */
-public enum EMacAlgorithm
+public enum EMessageDigestAlgorithm
 {
-  HMAC_MD5 ("HmacMD5"),
-  HMAC_SHA1 ("HmacSHA1"),
-  HMAC_SHA256 ("HmacSHA256");
+  MD5 ("MD5"),
+  SHA_1 ("SHA-1"),
+  SHA_256 ("SHA-256"),
+  SHA_384 ("SHA-384"),
+  SHA_512 ("SHA-512");
 
   private final String m_sAlgorithm;
 
-  private EMacAlgorithm (@Nonnull @Nonempty final String sAlgorithm)
+  private EMessageDigestAlgorithm (@Nonnull @Nonempty final String sAlgorithm)
   {
     m_sAlgorithm = sAlgorithm;
   }
@@ -54,37 +55,31 @@ public enum EMacAlgorithm
   }
 
   @Nonnull
-  public Mac createMac ()
+  public MessageDigest createMessageDigest ()
   {
-    return createMac (null);
+    return createMessageDigest (null);
   }
 
   @Nonnull
-  public Mac createMac (@Nullable final Provider aSecurityProvider)
+  public MessageDigest createMessageDigest (@Nullable final Provider aSecurityProvider)
   {
     try
     {
       if (aSecurityProvider == null)
-        return Mac.getInstance (m_sAlgorithm);
-      return Mac.getInstance (m_sAlgorithm, aSecurityProvider);
+        return MessageDigest.getInstance (m_sAlgorithm);
+      return MessageDigest.getInstance (m_sAlgorithm, aSecurityProvider);
     }
     catch (final NoSuchAlgorithmException ex)
     {
-      throw new IllegalStateException ("Failed to resolve Mac algorithm '" + m_sAlgorithm + "'", ex);
+      throw new IllegalStateException ("Failed to resolve MessageDigest algorithm '" + m_sAlgorithm + "'", ex);
     }
   }
 
-  @Nonnull
-  public SecretKeySpec createSecretKey (@Nonnull final byte [] aKey)
-  {
-    return new SecretKeySpec (aKey, m_sAlgorithm);
-  }
-
   @Nullable
-  public static EMacAlgorithm getFromStringIgnoreCase (@Nullable final String sAlgorithm)
+  public static EMessageDigestAlgorithm getFromStringIgnoreCase (@Nullable final String sAlgorithm)
   {
     if (StringHelper.hasNoText (sAlgorithm))
       return null;
-    return EnumHelper.findFirst (EMacAlgorithm.class, e -> e.m_sAlgorithm.equalsIgnoreCase (sAlgorithm));
+    return EnumHelper.findFirst (EMessageDigestAlgorithm.class, e -> e.m_sAlgorithm.equalsIgnoreCase (sAlgorithm));
   }
 }
