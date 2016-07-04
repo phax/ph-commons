@@ -17,6 +17,7 @@
 package com.helger.commons.collection.ext;
 
 import java.util.Set;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
@@ -39,7 +40,7 @@ public interface ICommonsOrderedSet <ELEMENTTYPE> extends ICommonsSet <ELEMENTTY
   @ReturnsMutableCopy
   default <T> ICommonsOrderedSet <T> createInstance ()
   {
-    return new CommonsLinkedHashSet <> ();
+    return new CommonsLinkedHashSet<> ();
   }
 
   @Nonnull
@@ -51,6 +52,25 @@ public interface ICommonsOrderedSet <ELEMENTTYPE> extends ICommonsSet <ELEMENTTY
 
     final ICommonsOrderedSet <ELEMENTTYPE> ret = createInstance ();
     findAll (aFilter, ret::add);
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  default <DSTTYPE> ICommonsOrderedSet <DSTTYPE> getAllMapped (@Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
+  {
+    final ICommonsOrderedSet <DSTTYPE> ret = createInstance ();
+    findAllMapped (aMapper, ret::add);
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  default <DSTTYPE> ICommonsOrderedSet <DSTTYPE> getAllMapped (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
+                                                               @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
+  {
+    final ICommonsOrderedSet <DSTTYPE> ret = createInstance ();
+    findAllMapped (aFilter, aMapper, ret::add);
     return ret;
   }
 
