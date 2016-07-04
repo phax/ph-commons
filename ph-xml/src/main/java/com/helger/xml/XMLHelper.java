@@ -17,6 +17,7 @@
 package com.helger.xml;
 
 import java.util.Collection;
+import java.util.function.BiConsumer;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -533,26 +534,31 @@ public final class XMLHelper
     return aAttr == null ? sDefault : aAttr.getValue ();
   }
 
-  @Nullable
+  @Nonnull
   @ReturnsMutableCopy
   public static ICommonsOrderedMap <String, String> getAllAttributesAsMap (@Nullable final Element aSrcNode)
+  {
+    final ICommonsOrderedMap <String, String> aMap = new CommonsLinkedHashMap<> ();
+    forAllAttributes (aSrcNode, (sName, sValue) -> aMap.put (sName, sValue));
+    return aMap;
+  }
+
+  public static void forAllAttributes (@Nullable final Element aSrcNode,
+                                       @Nonnull final BiConsumer <String, String> aConsumer)
   {
     if (aSrcNode != null)
     {
       final NamedNodeMap aNNM = aSrcNode.getAttributes ();
       if (aNNM != null)
       {
-        final ICommonsOrderedMap <String, String> aMap = new CommonsLinkedHashMap <> (aNNM.getLength ());
         final int nMax = aNNM.getLength ();
         for (int i = 0; i < nMax; ++i)
         {
           final Attr aAttr = (Attr) aNNM.item (i);
-          aMap.put (aAttr.getName (), aAttr.getValue ());
+          aConsumer.accept (aAttr.getName (), aAttr.getValue ());
         }
-        return aMap;
       }
     }
-    return null;
   }
 
   /**

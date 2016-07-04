@@ -37,8 +37,6 @@ import org.w3c.dom.Node;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.iterate.IterableIterator;
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.xml.XMLFactory;
-import com.helger.xml.XMLHelper;
 import com.helger.xml.xpath.XPathExpressionHelper;
 
 /**
@@ -219,7 +217,7 @@ public final class XMLHelperTest extends AbstractCommonsTestCase
     XMLHelper.append (eRoot, "TextNode");
     XMLHelper.append (eRoot, doc2.createElement ("child"));
     XMLHelper.append (eRoot, CollectionHelper.newList ("Text 1", " ", "Text 2"));
-    XMLHelper.append (eRoot, new IterableIterator <> (CollectionHelper.newList ("Text 1", " ", "Text 2")));
+    XMLHelper.append (eRoot, new IterableIterator<> (CollectionHelper.newList ("Text 1", " ", "Text 2")));
     XMLHelper.append (eRoot, doc.createElement ("foobar"));
     XMLHelper.append (eRoot, _getTestDoc ());
     XMLHelper.append (eRoot, CollectionHelper.newSet (doc.createElement ("e1"), doc.createElement ("e2")));
@@ -398,7 +396,7 @@ public final class XMLHelperTest extends AbstractCommonsTestCase
   @Test
   public void testGetAllAttributesAsMap ()
   {
-    assertNull (XMLHelper.getAllAttributesAsMap (null));
+    assertNotNull (XMLHelper.getAllAttributesAsMap (null));
     final Document doc = XMLFactory.newDocument ();
     final Element eRoot = (Element) doc.appendChild (doc.createElement ("root"));
     assertTrue (XMLHelper.getAllAttributesAsMap (eRoot).isEmpty ());
