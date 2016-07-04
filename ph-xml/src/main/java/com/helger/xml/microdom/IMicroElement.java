@@ -840,11 +840,23 @@ public interface IMicroElement extends IMicroNodeWithChildren
   }
 
   @Nonnull
+  static IFilter <IMicroElement> filterNamespaceURI (@Nullable final String sNamespaceURI)
+  {
+    return aChildElement -> aChildElement.hasNamespaceURI (sNamespaceURI);
+  }
+
+  @Nonnull
+  static IFilter <IMicroElement> filterName (@Nullable final String sTagOrLocalName)
+  {
+    return aChildElement -> aChildElement.hasTagName (sTagOrLocalName);
+  }
+
+  @Nonnull
   static IFilter <IMicroElement> filterNamespaceURIAndName (@Nullable final String sNamespaceURI,
                                                             @Nullable final String sTagOrLocalName)
   {
     if (StringHelper.hasNoText (sNamespaceURI))
-      return aChildElement -> aChildElement.hasTagName (sTagOrLocalName);
+      return filterName (sTagOrLocalName);
 
     return aChildElement -> aChildElement.hasNamespaceURI (sNamespaceURI) &&
                             aChildElement.hasLocalName (sTagOrLocalName);
@@ -876,7 +888,7 @@ public interface IMicroElement extends IMicroNodeWithChildren
   @ReturnsMutableCopy
   default ICommonsList <IMicroElement> getAllChildElements (@Nullable final String sTagName)
   {
-    return getAllChildElements (filterNamespaceURIAndName (null, sTagName));
+    return getAllChildElements (filterName (sTagName));
   }
 
   /**
@@ -910,7 +922,7 @@ public interface IMicroElement extends IMicroNodeWithChildren
   @ReturnsMutableCopy
   default ICommonsList <IMicroElement> getAllChildElements (@Nullable final Predicate <? super IMicroElement> aFilter)
   {
-    final ICommonsList <IMicroElement> ret = new CommonsArrayList <> ();
+    final ICommonsList <IMicroElement> ret = new CommonsArrayList<> ();
     forAllChildElements (aFilter, ret::add);
     return ret;
   }
@@ -947,7 +959,7 @@ public interface IMicroElement extends IMicroNodeWithChildren
    */
   default boolean hasChildElements (@Nullable final String sTagName)
   {
-    return containsAnyChildElement (filterNamespaceURIAndName (null, sTagName));
+    return containsAnyChildElement (filterName (sTagName));
   }
 
   /**
@@ -1003,7 +1015,7 @@ public interface IMicroElement extends IMicroNodeWithChildren
   @Nullable
   default IMicroElement getFirstChildElement (@Nullable final String sTagName)
   {
-    return findFirstChildElement (filterNamespaceURIAndName (null, sTagName));
+    return findFirstChildElement (filterName (sTagName));
   }
 
   /**
