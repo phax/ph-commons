@@ -49,6 +49,8 @@ import com.helger.commons.string.StringHelper;
 public final class KeyStoreHelper
 {
   public static final String KEYSTORE_TYPE_JKS = "JKS";
+  public static final String KEYSTORE_TYPE_PKCS12 = "PKCS12";
+
   private static final IReadableResourceProvider s_aRRP = new ReadableResourceProviderChain (new ClassPathResourceProvider (),
                                                                                              new FileSystemResourceProvider ());
 
@@ -57,6 +59,18 @@ public final class KeyStoreHelper
 
   private KeyStoreHelper ()
   {}
+
+  @Nonnull
+  public static KeyStore getJKSKeyStore () throws KeyStoreException
+  {
+    return KeyStore.getInstance (KEYSTORE_TYPE_JKS);
+  }
+
+  @Nonnull
+  public static KeyStore getSimiliarKeyStore (@Nonnull final KeyStore aOther) throws KeyStoreException
+  {
+    return KeyStore.getInstance (aOther.getType (), aOther.getProvider ());
+  }
 
   /**
    * Load a key store from a resource.
@@ -117,7 +131,7 @@ public final class KeyStoreHelper
 
     try
     {
-      final KeyStore aKeyStore = KeyStore.getInstance (KEYSTORE_TYPE_JKS);
+      final KeyStore aKeyStore = getJKSKeyStore ();
       aKeyStore.load (aIS, aKeyStorePassword);
       return aKeyStore;
     }
@@ -158,7 +172,7 @@ public final class KeyStoreHelper
     ValueEnforcer.notNull (aBaseKeyStore, "BaseKeyStore");
     ValueEnforcer.notNull (sAliasToCopy, "AliasToCopy");
 
-    final KeyStore aKeyStore = KeyStore.getInstance (aBaseKeyStore.getType (), aBaseKeyStore.getProvider ());
+    final KeyStore aKeyStore = getSimiliarKeyStore (aBaseKeyStore);
     // null stream means: create new key store
     aKeyStore.load (null, null);
 
