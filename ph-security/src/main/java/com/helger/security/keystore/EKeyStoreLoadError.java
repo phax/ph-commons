@@ -51,9 +51,20 @@ public enum EKeyStoreLoadError implements IHasID <String>
    */
   KEYSTORE_LOAD_ERROR_FORMAT_ERROR ("keystore-load-error-format-error"),
   // Key loading
-  /** No alias specified. Parameters: none */
+  /**
+   * No alias specified. Parameters:
+   * <ul>
+   * <li>KeyStore path</li>
+   * </ul>
+   */
   KEY_NO_ALIAS ("key-no-alias"),
-  /** No password specified. Parameters: none */
+  /**
+   * No password specified. Parameters:
+   * <ul>
+   * <li>Alias name</li>
+   * <li>KeyStore path</li>
+   * </ul>
+   */
   KEY_NO_PASSWORD ("key-no-password"),
   /**
    * Alias does not exist. Parameters:

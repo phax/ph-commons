@@ -241,10 +241,10 @@ public final class KeyStoreHelper
     ValueEnforcer.notNull (sKeyStorePath, "KeyStorePath");
 
     if (StringHelper.hasNoText (sKeyStoreKeyAlias))
-      return new LoadedKey<> (null, EKeyStoreLoadError.KEY_NO_ALIAS);
+      return new LoadedKey<> (null, EKeyStoreLoadError.KEY_NO_ALIAS, sKeyStorePath);
 
     if (aKeyStoreKeyPassword == null)
-      return new LoadedKey<> (null, EKeyStoreLoadError.KEY_NO_PASSWORD);
+      return new LoadedKey<> (null, EKeyStoreLoadError.KEY_NO_PASSWORD, sKeyStoreKeyAlias, sKeyStorePath);
 
     // Try to load the key.
     T aKeyEntry = null;
