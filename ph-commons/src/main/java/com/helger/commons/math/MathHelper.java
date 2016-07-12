@@ -924,6 +924,29 @@ public final class MathHelper
   }
 
   /**
+   * Add x% to base
+   *
+   * @param aBase
+   *        Base value. May not be <code>null</code>.
+   * @param aPercentage
+   *        Percentage value (0-100). May not be <code>null</code>.
+   * @param nScale
+   *        Maximum scale to achieve.
+   * @param eRoundingMode
+   *        Rounding mode to used. May not be <code>null</code>.
+   * @return base + x% (<code>=aBase * (100 + perc) / 100</code>). Never
+   *         <code>null</code>.
+   */
+  @Nonnull
+  public static BigDecimal addPercent (@Nonnull final BigDecimal aBase,
+                                       @Nonnull final BigDecimal aPercentage,
+                                       @Nonnegative final int nScale,
+                                       @Nonnull final RoundingMode eRoundingMode)
+  {
+    return aBase.multiply (CGlobal.BIGDEC_100.add (aPercentage)).divide (CGlobal.BIGDEC_100, nScale, eRoundingMode);
+  }
+
+  /**
    * Subtract x% from base
    *
    * @param aBase
@@ -937,6 +960,31 @@ public final class MathHelper
   public static BigDecimal subtractPercent (@Nonnull final BigDecimal aBase, @Nonnull final BigDecimal aPercentage)
   {
     return aBase.multiply (CGlobal.BIGDEC_100.subtract (aPercentage)).divide (CGlobal.BIGDEC_100);
+  }
+
+  /**
+   * Subtract x% from base
+   *
+   * @param aBase
+   *        Base value. May not be <code>null</code>.
+   * @param aPercentage
+   *        Percentage value (0-100). May not be <code>null</code>.
+   * @param nScale
+   *        Maximum scale to achieve.
+   * @param eRoundingMode
+   *        Rounding mode to used. May not be <code>null</code>.
+   * @return base - x% (<code>=aBase * (100 - perc) / 100</code>). Never
+   *         <code>null</code>.
+   */
+  @Nonnull
+  public static BigDecimal subtractPercent (@Nonnull final BigDecimal aBase,
+                                            @Nonnull final BigDecimal aPercentage,
+                                            @Nonnegative final int nScale,
+                                            @Nonnull final RoundingMode eRoundingMode)
+  {
+    return aBase.multiply (CGlobal.BIGDEC_100.subtract (aPercentage)).divide (CGlobal.BIGDEC_100,
+                                                                              nScale,
+                                                                              eRoundingMode);
   }
 
   /**
