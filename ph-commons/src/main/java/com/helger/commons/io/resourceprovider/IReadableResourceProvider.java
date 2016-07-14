@@ -16,6 +16,8 @@
  */
 package com.helger.commons.io.resourceprovider;
 
+import java.io.InputStream;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -51,4 +53,20 @@ public interface IReadableResourceProvider
    */
   @Nonnull
   IReadableResource getReadableResource (@Nonnull String sName);
+
+  /**
+   * Get the {@link InputStream} specified by the given name for reading.
+   *
+   * @param sName
+   *        The name of the resource to resolve.
+   * @return The {@link InputStream}. May be <code>null</code> if the underlying
+   *         resource does not exist.
+   */
+  @Nullable
+  default InputStream getInputStream (@Nonnull final String sName)
+  {
+    if (!supportsReading (sName))
+      return null;
+    return getReadableResource (sName).getInputStream ();
+  }
 }

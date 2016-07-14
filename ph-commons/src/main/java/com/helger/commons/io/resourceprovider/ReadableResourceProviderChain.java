@@ -16,6 +16,8 @@
  */
 package com.helger.commons.io.resourceprovider;
 
+import java.io.InputStream;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -45,14 +47,14 @@ public class ReadableResourceProviderChain implements IReadableResourceProvider
   {
     ValueEnforcer.notEmptyNoNullValue (aResProviders, "ResourceProviders");
 
-    m_aReadingResourceProviders = new CommonsArrayList <> (aResProviders);
+    m_aReadingResourceProviders = new CommonsArrayList<> (aResProviders);
   }
 
   public ReadableResourceProviderChain (@Nonnull final Iterable <? extends IReadableResourceProvider> aResProviders)
   {
     ValueEnforcer.notEmptyNoNullValue (aResProviders, "ResourceProviders");
 
-    m_aReadingResourceProviders = new CommonsArrayList <> (aResProviders);
+    m_aReadingResourceProviders = new CommonsArrayList<> (aResProviders);
   }
 
   @Nonnull
@@ -81,6 +83,21 @@ public class ReadableResourceProviderChain implements IReadableResourceProvider
                                         sName +
                                         "' by any of " +
                                         m_aReadingResourceProviders);
+  }
+
+  @Nullable
+  public InputStream getInputStream (@Nonnull final String sName)
+  {
+    // Use the first resource provider that supports the name and returns a
+    // non-null resource provider
+    for (final IReadableResourceProvider aResProvider : m_aReadingResourceProviders)
+      if (aResProvider.supportsReading (sName))
+      {
+        final InputStream aIS = aResProvider.getInputStream (sName);
+        if (aIS != null)
+          return aIS;
+      }
+    return null;
   }
 
   @Override
