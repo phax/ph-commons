@@ -20,12 +20,14 @@ import java.io.File;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.GuardedBy;
+import javax.annotation.concurrent.ThreadSafe;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.file.FileHelper;
@@ -42,11 +44,15 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-@Immutable
-public final class FileSystemResourceProvider implements IWritableResourceProvider
+@ThreadSafe
+public class FileSystemResourceProvider implements IWritableResourceProvider
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (FileSystemResourceProvider.class);
+
+  private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   private final File m_aBasePath;
+  @GuardedBy ("m_aRWLock")
+  private boolean m_bCanReadRelativePaths = false;
 
   public FileSystemResourceProvider ()
   {
@@ -80,6 +86,18 @@ public final class FileSystemResourceProvider implements IWritableResourceProvid
     return m_aBasePath;
   }
 
+  public boolean isCanReadRelativePaths ()
+  {
+    return m_aRWLock.readLocked ( () -> m_bCanReadRelativePaths);
+  }
+
+  @Nonnull
+  public FileSystemResourceProvider setCanReadRelativePaths (final boolean bCanReadRelativePaths)
+  {
+    m_aRWLock.writeLocked ( () -> m_bCanReadRelativePaths = bCanReadRelativePaths);
+    return this;
+  }
+
   @Nonnull
   private File _getFile (@Nonnull final String sName)
   {
@@ -92,22 +110,29 @@ public final class FileSystemResourceProvider implements IWritableResourceProvid
 
   public boolean supportsReading (@Nullable final String sName)
   {
+    if (StringHelper.hasNoText (sName))
+      return false;
     if (ClassPathResource.isExplicitClassPathResource (sName))
       return false;
     if (URLResource.isExplicitURLResource (sName))
       return false;
 
-    return StringHelper.hasText (sName) && _getFile (sName).isAbsolute ();
+    if (isCanReadRelativePaths ())
+      return true;
+    // Must be an absolute path (for backwards compatibility)
+    return _getFile (sName).isAbsolute ();
   }
 
   public boolean supportsWriting (@Nullable final String sName)
   {
+    if (StringHelper.hasNoText (sName))
+      return false;
     if (ClassPathResource.isExplicitClassPathResource (sName))
       return false;
     if (URLResource.isExplicitURLResource (sName))
       return false;
 
-    return StringHelper.hasText (sName);
+    return true;
   }
 
   @Nonnull
