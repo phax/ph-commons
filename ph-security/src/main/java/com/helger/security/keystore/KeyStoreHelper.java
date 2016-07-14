@@ -27,10 +27,12 @@ import java.security.UnrecoverableKeyException;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.GuardedBy;
+import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.io.resourceprovider.ClassPathResourceProvider;
 import com.helger.commons.io.resourceprovider.FileSystemResourceProvider;
 import com.helger.commons.io.resourceprovider.IReadableResourceProvider;
@@ -44,12 +46,14 @@ import com.helger.commons.string.StringHelper;
  *
  * @author PEPPOL.AT, BRZ, Philip Helger
  */
-@Immutable
+@ThreadSafe
 public final class KeyStoreHelper
 {
   public static final String KEYSTORE_TYPE_JKS = "JKS";
   public static final String KEYSTORE_TYPE_PKCS12 = "PKCS12";
 
+  private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
+  @GuardedBy ("s_aRWLock")
   private static IReadableResourceProvider s_aResourceProvider = new ReadableResourceProviderChain (new FileSystemResourceProvider (),
                                                                                                     new ClassPathResourceProvider ());
 
@@ -62,13 +66,13 @@ public final class KeyStoreHelper
   @Nonnull
   public static IReadableResourceProvider getResourceProvider ()
   {
-    return s_aResourceProvider;
+    return s_aRWLock.readLocked ( () -> s_aResourceProvider);
   }
 
   public static void setResourceProvider (@Nonnull final IReadableResourceProvider aResourceProvider)
   {
     ValueEnforcer.notNull (aResourceProvider, "ResourceProvider");
-    s_aResourceProvider = aResourceProvider;
+    s_aRWLock.writeLocked ( () -> s_aResourceProvider = aResourceProvider);
   }
 
   @Nonnull
