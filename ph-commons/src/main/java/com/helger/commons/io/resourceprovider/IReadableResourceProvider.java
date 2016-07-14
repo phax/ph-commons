@@ -55,12 +55,15 @@ public interface IReadableResourceProvider
   IReadableResource getReadableResource (@Nonnull String sName);
 
   /**
-   * Get the {@link InputStream} specified by the given name for reading.
+   * Get the {@link InputStream} specified by the given name for reading. This
+   * method may be called without prior call to
+   * {@link #supportsReading(String)}.
    *
    * @param sName
    *        The name of the resource to resolve.
    * @return The {@link InputStream}. May be <code>null</code> if the underlying
-   *         resource does not exist.
+   *         resource does not exist or if {@link #supportsReading(String)}
+   *         returns <code>false</code>.
    */
   @Nullable
   default InputStream getInputStream (@Nonnull final String sName)

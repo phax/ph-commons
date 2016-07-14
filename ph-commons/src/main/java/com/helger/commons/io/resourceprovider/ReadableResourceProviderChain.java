@@ -91,12 +91,11 @@ public class ReadableResourceProviderChain implements IReadableResourceProvider
     // Use the first resource provider that supports the name and returns a
     // non-null resource provider
     for (final IReadableResourceProvider aResProvider : m_aReadingResourceProviders)
-      if (aResProvider.supportsReading (sName))
-      {
-        final InputStream aIS = aResProvider.getInputStream (sName);
-        if (aIS != null)
-          return aIS;
-      }
+    {
+      final InputStream aIS = aResProvider.getInputStream (sName);
+      if (aIS != null)
+        return aIS;
+    }
     return null;
   }
 

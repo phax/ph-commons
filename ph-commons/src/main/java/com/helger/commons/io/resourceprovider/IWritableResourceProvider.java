@@ -16,10 +16,13 @@
  */
 package com.helger.commons.io.resourceprovider;
 
+import java.io.OutputStream;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
+import com.helger.commons.io.EAppend;
 import com.helger.commons.io.resource.IWritableResource;
 
 /**
@@ -51,4 +54,25 @@ public interface IWritableResourceProvider extends IReadableResourceProvider
    */
   @Nonnull
   IWritableResource getWritableResource (@Nonnull String sName);
+
+  /**
+   * Get the {@link OutputStream} specified by the given name for reading. This
+   * method may be called without prior call to
+   * {@link #supportsWriting(String)}.
+   *
+   * @param sName
+   *        The name of the resource to resolve.
+   * @param eAppend
+   *        Appending mode. May not be <code>null</code>.
+   * @return The {@link OutputStream}. May be <code>null</code> if the
+   *         underlying resource does not exist and cannot be created or if
+   *         {@link #supportsWriting(String)} returns <code>false</code>.
+   */
+  @Nullable
+  default OutputStream getOutputStream (@Nonnull final String sName, @Nonnull final EAppend eAppend)
+  {
+    if (!supportsWriting (sName))
+      return null;
+    return getWritableResource (sName).getOutputStream (eAppend);
+  }
 }

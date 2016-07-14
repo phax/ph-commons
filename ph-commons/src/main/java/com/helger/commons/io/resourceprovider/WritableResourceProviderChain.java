@@ -16,6 +16,8 @@
  */
 package com.helger.commons.io.resourceprovider;
 
+import java.io.OutputStream;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -26,6 +28,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.io.EAppend;
 import com.helger.commons.io.resource.IWritableResource;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -38,7 +41,7 @@ import com.helger.commons.string.ToStringGenerator;
 @Immutable
 public class WritableResourceProviderChain extends ReadableResourceProviderChain implements IWritableResourceProvider
 {
-  protected final ICommonsList <IWritableResourceProvider> m_aWritableResourceProviders = new CommonsArrayList <> ();
+  protected final ICommonsList <IWritableResourceProvider> m_aWritableResourceProviders = new CommonsArrayList<> ();
 
   public WritableResourceProviderChain (@Nonnull final IReadableResourceProvider... aResProviders)
   {
@@ -88,6 +91,20 @@ public class WritableResourceProviderChain extends ReadableResourceProviderChain
                                         sName +
                                         "' by any of " +
                                         m_aReadingResourceProviders);
+  }
+
+  @Nullable
+  public OutputStream getOutputStream (@Nonnull final String sName, @Nonnull final EAppend eAppend)
+  {
+    // Use the first resource provider that supports the name and creates a
+    // valid output stream
+    for (final IWritableResourceProvider aResProvider : m_aWritableResourceProviders)
+    {
+      final OutputStream aOS = aResProvider.getOutputStream (sName, eAppend);
+      if (aOS != null)
+        return aOS;
+    }
+    return null;
   }
 
   @Override
