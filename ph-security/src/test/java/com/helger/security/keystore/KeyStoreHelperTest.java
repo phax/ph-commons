@@ -22,6 +22,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.KeyPair;
@@ -95,6 +96,8 @@ public final class KeyStoreHelperTest
     final KeyPair aKeyPair = _createKeyPair (1024);
     final Certificate [] certs = { _createX509V1Certificate (aKeyPair), _createX509V1Certificate (aKeyPair) };
 
+    final String sBasePath = new File ("").getAbsolutePath ();
+
     // Load from classpath
     KeyStore ks = KeyStoreHelper.loadKeyStoreDirect ("keystores/keystore-no-pw.jks", (String) null);
     assertEquals (KeyStoreHelper.KEYSTORE_TYPE_JKS, ks.getType ());
@@ -104,9 +107,21 @@ public final class KeyStoreHelperTest
     assertNotNull (c1);
     ks.setKeyEntry ("2", aKeyPair.getPrivate (), "key2".toCharArray (), certs);
 
-    // Load from file
+    // Load from absolute file path
     ks = KeyStoreHelper.loadKeyStoreDirect (new ClassPathResource ("keystores/keystore-no-pw.jks").getAsFile ()
                                                                                                   .getAbsolutePath (),
+                                            (String) null);
+    assertEquals (KeyStoreHelper.KEYSTORE_TYPE_JKS, ks.getType ());
+    assertEquals (1, CollectionHelper.getSize (ks.aliases ()));
+    assertTrue (ks.containsAlias ("1"));
+    assertNotNull (ks.getCertificate ("1"));
+    ks.setKeyEntry ("2", aKeyPair.getPrivate (), "key2".toCharArray (), certs);
+
+    // Load from absolute relative path
+    ks = KeyStoreHelper.loadKeyStoreDirect (new ClassPathResource ("keystores/keystore-no-pw.jks").getAsFile ()
+                                                                                                  .getAbsolutePath ()
+                                                                                                  .substring (sBasePath.length () +
+                                                                                                              1),
                                             (String) null);
     assertEquals (KeyStoreHelper.KEYSTORE_TYPE_JKS, ks.getType ());
     assertEquals (1, CollectionHelper.getSize (ks.aliases ()));
@@ -123,9 +138,20 @@ public final class KeyStoreHelperTest
     assertEquals (c1, c2);
     ks.setKeyEntry ("2", aKeyPair.getPrivate (), "key2".toCharArray (), certs);
 
-    // Load from file
+    // Load from absolute file path
     ks = KeyStoreHelper.loadKeyStoreDirect (new ClassPathResource ("keystores/keystore-pw-peppol.jks").getAsFile ()
                                                                                                       .getAbsolutePath (),
+                                            (String) null);
+    assertEquals (1, CollectionHelper.getSize (ks.aliases ()));
+    assertTrue (ks.containsAlias ("1"));
+    assertNotNull (ks.getCertificate ("1"));
+    ks.setKeyEntry ("2", aKeyPair.getPrivate (), "key2".toCharArray (), certs);
+
+    // Load from relative file path
+    ks = KeyStoreHelper.loadKeyStoreDirect (new ClassPathResource ("keystores/keystore-pw-peppol.jks").getAsFile ()
+                                                                                                      .getAbsolutePath ()
+                                                                                                      .substring (sBasePath.length () +
+                                                                                                                  1),
                                             (String) null);
     assertEquals (1, CollectionHelper.getSize (ks.aliases ()));
     assertTrue (ks.containsAlias ("1"));

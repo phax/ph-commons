@@ -54,7 +54,7 @@ public final class KeyStoreHelper
 
   private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("s_aRWLock")
-  private static IReadableResourceProvider s_aResourceProvider = new ReadableResourceProviderChain (new FileSystemResourceProvider (),
+  private static IReadableResourceProvider s_aResourceProvider = new ReadableResourceProviderChain (new FileSystemResourceProvider ().setCanReadRelativePaths (true),
                                                                                                     new ClassPathResourceProvider ());
 
   @PresentForCodeCoverage
