@@ -31,7 +31,6 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resourceprovider.ClassPathResourceProvider;
 import com.helger.commons.io.resourceprovider.FileSystemResourceProvider;
 import com.helger.commons.io.resourceprovider.IReadableResourceProvider;
@@ -51,14 +50,26 @@ public final class KeyStoreHelper
   public static final String KEYSTORE_TYPE_JKS = "JKS";
   public static final String KEYSTORE_TYPE_PKCS12 = "PKCS12";
 
-  private static final IReadableResourceProvider s_aRRP = new ReadableResourceProviderChain (new ClassPathResourceProvider (),
-                                                                                             new FileSystemResourceProvider ());
+  private static IReadableResourceProvider s_aResourceProvider = new ReadableResourceProviderChain (new FileSystemResourceProvider (),
+                                                                                                    new ClassPathResourceProvider ());
 
   @PresentForCodeCoverage
   private static final KeyStoreHelper s_aInstance = new KeyStoreHelper ();
 
   private KeyStoreHelper ()
   {}
+
+  @Nonnull
+  public static IReadableResourceProvider getResourceProvider ()
+  {
+    return s_aResourceProvider;
+  }
+
+  public static void setResourceProvider (@Nonnull final IReadableResourceProvider aResourceProvider)
+  {
+    ValueEnforcer.notNull (aResourceProvider, "ResourceProvider");
+    s_aResourceProvider = aResourceProvider;
+  }
 
   @Nonnull
   public static KeyStore getJKSKeyStore () throws KeyStoreException
@@ -122,10 +133,7 @@ public final class KeyStoreHelper
     ValueEnforcer.notNull (sKeyStorePath, "KeyStorePath");
 
     // Open the resource stream
-    final IReadableResource aRes = s_aRRP.getReadableResource (sKeyStorePath);
-    InputStream aIS = null;
-    if (aRes != null)
-      aIS = aRes.getInputStream ();
+    final InputStream aIS = getResourceProvider ().getInputStream (sKeyStorePath);
     if (aIS == null)
       throw new IllegalArgumentException ("Failed to open key store '" + sKeyStorePath + "'");
 
