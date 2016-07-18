@@ -32,9 +32,9 @@ import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.commons.system.SystemProperties;
 
 /**
- * Factory for creating an XML reader. <blockquote>
- * <em>This module, both source code and documentation, is in the
- * Public Domain, and comes with <strong>NO WARRANTY</strong>.</em> See
+ * Factory for creating an XML reader. <blockquote> <em>This module, both source
+ * code and documentation, is in the Public Domain, and comes with <strong>NO
+ * WARRANTY</strong>.</em> See
  * <a href='http://www.saxproject.org'>http://www.saxproject.org</a> for further
  * information. </blockquote>
  * <p>
@@ -102,9 +102,9 @@ public final class XMLReaderFactoryCommons
   }
 
   /**
-   * Create a new instance of a class by name. <blockquote>
-   * <em>This module, both source code and documentation, is in the
-   * Public Domain, and comes with <strong>NO WARRANTY</strong>.</em> See
+   * Create a new instance of a class by name. <blockquote> <em>This module,
+   * both source code and documentation, is in the Public Domain, and comes with
+   * <strong>NO WARRANTY</strong>.</em> See
    * <a href='http://www.saxproject.org'>http://www.saxproject.org</a> for
    * further information. </blockquote>
    * <p>
@@ -281,6 +281,8 @@ public final class XMLReaderFactoryCommons
       // EXAMPLE:
       // className = "com.example.sax.XmlReader";
       // or a $JAVA_HOME/jre/lib/*properties setting...
+
+      // Note: SAXParser implements XMLReader!
       className = s_sPreviouslyReadClassname = "com.sun.org.apache.xerces.internal.parsers.SAXParser";
     }
     else
