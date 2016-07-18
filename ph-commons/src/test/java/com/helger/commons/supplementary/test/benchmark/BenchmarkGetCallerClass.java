@@ -22,6 +22,15 @@ import com.helger.commons.lang.ReflectionSecurityManager;
 
 /**
  * http://stackoverflow.com/questions/421280/how-do-i-find-the-caller-of-a-method-using-stacktrace-or-reflection?noredirect=1&lq=1
+ * Output:
+ *
+ * <pre>
+Runtime: Date=2016-07-18T11:37:34.278; Java=1.8.0_66; OS=Windows 7 [6.1]; User=helger; Procs=4
+Time using Reflection:                                102814.426484375 us
+Time using Thread.currentThread ().getStackTrace (): 5930035.365 us
+Time using new Throwable ().getStackTrace ()         5367559.035 us
+Time using mySecurityManager.getCallerClassName       431699.17125 us
+ * </pre>
  */
 public final class BenchmarkGetCallerClass extends AbstractBenchmarkTask
 {
