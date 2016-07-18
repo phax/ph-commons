@@ -191,7 +191,26 @@ public enum EXMLParserProperty implements IHasName
    * This property may only be examined during a parse after the startDocument
    * callback has been completed.
    */
-  SAX_XML_VERSION (EXMLParserPropertyType.SAX, "http://xml.org/sax/properties/document-xml-version", String.class);
+  SAX_XML_VERSION (EXMLParserPropertyType.SAX, "http://xml.org/sax/properties/document-xml-version", String.class),
+  /**
+   * The Schema language to be used. E.g.
+   * <code>http://www.w3.org/2001/XMLSchema</code>.
+   */
+  JAXP_SCHEMA_LANGUAGE (EXMLParserPropertyType.GENERAL, "http://java.sun.com/xml/jaxp/properties/schemaLanguage", String.class),
+  /**
+   * Sets the location of the schema. This is the one of most interest. It
+   * accepts many values, such as:
+   * <ul>
+   * <li>A string with the URI of the schema.</li>
+   * <li>An {@link java.io.InputStream} object with the content of the
+   * schema.</li>
+   * <li>An {@link org.xml.sax.InputSource} object pointing to the schema.</li>
+   * <li>A {@link java.io.File} object pointing to the schema file.</li>
+   * <li>An array with one of these defined types. The array is useful if your
+   * application accepts documents that can conform to different schemas.</li>
+   * </ul>
+   */
+  JAXP_SCHEMA_SORUCE (EXMLParserPropertyType.GENERAL, "http://java.sun.com/xml/jaxp/properties/schemaSource", Object.class);
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (EXMLParserProperty.class);
 
