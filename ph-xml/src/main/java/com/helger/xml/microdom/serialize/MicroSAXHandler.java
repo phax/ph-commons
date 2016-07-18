@@ -229,7 +229,13 @@ public class MicroSAXHandler implements EntityResolver, DTDHandler, ContentHandl
 
     // If using XHTML this should be replaced by using the LocalEntityResolver
     // instead
-    s_aLogger.warn ("Resolve entity '" + sPublicId + "' from '" + sSystemId + "'");
+    if (sPublicId == null)
+      s_aLogger.info ("Need to resolve entity with system ID '" + sSystemId + "'");
+    else
+      if (sSystemId == null)
+        s_aLogger.info ("Need to resolve entity with public ID '" + sPublicId + "'");
+      else
+        s_aLogger.info ("Need to resolve entity with public ID '" + sPublicId + "' and system ID '" + sSystemId + "'");
     return null;
   }
 

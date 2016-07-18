@@ -30,7 +30,6 @@
   <description>Java 1.8+ Library with tons of utility classes required in all projects</description>
   <url>https://github.com/phax/ph-commons/ph-commons</url>
   <inceptionYear>2014</inceptionYear>
-  
   <licenses>
     <license>
       <name>Apache 2</name>
@@ -38,12 +37,10 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-  
   <organization>
     <name>Philip Helger</name>
     <url>http://www.helger.com</url>
   </organization>
-
   <developers>
     <developer>
       <id>philip</id>
@@ -52,26 +49,22 @@
       <url>http://www.helger.com</url>
     </developer>
   </developers>
-  
   <dependencies>
     <dependency>
       <groupId>com.google.code.findbugs</groupId>
       <artifactId>annotations</artifactId>
     </dependency>
-        
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <optional>true</optional>
     </dependency>
-        
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
-
   <build>
     <plugins>
       <plugin>
