@@ -65,18 +65,37 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default <K, V> ICommonsMap <K, V> createInstance ()
   {
-    return new CommonsHashMap <> ();
+    return new CommonsHashMap<> ();
   }
 
   /**
    * @return A new non-<code>null</code> set with all keys.
    * @see #keySet()
+   * @see #copyOfKeySet(Predicate)
    */
   @Nonnull
   @ReturnsMutableCopy
   default ICommonsSet <KEYTYPE> copyOfKeySet ()
   {
-    return new CommonsHashSet <> (keySet ());
+    return new CommonsHashSet<> (keySet ());
+  }
+
+  /**
+   * Create a copy of all values matching the passed filter.
+   *
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @return A new non-<code>null</code> set with all matching keys.
+   * @see #keySet()
+   * @see #copyOfKeySet()
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  default ICommonsSet <KEYTYPE> copyOfKeySet (@Nullable final Predicate <? super KEYTYPE> aFilter)
+  {
+    if (aFilter == null)
+      return copyOfKeySet ();
+    return CollectionHelper.newSet (keySet (), aFilter);
   }
 
   /**
@@ -90,7 +109,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default ICommonsList <VALUETYPE> copyOfValues ()
   {
-    return new CommonsArrayList <> (values ());
+    return new CommonsArrayList<> (values ());
   }
 
   /**
@@ -169,7 +188,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default ICommonsSet <Map.Entry <KEYTYPE, VALUETYPE>> copyOfEntrySet ()
   {
-    return new CommonsHashSet <> (entrySet ());
+    return new CommonsHashSet<> (entrySet ());
   }
 
   /**

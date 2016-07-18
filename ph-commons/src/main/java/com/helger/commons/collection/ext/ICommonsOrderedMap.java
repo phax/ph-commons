@@ -17,6 +17,7 @@
 package com.helger.commons.collection.ext;
 
 import java.util.Map;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -40,21 +41,30 @@ public interface ICommonsOrderedMap <KEYTYPE, VALUETYPE> extends ICommonsMap <KE
   @ReturnsMutableCopy
   default <K, V> ICommonsOrderedMap <K, V> createInstance ()
   {
-    return new CommonsLinkedHashMap <> ();
+    return new CommonsLinkedHashMap<> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
   default ICommonsOrderedSet <KEYTYPE> copyOfKeySet ()
   {
-    return new CommonsLinkedHashSet <> (keySet ());
+    return new CommonsLinkedHashSet<> (keySet ());
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  default ICommonsOrderedSet <KEYTYPE> copyOfKeySet (@Nullable final Predicate <? super KEYTYPE> aFilter)
+  {
+    if (aFilter == null)
+      return copyOfKeySet ();
+    return CollectionHelper.newOrderedSet (keySet (), aFilter);
   }
 
   @Nonnull
   @ReturnsMutableCopy
   default ICommonsOrderedSet <Map.Entry <KEYTYPE, VALUETYPE>> copyOfEntrySet ()
   {
-    return new CommonsLinkedHashSet <> (entrySet ());
+    return new CommonsLinkedHashSet<> (entrySet ());
   }
 
   @Nullable

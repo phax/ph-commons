@@ -19,12 +19,14 @@ package com.helger.commons.collection.ext;
 import java.util.Collections;
 import java.util.Map;
 import java.util.SortedMap;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.CollectionHelper;
 
 /**
  * A special {@link SortedMap} based interface with extended functionality based
@@ -46,21 +48,32 @@ public interface ICommonsSortedMap <KEYTYPE, VALUETYPE>
   @ReturnsMutableCopy
   default <K, V> ICommonsSortedMap <K, V> createInstance ()
   {
-    return new CommonsTreeMap <> ();
+    return new CommonsTreeMap<> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  default ICommonsOrderedSet <KEYTYPE> copyOfKeySet ()
+  default ICommonsSortedSet <KEYTYPE> copyOfKeySet ()
   {
-    return new CommonsLinkedHashSet <> (keySet ());
+    return new CommonsTreeSet<> (keySet ());
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  default ICommonsSortedSet <KEYTYPE> copyOfKeySet (@Nullable final Predicate <? super KEYTYPE> aFilter)
+  {
+    if (aFilter == null)
+      return copyOfKeySet ();
+    final CommonsTreeSet <KEYTYPE> ret = new CommonsTreeSet<> ();
+    CollectionHelper.findAll (keySet (), aFilter, ret::add);
+    return ret;
   }
 
   @Nonnull
   @ReturnsMutableCopy
   default ICommonsOrderedSet <Map.Entry <KEYTYPE, VALUETYPE>> copyOfEntrySet ()
   {
-    return new CommonsLinkedHashSet <> (entrySet ());
+    return new CommonsLinkedHashSet<> (entrySet ());
   }
 
   @Nullable
