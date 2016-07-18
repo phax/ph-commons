@@ -31,11 +31,11 @@ public final class BenchmarkArrayCopy extends AbstractBenchmarkTask
   public static void main (final String [] aArgs) throws Exception
   {
     logSystemInfo ();
-    findWhenSystemBeatsJava ();
+    _run ();
     exploreScalingOfSystemArrayCopy ();
   }
 
-  private static void findWhenSystemBeatsJava ()
+  private static void _run ()
   {
     for (int i = 1; true; i++)
     {

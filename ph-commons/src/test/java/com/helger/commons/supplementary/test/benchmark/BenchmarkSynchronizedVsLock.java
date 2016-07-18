@@ -37,7 +37,7 @@ public final class BenchmarkSynchronizedVsLock extends AbstractBenchmarkTask
   public static void main (final String [] aArgs) throws Exception
   {
     logSystemInfo ();
-    findWhetherSynchronizedOrLockAreFaster ();
+    _run ();
   }
 
   private static Runnable _getRunnable (final int nThreads, final BaseClass aObj)
@@ -53,7 +53,7 @@ public final class BenchmarkSynchronizedVsLock extends AbstractBenchmarkTask
     };
   }
 
-  private static void findWhetherSynchronizedOrLockAreFaster ()
+  private static void _run ()
   {
     for (int i = 1; i <= SystemHelper.getNumberOfProcessors () * 2; ++i)
     {

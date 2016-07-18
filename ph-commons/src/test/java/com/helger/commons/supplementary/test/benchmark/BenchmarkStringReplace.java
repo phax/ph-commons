@@ -35,10 +35,10 @@ public final class BenchmarkStringReplace extends AbstractBenchmarkTask
   public static void main (final String [] aArgs) throws Exception
   {
     logSystemInfo ();
-    findWhenSystemBeatsJava ();
+    _run ();
   }
 
-  private static void findWhenSystemBeatsJava ()
+  private static void _run ()
   {
     final int nRuns = 1000;
     final double javaTime = benchmarkTask (new StringReplace (nRuns));

@@ -33,6 +33,7 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.locale.LocaleFormatter;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.supplementary.test.code.StringTrieFuncTest;
 
 /**
  * Check different Maps with String keys.<br>

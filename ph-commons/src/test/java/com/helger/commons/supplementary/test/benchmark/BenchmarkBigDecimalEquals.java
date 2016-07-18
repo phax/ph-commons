@@ -35,10 +35,10 @@ public final class BenchmarkBigDecimalEquals extends AbstractBenchmarkTask
   public static void main (final String [] aArgs) throws Exception
   {
     logSystemInfo ();
-    findWhenSystemBeatsJava ();
+    _run ();
   }
 
-  private static void findWhenSystemBeatsJava ()
+  private static void _run ()
   {
     final BigDecimal [] aNums = new BigDecimal [1000];
     for (int i = 0; i < aNums.length; ++i)
