@@ -83,8 +83,7 @@
               com.helger.lesscommons.*
             </Export-Package>
             <Import-Package>
-              !javax.annotation.*,
-              *
+              !javax.annotation.*,*
             </Import-Package>
           </instructions>
         </configuration>

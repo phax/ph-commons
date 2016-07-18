@@ -84,8 +84,7 @@
               com.helger.commons.*
             </Export-Package>
             <Import-Package>
-              !javax.annotation.*,
-              *
+              !javax.annotation.*,*
             </Import-Package>
             <Require-Capability>
               osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)"
