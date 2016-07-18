@@ -46,10 +46,12 @@ public final class BenchmarkGetCallerClass extends AbstractBenchmarkTask
   private static void _run ()
   {
     final int nRuns = 1000;
-    final double t1 = benchmarkTask (new ReflectionMethod (nRuns));
-    s_aLogger.info ("Time using Reflection:                               " +
-                    BigDecimal.valueOf (t1).toString () +
-                    " us");
+
+    // Uncomment this and the class below to use it
+    // final double t1 = benchmarkTask (new ReflectionMethod (nRuns));
+    // s_aLogger.info ("Time using Reflection: " +
+    // BigDecimal.valueOf (t1).toString () +
+    // " us");
 
     final double t2 = benchmarkTask (new ThreadStackTraceMethod (nRuns));
     s_aLogger.info ("Time using Thread.currentThread ().getStackTrace (): " +
@@ -90,22 +92,22 @@ public final class BenchmarkGetCallerClass extends AbstractBenchmarkTask
   }
 
   /**
-   * Uses the internal Reflection class
+   * Uses the internal Reflection class.<br>
+   * Uncomment to use it.
    */
-  private static class ReflectionMethod extends AbstractDoIt
-  {
-    public ReflectionMethod (final int runs)
-    {
-      super (runs);
-    }
-
-    @SuppressWarnings ({ "deprecation", "restriction" })
-    @Override
-    public String getCallerClassName (final int nCallStackDepth)
-    {
-      return sun.reflect.Reflection.getCallerClass (nCallStackDepth).getName ();
-    }
-  }
+  // private static class ReflectionMethod extends AbstractDoIt
+  // {
+  // public ReflectionMethod (final int runs)
+  // {
+  // super (runs);
+  // }
+  //
+  // @Override
+  // public String getCallerClassName (final int nCallStackDepth)
+  // {
+  // return sun.reflect.Reflection.getCallerClass (nCallStackDepth).getName ();
+  // }
+  // }
 
   /**
    * Get a stack trace from the current thread
