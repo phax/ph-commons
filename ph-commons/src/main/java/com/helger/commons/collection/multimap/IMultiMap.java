@@ -19,6 +19,7 @@ package com.helger.commons.collection.multimap;
 import java.util.Collection;
 import java.util.Map;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -131,10 +132,20 @@ public interface IMultiMap <KEYTYPE, VALUETYPE, COLLTYPE extends ICommonsCollect
     return ret;
   }
 
-  default void forEachSingle (@Nonnull final BiConsumer <KEYTYPE, VALUETYPE> aConsumer)
+  default void forEachSingle (@Nonnull final BiConsumer <? super KEYTYPE, ? super VALUETYPE> aConsumer)
+  {
+    for (final Map.Entry <KEYTYPE, COLLTYPE> aEntry : entrySet ())
+    {
+      final KEYTYPE aKey = aEntry.getKey ();
+      for (final VALUETYPE aValue : aEntry.getValue ())
+        aConsumer.accept (aKey, aValue);
+    }
+  }
+
+  default void forEachSingleValue (@Nonnull final Consumer <? super VALUETYPE> aConsumer)
   {
     for (final Map.Entry <KEYTYPE, COLLTYPE> aEntry : entrySet ())
       for (final VALUETYPE aValue : aEntry.getValue ())
-        aConsumer.accept (aEntry.getKey (), aValue);
+        aConsumer.accept (aValue);
   }
 }
