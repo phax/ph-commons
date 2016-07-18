@@ -18,13 +18,17 @@ package com.helger.commons.mock;
 
 import java.io.File;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.commons.annotation.IsSPIImplementation;
+import com.helger.commons.annotation.IsSPIInterface;
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.cache.AnnotationUsageCache;
 import com.helger.commons.charset.CCharset;
+import com.helger.commons.collection.multimap.MultiTreeMapTreeSetBased;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.iterate.FileSystemIterator;
 import com.helger.commons.io.stream.NonBlockingBufferedReader;
@@ -35,31 +39,37 @@ import com.helger.commons.string.StringHelper;
 public final class SPITestHelper
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (SPITestHelper.class);
+  private static final AnnotationUsageCache s_aCacheInterface = new AnnotationUsageCache (IsSPIInterface.class);
+  private static final AnnotationUsageCache s_aCacheImplementation = new AnnotationUsageCache (IsSPIImplementation.class);
 
   private SPITestHelper ()
   {}
 
-  @Nonnegative
-  public static int testIfAllSPIImplementationsAreValid (@Nonnull final String sBaseDir,
-                                                         final boolean bContinueOnError) throws Exception
+  @Nonnull
+  @ReturnsMutableCopy
+  public static MultiTreeMapTreeSetBased <String, String> testIfAllSPIImplementationsAreValid (@Nonnull final String sBaseDir,
+                                                                                               final boolean bContinueOnError) throws Exception
   {
-    int nTotalImplementationCount = 0;
+    final MultiTreeMapTreeSetBased <String, String> aAllImplementations = new MultiTreeMapTreeSetBased<> ();
     final File aBaseDir = new File (sBaseDir);
     if (aBaseDir.exists () && aBaseDir.isDirectory ())
       for (final File aFile : new FileSystemIterator (sBaseDir))
         if (aFile.isFile ())
         {
           s_aLogger.info ("Checking SPI file " + aFile.getAbsolutePath ());
+          final String sInterfaceClassName = aFile.getName ();
 
           // Check if interface exists
           try
           {
-            Class.forName (aFile.getName ());
+            final Class <?> aInterfaceClass = Class.forName (sInterfaceClassName);
+            if (!s_aCacheInterface.hasAnnotation (aInterfaceClass))
+              s_aLogger.warn (aInterfaceClass + " should have the @IsSPIInterface annotation");
           }
           catch (final Throwable t)
           {
             final String sMsg = "No interface representing " +
-                                aFile.getName () +
+                                sInterfaceClassName +
                                 " exists: " +
                                 ClassHelper.getClassLocalName (t) +
                                 " - " +
@@ -78,13 +88,15 @@ public final class SPITestHelper
             String sLine;
             while ((sLine = aReader.readLine ()) != null)
             {
-              final String sClassName = StringHelper.trim (sLine);
-              if (StringHelper.hasText (sClassName))
+              final String sImplClassName = StringHelper.trim (sLine);
+              if (StringHelper.hasText (sImplClassName))
               {
                 // Resolve class
-                Class.forName (sLine);
+                final Class <?> aImplClass = Class.forName (sLine);
+                if (!s_aCacheImplementation.hasAnnotation (aImplClass))
+                  s_aLogger.warn (aImplClass + " should have the @IsSPIImplementation annotation");
                 ++nCount;
-                ++nTotalImplementationCount;
+                aAllImplementations.putSingle (sInterfaceClassName, sImplClassName);
               }
             }
             if (nCount == 0)
@@ -101,20 +113,35 @@ public final class SPITestHelper
               throw new Exception ("Error checking SPI file " + aFile.getAbsolutePath (), t);
           }
         }
-    return nTotalImplementationCount;
+    return aAllImplementations;
   }
 
-  @Nonnegative
-  public static int testIfAllSPIImplementationsAreValid (final boolean bContinueOnError) throws Exception
+  @Nonnull
+  @ReturnsMutableCopy
+  public static MultiTreeMapTreeSetBased <String, String> testIfAllMainSPIImplementationsAreValid (final boolean bContinueOnError) throws Exception
   {
-    int ret = 0;
-    ret += testIfAllSPIImplementationsAreValid ("src/main/resources/META-INF/services", bContinueOnError);
-    ret += testIfAllSPIImplementationsAreValid ("src/test/resources/META-INF/services", bContinueOnError);
-    return ret;
+    return testIfAllSPIImplementationsAreValid ("src/main/resources/META-INF/services", bContinueOnError);
   }
 
-  @Nonnegative
-  public static int testIfAllSPIImplementationsAreValid () throws Exception
+  @Nonnull
+  @ReturnsMutableCopy
+  public static MultiTreeMapTreeSetBased <String, String> testIfAllTestSPIImplementationsAreValid (final boolean bContinueOnError) throws Exception
+  {
+    return testIfAllSPIImplementationsAreValid ("src/test/resources/META-INF/services", bContinueOnError);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static MultiTreeMapTreeSetBased <String, String> testIfAllSPIImplementationsAreValid (final boolean bContinueOnError) throws Exception
+  {
+    final MultiTreeMapTreeSetBased <String, String> aAllImplementations = testIfAllMainSPIImplementationsAreValid (bContinueOnError);
+    aAllImplementations.putAll (testIfAllTestSPIImplementationsAreValid (bContinueOnError));
+    return aAllImplementations;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static MultiTreeMapTreeSetBased <String, String> testIfAllSPIImplementationsAreValid () throws Exception
   {
     return testIfAllSPIImplementationsAreValid (false);
   }
