@@ -34,10 +34,14 @@ import com.helger.commons.io.file.iterate.FileSystemIterator;
 import com.helger.commons.io.stream.NonBlockingBufferedReader;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.lang.ClassHelper;
+import com.helger.commons.lang.ReflectionSecurityManager;
 import com.helger.commons.string.StringHelper;
 
 public final class SPITestHelper
 {
+  public static final String TEST_SERVICES = "src/test/resources/META-INF/services";
+  public static final String MAIN_SERVICES = "src/main/resources/META-INF/services";
+
   private static final Logger s_aLogger = LoggerFactory.getLogger (SPITestHelper.class);
   private static final AnnotationUsageCache s_aCacheInterface = new AnnotationUsageCache (IsSPIInterface.class);
   private static final AnnotationUsageCache s_aCacheImplementation = new AnnotationUsageCache (IsSPIImplementation.class);
@@ -45,44 +49,64 @@ public final class SPITestHelper
   private SPITestHelper ()
   {}
 
+  public static enum EMode
+  {
+    STRICT,
+    IGNORE_ERRORS,
+    NO_RESOLVE;
+
+    public boolean isStrict ()
+    {
+      return this == STRICT;
+    }
+
+    public boolean isResolve ()
+    {
+      return this != NO_RESOLVE;
+    }
+  }
+
   @Nonnull
   @ReturnsMutableCopy
   public static MultiTreeMapTreeSetBased <String, String> testIfAllSPIImplementationsAreValid (@Nonnull final String sBaseDir,
-                                                                                               final boolean bContinueOnError) throws Exception
+                                                                                               @Nonnull final EMode eMode) throws Exception
   {
+    final boolean bDoResolve = eMode.isResolve ();
+    final ClassLoader aCL = ReflectionSecurityManager.INSTANCE.getCallerClass (1).getClassLoader ();
     final MultiTreeMapTreeSetBased <String, String> aAllImplementations = new MultiTreeMapTreeSetBased<> ();
     final File aBaseDir = new File (sBaseDir);
     if (aBaseDir.exists () && aBaseDir.isDirectory ())
       for (final File aFile : new FileSystemIterator (sBaseDir))
         if (aFile.isFile ())
         {
-          s_aLogger.info ("Checking SPI file " + aFile.getAbsolutePath ());
+          if (bDoResolve)
+            s_aLogger.info ("Checking SPI file " + aFile.getAbsolutePath ());
           final String sInterfaceClassName = aFile.getName ();
 
           // Check if interface exists
-          try
-          {
-            final Class <?> aInterfaceClass = Class.forName (sInterfaceClassName);
-            if (!s_aCacheInterface.hasAnnotation (aInterfaceClass))
-              s_aLogger.warn (aInterfaceClass + " should have the @IsSPIInterface annotation");
-          }
-          catch (final Throwable t)
-          {
-            final String sMsg = "No interface representing " +
-                                sInterfaceClassName +
-                                " exists: " +
-                                ClassHelper.getClassLocalName (t) +
-                                " - " +
-                                t.getMessage ();
-            s_aLogger.warn (sMsg);
-            if (!bContinueOnError)
-              throw new Exception (sMsg);
-          }
+          if (bDoResolve)
+            try
+            {
+              final Class <?> aInterfaceClass = aCL.loadClass (sInterfaceClassName);
+              if (sInterfaceClassName.startsWith ("com.helger.") && !s_aCacheInterface.hasAnnotation (aInterfaceClass))
+                s_aLogger.warn (aInterfaceClass + " should have the @IsSPIInterface annotation");
+            }
+            catch (final Throwable t)
+            {
+              final String sMsg = "No interface representing " +
+                                  sInterfaceClassName +
+                                  " exists: " +
+                                  ClassHelper.getClassLocalName (t) +
+                                  " - " +
+                                  t.getMessage ();
+              s_aLogger.warn (sMsg);
+              if (eMode.isStrict ())
+                throw new Exception (sMsg);
+            }
 
           // Check content
-          try (
-              final NonBlockingBufferedReader aReader = new NonBlockingBufferedReader (StreamHelper.createReader (FileHelper.getInputStream (aFile),
-                                                                                                                  CCharset.CHARSET_SERVICE_LOADER_OBJ)))
+          try (final NonBlockingBufferedReader aReader = new NonBlockingBufferedReader (StreamHelper.createReader (FileHelper.getInputStream (aFile),
+                                                                                                                   CCharset.CHARSET_SERVICE_LOADER_OBJ)))
           {
             int nCount = 0;
             String sLine;
@@ -92,25 +116,40 @@ public final class SPITestHelper
               if (StringHelper.hasText (sImplClassName))
               {
                 // Resolve class
-                final Class <?> aImplClass = Class.forName (sLine);
-                if (!s_aCacheImplementation.hasAnnotation (aImplClass))
-                  s_aLogger.warn (aImplClass + " should have the @IsSPIImplementation annotation");
-                ++nCount;
-                aAllImplementations.putSingle (sInterfaceClassName, sImplClassName);
+                if (bDoResolve)
+                {
+                  try
+                  {
+                    final Class <?> aImplClass = aCL.loadClass (sImplClassName);
+                    if (!s_aCacheImplementation.hasAnnotation (aImplClass))
+                      s_aLogger.warn (aImplClass + " should have the @IsSPIImplementation annotation");
+                    ++nCount;
+                    aAllImplementations.putSingle (sInterfaceClassName, sImplClassName);
+                  }
+                  catch (final Throwable t)
+                  {
+                    // Ensure the path name of the currently checked file is
+                    // contained
+                    // in the exception text!
+                    s_aLogger.warn ("  Error checking content: " + t.getMessage ());
+                    if (eMode.isStrict ())
+                      throw new Exception ("Error checking SPI file " + aFile.getAbsolutePath (), t);
+                  }
+                }
+                else
+                {
+                  ++nCount;
+                  aAllImplementations.putSingle (sInterfaceClassName, sImplClassName);
+                }
               }
             }
-            if (nCount == 0)
-              s_aLogger.warn ("  Contains no single valid implementation!");
-            else
-              s_aLogger.info ("  All implementations (" + nCount + ") are valid!");
-          }
-          catch (final Throwable t)
-          {
-            // Ensure the path name of the currently checked file is contained
-            // in the exception text!
-            s_aLogger.warn ("  Error checking content: " + t.getMessage ());
-            if (!bContinueOnError)
-              throw new Exception ("Error checking SPI file " + aFile.getAbsolutePath (), t);
+            if (bDoResolve)
+            {
+              if (nCount == 0)
+                s_aLogger.warn ("  Contains no single valid implementation!");
+              else
+                s_aLogger.info ("  All implementations (" + nCount + ") are valid!");
+            }
           }
         }
     return aAllImplementations;
@@ -120,14 +159,14 @@ public final class SPITestHelper
   @ReturnsMutableCopy
   public static MultiTreeMapTreeSetBased <String, String> testIfAllMainSPIImplementationsAreValid (final boolean bContinueOnError) throws Exception
   {
-    return testIfAllSPIImplementationsAreValid ("src/main/resources/META-INF/services", bContinueOnError);
+    return testIfAllSPIImplementationsAreValid (MAIN_SERVICES, bContinueOnError ? EMode.IGNORE_ERRORS : EMode.STRICT);
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public static MultiTreeMapTreeSetBased <String, String> testIfAllTestSPIImplementationsAreValid (final boolean bContinueOnError) throws Exception
   {
-    return testIfAllSPIImplementationsAreValid ("src/test/resources/META-INF/services", bContinueOnError);
+    return testIfAllSPIImplementationsAreValid (TEST_SERVICES, bContinueOnError ? EMode.IGNORE_ERRORS : EMode.STRICT);
   }
 
   @Nonnull

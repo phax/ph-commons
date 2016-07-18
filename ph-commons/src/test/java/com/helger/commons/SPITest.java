@@ -32,7 +32,5 @@ public final class SPITest
   {
     // Special case: allow for invalid ones!
     SPITestHelper.testIfAllSPIImplementationsAreValid (true);
-    // System.out.println (SPIOSGIHelper.getAllSPIImplementationsForOSGIString
-    // ());
   }
 }
