@@ -75,7 +75,18 @@
       <artifactId>ph-xml</artifactId>
     </dependency>
 
-    <!-- The following dependencies are required if external JAXB should be used -->    
+                                                <!-- The following dependencies are required if external JAXB should be used -->
+
+
+
+
+
+
+
+
+
+
+    
     <dependency>
       <groupId>org.glassfish.jaxb</groupId>
       <artifactId>jaxb-runtime</artifactId>
@@ -92,7 +103,18 @@
       <optional>true</optional>
     </dependency>
     
-    <!-- Required to use the special JAXB internal namespace mapper -->
+                                                <!-- Required to use the special JAXB internal namespace mapper -->
+
+
+
+
+
+
+
+
+
+
+
     <dependency>
       <groupId>com.sun</groupId>
       <artifactId>rt</artifactId>
@@ -120,10 +142,21 @@
               <bundledSignature>jdk-unsafe</bundledSignature>
               <bundledSignature>jdk-deprecated</bundledSignature>
               <bundledSignature>jdk-reflection</bundledSignature>
-              <!--  
+                                                                                                                                                                        <!--  
               <bundledSignature>jdk-internal</bundledSignature>
               <bundledSignature>jdk-non-portable</bundledSignature>
               -->
+
+
+
+
+
+
+
+
+
+
+
               <bundledSignature>jdk-system-out</bundledSignature>
             </bundledSignatures>
           </configuration>
@@ -137,10 +170,32 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
           <compilerArgs>
-            <!-- Required for linking against the com.sun.xml.internal classes! -->
+                                                                                                                                                <!-- Required for linking against the com.sun.xml.internal classes! -->
+
+
+
+
+
+
+
+
+
+
+
             <arg>-XDignore.symbol.file</arg>
           </compilerArgs>
-          <!-- fork needs to be true in order to use the -X... arg -->
+                                                                                                                        <!-- fork needs to be true in order to use the -X... arg -->
+
+
+
+
+
+
+
+
+
+
+
           <fork>true</fork>
         </configuration>
       </plugin>
@@ -150,14 +205,13 @@
         <extensions>true</extensions>
         <configuration>
           <instructions>
-            <Export-Package>
-              com.helger.jaxb.*
-            </Export-Package>
-            <Import-Package>
-              !javax.annotation.*,
+            <Export-Package>com.helger.jaxb.*</Export-Package>
+            <Import-Package>!javax.annotation.*,
               com.sun.xml.internal.bind.marshaller;resolution:=optional,
-              *
-            </Import-Package>
+              *</Import-Package>
+            <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)"</Require-Capability>
+            <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.jaxb.config.JAXBEqualsImplementationRegistrarSPI,
+osgi.serviceloader; osgi.serviceloader=com.helger.jaxb.config.JAXBHashCodeImplementationRegistrarSPI</Provide-Capability>
           </instructions>
         </configuration>
       </plugin>

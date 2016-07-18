@@ -80,28 +80,32 @@
         <extensions>true</extensions>
         <configuration>
           <instructions>
-            <Export-Package>
-              com.helger.commons.*
-            </Export-Package>
-            <Import-Package>
-              !javax.annotation.*,*
-            </Import-Package>
-            <Require-Capability>
-              osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)"
-            </Require-Capability>
-            <Provide-Capability>
-              osgi.serviceloader; osgi.serviceloader=com.helger.commons.equals.DefaultEqualsImplementationRegistrarSPI,
-              osgi.serviceloader; osgi.serviceloader=com.helger.commons.hashcode.DefaultHashCodeImplementationRegistrarSPI,
-              osgi.serviceloader; osgi.serviceloader=com.helger.commons.serialize.convert.BasicSerializationConverterRegistrar,
-              osgi.serviceloader; osgi.serviceloader=com.helger.commons.thirdparty.ThirdPartyModuleProvider_ph_commons,
-              osgi.serviceloader; osgi.serviceloader=com.helger.commons.typeconvert.BaseTypeConverterRegistrar,
-              osgi.serviceloader; osgi.serviceloader=com.helger.commons.typeconvert.CharsetTypeConverterRegistrar,
-              osgi.serviceloader; osgi.serviceloader=com.helger.commons.typeconvert.CollectionTypeConverterRegistrar,
-              osgi.serviceloader; osgi.serviceloader=com.helger.commons.typeconvert.DateTimeTypeConverterRegistrar,
-              osgi.serviceloader; osgi.serviceloader=com.helger.commons.typeconvert.IOTypeConverterRegistrar,
-              osgi.serviceloader; osgi.serviceloader=com.helger.commons.typeconvert.LocaleTypeConverterRegistrar,
-              osgi.serviceloader; osgi.serviceloader=com.helger.commons.typeconvert.MutableTypeConverterRegistrar
-            </Provide-Capability>
+            <Export-Package>com.helger.commons.*</Export-Package>
+            <Import-Package>!javax.annotation.*,*</Import-Package>
+            <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)",
+osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",
+osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.commons.equals.IEqualsImplementationRegistrarSPI)"; cardinality:=multiple,
+osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.commons.hashcode.IHashCodeImplementationRegistrarSPI)"; cardinality:=multiple,
+osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.commons.scope.spi.IApplicationScopeSPI)"; cardinality:=multiple,
+osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.commons.scope.spi.IGlobalScopeSPI)"; cardinality:=multiple,
+osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.commons.scope.spi.IRequestScopeSPI)"; cardinality:=multiple,
+osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.commons.scope.spi.ISessionApplicationScopeSPI)"; cardinality:=multiple,
+osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.commons.scope.spi.ISessionScopeSPI)"; cardinality:=multiple,
+osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.commons.serialize.convert.ISerializationConverterRegistrarSPI)"; cardinality:=multiple,
+osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.commons.thirdparty.IThirdPartyModuleProviderSPI)"; cardinality:=multiple,
+osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.commons.typeconvert.ITypeConverterRegistrarSPI)"; cardinality:=multiple,
+osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.commons.url.IURLProtocolRegistrarSPI)"; cardinality:=multiple</Require-Capability>
+            <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.commons.equals.DefaultEqualsImplementationRegistrarSPI,
+osgi.serviceloader; osgi.serviceloader=com.helger.commons.hashcode.DefaultHashCodeImplementationRegistrarSPI,
+osgi.serviceloader; osgi.serviceloader=com.helger.commons.serialize.convert.BasicSerializationConverterRegistrar,
+osgi.serviceloader; osgi.serviceloader=com.helger.commons.thirdparty.ThirdPartyModuleProvider_ph_commons,
+osgi.serviceloader; osgi.serviceloader=com.helger.commons.typeconvert.BaseTypeConverterRegistrar,
+osgi.serviceloader; osgi.serviceloader=com.helger.commons.typeconvert.CharsetTypeConverterRegistrar,
+osgi.serviceloader; osgi.serviceloader=com.helger.commons.typeconvert.CollectionTypeConverterRegistrar,
+osgi.serviceloader; osgi.serviceloader=com.helger.commons.typeconvert.DateTimeTypeConverterRegistrar,
+osgi.serviceloader; osgi.serviceloader=com.helger.commons.typeconvert.IOTypeConverterRegistrar,
+osgi.serviceloader; osgi.serviceloader=com.helger.commons.typeconvert.LocaleTypeConverterRegistrar,
+osgi.serviceloader; osgi.serviceloader=com.helger.commons.typeconvert.MutableTypeConverterRegistrar</Provide-Capability>
           </instructions>
         </configuration>
       </plugin>
@@ -110,7 +114,6 @@
         <artifactId>license-maven-plugin</artifactId>
         <configuration>
           <excludes>
-            <!-- Ignore because of charset issues -->
             <exclude>src/test/resources/properties/**</exclude>
             <exclude>src/test/resources/**/*.txt</exclude>
           </excludes>
