@@ -27,7 +27,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.IsSPIImplementation;
+import com.helger.commons.annotation.IsSPIInterface;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.cache.AnnotationUsageCache;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 
@@ -41,6 +44,8 @@ import com.helger.commons.collection.ext.ICommonsList;
 public final class ServiceLoaderHelper
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (ServiceLoaderHelper.class);
+  private static final AnnotationUsageCache s_aCacheInterface = new AnnotationUsageCache (IsSPIInterface.class);
+  private static final AnnotationUsageCache s_aCacheImplementation = new AnnotationUsageCache (IsSPIImplementation.class);
 
   private ServiceLoaderHelper ()
   {}
@@ -133,8 +138,11 @@ public final class ServiceLoaderHelper
     if (aRealLogger.isTraceEnabled ())
       aRealLogger.trace ("Trying to retrieve all SPI implementations of " + aSPIClass);
 
+    if (!s_aCacheInterface.hasAnnotation (aSPIClass))
+      s_aLogger.warn (aSPIClass + " should have the @IsSPIInterface annotation");
+
     final ServiceLoader <T> aServiceLoader = ServiceLoader.<T> load (aSPIClass, aClassLoader);
-    final ICommonsList <T> ret = new CommonsArrayList <> ();
+    final ICommonsList <T> ret = new CommonsArrayList<> ();
 
     // We use the iterator to be able to catch exceptions thrown
     // when loading SPI implementations (e.g. the SPI implementation class does
@@ -144,7 +152,10 @@ public final class ServiceLoaderHelper
     {
       try
       {
-        ret.add (aIterator.next ());
+        final T aInstance = aIterator.next ();
+        if (!s_aCacheImplementation.hasAnnotation (aInstance))
+          s_aLogger.warn (aInstance + " should have the @IsSPIImplementation annotation");
+        ret.add (aInstance);
       }
       catch (final Throwable t)
       {
