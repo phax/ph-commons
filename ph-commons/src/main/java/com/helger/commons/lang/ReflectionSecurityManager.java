@@ -1,5 +1,7 @@
 package com.helger.commons.lang;
 
+import javax.annotation.Nonnull;
+
 /**
  * A custom security manager that exposes the getClassContext() information.
  * Source:
@@ -9,12 +11,20 @@ public class ReflectionSecurityManager extends SecurityManager
 {
   public static final ReflectionSecurityManager INSTANCE = new ReflectionSecurityManager ();
 
-  public Class <?> getCallerClass (final int nCallStackDepth)
+  @Nonnull
+  public Class <?> [] getCallerClassContext ()
   {
-    return getClassContext ()[nCallStackDepth];
+    return getClassContext ();
   }
 
-  public String getCallerClassName (final int nCallStackDepth)
+  @Nonnull
+  public Class <?> getCallerClass (final int nCallStackDepth) throws ArrayIndexOutOfBoundsException
+  {
+    return getCallerClassContext ()[nCallStackDepth];
+  }
+
+  @Nonnull
+  public String getCallerClassName (final int nCallStackDepth) throws ArrayIndexOutOfBoundsException
   {
     return getCallerClass (nCallStackDepth).getName ();
   }
