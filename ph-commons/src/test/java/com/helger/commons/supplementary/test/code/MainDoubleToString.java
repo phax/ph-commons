@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.supplementary.test.benchmark;
+package com.helger.commons.supplementary.test.code;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
