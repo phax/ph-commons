@@ -56,7 +56,7 @@ import com.helger.xml.sax.AbstractSAXErrorHandler;
  *
  * @author Philip Helger
  */
-public final class MicroSAXHandler implements EntityResolver, DTDHandler, ContentHandler, ErrorHandler, LexicalHandler
+public class MicroSAXHandler implements EntityResolver, DTDHandler, ContentHandler, ErrorHandler, LexicalHandler
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (MicroSAXHandler.class);
 
