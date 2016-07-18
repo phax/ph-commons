@@ -47,7 +47,7 @@ public class AnnotationUsageCache implements Serializable
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   private final Class <? extends Annotation> m_aAnnotationClass;
   @GuardedBy ("m_aRWLock")
-  private final ICommonsMap <String, ETriState> m_aMap = new CommonsHashMap <> ();
+  private final ICommonsMap <String, ETriState> m_aMap = new CommonsHashMap<> ();
 
   /**
    * Constructor
@@ -107,16 +107,9 @@ public class AnnotationUsageCache implements Serializable
     }
     if (aIs == null)
     {
-      aIs = m_aRWLock.writeLocked ( () -> {
-        // Try again in write-lock
-        ETriState aWLIs = m_aMap.get (sClassName);
-        if (aWLIs == null)
-        {
-          aWLIs = ETriState.valueOf (aClass.getAnnotation (m_aAnnotationClass) != null);
-          m_aMap.put (sClassName, aWLIs);
-        }
-        return aWLIs;
-      });
+      // Try again in write-lock
+      aIs = m_aRWLock.writeLocked ( () -> m_aMap.computeIfAbsent (sClassName,
+                                                                  x -> ETriState.valueOf (aClass.getAnnotation (m_aAnnotationClass) != null)));
     }
     return aIs.isTrue ();
   }
