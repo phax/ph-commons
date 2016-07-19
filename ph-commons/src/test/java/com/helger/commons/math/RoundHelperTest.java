@@ -77,6 +77,10 @@ public final class RoundHelperTest
   @Test
   public void testGetRoundedUpFix ()
   {
+    CommonsAssert.assertEquals (0, RoundHelper.getRoundedUpFix (0, 0));
+    CommonsAssert.assertEquals (0, RoundHelper.getRoundedUpFix (0.4, 0));
+    CommonsAssert.assertEquals (0, RoundHelper.getRoundedUpFix (-0.4, 0));
+    CommonsAssert.assertEquals (0, RoundHelper.getRoundedUpFix (0, 2));
     CommonsAssert.assertEquals (1, RoundHelper.getRoundedUpFix (0.9, 0));
     CommonsAssert.assertEquals (1, RoundHelper.getRoundedUpFix (1.0, 0));
     CommonsAssert.assertEquals (1, RoundHelper.getRoundedUpFix (1.1, 0));

@@ -92,12 +92,16 @@ public final class RoundHelper
       return dValue;
 
     final BigDecimal bd = BigDecimal.valueOf (dValue);
+    double ret;
     if (eType.isExponential ())
     {
       final BigDecimal bc = new BigDecimal (bd.unscaledValue (), bd.precision () - 1);
-      return bc.setScale (nScale, eMode).scaleByPowerOfTen (bc.scale () - bd.scale ()).doubleValue ();
+      ret = bc.setScale (nScale, eMode).scaleByPowerOfTen (bc.scale () - bd.scale ()).doubleValue ();
     }
-    return bd.setScale (nScale, eMode).doubleValue ();
+    else
+      ret = bd.setScale (nScale, eMode).doubleValue ();
+
+    return ret;
   }
 
   /**
