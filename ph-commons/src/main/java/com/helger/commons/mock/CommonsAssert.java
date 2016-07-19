@@ -32,7 +32,8 @@ import com.helger.commons.equals.EqualsHelper;
 @Immutable
 public final class CommonsAssert
 {
-  private static final double DOUBLE_ALLOWED_ROUNDING_DIFFERENCE = 0.001;
+  public static final float FLOAT_ALLOWED_ROUNDING_DIFFERENCE = 0.001f;
+  public static final double DOUBLE_ALLOWED_ROUNDING_DIFFERENCE = 0.001;
 
   @PresentForCodeCoverage
   private static final CommonsAssert s_aInstance = new CommonsAssert ();
@@ -111,7 +112,7 @@ public final class CommonsAssert
   {
     // Do not call MathHelper.abs in here, because this class should be as close
     // to the runtime as possible!
-    if (Float.compare (x, y) != 0 && Math.abs (x - y) > DOUBLE_ALLOWED_ROUNDING_DIFFERENCE)
+    if (Float.compare (x, y) != 0 && Math.abs (x - y) > FLOAT_ALLOWED_ROUNDING_DIFFERENCE)
       fail ("<" +
             x +
             "> is not equal to <" +

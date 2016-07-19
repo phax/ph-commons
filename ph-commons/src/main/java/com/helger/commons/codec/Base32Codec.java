@@ -610,7 +610,7 @@ public class Base32Codec implements IByteArrayCodec
     while (nRest > 0)
     {
       // Decode at maximum 8 bytes
-      int nBytesToDecode = nRest > 8 ? 8 : nRest;
+      int nBytesToDecode = Math.min (nRest, 8);
       nRest -= nBytesToDecode;
       for (int i = 0; i < nBytesToDecode; ++i)
       {
@@ -622,7 +622,7 @@ public class Base32Codec implements IByteArrayCodec
           break;
         }
 
-        final byte b = n < 0 || n >= aDecodeTable.length ? -1 : aDecodeTable[n];
+        final byte b = n >= aDecodeTable.length ? -1 : aDecodeTable[n];
         if (b < 0)
           throw new DecodeException ("Cannot Base32 decode char " + n);
 

@@ -16,6 +16,7 @@
  */
 package com.helger.commons.equals;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -158,7 +159,7 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
 
   public void _test (final boolean [] s1, final boolean [] s2)
   {
-    CommonsAssert.assertEquals (s1, s1);
+    assertArrayEquals (s1, s1);
     CommonsAssert.assertNotEquals (s1, s2);
     CommonsAssert.assertNotEquals (s2, s1);
     CommonsAssert.assertNotEquals (s1, null);
@@ -168,7 +169,7 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
 
   public void _test (final byte [] s1, final byte [] s2)
   {
-    CommonsAssert.assertEquals (s1, s1);
+    assertArrayEquals (s1, s1);
     CommonsAssert.assertNotEquals (s1, s2);
     CommonsAssert.assertNotEquals (s2, s1);
     CommonsAssert.assertNotEquals (s1, null);
@@ -178,7 +179,7 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
 
   public void _test (final char [] s1, final char [] s2)
   {
-    CommonsAssert.assertEquals (s1, s1);
+    assertArrayEquals (s1, s1);
     CommonsAssert.assertNotEquals (s1, s2);
     CommonsAssert.assertNotEquals (s2, s1);
     CommonsAssert.assertNotEquals (s1, null);
@@ -188,7 +189,7 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
 
   public void _test (final double [] s1, final double [] s2)
   {
-    CommonsAssert.assertEquals (s1, s1);
+    assertArrayEquals (s1, s1, CommonsAssert.DOUBLE_ALLOWED_ROUNDING_DIFFERENCE);
     CommonsAssert.assertNotEquals (s1, s2);
     CommonsAssert.assertNotEquals (s2, s1);
     CommonsAssert.assertNotEquals (s1, null);
@@ -198,7 +199,7 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
 
   public void _test (final float [] s1, final float [] s2)
   {
-    CommonsAssert.assertEquals (s1, s1);
+    assertArrayEquals (s1, s1, CommonsAssert.FLOAT_ALLOWED_ROUNDING_DIFFERENCE);
     CommonsAssert.assertNotEquals (s1, s2);
     CommonsAssert.assertNotEquals (s2, s1);
     CommonsAssert.assertNotEquals (s1, null);
@@ -208,7 +209,7 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
 
   public void _test (final int [] s1, final int [] s2)
   {
-    CommonsAssert.assertEquals (s1, s1);
+    assertArrayEquals (s1, s1);
     CommonsAssert.assertNotEquals (s1, s2);
     CommonsAssert.assertNotEquals (s2, s1);
     CommonsAssert.assertNotEquals (s1, null);
@@ -218,7 +219,7 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
 
   public void _test (final long [] s1, final long [] s2)
   {
-    CommonsAssert.assertEquals (s1, s1);
+    assertArrayEquals (s1, s1);
     CommonsAssert.assertNotEquals (s1, s2);
     CommonsAssert.assertNotEquals (s2, s1);
     CommonsAssert.assertNotEquals (s1, null);
@@ -228,7 +229,7 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
 
   public void _test (final short [] s1, final short [] s2)
   {
-    CommonsAssert.assertEquals (s1, s1);
+    assertArrayEquals (s1, s1);
     CommonsAssert.assertNotEquals (s1, s2);
     CommonsAssert.assertNotEquals (s2, s1);
     CommonsAssert.assertNotEquals (s1, null);

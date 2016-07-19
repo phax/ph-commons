@@ -121,7 +121,7 @@ public class SMap extends CommonsLinkedHashMap <String, String>
   }
 
   @Nonnull
-  public SMap add (@Nonnull final String sName, @Nonnull final String sValue)
+  public SMap add (@Nonnull final String sName, @Nullable final String sValue)
   {
     super.put (sName, sValue);
     return this;
