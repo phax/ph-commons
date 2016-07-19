@@ -1774,7 +1774,7 @@ public final class Base64
    *        Offset in array where conversion should begin
    * @param len
    *        Length of data to convert
-   * @param options
+   * @param nOptions
    *        Specified options
    * @return The Base64-encoded data as a String
    * @see Base64#GZIP
@@ -1789,11 +1789,11 @@ public final class Base64
    */
   @Nonnull
   public static String encodeBytes (@Nonnull final byte [] source,
-                                    final int off,
-                                    final int len,
-                                    final int options) throws IOException
+                                    @Nonnegative final int off,
+                                    @Nonnegative final int len,
+                                    final int nOptions) throws IOException
   {
-    final byte [] encoded = encodeBytesToBytes (source, off, len, options);
+    final byte [] encoded = encodeBytesToBytes (source, off, len, nOptions);
 
     // Return value according to relevant encoding.
     return CharsetManager.getAsString (encoded, PREFERRED_ENCODING);
@@ -2548,10 +2548,27 @@ public final class Base64
   @ReturnsMutableCopy
   public static byte [] safeDecode (@Nullable final String sEncoded)
   {
+    return safeDecode (sEncoded, DONT_GUNZIP);
+  }
+
+  /**
+   * Decode the string with the default encoding (US-ASCII is the preferred
+   * one).
+   *
+   * @param sEncoded
+   *        The encoded string.
+   * @param nOptions
+   *        Decoding options.
+   * @return <code>null</code> if decoding failed.
+   */
+  @Nullable
+  @ReturnsMutableCopy
+  public static byte [] safeDecode (@Nullable final String sEncoded, final int nOptions)
+  {
     if (sEncoded != null)
       try
       {
-        return decode (sEncoded);
+        return decode (sEncoded, nOptions);
       }
       catch (final Exception ex)
       {
@@ -2571,15 +2588,24 @@ public final class Base64
   @ReturnsMutableCopy
   public static byte [] safeDecode (@Nullable final byte [] aEncodedBytes)
   {
+    return safeDecode (aEncodedBytes, DONT_GUNZIP);
+  }
+
+  /**
+   * Decode the byte array.
+   *
+   * @param aEncodedBytes
+   *        The encoded byte array.
+   * @param nOptions
+   *        Decoding options.
+   * @return <code>null</code> if decoding failed.
+   */
+  @Nullable
+  @ReturnsMutableCopy
+  public static byte [] safeDecode (@Nullable final byte [] aEncodedBytes, final int nOptions)
+  {
     if (aEncodedBytes != null)
-      try
-      {
-        return decode (aEncodedBytes, DONT_GUNZIP);
-      }
-      catch (final Exception ex)
-      {
-        // fall through
-      }
+      return safeDecode (aEncodedBytes, 0, aEncodedBytes.length, nOptions);
     return null;
   }
 
@@ -2600,12 +2626,35 @@ public final class Base64
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {
+    return safeDecode (aEncodedBytes, nOfs, nLen, DONT_GUNZIP);
+  }
+
+  /**
+   * Decode the byte array.
+   *
+   * @param aEncodedBytes
+   *        The encoded byte array.
+   * @param nOfs
+   *        The offset of where to begin decoding
+   * @param nLen
+   *        The number of characters to decode
+   * @param nOptions
+   *        Decoding options.
+   * @return <code>null</code> if decoding failed.
+   */
+  @Nullable
+  @ReturnsMutableCopy
+  public static byte [] safeDecode (@Nullable final byte [] aEncodedBytes,
+                                    @Nonnegative final int nOfs,
+                                    @Nonnegative final int nLen,
+                                    final int nOptions)
+  {
     if (aEncodedBytes != null)
       try
       {
-        return decode (aEncodedBytes, nOfs, nLen, DONT_GUNZIP);
+        return decode (aEncodedBytes, nOfs, nLen, nOptions);
       }
-      catch (final Exception ex)
+      catch (final IOException ex)
       {
         // fall through
       }
@@ -2631,9 +2680,9 @@ public final class Base64
         final byte [] aDecoded = decode (sEncoded, DONT_GUNZIP);
         return CharsetManager.getAsString (aDecoded, aCharset);
       }
-      catch (final Exception ex)
+      catch (final IOException ex)
       {
-        // Fall throuh
+        // Fall through
       }
     return null;
   }
@@ -2681,7 +2730,7 @@ public final class Base64
         final byte [] aDecoded = decode (aEncodedBytes, nOfs, nLength, DONT_GUNZIP);
         return CharsetManager.getAsString (aDecoded, aCharset);
       }
-      catch (final Exception ex)
+      catch (final IOException ex)
       {
         // Fall through
       }
@@ -2724,6 +2773,50 @@ public final class Base64
       try
       {
         return encodeBytesToBytes (aDecoded, nOfs, nLen, nOptions);
+      }
+      catch (final IOException ex)
+      {
+        // Only on GZip which is turned off
+      }
+    return null;
+  }
+
+  @Nullable
+  @ReturnsMutableCopy
+  public static String safeEncodeBytes (@Nullable final byte [] aDecoded)
+  {
+    return safeEncodeBytes (aDecoded, NO_OPTIONS);
+  }
+
+  @Nullable
+  @ReturnsMutableCopy
+  public static String safeEncodeBytes (@Nullable final byte [] aDecoded, final int nOptions)
+  {
+    if (aDecoded != null)
+      return safeEncodeBytes (aDecoded, 0, aDecoded.length, nOptions);
+    return null;
+  }
+
+  @Nullable
+  @ReturnsMutableCopy
+  public static String safeEncodeBytes (@Nullable final byte [] aDecoded,
+                                        @Nonnegative final int nOfs,
+                                        @Nonnegative final int nLen)
+  {
+    return safeEncodeBytes (aDecoded, nOfs, nLen, NO_OPTIONS);
+  }
+
+  @Nullable
+  @ReturnsMutableCopy
+  public static String safeEncodeBytes (@Nullable final byte [] aDecoded,
+                                        @Nonnegative final int nOfs,
+                                        @Nonnegative final int nLen,
+                                        final int nOptions)
+  {
+    if (aDecoded != null)
+      try
+      {
+        return encodeBytes (aDecoded, nOfs, nLen, nOptions);
       }
       catch (final IOException ex)
       {
