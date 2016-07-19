@@ -1887,7 +1887,7 @@ public final class Base64
       // If we get it right, we don't have to do an array copy, and
       // we save a bunch of memory.
       int encLen = (nLen / 3) * 4 + (nLen % 3 > 0 ? 4 : 0); // Bytes needed for
-                                                          // actual encoding
+      // actual encoding
       if (breakLines)
       {
         encLen += encLen / MAX_LINE_LENGTH; // Plus extra newline characters
@@ -2692,8 +2692,15 @@ public final class Base64
   @ReturnsMutableCopy
   public static byte [] safeEncodeBytesToBytes (@Nullable final byte [] aDecoded)
   {
+    return safeEncodeBytesToBytes (aDecoded, NO_OPTIONS);
+  }
+
+  @Nullable
+  @ReturnsMutableCopy
+  public static byte [] safeEncodeBytesToBytes (@Nullable final byte [] aDecoded, final int nOptions)
+  {
     if (aDecoded != null)
-      return encodeBytesToBytes (aDecoded);
+      return safeEncodeBytesToBytes (aDecoded, 0, aDecoded.length, nOptions);
     return null;
   }
 
@@ -2703,10 +2710,20 @@ public final class Base64
                                                 @Nonnegative final int nOfs,
                                                 @Nonnegative final int nLen)
   {
+    return safeEncodeBytesToBytes (aDecoded, nOfs, nLen, NO_OPTIONS);
+  }
+
+  @Nullable
+  @ReturnsMutableCopy
+  public static byte [] safeEncodeBytesToBytes (@Nullable final byte [] aDecoded,
+                                                @Nonnegative final int nOfs,
+                                                @Nonnegative final int nLen,
+                                                final int nOptions)
+  {
     if (aDecoded != null)
       try
       {
-        return encodeBytesToBytes (aDecoded, nOfs, nLen, NO_OPTIONS);
+        return encodeBytesToBytes (aDecoded, nOfs, nLen, nOptions);
       }
       catch (final IOException ex)
       {
