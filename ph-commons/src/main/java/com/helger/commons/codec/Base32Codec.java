@@ -31,9 +31,13 @@ import com.helger.commons.math.MathHelper;
  * Base32 encoder and decoder based on Apache Commons Codec Base32. Defined in
  * RFC 4648. BASE32 characters are 5 bits in length. They are formed by taking a
  * block of five octets to form a 40-bit string, which is converted into eight
- * BASE32 characters.
+ * BASE32 characters.<br>
+ * RFC 3548 and defines only the "regular encoding". RFC 4648 adds the "hex
+ * encoding". So when using the "regular encoding" it is compliant to both
+ * RFCs.<br>
+ * Source: https://tools.ietf.org/html/rfc4648<br>
+ * Source: https://tools.ietf.org/html/rfc3548
  *
- * @see "https://tools.ietf.org/html/rfc4648"
  * @author Philip Helger
  */
 public class Base32Codec implements IByteArrayCodec
@@ -44,23 +48,7 @@ public class Base32Codec implements IByteArrayCodec
    * 5-bit positive integer equivalents. Characters that are not in the Base32
    * alphabet but fall within the bounds of the array are translated to -1.
    */
-  private static final byte [] DECODE_TABLE = { -1,
-                                                -1,
-                                                -1,
-                                                -1,
-                                                -1,
-                                                -1,
-                                                -1,
-                                                -1,
-                                                -1,
-                                                -1,
-                                                -1,
-                                                -1,
-                                                -1,
-                                                -1,
-                                                -1,
-                                                -1,
-                                                // 00-0f
+  private static final byte [] DECODE_TABLE = { // 00-0f
                                                 -1,
                                                 -1,
                                                 -1,
@@ -97,6 +85,23 @@ public class Base32Codec implements IByteArrayCodec
                                                 // 20-2f
                                                 -1,
                                                 -1,
+                                                -1,
+                                                -1,
+                                                -1,
+                                                -1,
+                                                -1,
+                                                -1,
+                                                -1,
+                                                -1,
+                                                -1,
+                                                -1,
+                                                -1,
+                                                -1,
+                                                -1,
+                                                -1,
+                                                // 30-3f 2-7
+                                                -1,
+                                                -1,
                                                 26,
                                                 27,
                                                 28,
@@ -111,7 +116,7 @@ public class Base32Codec implements IByteArrayCodec
                                                 -1,
                                                 -1,
                                                 -1,
-                                                // 30-3f 2-7
+                                                // 40-4f A-N
                                                 -1,
                                                 0,
                                                 1,
@@ -128,7 +133,7 @@ public class Base32Codec implements IByteArrayCodec
                                                 12,
                                                 13,
                                                 14,
-                                                // 40-4f A-N
+                                                // 50-5a O-Z
                                                 15,
                                                 16,
                                                 17,
@@ -139,9 +144,7 @@ public class Base32Codec implements IByteArrayCodec
                                                 22,
                                                 23,
                                                 24,
-                                                25
-      // 50-5a O-Z
-  };
+                                                25 };
 
   /**
    * This array is a lookup table that translates 5-bit positive integer index
@@ -187,23 +190,7 @@ public class Base32Codec implements IByteArrayCodec
    * 5-bit positive integer equivalents. Characters that are not in the Base32
    * Hex alphabet but fall within the bounds of the array are translated to -1.
    */
-  private static final byte [] HEX_DECODE_TABLE = { -1,
-                                                    -1,
-                                                    -1,
-                                                    -1,
-                                                    -1,
-                                                    -1,
-                                                    -1,
-                                                    -1,
-                                                    -1,
-                                                    -1,
-                                                    -1,
-                                                    -1,
-                                                    -1,
-                                                    -1,
-                                                    -1,
-                                                    -1,
-                                                    // 00-0f
+  private static final byte [] HEX_DECODE_TABLE = { // 00-0f
                                                     -1,
                                                     -1,
                                                     -1,
@@ -238,6 +225,23 @@ public class Base32Codec implements IByteArrayCodec
                                                     -1,
                                                     -1,
                                                     // 20-2f
+                                                    -1,
+                                                    -1,
+                                                    -1,
+                                                    -1,
+                                                    -1,
+                                                    -1,
+                                                    -1,
+                                                    -1,
+                                                    -1,
+                                                    -1,
+                                                    -1,
+                                                    -1,
+                                                    -1,
+                                                    -1,
+                                                    -1,
+                                                    -1,
+                                                    // 30-3f 2-7
                                                     0,
                                                     1,
                                                     2,
@@ -254,7 +258,7 @@ public class Base32Codec implements IByteArrayCodec
                                                     -1,
                                                     -1,
                                                     -1,
-                                                    // 30-3f 2-7
+                                                    // 40-4f A-N
                                                     -1,
                                                     10,
                                                     11,
@@ -271,7 +275,7 @@ public class Base32Codec implements IByteArrayCodec
                                                     22,
                                                     23,
                                                     24,
-                                                    // 40-4f A-N
+                                                    // 50-57 O-V
                                                     25,
                                                     26,
                                                     27,
@@ -280,7 +284,7 @@ public class Base32Codec implements IByteArrayCodec
                                                     30,
                                                     31,
                                                     32
-      // 50-57 O-V
+
   };
 
   /**
@@ -319,7 +323,7 @@ public class Base32Codec implements IByteArrayCodec
                                                     'S',
                                                     'T',
                                                     'U',
-                                                    'V', };
+                                                    'V' };
 
   static
   {
