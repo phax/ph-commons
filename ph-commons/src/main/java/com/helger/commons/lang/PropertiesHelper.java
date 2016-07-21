@@ -64,7 +64,7 @@ public final class PropertiesHelper
   }
 
   @Nullable
-  public static ICommonsMap <String, String> loadProperties (@Nonnull final ISimpleURL aURL)
+  public static NonBlockingProperties loadProperties (@Nonnull final ISimpleURL aURL)
   {
     ValueEnforcer.notNull (aURL, "URL");
 
@@ -79,7 +79,7 @@ public final class PropertiesHelper
   }
 
   @Nullable
-  public static ICommonsMap <String, String> loadProperties (@Nonnull final File aFile)
+  public static NonBlockingProperties loadProperties (@Nonnull final File aFile)
   {
     ValueEnforcer.notNull (aFile, "File");
 
@@ -87,7 +87,7 @@ public final class PropertiesHelper
   }
 
   @Nullable
-  public static ICommonsMap <String, String> loadProperties (@Nonnull final IReadableResource aRes)
+  public static NonBlockingProperties loadProperties (@Nonnull final IReadableResource aRes)
   {
     ValueEnforcer.notNull (aRes, "Resource");
 
@@ -98,7 +98,7 @@ public final class PropertiesHelper
   }
 
   @Nullable
-  public static ICommonsMap <String, String> loadProperties (@Nonnull @WillClose final InputStream aIS)
+  public static NonBlockingProperties loadProperties (@Nonnull @WillClose final InputStream aIS)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
 
@@ -121,7 +121,7 @@ public final class PropertiesHelper
   }
 
   @Nullable
-  public static ICommonsMap <String, String> loadProperties (@Nonnull @WillClose final Reader aReader)
+  public static NonBlockingProperties loadProperties (@Nonnull @WillClose final Reader aReader)
   {
     ValueEnforcer.notNull (aReader, "Reader");
 
