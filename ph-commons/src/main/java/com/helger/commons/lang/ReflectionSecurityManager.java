@@ -19,9 +19,12 @@ package com.helger.commons.lang;
 import javax.annotation.Nonnull;
 
 /**
- * A custom security manager that exposes the getClassContext() information.
- * Source:
- * http://stackoverflow.com/questions/421280/how-do-i-find-the-caller-of-a-method-using-stacktrace-or-reflection?noredirect=1&lq=1
+ * A custom security manager that exposes the <code>getClassContext()</code>
+ * information. <a href=
+ * "http://stackoverflow.com/questions/421280/how-do-i-find-the-caller-of-a-method-using-stacktrace-or-reflection?noredirect=1&lq=1">Source
+ * on SO</a>
+ *
+ * @author Someone on SO
  */
 public class ReflectionSecurityManager extends SecurityManager
 {
