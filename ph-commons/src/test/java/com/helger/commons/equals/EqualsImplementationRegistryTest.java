@@ -16,8 +16,6 @@
  */
 package com.helger.commons.equals;
 
-import static org.junit.Assert.assertArrayEquals;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -56,10 +54,10 @@ public final class EqualsImplementationRegistryTest extends AbstractCommonsTestC
     CommonsAssert.assertEquals (d1, d2);
 
     // 1 level array
-    assertArrayEquals (ArrayHelper.newArray (d1), ArrayHelper.newArray (d2));
+    CommonsAssert.assertEquals (ArrayHelper.newArray (d1), ArrayHelper.newArray (d2));
 
     // 2 level array
-    assertArrayEquals (ArrayHelper.newArray (ArrayHelper.newArray (d1)),
-                       ArrayHelper.newArray (ArrayHelper.newArray (d2)));
+    CommonsAssert.assertEquals (ArrayHelper.newArray (ArrayHelper.newArray (d1)),
+                                ArrayHelper.newArray (ArrayHelper.newArray (d2)));
   }
 }

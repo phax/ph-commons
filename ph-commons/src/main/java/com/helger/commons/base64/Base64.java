@@ -2654,7 +2654,7 @@ public final class Base64
       {
         return decode (aEncodedBytes, nOfs, nLen, nOptions);
       }
-      catch (final IOException ex)
+      catch (final IOException | IllegalArgumentException ex)
       {
         // fall through
       }
