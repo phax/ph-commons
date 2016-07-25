@@ -29,6 +29,8 @@ import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsAssert;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Test class for class {@link EqualsImplementationRegistry}.
  *
@@ -37,6 +39,7 @@ import com.helger.commons.mock.CommonsAssert;
 public final class EqualsImplementationRegistryTest extends AbstractCommonsTestCase
 {
   @Test
+  @SuppressFBWarnings ("EC_BAD_ARRAY_COMPARE")
   public void testEquals () throws ParserConfigurationException
   {
     final DocumentBuilderFactory aDocumentBuilderFactory = DocumentBuilderFactory.newInstance ();
