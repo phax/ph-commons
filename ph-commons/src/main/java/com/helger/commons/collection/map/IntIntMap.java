@@ -16,6 +16,7 @@
  */
 package com.helger.commons.collection.map;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 import javax.annotation.CheckForSigned;
@@ -33,7 +34,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class IntIntMap
+public class IntIntMap implements Serializable
 {
   private static final int FREE_KEY = 0;
 
