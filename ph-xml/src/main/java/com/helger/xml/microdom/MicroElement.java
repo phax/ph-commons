@@ -168,9 +168,9 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   public void forAllAttributes (@Nonnull final ITriConsumer <? super String, ? super String, ? super String> aConsumer)
   {
     if (m_aAttrs != null)
-      m_aAttrs.forEachValue (a -> aConsumer.accept (a.getNamespaceURI (),
-                                                    a.getAttributeName (),
-                                                    a.getAttributeValue ()));
+      m_aAttrs.forEachValue (x -> aConsumer.accept (x.getNamespaceURI (),
+                                                    x.getAttributeName (),
+                                                    x.getAttributeValue ()));
   }
 
   @Nullable
@@ -189,23 +189,6 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     // throws IllegalArgumentException if nothing can be converted
     final DSTTYPE ret = TypeConverter.convertIfNecessary (sAttrValue, aDstClass);
     return ret;
-  }
-
-  @Nullable
-  public <DSTTYPE> DSTTYPE getAttributeValueWithConversion (@Nullable final String sAttrName,
-                                                            @Nonnull final Class <DSTTYPE> aDstClass)
-  {
-    final String sAttrValue = getAttributeValue (sAttrName);
-    return _getConvertedToType (sAttrValue, aDstClass);
-  }
-
-  @Nullable
-  public <DSTTYPE> DSTTYPE getAttributeValueWithConversion (@Nullable final String sNamespaceURI,
-                                                            @Nullable final String sAttrName,
-                                                            @Nonnull final Class <DSTTYPE> aDstClass)
-  {
-    final String sAttrValue = getAttributeValue (sNamespaceURI, sAttrName);
-    return _getConvertedToType (sAttrValue, aDstClass);
   }
 
   @Nullable

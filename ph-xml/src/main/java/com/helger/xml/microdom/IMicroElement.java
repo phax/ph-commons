@@ -38,6 +38,7 @@ import com.helger.commons.mutable.MutableInt;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.EContinue;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.string.StringParser;
 import com.helger.commons.typeconvert.TypeConverter;
 
 /**
@@ -156,8 +157,7 @@ public interface IMicroElement extends IMicroNodeWithChildren
   @Nullable
   default String getAttributeValue (@Nullable final String sAttrName)
   {
-    final IMicroAttribute aAttr = getAttributeObj (sAttrName);
-    return aAttr == null ? null : aAttr.getAttributeValue ();
+    return getAttributeValue ((String) null, sAttrName);
   }
 
   /**
@@ -173,8 +173,7 @@ public interface IMicroElement extends IMicroNodeWithChildren
   @Nullable
   default String getAttributeValue (@Nullable final String sNamespaceURI, @Nullable final String sAttrName)
   {
-    final IMicroAttribute aAttr = getAttributeObj (sNamespaceURI, sAttrName);
-    return aAttr == null ? null : aAttr.getAttributeValue ();
+    return getAttributeValue (new MicroQName (sNamespaceURI, sAttrName));
   }
 
   /**
@@ -211,7 +210,11 @@ public interface IMicroElement extends IMicroNodeWithChildren
    *         if the value cannot be converted
    */
   @Nullable
-  <DSTTYPE> DSTTYPE getAttributeValueWithConversion (@Nullable String sAttrName, @Nonnull Class <DSTTYPE> aDstClass);
+  default <DSTTYPE> DSTTYPE getAttributeValueWithConversion (@Nullable final String sAttrName,
+                                                             @Nonnull final Class <DSTTYPE> aDstClass)
+  {
+    return getAttributeValueWithConversion ((String) null, sAttrName, aDstClass);
+  }
 
   /**
    * Get the attribute value of the given attribute name. If this element has no
@@ -233,9 +236,12 @@ public interface IMicroElement extends IMicroNodeWithChildren
    *         if the value cannot be converted
    */
   @Nullable
-  <DSTTYPE> DSTTYPE getAttributeValueWithConversion (@Nullable String sNamespaceURI,
-                                                     @Nullable String sAttrName,
-                                                     @Nonnull Class <DSTTYPE> aDstClass);
+  default <DSTTYPE> DSTTYPE getAttributeValueWithConversion (@Nullable final String sNamespaceURI,
+                                                             @Nullable final String sAttrName,
+                                                             @Nonnull final Class <DSTTYPE> aDstClass)
+  {
+    return getAttributeValueWithConversion (new MicroQName (sNamespaceURI, sAttrName), aDstClass);
+  }
 
   /**
    * Get the attribute value of the given attribute name. If this element has no
@@ -257,6 +263,91 @@ public interface IMicroElement extends IMicroNodeWithChildren
   @Nullable
   <DSTTYPE> DSTTYPE getAttributeValueWithConversion (@Nullable IMicroQName aAttrName,
                                                      @Nonnull Class <DSTTYPE> aDstClass);
+
+  default boolean getAttributeValueAsBool (@Nullable final String sAttrName, final boolean bDefault)
+  {
+    return StringParser.parseBool (getAttributeValue (sAttrName), bDefault);
+  }
+
+  default boolean getAttributeValueAsBool (@Nullable final String sNamespaceURI,
+                                           @Nullable final String sAttrName,
+                                           final boolean bDefault)
+  {
+    return StringParser.parseBool (getAttributeValue (sNamespaceURI, sAttrName), bDefault);
+  }
+
+  default boolean getAttributeValueAsBool (@Nullable final IMicroQName aAttrName, final boolean bDefault)
+  {
+    return StringParser.parseBool (getAttributeValue (aAttrName), bDefault);
+  }
+
+  default double getAttributeValueAsDouble (@Nullable final String sAttrName, final double dDefault)
+  {
+    return StringParser.parseDouble (getAttributeValue (sAttrName), dDefault);
+  }
+
+  default double getAttributeValueAsDouble (@Nullable final String sNamespaceURI,
+                                            @Nullable final String sAttrName,
+                                            final double dDefault)
+  {
+    return StringParser.parseDouble (getAttributeValue (sNamespaceURI, sAttrName), dDefault);
+  }
+
+  default double getAttributeValueAsDouble (@Nullable final IMicroQName aAttrName, final double dDefault)
+  {
+    return StringParser.parseDouble (getAttributeValue (aAttrName), dDefault);
+  }
+
+  default float getAttributeValueAsFloat (@Nullable final String sAttrName, final float fDefault)
+  {
+    return StringParser.parseFloat (getAttributeValue (sAttrName), fDefault);
+  }
+
+  default float getAttributeValueAsFloat (@Nullable final String sNamespaceURI,
+                                          @Nullable final String sAttrName,
+                                          final float fDefault)
+  {
+    return StringParser.parseFloat (getAttributeValue (sNamespaceURI, sAttrName), fDefault);
+  }
+
+  default float getAttributeValueAsFloat (@Nullable final IMicroQName aAttrName, final float fDefault)
+  {
+    return StringParser.parseFloat (getAttributeValue (aAttrName), fDefault);
+  }
+
+  default int getAttributeValueAsInt (@Nullable final String sAttrName, final int nDefault)
+  {
+    return StringParser.parseInt (getAttributeValue (sAttrName), nDefault);
+  }
+
+  default int getAttributeValueAsInt (@Nullable final String sNamespaceURI,
+                                      @Nullable final String sAttrName,
+                                      final int nDefault)
+  {
+    return StringParser.parseInt (getAttributeValue (sNamespaceURI, sAttrName), nDefault);
+  }
+
+  default int getAttributeValueAsInt (@Nullable final IMicroQName aAttrName, final int nDefault)
+  {
+    return StringParser.parseInt (getAttributeValue (aAttrName), nDefault);
+  }
+
+  default long getAttributeValueAsLong (@Nullable final String sAttrName, final long nDefault)
+  {
+    return StringParser.parseLong (getAttributeValue (sAttrName), nDefault);
+  }
+
+  default long getAttributeValueAsLong (@Nullable final String sNamespaceURI,
+                                        @Nullable final String sAttrName,
+                                        final long nDefault)
+  {
+    return StringParser.parseLong (getAttributeValue (sNamespaceURI, sAttrName), nDefault);
+  }
+
+  default long getAttributeValueAsLong (@Nullable final IMicroQName aAttrName, final long nDefault)
+  {
+    return StringParser.parseLong (getAttributeValue (aAttrName), nDefault);
+  }
 
   /**
    * Get a list of all attributes. Is ensured to be not <code>null</code> if
@@ -486,6 +577,114 @@ public interface IMicroElement extends IMicroNodeWithChildren
   default IMicroElement setAttribute (@Nonnull final IMicroQName aAttrName, final boolean bAttrValue)
   {
     return setAttribute (aAttrName, Boolean.toString (bAttrValue));
+  }
+
+  /**
+   * Set an attribute value of this element. This is a shortcut for
+   * <code>setAttribute(sAttrName, Double.toString (nValue))</code>.
+   *
+   * @param sAttrName
+   *        Name of the attribute. May neither be <code>null</code> nor empty.
+   * @param dAttrValue
+   *        The new value to be set.
+   * @return this
+   */
+  @Nonnull
+  default IMicroElement setAttribute (@Nonnull final String sAttrName, final double dAttrValue)
+  {
+    return setAttribute (sAttrName, Double.toString (dAttrValue));
+  }
+
+  /**
+   * Set an attribute value of this element. This is a shortcut for
+   * <code>setAttribute(sNamespaceURI, sAttrName, Double.toString (nValue))</code>
+   * .
+   *
+   * @param sNamespaceURI
+   *        Namespace URI to use. May be <code>null</code>.
+   * @param sAttrName
+   *        Name of the attribute. May neither be <code>null</code> nor empty.
+   * @param dAttrValue
+   *        The new value to be set.
+   * @return this
+   */
+  @Nonnull
+  default IMicroElement setAttribute (@Nullable final String sNamespaceURI,
+                                      @Nonnull final String sAttrName,
+                                      final double dAttrValue)
+  {
+    return setAttribute (sNamespaceURI, sAttrName, Double.toString (dAttrValue));
+  }
+
+  /**
+   * Set an attribute value of this element. This is a shortcut for
+   * <code>setAttribute(aAttrName, Double.toString (nValue))</code>.
+   *
+   * @param aAttrName
+   *        Qualified name of the attribute. May neither be <code>null</code>
+   *        nor empty.
+   * @param dAttrValue
+   *        The new value to be set.
+   * @return this
+   */
+  @Nonnull
+  default IMicroElement setAttribute (@Nonnull final IMicroQName aAttrName, final double dAttrValue)
+  {
+    return setAttribute (aAttrName, Double.toString (dAttrValue));
+  }
+
+  /**
+   * Set an attribute value of this element. This is a shortcut for
+   * <code>setAttribute(sAttrName, Float.toString (nValue))</code>.
+   *
+   * @param sAttrName
+   *        Name of the attribute. May neither be <code>null</code> nor empty.
+   * @param fAttrValue
+   *        The new value to be set.
+   * @return this
+   */
+  @Nonnull
+  default IMicroElement setAttribute (@Nonnull final String sAttrName, final float fAttrValue)
+  {
+    return setAttribute (sAttrName, Float.toString (fAttrValue));
+  }
+
+  /**
+   * Set an attribute value of this element. This is a shortcut for
+   * <code>setAttribute(sNamespaceURI, sAttrName, Float.toString (nValue))</code>
+   * .
+   *
+   * @param sNamespaceURI
+   *        Namespace URI to use. May be <code>null</code>.
+   * @param sAttrName
+   *        Name of the attribute. May neither be <code>null</code> nor empty.
+   * @param fAttrValue
+   *        The new value to be set.
+   * @return this
+   */
+  @Nonnull
+  default IMicroElement setAttribute (@Nullable final String sNamespaceURI,
+                                      @Nonnull final String sAttrName,
+                                      final float fAttrValue)
+  {
+    return setAttribute (sNamespaceURI, sAttrName, Float.toString (fAttrValue));
+  }
+
+  /**
+   * Set an attribute value of this element. This is a shortcut for
+   * <code>setAttribute(aAttrName, Float.toString (nValue))</code>.
+   *
+   * @param aAttrName
+   *        Qualified name of the attribute. May neither be <code>null</code>
+   *        nor empty.
+   * @param fAttrValue
+   *        The new value to be set.
+   * @return this
+   */
+  @Nonnull
+  default IMicroElement setAttribute (@Nonnull final IMicroQName aAttrName, final float fAttrValue)
+  {
+    return setAttribute (aAttrName, Float.toString (fAttrValue));
   }
 
   /**
