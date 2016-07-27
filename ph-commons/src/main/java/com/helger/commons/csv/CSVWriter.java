@@ -43,6 +43,7 @@ import java.util.List;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.WillCloseWhenClosed;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
@@ -86,7 +87,7 @@ public class CSVWriter implements Closeable, Flushable
    *        the writer to an underlying CSV source. May not be <code>null</code>
    *        .
    */
-  public CSVWriter (@Nonnull final Writer aWriter)
+  public CSVWriter (@Nonnull @WillCloseWhenClosed final Writer aWriter)
   {
     ValueEnforcer.notNull (aWriter, "Writer");
     m_aRawWriter = aWriter;
@@ -306,7 +307,7 @@ public class CSVWriter implements Closeable, Flushable
   public void writeNext (@Nullable final String [] aNextLine, final boolean bApplyQuotesToAll)
   {
     if (aNextLine != null)
-      writeNext (new ArrayIterator <> (aNextLine).iterator (), bApplyQuotesToAll);
+      writeNext (new ArrayIterator<> (aNextLine).iterator (), bApplyQuotesToAll);
   }
 
   /**
@@ -342,7 +343,7 @@ public class CSVWriter implements Closeable, Flushable
                          final boolean bApplyQuotesToAll)
   {
     if (aNextLine != null)
-      writeNext (new ArrayIterator <> (aNextLine, nOfs, nLength).iterator (), bApplyQuotesToAll);
+      writeNext (new ArrayIterator<> (aNextLine, nOfs, nLength).iterator (), bApplyQuotesToAll);
   }
 
   /**

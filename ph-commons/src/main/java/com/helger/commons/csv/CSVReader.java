@@ -42,6 +42,7 @@ import java.util.function.Consumer;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.WillCloseWhenClosed;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
@@ -73,7 +74,7 @@ public class CSVReader implements Closeable, Iterable <ICommonsList <String>>
    * @param aReader
    *        the reader to an underlying CSV source.
    */
-  public CSVReader (@Nonnull final Reader aReader)
+  public CSVReader (@Nonnull @WillCloseWhenClosed final Reader aReader)
   {
     this (aReader, new CSVParser (), CCSV.DEFAULT_KEEP_CR);
   }
@@ -87,7 +88,7 @@ public class CSVReader implements Closeable, Iterable <ICommonsList <String>>
    *        <code>true</code> to keep carriage returns in data read,
    *        <code>false</code> otherwise
    */
-  public CSVReader (@Nonnull final Reader aReader, final boolean bKeepCR)
+  public CSVReader (@Nonnull @WillCloseWhenClosed final Reader aReader, final boolean bKeepCR)
   {
     this (aReader, new CSVParser (), bKeepCR);
   }
@@ -103,7 +104,9 @@ public class CSVReader implements Closeable, Iterable <ICommonsList <String>>
    *        <code>true</code> to keep carriage returns in data read,
    *        <code>false</code> otherwise
    */
-  public CSVReader (@Nonnull final Reader aReader, @Nonnull final CSVParser aParser, final boolean bKeepCR)
+  public CSVReader (@Nonnull @WillCloseWhenClosed final Reader aReader,
+                    @Nonnull final CSVParser aParser,
+                    final boolean bKeepCR)
   {
     ValueEnforcer.notNull (aReader, "Reader");
     ValueEnforcer.notNull (aParser, "Parser");
