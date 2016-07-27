@@ -23,6 +23,8 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.multimap.IMultiMapListBased;
+import com.helger.commons.collection.multimap.MultiLinkedHashMapArrayListBased;
 import com.helger.commons.error.IHasErrorLevels;
 
 /**
@@ -38,6 +40,15 @@ public interface IErrorList extends Iterable <IError>, IHasErrorLevels, IFieldEr
    *         at least one item is contained
    */
   boolean isEmpty ();
+
+  /**
+   * @return <code>true</code> if this list has at least one item,
+   *         <code>false</code> if if it is empty.
+   */
+  default boolean isNotEmpty ()
+  {
+    return !isEmpty ();
+  }
 
   /**
    * @return The number of contained items. Always &ge; 0.
@@ -73,4 +84,22 @@ public interface IErrorList extends Iterable <IError>, IHasErrorLevels, IFieldEr
   @Nonnull
   @ReturnsMutableCopy
   IErrorList getListWithoutField ();
+
+  @Nonnull
+  @ReturnsMutableCopy
+  default IMultiMapListBased <String, IError> getGroupedByID ()
+  {
+    final IMultiMapListBased <String, IError> ret = new MultiLinkedHashMapArrayListBased<> ();
+    forEach (x -> ret.putSingle (x.getErrorID (), x));
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  default IMultiMapListBased <String, IError> getGroupedByFieldName ()
+  {
+    final IMultiMapListBased <String, IError> ret = new MultiLinkedHashMapArrayListBased<> ();
+    forEach (x -> ret.putSingle (x.getErrorFieldName (), x));
+    return ret;
+  }
 }

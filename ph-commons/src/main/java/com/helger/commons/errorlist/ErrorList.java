@@ -18,6 +18,7 @@ package com.helger.commons.errorlist;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.function.Consumer;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -31,8 +32,6 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.collection.multimap.IMultiMapListBased;
-import com.helger.commons.collection.multimap.MultiLinkedHashMapArrayListBased;
 import com.helger.commons.error.EErrorLevel;
 import com.helger.commons.error.IErrorLevel;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -269,6 +268,12 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
     return ret;
   }
 
+  public void forEachItem (@Nonnull final Consumer <? super IError> aConsumer)
+  {
+    ValueEnforcer.notNull (aConsumer, "Consumer");
+    m_aItems.forEach (aConsumer);
+  }
+
   /**
    * @return A non-<code>null</code> list of all contained texts, independent of
    *         the level.
@@ -316,15 +321,6 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
     return m_aItems.containsNone (e -> e.hasErrorFieldName (sSearchFieldName));
   }
 
-  public boolean hasNoEntryForFields (@Nullable final String... aSearchFieldNames)
-  {
-    if (aSearchFieldNames != null)
-      for (final String sSearchFieldName : aSearchFieldNames)
-        if (hasEntryForField (sSearchFieldName))
-          return false;
-    return true;
-  }
-
   public boolean hasEntryForField (@Nullable final String sSearchFieldName)
   {
     return m_aItems.containsAny (e -> e.hasErrorFieldName (sSearchFieldName));
@@ -335,15 +331,6 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
     if (aErrorLevel != null)
       for (final IError aError : m_aItems)
         if (aError.getErrorLevel ().equals (aErrorLevel) && aError.hasErrorFieldName (sSearchFieldName))
-          return true;
-    return false;
-  }
-
-  public boolean hasEntryForFields (@Nullable final String... aSearchFieldNames)
-  {
-    if (aSearchFieldNames != null)
-      for (final String sSearchFieldName : aSearchFieldNames)
-        if (hasEntryForField (sSearchFieldName))
           return true;
     return false;
   }
@@ -442,26 +429,6 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
     return m_aItems.getAllMapped (e -> e.hasErrorFieldName () &&
                                        RegExHelper.stringMatchesPattern (sRegEx, e.getErrorFieldName ()),
                                   e -> e.getErrorText ());
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public IMultiMapListBased <String, IError> getGroupedByID ()
-  {
-    final IMultiMapListBased <String, IError> ret = new MultiLinkedHashMapArrayListBased<> ();
-    for (final IError aError : m_aItems)
-      ret.putSingle (aError.getErrorID (), aError);
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public IMultiMapListBased <String, IError> getGroupedByFieldName ()
-  {
-    final IMultiMapListBased <String, IError> ret = new MultiLinkedHashMapArrayListBased<> ();
-    for (final IError aError : m_aItems)
-      ret.putSingle (aError.getErrorFieldName (), aError);
-    return ret;
   }
 
   @Nonnull

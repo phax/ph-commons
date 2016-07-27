@@ -51,7 +51,14 @@ public interface IFieldErrorList
    * @return <code>true</code> if no entry for any of the specified fields is
    *         present
    */
-  boolean hasNoEntryForFields (@Nullable String... aSearchFieldNames);
+  default boolean hasNoEntryForFields (@Nullable final String... aSearchFieldNames)
+  {
+    if (aSearchFieldNames != null)
+      for (final String sSearchFieldName : aSearchFieldNames)
+        if (hasEntryForField (sSearchFieldName))
+          return false;
+    return true;
+  }
 
   /**
    * Check if any entry for the specified field is present
@@ -83,7 +90,14 @@ public interface IFieldErrorList
    * @return <code>true</code> if an entry for at least one of the specified
    *         fields is present
    */
-  boolean hasEntryForFields (@Nullable String... aSearchFieldNames);
+  default boolean hasEntryForFields (@Nullable final String... aSearchFieldNames)
+  {
+    if (aSearchFieldNames != null)
+      for (final String sSearchFieldName : aSearchFieldNames)
+        if (hasEntryForField (sSearchFieldName))
+          return true;
+    return false;
+  }
 
   /**
    * Get a sub-list with all entries for the specified field name
