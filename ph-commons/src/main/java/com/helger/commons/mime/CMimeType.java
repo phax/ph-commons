@@ -28,6 +28,9 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 @Immutable
 public final class CMimeType
 {
+  /** GZip document. */
+  public static final IMimeType APPLICATION_GZIP = EMimeContentType.APPLICATION.buildMimeType ("gzip");
+
   /** Word document. */
   public static final IMimeType APPLICATION_MS_WORD = EMimeContentType.APPLICATION.buildMimeType ("msword");
 
