@@ -122,6 +122,11 @@
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
+        <artifactId>ph-settings</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger</groupId>
         <artifactId>ph-less-commons</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -151,6 +156,7 @@
     <module>ph-matrix</module>
     <module>ph-graph</module>
     <module>ph-datetime</module>
+    <module>ph-settings</module>
     <module>ph-less-commons</module>
   </modules>
 </project>
