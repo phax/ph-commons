@@ -1,0 +1,283 @@
+package com.helger.commons.collection.ext;
+
+import java.util.Objects;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.ObjIntConsumer;
+import java.util.function.Predicate;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.function.IBreakableConsumer;
+import com.helger.commons.state.EContinue;
+
+/**
+ * Extended version of {@link Iterable} with some additional default methods.
+ *
+ * @author Philip Helger
+ * @param <ELEMENTTYPE>
+ *        The data type to iterate
+ */
+public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>
+{
+  /**
+   * Special forEach that takes an {@link ObjIntConsumer} which is provided the
+   * value AND the index.
+   *
+   * @param aConsumer
+   *        The consumer to use. May not be <code>null</code>.
+   */
+  default void forEach (@Nonnull final ObjIntConsumer <? super ELEMENTTYPE> aConsumer)
+  {
+    int nIndex = 0;
+    for (final ELEMENTTYPE aItem : this)
+    {
+      aConsumer.accept (aItem, nIndex);
+      ++nIndex;
+    }
+  }
+
+  /**
+   * A special version of {@link #forEach(Consumer)} that can break iteration if
+   * a certain requirement is fulfilled.
+   *
+   * @param aConsumer
+   *        The consumer to be invoked. May not be <code>null</code>.
+   * @return {@link EContinue#BREAK} if iteration was stopped,
+   *         {@link EContinue#CONTINUE} otherwise.
+   */
+  @Nonnull
+  default EContinue forEachBreakable (@Nonnull final IBreakableConsumer <? super ELEMENTTYPE> aConsumer)
+  {
+    Objects.requireNonNull (aConsumer);
+    for (final ELEMENTTYPE aElement : this)
+      if (aConsumer.accept (aElement).isBreak ())
+        return EContinue.BREAK;
+    return EContinue.CONTINUE;
+  }
+
+  /**
+   * Find all elements matching the supplied filter and invoke the provided
+   * consumer for each matching element.
+   *
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @param aConsumer
+   *        The consumer to be invoked for all matching elements. May not be
+   *        <code>null</code>.
+   */
+  default void findAll (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
+                        @Nonnull final Consumer <? super ELEMENTTYPE> aConsumer)
+  {
+    CollectionHelper.findAll (this, aFilter, aConsumer);
+  }
+
+  /**
+   * Convert all elements using the provided function and invoke the provided
+   * consumer for all mapped elements.
+   *
+   * @param aMapper
+   *        The mapping function to be executed for all elements. May not be
+   *        <code>null</code>.
+   * @param aConsumer
+   *        The consumer to be invoked for all mapped elements. May not be
+   *        <code>null</code>.
+   * @param <DSTTYPE>
+   *        The destination type to be mapped to
+   */
+  default <DSTTYPE> void findAllMapped (@Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper,
+                                        @Nonnull final Consumer <? super DSTTYPE> aConsumer)
+  {
+    CollectionHelper.findAllMapped (this, aMapper, aConsumer);
+  }
+
+  /**
+   * Find all elements matching the provided filter, convert the matching
+   * elements using the provided function and invoke the provided consumer for
+   * all mapped elements.
+   *
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @param aMapper
+   *        The mapping function to be executed for all matching elements. May
+   *        not be <code>null</code>.
+   * @param aConsumer
+   *        The consumer to be invoked for all matching mapped elements. May not
+   *        be <code>null</code>.
+   * @param <DSTTYPE>
+   *        The destination type to be mapped to
+   */
+  default <DSTTYPE> void findAllMapped (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
+                                        @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper,
+                                        @Nonnull final Consumer <? super DSTTYPE> aConsumer)
+  {
+    CollectionHelper.findAllMapped (this, aFilter, aMapper, aConsumer);
+  }
+
+  /**
+   * Find all elements that are <code>instanceOf</code> the provided class and
+   * invoke the provided consumer for all matching elements. This is a special
+   * implementation of {@link #findAllMapped(Predicate, Function, Consumer)}.
+   *
+   * @param aDstClass
+   *        The class of which all elements should be find. May not be
+   *        <code>null</code>.
+   * @param aConsumer
+   *        The consumer to be invoked for all instances of the provided class.
+   *        May not be <code>null</code>.
+   * @param <DSTTYPE>
+   *        The destination type to be casted to
+   */
+  default <DSTTYPE extends ELEMENTTYPE> void findAllInstanceOf (@Nonnull final Class <DSTTYPE> aDstClass,
+                                                                @Nonnull final Consumer <? super DSTTYPE> aConsumer)
+  {
+    findAllMapped (e -> aDstClass.isInstance (e), e -> aDstClass.cast (e), aConsumer);
+  }
+
+  /**
+   * Find the first element that matches the provided filter. If no element
+   * matches the provided filter or if the collection is empty,
+   * <code>null</code> is returned by default. If this collection does not
+   * maintain order (like Set) it is undefined which value is returned.
+   *
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @return <code>null</code> if no element matches the filter or if the
+   *         collection is empty, the first matching element otherwise.
+   * @see #findFirst(Predicate, Object)
+   */
+  @Nullable
+  default ELEMENTTYPE findFirst (@Nullable final Predicate <? super ELEMENTTYPE> aFilter)
+  {
+    return findFirst (aFilter, null);
+  }
+
+  /**
+   * Find the first element that matches the provided filter. If no element
+   * matches the provided filter or if the collection is empty, the provided
+   * default value is returned. If this collection does not maintain order (like
+   * Set) it is undefined which value is returned.
+   *
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @param aDefault
+   *        The default value to be returned if no element matches. May be
+   *        <code>null</code>.
+   * @return The provided default value if no element matches the filter or if
+   *         the collection is empty, the first matching element otherwise.
+   * @see #findFirst(Predicate)
+   */
+  @Nullable
+  default ELEMENTTYPE findFirst (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
+                                 @Nullable final ELEMENTTYPE aDefault)
+  {
+    return CollectionHelper.findFirst (this, aFilter, aDefault);
+  }
+
+  /**
+   * Find the first element that matches the provided filter and convert it
+   * using the provided mapper. If no element matches the provided filter or if
+   * the collection is empty, <code>null</code> is returned by default. If this
+   * collection does not maintain order (like Set) it is undefined which value
+   * is returned.
+   *
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @param aMapper
+   *        The mapping function to be executed for the first matching element.
+   *        May not be <code>null</code>.
+   * @return <code>null</code> if no element matches the filter or if the
+   *         collection is empty, the first matching element otherwise.
+   * @param <DSTTYPE>
+   *        The destination type to be mapped to
+   * @see #findFirstMapped(Predicate, Function, Object)
+   */
+  @Nullable
+  default <DSTTYPE> DSTTYPE findFirstMapped (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
+                                             @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
+  {
+    return findFirstMapped (aFilter, aMapper, null);
+  }
+
+  /**
+   * Find the first element that matches the provided filter and convert it
+   * using the provided mapper. If no element matches the provided filter or if
+   * the collection is empty, the provided default value is returned. If this
+   * collection does not maintain order (like Set) it is undefined which value
+   * is returned.
+   *
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @param aMapper
+   *        The mapping function to be executed for the first matching element.
+   *        May not be <code>null</code>.
+   * @param aDefault
+   *        The default value to be returned if no element matches. May be
+   *        <code>null</code>.
+   * @return The provided default value if no element matches the filter or if
+   *         the collection is empty, the first matching element otherwise.
+   * @param <DSTTYPE>
+   *        The destination type to be mapped to
+   * @see #findFirstMapped(Predicate, Function)
+   */
+  @Nullable
+  default <DSTTYPE> DSTTYPE findFirstMapped (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
+                                             @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper,
+                                             @Nullable final DSTTYPE aDefault)
+  {
+    return CollectionHelper.findFirstMapped (this, aFilter, aMapper, aDefault);
+  }
+
+  /**
+   * Check if this collection contains any (=at least one) element matching the
+   * provided filter.
+   *
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @return <code>true</code> if the container is not empty and at least one
+   *         element matches the provided filter, <code>false</code> otherwise.
+   *         If no filter is provided the response is the same as
+   *         {@link ICommonsCollection#isNotEmpty()}.
+   */
+  default boolean containsAny (@Nullable final Predicate <? super ELEMENTTYPE> aFilter)
+  {
+    return CollectionHelper.containsAny (this, aFilter);
+  }
+
+  /**
+   * Check if this collection contains no (=zero) element matching the provided
+   * filter.
+   *
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @return <code>true</code> if the container is empty or if no element
+   *         matches the provided filter, <code>false</code> otherwise. If no
+   *         filter is provided, this is the same as
+   *         {@link ICommonsCollection#isEmpty()}.
+   */
+  default boolean containsNone (@Nullable final Predicate <? super ELEMENTTYPE> aFilter)
+  {
+    return CollectionHelper.containsNone (this, aFilter);
+  }
+
+  /**
+   * Check if this collection contains only (=all) elements matching the
+   * provided filter. If this collection is empty, it does not fulfill this
+   * requirement! If no filter is provided the return value is identical to
+   * {@link ICommonsCollection#isNotEmpty()}.
+   *
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @return <code>true</code> if this collection is not empty and all elements
+   *         matching the filter or if no filter is provided and this collection
+   *         is not empty, <code>false</code> otherwise. If no filter is
+   *         supplied the return value is identical to
+   *         {@link ICommonsCollection#isNotEmpty()}.
+   */
+  default boolean containsOnly (@Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
+  {
+    return CollectionHelper.containsOnly (this, aFilter);
+  }
+}

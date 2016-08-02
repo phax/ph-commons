@@ -20,7 +20,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
-import java.util.function.ObjIntConsumer;
 import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
@@ -57,7 +56,7 @@ public interface ICommonsList <ELEMENTTYPE> extends
   @ReturnsMutableCopy
   default <T> ICommonsList <T> createInstance ()
   {
-    return new CommonsArrayList <> ();
+    return new CommonsArrayList<> ();
   }
 
   /**
@@ -147,23 +146,6 @@ public interface ICommonsList <ELEMENTTYPE> extends
     final ICommonsList <DSTTYPE> ret = createInstance ();
     findAllInstanceOf (aDstClass, ret::add);
     return ret;
-  }
-
-  /**
-   * Special forEach that takes an {@link ObjIntConsumer} which is provided the
-   * value AND the index.
-   *
-   * @param aConsumer
-   *        The consumer to use. May not be <code>null</code>.
-   */
-  default void forEach (@Nonnull final ObjIntConsumer <? super ELEMENTTYPE> aConsumer)
-  {
-    int nIndex = 0;
-    for (final ELEMENTTYPE aItem : this)
-    {
-      aConsumer.accept (aItem, nIndex);
-      ++nIndex;
-    }
   }
 
   /**

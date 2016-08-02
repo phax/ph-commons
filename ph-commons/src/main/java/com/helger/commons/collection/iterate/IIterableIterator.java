@@ -21,6 +21,7 @@ import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.collection.ext.ICommonsIterable;
 import com.helger.commons.filter.IFilter;
 
 /**
@@ -31,7 +32,7 @@ import com.helger.commons.filter.IFilter;
  * @param <ELEMENTTYPE>
  *        The type of object to iterate
  */
-public interface IIterableIterator <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>, Iterator <ELEMENTTYPE>
+public interface IIterableIterator <ELEMENTTYPE> extends ICommonsIterable <ELEMENTTYPE>, Iterator <ELEMENTTYPE>
 {
   @Nonnull
   default Iterator <ELEMENTTYPE> iterator ()
@@ -42,12 +43,12 @@ public interface IIterableIterator <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>,
   @Nonnull
   default IIterableIterator <ELEMENTTYPE> withFilter (@Nonnull final IFilter <? super ELEMENTTYPE> aFilter)
   {
-    return new FilterIterator <> (this, aFilter);
+    return new FilterIterator<> (this, aFilter);
   }
 
   @Nonnull
   default <DSTTYPE> IIterableIterator <DSTTYPE> withMapper (@Nonnull final Function <? super ELEMENTTYPE, ? extends DSTTYPE> aMapper)
   {
-    return new MapperIterator <> (this, aMapper);
+    return new MapperIterator<> (this, aMapper);
   }
 }
