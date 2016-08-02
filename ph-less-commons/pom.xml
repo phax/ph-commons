@@ -83,8 +83,9 @@
         <artifactId>license-maven-plugin</artifactId>
         <configuration>
           <excludes>
-                        <!-- Ignore because of charset issues -->
-
+            <exclude>**/LICENSE</exclude>
+            <exclude>**/NOTICE</exclude>
+            <!-- Ignore because of charset issues -->
             <exclude>src/test/resources/properties/**</exclude>
             <exclude>src/test/resources/**/*.txt</exclude>
           </excludes>
