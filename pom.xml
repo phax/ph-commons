@@ -71,14 +71,8 @@
       <!-- We need annotations and not jsr305 because SuppressFBWarnings annotation is required! -->
       <dependency>
         <groupId>com.google.code.findbugs</groupId>
-        <artifactId>annotations</artifactId>
-        <version>3.0.1u2</version>
-        <exclusions>
-          <exclusion>
-            <groupId>net.jcip</groupId>
-            <artifactId>jcip-annotations</artifactId>
-          </exclusion>
-        </exclusions>
+        <artifactId>jsr305</artifactId>
+        <version>3.0.1</version>
       </dependency>
 
       <dependency>
