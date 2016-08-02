@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2014-2016 Philip Helger (www.helger.com)
+    philip[at]helger[dot]com
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<translationitems count="26" hashcode="0116aee2">
+  <item id="com.helger.datetime.format.PeriodFormatMultilingual$EText.LONG_DAY_PLURAL">
+    <de> Tage</de>
+    <en> days</en>
+  </item>
+  <item id="com.helger.datetime.format.PeriodFormatMultilingual$EText.LONG_DAY_SINGULAR">
+    <de> Tag</de>
+    <en> day</en>
+  </item>
+  <item id="com.helger.datetime.format.PeriodFormatMultilingual$EText.LONG_HOUR_PLURAL">
+    <de> Stunden</de>
+    <en> hours</en>
+  </item>
+  <item id="com.helger.datetime.format.PeriodFormatMultilingual$EText.LONG_HOUR_SINGULAR">
+    <de> Stunde</de>
+    <en> hours</en>
+  </item>
+  <item id="com.helger.datetime.format.PeriodFormatMultilingual$EText.LONG_MILLISECOND_PLURAL">
+    <de> Millisekunden</de>
+    <en> millisecond</en>
+  </item>
+  <item id="com.helger.datetime.format.PeriodFormatMultilingual$EText.LONG_MILLISECOND_SINGULAR">
+    <de> Millisekunde</de>
+    <en> millisecond</en>
+  </item>
+  <item id="com.helger.datetime.format.PeriodFormatMultilingual$EText.LONG_MINUTE_PLURAL">
+    <de> Minuten</de>
+    <en> minutes</en>
+  </item>
+  <item id="com.helger.datetime.format.PeriodFormatMultilingual$EText.LONG_MINUTE_SINGULAR">
+    <de> Minute</de>
+    <en> minute</en>
+  </item>
+  <item id="com.helger.datetime.format.PeriodFormatMultilingual$EText.LONG_MONTH_PLURAL">
+    <de> Monate</de>
+    <en> month</en>
+  </item>
+  <item id="com.helger.datetime.format.PeriodFormatMultilingual$EText.LONG_MONTH_SINGULAR">
+    <de> Monat</de>
+    <en> month</en>
+  </item>
+  <item id="com.helger.datetime.format.PeriodFormatMultilingual$EText.LONG_SECOND_PLURAL">
+    <de> Sekunden</de>
+    <en> seconds</en>
+  </item>
+  <item id="com.helger.datetime.format.PeriodFormatMultilingual$EText.LONG_SECOND_SINGULAR">
+    <de> Sekunde</de>
+    <en> second</en>
+  </item>
+  <item id="com.helger.datetime.format.PeriodFormatMultilingual$EText.LONG_SEPARATOR_FRONT">
+    <de>, </de>
+    <en>, </en>
+  </item>
+  <item id="com.helger.datetime.format.PeriodFormatMultilingual$EText.LONG_SEPARATOR_LAST">
+    <de> und </de>
+    <en> and </en>
+  </item>
+  <item id="com.helger.datetime.format.PeriodFormatMultilingual$EText.LONG_WEEK_PLURAL">
+    <de> Wochen</de>
+    <en> weeks</en>
+  </item>
+  <item id="com.helger.datetime.format.PeriodFormatMultilingual$EText.LONG_WEEK_SINGULAR">
+    <de> Woche</de>
+    <en> week</en>
+  </item>
+  <item id="com.helger.datetime.format.PeriodFormatMultilingual$EText.LONG_YEAR_PLURAL">
+    <de> Jahre</de>
+    <en> years</en>
+  </item>
+  <item id="com.helger.datetime.format.PeriodFormatMultilingual$EText.LONG_YEAR_SINGULAR">
+    <de> Jahr</de>
+    <en> year</en>
+  </item>
+  <item id="com.helger.datetime.format.PeriodFormatMultilingual$EText.SHORT_DAY">
+    <de> T</de>
+    <en> d</en>
+  </item>
+  <item id="com.helger.datetime.format.PeriodFormatMultilingual$EText.SHORT_HOUR">
+    <de> Std</de>
+    <en> h</en>
+  </item>
+  <item id="com.helger.datetime.format.PeriodFormatMultilingual$EText.SHORT_MILLISECOND">
+    <de> Millisek</de>
+    <en> millisec</en>
+  </item>
+  <item id="com.helger.datetime.format.PeriodFormatMultilingual$EText.SHORT_MINUTE">
+    <de> Min</de>
+    <en> min</en>
+  </item>
+  <item id="com.helger.datetime.format.PeriodFormatMultilingual$EText.SHORT_MONTH">
+    <de> M</de>
+    <en> m</en>
+  </item>
+  <item id="com.helger.datetime.format.PeriodFormatMultilingual$EText.SHORT_SECOND">
+    <de> Sek</de>
+    <en> sec</en>
+  </item>
+  <item id="com.helger.datetime.format.PeriodFormatMultilingual$EText.SHORT_WEEK">
+    <de> W</de>
+    <en> w</en>
+  </item>
+  <item id="com.helger.datetime.format.PeriodFormatMultilingual$EText.SHORT_YEAR">
+    <de> J</de>
+    <en> y</en>
+  </item>
+</translationitems>

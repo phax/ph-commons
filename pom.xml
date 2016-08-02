@@ -107,6 +107,21 @@
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
+        <artifactId>ph-matrix</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger</groupId>
+        <artifactId>ph-graph</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger</groupId>
+        <artifactId>ph-datetime</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger</groupId>
         <artifactId>ph-less-commons</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -133,6 +148,9 @@
     <module>ph-jaxb</module>
     <module>ph-json</module>
     <module>ph-tree</module>
+    <module>ph-matrix</module>
+    <module>ph-graph</module>
+    <module>ph-datetime</module>
     <module>ph-less-commons</module>
   </modules>
 </project>

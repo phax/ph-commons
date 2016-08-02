@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2014-2016 Philip Helger (www.helger.com)
+    philip[at]helger[dot]com
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+            http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="ph-datetime">
+  <entry date="2015-11-23" category="tech" action="update">
+    <change>
+      <text locale="en">Updated to Joda-Time 2.9.1</text>
+    </change>
+  </entry>
+  <release date="2015-11-03" version="4.2.1" />
+  <entry date="2015-11-03" category="tech" action="update">
+    <change>
+      <text locale="en">Updated to Joda-Time 2.9</text>
+    </change>
+  </entry>
+  <entry date="2015-09-02" category="tech" action="update">
+    <change>
+      <text locale="en">Updated to Joda-Time 2.8.2</text>
+    </change>
+  </entry>
+  <release date="2015-08-06" version="4.2.0" />
+  <entry date="2015-08-06" category="api" action="change">
+    <change>
+      <text locale="en">Re-extracted ph-holiday into a separate project</text>
+    </change>
+  </entry>
+  <release date="2015-07-21" version="4.1.1" />
+  <entry date="2015-07-21" category="tech" action="update">
+    <change>
+      <text locale="en">Updated to ph-jaxb22-plugin 2.2.11.6 which fixes and invalid method name</text>
+    </change>
+  </entry>
+  <release date="2015-07-21" version="4.1.0" />
+  <entry date="2015-07-21" category="tech" action="update">
+    <change>
+      <text locale="en">Updated to ph-commons and ph-jaxb 6.1.0</text>
+    </change>
+  </entry>
+  <release date="2015-07-01" version="4.0.0" />
+  <entry date="2015-07-01" category="tech" action="update">
+    <change>
+      <text locale="en">Updated to ph-commons 6.0.0</text>
+    </change>
+  </entry>
+  <entry date="2015-06-25" category="tech" action="update">
+    <change>
+      <text locale="en">Updated to Joda-Time 2.8.1</text>
+    </change>
+  </entry>
+  <entry date="2015-06-09" category="tech" action="update">
+    <change>
+      <text locale="en">Updated to Joda-Time 2.8</text>
+    </change>
+  </entry>
+  <release date="2015-03-11" version="3.3.1" />
+  <release date="2015-02-18" version="3.3.0" />
+  <entry date="2015-02-18" category="api" action="add">
+    <change>
+      <text locale="en">Integrated contents of phloc-holiday into this package.</text>
+    </change>
+  </entry>
+  <release date="2015-01-13" version="3.2.2" />
+  <entry date="2015-01-13" category="tech" action="update">
+    <change>
+      <text locale="en">Updated to Joda-Time 2.7</text>
+    </change>
+  </entry>
+  <release date="2014-10-30" version="3.2.1" />
+  <entry date="2014-10-30" category="tech" action="update">
+    <change>
+      <text locale="en">Updated to ph-commons 5.2.0</text>
+    </change>
+  </entry>
+  <entry date="2014-10-20" category="api" action="update">
+    <change>
+      <text locale="en">Extended API of PDTConfig and PDTFactory</text>
+    </change>
+  </entry>
+  <release date="2014-08-25" version="3.2.0" />
+</changelog>
