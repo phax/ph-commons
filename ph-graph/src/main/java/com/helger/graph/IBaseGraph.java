@@ -23,6 +23,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.collection.ext.ICommonsOrderedSet;
 import com.helger.matrix.Matrix;
@@ -81,12 +82,20 @@ public interface IBaseGraph <NODETYPE extends IBaseGraphNode <NODETYPE, RELATION
   void forEachNode (@Nonnull Consumer <? super NODETYPE> aConsumer);
 
   /**
-   * @return A non-<code>null</code> collection of the relations in this graph,
-   *         in arbitrary order!
+   * @return A non-<code>null</code> map of the relations in this graph, in
+   *         arbitrary order!
    */
   @Nonnull
   @ReturnsMutableCopy
   ICommonsOrderedMap <String, RELATIONTYPE> getAllRelations ();
+
+  /**
+   * @return A non-<code>null</code> list of the relations in this graph, in
+   *         arbitrary order!
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  ICommonsList <RELATIONTYPE> getAllRelationObjs ();
 
   /**
    * @return A non-<code>null</code> set of all the relation IDs in this graph,

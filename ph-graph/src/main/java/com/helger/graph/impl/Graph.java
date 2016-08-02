@@ -24,6 +24,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.CommonsLinkedHashSet;
 import com.helger.commons.collection.ext.ICommonsList;
@@ -181,8 +182,17 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
   {
     final ICommonsOrderedMap <String, IMutableGraphRelation> ret = new CommonsLinkedHashMap<> ();
     for (final IMutableGraphNode aNode : m_aNodes.values ())
-      for (final IMutableGraphRelation aRelation : aNode.getAllRelations ())
-        ret.put (aRelation.getID (), aRelation);
+      aNode.forEachRelation (x -> ret.put (x.getID (), x));
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public ICommonsList <IMutableGraphRelation> getAllRelationObjs ()
+  {
+    final ICommonsList <IMutableGraphRelation> ret = new CommonsArrayList<> ();
+    for (final IMutableGraphNode aNode : m_aNodes.values ())
+      aNode.forEachRelation (ret::add);
     return ret;
   }
 

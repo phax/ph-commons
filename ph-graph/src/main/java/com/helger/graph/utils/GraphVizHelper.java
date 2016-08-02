@@ -96,8 +96,7 @@ public final class GraphVizHelper
     // It's a directed graph
     aSB.append ("graph ").append (aGraph.getID ()).append ("{\n");
     aSB.append ("node[shape=box];");
-    for (final N aGraphNode : aGraph.getAllNodes ().values ())
-    {
+    aGraph.forEachNode (aGraphNode -> {
       aSB.append (aGraphNode.getID ());
       if (StringHelper.hasText (sNodeLabelAttr))
       {
@@ -105,10 +104,9 @@ public final class GraphVizHelper
         aSB.append ("[").append (getAttribute ("label", sLabel)).append ("]");
       }
       aSB.append (';');
-    }
+    });
     aSB.append ('\n');
-    for (final R aGraphRelation : aGraph.getAllRelations ().values ())
-    {
+    aGraph.forEachRelation (aGraphRelation -> {
       final Iterator <N> it = aGraphRelation.getAllConnectedNodes ().iterator ();
       aSB.append (it.next ().getID ()).append ("--").append (it.next ().getID ());
       if (StringHelper.hasText (sRelationLabelAttr))
@@ -117,7 +115,7 @@ public final class GraphVizHelper
         aSB.append ("[").append (getAttribute ("label", sLabel)).append ("]");
       }
       aSB.append (";\n");
-    }
+    });
     aSB.append ("overlap=false;\n");
     aSB.append ('}');
     return aSB.toString ();
@@ -154,8 +152,7 @@ public final class GraphVizHelper
     // It's a directed graph
     aSB.append ("digraph ").append (aGraph.getID ()).append ("{\n");
     aSB.append ("node[shape=box];");
-    for (final N aGraphNode : aGraph.getAllNodes ().values ())
-    {
+    aGraph.forEachNode (aGraphNode -> {
       aSB.append (aGraphNode.getID ());
       if (StringHelper.hasText (sNodeLabelAttr))
       {
@@ -168,10 +165,9 @@ public final class GraphVizHelper
            .append (">]");
       }
       aSB.append (';');
-    }
+    });
     aSB.append ('\n');
-    for (final R aGraphRelation : aGraph.getAllRelations ().values ())
-    {
+    aGraph.forEachRelation (aGraphRelation -> {
       aSB.append (aGraphRelation.getFromID ()).append ("->").append (aGraphRelation.getToID ());
       if (StringHelper.hasText (sRelationLabelAttr))
       {
@@ -184,7 +180,7 @@ public final class GraphVizHelper
            .append (">]");
       }
       aSB.append (";\n");
-    }
+    });
     aSB.append ("overlap=false;\n");
     aSB.append ('}');
     return aSB.toString ();

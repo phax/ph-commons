@@ -119,14 +119,13 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
     if (m_aIncoming != null)
-      m_aIncoming.values ().forEach (aConsumer);
+      m_aIncoming.forEachValue (aConsumer);
   }
 
   @Nonnull
   public EChange removeIncomingRelation (@Nonnull final IMutableDirectedGraphRelation aRelation)
   {
-    return aRelation == null || m_aIncoming == null ? EChange.UNCHANGED
-                                                    : EChange.valueOf (m_aIncoming.remove (aRelation.getID ()) != null);
+    return aRelation == null || m_aIncoming == null ? EChange.UNCHANGED : m_aIncoming.removeObject (aRelation.getID ());
   }
 
   @Nonnull
@@ -232,8 +231,7 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
   @Nonnull
   public EChange removeOutgoingRelation (@Nonnull final IMutableDirectedGraphRelation aRelation)
   {
-    return aRelation == null || m_aOutgoing == null ? EChange.UNCHANGED
-                                                    : EChange.valueOf (m_aOutgoing.remove (aRelation.getID ()) != null);
+    return aRelation == null || m_aOutgoing == null ? EChange.UNCHANGED : m_aOutgoing.removeObject (aRelation.getID ());
   }
 
   @Nonnull

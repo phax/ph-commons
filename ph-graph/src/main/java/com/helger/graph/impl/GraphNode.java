@@ -147,7 +147,7 @@ public class GraphNode extends AbstractBaseGraphObject implements IMutableGraphN
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
     if (m_aRelations != null)
-      m_aRelations.values ().forEach (aConsumer);
+      m_aRelations.forEachValue (aConsumer);
   }
 
   @Nonnull

@@ -16,9 +16,7 @@
  */
 package com.helger.graph.algo;
 
-import java.util.Collection;
 import java.util.Comparator;
-import java.util.List;
 
 import javax.annotation.Nonnull;
 
@@ -28,8 +26,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsTreeSet;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.string.StringHelper;
 import com.helger.graph.IMutableGraphNode;
@@ -107,18 +105,15 @@ public final class Kruskal
   public static Kruskal.Result applyKruskal (@Nonnull final ISimpleGraph aGraph,
                                              @Nonnull @Nonempty final String sRelationCostAttr)
   {
-    final Collection <IMutableGraphRelation> aAllRelations = aGraph.getAllRelations ().values ();
-    if (GlobalDebug.isDebugMode ())
-      s_aLogger.info ("Starting Kruskal on " + aAllRelations.size () + " relations");
-    final List <IMutableGraphRelation> aSortedRelations = CollectionHelper.getSorted (aAllRelations,
-                                                                                      Comparator.comparingInt (aObject -> aObject.getAttributeAsInt (sRelationCostAttr)));
-
+    final ICommonsList <IMutableGraphRelation> aSortedRelations = aGraph.getAllRelationObjs ()
+                                                                        .getSortedInline (Comparator.comparingInt (aObject -> aObject.getAttributeAsInt (sRelationCostAttr)));
     if (GlobalDebug.isDebugMode ())
     {
+      s_aLogger.info ("Starting Kruskal on " + aSortedRelations.size () + " relations");
       s_aLogger.info ("Sorted relations: " +
                       StringHelper.getImploded (';',
                                                 aSortedRelations,
-                                                aRel -> _getWeightInfo (aRel, sRelationCostAttr)));
+                                                x -> _getWeightInfo (x, sRelationCostAttr)));
     }
 
     final SimpleGraph ret = new SimpleGraph (new SimpleGraphObjectFastFactory ());

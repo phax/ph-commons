@@ -25,8 +25,10 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.CommonsLinkedHashSet;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.collection.ext.ICommonsOrderedSet;
 import com.helger.commons.collection.ext.ICommonsSet;
@@ -218,8 +220,17 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
   {
     final ICommonsOrderedMap <String, IMutableDirectedGraphRelation> ret = new CommonsLinkedHashMap<> ();
     for (final IMutableDirectedGraphNode aNode : m_aNodes.values ())
-      for (final IMutableDirectedGraphRelation aRelation : aNode.getAllRelations ())
-        ret.put (aRelation.getID (), aRelation);
+      aNode.forEachRelation (x -> ret.put (x.getID (), x));
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public ICommonsList <IMutableDirectedGraphRelation> getAllRelationObjs ()
+  {
+    final ICommonsList <IMutableDirectedGraphRelation> ret = new CommonsArrayList<> ();
+    for (final IMutableDirectedGraphNode aNode : m_aNodes.values ())
+      aNode.forEachRelation (ret::add);
     return ret;
   }
 
