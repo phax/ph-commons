@@ -1,0 +1,19 @@
+{
+  "link" : {
+    "type" : "locator",
+    "href" : "http://rest.db.ripe.net/ripe/inetnum/1.2.3.4"
+  },
+  "errormessages" : {
+    "errormessage" : [ {
+      "severity" : "Error",
+      "text" : "ERROR:101: no entries found\n\nNo entries found in source %s.\n",
+      "args" : [ {
+        "value" : "RIPE"
+      } ]
+    } ]
+  },
+  "terms-and-conditions" : {
+    "type" : "locator",
+    "href" : "http://www.ripe.net/db/support/db-terms-conditions.pdf"
+  }
+}

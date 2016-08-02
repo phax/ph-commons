@@ -103,6 +103,11 @@
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
+        <artifactId>ph-json</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger</groupId>
         <artifactId>ph-tree</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -132,6 +137,7 @@
     <module>ph-security</module>
     <module>ph-xml</module>
     <module>ph-jaxb</module>
+    <module>ph-json</module>
     <module>ph-tree</module>
     <module>ph-less-commons</module>
   </modules>
