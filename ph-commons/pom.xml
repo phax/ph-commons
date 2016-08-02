@@ -107,8 +107,10 @@ osgi.serviceloader; osgi.serviceloader=com.helger.commons.typeconvert.MutableTyp
         <artifactId>license-maven-plugin</artifactId>
         <configuration>
           <excludes>
-            <exclude>src/test/resources/properties/**</exclude>
-            <exclude>src/test/resources/**/*.txt</exclude>
+            <exclude>**/LICENSE</exclude>
+            <exclude>**/NOTICE</exclude>
+            <exclude>src/main/resources/codelists/*.dat</exclude>
+            <exclude>src/test/resources/**/*</exclude>
           </excludes>
         </configuration>
       </plugin>
