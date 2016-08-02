@@ -275,7 +275,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   }
 
   private static boolean _containsChildElementRecursive (@Nonnull final IMicroNode aStartNode,
-                                                         @Nonnull final Predicate <? super IMicroElement> aFilter)
+                                                         @Nullable final Predicate <? super IMicroElement> aFilter)
   {
     return aStartNode.containsAnyChild (aChildNode -> {
       if (aChildNode.isElement ())
@@ -301,7 +301,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
 
   @Nonnull
   private static EContinue _forAllChildElementsBreakable (@Nonnull final IMicroNode aStartNode,
-                                                          @Nonnull final Predicate <? super IMicroElement> aFilter,
+                                                          @Nullable final Predicate <? super IMicroElement> aFilter,
                                                           @Nonnull final IBreakableConsumer <? super IMicroElement> aConsumer)
   {
     return aStartNode.forAllChildrenBreakable (aChildNode -> {
@@ -339,7 +339,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   }
 
   private static void _forAllChildElements (@Nonnull final IMicroNode aStartNode,
-                                            @Nonnull final Predicate <? super IMicroElement> aFilter,
+                                            @Nullable final Predicate <? super IMicroElement> aFilter,
                                             @Nonnull final Consumer <? super IMicroElement> aConsumer)
   {
     aStartNode.forAllChildren (aChildNode -> {

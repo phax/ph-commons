@@ -17,6 +17,7 @@
 package com.helger.xml;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -35,7 +36,7 @@ public class ChildElementIterator implements IIterableIterator <Element>
   /** The nodes to iterate. */
   private final IIterableIterator <Element> m_aIter;
 
-  public ChildElementIterator (@Nonnull final Node aStartNode)
+  public ChildElementIterator (@Nullable final Node aStartNode)
   {
     m_aIter = NodeListIterator.createChildNodeIterator (aStartNode)
                               .withFilter (XMLHelper.filterNodeIsElement ())

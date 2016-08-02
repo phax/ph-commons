@@ -239,7 +239,8 @@ public final class XMLHelper
    * @return <code>null</code> if the parent element has no such child element.
    */
   @Nullable
-  public static Element getFirstChildElementOfName (@Nonnull final Node aStartNode, @Nullable final String sTagName)
+  public static Element getFirstChildElementOfName (@Nonnull final Node aStartNode,
+                                                    @Nonnull @Nonempty final String sTagName)
   {
     return new ChildElementIterator (aStartNode).findFirst (filterElementWithTagName (sTagName));
   }
@@ -259,7 +260,7 @@ public final class XMLHelper
   @Nullable
   public static Element getFirstChildElementOfName (@Nonnull final Node aStartNode,
                                                     @Nullable final String sNamespaceURI,
-                                                    @Nullable final String sLocalName)
+                                                    @Nonnull @Nonempty final String sLocalName)
   {
     return new ChildElementIterator (aStartNode).findFirst (filterElementWithNamespaceAndLocalName (sNamespaceURI,
                                                                                                     sLocalName));
