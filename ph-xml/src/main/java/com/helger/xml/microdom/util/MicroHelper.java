@@ -21,10 +21,8 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 import javax.xml.XMLConstants;
 
-import org.w3c.dom.Attr;
 import org.w3c.dom.DocumentType;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.ProcessingInstruction;
@@ -33,6 +31,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
+import com.helger.xml.XMLHelper;
 import com.helger.xml.microdom.IMicroContainer;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
@@ -181,24 +180,17 @@ public final class MicroHelper
         final IMicroElement eElement = sNamespaceURI != null ? new MicroElement (sNamespaceURI,
                                                                                  aElement.getLocalName ())
                                                              : new MicroElement (aElement.getTagName ());
-        final NamedNodeMap aAttrs = aNode.getAttributes ();
-        if (aAttrs != null)
-        {
-          final int nAttrCount = aAttrs.getLength ();
-          for (int i = 0; i < nAttrCount; ++i)
+        XMLHelper.forAllAttributes (aElement, aAttr -> {
+          final String sAttrNamespaceURI = aAttr.getNamespaceURI ();
+          if (sAttrNamespaceURI != null)
           {
-            final Attr aAttr = (Attr) aAttrs.item (i);
-            final String sAttrNamespaceURI = aAttr.getNamespaceURI ();
-            if (sAttrNamespaceURI != null)
-            {
-              // Ignore all "xmlns" attributes (special namespace URI!)
-              if (!XMLConstants.XMLNS_ATTRIBUTE_NS_URI.equals (sAttrNamespaceURI))
-                eElement.setAttribute (sAttrNamespaceURI, aAttr.getLocalName (), aAttr.getValue ());
-            }
-            else
-              eElement.setAttribute (aAttr.getName (), aAttr.getValue ());
+            // Ignore all "xmlns" attributes (special namespace URI!)
+            if (!XMLConstants.XMLNS_ATTRIBUTE_NS_URI.equals (sAttrNamespaceURI))
+              eElement.setAttribute (sAttrNamespaceURI, aAttr.getLocalName (), aAttr.getValue ());
           }
-        }
+          else
+            eElement.setAttribute (aAttr.getName (), aAttr.getValue ());
+        });
         ret = eElement;
         break;
       }

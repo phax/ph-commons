@@ -28,16 +28,15 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.xml.ChildNodeIterator;
-import com.helger.xml.XMLFactory;
 
 /**
- * Test class for class {@link ChildNodeIterator}.
+ * Test class for class {@link NodeListIterator}.
  *
  * @author Philip Helger
  */
-public final class ChildNodeIteratorTest extends AbstractCommonsTestCase
+public final class NodeListIteratorTest extends AbstractCommonsTestCase
 {
   @Test
   public void testGetRecursiveChildIter ()
@@ -45,12 +44,12 @@ public final class ChildNodeIteratorTest extends AbstractCommonsTestCase
     final Document doc = XMLFactory.newDocument ();
 
     // No children present
-    assertFalse (new ChildNodeIterator (doc).hasNext ());
+    assertFalse (NodeListIterator.createChildNodeIterator (doc).hasNext ());
 
     // 1 child
     final Element eRoot = (Element) doc.appendChild (doc.createElement ("root"));
     int nCount = 0;
-    for (final Node aNode : new ChildNodeIterator (doc))
+    for (final Node aNode : NodeListIterator.createChildNodeIterator (doc))
     {
       assertNotNull (aNode);
       ++nCount;
@@ -60,7 +59,7 @@ public final class ChildNodeIteratorTest extends AbstractCommonsTestCase
     // 2 children
     eRoot.appendChild (doc.createTextNode ("Hallo Welt"));
     nCount = 0;
-    final ChildNodeIterator it = new ChildNodeIterator (doc);
+    final NodeListIterator it = NodeListIterator.createChildNodeIterator (doc);
     for (final Node aNode : it)
     {
       assertNotNull (aNode);
@@ -82,12 +81,6 @@ public final class ChildNodeIteratorTest extends AbstractCommonsTestCase
     }
     catch (final UnsupportedOperationException ex)
     {}
-    try
-    {
-      new ChildNodeIterator (null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
+    assertEquals (0, CollectionHelper.getSize (new NodeListIterator (null)));
   }
 }

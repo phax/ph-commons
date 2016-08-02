@@ -33,11 +33,13 @@ import com.helger.commons.string.ToStringGenerator;
 public class ChildElementIterator implements IIterableIterator <Element>
 {
   /** The nodes to iterate. */
-  private final IIterableIterator <Node> m_aIter;
+  private final IIterableIterator <Element> m_aIter;
 
   public ChildElementIterator (@Nonnull final Node aStartNode)
   {
-    m_aIter = new ChildNodeIterator (aStartNode).withFilter (XMLHelper.filterNodeIsElement ());
+    m_aIter = NodeListIterator.createChildNodeIterator (aStartNode)
+                              .withFilter (XMLHelper.filterNodeIsElement ())
+                              .withMapper (x -> (Element) x);
   }
 
   public final boolean hasNext ()
@@ -48,7 +50,7 @@ public class ChildElementIterator implements IIterableIterator <Element>
   @Nonnull
   public final Element next ()
   {
-    return (Element) m_aIter.next ();
+    return m_aIter.next ();
   }
 
   @Override

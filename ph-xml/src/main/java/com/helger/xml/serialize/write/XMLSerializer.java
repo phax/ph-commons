@@ -21,14 +21,12 @@ import javax.annotation.Nullable;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
-import org.w3c.dom.Attr;
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;
 import org.w3c.dom.Element;
 import org.w3c.dom.EntityReference;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.ProcessingInstruction;
@@ -189,7 +187,7 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
 
     // get all attributes (sorting is important because the order from
     // getAttributes is not guaranteed to be consistent!)
-    final ICommonsMap <QName, String> aAttrMap = new CommonsTreeMap <> (CXML.getComparatorQName ());
+    final ICommonsMap <QName, String> aAttrMap = new CommonsTreeMap<> (CXML.getComparatorQName ());
 
     m_aNSStack.push ();
 
@@ -207,31 +205,28 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
       }
 
       // Get all attributes
-      final NamedNodeMap aAttrs = aElement.getAttributes ();
-      for (int i = 0; i < aAttrs.getLength (); ++i)
-      {
-        final Attr aAttr = (Attr) aAttrs.item (i);
+      XMLHelper.forAllAttributes (aElement, aAttr -> {
         final String sAttrNamespaceURI = StringHelper.getNotNull (aAttr.getNamespaceURI ());
 
         // Ignore all "xmlns" attributes as they are created manually. They are
         // only available when reading via DOM
-        if (XMLConstants.XMLNS_ATTRIBUTE_NS_URI.equals (sAttrNamespaceURI))
-          continue;
+        if (!XMLConstants.XMLNS_ATTRIBUTE_NS_URI.equals (sAttrNamespaceURI))
+        {
+          final String sAttrName = aAttr.getLocalName () != null ? aAttr.getLocalName () : aAttr.getName ();
+          final String sAttrValue = aAttr.getValue ();
+          String sAttributeNSPrefix = null;
+          if (bEmitNamespaces)
+            sAttributeNSPrefix = m_aNSStack.getAttributeNamespacePrefixToUse (sAttrNamespaceURI,
+                                                                              sAttrName,
+                                                                              sAttrValue,
+                                                                              aAttrMap);
 
-        final String sAttrName = aAttr.getLocalName () != null ? aAttr.getLocalName () : aAttr.getName ();
-        final String sAttrValue = aAttr.getValue ();
-        String sAttributeNSPrefix = null;
-        if (bEmitNamespaces)
-          sAttributeNSPrefix = m_aNSStack.getAttributeNamespacePrefixToUse (sAttrNamespaceURI,
-                                                                            sAttrName,
-                                                                            sAttrValue,
-                                                                            aAttrMap);
-
-        if (sAttributeNSPrefix != null)
-          aAttrMap.put (new QName (sAttrNamespaceURI, sAttrName, sAttributeNSPrefix), sAttrValue);
-        else
-          aAttrMap.put (new QName (sAttrNamespaceURI, sAttrName), sAttrValue);
-      }
+          if (sAttributeNSPrefix != null)
+            aAttrMap.put (new QName (sAttrNamespaceURI, sAttrName, sAttributeNSPrefix), sAttrValue);
+          else
+            aAttrMap.put (new QName (sAttrNamespaceURI, sAttrName), sAttrValue);
+        }
+      });
 
       // Determine indent
       final Element aParentElement = aParentNode != null && aParentNode.getNodeType () == Node.ELEMENT_NODE

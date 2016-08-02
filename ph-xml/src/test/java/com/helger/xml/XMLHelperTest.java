@@ -268,6 +268,9 @@ public final class XMLHelperTest extends AbstractCommonsTestCase
     assertEquals (0, XMLHelper.getDirectChildElementCountNS (null, TEST_NS, "tag"));
 
     assertEquals (3, XMLHelper.getDirectChildElementCountNoNS (eRoot));
+    assertEquals (3, XMLHelper.getDirectChildElementCount (eRoot, "child"));
+    assertEquals (0, XMLHelper.getDirectChildElementCount (eRoot, "child1"));
+    assertEquals (2, XMLHelper.getDirectChildElementCount (eRoot, "child2"));
     assertEquals (2, XMLHelper.getDirectChildElementCountNoNS (eRoot, "child"));
     assertEquals (0, XMLHelper.getDirectChildElementCountNoNS (eRoot, "child1"));
     assertEquals (1, XMLHelper.getDirectChildElementCountNoNS (eRoot, "child2"));

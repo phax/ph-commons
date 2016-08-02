@@ -18,6 +18,7 @@ package com.helger.xml;
 
 import java.util.Collection;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -30,7 +31,6 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.EntityReference;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
@@ -41,9 +41,12 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsLinkedHashMap;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.collection.iterate.IIterableIterator;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.filter.IFilter;
 import com.helger.commons.string.StringHelper;
 
@@ -64,6 +67,140 @@ public final class XMLHelper
   {}
 
   /**
+   * Get the owner document of the passed node. If the node itself is a
+   * document, only a cast is performed.
+   *
+   * @param aNode
+   *        The node to get the document from. May be <code>null</code>.
+   * @return <code>null</code> if the passed node was <code>null</code>.
+   */
+  @Nullable
+  public static Document getOwnerDocument (@Nullable final Node aNode)
+  {
+    return aNode == null ? null : aNode instanceof Document ? (Document) aNode : aNode.getOwnerDocument ();
+  }
+
+  @Nullable
+  public static Element getDocumentElement (@Nullable final Node aNode)
+  {
+    final Document aDoc = getOwnerDocument (aNode);
+    return aDoc == null ? null : aDoc.getDocumentElement ();
+  }
+
+  @Nullable
+  public static String getNamespaceURI (@Nullable final Node aNode)
+  {
+    if (aNode instanceof Document)
+    {
+      // Recurse into document element
+      return getNamespaceURI (((Document) aNode).getDocumentElement ());
+    }
+    if (aNode != null)
+      return aNode.getNamespaceURI ();
+    return null;
+  }
+
+  @Nullable
+  public static String getElementName (@Nullable final Node aNode)
+  {
+    if (aNode instanceof Document)
+    {
+      // Recurse into document element
+      return getElementName (((Document) aNode).getDocumentElement ());
+    }
+    if (aNode instanceof Element)
+    {
+      String ret = aNode.getLocalName ();
+      if (ret == null)
+        ret = ((Element) aNode).getTagName ();
+      return ret;
+    }
+    return null;
+  }
+
+  public static boolean hasNoNamespaceURI (@Nonnull final Node aNode)
+  {
+    return StringHelper.hasNoText (aNode.getNamespaceURI ());
+  }
+
+  public static boolean hasNamespaceURI (@Nullable final Node aNode, @Nullable final String sNamespaceURI)
+  {
+    final String sNSURI = aNode == null ? null : aNode.getNamespaceURI ();
+    return sNSURI != null && sNSURI.equals (sNamespaceURI);
+  }
+
+  /**
+   * Check if the passed node is a text node. This includes all nodes derived
+   * from {@link Text} (Text and CData) or {@link EntityReference} nodes.
+   *
+   * @param aNode
+   *        The node to be checked.
+   * @return <code>true</code> if the passed node is a text node,
+   *         <code>false</code> otherwise.
+   */
+  public static boolean isInlineNode (@Nullable final Node aNode)
+  {
+    return aNode instanceof Text || aNode instanceof EntityReference;
+  }
+
+  @Nonnegative
+  public static int getLength (@Nullable final NodeList aNL)
+  {
+    return aNL == null ? 0 : aNL.getLength ();
+  }
+
+  public static boolean isEmpty (@Nullable final NodeList aNL)
+  {
+    return aNL == null ? true : aNL.getLength () == 0;
+  }
+
+  @Nonnull
+  public static IFilter <Node> filterNodeIsElement ()
+  {
+    return x -> x != null && x.getNodeType () == Node.ELEMENT_NODE;
+  }
+
+  @Nonnull
+  public static IFilter <Element> filterElementWithNamespace ()
+  {
+    return x -> x != null && StringHelper.hasText (x.getNamespaceURI ());
+  }
+
+  @Nonnull
+  public static IFilter <Element> filterElementWithoutNamespace ()
+  {
+    return x -> x != null && hasNoNamespaceURI (x);
+  }
+
+  @Nonnull
+  public static IFilter <Element> filterElementWithNamespace (@Nullable final String sNamespaceURI)
+  {
+    return x -> x != null && hasNamespaceURI (x, sNamespaceURI);
+  }
+
+  @Nonnull
+  public static IFilter <Element> filterElementWithNamespaceAndLocalName (@Nullable final String sNamespaceURI,
+                                                                          @Nonnull @Nonempty final String sLocalName)
+  {
+    ValueEnforcer.notEmpty (sLocalName, "LocalName");
+    return x -> x != null && hasNamespaceURI (x, sNamespaceURI) && x.getLocalName ().equals (sLocalName);
+  }
+
+  @Nonnull
+  public static IFilter <Element> filterElementWithTagName (@Nonnull @Nonempty final String sTagName)
+  {
+    ValueEnforcer.notEmpty (sTagName, "TagName");
+    return x -> EqualsHelper.equals (getElementName (x), sTagName);
+  }
+
+  @Nonnull
+  public static IFilter <Element> filterElementWithTagNameNoNS (@Nonnull @Nonempty final String sTagName)
+  {
+    ValueEnforcer.notEmpty (sTagName, "TagName");
+    return x -> hasNoNamespaceURI (x) && x.getTagName ().equals (sTagName);
+  }
+
+  /**
    * Get the first direct child element of the passed element.
    *
    * @param aStartNode
@@ -74,15 +211,8 @@ public final class XMLHelper
   @Nullable
   public static Element getFirstChildElement (@Nonnull final Node aStartNode)
   {
-    final NodeList aNodeList = aStartNode.getChildNodes ();
-    final int nLen = aNodeList.getLength ();
-    for (int i = 0; i < nLen; ++i)
-    {
-      final Node aNode = aNodeList.item (i);
-      if (aNode.getNodeType () == Node.ELEMENT_NODE)
-        return (Element) aNode;
-    }
-    return null;
+    return NodeListIterator.createChildNodeIterator (aStartNode).findFirstMapped (filterNodeIsElement (),
+                                                                                  x -> (Element) x);
   }
 
   /**
@@ -95,7 +225,7 @@ public final class XMLHelper
    */
   public static boolean hasChildElementNodes (@Nonnull final Node aStartNode)
   {
-    return getFirstChildElement (aStartNode) != null;
+    return NodeListIterator.createChildNodeIterator (aStartNode).containsAny (filterNodeIsElement ());
   }
 
   /**
@@ -104,40 +234,35 @@ public final class XMLHelper
    *
    * @param aStartNode
    *        The parent element to be searched. May not be <code>null</code>.
-   * @param sName
+   * @param sTagName
    *        The tag name to search.
    * @return <code>null</code> if the parent element has no such child element.
    */
   @Nullable
-  public static Element getFirstChildElementOfName (@Nonnull final Node aStartNode, @Nullable final String sName)
+  public static Element getFirstChildElementOfName (@Nonnull final Node aStartNode, @Nullable final String sTagName)
   {
-    final NodeList aNodeList = aStartNode.getChildNodes ();
-    final int nLen = aNodeList.getLength ();
-    for (int i = 0; i < nLen; ++i)
-    {
-      final Node aNode = aNodeList.item (i);
-      if (aNode.getNodeType () == Node.ELEMENT_NODE)
-      {
-        final Element aElement = (Element) aNode;
-        if (aElement.getTagName ().equals (sName))
-          return aElement;
-      }
-    }
-    return null;
+    return new ChildElementIterator (aStartNode).findFirst (filterElementWithTagName (sTagName));
   }
 
   /**
-   * Get the owner document of the passed node. If the node itself is a
-   * document, only a cast is performed.
+   * Search all child nodes of the given for the first element that has the
+   * specified tag name.
    *
-   * @param aNode
-   *        The node to get the document from. May be <code>null</code>.
-   * @return <code>null</code> if the passed node was <code>null</code>.
+   * @param aStartNode
+   *        The parent element to be searched. May not be <code>null</code>.
+   * @param sNamespaceURI
+   *        Namespace URI to search. May be <code>null</code>.
+   * @param sLocalName
+   *        The tag name to search.
+   * @return <code>null</code> if the parent element has no such child element.
    */
   @Nullable
-  public static Document getOwnerDocument (@Nullable final Node aNode)
+  public static Element getFirstChildElementOfName (@Nonnull final Node aStartNode,
+                                                    @Nullable final String sNamespaceURI,
+                                                    @Nullable final String sLocalName)
   {
-    return aNode == null ? null : aNode instanceof Document ? (Document) aNode : aNode.getOwnerDocument ();
+    return new ChildElementIterator (aStartNode).findFirst (filterElementWithNamespaceAndLocalName (sNamespaceURI,
+                                                                                                    sLocalName));
   }
 
   @Nonnull
@@ -208,9 +333,22 @@ public final class XMLHelper
   }
 
   @Nonnegative
+  public static int getDirectChildElementCount (@Nullable final Element aParent)
+  {
+    return aParent == null ? 0 : CollectionHelper.getSize (getChildElementIterator (aParent));
+  }
+
+  @Nonnegative
   public static int getDirectChildElementCountNoNS (@Nullable final Element aParent)
   {
     return aParent == null ? 0 : CollectionHelper.getSize (getChildElementIteratorNoNS (aParent));
+  }
+
+  @Nonnegative
+  public static int getDirectChildElementCount (@Nullable final Element aParent,
+                                                @Nonnull @Nonempty final String sTagName)
+  {
+    return aParent == null ? 0 : CollectionHelper.getSize (getChildElementIterator (aParent, sTagName));
   }
 
   @Nonnegative
@@ -236,6 +374,19 @@ public final class XMLHelper
   }
 
   /**
+   * Get an iterator over all child elements.
+   *
+   * @param aStartNode
+   *        the parent element
+   * @return a non-null Iterator
+   */
+  @Nonnull
+  public static IIterableIterator <Element> getChildElementIterator (@Nullable final Node aStartNode)
+  {
+    return new ChildElementIterator (aStartNode);
+  }
+
+  /**
    * Get an iterator over all child elements that have no namespace.
    *
    * @param aStartNode
@@ -243,7 +394,7 @@ public final class XMLHelper
    * @return a non-null Iterator
    */
   @Nonnull
-  public static IIterableIterator <Element> getChildElementIteratorNoNS (@Nonnull final Node aStartNode)
+  public static IIterableIterator <Element> getChildElementIteratorNoNS (@Nullable final Node aStartNode)
   {
     return new ChildElementIterator (aStartNode).withFilter (filterElementWithoutNamespace ());
   }
@@ -261,32 +412,45 @@ public final class XMLHelper
    *         if the passed tag name is null or empty
    */
   @Nonnull
-  public static IIterableIterator <Element> getChildElementIteratorNoNS (@Nonnull final Node aStartNode,
+  public static IIterableIterator <Element> getChildElementIteratorNoNS (@Nullable final Node aStartNode,
                                                                          @Nonnull @Nonempty final String sTagName)
+  {
+    return new ChildElementIterator (aStartNode).withFilter (filterElementWithTagNameNoNS (sTagName));
+  }
+
+  /**
+   * Get an iterator over all child elements that have the desired tag name (but
+   * potentially a namespace URI).
+   *
+   * @param aStartNode
+   *        the parent element
+   * @param sTagName
+   *        the name of the tag that is desired
+   * @return a non-null Iterator
+   * @throws IllegalArgumentException
+   *         if the passed tag name is null or empty
+   */
+  @Nonnull
+  public static IIterableIterator <Element> getChildElementIterator (@Nullable final Node aStartNode,
+                                                                     @Nonnull @Nonempty final String sTagName)
   {
     return new ChildElementIterator (aStartNode).withFilter (filterElementWithTagName (sTagName));
   }
 
   @Nonnull
-  public static IIterableIterator <Element> getChildElementIteratorNS (@Nonnull final Node aStartNode,
+  public static IIterableIterator <Element> getChildElementIteratorNS (@Nullable final Node aStartNode,
                                                                        @Nullable final String sNamespaceURI)
   {
     return new ChildElementIterator (aStartNode).withFilter (filterElementWithNamespace (sNamespaceURI));
   }
 
   @Nonnull
-  public static IIterableIterator <Element> getChildElementIteratorNS (@Nonnull final Node aStartNode,
+  public static IIterableIterator <Element> getChildElementIteratorNS (@Nullable final Node aStartNode,
                                                                        @Nullable final String sNamespaceURI,
                                                                        @Nonnull @Nonempty final String sLocalName)
   {
     return new ChildElementIterator (aStartNode).withFilter (filterElementWithNamespaceAndLocalName (sNamespaceURI,
                                                                                                      sLocalName));
-  }
-
-  public static boolean hasNamespaceURI (@Nullable final Node aNode, @Nullable final String sNamespaceURI)
-  {
-    final String sNSURI = aNode == null ? null : aNode.getNamespaceURI ();
-    return sNSURI != null && sNSURI.equals (sNamespaceURI);
   }
 
   /**
@@ -448,20 +612,6 @@ public final class XMLHelper
   }
 
   /**
-   * Check if the passed node is a text node. This includes all nodes derived
-   * from {@link Text} (Text and CData) or {@link EntityReference} nodes.
-   *
-   * @param aNode
-   *        The node to be checked.
-   * @return <code>true</code> if the passed node is a text node,
-   *         <code>false</code> otherwise.
-   */
-  public static boolean isInlineNode (@Nullable final Node aNode)
-  {
-    return aNode instanceof Text || aNode instanceof EntityReference;
-  }
-
-  /**
    * Get the content of the first Text child element of the passed element.
    *
    * @param aStartNode
@@ -471,24 +621,9 @@ public final class XMLHelper
   @Nullable
   public static String getFirstChildText (@Nullable final Node aStartNode)
   {
-    if (aStartNode != null)
-    {
-      final NodeList aNodeList = aStartNode.getChildNodes ();
-      final int nLen = aNodeList.getLength ();
-      for (int i = 0; i < nLen; ++i)
-      {
-        final Node aNode = aNodeList.item (i);
-        if (aNode instanceof Text)
-        {
-          final Text aText = (Text) aNode;
-
-          // ignore whitespace-only content
-          if (!aText.isElementContentWhitespace ())
-            return aText.getData ();
-        }
-      }
-    }
-    return null;
+    return NodeListIterator.createChildNodeIterator (aStartNode)
+                           .findFirstMapped (x -> x instanceof Text && !((Text) x).isElementContentWhitespace (),
+                                             x -> ((Text) x).getData ());
   }
 
   /**
@@ -534,31 +669,85 @@ public final class XMLHelper
     return aAttr == null ? sDefault : aAttr.getValue ();
   }
 
+  /**
+   * The latest version of XercesJ 2.9 returns an empty string for non existing
+   * attributes. To differentiate between empty attributes and non-existing
+   * attributes, this method returns null for non existing attributes.
+   *
+   * @param aElement
+   *        the source element to get the attribute from
+   * @param sNamespaceURI
+   *        The namespace URI of the attribute to retrieve. May be
+   *        <code>null</code>.
+   * @param sAttrName
+   *        the name of the attribute to query
+   * @return <code>null</code> if the attribute does not exists, the string
+   *         value otherwise
+   */
+  @Nullable
+  public static String getAttributeValueNS (@Nonnull final Element aElement,
+                                            @Nullable final String sNamespaceURI,
+                                            @Nonnull final String sAttrName)
+  {
+    return getAttributeValueNS (aElement, sNamespaceURI, sAttrName, null);
+  }
+
+  /**
+   * The latest version of XercesJ 2.9 returns an empty string for non existing
+   * attributes. To differentiate between empty attributes and non-existing
+   * attributes, this method returns a default value for non existing
+   * attributes.
+   *
+   * @param aElement
+   *        the source element to get the attribute from. May not be
+   *        <code>null</code>.
+   * @param sNamespaceURI
+   *        The namespace URI of the attribute to retrieve. May be
+   *        <code>null</code>.
+   * @param sAttrName
+   *        the name of the attribute to query. May not be <code>null</code>.
+   * @param sDefault
+   *        the value to be returned if the attribute is not present.
+   * @return the default value if the attribute does not exists, the string
+   *         value otherwise
+   */
+  @Nullable
+  public static String getAttributeValueNS (@Nonnull final Element aElement,
+                                            @Nullable final String sNamespaceURI,
+                                            @Nonnull final String sAttrName,
+                                            @Nullable final String sDefault)
+  {
+    final Attr aAttr = aElement.getAttributeNodeNS (sNamespaceURI, sAttrName);
+    return aAttr == null ? sDefault : aAttr.getValue ();
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static ICommonsList <Attr> getAllAttributesAsList (@Nullable final Element aSrcNode)
+  {
+    final ICommonsList <Attr> ret = new CommonsArrayList<> ();
+    NamedNodeMapIterator.createAttributeIterator (aSrcNode).forEach (x -> ret.add ((Attr) x));
+    return ret;
+  }
+
   @Nonnull
   @ReturnsMutableCopy
   public static ICommonsOrderedMap <String, String> getAllAttributesAsMap (@Nullable final Element aSrcNode)
   {
-    final ICommonsOrderedMap <String, String> aMap = new CommonsLinkedHashMap<> ();
-    forAllAttributes (aSrcNode, (sName, sValue) -> aMap.put (sName, sValue));
-    return aMap;
+    final ICommonsOrderedMap <String, String> ret = new CommonsLinkedHashMap<> ();
+    forAllAttributes (aSrcNode, (sName, sValue) -> ret.put (sName, sValue));
+    return ret;
+  }
+
+  public static void forAllAttributes (@Nullable final Element aSrcNode, @Nonnull final Consumer <Attr> aConsumer)
+  {
+    NamedNodeMapIterator.createAttributeIterator (aSrcNode).forEach (x -> aConsumer.accept ((Attr) x));
   }
 
   public static void forAllAttributes (@Nullable final Element aSrcNode,
                                        @Nonnull final BiConsumer <String, String> aConsumer)
   {
-    if (aSrcNode != null)
-    {
-      final NamedNodeMap aNNM = aSrcNode.getAttributes ();
-      if (aNNM != null)
-      {
-        final int nMax = aNNM.getLength ();
-        for (int i = 0; i < nMax; ++i)
-        {
-          final Attr aAttr = (Attr) aNNM.item (i);
-          aConsumer.accept (aAttr.getName (), aAttr.getValue ());
-        }
-      }
-    }
+    forAllAttributes (aSrcNode, x -> aConsumer.accept (x.getName (), x.getValue ()));
   }
 
   /**
@@ -585,90 +774,5 @@ public final class XMLHelper
     }
     // Named XML namespace prefix
     return new QName (XMLConstants.XMLNS_ATTRIBUTE_NS_URI, sNSPrefix, CXML.XML_ATTR_XMLNS);
-  }
-
-  @Nullable
-  public static String getNamespaceURI (@Nullable final Node aNode)
-  {
-    if (aNode instanceof Document)
-    {
-      // Recurse into document element
-      return getNamespaceURI (((Document) aNode).getDocumentElement ());
-    }
-    if (aNode != null)
-      return aNode.getNamespaceURI ();
-    return null;
-  }
-
-  @Nullable
-  public static String getElementName (@Nullable final Node aNode)
-  {
-    if (aNode instanceof Document)
-    {
-      // Recurse into document element
-      return getElementName (((Document) aNode).getDocumentElement ());
-    }
-    if (aNode instanceof Element)
-    {
-      String ret = aNode.getLocalName ();
-      if (ret == null)
-        ret = ((Element) aNode).getTagName ();
-      return ret;
-    }
-    return null;
-  }
-
-  @Nonnegative
-  public static int getLength (@Nullable final NodeList aNL)
-  {
-    return aNL == null ? 0 : aNL.getLength ();
-  }
-
-  public static boolean isEmpty (@Nullable final NodeList aNL)
-  {
-    return aNL == null ? true : aNL.getLength () == 0;
-  }
-
-  @Nonnull
-  public static IFilter <Node> filterNodeIsElement ()
-  {
-    return aNode -> aNode != null && aNode.getNodeType () == Node.ELEMENT_NODE;
-  }
-
-  @Nonnull
-  public static IFilter <Element> filterElementWithNamespace ()
-  {
-    return aElement -> aElement != null && StringHelper.hasText (aElement.getNamespaceURI ());
-  }
-
-  @Nonnull
-  public static IFilter <Element> filterElementWithoutNamespace ()
-  {
-    return aElement -> aElement != null && StringHelper.hasNoText (aElement.getNamespaceURI ());
-  }
-
-  @Nonnull
-  public static IFilter <Element> filterElementWithNamespace (@Nullable final String sNamespaceURI)
-  {
-    return aElement -> aElement != null && XMLHelper.hasNamespaceURI (aElement, sNamespaceURI);
-  }
-
-  @Nonnull
-  public static IFilter <Element> filterElementWithNamespaceAndLocalName (@Nullable final String sNamespaceURI,
-                                                                          @Nonnull @Nonempty final String sLocalName)
-  {
-    ValueEnforcer.notEmpty (sLocalName, "LocalName");
-    return aElement -> aElement != null &&
-                       XMLHelper.hasNamespaceURI (aElement, sNamespaceURI) &&
-                       aElement.getLocalName ().equals (sLocalName);
-  }
-
-  @Nonnull
-  public static IFilter <Element> filterElementWithTagName (@Nonnull @Nonempty final String sTagName)
-  {
-    ValueEnforcer.notEmpty (sTagName, "TagName");
-    return aElement -> aElement != null &&
-                       aElement.getNamespaceURI () == null &&
-                       aElement.getTagName ().equals (sTagName);
   }
 }

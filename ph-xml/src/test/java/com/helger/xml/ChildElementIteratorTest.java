@@ -26,9 +26,6 @@ import org.w3c.dom.Element;
 
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.xml.ChildElementIterator;
-import com.helger.xml.XMLFactory;
-import com.helger.xml.XMLHelper;
 
 /**
  * Test class for class {@link ChildElementIterator}.
@@ -65,12 +62,6 @@ public final class ChildElementIteratorTest extends AbstractCommonsTestCase
     }
     catch (final UnsupportedOperationException ex)
     {}
-    try
-    {
-      new ChildElementIterator (null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
+    assertEquals (0, CollectionHelper.getSize (new ChildElementIterator (null)));
   }
 }

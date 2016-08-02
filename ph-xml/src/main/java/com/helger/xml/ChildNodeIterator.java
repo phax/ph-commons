@@ -16,16 +16,9 @@
  */
 package com.helger.xml;
 
-import java.util.NoSuchElementException;
-
 import javax.annotation.Nonnull;
 
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collection.iterate.IIterableIterator;
-import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Iterate child elements of a single node. Does not iterate recursively. Does
@@ -33,47 +26,11 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public class ChildNodeIterator implements IIterableIterator <Node>
+@Deprecated
+public class ChildNodeIterator extends NodeListIterator
 {
-  /** The nodes to iterate. */
-  private final NodeList m_aNL;
-
-  /** the maximum number of nodes. */
-  private final int m_nMax;
-
-  /** the current index. */
-  private int m_nIndex = 0;
-
   public ChildNodeIterator (@Nonnull final Node aStartNode)
   {
-    ValueEnforcer.notNull (aStartNode, "StartNode");
-    m_aNL = aStartNode.getChildNodes ();
-    m_nMax = m_aNL.getLength ();
-  }
-
-  public boolean hasNext ()
-  {
-    return m_nIndex < m_nMax;
-  }
-
-  @Nonnull
-  public Node next ()
-  {
-    if (!hasNext ())
-      throw new NoSuchElementException ();
-
-    // just advance to next index
-    final Node ret = m_aNL.item (m_nIndex);
-    ++m_nIndex;
-    return ret;
-  }
-
-  @Override
-  public String toString ()
-  {
-    return new ToStringGenerator (this).append ("nodeList", m_aNL)
-                                       .append ("max", m_nMax)
-                                       .append ("index", m_nIndex)
-                                       .toString ();
+    super (aStartNode == null ? null : aStartNode.getChildNodes ());
   }
 }
