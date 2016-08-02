@@ -17,7 +17,8 @@
     limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.helger</groupId>
@@ -111,22 +112,10 @@
               <bundledSignature>jdk-unsafe</bundledSignature>
               <bundledSignature>jdk-deprecated</bundledSignature>
               <bundledSignature>jdk-reflection</bundledSignature>
-                                                                                                                                                                                      <!--  
+              <!-- 
               <bundledSignature>jdk-internal</bundledSignature>
               <bundledSignature>jdk-non-portable</bundledSignature>
               -->
-
-
-
-
-
-
-
-
-
-
-
-
               <bundledSignature>jdk-system-out</bundledSignature>
             </bundledSignatures>
           </configuration>
@@ -139,19 +128,7 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
           <compilerArgs>
-                                                                                                                                                            <!-- Required for linking against the com.sun.xml.internal classes! -->
-
-
-
-
-
-
-
-
-
-
-
-
+            <!-- Required for linking against the com.sun.xml.internal classes! -->
             <arg>-XDignore.symbol.file</arg>
           </compilerArgs>
           <!-- fork needs to be true in order to use the -X... arg -->
@@ -169,8 +146,9 @@
               com.sun.xml.internal.bind.marshaller;resolution:=optional,
               *</Import-Package>
             <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)"</Require-Capability>
-            <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.jaxb.config.JAXBEqualsImplementationRegistrarSPI,
-osgi.serviceloader; osgi.serviceloader=com.helger.jaxb.config.JAXBHashCodeImplementationRegistrarSPI</Provide-Capability>
+            <Provide-Capability>osgi.serviceloader;
+              osgi.serviceloader=com.helger.jaxb.config.JAXBEqualsImplementationRegistrarSPI,
+              osgi.serviceloader; osgi.serviceloader=com.helger.jaxb.config.JAXBHashCodeImplementationRegistrarSPI</Provide-Capability>
           </instructions>
         </configuration>
       </plugin>
