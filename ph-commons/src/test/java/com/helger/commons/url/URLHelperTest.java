@@ -167,6 +167,7 @@ public final class URLHelperTest
     assertNotNull (URLHelper.getAsURI ("http://www.helger.com"));
     assertNotNull (URLHelper.getAsURI ("iso6523-actorid-upis"));
     assertNull (URLHelper.getAsURI ("test/##"));
+    assertNull (URLHelper.getAsURI ("test##"));
   }
 
   @Test
