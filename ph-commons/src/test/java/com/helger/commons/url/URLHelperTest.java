@@ -157,6 +157,16 @@ public final class URLHelperTest
   public void testGetAsURL ()
   {
     assertNull (URLHelper.getAsURL ("../common/file.xsd"));
+    assertNotNull (URLHelper.getAsURL ("http://www.helger.com"));
+  }
+
+  @Test
+  public void testGetAsURI ()
+  {
+    assertNotNull (URLHelper.getAsURI ("../common/file.xsd"));
+    assertNotNull (URLHelper.getAsURI ("http://www.helger.com"));
+    assertNotNull (URLHelper.getAsURI ("iso6523-actorid-upis"));
+    assertNull (URLHelper.getAsURI ("test/##"));
   }
 
   @Test

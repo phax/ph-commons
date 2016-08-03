@@ -52,9 +52,9 @@ import com.helger.commons.charset.CCharset;
 import com.helger.commons.codec.IDecoder;
 import com.helger.commons.codec.IEncoder;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.io.resource.ClassPathResource;
@@ -390,7 +390,7 @@ public final class URLHelper
     // Ever trickier is the when running multiple threads for reading XML (e.g.
     // in the unit test) this code would wait forever in the static initializer
     // because XMLMapHandler internally also acquires an XML reader....
-    final ICommonsMap <String, String> aCleanURLMap = new CommonsHashMap <> ();
+    final ICommonsOrderedMap <String, String> aCleanURLMap = new CommonsLinkedHashMap<> ();
     StreamHelper.readStreamLines (ClassPathResource.getInputStream ("codelists/cleanurl-data.dat"),
                                   CCharset.CHARSET_UTF_8_OBJ,
                                   sLine -> {
