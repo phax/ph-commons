@@ -16,7 +16,6 @@
  */
 package com.helger.commons.errorlist;
 
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.function.Consumer;
 
@@ -65,7 +64,7 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
       m_aItems.addAll (aErrorList.m_aItems);
   }
 
-  public ErrorList (@Nullable final Collection <? extends IError> aErrorList)
+  public ErrorList (@Nullable final Iterable <? extends IError> aErrorList)
   {
     addAll (aErrorList);
   }
@@ -82,7 +81,7 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
         add (aFormError);
   }
 
-  public final void addAll (@Nullable final Collection <? extends IError> aErrorList)
+  public final void addAll (@Nullable final Iterable <? extends IError> aErrorList)
   {
     if (aErrorList != null)
       for (final IError aFormError : aErrorList)
@@ -450,7 +449,7 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
   }
 
   @Nonnull
-  public EChange removeAll (@Nullable final Collection <? extends IError> aErrors)
+  public EChange removeAll (@Nullable final Iterable <? extends IError> aErrors)
   {
     EChange ret = EChange.UNCHANGED;
     if (aErrors != null)

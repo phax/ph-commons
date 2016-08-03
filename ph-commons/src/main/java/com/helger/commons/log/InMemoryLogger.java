@@ -27,6 +27,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsIterable;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.error.EErrorLevel;
 import com.helger.commons.error.IErrorLevel;
@@ -43,9 +44,14 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class InMemoryLogger implements Iterable <LogMessage>, IHasSize, IClearable, IHasErrorLevels, Serializable
+public class InMemoryLogger implements
+                            ICommonsIterable <LogMessage>,
+                            IHasSize,
+                            IClearable,
+                            IHasErrorLevels,
+                            Serializable
 {
-  private final ICommonsList <LogMessage> m_aMessages = new CommonsArrayList <> ();
+  private final ICommonsList <LogMessage> m_aMessages = new CommonsArrayList<> ();
 
   /**
    * Override this method to create a different LogMessage object or to filter

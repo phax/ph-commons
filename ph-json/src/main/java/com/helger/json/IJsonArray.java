@@ -24,6 +24,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.ICommonsIterable;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.state.EChange;
 import com.helger.commons.traits.IConvertibleByIndexTrait;
@@ -34,7 +35,7 @@ import com.helger.json.convert.JsonConverter;
  *
  * @author Philip Helger
  */
-public interface IJsonArray extends IJsonCollection, Iterable <IJson>, IConvertibleByIndexTrait
+public interface IJsonArray extends IJsonCollection, ICommonsIterable <IJson>, IConvertibleByIndexTrait
 {
   @Nonnull
   IJsonArray add (@Nonnull IJson aValue);

@@ -30,6 +30,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.ICommonsCollection;
+import com.helger.commons.collection.ext.ICommonsIterable;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.lang.GenericReflection;
@@ -46,7 +47,7 @@ import com.helger.commons.typeconvert.TypeConverter;
  *        Value type
  */
 public interface IAttributeContainer <KEYTYPE, VALUETYPE>
-                                     extends Iterable <Map.Entry <KEYTYPE, VALUETYPE>>, Serializable
+                                     extends ICommonsIterable <Map.Entry <KEYTYPE, VALUETYPE>>, Serializable
 {
   /**
    * @return The number of contained attributes. Always &ge; 0.

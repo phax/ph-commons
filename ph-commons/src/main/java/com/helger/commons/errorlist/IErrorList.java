@@ -22,6 +22,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.ICommonsIterable;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.multimap.IMultiMapListBased;
 import com.helger.commons.collection.multimap.MultiLinkedHashMapArrayListBased;
@@ -33,7 +34,7 @@ import com.helger.commons.error.IHasErrorLevels;
  *
  * @author Philip Helger
  */
-public interface IErrorList extends Iterable <IError>, IHasErrorLevels, IFieldErrorList, Serializable
+public interface IErrorList extends ICommonsIterable <IError>, IHasErrorLevels, IFieldErrorList, Serializable
 {
   /**
    * @return <code>true</code> if this list has no items, <code>false</code> if

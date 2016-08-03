@@ -47,6 +47,7 @@ import javax.annotation.WillCloseWhenClosed;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsIterable;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.stream.NonBlockingBufferedReader;
 import com.helger.commons.io.stream.StreamHelper;
@@ -56,7 +57,7 @@ import com.helger.commons.io.stream.StreamHelper;
  *
  * @author Glen Smith
  */
-public class CSVReader implements Closeable, Iterable <ICommonsList <String>>
+public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <String>>
 {
   private final Reader m_aReader;
   private final ICSVLineReader m_aLineReader;

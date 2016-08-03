@@ -21,6 +21,7 @@ import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.collection.ext.ICommonsIterable;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.lang.IHasSize;
 
@@ -29,7 +30,7 @@ import com.helger.commons.lang.IHasSize;
  *
  * @author Philip Helger
  */
-public interface IResourceErrorGroup extends IHasSize, Iterable <IResourceError>, IHasErrorLevels, Serializable
+public interface IResourceErrorGroup extends IHasSize, ICommonsIterable <IResourceError>, IHasErrorLevels, Serializable
 {
   /**
    * Get a resource error group containing only the failure elements. All error
@@ -59,7 +60,7 @@ public interface IResourceErrorGroup extends IHasSize, Iterable <IResourceError>
 
   /**
    * Call the provided consumer for all contained resource errors.
-   * 
+   *
    * @param aConsumer
    *        The consumer to be invoked. May not be <code>null</code>. May only
    *        perform reading actions!

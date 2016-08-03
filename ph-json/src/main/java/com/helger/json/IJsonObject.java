@@ -24,6 +24,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.ICommonsIterable;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.ext.ICommonsOrderedMap;
@@ -39,7 +40,7 @@ import com.helger.json.convert.JsonConverter;
  */
 public interface IJsonObject extends
                              IJsonCollection,
-                             Iterable <Map.Entry <String, IJson>>,
+                             ICommonsIterable <Map.Entry <String, IJson>>,
                              IConvertibleByKeyTrait <String>
 {
   @Nonnull
