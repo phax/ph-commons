@@ -21,6 +21,7 @@ import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.ICommonsIterable;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.lang.IHasSize;
@@ -32,6 +33,68 @@ import com.helger.commons.lang.IHasSize;
  */
 public interface IResourceErrorGroup extends IHasSize, ICommonsIterable <IResourceError>, IHasErrorLevels, Serializable
 {
+  @Nonnull
+  default IErrorLevel getMostSevereErrorLevel ()
+  {
+    IErrorLevel aRet = EErrorLevel.SUCCESS;
+    for (final IResourceError aError : this)
+    {
+      final IErrorLevel aCur = aError.getErrorLevel ();
+      if (aCur.isMoreSevereThan (aRet))
+      {
+        aRet = aCur;
+        if (aRet.isHighest ())
+          break;
+      }
+    }
+    return aRet;
+  }
+
+  default boolean containsOnlySuccess ()
+  {
+    return containsOnly (IResourceError::isSuccess);
+  }
+
+  default boolean containsAtLeastOneSuccess ()
+  {
+    return containsAny (IResourceError::isSuccess);
+  }
+
+  default boolean containsNoSuccess ()
+  {
+    return containsNone (IResourceError::isSuccess);
+  }
+
+  default boolean containsOnlyFailure ()
+  {
+    return containsOnly (IResourceError::isFailure);
+  }
+
+  default boolean containsAtLeastOneFailure ()
+  {
+    return containsAny (IResourceError::isFailure);
+  }
+
+  default boolean containsNoFailure ()
+  {
+    return containsNone (IResourceError::isFailure);
+  }
+
+  default boolean containsOnlyError ()
+  {
+    return containsOnly (IResourceError::isError);
+  }
+
+  default boolean containsAtLeastOneError ()
+  {
+    return containsAny (IResourceError::isError);
+  }
+
+  default boolean containsNoError ()
+  {
+    return containsNone (IResourceError::isError);
+  }
+
   /**
    * Get a resource error group containing only the failure elements. All error
    * levels except {@link EErrorLevel#SUCCESS} are considered to be a failure!
@@ -39,7 +102,12 @@ public interface IResourceErrorGroup extends IHasSize, ICommonsIterable <IResour
    * @return A resource error group containing only the failures.
    */
   @Nonnull
-  IResourceErrorGroup getAllFailures ();
+  default IResourceErrorGroup getAllFailures ()
+  {
+    final ResourceErrorGroup ret = new ResourceErrorGroup ();
+    findAll (IResourceError::isFailure, ret::addResourceError);
+    return ret;
+  }
 
   /**
    * Get a resource error group containing only the error elements. All error
@@ -48,7 +116,12 @@ public interface IResourceErrorGroup extends IHasSize, ICommonsIterable <IResour
    * @return A resource error group containing only the errors.
    */
   @Nonnull
-  IResourceErrorGroup getAllErrors ();
+  default IResourceErrorGroup getAllErrors ()
+  {
+    final ResourceErrorGroup ret = new ResourceErrorGroup ();
+    findAll (IResourceError::isError, ret::addResourceError);
+    return ret;
+  }
 
   /**
    * Get a list of all contained resource errors.
@@ -56,6 +129,7 @@ public interface IResourceErrorGroup extends IHasSize, ICommonsIterable <IResour
    * @return A non-<code>null</code> list of all contained error objects
    */
   @Nonnull
+  @ReturnsMutableCopy
   ICommonsList <IResourceError> getAllResourceErrors ();
 
   /**
@@ -65,6 +139,7 @@ public interface IResourceErrorGroup extends IHasSize, ICommonsIterable <IResour
    *        The consumer to be invoked. May not be <code>null</code>. May only
    *        perform reading actions!
    */
+  @Deprecated
   default void forEachResourceError (@Nonnull final Consumer <? super IResourceError> aConsumer)
   {
     getAllResourceErrors ().forEach (aConsumer);

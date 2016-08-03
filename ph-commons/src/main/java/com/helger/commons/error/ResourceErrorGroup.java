@@ -17,7 +17,6 @@
 package com.helger.commons.error;
 
 import java.util.Iterator;
-import java.util.function.Consumer;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -41,7 +40,7 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public class ResourceErrorGroup implements IResourceErrorGroup, ICloneable <ResourceErrorGroup>, IClearable
 {
-  private final ICommonsList <IResourceError> m_aErrors = new CommonsArrayList <> ();
+  private final ICommonsList <IResourceError> m_aErrors = new CommonsArrayList<> ();
 
   public ResourceErrorGroup ()
   {}
@@ -129,102 +128,22 @@ public class ResourceErrorGroup implements IResourceErrorGroup, ICloneable <Reso
     return this;
   }
 
-  public boolean containsOnlySuccess ()
-  {
-    return m_aErrors.containsOnly (e -> e.isSuccess ());
-  }
-
-  public boolean containsAtLeastOneSuccess ()
-  {
-    return m_aErrors.containsAny (e -> e.isSuccess ());
-  }
-
-  public boolean containsNoSuccess ()
-  {
-    return m_aErrors.containsNone (e -> e.isSuccess ());
-  }
-
   @Nonnegative
   public int getSuccessCount ()
   {
-    return m_aErrors.getCount (e -> e.isSuccess ());
-  }
-
-  public boolean containsOnlyFailure ()
-  {
-    return m_aErrors.containsOnly (e -> e.isFailure ());
-  }
-
-  public boolean containsAtLeastOneFailure ()
-  {
-    return m_aErrors.containsAny (e -> e.isFailure ());
-  }
-
-  public boolean containsNoFailure ()
-  {
-    return m_aErrors.containsNone (e -> e.isFailure ());
+    return m_aErrors.getCount (IResourceError::isSuccess);
   }
 
   @Nonnegative
   public int getFailureCount ()
   {
-    return m_aErrors.getCount (e -> e.isFailure ());
-  }
-
-  public boolean containsOnlyError ()
-  {
-    return m_aErrors.containsOnly (e -> e.isError ());
-  }
-
-  public boolean containsAtLeastOneError ()
-  {
-    return m_aErrors.containsAny (e -> e.isError ());
-  }
-
-  public boolean containsNoError ()
-  {
-    return m_aErrors.containsNone (e -> e.isError ());
+    return m_aErrors.getCount (IResourceError::isFailure);
   }
 
   @Nonnegative
   public int getErrorCount ()
   {
-    return m_aErrors.getCount (e -> e.isError ());
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public ResourceErrorGroup getAllFailures ()
-  {
-    final ResourceErrorGroup ret = new ResourceErrorGroup ();
-    m_aErrors.findAll (e -> e.isFailure (), ret::addResourceError);
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public ResourceErrorGroup getAllErrors ()
-  {
-    final ResourceErrorGroup ret = new ResourceErrorGroup ();
-    m_aErrors.findAll (e -> e.isError (), ret::addResourceError);
-    return ret;
-  }
-
-  @Nonnull
-  public IErrorLevel getMostSevereErrorLevel ()
-  {
-    IErrorLevel aRet = EErrorLevel.SUCCESS;
-    for (final IResourceError aError : m_aErrors)
-    {
-      final IErrorLevel aCur = aError.getErrorLevel ();
-      if (aCur.isMoreSevereThan (aRet))
-      {
-        aRet = aCur;
-        if (aRet.isHighest ())
-          break;
-      }
-    }
-    return aRet;
+    return m_aErrors.getCount (IResourceError::isError);
   }
 
   @Nonnegative
@@ -256,11 +175,6 @@ public class ResourceErrorGroup implements IResourceErrorGroup, ICloneable <Reso
   public ICommonsList <IResourceError> getAllResourceErrors ()
   {
     return m_aErrors.getClone ();
-  }
-
-  public void forEachResourceError (@Nonnull final Consumer <? super IResourceError> aConsumer)
-  {
-    m_aErrors.forEach (aConsumer);
   }
 
   @Nonnull

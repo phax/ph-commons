@@ -78,7 +78,7 @@ public class CollectingValidationEventHandler extends AbstractValidationEventHan
   public void forEachResourceError (@Nonnull final Consumer <? super IResourceError> aConsumer)
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
-    m_aRWLock.readLocked ( () -> m_aErrors.forEachResourceError (aConsumer));
+    m_aRWLock.readLocked ( () -> m_aErrors.forEach (aConsumer));
   }
 
   /**

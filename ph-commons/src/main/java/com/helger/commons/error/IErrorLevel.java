@@ -84,7 +84,7 @@ public interface IErrorLevel extends
 
   default boolean isHighest ()
   {
-    return this == EErrorLevel.HIGHEST;
+    return isMoreOrEqualSevereThan (EErrorLevel.HIGHEST);
   }
 
   @Nullable
