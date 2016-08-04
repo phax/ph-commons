@@ -83,6 +83,15 @@ public interface IJson extends ICloneable <IJson>, Serializable
     return isValue () ? (IJsonValue) this : null;
   }
 
+  /**
+   * Convert this JSON element to a string.
+   *
+   * @return The non-<code>null</code> String (serialization) representation of
+   *         this JSON object using the default settings.
+   * @see #getAsJsonString(IJsonWriterSettings)
+   * @see JsonWriterSettings#DEFAULT_SETTINGS
+   * @see JsonWriter
+   */
   @Nonnull
   default String getAsJsonString ()
   {
@@ -90,9 +99,13 @@ public interface IJson extends ICloneable <IJson>, Serializable
   }
 
   /**
+   * Convert this JSON element to a string using the provided settings.
+   *
    * @param aWriterSettings
    *        The Json writer settings to be used.
    * @return The non-<code>null</code> string representation of this object.
+   * @see #getAsJsonString()
+   * @see JsonWriter
    */
   @Nonnull
   default String getAsJsonString (@Nonnull final IJsonWriterSettings aWriterSettings)

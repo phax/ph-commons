@@ -75,7 +75,6 @@ public class JsonWriter
                                final int nIndentLevel) throws IOException
   {
     ValueEnforcer.notNull (aJson, "Json");
-    ValueEnforcer.notNull (aWriter, "Writer");
 
     if (aJson.isValue ())
     {
@@ -85,7 +84,7 @@ public class JsonWriter
     else
     {
       // Complex (array or object)
-      final boolean bIsIndentEnabled = m_aSettings.isIdentEnabled () && !((IJsonCollection) aJson).isEmpty ();
+      final boolean bIsIndentEnabled = m_aSettings.isIdentEnabled () && ((IJsonCollection) aJson).isNotEmpty ();
       final String sSingleIndent = m_aSettings.getIndentString ();
       final String sIndentString = bIsIndentEnabled ? StringHelper.getRepeated (sSingleIndent, nIndentLevel) : "";
       final String sNestedIndentString = bIsIndentEnabled ? sIndentString + sSingleIndent : "";
@@ -170,6 +169,9 @@ public class JsonWriter
 
   public void writeToWriter (@Nonnull final IJson aJson, @Nonnull @WillNotClose final Writer aWriter) throws IOException
   {
+    ValueEnforcer.notNull (aJson, "Json");
+    ValueEnforcer.notNull (aWriter, "Writer");
+
     _writeToWriter (aJson, aWriter, 0);
 
     if (m_aSettings.isWriteNewlineAtEnd ())
