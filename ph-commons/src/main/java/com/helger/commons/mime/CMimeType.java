@@ -70,6 +70,9 @@ public final class CMimeType
   /** RSS XML feed. */
   public static final IMimeType APPLICATION_RSS_XML = EMimeContentType.APPLICATION.buildMimeType ("rss+xml");
 
+  /** SOAP XML. */
+  public static final IMimeType APPLICATION_SOAP_XML = EMimeContentType.APPLICATION.buildMimeType ("soap+xml");
+
   /** Shockwave/Flash */
   public static final IMimeType APPLICATION_SHOCKWAVE_FLASH = EMimeContentType.APPLICATION.buildMimeType ("x-shockwave-flash");
 
