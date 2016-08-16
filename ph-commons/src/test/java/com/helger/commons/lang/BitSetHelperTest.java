@@ -20,6 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.util.BitSet;
+import java.util.Random;
 
 import org.junit.Test;
 
@@ -64,9 +65,10 @@ public final class BitSetHelperTest
     assertEquals (1, aBS.cardinality ());
     assertEquals (0x80000000, BitSetHelper.getExtractedIntValue (aBS));
 
+    final Random aRandom = RandomHelper.getRandom ();
     for (int i = 0; i < 1024; ++i)
     {
-      final int nValue = RandomHelper.getRandom ().nextInt ();
+      final int nValue = aRandom.nextInt ();
       assertEquals (nValue, BitSetHelper.getExtractedIntValue (BitSetHelper.createBitSet (nValue)));
     }
 
@@ -94,9 +96,10 @@ public final class BitSetHelperTest
     assertEquals (1, aBS.cardinality ());
     assertEquals (0x8000000000000000L, BitSetHelper.getExtractedLongValue (aBS));
 
+    final Random aRandom = RandomHelper.getRandom ();
     for (int i = 0; i < 1024; ++i)
     {
-      final long nValue = RandomHelper.getRandom ().nextLong ();
+      final long nValue = aRandom.nextLong ();
       assertEquals (nValue, BitSetHelper.getExtractedLongValue (BitSetHelper.createBitSet (nValue)));
     }
 
