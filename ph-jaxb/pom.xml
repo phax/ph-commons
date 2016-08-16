@@ -145,9 +145,8 @@
               com.sun.xml.internal.bind.marshaller;resolution:=optional,
               *</Import-Package>
             <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)"</Require-Capability>
-            <Provide-Capability>osgi.serviceloader;
-              osgi.serviceloader=com.helger.jaxb.config.JAXBEqualsImplementationRegistrarSPI,
-              osgi.serviceloader; osgi.serviceloader=com.helger.jaxb.config.JAXBHashCodeImplementationRegistrarSPI</Provide-Capability>
+            <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.jaxb.config.JAXBEqualsImplementationRegistrarSPI,
+osgi.serviceloader; osgi.serviceloader=com.helger.jaxb.config.JAXBHashCodeImplementationRegistrarSPI</Provide-Capability>
           </instructions>
         </configuration>
       </plugin>
