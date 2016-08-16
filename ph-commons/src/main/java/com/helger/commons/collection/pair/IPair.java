@@ -20,7 +20,6 @@ import java.io.Serializable;
 import java.util.Comparator;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * Represents a basic read-only pair.
@@ -34,15 +33,15 @@ import javax.annotation.Nullable;
 public interface IPair <DATA1TYPE, DATA2TYPE> extends Serializable
 {
   /**
-   * @return The first element. May be <code>null</code>.
+   * @return The first element. May be <code>null</code> depending on the
+   *         implementation.
    */
-  @Nullable
   DATA1TYPE getFirst ();
 
   /**
-   * @return The second element. May be <code>null</code>.
+   * @return The second element. May be <code>null</code> depending on the
+   *         implementation.
    */
-  @Nullable
   DATA2TYPE getSecond ();
 
   @Nonnull

@@ -17,7 +17,6 @@
 package com.helger.commons.collection.pair;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import com.helger.commons.state.EChange;
 
@@ -36,19 +35,21 @@ public interface IMutablePair <DATA1TYPE, DATA2TYPE> extends IPair <DATA1TYPE, D
    * Set the first value.
    *
    * @param aFirst
-   *        The first value. May be <code>null</code>.
+   *        The first value. May be <code>null</code> depending on the
+   *        implementation.
    * @return {@link EChange}
    */
   @Nonnull
-  EChange setFirst (@Nullable DATA1TYPE aFirst);
+  EChange setFirst (DATA1TYPE aFirst);
 
   /**
    * Set the second value.
    *
    * @param aSecond
-   *        The second value. May be <code>null</code>.
+   *        The second value. May be <code>null</code> depending on the
+   *        implementation.
    * @return {@link EChange}
    */
   @Nonnull
-  EChange setSecond (@Nullable DATA2TYPE aSecond);
+  EChange setSecond (DATA2TYPE aSecond);
 }
