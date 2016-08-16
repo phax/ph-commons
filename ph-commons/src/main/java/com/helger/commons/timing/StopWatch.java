@@ -19,6 +19,7 @@ package com.helger.commons.timing;
 import java.io.Serializable;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -27,6 +28,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.lang.TimeValue;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.IStoppable;
 import com.helger.commons.string.ToStringGenerator;
@@ -261,5 +263,21 @@ public class StopWatch implements IStoppable, Serializable
   public static StopWatch createdStopped ()
   {
     return new StopWatch (false);
+  }
+
+  /**
+   * Run the passed runnable and measure the time.
+   * 
+   * @param aRunnable
+   *        The runnable to be executed. May not be <code>null</code>.
+   * @return The elapsed time. Never <code>null</code>.
+   */
+  @Nonnull
+  public static TimeValue runMeasured (@Nonnull final Runnable aRunnable)
+  {
+    final StopWatch aSW = createdStarted ();
+    aRunnable.run ();
+    final long nNanos = aSW.stopAndGetNanos ();
+    return new TimeValue (TimeUnit.NANOSECONDS, nNanos);
   }
 }
