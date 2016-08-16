@@ -1012,6 +1012,19 @@ public interface IMicroElement extends IMicroNodeWithChildren
   }
 
   /**
+   * Check if this element has the provided tag name but ignoring case.
+   *
+   * @param sTagName
+   *        The tag name to compare against. May be <code>null</code>.
+   * @return <code>true</code> if tag name and the passed name match case
+   *         insensitive.
+   */
+  default boolean hasTagNameIgnoreCase (@Nullable final String sTagName)
+  {
+    return getTagName ().equalsIgnoreCase (sTagName);
+  }
+
+  /**
    * Get the number of all direct child elements.
    *
    * @return The number of all direct child elements. Always &ge; 0.
