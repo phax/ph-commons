@@ -13,7 +13,13 @@ This project was the following modules:
 
 ##News
 
-  * 8.2.0
+  * 8.3.1
+    * Started adding JDK 9 compatibility
+  * 8.3.0 - 2016-08-02
+    * Moved the following sub-projects into this project: ph-datetime, ph-json, ph-charset, ph-graph, ph-matrix and ph-settings
+  * 8.2.2 - 2016-07-22
+  * 8.2.1 - 2016-07-15
+  * 8.2.0 - 2016-07-10
     * Added new sub-project `ph-security` that contains MessageDigest, HMac, Keystore etc. stuff
   * 8.1.0 - 2016-06-26: 
     * Minor small API optimizations for JAXB.
@@ -31,7 +37,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-commons</artifactId>
-  <version>8.1.0</version>
+  <version>8.3.0</version>
 </dependency>
 ```
 
@@ -180,7 +186,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-xml</artifactId>
-  <version>8.1.0</version>
+  <version>8.3.0</version>
 </dependency>
 ```
 
@@ -198,7 +204,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-jaxb</artifactId>
-  <version>8.1.0</version>
+  <version>8.3.0</version>
 </dependency>
 ```
 
@@ -221,7 +227,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-tree</artifactId>
-  <version>8.1.0</version>
+  <version>8.3.0</version>
 </dependency>
 ```
 
@@ -239,7 +245,72 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-less-commons</artifactId>
-  <version>8.1.0</version>
+  <version>8.3.0</version>
+</dependency>
+```
+
+#ph-json
+Another simple library to read and write JSON documents and streams using a custom parser.
+
+##Maven usage
+Add the following to your pom.xml to use this artifact:
+```
+<dependency>
+  <groupId>com.helger</groupId>
+  <artifactId>ph-json</artifactId>
+  <version>8.3.0</version>
+</dependency>
+```
+
+#ph-settings
+Another simple library to deal with configuration files and settings in general.
+
+##Maven usage
+Add the following to your pom.xml to use this artifact:
+```
+<dependency>
+  <groupId>com.helger</groupId>
+  <artifactId>ph-settings</artifactId>
+  <version>8.3.0</version>
+</dependency>
+```
+
+#ph-datetime
+Another library that improves the JDK 8 date time handling with some useful extensions.
+
+##Maven usage
+Add the following to your pom.xml to use this artifact:
+```
+<dependency>
+  <groupId>com.helger</groupId>
+  <artifactId>ph-datetime</artifactId>
+  <version>8.3.0</version>
+</dependency>
+```
+
+#ph-graph
+Another library to handle all kind of graphs in a generic way.
+
+##Maven usage
+Add the following to your pom.xml to use this artifact:
+```
+<dependency>
+  <groupId>com.helger</groupId>
+  <artifactId>ph-graph</artifactId>
+  <version>8.3.0</version>
+</dependency>
+```
+
+#ph-matrix
+Another library to handle matrixes in an easy way including some operations on them.
+
+##Maven usage
+Add the following to your pom.xml to use this artifact:
+```
+<dependency>
+  <groupId>com.helger</groupId>
+  <artifactId>ph-matrix</artifactId>
+  <version>8.3.0</version>
 </dependency>
 ```
 
