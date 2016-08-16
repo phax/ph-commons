@@ -70,6 +70,7 @@ import com.helger.commons.system.SystemProperties;
  * @author David Megginson, David Brownell
  * @version 2.0.1 (sax2r2)
  */
+@Deprecated
 public final class XMLReaderFactoryCommons
 {
   /**

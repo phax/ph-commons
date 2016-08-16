@@ -21,9 +21,11 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.SAXException;
+import org.xml.sax.helpers.XMLReaderFactory;
 
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.factory.IFactory;
+import com.helger.commons.system.SystemProperties;
 
 public final class SAXReaderFactory implements IFactory <org.xml.sax.XMLReader>
 {
@@ -40,7 +42,12 @@ public final class SAXReaderFactory implements IFactory <org.xml.sax.XMLReader>
     {
       org.xml.sax.XMLReader ret;
       if (true)
-        ret = XMLReaderFactoryCommons.createXMLReader ();
+      {
+        ret = XMLReaderFactory.createXMLReader ();
+        // Because of a performance flaw in this implementation, explicitly set
+        // the system property to avoid scanning JAR files over and over again
+        SystemProperties.setPropertyValue ("org.xml.sax.driver", ret.getClass ().getName ());
+      }
       else
       {
         // This fails with Xerces on the classpath
