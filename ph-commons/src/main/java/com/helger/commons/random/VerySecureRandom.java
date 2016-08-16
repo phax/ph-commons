@@ -28,6 +28,8 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.lang.TimeValue;
+import com.helger.commons.timing.StopWatch;
 
 /**
  * A secure random generator initialized with another secure random generator.
@@ -181,7 +183,9 @@ public final class VerySecureRandom
           s_aLogger.debug ("Re-seeding VerySecureRandom");
 
         // Re-seed
-        s_aSecureRandom.setSeed (s_aSecureRandom.generateSeed (SEED_BYTE_COUNT));
+        final TimeValue aDuration = StopWatch.runMeasured ( () -> s_aSecureRandom.setSeed (s_aSecureRandom.generateSeed (SEED_BYTE_COUNT)));
+        if (aDuration.getAsMillis () > 500)
+          s_aLogger.warn ("Re-seeding VerySecureRandom took too long (" + aDuration.getAsMillis () + " milliseconds)");
       }
 
     return s_aSecureRandom;
