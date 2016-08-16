@@ -38,7 +38,8 @@ public enum EJavaVersion
   JDK_15 (49.0, 50.0),
   JDK_16 (50.0, 51.0),
   JDK_17 (51.0, 52.0),
-  JDK_18 (52.0, 53.0);
+  JDK_18 (52.0, 53.0),
+  JDK_19 (53.0, 54.0);
 
   /** The current version. */
   private static volatile EJavaVersion s_aInstance = null;
@@ -97,13 +98,25 @@ public enum EJavaVersion
   }
 
   /**
+   * Check if this java version is older or equals than the passed version
+   *
+   * @param eJavaVersion
+   *        the Java version to be checked. May not be <code>null</code>.
+   * @return <code>true</code> if this Java version is old or equal than the
+   *         passed version.
+   */
+  public boolean isOlderOrEqualsThan (@Nonnull final EJavaVersion eJavaVersion)
+  {
+    return m_dMinVersionIncl <= eJavaVersion.m_dMinVersionIncl;
+  }
+
+  /**
    * Check if this java version is newer or equals than the passed version
    *
    * @param eJavaVersion
    *        the Java version to be checked. May not be <code>null</code>.
-   * @return <code>true</code> if this Java version is supported by the current
-   *         Java Version. It is expected that all versions are backward
-   *         compatible.
+   * @return <code>true</code> if this Java version is newer or equal than the
+   *         passed version.
    */
   public boolean isNewerOrEqualsThan (@Nonnull final EJavaVersion eJavaVersion)
   {
