@@ -29,7 +29,8 @@ import com.helger.commons.text.codepoint.CodepointIteratorCharArray;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
- * Implementation of the Punycode encoding scheme used by IDNA
+ * Implementation of the Punycode encoding scheme used by IDNA and RFC 3492<br>
+ * Source: https://www.ietf.org/rfc/rfc3492.txt
  *
  * @author Apache Abdera
  */
@@ -63,12 +64,18 @@ public final class Punycode
 
   private static boolean _flagged (final int bcp)
   {
-    return (bcp - 65) < 26;
+    return (bcp - 'A') < 26;
   }
 
   private static int _decode_digit (final int cp)
   {
-    return (cp - 48 < 10) ? cp - 22 : (cp - 65 < 26) ? cp - 65 : (cp - 97 < 26) ? cp - 97 : BASE;
+    if (cp - '0' < 10)
+      return cp - 22;
+    if (cp - 'A' < 26)
+      return cp - 'A';
+    if (cp - 'a' < 26)
+      return cp - 'a';
+    return BASE;
   }
 
   private static int _t (final boolean c)

@@ -52,26 +52,26 @@ public final class PunycodeTest
    S ("-> $1.00 <-", "\u002D\u003E\u0020\u0024\u0031\u002E\u0030\u0030\u0020\u003C\u002D", "-> $1.00 <--");
 
     private final String m_sName;
-    private final String m_sIn;
-    private final String m_sOut;
+    private final String m_sDecoded;
+    private final String m_sEncoded;
 
-    private ETest (final String name, final String in, final String out)
+    private ETest (final String sName, final String sDecoded, final String sEncoded)
     {
-      m_sName = name;
-      m_sIn = in;
-      m_sOut = out;
+      m_sName = sName;
+      m_sDecoded = sDecoded;
+      m_sEncoded = sEncoded;
     }
   }
 
   @Test
   public void testPunycode () throws Exception
   {
-    for (final ETest test : ETest.values ())
+    for (final ETest e : ETest.values ())
     {
-      final String out = Punycode.getEncoded (test.m_sIn);
-      final String in = Punycode.getDecoded (out);
-      assertEquals (test.m_sName, test.m_sOut, out);
-      assertEquals (test.m_sName, test.m_sIn, in);
+      final String sEncoded = Punycode.getEncoded (e.m_sDecoded);
+      final String sDecoded = Punycode.getDecoded (sEncoded);
+      assertEquals (e.m_sName, e.m_sEncoded, sEncoded);
+      assertEquals (e.m_sName, e.m_sDecoded, sDecoded);
     }
   }
 }
