@@ -17,7 +17,9 @@
 package com.helger.commons.math;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.math.BigDecimal;
@@ -338,4 +340,35 @@ public final class MathHelperTest
     assertEquals (new BigDecimal ("100"), MathHelper.getPercentValue (CGlobal.BIGDEC_100, CGlobal.BIGDEC_100));
   }
 
+  @Test
+  public void testIsExactlyOneBitSetToOneInt ()
+  {
+    for (int i = 0; i < 32; ++i)
+    {
+      final int nValue = 1 << i;
+      assertTrue (MathHelper.isExactlyOneBitSetToOne (nValue));
+      if (i > 0)
+      {
+        // for i == 0, nValue is 1 and 1+1 is 2 which is also a single bit
+        // (0x10)
+        assertFalse (MathHelper.isExactlyOneBitSetToOne (nValue + 1));
+      }
+    }
+  }
+
+  @Test
+  public void testIsExactlyOneBitSetToOneLong ()
+  {
+    for (int i = 0; i < 64; ++i)
+    {
+      final long nValue = 1L << i;
+      assertTrue (MathHelper.isExactlyOneBitSetToOne (nValue));
+      if (i > 0)
+      {
+        // for i == 0, nValue is 1 and 1+1 is 2 which is also a single bit
+        // (0x10)
+        assertFalse (MathHelper.isExactlyOneBitSetToOne (nValue + 1));
+      }
+    }
+  }
 }

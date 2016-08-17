@@ -1119,4 +1119,44 @@ public final class MathHelper
     ValueEnforcer.notNull (aNumber, "Number");
     return new BigInteger (aNumber.toString ());
   }
+
+  /**
+   * Check if only a single bit is set.<br>
+   * Source:
+   * http://stackoverflow.com/questions/12483843/test-if-a-bitboard-have-only-one-bit-set-to-1
+   * <br>
+   * Say n has any bits set, the least significant is bit number k. Then n-1 has
+   * the same bits as n for indices above k, a 0-bit in place k and 1-bits in
+   * the less significant places, so the bitwise and removes the least
+   * significant set bit from n. If n had only one bit set, the result becomes
+   * 0, if n had more bits set, the result is nonzero.
+   *
+   * @param n
+   *        Source number
+   * @return <code>true</code> if exactly one bit is set
+   */
+  public static boolean isExactlyOneBitSetToOne (final int n)
+  {
+    return n != 0 && (n & (n - 1)) == 0;
+  }
+
+  /**
+   * Check if only a single bit is set.<br>
+   * Source:
+   * http://stackoverflow.com/questions/12483843/test-if-a-bitboard-have-only-one-bit-set-to-1
+   * <br>
+   * Say n has any bits set, the least significant is bit number k. Then n-1 has
+   * the same bits as n for indices above k, a 0-bit in place k and 1-bits in
+   * the less significant places, so the bitwise and removes the least
+   * significant set bit from n. If n had only one bit set, the result becomes
+   * 0, if n had more bits set, the result is nonzero.
+   *
+   * @param n
+   *        Source number
+   * @return <code>true</code> if exactly one bit is set
+   */
+  public static boolean isExactlyOneBitSetToOne (final long n)
+  {
+    return n != 0 && (n & (n - 1)) == 0;
+  }
 }
