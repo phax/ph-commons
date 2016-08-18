@@ -16,40 +16,21 @@
  */
 package com.helger.security.password.hash;
 
-import javax.annotation.Nonnull;
-
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.string.StringHelper;
-import com.helger.security.password.salt.IPasswordSalt;
-
 /**
  * The new default implementation of {@link IPasswordHashCreator} that requires
- * a salt and uses the PBKDF2.
+ * a salt and uses the PBKDF2 algorithm with 1000 iterations and 48 bytes hash
+ * size.
  *
  * @author Philip Helger
  */
 public final class PasswordHashCreatorPBKDF2_1000_48 extends AbstractPasswordHashCreatorPBKDF2
 {
   public static final String ALGORITHM = "PBKDF2_1000_48";
-
   public static final int PBKDF2_ITERATIONS = 1000;
   public static final int HASH_BYTE_SIZE = 48;
 
   public PasswordHashCreatorPBKDF2_1000_48 ()
   {
-    super (ALGORITHM);
-  }
-
-  @Nonnull
-  public String createPasswordHash (@Nonnull final IPasswordSalt aSalt, @Nonnull final String sPlainTextPassword)
-  {
-    ValueEnforcer.notNull (aSalt, "Salt");
-    ValueEnforcer.notNull (sPlainTextPassword, "PlainTextPassword");
-
-    final byte [] aDigest = pbkdf2 (sPlainTextPassword.toCharArray (),
-                                    aSalt.getSaltBytes (),
-                                    PBKDF2_ITERATIONS,
-                                    HASH_BYTE_SIZE);
-    return StringHelper.getHexEncoded (aDigest);
+    super (ALGORITHM, PBKDF2_ITERATIONS, HASH_BYTE_SIZE);
   }
 }

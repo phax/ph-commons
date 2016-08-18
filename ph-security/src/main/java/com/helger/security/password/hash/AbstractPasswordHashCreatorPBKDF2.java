@@ -24,7 +24,10 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
 import com.helger.commons.CGlobal;
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.string.StringHelper;
+import com.helger.security.password.salt.IPasswordSalt;
 
 /**
  * Base class for {@link IPasswordHashCreator} using the PBKDF2 algorithm.
@@ -36,9 +39,16 @@ public abstract class AbstractPasswordHashCreatorPBKDF2 extends AbstractPassword
 {
   public static final String PBKDF2_ALGORITHM = "PBKDF2WithHmacSHA1";
 
-  public AbstractPasswordHashCreatorPBKDF2 (@Nonnull @Nonempty final String sAlgorithm)
+  protected final int m_nIterations;
+  protected final int m_nHashBytes;
+
+  public AbstractPasswordHashCreatorPBKDF2 (@Nonnull @Nonempty final String sAlgorithm,
+                                            @Nonnegative final int nIterations,
+                                            @Nonnegative final int nBytes)
   {
     super (sAlgorithm);
+    m_nIterations = ValueEnforcer.isGT0 (nIterations, "Iterations");
+    m_nHashBytes = ValueEnforcer.isGT0 (nBytes, "Bytes");
   }
 
   public final boolean requiresSalt ()
@@ -75,5 +85,18 @@ public abstract class AbstractPasswordHashCreatorPBKDF2 extends AbstractPassword
     {
       throw new RuntimeException ("Failed to apply PBKDF2 algorithm", ex);
     }
+  }
+
+  @Nonnull
+  public String createPasswordHash (@Nonnull final IPasswordSalt aSalt, @Nonnull final String sPlainTextPassword)
+  {
+    ValueEnforcer.notNull (aSalt, "Salt");
+    ValueEnforcer.notNull (sPlainTextPassword, "PlainTextPassword");
+
+    final byte [] aDigest = pbkdf2 (sPlainTextPassword.toCharArray (),
+                                    aSalt.getSaltBytes (),
+                                    m_nIterations,
+                                    m_nHashBytes);
+    return StringHelper.getHexEncoded (aDigest);
   }
 }
