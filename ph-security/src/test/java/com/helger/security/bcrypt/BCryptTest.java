@@ -224,4 +224,11 @@ public final class BCryptTest
     s_aLogger.info (".");
     s_aLogger.info ("");
   }
+
+  @Test
+  public void testSimple ()
+  {
+    final String h1 = BCrypt.hashpw ("password", BCrypt.gensalt ());
+    assertTrue (BCrypt.checkpw ("password", h1));
+  }
 }
