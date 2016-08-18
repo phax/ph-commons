@@ -18,6 +18,7 @@ package com.helger.xml.microdom;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
@@ -37,7 +38,6 @@ import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.collection.ext.ICommonsOrderedSet;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.function.IBreakableConsumer;
 import com.helger.commons.function.ITriConsumer;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.EContinue;
@@ -302,14 +302,14 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   @Nonnull
   private static EContinue _forAllChildElementsBreakable (@Nonnull final IMicroNode aStartNode,
                                                           @Nullable final Predicate <? super IMicroElement> aFilter,
-                                                          @Nonnull final IBreakableConsumer <? super IMicroElement> aConsumer)
+                                                          @Nonnull final Function <? super IMicroElement, EContinue> aConsumer)
   {
     return aStartNode.forAllChildrenBreakable (aChildNode -> {
       if (aChildNode.isElement ())
       {
         final IMicroElement aChildElement = (IMicroElement) aChildNode;
         if (aFilter == null || aFilter.test (aChildElement))
-          if (aConsumer.accept (aChildElement).isBreak ())
+          if (aConsumer.apply (aChildElement).isBreak ())
             return EContinue.BREAK;
       }
       else
@@ -363,7 +363,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
 
   @Nonnull
   public EContinue forAllChildElementsBreakable (@Nonnull final Predicate <? super IMicroElement> aFilter,
-                                                 @Nonnull final IBreakableConsumer <? super IMicroElement> aConsumer)
+                                                 @Nonnull final Function <? super IMicroElement, EContinue> aConsumer)
   {
     return _forAllChildElementsBreakable (this, aFilter, aConsumer);
   }

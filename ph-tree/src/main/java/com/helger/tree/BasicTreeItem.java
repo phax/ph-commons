@@ -32,7 +32,6 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.function.IBreakableConsumer;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.EContinue;
@@ -200,7 +199,7 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
   }
 
   @Nonnull
-  public final EContinue forAllChildrenBreakable (@Nonnull final IBreakableConsumer <? super ITEMTYPE> aConsumer)
+  public final EContinue forAllChildrenBreakable (@Nonnull final Function <? super ITEMTYPE, EContinue> aConsumer)
   {
     if (m_aChildren != null)
       return m_aChildren.forEachBreakable (aConsumer);

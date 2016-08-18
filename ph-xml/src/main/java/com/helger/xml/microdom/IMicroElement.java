@@ -18,6 +18,7 @@ package com.helger.xml.microdom;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
@@ -32,7 +33,6 @@ import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.collection.ext.ICommonsOrderedSet;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.filter.IFilter;
-import com.helger.commons.function.IBreakableConsumer;
 import com.helger.commons.function.ITriConsumer;
 import com.helger.commons.mutable.MutableInt;
 import com.helger.commons.state.EChange;
@@ -1258,14 +1258,14 @@ public interface IMicroElement extends IMicroNodeWithChildren
                             @Nonnull Consumer <? super IMicroElement> aConsumer);
 
   @Nonnull
-  default EContinue forAllChildElementsBreakable (@Nonnull final IBreakableConsumer <? super IMicroElement> aConsumer)
+  default EContinue forAllChildElementsBreakable (@Nonnull final Function <? super IMicroElement, EContinue> aConsumer)
   {
     return forAllChildElementsBreakable (null, aConsumer);
   }
 
   @Nonnull
   EContinue forAllChildElementsBreakable (@Nullable Predicate <? super IMicroElement> aFilter,
-                                          @Nonnull IBreakableConsumer <? super IMicroElement> aConsumer);
+                                          @Nonnull Function <? super IMicroElement, EContinue> aConsumer);
 
   /**
    * {@inheritDoc}

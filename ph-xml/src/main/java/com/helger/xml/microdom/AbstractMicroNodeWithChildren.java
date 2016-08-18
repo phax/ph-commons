@@ -30,7 +30,6 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.function.IBreakableConsumer;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.EContinue;
 import com.helger.commons.string.StringHelper;
@@ -71,7 +70,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
     if (aChildNode.isDocument ())
       throw new MicroException ("Cannot add document to documents");
     if (m_aChildren == null)
-      m_aChildren = new CommonsArrayList <> ();
+      m_aChildren = new CommonsArrayList<> ();
     m_aChildren.add (aChildNode);
     _afterInsertAsChildOfThis (aChildNode);
   }
@@ -114,7 +113,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
     if (aChildNode.isDocument ())
       throw new MicroException ("Cannot add document to nodes");
     if (m_aChildren == null)
-      m_aChildren = new CommonsArrayList <> ();
+      m_aChildren = new CommonsArrayList<> ();
     m_aChildren.add (Math.min (nIndex, m_aChildren.size ()), aChildNode);
     _afterInsertAsChildOfThis (aChildNode);
   }
@@ -203,7 +202,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
 
   @Override
   @Nonnull
-  public EContinue forAllChildrenBreakable (@Nonnull final IBreakableConsumer <? super IMicroNode> aConsumer)
+  public EContinue forAllChildrenBreakable (@Nonnull final Function <? super IMicroNode, EContinue> aConsumer)
   {
     if (m_aChildren != null)
       return m_aChildren.forEachBreakable (aConsumer);
