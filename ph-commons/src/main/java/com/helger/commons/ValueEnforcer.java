@@ -134,6 +134,54 @@ public final class ValueEnforcer
   }
 
   /**
+   * Check that the passed value is an instance of the passed class.
+   *
+   * @param aValue
+   *        The value to check. May be <code>null</code>.
+   * @param aClass
+   *        The class of which the passed value must be an instance. May not be
+   *        <code>null</code>.
+   * @param sMsg
+   *        The message to be emitted in case the value is <code>false</code>
+   * @throws IllegalArgumentException
+   *         if the passed value is not <code>null</code>.
+   */
+  public static <T> void isInstanceOf (@Nullable final T aValue,
+                                       @Nonnull final Class <? extends T> aClass,
+                                       final String sMsg)
+  {
+    isInstanceOf (aValue, aClass, () -> sMsg);
+  }
+
+  /**
+   * Check that the passed value is an instance of the passed class.
+   *
+   * @param aValue
+   *        The value to check. May be <code>null</code>.
+   * @param aClass
+   *        The class of which the passed value must be an instance. May not be
+   *        <code>null</code>.
+   * @param aMsg
+   *        The message to be emitted in case the value is <code>false</code>
+   * @throws IllegalArgumentException
+   *         if the passed value is not <code>null</code>.
+   */
+  public static <T> void isInstanceOf (@Nullable final T aValue,
+                                       @Nonnull final Class <? extends T> aClass,
+                                       @Nonnull final Supplier <String> aMsg)
+  {
+    notNull (aValue, "Value");
+    notNull (aClass, "Class");
+    if (isEnabled ())
+      if (!aClass.isInstance (aValue))
+        throw new IllegalArgumentException (aMsg.get () +
+                                            " must be of class " +
+                                            aClass.getName () +
+                                            " but is of type " +
+                                            aValue.getClass ().getName ());
+  }
+
+  /**
    * Check that the passed value is not <code>null</code>.
    *
    * @param <T>
