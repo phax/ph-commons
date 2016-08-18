@@ -26,12 +26,15 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.charset.CCharset;
+import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.random.RandomHelper;
 import com.helger.commons.random.VerySecureRandom;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.security.bcrypt.BCrypt;
 
 /**
  * Default implementation of {@link IPasswordSalt} using
@@ -144,5 +147,12 @@ public final class PasswordSalt implements IPasswordSalt
     // Throws an IllegalArgumentException if an invalid character is encountered
     final byte [] aBytes = StringHelper.getHexDecoded (sSalt);
     return new PasswordSalt (aBytes);
+  }
+
+  @Nonnull
+  public static PasswordSalt createBCryptSalt ()
+  {
+    final String sSalt = BCrypt.gensalt ();
+    return new PasswordSalt (CharsetManager.getAsBytes (sSalt, CCharset.CHARSET_UTF_8_OBJ));
   }
 }

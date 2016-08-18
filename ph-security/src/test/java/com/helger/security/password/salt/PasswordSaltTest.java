@@ -54,6 +54,14 @@ public final class PasswordSaltTest
   }
 
   @Test
+  public void testNotEqualsBCrypt ()
+  {
+    final PasswordSalt aSalt = PasswordSalt.createBCryptSalt ();
+    for (int i = 0; i < 100; ++i)
+      assertFalse (aSalt.equals (PasswordSalt.createBCryptSalt ()));
+  }
+
+  @Test
   public void testEqualsFromString ()
   {
     for (int i = 0; i < 100; ++i)
