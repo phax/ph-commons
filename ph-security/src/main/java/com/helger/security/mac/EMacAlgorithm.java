@@ -37,7 +37,10 @@ public enum EMacAlgorithm
 {
   HMAC_MD5 ("HmacMD5"),
   HMAC_SHA1 ("HmacSHA1"),
-  HMAC_SHA256 ("HmacSHA256");
+  HMAC_SHA224 ("HmacSHA224"),
+  HMAC_SHA256 ("HmacSHA256"),
+  HMAC_SHA384 ("HmacSHA384"),
+  HMAC_SHA512 ("HmacSHA512");
 
   private final String m_sAlgorithm;
 
@@ -46,6 +49,10 @@ public enum EMacAlgorithm
     m_sAlgorithm = sAlgorithm;
   }
 
+  /**
+   * @return The internal name of the message digest algorithm. Neither
+   *         <code>null</code> nor empty.
+   */
   @Nonnull
   @Nonempty
   public String getAlgorithm ()
@@ -53,12 +60,26 @@ public enum EMacAlgorithm
     return m_sAlgorithm;
   }
 
+  /**
+   * @return A new Mac with this algorithm using the default security provider.
+   * @throws IllegalStateException
+   *         If this algorithm is not supported by this Java runtime.
+   */
   @Nonnull
   public Mac createMac ()
   {
     return createMac (null);
   }
 
+  /**
+   * @param aSecurityProvider
+   *        The security provider to use. May be <code>null</code> to use the
+   *        default security provider.
+   * @return A new Mac with this algorithm using the provided or the default
+   *         security provider.
+   * @throws IllegalStateException
+   *         If this algorithm is not supported by this Java runtime.
+   */
   @Nonnull
   public Mac createMac (@Nullable final Provider aSecurityProvider)
   {
@@ -74,6 +95,14 @@ public enum EMacAlgorithm
     }
   }
 
+  /**
+   * Create a new {@link SecretKeySpec} with this algorithm and the provided key
+   * bytes.
+   * 
+   * @param aKey
+   *        The key bytes to use. May not be <code>null</code>.
+   * @return The new {@link SecretKeySpec}.
+   */
   @Nonnull
   public SecretKeySpec createSecretKey (@Nonnull final byte [] aKey)
   {
@@ -85,6 +114,6 @@ public enum EMacAlgorithm
   {
     if (StringHelper.hasNoText (sAlgorithm))
       return null;
-    return EnumHelper.findFirst (EMacAlgorithm.class, e -> e.m_sAlgorithm.equalsIgnoreCase (sAlgorithm));
+    return EnumHelper.findFirst (EMacAlgorithm.class, x -> x.m_sAlgorithm.equalsIgnoreCase (sAlgorithm));
   }
 }
