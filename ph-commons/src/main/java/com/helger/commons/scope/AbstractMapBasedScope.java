@@ -16,7 +16,8 @@
  */
 package com.helger.commons.scope;
 
-import java.util.Map;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -29,12 +30,11 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.callback.INonThrowingCallableWithParameter;
-import com.helger.commons.callback.INonThrowingRunnableWithParameter;
-import com.helger.commons.callback.adapter.AdapterRunnableToCallableWithParameter;
 import com.helger.commons.collection.attr.MapBasedAttributeContainerAny;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsConcurrentHashMap;
 import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -68,7 +68,7 @@ public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAn
    */
   public AbstractMapBasedScope (@Nonnull @Nonempty final String sScopeID)
   {
-    super (true, new CommonsConcurrentHashMap <> ());
+    super (true, new CommonsConcurrentHashMap<> ());
     m_sScopeID = ValueEnforcer.notEmpty (sScopeID, "ScopeID");
   }
 
@@ -132,17 +132,22 @@ public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAn
 
     preDestroy ();
 
+    final ICommonsList <IScopeDestructionAware> aDestructionAware = new CommonsArrayList<> ();
+    forAllAttributeValues (x -> {
+      if (x instanceof IScopeDestructionAware)
+        aDestructionAware.add ((IScopeDestructionAware) x);
+    });
+
     // Call callback (if special interface is implemented)
-    for (final Object aValue : getAllAttributeValues ())
-      if (aValue instanceof IScopeDestructionAware)
-        try
-        {
-          ((IScopeDestructionAware) aValue).onBeforeScopeDestruction (this);
-        }
-        catch (final Throwable t)
-        {
-          s_aLogger.error ("Failed to call onBeforeScopeDestruction in scope " + getID () + " for " + aValue, t);
-        }
+    for (final IScopeDestructionAware aValue : aDestructionAware)
+      try
+      {
+        aValue.onBeforeScopeDestruction (this);
+      }
+      catch (final Throwable t)
+      {
+        s_aLogger.error ("Failed to call onBeforeScopeDestruction in scope " + getID () + " for " + aValue, t);
+      }
 
     m_aRWLock.writeLocked ( () -> {
       if (m_bDestroyed)
@@ -158,16 +163,15 @@ public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAn
     destroyOwnedScopes ();
 
     // Call callback (if special interface is implemented)
-    for (final Object aValue : getAllAttributeValues ())
-      if (aValue instanceof IScopeDestructionAware)
-        try
-        {
-          ((IScopeDestructionAware) aValue).onScopeDestruction (this);
-        }
-        catch (final Throwable t)
-        {
-          s_aLogger.error ("Failed to call onScopeDestruction in scope " + getID () + " for " + aValue, t);
-        }
+    for (final IScopeDestructionAware aValue : aDestructionAware)
+      try
+      {
+        aValue.onScopeDestruction (this);
+      }
+      catch (final Throwable t)
+      {
+        s_aLogger.error ("Failed to call onScopeDestruction in scope " + getID () + " for " + aValue, t);
+      }
 
     // Finished destruction process -> remember this
     m_aRWLock.writeLocked ( () -> {
@@ -181,31 +185,28 @@ public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAn
     postDestroy ();
   }
 
-  public final void runAtomic (@Nonnull final INonThrowingRunnableWithParameter <IScope> aRunnable)
+  public final void runAtomic (@Nonnull final Consumer <IScope> aConsumer)
   {
-    // Wrap runnable in callable
-    runAtomic (AdapterRunnableToCallableWithParameter.createAdapter (aRunnable));
+    ValueEnforcer.notNull (aConsumer, "Consumer");
+    m_aRWLock.writeLocked ( () -> aConsumer.accept (this));
   }
 
   @Nullable
-  public final <T> T runAtomic (@Nonnull final INonThrowingCallableWithParameter <T, IScope> aCallable)
+  public final <T> T runAtomic (@Nonnull final Function <IScope, T> aFunction)
   {
-    ValueEnforcer.notNull (aCallable, "Callable");
-
-    return m_aRWLock.writeLocked ( () -> aCallable.call (this));
+    ValueEnforcer.notNull (aFunction, "Function");
+    return m_aRWLock.writeLocked ( () -> aFunction.apply (this));
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public final ICommonsMap <String, IScopeRenewalAware> getAllScopeRenewalAwareAttributes ()
   {
-    final ICommonsMap <String, IScopeRenewalAware> ret = new CommonsHashMap <> ();
-    for (final Map.Entry <String, Object> aEntry : getAllAttributes ().entrySet ())
-    {
-      final Object aValue = aEntry.getValue ();
-      if (aValue instanceof IScopeRenewalAware)
-        ret.put (aEntry.getKey (), (IScopeRenewalAware) aValue);
-    }
+    final ICommonsMap <String, IScopeRenewalAware> ret = new CommonsHashMap<> ();
+    forAllAttributes ( (n, v) -> {
+      if (v instanceof IScopeRenewalAware)
+        ret.put (n, (IScopeRenewalAware) v);
+    });
     return ret;
   }
 

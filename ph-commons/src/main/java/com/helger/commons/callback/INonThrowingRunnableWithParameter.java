@@ -24,7 +24,9 @@ package com.helger.commons.callback;
  * @author Philip Helger
  * @param <PARAMTYPE>
  *        The type of the parameter that is required for executing the callback.
+ * @deprecated Use {@link java.util.function.Consumer} instead.
  */
+@Deprecated
 @FunctionalInterface
 public interface INonThrowingRunnableWithParameter <PARAMTYPE>
                                                    extends IThrowingRunnableWithParameter <PARAMTYPE, Exception>

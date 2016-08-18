@@ -27,8 +27,10 @@ package com.helger.commons.callback;
  *        The parameter type.
  * @param <EXTYPE>
  *        Exception type to be thrown
+ * @deprecated Use {@link com.helger.commons.function.IThrowingFunction}
  */
 @FunctionalInterface
+@Deprecated
 public interface IThrowingCallableWithParameter <DATATYPE, PARAMTYPE, EXTYPE extends Exception>
 {
   /**

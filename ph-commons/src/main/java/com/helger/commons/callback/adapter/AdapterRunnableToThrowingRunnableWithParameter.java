@@ -34,6 +34,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        Exception type to be thrown
  */
 @Immutable
+@Deprecated
 public class AdapterRunnableToThrowingRunnableWithParameter <PARAMTYPE, EXTYPE extends Throwable> implements
                                                             IThrowingRunnableWithParameter <PARAMTYPE, EXTYPE>
 {

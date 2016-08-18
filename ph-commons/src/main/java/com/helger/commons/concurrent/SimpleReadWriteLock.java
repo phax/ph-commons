@@ -25,8 +25,8 @@ import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.callback.IThrowingCallable;
 import com.helger.commons.callback.IThrowingRunnable;
+import com.helger.commons.function.IThrowingSupplier;
 
 /**
  * This is an extension around {@link ReentrantReadWriteLock} that allows for
@@ -137,12 +137,12 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @param <EXTYPE>
    *        Exception type to be thrown
    */
-  public <T, EXTYPE extends Exception> T readLockedThrowing (@Nonnull final IThrowingCallable <T, EXTYPE> aCallable) throws EXTYPE
+  public <T, EXTYPE extends Exception> T readLockedThrowing (@Nonnull final IThrowingSupplier <T, EXTYPE> aCallable) throws EXTYPE
   {
     readLock ().lock ();
     try
     {
-      return aCallable.call ();
+      return aCallable.get ();
     }
     finally
     {
@@ -309,12 +309,12 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @param <EXTYPE>
    *        Exception type to be thrown
    */
-  public <T, EXTYPE extends Exception> T writeLockedThrowing (@Nonnull final IThrowingCallable <T, EXTYPE> aCallable) throws EXTYPE
+  public <T, EXTYPE extends Exception> T writeLockedThrowing (@Nonnull final IThrowingSupplier <T, EXTYPE> aCallable) throws EXTYPE
   {
     writeLock ().lock ();
     try
     {
-      return aCallable.call ();
+      return aCallable.get ();
     }
     finally
     {

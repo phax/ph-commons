@@ -25,8 +25,10 @@ package com.helger.commons.callback;
  *        The return type of the call.
  * @param <PARAMTYPE>
  *        The parameter type.
+ * @deprecated Use {@link java.util.function.Function}
  */
 @FunctionalInterface
+@Deprecated
 public interface INonThrowingCallableWithParameter <DATATYPE, PARAMTYPE> extends
                                                    IThrowingCallableWithParameter <DATATYPE, PARAMTYPE, Exception>
 {

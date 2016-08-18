@@ -16,8 +16,6 @@
  */
 package com.helger.commons.callback;
 
-import java.util.concurrent.Callable;
-
 /**
  * This is the same as the {@link java.util.concurrent.Callable} interface but
  * following our naming conventions.
@@ -27,9 +25,12 @@ import java.util.concurrent.Callable;
  *        The return type of the call.
  * @param <EXTYPE>
  *        Exception type to be thrown
+ * @deprecated Use {@link com.helger.commons.function.IThrowingSupplier}
+ *             instead.
  */
+@Deprecated
 @FunctionalInterface
-public interface IThrowingCallable <DATATYPE, EXTYPE extends Exception> extends Callable <DATATYPE>
+public interface IThrowingCallable <DATATYPE, EXTYPE extends Exception>
 {
   DATATYPE call () throws EXTYPE;
 }

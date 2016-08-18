@@ -34,7 +34,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.UsedViaReflection;
-import com.helger.commons.callback.INonThrowingCallableWithParameter;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
@@ -500,7 +499,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
       final MutableBoolean aFinalWasInstantiated = new MutableBoolean (false);
 
       // Safe instantiation:
-      aInstance = aScope.runAtomic ((INonThrowingCallableWithParameter <T, IScope>) aInnerScope -> {
+      aInstance = aScope.runAtomic (aInnerScope -> {
         // try to resolve again in case it was set in the meantime
         T aInnerInstance = aClass.cast (aInnerScope.getAttributeObject (sSingletonScopeKey));
         if (aInnerInstance == null)
@@ -579,7 +578,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
   {
     ValueEnforcer.notNull (aDesiredClass, "DesiredClass");
 
-    final ICommonsList <T> ret = new CommonsArrayList <> ();
+    final ICommonsList <T> ret = new CommonsArrayList<> ();
     if (aScope != null)
       for (final Object aScopeValue : aScope.getAllAttributeValues ())
         if (aScopeValue != null && aDesiredClass.isAssignableFrom (aScopeValue.getClass ()))

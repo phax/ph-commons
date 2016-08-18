@@ -26,8 +26,8 @@ import java.util.function.Supplier;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.callback.IThrowingCallable;
 import com.helger.commons.callback.IThrowingRunnable;
+import com.helger.commons.function.IThrowingSupplier;
 
 /**
  * This is an extension around {@link ReentrantLock} that allows for easy usage
@@ -140,14 +140,14 @@ public class SimpleLock extends ReentrantLock
    * @param <EXTYPE>
    *        Exception type to be thrown
    */
-  public <T, EXTYPE extends Exception> T lockedThrowing (@Nonnull final IThrowingCallable <T, EXTYPE> aCallable) throws EXTYPE
+  public <T, EXTYPE extends Exception> T lockedThrowing (@Nonnull final IThrowingSupplier <T, EXTYPE> aCallable) throws EXTYPE
   {
     ValueEnforcer.notNull (aCallable, "Callable");
 
     lock ();
     try
     {
-      return aCallable.call ();
+      return aCallable.get ();
     }
     finally
     {

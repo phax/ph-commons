@@ -17,25 +17,20 @@
 package com.helger.commons.scope.util;
 
 import javax.annotation.Nonnull;
+import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.callback.INonThrowingRunnable;
 import com.helger.commons.scope.mgr.ScopeManager;
 import com.helger.commons.scope.mock.ScopeAwareTestSetup;
-import com.helger.commons.string.ToStringGenerator;
 
 /**
- * Abstract implementation of {@link Runnable} that handles WebScopes correctly.
+ * Abstract implementation of {@link Runnable} that handles scopes correctly.
  *
  * @author Philip Helger
  */
-public abstract class AbstractScopeAwareRunnable implements INonThrowingRunnable
+@Immutable
+public abstract class AbstractScopeAwareRunnable extends AbstractScopeAwareAction implements Runnable
 {
-  private final String m_sApplicationID;
-  private final String m_sRequestID;
-  private final String m_sSessionID;
-
   public AbstractScopeAwareRunnable ()
   {
     this (ScopeManager.getApplicationScope ().getID ());
@@ -50,30 +45,7 @@ public abstract class AbstractScopeAwareRunnable implements INonThrowingRunnable
                                      @Nonnull @Nonempty final String sRequestID,
                                      @Nonnull @Nonempty final String sSessionID)
   {
-    m_sApplicationID = ValueEnforcer.notEmpty (sApplicationID, "ApplicationID");
-    m_sRequestID = ValueEnforcer.notEmpty (sRequestID, "RequestID");
-    m_sSessionID = ValueEnforcer.notEmpty (sSessionID, "SessionID");
-  }
-
-  @Nonnull
-  @Nonempty
-  public String getApplicationID ()
-  {
-    return m_sApplicationID;
-  }
-
-  @Nonnull
-  @Nonempty
-  public String getRequestID ()
-  {
-    return m_sRequestID;
-  }
-
-  @Nonnull
-  @Nonempty
-  public String getSessionID ()
-  {
-    return m_sSessionID;
+    super (sApplicationID, sRequestID, sSessionID);
   }
 
   /**
@@ -92,14 +64,5 @@ public abstract class AbstractScopeAwareRunnable implements INonThrowingRunnable
     {
       ScopeManager.onRequestEnd ();
     }
-  }
-
-  @Override
-  public String toString ()
-  {
-    return new ToStringGenerator (this).append ("applicationID", m_sApplicationID)
-                                       .append ("requestID", m_sRequestID)
-                                       .append ("sessionID", m_sSessionID)
-                                       .toString ();
   }
 }

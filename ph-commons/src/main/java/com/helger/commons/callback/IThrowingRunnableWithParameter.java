@@ -26,7 +26,9 @@ package com.helger.commons.callback;
  *        The type of the parameter that is required for executing the callback.
  * @param <EXTYPE>
  *        Exception type to be thrown
+ * @deprecated Use {@link com.helger.commons.function.IThrowingConsumer} instead
  */
+@Deprecated
 @FunctionalInterface
 public interface IThrowingRunnableWithParameter <PARAMTYPE, EXTYPE extends Throwable>
 {

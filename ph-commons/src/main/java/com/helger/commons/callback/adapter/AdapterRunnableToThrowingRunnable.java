@@ -32,6 +32,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        Exception type to be thrown
  */
 @Immutable
+@Deprecated
 public class AdapterRunnableToThrowingRunnable <EXTYPE extends Throwable> implements IThrowingRunnable <EXTYPE>
 {
   private final Runnable m_aRunnable;

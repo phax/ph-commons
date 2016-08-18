@@ -40,6 +40,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        Exception type to be thrown
  */
 @Immutable
+@Deprecated
 public class AdapterThrowingRunnableToCallableWithParameter <DATATYPE, PARAMTYPE, EXTYPE extends Exception> implements
                                                             IThrowingCallableWithParameter <DATATYPE, PARAMTYPE, EXTYPE>
 {
@@ -98,7 +99,7 @@ public class AdapterThrowingRunnableToCallableWithParameter <DATATYPE, PARAMTYPE
   @Nonnull
   public static <PARAMTYPE, EXTYPE extends Exception> AdapterThrowingRunnableToCallableWithParameter <Object, PARAMTYPE, EXTYPE> createAdapter (@Nonnull final IThrowingRunnableWithParameter <PARAMTYPE, EXTYPE> aRunnable)
   {
-    return new AdapterThrowingRunnableToCallableWithParameter <> (aRunnable);
+    return new AdapterThrowingRunnableToCallableWithParameter<> (aRunnable);
   }
 
   /**
@@ -122,6 +123,6 @@ public class AdapterThrowingRunnableToCallableWithParameter <DATATYPE, PARAMTYPE
   public static <DATATYPE, PARAMTYPE, EXTYPE extends Exception> AdapterThrowingRunnableToCallableWithParameter <DATATYPE, PARAMTYPE, EXTYPE> createAdapter (@Nonnull final IThrowingRunnableWithParameter <PARAMTYPE, EXTYPE> aRunnable,
                                                                                                                                                             @Nullable final DATATYPE aResult)
   {
-    return new AdapterThrowingRunnableToCallableWithParameter <> (aRunnable, aResult);
+    return new AdapterThrowingRunnableToCallableWithParameter<> (aRunnable, aResult);
   }
 }

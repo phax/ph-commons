@@ -29,6 +29,7 @@ import com.helger.commons.callback.INonThrowingRunnableWithParameter;
  *
  * @author Philip Helger
  */
+@Deprecated
 public final class AdapterRunnableToCallableWithParameterTest
 {
   @Test

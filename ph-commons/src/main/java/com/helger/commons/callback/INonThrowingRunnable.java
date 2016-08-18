@@ -21,8 +21,10 @@ package com.helger.commons.callback;
  * naming conventions.
  *
  * @author Philip Helger
+ * @deprecated Use {@link Runnable} directly
  */
 @FunctionalInterface
+@Deprecated
 public interface INonThrowingRunnable extends Runnable, IThrowingRunnable <Exception>
 {
   /**

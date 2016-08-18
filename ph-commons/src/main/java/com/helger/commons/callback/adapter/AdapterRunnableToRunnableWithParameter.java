@@ -33,6 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        The parameter type.
  */
 @Immutable
+@Deprecated
 public class AdapterRunnableToRunnableWithParameter <PARAMTYPE> implements INonThrowingRunnableWithParameter <PARAMTYPE>
 {
   private final Runnable m_aRunnable;

@@ -37,6 +37,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        The parameter type.
  */
 @Immutable
+@Deprecated
 public class AdapterRunnableToCallableWithParameter <DATATYPE, PARAMTYPE>
                                                     implements INonThrowingCallableWithParameter <DATATYPE, PARAMTYPE>
 {
@@ -92,7 +93,7 @@ public class AdapterRunnableToCallableWithParameter <DATATYPE, PARAMTYPE>
   @Nonnull
   public static <PARAMTYPE> AdapterRunnableToCallableWithParameter <Object, PARAMTYPE> createAdapter (@Nonnull final INonThrowingRunnableWithParameter <PARAMTYPE> aRunnable)
   {
-    return new AdapterRunnableToCallableWithParameter <> (aRunnable);
+    return new AdapterRunnableToCallableWithParameter<> (aRunnable);
   }
 
   /**
@@ -113,6 +114,6 @@ public class AdapterRunnableToCallableWithParameter <DATATYPE, PARAMTYPE>
   public static <DATATYPE, PARAMTYPE> AdapterRunnableToCallableWithParameter <DATATYPE, PARAMTYPE> createAdapter (@Nonnull final INonThrowingRunnableWithParameter <PARAMTYPE> aRunnable,
                                                                                                                   @Nullable final DATATYPE aResult)
   {
-    return new AdapterRunnableToCallableWithParameter <> (aRunnable, aResult);
+    return new AdapterRunnableToCallableWithParameter<> (aRunnable, aResult);
   }
 }

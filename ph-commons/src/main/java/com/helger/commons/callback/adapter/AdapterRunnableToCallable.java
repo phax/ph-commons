@@ -33,6 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        The callable result type.
  */
 @Immutable
+@Deprecated
 public class AdapterRunnableToCallable <DATATYPE> implements INonThrowingCallable <DATATYPE>
 {
   private final Runnable m_aRunnable;
@@ -84,7 +85,7 @@ public class AdapterRunnableToCallable <DATATYPE> implements INonThrowingCallabl
   @Nonnull
   public static AdapterRunnableToCallable <Object> createAdapter (@Nonnull final Runnable aRunnable)
   {
-    return new AdapterRunnableToCallable <> (aRunnable);
+    return new AdapterRunnableToCallable<> (aRunnable);
   }
 
   /**
@@ -103,6 +104,6 @@ public class AdapterRunnableToCallable <DATATYPE> implements INonThrowingCallabl
   public static <DATATYPE> AdapterRunnableToCallable <DATATYPE> createAdapter (@Nonnull final Runnable aRunnable,
                                                                                @Nullable final DATATYPE aResult)
   {
-    return new AdapterRunnableToCallable <> (aRunnable, aResult);
+    return new AdapterRunnableToCallable<> (aRunnable, aResult);
   }
 }

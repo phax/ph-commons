@@ -31,6 +31,7 @@ import com.helger.commons.callback.IThrowingRunnable;
  *
  * @author Philip Helger
  */
+@Deprecated
 public final class AdapterThrowingRunnableToCallableTest
 {
   @Test

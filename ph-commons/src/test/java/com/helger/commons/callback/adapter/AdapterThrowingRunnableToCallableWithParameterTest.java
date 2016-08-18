@@ -31,6 +31,7 @@ import com.helger.commons.callback.IThrowingRunnableWithParameter;
  *
  * @author Philip Helger
  */
+@Deprecated
 public final class AdapterThrowingRunnableToCallableWithParameterTest
 {
   @Test

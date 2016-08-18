@@ -39,6 +39,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        Exception type to be thrown
  */
 @Immutable
+@Deprecated
 public class AdapterCallableToCallableWithParam <DATATYPE, PARAMTYPE, EXTYPE extends Exception>
                                                 implements IThrowingCallableWithParameter <DATATYPE, PARAMTYPE, EXTYPE>
 {

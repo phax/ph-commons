@@ -23,7 +23,9 @@ package com.helger.commons.callback;
  * @author Philip Helger
  * @param <DATATYPE>
  *        The return type of the call.
+ * @deprecated Use {@link java.util.function.Supplier} instead
  */
+@Deprecated
 @FunctionalInterface
 public interface INonThrowingCallable <DATATYPE> extends IThrowingCallable <DATATYPE, Exception>
 {

@@ -16,12 +16,13 @@
  */
 package com.helger.commons.scope;
 
+import java.util.function.Consumer;
+import java.util.function.Function;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.callback.INonThrowingCallableWithParameter;
-import com.helger.commons.callback.INonThrowingRunnableWithParameter;
 import com.helger.commons.collection.attr.IMutableAttributeContainerAny;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.id.IHasID;
@@ -88,24 +89,24 @@ public interface IScope extends IMutableAttributeContainerAny <String>, IHasID <
   /**
    * Perform stuff as a single action. All actions are executed in a write-lock!
    *
-   * @param aRunnable
-   *        The action to be executed. May not be <code>null</code>. The
+   * @param aConsumer
+   *        The consumer to be executed. May not be <code>null</code>. The
    *        parameter to the runnable is <code>this</code> scope.
    */
-  void runAtomic (@Nonnull INonThrowingRunnableWithParameter <IScope> aRunnable);
+  void runAtomic (@Nonnull final Consumer <IScope> aConsumer);
 
   /**
    * Perform stuff as a single action. All actions are executed in a write-lock!
    *
-   * @param aCallable
-   *        The action to be executed. May not be <code>null</code>. The
+   * @param aFunction
+   *        The function to be executed. May not be <code>null</code>. The
    *        parameter to the callable is <code>this</code> scope.
    * @return The result from the callable. May be <code>null</code>.
    * @param <T>
    *        The return type of the callable
    */
   @Nullable
-  <T> T runAtomic (@Nonnull INonThrowingCallableWithParameter <T, IScope> aCallable);
+  <T> T runAtomic (@Nonnull final Function <IScope, T> aFunction);
 
   /**
    * @return The non-<code>null</code> map with all contained attributes that
