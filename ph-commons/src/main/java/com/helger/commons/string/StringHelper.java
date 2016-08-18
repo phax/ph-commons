@@ -1814,7 +1814,7 @@ public final class StringHelper
     return getExploded (cSep,
                         sElements,
                         nMaxItems,
-                        nMaxItems >= 1 ? new CommonsArrayList <> (nMaxItems) : new CommonsArrayList <> ());
+                        nMaxItems >= 1 ? new CommonsArrayList<> (nMaxItems) : new CommonsArrayList<> ());
   }
 
   /**
@@ -1963,7 +1963,7 @@ public final class StringHelper
     return getExploded (sSep,
                         sElements,
                         nMaxItems,
-                        nMaxItems >= 1 ? new CommonsArrayList <> (nMaxItems) : new CommonsArrayList <> ());
+                        nMaxItems >= 1 ? new CommonsArrayList<> (nMaxItems) : new CommonsArrayList<> ());
   }
 
   /**
@@ -1983,7 +1983,7 @@ public final class StringHelper
   @ReturnsMutableCopy
   public static CommonsHashSet <String> getExplodedToSet (@Nonnull final String sSep, @Nullable final String sElements)
   {
-    return getExploded (sSep, sElements, -1, new CommonsHashSet <> ());
+    return getExploded (sSep, sElements, -1, new CommonsHashSet<> ());
   }
 
   /**
@@ -2005,7 +2005,7 @@ public final class StringHelper
   public static CommonsLinkedHashSet <String> getExplodedToOrderedSet (@Nonnull final String sSep,
                                                                        @Nullable final String sElements)
   {
-    return getExploded (sSep, sElements, -1, new CommonsLinkedHashSet <> ());
+    return getExploded (sSep, sElements, -1, new CommonsLinkedHashSet<> ());
   }
 
   /**
@@ -2026,7 +2026,7 @@ public final class StringHelper
   public static CommonsTreeSet <String> getExplodedToSortedSet (@Nonnull final String sSep,
                                                                 @Nullable final String sElements)
   {
-    return getExploded (sSep, sElements, -1, new CommonsTreeSet <> ());
+    return getExploded (sSep, sElements, -1, new CommonsTreeSet<> ());
   }
 
   /**
@@ -3800,6 +3800,51 @@ public final class StringHelper
       nOutputIndex++;
     }
     return aOutput;
+  }
+
+  /**
+   * Optimized replace method that replaces a set of characters with another
+   * character. This method was created for efficient unsafe character
+   * replacements!
+   *
+   * @param sInputString
+   *        The input string.
+   * @param aSearchChars
+   *        The characters to replace.
+   * @param cReplacementChar
+   *        The new char to be used instead of the search chars.
+   * @param aTarget
+   *        The target StringBuilder to write the result to. May not be
+   *        <code>null</code>.
+   */
+  public static void replaceMultipleTo (@Nullable final String sInputString,
+                                        @Nonnull final char [] aSearchChars,
+                                        final char cReplacementChar,
+                                        @Nonnull final StringBuilder aTarget)
+  {
+    ValueEnforcer.notNull (aSearchChars, "SearchChars");
+    ValueEnforcer.notNull (aTarget, "Target");
+
+    // Any input text?
+    if (hasText (sInputString))
+    {
+      // Any search chars?
+      if (aSearchChars.length == 0)
+      {
+        aTarget.append (sInputString);
+      }
+      else
+      {
+        // Perform the replacement
+        for (final char c : sInputString.toCharArray ())
+        {
+          if (ArrayHelper.contains (aSearchChars, c))
+            aTarget.append (cReplacementChar);
+          else
+            aTarget.append (c);
+        }
+      }
+    }
   }
 
   /**
