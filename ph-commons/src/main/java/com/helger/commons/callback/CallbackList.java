@@ -16,6 +16,7 @@
  */
 package com.helger.commons.callback;
 
+import java.util.Iterator;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -139,8 +140,15 @@ public class CallbackList <CALLBACKTYPE extends ICallback>
     return m_aRWLock.readLocked ( () -> new CallbackList<> (this));
   }
 
-  public void forEach (@Nonnull final Consumer <CALLBACKTYPE> aConsumer)
+  @Nonnull
+  public Iterator <CALLBACKTYPE> iterator ()
   {
+    return m_aRWLock.readLocked ( () -> m_aCallbacks.iterator ());
+  }
+
+  public void forEach (@Nonnull final Consumer <? super CALLBACKTYPE> aConsumer)
+  {
+    // Create a copy to iterate!
     for (final CALLBACKTYPE aCallback : getAllCallbacks ())
       try
       {
@@ -153,8 +161,9 @@ public class CallbackList <CALLBACKTYPE extends ICallback>
   }
 
   @Nonnull
-  public EContinue forEachWithReturn (@Nonnull final Function <CALLBACKTYPE, EContinue> aFunction)
+  public EContinue forEachBreakable (@Nonnull final Function <? super CALLBACKTYPE, EContinue> aFunction)
   {
+    // Create a copy to iterate!
     for (final CALLBACKTYPE aCallback : getAllCallbacks ())
       try
       {

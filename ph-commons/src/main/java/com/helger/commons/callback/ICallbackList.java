@@ -25,6 +25,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.ICommonsIterable;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.state.EContinue;
 
@@ -39,7 +40,7 @@ import com.helger.commons.state.EContinue;
  * @param <CALLBACKTYPE>
  *        The callback type.
  */
-public interface ICallbackList <CALLBACKTYPE extends ICallback> extends Serializable
+public interface ICallbackList <CALLBACKTYPE extends ICallback> extends ICommonsIterable <CALLBACKTYPE>, Serializable
 {
   /**
    * @return A list of all callbacks. Never <code>null</code> and only
@@ -78,7 +79,7 @@ public interface ICallbackList <CALLBACKTYPE extends ICallback> extends Serializ
    *        The action to be performed with the respective callback. This method
    *        cannot return a value. May not be <code>null</code>.
    */
-  void forEach (@Nonnull Consumer <CALLBACKTYPE> aConsumer);
+  void forEach (@Nonnull Consumer <? super CALLBACKTYPE> aConsumer);
 
   /**
    * Invoke all registered callbacks in a safe manner.
@@ -92,5 +93,9 @@ public interface ICallbackList <CALLBACKTYPE extends ICallback> extends Serializ
    *         invocation returned {@link EContinue#BREAK}.
    */
   @Nonnull
-  EContinue forEachWithReturn (@Nonnull Function <CALLBACKTYPE, EContinue> aFunction);
+  @Deprecated
+  default EContinue forEachWithReturn (@Nonnull final Function <? super CALLBACKTYPE, EContinue> aFunction)
+  {
+    return forEachBreakable (aFunction);
+  }
 }
