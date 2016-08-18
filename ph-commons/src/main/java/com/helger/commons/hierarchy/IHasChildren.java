@@ -25,7 +25,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.collection.ext.ICommonsCollection;
-import com.helger.commons.function.IBreakableConsumer;
 import com.helger.commons.state.EContinue;
 
 /**
@@ -93,7 +92,7 @@ public interface IHasChildren <CHILDTYPE>
    *         {@link EContinue#CONTINUE} otherwise.
    */
   @Nonnull
-  default EContinue forAllChildrenBreakable (@Nonnull final IBreakableConsumer <? super CHILDTYPE> aConsumer)
+  default EContinue forAllChildrenBreakable (@Nonnull final Function <? super CHILDTYPE, EContinue> aConsumer)
   {
     if (hasChildren ())
       return getAllChildren ().forEachBreakable (aConsumer);

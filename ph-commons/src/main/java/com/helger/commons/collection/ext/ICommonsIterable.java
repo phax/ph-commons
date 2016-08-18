@@ -26,7 +26,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.function.IBreakableConsumer;
 import com.helger.commons.state.EContinue;
 
 /**
@@ -65,11 +64,11 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>
    *         {@link EContinue#CONTINUE} otherwise.
    */
   @Nonnull
-  default EContinue forEachBreakable (@Nonnull final IBreakableConsumer <? super ELEMENTTYPE> aConsumer)
+  default EContinue forEachBreakable (@Nonnull final Function <? super ELEMENTTYPE, EContinue> aConsumer)
   {
     Objects.requireNonNull (aConsumer);
     for (final ELEMENTTYPE aElement : this)
-      if (aConsumer.accept (aElement).isBreak ())
+      if (aConsumer.apply (aElement).isBreak ())
         return EContinue.BREAK;
     return EContinue.CONTINUE;
   }
