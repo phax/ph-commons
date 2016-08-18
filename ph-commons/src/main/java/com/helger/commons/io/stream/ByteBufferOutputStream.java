@@ -29,6 +29,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.io.IWriteToStream;
 
 /**
  * Wrapper for an {@link java.io.OutputStream} around a
@@ -36,7 +37,7 @@ import com.helger.commons.collection.ArrayHelper;
  *
  * @author Philip Helger
  */
-public class ByteBufferOutputStream extends OutputStream
+public class ByteBufferOutputStream extends OutputStream implements IWriteToStream
 {
   public static final int DEFAULT_BUF_SIZE = 1024;
   public static final boolean DEFAULT_CAN_GROW = true;

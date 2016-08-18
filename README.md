@@ -15,6 +15,7 @@ This project was the following modules:
 
   * 8.3.1
     * Started adding JDK 9 compatibility
+    * Added new interface `IWriteToStream`
   * 8.3.0 - 2016-08-02
     * Moved the following sub-projects into this project: ph-datetime, ph-json, ph-charset, ph-graph, ph-matrix and ph-settings
   * 8.2.2 - 2016-07-22

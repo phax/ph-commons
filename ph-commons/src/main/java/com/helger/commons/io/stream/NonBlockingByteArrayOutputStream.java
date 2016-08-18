@@ -24,7 +24,6 @@ import java.nio.charset.Charset;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import javax.annotation.WillClose;
 import javax.annotation.WillNotClose;
 
 import com.helger.commons.ValueEnforcer;
@@ -32,6 +31,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.io.IWriteToStream;
 import com.helger.commons.lang.IHasSize;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -41,7 +41,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  * @see java.io.ByteArrayOutputStream
  */
-public class NonBlockingByteArrayOutputStream extends OutputStream implements IHasSize, Serializable
+public class NonBlockingByteArrayOutputStream extends OutputStream implements IHasSize, IWriteToStream, Serializable
 {
   /**
    * The buffer where data is stored.
@@ -151,31 +151,6 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   public void writeTo (@Nonnull @WillNotClose final OutputStream aOS) throws IOException
   {
     aOS.write (m_aBuf, 0, m_nCount);
-  }
-
-  /**
-   * Writes the complete contents of this byte array output stream to the
-   * specified output stream argument, as if by calling the output stream's
-   * write method using <code>out.write(buf, 0, count)</code> and afterwards
-   * closes the passed output stream. The content of this stream is not altered
-   * by calling this method.
-   *
-   * @param aOS
-   *        the output stream to which to write the data. May not be
-   *        <code>null</code>.
-   * @exception IOException
-   *            if an I/O error occurs.
-   */
-  public void writeToAndClose (@Nonnull @WillClose final OutputStream aOS) throws IOException
-  {
-    try
-    {
-      writeTo (aOS);
-    }
-    finally
-    {
-      StreamHelper.close (aOS);
-    }
   }
 
   /**
