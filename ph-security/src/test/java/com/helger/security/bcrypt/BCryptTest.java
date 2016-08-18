@@ -228,7 +228,10 @@ public final class BCryptTest
   @Test
   public void testSimple ()
   {
-    final String h1 = BCrypt.hashpw ("password", BCrypt.gensalt ());
+    final String sSalt = BCrypt.gensalt ();
+    final String h1 = BCrypt.hashpw ("password", sSalt);
     assertTrue (BCrypt.checkpw ("password", h1));
+    final String h2 = BCrypt.hashpw ("password", sSalt);
+    assertEquals (h1, h2);
   }
 }

@@ -22,6 +22,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.charset.CCharset;
+import com.helger.commons.exception.InitializationException;
 import com.helger.commons.random.VerySecureRandom;
 
 //Copyright (c) 2006 Damien Miller <djm@mindrot.org>
@@ -1339,6 +1340,12 @@ public class BCrypt
                                            -1,
                                            -1 };
 
+  static
+  {
+    if (index_64.length != 128)
+      throw new InitializationException ("Invalid array length " + index_64.length + "!");
+  }
+
   // Expanded Blowfish key
   private int [] m_aP;
   private int [] m_aS;
@@ -1400,7 +1407,7 @@ public class BCrypt
    */
   private static byte _char64 (final char x)
   {
-    if (x < 0 || x > index_64.length)
+    if (x > index_64.length)
       return -1;
     return index_64[x];
   }
@@ -1765,14 +1772,14 @@ public class BCrypt
    */
   public static boolean checkpw (@Nonnull final String sPlaintext, @Nonnull final String sHashed)
   {
-    final String try_pw = hashpw (sPlaintext, sHashed);
-    final byte [] hashed_bytes = sHashed.getBytes (CCharset.CHARSET_UTF_8_OBJ);
-    final byte [] try_bytes = try_pw.getBytes (CCharset.CHARSET_UTF_8_OBJ);
-    if (hashed_bytes.length != try_bytes.length)
+    final String sNewHashed = hashpw (sPlaintext, sHashed);
+    final byte [] aHashedBytes = sHashed.getBytes (CCharset.CHARSET_UTF_8_OBJ);
+    final byte [] aTryBytes = sNewHashed.getBytes (CCharset.CHARSET_UTF_8_OBJ);
+    if (aHashedBytes.length != aTryBytes.length)
       return false;
     byte ret = 0;
-    for (int i = 0; i < try_bytes.length; i++)
-      ret |= hashed_bytes[i] ^ try_bytes[i];
+    for (int i = 0; i < aTryBytes.length; i++)
+      ret |= aHashedBytes[i] ^ aTryBytes[i];
     return ret == 0;
   }
 }
