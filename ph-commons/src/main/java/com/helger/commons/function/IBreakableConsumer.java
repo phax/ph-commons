@@ -16,6 +16,8 @@
  */
 package com.helger.commons.function;
 
+import java.util.function.Function;
+
 import javax.annotation.Nonnull;
 
 import com.helger.commons.state.EContinue;
@@ -27,7 +29,9 @@ import com.helger.commons.state.EContinue;
  * @param <T>
  *        Type to be consumed
  */
-public interface IBreakableConsumer <T>
+@FunctionalInterface
+@Deprecated
+public interface IBreakableConsumer <T> extends Function <T, EContinue>
 {
   /**
    * Handle the current element
@@ -38,5 +42,9 @@ public interface IBreakableConsumer <T>
    *         to stop iteration.
    */
   @Nonnull
-  EContinue accept (T aElement);
+  @Deprecated
+  default EContinue accept (final T aElement)
+  {
+    return apply (aElement);
+  }
 }
