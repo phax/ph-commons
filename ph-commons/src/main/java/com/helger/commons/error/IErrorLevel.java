@@ -52,9 +52,19 @@ public interface IErrorLevel extends
     return isEqualSevereThan (EErrorLevel.SUCCESS);
   }
 
+  default boolean isFailure ()
+  {
+    return isMoreSevereThan (EErrorLevel.SUCCESS);
+  }
+
   default boolean isError ()
   {
     return isMoreOrEqualSevereThan (EErrorLevel.ERROR);
+  }
+
+  default boolean isNoError ()
+  {
+    return isLessSevereThan (EErrorLevel.ERROR);
   }
 
   default boolean isEqualSevereThan (@Nonnull final IErrorLevel aErrorLevel)

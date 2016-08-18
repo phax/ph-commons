@@ -44,9 +44,19 @@ public interface IErrorBase <IMPLTYPE extends IErrorBase <IMPLTYPE>> extends
     return getErrorLevel ().isSuccess ();
   }
 
+  default boolean isFailure ()
+  {
+    return getErrorLevel ().isFailure ();
+  }
+
   default boolean isError ()
   {
     return getErrorLevel ().isError ();
+  }
+
+  default boolean isNoError ()
+  {
+    return getErrorLevel ().isNoError ();
   }
 
   default boolean isEqualSevereThan (@Nonnull final IMPLTYPE aOther)
