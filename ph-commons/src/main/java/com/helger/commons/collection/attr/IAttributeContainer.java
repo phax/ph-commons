@@ -22,6 +22,7 @@ import java.math.BigInteger;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -93,6 +94,16 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE>
    *        The consumer to be invoked.
    */
   void forAllAttributes (@Nonnull final BiConsumer <? super KEYTYPE, ? super VALUETYPE> aConsumer);
+
+  /**
+   * Perform an operation on all contained attribute values. Use this method
+   * only for read-only operations, other you will most likely end up in a
+   * ConcurrentModificationException!
+   *
+   * @param aConsumer
+   *        The consumer to be invoked.
+   */
+  void forAllAttributeValues (@Nonnull final Consumer <? super VALUETYPE> aConsumer);
 
   /**
    * Get the attribute value associated to the given attribute name.

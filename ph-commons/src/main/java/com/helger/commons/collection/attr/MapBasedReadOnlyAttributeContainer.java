@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -54,18 +55,18 @@ public class MapBasedReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> implements 
 
   public MapBasedReadOnlyAttributeContainer (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
-    this (true, new CommonsHashMap <> ());
+    this (true, new CommonsHashMap<> ());
     m_aAttrs.put (aKey, aValue);
   }
 
   public MapBasedReadOnlyAttributeContainer (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
-    this (true, new CommonsHashMap <> (aMap));
+    this (true, new CommonsHashMap<> (aMap));
   }
 
   public MapBasedReadOnlyAttributeContainer (@Nonnull final IAttributeContainer <? extends KEYTYPE, ? extends VALUETYPE> aCont)
   {
-    this (true, new CommonsHashMap <> (aCont.getAllAttributes ()));
+    this (true, new CommonsHashMap<> (aCont.getAllAttributes ()));
   }
 
   /**
@@ -104,6 +105,11 @@ public class MapBasedReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> implements 
   public void forAllAttributes (@Nonnull final BiConsumer <? super KEYTYPE, ? super VALUETYPE> aConsumer)
   {
     m_aAttrs.forEach (aConsumer);
+  }
+
+  public void forAllAttributeValues (@Nonnull final Consumer <? super VALUETYPE> aConsumer)
+  {
+    m_aAttrs.forEachValue (aConsumer);
   }
 
   @Nonnull
