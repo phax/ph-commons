@@ -58,6 +58,7 @@ public interface ICharConsumer
    * @throws NullPointerException
    *         if {@code after} is null
    */
+  @Nonnull
   default ICharConsumer andThen (@Nonnull final ICharConsumer after)
   {
     Objects.requireNonNull (after);
