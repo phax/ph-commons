@@ -48,6 +48,10 @@ public enum EMessageDigestAlgorithm
     m_sAlgorithm = sAlgorithm;
   }
 
+  /**
+   * @return The internal name of the message digest algorithm. Neither
+   *         <code>null</code> nor empty.
+   */
   @Nonnull
   @Nonempty
   public String getAlgorithm ()
@@ -55,12 +59,27 @@ public enum EMessageDigestAlgorithm
     return m_sAlgorithm;
   }
 
+  /**
+   * @return A new message digest with this message digest algorithm using the
+   *         default security provider.
+   * @throws IllegalStateException
+   *         If this algorithm is not supported by this Java runtime.
+   */
   @Nonnull
   public MessageDigest createMessageDigest ()
   {
     return createMessageDigest (null);
   }
 
+  /**
+   * @param aSecurityProvider
+   *        The security provider to use. May be <code>null</code> to use the
+   *        default security provider.
+   * @return A new message digest with this message digest algorithm using the
+   *         provided or the default security provider.
+   * @throws IllegalStateException
+   *         If this algorithm is not supported by this Java runtime.
+   */
   @Nonnull
   public MessageDigest createMessageDigest (@Nullable final Provider aSecurityProvider)
   {
@@ -81,6 +100,6 @@ public enum EMessageDigestAlgorithm
   {
     if (StringHelper.hasNoText (sAlgorithm))
       return null;
-    return EnumHelper.findFirst (EMessageDigestAlgorithm.class, e -> e.m_sAlgorithm.equalsIgnoreCase (sAlgorithm));
+    return EnumHelper.findFirst (EMessageDigestAlgorithm.class, x -> x.m_sAlgorithm.equalsIgnoreCase (sAlgorithm));
   }
 }
