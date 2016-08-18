@@ -121,7 +121,7 @@ public final class CharsetManager
   @ReturnsMutableCopy
   public static ICommonsOrderedMap <String, Charset> getAllCharsets ()
   {
-    return new CommonsLinkedHashMap <> (s_aAllCharsets);
+    return new CommonsLinkedHashMap<> (s_aAllCharsets);
   }
 
   @Nonnull
@@ -130,8 +130,7 @@ public final class CharsetManager
   {
     ValueEnforcer.notNull (sText, "Text");
     ValueEnforcer.notNull (aCharset, "Charset");
-    if (!aCharset.canEncode ())
-      throw new IllegalArgumentException ("Cannot encode to " + aCharset);
+    ValueEnforcer.isTrue (aCharset.canEncode (), () -> "Cannot encode to " + aCharset);
 
     return sText.getBytes (aCharset);
   }
