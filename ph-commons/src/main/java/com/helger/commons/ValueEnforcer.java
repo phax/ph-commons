@@ -28,6 +28,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.equals.EqualsHelper;
 
@@ -39,6 +42,7 @@ import com.helger.commons.equals.EqualsHelper;
 @Immutable
 public final class ValueEnforcer
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (ValueEnforcer.class);
   private static final AtomicBoolean s_aEnabled = new AtomicBoolean (true);
 
   private ValueEnforcer ()
@@ -62,6 +66,7 @@ public final class ValueEnforcer
   public static void setEnabled (final boolean bEnabled)
   {
     s_aEnabled.set (bEnabled);
+    s_aLogger.info ("ValueEnforcer checks are now " + (bEnabled ? "enabled" : "disabled"));
   }
 
   /**
