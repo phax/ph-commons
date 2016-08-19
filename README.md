@@ -318,6 +318,19 @@ Add the following to your pom.xml to use this artifact:
 </dependency>
 ```
 
+#ph-charset
+This library adds support for the UTF-7 charset via Java extension SPI.
+
+##Maven usage
+Add the following to your pom.xml to use this artifact:
+```
+<dependency>
+  <groupId>com.helger</groupId>
+  <artifactId>ph-charset</artifactId>
+  <version>8.3.0</version>
+</dependency>
+```
+
 ---
 
 My personal [Coding Styleguide](https://github.com/phax/meta/blob/master/CodeingStyleguide.md) |
