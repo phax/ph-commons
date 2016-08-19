@@ -17,6 +17,7 @@
 package com.helger.commons.collection.map;
 
 import java.util.Arrays;
+import java.util.function.IntFunction;
 
 import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnegative;
@@ -110,6 +111,19 @@ public class IntObjectMap <T>
 
     final int idx = _getReadIndex (key);
     return idx != -1 ? m_aValues[idx] : aDefault;
+  }
+
+  @Nullable
+  public T computeIfAbsent (final int key, @Nonnull final IntFunction <T> aProvider)
+  {
+    T ret = get (key);
+    if (ret == null)
+    {
+      ret = aProvider.apply (key);
+      if (ret != null)
+        put (key, ret);
+    }
+    return ret;
   }
 
   @Nullable

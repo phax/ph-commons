@@ -26,6 +26,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.function.IntToFloatFunction;
 
 /**
  * Special int-float-primitive map. Based on:
@@ -104,6 +105,18 @@ public class IntFloatMap implements Serializable
 
     final int idx = _getReadIndex (key);
     return idx != -1 ? m_aValues[idx] : fDefault;
+  }
+
+  public float computeIfAbsent (final int key, @Nonnull final IntToFloatFunction aProvider)
+  {
+    float ret = get (key);
+    if (ret == NO_VALUE)
+    {
+      ret = aProvider.applyAsFloat (key);
+      if (ret != NO_VALUE)
+        put (key, ret);
+    }
+    return ret;
   }
 
   public float put (final int key, final float value)

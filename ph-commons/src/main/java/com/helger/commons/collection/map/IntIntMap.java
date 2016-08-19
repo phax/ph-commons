@@ -18,6 +18,7 @@ package com.helger.commons.collection.map;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.function.IntUnaryOperator;
 
 import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnegative;
@@ -103,6 +104,18 @@ public class IntIntMap implements Serializable
 
     final int idx = _getReadIndex (key);
     return idx != -1 ? m_aValues[idx] : nDefault;
+  }
+
+  public int computeIfAbsent (final int key, @Nonnull final IntUnaryOperator aProvider)
+  {
+    int ret = get (key);
+    if (ret == NO_VALUE)
+    {
+      ret = aProvider.applyAsInt (key);
+      if (ret != NO_VALUE)
+        put (key, ret);
+    }
+    return ret;
   }
 
   public int put (final int key, final int value)
