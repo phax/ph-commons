@@ -79,7 +79,7 @@ public class SMap extends CommonsLinkedHashMap <String, String>
   @Override
   @Deprecated
   @DevelopersNote ("Use add instead - only for API compliance!")
-  public String put (@Nonnull final String sName, @Nonnull final String sValue)
+  public final String put (@Nonnull final String sName, @Nonnull final String sValue)
   {
     return super.put (sName, sValue);
   }
@@ -87,66 +87,66 @@ public class SMap extends CommonsLinkedHashMap <String, String>
   @Deprecated
   @Override
   @DevelopersNote ("Use add instead - only for API compliance!")
-  public void putAll (final Map <? extends String, ? extends String> aMap)
+  public final void putAll (final Map <? extends String, ? extends String> aMap)
   {
     super.putAll (aMap);
   }
 
   @Nonnull
-  public SMap addIfNotNull (@Nonnull final String sName, @Nonnull final Object aValue)
+  public final SMap addIfNotNull (@Nonnull final String sName, @Nonnull final Object aValue)
   {
     return addIfNotNull (sName, TypeConverter.convertIfNecessary (aValue, String.class));
   }
 
   @Nonnull
-  public SMap addIfNotNull (@Nonnull final String sName, @Nullable final String sValue)
+  public final SMap addIfNotNull (@Nonnull final String sName, @Nullable final String sValue)
   {
     super.putIfNotNull (sName, sValue);
     return this;
   }
 
   @Nonnull
-  public SMap addIf (@Nonnull final String sName,
-                     @Nullable final String sValue,
-                     @Nonnull final Predicate <String> aFilter)
+  public final SMap addIf (@Nonnull final String sName,
+                           @Nullable final String sValue,
+                           @Nonnull final Predicate <String> aFilter)
   {
     super.putIf (sName, sValue, aFilter);
     return this;
   }
 
   @Nonnull
-  public SMap add (@Nonnull final String sName, @Nonnull final Object aValue)
+  public final SMap add (@Nonnull final String sName, @Nonnull final Object aValue)
   {
     return add (sName, TypeConverter.convertIfNecessary (aValue, String.class));
   }
 
   @Nonnull
-  public SMap add (@Nonnull final String sName, @Nullable final String sValue)
+  public final SMap add (@Nonnull final String sName, @Nullable final String sValue)
   {
     super.put (sName, sValue);
     return this;
   }
 
   @Nonnull
-  public SMap add (@Nonnull final String sName, final boolean bValue)
+  public final SMap add (@Nonnull final String sName, final boolean bValue)
   {
     return add (sName, Boolean.toString (bValue));
   }
 
   @Nonnull
-  public SMap add (@Nonnull final String sName, final int nValue)
+  public final SMap add (@Nonnull final String sName, final int nValue)
   {
     return add (sName, Integer.toString (nValue));
   }
 
   @Nonnull
-  public SMap add (@Nonnull final String sName, final long nValue)
+  public final SMap add (@Nonnull final String sName, final long nValue)
   {
     return add (sName, Long.toString (nValue));
   }
 
   @Nonnull
-  public SMap addWithoutValue (@Nonnull final String sName)
+  public final SMap addWithoutValue (@Nonnull final String sName)
   {
     return add (sName, "");
   }

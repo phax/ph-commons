@@ -537,7 +537,7 @@ public final class URLHelper
           {
             final String sValue = aParts.size () == 2 ? aParts.get (1) : "";
             if (sValue == null)
-              throw new NullPointerException ("parameter value may not be null");
+              throw new IllegalArgumentException ("parameter value may not be null");
             if (aParameterDecoder != null)
             {
               // Now decode the name and the value

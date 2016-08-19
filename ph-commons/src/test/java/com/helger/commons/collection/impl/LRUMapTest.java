@@ -21,8 +21,6 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.impl.LRUMap;
-
 /**
  * Test for class {@link LRUMap}
  *
@@ -35,7 +33,7 @@ public final class LRUMapTest
   @Test
   public void testLRUCache ()
   {
-    final LRUMap <Integer, String> aCache = new LRUMap <> (MAX_SIZE);
+    final LRUMap <Integer, String> aCache = new LRUMap<> (MAX_SIZE);
     for (int i = 0; i < MAX_SIZE * 2; ++i)
     {
       if (i < MAX_SIZE)
