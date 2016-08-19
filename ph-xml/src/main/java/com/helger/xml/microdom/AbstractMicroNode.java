@@ -472,12 +472,12 @@ public abstract class AbstractMicroNode implements IMicroNode
     return m_aParentNode;
   }
 
-  final void resetParentNode ()
+  protected final void internalResetParentNode ()
   {
     m_aParentNode = null;
   }
 
-  final void setParentNode (@Nonnull final AbstractMicroNodeWithChildren aParentNode)
+  protected final void internalSetParentNode (@Nonnull final AbstractMicroNodeWithChildren aParentNode)
   {
     if (aParentNode == null)
       throw new MicroException ("No parent node passed!");
@@ -495,7 +495,7 @@ public abstract class AbstractMicroNode implements IMicroNode
     {
       if (m_aParentNode.removeChild (this).isUnchanged ())
         throw new IllegalStateException ("Failed to remove this from parents child list");
-      resetParentNode ();
+      internalResetParentNode ();
     }
     return this;
   }
@@ -581,7 +581,7 @@ public abstract class AbstractMicroNode implements IMicroNode
     return this instanceof IMicroContainer;
   }
 
-  final void internalTriggerEvent (@Nonnull final EMicroEvent eEventType, @Nonnull final IMicroEvent aEvent)
+  protected final void internalTriggerEvent (@Nonnull final EMicroEvent eEventType, @Nonnull final IMicroEvent aEvent)
   {
     // Any event targets present?
     if (m_aEventTargets != null && m_aEventTargets.isNotEmpty ())

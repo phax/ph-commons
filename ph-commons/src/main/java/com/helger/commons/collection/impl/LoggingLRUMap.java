@@ -64,7 +64,7 @@ public class LoggingLRUMap <KEYTYPE, VALUETYPE> extends LRUMap <KEYTYPE, VALUETY
   @Nonnull
   public LoggingLRUMap <KEYTYPE, VALUETYPE> getClone ()
   {
-    return new LoggingLRUMap <> (this);
+    return new LoggingLRUMap<> (this);
   }
 
   @Nullable
@@ -74,7 +74,7 @@ public class LoggingLRUMap <KEYTYPE, VALUETYPE> extends LRUMap <KEYTYPE, VALUETY
   }
 
   @Nonnull
-  public LoggingLRUMap <KEYTYPE, VALUETYPE> setMapName (@Nullable final String sMapName)
+  public final LoggingLRUMap <KEYTYPE, VALUETYPE> setMapName (@Nullable final String sMapName)
   {
     m_sMapName = sMapName;
     return this;

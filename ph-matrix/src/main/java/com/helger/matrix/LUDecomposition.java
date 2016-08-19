@@ -56,7 +56,7 @@ public class LUDecomposition implements Serializable
    */
   private final int m_nRows, m_nCols;
 
-  private int m_nPivSign;
+  private final int m_nPivSign;
 
   /**
    * Internal storage of pivot vector.
@@ -81,7 +81,7 @@ public class LUDecomposition implements Serializable
     m_aPivot = new int [m_nRows];
     for (int i = 0; i < m_nRows; i++)
       m_aPivot[i] = i;
-    m_nPivSign = 1;
+    int nPivSign = 1;
     double [] aLUrowi;
     final double [] aLUcolj = new double [m_nRows];
 
@@ -124,7 +124,7 @@ public class LUDecomposition implements Serializable
         final int k = m_aPivot[p];
         m_aPivot[p] = m_aPivot[j];
         m_aPivot[j] = k;
-        m_nPivSign = -m_nPivSign;
+        nPivSign = -nPivSign;
       }
 
       // Compute multipliers.
@@ -132,6 +132,7 @@ public class LUDecomposition implements Serializable
         for (int i = j + 1; i < m_nRows; i++)
           m_aLU[i][j] /= aLUj[j];
     }
+    m_nPivSign = nPivSign;
   }
 
   /*

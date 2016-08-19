@@ -29,8 +29,8 @@ import com.helger.commons.scope.IScope;
  */
 public final class MockGlobalSingletonWithScopeCtor extends AbstractGlobalSingleton
 {
-  static int s_nCtorCount = 0;
-  static int s_nDtorCount = 0;
+  protected static int s_nCtorCount = 0;
+  protected static int s_nDtorCount = 0;
   private final IScope m_aScope;
 
   @Deprecated
@@ -50,7 +50,7 @@ public final class MockGlobalSingletonWithScopeCtor extends AbstractGlobalSingle
   @Override
   protected void onDestroy (@Nonnull final IScope aScopeInDestruction) throws Exception
   {
-    if (m_aScope != aScopeInDestruction)
+    if (!m_aScope.equals (aScopeInDestruction))
       throw new IllegalStateException ("Saved scope and scope in destruction don't match!");
     s_nDtorCount++;
   }

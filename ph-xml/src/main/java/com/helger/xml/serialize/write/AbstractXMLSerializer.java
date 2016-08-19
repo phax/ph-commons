@@ -103,7 +103,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
       return null;
     }
 
-    void addPrefixNamespaceMapping (@Nullable final String sPrefix, @Nonnull final String sNamespaceURI)
+    protected void addPrefixNamespaceMapping (@Nullable final String sPrefix, @Nonnull final String sNamespaceURI)
     {
       if (s_aLogger.isTraceEnabled ())
         s_aLogger.trace ("Adding namespace mapping " + sPrefix + ":" + sNamespaceURI);
@@ -132,7 +132,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
       else
       {
         if (m_aURL2PrefixMap == null)
-          m_aURL2PrefixMap = new CommonsHashMap <> ();
+          m_aURL2PrefixMap = new CommonsHashMap<> ();
         m_aURL2PrefixMap.put (sNamespaceURI, sPrefix);
       }
     }
@@ -155,12 +155,12 @@ public abstract class AbstractXMLSerializer <NODETYPE>
     }
 
     @Nonnegative
-    int getNamespaceCount ()
+    protected int getNamespaceCount ()
     {
       return (m_sDefaultNamespaceURI == null ? 0 : 1) + (m_aURL2PrefixMap == null ? 0 : m_aURL2PrefixMap.size ());
     }
 
-    boolean hasAnyNamespace ()
+    protected boolean hasAnyNamespace ()
     {
       return m_sDefaultNamespaceURI != null || (m_aURL2PrefixMap != null && !m_aURL2PrefixMap.isEmpty ());
     }
@@ -182,7 +182,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
    */
   protected static final class NamespaceStack
   {
-    private final ICommonsList <NamespaceLevel> m_aStack = new CommonsArrayList <> ();
+    private final ICommonsList <NamespaceLevel> m_aStack = new CommonsArrayList<> ();
     private final NamespaceContext m_aNamespaceCtx;
 
     public NamespaceStack (@Nonnull final NamespaceContext aNamespaceCtx)

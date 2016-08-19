@@ -64,7 +64,7 @@ public class SingleElementMap <KEYTYPE, VALUETYPE> implements ICommonsMap <KEYTY
   @ReturnsMutableCopy
   public SingleElementMap <KEYTYPE, VALUETYPE> getClone ()
   {
-    return m_bHasElement ? new SingleElementMap <> (m_aKey, m_aValue) : new SingleElementMap <> ();
+    return m_bHasElement ? new SingleElementMap<> (m_aKey, m_aValue) : new SingleElementMap<> ();
   }
 
   public void clear ()
@@ -96,7 +96,7 @@ public class SingleElementMap <KEYTYPE, VALUETYPE> implements ICommonsMap <KEYTY
   }
 
   @Nullable
-  public VALUETYPE put (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aElement)
+  public final VALUETYPE put (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aElement)
   {
     VALUETYPE aOldElement = null;
     if (EqualsHelper.equals (aKey, m_aKey))
@@ -149,14 +149,14 @@ public class SingleElementMap <KEYTYPE, VALUETYPE> implements ICommonsMap <KEYTY
   @CodingStyleguideUnaware
   public Set <KEYTYPE> keySet ()
   {
-    return m_bHasElement ? new CommonsHashSet <> (m_aKey) : new CommonsHashSet <> ();
+    return m_bHasElement ? new CommonsHashSet<> (m_aKey) : new CommonsHashSet<> ();
   }
 
   @ReturnsImmutableObject
   @Nonnull
   public Collection <VALUETYPE> values ()
   {
-    return m_bHasElement ? new CommonsArrayList <> (m_aValue) : new CommonsArrayList <> ();
+    return m_bHasElement ? new CommonsArrayList<> (m_aValue) : new CommonsArrayList<> ();
   }
 
   @Nonnull
@@ -164,9 +164,9 @@ public class SingleElementMap <KEYTYPE, VALUETYPE> implements ICommonsMap <KEYTY
   @CodingStyleguideUnaware
   public Set <Map.Entry <KEYTYPE, VALUETYPE>> entrySet ()
   {
-    final ICommonsSet <Map.Entry <KEYTYPE, VALUETYPE>> aSet = new CommonsHashSet <> (size ());
+    final ICommonsSet <Map.Entry <KEYTYPE, VALUETYPE>> aSet = new CommonsHashSet<> (size ());
     if (m_bHasElement)
-      aSet.add (new MapEntry <> (m_aKey, m_aValue));
+      aSet.add (new MapEntry<> (m_aKey, m_aValue));
     return aSet;
   }
 

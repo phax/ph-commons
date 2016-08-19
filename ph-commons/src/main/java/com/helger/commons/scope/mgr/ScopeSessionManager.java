@@ -34,6 +34,7 @@ import com.helger.commons.collection.ext.CommonsHashSet;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.ext.ICommonsSet;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.scope.IScope;
 import com.helger.commons.scope.ISessionScope;
 import com.helger.commons.scope.singleton.AbstractGlobalSingleton;
@@ -66,9 +67,9 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
 
   /** All contained session scopes. */
   @GuardedBy ("m_aRWLock")
-  private final ICommonsMap <String, ISessionScope> m_aSessionScopes = new CommonsHashMap <> ();
+  private final ICommonsMap <String, ISessionScope> m_aSessionScopes = new CommonsHashMap<> ();
   @GuardedBy ("m_aRWLock")
-  private final ICommonsSet <String> m_aSessionsInDestruction = new CommonsHashSet <> ();
+  private final ICommonsSet <String> m_aSessionsInDestruction = new CommonsHashSet<> ();
   @GuardedBy ("m_aRWLock")
   private boolean m_bDestroyAllSessionsOnScopeEnd = DEFAULT_DESTROY_ALL_SESSIONS_ON_SCOPE_END;
   @GuardedBy ("m_aRWLock")
@@ -159,7 +160,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
         {
           // Remove from map
           final ISessionScope aRemovedScope = m_aSessionScopes.remove (sSessionID);
-          if (aRemovedScope != aSessionScope)
+          if (!EqualsHelper.identityEqual (aRemovedScope, aSessionScope))
           {
             s_aLogger.error ("Ending an unknown session with ID '" + sSessionID + "'");
             s_aLogger.error ("  Scope to be removed: " + aSessionScope);

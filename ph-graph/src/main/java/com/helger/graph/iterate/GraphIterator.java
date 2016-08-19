@@ -28,6 +28,7 @@ import com.helger.commons.collection.ext.CommonsHashSet;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.collection.iterate.IIterableIterator;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.graph.IMutableGraphNode;
 import com.helger.graph.IMutableGraphRelation;
 
@@ -42,7 +43,7 @@ public final class GraphIterator implements IIterableIterator <IMutableGraphNode
   /**
    * Maps node IDs to node states
    */
-  private final ICommonsSet <String> m_aHandledObjects = new CommonsHashSet <> ();
+  private final ICommonsSet <String> m_aHandledObjects = new CommonsHashSet<> ();
 
   private final Iterator <IMutableGraphNode> m_aIter;
 
@@ -56,7 +57,7 @@ public final class GraphIterator implements IIterableIterator <IMutableGraphNode
     ValueEnforcer.notNull (aStartNode, "startNode");
 
     // Collect all nodes, depth first
-    final ICommonsList <IMutableGraphNode> aList = new CommonsArrayList <> ();
+    final ICommonsList <IMutableGraphNode> aList = new CommonsArrayList<> ();
     _traverseDFS (aStartNode, aList);
     m_aIter = aList.iterator ();
   }
@@ -70,7 +71,7 @@ public final class GraphIterator implements IIterableIterator <IMutableGraphNode
     {
       final boolean bNewRelation = m_aHandledObjects.add (aRelation.getID ());
       for (final IMutableGraphNode aNode : aRelation.getAllConnectedNodes ())
-        if (aNode != aStartNode)
+        if (!EqualsHelper.identityEqual (aNode, aStartNode))
         {
           if (!m_aHandledObjects.contains (aNode.getID ()))
             _traverseDFS (aNode, aList);

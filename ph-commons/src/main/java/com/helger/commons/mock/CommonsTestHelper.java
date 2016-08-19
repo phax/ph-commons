@@ -101,7 +101,7 @@ public final class CommonsTestHelper
   {
     _testEqualsImplementation (aObject);
     _testEqualsImplementation (aObject2);
-    _assertFalse ("This test may not be used with the same object!", aObject == aObject2);
+    _assertFalse ("This test may not be used with the same object!", EqualsHelper.identityEqual (aObject, aObject2));
     _assertTrue ("Passed objects are not identical!", aObject.equals (aObject2));
     _assertTrue ("Passed objects are not identical!", aObject2.equals (aObject));
   }
@@ -111,7 +111,7 @@ public final class CommonsTestHelper
   {
     _testEqualsImplementation (aObject);
     _testEqualsImplementation (aObject2);
-    _assertFalse ("This test may not be used with the same object!", aObject == aObject2);
+    _assertFalse ("This test may not be used with the same object!", EqualsHelper.identityEqual (aObject, aObject2));
     _assertFalse ("Passed objects are identical!", aObject.equals (aObject2));
     _assertFalse ("Passed objects are identical!", aObject2.equals (aObject));
   }
@@ -243,8 +243,7 @@ public final class CommonsTestHelper
 
       // Read new object from byte array
       DATATYPE aReadObject;
-      try (
-          final ObjectInputStream aOIS = new ObjectInputStream (new ByteArrayInputStreamProvider (aBAOS.toByteArray ()).getInputStream ()))
+      try (final ObjectInputStream aOIS = new ObjectInputStream (new ByteArrayInputStreamProvider (aBAOS.toByteArray ()).getInputStream ()))
       {
         aReadObject = GenericReflection.uncheckedCast (aOIS.readObject ());
       }

@@ -84,7 +84,7 @@ public class CombinationGenerator <DATATYPE> implements IIterableIterator <IComm
   /**
    * Reset the generator
    */
-  public void reset ()
+  public final void reset ()
   {
     for (int i = 0; i < m_aIndexResult.length; i++)
       m_aIndexResult[i] = i;
@@ -156,7 +156,7 @@ public class CombinationGenerator <DATATYPE> implements IIterableIterator <IComm
       m_aCombinationsLeft = m_aCombinationsLeft.subtract (BigInteger.ONE);
 
     // Build result list
-    final ICommonsList <DATATYPE> aResult = new CommonsArrayList <> (m_aIndexResult.length);
+    final ICommonsList <DATATYPE> aResult = new CommonsArrayList<> (m_aIndexResult.length);
     for (final int nIndex : m_aIndexResult)
       aResult.add (m_aElements[nIndex]);
     return aResult;
@@ -179,7 +179,7 @@ public class CombinationGenerator <DATATYPE> implements IIterableIterator <IComm
   public static <DATATYPE> ICommonsList <ICommonsList <DATATYPE>> getAllPermutations (@Nonnull @Nonempty final ICommonsList <DATATYPE> aInput,
                                                                                       @Nonnegative final int nSlotCount)
   {
-    final ICommonsList <ICommonsList <DATATYPE>> aResultList = new CommonsArrayList <> ();
+    final ICommonsList <ICommonsList <DATATYPE>> aResultList = new CommonsArrayList<> ();
     addAllPermutations (aInput, nSlotCount, aResultList);
     return aResultList;
   }
@@ -202,7 +202,7 @@ public class CombinationGenerator <DATATYPE> implements IIterableIterator <IComm
                                                     @Nonnegative final int nSlotCount,
                                                     @Nonnull final Collection <ICommonsList <DATATYPE>> aResultList)
   {
-    for (final ICommonsList <DATATYPE> aPermutation : new CombinationGenerator <> (aInput, nSlotCount))
+    for (final ICommonsList <DATATYPE> aPermutation : new CombinationGenerator<> (aInput, nSlotCount))
       aResultList.add (aPermutation);
   }
 }

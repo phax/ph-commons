@@ -48,6 +48,21 @@ public final class EqualsHelper
   {}
 
   /**
+   * The only place where objects are compared by identity.
+   *
+   * @param aObj1
+   *        First object. May be <code>null</code>.
+   * @param aObj2
+   *        Second object. May be <code>null</code>.
+   * @return <code>true</code> if both objects are <code>null</code> or
+   *         reference the same object.
+   */
+  public static <T> boolean identityEqual (@Nullable final T aObj1, @Nullable final T aObj2)
+  {
+    return aObj1 == aObj2;
+  }
+
+  /**
    * Check if two values are equal. This method only exists, so that no type
    * differentiation is needed.
    *
@@ -234,7 +249,7 @@ public final class EqualsHelper
   public static boolean equalsCollection (@Nullable final Object aObj1, @Nullable final Object aObj2)
   {
     // Same object - check first
-    if (aObj1 == aObj2)
+    if (identityEqual (aObj1, aObj2))
       return true;
 
     // Is only one value null?
@@ -401,7 +416,7 @@ public final class EqualsHelper
   public static boolean equalsAsList (@Nullable final Object aObj1, @Nullable final Object aObj2)
   {
     // Same object - check first
-    if (aObj1 == aObj2)
+    if (identityEqual (aObj1, aObj2))
       return true;
 
     // Is only one value null?

@@ -36,6 +36,7 @@ import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.CommonsWeakHashMap;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.ClassHierarchyCache;
 import com.helger.commons.lang.ServiceLoaderHelper;
@@ -121,7 +122,7 @@ public final class HashCodeImplementationRegistry implements IHashCodeImplementa
       if (aOldImpl == null)
         m_aMap.put (aClass, aImpl);
       else
-        if (aOldImpl != aImpl)
+        if (!EqualsHelper.identityEqual (aOldImpl, aImpl))
         {
           // Avoid the warning when the passed implementation equals the stored
           // implementation

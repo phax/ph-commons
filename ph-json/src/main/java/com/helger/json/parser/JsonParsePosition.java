@@ -45,7 +45,7 @@ public class JsonParsePosition implements ICloneable <JsonParsePosition>, IJsonP
     m_nColumn = aOther.m_nColumn;
   }
 
-  void updatePosition (final int c, final int nTabSize)
+  protected void updatePosition (final int c, final int nTabSize)
   {
     m_nColumn++;
 

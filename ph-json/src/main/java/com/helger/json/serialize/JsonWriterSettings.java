@@ -65,7 +65,7 @@ public class JsonWriterSettings implements IJsonWriterSettings
   }
 
   @Nonnull
-  public JsonWriterSettings setIndentEnabled (final boolean bIndentEnabled)
+  public final JsonWriterSettings setIndentEnabled (final boolean bIndentEnabled)
   {
     m_bIndentEnabled = bIndentEnabled;
     return this;
@@ -79,7 +79,7 @@ public class JsonWriterSettings implements IJsonWriterSettings
   }
 
   @Nonnull
-  public JsonWriterSettings setIndentString (@Nonnull @Nonempty final String sIndentString)
+  public final JsonWriterSettings setIndentString (@Nonnull @Nonempty final String sIndentString)
   {
     m_sIndentString = ValueEnforcer.notEmpty (sIndentString, "IndentString");
     return this;
@@ -93,7 +93,7 @@ public class JsonWriterSettings implements IJsonWriterSettings
   }
 
   @Nonnull
-  public JsonWriterSettings setNewlineString (@Nonnull @Nonempty final String sNewlineString)
+  public final JsonWriterSettings setNewlineString (@Nonnull @Nonempty final String sNewlineString)
   {
     m_sNewlineString = ValueEnforcer.notEmpty (sNewlineString, "NewlineString");
     return this;
@@ -105,7 +105,7 @@ public class JsonWriterSettings implements IJsonWriterSettings
   }
 
   @Nonnull
-  public JsonWriterSettings setWriteNewlineAtEnd (final boolean bWriteNewlineAtEnd)
+  public final JsonWriterSettings setWriteNewlineAtEnd (final boolean bWriteNewlineAtEnd)
   {
     m_bWriteNewlineAtEnd = bWriteNewlineAtEnd;
     return this;

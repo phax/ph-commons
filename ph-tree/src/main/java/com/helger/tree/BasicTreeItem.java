@@ -278,7 +278,7 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
     while (aCur != null)
     {
       // Do not use "equals" because it recursively compares all children!
-      if (aCur == aParent)
+      if (EqualsHelper.identityEqual (aCur, aParent))
         return true;
       aCur = aCur.getParent ();
     }

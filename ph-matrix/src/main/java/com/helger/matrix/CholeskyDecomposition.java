@@ -54,7 +54,7 @@ public class CholeskyDecomposition implements Serializable
    *
    * @serial is symmetric and positive definite flag.
    */
-  private boolean m_bIsSPD;
+  private final boolean m_bIsSPD;
 
   /**
    * Cholesky algorithm for symmetric and positive definite matrix. Structure to
@@ -69,7 +69,7 @@ public class CholeskyDecomposition implements Serializable
     final double [] [] aArray = aMatrix.internalGetArray ();
     m_nDim = aMatrix.getRowDimension ();
     m_aData = new double [m_nDim] [m_nDim];
-    m_bIsSPD = (aMatrix.getColumnDimension () == m_nDim);
+    boolean bIsSPD = (aMatrix.getColumnDimension () == m_nDim);
     // Main loop.
     for (int nRow = 0; nRow < m_nDim; nRow++)
     {
@@ -84,14 +84,15 @@ public class CholeskyDecomposition implements Serializable
           s += aRowK[i] * aRowJ[i];
         aRowJ[nCol] = s = (aArrayJ[nCol] - s) / aRowK[nCol];
         d += s * s;
-        m_bIsSPD = m_bIsSPD && EqualsHelper.equals (aArray[nCol][nRow], aArrayJ[nCol]);
+        bIsSPD = bIsSPD && EqualsHelper.equals (aArray[nCol][nRow], aArrayJ[nCol]);
       }
       d = aArrayJ[nRow] - d;
-      m_bIsSPD = m_bIsSPD && (d > 0.0);
+      bIsSPD = bIsSPD && (d > 0.0);
       aRowJ[nRow] = Math.sqrt (Math.max (d, 0.0));
       for (int k = nRow + 1; k < m_nDim; k++)
         aRowJ[k] = 0.0;
     }
+    m_bIsSPD = bIsSPD;
   }
 
   /*

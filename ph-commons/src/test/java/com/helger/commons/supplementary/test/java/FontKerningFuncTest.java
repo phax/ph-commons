@@ -124,7 +124,7 @@ public final class FontKerningFuncTest
           m_aKerning = Collections.emptyMap ();
           return;
         }
-        m_aKerning = new CommonsHashMap <> (2048);
+        m_aKerning = new CommonsHashMap<> (2048);
         if (m_nHeadOffset < m_nKernOffset)
         {
           _readHEAD (aDIS);
@@ -213,7 +213,7 @@ public final class FontKerningFuncTest
       {
         _skip (aIS, 2 * 2);
         int k = _readUnsignedShort (aIS);
-        if (!((k & 1) != 0) || (k & 2) != 0 || (k & 4) != 0)
+        if ((k & 1) == 0 || (k & 2) != 0 || (k & 4) != 0)
           return;
         if (k >> 8 != 0)
           continue;
@@ -280,7 +280,7 @@ public final class FontKerningFuncTest
       GraphicsEnvironment.getLocalGraphicsEnvironment ();
       final int nFontSize = 25;
 
-      final ICommonsMap <TextAttribute, Object> aTextAttributes = new CommonsHashMap <> ();
+      final ICommonsMap <TextAttribute, Object> aTextAttributes = new CommonsHashMap<> ();
       aTextAttributes.put (TextAttribute.FAMILY, "Arial");
       aTextAttributes.put (TextAttribute.SIZE, Float.valueOf (nFontSize));
       final Font aFont = Font.getFont (aTextAttributes);

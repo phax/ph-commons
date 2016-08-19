@@ -32,6 +32,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.state.ESuccess;
 
@@ -159,7 +160,7 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
     // Change data type
     final ICommonsList <DATATYPE> ret = new CommonsArrayList<> ();
     for (final Object aObj : aDrainedToList)
-      if (aObj != STOP_QUEUE_OBJECT)
+      if (!EqualsHelper.identityEqual (aObj, STOP_QUEUE_OBJECT))
         ret.add (GenericReflection.uncheckedCast (aObj));
       else
       {

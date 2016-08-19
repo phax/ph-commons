@@ -106,7 +106,7 @@ public class NonBlockingBufferedWriter extends Writer
    * @throws IOException
    *         of the writer is not open
    */
-  void flushBuffer () throws IOException
+  protected void flushBuffer () throws IOException
   {
     _ensureOpen ();
     if (m_nNextChar != 0)

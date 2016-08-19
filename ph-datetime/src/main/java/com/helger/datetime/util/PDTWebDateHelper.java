@@ -79,46 +79,46 @@ public final class PDTWebDateHelper
     private final String m_sPattern;
     private final TemporalQuery <T> m_aQuery;
 
-    Mask (@Nonnull @Nonempty final String sPattern, @Nonnull final TemporalQuery <T> aQuery)
+    protected Mask (@Nonnull @Nonempty final String sPattern, @Nonnull final TemporalQuery <T> aQuery)
     {
       m_sPattern = sPattern;
       m_aQuery = aQuery;
     }
 
     @Nonnull
-    static Mask <ZonedDateTime> zonedDateTime (@Nonnull @Nonempty final String sPattern)
+    protected static Mask <ZonedDateTime> zonedDateTime (@Nonnull @Nonempty final String sPattern)
     {
-      return new Mask <> (sPattern, ZonedDateTime::from);
+      return new Mask<> (sPattern, ZonedDateTime::from);
     }
 
     @Nonnull
-    static Mask <OffsetDateTime> offsetDateTime (@Nonnull @Nonempty final String sPattern)
+    protected static Mask <OffsetDateTime> offsetDateTime (@Nonnull @Nonempty final String sPattern)
     {
-      return new Mask <> (sPattern, OffsetDateTime::from);
+      return new Mask<> (sPattern, OffsetDateTime::from);
     }
 
     @Nonnull
-    static Mask <LocalDateTime> localDateTime (@Nonnull @Nonempty final String sPattern)
+    protected static Mask <LocalDateTime> localDateTime (@Nonnull @Nonempty final String sPattern)
     {
-      return new Mask <> (sPattern, LocalDateTime::from);
+      return new Mask<> (sPattern, LocalDateTime::from);
     }
 
     @Nonnull
-    static Mask <LocalDate> localDate (@Nonnull @Nonempty final String sPattern)
+    protected static Mask <LocalDate> localDate (@Nonnull @Nonempty final String sPattern)
     {
-      return new Mask <> (sPattern, LocalDate::from);
+      return new Mask<> (sPattern, LocalDate::from);
     }
 
     @Nonnull
-    static Mask <YearMonth> yearMonth (@Nonnull @Nonempty final String sPattern)
+    protected static Mask <YearMonth> yearMonth (@Nonnull @Nonempty final String sPattern)
     {
-      return new Mask <> (sPattern, YearMonth::from);
+      return new Mask<> (sPattern, YearMonth::from);
     }
 
     @Nonnull
-    static Mask <Year> year (@Nonnull @Nonempty final String sPattern)
+    protected static Mask <Year> year (@Nonnull @Nonempty final String sPattern)
     {
-      return new Mask <> (sPattern, Year::from);
+      return new Mask<> (sPattern, Year::from);
     }
   }
 
@@ -306,7 +306,7 @@ public final class PDTWebDateHelper
     }
   }
 
-  private static ICommonsList <ZoneIdSupplier> s_aZIS = new CommonsArrayList <> ();
+  private static ICommonsList <ZoneIdSupplier> s_aZIS = new CommonsArrayList<> ();
 
   static
   {

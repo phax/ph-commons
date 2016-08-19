@@ -498,7 +498,7 @@ public final class XMLHelper
         // For all elements of the parent node
         for (final Element x : new ChildElementIterator (aCurNode.getParentNode ()))
         {
-          if (x == aCurNode)
+          if (EqualsHelper.identityEqual (x, aCurNode))
             break;
           if (x.getTagName ().equals (aCurElement.getTagName ()))
             ++nIndex;

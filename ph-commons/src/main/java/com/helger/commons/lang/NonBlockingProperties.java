@@ -397,7 +397,7 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
       m_aInCharBuf = new char [8192];
     }
 
-    int readLine () throws IOException
+    protected int readLine () throws IOException
     {
       int nLen = 0;
       char c = 0;

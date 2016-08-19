@@ -27,6 +27,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.lang.GenericReflection;
 
 /**
@@ -129,7 +130,7 @@ public class IntObjectMap <T>
   @Nullable
   private T _getOld (final T aValue)
   {
-    return aValue == m_aNoValue ? null : aValue;
+    return EqualsHelper.identityEqual (aValue, m_aNoValue) ? null : aValue;
   }
 
   public T put (final int key, final T value)

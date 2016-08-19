@@ -18,6 +18,7 @@ package com.helger.commons.supplementary.test.java;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -77,7 +78,8 @@ public final class JavaCommonsFuncTest
     assertTrue (i1 == 9999);
     assertTrue (9999 == i1);
     assertTrue (i1 == i2.intValue ());
-    assertTrue (i1 != i2);
+    assertEquals (i1, i2);
+    assertNotSame (i1, i2);
   }
 
   @Test

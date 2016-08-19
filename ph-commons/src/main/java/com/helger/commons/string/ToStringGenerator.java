@@ -23,6 +23,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.equals.EqualsHelper;
+
 /**
  * This is a utility class for easier <code>toString</code> method creations. It
  * assumes that the <code>toString</code> method is only used for the
@@ -280,7 +282,8 @@ public final class ToStringGenerator
   @Nonnull
   private String _getObjectValue (@Nullable final Object aValue)
   {
-    return aValue == null ? CONSTANT_NULL : aValue == m_aSrc ? CONSTANT_THIS : aValue.toString ();
+    return aValue == null ? CONSTANT_NULL
+                          : EqualsHelper.identityEqual (aValue, m_aSrc) ? CONSTANT_THIS : aValue.toString ();
   }
 
   @Nonnull

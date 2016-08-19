@@ -53,15 +53,15 @@ public final class ClassHierarchyCache
   private static final class ClassList implements Iterable <WeakReference <Class <?>>>
   {
     // Store it in the correct order, but without duplicates
-    private final ICommonsList <WeakReference <Class <?>>> m_aList = new CommonsArrayList <> ();
+    private final ICommonsList <WeakReference <Class <?>>> m_aList = new CommonsArrayList<> ();
 
     public ClassList (@Nonnull final Class <?> aClass)
     {
       ValueEnforcer.notNull (aClass, "Class");
 
       // Check the whole class hierarchy of the source class
-      final ICommonsOrderedSet <Class <?>> aUniqueOrderedClasses = new CommonsLinkedHashSet <> ();
-      final ICommonsList <Class <?>> aOpenSrc = new CommonsArrayList <> ();
+      final ICommonsOrderedSet <Class <?>> aUniqueOrderedClasses = new CommonsLinkedHashSet<> ();
+      final ICommonsList <Class <?>> aOpenSrc = new CommonsArrayList<> ();
       aOpenSrc.add (aClass);
       while (!aOpenSrc.isEmpty ())
       {
@@ -78,7 +78,7 @@ public final class ClassHierarchyCache
 
       // Now convert to list of WeakReference
       for (final Class <?> aCurClass : aUniqueOrderedClasses)
-        m_aList.add (new WeakReference <> (aCurClass));
+        m_aList.add (new WeakReference<> (aCurClass));
     }
 
     @Nonnull
@@ -86,7 +86,7 @@ public final class ClassHierarchyCache
     public ICommonsOrderedSet <Class <?>> getAsSet ()
     {
       // Use a linked hash set, to maintain the order
-      final ICommonsOrderedSet <Class <?>> ret = new CommonsLinkedHashSet <> (m_aList.size ());
+      final ICommonsOrderedSet <Class <?>> ret = new CommonsLinkedHashSet<> (m_aList.size ());
       for (final WeakReference <Class <?>> aRef : m_aList)
       {
         final Class <?> aClass = aRef.get ();
@@ -101,7 +101,7 @@ public final class ClassHierarchyCache
     public ICommonsList <Class <?>> getAsList ()
     {
       // Use a list that may contain duplicates
-      final ICommonsList <Class <?>> ret = new CommonsArrayList <> (m_aList.size ());
+      final ICommonsList <Class <?>> ret = new CommonsArrayList<> (m_aList.size ());
       for (final WeakReference <Class <?>> aRef : m_aList)
       {
         final Class <?> aClass = aRef.get ();
@@ -128,7 +128,7 @@ public final class ClassHierarchyCache
 
   private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("s_aRWLock")
-  private static final ICommonsMap <String, ClassList> s_aClassHierarchy = new LRUMap <> (1000);
+  private static final ICommonsMap <String, ClassList> s_aClassHierarchy = new LRUMap<> (1000);
 
   @PresentForCodeCoverage
   private static final ClassHierarchyCache s_aInstance = new ClassHierarchyCache ();
@@ -158,7 +158,7 @@ public final class ClassHierarchyCache
   }
 
   @Nonnull
-  static ClassList getClassList (@Nonnull final Class <?> aClass)
+  protected static ClassList getClassList (@Nonnull final Class <?> aClass)
   {
     ValueEnforcer.notNull (aClass, "Class");
     final String sKey = aClass.getName ();

@@ -83,7 +83,7 @@ public final class CountryCache
   }
 
   @Nonnull
-  EChange addCountry (@Nonnull final String sCountry)
+  protected EChange addCountry (@Nonnull final String sCountry)
   {
     ValueEnforcer.notNull (sCountry, "Country");
     final String sValidCountry = LocaleHelper.getValidCountryCode (sCountry);

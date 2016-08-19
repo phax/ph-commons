@@ -26,6 +26,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.collation.CollatorHelper;
+import com.helger.commons.equals.EqualsHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -214,7 +215,7 @@ public final class CompareHelper
                                                                               @Nullable final DATATYPE aObj2,
                                                                               final boolean bNullValuesComeFirst)
   {
-    if (aObj1 == aObj2)
+    if (EqualsHelper.identityEqual (aObj1, aObj2))
       return 0;
     if (aObj1 == null)
       return bNullValuesComeFirst ? -1 : +1;
@@ -273,7 +274,7 @@ public final class CompareHelper
                                         @Nonnull final Comparator <? super DATATYPE> aComp,
                                         final boolean bNullValuesComeFirst)
   {
-    if (aObj1 == aObj2)
+    if (EqualsHelper.identityEqual (aObj1, aObj2))
       return 0;
     if (aObj1 == null)
       return bNullValuesComeFirst ? -1 : +1;
@@ -312,7 +313,7 @@ public final class CompareHelper
                              @Nonnull final Collator aCollator,
                              final boolean bNullValuesComeFirst)
   {
-    if (sStr1 == sStr2)
+    if (EqualsHelper.identityEqual (sStr1, sStr2))
       return 0;
     if (sStr1 == null)
       return bNullValuesComeFirst ? -1 : +1;

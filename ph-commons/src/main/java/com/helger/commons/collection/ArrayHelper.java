@@ -4062,7 +4062,7 @@ public final class ArrayHelper
   public static boolean isArrayEquals (@Nullable final Object aHeadArray, @Nullable final Object aTailArray)
   {
     // Same objects?
-    if (aHeadArray == aTailArray)
+    if (EqualsHelper.identityEqual (aHeadArray, aTailArray))
       return true;
 
     // Any of the null -> different because they are not both null

@@ -53,14 +53,14 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
    */
   @Nullable
   @ReturnsMutableObject ("efficient access")
-  final ICommonsList <IMicroNode> directGetAllChildren ()
+  protected final ICommonsList <IMicroNode> directGetAllChildren ()
   {
     return m_aChildren;
   }
 
   private void _afterInsertAsChildOfThis (@Nonnull final AbstractMicroNode aChildNode)
   {
-    aChildNode.setParentNode (this);
+    aChildNode.internalSetParentNode (this);
     onEvent (EMicroEvent.NODE_INSERTED, this, aChildNode);
   }
 
@@ -125,7 +125,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
 
     if (m_aChildren.isEmpty ())
       m_aChildren = null;
-    ((AbstractMicroNode) aChildNode).resetParentNode ();
+    ((AbstractMicroNode) aChildNode).internalResetParentNode ();
     onEvent (EMicroEvent.NODE_REMOVED, this, aChildNode);
   }
 

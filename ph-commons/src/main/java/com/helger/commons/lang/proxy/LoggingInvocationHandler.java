@@ -66,23 +66,23 @@ public class LoggingInvocationHandler implements InvocationHandler
    * @return this for chaining
    */
   @Nonnull
-  public LoggingInvocationHandler setProxyReturnValues (boolean bProxyReturnValues)
+  public LoggingInvocationHandler setProxyReturnValues (final boolean bProxyReturnValues)
   {
     m_bProxyReturnValues = bProxyReturnValues;
     return this;
   }
 
   @Nonnull
-  private static String _getParameter (@Nullable Parameter [] aParams, @Nullable final Object [] aArgs)
+  private static String _getParameter (@Nullable final Parameter [] aParams, @Nullable final Object [] aArgs)
   {
-    StringBuilder aSB = new StringBuilder ();
+    final StringBuilder aSB = new StringBuilder ();
     if (aParams != null)
     {
-      int nCount = aParams.length;
+      final int nCount = aParams.length;
       for (int i = 0; i < nCount; ++i)
       {
-        Parameter aParam = aParams[i];
-        Object aArg = aArgs[i];
+        final Parameter aParam = aParams[i];
+        final Object aArg = aArgs[i];
         if (aSB.length () > 0)
           aSB.append (", ");
         aSB.append (aParam.getType ().getSimpleName ())
@@ -100,16 +100,16 @@ public class LoggingInvocationHandler implements InvocationHandler
                         @Nonnull final Method aMethod,
                         @Nonnull final Object [] aArgs) throws Throwable
   {
-    Class <?> aReturnType = aMethod.getReturnType ();
-    String sMethod = m_sLogPrefix +
-                     aReturnType.getSimpleName () +
-                     " " +
-                     m_aActualTarget.getClass ().getSimpleName () +
-                     "." +
-                     aMethod.getName () +
-                     " (" +
-                     _getParameter (aMethod.getParameters (), aArgs) +
-                     ")";
+    final Class <?> aReturnType = aMethod.getReturnType ();
+    final String sMethod = m_sLogPrefix +
+                           aReturnType.getSimpleName () +
+                           " " +
+                           m_aActualTarget.getClass ().getSimpleName () +
+                           "." +
+                           aMethod.getName () +
+                           " (" +
+                           _getParameter (aMethod.getParameters (), aArgs) +
+                           ")";
     s_aLogger.info (sMethod + " - invoke");
     final Object ret = aMethod.invoke (m_aActualTarget, aArgs);
 
@@ -133,13 +133,13 @@ public class LoggingInvocationHandler implements InvocationHandler
   }
 
   @Nonnull
-  public static <T> T proxying (@Nonnull Class <T> aInterfaceClass, @Nonnull final Object aActualTarget)
+  public static <T> T proxying (@Nonnull final Class <T> aInterfaceClass, @Nonnull final Object aActualTarget)
   {
     return proxying (aInterfaceClass, aActualTarget, LoggingInvocationHandler::new);
   }
 
   @Nonnull
-  public static <T> T proxying (@Nonnull Class <T> aInterfaceClass,
+  public static <T> T proxying (@Nonnull final Class <T> aInterfaceClass,
                                 @Nonnull final Object aActualTarget,
                                 @Nonnull final Function <Object, InvocationHandler> aFactory)
   {

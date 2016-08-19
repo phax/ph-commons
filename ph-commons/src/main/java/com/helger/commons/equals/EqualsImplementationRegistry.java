@@ -126,7 +126,7 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
       {
         // Avoid the warning when the passed implementation equals the stored
         // implementation
-        if (aOldImpl != aImpl)
+        if (!EqualsHelper.identityEqual (aOldImpl, aImpl))
           s_aLogger.warn ("Another equals implementation for class " +
                           aClass +
                           " is already registered (" +
@@ -275,7 +275,7 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
   public static <T> boolean areEqual (@Nullable final T aObj1, @Nullable final T aObj2)
   {
     // Same object - check first
-    if (aObj1 == aObj2)
+    if (EqualsHelper.identityEqual (aObj1, aObj2))
       return true;
 
     // Is only one value null?

@@ -1317,7 +1317,7 @@ public final class ValueEnforcer
   public static <T> T isSame (final T aValue, @Nonnull final Supplier <String> aName, @Nullable final T aExpectedValue)
   {
     if (isEnabled ())
-      if (aValue != aExpectedValue)
+      if (!EqualsHelper.identityEqual (aValue, aExpectedValue))
         throw new IllegalArgumentException ("The value of '" +
                                             aName.get () +
                                             "' does not match the expected value. Passed value: " +

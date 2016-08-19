@@ -28,8 +28,8 @@ import com.helger.commons.scope.IScope;
  */
 public final class MockGlobalSingleton extends AbstractGlobalSingleton
 {
-  static int s_nCtorCount = 0;
-  static int s_nDtorCount = 0;
+  protected static int s_nCtorCount = 0;
+  protected static int s_nDtorCount = 0;
 
   @Deprecated
   @UsedViaReflection

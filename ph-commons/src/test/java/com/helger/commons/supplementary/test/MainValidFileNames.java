@@ -35,7 +35,7 @@ public final class MainValidFileNames
   private MainValidFileNames ()
   {}
 
-  static void testName (final String sName)
+  private static void _testName (final String sName)
   {
     final String fileName = sName + ".txt";
     final File f = new File (fileName);
@@ -85,18 +85,18 @@ public final class MainValidFileNames
   public static void main (final String [] args)
   {
     // no problem
-    testName ("PRN1");
+    _testName ("PRN1");
     // printer
-    testName ("PRN");
+    _testName ("PRN");
     // null device
-    testName ("nul");
+    _testName ("nul");
     // 1st parallel port
-    testName ("LPT1");
+    _testName ("LPT1");
     // 2nd parallel port
-    testName ("LPT2");
+    _testName ("LPT2");
     // console
-    testName ("CoN");
+    _testName ("CoN");
     // serial port
-    testName ("aUX");
+    _testName ("aUX");
   }
 }

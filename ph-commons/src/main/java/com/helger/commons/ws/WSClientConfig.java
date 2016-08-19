@@ -697,7 +697,7 @@ public class WSClientConfig
       }
       else
       {
-        if (aContextClassLoader != aThisClassLoader)
+        if (!aContextClassLoader.equals (aThisClassLoader))
         {
           s_aLogger.warn ("Manually overriding thread context class loader to work around MASM0003 bug");
           ClassLoaderHelper.setContextClassLoader (aThisClassLoader);

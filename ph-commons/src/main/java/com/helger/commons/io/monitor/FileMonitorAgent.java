@@ -42,7 +42,7 @@ final class FileMonitorAgent
 
   private boolean m_bExists;
   private long m_nTimestamp;
-  private final ICommonsSet <String> m_aChildren = new CommonsHashSet <> ();
+  private final ICommonsSet <String> m_aChildren = new CommonsHashSet<> ();
 
   /**
    * @param aMonitor
@@ -50,7 +50,7 @@ final class FileMonitorAgent
    * @param aFile
    *        The file to be monitored. May not be <code>null</code>.
    */
-  FileMonitorAgent (@Nonnull final FileMonitor aMonitor, @Nonnull final File aFile)
+  public FileMonitorAgent (@Nonnull final FileMonitor aMonitor, @Nonnull final File aFile)
   {
     m_aMonitor = ValueEnforcer.notNull (aMonitor, "Monitor");
     m_aFile = ValueEnforcer.notNull (aFile, "File");
@@ -66,7 +66,7 @@ final class FileMonitorAgent
     }
   }
 
-  void resetChildrenList ()
+  protected void resetChildrenList ()
   {
     m_aChildren.clear ();
     final File [] aChildren = m_aFile.listFiles ();
@@ -105,8 +105,8 @@ final class FileMonitorAgent
   {
     // See which new children are not listed in the current children
     // map.
-    final ICommonsSet <String> aNewChildren = new CommonsHashSet <> ();
-    final NonBlockingStack <File> aNewCreatedChildren = new NonBlockingStack <> ();
+    final ICommonsSet <String> aNewChildren = new CommonsHashSet<> ();
+    final NonBlockingStack <File> aNewCreatedChildren = new NonBlockingStack<> ();
 
     final File [] aNewChildrenList = m_aFile.listFiles ();
     if (aNewChildrenList != null)
@@ -126,7 +126,7 @@ final class FileMonitorAgent
       _onFileCreateRecursive (aNewCreatedChildren.pop ());
   }
 
-  void checkForModifications ()
+  protected void checkForModifications ()
   {
     final boolean bExistsNow = m_aFile.exists ();
     if (m_bExists)

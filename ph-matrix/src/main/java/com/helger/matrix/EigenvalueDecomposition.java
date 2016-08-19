@@ -59,7 +59,7 @@ public class EigenvalueDecomposition implements Serializable
    *
    * @serial internal symmetry flag.
    */
-  private boolean m_bIsSymmetric;
+  private final boolean m_bIsSymmetric;
 
   /**
    * Arrays for internal storage of eigenvalues.
@@ -1014,17 +1014,18 @@ public class EigenvalueDecomposition implements Serializable
     m_aEVd = new double [m_nDim];
     m_aEVe = new double [m_nDim];
 
-    m_bIsSymmetric = true;
+    boolean bIsSymmetric = true;
     for (int nRow = 0; nRow < m_nDim; nRow++)
     {
       final double [] aRow = aArray[nRow];
       for (int nCol = 0; nCol < m_nDim; nCol++)
         if (!EqualsHelper.equals (aRow[nCol], aArray[nCol][nRow]))
         {
-          m_bIsSymmetric = false;
+          bIsSymmetric = false;
           break;
         }
     }
+    m_bIsSymmetric = bIsSymmetric;
 
     if (m_bIsSymmetric)
     {

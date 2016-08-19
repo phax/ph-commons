@@ -59,17 +59,17 @@ public class FileMonitor
    * Map from filename to File being monitored.
    */
   @GuardedBy ("m_aRWLock")
-  private final ICommonsMap <String, FileMonitorAgent> m_aMonitorMap = new CommonsHashMap <> ();
+  private final ICommonsMap <String, FileMonitorAgent> m_aMonitorMap = new CommonsHashMap<> ();
 
   /**
    * File objects to be removed from the monitor map.
    */
-  private final Stack <File> m_aDeleteStack = new Stack <> ();
+  private final Stack <File> m_aDeleteStack = new Stack<> ();
 
   /**
    * File objects to be added to the monitor map.
    */
-  private final Stack <File> m_aAddStack = new Stack <> ();
+  private final Stack <File> m_aAddStack = new Stack<> ();
 
   /**
    * A flag used to determine if adding files to be monitored should be
@@ -159,7 +159,7 @@ public class FileMonitor
   }
 
   @Nonnegative
-  int getMonitoredFileCount ()
+  protected int getMonitoredFileCount ()
   {
     return m_aRWLock.readLocked ( () -> m_aMonitorMap.size ());
   }
@@ -240,7 +240,7 @@ public class FileMonitor
    * @param aFile
    *        The File to add. Never <code>null</code>.
    */
-  void onFileCreated (@Nonnull final File aFile)
+  protected void onFileCreated (@Nonnull final File aFile)
   {
     try
     {
@@ -261,7 +261,7 @@ public class FileMonitor
    *        The File to be removed from being monitored. Never <code>null</code>
    *        .
    */
-  void onFileDeleted (@Nonnull final File aFile)
+  protected void onFileDeleted (@Nonnull final File aFile)
   {
     try
     {
@@ -281,7 +281,7 @@ public class FileMonitor
    * @param aFile
    *        The File that was modified. Never <code>null</code>.
    */
-  void onFileChanged (@Nonnull final File aFile)
+  protected void onFileChanged (@Nonnull final File aFile)
   {
     try
     {
@@ -295,19 +295,19 @@ public class FileMonitor
 
   @Nonnull
   @ReturnsMutableCopy
-  ICommonsCollection <FileMonitorAgent> getAllAgents ()
+  protected ICommonsCollection <FileMonitorAgent> getAllAgents ()
   {
     return m_aRWLock.readLocked ( () -> m_aMonitorMap.copyOfValues ());
   }
 
-  void applyPendingDeletes ()
+  protected void applyPendingDeletes ()
   {
     // Remove listener for all deleted files
     while (!m_aDeleteStack.isEmpty ())
       removeMonitoredFile (m_aDeleteStack.pop ());
   }
 
-  void applyPendingAdds ()
+  protected void applyPendingAdds ()
   {
     // Add listener for all added files
     while (!m_aAddStack.isEmpty ())

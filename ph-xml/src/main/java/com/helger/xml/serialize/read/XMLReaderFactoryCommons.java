@@ -23,6 +23,7 @@ import java.security.AccessController;
 import java.security.PrivilegedAction;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
@@ -80,7 +81,7 @@ public final class XMLReaderFactoryCommons
    */
   private static final class SecuritySupport
   {
-    ClassLoader getContextClassLoader () throws SecurityException
+    public ClassLoader getContextClassLoader () throws SecurityException
     {
       ClassLoader cl = ClassLoaderHelper.getContextClassLoader ();
       if (cl == null)
@@ -89,7 +90,8 @@ public final class XMLReaderFactoryCommons
     }
 
     @SuppressWarnings ("resource")
-    InputStream getResourceAsStream (final ClassLoader cl, final String name)
+    @Nullable
+    public InputStream getResourceAsStream (@Nullable final ClassLoader cl, final String name)
     {
       return AccessController.doPrivileged ((PrivilegedAction <InputStream>) () -> {
         InputStream ris;
@@ -125,13 +127,14 @@ public final class XMLReaderFactoryCommons
   {
     private static final String DEFAULT_PACKAGE = "com.sun.org.apache.xerces.internal";
 
-    /**
+    /*
      * Creates a new instance of the specified class name Package private so
      * this code is not exposed at the API level.
      */
-    static Object newInstance (final ClassLoader classLoader, final String className) throws ClassNotFoundException,
-                                                                                      IllegalAccessException,
-                                                                                      InstantiationException
+    public static Object newInstance (final ClassLoader classLoader,
+                                      final String className) throws ClassNotFoundException,
+                                                              IllegalAccessException,
+                                                              InstantiationException
     {
       // make sure we have access to restricted packages
       boolean internal = false;
@@ -160,7 +163,7 @@ public final class XMLReaderFactoryCommons
   private static final String PROPERTY_NAME = "org.xml.sax.driver";
   private static SecuritySupport s_aSecuritySupport = new SecuritySupport ();
 
-  private static boolean s_bJARRead = false;
+  private static volatile boolean s_bJARRead = false;
   private static String s_sPreviouslyReadClassname;
 
   /**

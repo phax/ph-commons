@@ -38,6 +38,7 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.datetime.PDTFactory;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.datetime.CPDT;
 
 /**
@@ -280,7 +281,7 @@ public final class PDTHelper
    */
   public static int birthdayCompare (@Nullable final LocalDate aDate1, @Nullable final LocalDate aDate2)
   {
-    if (aDate1 == aDate2)
+    if (EqualsHelper.identityEqual (aDate1, aDate2))
       return 0;
     if (aDate1 == null)
       return -1;

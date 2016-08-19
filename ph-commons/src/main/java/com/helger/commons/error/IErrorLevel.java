@@ -22,6 +22,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.state.IErrorIndicator;
 import com.helger.commons.state.ISuccessIndicator;
@@ -100,7 +101,7 @@ public interface IErrorLevel extends
   @Nullable
   public static IErrorLevel getMostSevere (@Nullable final IErrorLevel aLevel1, @Nullable final IErrorLevel aLevel2)
   {
-    if (aLevel1 == aLevel2)
+    if (EqualsHelper.identityEqual (aLevel1, aLevel2))
       return aLevel1;
     if (aLevel1 == null)
       return aLevel2;

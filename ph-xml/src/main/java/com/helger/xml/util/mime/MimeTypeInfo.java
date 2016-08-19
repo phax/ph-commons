@@ -317,7 +317,7 @@ public final class MimeTypeInfo
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllExtensions ()
   {
-    final ICommonsOrderedSet <String> ret = new CommonsLinkedHashSet <> ();
+    final ICommonsOrderedSet <String> ret = new CommonsLinkedHashSet<> ();
     ret.addAllMapped (m_aExtensions, ExtensionWithSource::getExtension);
     return ret;
   }
@@ -349,14 +349,14 @@ public final class MimeTypeInfo
     return false;
   }
 
-  void addExtension (@Nonnull final ExtensionWithSource aExt)
+  protected void addExtension (@Nonnull final ExtensionWithSource aExt)
   {
     ValueEnforcer.notNull (aExt, "Ext");
     // Don't add to glob - can easily be constructed from all extensions
     m_aExtensions.add (aExt);
   }
 
-  void addMimeType (@Nonnull final MimeTypeWithSource aMimeType)
+  protected void addMimeType (@Nonnull final MimeTypeWithSource aMimeType)
   {
     ValueEnforcer.notNull (aMimeType, "MimeType");
     // Don't add to glob - can easily be constructed from all extensions

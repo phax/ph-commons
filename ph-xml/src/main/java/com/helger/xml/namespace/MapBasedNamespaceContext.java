@@ -47,8 +47,8 @@ import com.helger.commons.string.ToStringGenerator;
 public class MapBasedNamespaceContext extends AbstractNamespaceContext implements ICloneable <MapBasedNamespaceContext>
 {
   private String m_sDefaultNamespaceURI;
-  private final ICommonsOrderedMap <String, String> m_aPrefix2NS = new CommonsLinkedHashMap <> ();
-  private final MultiHashMapHashSetBased <String, String> m_aNS2Prefix = new MultiHashMapHashSetBased <> ();
+  private final ICommonsOrderedMap <String, String> m_aPrefix2NS = new CommonsLinkedHashMap<> ();
+  private final MultiHashMapHashSetBased <String, String> m_aNS2Prefix = new MultiHashMapHashSetBased<> ();
 
   public MapBasedNamespaceContext ()
   {}
@@ -123,7 +123,7 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
    * @see #setMapping(String, String)
    */
   @Nonnull
-  public MapBasedNamespaceContext addMapping (@Nonnull final String sPrefix, @Nonnull final String sNamespaceURI)
+  public final MapBasedNamespaceContext addMapping (@Nonnull final String sPrefix, @Nonnull final String sNamespaceURI)
   {
     return _addMapping (sPrefix, sNamespaceURI, false);
   }
@@ -143,7 +143,7 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
    * @see #addMapping(String, String)
    */
   @Nonnull
-  public MapBasedNamespaceContext setMapping (@Nonnull final String sPrefix, @Nonnull final String sNamespaceURI)
+  public final MapBasedNamespaceContext setMapping (@Nonnull final String sPrefix, @Nonnull final String sNamespaceURI)
   {
     return _addMapping (sPrefix, sNamespaceURI, true);
   }
