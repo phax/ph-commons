@@ -130,12 +130,13 @@ public final class SingleElementMapTest extends AbstractCommonsTestCase
     final Map <String, Integer> aMap2 = new SingleElementMap<> ();
     assertEquals (aMap, aMap);
     assertEquals (aMap, aMap2);
+    assertEquals (aMap2, aMap);
     assertNotEquals (aMap, null);
     assertNotEquals (aMap, "other");
     assertEquals (aMap.hashCode (), aMap.hashCode ());
     assertEquals (aMap.hashCode (), aMap2.hashCode ());
     aMap.put ("any", I2);
-    assertEquals (aMap, aMap2);
+    assertNotEquals (aMap, aMap2);
     assertNotEquals (aMap2, aMap);
     assertEquals (aMap.hashCode (), aMap.hashCode ());
     assertNotEquals (aMap.hashCode (), aMap2.hashCode ());
