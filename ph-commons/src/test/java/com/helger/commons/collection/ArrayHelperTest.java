@@ -1292,4 +1292,22 @@ public final class ArrayHelperTest extends AbstractCommonsTestCase
     catch (final NullPointerException ex)
     {}
   }
+
+  @Test
+  public void testStartsWith ()
+  {
+    assertTrue (ArrayHelper.startsWith (new byte [] { 0, 1, 2, 3 }, new byte [] {}));
+    assertTrue (ArrayHelper.startsWith (new byte [] { 0, 1, 2, 3 }, new byte [] { 0 }));
+    assertTrue (ArrayHelper.startsWith (new byte [] { 0, 1, 2, 3 }, new byte [] { 0, 1 }));
+    assertTrue (ArrayHelper.startsWith (new byte [] { 0, 1, 2, 3 }, new byte [] { 0, 1, 2 }));
+    assertTrue (ArrayHelper.startsWith (new byte [] { 0, 1, 2, 3 }, new byte [] { 0, 1, 2, 3 }));
+    assertFalse (ArrayHelper.startsWith (new byte [] { 0, 1, 2, 3 }, new byte [] { 0, 1, 2, 3, 4 }));
+    assertFalse (ArrayHelper.startsWith (new byte [] { 0, 1, 2, 3 }, new byte [] { 1, 2, 3 }));
+    assertFalse (ArrayHelper.startsWith (new byte [] { 0, 1, 2, 3 }, null));
+
+    assertFalse (ArrayHelper.startsWith (new byte [] {}, new byte [] { 1, 2, 3 }));
+    assertFalse (ArrayHelper.startsWith (new byte [] {}, new byte [] { 1 }));
+    assertFalse (ArrayHelper.startsWith (new byte [] {}, new byte [] {}));
+    assertFalse (ArrayHelper.startsWith (new byte [] {}, null));
+  }
 }

@@ -4208,7 +4208,7 @@ public final class ArrayHelper
     if (aFilter == null)
       return CollectionHelper.newList (aArray);
 
-    final CommonsArrayList <ELEMENTTYPE> ret = new CommonsArrayList <> ();
+    final CommonsArrayList <ELEMENTTYPE> ret = new CommonsArrayList<> ();
     forEach (aArray, aFilter, ret::add);
     return ret;
   }
@@ -4223,7 +4223,7 @@ public final class ArrayHelper
     if (aFilter == null)
       return CollectionHelper.newListMapped (aArray, aMapper);
 
-    final CommonsArrayList <RETTYPE> ret = new CommonsArrayList <> ();
+    final CommonsArrayList <RETTYPE> ret = new CommonsArrayList<> ();
     forEach (aArray, aFilter, aElement -> ret.add (aMapper.apply (aElement)));
     return ret;
   }
@@ -4277,5 +4277,49 @@ public final class ArrayHelper
           if (aFilter.test (aElement))
             aConsumer.accept (aElement);
     }
+  }
+
+  public static boolean startsWith (@Nonnull final byte [] aArray, @Nullable final byte [] aSearch)
+  {
+    if (aSearch == null)
+      return false;
+    return startsWith (aArray, aSearch, 0, aSearch.length);
+  }
+
+  public static boolean startsWith (@Nonnull final byte [] aArray,
+                                    @Nonnull final byte [] aSearch,
+                                    @Nonnegative final int nSearchOfs,
+                                    @Nonnegative final int nSearchLen)
+  {
+    final int nArrayLen = aArray.length;
+    if (nArrayLen == 0 || nArrayLen < nSearchLen)
+      return false;
+
+    for (int i = 0; i < nSearchLen; i++)
+      if (aArray[i] != aSearch[nSearchOfs + i])
+        return false;
+    return true;
+  }
+
+  public static boolean startsWith (@Nonnull final char [] aArray, @Nullable final char [] aSearch)
+  {
+    if (aSearch == null)
+      return false;
+    return startsWith (aArray, aSearch, 0, aSearch.length);
+  }
+
+  public static boolean startsWith (@Nonnull final char [] aArray,
+                                    @Nonnull final char [] aSearch,
+                                    @Nonnegative final int nSearchOfs,
+                                    @Nonnegative final int nSearchLen)
+  {
+    final int nArrayLen = aArray.length;
+    if (nArrayLen == 0 || nArrayLen < nSearchLen)
+      return false;
+
+    for (int i = 0; i < nSearchLen; i++)
+      if (aArray[i] != aSearch[nSearchOfs + i])
+        return false;
+    return true;
   }
 }
