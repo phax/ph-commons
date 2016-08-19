@@ -435,7 +435,9 @@ public final class Version implements Comparable <Version>, Serializable
     if (s.length () == 0)
       return DEFAULT_VERSION;
 
-    int nMajor, nMinor, nMicro;
+    int nMajor;
+    int nMinor;
+    int nMicro;
     String sQualifier;
 
     if (bOldVersion)
