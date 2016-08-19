@@ -35,22 +35,20 @@ public final class UniCodeFuncTest
   private static final String COMPOUND_STRING_WITH_QUOTES = "\"ä\",\"ö\"";
   private static final String FIRST_STRING = "ä";
   private static final String SECOND_STRING = "ö";
-  private static final List <String> UNICODE_ARRAY = CollectionHelper.newList (FIRST_STRING, SECOND_STRING);
-  private static final List <String> MIXED_ARRAY = CollectionHelper.newList ("eins, 1",
-                                                                             "ichi",
-                                                                             FIRST_STRING,
-                                                                             SECOND_STRING);
-  private static final List <String> ASCII_ARRAY = CollectionHelper.newList ("foo", "bar");
+  private static final ICommonsList <String> UNICODE_ARRAY = CollectionHelper.newList (FIRST_STRING, SECOND_STRING);
+  private static final ICommonsList <String> MIXED_ARRAY = CollectionHelper.newList ("eins, 1",
+                                                                                     "ichi",
+                                                                                     FIRST_STRING,
+                                                                                     SECOND_STRING);
+  private static final ICommonsList <String> ASCII_ARRAY = CollectionHelper.newList ("foo", "bar");
   private static final String ASCII_STRING_WITH_QUOTES = "\"foo\",\"bar\"";
-
-  private CSVParser m_aParser;
 
   @Test
   public void canParseUnicode () throws IOException
   {
-    m_aParser = new CSVParser ();
+    final CSVParser aParser = new CSVParser ();
     final String sSimpleString = COMPOUND_STRING;
-    final List <String> aItems = m_aParser.parseLine (sSimpleString);
+    final List <String> aItems = aParser.parseLine (sSimpleString);
     assertEquals (2, aItems.size ());
     assertEquals (FIRST_STRING, aItems.get (0));
     assertEquals (SECOND_STRING, aItems.get (1));
