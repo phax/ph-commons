@@ -17,7 +17,7 @@
 package com.helger.commons.aggregate;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
@@ -60,11 +60,11 @@ public final class IAggregatorTest
     final IAggregator <String, Collection <String>> a1 = IAggregator.createUseAll ();
     final IAggregator <String, Collection <String>> a2 = IAggregator.createUseAll ();
     assertEquals (a1, a1);
-    assertFalse (a1.equals (null));
-    assertFalse (a1.equals ("any other"));
+    assertNotEquals (a1, null);
+    assertNotEquals (a1, "any other");
     assertEquals (a1.hashCode (), a1.hashCode ());
-    assertFalse (a1.hashCode () == 0);
-    assertFalse (a1.hashCode () == "any other".hashCode ());
+    assertNotEquals (a1.hashCode (), 0);
+    assertNotEquals (a1.hashCode (), "any other".hashCode ());
     assertNotNull (a1.toString ());
     final ICommonsList <String> l = new CommonsArrayList<> ("a", null, "b", "", "c");
     assertEquals (l, a1.apply (l));
@@ -76,11 +76,11 @@ public final class IAggregatorTest
   {
     final IAggregator <String, String> a1 = IAggregator.createUseFirst ();
     assertEquals (a1, a1);
-    assertFalse (a1.equals (null));
-    assertFalse (a1.equals ("any other"));
+    assertNotEquals (a1, null);
+    assertNotEquals (a1, "any other");
     assertEquals (a1.hashCode (), a1.hashCode ());
-    assertFalse (a1.hashCode () == 0);
-    assertFalse (a1.hashCode () == "any other".hashCode ());
+    assertNotEquals (a1.hashCode (), 0);
+    assertNotEquals (a1.hashCode (), "any other".hashCode ());
     assertNotNull (a1.toString ());
     final ICommonsList <String> l = new CommonsArrayList<> ("a", null, "b", "", "c");
     assertEquals ("a", a1.apply (l));
@@ -93,11 +93,11 @@ public final class IAggregatorTest
   {
     final IAggregator <String, String> a1 = IAggregator.createUseLast ();
     assertEquals (a1, a1);
-    assertFalse (a1.equals (null));
-    assertFalse (a1.equals ("any other"));
+    assertNotEquals (a1, null);
+    assertNotEquals (a1, "any other");
     assertEquals (a1.hashCode (), a1.hashCode ());
-    assertFalse (a1.hashCode () == 0);
-    assertFalse (a1.hashCode () == "any other".hashCode ());
+    assertNotEquals (a1.hashCode (), 0);
+    assertNotEquals (a1.hashCode (), "any other".hashCode ());
     assertNotNull (a1.toString ());
     final ICommonsList <String> l = new CommonsArrayList<> ("a", null, "b", "", "c");
     assertEquals ("c", a1.apply (l));

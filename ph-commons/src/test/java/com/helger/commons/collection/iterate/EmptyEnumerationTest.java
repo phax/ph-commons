@@ -17,6 +17,7 @@
 package com.helger.commons.collection.iterate;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.fail;
 
 import java.util.NoSuchElementException;
@@ -33,7 +34,7 @@ public final class EmptyEnumerationTest
   @Test
   public void testAll ()
   {
-    final EmptyEnumeration <String> es = new EmptyEnumeration <> ();
+    final EmptyEnumeration <String> es = new EmptyEnumeration<> ();
     assertFalse (es.hasMoreElements ());
     try
     {
@@ -42,7 +43,7 @@ public final class EmptyEnumerationTest
     }
     catch (final NoSuchElementException ex)
     {}
-    assertFalse (es.equals (null));
-    assertFalse (es.equals ("any"));
+    assertNotEquals (es, null);
+    assertNotEquals (es, "any");
   }
 }

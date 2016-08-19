@@ -33,7 +33,6 @@ package com.helger.commons.csv;
  */
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -76,9 +75,7 @@ public final class IntegrationFuncTest
     try (final CSVWriter writer = new CSVWriter (new OutputStreamWriter (new FileOutputStream (m_aTempFile), aCharset)))
     {
       for (final String [] aData : data)
-      {
         writer.writeNext (aData);
-      }
     }
 
     try (final CSVReader reader = new CSVReader (new InputStreamReader (new FileInputStream (m_aTempFile), aCharset)))
@@ -86,7 +83,7 @@ public final class IntegrationFuncTest
       List <String> line;
       for (int row = 0; (line = reader.readNext ()) != null; row++)
       {
-        assertTrue (line.size () == data[row].length);
+        assertEquals (line.size (), data[row].length);
 
         for (int col = 0; col < line.size (); col++)
         {

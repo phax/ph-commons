@@ -22,7 +22,6 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.impl.LoggingLRUMap;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -35,7 +34,7 @@ public final class LoggingLRUMapTest
   @Test
   public void testAll ()
   {
-    final LoggingLRUMap <String, String> c = new LoggingLRUMap <> (5);
+    final LoggingLRUMap <String, String> c = new LoggingLRUMap<> (5);
     assertNull (c.getMapName ());
     c.setMapName ("name");
     assertEquals ("name", c.getMapName ());

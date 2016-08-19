@@ -191,26 +191,26 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
    * @return this
    */
   @Nonnull
-  public SimpleURL add (@Nonnull @Nonempty final String sName)
+  public final SimpleURL add (@Nonnull @Nonempty final String sName)
   {
     return add (sName, "");
   }
 
   @Nonnull
-  public SimpleURL add (@Nonnull final Map.Entry <String, String> aEntry)
+  public final SimpleURL add (@Nonnull final Map.Entry <String, String> aEntry)
   {
     return add (aEntry.getKey (), aEntry.getValue ());
   }
 
   @Nonnull
-  public SimpleURL add (@Nonnull @Nonempty final String sName, @Nullable final String sValue)
+  public final SimpleURL add (@Nonnull @Nonempty final String sName, @Nullable final String sValue)
   {
     final String sRealValue = sValue != null ? sValue : "";
     return add (new URLParameter (sName, sRealValue));
   }
 
   @Nonnull
-  public SimpleURL add (@Nonnull final URLParameter aParam)
+  public final SimpleURL add (@Nonnull final URLParameter aParam)
   {
     ValueEnforcer.notNull (aParam, "Param");
     m_aParams.add (aParam);
@@ -218,25 +218,25 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
   }
 
   @Nonnull
-  public SimpleURL add (@Nonnull @Nonempty final String sName, final boolean bValue)
+  public final SimpleURL add (@Nonnull @Nonempty final String sName, final boolean bValue)
   {
     return add (sName, Boolean.toString (bValue));
   }
 
   @Nonnull
-  public SimpleURL add (@Nonnull @Nonempty final String sName, final int nValue)
+  public final SimpleURL add (@Nonnull @Nonempty final String sName, final int nValue)
   {
     return add (sName, Integer.toString (nValue));
   }
 
   @Nonnull
-  public SimpleURL add (@Nonnull @Nonempty final String sName, final long nValue)
+  public final SimpleURL add (@Nonnull @Nonempty final String sName, final long nValue)
   {
     return add (sName, Long.toString (nValue));
   }
 
   @Nonnull
-  public SimpleURL add (@Nonnull @Nonempty final String sName, @Nullable final BigInteger aValue)
+  public final SimpleURL add (@Nonnull @Nonempty final String sName, @Nullable final BigInteger aValue)
   {
     return add (sName, aValue != null ? aValue.toString () : null);
   }
@@ -251,7 +251,7 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
    * @return this for chaining
    */
   @Nonnull
-  public SimpleURL addIfNotNull (@Nonnull @Nonempty final String sName, @Nullable final String sValue)
+  public final SimpleURL addIfNotNull (@Nonnull @Nonempty final String sName, @Nullable final String sValue)
   {
     if (sValue != null)
       add (sName, sValue);
@@ -272,9 +272,9 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
    * @return this for chaining
    */
   @Nonnull
-  public SimpleURL addIf (@Nonnull @Nonempty final String sName,
-                          @Nullable final String sValue,
-                          @Nonnull final Predicate <String> aFilter)
+  public final SimpleURL addIf (@Nonnull @Nonempty final String sName,
+                                @Nullable final String sValue,
+                                @Nonnull final Predicate <String> aFilter)
   {
     if (aFilter.test (sValue))
       add (sName, sValue);

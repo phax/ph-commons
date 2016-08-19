@@ -18,6 +18,7 @@ package com.helger.commons.collection.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
@@ -34,14 +35,14 @@ public final class MapEntryTest
   @Test
   public void testCtor ()
   {
-    final MapEntry <String, Object> e = new MapEntry <> ("Key", "value");
+    final MapEntry <String, Object> e = new MapEntry<> ("Key", "value");
     assertEquals ("Key", e.getKey ());
     assertEquals ("value", e.getValue ());
     assertEquals ("value", e.setValue ("new"));
     assertEquals ("new", e.getValue ());
 
-    assertFalse (e.equals (null));
-    assertFalse (e.equals ("bla"));
+    assertNotEquals (e, null);
+    assertNotEquals (e, "bla");
     assertEquals (e, e);
     assertEquals (e, new MapEntry <String, Object> ("Key", "new"));
     assertFalse (e.equals (new MapEntry <String, Object> ("Key", Integer.valueOf (17))));

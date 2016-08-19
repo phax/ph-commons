@@ -70,9 +70,9 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
 
   // Use a weak hash map, because the key is a class
   @GuardedBy ("m_aRWLock")
-  private final ICommonsMap <Class <?>, ICommonsMap <Class <?>, ITypeConverter <?, ?>>> m_aConverter = new CommonsWeakHashMap <> ();
+  private final ICommonsMap <Class <?>, ICommonsMap <Class <?>, ITypeConverter <?, ?>>> m_aConverter = new CommonsWeakHashMap<> ();
   @GuardedBy ("m_aRWLock")
-  private final IMultiMapListBased <ITypeConverterRule.ESubType, ITypeConverterRule <?, ?>> m_aRules = new MultiTreeMapArrayListBased <> ();
+  private final IMultiMapListBased <ITypeConverterRule.ESubType, ITypeConverterRule <?, ?>> m_aRules = new MultiTreeMapArrayListBased<> ();
 
   private TypeConverterRegistry ()
   {
@@ -103,7 +103,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
       ret = m_aRWLock.writeLocked ( () -> {
         // Try again in write lock
         // Weak hash map because key is a class
-        return m_aConverter.computeIfAbsent (aClass, k -> new CommonsWeakHashMap <> ());
+        return m_aConverter.computeIfAbsent (aClass, k -> new CommonsWeakHashMap<> ());
       });
     }
     return ret;
@@ -196,7 +196,8 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
    *         object otherwise.
    */
   @Nullable
-  ITypeConverter <?, ?> getExactConverter (@Nullable final Class <?> aSrcClass, @Nullable final Class <?> aDstClass)
+  protected ITypeConverter <?, ?> getExactConverter (@Nullable final Class <?> aSrcClass,
+                                                     @Nullable final Class <?> aDstClass)
   {
     return m_aRWLock.readLocked ( () -> {
       final Map <Class <?>, ITypeConverter <?, ?>> aConverterMap = m_aConverter.get (aSrcClass);
@@ -216,7 +217,8 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
    *         object otherwise.
    */
   @Nullable
-  ITypeConverter <?, ?> getRuleBasedConverter (@Nullable final Class <?> aSrcClass, @Nullable final Class <?> aDstClass)
+  protected ITypeConverter <?, ?> getRuleBasedConverter (@Nullable final Class <?> aSrcClass,
+                                                         @Nullable final Class <?> aDstClass)
   {
     if (aSrcClass == null || aDstClass == null)
       return null;
@@ -286,7 +288,8 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
    *         object otherwise.
    */
   @Nullable
-  ITypeConverter <?, ?> getFuzzyConverter (@Nullable final Class <?> aSrcClass, @Nullable final Class <?> aDstClass)
+  protected ITypeConverter <?, ?> getFuzzyConverter (@Nullable final Class <?> aSrcClass,
+                                                     @Nullable final Class <?> aDstClass)
   {
     if (aSrcClass == null || aDstClass == null)
       return null;
@@ -296,7 +299,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
       {
         // Perform a check, whether there is more than one potential converter
         // present!
-        final ICommonsList <String> aAllConverters = new CommonsArrayList <> ();
+        final ICommonsList <String> aAllConverters = new CommonsArrayList<> ();
         _iterateFuzzyConverters (aSrcClass, aDstClass, (aCurSrcClass, aCurDstClass, aConverter) -> {
           final boolean bExact = aSrcClass.equals (aCurSrcClass) && aDstClass.equals (aCurDstClass);
           aAllConverters.add ("[" + aCurSrcClass.getName () + "->" + aCurDstClass.getName () + "]");
@@ -312,7 +315,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
       }
 
       // Iterate and find the first matching type converter
-      final Wrapper <ITypeConverter <?, ?>> ret = new Wrapper <> ();
+      final Wrapper <ITypeConverter <?, ?>> ret = new Wrapper<> ();
       _iterateFuzzyConverters (aSrcClass, aDstClass, (aCurSrcClass, aCurDstClass, aConverter) -> {
         ret.set (aConverter);
         return EContinue.BREAK;
@@ -330,7 +333,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
   public void iterateAllRegisteredTypeConverters (@Nonnull final ITypeConverterCallback aCallback)
   {
     // Create a copy of the map
-    final Map <Class <?>, Map <Class <?>, ITypeConverter <?, ?>>> aCopy = m_aRWLock.readLocked ( () -> new CommonsHashMap <> (m_aConverter));
+    final Map <Class <?>, Map <Class <?>, ITypeConverter <?, ?>>> aCopy = m_aRWLock.readLocked ( () -> new CommonsHashMap<> (m_aConverter));
 
     // And iterate the copy
     outer: for (final Map.Entry <Class <?>, Map <Class <?>, ITypeConverter <?, ?>>> aSrcEntry : aCopy.entrySet ())

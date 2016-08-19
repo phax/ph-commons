@@ -18,6 +18,7 @@ package com.helger.commons.version;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -515,9 +516,8 @@ public final class VersionTest
     assertEquals (v9, v9);
 
     // test weird stuff
-    assertFalse (v1.equals (null));
-
-    assertFalse (v1.equals ("anyString"));
+    assertNotEquals (v1, null);
+    assertNotEquals (v1, "anyString");
 
     assertEquals (Version.parse ("2.1.0"), Version.parse ("2.1"));
     assertEquals (Version.parse ("2.0.0"), Version.parse ("2"));

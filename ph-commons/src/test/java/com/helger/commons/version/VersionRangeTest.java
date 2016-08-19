@@ -18,6 +18,7 @@ package com.helger.commons.version;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -391,9 +392,9 @@ public final class VersionRangeTest
   public void testEquals ()
   {
     final VersionRange vr1 = VersionRange.parse ("(1.2,2.0]");
-    assertTrue (vr1.equals (vr1));
-    assertFalse (vr1.equals (null));
-    assertFalse (vr1.equals ("Not a VersionRange"));
+    assertEquals (vr1, vr1);
+    assertNotEquals (vr1, null);
+    assertNotEquals (vr1, "Not a VersionRange");
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (vr1, VersionRange.parse ("(1.2,2.0]"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("[1.2,2.0]"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (vr1, VersionRange.parse ("(1.2,2.0)"));
