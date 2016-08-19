@@ -18,6 +18,8 @@ package com.helger.json;
 
 import javax.annotation.concurrent.Immutable;
 
+import com.helger.commons.annotation.PresentForCodeCoverage;
+
 /**
  * Json read and write constants.
  *
@@ -34,7 +36,7 @@ public final class CJson
   public static final char OBJECT_START = '{';
   /** character closing a JSON object */
   public static final char OBJECT_END = '}';
-  /** character used as separator items in collections */
+  /** character used as separator between items in collections */
   public static final char ITEM_SEPARATOR = ',';
   /** character used for assignments (between name and value) */
   public static final char NAME_VALUE_SEPARATOR = ':';
@@ -45,6 +47,9 @@ public final class CJson
   public static final String KEYWORD_TRUE = "true";
   public static final String KEYWORD_FALSE = "false";
   public static final String KEYWORD_NULL = "null";
+
+  @PresentForCodeCoverage
+  private static final CJson s_aInstance = new CJson ();
 
   private CJson ()
   {}
