@@ -94,9 +94,9 @@ public final class BenchmarkTrie extends AbstractBenchmarkTask
                     _getMaxStringLength (aStrings) +
                     " chars!");
 
-    final StringMapBase aL1a = new StringMapHashMap (aStringArray);
-    final StringMapBase aL1b = new StringMapTreeMap (aStringArray);
-    final StringMapBase aL2a = new StringMapTST (aStringArray);
+    final AbstractStringMapBase aL1a = new StringMapHashMap (aStringArray);
+    final AbstractStringMapBase aL1b = new StringMapTreeMap (aStringArray);
+    final AbstractStringMapBase aL2a = new StringMapTST (aStringArray);
     s_aLogger.info ("Initial check done!");
 
     double dTime;
@@ -114,11 +114,11 @@ public final class BenchmarkTrie extends AbstractBenchmarkTask
     s_aLogger.info (aL1b.size () + " entries");
   }
 
-  private abstract static class StringMapBase implements Runnable
+  private abstract static class AbstractStringMapBase implements Runnable
   {
     private final String [] m_aStrings;
 
-    public StringMapBase (final String [] aStrings)
+    public AbstractStringMapBase (final String [] aStrings)
     {
       m_aStrings = aStrings;
     }
@@ -148,7 +148,7 @@ public final class BenchmarkTrie extends AbstractBenchmarkTask
     }
   }
 
-  private static final class StringMapHashMap extends StringMapBase
+  private static final class StringMapHashMap extends AbstractStringMapBase
   {
     private final ICommonsMap <String, String> m_aMap;
 
@@ -177,7 +177,7 @@ public final class BenchmarkTrie extends AbstractBenchmarkTask
     }
   }
 
-  private static final class StringMapTreeMap extends StringMapBase
+  private static final class StringMapTreeMap extends AbstractStringMapBase
   {
     private final ICommonsMap <String, String> m_aMap;
 
@@ -206,7 +206,7 @@ public final class BenchmarkTrie extends AbstractBenchmarkTask
     }
   }
 
-  private static final class StringMapTST extends StringMapBase
+  private static final class StringMapTST extends AbstractStringMapBase
   {
     private final StringTrieFuncTest <String> m_aMap;
 

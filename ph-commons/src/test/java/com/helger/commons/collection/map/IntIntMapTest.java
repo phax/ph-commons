@@ -30,7 +30,7 @@ public final class IntIntMapTest
 {
   private final static float [] FILL_FACTORS = { 0.25f, 0.5f, 0.75f, 0.9f, 0.99f };
 
-  protected IntIntMap makeMap (final int size, final float fillFactor)
+  private static IntIntMap makeMap (final int size, final float fillFactor)
   {
     return new IntIntMap (size, fillFactor);
   }

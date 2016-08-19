@@ -40,7 +40,7 @@ public final class SoftHashMapTest
   @Ignore ("Travis will fail if this test is run")
   public void testGarbageCollect ()
   {
-    final SoftHashMap <Integer, BigDecimal> map = new SoftHashMap <> ();
+    final SoftHashMap <Integer, BigDecimal> map = new SoftHashMap<> ();
 
     BigDecimal aOne = new BigDecimal ("+1.000");
     final Integer aKey = Integer.valueOf (1);
@@ -55,7 +55,7 @@ public final class SoftHashMapTest
     s_aLogger.info ("Filling memory please wait");
     try
     {
-      final List <Object []> allocations = new CommonsArrayList <> ();
+      final List <Object []> allocations = new CommonsArrayList<> ();
       int size;
       while ((size = Math.min (Math.abs ((int) Runtime.getRuntime ().freeMemory ()), Integer.MAX_VALUE)) > 0)
         allocations.add (new Object [size]);
@@ -71,9 +71,9 @@ public final class SoftHashMapTest
   @Test
   public void testEntrySetToArray ()
   {
-    final SoftHashMap <Integer, BigDecimal> map = new SoftHashMap <> ();
+    final SoftHashMap <Integer, BigDecimal> map = new SoftHashMap<> ();
 
-    map.put (Integer.valueOf (1), new BigDecimal ("10"));
+    map.put (Integer.valueOf (1), BigDecimal.TEN);
     assertEquals (1, map.entrySet ().size ());
     assertEquals (1, map.entrySet ().toArray ().length);
     assertEquals (1, map.entrySet ().toArray (new Map.Entry [0]).length);

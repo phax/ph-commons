@@ -1436,7 +1436,7 @@ public class Matrix implements Serializable, ICloneable <Matrix>
     final ICommonsList <Double> vD = new CommonsArrayList<> ();
     do
     {
-      vD.add (Double.valueOf (Double.parseDouble (aTokenizer.sval)));
+      vD.add (Double.valueOf (aTokenizer.sval));
     } while (aTokenizer.nextToken () == StreamTokenizer.TT_WORD);
 
     // Now we've got the number of columns!
@@ -1461,7 +1461,7 @@ public class Matrix implements Serializable, ICloneable <Matrix>
       {
         if (nCol >= nCols)
           throw new IOException ("Row " + v.size () + " is too long.");
-        aRow[nCol++] = Double.valueOf (aTokenizer.sval).doubleValue ();
+        aRow[nCol++] = Double.parseDouble (aTokenizer.sval);
       } while (aTokenizer.nextToken () == StreamTokenizer.TT_WORD);
       if (nCol < nCols)
         throw new IOException ("Row " + v.size () + " is too short.");

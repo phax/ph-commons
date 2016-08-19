@@ -41,7 +41,7 @@ public final class IByteArrayCodecTest
     {
       // Encode
       final byte [] aEncoded = c.getEncoded (aSrcBytes);
-      assertNotNull (c.getClass ().getName () + "", aEncoded);
+      assertNotNull (c.getClass ().getName (), aEncoded);
 
       // Decode
       final byte [] aDecoded = c.getDecoded (aEncoded);
@@ -57,7 +57,7 @@ public final class IByteArrayCodecTest
     {
       // Encode
       final byte [] aEncoded = c.getEncoded (aSrcBytes, 1, nBytes - 2);
-      assertNotNull (c.getClass ().getName () + "", aEncoded);
+      assertNotNull (c.getClass ().getName (), aEncoded);
 
       // Decode all (of partial)
       final byte [] aDecoded = c.getDecoded (aEncoded);

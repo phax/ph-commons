@@ -2214,6 +2214,10 @@ public final class StringHelper
     final int nStrLength = sStr.length ();
     if (nStrLength < nSearchLength)
       return false;
+
+    if (nSearchLength == 1)
+      return sStr.charAt (0) == sSearch.charAt (0);
+
     return sStr.subSequence (0, nSearchLength).equals (sSearch);
   }
 
@@ -2253,6 +2257,10 @@ public final class StringHelper
     final int nCSLength = aCS.length ();
     if (nCSLength < nSearchLength)
       return false;
+
+    if (nSearchLength == 1)
+      return aCS.charAt (nCSLength - 1) == aSearch.charAt (0);
+
     return aCS.subSequence (nCSLength - nSearchLength, nCSLength).equals (aSearch);
   }
 
@@ -2266,6 +2274,10 @@ public final class StringHelper
     final int nStrLength = sStr.length ();
     if (nStrLength < nSearchLength)
       return false;
+
+    if (nSearchLength == 1)
+      return sStr.charAt (nStrLength - 1) == sSearch.charAt (0);
+
     return sStr.startsWith (sSearch, nStrLength - nSearchLength);
   }
 

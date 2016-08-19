@@ -292,9 +292,9 @@ public final class MathHelperTest
   public void testGetFractionDigits ()
   {
     assertEquals (0, MathHelper.getFractionDigits (new BigDecimal ("-1")));
-    assertEquals (0, MathHelper.getFractionDigits (new BigDecimal ("0")));
-    assertEquals (0, MathHelper.getFractionDigits (new BigDecimal ("1")));
-    assertEquals (0, MathHelper.getFractionDigits (new BigDecimal ("10")));
+    assertEquals (0, MathHelper.getFractionDigits (BigDecimal.ZERO));
+    assertEquals (0, MathHelper.getFractionDigits (BigDecimal.ONE));
+    assertEquals (0, MathHelper.getFractionDigits (BigDecimal.TEN));
     assertEquals (0, MathHelper.getFractionDigits (new BigDecimal ("10.000000")));
     assertEquals (0, MathHelper.getFractionDigits (new BigDecimal (".00000000")));
 
@@ -328,14 +328,14 @@ public final class MathHelperTest
   {
     assertEquals (new BigDecimal ("100"), MathHelper.subtractPercent (CGlobal.BIGDEC_100, BigDecimal.ZERO));
     assertEquals (new BigDecimal ("95"), MathHelper.subtractPercent (CGlobal.BIGDEC_100, BigDecimal.valueOf (5)));
-    assertEquals (new BigDecimal ("0"), MathHelper.subtractPercent (CGlobal.BIGDEC_100, CGlobal.BIGDEC_100));
+    assertEquals (BigDecimal.ZERO, MathHelper.subtractPercent (CGlobal.BIGDEC_100, CGlobal.BIGDEC_100));
     assertEquals (new BigDecimal ("96"), MathHelper.subtractPercent (new BigDecimal ("120"), BigDecimal.valueOf (20)));
   }
 
   @Test
   public void testGetPercentValue ()
   {
-    assertEquals (new BigDecimal ("0"), MathHelper.getPercentValue (CGlobal.BIGDEC_100, BigDecimal.ZERO));
+    assertEquals (BigDecimal.ZERO, MathHelper.getPercentValue (CGlobal.BIGDEC_100, BigDecimal.ZERO));
     assertEquals (new BigDecimal ("5"), MathHelper.getPercentValue (CGlobal.BIGDEC_100, BigDecimal.valueOf (5)));
     assertEquals (new BigDecimal ("100"), MathHelper.getPercentValue (CGlobal.BIGDEC_100, CGlobal.BIGDEC_100));
   }

@@ -657,7 +657,7 @@ public final class FilenameHelperTest
   public void testEnsurePathEndingWithSeparator ()
   {
     assertNull (FilenameHelper.ensurePathEndingWithSeparator (null));
-    assertEquals ("" + File.separator, FilenameHelper.ensurePathEndingWithSeparator (""));
+    assertEquals (File.separator, FilenameHelper.ensurePathEndingWithSeparator (""));
     assertEquals ("abc" + File.separator, FilenameHelper.ensurePathEndingWithSeparator ("abc"));
     assertEquals ("abc/", FilenameHelper.ensurePathEndingWithSeparator ("abc/"));
     assertEquals ("abc//", FilenameHelper.ensurePathEndingWithSeparator ("abc//"));
@@ -670,7 +670,7 @@ public final class FilenameHelperTest
   public void testEnsurePathStartingWithSeparator ()
   {
     assertNull (FilenameHelper.ensurePathStartingWithSeparator (null));
-    assertEquals (File.separator + "", FilenameHelper.ensurePathStartingWithSeparator (""));
+    assertEquals (File.separator, FilenameHelper.ensurePathStartingWithSeparator (""));
     assertEquals (File.separator + "abc", FilenameHelper.ensurePathStartingWithSeparator ("abc"));
     assertEquals ("/abc", FilenameHelper.ensurePathStartingWithSeparator ("/abc"));
     assertEquals ("//abc", FilenameHelper.ensurePathStartingWithSeparator ("//abc"));
