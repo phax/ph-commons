@@ -63,7 +63,7 @@ final class UTF7Base64Helper
    *         if alphabet is not 64 characters long or contains characters which
    *         are not 7-bit ASCII
    */
-  UTF7Base64Helper (@Nonnull @Nonempty final String sAlphabet)
+  protected UTF7Base64Helper (@Nonnull @Nonempty final String sAlphabet)
   {
     m_aAlphabet = sAlphabet.toCharArray ();
     if (sAlphabet.length () != ALPHABET_LENGTH)
@@ -90,7 +90,7 @@ final class UTF7Base64Helper
    * @return The six bits, as an integer value, or -1 if the byte is not in the
    *         alphabet
    */
-  int getSextet (final int ch)
+  protected int getSextet (final int ch)
   {
     if (ch >= 128)
       return -1;
@@ -104,7 +104,7 @@ final class UTF7Base64Helper
    *        The character
    * @return true if the alphabet contains <code>ch</code>, false otherwise
    */
-  boolean contains (final char ch)
+  protected boolean contains (final char ch)
   {
     if (ch >= 128)
       return false;
@@ -118,7 +118,7 @@ final class UTF7Base64Helper
    *        The six bit group to be encoded
    * @return The ASCII value of the character
    */
-  byte getChar (final int sextet)
+  protected byte getChar (final int sextet)
   {
     return (byte) m_aAlphabet[sextet];
   }

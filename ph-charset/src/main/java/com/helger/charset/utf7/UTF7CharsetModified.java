@@ -42,7 +42,7 @@ final class UTF7CharsetModified extends AbstractUTF7StyleCharset
   }
 
   @Override
-  boolean canEncodeDirectly (final char ch)
+  protected boolean canEncodeDirectly (final char ch)
   {
     if (ch == shift ())
       return false;
@@ -50,13 +50,13 @@ final class UTF7CharsetModified extends AbstractUTF7StyleCharset
   }
 
   @Override
-  byte shift ()
+  protected byte shift ()
   {
     return '&';
   }
 
   @Override
-  byte unshift ()
+  protected byte unshift ()
   {
     return '-';
   }

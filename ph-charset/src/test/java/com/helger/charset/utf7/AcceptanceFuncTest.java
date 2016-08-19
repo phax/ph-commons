@@ -83,46 +83,46 @@ public final class AcceptanceFuncTest
 
   private void _verifyAll () throws Exception
   {
-    verifySymmetrical ("������������������������");
-    verifySymmetrical ("a�b�c�d�e�f�g�h�i�j�k�l�m�n�o�p�q�r�s�t�u�v�w�x�y�z");
-    verifySymmetrical ("abc���def���ghi���jkl���mno���pqr���stu���vwx���yz�");
-    verifySymmetrical ("abcdefghijklmnopqrstuvwyxz������������������������abcdefghijklmnopqrstuvwyxz");
-    verifySymmetrical ("a�b+�c�+-d�e-�f�-+g�h+�i�+-j�k-�l�-+m�n+�o�+-p�q-�r�-+s�t+�u�+-v�w�-x�y-+�z+");
-    verifySymmetrical ("�+��+���+���++�++��++���+++�+++��+++���+++���");
-    verifySymmetrical ("�+-��+-���+-���++-�++-��++-���+++-�+++-��+++-���+++-���");
-    verifySymmetrical ("++++++++");
-    verifySymmetrical ("+-++--+++---++");
-    verifySymmetrical ("+���+");
-    verifySymmetrical ("`~!@#$%^&*()_+-=[]\\{}|;':\",./<>?\u0000\r\n\t\b\f�");
-    verifySymmetrical ("#a�a#�#��#���#");
+    _verifySymmetrical ("������������������������");
+    _verifySymmetrical ("a�b�c�d�e�f�g�h�i�j�k�l�m�n�o�p�q�r�s�t�u�v�w�x�y�z");
+    _verifySymmetrical ("abc���def���ghi���jkl���mno���pqr���stu���vwx���yz�");
+    _verifySymmetrical ("abcdefghijklmnopqrstuvwyxz������������������������abcdefghijklmnopqrstuvwyxz");
+    _verifySymmetrical ("a�b+�c�+-d�e-�f�-+g�h+�i�+-j�k-�l�-+m�n+�o�+-p�q-�r�-+s�t+�u�+-v�w�-x�y-+�z+");
+    _verifySymmetrical ("�+��+���+���++�++��++���+++�+++��+++���+++���");
+    _verifySymmetrical ("�+-��+-���+-���++-�++-��++-���+++-�+++-��+++-���+++-���");
+    _verifySymmetrical ("++++++++");
+    _verifySymmetrical ("+-++--+++---++");
+    _verifySymmetrical ("+���+");
+    _verifySymmetrical ("`~!@#$%^&*()_+-=[]\\{}|;':\",./<>?\u0000\r\n\t\b\f�");
+    _verifySymmetrical ("#a�a#�#��#���#");
   }
 
-  protected void verifySymmetrical (final String s) throws Exception
+  private void _verifySymmetrical (final String s) throws Exception
   {
     final String encoded = _encodeGetBytes (s);
     assertEquals (encoded, _encodeCharsetEncode (s));
-    assertEquals ("problem decoding " + encoded, s, decode (encoded));
+    assertEquals ("problem decoding " + encoded, s, _decode (encoded));
     for (int i = 4; i < encoded.length (); i++)
     {
       final ByteBuffer in = CharsetTestHelper.wrap (encoded);
       decoder.reset ();
-      verifyChunkedOutDecode (i, in, s);
+      _verifyChunkedOutDecode (i, in, s);
     }
     for (int i = 10; i < encoded.length (); i++)
     {
       final CharBuffer in = CharBuffer.wrap (s);
       encoder.reset ();
-      verifyChunkedOutEncode (i, in, encoded);
+      _verifyChunkedOutEncode (i, in, encoded);
     }
     for (int i = 10; i < encoded.length (); i++)
     {
       decoder.reset ();
-      verifyChunkedInDecode (i, encoded, s);
+      _verifyChunkedInDecode (i, encoded, s);
     }
     for (int i = 4; i < encoded.length (); i++)
     {
       encoder.reset ();
-      verifyChunkedInEncode (i, s, encoded);
+      _verifyChunkedInEncode (i, s, encoded);
     }
   }
 
@@ -152,16 +152,16 @@ public final class AcceptanceFuncTest
     return stringGetBytes;
   }
 
-  protected String decode (final String string) throws UnsupportedEncodingException
+  private String _decode (final String string) throws UnsupportedEncodingException
   {
     final ByteBuffer buffer = CharsetTestHelper.wrap (string);
     final CharBuffer decoded = charset.decode (buffer);
     return decoded.toString ();
   }
 
-  protected void verifyChunkedInDecode (final int i,
-                                        final String encoded,
-                                        final String decoded) throws UnsupportedEncodingException
+  private void _verifyChunkedInDecode (final int i,
+                                       final String encoded,
+                                       final String decoded) throws UnsupportedEncodingException
   {
     final ByteBuffer in = ByteBuffer.allocate (i);
     final CharBuffer out = CharBuffer.allocate (decoded.length () + 5);
@@ -189,9 +189,9 @@ public final class AcceptanceFuncTest
     assertEquals ("for length: " + i, decoded, out.toString ());
   }
 
-  protected void verifyChunkedInEncode (final int i,
-                                        final String decoded,
-                                        final String encoded) throws UnsupportedEncodingException
+  private void _verifyChunkedInEncode (final int i,
+                                       final String decoded,
+                                       final String encoded) throws UnsupportedEncodingException
   {
     final CharBuffer in = CharBuffer.allocate (i);
     final ByteBuffer out = ByteBuffer.allocate (encoded.length () + 40);
@@ -218,9 +218,9 @@ public final class AcceptanceFuncTest
     assertEquals ("for length: " + i, encoded, CharsetTestHelper.asString (out));
   }
 
-  protected void verifyChunkedOutEncode (final int i,
-                                         final CharBuffer in,
-                                         final String encoded) throws UnsupportedEncodingException
+  private void _verifyChunkedOutEncode (final int i,
+                                        final CharBuffer in,
+                                        final String encoded) throws UnsupportedEncodingException
   {
     final ByteBuffer out = ByteBuffer.allocate (i);
     int encodeCount = 0;
@@ -246,7 +246,7 @@ public final class AcceptanceFuncTest
     in.rewind ();
   }
 
-  protected void verifyChunkedOutDecode (final int i, final ByteBuffer in, final String decoded)
+  private void _verifyChunkedOutDecode (final int i, final ByteBuffer in, final String decoded)
   {
     final CharBuffer out = CharBuffer.allocate (i);
     int decodeCount = 0;

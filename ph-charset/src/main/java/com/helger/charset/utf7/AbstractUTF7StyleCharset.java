@@ -100,19 +100,19 @@ public abstract class AbstractUTF7StyleCharset extends Charset
    *        The character
    * @return True if the character can be encoded directly, false otherwise
    */
-  abstract boolean canEncodeDirectly (char c);
+  protected abstract boolean canEncodeDirectly (char c);
 
   /**
    * Returns character used to switch to base 64 encoding.
    *
    * @return The shift character
    */
-  abstract byte shift ();
+  protected abstract byte shift ();
 
   /**
    * Returns character used to switch from base 64 encoding to simple encoding.
    *
    * @return The unshift character
    */
-  abstract byte unshift ();
+  protected abstract byte unshift ();
 }

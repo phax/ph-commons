@@ -21,21 +21,24 @@ import java.nio.ByteBuffer;
 
 final class CharsetTestHelper
 {
-  static void outToSB (final ByteBuffer out, final StringBuffer sb) throws UnsupportedEncodingException
+  private CharsetTestHelper ()
+  {}
+
+  public static void outToSB (final ByteBuffer out, final StringBuffer sb) throws UnsupportedEncodingException
   {
     out.flip ();
     sb.append (CharsetTestHelper.asString (out));
     out.clear ();
   }
 
-  static String asString (final ByteBuffer buffer) throws UnsupportedEncodingException
+  public static String asString (final ByteBuffer buffer) throws UnsupportedEncodingException
   {
     final byte [] bytes = new byte [buffer.limit ()];
     buffer.get (bytes);
     return new String (bytes, "US-ASCII");
   }
 
-  static ByteBuffer wrap (final String string) throws UnsupportedEncodingException
+  public static ByteBuffer wrap (final String string) throws UnsupportedEncodingException
   {
     final byte [] bytes = string.getBytes ("US-ASCII");
     return ByteBuffer.wrap (bytes);

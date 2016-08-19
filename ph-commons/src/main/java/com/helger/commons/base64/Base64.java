@@ -254,19 +254,19 @@ public final class Base64
   /* ******** P R I V A T E F I E L D S ******** */
 
   /** Maximum line length (76) of Base64 output. */
-  static final int MAX_LINE_LENGTH = 76;
+  public static final int MAX_LINE_LENGTH = 76;
 
   /** The equals sign (=) as a byte. */
-  private static final byte EQUALS_SIGN = (byte) '=';
+  public static final byte EQUALS_SIGN = (byte) '=';
 
   /** The new line character (\n) as a byte. */
-  static final byte NEW_LINE = (byte) '\n';
+  public static final byte NEW_LINE = (byte) '\n';
 
   /** Preferred encoding. */
   public static final Charset PREFERRED_ENCODING = CCharset.CHARSET_US_ASCII_OBJ;
 
   // Indicates white space in encoding
-  static final byte WHITE_SPACE_ENC = -5;
+  protected static final byte WHITE_SPACE_ENC = -5;
   // Indicates equals sign in encoding
   private static final byte EQUALS_SIGN_ENC = -1;
 
@@ -1360,7 +1360,7 @@ public final class Base64
    */
   @Nonnull
   @ReturnsMutableObject ("design")
-  static byte [] _getDecodabet (final int options)
+  protected static byte [] _getDecodabet (final int options)
   {
     if ((options & URL_SAFE) == URL_SAFE)
       return _URL_SAFE_DECODABET;
@@ -1396,10 +1396,10 @@ public final class Base64
    */
   @Nonnull
   @ReturnsMutableObject ("passed parameter")
-  static byte [] _encode3to4 (@Nonnull final byte [] b4,
-                              @Nonnull final byte [] threeBytes,
-                              @Nonnegative final int numSigBytes,
-                              final int options)
+  protected static byte [] _encode3to4 (@Nonnull final byte [] b4,
+                                        @Nonnull final byte [] threeBytes,
+                                        @Nonnegative final int numSigBytes,
+                                        final int options)
   {
     _encode3to4 (threeBytes, 0, numSigBytes, b4, 0, options);
     return b4;
@@ -1437,12 +1437,12 @@ public final class Base64
    */
   @Nonnull
   @ReturnsMutableObject ("passed parameter")
-  static byte [] _encode3to4 (@Nonnull final byte [] source,
-                              @Nonnegative final int srcOffset,
-                              @Nonnegative final int numSigBytes,
-                              @Nonnull final byte [] destination,
-                              @Nonnegative final int destOffset,
-                              final int options)
+  protected static byte [] _encode3to4 (@Nonnull final byte [] source,
+                                        @Nonnegative final int srcOffset,
+                                        @Nonnegative final int numSigBytes,
+                                        @Nonnull final byte [] destination,
+                                        @Nonnegative final int destOffset,
+                                        final int options)
   {
     final byte [] aAlphabet = _getAlphabet (options);
 
@@ -1972,11 +1972,11 @@ public final class Base64
    * @since 1.3
    */
   @Nonnegative
-  static int _decode4to3 (@Nonnull final byte [] source,
-                          final int srcOffset,
-                          @Nonnull final byte [] destination,
-                          final int destOffset,
-                          final int options)
+  protected static int _decode4to3 (@Nonnull final byte [] source,
+                                    final int srcOffset,
+                                    @Nonnull final byte [] destination,
+                                    final int destOffset,
+                                    final int options)
   {
     // Lots of error checking and exception throwing
     ValueEnforcer.notNull (source, "Source");

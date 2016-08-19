@@ -53,19 +53,19 @@ final class UTF7Charset extends AbstractUTF7StyleCharset
   }
 
   @Override
-  boolean canEncodeDirectly (final char ch)
+  protected boolean canEncodeDirectly (final char ch)
   {
     return m_sDirectlyEncoded.indexOf (ch) >= 0;
   }
 
   @Override
-  byte shift ()
+  protected byte shift ()
   {
     return '+';
   }
 
   @Override
-  byte unshift ()
+  protected byte unshift ()
   {
     return '-';
   }
