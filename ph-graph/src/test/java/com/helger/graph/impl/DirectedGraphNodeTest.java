@@ -29,8 +29,6 @@ import org.junit.Test;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.graph.IMutableDirectedGraphRelation;
-import com.helger.graph.impl.DirectedGraphNode;
-import com.helger.graph.impl.DirectedGraphRelation;
 
 /**
  * Test class for class {@link DirectedGraphNode}.

@@ -29,8 +29,6 @@ import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.graph.AbstractGraphTestCase;
 import com.helger.graph.IMutableGraphNode;
 import com.helger.graph.impl.GraphNode;
-import com.helger.graph.simple.ISimpleGraph;
-import com.helger.graph.simple.SimpleGraph;
 import com.helger.matrix.Matrix;
 
 /**

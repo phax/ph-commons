@@ -27,8 +27,6 @@ import org.junit.Test;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.graph.IMutableGraphRelation;
-import com.helger.graph.impl.GraphNode;
-import com.helger.graph.impl.GraphRelation;
 
 /**
  * Test class for class {@link GraphNode}.

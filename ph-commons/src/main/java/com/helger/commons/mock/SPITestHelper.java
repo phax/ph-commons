@@ -17,6 +17,7 @@
 package com.helger.commons.mock;
 
 import java.io.File;
+import java.io.IOException;
 
 import javax.annotation.Nonnull;
 
@@ -69,7 +70,7 @@ public final class SPITestHelper
   @Nonnull
   @ReturnsMutableCopy
   public static MultiTreeMapTreeSetBased <String, String> testIfAllSPIImplementationsAreValid (@Nonnull final String sBaseDir,
-                                                                                               @Nonnull final EMode eMode) throws Exception
+                                                                                               @Nonnull final EMode eMode) throws IOException
   {
     final boolean bDoResolve = eMode.isResolve ();
     final ClassLoader aCL = ReflectionSecurityManager.INSTANCE.getCallerClass (1).getClassLoader ();
@@ -101,7 +102,7 @@ public final class SPITestHelper
                                   t.getMessage ();
               s_aLogger.warn (sMsg);
               if (eMode.isStrict ())
-                throw new Exception (sMsg);
+                throw new IllegalStateException (sMsg);
             }
 
           // Check content
@@ -133,7 +134,7 @@ public final class SPITestHelper
                     // in the exception text!
                     s_aLogger.warn ("  Error checking content: " + t.getMessage ());
                     if (eMode.isStrict ())
-                      throw new Exception ("Error checking SPI file " + aFile.getAbsolutePath (), t);
+                      throw new IllegalStateException ("Error checking SPI file " + aFile.getAbsolutePath (), t);
                   }
                 }
                 else
@@ -157,21 +158,21 @@ public final class SPITestHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static MultiTreeMapTreeSetBased <String, String> testIfAllMainSPIImplementationsAreValid (final boolean bContinueOnError) throws Exception
+  public static MultiTreeMapTreeSetBased <String, String> testIfAllMainSPIImplementationsAreValid (final boolean bContinueOnError) throws IOException
   {
     return testIfAllSPIImplementationsAreValid (MAIN_SERVICES, bContinueOnError ? EMode.IGNORE_ERRORS : EMode.STRICT);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static MultiTreeMapTreeSetBased <String, String> testIfAllTestSPIImplementationsAreValid (final boolean bContinueOnError) throws Exception
+  public static MultiTreeMapTreeSetBased <String, String> testIfAllTestSPIImplementationsAreValid (final boolean bContinueOnError) throws IOException
   {
     return testIfAllSPIImplementationsAreValid (TEST_SERVICES, bContinueOnError ? EMode.IGNORE_ERRORS : EMode.STRICT);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static MultiTreeMapTreeSetBased <String, String> testIfAllSPIImplementationsAreValid (final boolean bContinueOnError) throws Exception
+  public static MultiTreeMapTreeSetBased <String, String> testIfAllSPIImplementationsAreValid (final boolean bContinueOnError) throws IOException
   {
     final MultiTreeMapTreeSetBased <String, String> aAllImplementations = testIfAllMainSPIImplementationsAreValid (bContinueOnError);
     aAllImplementations.putAll (testIfAllTestSPIImplementationsAreValid (bContinueOnError));
@@ -180,7 +181,7 @@ public final class SPITestHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static MultiTreeMapTreeSetBased <String, String> testIfAllSPIImplementationsAreValid () throws Exception
+  public static MultiTreeMapTreeSetBased <String, String> testIfAllSPIImplementationsAreValid () throws IOException
   {
     return testIfAllSPIImplementationsAreValid (false);
   }

@@ -32,8 +32,6 @@ import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.graph.AbstractGraphTestCase;
 import com.helger.graph.IMutableDirectedGraphNode;
 import com.helger.graph.impl.DirectedGraphNode;
-import com.helger.graph.simple.ISimpleDirectedGraph;
-import com.helger.graph.simple.SimpleDirectedGraph;
 
 /**
  * Test class for class {@link SimpleDirectedGraph}.

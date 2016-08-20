@@ -23,7 +23,6 @@ import org.junit.Test;
 
 import com.helger.commons.id.factory.IIDFactory;
 import com.helger.commons.id.factory.StringIDFromGlobalIntIDFactory;
-import com.helger.graph.impl.GraphObjectIDFactory;
 
 /**
  * Test class for class {@link GraphObjectIDFactory}.

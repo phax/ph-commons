@@ -428,11 +428,11 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
     try
     {
       if (s_aLogger.isDebugEnabled ())
-        s_aLogger.debug ("Created singleton for '" + aClass + "' in scope " + aScope.toString ());
+        s_aLogger.debug ("Created singleton for '" + aClass.toString () + "' in scope " + aScope.toString ());
 
       // Check if class is public, non-abstract etc.
       if (!ClassHelper.isPublicClass (aClass))
-        throw new IllegalStateException ("Class " + aClass + " is not instancable!");
+        throw new IllegalStateException ("Class " + aClass.toString () + " is not instancable!");
 
       // First check, if constructor is present, that takes an IScope argument
       try
@@ -463,7 +463,11 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
     {
       if (t instanceof RuntimeException)
         throw (RuntimeException) t;
-      throw new RuntimeException (t);
+      throw new IllegalStateException ("Error instantiating singleton of class " +
+                                       aClass.getName () +
+                                       " in scope " +
+                                       aScope.toString (),
+                                       t);
     }
   }
 

@@ -19,9 +19,6 @@ package com.helger.graph;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.graph.IMutableBaseGraphNode;
-import com.helger.graph.IMutableDirectedGraphNode;
-import com.helger.graph.IMutableGraphNode;
 import com.helger.graph.simple.SimpleDirectedGraph;
 import com.helger.graph.simple.SimpleGraph;
 
