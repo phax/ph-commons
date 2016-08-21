@@ -83,7 +83,7 @@ public abstract class AbstractPasswordHashCreatorPBKDF2 extends AbstractPassword
     }
     catch (final GeneralSecurityException ex)
     {
-      throw new RuntimeException ("Failed to apply PBKDF2 algorithm", ex);
+      throw new IllegalStateException ("Failed to apply PBKDF2 algorithm", ex);
     }
   }
 

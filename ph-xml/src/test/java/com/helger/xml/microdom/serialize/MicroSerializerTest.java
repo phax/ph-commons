@@ -17,7 +17,7 @@
 package com.helger.xml.microdom.serialize;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import javax.annotation.Nonnull;
 
@@ -115,7 +115,7 @@ public final class MicroSerializerTest
         nMilliSecs += aSW.stopAndGetMillis ();
         aSW.reset ();
       }
-      assertTrue (!aWriter.isEmpty ());
+      assertFalse (aWriter.isEmpty ());
     }
     s_aLogger.info ("Average MicroDOM write: " + ((double) nMilliSecs / (nRun - nWarmUpRuns)) + " millisecs");
   }

@@ -174,7 +174,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertNotSame (s, makeUnmodifiable (s));
     final ICommonsSortedSet <String> ss = new CommonsTreeSet<> (s);
     assertNotNull (makeUnmodifiable (ss));
-    assertTrue (ss != makeUnmodifiable (ss));
+    assertNotSame (ss, makeUnmodifiable (ss));
     final ICommonsMap <String, String> m = newMap ("s1", "s2");
     assertNotNull (makeUnmodifiable (m));
     assertNotSame (m, makeUnmodifiable (m));
@@ -196,10 +196,10 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
 
     final ICommonsCollection <String> c = newList ("s1", "s2");
     assertNotNull (makeUnmodifiableNotNull (c));
-    assertTrue (c != makeUnmodifiableNotNull (c));
+    assertNotSame (c, makeUnmodifiableNotNull (c));
     final ICommonsList <String> l = newList ("s1", "s2");
     assertNotNull (makeUnmodifiableNotNull (l));
-    assertTrue (l != makeUnmodifiableNotNull (l));
+    assertNotSame (l, makeUnmodifiableNotNull (l));
     final ICommonsSet <String> s = newSet ("s1", "s2");
     assertNotNull (makeUnmodifiableNotNull (s));
     assertNotSame (s, makeUnmodifiableNotNull (s));

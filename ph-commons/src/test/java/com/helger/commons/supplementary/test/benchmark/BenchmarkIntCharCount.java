@@ -55,6 +55,6 @@ public final class BenchmarkIntCharCount
     s_aLogger.info ("Version 2 took " + aSW2.getMillis ());
 
     if (nSum1 != nSum2)
-      throw new RuntimeException ("Dont match! " + nSum1 + " -- " + nSum2);
+      throw new IllegalStateException ("Dont match! " + nSum1 + " -- " + nSum2);
   }
 }

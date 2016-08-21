@@ -18,6 +18,7 @@ package com.helger.commons.system;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
@@ -49,7 +50,7 @@ public final class EProcessorArchitectureTest
     if (EJVMVendor.getCurrentVendor ().isSun ())
     {
       // For Sun JVMs the architecture must be determined!
-      assertTrue (eArch != EProcessorArchitecture.UNKNOWN);
+      assertNotSame (eArch, EProcessorArchitecture.UNKNOWN);
     }
     assertEquals (CGlobal.ILLEGAL_UINT, EProcessorArchitecture.UNKNOWN.getBytes ());
     assertEquals (CGlobal.ILLEGAL_UINT, EProcessorArchitecture.UNKNOWN.getBits ());

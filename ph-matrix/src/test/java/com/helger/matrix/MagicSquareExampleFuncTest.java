@@ -179,7 +179,7 @@ public final class MagicSquareExampleFuncTest
       res = R.norm1 () / (n * eps);
       aSB.append (fixedWidthDoubletoString (res, 12, 3));
 
-      aSB.append ("\n");
+      aSB.append ('\n');
     }
     final Date stop_time = new Date ();
     final double etime = (stop_time.getTime () - start_time.getTime ()) / 1000.;

@@ -32,7 +32,7 @@ public final class LoggingInvocationHandlerTest
   public void testBasic ()
   {
     final ICommonsList <String> aList = LoggingInvocationHandler.proxying (ICommonsList.class,
-                                                                           new CommonsArrayList <> ());
+                                                                           new CommonsArrayList<> ());
     aList.add ("a");
     aList.add ("b");
     aList.subList (0, 1).isEmpty ();
@@ -40,7 +40,7 @@ public final class LoggingInvocationHandlerTest
     aList.remove (0).length ();
   }
 
-  public static interface ITest
+  public interface ITest
   {
     default int foo ()
     {

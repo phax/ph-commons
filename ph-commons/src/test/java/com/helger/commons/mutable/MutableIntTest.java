@@ -18,6 +18,7 @@ package com.helger.commons.mutable;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -43,27 +44,27 @@ public final class MutableIntTest
 
     x.inc ();
     assertEquals (x.intValue (), 1);
-    assertFalse (x.hashCode () == x.intValue ());
+    assertNotEquals (x.hashCode (), x.intValue ());
 
     x.inc (5);
     assertEquals (x.intValue (), 6);
-    assertFalse (x.hashCode () == x.intValue ());
+    assertNotEquals (x.hashCode (), x.intValue ());
 
     x.inc (-2);
     assertEquals (x.intValue (), 4);
-    assertFalse (x.hashCode () == x.intValue ());
+    assertNotEquals (x.hashCode (), x.intValue ());
 
     x.dec ();
     assertEquals (x.intValue (), 3);
     assertFalse (x.isEven ());
-    assertFalse (x.hashCode () == x.intValue ());
+    assertNotEquals (x.hashCode (), x.intValue ());
 
     x.dec (5);
     assertEquals (x.intValue (), -2);
     assertTrue (x.isNot0 ());
     assertFalse (x.is0 ());
     assertTrue (x.isEven ());
-    assertFalse (x.hashCode () == x.intValue ());
+    assertNotEquals (x.hashCode (), x.intValue ());
 
     assertTrue (x.set (4711).isChanged ());
     assertFalse (x.set (4711).isChanged ());

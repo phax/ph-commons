@@ -17,6 +17,7 @@
 package com.helger.jaxb.validation;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -62,7 +63,7 @@ public final class CollectingValidationEventHandlerTest
     o = um.unmarshal (TransformSourceFactory.create (new FileSystemResource ("src/test/resources/xml/buildinfo.xml")),
                       MockJAXBArchive.class);
     assertNotNull (o);
-    assertTrue (!evh.getResourceErrors ().isEmpty ());
+    assertFalse (evh.getResourceErrors ().isEmpty ());
 
     // Read invalid (but close to valid)
     evh = new CollectingValidationEventHandler (new LoggingValidationEventHandler ());

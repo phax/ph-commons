@@ -38,7 +38,7 @@ public final class PasswordHashCreatorBCrypt extends AbstractPasswordHashCreator
     super (ALGORITHM);
   }
 
-  public final boolean requiresSalt ()
+  public boolean requiresSalt ()
   {
     return true;
   }

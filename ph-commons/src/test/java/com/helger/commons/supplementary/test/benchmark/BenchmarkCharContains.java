@@ -46,7 +46,7 @@ public final class BenchmarkCharContains
 
   public static void main (final String [] args)
   {
-    final ICommonsList <String> aStrs = new CommonsArrayList <> ();
+    final ICommonsList <String> aStrs = new CommonsArrayList<> ();
 
     for (int j = 0; j < 100; ++j)
       for (int i = 'a'; i <= 'z'; ++i)
@@ -77,6 +77,6 @@ public final class BenchmarkCharContains
     s_aLogger.info ("Version 2 took " + aSW2.getMillis ());
 
     if (nSum1 != nSum2)
-      throw new RuntimeException ("Dont match! " + nSum1 + " -- " + nSum2);
+      throw new IllegalStateException ("Dont match! " + nSum1 + " -- " + nSum2);
   }
 }

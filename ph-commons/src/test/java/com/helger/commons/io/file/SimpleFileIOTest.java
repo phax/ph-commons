@@ -16,6 +16,7 @@
  */
 package com.helger.commons.io.file;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -23,13 +24,12 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.List;
 
 import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.resource.ClassPathResource;
 
 /**
@@ -50,7 +50,7 @@ public final class SimpleFileIOTest
     {
       final byte [] aBytes = SimpleFileIO.getAllFileBytes (f);
       assertNotNull (aBytes);
-      assertTrue (Arrays.equals (aBytes, CharsetManager.getAsBytes (s, CCharset.CHARSET_ISO_8859_1_OBJ)));
+      assertArrayEquals (aBytes, CharsetManager.getAsBytes (s, CCharset.CHARSET_ISO_8859_1_OBJ));
       assertNull (SimpleFileIO.getAllFileBytes (null));
       assertNull (SimpleFileIO.getAllFileBytes (new File ("non existing file")));
     }
@@ -67,7 +67,7 @@ public final class SimpleFileIOTest
     assertNull (SimpleFileIO.getAllFileLines (new File ("ha ha said the clown"), CCharset.CHARSET_ISO_8859_1_OBJ));
     final File aFile = ClassPathResource.getAsFile ("streamutils-lines");
     assertTrue (aFile.exists ());
-    final List <String> lines = SimpleFileIO.getAllFileLines (aFile, CCharset.CHARSET_ISO_8859_1_OBJ);
+    final ICommonsList <String> lines = SimpleFileIO.getAllFileLines (aFile, CCharset.CHARSET_ISO_8859_1_OBJ);
     assertEquals (10, lines.size ());
   }
 

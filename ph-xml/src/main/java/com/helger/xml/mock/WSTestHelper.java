@@ -37,8 +37,7 @@ public final class WSTestHelper
   {}
 
   @Nonnegative
-  public static int testIfAllSunJaxwsFilesAreValid (@Nonnull final String sBaseDir,
-                                                    final boolean bContinueOnError) throws Exception
+  public static int testIfAllSunJaxwsFilesAreValid (@Nonnull final String sBaseDir, final boolean bContinueOnError)
   {
     final int nTotalImplementationCount = 0;
     final File aFile = new File (sBaseDir, "sun-jaxws.xml");
@@ -52,7 +51,7 @@ public final class WSTestHelper
         final String sMsg = "The file is invalid XML!";
         s_aLogger.warn (sMsg);
         if (!bContinueOnError)
-          throw new Exception (sMsg);
+          throw new IllegalStateException (sMsg);
       }
       else
       {
@@ -77,7 +76,7 @@ public final class WSTestHelper
                                 t.getMessage ();
             s_aLogger.warn (sMsg);
             if (!bContinueOnError)
-              throw new Exception (sMsg);
+              throw new IllegalStateException (sMsg);
           }
 
           if (aImplClass != null)
@@ -93,7 +92,7 @@ public final class WSTestHelper
                                   "' is missing the @WebService annotation";
               s_aLogger.warn (sMsg);
               if (!bContinueOnError)
-                throw new Exception (sMsg);
+                throw new IllegalStateException (sMsg);
             }
             else
             {
@@ -115,7 +114,7 @@ public final class WSTestHelper
                                     t.getMessage ();
                 s_aLogger.warn (sMsg);
                 if (!bContinueOnError)
-                  throw new Exception (sMsg);
+                  throw new IllegalStateException (sMsg);
               }
 
               if (aInterfaceClass != null)
@@ -129,7 +128,7 @@ public final class WSTestHelper
                                       "' is not an interface!";
                   s_aLogger.warn (sMsg);
                   if (!bContinueOnError)
-                    throw new Exception (sMsg);
+                    throw new IllegalStateException (sMsg);
                 }
               }
             }
@@ -141,7 +140,7 @@ public final class WSTestHelper
   }
 
   @Nonnegative
-  public static int testIfAllSunJaxwsFilesAreValid (final boolean bContinueOnError) throws Exception
+  public static int testIfAllSunJaxwsFilesAreValid (final boolean bContinueOnError)
   {
     int ret = 0;
     ret += testIfAllSunJaxwsFilesAreValid ("src/main/resources/WEB-INF", bContinueOnError);
@@ -149,7 +148,7 @@ public final class WSTestHelper
     return ret;
   }
 
-  public static void testIfAllSunJaxwsFilesAreValid () throws Exception
+  public static void testIfAllSunJaxwsFilesAreValid ()
   {
     testIfAllSunJaxwsFilesAreValid (false);
   }

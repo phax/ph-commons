@@ -80,10 +80,6 @@ public class StopWatch implements IStoppable, Serializable
     return System.nanoTime ();
   }
 
-  @OverrideOnDemand
-  protected void onAfterStart ()
-  {}
-
   /**
    * Start the stop watch.
    *
@@ -96,17 +92,8 @@ public class StopWatch implements IStoppable, Serializable
     if (m_nStartDT > 0)
       return EChange.UNCHANGED;
     m_nStartDT = getCurrentNanoTime ();
-    onAfterStart ();
     return EChange.CHANGED;
   }
-
-  @OverrideOnDemand
-  protected void onBeforeStop ()
-  {}
-
-  @OverrideOnDemand
-  protected void onAfterStop ()
-  {}
 
   /**
    * Stop the stop watch.
@@ -122,11 +109,9 @@ public class StopWatch implements IStoppable, Serializable
     if (m_nStartDT == 0)
       return EChange.UNCHANGED;
 
-    onBeforeStop ();
     final long nCurrentNanoTime = getCurrentNanoTime ();
     m_nDurationNanos += (nCurrentNanoTime - m_nStartDT);
     m_nStartDT = 0;
-    onAfterStop ();
     return EChange.CHANGED;
   }
 

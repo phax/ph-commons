@@ -35,6 +35,6 @@ public interface IHasObjectType
 
   default boolean hasObjectType (@Nullable final ObjectType aOT)
   {
-    return aOT != null && getObjectType ().equals (aOT);
+    return getObjectType ().equals (aOT);
   }
 }

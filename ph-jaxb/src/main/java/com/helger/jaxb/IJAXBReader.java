@@ -59,7 +59,7 @@ public interface IJAXBReader <JAXBTYPE>
    *        The JAXB type to be written
    */
   @FunctionalInterface
-  public interface IJAXBUnmarshaller <JAXBTYPE>
+  interface IJAXBUnmarshaller <JAXBTYPE>
   {
     @Nonnull
     JAXBElement <JAXBTYPE> doUnmarshal (@Nonnull Unmarshaller aUnmarshaller,

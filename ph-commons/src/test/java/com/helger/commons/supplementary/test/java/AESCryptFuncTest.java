@@ -29,6 +29,7 @@ import javax.crypto.SecretKey;
 import org.junit.Test;
 
 import com.helger.commons.CGlobal;
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ArrayHelper;
@@ -43,18 +44,19 @@ public final class AESCryptFuncTest
 
     /**
      * Create a new AES key from the given byte array. Please note that for more
-     * than 16 bytes, you need the
-     * "unlimited strength jurisdiction policy files".
+     * than 16 bytes, you need the "unlimited strength jurisdiction policy
+     * files".
      *
      * @param aBytes
      *        Byte array with 16, 24 or 32 bytes. May not be <code>null</code>.
      */
     public AESSecretKey (final byte [] aBytes)
     {
-      if (aBytes == null)
-        throw new NullPointerException ("bytes");
-      if (aBytes.length != 16 && aBytes.length != 24 && aBytes.length != 32)
-        throw new IllegalArgumentException ("Key byte array must be 16, 24 or 32 bytes!");
+      ValueEnforcer.notNull (aBytes, "Bytes");
+      ValueEnforcer.isTrue (aBytes.length == 16 ||
+                            aBytes.length == 24 ||
+                            aBytes.length == 32,
+                            "Key byte array must be 16, 24 or 32 bytes!");
       m_aBytes = ArrayHelper.getCopy (aBytes);
     }
 
@@ -105,8 +107,7 @@ public final class AESCryptFuncTest
 
     public AESCrypter (@Nonnull final SecretKey aKey)
     {
-      if (aKey == null)
-        throw new NullPointerException ("key");
+      ValueEnforcer.notNull (aKey, "Key");
       m_aKey = aKey;
       try
       {

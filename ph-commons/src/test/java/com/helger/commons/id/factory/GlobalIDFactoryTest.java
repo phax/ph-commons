@@ -17,6 +17,7 @@
 package com.helger.commons.id.factory;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -105,10 +106,10 @@ public final class GlobalIDFactoryTest
     assertTrue (GlobalIDFactory.getNewIntID () > 0);
 
     // 2 invocation return different results?
-    assertFalse (GlobalIDFactory.getNewIntID () == GlobalIDFactory.getNewIntID ());
+    assertNotEquals (GlobalIDFactory.getNewIntID (), GlobalIDFactory.getNewIntID ());
 
     // 2 invocation return different results?
-    assertFalse (GlobalIDFactory.getNewStringID ().equals (GlobalIDFactory.getNewStringID ()));
+    assertNotEquals (GlobalIDFactory.getNewStringID (), GlobalIDFactory.getNewStringID ());
 
     GlobalIDFactory.getNewIntID ();
     GlobalIDFactory.getNewPersistentIntID ();

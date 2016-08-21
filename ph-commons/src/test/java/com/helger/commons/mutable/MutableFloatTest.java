@@ -18,6 +18,7 @@ package com.helger.commons.mutable;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -45,25 +46,25 @@ public final class MutableFloatTest
 
     x.inc ();
     assertEquals (x.floatValue (), 1, DELTA);
-    assertFalse (x.hashCode () == x.floatValue ());
+    assertNotEquals (x.hashCode (), x.floatValue (), DELTA);
 
     x.inc (5);
     assertEquals (x.floatValue (), 6, DELTA);
-    assertFalse (x.hashCode () == x.floatValue ());
+    assertNotEquals (x.hashCode (), x.floatValue (), DELTA);
 
     x.inc (-2);
     assertEquals (x.floatValue (), 4, DELTA);
-    assertFalse (x.hashCode () == x.floatValue ());
+    assertNotEquals (x.hashCode (), x.floatValue (), DELTA);
 
     x.dec ();
     assertEquals (x.floatValue (), 3, DELTA);
-    assertFalse (x.hashCode () == x.floatValue ());
+    assertNotEquals (x.hashCode (), x.floatValue (), DELTA);
 
     x.dec (5);
     assertEquals (x.floatValue (), -2, DELTA);
     assertTrue (x.isNot0 ());
     assertFalse (x.is0 ());
-    assertFalse (x.hashCode () == x.floatValue ());
+    assertNotEquals (x.hashCode (), x.floatValue (), DELTA);
 
     assertTrue (x.set (4711).isChanged ());
     assertFalse (x.set (4711).isChanged ());

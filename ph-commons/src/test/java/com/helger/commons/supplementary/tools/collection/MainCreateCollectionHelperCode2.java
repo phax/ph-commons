@@ -50,16 +50,16 @@ public class MainCreateCollectionHelperCode2
               sType = "";
         final String sNew = sType + "new" + eCollectionType.m_sSuffix;
         final String sMapped = sNew + "Mapped";
-        aSB.append (sNew + "();\n");
-        aSB.append (sNew + "(\"a\");\n");
-        aSB.append (sNew + "(new String[]{\"a\"});\n");
-        aSB.append (sNew + "(new CommonsArrayList<> (\"a\"));\n");
-        aSB.append (sNew + "(new IterableIterator<String> (new CommonsArrayList<> (\"a\")));\n");
-        aSB.append (sNew + "((Iterable<>) new CommonsArrayList<> (\"a\"));\n");
-        aSB.append (sNew + "(new CommonsArrayList<> (\"a\").iterator ());\n");
-        aSB.append (sNew + "(new CommonsArrayList<> (\"a\"), Objects::nonNull);\n");
-        aSB.append (sMapped + "(new CommonsArrayList<Object> (\"a\"), Object::toString);\n");
-        aSB.append (sMapped + "(new Object[]{\"a\"}, Object::toString);\n");
+        aSB.append (sNew).append ("();\n");
+        aSB.append (sNew).append ("(\"a\");\n");
+        aSB.append (sNew).append ("(new String[]{\"a\"});\n");
+        aSB.append (sNew).append ("(new CommonsArrayList<> (\"a\"));\n");
+        aSB.append (sNew).append ("(new IterableIterator<String> (new CommonsArrayList<> (\"a\")));\n");
+        aSB.append (sNew).append ("((Iterable<>) new CommonsArrayList<> (\"a\"));\n");
+        aSB.append (sNew).append ("(new CommonsArrayList<> (\"a\").iterator ());\n");
+        aSB.append (sNew).append ("(new CommonsArrayList<> (\"a\"), Objects::nonNull);\n");
+        aSB.append (sMapped).append ("(new CommonsArrayList<Object> (\"a\"), Object::toString);\n");
+        aSB.append (sMapped).append ("(new Object[]{\"a\"}, Object::toString);\n");
       }
 
     s_aLogger.info (aSB.toString ());

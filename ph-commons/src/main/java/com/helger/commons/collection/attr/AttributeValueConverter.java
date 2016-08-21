@@ -49,7 +49,7 @@ public final class AttributeValueConverter
   {
     // expected a single string but got an array
     s_aLogger.warn ("The attribute '" +
-                    String.valueOf (aParamName) +
+                    aParamName +
                     "' is an array with " +
                     aArray.length +
                     " items; using the first one if possible: " +

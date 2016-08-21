@@ -28,7 +28,6 @@ import java.io.Serializable;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.security.SecureRandom;
-import java.util.Arrays;
 
 import org.junit.Test;
 
@@ -302,11 +301,10 @@ public final class Base64Test
   {
     final String sSource = "dgMP$";
     final String sEncoded = Base64.safeEncode (sSource, CCharset.CHARSET_ISO_8859_1_OBJ);
-    assertTrue (Arrays.equals (CharsetManager.getAsBytes (sSource, CCharset.CHARSET_ISO_8859_1_OBJ),
-                               Base64.safeDecode (sEncoded)));
-    assertTrue (Arrays.equals (CharsetManager.getAsBytes (sSource, CCharset.CHARSET_ISO_8859_1_OBJ),
-                               Base64.safeDecode (CharsetManager.getAsBytes (sEncoded,
-                                                                             CCharset.CHARSET_ISO_8859_1_OBJ))));
+    assertArrayEquals (CharsetManager.getAsBytes (sSource, CCharset.CHARSET_ISO_8859_1_OBJ),
+                       Base64.safeDecode (sEncoded));
+    assertArrayEquals (CharsetManager.getAsBytes (sSource, CCharset.CHARSET_ISO_8859_1_OBJ),
+                       Base64.safeDecode (CharsetManager.getAsBytes (sEncoded, CCharset.CHARSET_ISO_8859_1_OBJ)));
     assertEquals (sSource, Base64.safeDecodeAsString (sEncoded, CCharset.CHARSET_ISO_8859_1_OBJ));
     assertEquals (sSource,
                   Base64.safeDecodeAsString (CharsetManager.getAsBytes (sEncoded, CCharset.CHARSET_ISO_8859_1_OBJ),

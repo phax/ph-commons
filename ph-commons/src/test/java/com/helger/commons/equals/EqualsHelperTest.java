@@ -299,7 +299,7 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
     // Non-containers
     try
     {
-      EqualsHelper.equalsCollection ("abc", new String ("abc"));
+      EqualsHelper.equalsCollection ("abc", "def");
       fail ();
     }
     catch (final IllegalArgumentException ex)

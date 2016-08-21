@@ -36,6 +36,8 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.string.StringHelper;
@@ -74,6 +76,7 @@ import com.helger.commons.string.StringHelper;
  **/
 public final class MatrixTest
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (MatrixTest.class);
   private static final String FILENAME_JAMA_TEST_MATRIX_OUT = "Jamaout";
   private static final double EPSILON = Math.pow (2.0, -52.0);
 
@@ -943,7 +946,7 @@ public final class MatrixTest
     {
       try
       {
-        e.printStackTrace (System.out);
+        s_aLogger.error ("oops", e);
         warningCount = _try_warning (warningCount,
                                      "print()/read()...",
                                      "Formatting error... will try JDK1.1 reformulation...");
@@ -1262,10 +1265,10 @@ public final class MatrixTest
       return;
     if (Math.abs (x - y) > 10 * EPSILON * Math.max (Math.abs (x), Math.abs (y)))
     {
-      throw new RuntimeException ("The difference x-y is too large: x = " +
-                                  Double.toString (x) +
-                                  "  y = " +
-                                  Double.toString (y));
+      throw new IllegalArgumentException ("The difference x-y is too large: x = " +
+                                          Double.toString (x) +
+                                          "  y = " +
+                                          Double.toString (y));
     }
   }
 
@@ -1276,13 +1279,11 @@ public final class MatrixTest
     if (x.length == y.length)
     {
       for (int i = 0; i < x.length; i++)
-      {
         _check (x[i], y[i]);
-      }
     }
     else
     {
-      throw new RuntimeException ("Attempt to compare vectors of different lengths");
+      throw new IllegalArgumentException ("Attempt to compare vectors of different lengths");
     }
   }
 
@@ -1304,14 +1305,14 @@ public final class MatrixTest
     if (Y.norm1 () == 0. && X.norm1 () < 10 * EPSILON)
       return;
     if (X.minus (Y).norm1 () > 1000 * EPSILON * Math.max (X.norm1 (), Y.norm1 ()))
-      throw new RuntimeException ("The norm of (X-Y) is too large: " + Double.toString (X.minus (Y).norm1 ()));
+      throw new IllegalArgumentException ("The norm of (X-Y) is too large: " + Double.toString (X.minus (Y).norm1 ()));
   }
 
   /** Shorten spelling of print. **/
 
   private static void _print (final String s)
   {
-    System.out.print (s);
+    s_aLogger.info (StringHelper.trimEnd (s, '\n'));
   }
 
   /** Print appropriate messages for successful outcome try **/

@@ -17,9 +17,9 @@
 package com.helger.xml.transform;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import javax.xml.transform.Source;
@@ -68,7 +68,7 @@ public final class XMLTransformerFactoryTest
   {
     Transformer t1 = XMLTransformerFactory.newTransformer ();
     assertNotNull (t1);
-    assertTrue (t1 != XMLTransformerFactory.newTransformer ());
+    assertNotSame (t1, XMLTransformerFactory.newTransformer ());
 
     // Read valid XSLT
     t1 = XMLTransformerFactory.newTransformer (new ClassPathResource ("xml/test1.xslt"));

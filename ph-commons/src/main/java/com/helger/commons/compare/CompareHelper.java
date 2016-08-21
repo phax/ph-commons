@@ -333,7 +333,7 @@ public final class CompareHelper
                                        @Nullable final String sStr2,
                                        final boolean bNullValuesComeFirst)
   {
-    if (sStr1 == sStr2)
+    if (EqualsHelper.identityEqual (sStr1, sStr2))
       return 0;
     if (sStr1 == null)
       return bNullValuesComeFirst ? -1 : +1;

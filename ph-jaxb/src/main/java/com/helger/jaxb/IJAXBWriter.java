@@ -60,7 +60,7 @@ public interface IJAXBWriter <JAXBTYPE>
    *        The JAXB type to be written
    */
   @FunctionalInterface
-  public interface IJAXBMarshaller <JAXBTYPE>
+  interface IJAXBMarshaller <JAXBTYPE>
   {
     void doMarshal (@Nonnull Marshaller aMarshaller, @Nonnull JAXBElement <JAXBTYPE> aJAXBElement) throws JAXBException;
   }
@@ -217,23 +217,18 @@ public interface IJAXBWriter <JAXBTYPE>
   default ESuccess write (@Nonnull final JAXBTYPE aObject,
                           @Nonnull @WillClose final javax.xml.stream.XMLStreamWriter aWriter)
   {
+    final ESuccess ret = write (aObject, (m, e) -> m.marshal (e, aWriter));
+    // Needs to be manually closed
     try
     {
-      return write (aObject, (m, e) -> m.marshal (e, aWriter));
+      aWriter.flush ();
+      aWriter.close ();
     }
-    finally
+    catch (final XMLStreamException ex)
     {
-      // Needs to be manually closed
-      try
-      {
-        aWriter.flush ();
-        aWriter.close ();
-      }
-      catch (final XMLStreamException ex)
-      {
-        throw new IllegalStateException ("Failed to close XMLStreamWriter", ex);
-      }
+      throw new IllegalStateException ("Failed to close XMLStreamWriter", ex);
     }
+    return ret;
   }
 
   /**

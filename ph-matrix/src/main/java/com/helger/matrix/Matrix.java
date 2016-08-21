@@ -160,12 +160,9 @@ public class Matrix implements Serializable, ICloneable <Matrix>
   @SuppressFBWarnings ("EI_EXPOSE_REP")
   Matrix (@Nonnull final double [] [] aOther)
   {
-    if (aOther == null)
-      throw new NullPointerException ("other");
-    if (aOther.length <= 0)
-      throw new IllegalArgumentException ("rows may not be negative!");
-    if (aOther[0].length <= 0)
-      throw new IllegalArgumentException ("cols may not be negative!");
+    ValueEnforcer.notNull (aOther, "Other");
+    ValueEnforcer.isGT0 (aOther.length, "rows");
+    ValueEnforcer.isGT0 (aOther[0].length, "cols");
 
     m_nRows = aOther.length;
     m_nCols = aOther[0].length;

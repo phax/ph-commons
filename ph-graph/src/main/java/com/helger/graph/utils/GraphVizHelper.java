@@ -101,7 +101,7 @@ public final class GraphVizHelper
       if (StringHelper.hasText (sNodeLabelAttr))
       {
         final String sLabel = aGraphNode.getAttributeAsString (sNodeLabelAttr);
-        aSB.append ("[").append (getAttribute ("label", sLabel)).append ("]");
+        aSB.append ('[').append (getAttribute ("label", sLabel)).append (']');
       }
       aSB.append (';');
     });
@@ -112,7 +112,7 @@ public final class GraphVizHelper
       if (StringHelper.hasText (sRelationLabelAttr))
       {
         final String sLabel = aGraphRelation.getAttributeAsString (sRelationLabelAttr);
-        aSB.append ("[").append (getAttribute ("label", sLabel)).append ("]");
+        aSB.append ('[').append (getAttribute ("label", sLabel)).append (']');
       }
       aSB.append (";\n");
     });

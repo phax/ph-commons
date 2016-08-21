@@ -99,7 +99,7 @@ public interface IErrorLevel extends
   }
 
   @Nullable
-  public static IErrorLevel getMostSevere (@Nullable final IErrorLevel aLevel1, @Nullable final IErrorLevel aLevel2)
+  static IErrorLevel getMostSevere (@Nullable final IErrorLevel aLevel1, @Nullable final IErrorLevel aLevel2)
   {
     if (EqualsHelper.identityEqual (aLevel1, aLevel2))
       return aLevel1;

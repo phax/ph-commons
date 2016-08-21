@@ -59,7 +59,7 @@ public final class StopWatchTest
     assertFalse (sw.isStarted ());
     assertTrue (sw.getNanos () > 0);
     assertTrue (sw.reset ().isChanged ());
-    assertTrue (sw.getNanos () == 0);
+    assertEquals (sw.getNanos (), 0);
     assertFalse (sw.reset ().isChanged ());
 
     assertNotNull (sw.toString ());

@@ -29,6 +29,8 @@ import java.time.Duration;
 import java.time.Period;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.charset.CCharset;
 import com.helger.commons.datetime.PDTFactory;
@@ -47,6 +49,8 @@ import com.helger.xml.microdom.serialize.MicroWriter;
  */
 public final class SettingsMicroDocumentConverterTest
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (SettingsMicroDocumentConverterTest.class);
+
   @Test
   public void testConversionWithTypes () throws UnsupportedEncodingException
   {
@@ -78,7 +82,7 @@ public final class SettingsMicroDocumentConverterTest
     final IMicroElement eSrcElement = MicroTypeConverter.convertToMicroElement (aSrc, "root");
     assertNotNull (eSrcElement);
     if (false)
-      System.out.println (MicroWriter.getXMLString (eSrcElement));
+      s_aLogger.info (MicroWriter.getXMLString (eSrcElement));
 
     // From XML
     final ISettings aDst = MicroTypeConverter.convertToNative (eSrcElement, Settings.class);

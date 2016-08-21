@@ -18,7 +18,7 @@ package com.helger.commons.hashcode;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.fail;
 
 import java.io.File;
@@ -69,12 +69,12 @@ public final class HashCodeGeneratorTest
     aHC.append (BigDecimal.ZERO);
     aHC.append (new StringBuffer ("Hallo"));
     aHC.append (new StringBuilder ("Hallo Welt"));
-    aHC.append (new CommonsHashSet <> ("Hallo", "Welt", "from", "unit", "test"));
+    aHC.append (new CommonsHashSet<> ("Hallo", "Welt", "from", "unit", "test"));
     aHC.append (IteratorHelper.getIterator ("Hallo", "Welt", "from", "unit", "test"));
     aHC.append (IteratorHelper.getEnumeration ("Hallo", "Welt", "from", "unit", "test"));
 
     // Multi values containing null
-    aHC.append (new CommonsHashSet <> ("Hallo", null, null, "unit", "test"));
+    aHC.append (new CommonsHashSet<> ("Hallo", null, null, "unit", "test"));
 
     // Objects null
     aHC.append ((Enum <?>) null);
@@ -94,7 +94,7 @@ public final class HashCodeGeneratorTest
     aHC.append (new short [] { 4701, -32767 });
     aHC.append (EChange.values ());
     aHC.append (new Object [] { EChange.CHANGED, BigDecimal.ONE, "out" });
-    aHC.append (new CommonsArrayList <> (EChange.CHANGED, BigDecimal.ONE, "out"));
+    aHC.append (new CommonsArrayList<> (EChange.CHANGED, BigDecimal.ONE, "out"));
 
     // Arrays as objects
     aHC.append ((Object) new boolean [] { false, true });
@@ -107,7 +107,7 @@ public final class HashCodeGeneratorTest
     aHC.append ((Object) new short [] { 4701, -32767 });
     aHC.append ((Object) EChange.values ());
     aHC.append ((Object) new Object [] { EChange.CHANGED, BigDecimal.ONE, "out" });
-    aHC.append ((Object) new CommonsArrayList <> (EChange.CHANGED, BigDecimal.ONE, "out"));
+    aHC.append ((Object) new CommonsArrayList<> (EChange.CHANGED, BigDecimal.ONE, "out"));
 
     // Array objects filled and containing nulls
     aHC.append (new Enum [] { EChange.CHANGED, null, EChange.UNCHANGED });
@@ -193,7 +193,8 @@ public final class HashCodeGeneratorTest
                                              .getHashCode () == new HashCodeGenerator (this).append ((BigDecimal) null)
                                                                                             .getHashCode ());
     // Check that array class and native class don't have the same hash code
-    assertTrue (new HashCodeGenerator (new Byte [1]).getHashCode () != new HashCodeGenerator (Byte.valueOf ((byte) 0)).getHashCode ());
+    assertNotEquals (new HashCodeGenerator (new Byte [1]).getHashCode (),
+                     new HashCodeGenerator (Byte.valueOf ((byte) 0)).getHashCode ());
 
     // Check that the derived hash code is not modified
     final int nHashCode = new HashCodeGenerator (this).append (123).getHashCode ();
@@ -262,6 +263,6 @@ public final class HashCodeGeneratorTest
   {
     final int nHash1 = new HashCodeGenerator (this).append (2).append (3).getHashCode ();
     final int nHash2 = new HashCodeGenerator (this).append (3).append (2).getHashCode ();
-    assertTrue (nHash1 != nHash2);
+    assertNotEquals (nHash1, nHash2);
   }
 }

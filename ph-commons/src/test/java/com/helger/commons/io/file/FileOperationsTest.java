@@ -16,13 +16,14 @@
  */
 package com.helger.commons.io.file;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.util.Arrays;
 
 import javax.annotation.Nonnull;
 
@@ -194,7 +195,7 @@ public final class FileOperationsTest
   {
     final File aSrcDir = new File ("SourceDir");
     final File aDstDir = new File ("DestDir");
-    assertTrue (!aSrcDir.equals (aDstDir));
+    assertNotEquals (aSrcDir, aDstDir);
     assertFalse (FileHelper.existsDir (aSrcDir));
     assertFalse (FileHelper.existsDir (aDstDir));
 
@@ -346,7 +347,7 @@ public final class FileOperationsTest
       _expectedSuccess (FileOperations.copyFile (aFile, aFile2));
       assertTrue (FileHelper.existsFile (aFile));
       assertTrue (FileHelper.existsFile (aFile2));
-      assertTrue (Arrays.equals (SimpleFileIO.getAllFileBytes (aFile), SimpleFileIO.getAllFileBytes (aFile2)));
+      assertArrayEquals (SimpleFileIO.getAllFileBytes (aFile), SimpleFileIO.getAllFileBytes (aFile2));
       _expectedError (FileOperations.copyFile (aFile, aFile), EFileIOErrorCode.SOURCE_EQUALS_TARGET);
       _expectedError (FileOperations.copyFile (aFile, new File ("target/../" + aFile.getName ())),
                       EFileIOErrorCode.SOURCE_EQUALS_TARGET);

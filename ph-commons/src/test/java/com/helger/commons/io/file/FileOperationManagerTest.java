@@ -18,6 +18,7 @@ package com.helger.commons.io.file;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -174,7 +175,7 @@ public final class FileOperationManagerTest
     final File aDstDir = new File ("DestDir");
     try
     {
-      assertTrue (!aSrcDir.equals (aDstDir));
+      assertNotEquals (aSrcDir, aDstDir);
       assertFalse (FileHelper.existsDir (aSrcDir));
       assertFalse (FileHelper.existsDir (aDstDir));
 

@@ -570,7 +570,7 @@ public final class XMLHelper
         int nMatchingIndex = -1;
         for (final Element x : new ChildElementIterator (aCurNode.getParentNode ()))
         {
-          if (x == aCurNode)
+          if (EqualsHelper.identityEqual (x, aCurNode))
             nMatchingIndex = nIndex;
 
           if (x.getTagName ().equals (aCurElement.getTagName ()))

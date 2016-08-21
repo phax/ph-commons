@@ -35,13 +35,7 @@ public final class UTF7CharsetProviderSPITest
   private final UTF7CharsetProviderSPI tested = new UTF7CharsetProviderSPI ();
 
   @Test
-  public void testOK () throws Exception
-  {
-    assertTrue (true);
-  }
-
-  @Test
-  public void testModifiedUTF7 () throws Exception
+  public void testModifiedUTF7 ()
   {
     final Charset charset = tested.charsetForName ("x-modified-UTF-7");
     assertNotNull ("charset not found", charset);
@@ -54,7 +48,7 @@ public final class UTF7CharsetProviderSPITest
   }
 
   @Test
-  public void testUTF7 () throws Exception
+  public void testUTF7 ()
   {
     final Charset charset = tested.charsetForName ("UTF-7");
     assertNotNull ("charset not found", charset);
@@ -67,7 +61,7 @@ public final class UTF7CharsetProviderSPITest
   }
 
   @Test
-  public void testUTF7optional () throws Exception
+  public void testUTF7optional ()
   {
     final Charset charset = tested.charsetForName ("X-UTF-7-OPTIONAL");
     assertNotNull ("charset not found", charset);
@@ -78,13 +72,13 @@ public final class UTF7CharsetProviderSPITest
   }
 
   @Test
-  public void testNotHere () throws Exception
+  public void testNotHere ()
   {
     assertNull (tested.charsetForName ("X-DOES-NOT-EXIST"));
   }
 
   @Test
-  public void testIterator () throws Exception
+  public void testIterator ()
   {
     final Iterator <Charset> iterator = tested.charsets ();
     final ICommonsSet <Charset> found = new CommonsHashSet<> ();
@@ -100,7 +94,7 @@ public final class UTF7CharsetProviderSPITest
   }
 
   @Test
-  public void testTurkish () throws Exception
+  public void testTurkish ()
   {
     Locale.setDefault (new Locale ("tr", "TR"));
     assertEquals (tested.charsetForName ("UTF-7"), tested.charsetForName ("unicode-1-1-utf-7"));
