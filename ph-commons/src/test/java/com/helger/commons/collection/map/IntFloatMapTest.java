@@ -29,9 +29,9 @@ import com.helger.commons.random.RandomHelper;
 public final class IntFloatMapTest
 {
   private static final float DELTA = 0.0001f;
-  private final static float [] FILL_FACTORS = { 0.25f, 0.5f, 0.75f, 0.9f, 0.99f };
+  private static final float [] FILL_FACTORS = { 0.25f, 0.5f, 0.75f, 0.9f, 0.99f };
 
-  protected IntFloatMap makeMap (final int size, final float fillFactor)
+  private static IntFloatMap _makeMap (final int size, final float fillFactor)
   {
     return new IntFloatMap (size, fillFactor);
   }
@@ -45,7 +45,7 @@ public final class IntFloatMapTest
 
   private void _testPutHelper (final float fillFactor)
   {
-    final IntFloatMap map = makeMap (100, fillFactor);
+    final IntFloatMap map = _makeMap (100, fillFactor);
     for (int i = 0; i < 100000; ++i)
     {
       assertEquals ("Inserting " + i, IntFloatMap.NO_VALUE, map.put (i, i), DELTA);
@@ -66,7 +66,7 @@ public final class IntFloatMapTest
 
   private void _testPutNegative (final float fillFactor)
   {
-    final IntFloatMap map = makeMap (100, fillFactor);
+    final IntFloatMap map = _makeMap (100, fillFactor);
     for (int i = 0; i < 100000; ++i)
     {
       map.put (-i, -i);
@@ -89,7 +89,7 @@ public final class IntFloatMapTest
   {
     final Random aRandom = RandomHelper.getRandom ();
     final int SIZE = 100 * 1000;
-    final Set <Integer> set = new CommonsHashSet <> (SIZE);
+    final Set <Integer> set = new CommonsHashSet<> (SIZE);
     final int [] vals = new int [SIZE];
     while (set.size () < SIZE)
       set.add (Integer.valueOf (aRandom.nextInt ()));
@@ -97,7 +97,7 @@ public final class IntFloatMapTest
     for (final Integer v : set)
       vals[i++] = v.intValue ();
 
-    final IntFloatMap map = makeMap (100, fillFactor);
+    final IntFloatMap map = _makeMap (100, fillFactor);
     for (i = 0; i < vals.length; ++i)
     {
       assertEquals ("Inserting " + vals[i], IntFloatMap.NO_VALUE, map.put (vals[i], vals[i]), DELTA);
@@ -118,7 +118,7 @@ public final class IntFloatMapTest
 
   private void _testRemoveHelper (final float fillFactor)
   {
-    final IntFloatMap map = makeMap (100, fillFactor);
+    final IntFloatMap map = _makeMap (100, fillFactor);
     int addCnt = 0;
     int removeCnt = 0;
     for (int i = 0; i < 100000; ++i)

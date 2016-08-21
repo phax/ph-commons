@@ -75,9 +75,10 @@ public final class Kruskal
       int nIndex = 0;
       for (final IMutableGraphNode aNode : m_aGraph.getAllNodes ().values ())
       {
-        if (nIndex++ > 0)
+        if (nIndex > 0)
           aSB.append (',');
         aSB.append ('\'').append (aNode.getID ()).append ('\'');
+        nIndex++;
       }
       return aSB.append ('}').toString ();
     }
@@ -111,9 +112,7 @@ public final class Kruskal
     {
       s_aLogger.info ("Starting Kruskal on " + aSortedRelations.size () + " relations");
       s_aLogger.info ("Sorted relations: " +
-                      StringHelper.getImploded (';',
-                                                aSortedRelations,
-                                                x -> _getWeightInfo (x, sRelationCostAttr)));
+                      StringHelper.getImploded (';', aSortedRelations, x -> _getWeightInfo (x, sRelationCostAttr)));
     }
 
     final SimpleGraph ret = new SimpleGraph (new SimpleGraphObjectFastFactory ());

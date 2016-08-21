@@ -63,28 +63,23 @@ public final class LevenshteinDistance
     // cost array, horizontally
     int [] aCurRow = new int [nLen1 + 1];
 
-    // temp vars
-    int i, j, nSubstVal;
-    int ch2;
-    int [] tmp;
-
     // init
-    for (i = 0; i <= nLen1; i++)
+    for (int i = 0; i <= nLen1; i++)
       aPrevRow[i] = i;
 
-    for (j = 0; j < nLen2; j++)
+    for (int j = 0; j < nLen2; j++)
     {
-      ch2 = aStr2[j];
+      final int ch2 = aStr2[j];
       aCurRow[0] = j + 1;
 
-      for (i = 0; i < nLen1; i++)
+      for (int i = 0; i < nLen1; i++)
       {
-        nSubstVal = aStr1[i] == ch2 ? 0 : 1;
+        final int nSubstVal = aStr1[i] == ch2 ? 0 : 1;
         aCurRow[i + 1] = Math.min (Math.min (aCurRow[i] + 1, aPrevRow[i + 1] + 1), aPrevRow[i] + nSubstVal);
       }
 
       // swap current distance counts to 'previous row' distance counts
-      tmp = aPrevRow;
+      final int [] tmp = aPrevRow;
       aPrevRow = aCurRow;
       aCurRow = tmp;
     }
@@ -128,28 +123,24 @@ public final class LevenshteinDistance
     // cost array, horizontally
     int [] aCurRow = new int [nLen1 + 1];
 
-    // temp vars
-    int i, j, ch2, nSubstCost;
-    int [] tmp;
-
     // init
-    for (i = 0; i <= nLen1; i++)
+    for (int i = 0; i <= nLen1; i++)
       aPrevRow[i] = i * nCostInsert;
 
-    for (j = 0; j < nLen2; j++)
+    for (int j = 0; j < nLen2; j++)
     {
-      ch2 = aStr2[j];
+      final int ch2 = aStr2[j];
       aCurRow[0] = (j + 1) * nCostDelete;
 
-      for (i = 0; i < nLen1; i++)
+      for (int i = 0; i < nLen1; i++)
       {
-        nSubstCost = aStr1[i] == ch2 ? 0 : nCostSubstitution;
+        final int nSubstCost = aStr1[i] == ch2 ? 0 : nCostSubstitution;
         aCurRow[i + 1] = Math.min (Math.min (aCurRow[i] + nCostInsert, aPrevRow[i + 1] + nCostDelete),
                                    aPrevRow[i] + nSubstCost);
       }
 
       // swap current distance counts to 'previous row' distance counts
-      tmp = aPrevRow;
+      final int [] tmp = aPrevRow;
       aPrevRow = aCurRow;
       aCurRow = tmp;
     }

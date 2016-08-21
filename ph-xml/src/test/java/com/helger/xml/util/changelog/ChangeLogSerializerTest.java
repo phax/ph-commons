@@ -17,6 +17,7 @@
 package com.helger.xml.util.changelog;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -93,7 +94,7 @@ public final class ChangeLogSerializerTest
   {
     final Map <URI, ChangeLog> aChangeLogs = ChangeLogSerializer.readAllChangeLogs ();
     assertNotNull (aChangeLogs);
-    assertTrue (aChangeLogs.size () >= 1);
+    assertFalse (aChangeLogs.isEmpty ());
   }
 
   @Test

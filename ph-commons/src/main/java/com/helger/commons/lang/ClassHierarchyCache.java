@@ -158,7 +158,7 @@ public final class ClassHierarchyCache
   }
 
   @Nonnull
-  protected static ClassList getClassList (@Nonnull final Class <?> aClass)
+  private static ClassList _getClassList (@Nonnull final Class <?> aClass)
   {
     ValueEnforcer.notNull (aClass, "Class");
     final String sKey = aClass.getName ();
@@ -170,14 +170,7 @@ public final class ClassHierarchyCache
     {
       aClassList = s_aRWLock.writeLocked ( () -> {
         // try again in write lock
-        ClassList aWLClassList = s_aClassHierarchy.get (sKey);
-        if (aWLClassList == null)
-        {
-          // Create a new class list
-          aWLClassList = new ClassList (aClass);
-          s_aClassHierarchy.put (sKey, aWLClassList);
-        }
-        return aWLClassList;
+        return s_aClassHierarchy.computeIfAbsent (sKey, x -> new ClassList (aClass));
       });
     }
     return aClassList;
@@ -197,7 +190,7 @@ public final class ClassHierarchyCache
   @ReturnsMutableCopy
   public static ICommonsSet <Class <?>> getClassHierarchy (@Nonnull final Class <?> aClass)
   {
-    return getClassList (aClass).getAsSet ();
+    return _getClassList (aClass).getAsSet ();
   }
 
   /**
@@ -215,7 +208,7 @@ public final class ClassHierarchyCache
   @ReturnsMutableCopy
   public static ICommonsList <Class <?>> getClassHierarchyList (@Nonnull final Class <?> aClass)
   {
-    return getClassList (aClass).getAsList ();
+    return _getClassList (aClass).getAsList ();
   }
 
   /**
@@ -232,6 +225,6 @@ public final class ClassHierarchyCache
   @Nonnull
   public static Iterable <WeakReference <Class <?>>> getClassHierarchyIterator (@Nonnull final Class <?> aClass)
   {
-    return getClassList (aClass);
+    return _getClassList (aClass);
   }
 }

@@ -41,12 +41,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import com.helger.commons.charset.CCharset;
+import com.helger.commons.collection.ext.ICommonsList;
 
 public final class IntegrationFuncTest
 {
@@ -80,9 +80,13 @@ public final class IntegrationFuncTest
 
     try (final CSVReader reader = new CSVReader (new InputStreamReader (new FileInputStream (m_aTempFile), aCharset)))
     {
-      List <String> line;
-      for (int row = 0; (line = reader.readNext ()) != null; row++)
+      int row = 0;
+      while (true)
       {
+        final ICommonsList <String> line = reader.readNext ();
+        if (line == null)
+          break;
+
         assertEquals (line.size (), data[row].length);
 
         for (int col = 0; col < line.size (); col++)
@@ -92,6 +96,7 @@ public final class IntegrationFuncTest
           else
             assertEquals (data[row][col], line.get (col));
         }
+        row++;
       }
     }
   }

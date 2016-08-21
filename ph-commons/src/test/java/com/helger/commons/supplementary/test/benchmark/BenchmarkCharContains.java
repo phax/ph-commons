@@ -26,8 +26,6 @@ import com.helger.commons.timing.StopWatch;
 
 public final class BenchmarkCharContains
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (BenchmarkCharContains.class);
-
   @FunctionalInterface
   interface IDoIt
   {
@@ -43,6 +41,11 @@ public final class BenchmarkCharContains
   };
 
   public static final IDoIt s_a2 = s -> s.indexOf ('/') >= 0 || s.indexOf ('\\') >= 0;
+
+  private static final Logger s_aLogger = LoggerFactory.getLogger (BenchmarkCharContains.class);
+
+  private BenchmarkCharContains ()
+  {}
 
   public static void main (final String [] args)
   {

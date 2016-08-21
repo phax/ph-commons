@@ -466,18 +466,17 @@ public class EigenvalueDecomposition implements Serializable
 
   private void _cdiv (final double xr, final double xi, final double yr, final double yi)
   {
-    double r, d;
     if (MathHelper.abs (yr) > MathHelper.abs (yi))
     {
-      r = yi / yr;
-      d = yr + r * yi;
+      final double r = yi / yr;
+      final double d = yr + r * yi;
       m_dCdivr = (xr + r * xi) / d;
       m_dCdivi = (xi - r * xr) / d;
     }
     else
     {
-      r = yr / yi;
-      d = yi + r * yr;
+      final double r = yr / yi;
+      final double d = yi + r * yr;
       m_dCdivr = (r * xr + xi) / d;
       m_dCdivi = (r * xi - xr) / d;
     }
@@ -499,8 +498,16 @@ public class EigenvalueDecomposition implements Serializable
     int n = nn - 1;
     final int low = 0;
     final int high = nn - 1;
-    double exshift = 0.0;
-    double p = 0, q = 0, r = 0, s = 0, z = 0, t, w, x, y;
+    double exshift = 0;
+    double p = 0;
+    double q = 0;
+    double r = 0;
+    double s = 0;
+    double z = 0;
+    double t;
+    double w;
+    double x;
+    double y;
 
     // Store roots isolated by balanc and compute matrix norm
     double norm = 0.0;
@@ -894,9 +901,10 @@ public class EigenvalueDecomposition implements Serializable
           m_aHessenBerg[n][n] = 1.0;
           for (int i = n - 2; i >= 0; i--)
           {
-            double ra, sa, vr, vi;
-            ra = 0.0;
-            sa = 0.0;
+            double ra = 0.0;
+            double sa = 0.0;
+            double vr;
+            double vi;
             for (int j = l; j <= n; j++)
             {
               ra += m_aHessenBerg[i][j] * m_aHessenBerg[j][n - 1];

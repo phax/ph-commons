@@ -28,9 +28,9 @@ import com.helger.commons.random.RandomHelper;
 
 public final class IntIntMapTest
 {
-  private final static float [] FILL_FACTORS = { 0.25f, 0.5f, 0.75f, 0.9f, 0.99f };
+  private static final float [] FILL_FACTORS = { 0.25f, 0.5f, 0.75f, 0.9f, 0.99f };
 
-  private static IntIntMap makeMap (final int size, final float fillFactor)
+  private static IntIntMap _makeMap (final int size, final float fillFactor)
   {
     return new IntIntMap (size, fillFactor);
   }
@@ -44,7 +44,7 @@ public final class IntIntMapTest
 
   private void _testPutHelper (final float fillFactor)
   {
-    final IntIntMap map = makeMap (100, fillFactor);
+    final IntIntMap map = _makeMap (100, fillFactor);
     for (int i = 0; i < 100000; ++i)
     {
       assertEquals (0, map.put (i, i));
@@ -65,7 +65,7 @@ public final class IntIntMapTest
 
   private void _testPutNegative (final float fillFactor)
   {
-    final IntIntMap map = makeMap (100, fillFactor);
+    final IntIntMap map = _makeMap (100, fillFactor);
     for (int i = 0; i < 100000; ++i)
     {
       map.put (-i, -i);
@@ -96,7 +96,7 @@ public final class IntIntMapTest
     for (final Integer v : set)
       vals[i++] = v.intValue ();
 
-    final IntIntMap map = makeMap (100, fillFactor);
+    final IntIntMap map = _makeMap (100, fillFactor);
     for (i = 0; i < vals.length; ++i)
     {
       assertEquals (0, map.put (vals[i], vals[i]));
@@ -117,7 +117,7 @@ public final class IntIntMapTest
 
   private void _testRemoveHelper (final float fillFactor)
   {
-    final IntIntMap map = makeMap (100, fillFactor);
+    final IntIntMap map = _makeMap (100, fillFactor);
     int addCnt = 0;
     int removeCnt = 0;
     for (int i = 0; i < 100000; ++i)

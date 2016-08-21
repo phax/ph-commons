@@ -95,7 +95,8 @@ public final class MatrixIntTest
     final int [] [] rvals = { { 1, 4, 7 }, { 2, 5, 8, 11 }, { 3, 6, 9, 12 } };
     final int [] [] ivals = { { 1, 0, 0, 0 }, { 0, 1, 0, 0 }, { 0, 0, 1, 0 } };
     final int [] [] square = { { 166, 188, 210 }, { 188, 214, 240 }, { 210, 240, 270 } };
-    final int rows = 3, cols = 4;
+    final int rows = 3;
+    final int cols = 4;
     /*
      * should trigger bad shape for construction with val
      */
@@ -112,7 +113,10 @@ public final class MatrixIntTest
      */
     final int nonconformld = 4;
     /* index ranges for sub MatrixInt */
-    final int ib = 1, ie = 2, jb = 1, je = 3;
+    final int ib = 1;
+    final int ie = 2;
+    final int jb = 1;
+    final int je = 3;
     final int [] rowindexset = { 1, 2 };
     final int [] badrowindexset = { 1, 3 };
     final int [] columnindexset = { 1, 2, 3 };
@@ -1141,7 +1145,7 @@ public final class MatrixIntTest
     if (Y.norm1 () == 0. && X.norm1 () < 10 * EPSILON)
       return;
     if (X.minus (Y).norm1 () > 1000 * EPSILON * Math.max (X.norm1 (), Y.norm1 ()))
-      throw new RuntimeException ("The norm of (X-Y) is too large: " + Double.toString (X.minus (Y).norm1 ()));
+      throw new IllegalArgumentException ("The norm of (X-Y) is too large: " + Double.toString (X.minus (Y).norm1 ()));
   }
 
   /** Shorten spelling of print. **/

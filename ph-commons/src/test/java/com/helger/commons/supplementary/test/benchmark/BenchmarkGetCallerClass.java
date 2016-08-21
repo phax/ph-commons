@@ -73,7 +73,7 @@ public final class BenchmarkGetCallerClass extends AbstractBenchmarkTask
    * Abstract class for testing different methods of getting the caller class
    * name
    */
-  private static abstract class AbstractDoIt implements Runnable
+  private abstract static class AbstractDoIt implements Runnable
   {
     private final int m_nRuns;
 

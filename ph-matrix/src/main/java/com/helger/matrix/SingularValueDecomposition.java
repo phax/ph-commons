@@ -273,7 +273,8 @@ public class SingularValueDecomposition implements Serializable
     int iter = 0;
     while (p > 0)
     {
-      int k, kase;
+      int k;
+      int kase;
 
       // Here is where a test for too many iterations would go.
 

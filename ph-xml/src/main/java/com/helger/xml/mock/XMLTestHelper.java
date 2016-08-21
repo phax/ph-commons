@@ -19,6 +19,7 @@ package com.helger.xml.mock;
 import static org.junit.Assert.assertNotNull;
 
 import javax.annotation.Nonnull;
+import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.mock.CommonsTestHelper;
@@ -26,8 +27,16 @@ import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.convert.MicroTypeConverter;
 import com.helger.xml.microdom.serialize.MicroWriter;
 
-public class XMLTestHelper
+/**
+ * Helper methods for handling XML based testing
+ *
+ * @author Philip Helger
+ */
+@Immutable
+public final class XMLTestHelper
 {
+  private XMLTestHelper ()
+  {}
 
   /**
    * Test if the {@link MicroTypeConverter} is OK. It converts it to XML and

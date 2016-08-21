@@ -128,16 +128,15 @@ public final class Punycode
         }
       }
     }
-    int h, b, m, q, k, t;
-    b = aSB.length ();
-    h = b;
+    final int b = aSB.length ();
+    int h = b;
     if (b > 0)
       aSB.append ((char) DELIMITER);
     while (h < aChars.length)
     {
       aIter.position (0);
       i = -1;
-      m = Integer.MAX_VALUE;
+      int m = Integer.MAX_VALUE;
       while (aIter.hasNext ())
       {
         i = aIter.next ().getValue ();
@@ -155,18 +154,22 @@ public final class Punycode
         i = aIter.next ().getValue ();
         if (i < n)
         {
-          if (++delta == 0)
+          ++delta;
+          if (delta == 0)
             throw new EncodeException ("Overflow");
         }
         if (i == n)
         {
-          for (q = delta, k = BASE;; k += BASE)
+          int q = delta;
+          int k = BASE;
+          while (true)
           {
-            t = k <= bias ? TMIN : k >= bias + TMAX ? TMAX : k - bias;
+            final int t = k <= bias ? TMIN : k >= bias + TMAX ? TMAX : k - bias;
             if (q < t)
               break;
             aSB.append ((char) _encode_digit (t + (q - t) % (BASE - t), false));
             q = (q - t) / (BASE - t);
+            k += BASE;
           }
           aSB.append ((char) _encode_digit (q, (aCaseFlags != null) ? aCaseFlags[aIter.position () - 1] : false));
           bias = _adapt (delta, h + 1, h == b);
@@ -193,15 +196,15 @@ public final class Punycode
   public static String getDecoded (@Nonnull final char [] aChars, @Nullable final boolean [] aCaseFlags)
   {
     final StringBuilder aSB = new StringBuilder ();
-    int n, out, i, bias, b, j, in, oldi, w, k, digit, t;
-    n = INITIAL_N;
-    out = 0;
-    i = 0;
-    bias = INITIAL_BIAS;
-    for (b = 0, j = 0; j < aChars.length; ++j)
+    int n = INITIAL_N;
+    int out = 0;
+    int i = 0;
+    int bias = INITIAL_BIAS;
+    int b = 0;
+    for (int j = 0; j < aChars.length; ++j)
       if (_delim (aChars[j]))
         b = j;
-    for (j = 0; j < b; ++j)
+    for (int j = 0; j < b; ++j)
     {
       if (aCaseFlags != null)
         aCaseFlags[out] = _flagged (aChars[j]);
@@ -210,19 +213,20 @@ public final class Punycode
       aSB.append (aChars[j]);
     }
     out = aSB.length ();
-    for (in = (b > 0) ? b + 1 : 0; in < aChars.length; ++out)
+    for (int in = (b > 0) ? b + 1 : 0; in < aChars.length; ++out)
     {
-      for (oldi = i, w = 1, k = BASE;; k += BASE)
+      final int oldi = i;
+      for (int w = 1, k = BASE;; k += BASE)
       {
         if (in > aChars.length)
           throw new DecodeException ("Bad input");
-        digit = _decode_digit (aChars[in++]);
+        final int digit = _decode_digit (aChars[in++]);
         if (digit >= BASE)
           throw new DecodeException ("Bad input");
         if (digit > (Integer.MAX_VALUE - i) / w)
           throw new DecodeException ("Overflow");
         i += digit * w;
-        t = (k <= bias) ? TMIN : (k >= bias + TMAX) ? TMAX : k - bias;
+        final int t = (k <= bias) ? TMIN : (k >= bias + TMAX) ? TMAX : k - bias;
         if (digit < t)
           break;
         if (w > Integer.MAX_VALUE / (BASE - t))

@@ -76,6 +76,9 @@ public final class MainReadSharedMimeInfo
   private static final Logger s_aLogger = LoggerFactory.getLogger (MainReadSharedMimeInfo.class);
   private static final String NS = "http://www.freedesktop.org/standards/shared-mime-info";
 
+  private MainReadSharedMimeInfo ()
+  {}
+
   public static void main (final String [] args)
   {
     s_aLogger.info ("Reading shared-mime-info/freedesktop.org.xml");

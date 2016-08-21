@@ -349,14 +349,14 @@ public final class MimeTypeInfo
     return false;
   }
 
-  protected void addExtension (@Nonnull final ExtensionWithSource aExt)
+  void addExtension (@Nonnull final ExtensionWithSource aExt)
   {
     ValueEnforcer.notNull (aExt, "Ext");
     // Don't add to glob - can easily be constructed from all extensions
     m_aExtensions.add (aExt);
   }
 
-  protected void addMimeType (@Nonnull final MimeTypeWithSource aMimeType)
+  void addMimeType (@Nonnull final MimeTypeWithSource aMimeType)
   {
     ValueEnforcer.notNull (aMimeType, "MimeType");
     // Don't add to glob - can easily be constructed from all extensions

@@ -196,8 +196,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
    *         object otherwise.
    */
   @Nullable
-  protected ITypeConverter <?, ?> getExactConverter (@Nullable final Class <?> aSrcClass,
-                                                     @Nullable final Class <?> aDstClass)
+  ITypeConverter <?, ?> getExactConverter (@Nullable final Class <?> aSrcClass, @Nullable final Class <?> aDstClass)
   {
     return m_aRWLock.readLocked ( () -> {
       final Map <Class <?>, ITypeConverter <?, ?>> aConverterMap = m_aConverter.get (aSrcClass);
@@ -217,8 +216,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
    *         object otherwise.
    */
   @Nullable
-  protected ITypeConverter <?, ?> getRuleBasedConverter (@Nullable final Class <?> aSrcClass,
-                                                         @Nullable final Class <?> aDstClass)
+  ITypeConverter <?, ?> getRuleBasedConverter (@Nullable final Class <?> aSrcClass, @Nullable final Class <?> aDstClass)
   {
     if (aSrcClass == null || aDstClass == null)
       return null;
@@ -288,8 +286,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
    *         object otherwise.
    */
   @Nullable
-  protected ITypeConverter <?, ?> getFuzzyConverter (@Nullable final Class <?> aSrcClass,
-                                                     @Nullable final Class <?> aDstClass)
+  ITypeConverter <?, ?> getFuzzyConverter (@Nullable final Class <?> aSrcClass, @Nullable final Class <?> aDstClass)
   {
     if (aSrcClass == null || aDstClass == null)
       return null;

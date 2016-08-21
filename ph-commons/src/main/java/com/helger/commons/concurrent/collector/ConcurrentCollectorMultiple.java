@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.state.ESuccess;
 
@@ -207,14 +208,14 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
     try
     {
       // The temporary list that contains all objects to be delivered
-      final ICommonsList <DATATYPE> aObjectsToPerform = new CommonsArrayList <> ();
+      final ICommonsList <DATATYPE> aObjectsToPerform = new CommonsArrayList<> ();
       boolean bQueueIsStopped = false;
 
       while (true)
       {
         // Block until the first object is in the queue
         Object aCurrentObject = m_aQueue.take ();
-        if (aCurrentObject == STOP_QUEUE_OBJECT)
+        if (EqualsHelper.identityEqual (aCurrentObject, STOP_QUEUE_OBJECT))
           break;
 
         // add current object
@@ -225,7 +226,8 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
         while (aObjectsToPerform.size () < m_nMaxPerformCount && !m_aQueue.isEmpty ())
         {
           // Explicitly handle the "stop queue message" (using "=="!!!)
-          if ((aCurrentObject = m_aQueue.take ()) == STOP_QUEUE_OBJECT)
+          aCurrentObject = m_aQueue.take ();
+          if (EqualsHelper.identityEqual (aCurrentObject, STOP_QUEUE_OBJECT))
           {
             bQueueIsStopped = true;
             break;

@@ -103,7 +103,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
       return null;
     }
 
-    protected void addPrefixNamespaceMapping (@Nullable final String sPrefix, @Nonnull final String sNamespaceURI)
+    public void addPrefixNamespaceMapping (@Nullable final String sPrefix, @Nonnull final String sNamespaceURI)
     {
       if (s_aLogger.isTraceEnabled ())
         s_aLogger.trace ("Adding namespace mapping " + sPrefix + ":" + sNamespaceURI);
@@ -155,12 +155,12 @@ public abstract class AbstractXMLSerializer <NODETYPE>
     }
 
     @Nonnegative
-    protected int getNamespaceCount ()
+    public int getNamespaceCount ()
     {
       return (m_sDefaultNamespaceURI == null ? 0 : 1) + (m_aURL2PrefixMap == null ? 0 : m_aURL2PrefixMap.size ());
     }
 
-    protected boolean hasAnyNamespace ()
+    public boolean hasAnyNamespace ()
     {
       return m_sDefaultNamespaceURI != null || (m_aURL2PrefixMap != null && !m_aURL2PrefixMap.isEmpty ());
     }

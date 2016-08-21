@@ -54,9 +54,9 @@ import com.helger.commons.collection.ext.CommonsArrayList;
 public final class MockJAXBArchive
 {
   @XmlElement (name = "Collection", required = true)
-  protected List <MockJAXBCollection> m_aCollection;
+  private List <MockJAXBCollection> m_aCollection;
   @XmlAttribute (name = "Version", required = true)
-  protected String m_sVersion;
+  private String m_sVersion;
 
   /**
    * Gets the value of the collection property.

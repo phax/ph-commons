@@ -26,9 +26,12 @@ import com.helger.commons.collection.PrimitiveCollectionHelper;
  *
  * @author Philip Helger
  */
-public class MainCreateCollectionHelperCode2
+public final class MainCreateCollectionHelperCode2
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (MainCreateCollectionHelperCode2.class);
+
+  private MainCreateCollectionHelperCode2 ()
+  {}
 
   public static void main (final String [] args)
   {

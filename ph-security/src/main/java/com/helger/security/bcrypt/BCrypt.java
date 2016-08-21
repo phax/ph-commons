@@ -1578,7 +1578,8 @@ public class BCrypt
     final int [] koffp = { 0 };
     final int [] doffp = { 0 };
     final int [] lr = { 0, 0 };
-    final int plen = m_aP.length, slen = m_aS.length;
+    final int plen = m_aP.length;
+    final int slen = m_aS.length;
 
     for (int i = 0; i < plen; i++)
       m_aP[i] = m_aP[i] ^ _streamtoword (key, koffp);
@@ -1639,7 +1640,8 @@ public class BCrypt
         _encipher (cdata, j << 1);
 
     final byte [] ret = new byte [clen * 4];
-    for (int i = 0, j = 0; i < clen; i++)
+    int j = 0;
+    for (int i = 0; i < clen; i++)
     {
       ret[j++] = (byte) ((cdata[i] >> 24) & 0xff);
       ret[j++] = (byte) ((cdata[i] >> 16) & 0xff);
@@ -1707,7 +1709,7 @@ public class BCrypt
   /**
    * Generate a salt for use with the BCrypt.hashpw() method
    *
-   * @param log_rounds
+   * @param nLogRounds
    *        the log2 of the number of rounds of hashing to apply - the work
    *        factor therefore increases as 2**log_rounds.
    * @param aRandom
@@ -1715,21 +1717,20 @@ public class BCrypt
    * @return an encoded salt value
    */
   @Nonnull
-  public static String gensalt (@Nonnegative final int log_rounds, @Nonnull final SecureRandom aRandom)
+  public static String gensalt (@Nonnegative final int nLogRounds, @Nonnull final SecureRandom aRandom)
   {
     final StringBuilder rs = new StringBuilder ();
     final byte [] rnd = new byte [BCRYPT_SALT_LEN];
-
     aRandom.nextBytes (rnd);
 
     rs.append ("$2a$");
-    if (log_rounds < 10)
-      rs.append ("0");
+    if (nLogRounds < 10)
+      rs.append ('0');
     else
-      if (log_rounds > 30)
+      if (nLogRounds > 30)
         throw new IllegalArgumentException ("log_rounds exceeds maximum (30)");
-    rs.append (Integer.toString (log_rounds));
-    rs.append ("$");
+    rs.append (Integer.toString (nLogRounds));
+    rs.append ('$');
     rs.append (_encode_base64 (rnd, rnd.length));
     return rs.toString ();
   }

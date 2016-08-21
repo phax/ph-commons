@@ -19,7 +19,6 @@ package com.helger.commons.supplementary.test.benchmark;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
-import java.util.List;
 import java.util.Locale;
 
 import com.helger.commons.charset.CCharset;
@@ -65,16 +64,18 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
     findWhetherSynchronizedOrLockAreFaster ();
   }
 
-  private static List <String> _readWordList (final IReadableResource aRes, final Charset aCharset) throws IOException
+  private static ICommonsList <String> _readWordList (final IReadableResource aRes,
+                                                      final Charset aCharset) throws IOException
   {
-    final ICommonsList <String> ret = new CommonsArrayList <> ();
+    final ICommonsList <String> ret = new CommonsArrayList<> ();
     final NonBlockingBufferedReader aBR = new NonBlockingBufferedReader (new InputStreamReader (aRes.getInputStream (),
                                                                                                 aCharset));
     String sLine;
     int nIdx = 0;
     while ((sLine = aBR.readLine ()) != null)
     {
-      if ((nIdx++ % 3) == 0)
+      nIdx++;
+      if ((nIdx % 3) == 0)
       {
         ret.add (sLine);
         if (ret.size () >= 100)
@@ -85,7 +86,7 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
     return ret;
   }
 
-  private static int _getMaxStringLength (final List <String> l)
+  private static int _getMaxStringLength (final ICommonsList <String> l)
   {
     int m = 0;
     for (final String s : l)
@@ -99,8 +100,8 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
 
   private static void findWhetherSynchronizedOrLockAreFaster () throws IOException
   {
-    final List <String> aStrings = _readWordList (new ClassPathResource ("wordlist/english-words.95"),
-                                                  CCharset.CHARSET_ISO_8859_1_OBJ);
+    final ICommonsList <String> aStrings = _readWordList (new ClassPathResource ("wordlist/english-words.95"),
+                                                          CCharset.CHARSET_ISO_8859_1_OBJ);
     if (true)
     {
       aStrings.remove (0);
@@ -118,10 +119,10 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
                     " chars!");
 
     final LevDist0StringHelper aL0 = new LevDist0StringHelper (aStringArray);
-    final LevDistBase aL1a = new LevDist1a (aStringArray);
-    final LevDistBase aL1b = new LevDist1b (aStringArray);
-    final LevDistBase aL2a = new LevDist2a (aStringArray);
-    final LevDistBase aL2b = new LevDist2b (aStringArray);
+    final AbstractLevDist aL1a = new LevDist1a (aStringArray);
+    final AbstractLevDist aL1b = new LevDist1b (aStringArray);
+    final AbstractLevDist aL2a = new LevDist2a (aStringArray);
+    final AbstractLevDist aL2b = new LevDist2b (aStringArray);
 
     // Check algo once for all texts!
     for (int i = 0; i < aStringArray.length - 1; ++i)
@@ -186,11 +187,11 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
     }
   }
 
-  private abstract static class LevDistBase implements Runnable
+  private abstract static class AbstractLevDist implements Runnable
   {
     private final String [] m_aStrings;
 
-    public LevDistBase (final String [] aStrings)
+    public AbstractLevDist (final String [] aStrings)
     {
       m_aStrings = aStrings;
     }
@@ -211,7 +212,7 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
     }
   }
 
-  private static final class LevDist1a extends LevDistBase
+  private static final class LevDist1a extends AbstractLevDist
   {
     public LevDist1a (final String [] aStrings)
     {
@@ -264,7 +265,7 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
     }
   }
 
-  private static final class LevDist1b extends LevDistBase
+  private static final class LevDist1b extends AbstractLevDist
   {
     public LevDist1b (final String [] aStrings)
     {
@@ -319,7 +320,7 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
     }
   }
 
-  private static final class LevDist2a extends LevDistBase
+  private static final class LevDist2a extends AbstractLevDist
   {
     public LevDist2a (final String [] aStrings)
     {
@@ -358,7 +359,7 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
     }
   }
 
-  private static final class LevDist2b extends LevDistBase
+  private static final class LevDist2b extends AbstractLevDist
   {
     public LevDist2b (final String [] aStrings)
     {

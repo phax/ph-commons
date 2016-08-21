@@ -40,7 +40,7 @@ public final class BenchmarkSynchronizedVsLock extends AbstractBenchmarkTask
     _run ();
   }
 
-  private static Runnable _getRunnable (final int nThreads, final BaseClass aObj)
+  private static Runnable _getRunnable (final int nThreads, final AbstractBase aObj)
   {
     if (nThreads == 1)
       return aObj;
@@ -83,11 +83,11 @@ public final class BenchmarkSynchronizedVsLock extends AbstractBenchmarkTask
     }
   }
 
-  protected abstract static class BaseClass implements Runnable
+  protected abstract static class AbstractBase implements Runnable
   {
     private int m_nRuns = 10000;
 
-    public BaseClass ()
+    public AbstractBase ()
     {}
 
     protected final void performAction ()
@@ -104,7 +104,7 @@ public final class BenchmarkSynchronizedVsLock extends AbstractBenchmarkTask
     }
   }
 
-  private static final class UseSynchronizedMethod extends BaseClass
+  private static final class UseSynchronizedMethod extends AbstractBase
   {
     @Override
     public synchronized void performThreadSafeAction ()
@@ -113,7 +113,7 @@ public final class BenchmarkSynchronizedVsLock extends AbstractBenchmarkTask
     }
   }
 
-  private static final class UseSynchronizedBlock extends BaseClass
+  private static final class UseSynchronizedBlock extends AbstractBase
   {
     @Override
     public void performThreadSafeAction ()
@@ -125,7 +125,7 @@ public final class BenchmarkSynchronizedVsLock extends AbstractBenchmarkTask
     }
   }
 
-  private static final class UseUnfairLock extends BaseClass
+  private static final class UseUnfairLock extends AbstractBase
   {
     private final Lock m_aLock = new ReentrantLock (false);
 
@@ -144,7 +144,7 @@ public final class BenchmarkSynchronizedVsLock extends AbstractBenchmarkTask
     }
   }
 
-  private static final class UseFairLock extends BaseClass
+  private static final class UseFairLock extends AbstractBase
   {
     private final Lock m_aLock = new ReentrantLock (true);
 
@@ -163,7 +163,7 @@ public final class BenchmarkSynchronizedVsLock extends AbstractBenchmarkTask
     }
   }
 
-  private static final class UseUnfairReadLock extends BaseClass
+  private static final class UseUnfairReadLock extends AbstractBase
   {
     private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock (false);
 
@@ -182,7 +182,7 @@ public final class BenchmarkSynchronizedVsLock extends AbstractBenchmarkTask
     }
   }
 
-  private static final class UseFairReadLock extends BaseClass
+  private static final class UseFairReadLock extends AbstractBase
   {
     private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock (true);
 
@@ -201,7 +201,7 @@ public final class BenchmarkSynchronizedVsLock extends AbstractBenchmarkTask
     }
   }
 
-  private static final class UseUnfairWriteLock extends BaseClass
+  private static final class UseUnfairWriteLock extends AbstractBase
   {
     private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock (false);
 
@@ -220,7 +220,7 @@ public final class BenchmarkSynchronizedVsLock extends AbstractBenchmarkTask
     }
   }
 
-  private static final class UseFairWriteLock extends BaseClass
+  private static final class UseFairWriteLock extends AbstractBase
   {
     private final ReadWriteLock m_aRWLock = new ReentrantReadWriteLock (true);
 

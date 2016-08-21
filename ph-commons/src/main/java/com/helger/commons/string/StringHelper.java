@@ -777,9 +777,10 @@ public final class StringHelper
       int nIndex = 0;
       for (final ELEMENTTYPE aElement : aElements)
       {
-        if (nIndex++ > 0)
+        if (nIndex > 0)
           aSB.append (sSep);
         aSB.append (aMapper.apply (aElement));
+        nIndex++;
       }
     }
     return aSB.toString ();
@@ -1347,8 +1348,9 @@ public final class StringHelper
         final String sElement = aMapper.apply (aElement);
         if (hasText (sElement))
         {
-          if (nElementsAdded++ > 0)
+          if (nElementsAdded > 0)
             aSB.append (sSep);
+          nElementsAdded++;
           aSB.append (sElement);
         }
       }
@@ -2793,7 +2795,8 @@ public final class StringHelper
     final int nSearchLength = getLength (sSearch);
     if (nSearchLength > 0 && nTextLength >= nSearchLength)
     {
-      int nLastIndex = 0, nIndex;
+      int nLastIndex = 0;
+      int nIndex;
       do
       {
         // Start searching from the last result
@@ -4701,8 +4704,14 @@ public final class StringHelper
       return sStr;
 
     final char [] ret = new char [aChars.length];
-    for (int nSrc = aChars.length - 1, nDst = 0; nSrc != -1; nSrc--, nDst++)
+    int nSrc = aChars.length - 1;
+    int nDst = 0;
+    while (nSrc >= 0)
+    {
       ret[nDst] = aChars[nSrc];
+      nSrc--;
+      nDst++;
+    }
     return new String (ret);
   }
 

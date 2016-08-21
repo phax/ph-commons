@@ -212,9 +212,10 @@ public final class Dijkstra
       int nIndex = 0;
       for (final N aNode : m_aResultNodes)
       {
-        if (nIndex++ > 0)
+        if (nIndex > 0)
           aSB.append (',');
         aSB.append ('\'').append (aNode.getID ()).append ('\'');
+        nIndex++;
       }
       return aSB.append ('}').toString ();
     }

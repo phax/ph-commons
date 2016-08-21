@@ -26,6 +26,9 @@ public final class MainReadWriteLockReentrance
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (MainReadWriteLockReentrance.class);
 
+  private MainReadWriteLockReentrance ()
+  {}
+
   public static void main (final String [] args)
   {
     final ReadWriteLock aRWLock = new ReentrantReadWriteLock ();

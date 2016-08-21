@@ -31,6 +31,9 @@ public final class MainJavaEncodingInfo
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (MainJavaEncodingInfo.class);
 
+  private MainJavaEncodingInfo ()
+  {}
+
   public static void main (final String [] args)
   {
     for (final Map.Entry <String, String> aEntry : SystemProperties.getAllProperties ()

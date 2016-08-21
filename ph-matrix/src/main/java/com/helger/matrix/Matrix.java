@@ -185,17 +185,12 @@ public class Matrix implements Serializable, ICloneable <Matrix>
   @SuppressFBWarnings ("EI_EXPOSE_REP")
   Matrix (@Nonnull final double [] [] aOther, @Nonnegative final int nRows, @Nonnegative final int nCols)
   {
-    if (aOther == null)
-      throw new NullPointerException ("other");
-    if (nRows <= 0)
-      throw new IllegalArgumentException ("rows may not be negative!");
-    if (nCols <= 0)
-      throw new IllegalArgumentException ("cols may not be negative!");
-    if (aOther.length < nRows)
-      throw new IllegalArgumentException ("array is too short");
+    ValueEnforcer.notNull (aOther, "Other");
+    ValueEnforcer.isGT0 (nRows, "rows");
+    ValueEnforcer.isGT0 (nCols, "cols");
+    ValueEnforcer.isTrue (aOther.length >= nRows, "array is too short");
     for (int nRow = 0; nRow < nRows; nRow++)
-      if (aOther[nRow].length < nCols)
-        throw new IllegalArgumentException ("All rows must have the same length.");
+      ValueEnforcer.isTrue (aOther[nRow].length >= nCols, "All rows must have the same length.");
 
     m_aData = aOther;
     m_nRows = nRows;

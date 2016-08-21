@@ -32,9 +32,9 @@ import com.helger.commons.random.RandomHelper;
 
 public final class IntObjectMapTest
 {
-  private final static float [] FILL_FACTORS = { 0.25f, 0.5f, 0.75f, 0.9f, 0.99f };
+  private static final float [] FILL_FACTORS = { 0.25f, 0.5f, 0.75f, 0.9f, 0.99f };
 
-  protected IntObjectMap <String> makeMap (final int size, final float fillFactor)
+  private static IntObjectMap <String> _makeMap (final int size, final float fillFactor)
   {
     return new IntObjectMap<> (size, fillFactor);
   }
@@ -55,7 +55,7 @@ public final class IntObjectMapTest
 
   private void _testPutHelper (final float fillFactor)
   {
-    final IntObjectMap <String> map = makeMap (100, fillFactor);
+    final IntObjectMap <String> map = _makeMap (100, fillFactor);
     for (int i = 0; i < 100000; ++i)
     {
       assertNull ("Inserting " + i, map.put (i, _make (i)));
@@ -76,7 +76,7 @@ public final class IntObjectMapTest
 
   private void _testPutNegative (final float fillFactor)
   {
-    final IntObjectMap <String> map = makeMap (100, fillFactor);
+    final IntObjectMap <String> map = _makeMap (100, fillFactor);
     for (int i = 0; i < 100000; ++i)
     {
       map.put (-i, _make (-i));
@@ -107,7 +107,7 @@ public final class IntObjectMapTest
     for (final Integer v : set)
       vals[i++] = v.intValue ();
 
-    final IntObjectMap <String> map = makeMap (100, fillFactor);
+    final IntObjectMap <String> map = _makeMap (100, fillFactor);
     for (i = 0; i < vals.length; ++i)
     {
       assertNull ("Inserting " + vals[i], map.put (vals[i], _make (vals[i])));
@@ -128,7 +128,7 @@ public final class IntObjectMapTest
 
   private void _testRemoveHelper (final float fillFactor)
   {
-    final IntObjectMap <String> map = makeMap (100, fillFactor);
+    final IntObjectMap <String> map = _makeMap (100, fillFactor);
     int addCnt = 0;
     int removeCnt = 0;
     for (int i = 0; i < 100000; ++i)

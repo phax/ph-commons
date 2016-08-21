@@ -92,7 +92,7 @@ public class XMLSchemaCache extends SchemaCache
 
   private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("s_aRWLock")
-  private static final ICommonsMap <String, XMLSchemaCache> s_aPerClassLoaderCache = new CommonsHashMap <> ();
+  private static final ICommonsMap <String, XMLSchemaCache> s_aPerClassLoaderCache = new CommonsHashMap<> ();
 
   @Nonnull
   public static XMLSchemaCache getInstanceOfClassLoader (@Nullable final IHasClassLoader aClassLoaderProvider)
@@ -116,13 +116,8 @@ public class XMLSchemaCache extends SchemaCache
       // Not found in read-lock
       aCache = s_aRWLock.writeLocked ( () -> {
         // Try again in write lock
-        XMLSchemaCache aWLCache = s_aPerClassLoaderCache.get (sKey);
-        if (aWLCache == null)
-        {
-          aWLCache = new XMLSchemaCache (new SimpleLSResourceResolver (aClassLoader));
-          s_aPerClassLoaderCache.put (sKey, aWLCache);
-        }
-        return aWLCache;
+        return s_aPerClassLoaderCache.computeIfAbsent (sKey,
+                                                       x -> new XMLSchemaCache (new SimpleLSResourceResolver (aClassLoader)));
       });
     }
     return aCache;

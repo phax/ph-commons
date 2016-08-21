@@ -433,7 +433,8 @@ public final class CodepointHelper
   @CheckForSigned
   public static int getIndex (@Nonnull final int [] aCodepointSet, final int nValue)
   {
-    int nStart = 0, nEnd = aCodepointSet.length;
+    int nStart = 0;
+    int nEnd = aCodepointSet.length;
     while (nEnd - nStart > 8)
     {
       final int i = (nEnd + nStart) >>> 1;

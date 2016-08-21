@@ -86,37 +86,37 @@ public final class PDTWebDateHelper
     }
 
     @Nonnull
-    protected static Mask <ZonedDateTime> zonedDateTime (@Nonnull @Nonempty final String sPattern)
+    public static Mask <ZonedDateTime> zonedDateTime (@Nonnull @Nonempty final String sPattern)
     {
       return new Mask<> (sPattern, ZonedDateTime::from);
     }
 
     @Nonnull
-    protected static Mask <OffsetDateTime> offsetDateTime (@Nonnull @Nonempty final String sPattern)
+    public static Mask <OffsetDateTime> offsetDateTime (@Nonnull @Nonempty final String sPattern)
     {
       return new Mask<> (sPattern, OffsetDateTime::from);
     }
 
     @Nonnull
-    protected static Mask <LocalDateTime> localDateTime (@Nonnull @Nonempty final String sPattern)
+    public static Mask <LocalDateTime> localDateTime (@Nonnull @Nonempty final String sPattern)
     {
       return new Mask<> (sPattern, LocalDateTime::from);
     }
 
     @Nonnull
-    protected static Mask <LocalDate> localDate (@Nonnull @Nonempty final String sPattern)
+    public static Mask <LocalDate> localDate (@Nonnull @Nonempty final String sPattern)
     {
       return new Mask<> (sPattern, LocalDate::from);
     }
 
     @Nonnull
-    protected static Mask <YearMonth> yearMonth (@Nonnull @Nonempty final String sPattern)
+    public static Mask <YearMonth> yearMonth (@Nonnull @Nonempty final String sPattern)
     {
       return new Mask<> (sPattern, YearMonth::from);
     }
 
     @Nonnull
-    protected static Mask <Year> year (@Nonnull @Nonempty final String sPattern)
+    public static Mask <Year> year (@Nonnull @Nonempty final String sPattern)
     {
       return new Mask<> (sPattern, Year::from);
     }

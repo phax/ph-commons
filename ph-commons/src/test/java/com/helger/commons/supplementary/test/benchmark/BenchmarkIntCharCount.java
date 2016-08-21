@@ -24,8 +24,6 @@ import com.helger.commons.timing.StopWatch;
 
 public final class BenchmarkIntCharCount
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (BenchmarkIntCharCount.class);
-
   @FunctionalInterface
   interface IDoIt
   {
@@ -34,6 +32,11 @@ public final class BenchmarkIntCharCount
 
   public static final IDoIt s_a1 = n -> StringHelper.getCharacterCount (n);
   public static final IDoIt s_a2 = n -> Integer.toString (n).length ();
+
+  private static final Logger s_aLogger = LoggerFactory.getLogger (BenchmarkIntCharCount.class);
+
+  private BenchmarkIntCharCount ()
+  {}
 
   public static void main (final String [] args)
   {

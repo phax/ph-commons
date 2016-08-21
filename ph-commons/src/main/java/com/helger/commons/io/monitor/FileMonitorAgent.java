@@ -66,7 +66,7 @@ final class FileMonitorAgent
     }
   }
 
-  protected void resetChildrenList ()
+  void resetChildrenList ()
   {
     m_aChildren.clear ();
     final File [] aChildren = m_aFile.listFiles ();
@@ -126,7 +126,7 @@ final class FileMonitorAgent
       _onFileCreateRecursive (aNewCreatedChildren.pop ());
   }
 
-  protected void checkForModifications ()
+  void checkForModifications ()
   {
     final boolean bExistsNow = m_aFile.exists ();
     if (m_bExists)

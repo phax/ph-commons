@@ -30,6 +30,7 @@ import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.Singleton;
+import com.helger.commons.annotation.VisibleForTesting;
 import com.helger.commons.collection.ext.CommonsHashSet;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
@@ -83,7 +84,8 @@ public final class CountryCache
   }
 
   @Nonnull
-  protected EChange addCountry (@Nonnull final String sCountry)
+  @VisibleForTesting
+  EChange addCountry (@Nonnull final String sCountry)
   {
     ValueEnforcer.notNull (sCountry, "Country");
     final String sValidCountry = LocaleHelper.getValidCountryCode (sCountry);

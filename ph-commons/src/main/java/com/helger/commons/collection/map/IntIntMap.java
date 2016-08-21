@@ -200,21 +200,25 @@ public class IntIntMap implements Serializable
     m_aValues = _createValueArray (nNewCapacity);
     m_nSize = m_bHasFreeKey ? 1 : 0;
 
-    for (int i = nOldCapacity; i-- > 0;)
+    int i = nOldCapacity;
+    while (i > 0)
+    {
+      i--;
       if (aOldKeys[i] != FREE_KEY)
         put (aOldKeys[i], aOldValues[i]);
+    }
   }
 
   private int _shiftKeys (final int nPos)
   {
     // Shift entries with the same hash.
-    int last, slot, pos = nPos;
-    int k;
+    int pos = nPos;
     final int [] keys = this.m_aKeys;
     while (true)
     {
-      last = pos;
+      final int last = pos;
       pos = _getNextIndex (pos);
+      int k;
       while (true)
       {
         k = keys[pos];
@@ -225,7 +229,7 @@ public class IntIntMap implements Serializable
           return last;
         }
         // calculate the starting slot for the current key
-        slot = MapHelper.phiMix (k) & m_nMask;
+        final int slot = MapHelper.phiMix (k) & m_nMask;
         if (last <= pos ? last >= slot || slot > pos : last >= slot && slot > pos)
           break;
         pos = _getNextIndex (pos);

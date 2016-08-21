@@ -25,6 +25,9 @@ public final class MainBuildThreadGroupTree
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (MainBuildThreadGroupTree.class);
 
+  private MainBuildThreadGroupTree ()
+  {}
+
   @SuppressFBWarnings ("IL_INFINITE_LOOP")
   private static String _getTGName (final ThreadGroup aParamTG)
   {

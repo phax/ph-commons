@@ -58,7 +58,7 @@ public final class ClassHelperTest
     {}
   }
 
-  public abstract static class DummyAbstract
+  public abstract static class AbstractDummy
   {}
 
   @Test
@@ -85,12 +85,12 @@ public final class ClassHelperTest
     assertFalse (ClassHelper.isPublicClass (DummyPrivateVisibility.class));
 
     // abstract class
-    assertFalse (ClassHelper.isPublicClass (DummyAbstract.class));
+    assertFalse (ClassHelper.isPublicClass (AbstractDummy.class));
 
     // valid:
     assertTrue (ClassHelper.isPublicClass (String.class));
     assertTrue (ClassHelper.isPublicClass (new String [0].getClass ()));
-    assertTrue (ClassHelper.isPublicClass (new DummyAbstract [0].getClass ()));
+    assertTrue (ClassHelper.isPublicClass (new AbstractDummy [0].getClass ()));
     assertTrue (ClassHelper.isPublicClass (getClass ()));
     assertTrue (ClassHelper.isPublicClass (ClassHelper.class));
     assertTrue (ClassHelper.isPublicClass (EOperatingSystem.class));
@@ -114,7 +114,7 @@ public final class ClassHelperTest
     assertFalse (ClassHelper.isInstancableClass (DummyPrivateVisibility.class));
 
     // abstract class
-    assertFalse (ClassHelper.isInstancableClass (DummyAbstract.class));
+    assertFalse (ClassHelper.isInstancableClass (AbstractDummy.class));
 
     // valid:
     assertTrue (ClassHelper.isInstancableClass (String.class));
@@ -125,7 +125,7 @@ public final class ClassHelperTest
 
     // Not valid: array
     assertFalse (ClassHelper.isInstancableClass (new String [0].getClass ()));
-    assertFalse (ClassHelper.isInstancableClass (new DummyAbstract [0].getClass ()));
+    assertFalse (ClassHelper.isInstancableClass (new AbstractDummy [0].getClass ()));
 
     // Not valid: enum
     assertFalse (ClassHelper.isInstancableClass (EOperatingSystem.class));
@@ -140,12 +140,12 @@ public final class ClassHelperTest
     assertTrue (ClassHelper.isPublic (IHasName.class));
     assertTrue (ClassHelper.isPublic (getClass ()));
     assertTrue (ClassHelper.isPublic (new String [0].getClass ()));
-    assertTrue (ClassHelper.isPublic (new DummyAbstract [0].getClass ()));
+    assertTrue (ClassHelper.isPublic (new AbstractDummy [0].getClass ()));
     assertTrue (ClassHelper.isPublic (EOperatingSystem.class));
     assertFalse (ClassHelper.isPublic (DummyDefaultVisibility.class));
     assertFalse (ClassHelper.isPublic (DummyProtectedVisibility.class));
     assertFalse (ClassHelper.isPublic (DummyPrivateVisibility.class));
-    assertTrue (ClassHelper.isPublic (DummyAbstract.class));
+    assertTrue (ClassHelper.isPublic (AbstractDummy.class));
   }
 
   @Test
@@ -157,12 +157,12 @@ public final class ClassHelperTest
     assertTrue (ClassHelper.isInterface (IHasName.class));
     assertFalse (ClassHelper.isInterface (getClass ()));
     assertFalse (ClassHelper.isInterface (new String [0].getClass ()));
-    assertFalse (ClassHelper.isInterface (new DummyAbstract [0].getClass ()));
+    assertFalse (ClassHelper.isInterface (new AbstractDummy [0].getClass ()));
     assertFalse (ClassHelper.isInterface (EOperatingSystem.class));
     assertFalse (ClassHelper.isInterface (DummyDefaultVisibility.class));
     assertFalse (ClassHelper.isInterface (DummyProtectedVisibility.class));
     assertFalse (ClassHelper.isInterface (DummyPrivateVisibility.class));
-    assertFalse (ClassHelper.isInterface (DummyAbstract.class));
+    assertFalse (ClassHelper.isInterface (AbstractDummy.class));
   }
 
   @Test
@@ -174,12 +174,12 @@ public final class ClassHelperTest
     assertFalse (ClassHelper.isAnnotationClass (IHasName.class));
     assertFalse (ClassHelper.isAnnotationClass (getClass ()));
     assertFalse (ClassHelper.isAnnotationClass (new String [0].getClass ()));
-    assertFalse (ClassHelper.isAnnotationClass (new DummyAbstract [0].getClass ()));
+    assertFalse (ClassHelper.isAnnotationClass (new AbstractDummy [0].getClass ()));
     assertFalse (ClassHelper.isAnnotationClass (EOperatingSystem.class));
     assertFalse (ClassHelper.isAnnotationClass (DummyDefaultVisibility.class));
     assertFalse (ClassHelper.isAnnotationClass (DummyProtectedVisibility.class));
     assertFalse (ClassHelper.isAnnotationClass (DummyPrivateVisibility.class));
-    assertFalse (ClassHelper.isAnnotationClass (DummyAbstract.class));
+    assertFalse (ClassHelper.isAnnotationClass (AbstractDummy.class));
   }
 
   @Test
@@ -191,12 +191,12 @@ public final class ClassHelperTest
     assertFalse (ClassHelper.isEnumClass (IHasName.class));
     assertFalse (ClassHelper.isEnumClass (getClass ()));
     assertFalse (ClassHelper.isEnumClass (new String [0].getClass ()));
-    assertFalse (ClassHelper.isEnumClass (new DummyAbstract [0].getClass ()));
+    assertFalse (ClassHelper.isEnumClass (new AbstractDummy [0].getClass ()));
     assertTrue (ClassHelper.isEnumClass (EOperatingSystem.class));
     assertFalse (ClassHelper.isEnumClass (DummyDefaultVisibility.class));
     assertFalse (ClassHelper.isEnumClass (DummyProtectedVisibility.class));
     assertFalse (ClassHelper.isEnumClass (DummyPrivateVisibility.class));
-    assertFalse (ClassHelper.isEnumClass (DummyAbstract.class));
+    assertFalse (ClassHelper.isEnumClass (AbstractDummy.class));
   }
 
   @Test
@@ -208,12 +208,12 @@ public final class ClassHelperTest
     assertTrue (ClassHelper.isAbstractClass (IHasName.class));
     assertFalse (ClassHelper.isAbstractClass (getClass ()));
     assertFalse (ClassHelper.isAbstractClass (new String [0].getClass ()));
-    assertFalse (ClassHelper.isAbstractClass (new DummyAbstract [0].getClass ()));
+    assertFalse (ClassHelper.isAbstractClass (new AbstractDummy [0].getClass ()));
     assertFalse (ClassHelper.isAbstractClass (EOperatingSystem.class));
     assertFalse (ClassHelper.isAbstractClass (DummyDefaultVisibility.class));
     assertFalse (ClassHelper.isAbstractClass (DummyProtectedVisibility.class));
     assertFalse (ClassHelper.isAbstractClass (DummyPrivateVisibility.class));
-    assertTrue (ClassHelper.isAbstractClass (DummyAbstract.class));
+    assertTrue (ClassHelper.isAbstractClass (AbstractDummy.class));
   }
 
   @Test
@@ -225,12 +225,12 @@ public final class ClassHelperTest
     assertFalse (ClassHelper.isArrayClass (IHasName.class));
     assertFalse (ClassHelper.isArrayClass (getClass ()));
     assertTrue (ClassHelper.isArrayClass (new String [0].getClass ()));
-    assertTrue (ClassHelper.isArrayClass (new DummyAbstract [0].getClass ()));
+    assertTrue (ClassHelper.isArrayClass (new AbstractDummy [0].getClass ()));
     assertFalse (ClassHelper.isArrayClass (EOperatingSystem.class));
     assertFalse (ClassHelper.isArrayClass (DummyDefaultVisibility.class));
     assertFalse (ClassHelper.isArrayClass (DummyProtectedVisibility.class));
     assertFalse (ClassHelper.isArrayClass (DummyPrivateVisibility.class));
-    assertFalse (ClassHelper.isArrayClass (DummyAbstract.class));
+    assertFalse (ClassHelper.isArrayClass (AbstractDummy.class));
   }
 
   @Test
