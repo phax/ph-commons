@@ -42,8 +42,6 @@ import com.helger.commons.state.ETriState;
 import com.helger.commons.state.EValidity;
 import com.helger.commons.system.ENewLineMode;
 import com.helger.xml.microdom.IMicroElement;
-import com.helger.xml.microdom.convert.BasicMicroTypeConverterRegistrar;
-import com.helger.xml.microdom.convert.MicroTypeConverter;
 import com.helger.xml.microdom.serialize.MicroWriter;
 
 /**

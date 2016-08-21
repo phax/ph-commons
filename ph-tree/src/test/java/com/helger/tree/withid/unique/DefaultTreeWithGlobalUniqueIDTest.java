@@ -29,8 +29,6 @@ import org.junit.Test;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.tree.withid.DefaultTreeItemWithID;
-import com.helger.tree.withid.unique.DefaultTreeItemWithUniqueIDFactory;
-import com.helger.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
 
 /**
  * Test class for class {@link DefaultTreeWithGlobalUniqueID}.

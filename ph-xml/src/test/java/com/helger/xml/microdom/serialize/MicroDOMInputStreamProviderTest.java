@@ -22,7 +22,6 @@ import org.junit.Test;
 
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.MicroDocument;
-import com.helger.xml.microdom.serialize.MicroDOMInputStreamProvider;
 import com.helger.xml.serialize.write.XMLWriterSettings;
 
 /**

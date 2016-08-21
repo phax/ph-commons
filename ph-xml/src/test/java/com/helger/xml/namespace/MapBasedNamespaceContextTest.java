@@ -27,7 +27,6 @@ import javax.xml.XMLConstants;
 import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.xml.namespace.MapBasedNamespaceContext;
 
 /**
  * Test class for class {@link MapBasedNamespaceContext}.

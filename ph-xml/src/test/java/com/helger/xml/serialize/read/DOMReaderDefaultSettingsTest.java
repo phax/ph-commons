@@ -25,7 +25,6 @@ import org.junit.Test;
 
 import com.helger.commons.mock.CommonsAssert;
 import com.helger.xml.XMLFactory;
-import com.helger.xml.serialize.read.DOMReaderDefaultSettings;
 
 /**
  * Test class for {@link DOMReaderDefaultSettings}

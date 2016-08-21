@@ -33,13 +33,6 @@ import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.system.ENewLineMode;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
-import com.helger.xml.serialize.write.EXMLIncorrectCharacterHandling;
-import com.helger.xml.serialize.write.EXMLSerializeComments;
-import com.helger.xml.serialize.write.EXMLSerializeDocType;
-import com.helger.xml.serialize.write.EXMLSerializeIndent;
-import com.helger.xml.serialize.write.EXMLSerializeXMLDeclaration;
-import com.helger.xml.serialize.write.IXMLWriterSettings;
-import com.helger.xml.serialize.write.XMLWriterSettings;
 
 /**
  * Test class for class {@link XMLWriterSettings}.

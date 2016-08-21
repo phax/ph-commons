@@ -26,8 +26,6 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import com.helger.commons.charset.CCharset;
-import com.helger.xml.serialize.read.DOMInputStreamProvider;
-import com.helger.xml.serialize.read.DOMReader;
 import com.helger.xml.serialize.write.XMLWriter;
 
 /**

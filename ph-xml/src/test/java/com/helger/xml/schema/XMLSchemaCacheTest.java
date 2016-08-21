@@ -34,7 +34,6 @@ import com.helger.xml.ls.CollectingLSResourceResolver;
 import com.helger.xml.ls.LSResourceData;
 import com.helger.xml.ls.LoggingLSResourceResolver;
 import com.helger.xml.sax.LoggingSAXErrorHandler;
-import com.helger.xml.schema.XMLSchemaCache;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 

@@ -25,7 +25,6 @@ import org.junit.Test;
 import org.xml.sax.SAXException;
 
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.xml.sax.CollectingSAXErrorHandler;
 import com.helger.xml.serialize.read.DOMReader;
 import com.helger.xml.serialize.read.DOMReaderSettings;
 

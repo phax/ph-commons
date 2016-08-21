@@ -27,8 +27,6 @@ import com.helger.commons.collection.PrimitiveCollectionHelper;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.tree.withid.folder.DefaultFolderTree;
-import com.helger.tree.withid.folder.DefaultFolderTreeItem;
 
 /**
  * Test class for class {@link DefaultFolderTree}.

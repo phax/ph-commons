@@ -19,7 +19,6 @@ package com.helger.tree.singleton;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.UsedViaReflection;
-import com.helger.tree.singleton.AbstractGlobalSingletonTreeWithUniqueID;
 
 /**
  * Mock global singleton

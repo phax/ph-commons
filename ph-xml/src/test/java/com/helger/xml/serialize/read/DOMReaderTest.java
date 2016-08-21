@@ -58,9 +58,6 @@ import com.helger.xml.sax.LoggingSAXErrorHandler;
 import com.helger.xml.sax.ReadableResourceSAXInputSource;
 import com.helger.xml.sax.StringSAXInputSource;
 import com.helger.xml.schema.XMLSchemaCache;
-import com.helger.xml.serialize.read.DOMReader;
-import com.helger.xml.serialize.read.DOMReaderDefaultSettings;
-import com.helger.xml.serialize.read.DOMReaderSettings;
 import com.helger.xml.serialize.write.XMLWriter;
 
 /**

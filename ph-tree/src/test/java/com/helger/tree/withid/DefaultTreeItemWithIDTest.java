@@ -32,8 +32,6 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.tree.IBasicTreeItem;
-import com.helger.tree.withid.DefaultTreeItemWithID;
-import com.helger.tree.withid.DefaultTreeWithID;
 
 /**
  * Test class for class {@link DefaultTreeItemWithID}.

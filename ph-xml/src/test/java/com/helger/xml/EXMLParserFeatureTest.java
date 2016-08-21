@@ -22,7 +22,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.commons.string.StringHelper;
-import com.helger.xml.EXMLParserFeature;
 
 /**
  * Test class for class {@link EXMLParserFeature}.

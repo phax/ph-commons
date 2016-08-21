@@ -32,8 +32,6 @@ import org.w3c.dom.Document;
 
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.xml.EXMLVersion;
-import com.helger.xml.XMLFactory;
 import com.helger.xml.schema.XMLSchemaCache;
 
 /**

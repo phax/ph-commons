@@ -30,7 +30,6 @@ import org.junit.Test;
 import com.helger.commons.compare.IComparator;
 import com.helger.tree.DefaultTree;
 import com.helger.tree.DefaultTreeItem;
-import com.helger.tree.sort.TreeSorter;
 
 /**
  * Test class for class {@link TreeSorter}

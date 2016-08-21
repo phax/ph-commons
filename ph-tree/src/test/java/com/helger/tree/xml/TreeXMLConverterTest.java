@@ -29,7 +29,6 @@ import com.helger.tree.DefaultTree;
 import com.helger.tree.IBasicTreeItem;
 import com.helger.tree.mock.MockHasName;
 import com.helger.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
-import com.helger.tree.xml.TreeXMLConverter;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.serialize.MicroReader;

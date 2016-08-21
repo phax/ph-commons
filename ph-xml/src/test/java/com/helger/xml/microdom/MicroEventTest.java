@@ -26,13 +26,6 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.xml.microdom.EMicroEvent;
-import com.helger.xml.microdom.IMicroDocument;
-import com.helger.xml.microdom.IMicroElement;
-import com.helger.xml.microdom.IMicroNode;
-import com.helger.xml.microdom.MicroDocument;
-import com.helger.xml.microdom.MicroElement;
-import com.helger.xml.microdom.MicroEvent;
 
 /**
  * Test class for class {@link MicroEvent}.

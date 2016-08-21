@@ -26,9 +26,6 @@ import org.junit.Test;
 
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.xml.transform.DefaultTransformURIResolver;
-import com.helger.xml.transform.LoggingTransformURIResolver;
-import com.helger.xml.transform.XMLTransformerFactory;
 
 /**
  * Test class for class {@link DefaultTransformURIResolver}.

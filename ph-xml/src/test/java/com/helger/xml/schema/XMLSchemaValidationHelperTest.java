@@ -31,8 +31,6 @@ import org.xml.sax.SAXException;
 import com.helger.commons.error.IResourceErrorGroup;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.xml.schema.XMLSchemaCache;
-import com.helger.xml.schema.XMLSchemaValidationHelper;
 import com.helger.xml.serialize.read.DOMReader;
 
 /**

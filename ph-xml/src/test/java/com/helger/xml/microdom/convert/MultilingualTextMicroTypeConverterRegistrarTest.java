@@ -32,8 +32,6 @@ import com.helger.commons.text.MultilingualText;
 import com.helger.commons.text.ReadOnlyMultilingualText;
 import com.helger.commons.text.util.TextHelper;
 import com.helger.xml.microdom.IMicroElement;
-import com.helger.xml.microdom.convert.MicroTypeConverter;
-import com.helger.xml.microdom.convert.MultilingualTextMicroTypeConverterRegistrar;
 
 /**
  * Test class for class {@link MultilingualTextMicroTypeConverterRegistrar}.

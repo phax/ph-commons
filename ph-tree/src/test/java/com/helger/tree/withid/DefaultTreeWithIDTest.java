@@ -22,9 +22,6 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.tree.withid.DefaultTreeItemWithID;
-import com.helger.tree.withid.DefaultTreeItemWithIDFactory;
-import com.helger.tree.withid.DefaultTreeWithID;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 

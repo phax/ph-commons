@@ -36,17 +36,6 @@ import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.text.MultilingualText;
 import com.helger.commons.typeconvert.TypeConverterException;
-import com.helger.xml.microdom.EMicroNodeType;
-import com.helger.xml.microdom.IMicroComment;
-import com.helger.xml.microdom.IMicroContainer;
-import com.helger.xml.microdom.IMicroElement;
-import com.helger.xml.microdom.IMicroNode;
-import com.helger.xml.microdom.IMicroText;
-import com.helger.xml.microdom.MicroComment;
-import com.helger.xml.microdom.MicroDocument;
-import com.helger.xml.microdom.MicroElement;
-import com.helger.xml.microdom.MicroException;
-import com.helger.xml.microdom.MicroQName;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 

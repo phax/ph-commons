@@ -46,11 +46,6 @@ import com.helger.xml.serialize.write.EXMLSerializeVersion;
 import com.helger.xml.serialize.write.XMLCharHelper;
 import com.helger.xml.serialize.write.XMLWriter;
 import com.helger.xml.serialize.write.XMLWriterSettings;
-import com.helger.xml.transform.CachingTransformStreamSource;
-import com.helger.xml.transform.CollectingTransformErrorListener;
-import com.helger.xml.transform.LoggingTransformURIResolver;
-import com.helger.xml.transform.TransformSourceFactory;
-import com.helger.xml.transform.XMLTransformerFactory;
 
 /**
  * Test class for class {@link XMLTransformerFactory}.

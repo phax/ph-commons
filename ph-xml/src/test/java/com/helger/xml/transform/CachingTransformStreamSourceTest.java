@@ -32,7 +32,6 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.xml.mock.MockNullInputStreamProvider;
-import com.helger.xml.transform.CachingTransformStreamSource;
 
 /**
  * Test class for class {@link CachingTransformStreamSource}.

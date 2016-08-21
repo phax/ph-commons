@@ -36,8 +36,6 @@ import com.helger.xml.microdom.MicroContainer;
 import com.helger.xml.microdom.MicroDocument;
 import com.helger.xml.microdom.MicroElement;
 import com.helger.xml.microdom.MicroEntityReference;
-import com.helger.xml.microdom.serialize.MicroReader;
-import com.helger.xml.microdom.serialize.MicroWriter;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
 import com.helger.xml.serialize.write.EXMLSerializeDocType;
 import com.helger.xml.serialize.write.EXMLSerializeIndent;

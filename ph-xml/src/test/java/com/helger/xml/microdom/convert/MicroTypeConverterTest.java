@@ -30,7 +30,6 @@ import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.typeconvert.TypeConverterException;
 import com.helger.xml.microdom.MicroElement;
-import com.helger.xml.microdom.convert.MicroTypeConverter;
 
 /**
  * Test class for class {@link MicroTypeConverter}.

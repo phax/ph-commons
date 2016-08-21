@@ -22,7 +22,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.commons.string.StringHelper;
-import com.helger.xml.dom.EXMLDOMFeatureVersion;
 
 /**
  * Test class for class {@link EXMLDOMFeatureVersion}.

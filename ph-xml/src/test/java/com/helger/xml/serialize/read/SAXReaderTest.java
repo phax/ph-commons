@@ -30,10 +30,6 @@ import com.helger.commons.callback.IThrowingRunnable;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.xml.sax.CachingSAXInputSource;
-import com.helger.xml.serialize.read.SAXReader;
-import com.helger.xml.serialize.read.SAXReaderDefaultSettings;
-import com.helger.xml.serialize.read.SAXReaderSettings;
-import com.helger.xml.serialize.read.XMLLoggingExceptionCallback;
 
 /**
  * Test class for {@link SAXReader}

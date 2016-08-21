@@ -21,7 +21,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.xml.XMLSystemProperties;
 
 /**
  * Test class for class {@link XMLSystemProperties}

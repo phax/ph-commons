@@ -25,7 +25,6 @@ import org.junit.Test;
 
 import com.helger.commons.aggregate.IAggregator;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.tree.withid.folder.DefaultFolderTreeItemFactory;
 
 /**
  * Test class for class {@link DefaultFolderTreeItemFactory}.

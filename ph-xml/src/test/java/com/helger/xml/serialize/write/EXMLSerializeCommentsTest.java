@@ -22,8 +22,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.xml.serialize.write.EXMLSerializeComments;
-
 /**
  * Test class for class {@link EXMLSerializeComments}.
  *

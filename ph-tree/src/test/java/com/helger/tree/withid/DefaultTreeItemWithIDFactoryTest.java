@@ -21,9 +21,6 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.tree.withid.DefaultTreeItemWithID;
-import com.helger.tree.withid.DefaultTreeItemWithIDFactory;
-
 /**
  * Test class for class {@link DefaultTreeItemWithIDFactory}.
  *

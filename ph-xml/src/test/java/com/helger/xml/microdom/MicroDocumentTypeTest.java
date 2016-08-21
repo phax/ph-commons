@@ -27,11 +27,6 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.xml.microdom.EMicroNodeType;
-import com.helger.xml.microdom.IMicroDocumentType;
-import com.helger.xml.microdom.MicroCDATA;
-import com.helger.xml.microdom.MicroDocumentType;
-import com.helger.xml.microdom.MicroException;
 
 /**
  * Test class for class {@link MicroDocumentType}.

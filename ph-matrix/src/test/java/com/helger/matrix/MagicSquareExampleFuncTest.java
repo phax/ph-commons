@@ -25,10 +25,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.string.StringHelper;
-import com.helger.matrix.EigenvalueDecomposition;
-import com.helger.matrix.LUDecomposition;
-import com.helger.matrix.Matrix;
-import com.helger.matrix.QRDecomposition;
 
 /** Example of use of Matrix Class, featuring magic squares. **/
 

@@ -20,7 +20,6 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.UsedViaReflection;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.tree.singleton.AbstractSessionApplicationSingletonTreeWithUniqueID;
 
 public final class MockSessionApplicationSingletonTreeWithUniqueID extends AbstractSessionApplicationSingletonTreeWithUniqueID <String, String>
 {

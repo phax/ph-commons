@@ -26,7 +26,6 @@ import org.junit.Test;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroNode;
 import com.helger.xml.microdom.serialize.MicroReader;
-import com.helger.xml.microdom.util.MicroRecursiveIterator;
 
 /**
  * Test class for class {@link MicroRecursiveIterator}.

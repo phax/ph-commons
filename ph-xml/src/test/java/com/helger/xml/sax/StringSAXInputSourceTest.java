@@ -23,7 +23,6 @@ import org.junit.Test;
 
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.xml.sax.StringSAXInputSource;
 
 /**
  * Test class for class {@link StringSAXInputSource}.

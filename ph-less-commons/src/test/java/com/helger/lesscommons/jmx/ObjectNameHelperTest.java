@@ -21,9 +21,6 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.lesscommons.jmx.CJMX;
-import com.helger.lesscommons.jmx.ObjectNameHelper;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**

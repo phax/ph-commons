@@ -29,7 +29,6 @@ import org.junit.Test;
 import com.helger.commons.mime.CMimeType;
 import com.helger.commons.mime.IMimeType;
 import com.helger.commons.string.StringHelper;
-import com.helger.xml.util.mime.MimeTypeInfoManager;
 
 /**
  * Test class for class {@link MimeTypeInfoManager}.

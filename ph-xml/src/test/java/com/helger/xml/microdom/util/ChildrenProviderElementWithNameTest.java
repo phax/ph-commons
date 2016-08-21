@@ -26,7 +26,6 @@ import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
-import com.helger.xml.microdom.util.ChildrenProviderElementWithName;
 
 /**
  * Test class for class {@link ChildrenProviderElementWithName}.

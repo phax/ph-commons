@@ -42,7 +42,6 @@ import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.IMicroNode;
 import com.helger.xml.microdom.MicroDocument;
 import com.helger.xml.microdom.MicroElement;
-import com.helger.xml.microdom.util.MicroHelper;
 import com.helger.xml.mock.MockHasDisplayName;
 import com.helger.xml.serialize.read.DOMReader;
 

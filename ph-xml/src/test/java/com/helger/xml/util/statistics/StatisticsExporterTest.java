@@ -21,7 +21,6 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 import com.helger.xml.microdom.IMicroDocument;
-import com.helger.xml.util.statistics.StatisticsExporter;
 
 /**
  * Test class for class {@link StatisticsExporter}.

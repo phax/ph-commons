@@ -27,8 +27,6 @@ import javax.xml.XMLConstants;
 
 import org.junit.Test;
 
-import com.helger.xml.namespace.SingleElementNamespaceContext;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**

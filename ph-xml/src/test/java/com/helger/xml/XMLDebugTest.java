@@ -22,7 +22,6 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.w3c.dom.Node;
 
-import com.helger.xml.XMLDebug;
 import com.helger.xml.dom.EXMLDOMFeatureVersion;
 import com.helger.xml.dom.EXMLDOMNodeType;
 

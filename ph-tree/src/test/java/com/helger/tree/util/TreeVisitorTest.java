@@ -30,7 +30,6 @@ import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
 import com.helger.commons.mutable.MutableInt;
 import com.helger.tree.DefaultTree;
 import com.helger.tree.DefaultTreeItem;
-import com.helger.tree.util.TreeVisitor;
 import com.helger.tree.withid.DefaultTreeItemWithID;
 import com.helger.tree.withid.DefaultTreeWithID;
 

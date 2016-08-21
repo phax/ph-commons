@@ -39,7 +39,6 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.streamprovider.ByteArrayOutputStreamProvider;
 import com.helger.commons.io.streamprovider.StringInputStreamProvider;
-import com.helger.xml.microdom.util.XMLListHandler;
 
 /**
  * Test class for {@link XMLListHandler}.

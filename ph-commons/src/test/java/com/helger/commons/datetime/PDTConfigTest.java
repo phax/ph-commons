@@ -25,8 +25,6 @@ import java.time.ZoneId;
 
 import org.junit.Test;
 
-import com.helger.commons.datetime.PDTConfig;
-
 /**
  * Test class for class {@link PDTConfig}.
  *

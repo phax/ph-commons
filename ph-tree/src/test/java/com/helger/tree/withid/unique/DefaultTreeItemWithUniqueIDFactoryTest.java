@@ -19,7 +19,6 @@ package com.helger.tree.withid.unique;
 import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.tree.withid.unique.DefaultTreeItemWithUniqueIDFactory;
 
 /**
  * Test class for class {@link DefaultTreeItemWithUniqueIDFactory}.

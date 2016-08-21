@@ -45,8 +45,6 @@ import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resource.URLResource;
 import com.helger.commons.lang.ClassHelper;
-import com.helger.xml.ls.ResourceLSInput;
-import com.helger.xml.ls.SimpleLSResourceResolver;
 
 /**
  * Test class for class {@link SimpleLSResourceResolver}.

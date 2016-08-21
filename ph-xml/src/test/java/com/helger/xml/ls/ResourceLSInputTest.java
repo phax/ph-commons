@@ -32,7 +32,6 @@ import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.xml.ls.ResourceLSInput;
 
 /**
  * Test class for class {@link ResourceLSInput}.

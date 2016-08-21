@@ -38,9 +38,9 @@ import com.helger.xml.microdom.serialize.MicroReader;
 import com.helger.xml.microdom.serialize.MicroWriter;
 import com.helger.xml.microdom.util.XMLMapHandler;
 import com.helger.xml.util.mime.MimeTypeInfo;
-import com.helger.xml.util.mime.MimeTypeInfoManager;
 import com.helger.xml.util.mime.MimeTypeInfo.ExtensionWithSource;
 import com.helger.xml.util.mime.MimeTypeInfo.MimeTypeWithSource;
+import com.helger.xml.util.mime.MimeTypeInfoManager;
 
 /**
  * Utility class for reading the freedesktop shared-mime-info file and create

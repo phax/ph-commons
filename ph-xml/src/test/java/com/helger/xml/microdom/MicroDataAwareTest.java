@@ -21,7 +21,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.xml.microdom.MicroDataAware;
 
 /**
  * Test class for class {@link MicroDataAware}.

@@ -27,8 +27,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import com.helger.commons.mock.AbstractCommonsTestCase;
-import com.helger.xml.RecursiveChildNodeIterator;
-import com.helger.xml.XMLFactory;
 
 /**
  * Test class for class {@link RecursiveChildNodeIterator}.

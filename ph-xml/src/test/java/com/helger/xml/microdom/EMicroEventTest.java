@@ -21,8 +21,6 @@ import static org.junit.Assert.assertSame;
 
 import org.junit.Test;
 
-import com.helger.xml.microdom.EMicroEvent;
-
 /**
  * Test class for class {@link EMicroEvent}.
  *

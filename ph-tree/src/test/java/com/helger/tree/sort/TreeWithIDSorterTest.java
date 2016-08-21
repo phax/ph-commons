@@ -26,7 +26,6 @@ import java.util.Locale;
 import org.junit.Test;
 
 import com.helger.commons.compare.IComparator;
-import com.helger.tree.sort.TreeWithIDSorter;
 import com.helger.tree.withid.DefaultTreeItemWithID;
 import com.helger.tree.withid.DefaultTreeWithID;
 

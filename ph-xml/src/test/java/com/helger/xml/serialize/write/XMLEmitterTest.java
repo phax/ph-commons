@@ -26,10 +26,6 @@ import com.helger.commons.io.streamprovider.ByteArrayOutputStreamProvider;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.xml.microdom.MicroDocumentType;
-import com.helger.xml.serialize.write.EXMLIncorrectCharacterHandling;
-import com.helger.xml.serialize.write.EXMLSerializeVersion;
-import com.helger.xml.serialize.write.XMLEmitter;
-import com.helger.xml.serialize.write.XMLWriterSettings;
 
 /**
  * Test class for {@link XMLEmitter}

@@ -21,7 +21,6 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 import com.helger.commons.state.EContinue;
-import com.helger.xml.microdom.convert.MicroTypeConverterRegistry;
 
 /**
  * Test class for class {@link MicroTypeConverterRegistry}.

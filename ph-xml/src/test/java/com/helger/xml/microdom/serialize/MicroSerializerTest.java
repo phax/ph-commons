@@ -30,8 +30,6 @@ import com.helger.commons.timing.StopWatch;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
-import com.helger.xml.microdom.serialize.MicroSerializer;
-import com.helger.xml.microdom.serialize.MicroWriter;
 import com.helger.xml.serialize.write.EXMLSerializeIndent;
 import com.helger.xml.serialize.write.XMLWriterSettings;
 

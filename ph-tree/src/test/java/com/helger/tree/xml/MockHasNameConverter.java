@@ -20,7 +20,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.tree.mock.MockHasName;
-import com.helger.tree.xml.IConverterTreeXML;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.util.MicroHelper;
 

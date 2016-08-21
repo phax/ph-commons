@@ -39,13 +39,6 @@ import com.helger.xml.EXMLVersion;
 import com.helger.xml.XMLFactory;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
 import com.helger.xml.serialize.read.DOMReader;
-import com.helger.xml.serialize.write.EXMLSerializeComments;
-import com.helger.xml.serialize.write.EXMLSerializeDocType;
-import com.helger.xml.serialize.write.EXMLSerializeIndent;
-import com.helger.xml.serialize.write.EXMLSerializeVersion;
-import com.helger.xml.serialize.write.XMLCharHelper;
-import com.helger.xml.serialize.write.XMLWriter;
-import com.helger.xml.serialize.write.XMLWriterSettings;
 import com.helger.xml.transform.StringStreamResult;
 import com.helger.xml.transform.XMLTransformerFactory;
 
