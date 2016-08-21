@@ -18,49 +18,27 @@ package com.helger.commons.codec;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.zip.DeflaterOutputStream;
-import java.util.zip.InflaterInputStream;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.WillNotClose;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.NonClosingOutputStream;
 import com.helger.commons.io.stream.StreamHelper;
 
 /**
- * Encoder and decoder for flate compression
+ * Encoder and decoder for GZip compression
  *
  * @author Philip Helger
  */
-public class FlateCodec implements IByteArrayCodec
+public class GZIPCodec implements IByteArrayCodec
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (FlateCodec.class);
-
-  public FlateCodec ()
+  public GZIPCodec ()
   {}
-
-  public static boolean isZlibHead (@Nonnull final byte [] buf,
-                                    @Nonnegative final int nOfs,
-                                    @Nonnegative final int nLen)
-  {
-    if (nLen >= 2)
-    {
-      final int b0 = buf[nOfs] & 0xff;
-      final int b1 = buf[nOfs + 1] & 0xff;
-
-      if ((b0 & 0xf) == 8)
-        if ((b0 >> 4) + 8 <= 15)
-          if ((((b0 << 8) + b1) % 31) == 0)
-            return true;
-    }
-    return false;
-  }
 
   public void decode (@Nullable final byte [] aEncodedBuffer,
                       @Nonnegative final int nOfs,
@@ -70,19 +48,16 @@ public class FlateCodec implements IByteArrayCodec
     if (aEncodedBuffer == null || nLen == 0)
       return;
 
-    if (!isZlibHead (aEncodedBuffer, nOfs, nLen))
-      s_aLogger.warn ("ZLib header not found");
-
-    try (final InflaterInputStream aDecodeIS = new InflaterInputStream (new NonBlockingByteArrayInputStream (aEncodedBuffer,
-                                                                                                             nOfs,
-                                                                                                             nLen)))
+    try (final GZIPInputStream aDecodeIS = new GZIPInputStream (new NonBlockingByteArrayInputStream (aEncodedBuffer,
+                                                                                                     nOfs,
+                                                                                                     nLen)))
     {
       if (StreamHelper.copyInputStreamToOutputStream (aDecodeIS, aOS).isFailure ())
-        throw new DecodeException ("Failed to flate decode!");
+        throw new DecodeException ("Failed to GZIP decode!");
     }
     catch (final IOException ex)
     {
-      throw new DecodeException ("Failed to flate encode", ex);
+      throw new DecodeException ("Failed to GZIP encode", ex);
     }
   }
 
@@ -94,16 +69,16 @@ public class FlateCodec implements IByteArrayCodec
     if (aDecodedBuffer == null || nLen == 0)
       return;
 
-    try (final DeflaterOutputStream aEncodeOS = new DeflaterOutputStream (new NonClosingOutputStream (aOS)))
+    try (final GZIPOutputStream aEncodeOS = new GZIPOutputStream (new NonClosingOutputStream (aOS)))
     {
       if (StreamHelper.copyInputStreamToOutputStream (new NonBlockingByteArrayInputStream (aDecodedBuffer, nOfs, nLen),
                                                       aEncodeOS)
                       .isFailure ())
-        throw new EncodeException ("Failed to flate encode!");
+        throw new EncodeException ("Failed to GZIP encode!");
     }
     catch (final IOException ex)
     {
-      throw new EncodeException ("Failed to flate encode", ex);
+      throw new EncodeException ("Failed to GZIP encode", ex);
     }
   }
 }
