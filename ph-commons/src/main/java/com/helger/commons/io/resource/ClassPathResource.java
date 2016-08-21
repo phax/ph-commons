@@ -124,20 +124,20 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
       throw new IllegalArgumentException ("No path specified after prefix: " + sPath);
 
     // Ensure the ClassLoader can be garbage collected if necessary
-    m_aClassLoader = aClassLoader == null ? null : new WeakReference <> (aClassLoader);
+    m_aClassLoader = aClassLoader == null ? null : new WeakReference<> (aClassLoader);
   }
 
   private void writeObject (@Nonnull final ObjectOutputStream aOOS) throws IOException
   {
     if (m_aClassLoader != null)
       throw new IOException ("Cannot serialize a ClassPathResource that has a specific ClassLoader!");
-    aOOS.writeUTF (m_sPath);
+    StreamHelper.writeSafeUTF (aOOS, m_sPath);
     // Don't write the rest! After serialization the URL must be resolved again!
   }
 
   private void readObject (@Nonnull final ObjectInputStream aOIS) throws IOException
   {
-    m_sPath = aOIS.readUTF ();
+    m_sPath = StreamHelper.readSafeUTF (aOIS);
   }
 
   /**
