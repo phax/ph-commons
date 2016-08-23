@@ -28,6 +28,7 @@ import java.time.Month;
 import java.time.ZonedDateTime;
 import java.time.chrono.IsoChronology;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 import org.junit.Test;
 
@@ -94,6 +95,15 @@ public final class PDTFromStringTest
     assertNull (PDTFromString.getLocalDateFromString (null, "uuuu.MM.dd"));
     // No February 30th
     assertNull (PDTFromString.getLocalDateFromString ("2000.02.30", "uuuu.MM.dd"));
+
+    // test after year 2018 for the milliseconds since 1970 issue
+    assertEquals (LocalDate.of (2038, Month.JANUARY, 20),
+                  PDTFromString.getLocalDateFromString ("20.01.2038", Locale.GERMANY));
+    assertEquals (LocalDate.of (2038, Month.JANUARY, 20),
+                  PDTFromString.getLocalDateFromString ("20.01.2038",
+                                                        PDTFormatter.getDefaultFormatterDate (Locale.GERMANY)));
+    assertEquals (LocalDate.of (2938, Month.JANUARY, 20),
+                  PDTFromString.getLocalDateFromString ("20.01.2938", Locale.GERMANY));
 
     try
     {
