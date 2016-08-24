@@ -18,6 +18,7 @@ package com.helger.commons.errorlist;
 
 import java.util.Iterator;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -456,6 +457,12 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
       for (final IError aError : aErrors)
         ret = ret.or (remove (aError));
     return ret;
+  }
+
+  @Nonnull
+  public EChange removeIf (@Nonnull final Predicate <? super IError> aFilter)
+  {
+    return EChange.valueOf (m_aItems.removeIf (aFilter));
   }
 
   @Nonnull
