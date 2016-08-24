@@ -22,6 +22,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.state.ISuccessIndicator;
+import com.helger.commons.string.ToStringGenerator;
 
 /**
  * This class contains the result of loading a keystore from e.g. a
@@ -77,5 +78,14 @@ public final class LoadedKeyStore implements ISuccessIndicator
   public String [] getErrorParams ()
   {
     return m_eError == null ? null : ArrayHelper.getCopy (m_aErrorParams);
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).append ("KeyStore", m_aKeyStore)
+                                       .append ("Error", m_eError)
+                                       .append ("ErrorParams", m_aErrorParams)
+                                       .toString ();
   }
 }

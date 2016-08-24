@@ -22,6 +22,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.state.ISuccessIndicator;
+import com.helger.commons.string.ToStringGenerator;
 
 /**
  * This class contains the result of loading the configured private key as
@@ -91,5 +92,14 @@ public final class LoadedKey <T extends KeyStore.Entry> implements ISuccessIndic
   public String [] getErrorParams ()
   {
     return m_eError == null ? null : ArrayHelper.getCopy (m_aErrorParams);
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).append ("KeyEntry", m_aKeyEntry)
+                                       .append ("Error", m_eError)
+                                       .append ("ErrorParams", m_aErrorParams)
+                                       .toString ();
   }
 }
