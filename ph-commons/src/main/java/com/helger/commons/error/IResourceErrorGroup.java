@@ -138,6 +138,7 @@ public interface IResourceErrorGroup extends IHasSize, ICommonsIterable <IResour
    * @param aConsumer
    *        The consumer to be invoked. May not be <code>null</code>. May only
    *        perform reading actions!
+   * @deprecated Use {@link #forEach(Consumer)} instead
    */
   @Deprecated
   default void forEachResourceError (@Nonnull final Consumer <? super IResourceError> aConsumer)
