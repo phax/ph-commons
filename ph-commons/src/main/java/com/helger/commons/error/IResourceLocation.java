@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.CGlobal;
+import com.helger.commons.string.StringHelper;
 
 /**
  * Interface indication the position of something within a single resource
@@ -40,17 +41,32 @@ public interface IResourceLocation extends Serializable
   @Nullable
   String getResourceID ();
 
+  default boolean hasResourceID ()
+  {
+    return StringHelper.hasText (getResourceID ());
+  }
+
   /**
    * @return The 1-based line number {@link #ILLEGAL_NUMBER} if no line number
    *         is present.
    */
   int getLineNumber ();
 
+  default boolean hasLineNumber ()
+  {
+    return getLineNumber () > ILLEGAL_NUMBER;
+  }
+
   /**
    * @return The 1-based column number {@link #ILLEGAL_NUMBER} if no column
    *         number is present.
    */
   int getColumnNumber ();
+
+  default boolean hasColumnNumber ()
+  {
+    return getColumnNumber () > ILLEGAL_NUMBER;
+  }
 
   /**
    * @return The field where the error occurred. Sometimes this field is
@@ -59,6 +75,11 @@ public interface IResourceLocation extends Serializable
    */
   @Nullable
   String getField ();
+
+  default boolean hasField ()
+  {
+    return StringHelper.hasText (getField ());
+  }
 
   /**
    * @return The display text of the resource location.
