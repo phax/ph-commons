@@ -82,6 +82,18 @@ public interface IResourceLocation extends Serializable
   }
 
   /**
+   * Simple method to check if resource ID, line number, column number or field
+   * name is present.
+   * 
+   * @return <code>true</code> if at least one field is set, <code>false</code>
+   *         otherwise.
+   */
+  default boolean isAnyInformationPresent ()
+  {
+    return hasResourceID () || hasLineNumber () || hasColumnNumber () || hasField ();
+  }
+
+  /**
    * @return The display text of the resource location.
    */
   @Nonnull
