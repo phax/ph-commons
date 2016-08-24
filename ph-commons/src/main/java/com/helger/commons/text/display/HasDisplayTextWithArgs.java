@@ -20,6 +20,7 @@ import java.util.Locale;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
@@ -34,7 +35,8 @@ import com.helger.commons.text.util.TextHelper;
  *
  * @author Philip Helger
  */
-public final class HasDisplayTextWithArgs implements IHasDisplayText
+@Immutable
+public class HasDisplayTextWithArgs implements IHasDisplayText
 {
   private final IHasDisplayText m_aParentText;
   private final Object [] m_aArgs;
@@ -51,9 +53,30 @@ public final class HasDisplayTextWithArgs implements IHasDisplayText
     return m_aParentText;
   }
 
+  /**
+   * Get all arguments from the constructor.
+   *
+   * @return a copy of all arguments. Neither <code>null</code> nor empty-
+   * @deprecated Use {@link #getAllArgs()} instead
+   */
+  @Deprecated
   @Nonnull
+  @Nonempty
   @ReturnsMutableCopy
   public Object [] getArgs ()
+  {
+    return getAllArgs ();
+  }
+
+  /**
+   * Get all arguments from the constructor.
+   *
+   * @return a copy of all arguments. Neither <code>null</code> nor empty-
+   */
+  @Nonnull
+  @Nonempty
+  @ReturnsMutableCopy
+  public Object [] getAllArgs ()
   {
     return ArrayHelper.getCopy (m_aArgs);
   }
