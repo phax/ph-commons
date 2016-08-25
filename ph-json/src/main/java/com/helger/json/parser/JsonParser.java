@@ -257,28 +257,28 @@ public class JsonParser
 
     while (true)
     {
-      final int c3 = _readChar ();
-      if (c3 == '*')
+      final int c1 = _readChar ();
+      if (c1 == '*')
       {
         // End of comment?
-        final int c4 = _readChar ();
-        if (c4 == '/')
+        final int c2 = _readChar ();
+        if (c2 == '/')
         {
           // End of comment!
           m_aCallback.onComment (aStrComment.getAsString ());
           return;
         }
-        if (c4 == EOI)
+        if (c2 == EOI)
           throw _parseEx (aStartPos, "Unclosed JSON comment at end of input");
 
         // Backup the "/" try
-        _backupChar (c4);
+        _backupChar (c2);
       }
 
-      if (c3 == EOI)
+      if (c1 == EOI)
         throw _parseEx (aStartPos, "Unclosed JSON comment at end of input");
 
-      aStrComment.append ((char) c3);
+      aStrComment.append ((char) c1);
     }
   }
 
