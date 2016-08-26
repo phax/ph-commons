@@ -349,17 +349,81 @@ public final class StringHelper
   }
 
   @Nonnull
-  public static String getWithLeading (@Nonnull final String sValue, final int nChars, final char cPrefix)
+  private static String _getWithLeadingOrTrailing (@Nullable final String sSrc,
+                                                   @Nonnegative final int nLen,
+                                                   final char cFront,
+                                                   final boolean bLeading)
   {
-    final int nLen = sValue.length ();
-    if (nLen >= nChars)
-      return sValue;
+    if (nLen <= 0)
+    {
+      // Requested length is too short - return as is
+      return getNotNull (sSrc, "");
+    }
 
-    // prepend prefix chars
-    final StringBuilder aSB = new StringBuilder (nChars);
-    for (int i = 0; i < nChars - nLen; ++i)
-      aSB.append (cPrefix);
-    return aSB.append (sValue).toString ();
+    final int nSrcLen = getLength (sSrc);
+    if (nSrcLen == 0)
+    {
+      // Input string is empty
+      return getRepeated (cFront, nLen);
+    }
+
+    final int nCharsToAdd = nLen - nSrcLen;
+    if (nCharsToAdd <= 0)
+    {
+      // Input string is already longer than requested minimum length
+      return sSrc;
+    }
+
+    final StringBuilder aSB = new StringBuilder (nLen);
+    if (!bLeading)
+      aSB.append (sSrc);
+    for (int i = 0; i < nCharsToAdd; ++i)
+      aSB.append (cFront);
+    if (bLeading)
+      aSB.append (sSrc);
+    return aSB.toString ();
+  }
+
+  /**
+   * Get a string that is filled at the beginning with the passed character
+   * until the minimum length is reached. If the input string is empty, the
+   * result is a string with the provided len only consisting of the passed
+   * characters. If the input String is longer than the provided length, it is
+   * returned unchanged.
+   *
+   * @param sSrc
+   *        Source string. May be <code>null</code>.
+   * @param nLen
+   *        Minimum length. Should be &gt; 0.
+   * @param cFront
+   *        The character to be used at the beginning
+   * @return A non-<code>null</code> string that has at least nLen chars
+   */
+  @Nonnull
+  public static String getWithLeading (@Nullable final String sSrc, @Nonnegative final int nLen, final char cFront)
+  {
+    return _getWithLeadingOrTrailing (sSrc, nLen, cFront, true);
+  }
+
+  /**
+   * Get a string that is filled at the end with the passed character until the
+   * minimum length is reached. If the input string is empty, the result is a
+   * string with the provided len only consisting of the passed characters. If
+   * the input String is longer than the provided length, it is returned
+   * unchanged.
+   *
+   * @param sSrc
+   *        Source string. May be <code>null</code>.
+   * @param nLen
+   *        Minimum length. Should be &gt; 0.
+   * @param cFront
+   *        The character to be used at the beginning
+   * @return A non-<code>null</code> string that has at least nLen chars
+   */
+  @Nonnull
+  public static String getWithTrailing (@Nullable final String sSrc, @Nonnegative final int nLen, final char cFront)
+  {
+    return _getWithLeadingOrTrailing (sSrc, nLen, cFront, false);
   }
 
   /**
