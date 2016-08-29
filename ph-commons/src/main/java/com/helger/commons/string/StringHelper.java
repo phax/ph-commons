@@ -406,6 +406,46 @@ public final class StringHelper
   }
 
   /**
+   * Get a string that is filled at the beginning with the passed character
+   * until the minimum length is reached. If the input String is longer than the
+   * provided length, it is returned unchanged.
+   *
+   * @param nValue
+   *        Source string. May be <code>null</code>.
+   * @param nLen
+   *        Minimum length. Should be &gt; 0.
+   * @param cFront
+   *        The character to be used at the beginning
+   * @return A non-<code>null</code> string that has at least nLen chars
+   * @see #getWithLeading(String, int, char)
+   */
+  @Nonnull
+  public static String getWithLeading (final int nValue, @Nonnegative final int nLen, final char cFront)
+  {
+    return _getWithLeadingOrTrailing (Integer.toString (nValue), nLen, cFront, true);
+  }
+
+  /**
+   * Get a string that is filled at the beginning with the passed character
+   * until the minimum length is reached. If the input String is longer than the
+   * provided length, it is returned unchanged.
+   *
+   * @param nValue
+   *        Source string. May be <code>null</code>.
+   * @param nLen
+   *        Minimum length. Should be &gt; 0.
+   * @param cFront
+   *        The character to be used at the beginning
+   * @return A non-<code>null</code> string that has at least nLen chars
+   * @see #getWithLeading(String, int, char)
+   */
+  @Nonnull
+  public static String getWithLeading (final long nValue, @Nonnegative final int nLen, final char cFront)
+  {
+    return _getWithLeadingOrTrailing (Long.toString (nValue), nLen, cFront, true);
+  }
+
+  /**
    * Get a string that is filled at the end with the passed character until the
    * minimum length is reached. If the input string is empty, the result is a
    * string with the provided len only consisting of the passed characters. If
