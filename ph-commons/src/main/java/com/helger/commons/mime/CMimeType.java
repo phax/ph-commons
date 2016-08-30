@@ -118,6 +118,9 @@ public final class CMimeType
   /** For HTML upload forms. Not used for filenames! */
   public static final IMimeType MULTIPART_FORMDATA = EMimeContentType.MULTIPART.buildMimeType ("form-data");
 
+  /** For generic MIME messages! */
+  public static final IMimeType MULTIPART_RELATED = EMimeContentType.MULTIPART.buildMimeType ("related");
+
   /** CSV document. */
   public static final IMimeType TEXT_CSV = EMimeContentType.TEXT.buildMimeType ("csv");
 
