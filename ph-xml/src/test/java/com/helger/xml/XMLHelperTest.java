@@ -27,6 +27,7 @@ import java.math.RoundingMode;
 import java.util.Iterator;
 
 import javax.annotation.Nonnull;
+import javax.xml.namespace.QName;
 
 import org.junit.Test;
 import org.w3c.dom.DOMException;
@@ -423,5 +424,21 @@ public final class XMLHelperTest extends AbstractCommonsTestCase
     assertEquals ("myuri", XMLHelper.getNamespaceURI (doc.createElementNS ("myuri", "any")));
     assertNull (XMLHelper.getNamespaceURI (doc.createAttribute ("attr")));
     assertEquals ("myuri", XMLHelper.getNamespaceURI (doc.createAttributeNS ("myuri", "attr")));
+  }
+
+  @Test
+  public void testGetQName ()
+  {
+    final Document doc = XMLFactory.newDocument ();
+    final Element e1 = (Element) doc.appendChild (doc.createElement ("any"));
+    final Element e2 = (Element) e1.appendChild (doc.createElementNS ("myuri", "any"));
+
+    QName q = XMLHelper.getQName (e1);
+    assertNotNull (q);
+    assertEquals ("any", q.toString ());
+
+    q = XMLHelper.getQName (e2);
+    assertNotNull (q);
+    assertEquals ("{myuri}any", q.toString ());
   }
 }

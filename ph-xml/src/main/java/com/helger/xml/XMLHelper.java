@@ -776,4 +776,39 @@ public final class XMLHelper
     // Named XML namespace prefix
     return new QName (XMLConstants.XMLNS_ATTRIBUTE_NS_URI, sNSPrefix, CXML.XML_ATTR_XMLNS);
   }
+
+  /**
+   * Get the namespace prefix of the passed element in a safe way.
+   *
+   * @param aElement
+   *        The element to be queried. May be <code>null</code>.
+   * @return {@link XMLConstants#DEFAULT_NS_PREFIX} or the provided prefix.
+   *         Never <code>null</code>.
+   * @since 8.4.1
+   */
+  @Nonnull
+  public static String getPrefix (@Nullable final Element aElement)
+  {
+    final String sPrefix = aElement == null ? null : aElement.getPrefix ();
+    return sPrefix == null ? XMLConstants.DEFAULT_NS_PREFIX : sPrefix;
+  }
+
+  /**
+   * Get the QName of the passed element. If the passed element has no namespace
+   * URI, only the tag name is used. Otherwise namespace URI, local name and
+   * prefix are used.
+   *
+   * @param aElement
+   *        The element to be used. May not be <code>null</code>.
+   * @return The created {@link QName}.
+   * @since 8.4.1
+   */
+  @Nonnull
+  public static QName getQName (@Nonnull final Element aElement)
+  {
+    final String sNamespaceURI = aElement.getNamespaceURI ();
+    if (sNamespaceURI == null)
+      return new QName (aElement.getTagName ());
+    return new QName (sNamespaceURI, aElement.getLocalName (), getPrefix (aElement));
+  }
 }
