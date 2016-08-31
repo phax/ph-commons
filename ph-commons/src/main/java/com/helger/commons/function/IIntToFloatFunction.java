@@ -27,12 +27,18 @@ import java.util.function.Function;
  * {@link #applyAsFloat(int)}.
  *
  * @see Function
- * @since 8.4.0
- * @deprecated Use {@link IIntToFloatFunction} instead
+ * @since 8.4.1
  */
 @FunctionalInterface
-@Deprecated
-public interface IntToFloatFunction extends IIntToFloatFunction
+public interface IIntToFloatFunction
 {
-  /* empty */
+
+  /**
+   * Applies this function to the given argument.
+   *
+   * @param value
+   *        the function argument
+   * @return the function result
+   */
+  float applyAsFloat (int value);
 }
