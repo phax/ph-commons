@@ -22,7 +22,6 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -34,6 +33,9 @@ import com.helger.commons.string.ToStringGenerator;
 @Immutable
 public class ResourceLocation implements IResourceLocation
 {
+  /** A constant representing no location */
+  public static final ResourceLocation NO_LOCATION = new ResourceLocation (null, ILLEGAL_NUMBER, ILLEGAL_NUMBER, null);
+
   private final String m_sResourceID;
   private final int m_nLineNumber;
   private final int m_nColumnNumber;
@@ -91,16 +93,18 @@ public class ResourceLocation implements IResourceLocation
   public String getAsString ()
   {
     String ret = "";
-    if (StringHelper.hasText (m_sResourceID))
+    if (hasResourceID ())
       ret += m_sResourceID;
-    if (m_nLineNumber != ILLEGAL_NUMBER)
+
+    if (hasLineNumber ())
     {
-      if (m_nColumnNumber != ILLEGAL_NUMBER)
+      if (hasColumnNumber ())
         ret += "(" + m_nLineNumber + ":" + m_nColumnNumber + ")";
       else
         ret += "(" + m_nLineNumber + ":?)";
     }
-    if (StringHelper.hasText (m_sField))
+
+    if (hasField ())
     {
       if (ret.length () > 0)
         ret += " @ ";

@@ -16,14 +16,15 @@
  */
 package com.helger.commons.errorlist;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-import com.helger.commons.error.IHasErrorLevel;
-import com.helger.commons.error.ISeverityComparable;
-import com.helger.commons.state.IErrorIndicator;
-import com.helger.commons.state.ISuccessIndicator;
+import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.error.IHasErrorID;
+import com.helger.commons.error.IHasSeverity;
+import com.helger.commons.error.IResourceLocation;
+import com.helger.commons.error.ResourceLocation;
+import com.helger.commons.string.StringHelper;
 
 /**
  * Base interface for single errors and resource errors.
@@ -32,55 +33,101 @@ import com.helger.commons.state.ISuccessIndicator;
  * @param <IMPLTYPE>
  *        Implementation type
  */
-public interface IErrorBase <IMPLTYPE extends IErrorBase <IMPLTYPE>> extends
-                            IHasErrorLevel,
-                            ISuccessIndicator,
-                            IErrorIndicator,
-                            ISeverityComparable <IMPLTYPE>,
-                            Serializable
+public interface IErrorBase <IMPLTYPE extends IErrorBase <IMPLTYPE>> extends IHasSeverity <IMPLTYPE>, IHasErrorID
 {
-  default boolean isSuccess ()
+  /**
+   * {@inheritDoc}
+   *
+   * @since 8.4.1
+   */
+  default String getErrorID ()
   {
-    return getErrorLevel ().isSuccess ();
+    return null;
   }
 
-  default boolean isFailure ()
+  /**
+   * @return The field for which the error occurred. May be <code>null</code>.
+   * @since 8.4.1
+   */
+  @Nullable
+  default String getErrorFieldName ()
   {
-    return getErrorLevel ().isFailure ();
+    return null;
   }
 
-  default boolean isError ()
+  /**
+   * @return <code>true</code> if a field name is present, <code>false</code>
+   *         otherwise
+   * @since 8.4.1
+   */
+  default boolean hasErrorFieldName ()
   {
-    return getErrorLevel ().isError ();
+    return StringHelper.hasText (getErrorFieldName ());
   }
 
-  default boolean isNoError ()
+  /**
+   * @return <code>true</code> if no field name is present, <code>false</code>
+   *         otherwise
+   * @since 8.4.1
+   */
+  default boolean hasNoErrorFieldName ()
   {
-    return getErrorLevel ().isNoError ();
+    return StringHelper.hasNoText (getErrorFieldName ());
   }
 
-  default boolean isEqualSevereThan (@Nonnull final IMPLTYPE aOther)
+  /**
+   * Check if this error has the passed error field name,
+   *
+   * @param sErrorFieldName
+   *        The error field name to check. May be null.
+   * @return <code>true</code> if a field name is equal, <code>false</code>
+   *         otherwise
+   * @since 8.4.1
+   */
+  default boolean hasErrorFieldName (@Nullable final String sErrorFieldName)
   {
-    return getErrorLevel ().isEqualSevereThan (aOther.getErrorLevel ());
+    return EqualsHelper.equals (getErrorFieldName (), sErrorFieldName);
   }
 
-  default boolean isLessSevereThan (@Nonnull final IMPLTYPE aOther)
+  /**
+   * @return The non-<code>null</code> location of the error.
+   * @since 8.4.1
+   */
+  @Nonnull
+  default IResourceLocation getLocation ()
   {
-    return getErrorLevel ().isLessSevereThan (aOther.getErrorLevel ());
+    return ResourceLocation.NO_LOCATION;
   }
 
-  default boolean isLessOrEqualSevereThan (@Nonnull final IMPLTYPE aOther)
+  /**
+   * Check if a reasonable error location is present.
+   * 
+   * @return <code>true</code> if location information is present,
+   *         <code>false</code> otherwise.
+   */
+  default boolean hasLocation ()
   {
-    return getErrorLevel ().isLessOrEqualSevereThan (aOther.getErrorLevel ());
+    return getLocation ().isAnyInformationPresent ();
   }
 
-  default boolean isMoreSevereThan (@Nonnull final IMPLTYPE aOther)
+  /**
+   * @return The linked exception or <code>null</code> if no such exception is
+   *         available.
+   * @since 8.4.1
+   */
+  @Nullable
+  default Throwable getLinkedException ()
   {
-    return getErrorLevel ().isMoreSevereThan (aOther.getErrorLevel ());
+    return null;
   }
 
-  default boolean isMoreOrEqualSevereThan (@Nonnull final IMPLTYPE aOther)
+  /**
+   * @return <code>true</code> if a linked exception is present,
+   *         <code>false</code> if not.
+   * @since 8.4.1
+   */
+  default boolean hasLinkedException ()
   {
-    return getErrorLevel ().isMoreOrEqualSevereThan (aOther.getErrorLevel ());
+    return getLinkedException () != null;
   }
 }

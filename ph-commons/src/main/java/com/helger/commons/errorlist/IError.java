@@ -17,14 +17,10 @@
 package com.helger.commons.errorlist;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.error.IHasErrorID;
 import com.helger.commons.error.IResourceLocation;
 import com.helger.commons.error.ResourceLocation;
-import com.helger.commons.string.StringHelper;
 
 /**
  * Base interface for a single error, that has an error ID, and error level, and
@@ -32,57 +28,24 @@ import com.helger.commons.string.StringHelper;
  *
  * @author Philip Helger
  */
-public interface IError extends IHasErrorID, IErrorBase <IError>
+public interface IError extends IErrorBase <IError>
 {
   /**
-   * @return The field for which the error occurred. May be <code>null</code>.
-   */
-  @Nullable
-  String getErrorFieldName ();
-
-  /**
-   * @return <code>true</code> if a field name is present, <code>false</code>
-   *         otherwise
-   */
-  default boolean hasErrorFieldName ()
-  {
-    return StringHelper.hasText (getErrorFieldName ());
-  }
-
-  /**
-   * @return <code>true</code> if no field name is present, <code>false</code>
-   *         otherwise
-   */
-  default boolean hasNoErrorFieldName ()
-  {
-    return StringHelper.hasNoText (getErrorFieldName ());
-  }
-
-  /**
-   * Check if this error has the passed error field name,
-   *
-   * @param sErrorFieldName
-   *        The error field name to check. May be null.
-   * @return <code>true</code> if a field name is equal, <code>false</code>
-   *         otherwise
-   */
-  default boolean hasErrorFieldName (@Nullable final String sErrorFieldName)
-  {
-    return EqualsHelper.equals (getErrorFieldName (), sErrorFieldName);
-  }
-
-  /**
    * @return The error field name of this object as an {@link IResourceLocation}
-   *         . If no error field name is present, <code>null</code> is returned,
-   *         else an {@link IResourceLocation} with the field name set is
-   *         returned.
+   *         . Never <code>null</code>.
+   * @deprecated Use {@link #getLocation()} instead
    */
-  @Nullable
+  @Nonnull
+  @Deprecated
   default IResourceLocation getResourceLocation ()
   {
-    if (hasErrorFieldName ())
-      return new ResourceLocation (null, getErrorFieldName ());
-    return null;
+    return getLocation ();
+  }
+
+  @Nonnull
+  default IResourceLocation getLocation ()
+  {
+    return new ResourceLocation (null, getErrorFieldName ());
   }
 
   /**

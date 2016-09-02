@@ -19,7 +19,6 @@ package com.helger.commons.error;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.errorlist.IErrorBase;
@@ -35,28 +34,6 @@ import com.helger.commons.text.display.IHasDisplayText;
  */
 public interface IResourceError extends IHasDisplayText, IErrorBase <IResourceError>
 {
-  /**
-   * @return The non-<code>null</code> location of the error.
-   */
-  @Nonnull
-  IResourceLocation getLocation ();
-
-  /**
-   * @return The linked exception or <code>null</code> if no such exception is
-   *         available.
-   */
-  @Nullable
-  Throwable getLinkedException ();
-
-  /**
-   * @return <code>true</code> if a linked exception is present,
-   *         <code>false</code> if not.
-   */
-  default boolean hasLinkedException ()
-  {
-    return getLinkedException () != null;
-  }
-
   /**
    * Get the error as a string representation, including error ID, error
    * location, error text and the linked exception.
