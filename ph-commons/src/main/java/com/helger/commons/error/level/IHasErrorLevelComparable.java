@@ -14,14 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.error;
+package com.helger.commons.error.level;
 
 import java.io.Serializable;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.state.IErrorIndicator;
-import com.helger.commons.state.ISuccessIndicator;
+import com.helger.commons.severity.ISeverityComparable;
 import com.helger.commons.traits.IGenericImplTrait;
 
 /**
@@ -31,34 +30,12 @@ import com.helger.commons.traits.IGenericImplTrait;
  * @param <IMPLTYPE>
  *        Implementation type
  */
-public interface IHasSeverity <IMPLTYPE extends IHasSeverity <IMPLTYPE>> extends
-                              IHasErrorLevel,
-                              ISuccessIndicator,
-                              IErrorIndicator,
-                              ISeverityComparable <IMPLTYPE>,
-                              IGenericImplTrait <IMPLTYPE>,
-                              Serializable
+public interface IHasErrorLevelComparable <IMPLTYPE extends IHasErrorLevelComparable <IMPLTYPE>> extends
+                                          IHasErrorLevel,
+                                          ISeverityComparable <IMPLTYPE>,
+                                          IGenericImplTrait <IMPLTYPE>,
+                                          Serializable
 {
-  default boolean isSuccess ()
-  {
-    return getErrorLevel ().isSuccess ();
-  }
-
-  default boolean isFailure ()
-  {
-    return getErrorLevel ().isFailure ();
-  }
-
-  default boolean isError ()
-  {
-    return getErrorLevel ().isError ();
-  }
-
-  default boolean isNoError ()
-  {
-    return getErrorLevel ().isNoError ();
-  }
-
   default boolean isEqualSevereThan (@Nonnull final IMPLTYPE aOther)
   {
     return getErrorLevel ().isEqualSevereThan (aOther.getErrorLevel ());

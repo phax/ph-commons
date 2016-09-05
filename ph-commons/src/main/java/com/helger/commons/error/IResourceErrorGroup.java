@@ -16,22 +16,21 @@
  */
 package com.helger.commons.error;
 
-import java.io.Serializable;
 import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.ICommonsIterable;
 import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.lang.IHasSize;
+import com.helger.commons.error.level.EErrorLevel;
+import com.helger.commons.error.level.IErrorLevel;
 
 /**
  * Contains a list of resource errors and some sanity access methods.
  *
  * @author Philip Helger
  */
-public interface IResourceErrorGroup extends IHasSize, ICommonsIterable <IResourceError>, IHasErrorLevels, Serializable
+public interface IResourceErrorGroup extends IErrorBaseList <IResourceError>
 {
   @Nonnull
   default IErrorLevel getMostSevereErrorLevel ()

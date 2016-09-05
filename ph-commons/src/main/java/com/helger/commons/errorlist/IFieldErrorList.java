@@ -24,7 +24,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.multimap.IMultiMapListBased;
-import com.helger.commons.error.IErrorLevel;
+import com.helger.commons.error.level.IErrorLevel;
 
 /**
  * A subset of {@link IErrorList} containing only the methods relevant for

@@ -16,17 +16,14 @@
  */
 package com.helger.commons.errorlist;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.ICommonsIterable;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.multimap.IMultiMapListBased;
 import com.helger.commons.collection.multimap.MultiLinkedHashMapArrayListBased;
-import com.helger.commons.error.IHasErrorLevels;
+import com.helger.commons.error.IErrorBaseList;
 
 /**
  * A simple read only form error list interface. For a field specific list look
@@ -34,34 +31,17 @@ import com.helger.commons.error.IHasErrorLevels;
  *
  * @author Philip Helger
  */
-public interface IErrorList extends ICommonsIterable <IError>, IHasErrorLevels, IFieldErrorList, Serializable
+public interface IErrorList extends IErrorBaseList <IError>, IFieldErrorList
 {
-  /**
-   * @return <code>true</code> if this list has no items, <code>false</code> if
-   *         at least one item is contained
-   */
-  boolean isEmpty ();
-
-  /**
-   * @return <code>true</code> if this list has at least one item,
-   *         <code>false</code> if if it is empty.
-   */
-  default boolean isNotEmpty ()
-  {
-    return !isEmpty ();
-  }
-
   /**
    * @return The number of contained items. Always &ge; 0.
    */
   @Nonnegative
-  int getItemCount ();
-
-  /**
-   * @return <code>true</code> if at least 1 item of level warning or at least 1
-   *         item of level error is contained.
-   */
-  boolean hasErrorsOrWarnings ();
+  @Deprecated
+  default int getItemCount ()
+  {
+    return getSize ();
+  }
 
   /**
    * @return An immutable list of all contained entries. Never <code>null</code>

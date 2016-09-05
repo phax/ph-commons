@@ -25,13 +25,13 @@ public interface IErrorIndicator
 {
   /**
    * @return <code>true</code> if this level is at least
-   *         {@link com.helger.commons.error.EErrorLevel#ERROR} or worse.
+   *         {@link com.helger.commons.error.level.EErrorLevel#ERROR} or worse.
    */
   boolean isError ();
 
   /**
    * @return <code>true</code> if this level is below
-   *         {@link com.helger.commons.error.EErrorLevel#ERROR}.
+   *         {@link com.helger.commons.error.level.EErrorLevel#ERROR}.
    */
   default boolean isNoError ()
   {

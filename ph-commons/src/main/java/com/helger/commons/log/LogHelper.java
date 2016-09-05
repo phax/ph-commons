@@ -25,9 +25,9 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.error.EErrorLevel;
-import com.helger.commons.error.IErrorLevel;
-import com.helger.commons.error.IHasErrorLevel;
+import com.helger.commons.error.level.EErrorLevel;
+import com.helger.commons.error.level.IErrorLevel;
+import com.helger.commons.error.level.IHasErrorLevel;
 
 /**
  * Some utility functions to help integrating the {@link IErrorLevel} enum in

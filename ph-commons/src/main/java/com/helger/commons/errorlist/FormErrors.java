@@ -29,8 +29,8 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.multimap.IMultiMapListBased;
-import com.helger.commons.error.EErrorLevel;
-import com.helger.commons.error.IErrorLevel;
+import com.helger.commons.error.level.EErrorLevel;
+import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -217,7 +217,7 @@ public class FormErrors implements Serializable, IFieldErrorList
   @Nonnegative
   public int getGlobalItemCount ()
   {
-    return m_aFormGlobalErrs.getItemCount ();
+    return m_aFormGlobalErrs.getSize ();
   }
 
   /**
@@ -226,7 +226,7 @@ public class FormErrors implements Serializable, IFieldErrorList
   @Nonnegative
   public int getFieldItemCount ()
   {
-    return m_aFormFieldErrs.getItemCount ();
+    return m_aFormFieldErrs.getSize ();
   }
 
   /**
@@ -238,7 +238,7 @@ public class FormErrors implements Serializable, IFieldErrorList
   @Nonnegative
   public int getItemCount ()
   {
-    return m_aFormGlobalErrs.getItemCount () + m_aFormFieldErrs.getItemCount ();
+    return m_aFormGlobalErrs.getSize () + m_aFormFieldErrs.getSize ();
   }
 
   /**

@@ -20,6 +20,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import com.helger.commons.error.location.IResourceLocation;
+import com.helger.commons.error.location.ResourceLocation;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**

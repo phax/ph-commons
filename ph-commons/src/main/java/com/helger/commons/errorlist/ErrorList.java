@@ -32,8 +32,8 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.error.EErrorLevel;
-import com.helger.commons.error.IErrorLevel;
+import com.helger.commons.error.level.EErrorLevel;
+import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.regex.RegExHelper;
@@ -182,83 +182,15 @@ public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
   }
 
   @Nonnegative
-  public int getItemCount ()
+  public int getSize ()
   {
     return m_aItems.size ();
-  }
-
-  public boolean hasErrorsOrWarnings ()
-  {
-    return m_aItems.containsAny (e -> e.getErrorLevel ().isMoreOrEqualSevereThan (EErrorLevel.WARN));
-  }
-
-  public boolean containsOnlySuccess ()
-  {
-    return m_aItems.containsOnly (e -> e.isSuccess ());
-  }
-
-  public boolean containsAtLeastOneSuccess ()
-  {
-    return m_aItems.containsAny (e -> e.isSuccess ());
-  }
-
-  public boolean containsNoSuccess ()
-  {
-    return m_aItems.containsNone (e -> e.isSuccess ());
-  }
-
-  @Nonnegative
-  public int getSuccessCount ()
-  {
-    return m_aItems.getCount (e -> e.isSuccess ());
-  }
-
-  public boolean containsOnlyFailure ()
-  {
-    return m_aItems.containsOnly (e -> e.isFailure ());
-  }
-
-  public boolean containsAtLeastOneFailure ()
-  {
-    return m_aItems.containsAny (e -> e.isFailure ());
-  }
-
-  public boolean containsNoFailure ()
-  {
-    return m_aItems.containsNone (e -> e.isFailure ());
-  }
-
-  @Nonnegative
-  public int getFailureCount ()
-  {
-    return m_aItems.getCount (e -> e.isFailure ());
-  }
-
-  public boolean containsOnlyError ()
-  {
-    return m_aItems.containsOnly (e -> e.isError ());
-  }
-
-  public boolean containsAtLeastOneError ()
-  {
-    return m_aItems.containsAny (e -> e.isError ());
-  }
-
-  public boolean containsNoError ()
-  {
-    return m_aItems.containsNone (e -> e.isError ());
-  }
-
-  @Nonnegative
-  public int getErrorCount ()
-  {
-    return m_aItems.getCount (e -> e.isError ());
   }
 
   @Nonnull
   public IErrorLevel getMostSevereErrorLevel ()
   {
-    IErrorLevel ret = EErrorLevel.SUCCESS;
+    IErrorLevel ret = EErrorLevel.LOWEST;
     for (final IError aError : m_aItems)
     {
       final IErrorLevel eCur = aError.getErrorLevel ();

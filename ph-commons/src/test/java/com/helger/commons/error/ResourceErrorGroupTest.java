@@ -25,6 +25,9 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.error.level.EErrorLevel;
+import com.helger.commons.error.location.IResourceLocation;
+import com.helger.commons.error.location.ResourceLocation;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**

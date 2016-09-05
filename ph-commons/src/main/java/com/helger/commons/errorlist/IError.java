@@ -19,8 +19,8 @@ package com.helger.commons.errorlist;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.error.IResourceLocation;
-import com.helger.commons.error.ResourceLocation;
+import com.helger.commons.error.location.IResourceLocation;
+import com.helger.commons.error.location.ResourceLocation;
 
 /**
  * Base interface for a single error, that has an error ID, and error level, and

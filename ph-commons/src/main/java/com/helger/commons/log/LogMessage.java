@@ -25,8 +25,8 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.error.IErrorLevel;
-import com.helger.commons.error.IHasSeverity;
+import com.helger.commons.error.level.IErrorLevel;
+import com.helger.commons.error.level.IHasErrorLevelComparable;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -35,7 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public class LogMessage implements IHasSeverity <LogMessage>
+public class LogMessage implements IHasErrorLevelComparable <LogMessage>
 {
   private final LocalDateTime m_aIssueDT;
   private final IErrorLevel m_aErrorLevel;

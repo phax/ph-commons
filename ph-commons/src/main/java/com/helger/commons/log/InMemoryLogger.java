@@ -27,11 +27,10 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
-import com.helger.commons.collection.ext.ICommonsIterable;
 import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.error.EErrorLevel;
-import com.helger.commons.error.IErrorLevel;
-import com.helger.commons.error.IHasErrorLevels;
+import com.helger.commons.error.level.EErrorLevel;
+import com.helger.commons.error.level.IErrorLevel;
+import com.helger.commons.error.level.IHasErrorLevels;
 import com.helger.commons.lang.IHasSize;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.IClearable;
@@ -44,12 +43,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class InMemoryLogger implements
-                            ICommonsIterable <LogMessage>,
-                            IHasSize,
-                            IClearable,
-                            IHasErrorLevels,
-                            Serializable
+public class InMemoryLogger implements IHasErrorLevels <LogMessage>, IHasSize, IClearable, Serializable
 {
   private final ICommonsList <LogMessage> m_aMessages = new CommonsArrayList<> ();
 
@@ -149,86 +143,6 @@ public class InMemoryLogger implements
   public boolean isEmpty ()
   {
     return m_aMessages.isEmpty ();
-  }
-
-  public boolean containsOnlySuccess ()
-  {
-    return m_aMessages.containsOnly (e -> e.isSuccess ());
-  }
-
-  public boolean containsAtLeastOneSuccess ()
-  {
-    return m_aMessages.containsAny (e -> e.isSuccess ());
-  }
-
-  public boolean containsNoSuccess ()
-  {
-    return m_aMessages.containsNone (e -> e.isSuccess ());
-  }
-
-  @Nonnegative
-  public int getSuccessCount ()
-  {
-    return m_aMessages.getCount (e -> e.isSuccess ());
-  }
-
-  public boolean containsOnlyFailure ()
-  {
-    return m_aMessages.containsOnly (e -> e.isFailure ());
-  }
-
-  public boolean containsAtLeastOneFailure ()
-  {
-    return m_aMessages.containsAny (e -> e.isFailure ());
-  }
-
-  public boolean containsNoFailure ()
-  {
-    return m_aMessages.containsNone (e -> e.isFailure ());
-  }
-
-  @Nonnegative
-  public int getFailureCount ()
-  {
-    return m_aMessages.getCount (e -> e.isFailure ());
-  }
-
-  public boolean containsOnlyError ()
-  {
-    return m_aMessages.containsOnly (e -> e.isError ());
-  }
-
-  public boolean containsAtLeastOneError ()
-  {
-    return m_aMessages.containsAny (e -> e.isError ());
-  }
-
-  public boolean containsNoError ()
-  {
-    return m_aMessages.containsNone (e -> e.isError ());
-  }
-
-  @Nonnegative
-  public int getErrorCount ()
-  {
-    return m_aMessages.getCount (e -> e.isError ());
-  }
-
-  @Nonnull
-  public IErrorLevel getMostSevereErrorLevel ()
-  {
-    IErrorLevel aRet = EErrorLevel.SUCCESS;
-    for (final LogMessage aMessage : m_aMessages)
-    {
-      final IErrorLevel aCur = aMessage.getErrorLevel ();
-      if (aCur.isMoreSevereThan (aRet))
-      {
-        aRet = aCur;
-        if (aRet.isHighest ())
-          break;
-      }
-    }
-    return aRet;
   }
 
   @Nonnull

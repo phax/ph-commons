@@ -26,6 +26,9 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.CGlobal;
+import com.helger.commons.error.level.EErrorLevel;
+import com.helger.commons.error.location.IResourceLocation;
+import com.helger.commons.error.location.ResourceLocation;
 import com.helger.commons.exception.mock.MockException;
 import com.helger.commons.mock.CommonsTestHelper;
 

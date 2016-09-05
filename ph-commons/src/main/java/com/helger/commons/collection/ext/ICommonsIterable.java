@@ -22,10 +22,12 @@ import java.util.function.Function;
 import java.util.function.ObjIntConsumer;
 import java.util.function.Predicate;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.IteratorHelper;
 import com.helger.commons.state.EContinue;
 
 /**
@@ -294,5 +296,37 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>
   default boolean containsOnly (@Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
   {
     return CollectionHelper.containsOnly (this, aFilter);
+  }
+
+  /**
+   * Retrieve the size of this {@link Iterable}.
+   *
+   * @return The number objects contained. Always &ge; 0.
+   */
+  @Nonnegative
+  default int getIteratorCount ()
+  {
+    return IteratorHelper.getSize (iterator ());
+  }
+
+  /**
+   * Count the number of elements in this iterable matching the provided filter.
+   *
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @return The number of matching elements. Always &ge; 0. If no filter is
+   *         provided this is the same as {@link #getIteratorCount()}.
+   */
+  @Nonnegative
+  default int getIteratorCount (@Nullable final Predicate <? super ELEMENTTYPE> aFilter)
+  {
+    if (aFilter == null)
+      return getIteratorCount ();
+
+    int ret = 0;
+    for (final ELEMENTTYPE aElement : this)
+      if (aFilter.test (aElement))
+        ret++;
+    return ret;
   }
 }

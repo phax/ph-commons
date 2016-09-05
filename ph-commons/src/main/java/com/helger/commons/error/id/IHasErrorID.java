@@ -14,13 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.error;
+package com.helger.commons.error.id;
 
 import java.util.Comparator;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -39,10 +40,35 @@ public interface IHasErrorID
   /**
    * @return <code>true</code> if an error ID is present, <code>false</code>
    *         otherwise
+   * @see #hasNoErrorID()
    */
   default boolean hasErrorID ()
   {
     return StringHelper.hasText (getErrorID ());
+  }
+
+  /**
+   * @return <code>true</code> if no error ID is present, <code>false</code>
+   *         otherwise
+   * @see #hasErrorID()
+   */
+  default boolean hasNoErrorID ()
+  {
+    return StringHelper.hasNoText (getErrorID ());
+  }
+
+  /**
+   * Check if this error has the passed error ID.
+   *
+   * @param sErrorID
+   *        The error ID to check. May be null.
+   * @return <code>true</code> if the error ID is equal, <code>false</code>
+   *         otherwise
+   * @since 8.4.1
+   */
+  default boolean hasErrorID (@Nullable final String sErrorID)
+  {
+    return EqualsHelper.equals (getErrorID (), sErrorID);
   }
 
   @Nonnull

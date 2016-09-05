@@ -14,17 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.error;
+package com.helger.commons.error.level;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+
+import com.helger.commons.collection.ext.ICommonsIterable;
 
 /**
  * Interface representing an object having multiple objects with an error level
  *
  * @author Philip Helger
+ * @param <IMPLTYPE>
+ *        Implementation type
  */
-public interface IHasErrorLevels
+public interface IHasErrorLevels <IMPLTYPE extends IHasErrorLevel> extends ICommonsIterable <IMPLTYPE>
 {
   /**
    * Check if this group contains only success messages. If no item is present,
@@ -36,7 +40,10 @@ public interface IHasErrorLevels
    *         have the error level success, <code>false</code> otherwise.
    * @see #containsNoFailure()
    */
-  boolean containsOnlySuccess ();
+  default boolean containsOnlySuccess ()
+  {
+    return containsOnly (x -> x.isSuccess ());
+  }
 
   /**
    * Check if this group contains at least one success message.
@@ -44,7 +51,10 @@ public interface IHasErrorLevels
    * @return <code>true</code> if at least one success item is present,
    *         <code>false</code> otherwise.
    */
-  boolean containsAtLeastOneSuccess ();
+  default boolean containsAtLeastOneSuccess ()
+  {
+    return containsAny (x -> x.isSuccess ());
+  }
 
   /**
    * Check if this group contains no success message. This is also true, if the
@@ -53,13 +63,19 @@ public interface IHasErrorLevels
    * @return <code>true</code> if no success item is present, <code>false</code>
    *         otherwise.
    */
-  boolean containsNoSuccess ();
+  default boolean containsNoSuccess ()
+  {
+    return containsNone (x -> x.isSuccess ());
+  }
 
   /**
    * @return The number of contained success messages. Always &ge; 0.
    */
   @Nonnegative
-  int getSuccessCount ();
+  default int getSuccessCount ()
+  {
+    return getIteratorCount (x -> x.isSuccess ());
+  }
 
   /**
    * Check if this group contains only failure messages. If no item is present,
@@ -70,7 +86,10 @@ public interface IHasErrorLevels
    *         have an error level indicating failure, <code>false</code>
    *         otherwise.
    */
-  boolean containsOnlyFailure ();
+  default boolean containsOnlyFailure ()
+  {
+    return containsOnly (x -> x.isFailure ());
+  }
 
   /**
    * Check if this group contains at least one failure message. All error levels
@@ -79,7 +98,10 @@ public interface IHasErrorLevels
    * @return <code>true</code> if at least one failure item is present,
    *         <code>false</code> otherwise.
    */
-  boolean containsAtLeastOneFailure ();
+  default boolean containsAtLeastOneFailure ()
+  {
+    return containsAny (x -> x.isFailure ());
+  }
 
   /**
    * Check if this group contains no failure message. All error levels except
@@ -88,13 +110,19 @@ public interface IHasErrorLevels
    * @return <code>true</code> if no failure item is present, <code>false</code>
    *         otherwise.
    */
-  boolean containsNoFailure ();
+  default boolean containsNoFailure ()
+  {
+    return containsNone (x -> x.isFailure ());
+  }
 
   /**
    * @return The number of contained failure messages. Always &ge; 0.
    */
   @Nonnegative
-  int getFailureCount ();
+  default int getFailureCount ()
+  {
+    return getIteratorCount (x -> x.isFailure ());
+  }
 
   /**
    * Check if this group contains only error or fatal error messages. If no item
@@ -105,7 +133,10 @@ public interface IHasErrorLevels
    *         have an error level indicating error or fatal error,
    *         <code>false</code> otherwise.
    */
-  boolean containsOnlyError ();
+  default boolean containsOnlyError ()
+  {
+    return containsOnly (x -> x.isError ());
+  }
 
   /**
    * Check if this group contains at least one error or fatal error message. All
@@ -114,7 +145,10 @@ public interface IHasErrorLevels
    * @return <code>true</code> if at least one error or fatal error item is
    *         present, <code>false</code> otherwise.
    */
-  boolean containsAtLeastOneError ();
+  default boolean containsAtLeastOneError ()
+  {
+    return containsAny (x -> x.isError ());
+  }
 
   /**
    * Check if this group contains no error or fatal error message. All error
@@ -123,7 +157,10 @@ public interface IHasErrorLevels
    * @return <code>true</code> if no error or fatal error item is present,
    *         <code>false</code> otherwise.
    */
-  boolean containsNoError ();
+  default boolean containsNoError ()
+  {
+    return containsNone (x -> x.isError ());
+  }
 
   /**
    * @return The number of contained error messages. Always &ge; 0. All error
@@ -131,15 +168,51 @@ public interface IHasErrorLevels
    *         error!
    */
   @Nonnegative
-  int getErrorCount ();
+  default int getErrorCount ()
+  {
+    return getIteratorCount (x -> x.isError ());
+  }
+
+  /**
+   * @return <code>true</code> if at least 1 item of level warning or at least 1
+   *         item of level error is contained.
+   */
+  @Deprecated
+  default boolean hasErrorsOrWarnings ()
+  {
+    return containsAtLeastOneWarningOrError ();
+  }
+
+  /**
+   * @return <code>true</code> if at least 1 item of level warning or at least 1
+   *         item of level error is contained.
+   */
+  default boolean containsAtLeastOneWarningOrError ()
+  {
+    return containsAny (x -> x.getErrorLevel ().isMoreOrEqualSevereThan (EErrorLevel.WARN));
+  }
 
   /**
    * Get the most severe error level within this object. The severity is defined
    * by {@link EErrorLevel}'s severity model.
    *
-   * @return {@link EErrorLevel#SUCCESS} if no resource error is contained, the
-   *         most severe contained error level otherwise.
+   * @return {@link EErrorLevel#SUCCESS} if no error is contained, the most
+   *         severe contained error level otherwise.
    */
   @Nonnull
-  IErrorLevel getMostSevereErrorLevel ();
+  default IErrorLevel getMostSevereErrorLevel ()
+  {
+    IErrorLevel ret = EErrorLevel.LOWEST;
+    for (final IMPLTYPE aItem : this)
+    {
+      final IErrorLevel aCur = aItem.getErrorLevel ();
+      if (aCur.isMoreSevereThan (ret))
+      {
+        ret = aCur;
+        if (ret.isHighest ())
+          break;
+      }
+    }
+    return ret;
+  }
 }

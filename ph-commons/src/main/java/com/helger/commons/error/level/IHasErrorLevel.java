@@ -14,9 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.error;
+package com.helger.commons.error.level;
 
 import javax.annotation.Nonnull;
+
+import com.helger.commons.state.IErrorIndicator;
+import com.helger.commons.state.ISuccessIndicator;
 
 /**
  * Interface representing an object having an error level.
@@ -24,11 +27,31 @@ import javax.annotation.Nonnull;
  * @author Philip Helger
  */
 @FunctionalInterface
-public interface IHasErrorLevel
+public interface IHasErrorLevel extends ISuccessIndicator, IErrorIndicator
 {
   /**
    * @return The error level of this object. May not be <code>null</code>.
    */
   @Nonnull
   IErrorLevel getErrorLevel ();
+
+  default boolean isSuccess ()
+  {
+    return getErrorLevel ().isSuccess ();
+  }
+
+  default boolean isFailure ()
+  {
+    return getErrorLevel ().isFailure ();
+  }
+
+  default boolean isError ()
+  {
+    return getErrorLevel ().isError ();
+  }
+
+  default boolean isNoError ()
+  {
+    return getErrorLevel ().isNoError ();
+  }
 }

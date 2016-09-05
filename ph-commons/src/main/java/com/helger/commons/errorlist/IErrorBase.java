@@ -19,12 +19,11 @@ package com.helger.commons.errorlist;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.error.IHasErrorID;
-import com.helger.commons.error.IHasSeverity;
-import com.helger.commons.error.IResourceLocation;
-import com.helger.commons.error.ResourceLocation;
-import com.helger.commons.string.StringHelper;
+import com.helger.commons.error.field.IHasErrorField;
+import com.helger.commons.error.id.IHasErrorID;
+import com.helger.commons.error.level.IHasErrorLevelComparable;
+import com.helger.commons.error.location.IResourceLocation;
+import com.helger.commons.error.location.ResourceLocation;
 
 /**
  * Base interface for single errors and resource errors.
@@ -33,7 +32,8 @@ import com.helger.commons.string.StringHelper;
  * @param <IMPLTYPE>
  *        Implementation type
  */
-public interface IErrorBase <IMPLTYPE extends IErrorBase <IMPLTYPE>> extends IHasSeverity <IMPLTYPE>, IHasErrorID
+public interface IErrorBase <IMPLTYPE extends IErrorBase <IMPLTYPE>>
+                            extends IHasErrorLevelComparable <IMPLTYPE>, IHasErrorID, IHasErrorField
 {
   /**
    * {@inheritDoc}
@@ -56,41 +56,9 @@ public interface IErrorBase <IMPLTYPE extends IErrorBase <IMPLTYPE>> extends IHa
   }
 
   /**
-   * @return <code>true</code> if a field name is present, <code>false</code>
-   *         otherwise
-   * @since 8.4.1
-   */
-  default boolean hasErrorFieldName ()
-  {
-    return StringHelper.hasText (getErrorFieldName ());
-  }
-
-  /**
-   * @return <code>true</code> if no field name is present, <code>false</code>
-   *         otherwise
-   * @since 8.4.1
-   */
-  default boolean hasNoErrorFieldName ()
-  {
-    return StringHelper.hasNoText (getErrorFieldName ());
-  }
-
-  /**
-   * Check if this error has the passed error field name,
-   *
-   * @param sErrorFieldName
-   *        The error field name to check. May be null.
-   * @return <code>true</code> if a field name is equal, <code>false</code>
-   *         otherwise
-   * @since 8.4.1
-   */
-  default boolean hasErrorFieldName (@Nullable final String sErrorFieldName)
-  {
-    return EqualsHelper.equals (getErrorFieldName (), sErrorFieldName);
-  }
-
-  /**
-   * @return The non-<code>null</code> location of the error.
+   * @return The non-<code>null</code> location of the error. Use
+   *         {@link ResourceLocation#NO_LOCATION} to indicate no location is
+   *         available.
    * @since 8.4.1
    */
   @Nonnull
@@ -101,7 +69,7 @@ public interface IErrorBase <IMPLTYPE extends IErrorBase <IMPLTYPE>> extends IHa
 
   /**
    * Check if a reasonable error location is present.
-   * 
+   *
    * @return <code>true</code> if location information is present,
    *         <code>false</code> otherwise.
    */

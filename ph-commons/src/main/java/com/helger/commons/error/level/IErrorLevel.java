@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.error;
+package com.helger.commons.error.level;
 
 import java.io.Serializable;
 
@@ -24,6 +24,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.id.IHasID;
+import com.helger.commons.severity.ISeverityComparable;
 import com.helger.commons.state.IErrorIndicator;
 import com.helger.commons.state.ISuccessIndicator;
 
