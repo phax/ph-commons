@@ -43,7 +43,7 @@ public interface IHasErrorField
 
   /**
    * @return The field for which the error occurred. May be <code>null</code>.
-   * @since 8.4.1
+   * @since 8.5.0
    */
   @Nullable
   String getErrorFieldName ();
@@ -61,7 +61,7 @@ public interface IHasErrorField
   /**
    * @return <code>true</code> if a field name is present, <code>false</code>
    *         otherwise
-   * @since 8.4.1
+   * @since 8.5.0
    */
   default boolean hasErrorFieldName ()
   {
@@ -71,7 +71,7 @@ public interface IHasErrorField
   /**
    * @return <code>true</code> if no field name is present, <code>false</code>
    *         otherwise
-   * @since 8.4.1
+   * @since 8.5.0
    */
   default boolean hasNoErrorFieldName ()
   {
@@ -85,7 +85,7 @@ public interface IHasErrorField
    *        The error field name to check. May be null.
    * @return <code>true</code> if a field name is equal, <code>false</code>
    *         otherwise
-   * @since 8.4.1
+   * @since 8.5.0
    */
   default boolean hasErrorFieldName (@Nullable final String sErrorFieldName)
   {

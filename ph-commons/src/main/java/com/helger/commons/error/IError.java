@@ -113,6 +113,17 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
   }
 
   /**
+   * @return The message of the linked exception or <code>null</code> if no such
+   *         exception is available.
+   */
+  @Nullable
+  default String getLinkedExceptionMessage ()
+  {
+    final Throwable t = getLinkedException ();
+    return t == null ? null : t.getMessage ();
+  }
+
+  /**
    * @return The stack trace of the linked exception or <code>null</code> if no
    *         such exception is available.
    */
@@ -121,6 +132,17 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
   {
     final Throwable t = getLinkedException ();
     return t == null ? null : t.getStackTrace ();
+  }
+
+  /**
+   * @return The cause of the linked exception or <code>null</code> if no such
+   *         exception is available.
+   */
+  @Nullable
+  default Throwable getLinkedExceptionCause ()
+  {
+    final Throwable t = getLinkedException ();
+    return t == null ? null : t.getCause ();
   }
 
   /**
