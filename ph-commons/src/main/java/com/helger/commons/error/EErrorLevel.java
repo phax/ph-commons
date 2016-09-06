@@ -27,6 +27,7 @@ import com.helger.commons.lang.EnumHelper;
  * Represents a generic error level.
  *
  * @author Philip Helger
+ * @deprecated Use {@link com.helger.commons.error.level.EErrorLevel} instead
  */
 @Deprecated
 public enum EErrorLevel implements IErrorLevel

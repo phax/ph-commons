@@ -20,6 +20,7 @@ package com.helger.commons.error;
  * Interface representing a single error level.
  *
  * @author Philip Helger
+ * @deprecated Use {@link com.helger.commons.error.level.IErrorLevel} instead.
  */
 @Deprecated
 public interface IErrorLevel extends com.helger.commons.error.level.IErrorLevel

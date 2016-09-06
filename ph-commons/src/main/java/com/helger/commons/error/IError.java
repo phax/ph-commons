@@ -33,12 +33,9 @@ import com.helger.commons.string.StringHelper;
  * Common interface for single errors and resource errors.
  *
  * @author Philip Helger
- * @param <IMPLTYPE>
- *        Implementation type
  * @since 8.4.1
  */
-public interface IError <IMPLTYPE extends IError <IMPLTYPE>>
-                        extends IHasErrorLevelComparable <IMPLTYPE>, IHasErrorID, IHasErrorField
+public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, IHasErrorField
 {
   /**
    * {@inheritDoc}
@@ -134,17 +131,23 @@ public interface IError <IMPLTYPE extends IError <IMPLTYPE>>
   @Nonempty
   default String getAsString (@Nonnull final Locale aDisplayLocale)
   {
-    String ret = "[" + getErrorLevel ().getID () + "] ";
+    // Error level
+    String ret = "[" + getErrorLevel ().getID () + "]";
 
-    // Location
+    // Error ID
+    final String sErrorID = getErrorID ();
+    if (StringHelper.hasText (sErrorID))
+      ret += "[" + sErrorID + "]";
+
+    // Location (including field)
     final IErrorLocation aLocation = getLocation ();
     if (aLocation.isAnyInformationPresent ())
-      ret += aLocation.getAsString () + ": ";
+      ret += " " + aLocation.getAsString () + ":";
 
     // Message
     final String sErrorText = getErrorText (aDisplayLocale);
     if (StringHelper.hasText (sErrorText))
-      ret += sErrorText;
+      ret += " " + sErrorText;
 
     // Linked exception
     final Throwable aLinkedEx = getLinkedException ();

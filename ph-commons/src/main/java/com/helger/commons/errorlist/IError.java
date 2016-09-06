@@ -28,7 +28,7 @@ import com.helger.commons.error.location.IErrorLocation;
  * @author Philip Helger
  */
 @Deprecated
-public interface IError extends com.helger.commons.error.IError <IError>
+public interface IError extends com.helger.commons.error.IError
 {
   /**
    * @return The error field name of this object as an {@link IErrorLocation} .
@@ -41,13 +41,6 @@ public interface IError extends com.helger.commons.error.IError <IError>
   {
     return getLocation ();
   }
-
-  /**
-   * @return The error field name of this object as an {@link IErrorLocation} .
-   *         Never <code>null</code>.
-   */
-  @Nonnull
-  IErrorLocation getLocation ();
 
   /**
    * @return The message of this form error. The error text is always locale

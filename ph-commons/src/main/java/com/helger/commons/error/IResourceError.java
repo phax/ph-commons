@@ -27,7 +27,7 @@ import com.helger.commons.text.display.IHasDisplayText;
  * @author Philip Helger
  */
 @Deprecated
-public interface IResourceError extends IHasDisplayText, IError <IResourceError>
+public interface IResourceError extends IHasDisplayText, IError
 {
   /* empty */
 }

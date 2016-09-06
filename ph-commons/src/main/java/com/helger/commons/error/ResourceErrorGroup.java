@@ -130,24 +130,6 @@ public class ResourceErrorGroup implements IResourceErrorGroup, ICloneable <Reso
   }
 
   @Nonnegative
-  public int getSuccessCount ()
-  {
-    return m_aErrors.getCount (IResourceError::isSuccess);
-  }
-
-  @Nonnegative
-  public int getFailureCount ()
-  {
-    return m_aErrors.getCount (IResourceError::isFailure);
-  }
-
-  @Nonnegative
-  public int getErrorCount ()
-  {
-    return m_aErrors.getCount (IResourceError::isError);
-  }
-
-  @Nonnegative
   public int getSize ()
   {
     return m_aErrors.size ();
