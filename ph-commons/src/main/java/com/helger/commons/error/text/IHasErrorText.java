@@ -9,9 +9,12 @@ import com.helger.commons.text.display.IHasDisplayText;
  *
  * @author Philip Helger
  */
-@FunctionalInterface
 @MustImplementEqualsAndHashcode
 public interface IHasErrorText extends IHasDisplayText
 {
-  /* empty */
+  /**
+   * @return <code>true</code> if the error text is multilingual,
+   *         <code>false</code> otherwise.
+   */
+  boolean isMultiLingual ();
 }

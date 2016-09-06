@@ -149,13 +149,13 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
    * Get the error as a string representation, including error ID, error
    * location, error text and the linked exception.
    *
-   * @param aDisplayLocale
+   * @param aContentLocale
    *        Locale to resolve the error text
    * @return The default string representation
    */
   @Nonnull
   @Nonempty
-  default String getAsString (@Nonnull final Locale aDisplayLocale)
+  default String getAsString (@Nonnull final Locale aContentLocale)
   {
     // Error level
     String ret = "[" + getErrorLevel ().getID () + "]";
@@ -168,22 +168,38 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
     // Error ID
     final String sErrorFieldName = getErrorFieldName ();
     if (StringHelper.hasText (sErrorFieldName))
-      ret += " in " + sErrorFieldName;
+    {
+      if (ret.length () > 0)
+        ret += " ";
+      ret += "in " + sErrorFieldName;
+    }
 
     // Location
     final IErrorLocation aLocation = getLocation ();
     if (aLocation.isAnyInformationPresent ())
-      ret += " @ " + aLocation.getAsString () + ":";
+    {
+      if (ret.length () > 0)
+        ret += " ";
+      ret += "@ " + aLocation.getAsString () + ":";
+    }
 
     // Message
-    final String sErrorText = getErrorText (aDisplayLocale);
+    final String sErrorText = getErrorText (aContentLocale);
     if (StringHelper.hasText (sErrorText))
-      ret += " " + sErrorText;
+    {
+      if (ret.length () > 0)
+        ret += " ";
+      ret += sErrorText;
+    }
 
     // Linked exception
     final Throwable aLinkedEx = getLinkedException ();
     if (aLinkedEx != null)
-      ret += " (" + aLinkedEx.getClass ().getName () + ": " + aLinkedEx.getMessage () + ")";
+    {
+      if (ret.length () > 0)
+        ret += " ";
+      ret += "(" + aLinkedEx.getClass ().getName () + ": " + aLinkedEx.getMessage () + ")";
+    }
     return ret;
   }
 }

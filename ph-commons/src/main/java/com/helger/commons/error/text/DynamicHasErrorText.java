@@ -35,6 +35,11 @@ public class DynamicHasErrorText implements IHasErrorText
     return m_aText.getText (aContentLocale);
   }
 
+  public boolean isMultiLingual ()
+  {
+    return true;
+  }
+
   @Override
   public boolean equals (final Object o)
   {

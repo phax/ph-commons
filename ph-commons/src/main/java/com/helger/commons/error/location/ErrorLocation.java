@@ -33,11 +33,16 @@ import com.helger.commons.string.ToStringGenerator;
 public class ErrorLocation implements IErrorLocation
 {
   /** A constant representing no location */
-  public static final ErrorLocation NO_LOCATION = new ErrorLocation (null, ILLEGAL_NUMBER, ILLEGAL_NUMBER);
+  public static final ErrorLocation NO_LOCATION = new ErrorLocation (null);
 
   private final String m_sResourceID;
   private final int m_nLineNumber;
   private final int m_nColumnNumber;
+
+  public ErrorLocation (@Nullable final String sResourceID)
+  {
+    this (sResourceID, ILLEGAL_NUMBER, ILLEGAL_NUMBER);
+  }
 
   public ErrorLocation (@Nullable final String sResourceID, final int nLineNumber, final int nColumnNumber)
   {

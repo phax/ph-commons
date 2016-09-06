@@ -32,6 +32,11 @@ public class ConstantHasErrorText implements IHasErrorText
     return m_sText;
   }
 
+  public boolean isMultiLingual ()
+  {
+    return false;
+  }
+
   @Override
   public boolean equals (final Object o)
   {
@@ -53,5 +58,12 @@ public class ConstantHasErrorText implements IHasErrorText
   public String toString ()
   {
     return new ToStringGenerator (null).append ("Text", m_sText).toString ();
+  }
+
+  @Nullable
+  public static ConstantHasErrorText createOnDemand (@Nullable final String sErrorText)
+  {
+    // Empty error text is remembered
+    return sErrorText == null ? null : new ConstantHasErrorText (sErrorText);
   }
 }

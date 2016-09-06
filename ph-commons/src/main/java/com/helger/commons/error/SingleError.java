@@ -226,13 +226,26 @@ public class SingleError implements IError
     @Nonnull
     public IMPLTYPE setErrorText (@Nullable final String sErrorText)
     {
-      return setErrorText (sErrorText == null ? null : new ConstantHasErrorText (sErrorText));
+      return setErrorText (ConstantHasErrorText.createOnDemand (sErrorText));
     }
 
     @Nonnull
     public IMPLTYPE setErrorText (@Nullable final IMultilingualText aMLT)
     {
-      return setErrorText (aMLT == null ? null : new DynamicHasErrorText (aMLT));
+      if (aMLT == null)
+        m_aErrorText = null;
+      else
+        if (aMLT.getSize () == 1)
+        {
+          // If the multilingual text contains only a single locale, use it as a
+          // constant value
+          // If you don't like this behavior directly call #setErrorText with a
+          // DynamicHasErrorText
+          m_aErrorText = ConstantHasErrorText.createOnDemand (aMLT.getAllTexts ().getFirstValue ());
+        }
+        else
+          m_aErrorText = new DynamicHasErrorText (aMLT);
+      return thisAsT ();
     }
 
     @Nonnull

@@ -32,7 +32,7 @@ public final class ErrorLocationTest
   @Test
   public void testBasic ()
   {
-    ErrorLocation re = new ErrorLocation ("xx", -1, -1);
+    ErrorLocation re = new ErrorLocation ("xx");
     assertEquals ("xx", re.getResourceID ());
     assertEquals (IErrorLocation.ILLEGAL_NUMBER, re.getLineNumber ());
     assertEquals (IErrorLocation.ILLEGAL_NUMBER, re.getColumnNumber ());
@@ -50,10 +50,10 @@ public final class ErrorLocationTest
     assertEquals (7, re.getColumnNumber ());
     assertEquals ("xx(5:7)", re.getAsString ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ErrorLocation ("xx", -1, -1),
-                                                                       new ErrorLocation ("xx", -1, -1));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ErrorLocation ("xx", -1, -1),
-                                                                           new ErrorLocation ("xx2", -1, -1));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ErrorLocation ("xx"),
+                                                                       new ErrorLocation ("xx"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ErrorLocation ("xx"),
+                                                                           new ErrorLocation ("xx2"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ErrorLocation ("xx", 0, 1),
                                                                            new ErrorLocation ("xx", 1, 1));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ErrorLocation ("xx", 0, 1),
