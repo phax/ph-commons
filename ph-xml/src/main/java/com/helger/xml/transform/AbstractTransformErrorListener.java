@@ -22,12 +22,12 @@ import javax.xml.transform.ErrorListener;
 import javax.xml.transform.SourceLocator;
 import javax.xml.transform.TransformerException;
 
-import com.helger.commons.error.EErrorLevel;
-import com.helger.commons.error.IErrorLevel;
 import com.helger.commons.error.IResourceError;
-import com.helger.commons.error.IResourceLocation;
 import com.helger.commons.error.ResourceError;
-import com.helger.commons.error.ResourceLocation;
+import com.helger.commons.error.level.EErrorLevel;
+import com.helger.commons.error.level.IErrorLevel;
+import com.helger.commons.error.location.ErrorLocation;
+import com.helger.commons.error.location.IErrorLocation;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.text.display.IHasDisplayText;
@@ -66,12 +66,16 @@ public abstract class AbstractTransformErrorListener implements ErrorListener
                                              @Nonnull final IHasDisplayText aErrorMsg)
   {
     final SourceLocator aLocator = ex.getLocator ();
-    final IResourceLocation aLocation = aLocator != null ? new ResourceLocation (StringHelper.getConcatenatedOnDemand (aLocator.getPublicId (),
-                                                                                                                       "/",
-                                                                                                                       aLocator.getSystemId ()),
-                                                                                 aLocator.getLineNumber (),
-                                                                                 aLocator.getColumnNumber ())
-                                                         : new ResourceLocation (ex.getLocationAsString ());
+    final IErrorLocation aLocation = aLocator != null ? new ErrorLocation (StringHelper.getConcatenatedOnDemand (aLocator.getPublicId (),
+                                                                                                                 "/",
+                                                                                                                 aLocator.getSystemId ()),
+                                                                           aLocator.getLineNumber (),
+                                                                           aLocator.getColumnNumber (),
+                                                                           null)
+                                                      : new ErrorLocation (ex.getLocationAsString (),
+                                                                           IErrorLocation.ILLEGAL_NUMBER,
+                                                                           IErrorLocation.ILLEGAL_NUMBER,
+                                                                           null);
     return new ResourceError (aLocation, aErrorLevel, aErrorMsg, ex);
   }
 

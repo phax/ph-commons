@@ -30,12 +30,12 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 
 import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.error.EErrorLevel;
-import com.helger.commons.error.IErrorLevel;
 import com.helger.commons.error.IResourceError;
-import com.helger.commons.error.IResourceLocation;
 import com.helger.commons.error.ResourceError;
-import com.helger.commons.error.ResourceLocation;
+import com.helger.commons.error.level.EErrorLevel;
+import com.helger.commons.error.level.IErrorLevel;
+import com.helger.commons.error.location.ErrorLocation;
+import com.helger.commons.error.location.IErrorLocation;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.xml.serialize.write.XMLWriter;
 
@@ -155,11 +155,12 @@ public abstract class AbstractValidationEventHandler implements ValidationEventH
 
     // call our callback
     final ValidationEventLocator aLocator = aEvent.getLocator ();
-    final IResourceLocation aLocation = new ResourceLocation (getLocationResourceID (aLocator),
-                                                              aLocator != null ? aLocator.getLineNumber ()
-                                                                               : IResourceLocation.ILLEGAL_NUMBER,
-                                                              aLocator != null ? aLocator.getColumnNumber ()
-                                                                               : IResourceLocation.ILLEGAL_NUMBER);
+    final IErrorLocation aLocation = new ErrorLocation (getLocationResourceID (aLocator),
+                                                        aLocator != null ? aLocator.getLineNumber ()
+                                                                         : IErrorLocation.ILLEGAL_NUMBER,
+                                                        aLocator != null ? aLocator.getColumnNumber ()
+                                                                         : IErrorLocation.ILLEGAL_NUMBER,
+                                                        null);
     // Message may be null in some cases (e.g. when a linked exception is
     // present), but is not allowed to be null!
     String sMsg = aEvent.getMessage ();

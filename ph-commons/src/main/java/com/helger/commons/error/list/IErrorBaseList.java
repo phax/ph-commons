@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import com.helger.commons.error.IError;
 import com.helger.commons.error.level.IHasErrorLevels;
-import com.helger.commons.lang.IHasSize;
 
 /**
  * Base list
@@ -13,6 +12,5 @@ import com.helger.commons.lang.IHasSize;
  * @param <IMPLTYPE>
  *        Implementation type
  */
-public interface IErrorBaseList <IMPLTYPE extends IError <IMPLTYPE>>
-                                extends IHasErrorLevels <IMPLTYPE>, IHasSize, Serializable
+public interface IErrorBaseList <IMPLTYPE extends IError <IMPLTYPE>> extends IHasErrorLevels <IMPLTYPE>, Serializable
 {}

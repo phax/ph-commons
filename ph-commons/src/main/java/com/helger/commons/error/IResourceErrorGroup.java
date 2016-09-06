@@ -23,8 +23,8 @@ import javax.annotation.Nonnull;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.error.level.EErrorLevel;
-import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.error.list.IErrorBaseList;
+import com.helger.commons.lang.IHasSize;
 
 /**
  * Contains a list of resource errors and some sanity access methods.
@@ -32,70 +32,8 @@ import com.helger.commons.error.list.IErrorBaseList;
  * @author Philip Helger
  */
 @Deprecated
-public interface IResourceErrorGroup extends IErrorBaseList <IResourceError>
+public interface IResourceErrorGroup extends IErrorBaseList <IResourceError>, IHasSize
 {
-  @Nonnull
-  default IErrorLevel getMostSevereErrorLevel ()
-  {
-    IErrorLevel aRet = EErrorLevel.SUCCESS;
-    for (final IResourceError aError : this)
-    {
-      final IErrorLevel aCur = aError.getErrorLevel ();
-      if (aCur.isMoreSevereThan (aRet))
-      {
-        aRet = aCur;
-        if (aRet.isHighest ())
-          break;
-      }
-    }
-    return aRet;
-  }
-
-  default boolean containsOnlySuccess ()
-  {
-    return containsOnly (IResourceError::isSuccess);
-  }
-
-  default boolean containsAtLeastOneSuccess ()
-  {
-    return containsAny (IResourceError::isSuccess);
-  }
-
-  default boolean containsNoSuccess ()
-  {
-    return containsNone (IResourceError::isSuccess);
-  }
-
-  default boolean containsOnlyFailure ()
-  {
-    return containsOnly (IResourceError::isFailure);
-  }
-
-  default boolean containsAtLeastOneFailure ()
-  {
-    return containsAny (IResourceError::isFailure);
-  }
-
-  default boolean containsNoFailure ()
-  {
-    return containsNone (IResourceError::isFailure);
-  }
-
-  default boolean containsOnlyError ()
-  {
-    return containsOnly (IResourceError::isError);
-  }
-
-  default boolean containsAtLeastOneError ()
-  {
-    return containsAny (IResourceError::isError);
-  }
-
-  default boolean containsNoError ()
-  {
-    return containsNone (IResourceError::isError);
-  }
-
   /**
    * Get a resource error group containing only the failure elements. All error
    * levels except {@link EErrorLevel#SUCCESS} are considered to be a failure!

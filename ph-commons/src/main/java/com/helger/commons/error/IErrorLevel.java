@@ -14,29 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.xml.sax;
-
-import javax.annotation.Nonnull;
-import javax.annotation.concurrent.Immutable;
-
-import org.xml.sax.SAXParseException;
-
-import com.helger.commons.error.level.IErrorLevel;
+package com.helger.commons.error;
 
 /**
- * java.xml error handler that ignores all errors.
+ * Interface representing a single error level.
  *
  * @author Philip Helger
  */
-@Immutable
-public class DoNothingSAXErrorHandler extends AbstractSAXErrorHandler
-{
-  public DoNothingSAXErrorHandler ()
-  {}
-
-  @Override
-  protected void internalLog (@Nonnull final IErrorLevel aErrorLevel, final SAXParseException aException)
-  {
-    // do nothing
-  }
-}
+@Deprecated
+public interface IErrorLevel extends com.helger.commons.error.level.IErrorLevel
+{}

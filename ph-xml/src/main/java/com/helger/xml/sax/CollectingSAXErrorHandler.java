@@ -26,10 +26,10 @@ import org.xml.sax.SAXParseException;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
-import com.helger.commons.error.IErrorLevel;
 import com.helger.commons.error.IHasResourceErrorGroup;
 import com.helger.commons.error.IResourceErrorGroup;
 import com.helger.commons.error.ResourceErrorGroup;
+import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 

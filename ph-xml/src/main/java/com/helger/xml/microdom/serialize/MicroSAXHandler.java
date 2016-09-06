@@ -37,8 +37,8 @@ import org.xml.sax.ext.LexicalHandler;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.error.EErrorLevel;
-import com.helger.commons.error.IErrorLevel;
+import com.helger.commons.error.level.EErrorLevel;
+import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.string.StringHelper;
 import com.helger.xml.CXML;
 import com.helger.xml.microdom.IMicroCDATA;

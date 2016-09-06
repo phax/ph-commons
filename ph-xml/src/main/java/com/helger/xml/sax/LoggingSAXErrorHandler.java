@@ -29,7 +29,7 @@ import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.error.IErrorLevel;
+import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.log.LogHelper;
 
 /**

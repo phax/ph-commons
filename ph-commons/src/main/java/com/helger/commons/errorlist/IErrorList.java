@@ -24,6 +24,7 @@ import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.multimap.IMultiMapListBased;
 import com.helger.commons.collection.multimap.MultiLinkedHashMapArrayListBased;
 import com.helger.commons.error.list.IErrorBaseList;
+import com.helger.commons.lang.IHasSize;
 
 /**
  * A simple read only form error list interface. For a field specific list look
@@ -32,7 +33,7 @@ import com.helger.commons.error.list.IErrorBaseList;
  * @author Philip Helger
  */
 @Deprecated
-public interface IErrorList extends IErrorBaseList <IError>, IFieldErrorList
+public interface IErrorList extends IErrorBaseList <IError>, IFieldErrorList, IHasSize
 {
   /**
    * @return The number of contained items. Always &ge; 0.

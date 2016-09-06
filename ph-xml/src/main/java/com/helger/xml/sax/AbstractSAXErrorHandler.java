@@ -23,12 +23,12 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
-import com.helger.commons.error.EErrorLevel;
-import com.helger.commons.error.IErrorLevel;
 import com.helger.commons.error.IResourceError;
-import com.helger.commons.error.IResourceLocation;
 import com.helger.commons.error.ResourceError;
-import com.helger.commons.error.ResourceLocation;
+import com.helger.commons.error.level.EErrorLevel;
+import com.helger.commons.error.level.IErrorLevel;
+import com.helger.commons.error.location.ErrorLocation;
+import com.helger.commons.error.location.IErrorLocation;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -84,7 +84,7 @@ public abstract class AbstractSAXErrorHandler implements ErrorHandler
                                                  @Nonnull final SAXParseException ex)
   {
     final String sResourceID = StringHelper.getConcatenatedOnDemand (ex.getPublicId (), "/", ex.getSystemId ());
-    final IResourceLocation aLocation = new ResourceLocation (sResourceID, ex.getLineNumber (), ex.getColumnNumber ());
+    final IErrorLocation aLocation = new ErrorLocation (sResourceID, ex.getLineNumber (), ex.getColumnNumber (), null);
     return new ResourceError (aLocation, aErrorLevel, "[SAX] " + ex.getMessage ());
   }
 
