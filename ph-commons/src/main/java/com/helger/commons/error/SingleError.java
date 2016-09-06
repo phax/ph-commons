@@ -19,6 +19,7 @@ import com.helger.commons.error.text.IHasErrorText;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.text.IMultilingualText;
+import com.helger.commons.traits.IGenericImplTrait;
 
 /**
  * Default implementation of {@link IError}.
@@ -172,11 +173,16 @@ public class SingleError implements IError
   }
 
   /**
-   * Builder class for {@link SingleError} instances
+   * Abstract builder class for {@link SingleError} and derived classes.
    *
    * @author Philip Helger
+   * @param <T>
+   *        Result type
+   * @param <IMPLTYPE>
+   *        Implementation type
    */
-  public static class Builder
+  public abstract static class AbstractBuilder <T extends SingleError, IMPLTYPE extends AbstractBuilder <T, IMPLTYPE>>
+                                               implements IGenericImplTrait <IMPLTYPE>
   {
     protected IErrorLevel m_aErrorLevel = EErrorLevel.ERROR;
     protected String m_sErrorID;
@@ -185,64 +191,71 @@ public class SingleError implements IError
     protected IHasErrorText m_aErrorText;
     protected Throwable m_aLinkedException;
 
-    public Builder ()
+    public AbstractBuilder ()
     {}
 
     @Nonnull
-    public Builder setErrorLevel (@Nonnull final IErrorLevel aErrorLevel)
+    public IMPLTYPE setErrorLevel (@Nonnull final IErrorLevel aErrorLevel)
     {
       ValueEnforcer.notNull (aErrorLevel, "ErrorLevel");
       m_aErrorLevel = aErrorLevel;
-      return this;
+      return thisAsT ();
     }
 
     @Nonnull
-    public Builder setErrorID (@Nullable final String sErrorID)
+    public IMPLTYPE setErrorID (@Nullable final String sErrorID)
     {
       m_sErrorID = sErrorID;
-      return this;
+      return thisAsT ();
     }
 
     @Nonnull
-    public Builder setErrorFieldName (@Nullable final String sErrorFieldName)
+    public IMPLTYPE setErrorFieldName (@Nullable final String sErrorFieldName)
     {
       m_sErrorFieldName = sErrorFieldName;
-      return this;
+      return thisAsT ();
     }
 
     @Nonnull
-    public Builder setErrorLocation (@Nullable final IErrorLocation aErrorLocation)
+    public IMPLTYPE setErrorLocation (@Nullable final IErrorLocation aErrorLocation)
     {
       m_aErrorLocation = aErrorLocation;
-      return this;
+      return thisAsT ();
     }
 
     @Nonnull
-    public Builder setErrorText (@Nullable final String sErrorText)
+    public IMPLTYPE setErrorText (@Nullable final String sErrorText)
     {
       return setErrorText (sErrorText == null ? null : new ConstantHasErrorText (sErrorText));
     }
 
     @Nonnull
-    public Builder setErrorText (@Nullable final IMultilingualText aMLT)
+    public IMPLTYPE setErrorText (@Nullable final IMultilingualText aMLT)
     {
       return setErrorText (aMLT == null ? null : new DynamicHasErrorText (aMLT));
     }
 
     @Nonnull
-    public Builder setErrorText (@Nullable final IHasErrorText aErrorText)
+    public IMPLTYPE setErrorText (@Nullable final IHasErrorText aErrorText)
     {
       m_aErrorText = aErrorText;
-      return this;
+      return thisAsT ();
     }
 
     @Nonnull
-    public Builder setLinkedException (@Nullable final Throwable aLinkedException)
+    public IMPLTYPE setLinkedException (@Nullable final Throwable aLinkedException)
     {
       m_aLinkedException = aLinkedException;
-      return this;
+      return thisAsT ();
     }
 
+    @Nonnull
+    public abstract T build ();
+  }
+
+  public static final class SingleErrorBuilder extends AbstractBuilder <SingleError, SingleErrorBuilder>
+  {
+    @Override
     @Nonnull
     public SingleError build ()
     {
@@ -259,9 +272,9 @@ public class SingleError implements IError
    * @return A new Error builder. Never <code>null</code>.
    */
   @Nonnull
-  public static Builder builder ()
+  public static SingleErrorBuilder builder ()
   {
-    return new Builder ();
+    return new SingleErrorBuilder ();
   }
 
   /**
@@ -269,7 +282,7 @@ public class SingleError implements IError
    *         {@link EErrorLevel#SUCCESS}. Never <code>null</code>.
    */
   @Nonnull
-  public static Builder builderSuccess ()
+  public static SingleErrorBuilder builderSuccess ()
   {
     return builder ().setErrorLevel (EErrorLevel.SUCCESS);
   }
@@ -279,7 +292,7 @@ public class SingleError implements IError
    *         {@link EErrorLevel#INFO}. Never <code>null</code>.
    */
   @Nonnull
-  public static Builder builderInfo ()
+  public static SingleErrorBuilder builderInfo ()
   {
     return builder ().setErrorLevel (EErrorLevel.INFO);
   }
@@ -289,7 +302,7 @@ public class SingleError implements IError
    *         {@link EErrorLevel#WARN}. Never <code>null</code>.
    */
   @Nonnull
-  public static Builder builderWarn ()
+  public static SingleErrorBuilder builderWarn ()
   {
     return builder ().setErrorLevel (EErrorLevel.WARN);
   }
@@ -299,7 +312,7 @@ public class SingleError implements IError
    *         {@link EErrorLevel#ERROR}. Never <code>null</code>.
    */
   @Nonnull
-  public static Builder builderError ()
+  public static SingleErrorBuilder builderError ()
   {
     return builder ().setErrorLevel (EErrorLevel.ERROR);
   }
@@ -309,7 +322,7 @@ public class SingleError implements IError
    *         {@link EErrorLevel#FATAL_ERROR}. Never <code>null</code>.
    */
   @Nonnull
-  public static Builder builderFatalError ()
+  public static SingleErrorBuilder builderFatalError ()
   {
     return builder ().setErrorLevel (EErrorLevel.FATAL_ERROR);
   }

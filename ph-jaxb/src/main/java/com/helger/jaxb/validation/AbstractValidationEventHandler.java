@@ -32,6 +32,7 @@ import org.w3c.dom.Node;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.error.IError;
 import com.helger.commons.error.SingleError;
+import com.helger.commons.error.SingleError.SingleErrorBuilder;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.error.location.ErrorLocation;
@@ -168,7 +169,7 @@ public abstract class AbstractValidationEventHandler implements ValidationEventH
   public final boolean handleEvent (@Nonnull final ValidationEvent aEvent)
   {
     final IErrorLevel aErrorLevel = getErrorLevel (aEvent.getSeverity ());
-    final SingleError.Builder aErrBuilder = SingleError.builder ().setErrorLevel (aErrorLevel);
+    final SingleErrorBuilder aErrBuilder = SingleError.builder ().setErrorLevel (aErrorLevel);
 
     final ValidationEventLocator aLocator = aEvent.getLocator ();
     aErrBuilder.setErrorLocation (new ErrorLocation (getLocationResourceID (aLocator),
