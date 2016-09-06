@@ -33,7 +33,7 @@ import com.helger.commons.lang.IHasSize;
  * @author Philip Helger
  */
 @Deprecated
-public interface IErrorList extends IErrorBaseList <IError>, IFieldErrorList, IHasSize
+public interface IErrorList extends IErrorBaseList <IError>, IFieldErrorList <IError>, IHasSize
 {
   /**
    * @return The number of contained items. Always &ge; 0.

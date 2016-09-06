@@ -16,24 +16,18 @@
  */
 package com.helger.commons.errorlist;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.annotation.RegEx;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.collection.multimap.IMultiMapListBased;
-import com.helger.commons.error.level.EErrorLevel;
-import com.helger.commons.error.level.IErrorLevel;
-import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.state.EChange;
-import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.error.IError;
+import com.helger.commons.error.SingleError;
+import com.helger.commons.error.list.ErrorList;
 
 /**
  * Handles form field specific and form global error messages centrally.
@@ -41,24 +35,10 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class FormErrors implements Serializable, IFieldErrorList <IError>
+public class FormErrors extends ErrorList
 {
-  private final ErrorList m_aFormGlobalErrs = new ErrorList ();
-  private final ErrorList m_aFormFieldErrs = new ErrorList ();
-
   public FormErrors ()
   {}
-
-  public void addAll (@Nullable final FormErrors aOther)
-  {
-    if (aOther != null)
-    {
-      for (final IError aFormError : aOther.m_aFormGlobalErrs)
-        addGlobalItem (aFormError);
-      for (final IError aFormFieldError : aOther.m_aFormFieldErrs)
-        addFieldItem (aFormFieldError);
-    }
-  }
 
   /**
    * Add a form-global item
@@ -66,11 +46,9 @@ public class FormErrors implements Serializable, IFieldErrorList <IError>
    * @param aFormError
    *        The form error object to add. May not be <code>null</code>.
    */
+  @Deprecated
   public void addGlobalItem (@Nonnull final IError aFormError)
-  {
-    ValueEnforcer.notNull (aFormError, "FormError");
-    m_aFormGlobalErrs.add (aFormError);
-  }
+  {}
 
   /**
    * Add a form-global information
@@ -78,10 +56,9 @@ public class FormErrors implements Serializable, IFieldErrorList <IError>
    * @param sText
    *        The text to use. May neither be <code>null</code> nor empty.
    */
+  @Deprecated
   public void addGlobalInfo (@Nonnull @Nonempty final String sText)
-  {
-    addGlobalItem (SingleError.createInfo (sText));
-  }
+  {}
 
   /**
    * Add a form-global warning
@@ -89,10 +66,9 @@ public class FormErrors implements Serializable, IFieldErrorList <IError>
    * @param sText
    *        The text to use. May neither be <code>null</code> nor empty.
    */
+  @Deprecated
   public void addGlobalWarning (@Nonnull @Nonempty final String sText)
-  {
-    addGlobalItem (SingleError.createWarning (sText));
-  }
+  {}
 
   /**
    * Add a form-global error
@@ -100,10 +76,9 @@ public class FormErrors implements Serializable, IFieldErrorList <IError>
    * @param sText
    *        The text to use. May neither be <code>null</code> nor empty.
    */
+  @Deprecated
   public void addGlobalError (@Nonnull @Nonempty final String sText)
-  {
-    addGlobalItem (SingleError.createError (sText));
-  }
+  {}
 
   /**
    * Add a form field specific item
@@ -111,10 +86,10 @@ public class FormErrors implements Serializable, IFieldErrorList <IError>
    * @param aFormFieldError
    *        The form field error object to add. May not be <code>null</code>.
    */
+  @Deprecated
   public void addFieldItem (@Nonnull final IError aFormFieldError)
   {
-    ValueEnforcer.notNull (aFormFieldError, "FormFieldError");
-    m_aFormFieldErrs.add (aFormFieldError);
+    add (aFormFieldError);
   }
 
   /**
@@ -128,7 +103,7 @@ public class FormErrors implements Serializable, IFieldErrorList <IError>
    */
   public void addFieldInfo (@Nonnull @Nonempty final String sFieldName, @Nonnull @Nonempty final String sText)
   {
-    addFieldItem (SingleError.createInfo (sFieldName, sText));
+    add (SingleError.builderInfo ().setErrorFieldName (sFieldName).setErrorText (sText).build ());
   }
 
   /**
@@ -142,7 +117,7 @@ public class FormErrors implements Serializable, IFieldErrorList <IError>
    */
   public void addFieldWarning (@Nonnull @Nonempty final String sFieldName, @Nonnull @Nonempty final String sText)
   {
-    addFieldItem (SingleError.createWarning (sFieldName, sText));
+    add (SingleError.builderWarn ().setErrorFieldName (sFieldName).setErrorText (sText).build ());
   }
 
   /**
@@ -156,7 +131,7 @@ public class FormErrors implements Serializable, IFieldErrorList <IError>
    */
   public void addFieldError (@Nonnull @Nonempty final String sFieldName, @Nonnull @Nonempty final String sText)
   {
-    addFieldItem (SingleError.createError (sFieldName, sText));
+    add (SingleError.builderError ().setErrorFieldName (sFieldName).setErrorText (sText).build ());
   }
 
   /**
@@ -176,58 +151,41 @@ public class FormErrors implements Serializable, IFieldErrorList <IError>
   }
 
   /**
-   * Check if no message is contained overall.
-   *
-   * @return <code>true</code> if neither a form-global nor a form-field
-   *         specific message is present, <code>false</code> otherwise.
-   */
-  public boolean isEmpty ()
-  {
-    return m_aFormGlobalErrs.isEmpty () && m_aFormFieldErrs.isEmpty ();
-  }
-
-  /**
    * @return <code>true</code> if form-global errors or warnings are present.
    */
+  @Deprecated
   public boolean hasGlobalErrorsOrWarnings ()
   {
-    return m_aFormGlobalErrs.containsAtLeastOneWarningOrError ();
+    return false;
   }
 
   /**
    * @return <code>true</code> if form-field errors or warnings are present.
    */
+  @Deprecated
   public boolean hasFormFieldErrorsOrWarnings ()
   {
-    return m_aFormFieldErrs.containsAtLeastOneWarningOrError ();
-  }
-
-  /**
-   * @return <code>true</code> if form-global OR form-field errors or warnings
-   *         are present.
-   */
-  public boolean containsAtLeastOneWarningOrError ()
-  {
-    return m_aFormGlobalErrs.containsAtLeastOneWarningOrError () ||
-           m_aFormFieldErrs.containsAtLeastOneWarningOrError ();
+    return containsAtLeastOneWarningOrError ();
   }
 
   /**
    * @return The number of global items. Always &ge; 0.
    */
   @Nonnegative
+  @Deprecated
   public int getGlobalItemCount ()
   {
-    return m_aFormGlobalErrs.getSize ();
+    return 0;
   }
 
   /**
    * @return The number of form-field-specific items. Always &ge; 0.
    */
   @Nonnegative
+  @Deprecated
   public int getFieldItemCount ()
   {
-    return m_aFormFieldErrs.getSize ();
+    return getSize ();
   }
 
   /**
@@ -237,23 +195,10 @@ public class FormErrors implements Serializable, IFieldErrorList <IError>
    * @return The total item count. Always &ge; 0.
    */
   @Nonnegative
+  @Deprecated
   public int getItemCount ()
   {
-    return m_aFormGlobalErrs.getSize () + m_aFormFieldErrs.getSize ();
-  }
-
-  /**
-   * Get the most severe error level that was recorded. This considers
-   * form-global and form-field-specific messages.
-   *
-   * @return Never <code>null</code>.
-   */
-  @Nonnull
-  public IErrorLevel getMostSevereErrorLevel ()
-  {
-    final IErrorLevel ret = m_aFormGlobalErrs.getMostSevereErrorLevel ();
-    final IErrorLevel ret2 = m_aFormFieldErrs.getMostSevereErrorLevel ();
-    return ret.isMoreSevereThan (ret2) ? ret : ret2;
+    return getSize ();
   }
 
   /**
@@ -261,9 +206,10 @@ public class FormErrors implements Serializable, IFieldErrorList <IError>
    */
   @Nonnull
   @ReturnsMutableCopy
+  @Deprecated
   public ICommonsList <IError> getAllGlobalItems ()
   {
-    return m_aFormGlobalErrs.getAllItems ();
+    return new CommonsArrayList<> ();
   }
 
   /**
@@ -271,153 +217,9 @@ public class FormErrors implements Serializable, IFieldErrorList <IError>
    */
   @Nonnull
   @ReturnsMutableCopy
+  @Deprecated
   public ICommonsList <String> getAllGlobalItemTexts ()
   {
-    return m_aFormGlobalErrs.getAllItemTexts ();
-  }
-
-  public boolean hasNoEntryForField (@Nullable final String sSearchFieldName)
-  {
-    return m_aFormFieldErrs.hasNoEntryForField (sSearchFieldName);
-  }
-
-  public boolean hasNoEntryForFields (@Nullable final String... aSearchFieldNames)
-  {
-    return m_aFormFieldErrs.hasNoEntryForFields (aSearchFieldNames);
-  }
-
-  public boolean hasEntryForField (@Nullable final String sSearchFieldName)
-  {
-    return m_aFormFieldErrs.hasEntryForField (sSearchFieldName);
-  }
-
-  public boolean hasEntryForFields (@Nullable final String... aSearchFieldName)
-  {
-    return m_aFormFieldErrs.hasEntryForFields (aSearchFieldName);
-  }
-
-  public boolean hasEntryForField (@Nullable final String sSearchFieldName, @Nullable final IErrorLevel aErrorLevel)
-  {
-    return m_aFormFieldErrs.hasEntryForField (sSearchFieldName, aErrorLevel);
-  }
-
-  public boolean hasErrorForField (@Nullable final String sSearchFieldName)
-  {
-    return hasEntryForField (sSearchFieldName, EErrorLevel.ERROR);
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public IErrorList getListOfField (@Nullable final String sSearchFieldName)
-  {
-    return m_aFormFieldErrs.getListOfField (sSearchFieldName);
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public IErrorList getListOfFields (@Nullable final String... aSearchFieldNames)
-  {
-    return m_aFormFieldErrs.getListOfFields (aSearchFieldNames);
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public IErrorList getListOfFieldsStartingWith (@Nullable final String... aSearchFieldNames)
-  {
-    return m_aFormFieldErrs.getListOfFieldsStartingWith (aSearchFieldNames);
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public IErrorList getListOfFieldsRegExp (@Nonnull @Nonempty @RegEx final String sRegExp)
-  {
-    return m_aFormFieldErrs.getListOfFieldsRegExp (sRegExp);
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public ICommonsList <String> getAllItemTextsOfField (@Nullable final String sSearchFieldName)
-  {
-    return m_aFormFieldErrs.getAllItemTextsOfField (sSearchFieldName);
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public ICommonsList <String> getAllItemTextsOfFields (@Nullable final String... aSearchFieldNames)
-  {
-    return m_aFormFieldErrs.getAllItemTextsOfFields (aSearchFieldNames);
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public ICommonsList <String> getAllItemTextsOfFieldsStartingWith (@Nullable final String... aSearchFieldNames)
-  {
-    return m_aFormFieldErrs.getAllItemTextsOfFieldsStartingWith (aSearchFieldNames);
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public ICommonsList <String> getAllItemTextsOfFieldsRegExp (@Nonnull @Nonempty @RegEx final String sRegExp)
-  {
-    return m_aFormFieldErrs.getAllItemTextsOfFieldsRegExp (sRegExp);
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public ICommonsList <IError> getAllFieldItems ()
-  {
-    return m_aFormFieldErrs.getAllItems ();
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public ICommonsList <String> getAllFieldItemTexts ()
-  {
-    return m_aFormFieldErrs.getAllItemTexts ();
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public IMultiMapListBased <String, IError> getGroupedByFieldName ()
-  {
-    return m_aFormFieldErrs.getGroupedByFieldName ();
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public IMultiMapListBased <String, IError> getGroupedByID ()
-  {
-    return m_aFormFieldErrs.getGroupedByID ();
-  }
-
-  @Nonnull
-  public EChange clear ()
-  {
-    return m_aFormGlobalErrs.clear ().or (m_aFormFieldErrs.clear ());
-  }
-
-  @Override
-  public boolean equals (final Object o)
-  {
-    if (o == this)
-      return true;
-    if (o == null || !getClass ().equals (o.getClass ()))
-      return false;
-    final FormErrors rhs = (FormErrors) o;
-    return m_aFormGlobalErrs.equals (rhs.m_aFormGlobalErrs) && m_aFormFieldErrs.equals (rhs.m_aFormFieldErrs);
-  }
-
-  @Override
-  public int hashCode ()
-  {
-    return new HashCodeGenerator (this).append (m_aFormGlobalErrs).append (m_aFormFieldErrs).getHashCode ();
-  }
-
-  @Override
-  public String toString ()
-  {
-    return new ToStringGenerator (this).append ("formGlobalErrors", m_aFormGlobalErrs)
-                                       .append ("formFieldErrors", m_aFormFieldErrs)
-                                       .toString ();
+    return new CommonsArrayList<> ();
   }
 }

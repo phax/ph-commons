@@ -198,36 +198,59 @@ public class SingleError implements IError
     }
   }
 
+  /**
+   * @return A new Error builder. Never <code>null</code>.
+   */
   @Nonnull
   public static Builder builder ()
   {
     return new Builder ();
   }
 
+  /**
+   * @return A new Error builder with default error level
+   *         {@link EErrorLevel#SUCCESS}. Never <code>null</code>.
+   */
   @Nonnull
   public static Builder builderSuccess ()
   {
     return builder ().setErrorLevel (EErrorLevel.SUCCESS);
   }
 
+  /**
+   * @return A new Error builder with default error level
+   *         {@link EErrorLevel#INFO}. Never <code>null</code>.
+   */
   @Nonnull
   public static Builder builderInfo ()
   {
     return builder ().setErrorLevel (EErrorLevel.INFO);
   }
 
+  /**
+   * @return A new Error builder with default error level
+   *         {@link EErrorLevel#WARN}. Never <code>null</code>.
+   */
   @Nonnull
   public static Builder builderWarn ()
   {
     return builder ().setErrorLevel (EErrorLevel.WARN);
   }
 
+  /**
+   * @return A new Error builder with default error level
+   *         {@link EErrorLevel#ERROR}. Never <code>null</code>.
+   */
   @Nonnull
   public static Builder builderError ()
   {
     return builder ().setErrorLevel (EErrorLevel.ERROR);
   }
 
+  /**
+   * @return A new Error builder with default error level
+   *         {@link EErrorLevel#FATAL_ERROR}. Never <code>null</code>.
+   */
   @Nonnull
   public static Builder builderFatalError ()
   {

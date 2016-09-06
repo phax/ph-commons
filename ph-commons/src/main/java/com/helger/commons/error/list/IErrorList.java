@@ -94,6 +94,19 @@ public interface IErrorList extends IErrorBaseList <IError>, IHasSize
   }
 
   /**
+   * Check if any error entry for the specified field is present
+   *
+   * @param sSearchFieldName
+   *        The field name to search.
+   * @return <code>true</code> if an error entry for the specified field is
+   *         present
+   */
+  default boolean hasErrorForField (@Nullable final String sSearchFieldName)
+  {
+    return containsAny (x -> x.hasErrorFieldName (sSearchFieldName) && x.isError ());
+  }
+
+  /**
    * Check if any entry for the specified fields are present
    *
    * @param aSearchFieldNames

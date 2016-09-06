@@ -30,6 +30,8 @@ import com.helger.commons.error.level.IErrorLevel;
  * A subset of an error list containing only the methods relevant for fields
  *
  * @author Philip Helger
+ * @param <T>
+ *        error type
  */
 public interface IFieldErrorList <T extends com.helger.commons.error.IError>
 {
