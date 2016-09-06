@@ -1,7 +1,5 @@
 package com.helger.commons.error;
 
-import java.util.Locale;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -76,10 +74,9 @@ public class SingleError implements IError
   }
 
   @Nullable
-  public String getErrorText (@Nonnull final Locale aContentLocale)
+  public IHasErrorText getErrorText ()
   {
-    final IHasErrorText ret = m_aErrorText;
-    return ret == null ? null : ret.getDisplayText (aContentLocale);
+    return m_aErrorText;
   }
 
   @Nullable

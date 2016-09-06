@@ -28,6 +28,7 @@ import com.helger.commons.error.id.IHasErrorID;
 import com.helger.commons.error.level.IHasErrorLevelComparable;
 import com.helger.commons.error.location.ErrorLocation;
 import com.helger.commons.error.location.IErrorLocation;
+import com.helger.commons.error.text.IHasErrorText;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -60,6 +61,7 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
    * @return The non-<code>null</code> location of the error. Use
    *         {@link ErrorLocation#NO_LOCATION} to indicate no location is
    *         available.
+   * @see #hasLocation()
    */
   @Nonnull
   default IErrorLocation getLocation ()
@@ -72,10 +74,21 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
    *
    * @return <code>true</code> if location information is present,
    *         <code>false</code> otherwise.
+   * @see #getLocation()
    */
   default boolean hasLocation ()
   {
     return getLocation ().isAnyInformationPresent ();
+  }
+
+  /**
+   * @return The contained error message text. May be <code>null</code>.
+   * @see #getErrorText(Locale)
+   */
+  @Nullable
+  default IHasErrorText getErrorTexts ()
+  {
+    return null;
   }
 
   /**
@@ -86,16 +99,22 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
    *        multiple languages.
    * @return The message of this form error. May be <code>null</code> in case no
    *         error text is available or if the passed Locale is not supported.
+   * @see #getErrorTexts()
    */
   @Nullable
   default String getErrorText (@Nonnull final Locale aContentLocale)
   {
-    return null;
+    final IHasErrorText aErrorText = getErrorTexts ();
+    return aErrorText == null ? null : aErrorText.getDisplayText (aContentLocale);
   }
 
   /**
    * @return The linked exception or <code>null</code> if no such exception is
    *         available.
+   * @see #hasLinkedException()
+   * @see #getLinkedExceptionMessage()
+   * @see #getLinkedExceptionStackTrace()
+   * @see #getLinkedExceptionCause()
    */
   @Nullable
   default Throwable getLinkedException ()
@@ -106,6 +125,7 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
   /**
    * @return <code>true</code> if a linked exception is present,
    *         <code>false</code> if not.
+   * @see #getLinkedException()
    */
   default boolean hasLinkedException ()
   {
@@ -115,6 +135,7 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
   /**
    * @return The message of the linked exception or <code>null</code> if no such
    *         exception is available.
+   * @see #getLinkedException()
    */
   @Nullable
   default String getLinkedExceptionMessage ()
@@ -126,6 +147,7 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
   /**
    * @return The stack trace of the linked exception or <code>null</code> if no
    *         such exception is available.
+   * @see #getLinkedException()
    */
   @Nullable
   default StackTraceElement [] getLinkedExceptionStackTrace ()
@@ -137,6 +159,7 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
   /**
    * @return The cause of the linked exception or <code>null</code> if no such
    *         exception is available.
+   * @see #getLinkedException()
    */
   @Nullable
   default Throwable getLinkedExceptionCause ()
