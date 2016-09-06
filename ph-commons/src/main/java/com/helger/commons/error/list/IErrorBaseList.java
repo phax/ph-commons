@@ -6,11 +6,13 @@ import com.helger.commons.error.IError;
 import com.helger.commons.error.level.IHasErrorLevels;
 
 /**
- * Base list
+ * Base list containing errors.
  *
  * @author Philip Helger
  * @param <IMPLTYPE>
  *        Implementation type
  */
 public interface IErrorBaseList <IMPLTYPE extends IError> extends IHasErrorLevels <IMPLTYPE>, Serializable
-{}
+{
+  /* empty */
+}

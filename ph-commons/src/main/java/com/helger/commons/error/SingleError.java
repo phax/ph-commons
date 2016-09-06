@@ -4,6 +4,7 @@ import java.util.Locale;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.error.level.EErrorLevel;
@@ -11,6 +12,7 @@ import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.error.location.ErrorLocation;
 import com.helger.commons.error.location.IErrorLocation;
 import com.helger.commons.error.text.IHasErrorText;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -18,6 +20,7 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
+@NotThreadSafe
 public class SingleError implements IError
 {
   private final IErrorLevel m_aErrorLevel;
@@ -125,8 +128,9 @@ public class SingleError implements IError
     {}
 
     @Nonnull
-    public Builder setErrorLevel (@Nullable final IErrorLevel aErrorLevel)
+    public Builder setErrorLevel (@Nonnull final IErrorLevel aErrorLevel)
     {
+      ValueEnforcer.notNull (aErrorLevel, "ErrorLevel");
       m_aErrorLevel = aErrorLevel;
       return this;
     }
@@ -178,7 +182,16 @@ public class SingleError implements IError
       final SingleError ret = new SingleError (m_aErrorLevel);
       ret.setErrorID (m_sErrorID);
       ret.setErrorFieldName (m_sErrorFieldName);
-      ret.setErrorLocation (m_aErrorLocation);
+
+      if (m_aErrorLocation != null)
+        ret.setErrorLocation (m_aErrorLocation);
+      else
+        if (StringHelper.hasText (m_sErrorFieldName))
+          ret.setErrorLocation (new ErrorLocation (null,
+                                                   IErrorLocation.ILLEGAL_NUMBER,
+                                                   IErrorLocation.ILLEGAL_NUMBER,
+                                                   m_sErrorFieldName));
+
       ret.setErrorText (m_aErrorText);
       ret.setLinkedException (m_aLinkedException);
       return ret;
@@ -189,5 +202,35 @@ public class SingleError implements IError
   public static Builder builder ()
   {
     return new Builder ();
+  }
+
+  @Nonnull
+  public static Builder builderSuccess ()
+  {
+    return builder ().setErrorLevel (EErrorLevel.SUCCESS);
+  }
+
+  @Nonnull
+  public static Builder builderInfo ()
+  {
+    return builder ().setErrorLevel (EErrorLevel.INFO);
+  }
+
+  @Nonnull
+  public static Builder builderWarn ()
+  {
+    return builder ().setErrorLevel (EErrorLevel.WARN);
+  }
+
+  @Nonnull
+  public static Builder builderError ()
+  {
+    return builder ().setErrorLevel (EErrorLevel.ERROR);
+  }
+
+  @Nonnull
+  public static Builder builderFatalError ()
+  {
+    return builder ().setErrorLevel (EErrorLevel.FATAL_ERROR);
   }
 }

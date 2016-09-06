@@ -22,6 +22,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.severity.ISeverityComparable;
@@ -33,6 +34,7 @@ import com.helger.commons.state.ISuccessIndicator;
  *
  * @author Philip Helger
  */
+@MustImplementEqualsAndHashcode
 public interface IErrorLevel extends
                              IHasID <String>,
                              ISuccessIndicator,

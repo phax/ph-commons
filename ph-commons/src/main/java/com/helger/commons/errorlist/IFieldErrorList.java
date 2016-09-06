@@ -27,12 +27,11 @@ import com.helger.commons.collection.multimap.IMultiMapListBased;
 import com.helger.commons.error.level.IErrorLevel;
 
 /**
- * A subset of {@link IErrorList} containing only the methods relevant for
- * fields
+ * A subset of an error list containing only the methods relevant for fields
  *
  * @author Philip Helger
  */
-public interface IFieldErrorList
+public interface IFieldErrorList <T extends com.helger.commons.error.IError>
 {
   /**
    * Check if no entry for the specified field is present
@@ -108,7 +107,7 @@ public interface IFieldErrorList
    */
   @Nonnull
   @ReturnsMutableCopy
-  IFieldErrorList getListOfField (@Nullable String sSearchFieldName);
+  IFieldErrorList <T> getListOfField (@Nullable String sSearchFieldName);
 
   /**
    * Get a sub-list with all entries for the specified field names
@@ -119,7 +118,7 @@ public interface IFieldErrorList
    */
   @Nonnull
   @ReturnsMutableCopy
-  IFieldErrorList getListOfFields (@Nullable String... aSearchFieldNames);
+  IFieldErrorList <T> getListOfFields (@Nullable String... aSearchFieldNames);
 
   /**
    * Get a sub-list with all entries that have field names starting with one of
@@ -131,7 +130,7 @@ public interface IFieldErrorList
    */
   @Nonnull
   @ReturnsMutableCopy
-  IFieldErrorList getListOfFieldsStartingWith (@Nullable String... aSearchFieldNames);
+  IFieldErrorList <T> getListOfFieldsStartingWith (@Nullable String... aSearchFieldNames);
 
   /**
    * Get a sub-list with all entries that have field names matching the passed
@@ -143,7 +142,7 @@ public interface IFieldErrorList
    */
   @Nonnull
   @ReturnsMutableCopy
-  IFieldErrorList getListOfFieldsRegExp (@Nonnull @Nonempty @RegEx String sRegExp);
+  IFieldErrorList <T> getListOfFieldsRegExp (@Nonnull @Nonempty @RegEx String sRegExp);
 
   /**
    * Get a list with all texts for the specified field name.
@@ -196,7 +195,7 @@ public interface IFieldErrorList
    */
   @Nonnull
   @ReturnsMutableCopy
-  IMultiMapListBased <String, IError> getGroupedByID ();
+  IMultiMapListBased <String, T> getGroupedByID ();
 
   /**
    * @return A map with all items mapped from error field name to its
@@ -204,5 +203,5 @@ public interface IFieldErrorList
    */
   @Nonnull
   @ReturnsMutableCopy
-  IMultiMapListBased <String, IError> getGroupedByFieldName ();
+  IMultiMapListBased <String, T> getGroupedByFieldName ();
 }

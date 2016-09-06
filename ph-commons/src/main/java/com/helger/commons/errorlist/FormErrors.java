@@ -41,7 +41,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class FormErrors implements Serializable, IFieldErrorList
+public class FormErrors implements Serializable, IFieldErrorList <IError>
 {
   private final ErrorList m_aFormGlobalErrs = new ErrorList ();
   private final ErrorList m_aFormFieldErrs = new ErrorList ();

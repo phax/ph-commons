@@ -17,6 +17,7 @@
 package com.helger.commons.error.level;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.state.IErrorIndicator;
 import com.helger.commons.state.ISuccessIndicator;
@@ -34,6 +35,19 @@ public interface IHasErrorLevel extends ISuccessIndicator, IErrorIndicator
    */
   @Nonnull
   IErrorLevel getErrorLevel ();
+
+  /**
+   * Check if this object has the provided error level.
+   * 
+   * @param aErrorLevel
+   *        The error level to check. May be <code>null</code>.
+   * @return <code>true</code> if {@link #getErrorLevel()} and the passed error
+   *         level are equal, <code>false</code> otherwise.
+   */
+  default boolean hasErrorLevel (@Nullable final IErrorLevel aErrorLevel)
+  {
+    return getErrorLevel ().equals (aErrorLevel);
+  }
 
   default boolean isSuccess ()
   {
