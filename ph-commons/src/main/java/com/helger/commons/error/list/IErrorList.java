@@ -8,6 +8,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.RegEx;
 
+import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
@@ -27,6 +28,7 @@ import com.helger.commons.regex.RegExHelper;
  * @author Philip Helger
  * @since 8.5.0
  */
+@MustImplementEqualsAndHashcode
 public interface IErrorList extends IErrorBaseList <IError>, IHasSize
 {
   /**
