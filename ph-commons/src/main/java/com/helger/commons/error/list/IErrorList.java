@@ -25,6 +25,7 @@ import com.helger.commons.regex.RegExHelper;
  * Interface for a list of {@link IError} objects.
  *
  * @author Philip Helger
+ * @since 8.5.0
  */
 public interface IErrorList extends IErrorBaseList <IError>, IHasSize
 {

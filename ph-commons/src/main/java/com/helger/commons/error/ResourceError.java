@@ -144,4 +144,13 @@ public class ResourceError implements IResourceError
                                        .appendIfNotNull ("linkedException", m_aLinkedException)
                                        .toString ();
   }
+
+  @Nonnull
+  public static IResourceError createAndConvert (@Nonnull final IError aError)
+  {
+    return new ResourceError (aError.getLocation (),
+                              aError.getErrorLevel (),
+                              x -> aError.getErrorText (x),
+                              aError.getLinkedException ());
+  }
 }

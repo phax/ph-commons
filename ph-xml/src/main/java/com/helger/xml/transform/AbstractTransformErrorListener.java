@@ -22,15 +22,15 @@ import javax.xml.transform.ErrorListener;
 import javax.xml.transform.SourceLocator;
 import javax.xml.transform.TransformerException;
 
-import com.helger.commons.error.IResourceError;
-import com.helger.commons.error.ResourceError;
+import com.helger.commons.error.IError;
+import com.helger.commons.error.SingleError;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.error.location.ErrorLocation;
 import com.helger.commons.error.location.IErrorLocation;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.text.display.IHasDisplayText;
+import com.helger.commons.text.IMultilingualText;
 
 /**
  * Abstract implementation of a transformation {@link ErrorListener}.
@@ -61,9 +61,9 @@ public abstract class AbstractTransformErrorListener implements ErrorListener
   }
 
   @Nonnull
-  private static IResourceError _buildError (@Nonnull final TransformerException ex,
-                                             @Nonnull final IErrorLevel aErrorLevel,
-                                             @Nonnull final IHasDisplayText aErrorMsg)
+  private static IError _buildError (@Nonnull final TransformerException ex,
+                                     @Nonnull final IErrorLevel aErrorLevel,
+                                     @Nonnull final IMultilingualText aErrorMsg)
   {
     final SourceLocator aLocator = ex.getLocator ();
     final IErrorLocation aLocation = aLocator != null ? new ErrorLocation (StringHelper.getConcatenatedOnDemand (aLocator.getPublicId (),
@@ -76,7 +76,12 @@ public abstract class AbstractTransformErrorListener implements ErrorListener
                                                                            IErrorLocation.ILLEGAL_NUMBER,
                                                                            IErrorLocation.ILLEGAL_NUMBER,
                                                                            null);
-    return new ResourceError (aLocation, aErrorLevel, aErrorMsg, ex);
+    return SingleError.builder ()
+                      .setErrorLevel (aErrorLevel)
+                      .setErrorLocation (aLocation)
+                      .setErrorText (aErrorMsg)
+                      .setLinkedException (ex)
+                      .build ();
   }
 
   /**
@@ -85,11 +90,11 @@ public abstract class AbstractTransformErrorListener implements ErrorListener
    * @param aResError
    *        The resource error to be handled. Never <code>null</code>.
    */
-  protected abstract void internalLog (@Nonnull final IResourceError aResError);
+  protected abstract void internalLog (@Nonnull final IError aResError);
 
   public final void warning (@Nonnull final TransformerException ex) throws TransformerException
   {
-    internalLog (_buildError (ex, EErrorLevel.WARN, EXMLTransformTexts.TRANSFORMATION_WARNING));
+    internalLog (_buildError (ex, EErrorLevel.WARN, EXMLTransformTexts.TRANSFORMATION_WARNING.getAsMLT ()));
 
     final ErrorListener aWrappedErrorListener = getWrappedErrorListener ();
     if (aWrappedErrorListener != null)
@@ -98,7 +103,7 @@ public abstract class AbstractTransformErrorListener implements ErrorListener
 
   public final void error (@Nonnull final TransformerException ex) throws TransformerException
   {
-    internalLog (_buildError (ex, EErrorLevel.ERROR, EXMLTransformTexts.TRANSFORMATION_ERROR));
+    internalLog (_buildError (ex, EErrorLevel.ERROR, EXMLTransformTexts.TRANSFORMATION_ERROR.getAsMLT ()));
 
     final ErrorListener aWrappedErrorListener = getWrappedErrorListener ();
     if (aWrappedErrorListener != null)
@@ -107,7 +112,7 @@ public abstract class AbstractTransformErrorListener implements ErrorListener
 
   public final void fatalError (@Nonnull final TransformerException ex) throws TransformerException
   {
-    internalLog (_buildError (ex, EErrorLevel.FATAL_ERROR, EXMLTransformTexts.TRANSFORMATION_FATAL_ERROR));
+    internalLog (_buildError (ex, EErrorLevel.FATAL_ERROR, EXMLTransformTexts.TRANSFORMATION_FATAL_ERROR.getAsMLT ()));
 
     final ErrorListener aWrappedErrorListener = getWrappedErrorListener ();
     if (aWrappedErrorListener != null)

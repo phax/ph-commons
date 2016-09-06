@@ -27,6 +27,7 @@ import org.junit.Test;
 
 import com.helger.commons.error.SingleError;
 import com.helger.commons.error.level.EErrorLevel;
+import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link ErrorList}.
@@ -121,6 +122,8 @@ public final class ErrorListTest
     assertEquals (0, aList.getListOfFieldsRegExp ("field\\d").getSize ());
     assertEquals (1, aList.getGroupedByID ().size ());
     assertEquals (1, aList.getGroupedByFieldName ().size ());
+
+    CommonsTestHelper.testDefaultSerialization (aList);
   }
 
   @Test
@@ -225,6 +228,8 @@ public final class ErrorListTest
     assertEquals (3, aList.getListOfFieldsRegExp ("field\\d").getSize ());
     assertEquals (1, aList.getGroupedByID ().size ());
     assertEquals (2, aList.getGroupedByFieldName ().size ());
+
+    CommonsTestHelper.testDefaultSerialization (aList);
 
     // Clear list
     assertTrue (aList.clear ().isChanged ());

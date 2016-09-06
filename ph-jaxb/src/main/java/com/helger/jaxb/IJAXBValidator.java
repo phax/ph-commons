@@ -18,7 +18,7 @@ package com.helger.jaxb;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.error.IResourceErrorGroup;
+import com.helger.commons.error.list.IErrorList;
 
 /**
  * Interface for validating JAXB documents.
@@ -51,5 +51,5 @@ public interface IJAXBValidator <JAXBTYPE>
    * @return The validation results. Never <code>null</code>.
    */
   @Nonnull
-  IResourceErrorGroup validate (@Nonnull JAXBTYPE aJAXBDocument);
+  IErrorList validate (@Nonnull JAXBTYPE aJAXBDocument);
 }

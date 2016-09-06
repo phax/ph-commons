@@ -26,6 +26,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.error.list.IErrorList;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.state.EChange;
@@ -187,5 +188,14 @@ public class ResourceErrorGroup implements IResourceErrorGroup, ICloneable <Reso
   public String toString ()
   {
     return new ToStringGenerator (this).append ("errors", m_aErrors).toString ();
+  }
+
+  public static ResourceErrorGroup createAndConvert (@Nonnull final IErrorList aErrorList)
+  {
+    final ResourceErrorGroup ret = new ResourceErrorGroup ();
+    if (aErrorList != null)
+      for (final IError aError : aErrorList)
+        ret.addResourceError (ResourceError.createAndConvert (aError));
+    return ret;
   }
 }

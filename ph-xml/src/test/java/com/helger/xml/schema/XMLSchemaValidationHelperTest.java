@@ -28,7 +28,7 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-import com.helger.commons.error.IResourceErrorGroup;
+import com.helger.commons.error.list.IErrorList;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.xml.serialize.read.DOMReader;
@@ -49,7 +49,7 @@ public final class XMLSchemaValidationHelperTest
   public void testValidateReadableResource ()
   {
     // Valid
-    IResourceErrorGroup aErrors = XMLSchemaValidationHelper.validate (XSD1, XML1);
+    IErrorList aErrors = XMLSchemaValidationHelper.validate (XSD1, XML1);
     assertNotNull (aErrors);
     assertEquals (0, aErrors.getSize ());
     aErrors = XMLSchemaValidationHelper.validate (new IReadableResource [] { XSD2, XSD1 }, XML1);
@@ -103,7 +103,7 @@ public final class XMLSchemaValidationHelperTest
   {
     // Different source type
     Document aDoc = DOMReader.readXMLDOM (XML1);
-    IResourceErrorGroup aErrors = XMLSchemaValidationHelper.validate (XSD1, new DOMSource (aDoc));
+    IErrorList aErrors = XMLSchemaValidationHelper.validate (XSD1, new DOMSource (aDoc));
     assertNotNull (aErrors);
     assertEquals (0, aErrors.getSize ());
     aErrors = XMLSchemaValidationHelper.validate (new IReadableResource [] { XSD2, XSD1 }, new DOMSource (aDoc));
@@ -144,7 +144,7 @@ public final class XMLSchemaValidationHelperTest
 
     // Different source type
     Document aDoc = DOMReader.readXMLDOM (XML1);
-    IResourceErrorGroup aErrors = XMLSchemaValidationHelper.validate (aSchema1, new DOMSource (aDoc));
+    IErrorList aErrors = XMLSchemaValidationHelper.validate (aSchema1, new DOMSource (aDoc));
     assertNotNull (aErrors);
     assertEquals (0, aErrors.getSize ());
     aErrors = XMLSchemaValidationHelper.validate (aSchema2, new DOMSource (aDoc));

@@ -31,7 +31,6 @@ import org.w3c.dom.Node;
 
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.error.IError;
-import com.helger.commons.error.IResourceError;
 import com.helger.commons.error.SingleError;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
@@ -133,19 +132,12 @@ public abstract class AbstractValidationEventHandler implements ValidationEventH
 
   /**
    * Callback method invoked when an error occurs.
-   * 
+   *
    * @param aError
    *        The occurred error.
    */
   @OverrideOnDemand
-  protected void onEvent (@Nonnull final IError aError)
-  {}
-
-  @Deprecated
-  protected void onEvent (@Nonnull final IResourceError aEvent)
-  {
-    onEvent ((IError) aEvent);
-  }
+  protected abstract void onEvent (@Nonnull final IError aError);
 
   /**
    * Should the processing be continued? By default it is always continued, as

@@ -24,10 +24,11 @@ import javax.xml.transform.ErrorListener;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
+import com.helger.commons.error.IError;
 import com.helger.commons.error.IHasResourceErrorGroup;
-import com.helger.commons.error.IResourceError;
 import com.helger.commons.error.IResourceErrorGroup;
 import com.helger.commons.error.ResourceErrorGroup;
+import com.helger.commons.error.list.ErrorList;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -42,7 +43,7 @@ public class CollectingTransformErrorListener extends AbstractTransformErrorList
 {
   protected final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
-  private final ResourceErrorGroup m_aErrors = new ResourceErrorGroup ();
+  private final ErrorList m_aErrors = new ErrorList ();
 
   public CollectingTransformErrorListener ()
   {
@@ -55,14 +56,22 @@ public class CollectingTransformErrorListener extends AbstractTransformErrorList
   }
 
   @Override
-  protected void internalLog (@Nonnull final IResourceError aResError)
+  protected void internalLog (@Nonnull final IError aResError)
   {
-    m_aRWLock.writeLocked ( () -> m_aErrors.addResourceError (aResError));
+    m_aRWLock.writeLocked ( () -> m_aErrors.add (aResError));
   }
 
   @Nonnull
   @ReturnsMutableCopy
+  @Deprecated
   public IResourceErrorGroup getResourceErrors ()
+  {
+    return ResourceErrorGroup.createAndConvert (getErrorList ());
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public ErrorList getErrorList ()
   {
     return m_aRWLock.readLocked ( () -> m_aErrors.getClone ());
   }

@@ -19,7 +19,7 @@ package com.helger.jaxb.validation;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.error.IResourceError;
+import com.helger.commons.error.IError;
 
 /**
  * An implementation of the JAXB {@link javax.xml.bind.ValidationEventHandler}
@@ -36,7 +36,7 @@ public class DoNothingValidationEventHandler extends AbstractValidationEventHand
   }
 
   @Override
-  protected void onEvent (@Nonnull final IResourceError aEvent)
+  protected void onEvent (@Nonnull final IError aEvent)
   {
     // Do nothing
   }

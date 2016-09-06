@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.CGlobal;
+import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -29,6 +30,7 @@ import com.helger.commons.string.StringHelper;
  *
  * @author Philip Helger
  */
+@MustImplementEqualsAndHashcode
 public interface IErrorLocation extends Serializable
 {
   /** Constant for an illegal row or column number */
@@ -84,7 +86,7 @@ public interface IErrorLocation extends Serializable
   /**
    * Simple method to check if resource ID, line number, column number or field
    * name is present.
-   * 
+   *
    * @return <code>true</code> if at least one field is set, <code>false</code>
    *         otherwise.
    */

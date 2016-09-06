@@ -21,6 +21,7 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.error.field.IHasErrorField;
 import com.helger.commons.error.id.IHasErrorID;
@@ -33,14 +34,13 @@ import com.helger.commons.string.StringHelper;
  * Common interface for single errors and resource errors.
  *
  * @author Philip Helger
- * @since 8.4.1
+ * @since 8.5.0
  */
+@MustImplementEqualsAndHashcode
 public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, IHasErrorField
 {
   /**
    * {@inheritDoc}
-   *
-   * @since 8.4.1
    */
   default String getErrorID ()
   {
@@ -49,7 +49,6 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
 
   /**
    * @return The field for which the error occurred. May be <code>null</code>.
-   * @since 8.4.1
    */
   @Nullable
   default String getErrorFieldName ()
@@ -61,7 +60,6 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
    * @return The non-<code>null</code> location of the error. Use
    *         {@link ErrorLocation#NO_LOCATION} to indicate no location is
    *         available.
-   * @since 8.4.1
    */
   @Nonnull
   default IErrorLocation getLocation ()
@@ -74,7 +72,6 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
    *
    * @return <code>true</code> if location information is present,
    *         <code>false</code> otherwise.
-   * @since 8.4.1
    */
   default boolean hasLocation ()
   {
@@ -89,7 +86,6 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
    *        multiple languages.
    * @return The message of this form error. May be <code>null</code> in case no
    *         error text is available or if the passed Locale is not supported.
-   * @since 8.4.1
    */
   @Nullable
   default String getErrorText (@Nonnull final Locale aContentLocale)
@@ -100,7 +96,6 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
   /**
    * @return The linked exception or <code>null</code> if no such exception is
    *         available.
-   * @since 8.4.1
    */
   @Nullable
   default Throwable getLinkedException ()
@@ -111,11 +106,21 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
   /**
    * @return <code>true</code> if a linked exception is present,
    *         <code>false</code> if not.
-   * @since 8.4.1
    */
   default boolean hasLinkedException ()
   {
     return getLinkedException () != null;
+  }
+
+  /**
+   * @return The stack trace of the linked exception or <code>null</code> if no
+   *         such exception is available.
+   */
+  @Nullable
+  default StackTraceElement [] getLinkedExceptionStackTrace ()
+  {
+    final Throwable t = getLinkedException ();
+    return t == null ? null : t.getStackTrace ();
   }
 
   /**
@@ -125,7 +130,6 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
    * @param aDisplayLocale
    *        Locale to resolve the error text
    * @return The default string representation
-   * @since 8.4.1
    */
   @Nonnull
   @Nonempty

@@ -25,7 +25,7 @@ import javax.xml.validation.Validator;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.error.IResourceErrorGroup;
+import com.helger.commons.error.list.IErrorList;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.xml.sax.CollectingSAXErrorHandler;
 import com.helger.xml.transform.TransformSourceFactory;
@@ -45,15 +45,14 @@ public final class XMLSchemaValidationHelper
   {}
 
   @Nonnull
-  public static IResourceErrorGroup validate (@Nonnull final IReadableResource aSchema,
-                                              @Nonnull final IReadableResource aXML)
+  public static IErrorList validate (@Nonnull final IReadableResource aSchema, @Nonnull final IReadableResource aXML)
   {
     return validate (new IReadableResource [] { aSchema }, aXML);
   }
 
   @Nonnull
-  public static IResourceErrorGroup validate (@Nonnull @Nonempty final IReadableResource [] aSchemas,
-                                              @Nonnull final IReadableResource aXML)
+  public static IErrorList validate (@Nonnull @Nonempty final IReadableResource [] aSchemas,
+                                     @Nonnull final IReadableResource aXML)
   {
     ValueEnforcer.notNull (aXML, "XML");
 
@@ -61,7 +60,7 @@ public final class XMLSchemaValidationHelper
   }
 
   @Nonnull
-  public static IResourceErrorGroup validate (@Nonnull final Schema aSchema, @Nonnull final IReadableResource aXML)
+  public static IErrorList validate (@Nonnull final Schema aSchema, @Nonnull final IReadableResource aXML)
   {
     ValueEnforcer.notNull (aXML, "XML");
 
@@ -69,22 +68,20 @@ public final class XMLSchemaValidationHelper
   }
 
   @Nonnull
-  public static IResourceErrorGroup validate (@Nonnull @Nonempty final IReadableResource aSchema,
-                                              @Nonnull final Source aXML)
+  public static IErrorList validate (@Nonnull @Nonempty final IReadableResource aSchema, @Nonnull final Source aXML)
   {
     return validate (new IReadableResource [] { aSchema }, aXML);
   }
 
   @Nonnull
-  public static IResourceErrorGroup validate (@Nonnull @Nonempty final IReadableResource [] aSchemas,
-                                              @Nonnull final Source aXML)
+  public static IErrorList validate (@Nonnull @Nonempty final IReadableResource [] aSchemas, @Nonnull final Source aXML)
   {
     // Get Schema from XMLSchemaCache
     return validate (XMLSchemaCache.getInstance ().getSchema (aSchemas), aXML);
   }
 
   @Nonnull
-  public static IResourceErrorGroup validate (@Nonnull final Schema aSchema, @Nonnull final Source aXML)
+  public static IErrorList validate (@Nonnull final Schema aSchema, @Nonnull final Source aXML)
   {
     ValueEnforcer.notNull (aSchema, "Schema");
     ValueEnforcer.notNull (aXML, "XML");
@@ -102,6 +99,6 @@ public final class XMLSchemaValidationHelper
       // Most likely the input XML document is invalid
       throw new IllegalArgumentException ("Failed to validate the XML " + aXML + " against " + aSchema, ex);
     }
-    return aErrHdl.getResourceErrors ();
+    return aErrHdl.getErrorList ();
   }
 }

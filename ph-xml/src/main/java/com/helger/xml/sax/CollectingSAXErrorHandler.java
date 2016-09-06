@@ -26,10 +26,11 @@ import org.xml.sax.SAXParseException;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
-import com.helger.commons.error.IHasResourceErrorGroup;
 import com.helger.commons.error.IResourceErrorGroup;
 import com.helger.commons.error.ResourceErrorGroup;
 import com.helger.commons.error.level.IErrorLevel;
+import com.helger.commons.error.list.ErrorList;
+import com.helger.commons.error.list.IErrorList;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -40,11 +41,11 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @ThreadSafe
-public class CollectingSAXErrorHandler extends AbstractSAXErrorHandler implements IHasResourceErrorGroup
+public class CollectingSAXErrorHandler extends AbstractSAXErrorHandler
 {
   protected final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
-  private final ResourceErrorGroup m_aErrors = new ResourceErrorGroup ();
+  private final ErrorList m_aErrors = new ErrorList ();
 
   public CollectingSAXErrorHandler ()
   {}
@@ -57,12 +58,20 @@ public class CollectingSAXErrorHandler extends AbstractSAXErrorHandler implement
   @Override
   protected void internalLog (@Nonnull final IErrorLevel aErrorLevel, final SAXParseException aException)
   {
-    m_aRWLock.writeLocked ( () -> m_aErrors.addResourceError (getSaxParseError (aErrorLevel, aException)));
+    m_aRWLock.writeLocked ( () -> m_aErrors.add (getSaxParseError (aErrorLevel, aException)));
   }
 
   @Nonnull
   @ReturnsMutableCopy
+  @Deprecated
   public IResourceErrorGroup getResourceErrors ()
+  {
+    return ResourceErrorGroup.createAndConvert (getErrorList ());
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public IErrorList getErrorList ()
   {
     return m_aRWLock.readLocked ( () -> m_aErrors.getClone ());
   }

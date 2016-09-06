@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 import javax.xml.transform.ErrorListener;
 
-import com.helger.commons.error.IResourceError;
+import com.helger.commons.error.IError;
 
 /**
  * {@link javax.xml.transform.ErrorListener} that does nothing.
@@ -42,6 +42,6 @@ public class DoNothingTransformErrorListener extends AbstractTransformErrorListe
   }
 
   @Override
-  protected void internalLog (@Nonnull final IResourceError aResError)
+  protected void internalLog (@Nonnull final IError aResError)
   {}
 }

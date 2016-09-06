@@ -27,7 +27,7 @@ import javax.xml.bind.Marshaller;
 import org.xml.sax.helpers.DefaultHandler;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.error.IResourceErrorGroup;
+import com.helger.commons.error.list.IErrorList;
 import com.helger.jaxb.IJAXBValidator;
 import com.helger.jaxb.validation.CollectingValidationEventHandler;
 
@@ -50,7 +50,7 @@ public class JAXBValidationBuilder <JAXBTYPE, IMPLTYPE extends JAXBValidationBui
   }
 
   @Nonnull
-  public IResourceErrorGroup validate (@Nonnull final JAXBTYPE aJAXBDocument)
+  public IErrorList validate (@Nonnull final JAXBTYPE aJAXBDocument)
   {
     ValueEnforcer.notNull (aJAXBDocument, "JAXBDocument");
 
@@ -85,7 +85,6 @@ public class JAXBValidationBuilder <JAXBTYPE, IMPLTYPE extends JAXBValidationBui
     {
       // Should already be contained as an entry in the event handler
     }
-    return aEventHandler.getResourceErrors ();
+    return aEventHandler.getErrorList ();
   }
-
 }

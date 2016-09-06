@@ -21,6 +21,7 @@ import com.helger.commons.string.ToStringGenerator;
  * Default implementation of {@link IErrorList}.
  *
  * @author Philip Helger
+ * @since 8.5.0
  */
 @NotThreadSafe
 public class ErrorList implements IErrorList, ICloneable <ErrorList>

@@ -55,7 +55,7 @@ public final class CollectingTransformErrorListenerTest extends AbstractCommonsT
     assertNotNull (t1);
     // May contain warning in JDK 1.7
     // (http://javax.xml.XMLConstants/property/accessExternalDTD is unknown)
-    assertTrue (el.getResourceErrors ().containsNoError ());
+    assertTrue (el.getErrorList ().containsNoError ());
 
     // Try a real transformation
     {
@@ -72,11 +72,11 @@ public final class CollectingTransformErrorListenerTest extends AbstractCommonsT
     assertNotNull (t1);
     // May contain warning in JDK 1.7
     // (http://javax.xml.XMLConstants/property/accessExternalDTD is unknown)
-    assertTrue (el.getResourceErrors ().containsNoError ());
+    assertTrue (el.getErrorList ().containsNoError ());
 
     // Read invalid XSLT
     assertNull (XMLTransformerFactory.newTemplates (fac, new ClassPathResource ("test1.txt")));
-    assertTrue (el.getResourceErrors ().containsAtLeastOneError ());
+    assertTrue (el.getErrorList ().containsAtLeastOneError ());
 
     CommonsTestHelper.testToStringImplementation (el);
   }

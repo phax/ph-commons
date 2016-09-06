@@ -16,11 +16,11 @@
  */
 package com.helger.commons.text;
 
-import java.io.Serializable;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.lang.IHasSize;
@@ -31,7 +31,8 @@ import com.helger.commons.locale.IHasLocales;
  *
  * @author Philip Helger
  */
-public interface IMultilingualText extends IHasTextWithArgs, IHasLocales, IHasSize, Serializable
+@MustImplementEqualsAndHashcode
+public interface IMultilingualText extends IHasTextWithArgs, IHasLocales, IHasSize
 {
   /**
    * @return A map over all contained locale/text pairs. Never <code>null</code>

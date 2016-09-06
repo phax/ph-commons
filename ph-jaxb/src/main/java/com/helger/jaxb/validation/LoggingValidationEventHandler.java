@@ -26,8 +26,8 @@ import javax.xml.bind.ValidationEventHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.error.EErrorLevel;
-import com.helger.commons.error.IResourceError;
+import com.helger.commons.error.IError;
+import com.helger.commons.error.level.EErrorLevel;
 
 /**
  * An implementation of the JAXB {@link javax.xml.bind.ValidationEventHandler}
@@ -52,7 +52,7 @@ public class LoggingValidationEventHandler extends AbstractValidationEventHandle
   }
 
   @Override
-  protected void onEvent (@Nonnull final IResourceError aEvent)
+  protected void onEvent (@Nonnull final IError aEvent)
   {
     // As JAXB messages are not localized, we can use a fixed locale here!
     final String sMsg = "JAXB " + aEvent.getAsString (Locale.US);

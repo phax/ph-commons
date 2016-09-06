@@ -16,6 +16,7 @@
  */
 package com.helger.commons.text.display;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Locale;
 
@@ -30,7 +31,7 @@ import com.helger.commons.compare.IComparator;
  * @author Philip Helger
  */
 @FunctionalInterface
-public interface IHasDisplayText
+public interface IHasDisplayText extends Serializable
 {
   /**
    * @param aContentLocale
@@ -46,7 +47,6 @@ public interface IHasDisplayText
   static Comparator <IHasDisplayText> getComparatorCollating (@Nonnull final Locale aContentLocale,
                                                               @Nullable final Locale aSortLocale)
   {
-    return IComparator.getComparatorCollating (aObject -> aObject.getDisplayText (aContentLocale),
-                                                           aSortLocale);
+    return IComparator.getComparatorCollating (aObject -> aObject.getDisplayText (aContentLocale), aSortLocale);
   }
 }

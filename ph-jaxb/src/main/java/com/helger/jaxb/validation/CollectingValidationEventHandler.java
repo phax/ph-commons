@@ -27,10 +27,11 @@ import javax.xml.bind.ValidationEventHandler;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
-import com.helger.commons.error.IHasResourceErrorGroup;
-import com.helger.commons.error.IResourceError;
+import com.helger.commons.error.IError;
 import com.helger.commons.error.IResourceErrorGroup;
 import com.helger.commons.error.ResourceErrorGroup;
+import com.helger.commons.error.list.ErrorList;
+import com.helger.commons.error.list.IErrorList;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -41,11 +42,11 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @ThreadSafe
-public class CollectingValidationEventHandler extends AbstractValidationEventHandler implements IHasResourceErrorGroup
+public class CollectingValidationEventHandler extends AbstractValidationEventHandler
 {
   protected final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
-  private final ResourceErrorGroup m_aErrors = new ResourceErrorGroup ();
+  private final ErrorList m_aErrors = new ErrorList ();
 
   public CollectingValidationEventHandler ()
   {}
@@ -56,14 +57,22 @@ public class CollectingValidationEventHandler extends AbstractValidationEventHan
   }
 
   @Override
-  protected void onEvent (@Nonnull final IResourceError aEvent)
+  protected void onEvent (@Nonnull final IError aEvent)
   {
-    m_aRWLock.writeLocked ( () -> m_aErrors.addResourceError (aEvent));
+    m_aRWLock.writeLocked ( () -> m_aErrors.add (aEvent));
   }
 
   @Nonnull
   @ReturnsMutableCopy
+  @Deprecated
   public IResourceErrorGroup getResourceErrors ()
+  {
+    return ResourceErrorGroup.createAndConvert (getErrorList ());
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public IErrorList getErrorList ()
   {
     return m_aRWLock.readLocked ( () -> m_aErrors.getClone ());
   }
@@ -75,7 +84,7 @@ public class CollectingValidationEventHandler extends AbstractValidationEventHan
    *        The consumer to be invoked. May not be <code>null</code>. May only
    *        perform reading actions!
    */
-  public void forEachResourceError (@Nonnull final Consumer <? super IResourceError> aConsumer)
+  public void forEachResourceError (@Nonnull final Consumer <? super IError> aConsumer)
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
     m_aRWLock.readLocked ( () -> m_aErrors.forEach (aConsumer));

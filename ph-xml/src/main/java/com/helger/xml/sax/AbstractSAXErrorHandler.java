@@ -23,12 +23,11 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
-import com.helger.commons.error.IResourceError;
-import com.helger.commons.error.ResourceError;
+import com.helger.commons.error.IError;
+import com.helger.commons.error.SingleError;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.error.location.ErrorLocation;
-import com.helger.commons.error.location.IErrorLocation;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -71,21 +70,28 @@ public abstract class AbstractSAXErrorHandler implements ErrorHandler
 
   /**
    * Utility method to convert a {@link SAXParseException} into an
-   * {@link IResourceError}.
+   * {@link IError}.
    *
    * @param aErrorLevel
    *        The occurred error level. May not be <code>null</code>.
    * @param ex
    *        The exception to convert. May not be <code>null</code>.
-   * @return The {@link IResourceError} representation. Never <code>null</code>.
+   * @return The {@link IError} representation. Never <code>null</code>.
    */
   @Nonnull
-  public static IResourceError getSaxParseError (@Nonnull final IErrorLevel aErrorLevel,
-                                                 @Nonnull final SAXParseException ex)
+  public static IError getSaxParseError (@Nonnull final IErrorLevel aErrorLevel, @Nonnull final SAXParseException ex)
   {
     final String sResourceID = StringHelper.getConcatenatedOnDemand (ex.getPublicId (), "/", ex.getSystemId ());
-    final IErrorLocation aLocation = new ErrorLocation (sResourceID, ex.getLineNumber (), ex.getColumnNumber (), null);
-    return new ResourceError (aLocation, aErrorLevel, "[SAX] " + ex.getMessage ());
+
+    return SingleError.builder ()
+                      .setErrorLevel (aErrorLevel)
+                      .setErrorLocation (new ErrorLocation (sResourceID,
+                                                            ex.getLineNumber (),
+                                                            ex.getColumnNumber (),
+                                                            null))
+                      .setErrorText ("[SAX] " + ex.getMessage ())
+                      .setLinkedException (ex)
+                      .build ();
   }
 
   protected abstract void internalLog (@Nonnull IErrorLevel aErrorLevel, @Nonnull SAXParseException aException);

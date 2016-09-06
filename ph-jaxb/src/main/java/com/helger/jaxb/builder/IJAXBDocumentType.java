@@ -27,7 +27,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.error.IResourceErrorGroup;
+import com.helger.commons.error.list.IErrorList;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.xml.schema.IHasSchema;
@@ -147,7 +147,7 @@ public interface IJAXBDocumentType extends IHasSchema, Serializable
    *         assigned and therefore not validation can take place.
    */
   @Nullable
-  default IResourceErrorGroup validateXML (@Nonnull final IReadableResource aXML)
+  default IErrorList validateXML (@Nonnull final IReadableResource aXML)
   {
     return validateXML (aXML, (ClassLoader) null);
   }
@@ -166,8 +166,7 @@ public interface IJAXBDocumentType extends IHasSchema, Serializable
    *         assigned and therefore not validation can take place.
    */
   @Nullable
-  default IResourceErrorGroup validateXML (@Nonnull final IReadableResource aXML,
-                                           @Nullable final ClassLoader aClassLoader)
+  default IErrorList validateXML (@Nonnull final IReadableResource aXML, @Nullable final ClassLoader aClassLoader)
   {
     final Schema aSchema = getSchema (aClassLoader);
     return aSchema == null ? null : XMLSchemaValidationHelper.validate (aSchema, aXML);

@@ -41,7 +41,7 @@ public final class CollectingSAXErrorHandlerTest
     CollectingSAXErrorHandler aCEH = new CollectingSAXErrorHandler ();
     assertNotNull (DOMReader.readXMLDOM (new ClassPathResource ("xml/buildinfo.xml"),
                                          new DOMReaderSettings ().setErrorHandler (aCEH)));
-    assertTrue (aCEH.getResourceErrors ().isEmpty ());
+    assertTrue (aCEH.getErrorList ().isEmpty ());
     assertNotNull (aCEH.toString ());
 
     aCEH = new CollectingSAXErrorHandler ();
@@ -52,6 +52,6 @@ public final class CollectingSAXErrorHandlerTest
     }
     catch (final SAXException ex)
     {}
-    assertFalse (aCEH.getResourceErrors ().isEmpty ());
+    assertFalse (aCEH.getErrorList ().isEmpty ());
   }
 }

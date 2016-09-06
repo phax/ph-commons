@@ -46,4 +46,10 @@ public enum EXMLTransformTexts implements IHasDisplayText
   {
     return DefaultTextResolver.getTextStatic (this, m_aTP, aContentLocale);
   }
+
+  @Nonnull
+  public IMultilingualText getAsMLT ()
+  {
+    return m_aTP;
+  }
 }

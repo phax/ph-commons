@@ -11,6 +11,7 @@ import com.helger.commons.error.level.IHasErrorLevels;
  * @author Philip Helger
  * @param <IMPLTYPE>
  *        Implementation type
+ * @since 8.5.0
  */
 public interface IErrorBaseList <IMPLTYPE extends IError> extends IHasErrorLevels <IMPLTYPE>, Serializable
 {
