@@ -6,6 +6,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.error.location.ErrorLocation;
 import com.helger.commons.error.location.IErrorLocation;
@@ -104,5 +105,89 @@ public class SingleError implements IError
                                        .appendIfNotNull ("ErrorText", m_aErrorText)
                                        .appendIfNotNull ("LinkedException", m_aLinkedException)
                                        .toString ();
+  }
+
+  /**
+   * Builder class for {@link SingleError} instances
+   *
+   * @author Philip Helger
+   */
+  public static class Builder
+  {
+    private IErrorLevel m_aErrorLevel = EErrorLevel.ERROR;
+    private String m_sErrorID;
+    private String m_sErrorFieldName;
+    private IErrorLocation m_aErrorLocation;
+    private IHasErrorText m_aErrorText;
+    private Throwable m_aLinkedException;
+
+    public Builder ()
+    {}
+
+    @Nonnull
+    public Builder setErrorLevel (@Nullable final IErrorLevel aErrorLevel)
+    {
+      m_aErrorLevel = aErrorLevel;
+      return this;
+    }
+
+    @Nonnull
+    public Builder setErrorID (@Nullable final String sErrorID)
+    {
+      m_sErrorID = sErrorID;
+      return this;
+    }
+
+    @Nonnull
+    public Builder setErrorFieldName (@Nullable final String sErrorFieldName)
+    {
+      m_sErrorFieldName = sErrorFieldName;
+      return this;
+    }
+
+    @Nonnull
+    public Builder setErrorLocation (@Nullable final IErrorLocation aErrorLocation)
+    {
+      m_aErrorLocation = aErrorLocation;
+      return this;
+    }
+
+    @Nonnull
+    public Builder setErrorText (@Nullable final String sErrorText)
+    {
+      return setErrorText (sErrorText == null ? null : x -> sErrorText);
+    }
+
+    @Nonnull
+    public Builder setErrorText (@Nullable final IHasErrorText aErrorText)
+    {
+      m_aErrorText = aErrorText;
+      return this;
+    }
+
+    @Nonnull
+    public Builder setLinkedException (@Nullable final Throwable aLinkedException)
+    {
+      m_aLinkedException = aLinkedException;
+      return this;
+    }
+
+    @Nonnull
+    public SingleError build ()
+    {
+      final SingleError ret = new SingleError (m_aErrorLevel);
+      ret.setErrorID (m_sErrorID);
+      ret.setErrorFieldName (m_sErrorFieldName);
+      ret.setErrorLocation (m_aErrorLocation);
+      ret.setErrorText (m_aErrorText);
+      ret.setLinkedException (m_aLinkedException);
+      return ret;
+    }
+  }
+
+  @Nonnull
+  public static Builder builder ()
+  {
+    return new Builder ();
   }
 }

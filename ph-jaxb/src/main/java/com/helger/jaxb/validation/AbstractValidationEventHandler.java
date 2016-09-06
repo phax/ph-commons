@@ -30,8 +30,9 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 
 import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.error.IError;
 import com.helger.commons.error.IResourceError;
-import com.helger.commons.error.ResourceError;
+import com.helger.commons.error.SingleError;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.error.location.ErrorLocation;
@@ -130,7 +131,21 @@ public abstract class AbstractValidationEventHandler implements ValidationEventH
     return null;
   }
 
-  protected abstract void onEvent (@Nonnull IResourceError aEvent);
+  /**
+   * Callback method invoked when an error occurs.
+   * 
+   * @param aError
+   *        The occurred error.
+   */
+  @OverrideOnDemand
+  protected void onEvent (@Nonnull final IError aError)
+  {}
+
+  @Deprecated
+  protected void onEvent (@Nonnull final IResourceError aEvent)
+  {
+    onEvent ((IError) aEvent);
+  }
 
   /**
    * Should the processing be continued? By default it is always continued, as
@@ -151,16 +166,17 @@ public abstract class AbstractValidationEventHandler implements ValidationEventH
 
   public final boolean handleEvent (@Nonnull final ValidationEvent aEvent)
   {
-    final IErrorLevel aErrorLevel = getErrorLevel (aEvent.getSeverity ());
+    final SingleError.Builder aErrBuilder = SingleError.builder ();
+    aErrBuilder.setErrorLevel (getErrorLevel (aEvent.getSeverity ()));
 
     // call our callback
     final ValidationEventLocator aLocator = aEvent.getLocator ();
-    final IErrorLocation aLocation = new ErrorLocation (getLocationResourceID (aLocator),
-                                                        aLocator != null ? aLocator.getLineNumber ()
-                                                                         : IErrorLocation.ILLEGAL_NUMBER,
-                                                        aLocator != null ? aLocator.getColumnNumber ()
-                                                                         : IErrorLocation.ILLEGAL_NUMBER,
-                                                        null);
+    aErrBuilder.setErrorLocation (new ErrorLocation (getLocationResourceID (aLocator),
+                                                     aLocator != null ? aLocator.getLineNumber ()
+                                                                      : IErrorLocation.ILLEGAL_NUMBER,
+                                                     aLocator != null ? aLocator.getColumnNumber ()
+                                                                      : IErrorLocation.ILLEGAL_NUMBER,
+                                                     null));
     // Message may be null in some cases (e.g. when a linked exception is
     // present), but is not allowed to be null!
     String sMsg = aEvent.getMessage ();
@@ -178,7 +194,9 @@ public abstract class AbstractValidationEventHandler implements ValidationEventH
         sMsg = "Validation event";
       }
     }
-    onEvent (new ResourceError (aLocation, aErrorLevel, sMsg, aEvent.getLinkedException ()));
+    aErrBuilder.setErrorText (sMsg).setLinkedException (aEvent.getLinkedException ());
+    final IError aError = aErrBuilder.build ();
+    onEvent (aError);
 
     if (m_aWrappedHandler != null)
     {
@@ -187,7 +205,7 @@ public abstract class AbstractValidationEventHandler implements ValidationEventH
     }
 
     // Continue processing?
-    return continueProcessing (aErrorLevel);
+    return continueProcessing (aError.getErrorLevel ());
   }
 
   @Override
