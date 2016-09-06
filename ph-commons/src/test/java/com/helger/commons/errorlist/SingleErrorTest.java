@@ -33,6 +33,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *
  * @author Philip Helger
  */
+@Deprecated
 public final class SingleErrorTest
 {
   @Test

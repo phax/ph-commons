@@ -16,12 +16,6 @@
  */
 package com.helger.commons.error;
 
-import java.util.Locale;
-
-import javax.annotation.Nonnull;
-
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.errorlist.IErrorBase;
 import com.helger.commons.text.display.IHasDisplayText;
 
 /**
@@ -32,17 +26,8 @@ import com.helger.commons.text.display.IHasDisplayText;
  *
  * @author Philip Helger
  */
-public interface IResourceError extends IHasDisplayText, IErrorBase <IResourceError>
+@Deprecated
+public interface IResourceError extends IHasDisplayText, IError <IResourceError>
 {
-  /**
-   * Get the error as a string representation, including error ID, error
-   * location, error text and the linked exception.
-   *
-   * @param aDisplayLocale
-   *        Locale to resolve the error text
-   * @return The default string representation
-   */
-  @Nonnull
-  @Nonempty
-  String getAsString (@Nonnull Locale aDisplayLocale);
+  /* empty */
 }

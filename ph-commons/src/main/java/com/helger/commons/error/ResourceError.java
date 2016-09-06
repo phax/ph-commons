@@ -25,9 +25,8 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.error.level.IErrorLevel;
-import com.helger.commons.error.location.IResourceLocation;
+import com.helger.commons.error.location.IErrorLocation;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.text.display.ConstantHasDisplayText;
 import com.helger.commons.text.display.IHasDisplayText;
@@ -39,21 +38,22 @@ import com.helger.commons.text.display.IHasDisplayText;
  * @author Philip Helger
  */
 @Immutable
+@Deprecated
 public class ResourceError implements IResourceError
 {
-  private final IResourceLocation m_aLocation;
+  private final IErrorLocation m_aLocation;
   private final IErrorLevel m_aErrorLevel;
   private final IHasDisplayText m_aErrorText;
   private final Throwable m_aLinkedException;
 
-  public ResourceError (@Nonnull final IResourceLocation aLocation,
+  public ResourceError (@Nonnull final IErrorLocation aLocation,
                         @Nonnull final IErrorLevel aErrorLevel,
                         @Nonnull final String sErrorText)
   {
     this (aLocation, aErrorLevel, sErrorText, null);
   }
 
-  public ResourceError (@Nonnull final IResourceLocation aLocation,
+  public ResourceError (@Nonnull final IErrorLocation aLocation,
                         @Nonnull final IErrorLevel aErrorLevel,
                         @Nonnull final String sErrorText,
                         @Nullable final Throwable aLinkedException)
@@ -61,14 +61,14 @@ public class ResourceError implements IResourceError
     this (aLocation, aErrorLevel, new ConstantHasDisplayText (sErrorText), aLinkedException);
   }
 
-  public ResourceError (@Nonnull final IResourceLocation aLocation,
+  public ResourceError (@Nonnull final IErrorLocation aLocation,
                         @Nonnull final IErrorLevel aErrorLevel,
                         @Nonnull final IHasDisplayText aErrorText)
   {
     this (aLocation, aErrorLevel, aErrorText, null);
   }
 
-  public ResourceError (@Nonnull final IResourceLocation aLocation,
+  public ResourceError (@Nonnull final IErrorLocation aLocation,
                         @Nonnull final IErrorLevel aErrorLevel,
                         @Nonnull final IHasDisplayText aErrorText,
                         @Nullable final Throwable aLinkedException)
@@ -80,7 +80,7 @@ public class ResourceError implements IResourceError
   }
 
   @Nonnull
-  public final IResourceLocation getLocation ()
+  public final IErrorLocation getLocation ()
   {
     return m_aLocation;
   }
@@ -95,6 +95,13 @@ public class ResourceError implements IResourceError
   @OverrideOnDemand
   public String getDisplayText (@Nonnull final Locale aContentLocale)
   {
+    return getErrorText (aContentLocale);
+  }
+
+  @Nullable
+  @OverrideOnDemand
+  public String getErrorText (@Nonnull final Locale aContentLocale)
+  {
     return m_aErrorText.getDisplayText (aContentLocale);
   }
 
@@ -102,26 +109,6 @@ public class ResourceError implements IResourceError
   public final Throwable getLinkedException ()
   {
     return m_aLinkedException;
-  }
-
-  @Nonnull
-  @OverrideOnDemand
-  public String getAsString (@Nonnull final Locale aDisplayLocale)
-  {
-    String ret = "[" + m_aErrorLevel.getID () + "] ";
-
-    // Location
-    final String sLocation = m_aLocation.getAsString ();
-    if (StringHelper.hasText (sLocation))
-      ret += sLocation + ": ";
-
-    // Message
-    ret += getDisplayText (aDisplayLocale);
-
-    // Linked exception
-    if (hasLinkedException ())
-      ret += " (" + m_aLinkedException.getClass ().getName () + ": " + m_aLinkedException.getMessage () + ")";
-    return ret;
   }
 
   @Override

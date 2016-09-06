@@ -29,7 +29,7 @@ import com.helger.commons.string.StringHelper;
  *
  * @author Philip Helger
  */
-public interface IResourceLocation extends Serializable
+public interface IErrorLocation extends Serializable
 {
   /** Constant for an illegal row or column number */
   int ILLEGAL_NUMBER = CGlobal.ILLEGAL_UINT;

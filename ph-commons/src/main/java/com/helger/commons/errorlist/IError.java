@@ -19,8 +19,7 @@ package com.helger.commons.errorlist;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.error.location.IResourceLocation;
-import com.helger.commons.error.location.ResourceLocation;
+import com.helger.commons.error.location.IErrorLocation;
 
 /**
  * Base interface for a single error, that has an error ID, and error level, and
@@ -28,25 +27,27 @@ import com.helger.commons.error.location.ResourceLocation;
  *
  * @author Philip Helger
  */
-public interface IError extends IErrorBase <IError>
+@Deprecated
+public interface IError extends com.helger.commons.error.IError <IError>
 {
   /**
-   * @return The error field name of this object as an {@link IResourceLocation}
-   *         . Never <code>null</code>.
+   * @return The error field name of this object as an {@link IErrorLocation} .
+   *         Never <code>null</code>.
    * @deprecated Use {@link #getLocation()} instead
    */
   @Nonnull
   @Deprecated
-  default IResourceLocation getResourceLocation ()
+  default IErrorLocation getResourceLocation ()
   {
     return getLocation ();
   }
 
+  /**
+   * @return The error field name of this object as an {@link IErrorLocation} .
+   *         Never <code>null</code>.
+   */
   @Nonnull
-  default IResourceLocation getLocation ()
-  {
-    return new ResourceLocation (null, getErrorFieldName ());
-  }
+  IErrorLocation getLocation ();
 
   /**
    * @return The message of this form error. The error text is always locale

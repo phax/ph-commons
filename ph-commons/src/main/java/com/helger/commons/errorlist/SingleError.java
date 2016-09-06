@@ -16,6 +16,8 @@
  */
 package com.helger.commons.errorlist;
 
+import java.util.Locale;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -25,6 +27,8 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
+import com.helger.commons.error.location.ErrorLocation;
+import com.helger.commons.error.location.IErrorLocation;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -37,6 +41,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
+@Deprecated
 public class SingleError implements IError
 {
   private final String m_sErrorID;
@@ -91,6 +96,18 @@ public class SingleError implements IError
   public String getErrorText ()
   {
     return m_sErrorText;
+  }
+
+  @Nullable
+  public String getErrorText (@Nonnull final Locale aContentLocale)
+  {
+    return m_sErrorText;
+  }
+
+  @Nonnull
+  public IErrorLocation getLocation ()
+  {
+    return new ErrorLocation (null, IErrorLocation.ILLEGAL_NUMBER, IErrorLocation.ILLEGAL_NUMBER, m_sErrorFieldName);
   }
 
   @Override

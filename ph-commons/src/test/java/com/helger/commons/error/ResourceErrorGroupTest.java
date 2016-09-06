@@ -26,8 +26,8 @@ import org.junit.Test;
 
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.error.level.EErrorLevel;
-import com.helger.commons.error.location.IResourceLocation;
-import com.helger.commons.error.location.ResourceLocation;
+import com.helger.commons.error.location.ErrorLocation;
+import com.helger.commons.error.location.IErrorLocation;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -35,12 +35,13 @@ import com.helger.commons.mock.CommonsTestHelper;
  *
  * @author Philip Helger
  */
+@Deprecated
 public final class ResourceErrorGroupTest
 {
   @Test
   public void testCtor ()
   {
-    final IResourceLocation loc = new ResourceLocation ("res", null);
+    final IErrorLocation loc = new ErrorLocation ("res", -1, -1, null);
 
     ResourceErrorGroup aREG = new ResourceErrorGroup ();
     assertTrue (aREG.isEmpty ());
@@ -96,7 +97,7 @@ public final class ResourceErrorGroupTest
   @Test
   public void testBasic ()
   {
-    final IResourceLocation loc = new ResourceLocation ("res", null);
+    final IErrorLocation loc = new ErrorLocation ("res", -1, -1, null);
 
     ResourceErrorGroup aREG = new ResourceErrorGroup ();
     assertTrue (aREG.isEmpty ());

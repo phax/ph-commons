@@ -24,12 +24,14 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
+import com.helger.commons.error.list.IErrorBaseList;
 
 /**
  * Contains a list of resource errors and some sanity access methods.
  *
  * @author Philip Helger
  */
+@Deprecated
 public interface IResourceErrorGroup extends IErrorBaseList <IResourceError>
 {
   @Nonnull

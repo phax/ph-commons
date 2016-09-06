@@ -37,17 +37,17 @@ public final class FormErrorsTest
   {
     final FormErrors aFEL = new FormErrors ();
     assertTrue (aFEL.isEmpty ());
-    assertFalse (aFEL.hasErrorsOrWarnings ());
+    assertFalse (aFEL.containsAtLeastOneWarningOrError ());
     assertEquals (EErrorLevel.SUCCESS, aFEL.getMostSevereErrorLevel ());
 
     aFEL.addFieldInfo ("f1", "info");
     assertFalse (aFEL.isEmpty ());
-    assertFalse (aFEL.hasErrorsOrWarnings ());
+    assertFalse (aFEL.containsAtLeastOneWarningOrError ());
     assertEquals (EErrorLevel.INFO, aFEL.getMostSevereErrorLevel ());
 
     aFEL.addFieldError ("f2", "error");
     assertFalse (aFEL.isEmpty ());
-    assertTrue (aFEL.hasErrorsOrWarnings ());
+    assertTrue (aFEL.containsAtLeastOneWarningOrError ());
     assertEquals (EErrorLevel.ERROR, aFEL.getMostSevereErrorLevel ());
 
     assertNotNull (aFEL.getListOfField ("f1"));
@@ -59,7 +59,7 @@ public final class FormErrorsTest
     assertFalse (aFEL.clear ().isChanged ());
 
     assertTrue (aFEL.isEmpty ());
-    assertFalse (aFEL.hasErrorsOrWarnings ());
+    assertFalse (aFEL.containsAtLeastOneWarningOrError ());
     assertEquals (EErrorLevel.SUCCESS, aFEL.getMostSevereErrorLevel ());
   }
 }

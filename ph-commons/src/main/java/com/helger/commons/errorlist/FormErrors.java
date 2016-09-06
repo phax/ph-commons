@@ -191,7 +191,7 @@ public class FormErrors implements Serializable, IFieldErrorList
    */
   public boolean hasGlobalErrorsOrWarnings ()
   {
-    return m_aFormGlobalErrs.hasErrorsOrWarnings ();
+    return m_aFormGlobalErrs.containsAtLeastOneWarningOrError ();
   }
 
   /**
@@ -199,16 +199,17 @@ public class FormErrors implements Serializable, IFieldErrorList
    */
   public boolean hasFormFieldErrorsOrWarnings ()
   {
-    return m_aFormFieldErrs.hasErrorsOrWarnings ();
+    return m_aFormFieldErrs.containsAtLeastOneWarningOrError ();
   }
 
   /**
    * @return <code>true</code> if form-global OR form-field errors or warnings
    *         are present.
    */
-  public boolean hasErrorsOrWarnings ()
+  public boolean containsAtLeastOneWarningOrError ()
   {
-    return m_aFormGlobalErrs.hasErrorsOrWarnings () || m_aFormFieldErrs.hasErrorsOrWarnings ();
+    return m_aFormGlobalErrs.containsAtLeastOneWarningOrError () ||
+           m_aFormFieldErrs.containsAtLeastOneWarningOrError ();
   }
 
   /**

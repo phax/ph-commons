@@ -38,6 +38,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
+@Deprecated
 public class ResourceErrorGroup implements IResourceErrorGroup, ICloneable <ResourceErrorGroup>, IClearable
 {
   private final ICommonsList <IResourceError> m_aErrors = new CommonsArrayList<> ();

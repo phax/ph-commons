@@ -47,6 +47,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
+@Deprecated
 public class ErrorList implements IErrorList, IClearable, ICloneable <ErrorList>
 {
   private final ICommonsList <IError> m_aItems = new CommonsArrayList<> ();

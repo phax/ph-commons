@@ -25,41 +25,26 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * Default implementation of the {@link IResourceLocation} interface. The
+ * Default implementation of the {@link IErrorLocation} interface. The
  * implementation is immutable.
  *
  * @author Philip Helger
  */
 @Immutable
-public class ResourceLocation implements IResourceLocation
+public class ErrorLocation implements IErrorLocation
 {
   /** A constant representing no location */
-  public static final ResourceLocation NO_LOCATION = new ResourceLocation (null, ILLEGAL_NUMBER, ILLEGAL_NUMBER, null);
+  public static final ErrorLocation NO_LOCATION = new ErrorLocation (null, ILLEGAL_NUMBER, ILLEGAL_NUMBER, null);
 
   private final String m_sResourceID;
   private final int m_nLineNumber;
   private final int m_nColumnNumber;
   private final String m_sField;
 
-  public ResourceLocation (@Nullable final String sResourceID)
-  {
-    this (sResourceID, (String) null);
-  }
-
-  public ResourceLocation (@Nullable final String sResourceID, @Nullable final String sField)
-  {
-    this (sResourceID, ILLEGAL_NUMBER, ILLEGAL_NUMBER, sField);
-  }
-
-  public ResourceLocation (@Nullable final String sResourceID, final int nLineNumber, final int nColumnNumber)
-  {
-    this (sResourceID, nLineNumber, nColumnNumber, null);
-  }
-
-  public ResourceLocation (@Nullable final String sResourceID,
-                           final int nLineNumber,
-                           final int nColumnNumber,
-                           @Nullable final String sField)
+  public ErrorLocation (@Nullable final String sResourceID,
+                        final int nLineNumber,
+                        final int nColumnNumber,
+                        @Nullable final String sField)
   {
     m_sResourceID = sResourceID;
     m_nLineNumber = nLineNumber;
@@ -120,7 +105,7 @@ public class ResourceLocation implements IResourceLocation
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final ResourceLocation rhs = (ResourceLocation) o;
+    final ErrorLocation rhs = (ErrorLocation) o;
     return EqualsHelper.equals (m_sResourceID, rhs.m_sResourceID) &&
            m_nLineNumber == rhs.m_nLineNumber &&
            m_nColumnNumber == rhs.m_nColumnNumber &&
