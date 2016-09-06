@@ -165,10 +165,15 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
     if (StringHelper.hasText (sErrorID))
       ret += "[" + sErrorID + "]";
 
-    // Location (including field)
+    // Error ID
+    final String sErrorFieldName = getErrorFieldName ();
+    if (StringHelper.hasText (sErrorFieldName))
+      ret += " in " + sErrorFieldName;
+
+    // Location
     final IErrorLocation aLocation = getLocation ();
     if (aLocation.isAnyInformationPresent ())
-      ret += " " + aLocation.getAsString () + ":";
+      ret += " @ " + aLocation.getAsString () + ":";
 
     // Message
     final String sErrorText = getErrorText (aDisplayLocale);

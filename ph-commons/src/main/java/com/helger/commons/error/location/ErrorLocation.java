@@ -16,7 +16,6 @@
  */
 package com.helger.commons.error.location;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
@@ -61,23 +60,6 @@ public class ErrorLocation implements IErrorLocation
   public int getColumnNumber ()
   {
     return m_nColumnNumber;
-  }
-
-  @Nonnull
-  public String getAsString ()
-  {
-    String ret = "";
-    if (hasResourceID ())
-      ret += m_sResourceID;
-
-    if (hasLineNumber ())
-    {
-      if (hasColumnNumber ())
-        ret += "(" + m_nLineNumber + ":" + m_nColumnNumber + ")";
-      else
-        ret += "(" + m_nLineNumber + ":?)";
-    }
-    return ret;
   }
 
   @Override

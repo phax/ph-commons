@@ -86,5 +86,22 @@ public interface IErrorLocation extends Serializable
    * @return The display text of the resource location.
    */
   @Nonnull
-  String getAsString ();
+  default String getAsString ()
+  {
+    String ret = "";
+
+    final String sResourceID = getResourceID ();
+    if (StringHelper.hasText (sResourceID))
+      ret += sResourceID;
+
+    if (hasLineNumber ())
+    {
+      if (hasColumnNumber ())
+        ret += "(" + getLineNumber () + ":" + getColumnNumber () + ")";
+      else
+        ret += "(" + getLineNumber () + ":?)";
+    }
+    return ret;
+  }
+
 }

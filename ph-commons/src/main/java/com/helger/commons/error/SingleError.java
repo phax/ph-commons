@@ -178,12 +178,12 @@ public class SingleError implements IError
    */
   public static class Builder
   {
-    private IErrorLevel m_aErrorLevel = EErrorLevel.ERROR;
-    private String m_sErrorID;
-    private String m_sErrorFieldName;
-    private IErrorLocation m_aErrorLocation;
-    private IHasErrorText m_aErrorText;
-    private Throwable m_aLinkedException;
+    protected IErrorLevel m_aErrorLevel = EErrorLevel.ERROR;
+    protected String m_sErrorID;
+    protected String m_sErrorFieldName;
+    protected IErrorLocation m_aErrorLocation;
+    protected IHasErrorText m_aErrorText;
+    protected Throwable m_aLinkedException;
 
     public Builder ()
     {}
