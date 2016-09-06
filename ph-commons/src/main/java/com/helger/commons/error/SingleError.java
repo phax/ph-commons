@@ -17,7 +17,6 @@ import com.helger.commons.error.text.ConstantHasErrorText;
 import com.helger.commons.error.text.DynamicHasErrorText;
 import com.helger.commons.error.text.IHasErrorText;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.text.IMultilingualText;
 
@@ -247,21 +246,10 @@ public class SingleError implements IError
     @Nonnull
     public SingleError build ()
     {
-      final IErrorLocation aLocation;
-      if (m_aErrorLocation != null)
-        aLocation = m_aErrorLocation;
-      else
-        if (StringHelper.hasText (m_sErrorFieldName))
-          aLocation = new ErrorLocation (null,
-                                         IErrorLocation.ILLEGAL_NUMBER,
-                                         IErrorLocation.ILLEGAL_NUMBER,
-                                         m_sErrorFieldName);
-        else
-          aLocation = null;
       return new SingleError (m_aErrorLevel,
                               m_sErrorID,
                               m_sErrorFieldName,
-                              aLocation,
+                              m_aErrorLocation,
                               m_aErrorText,
                               m_aLinkedException);
     }

@@ -38,6 +38,7 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
+@SuppressWarnings ("deprecation")
 @ThreadSafe
 public class CollectingTransformErrorListener extends AbstractTransformErrorListener implements IHasResourceErrorGroup
 {

@@ -85,10 +85,7 @@ public abstract class AbstractSAXErrorHandler implements ErrorHandler
 
     return SingleError.builder ()
                       .setErrorLevel (aErrorLevel)
-                      .setErrorLocation (new ErrorLocation (sResourceID,
-                                                            ex.getLineNumber (),
-                                                            ex.getColumnNumber (),
-                                                            null))
+                      .setErrorLocation (new ErrorLocation (sResourceID, ex.getLineNumber (), ex.getColumnNumber ()))
                       .setErrorText ("[SAX] " + ex.getMessage ())
                       .setLinkedException (ex)
                       .build ();

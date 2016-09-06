@@ -20,8 +20,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.helger.commons.error.location.ErrorLocation;
-import com.helger.commons.error.location.IErrorLocation;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -34,36 +32,31 @@ public final class ErrorLocationTest
   @Test
   public void testBasic ()
   {
-    ErrorLocation re = new ErrorLocation ("xx", -1, -1, "field");
+    ErrorLocation re = new ErrorLocation ("xx", -1, -1);
     assertEquals ("xx", re.getResourceID ());
     assertEquals (IErrorLocation.ILLEGAL_NUMBER, re.getLineNumber ());
     assertEquals (IErrorLocation.ILLEGAL_NUMBER, re.getColumnNumber ());
-    assertEquals ("field", re.getField ());
-    assertEquals ("xx @ field", re.getAsString ());
+    assertEquals ("xx", re.getAsString ());
 
-    re = new ErrorLocation ("xx", 5, IErrorLocation.ILLEGAL_NUMBER, "field");
+    re = new ErrorLocation ("xx", 5, IErrorLocation.ILLEGAL_NUMBER);
     assertEquals ("xx", re.getResourceID ());
     assertEquals (5, re.getLineNumber ());
     assertEquals (IErrorLocation.ILLEGAL_NUMBER, re.getColumnNumber ());
-    assertEquals ("field", re.getField ());
-    assertEquals ("xx(5:?) @ field", re.getAsString ());
+    assertEquals ("xx(5:?)", re.getAsString ());
 
-    re = new ErrorLocation ("xx", 5, 7, "field");
+    re = new ErrorLocation ("xx", 5, 7);
     assertEquals ("xx", re.getResourceID ());
     assertEquals (5, re.getLineNumber ());
     assertEquals (7, re.getColumnNumber ());
-    assertEquals ("field", re.getField ());
-    assertEquals ("xx(5:7) @ field", re.getAsString ());
+    assertEquals ("xx(5:7)", re.getAsString ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ErrorLocation ("xx", -1, -1, "field"),
-                                                                       new ErrorLocation ("xx", -1, -1, "field"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ErrorLocation ("xx", -1, -1, "field"),
-                                                                           new ErrorLocation ("xx2", -1, -1, "field"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ErrorLocation ("xx", -1, -1, "field"),
-                                                                           new ErrorLocation ("xx", -1, -1, "field2"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ErrorLocation ("xx", 0, 1, "field"),
-                                                                           new ErrorLocation ("xx", 0, 0, "field"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ErrorLocation ("xx", 0, 1, "field"),
-                                                                           new ErrorLocation ("xx", 1, 1, "field"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ErrorLocation ("xx", -1, -1),
+                                                                       new ErrorLocation ("xx", -1, -1));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ErrorLocation ("xx", -1, -1),
+                                                                           new ErrorLocation ("xx2", -1, -1));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ErrorLocation ("xx", 0, 1),
+                                                                           new ErrorLocation ("xx", 1, 1));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ErrorLocation ("xx", 0, 1),
+                                                                           new ErrorLocation ("xx", 0, 0));
   }
 }

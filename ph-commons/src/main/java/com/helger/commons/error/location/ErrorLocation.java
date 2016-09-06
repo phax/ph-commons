@@ -34,22 +34,17 @@ import com.helger.commons.string.ToStringGenerator;
 public class ErrorLocation implements IErrorLocation
 {
   /** A constant representing no location */
-  public static final ErrorLocation NO_LOCATION = new ErrorLocation (null, ILLEGAL_NUMBER, ILLEGAL_NUMBER, null);
+  public static final ErrorLocation NO_LOCATION = new ErrorLocation (null, ILLEGAL_NUMBER, ILLEGAL_NUMBER);
 
   private final String m_sResourceID;
   private final int m_nLineNumber;
   private final int m_nColumnNumber;
-  private final String m_sField;
 
-  public ErrorLocation (@Nullable final String sResourceID,
-                        final int nLineNumber,
-                        final int nColumnNumber,
-                        @Nullable final String sField)
+  public ErrorLocation (@Nullable final String sResourceID, final int nLineNumber, final int nColumnNumber)
   {
     m_sResourceID = sResourceID;
     m_nLineNumber = nLineNumber;
     m_nColumnNumber = nColumnNumber;
-    m_sField = sField;
   }
 
   @Nullable
@@ -68,12 +63,6 @@ public class ErrorLocation implements IErrorLocation
     return m_nColumnNumber;
   }
 
-  @Nullable
-  public String getField ()
-  {
-    return m_sField;
-  }
-
   @Nonnull
   public String getAsString ()
   {
@@ -88,13 +77,6 @@ public class ErrorLocation implements IErrorLocation
       else
         ret += "(" + m_nLineNumber + ":?)";
     }
-
-    if (hasField ())
-    {
-      if (ret.length () > 0)
-        ret += " @ ";
-      ret += m_sField;
-    }
     return ret;
   }
 
@@ -108,8 +90,7 @@ public class ErrorLocation implements IErrorLocation
     final ErrorLocation rhs = (ErrorLocation) o;
     return EqualsHelper.equals (m_sResourceID, rhs.m_sResourceID) &&
            m_nLineNumber == rhs.m_nLineNumber &&
-           m_nColumnNumber == rhs.m_nColumnNumber &&
-           EqualsHelper.equals (m_sField, rhs.m_sField);
+           m_nColumnNumber == rhs.m_nColumnNumber;
   }
 
   @Override
@@ -118,17 +99,15 @@ public class ErrorLocation implements IErrorLocation
     return new HashCodeGenerator (this).append (m_sResourceID)
                                        .append (m_nLineNumber)
                                        .append (m_nColumnNumber)
-                                       .append (m_sField)
                                        .getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("resourceID", m_sResourceID)
-                                       .append ("lineNumber", m_nLineNumber)
-                                       .append ("columnNumber", m_nColumnNumber)
-                                       .appendIfNotNull ("field", m_sField)
+    return new ToStringGenerator (this).append ("ResourceID", m_sResourceID)
+                                       .append ("LineNumber", m_nLineNumber)
+                                       .append ("ColumnNumber", m_nColumnNumber)
                                        .toString ();
   }
 }

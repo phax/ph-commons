@@ -70,12 +70,8 @@ public abstract class AbstractTransformErrorListener implements ErrorListener
                                                                                                                  "/",
                                                                                                                  aLocator.getSystemId ()),
                                                                            aLocator.getLineNumber (),
-                                                                           aLocator.getColumnNumber (),
-                                                                           null)
-                                                      : new ErrorLocation (ex.getLocationAsString (),
-                                                                           IErrorLocation.ILLEGAL_NUMBER,
-                                                                           IErrorLocation.ILLEGAL_NUMBER,
-                                                                           null);
+                                                                           aLocator.getColumnNumber ())
+                                                      : null;
     return SingleError.builder ()
                       .setErrorLevel (aErrorLevel)
                       .setErrorLocation (aLocation)

@@ -116,7 +116,16 @@ public abstract class AbstractValidationEventHandler implements ValidationEventH
       final URL aURL = aLocator.getURL ();
       if (aURL != null)
         return aURL.toString ();
+    }
+    return null;
+  }
 
+  @Nullable
+  @OverrideOnDemand
+  protected String getErrorFieldName (@Nullable final ValidationEventLocator aLocator)
+  {
+    if (aLocator != null)
+    {
       // Source object found?
       final Object aObj = aLocator.getObject ();
       if (aObj != null)
@@ -158,17 +167,17 @@ public abstract class AbstractValidationEventHandler implements ValidationEventH
 
   public final boolean handleEvent (@Nonnull final ValidationEvent aEvent)
   {
-    final SingleError.Builder aErrBuilder = SingleError.builder ();
-    aErrBuilder.setErrorLevel (getErrorLevel (aEvent.getSeverity ()));
+    final IErrorLevel aErrorLevel = getErrorLevel (aEvent.getSeverity ());
+    final SingleError.Builder aErrBuilder = SingleError.builder ().setErrorLevel (aErrorLevel);
 
-    // call our callback
     final ValidationEventLocator aLocator = aEvent.getLocator ();
     aErrBuilder.setErrorLocation (new ErrorLocation (getLocationResourceID (aLocator),
                                                      aLocator != null ? aLocator.getLineNumber ()
                                                                       : IErrorLocation.ILLEGAL_NUMBER,
                                                      aLocator != null ? aLocator.getColumnNumber ()
-                                                                      : IErrorLocation.ILLEGAL_NUMBER,
-                                                     null));
+                                                                      : IErrorLocation.ILLEGAL_NUMBER))
+               .setErrorFieldName (getErrorFieldName (aLocator));
+
     // Message may be null in some cases (e.g. when a linked exception is
     // present), but is not allowed to be null!
     String sMsg = aEvent.getMessage ();
@@ -187,8 +196,9 @@ public abstract class AbstractValidationEventHandler implements ValidationEventH
       }
     }
     aErrBuilder.setErrorText (sMsg).setLinkedException (aEvent.getLinkedException ());
-    final IError aError = aErrBuilder.build ();
-    onEvent (aError);
+
+    // call our callback
+    onEvent (aErrBuilder.build ());
 
     if (m_aWrappedHandler != null)
     {
@@ -197,7 +207,7 @@ public abstract class AbstractValidationEventHandler implements ValidationEventH
     }
 
     // Continue processing?
-    return continueProcessing (aError.getErrorLevel ());
+    return continueProcessing (aErrorLevel);
   }
 
   @Override

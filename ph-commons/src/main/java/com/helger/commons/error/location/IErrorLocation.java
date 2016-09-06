@@ -71,19 +71,6 @@ public interface IErrorLocation extends Serializable
   }
 
   /**
-   * @return The field where the error occurred. Sometimes this field is
-   *         available instead of the line- and column numbers. May be
-   *         <code>null</code>.
-   */
-  @Nullable
-  String getField ();
-
-  default boolean hasField ()
-  {
-    return StringHelper.hasText (getField ());
-  }
-
-  /**
    * Simple method to check if resource ID, line number, column number or field
    * name is present.
    *
@@ -92,7 +79,7 @@ public interface IErrorLocation extends Serializable
    */
   default boolean isAnyInformationPresent ()
   {
-    return hasResourceID () || hasLineNumber () || hasColumnNumber () || hasField ();
+    return hasResourceID () || hasLineNumber () || hasColumnNumber ();
   }
 
   /**

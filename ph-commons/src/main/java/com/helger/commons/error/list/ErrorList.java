@@ -13,6 +13,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.error.IError;
+import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
@@ -159,6 +160,23 @@ public class ErrorList implements IErrorList, ICloneable <ErrorList>
   public ErrorList getClone ()
   {
     return new ErrorList (this);
+  }
+
+  @Override
+  public boolean equals (final Object o)
+  {
+    if (o == this)
+      return true;
+    if (o == null || !getClass ().equals (o.getClass ()))
+      return false;
+    final ErrorList rhs = (ErrorList) o;
+    return m_aList.equals (rhs.m_aList);
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    return new HashCodeGenerator (this).append (m_aList).getHashCode ();
   }
 
   @Override

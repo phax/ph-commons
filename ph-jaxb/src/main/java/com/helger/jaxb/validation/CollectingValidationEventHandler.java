@@ -41,6 +41,7 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
+@SuppressWarnings ("deprecation")
 @ThreadSafe
 public class CollectingValidationEventHandler extends AbstractValidationEventHandler
 {

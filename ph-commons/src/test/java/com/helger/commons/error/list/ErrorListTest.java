@@ -27,6 +27,8 @@ import org.junit.Test;
 
 import com.helger.commons.error.SingleError;
 import com.helger.commons.error.level.EErrorLevel;
+import com.helger.commons.error.location.ErrorLocation;
+import com.helger.commons.exception.mock.MockIOException;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -258,5 +260,29 @@ public final class ErrorListTest
     assertEquals (0, aList.getListOfFieldsRegExp ("field\\d").getSize ());
     assertEquals (0, aList.getGroupedByID ().size ());
     assertEquals (0, aList.getGroupedByFieldName ().size ());
+  }
+
+  @Test
+  public void testSerialize ()
+  {
+    final ErrorList aList = new ErrorList ();
+    CommonsTestHelper.testDefaultSerialization (aList);
+
+    aList.add (SingleError.builderInfo ()
+                          .setErrorID ("test-1")
+                          .setErrorFieldName ("field1")
+                          .setErrorText ("TestInfo")
+                          .setErrorLocation (new ErrorLocation ("here.xml", 17, 3))
+                          .build ());
+    CommonsTestHelper.testDefaultSerialization (aList);
+
+    aList.add (SingleError.builderInfo ()
+                          .setErrorID ("test-2")
+                          .setErrorFieldName ("field1")
+                          .setErrorText ("TestInfo")
+                          .setErrorLocation (new ErrorLocation ("here.xml", 17, 3))
+                          .setLinkedException (new MockIOException ("Mock"))
+                          .build ());
+    CommonsTestHelper.testDefaultSerialization (aList);
   }
 }

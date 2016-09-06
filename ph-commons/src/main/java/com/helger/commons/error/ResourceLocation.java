@@ -1,5 +1,7 @@
 package com.helger.commons.error;
 
+import javax.annotation.Nullable;
+
 import com.helger.commons.error.location.ErrorLocation;
 
 /**
@@ -9,26 +11,35 @@ import com.helger.commons.error.location.ErrorLocation;
 @Deprecated
 public class ResourceLocation extends ErrorLocation implements IResourceLocation
 {
-  public ResourceLocation (final String sResourceID)
+  private final String m_sField;
+
+  public ResourceLocation (@Nullable final String sResourceID)
   {
-    super (sResourceID, ILLEGAL_NUMBER, ILLEGAL_NUMBER, null);
+    this (sResourceID, ILLEGAL_NUMBER, ILLEGAL_NUMBER, null);
   }
 
-  public ResourceLocation (final String sResourceID, final String sField)
+  public ResourceLocation (@Nullable final String sResourceID, final String sField)
   {
-    super (sResourceID, ILLEGAL_NUMBER, ILLEGAL_NUMBER, sField);
+    this (sResourceID, ILLEGAL_NUMBER, ILLEGAL_NUMBER, sField);
   }
 
-  public ResourceLocation (final String sResourceID, final int nLineNumber, final int nColumnNumber)
+  public ResourceLocation (@Nullable final String sResourceID, final int nLineNumber, final int nColumnNumber)
   {
-    super (sResourceID, nLineNumber, nColumnNumber, null);
+    this (sResourceID, nLineNumber, nColumnNumber, null);
   }
 
-  public ResourceLocation (final String sResourceID,
+  public ResourceLocation (@Nullable final String sResourceID,
                            final int nLineNumber,
                            final int nColumnNumber,
-                           final String sField)
+                           @Nullable final String sField)
   {
-    super (sResourceID, nLineNumber, nColumnNumber, sField);
+    super (sResourceID, nLineNumber, nColumnNumber);
+    m_sField = sField;
+  }
+
+  @Nullable
+  public String getField ()
+  {
+    return m_sField;
   }
 }

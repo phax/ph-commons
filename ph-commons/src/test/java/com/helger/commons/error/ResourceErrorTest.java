@@ -27,7 +27,6 @@ import org.junit.Test;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.error.level.EErrorLevel;
-import com.helger.commons.error.location.ErrorLocation;
 import com.helger.commons.error.location.IErrorLocation;
 import com.helger.commons.exception.mock.MockException;
 import com.helger.commons.mock.CommonsTestHelper;
@@ -46,7 +45,7 @@ public final class ResourceErrorTest
   @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testCtor ()
   {
-    final IErrorLocation loc = new ErrorLocation ("res", -1, -1, null);
+    final IErrorLocation loc = new ResourceLocation ("res", -1, -1, null);
     try
     {
       // location may not be null
@@ -76,8 +75,8 @@ public final class ResourceErrorTest
   @Test
   public void testBasic ()
   {
-    final IErrorLocation loc = new ErrorLocation ("res", -1, -1, "field");
-    final IErrorLocation loc2 = new ErrorLocation ("res", -1, -1, "field2");
+    final IErrorLocation loc = new ResourceLocation ("res", -1, -1, "field");
+    final IErrorLocation loc2 = new ResourceLocation ("res", -1, -1, "field2");
     ResourceError re = new ResourceError (loc, EErrorLevel.ERROR, "mock error");
     assertEquals (loc, re.getLocation ());
     assertEquals (EErrorLevel.ERROR, re.getErrorLevel ());

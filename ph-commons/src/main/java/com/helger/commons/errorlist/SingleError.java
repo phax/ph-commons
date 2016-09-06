@@ -107,7 +107,7 @@ public class SingleError implements IError
   @Nonnull
   public IErrorLocation getLocation ()
   {
-    return new ErrorLocation (null, IErrorLocation.ILLEGAL_NUMBER, IErrorLocation.ILLEGAL_NUMBER, m_sErrorFieldName);
+    return ErrorLocation.NO_LOCATION;
   }
 
   @Override

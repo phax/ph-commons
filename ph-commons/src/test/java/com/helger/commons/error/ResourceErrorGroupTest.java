@@ -41,7 +41,7 @@ public final class ResourceErrorGroupTest
   @Test
   public void testCtor ()
   {
-    final IErrorLocation loc = new ErrorLocation ("res", -1, -1, null);
+    final IErrorLocation loc = new ErrorLocation ("res", -1, -1);
 
     ResourceErrorGroup aREG = new ResourceErrorGroup ();
     assertTrue (aREG.isEmpty ());
@@ -97,7 +97,7 @@ public final class ResourceErrorGroupTest
   @Test
   public void testBasic ()
   {
-    final IErrorLocation loc = new ErrorLocation ("res", -1, -1, null);
+    final IErrorLocation loc = new ErrorLocation ("res", -1, -1);
 
     ResourceErrorGroup aREG = new ResourceErrorGroup ();
     assertTrue (aREG.isEmpty ());

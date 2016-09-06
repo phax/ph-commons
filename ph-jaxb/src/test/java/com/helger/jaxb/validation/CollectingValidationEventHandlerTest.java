@@ -55,7 +55,7 @@ public final class CollectingValidationEventHandlerTest
     JAXBElement <MockJAXBArchive> o = um.unmarshal (TransformSourceFactory.create (new FileSystemResource ("src/test/resources/xml/test-archive-01.xml")),
                                                     MockJAXBArchive.class);
     assertNotNull (o);
-    assertTrue (evh.getResourceErrors ().isEmpty ());
+    assertTrue (evh.getErrorList ().isEmpty ());
 
     // read invalid
     evh = new CollectingValidationEventHandler ();
@@ -63,7 +63,7 @@ public final class CollectingValidationEventHandlerTest
     o = um.unmarshal (TransformSourceFactory.create (new FileSystemResource ("src/test/resources/xml/buildinfo.xml")),
                       MockJAXBArchive.class);
     assertNotNull (o);
-    assertFalse (evh.getResourceErrors ().isEmpty ());
+    assertFalse (evh.getErrorList ().isEmpty ());
 
     // Read invalid (but close to valid)
     evh = new CollectingValidationEventHandler (new LoggingValidationEventHandler ());
@@ -71,7 +71,7 @@ public final class CollectingValidationEventHandlerTest
     o = um.unmarshal (TransformSourceFactory.create (new FileSystemResource ("src/test/resources/xml/test-archive-03.xml")),
                       MockJAXBArchive.class);
     assertNotNull (o);
-    assertEquals (1, evh.getResourceErrors ().getSize ());
+    assertEquals (1, evh.getErrorList ().getSize ());
 
     // For code coverage completion
     CommonsTestHelper.testToStringImplementation (evh);
