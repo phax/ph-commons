@@ -16,7 +16,6 @@
  */
 package com.helger.xml;
 
-import java.util.Collection;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -204,13 +203,15 @@ public final class XMLHelper
    * Get the first direct child element of the passed element.
    *
    * @param aStartNode
-   *        The element to start searching.
+   *        The element to start searching. May be <code>null</code>.
    * @return <code>null</code> if the passed element does not have any direct
    *         child element.
    */
   @Nullable
-  public static Element getFirstChildElement (@Nonnull final Node aStartNode)
+  public static Element getFirstChildElement (@Nullable final Node aStartNode)
   {
+    if (aStartNode == null)
+      return null;
     return NodeListIterator.createChildNodeIterator (aStartNode).findFirstMapped (filterNodeIsElement (),
                                                                                   x -> (Element) x);
   }
@@ -219,12 +220,14 @@ public final class XMLHelper
    * Check if the passed node has at least one direct child element or not.
    *
    * @param aStartNode
-   *        The parent element to be searched. May not be <code>null</code>.
+   *        The parent element to be searched. May be <code>null</code>.
    * @return <code>true</code> if the passed node has at least one child
    *         element, <code>false</code> otherwise.
    */
-  public static boolean hasChildElementNodes (@Nonnull final Node aStartNode)
+  public static boolean hasChildElementNodes (@Nullable final Node aStartNode)
   {
+    if (aStartNode == null)
+      return false;
     return NodeListIterator.createChildNodeIterator (aStartNode).containsAny (filterNodeIsElement ());
   }
 
@@ -233,15 +236,17 @@ public final class XMLHelper
    * specified tag name.
    *
    * @param aStartNode
-   *        The parent element to be searched. May not be <code>null</code>.
+   *        The parent element to be searched. May be <code>null</code>.
    * @param sTagName
    *        The tag name to search.
    * @return <code>null</code> if the parent element has no such child element.
    */
   @Nullable
-  public static Element getFirstChildElementOfName (@Nonnull final Node aStartNode,
+  public static Element getFirstChildElementOfName (@Nullable final Node aStartNode,
                                                     @Nonnull @Nonempty final String sTagName)
   {
+    if (aStartNode == null)
+      return null;
     return new ChildElementIterator (aStartNode).findFirst (filterElementWithTagName (sTagName));
   }
 
@@ -250,7 +255,7 @@ public final class XMLHelper
    * specified tag name.
    *
    * @param aStartNode
-   *        The parent element to be searched. May not be <code>null</code>.
+   *        The parent element to be searched. May be <code>null</code>.
    * @param sNamespaceURI
    *        Namespace URI to search. May be <code>null</code>.
    * @param sLocalName
@@ -258,10 +263,12 @@ public final class XMLHelper
    * @return <code>null</code> if the parent element has no such child element.
    */
   @Nullable
-  public static Element getFirstChildElementOfName (@Nonnull final Node aStartNode,
+  public static Element getFirstChildElementOfName (@Nullable final Node aStartNode,
                                                     @Nullable final String sNamespaceURI,
                                                     @Nonnull @Nonempty final String sLocalName)
   {
+    if (aStartNode == null)
+      return null;
     return new ChildElementIterator (aStartNode).findFirst (filterElementWithNamespaceAndLocalName (sNamespaceURI,
                                                                                                     sLocalName));
   }
@@ -327,8 +334,9 @@ public final class XMLHelper
     return aParentNode;
   }
 
-  public static void append (@Nonnull final Node aParentNode, @Nonnull final Collection <?> aNodesToAppend)
+  public static void append (@Nonnull final Node aParentNode, @Nonnull final Iterable <?> aNodesToAppend)
   {
+    ValueEnforcer.notNull (aParentNode, "ParentNode");
     for (final Object aNode : aNodesToAppend)
       append (aParentNode, aNode);
   }
