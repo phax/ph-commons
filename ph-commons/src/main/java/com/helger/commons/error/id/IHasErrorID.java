@@ -64,7 +64,7 @@ public interface IHasErrorID
    *        The error ID to check. May be null.
    * @return <code>true</code> if the error ID is equal, <code>false</code>
    *         otherwise
-   * @since 8.4.1
+   * @since 8.5.0
    */
   default boolean hasErrorID (@Nullable final String sErrorID)
   {
