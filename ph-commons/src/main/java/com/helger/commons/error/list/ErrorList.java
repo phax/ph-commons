@@ -49,6 +49,17 @@ public class ErrorList implements IErrorList, ICloneable <ErrorList>
   }
 
   /**
+   * Constructor taking a list of iterable objects.
+   *
+   * @param aList
+   *        The array to be added. May be <code>null</code>.
+   */
+  public ErrorList (@Nullable final IError... aList)
+  {
+    m_aList = aList == null ? new CommonsArrayList<> () : new CommonsArrayList<> (aList);
+  }
+
+  /**
    * Copy constructor.
    *
    * @param aErrorList
