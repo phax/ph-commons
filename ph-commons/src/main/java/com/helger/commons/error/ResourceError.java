@@ -80,7 +80,7 @@ public class ResourceError implements IResourceError
   }
 
   @Nonnull
-  public final IErrorLocation getLocation ()
+  public final IErrorLocation getErrorLocation ()
   {
     return m_aLocation;
   }
@@ -148,7 +148,7 @@ public class ResourceError implements IResourceError
   @Nonnull
   public static IResourceError createAndConvert (@Nonnull final IError aError)
   {
-    return new ResourceError (aError.getLocation (),
+    return new ResourceError (aError.getErrorLocation (),
                               aError.getErrorLevel (),
                               x -> aError.getErrorText (x),
                               aError.getLinkedException ());

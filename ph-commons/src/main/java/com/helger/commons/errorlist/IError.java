@@ -33,13 +33,13 @@ public interface IError extends com.helger.commons.error.IError
   /**
    * @return The error field name of this object as an {@link IErrorLocation} .
    *         Never <code>null</code>.
-   * @deprecated Use {@link #getLocation()} instead
+   * @deprecated Use {@link #getErrorLocation()} instead
    */
   @Nonnull
   @Deprecated
   default IErrorLocation getResourceLocation ()
   {
-    return getLocation ();
+    return getErrorLocation ();
   }
 
   /**

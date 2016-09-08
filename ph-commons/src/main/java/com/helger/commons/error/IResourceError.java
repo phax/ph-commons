@@ -16,6 +16,10 @@
  */
 package com.helger.commons.error;
 
+import javax.annotation.Nonnull;
+
+import com.helger.commons.error.location.ErrorLocation;
+import com.helger.commons.error.location.IErrorLocation;
 import com.helger.commons.text.display.IHasDisplayText;
 
 /**
@@ -29,5 +33,15 @@ import com.helger.commons.text.display.IHasDisplayText;
 @Deprecated
 public interface IResourceError extends IHasDisplayText, IError
 {
-  /* empty */
+  /**
+   * @return The non-<code>null</code> location of the error. Use
+   *         {@link ErrorLocation#NO_LOCATION} to indicate no location is
+   *         available.
+   * @see #hasErrorLocation()
+   */
+  @Nonnull
+  default IErrorLocation getLocation ()
+  {
+    return getErrorLocation ();
+  }
 }

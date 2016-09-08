@@ -13,7 +13,9 @@ This project was the following modules:
 
 ##News
 
-  * 8.4.0
+  * 8.5.0
+    * Reworked the error objects so that there is now a single error handling object. The old objects are retained for backwards compatibility.
+  * 8.4.0 - 2016-08-21
     * Started adding JDK 9 compatibility
     * Added new interface `IWriteToStream`
     * Added support for new Message digest and Mac algorithms
@@ -27,7 +29,7 @@ This project was the following modules:
     * Added new sub-project `ph-security` that contains MessageDigest, HMac, Keystore etc. stuff
   * 8.1.0 - 2016-06-26: 
     * Minor small API optimizations for JAXB.
-    * `ValueEnforcer` supports `Supplier`.
+    * `ValueEnforcer` supports Supplier` functional interface.
     * GZIP based readable and writable resources added.
   * 8.0.0 - 2016-06-08: 
     * It splits the old big ph-commons library into slightly smaller pieces: `ph-commons`, `ph-xml`, `ph-jaxb`, `ph-tree` and `ph-less-commons`.

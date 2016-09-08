@@ -61,10 +61,10 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
    * @return The non-<code>null</code> location of the error. Use
    *         {@link ErrorLocation#NO_LOCATION} to indicate no location is
    *         available.
-   * @see #hasLocation()
+   * @see #hasErrorLocation()
    */
   @Nonnull
-  default IErrorLocation getLocation ()
+  default IErrorLocation getErrorLocation ()
   {
     return ErrorLocation.NO_LOCATION;
   }
@@ -74,11 +74,11 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
    *
    * @return <code>true</code> if location information is present,
    *         <code>false</code> otherwise.
-   * @see #getLocation()
+   * @see #getErrorLocation()
    */
-  default boolean hasLocation ()
+  default boolean hasErrorLocation ()
   {
-    return getLocation ().isAnyInformationPresent ();
+    return getErrorLocation ().isAnyInformationPresent ();
   }
 
   /**
@@ -198,12 +198,12 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
     }
 
     // Location
-    final IErrorLocation aLocation = getLocation ();
-    if (aLocation.isAnyInformationPresent ())
+    final IErrorLocation aErrorLocation = getErrorLocation ();
+    if (aErrorLocation.isAnyInformationPresent ())
     {
       if (ret.length () > 0)
         ret += " ";
-      ret += "@ " + aLocation.getAsString () + ":";
+      ret += "@ " + aErrorLocation.getAsString () + ":";
     }
 
     // Message
