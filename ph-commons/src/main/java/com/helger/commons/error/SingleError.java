@@ -74,7 +74,7 @@ public class SingleError implements IError
   }
 
   @Nullable
-  public IHasErrorText getErrorText ()
+  public IHasErrorText getErrorTexts ()
   {
     return m_aErrorText;
   }
