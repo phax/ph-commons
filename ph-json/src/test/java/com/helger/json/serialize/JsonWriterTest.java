@@ -122,26 +122,29 @@ public final class JsonWriterTest
   @Test
   public void testMap ()
   {
-    final ICommonsMap <String, Object> aMap = new CommonsHashMap <> ();
+    final ICommonsMap <String, Object> aMap = new CommonsHashMap<> ();
     aMap.put ("foo", "bar");
     assertEquals ("{\"foo\":\"bar\"}", JsonConverter.convertToJson (aMap).getAsJsonString ());
 
-    final ICommonsNavigableMap <String, Object> aTreeMap = new CommonsTreeMap <> ();
+    final ICommonsNavigableMap <String, Object> aTreeMap = new CommonsTreeMap<> ();
     aTreeMap.put ("foo", "bar");
     aTreeMap.put ("foo2", Integer.valueOf (5));
     assertEquals ("{\"foo\":\"bar\",\"foo2\":5}", JsonConverter.convertToJson (aTreeMap).getAsJsonString ());
 
-    final ICommonsOrderedMap <String, Object> aLinkedMap = new CommonsLinkedHashMap <> ();
+    final ICommonsOrderedMap <String, Object> aLinkedMap = new CommonsLinkedHashMap<> ();
     aLinkedMap.put ("foo", "bar");
     aLinkedMap.put ("foo2", Integer.valueOf (5));
     assertEquals ("{\"foo\":\"bar\",\"foo2\":5}", JsonConverter.convertToJson (aLinkedMap).getAsJsonString ());
+    assertEquals ("{foo:\"bar\",foo2:5}",
+                  JsonConverter.convertToJson (aLinkedMap)
+                               .getAsJsonString (new JsonWriterSettings ().setQuoteNames (false)));
   }
 
   @Test
   public void testComplex ()
   {
-    final ICommonsList <JsonObject> aObjs = new CommonsArrayList <> ();
-    for (final ICommonsMap <String, String> aRow : new CommonsArrayList <> (CollectionHelper.newMap ("key", "value")))
+    final ICommonsList <JsonObject> aObjs = new CommonsArrayList<> ();
+    for (final ICommonsMap <String, String> aRow : new CommonsArrayList<> (CollectionHelper.newMap ("key", "value")))
     {
       final JsonObject aObj = new JsonObject ();
       for (final Map.Entry <String, String> aEntry : aRow.entrySet ())
@@ -219,16 +222,16 @@ public final class JsonWriterTest
   @Test
   public void testWriteAndReadMap ()
   {
-    final ICommonsMap <String, Object> aMap = new CommonsHashMap <> ();
+    final ICommonsMap <String, Object> aMap = new CommonsHashMap<> ();
     aMap.put ("foo", "bar");
     _testWriteAndRead (aMap);
 
-    final ICommonsNavigableMap <String, Object> aTreeMap = new CommonsTreeMap <> ();
+    final ICommonsNavigableMap <String, Object> aTreeMap = new CommonsTreeMap<> ();
     aTreeMap.put ("foo", "bar");
     aTreeMap.put ("foo2", Integer.valueOf (5));
     _testWriteAndRead (aTreeMap);
 
-    final ICommonsOrderedMap <String, Object> aLinkedMap = new CommonsLinkedHashMap <> ();
+    final ICommonsOrderedMap <String, Object> aLinkedMap = new CommonsLinkedHashMap<> ();
     aLinkedMap.put ("foo", "bar");
     aLinkedMap.put ("foo2", Integer.valueOf (5));
     _testWriteAndRead (aLinkedMap);

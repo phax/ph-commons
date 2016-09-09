@@ -36,6 +36,7 @@ import com.helger.json.IJsonArray;
 import com.helger.json.IJsonCollection;
 import com.helger.json.IJsonObject;
 import com.helger.json.IJsonValue;
+import com.helger.json.convert.JsonEscapeHelper;
 import com.helger.json.valueserializer.JsonValueSerializerEscaped;
 
 /**
@@ -89,6 +90,7 @@ public class JsonWriter
       final String sIndentString = bIsIndentEnabled ? StringHelper.getRepeated (sSingleIndent, nIndentLevel) : "";
       final String sNestedIndentString = bIsIndentEnabled ? sIndentString + sSingleIndent : "";
       final String sNewlineString = bIsIndentEnabled ? m_aSettings.getNewlineString () : "";
+      final boolean bQuoteNames = m_aSettings.isQuoteNames ();
 
       if (aJson.isArray ())
       {
@@ -146,7 +148,10 @@ public class JsonWriter
             aWriter.write (sNestedIndentString);
 
           // Object name
-          JsonValueSerializerEscaped.appendEscapedJsonString (aEntry.getKey (), aWriter);
+          if (bQuoteNames)
+            JsonValueSerializerEscaped.appendEscapedJsonString (aEntry.getKey (), aWriter);
+          else
+            JsonEscapeHelper.jsonEscapeToWriter (aEntry.getKey (), aWriter);
 
           // Name value separator
           aWriter.write (CJson.NAME_VALUE_SEPARATOR);

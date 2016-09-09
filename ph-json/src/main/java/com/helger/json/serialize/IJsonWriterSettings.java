@@ -56,4 +56,11 @@ public interface IJsonWriterSettings extends ICloneable <IJsonWriterSettings>
    *         default this is disabled.
    */
   boolean isWriteNewlineAtEnd ();
+
+  /**
+   * @return <code>true</code> if names of objects should be quoted (e.g.
+   *         <code>{ "a" : 1 }</code> compare to <code>{ a : 1 }</code>),
+   *         <code>false</code> otherwise. Default is <code>true</code>.
+   */
+  boolean isQuoteNames ();
 }

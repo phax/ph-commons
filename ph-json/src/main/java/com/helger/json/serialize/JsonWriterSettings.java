@@ -38,6 +38,7 @@ public class JsonWriterSettings implements IJsonWriterSettings
   public static final String DEFAULT_INDENT_STRING = "  ";
   public static final String DEFAULT_NEWLINE_STRING = ENewLineMode.DEFAULT.getText ();
   public static final boolean DEFAULT_WRITE_NEWLINE_AT_END = false;
+  public static final boolean DEFAULT_QUOTE_NAMES = true;
 
   // Must be after all default values!!
   public static final IJsonWriterSettings DEFAULT_SETTINGS = new JsonWriterSettings ();
@@ -46,6 +47,7 @@ public class JsonWriterSettings implements IJsonWriterSettings
   private String m_sIndentString = DEFAULT_INDENT_STRING;
   private String m_sNewlineString = DEFAULT_NEWLINE_STRING;
   private boolean m_bWriteNewlineAtEnd = DEFAULT_WRITE_NEWLINE_AT_END;
+  private boolean m_bQuoteNames = DEFAULT_QUOTE_NAMES;
 
   public JsonWriterSettings ()
   {}
@@ -57,6 +59,7 @@ public class JsonWriterSettings implements IJsonWriterSettings
     setIndentString (aOther.getIndentString ());
     setNewlineString (aOther.getNewlineString ());
     setWriteNewlineAtEnd (aOther.isWriteNewlineAtEnd ());
+    setQuoteNames (aOther.isQuoteNames ());
   }
 
   public boolean isIdentEnabled ()
@@ -111,6 +114,18 @@ public class JsonWriterSettings implements IJsonWriterSettings
     return this;
   }
 
+  public boolean isQuoteNames ()
+  {
+    return m_bQuoteNames;
+  }
+
+  @Nonnull
+  public final JsonWriterSettings setQuoteNames (final boolean bQuoteNames)
+  {
+    m_bQuoteNames = bQuoteNames;
+    return this;
+  }
+
   @Nonnull
   public JsonWriterSettings getClone ()
   {
@@ -120,14 +135,15 @@ public class JsonWriterSettings implements IJsonWriterSettings
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("indentEnabled", m_bIndentEnabled)
-                                       .append ("indentString",
+    return new ToStringGenerator (this).append ("IndentEnabled", m_bIndentEnabled)
+                                       .append ("IndentString",
                                                 StringHelper.getHexEncoded (m_sIndentString,
                                                                             CCharset.CHARSET_ISO_8859_1_OBJ))
-                                       .append ("newlineString",
+                                       .append ("NewlineString",
                                                 StringHelper.getHexEncoded (m_sNewlineString,
                                                                             CCharset.CHARSET_ISO_8859_1_OBJ))
-                                       .append ("writeNewlineAtEnd", m_bWriteNewlineAtEnd)
+                                       .append ("WriteNewlineAtEnd", m_bWriteNewlineAtEnd)
+                                       .append ("QuoteNames", m_bQuoteNames)
                                        .toString ();
   }
 }

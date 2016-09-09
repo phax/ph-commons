@@ -41,7 +41,9 @@ public final class JsonEscapeHelper
   public static final char MASK_CHAR = '\\';
   public static final String MASK_STRING = Character.toString (MASK_CHAR);
 
-  // single quotes must NOT be escaped in valid JSON (See http://www.json.org/)
+  /**
+   * single quotes must NOT be escaped in valid JSON (See http://www.json.org/)
+   */
   private static final char [] CHARS_TO_MASK = new char [] { '\0', '"', '\\', '\b', '\t', '\n', '\r', '\f' };
   private static final String [] REPLACEMENT_STRINGS = new String [] { "\\u0000",
                                                                        "\\\"",
