@@ -193,6 +193,17 @@ public class SingleError implements IError
     public AbstractBuilder ()
     {}
 
+    public AbstractBuilder (@Nonnull final IError aError)
+    {
+      ValueEnforcer.notNull (aError, "Error");
+      setErrorLevel (aError.getErrorLevel ());
+      setErrorID (aError.getErrorID ());
+      setErrorFieldName (aError.getErrorFieldName ());
+      setErrorLocation (aError.getErrorLocation ());
+      setErrorText (aError.getErrorTexts ());
+      setLinkedException (aError.getLinkedException ());
+    }
+
     @Nonnull
     public IMPLTYPE setErrorLevel (@Nonnull final IErrorLevel aErrorLevel)
     {
@@ -267,6 +278,14 @@ public class SingleError implements IError
 
   public static final class SingleErrorBuilder extends AbstractBuilder <SingleError, SingleErrorBuilder>
   {
+    public SingleErrorBuilder ()
+    {}
+
+    public SingleErrorBuilder (@Nonnull final IError aError)
+    {
+      super (aError);
+    }
+
     @Override
     @Nonnull
     public SingleError build ()
@@ -281,8 +300,10 @@ public class SingleError implements IError
   }
 
   /**
-   * @return A new Error builder. Never <code>null</code>. Uses the default
-   *         error level from {@link SingleErrorBuilder}.
+   * Create a new empty error builder with the default error level from
+   * {@link SingleErrorBuilder}.
+   *
+   * @return A new Error builder. Never <code>null</code>.
    */
   @Nonnull
   public static SingleErrorBuilder builder ()
@@ -291,6 +312,22 @@ public class SingleError implements IError
   }
 
   /**
+   * Create a new error builder containing all the data from the provided error.
+   *
+   * @param aError
+   *        The error to copy the data from
+   * @return A new Error builder containing all the data from the provided
+   *         error. Never <code>null</code>.
+   */
+  @Nonnull
+  public static SingleErrorBuilder builder (@Nonnull final IError aError)
+  {
+    return new SingleErrorBuilder (aError);
+  }
+
+  /**
+   * Create a new empty error builder with the SUCCESS error level.
+   *
    * @return A new Error builder with default error level
    *         {@link EErrorLevel#SUCCESS}. Never <code>null</code>.
    */
@@ -301,6 +338,8 @@ public class SingleError implements IError
   }
 
   /**
+   * Create a new empty error builder with the INFO error level.
+   *
    * @return A new Error builder with default error level
    *         {@link EErrorLevel#INFO}. Never <code>null</code>.
    */
@@ -311,6 +350,8 @@ public class SingleError implements IError
   }
 
   /**
+   * Create a new empty error builder with the WARN error level.
+   *
    * @return A new Error builder with default error level
    *         {@link EErrorLevel#WARN}. Never <code>null</code>.
    */
@@ -321,6 +362,8 @@ public class SingleError implements IError
   }
 
   /**
+   * Create a new empty error builder with the ERROR error level.
+   *
    * @return A new Error builder with default error level
    *         {@link EErrorLevel#ERROR}. Never <code>null</code>.
    */
@@ -331,6 +374,8 @@ public class SingleError implements IError
   }
 
   /**
+   * Create a new empty error builder with the FATAL ERROR error level.
+   *
    * @return A new Error builder with default error level
    *         {@link EErrorLevel#FATAL_ERROR}. Never <code>null</code>.
    */
