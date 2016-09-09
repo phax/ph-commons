@@ -145,6 +145,8 @@ public final class ValueEnforcer
    *        The message to be emitted in case the value is <code>false</code>
    * @throws IllegalArgumentException
    *         if the passed value is not <code>null</code>.
+   * @param <T>
+   *        Type to check.
    */
   public static <T> void isInstanceOf (@Nullable final T aValue,
                                        @Nonnull final Class <? extends T> aClass,
@@ -165,6 +167,8 @@ public final class ValueEnforcer
    *        The message to be emitted in case the value is <code>false</code>
    * @throws IllegalArgumentException
    *         if the passed value is not <code>null</code>.
+   * @param <T>
+   *        Type to check.
    */
   public static <T> void isInstanceOf (@Nullable final T aValue,
                                        @Nonnull final Class <? extends T> aClass,

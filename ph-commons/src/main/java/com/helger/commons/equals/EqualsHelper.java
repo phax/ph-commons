@@ -56,6 +56,8 @@ public final class EqualsHelper
    *        Second object. May be <code>null</code>.
    * @return <code>true</code> if both objects are <code>null</code> or
    *         reference the same object.
+   * @param <T>
+   *        Type to check.
    */
   public static <T> boolean identityEqual (@Nullable final T aObj1, @Nullable final T aObj2)
   {

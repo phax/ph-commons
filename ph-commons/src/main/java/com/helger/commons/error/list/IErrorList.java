@@ -264,6 +264,8 @@ public interface IErrorList extends IErrorBaseList <IError>, IHasSize
    * @param aExtractor
    *        The data extractor to be used. May not be <code>null</code>.
    * @return Never <code>null</code>.
+   * @param <T>
+   *        Type to extract from {@link IError}.
    */
   @Nonnull
   @ReturnsMutableCopy
