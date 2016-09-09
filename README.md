@@ -5,15 +5,23 @@ Java 1.8+ Library with tons of utility classes required in most of ph-* projects
 Version 6.0.0 contains major changes and more or less all other projects were released to reflect the changes of 6.x. Version 8 was re-designed to best work with JDK 8. So please ensure to not mix 5.x, 6.x and 8x. versions of ph-commons!
 
 This project was the following modules:
+  * ph-charset - support for additional charsets (e.g. UTF-7)
   * ph-commons - the most common base library stuff
-  * ph-xml - everything to read and write XML, including "MicroDOM" my personal minimum XML representation shipping with its own serializer.
+  * ph-datetime - extension library for handling Java date and time special cases
+  * ph-graph - generic graph library with directed and undirected graphs
   * ph-jaxb - the JAXB utility classes building upon ph-commons and ph-xml
-  * ph-tree - generic tree structures and tree singleton base classes
+  * ph-json - a generic simple JSON reader, visitor and writer
   * ph-less-commons - previously contained in ph-commons not really used but I was afraid to dump it :)
+  * ph-matrix - a simple library for handling matrix data structures and operations
+  * ph-security - security related topics like key store handling, message digests etc
+  * ph-settings - a small library for handling configuration files in an easy way
+  * ph-tree - generic tree structures and tree singleton base classes
+  * ph-xml - everything to read and write XML, including "MicroDOM" my personal minimum XML representation shipping with its own serializer.
+
 
 ##News
 
-  * 8.5.0
+  * 8.5.0 - 2016-09-09
     * Reworked the error objects so that there is now a single error handling object. The old objects are retained for backwards compatibility.
   * 8.4.0 - 2016-08-21
     * Started adding JDK 9 compatibility

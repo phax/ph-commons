@@ -1,5 +1,4 @@
 Release also:
-* ph-web
 * ph-masterdata
 * ph-ubl
 * ph-schematron
