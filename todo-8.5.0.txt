@@ -1,6 +1,4 @@
 Release also:
 * ph-masterdata
-* ph-ubl
-* ph-schematron
-* peppol-commons
 * peppol-validation-engine
+* ubl-ebinterface

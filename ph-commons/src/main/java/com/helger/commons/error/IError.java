@@ -188,13 +188,16 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
     if (StringHelper.hasText (sErrorID))
       ret += "[" + sErrorID + "]";
 
-    // Error ID
+    boolean bFieldNameOrLocationPresent = false;
+
+    // Error field name
     final String sErrorFieldName = getErrorFieldName ();
     if (StringHelper.hasText (sErrorFieldName))
     {
       if (ret.length () > 0)
         ret += " ";
       ret += "in " + sErrorFieldName;
+      bFieldNameOrLocationPresent = true;
     }
 
     // Location
@@ -203,15 +206,19 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
     {
       if (ret.length () > 0)
         ret += " ";
-      ret += "@ " + aErrorLocation.getAsString () + ":";
+      ret += "@ " + aErrorLocation.getAsString ();
+      bFieldNameOrLocationPresent = true;
     }
 
     // Message
     final String sErrorText = getErrorText (aContentLocale);
     if (StringHelper.hasText (sErrorText))
     {
-      if (ret.length () > 0)
-        ret += " ";
+      if (bFieldNameOrLocationPresent)
+        ret += ": ";
+      else
+        if (ret.length () > 0)
+          ret += " ";
       ret += sErrorText;
     }
 
