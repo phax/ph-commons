@@ -37,15 +37,16 @@ import com.helger.commons.text.IMultilingualText;
  *
  * @author Philip Helger
  */
-public abstract class AbstractTransformErrorListener implements ErrorListener
+public abstract class AbstractTransformErrorListener implements ITransformErrorListener
 {
   private final ErrorListener m_aWrappedErrorListener;
 
   public AbstractTransformErrorListener ()
   {
-    this (null);
+    m_aWrappedErrorListener = null;
   }
 
+  @Deprecated
   public AbstractTransformErrorListener (@Nullable final ErrorListener aWrappedErrorListener)
   {
     m_aWrappedErrorListener = aWrappedErrorListener;
@@ -55,6 +56,7 @@ public abstract class AbstractTransformErrorListener implements ErrorListener
    * @return The wrapped error listener. May be <code>null</code>.
    */
   @Nullable
+  @Deprecated
   public ErrorListener getWrappedErrorListener ()
   {
     return m_aWrappedErrorListener;

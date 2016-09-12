@@ -51,6 +51,7 @@ public class CollectingTransformErrorListener extends AbstractTransformErrorList
     super ();
   }
 
+  @Deprecated
   public CollectingTransformErrorListener (@Nullable final ErrorListener aWrappedErrorListener)
   {
     super (aWrappedErrorListener);

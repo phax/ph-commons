@@ -36,6 +36,7 @@ public class DoNothingTransformErrorListener extends AbstractTransformErrorListe
     this (null);
   }
 
+  @Deprecated
   public DoNothingTransformErrorListener (@Nullable final ErrorListener aWrappedErrorListener)
   {
     super (aWrappedErrorListener);

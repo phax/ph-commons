@@ -47,9 +47,10 @@ public class LoggingTransformErrorListener extends AbstractTransformErrorListene
 
   public LoggingTransformErrorListener (@Nonnull final Locale aDisplayLocale)
   {
-    this (null, aDisplayLocale);
+    m_aDisplayLocale = ValueEnforcer.notNull (aDisplayLocale, "DisplayLocale");
   }
 
+  @Deprecated
   public LoggingTransformErrorListener (@Nullable final ErrorListener aWrappedErrorListener,
                                         @Nonnull final Locale aDisplayLocale)
   {

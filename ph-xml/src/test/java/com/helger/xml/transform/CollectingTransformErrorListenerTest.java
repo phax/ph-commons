@@ -45,8 +45,8 @@ public final class CollectingTransformErrorListenerTest extends AbstractCommonsT
   @Test
   public void testAll () throws TransformerConfigurationException, TransformerException
   {
-    final CollectingTransformErrorListener el = new CollectingTransformErrorListener (new LoggingTransformErrorListener (L_EN));
-    final TransformerFactory fac = XMLTransformerFactory.createTransformerFactory (el,
+    final CollectingTransformErrorListener el = new CollectingTransformErrorListener ();
+    final TransformerFactory fac = XMLTransformerFactory.createTransformerFactory (el.andThen (new LoggingTransformErrorListener (L_EN)),
                                                                                    new LoggingTransformURIResolver ());
     assertNotNull (fac);
 
