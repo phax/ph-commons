@@ -31,6 +31,7 @@ import com.helger.commons.lang.IHasSize;
  * at {@link IErrorList}.
  *
  * @author Philip Helger
+ * @deprecated Use {@link com.helger.commons.error.list.IErrorList} instead.
  */
 @Deprecated
 public interface IErrorList extends IErrorBaseList <IError>, IFieldErrorList <IError>, IHasSize

@@ -33,8 +33,10 @@ import com.helger.commons.error.list.ErrorList;
  * Handles form field specific and form global error messages centrally.
  *
  * @author Philip Helger
+ * @deprecated Use {@link ErrorList} instead
  */
 @NotThreadSafe
+@Deprecated
 public class FormErrors extends ErrorList
 {
   public FormErrors ()

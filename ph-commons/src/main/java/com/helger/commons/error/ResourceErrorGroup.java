@@ -37,6 +37,7 @@ import com.helger.commons.string.ToStringGenerator;
  * Contains a list of resource errors and some sanity access methods.
  *
  * @author Philip Helger
+ * @deprecated Use {@link com.helger.commons.error.list.ErrorList} instead.
  */
 @NotThreadSafe
 @Deprecated

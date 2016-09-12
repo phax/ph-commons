@@ -14,23 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.error.text;
-
-import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
-import com.helger.commons.text.display.IHasDisplayText;
+package com.helger.commons.error;
 
 /**
- * Base interface for objects having an error text. Compared to
- * {@link IHasDisplayText} it is required to implement equals and hashCode.
+ * Interface for objects having an error ID
  *
  * @author Philip Helger
+ * @deprecated Use {@link com.helger.commons.error.id.IHasErrorID} instead
  */
-@MustImplementEqualsAndHashcode
-public interface IHasErrorText extends IHasDisplayText
+@Deprecated
+public interface IHasErrorID extends com.helger.commons.error.id.IHasErrorID
 {
-  /**
-   * @return <code>true</code> if the error text is multilingual,
-   *         <code>false</code> otherwise.
-   */
-  boolean isMultiLingual ();
+  /* empty */
 }

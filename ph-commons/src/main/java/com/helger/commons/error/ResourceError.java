@@ -36,6 +36,7 @@ import com.helger.commons.text.display.IHasDisplayText;
  * implementation is immutable.
  *
  * @author Philip Helger
+ * @deprecated Use {@link SingleError} instead
  */
 @Immutable
 @Deprecated

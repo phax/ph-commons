@@ -30,6 +30,7 @@ import com.helger.commons.lang.IHasSize;
  * Contains a list of resource errors and some sanity access methods.
  *
  * @author Philip Helger
+ * @deprecated Use {@link com.helger.commons.error.list.IErrorList} instead.
  */
 @Deprecated
 public interface IResourceErrorGroup extends IErrorBaseList <IResourceError>, IHasSize

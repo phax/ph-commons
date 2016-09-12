@@ -32,7 +32,9 @@ import com.helger.commons.error.level.IErrorLevel;
  * @author Philip Helger
  * @param <T>
  *        error type
+ * @deprecated Use {@link com.helger.commons.error.list.IErrorList} instead.
  */
+@Deprecated
 public interface IFieldErrorList <T extends com.helger.commons.error.IError>
 {
   /**

@@ -26,6 +26,7 @@ import com.helger.commons.error.location.IErrorLocation;
  * error field name and an error text.
  *
  * @author Philip Helger
+ * @deprecated Use {@link com.helger.commons.error.IError} instead
  */
 @Deprecated
 public interface IError extends com.helger.commons.error.IError

@@ -29,6 +29,7 @@ import com.helger.commons.text.display.IHasDisplayText;
  * error message, a location and a linked exception.
  *
  * @author Philip Helger
+ * @deprecated Use {@link IError} instead.
  */
 @Deprecated
 public interface IResourceError extends IHasDisplayText, IError

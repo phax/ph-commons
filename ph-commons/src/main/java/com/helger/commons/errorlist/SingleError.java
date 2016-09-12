@@ -39,6 +39,7 @@ import com.helger.commons.string.ToStringGenerator;
  * exception class 'Error'.
  *
  * @author Philip Helger
+ * @deprecated Use {@link com.helger.commons.error.SingleError} instead
  */
 @Immutable
 @Deprecated

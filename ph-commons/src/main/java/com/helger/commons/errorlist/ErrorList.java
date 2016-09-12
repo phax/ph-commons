@@ -45,6 +45,7 @@ import com.helger.commons.string.ToStringGenerator;
  * Handles a list of form global errors.
  *
  * @author Philip Helger
+ * @deprecated Use {@link com.helger.commons.error.list.ErrorList} instead.
  */
 @NotThreadSafe
 @Deprecated

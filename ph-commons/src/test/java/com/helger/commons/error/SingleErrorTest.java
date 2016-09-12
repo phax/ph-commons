@@ -55,6 +55,7 @@ public final class SingleErrorTest
     assertNull (aErr.getLinkedExceptionMessage ());
     assertNull (aErr.getLinkedExceptionStackTrace ());
     assertEquals ("[error]", aErr.getAsString (aDisplayLocale));
+    assertEquals (aErr, SingleError.builder (aErr).build ());
   }
 
   @Test
@@ -74,6 +75,7 @@ public final class SingleErrorTest
     assertNull (aErr.getLinkedExceptionMessage ());
     assertNull (aErr.getLinkedExceptionStackTrace ());
     assertEquals ("[error][abc]", aErr.getAsString (aDisplayLocale));
+    assertEquals (aErr, SingleError.builder (aErr).build ());
   }
 
   @Test
@@ -93,6 +95,7 @@ public final class SingleErrorTest
     assertNull (aErr.getLinkedExceptionMessage ());
     assertNull (aErr.getLinkedExceptionStackTrace ());
     assertEquals ("[error] in abc", aErr.getAsString (aDisplayLocale));
+    assertEquals (aErr, SingleError.builder (aErr).build ());
   }
 
   @Test
@@ -112,6 +115,7 @@ public final class SingleErrorTest
     assertNull (aErr.getLinkedExceptionMessage ());
     assertNull (aErr.getLinkedExceptionStackTrace ());
     assertEquals ("[error] @ abc(4:17)", aErr.getAsString (aDisplayLocale));
+    assertEquals (aErr, SingleError.builder (aErr).build ());
   }
 
   @Test
@@ -131,6 +135,7 @@ public final class SingleErrorTest
     assertNull (aErr.getLinkedExceptionMessage ());
     assertNull (aErr.getLinkedExceptionStackTrace ());
     assertEquals ("[error] abc", aErr.getAsString (aDisplayLocale));
+    assertEquals (aErr, SingleError.builder (aErr).build ());
   }
 
   @Test
@@ -151,6 +156,7 @@ public final class SingleErrorTest
     assertEquals ("msg", aErr.getLinkedExceptionMessage ());
     assertNotNull (aErr.getLinkedExceptionStackTrace ());
     assertEquals ("[error] (" + ex.getClass ().getName () + ": msg)", aErr.getAsString (aDisplayLocale));
+    assertEquals (aErr, SingleError.builder (aErr).build ());
   }
 
   @Test
@@ -180,5 +186,6 @@ public final class SingleErrorTest
                   ex.getClass ().getName () +
                   ": exception msg)",
                   aErr.getAsString (aDisplayLocale));
+    assertEquals (aErr, SingleError.builder (aErr).build ());
   }
 }

@@ -30,6 +30,7 @@ import com.helger.commons.error.level.EErrorLevel;
  *
  * @author Philip Helger
  */
+@Deprecated
 public final class FormErrorsTest
 {
   @Test
