@@ -29,7 +29,6 @@ import com.helger.commons.error.level.IHasErrorLevelComparable;
 import com.helger.commons.error.location.ErrorLocation;
 import com.helger.commons.error.location.IErrorLocation;
 import com.helger.commons.error.text.IHasErrorText;
-import com.helger.commons.string.StringHelper;
 
 /**
  * Common interface for single errors and resource errors.
@@ -180,56 +179,6 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
   @Nonempty
   default String getAsString (@Nonnull final Locale aContentLocale)
   {
-    // Error level
-    String ret = "[" + getErrorLevel ().getID () + "]";
-
-    // Error ID
-    final String sErrorID = getErrorID ();
-    if (StringHelper.hasText (sErrorID))
-      ret += "[" + sErrorID + "]";
-
-    boolean bFieldNameOrLocationPresent = false;
-
-    // Error field name
-    final String sErrorFieldName = getErrorFieldName ();
-    if (StringHelper.hasText (sErrorFieldName))
-    {
-      if (ret.length () > 0)
-        ret += " ";
-      ret += "in " + sErrorFieldName;
-      bFieldNameOrLocationPresent = true;
-    }
-
-    // Location
-    final IErrorLocation aErrorLocation = getErrorLocation ();
-    if (aErrorLocation.isAnyInformationPresent ())
-    {
-      if (ret.length () > 0)
-        ret += " ";
-      ret += "@ " + aErrorLocation.getAsString ();
-      bFieldNameOrLocationPresent = true;
-    }
-
-    // Message
-    final String sErrorText = getErrorText (aContentLocale);
-    if (StringHelper.hasText (sErrorText))
-    {
-      if (bFieldNameOrLocationPresent)
-        ret += ": ";
-      else
-        if (ret.length () > 0)
-          ret += " ";
-      ret += sErrorText;
-    }
-
-    // Linked exception
-    final Throwable aLinkedEx = getLinkedException ();
-    if (aLinkedEx != null)
-    {
-      if (ret.length () > 0)
-        ret += " ";
-      ret += "(" + aLinkedEx.getClass ().getName () + ": " + aLinkedEx.getMessage () + ")";
-    }
-    return ret;
+    return ErrorTextProvider.DEFAULT.getErrorText (this, aContentLocale);
   }
 }
