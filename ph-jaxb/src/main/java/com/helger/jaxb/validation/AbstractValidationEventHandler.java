@@ -47,7 +47,7 @@ import com.helger.xml.serialize.write.XMLWriter;
  * @author Philip Helger
  */
 @NotThreadSafe
-public abstract class AbstractValidationEventHandler implements ValidationEventHandler
+public abstract class AbstractValidationEventHandler implements IValidationEventHandler
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractValidationEventHandler.class);
 
@@ -77,6 +77,7 @@ public abstract class AbstractValidationEventHandler implements ValidationEventH
    * @return The original validation event handler passed in the constructor.
    */
   @Nullable
+  @Deprecated
   public final ValidationEventHandler getWrappedHandler ()
   {
     return m_aWrappedHandler;

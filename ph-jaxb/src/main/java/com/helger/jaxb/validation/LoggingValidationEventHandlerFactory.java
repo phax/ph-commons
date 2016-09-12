@@ -56,5 +56,4 @@ public class LoggingValidationEventHandlerFactory implements IValidationEventHan
   {
     return new LoggingValidationEventHandler (m_bEncapsulateHandler ? aOldEventHandler : null);
   }
-
 }

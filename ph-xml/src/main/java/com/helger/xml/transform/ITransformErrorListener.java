@@ -1,23 +1,26 @@
 package com.helger.xml.transform;
 
+import java.io.Serializable;
+
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.xml.transform.ErrorListener;
 import javax.xml.transform.TransformerException;
-
-import com.helger.commons.ValueEnforcer;
 
 /**
  * Extended {@link ErrorListener} interface with chaining method.
  *
  * @author Philip Helger
+ * @since 8.5.1
  */
-public interface ITransformErrorListener extends ErrorListener
+public interface ITransformErrorListener extends ErrorListener, Serializable
 {
   @Nonnull
-  default ITransformErrorListener andThen (@Nonnull final ErrorListener aOther)
+  default ITransformErrorListener andThen (@Nullable final ErrorListener aOther)
   {
-    ValueEnforcer.notNull (aOther, "Other");
     final ITransformErrorListener aThis = this;
+    if (aOther == null)
+      return aThis;
 
     return new ITransformErrorListener ()
     {

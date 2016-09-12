@@ -42,9 +42,7 @@ public class LoggingValidationEventHandler extends AbstractValidationEventHandle
   private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingValidationEventHandler.class);
 
   public LoggingValidationEventHandler ()
-  {
-    super ();
-  }
+  {}
 
   public LoggingValidationEventHandler (@Nullable final ValidationEventHandler aOrigHandler)
   {

@@ -14,10 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.xml.transform;
+package com.helger.jaxb.validation;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
+import javax.xml.bind.ValidationEventHandler;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableObject;
@@ -26,19 +28,26 @@ import com.helger.commons.error.list.ErrorList;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * This implementation of {@link javax.xml.transform.ErrorListener} saves all
- * occurred warnings/errors/fatals in a list for later evaluation.
+ * An implementation of the JAXB {@link javax.xml.bind.ValidationEventHandler}
+ * interface. It collects all events that occurred!
  *
  * @author Philip Helger
  * @since 8.5.1
  */
 @NotThreadSafe
-public class WrappedCollectingTransformErrorListener extends AbstractTransformErrorListener
+public class WrappedCollectingValidationEventHandler extends AbstractValidationEventHandler
 {
   private final ErrorList m_aErrorList;
 
-  public WrappedCollectingTransformErrorListener (@Nonnull final ErrorList aErrorList)
+  public WrappedCollectingValidationEventHandler (@Nonnull final ErrorList aErrorList)
   {
+    this (null, aErrorList);
+  }
+
+  public WrappedCollectingValidationEventHandler (@Nullable final ValidationEventHandler aOrigHandler,
+                                                  @Nonnull final ErrorList aErrorList)
+  {
+    super (aOrigHandler);
     m_aErrorList = ValueEnforcer.notNull (aErrorList, "ErrorList");
   }
 
@@ -54,9 +63,9 @@ public class WrappedCollectingTransformErrorListener extends AbstractTransformEr
   }
 
   @Override
-  protected void internalLog (@Nonnull final IError aResError)
+  protected void onEvent (@Nonnull final IError aEvent)
   {
-    m_aErrorList.add (aResError);
+    m_aErrorList.add (aEvent);
   }
 
   @Override
