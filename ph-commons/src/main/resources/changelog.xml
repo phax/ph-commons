@@ -18,6 +18,14 @@
 
 -->
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="ph-commons">
+  <release date="2016-09-12" version="8.5.1" />
+  <release date="2016-09-09" version="8.5.0" />
+  <release date="2016-08-21" version="8.4.0" />
+  <release date="2016-08-02" version="8.3.0" />
+  <release date="2016-07-22" version="8.2.2" />
+  <release date="2016-07-15" version="8.2.1" />
+  <release date="2016-07-10" version="8.2.0" />
+  <release date="2016-06-26" version="8.1.0" />
   <release date="2016-06-08" version="8.0.0" />
   <entry date="2016-06-08" category="tech" action="change">
     <change>
