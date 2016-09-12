@@ -17,6 +17,9 @@
 package com.helger.commons.string;
 
 import java.util.Arrays;
+import java.util.function.DoublePredicate;
+import java.util.function.IntPredicate;
+import java.util.function.LongPredicate;
 import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
@@ -24,6 +27,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.function.IBooleanPredicate;
 
 /**
  * This is a utility class for easier <code>toString</code> method creations. It
@@ -326,6 +330,38 @@ public final class ToStringGenerator
     }
 
     return this;
+  }
+
+  @Nonnull
+  public ToStringGenerator appendIf (@Nonnull final String sField,
+                                     final boolean bValue,
+                                     @Nonnull final IBooleanPredicate aFilter)
+  {
+    return aFilter.test (bValue) ? append (sField, bValue) : this;
+  }
+
+  @Nonnull
+  public ToStringGenerator appendIf (@Nonnull final String sField,
+                                     final int nValue,
+                                     @Nonnull final IntPredicate aFilter)
+  {
+    return aFilter.test (nValue) ? append (sField, nValue) : this;
+  }
+
+  @Nonnull
+  public ToStringGenerator appendIf (@Nonnull final String sField,
+                                     final long nValue,
+                                     @Nonnull final LongPredicate aFilter)
+  {
+    return aFilter.test (nValue) ? append (sField, nValue) : this;
+  }
+
+  @Nonnull
+  public ToStringGenerator appendIf (@Nonnull final String sField,
+                                     final double dValue,
+                                     @Nonnull final DoublePredicate aFilter)
+  {
+    return aFilter.test (dValue) ? append (sField, dValue) : this;
   }
 
   @Nonnull

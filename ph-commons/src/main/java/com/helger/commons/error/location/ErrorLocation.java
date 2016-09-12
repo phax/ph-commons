@@ -36,8 +36,8 @@ public class ErrorLocation implements IErrorLocation
   public static final ErrorLocation NO_LOCATION = new ErrorLocation (null);
 
   private final String m_sResourceID;
-  private final int m_nLineNumber;
   private final int m_nColumnNumber;
+  private final int m_nLineNumber;
 
   public ErrorLocation (@Nullable final String sResourceID)
   {
@@ -92,9 +92,9 @@ public class ErrorLocation implements IErrorLocation
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("ResourceID", m_sResourceID)
-                                       .append ("LineNumber", m_nLineNumber)
-                                       .append ("ColumnNumber", m_nColumnNumber)
+    return new ToStringGenerator (null).appendIfNotNull ("ResourceID", m_sResourceID)
+                                       .appendIf ("LineNumber", m_nLineNumber, (final int x) -> x >= 0)
+                                       .appendIf ("ColumnNumber", m_nColumnNumber, (final int x) -> x >= 0)
                                        .toString ();
   }
 }
