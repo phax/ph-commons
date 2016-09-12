@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger</groupId>
     <artifactId>ph-commons-parent-pom</artifactId>
-    <version>8.5.1</version>
+    <version>8.5.2-SNAPSHOT</version>
   </parent>
   <artifactId>ph-charset</artifactId>
   <packaging>bundle</packaging>
