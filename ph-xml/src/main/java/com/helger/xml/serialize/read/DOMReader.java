@@ -65,8 +65,8 @@ public final class DOMReader
                                                                                                                      "$DOMERRORS");
 
   // In practice no more than 5 readers are required (even 3 would be enough)
-  private static final ObjectPool <DocumentBuilder> s_aDOMPool = new ObjectPool <> (5,
-                                                                                    () -> XMLFactory.createDocumentBuilder ());
+  private static final ObjectPool <DocumentBuilder> s_aDOMPool = new ObjectPool<> (5,
+                                                                                   () -> XMLFactory.createDocumentBuilder ());
 
   @PresentForCodeCoverage
   private static final DOMReader s_aInstance = new DOMReader ();
@@ -323,8 +323,8 @@ public final class DOMReader
           aCEH = (CollectingSAXErrorHandler) aCustomErrorHandler;
         else
         {
-          aCEH = new CollectingSAXErrorHandler (aCustomErrorHandler);
-          aDocumentBuilder.setErrorHandler (aCEH);
+          aCEH = new CollectingSAXErrorHandler ();
+          aDocumentBuilder.setErrorHandler (aCEH.andThen (aCustomErrorHandler));
         }
 
         // Main parsing

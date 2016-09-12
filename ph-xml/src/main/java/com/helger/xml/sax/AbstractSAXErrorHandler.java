@@ -36,7 +36,7 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public abstract class AbstractSAXErrorHandler implements ErrorHandler
+public abstract class AbstractSAXErrorHandler implements ISAXErrorHandler
 {
   private final ErrorHandler m_aWrappedErrorHandler;
 
@@ -45,7 +45,7 @@ public abstract class AbstractSAXErrorHandler implements ErrorHandler
    */
   protected AbstractSAXErrorHandler ()
   {
-    this (null);
+    m_aWrappedErrorHandler = null;
   }
 
   /**
@@ -54,6 +54,7 @@ public abstract class AbstractSAXErrorHandler implements ErrorHandler
    * @param aWrappedErrorHandler
    *        The parent error handler. May be <code>null</code>.
    */
+  @Deprecated
   public AbstractSAXErrorHandler (@Nullable final ErrorHandler aWrappedErrorHandler)
   {
     m_aWrappedErrorHandler = aWrappedErrorHandler;
@@ -63,6 +64,7 @@ public abstract class AbstractSAXErrorHandler implements ErrorHandler
    * @return The wrapped error handler. May be <code>null</code>.
    */
   @Nullable
+  @Deprecated
   public ErrorHandler getWrappedErrorHandler ()
   {
     return m_aWrappedErrorHandler;

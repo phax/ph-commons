@@ -51,6 +51,7 @@ public class CollectingSAXErrorHandler extends AbstractSAXErrorHandler
   public CollectingSAXErrorHandler ()
   {}
 
+  @Deprecated
   public CollectingSAXErrorHandler (@Nullable final ErrorHandler aWrappedErrorHandler)
   {
     super (aWrappedErrorHandler);

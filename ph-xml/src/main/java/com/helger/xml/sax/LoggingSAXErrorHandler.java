@@ -46,6 +46,7 @@ public class LoggingSAXErrorHandler extends AbstractSAXErrorHandler
   public LoggingSAXErrorHandler ()
   {}
 
+  @Deprecated
   public LoggingSAXErrorHandler (@Nullable final ErrorHandler aWrappedErrorHandler)
   {
     super (aWrappedErrorHandler);
