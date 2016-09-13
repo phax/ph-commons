@@ -1,4 +1,0 @@
-Release also:
-* ph-masterdata
-* peppol-validation-engine
-* ubl-ebinterface
