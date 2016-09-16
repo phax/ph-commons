@@ -81,10 +81,18 @@ public final class MicroTypeConverter
   public static <DSTTYPE> DSTTYPE convertToNative (@Nullable final IMicroElement aElement,
                                                    @Nonnull final Class <DSTTYPE> aDstClass) throws TypeConverterException
   {
+    return convertToNative (aElement, aDstClass, null);
+  }
+
+  @Nullable
+  public static <DSTTYPE> DSTTYPE convertToNative (@Nullable final IMicroElement aElement,
+                                                   @Nonnull final Class <DSTTYPE> aDstClass,
+                                                   @Nullable final DSTTYPE aNullValue) throws TypeConverterException
+  {
     ValueEnforcer.notNull (aDstClass, "DestClass");
 
     if (aElement == null)
-      return null;
+      return aNullValue;
 
     // Lookup converter
     final IMicroTypeConverter aConverter = MicroTypeConverterRegistry.getInstance ().getConverterToNative (aDstClass);
