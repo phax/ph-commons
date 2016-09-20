@@ -36,4 +36,16 @@ public interface IHasParent <PARENTTYPE>
    */
   @Nullable
   PARENTTYPE getParent ();
+
+  /**
+   * Check if this element has a parent.
+   * 
+   * @return <code>true</code> if this element has a parent, <code>false</code>
+   *         otherwise.
+   * @since 8.5.2
+   */
+  default boolean hasParent ()
+  {
+    return getParent () != null;
+  }
 }
