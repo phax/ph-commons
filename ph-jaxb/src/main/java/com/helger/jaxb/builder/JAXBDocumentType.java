@@ -99,17 +99,20 @@ public class JAXBDocumentType implements IJAXBDocumentType
                                           "' has no namespace URI in the @XmlSchema annotation!");
 
     // Depending on the generation mode, the class may have the @XmlRootElement
-    // annotation or not. If it is present, use the name from it, else try to
-    // deduce the name from the type.
+    // annotation or not. If it is present, use the namespace URI and the local
+    // name from it, else try to deduce the name from the type.
+    String sNamespaceURI;
     String sLocalName;
     final XmlRootElement aRootElement = aClass.getAnnotation (XmlRootElement.class);
     if (aRootElement != null)
     {
+      sNamespaceURI = aRootElement.namespace ();
       sLocalName = aRootElement.name ();
     }
     else
     {
       // Hack: build the element name from the type name
+      sNamespaceURI = aXmlSchema.namespace ();
       sLocalName = aXmlType.name ();
     }
     if (aTypeToElementNameMapper != null)
@@ -119,7 +122,7 @@ public class JAXBDocumentType implements IJAXBDocumentType
 
     m_aClass = aClass;
     m_aXSDPaths = CollectionHelper.newList (aXSDPaths);
-    m_sNamespaceURI = StringHelper.getNotNull (aXmlSchema.namespace ());
+    m_sNamespaceURI = StringHelper.getNotNull (sNamespaceURI);
     m_sLocalName = sLocalName;
   }
 
