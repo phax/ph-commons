@@ -22,6 +22,7 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.OverridingMethodsMustInvokeSuper;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
@@ -33,6 +34,7 @@ import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.locale.LocaleHelper;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.EContinue;
+import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A {@link Map} based implementation of {@link IMultilingualText} that does
@@ -168,5 +170,14 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
   public final CallbackList <IChangeCallback <IMutableMultilingualText>> getChangeNotifyCallbacks ()
   {
     return m_aChangeNotifyCallbacks;
+  }
+
+  @Override
+  @OverridingMethodsMustInvokeSuper
+  public String toString ()
+  {
+    return ToStringGenerator.getDerived (super.toString ())
+                            .append ("ChangeNotifyCallbacks", m_aChangeNotifyCallbacks)
+                            .toString ();
   }
 }
