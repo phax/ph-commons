@@ -23,11 +23,13 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.text.IHasText;
 import com.helger.commons.text.IMultilingualText;
+import com.helger.commons.text.display.IHasDisplayText;
 
 /**
  * A implementation of {@link IHasErrorText} based on {@link IMultilingualText}
@@ -37,6 +39,7 @@ import com.helger.commons.text.IMultilingualText;
  * @author Philip Helger
  */
 @Immutable
+@MustImplementEqualsAndHashcode
 public class DynamicHasErrorText implements IHasErrorText
 {
   private final IHasText m_aText;
@@ -45,6 +48,11 @@ public class DynamicHasErrorText implements IHasErrorText
   public DynamicHasErrorText (@Nonnull final IMultilingualText aText)
   {
     this ((IHasText) aText);
+  }
+
+  public DynamicHasErrorText (@Nonnull final IHasDisplayText aText)
+  {
+    this (aText.getAsHasText ());
   }
 
   public DynamicHasErrorText (@Nonnull final IHasText aText)

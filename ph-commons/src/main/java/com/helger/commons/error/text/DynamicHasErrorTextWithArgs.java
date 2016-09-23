@@ -23,11 +23,13 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.text.IHasText;
+import com.helger.commons.text.display.IHasDisplayText;
 import com.helger.commons.text.util.TextHelper;
 
 /**
@@ -38,10 +40,17 @@ import com.helger.commons.text.util.TextHelper;
  * @since 8.5.2
  */
 @Immutable
+@MustImplementEqualsAndHashcode
 public class DynamicHasErrorTextWithArgs implements IHasErrorText
 {
   private final IHasText m_aParentText;
   private final Object [] m_aArgs;
+
+  public DynamicHasErrorTextWithArgs (@Nonnull final IHasDisplayText aParentText,
+                                      @Nonnull @Nonempty final Object... aArgs)
+  {
+    this (aParentText.getAsHasText (), aArgs);
+  }
 
   public DynamicHasErrorTextWithArgs (@Nonnull final IHasText aParentText, @Nonnull @Nonempty final Object... aArgs)
   {
