@@ -31,7 +31,6 @@ import org.junit.Test;
 import com.helger.commons.annotation.NoTranslationRequired;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.text.AbstractReadOnlyMapBasedMultilingualText;
-import com.helger.commons.text.display.IHasDisplayText;
 import com.helger.commons.text.display.IHasDisplayTextWithArgs;
 import com.helger.commons.text.util.TextHelper;
 
@@ -43,11 +42,11 @@ import com.helger.commons.text.util.TextHelper;
 public final class DefaultTextResolverTest
 {
   @NoTranslationRequired
-  public static enum EText implements IHasDisplayText,IHasDisplayTextWithArgs
+  public static enum EText implements IHasDisplayTextWithArgs
   {
-   TEXT1 ("Text1de", "Text1en"),
-   TEXT2 ("Text2de", "Text2en"),
-   TEXT3 ("Text3{0}de", "Text3{0}en");
+    TEXT1 ("Text1de", "Text1en"),
+    TEXT2 ("Text2de", "Text2en"),
+    TEXT3 ("Text3{0}de", "Text3{0}en");
 
     private final AbstractReadOnlyMapBasedMultilingualText m_aTP;
 
@@ -60,12 +59,6 @@ public final class DefaultTextResolverTest
     public String getDisplayText (@Nonnull final Locale aContentLocale)
     {
       return DefaultTextResolver.getTextStatic (this, m_aTP, aContentLocale);
-    }
-
-    @Nullable
-    public String getDisplayTextWithArgs (@Nonnull final Locale aContentLocale, @Nullable final Object... aArgs)
-    {
-      return DefaultTextResolver.getTextWithArgsStatic (this, m_aTP, aContentLocale, aArgs);
     }
   }
 

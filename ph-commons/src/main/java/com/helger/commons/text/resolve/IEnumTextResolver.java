@@ -24,6 +24,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.text.IHasText;
 import com.helger.commons.text.IHasTextWithArgs;
+import com.helger.commons.text.util.TextHelper;
 
 /**
  * Base interface for an enum-based text resolver.
@@ -73,8 +74,13 @@ public interface IEnumTextResolver
    * @return <code>null</code> if no text could be resolved.
    */
   @Nullable
-  String getTextWithArgs (@Nonnull Enum <?> aEnum,
-                          @Nonnull IHasTextWithArgs aTP,
-                          @Nonnull Locale aContentLocale,
-                          @Nullable Object... aArgs);
+  default String getTextWithArgs (@Nonnull final Enum <?> aEnum,
+                                  @Nonnull final IHasTextWithArgs aTP,
+                                  @Nonnull final Locale aContentLocale,
+                                  @Nullable final Object... aArgs)
+  {
+    final String sText = getText (aEnum, aTP, aContentLocale);
+    // And if something was found, resolve the arguments
+    return TextHelper.getFormattedText (sText, aArgs);
+  }
 }

@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.DevelopersNote;
+import com.helger.commons.text.display.IHasDisplayTextWithArgs;
 import com.helger.commons.text.util.TextHelper;
 
 /**
@@ -69,5 +70,15 @@ public interface IHasTextWithArgs extends IHasText
   {
     final String sText = getText (aContentLocale);
     return TextHelper.getFormattedText (sText, aArgs);
+  }
+
+  /**
+   * @return this as an instance of {@link IHasDisplayTextWithArgs}.
+   * @since 8.5.2
+   */
+  @Nonnull
+  default IHasDisplayTextWithArgs getAsHasDisplayTextWithArgs ()
+  {
+    return x -> getText (x);
   }
 }

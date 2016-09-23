@@ -20,8 +20,10 @@ import java.util.Locale;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.text.AbstractHasText;
@@ -32,6 +34,8 @@ import com.helger.commons.text.IHasTextWithArgs;
  *
  * @author Philip Helger
  */
+@Immutable
+@MustImplementEqualsAndHashcode
 public class ResourceBundleTextProvider extends AbstractHasText implements IHasTextWithArgs
 {
   private final ResourceBundleKey m_aResBundleKey;

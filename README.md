@@ -21,6 +21,9 @@ This project was the following modules:
 
 ##News
 
+  * 8.5.2.
+    * Fixed an error with JAXB context creation if @XMLRootElement was used
+    * Improved consistency of IHasText(WithArgs) and IHasDisplayText(WithArgs) so that they can be used interchangably
   * 8.5.1 - 2016-09-12
     * Fixed error text retrieval in Single Error; further API extensions and improvements
   * 8.5.0 - 2016-09-09

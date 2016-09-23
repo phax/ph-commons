@@ -27,8 +27,6 @@ import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
 import com.helger.commons.statistics.IMutableStatisticsHandlerKeyedCounter;
 import com.helger.commons.statistics.StatisticsManager;
 import com.helger.commons.text.IHasText;
-import com.helger.commons.text.IHasTextWithArgs;
-import com.helger.commons.text.util.TextHelper;
 
 /**
  * Resolves texts either from an override, a text provider or otherwise uses a
@@ -44,8 +42,6 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
 
   private static final IMutableStatisticsHandlerKeyedCounter s_aStatsGetText = StatisticsManager.getKeyedCounterHandler (AbstractEnumTextResolverWithOverrideAndFallback.class.getName () +
                                                                                                                          "$getText");
-  private static final IMutableStatisticsHandlerKeyedCounter s_aStatsGetTextWithArgs = StatisticsManager.getKeyedCounterHandler (AbstractEnumTextResolverWithOverrideAndFallback.class.getName () +
-                                                                                                                                 "$getTextWithArgs");
   private static final IMutableStatisticsHandlerCounter s_aStatsOverride = StatisticsManager.getCounterHandler (AbstractEnumTextResolverWithOverrideAndFallback.class.getName () +
                                                                                                                 "$OVERRIDE");
   private static final IMutableStatisticsHandlerCounter s_aStatsFallback = StatisticsManager.getCounterHandler (AbstractEnumTextResolverWithOverrideAndFallback.class.getName () +
@@ -53,6 +49,9 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
 
   private boolean m_bCheckForOverride = DEFAULT_CHECK_FOR_OVERRIDE;
   private boolean m_bCheckForFallback = DEFAULT_CHECK_FOR_FALLBACK;
+
+  public AbstractEnumTextResolverWithOverrideAndFallback ()
+  {}
 
   public final boolean isCheckForOverride ()
   {
@@ -103,16 +102,15 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
   protected abstract String internalGetFallbackString (@Nonnull String sID, @Nonnull Locale aContentLocale);
 
   @Nullable
-  protected String internalGetText (@Nonnull final Enum <?> aEnum,
-                                    @Nonnull final IHasText aTP,
-                                    @Nonnull final Locale aContentLocale,
-                                    final boolean bIsWithArgs)
+  public final String getText (@Nonnull final Enum <?> aEnum,
+                               @Nonnull final IHasText aTP,
+                               @Nonnull final Locale aContentLocale)
   {
     // Get the unique text element ID
     final String sID = EnumHelper.getEnumID (aEnum);
 
     // Increment the statistics first
-    (bIsWithArgs ? s_aStatsGetTextWithArgs : s_aStatsGetText).increment (sID);
+    s_aStatsGetText.increment (sID);
 
     if (m_bCheckForOverride)
     {
@@ -141,25 +139,5 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
     }
 
     return null;
-  }
-
-  @Nullable
-  public final String getText (@Nonnull final Enum <?> aEnum,
-                               @Nonnull final IHasText aTP,
-                               @Nonnull final Locale aContentLocale)
-  {
-    return internalGetText (aEnum, aTP, aContentLocale, false);
-  }
-
-  @Nullable
-  public final String getTextWithArgs (@Nonnull final Enum <?> aEnum,
-                                       @Nonnull final IHasTextWithArgs aTP,
-                                       @Nonnull final Locale aContentLocale,
-                                       @Nullable final Object... aArgs)
-  {
-    // The same as getText
-    final String sText = internalGetText (aEnum, aTP, aContentLocale, true);
-    // And if something was found, resolve the arguments
-    return TextHelper.getFormattedText (sText, aArgs);
   }
 }

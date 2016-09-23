@@ -23,18 +23,20 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * An implementation of the {@link com.helger.commons.text.IHasTextWithArgs}
- * interface that always returns a constant string. Use this only for texts that
- * never need to be translated!
+ * An implementation of the {@link IHasTextWithArgs} interface that always
+ * returns a constant string. Use this only for texts that never need to be
+ * translated!
  *
  * @author Philip Helger
  */
 @Immutable
+@MustImplementEqualsAndHashcode
 public class ConstantHasTextWithArgs extends AbstractHasText implements IHasTextWithArgs
 {
   private final String m_sFixedText;

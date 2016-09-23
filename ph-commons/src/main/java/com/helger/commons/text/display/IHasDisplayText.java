@@ -24,6 +24,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.compare.IComparator;
+import com.helger.commons.text.IHasText;
 
 /**
  * Base interface for objects that have a locale <b>dependent</b> display name.
@@ -43,10 +44,20 @@ public interface IHasDisplayText extends Serializable
   @Nullable
   String getDisplayText (@Nonnull Locale aContentLocale);
 
+  /**
+   * @return this as an instance of {@link IHasText}.
+   * @since 8.5.2
+   */
+  @Nonnull
+  default IHasText getAsHasText ()
+  {
+    return x -> getDisplayText (x);
+  }
+
   @Nonnull
   static Comparator <IHasDisplayText> getComparatorCollating (@Nonnull final Locale aContentLocale,
                                                               @Nullable final Locale aSortLocale)
   {
-    return IComparator.getComparatorCollating (aObject -> aObject.getDisplayText (aContentLocale), aSortLocale);
+    return IComparator.getComparatorCollating (x -> x.getDisplayText (aContentLocale), aSortLocale);
   }
 }

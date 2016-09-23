@@ -17,10 +17,14 @@
 package com.helger.commons.text;
 
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import com.helger.commons.compare.IComparator;
+import com.helger.commons.text.display.IHasDisplayText;
 
 /**
  * Basic interface for object providing multilingual texts without arguments.
@@ -43,4 +47,21 @@ public interface IHasText extends Serializable
    */
   @Nullable
   String getText (@Nonnull Locale aContentLocale);
+
+  /**
+   * @return this as an instance of {@link IHasDisplayText}.
+   * @since 8.5.2
+   */
+  @Nonnull
+  default IHasDisplayText getAsHasDisplayText ()
+  {
+    return x -> getText (x);
+  }
+
+  @Nonnull
+  static Comparator <IHasText> getComparatorCollating (@Nonnull final Locale aContentLocale,
+                                                       @Nullable final Locale aSortLocale)
+  {
+    return IComparator.getComparatorCollating (x -> x.getText (aContentLocale), aSortLocale);
+  }
 }

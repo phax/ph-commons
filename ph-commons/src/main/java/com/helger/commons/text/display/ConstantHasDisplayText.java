@@ -23,6 +23,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
@@ -30,11 +31,12 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * An implementation of the {@link IHasDisplayText} interface that always
  * returns a constant string. Use this only for texts that never need to be
- * translated!
+ * translated! Use this class if equals/hashCode is relevant
  *
  * @author Philip Helger
  */
 @Immutable
+@MustImplementEqualsAndHashcode
 public class ConstantHasDisplayText implements IHasDisplayText
 {
   private final String m_sFixedText;

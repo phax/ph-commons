@@ -41,6 +41,12 @@ public class DynamicHasErrorText implements IHasErrorText
 {
   private final IHasText m_aText;
 
+  @Deprecated
+  public DynamicHasErrorText (@Nonnull final IMultilingualText aText)
+  {
+    this ((IHasText) aText);
+  }
+
   public DynamicHasErrorText (@Nonnull final IHasText aText)
   {
     m_aText = ValueEnforcer.notNull (aText, "Text");

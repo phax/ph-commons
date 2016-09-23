@@ -32,6 +32,7 @@ import com.helger.commons.error.text.DynamicHasErrorText;
 import com.helger.commons.error.text.IHasErrorText;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.text.IHasText;
 import com.helger.commons.text.IMultilingualText;
 import com.helger.commons.traits.IGenericImplTrait;
 
@@ -273,7 +274,7 @@ public class SingleError implements IError
           m_aErrorText = ConstantHasErrorText.createOnDemand (aMLT.getAllTexts ().getFirstValue ());
         }
         else
-          m_aErrorText = new DynamicHasErrorText (aMLT);
+          m_aErrorText = new DynamicHasErrorText ((IHasText) aMLT);
       return thisAsT ();
     }
 
