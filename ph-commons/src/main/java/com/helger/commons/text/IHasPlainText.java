@@ -23,8 +23,11 @@ import javax.annotation.Nonnull;
  * for search indexing and searching.
  *
  * @author Philip Helger
+ * @deprecated Use other base interface like IHasText or the like or skip it.
+ *             Deprecated since 8.5.2
  */
 @FunctionalInterface
+@Deprecated
 public interface IHasPlainText
 {
   /**
