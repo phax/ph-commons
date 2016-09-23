@@ -26,6 +26,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.text.IHasText;
 import com.helger.commons.text.IMultilingualText;
 
 /**
@@ -38,9 +39,9 @@ import com.helger.commons.text.IMultilingualText;
 @Immutable
 public class DynamicHasErrorText implements IHasErrorText
 {
-  private final IMultilingualText m_aText;
+  private final IHasText m_aText;
 
-  public DynamicHasErrorText (@Nullable final IMultilingualText aText)
+  public DynamicHasErrorText (@Nonnull final IHasText aText)
   {
     m_aText = ValueEnforcer.notNull (aText, "Text");
   }
