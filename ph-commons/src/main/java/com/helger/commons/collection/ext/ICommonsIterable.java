@@ -157,6 +157,30 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>
   }
 
   /**
+   * Convert all elements using the provided function, find all mapped elements
+   * matching the provided filter and invoke the provided consumer for all
+   * matching elements.
+   *
+   * @param aMapper
+   *        The mapping function to be executed for all matching elements. May
+   *        not be <code>null</code>.
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @param aConsumer
+   *        The consumer to be invoked for all matching mapped elements. May not
+   *        be <code>null</code>.
+   * @param <DSTTYPE>
+   *        The destination type to be mapped to
+   * @since 8.5.2
+   */
+  default <DSTTYPE> void findAllMapped (@Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper,
+                                        @Nullable final Predicate <? super DSTTYPE> aFilter,
+                                        @Nonnull final Consumer <? super DSTTYPE> aConsumer)
+  {
+    CollectionHelper.findAllMapped (this, aMapper, aFilter, aConsumer);
+  }
+
+  /**
    * Find all elements that are <code>instanceOf</code> the provided class and
    * invoke the provided consumer for all matching elements. This is a special
    * implementation of {@link #findAllMapped(Predicate, Function, Consumer)}.
@@ -173,7 +197,7 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>
   default <DSTTYPE extends ELEMENTTYPE> void findAllInstanceOf (@Nonnull final Class <DSTTYPE> aDstClass,
                                                                 @Nonnull final Consumer <? super DSTTYPE> aConsumer)
   {
-    findAllMapped (e -> aDstClass.isInstance (e), e -> aDstClass.cast (e), aConsumer);
+    findAllMapped ((Predicate <ELEMENTTYPE>) e -> aDstClass.isInstance (e), e -> aDstClass.cast (e), aConsumer);
   }
 
   /**

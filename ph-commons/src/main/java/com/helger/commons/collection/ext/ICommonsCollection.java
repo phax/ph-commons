@@ -343,6 +343,24 @@ public interface ICommonsCollection <ELEMENTTYPE>
   }
 
   /**
+   * Add all elements of the passed iterable to this collection.
+   *
+   * @param aElements
+   *        The elements to be added. May be <code>null</code>.
+   * @return {@link EChange#CHANGED} if at least one element was added,
+   *         {@link EChange#UNCHANGED}. Never <code>null</code>.
+   */
+  @Nonnull
+  default EChange addAll (@Nullable final Iterable <? extends ELEMENTTYPE> aElements)
+  {
+    EChange eChange = EChange.UNCHANGED;
+    if (aElements != null)
+      for (final ELEMENTTYPE aElement : aElements)
+        eChange = eChange.or (add (aElement));
+    return eChange;
+  }
+
+  /**
    * Add all elements of the passed enumeration to this collection.
    *
    * @param aEnum
@@ -381,20 +399,114 @@ public interface ICommonsCollection <ELEMENTTYPE>
   }
 
   /**
+   * Add all matching elements of an array this collection.
+   *
+   * @param aElements
+   *        The elements to be added. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @return {@link EChange#CHANGED} if at least one element was added,
+   *         {@link EChange#UNCHANGED}. Never <code>null</code>.
+   * @since 8.5.2
+   */
+  @Nonnull
+  default EChange addAll (@Nullable final ELEMENTTYPE [] aElements,
+                          @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
+  {
+    if (aFilter == null)
+      return addAll (aElements);
+
+    EChange eChange = EChange.UNCHANGED;
+    if (aElements != null)
+      for (final ELEMENTTYPE aElement : aElements)
+        if (aFilter.test (aElement))
+          eChange = eChange.or (add (aElement));
+    return eChange;
+  }
+
+  /**
    * Add all elements of the passed iterable to this collection.
    *
    * @param aElements
    *        The elements to be added. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
    * @return {@link EChange#CHANGED} if at least one element was added,
    *         {@link EChange#UNCHANGED}. Never <code>null</code>.
+   * @since 8.5.2
    */
   @Nonnull
-  default EChange addAll (@Nullable final Iterable <? extends ELEMENTTYPE> aElements)
+  default EChange addAll (@Nullable final Iterable <? extends ELEMENTTYPE> aElements,
+                          @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
+    if (aFilter == null)
+      return addAll (aElements);
+
     EChange eChange = EChange.UNCHANGED;
     if (aElements != null)
       for (final ELEMENTTYPE aElement : aElements)
-        eChange = eChange.or (add (aElement));
+        if (aFilter.test (aElement))
+          eChange = eChange.or (add (aElement));
+    return eChange;
+  }
+
+  /**
+   * Add all elements of the passed enumeration to this collection.
+   *
+   * @param aEnum
+   *        The enumeration to be iterated and the elements to be added. May be
+   *        <code>null</code>.
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @return {@link EChange#CHANGED} if at least one element was added,
+   *         {@link EChange#UNCHANGED}. Never <code>null</code>.
+   * @since 8.5.2
+   */
+  @Nonnull
+  default EChange addAll (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum,
+                          @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
+  {
+    if (aFilter == null)
+      return addAll (aEnum);
+
+    EChange eChange = EChange.UNCHANGED;
+    if (aEnum != null)
+      while (aEnum.hasMoreElements ())
+      {
+        final ELEMENTTYPE aElement = aEnum.nextElement ();
+        if (aFilter.test (aElement))
+          eChange = eChange.or (add (aElement));
+      }
+    return eChange;
+  }
+
+  /**
+   * Add all elements of the passed iterator to this collection.
+   *
+   * @param aIter
+   *        The iterator to be iterated and the elements to be added. May be
+   *        <code>null</code>.
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @return {@link EChange#CHANGED} if at least one element was added,
+   *         {@link EChange#UNCHANGED}. Never <code>null</code>.
+   * @since 8.5.2
+   */
+  @Nonnull
+  default EChange addAll (@Nullable final Iterator <? extends ELEMENTTYPE> aIter,
+                          @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
+  {
+    if (aFilter == null)
+      return addAll (aIter);
+
+    EChange eChange = EChange.UNCHANGED;
+    if (aIter != null)
+      while (aIter.hasNext ())
+      {
+        final ELEMENTTYPE aElement = aIter.next ();
+        if (aFilter.test (aElement))
+          eChange = eChange.or (add (aElement));
+      }
     return eChange;
   }
 
@@ -475,10 +587,13 @@ public interface ICommonsCollection <ELEMENTTYPE>
   {
     ValueEnforcer.notNull (aMapper, "Mapper");
 
+    if (aFilter == null)
+      return addAllMapped (aElements, aMapper);
+
     EChange eChange = EChange.UNCHANGED;
     if (aElements != null)
       for (final SRCTYPE aValue : aElements)
-        if (aFilter == null || aFilter.test (aValue))
+        if (aFilter.test (aValue))
           eChange = eChange.or (add (aMapper.apply (aValue)));
     return eChange;
   }
@@ -506,11 +621,92 @@ public interface ICommonsCollection <ELEMENTTYPE>
   {
     ValueEnforcer.notNull (aMapper, "Mapper");
 
+    if (aFilter == null)
+      return addAllMapped (aElements, aMapper);
+
     EChange eChange = EChange.UNCHANGED;
     if (aElements != null)
       for (final SRCTYPE aValue : aElements)
-        if (aFilter == null || aFilter.test (aValue))
+        if (aFilter.test (aValue))
           eChange = eChange.or (add (aMapper.apply (aValue)));
+    return eChange;
+  }
+
+  /**
+   * Add all passed elements matching the provided filter after performing a
+   * mapping using the provided function.
+   *
+   * @param aElements
+   *        The elements to be added after mapping. May be <code>null</code>.
+   * @param aMapper
+   *        The mapping function to be executed for all provided elements. May
+   *        not be <code>null</code>.
+   * @param aFilter
+   *        The filter to be applied on the mapped element. May be
+   *        <code>null</code>.
+   * @return {@link EChange#CHANGED} if at least one element was added,
+   *         {@link EChange#UNCHANGED}. Never <code>null</code>.
+   * @param <SRCTYPE>
+   *        The source type to be mapped from
+   * @since 8.5.2
+   */
+  @Nonnull
+  default <SRCTYPE> EChange addAllMapped (@Nullable final Iterable <? extends SRCTYPE> aElements,
+                                          @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper,
+                                          @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
+  {
+    ValueEnforcer.notNull (aMapper, "Mapper");
+
+    if (aFilter == null)
+      return addAllMapped (aElements, aMapper);
+
+    EChange eChange = EChange.UNCHANGED;
+    if (aElements != null)
+      for (final SRCTYPE aValue : aElements)
+      {
+        final ELEMENTTYPE aMapped = aMapper.apply (aValue);
+        if (aFilter.test (aMapped))
+          eChange = eChange.or (add (aMapped));
+      }
+    return eChange;
+  }
+
+  /**
+   * Add all passed elements matching the provided filter after performing a
+   * mapping using the provided function.
+   *
+   * @param aElements
+   *        The elements to be added after mapping. May be <code>null</code>.
+   * @param aMapper
+   *        The mapping function to be executed for all provided elements. May
+   *        not be <code>null</code>.
+   * @param aFilter
+   *        The filter to be applied on the mapped element. May be
+   *        <code>null</code>.
+   * @return {@link EChange#CHANGED} if at least one element was added,
+   *         {@link EChange#UNCHANGED}. Never <code>null</code>.
+   * @param <SRCTYPE>
+   *        The source type to be mapped from
+   * @since 8.5.2
+   */
+  @Nonnull
+  default <SRCTYPE> EChange addAllMapped (@Nullable final SRCTYPE [] aElements,
+                                          @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper,
+                                          @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
+  {
+    ValueEnforcer.notNull (aMapper, "Mapper");
+
+    if (aFilter == null)
+      return addAllMapped (aElements, aMapper);
+
+    EChange eChange = EChange.UNCHANGED;
+    if (aElements != null)
+      for (final SRCTYPE aValue : aElements)
+      {
+        final ELEMENTTYPE aMapped = aMapper.apply (aValue);
+        if (aFilter.test (aMapped))
+          eChange = eChange.or (add (aMapped));
+      }
     return eChange;
   }
 
