@@ -24,6 +24,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.validation.Schema;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.lang.IHasClassLoader;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.traits.IGenericImplTrait;
@@ -118,7 +119,8 @@ public abstract class AbstractJAXBBuilder <IMPLTYPE extends AbstractJAXBBuilder 
   }
 
   @Nonnull
-  protected final JAXBContext getJAXBContext () throws JAXBException
+  @OverrideOnDemand
+  protected JAXBContext getJAXBContext () throws JAXBException
   {
     if (m_bUseJAXBContextCache)
     {

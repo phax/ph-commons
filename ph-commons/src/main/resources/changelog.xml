@@ -18,6 +18,12 @@
 
 -->
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="ph-commons">
+  <release date="2016-09-25" version="8.5.2" />
+  <entry date="2016-09-25" category="api" action="add">
+    <change>
+      <text locale="en">Extended ICommonsCollection and ICommonsIterable API</text>
+    </change>
+  </entry>
   <release date="2016-09-12" version="8.5.1" />
   <release date="2016-09-09" version="8.5.0" />
   <release date="2016-08-21" version="8.4.0" />
