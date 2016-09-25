@@ -2421,6 +2421,10 @@ public final class CollectionHelper
    *        Mapping function. May not be <code>null</code>.
    * @param aDst
    *        Destination collection. May not be <code>null</code>.
+   * @param <SRCTYPE>
+   *        Source object type
+   * @param <DSTTYPE>
+   *        Destination object type
    */
   public static <SRCTYPE, DSTTYPE> void findAllMapped (@Nullable final Iterable <? extends SRCTYPE> aSrc,
                                                        @Nullable final Predicate <? super SRCTYPE> aFilter,
@@ -2441,6 +2445,10 @@ public final class CollectionHelper
    *        Mapping function. May not be <code>null</code>.
    * @param aConsumer
    *        Destination consumer. May not be <code>null</code>.
+   * @param <SRCTYPE>
+   *        Source object type
+   * @param <DSTTYPE>
+   *        Destination object type
    */
   public static <SRCTYPE, DSTTYPE> void findAllMapped (@Nullable final Iterable <? extends SRCTYPE> aSrc,
                                                        @Nullable final Predicate <? super SRCTYPE> aFilter,
@@ -2470,6 +2478,10 @@ public final class CollectionHelper
    *        Filter on mapped object to use. May be <code>null</code>.
    * @param aDst
    *        Destination collection. May not be <code>null</code>.
+   * @param <SRCTYPE>
+   *        Source object type
+   * @param <DSTTYPE>
+   *        Destination object type
    * @since 8.5.2
    */
   public static <SRCTYPE, DSTTYPE> void findAllMapped (@Nullable final Iterable <? extends SRCTYPE> aSrc,
@@ -2491,6 +2503,10 @@ public final class CollectionHelper
    *        Filter on mapped object to use. May be <code>null</code>.
    * @param aConsumer
    *        Destination consumer. May not be <code>null</code>.
+   * @param <SRCTYPE>
+   *        Source object type
+   * @param <DSTTYPE>
+   *        Destination object type
    * @since 8.5.2
    */
   public static <SRCTYPE, DSTTYPE> void findAllMapped (@Nullable final Iterable <? extends SRCTYPE> aSrc,

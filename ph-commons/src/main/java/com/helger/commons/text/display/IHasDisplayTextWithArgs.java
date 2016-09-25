@@ -39,14 +39,12 @@ public interface IHasDisplayTextWithArgs extends IHasDisplayText
   /**
    * @param aContentLocale
    *        The locale to be used for resolving. May not be <code>null</code>.
-   * @param aArgs
-   *        Arguments for formatting the provided text. May be <code>null</code>
-   *        but this makes no sense.
    * @return The display text of the object in the given locale. May be
    *         <code>null</code> if the text could not be resolved in the passed
    *         locale.
    */
   @Nullable
+  @Deprecated
   @DevelopersNote ("Use getDisplayText instead!")
   default String getDisplayTextWithArgs (@Nonnull final Locale aContentLocale)
   {
@@ -75,7 +73,7 @@ public interface IHasDisplayTextWithArgs extends IHasDisplayText
    * @since 8.5.2
    */
   @Nonnull
-  default IHasTextWithArgs getAsHasText ()
+  default IHasTextWithArgs getAsHasTextWithArgs ()
   {
     return x -> getDisplayText (x);
   }
