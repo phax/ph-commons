@@ -1069,7 +1069,8 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  @SuppressFBWarnings (value = { "NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE" }, justification = "When using the constructor with the Comparator it works with null values!")
+  @SuppressFBWarnings (value = { "NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE" },
+                       justification = "When using the constructor with the Comparator it works with null values!")
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> newSortedSet (@Nullable final ELEMENTTYPE aValue)
   {
     final CommonsTreeSet <ELEMENTTYPE> ret = newSortedSet ();
@@ -2382,9 +2383,12 @@ public final class CollectionHelper
     ValueEnforcer.notNull (aConsumer, "Consumer");
 
     if (isNotEmpty (aSrc))
-      for (final ELEMENTTYPE aElement : aSrc)
-        if (aFilter == null || aFilter.test (aElement))
-          aConsumer.accept (aElement);
+      if (aFilter == null)
+        aSrc.forEach (aConsumer);
+      else
+        for (final ELEMENTTYPE aElement : aSrc)
+          if (aFilter.test (aElement))
+            aConsumer.accept (aElement);
   }
 
   public static <SRCTYPE, DSTTYPE> void findAllMapped (@Nullable final Iterable <? extends SRCTYPE> aSrc,
@@ -2406,6 +2410,18 @@ public final class CollectionHelper
         aConsumer.accept (aMapper.apply (aElement));
   }
 
+  /**
+   * Iterate, filter, map, add.
+   *
+   * @param aSrc
+   *        Source collection. May be <code>null</code>.
+   * @param aFilter
+   *        Filter on source object to use. May be <code>null</code>.
+   * @param aMapper
+   *        Mapping function. May not be <code>null</code>.
+   * @param aDst
+   *        Destination collection. May not be <code>null</code>.
+   */
   public static <SRCTYPE, DSTTYPE> void findAllMapped (@Nullable final Iterable <? extends SRCTYPE> aSrc,
                                                        @Nullable final Predicate <? super SRCTYPE> aFilter,
                                                        @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
@@ -2414,6 +2430,18 @@ public final class CollectionHelper
     findAllMapped (aSrc, aFilter, aMapper, aDst::add);
   }
 
+  /**
+   * Iterate, filter, map, add.
+   *
+   * @param aSrc
+   *        Source collection. May be <code>null</code>.
+   * @param aFilter
+   *        Filter on source object to use. May be <code>null</code>.
+   * @param aMapper
+   *        Mapping function. May not be <code>null</code>.
+   * @param aConsumer
+   *        Destination consumer. May not be <code>null</code>.
+   */
   public static <SRCTYPE, DSTTYPE> void findAllMapped (@Nullable final Iterable <? extends SRCTYPE> aSrc,
                                                        @Nullable final Predicate <? super SRCTYPE> aFilter,
                                                        @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
@@ -2422,10 +2450,67 @@ public final class CollectionHelper
     ValueEnforcer.notNull (aMapper, "Mapper");
     ValueEnforcer.notNull (aConsumer, "Consumer");
 
-    if (isNotEmpty (aSrc))
-      for (final SRCTYPE aElement : aSrc)
-        if (aFilter == null || aFilter.test (aElement))
-          aConsumer.accept (aMapper.apply (aElement));
+    if (aFilter == null)
+      findAllMapped (aSrc, aMapper, aConsumer);
+    else
+      if (isNotEmpty (aSrc))
+        for (final SRCTYPE aElement : aSrc)
+          if (aFilter.test (aElement))
+            aConsumer.accept (aMapper.apply (aElement));
+  }
+
+  /**
+   * Iterate, map, filter, add.
+   *
+   * @param aSrc
+   *        Source collection. May be <code>null</code>.
+   * @param aMapper
+   *        Mapping function. May not be <code>null</code>.
+   * @param aFilter
+   *        Filter on mapped object to use. May be <code>null</code>.
+   * @param aDst
+   *        Destination collection. May not be <code>null</code>.
+   * @since 8.5.2
+   */
+  public static <SRCTYPE, DSTTYPE> void findAllMapped (@Nullable final Iterable <? extends SRCTYPE> aSrc,
+                                                       @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
+                                                       @Nullable final Predicate <? super DSTTYPE> aFilter,
+                                                       @Nonnull final Collection <? super DSTTYPE> aDst)
+  {
+    findAllMapped (aSrc, aMapper, aFilter, aDst::add);
+  }
+
+  /**
+   * Iterate, map, filter, add.
+   *
+   * @param aSrc
+   *        Source collection. May be <code>null</code>.
+   * @param aMapper
+   *        Mapping function. May not be <code>null</code>.
+   * @param aFilter
+   *        Filter on mapped object to use. May be <code>null</code>.
+   * @param aConsumer
+   *        Destination consumer. May not be <code>null</code>.
+   * @since 8.5.2
+   */
+  public static <SRCTYPE, DSTTYPE> void findAllMapped (@Nullable final Iterable <? extends SRCTYPE> aSrc,
+                                                       @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
+                                                       @Nullable final Predicate <? super DSTTYPE> aFilter,
+                                                       @Nonnull final Consumer <? super DSTTYPE> aConsumer)
+  {
+    ValueEnforcer.notNull (aMapper, "Mapper");
+    ValueEnforcer.notNull (aConsumer, "Consumer");
+
+    if (aFilter == null)
+      findAllMapped (aSrc, aMapper, aConsumer);
+    else
+      if (isNotEmpty (aSrc))
+        for (final SRCTYPE aElement : aSrc)
+        {
+          final DSTTYPE aMapped = aMapper.apply (aElement);
+          if (aFilter.test (aMapped))
+            aConsumer.accept (aMapped);
+        }
   }
 
   /**
