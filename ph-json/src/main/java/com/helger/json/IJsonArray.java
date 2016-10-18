@@ -18,6 +18,7 @@ package com.helger.json;
 
 import java.util.function.Function;
 import java.util.function.ObjIntConsumer;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -40,6 +41,14 @@ public interface IJsonArray extends IJsonCollection, ICommonsIterable <IJson>, I
   @Nonnull
   IJsonArray add (@Nonnull IJson aValue);
 
+  @Nonnull
+  default IJsonArray addIf (@Nonnull final IJson aValue, @Nonnull final Predicate <? super IJson> aFilter)
+  {
+    if (aFilter.test (aValue))
+      add (aValue);
+    return this;
+  }
+
   /**
    * Add using the JSON converter
    *
@@ -52,6 +61,22 @@ public interface IJsonArray extends IJsonCollection, ICommonsIterable <IJson>, I
   {
     final IJson aJson = JsonConverter.convertToJson (aValue);
     return add (aJson);
+  }
+
+  @Nonnull
+  default IJsonArray addIfNotNull (@Nullable final Object aValue)
+  {
+    if (aValue != null)
+      add (aValue);
+    return this;
+  }
+
+  @Nonnull
+  default IJsonArray addIf (@Nullable final Object aValue, @Nonnull final Predicate <? super Object> aFilter)
+  {
+    if (aFilter.test (aValue))
+      add (aValue);
+    return this;
   }
 
   @Nonnull

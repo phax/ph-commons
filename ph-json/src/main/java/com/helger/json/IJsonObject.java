@@ -19,6 +19,7 @@ package com.helger.json;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -46,8 +47,18 @@ public interface IJsonObject extends
   @Nonnull
   IJsonObject add (@Nonnull String sName, @Nonnull IJson aValue);
 
+  @Nonnull
+  default IJsonObject addIf (@Nonnull final String sName,
+                             @Nonnull final IJson aValue,
+                             @Nonnull final Predicate <? super IJson> aFilter)
+  {
+    if (aFilter.test (aValue))
+      add (sName, aValue);
+    return this;
+  }
+
   /**
-   * Add at the specified index using the JSON converter
+   * Add at the specified value using the JSON converter
    *
    * @param sName
    *        The name of the item. May not be <code>null</code>.
@@ -60,6 +71,24 @@ public interface IJsonObject extends
   {
     final IJson aJson = JsonConverter.convertToJson (aValue);
     return add (sName, aJson);
+  }
+
+  @Nonnull
+  default IJsonObject addIfNotNull (@Nonnull final String sName, @Nullable final Object aValue)
+  {
+    if (aValue != null)
+      add (sName, aValue);
+    return this;
+  }
+
+  @Nonnull
+  default IJsonObject addIf (@Nonnull final String sName,
+                             @Nullable final Object aValue,
+                             @Nonnull final Predicate <? super Object> aFilter)
+  {
+    if (aFilter.test (aValue))
+      add (sName, aValue);
+    return this;
   }
 
   @Nonnull
