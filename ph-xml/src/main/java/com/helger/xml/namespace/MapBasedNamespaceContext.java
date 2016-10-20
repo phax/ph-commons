@@ -50,9 +50,18 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
   private final ICommonsOrderedMap <String, String> m_aPrefix2NS = new CommonsLinkedHashMap<> ();
   private final MultiHashMapHashSetBased <String, String> m_aNS2Prefix = new MultiHashMapHashSetBased<> ();
 
+  /**
+   * Default constructor.
+   */
   public MapBasedNamespaceContext ()
   {}
 
+  /**
+   * Copy constructor.
+   *
+   * @param aOther
+   *        Object to copy from. May be <code>null</code>.
+   */
   public MapBasedNamespaceContext (@Nullable final MapBasedNamespaceContext aOther)
   {
     if (aOther != null)
@@ -63,7 +72,25 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
     }
   }
 
+  /**
+   * Constructor to copy from another {@link IIterableNamespaceContext}
+   *
+   * @param aOther
+   *        Object to copy the data from. May be <code>null</code>.
+   */
   public MapBasedNamespaceContext (@Nullable final IIterableNamespaceContext aOther)
+  {
+    addMappings (aOther);
+  }
+
+  /**
+   * Constructor with prefix to namespace URL map
+   *
+   * @param aOther
+   *        Map with prefix to namespace URL. May be <code>null</code>.
+   * @since 8.5.3
+   */
+  public MapBasedNamespaceContext (@Nullable final Map <String, String> aOther)
   {
     addMappings (aOther);
   }
@@ -152,8 +179,7 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
   public final MapBasedNamespaceContext addMappings (@Nullable final IIterableNamespaceContext aOther)
   {
     if (aOther != null)
-      for (final Map.Entry <String, String> aEntry : aOther.getPrefixToNamespaceURIMap ().entrySet ())
-        addMapping (aEntry.getKey (), aEntry.getValue ());
+      addMappings (aOther.getPrefixToNamespaceURIMap ());
     return this;
   }
 
@@ -161,7 +187,24 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
   public final MapBasedNamespaceContext setMappings (@Nullable final IIterableNamespaceContext aOther)
   {
     if (aOther != null)
-      for (final Map.Entry <String, String> aEntry : aOther.getPrefixToNamespaceURIMap ().entrySet ())
+      setMappings (aOther.getPrefixToNamespaceURIMap ());
+    return this;
+  }
+
+  @Nonnull
+  public final MapBasedNamespaceContext addMappings (@Nullable final Map <String, String> aOther)
+  {
+    if (aOther != null)
+      for (final Map.Entry <String, String> aEntry : aOther.entrySet ())
+        addMapping (aEntry.getKey (), aEntry.getValue ());
+    return this;
+  }
+
+  @Nonnull
+  public final MapBasedNamespaceContext setMappings (@Nullable final Map <String, String> aOther)
+  {
+    if (aOther != null)
+      for (final Map.Entry <String, String> aEntry : aOther.entrySet ())
         setMapping (aEntry.getKey (), aEntry.getValue ());
     return this;
   }
