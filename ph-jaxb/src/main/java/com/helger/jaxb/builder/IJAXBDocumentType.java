@@ -25,7 +25,7 @@ import javax.xml.validation.Validator;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.error.list.IErrorList;
 import com.helger.commons.io.resource.ClassPathResource;
@@ -80,7 +80,7 @@ public interface IJAXBDocumentType extends IHasSchema, Serializable
   @ReturnsMutableCopy
   default ICommonsList <? extends IReadableResource> getAllXSDResources ()
   {
-    return CollectionHelper.newListMapped (getAllXSDPaths (), s -> new ClassPathResource (s));
+    return new CommonsArrayList<> (getAllXSDPaths (), x -> new ClassPathResource (x));
   }
 
   /**
@@ -94,7 +94,7 @@ public interface IJAXBDocumentType extends IHasSchema, Serializable
   @ReturnsMutableCopy
   default ICommonsList <? extends IReadableResource> getAllXSDResources (@Nullable final ClassLoader aClassLoader)
   {
-    return CollectionHelper.newListMapped (getAllXSDPaths (), s -> new ClassPathResource (s, aClassLoader));
+    return new CommonsArrayList<> (getAllXSDPaths (), x -> new ClassPathResource (x, aClassLoader));
   }
 
   /**
