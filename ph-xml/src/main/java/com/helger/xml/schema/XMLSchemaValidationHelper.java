@@ -25,9 +25,10 @@ import javax.xml.validation.Validator;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.error.list.ErrorList;
 import com.helger.commons.error.list.IErrorList;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.xml.sax.CollectingSAXErrorHandler;
+import com.helger.xml.sax.WrappedCollectingSAXErrorHandler;
 import com.helger.xml.transform.TransformSourceFactory;
 
 /**
@@ -83,13 +84,36 @@ public final class XMLSchemaValidationHelper
   @Nonnull
   public static IErrorList validate (@Nonnull final Schema aSchema, @Nonnull final Source aXML)
   {
+    final ErrorList aErrorList = new ErrorList ();
+    validate (aSchema, aXML, aErrorList);
+    return aErrorList;
+  }
+
+  /**
+   * Validate the passed XML against the passed XSD and put all errors in the
+   * passed error list.
+   *
+   * @param aSchema
+   *        The source XSD. May not be <code>null</code>.
+   * @param aXML
+   *        The XML to be validated. May not be <code>null</code>.
+   * @param aErrorList
+   *        The error list to be filled. May not be <code>null</code>.
+   * @throws IllegalArgumentException
+   *         If XSD validation failed with an exception
+   * @since 8.5.3
+   */
+  public static void validate (@Nonnull final Schema aSchema,
+                               @Nonnull final Source aXML,
+                               @Nonnull final ErrorList aErrorList)
+  {
     ValueEnforcer.notNull (aSchema, "Schema");
     ValueEnforcer.notNull (aXML, "XML");
+    ValueEnforcer.notNull (aErrorList, "ErrorList");
 
     // Build the validator
     final Validator aValidator = aSchema.newValidator ();
-    final CollectingSAXErrorHandler aErrHdl = new CollectingSAXErrorHandler ();
-    aValidator.setErrorHandler (aErrHdl);
+    aValidator.setErrorHandler (new WrappedCollectingSAXErrorHandler (aErrorList));
     try
     {
       aValidator.validate (aXML, null);
@@ -99,6 +123,5 @@ public final class XMLSchemaValidationHelper
       // Most likely the input XML document is invalid
       throw new IllegalArgumentException ("Failed to validate the XML " + aXML + " against " + aSchema, ex);
     }
-    return aErrHdl.getErrorList ();
   }
 }
