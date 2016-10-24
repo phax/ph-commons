@@ -33,6 +33,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+import org.xml.sax.ext.EntityResolver2;
 import org.xml.sax.ext.LexicalHandler;
 
 import com.helger.commons.CGlobal;
@@ -56,7 +57,7 @@ import com.helger.xml.sax.AbstractSAXErrorHandler;
  *
  * @author Philip Helger
  */
-public class MicroSAXHandler implements EntityResolver, DTDHandler, ContentHandler, ErrorHandler, LexicalHandler
+public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHandler, ErrorHandler, LexicalHandler
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (MicroSAXHandler.class);
 
@@ -65,13 +66,16 @@ public class MicroSAXHandler implements EntityResolver, DTDHandler, ContentHandl
   private IMicroNode m_aParent;
   private boolean m_bDTDMode = false;
   private boolean m_bCDATAMode = false;
+  // Members
   private final boolean m_bSaveIgnorableWhitespaces;
   private final EntityResolver m_aEntityResolver;
+  private final EntityResolver2 m_aEntityResolver2;
 
   public MicroSAXHandler (final boolean bSaveIgnorableWhitespaces, @Nullable final EntityResolver aEntityResolver)
   {
     m_bSaveIgnorableWhitespaces = bSaveIgnorableWhitespaces;
     m_aEntityResolver = aEntityResolver;
+    m_aEntityResolver2 = aEntityResolver instanceof EntityResolver2 ? (EntityResolver2) aEntityResolver : null;
   }
 
   private void _createParentDocument ()
@@ -224,8 +228,9 @@ public class MicroSAXHandler implements EntityResolver, DTDHandler, ContentHandl
   @Nullable
   public InputSource resolveEntity (final String sPublicId, final String sSystemId) throws IOException, SAXException
   {
-    if (m_aEntityResolver != null)
-      return m_aEntityResolver.resolveEntity (sPublicId, sSystemId);
+    final EntityResolver aER = m_aEntityResolver;
+    if (aER != null)
+      return aER.resolveEntity (sPublicId, sSystemId);
 
     // If using XHTML this should be replaced by using the LocalEntityResolver
     // instead
@@ -236,6 +241,44 @@ public class MicroSAXHandler implements EntityResolver, DTDHandler, ContentHandl
         s_aLogger.info ("Need to resolve entity with public ID '" + sPublicId + "'");
       else
         s_aLogger.info ("Need to resolve entity with public ID '" + sPublicId + "' and system ID '" + sSystemId + "'");
+    return null;
+  }
+
+  @Nullable
+  public InputSource getExternalSubset (final String sName, @Nullable final String sBaseURI) throws SAXException,
+                                                                                             IOException
+  {
+    final EntityResolver2 aER2 = m_aEntityResolver2;
+    if (aER2 != null)
+      return aER2.getExternalSubset (sName, sBaseURI);
+    return null;
+  }
+
+  @Nullable
+  public InputSource resolveEntity (@Nullable final String sName,
+                                    @Nullable final String sPublicId,
+                                    @Nullable final String sBaseURI,
+                                    @Nonnull final String sSystemId) throws SAXException, IOException
+  {
+    final EntityResolver2 aER2 = m_aEntityResolver2;
+    if (aER2 != null)
+      return aER2.resolveEntity (sName, sPublicId, sBaseURI, sSystemId);
+    else
+    {
+      final EntityResolver aER = m_aEntityResolver;
+      if (aER != null)
+        return aER.resolveEntity (sPublicId, sSystemId);
+    }
+
+    s_aLogger.info ("Need to resolve entity with name '" +
+                    sName +
+                    "', public ID '" +
+                    sPublicId +
+                    "' base URI '" +
+                    sBaseURI +
+                    "' and system ID '" +
+                    sSystemId +
+                    "'");
     return null;
   }
 

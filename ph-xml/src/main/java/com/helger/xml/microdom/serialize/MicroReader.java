@@ -28,12 +28,15 @@ import javax.annotation.Nullable;
 import javax.annotation.WillClose;
 import javax.annotation.concurrent.Immutable;
 
+import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
+import org.xml.sax.ext.EntityResolver2;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.StreamHelper;
+import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.sax.InputSourceFactory;
 import com.helger.xml.serialize.read.ISAXReaderSettings;
@@ -79,9 +82,8 @@ public final class MicroReader
     if (aInputSource == null)
       return null;
 
-    final MicroSAXHandler aMicroHandler = new MicroSAXHandler (false,
-                                                               aSettings == null ? null
-                                                                                 : aSettings.getEntityResolver ());
+    final EntityResolver aEntityResolver = aSettings == null ? null : aSettings.getEntityResolver ();
+    final MicroSAXHandler aMicroHandler = new MicroSAXHandler (false, aEntityResolver);
 
     // Copy and modify settings
     final SAXReaderSettings aRealSettings = SAXReaderSettings.createCloneOnDemand (aSettings);
@@ -90,7 +92,15 @@ public final class MicroReader
                  .setContentHandler (aMicroHandler)
                  .setLexicalHandler (aMicroHandler);
     if (aRealSettings.getErrorHandler () == null)
+    {
+      // Use MicroHandler as default error handler if none is specified
       aRealSettings.setErrorHandler (aMicroHandler);
+    }
+    if (aEntityResolver instanceof EntityResolver2)
+    {
+      // Ensure to use the new aEntityResolver2 APIs if available
+      aRealSettings.setFeatureValue (EXMLParserFeature.USE_ENTITY_RESOLVER2, true);
+    }
 
     if (SAXReader.readXMLSAX (aInputSource, aRealSettings).isFailure ())
       return null;
