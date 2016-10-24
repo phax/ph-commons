@@ -21,6 +21,9 @@ This project was the following modules:
 
 ##News
 
+  * 8.5.3 - 2016-xx-yy
+    * Added support for `EntityResolver2` in MicroXML parsing
+    * Extended some APIs
   * 8.5.2 - 2016-09-25
     * Fixed an error with JAXB context creation if @XMLRootElement was used
     * Improved consistency of IHasText(WithArgs) and IHasDisplayText(WithArgs) so that they can be used interchangeably
