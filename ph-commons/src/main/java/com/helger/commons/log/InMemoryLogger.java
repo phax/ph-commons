@@ -121,6 +121,21 @@ public class InMemoryLogger implements IHasErrorLevels <LogMessage>, IHasSize, I
     log (EErrorLevel.INFO, aMsg, null);
   }
 
+  public void info (@Nonnull final Serializable aMsg, @Nullable final Throwable t)
+  {
+    log (EErrorLevel.INFO, aMsg, t);
+  }
+
+  public void success (@Nonnull final Serializable aMsg)
+  {
+    log (EErrorLevel.SUCCESS, aMsg, null);
+  }
+
+  public void success (@Nonnull final Serializable aMsg, @Nullable final Throwable t)
+  {
+    log (EErrorLevel.SUCCESS, aMsg, t);
+  }
+
   @Nonnull
   @ReturnsMutableCopy
   public ICommonsList <LogMessage> getAllMessages ()
