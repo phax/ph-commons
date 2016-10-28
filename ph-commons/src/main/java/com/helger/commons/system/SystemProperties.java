@@ -76,7 +76,7 @@ public final class SystemProperties
   public static final String SYSTEM_PROPERTY_SUN_IO_SERIALIZATION_EXTENDEDDEBUGINFO = "sun.io.serialization.extendedDebugInfo";
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (SystemProperties.class);
-  private static final ICommonsSet <String> s_aWarnedPropertyNames = new CommonsCopyOnWriteArraySet <> ();
+  private static final ICommonsSet <String> s_aWarnedPropertyNames = new CommonsCopyOnWriteArraySet<> ();
 
   @PresentForCodeCoverage
   private static final SystemProperties s_aInstance = new SystemProperties ();
@@ -124,7 +124,7 @@ public final class SystemProperties
   public static ICommonsSet <String> getAllWarnedPropertyNames ()
   {
     // Convert from CopyOnWrite to regular HashSet
-    return new CommonsHashSet <> (s_aWarnedPropertyNames);
+    return new CommonsHashSet<> (s_aWarnedPropertyNames);
   }
 
   /**
@@ -156,7 +156,11 @@ public final class SystemProperties
     if (sValue == null)
       removePropertyValue (sKey);
     else
+    {
       IPrivilegedAction.systemSetProperty (sKey, sValue).invokeSafe ();
+      if (s_aLogger.isDebugEnabled ())
+        s_aLogger.debug ("Set system property '" + sKey + "' to '" + sValue + "'");
+    }
   }
 
   /**
@@ -172,7 +176,13 @@ public final class SystemProperties
   @Nullable
   public static String removePropertyValue (@Nonnull final String sKey)
   {
-    return IPrivilegedAction.systemClearProperty (sKey).invokeSafe ();
+    final String ret = IPrivilegedAction.systemClearProperty (sKey).invokeSafe ();
+    if (s_aLogger.isDebugEnabled ())
+      if (ret != null)
+        s_aLogger.debug ("Removed system property '" + sKey + "' with value '" + ret + "'");
+      else
+        s_aLogger.debug ("Remove system property '" + sKey + "' failed");
+    return ret;
   }
 
   @Nullable
@@ -358,7 +368,7 @@ public final class SystemProperties
   {
     final Properties aProperties = IPrivilegedAction.systemGetProperties ().invokeSafe ();
     if (aProperties == null)
-      return new CommonsHashMap <> ();
+      return new CommonsHashMap<> ();
     return PropertiesHelper.getAsStringMap (aProperties);
   }
 

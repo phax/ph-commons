@@ -20,6 +20,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 import javax.xml.ws.handler.MessageContext;
 
+import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.system.SystemProperties;
 
@@ -70,6 +71,13 @@ public final class WSHelper
     sDebug = Boolean.toString (bClientDebug);
     SystemProperties.setPropertyValue ("com.sun.xml.ws.transport.http.HttpTransportPipe.dump", sDebug);
     SystemProperties.setPropertyValue ("com.sun.xml.internal.ws.transport.http.HttpTransportPipe.dump", sDebug);
+
+    // Enlarge dump size
+    if (bServerDebug || bClientDebug)
+      SystemProperties.setPropertyValue ("com.sun.xml.internal.ws.transport.http.HttpAdapter.dumpTreshold",
+                                         Integer.toString (2 * CGlobal.BYTES_PER_MEGABYTE));
+    else
+      SystemProperties.removePropertyValue ("com.sun.xml.internal.ws.transport.http.HttpAdapter.dumpTreshold");
   }
 
   /**
