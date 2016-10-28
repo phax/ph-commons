@@ -68,8 +68,8 @@ public final class WSHelper
 
     // Client debug mode
     sDebug = Boolean.toString (bClientDebug);
-    SystemProperties.setPropertyValue ("com.sun.xml.ws.transport.http.client.HttpTransportPipe.dump", sDebug);
-    SystemProperties.setPropertyValue ("com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.dump", sDebug);
+    SystemProperties.setPropertyValue ("com.sun.xml.ws.transport.http.HttpTransportPipe.dump", sDebug);
+    SystemProperties.setPropertyValue ("com.sun.xml.internal.ws.transport.http.HttpTransportPipe.dump", sDebug);
   }
 
   /**
