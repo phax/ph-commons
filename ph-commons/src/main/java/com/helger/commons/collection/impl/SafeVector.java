@@ -16,8 +16,11 @@
  */
 package com.helger.commons.collection.impl;
 
+import java.util.function.Supplier;
+
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
@@ -88,6 +91,20 @@ public class SafeVector <ELEMENTTYPE> extends CommonsVector <ELEMENTTYPE>
   {
     _ensureSize (nIndex);
     return super.get (nIndex);
+  }
+
+  @Nullable
+  public synchronized ELEMENTTYPE computeIfAbsent (@Nonnegative final int nIndex,
+                                                   @Nonnull final Supplier <? extends ELEMENTTYPE> aFactory)
+  {
+    _ensureSize (nIndex);
+    ELEMENTTYPE ret = super.get (nIndex);
+    if (ret == null)
+    {
+      ret = aFactory.get ();
+      super.set (nIndex, ret);
+    }
+    return ret;
   }
 
   @Override

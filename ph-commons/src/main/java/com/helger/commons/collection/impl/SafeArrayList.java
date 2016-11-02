@@ -16,8 +16,11 @@
  */
 package com.helger.commons.collection.impl;
 
+import java.util.function.Supplier;
+
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
@@ -28,9 +31,9 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * This is a specialized {@link CommonsArrayList} that can handle read accesses on
- * list items that are not yet in the container. If {@link #get(int)} is called
- * with an index that would normally throw an
+ * This is a specialized {@link CommonsArrayList} that can handle read accesses
+ * on list items that are not yet in the container. If {@link #get(int)} is
+ * called with an index that would normally throw an
  * {@link ArrayIndexOutOfBoundsException} this class will fill all indices
  * between the current {@link #size()} and the desired index with values
  * provided by an {@link IFactory}. If you don't pass an {@link IFactory} in the
@@ -88,6 +91,20 @@ public class SafeArrayList <ELEMENTTYPE> extends CommonsArrayList <ELEMENTTYPE>
   {
     _ensureSize (nIndex);
     return super.get (nIndex);
+  }
+
+  @Nullable
+  public ELEMENTTYPE computeIfAbsent (@Nonnegative final int nIndex,
+                                      @Nonnull final Supplier <? extends ELEMENTTYPE> aFactory)
+  {
+    _ensureSize (nIndex);
+    ELEMENTTYPE ret = super.get (nIndex);
+    if (ret == null)
+    {
+      ret = aFactory.get ();
+      super.set (nIndex, ret);
+    }
+    return ret;
   }
 
   @Override
