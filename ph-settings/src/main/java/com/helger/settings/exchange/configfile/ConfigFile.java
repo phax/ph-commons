@@ -106,22 +106,37 @@ public class ConfigFile implements IConvertibleByKeyTrait <String>
   }
 
   /**
+   * This is a utility method, that takes the provided property names, checks if
+   * they are defined in the configuration and if so, applies applies them as
+   * System properties. It does it only when the configuration file was read
+   * correctly.
+   *
+   * @param aPropertyNames
+   *        The property names to consider.
+   * @since 8.5.3
+   */
+  public void applyAsSystemProperties (@Nullable final String... aPropertyNames)
+  {
+    if (isRead () && aPropertyNames != null)
+      for (final String sProperty : aPropertyNames)
+      {
+        final String sConfigFileValue = getAsString (sProperty);
+        if (sConfigFileValue != null)
+        {
+          SystemProperties.setPropertyValue (sProperty, sConfigFileValue);
+          s_aLogger.info ("Set Java system property from configuration: " + sProperty + "=" + sConfigFileValue);
+        }
+      }
+  }
+
+  /**
    * This is a utility method, that applies all Java network/proxy system
    * properties which are present in this configuration file. It does it only
    * when the configuration file was read correctly.
    */
   public void applyAllNetworkSystemProperties ()
   {
-    if (isRead ())
-      for (final String sProperty : WSHelper.getAllJavaNetSystemProperties ())
-      {
-        final String sConfigFileValue = getAsString (sProperty);
-        if (sConfigFileValue != null)
-        {
-          SystemProperties.setPropertyValue (sProperty, sConfigFileValue);
-          s_aLogger.info ("Set Java network/proxy system property: " + sProperty + "=" + sConfigFileValue);
-        }
-      }
+    applyAsSystemProperties (WSHelper.getAllJavaNetSystemProperties ());
   }
 
   @Override
