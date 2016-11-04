@@ -16,6 +16,7 @@
  */
 package com.helger.jaxb;
 
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.function.Function;
 
@@ -30,6 +31,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.UnmarshalException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.ValidationEventHandler;
+import javax.xml.namespace.NamespaceContext;
 import javax.xml.validation.Schema;
 
 import org.slf4j.Logger;
@@ -42,10 +44,13 @@ import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.debug.GlobalDebug;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.lang.IHasClassLoader;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.ESuccess;
+import com.helger.jaxb.builder.JAXBBuilderDefaultSettings;
 import com.helger.jaxb.validation.CollectingLoggingValidationEventHandlerFactory;
 import com.helger.jaxb.validation.IValidationEventHandlerFactory;
 import com.helger.xml.schema.XMLSchemaCache;
@@ -63,8 +68,10 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
                                              implements IHasClassLoader, IJAXBReader <JAXBTYPE>, IJAXBWriter <JAXBTYPE>
 {
   public static final boolean DEFAULT_READ_SECURE = true;
-  public static final boolean DEFAULT_WRITE_FORMATTED = false;
-  public static final boolean DEFAULT_USE_CONTEXT_CACHE = true;
+  @Deprecated
+  public static final boolean DEFAULT_WRITE_FORMATTED = JAXBBuilderDefaultSettings.DEFAULT_FORMATTED_OUTPUT;
+  @Deprecated
+  public static final boolean DEFAULT_USE_CONTEXT_CACHE = JAXBBuilderDefaultSettings.DEFAULT_USE_CONTEXT_CACHE;
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractJAXBMarshaller.class);
 
@@ -73,8 +80,11 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
   private final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> m_aWrapper;
   private IValidationEventHandlerFactory m_aVEHFactory = new CollectingLoggingValidationEventHandlerFactory ();
   private boolean m_bReadSecure = DEFAULT_READ_SECURE;
-  private boolean m_bWriteFormatted = DEFAULT_WRITE_FORMATTED;
-  private boolean m_bUseContextCache = DEFAULT_USE_CONTEXT_CACHE;
+  private boolean m_bFormattedOutput = JAXBBuilderDefaultSettings.DEFAULT_FORMATTED_OUTPUT;
+  private NamespaceContext m_aNSContext;
+  private Charset m_aCharset;
+  private String m_sIndentString;
+  private boolean m_bUseContextCache = JAXBBuilderDefaultSettings.DEFAULT_USE_CONTEXT_CACHE;
   private ClassLoader m_aClassLoader;
 
   /**
@@ -123,15 +133,22 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
     m_aWrapper = ValueEnforcer.notNull (aWrapper, "Wrapper");
   }
 
+  /**
+   * Set the class loader to be used for XSD schema validation. This method is
+   * optional.
+   *
+   * @param aClassLoader
+   *        The class loader to be used. May be <code>null</code>.
+   */
+  public final void setClassLoader (@Nullable final ClassLoader aClassLoader)
+  {
+    m_aClassLoader = aClassLoader;
+  }
+
   @Nullable
   public final ClassLoader getClassLoader ()
   {
     return m_aClassLoader;
-  }
-
-  public final void setClassLoader (@Nullable final ClassLoader aClassLoader)
-  {
-    m_aClassLoader = aClassLoader;
   }
 
   /**
@@ -158,6 +175,11 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
     return m_aVEHFactory;
   }
 
+  public final boolean isReadSecure ()
+  {
+    return m_bReadSecure;
+  }
+
   /**
    * Enable or disable secure reading. Secure reading means that documents are
    * checked for XXE and XML bombs (infinite entity expansions). By default
@@ -177,9 +199,38 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
     return EChange.CHANGED;
   }
 
-  public final boolean isReadSecure ()
+  @Nullable
+  public final NamespaceContext getNamespaceContext ()
   {
-    return m_bReadSecure;
+    return m_aNSContext;
+  }
+
+  /**
+   * Set the namespace context (prefix to namespace URL mapping) to be used.
+   *
+   * @param aNSContext
+   *        The namespace context to be used. May be <code>null</code>.
+   * @return {@link EChange}
+   * @since 8.5.3
+   */
+  @Nonnull
+  public EChange setNamespaceContext (@Nullable final NamespaceContext aNSContext)
+  {
+    if (EqualsHelper.equals (aNSContext, m_aNSContext))
+      return EChange.UNCHANGED;
+    m_aNSContext = aNSContext;
+    return EChange.CHANGED;
+  }
+
+  /**
+   * @return <code>true</code> if the JAXB output should be formatted. Default
+   *         is <code>false</code>.
+   * @deprecated Use {@link #isFormattedOutput()} instead
+   */
+  @Deprecated
+  public final boolean isWriteFormatted ()
+  {
+    return isFormattedOutput ();
   }
 
   /**
@@ -188,19 +239,81 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
    * @param bWriteFormatted
    *        <code>true</code> to write formatted output.
    * @return {@link EChange}
+   * @deprecated Use {@link #setFormattedOutput(boolean)} instead
    */
+  @Deprecated
   @Nonnull
   public final EChange setWriteFormatted (final boolean bWriteFormatted)
   {
-    if (bWriteFormatted == m_bWriteFormatted)
+    return setFormattedOutput (bWriteFormatted);
+  }
+
+  public final boolean isFormattedOutput ()
+  {
+    return m_bFormattedOutput;
+  }
+
+  /**
+   * Change the way formatting happens when calling write.
+   *
+   * @param bWriteFormatted
+   *        <code>true</code> to write formatted output.
+   * @return {@link EChange}
+   * @since 8.5.3
+   */
+  @Nonnull
+  public final EChange setFormattedOutput (final boolean bWriteFormatted)
+  {
+    if (bWriteFormatted == m_bFormattedOutput)
       return EChange.UNCHANGED;
-    m_bWriteFormatted = bWriteFormatted;
+    m_bFormattedOutput = bWriteFormatted;
     return EChange.CHANGED;
   }
 
-  public final boolean isWriteFormatted ()
+  @Nullable
+  public Charset getCharset ()
   {
-    return m_bWriteFormatted;
+    return m_aCharset;
+  }
+
+  /**
+   * Set the charset to be used for writing JAXB objects.
+   *
+   * @param aCharset
+   *        The charset to be used by default. May be <code>null</code>.
+   * @return {@link EChange}
+   * @since 8.5.3
+   */
+  @Nonnull
+  public EChange setCharset (@Nullable final Charset aCharset)
+  {
+    if (EqualsHelper.equals (aCharset, m_aCharset))
+      return EChange.UNCHANGED;
+    m_aCharset = aCharset;
+    return EChange.CHANGED;
+  }
+
+  @Nullable
+  public String getIndentString ()
+  {
+    return m_sIndentString;
+  }
+
+  /**
+   * Set the indent string to be used for writing JAXB objects.
+   *
+   * @param sIndentString
+   *        The indent string to be used. May be <code>null</code>.
+   * @return {@link EChange}
+   * @since 8.5.3
+   */
+  @Nonnull
+  public EChange setIndentString (@Nullable final String sIndentString)
+  {
+    if (EqualsHelper.equals (sIndentString, m_sIndentString))
+      return EChange.UNCHANGED;
+    m_sIndentString = sIndentString;
+    return EChange.CHANGED;
   }
 
   /**
@@ -355,7 +468,30 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
         aMarshaller.setEventHandler (aEvHdl);
     }
 
-    JAXBMarshallerHelper.setFormattedOutput (aMarshaller, m_bWriteFormatted);
+    if (m_aNSContext != null)
+      try
+      {
+        JAXBMarshallerHelper.setSunNamespacePrefixMapper (aMarshaller, m_aNSContext);
+      }
+      catch (final Throwable t)
+      {
+        // Might be an IllegalArgumentException or a NoClassDefFoundError
+        s_aLogger.error ("Failed to set the namespace context " +
+                         m_aNSContext +
+                         ": " +
+                         t.getClass ().getName () +
+                         " -- " +
+                         t.getMessage (),
+                         GlobalDebug.isDebugMode () ? t.getCause () : null);
+      }
+
+    JAXBMarshallerHelper.setFormattedOutput (aMarshaller, m_bFormattedOutput);
+
+    if (m_aCharset != null)
+      JAXBMarshallerHelper.setEncoding (aMarshaller, m_aCharset);
+
+    if (m_sIndentString != null)
+      JAXBMarshallerHelper.setSunIndentString (aMarshaller, m_sIndentString);
 
     // Set XSD (if any)
     final Schema aValidationSchema = createValidationSchema ();

@@ -115,10 +115,6 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
     return thisAsT ();
   }
 
-  /**
-   * @return <code>true</code> if the JAXB output should be formatted. Default
-   *         is <code>false</code>.
-   */
   public boolean isFormattedOutput ()
   {
     return m_bFormattedOutput;
@@ -139,6 +135,16 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
   }
 
   /**
+   * @return The special JAXB Charset to be used for writing. <code>null</code>
+   *         by default.
+   */
+  @Nullable
+  public Charset getCharset ()
+  {
+    return m_aCharset;
+  }
+
+  /**
    * Set the charset to be used for writing JAXB objects.
    *
    * @param aCharset
@@ -152,14 +158,10 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
     return thisAsT ();
   }
 
-  /**
-   * @return The special JAXB Charset to be used for writing. <code>null</code>
-   *         by default.
-   */
   @Nullable
-  public Charset getCharset ()
+  public String getIndentString ()
   {
-    return m_aCharset;
+    return m_sIndentString;
   }
 
   /**
@@ -169,21 +171,11 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
    *        The indent string to be used. May be <code>null</code>.
    * @return this for chaining
    */
+  @Nonnull
   public IMPLTYPE setIndentString (@Nullable final String sIndentString)
   {
     m_sIndentString = sIndentString;
     return thisAsT ();
-  }
-
-  /**
-   * @return The JAXB indentation string to be used for writing.
-   *         <code>null</code> by default. Only used when formatted output is
-   *         used.
-   */
-  @Nullable
-  public String getIndentString ()
-  {
-    return m_sIndentString;
   }
 
   @Override

@@ -21,6 +21,7 @@ import java.io.OutputStream;
 import java.io.Writer;
 import java.nio.BufferOverflowException;
 import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -28,6 +29,7 @@ import javax.annotation.WillClose;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.namespace.NamespaceContext;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.transform.Result;
 
@@ -52,6 +54,38 @@ import com.helger.xml.transform.TransformResultFactory;
  */
 public interface IJAXBWriter <JAXBTYPE>
 {
+  /**
+   * @return The special JAXB namespace context to be used. May be
+   *         <code>null</code>.
+   * @since 8.5.3 in this interface
+   */
+  @Nullable
+  NamespaceContext getNamespaceContext ();
+
+  /**
+   * @return <code>true</code> if the JAXB output should be formatted. Default
+   *         is <code>false</code>.
+   * @since 8.5.3 in this interface
+   */
+  boolean isFormattedOutput ();
+
+  /**
+   * @return The special JAXB Charset to be used for writing. <code>null</code>
+   *         by default.
+   * @since 8.5.3 in this interface
+   */
+  @Nullable
+  Charset getCharset ();
+
+  /**
+   * @return The JAXB indentation string to be used for writing.
+   *         <code>null</code> by default. Only used when formatted output is
+   *         used.
+   * @since 8.5.3 in this interface
+   */
+  @Nullable
+  String getIndentString ();
+
   /**
    * A special bi-consumer that additionally can throw a {@link JAXBException}
    *

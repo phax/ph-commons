@@ -38,15 +38,18 @@ import com.helger.commons.concurrent.SimpleReadWriteLock;
 @ThreadSafe
 public final class JAXBBuilderDefaultSettings
 {
+  public static final boolean DEFAULT_USE_CONTEXT_CACHE = true;
+  public static final boolean DEFAULT_FORMATTED_OUTPUT = false;
+
   private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("s_aRWLock")
-  private static boolean s_bUseContextCache = true;
+  private static boolean s_bUseContextCache = DEFAULT_USE_CONTEXT_CACHE;
   @GuardedBy ("s_aRWLock")
   private static ValidationEventHandler s_aEventHandler;
   @GuardedBy ("s_aRWLock")
   private static NamespaceContext s_aNamespaceContext;
   @GuardedBy ("s_aRWLock")
-  private static boolean s_bFormattedOutput = false;
+  private static boolean s_bFormattedOutput = DEFAULT_FORMATTED_OUTPUT;
   @GuardedBy ("s_aRWLock")
   private static Charset s_aCharset;
   @GuardedBy ("s_aRWLock")
