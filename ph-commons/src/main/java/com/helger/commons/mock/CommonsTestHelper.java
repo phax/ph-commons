@@ -34,8 +34,8 @@ import com.helger.commons.collection.ext.CommonsVector;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.concurrent.ManagedExecutorService;
 import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.streamprovider.ByteArrayInputStreamProvider;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.lang.StackTraceHelper;
@@ -243,7 +243,7 @@ public final class CommonsTestHelper
 
       // Read new object from byte array
       DATATYPE aReadObject;
-      try (final ObjectInputStream aOIS = new ObjectInputStream (new ByteArrayInputStreamProvider (aBAOS.toByteArray ()).getInputStream ()))
+      try (final ObjectInputStream aOIS = new ObjectInputStream (new NonBlockingByteArrayInputStream (aBAOS.toByteArray ())))
       {
         aReadObject = GenericReflection.uncheckedCast (aOIS.readObject ());
       }
