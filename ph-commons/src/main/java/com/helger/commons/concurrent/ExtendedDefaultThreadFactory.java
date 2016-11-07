@@ -31,8 +31,10 @@ import com.helger.commons.string.ToStringGenerator;
  * to change the name of the thread slightly :)
  *
  * @author Philip Helger
+ * @deprecated Use {@link BasicThreadFactory} instead.
  */
 @ThreadSafe
+@Deprecated
 public class ExtendedDefaultThreadFactory implements ThreadFactory
 {
   private static final AtomicInteger s_aPoolNumber = new AtomicInteger (1);

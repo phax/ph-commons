@@ -25,24 +25,30 @@ import com.helger.commons.mock.CommonsTestHelper;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
- * Test class for class {@link ExtendedDefaultThreadFactory}.
+ * Test class for class {@link BasicThreadFactory}.
  *
  * @author Philip Helger
- * @deprecated Because class {@link ExtendedDefaultThreadFactory} is deprecated.
  */
-@Deprecated
-public final class ExtendedDefaultThreadFactoryTest
+public final class BasicThreadFactoryTest
 {
   @Test
   @SuppressFBWarnings (value = "DLS_DEAD_LOCAL_STORE")
   public void testAll ()
   {
-    ExtendedDefaultThreadFactory x = new ExtendedDefaultThreadFactory ();
-    x = new ExtendedDefaultThreadFactory ("pool");
-    final Thread t = x.newThread ( () -> {
-      // nada
-    });
-    assertNotNull (t);
+    final BasicThreadFactory x = new BasicThreadFactory.Builder ().setDaemon (false)
+                                                                  .setPriority (Thread.NORM_PRIORITY)
+                                                                  .setNamingPattern ("pool %d")
+                                                                  .build ();
+    for (int i = 0; i < 2; ++i)
+    {
+      final Thread t = x.newThread ( () -> {
+        // nada
+        if (false)
+          System.out.println ("In thread '" + Thread.currentThread ().getName () + "'");
+      });
+      assertNotNull (t);
+      t.start ();
+    }
     CommonsTestHelper.testToStringImplementation (x);
   }
 }
