@@ -32,15 +32,15 @@ public final class MockMarshallerInternal extends AbstractJAXBMarshaller <com.he
     // No XSD available
     super (com.helger.jaxb.mock.internal.MockJAXBArchive.class,
            null,
-           o -> new JAXBElement <> (new QName ("urn:test:internal", "any"),
-                                    com.helger.jaxb.mock.internal.MockJAXBArchive.class,
-                                    o));
+           o -> new JAXBElement<> (new QName ("urn:test:internal", "any"),
+                                   com.helger.jaxb.mock.internal.MockJAXBArchive.class,
+                                   o));
+    setFormattedOutput (true);
   }
 
   @Override
   protected void customizeMarshaller (@Nonnull final Marshaller aMarshaller)
   {
-    JAXBMarshallerHelper.setFormattedOutput (aMarshaller, true);
     JAXBMarshallerHelper.setSunNamespacePrefixMapper (aMarshaller,
                                                       new MapBasedNamespaceContext ().addMapping ("def",
                                                                                                   "urn:test:internal"));

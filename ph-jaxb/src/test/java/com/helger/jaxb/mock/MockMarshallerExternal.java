@@ -35,12 +35,12 @@ public final class MockMarshallerExternal extends AbstractJAXBMarshaller <com.he
            x -> new JAXBElement<> (new QName ("urn:test:external", "any"),
                                    com.helger.jaxb.mock.external.MockJAXBArchive.class,
                                    x));
+    setFormattedOutput (true);
   }
 
   @Override
   protected void customizeMarshaller (@Nonnull final Marshaller aMarshaller)
   {
-    JAXBMarshallerHelper.setFormattedOutput (aMarshaller, true);
     JAXBMarshallerHelper.setSunNamespacePrefixMapper (aMarshaller,
                                                       new MapBasedNamespaceContext ().addMapping ("def",
                                                                                                   "urn:test:external"));
