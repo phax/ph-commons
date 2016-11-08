@@ -21,7 +21,7 @@ This project was the following modules:
 
 ##News
 
-  * 8.5.3 - 2016-xx-yy
+  * 8.5.3 - 2016-11-08
     * Added support for `EntityResolver2` in MicroXML parsing
     * Extended some APIs
   * 8.5.2 - 2016-09-25
@@ -60,7 +60,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-commons</artifactId>
-  <version>8.5.1</version>
+  <version>8.5.3</version>
 </dependency>
 ```
 
@@ -209,7 +209,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-xml</artifactId>
-  <version>8.5.1</version>
+  <version>8.5.3</version>
 </dependency>
 ```
 
@@ -227,7 +227,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-jaxb</artifactId>
-  <version>8.5.1</version>
+  <version>8.5.3</version>
 </dependency>
 ```
 
@@ -250,7 +250,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-tree</artifactId>
-  <version>8.5.1</version>
+  <version>8.5.3</version>
 </dependency>
 ```
 
@@ -268,7 +268,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-less-commons</artifactId>
-  <version>8.5.1</version>
+  <version>8.5.3</version>
 </dependency>
 ```
 
@@ -281,7 +281,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-json</artifactId>
-  <version>8.5.1</version>
+  <version>8.5.3</version>
 </dependency>
 ```
 
@@ -294,7 +294,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-settings</artifactId>
-  <version>8.5.1</version>
+  <version>8.5.3</version>
 </dependency>
 ```
 
@@ -307,7 +307,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-datetime</artifactId>
-  <version>8.5.1</version>
+  <version>8.5.3</version>
 </dependency>
 ```
 
@@ -320,7 +320,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-graph</artifactId>
-  <version>8.5.1</version>
+  <version>8.5.3</version>
 </dependency>
 ```
 
@@ -333,7 +333,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-matrix</artifactId>
-  <version>8.5.1</version>
+  <version>8.5.3</version>
 </dependency>
 ```
 
@@ -346,7 +346,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-charset</artifactId>
-  <version>8.5.1</version>
+  <version>8.5.3</version>
 </dependency>
 ```
 
