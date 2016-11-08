@@ -91,10 +91,14 @@ public final class InputSourceFactory
       {
         // Potentially use memory mapped files
         final InputSource ret = create (FileHelper.getInputStream (aFile));
-        // Ensure system ID is present - may be helpful for resource resolution
-        final URL aURL = aResource.getAsURL ();
-        if (aURL != null)
-          ret.setSystemId (aURL.toExternalForm ());
+        if (ret != null)
+        {
+          // Ensure system ID is present - may be helpful for resource
+          // resolution
+          final URL aURL = aResource.getAsURL ();
+          if (aURL != null)
+            ret.setSystemId (aURL.toExternalForm ());
+        }
         return ret;
       }
     }
