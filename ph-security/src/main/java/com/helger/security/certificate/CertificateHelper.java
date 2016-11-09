@@ -281,6 +281,9 @@ public final class CertificateHelper
    *        The certificate to encode. May not be <code>null</code>.
    * @return The PEM string with {@link #BEGIN_CERTIFICATE} and
    *         {@link #END_CERTIFICATE}.
+   * @throws IllegalArgumentException
+   *         If the certificate could not be encoded. Cause is a
+   *         {@link CertificateEncodingException}.
    * @since 8.5.5
    */
   @Nonnull
@@ -290,11 +293,8 @@ public final class CertificateHelper
     ValueEnforcer.notNull (aCert, "Cert");
     try
     {
-      return CertificateHelper.BEGIN_CERTIFICATE +
-             "\n" +
-             Base64.encodeBytes (aCert.getEncoded ()) +
-             "\n" +
-             CertificateHelper.END_CERTIFICATE;
+      final String sEncodedCert = Base64.encodeBytes (aCert.getEncoded ());
+      return BEGIN_CERTIFICATE + "\n" + sEncodedCert + "\n" + END_CERTIFICATE;
     }
     catch (final CertificateEncodingException ex)
     {
