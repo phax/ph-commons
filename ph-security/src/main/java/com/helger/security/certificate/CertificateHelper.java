@@ -17,6 +17,8 @@
 package com.helger.security.certificate;
 
 import java.nio.charset.Charset;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateEncodingException;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
@@ -28,6 +30,8 @@ import javax.annotation.concurrent.Immutable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.base64.Base64;
 import com.helger.commons.charset.CCharset;
@@ -268,5 +272,33 @@ public final class CertificateHelper
 
     // The remaining string is supposed to be Base64 encoded -> decode
     return Base64.safeDecode (sPlainCert);
+  }
+
+  /**
+   * Get the provided certificate as PEM (Base64) encoded String.
+   *
+   * @param aCert
+   *        The certificate to encode. May not be <code>null</code>.
+   * @return The PEM string with {@link #BEGIN_CERTIFICATE} and
+   *         {@link #END_CERTIFICATE}.
+   * @since 8.5.5
+   */
+  @Nonnull
+  @Nonempty
+  public static String getPEMEncodedCertificate (@Nonnull final Certificate aCert)
+  {
+    ValueEnforcer.notNull (aCert, "Cert");
+    try
+    {
+      return CertificateHelper.BEGIN_CERTIFICATE +
+             "\n" +
+             Base64.encodeBytes (aCert.getEncoded ()) +
+             "\n" +
+             CertificateHelper.END_CERTIFICATE;
+    }
+    catch (final CertificateEncodingException ex)
+    {
+      throw new IllegalArgumentException ("Failed to encode certificate " + aCert, ex);
+    }
   }
 }
