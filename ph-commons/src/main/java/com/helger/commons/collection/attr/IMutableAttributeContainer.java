@@ -17,6 +17,7 @@
 package com.helger.commons.collection.attr;
 
 import java.util.Map;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -87,4 +88,30 @@ public interface IMutableAttributeContainer <KEYTYPE, VALUETYPE>
    */
   @Nonnull
   EChange removeAttribute (@Nullable KEYTYPE aName);
+
+  /**
+   * Compute an attribute value if it is not present.
+   * 
+   * @param aName
+   *        The name of the attribute. May not be <code>null</code>.
+   * @param aValueProvider
+   *        The value provider of the attribute. May not be <code>null</code>.
+   *        Is only invoked, if the attribute is not present.
+   * @return Either the existing attribute value, or the newly calculated
+   *         attribute value.
+   * @since 8.5.5
+   */
+  @Nullable
+  default VALUETYPE computeIfAbsent (@Nonnull final KEYTYPE aName,
+                                     @Nonnull final Function <? super KEYTYPE, ? extends VALUETYPE> aValueProvider)
+  {
+    VALUETYPE ret = getAttributeObject (aName);
+    if (ret == null)
+    {
+      ret = aValueProvider.apply (aName);
+      if (ret != null)
+        setAttribute (aName, ret);
+    }
+    return ret;
+  }
 }
