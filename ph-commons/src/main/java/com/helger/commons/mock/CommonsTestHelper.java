@@ -16,8 +16,6 @@
  */
 package com.helger.commons.mock;
 
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -34,11 +32,9 @@ import com.helger.commons.collection.ext.CommonsVector;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.concurrent.ManagedExecutorService;
 import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
-import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
-import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.lang.StackTraceHelper;
+import com.helger.commons.serialize.SerializationHelper;
 import com.helger.commons.string.StringHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -232,30 +228,15 @@ public final class CommonsTestHelper
   @Nonnull
   public static <DATATYPE extends Serializable> DATATYPE testDefaultSerialization (@Nonnull final DATATYPE aSerializable)
   {
-    try
-    {
-      // Serialize to byte array
-      final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
-      try (final ObjectOutputStream aOOS = new ObjectOutputStream (aBAOS))
-      {
-        aOOS.writeObject (aSerializable);
-      }
+    // Serialize to byte array
+    final byte [] aBytes = SerializationHelper.getSerializedByteArray (aSerializable);
 
-      // Read new object from byte array
-      DATATYPE aReadObject;
-      try (final ObjectInputStream aOIS = new ObjectInputStream (new NonBlockingByteArrayInputStream (aBAOS.toByteArray ())))
-      {
-        aReadObject = GenericReflection.uncheckedCast (aOIS.readObject ());
-      }
+    // Read new object from byte array
+    final DATATYPE aReadObject = SerializationHelper.getDeserializedObject (aBytes);
 
-      // Now check them for equality
-      testDefaultImplementationWithEqualContentObject (aSerializable, aReadObject);
-      return aReadObject;
-    }
-    catch (final Throwable t)
-    {
-      throw new IllegalStateException ("testDefaultSerialization failed", t);
-    }
+    // Now check them for equality
+    testDefaultImplementationWithEqualContentObject (aSerializable, aReadObject);
+    return aReadObject;
   }
 
   /**
