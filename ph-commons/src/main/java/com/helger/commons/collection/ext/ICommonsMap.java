@@ -541,6 +541,43 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   }
 
   /**
+   * Add all passed entries to this map.
+   *
+   * @param aIterable
+   *        Source map entries. May be <code>null</code>.
+   * @since 8.5.5
+   */
+  default void putAll (@Nullable final Iterable <? extends Map.Entry <KEYTYPE, VALUETYPE>> aIterable)
+  {
+    if (aIterable != null)
+      for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : aIterable)
+        put (aEntry.getKey (), aEntry.getValue ());
+  }
+
+  /**
+   * Add all items from the passed map that match the filter to this map.
+   *
+   * @param aMap
+   *        Source Map. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to use. May be <code>null</code>.
+   * @since 8.5.5
+   */
+  default void putAll (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
+                       @Nullable final Predicate <? super Map.Entry <? super KEYTYPE, ? super VALUETYPE>> aFilter)
+  {
+    if (aMap != null)
+    {
+      if (aFilter == null)
+        putAll (aMap);
+      else
+        for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : aMap.entrySet ())
+          if (aFilter.test (aEntry))
+            put (aEntry.getKey (), aEntry.getValue ());
+    }
+  }
+
+  /**
    * Add all items from the passed array to this map using the provided key and
    * value mapper.
    *
@@ -552,10 +589,33 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    *        The value mapper. May not be <code>null</code>.
    * @param <ELEMENTTYPE>
    *        Array element type
+   * @deprecated Use {@link #putAllMapped(Object[], Function, Function)} instead
    */
+  @Deprecated
   default <ELEMENTTYPE> void putAll (@Nullable final ELEMENTTYPE [] aElements,
                                      @Nonnull final Function <? super ELEMENTTYPE, ? extends KEYTYPE> aKeyMapper,
                                      @Nonnull final Function <? super ELEMENTTYPE, ? extends VALUETYPE> aValueMapper)
+  {
+    putAllMapped (aElements, aKeyMapper, aValueMapper);
+  }
+
+  /**
+   * Add all items from the passed array to this map using the provided key and
+   * value mapper.
+   *
+   * @param aElements
+   *        Source collection. May be <code>null</code>.
+   * @param aKeyMapper
+   *        The key mapper. May not be <code>null</code>.
+   * @param aValueMapper
+   *        The value mapper. May not be <code>null</code>.
+   * @param <ELEMENTTYPE>
+   *        Array element type
+   * @since 8.5.5
+   */
+  default <ELEMENTTYPE> void putAllMapped (@Nullable final ELEMENTTYPE [] aElements,
+                                           @Nonnull final Function <? super ELEMENTTYPE, ? extends KEYTYPE> aKeyMapper,
+                                           @Nonnull final Function <? super ELEMENTTYPE, ? extends VALUETYPE> aValueMapper)
   {
     ValueEnforcer.notNull (aKeyMapper, "KeyMapper");
     ValueEnforcer.notNull (aValueMapper, "ValueMapper");
@@ -576,16 +636,66 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    *        The value mapper. May not be <code>null</code>.
    * @param <ELEMENTTYPE>
    *        Collection element type
+   * @deprecated Use {@link #putAllMapped(Object[], Function, Function)} instead
    */
+  @Deprecated
   default <ELEMENTTYPE> void putAll (@Nullable final Collection <? extends ELEMENTTYPE> aElements,
                                      @Nonnull final Function <? super ELEMENTTYPE, ? extends KEYTYPE> aKeyMapper,
                                      @Nonnull final Function <? super ELEMENTTYPE, ? extends VALUETYPE> aValueMapper)
+  {
+    putAllMapped (aElements, aKeyMapper, aValueMapper);
+  }
+
+  /**
+   * Add all items from the passed iterable to this map using the provided key
+   * and value mapper.
+   *
+   * @param aElements
+   *        Source collection. May be <code>null</code>.
+   * @param aKeyMapper
+   *        The key mapper. May not be <code>null</code>.
+   * @param aValueMapper
+   *        The value mapper. May not be <code>null</code>.
+   * @param <ELEMENTTYPE>
+   *        Collection element type
+   * @since 8.5.5
+   */
+  default <ELEMENTTYPE> void putAllMapped (@Nullable final Iterable <? extends ELEMENTTYPE> aElements,
+                                           @Nonnull final Function <? super ELEMENTTYPE, ? extends KEYTYPE> aKeyMapper,
+                                           @Nonnull final Function <? super ELEMENTTYPE, ? extends VALUETYPE> aValueMapper)
   {
     ValueEnforcer.notNull (aKeyMapper, "KeyMapper");
     ValueEnforcer.notNull (aValueMapper, "ValueMapper");
     if (aElements != null)
       for (final ELEMENTTYPE aItem : aElements)
         put (aKeyMapper.apply (aItem), aValueMapper.apply (aItem));
+  }
+
+  /**
+   * Add all items from the passed map to this map using the provided key and
+   * value mapper.
+   *
+   * @param aMap
+   *        Source map. May be <code>null</code>.
+   * @param aKeyMapper
+   *        The key mapper. May not be <code>null</code>.
+   * @param aValueMapper
+   *        The value mapper. May not be <code>null</code>.
+   * @param <SRCKEYTYPE>
+   *        Source map key type
+   * @param <SRCVALUETYPE>
+   *        Source map value type
+   * @since 8.5.5
+   */
+  default <SRCKEYTYPE, SRCVALUETYPE> void putAllMapped (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aMap,
+                                                        @Nonnull final Function <? super SRCKEYTYPE, ? extends KEYTYPE> aKeyMapper,
+                                                        @Nonnull final Function <? super SRCVALUETYPE, ? extends VALUETYPE> aValueMapper)
+  {
+    ValueEnforcer.notNull (aKeyMapper, "KeyMapper");
+    ValueEnforcer.notNull (aValueMapper, "ValueMapper");
+    if (aMap != null)
+      for (final Map.Entry <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aEntry : aMap.entrySet ())
+        put (aKeyMapper.apply (aEntry.getKey ()), aValueMapper.apply (aEntry.getValue ()));
   }
 
   /**

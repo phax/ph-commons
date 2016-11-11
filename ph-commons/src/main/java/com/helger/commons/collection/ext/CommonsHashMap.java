@@ -65,7 +65,7 @@ public class CommonsHashMap <KEYTYPE, VALUETYPE> extends HashMap <KEYTYPE, VALUE
                                     @Nonnull final Function <? super COLLTYPE, ? extends VALUETYPE> aValueMapper)
   {
     super (CollectionHelper.getSize (aValues));
-    putAll (aValues, aKeyMapper, aValueMapper);
+    putAllMapped (aValues, aKeyMapper, aValueMapper);
   }
 
   @Nonnull

@@ -73,20 +73,20 @@ public class CommonsLinkedHashMap <KEYTYPE, VALUETYPE> extends LinkedHashMap <KE
                                           @Nonnull final Function <? super COLLTYPE, ? extends VALUETYPE> aValueMapper)
   {
     super (CollectionHelper.getSize (aValues));
-    putAll (aValues, aKeyMapper, aValueMapper);
+    putAllMapped (aValues, aKeyMapper, aValueMapper);
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public <K, V> CommonsLinkedHashMap <K, V> createInstance ()
   {
-    return new CommonsLinkedHashMap <> ();
+    return new CommonsLinkedHashMap<> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public CommonsLinkedHashMap <KEYTYPE, VALUETYPE> getClone ()
   {
-    return new CommonsLinkedHashMap <> (this);
+    return new CommonsLinkedHashMap<> (this);
   }
 }

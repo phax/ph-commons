@@ -397,8 +397,7 @@ public final class CollectionHelper
     if (isEmpty (aMap))
       return newMap (0);
     final CommonsHashMap <DSTKEYTYPE, DSTVALUETYPE> ret = newMap (aMap.size ());
-    for (final Map.Entry <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aEntry : aMap.entrySet ())
-      ret.put (aKeyMapper.apply (aEntry.getKey ()), aValueMapper.apply (aEntry.getValue ()));
+    ret.putAllMapped (aMap, aKeyMapper, aValueMapper);
     return ret;
   }
 
@@ -411,8 +410,7 @@ public final class CollectionHelper
     if (isEmpty (aCollection))
       return newMap (0);
     final CommonsHashMap <DSTKEYTYPE, DSTVALUETYPE> ret = newMap (aCollection.size ());
-    for (final SRCTYPE aValue : aCollection)
-      ret.put (aKeyMapper.apply (aValue), aValueMapper.apply (aValue));
+    ret.putAllMapped (aCollection, aKeyMapper, aValueMapper);
     return ret;
   }
 
@@ -424,9 +422,7 @@ public final class CollectionHelper
     if (isEmpty (aMap))
       return newMap (0);
     final CommonsHashMap <KEYTYPE, VALUETYPE> ret = newMap (aMap.size ());
-    for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : aMap.entrySet ())
-      if (aFilter.test (aEntry))
-        ret.put (aEntry.getKey (), aEntry.getValue ());
+    ret.putAll (aMap, aFilter);
     return ret;
   }
 
@@ -542,8 +538,19 @@ public final class CollectionHelper
       return newMap (0);
 
     final CommonsHashMap <KEYTYPE, VALUETYPE> ret = newMap (aCollection.size ());
-    for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : aCollection)
-      ret.put (aEntry.getKey (), aEntry.getValue ());
+    ret.putAll (aCollection);
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final Iterable <? extends Map.Entry <KEYTYPE, VALUETYPE>> aCollection)
+  {
+    if (isEmpty (aCollection))
+      return newMap (0);
+
+    final CommonsHashMap <KEYTYPE, VALUETYPE> ret = newMap ();
+    ret.putAll (aCollection);
     return ret;
   }
 
@@ -570,8 +577,7 @@ public final class CollectionHelper
     if (isEmpty (aMap))
       return newOrderedMap (0);
     final CommonsLinkedHashMap <DSTKEYTYPE, DSTVALUETYPE> ret = newOrderedMap (aMap.size ());
-    for (final Map.Entry <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aEntry : aMap.entrySet ())
-      ret.put (aKeyMapper.apply (aEntry.getKey ()), aValueMapper.apply (aEntry.getValue ()));
+    ret.putAllMapped (aMap, aKeyMapper, aValueMapper);
     return ret;
   }
 
@@ -584,8 +590,7 @@ public final class CollectionHelper
     if (isEmpty (aCollection))
       return newOrderedMap (0);
     final CommonsLinkedHashMap <DSTKEYTYPE, DSTVALUETYPE> ret = newOrderedMap (aCollection.size ());
-    for (final SRCTYPE aValue : aCollection)
-      ret.put (aKeyMapper.apply (aValue), aValueMapper.apply (aValue));
+    ret.putAllMapped (aCollection, aKeyMapper, aValueMapper);
     return ret;
   }
 
@@ -597,9 +602,7 @@ public final class CollectionHelper
     if (isEmpty (aMap))
       return newOrderedMap (0);
     final CommonsLinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap (aMap.size ());
-    for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : aMap.entrySet ())
-      if (aFilter.test (aEntry))
-        ret.put (aEntry.getKey (), aEntry.getValue ());
+    ret.putAll (aMap, aFilter);
     return ret;
   }
 
@@ -729,8 +732,19 @@ public final class CollectionHelper
       return newOrderedMap (0);
 
     final CommonsLinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap (aCollection.size ());
-    for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : aCollection)
-      ret.put (aEntry.getKey (), aEntry.getValue ());
+    ret.putAll (aCollection);
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final Iterable <? extends Map.Entry <KEYTYPE, VALUETYPE>> aCollection)
+  {
+    if (isEmpty (aCollection))
+      return newOrderedMap (0);
+
+    final CommonsLinkedHashMap <KEYTYPE, VALUETYPE> ret = newOrderedMap ();
+    ret.putAll (aCollection);
     return ret;
   }
 
@@ -748,9 +762,7 @@ public final class CollectionHelper
                                                                                                                                                                            @Nonnull final Function <? super SRCVALUETYPE, DSTVALUETYPE> aValueMapper)
   {
     final CommonsTreeMap <DSTKEYTYPE, DSTVALUETYPE> ret = newSortedMap ();
-    if (isNotEmpty (aMap))
-      for (final Map.Entry <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aEntry : aMap.entrySet ())
-        ret.put (aKeyMapper.apply (aEntry.getKey ()), aValueMapper.apply (aEntry.getValue ()));
+    ret.putAllMapped (aMap, aKeyMapper, aValueMapper);
     return ret;
   }
 
@@ -760,10 +772,7 @@ public final class CollectionHelper
                                                                                                                             @Nonnull final Predicate <Map.Entry <? super KEYTYPE, ? super VALUETYPE>> aFilter)
   {
     final CommonsTreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
-    if (isNotEmpty (aMap))
-      for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : aMap.entrySet ())
-        if (aFilter.test (aEntry))
-          ret.put (aEntry.getKey (), aEntry.getValue ());
+    ret.putAll (aMap, aFilter);
     return ret;
   }
 
@@ -867,8 +876,19 @@ public final class CollectionHelper
       return newSortedMap ();
 
     final CommonsTreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
-    for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : aCollection)
-      ret.put (aEntry.getKey (), aEntry.getValue ());
+    ret.putAll (aCollection);
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> CommonsTreeMap <KEYTYPE, VALUETYPE> newSortedMap (@Nullable final Iterable <? extends Map.Entry <KEYTYPE, VALUETYPE>> aCollection)
+  {
+    if (isEmpty (aCollection))
+      return newSortedMap ();
+
+    final CommonsTreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
+    ret.putAll (aCollection);
     return ret;
   }
 
@@ -894,8 +914,7 @@ public final class CollectionHelper
     if (isEmpty (aCollection))
       return newSet (0);
     final CommonsHashSet <DSTTYPE> ret = newSet (aCollection.size ());
-    for (final SRCTYPE aValue : aCollection)
-      ret.add (aMapper.apply (aValue));
+    ret.addAllMapped (aCollection, aMapper);
     return ret;
   }
 
@@ -908,8 +927,7 @@ public final class CollectionHelper
       return newSet (0);
 
     final CommonsHashSet <DSTTYPE> ret = newSet (aArray.length);
-    for (final SRCTYPE aValue : aArray)
-      ret.add (aMapper.apply (aValue));
+    ret.addAllMapped (aArray, aMapper);
     return ret;
   }
 
@@ -921,7 +939,7 @@ public final class CollectionHelper
     if (isEmpty (aCollection))
       return newSet (0);
     final CommonsHashSet <ELEMENTTYPE> ret = newSet (aCollection.size ());
-    findAll (aCollection, aFilter, ret::add);
+    ret.addAll (aCollection, aFilter);
     return ret;
   }
 
@@ -943,7 +961,7 @@ public final class CollectionHelper
       return newSet (0);
 
     final CommonsHashSet <ELEMENTTYPE> ret = newSet (aValues.length);
-    Collections.addAll (ret, aValues);
+    ret.addAll (aValues);
     return ret;
   }
 
@@ -1039,9 +1057,7 @@ public final class CollectionHelper
                                                                                                                      @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
   {
     final CommonsTreeSet <DSTTYPE> ret = newSortedSet ();
-    if (isNotEmpty (aCollection))
-      for (final SRCTYPE aValue : aCollection)
-        ret.add (aMapper.apply (aValue));
+    ret.addAllMapped (aCollection, aMapper);
     return ret;
   }
 
@@ -1051,9 +1067,7 @@ public final class CollectionHelper
                                                                                                                      @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
   {
     final CommonsTreeSet <DSTTYPE> ret = newSortedSet ();
-    if (ArrayHelper.isNotEmpty (aArray))
-      for (final SRCTYPE aValue : aArray)
-        ret.add (aMapper.apply (aValue));
+    ret.addAllMapped (aArray, aMapper);
     return ret;
   }
 
@@ -1063,7 +1077,7 @@ public final class CollectionHelper
                                                                                                                   @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
   {
     final CommonsTreeSet <ELEMENTTYPE> ret = newSortedSet ();
-    findAll (aCollection, aFilter, ret::add);
+    ret.addAll (aCollection, aFilter);
     return ret;
   }
 
@@ -1156,8 +1170,7 @@ public final class CollectionHelper
     if (isEmpty (aCollection))
       return newOrderedSet (0);
     final CommonsLinkedHashSet <DSTTYPE> ret = newOrderedSet (aCollection.size ());
-    for (final SRCTYPE aValue : aCollection)
-      ret.add (aMapper.apply (aValue));
+    ret.addAllMapped (aCollection, aMapper);
     return ret;
   }
 
@@ -1169,8 +1182,7 @@ public final class CollectionHelper
     if (ArrayHelper.isEmpty (aArray))
       return newOrderedSet (0);
     final CommonsLinkedHashSet <DSTTYPE> ret = newOrderedSet (aArray.length);
-    for (final SRCTYPE aValue : aArray)
-      ret.add (aMapper.apply (aValue));
+    ret.addAllMapped (aArray, aMapper);
     return ret;
   }
 
@@ -1182,7 +1194,7 @@ public final class CollectionHelper
     if (isEmpty (aCollection))
       return newOrderedSet (0);
     final CommonsLinkedHashSet <ELEMENTTYPE> ret = newOrderedSet (aCollection.size ());
-    findAll (aCollection, aFilter, ret::add);
+    ret.addAll (aCollection, aFilter);
     return ret;
   }
 
@@ -1288,7 +1300,7 @@ public final class CollectionHelper
     if (isEmpty (aCollection))
       return newList (0);
     final CommonsArrayList <ELEMENTTYPE> ret = newList (aCollection.size ());
-    findAll (aCollection, aFilter, ret::add);
+    ret.addAll (aCollection, aFilter);
     return ret;
   }
 
@@ -1358,7 +1370,7 @@ public final class CollectionHelper
                                                                                  @Nonnull final Function <? super ELEMENTTYPE, ? extends DSTTYPE> aMapper)
   {
     final CommonsArrayList <DSTTYPE> ret = newList ();
-    findAllMapped (aCollection, aFilter, aMapper, ret::add);
+    ret.addAllMapped (aCollection, aFilter, aMapper);
     return ret;
   }
 
@@ -1396,9 +1408,7 @@ public final class CollectionHelper
   public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> newList (@Nullable final Iterable <? extends ELEMENTTYPE> aIter)
   {
     final CommonsArrayList <ELEMENTTYPE> ret = newList ();
-    if (aIter != null)
-      for (final ELEMENTTYPE aObj : aIter)
-        ret.add (aObj);
+    ret.addAll (aIter);
     return ret;
   }
 

@@ -66,7 +66,7 @@ public class CommonsConcurrentHashMap <KEYTYPE, VALUETYPE> extends ConcurrentHas
                                               @Nonnull final Function <? super COLLTYPE, ? extends VALUETYPE> aValueMapper)
   {
     super (CollectionHelper.getSize (aValues));
-    putAll (aValues, aKeyMapper, aValueMapper);
+    putAllMapped (aValues, aKeyMapper, aValueMapper);
   }
 
   @Nonnull
