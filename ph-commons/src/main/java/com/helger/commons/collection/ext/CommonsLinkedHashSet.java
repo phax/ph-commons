@@ -63,19 +63,17 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
     addAll (aIterable);
   }
 
-  public <T> CommonsLinkedHashSet (@Nullable final Collection <? extends T> aValues,
-                                   @Nonnull final Function <? super T, ? extends ELEMENTTYPE> aMapper)
+  public <SRCTYPE> CommonsLinkedHashSet (@Nullable final Collection <? extends SRCTYPE> aValues,
+                                         @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
     super (CollectionHelper.getSize (aValues));
-    if (aValues != null)
-      addAllMapped (aValues, aMapper);
+    addAllMapped (aValues, aMapper);
   }
 
-  public <T> CommonsLinkedHashSet (@Nullable final Iterable <? extends T> aValues,
-                                   @Nonnull final Function <? super T, ? extends ELEMENTTYPE> aMapper)
+  public <SRCTYPE> CommonsLinkedHashSet (@Nullable final Iterable <? extends SRCTYPE> aValues,
+                                         @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
-    if (aValues != null)
-      addAllMapped (aValues, aMapper);
+    addAllMapped (aValues, aMapper);
   }
 
   public CommonsLinkedHashSet (@Nullable final ELEMENTTYPE aValue)
@@ -91,17 +89,24 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
     addAll (aValues);
   }
 
+  public <SRCTYPE> CommonsLinkedHashSet (@Nullable final SRCTYPE [] aValues,
+                                         @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+  {
+    super (ArrayHelper.getSize (aValues));
+    addAllMapped (aValues, aMapper);
+  }
+
   @Nonnull
   @ReturnsMutableCopy
   public <T> CommonsLinkedHashSet <T> createInstance ()
   {
-    return new CommonsLinkedHashSet <> ();
+    return new CommonsLinkedHashSet<> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public CommonsLinkedHashSet <ELEMENTTYPE> getClone ()
   {
-    return new CommonsLinkedHashSet <> (this);
+    return new CommonsLinkedHashSet<> (this);
   }
 }

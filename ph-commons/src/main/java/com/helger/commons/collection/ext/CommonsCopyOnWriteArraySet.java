@@ -50,11 +50,10 @@ public class CommonsCopyOnWriteArraySet <ELEMENTTYPE> extends CopyOnWriteArraySe
     addAll (aIterable);
   }
 
-  public <T> CommonsCopyOnWriteArraySet (@Nullable final Iterable <? extends T> aValues,
-                                         @Nonnull final Function <? super T, ? extends ELEMENTTYPE> aMapper)
+  public <SRCTYPE> CommonsCopyOnWriteArraySet (@Nullable final Iterable <? extends SRCTYPE> aValues,
+                                               @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
-    if (aValues != null)
-      addAllMapped (aValues, aMapper);
+    addAllMapped (aValues, aMapper);
   }
 
   public CommonsCopyOnWriteArraySet (@Nullable final ELEMENTTYPE aValue)
@@ -68,17 +67,23 @@ public class CommonsCopyOnWriteArraySet <ELEMENTTYPE> extends CopyOnWriteArraySe
     addAll (aValues);
   }
 
+  public <SRCTYPE> CommonsCopyOnWriteArraySet (@Nullable final SRCTYPE [] aValues,
+                                               @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+  {
+    addAllMapped (aValues, aMapper);
+  }
+
   @Nonnull
   @ReturnsMutableCopy
   public <T> CommonsCopyOnWriteArraySet <T> createInstance ()
   {
-    return new CommonsCopyOnWriteArraySet <> ();
+    return new CommonsCopyOnWriteArraySet<> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public CommonsCopyOnWriteArraySet <ELEMENTTYPE> getClone ()
   {
-    return new CommonsCopyOnWriteArraySet <> (this);
+    return new CommonsCopyOnWriteArraySet<> (this);
   }
 }

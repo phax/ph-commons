@@ -57,19 +57,17 @@ public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
     addAll (aIterable);
   }
 
-  public <T> CommonsArrayList (@Nullable final Collection <? extends T> aValues,
-                               @Nonnull final Function <? super T, ? extends ELEMENTTYPE> aMapper)
+  public <SRCTYPE> CommonsArrayList (@Nullable final Collection <? extends SRCTYPE> aValues,
+                                     @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
     super (CollectionHelper.getSize (aValues));
-    if (aValues != null)
-      addAllMapped (aValues, aMapper);
+    addAllMapped (aValues, aMapper);
   }
 
-  public <T> CommonsArrayList (@Nullable final Iterable <? extends T> aValues,
-                               @Nonnull final Function <? super T, ? extends ELEMENTTYPE> aMapper)
+  public <SRCTYPE> CommonsArrayList (@Nullable final Iterable <? extends SRCTYPE> aValues,
+                                     @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
-    if (aValues != null)
-      addAllMapped (aValues, aMapper);
+    addAllMapped (aValues, aMapper);
   }
 
   public CommonsArrayList (@Nullable final ELEMENTTYPE aValue)
@@ -83,6 +81,13 @@ public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
   {
     super (ArrayHelper.getSize (aValues));
     addAll (aValues);
+  }
+
+  public <SRCTYPE> CommonsArrayList (@Nullable final SRCTYPE [] aValues,
+                                     @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+  {
+    super (ArrayHelper.getSize (aValues));
+    addAllMapped (aValues, aMapper);
   }
 
   @Nonnull

@@ -55,11 +55,10 @@ public class CommonsTreeSet <ELEMENTTYPE> extends TreeSet <ELEMENTTYPE> implemen
     addAll (aIterable);
   }
 
-  public <T> CommonsTreeSet (@Nullable final Iterable <? extends T> aValues,
-                             @Nonnull final Function <? super T, ? extends ELEMENTTYPE> aMapper)
+  public <SRCTYPE> CommonsTreeSet (@Nullable final Iterable <? extends SRCTYPE> aValues,
+                                   @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
-    if (aValues != null)
-      addAllMapped (aValues, aMapper);
+    addAllMapped (aValues, aMapper);
   }
 
   public CommonsTreeSet (@Nullable final ELEMENTTYPE aValue)
@@ -73,18 +72,24 @@ public class CommonsTreeSet <ELEMENTTYPE> extends TreeSet <ELEMENTTYPE> implemen
     addAll (aValues);
   }
 
+  public <SRCTYPE> CommonsTreeSet (@Nullable final SRCTYPE [] aValues,
+                                   @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+  {
+    addAllMapped (aValues, aMapper);
+  }
+
   @Nonnull
   @ReturnsMutableCopy
   public <T> CommonsTreeSet <T> createInstance ()
   {
-    return new CommonsTreeSet <> ();
+    return new CommonsTreeSet<> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public CommonsTreeSet <ELEMENTTYPE> getClone ()
   {
-    final CommonsTreeSet <ELEMENTTYPE> ret = new CommonsTreeSet <> (comparator ());
+    final CommonsTreeSet <ELEMENTTYPE> ret = new CommonsTreeSet<> (comparator ());
     ret.addAll (this);
     return ret;
   }

@@ -48,11 +48,10 @@ public class CommonsLinkedList <ELEMENTTYPE> extends LinkedList <ELEMENTTYPE> im
     addAll (aIterable);
   }
 
-  public <T> CommonsLinkedList (@Nullable final Iterable <? extends T> aValues,
-                                @Nonnull final Function <? super T, ? extends ELEMENTTYPE> aMapper)
+  public <SRCTYPE> CommonsLinkedList (@Nullable final Iterable <? extends SRCTYPE> aValues,
+                                      @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
-    if (aValues != null)
-      addAllMapped (aValues, aMapper);
+    addAllMapped (aValues, aMapper);
   }
 
   public CommonsLinkedList (@Nullable final ELEMENTTYPE aValue)
@@ -66,17 +65,23 @@ public class CommonsLinkedList <ELEMENTTYPE> extends LinkedList <ELEMENTTYPE> im
     addAll (aValues);
   }
 
+  public <SRCTYPE> CommonsLinkedList (@Nullable final SRCTYPE [] aValues,
+                                      @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+  {
+    addAllMapped (aValues, aMapper);
+  }
+
   @Nonnull
   @ReturnsMutableCopy
   public <T> CommonsLinkedList <T> createInstance ()
   {
-    return new CommonsLinkedList <> ();
+    return new CommonsLinkedList<> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public CommonsLinkedList <ELEMENTTYPE> getClone ()
   {
-    return new CommonsLinkedList <> (this);
+    return new CommonsLinkedList<> (this);
   }
 }

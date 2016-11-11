@@ -62,19 +62,17 @@ public class CommonsHashSet <ELEMENTTYPE> extends HashSet <ELEMENTTYPE> implemen
     addAll (aIterable);
   }
 
-  public <T> CommonsHashSet (@Nullable final Collection <? extends T> aValues,
-                             @Nonnull final Function <? super T, ? extends ELEMENTTYPE> aMapper)
+  public <SRCTYPE> CommonsHashSet (@Nullable final Collection <? extends SRCTYPE> aValues,
+                                   @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
     super (CollectionHelper.getSize (aValues));
-    if (aValues != null)
-      addAllMapped (aValues, aMapper);
+    addAllMapped (aValues, aMapper);
   }
 
-  public <T> CommonsHashSet (@Nullable final Iterable <? extends T> aValues,
-                             @Nonnull final Function <? super T, ? extends ELEMENTTYPE> aMapper)
+  public <SRCTYPE> CommonsHashSet (@Nullable final Iterable <? extends SRCTYPE> aValues,
+                                   @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
-    if (aValues != null)
-      addAllMapped (aValues, aMapper);
+    addAllMapped (aValues, aMapper);
   }
 
   public CommonsHashSet (@Nullable final ELEMENTTYPE aValue)
@@ -88,6 +86,13 @@ public class CommonsHashSet <ELEMENTTYPE> extends HashSet <ELEMENTTYPE> implemen
   {
     super (ArrayHelper.getSize (aValues));
     addAll (aValues);
+  }
+
+  public <SRCTYPE> CommonsHashSet (@Nullable final SRCTYPE [] aValues,
+                                   @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+  {
+    super (ArrayHelper.getSize (aValues));
+    addAllMapped (aValues, aMapper);
   }
 
   @Nonnull

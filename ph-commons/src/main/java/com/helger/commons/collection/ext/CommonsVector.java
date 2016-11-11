@@ -57,19 +57,17 @@ public class CommonsVector <ELEMENTTYPE> extends Vector <ELEMENTTYPE> implements
     addAll (aIterable);
   }
 
-  public <T> CommonsVector (@Nullable final Collection <? extends T> aValues,
-                            @Nonnull final Function <? super T, ? extends ELEMENTTYPE> aMapper)
+  public <SRCTYPE> CommonsVector (@Nullable final Collection <? extends SRCTYPE> aValues,
+                                  @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
     super (CollectionHelper.getSize (aValues));
-    if (aValues != null)
-      addAllMapped (aValues, aMapper);
+    addAllMapped (aValues, aMapper);
   }
 
-  public <T> CommonsVector (@Nullable final Iterable <? extends T> aValues,
-                            @Nonnull final Function <? super T, ? extends ELEMENTTYPE> aMapper)
+  public <SRCTYPE> CommonsVector (@Nullable final Iterable <? extends SRCTYPE> aValues,
+                                  @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
-    if (aValues != null)
-      addAllMapped (aValues, aMapper);
+    addAllMapped (aValues, aMapper);
   }
 
   public CommonsVector (@Nullable final ELEMENTTYPE aValue)
@@ -85,17 +83,24 @@ public class CommonsVector <ELEMENTTYPE> extends Vector <ELEMENTTYPE> implements
     addAll (aValues);
   }
 
+  public <SRCTYPE> CommonsVector (@Nullable final SRCTYPE [] aValues,
+                                  @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+  {
+    super (ArrayHelper.getSize (aValues));
+    addAllMapped (aValues, aMapper);
+  }
+
   @Nonnull
   @ReturnsMutableCopy
   public <T> CommonsVector <T> createInstance ()
   {
-    return new CommonsVector <> ();
+    return new CommonsVector<> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public CommonsVector <ELEMENTTYPE> getClone ()
   {
-    return new CommonsVector <> (this);
+    return new CommonsVector<> (this);
   }
 }
