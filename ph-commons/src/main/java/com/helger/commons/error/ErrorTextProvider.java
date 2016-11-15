@@ -31,6 +31,7 @@ import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.error.location.IErrorLocation;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
+import com.helger.commons.lang.ICloneable;
 import com.helger.commons.lang.StackTraceHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -43,7 +44,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @since 8.5.1
  */
 @NotThreadSafe
-public class ErrorTextProvider implements IErrorTextProvider, Serializable
+public class ErrorTextProvider implements IErrorTextProvider, Serializable, ICloneable <ErrorTextProvider>
 {
   public static final char PLACEHOLDER = '$';
   public static final String PLACEHOLDER_STR = Character.toString (PLACEHOLDER);
@@ -163,11 +164,26 @@ public class ErrorTextProvider implements IErrorTextProvider, Serializable
                                                                                      "$)")
                                                                            .setFieldSeparator (" ");
 
-  private final ICommonsList <IFormattableItem> m_aItems = new CommonsArrayList<> ();
+  private final ICommonsList <IFormattableItem> m_aItems;
   private String m_sFieldSep = " ";
 
   public ErrorTextProvider ()
-  {}
+  {
+    m_aItems = new CommonsArrayList<> ();
+  }
+
+  /**
+   * Copy constructor.
+   *
+   * @param aOther
+   *        Object to copy from. May not be <code>null</code>.
+   * @since 8.5.5
+   */
+  public ErrorTextProvider (@Nonnull final ErrorTextProvider aOther)
+  {
+    m_aItems = aOther.m_aItems.getClone ();
+    m_sFieldSep = aOther.m_sFieldSep;
+  }
 
   @Nonnull
   @ReturnsMutableCopy
@@ -176,6 +192,16 @@ public class ErrorTextProvider implements IErrorTextProvider, Serializable
     return m_aItems.getClone ();
   }
 
+  /**
+   * Add an error item to be disabled.
+   *
+   * @param eField
+   *        The field to be used. May not be <code>null</code>.
+   * @param sText
+   *        The text that should contain the placeholder ({@value #PLACEHOLDER})
+   *        that will be replaced
+   * @return this for chaining
+   */
   @Nonnull
   public ErrorTextProvider addItem (@Nonnull final EField eField, @Nonnull @Nonempty final String sText)
   {
@@ -345,6 +371,13 @@ public class ErrorTextProvider implements IErrorTextProvider, Serializable
           throw new IllegalStateException ("Unsupported error field " + aItem.getField ());
       }
     return aSB.toString ();
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public ErrorTextProvider getClone ()
+  {
+    return new ErrorTextProvider (this);
   }
 
   @Override
