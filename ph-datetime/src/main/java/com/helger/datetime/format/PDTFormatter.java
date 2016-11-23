@@ -18,7 +18,10 @@ package com.helger.datetime.format;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.chrono.IsoChronology;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.FormatStyle;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -110,31 +113,87 @@ public final class PDTFormatter
     @Nonnull
     public String getSourcePattern (@Nonnull final CacheKey aKey)
     {
-      final DateFormat aDF;
-      switch (aKey.m_eDTType)
+      String sPattern;
+      if (true)
       {
-        case LOCAL_TIME:
-          aDF = DateFormat.getTimeInstance (aKey.m_nStyle, aKey.m_aLocale);
-          break;
-        case LOCAL_DATE:
-          aDF = DateFormat.getDateInstance (aKey.m_nStyle, aKey.m_aLocale);
-          break;
-        default:
-          aDF = DateFormat.getDateTimeInstance (aKey.m_nStyle, aKey.m_nStyle, aKey.m_aLocale);
-          break;
+        FormatStyle eFS;
+        switch (aKey.m_nStyle)
+        {
+          case DateFormat.SHORT:
+            eFS = FormatStyle.SHORT;
+            break;
+          case DateFormat.MEDIUM:
+            eFS = FormatStyle.MEDIUM;
+            break;
+          case DateFormat.LONG:
+            eFS = FormatStyle.LONG;
+            break;
+          case DateFormat.FULL:
+            eFS = FormatStyle.FULL;
+            break;
+          default:
+            throw new IllegalStateException ("Invalid style present: " + aKey.m_nStyle);
+        }
+        switch (aKey.m_eDTType)
+        {
+          case LOCAL_TIME:
+            sPattern = DateTimeFormatterBuilder.getLocalizedDateTimePattern (null,
+                                                                             eFS,
+                                                                             IsoChronology.INSTANCE,
+                                                                             aKey.m_aLocale);
+            break;
+          case LOCAL_DATE:
+            sPattern = DateTimeFormatterBuilder.getLocalizedDateTimePattern (eFS,
+                                                                             null,
+                                                                             IsoChronology.INSTANCE,
+                                                                             aKey.m_aLocale);
+            break;
+          default:
+            sPattern = DateTimeFormatterBuilder.getLocalizedDateTimePattern (eFS,
+                                                                             eFS,
+                                                                             IsoChronology.INSTANCE,
+                                                                             aKey.m_aLocale);
+            break;
+        }
       }
-      return ((SimpleDateFormat) aDF).toPattern ();
+      else
+      {
+        final DateFormat aDF;
+        switch (aKey.m_eDTType)
+        {
+          case LOCAL_TIME:
+            aDF = DateFormat.getTimeInstance (aKey.m_nStyle, aKey.m_aLocale);
+            break;
+          case LOCAL_DATE:
+            aDF = DateFormat.getDateInstance (aKey.m_nStyle, aKey.m_aLocale);
+            break;
+          default:
+            aDF = DateFormat.getDateTimeInstance (aKey.m_nStyle, aKey.m_nStyle, aKey.m_aLocale);
+            break;
+        }
+        sPattern = ((SimpleDateFormat) aDF).toPattern ();
+      }
+      return sPattern;
     }
 
     @Override
     protected DateTimeFormatter getValueToCache (@Nonnull final CacheKey aKey)
     {
       String sPattern = getSourcePattern (aKey);
+
       // Change "year of era" to "year"
       sPattern = StringHelper.replaceAll (sPattern, 'y', 'u');
+      // Change from 2 required fields to 1
+      sPattern = StringHelper.replaceAll (sPattern, "dd", "d");
+      sPattern = StringHelper.replaceAll (sPattern, "MM", "M");
+      sPattern = StringHelper.replaceAll (sPattern, "HH", "H");
+      sPattern = StringHelper.replaceAll (sPattern, "mm", "m");
+      sPattern = StringHelper.replaceAll (sPattern, "ss", "s");
 
       // And finally create the cached DateTimeFormatter
-      return DateTimeFormatterCache.getDateTimeFormatterStrict (sPattern);
+      // Default to strict - can be changed afterwards
+      final DateTimeFormatter ret = DateTimeFormatterCache.getDateTimeFormatterStrict (sPattern);
+      return ret;
     }
   }
 
