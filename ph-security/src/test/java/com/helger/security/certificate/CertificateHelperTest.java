@@ -116,9 +116,21 @@ public final class CertificateHelperTest
                   "\n" +
                   CertificateHelper.END_CERTIFICATE,
                   CertificateHelper.getRFC1421CompliantString (sLong, true));
+    assertEquals (CertificateHelper.BEGIN_CERTIFICATE +
+                  "\n" +
+                  "123456789012345678901234567890123456789012345678901234567890abcd\n" +
+                  "123456789012345678901234567890123456789012345678901234567890abcd\n" +
+                  "xyz" +
+                  "\n" +
+                  CertificateHelper.END_CERTIFICATE,
+                  CertificateHelper.getRFC1421CompliantString (sLong, true, "\n"));
     assertEquals ("123456789012345678901234567890123456789012345678901234567890abcd\r\n" +
                   "123456789012345678901234567890123456789012345678901234567890abcd\r\n" +
                   "xyz",
                   CertificateHelper.getRFC1421CompliantString (sLong, false));
+    assertEquals ("123456789012345678901234567890123456789012345678901234567890abcd\n" +
+                  "123456789012345678901234567890123456789012345678901234567890abcd\n" +
+                  "xyz",
+                  CertificateHelper.getRFC1421CompliantString (sLong, false, "\n"));
   }
 }
