@@ -138,6 +138,35 @@ public final class CertificateHelper
   @Nullable
   public static String getRFC1421CompliantString (@Nullable final String sCertificate, final boolean bIncludePEMHeader)
   {
+    return getRFC1421CompliantString (sCertificate, bIncludePEMHeader, CRLF);
+  }
+
+  /**
+   * The certificate string needs to be emitted in portions of 64 characters. If
+   * characters are left, than a line separator (e.g. &lt;CR&gt;&lt;LF&gt; -
+   * "\r\n") must be added to the string so that the next characters start on a
+   * new line. After the last part, no line separator is needed. Respective RFC
+   * parts are 1421 4.3.2.2 and 4.3.2.4
+   *
+   * @param sCertificate
+   *        Original certificate string as stored in the DB
+   * @param bIncludePEMHeader
+   *        <code>true</code> to include {@link #BEGIN_CERTIFICATE} header and
+   *        {@link #END_CERTIFICATE} footer.
+   * @param sLineSeparator
+   *        The line separator to be used. May not be <code>null</code>. Usually
+   *        this is "\r\n" but may also be just "\n".
+   * @return The RFC 1421 compliant string. May be <code>null</code> if the
+   *         original string is <code>null</code> or empty.
+   * @since 8.5.5
+   */
+  @Nullable
+  public static String getRFC1421CompliantString (@Nullable final String sCertificate,
+                                                  final boolean bIncludePEMHeader,
+                                                  @Nonnull final String sLineSeparator)
+  {
+    ValueEnforcer.notNull (sLineSeparator, "LineSeparator");
+
     // Remove special begin and end stuff
     String sPlainString = getWithoutPEMHeader (sCertificate);
     if (StringHelper.hasNoText (sPlainString))
@@ -151,8 +180,8 @@ public final class CertificateHelper
       aSB.append (BEGIN_CERTIFICATE).append ('\n');
     while (sPlainString.length () > nMaxLineLength)
     {
-      // Append line + CRLF
-      aSB.append (sPlainString, 0, nMaxLineLength).append (CRLF);
+      // Append line + line separator
+      aSB.append (sPlainString, 0, nMaxLineLength).append (sLineSeparator);
 
       // Remove the start of the string
       sPlainString = sPlainString.substring (nMaxLineLength);
