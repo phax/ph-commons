@@ -17,7 +17,6 @@
 package com.helger.datetime.format;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.chrono.IsoChronology;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -56,22 +55,18 @@ public final class PDTFormatter
   {
     private final EDTType m_eDTType;
     private final Locale m_aLocale;
-    private final int m_nStyle;
+    private final FormatStyle m_eStyle;
 
-    CacheKey (@Nonnull final EDTType eDTType, @Nullable final Locale aLocale, final int nStyle)
+    CacheKey (@Nonnull final EDTType eDTType, @Nullable final Locale aLocale, @Nonnull final FormatStyle eStyle)
     {
       ValueEnforcer.notNull (eDTType, "DTType");
-      ValueEnforcer.isTrue (nStyle == DateFormat.SHORT ||
-                            nStyle == DateFormat.MEDIUM ||
-                            nStyle == DateFormat.LONG ||
-                            nStyle == DateFormat.FULL,
-                            "Invalid style provided");
+      ValueEnforcer.notNull (eStyle, "Style provided");
       m_eDTType = eDTType;
       // Ensure a non-null Locale is used - same as in DateFormat itself
       // Having this shortcut here meaning less cache entries that when having
       // "null" as a separate key
       m_aLocale = aLocale != null ? aLocale : Locale.getDefault (Locale.Category.FORMAT);
-      m_nStyle = nStyle;
+      m_eStyle = eStyle;
     }
 
     @Override
@@ -82,13 +77,13 @@ public final class PDTFormatter
       if (o == null || !getClass ().equals (o.getClass ()))
         return false;
       final CacheKey rhs = (CacheKey) o;
-      return m_eDTType.equals (rhs.m_eDTType) && m_aLocale.equals (rhs.m_aLocale) && m_nStyle == rhs.m_nStyle;
+      return m_eDTType.equals (rhs.m_eDTType) && m_aLocale.equals (rhs.m_aLocale) && m_eStyle == rhs.m_eStyle;
     }
 
     @Override
     public int hashCode ()
     {
-      return new HashCodeGenerator (this).append (m_eDTType).append (m_aLocale).append (m_nStyle).getHashCode ();
+      return new HashCodeGenerator (this).append (m_eDTType).append (m_aLocale).append (m_eStyle).getHashCode ();
     }
   }
 
@@ -113,67 +108,24 @@ public final class PDTFormatter
     @Nonnull
     public String getSourcePattern (@Nonnull final CacheKey aKey)
     {
-      String sPattern;
-      if (true)
+      switch (aKey.m_eDTType)
       {
-        FormatStyle eFS;
-        switch (aKey.m_nStyle)
-        {
-          case DateFormat.SHORT:
-            eFS = FormatStyle.SHORT;
-            break;
-          case DateFormat.MEDIUM:
-            eFS = FormatStyle.MEDIUM;
-            break;
-          case DateFormat.LONG:
-            eFS = FormatStyle.LONG;
-            break;
-          case DateFormat.FULL:
-            eFS = FormatStyle.FULL;
-            break;
-          default:
-            throw new IllegalStateException ("Invalid style present: " + aKey.m_nStyle);
-        }
-        switch (aKey.m_eDTType)
-        {
-          case LOCAL_TIME:
-            sPattern = DateTimeFormatterBuilder.getLocalizedDateTimePattern (null,
-                                                                             eFS,
-                                                                             IsoChronology.INSTANCE,
-                                                                             aKey.m_aLocale);
-            break;
-          case LOCAL_DATE:
-            sPattern = DateTimeFormatterBuilder.getLocalizedDateTimePattern (eFS,
-                                                                             null,
-                                                                             IsoChronology.INSTANCE,
-                                                                             aKey.m_aLocale);
-            break;
-          default:
-            sPattern = DateTimeFormatterBuilder.getLocalizedDateTimePattern (eFS,
-                                                                             eFS,
-                                                                             IsoChronology.INSTANCE,
-                                                                             aKey.m_aLocale);
-            break;
-        }
+        case LOCAL_TIME:
+          return DateTimeFormatterBuilder.getLocalizedDateTimePattern (null,
+                                                                       aKey.m_eStyle,
+                                                                       IsoChronology.INSTANCE,
+                                                                       aKey.m_aLocale);
+        case LOCAL_DATE:
+          return DateTimeFormatterBuilder.getLocalizedDateTimePattern (aKey.m_eStyle,
+                                                                       null,
+                                                                       IsoChronology.INSTANCE,
+                                                                       aKey.m_aLocale);
+        default:
+          return DateTimeFormatterBuilder.getLocalizedDateTimePattern (aKey.m_eStyle,
+                                                                       aKey.m_eStyle,
+                                                                       IsoChronology.INSTANCE,
+                                                                       aKey.m_aLocale);
       }
-      else
-      {
-        final DateFormat aDF;
-        switch (aKey.m_eDTType)
-        {
-          case LOCAL_TIME:
-            aDF = DateFormat.getTimeInstance (aKey.m_nStyle, aKey.m_aLocale);
-            break;
-          case LOCAL_DATE:
-            aDF = DateFormat.getDateInstance (aKey.m_nStyle, aKey.m_aLocale);
-            break;
-          default:
-            aDF = DateFormat.getDateTimeInstance (aKey.m_nStyle, aKey.m_nStyle, aKey.m_aLocale);
-            break;
-        }
-        sPattern = ((SimpleDateFormat) aDF).toPattern ();
-      }
-      return sPattern;
     }
 
     @Override
@@ -197,8 +149,9 @@ public final class PDTFormatter
     }
   }
 
-  private static final int DEFAULT_STYLE = DateFormat.DEFAULT;
-  private static final LocalizedDateFormatCache s_aCache = new LocalizedDateFormatCache ();
+  /** By default the medium style is used */
+  public static final FormatStyle DEFAULT_STYLE = FormatStyle.MEDIUM;
+  private static final LocalizedDateFormatCache s_aParserCache = new LocalizedDateFormatCache ();
 
   @PresentForCodeCoverage
   private static final PDTFormatter s_aInstance = new PDTFormatter ();
@@ -207,9 +160,51 @@ public final class PDTFormatter
   {}
 
   @Nonnull
+  public static FormatStyle toFormatStyle (final int nStyle)
+  {
+    switch (nStyle)
+    {
+      case DateFormat.FULL:
+        return FormatStyle.FULL;
+      case DateFormat.LONG:
+        return FormatStyle.LONG;
+      case DateFormat.MEDIUM:
+        return FormatStyle.MEDIUM;
+      case DateFormat.SHORT:
+        return FormatStyle.SHORT;
+    }
+    throw new IllegalArgumentException ("Invalid style passed: " + nStyle);
+  }
+
+  public static int toOldStyle (@Nonnull final FormatStyle eStyle)
+  {
+    switch (eStyle)
+    {
+      case FULL:
+        return DateFormat.FULL;
+      case LONG:
+        return DateFormat.LONG;
+      case MEDIUM:
+        return DateFormat.MEDIUM;
+      case SHORT:
+        return DateFormat.SHORT;
+    }
+    throw new IllegalArgumentException ("Unsupported style passed: " + eStyle);
+  }
+
+  @Nonnull
+  @Deprecated
   public static String getPattern (@Nonnull final EDTType eDTType, @Nullable final Locale aLocale, final int nStyle)
   {
-    return s_aCache.getSourcePattern (new CacheKey (eDTType, aLocale, nStyle));
+    return getPattern (eDTType, aLocale, toFormatStyle (nStyle));
+  }
+
+  @Nonnull
+  public static String getPattern (@Nonnull final EDTType eDTType,
+                                   @Nullable final Locale aLocale,
+                                   @Nonnull final FormatStyle eStyle)
+  {
+    return s_aParserCache.getSourcePattern (new CacheKey (eDTType, aLocale, eStyle));
   }
 
   /**
@@ -232,10 +227,28 @@ public final class PDTFormatter
   }
 
   @Nonnull
-  private static DateTimeFormatter _getFormatterDate (@Nullable final Locale aDisplayLocale, final int nStyle)
+  private static DateTimeFormatter _getFormatter (@Nonnull final CacheKey aCacheKey,
+                                                  @Nullable final Locale aDisplayLocale)
   {
-    return getWithLocale (s_aCache.getFromCache (new CacheKey (EDTType.LOCAL_DATE, aDisplayLocale, nStyle)),
-                          aDisplayLocale);
+    final DateTimeFormatter aFormatter = s_aParserCache.getFromCache (aCacheKey);
+    return getWithLocale (aFormatter, aDisplayLocale);
+  }
+
+  /**
+   * Get the date formatter for the passed locale.
+   *
+   * @param eStyle
+   *        The format style to be used. May not be <code>null</code>.
+   * @param aDisplayLocale
+   *        The display locale to be used. May be <code>null</code>.
+   * @return The created date formatter. Never <code>null</code>.
+   * @since 8.5.6
+   */
+  @Nonnull
+  public static DateTimeFormatter getFormatterDate (@Nonnull final FormatStyle eStyle,
+                                                    @Nullable final Locale aDisplayLocale)
+  {
+    return _getFormatter (new CacheKey (EDTType.LOCAL_DATE, aDisplayLocale, eStyle), aDisplayLocale);
   }
 
   /**
@@ -244,12 +257,12 @@ public final class PDTFormatter
    *
    * @param aDisplayLocale
    *        The display locale to be used. May be <code>null</code>.
-   * @return The created date time formatter. Never <code>null</code>.
+   * @return The created date formatter. Never <code>null</code>.
    */
   @Nonnull
   public static DateTimeFormatter getDefaultFormatterDate (@Nullable final Locale aDisplayLocale)
   {
-    return _getFormatterDate (aDisplayLocale, DEFAULT_STYLE);
+    return getFormatterDate (DEFAULT_STYLE, aDisplayLocale);
   }
 
   /**
@@ -257,12 +270,14 @@ public final class PDTFormatter
    *
    * @param aDisplayLocale
    *        The display locale to be used. May be <code>null</code>.
-   * @return The created date time formatter. Never <code>null</code>.
+   * @return The created date formatter. Never <code>null</code>.
+   * @deprecated
    */
+  @Deprecated
   @Nonnull
   public static DateTimeFormatter getShortFormatterDate (@Nullable final Locale aDisplayLocale)
   {
-    return _getFormatterDate (aDisplayLocale, DateFormat.SHORT);
+    return getFormatterDate (FormatStyle.SHORT, aDisplayLocale);
   }
 
   /**
@@ -270,12 +285,14 @@ public final class PDTFormatter
    *
    * @param aDisplayLocale
    *        The display locale to be used. May be <code>null</code>.
-   * @return The created date time formatter. Never <code>null</code>.
+   * @return The created date formatter. Never <code>null</code>.
+   * @deprecated
    */
+  @Deprecated
   @Nonnull
   public static DateTimeFormatter getMediumFormatterDate (@Nullable final Locale aDisplayLocale)
   {
-    return _getFormatterDate (aDisplayLocale, DateFormat.MEDIUM);
+    return getFormatterDate (FormatStyle.MEDIUM, aDisplayLocale);
   }
 
   /**
@@ -283,12 +300,13 @@ public final class PDTFormatter
    *
    * @param aDisplayLocale
    *        The display locale to be used. May be <code>null</code>.
-   * @return The created date time formatter. Never <code>null</code>.
+   * @return The created date formatter. Never <code>null</code>.
    */
   @Nonnull
+  @Deprecated
   public static DateTimeFormatter getLongFormatterDate (@Nullable final Locale aDisplayLocale)
   {
-    return _getFormatterDate (aDisplayLocale, DateFormat.LONG);
+    return getFormatterDate (FormatStyle.LONG, aDisplayLocale);
   }
 
   /**
@@ -296,19 +314,30 @@ public final class PDTFormatter
    *
    * @param aDisplayLocale
    *        The display locale to be used. May be <code>null</code>.
-   * @return The created date time formatter. Never <code>null</code>.
+   * @return The created date formatter. Never <code>null</code>.
    */
   @Nonnull
+  @Deprecated
   public static DateTimeFormatter getFullFormatterDate (@Nullable final Locale aDisplayLocale)
   {
-    return _getFormatterDate (aDisplayLocale, DateFormat.FULL);
+    return getFormatterDate (FormatStyle.FULL, aDisplayLocale);
   }
 
+  /**
+   * Get the time formatter for the passed locale.
+   *
+   * @param eStyle
+   *        The format style to be used. May not be <code>null</code>.
+   * @param aDisplayLocale
+   *        The display locale to be used. May be <code>null</code>.
+   * @return The created time formatter. Never <code>null</code>.
+   * @since 8.5.6
+   */
   @Nonnull
-  private static DateTimeFormatter _getFormatterTime (@Nullable final Locale aDisplayLocale, final int nStyle)
+  public static DateTimeFormatter getFormatterTime (@Nonnull final FormatStyle eStyle,
+                                                    @Nullable final Locale aDisplayLocale)
   {
-    return getWithLocale (s_aCache.getFromCache (new CacheKey (EDTType.LOCAL_TIME, aDisplayLocale, nStyle)),
-                          aDisplayLocale);
+    return _getFormatter (new CacheKey (EDTType.LOCAL_TIME, aDisplayLocale, eStyle), aDisplayLocale);
   }
 
   /**
@@ -317,12 +346,12 @@ public final class PDTFormatter
    *
    * @param aDisplayLocale
    *        The display locale to be used. May be <code>null</code>.
-   * @return The created date time formatter. Never <code>null</code>.
+   * @return The created time formatter. Never <code>null</code>.
    */
   @Nonnull
   public static DateTimeFormatter getDefaultFormatterTime (@Nullable final Locale aDisplayLocale)
   {
-    return _getFormatterTime (aDisplayLocale, DEFAULT_STYLE);
+    return getFormatterTime (DEFAULT_STYLE, aDisplayLocale);
   }
 
   /**
@@ -330,12 +359,13 @@ public final class PDTFormatter
    *
    * @param aDisplayLocale
    *        The display locale to be used. May be <code>null</code>.
-   * @return The created date time formatter. Never <code>null</code>.
+   * @return The created time formatter. Never <code>null</code>.
    */
   @Nonnull
+  @Deprecated
   public static DateTimeFormatter getShortFormatterTime (@Nullable final Locale aDisplayLocale)
   {
-    return _getFormatterTime (aDisplayLocale, DateFormat.SHORT);
+    return getFormatterTime (FormatStyle.SHORT, aDisplayLocale);
   }
 
   /**
@@ -343,12 +373,13 @@ public final class PDTFormatter
    *
    * @param aDisplayLocale
    *        The display locale to be used. May be <code>null</code>.
-   * @return The created date time formatter. Never <code>null</code>.
+   * @return The created time formatter. Never <code>null</code>.
    */
   @Nonnull
+  @Deprecated
   public static DateTimeFormatter getMediumFormatterTime (@Nullable final Locale aDisplayLocale)
   {
-    return _getFormatterTime (aDisplayLocale, DateFormat.MEDIUM);
+    return getFormatterTime (FormatStyle.MEDIUM, aDisplayLocale);
   }
 
   /**
@@ -356,12 +387,13 @@ public final class PDTFormatter
    *
    * @param aDisplayLocale
    *        The display locale to be used. May be <code>null</code>.
-   * @return The created date time formatter. Never <code>null</code>.
+   * @return The created time formatter. Never <code>null</code>.
    */
   @Nonnull
+  @Deprecated
   public static DateTimeFormatter getLongFormatterTime (@Nullable final Locale aDisplayLocale)
   {
-    return _getFormatterTime (aDisplayLocale, DateFormat.LONG);
+    return getFormatterTime (FormatStyle.LONG, aDisplayLocale);
   }
 
   /**
@@ -369,19 +401,30 @@ public final class PDTFormatter
    *
    * @param aDisplayLocale
    *        The display locale to be used. May be <code>null</code>.
-   * @return The created date time formatter. Never <code>null</code>.
+   * @return The created time formatter. Never <code>null</code>.
    */
   @Nonnull
+  @Deprecated
   public static DateTimeFormatter getFullFormatterTime (@Nullable final Locale aDisplayLocale)
   {
-    return _getFormatterTime (aDisplayLocale, DateFormat.FULL);
+    return getFormatterTime (FormatStyle.FULL, aDisplayLocale);
   }
 
+  /**
+   * Get the date time formatter for the passed locale.
+   *
+   * @param eStyle
+   *        The format style to be used. May not be <code>null</code>.
+   * @param aDisplayLocale
+   *        The display locale to be used. May be <code>null</code>.
+   * @return The created date time formatter. Never <code>null</code>.
+   * @since 8.5.6
+   */
   @Nonnull
-  private static DateTimeFormatter _getFormatterDateTime (@Nullable final Locale aDisplayLocale, final int nStyle)
+  public static DateTimeFormatter getFormatterDateTime (@Nonnull final FormatStyle eStyle,
+                                                        @Nullable final Locale aDisplayLocale)
   {
-    return getWithLocale (s_aCache.getFromCache (new CacheKey (EDTType.LOCAL_DATE_TIME, aDisplayLocale, nStyle)),
-                          aDisplayLocale);
+    return _getFormatter (new CacheKey (EDTType.LOCAL_DATE_TIME, aDisplayLocale, eStyle), aDisplayLocale);
   }
 
   /**
@@ -395,7 +438,7 @@ public final class PDTFormatter
   @Nonnull
   public static DateTimeFormatter getDefaultFormatterDateTime (@Nullable final Locale aDisplayLocale)
   {
-    return _getFormatterDateTime (aDisplayLocale, DEFAULT_STYLE);
+    return getFormatterDateTime (DEFAULT_STYLE, aDisplayLocale);
   }
 
   /**
@@ -406,9 +449,10 @@ public final class PDTFormatter
    * @return The created date time formatter. Never <code>null</code>.
    */
   @Nonnull
+  @Deprecated
   public static DateTimeFormatter getShortFormatterDateTime (@Nullable final Locale aDisplayLocale)
   {
-    return _getFormatterDateTime (aDisplayLocale, DateFormat.SHORT);
+    return getFormatterDateTime (FormatStyle.SHORT, aDisplayLocale);
   }
 
   /**
@@ -419,9 +463,10 @@ public final class PDTFormatter
    * @return The created date time formatter. Never <code>null</code>.
    */
   @Nonnull
+  @Deprecated
   public static DateTimeFormatter getMediumFormatterDateTime (@Nullable final Locale aDisplayLocale)
   {
-    return _getFormatterDateTime (aDisplayLocale, DateFormat.MEDIUM);
+    return getFormatterDateTime (FormatStyle.MEDIUM, aDisplayLocale);
   }
 
   /**
@@ -432,9 +477,10 @@ public final class PDTFormatter
    * @return The created date time formatter. Never <code>null</code>.
    */
   @Nonnull
+  @Deprecated
   public static DateTimeFormatter getLongFormatterDateTime (@Nullable final Locale aDisplayLocale)
   {
-    return _getFormatterDateTime (aDisplayLocale, DateFormat.LONG);
+    return getFormatterDateTime (FormatStyle.LONG, aDisplayLocale);
   }
 
   /**
@@ -445,9 +491,10 @@ public final class PDTFormatter
    * @return The created date time formatter. Never <code>null</code>.
    */
   @Nonnull
+  @Deprecated
   public static DateTimeFormatter getFullFormatterDateTime (@Nullable final Locale aDisplayLocale)
   {
-    return _getFormatterDateTime (aDisplayLocale, DateFormat.FULL);
+    return getFormatterDateTime (FormatStyle.FULL, aDisplayLocale);
   }
 
   /**

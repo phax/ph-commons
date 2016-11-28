@@ -32,12 +32,13 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * This class encapsulates a String pattern and a set of options to be used in
- * parsing.
+ * parsing. <br>
+ * Note: cannot be Serializable because DateTimeFormatter is not Serializable
  *
  * @author Philip Helger
  */
 @ThreadSafe
-@DevelopersNote ("The mutable m_aHashCode does not contradict thread safety")
+@DevelopersNote ("The mutable m_nHashCode does not contradict thread safety")
 public final class DateTimeFormatterPattern
 {
   private final String m_sPattern;
