@@ -58,7 +58,7 @@ public final class URLProtocolRegistry
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
-  private final ICommonsMap <String, IURLProtocol> m_aProtocols = new CommonsHashMap <> ();
+  private final ICommonsMap <String, IURLProtocol> m_aProtocols = new CommonsHashMap<> ();
 
   private URLProtocolRegistry ()
   {
@@ -90,8 +90,8 @@ public final class URLProtocolRegistry
   {
     ValueEnforcer.notNull (aProtocol, "Protocol");
 
+    final String sProtocol = aProtocol.getProtocol ();
     m_aRWLock.writeLocked ( () -> {
-      final String sProtocol = aProtocol.getProtocol ();
       if (m_aProtocols.containsKey (sProtocol))
         throw new IllegalArgumentException ("Another handler for protocol '" + sProtocol + "' is already registered!");
       m_aProtocols.put (sProtocol, aProtocol);
@@ -130,12 +130,7 @@ public final class URLProtocolRegistry
     if (sURL == null)
       return null;
 
-    return m_aRWLock.readLocked ( () -> {
-      for (final IURLProtocol aProtocol : m_aProtocols.values ())
-        if (aProtocol.isUsedInURL (sURL))
-          return aProtocol;
-      return null;
-    });
+    return m_aRWLock.readLocked ( () -> m_aProtocols.findFirstValue (x -> x.getValue ().isUsedInURL (sURL)));
   }
 
   /**
