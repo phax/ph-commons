@@ -16,8 +16,9 @@
  */
 package com.helger.datetime.format;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.time.chrono.IsoChronology;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.FormatStyle;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -26,7 +27,7 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 
 /**
- * Create common {@link DateFormat} patterns to format date, time and datetime
+ * Create common {@link FormatStyle} patterns to format date, time and datetime
  * objects.
  *
  * @author Philip Helger
@@ -41,10 +42,9 @@ public final class PDTFormatPatterns
   {}
 
   @Nonnull
-  private static String _getPatternDate (final int nStyle, @Nonnull final Locale aDisplayLocale)
+  public static String getPatternDate (@Nonnull final FormatStyle eStyle, @Nonnull final Locale aDisplayLocale)
   {
-    // Not nice but it works
-    return ((SimpleDateFormat) DateFormat.getDateInstance (nStyle, aDisplayLocale)).toPattern ();
+    return DateTimeFormatterBuilder.getLocalizedDateTimePattern (eStyle, null, IsoChronology.INSTANCE, aDisplayLocale);
   }
 
   @Nonnull
@@ -56,32 +56,31 @@ public final class PDTFormatPatterns
   @Nonnull
   public static String getShortPatternDate (@Nonnull final Locale aDisplayLocale)
   {
-    return _getPatternDate (DateFormat.SHORT, aDisplayLocale);
+    return getPatternDate (FormatStyle.SHORT, aDisplayLocale);
   }
 
   @Nonnull
   public static String getMediumPatternDate (@Nonnull final Locale aDisplayLocale)
   {
-    return _getPatternDate (DateFormat.MEDIUM, aDisplayLocale);
+    return getPatternDate (FormatStyle.MEDIUM, aDisplayLocale);
   }
 
   @Nonnull
   public static String getLongPatternDate (@Nonnull final Locale aDisplayLocale)
   {
-    return _getPatternDate (DateFormat.LONG, aDisplayLocale);
+    return getPatternDate (FormatStyle.LONG, aDisplayLocale);
   }
 
   @Nonnull
   public static String getFullPatternDate (@Nonnull final Locale aDisplayLocale)
   {
-    return _getPatternDate (DateFormat.FULL, aDisplayLocale);
+    return getPatternDate (FormatStyle.FULL, aDisplayLocale);
   }
 
   @Nonnull
-  private static String _getPatternTime (final int nStyle, @Nonnull final Locale aDisplayLocale)
+  public static String getPatternTime (@Nonnull final FormatStyle eStyle, @Nonnull final Locale aDisplayLocale)
   {
-    // Not nice but it works
-    return ((SimpleDateFormat) DateFormat.getTimeInstance (nStyle, aDisplayLocale)).toPattern ();
+    return DateTimeFormatterBuilder.getLocalizedDateTimePattern (null, eStyle, IsoChronology.INSTANCE, aDisplayLocale);
   }
 
   @Nonnull
@@ -93,32 +92,34 @@ public final class PDTFormatPatterns
   @Nonnull
   public static String getShortPatternTime (@Nonnull final Locale aDisplayLocale)
   {
-    return _getPatternTime (DateFormat.SHORT, aDisplayLocale);
+    return getPatternTime (FormatStyle.SHORT, aDisplayLocale);
   }
 
   @Nonnull
   public static String getMediumPatternTime (@Nonnull final Locale aDisplayLocale)
   {
-    return _getPatternTime (DateFormat.MEDIUM, aDisplayLocale);
+    return getPatternTime (FormatStyle.MEDIUM, aDisplayLocale);
   }
 
   @Nonnull
   public static String getLongPatternTime (@Nonnull final Locale aDisplayLocale)
   {
-    return _getPatternTime (DateFormat.LONG, aDisplayLocale);
+    return getPatternTime (FormatStyle.LONG, aDisplayLocale);
   }
 
   @Nonnull
   public static String getFullPatternTime (@Nonnull final Locale aDisplayLocale)
   {
-    return _getPatternTime (DateFormat.FULL, aDisplayLocale);
+    return getPatternTime (FormatStyle.FULL, aDisplayLocale);
   }
 
   @Nonnull
-  private static String _getPatternDateTime (final int nStyle, @Nonnull final Locale aDisplayLocale)
+  public static String getPatternDateTime (@Nonnull final FormatStyle eStyle, @Nonnull final Locale aDisplayLocale)
   {
-    // Not nice but it works
-    return ((SimpleDateFormat) DateFormat.getDateTimeInstance (nStyle, nStyle, aDisplayLocale)).toPattern ();
+    return DateTimeFormatterBuilder.getLocalizedDateTimePattern (eStyle,
+                                                                 eStyle,
+                                                                 IsoChronology.INSTANCE,
+                                                                 aDisplayLocale);
   }
 
   @Nonnull
@@ -130,24 +131,24 @@ public final class PDTFormatPatterns
   @Nonnull
   public static String getShortPatternDateTime (@Nonnull final Locale aDisplayLocale)
   {
-    return _getPatternDateTime (DateFormat.SHORT, aDisplayLocale);
+    return getPatternDateTime (FormatStyle.SHORT, aDisplayLocale);
   }
 
   @Nonnull
   public static String getMediumPatternDateTime (@Nonnull final Locale aDisplayLocale)
   {
-    return _getPatternDateTime (DateFormat.MEDIUM, aDisplayLocale);
+    return getPatternDateTime (FormatStyle.MEDIUM, aDisplayLocale);
   }
 
   @Nonnull
   public static String getLongPatternDateTime (@Nonnull final Locale aDisplayLocale)
   {
-    return _getPatternDateTime (DateFormat.LONG, aDisplayLocale);
+    return getPatternDateTime (FormatStyle.LONG, aDisplayLocale);
   }
 
   @Nonnull
   public static String getFullPatternDateTime (@Nonnull final Locale aDisplayLocale)
   {
-    return _getPatternDateTime (DateFormat.FULL, aDisplayLocale);
+    return getPatternDateTime (FormatStyle.FULL, aDisplayLocale);
   }
 }

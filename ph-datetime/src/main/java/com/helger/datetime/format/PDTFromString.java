@@ -36,6 +36,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.string.StringHelper;
+import com.helger.datetime.format.PDTFormatter.EFormatterMode;
 
 /**
  * Handles the conversion to date, time or date time objects from a
@@ -97,7 +98,10 @@ public final class PDTFromString
   @Nullable
   public static LocalDate getLocalDateFromString (@Nullable final String sValue, @Nullable final Locale aParseLocale)
   {
-    return getLocalDateFromString (sValue, PDTFormatter.getDefaultFormatterDate (aParseLocale));
+    return getLocalDateFromString (sValue,
+                                   PDTFormatter.getFormatterDate (PDTFormatter.DEFAULT_STYLE,
+                                                                  aParseLocale,
+                                                                  EFormatterMode.PARSE));
   }
 
   @Nullable
@@ -127,7 +131,10 @@ public final class PDTFromString
   public static LocalDateTime getLocalDateTimeFromString (@Nullable final String sValue,
                                                           @Nullable final Locale aParseLocale)
   {
-    return getLocalDateTimeFromString (sValue, PDTFormatter.getDefaultFormatterDateTime (aParseLocale));
+    return getLocalDateTimeFromString (sValue,
+                                       PDTFormatter.getFormatterDateTime (PDTFormatter.DEFAULT_STYLE,
+                                                                          aParseLocale,
+                                                                          EFormatterMode.PARSE));
   }
 
   @Nullable
@@ -157,7 +164,10 @@ public final class PDTFromString
   @Nullable
   public static LocalTime getLocalTimeFromString (@Nullable final String sValue, @Nullable final Locale aParseLocale)
   {
-    return getLocalTimeFromString (sValue, PDTFormatter.getDefaultFormatterTime (aParseLocale));
+    return getLocalTimeFromString (sValue,
+                                   PDTFormatter.getFormatterTime (PDTFormatter.DEFAULT_STYLE,
+                                                                  aParseLocale,
+                                                                  EFormatterMode.PARSE));
   }
 
   @Nullable

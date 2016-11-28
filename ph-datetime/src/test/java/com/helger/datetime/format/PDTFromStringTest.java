@@ -33,6 +33,7 @@ import java.util.Locale;
 import org.junit.Test;
 
 import com.helger.commons.datetime.PDTFactory;
+import com.helger.datetime.format.PDTFormatter.EFormatterMode;
 
 /**
  * Test class for class {@link PDTFromString}.
@@ -101,7 +102,9 @@ public final class PDTFromStringTest
                   PDTFromString.getLocalDateFromString ("20.01.2038", Locale.GERMANY));
     assertEquals (LocalDate.of (2038, Month.JANUARY, 20),
                   PDTFromString.getLocalDateFromString ("20.01.2038",
-                                                        PDTFormatter.getDefaultFormatterDate (Locale.GERMANY)));
+                                                        PDTFormatter.getFormatterDate (PDTFormatter.DEFAULT_STYLE,
+                                                                                       Locale.GERMANY,
+                                                                                       EFormatterMode.PARSE)));
     assertEquals (LocalDate.of (2938, Month.JANUARY, 20),
                   PDTFromString.getLocalDateFromString ("20.01.2938", Locale.GERMANY));
 

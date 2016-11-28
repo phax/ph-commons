@@ -29,6 +29,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.datetime.format.PDTFormatter.EFormatterMode;
 
 /**
  * Standard API to convert a date, time or date time to a {@link String}.
@@ -47,31 +48,49 @@ public final class PDTToString
   @Nullable
   public static String getAsString (@Nullable final LocalDate aDate, @Nonnull final Locale aDisplayLocale)
   {
-    return aDate == null ? null : PDTFormatter.getDefaultFormatterDate (aDisplayLocale).format (aDate);
+    return aDate == null ? null : PDTFormatter.getFormatterDate (PDTFormatter.DEFAULT_STYLE,
+                                                                 aDisplayLocale,
+                                                                 EFormatterMode.PRINT)
+                                              .format (aDate);
   }
 
   @Nullable
   public static String getAsString (@Nullable final LocalTime aTime, @Nonnull final Locale aDisplayLocale)
   {
-    return aTime == null ? null : PDTFormatter.getDefaultFormatterTime (aDisplayLocale).format (aTime);
+    return aTime == null ? null : PDTFormatter.getFormatterTime (PDTFormatter.DEFAULT_STYLE,
+                                                                 aDisplayLocale,
+                                                                 EFormatterMode.PRINT)
+                                              .format (aTime);
   }
 
   @Nullable
   public static String getAsString (@Nullable final LocalDateTime aDateTime, @Nonnull final Locale aDisplayLocale)
   {
-    return aDateTime == null ? null : PDTFormatter.getDefaultFormatterDateTime (aDisplayLocale).format (aDateTime);
+    return aDateTime == null ? null
+                             : PDTFormatter.getFormatterDateTime (PDTFormatter.DEFAULT_STYLE,
+                                                                  aDisplayLocale,
+                                                                  EFormatterMode.PRINT)
+                                           .format (aDateTime);
   }
 
   @Nullable
   public static String getAsString (@Nullable final ZonedDateTime aDateTime, @Nonnull final Locale aDisplayLocale)
   {
-    return aDateTime == null ? null : PDTFormatter.getDefaultFormatterDateTime (aDisplayLocale).format (aDateTime);
+    return aDateTime == null ? null
+                             : PDTFormatter.getFormatterDateTime (PDTFormatter.DEFAULT_STYLE,
+                                                                  aDisplayLocale,
+                                                                  EFormatterMode.PRINT)
+                                           .format (aDateTime);
   }
 
   @Nullable
   public static String getAsString (@Nullable final OffsetDateTime aDateTime, @Nonnull final Locale aDisplayLocale)
   {
-    return aDateTime == null ? null : PDTFormatter.getDefaultFormatterDateTime (aDisplayLocale).format (aDateTime);
+    return aDateTime == null ? null
+                             : PDTFormatter.getFormatterDateTime (PDTFormatter.DEFAULT_STYLE,
+                                                                  aDisplayLocale,
+                                                                  EFormatterMode.PRINT)
+                                           .format (aDateTime);
   }
 
   @Nullable
