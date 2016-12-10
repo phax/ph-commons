@@ -112,7 +112,7 @@ public final class Kruskal
     {
       s_aLogger.info ("Starting Kruskal on " + aSortedRelations.size () + " relations");
       s_aLogger.info ("Sorted relations: " +
-                      StringHelper.getImploded (';', aSortedRelations, x -> _getWeightInfo (x, sRelationCostAttr)));
+                      StringHelper.getImplodedMapped (';', aSortedRelations, x -> _getWeightInfo (x, sRelationCostAttr)));
     }
 
     final SimpleGraph ret = new SimpleGraph (new SimpleGraphObjectFastFactory ());

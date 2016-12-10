@@ -2,7 +2,10 @@
 
 Java 1.8+ Library with tons of utility classes required in most of ph-* projects.
 
-Version 6.0.0 contains major changes and more or less all other projects were released to reflect the changes of 6.x. Version 8 was re-designed to best work with JDK 8. So please ensure to not mix 5.x, 6.x and 8x. versions of ph-commons!
+Version 6.x contains major changes and more or less all other projects were released to reflect the changes of 6.x.
+Version 7 does not exist.
+Version 8.x was re-designed to best work with JDK 8.
+So please ensure to not mix 5.x, 6.x and 8x. versions of ph-commons!
 
 This project was the following modules:
   * ph-charset - support for additional charsets (e.g. UTF-7)
@@ -19,8 +22,11 @@ This project was the following modules:
   * ph-xml - everything to read and write XML, including "MicroDOM" my personal minimum XML representation shipping with its own serializer.
 
 
-##News
+##News and noteworthy
 
+  * 8.5.6 - 2016-12-10
+    * Extended APIs
+    * Fixed a nasty bug with date/time formatting due to pattern modifications (introduced in 8.5.5)
   * 8.5.5 - 2016-11-25
     * Extended APIs
   * 8.5.4 - 2016-11-08
@@ -64,7 +70,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-commons</artifactId>
-  <version>8.5.5</version>
+  <version>8.5.6</version>
 </dependency>
 ```
 
@@ -213,7 +219,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-xml</artifactId>
-  <version>8.5.5</version>
+  <version>8.5.6</version>
 </dependency>
 ```
 
@@ -231,7 +237,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-jaxb</artifactId>
-  <version>8.5.5</version>
+  <version>8.5.6</version>
 </dependency>
 ```
 
@@ -254,7 +260,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-tree</artifactId>
-  <version>8.5.5</version>
+  <version>8.5.6</version>
 </dependency>
 ```
 
@@ -272,7 +278,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-less-commons</artifactId>
-  <version>8.5.5</version>
+  <version>8.5.6</version>
 </dependency>
 ```
 
@@ -285,7 +291,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-json</artifactId>
-  <version>8.5.5</version>
+  <version>8.5.6</version>
 </dependency>
 ```
 
@@ -298,7 +304,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-settings</artifactId>
-  <version>8.5.5</version>
+  <version>8.5.6</version>
 </dependency>
 ```
 
@@ -311,7 +317,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-datetime</artifactId>
-  <version>8.5.5</version>
+  <version>8.5.6</version>
 </dependency>
 ```
 
@@ -324,7 +330,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-graph</artifactId>
-  <version>8.5.5</version>
+  <version>8.5.6</version>
 </dependency>
 ```
 
@@ -337,7 +343,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-matrix</artifactId>
-  <version>8.5.5</version>
+  <version>8.5.6</version>
 </dependency>
 ```
 
@@ -350,7 +356,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-charset</artifactId>
-  <version>8.5.5</version>
+  <version>8.5.6</version>
 </dependency>
 ```
 
