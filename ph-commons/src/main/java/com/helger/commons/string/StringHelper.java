@@ -1254,7 +1254,7 @@ public final class StringHelper
    * @return The concatenated string.
    * @param <ELEMENTTYPE>
    *        The type of elements to be imploded.
-   * @deprecated Use {@link #getImplodedMapped(ELEMENTTYPE[],Function)} instead
+   * @deprecated Use {@link #getImplodedMapped(Object[],Function)} instead
    */
   @Deprecated
   @Nonnull
@@ -1305,7 +1305,7 @@ public final class StringHelper
    * @return The concatenated string.
    * @param <ELEMENTTYPE>
    *        The type of elements to be imploded.
-   * @deprecated Use {@link #getImplodedMapped(ELEMENTTYPE[],int,int,Function)}
+   * @deprecated Use {@link #getImplodedMapped(Object[],int,int,Function)}
    *             instead
    */
   @Deprecated
@@ -1430,7 +1430,7 @@ public final class StringHelper
    * @return The concatenated string.
    * @param <ELEMENTTYPE>
    *        The type of elements to be imploded.
-   * @deprecated Use {@link #getImplodedMapped(String,ELEMENTTYPE[],Function)}
+   * @deprecated Use {@link #getImplodedMapped(String,Object[],Function)}
    *             instead
    */
   @Deprecated
@@ -1485,8 +1485,7 @@ public final class StringHelper
    * @return The concatenated string.
    * @param <ELEMENTTYPE>
    *        The type of elements to be imploded.
-   * @deprecated Use {@link #getImplodedMapped(char,ELEMENTTYPE[],Function)}
-   *             instead
+   * @deprecated Use {@link #getImplodedMapped(char,Object[],Function)} instead
    */
   @Deprecated
   @Nonnull
@@ -1570,7 +1569,7 @@ public final class StringHelper
    * @param <ELEMENTTYPE>
    *        The type of elements to be imploded.
    * @deprecated Use
-   *             {@link #getImplodedMapped(String,ELEMENTTYPE[],int,int,Function)}
+   *             {@link #getImplodedMapped(String,Object[],int,int,Function)}
    *             instead
    */
   @Deprecated
@@ -1985,7 +1984,7 @@ public final class StringHelper
    * @param <ELEMENTTYPE>
    *        Array component type
    * @deprecated Use
-   *             {@link #getImplodedMappedNonEmpty(String,ELEMENTTYPE[],Function)}
+   *             {@link #getImplodedMappedNonEmpty(String,Object[],Function)}
    *             instead
    */
   @Deprecated
@@ -2044,8 +2043,7 @@ public final class StringHelper
    * @return The concatenated string.
    * @param <ELEMENTTYPE>
    *        Array component type
-   * @deprecated Use
-   *             {@link #getImplodedMappedNonEmpty(char,ELEMENTTYPE[],Function)}
+   * @deprecated Use {@link #getImplodedMappedNonEmpty(char,Object[],Function)}
    *             instead
    */
   @Deprecated
@@ -2154,7 +2152,7 @@ public final class StringHelper
    * @param <ELEMENTTYPE>
    *        Array component type
    * @deprecated Use
-   *             {@link #getImplodedMappedNonEmpty(String,ELEMENTTYPE[],int,int,Function)}
+   *             {@link #getImplodedMappedNonEmpty(String,Object[],int,int,Function)}
    *             instead
    */
   @Deprecated
@@ -2241,7 +2239,7 @@ public final class StringHelper
    * @param <ELEMENTTYPE>
    *        Array component type
    * @deprecated Use
-   *             {@link #getImplodedMappedNonEmpty(char,ELEMENTTYPE[],int,int,Function)}
+   *             {@link #getImplodedMappedNonEmpty(char,Object[],int,int,Function)}
    *             instead
    */
   @Deprecated
