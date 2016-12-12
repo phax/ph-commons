@@ -24,6 +24,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.state.EChange;
+import com.helger.commons.string.ToStringGenerator;
 
 /**
  * A FIFO (first in first out) ring buffer.
@@ -156,5 +157,16 @@ public class RingBufferFifo <ELEMENTTYPE>
     final Object ret = m_aElements[nIndex];
     m_nAvailable--;
     return GenericReflection.uncheckedCast (ret);
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).append ("Capacity", m_nCapacity)
+                                       .append ("Elements", m_aElements)
+                                       .append ("AllowOverwrite", m_bAllowOverwrite)
+                                       .append ("WritePos", m_nWritePos)
+                                       .append ("Available", m_nAvailable)
+                                       .toString ();
   }
 }
