@@ -16,6 +16,7 @@
  */
 package com.helger.commons.serialize.convert;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -23,6 +24,7 @@ import java.nio.charset.Charset;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
+import javax.imageio.ImageIO;
 
 import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.charset.CharsetManager;
@@ -37,6 +39,21 @@ import com.helger.commons.charset.CharsetManager;
 @IsSPIImplementation
 public final class BasicSerializationConverterRegistrar implements ISerializationConverterRegistrarSPI
 {
+
+  private static final class SerializationConverterBufferedImage implements ISerializationConverter <BufferedImage>
+  {
+    public void writeConvertedObject (@Nonnull final BufferedImage aSourceObject,
+                                      @Nonnull final ObjectOutputStream aOOS) throws IOException
+    {
+      ImageIO.write (aSourceObject, "png", aOOS);
+    }
+
+    public BufferedImage readConvertedObject (@Nonnull final ObjectInputStream aOIS) throws IOException
+    {
+      return ImageIO.read (aOIS);
+    }
+  }
+
   private static final class SerializationConverterCharset implements ISerializationConverter <Charset>
   {
     public void writeConvertedObject (@Nonnull final Charset aSourceObject,
@@ -54,6 +71,7 @@ public final class BasicSerializationConverterRegistrar implements ISerializatio
 
   public void registerSerializationConverter (@Nonnull final ISerializationConverterRegistry aRegistry)
   {
+    aRegistry.registerSerializationConverter (BufferedImage.class, new SerializationConverterBufferedImage ());
     aRegistry.registerSerializationConverter (Charset.class, new SerializationConverterCharset ());
   }
 }
