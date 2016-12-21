@@ -16,6 +16,7 @@
  */
 package com.helger.commons.collection.map;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.function.IntFunction;
 
@@ -39,7 +40,7 @@ import com.helger.commons.lang.GenericReflection;
  *        Element type
  */
 @NotThreadSafe
-public class IntObjectMap <T>
+public class IntObjectMap <T> implements Serializable
 {
   private static final int FREE_KEY = 0;
 
