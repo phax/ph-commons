@@ -75,6 +75,7 @@ public class WSClientConfig
   private HostnameVerifier m_aHostnameVerifier;
   private int m_nConnectionTimeoutMS = DEFAULT_CONNECTION_TIMEOUT_MS;
   private int m_nRequestTimeoutMS = DEFAULT_REQUEST_TIMEOUT_MS;
+  private int m_nChunkSize = 0;
   private String m_sUserName;
   private String m_sPassword;
   private String m_sSOAPAction;
@@ -237,6 +238,31 @@ public class WSClientConfig
   public WSClientConfig setRequestTimeoutMS (final int nRequestTimeoutMS)
   {
     m_nRequestTimeoutMS = nRequestTimeoutMS;
+    return this;
+  }
+
+  /**
+   * @return The chunk size in bytes. Default is 0. Only values &gt; 0 are
+   *         considered.
+   * @since 8.5.7
+   */
+  public int getChunkSize ()
+  {
+    return m_nChunkSize;
+  }
+
+  /**
+   * Set the chunk size to enable HTTP chunked encoding.
+   *
+   * @param nChunkSize
+   *        Number of bytes. Only values &ge; 0 are considered.
+   * @return this for chaining
+   * @since 8.5.7
+   */
+  @Nonnull
+  public WSClientConfig setChunkSize (final int nChunkSize)
+  {
+    m_nChunkSize = nChunkSize;
     return this;
   }
 
@@ -653,6 +679,12 @@ public class WSClientConfig
     {
       aRequestContext.put ("com.sun.xml.ws.request.timeout", Integer.valueOf (m_nRequestTimeoutMS));
       aRequestContext.put ("com.sun.xml.internal.ws.request.timeout", Integer.valueOf (m_nRequestTimeoutMS));
+    }
+    if (m_nChunkSize >= 0)
+    {
+      aRequestContext.put ("com.sun.xml.ws.transport.http.client.streaming.chunk.size", Integer.valueOf (m_nChunkSize));
+      aRequestContext.put ("com.sun.xml.internal.ws.transport.http.client.streaming.chunk.size",
+                           Integer.valueOf (m_nChunkSize));
     }
     if (StringHelper.hasText (m_sUserName))
     {
