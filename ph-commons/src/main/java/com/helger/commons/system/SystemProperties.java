@@ -147,6 +147,36 @@ public final class SystemProperties
    *
    * @param sKey
    *        The key of the system property. May not be <code>null</code>.
+   * @param nValue
+   *        The value of the system property.
+   * @since 8.5.7
+   */
+  public static void setPropertyValue (@Nonnull final String sKey, final int nValue)
+  {
+    setPropertyValue (sKey, Integer.toString (nValue));
+  }
+
+  /**
+   * Set a system property value under consideration of an eventually present
+   * {@link SecurityManager}.
+   *
+   * @param sKey
+   *        The key of the system property. May not be <code>null</code>.
+   * @param nValue
+   *        The value of the system property.
+   * @since 8.5.7
+   */
+  public static void setPropertyValue (@Nonnull final String sKey, final long nValue)
+  {
+    setPropertyValue (sKey, Long.toString (nValue));
+  }
+
+  /**
+   * Set a system property value under consideration of an eventually present
+   * {@link SecurityManager}.
+   *
+   * @param sKey
+   *        The key of the system property. May not be <code>null</code>.
    * @param sValue
    *        The value of the system property. If the value is <code>null</code>
    *        the property is removed.
