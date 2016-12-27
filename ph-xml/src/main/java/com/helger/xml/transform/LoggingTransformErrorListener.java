@@ -19,9 +19,7 @@ package com.helger.xml.transform;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
-import javax.xml.transform.ErrorListener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,14 +45,6 @@ public class LoggingTransformErrorListener extends AbstractTransformErrorListene
 
   public LoggingTransformErrorListener (@Nonnull final Locale aDisplayLocale)
   {
-    m_aDisplayLocale = ValueEnforcer.notNull (aDisplayLocale, "DisplayLocale");
-  }
-
-  @Deprecated
-  public LoggingTransformErrorListener (@Nullable final ErrorListener aWrappedErrorListener,
-                                        @Nonnull final Locale aDisplayLocale)
-  {
-    super (aWrappedErrorListener);
     m_aDisplayLocale = ValueEnforcer.notNull (aDisplayLocale, "DisplayLocale");
   }
 

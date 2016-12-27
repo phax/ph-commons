@@ -683,21 +683,6 @@ public final class PDTXMLConverter
    * @param aCal
    *        The source {@link XMLGregorianCalendar}. May be <code>null</code>.
    * @return <code>null</code> if the parameter is <code>null</code>.
-   * @deprecated Use {@link #getZonedDateTime(XMLGregorianCalendar)} instead
-   */
-  @Deprecated
-  @Nullable
-  public static ZonedDateTime getDateTime (@Nullable final XMLGregorianCalendar aCal)
-  {
-    return getZonedDateTime (aCal);
-  }
-
-  /**
-   * Get the passed {@link XMLGregorianCalendar} as {@link ZonedDateTime}.
-   *
-   * @param aCal
-   *        The source {@link XMLGregorianCalendar}. May be <code>null</code>.
-   * @return <code>null</code> if the parameter is <code>null</code>.
    */
   @Nullable
   public static ZonedDateTime getZonedDateTime (@Nullable final XMLGregorianCalendar aCal)

@@ -177,16 +177,6 @@ public interface IHasErrorLevels <IMPLTYPE extends IHasErrorLevel> extends IComm
    * @return <code>true</code> if at least 1 item of level warning or at least 1
    *         item of level error is contained.
    */
-  @Deprecated
-  default boolean hasErrorsOrWarnings ()
-  {
-    return containsAtLeastOneWarningOrError ();
-  }
-
-  /**
-   * @return <code>true</code> if at least 1 item of level warning or at least 1
-   *         item of level error is contained.
-   */
   default boolean containsAtLeastOneWarningOrError ()
   {
     return containsAny (x -> x.getErrorLevel ().isMoreOrEqualSevereThan (EErrorLevel.WARN));

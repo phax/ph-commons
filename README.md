@@ -24,41 +24,43 @@ This project was the following modules:
 
 ##News and noteworthy
 
-  * 8.5.6 - 2016-12-10
+  * v8.6.0
+    * Removed deprecated methods
+  * v8.5.6 - 2016-12-10
     * Extended APIs
     * Fixed a nasty bug with date/time formatting due to pattern modifications (introduced in 8.5.5)
-  * 8.5.5 - 2016-11-25
+  * v8.5.5 - 2016-11-25
     * Extended APIs
-  * 8.5.4 - 2016-11-08
+  * v8.5.4 - 2016-11-08
     * Fixed a nasty NPE
-  * 8.5.3 - 2016-11-08
+  * v8.5.3 - 2016-11-08
     * Added support for `EntityResolver2` in MicroXML parsing
     * Extended some APIs
-  * 8.5.2 - 2016-09-25
+  * v8.5.2 - 2016-09-25
     * Fixed an error with JAXB context creation if @XMLRootElement was used
     * Improved consistency of IHasText(WithArgs) and IHasDisplayText(WithArgs) so that they can be used interchangeably
     * Extended collection API slightly
-  * 8.5.1 - 2016-09-12
+  * v8.5.1 - 2016-09-12
     * Fixed error text retrieval in Single Error; further API extensions and improvements
-  * 8.5.0 - 2016-09-09
+  * v8.5.0 - 2016-09-09
     * Reworked the error objects so that there is now a single error handling object. The old objects are retained for backwards compatibility.
-  * 8.4.0 - 2016-08-21
+  * v8.4.0 - 2016-08-21
     * Started adding JDK 9 compatibility
     * Added new interface `IWriteToStream`
     * Added support for new Message digest and Mac algorithms
     * Added new functional interfaces (IThrowingSupplier, IThrowingConsumer and IThrowingFunction) with customizable Exception type
     * Deprecated some legacy interfaces and adapters that may lead to a compiler error (!) 
-  * 8.3.0 - 2016-08-02
+  * v8.3.0 - 2016-08-02
     * Moved the following sub-projects into this project: ph-datetime, ph-json, ph-charset, ph-graph, ph-matrix and ph-settings
-  * 8.2.2 - 2016-07-22
-  * 8.2.1 - 2016-07-15
-  * 8.2.0 - 2016-07-10
+  * v8.2.2 - 2016-07-22
+  * v8.2.1 - 2016-07-15
+  * v8.2.0 - 2016-07-10
     * Added new sub-project `ph-security` that contains MessageDigest, HMac, Keystore etc. stuff
-  * 8.1.0 - 2016-06-26: 
+  * v8.1.0 - 2016-06-26: 
     * Minor small API optimizations for JAXB.
     * `ValueEnforcer` supports Supplier` functional interface.
     * GZIP based readable and writable resources added.
-  * 8.0.0 - 2016-06-08: 
+  * v8.0.0 - 2016-06-08: 
     * It splits the old big ph-commons library into slightly smaller pieces: `ph-commons`, `ph-xml`, `ph-jaxb`, `ph-tree` and `ph-less-commons`.
     * The first version that requires JDK 8
     * Multiple API changes to better support functional style

@@ -17,9 +17,7 @@
 package com.helger.xml.sax;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
@@ -38,37 +36,11 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public abstract class AbstractSAXErrorHandler implements ISAXErrorHandler
 {
-  private final ErrorHandler m_aWrappedErrorHandler;
-
   /**
    * Constructor without parent error handler.
    */
   protected AbstractSAXErrorHandler ()
-  {
-    m_aWrappedErrorHandler = null;
-  }
-
-  /**
-   * Constructor that takes a parent error handler to be called.
-   *
-   * @param aWrappedErrorHandler
-   *        The parent error handler. May be <code>null</code>.
-   */
-  @Deprecated
-  public AbstractSAXErrorHandler (@Nullable final ErrorHandler aWrappedErrorHandler)
-  {
-    m_aWrappedErrorHandler = aWrappedErrorHandler;
-  }
-
-  /**
-   * @return The wrapped error handler. May be <code>null</code>.
-   */
-  @Nullable
-  @Deprecated
-  public ErrorHandler getWrappedErrorHandler ()
-  {
-    return m_aWrappedErrorHandler;
-  }
+  {}
 
   /**
    * Utility method to convert a {@link SAXParseException} into an
@@ -98,36 +70,21 @@ public abstract class AbstractSAXErrorHandler implements ISAXErrorHandler
   public final void warning (final SAXParseException ex) throws SAXException
   {
     internalLog (EErrorLevel.WARN, ex);
-
-    // Call parent error handler if available
-    final ErrorHandler aWrappedErrorHandler = getWrappedErrorHandler ();
-    if (aWrappedErrorHandler != null)
-      aWrappedErrorHandler.warning (ex);
   }
 
   public final void error (final SAXParseException ex) throws SAXException
   {
     internalLog (EErrorLevel.ERROR, ex);
-
-    // Call parent error handler if available
-    final ErrorHandler aWrappedErrorHandler = getWrappedErrorHandler ();
-    if (aWrappedErrorHandler != null)
-      aWrappedErrorHandler.error (ex);
   }
 
   public final void fatalError (final SAXParseException ex) throws SAXException
   {
     internalLog (EErrorLevel.FATAL_ERROR, ex);
-
-    // Call parent error handler if available
-    final ErrorHandler aWrappedErrorHandler = getWrappedErrorHandler ();
-    if (aWrappedErrorHandler != null)
-      aWrappedErrorHandler.fatalError (ex);
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).appendIfNotNull ("wrappedErrorHandler", m_aWrappedErrorHandler).toString ();
+    return new ToStringGenerator (this).toString ();
   }
 }

@@ -17,9 +17,7 @@
 package com.helger.xml.transform;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
-import javax.xml.transform.ErrorListener;
 
 import com.helger.commons.error.IError;
 
@@ -32,15 +30,7 @@ import com.helger.commons.error.IError;
 public class DoNothingTransformErrorListener extends AbstractTransformErrorListener
 {
   public DoNothingTransformErrorListener ()
-  {
-    this (null);
-  }
-
-  @Deprecated
-  public DoNothingTransformErrorListener (@Nullable final ErrorListener aWrappedErrorListener)
-  {
-    super (aWrappedErrorListener);
-  }
+  {}
 
   @Override
   protected void internalLog (@Nonnull final IError aResError)

@@ -166,7 +166,6 @@ public final class PDTFormatter
   /** By default the medium style is used */
   public static final FormatStyle DEFAULT_STYLE = FormatStyle.MEDIUM;
   private static final LocalizedDateFormatCache s_aParserCache = new LocalizedDateFormatCache ();
-  private static final EFormatterMode DEFAULT_PARSING = EFormatterMode.PRINT;
 
   @PresentForCodeCoverage
   private static final PDTFormatter s_aInstance = new PDTFormatter ();
@@ -205,13 +204,6 @@ public final class PDTFormatter
         return DateFormat.SHORT;
     }
     throw new IllegalArgumentException ("Unsupported style passed: " + eStyle);
-  }
-
-  @Nonnull
-  @Deprecated
-  public static String getPattern (@Nonnull final EDTType eDTType, @Nullable final Locale aLocale, final int nStyle)
-  {
-    return getPattern (eDTType, aLocale, toFormatStyle (nStyle), DEFAULT_PARSING);
   }
 
   @Nonnull
@@ -271,79 +263,6 @@ public final class PDTFormatter
   }
 
   /**
-   * Get the default date formatter for the passed locale. This used medium
-   * style.
-   *
-   * @param aDisplayLocale
-   *        The display locale to be used. May be <code>null</code>.
-   * @return The created date formatter. Never <code>null</code>.
-   */
-  @Nonnull
-  @Deprecated
-  public static DateTimeFormatter getDefaultFormatterDate (@Nullable final Locale aDisplayLocale)
-  {
-    return getFormatterDate (DEFAULT_STYLE, aDisplayLocale, DEFAULT_PARSING);
-  }
-
-  /**
-   * Get the short date formatter for the passed locale.
-   *
-   * @param aDisplayLocale
-   *        The display locale to be used. May be <code>null</code>.
-   * @return The created date formatter. Never <code>null</code>.
-   * @deprecated
-   */
-  @Deprecated
-  @Nonnull
-  public static DateTimeFormatter getShortFormatterDate (@Nullable final Locale aDisplayLocale)
-  {
-    return getFormatterDate (FormatStyle.SHORT, aDisplayLocale, DEFAULT_PARSING);
-  }
-
-  /**
-   * Get the medium date formatter for the passed locale.
-   *
-   * @param aDisplayLocale
-   *        The display locale to be used. May be <code>null</code>.
-   * @return The created date formatter. Never <code>null</code>.
-   * @deprecated
-   */
-  @Deprecated
-  @Nonnull
-  public static DateTimeFormatter getMediumFormatterDate (@Nullable final Locale aDisplayLocale)
-  {
-    return getFormatterDate (FormatStyle.MEDIUM, aDisplayLocale, DEFAULT_PARSING);
-  }
-
-  /**
-   * Get the long date formatter for the passed locale.
-   *
-   * @param aDisplayLocale
-   *        The display locale to be used. May be <code>null</code>.
-   * @return The created date formatter. Never <code>null</code>.
-   */
-  @Nonnull
-  @Deprecated
-  public static DateTimeFormatter getLongFormatterDate (@Nullable final Locale aDisplayLocale)
-  {
-    return getFormatterDate (FormatStyle.LONG, aDisplayLocale, DEFAULT_PARSING);
-  }
-
-  /**
-   * Get the full date formatter for the passed locale.
-   *
-   * @param aDisplayLocale
-   *        The display locale to be used. May be <code>null</code>.
-   * @return The created date formatter. Never <code>null</code>.
-   */
-  @Nonnull
-  @Deprecated
-  public static DateTimeFormatter getFullFormatterDate (@Nullable final Locale aDisplayLocale)
-  {
-    return getFormatterDate (FormatStyle.FULL, aDisplayLocale, DEFAULT_PARSING);
-  }
-
-  /**
    * Get the time formatter for the passed locale.
    *
    * @param eStyle
@@ -364,77 +283,6 @@ public final class PDTFormatter
   }
 
   /**
-   * Get the default time formatter for the passed locale. This used medium
-   * style.
-   *
-   * @param aDisplayLocale
-   *        The display locale to be used. May be <code>null</code>.
-   * @return The created time formatter. Never <code>null</code>.
-   */
-  @Nonnull
-  @Deprecated
-  public static DateTimeFormatter getDefaultFormatterTime (@Nullable final Locale aDisplayLocale)
-  {
-    return getFormatterTime (DEFAULT_STYLE, aDisplayLocale, DEFAULT_PARSING);
-  }
-
-  /**
-   * Get the short time formatter for the passed locale.
-   *
-   * @param aDisplayLocale
-   *        The display locale to be used. May be <code>null</code>.
-   * @return The created time formatter. Never <code>null</code>.
-   */
-  @Nonnull
-  @Deprecated
-  public static DateTimeFormatter getShortFormatterTime (@Nullable final Locale aDisplayLocale)
-  {
-    return getFormatterTime (FormatStyle.SHORT, aDisplayLocale, DEFAULT_PARSING);
-  }
-
-  /**
-   * Get the medium time formatter for the passed locale.
-   *
-   * @param aDisplayLocale
-   *        The display locale to be used. May be <code>null</code>.
-   * @return The created time formatter. Never <code>null</code>.
-   */
-  @Nonnull
-  @Deprecated
-  public static DateTimeFormatter getMediumFormatterTime (@Nullable final Locale aDisplayLocale)
-  {
-    return getFormatterTime (FormatStyle.MEDIUM, aDisplayLocale, DEFAULT_PARSING);
-  }
-
-  /**
-   * Get the long time formatter for the passed locale.
-   *
-   * @param aDisplayLocale
-   *        The display locale to be used. May be <code>null</code>.
-   * @return The created time formatter. Never <code>null</code>.
-   */
-  @Nonnull
-  @Deprecated
-  public static DateTimeFormatter getLongFormatterTime (@Nullable final Locale aDisplayLocale)
-  {
-    return getFormatterTime (FormatStyle.LONG, aDisplayLocale, DEFAULT_PARSING);
-  }
-
-  /**
-   * Get the full time formatter for the passed locale.
-   *
-   * @param aDisplayLocale
-   *        The display locale to be used. May be <code>null</code>.
-   * @return The created time formatter. Never <code>null</code>.
-   */
-  @Nonnull
-  @Deprecated
-  public static DateTimeFormatter getFullFormatterTime (@Nullable final Locale aDisplayLocale)
-  {
-    return getFormatterTime (FormatStyle.FULL, aDisplayLocale, DEFAULT_PARSING);
-  }
-
-  /**
    * Get the date time formatter for the passed locale.
    *
    * @param eStyle
@@ -452,77 +300,6 @@ public final class PDTFormatter
                                                         @Nonnull final EFormatterMode eMode)
   {
     return _getFormatter (new CacheKey (EDTType.LOCAL_DATE_TIME, aDisplayLocale, eStyle, eMode), aDisplayLocale);
-  }
-
-  /**
-   * Get the default date time formatter for the passed locale. The default
-   * style is medium.
-   *
-   * @param aDisplayLocale
-   *        The display locale to be used. May be <code>null</code>.
-   * @return The created date time formatter. Never <code>null</code>.
-   */
-  @Nonnull
-  @Deprecated
-  public static DateTimeFormatter getDefaultFormatterDateTime (@Nullable final Locale aDisplayLocale)
-  {
-    return getFormatterDateTime (DEFAULT_STYLE, aDisplayLocale, DEFAULT_PARSING);
-  }
-
-  /**
-   * Get the short date time formatter for the passed locale.
-   *
-   * @param aDisplayLocale
-   *        The display locale to be used. May be <code>null</code>.
-   * @return The created date time formatter. Never <code>null</code>.
-   */
-  @Nonnull
-  @Deprecated
-  public static DateTimeFormatter getShortFormatterDateTime (@Nullable final Locale aDisplayLocale)
-  {
-    return getFormatterDateTime (FormatStyle.SHORT, aDisplayLocale, DEFAULT_PARSING);
-  }
-
-  /**
-   * Get the medium date time formatter for the passed locale.
-   *
-   * @param aDisplayLocale
-   *        The display locale to be used. May be <code>null</code>.
-   * @return The created date time formatter. Never <code>null</code>.
-   */
-  @Nonnull
-  @Deprecated
-  public static DateTimeFormatter getMediumFormatterDateTime (@Nullable final Locale aDisplayLocale)
-  {
-    return getFormatterDateTime (FormatStyle.MEDIUM, aDisplayLocale, DEFAULT_PARSING);
-  }
-
-  /**
-   * Get the long date time formatter for the passed locale.
-   *
-   * @param aDisplayLocale
-   *        The display locale to be used. May be <code>null</code>.
-   * @return The created date time formatter. Never <code>null</code>.
-   */
-  @Nonnull
-  @Deprecated
-  public static DateTimeFormatter getLongFormatterDateTime (@Nullable final Locale aDisplayLocale)
-  {
-    return getFormatterDateTime (FormatStyle.LONG, aDisplayLocale, DEFAULT_PARSING);
-  }
-
-  /**
-   * Get the full date time formatter for the passed locale.
-   *
-   * @param aDisplayLocale
-   *        The display locale to be used. May be <code>null</code>.
-   * @return The created date time formatter. Never <code>null</code>.
-   */
-  @Nonnull
-  @Deprecated
-  public static DateTimeFormatter getFullFormatterDateTime (@Nullable final Locale aDisplayLocale)
-  {
-    return getFormatterDateTime (FormatStyle.FULL, aDisplayLocale, DEFAULT_PARSING);
   }
 
   /**

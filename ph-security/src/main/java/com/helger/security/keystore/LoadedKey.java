@@ -65,18 +65,6 @@ public final class LoadedKey <T extends KeyStore.Entry> implements ISuccessIndic
   /**
    * @return The error code. Never <code>null</code> in case of failure. Always
    *         <code>null</code> in case of success.
-   * @deprecated Use {@link #getError()} instead
-   */
-  @Deprecated
-  @Nullable
-  public EKeyStoreLoadError getErrorMessage ()
-  {
-    return getError ();
-  }
-
-  /**
-   * @return The error code. Never <code>null</code> in case of failure. Always
-   *         <code>null</code> in case of success.
    */
   @Nullable
   public EKeyStoreLoadError getError ()

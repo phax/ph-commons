@@ -33,30 +33,10 @@ public interface IHasErrorField
 {
   /**
    * @return The field for which the error occurred. May be <code>null</code>.
-   */
-  @Nullable
-  @Deprecated
-  default String getErrorField ()
-  {
-    return getErrorFieldName ();
-  }
-
-  /**
-   * @return The field for which the error occurred. May be <code>null</code>.
    * @since 8.5.0
    */
   @Nullable
   String getErrorFieldName ();
-
-  /**
-   * @return <code>true</code> if a field name is present, <code>false</code>
-   *         otherwise
-   */
-  @Deprecated
-  default boolean hasErrorField ()
-  {
-    return hasErrorFieldName ();
-  }
 
   /**
    * @return <code>true</code> if a field name is present, <code>false</code>

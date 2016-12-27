@@ -17,12 +17,10 @@
 package com.helger.xml.sax;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXParseException;
 
 import com.helger.commons.CGlobal;
@@ -45,12 +43,6 @@ public class LoggingSAXErrorHandler extends AbstractSAXErrorHandler
 
   public LoggingSAXErrorHandler ()
   {}
-
-  @Deprecated
-  public LoggingSAXErrorHandler (@Nullable final ErrorHandler aWrappedErrorHandler)
-  {
-    super (aWrappedErrorHandler);
-  }
 
   @Nonnull
   @Nonempty

@@ -28,8 +28,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.error.IError;
-import com.helger.commons.error.IResourceErrorGroup;
-import com.helger.commons.error.ResourceErrorGroup;
 import com.helger.commons.error.list.ErrorList;
 import com.helger.commons.error.list.IErrorList;
 import com.helger.commons.state.EChange;
@@ -41,7 +39,6 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-@SuppressWarnings ("deprecation")
 @ThreadSafe
 public class CollectingValidationEventHandler extends AbstractValidationEventHandler
 {
@@ -61,14 +58,6 @@ public class CollectingValidationEventHandler extends AbstractValidationEventHan
   protected void onEvent (@Nonnull final IError aEvent)
   {
     m_aRWLock.writeLocked ( () -> m_aErrors.add (aEvent));
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  @Deprecated
-  public IResourceErrorGroup getResourceErrors ()
-  {
-    return ResourceErrorGroup.createAndConvert (getErrorList ());
   }
 
   @Nonnull

@@ -673,53 +673,6 @@ public final class URLHelper
     return aSB.toString ();
   }
 
-  /**
-   * Create a parameter string. This is also suitable for POST body (e.g. for
-   * web form submission).
-   *
-   * @param aQueryParams
-   *        Parameter map. May be <code>null</code> or empty.
-   * @param aQueryParameterEncoder
-   *        The encoder to be used to encode parameter names and parameter
-   *        values. May be <code>null</code>. This may be e.g. a
-   *        {@link URLParameterEncoder}.
-   * @return <code>null</code> if no parameter is present.
-   */
-  @Nullable
-  @Deprecated
-  public static String getQueryParametersAsString (@Nullable final Map <String, String> aQueryParams,
-                                                   @Nullable final IEncoder <String, String> aQueryParameterEncoder)
-  {
-    if (CollectionHelper.isEmpty (aQueryParams))
-      return null;
-
-    final StringBuilder aSB = new StringBuilder ();
-    // add all values
-    for (final Map.Entry <String, String> aEntry : aQueryParams.entrySet ())
-    {
-      // Separator
-      if (aSB.length () > 0)
-        aSB.append (AMPERSAND);
-
-      // Key
-      final String sKey = aEntry.getKey ();
-      if (aQueryParameterEncoder != null)
-        aSB.append (aQueryParameterEncoder.getEncoded (sKey));
-      else
-        aSB.append (sKey);
-
-      // Value
-      final String sValue = aEntry.getValue ();
-      if (StringHelper.hasText (sValue))
-        if (aQueryParameterEncoder != null)
-          aSB.append (EQUALS).append (aQueryParameterEncoder.getEncoded (sValue));
-        else
-          aSB.append (EQUALS).append (sValue);
-    }
-
-    return aSB.toString ();
-  }
-
   @Nonnull
   public static String getURLString (@Nonnull final IURLData aURL, @Nullable final Charset aParameterCharset)
   {
@@ -1094,24 +1047,6 @@ public final class URLHelper
       }
     }
     return ret;
-  }
-
-  /**
-   * Get the input stream of the passed resource using the specified class
-   * loader only.
-   *
-   * @param sPath
-   *        The path to be resolved. May neither be <code>null</code> nor empty.
-   * @param aClassLoader
-   *        The class loader to be used. May not be <code>null</code>.
-   * @return <code>null</code> if the path could not be resolved using the
-   *         specified class loader.
-   */
-  @Nullable
-  @Deprecated
-  public static URL getClassPathURL (@Nonnull @Nonempty final String sPath, @Nonnull final ClassLoader aClassLoader)
-  {
-    return ClassLoaderHelper.getResource (aClassLoader, sPath);
   }
 
   public static boolean isClassPathURLExisting (@Nonnull @Nonempty final String sPath)

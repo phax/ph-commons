@@ -17,7 +17,6 @@
 package com.helger.xml.transform;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.xml.transform.ErrorListener;
 import javax.xml.transform.SourceLocator;
 import javax.xml.transform.TransformerException;
@@ -39,28 +38,8 @@ import com.helger.commons.text.IMultilingualText;
  */
 public abstract class AbstractTransformErrorListener implements ITransformErrorListener
 {
-  private final ErrorListener m_aWrappedErrorListener;
-
   public AbstractTransformErrorListener ()
-  {
-    m_aWrappedErrorListener = null;
-  }
-
-  @Deprecated
-  public AbstractTransformErrorListener (@Nullable final ErrorListener aWrappedErrorListener)
-  {
-    m_aWrappedErrorListener = aWrappedErrorListener;
-  }
-
-  /**
-   * @return The wrapped error listener. May be <code>null</code>.
-   */
-  @Nullable
-  @Deprecated
-  public ErrorListener getWrappedErrorListener ()
-  {
-    return m_aWrappedErrorListener;
-  }
+  {}
 
   @Nonnull
   private static IError _buildError (@Nonnull final TransformerException ex,
@@ -93,33 +72,21 @@ public abstract class AbstractTransformErrorListener implements ITransformErrorL
   public final void warning (@Nonnull final TransformerException ex) throws TransformerException
   {
     internalLog (_buildError (ex, EErrorLevel.WARN, EXMLTransformTexts.TRANSFORMATION_WARNING.getAsMLT ()));
-
-    final ErrorListener aWrappedErrorListener = getWrappedErrorListener ();
-    if (aWrappedErrorListener != null)
-      aWrappedErrorListener.warning (ex);
   }
 
   public final void error (@Nonnull final TransformerException ex) throws TransformerException
   {
     internalLog (_buildError (ex, EErrorLevel.ERROR, EXMLTransformTexts.TRANSFORMATION_ERROR.getAsMLT ()));
-
-    final ErrorListener aWrappedErrorListener = getWrappedErrorListener ();
-    if (aWrappedErrorListener != null)
-      aWrappedErrorListener.error (ex);
   }
 
   public final void fatalError (@Nonnull final TransformerException ex) throws TransformerException
   {
     internalLog (_buildError (ex, EErrorLevel.FATAL_ERROR, EXMLTransformTexts.TRANSFORMATION_FATAL_ERROR.getAsMLT ()));
-
-    final ErrorListener aWrappedErrorListener = getWrappedErrorListener ();
-    if (aWrappedErrorListener != null)
-      aWrappedErrorListener.fatalError (ex);
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).appendIfNotNull ("wrappedErrorListener", m_aWrappedErrorListener).toString ();
+    return new ToStringGenerator (this).toString ();
   }
 }

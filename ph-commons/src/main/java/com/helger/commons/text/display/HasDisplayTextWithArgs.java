@@ -57,21 +57,6 @@ public class HasDisplayTextWithArgs implements IHasDisplayText
    * Get all arguments from the constructor.
    *
    * @return a copy of all arguments. Neither <code>null</code> nor empty-
-   * @deprecated Use {@link #getAllArgs()} instead
-   */
-  @Deprecated
-  @Nonnull
-  @Nonempty
-  @ReturnsMutableCopy
-  public Object [] getArgs ()
-  {
-    return getAllArgs ();
-  }
-
-  /**
-   * Get all arguments from the constructor.
-   *
-   * @return a copy of all arguments. Neither <code>null</code> nor empty-
    */
   @Nonnull
   @Nonempty
