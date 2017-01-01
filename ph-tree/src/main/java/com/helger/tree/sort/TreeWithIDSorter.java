@@ -33,8 +33,8 @@ import com.helger.tree.util.TreeVisitor;
 import com.helger.tree.withid.ITreeItemWithID;
 
 /**
- * Sort {@link com.helger.tree.withid.ITreeWithID} instances recursively
- * - either by ID or by value
+ * Sort {@link com.helger.tree.withid.ITreeWithID} instances recursively -
+ * either by ID or by value
  *
  * @author Philip Helger
  */
@@ -147,6 +147,6 @@ public final class TreeWithIDSorter
    */
   public static <KEYTYPE, DATATYPE extends Comparable <? super DATATYPE>, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> void sortByValue (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree)
   {
-    _sort (aTree, Comparator.comparing (IBasicTreeItem::getData));
+    _sort (aTree, (o1, o2) -> o1.getData ().compareTo (o2.getData ()));
   }
 }

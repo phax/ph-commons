@@ -97,6 +97,6 @@ public final class TreeSorter
    */
   public static <DATATYPE extends Comparable <? super DATATYPE>, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> void sort (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree)
   {
-    _sort (aTree, Comparator.comparing (IBasicTreeItem::getData));
+    _sort (aTree, (o1, o2) -> o1.getData ().compareTo (o2.getData ()));
   }
 }

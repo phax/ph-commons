@@ -19,14 +19,11 @@ package com.helger.tree.xml;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.util.Comparator;
-
 import org.junit.Test;
 
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.tree.DefaultTree;
-import com.helger.tree.IBasicTreeItem;
 import com.helger.tree.mock.MockHasName;
 import com.helger.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
 import com.helger.xml.microdom.IMicroDocument;
@@ -79,7 +76,7 @@ public final class TreeXMLConverterTest extends AbstractCommonsTestCase
     aTree.getRootItem ().createChildItem (new MockHasName ("name1"));
 
     final IMicroElement aElement = TreeXMLConverter.getTreeAsXML (aTree,
-                                                                  Comparator.comparing (IBasicTreeItem::getData),
+                                                                  (o1, o2) -> o1.getData ().compareTo (o2.getData ()),
                                                                   new MockHasNameConverter ());
     assertNotNull (aElement);
   }
