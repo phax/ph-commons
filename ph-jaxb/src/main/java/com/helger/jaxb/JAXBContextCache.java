@@ -86,7 +86,8 @@ public final class JAXBContextCache extends AbstractNotifyingCache <JAXBContextC
     if (GlobalDebug.isDebugMode ())
       s_aLogger.info ("Creating JAXB context for package " +
                       aPackage.getName () +
-                      (aClassLoader == null ? "" : " using ClassLoader " + aClassLoader));
+                      " using ClassLoader " +
+                      aClassLoader);
 
     try
     {
@@ -106,7 +107,8 @@ public final class JAXBContextCache extends AbstractNotifyingCache <JAXBContextC
       final String sMsg = "Failed to create JAXB context for package '" +
                           aPackage.getName () +
                           "'" +
-                          (aClassLoader == null ? "" : " using ClassLoader " + aClassLoader);
+                          " using ClassLoader " +
+                          aClassLoader;
       s_aLogger.error (sMsg + ": " + ex.getMessage ());
       throw new IllegalArgumentException (sMsg, ex);
     }
@@ -151,9 +153,9 @@ public final class JAXBContextCache extends AbstractNotifyingCache <JAXBContextC
    * @param aClass
    *        The class for which the JAXB context is to be created. May not be
    *        <code>null</code>.
-   * @return Never <code>null</code>.
+   * @return May be <code>null</code>.
    */
-  @Nonnull
+  @Nullable
   public JAXBContext getFromCache (@Nonnull final Class <?> aClass)
   {
     return getFromCache (aClass, (ClassLoader) null);
@@ -171,9 +173,9 @@ public final class JAXBContextCache extends AbstractNotifyingCache <JAXBContextC
    * @param aClassLoader
    *        Class loader to use. May be <code>null</code> in which case the
    *        default class loader is used.
-   * @return Never <code>null</code>.
+   * @return May be <code>null</code>.
    */
-  @Nonnull
+  @Nullable
   public JAXBContext getFromCache (@Nonnull final Class <?> aClass, @Nullable final ClassLoader aClassLoader)
   {
     ValueEnforcer.notNull (aClass, "Class");

@@ -16,7 +16,6 @@
  */
 package com.helger.graph;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
@@ -31,9 +30,9 @@ public interface IMutableDirectedGraphNodeFactory
    * graph. A new ID is generated.<br>
    * Equal to calling <code>createNode (null);</code>
    *
-   * @return The created graph node. Never <code>null</code>.
+   * @return The created graph node. May be <code>null</code>.
    */
-  @Nonnull
+  @Nullable
   IMutableDirectedGraphNode createNode ();
 
   /**
@@ -42,8 +41,9 @@ public interface IMutableDirectedGraphNodeFactory
    * @param sID
    *        The ID of the graph node. If it is <code>null</code> or empty a new
    *        ID is automatically created.
-   * @return The created graph node. May not be <code>null</code>.
+   * @return The created graph node. May be <code>null</code> if the ID
+   *         constraint is violated.
    */
-  @Nonnull
+  @Nullable
   IMutableDirectedGraphNode createNode (@Nullable String sID);
 }

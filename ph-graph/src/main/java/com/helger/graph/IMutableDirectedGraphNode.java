@@ -17,6 +17,7 @@
 package com.helger.graph;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.state.EChange;
@@ -48,7 +49,7 @@ public interface IMutableDirectedGraphNode extends
    *         removed from the incoming relations.
    */
   @Nonnull
-  EChange removeIncomingRelation (@Nonnull IMutableDirectedGraphRelation aRelation);
+  EChange removeIncomingRelation (@Nullable IMutableDirectedGraphRelation aRelation);
 
   /**
    * Remove all incoming relations.
@@ -78,7 +79,7 @@ public interface IMutableDirectedGraphNode extends
    *         removed from the outgoing relations.
    */
   @Nonnull
-  EChange removeOutgoingRelation (@Nonnull IMutableDirectedGraphRelation aRelation);
+  EChange removeOutgoingRelation (@Nullable IMutableDirectedGraphRelation aRelation);
 
   /**
    * Remove all outgoing relations.

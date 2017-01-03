@@ -180,7 +180,7 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
   @ReturnsMutableCopy
   public ICommonsOrderedMap <String, IMutableGraphRelation> getAllRelations ()
   {
-    final ICommonsOrderedMap <String, IMutableGraphRelation> ret = new CommonsLinkedHashMap<> ();
+    final ICommonsOrderedMap <String, IMutableGraphRelation> ret = new CommonsLinkedHashMap <> ();
     for (final IMutableGraphNode aNode : m_aNodes.values ())
       aNode.forEachRelation (x -> ret.put (x.getID (), x));
     return ret;
@@ -190,7 +190,7 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
   @ReturnsMutableCopy
   public ICommonsList <IMutableGraphRelation> getAllRelationObjs ()
   {
-    final ICommonsList <IMutableGraphRelation> ret = new CommonsArrayList<> ();
+    final ICommonsList <IMutableGraphRelation> ret = new CommonsArrayList <> ();
     for (final IMutableGraphNode aNode : m_aNodes.values ())
       aNode.forEachRelation (ret::add);
     return ret;
@@ -207,7 +207,7 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllRelationIDs ()
   {
-    final ICommonsOrderedSet <String> ret = new CommonsLinkedHashSet<> ();
+    final ICommonsOrderedSet <String> ret = new CommonsLinkedHashSet <> ();
     for (final IMutableGraphNode aNode : m_aNodes.values ())
       ret.addAll (aNode.getAllRelationIDs ());
     return ret;

@@ -56,9 +56,9 @@ public abstract class AbstractNotifyingCache <KEYTYPE, VALUETYPE> extends Abstra
    * @param aKey
    *        The key for which the value to cache is required. May be
    *        <code>null</code>able or not - depends upon the implementation.
-   * @return The value to be cached. May not be <code>null</code>.
+   * @return The value to be cached. May be <code>null</code> but should not be
+   *         <code>null</code>.
    */
-  @Nonnull
   @IsLocked (ELockType.WRITE)
   protected abstract VALUETYPE getValueToCache (KEYTYPE aKey);
 

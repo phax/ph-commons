@@ -218,7 +218,7 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
   @ReturnsMutableCopy
   public ICommonsOrderedMap <String, IMutableDirectedGraphRelation> getAllRelations ()
   {
-    final ICommonsOrderedMap <String, IMutableDirectedGraphRelation> ret = new CommonsLinkedHashMap<> ();
+    final ICommonsOrderedMap <String, IMutableDirectedGraphRelation> ret = new CommonsLinkedHashMap <> ();
     for (final IMutableDirectedGraphNode aNode : m_aNodes.values ())
       aNode.forEachRelation (x -> ret.put (x.getID (), x));
     return ret;
@@ -228,7 +228,7 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
   @ReturnsMutableCopy
   public ICommonsList <IMutableDirectedGraphRelation> getAllRelationObjs ()
   {
-    final ICommonsList <IMutableDirectedGraphRelation> ret = new CommonsArrayList<> ();
+    final ICommonsList <IMutableDirectedGraphRelation> ret = new CommonsArrayList <> ();
     for (final IMutableDirectedGraphNode aNode : m_aNodes.values ())
       aNode.forEachRelation (ret::add);
     return ret;
@@ -238,7 +238,7 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllRelationIDs ()
   {
-    final ICommonsOrderedSet <String> ret = new CommonsLinkedHashSet<> ();
+    final ICommonsOrderedSet <String> ret = new CommonsLinkedHashSet <> ();
     for (final IMutableDirectedGraphNode aNode : m_aNodes.values ())
       ret.addAll (aNode.getAllRelationIDs ());
     return ret;
