@@ -84,6 +84,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
   private NamespaceContext m_aNSContext;
   private Charset m_aCharset;
   private String m_sIndentString;
+   private String m_sSchemaLocation;
   private boolean m_bUseContextCache = JAXBBuilderDefaultSettings.DEFAULT_USE_CONTEXT_CACHE;
   private ClassLoader m_aClassLoader;
 
@@ -317,6 +318,23 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
   }
 
   /**
+   * Set the schema location to be used for writing JAXB objects.
+   *
+   * @param sSchemaLocation
+   *        The indent string to be used. May be <code>null</code>.
+   * @return {@link EChange}
+   * @since 8.5.3
+   */
+  @Nonnull
+  public EChange setSchemaLocation (@Nullable final String sSchemaLocation)
+  {
+    if (EqualsHelper.equals (sSchemaLocation, m_sSchemaLocation))
+      return EChange.UNCHANGED;
+    m_sSchemaLocation = sSchemaLocation;
+    return EChange.CHANGED;
+  }
+  
+  /**
    * Change whether the context cache should be used or not. Since creating the
    * JAXB context is quite cost intensive it is recommended to leave it enabled.
    *
@@ -493,6 +511,8 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
     if (m_sIndentString != null)
       JAXBMarshallerHelper.setSunIndentString (aMarshaller, m_sIndentString);
 
+    if (m_sSchemaLocation != null)
+      JAXBMarshallerHelper.setSchemaLocation(aMarshaller, m_sSchemaLocation);
     // Set XSD (if any)
     final Schema aValidationSchema = createValidationSchema ();
     if (aValidationSchema != null)
