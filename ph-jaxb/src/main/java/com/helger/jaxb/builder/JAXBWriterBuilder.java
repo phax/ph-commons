@@ -59,6 +59,7 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
   private boolean m_bFormattedOutput = JAXBBuilderDefaultSettings.isDefaultFormattedOutput ();
   private Charset m_aCharset = JAXBBuilderDefaultSettings.getDefaultCharset ();
   private String m_sIndentString = JAXBBuilderDefaultSettings.getDefaultIndentString ();
+  private String m_sSchemaLocation = JAXBBuilderDefaultSettings.getDefaultSchemaLocation ();
 
   public JAXBWriterBuilder (@Nonnull final IJAXBDocumentType aDocType)
   {
@@ -178,6 +179,26 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
     return thisAsT ();
   }
 
+  @Nullable
+  public String getSchemaLocation ()
+  {
+    return m_sSchemaLocation;
+  }
+
+  /**
+   * Set the Schema Location to be used for writing JAXB objects.
+   *
+   * @param sSchemaLocation
+   *        The Schema Location to be used. May be <code>null</code>.
+   * @return this for chaining
+   */
+  @Nonnull
+  public IMPLTYPE setSchemaLocation (@Nullable final String sSchemaLocation)
+  {
+    m_sSchemaLocation = sSchemaLocation;
+    return thisAsT ();
+  }
+  
   @Override
   @Nonnull
   protected Marshaller createMarshaller () throws JAXBException
@@ -213,6 +234,9 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
 
     if (m_sIndentString != null)
       JAXBMarshallerHelper.setSunIndentString (aMarshaller, m_sIndentString);
+
+    if (m_sSchemaLocation != null)
+      JAXBMarshallerHelper.setSchemaLocation(aMarshaller, m_sSchemaLocation);
 
     return aMarshaller;
   }
