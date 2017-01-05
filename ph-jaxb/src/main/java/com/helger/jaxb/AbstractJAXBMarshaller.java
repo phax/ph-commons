@@ -68,10 +68,6 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
                                              implements IHasClassLoader, IJAXBReader <JAXBTYPE>, IJAXBWriter <JAXBTYPE>
 {
   public static final boolean DEFAULT_READ_SECURE = true;
-  @Deprecated
-  public static final boolean DEFAULT_WRITE_FORMATTED = JAXBBuilderDefaultSettings.DEFAULT_FORMATTED_OUTPUT;
-  @Deprecated
-  public static final boolean DEFAULT_USE_CONTEXT_CACHE = JAXBBuilderDefaultSettings.DEFAULT_USE_CONTEXT_CACHE;
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractJAXBMarshaller.class);
 
@@ -84,7 +80,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
   private NamespaceContext m_aNSContext;
   private Charset m_aCharset;
   private String m_sIndentString;
-   private String m_sSchemaLocation;
+  private String m_sSchemaLocation;
   private boolean m_bUseContextCache = JAXBBuilderDefaultSettings.DEFAULT_USE_CONTEXT_CACHE;
   private ClassLoader m_aClassLoader;
 
@@ -317,13 +313,19 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
     return EChange.CHANGED;
   }
 
+  @Nullable
+  public String getSchemaLocation ()
+  {
+    return m_sSchemaLocation;
+  }
+
   /**
    * Set the schema location to be used for writing JAXB objects.
    *
    * @param sSchemaLocation
-   *        The indent string to be used. May be <code>null</code>.
+   *        The schema location to be used. May be <code>null</code>.
    * @return {@link EChange}
-   * @since 8.5.3
+   * @since 8.6.0
    */
   @Nonnull
   public EChange setSchemaLocation (@Nullable final String sSchemaLocation)
@@ -333,7 +335,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
     m_sSchemaLocation = sSchemaLocation;
     return EChange.CHANGED;
   }
-  
+
   /**
    * Change whether the context cache should be used or not. Since creating the
    * JAXB context is quite cost intensive it is recommended to leave it enabled.
@@ -512,7 +514,8 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
       JAXBMarshallerHelper.setSunIndentString (aMarshaller, m_sIndentString);
 
     if (m_sSchemaLocation != null)
-      JAXBMarshallerHelper.setSchemaLocation(aMarshaller, m_sSchemaLocation);
+      JAXBMarshallerHelper.setSchemaLocation (aMarshaller, m_sSchemaLocation);
+
     // Set XSD (if any)
     final Schema aValidationSchema = createValidationSchema ();
     if (aValidationSchema != null)

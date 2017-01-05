@@ -192,11 +192,13 @@ public final class JAXBBuilderDefaultSettings
   {
     return s_aRWLock.readLocked ( () -> s_sIndentString);
   }
+
   /**
    * Set the schema location to be used for writing JAXB objects.
    *
-   * @param sIndentString
-   *        The indent string to be used by default. May be <code>null</code>.
+   * @param sSchemaLocation
+   *        The schema location to be used by default. May be <code>null</code>.
+   * @since 8.6.0
    */
   public static void setDefaultSchemaLocation (@Nullable final String sSchemaLocation)
   {
@@ -204,8 +206,9 @@ public final class JAXBBuilderDefaultSettings
   }
 
   /**
-   * @return The JAXB schema location to be used for writing.
-   *         <code>null</code> by default. 
+   * @return The JAXB schema location to be used for writing. <code>null</code>
+   *         by default.
+   * @since 8.6.0
    */
   @Nullable
   public static String getDefaultSchemaLocation ()

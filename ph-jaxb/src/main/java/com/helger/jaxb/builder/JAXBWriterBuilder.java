@@ -191,6 +191,7 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
    * @param sSchemaLocation
    *        The Schema Location to be used. May be <code>null</code>.
    * @return this for chaining
+   * @since 8.6.0
    */
   @Nonnull
   public IMPLTYPE setSchemaLocation (@Nullable final String sSchemaLocation)
@@ -198,7 +199,7 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
     m_sSchemaLocation = sSchemaLocation;
     return thisAsT ();
   }
-  
+
   @Override
   @Nonnull
   protected Marshaller createMarshaller () throws JAXBException
@@ -236,7 +237,7 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
       JAXBMarshallerHelper.setSunIndentString (aMarshaller, m_sIndentString);
 
     if (m_sSchemaLocation != null)
-      JAXBMarshallerHelper.setSchemaLocation(aMarshaller, m_sSchemaLocation);
+      JAXBMarshallerHelper.setSchemaLocation (aMarshaller, m_sSchemaLocation);
 
     return aMarshaller;
   }
