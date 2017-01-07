@@ -69,20 +69,26 @@ public interface IComparator <DATATYPE> extends Comparator <DATATYPE>, Serializa
   }
 
   @Nonnull
-  static Comparator <String> getComparatorStringLongestFirst ()
+  static IComparator <String> getComparatorStringLongestFirst ()
   {
-    return Comparator.comparingInt (String::length).reversed ().thenComparing (Function.identity ());
+    return (c1, c2) -> {
+      final int ret = c2.length () - c1.length ();
+      return ret != 0 ? ret : c1.compareTo (c2);
+    };
   }
 
   @Nonnull
-  static Comparator <String> getComparatorStringShortestFirst ()
+  static IComparator <String> getComparatorStringShortestFirst ()
   {
-    return Comparator.comparingInt (String::length).thenComparing (Function.identity ());
+    return (c1, c2) -> {
+      final int ret = c1.length () - c2.length ();
+      return ret != 0 ? ret : c1.compareTo (c2);
+    };
   }
 
   @Nonnull
   static IComparator <String> getComparatorStringIgnoreCase ()
   {
-    return (c1, c2) -> CompareHelper.compareIgnoreCase (c1, c2);
+    return (c1, c2) -> CompareHelper.compareIgnoreCase (c1, c2, true);
   }
 }
