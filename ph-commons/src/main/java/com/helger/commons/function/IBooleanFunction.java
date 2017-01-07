@@ -16,6 +16,7 @@
  */
 package com.helger.commons.function;
 
+import java.io.Serializable;
 import java.util.function.Function;
 
 /**
@@ -32,7 +33,7 @@ import java.util.function.Function;
  * @since 1.8
  */
 @FunctionalInterface
-public interface IBooleanFunction <R>
+public interface IBooleanFunction <R> extends Serializable
 {
   /**
    * Applies this function to the given argument.

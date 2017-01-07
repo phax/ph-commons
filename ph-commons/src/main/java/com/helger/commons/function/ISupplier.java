@@ -17,28 +17,26 @@
 package com.helger.commons.function;
 
 import java.io.Serializable;
-import java.util.function.Function;
 
 /**
- * Represents a function that accepts an int-valued argument and produces a
- * float-valued result. This is the {@code int}-to-{@code float} primitive
- * specialization for {@link Function}.
+ * Represents a serializable supplier of results.
  * <p>
- * This is a functional interface whose functional method is
- * {@link #applyAsFloat(int)}.
+ * There is no requirement that a new or distinct result be returned each time
+ * the supplier is invoked.
+ * <p>
+ * This is a functional interface whose functional method is {@link #get()}.
  *
- * @see Function
- * @since 8.4.1
+ * @param <T>
+ *        the type of results supplied by this supplier
+ * @since 8.6.0
  */
 @FunctionalInterface
-public interface IIntToFloatFunction extends Serializable
+public interface ISupplier <T> extends Serializable
 {
   /**
-   * Applies this function to the given argument.
+   * Gets a result.
    *
-   * @param value
-   *        the function argument
-   * @return the function result
+   * @return a result
    */
-  float applyAsFloat (int value);
+  T get ();
 }

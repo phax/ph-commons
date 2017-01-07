@@ -16,6 +16,7 @@
  */
 package com.helger.commons.function;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -34,7 +35,7 @@ import javax.annotation.Nonnull;
  * @since 1.8
  */
 @FunctionalInterface
-public interface ICharConsumer
+public interface ICharConsumer extends Serializable
 {
   /**
    * Performs this operation on the given argument.

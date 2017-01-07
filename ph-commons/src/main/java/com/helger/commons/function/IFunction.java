@@ -22,8 +22,8 @@ import java.util.Objects;
 import javax.annotation.Nonnull;
 
 /**
- * Represents a function that accepts one argument and produces a result and may
- * throw an Exception.
+ * Represents a serializable function that accepts one argument and produces a
+ * result.
  * <p>
  * This is a functional interface whose functional method is
  * {@link #apply(Object)}.
@@ -32,12 +32,10 @@ import javax.annotation.Nonnull;
  *        the type of the input to the function
  * @param <R>
  *        the type of the result of the function
- * @param <EXTYPE>
- *        exception type
- * @since 8.3.1
+ * @since 8.6.0
  */
 @FunctionalInterface
-public interface IThrowingFunction <T, R, EXTYPE extends Throwable> extends Serializable
+public interface IFunction <T, R> extends Serializable
 {
   /**
    * Applies this function to the given argument.
@@ -45,10 +43,8 @@ public interface IThrowingFunction <T, R, EXTYPE extends Throwable> extends Seri
    * @param t
    *        the function argument
    * @return the function result
-   * @throws EXTYPE
-   *         In case it is needed
    */
-  R apply (T t) throws EXTYPE;
+  R apply (T t);
 
   /**
    * Returns a composed function that first applies the {@code before} function
@@ -65,10 +61,10 @@ public interface IThrowingFunction <T, R, EXTYPE extends Throwable> extends Seri
    *         and then applies this function
    * @throws NullPointerException
    *         if before is null
-   * @see #andThen(IThrowingFunction)
+   * @see #andThen(IFunction)
    */
   @Nonnull
-  default <V> IThrowingFunction <V, R, EXTYPE> compose (@Nonnull final IThrowingFunction <? super V, ? extends T, ? extends EXTYPE> before)
+  default <V> IFunction <V, R> compose (@Nonnull final IFunction <? super V, ? extends T> before)
   {
     Objects.requireNonNull (before);
     return (final V v) -> apply (before.apply (v));
@@ -89,10 +85,10 @@ public interface IThrowingFunction <T, R, EXTYPE extends Throwable> extends Seri
    *         applies the {@code after} function
    * @throws NullPointerException
    *         if after is null
-   * @see #compose(IThrowingFunction)
+   * @see #compose(IFunction)
    */
   @Nonnull
-  default <V> IThrowingFunction <T, V, EXTYPE> andThen (@Nonnull final IThrowingFunction <? super R, ? extends V, ? extends EXTYPE> after)
+  default <V> IFunction <T, V> andThen (@Nonnull final IFunction <? super R, ? extends V> after)
   {
     Objects.requireNonNull (after);
     return (final T t) -> after.apply (apply (t));

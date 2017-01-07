@@ -23,38 +23,23 @@ import java.util.function.Consumer;
 import javax.annotation.Nonnull;
 
 /**
- * Represents an operation that accepts three input arguments and returns no
- * result. This is the three-arity specialization of {@link Consumer}. Unlike
- * most other functional interfaces, {@code ITriConsumer} is expected to operate
- * via side-effects.
+ * Represents an operation that accepts a single input argument and returns no
+ * result but may throw an Exception. Unlike most other functional interfaces,
+ * {@code IConsumer} is expected to operate via side-effects. This is a
+ * serializable extension to the {@link Consumer} interface.
  * <p>
- * This is a <a href="package-summary.html">functional interface</a> whose
- * functional method is {@link #accept(Object, Object,Object)}.
+ * This is a functional interface whose functional method is
+ * {@link #accept(Object)}.
  *
  * @param <T>
- *        the type of the first argument to the operation
- * @param <U>
- *        the type of the second argument to the operation
- * @param <V>
- *        the type of the third argument to the operation
+ *        the type of the input to the operation
+ * @since 8.6.0
  */
 @FunctionalInterface
-public interface ITriConsumer <T, U, V> extends Serializable
+public interface IConsumer <T> extends Consumer <T>, Serializable
 {
   /**
-   * Performs this operation on the given arguments.
-   *
-   * @param t
-   *        the first input argument
-   * @param u
-   *        the second input argument
-   * @param v
-   *        the third input argument
-   */
-  void accept (T t, U u, V v);
-
-  /**
-   * Returns a composed {@code ITriConsumer} that performs, in sequence, this
+   * Returns a composed {@code Consumer} that performs, in sequence, this
    * operation followed by the {@code after} operation. If performing either
    * operation throws an exception, it is relayed to the caller of the composed
    * operation. If performing this operation throws an exception, the
@@ -62,18 +47,18 @@ public interface ITriConsumer <T, U, V> extends Serializable
    *
    * @param after
    *        the operation to perform after this operation
-   * @return a composed {@code ITriConsumer} that performs in sequence this
+   * @return a composed {@code Consumer} that performs in sequence this
    *         operation followed by the {@code after} operation
    * @throws NullPointerException
    *         if {@code after} is null
    */
   @Nonnull
-  default ITriConsumer <T, U, V> andThen (@Nonnull final ITriConsumer <? super T, ? super U, ? super V> after)
+  default IConsumer <T> andThen (@Nonnull final Consumer <? super T> after)
   {
     Objects.requireNonNull (after);
-    return (t, u, v) -> {
-      accept (t, u, v);
-      after.accept (t, u, v);
+    return (final T t) -> {
+      accept (t);
+      after.accept (t);
     };
   }
 }

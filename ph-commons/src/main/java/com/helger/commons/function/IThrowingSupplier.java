@@ -16,6 +16,8 @@
  */
 package com.helger.commons.function;
 
+import java.io.Serializable;
+
 /**
  * Represents a supplier of results that may throw an Exception.
  * <p>
@@ -31,7 +33,7 @@ package com.helger.commons.function;
  * @since 8.3.1
  */
 @FunctionalInterface
-public interface IThrowingSupplier <T, EXTYPE extends Throwable>
+public interface IThrowingSupplier <T, EXTYPE extends Throwable> extends Serializable
 {
   /**
    * Gets a result.
