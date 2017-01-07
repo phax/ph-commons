@@ -16,6 +16,7 @@
  */
 package com.helger.xml.microdom.convert;
 
+import java.awt.Color;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Duration;
@@ -119,5 +120,8 @@ public final class BasicMicroTypeConverterRegistrar implements IMicroTypeConvert
                                                  new StringBasedMicroTypeConverter (ETopBottom.class));
     aRegistry.registerMicroElementTypeConverter (ETriState.class, new StringBasedMicroTypeConverter (ETriState.class));
     aRegistry.registerMicroElementTypeConverter (EValidity.class, new StringBasedMicroTypeConverter (EValidity.class));
+
+    // Special stuff
+    aRegistry.registerMicroElementTypeConverter (Color.class, new ColorMicroTypeConverter ());
   }
 }
