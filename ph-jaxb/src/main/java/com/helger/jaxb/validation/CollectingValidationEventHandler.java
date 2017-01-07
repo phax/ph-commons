@@ -19,10 +19,8 @@ package com.helger.jaxb.validation;
 import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
-import javax.xml.bind.ValidationEventHandler;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
@@ -48,11 +46,6 @@ public class CollectingValidationEventHandler extends AbstractValidationEventHan
 
   public CollectingValidationEventHandler ()
   {}
-
-  public CollectingValidationEventHandler (@Nullable final ValidationEventHandler aOrigHandler)
-  {
-    super (aOrigHandler);
-  }
 
   @Override
   protected void onEvent (@Nonnull final IError aEvent)

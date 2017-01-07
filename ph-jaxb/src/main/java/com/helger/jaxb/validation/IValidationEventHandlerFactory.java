@@ -16,10 +16,10 @@
  */
 package com.helger.jaxb.validation;
 
-import java.util.function.Function;
-
 import javax.annotation.Nullable;
 import javax.xml.bind.ValidationEventHandler;
+
+import com.helger.commons.function.IFunction;
 
 /**
  * Factory interface for {@link ValidationEventHandler} objects.
@@ -27,7 +27,7 @@ import javax.xml.bind.ValidationEventHandler;
  * @author Philip Helger
  */
 @FunctionalInterface
-public interface IValidationEventHandlerFactory extends Function <ValidationEventHandler, ValidationEventHandler>
+public interface IValidationEventHandlerFactory extends IFunction <ValidationEventHandler, ValidationEventHandler>
 {
   /**
    * Create a validation event handler

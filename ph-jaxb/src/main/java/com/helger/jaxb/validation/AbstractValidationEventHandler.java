@@ -51,37 +51,11 @@ public abstract class AbstractValidationEventHandler implements IValidationEvent
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractValidationEventHandler.class);
 
-  private final ValidationEventHandler m_aWrappedHandler;
-
   /**
    * Constructor not encapsulating any existing handler.
    */
   public AbstractValidationEventHandler ()
-  {
-    this (null);
-  }
-
-  /**
-   * Constructor.
-   *
-   * @param aWrappedHandler
-   *        Optional validation event handler to be invoked after this handler.
-   *        May be <code>null</code>.
-   */
-  public AbstractValidationEventHandler (@Nullable final ValidationEventHandler aWrappedHandler)
-  {
-    m_aWrappedHandler = aWrappedHandler;
-  }
-
-  /**
-   * @return The original validation event handler passed in the constructor.
-   */
-  @Nullable
-  @Deprecated
-  public final ValidationEventHandler getWrappedHandler ()
-  {
-    return m_aWrappedHandler;
-  }
+  {}
 
   /**
    * Get the error level matching the passed JAXB severity.
@@ -202,12 +176,6 @@ public abstract class AbstractValidationEventHandler implements IValidationEvent
     // call our callback
     onEvent (aErrBuilder.build ());
 
-    if (m_aWrappedHandler != null)
-    {
-      // call wrapped handler
-      return m_aWrappedHandler.handleEvent (aEvent);
-    }
-
     // Continue processing?
     return continueProcessing (aErrorLevel);
   }
@@ -215,6 +183,6 @@ public abstract class AbstractValidationEventHandler implements IValidationEvent
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("wrappedHandler", m_aWrappedHandler).toString ();
+    return new ToStringGenerator (this).toString ();
   }
 }

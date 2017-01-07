@@ -18,7 +18,6 @@ package com.helger.jaxb;
 
 import java.nio.charset.Charset;
 import java.util.List;
-import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -46,13 +45,14 @@ import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.function.IFunction;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.lang.IHasClassLoader;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.ESuccess;
 import com.helger.jaxb.builder.JAXBBuilderDefaultSettings;
-import com.helger.jaxb.validation.CollectingLoggingValidationEventHandlerFactory;
 import com.helger.jaxb.validation.IValidationEventHandlerFactory;
+import com.helger.xml.namespace.INamespaceContext;
 import com.helger.xml.schema.XMLSchemaCache;
 
 /**
@@ -72,12 +72,12 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractJAXBMarshaller.class);
 
   private final Class <JAXBTYPE> m_aType;
-  private final ICommonsList <IReadableResource> m_aXSDs = new CommonsArrayList<> ();
-  private final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> m_aWrapper;
-  private IValidationEventHandlerFactory m_aVEHFactory = new CollectingLoggingValidationEventHandlerFactory ();
+  private final ICommonsList <IReadableResource> m_aXSDs = new CommonsArrayList <> ();
+  private final IFunction <JAXBTYPE, JAXBElement <JAXBTYPE>> m_aWrapper;
+  private IValidationEventHandlerFactory m_aVEHFactory;
   private boolean m_bReadSecure = DEFAULT_READ_SECURE;
   private boolean m_bFormattedOutput = JAXBBuilderDefaultSettings.DEFAULT_FORMATTED_OUTPUT;
-  private NamespaceContext m_aNSContext;
+  private INamespaceContext m_aNSContext;
   private Charset m_aCharset;
   private String m_sIndentString;
   private String m_sSchemaLocation;
@@ -97,7 +97,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
    *        <code>null</code>.
    */
   protected AbstractJAXBMarshaller (@Nonnull final Class <JAXBTYPE> aType,
-                                    @Nonnull final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
+                                    @Nonnull final IFunction <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
   {
     this (aType, null, aWrapper);
   }
@@ -119,7 +119,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
    */
   protected AbstractJAXBMarshaller (@Nonnull final Class <JAXBTYPE> aType,
                                     @Nullable final List <? extends IReadableResource> aXSDs,
-                                    @Nonnull final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
+                                    @Nonnull final IFunction <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
   {
     m_aType = ValueEnforcer.notNull (aType, "Type");
     if (aXSDs != null)
@@ -149,9 +149,8 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
   }
 
   /**
-   * Set another factory to be used to create {@link ValidationEventHandler}
-   * objects. By default a
-   * {@link CollectingLoggingValidationEventHandlerFactory} is used.
+   * Set a factory to be used to create {@link ValidationEventHandler} objects.
+   * By default none is present.
    *
    * @param aVEHFactory
    *        The new factory to be used. May be <code>null</code>.
@@ -162,9 +161,8 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
   }
 
   /**
-   * @return The currently used validation event handler factory. By default an
-   *         instance of {@link CollectingLoggingValidationEventHandlerFactory}
-   *         is used. May be <code>null</code> if explicitly set.
+   * @return The currently used validation event handler factory. By default
+   *         none is used. May be <code>null</code> if explicitly set.
    */
   @Nullable
   public final IValidationEventHandlerFactory getValidationEventHandlerFactory ()
@@ -211,38 +209,12 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
    * @since 8.5.3
    */
   @Nonnull
-  public EChange setNamespaceContext (@Nullable final NamespaceContext aNSContext)
+  public EChange setNamespaceContext (@Nullable final INamespaceContext aNSContext)
   {
     if (EqualsHelper.equals (aNSContext, m_aNSContext))
       return EChange.UNCHANGED;
     m_aNSContext = aNSContext;
     return EChange.CHANGED;
-  }
-
-  /**
-   * @return <code>true</code> if the JAXB output should be formatted. Default
-   *         is <code>false</code>.
-   * @deprecated Use {@link #isFormattedOutput()} instead
-   */
-  @Deprecated
-  public final boolean isWriteFormatted ()
-  {
-    return isFormattedOutput ();
-  }
-
-  /**
-   * Change the way formatting happens when calling write.
-   *
-   * @param bWriteFormatted
-   *        <code>true</code> to write formatted output.
-   * @return {@link EChange}
-   * @deprecated Use {@link #setFormattedOutput(boolean)} instead
-   */
-  @Deprecated
-  @Nonnull
-  public final EChange setWriteFormatted (final boolean bWriteFormatted)
-  {
-    return setFormattedOutput (bWriteFormatted);
   }
 
   public final boolean isFormattedOutput ()

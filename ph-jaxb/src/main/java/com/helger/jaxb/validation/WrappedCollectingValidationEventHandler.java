@@ -17,9 +17,7 @@
 package com.helger.jaxb.validation;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
-import javax.xml.bind.ValidationEventHandler;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableObject;
@@ -41,13 +39,6 @@ public class WrappedCollectingValidationEventHandler extends AbstractValidationE
 
   public WrappedCollectingValidationEventHandler (@Nonnull final ErrorList aErrorList)
   {
-    this (null, aErrorList);
-  }
-
-  public WrappedCollectingValidationEventHandler (@Nullable final ValidationEventHandler aOrigHandler,
-                                                  @Nonnull final ErrorList aErrorList)
-  {
-    super (aOrigHandler);
     m_aErrorList = ValueEnforcer.notNull (aErrorList, "ErrorList");
   }
 

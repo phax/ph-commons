@@ -29,22 +29,47 @@ import javax.xml.bind.ValidationEventHandler;
  * @author Philip Helger
  * @since 8.5.1
  */
+@FunctionalInterface
 public interface IValidationEventHandler extends ValidationEventHandler, Serializable
 {
   @Nonnull
   default IValidationEventHandler andThen (@Nullable final ValidationEventHandler aOther)
   {
-    final IValidationEventHandler aThis = this;
-    if (aOther == null)
-      return aThis;
+    return and (this, aOther);
+  }
 
-    return x -> {
-      if (!aThis.handleEvent (x))
-      {
-        // We should not continue
-        return false;
-      }
-      return aOther.handleEvent (x);
-    };
+  /**
+   * Create an instance of {@link IValidationEventHandler} that invokes both
+   * passed event handlers.
+   *
+   * @param aOne
+   *        The first event handler. May be <code>null</code>.
+   * @param aOther
+   *        The second event handler. May be <code>null</code>.
+   * @return Never <code>null</code>.
+   * @since 8.6.0
+   */
+  @Nonnull
+  static IValidationEventHandler and (@Nullable final ValidationEventHandler aOne,
+                                      @Nullable final ValidationEventHandler aOther)
+  {
+    if (aOne != null)
+    {
+      if (aOther != null)
+        return x -> {
+          if (!aOne.handleEvent (x))
+          {
+            // We should not continue
+            return false;
+          }
+          return aOther.handleEvent (x);
+        };
+      return x -> aOne.handleEvent (x);
+    }
+
+    if (aOther != null)
+      return x -> aOther.handleEvent (x);
+
+    return x -> true;
   }
 }

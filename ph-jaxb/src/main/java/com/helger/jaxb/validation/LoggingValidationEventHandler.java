@@ -19,9 +19,7 @@ package com.helger.jaxb.validation;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
-import javax.xml.bind.ValidationEventHandler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,11 +41,6 @@ public class LoggingValidationEventHandler extends AbstractValidationEventHandle
 
   public LoggingValidationEventHandler ()
   {}
-
-  public LoggingValidationEventHandler (@Nullable final ValidationEventHandler aOrigHandler)
-  {
-    super (aOrigHandler);
-  }
 
   @Override
   protected void onEvent (@Nonnull final IError aEvent)

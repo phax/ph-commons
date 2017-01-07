@@ -17,13 +17,13 @@
 package com.helger.jaxb;
 
 import java.util.List;
-import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.bind.JAXBElement;
 
+import com.helger.commons.function.IFunction;
 import com.helger.commons.io.resource.IReadableResource;
 
 /**
@@ -51,7 +51,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> extends AbstractJAXBMarshaller <JA
    *        <code>null</code>.
    */
   public GenericJAXBMarshaller (@Nonnull final Class <JAXBTYPE> aType,
-                                @Nonnull final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
+                                @Nonnull final IFunction <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
   {
     this (aType, null, aWrapper);
   }
@@ -73,7 +73,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> extends AbstractJAXBMarshaller <JA
    */
   public GenericJAXBMarshaller (@Nonnull final Class <JAXBTYPE> aType,
                                 @Nullable final List <? extends IReadableResource> aXSDs,
-                                @Nonnull final Function <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
+                                @Nonnull final IFunction <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
   {
     super (aType, aXSDs, aWrapper);
   }

@@ -45,35 +45,40 @@ public final class CollectingValidationEventHandlerTest
   public void testReadWrite () throws JAXBException
   {
     final JAXBContext aCtx = JAXBContextCache.getInstance ().getFromCache (MockJAXBArchive.class);
-    CollectingValidationEventHandler evh = new CollectingValidationEventHandler (new LoggingValidationEventHandler (null));
-    // is equal to:
-    evh = new CollectingValidationEventHandlerFactory ().apply (new LoggingValidationEventHandlerFactory ().apply (null));
     final Unmarshaller um = aCtx.createUnmarshaller ();
-    um.setEventHandler (evh);
 
-    // read valid
-    JAXBElement <MockJAXBArchive> o = um.unmarshal (TransformSourceFactory.create (new FileSystemResource ("src/test/resources/xml/test-archive-01.xml")),
-                                                    MockJAXBArchive.class);
-    assertNotNull (o);
-    assertTrue (evh.getErrorList ().isEmpty ());
+    {
+      final CollectingValidationEventHandler cveh = new CollectingValidationEventHandler ();
+      um.setEventHandler (cveh.andThen (new LoggingValidationEventHandler ()));
+
+      // read valid
+      final JAXBElement <MockJAXBArchive> o = um.unmarshal (TransformSourceFactory.create (new FileSystemResource ("src/test/resources/xml/test-archive-01.xml")),
+                                                            MockJAXBArchive.class);
+      assertNotNull (o);
+      assertTrue (cveh.getErrorList ().isEmpty ());
+    }
 
     // read invalid
-    evh = new CollectingValidationEventHandler ();
-    um.setEventHandler (evh);
-    o = um.unmarshal (TransformSourceFactory.create (new FileSystemResource ("src/test/resources/xml/buildinfo.xml")),
-                      MockJAXBArchive.class);
-    assertNotNull (o);
-    assertFalse (evh.getErrorList ().isEmpty ());
+    {
+      final CollectingValidationEventHandler cveh = new CollectingValidationEventHandler ();
+      um.setEventHandler (cveh);
+      final JAXBElement <MockJAXBArchive> o = um.unmarshal (TransformSourceFactory.create (new FileSystemResource ("src/test/resources/xml/buildinfo.xml")),
+                                                            MockJAXBArchive.class);
+      assertNotNull (o);
+      assertFalse (cveh.getErrorList ().isEmpty ());
+    }
 
     // Read invalid (but close to valid)
-    evh = new CollectingValidationEventHandler (new LoggingValidationEventHandler ());
-    um.setEventHandler (evh);
-    o = um.unmarshal (TransformSourceFactory.create (new FileSystemResource ("src/test/resources/xml/test-archive-03.xml")),
-                      MockJAXBArchive.class);
-    assertNotNull (o);
-    assertEquals (1, evh.getErrorList ().getSize ());
+    {
+      final CollectingValidationEventHandler cveh = new CollectingValidationEventHandler ();
+      um.setEventHandler (cveh.andThen (new LoggingValidationEventHandler ()));
+      final JAXBElement <MockJAXBArchive> o = um.unmarshal (TransformSourceFactory.create (new FileSystemResource ("src/test/resources/xml/test-archive-03.xml")),
+                                                            MockJAXBArchive.class);
+      assertNotNull (o);
+      assertEquals (1, cveh.getErrorList ().getSize ());
 
-    // For code coverage completion
-    CommonsTestHelper.testToStringImplementation (evh);
+      // For code coverage completion
+      CommonsTestHelper.testToStringImplementation (cveh);
+    }
   }
 }
