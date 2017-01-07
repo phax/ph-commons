@@ -18,6 +18,7 @@ package com.helger.commons.function;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 
@@ -35,17 +36,8 @@ import javax.annotation.Nonnull;
  * @since 8.6.0
  */
 @FunctionalInterface
-public interface IFunction <T, R> extends Serializable
+public interface IFunction <T, R> extends Function <T, R>, Serializable
 {
-  /**
-   * Applies this function to the given argument.
-   *
-   * @param t
-   *        the function argument
-   * @return the function result
-   */
-  R apply (T t);
-
   /**
    * Returns a composed function that first applies the {@code before} function
    * to its input, and then applies this function to the result. If evaluation
@@ -61,10 +53,10 @@ public interface IFunction <T, R> extends Serializable
    *         and then applies this function
    * @throws NullPointerException
    *         if before is null
-   * @see #andThen(IFunction)
+   * @see #andThen(Function)
    */
   @Nonnull
-  default <V> IFunction <V, R> compose (@Nonnull final IFunction <? super V, ? extends T> before)
+  default <V> IFunction <V, R> compose (@Nonnull final Function <? super V, ? extends T> before)
   {
     Objects.requireNonNull (before);
     return (final V v) -> apply (before.apply (v));
@@ -85,10 +77,10 @@ public interface IFunction <T, R> extends Serializable
    *         applies the {@code after} function
    * @throws NullPointerException
    *         if after is null
-   * @see #compose(IFunction)
+   * @see #compose(Function)
    */
   @Nonnull
-  default <V> IFunction <T, V> andThen (@Nonnull final IFunction <? super R, ? extends V> after)
+  default <V> IFunction <T, V> andThen (@Nonnull final Function <? super R, ? extends V> after)
   {
     Objects.requireNonNull (after);
     return (final T t) -> after.apply (apply (t));

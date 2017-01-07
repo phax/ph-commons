@@ -17,6 +17,7 @@
 package com.helger.commons.function;
 
 import java.io.Serializable;
+import java.util.function.Supplier;
 
 /**
  * Represents a serializable supplier of results.
@@ -31,12 +32,7 @@ import java.io.Serializable;
  * @since 8.6.0
  */
 @FunctionalInterface
-public interface ISupplier <T> extends Serializable
+public interface ISupplier <T> extends Supplier <T>, Serializable
 {
-  /**
-   * Gets a result.
-   *
-   * @return a result
-   */
-  T get ();
+  /* empty */
 }
