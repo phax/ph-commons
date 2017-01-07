@@ -87,6 +87,14 @@ public interface IJAXBWriter <JAXBTYPE>
   String getIndentString ();
 
   /**
+   * @return The schema location to be used for writing. <code>null</code> by
+   *         default.
+   * @since 8.6.0
+   */
+  @Nullable
+  String getSchemaLocation ();
+
+  /**
    * A special bi-consumer that additionally can throw a {@link JAXBException}
    *
    * @author Philip Helger
