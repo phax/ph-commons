@@ -16,7 +16,6 @@
  */
 package com.helger.xml.namespace;
 
-import java.io.Serializable;
 import java.util.Iterator;
 
 import javax.annotation.Nonnull;
@@ -32,7 +31,7 @@ import com.helger.commons.collection.iterate.SingleElementIterator;
  *
  * @author Philip Helger
  */
-public abstract class AbstractNamespaceContext implements IIterableNamespaceContext, Serializable
+public abstract class AbstractNamespaceContext implements IIterableNamespaceContext
 {
   @Nullable
   public abstract String getDefaultNamespaceURI ();

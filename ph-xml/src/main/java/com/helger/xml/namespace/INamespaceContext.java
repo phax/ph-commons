@@ -16,27 +16,17 @@
  */
 package com.helger.xml.namespace;
 
-import javax.annotation.Nonnull;
+import java.io.Serializable;
 
-import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.ICommonsMap;
+import javax.xml.namespace.NamespaceContext;
 
 /**
- * A special namespace context interface that allows the iteration of the
- * contained mappings.
+ * Serializable version of NamespaceContext
  *
  * @author Philip Helger
+ * @since 8.6.0
  */
-@MustImplementEqualsAndHashcode
-public interface IIterableNamespaceContext extends INamespaceContext
+public interface INamespaceContext extends NamespaceContext, Serializable
 {
-  /**
-   * Get all contained mappings.
-   *
-   * @return The map with all prefixes mapped to the namespace URIs.
-   */
-  @Nonnull
-  @ReturnsMutableCopy
-  ICommonsMap <String, String> getPrefixToNamespaceURIMap ();
+  /* empty */
 }
