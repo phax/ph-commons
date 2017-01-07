@@ -187,7 +187,7 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
     if (m_aEventHandler != null)
       aMarshaller.setEventHandler (m_aEventHandler);
     else
-      aMarshaller.setEventHandler (new LoggingValidationEventHandler (aMarshaller.getEventHandler ()));
+      aMarshaller.setEventHandler (new LoggingValidationEventHandler ().andThen (aMarshaller.getEventHandler ()));
 
     if (m_aNSContext != null)
       try

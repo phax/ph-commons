@@ -174,7 +174,7 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
     if (m_aEventHandler != null)
       aUnmarshaller.setEventHandler (m_aEventHandler);
     else
-      aUnmarshaller.setEventHandler (new LoggingValidationEventHandler (aUnmarshaller.getEventHandler ()));
+      aUnmarshaller.setEventHandler (new LoggingValidationEventHandler ().andThen (aUnmarshaller.getEventHandler ()));
 
     // Validating (if possible)
     final Schema aSchema = getSchema ();
