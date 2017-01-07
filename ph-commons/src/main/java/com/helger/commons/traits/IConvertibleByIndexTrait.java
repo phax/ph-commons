@@ -38,6 +38,14 @@ import com.helger.commons.typeconvert.TypeConverterException;
 @FunctionalInterface
 public interface IConvertibleByIndexTrait
 {
+  /**
+   * Get the value at the specified index.
+   * 
+   * @param nIndex
+   *        The index to be accessed. Should be &ge; 0.
+   * @return The value at the specified index. No <code>null</code> constraints
+   *         applicable.
+   */
   @Nullable
   Object getValue (@Nonnegative int nIndex);
 

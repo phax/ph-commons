@@ -22,13 +22,17 @@ import com.helger.commons.lang.GenericReflection;
 
 /**
  * A trait to convert this to a generic implementation.
- * 
+ *
  * @author Philip Helger
  * @param <IMPLTYPE>
  *        The real implementation type.
  */
 public interface IGenericImplTrait <IMPLTYPE extends IGenericImplTrait <IMPLTYPE>>
 {
+  /**
+   * @return <code>this</code> casted to <code>IMPLTYPE</code>. Never
+   *         <code>null</code>.
+   */
   @Nonnull
   default IMPLTYPE thisAsT ()
   {

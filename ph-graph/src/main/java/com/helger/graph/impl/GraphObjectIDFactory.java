@@ -65,9 +65,7 @@ public final class GraphObjectIDFactory
    */
   public static void setIDFactory (@Nullable final IIDFactory <String> aIDFactory)
   {
-    s_aRWLock.writeLocked ( () -> {
-      s_aIDFactory = aIDFactory;
-    });
+    s_aRWLock.writeLocked ( () -> s_aIDFactory = aIDFactory);
   }
 
   /**

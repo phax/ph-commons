@@ -39,6 +39,14 @@ import com.helger.commons.typeconvert.TypeConverterException;
 @FunctionalInterface
 public interface IConvertibleByKeyTrait <KEYTYPE>
 {
+  /**
+   * Get the value matching the provided key.
+   * 
+   * @param aKey
+   *        The key to query. May be <code>null</code>.
+   * @return The value matching the key. No <code>null</code> constraints
+   *         applicable.
+   */
   @Nullable
   Object getValue (@Nullable KEYTYPE aKey);
 

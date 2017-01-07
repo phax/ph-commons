@@ -37,6 +37,9 @@ import com.helger.commons.typeconvert.TypeConverterException;
 @FunctionalInterface
 public interface IConvertibleDirectTrait
 {
+  /**
+   * @return The value of interest. No <code>null</code> constraints applicable.
+   */
   @Nullable
   Object getValue ();
 
