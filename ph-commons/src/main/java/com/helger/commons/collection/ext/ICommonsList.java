@@ -56,7 +56,7 @@ public interface ICommonsList <ELEMENTTYPE> extends
   @ReturnsMutableCopy
   default <T> ICommonsList <T> createInstance ()
   {
-    return new CommonsArrayList<> ();
+    return new CommonsArrayList <> ();
   }
 
   /**
@@ -330,6 +330,28 @@ public interface ICommonsList <ELEMENTTYPE> extends
   default ICommonsList <ELEMENTTYPE> reverse ()
   {
     Collections.reverse (this);
+    return this;
+  }
+
+  /**
+   * Swap list items.
+   *
+   * @param nFirstIndex
+   *        The first index to swap.
+   * @param nSecondIndex
+   *        The second index to swap.
+   * @return this for chaining
+   * @since 8.6.0
+   */
+  @Nonnull
+  default ICommonsList <ELEMENTTYPE> swapItems (final int nFirstIndex, final int nSecondIndex)
+  {
+    if (nFirstIndex != nSecondIndex)
+    {
+      final ELEMENTTYPE aTmp = get (nFirstIndex);
+      set (nFirstIndex, get (nSecondIndex));
+      set (nSecondIndex, aTmp);
+    }
     return this;
   }
 }
