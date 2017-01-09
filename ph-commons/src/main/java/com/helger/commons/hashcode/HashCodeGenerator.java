@@ -519,17 +519,6 @@ public final class HashCodeGenerator implements IHashCodeGenerator
   }
 
   /**
-   * @return The same as {@link #getHashCode()} but as an {@link Integer}
-   *         object. Never <code>null</code>.
-   */
-  @Nonnull
-  @Deprecated
-  public Integer getHashCodeObj ()
-  {
-    return Integer.valueOf (getHashCode ());
-  }
-
-  /**
    * Never compare {@link HashCodeGenerator} objects :)
    */
   @Deprecated
