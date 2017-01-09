@@ -71,24 +71,42 @@ public interface IComparator <DATATYPE> extends Comparator <DATATYPE>, Serializa
   @Nonnull
   static IComparator <String> getComparatorStringLongestFirst ()
   {
-    return (c1, c2) -> {
-      final int ret = c2.length () - c1.length ();
-      return ret != 0 ? ret : c1.compareTo (c2);
-    };
+    return getComparatorStringLongestFirst (CompareHelper.DEFAULT_NULL_VALUES_COME_FIRST);
+  }
+
+  @Nonnull
+  static IComparator <String> getComparatorStringLongestFirst (final boolean bNullValuesComeFirst)
+  {
+    return (c1, c2) -> CompareHelper.compare (c1, c2, (o1, o2) -> {
+      final int ret = o2.length () - o1.length ();
+      return ret != 0 ? ret : o1.compareTo (o2);
+    }, bNullValuesComeFirst);
   }
 
   @Nonnull
   static IComparator <String> getComparatorStringShortestFirst ()
   {
-    return (c1, c2) -> {
-      final int ret = c1.length () - c2.length ();
-      return ret != 0 ? ret : c1.compareTo (c2);
-    };
+    return getComparatorStringShortestFirst (CompareHelper.DEFAULT_NULL_VALUES_COME_FIRST);
+  }
+
+  @Nonnull
+  static IComparator <String> getComparatorStringShortestFirst (final boolean bNullValuesComeFirst)
+  {
+    return (c1, c2) -> CompareHelper.compare (c1, c2, (o1, o2) -> {
+      final int ret = o1.length () - o2.length ();
+      return ret != 0 ? ret : o1.compareTo (o2);
+    }, bNullValuesComeFirst);
   }
 
   @Nonnull
   static IComparator <String> getComparatorStringIgnoreCase ()
   {
-    return (c1, c2) -> CompareHelper.compareIgnoreCase (c1, c2, true);
+    return getComparatorStringIgnoreCase (CompareHelper.DEFAULT_NULL_VALUES_COME_FIRST);
+  }
+
+  @Nonnull
+  static IComparator <String> getComparatorStringIgnoreCase (final boolean bNullValuesComeFirst)
+  {
+    return (c1, c2) -> CompareHelper.compareIgnoreCase (c1, c2, bNullValuesComeFirst);
   }
 }
