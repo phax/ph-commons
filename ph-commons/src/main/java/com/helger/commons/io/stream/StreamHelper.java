@@ -16,27 +16,7 @@
  */
 package com.helger.commons.io.stream;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.DataInput;
-import java.io.DataInputStream;
-import java.io.DataOutput;
-import java.io.DataOutputStream;
-import java.io.EOFException;
-import java.io.Flushable;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Reader;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.io.Writer;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.function.Consumer;
@@ -80,7 +60,7 @@ import com.helger.commons.statistics.StatisticsManager;
 public final class StreamHelper
 {
   /** buffer size for copy operations */
-  private static final int DEFAULT_BUFSIZE = 16 * CGlobal.BYTES_PER_KILOBYTE;
+  public static final int DEFAULT_BUFSIZE = 16 * CGlobal.BYTES_PER_KILOBYTE;
 
   /** The logger to use. */
   private static final Logger s_aLogger = LoggerFactory.getLogger (StreamHelper.class);
