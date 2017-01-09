@@ -18,6 +18,7 @@
 
 -->
 <changelog xmlns="http://www.helger.com/xsd/changelog/1.0" version="1.0" component="ph-jaxb">
+  <release date="2017-01-09" version="8.6.0" />
   <release date="2015-11-23" version="6.2.2" />
   <release date="2015-11-03" version="6.2.1" />
   <entry date="2015-11-03" category="tech" action="fix" incompatible="true">
