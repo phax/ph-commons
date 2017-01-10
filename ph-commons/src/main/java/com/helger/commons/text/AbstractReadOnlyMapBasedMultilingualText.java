@@ -34,8 +34,9 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -56,12 +57,12 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractReadOnlyMapBasedMultilingualText.class);
   private static final AtomicBoolean s_aConsistencyChecksEnabled = new AtomicBoolean (GlobalDebug.isDebugMode ());
 
-  private final ICommonsMap <Locale, String> m_aTexts;
+  private final ICommonsOrderedMap <Locale, String> m_aTexts;
 
   public AbstractReadOnlyMapBasedMultilingualText ()
   {
     // Use a HashMap by default
-    this (new CommonsHashMap <> ());
+    this (new CommonsLinkedHashMap <> ());
   }
 
   /**
@@ -71,7 +72,7 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
    * @param aMapToUse
    *        The map to use. Must not be <code>null</code> and must be writable.
    */
-  protected AbstractReadOnlyMapBasedMultilingualText (@Nonnull final ICommonsMap <Locale, String> aMapToUse)
+  protected AbstractReadOnlyMapBasedMultilingualText (@Nonnull final ICommonsOrderedMap <Locale, String> aMapToUse)
   {
     m_aTexts = ValueEnforcer.notNull (aMapToUse, "MapToUse");
   }

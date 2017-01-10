@@ -29,7 +29,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.callback.CallbackList;
 import com.helger.commons.callback.IChangeCallback;
-import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.locale.LocaleHelper;
 import com.helger.commons.state.EChange;
@@ -48,7 +48,7 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
                                                        implements IMutableMultilingualText
 {
   /** A list of callback upon change. */
-  private final CallbackList <IChangeCallback <IMutableMultilingualText>> m_aChangeNotifyCallbacks = new CallbackList<> ();
+  private final CallbackList <IChangeCallback <IMutableMultilingualText>> m_aChangeNotifyCallbacks = new CallbackList <> ();
 
   public AbstractMapBasedMultilingualText ()
   {}
@@ -60,7 +60,7 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
    * @param aMapToUse
    *        The map to use. Must not be <code>null</code> and must be writable.
    */
-  protected AbstractMapBasedMultilingualText (@Nonnull final ICommonsMap <Locale, String> aMapToUse)
+  protected AbstractMapBasedMultilingualText (@Nonnull final ICommonsOrderedMap <Locale, String> aMapToUse)
   {
     super (aMapToUse);
   }
