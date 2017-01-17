@@ -48,6 +48,7 @@ public final class GlobalDebug
   public static final boolean DEFAULT_PRODUCTION_MODE = false;
 
   public static final String SYSTEM_PROPERTY_MAIL_DEBUG = "mail.debug";
+  public static final String SYSTEM_PROPERTY_JAVA_SECURITY_DEBUG = "java.security.debug";
   public static final String SYSTEM_PROPERTY_JAVAX_ACTIVATION_DEBUG = "javax.activation.debug";
   public static final String SYSTEM_PROPERTY_JAVAX_NET_DEBUG = "javax.net.debug";
   public static final String SYSTEM_PROPERTY_JAXP_DEBUG = "jaxp.debug";
@@ -94,7 +95,7 @@ public final class GlobalDebug
   }
 
   /**
-   * Enable or disable Java NET debugging.
+   * Enable or disable Java net debugging.
    *
    * @param sValue
    *        Debug property value. Valid values are:
@@ -109,6 +110,33 @@ public final class GlobalDebug
   public static void setJavaNetDebugMode (@Nullable final String sValue)
   {
     SystemProperties.setPropertyValue (SYSTEM_PROPERTY_JAVAX_NET_DEBUG, sValue);
+  }
+
+  /**
+   * Enable or disable Java security debugging.
+   *
+   * @param sValue
+   *        Debug property value. Valid values are:
+   *        <ul>
+   *        <li><code>null</code></li>
+   *        <li>all</li>
+   *        <li>access</li>
+   *        <li>certpath</li>
+   *        <li>combiner</li>
+   *        <li>gssloginconfig</li>
+   *        <li>configfile</li>
+   *        <li>configparser</li>
+   *        <li>jar</li>
+   *        <li>logincontext</li>
+   *        <li>policy</li>
+   *        <li>provider</li>
+   *        <li>scl</li>
+   *        </ul>
+   * @since 8.6.1
+   */
+  public static void setJavaSecurityDebugMode (@Nullable final String sValue)
+  {
+    SystemProperties.setPropertyValue (SYSTEM_PROPERTY_JAVA_SECURITY_DEBUG, sValue);
   }
 
   /**

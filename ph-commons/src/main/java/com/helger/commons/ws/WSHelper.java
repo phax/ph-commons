@@ -22,6 +22,7 @@ import javax.xml.ws.handler.MessageContext;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.system.SystemProperties;
 
 /**
@@ -133,8 +134,8 @@ public final class WSHelper
     // http://download.oracle.com/javase/6/docs/technotes/guides/net/proxies.html
     // The first 2 (*.debug) should both be set to "all" to have the most
     // effects
-    return new String [] { "javax.net.debug",
-                           "java.security.debug",
+    return new String [] { GlobalDebug.SYSTEM_PROPERTY_JAVAX_NET_DEBUG,
+                           GlobalDebug.SYSTEM_PROPERTY_JAVA_SECURITY_DEBUG,
                            "java.net.useSystemProxies",
                            "http.proxyHost",
                            "http.proxyPort",
