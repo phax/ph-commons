@@ -18,6 +18,7 @@ package com.helger.commons.debug;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.system.SystemProperties;
@@ -48,6 +49,7 @@ public final class GlobalDebug
 
   public static final String SYSTEM_PROPERTY_MAIL_DEBUG = "mail.debug";
   public static final String SYSTEM_PROPERTY_JAVAX_ACTIVATION_DEBUG = "javax.activation.debug";
+  public static final String SYSTEM_PROPERTY_JAVAX_NET_DEBUG = "javax.net.debug";
   public static final String SYSTEM_PROPERTY_JAXP_DEBUG = "jaxp.debug";
 
   private static final AtomicBoolean s_aDebugMode = new AtomicBoolean (DEFAULT_DEBUG_MODE);
@@ -89,6 +91,24 @@ public final class GlobalDebug
 
     // Set javax.mail debugging
     SystemProperties.setPropertyValue (SYSTEM_PROPERTY_MAIL_DEBUG, bDebugMode);
+  }
+
+  /**
+   * Enable or disable Java NET debugging.
+   *
+   * @param sValue
+   *        Debug property value. Valid values are:
+   *        <ul>
+   *        <li><code>null</code></li>
+   *        <li>all</li>
+   *        <li>ssl</li>
+   *        <li>ssl:xxx (see Java docs what xxx can be)</li>
+   *        </ul>
+   * @since 8.6.1
+   */
+  public static void setJavaNetDebugMode (@Nullable final String sValue)
+  {
+    SystemProperties.setPropertyValue (SYSTEM_PROPERTY_JAVAX_NET_DEBUG, sValue);
   }
 
   /**

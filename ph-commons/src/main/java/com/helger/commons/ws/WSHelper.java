@@ -74,10 +74,16 @@ public final class WSHelper
 
     // Enlarge dump size
     if (bServerDebug || bClientDebug)
-      SystemProperties.setPropertyValue ("com.sun.xml.internal.ws.transport.http.HttpAdapter.dumpTreshold",
-                                         Integer.toString (2 * CGlobal.BYTES_PER_MEGABYTE));
+    {
+      final String sValue = Integer.toString (2 * CGlobal.BYTES_PER_MEGABYTE);
+      SystemProperties.setPropertyValue ("com.sun.xml.ws.transport.http.HttpAdapter.dumpTreshold", sValue);
+      SystemProperties.setPropertyValue ("com.sun.xml.internal.ws.transport.http.HttpAdapter.dumpTreshold", sValue);
+    }
     else
+    {
+      SystemProperties.removePropertyValue ("com.sun.xml.ws.transport.http.HttpAdapter.dumpTreshold");
       SystemProperties.removePropertyValue ("com.sun.xml.internal.ws.transport.http.HttpAdapter.dumpTreshold");
+    }
   }
 
   /**
