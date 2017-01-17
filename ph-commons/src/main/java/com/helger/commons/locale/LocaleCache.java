@@ -177,19 +177,14 @@ public final class LocaleCache
     Locale aLocale = m_aRWLock.readLocked ( () -> m_aLocales.get (sLocaleKey));
     if (aLocale == null)
     {
-      aLocale = m_aRWLock.writeLocked ( () -> {
-        // Try fetching again in writeLock
-        Locale aWLocale = m_aLocales.get (sLocaleKey);
-        if (aWLocale == null)
-        {
-          // not yet in cache, create a new one
-          // -> may lead to illegal locales, but simpler than the error handling
-          // for all the possible illegal values
-          aWLocale = new Locale (sRealLanguage, sRealCountry, sRealVariant);
-          m_aLocales.put (sLocaleKey, aWLocale);
-        }
-        return aWLocale;
-      });
+      // Try fetching again in writeLock
+      // not yet in cache, create a new one
+      // -> may lead to illegal locales, but simpler than the error handling
+      // for all the possible illegal values
+      aLocale = m_aRWLock.writeLocked ( () -> m_aLocales.computeIfAbsent (sLocaleKey,
+                                                                          k -> new Locale (sRealLanguage,
+                                                                                           sRealCountry,
+                                                                                           sRealVariant)));
     }
     return aLocale;
   }
