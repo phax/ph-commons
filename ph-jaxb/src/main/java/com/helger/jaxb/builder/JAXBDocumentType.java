@@ -30,10 +30,12 @@ import javax.xml.validation.Schema;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.string.ToStringGenerator;
 import com.helger.xml.schema.XMLSchemaCache;
 
 /**
@@ -47,10 +49,10 @@ public class JAXBDocumentType implements IJAXBDocumentType
 {
   private final Class <?> m_aClass;
   private final ICommonsList <String> m_aXSDPaths;
-  private final String m_sNamespaceURI;
-  private final String m_sLocalName;
 
   // Status vars
+  private final String m_sNamespaceURI;
+  private final String m_sLocalName;
   private Schema m_aCachedSchema;
 
   /**
@@ -121,7 +123,7 @@ public class JAXBDocumentType implements IJAXBDocumentType
       throw new IllegalArgumentException ("Failed to determine the local name of the element to be created!");
 
     m_aClass = aClass;
-    m_aXSDPaths = CollectionHelper.newList (aXSDPaths);
+    m_aXSDPaths = new CommonsArrayList<> (aXSDPaths);
     m_sNamespaceURI = StringHelper.getNotNull (sNamespaceURI);
     m_sLocalName = sLocalName;
   }
@@ -186,5 +188,32 @@ public class JAXBDocumentType implements IJAXBDocumentType
       m_aCachedSchema = _createSchema (aClassLoader);
     }
     return m_aCachedSchema;
+  }
+
+  @Override
+  public boolean equals (final Object o)
+  {
+    if (o == this)
+      return true;
+    if (o == null || !getClass ().equals (o.getClass ()))
+      return false;
+    final JAXBDocumentType rhs = (JAXBDocumentType) o;
+    return m_aClass.equals (rhs.m_aClass) && m_aXSDPaths.equals (rhs.m_aXSDPaths);
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    return new HashCodeGenerator (this).append (m_aClass).append (m_aXSDPaths).getHashCode ();
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).append ("Class", m_aClass)
+                                       .append ("XSDPaths", m_aXSDPaths)
+                                       .append ("NamespaceURI", m_sNamespaceURI)
+                                       .append ("LocalName", m_sLocalName)
+                                       .toString ();
   }
 }

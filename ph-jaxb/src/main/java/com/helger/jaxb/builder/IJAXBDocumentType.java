@@ -23,6 +23,7 @@ import javax.annotation.Nullable;
 import javax.xml.validation.Schema;
 import javax.xml.validation.Validator;
 
+import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
@@ -39,6 +40,7 @@ import com.helger.xml.schema.XMLSchemaValidationHelper;
  *
  * @author Philip Helger
  */
+@MustImplementEqualsAndHashcode
 public interface IJAXBDocumentType extends IHasSchema, Serializable
 {
   /**
