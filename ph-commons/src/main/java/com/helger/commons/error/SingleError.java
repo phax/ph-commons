@@ -224,7 +224,7 @@ public class SingleError implements IError
     }
 
     @Nonnull
-    public IMPLTYPE setErrorLevel (@Nonnull final IErrorLevel aErrorLevel)
+    public final IMPLTYPE setErrorLevel (@Nonnull final IErrorLevel aErrorLevel)
     {
       ValueEnforcer.notNull (aErrorLevel, "ErrorLevel");
       m_aErrorLevel = aErrorLevel;
@@ -232,21 +232,21 @@ public class SingleError implements IError
     }
 
     @Nonnull
-    public IMPLTYPE setErrorID (@Nullable final String sErrorID)
+    public final IMPLTYPE setErrorID (@Nullable final String sErrorID)
     {
       m_sErrorID = sErrorID;
       return thisAsT ();
     }
 
     @Nonnull
-    public IMPLTYPE setErrorFieldName (@Nullable final String sErrorFieldName)
+    public final IMPLTYPE setErrorFieldName (@Nullable final String sErrorFieldName)
     {
       m_sErrorFieldName = sErrorFieldName;
       return thisAsT ();
     }
 
     @Nonnull
-    public IMPLTYPE setErrorLocation (@Nullable final IErrorLocation aErrorLocation)
+    public final IMPLTYPE setErrorLocation (@Nullable final IErrorLocation aErrorLocation)
     {
       m_aErrorLocation = aErrorLocation;
       return thisAsT ();
@@ -259,7 +259,7 @@ public class SingleError implements IError
     }
 
     @Nonnull
-    public IMPLTYPE setErrorText (@Nullable final IMultilingualText aMLT)
+    public final IMPLTYPE setErrorText (@Nullable final IMultilingualText aMLT)
     {
       if (aMLT == null)
         m_aErrorText = null;
@@ -278,14 +278,14 @@ public class SingleError implements IError
     }
 
     @Nonnull
-    public IMPLTYPE setErrorText (@Nullable final IHasErrorText aErrorText)
+    public final IMPLTYPE setErrorText (@Nullable final IHasErrorText aErrorText)
     {
       m_aErrorText = aErrorText;
       return thisAsT ();
     }
 
     @Nonnull
-    public IMPLTYPE setLinkedException (@Nullable final Throwable aLinkedException)
+    public final IMPLTYPE setLinkedException (@Nullable final Throwable aLinkedException)
     {
       m_aLinkedException = aLinkedException;
       return thisAsT ();

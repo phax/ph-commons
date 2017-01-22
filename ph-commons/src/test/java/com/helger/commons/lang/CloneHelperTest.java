@@ -29,7 +29,7 @@ import org.junit.Test;
 public final class CloneHelperTest
 {
   @Test
-  public void testGetClonedValue ()
+  public void testGetClonedValue () throws CloneNotSupportedException
   {
     assertNull (CloneHelper.getClonedValue (null));
     assertEquals (CloneHelper.getClonedValue ("Hallo"), "Hallo");

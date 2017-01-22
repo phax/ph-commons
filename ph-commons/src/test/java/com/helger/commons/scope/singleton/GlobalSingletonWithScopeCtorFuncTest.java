@@ -44,15 +44,15 @@ public final class GlobalSingletonWithScopeCtorFuncTest
   @BeforeClass
   public static void beforeClass ()
   {
-    assertEquals (0, MockGlobalSingletonWithScopeCtor.s_nCtorCount);
-    assertEquals (0, MockGlobalSingletonWithScopeCtor.s_nDtorCount);
+    assertEquals (0, MockGlobalSingletonWithScopeCtor.getCtorCount ());
+    assertEquals (0, MockGlobalSingletonWithScopeCtor.getDtorCount ());
   }
 
   @AfterClass
   public static void afterClass ()
   {
-    assertEquals (1, MockGlobalSingletonWithScopeCtor.s_nCtorCount);
-    assertEquals (1, MockGlobalSingletonWithScopeCtor.s_nDtorCount);
+    assertEquals (1, MockGlobalSingletonWithScopeCtor.getCtorCount ());
+    assertEquals (1, MockGlobalSingletonWithScopeCtor.getDtorCount ());
   }
 
   @Test

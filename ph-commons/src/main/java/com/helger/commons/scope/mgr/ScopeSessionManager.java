@@ -67,9 +67,9 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
 
   /** All contained session scopes. */
   @GuardedBy ("m_aRWLock")
-  private final ICommonsMap <String, ISessionScope> m_aSessionScopes = new CommonsHashMap<> ();
+  private final ICommonsMap <String, ISessionScope> m_aSessionScopes = new CommonsHashMap <> ();
   @GuardedBy ("m_aRWLock")
-  private final ICommonsSet <String> m_aSessionsInDestruction = new CommonsHashSet<> ();
+  private final ICommonsSet <String> m_aSessionsInDestruction = new CommonsHashSet <> ();
   @GuardedBy ("m_aRWLock")
   private boolean m_bDestroyAllSessionsOnScopeEnd = DEFAULT_DESTROY_ALL_SESSIONS_ON_SCOPE_END;
   @GuardedBy ("m_aRWLock")
@@ -85,9 +85,10 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
   {
     // This special handling is needed, because this global singleton is
     // required upon shutdown of the GlobalWebScope!
-    if (s_aInstance == null)
-      s_aInstance = getGlobalSingleton (ScopeSessionManager.class);
-    return s_aInstance;
+    ScopeSessionManager ret = s_aInstance;
+    if (ret == null)
+      ret = s_aInstance = getGlobalSingleton (ScopeSessionManager.class);
+    return ret;
   }
 
   /**

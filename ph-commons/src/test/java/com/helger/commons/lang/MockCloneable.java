@@ -43,8 +43,9 @@ public final class MockCloneable implements Cloneable
   }
 
   @Override
-  public MockCloneable clone ()
+  public MockCloneable clone () throws CloneNotSupportedException
   {
+    super.clone ();
     return new MockCloneable (m_i + 1);
   }
 }

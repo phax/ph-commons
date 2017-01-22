@@ -40,34 +40,35 @@ public final class CSVIteratorTest
 {
   private static final List <String> STRINGS = CollectionHelper.newList ("test1", "test2");
 
-  private CSVIterator m_aIterator;
   private CSVReader m_aMockReader;
 
   @Before
-  public void setUp () throws IOException
+  public void setUp ()
   {
     m_aMockReader = new CSVReader (new NonBlockingStringReader (StringHelper.getImploded (',', STRINGS)));
-    m_aIterator = new CSVIterator (m_aMockReader);
   }
 
   @Test (expected = UnsupportedOperationException.class)
-  public void removethrowsUnsupportedOperationException ()
+  public void removethrowsUnsupportedOperationException () throws IOException
   {
-    m_aIterator.remove ();
+    final CSVIterator aIterator = new CSVIterator (m_aMockReader);
+    aIterator.remove ();
   }
 
   @Test
-  public void initialReadReturnsStrings ()
+  public void initialReadReturnsStrings () throws IOException
   {
-    assertEquals (STRINGS, m_aIterator.next ());
+    final CSVIterator aIterator = new CSVIterator (m_aMockReader);
+    assertEquals (STRINGS, aIterator.next ());
   }
 
   @Test
-  public void hasNextWorks ()
+  public void hasNextWorks () throws IOException
   {
     // initial read from constructor
-    assertTrue (m_aIterator.hasNext ());
-    assertNotNull (m_aIterator.next ());
-    assertFalse (m_aIterator.hasNext ());
+    final CSVIterator aIterator = new CSVIterator (m_aMockReader);
+    assertTrue (aIterator.hasNext ());
+    assertNotNull (aIterator.next ());
+    assertFalse (aIterator.hasNext ());
   }
 }

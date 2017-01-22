@@ -1665,8 +1665,9 @@ public final class StringHelper
         final String sElement = aMapper.apply (aElements[i]);
         if (hasText (sElement))
         {
-          if (nElementsAdded++ > 0)
+          if (nElementsAdded > 0)
             aSB.append (sSep);
+          nElementsAdded++;
           aSB.append (sElement);
         }
       }
@@ -1744,10 +1745,13 @@ public final class StringHelper
     // dependencies
     // Do not use String.split because it trims empty tokens from the end
     int nStartIndex = 0;
-    int nMatchIndex;
     int nItemsAdded = 0;
-    while ((nMatchIndex = sElements.indexOf (cSep, nStartIndex)) >= 0)
+    while (true)
     {
+      final int nMatchIndex = sElements.indexOf (cSep, nStartIndex);
+      if (nMatchIndex < 0)
+        break;
+
       ret[nItemsAdded++] = sElements.substring (nStartIndex, nMatchIndex);
       // 1 == length of separator char
       nStartIndex = nMatchIndex + 1;
@@ -1915,7 +1919,7 @@ public final class StringHelper
     return getExploded (cSep,
                         sElements,
                         nMaxItems,
-                        nMaxItems >= 1 ? new CommonsArrayList<> (nMaxItems) : new CommonsArrayList<> ());
+                        nMaxItems >= 1 ? new CommonsArrayList <> (nMaxItems) : new CommonsArrayList <> ());
   }
 
   /**
@@ -1998,10 +2002,12 @@ public final class StringHelper
           // dependencies
           // Do not use String.split because it trims empty tokens from the end
           int nStartIndex = 0;
-          int nMatchIndex;
           int nItemsAdded = 0;
-          while ((nMatchIndex = sElements.indexOf (sSep, nStartIndex)) >= 0)
+          while (true)
           {
+            final int nMatchIndex = sElements.indexOf (sSep, nStartIndex);
+            if (nMatchIndex < 0)
+              break;
             aConsumer.accept (sElements.substring (nStartIndex, nMatchIndex));
             nStartIndex = nMatchIndex + sSep.length ();
             ++nItemsAdded;
@@ -2064,7 +2070,7 @@ public final class StringHelper
     return getExploded (sSep,
                         sElements,
                         nMaxItems,
-                        nMaxItems >= 1 ? new CommonsArrayList<> (nMaxItems) : new CommonsArrayList<> ());
+                        nMaxItems >= 1 ? new CommonsArrayList <> (nMaxItems) : new CommonsArrayList <> ());
   }
 
   /**
@@ -2084,7 +2090,7 @@ public final class StringHelper
   @ReturnsMutableCopy
   public static CommonsHashSet <String> getExplodedToSet (@Nonnull final String sSep, @Nullable final String sElements)
   {
-    return getExploded (sSep, sElements, -1, new CommonsHashSet<> ());
+    return getExploded (sSep, sElements, -1, new CommonsHashSet <> ());
   }
 
   /**
@@ -2106,7 +2112,7 @@ public final class StringHelper
   public static CommonsLinkedHashSet <String> getExplodedToOrderedSet (@Nonnull final String sSep,
                                                                        @Nullable final String sElements)
   {
-    return getExploded (sSep, sElements, -1, new CommonsLinkedHashSet<> ());
+    return getExploded (sSep, sElements, -1, new CommonsLinkedHashSet <> ());
   }
 
   /**
@@ -2127,7 +2133,7 @@ public final class StringHelper
   public static CommonsTreeSet <String> getExplodedToSortedSet (@Nonnull final String sSep,
                                                                 @Nullable final String sElements)
   {
-    return getExploded (sSep, sElements, -1, new CommonsTreeSet<> ());
+    return getExploded (sSep, sElements, -1, new CommonsTreeSet <> ());
   }
 
   /**
@@ -2951,7 +2957,8 @@ public final class StringHelper
     final int nTextLength = getLength (sText);
     if (nTextLength >= 1)
     {
-      int nLastIndex = 0, nIndex;
+      int nLastIndex = 0;
+      int nIndex;
       do
       {
         // Start searching from the last result

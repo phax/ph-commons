@@ -75,7 +75,7 @@ public class StopWatch implements IStoppable, Serializable
    * @return The current time in nano seconds.
    */
   @OverrideOnDemand
-  protected long getCurrentNanoTime ()
+  protected final long getCurrentNanoTime ()
   {
     return System.nanoTime ();
   }

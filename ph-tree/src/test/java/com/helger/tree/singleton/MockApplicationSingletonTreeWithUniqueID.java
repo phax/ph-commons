@@ -19,8 +19,10 @@ package com.helger.tree.singleton;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.UsedViaReflection;
+import com.helger.commons.hashcode.HashCodeGenerator;
 
-public final class MockApplicationSingletonTreeWithUniqueID extends AbstractApplicationSingletonTreeWithUniqueID <String, String>
+public final class MockApplicationSingletonTreeWithUniqueID extends
+                                                            AbstractApplicationSingletonTreeWithUniqueID <String, String>
 {
   @Deprecated
   @UsedViaReflection
@@ -31,5 +33,19 @@ public final class MockApplicationSingletonTreeWithUniqueID extends AbstractAppl
   public static MockApplicationSingletonTreeWithUniqueID getInstance ()
   {
     return getApplicationSingleton (MockApplicationSingletonTreeWithUniqueID.class);
+  }
+
+  @Override
+  public boolean equals (final Object o)
+  {
+    if (o == this)
+      return true;
+    return o instanceof MockApplicationSingletonTreeWithUniqueID;
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    return new HashCodeGenerator (this).getHashCode ();
   }
 }

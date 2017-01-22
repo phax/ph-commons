@@ -19,6 +19,7 @@ package com.helger.tree.singleton;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.UsedViaReflection;
+import com.helger.commons.hashcode.HashCodeGenerator;
 
 /**
  * Mock global singleton
@@ -36,5 +37,19 @@ public final class MockGlobalSingletonTreeWithUniqueID extends AbstractGlobalSin
   public static MockGlobalSingletonTreeWithUniqueID getInstance ()
   {
     return getGlobalSingleton (MockGlobalSingletonTreeWithUniqueID.class);
+  }
+
+  @Override
+  public boolean equals (final Object o)
+  {
+    if (o == this)
+      return true;
+    return o instanceof MockGlobalSingletonTreeWithUniqueID;
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    return new HashCodeGenerator (this).getHashCode ();
   }
 }

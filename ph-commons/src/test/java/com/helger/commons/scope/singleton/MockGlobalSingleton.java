@@ -28,8 +28,8 @@ import com.helger.commons.scope.IScope;
  */
 public final class MockGlobalSingleton extends AbstractGlobalSingleton
 {
-  protected static int s_nCtorCount = 0;
-  protected static int s_nDtorCount = 0;
+  private static int s_nCtorCount = 0;
+  private static int s_nDtorCount = 0;
 
   @Deprecated
   @UsedViaReflection
@@ -48,5 +48,15 @@ public final class MockGlobalSingleton extends AbstractGlobalSingleton
   protected void onDestroy (@Nonnull final IScope aScopeInDestruction) throws Exception
   {
     s_nDtorCount++;
+  }
+
+  protected static int getCtorCount ()
+  {
+    return s_nCtorCount;
+  }
+
+  protected static int getDtorCount ()
+  {
+    return s_nDtorCount;
   }
 }

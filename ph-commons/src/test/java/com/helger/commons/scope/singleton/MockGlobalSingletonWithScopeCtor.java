@@ -29,8 +29,8 @@ import com.helger.commons.scope.IScope;
  */
 public final class MockGlobalSingletonWithScopeCtor extends AbstractGlobalSingleton
 {
-  protected static int s_nCtorCount = 0;
-  protected static int s_nDtorCount = 0;
+  private static int s_nCtorCount = 0;
+  private static int s_nDtorCount = 0;
   private final IScope m_aScope;
 
   @Deprecated
@@ -59,5 +59,15 @@ public final class MockGlobalSingletonWithScopeCtor extends AbstractGlobalSingle
   public IScope getScope ()
   {
     return m_aScope;
+  }
+
+  protected static int getCtorCount ()
+  {
+    return s_nCtorCount;
+  }
+
+  protected static int getDtorCount ()
+  {
+    return s_nDtorCount;
   }
 }

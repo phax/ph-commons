@@ -216,7 +216,8 @@ public final class Punycode
     for (int in = (b > 0) ? b + 1 : 0; in < aChars.length; ++out)
     {
       final int oldi = i;
-      for (int w = 1, k = BASE;; k += BASE)
+      int w = 1;
+      for (int k = BASE;; k += BASE)
       {
         if (in > aChars.length)
           throw new DecodeException ("Bad input");

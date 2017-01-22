@@ -19,6 +19,8 @@ package com.helger.commons.concurrent;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.mock.CommonsTestHelper;
 
@@ -31,6 +33,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public final class BasicThreadFactoryTest
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (BasicThreadFactoryTest.class);
+
   @Test
   @SuppressFBWarnings (value = "DLS_DEAD_LOCAL_STORE")
   public void testAll ()
@@ -44,7 +48,7 @@ public final class BasicThreadFactoryTest
       final Thread t = x.newThread ( () -> {
         // nada
         if (false)
-          System.out.println ("In thread '" + Thread.currentThread ().getName () + "'");
+          s_aLogger.info ("In thread '" + Thread.currentThread ().getName () + "'");
       });
       assertNotNull (t);
       t.start ();

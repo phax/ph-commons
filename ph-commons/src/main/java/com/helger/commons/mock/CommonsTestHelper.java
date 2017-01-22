@@ -136,7 +136,7 @@ public final class CommonsTestHelper
     _testHashcodeImplementation (aObject1);
     _testHashcodeImplementation (aObject2);
     _assertFalse ("Passed objects are identical!", aObject1.equals (aObject2));
-    _assertFalse ("This test may not be used with the same object!", aObject1 == aObject2);
+    _assertFalse ("This test may not be used with the same object!", EqualsHelper.identityEqual (aObject1, aObject2));
     final int nHash1 = aObject1.hashCode ();
     final int nHash2 = aObject2.hashCode ();
     _assertFalse ("hashCode() may not be the same for both objects", nHash1 == nHash2);
@@ -163,7 +163,7 @@ public final class CommonsTestHelper
     testToStringImplementation (aObject);
     testToStringImplementation (aObject2);
     _assertTrue ("Passed objects are not identical!", aObject.equals (aObject2));
-    _assertFalse ("This test may not be used with the same object!", aObject == aObject2);
+    _assertFalse ("This test may not be used with the same object!", EqualsHelper.identityEqual (aObject, aObject2));
   }
 
   public static <DATATYPE> void testToStringImplementationWithDifferentContentObject (@Nonnull final DATATYPE aObject,
@@ -172,7 +172,7 @@ public final class CommonsTestHelper
     testToStringImplementation (aObject);
     testToStringImplementation (aObject2);
     _assertFalse ("Passed objects are identical!", aObject.equals (aObject2));
-    _assertFalse ("This test may not be used with the same object!", aObject == aObject2);
+    _assertFalse ("This test may not be used with the same object!", EqualsHelper.identityEqual (aObject, aObject2));
   }
 
   /**
@@ -273,7 +273,7 @@ public final class CommonsTestHelper
 
     // More than 20s thread would be overkill!
     final ExecutorService aES = Executors.newFixedThreadPool (20);
-    final ICommonsList <String> aErrors = new CommonsVector<> ();
+    final ICommonsList <String> aErrors = new CommonsVector <> ();
     for (int i = 0; i < nCalls; ++i)
     {
       aES.submit ( () -> {
