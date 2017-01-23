@@ -24,9 +24,11 @@ This project was the following modules:
 
 ##News and noteworthy
 
-  * v8.6.1
+  * v8.6.1 - 2017-01-23
+    * `*MultilingualText` is now based on ICommonsOrderedMap
+    * Extended `GlobalDebug` API slightly
     * `JAXBDocumentType` implements equals/hashCode
-    * `WSClientConfig` not using chunked encoding by default 
+    * `WSClientConfig` not using chunked encoding by default
   * v8.6.0 - 2017-01-09
     * Removed deprecated methods
     * Minor API extensions
