@@ -65,8 +65,10 @@ import com.helger.commons.string.StringHelper;
 @NotThreadSafe
 public class WSClientConfig
 {
+  private static final String HTTP_HEADER_ACCEPT_ENCODING = "Accept-Encoding";
   public static final int DEFAULT_CONNECTION_TIMEOUT_MS = 5000;
   public static final int DEFAULT_REQUEST_TIMEOUT_MS = 5000;
+  public static final int DEFAULT_CHUNK_SIZE = -1;
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (WSClientConfig.class);
 
@@ -75,7 +77,7 @@ public class WSClientConfig
   private HostnameVerifier m_aHostnameVerifier;
   private int m_nConnectionTimeoutMS = DEFAULT_CONNECTION_TIMEOUT_MS;
   private int m_nRequestTimeoutMS = DEFAULT_REQUEST_TIMEOUT_MS;
-  private int m_nChunkSize = 0;
+  private int m_nChunkSize = DEFAULT_CHUNK_SIZE;
   private String m_sUserName;
   private String m_sPassword;
   private String m_sSOAPAction;
@@ -242,8 +244,8 @@ public class WSClientConfig
   }
 
   /**
-   * @return The chunk size in bytes. Default is 0. Only values &gt; 0 are
-   *         considered.
+   * @return The chunk size in bytes. Default is {@link #DEFAULT_CHUNK_SIZE}.
+   *         Only values &gt; 0 are considered.
    * @since 8.5.7
    */
   public int getChunkSize ()
@@ -255,7 +257,9 @@ public class WSClientConfig
    * Set the chunk size to enable HTTP chunked encoding.
    *
    * @param nChunkSize
-   *        Number of bytes. Only values &ge; 0 are considered.
+   *        Number of bytes. Only values &ge; 0 are considered. If the value is
+   *        0 than the JDK default chunk size (Oracle: 4096 bytes) is used.
+   *        Values &lt; 0 mean no chunked encoding!
    * @return this for chaining
    * @since 8.5.7
    */
@@ -583,9 +587,9 @@ public class WSClientConfig
   public WSClientConfig setCompressedResponse (final boolean bCompress)
   {
     if (bCompress)
-      setHTTPHeader ("Accept-Encoding", "gzip");
+      setHTTPHeader (HTTP_HEADER_ACCEPT_ENCODING, "gzip");
     else
-      removeHTTPHeader ("Accept-Encoding");
+      removeHTTPHeader (HTTP_HEADER_ACCEPT_ENCODING);
     return this;
   }
 
