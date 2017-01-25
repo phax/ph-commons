@@ -568,6 +568,8 @@ public final class XMLHelper
 
       final StringBuilder aName = new StringBuilder (aCurNode.getNodeName ());
 
+      // Attribute nodes don't have a parent node, so it is not possible to
+      // construct the path
       if (aCurNode.getNodeType () == Node.ELEMENT_NODE &&
           aCurNode.getParentNode () != null &&
           aCurNode.getParentNode ().getNodeType () == Node.ELEMENT_NODE)
