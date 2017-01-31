@@ -96,7 +96,7 @@ public final class TypedObject <IDTYPE extends Serializable> implements ITypedOb
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("ObjectType", m_aObjectType).append ("ID", m_aID).toString ();
+    return new ToStringGenerator (this).append ("ObjectType", m_aObjectType).append ("ID", m_aID).getToString ();
   }
 
   /**

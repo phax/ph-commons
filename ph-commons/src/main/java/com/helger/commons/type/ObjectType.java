@@ -85,6 +85,6 @@ public class ObjectType implements Comparable <ObjectType>, Serializable, IHasNa
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("Name", m_sName).toString ();
+    return new ToStringGenerator (this).append ("Name", m_sName).getToString ();
   }
 }
