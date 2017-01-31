@@ -378,9 +378,8 @@ public final class ToStringGenerator
     return aValue == null ? this : append (sField, aValue);
   }
 
-  @Override
   @Nonnull
-  public String toString ()
+  public String getToString ()
   {
     if ((m_nIndex & APPENDED_CLOSING_BRACKET) == 0)
     {
@@ -388,6 +387,14 @@ public final class ToStringGenerator
       m_aSB.append (']');
     }
     return m_aSB.toString ();
+  }
+
+  @Override
+  @Nonnull
+  @Deprecated
+  public String toString ()
+  {
+    return getToString ();
   }
 
   /**
@@ -402,7 +409,7 @@ public final class ToStringGenerator
   @Nonnull
   public static ToStringGenerator getDerived (@Nonnull final String sSuperToString)
   {
-    // We don't need the object is "super.toString" is involved, because in
+    // We don't need the object if "super.toString" is involved, because in
     // super.toString the object is already emitted!
     return new ToStringGenerator (null)._appendSuper (sSuperToString);
   }
