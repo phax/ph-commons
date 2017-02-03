@@ -352,6 +352,6 @@ public class MimeType implements IMimeType, Comparable <MimeType>
     return new ToStringGenerator (this).append ("contentType", m_eContentType)
                                        .append ("subType", m_sContentSubType)
                                        .appendIfNotNull ("parameters", m_aParameters)
-                                       .toString ();
+                                       .getToString ();
   }
 }

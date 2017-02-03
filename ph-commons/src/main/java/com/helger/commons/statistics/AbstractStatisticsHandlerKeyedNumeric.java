@@ -105,13 +105,13 @@ public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisti
                                          .append ("min", m_nMin)
                                          .append ("max", m_nMax)
                                          .append ("sum", m_aSum)
-                                         .toString ();
+                                         .getToString ();
     }
   }
 
   private final transient SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   private final AtomicInteger m_aInvocationCount = new AtomicInteger (0);
-  private final ICommonsMap <String, Value> m_aMap = new CommonsHashMap <> ();
+  private final ICommonsMap <String, Value> m_aMap = new CommonsHashMap<> ();
 
   @Nonnegative
   public final int getInvocationCount ()

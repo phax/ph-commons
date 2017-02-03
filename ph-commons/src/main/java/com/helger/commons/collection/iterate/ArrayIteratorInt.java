@@ -101,6 +101,6 @@ public final class ArrayIteratorInt
   {
     return new ToStringGenerator (this).append ("array", Arrays.toString (m_aArray))
                                        .append ("index", m_nIndex)
-                                       .toString ();
+                                       .getToString ();
   }
 }

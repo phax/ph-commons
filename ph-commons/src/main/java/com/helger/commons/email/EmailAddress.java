@@ -92,6 +92,6 @@ public class EmailAddress implements IEmailAddress
   {
     return new ToStringGenerator (null).append ("address", m_sAddress)
                                        .appendIfNotNull ("personal", m_sPersonal)
-                                       .toString ();
+                                       .getToString ();
   }
 }

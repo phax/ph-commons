@@ -96,7 +96,7 @@ public final class Pair <DATA1TYPE, DATA2TYPE>
   @Nonnull
   public Pair <DATA1TYPE, DATA2TYPE> getClone ()
   {
-    return new Pair <> (this);
+    return new Pair<> (this);
   }
 
   @Override
@@ -119,12 +119,12 @@ public final class Pair <DATA1TYPE, DATA2TYPE>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("first", m_aFirst).append ("second", m_aSecond).toString ();
+    return new ToStringGenerator (null).append ("first", m_aFirst).append ("second", m_aSecond).getToString ();
   }
 
   @Nonnull
   public static <T, U> Pair <T, U> create (@Nullable final T aFirst, @Nullable final U aSecond)
   {
-    return new Pair <> (aFirst, aSecond);
+    return new Pair<> (aFirst, aSecond);
   }
 }

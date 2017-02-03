@@ -89,6 +89,6 @@ public class CollectingValidationEventHandler extends AbstractValidationEventHan
   {
     return m_aRWLock.readLocked ( () -> ToStringGenerator.getDerived (super.toString ())
                                                          .append ("errors", m_aErrors)
-                                                         .toString ());
+                                                         .getToString ());
   }
 }

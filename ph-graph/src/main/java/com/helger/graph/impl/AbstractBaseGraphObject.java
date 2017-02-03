@@ -80,6 +80,6 @@ public abstract class AbstractBaseGraphObject extends MapBasedAttributeContainer
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("id", m_sID).toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("id", m_sID).getToString ();
   }
 }

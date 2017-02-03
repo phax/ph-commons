@@ -247,6 +247,6 @@ public class ChangeLog implements Serializable
                                        .append ("version", m_aVersion)
                                        .append ("component", m_sComponent)
                                        .append ("entries", m_aEntries)
-                                       .toString ();
+                                       .getToString ();
   }
 }

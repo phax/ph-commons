@@ -143,6 +143,6 @@ public class FilterIterator <ELEMENTTYPE> implements IIterableIterator <ELEMENTT
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("baseIter", m_aBaseIter).append ("filter", m_aFilter).toString ();
+    return new ToStringGenerator (this).append ("baseIter", m_aBaseIter).append ("filter", m_aFilter).getToString ();
   }
 }

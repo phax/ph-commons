@@ -266,6 +266,6 @@ public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICl
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("map", m_aMap).toString ();
+    return new ToStringGenerator (this).append ("map", m_aMap).getToString ();
   }
 }

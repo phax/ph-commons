@@ -77,13 +77,13 @@ public class StatisticsHandlerKeyedCounter implements IMutableStatisticsHandlerK
       // No object needed for ctor
       return new ToStringGenerator (null).append ("invocations", m_nInvocationCount)
                                          .append ("count", m_nCount)
-                                         .toString ();
+                                         .getToString ();
     }
   }
 
   private final transient SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   private final AtomicInteger m_aInvocationCount = new AtomicInteger ();
-  private final ICommonsMap <String, Value> m_aMap = new CommonsHashMap <> ();
+  private final ICommonsMap <String, Value> m_aMap = new CommonsHashMap<> ();
 
   @Nonnegative
   public int getInvocationCount ()

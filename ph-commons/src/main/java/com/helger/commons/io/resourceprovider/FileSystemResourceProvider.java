@@ -167,6 +167,6 @@ public class FileSystemResourceProvider implements IWritableResourceProvider
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).appendIfNotNull ("basePath", m_aBasePath).toString ();
+    return new ToStringGenerator (this).appendIfNotNull ("basePath", m_aBasePath).getToString ();
   }
 }

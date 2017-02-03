@@ -164,6 +164,6 @@ public class MapBasedReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> implements 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("attrs", m_aAttrs).toString ();
+    return new ToStringGenerator (this).append ("attrs", m_aAttrs).getToString ();
   }
 }

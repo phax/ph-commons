@@ -209,6 +209,6 @@ public class ErrorList implements IErrorList, ICloneable <ErrorList>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("List", m_aList).toString ();
+    return new ToStringGenerator (this).append ("List", m_aList).getToString ();
   }
 }

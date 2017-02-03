@@ -100,6 +100,6 @@ public class SingleElementNamespaceContext extends AbstractNamespaceContext
   {
     return new ToStringGenerator (this).append ("prefix", m_sPrefix)
                                        .append ("namespaceURI", m_sNamespaceURI)
-                                       .toString ();
+                                       .getToString ();
   }
 }

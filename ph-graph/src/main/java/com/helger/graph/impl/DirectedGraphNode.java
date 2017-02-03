@@ -85,7 +85,7 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     }
     else
     {
-      m_aIncoming = new CommonsLinkedHashMap <> ();
+      m_aIncoming = new CommonsLinkedHashMap<> ();
     }
 
     // Add!
@@ -112,7 +112,7 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
   @ReturnsMutableCopy
   public ICommonsList <IMutableDirectedGraphRelation> getAllIncomingRelations ()
   {
-    return m_aIncoming == null ? new CommonsArrayList <> () : new CommonsArrayList <> (m_aIncoming.values ());
+    return m_aIncoming == null ? new CommonsArrayList<> () : new CommonsArrayList<> (m_aIncoming.values ());
   }
 
   public void forEachIncomingRelation (@Nonnull final Consumer <? super IMutableDirectedGraphRelation> aConsumer)
@@ -146,7 +146,7 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
   @ReturnsMutableCopy
   public ICommonsSet <IMutableDirectedGraphNode> getAllFromNodes ()
   {
-    final ICommonsSet <IMutableDirectedGraphNode> ret = new CommonsHashSet <> ();
+    final ICommonsSet <IMutableDirectedGraphNode> ret = new CommonsHashSet<> ();
     if (m_aIncoming != null)
       CollectionHelper.findAllMapped (m_aIncoming.values (), IMutableDirectedGraphRelation::getFrom, ret::add);
     return ret;
@@ -181,7 +181,7 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     }
     else
     {
-      m_aOutgoing = new CommonsLinkedHashMap <> ();
+      m_aOutgoing = new CommonsLinkedHashMap<> ();
     }
 
     // Add!
@@ -208,7 +208,7 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
   @ReturnsMutableCopy
   public ICommonsList <IMutableDirectedGraphRelation> getAllOutgoingRelations ()
   {
-    return m_aOutgoing == null ? new CommonsArrayList <> () : new CommonsArrayList <> (m_aOutgoing.values ());
+    return m_aOutgoing == null ? new CommonsArrayList<> () : new CommonsArrayList<> (m_aOutgoing.values ());
   }
 
   public void forEachOutgoingRelation (@Nonnull final Consumer <? super IMutableDirectedGraphRelation> aConsumer)
@@ -222,7 +222,7 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
   @ReturnsMutableCopy
   public ICommonsSet <IMutableDirectedGraphNode> getAllToNodes ()
   {
-    final ICommonsSet <IMutableDirectedGraphNode> ret = new CommonsHashSet <> ();
+    final ICommonsSet <IMutableDirectedGraphNode> ret = new CommonsHashSet<> ();
     if (m_aOutgoing != null)
       CollectionHelper.findAllMapped (m_aOutgoing.values (), IMutableDirectedGraphRelation::getTo, ret::add);
     return ret;
@@ -306,7 +306,7 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
   @ReturnsMutableCopy
   public ICommonsOrderedSet <IMutableDirectedGraphRelation> getAllRelations ()
   {
-    final ICommonsOrderedSet <IMutableDirectedGraphRelation> ret = new CommonsLinkedHashSet <> ();
+    final ICommonsOrderedSet <IMutableDirectedGraphRelation> ret = new CommonsLinkedHashSet<> ();
     if (m_aIncoming != null)
       ret.addAll (m_aIncoming.values ());
     if (m_aOutgoing != null)
@@ -324,7 +324,7 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllRelationIDs ()
   {
-    final ICommonsOrderedSet <String> ret = new CommonsLinkedHashSet <> ();
+    final ICommonsOrderedSet <String> ret = new CommonsLinkedHashSet<> ();
     if (m_aIncoming != null)
       ret.addAll (m_aIncoming.keySet ());
     if (m_aOutgoing != null)
@@ -336,7 +336,7 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
   @ReturnsMutableCopy
   public ICommonsOrderedSet <IMutableDirectedGraphNode> getAllRelatedNodes ()
   {
-    final ICommonsOrderedSet <IMutableDirectedGraphNode> ret = new CommonsLinkedHashSet <> ();
+    final ICommonsOrderedSet <IMutableDirectedGraphNode> ret = new CommonsLinkedHashSet<> ();
     if (m_aIncoming != null)
       for (final IMutableDirectedGraphRelation aRelation : m_aIncoming.values ())
         ret.add (aRelation.getFrom ());
@@ -350,7 +350,7 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllRelatedNodeIDs ()
   {
-    final ICommonsOrderedSet <String> ret = new CommonsLinkedHashSet <> ();
+    final ICommonsOrderedSet <String> ret = new CommonsLinkedHashSet<> ();
     if (m_aIncoming != null)
       for (final IMutableDirectedGraphRelation aRelation : m_aIncoming.values ())
         ret.add (aRelation.getFromID ());
@@ -387,6 +387,6 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     return ToStringGenerator.getDerived (super.toString ())
                             .append ("incomingIDs", m_aIncoming == null ? null : m_aIncoming.keySet ())
                             .append ("outgoingIDs", m_aOutgoing == null ? null : m_aOutgoing.keySet ())
-                            .toString ();
+                            .getToString ();
   }
 }

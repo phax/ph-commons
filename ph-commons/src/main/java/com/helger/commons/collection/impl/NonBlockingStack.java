@@ -164,7 +164,7 @@ public class NonBlockingStack <ELEMENTTYPE> extends CommonsArrayList <ELEMENTTYP
   @Nonnull
   public NonBlockingStack <ELEMENTTYPE> getClone ()
   {
-    return new NonBlockingStack <> (this);
+    return new NonBlockingStack<> (this);
   }
 
   @Override
@@ -186,6 +186,6 @@ public class NonBlockingStack <ELEMENTTYPE> extends CommonsArrayList <ELEMENTTYP
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("list", super.toString ()).toString ();
+    return new ToStringGenerator (this).append ("list", super.toString ()).getToString ();
   }
 }

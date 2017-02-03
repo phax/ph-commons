@@ -27,8 +27,8 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Implementation of {@link IXMLBracketModeDeterminator} for real XML (and
- * XHTML). Only the presence of children determine whether "open close" or
- * "self closed" is used.
+ * XHTML). Only the presence of children determine whether "open close" or "self
+ * closed" is used.
  *
  * @author Philip Helger
  */
@@ -64,6 +64,6 @@ public class XMLBracketModeDeterminatorXML implements IXMLBracketModeDeterminato
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).toString ();
+    return new ToStringGenerator (this).getToString ();
   }
 }

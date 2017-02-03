@@ -165,6 +165,6 @@ public class MimeTypeContent
   {
     return new ToStringGenerator (this).append ("contentBytes", Arrays.toString (m_aContentBytes))
                                        .append ("mimeType", m_aMimeType)
-                                       .toString ();
+                                       .getToString ();
   }
 }

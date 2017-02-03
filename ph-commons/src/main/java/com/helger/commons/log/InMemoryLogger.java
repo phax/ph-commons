@@ -169,6 +169,6 @@ public class InMemoryLogger implements IHasErrorLevels <LogMessage>, IHasSize, I
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("messages", m_aMessages).toString ();
+    return new ToStringGenerator (this).append ("messages", m_aMessages).getToString ();
   }
 }

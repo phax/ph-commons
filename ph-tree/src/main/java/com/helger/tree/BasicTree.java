@@ -128,6 +128,6 @@ public class BasicTree <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("RootItem", m_aRootItem).toString ();
+    return new ToStringGenerator (this).append ("RootItem", m_aRootItem).getToString ();
   }
 }

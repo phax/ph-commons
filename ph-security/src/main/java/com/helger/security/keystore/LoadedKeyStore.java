@@ -86,6 +86,6 @@ public final class LoadedKeyStore implements ISuccessIndicator
     return new ToStringGenerator (this).append ("KeyStore", m_aKeyStore)
                                        .append ("Error", m_eError)
                                        .append ("ErrorParams", m_aErrorParams)
-                                       .toString ();
+                                       .getToString ();
   }
 }

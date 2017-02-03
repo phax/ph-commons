@@ -55,6 +55,6 @@ public class ReadableResourceInputStream extends AbstractMemoryReadableResource
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("inputStream", m_aIS).toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("inputStream", m_aIS).getToString ();
   }
 }

@@ -88,7 +88,7 @@ public class Wrapper <DATATYPE> implements IMutableWrapper <DATATYPE>, ICloneabl
   @ReturnsMutableCopy
   public Wrapper <DATATYPE> getClone ()
   {
-    return new Wrapper <> (m_aObj);
+    return new Wrapper<> (m_aObj);
   }
 
   @Override
@@ -111,6 +111,6 @@ public class Wrapper <DATATYPE> implements IMutableWrapper <DATATYPE>, ICloneabl
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("obj", m_aObj).toString ();
+    return new ToStringGenerator (this).append ("obj", m_aObj).getToString ();
   }
 }

@@ -115,9 +115,9 @@ public class LZWCodec implements IByteArrayCodec
     @Override
     public String toString ()
     {
-      return new ToStringGenerator (null).append ("index", m_nTableIndex)
-                                         .append ("children#", ArrayHelper.getSize (m_aChildren))
-                                         .toString ();
+      return new ToStringGenerator (null).append ("Index", m_nTableIndex)
+                                         .append ("Children#", ArrayHelper.getSize (m_aChildren))
+                                         .getToString ();
     }
   }
 

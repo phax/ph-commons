@@ -64,6 +64,6 @@ public class HostnameVerifierVerifyAll implements HostnameVerifier
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("debug", m_bDebug).toString ();
+    return new ToStringGenerator (this).append ("debug", m_bDebug).getToString ();
   }
 }

@@ -49,7 +49,7 @@ public final class JsonValueSerializerRegistry implements IJsonValueSerializerRe
 
   // WeakHashMap because key is a class
   @GuardedBy ("m_aRWLock")
-  private final ICommonsMap <Class <?>, IJsonValueSerializer> m_aMap = new CommonsWeakHashMap <> ();
+  private final ICommonsMap <Class <?>, IJsonValueSerializer> m_aMap = new CommonsWeakHashMap<> ();
 
   static
   {
@@ -114,6 +114,6 @@ public final class JsonValueSerializerRegistry implements IJsonValueSerializerRe
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("map", m_aMap).toString ();
+    return new ToStringGenerator (this).append ("map", m_aMap).getToString ();
   }
 }

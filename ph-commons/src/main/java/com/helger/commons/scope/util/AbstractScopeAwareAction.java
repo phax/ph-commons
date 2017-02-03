@@ -73,6 +73,6 @@ public abstract class AbstractScopeAwareAction implements Serializable
     return new ToStringGenerator (this).append ("ApplicationID", m_sApplicationID)
                                        .append ("RequestID", m_sRequestID)
                                        .append ("SessionID", m_sSessionID)
-                                       .toString ();
+                                       .getToString ();
   }
 }

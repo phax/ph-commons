@@ -288,6 +288,6 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("value", m_aValue).toString ();
+    return new ToStringGenerator (this).append ("value", m_aValue).getToString ();
   }
 }

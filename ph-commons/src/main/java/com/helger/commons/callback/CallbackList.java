@@ -180,6 +180,6 @@ public class CallbackList <CALLBACKTYPE extends ICallback>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("callbacks", m_aCallbacks).toString ();
+    return new ToStringGenerator (this).append ("callbacks", m_aCallbacks).getToString ();
   }
 }

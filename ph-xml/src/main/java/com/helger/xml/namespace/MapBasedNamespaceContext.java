@@ -310,6 +310,6 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
     return new ToStringGenerator (this).appendIfNotNull ("defaultNS", m_sDefaultNamespaceURI)
                                        .append ("prefix2NS", m_aPrefix2NS)
                                        .append ("ns2Prefix2", m_aNS2Prefix)
-                                       .toString ();
+                                       .getToString ();
   }
 }

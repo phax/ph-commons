@@ -16,6 +16,8 @@
  */
 package com.helger.security.password.hash;
 
+import java.io.Serializable;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -27,7 +29,7 @@ import com.helger.security.password.salt.IPasswordSalt;
  *
  * @author Philip Helger
  */
-public interface IPasswordHashCreator
+public interface IPasswordHashCreator extends Serializable
 {
   /**
    * @return The name of the algorithm used in this creator. May neither be

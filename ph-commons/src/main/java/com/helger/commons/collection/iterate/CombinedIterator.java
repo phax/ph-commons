@@ -83,7 +83,7 @@ public final class CombinedIterator <ELEMENTTYPE> implements Iterator <ELEMENTTY
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("iter1", m_aIter1).append ("iter2", m_aIter2).toString ();
+    return new ToStringGenerator (this).append ("iter1", m_aIter1).append ("iter2", m_aIter2).getToString ();
   }
 
   @Nonnull
@@ -91,11 +91,11 @@ public final class CombinedIterator <ELEMENTTYPE> implements Iterator <ELEMENTTY
                                                              @Nullable final Iterator <ELEMENTTYPE> aIter2)
   {
     if (aIter1 == null && aIter2 == null)
-      return new EmptyIterator <> ();
+      return new EmptyIterator<> ();
     if (aIter1 == null)
       return aIter2;
     if (aIter2 == null)
       return aIter1;
-    return new CombinedIterator <> (aIter1, aIter2);
+    return new CombinedIterator<> (aIter1, aIter2);
   }
 }

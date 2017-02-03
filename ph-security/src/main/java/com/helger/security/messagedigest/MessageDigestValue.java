@@ -125,7 +125,7 @@ public class MessageDigestValue implements Serializable
   {
     return new ToStringGenerator (this).append ("algorithm", m_eAlgorithm)
                                        .append ("bytes", Arrays.toString (m_aDigestBytes))
-                                       .toString ();
+                                       .getToString ();
   }
 
   /**

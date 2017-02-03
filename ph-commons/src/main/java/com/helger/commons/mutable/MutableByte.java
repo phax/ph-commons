@@ -235,6 +235,6 @@ public class MutableByte extends AbstractMutableInteger <MutableByte>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("value", m_nValue).toString ();
+    return new ToStringGenerator (this).append ("value", m_nValue).getToString ();
   }
 }

@@ -49,7 +49,7 @@ public class GlobalScope extends AbstractMapBasedScope implements IGlobalScope
   private static final Logger s_aLogger = LoggerFactory.getLogger (GlobalScope.class);
 
   /** Contained application scopes */
-  private final ICommonsMap <String, IApplicationScope> m_aAppScopes = new CommonsHashMap <> ();
+  private final ICommonsMap <String, IApplicationScope> m_aAppScopes = new CommonsHashMap<> ();
 
   public GlobalScope (@Nonnull @Nonempty final String sScopeID)
   {
@@ -182,6 +182,6 @@ public class GlobalScope extends AbstractMapBasedScope implements IGlobalScope
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("appScopes", m_aAppScopes).toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("appScopes", m_aAppScopes).getToString ();
   }
 }

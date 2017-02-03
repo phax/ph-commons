@@ -266,7 +266,7 @@ public class BasicThreadFactory implements ThreadFactory
                                        .append ("NamingPattern", m_sNamingPattern)
                                        .append ("Priority", m_aPriority)
                                        .append ("Daemon", m_eDaemon)
-                                       .toString ();
+                                       .getToString ();
   }
 
   /**

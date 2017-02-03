@@ -213,6 +213,6 @@ public class MapBasedAttributeContainer <KEYTYPE, VALUETYPE>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("attrs", m_aAttrs).toString ();
+    return new ToStringGenerator (this).append ("attrs", m_aAttrs).getToString ();
   }
 }

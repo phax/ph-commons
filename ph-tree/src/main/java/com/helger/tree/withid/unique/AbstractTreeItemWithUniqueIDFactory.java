@@ -53,7 +53,7 @@ public abstract class AbstractTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, IT
 
   public AbstractTreeItemWithUniqueIDFactory ()
   {
-    this (new CommonsHashMap <> ());
+    this (new CommonsHashMap<> ());
   }
 
   public AbstractTreeItemWithUniqueIDFactory (@Nonnull final ICommonsMap <KEYTYPE, ITEMTYPE> aItemStore)
@@ -161,6 +161,6 @@ public abstract class AbstractTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, IT
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("itemStoreKeys", m_aItemStore.keySet ()).toString ();
+    return new ToStringGenerator (this).append ("itemStoreKeys", m_aItemStore.keySet ()).getToString ();
   }
 }

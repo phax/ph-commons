@@ -245,12 +245,12 @@ public class ChangeLogEntry extends AbstractChangeLogEntry
   public String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ())
-                            .append ("changelog", m_aChangeLog.getComponent ())
-                            .append ("action", m_eAction)
-                            .append ("category", m_eCategory)
-                            .append ("isIncompatible", m_bIsIncompatible)
-                            .append ("texts", m_aTexts)
-                            .append ("issues", m_aIssues)
-                            .toString ();
+                            .append ("Changelog", m_aChangeLog.getComponent ())
+                            .append ("Action", m_eAction)
+                            .append ("Category", m_eCategory)
+                            .append ("Incompatible", m_bIsIncompatible)
+                            .append ("Texts", m_aTexts)
+                            .append ("Issues", m_aIssues)
+                            .getToString ();
   }
 }

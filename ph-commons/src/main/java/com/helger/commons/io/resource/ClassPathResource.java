@@ -450,6 +450,6 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
                                        .appendIfNotNull ("classLoader", getClassLoader ())
                                        .append ("urlResolved", m_bURLResolved)
                                        .append ("URL", m_aURL)
-                                       .toString ();
+                                       .getToString ();
   }
 }

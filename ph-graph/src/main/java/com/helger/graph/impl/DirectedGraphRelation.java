@@ -71,14 +71,14 @@ public class DirectedGraphRelation extends AbstractBaseGraphObject implements IM
   @ReturnsMutableCopy
   public ICommonsOrderedSet <IMutableDirectedGraphNode> getAllConnectedNodes ()
   {
-    return new CommonsLinkedHashSet <> (m_aFrom, m_aTo);
+    return new CommonsLinkedHashSet<> (m_aFrom, m_aTo);
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllConnectedNodeIDs ()
   {
-    return new CommonsLinkedHashSet <> (m_aFrom.getID (), m_aTo.getID ());
+    return new CommonsLinkedHashSet<> (m_aFrom.getID (), m_aTo.getID ());
   }
 
   @Nonnull
@@ -125,6 +125,9 @@ public class DirectedGraphRelation extends AbstractBaseGraphObject implements IM
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("from", m_aFrom).append ("to", m_aTo).toString ();
+    return ToStringGenerator.getDerived (super.toString ())
+                            .append ("from", m_aFrom)
+                            .append ("to", m_aTo)
+                            .getToString ();
   }
 }

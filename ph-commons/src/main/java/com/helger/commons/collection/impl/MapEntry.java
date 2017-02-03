@@ -90,6 +90,6 @@ public class MapEntry <KEYTYPE, VALUETYPE> implements Map.Entry <KEYTYPE, VALUET
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("key", m_aKey).append ("value", m_aValue).toString ();
+    return new ToStringGenerator (this).append ("key", m_aKey).append ("value", m_aValue).getToString ();
   }
 }

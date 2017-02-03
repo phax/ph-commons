@@ -122,12 +122,12 @@ public class RequestScope extends AbstractMapBasedScope implements IRequestScope
     if (aValue instanceof String [])
     {
       // multiple values passed in the request
-      return new CommonsArrayList <> ((String []) aValue);
+      return new CommonsArrayList<> ((String []) aValue);
     }
     if (aValue instanceof String)
     {
       // single value passed in the request
-      return new CommonsArrayList <> ((String) aValue);
+      return new CommonsArrayList<> ((String) aValue);
     }
     return getAttributeAsListCustom (sName, aValue, aDefault);
   }
@@ -135,6 +135,6 @@ public class RequestScope extends AbstractMapBasedScope implements IRequestScope
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("sessionID", m_sSessionID).toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("sessionID", m_sSessionID).getToString ();
   }
 }

@@ -36,19 +36,19 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public class XMLBracketModeDeterminatorHTML4 implements IXMLBracketModeDeterminator
 {
-  private static final ICommonsSet <String> VOID_ELEMENTS = new CommonsHashSet <> ("AREA",
-                                                                                   "BASE",
-                                                                                   "BASEFONT",
-                                                                                   "BR",
-                                                                                   "COL",
-                                                                                   "FRAME",
-                                                                                   "HR",
-                                                                                   "IMG",
-                                                                                   "INPUT",
-                                                                                   "ISINDEX",
-                                                                                   "LINK",
-                                                                                   "META",
-                                                                                   "PARAM");
+  private static final ICommonsSet <String> VOID_ELEMENTS = new CommonsHashSet<> ("AREA",
+                                                                                  "BASE",
+                                                                                  "BASEFONT",
+                                                                                  "BR",
+                                                                                  "COL",
+                                                                                  "FRAME",
+                                                                                  "HR",
+                                                                                  "IMG",
+                                                                                  "INPUT",
+                                                                                  "ISINDEX",
+                                                                                  "LINK",
+                                                                                  "META",
+                                                                                  "PARAM");
 
   private static boolean _isVoidElement (@Nonnull final String sTagName)
   {
@@ -87,6 +87,6 @@ public class XMLBracketModeDeterminatorHTML4 implements IXMLBracketModeDetermina
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).toString ();
+    return new ToStringGenerator (this).getToString ();
   }
 }

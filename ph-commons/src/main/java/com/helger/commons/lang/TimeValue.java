@@ -112,6 +112,6 @@ public class TimeValue
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("timeUnit", m_eTimeUnit).append ("value", m_nDuration).toString ();
+    return new ToStringGenerator (this).append ("timeUnit", m_eTimeUnit).append ("value", m_nDuration).getToString ();
   }
 }

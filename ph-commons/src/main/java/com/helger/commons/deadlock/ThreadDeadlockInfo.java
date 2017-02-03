@@ -94,6 +94,6 @@ public class ThreadDeadlockInfo
     return new ToStringGenerator (this).append ("threadInfo", m_aThreadInfo)
                                        .append ("thread", m_aThread)
                                        .appendIfNotNull ("stackTrace", m_aStackTrace)
-                                       .toString ();
+                                       .getToString ();
   }
 }

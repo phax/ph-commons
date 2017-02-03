@@ -48,7 +48,7 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
                                                        implements IMutableMultilingualText
 {
   /** A list of callback upon change. */
-  private final CallbackList <IChangeCallback <IMutableMultilingualText>> m_aChangeNotifyCallbacks = new CallbackList <> ();
+  private final CallbackList <IChangeCallback <IMutableMultilingualText>> m_aChangeNotifyCallbacks = new CallbackList<> ();
 
   public AbstractMapBasedMultilingualText ()
   {}
@@ -178,6 +178,6 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
   {
     return ToStringGenerator.getDerived (super.toString ())
                             .append ("ChangeNotifyCallbacks", m_aChangeNotifyCallbacks)
-                            .toString ();
+                            .getToString ();
   }
 }

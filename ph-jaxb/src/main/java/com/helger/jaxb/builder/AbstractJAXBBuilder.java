@@ -139,6 +139,6 @@ public abstract class AbstractJAXBBuilder <IMPLTYPE extends AbstractJAXBBuilder 
     return new ToStringGenerator (this).append ("DocType", m_aDocType)
                                        .appendIfNotNull ("ClassLoader", m_aClassLoader)
                                        .append ("UseJAXBContextCache", m_bUseJAXBContextCache)
-                                       .toString ();
+                                       .getToString ();
   }
 }

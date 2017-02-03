@@ -115,6 +115,6 @@ public final class DateTimeFormatterPattern
   {
     return new ToStringGenerator (this).append ("Pattern", m_sPattern)
                                        .append ("ResolverStyle", m_eResolverStyle)
-                                       .toString ();
+                                       .getToString ();
   }
 }

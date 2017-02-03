@@ -119,6 +119,7 @@ public class SafeVector <ELEMENTTYPE> extends CommonsVector <ELEMENTTYPE>
   {
     if (o == this)
       return true;
+    // Special case because this check is not performed in super.equals
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     if (!super.equals (o))
@@ -136,6 +137,6 @@ public class SafeVector <ELEMENTTYPE> extends CommonsVector <ELEMENTTYPE>
   @Override
   public synchronized String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("factory", m_aFactory).toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("factory", m_aFactory).getToString ();
   }
 }

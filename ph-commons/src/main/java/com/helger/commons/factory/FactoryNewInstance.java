@@ -80,7 +80,7 @@ public class FactoryNewInstance <DATATYPE> implements IFactory <DATATYPE>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("Class", m_aClass).toString ();
+    return new ToStringGenerator (this).append ("Class", m_aClass).getToString ();
   }
 
   @Nonnull
@@ -93,6 +93,6 @@ public class FactoryNewInstance <DATATYPE> implements IFactory <DATATYPE>
   public static <DATATYPE> FactoryNewInstance <DATATYPE> create (@Nullable final Class <DATATYPE> aClass,
                                                                  final boolean bCheckInstancable)
   {
-    return new FactoryNewInstance <> (aClass, bCheckInstancable);
+    return new FactoryNewInstance<> (aClass, bCheckInstancable);
   }
 }

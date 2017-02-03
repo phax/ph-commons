@@ -221,6 +221,6 @@ public class MutableDouble extends AbstractMutableNumeric <MutableDouble>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("value", m_dValue).toString ();
+    return new ToStringGenerator (this).append ("value", m_dValue).getToString ();
   }
 }

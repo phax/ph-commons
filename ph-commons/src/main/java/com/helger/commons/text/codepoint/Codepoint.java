@@ -347,6 +347,6 @@ public class Codepoint implements Serializable, Comparable <Codepoint>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("value", m_nValue).toString ();
+    return new ToStringGenerator (null).append ("value", m_nValue).getToString ();
   }
 }

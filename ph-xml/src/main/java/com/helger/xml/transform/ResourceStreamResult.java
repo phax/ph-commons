@@ -65,6 +65,6 @@ public class ResourceStreamResult extends StreamResult
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("OSP", m_aOSP).append ("systemID", getSystemId ()).toString ();
+    return new ToStringGenerator (this).append ("OSP", m_aOSP).append ("systemID", getSystemId ()).getToString ();
   }
 }

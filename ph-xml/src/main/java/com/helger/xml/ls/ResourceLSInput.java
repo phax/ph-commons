@@ -163,6 +163,6 @@ public class ResourceLSInput implements LSInput
                                        .append ("certifiedText", m_bCertifiedText)
                                        .appendIfNotNull ("baseURI", m_sBaseURI)
                                        .appendIfNotNull ("stringData", m_sStringData)
-                                       .toString ();
+                                       .getToString ();
   }
 }

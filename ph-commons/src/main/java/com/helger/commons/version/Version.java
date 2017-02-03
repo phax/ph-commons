@@ -361,7 +361,7 @@ public final class Version implements Comparable <Version>, Serializable
                                        .append ("minor", m_nMinor)
                                        .append ("micro", m_nMicro)
                                        .appendIfNotNull ("qualifier", m_sQualifier)
-                                       .toString ();
+                                       .getToString ();
   }
 
   /**

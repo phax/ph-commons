@@ -142,7 +142,7 @@ public class SchemaCache extends AbstractNotifyingCache <ICommonsList <? extends
   {
     ValueEnforcer.notNull (aResource, "Resource");
 
-    return getFromCache (new CommonsArrayList <> (aResource));
+    return getFromCache (new CommonsArrayList<> (aResource));
   }
 
   /**
@@ -159,7 +159,7 @@ public class SchemaCache extends AbstractNotifyingCache <ICommonsList <? extends
   {
     ValueEnforcer.notEmptyNoNullValue (aResources, "Resources");
 
-    return getFromCache (new CommonsArrayList <> (aResources));
+    return getFromCache (new CommonsArrayList<> (aResources));
   }
 
   /**
@@ -176,7 +176,7 @@ public class SchemaCache extends AbstractNotifyingCache <ICommonsList <? extends
   {
     ValueEnforcer.notEmptyNoNullValue (aResources, "Resources");
 
-    return getFromCache (new CommonsArrayList <> (aResources));
+    return getFromCache (new CommonsArrayList<> (aResources));
   }
 
   /**
@@ -258,12 +258,12 @@ public class SchemaCache extends AbstractNotifyingCache <ICommonsList <? extends
   @Nonnull
   public EChange removeFromCache (@Nonnull final IReadableResource aKey)
   {
-    return removeFromCache (new CommonsArrayList <> (aKey));
+    return removeFromCache (new CommonsArrayList<> (aKey));
   }
 
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("schemaTypeName", m_sSchemaTypeName).toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("schemaTypeName", m_sSchemaTypeName).getToString ();
   }
 }

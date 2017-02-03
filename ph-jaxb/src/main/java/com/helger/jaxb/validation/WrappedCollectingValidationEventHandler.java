@@ -62,6 +62,6 @@ public class WrappedCollectingValidationEventHandler extends AbstractValidationE
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("ErrorList", m_aErrorList).toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("ErrorList", m_aErrorList).getToString ();
   }
 }

@@ -168,6 +168,6 @@ public class RingBufferLifo <ELEMENTTYPE>
                                        .append ("AllowOverwrite", m_bAllowOverwrite)
                                        .append ("WritePos", m_nWritePos)
                                        .append ("Available", m_nAvailable)
-                                       .toString ();
+                                       .getToString ();
   }
 }

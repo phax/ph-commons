@@ -79,6 +79,6 @@ public class ChangeLogRelease extends AbstractChangeLogEntry
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("version", m_aVersion).toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("version", m_aVersion).getToString ();
   }
 }

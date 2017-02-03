@@ -77,6 +77,6 @@ public class ResourceBundleTextProvider extends AbstractHasText implements IHasT
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("resBundleKey", m_aResBundleKey).toString ();
+    return new ToStringGenerator (this).append ("resBundleKey", m_aResBundleKey).getToString ();
   }
 }

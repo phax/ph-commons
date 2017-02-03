@@ -100,7 +100,7 @@ public class URLData implements IURLData
   @Nullable
   public final ICommonsList <String> getAllParams (@Nullable final String sName)
   {
-    final ICommonsList <String> ret = new CommonsArrayList <> ();
+    final ICommonsList <String> ret = new CommonsArrayList<> ();
     if (m_aParams != null)
       for (final URLParameter aParam : m_aParams)
         if (aParam.hasName (sName))
@@ -153,6 +153,6 @@ public class URLData implements IURLData
     return new ToStringGenerator (this).append ("path", m_sPath)
                                        .appendIfNotNull ("params", m_aParams)
                                        .appendIfNotNull ("anchor", m_sAnchor)
-                                       .toString ();
+                                       .getToString ();
   }
 }

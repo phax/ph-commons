@@ -184,6 +184,6 @@ public final class ThirdPartyModule implements IThirdPartyModule
                                        .appendIfNotNull ("version", m_aVersion)
                                        .appendIfNotNull ("website", m_sWebSiteURL)
                                        .append ("optional", m_bOptional)
-                                       .toString ();
+                                       .getToString ();
   }
 }

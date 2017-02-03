@@ -71,14 +71,14 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
   @ReturnsMutableCopy
   public <T> SingleElementList <T> createInstance ()
   {
-    return new SingleElementList <> ();
+    return new SingleElementList<> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public SingleElementList <ELEMENTTYPE> getClone ()
   {
-    return m_bHasElement ? new SingleElementList <> (m_aElement) : new SingleElementList <> ();
+    return m_bHasElement ? new SingleElementList<> (m_aElement) : new SingleElementList<> ();
   }
 
   public boolean add (@Nullable final ELEMENTTYPE aElement)
@@ -155,7 +155,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
   @Nonnull
   public Iterator <ELEMENTTYPE> iterator ()
   {
-    return m_bHasElement ? SingleElementIterator.create (m_aElement) : new EmptyIterator <> ();
+    return m_bHasElement ? SingleElementIterator.create (m_aElement) : new EmptyIterator<> ();
   }
 
   public int lastIndexOf (@Nullable final Object aElement)
@@ -166,7 +166,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
   @Nonnull
   public ListIterator <ELEMENTTYPE> listIterator ()
   {
-    return m_bHasElement ? SingleElementListIterator.create (m_aElement) : new EmptyListIterator <> ();
+    return m_bHasElement ? SingleElementListIterator.create (m_aElement) : new EmptyListIterator<> ();
   }
 
   @Nonnull
@@ -248,7 +248,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
 
     // Empty
     if (!m_bHasElement || nFromIndex == nToIndex)
-      return new CommonsArrayList <> (0);
+      return new CommonsArrayList<> (0);
 
     return this;
   }
@@ -304,6 +304,8 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("hasElement", m_bHasElement).append ("element", m_aElement).toString ();
+    return new ToStringGenerator (this).append ("hasElement", m_bHasElement)
+                                       .append ("element", m_aElement)
+                                       .getToString ();
   }
 }

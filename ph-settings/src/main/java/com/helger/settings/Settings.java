@@ -44,8 +44,8 @@ import com.helger.commons.string.ToStringGenerator;
 public class Settings implements IMutableSettings
 {
   private final String m_sName;
-  private final ICommonsMap <String, Object> m_aMap = new CommonsHashMap <> ();
-  private final CallbackList <ISettingsAfterChangeCallback> m_aAfterChangeCallbacks = new CallbackList <> ();
+  private final ICommonsMap <String, Object> m_aMap = new CommonsHashMap<> ();
+  private final CallbackList <ISettingsAfterChangeCallback> m_aAfterChangeCallbacks = new CallbackList<> ();
 
   public Settings (@Nonnull @Nonempty final String sName)
   {
@@ -191,6 +191,6 @@ public class Settings implements IMutableSettings
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("name", m_sName).append ("map", m_aMap).toString ();
+    return new ToStringGenerator (this).append ("name", m_sName).append ("map", m_aMap).getToString ();
   }
 }

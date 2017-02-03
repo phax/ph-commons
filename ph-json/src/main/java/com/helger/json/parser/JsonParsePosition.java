@@ -121,6 +121,6 @@ public class JsonParsePosition implements ICloneable <JsonParsePosition>, IJsonP
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("line", m_nLine).append ("column", m_nColumn).toString ();
+    return new ToStringGenerator (this).append ("line", m_nLine).append ("column", m_nColumn).getToString ();
   }
 }

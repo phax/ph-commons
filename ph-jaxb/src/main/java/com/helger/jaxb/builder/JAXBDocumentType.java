@@ -214,6 +214,6 @@ public class JAXBDocumentType implements IJAXBDocumentType
                                        .append ("XSDPaths", m_aXSDPaths)
                                        .append ("NamespaceURI", m_sNamespaceURI)
                                        .append ("LocalName", m_sLocalName)
-                                       .toString ();
+                                       .getToString ();
   }
 }

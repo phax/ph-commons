@@ -70,6 +70,6 @@ public class ResourceStreamSource extends StreamSource
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("ISP", m_aISP).append ("systemID", getSystemId ()).toString ();
+    return new ToStringGenerator (this).append ("ISP", m_aISP).append ("systemID", getSystemId ()).getToString ();
   }
 }

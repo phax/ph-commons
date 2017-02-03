@@ -67,6 +67,6 @@ public class LocalDatePeriod implements ILocalDatePeriod
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("Start", m_aStart).append ("End", m_aEnd).toString ();
+    return new ToStringGenerator (this).append ("Start", m_aStart).append ("End", m_aEnd).getToString ();
   }
 }

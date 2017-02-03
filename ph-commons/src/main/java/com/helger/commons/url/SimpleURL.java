@@ -374,6 +374,6 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
     return new ToStringGenerator (null).append ("path", m_sPath)
                                        .appendIf ("params", m_aParams, ICommonsList::isNotEmpty)
                                        .appendIfNotNull ("anchor", m_sAnchor)
-                                       .toString ();
+                                       .getToString ();
   }
 }

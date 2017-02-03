@@ -317,6 +317,8 @@ public class FileMonitor
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("listener", m_aListener).append ("recursive", m_bRecursive).toString ();
+    return new ToStringGenerator (this).append ("listener", m_aListener)
+                                       .append ("recursive", m_bRecursive)
+                                       .getToString ();
   }
 }

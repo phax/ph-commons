@@ -35,7 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public class CollectingExceptionListCallback <EXTYPE extends Throwable> implements IExceptionCallback <EXTYPE>
 {
-  private final ICommonsList <EXTYPE> m_aExceptions = new CommonsArrayList <> ();
+  private final ICommonsList <EXTYPE> m_aExceptions = new CommonsArrayList<> ();
 
   public void onException (@Nullable final EXTYPE aEx)
   {
@@ -63,6 +63,6 @@ public class CollectingExceptionListCallback <EXTYPE extends Throwable> implemen
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("exceptions", m_aExceptions).toString ();
+    return new ToStringGenerator (this).append ("exceptions", m_aExceptions).getToString ();
   }
 }

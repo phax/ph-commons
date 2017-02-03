@@ -109,6 +109,6 @@ public final class PasswordHash implements Serializable
     return new ToStringGenerator (this).append ("algorithmName", m_sAlgorithmName)
                                        .appendIfNotNull ("salt", m_aSalt)
                                        .append ("passwordHashValue", m_sPasswordHashValue)
-                                       .toString ();
+                                       .getToString ();
   }
 }

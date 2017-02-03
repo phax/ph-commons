@@ -16,11 +16,12 @@
  */
 package com.helger.datetime.period;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.annotation.Nullable;
 
-public interface ILocalDatePeriod
+public interface ILocalDatePeriod extends Serializable
 {
   @Nullable
   LocalDate getStart ();

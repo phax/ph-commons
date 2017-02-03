@@ -61,6 +61,6 @@ public class JAXBNamespacePrefixMapperOracleRT extends NamespacePrefixMapper
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("NamespaceContext", m_aNC).toString ();
+    return new ToStringGenerator (this).append ("NamespaceContext", m_aNC).getToString ();
   }
 }

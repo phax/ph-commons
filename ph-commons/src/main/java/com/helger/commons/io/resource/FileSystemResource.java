@@ -217,6 +217,6 @@ public class FileSystemResource implements IReadWriteResource
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("file", m_aFile).toString ();
+    return new ToStringGenerator (null).append ("file", m_aFile).getToString ();
   }
 }

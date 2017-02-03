@@ -107,7 +107,7 @@ public final class MimeTypeInfo
     {
       return new ToStringGenerator (this).append ("mimeType", m_aMimeType)
                                          .appendIfNotNull ("source", m_sSource)
-                                         .toString ();
+                                         .getToString ();
     }
   }
 
@@ -175,7 +175,7 @@ public final class MimeTypeInfo
     {
       return new ToStringGenerator (this).append ("extension", m_sExt)
                                          .appendIfNotNull ("source", m_sSource)
-                                         .toString ();
+                                         .getToString ();
     }
   }
 
@@ -400,6 +400,6 @@ public final class MimeTypeInfo
                                        .appendIf ("globs", m_aGlobs, CollectionHelper::isNotEmpty)
                                        .appendIf ("extensions", m_aExtensions, CollectionHelper::isNotEmpty)
                                        .appendIfNotNull ("source", m_sSource)
-                                       .toString ();
+                                       .getToString ();
   }
 }

@@ -103,7 +103,7 @@ public class BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collection
     if (aParent == null)
       return getID ();
 
-    final ICommonsList <KEYTYPE> aList = new CommonsArrayList <> (aParent.getGlobalUniqueDataID (), getID ());
+    final ICommonsList <KEYTYPE> aList = new CommonsArrayList<> (aParent.getGlobalUniqueDataID (), getID ());
     return m_aKeyCombinator.apply (aList);
   }
 
@@ -127,6 +127,6 @@ public class BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collection
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("keyCombinator", m_aKeyCombinator).toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("keyCombinator", m_aKeyCombinator).getToString ();
   }
 }

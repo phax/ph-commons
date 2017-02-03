@@ -61,6 +61,6 @@ public class StringWriterProvider implements IHasWriter, Serializable
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).toString ();
+    return new ToStringGenerator (this).getToString ();
   }
 }

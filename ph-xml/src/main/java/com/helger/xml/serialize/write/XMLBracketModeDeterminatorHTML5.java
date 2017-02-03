@@ -38,23 +38,23 @@ public class XMLBracketModeDeterminatorHTML5 implements IXMLBracketModeDetermina
 {
   // Source: http://www.w3.org/TR/html-markup/syntax.html#void-element
   // Added myself: frame
-  private static final ICommonsSet <String> VOID_ELEMENTS = new CommonsHashSet <> ("AREA",
-                                                                                   "BASE",
-                                                                                   "BR",
-                                                                                   "COL",
-                                                                                   "COMMAND",
-                                                                                   "EMBED",
-                                                                                   "FRAME",
-                                                                                   "HR",
-                                                                                   "IMG",
-                                                                                   "INPUT",
-                                                                                   "KEYGEN",
-                                                                                   "LINK",
-                                                                                   "META",
-                                                                                   "PARAM",
-                                                                                   "SOURCE",
-                                                                                   "TRACKE",
-                                                                                   "WBR");
+  private static final ICommonsSet <String> VOID_ELEMENTS = new CommonsHashSet<> ("AREA",
+                                                                                  "BASE",
+                                                                                  "BR",
+                                                                                  "COL",
+                                                                                  "COMMAND",
+                                                                                  "EMBED",
+                                                                                  "FRAME",
+                                                                                  "HR",
+                                                                                  "IMG",
+                                                                                  "INPUT",
+                                                                                  "KEYGEN",
+                                                                                  "LINK",
+                                                                                  "META",
+                                                                                  "PARAM",
+                                                                                  "SOURCE",
+                                                                                  "TRACKE",
+                                                                                  "WBR");
 
   private static boolean _isVoidElement (@Nonnull final String sTagName)
   {
@@ -94,6 +94,6 @@ public class XMLBracketModeDeterminatorHTML5 implements IXMLBracketModeDetermina
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).toString ();
+    return new ToStringGenerator (this).getToString ();
   }
 }

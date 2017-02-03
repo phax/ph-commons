@@ -144,6 +144,6 @@ public class ConfigFile implements IConvertibleByKeyTrait <String>
   {
     return new ToStringGenerator (this).append ("ReadResource", m_aReadResource)
                                        .append ("Settings", m_aSettings)
-                                       .toString ();
+                                       .getToString ();
   }
 }

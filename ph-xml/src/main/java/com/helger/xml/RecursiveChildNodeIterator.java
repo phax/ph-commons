@@ -59,7 +59,7 @@ public class RecursiveChildNodeIterator implements IIterableIterator <Node>
   {
     ValueEnforcer.notNull (aParent, "Parent");
 
-    final ICommonsList <Node> aNodes = new CommonsArrayList <> ();
+    final ICommonsList <Node> aNodes = new CommonsArrayList<> ();
     _recursiveFillListPrefix (aParent, aNodes);
     m_aIter = aNodes.iterator ();
   }
@@ -77,6 +77,6 @@ public class RecursiveChildNodeIterator implements IIterableIterator <Node>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("iter", m_aIter).toString ();
+    return new ToStringGenerator (this).append ("iter", m_aIter).getToString ();
   }
 }

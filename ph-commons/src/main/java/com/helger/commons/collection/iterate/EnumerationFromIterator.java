@@ -59,18 +59,18 @@ public final class EnumerationFromIterator <ELEMENTTYPE> implements Enumeration 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("iter", m_aIter).toString ();
+    return new ToStringGenerator (this).append ("iter", m_aIter).getToString ();
   }
 
   @Nonnull
   public static <ELEMENTTYPE> EnumerationFromIterator <ELEMENTTYPE> create (@Nonnull final Iterator <? extends ELEMENTTYPE> aIter)
   {
-    return new EnumerationFromIterator <> (aIter);
+    return new EnumerationFromIterator<> (aIter);
   }
 
   @Nonnull
   public static <ELEMENTTYPE> EnumerationFromIterator <ELEMENTTYPE> create (@Nonnull final Iterable <? extends ELEMENTTYPE> aCont)
   {
-    return new EnumerationFromIterator <> (aCont);
+    return new EnumerationFromIterator<> (aCont);
   }
 }

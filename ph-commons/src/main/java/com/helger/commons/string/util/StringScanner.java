@@ -193,6 +193,6 @@ public class StringScanner
     return new ToStringGenerator (this).append ("input", m_sInput)
                                        .append ("maxIndex", m_nMaxIndex)
                                        .append ("curIndex", m_nCurIndex)
-                                       .toString ();
+                                       .getToString ();
   }
 }

@@ -16,6 +16,7 @@
  */
 package com.helger.datetime.expiration;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.annotation.Nullable;
@@ -27,7 +28,7 @@ import com.helger.commons.datetime.PDTFactory;
  *
  * @author Philip Helger
  */
-public interface IExpirable
+public interface IExpirable extends Serializable
 {
   /**
    * Check if the object has an expiration date defined. To check if the page is

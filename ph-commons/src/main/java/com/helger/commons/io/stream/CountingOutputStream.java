@@ -58,6 +58,6 @@ public class CountingOutputStream extends WrappedOutputStream
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("bytesWritten", m_nBytesWritten).toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("bytesWritten", m_nBytesWritten).getToString ();
   }
 }

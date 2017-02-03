@@ -80,7 +80,7 @@ public class LRUSet <ELEMENTTYPE> extends AbstractSet <ELEMENTTYPE> implements I
   @Nonnull
   public LRUSet <ELEMENTTYPE> getClone ()
   {
-    return new LRUSet <> (this);
+    return new LRUSet<> (this);
   }
 
   /**
@@ -148,6 +148,6 @@ public class LRUSet <ELEMENTTYPE> extends AbstractSet <ELEMENTTYPE> implements I
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("map", m_aMap).toString ();
+    return new ToStringGenerator (this).append ("map", m_aMap).getToString ();
   }
 }

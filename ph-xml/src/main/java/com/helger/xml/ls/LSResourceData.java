@@ -116,6 +116,6 @@ public class LSResourceData implements Serializable
                                        .append ("publicId", m_sPublicID)
                                        .append ("systemId", m_sSystemID)
                                        .append ("baseURI", m_sBaseURI)
-                                       .toString ();
+                                       .getToString ();
   }
 }

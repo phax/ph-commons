@@ -286,6 +286,6 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
     return ToStringGenerator.getDerived (super.toString ())
                             .append ("EventHandler", m_aEventHandler)
                             .append ("NamespaceContext", m_aNSContext)
-                            .toString ();
+                            .getToString ();
   }
 }

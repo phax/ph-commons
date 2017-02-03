@@ -47,7 +47,7 @@ public class SessionScope extends AbstractMapBasedScope implements ISessionScope
   private static final Logger s_aLogger = LoggerFactory.getLogger (SessionScope.class);
 
   /** The contained session application scopes */
-  private final ICommonsMap <String, ISessionApplicationScope> m_aSessionAppScopes = new CommonsHashMap <> ();
+  private final ICommonsMap <String, ISessionApplicationScope> m_aSessionAppScopes = new CommonsHashMap<> ();
 
   public SessionScope (@Nonnull @Nonempty final String sScopeID)
   {
@@ -216,6 +216,6 @@ public class SessionScope extends AbstractMapBasedScope implements ISessionScope
   {
     return ToStringGenerator.getDerived (super.toString ())
                             .append ("sessionAppScopes", m_aSessionAppScopes)
-                            .toString ();
+                            .getToString ();
   }
 }

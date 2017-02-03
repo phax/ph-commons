@@ -51,6 +51,6 @@ public class CollectingExceptionCallback <EXTYPE extends Throwable> implements I
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("exception", m_aException).toString ();
+    return new ToStringGenerator (this).append ("exception", m_aException).getToString ();
   }
 }

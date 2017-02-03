@@ -62,7 +62,7 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
   public AbstractReadOnlyMapBasedMultilingualText ()
   {
     // Use a HashMap by default
-    this (new CommonsLinkedHashMap <> ());
+    this (new CommonsLinkedHashMap<> ());
   }
 
   /**
@@ -255,6 +255,6 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
   @OverridingMethodsMustInvokeSuper
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("texts", m_aTexts).toString ();
+    return new ToStringGenerator (this).append ("texts", m_aTexts).getToString ();
   }
 }
