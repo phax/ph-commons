@@ -85,4 +85,18 @@ public interface IFunction <T, R> extends Function <T, R>, Serializable
     Objects.requireNonNull (after);
     return (final T t) -> after.apply (apply (t));
   }
+
+  /**
+   * Returns a function that always returns its input argument.
+   *
+   * @param <T>
+   *        the type of the input and output objects to the function
+   * @return a function that always returns its input argument
+   * @since 8.6.2
+   */
+  @Nonnull
+  static <T> IFunction <T, T> identity ()
+  {
+    return t -> t;
+  }
 }
