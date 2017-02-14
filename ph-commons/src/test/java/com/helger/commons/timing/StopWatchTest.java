@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.thread.ThreadHelper;
+import com.helger.commons.concurrent.ThreadHelper;
 
 /**
  * Test class for class {@link StopWatch}.

@@ -14,11 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.thread;
+package com.helger.commons.concurrent;
 
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
+
+import com.helger.commons.concurrent.ThreadHelper;
 
 /**
  * Test class for class {@link ThreadHelper}.

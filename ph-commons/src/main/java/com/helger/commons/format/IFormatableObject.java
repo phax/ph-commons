@@ -18,6 +18,8 @@ package com.helger.commons.format;
 
 import javax.annotation.Nullable;
 
+import com.helger.commons.functional.IFunction;
+
 /**
  * Basic interface for special objects having a certain string representation.
  *
@@ -40,7 +42,7 @@ public interface IFormatableObject <DATATYPE>
    *         <code>null</code>.
    */
   @Nullable
-  IFormatter <DATATYPE> getFormatter ();
+  IFunction <DATATYPE, String> getFormatter ();
 
   /**
    * Get the value converted to a string with the specified formatter.

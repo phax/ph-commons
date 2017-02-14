@@ -20,16 +20,17 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.functional.IFunction;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.typeconvert.TypeConverter;
 
 /**
- * Base implementation class of the {@link IFormatter} interface that provides
+ * Base implementation class of the {@link IFunction} interface that provides
  * the common functionality.
  *
  * @author Philip Helger
  */
-public abstract class AbstractFormatterString implements IFormatter <Object>
+public abstract class AbstractFormatterString implements IFunction <Object, String>
 {
   /**
    * Default constructor

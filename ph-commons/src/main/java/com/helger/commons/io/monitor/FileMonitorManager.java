@@ -28,8 +28,8 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
+import com.helger.commons.concurrent.ThreadHelper;
 import com.helger.commons.state.EChange;
-import com.helger.commons.thread.ThreadHelper;
 import com.helger.commons.timing.StopWatch;
 
 /**

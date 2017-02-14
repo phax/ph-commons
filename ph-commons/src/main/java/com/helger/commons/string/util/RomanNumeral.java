@@ -16,6 +16,8 @@
  */
 package com.helger.commons.string.util;
 
+import java.io.Serializable;
+
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
@@ -33,7 +35,7 @@ import com.helger.commons.ValueEnforcer;
  * @author Philip Helger
  */
 @Immutable
-public final class RomanNumeral
+public final class RomanNumeral implements Serializable
 {
   /** Minimum value incl. to be converted to a Roman numeral */
   public static final int MIN_VAL = 1;

@@ -21,7 +21,6 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.compare.CollatorHelper;
 import com.helger.commons.equals.EqualsImplementationRegistry;
-import com.helger.commons.gfx.ImageDataManager;
 import com.helger.commons.hashcode.HashCodeImplementationRegistry;
 import com.helger.commons.lang.ClassHierarchyCache;
 import com.helger.commons.lang.EnumHelper;
@@ -84,8 +83,6 @@ public final class CommonsCleanup
       ScopeSPIManager.getInstance ().reinitialize ();
 
     // Clear caches
-    if (ImageDataManager.isInstantiated ())
-      ImageDataManager.getInstance ().clearCache ();
     if (DefaultTextResolver.isInstantiated ())
       DefaultTextResolver.getInstance ().clearCache ();
     EnumHelper.clearCache ();

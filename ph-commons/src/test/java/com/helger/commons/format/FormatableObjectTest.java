@@ -44,7 +44,7 @@ public final class FormatableObjectTest
     assertEquals ("[[Any]]", aFO.getAsString ());
     CommonsTestHelper.testToStringImplementation (aFO);
 
-    aFO = new FormatableObject <> ("Any", () -> new FormatterBracket ());
+    aFO = new FormatableObject <> ("Any", new FormatterBracket ());
     assertEquals ("Any", aFO.getValue ());
     assertEquals ("[Any]", aFO.getAsString ());
     CommonsTestHelper.testToStringImplementation (aFO);

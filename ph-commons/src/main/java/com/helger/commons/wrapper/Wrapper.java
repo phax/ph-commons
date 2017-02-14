@@ -32,7 +32,7 @@ import com.helger.commons.string.ToStringGenerator;
  * This is a stupid wrapper around any object. Its original purpose was the
  * encapsulation of return values from within an anonymous class.
  *
- * @author Philip
+ * @author Philip Helger
  * @param <DATATYPE>
  *        The type of object to be wrapped.
  */
@@ -88,7 +88,7 @@ public class Wrapper <DATATYPE> implements IMutableWrapper <DATATYPE>, ICloneabl
   @ReturnsMutableCopy
   public Wrapper <DATATYPE> getClone ()
   {
-    return new Wrapper<> (m_aObj);
+    return new Wrapper <> (m_aObj);
   }
 
   @Override
