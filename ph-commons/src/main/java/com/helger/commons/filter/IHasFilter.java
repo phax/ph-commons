@@ -28,6 +28,7 @@ import javax.annotation.Nullable;
  *        The type of object to filter.
  */
 @FunctionalInterface
+@Deprecated
 public interface IHasFilter <DATATYPE>
 {
   /**

@@ -94,24 +94,24 @@ public class AnnotationUsageCache implements Serializable
 
     final String sClassName = aClass.getName ();
 
-    ETriState aIs;
+    ETriState eHas;
     // Use direct code for performance reasons
     m_aRWLock.readLock ().lock ();
     try
     {
-      aIs = m_aMap.get (sClassName);
+      eHas = m_aMap.get (sClassName);
     }
     finally
     {
       m_aRWLock.readLock ().unlock ();
     }
-    if (aIs == null)
+    if (eHas == null)
     {
       // Try again in write-lock
-      aIs = m_aRWLock.writeLocked ( () -> m_aMap.computeIfAbsent (sClassName,
+      eHas = m_aRWLock.writeLocked ( () -> m_aMap.computeIfAbsent (sClassName,
                                                                   x -> ETriState.valueOf (aClass.getAnnotation (m_aAnnotationClass) != null)));
     }
-    return aIs.isTrue ();
+    return eHas.isTrue ();
   }
 
   public void setAnnotation (@Nonnull final Class <?> aClass, final boolean bHasAnnotation)

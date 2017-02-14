@@ -116,7 +116,7 @@ public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements IMutableCach
   @CodingStyleguideUnaware
   protected Map <KEYTYPE, VALUETYPE> createCache ()
   {
-    return hasMaxSize () ? new SoftLinkedHashMap<> (m_nMaxSize) : new SoftHashMap<> ();
+    return hasMaxSize () ? new SoftLinkedHashMap <> (m_nMaxSize) : new SoftHashMap <> ();
   }
 
   /**
@@ -250,6 +250,8 @@ public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements IMutableCach
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("cacheName", m_sCacheName).append ("content", m_aCache).getToString ();
+    return new ToStringGenerator (this).append ("CacheName", m_sCacheName)
+                                       .append ("CacheContent", m_aCache)
+                                       .getToString ();
   }
 }

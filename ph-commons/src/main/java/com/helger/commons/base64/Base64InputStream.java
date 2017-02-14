@@ -22,15 +22,17 @@ import java.io.InputStream;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import javax.annotation.concurrent.NotThreadSafe;
 
 /**
- * A {@link Base64InputStream} will read data from another <tt>InputStream</tt>,
- * given in the constructor, and encode/decode to/from Base64 notation on the
- * fly.
+ * A {@link Base64InputStream} will read data from another
+ * <code>InputStream</code>, given in the constructor, and encode/decode to/from
+ * Base64 notation on the fly.
  *
  * @see Base64
  * @since 1.3
  */
+@NotThreadSafe
 public class Base64InputStream extends FilterInputStream
 {
   // Encoding or decoding
@@ -55,7 +57,7 @@ public class Base64InputStream extends FilterInputStream
    * Constructs a {@link Base64InputStream} in DECODE mode.
    *
    * @param pin
-   *        the <tt>InputStream</tt> from which to read data.
+   *        the <code>InputStream</code> from which to read data.
    * @since 1.3
    */
   public Base64InputStream (@Nonnull final InputStream pin)
@@ -76,26 +78,26 @@ public class Base64InputStream extends FilterInputStream
    * <p>
    * Example: <code>new Base64.InputStream( in, Base64.DECODE )</code>
    *
-   * @param pin
-   *        the <tt>InputStream</tt> from which to read data.
-   * @param poptions
+   * @param aIS
+   *        the <code>InputStream</code> from which to read data.
+   * @param nOptions
    *        Specified options
    * @see Base64#ENCODE
    * @see Base64#DECODE
    * @see Base64#DO_BREAK_LINES
    * @since 2.0
    */
-  public Base64InputStream (@Nonnull final InputStream pin, final int poptions)
+  public Base64InputStream (@Nonnull final InputStream aIS, final int nOptions)
   {
-    super (pin);
-    m_nOptions = poptions; // Record for later
-    m_bBreakLines = (poptions & Base64.DO_BREAK_LINES) > 0;
-    m_bEncode = (poptions & Base64.ENCODE) > 0;
+    super (aIS);
+    m_nOptions = nOptions; // Record for later
+    m_bBreakLines = (nOptions & Base64.DO_BREAK_LINES) > 0;
+    m_bEncode = (nOptions & Base64.ENCODE) > 0;
     m_nBufferLength = m_bEncode ? 4 : 3;
     m_aBuffer = new byte [m_nBufferLength];
     m_nPosition = -1;
     m_nLineLength = 0;
-    m_aDecodabet = Base64._getDecodabet (poptions);
+    m_aDecodabet = Base64._getDecodabet (nOptions);
   }
 
   /**
@@ -138,10 +140,9 @@ public class Base64InputStream extends FilterInputStream
           return -1; // Must be end of stream
         }
       }
-
-      // Else decoding
       else
       {
+        // Else decoding
         final byte [] b4 = new byte [4];
         int i;
         for (i = 0; i < 4; i++)

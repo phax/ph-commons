@@ -19,6 +19,7 @@ package com.helger.commons.callback.exception;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
@@ -33,9 +34,10 @@ import com.helger.commons.string.ToStringGenerator;
  * @param <EXTYPE>
  *        The exception type to be handled
  */
+@NotThreadSafe
 public class CollectingExceptionListCallback <EXTYPE extends Throwable> implements IExceptionCallback <EXTYPE>
 {
-  private final ICommonsList <EXTYPE> m_aExceptions = new CommonsArrayList<> ();
+  private final ICommonsList <EXTYPE> m_aExceptions = new CommonsArrayList <> ();
 
   public void onException (@Nullable final EXTYPE aEx)
   {

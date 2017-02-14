@@ -17,7 +17,6 @@
 package com.helger.commons.aggregate;
 
 import java.util.Collection;
-import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -25,6 +24,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.function.IFunction;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -37,7 +37,7 @@ import com.helger.commons.string.StringHelper;
  *        The output type.
  */
 @FunctionalInterface
-public interface IAggregator <SRCTYPE, DSTTYPE> extends Function <Collection <SRCTYPE>, DSTTYPE>
+public interface IAggregator <SRCTYPE, DSTTYPE> extends IFunction <Collection <SRCTYPE>, DSTTYPE>
 {
   /**
    * Aggregate a collection of input objects to a single output object.

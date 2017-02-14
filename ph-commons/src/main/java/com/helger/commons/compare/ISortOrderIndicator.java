@@ -16,12 +16,14 @@
  */
 package com.helger.commons.compare;
 
+import java.io.Serializable;
+
 /**
  * Interface indicating a sort order.
  *
  * @author Philip Helger
  */
-public interface ISortOrderIndicator
+public interface ISortOrderIndicator extends Serializable
 {
   /**
    * @return <code>true</code> is ascending sort order is active.

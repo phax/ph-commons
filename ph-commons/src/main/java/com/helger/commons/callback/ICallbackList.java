@@ -17,7 +17,6 @@
 package com.helger.commons.callback;
 
 import java.io.Serializable;
-import java.util.function.Consumer;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -69,13 +68,4 @@ public interface ICallbackList <CALLBACKTYPE extends ICallback> extends ICommons
    *         <code>false</code> otherwise.
    */
   boolean hasCallbacks ();
-
-  /**
-   * Invoke all registered callbacks in a safe manner.
-   *
-   * @param aConsumer
-   *        The action to be performed with the respective callback. This method
-   *        cannot return a value. May not be <code>null</code>.
-   */
-  void forEach (@Nonnull Consumer <? super CALLBACKTYPE> aConsumer);
 }

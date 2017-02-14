@@ -48,17 +48,15 @@ public interface IPredicate <T> extends Predicate <T>, Serializable
    * {@code other} predicate will not be evaluated.
    *
    * @param other
-   *        a predicate that will be logically-ANDed with this predicate
+   *        a predicate that will be logically-ANDed with this predicate. May be
+   *        <code>null</code>.
    * @return a composed predicate that represents the short-circuiting logical
    *         AND of this predicate and the {@code other} predicate
-   * @throws NullPointerException
-   *         if other is null
    */
   @Nonnull
-  default IPredicate <T> and (@Nonnull final Predicate <? super T> other)
+  default IPredicate <T> and (@Nullable final Predicate <? super T> other)
   {
-    Objects.requireNonNull (other);
-    return (t) -> test (t) && other.test (t);
+    return and (this, other);
   }
 
   /**
@@ -72,17 +70,15 @@ public interface IPredicate <T> extends Predicate <T>, Serializable
    * {@code other} predicate will not be evaluated.
    *
    * @param other
-   *        a predicate that will be logically-ORed with this predicate
+   *        a predicate that will be logically-ORed with this predicate. May be
+   *        <code>null</code>.
    * @return a composed predicate that represents the short-circuiting logical
    *         OR of this predicate and the {@code other} predicate
-   * @throws NullPointerException
-   *         if other is null
    */
   @Nonnull
-  default IPredicate <T> or (@Nonnull final Predicate <? super T> other)
+  default IPredicate <T> or (@Nullable final Predicate <? super T> other)
   {
-    Objects.requireNonNull (other);
-    return (t) -> test (t) || other.test (t);
+    return or (this, other);
   }
 
   /**
@@ -93,7 +89,57 @@ public interface IPredicate <T> extends Predicate <T>, Serializable
   @Nonnull
   default IPredicate <T> negate ()
   {
-    return (t) -> !test (t);
+    return (x) -> !test (x);
+  }
+
+  @Nonnull
+  static <DATATYPE> IPredicate <DATATYPE> all ()
+  {
+    return (x) -> true;
+  }
+
+  @Nonnull
+  static <DATATYPE> IPredicate <DATATYPE> none ()
+  {
+    return (x) -> false;
+  }
+
+  @Nonnull
+  static <DATATYPE> IPredicate <DATATYPE> notNull ()
+  {
+    return (x) -> x != null;
+  }
+
+  @Nonnull
+  static <DATATYPE> IPredicate <DATATYPE> isNull ()
+  {
+    return (x) -> x == null;
+  }
+
+  @Nullable
+  static <DATATYPE> IPredicate <DATATYPE> and (@Nullable final Predicate <? super DATATYPE> aFirst,
+                                               @Nullable final Predicate <? super DATATYPE> aSecond)
+  {
+    if (aFirst != null)
+    {
+      if (aSecond != null)
+        return x -> aFirst.test (x) && aSecond.test (x);
+      return x -> aFirst.test (x);
+    }
+    return x -> aSecond.test (x);
+  }
+
+  @Nullable
+  static <DATATYPE> IPredicate <DATATYPE> or (@Nullable final Predicate <? super DATATYPE> aFirst,
+                                              @Nullable final Predicate <? super DATATYPE> aSecond)
+  {
+    if (aFirst != null)
+    {
+      if (aSecond != null)
+        return x -> aFirst.test (x) || aSecond.test (x);
+      return x -> aFirst.test (x);
+    }
+    return x -> aSecond.test (x);
   }
 
   /**
@@ -102,15 +148,15 @@ public interface IPredicate <T> extends Predicate <T>, Serializable
    *
    * @param <T>
    *        the type of arguments to the predicate
-   * @param targetRef
+   * @param aCmpTo
    *        the object reference with which to compare for equality, which may
    *        be {@code null}
    * @return a predicate that tests if two arguments are equal according to
    *         {@link Objects#equals(Object, Object)}
    */
   @Nonnull
-  static <T> IPredicate <T> isEqual (@Nullable final Object targetRef)
+  static <T> IPredicate <T> isEqual (@Nullable final Object aCmpTo)
   {
-    return targetRef == null ? Objects::isNull : object -> targetRef.equals (object);
+    return aCmpTo == null ? Objects::isNull : x -> aCmpTo.equals (x);
   }
 }

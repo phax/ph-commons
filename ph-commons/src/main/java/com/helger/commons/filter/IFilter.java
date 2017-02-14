@@ -16,25 +16,28 @@
  */
 package com.helger.commons.filter;
 
-import java.io.Serializable;
 import java.util.Objects;
 import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.function.IBiPredicate;
+import com.helger.commons.function.IPredicate;
+
 /**
  * A generic filter interface for simple object selection. If you need an
  * additional parameter for determining whether to filter an object or not, you
- * may use the {@link IFilterWithParameter} instead. With Java 8 this is
- * basically a serializable {@link Predicate}.
+ * may use the {@link IBiPredicate} instead. With Java 8 this is basically a
+ * serializable {@link Predicate}.
  *
  * @author Philip
  * @param <DATATYPE>
  *        The type of object to filter.
  */
 @FunctionalInterface
-public interface IFilter <DATATYPE> extends Serializable, Predicate <DATATYPE>
+@Deprecated
+public interface IFilter <DATATYPE> extends IPredicate <DATATYPE>
 {
   @Nonnull
   default IFilter <DATATYPE> and (@Nonnull final IFilter <? super DATATYPE> other)

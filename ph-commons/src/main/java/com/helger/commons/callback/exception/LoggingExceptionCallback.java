@@ -18,6 +18,7 @@ package com.helger.commons.callback.exception;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.ThreadSafe;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +39,7 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
+@ThreadSafe
 public class LoggingExceptionCallback implements IExceptionCallback <Throwable>, IHasErrorLevel
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingExceptionCallback.class);

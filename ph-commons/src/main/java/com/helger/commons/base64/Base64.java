@@ -59,7 +59,7 @@ import com.helger.commons.io.stream.StreamHelper;
  * <code>String encoded = Base64.encode( myByteArray );</code> <br>
  * <code>byte[] myByteArray = Base64.decode( encoded );</code>
  * <p>
- * The <tt>options</tt> parameter, which appears in a few places, is used to
+ * The <code>options</code> parameter, which appears in a few places, is used to
  * pass several pieces of information to the encoder. In the "higher level"
  * methods such as encodeBytes( bytes, options ) the options parameter can be
  * used to indicate such things as first gzipping the bytes before encoding
@@ -174,10 +174,10 @@ import com.helger.commons.io.stream.StreamHelper;
  * everything is more consolidated and cleaner. The code now detects when data
  * that's being decoded is gzip-compressed and will decompress it automatically.
  * Generally things are cleaner. You'll probably have to change some method
- * calls that you were making to support the new options format (<tt>int</tt>s
- * that you "OR" together).</li>
+ * calls that you were making to support the new options format
+ * (<code>int</code>s that you "OR" together).</li>
  * <li>v1.5.1 - Fixed bug when decompressing and decoding to a byte[] using
- * <tt>decode( String s, boolean gzipCompressed )</tt>. Added the ability to
+ * <code>decode( String s, boolean gzipCompressed )</code>. Added the ability to
  * "suspend" encoding in the Output Stream so you can turn on and off the
  * encoding if you need to embed base64 data in an otherwise "normal" stream
  * (like an XML file).</li>
@@ -2217,7 +2217,7 @@ public final class Base64
    * @throws IOException
    *         if there is an error
    * @throws NullPointerException
-   *         if <tt>s</tt> is null
+   *         if <code>s</code> is null
    * @since 1.4
    */
   @Nonnull
@@ -2265,7 +2265,7 @@ public final class Base64
 
   /**
    * Attempts to decode Base64 data and deserialize a Java Object within.
-   * Returns <tt>null</tt> if there was an error.
+   * Returns <code>null</code> if there was an error.
    *
    * @param encodedObject
    *        The Base64 data to decode
@@ -2285,8 +2285,8 @@ public final class Base64
 
   /**
    * Attempts to decode Base64 data and deserialize a Java Object within.
-   * Returns <tt>null</tt> if there was an error. If <tt>loader</tt> is not
-   * null, it will be the class loader used when deserializing.
+   * Returns <code>null</code> if there was an error. If <code>loader</code> is
+   * not null, it will be the class loader used when deserializing.
    *
    * @param encodedObject
    *        The Base64 data to decode
@@ -2493,7 +2493,7 @@ public final class Base64
   }
 
   /**
-   * Reads <tt>infile</tt> and encodes it to <tt>outfile</tt>.
+   * Reads <code>infile</code> and encodes it to <code>outfile</code>.
    *
    * @param infile
    *        Input file
@@ -2514,7 +2514,7 @@ public final class Base64
   }
 
   /**
-   * Reads <tt>infile</tt> and decodes it to <tt>outfile</tt>.
+   * Reads <code>infile</code> and decodes it to <code>outfile</code>.
    *
    * @param infile
    *        Input file

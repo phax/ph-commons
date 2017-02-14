@@ -172,6 +172,8 @@ public final class CompareHelper
    */
   public static int compare (final short n1, final short n2)
   {
+    // Don't use Short.compare because it returns "n1-n2" which is not strictly
+    // -1/+1
     return n1 < n2 ? -1 : n1 == n2 ? 0 : +1;
   }
 

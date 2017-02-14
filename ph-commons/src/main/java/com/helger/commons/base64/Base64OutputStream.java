@@ -22,15 +22,17 @@ import java.io.OutputStream;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import javax.annotation.concurrent.NotThreadSafe;
 
 /**
- * A {@link Base64OutputStream} will write data to another <tt>OutputStream</tt>
- * , given in the constructor, and encode/decode to/from Base64 notation on the
- * fly.
+ * A {@link Base64OutputStream} will write data to another
+ * <code>OutputStream</code> , given in the constructor, and encode/decode
+ * to/from Base64 notation on the fly.
  *
  * @see Base64
  * @since 1.3
  */
+@NotThreadSafe
 public class Base64OutputStream extends FilterOutputStream
 {
   private final boolean m_bEncode;
@@ -50,13 +52,13 @@ public class Base64OutputStream extends FilterOutputStream
   /**
    * Constructs a {@link Base64OutputStream} in ENCODE mode.
    *
-   * @param pout
-   *        the <tt>OutputStream</tt> to which data will be written.
+   * @param aOS
+   *        the <code>OutputStream</code> to which data will be written.
    * @since 1.3
    */
-  public Base64OutputStream (@Nonnull final OutputStream pout)
+  public Base64OutputStream (@Nonnull final OutputStream aOS)
   {
-    this (pout, Base64.ENCODE);
+    this (aOS, Base64.ENCODE);
   }
 
   /**
@@ -72,28 +74,28 @@ public class Base64OutputStream extends FilterOutputStream
    * <p>
    * Example: <code>new Base64.OutputStream( out, Base64.ENCODE )</code>
    *
-   * @param pout
-   *        the <tt>OutputStream</tt> to which data will be written.
-   * @param poptions
+   * @param aOS
+   *        the <code>OutputStream</code> to which data will be written.
+   * @param nOptions
    *        Specified options.
    * @see Base64#ENCODE
    * @see Base64#DECODE
    * @see Base64#DO_BREAK_LINES
    * @since 1.3
    */
-  public Base64OutputStream (@Nonnull final OutputStream pout, final int poptions)
+  public Base64OutputStream (@Nonnull final OutputStream aOS, final int nOptions)
   {
-    super (pout);
-    m_bBreakLines = (poptions & Base64.DO_BREAK_LINES) != 0;
-    m_bEncode = (poptions & Base64.ENCODE) != 0;
+    super (aOS);
+    m_bBreakLines = (nOptions & Base64.DO_BREAK_LINES) != 0;
+    m_bEncode = (nOptions & Base64.ENCODE) != 0;
     m_nBufferLength = m_bEncode ? 3 : 4;
     m_aBuffer = new byte [m_nBufferLength];
     m_nPosition = 0;
     m_nLineLength = 0;
     m_bSuspendEncoding = false;
     m_aB4 = new byte [4];
-    m_nOptions = poptions;
-    m_aDecodabet = Base64._getDecodabet (poptions);
+    m_nOptions = nOptions;
+    m_aDecodabet = Base64._getDecodabet (nOptions);
   }
 
   /**
