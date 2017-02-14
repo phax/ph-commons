@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.collection;
+package com.helger.lesscommons.collection;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -30,6 +30,8 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.iterate.IIterableIterator;
 
 @Immutable

@@ -21,9 +21,13 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Objects;
+
 import org.junit.Test;
 
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.impl.NonBlockingStack;
+import com.helger.commons.collection.iterate.IterableIterator;
 
 /**
  * Test class for class {@link StackHelper}
@@ -50,4 +54,18 @@ public final class StackHelperTest
     assertNull (StackHelper.getStackCopyWithoutTop (new NonBlockingStack <String> ()));
   }
 
+  @Test
+  public void testNew ()
+  {
+    StackHelper.newStack ();
+    StackHelper.newStack ("a");
+    StackHelper.newStack (new String [] { "a" });
+    StackHelper.newStack (new CommonsArrayList <> ("a"));
+    StackHelper.newStack (new IterableIterator <> (new CommonsArrayList <> ("a")));
+    StackHelper.newStack ((Iterable <String>) new CommonsArrayList <> ("a"));
+    StackHelper.newStack (new CommonsArrayList <> ("a").iterator ());
+    StackHelper.newStack (new CommonsArrayList <> ("a"), Objects::nonNull);
+    StackHelper.newStackMapped (new CommonsArrayList <Object> ("a"), Object::toString);
+    StackHelper.newStackMapped (new Object [] { "a" }, Object::toString);
+  }
 }
