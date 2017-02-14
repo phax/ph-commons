@@ -14,40 +14,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.function;
+package com.helger.commons.functional;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
 
 /**
  * Represents an operation that accepts a single input argument and returns no
  * result but may throw an Exception. Unlike most other functional interfaces,
- * {@code IThrowingConsumer} is expected to operate via side-effects.
+ * {@code IConsumer} is expected to operate via side-effects. This is a
+ * serializable extension to the {@link Consumer} interface.
  * <p>
  * This is a functional interface whose functional method is
  * {@link #accept(Object)}.
  *
  * @param <T>
  *        the type of the input to the operation
- * @param <EXTYPE>
- *        exception type
- * @since 8.3.1
+ * @since 8.6.0
  */
 @FunctionalInterface
-public interface IThrowingConsumer <T, EXTYPE extends Throwable> extends Serializable
+public interface IConsumer <T> extends Consumer <T>, Serializable
 {
-  /**
-   * Performs this operation on the given argument.
-   *
-   * @param t
-   *        the input argument
-   * @throws EXTYPE
-   *         In case it is needed
-   */
-  void accept (T t) throws EXTYPE;
-
   /**
    * Returns a composed {@code Consumer} that performs, in sequence, this
    * operation followed by the {@code after} operation. If performing either
@@ -63,7 +53,7 @@ public interface IThrowingConsumer <T, EXTYPE extends Throwable> extends Seriali
    *         if {@code after} is null
    */
   @Nonnull
-  default IThrowingConsumer <T, EXTYPE> andThen (@Nonnull final IThrowingConsumer <? super T, ? extends EXTYPE> after)
+  default IConsumer <T> andThen (@Nonnull final Consumer <? super T> after)
   {
     Objects.requireNonNull (after);
     return (final T t) -> {

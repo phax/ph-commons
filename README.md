@@ -24,10 +24,14 @@ This project was the following modules:
 
 ##News and noteworthy
 
-  * v8.6.2
+  * v9.0.0
     * Allowing `JAXBDocumentType` objects to not have an @XmlSchema annotation
     * Extended `XMLSystemProperties` API
     * Added `IPredicate` - a serializable `Predicate` interface
+    * Added `IBiPredicate` - a serializable `BiPredicate` interface
+    * Changed `com.helger.commons.function` package to `com.helger.commons.functional`
+    * Replaced `IFilter` with `IPredicate`
+    * Replaced `IFilterWithParameter` with `IBiPredicate`
   * v8.6.1 - 2017-01-23
     * `*MultilingualText` is now based on ICommonsOrderedMap
     * Extended `GlobalDebug` API slightly

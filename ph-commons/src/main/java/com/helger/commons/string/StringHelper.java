@@ -50,7 +50,7 @@ import com.helger.commons.collection.ext.CommonsHashSet;
 import com.helger.commons.collection.ext.CommonsLinkedHashSet;
 import com.helger.commons.collection.ext.CommonsTreeSet;
 import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.function.ICharConsumer;
+import com.helger.commons.functional.ICharConsumer;
 import com.helger.commons.math.MathHelper;
 
 /**

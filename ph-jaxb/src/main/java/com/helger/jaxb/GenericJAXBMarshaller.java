@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.bind.JAXBElement;
 
-import com.helger.commons.function.IFunction;
+import com.helger.commons.functional.IFunction;
 import com.helger.commons.io.resource.IReadableResource;
 
 /**

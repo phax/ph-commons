@@ -32,8 +32,8 @@ import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.collection.ext.ICommonsOrderedSet;
 import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.filter.IFilter;
-import com.helger.commons.function.ITriConsumer;
+import com.helger.commons.functional.IPredicate;
+import com.helger.commons.functional.ITriConsumer;
 import com.helger.commons.mutable.MutableInt;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.EContinue;
@@ -1052,20 +1052,20 @@ public interface IMicroElement extends IMicroNodeWithChildren
   }
 
   @Nonnull
-  static IFilter <IMicroElement> filterNamespaceURI (@Nullable final String sNamespaceURI)
+  static IPredicate <IMicroElement> filterNamespaceURI (@Nullable final String sNamespaceURI)
   {
     return aChildElement -> aChildElement.hasNamespaceURI (sNamespaceURI);
   }
 
   @Nonnull
-  static IFilter <IMicroElement> filterName (@Nullable final String sTagOrLocalName)
+  static IPredicate <IMicroElement> filterName (@Nullable final String sTagOrLocalName)
   {
     return aChildElement -> aChildElement.hasTagName (sTagOrLocalName);
   }
 
   @Nonnull
-  static IFilter <IMicroElement> filterNamespaceURIAndName (@Nullable final String sNamespaceURI,
-                                                            @Nullable final String sTagOrLocalName)
+  static IPredicate <IMicroElement> filterNamespaceURIAndName (@Nullable final String sNamespaceURI,
+                                                               @Nullable final String sTagOrLocalName)
   {
     if (StringHelper.hasNoText (sNamespaceURI))
       return filterName (sTagOrLocalName);
@@ -1134,7 +1134,7 @@ public interface IMicroElement extends IMicroNodeWithChildren
   @ReturnsMutableCopy
   default ICommonsList <IMicroElement> getAllChildElements (@Nullable final Predicate <? super IMicroElement> aFilter)
   {
-    final ICommonsList <IMicroElement> ret = new CommonsArrayList<> ();
+    final ICommonsList <IMicroElement> ret = new CommonsArrayList <> ();
     forAllChildElements (aFilter, ret::add);
     return ret;
   }

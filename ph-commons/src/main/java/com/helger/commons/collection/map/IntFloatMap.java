@@ -26,7 +26,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.function.IIntToFloatFunction;
+import com.helger.commons.functional.IIntToFloatFunction;
 
 /**
  * Special int-float-primitive map. Based on:

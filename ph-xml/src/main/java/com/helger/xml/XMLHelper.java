@@ -46,7 +46,7 @@ import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.filter.IFilter;
+import com.helger.commons.functional.IPredicate;
 import com.helger.commons.string.StringHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -154,46 +154,46 @@ public final class XMLHelper
   }
 
   @Nonnull
-  public static IFilter <Node> filterNodeIsElement ()
+  public static IPredicate <Node> filterNodeIsElement ()
   {
     return x -> x != null && x.getNodeType () == Node.ELEMENT_NODE;
   }
 
   @Nonnull
-  public static IFilter <Element> filterElementWithNamespace ()
+  public static IPredicate <Element> filterElementWithNamespace ()
   {
     return x -> x != null && StringHelper.hasText (x.getNamespaceURI ());
   }
 
   @Nonnull
-  public static IFilter <Element> filterElementWithoutNamespace ()
+  public static IPredicate <Element> filterElementWithoutNamespace ()
   {
     return x -> x != null && hasNoNamespaceURI (x);
   }
 
   @Nonnull
-  public static IFilter <Element> filterElementWithNamespace (@Nullable final String sNamespaceURI)
+  public static IPredicate <Element> filterElementWithNamespace (@Nullable final String sNamespaceURI)
   {
     return x -> x != null && hasNamespaceURI (x, sNamespaceURI);
   }
 
   @Nonnull
-  public static IFilter <Element> filterElementWithNamespaceAndLocalName (@Nullable final String sNamespaceURI,
-                                                                          @Nonnull @Nonempty final String sLocalName)
+  public static IPredicate <Element> filterElementWithNamespaceAndLocalName (@Nullable final String sNamespaceURI,
+                                                                             @Nonnull @Nonempty final String sLocalName)
   {
     ValueEnforcer.notEmpty (sLocalName, "LocalName");
     return x -> x != null && hasNamespaceURI (x, sNamespaceURI) && x.getLocalName ().equals (sLocalName);
   }
 
   @Nonnull
-  public static IFilter <Element> filterElementWithTagName (@Nonnull @Nonempty final String sTagName)
+  public static IPredicate <Element> filterElementWithTagName (@Nonnull @Nonempty final String sTagName)
   {
     ValueEnforcer.notEmpty (sTagName, "TagName");
     return x -> EqualsHelper.equals (getElementName (x), sTagName);
   }
 
   @Nonnull
-  public static IFilter <Element> filterElementWithTagNameNoNS (@Nonnull @Nonempty final String sTagName)
+  public static IPredicate <Element> filterElementWithTagNameNoNS (@Nonnull @Nonempty final String sTagName)
   {
     ValueEnforcer.notEmpty (sTagName, "TagName");
     return x -> hasNoNamespaceURI (x) && x.getTagName ().equals (sTagName);
@@ -736,7 +736,7 @@ public final class XMLHelper
   @ReturnsMutableCopy
   public static ICommonsList <Attr> getAllAttributesAsList (@Nullable final Element aSrcNode)
   {
-    final ICommonsList <Attr> ret = new CommonsArrayList<> ();
+    final ICommonsList <Attr> ret = new CommonsArrayList <> ();
     NamedNodeMapIterator.createAttributeIterator (aSrcNode).forEach (x -> ret.add ((Attr) x));
     return ret;
   }
@@ -745,7 +745,7 @@ public final class XMLHelper
   @ReturnsMutableCopy
   public static ICommonsOrderedMap <String, String> getAllAttributesAsMap (@Nullable final Element aSrcNode)
   {
-    final ICommonsOrderedMap <String, String> ret = new CommonsLinkedHashMap<> ();
+    final ICommonsOrderedMap <String, String> ret = new CommonsLinkedHashMap <> ();
     forAllAttributes (aSrcNode, (sName, sValue) -> ret.put (sName, sValue));
     return ret;
   }

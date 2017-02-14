@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.function.IBooleanPredicate;
+import com.helger.commons.functional.IBooleanPredicate;
 
 /**
  * This is a utility class for easier <code>toString</code> method creations. It

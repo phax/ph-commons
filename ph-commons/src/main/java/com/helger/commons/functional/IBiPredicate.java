@@ -14,49 +14,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.function;
+package com.helger.commons.functional;
 
 import java.io.Serializable;
+import java.util.Objects;
+import java.util.function.BiPredicate;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.ValueEnforcer;
-
 /**
- * Represents a predicate (boolean-valued function) of one
- * {@code boolean}-valued argument. This is the {@code boolean}-consuming
- * primitive type specialization of {@link java.util.function.Predicate}.
+ * Represents a predicate (boolean-valued function) of two arguments. This is
+ * the two-arity specialization of {@link Predicate}.
  * <p>
  * This is a <a href="package-summary.html">functional interface</a> whose
- * functional method is {@link #test(boolean)}.
+ * functional method is {@link #test(Object, Object)}.
  *
- * @see java.util.function.Predicate
- * @since 8.5.2
+ * @param <T>
+ *        the type of the first argument to the predicate
+ * @param <U>
+ *        the type of the second argument the predicate
+ * @see IPredicate
+ * @since 8.6.2
  */
 @FunctionalInterface
-public interface IBooleanPredicate extends Serializable
+public interface IBiPredicate <T, U> extends BiPredicate <T, U>, Serializable
 {
-  /**
-   * Evaluates this predicate on the given argument.
-   *
-   * @param bValue
-   *        the input argument
-   * @return {@code true} if the input argument matches the predicate, otherwise
-   *         {@code false}
-   */
-  boolean test (boolean bValue);
-
-  /**
-   * Returns a predicate that represents the logical negation of this predicate.
-   *
-   * @return a predicate that represents the logical negation of this predicate
-   */
-  @Nonnull
-  default IBooleanPredicate negate ()
-  {
-    return x -> !test (x);
-  }
-
   /**
    * Returns a composed predicate that represents a short-circuiting logical AND
    * of this predicate and another. When evaluating the composed predicate, if
@@ -67,7 +50,7 @@ public interface IBooleanPredicate extends Serializable
    * the caller; if evaluation of this predicate throws an exception, the
    * {@code other} predicate will not be evaluated.
    *
-   * @param aOther
+   * @param other
    *        a predicate that will be logically-ANDed with this predicate
    * @return a composed predicate that represents the short-circuiting logical
    *         AND of this predicate and the {@code other} predicate
@@ -75,10 +58,10 @@ public interface IBooleanPredicate extends Serializable
    *         if other is null
    */
   @Nonnull
-  default IBooleanPredicate and (@Nonnull final IBooleanPredicate aOther)
+  default IBiPredicate <T, U> and (@Nonnull final BiPredicate <? super T, ? super U> other)
   {
-    ValueEnforcer.notNull (aOther, "Other");
-    return x -> test (x) && aOther.test (x);
+    Objects.requireNonNull (other);
+    return (t, u) -> test (t, u) && other.test (t, u);
   }
 
   /**
@@ -91,7 +74,7 @@ public interface IBooleanPredicate extends Serializable
    * the caller; if evaluation of this predicate throws an exception, the
    * {@code other} predicate will not be evaluated.
    *
-   * @param aOther
+   * @param other
    *        a predicate that will be logically-ORed with this predicate
    * @return a composed predicate that represents the short-circuiting logical
    *         OR of this predicate and the {@code other} predicate
@@ -99,9 +82,20 @@ public interface IBooleanPredicate extends Serializable
    *         if other is null
    */
   @Nonnull
-  default IBooleanPredicate or (@Nonnull final IBooleanPredicate aOther)
+  default IBiPredicate <T, U> or (@Nonnull final BiPredicate <? super T, ? super U> other)
   {
-    ValueEnforcer.notNull (aOther, "Other");
-    return x -> test (x) || aOther.test (x);
+    Objects.requireNonNull (other);
+    return (t, u) -> test (t, u) || other.test (t, u);
+  }
+
+  /**
+   * Returns a predicate that represents the logical negation of this predicate.
+   *
+   * @return a predicate that represents the logical negation of this predicate
+   */
+  @Nonnull
+  default IBiPredicate <T, U> negate ()
+  {
+    return (t, u) -> !test (t, u);
   }
 }

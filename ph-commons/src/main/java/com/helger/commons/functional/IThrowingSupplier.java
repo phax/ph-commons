@@ -14,26 +14,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.filter;
+package com.helger.commons.functional;
 
-import java.util.function.BiPredicate;
-
-import com.helger.commons.function.IBiPredicate;
+import java.io.Serializable;
 
 /**
- * A generic filter interface for simple object selection based on a parameter.
- * If you don't need the parameter, use {@link IFilter} instead. This is
- * basically a serializable {@link BiPredicate}.
+ * Represents a supplier of results that may throw an Exception.
+ * <p>
+ * There is no requirement that a new or distinct result be returned each time
+ * the supplier is invoked.
+ * <p>
+ * This is a functional interface whose functional method is {@link #get()}.
  *
- * @author Philip
- * @param <DATATYPE>
- *        The type of object to filter.
- * @param <PARAMTYPE>
- *        The type of the parameter
+ * @param <T>
+ *        the type of results supplied by this supplier
+ * @param <EXTYPE>
+ *        exception type
+ * @since 8.3.1
  */
 @FunctionalInterface
-@Deprecated
-public interface IFilterWithParameter <DATATYPE, PARAMTYPE> extends IBiPredicate <DATATYPE, PARAMTYPE>
+public interface IThrowingSupplier <T, EXTYPE extends Throwable> extends Serializable
 {
-  /* empty */
+  /**
+   * Gets a result.
+   *
+   * @return a result
+   * @throws EXTYPE
+   *         In case it is needed
+   */
+  T get () throws EXTYPE;
 }

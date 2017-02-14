@@ -19,7 +19,7 @@ package com.helger.jaxb.validation;
 import javax.annotation.Nullable;
 import javax.xml.bind.ValidationEventHandler;
 
-import com.helger.commons.function.IFunction;
+import com.helger.commons.functional.IFunction;
 
 /**
  * Factory interface for {@link ValidationEventHandler} objects.

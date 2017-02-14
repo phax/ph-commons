@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.ext.ICommonsMap;
-import com.helger.commons.function.ITriConsumer;
+import com.helger.commons.functional.ITriConsumer;
 import com.helger.commons.state.EChange;
 
 /**

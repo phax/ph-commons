@@ -31,7 +31,7 @@ import java.util.Objects;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.filter.IFilter;
+import com.helger.commons.functional.IPredicate;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -49,7 +49,7 @@ public final class FilterIteratorTest
   {
     final List <String> aList = CollectionHelper.newList ("i1", "i2");
     final Iterator <String> it = aList.iterator ();
-    final IFilter <String> aFilter = Objects::nonNull;
+    final IPredicate <String> aFilter = IPredicate.notNull ();
 
     try
     {
@@ -86,7 +86,7 @@ public final class FilterIteratorTest
   public void testConstructorIterable ()
   {
     final List <String> aList = CollectionHelper.newList ("i1", "i2");
-    final IFilter <String> aFilter = Objects::nonNull;
+    final IPredicate <String> aFilter = IPredicate.notNull ();
 
     try
     {

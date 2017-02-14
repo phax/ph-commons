@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
-import com.helger.commons.function.IFunction;
+import com.helger.commons.functional.IFunction;
 import com.helger.commons.string.StringHelper;
 
 /**

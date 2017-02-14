@@ -26,7 +26,7 @@ import java.util.function.Supplier;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.callback.IThrowingRunnable;
-import com.helger.commons.function.IThrowingSupplier;
+import com.helger.commons.functional.IThrowingSupplier;
 
 /**
  * This is an extension around {@link ReentrantReadWriteLock} that allows for

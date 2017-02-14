@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.function;
+package com.helger.commons.functional;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -32,7 +32,7 @@ import javax.annotation.Nullable;
  *
  * @param <T>
  *        the type of the input to the predicate
- * @since 8.6.2
+ * @since 9.0.0
  */
 @FunctionalInterface
 public interface IPredicate <T> extends Predicate <T>, Serializable
@@ -107,13 +107,13 @@ public interface IPredicate <T> extends Predicate <T>, Serializable
   @Nonnull
   static <DATATYPE> IPredicate <DATATYPE> notNull ()
   {
-    return (x) -> x != null;
+    return Objects::nonNull;
   }
 
   @Nonnull
   static <DATATYPE> IPredicate <DATATYPE> isNull ()
   {
-    return (x) -> x == null;
+    return Objects::isNull;
   }
 
   @Nullable

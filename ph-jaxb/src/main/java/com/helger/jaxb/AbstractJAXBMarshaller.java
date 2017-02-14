@@ -45,7 +45,7 @@ import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.function.IFunction;
+import com.helger.commons.functional.IFunction;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.lang.IHasClassLoader;
 import com.helger.commons.state.EChange;

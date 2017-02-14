@@ -17,7 +17,7 @@
 package com.helger.commons.changelog;
 
 import com.helger.commons.callback.ICallback;
-import com.helger.commons.function.IConsumer;
+import com.helger.commons.functional.IConsumer;
 
 /**
  * Callback for change log serializer read actions.

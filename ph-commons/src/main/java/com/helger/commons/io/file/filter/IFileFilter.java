@@ -26,20 +26,20 @@ import javax.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.filter.IFilter;
+import com.helger.commons.functional.IPredicate;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.regex.RegExHelper;
 
 /**
  * Abstract interface that collects {@link FileFilter}, {@link FilenameFilter}
- * and {@link IFilter}.
+ * and {@link IPredicate}.
  *
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
 @FunctionalInterface
-public interface IFileFilter extends FileFilter, FilenameFilter, IFilter <File>
+public interface IFileFilter extends FileFilter, FilenameFilter, IPredicate <File>
 {
   default boolean accept (@Nullable final File aFile)
   {
