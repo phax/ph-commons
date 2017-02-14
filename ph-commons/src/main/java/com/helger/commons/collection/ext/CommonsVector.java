@@ -19,6 +19,7 @@ package com.helger.commons.collection.ext;
 import java.util.Collection;
 import java.util.Vector;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -94,13 +95,55 @@ public class CommonsVector <ELEMENTTYPE> extends Vector <ELEMENTTYPE> implements
   @ReturnsMutableCopy
   public <T> CommonsVector <T> createInstance ()
   {
-    return new CommonsVector<> ();
+    return new CommonsVector <> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public CommonsVector <ELEMENTTYPE> getClone ()
   {
-    return new CommonsVector<> (this);
+    return new CommonsVector <> (this);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> createFiltered (@Nullable final Iterable <? extends ELEMENTTYPE> aValues,
+                                                                          @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
+  {
+    final CommonsVector <ELEMENTTYPE> ret = new CommonsVector <> (ArrayHelper.getSize (aValues));
+    ret.addAll (aValues, aFilter);
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <SRCTYPE, ELEMENTTYPE> CommonsVector <ELEMENTTYPE> createFiltered (@Nullable final Iterable <? extends SRCTYPE> aValues,
+                                                                                   @Nullable final Predicate <? super SRCTYPE> aFilter,
+                                                                                   @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+  {
+    final CommonsVector <ELEMENTTYPE> ret = new CommonsVector <> (ArrayHelper.getSize (aValues));
+    ret.addAllMapped (aValues, aFilter, aMapper);
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> createFiltered (@Nullable final ELEMENTTYPE [] aValues,
+                                                                          @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
+  {
+    final CommonsVector <ELEMENTTYPE> ret = new CommonsVector <> (ArrayHelper.getSize (aValues));
+    ret.addAll (aValues, aFilter);
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <SRCTYPE, ELEMENTTYPE> CommonsVector <ELEMENTTYPE> createFiltered (@Nullable final SRCTYPE [] aValues,
+                                                                                   @Nullable final Predicate <? super SRCTYPE> aFilter,
+                                                                                   @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+  {
+    final CommonsVector <ELEMENTTYPE> ret = new CommonsVector <> (ArrayHelper.getSize (aValues));
+    ret.addAllMapped (aValues, aFilter, aMapper);
+    return ret;
   }
 }

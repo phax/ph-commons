@@ -33,7 +33,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.GenericReflection;
@@ -4198,34 +4197,6 @@ public final class ArrayHelper
     }
 
     return aDefault;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> getAll (@Nullable final ELEMENTTYPE [] aArray,
-                                                                     @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
-  {
-    if (aFilter == null)
-      return CollectionHelper.newList (aArray);
-
-    final CommonsArrayList <ELEMENTTYPE> ret = new CommonsArrayList<> ();
-    forEach (aArray, aFilter, ret::add);
-    return ret;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static <ELEMENTTYPE, RETTYPE> CommonsArrayList <RETTYPE> getAllMapped (@Nullable final ELEMENTTYPE [] aArray,
-                                                                                @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                                                                @Nonnull final Function <? super ELEMENTTYPE, RETTYPE> aMapper)
-  {
-    ValueEnforcer.notNull (aMapper, "Mapper");
-    if (aFilter == null)
-      return CollectionHelper.newListMapped (aArray, aMapper);
-
-    final CommonsArrayList <RETTYPE> ret = new CommonsArrayList<> ();
-    forEach (aArray, aFilter, aElement -> ret.add (aMapper.apply (aElement)));
-    return ret;
   }
 
   @Nonnegative

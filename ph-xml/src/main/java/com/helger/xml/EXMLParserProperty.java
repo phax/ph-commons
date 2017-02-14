@@ -29,7 +29,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.lang.GenericReflection;
@@ -322,6 +322,6 @@ public enum EXMLParserProperty implements IHasName
   {
     ValueEnforcer.notNull (ePropertyType, "PropertyType");
 
-    return ArrayHelper.getAll (values (), x -> x.getPropertyType () == ePropertyType);
+    return CommonsArrayList.createFiltered (values (), x -> x.getPropertyType () == ePropertyType);
   }
 }

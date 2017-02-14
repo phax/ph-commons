@@ -31,6 +31,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
@@ -79,9 +80,9 @@ public final class EnumHelper
   @Nonnull
   @ReturnsMutableCopy
   public static <ENUMTYPE extends Enum <ENUMTYPE>> ICommonsList <ENUMTYPE> getAll (@Nonnull final Class <ENUMTYPE> aClass,
-                                                                                   @Nullable final Predicate <ENUMTYPE> aFilter)
+                                                                                   @Nullable final Predicate <? super ENUMTYPE> aFilter)
   {
-    return ArrayHelper.getAll (aClass.getEnumConstants (), aFilter);
+    return CommonsArrayList.createFiltered (aClass.getEnumConstants (), aFilter);
   }
 
   /**

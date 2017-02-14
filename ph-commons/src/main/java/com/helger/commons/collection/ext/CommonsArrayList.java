@@ -19,6 +19,7 @@ package com.helger.commons.collection.ext;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -94,13 +95,55 @@ public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
   @ReturnsMutableCopy
   public <T> CommonsArrayList <T> createInstance ()
   {
-    return new CommonsArrayList<> ();
+    return new CommonsArrayList <> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public CommonsArrayList <ELEMENTTYPE> getClone ()
   {
-    return new CommonsArrayList<> (this);
+    return new CommonsArrayList <> (this);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> createFiltered (@Nullable final Iterable <? extends ELEMENTTYPE> aValues,
+                                                                             @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
+  {
+    final CommonsArrayList <ELEMENTTYPE> ret = new CommonsArrayList <> ();
+    ret.addAll (aValues, aFilter);
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <SRCTYPE, ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> createFiltered (@Nullable final Iterable <? extends SRCTYPE> aValues,
+                                                                                      @Nullable final Predicate <? super SRCTYPE> aFilter,
+                                                                                      @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+  {
+    final CommonsArrayList <ELEMENTTYPE> ret = new CommonsArrayList <> (ArrayHelper.getSize (aValues));
+    ret.addAllMapped (aValues, aFilter, aMapper);
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> createFiltered (@Nullable final ELEMENTTYPE [] aValues,
+                                                                             @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
+  {
+    final CommonsArrayList <ELEMENTTYPE> ret = new CommonsArrayList <> (ArrayHelper.getSize (aValues));
+    ret.addAll (aValues, aFilter);
+    return ret;
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static <SRCTYPE, ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> createFiltered (@Nullable final SRCTYPE [] aValues,
+                                                                                      @Nullable final Predicate <? super SRCTYPE> aFilter,
+                                                                                      @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+  {
+    final CommonsArrayList <ELEMENTTYPE> ret = new CommonsArrayList <> (ArrayHelper.getSize (aValues));
+    ret.addAllMapped (aValues, aFilter, aMapper);
+    return ret;
   }
 }
