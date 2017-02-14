@@ -83,11 +83,11 @@ public final class CompareHelper
    *        First value
    * @param n2
    *        Second value
-   * @return -1, 0 or + 1
+   * @return value &lt;0, 0 or &gt;0.
    */
   public static int compare (final byte n1, final byte n2)
   {
-    return n1 < n2 ? -1 : n1 == n2 ? 0 : +1;
+    return Byte.compare (n1, n2);
   }
 
   /**
@@ -97,11 +97,11 @@ public final class CompareHelper
    *        First value
    * @param n2
    *        Second value
-   * @return -1, 0 or + 1
+   * @return value &lt;0, 0 or &gt;0.
    */
   public static int compare (final char n1, final char n2)
   {
-    return n1 < n2 ? -1 : n1 == n2 ? 0 : +1;
+    return Character.compare (n1, n2);
   }
 
   /**
@@ -111,7 +111,7 @@ public final class CompareHelper
    *        First value
    * @param d2
    *        Second value
-   * @return -1, 0 or + 1
+   * @return value &lt;0, 0 or &gt;0.
    */
   public static int compare (final double d1, final double d2)
   {
@@ -125,7 +125,7 @@ public final class CompareHelper
    *        First value
    * @param f2
    *        Second value
-   * @return -1, 0 or + 1
+   * @return value &lt;0, 0 or &gt;0.
    */
   public static int compare (final float f1, final float f2)
   {
@@ -139,7 +139,7 @@ public final class CompareHelper
    *        First value
    * @param n2
    *        Second value
-   * @return -1, 0 or + 1
+   * @return value &lt;0, 0 or &gt;0.
    */
   public static int compare (final int n1, final int n2)
   {
@@ -153,7 +153,7 @@ public final class CompareHelper
    *        First value
    * @param n2
    *        Second value
-   * @return -1, 0 or + 1
+   * @return value &lt;0, 0 or &gt;0.
    */
   public static int compare (final long n1, final long n2)
   {
@@ -167,13 +167,11 @@ public final class CompareHelper
    *        First value
    * @param n2
    *        Second value
-   * @return -1, 0 or + 1
+   * @return value &lt;0, 0 or &gt;0.
    */
   public static int compare (final short n1, final short n2)
   {
-    // Don't use Short.compare because it returns "n1-n2" which is not strictly
-    // -1/+1
-    return n1 < n2 ? -1 : n1 == n2 ? 0 : +1;
+    return Short.compare (n1, n2);
   }
 
   /**

@@ -16,10 +16,9 @@
  */
 package com.helger.tree.withid;
 
-import javax.annotation.Nonnull;
+import java.io.Serializable;
 
-import com.helger.commons.factory.IHierarchicalFactoryWithParameter;
-import com.helger.commons.factory.IHierarchicalRootFactory;
+import javax.annotation.Nonnull;
 
 /**
  * A factory interface that creates tree items.
@@ -33,18 +32,24 @@ import com.helger.commons.factory.IHierarchicalRootFactory;
  *        tree item type
  */
 public interface ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>>
-                                        extends
-                                        IHierarchicalFactoryWithParameter <ITEMTYPE, KEYTYPE>,
-                                        IHierarchicalRootFactory <ITEMTYPE>
+                                        extends Serializable
 {
   /**
-   * {@inheritDoc}
+   * Create a root entry.
+   *
+   * @return New root entry. May not be <code>null</code>.
    */
   @Nonnull
   ITEMTYPE createRoot ();
 
   /**
-   * {@inheritDoc}
+   * Create a child entry.
+   *
+   * @param aParent
+   *        The parent entry to use. May not be <code>null</code>.
+   * @param aDataID
+   *        The data ID of the new element
+   * @return The created non-root entry. May not be <code>null</code>.
    */
   ITEMTYPE create (@Nonnull ITEMTYPE aParent, @Nonnull KEYTYPE aDataID);
 

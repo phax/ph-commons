@@ -24,10 +24,10 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.XMLReaderFactory;
 
 import com.helger.commons.exception.InitializationException;
-import com.helger.commons.factory.IFactory;
+import com.helger.commons.functional.ISupplier;
 import com.helger.commons.system.SystemProperties;
 
-public final class SAXReaderFactory implements IFactory <org.xml.sax.XMLReader>
+public final class SAXReaderFactory implements ISupplier <org.xml.sax.XMLReader>
 {
   @Nonnull
   public org.xml.sax.XMLReader get ()

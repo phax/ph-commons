@@ -73,7 +73,7 @@ public class BasicTree <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE
   @ReturnsMutableCopy
   public final ICommonsCollection <? extends ITEMTYPE> getAllChildren ()
   {
-    return new CommonsArrayList<> (m_aRootItem);
+    return new CommonsArrayList <> (m_aRootItem);
   }
 
   public final void forAllChildren (@Nonnull final Consumer <? super ITEMTYPE> aConsumer)

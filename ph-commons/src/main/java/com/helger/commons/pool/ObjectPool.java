@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.concurrent.SimpleLock;
-import com.helger.commons.factory.IFactory;
+import com.helger.commons.functional.ISupplier;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.state.ESuccess;
 
@@ -58,7 +58,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
   private final boolean [] m_aUsed;
 
   // The factory for creating objects
-  private final IFactory <DATATYPE> m_aFactory;
+  private final ISupplier <DATATYPE> m_aFactory;
 
   /**
    * Create a new object pool for a certain amount of items and a factory that
@@ -71,7 +71,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
    *        factory may not create <code>null</code> objects, as this leads to
    *        an error!
    */
-  public ObjectPool (@Nonnegative final int nItemCount, @Nonnull final IFactory <DATATYPE> aFactory)
+  public ObjectPool (@Nonnegative final int nItemCount, @Nonnull final ISupplier <DATATYPE> aFactory)
   {
     ValueEnforcer.isGT0 (nItemCount, "ItemCount");
     ValueEnforcer.notNull (aFactory, "Factory");

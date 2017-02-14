@@ -21,13 +21,14 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.functional.ISupplier;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * Implementation of {@link IFactory} that always creates a new instance via
+ * Implementation of {@link ISupplier} that always creates a new instance via
  * reflection
  *
  * @author Philip Helger
@@ -35,7 +36,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        The return type of the factory
  */
 @Immutable
-public class FactoryNewInstance <DATATYPE> implements IFactory <DATATYPE>
+public class FactoryNewInstance <DATATYPE> implements ISupplier <DATATYPE>
 {
   private final Class <? extends DATATYPE> m_aClass;
 
@@ -93,6 +94,6 @@ public class FactoryNewInstance <DATATYPE> implements IFactory <DATATYPE>
   public static <DATATYPE> FactoryNewInstance <DATATYPE> create (@Nullable final Class <DATATYPE> aClass,
                                                                  final boolean bCheckInstancable)
   {
-    return new FactoryNewInstance<> (aClass, bCheckInstancable);
+    return new FactoryNewInstance <> (aClass, bCheckInstancable);
   }
 }

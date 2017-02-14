@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.collection.impl;
+package com.helger.lesscommons.collection.impl;
 
 import java.util.function.Supplier;
 
@@ -26,7 +26,7 @@ import javax.annotation.concurrent.ThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.collection.ext.CommonsVector;
-import com.helger.commons.factory.IFactory;
+import com.helger.commons.functional.ISupplier;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -36,8 +36,8 @@ import com.helger.commons.string.ToStringGenerator;
  * with an index that would normally throw an
  * {@link ArrayIndexOutOfBoundsException} this class will fill all indices
  * between the current {@link #size()} and the desired index with values
- * provided by an {@link IFactory}. If you don't pass an {@link IFactory} in the
- * constructor a default factory returning null values is used.
+ * provided by an {@link ISupplier}. If you don't pass an {@link ISupplier} in
+ * the constructor a default factory returning null values is used.
  *
  * @author Philip
  * @param <ELEMENTTYPE>
@@ -47,7 +47,7 @@ import com.helger.commons.string.ToStringGenerator;
 public class SafeVector <ELEMENTTYPE> extends CommonsVector <ELEMENTTYPE>
 {
   @MustImplementEqualsAndHashcode
-  private final IFactory <ELEMENTTYPE> m_aFactory;
+  private final ISupplier <ELEMENTTYPE> m_aFactory;
 
   /**
    * Constructor filling up the missing elements with <code>null</code> values.
@@ -63,7 +63,7 @@ public class SafeVector <ELEMENTTYPE> extends CommonsVector <ELEMENTTYPE>
    * @param aFactory
    *        The factory to use. May not be <code>null</code>.
    */
-  public SafeVector (@Nonnull final IFactory <ELEMENTTYPE> aFactory)
+  public SafeVector (@Nonnull final ISupplier <ELEMENTTYPE> aFactory)
   {
     m_aFactory = ValueEnforcer.notNull (aFactory, "Factory");
   }
@@ -73,7 +73,7 @@ public class SafeVector <ELEMENTTYPE> extends CommonsVector <ELEMENTTYPE>
    *         constructor.
    */
   @Nonnull
-  public IFactory <ELEMENTTYPE> getFactory ()
+  public ISupplier <ELEMENTTYPE> getFactory ()
   {
     return m_aFactory;
   }
