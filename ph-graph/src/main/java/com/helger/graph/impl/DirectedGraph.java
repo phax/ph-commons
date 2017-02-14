@@ -193,7 +193,7 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
   @ReturnsMutableCopy
   public ICommonsSet <IMutableDirectedGraphNode> getAllStartNodes ()
   {
-    return CollectionHelper.newSet (m_aNodes.values (), aNode -> !aNode.hasIncomingRelations ());
+    return CollectionHelper.newSet (m_aNodes.values (), x -> !x.hasIncomingRelations ());
   }
 
   @Nonnull
@@ -211,7 +211,7 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
   @ReturnsMutableCopy
   public ICommonsSet <IMutableDirectedGraphNode> getAllEndNodes ()
   {
-    return CollectionHelper.newSet (m_aNodes.values (), aNode -> !aNode.hasOutgoingRelations ());
+    return CollectionHelper.newSet (m_aNodes.values (), x -> !x.hasOutgoingRelations ());
   }
 
   @Nonnull

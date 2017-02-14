@@ -17,10 +17,10 @@
 package com.helger.commons.functional;
 
 import java.io.Serializable;
-import java.util.Objects;
 import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Represents an operation that accepts a single input argument and returns no
@@ -46,19 +46,32 @@ public interface IConsumer <T> extends Consumer <T>, Serializable
    * {@code after} operation will not be performed.
    *
    * @param after
-   *        the operation to perform after this operation
+   *        the operation to perform after this operation. May be
+   *        <code>null</code>.
    * @return a composed {@code Consumer} that performs in sequence this
    *         operation followed by the {@code after} operation
-   * @throws NullPointerException
-   *         if {@code after} is null
    */
   @Nonnull
   default IConsumer <T> andThen (@Nonnull final Consumer <? super T> after)
   {
-    Objects.requireNonNull (after);
-    return (final T t) -> {
-      accept (t);
-      after.accept (t);
-    };
+    return and (this, after);
+  }
+
+  @Nullable
+  static <DATATYPE> IConsumer <DATATYPE> and (@Nullable final Consumer <? super DATATYPE> aFirst,
+                                              @Nullable final Consumer <? super DATATYPE> aSecond)
+  {
+    if (aFirst != null)
+    {
+      if (aSecond != null)
+        return x -> {
+          aFirst.accept (x);
+          aSecond.accept (x);
+        };
+      return x -> aFirst.accept (x);
+    }
+    if (aSecond != null)
+      return x -> aSecond.accept (x);
+    return null;
   }
 }

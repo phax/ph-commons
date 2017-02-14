@@ -17,11 +17,11 @@
 package com.helger.commons.functional;
 
 import java.io.Serializable;
-import java.util.Objects;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Represents a predicate (boolean-valued function) of two arguments. This is
@@ -35,7 +35,7 @@ import javax.annotation.Nonnull;
  * @param <U>
  *        the type of the second argument the predicate
  * @see IPredicate
- * @since 8.6.2
+ * @since 9.0.0
  */
 @FunctionalInterface
 public interface IBiPredicate <T, U> extends BiPredicate <T, U>, Serializable
@@ -51,17 +51,15 @@ public interface IBiPredicate <T, U> extends BiPredicate <T, U>, Serializable
    * {@code other} predicate will not be evaluated.
    *
    * @param other
-   *        a predicate that will be logically-ANDed with this predicate
+   *        a predicate that will be logically-ANDed with this predicate. May be
+   *        <code>null</code>.
    * @return a composed predicate that represents the short-circuiting logical
    *         AND of this predicate and the {@code other} predicate
-   * @throws NullPointerException
-   *         if other is null
    */
   @Nonnull
-  default IBiPredicate <T, U> and (@Nonnull final BiPredicate <? super T, ? super U> other)
+  default IBiPredicate <T, U> and (@Nullable final BiPredicate <? super T, ? super U> other)
   {
-    Objects.requireNonNull (other);
-    return (t, u) -> test (t, u) && other.test (t, u);
+    return and (this, other);
   }
 
   /**
@@ -75,17 +73,15 @@ public interface IBiPredicate <T, U> extends BiPredicate <T, U>, Serializable
    * {@code other} predicate will not be evaluated.
    *
    * @param other
-   *        a predicate that will be logically-ORed with this predicate
+   *        a predicate that will be logically-ORed with this predicate. May be
+   *        <code>null</code>.
    * @return a composed predicate that represents the short-circuiting logical
    *         OR of this predicate and the {@code other} predicate
-   * @throws NullPointerException
-   *         if other is null
    */
   @Nonnull
-  default IBiPredicate <T, U> or (@Nonnull final BiPredicate <? super T, ? super U> other)
+  default IBiPredicate <T, U> or (@Nullable final BiPredicate <? super T, ? super U> other)
   {
-    Objects.requireNonNull (other);
-    return (t, u) -> test (t, u) || other.test (t, u);
+    return or (this, other);
   }
 
   /**
@@ -96,6 +92,36 @@ public interface IBiPredicate <T, U> extends BiPredicate <T, U>, Serializable
   @Nonnull
   default IBiPredicate <T, U> negate ()
   {
-    return (t, u) -> !test (t, u);
+    return (x, y) -> !test (x, y);
+  }
+
+  @Nullable
+  static <T, U> IBiPredicate <T, U> and (@Nullable final BiPredicate <? super T, ? super U> aFirst,
+                                         @Nullable final BiPredicate <? super T, ? super U> aSecond)
+  {
+    if (aFirst != null)
+    {
+      if (aSecond != null)
+        return (x, y) -> aFirst.test (x, y) && aSecond.test (x, y);
+      return (x, y) -> aFirst.test (x, y);
+    }
+    if (aSecond != null)
+      return (x, y) -> aSecond.test (x, y);
+    return null;
+  }
+
+  @Nullable
+  static <T, U> IBiPredicate <T, U> or (@Nullable final BiPredicate <? super T, ? super U> aFirst,
+                                        @Nullable final BiPredicate <? super T, ? super U> aSecond)
+  {
+    if (aFirst != null)
+    {
+      if (aSecond != null)
+        return (x, y) -> aFirst.test (x, y) || aSecond.test (x, y);
+      return (x, y) -> aFirst.test (x, y);
+    }
+    if (aSecond != null)
+      return (x, y) -> aSecond.test (x, y);
+    return null;
   }
 }

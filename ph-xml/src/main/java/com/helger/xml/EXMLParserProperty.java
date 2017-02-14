@@ -322,6 +322,6 @@ public enum EXMLParserProperty implements IHasName
   {
     ValueEnforcer.notNull (ePropertyType, "PropertyType");
 
-    return ArrayHelper.getAll (values (), e -> e.getPropertyType () == ePropertyType);
+    return ArrayHelper.getAll (values (), x -> x.getPropertyType () == ePropertyType);
   }
 }

@@ -59,7 +59,7 @@ public interface IFunction <T, R> extends Function <T, R>, Serializable
   default <V> IFunction <V, R> compose (@Nonnull final Function <? super V, ? extends T> before)
   {
     Objects.requireNonNull (before);
-    return (final V v) -> apply (before.apply (v));
+    return x -> apply (before.apply (x));
   }
 
   /**
@@ -83,7 +83,7 @@ public interface IFunction <T, R> extends Function <T, R>, Serializable
   default <V> IFunction <T, V> andThen (@Nonnull final Function <? super R, ? extends V> after)
   {
     Objects.requireNonNull (after);
-    return (final T t) -> after.apply (apply (t));
+    return x -> after.apply (apply (x));
   }
 
   /**
@@ -97,6 +97,6 @@ public interface IFunction <T, R> extends Function <T, R>, Serializable
   @Nonnull
   static <T> IFunction <T, T> identity ()
   {
-    return t -> t;
+    return x -> x;
   }
 }

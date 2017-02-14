@@ -31,6 +31,7 @@ import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.IHasClassLoader;
+import com.helger.commons.state.EChange;
 import com.helger.xml.ls.SimpleLSResourceResolver;
 import com.helger.xml.sax.LoggingSAXErrorHandler;
 
@@ -92,7 +93,7 @@ public class XMLSchemaCache extends SchemaCache
 
   private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("s_aRWLock")
-  private static final ICommonsMap <String, XMLSchemaCache> s_aPerClassLoaderCache = new CommonsHashMap<> ();
+  private static final ICommonsMap <String, XMLSchemaCache> s_aPerClassLoaderCache = new CommonsHashMap <> ();
 
   @Nonnull
   public static XMLSchemaCache getInstanceOfClassLoader (@Nullable final IHasClassLoader aClassLoaderProvider)
@@ -114,17 +115,16 @@ public class XMLSchemaCache extends SchemaCache
     if (aCache == null)
     {
       // Not found in read-lock
-      aCache = s_aRWLock.writeLocked ( () -> {
-        // Try again in write lock
-        return s_aPerClassLoaderCache.computeIfAbsent (sKey,
-                                                       x -> new XMLSchemaCache (new SimpleLSResourceResolver (aClassLoader)));
-      });
+      // Try again in write lock
+      aCache = s_aRWLock.writeLocked ( () -> s_aPerClassLoaderCache.computeIfAbsent (sKey,
+                                                                                     x -> new XMLSchemaCache (new SimpleLSResourceResolver (aClassLoader))));
     }
     return aCache;
   }
 
-  public static void clearPerClassLoaderCache ()
+  @Nonnull
+  public static EChange clearPerClassLoaderCache ()
   {
-    s_aRWLock.writeLocked ( () -> s_aPerClassLoaderCache.clear ());
+    return s_aRWLock.writeLocked ( () -> s_aPerClassLoaderCache.removeAll ());
   }
 }

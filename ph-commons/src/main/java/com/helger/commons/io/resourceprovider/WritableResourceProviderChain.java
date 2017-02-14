@@ -76,7 +76,7 @@ public class WritableResourceProviderChain extends ReadableResourceProviderChain
   public final boolean supportsWriting (@Nullable final String sName)
   {
     // Check if any provider can handle this resource
-    return m_aWritableResourceProviders.containsAny (r -> r.supportsWriting (sName));
+    return m_aWritableResourceProviders.containsAny (x -> x.supportsWriting (sName));
   }
 
   @Nonnull

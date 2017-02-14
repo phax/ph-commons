@@ -128,7 +128,7 @@ public final class EnumHelper
 
     if (aID == null)
       return eDefault;
-    return findFirst (aClass, e -> e.getID ().equals (aID), eDefault);
+    return findFirst (aClass, x -> x.getID ().equals (aID), eDefault);
   }
 
   /**
@@ -197,7 +197,7 @@ public final class EnumHelper
 
     if (sID == null)
       return eDefault;
-    return findFirst (aClass, e -> e.getID ().equalsIgnoreCase (sID), eDefault);
+    return findFirst (aClass, x -> x.getID ().equalsIgnoreCase (sID), eDefault);
   }
 
   /**
@@ -308,7 +308,7 @@ public final class EnumHelper
     }
 
     // Object is not cachable - traverse as usual
-    return findFirst (aClass, e -> e.getID () == nID, eDefault);
+    return findFirst (aClass, x -> x.getID () == nID, eDefault);
   }
 
   /**
@@ -376,7 +376,7 @@ public final class EnumHelper
 
     if (StringHelper.hasNoText (sName))
       return eDefault;
-    return findFirst (aClass, e -> e.getName ().equals (sName), eDefault);
+    return findFirst (aClass, x -> x.getName ().equals (sName), eDefault);
   }
 
   /**
@@ -444,7 +444,7 @@ public final class EnumHelper
 
     if (StringHelper.hasNoText (sName))
       return eDefault;
-    return findFirst (aClass, e -> e.getName ().equalsIgnoreCase (sName), eDefault);
+    return findFirst (aClass, x -> x.getName ().equalsIgnoreCase (sName), eDefault);
   }
 
   /**

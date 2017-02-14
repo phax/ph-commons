@@ -197,7 +197,7 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>
   default <DSTTYPE extends ELEMENTTYPE> void findAllInstanceOf (@Nonnull final Class <DSTTYPE> aDstClass,
                                                                 @Nonnull final Consumer <? super DSTTYPE> aConsumer)
   {
-    findAllMapped ((Predicate <ELEMENTTYPE>) e -> aDstClass.isInstance (e), e -> aDstClass.cast (e), aConsumer);
+    findAllMapped ( (final ELEMENTTYPE x) -> aDstClass.isInstance (x), x -> aDstClass.cast (x), aConsumer);
   }
 
   /**

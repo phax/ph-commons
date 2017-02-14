@@ -636,6 +636,6 @@ public enum EXMLParserFeature implements IHasName
   {
     ValueEnforcer.notNull (eFeatureType, "FeatureType");
 
-    return EnumHelper.getAll (EXMLParserFeature.class, eFeature -> eFeature.getFeatureType () == eFeatureType);
+    return EnumHelper.getAll (EXMLParserFeature.class, x -> x.getFeatureType () == eFeatureType);
   }
 }

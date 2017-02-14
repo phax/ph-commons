@@ -107,6 +107,6 @@ public enum EDayOfWeek implements IHasIntID
   @Nullable
   public static EDayOfWeek getFromCalendarIDOrNull (final int nID)
   {
-    return EnumHelper.findFirst (EDayOfWeek.class, e -> e.getCalendarConstant () == nID);
+    return EnumHelper.findFirst (EDayOfWeek.class, x -> x.getCalendarConstant () == nID);
   }
 }

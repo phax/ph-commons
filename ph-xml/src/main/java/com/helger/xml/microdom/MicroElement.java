@@ -277,17 +277,17 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   private static boolean _containsChildElementRecursive (@Nonnull final IMicroNode aStartNode,
                                                          @Nullable final Predicate <? super IMicroElement> aFilter)
   {
-    return aStartNode.containsAnyChild (aChildNode -> {
-      if (aChildNode.isElement ())
+    return aStartNode.containsAnyChild (x -> {
+      if (x.isElement ())
       {
-        final IMicroElement aChildElement = (IMicroElement) aChildNode;
+        final IMicroElement aChildElement = (IMicroElement) x;
         if (aFilter == null || aFilter.test (aChildElement))
           return true;
       }
       else
-        if (aChildNode.isContainer ())
+        if (x.isContainer ())
         {
-          if (_containsChildElementRecursive (aChildNode, aFilter))
+          if (_containsChildElementRecursive (x, aFilter))
             return true;
         }
       return false;

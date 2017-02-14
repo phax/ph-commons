@@ -126,7 +126,9 @@ public interface IPredicate <T> extends Predicate <T>, Serializable
         return x -> aFirst.test (x) && aSecond.test (x);
       return x -> aFirst.test (x);
     }
-    return x -> aSecond.test (x);
+    if (aSecond != null)
+      return x -> aSecond.test (x);
+    return null;
   }
 
   @Nullable
@@ -139,7 +141,9 @@ public interface IPredicate <T> extends Predicate <T>, Serializable
         return x -> aFirst.test (x) || aSecond.test (x);
       return x -> aFirst.test (x);
     }
-    return x -> aSecond.test (x);
+    if (aSecond != null)
+      return x -> aSecond.test (x);
+    return null;
   }
 
   /**

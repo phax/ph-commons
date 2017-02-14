@@ -276,7 +276,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
 
     private boolean _containsNoNamespace ()
     {
-      return m_aStack.containsNone (n -> n.hasAnyNamespace ());
+      return m_aStack.containsNone (x -> x.hasAnyNamespace ());
     }
 
     /**
@@ -290,7 +290,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
     private boolean _containsNoPrefix (@Nonnull final String sPrefix)
     {
       // find existing prefix (iterate current to root)
-      return m_aStack.containsNone (n -> n.getNamespaceURIOfPrefix (sPrefix) != null);
+      return m_aStack.containsNone (x -> x.getNamespaceURIOfPrefix (sPrefix) != null);
     }
 
     /**

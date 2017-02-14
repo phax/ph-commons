@@ -35,7 +35,7 @@ public final class MockHasChildren implements IHasChildren <MockHasChildren>, IH
   public MockHasChildren (@Nonnull final String sID, @Nullable final MockHasChildren... aList)
   {
     m_sID = sID;
-    m_aList = new CommonsArrayList<> (aList);
+    m_aList = new CommonsArrayList <> (aList);
   }
 
   public String getID ()
@@ -64,6 +64,6 @@ public final class MockHasChildren implements IHasChildren <MockHasChildren>, IH
   @Nullable
   public MockHasChildren getChildWithID (final String sID)
   {
-    return m_aList.findFirst (c -> EqualsHelper.equals (c.m_sID, sID));
+    return m_aList.findFirst (x -> EqualsHelper.equals (x.m_sID, sID));
   }
 }
