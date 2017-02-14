@@ -24,8 +24,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
- * Represents a predicate (boolean-valued function) of two arguments. This is
- * the two-arity specialization of {@link Predicate}.
+ * Represents a predicate (boolean-valued function) of two arguments that is
+ * serializable. This is the two-arity specialization of {@link Predicate}.
  * <p>
  * This is a <a href="package-summary.html">functional interface</a> whose
  * functional method is {@link #test(Object, Object)}.

@@ -25,9 +25,9 @@ import javax.annotation.Nullable;
 
 /**
  * Represents an operation that accepts two input arguments and returns no
- * result. This is the two-arity specialization of {@link Consumer}. Unlike most
- * other functional interfaces, {@code BiConsumer} is expected to operate via
- * side-effects.
+ * result and is serializable. This is the two-arity specialization of
+ * {@link Consumer}. Unlike most other functional interfaces, {@code BiConsumer}
+ * is expected to operate via side-effects.
  * <p>
  * This is a <a href="package-summary.html">functional interface</a> whose
  * functional method is {@link #accept(Object, Object)}.

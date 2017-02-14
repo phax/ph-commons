@@ -115,16 +115,13 @@ public final class ImageDataManager
       else
         s_aLogger.warn ("Failed to resolve image resource: " + aRes);
     }
-    catch (final UnsatisfiedLinkError ex)
+    catch (final UnsatisfiedLinkError | NoClassDefFoundError ex)
     {
-      // Happened on Ubuntu where library libmawt.so is not present
-      s_aLogger.error ("Seems like no AWT binding is present", ex);
-    }
-    catch (final NoClassDefFoundError ex)
-    {
-      // Happened on Ubuntu where library libmawt.so is not present in a
-      // follow-up call after the java.lang.UnsatisfiedLinkError error
-      // occurred
+      // UnsatisfiedLinkError: Happened on Ubuntu where library libmawt.so is
+      // not present
+      // NoClassDefFoundError: Happened on Ubuntu where library libmawt.so is
+      // not present in a follow-up call after the
+      // java.lang.UnsatisfiedLinkError error occurred
       s_aLogger.error ("Seems like no AWT binding is present", ex);
     }
     catch (final IIOException ex)

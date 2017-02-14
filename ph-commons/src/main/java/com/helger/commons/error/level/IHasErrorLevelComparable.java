@@ -16,8 +16,6 @@
  */
 package com.helger.commons.error.level;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 
 import com.helger.commons.severity.ISeverityComparable;
@@ -33,8 +31,7 @@ import com.helger.commons.traits.IGenericImplTrait;
 public interface IHasErrorLevelComparable <IMPLTYPE extends IHasErrorLevelComparable <IMPLTYPE>> extends
                                           IHasErrorLevel,
                                           ISeverityComparable <IMPLTYPE>,
-                                          IGenericImplTrait <IMPLTYPE>,
-                                          Serializable
+                                          IGenericImplTrait <IMPLTYPE>
 {
   default boolean isEqualSevereThan (@Nonnull final IMPLTYPE aOther)
   {

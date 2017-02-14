@@ -16,8 +16,6 @@
  */
 package com.helger.commons.error.level;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -39,8 +37,7 @@ public interface IErrorLevel extends
                              IHasID <String>,
                              ISuccessIndicator,
                              IErrorIndicator,
-                             ISeverityComparable <IErrorLevel>,
-                             Serializable
+                             ISeverityComparable <IErrorLevel>
 {
   /**
    * @return The numeric level of this error level. Must be &ge; 0. The higher

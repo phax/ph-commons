@@ -87,22 +87,6 @@ public final class SerializationConverterRegistry implements ISerializationConve
   public <T> void registerSerializationConverter (@Nonnull final Class <T> aClass,
                                                   @Nonnull final ISerializationConverter <T> aConverter)
   {
-    _registerSerializationConverter (aClass, aConverter);
-  }
-
-  /**
-   * Register type converters from and to XML (IMicroElement). This method is
-   * private to avoid later modification of the available type converters,
-   * because this may lead to unexpected results.
-   *
-   * @param aClass
-   *        The class to be registered.
-   * @param aConverter
-   *        The type converter
-   */
-  private void _registerSerializationConverter (@Nonnull final Class <?> aClass,
-                                                @Nonnull final ISerializationConverter <?> aConverter)
-  {
     ValueEnforcer.notNull (aClass, "Class");
     ValueEnforcer.notNull (aConverter, "Converter");
     ValueEnforcer.isFalse (Serializable.class.isAssignableFrom (aClass),

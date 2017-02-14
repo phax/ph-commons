@@ -20,7 +20,7 @@ import java.io.Serializable;
 import java.util.function.Supplier;
 
 /**
- * Represents a serializable supplier of results.
+ * Represents a supplier of results that is serializable.
  * <p>
  * There is no requirement that a new or distinct result be returned each time
  * the supplier is invoked.
