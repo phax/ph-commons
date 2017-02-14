@@ -27,6 +27,7 @@ This project was the following modules:
   * v8.6.2
     * Allowing `JAXBDocumentType` objects to not have an @XmlSchema annotation
     * Extended `XMLSystemProperties` API
+    * Added `IPredicate` - a serializable `Predicate` interface
   * v8.6.1 - 2017-01-23
     * `*MultilingualText` is now based on ICommonsOrderedMap
     * Extended `GlobalDebug` API slightly
