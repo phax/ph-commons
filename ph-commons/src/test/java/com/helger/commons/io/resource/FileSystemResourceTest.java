@@ -25,10 +25,10 @@ import static org.junit.Assert.fail;
 import java.io.File;
 import java.io.OutputStream;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.io.file.FilenameHelper;
@@ -90,7 +90,7 @@ public final class FileSystemResourceTest
     assertTrue (fr.exists ());
     assertTrue (fr.getResourceID ().endsWith ("pom.xml"));
     assertTrue (fr.getPath ().endsWith ("pom.xml"));
-    StreamHelper.close (fr.getReader (CCharset.CHARSET_ISO_8859_1_OBJ));
+    StreamHelper.close (fr.getReader (StandardCharsets.ISO_8859_1));
     final byte [] aBytes = StreamHelper.getAllBytes (fr);
     assertTrue (aBytes.length > 0);
     assertNotNull (fr.getAsURL ());
@@ -104,7 +104,7 @@ public final class FileSystemResourceTest
     fr = new FileSystemResource ("this file does not exist");
     assertFalse (fr.exists ());
     assertNull (fr.getInputStream ());
-    assertNull (fr.getReader (CCharset.CHARSET_ISO_8859_1_OBJ));
+    assertNull (fr.getReader (StandardCharsets.ISO_8859_1));
   }
 
   @Test
@@ -121,10 +121,10 @@ public final class FileSystemResourceTest
       assertNotNull (aOS);
       StreamHelper.close (aOS);
 
-      Writer w = fr.getWriter (CCharset.CHARSET_ISO_8859_1_OBJ, EAppend.TRUNCATE);
+      Writer w = fr.getWriter (StandardCharsets.ISO_8859_1, EAppend.TRUNCATE);
       assertNotNull (w);
       StreamHelper.close (w);
-      w = fr.getWriter (CCharset.CHARSET_ISO_8859_1_OBJ, EAppend.APPEND);
+      w = fr.getWriter (StandardCharsets.ISO_8859_1, EAppend.APPEND);
       assertNotNull (w);
       StreamHelper.close (w);
     }

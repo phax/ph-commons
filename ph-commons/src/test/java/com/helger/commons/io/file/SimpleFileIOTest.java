@@ -24,10 +24,10 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.resource.ClassPathResource;
@@ -44,13 +44,13 @@ public final class SimpleFileIOTest
   {
     final String s = "äöü text";
     final File f = new File ("dummy.txt");
-    assertTrue (SimpleFileIO.writeFile (f, CharsetManager.getAsBytes (s, CCharset.CHARSET_ISO_8859_1_OBJ))
+    assertTrue (SimpleFileIO.writeFile (f, CharsetManager.getAsBytes (s, StandardCharsets.ISO_8859_1))
                             .isSuccess ());
     try
     {
       final byte [] aBytes = SimpleFileIO.getAllFileBytes (f);
       assertNotNull (aBytes);
-      assertArrayEquals (aBytes, CharsetManager.getAsBytes (s, CCharset.CHARSET_ISO_8859_1_OBJ));
+      assertArrayEquals (aBytes, CharsetManager.getAsBytes (s, StandardCharsets.ISO_8859_1));
       assertNull (SimpleFileIO.getAllFileBytes (null));
       assertNull (SimpleFileIO.getAllFileBytes (new File ("non existing file")));
     }
@@ -63,11 +63,11 @@ public final class SimpleFileIOTest
   @Test
   public void testReaFileLines ()
   {
-    assertNull (SimpleFileIO.getAllFileLines (null, CCharset.CHARSET_ISO_8859_1_OBJ));
-    assertNull (SimpleFileIO.getAllFileLines (new File ("ha ha said the clown"), CCharset.CHARSET_ISO_8859_1_OBJ));
+    assertNull (SimpleFileIO.getAllFileLines (null, StandardCharsets.ISO_8859_1));
+    assertNull (SimpleFileIO.getAllFileLines (new File ("ha ha said the clown"), StandardCharsets.ISO_8859_1));
     final File aFile = ClassPathResource.getAsFile ("streamutils-lines");
     assertTrue (aFile.exists ());
-    final ICommonsList <String> lines = SimpleFileIO.getAllFileLines (aFile, CCharset.CHARSET_ISO_8859_1_OBJ);
+    final ICommonsList <String> lines = SimpleFileIO.getAllFileLines (aFile, StandardCharsets.ISO_8859_1);
     assertEquals (10, lines.size ());
   }
 
@@ -77,21 +77,21 @@ public final class SimpleFileIOTest
     final File aFile = new File ("umlaut-tests.txt");
     final String s = "defäöüabc";
     assertEquals ("Source encoding of the Java file must be UTF-8!", 9, s.length ());
-    assertNull (SimpleFileIO.getFileAsString (null, CCharset.CHARSET_ISO_8859_1_OBJ));
-    assertTrue (SimpleFileIO.writeFile (aFile, s, CCharset.CHARSET_UTF_8_OBJ).isSuccess ());
+    assertNull (SimpleFileIO.getFileAsString (null, StandardCharsets.ISO_8859_1));
+    assertTrue (SimpleFileIO.writeFile (aFile, s, StandardCharsets.UTF_8).isSuccess ());
     try
     {
-      final String t = SimpleFileIO.getFileAsString (aFile, CCharset.CHARSET_UTF_8_OBJ);
+      final String t = SimpleFileIO.getFileAsString (aFile, StandardCharsets.UTF_8);
       assertEquals (s, t);
     }
     finally
     {
       assertTrue (FileOperations.deleteFile (aFile).isSuccess ());
     }
-    assertTrue (SimpleFileIO.writeFile (aFile, s, CCharset.CHARSET_ISO_8859_1_OBJ).isSuccess ());
+    assertTrue (SimpleFileIO.writeFile (aFile, s, StandardCharsets.ISO_8859_1).isSuccess ());
     try
     {
-      final String t = SimpleFileIO.getFileAsString (aFile, CCharset.CHARSET_ISO_8859_1_OBJ);
+      final String t = SimpleFileIO.getFileAsString (aFile, StandardCharsets.ISO_8859_1);
       assertEquals (s, t);
     }
     finally
@@ -108,7 +108,7 @@ public final class SimpleFileIOTest
     {
       assertTrue (SimpleFileIO.writeFile (aFile, new byte [10]).isSuccess ());
       assertTrue (SimpleFileIO.writeFile (aFile, new byte [10], 0, 5).isSuccess ());
-      assertTrue (SimpleFileIO.writeFile (aFile, "abc", CCharset.CHARSET_ISO_8859_1_OBJ).isSuccess ());
+      assertTrue (SimpleFileIO.writeFile (aFile, "abc", StandardCharsets.ISO_8859_1).isSuccess ());
     }
     finally
     {
@@ -131,7 +131,7 @@ public final class SimpleFileIOTest
     {}
     try
     {
-      SimpleFileIO.writeFile (null, "abc", CCharset.CHARSET_ISO_8859_1_OBJ);
+      SimpleFileIO.writeFile (null, "abc", StandardCharsets.ISO_8859_1);
       fail ();
     }
     catch (final NullPointerException ex)

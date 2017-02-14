@@ -26,6 +26,7 @@ import static org.junit.Assert.fail;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -37,7 +38,6 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
@@ -219,7 +219,7 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
                                                    ETriState.UNDEFINED,
                                                    EValidity.VALID,
                                                    CharsetManager.getAsBytes ("Jägalä",
-                                                                              CCharset.CHARSET_ISO_8859_1_OBJ),
+                                                                              StandardCharsets.ISO_8859_1),
                                                    new StringBuffer ("Äh ja - wie is das jetzt?"),
                                                    new StringBuilder ("Thät lüks greyt!") };
     for (final Object aSrcValue : aDefinedObjs)

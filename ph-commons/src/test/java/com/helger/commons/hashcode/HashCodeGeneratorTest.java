@@ -23,6 +23,7 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -31,7 +32,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.IteratorHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsHashSet;
@@ -232,7 +232,7 @@ public final class HashCodeGeneratorTest
         aSB.append ("};");
         SimpleFileIO.writeFile (new File ("HashCode0" + Instant.now ().toEpochMilli () + ".txt"),
                                 aSB.toString (),
-                                CCharset.CHARSET_ISO_8859_1_OBJ);
+                                StandardCharsets.ISO_8859_1);
         b.set (true);
         s_aLogger.error ("Found match!");
       }

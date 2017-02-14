@@ -17,6 +17,7 @@
 package com.helger.security.certificate;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.CertificateException;
@@ -34,7 +35,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.base64.Base64;
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.stream.StringInputStream;
 import com.helger.commons.string.StringHelper;
@@ -54,7 +54,7 @@ public final class CertificateHelper
   public static final String CRLF = "\r\n";
 
   /** Character set used for String-Certificate conversion */
-  public static final Charset CERT_CHARSET = CCharset.CHARSET_ISO_8859_1_OBJ;
+  public static final Charset CERT_CHARSET = StandardCharsets.ISO_8859_1;
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (CertificateHelper.class);
 

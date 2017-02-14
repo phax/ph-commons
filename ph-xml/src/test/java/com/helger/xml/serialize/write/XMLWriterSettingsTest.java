@@ -22,11 +22,11 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.mock.CommonsAssert;
 import com.helger.commons.mock.CommonsTestHelper;
@@ -52,7 +52,7 @@ public final class XMLWriterSettingsTest
     assertEquals (EXMLSerializeComments.EMIT, mws.getSerializeComments ());
     assertEquals (XMLWriterSettings.DEFAULT_XML_CHARSET, mws.getCharset ());
     assertEquals (EXMLSerializeIndent.INDENT_AND_ALIGN, mws.getIndent ());
-    assertEquals (CCharset.CHARSET_UTF_8_OBJ, mws.getCharsetObj ());
+    assertEquals (StandardCharsets.UTF_8, mws.getCharsetObj ());
     assertTrue (mws.isSpaceOnSelfClosedElement ());
     assertTrue (mws.isUseDoubleQuotesForAttributes ());
     assertEquals (ENewLineMode.DEFAULT, mws.getNewLineMode ());
@@ -67,7 +67,7 @@ public final class XMLWriterSettingsTest
     assertEquals (EXMLSerializeComments.EMIT, mws.getSerializeComments ());
     assertEquals (XMLWriterSettings.DEFAULT_XML_CHARSET, mws.getCharset ());
     assertEquals (EXMLSerializeIndent.INDENT_AND_ALIGN, mws.getIndent ());
-    assertEquals (CCharset.CHARSET_UTF_8_OBJ, mws.getCharsetObj ());
+    assertEquals (StandardCharsets.UTF_8, mws.getCharsetObj ());
     assertTrue (mws.isSpaceOnSelfClosedElement ());
     assertTrue (mws.isUseDoubleQuotesForAttributes ());
     assertTrue (mws.isEmitNamespaces ());
@@ -83,7 +83,7 @@ public final class XMLWriterSettingsTest
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
                                                                            new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                           new XMLWriterSettings ().setCharset (CCharset.CHARSET_US_ASCII_OBJ));
+                                                                           new XMLWriterSettings ().setCharset (StandardCharsets.US_ASCII));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
                                                                            new XMLWriterSettings ().setNamespaceContext (new MapBasedNamespaceContext ().addMapping ("prefix",
                                                                                                                                                                      "uri")));

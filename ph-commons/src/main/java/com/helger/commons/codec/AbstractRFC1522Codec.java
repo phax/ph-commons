@@ -17,6 +17,7 @@
 package com.helger.commons.codec;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -25,7 +26,6 @@ import javax.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.string.StringHelper;
 
@@ -129,7 +129,7 @@ public abstract class AbstractRFC1522Codec implements ICodec <String>
        .append (SEP)
        .append (getRFC1522Encoding ())
        .append (SEP)
-       .append (CharsetManager.getAsString (aEncodedData, CCharset.CHARSET_US_ASCII_OBJ))
+       .append (CharsetManager.getAsString (aEncodedData, StandardCharsets.US_ASCII))
        .append (POSTFIX);
     return aSB.toString ();
   }
@@ -185,7 +185,7 @@ public abstract class AbstractRFC1522Codec implements ICodec <String>
     nFrom = nTo + 1;
     nTo = sEncodedText.indexOf (SEP, nFrom);
     final byte [] aEncodedBytes = CharsetManager.getAsBytes (sEncodedText.substring (nFrom, nTo),
-                                                             CCharset.CHARSET_US_ASCII_OBJ);
+                                                             StandardCharsets.US_ASCII);
     final byte [] aDecodedBytes = getDecoded (aEncodedBytes, 0, aEncodedBytes.length);
     return CharsetManager.getAsString (aDecodedBytes, aDestCharset);
   }

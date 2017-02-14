@@ -34,6 +34,7 @@ This project was the following modules:
     * Replaced `IFilter` with `IPredicate`
     * Replaced `IFilterWithParameter` with `IBiPredicate`
     * Changed `ManagedExecutorService` to `ExecutorServiceHelper`
+    * Removed all `Charset` objects from `CCharset` contained in `StandardCharsets`
   * v8.6.1 - 2017-01-23
     * `*MultilingualText` is now based on ICommonsOrderedMap
     * Extended `GlobalDebug` API slightly

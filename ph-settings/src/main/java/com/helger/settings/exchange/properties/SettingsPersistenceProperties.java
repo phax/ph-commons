@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -30,7 +31,6 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.lang.NonBlockingProperties;
 import com.helger.commons.lang.PropertiesHelper;
@@ -67,7 +67,7 @@ public class SettingsPersistenceProperties implements ISettingsPersistence
   public final Charset getCharset ()
   {
     // Constant
-    return CCharset.CHARSET_ISO_8859_1_OBJ;
+    return StandardCharsets.ISO_8859_1;
   }
 
   @Nonnull

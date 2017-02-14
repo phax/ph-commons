@@ -18,12 +18,12 @@ package com.helger.commons.url;
 
 import static org.junit.Assert.assertEquals;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -87,7 +87,7 @@ public final class SimpleURLTest
   {
     assertEquals (sHref,
                   new SimpleURL (sHref,
-                                 CCharset.CHARSET_ISO_8859_1_OBJ).getAsStringWithEncodedParameters (CCharset.CHARSET_ISO_8859_1_OBJ));
+                                 StandardCharsets.ISO_8859_1).getAsStringWithEncodedParameters (StandardCharsets.ISO_8859_1));
   }
 
   @Test

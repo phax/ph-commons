@@ -41,11 +41,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.ext.ICommonsList;
 
 public final class IntegrationFuncTest
@@ -70,7 +70,7 @@ public final class IntegrationFuncTest
   {
     final String [] [] data = new String [] [] { { "hello, a test", "one nested \" test" },
                                                  { "\"\"", "test", null, "8" } };
-    final Charset aCharset = CCharset.CHARSET_UTF_8_OBJ;
+    final Charset aCharset = StandardCharsets.UTF_8;
 
     try (final CSVWriter writer = new CSVWriter (new OutputStreamWriter (new FileOutputStream (m_aTempFile), aCharset)))
     {

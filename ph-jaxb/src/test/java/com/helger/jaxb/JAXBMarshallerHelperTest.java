@@ -23,6 +23,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.nio.charset.StandardCharsets;
+
 import javax.annotation.Nonnull;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -32,7 +34,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.mutable.MutableBoolean;
 import com.helger.jaxb.mock.MockMarshallerExternal;
@@ -59,9 +60,9 @@ public final class JAXBMarshallerHelperTest
     assertTrue (bIsInternal == JAXBMarshallerHelper.isInternalSunJAXB2Marshaller (aMarshaller));
 
     // Encoding
-    assertEquals (CCharset.CHARSET_UTF_8, JAXBMarshallerHelper.getEncoding (aMarshaller));
-    JAXBMarshallerHelper.setEncoding (aMarshaller, CCharset.CHARSET_ISO_8859_1);
-    assertEquals (CCharset.CHARSET_ISO_8859_1, JAXBMarshallerHelper.getEncoding (aMarshaller));
+    assertEquals (StandardCharsets.UTF_8.name (), JAXBMarshallerHelper.getEncoding (aMarshaller));
+    JAXBMarshallerHelper.setEncoding (aMarshaller, StandardCharsets.ISO_8859_1.name ());
+    assertEquals (StandardCharsets.ISO_8859_1.name (), JAXBMarshallerHelper.getEncoding (aMarshaller));
 
     // Formatted output?
     assertFalse (JAXBMarshallerHelper.isFormattedOutput (aMarshaller));
@@ -119,7 +120,7 @@ public final class JAXBMarshallerHelperTest
       aArc.setVersion ("1.23");
       m.write (aArc, aBAOS);
     }
-    s_aLogger.info (aBAOS.getAsString (CCharset.CHARSET_UTF_8_OBJ));
+    s_aLogger.info (aBAOS.getAsString (StandardCharsets.UTF_8));
     // Must be closed!
     assertTrue ("Not closed!", aClosed.booleanValue ());
   }
@@ -143,7 +144,7 @@ public final class JAXBMarshallerHelperTest
       aArc.setVersion ("1.24");
       m.write (aArc, aBAOS);
     }
-    s_aLogger.info (aBAOS.getAsString (CCharset.CHARSET_UTF_8_OBJ));
+    s_aLogger.info (aBAOS.getAsString (StandardCharsets.UTF_8));
     // Must be closed!
     assertTrue ("Not closed!", aClosed.booleanValue ());
   }

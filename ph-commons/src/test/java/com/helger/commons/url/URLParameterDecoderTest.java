@@ -18,9 +18,9 @@ package com.helger.commons.url;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
+import java.nio.charset.StandardCharsets;
 
-import com.helger.commons.charset.CCharset;
+import org.junit.Test;
 
 /**
  * Test class for class {@link URLParameterDecoder}.
@@ -32,7 +32,7 @@ public final class URLParameterDecoderTest
   @Test
   public void testDecode ()
   {
-    final URLParameterDecoder aPD = new URLParameterDecoder (CCharset.CHARSET_ISO_8859_1_OBJ);
+    final URLParameterDecoder aPD = new URLParameterDecoder (StandardCharsets.ISO_8859_1);
     assertEquals ("a b c", aPD.getDecoded ("a%20b+c"));
     assertEquals ("a b c:d", aPD.getDecoded ("a%20b+c%3Ad"));
     assertEquals ("a b c:d", aPD.getDecoded ("a%20b+c%3ad"));

@@ -18,9 +18,9 @@ package com.helger.commons.codec;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
+import java.nio.charset.StandardCharsets;
 
-import com.helger.commons.charset.CCharset;
+import org.junit.Test;
 
 /**
  * Test class for class {@link ASCIIHexCodec}
@@ -33,6 +33,6 @@ public final class ASCIIHexCodecTest
   public void testDecode ()
   {
     final String sEncoded = "616263\n" + "414243>";
-    assertEquals ("abcABC", new ASCIIHexCodec ().getDecodedAsString (sEncoded, CCharset.CHARSET_US_ASCII_OBJ));
+    assertEquals ("abcABC", new ASCIIHexCodec ().getDecodedAsString (sEncoded, StandardCharsets.US_ASCII));
   }
 }

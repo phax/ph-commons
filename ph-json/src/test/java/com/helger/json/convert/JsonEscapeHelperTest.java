@@ -19,9 +19,10 @@ package com.helger.json.convert;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.nio.charset.StandardCharsets;
+
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.string.StringHelper;
 import com.helger.json.serialize.JsonReader;
 
@@ -75,14 +76,14 @@ public final class JsonEscapeHelperTest
       // Escape
       final String sEscaped = JsonEscapeHelper.jsonEscape (sTestString);
       // Try to parse escaped string
-      assertNotNull (StringHelper.getHexEncoded (sEscaped, CCharset.CHARSET_UTF_8_OBJ),
+      assertNotNull (StringHelper.getHexEncoded (sEscaped, StandardCharsets.UTF_8),
                      JsonReader.readFromString ("\"" + sEscaped + "\""));
       // Unescape
       final String sUnescaped = JsonEscapeHelper.jsonUnescape (sEscaped);
       // Must be identical to source string
-      assertEquals (StringHelper.getHexEncoded (sTestString, CCharset.CHARSET_UTF_8_OBJ) +
+      assertEquals (StringHelper.getHexEncoded (sTestString, StandardCharsets.UTF_8) +
                     "\nvs.\n" +
-                    StringHelper.getHexEncoded (sEscaped, CCharset.CHARSET_UTF_8_OBJ),
+                    StringHelper.getHexEncoded (sEscaped, StandardCharsets.UTF_8),
                     sTestString,
                     sUnescaped);
     }

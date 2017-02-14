@@ -25,13 +25,13 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.stream.StreamHelper;
 
@@ -72,9 +72,9 @@ public final class URLHelperTest
     assertEquals (sDec, URLHelper.urlDecode (sEnc));
 
     sDec = "äöü";
-    sEnc = URLHelper.urlEncode (sDec, CCharset.CHARSET_ISO_8859_1_OBJ);
+    sEnc = URLHelper.urlEncode (sDec, StandardCharsets.ISO_8859_1);
     assertEquals ("%E4%F6%FC", sEnc);
-    assertEquals (sDec, URLHelper.urlDecode (sEnc, CCharset.CHARSET_ISO_8859_1_OBJ));
+    assertEquals (sDec, URLHelper.urlDecode (sEnc, StandardCharsets.ISO_8859_1));
   }
 
   @Test
@@ -127,7 +127,7 @@ public final class URLHelperTest
   @Test
   public void testGetApplicationFormEncoded ()
   {
-    final URLParameterEncoder enc = new URLParameterEncoder (CCharset.CHARSET_UTF_8_OBJ);
+    final URLParameterEncoder enc = new URLParameterEncoder (StandardCharsets.UTF_8);
     assertNull (URLHelper.getQueryParametersAsString ((URLParameterList) null, enc));
     assertNull (URLHelper.getQueryParametersAsString (new URLParameterList (), enc));
     assertEquals ("a=b", URLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b"), enc));

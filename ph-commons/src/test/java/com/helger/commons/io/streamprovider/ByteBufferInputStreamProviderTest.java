@@ -21,10 +21,10 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.InputStream;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.io.stream.StreamHelper;
 
@@ -38,12 +38,12 @@ public final class ByteBufferInputStreamProviderTest
   @Test
   public void testSimple ()
   {
-    final byte [] aBytes = CharsetManager.getAsBytes ("Hallo Weltäöü", CCharset.CHARSET_ISO_8859_1_OBJ);
+    final byte [] aBytes = CharsetManager.getAsBytes ("Hallo Weltäöü", StandardCharsets.ISO_8859_1);
     final ByteBuffer bb = ByteBuffer.wrap (aBytes);
     final ByteBufferInputStreamProvider aISP = new ByteBufferInputStreamProvider (bb);
     final InputStream aIS = aISP.getInputStream ();
     assertArrayEquals (aBytes, StreamHelper.getAllBytes (aIS));
-    StreamHelper.close (aISP.getReader (CCharset.CHARSET_UTF_8_OBJ));
+    StreamHelper.close (aISP.getReader (StandardCharsets.UTF_8));
     assertNotNull (aISP.toString ());
   }
 }

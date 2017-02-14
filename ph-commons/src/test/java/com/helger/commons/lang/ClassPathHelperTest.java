@@ -21,11 +21,11 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.stream.StreamHelper;
 
@@ -56,17 +56,17 @@ public final class ClassPathHelperTest
   {
     // Use default separator
     NonBlockingByteArrayOutputStream baos = new NonBlockingByteArrayOutputStream ();
-    ClassPathHelper.printClassPathEntries (new PrintStream (baos, false, CCharset.CHARSET_ISO_8859_1));
-    assertTrue (baos.getAsString (CCharset.CHARSET_ISO_8859_1_OBJ).length () > 0);
-    assertTrue (baos.getAsString (CCharset.CHARSET_ISO_8859_1_OBJ).indexOf ("\n") > 0);
+    ClassPathHelper.printClassPathEntries (new PrintStream (baos, false, StandardCharsets.ISO_8859_1.name ()));
+    assertTrue (baos.getAsString (StandardCharsets.ISO_8859_1).length () > 0);
+    assertTrue (baos.getAsString (StandardCharsets.ISO_8859_1).indexOf ("\n") > 0);
     StreamHelper.close (baos);
 
     // Use special separator
     baos = new NonBlockingByteArrayOutputStream ();
-    ClassPathHelper.printClassPathEntries (new PrintStream (baos, false, CCharset.CHARSET_ISO_8859_1), "$$$");
-    assertTrue (baos.getAsString (CCharset.CHARSET_ISO_8859_1_OBJ).length () > 0);
-    assertTrue (baos.getAsString (CCharset.CHARSET_ISO_8859_1_OBJ).indexOf ("$$$") > 0);
-    assertTrue (baos.getAsString (CCharset.CHARSET_UTF_8_OBJ).indexOf ("$$$") > 0);
+    ClassPathHelper.printClassPathEntries (new PrintStream (baos, false, StandardCharsets.ISO_8859_1.name ()), "$$$");
+    assertTrue (baos.getAsString (StandardCharsets.ISO_8859_1).length () > 0);
+    assertTrue (baos.getAsString (StandardCharsets.ISO_8859_1).indexOf ("$$$") > 0);
+    assertTrue (baos.getAsString (StandardCharsets.UTF_8).indexOf ("$$$") > 0);
     StreamHelper.close (baos);
   }
 }

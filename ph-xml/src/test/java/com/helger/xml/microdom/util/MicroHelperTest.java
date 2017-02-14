@@ -23,6 +23,7 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -32,7 +33,6 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.io.stream.StringInputStream;
@@ -124,7 +124,7 @@ public final class MicroHelperTest
     aDBF.setCoalescing (false);
     aDBF.setIgnoringComments (false);
     final Document doc = aDBF.newDocumentBuilder ()
-                             .parse (new StringInputStream (sXML, CCharset.CHARSET_ISO_8859_1_OBJ));
+                             .parse (new StringInputStream (sXML, StandardCharsets.ISO_8859_1));
     assertNotNull (doc);
     final IMicroNode aNode = MicroHelper.convertToMicroNode (doc);
     assertNotNull (aNode);

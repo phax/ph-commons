@@ -18,13 +18,13 @@ package com.helger.commons.id.factory;
 
 import java.io.File;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.SimpleFileIO;
@@ -41,7 +41,7 @@ public class FileIntIDFactory extends AbstractPersistingIntIDFactory
 {
   /** The charset to use for writing the file */
   @Nonnull
-  public static final Charset CHARSET_TO_USE = CCharset.CHARSET_ISO_8859_1_OBJ;
+  public static final Charset CHARSET_TO_USE = StandardCharsets.ISO_8859_1;
   /** The default number of values to reserve with a single IO action */
   @Nonnegative
   public static final int DEFAULT_RESERVE_COUNT = 20;

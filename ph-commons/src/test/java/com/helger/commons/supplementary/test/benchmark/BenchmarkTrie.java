@@ -20,9 +20,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.CommonsTreeMap;
@@ -79,7 +79,7 @@ public final class BenchmarkTrie extends AbstractBenchmarkTask
   private static void execute () throws IOException
   {
     final ICommonsList <String> aStrings = _readWordList (new ClassPathResource ("wordlist/english-words.95"),
-                                                          CCharset.CHARSET_ISO_8859_1_OBJ);
+                                                          StandardCharsets.ISO_8859_1);
     if (true)
     {
       // 309 chars

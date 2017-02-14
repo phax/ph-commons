@@ -20,10 +20,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.mock.CommonsTestHelper;
 
@@ -42,10 +42,10 @@ public final class WrappedOutputStreamTest
     try (final WrappedOutputStream ws = new WrappedOutputStream (baos))
     {
       ws.write ('a');
-      ws.write (CharsetManager.getAsBytes ("bc", CCharset.CHARSET_ISO_8859_1_OBJ));
-      ws.write (CharsetManager.getAsBytes ("cde", CCharset.CHARSET_ISO_8859_1_OBJ), 1, 1);
+      ws.write (CharsetManager.getAsBytes ("bc", StandardCharsets.ISO_8859_1));
+      ws.write (CharsetManager.getAsBytes ("cde", StandardCharsets.ISO_8859_1), 1, 1);
       ws.flush ();
-      assertEquals ("abcd", baos.getAsString (CCharset.CHARSET_ISO_8859_1_OBJ));
+      assertEquals ("abcd", baos.getAsString (StandardCharsets.ISO_8859_1));
       CommonsTestHelper.testToStringImplementation (ws);
     }
 

@@ -25,13 +25,13 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Locale;
 
 import org.junit.Test;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
@@ -247,8 +247,8 @@ public final class StringHelperTest extends AbstractCommonsTestCase
     for (final String sString : new String [] { "Super", "Hallo", "", "Welt!", "fff" })
       assertEquals (sString,
                     CharsetManager.getAsString (StringHelper.getHexDecoded (StringHelper.getHexEncoded (CharsetManager.getAsBytes (sString,
-                                                                                                                                   CCharset.CHARSET_ISO_8859_1_OBJ))),
-                                                CCharset.CHARSET_ISO_8859_1_OBJ));
+                                                                                                                                   StandardCharsets.ISO_8859_1))),
+                                                StandardCharsets.ISO_8859_1));
 
     assertArrayEquals (new byte [] { 0 }, StringHelper.getHexDecoded ("00"));
     assertArrayEquals (new byte [] { 0, 1 }, StringHelper.getHexDecoded ("0001"));

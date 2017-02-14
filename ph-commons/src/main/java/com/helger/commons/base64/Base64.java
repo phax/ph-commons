@@ -26,6 +26,7 @@ import java.io.Serializable;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -38,7 +39,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.file.FileHelper;
@@ -262,7 +262,7 @@ public final class Base64
   public static final byte NEW_LINE = (byte) '\n';
 
   /** Preferred encoding. */
-  public static final Charset PREFERRED_ENCODING = CCharset.CHARSET_US_ASCII_OBJ;
+  public static final Charset PREFERRED_ENCODING = StandardCharsets.US_ASCII;
 
   // Indicates white space in encoding
   static final byte WHITE_SPACE_ENC = -5;

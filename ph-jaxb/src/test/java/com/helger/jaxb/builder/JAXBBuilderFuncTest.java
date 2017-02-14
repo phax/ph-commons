@@ -23,6 +23,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -31,7 +32,6 @@ import javax.xml.stream.XMLStreamWriter;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.IteratorHelper;
 import com.helger.xml.microdom.IMicroDocument;
 
@@ -67,7 +67,7 @@ public final class JAXBBuilderFuncTest
       aArc.getCollection ().add (aCollection);
     });
 
-    final MockExternalArchiveWriterBuilder aWriter = new MockExternalArchiveWriterBuilder ().setCharset (CCharset.CHARSET_ISO_8859_1_OBJ);
+    final MockExternalArchiveWriterBuilder aWriter = new MockExternalArchiveWriterBuilder ().setCharset (StandardCharsets.ISO_8859_1);
     String sText = aWriter.getAsString (aArc);
     assertTrue (sText, sText.contains ("encoding=\"ISO-8859-1\""));
 

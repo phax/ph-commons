@@ -18,6 +18,7 @@ package com.helger.commons.io.stream;
 
 import java.io.*;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.ObjIntConsumer;
@@ -38,7 +39,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
@@ -1625,7 +1625,7 @@ public final class StreamHelper
     else
     {
       aDOS.writeByte (1);
-      final byte [] aUTF8Bytes = s.getBytes (CCharset.CHARSET_UTF_8_OBJ);
+      final byte [] aUTF8Bytes = s.getBytes (StandardCharsets.UTF_8);
       aDOS.writeInt (aUTF8Bytes.length);
       aDOS.write (aUTF8Bytes);
     }
@@ -1653,6 +1653,6 @@ public final class StreamHelper
     final int nLength = aDIS.readInt ();
     final byte [] aData = new byte [nLength];
     aDIS.readFully (aData);
-    return new String (aData, CCharset.CHARSET_UTF_8_OBJ);
+    return new String (aData, StandardCharsets.UTF_8);
   }
 }

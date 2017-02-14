@@ -19,10 +19,10 @@ package com.helger.commons.io.stream;
 import static org.junit.Assert.assertEquals;
 
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 
 /**
@@ -58,7 +58,7 @@ public final class NonClosingOutputStreamTest
   {
     final MockCloseCountingOutputStream aX = new MockCloseCountingOutputStream (new NonBlockingByteArrayOutputStream ());
     StreamHelper.copyInputStreamToOutputStreamAndCloseOS (new NonBlockingByteArrayInputStream (CharsetManager.getAsBytes ("abc",
-                                                                                                                          CCharset.CHARSET_ISO_8859_1_OBJ)),
+                                                                                                                          StandardCharsets.ISO_8859_1)),
                                                           aX);
     assertEquals (1, aX.getCloseCount ());
   }
@@ -68,7 +68,7 @@ public final class NonClosingOutputStreamTest
   {
     final MockCloseCountingOutputStream aX = new MockCloseCountingOutputStream (new NonBlockingByteArrayOutputStream ());
     StreamHelper.copyInputStreamToOutputStreamAndCloseOS (new NonBlockingByteArrayInputStream (CharsetManager.getAsBytes ("abc",
-                                                                                                                          CCharset.CHARSET_ISO_8859_1_OBJ)),
+                                                                                                                          StandardCharsets.ISO_8859_1)),
                                                           new NonClosingOutputStream (aX));
     assertEquals (0, aX.getCloseCount ());
   }

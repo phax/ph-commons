@@ -22,10 +22,10 @@ import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.math.MathHelper;
 import com.helger.commons.mock.CommonsAssert;
@@ -107,7 +107,7 @@ public final class BasicMicroTypeConverterRegistrarTest
                                                    EValidity.VALID,
                                                    EValidity.INVALID,
                                                    CharsetManager.getAsBytes ("Jägalä",
-                                                                              CCharset.CHARSET_ISO_8859_1_OBJ),
+                                                                              StandardCharsets.ISO_8859_1),
                                                    new StringBuffer ("Äh ja - wie is das jetzt?"),
                                                    new StringBuilder ("Thät lüks greyt!") };
     for (final Object aObj : aDefinedObjs)
