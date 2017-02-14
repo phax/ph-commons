@@ -16,8 +16,6 @@
  */
 package com.helger.commons.callback;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -37,7 +35,7 @@ import com.helger.commons.collection.ext.ICommonsList;
  * @param <CALLBACKTYPE>
  *        The callback type.
  */
-public interface ICallbackList <CALLBACKTYPE extends ICallback> extends ICommonsIterable <CALLBACKTYPE>, Serializable
+public interface ICallbackList <CALLBACKTYPE extends ICallback> extends ICommonsIterable <CALLBACKTYPE>
 {
   /**
    * @return A list of all callbacks. Never <code>null</code> and only

@@ -16,7 +16,6 @@
  */
 package com.helger.commons.collection.attr;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Iterator;
@@ -47,8 +46,7 @@ import com.helger.commons.typeconvert.TypeConverter;
  * @param <VALUETYPE>
  *        Value type
  */
-public interface IAttributeContainer <KEYTYPE, VALUETYPE>
-                                     extends ICommonsIterable <Map.Entry <KEYTYPE, VALUETYPE>>, Serializable
+public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends ICommonsIterable <Map.Entry <KEYTYPE, VALUETYPE>>
 {
   /**
    * @return The number of contained attributes. Always &ge; 0.

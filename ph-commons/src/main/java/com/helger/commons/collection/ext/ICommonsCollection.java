@@ -16,7 +16,6 @@
  */
 package com.helger.commons.collection.ext;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -44,8 +43,7 @@ import com.helger.commons.state.EChange;
  * @param <ELEMENTTYPE>
  *        The data type stored in the collection
  */
-public interface ICommonsCollection <ELEMENTTYPE>
-                                    extends Collection <ELEMENTTYPE>, ICommonsIterable <ELEMENTTYPE>, Serializable
+public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYPE>, ICommonsIterable <ELEMENTTYPE>
 {
   /**
    * @return <code>true</code> if the map is not empty, <code>false</code>
@@ -60,7 +58,7 @@ public interface ICommonsCollection <ELEMENTTYPE>
   @ReturnsMutableCopy
   default ICommonsList <ELEMENTTYPE> getCopyAsList ()
   {
-    return new CommonsArrayList<> (this);
+    return new CommonsArrayList <> (this);
   }
 
   /**
@@ -265,7 +263,7 @@ public interface ICommonsCollection <ELEMENTTYPE>
   @Nonnull
   default ICommonsList <ELEMENTTYPE> getSorted (@Nonnull final Comparator <? super ELEMENTTYPE> aComparator)
   {
-    return new CommonsArrayList<> (this).getSortedInline (aComparator);
+    return new CommonsArrayList <> (this).getSortedInline (aComparator);
   }
 
   /**
@@ -806,6 +804,6 @@ public interface ICommonsCollection <ELEMENTTYPE>
   @Nonnull
   default IIterableIterator <ELEMENTTYPE> iterator2 ()
   {
-    return new IterableIterator<> (this);
+    return new IterableIterator <> (this);
   }
 }

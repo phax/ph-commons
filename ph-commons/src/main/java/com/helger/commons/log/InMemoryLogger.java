@@ -43,9 +43,9 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class InMemoryLogger implements IHasErrorLevels <LogMessage>, IHasSize, IClearable, Serializable
+public class InMemoryLogger implements IHasErrorLevels <LogMessage>, IHasSize, IClearable
 {
-  private final ICommonsList <LogMessage> m_aMessages = new CommonsArrayList<> ();
+  private final ICommonsList <LogMessage> m_aMessages = new CommonsArrayList <> ();
 
   /**
    * Override this method to create a different LogMessage object or to filter

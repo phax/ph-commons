@@ -45,6 +45,6 @@ public interface IParentProvider <PARENTTYPE>
   @Nullable
   static <PARENTTYPE extends IHasParent <PARENTTYPE>> IParentProvider <PARENTTYPE> parentProviderHasParent ()
   {
-    return aCurrent -> aCurrent == null ? null : aCurrent.getParent ();
+    return x -> x == null ? null : x.getParent ();
   }
 }

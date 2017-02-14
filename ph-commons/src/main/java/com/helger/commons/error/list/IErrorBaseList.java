@@ -16,8 +16,6 @@
  */
 package com.helger.commons.error.list;
 
-import java.io.Serializable;
-
 import com.helger.commons.error.IError;
 import com.helger.commons.error.level.IHasErrorLevels;
 
@@ -29,7 +27,7 @@ import com.helger.commons.error.level.IHasErrorLevels;
  *        Implementation type
  * @since 8.5.0
  */
-public interface IErrorBaseList <IMPLTYPE extends IError> extends IHasErrorLevels <IMPLTYPE>, Serializable
+public interface IErrorBaseList <IMPLTYPE extends IError> extends IHasErrorLevels <IMPLTYPE>
 {
   /* empty */
 }
