@@ -227,7 +227,7 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
   {
     if (m_aChildren == null)
       return null;
-    return m_aChildren.getAllMapped (c -> c.getData ());
+    return m_aChildren.getAllMapped (x -> x.getData ());
   }
 
   @Nullable

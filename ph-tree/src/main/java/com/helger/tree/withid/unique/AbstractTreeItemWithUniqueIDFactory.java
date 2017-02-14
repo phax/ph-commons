@@ -24,7 +24,6 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
@@ -53,7 +52,7 @@ public abstract class AbstractTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, IT
 
   public AbstractTreeItemWithUniqueIDFactory ()
   {
-    this (new CommonsHashMap<> ());
+    this (new CommonsHashMap <> ());
   }
 
   public AbstractTreeItemWithUniqueIDFactory (@Nonnull final ICommonsMap <KEYTYPE, ITEMTYPE> aItemStore)
@@ -138,7 +137,7 @@ public abstract class AbstractTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, IT
   @ReturnsMutableCopy
   public final ICommonsList <DATATYPE> getAllItemDatas ()
   {
-    return CollectionHelper.newListMapped (m_aItemStore.values (), aItem -> aItem.getData ());
+    return m_aItemStore.copyOfValuesMapped (x -> x.getData ());
   }
 
   @Override

@@ -79,7 +79,7 @@ public final class TreeXMLConverter
   public static <DATATYPE, ITEMTYPE extends ITreeItemWithID <String, DATATYPE, ITEMTYPE>> IMicroElement getTreeWithStringIDAsXML (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
                                                                                                                                   @Nonnull final IConverterTreeItemToMicroNode <? super DATATYPE> aConverter)
   {
-    return getTreeWithIDAsXML (aTree, IHasID.getComparatorID (), aID -> aID, aConverter);
+    return getTreeWithIDAsXML (aTree, IHasID.getComparatorID (), Function.identity (), aConverter);
   }
 
   @Nonnull
@@ -221,7 +221,9 @@ public final class TreeXMLConverter
   public static <DATATYPE> DefaultTreeWithGlobalUniqueID <String, DATATYPE> getXMLAsTreeWithUniqueStringID (@Nonnull final IMicroElement aElement,
                                                                                                             @Nonnull final IConverterMicroNodeToTreeItem <? extends DATATYPE> aDataConverter)
   {
-    return TreeXMLConverter.<String, DATATYPE> getXMLAsTreeWithUniqueID (aElement, aID -> aID, aDataConverter);
+    return TreeXMLConverter.<String, DATATYPE> getXMLAsTreeWithUniqueID (aElement,
+                                                                         Function.identity (),
+                                                                         aDataConverter);
   }
 
   @Nonnull

@@ -16,12 +16,11 @@
  */
 package com.helger.settings.factory;
 
-import java.util.function.Function;
-
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.functional.IFunction;
 import com.helger.settings.IMutableSettings;
 import com.helger.settings.ISettings;
 import com.helger.settings.Settings;
@@ -34,7 +33,7 @@ import com.helger.settings.SettingsWithDefault;
  *
  * @author philip
  */
-public interface ISettingsFactory extends Function <String, IMutableSettings>
+public interface ISettingsFactory extends IFunction <String, IMutableSettings>
 {
   /**
    * Create a new settings object.

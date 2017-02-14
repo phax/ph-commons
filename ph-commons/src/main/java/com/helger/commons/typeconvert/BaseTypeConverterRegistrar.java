@@ -234,17 +234,21 @@ public final class BaseTypeConverterRegistrar implements ITypeConverterRegistrar
     });
 
     // Enum
-    aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (Enum.class, String.class, aSource ->
     /*
      * We need to append the Enum class name, otherwise we cannot resolve it!
      * Use the colon as it is not allowed in class names.
      */
-    aSource.getClass ().getName () + ':' + ((Enum <?>) aSource).name ());
-    aRegistry.registerTypeConverterRuleFixedSourceAssignableDestination (String.class, Enum.class, aSource -> {
+    aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (Enum.class,
+                                                                         String.class,
+                                                                         aSource -> aSource.getClass ().getName () +
+                                                                                    ':' +
+                                                                                    aSource.name ());
+
+    aRegistry.registerTypeConverterRuleFixedSourceAssignableDestination (String.class, Enum.class, x -> {
       /*
        * Split class name and enum value name
        */
-      final ICommonsList <String> aParts = StringHelper.getExploded (':', aSource, 2);
+      final ICommonsList <String> aParts = StringHelper.getExploded (':', x, 2);
       try
       {
         /*
@@ -253,7 +257,6 @@ public final class BaseTypeConverterRegistrar implements ITypeConverterRegistrar
          * be EChange :)
          */
         final Class <EChange> aClass = GenericReflection.getClassFromName (aParts.get (0));
-
         /*
          * And look up the element by name
          */

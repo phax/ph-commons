@@ -175,8 +175,9 @@ public enum EXMLIncorrectCharacterHandling
     if (aInvalidChars.isEmpty ())
       return "NONE";
     return StringHelper.getImplodedMapped (", ",
-                                     aInvalidChars,
-                                     aChar -> "0x" + StringHelper.getHexStringLeadingZero (aChar.charValue (), 2));
+                                           aInvalidChars,
+                                           aChar -> "0x" +
+                                                    StringHelper.getHexStringLeadingZero (aChar.charValue (), 2));
   }
 
   /**

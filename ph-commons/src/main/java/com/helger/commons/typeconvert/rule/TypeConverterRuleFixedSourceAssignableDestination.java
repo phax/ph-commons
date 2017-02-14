@@ -16,12 +16,11 @@
  */
 package com.helger.commons.typeconvert.rule;
 
-import java.util.function.Function;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.functional.IFunction;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -38,11 +37,11 @@ public class TypeConverterRuleFixedSourceAssignableDestination <SRC, DST> extend
 {
   private final Class <SRC> m_aSrcClass;
   private final Class <DST> m_aDstClass;
-  private final Function <SRC, DST> m_aConverter;
+  private final IFunction <SRC, DST> m_aConverter;
 
   public TypeConverterRuleFixedSourceAssignableDestination (@Nonnull final Class <SRC> aSrcClass,
                                                             @Nonnull final Class <DST> aDstClass,
-                                                            @Nonnull final Function <SRC, DST> aConverter)
+                                                            @Nonnull final IFunction <SRC, DST> aConverter)
   {
     super (ESubType.FIXED_SRC_ASSIGNABLE_DST);
     m_aSrcClass = ValueEnforcer.notNull (aSrcClass, "SrcClass");
@@ -77,9 +76,9 @@ public class TypeConverterRuleFixedSourceAssignableDestination <SRC, DST> extend
   public String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ())
-                            .append ("srcClass", m_aSrcClass.getName ())
-                            .append ("dstClass", m_aDstClass.getName ())
-                            .append ("converter", m_aConverter)
+                            .append ("SrcClass", m_aSrcClass)
+                            .append ("DstClass", m_aDstClass)
+                            .append ("Converter", m_aConverter)
                             .getToString ();
   }
 }

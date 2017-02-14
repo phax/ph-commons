@@ -304,17 +304,17 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
                                                           @Nullable final Predicate <? super IMicroElement> aFilter,
                                                           @Nonnull final Function <? super IMicroElement, EContinue> aConsumer)
   {
-    return aStartNode.forAllChildrenBreakable (aChildNode -> {
-      if (aChildNode.isElement ())
+    return aStartNode.forAllChildrenBreakable (x -> {
+      if (x.isElement ())
       {
-        final IMicroElement aChildElement = (IMicroElement) aChildNode;
+        final IMicroElement aChildElement = (IMicroElement) x;
         if (aFilter == null || aFilter.test (aChildElement))
           if (aConsumer.apply (aChildElement).isBreak ())
             return EContinue.BREAK;
       }
       else
-        if (aChildNode.isContainer ())
-          if (_forAllChildElementsBreakable (aChildNode, aFilter, aConsumer).isBreak ())
+        if (x.isContainer ())
+          if (_forAllChildElementsBreakable (x, aFilter, aConsumer).isBreak ())
             return EContinue.BREAK;
       return EContinue.CONTINUE;
     });

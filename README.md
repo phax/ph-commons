@@ -29,6 +29,7 @@ This project was the following modules:
     * Extended `XMLSystemProperties` API
     * Added `IPredicate` - a serializable `Predicate` interface
     * Added `IBiPredicate` - a serializable `BiPredicate` interface
+    * Added `IBiConsumer` - a serializable `BiConsumer` interface
     * Changed `com.helger.commons.function` package to `com.helger.commons.functional`
     * Replaced `IFilter` with `IPredicate`
     * Replaced `IFilterWithParameter` with `IBiPredicate`

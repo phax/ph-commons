@@ -17,9 +17,9 @@
 package com.helger.commons.functional;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Represents an operation that accepts a single input argument and returns no
@@ -56,17 +56,17 @@ public interface IThrowingConsumer <T, EXTYPE extends Throwable> extends Seriali
    * {@code after} operation will not be performed.
    *
    * @param after
-   *        the operation to perform after this operation
+   *        the operation to perform after this operation. May be
+   *        <code>null</code>.
    * @return a composed {@code Consumer} that performs in sequence this
    *         operation followed by the {@code after} operation
-   * @throws NullPointerException
-   *         if {@code after} is null
    */
   @Nonnull
-  default IThrowingConsumer <T, EXTYPE> andThen (@Nonnull final IThrowingConsumer <? super T, ? extends EXTYPE> after)
+  default IThrowingConsumer <T, EXTYPE> andThen (@Nullable final IThrowingConsumer <? super T, ? extends EXTYPE> after)
   {
-    Objects.requireNonNull (after);
-    return (final T t) -> {
+    if (after == null)
+      return this;
+    return t -> {
       accept (t);
       after.accept (t);
     };

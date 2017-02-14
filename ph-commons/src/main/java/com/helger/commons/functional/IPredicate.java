@@ -161,6 +161,6 @@ public interface IPredicate <T> extends Predicate <T>, Serializable
   @Nonnull
   static <T> IPredicate <T> isEqual (@Nullable final Object aCmpTo)
   {
-    return aCmpTo == null ? Objects::isNull : x -> aCmpTo.equals (x);
+    return aCmpTo == null ? isNull () : x -> aCmpTo.equals (x);
   }
 }

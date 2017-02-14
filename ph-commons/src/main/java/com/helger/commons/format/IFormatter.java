@@ -16,12 +16,12 @@
  */
 package com.helger.commons.format;
 
-import java.io.Serializable;
 import java.util.Objects;
-import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import com.helger.commons.functional.IFunction;
 
 /**
  * A simple formatter interface that may be used to format arbitrary objects to
@@ -32,7 +32,7 @@ import javax.annotation.Nullable;
  *        Source data type
  */
 @FunctionalInterface
-public interface IFormatter <DATATYPE> extends Serializable, Function <DATATYPE, String>
+public interface IFormatter <DATATYPE> extends IFunction <DATATYPE, String>
 {
   /**
    * Convert the passed value to a formatted string according to the pattern.

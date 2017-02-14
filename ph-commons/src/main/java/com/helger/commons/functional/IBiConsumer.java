@@ -17,44 +17,33 @@
 package com.helger.commons.functional;
 
 import java.io.Serializable;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
- * Represents an operation that accepts three input arguments and returns no
- * result. This is the three-arity specialization of {@link Consumer}. Unlike
- * most other functional interfaces, {@code ITriConsumer} is expected to operate
- * via side-effects.
+ * Represents an operation that accepts two input arguments and returns no
+ * result. This is the two-arity specialization of {@link Consumer}. Unlike most
+ * other functional interfaces, {@code BiConsumer} is expected to operate via
+ * side-effects.
  * <p>
  * This is a <a href="package-summary.html">functional interface</a> whose
- * functional method is {@link #accept(Object, Object,Object)}.
+ * functional method is {@link #accept(Object, Object)}.
  *
  * @param <T>
  *        the type of the first argument to the operation
  * @param <U>
  *        the type of the second argument to the operation
- * @param <V>
- *        the type of the third argument to the operation
+ * @see IConsumer
+ * @since 8.6.0
  */
 @FunctionalInterface
-public interface ITriConsumer <T, U, V> extends Serializable
+public interface IBiConsumer <T, U> extends BiConsumer <T, U>, Serializable
 {
   /**
-   * Performs this operation on the given arguments.
-   *
-   * @param t
-   *        the first input argument
-   * @param u
-   *        the second input argument
-   * @param v
-   *        the third input argument
-   */
-  void accept (T t, U u, V v);
-
-  /**
-   * Returns a composed {@code ITriConsumer} that performs, in sequence, this
+   * Returns a composed {@code BiConsumer} that performs, in sequence, this
    * operation followed by the {@code after} operation. If performing either
    * operation throws an exception, it is relayed to the caller of the composed
    * operation. If performing this operation throws an exception, the
@@ -63,17 +52,30 @@ public interface ITriConsumer <T, U, V> extends Serializable
    * @param after
    *        the operation to perform after this operation. May be
    *        <code>null</code>.
-   * @return a composed {@code ITriConsumer} that performs in sequence this
+   * @return a composed {@code BiConsumer} that performs in sequence this
    *         operation followed by the {@code after} operation
    */
   @Nonnull
-  default ITriConsumer <T, U, V> andThen (@Nullable final ITriConsumer <? super T, ? super U, ? super V> after)
+  default IBiConsumer <T, U> andThen (@Nullable final BiConsumer <? super T, ? super U> after)
   {
-    if (after == null)
-      return this;
-    return (t, u, v) -> {
-      accept (t, u, v);
-      after.accept (t, u, v);
-    };
+    return and (this, after);
+  }
+
+  @Nullable
+  static <T, U> IBiConsumer <T, U> and (@Nullable final BiConsumer <? super T, ? super U> aFirst,
+                                        @Nullable final BiConsumer <? super T, ? super U> aSecond)
+  {
+    if (aFirst != null)
+    {
+      if (aSecond != null)
+        return (x, y) -> {
+          aFirst.accept (x, y);
+          aSecond.accept (x, y);
+        };
+      return (x, y) -> aFirst.accept (x, y);
+    }
+    if (aSecond != null)
+      return (x, y) -> aSecond.accept (x, y);
+    return null;
   }
 }

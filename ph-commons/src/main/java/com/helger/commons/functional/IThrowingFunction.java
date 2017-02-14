@@ -71,7 +71,7 @@ public interface IThrowingFunction <T, R, EXTYPE extends Throwable> extends Seri
   default <V> IThrowingFunction <V, R, EXTYPE> compose (@Nonnull final IThrowingFunction <? super V, ? extends T, ? extends EXTYPE> before)
   {
     Objects.requireNonNull (before);
-    return (final V v) -> apply (before.apply (v));
+    return x -> apply (before.apply (x));
   }
 
   /**
@@ -95,6 +95,6 @@ public interface IThrowingFunction <T, R, EXTYPE extends Throwable> extends Seri
   default <V> IThrowingFunction <T, V, EXTYPE> andThen (@Nonnull final IThrowingFunction <? super R, ? extends V, ? extends EXTYPE> after)
   {
     Objects.requireNonNull (after);
-    return (final T t) -> after.apply (apply (t));
+    return x -> after.apply (apply (x));
   }
 }

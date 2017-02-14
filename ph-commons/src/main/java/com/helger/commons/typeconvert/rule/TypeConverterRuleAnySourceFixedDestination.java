@@ -16,12 +16,11 @@
  */
 package com.helger.commons.typeconvert.rule;
 
-import java.util.function.Function;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.functional.IFunction;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -35,10 +34,10 @@ import com.helger.commons.string.ToStringGenerator;
 public class TypeConverterRuleAnySourceFixedDestination <DST> extends AbstractTypeConverterRule <Object, DST>
 {
   private final Class <DST> m_aDstClass;
-  private final Function <Object, DST> m_aConverter;
+  private final IFunction <Object, DST> m_aConverter;
 
   public TypeConverterRuleAnySourceFixedDestination (@Nonnull final Class <DST> aDstClass,
-                                                     @Nonnull final Function <Object, DST> aConverter)
+                                                     @Nonnull final IFunction <Object, DST> aConverter)
   {
     super (ESubType.ANY_SRC_FIXED_DST);
     m_aDstClass = ValueEnforcer.notNull (aDstClass, "DestClass");
@@ -67,8 +66,8 @@ public class TypeConverterRuleAnySourceFixedDestination <DST> extends AbstractTy
   public String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ())
-                            .append ("dstClass", m_aDstClass.getName ())
-                            .append ("converter", m_aConverter)
+                            .append ("DstClass", m_aDstClass)
+                            .append ("Converter", m_aConverter)
                             .getToString ();
   }
 }

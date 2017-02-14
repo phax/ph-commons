@@ -16,8 +16,6 @@
  */
 package com.helger.tree.util;
 
-import java.util.function.Function;
-
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
@@ -25,6 +23,7 @@ import org.w3c.dom.traversal.TreeWalker;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.functional.IFunction;
 import com.helger.commons.hierarchy.ChildrenProviderHasChildren;
 import com.helger.commons.hierarchy.IChildrenProvider;
 import com.helger.commons.hierarchy.visit.ChildrenProviderHierarchyVisitor;
@@ -48,10 +47,10 @@ public final class TreeVisitor
                                                              extends DefaultHierarchyVisitorCallback <ITEMTYPE>
   {
     private final IHierarchyVisitorCallback <? super DATATYPE> m_aDataCallback;
-    private final Function <ITEMTYPE, DATATYPE> m_aConverter;
+    private final IFunction <ITEMTYPE, DATATYPE> m_aConverter;
 
     public HierarchyVisitorCallbackWithConversion (@Nonnull final IHierarchyVisitorCallback <? super DATATYPE> aDataCallback,
-                                                   @Nonnull final Function <ITEMTYPE, DATATYPE> aConverter)
+                                                   @Nonnull final IFunction <ITEMTYPE, DATATYPE> aConverter)
     {
       m_aDataCallback = ValueEnforcer.notNull (aDataCallback, "DataCallback");
       m_aConverter = ValueEnforcer.notNull (aConverter, "Converter");
@@ -167,6 +166,6 @@ public final class TreeVisitor
     // Wrap callback
     visitTreeItem (aTreeItem,
                    aChildrenProvider,
-                   new HierarchyVisitorCallbackWithConversion <> (aDataCallback, aSource -> aSource.getData ()));
+                   new HierarchyVisitorCallbackWithConversion <> (aDataCallback, x -> x.getData ()));
   }
 }

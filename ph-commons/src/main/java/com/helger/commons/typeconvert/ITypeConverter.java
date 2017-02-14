@@ -16,10 +16,10 @@
  */
 package com.helger.commons.typeconvert;
 
-import java.util.function.Function;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import com.helger.commons.functional.IFunction;
 
 /**
  * Special interface that is used to convert between values of different types.
@@ -31,7 +31,7 @@ import javax.annotation.Nullable;
  *        destination type
  */
 @FunctionalInterface
-public interface ITypeConverter <SRC, DST> extends Function <SRC, DST>
+public interface ITypeConverter <SRC, DST> extends IFunction <SRC, DST>
 {
   /**
    * Convert the passed source object to the destination type.

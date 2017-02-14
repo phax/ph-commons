@@ -17,10 +17,10 @@
 package com.helger.commons.functional;
 
 import java.io.Serializable;
-import java.util.Objects;
 import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Represents an operation that accepts a single {@code char}-valued argument
@@ -60,12 +60,23 @@ public interface ICharConsumer extends Serializable
    *         if {@code after} is null
    */
   @Nonnull
-  default ICharConsumer andThen (@Nonnull final ICharConsumer after)
+  default ICharConsumer andThen (@Nullable final ICharConsumer after)
   {
-    Objects.requireNonNull (after);
-    return (final char t) -> {
-      accept (t);
-      after.accept (t);
-    };
+    return and (this, after);
+  }
+
+  @Nullable
+  static ICharConsumer and (@Nullable final ICharConsumer aFirst, @Nullable final ICharConsumer aSecond)
+  {
+    if (aFirst != null)
+    {
+      if (aSecond != null)
+        return x -> {
+          aFirst.accept (x);
+          aSecond.accept (x);
+        };
+      return x -> aFirst.accept (x);
+    }
+    return aSecond;
   }
 }
