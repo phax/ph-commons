@@ -31,6 +31,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsLinkedHashSet;
+import com.helger.commons.collection.ext.ICommonsIterable;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.ext.ICommonsOrderedSet;
@@ -50,18 +51,18 @@ import com.helger.commons.string.ToStringGenerator;
 public final class ClassHierarchyCache
 {
   @Immutable
-  private static final class ClassList implements Iterable <WeakReference <Class <?>>>
+  private static final class ClassList implements ICommonsIterable <WeakReference <Class <?>>>
   {
     // Store it in the correct order, but without duplicates
-    private final ICommonsList <WeakReference <Class <?>>> m_aList = new CommonsArrayList<> ();
+    private final ICommonsList <WeakReference <Class <?>>> m_aList = new CommonsArrayList <> ();
 
     public ClassList (@Nonnull final Class <?> aClass)
     {
       ValueEnforcer.notNull (aClass, "Class");
 
       // Check the whole class hierarchy of the source class
-      final ICommonsOrderedSet <Class <?>> aUniqueOrderedClasses = new CommonsLinkedHashSet<> ();
-      final ICommonsList <Class <?>> aOpenSrc = new CommonsArrayList<> ();
+      final ICommonsOrderedSet <Class <?>> aUniqueOrderedClasses = new CommonsLinkedHashSet <> ();
+      final ICommonsList <Class <?>> aOpenSrc = new CommonsArrayList <> ();
       aOpenSrc.add (aClass);
       while (!aOpenSrc.isEmpty ())
       {
@@ -78,7 +79,7 @@ public final class ClassHierarchyCache
 
       // Now convert to list of WeakReference
       for (final Class <?> aCurClass : aUniqueOrderedClasses)
-        m_aList.add (new WeakReference<> (aCurClass));
+        m_aList.add (new WeakReference <> (aCurClass));
     }
 
     @Nonnull
@@ -86,7 +87,7 @@ public final class ClassHierarchyCache
     public ICommonsOrderedSet <Class <?>> getAsSet ()
     {
       // Use a linked hash set, to maintain the order
-      final ICommonsOrderedSet <Class <?>> ret = new CommonsLinkedHashSet<> (m_aList.size ());
+      final ICommonsOrderedSet <Class <?>> ret = new CommonsLinkedHashSet <> (m_aList.size ());
       for (final WeakReference <Class <?>> aRef : m_aList)
       {
         final Class <?> aClass = aRef.get ();
@@ -101,7 +102,7 @@ public final class ClassHierarchyCache
     public ICommonsList <Class <?>> getAsList ()
     {
       // Use a list that may contain duplicates
-      final ICommonsList <Class <?>> ret = new CommonsArrayList<> (m_aList.size ());
+      final ICommonsList <Class <?>> ret = new CommonsArrayList <> (m_aList.size ());
       for (final WeakReference <Class <?>> aRef : m_aList)
       {
         final Class <?> aClass = aRef.get ();
@@ -128,7 +129,7 @@ public final class ClassHierarchyCache
 
   private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("s_aRWLock")
-  private static final ICommonsMap <String, ClassList> s_aClassHierarchy = new LRUMap<> (1000);
+  private static final ICommonsMap <String, ClassList> s_aClassHierarchy = new LRUMap <> (1000);
 
   @PresentForCodeCoverage
   private static final ClassHierarchyCache s_aInstance = new ClassHierarchyCache ();
@@ -146,15 +147,13 @@ public final class ClassHierarchyCache
   @Nonnull
   public static EChange clearCache ()
   {
-    return s_aRWLock.writeLocked ( () -> {
-      if (s_aClassHierarchy.isEmpty ())
-        return EChange.UNCHANGED;
-      s_aClassHierarchy.clear ();
+    final EChange ret = s_aRWLock.writeLocked ( () -> s_aClassHierarchy.removeAll ());
+    if (ret.isUnchanged ())
+      return EChange.UNCHANGED;
 
-      if (s_aLogger.isDebugEnabled ())
-        s_aLogger.debug ("Cache was cleared: " + ClassHierarchyCache.class.getName ());
-      return EChange.CHANGED;
-    });
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("Cache was cleared: " + ClassHierarchyCache.class.getName ());
+    return EChange.CHANGED;
   }
 
   @Nonnull
@@ -168,10 +167,8 @@ public final class ClassHierarchyCache
 
     if (aClassList == null)
     {
-      aClassList = s_aRWLock.writeLocked ( () -> {
-        // try again in write lock
-        return s_aClassHierarchy.computeIfAbsent (sKey, x -> new ClassList (aClass));
-      });
+      // try again in write lock
+      aClassList = s_aRWLock.writeLocked ( () -> s_aClassHierarchy.computeIfAbsent (sKey, x -> new ClassList (aClass)));
     }
     return aClassList;
   }
@@ -223,7 +220,7 @@ public final class ClassHierarchyCache
    *         were already removed.
    */
   @Nonnull
-  public static Iterable <WeakReference <Class <?>>> getClassHierarchyIterator (@Nonnull final Class <?> aClass)
+  public static ICommonsIterable <WeakReference <Class <?>>> getClassHierarchyIterator (@Nonnull final Class <?> aClass)
   {
     return _getClassList (aClass);
   }
