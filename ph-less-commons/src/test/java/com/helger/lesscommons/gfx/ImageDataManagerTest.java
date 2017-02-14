@@ -22,7 +22,6 @@ import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.lesscommons.gfx.ImageDataManager;
 
 /**
  * Test class for class {@link ImageDataManager}.
@@ -42,7 +41,7 @@ public final class ImageDataManagerTest
     assertNotNull (ImageDataManager.getInstance ().getImageSize (aRes));
 
     // Not an image
-    aRes = new ClassPathResource ("xml/buildinfo.xml");
+    aRes = new ClassPathResource ("gfx/no-image.xml");
     assertNull (ImageDataManager.getInstance ().getImageSize (aRes));
     assertNull (ImageDataManager.getInstance ().getImageSize (aRes));
 
