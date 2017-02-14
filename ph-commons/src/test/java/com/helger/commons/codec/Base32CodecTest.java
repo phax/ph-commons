@@ -21,11 +21,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 import org.junit.Test;
-
-import com.helger.commons.charset.CCharset;
 
 /**
  * Test class for class {@link Base32Codec}
@@ -34,7 +33,7 @@ import com.helger.commons.charset.CCharset;
  */
 public final class Base32CodecTest
 {
-  private static final Charset CHARSET = CCharset.DEFAULT_CHARSET_OBJ;
+  private static final Charset CHARSET = StandardCharsets.UTF_8;
 
   @Test
   public void testGetEncodedLength ()

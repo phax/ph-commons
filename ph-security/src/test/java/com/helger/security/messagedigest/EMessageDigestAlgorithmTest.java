@@ -30,7 +30,6 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.codec.Base32Codec;
 import com.helger.commons.string.StringHelper;
@@ -42,7 +41,7 @@ import com.helger.commons.string.StringHelper;
  */
 public final class EMessageDigestAlgorithmTest
 {
-  private static final Charset CHARSET = CCharset.DEFAULT_CHARSET_OBJ;
+  private static final Charset CHARSET = StandardCharsets.UTF_8;
 
   @Test
   public void testAll ()

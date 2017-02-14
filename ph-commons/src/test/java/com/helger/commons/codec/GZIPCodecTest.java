@@ -19,10 +19,9 @@ package com.helger.commons.codec;
 import static org.junit.Assert.assertArrayEquals;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
-
-import com.helger.commons.charset.CCharset;
 
 /**
  * Test class for class {@link GZIPCodec}
@@ -31,7 +30,7 @@ import com.helger.commons.charset.CCharset;
  */
 public final class GZIPCodecTest
 {
-  private static final Charset CHARSET = CCharset.DEFAULT_CHARSET_OBJ;
+  private static final Charset CHARSET = StandardCharsets.UTF_8;
 
   @Test
   public void testDecode ()
