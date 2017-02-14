@@ -25,11 +25,11 @@ import java.util.concurrent.Executors;
 import org.junit.Test;
 
 /**
- * Test class for class {@link ManagedExecutorService}
+ * Test class for class {@link ExecutorServiceHelper}
  *
  * @author Philip Helger
  */
-public final class ManagedExecutorServiceTest
+public final class ExecutorServiceHelperTest
 {
   @Test
   public void testAll ()
@@ -38,12 +38,12 @@ public final class ManagedExecutorServiceTest
     aExecSvc.submit ( () -> {
       // empty
     });
-    assertTrue (new ManagedExecutorService (aExecSvc).shutdownAndWaitUntilAllTasksAreFinished ().isNotInterrupted ());
+    assertTrue (ExecutorServiceHelper.shutdownAndWaitUntilAllTasksAreFinished (aExecSvc).isNotInterrupted ());
 
     try
     {
       // null not allowed
-      new ManagedExecutorService (null);
+      ExecutorServiceHelper.shutdownAndWaitUntilAllTasksAreFinished (null);
       fail ();
     }
     catch (final NullPointerException ex)

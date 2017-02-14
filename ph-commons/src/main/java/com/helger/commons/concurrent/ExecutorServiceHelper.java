@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import javax.annotation.concurrent.NotThreadSafe;
+import javax.annotation.concurrent.Immutable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,33 +34,35 @@ import com.helger.commons.state.EInterrupt;
  *
  * @author Philip Helger
  */
-@NotThreadSafe
-public final class ManagedExecutorService
+@Immutable
+public final class ExecutorServiceHelper
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (ManagedExecutorService.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (ExecutorServiceHelper.class);
 
-  private final ExecutorService m_aES;
-
-  public ManagedExecutorService (@Nonnull final ExecutorService aES)
-  {
-    m_aES = ValueEnforcer.notNull (aES, "ExecutorService");
-  }
+  private ExecutorServiceHelper ()
+  {}
 
   /**
    * Wait indefinitely on the {@link ExecutorService} until it terminates.
    *
+   * @param aES
+   *        The {@link ExecutorService} to operate on. May not be
+   *        <code>null</code>.
    * @return {@link EInterrupt#INTERRUPTED} if the executor service was
    *         interrupted while awaiting termination. Never <code>null</code>.
    */
   @Nonnull
-  public EInterrupt waitUntilAllTasksAreFinished ()
+  public static EInterrupt waitUntilAllTasksAreFinished (@Nonnull final ExecutorService aES)
   {
-    return waitUntilAllTasksAreFinished (1, TimeUnit.SECONDS);
+    return waitUntilAllTasksAreFinished (aES, 1, TimeUnit.SECONDS);
   }
 
   /**
    * Wait indefinitely on the {@link ExecutorService} until it terminates.
    *
+   * @param aES
+   *        The {@link ExecutorService} to operate on. May not be
+   *        <code>null</code>.
    * @param nTimeout
    *        the maximum time to wait. Must be &gt; 0.
    * @param eUnit
@@ -70,18 +72,22 @@ public final class ManagedExecutorService
    *         interrupted while awaiting termination. Never <code>null</code>.
    */
   @Nonnull
-  public EInterrupt waitUntilAllTasksAreFinished (@Nonnegative final long nTimeout, @Nonnull final TimeUnit eUnit)
+  public static EInterrupt waitUntilAllTasksAreFinished (@Nonnull final ExecutorService aES,
+                                                         @Nonnegative final long nTimeout,
+                                                         @Nonnull final TimeUnit eUnit)
   {
+    ValueEnforcer.notNull (aES, "ExecutorService");
+
     try
     {
-      while (!m_aES.awaitTermination (nTimeout, eUnit))
+      while (!aES.awaitTermination (nTimeout, eUnit))
       {
         // wait until completion
       }
     }
     catch (final InterruptedException ex)
     {
-      s_aLogger.error ("Error waiting for Executor service " + m_aES + " to end", ex);
+      s_aLogger.error ("Error waiting for Executor service " + aES + " to end", ex);
       return EInterrupt.INTERRUPTED;
     }
     return EInterrupt.NOT_INTERRUPTED;
@@ -91,19 +97,25 @@ public final class ManagedExecutorService
    * Call shutdown on the {@link ExecutorService} and wait indefinitely until it
    * terminated.
    *
+   * @param aES
+   *        The {@link ExecutorService} to operate on. May not be
+   *        <code>null</code>.
    * @return {@link EInterrupt#INTERRUPTED} if the executor service was
    *         interrupted while awaiting termination. Never <code>null</code>.
    */
   @Nonnull
-  public EInterrupt shutdownAndWaitUntilAllTasksAreFinished ()
+  public static EInterrupt shutdownAndWaitUntilAllTasksAreFinished (@Nonnull final ExecutorService aES)
   {
-    return shutdownAndWaitUntilAllTasksAreFinished (1, TimeUnit.SECONDS);
+    return shutdownAndWaitUntilAllTasksAreFinished (aES, 1, TimeUnit.SECONDS);
   }
 
   /**
    * Call shutdown on the {@link ExecutorService} and wait indefinitely until it
    * terminated.
    *
+   * @param aES
+   *        The {@link ExecutorService} to operate on. May not be
+   *        <code>null</code>.
    * @param nTimeout
    *        the maximum time to wait. Must be &gt; 0.
    * @param eUnit
@@ -113,30 +125,19 @@ public final class ManagedExecutorService
    *         interrupted while awaiting termination. Never <code>null</code>.
    */
   @Nonnull
-  public EInterrupt shutdownAndWaitUntilAllTasksAreFinished (@Nonnegative final long nTimeout,
-                                                             @Nonnull final TimeUnit eUnit)
-  {
-    if (m_aES.isShutdown ())
-      return EInterrupt.NOT_INTERRUPTED;
-
-    // accept no further requests
-    m_aES.shutdown ();
-
-    // Wait...
-    return waitUntilAllTasksAreFinished (nTimeout, eUnit);
-  }
-
-  @Nonnull
-  public static EInterrupt shutdownAndWaitUntilAllTasksAreFinished (@Nonnull final ExecutorService aES)
-  {
-    return new ManagedExecutorService (aES).shutdownAndWaitUntilAllTasksAreFinished ();
-  }
-
-  @Nonnull
   public static EInterrupt shutdownAndWaitUntilAllTasksAreFinished (@Nonnull final ExecutorService aES,
                                                                     @Nonnegative final long nTimeout,
                                                                     @Nonnull final TimeUnit eUnit)
   {
-    return new ManagedExecutorService (aES).shutdownAndWaitUntilAllTasksAreFinished (nTimeout, eUnit);
+    ValueEnforcer.notNull (aES, "ExecutorService");
+
+    if (aES.isShutdown ())
+      return EInterrupt.NOT_INTERRUPTED;
+
+    // accept no further requests
+    aES.shutdown ();
+
+    // Wait...
+    return waitUntilAllTasksAreFinished (aES, nTimeout, eUnit);
   }
 }

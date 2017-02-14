@@ -27,7 +27,6 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collation.CollatorHelper;
 
 /**
  * A special interface that combines {@link Comparator} and {@link Serializable}

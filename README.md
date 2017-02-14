@@ -33,6 +33,7 @@ This project was the following modules:
     * Changed `com.helger.commons.function` package to `com.helger.commons.functional`
     * Replaced `IFilter` with `IPredicate`
     * Replaced `IFilterWithParameter` with `IBiPredicate`
+    * Changed `ManagedExecutorService` to `ExecutorServiceHelper`
   * v8.6.1 - 2017-01-23
     * `*MultilingualText` is now based on ICommonsOrderedMap
     * Extended `GlobalDebug` API slightly

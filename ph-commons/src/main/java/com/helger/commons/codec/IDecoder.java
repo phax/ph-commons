@@ -16,6 +16,8 @@
  */
 package com.helger.commons.codec;
 
+import java.io.Serializable;
+
 import javax.annotation.Nullable;
 
 /**
@@ -28,7 +30,7 @@ import javax.annotation.Nullable;
  *        Destination data type
  */
 @FunctionalInterface
-public interface IDecoder <SRCTYPE, DSTTYPE>
+public interface IDecoder <SRCTYPE, DSTTYPE> extends Serializable
 {
   /**
    * Decode the passed source object

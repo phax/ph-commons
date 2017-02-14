@@ -16,6 +16,7 @@
  */
 package com.helger.commons.concurrent;
 
+import java.io.Serializable;
 import java.util.concurrent.ExecutorService;
 
 import javax.annotation.Nonnegative;
@@ -27,7 +28,7 @@ import javax.annotation.Nonnull;
  * @author Philip Helger
  */
 @FunctionalInterface
-public interface IExecutorServiceFactory
+public interface IExecutorServiceFactory extends Serializable
 {
   /**
    * Get an {@link ExecutorService} for the given number of parallel tasks. It

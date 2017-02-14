@@ -23,7 +23,7 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-import com.helger.commons.concurrent.ManagedExecutorService;
+import com.helger.commons.concurrent.ExecutorServiceHelper;
 import com.helger.commons.system.SystemHelper;
 
 /**
@@ -49,7 +49,7 @@ public final class BenchmarkSynchronizedVsLock extends AbstractBenchmarkTask
       final ExecutorService aExecSvc = Executors.newFixedThreadPool (nThreads);
       for (int i = 0; i < nThreads; ++i)
         aExecSvc.submit (aObj);
-      new ManagedExecutorService (aExecSvc).shutdownAndWaitUntilAllTasksAreFinished ();
+      ExecutorServiceHelper.shutdownAndWaitUntilAllTasksAreFinished (aExecSvc);
     };
   }
 

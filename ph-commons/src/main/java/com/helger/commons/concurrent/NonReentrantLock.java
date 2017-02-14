@@ -31,6 +31,9 @@ public final class NonReentrantLock extends AbstractQueuedSynchronizer implement
 {
   private Thread m_aOwner;
 
+  public NonReentrantLock ()
+  {}
+
   public void lock ()
   {
     acquire (1);

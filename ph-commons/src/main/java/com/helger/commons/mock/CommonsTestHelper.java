@@ -30,7 +30,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.callback.IThrowingRunnable;
 import com.helger.commons.collection.ext.CommonsVector;
 import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.concurrent.ManagedExecutorService;
+import com.helger.commons.concurrent.ExecutorServiceHelper;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.lang.StackTraceHelper;
@@ -288,7 +288,7 @@ public final class CommonsTestHelper
         }
       });
     }
-    ManagedExecutorService.shutdownAndWaitUntilAllTasksAreFinished (aES);
+    ExecutorServiceHelper.shutdownAndWaitUntilAllTasksAreFinished (aES);
 
     // No errors should have occurred
     if (!aErrors.isEmpty ())
