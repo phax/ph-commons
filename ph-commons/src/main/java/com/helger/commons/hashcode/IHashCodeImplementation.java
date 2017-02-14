@@ -23,8 +23,11 @@ import javax.annotation.Nonnull;
  * only used within the {@link HashCodeImplementationRegistry}.
  *
  * @author Philip Helger
+ * @param <T>
+ *        The data type for which the hash code should be implemented
  */
-public interface IHashCodeImplementation
+@FunctionalInterface
+public interface IHashCodeImplementation <T>
 {
   /**
    * Get the hash code for the passed object
@@ -33,5 +36,5 @@ public interface IHashCodeImplementation
    *        The object for which the hash code is to be calculated
    * @return The hash code for this object
    */
-  int getHashCode (@Nonnull Object aObj);
+  int getHashCode (@Nonnull T aObj);
 }

@@ -33,5 +33,5 @@ public interface IHashCodeImplementationRegistry
    * @param aImpl
    *        The main implementation
    */
-  void registerHashCodeImplementation (@Nonnull Class <?> aClass, @Nonnull IHashCodeImplementation aImpl);
+  <T> void registerHashCodeImplementation (@Nonnull Class <T> aClass, @Nonnull IHashCodeImplementation <T> aImpl);
 }

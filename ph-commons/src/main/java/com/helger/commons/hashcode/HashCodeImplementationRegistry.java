@@ -18,6 +18,7 @@ package com.helger.commons.hashcode;
 
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
@@ -39,6 +40,7 @@ import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.ClassHierarchyCache;
+import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.lang.ServiceLoaderHelper;
 import com.helger.commons.state.EChange;
 
@@ -57,23 +59,6 @@ public final class HashCodeImplementationRegistry implements IHashCodeImplementa
     private static final HashCodeImplementationRegistry s_aInstance = new HashCodeImplementationRegistry ();
   }
 
-  private static final class ArrayHashCodeImplementation implements IHashCodeImplementation
-  {
-    public ArrayHashCodeImplementation ()
-    {}
-
-    public int getHashCode (final Object aObj)
-    {
-      final Object [] aArray = (Object []) aObj;
-      final int nLength = aArray.length;
-
-      HashCodeGenerator aHC = new HashCodeGenerator (aObj).append (nLength);
-      for (int i = 0; i < nLength; i++)
-        aHC = aHC.append (aArray[i]);
-      return aHC.getHashCode ();
-    }
-  }
-
   private static final Logger s_aLogger = LoggerFactory.getLogger (HashCodeImplementationRegistry.class);
 
   private static boolean s_bDefaultInstantiated = false;
@@ -82,13 +67,13 @@ public final class HashCodeImplementationRegistry implements IHashCodeImplementa
 
   // Use a weak hash map, because the key is a class
   @GuardedBy ("m_aRWLock")
-  private final ICommonsMap <Class <?>, IHashCodeImplementation> m_aMap = new CommonsWeakHashMap<> ();
+  private final ICommonsMap <Class <?>, IHashCodeImplementation <?>> m_aMap = new CommonsWeakHashMap <> ();
 
   // Cache for classes where direct implementation should be used
   private final AnnotationUsageCache m_aDirectHashCode = new AnnotationUsageCache (UseDirectEqualsAndHashCode.class);
 
   // Cache for classes that implement hashCode directly
-  private final ICommonsMap <String, Boolean> m_aImplementsHashCode = new CommonsHashMap<> ();
+  private final ICommonsMap <String, Boolean> m_aImplementsHashCode = new CommonsHashMap <> ();
 
   private HashCodeImplementationRegistry ()
   {
@@ -108,8 +93,8 @@ public final class HashCodeImplementationRegistry implements IHashCodeImplementa
     return ret;
   }
 
-  public void registerHashCodeImplementation (@Nonnull final Class <?> aClass,
-                                              @Nonnull final IHashCodeImplementation aImpl)
+  public <T> void registerHashCodeImplementation (@Nonnull final Class <T> aClass,
+                                                  @Nonnull final IHashCodeImplementation <T> aImpl)
   {
     ValueEnforcer.notNull (aClass, "Class");
     ValueEnforcer.notNull (aImpl, "Implementation");
@@ -118,7 +103,7 @@ public final class HashCodeImplementationRegistry implements IHashCodeImplementa
       throw new IllegalArgumentException ("You cannot provide a hashCode implementation for Object.class!");
 
     m_aRWLock.writeLocked ( () -> {
-      final IHashCodeImplementation aOldImpl = m_aMap.get (aClass);
+      final IHashCodeImplementation <T> aOldImpl = GenericReflection.uncheckedCast (m_aMap.get (aClass));
       if (aOldImpl == null)
         m_aMap.put (aClass, aImpl);
       else
@@ -181,11 +166,11 @@ public final class HashCodeImplementationRegistry implements IHashCodeImplementa
   }
 
   @Nullable
-  public IHashCodeImplementation getBestMatchingHashCodeImplementation (@Nullable final Class <?> aClass)
+  public <T> IHashCodeImplementation <T> getBestMatchingHashCodeImplementation (@Nullable final Class <T> aClass)
   {
     if (aClass != null)
     {
-      IHashCodeImplementation aMatchingImplementation = null;
+      IHashCodeImplementation <T> aMatchingImplementation = null;
       Class <?> aMatchingClass = null;
 
       // No check required?
@@ -196,21 +181,21 @@ public final class HashCodeImplementationRegistry implements IHashCodeImplementa
       try
       {
         // Check for an exact match first
-        aMatchingImplementation = m_aMap.get (aClass);
+        aMatchingImplementation = GenericReflection.uncheckedCast (m_aMap.get (aClass));
         if (aMatchingImplementation != null)
           aMatchingClass = aClass;
         else
         {
-          // Scan hierarchy in most efficient way
+          // Scan hierarchy in efficient way
           for (final WeakReference <Class <?>> aCurWRClass : ClassHierarchyCache.getClassHierarchyIterator (aClass))
           {
             final Class <?> aCurClass = aCurWRClass.get ();
             if (aCurClass != null)
             {
-              final IHashCodeImplementation aImpl = m_aMap.get (aCurClass);
+              final IHashCodeImplementation <?> aImpl = m_aMap.get (aCurClass);
               if (aImpl != null)
               {
-                aMatchingImplementation = aImpl;
+                aMatchingImplementation = GenericReflection.uncheckedCast (aImpl);
                 aMatchingClass = aCurClass;
                 if (s_aLogger.isDebugEnabled ())
                   s_aLogger.debug ("Found hierarchical match with class " +
@@ -255,7 +240,7 @@ public final class HashCodeImplementationRegistry implements IHashCodeImplementa
       // Handle arrays specially, because we cannot register a converter for
       // every potential array class (but we allow for special implementations)
       if (ClassHelper.isArrayClass (aClass))
-        return new ArrayHashCodeImplementation ();
+        return x -> Arrays.deepHashCode ((Object []) x);
 
       // Remember to use direct implementation
       m_aDirectHashCode.setAnnotation (aClass, true);
@@ -276,7 +261,7 @@ public final class HashCodeImplementationRegistry implements IHashCodeImplementa
 
     // Get the best matching implementation
     final Class <?> aClass = aObj.getClass ();
-    final IHashCodeImplementation aImpl = getInstance ().getBestMatchingHashCodeImplementation (aClass);
+    final IHashCodeImplementation <Object> aImpl = GenericReflection.uncheckedCast (getInstance ().getBestMatchingHashCodeImplementation (aClass));
     return aImpl == null ? aObj.hashCode () : aImpl.getHashCode (aObj);
   }
 
