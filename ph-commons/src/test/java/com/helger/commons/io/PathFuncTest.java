@@ -89,7 +89,14 @@ public final class PathFuncTest
   {
     final Path p = Paths.get ("cde/../pom.xml");
     assertFalse (p.isAbsolute ());
-    assertTrue (Files.exists (p));
+    if (WIN)
+    {
+      assertTrue (Files.exists (p));
+    }
+    else
+    {
+      assertFalse (Files.exists (p));
+    }
     assertTrue (Files.exists (p.normalize ()));
     assertFalse (Files.isDirectory (p));
     if (!WIN)
