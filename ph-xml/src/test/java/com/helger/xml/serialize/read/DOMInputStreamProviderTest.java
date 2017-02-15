@@ -20,12 +20,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.xml.serialize.write.XMLWriter;
 
 /**
@@ -41,7 +41,7 @@ public final class DOMInputStreamProviderTest
     final Document doc = DOMReader.readXMLDOM ("<?xml version=\"1.0\"?><root />");
     assertNotNull (doc);
 
-    final InputStream aIS = new DOMInputStreamProvider (doc, CCharset.CHARSET_UTF_8_OBJ).getInputStream ();
+    final InputStream aIS = new DOMInputStreamProvider (doc, StandardCharsets.UTF_8).getInputStream ();
     final Document doc2 = DOMReader.readXMLDOM (aIS);
     assertEquals (XMLWriter.getXMLString (doc), XMLWriter.getXMLString (doc2));
   }

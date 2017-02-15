@@ -18,9 +18,10 @@ package com.helger.xml.serialize.write;
 
 import static org.junit.Assert.assertEquals;
 
+import java.nio.charset.StandardCharsets;
+
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.streamprovider.ByteArrayOutputStreamProvider;
 import com.helger.commons.mock.AbstractCommonsTestCase;
@@ -45,7 +46,7 @@ public final class XMLEmitterTest extends AbstractCommonsTestCase
                   XMLEmitter.getDocTypeHTMLRepresentation (EXMLSerializeVersion.XML_11,
                                                            EXMLIncorrectCharacterHandling.DEFAULT,
                                                            new MicroDocumentType ("qname", "pubid", "sysid")));
-    CommonsTestHelper.testToStringImplementation (new XMLEmitter (new ByteArrayOutputStreamProvider ().getWriter (CCharset.CHARSET_ISO_8859_1_OBJ,
+    CommonsTestHelper.testToStringImplementation (new XMLEmitter (new ByteArrayOutputStreamProvider ().getWriter (StandardCharsets.ISO_8859_1,
                                                                                                                   EAppend.DEFAULT),
                                                                   XMLWriterSettings.DEFAULT_XML_SETTINGS));
   }

@@ -16,6 +16,7 @@
  */
 package com.helger.security.password.salt;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 import javax.annotation.Nonnegative;
@@ -25,7 +26,6 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -64,7 +64,7 @@ public final class PasswordSaltBCrypt implements IPasswordSalt
   {
     ValueEnforcer.isGT0 (nRounds, "Rounds");
     m_sSalt = BCrypt.gensalt (nRounds);
-    m_aBytes = CharsetManager.getAsBytes (m_sSalt, CCharset.CHARSET_UTF_8_OBJ);
+    m_aBytes = CharsetManager.getAsBytes (m_sSalt, StandardCharsets.UTF_8);
   }
 
   @Nonnegative

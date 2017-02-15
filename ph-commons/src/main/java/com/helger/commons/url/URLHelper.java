@@ -30,6 +30,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.BitSet;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +49,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.codec.IDecoder;
 import com.helger.commons.codec.IEncoder;
 import com.helger.commons.collection.CollectionHelper;
@@ -74,7 +74,7 @@ import com.helger.commons.wrapper.IMutableWrapper;
 public final class URLHelper
 {
   /** Default URL charset is UTF-8 */
-  public static final Charset CHARSET_URL_OBJ = CCharset.CHARSET_UTF_8_OBJ;
+  public static final Charset CHARSET_URL_OBJ = StandardCharsets.UTF_8;
 
   /** Separator before first param: ? */
   public static final char QUESTIONMARK = '?';
@@ -392,7 +392,7 @@ public final class URLHelper
     // because XMLMapHandler internally also acquires an XML reader....
     final ICommonsOrderedMap <String, String> aCleanURLMap = new CommonsLinkedHashMap<> ();
     StreamHelper.readStreamLines (ClassPathResource.getInputStream ("codelists/cleanurl-data.dat"),
-                                  CCharset.CHARSET_UTF_8_OBJ,
+                                  StandardCharsets.UTF_8,
                                   sLine -> {
                                     if (sLine.length () > 0 && sLine.charAt (0) == '"')
                                     {

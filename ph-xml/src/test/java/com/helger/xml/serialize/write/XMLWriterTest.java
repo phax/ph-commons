@@ -20,6 +20,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.nio.charset.StandardCharsets;
+
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
@@ -30,7 +32,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
@@ -168,7 +169,7 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
     {
       final String sResult = XMLWriter.getXMLString (doc);
       assertEquals ("<?xml version=\"1.0\" encoding=\"" +
-                    CCharset.CHARSET_UTF_8 +
+                    StandardCharsets.UTF_8.name () +
                     "\"?>" +
                     CRLF +
                     "<!DOCTYPE html PUBLIC \"" +
@@ -201,7 +202,7 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
                                                                                 .setSerializeComments (EXMLSerializeComments.IGNORE)
                                                                                 .setIndent (EXMLSerializeIndent.INDENT_AND_ALIGN));
       assertEquals ("<?xml version=\"1.0\" encoding=\"" +
-                    CCharset.CHARSET_UTF_8 +
+                    StandardCharsets.UTF_8.name () +
                     "\"?>" +
                     CRLF +
                     "<html xmlns=\"" +
@@ -228,7 +229,7 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
                                                                                 .setIndent (EXMLSerializeIndent.INDENT_AND_ALIGN)
                                                                                 .setNewLineMode (ENewLineMode.UNIX));
       assertEquals ("<?xml version=\"1.0\" encoding=\"" +
-                    CCharset.CHARSET_UTF_8 +
+                    StandardCharsets.UTF_8.name () +
                     "\"?>\n" +
                     "<html xmlns=\"" +
                     DOCTYPE_XHTML10_URI +
@@ -251,7 +252,7 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
                                                                                 .setNewLineMode (ENewLineMode.UNIX)
                                                                                 .setIndentationString ("\t"));
       assertEquals ("<?xml version=\"1.0\" encoding=\"" +
-                    CCharset.CHARSET_UTF_8 +
+                    StandardCharsets.UTF_8.name () +
                     "\"?>\n" +
                     "<html xmlns=\"" +
                     DOCTYPE_XHTML10_URI +
@@ -340,7 +341,7 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
     eRoot.appendChild (aDoc.createElementNS ("ns2url", "child1"));
     eRoot.appendChild (aDoc.createElementNS ("ns2url", "child2"));
 
-    final XMLWriterSettings aSettings = new XMLWriterSettings ().setCharset (CCharset.CHARSET_ISO_8859_1_OBJ)
+    final XMLWriterSettings aSettings = new XMLWriterSettings ().setCharset (StandardCharsets.ISO_8859_1)
                                                                 .setIndent (EXMLSerializeIndent.NONE);
     String s = XMLWriter.getNodeAsString (aDoc, aSettings);
     assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>" +
@@ -416,7 +417,7 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
     eRoot.appendChild (aDoc.createElementNS ("ns2url", "child1"));
     eRoot.appendChild (aDoc.createElementNS ("ns2url", "child2"));
 
-    final XMLWriterSettings aSettings = new XMLWriterSettings ().setCharset (CCharset.CHARSET_ISO_8859_1_OBJ)
+    final XMLWriterSettings aSettings = new XMLWriterSettings ().setCharset (StandardCharsets.ISO_8859_1)
                                                                 .setIndent (EXMLSerializeIndent.NONE);
     String s = XMLWriter.getNodeAsString (aDoc, aSettings);
     assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>" +
@@ -472,7 +473,7 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
 
         // Use regular transformer
         final Transformer aTransformer = XMLTransformerFactory.newTransformer ();
-        aTransformer.setOutputProperty (OutputKeys.ENCODING, CCharset.CHARSET_UTF_8);
+        aTransformer.setOutputProperty (OutputKeys.ENCODING, StandardCharsets.UTF_8.name ());
         aTransformer.setOutputProperty (OutputKeys.INDENT, "yes");
         aTransformer.setOutputProperty (OutputKeys.VERSION, EXMLVersion.XML_10.getVersion ());
         final StringStreamResult aRes = new StringStreamResult ();
@@ -496,7 +497,7 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
         eRoot.appendChild (aDoc.createTextNode (sText));
 
         final Transformer aTransformer = XMLTransformerFactory.newTransformer ();
-        aTransformer.setOutputProperty (OutputKeys.ENCODING, CCharset.CHARSET_UTF_8);
+        aTransformer.setOutputProperty (OutputKeys.ENCODING, StandardCharsets.UTF_8.name ());
         aTransformer.setOutputProperty (OutputKeys.INDENT, "no");
         aTransformer.setOutputProperty (OutputKeys.VERSION, EXMLVersion.XML_11.getVersion ());
         final StringStreamResult aRes = new StringStreamResult ();
@@ -512,7 +513,7 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
   public void testAttributesWithNamespaces () throws SAXException
   {
     final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
-                                                                .setCharset (CCharset.CHARSET_ISO_8859_1_OBJ);
+                                                                .setCharset (StandardCharsets.ISO_8859_1);
     final Document aDoc = XMLFactory.newDocument ();
     final Element eRoot = (Element) aDoc.appendChild (aDoc.createElementNS ("ns1url", "root"));
     final Element e1 = (Element) eRoot.appendChild (aDoc.createElementNS ("ns2url", "child1"));

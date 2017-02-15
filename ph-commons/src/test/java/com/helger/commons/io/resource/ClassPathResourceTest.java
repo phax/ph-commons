@@ -27,10 +27,10 @@ import static org.junit.Assert.fail;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.commons.mock.CommonsTestHelper;
@@ -84,8 +84,8 @@ public final class ClassPathResourceTest
       StreamHelper.close (aIS1);
     }
 
-    aCPISP.getReader (CCharset.CHARSET_ISO_8859_1_OBJ).close ();
-    assertNull (new ClassPathResource ("/test1 not existing.txt").getReader (CCharset.CHARSET_ISO_8859_1_OBJ));
+    aCPISP.getReader (StandardCharsets.ISO_8859_1).close ();
+    assertNull (new ClassPathResource ("/test1 not existing.txt").getReader (StandardCharsets.ISO_8859_1));
     assertFalse (new ClassPathResource ("/test1 not existing.txt").existsNoCacheUsage ());
     assertFalse (new ClassPathResource ("/test1 not existing.txt").canRead ());
     assertNotNull (ClassPathResource.getAsFile ("/test1.txt"));

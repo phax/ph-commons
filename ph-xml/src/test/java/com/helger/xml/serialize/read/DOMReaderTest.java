@@ -26,6 +26,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.Reader;
 import java.net.MalformedURLException;
+import java.nio.charset.StandardCharsets;
 
 import javax.xml.validation.Schema;
 
@@ -38,7 +39,6 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 import com.helger.commons.callback.IThrowingRunnable;
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
@@ -88,7 +88,7 @@ public final class DOMReaderTest
     doc = DOMReader.readXMLDOM (new StringSAXInputSource ("<?xml version=\"1.0\"?>\n" + "<root/>"));
     assertNotNull (doc);
     doc = DOMReader.readXMLDOM (new StringInputStream ("<?xml version=\"1.0\"?>\n<root/>",
-                                                       CCharset.CHARSET_ISO_8859_1_OBJ));
+                                                       StandardCharsets.ISO_8859_1));
     assertNotNull (doc);
 
     try
@@ -174,10 +174,10 @@ public final class DOMReaderTest
   @Test
   public void testReadXMLDOMInputStream () throws SAXException
   {
-    Document doc = DOMReader.readXMLDOM (new StringInputStream ("<root/>", CCharset.CHARSET_ISO_8859_1_OBJ));
+    Document doc = DOMReader.readXMLDOM (new StringInputStream ("<root/>", StandardCharsets.ISO_8859_1));
     assertNotNull (doc);
     doc = DOMReader.readXMLDOM (new StringInputStream ("<?xml version=\"1.0\"?>\n<root/>",
-                                                       CCharset.CHARSET_ISO_8859_1_OBJ));
+                                                       StandardCharsets.ISO_8859_1));
     assertNotNull (doc);
 
     try
@@ -199,7 +199,7 @@ public final class DOMReaderTest
     {}
 
     doc = DOMReader.readXMLDOM (new StringInputStream ("<?xml version=\"1.0\"?>\n<root/>",
-                                                       CCharset.CHARSET_ISO_8859_1_OBJ));
+                                                       StandardCharsets.ISO_8859_1));
     assertNotNull (doc);
   }
 
@@ -230,13 +230,13 @@ public final class DOMReaderTest
                                                         .setErrorHandler (new LoggingSAXErrorHandler ()));
     assertNotNull (doc);
 
-    doc = DOMReader.readXMLDOM (new StringInputStream (sValid, CCharset.CHARSET_ISO_8859_1_OBJ),
+    doc = DOMReader.readXMLDOM (new StringInputStream (sValid, StandardCharsets.ISO_8859_1),
                                 new DOMReaderSettings ().setSchema (aSchema));
     assertNotNull (doc);
-    doc = DOMReader.readXMLDOM (new StringInputStream (sValid, CCharset.CHARSET_ISO_8859_1_OBJ),
+    doc = DOMReader.readXMLDOM (new StringInputStream (sValid, StandardCharsets.ISO_8859_1),
                                 new DOMReaderSettings ().setErrorHandler (new LoggingSAXErrorHandler ()));
     assertNotNull (doc);
-    doc = DOMReader.readXMLDOM (new StringInputStream (sValid, CCharset.CHARSET_ISO_8859_1_OBJ),
+    doc = DOMReader.readXMLDOM (new StringInputStream (sValid, StandardCharsets.ISO_8859_1),
                                 new DOMReaderSettings ().setSchema (aSchema)
                                                         .setErrorHandler (new LoggingSAXErrorHandler ()));
     assertNotNull (doc);
@@ -276,10 +276,10 @@ public final class DOMReaderTest
                                 new DOMReaderSettings ().setSchema (aSchema)
                                                         .setErrorHandler (new LoggingSAXErrorHandler ()));
     assertNull (doc);
-    doc = DOMReader.readXMLDOM (new StringInputStream (sInvalid, CCharset.CHARSET_ISO_8859_1_OBJ),
+    doc = DOMReader.readXMLDOM (new StringInputStream (sInvalid, StandardCharsets.ISO_8859_1),
                                 new DOMReaderSettings ().setSchema (aSchema));
     assertNull (doc);
-    doc = DOMReader.readXMLDOM (new StringInputStream (sInvalid, CCharset.CHARSET_ISO_8859_1_OBJ),
+    doc = DOMReader.readXMLDOM (new StringInputStream (sInvalid, StandardCharsets.ISO_8859_1),
                                 new DOMReaderSettings ().setSchema (aSchema)
                                                         .setErrorHandler (new LoggingSAXErrorHandler ()));
     assertNull (doc);
@@ -370,7 +370,7 @@ public final class DOMReaderTest
     final File aFile = new File ("src/test/resources/test1.txt");
     assertTrue (aFile.exists ());
     final String sFileContent = StreamHelper.getAllBytesAsString (new FileSystemResource (aFile),
-                                                                  CCharset.CHARSET_ISO_8859_1_OBJ);
+                                                                  StandardCharsets.ISO_8859_1);
 
     // The XML with XXE problem
     final String sXML = "<?xml version='1.0' encoding='utf-8'?>" +

@@ -17,6 +17,7 @@
 package com.helger.commons.codec;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -24,7 +25,6 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.base64.Base64;
-import com.helger.commons.charset.CCharset;
 
 /**
  * Identical to the Base64 encoding defined by
@@ -49,7 +49,7 @@ public class RFC1522BCodec extends AbstractRFC1522Codec
    */
   public RFC1522BCodec ()
   {
-    this (CCharset.CHARSET_UTF_8_OBJ);
+    this (StandardCharsets.UTF_8);
   }
 
   /**

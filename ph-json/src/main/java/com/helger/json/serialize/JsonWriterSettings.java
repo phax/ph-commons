@@ -16,12 +16,13 @@
  */
 package com.helger.json.serialize;
 
+import java.nio.charset.StandardCharsets;
+
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.system.ENewLineMode;
@@ -138,10 +139,10 @@ public class JsonWriterSettings implements IJsonWriterSettings
     return new ToStringGenerator (this).append ("IndentEnabled", m_bIndentEnabled)
                                        .append ("IndentString",
                                                 StringHelper.getHexEncoded (m_sIndentString,
-                                                                            CCharset.CHARSET_ISO_8859_1_OBJ))
+                                                                            StandardCharsets.ISO_8859_1))
                                        .append ("NewlineString",
                                                 StringHelper.getHexEncoded (m_sNewlineString,
-                                                                            CCharset.CHARSET_ISO_8859_1_OBJ))
+                                                                            StandardCharsets.ISO_8859_1))
                                        .append ("WriteNewlineAtEnd", m_bWriteNewlineAtEnd)
                                        .append ("QuoteNames", m_bQuoteNames)
                                        .toString ();

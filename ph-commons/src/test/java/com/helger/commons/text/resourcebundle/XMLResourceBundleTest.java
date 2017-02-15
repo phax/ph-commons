@@ -23,13 +23,13 @@ import static org.junit.Assert.fail;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.MissingResourceException;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.mock.AbstractCommonsTestCase;
@@ -54,7 +54,7 @@ public final class XMLResourceBundleTest extends AbstractCommonsTestCase
       p.setProperty ("prop2", "äöü");
       try (final OutputStream aOS = FileHelper.getOutputStream (aFile))
       {
-        p.storeToXML (aOS, null, CCharset.CHARSET_UTF_8);
+        p.storeToXML (aOS, null, StandardCharsets.UTF_8.name ());
       }
 
       // Read again

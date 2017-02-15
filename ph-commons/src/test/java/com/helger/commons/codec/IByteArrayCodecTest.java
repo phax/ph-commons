@@ -19,11 +19,12 @@ package com.helger.commons.codec;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.nio.charset.StandardCharsets;
+
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.random.RandomHelper;
@@ -71,8 +72,8 @@ public final class IByteArrayCodecTest
   private void _testCodec (@Nonnull final IByteArrayCodec c)
   {
     _testCodec (c, new byte [0]);
-    _testCodec (c, CharsetManager.getAsBytes ("Hallo JÜnit", CCharset.CHARSET_ISO_8859_1_OBJ));
-    _testCodec (c, CharsetManager.getAsBytes ("Hallo JÜnit", CCharset.CHARSET_UTF_8_OBJ));
+    _testCodec (c, CharsetManager.getAsBytes ("Hallo JÜnit", StandardCharsets.ISO_8859_1));
+    _testCodec (c, CharsetManager.getAsBytes ("Hallo JÜnit", StandardCharsets.UTF_8));
 
     // Get random bytes
     final byte [] aRandomBytes = new byte [256];

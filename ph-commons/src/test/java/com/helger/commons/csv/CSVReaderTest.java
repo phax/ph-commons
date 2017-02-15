@@ -42,11 +42,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
@@ -624,7 +624,7 @@ public final class CSVReaderTest
     final NonBlockingByteArrayInputStream bais = new NonBlockingByteArrayInputStream (bytes);
     final ReadableByteChannel ch = Channels.newChannel (bais);
     final InputStream in = Channels.newInputStream (ch);
-    final InputStreamReader reader = new InputStreamReader (in, CCharset.CHARSET_UTF_8_OBJ);
+    final InputStreamReader reader = new InputStreamReader (in, StandardCharsets.UTF_8);
     try (final CSVReader csv = new CSVReader (reader).setVerifyReader (false))
     {
       assertEquals (2, csv.readAll ().size ());

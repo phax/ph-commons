@@ -17,6 +17,7 @@
 package com.helger.commons.codec;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.BitSet;
 
 import javax.annotation.Nonnegative;
@@ -24,7 +25,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.charset.CCharset;
 
 /**
  * Similar to the Quoted-Printable content-transfer-encoding defined in
@@ -116,7 +116,7 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
    */
   public RFC1522QCodec ()
   {
-    this (CCharset.CHARSET_UTF_8_OBJ);
+    this (StandardCharsets.UTF_8);
   }
 
   /**

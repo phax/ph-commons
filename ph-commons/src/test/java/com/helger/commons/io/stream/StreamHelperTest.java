@@ -32,11 +32,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.exception.mock.MockIOException;
 import com.helger.commons.io.IHasInputStream;
@@ -138,7 +138,7 @@ public final class StreamHelperTest
   @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testCopyInputStreamToOutputStream ()
   {
-    final byte [] aInput = CharsetManager.getAsBytes ("Hallo", CCharset.CHARSET_ISO_8859_1_OBJ);
+    final byte [] aInput = CharsetManager.getAsBytes ("Hallo", StandardCharsets.ISO_8859_1);
     final NonBlockingByteArrayInputStream bais = new NonBlockingByteArrayInputStream (aInput);
     final NonBlockingByteArrayOutputStream baos = new NonBlockingByteArrayOutputStream ();
     assertTrue (StreamHelper.copyInputStreamToOutputStream (bais, baos).isSuccess ());
@@ -186,31 +186,31 @@ public final class StreamHelperTest
   @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testCopyInputStreamToOutputStreamWithLimit ()
   {
-    final byte [] aInput = CharsetManager.getAsBytes ("Hello12Bytes", CCharset.CHARSET_ISO_8859_1_OBJ);
+    final byte [] aInput = CharsetManager.getAsBytes ("Hello12Bytes", StandardCharsets.ISO_8859_1);
     final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
     assertTrue (StreamHelper.copyInputStreamToOutputStreamWithLimit (new NonBlockingByteArrayInputStream (aInput),
                                                                      aBAOS,
                                                                      5)
                             .isSuccess ());
-    assertEquals ("Hello", aBAOS.getAsString (CCharset.CHARSET_ISO_8859_1_OBJ));
+    assertEquals ("Hello", aBAOS.getAsString (StandardCharsets.ISO_8859_1));
     aBAOS.reset ();
     assertTrue (StreamHelper.copyInputStreamToOutputStreamWithLimit (new NonBlockingByteArrayInputStream (aInput),
                                                                      aBAOS,
                                                                      7)
                             .isSuccess ());
-    assertEquals ("Hello12", aBAOS.getAsString (CCharset.CHARSET_ISO_8859_1_OBJ));
+    assertEquals ("Hello12", aBAOS.getAsString (StandardCharsets.ISO_8859_1));
     aBAOS.reset ();
     assertTrue (StreamHelper.copyInputStreamToOutputStreamWithLimit (new NonBlockingByteArrayInputStream (aInput),
                                                                      aBAOS,
                                                                      0)
                             .isSuccess ());
-    assertEquals ("", aBAOS.getAsString (CCharset.CHARSET_ISO_8859_1_OBJ));
+    assertEquals ("", aBAOS.getAsString (StandardCharsets.ISO_8859_1));
     aBAOS.reset ();
     assertTrue (StreamHelper.copyInputStreamToOutputStreamWithLimit (new NonBlockingByteArrayInputStream (aInput),
                                                                      aBAOS,
                                                                      9999)
                             .isSuccess ());
-    assertEquals ("Hello12Bytes", aBAOS.getAsString (CCharset.CHARSET_ISO_8859_1_OBJ));
+    assertEquals ("Hello12Bytes", aBAOS.getAsString (StandardCharsets.ISO_8859_1));
     aBAOS.reset ();
 
     try
@@ -226,7 +226,7 @@ public final class StreamHelperTest
   @Test
   public void testGetAvailable ()
   {
-    final byte [] aInput = CharsetManager.getAsBytes ("Hallo", CCharset.CHARSET_ISO_8859_1_OBJ);
+    final byte [] aInput = CharsetManager.getAsBytes ("Hallo", StandardCharsets.ISO_8859_1);
     assertEquals (5, StreamHelper.getAvailable (new NonBlockingByteArrayInputStream (aInput)));
     assertEquals (0, StreamHelper.getAvailable ((InputStream) null));
     assertEquals (0, StreamHelper.getAvailable (new WrappedInputStream (new NonBlockingByteArrayInputStream (aInput))
@@ -244,7 +244,7 @@ public final class StreamHelperTest
   public void testGetAllBytesCharset ()
   {
     final String sInput = "Hallo";
-    final byte [] aInput = CharsetManager.getAsBytes (sInput, CCharset.CHARSET_ISO_8859_1_OBJ);
+    final byte [] aInput = CharsetManager.getAsBytes (sInput, StandardCharsets.ISO_8859_1);
     assertArrayEquals (aInput, StreamHelper.getAllBytes (new ByteArrayInputStreamProvider (aInput)));
     assertArrayEquals (aInput, StreamHelper.getAllBytes (new NonBlockingByteArrayInputStream (aInput)));
     assertNull (StreamHelper.getAllBytes ((IHasInputStream) null));
@@ -252,12 +252,12 @@ public final class StreamHelperTest
 
     assertEquals (sInput,
                   StreamHelper.getAllBytesAsString (new ByteArrayInputStreamProvider (aInput),
-                                                    CCharset.CHARSET_ISO_8859_1_OBJ));
+                                                    StandardCharsets.ISO_8859_1));
     assertEquals (sInput,
                   StreamHelper.getAllBytesAsString (new NonBlockingByteArrayInputStream (aInput),
-                                                    CCharset.CHARSET_ISO_8859_1_OBJ));
-    assertNull (StreamHelper.getAllBytesAsString ((IHasInputStream) null, CCharset.CHARSET_ISO_8859_1_OBJ));
-    assertNull (StreamHelper.getAllBytesAsString ((InputStream) null, CCharset.CHARSET_ISO_8859_1_OBJ));
+                                                    StandardCharsets.ISO_8859_1));
+    assertNull (StreamHelper.getAllBytesAsString ((IHasInputStream) null, StandardCharsets.ISO_8859_1));
+    assertNull (StreamHelper.getAllBytesAsString ((InputStream) null, StandardCharsets.ISO_8859_1));
     try
     {
       StreamHelper.getAllBytesAsString (new NonBlockingByteArrayInputStream (aInput), (Charset) null);
@@ -271,46 +271,46 @@ public final class StreamHelperTest
   @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testReadLines ()
   {
-    assertNull (StreamHelper.readStreamLines ((IReadableResource) null, CCharset.CHARSET_ISO_8859_1_OBJ));
-    assertNull (StreamHelper.readStreamLines (new ClassPathResource ("gibts-ned"), CCharset.CHARSET_ISO_8859_1_OBJ));
+    assertNull (StreamHelper.readStreamLines ((IReadableResource) null, StandardCharsets.ISO_8859_1));
+    assertNull (StreamHelper.readStreamLines (new ClassPathResource ("gibts-ned"), StandardCharsets.ISO_8859_1));
     assertNull (StreamHelper.readStreamLines (ClassPathResource.getInputStream ("gibts-ned"),
-                                              CCharset.CHARSET_ISO_8859_1_OBJ));
+                                              StandardCharsets.ISO_8859_1));
 
     final IReadableResource aRes = new ClassPathResource ("streamutils-lines");
 
     // Read all lines
-    List <String> aLines = StreamHelper.readStreamLines (aRes, CCharset.CHARSET_UTF_8_OBJ);
+    List <String> aLines = StreamHelper.readStreamLines (aRes, StandardCharsets.UTF_8);
     assertNotNull (aLines);
     assertEquals (10, aLines.size ());
     for (int i = 0; i < 10; ++i)
       assertEquals (Integer.toString (i + 1), aLines.get (i));
 
     // Read only partial amount of lines
-    aLines = StreamHelper.readStreamLines (aRes, CCharset.CHARSET_UTF_8_OBJ, 2, 4);
+    aLines = StreamHelper.readStreamLines (aRes, StandardCharsets.UTF_8, 2, 4);
     assertNotNull (aLines);
     assertEquals (4, aLines.size ());
     for (int i = 0; i < 4; ++i)
       assertEquals (Integer.toString (i + 3), aLines.get (i));
 
     // Skip more than available
-    aLines = StreamHelper.readStreamLines (aRes, CCharset.CHARSET_UTF_8_OBJ, Integer.MAX_VALUE, Integer.MAX_VALUE);
+    aLines = StreamHelper.readStreamLines (aRes, StandardCharsets.UTF_8, Integer.MAX_VALUE, Integer.MAX_VALUE);
     assertNotNull (aLines);
     assertEquals (0, aLines.size ());
 
     // Try to read more than available
-    aLines = StreamHelper.readStreamLines (aRes, CCharset.CHARSET_UTF_8_OBJ, 9, Integer.MAX_VALUE);
+    aLines = StreamHelper.readStreamLines (aRes, StandardCharsets.UTF_8, 9, Integer.MAX_VALUE);
     assertNotNull (aLines);
     assertEquals (1, aLines.size ());
 
     // Read 0 lines
-    aLines = StreamHelper.readStreamLines (aRes, CCharset.CHARSET_UTF_8_OBJ, 0, 0);
+    aLines = StreamHelper.readStreamLines (aRes, StandardCharsets.UTF_8, 0, 0);
     assertNotNull (aLines);
     assertEquals (0, aLines.size ());
 
     try
     {
       // Lines to skip may not be negative
-      StreamHelper.readStreamLines (aRes, CCharset.CHARSET_UTF_8_OBJ, -1, 4);
+      StreamHelper.readStreamLines (aRes, StandardCharsets.UTF_8, -1, 4);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -321,7 +321,7 @@ public final class StreamHelperTest
     try
     {
       // Lines to read may not be negative
-      StreamHelper.readStreamLines (aRes, CCharset.CHARSET_UTF_8_OBJ, 0, -2);
+      StreamHelper.readStreamLines (aRes, StandardCharsets.UTF_8, 0, -2);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -334,9 +334,9 @@ public final class StreamHelperTest
   public void testGetAllBytesAsString ()
   {
     final IReadableResource aRes = new ClassPathResource ("streamutils-bytes");
-    assertEquals ("abc", StreamHelper.getAllBytesAsString (aRes, CCharset.CHARSET_UTF_8_OBJ));
+    assertEquals ("abc", StreamHelper.getAllBytesAsString (aRes, StandardCharsets.UTF_8));
     // Non existing
-    assertNull (StreamHelper.getAllBytesAsString (new ClassPathResource ("bla fasel"), CCharset.CHARSET_UTF_8_OBJ));
+    assertNull (StreamHelper.getAllBytesAsString (new ClassPathResource ("bla fasel"), StandardCharsets.UTF_8));
   }
 
   @Test
@@ -432,11 +432,11 @@ public final class StreamHelperTest
   @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testWriteStream ()
   {
-    final byte [] buf = CharsetManager.getAsBytes ("abcde", CCharset.CHARSET_ISO_8859_1_OBJ);
+    final byte [] buf = CharsetManager.getAsBytes ("abcde", StandardCharsets.ISO_8859_1);
     final NonBlockingByteArrayOutputStream os = new NonBlockingByteArrayOutputStream ();
     assertTrue (StreamHelper.writeStream (os, buf).isSuccess ());
     assertTrue (StreamHelper.writeStream (os, buf, 0, buf.length).isSuccess ());
-    assertTrue (StreamHelper.writeStream (os, "anyäöü", CCharset.CHARSET_ISO_8859_1_OBJ).isSuccess ());
+    assertTrue (StreamHelper.writeStream (os, "anyäöü", StandardCharsets.ISO_8859_1).isSuccess ());
 
     // The byte array version
     try
@@ -477,7 +477,7 @@ public final class StreamHelperTest
 
     try
     {
-      StreamHelper.writeStream (os, null, CCharset.CHARSET_ISO_8859_1_OBJ);
+      StreamHelper.writeStream (os, null, StandardCharsets.ISO_8859_1);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -498,9 +498,9 @@ public final class StreamHelperTest
   @Test
   public void testCreateReader ()
   {
-    assertNull (StreamHelper.createReader (null, CCharset.CHARSET_ISO_8859_1_OBJ));
+    assertNull (StreamHelper.createReader (null, StandardCharsets.ISO_8859_1));
     final NonBlockingByteArrayInputStream is = new NonBlockingByteArrayInputStream (new byte [4]);
-    assertNotNull (StreamHelper.createReader (is, CCharset.CHARSET_ISO_8859_1_OBJ));
+    assertNotNull (StreamHelper.createReader (is, StandardCharsets.ISO_8859_1));
 
     try
     {
@@ -514,9 +514,9 @@ public final class StreamHelperTest
   @Test
   public void testCreateWriter ()
   {
-    assertNull (StreamHelper.createWriter (null, CCharset.CHARSET_ISO_8859_1_OBJ));
+    assertNull (StreamHelper.createWriter (null, StandardCharsets.ISO_8859_1));
     final NonBlockingByteArrayOutputStream os = new NonBlockingByteArrayOutputStream ();
-    assertNotNull (StreamHelper.createWriter (os, CCharset.CHARSET_ISO_8859_1_OBJ));
+    assertNotNull (StreamHelper.createWriter (os, StandardCharsets.ISO_8859_1));
 
     try
     {

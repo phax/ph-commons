@@ -24,12 +24,12 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.codec.Base32Codec;
 import com.helger.commons.string.StringHelper;
@@ -41,7 +41,7 @@ import com.helger.commons.string.StringHelper;
  */
 public final class EMessageDigestAlgorithmTest
 {
-  private static final Charset CHARSET = CCharset.DEFAULT_CHARSET_OBJ;
+  private static final Charset CHARSET = StandardCharsets.UTF_8;
 
   @Test
   public void testAll ()
@@ -72,7 +72,7 @@ public final class EMessageDigestAlgorithmTest
       final MessageDigest aMD2 = eAlgo.createMessageDigest ();
       for (int i = 0; i < 255; ++i)
       {
-        final byte [] aBytes = CharsetManager.getAsBytes ("abc" + i + "def", CCharset.CHARSET_ISO_8859_1_OBJ);
+        final byte [] aBytes = CharsetManager.getAsBytes ("abc" + i + "def", StandardCharsets.ISO_8859_1);
         aMD1.update ((byte) i);
         aMD1.update (aBytes);
         aMD2.update ((byte) i);

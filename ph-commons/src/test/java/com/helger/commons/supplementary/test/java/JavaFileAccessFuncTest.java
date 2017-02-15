@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -32,7 +33,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.file.FileHelper;
@@ -62,7 +62,7 @@ public final class JavaFileAccessFuncTest
     {
       try
       {
-        final InputStreamReader aISR = new InputStreamReader (m_aIS, CCharset.CHARSET_ISO_8859_1_OBJ);
+        final InputStreamReader aISR = new InputStreamReader (m_aIS, StandardCharsets.ISO_8859_1);
         final BufferedReader aBR = new BufferedReader (aISR);
         String line;
         while ((line = aBR.readLine ()) != null)
@@ -130,7 +130,7 @@ public final class JavaFileAccessFuncTest
                       final File fFile = new File (fTempDir, sPrefix + sMod + ".dat");
                       if (SimpleFileIO.writeFile (fFile,
                                                   CharsetManager.getAsBytes ("content",
-                                                                             CCharset.CHARSET_ISO_8859_1_OBJ))
+                                                                             StandardCharsets.ISO_8859_1))
                                       .isSuccess ())
                         _exec ("chmod", sMod, fFile.getAbsolutePath ());
 

@@ -22,6 +22,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Properties;
@@ -30,7 +31,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.WillNotClose;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.io.stream.NonBlockingBufferedWriter;
 import com.helger.commons.io.stream.StreamHelper;
@@ -823,7 +823,7 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
    */
   public void store (@Nonnull @WillNotClose final OutputStream aOS, @Nullable final String sComments) throws IOException
   {
-    _store (new NonBlockingBufferedWriter (new OutputStreamWriter (aOS, CCharset.CHARSET_ISO_8859_1_OBJ)),
+    _store (new NonBlockingBufferedWriter (new OutputStreamWriter (aOS, StandardCharsets.ISO_8859_1)),
             sComments,
             true);
   }

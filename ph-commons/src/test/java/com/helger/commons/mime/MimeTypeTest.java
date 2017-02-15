@@ -24,9 +24,10 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.nio.charset.StandardCharsets;
+
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
 
@@ -57,7 +58,7 @@ public final class MimeTypeTest extends AbstractCommonsTestCase
     CommonsTestHelper.testGetClone (mt);
     CommonsTestHelper.testDefaultSerialization (mt);
 
-    mt.addParameter ("charset", CCharset.CHARSET_UTF_8);
+    mt.addParameter ("charset", StandardCharsets.UTF_8.name ());
     CommonsTestHelper.testGetClone (mt);
     CommonsTestHelper.testDefaultSerialization (mt);
 

@@ -16,6 +16,7 @@
  */
 package com.helger.commons.system;
 
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -30,7 +31,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 
 /**
@@ -89,7 +89,7 @@ public final class CryptoPolicy
       // Not using padding so # bytes must be multiple of AES cipher
       // block size which is 16 bytes. Also, OK not to use UTF-8 here.
       final byte [] aEncrypted = aCipher.doFinal (CharsetManager.getAsBytes ("1234567890123456",
-                                                                             CCharset.CHARSET_ISO_8859_1_OBJ));
+                                                                             StandardCharsets.ISO_8859_1));
       if (aEncrypted == null)
         throw new IllegalStateException ("Encryption of test string failed!");
       final ExemptionMechanism aExempt = aCipher.getExemptionMechanism ();

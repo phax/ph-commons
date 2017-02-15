@@ -33,6 +33,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 @Immutable
 @SuppressFBWarnings ("NP_NONNULL_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
+@Deprecated
 public final class CCharset
 {
   /**
@@ -41,9 +42,8 @@ public final class CCharset
    */
   @Nonnull
   public static final String CHARSET_ISO_8859_1 = StandardCharsets.ISO_8859_1.name ();
-
   /**
-   * The ISO-8859-1 charset object.
+   * The US-ASCII charset object.
    */
   @Nonnull
   public static final Charset CHARSET_ISO_8859_1_OBJ = StandardCharsets.ISO_8859_1;
@@ -114,25 +114,25 @@ public final class CCharset
    * UTF-8.
    */
   @Nonnull
-  public static final String DEFAULT_CHARSET = CHARSET_UTF_8;
+  public static final String DEFAULT_CHARSET = StandardCharsets.UTF_8.name ();
 
   /**
    * The default charset object. Currently this is UTF-8.
    */
   @Nonnull
-  public static final Charset DEFAULT_CHARSET_OBJ = CharsetManager.getCharsetFromName (DEFAULT_CHARSET);
+  public static final Charset DEFAULT_CHARSET_OBJ = StandardCharsets.UTF_8;
 
   /**
    * The charset used by the ServiceLoader to read the service files.
    */
   @Nonnull
-  public static final String CHARSET_SERVICE_LOADER = CHARSET_UTF_8;
+  public static final String CHARSET_SERVICE_LOADER = StandardCharsets.UTF_8.name ();
 
   /**
    * The charset used by the ServiceLoader to read the service files.
    */
   @Nonnull
-  public static final Charset CHARSET_SERVICE_LOADER_OBJ = CHARSET_UTF_8_OBJ;
+  public static final Charset CHARSET_SERVICE_LOADER_OBJ = StandardCharsets.UTF_8;
 
   /**
    * The non-standard Windows 1252 charset name.

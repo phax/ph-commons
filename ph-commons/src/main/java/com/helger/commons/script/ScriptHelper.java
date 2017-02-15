@@ -17,13 +17,12 @@
 package com.helger.commons.script;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
-
-import com.helger.commons.charset.CCharset;
 
 /**
  * Helper class for javax.script package.
@@ -33,7 +32,7 @@ import com.helger.commons.charset.CCharset;
 @Immutable
 public final class ScriptHelper
 {
-  public static final Charset DEFAULT_SCRIPT_CHARSET = CCharset.CHARSET_ISO_8859_1_OBJ;
+  public static final Charset DEFAULT_SCRIPT_CHARSET = StandardCharsets.ISO_8859_1;
 
   private static final ScriptEngineManager s_aScriptFactory = new ScriptEngineManager ();
 

@@ -27,10 +27,10 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
@@ -89,7 +89,7 @@ public final class URLResourceTest extends AbstractCommonsTestCase
     assertTrue (aBytes.length > 0);
     assertNotNull (ur.getAsURL ());
     assertNotNull (ur.getAsFile ());
-    ur.getReader (CCharset.CHARSET_ISO_8859_1_OBJ).close ();
+    ur.getReader (StandardCharsets.ISO_8859_1).close ();
 
     final URL aNoNExistingURL = new File ("pom2.xml").toURI ().toURL ();
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ur, new URLResource (aFileURL));
@@ -123,11 +123,11 @@ public final class URLResourceTest extends AbstractCommonsTestCase
     {
       assertNull (aIS);
     }
-    try (final Reader aReader = new URLResource (aFileURL).getReader (CCharset.CHARSET_ISO_8859_1_OBJ))
+    try (final Reader aReader = new URLResource (aFileURL).getReader (StandardCharsets.ISO_8859_1))
     {
       assertNotNull (aReader);
     }
-    try (final Reader aReader = new URLResource (aNoNExistingURL).getReader (CCharset.CHARSET_ISO_8859_1_OBJ))
+    try (final Reader aReader = new URLResource (aNoNExistingURL).getReader (StandardCharsets.ISO_8859_1))
     {
       assertNull (aReader);
     }

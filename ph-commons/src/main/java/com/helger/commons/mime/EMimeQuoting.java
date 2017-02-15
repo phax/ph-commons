@@ -16,12 +16,12 @@
  */
 package com.helger.commons.mime;
 
+import java.nio.charset.StandardCharsets;
 import java.util.BitSet;
 
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.codec.DecodeException;
 import com.helger.commons.codec.EncodeException;
 import com.helger.commons.codec.QuotedPrintableCodec;
@@ -83,7 +83,7 @@ public enum EMimeQuoting
     {
       // Use a special BitSet
       return new QuotedPrintableCodec (PRINTABLE_QUOTED_PRINTABLE).getEncodedAsString (sUnquotedString,
-                                                                                       CCharset.CHARSET_UTF_8_OBJ);
+                                                                                       StandardCharsets.UTF_8);
     }
 
     @Override
@@ -92,7 +92,7 @@ public enum EMimeQuoting
     public String getUnquotedString (@Nonnull @Nonempty final String sQuotedString)
     {
       // Use default BitSet for decoding!
-      return new QuotedPrintableCodec ().getDecodedAsString (sQuotedString, CCharset.CHARSET_UTF_8_OBJ);
+      return new QuotedPrintableCodec ().getDecodedAsString (sQuotedString, StandardCharsets.UTF_8);
     }
   },
 
@@ -110,7 +110,7 @@ public enum EMimeQuoting
     public String getQuotedString (@Nonnull @Nonempty final String sUnquotedString)
     {
       // Use a special BitSet
-      return new URLCodec (PRINTABLE_URL).getEncodedAsString (sUnquotedString, CCharset.CHARSET_UTF_8_OBJ);
+      return new URLCodec (PRINTABLE_URL).getEncodedAsString (sUnquotedString, StandardCharsets.UTF_8);
     }
 
     @Override
@@ -118,7 +118,7 @@ public enum EMimeQuoting
     @Nonempty
     public String getUnquotedString (@Nonnull @Nonempty final String sQuotedString)
     {
-      return new URLCodec (PRINTABLE_URL).getDecodedAsString (sQuotedString, CCharset.CHARSET_UTF_8_OBJ);
+      return new URLCodec (PRINTABLE_URL).getDecodedAsString (sQuotedString, StandardCharsets.UTF_8);
     }
   };
 

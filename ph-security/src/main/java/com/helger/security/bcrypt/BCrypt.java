@@ -16,12 +16,12 @@
  */
 package com.helger.security.bcrypt;
 
+import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.random.VerySecureRandom;
 
@@ -1684,7 +1684,7 @@ public class BCrypt
     final int rounds = Integer.parseInt (sSalt.substring (off, off + 2));
 
     final String real_salt = sSalt.substring (off + 3, off + 25);
-    final byte [] passwordb = (sPassword + (minor >= 'a' ? "\000" : "")).getBytes (CCharset.CHARSET_UTF_8_OBJ);
+    final byte [] passwordb = (sPassword + (minor >= 'a' ? "\000" : "")).getBytes (StandardCharsets.UTF_8);
     final byte [] saltb = _decode_base64 (real_salt, BCRYPT_SALT_LEN);
     final BCrypt B = new BCrypt ();
     final byte [] hashed = B.crypt_raw (passwordb, saltb, rounds, BF_CRYPT_CIPHERTEXT.clone ());
@@ -1774,8 +1774,8 @@ public class BCrypt
   public static boolean checkpw (@Nonnull final String sPlaintext, @Nonnull final String sHashed)
   {
     final String sNewHashed = hashpw (sPlaintext, sHashed);
-    final byte [] aHashedBytes = sHashed.getBytes (CCharset.CHARSET_UTF_8_OBJ);
-    final byte [] aTryBytes = sNewHashed.getBytes (CCharset.CHARSET_UTF_8_OBJ);
+    final byte [] aHashedBytes = sHashed.getBytes (StandardCharsets.UTF_8);
+    final byte [] aTryBytes = sNewHashed.getBytes (StandardCharsets.UTF_8);
     if (aHashedBytes.length != aTryBytes.length)
       return false;
     byte ret = 0;

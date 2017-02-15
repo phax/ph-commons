@@ -23,10 +23,10 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.mock.CommonsTestHelper;
 
@@ -253,7 +253,7 @@ public final class FileOperationManagerTest
       _expectedError (aFOM.renameFile (aFile, aFile2), EFileIOErrorCode.SOURCE_DOES_NOT_EXIST);
       assertEquals (EFileIOOperation.RENAME_FILE, aFOM.getLastOperation ());
 
-      SimpleFileIO.writeFile (aFile, CharsetManager.getAsBytes ("hhsad", CCharset.CHARSET_ISO_8859_1_OBJ));
+      SimpleFileIO.writeFile (aFile, CharsetManager.getAsBytes ("hhsad", StandardCharsets.ISO_8859_1));
       assertTrue (FileHelper.existsFile (aFile));
       assertFalse (FileHelper.existsFile (aFile2));
       _expectedSuccess (aFOM.renameFile (aFile, aFile2));
@@ -282,7 +282,7 @@ public final class FileOperationManagerTest
       _expectedError (aFOM.deleteFile (aFile), EFileIOErrorCode.SOURCE_DOES_NOT_EXIST);
       assertEquals (EFileIOOperation.DELETE_FILE, aFOM.getLastOperation ());
 
-      SimpleFileIO.writeFile (aFile, CharsetManager.getAsBytes ("xxx", CCharset.CHARSET_ISO_8859_1_OBJ));
+      SimpleFileIO.writeFile (aFile, CharsetManager.getAsBytes ("xxx", StandardCharsets.ISO_8859_1));
       _expectedSuccess (aFOM.deleteFile (aFile));
       assertEquals (EFileIOOperation.DELETE_FILE, aFOM.getLastOperation ());
       assertFalse (FileHelper.existsFile (aFile));
@@ -305,7 +305,7 @@ public final class FileOperationManagerTest
       _expectedSuccess (aFOM.deleteFileIfExisting (aFile));
       assertEquals (EFileIOOperation.DELETE_FILE, aFOM.getLastOperation ());
 
-      SimpleFileIO.writeFile (aFile, CharsetManager.getAsBytes ("xxx", CCharset.CHARSET_ISO_8859_1_OBJ));
+      SimpleFileIO.writeFile (aFile, CharsetManager.getAsBytes ("xxx", StandardCharsets.ISO_8859_1));
       _expectedSuccess (aFOM.deleteFileIfExisting (aFile));
       assertEquals (EFileIOOperation.DELETE_FILE, aFOM.getLastOperation ());
       assertFalse (FileHelper.existsFile (aFile));
@@ -407,7 +407,7 @@ public final class FileOperationManagerTest
       assertFalse (FileHelper.existsFile (aFile));
       _expectedError (aFOM.deleteFile (aFile), EFileIOErrorCode.SOURCE_DOES_NOT_EXIST);
       assertEquals (EFileIOOperation.DELETE_FILE, aFOM.getLastOperation ());
-      SimpleFileIO.writeFile (aFile, CharsetManager.getAsBytes ("hudriwudri", CCharset.CHARSET_ISO_8859_1_OBJ));
+      SimpleFileIO.writeFile (aFile, CharsetManager.getAsBytes ("hudriwudri", StandardCharsets.ISO_8859_1));
       _expectedError (aFOM.copyDirRecursive (aFile, aFile2), EFileIOErrorCode.SOURCE_DOES_NOT_EXIST);
       assertEquals (EFileIOOperation.COPY_DIR_RECURSIVE, aFOM.getLastOperation ());
       assertTrue (FileHelper.existsFile (aFile));

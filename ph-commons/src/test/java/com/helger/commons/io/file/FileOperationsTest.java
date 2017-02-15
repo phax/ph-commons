@@ -24,12 +24,12 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 
 /**
@@ -288,10 +288,10 @@ public final class FileOperationsTest
     assertFalse (FileHelper.existsFile (aFile));
     try
     {
-      SimpleFileIO.writeFile (aFile, CharsetManager.getAsBytes ("abc", CCharset.CHARSET_ISO_8859_1_OBJ));
+      SimpleFileIO.writeFile (aFile, CharsetManager.getAsBytes ("abc", StandardCharsets.ISO_8859_1));
       assertTrue (FileHelper.existsFile (aFile));
 
-      SimpleFileIO.writeFile (aFile2, CharsetManager.getAsBytes ("abc", CCharset.CHARSET_ISO_8859_1_OBJ));
+      SimpleFileIO.writeFile (aFile2, CharsetManager.getAsBytes ("abc", StandardCharsets.ISO_8859_1));
       _expectedError (FileOperations.renameFile (aFile, aFile2), EFileIOErrorCode.TARGET_ALREADY_EXISTS);
       _expectedSuccess (FileOperations.deleteFile (aFile2));
 
@@ -337,10 +337,10 @@ public final class FileOperationsTest
 
       _expectedError (FileOperations.copyFile (aFile, aFile2), EFileIOErrorCode.SOURCE_DOES_NOT_EXIST);
 
-      SimpleFileIO.writeFile (aFile, CharsetManager.getAsBytes ("abc", CCharset.CHARSET_ISO_8859_1_OBJ));
+      SimpleFileIO.writeFile (aFile, CharsetManager.getAsBytes ("abc", StandardCharsets.ISO_8859_1));
       assertTrue (FileHelper.existsFile (aFile));
 
-      SimpleFileIO.writeFile (aFile2, CharsetManager.getAsBytes ("abc", CCharset.CHARSET_ISO_8859_1_OBJ));
+      SimpleFileIO.writeFile (aFile2, CharsetManager.getAsBytes ("abc", StandardCharsets.ISO_8859_1));
       _expectedError (FileOperations.copyFile (aFile, aFile2), EFileIOErrorCode.TARGET_ALREADY_EXISTS);
       _expectedSuccess (FileOperations.deleteFile (aFile2));
 
@@ -395,10 +395,10 @@ public final class FileOperationsTest
                       EFileIOErrorCode.TARGET_ALREADY_EXISTS);
 
       for (int i = 1; i <= 10; ++i)
-        SimpleFileIO.writeFile (new File (fDir, "file" + i), "Hallo", CCharset.CHARSET_ISO_8859_1_OBJ);
+        SimpleFileIO.writeFile (new File (fDir, "file" + i), "Hallo", StandardCharsets.ISO_8859_1);
       _expectedSuccess (FileOperations.createDir (new File (fDir, "subdir")));
       for (int i = 1; i <= 10; ++i)
-        SimpleFileIO.writeFile (new File (fDir, "subdir/file" + i), "Hallo", CCharset.CHARSET_ISO_8859_1_OBJ);
+        SimpleFileIO.writeFile (new File (fDir, "subdir/file" + i), "Hallo", StandardCharsets.ISO_8859_1);
       assertEquals (11, FileHelper.getDirectoryObjectCount (fDir));
 
       assertFalse (FileHelper.existsDir (fDir2));
@@ -468,11 +468,11 @@ public final class FileOperationsTest
       {
         SimpleFileIO.writeFile (new File (aDir, "test" + i),
                                 "Inhalt von file test" + i,
-                                CCharset.CHARSET_ISO_8859_1_OBJ);
+                                StandardCharsets.ISO_8859_1);
         _expectedSuccess (FileOperations.createDir (new File (aDir, "subdir" + i)));
         SimpleFileIO.writeFile (new File (aDir, "subdir" + i + "/test" + i),
                                 "Inhalt von file subdir/test" + i,
-                                CCharset.CHARSET_ISO_8859_1_OBJ);
+                                StandardCharsets.ISO_8859_1);
       }
       assertEquals (20, FileHelper.getDirectoryObjectCount (aDir));
       // Cannot use regular delete, because the directory is not empty!
@@ -503,7 +503,7 @@ public final class FileOperationsTest
     final File f = new File ("delfile.test");
     try
     {
-      SimpleFileIO.writeFile (f, CharsetManager.getAsBytes ("abc", CCharset.CHARSET_ISO_8859_1_OBJ));
+      SimpleFileIO.writeFile (f, CharsetManager.getAsBytes ("abc", StandardCharsets.ISO_8859_1));
       assertTrue (FileHelper.existsFile (f));
       _expectedSuccess (FileOperations.deleteFile (f));
       assertFalse (FileHelper.existsFile (f));

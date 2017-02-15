@@ -45,11 +45,11 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
@@ -57,7 +57,7 @@ import com.helger.commons.string.StringHelper;
 
 public final class CSVWriterTest
 {
-  private static final Charset CHARSET = CCharset.CHARSET_ISO_8859_1_OBJ;
+  private static final Charset CHARSET = StandardCharsets.ISO_8859_1;
 
   /**
    * Test routine for converting output to a string.

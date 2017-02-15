@@ -21,9 +21,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.nio.charset.StandardCharsets;
+
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.random.RandomHelper;
 
 /**
@@ -58,7 +59,7 @@ public final class LZWCodecTest
   {
     final LZWCodec c = new LZWCodec ();
     final String sTest = "LZWLZ78LZ77LZCLZMWLZAP";
-    final byte [] aEncoded = c.getEncoded (sTest, CCharset.CHARSET_ISO_8859_1_OBJ);
+    final byte [] aEncoded = c.getEncoded (sTest, StandardCharsets.ISO_8859_1);
     final byte [] aExpected = new byte [] { (byte) 0x80,
                                             0x13,
                                             0x0b,
@@ -81,7 +82,7 @@ public final class LZWCodecTest
                                             0x40,
                                             0x40 };
     assertArrayEquals (aExpected, aEncoded);
-    assertEquals (sTest, c.getDecodedAsString (aEncoded, CCharset.CHARSET_ISO_8859_1_OBJ));
+    assertEquals (sTest, c.getDecodedAsString (aEncoded, StandardCharsets.ISO_8859_1));
   }
 
   private void _testEncodeDecode (final byte [] buf)

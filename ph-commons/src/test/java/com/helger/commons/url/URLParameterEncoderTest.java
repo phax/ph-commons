@@ -18,9 +18,9 @@ package com.helger.commons.url;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
+import java.nio.charset.StandardCharsets;
 
-import com.helger.commons.charset.CCharset;
+import org.junit.Test;
 
 /**
  * Test class for class {@link URLParameterEncoder}.
@@ -32,7 +32,7 @@ public final class URLParameterEncoderTest
   @Test
   public void testEncode ()
   {
-    final URLParameterEncoder aPE = new URLParameterEncoder (CCharset.CHARSET_ISO_8859_1_OBJ);
+    final URLParameterEncoder aPE = new URLParameterEncoder (StandardCharsets.ISO_8859_1);
     assertEquals ("a+b+c", aPE.getEncoded ("a b c"));
     assertEquals ("a+b+c%3Ad", aPE.getEncoded ("a b c:d"));
   }

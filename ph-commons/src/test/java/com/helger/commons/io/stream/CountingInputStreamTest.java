@@ -19,10 +19,10 @@ package com.helger.commons.io.stream;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.mock.CommonsTestHelper;
 
@@ -38,7 +38,7 @@ public final class CountingInputStreamTest
   {
     final String sTestString = "test 123 - This counts!";
     final CountingInputStream aCIS = new CountingInputStream (new NonBlockingByteArrayInputStream (CharsetManager.getAsBytes (sTestString,
-                                                                                                                              CCharset.CHARSET_ISO_8859_1_OBJ)));
+                                                                                                                              StandardCharsets.ISO_8859_1)));
     aCIS.read ();
     StreamHelper.copyInputStreamToOutputStream (aCIS, new NonBlockingByteArrayOutputStream ());
     assertEquals (sTestString.length (), aCIS.getBytesRead ());

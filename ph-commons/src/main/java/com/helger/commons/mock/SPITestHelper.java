@@ -18,6 +18,7 @@ package com.helger.commons.mock;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nonnull;
 
@@ -28,7 +29,6 @@ import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.annotation.IsSPIInterface;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.cache.AnnotationUsageCache;
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.multimap.MultiTreeMapTreeSetBased;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.iterate.FileSystemIterator;
@@ -107,7 +107,7 @@ public final class SPITestHelper
 
           // Check content
           try (final NonBlockingBufferedReader aReader = new NonBlockingBufferedReader (StreamHelper.createReader (FileHelper.getInputStream (aFile),
-                                                                                                                   CCharset.CHARSET_SERVICE_LOADER_OBJ)))
+                                                                                                                   StandardCharsets.UTF_8)))
           {
             int nCount = 0;
             String sLine;

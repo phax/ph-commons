@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -33,7 +34,6 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.EUnicodeBOM;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
@@ -63,7 +63,7 @@ import com.helger.json.parser.handler.IJsonParserHandler;
 @ThreadSafe
 public final class JsonReader
 {
-  public static final Charset DEFAULT_CHARSET = CCharset.CHARSET_UTF_8_OBJ;
+  public static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (JsonReader.class);
   private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();

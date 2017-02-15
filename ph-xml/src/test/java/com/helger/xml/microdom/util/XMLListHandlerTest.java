@@ -24,10 +24,10 @@ import static org.junit.Assert.fail;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsHashSet;
 import com.helger.commons.collection.ext.ICommonsList;
@@ -64,14 +64,14 @@ public final class XMLListHandlerTest
     assertTrue (XMLListHandler.writeList (aList, new NonBlockingByteArrayOutputStream ()).isSuccess ());
 
     final String sXML = "<root><item/><item value='a' /><item value='a' /></root>";
-    aList = XMLListHandler.readList (new StringInputStreamProvider (sXML, CCharset.CHARSET_ISO_8859_1_OBJ));
+    aList = XMLListHandler.readList (new StringInputStreamProvider (sXML, StandardCharsets.ISO_8859_1));
     assertNotNull (aList);
     assertEquals (2, aList.size ());
     assertEquals ("a", aList.get (0));
     assertEquals ("a", aList.get (1));
 
     final ICommonsSet <String> aSet = new CommonsHashSet <> ();
-    XMLListHandler.readList (new StringInputStreamProvider (sXML, CCharset.CHARSET_ISO_8859_1_OBJ), aSet);
+    XMLListHandler.readList (new StringInputStreamProvider (sXML, StandardCharsets.ISO_8859_1), aSet);
     assertEquals (1, aSet.size ());
     assertTrue (aSet.contains ("a"));
 

@@ -24,6 +24,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.time.Clock;
 import java.time.Duration;
 import java.time.Period;
@@ -32,7 +33,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.string.StringParser;
 import com.helger.settings.IMutableSettings;
@@ -70,7 +70,7 @@ public final class SettingsMicroDocumentConverterTest
     aSrc.setValue ("fieldxd", PDTFactory.getCurrentZonedDateTime ());
     aSrc.setValue ("fieldxe", Duration.ofHours (5));
     aSrc.setValue ("fieldxf", Period.ofDays (3));
-    aSrc.setValue ("fieldxg", "Any byte ärräy".getBytes (CCharset.CHARSET_UTF_8));
+    aSrc.setValue ("fieldxg", "Any byte ärräy".getBytes (StandardCharsets.UTF_8.name ()));
 
     final Settings aNestedSettings = new Settings ("nestedSettings");
     aNestedSettings.setValue ("a", "b");

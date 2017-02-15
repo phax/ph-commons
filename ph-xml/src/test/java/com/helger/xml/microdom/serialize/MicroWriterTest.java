@@ -21,10 +21,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.nio.charset.StandardCharsets;
+
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.microdom.IMicroDocument;
@@ -68,7 +69,7 @@ public final class MicroWriterTest
     final XMLWriterSettings aSettings = XMLWriterSettings.createForXHTML ();
     for (int nCharSet = 0; nCharSet < 2; ++nCharSet)
     {
-      aSettings.setCharset (nCharSet == 1 ? CCharset.CHARSET_ISO_8859_1_OBJ : CCharset.CHARSET_UTF_8_OBJ);
+      aSettings.setCharset (nCharSet == 1 ? StandardCharsets.ISO_8859_1 : StandardCharsets.UTF_8);
       for (final EXMLSerializeIndent eIndent : EXMLSerializeIndent.values ())
       {
         aSettings.setIndent (eIndent);
@@ -107,7 +108,7 @@ public final class MicroWriterTest
     final XMLWriterSettings aSettings = new XMLWriterSettings ();
     for (int nCharSet = 0; nCharSet < 2; ++nCharSet)
     {
-      aSettings.setCharset (nCharSet == 1 ? CCharset.CHARSET_ISO_8859_1_OBJ : CCharset.CHARSET_UTF_8_OBJ);
+      aSettings.setCharset (nCharSet == 1 ? StandardCharsets.ISO_8859_1 : StandardCharsets.UTF_8);
       for (final EXMLSerializeIndent eIndent : EXMLSerializeIndent.values ())
       {
         aSettings.setIndent (eIndent);
@@ -229,7 +230,7 @@ public final class MicroWriterTest
   public void testWithNamespaceContext ()
   {
     final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
-                                                                .setCharset (CCharset.CHARSET_ISO_8859_1_OBJ);
+                                                                .setCharset (StandardCharsets.ISO_8859_1);
     final IMicroDocument aDoc = new MicroDocument ();
     final IMicroElement eRoot = aDoc.appendElement ("ns1url", "root");
     eRoot.appendElement ("ns2url", "child1");
@@ -301,7 +302,7 @@ public final class MicroWriterTest
   public void testWithoutEmitNamespaces ()
   {
     final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
-                                                                .setCharset (CCharset.CHARSET_ISO_8859_1_OBJ);
+                                                                .setCharset (StandardCharsets.ISO_8859_1);
     final IMicroDocument aDoc = new MicroDocument ();
     final IMicroElement eRoot = aDoc.appendElement ("ns1url", "root");
     eRoot.appendElement ("ns2url", "child1");
@@ -468,7 +469,7 @@ public final class MicroWriterTest
   public void testAttributesWithNamespaces ()
   {
     final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
-                                                                .setCharset (CCharset.CHARSET_ISO_8859_1_OBJ);
+                                                                .setCharset (StandardCharsets.ISO_8859_1);
     final IMicroDocument aDoc = new MicroDocument ();
     final IMicroElement eRoot = aDoc.appendElement ("ns1url", "root");
     eRoot.appendElement ("ns2url", "child1").setAttribute ("ns2url", "attr1", "value1");

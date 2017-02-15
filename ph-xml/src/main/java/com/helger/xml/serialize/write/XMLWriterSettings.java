@@ -17,6 +17,7 @@
 package com.helger.xml.serialize.write;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -26,7 +27,6 @@ import javax.xml.namespace.NamespaceContext;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -49,9 +49,9 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
 {
   // Must be before the IXMLWriterSettings constants!
   /** The default charset is UTF-8 */
-  public static final String DEFAULT_XML_CHARSET = CCharset.CHARSET_UTF_8;
+  public static final String DEFAULT_XML_CHARSET = StandardCharsets.UTF_8.name ();
   /** The default charset is UTF-8 */
-  public static final Charset DEFAULT_XML_CHARSET_OBJ = CCharset.CHARSET_UTF_8_OBJ;
+  public static final Charset DEFAULT_XML_CHARSET_OBJ = StandardCharsets.UTF_8;
   /** By default double quotes are used to wrap attribute values */
   public static final boolean DEFAULT_USE_DOUBLE_QUOTES_FOR_ATTRIBUTES = true;
   /**
@@ -491,7 +491,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   {
     if (m_sIndentationStringToString == null)
       m_sIndentationStringToString = StringHelper.getHexEncoded (CharsetManager.getAsBytes (m_sIndentationString,
-                                                                                            CCharset.CHARSET_ISO_8859_1_OBJ));
+                                                                                            StandardCharsets.ISO_8859_1));
     return new ToStringGenerator (this).append ("xmlVersion", m_eXMLVersion)
                                        .append ("serializeXMLDecl", m_eSerializeXMLDecl)
                                        .append ("serializeDocType", m_eSerializeDocType)

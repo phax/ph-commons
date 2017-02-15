@@ -18,6 +18,7 @@ package com.helger.commons.supplementary.test.java;
 
 import static org.junit.Assert.assertArrayEquals;
 
+import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 
 import javax.annotation.Nonnull;
@@ -30,7 +31,6 @@ import org.junit.Test;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.random.RandomHelper;
@@ -168,7 +168,7 @@ public final class AESCryptFuncTest
     final AESCrypter aCrypter = new AESCrypter (aMyKey);
 
     // Our cleartext
-    final byte [] cleartext = CharsetManager.getAsBytes ("This is just än example", CCharset.CHARSET_ISO_8859_1_OBJ);
+    final byte [] cleartext = CharsetManager.getAsBytes ("This is just än example", StandardCharsets.ISO_8859_1);
 
     // Encrypt the cleartext
     final byte [] ciphertext = aCrypter.encrypt (cleartext);

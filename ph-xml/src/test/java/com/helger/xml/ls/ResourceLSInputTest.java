@@ -24,10 +24,10 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.StreamHelper;
@@ -74,8 +74,8 @@ public final class ResourceLSInputTest
     }
     catch (final UnsupportedOperationException ex)
     {}
-    lsi.setEncoding (CCharset.CHARSET_ISO_8859_1);
-    assertEquals (CCharset.CHARSET_ISO_8859_1, lsi.getEncoding ());
+    lsi.setEncoding (StandardCharsets.ISO_8859_1.name ());
+    assertEquals (StandardCharsets.ISO_8859_1.name (), lsi.getEncoding ());
     lsi.setPublicId ("pubid");
     assertEquals ("pubid", lsi.getPublicId ());
     lsi.setStringData ("str");

@@ -16,11 +16,12 @@
  */
 package com.helger.security.password.hash;
 
+import java.nio.charset.StandardCharsets;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.charset.CCharset;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.security.messagedigest.EMessageDigestAlgorithm;
 import com.helger.security.messagedigest.MessageDigestValue;
@@ -54,7 +55,7 @@ public final class PasswordHashCreatorSHA512 extends AbstractPasswordHashCreator
   {
     ValueEnforcer.notNull (sPlainTextPassword, "PlainTextPassword");
 
-    return MessageDigestValue.create (CharsetManager.getAsBytes (sPlainTextPassword, CCharset.CHARSET_UTF_8_OBJ),
+    return MessageDigestValue.create (CharsetManager.getAsBytes (sPlainTextPassword, StandardCharsets.UTF_8),
                                       USER_PASSWORD_ALGO)
                              .getHexEncodedDigestString ();
   }
