@@ -24,7 +24,7 @@ This project was the following modules:
 
 ##News and noteworthy
 
-  * v8.6.2
+  * v8.6.2 - 2017-02-15
     * Extended `XMLSystemProperties` API
     * Allowing `JAXBDocumentType` objects to not have an `@XmlSchema` annotation
     * Deprecated `CCharset - use `StandardCharsets` instead
