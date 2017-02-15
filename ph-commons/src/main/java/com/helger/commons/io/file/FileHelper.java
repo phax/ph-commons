@@ -23,23 +23,17 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.io.Reader;
 import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.MappedByteBuffer;
-import java.nio.channels.FileChannel;
-import java.nio.channels.FileChannel.MapMode;
 import java.nio.charset.Charset;
 
-import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.WillNotClose;
 import javax.annotation.concurrent.Immutable;
 
 import org.slf4j.Logger;
@@ -53,8 +47,6 @@ import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.misc.SizeHelper;
-import com.helger.commons.io.stream.ByteBufferInputStream;
-import com.helger.commons.io.stream.ByteBufferOutputStream;
 import com.helger.commons.io.stream.CountingFileInputStream;
 import com.helger.commons.io.stream.CountingFileOutputStream;
 import com.helger.commons.io.stream.NonBlockingBufferedReader;
@@ -74,7 +66,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 @Immutable
 public final class FileHelper
 {
-  private static final boolean USE_MEMORY_MAPPED_FILES = false;
   private static final Logger s_aLogger = LoggerFactory.getLogger (FileHelper.class);
 
   @PresentForCodeCoverage
@@ -345,8 +336,18 @@ public final class FileHelper
   }
 
   @Nullable
-  private static FileInputStream _getFileInputStream (@Nonnull final File aFile)
+  public static FileInputStream getInputStream (@Nonnull final String sFilename)
   {
+    ValueEnforcer.notNull (sFilename, "Filename");
+
+    return getInputStream (new File (sFilename));
+  }
+
+  @Nullable
+  public static FileInputStream getInputStream (@Nonnull final File aFile)
+  {
+    ValueEnforcer.notNull (aFile, "File");
+
     try
     {
       return new CountingFileInputStream (aFile);
@@ -355,84 +356,6 @@ public final class FileHelper
     {
       return null;
     }
-  }
-
-  @Nullable
-  private static InputStream _getMappedInputStream (@Nonnull @WillNotClose final FileChannel aChannel,
-                                                    @Nonnull final File aFile)
-  {
-    try
-    {
-      final MappedByteBuffer aBuffer = aChannel.map (MapMode.READ_ONLY, 0, aChannel.size ());
-      s_aLogger.info ("Created memory mapped input stream for " + aFile);
-      return new ByteBufferInputStream (aBuffer);
-    }
-    catch (final IOException ex)
-    {
-      s_aLogger.warn ("Failed to create memory mapped input stream for " + aFile, ex);
-      return null;
-    }
-  }
-
-  @Nullable
-  public static FileChannel getFileReadChannel (@Nonnull final String sFilename)
-  {
-    return getFileReadChannel (new File (sFilename));
-  }
-
-  @Nullable
-  public static FileChannel getFileReadChannel (@Nonnull final File aFile)
-  {
-    ValueEnforcer.notNull (aFile, "File");
-
-    final FileInputStream aFIS = _getFileInputStream (aFile);
-    return aFIS == null ? null : aFIS.getChannel ();
-  }
-
-  @CheckForSigned
-  public static long getFileSize (@Nullable final FileChannel aChannel)
-  {
-    if (aChannel != null)
-      try
-      {
-        return aChannel.size ();
-      }
-      catch (final IOException ex)
-      {
-        // fall-through
-      }
-    return -1;
-  }
-
-  @Nullable
-  public static InputStream getInputStream (@Nonnull final String sFilename)
-  {
-    ValueEnforcer.notNull (sFilename, "Filename");
-
-    return getInputStream (new File (sFilename));
-  }
-
-  @Nullable
-  public static InputStream getInputStream (@Nonnull final File aFile)
-  {
-    ValueEnforcer.notNull (aFile, "File");
-
-    final FileInputStream aFIS = _getFileInputStream (aFile);
-    if (USE_MEMORY_MAPPED_FILES && aFIS != null)
-    {
-      // Check if using a memory mapped file makes sense (file size > 1MB)
-      final FileChannel aChannel = aFIS.getChannel ();
-      if (getFileSize (aChannel) > CGlobal.BYTES_PER_MEGABYTE)
-      {
-        // Check if mapping is possible
-        final InputStream aIS = _getMappedInputStream (aChannel, aFile);
-        if (aIS != null)
-          return aIS;
-
-        // Mapping failed - fall through
-      }
-    }
-    return aFIS;
   }
 
   @Nullable
@@ -470,101 +393,6 @@ public final class FileHelper
     if (aReader == null)
       return null;
     return new NonBlockingBufferedReader (aReader);
-  }
-
-  /**
-   * Get an input stream to the specified file, using memory mapping. If memory
-   * mapping fails, a regular {@link FileInputStream} is returned.
-   *
-   * @param aFile
-   *        The file to use. May not be <code>null</code>.
-   * @return The Input stream to use.
-   */
-  @Nullable
-  public static InputStream getMappedInputStream (@Nonnull final File aFile)
-  {
-    ValueEnforcer.notNull (aFile, "File");
-
-    // Open regular
-    final FileInputStream aFIS = _getFileInputStream (aFile);
-    if (aFIS == null)
-      return null;
-
-    // Try to memory map it
-    final InputStream aIS = _getMappedInputStream (aFIS.getChannel (), aFile);
-    if (aIS != null)
-      return aIS;
-
-    // Memory mapping failed - return the original input stream
-    s_aLogger.warn ("Failed to map file " + aFile + ". Falling though to regular FileInputStream");
-    return aFIS;
-  }
-
-  @Nullable
-  private static FileOutputStream _getFileOutputStream (@Nonnull final File aFile, @Nonnull final EAppend eAppend)
-  {
-    try
-    {
-      return new CountingFileOutputStream (aFile, eAppend);
-    }
-    catch (final FileNotFoundException ex)
-    {
-      s_aLogger.warn ("Failed to create output stream for '" +
-                      aFile +
-                      "'; append: " +
-                      eAppend +
-                      ": " +
-                      ex.getClass ().getName () +
-                      " - " +
-                      ex.getMessage ());
-      return null;
-    }
-  }
-
-  @Nullable
-  private static OutputStream _getMappedOutputStream (@Nonnull @WillNotClose final FileChannel aChannel,
-                                                      @Nonnull final File aFile)
-  {
-    try
-    {
-      // Maximum is Integer.MAX_VALUE even if a long is taken!
-      final MappedByteBuffer aBuffer = aChannel.map (MapMode.READ_WRITE, 0, Integer.MAX_VALUE);
-      s_aLogger.info ("Created memory mapped output stream for " + aFile);
-      return new ByteBufferOutputStream (aBuffer, false);
-    }
-    catch (final IOException ex)
-    {
-      s_aLogger.warn ("Failed to create memory mapped output stream for " + aFile, ex);
-      return null;
-    }
-  }
-
-  @Nullable
-  public static FileChannel getFileWriteChannel (@Nonnull final String sFilename)
-  {
-    return getFileWriteChannel (sFilename, EAppend.DEFAULT);
-  }
-
-  @Nullable
-  public static FileChannel getFileWriteChannel (@Nonnull final String sFilename, @Nonnull final EAppend eAppend)
-  {
-    return getFileWriteChannel (new File (sFilename), eAppend);
-  }
-
-  @Nullable
-  public static FileChannel getFileWriteChannel (@Nonnull final File aFile)
-  {
-    return getFileWriteChannel (aFile, EAppend.DEFAULT);
-  }
-
-  @Nullable
-  public static FileChannel getFileWriteChannel (@Nonnull final File aFile, @Nonnull final EAppend eAppend)
-  {
-    ValueEnforcer.notNull (aFile, "File");
-    ValueEnforcer.notNull (eAppend, "Append");
-
-    final FileOutputStream aFOS = _getFileOutputStream (aFile, eAppend);
-    return aFOS == null ? null : aFOS.getChannel ();
   }
 
   /**
@@ -656,7 +484,7 @@ public final class FileHelper
   }
 
   @Nonnull
-  private static EValidity _checkParentDirectoryExistanceAndAccess (@Nonnull final File aFile)
+  static EValidity internalCheckParentDirectoryExistanceAndAccess (@Nonnull final File aFile)
   {
     try
     {
@@ -697,63 +525,31 @@ public final class FileHelper
    * @return <code>null</code> if the file could not be opened
    */
   @Nullable
-  public static OutputStream getOutputStream (@Nonnull final File aFile, @Nonnull final EAppend eAppend)
+  public static FileOutputStream getOutputStream (@Nonnull final File aFile, @Nonnull final EAppend eAppend)
   {
     ValueEnforcer.notNull (aFile, "File");
     ValueEnforcer.notNull (eAppend, "Append");
 
-    if (_checkParentDirectoryExistanceAndAccess (aFile).isInvalid ())
+    if (internalCheckParentDirectoryExistanceAndAccess (aFile).isInvalid ())
       return null;
 
     // OK, parent is present and writable
-    return _getFileOutputStream (aFile, eAppend);
-  }
-
-  @Nullable
-  public static OutputStream getMappedOutputStream (@Nonnull final String sFilename)
-  {
-    return getMappedOutputStream (new File (sFilename));
-  }
-
-  @Nullable
-  public static OutputStream getMappedOutputStream (@Nonnull final String sFilename, @Nonnull final EAppend eAppend)
-  {
-    return getMappedOutputStream (new File (sFilename), eAppend);
-  }
-
-  @Nullable
-  public static OutputStream getMappedOutputStream (@Nonnull final File aFile)
-  {
-    return getMappedOutputStream (aFile, EAppend.DEFAULT);
-  }
-
-  @Nullable
-  public static OutputStream getMappedOutputStream (@Nonnull final File aFile, @Nonnull final EAppend eAppend)
-  {
-    ValueEnforcer.notNull (aFile, "File");
-    ValueEnforcer.notNull (eAppend, "Append");
-
-    if (_checkParentDirectoryExistanceAndAccess (aFile).isInvalid ())
-      return null;
-
-    // Open random access file, as only those files deliver a channel that is
-    // readable and writable
-    final RandomAccessFile aRAF = getRandomAccessFile (aFile, ERandomAccessFileMode.READ_WRITE);
-    if (aRAF == null)
+    try
     {
-      s_aLogger.error ("Failed to open random access file " + aFile);
+      return new CountingFileOutputStream (aFile, eAppend);
+    }
+    catch (final FileNotFoundException ex)
+    {
+      s_aLogger.warn ("Failed to create output stream for '" +
+                      aFile +
+                      "'; append: " +
+                      eAppend +
+                      ": " +
+                      ex.getClass ().getName () +
+                      " - " +
+                      ex.getMessage ());
       return null;
     }
-
-    // Try to memory map it
-    final OutputStream aOS = _getMappedOutputStream (aRAF.getChannel (), aFile);
-    if (aOS != null)
-      return aOS;
-
-    // Memory mapping failed - return the original output stream
-    StreamHelper.close (aRAF);
-    s_aLogger.warn ("Failed to map file " + aFile + ". Falling though to regular FileOutputStream");
-    return _getFileOutputStream (aFile, eAppend);
   }
 
   @Nullable

@@ -483,13 +483,13 @@ public final class FileOperations
   @Nonnull
   private static ESuccess _copyFileViaChannel (@Nonnull final File aSrcFile, @Nonnull final File aDestFile)
   {
-    final FileChannel aSrcChannel = FileHelper.getFileReadChannel (aSrcFile);
+    final FileChannel aSrcChannel = FileChannelHelper.getFileReadChannel (aSrcFile);
     if (aSrcChannel == null)
       return ESuccess.FAILURE;
 
     try
     {
-      final FileChannel aDstChannel = FileHelper.getFileWriteChannel (aDestFile, EAppend.TRUNCATE);
+      final FileChannel aDstChannel = FileChannelHelper.getFileWriteChannel (aDestFile, EAppend.TRUNCATE);
       if (aDstChannel == null)
         return ESuccess.FAILURE;
 

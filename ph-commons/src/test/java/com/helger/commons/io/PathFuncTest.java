@@ -106,13 +106,16 @@ public final class PathFuncTest
     {
       assertTrue (Files.isReadable (p));
       assertTrue (Files.isReadable (p.normalize ()));
+      assertTrue (Files.isRegularFile (p));
+      assertTrue (Files.isRegularFile (p.normalize ()));
     }
     else
     {
       assertFalse (Files.isReadable (p));
       assertTrue (Files.isReadable (p.normalize ()));
+      assertFalse (Files.isRegularFile (p));
+      assertTrue (Files.isRegularFile (p.normalize ()));
     }
-    assertTrue (Files.isRegularFile (p));
     assertTrue (Files.isSameFile (p, p));
     assertFalse (Files.isSymbolicLink (p));
     assertTrue (Files.isWritable (p));
