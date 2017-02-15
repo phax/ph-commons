@@ -41,9 +41,17 @@ public final class PathFuncTest
     assertEquals ("pom.xml", p.normalize ().toString ());
 
     // C:\Users\xxx\git\ph-commons\ph-commons\pom.xml
-    assertTrue (p.toRealPath ().toString ().endsWith (SEP + "ph-commons" + SEP + "pom.xml"));
+    assertTrue ("Is <" +
+                p.toRealPath ().toString () +
+                ">",
+                p.toRealPath ().toString ().endsWith (SEP + "ph-commons" + SEP + "pom.xml"));
 
     // C:\Users\xxx\git\ph-commons\ph-commons\pom.xml
-    assertTrue (p.toAbsolutePath ().toString ().endsWith (SEP + "ph-commons" + SEP + "cde" + SEP + ".." + SEP + "pom.xml"));
+    assertTrue ("Is <" +
+                p.toAbsolutePath ().toString () +
+                ">",
+                p.toAbsolutePath ()
+                 .toString ()
+                 .endsWith (SEP + "ph-commons" + SEP + "cde" + SEP + ".." + SEP + "pom.xml"));
   }
 }
