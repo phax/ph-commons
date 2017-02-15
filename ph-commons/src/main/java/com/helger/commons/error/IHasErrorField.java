@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.error.field;
+package com.helger.commons.error;
 
 import java.util.Comparator;
 

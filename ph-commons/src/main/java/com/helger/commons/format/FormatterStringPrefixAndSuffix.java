@@ -82,4 +82,22 @@ public class FormatterStringPrefixAndSuffix extends AbstractFormatterString
                             .append ("Suffix", m_sSuffix)
                             .getToString ();
   }
+
+  @Nonnull
+  public static FormatterStringPrefixAndSuffix createPrefixOnly (@Nonnull final String sPrefix)
+  {
+    return new FormatterStringPrefixAndSuffix (sPrefix, "");
+  }
+
+  @Nonnull
+  public static FormatterStringPrefixAndSuffix createSuffixOnly (@Nonnull final String sSuffix)
+  {
+    return new FormatterStringPrefixAndSuffix ("", sSuffix);
+  }
+
+  @Nonnull
+  public static FormatterStringPrefixAndSuffix createWithBrackets ()
+  {
+    return new FormatterStringPrefixAndSuffix ("[", "]");
+  }
 }

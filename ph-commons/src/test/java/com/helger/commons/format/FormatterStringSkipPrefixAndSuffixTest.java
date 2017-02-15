@@ -39,4 +39,26 @@ public final class FormatterStringSkipPrefixAndSuffixTest
     assertEquals ("bc", fp.apply ("bc"));
     CommonsTestHelper.testToStringImplementation (fp);
   }
+
+  @Test
+  public void testPrefix ()
+  {
+    final FormatterStringSkipPrefixAndSuffix fp = FormatterStringSkipPrefixAndSuffix.createPrefixOnly ("a");
+    assertEquals ("bco", fp.apply ("abco"));
+    assertEquals ("bc", fp.apply ("abc"));
+    assertEquals ("bco", fp.apply ("bco"));
+    assertEquals ("bc", fp.apply ("bc"));
+    CommonsTestHelper.testToStringImplementation (fp);
+  }
+
+  @Test
+  public void testSuffix ()
+  {
+    final FormatterStringSkipPrefixAndSuffix fp = FormatterStringSkipPrefixAndSuffix.createSuffixOnly ("o");
+    assertEquals ("abc", fp.apply ("abco"));
+    assertEquals ("abc", fp.apply ("abc"));
+    assertEquals ("bc", fp.apply ("bco"));
+    assertEquals ("bc", fp.apply ("bc"));
+    CommonsTestHelper.testToStringImplementation (fp);
+  }
 }

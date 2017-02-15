@@ -89,4 +89,16 @@ public class FormatterStringSkipPrefixAndSuffix extends AbstractFormatterString
                             .append ("Suffix", m_sSuffix)
                             .getToString ();
   }
+
+  @Nonnull
+  public static FormatterStringSkipPrefixAndSuffix createPrefixOnly (@Nonnull final String sPrefix)
+  {
+    return new FormatterStringSkipPrefixAndSuffix (sPrefix, "");
+  }
+
+  @Nonnull
+  public static FormatterStringSkipPrefixAndSuffix createSuffixOnly (@Nonnull final String sSuffix)
+  {
+    return new FormatterStringSkipPrefixAndSuffix ("", sSuffix);
+  }
 }

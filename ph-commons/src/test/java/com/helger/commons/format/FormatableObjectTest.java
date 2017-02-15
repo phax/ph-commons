@@ -33,43 +33,51 @@ public final class FormatableObjectTest
   @Test
   public void testAll ()
   {
-    FormatableObject <?> aFO = new FormatableObject <> ("Any", new FormatterBracket ());
+    FormatableObject <?> aFO = new FormatableObject <> ("Any", FormatterStringPrefixAndSuffix.createWithBrackets ());
     assertEquals ("Any", aFO.getValue ());
-    assertEquals (FormatterBracket.class, aFO.getFormatter ().getClass ());
+    assertEquals (FormatterStringPrefixAndSuffix.class, aFO.getFormatter ().getClass ());
     assertEquals ("[Any]", aFO.getAsString ());
     CommonsTestHelper.testToStringImplementation (aFO);
 
-    aFO = new FormatableObject <> ("Any", new FormatterBracket ().andThen (new FormatterBracket ()));
+    aFO = new FormatableObject <> ("Any",
+                                   FormatterStringPrefixAndSuffix.createWithBrackets ()
+                                                                 .andThen (FormatterStringPrefixAndSuffix.createWithBrackets ()));
     assertEquals ("Any", aFO.getValue ());
     assertEquals ("[[Any]]", aFO.getAsString ());
     CommonsTestHelper.testToStringImplementation (aFO);
 
-    aFO = new FormatableObject <> ("Any", new FormatterBracket ());
+    aFO = new FormatableObject <> ("Any", FormatterStringPrefixAndSuffix.createWithBrackets ());
     assertEquals ("Any", aFO.getValue ());
     assertEquals ("[Any]", aFO.getAsString ());
     CommonsTestHelper.testToStringImplementation (aFO);
 
-    aFO = new FormatableObject <> (null, new FormatterBracket ().andThen (new FormatterBracket ()));
+    aFO = new FormatableObject <> (null,
+                                   FormatterStringPrefixAndSuffix.createWithBrackets ()
+                                                                 .andThen (FormatterStringPrefixAndSuffix.createWithBrackets ()));
     assertNull (aFO.getValue ());
     assertEquals ("[[]]", aFO.getAsString ());
     CommonsTestHelper.testToStringImplementation (aFO);
 
-    aFO = new FormatableObject <> ("Any", new FormatterStringPrefix ("x "));
+    aFO = new FormatableObject <> ("Any", FormatterStringPrefixAndSuffix.createPrefixOnly ("x "));
     assertEquals ("Any", aFO.getValue ());
     assertEquals ("x Any", aFO.getAsString ());
     CommonsTestHelper.testToStringImplementation (aFO);
 
-    aFO = new FormatableObject <> ("Any", new FormatterBracket ().andThen (new FormatterStringPrefix ("x ")));
+    aFO = new FormatableObject <> ("Any",
+                                   FormatterStringPrefixAndSuffix.createWithBrackets ()
+                                                                 .andThen (FormatterStringPrefixAndSuffix.createPrefixOnly ("x ")));
     assertEquals ("Any", aFO.getValue ());
     assertEquals ("x [Any]", aFO.getAsString ());
     CommonsTestHelper.testToStringImplementation (aFO);
 
-    aFO = new FormatableObject <> ("Any", new FormatterStringSuffix (" y"));
+    aFO = new FormatableObject <> ("Any", FormatterStringPrefixAndSuffix.createSuffixOnly (" y"));
     assertEquals ("Any", aFO.getValue ());
     assertEquals ("Any y", aFO.getAsString ());
     CommonsTestHelper.testToStringImplementation (aFO);
 
-    aFO = new FormatableObject <> ("Any", new FormatterBracket ().andThen (new FormatterStringSuffix (" y")));
+    aFO = new FormatableObject <> ("Any",
+                                   FormatterStringPrefixAndSuffix.createWithBrackets ()
+                                                                 .andThen (FormatterStringPrefixAndSuffix.createSuffixOnly (" y")));
     assertEquals ("Any", aFO.getValue ());
     assertEquals ("[Any] y", aFO.getAsString ());
     CommonsTestHelper.testToStringImplementation (aFO);
@@ -79,7 +87,9 @@ public final class FormatableObjectTest
     assertEquals ("@@@@@@@Any", aFO.getAsString ());
     CommonsTestHelper.testToStringImplementation (aFO);
 
-    aFO = new FormatableObject <> ("Any", new FormatterBracket ().andThen (new FormatterMinLengthAddLeading (10, '@')));
+    aFO = new FormatableObject <> ("Any",
+                                   FormatterStringPrefixAndSuffix.createWithBrackets ()
+                                                                 .andThen (new FormatterMinLengthAddLeading (10, '@')));
     assertEquals ("Any", aFO.getValue ());
     assertEquals ("@@@@@[Any]", aFO.getAsString ());
     CommonsTestHelper.testToStringImplementation (aFO);
@@ -90,7 +100,9 @@ public final class FormatableObjectTest
     CommonsTestHelper.testToStringImplementation (aFO);
 
     aFO = new FormatableObject <> ("Any",
-                                   new FormatterBracket ().andThen (new FormatterMinLengthAddTrailing (10, '@')));
+                                   FormatterStringPrefixAndSuffix.createWithBrackets ()
+                                                                 .andThen (new FormatterMinLengthAddTrailing (10,
+                                                                                                              '@')));
     assertEquals ("Any", aFO.getValue ());
     assertEquals ("[Any]@@@@@", aFO.getAsString ());
     CommonsTestHelper.testToStringImplementation (aFO);
@@ -100,20 +112,20 @@ public final class FormatableObjectTest
   public void testImpl ()
   {
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new FormatableObject <> ("Any",
-                                                                                                new FormatterBracket ()),
+                                                                                                FormatterStringPrefixAndSuffix.createWithBrackets ()),
                                                                        new FormatableObject <> ("Any",
-                                                                                                new FormatterBracket ()));
+                                                                                                FormatterStringPrefixAndSuffix.createWithBrackets ()));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new FormatableObject <> ("Any",
-                                                                                                    new FormatterBracket ()),
+                                                                                                    FormatterStringPrefixAndSuffix.createWithBrackets ()),
                                                                            new FormatableObject <> ("Any2",
-                                                                                                    new FormatterBracket ()));
+                                                                                                    FormatterStringPrefixAndSuffix.createWithBrackets ()));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new FormatableObject <> ("Any",
-                                                                                                    new FormatterBracket ()),
+                                                                                                    FormatterStringPrefixAndSuffix.createWithBrackets ()),
                                                                            new FormatableObject <> ("Any",
-                                                                                                    new FormatterStringPrefix ("oprefix")));
+                                                                                                    FormatterStringPrefixAndSuffix.createPrefixOnly ("oprefix")));
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new FormatterBracket (),
-                                                                       new FormatterBracket ());
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (FormatterStringPrefixAndSuffix.createWithBrackets (),
+                                                                       FormatterStringPrefixAndSuffix.createWithBrackets ());
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new FormatterMinLengthAddLeading (10, ' '),
                                                                        new FormatterMinLengthAddLeading (10, ' '));
@@ -140,14 +152,14 @@ public final class FormatableObjectTest
                                                                            new FormatterStringPrefixAndSuffix ("pp",
                                                                                                                "s"));
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new FormatterStringPrefix ("p"),
-                                                                       new FormatterStringPrefix ("p"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new FormatterStringPrefix ("p"),
-                                                                           new FormatterStringPrefix ("pp"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (FormatterStringPrefixAndSuffix.createPrefixOnly ("p"),
+                                                                       FormatterStringPrefixAndSuffix.createPrefixOnly ("p"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (FormatterStringPrefixAndSuffix.createPrefixOnly ("p"),
+                                                                           FormatterStringPrefixAndSuffix.createPrefixOnly ("pp"));
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new FormatterStringSuffix ("s"),
-                                                                       new FormatterStringSuffix ("s"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new FormatterStringSuffix ("s"),
-                                                                           new FormatterStringSuffix ("ss"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (FormatterStringPrefixAndSuffix.createSuffixOnly ("s"),
+                                                                       FormatterStringPrefixAndSuffix.createSuffixOnly ("s"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (FormatterStringPrefixAndSuffix.createSuffixOnly ("s"),
+                                                                           FormatterStringPrefixAndSuffix.createSuffixOnly ("ss"));
   }
 }

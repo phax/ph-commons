@@ -23,8 +23,6 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.error.field.IHasErrorField;
-import com.helger.commons.error.id.IHasErrorID;
 import com.helger.commons.error.level.IHasErrorLevelComparable;
 import com.helger.commons.error.location.ErrorLocation;
 import com.helger.commons.error.location.IErrorLocation;
