@@ -264,7 +264,7 @@ public final class FilenameHelperTest
 
     // Contains path
     assertTrue (FilenameHelper.isValidFilenameWithPaths ("a/b"));
-    if (EOperatingSystem.WINDOWS.isCurrentOS ())
+    if (EOperatingSystem.getCurrentOS ().isWindowsBased ())
       assertTrue (FilenameHelper.isValidFilenameWithPaths ("a\\b"));
     assertTrue (FilenameHelper.isValidFilenameWithPaths ("a/b/c"));
     assertTrue (FilenameHelper.isValidFilenameWithPaths ("a/b/c.exe"));
@@ -559,7 +559,7 @@ public final class FilenameHelperTest
                   "dir/file.x",
                   FilenameHelper.getCleanPath (new File ("/", "/../dir/file.x").getAbsoluteFile ()));
 
-    if (EOperatingSystem.WINDOWS.isCurrentOS ())
+    if (EOperatingSystem.getCurrentOS ().isWindowsBased ())
     {
       assertEquals ("\\\\server\\share\\dir\\file",
                     FilenameHelper.getCleanPath (new File ("\\\\server\\share\\dir\\file")));

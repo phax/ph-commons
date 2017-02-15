@@ -40,6 +40,8 @@ public final class EOperatingSystemTest
       assertTrue (StringHelper.hasText (e.getDisplayName ()));
       assertSame (e, EOperatingSystem.valueOf (e.name ()));
       assertSame (e, EOperatingSystem.forName (e.getDisplayName ()));
+      if (e != EOperatingSystem.UNKNOWN)
+        assertTrue (e.isWindowsBased () || e.isMacOSBased () || e.isUnixBased ());
     }
 
     assertNotNull (EOperatingSystem.getCurrentOS ());
@@ -48,7 +50,7 @@ public final class EOperatingSystemTest
     assertTrue (eOS.isCurrentOS ());
 
     // We just expect to run in only on Windows as the only non-Unix OS
-    if (eOS == EOperatingSystem.WINDOWS)
+    if (eOS.isWindowsBased ())
       assertFalse (eOS.isUnixBased ());
     else
       assertTrue (eOS.isUnixBased ());

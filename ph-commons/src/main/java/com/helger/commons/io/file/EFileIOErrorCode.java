@@ -17,6 +17,7 @@
 package com.helger.commons.io.file;
 
 import java.io.File;
+import java.nio.file.Path;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -31,7 +32,7 @@ import com.helger.commons.state.ISuccessIndicator;
  *
  * @author Philip Helger
  */
-public enum EFileIOErrorCode implements ISuccessIndicator,IHasIntID
+public enum EFileIOErrorCode implements ISuccessIndicator, IHasIntID
 {
   /** Generic error code: no error. */
   NO_ERROR (0),
@@ -89,6 +90,22 @@ public enum EFileIOErrorCode implements ISuccessIndicator,IHasIntID
   public FileIOError getAsIOError (@Nonnull final EFileIOOperation eOperation, @Nonnull final File aFile)
   {
     return new FileIOError (eOperation, this, aFile);
+  }
+
+  /**
+   * Use this error code to create a new {@link FileIOError} instance.
+   *
+   * @param eOperation
+   *        The operation carried out. May not be <code>null</code>.
+   * @param aPath
+   *        The path on which operation was carried out. May not be
+   *        <code>null</code>.
+   * @return The new {@link FileIOError} and never <code>null</code>.
+   */
+  @Nonnull
+  public FileIOError getAsIOError (@Nonnull final EFileIOOperation eOperation, @Nonnull final Path aPath)
+  {
+    return new FileIOError (eOperation, this, aPath.toFile ());
   }
 
   /**

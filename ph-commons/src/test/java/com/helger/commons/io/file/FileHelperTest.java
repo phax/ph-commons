@@ -271,7 +271,7 @@ public final class FileHelperTest
     {}
 
     // Linux allows for this filename to happen!
-    if (EOperatingSystem.WINDOWS.isCurrentOS ())
+    if (EOperatingSystem.getCurrentOS ().isWindowsBased ())
     {
       final String sIllegalFilename = "  ";
       assertNull (FileHelper.getOutputStream (sIllegalFilename));

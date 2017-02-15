@@ -71,7 +71,7 @@ public enum EOperatingSystem implements IHasDisplayName
   /**
    * The value indicating the z/OS operating system.
    */
-  ZOS ("z/OS", false),
+  ZOS ("z/OS", true),
 
   /**
    * The value indicating an unknown operating system.
@@ -129,6 +129,36 @@ public enum EOperatingSystem implements IHasDisplayName
   }
 
   /**
+   * Indicates whether the provided operating system is Windows-based.
+   * Windows-based operating systems include:
+   * <ul>
+   * <li>Windows</li>
+   * </ul>
+   *
+   * @return <code>true</code> if the provided operating system is
+   *         Windows-based, or <code>false</code> if not.
+   */
+  public boolean isWindowsBased ()
+  {
+    return this == WINDOWS;
+  }
+
+  /**
+   * Indicates whether the provided operating system is MacOS-based. MacOS-based
+   * operating systems include:
+   * <ul>
+   * <li>MacOS</li>
+   * </ul>
+   *
+   * @return <code>true</code> if the provided operating system is MacOS-based,
+   *         or <code>false</code> if not.
+   */
+  public boolean isMacOSBased ()
+  {
+    return this == MACOS;
+  }
+
+  /**
    * @return <code>true</code> if the this OS is the current OS.
    */
   public boolean isCurrentOS ()
@@ -142,10 +172,10 @@ public enum EOperatingSystem implements IHasDisplayName
   @Nonnull
   public ENewLineMode getNewLineMode ()
   {
-    if (this == MACOS)
-      return ENewLineMode.MAC;
-    if (this == WINDOWS)
+    if (isWindowsBased ())
       return ENewLineMode.WINDOWS;
+    if (isMacOSBased ())
+      return ENewLineMode.MAC;
     return ENewLineMode.UNIX;
   }
 

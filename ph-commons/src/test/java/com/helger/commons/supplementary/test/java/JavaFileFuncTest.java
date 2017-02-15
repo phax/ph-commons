@@ -71,7 +71,7 @@ public final class JavaFileFuncTest
   public void testGetPath ()
   {
     _log (new File ("pom.xml"));
-    if (EOperatingSystem.WINDOWS.isCurrentOS ())
+    if (EOperatingSystem.getCurrentOS ().isWindowsBased ())
       _log (new File (FilenameHelper.WINDOWS_UNC_PREFIX_LOCAL1 + new File ("pom.xml").getAbsolutePath ()));
     _log (new File ("pom.xml."));
     _log (new File ("c:\\pom.xml"));

@@ -29,7 +29,7 @@ public final class JavaFileUNCFuncTest
   @Test
   public void testUNC ()
   {
-    if (EOperatingSystem.WINDOWS.isCurrentOS ())
+    if (EOperatingSystem.getCurrentOS ().isWindowsBased ())
     {
       // UNC hack: convert arbitrary path to UNC ;-)
       final File f = new File ("\\\\.\\" + new File ("pom.xml").getAbsolutePath ());

@@ -66,7 +66,7 @@ public final class FileSystemResourceTest
   @Test
   public void testUNC ()
   {
-    if (EOperatingSystem.WINDOWS.isCurrentOS ())
+    if (EOperatingSystem.getCurrentOS ().isWindowsBased ())
     {
       // Use local UNC prefix for testing
       FileSystemResource aRes = new FileSystemResource (new File (FilenameHelper.WINDOWS_UNC_PREFIX_LOCAL1 +

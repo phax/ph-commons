@@ -22,14 +22,17 @@ import com.helger.commons.system.EOperatingSystem;
 public final class PathFuncTest
 {
   private static final char SEP = File.separatorChar;
+  private static final boolean WIN = EOperatingSystem.getCurrentOS ().isWindowsBased ();
 
   @Test
   public void testSimple () throws IOException
   {
     final Path p = Paths.get ("pom.xml");
     assertFalse (p.isAbsolute ());
+    assertTrue (Files.exists (p));
+    assertTrue (Files.exists (p.normalize ()));
     assertFalse (Files.isDirectory (p));
-    if (EOperatingSystem.getCurrentOS () != EOperatingSystem.WINDOWS)
+    if (!WIN)
       assertFalse (Files.isExecutable (p));
     assertFalse (Files.isHidden (p));
     assertTrue (Files.isReadable (p));
@@ -52,8 +55,10 @@ public final class PathFuncTest
   {
     final Path p = Paths.get ("../ph-commons/pom.xml");
     assertFalse (p.isAbsolute ());
+    assertTrue (Files.exists (p));
+    assertTrue (Files.exists (p.normalize ()));
     assertFalse (Files.isDirectory (p));
-    if (EOperatingSystem.getCurrentOS () != EOperatingSystem.WINDOWS)
+    if (!WIN)
       assertFalse (Files.isExecutable (p));
     assertFalse (Files.isHidden (p));
     assertTrue (Files.isReadable (p));
@@ -84,11 +89,22 @@ public final class PathFuncTest
   {
     final Path p = Paths.get ("cde/../pom.xml");
     assertFalse (p.isAbsolute ());
+    assertTrue (Files.exists (p));
+    assertTrue (Files.exists (p.normalize ()));
     assertFalse (Files.isDirectory (p));
-    if (EOperatingSystem.getCurrentOS () != EOperatingSystem.WINDOWS)
+    if (!WIN)
       assertFalse (Files.isExecutable (p));
     assertFalse (Files.isHidden (p));
-    assertTrue (Files.isReadable (p));
+    if (WIN)
+    {
+      assertTrue (Files.isReadable (p));
+      assertTrue (Files.isReadable (p.normalize ()));
+    }
+    else
+    {
+      assertFalse (Files.isReadable (p));
+      assertTrue (Files.isReadable (p.normalize ()));
+    }
     assertTrue (Files.isRegularFile (p));
     assertTrue (Files.isSameFile (p, p));
     assertFalse (Files.isSymbolicLink (p));
