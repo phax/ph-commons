@@ -41,7 +41,7 @@ import com.helger.commons.string.ToStringGenerator;
 @Immutable
 public class WritableResourceProviderChain extends ReadableResourceProviderChain implements IWritableResourceProvider
 {
-  protected final ICommonsList <IWritableResourceProvider> m_aWritableResourceProviders = new CommonsArrayList<> ();
+  protected final ICommonsList <IWritableResourceProvider> m_aWritableResourceProviders = new CommonsArrayList <> ();
 
   public WritableResourceProviderChain (@Nonnull final IReadableResourceProvider... aResProviders)
   {
@@ -129,6 +129,6 @@ public class WritableResourceProviderChain extends ReadableResourceProviderChain
   {
     return ToStringGenerator.getDerived (super.toString ())
                             .append ("writableResProviders", m_aWritableResourceProviders)
-                            .toString ();
+                            .getAsString ();
   }
 }

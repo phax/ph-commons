@@ -40,11 +40,11 @@ public final class ToStringGeneratorTest
 {
   private void _testNullable (@Nullable final Object o)
   {
-    final String s1 = new ToStringGenerator (null).append ("o", o).toString ();
+    final String s1 = new ToStringGenerator (null).append ("o", o).getAsString ();
     assertNotNull (s1);
-    final String s2 = new ToStringGenerator (null).append ("o", o).toString ();
+    final String s2 = new ToStringGenerator (null).append ("o", o).getAsString ();
     assertNotNull (s2);
-    final String s3 = new ToStringGenerator (null).appendIfNotNull ("o", o).toString ();
+    final String s3 = new ToStringGenerator (null).appendIfNotNull ("o", o).getAsString ();
     assertNotNull (s3);
     assertEquals (s1, s2);
     assertFalse (s2.equals (s3));
@@ -52,11 +52,11 @@ public final class ToStringGeneratorTest
 
   private <T> void _test (@Nullable final T o)
   {
-    final String s1 = new ToStringGenerator (null).append ("o", o).toString ();
+    final String s1 = new ToStringGenerator (null).append ("o", o).getAsString ();
     assertNotNull (s1);
-    final String s2 = new ToStringGenerator (null).append ("o", o).toString ();
+    final String s2 = new ToStringGenerator (null).append ("o", o).getAsString ();
     assertNotNull (s2);
-    final String s3 = new ToStringGenerator (null).appendIfNotNull ("o", o).toString ();
+    final String s3 = new ToStringGenerator (null).appendIfNotNull ("o", o).getAsString ();
     assertNotNull (s3);
     assertEquals (s1, s2);
     assertEquals (s2, s3);
@@ -68,7 +68,7 @@ public final class ToStringGeneratorTest
     _testNullable (null);
     _test ("Hallo");
     _test (Long.valueOf (123456789));
-    _test (new CommonsArrayList<> ("Hello", "World"));
+    _test (new CommonsArrayList <> ("Hello", "World"));
     _test (CollectionHelper.newMap ("Hello", "Hallo", "World", "Welt"));
     _test (new BigDecimal ("234324.23421378091235931253769"));
     _test (new boolean [] { true, false, true });
@@ -172,7 +172,7 @@ public final class ToStringGeneratorTest
                                 .appendIfNotNull ("long[]", (long []) null)
                                 .appendIfNotNull ("short[]", (short []) null)
                                 .appendIfNotNull ("String[]", (String []) null)
-                                .toString ();
+                                .getAsString ();
   }
 
   @Test
@@ -181,6 +181,6 @@ public final class ToStringGeneratorTest
     final ToStringGenerator aTSG = new ToStringGenerator (this);
     aTSG.append ("anything", "else");
     aTSG.append ("meMyselfAndI", this);
-    assertTrue (aTSG.toString ().endsWith (": anything=else; meMyselfAndI=this]"));
+    assertTrue (aTSG.getAsString ().endsWith (": anything=else; meMyselfAndI=this]"));
   }
 }

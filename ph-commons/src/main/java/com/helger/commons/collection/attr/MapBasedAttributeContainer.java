@@ -52,18 +52,18 @@ public class MapBasedAttributeContainer <KEYTYPE, VALUETYPE>
 {
   public MapBasedAttributeContainer ()
   {
-    this (true, new CommonsHashMap<> ());
+    this (true, new CommonsHashMap <> ());
   }
 
   public MapBasedAttributeContainer (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
-    this (true, new CommonsHashMap<> ());
+    this (true, new CommonsHashMap <> ());
     m_aAttrs.put (aKey, aValue);
   }
 
   public MapBasedAttributeContainer (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
-    this (true, new CommonsHashMap<> (aMap));
+    this (true, new CommonsHashMap <> (aMap));
   }
 
   public MapBasedAttributeContainer (@Nonnull final IAttributeContainer <KEYTYPE, VALUETYPE> aCont)
@@ -190,7 +190,7 @@ public class MapBasedAttributeContainer <KEYTYPE, VALUETYPE>
   @ReturnsMutableCopy
   public MapBasedAttributeContainer <KEYTYPE, VALUETYPE> getClone ()
   {
-    return new MapBasedAttributeContainer<> (m_aAttrs);
+    return new MapBasedAttributeContainer <> (m_aAttrs);
   }
 
   @Override
@@ -213,6 +213,6 @@ public class MapBasedAttributeContainer <KEYTYPE, VALUETYPE>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("attrs", m_aAttrs).toString ();
+    return new ToStringGenerator (this).append ("attrs", m_aAttrs).getAsString ();
   }
 }

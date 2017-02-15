@@ -70,7 +70,7 @@ public class NamedNodeMapIterator implements IIterableIterator <Node>
     return new ToStringGenerator (this).append ("NamedNodeMap", m_aNL)
                                        .append ("Max", m_nMax)
                                        .append ("Index", m_nIndex)
-                                       .toString ();
+                                       .getAsString ();
   }
 
   @Nonnull

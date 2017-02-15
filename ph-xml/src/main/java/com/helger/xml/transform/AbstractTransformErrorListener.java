@@ -87,6 +87,6 @@ public abstract class AbstractTransformErrorListener implements ITransformErrorL
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).toString ();
+    return new ToStringGenerator (this).getAsString ();
   }
 }

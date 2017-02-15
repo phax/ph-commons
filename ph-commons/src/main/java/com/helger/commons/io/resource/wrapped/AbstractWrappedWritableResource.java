@@ -79,6 +79,6 @@ public abstract class AbstractWrappedWritableResource implements IWritableResour
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("BaseResource", m_aBaseResource).toString ();
+    return new ToStringGenerator (this).append ("BaseResource", m_aBaseResource).getAsString ();
   }
 }

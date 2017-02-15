@@ -141,7 +141,7 @@ public class ChangeWithValue <DATATYPE> implements IChangeIndicator, IWrapper <D
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("change", m_eChange).append ("obj", m_aObj).toString ();
+    return new ToStringGenerator (this).append ("change", m_eChange).append ("obj", m_aObj).getAsString ();
   }
 
   /**

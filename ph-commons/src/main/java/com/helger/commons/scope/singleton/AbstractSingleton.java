@@ -582,7 +582,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
   {
     ValueEnforcer.notNull (aDesiredClass, "DesiredClass");
 
-    final ICommonsList <T> ret = new CommonsArrayList<> ();
+    final ICommonsList <T> ret = new CommonsArrayList <> ();
     if (aScope != null)
       for (final Object aScopeValue : aScope.getAllAttributeValues ())
         if (aScopeValue != null && aDesiredClass.isAssignableFrom (aScopeValue.getClass ()))
@@ -594,6 +594,6 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
   @Nonnull
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("Status", m_aStatus).toString ();
+    return new ToStringGenerator (this).append ("Status", m_aStatus).getAsString ();
   }
 }

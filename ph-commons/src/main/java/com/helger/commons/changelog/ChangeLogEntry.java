@@ -50,7 +50,7 @@ public class ChangeLogEntry extends AbstractChangeLogEntry
   private final EChangeLogCategory m_eCategory;
   private final boolean m_bIsIncompatible;
   private final IMutableMultilingualText m_aTexts = new MultilingualText ();
-  private final ICommonsList <String> m_aIssues = new CommonsArrayList<> ();
+  private final ICommonsList <String> m_aIssues = new CommonsArrayList <> ();
 
   /**
    * Constructor.
@@ -251,6 +251,6 @@ public class ChangeLogEntry extends AbstractChangeLogEntry
                             .append ("isIncompatible", m_bIsIncompatible)
                             .append ("texts", m_aTexts)
                             .append ("issues", m_aIssues)
-                            .toString ();
+                            .getAsString ();
   }
 }

@@ -136,6 +136,6 @@ public class SafeVector <ELEMENTTYPE> extends CommonsVector <ELEMENTTYPE>
   @Override
   public synchronized String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("factory", m_aFactory).toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("factory", m_aFactory).getAsString ();
   }
 }

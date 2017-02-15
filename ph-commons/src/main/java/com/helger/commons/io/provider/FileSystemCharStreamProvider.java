@@ -118,6 +118,6 @@ public final class FileSystemCharStreamProvider implements
   {
     return new ToStringGenerator (this).append ("byteStreamResolver", m_aByteStreamResolver)
                                        .append ("charset", m_aCharset)
-                                       .toString ();
+                                       .getAsString ();
   }
 }

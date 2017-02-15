@@ -76,6 +76,6 @@ public final class MemoryLongIDFactory implements ILongIDFactory
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("ID", m_aID).toString ();
+    return new ToStringGenerator (this).append ("ID", m_aID).getAsString ();
   }
 }

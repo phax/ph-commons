@@ -47,8 +47,8 @@ import com.helger.commons.string.ToStringGenerator;
 public class MapBasedNamespaceContext extends AbstractNamespaceContext implements ICloneable <MapBasedNamespaceContext>
 {
   private String m_sDefaultNamespaceURI;
-  private final ICommonsOrderedMap <String, String> m_aPrefix2NS = new CommonsLinkedHashMap<> ();
-  private final MultiHashMapHashSetBased <String, String> m_aNS2Prefix = new MultiHashMapHashSetBased<> ();
+  private final ICommonsOrderedMap <String, String> m_aPrefix2NS = new CommonsLinkedHashMap <> ();
+  private final MultiHashMapHashSetBased <String, String> m_aNS2Prefix = new MultiHashMapHashSetBased <> ();
 
   /**
    * Default constructor.
@@ -310,6 +310,6 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
     return new ToStringGenerator (this).appendIfNotNull ("defaultNS", m_sDefaultNamespaceURI)
                                        .append ("prefix2NS", m_aPrefix2NS)
                                        .append ("ns2Prefix2", m_aNS2Prefix)
-                                       .toString ();
+                                       .getAsString ();
   }
 }

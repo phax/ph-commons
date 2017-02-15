@@ -378,9 +378,8 @@ public final class ToStringGenerator
     return aValue == null ? this : append (sField, aValue);
   }
 
-  @Override
   @Nonnull
-  public String toString ()
+  public String getAsString ()
   {
     if ((m_nIndex & APPENDED_CLOSING_BRACKET) == 0)
     {
@@ -388,6 +387,14 @@ public final class ToStringGenerator
       m_aSB.append (']');
     }
     return m_aSB.toString ();
+  }
+
+  @Override
+  @Nonnull
+  @Deprecated
+  public String toString ()
+  {
+    return getAsString ();
   }
 
   /**

@@ -174,6 +174,6 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("filesLeft", m_aFilesLeft).toString ();
+    return new ToStringGenerator (this).append ("filesLeft", m_aFilesLeft).getAsString ();
   }
 }

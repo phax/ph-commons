@@ -73,6 +73,6 @@ public class ReverseListIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYPE>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("list", m_aList).append ("index", m_nIndex).toString ();
+    return new ToStringGenerator (this).append ("list", m_aList).append ("index", m_nIndex).getAsString ();
   }
 }

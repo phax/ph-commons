@@ -106,7 +106,7 @@ public class MimeType implements IMimeType, Comparable <MimeType>
     m_eContentType = eContentType;
     m_sContentSubType = sContentSubType;
     m_sMainTypeAsString = m_eContentType.getText () + CMimeType.SEPARATOR_CONTENTTYPE_SUBTYPE + m_sContentSubType;
-    m_aParameters = new CommonsArrayList<> (aParameters);
+    m_aParameters = new CommonsArrayList <> (aParameters);
   }
 
   @Nonnull
@@ -352,6 +352,6 @@ public class MimeType implements IMimeType, Comparable <MimeType>
     return new ToStringGenerator (this).append ("contentType", m_eContentType)
                                        .append ("subType", m_sContentSubType)
                                        .appendIfNotNull ("parameters", m_aParameters)
-                                       .toString ();
+                                       .getAsString ();
   }
 }

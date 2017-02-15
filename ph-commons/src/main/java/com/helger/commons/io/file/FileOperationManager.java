@@ -189,6 +189,8 @@ public class FileOperationManager implements IFileOperationManager
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("lastError", m_aLastError).append ("callback", m_aCallback).toString ();
+    return new ToStringGenerator (this).append ("lastError", m_aLastError)
+                                       .append ("callback", m_aCallback)
+                                       .getAsString ();
   }
 }

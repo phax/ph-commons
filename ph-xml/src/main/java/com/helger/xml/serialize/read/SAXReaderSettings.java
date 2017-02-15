@@ -57,8 +57,8 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
   private DTDHandler m_aDTDHandler;
   private ContentHandler m_aContentHandler;
   private ErrorHandler m_aErrorHandler;
-  private final ICommonsMap <EXMLParserProperty, Object> m_aProperties = new CommonsEnumMap<> (EXMLParserProperty.class);
-  private final ICommonsMap <EXMLParserFeature, Boolean> m_aFeatures = new CommonsEnumMap<> (EXMLParserFeature.class);
+  private final ICommonsMap <EXMLParserProperty, Object> m_aProperties = new CommonsEnumMap <> (EXMLParserProperty.class);
+  private final ICommonsMap <EXMLParserFeature, Boolean> m_aFeatures = new CommonsEnumMap <> (EXMLParserFeature.class);
   private IExceptionCallback <Throwable> m_aExceptionHandler;
   private boolean m_bRequiresNewXMLParserExplicitly;
 
@@ -388,7 +388,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
                                        .append ("features", m_aFeatures)
                                        .append ("exceptionHandler", m_aExceptionHandler)
                                        .append ("requiresNewXMLParserExplicitly", m_bRequiresNewXMLParserExplicitly)
-                                       .toString ();
+                                       .getAsString ();
   }
 
   /**

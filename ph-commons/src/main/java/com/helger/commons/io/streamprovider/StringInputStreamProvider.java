@@ -131,6 +131,6 @@ public class StringInputStreamProvider implements IHasInputStreamAndReader, IHas
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("data", m_sData).append ("charset", m_aCharset).toString ();
+    return new ToStringGenerator (null).append ("data", m_sData).append ("charset", m_aCharset).getAsString ();
   }
 }

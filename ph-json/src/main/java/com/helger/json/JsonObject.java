@@ -216,6 +216,6 @@ public class JsonObject implements IJsonObject
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("values", m_aValues).toString ();
+    return new ToStringGenerator (this).append ("values", m_aValues).getAsString ();
   }
 }

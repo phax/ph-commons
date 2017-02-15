@@ -59,17 +59,17 @@ public class FileMonitor
    * Map from filename to File being monitored.
    */
   @GuardedBy ("m_aRWLock")
-  private final ICommonsMap <String, FileMonitorAgent> m_aMonitorMap = new CommonsHashMap<> ();
+  private final ICommonsMap <String, FileMonitorAgent> m_aMonitorMap = new CommonsHashMap <> ();
 
   /**
    * File objects to be removed from the monitor map.
    */
-  private final Stack <File> m_aDeleteStack = new Stack<> ();
+  private final Stack <File> m_aDeleteStack = new Stack <> ();
 
   /**
    * File objects to be added to the monitor map.
    */
-  private final Stack <File> m_aAddStack = new Stack<> ();
+  private final Stack <File> m_aAddStack = new Stack <> ();
 
   /**
    * A flag used to determine if adding files to be monitored should be
@@ -317,6 +317,8 @@ public class FileMonitor
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("listener", m_aListener).append ("recursive", m_bRecursive).toString ();
+    return new ToStringGenerator (this).append ("listener", m_aListener)
+                                       .append ("recursive", m_bRecursive)
+                                       .getAsString ();
   }
 }

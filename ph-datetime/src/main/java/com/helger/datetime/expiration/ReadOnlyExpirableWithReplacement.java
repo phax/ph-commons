@@ -83,6 +83,6 @@ public final class ReadOnlyExpirableWithReplacement <DATATYPE> implements IExpir
   {
     return new ToStringGenerator (this).append ("expirationDT", m_aExpirationDateTime)
                                        .append ("replacement", m_aReplacement)
-                                       .toString ();
+                                       .getAsString ();
   }
 }

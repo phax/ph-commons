@@ -105,6 +105,6 @@ public class URLProtocol implements IURLProtocol
   {
     return new ToStringGenerator (this).append ("protocol", m_sProtocol)
                                        .append ("queryParams", m_bAllowsForQueryParameters)
-                                       .toString ();
+                                       .getAsString ();
   }
 }

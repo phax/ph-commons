@@ -116,6 +116,6 @@ public class CountingInputStream extends WrappedInputStream
     return ToStringGenerator.getDerived (super.toString ())
                             .append ("bytesRead", m_nBytesRead)
                             .append ("position", m_nPosition)
-                            .toString ();
+                            .getAsString ();
   }
 }

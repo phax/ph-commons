@@ -119,7 +119,7 @@ public final class Pair <DATA1TYPE, DATA2TYPE>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("first", m_aFirst).append ("second", m_aSecond).toString ();
+    return new ToStringGenerator (null).append ("first", m_aFirst).append ("second", m_aSecond).getAsString ();
   }
 
   @Nonnull

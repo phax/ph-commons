@@ -22,7 +22,6 @@ import javax.net.ssl.SSLSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -38,7 +37,7 @@ public class HostnameVerifierVerifyAll implements HostnameVerifier
 
   public HostnameVerifierVerifyAll ()
   {
-    this (GlobalDebug.isDebugMode ());
+    this (false);
   }
 
   public HostnameVerifierVerifyAll (final boolean bDebug)
@@ -64,6 +63,6 @@ public class HostnameVerifierVerifyAll implements HostnameVerifier
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("debug", m_bDebug).toString ();
+    return new ToStringGenerator (this).append ("debug", m_bDebug).getAsString ();
   }
 }

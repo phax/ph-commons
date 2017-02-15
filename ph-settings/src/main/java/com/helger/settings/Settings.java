@@ -191,6 +191,6 @@ public class Settings implements IMutableSettings
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("name", m_sName).append ("map", m_aMap).toString ();
+    return new ToStringGenerator (this).append ("name", m_sName).append ("map", m_aMap).getAsString ();
   }
 }

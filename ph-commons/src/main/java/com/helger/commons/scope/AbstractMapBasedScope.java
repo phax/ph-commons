@@ -68,7 +68,7 @@ public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAn
    */
   public AbstractMapBasedScope (@Nonnull @Nonempty final String sScopeID)
   {
-    super (true, new CommonsConcurrentHashMap<> ());
+    super (true, new CommonsConcurrentHashMap <> ());
     m_sScopeID = ValueEnforcer.notEmpty (sScopeID, "ScopeID");
   }
 
@@ -132,7 +132,7 @@ public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAn
 
     preDestroy ();
 
-    final ICommonsList <IScopeDestructionAware> aDestructionAware = new CommonsArrayList<> ();
+    final ICommonsList <IScopeDestructionAware> aDestructionAware = new CommonsArrayList <> ();
     forAllAttributeValues (x -> {
       if (x instanceof IScopeDestructionAware)
         aDestructionAware.add ((IScopeDestructionAware) x);
@@ -202,7 +202,7 @@ public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAn
   @ReturnsMutableCopy
   public final ICommonsMap <String, IScopeRenewalAware> getAllScopeRenewalAwareAttributes ()
   {
-    final ICommonsMap <String, IScopeRenewalAware> ret = new CommonsHashMap<> ();
+    final ICommonsMap <String, IScopeRenewalAware> ret = new CommonsHashMap <> ();
     forAllAttributes ( (n, v) -> {
       if (v instanceof IScopeRenewalAware)
         ret.put (n, (IScopeRenewalAware) v);
@@ -234,6 +234,6 @@ public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAn
                             .append ("ScopeID", m_sScopeID)
                             .append ("InDestruction", m_bInDestruction)
                             .append ("Destroyed", m_bDestroyed)
-                            .toString ();
+                            .getAsString ();
   }
 }

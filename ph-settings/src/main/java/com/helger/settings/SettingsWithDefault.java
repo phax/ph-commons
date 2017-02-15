@@ -131,6 +131,8 @@ public class SettingsWithDefault extends Settings implements IMutableSettingsWit
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("DefaultSettings", m_aDefaultSettings).toString ();
+    return ToStringGenerator.getDerived (super.toString ())
+                            .append ("DefaultSettings", m_aDefaultSettings)
+                            .getAsString ();
   }
 }

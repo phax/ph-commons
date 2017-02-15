@@ -66,7 +66,7 @@ public class MapBasedXPathVariableResolverQName implements
    */
   public MapBasedXPathVariableResolverQName (@Nullable final Map <QName, ?> aVars)
   {
-    m_aMap = new CommonsHashMap<> (aVars);
+    m_aMap = new CommonsHashMap <> (aVars);
   }
 
   /**
@@ -267,6 +267,6 @@ public class MapBasedXPathVariableResolverQName implements
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("map", m_aMap).toString ();
+    return new ToStringGenerator (this).append ("map", m_aMap).getAsString ();
   }
 }

@@ -47,7 +47,7 @@ public class AnnotationUsageCache implements Serializable
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   private final Class <? extends Annotation> m_aAnnotationClass;
   @GuardedBy ("m_aRWLock")
-  private final ICommonsMap <String, ETriState> m_aMap = new CommonsHashMap<> ();
+  private final ICommonsMap <String, ETriState> m_aMap = new CommonsHashMap <> ();
 
   /**
    * Constructor
@@ -133,6 +133,6 @@ public class AnnotationUsageCache implements Serializable
   {
     return new ToStringGenerator (this).append ("annotationClass", m_aAnnotationClass)
                                        .append ("map", m_aMap)
-                                       .toString ();
+                                       .getAsString ();
   }
 }

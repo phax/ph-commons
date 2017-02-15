@@ -44,7 +44,7 @@ public class ChangeLog implements Serializable
   private final String m_sOriginalVersion;
   private final Version m_aVersion;
   private final String m_sComponent;
-  private final ICommonsList <AbstractChangeLogEntry> m_aEntries = new CommonsArrayList<> ();
+  private final ICommonsList <AbstractChangeLogEntry> m_aEntries = new CommonsArrayList <> ();
 
   /**
    * Constructor.
@@ -154,7 +154,7 @@ public class ChangeLog implements Serializable
   {
     ValueEnforcer.notNull (eCategory, "Category");
 
-    final ICommonsList <ChangeLogEntry> ret = new CommonsArrayList<> ();
+    final ICommonsList <ChangeLogEntry> ret = new CommonsArrayList <> ();
     m_aEntries.findAllInstanceOf (ChangeLogEntry.class, e -> {
       if (e.getCategory ().equals (eCategory))
         ret.add (e);
@@ -247,6 +247,6 @@ public class ChangeLog implements Serializable
                                        .append ("version", m_aVersion)
                                        .append ("component", m_sComponent)
                                        .append ("entries", m_aEntries)
-                                       .toString ();
+                                       .getAsString ();
   }
 }

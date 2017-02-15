@@ -198,6 +198,6 @@ public final class FileIOError implements ISuccessIndicator, Serializable
                                        .appendIfNotNull ("file1", m_aFile1)
                                        .appendIfNotNull ("file2", m_aFile2)
                                        .appendIfNotNull ("exception", m_aException)
-                                       .toString ();
+                                       .getAsString ();
   }
 }

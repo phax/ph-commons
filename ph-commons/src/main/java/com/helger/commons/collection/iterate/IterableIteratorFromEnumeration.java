@@ -55,6 +55,6 @@ public class IterableIteratorFromEnumeration <ELEMENTTYPE> implements IIterableI
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("enum", m_aEnum).toString ();
+    return new ToStringGenerator (this).append ("enum", m_aEnum).getAsString ();
   }
 }

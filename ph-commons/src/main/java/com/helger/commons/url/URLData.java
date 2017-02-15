@@ -153,6 +153,6 @@ public class URLData implements IURLData
     return new ToStringGenerator (this).append ("path", m_sPath)
                                        .appendIfNotNull ("params", m_aParams)
                                        .appendIfNotNull ("anchor", m_sAnchor)
-                                       .toString ();
+                                       .getAsString ();
   }
 }

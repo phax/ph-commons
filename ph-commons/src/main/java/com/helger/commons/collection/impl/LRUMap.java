@@ -71,7 +71,7 @@ public class LRUMap <KEYTYPE, VALUETYPE> extends CommonsLinkedHashMap <KEYTYPE, 
   @Nonnull
   public LRUMap <KEYTYPE, VALUETYPE> getClone ()
   {
-    return new LRUMap<> (this);
+    return new LRUMap <> (this);
   }
 
   /**
@@ -137,6 +137,6 @@ public class LRUMap <KEYTYPE, VALUETYPE> extends CommonsLinkedHashMap <KEYTYPE, 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("maxSize", m_nMaxSize).append ("map", super.toString ()).toString ();
+    return new ToStringGenerator (this).append ("maxSize", m_nMaxSize).append ("map", super.toString ()).getAsString ();
   }
 }

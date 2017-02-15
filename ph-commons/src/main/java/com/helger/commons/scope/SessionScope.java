@@ -216,6 +216,6 @@ public class SessionScope extends AbstractMapBasedScope implements ISessionScope
   {
     return ToStringGenerator.getDerived (super.toString ())
                             .append ("sessionAppScopes", m_aSessionAppScopes)
-                            .toString ();
+                            .getAsString ();
   }
 }

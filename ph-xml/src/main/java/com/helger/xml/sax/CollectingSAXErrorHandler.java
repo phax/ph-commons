@@ -78,6 +78,6 @@ public class CollectingSAXErrorHandler extends AbstractSAXErrorHandler
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("errors", m_aErrors).toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("errors", m_aErrors).getAsString ();
   }
 }

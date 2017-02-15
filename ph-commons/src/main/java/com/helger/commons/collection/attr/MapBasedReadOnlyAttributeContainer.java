@@ -55,18 +55,18 @@ public class MapBasedReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> implements 
 
   public MapBasedReadOnlyAttributeContainer (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
-    this (true, new CommonsHashMap<> ());
+    this (true, new CommonsHashMap <> ());
     m_aAttrs.put (aKey, aValue);
   }
 
   public MapBasedReadOnlyAttributeContainer (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
-    this (true, new CommonsHashMap<> (aMap));
+    this (true, new CommonsHashMap <> (aMap));
   }
 
   public MapBasedReadOnlyAttributeContainer (@Nonnull final IAttributeContainer <? extends KEYTYPE, ? extends VALUETYPE> aCont)
   {
-    this (true, new CommonsHashMap<> (aCont.getAllAttributes ()));
+    this (true, new CommonsHashMap <> (aCont.getAllAttributes ()));
   }
 
   /**
@@ -164,6 +164,6 @@ public class MapBasedReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> implements 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("attrs", m_aAttrs).toString ();
+    return new ToStringGenerator (this).append ("attrs", m_aAttrs).getAsString ();
   }
 }

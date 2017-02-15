@@ -124,7 +124,7 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
       throw new IllegalArgumentException ("No path specified after prefix: " + sPath);
 
     // Ensure the ClassLoader can be garbage collected if necessary
-    m_aClassLoader = aClassLoader == null ? null : new WeakReference<> (aClassLoader);
+    m_aClassLoader = aClassLoader == null ? null : new WeakReference <> (aClassLoader);
   }
 
   private void writeObject (@Nonnull final ObjectOutputStream aOOS) throws IOException
@@ -450,6 +450,6 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
                                        .appendIfNotNull ("classLoader", getClassLoader ())
                                        .append ("urlResolved", m_bURLResolved)
                                        .append ("URL", m_aURL)
-                                       .toString ();
+                                       .getAsString ();
   }
 }

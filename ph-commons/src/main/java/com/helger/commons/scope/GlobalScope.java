@@ -182,6 +182,6 @@ public class GlobalScope extends AbstractMapBasedScope implements IGlobalScope
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("appScopes", m_aAppScopes).toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("appScopes", m_aAppScopes).getAsString ();
   }
 }

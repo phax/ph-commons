@@ -80,7 +80,7 @@ public class BasicTreeWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithI
   @ReturnsMutableCopy
   public final ICommonsCollection <? extends ITEMTYPE> getAllChildren ()
   {
-    return new CommonsArrayList<> (m_aRootItem);
+    return new CommonsArrayList <> (m_aRootItem);
   }
 
   public final void forAllChildren (@Nonnull final Consumer <? super ITEMTYPE> aConsumer)
@@ -135,6 +135,6 @@ public class BasicTreeWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithI
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("root", m_aRootItem).toString ();
+    return new ToStringGenerator (this).append ("root", m_aRootItem).getAsString ();
   }
 }

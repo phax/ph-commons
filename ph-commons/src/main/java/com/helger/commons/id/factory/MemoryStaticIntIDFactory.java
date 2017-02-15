@@ -71,6 +71,6 @@ public final class MemoryStaticIntIDFactory implements IIntIDFactory
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).toString ();
+    return new ToStringGenerator (this).getAsString ();
   }
 }

@@ -118,6 +118,6 @@ final class MicroDataAware implements IMicroDataAware, ICloneable <MicroDataAwar
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("data", m_aSB).toString ();
+    return new ToStringGenerator (this).append ("data", m_aSB).getAsString ();
   }
 }

@@ -362,6 +362,6 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   {
     return new ToStringGenerator (this).append ("buf#", ArrayHelper.getSize (m_aBuf))
                                        .append ("size", m_nCount)
-                                       .toString ();
+                                       .getAsString ();
   }
 }

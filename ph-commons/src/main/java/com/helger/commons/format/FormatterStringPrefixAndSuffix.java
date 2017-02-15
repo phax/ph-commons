@@ -80,6 +80,6 @@ public class FormatterStringPrefixAndSuffix extends AbstractFormatterString
     return ToStringGenerator.getDerived (super.toString ())
                             .append ("prefix", m_sPrefix)
                             .append ("suffix", m_sSuffix)
-                            .toString ();
+                            .getAsString ();
   }
 }

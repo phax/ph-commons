@@ -149,7 +149,7 @@ public class ErrorTextProvider implements IErrorTextProvider, Serializable, IClo
     @Override
     public String toString ()
     {
-      return new ToStringGenerator (this).append ("Field", m_eField).append ("Text", m_sText).toString ();
+      return new ToStringGenerator (this).append ("Field", m_eField).append ("Text", m_sText).getAsString ();
     }
   }
 
@@ -169,7 +169,7 @@ public class ErrorTextProvider implements IErrorTextProvider, Serializable, IClo
 
   public ErrorTextProvider ()
   {
-    m_aItems = new CommonsArrayList<> ();
+    m_aItems = new CommonsArrayList <> ();
   }
 
   /**
@@ -383,6 +383,8 @@ public class ErrorTextProvider implements IErrorTextProvider, Serializable, IClo
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("Items", m_aItems).append ("FieldSeparator", m_sFieldSep).toString ();
+    return new ToStringGenerator (this).append ("Items", m_aItems)
+                                       .append ("FieldSeparator", m_sFieldSep)
+                                       .getAsString ();
   }
 }

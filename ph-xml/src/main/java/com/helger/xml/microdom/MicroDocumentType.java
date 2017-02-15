@@ -109,6 +109,6 @@ public final class MicroDocumentType extends AbstractMicroNode implements IMicro
                             .append ("qualifiedName", m_sQualifiedName)
                             .append ("publicID", m_sPublicID)
                             .append ("systemID", m_sSystemID)
-                            .toString ();
+                            .getAsString ();
   }
 }

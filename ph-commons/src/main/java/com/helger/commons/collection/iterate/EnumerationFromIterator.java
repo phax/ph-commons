@@ -59,7 +59,7 @@ public final class EnumerationFromIterator <ELEMENTTYPE> implements Enumeration 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("iter", m_aIter).toString ();
+    return new ToStringGenerator (this).append ("iter", m_aIter).getAsString ();
   }
 
   @Nonnull

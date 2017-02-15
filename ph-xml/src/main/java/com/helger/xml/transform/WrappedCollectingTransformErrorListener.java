@@ -62,6 +62,6 @@ public class WrappedCollectingTransformErrorListener extends AbstractTransformEr
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("ErrorList", m_aErrorList).toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("ErrorList", m_aErrorList).getAsString ();
   }
 }

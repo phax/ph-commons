@@ -24,6 +24,9 @@ This project was the following modules:
 
 ##News and noteworthy
 
+  * v8.6.2
+    * Extended XMLSystemProperties API
+    * Deprecated CCharset- use StandardCharsets instead
   * v8.6.1 - 2017-01-23
     * `*MultilingualText` is now based on ICommonsOrderedMap
     * Extended `GlobalDebug` API slightly

@@ -616,9 +616,9 @@ public abstract class AbstractMicroNode implements IMicroNode
     ValueEnforcer.notNull (aTarget, "EventTarget");
 
     if (m_aEventTargets == null)
-      m_aEventTargets = new CommonsEnumMap<> (EMicroEvent.class);
+      m_aEventTargets = new CommonsEnumMap <> (EMicroEvent.class);
     final ICommonsOrderedSet <IMicroEventTarget> aSet = m_aEventTargets.computeIfAbsent (eEventType,
-                                                                                         k -> new CommonsLinkedHashSet<> ());
+                                                                                         k -> new CommonsLinkedHashSet <> ());
     return aSet.addObject (aTarget);
   }
 
@@ -641,14 +641,14 @@ public abstract class AbstractMicroNode implements IMicroNode
   @ReturnsMutableCopy
   public ICommonsMap <EMicroEvent, ICommonsSet <IMicroEventTarget>> getAllEventTargets ()
   {
-    return new CommonsEnumMap<> (m_aEventTargets);
+    return new CommonsEnumMap <> (m_aEventTargets);
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <IMicroEventTarget> getAllEventTargets (@Nullable final EMicroEvent eEvent)
   {
-    return new CommonsLinkedHashSet<> (m_aEventTargets == null ? null : m_aEventTargets.get (eEvent));
+    return new CommonsLinkedHashSet <> (m_aEventTargets == null ? null : m_aEventTargets.get (eEvent));
   }
 
   @Override
@@ -657,6 +657,6 @@ public abstract class AbstractMicroNode implements IMicroNode
     return new ToStringGenerator (this).appendIfNotNull ("parentNodeName",
                                                          m_aParentNode == null ? null : m_aParentNode.getNodeName ())
                                        .appendIfNotNull ("eventTargets", m_aEventTargets)
-                                       .toString ();
+                                       .getAsString ();
   }
 }

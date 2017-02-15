@@ -80,7 +80,7 @@ public class FactoryNewInstance <DATATYPE> implements IFactory <DATATYPE>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("Class", m_aClass).toString ();
+    return new ToStringGenerator (this).append ("Class", m_aClass).getAsString ();
   }
 
   @Nonnull

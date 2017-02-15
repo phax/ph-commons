@@ -509,7 +509,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
                                        .append ("emitNamespaces", m_bEmitNamespaces)
                                        .append ("putNamespaceContextPrefixesInRoot",
                                                 m_bPutNamespaceContextPrefixesInRoot)
-                                       .toString ();
+                                       .getAsString ();
   }
 
   @Nonnull

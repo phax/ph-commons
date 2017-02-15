@@ -131,6 +131,6 @@ public class JsonStringBuilder implements Serializable
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("len", m_nLen).append ("asString", getAsString ()).toString ();
+    return new ToStringGenerator (this).append ("len", m_nLen).append ("asString", getAsString ()).getAsString ();
   }
 }

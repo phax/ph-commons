@@ -69,6 +69,6 @@ public class TypeConverterRuleAnySourceFixedDestination <DST> extends AbstractTy
     return ToStringGenerator.getDerived (super.toString ())
                             .append ("dstClass", m_aDstClass.getName ())
                             .append ("converter", m_aConverter)
-                            .toString ();
+                            .getAsString ();
   }
 }

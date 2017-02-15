@@ -25,7 +25,6 @@ import javax.net.ssl.X509TrustManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -41,7 +40,7 @@ public class TrustManagerTrustAll implements X509TrustManager
 
   public TrustManagerTrustAll ()
   {
-    this (GlobalDebug.isDebugMode ());
+    this (false);
   }
 
   public TrustManagerTrustAll (final boolean bDebug)
@@ -78,6 +77,6 @@ public class TrustManagerTrustAll implements X509TrustManager
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("debug", m_bDebug).toString ();
+    return new ToStringGenerator (this).append ("debug", m_bDebug).getAsString ();
   }
 }

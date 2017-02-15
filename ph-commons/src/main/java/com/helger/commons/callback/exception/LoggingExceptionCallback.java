@@ -104,6 +104,6 @@ public class LoggingExceptionCallback implements IExceptionCallback <Throwable>,
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).toString ();
+    return new ToStringGenerator (this).getAsString ();
   }
 }

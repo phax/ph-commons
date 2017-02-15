@@ -129,6 +129,6 @@ public abstract class AbstractPersistingLongIDFactory implements ILongIDFactory
     return new ToStringGenerator (this).append ("reserveCount", m_nReserveCount)
                                        .append ("ID", m_nID)
                                        .append ("lastID", m_nLastID)
-                                       .toString ();
+                                       .getAsString ();
   }
 }

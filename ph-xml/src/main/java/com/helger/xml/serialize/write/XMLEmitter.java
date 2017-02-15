@@ -490,6 +490,6 @@ public class XMLEmitter
                                        .append ("version", m_eXMLVersion)
                                        .append ("attrValueBoundary", m_cAttrValueBoundary)
                                        .append ("attrValueCharMode", m_eAttrValueCharMode)
-                                       .toString ();
+                                       .getAsString ();
   }
 }

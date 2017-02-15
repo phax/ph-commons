@@ -53,7 +53,7 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
    */
   public MapBasedXPathFunctionResolver ()
   {
-    m_aMap = new CommonsLinkedHashMap<> ();
+    m_aMap = new CommonsLinkedHashMap <> ();
   }
 
   /**
@@ -263,6 +263,6 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("map", m_aMap).toString ();
+    return new ToStringGenerator (this).append ("map", m_aMap).getAsString ();
   }
 }

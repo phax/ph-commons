@@ -155,6 +155,6 @@ public class NonBlockingBitInputStream implements Closeable
                                        .append ("highOrderBitFirst", m_bHighOrderBitFirst)
                                        .append ("nextBitIndex", m_nNextBitIndex)
                                        .append ("buffer", m_nBuffer)
-                                       .toString ();
+                                       .getAsString ();
   }
 }

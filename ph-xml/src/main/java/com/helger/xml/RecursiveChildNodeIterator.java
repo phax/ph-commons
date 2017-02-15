@@ -77,6 +77,6 @@ public class RecursiveChildNodeIterator implements IIterableIterator <Node>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("iter", m_aIter).toString ();
+    return new ToStringGenerator (this).append ("iter", m_aIter).getAsString ();
   }
 }

@@ -90,6 +90,30 @@ public final class XMLSystemProperties
     _onSystemPropertyChange ();
   }
 
+  /**
+   * The same as {@link #setXMLEntityExpansionLimit(int)} but just that the
+   * value is only set, if the limit is increased!
+   *
+   * @param nMaxOccur
+   *        A positive integer. Values &le; 0 are treated as no limit.
+   * @since 8.6.2
+   * @see #setXMLEntityExpansionLimit(int)
+   */
+  public static void setXMLEntityExpansionLimitIfLarger (final int nMaxOccur)
+  {
+    final int nOldValue = getXMLEntityExpansionLimit ();
+    if (nOldValue > 0)
+    {
+      // Current value is limited
+      if (nMaxOccur <= 0 || nMaxOccur > nOldValue)
+      {
+        // New value is unlimited or higher
+        setXMLEntityExpansionLimit (nMaxOccur);
+      }
+    }
+    // else -> cannot be increased
+  }
+
   public static int getXMLEntityExpansionLimit ()
   {
     // Default value depends.
@@ -110,15 +134,52 @@ public final class XMLSystemProperties
    * "Secure processing" feature is used. Otherwise this setting has no effect!
    *
    * @param nElementAttributeLimit
-   *        A positive integer. Values &ge; 0 are treated as no limit.
+   *        A positive integer. Values &le; 0 are treated as no limit.
    */
   public static void setXMLElementAttributeLimit (final int nElementAttributeLimit)
   {
-    SystemProperties.setPropertyValue (SYSTEM_PROPERTY_ELEMENT_ATTRIBUTE_LIMIT,
-                                       Integer.toString (nElementAttributeLimit));
-    SystemProperties.setPropertyValue (SYSTEM_PROPERTY_JDX_XML_ELEMENT_ATTRIBUTE_LIMIT,
-                                       Integer.toString (nElementAttributeLimit));
+    setXMLElementAttributeLimit (Integer.toString (nElementAttributeLimit));
+  }
+
+  /**
+   * Limit the number of attributes an element can have.<br>
+   * This setting only takes effect if a parser with <b>explicitly</b> disabled
+   * "Secure processing" feature is used. Otherwise this setting has no effect!
+   *
+   * @param sElementAttributeLimit
+   *        A positive integer. Values &le; 0 are treated as no limit.
+   *        <code>null</code> means the property is deleted
+   * @since 8.6.2
+   */
+  public static void setXMLElementAttributeLimit (@Nullable final String sElementAttributeLimit)
+  {
+    SystemProperties.setPropertyValue (SYSTEM_PROPERTY_ELEMENT_ATTRIBUTE_LIMIT, sElementAttributeLimit);
+    SystemProperties.setPropertyValue (SYSTEM_PROPERTY_JDX_XML_ELEMENT_ATTRIBUTE_LIMIT, sElementAttributeLimit);
     _onSystemPropertyChange ();
+  }
+
+  /**
+   * The same as {@link #setXMLElementAttributeLimit(int)} but just that the
+   * value is only set, if the limit is increased!
+   *
+   * @param nElementAttributeLimit
+   *        A positive integer. Values &le; 0 are treated as no limit.
+   * @since 8.6.2
+   * @see #setXMLElementAttributeLimit(int)
+   */
+  public static void setXMLElementAttributeLimitIfLarger (final int nElementAttributeLimit)
+  {
+    final int nOldValue = getXMLElementAttributeLimit ();
+    if (nOldValue > 0)
+    {
+      // Current value is limited
+      if (nElementAttributeLimit <= 0 || nElementAttributeLimit > nOldValue)
+      {
+        // New value is unlimited or higher
+        setXMLElementAttributeLimit (nElementAttributeLimit);
+      }
+    }
+    // else -> cannot be increased
   }
 
   public static int getXMLElementAttributeLimit ()
@@ -141,13 +202,54 @@ public final class XMLSystemProperties
    * "Secure processing" feature is used. Otherwise this setting has no effect!
    *
    * @param nMaxOccur
-   *        A positive integer. Values &ge; 0 are treated as no limit.
+   *        A positive integer. Values &le; 0 are treated as no limit.
    */
   public static void setXMLMaxOccur (final int nMaxOccur)
   {
-    SystemProperties.setPropertyValue (SYSTEM_PROPERTY_MAX_OCCUR, Integer.toString (nMaxOccur));
-    SystemProperties.setPropertyValue (SYSTEM_PROPERTY_JDX_XML_MAX_OCCUR, Integer.toString (nMaxOccur));
+    setXMLMaxOccur (Integer.toString (nMaxOccur));
+  }
+
+  /**
+   * Limit the number of content model nodes that may be created when building a
+   * grammar for a W3C XML Schema that contains maxOccurs attributes with values
+   * other than "unbounded".<br>
+   * This setting only takes effect if a parser with <b>explicitly</b> disabled
+   * "Secure processing" feature is used. Otherwise this setting has no effect!
+   *
+   * @param sMaxOccur
+   *        A positive integer. Values &le; 0 are treated as no limit.
+   *        <code>null</code> means the property is deleted.
+   * @since 8.6.2
+   */
+  public static void setXMLMaxOccur (@Nullable final String sMaxOccur)
+  {
+    SystemProperties.setPropertyValue (SYSTEM_PROPERTY_MAX_OCCUR, sMaxOccur);
+    SystemProperties.setPropertyValue (SYSTEM_PROPERTY_JDX_XML_MAX_OCCUR, sMaxOccur);
     _onSystemPropertyChange ();
+  }
+
+  /**
+   * The same as {@link #setXMLMaxOccur(int)} but just that the value is only
+   * set, if the limit is increased!
+   *
+   * @param nMaxOccur
+   *        A positive integer. Values &le; 0 are treated as no limit.
+   * @since 8.6.2
+   * @see #setXMLMaxOccur(int)
+   */
+  public static void setXMLMaxOccurIfLarger (final int nMaxOccur)
+  {
+    final int nOldValue = getXMLMaxOccur ();
+    if (nOldValue > 0)
+    {
+      // Current value is limited
+      if (nMaxOccur <= 0 || nMaxOccur > nOldValue)
+      {
+        // New value is unlimited or higher
+        setXMLMaxOccur (nMaxOccur);
+      }
+    }
+    // else -> cannot be increased
   }
 
   public static int getXMLMaxOccur ()
@@ -170,13 +272,53 @@ public final class XMLSystemProperties
    * "Secure processing" feature is used. Otherwise this setting has no effect!
    *
    * @param nTotalEntitySizeLimit
-   *        A positive integer. Values &ge; 0 are treated as no limit.
+   *        A positive integer. Values &le; 0 are treated as no limit.
    */
   public static void setXMLTotalEntitySizeLimit (final int nTotalEntitySizeLimit)
   {
-    SystemProperties.setPropertyValue (SYSTEM_PROPERTY_JDX_XML_TOTAL_ENTITY_SIZE_LIMIT,
-                                       Integer.toString (nTotalEntitySizeLimit));
+    setXMLTotalEntitySizeLimit (Integer.toString (nTotalEntitySizeLimit));
+  }
+
+  /**
+   * Limit the total size of all entities that include general and parameter
+   * entities. The size is calculated as an aggregation of all entities.<br>
+   * This is available since JDK 1.7.0_45/1.8.<br>
+   * This setting only takes effect if a parser with <b>explicitly</b> disabled
+   * "Secure processing" feature is used. Otherwise this setting has no effect!
+   *
+   * @param sTotalEntitySizeLimit
+   *        A positive integer. Values &le; 0 are treated as no limit.
+   *        <code>null</code> means the property is deleted.
+   * @since 8.6.2
+   */
+  public static void setXMLTotalEntitySizeLimit (@Nullable final String sTotalEntitySizeLimit)
+  {
+    SystemProperties.setPropertyValue (SYSTEM_PROPERTY_JDX_XML_TOTAL_ENTITY_SIZE_LIMIT, sTotalEntitySizeLimit);
     _onSystemPropertyChange ();
+  }
+
+  /**
+   * The same as {@link #setXMLTotalEntitySizeLimit(int)} but just that the
+   * value is only set, if the limit is increased!
+   *
+   * @param nTotalEntitySizeLimit
+   *        A positive integer. Values &le; 0 are treated as no limit.
+   * @since 8.6.2
+   * @see #setXMLTotalEntitySizeLimit(int)
+   */
+  public static void setXMLTotalEntitySizeLimitIfLarger (final int nTotalEntitySizeLimit)
+  {
+    final int nOldValue = getXMLTotalEntitySizeLimit ();
+    if (nOldValue > 0)
+    {
+      // Current value is limited
+      if (nTotalEntitySizeLimit <= 0 || nTotalEntitySizeLimit > nOldValue)
+      {
+        // New value is unlimited or higher
+        setXMLTotalEntitySizeLimit (nTotalEntitySizeLimit);
+      }
+    }
+    // else -> cannot be increased
   }
 
   public static int getXMLTotalEntitySizeLimit ()
@@ -198,13 +340,55 @@ public final class XMLSystemProperties
    * "Secure processing" feature is used. Otherwise this setting has no effect!
    *
    * @param nMaxGeneralEntitySizeLimit
-   *        A positive integer. Values &ge; 0 are treated as no limit.
+   *        A positive integer. Values &le; 0 are treated as no limit.
    */
   public static void setXMLMaxGeneralEntitySizeLimit (final int nMaxGeneralEntitySizeLimit)
   {
+    setXMLMaxGeneralEntitySizeLimit (Integer.toString (nMaxGeneralEntitySizeLimit));
+  }
+
+  /**
+   * Limit the maximum size of any general entities. It is recommended that
+   * users set the limit to the smallest possible number so that malformed xml
+   * files can be caught quickly.<br>
+   * This is available since JDK 1.7.0_45/1.8.<br>
+   * This setting only takes effect if a parser with <b>explicitly</b> disabled
+   * "Secure processing" feature is used. Otherwise this setting has no effect!
+   *
+   * @param sMaxGeneralEntitySizeLimit
+   *        A positive integer. Values &le; 0 are treated as no limit.
+   *        <code>null</code> means the property is deleted.
+   * @since 8.6.2
+   */
+  public static void setXMLMaxGeneralEntitySizeLimit (@Nullable final String sMaxGeneralEntitySizeLimit)
+  {
     SystemProperties.setPropertyValue (SYSTEM_PROPERTY_JDX_XML_MAX_GENERAL_ENTITY_SIZE_LIMIT,
-                                       Integer.toString (nMaxGeneralEntitySizeLimit));
+                                       sMaxGeneralEntitySizeLimit);
     _onSystemPropertyChange ();
+  }
+
+  /**
+   * The same as {@link #setXMLMaxGeneralEntitySizeLimit(int)} but just that the
+   * value is only set, if the limit is increased!
+   *
+   * @param nMaxGeneralEntitySizeLimit
+   *        A positive integer. Values &le; 0 are treated as no limit.
+   * @since 8.6.2
+   * @see #setXMLMaxGeneralEntitySizeLimit(int)
+   */
+  public static void setXMLMaxGeneralEntitySizeLimitIfLarger (final int nMaxGeneralEntitySizeLimit)
+  {
+    final int nOldValue = getXMLMaxGeneralEntitySizeLimit ();
+    if (nOldValue > 0)
+    {
+      // Current value is limited
+      if (nMaxGeneralEntitySizeLimit <= 0 || nMaxGeneralEntitySizeLimit > nOldValue)
+      {
+        // New value is unlimited or higher
+        setXMLMaxGeneralEntitySizeLimit (nMaxGeneralEntitySizeLimit);
+      }
+    }
+    // else -> cannot be increased
   }
 
   public static int getXMLMaxGeneralEntitySizeLimit ()
@@ -227,13 +411,56 @@ public final class XMLSystemProperties
    * "Secure processing" feature is used. Otherwise this setting has no effect!
    *
    * @param nMaxParameterEntitySizeLimit
-   *        A positive integer. Values &ge; 0 are treated as no limit.
+   *        A positive integer. Values &le; 0 are treated as no limit.
    */
   public static void setXMLMaxParameterEntitySizeLimit (final int nMaxParameterEntitySizeLimit)
   {
+    setXMLMaxParameterEntitySizeLimit (Integer.toString (nMaxParameterEntitySizeLimit));
+  }
+
+  /**
+   * Limit the maximum size of any parameter entities, including the result of
+   * nesting multiple parameter entities. It is recommended that users set the
+   * limit to the smallest possible number so that malformed xml files can be
+   * caught quickly.<br>
+   * This is available since JDK 1.7.0_45/1.8.<br>
+   * This setting only takes effect if a parser with <b>explicitly</b> disabled
+   * "Secure processing" feature is used. Otherwise this setting has no effect!
+   *
+   * @param sMaxParameterEntitySizeLimit
+   *        A positive integer. Values &le; 0 are treated as no limit.
+   *        <code>null</code> means the property is deleted.
+   * @since 8.6.2
+   */
+  public static void setXMLMaxParameterEntitySizeLimit (@Nullable final String sMaxParameterEntitySizeLimit)
+  {
     SystemProperties.setPropertyValue (SYSTEM_PROPERTY_JDX_XML_MAX_PARAMETER_ENTITY_SIZE_LIMIT,
-                                       Integer.toString (nMaxParameterEntitySizeLimit));
+                                       sMaxParameterEntitySizeLimit);
     _onSystemPropertyChange ();
+  }
+
+  /**
+   * The same as {@link #setXMLMaxParameterEntitySizeLimit(int)} but just that
+   * the value is only set, if the limit is increased!
+   *
+   * @param nMaxParameterEntitySizeLimit
+   *        A positive integer. Values &le; 0 are treated as no limit.
+   * @since 8.6.2
+   * @see #setXMLMaxParameterEntitySizeLimit(int)
+   */
+  public static void setXMLMaxParameterEntitySizeLimitIfLarger (final int nMaxParameterEntitySizeLimit)
+  {
+    final int nOldValue = getXMLMaxParameterEntitySizeLimit ();
+    if (nOldValue > 0)
+    {
+      // Current value is limited
+      if (nMaxParameterEntitySizeLimit <= 0 || nMaxParameterEntitySizeLimit > nOldValue)
+      {
+        // New value is unlimited or higher
+        setXMLMaxParameterEntitySizeLimit (nMaxParameterEntitySizeLimit);
+      }
+    }
+    // else -> cannot be increased
   }
 
   public static int getXMLMaxParameterEntitySizeLimit ()

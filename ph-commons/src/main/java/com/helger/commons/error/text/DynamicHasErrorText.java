@@ -85,6 +85,6 @@ public class DynamicHasErrorText implements IHasErrorText
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("MLT", m_aText).toString ();
+    return new ToStringGenerator (null).append ("MLT", m_aText).getAsString ();
   }
 }

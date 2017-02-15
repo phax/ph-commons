@@ -85,6 +85,6 @@ public abstract class AbstractSAXErrorHandler implements ISAXErrorHandler
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).toString ();
+    return new ToStringGenerator (this).getAsString ();
   }
 }

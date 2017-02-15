@@ -343,8 +343,8 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
       aItem.setData (aData);
       if (m_aChildMap == null)
       {
-        m_aChildMap = new CommonsHashMap<> ();
-        m_aChildren = new CommonsArrayList<> ();
+        m_aChildMap = new CommonsHashMap <> ();
+        m_aChildren = new CommonsArrayList <> ();
       }
       m_aChildMap.put (aDataID, aItem);
       m_aChildren.add (aItem);
@@ -417,8 +417,8 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     }
     else
     {
-      m_aChildMap = new CommonsHashMap<> ();
-      m_aChildren = new CommonsArrayList<> ();
+      m_aChildMap = new CommonsHashMap <> ();
+      m_aChildren = new CommonsArrayList <> ();
     }
 
     m_aChildMap.put (aDataID, aChild);
@@ -508,6 +508,6 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     return new ToStringGenerator (this).append ("dataID", m_aDataID)
                                        .append ("data", m_aData)
                                        .append ("children", m_aChildMap)
-                                       .toString ();
+                                       .getAsString ();
   }
 }

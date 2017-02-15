@@ -74,6 +74,6 @@ public abstract class AbstractChangeLogEntry implements Serializable
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("LocalDate", m_aLocalDate).toString ();
+    return new ToStringGenerator (this).append ("LocalDate", m_aLocalDate).getAsString ();
   }
 }

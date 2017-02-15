@@ -42,7 +42,7 @@ final class FileMonitorAgent
 
   private boolean m_bExists;
   private long m_nTimestamp;
-  private final ICommonsSet <String> m_aChildren = new CommonsHashSet<> ();
+  private final ICommonsSet <String> m_aChildren = new CommonsHashSet <> ();
 
   /**
    * @param aMonitor
@@ -105,8 +105,8 @@ final class FileMonitorAgent
   {
     // See which new children are not listed in the current children
     // map.
-    final ICommonsSet <String> aNewChildren = new CommonsHashSet<> ();
-    final NonBlockingStack <File> aNewCreatedChildren = new NonBlockingStack<> ();
+    final ICommonsSet <String> aNewChildren = new CommonsHashSet <> ();
+    final NonBlockingStack <File> aNewCreatedChildren = new NonBlockingStack <> ();
 
     final File [] aNewChildrenList = m_aFile.listFiles ();
     if (aNewChildrenList != null)
@@ -175,6 +175,6 @@ final class FileMonitorAgent
                                        .append ("exists", m_bExists)
                                        .append ("timestamp", m_nTimestamp)
                                        .append ("children", m_aChildren)
-                                       .toString ();
+                                       .getAsString ();
   }
 }

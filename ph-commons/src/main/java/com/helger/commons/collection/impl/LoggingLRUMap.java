@@ -64,7 +64,7 @@ public class LoggingLRUMap <KEYTYPE, VALUETYPE> extends LRUMap <KEYTYPE, VALUETY
   @Nonnull
   public LoggingLRUMap <KEYTYPE, VALUETYPE> getClone ()
   {
-    return new LoggingLRUMap<> (this);
+    return new LoggingLRUMap <> (this);
   }
 
   @Nullable
@@ -117,6 +117,6 @@ public class LoggingLRUMap <KEYTYPE, VALUETYPE> extends LRUMap <KEYTYPE, VALUETY
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("MapName", m_sMapName).toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("MapName", m_sMapName).getAsString ();
   }
 }

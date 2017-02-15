@@ -106,6 +106,6 @@ public class ResourceBundleKey implements Serializable
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("bundleName", m_sBundleName).append ("key", m_sKey).toString ();
+    return new ToStringGenerator (this).append ("bundleName", m_sBundleName).append ("key", m_sKey).getAsString ();
   }
 }

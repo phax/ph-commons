@@ -101,6 +101,6 @@ public class FileIntIDFactory extends AbstractPersistingIntIDFactory
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("file", m_aFile).toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("file", m_aFile).getAsString ();
   }
 }

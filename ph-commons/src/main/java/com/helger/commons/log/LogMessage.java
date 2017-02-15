@@ -91,6 +91,6 @@ public class LogMessage implements IHasErrorLevelComparable <LogMessage>
                                        .append ("errorLevel", m_aErrorLevel)
                                        .append ("msg", m_aMsg)
                                        .appendIfNotNull ("throwable", m_aThrowable)
-                                       .toString ();
+                                       .getAsString ();
   }
 }

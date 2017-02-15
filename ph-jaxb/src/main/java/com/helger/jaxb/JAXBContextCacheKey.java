@@ -84,6 +84,6 @@ public class JAXBContextCacheKey implements IHasClassLoader
   {
     return new ToStringGenerator (this).append ("Package", m_aPackage)
                                        .append ("ClassLoader", m_aClassLoader)
-                                       .toString ();
+                                       .getAsString ();
   }
 }

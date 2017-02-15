@@ -120,6 +120,6 @@ public class CustomLicense implements ILicense
                                        .append ("name", m_sName)
                                        .appendIfNotNull ("version", m_aVersion)
                                        .appendIfNotNull ("website", m_sWebSiteURL)
-                                       .toString ();
+                                       .getAsString ();
   }
 }

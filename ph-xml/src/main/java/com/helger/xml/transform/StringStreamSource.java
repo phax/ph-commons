@@ -63,6 +63,6 @@ public class StringStreamSource extends StreamSource
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("systemID", getSystemId ()).toString ();
+    return new ToStringGenerator (this).append ("systemID", getSystemId ()).getAsString ();
   }
 }

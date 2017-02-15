@@ -62,8 +62,8 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
   private boolean m_bCoalescing;
   private Schema m_aSchema;
   private boolean m_bXIncludeAware;
-  private final ICommonsMap <EXMLParserProperty, Object> m_aProperties = new CommonsEnumMap<> (EXMLParserProperty.class);
-  private final ICommonsMap <EXMLParserFeature, Boolean> m_aFeatures = new CommonsEnumMap<> (EXMLParserFeature.class);
+  private final ICommonsMap <EXMLParserProperty, Object> m_aProperties = new CommonsEnumMap <> (EXMLParserProperty.class);
+  private final ICommonsMap <EXMLParserFeature, Boolean> m_aFeatures = new CommonsEnumMap <> (EXMLParserFeature.class);
 
   // DocumentBuilder properties
   private EntityResolver m_aEntityResolver;
@@ -513,6 +513,6 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
                                        .append ("errorHandler", m_aErrorHandler)
                                        .append ("exceptionHandler", m_aExceptionHandler)
                                        .append ("requiresNewXMLParserExplicitly", m_bRequiresNewXMLParserExplicitly)
-                                       .toString ();
+                                       .getAsString ();
   }
 }

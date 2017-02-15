@@ -89,7 +89,7 @@ public class SingleElementIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYP
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("hasNext", m_bHasNext).append ("element", m_aElement).toString ();
+    return new ToStringGenerator (this).append ("hasNext", m_bHasNext).append ("element", m_aElement).getAsString ();
   }
 
   @Nonnull

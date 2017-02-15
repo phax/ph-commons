@@ -161,7 +161,7 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
   @Nullable
   public final ICommonsList <String> getAllParams (@Nullable final String sName)
   {
-    final ICommonsList <String> ret = new CommonsArrayList<> ();
+    final ICommonsList <String> ret = new CommonsArrayList <> ();
     for (final URLParameter aParam : m_aParams)
       if (aParam.hasName (sName))
         ret.add (aParam.getValue ());
@@ -374,6 +374,6 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
     return new ToStringGenerator (null).append ("path", m_sPath)
                                        .appendIf ("params", m_aParams, ICommonsList::isNotEmpty)
                                        .appendIfNotNull ("anchor", m_sAnchor)
-                                       .toString ();
+                                       .getAsString ();
   }
 }

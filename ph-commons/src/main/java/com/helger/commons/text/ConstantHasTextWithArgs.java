@@ -73,6 +73,6 @@ public class ConstantHasTextWithArgs extends AbstractHasText implements IHasText
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("FixedText", m_sFixedText).toString ();
+    return new ToStringGenerator (null).append ("FixedText", m_sFixedText).getAsString ();
   }
 }

@@ -123,7 +123,7 @@ public class JAXBDocumentType implements IJAXBDocumentType
       throw new IllegalArgumentException ("Failed to determine the local name of the element to be created!");
 
     m_aClass = aClass;
-    m_aXSDPaths = new CommonsArrayList<> (aXSDPaths);
+    m_aXSDPaths = new CommonsArrayList <> (aXSDPaths);
     m_sNamespaceURI = StringHelper.getNotNull (sNamespaceURI);
     m_sLocalName = sLocalName;
   }
@@ -214,6 +214,6 @@ public class JAXBDocumentType implements IJAXBDocumentType
                                        .append ("XSDPaths", m_aXSDPaths)
                                        .append ("NamespaceURI", m_sNamespaceURI)
                                        .append ("LocalName", m_sLocalName)
-                                       .toString ();
+                                       .getAsString ();
   }
 }

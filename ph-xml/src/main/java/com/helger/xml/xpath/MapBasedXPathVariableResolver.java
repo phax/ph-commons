@@ -65,7 +65,7 @@ public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICl
    */
   public MapBasedXPathVariableResolver (@Nullable final Map <String, ?> aVars)
   {
-    m_aMap = new CommonsHashMap<> (aVars);
+    m_aMap = new CommonsHashMap <> (aVars);
   }
 
   /**
@@ -266,6 +266,6 @@ public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICl
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("map", m_aMap).toString ();
+    return new ToStringGenerator (this).append ("map", m_aMap).getAsString ();
   }
 }

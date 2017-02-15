@@ -385,6 +385,6 @@ public final class VersionRange implements Comparable <VersionRange>, Serializab
                                        .append ("inclFloor", m_bIncludeFloor)
                                        .append ("ceilVersion", m_aCeilVersion)
                                        .append ("inclCeil", m_bIncludeCeil)
-                                       .toString ();
+                                       .getAsString ();
   }
 }

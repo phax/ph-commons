@@ -125,6 +125,9 @@ public class DirectedGraphRelation extends AbstractBaseGraphObject implements IM
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("from", m_aFrom).append ("to", m_aTo).toString ();
+    return ToStringGenerator.getDerived (super.toString ())
+                            .append ("from", m_aFrom)
+                            .append ("to", m_aTo)
+                            .getAsString ();
   }
 }

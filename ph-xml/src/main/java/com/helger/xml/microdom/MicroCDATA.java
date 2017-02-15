@@ -127,6 +127,6 @@ public final class MicroCDATA extends AbstractMicroNode implements IMicroCDATA
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("text", getData ()).toString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("text", getData ()).getAsString ();
   }
 }

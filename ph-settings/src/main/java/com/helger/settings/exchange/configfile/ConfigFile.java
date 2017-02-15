@@ -101,7 +101,7 @@ public class ConfigFile implements IConvertibleByKeyTrait <String>
   public ICommonsMap <String, Object> getAllEntries ()
   {
     if (m_aSettings == null)
-      return new CommonsHashMap<> ();
+      return new CommonsHashMap <> ();
     return m_aSettings.getAllEntries ();
   }
 
@@ -144,6 +144,6 @@ public class ConfigFile implements IConvertibleByKeyTrait <String>
   {
     return new ToStringGenerator (this).append ("ReadResource", m_aReadResource)
                                        .append ("Settings", m_aSettings)
-                                       .toString ();
+                                       .getAsString ();
   }
 }

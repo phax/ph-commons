@@ -88,6 +88,6 @@ public final class LoadedKey <T extends KeyStore.Entry> implements ISuccessIndic
     return new ToStringGenerator (this).append ("KeyEntry", m_aKeyEntry)
                                        .append ("Error", m_eError)
                                        .append ("ErrorParams", m_aErrorParams)
-                                       .toString ();
+                                       .getAsString ();
   }
 }

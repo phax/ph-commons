@@ -233,6 +233,6 @@ public class URLResource implements IReadableResource
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("url", m_aURL).toString ();
+    return new ToStringGenerator (null).append ("url", m_aURL).getAsString ();
   }
 }

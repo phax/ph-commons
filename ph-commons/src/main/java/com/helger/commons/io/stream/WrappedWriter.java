@@ -46,6 +46,6 @@ public class WrappedWriter extends FilterWriter
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("wrappedWriter", out).toString ();
+    return new ToStringGenerator (this).append ("wrappedWriter", out).getAsString ();
   }
 }

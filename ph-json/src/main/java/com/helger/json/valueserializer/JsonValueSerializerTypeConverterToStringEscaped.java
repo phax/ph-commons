@@ -59,6 +59,6 @@ public final class JsonValueSerializerTypeConverterToStringEscaped implements IJ
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).toString ();
+    return new ToStringGenerator (this).getAsString ();
   }
 }

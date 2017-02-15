@@ -178,6 +178,6 @@ public class NonBlockingBitOutputStream implements Closeable, Flushable
                                        .append ("highOrderBitFirst", m_bHighOrderBitFirst)
                                        .append ("buffer", m_nBuffer)
                                        .append ("bitCount", m_nBufferedBitCount)
-                                       .toString ();
+                                       .getAsString ();
   }
 }

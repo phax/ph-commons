@@ -47,14 +47,14 @@ public class ReadableResourceProviderChain implements IReadableResourceProvider
   {
     ValueEnforcer.notEmptyNoNullValue (aResProviders, "ResourceProviders");
 
-    m_aReadingResourceProviders = new CommonsArrayList<> (aResProviders);
+    m_aReadingResourceProviders = new CommonsArrayList <> (aResProviders);
   }
 
   public ReadableResourceProviderChain (@Nonnull final Iterable <? extends IReadableResourceProvider> aResProviders)
   {
     ValueEnforcer.notEmptyNoNullValue (aResProviders, "ResourceProviders");
 
-    m_aReadingResourceProviders = new CommonsArrayList<> (aResProviders);
+    m_aReadingResourceProviders = new CommonsArrayList <> (aResProviders);
   }
 
   @Nonnull
@@ -119,6 +119,6 @@ public class ReadableResourceProviderChain implements IReadableResourceProvider
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("readableResProviders", m_aReadingResourceProviders).toString ();
+    return new ToStringGenerator (this).append ("readableResProviders", m_aReadingResourceProviders).getAsString ();
   }
 }

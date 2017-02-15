@@ -50,7 +50,7 @@ public class ErrorList implements IErrorList, ICloneable <ErrorList>
    */
   public ErrorList ()
   {
-    m_aList = new CommonsArrayList<> ();
+    m_aList = new CommonsArrayList <> ();
   }
 
   /**
@@ -61,7 +61,7 @@ public class ErrorList implements IErrorList, ICloneable <ErrorList>
    */
   public ErrorList (@Nullable final Iterable <? extends IError> aList)
   {
-    m_aList = aList == null ? new CommonsArrayList<> () : new CommonsArrayList<> (aList);
+    m_aList = aList == null ? new CommonsArrayList <> () : new CommonsArrayList <> (aList);
   }
 
   /**
@@ -72,7 +72,7 @@ public class ErrorList implements IErrorList, ICloneable <ErrorList>
    */
   public ErrorList (@Nullable final IError... aList)
   {
-    m_aList = aList == null ? new CommonsArrayList<> () : new CommonsArrayList<> (aList);
+    m_aList = aList == null ? new CommonsArrayList <> () : new CommonsArrayList <> (aList);
   }
 
   /**
@@ -83,7 +83,7 @@ public class ErrorList implements IErrorList, ICloneable <ErrorList>
    */
   public ErrorList (@Nonnull final ErrorList aErrorList)
   {
-    m_aList = aErrorList == null ? new CommonsArrayList<> () : aErrorList.m_aList.getClone ();
+    m_aList = aErrorList == null ? new CommonsArrayList <> () : aErrorList.m_aList.getClone ();
   }
 
   public boolean isEmpty ()
@@ -209,6 +209,6 @@ public class ErrorList implements IErrorList, ICloneable <ErrorList>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("List", m_aList).toString ();
+    return new ToStringGenerator (this).append ("List", m_aList).getAsString ();
   }
 }

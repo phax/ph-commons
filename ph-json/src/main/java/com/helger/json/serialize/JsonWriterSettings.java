@@ -145,6 +145,6 @@ public class JsonWriterSettings implements IJsonWriterSettings
                                                                             StandardCharsets.ISO_8859_1))
                                        .append ("WriteNewlineAtEnd", m_bWriteNewlineAtEnd)
                                        .append ("QuoteNames", m_bQuoteNames)
-                                       .toString ();
+                                       .getAsString ();
   }
 }

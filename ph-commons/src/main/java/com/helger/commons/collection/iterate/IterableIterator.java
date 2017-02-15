@@ -79,7 +79,7 @@ public class IterableIterator <ELEMENTTYPE> implements IIterableIterator <ELEMEN
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("iter", m_aIter).toString ();
+    return new ToStringGenerator (this).append ("iter", m_aIter).getAsString ();
   }
 
   @Nonnull

@@ -93,6 +93,6 @@ public class ByteArrayInputStreamProvider implements IHasInputStreamAndReader, S
     return new ToStringGenerator (null).append ("byteArray[]", m_aData.length + " bytes")
                                        .append ("ofs", m_nOfs)
                                        .append ("len", m_nLen)
-                                       .toString ();
+                                       .getAsString ();
   }
 }

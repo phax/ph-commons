@@ -315,7 +315,7 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
 
     // Ensure children are present
     if (m_aChildren == null)
-      m_aChildren = new CommonsArrayList<> ();
+      m_aChildren = new CommonsArrayList <> ();
 
     return m_aChildren.addObject (aChild);
   }
@@ -356,6 +356,6 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("data", m_aData).append ("children", m_aChildren).toString ();
+    return new ToStringGenerator (this).append ("data", m_aData).append ("children", m_aChildren).getAsString ();
   }
 }

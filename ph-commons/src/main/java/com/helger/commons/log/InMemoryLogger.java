@@ -45,7 +45,7 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public class InMemoryLogger implements IHasErrorLevels <LogMessage>, IHasSize, IClearable, Serializable
 {
-  private final ICommonsList <LogMessage> m_aMessages = new CommonsArrayList<> ();
+  private final ICommonsList <LogMessage> m_aMessages = new CommonsArrayList <> ();
 
   /**
    * Override this method to create a different LogMessage object or to filter
@@ -169,6 +169,6 @@ public class InMemoryLogger implements IHasErrorLevels <LogMessage>, IHasSize, I
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("messages", m_aMessages).toString ();
+    return new ToStringGenerator (this).append ("messages", m_aMessages).getAsString ();
   }
 }
