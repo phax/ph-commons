@@ -42,7 +42,7 @@ public interface IWriteToStream
    * @throws IOException
    *         In case of IO error
    */
-  void writeTo (@Nonnull @WillNotClose final OutputStream aOS) throws IOException;
+  void writeTo (@Nonnull @WillNotClose OutputStream aOS) throws IOException;
 
   /**
    * Write everything to the passed output stream and close it.
