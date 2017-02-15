@@ -18,6 +18,13 @@ package com.helger.commons.io.stream;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.io.UncheckedIOException;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.Spliterator;
+import java.util.Spliterators;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -520,5 +527,71 @@ public class NonBlockingBufferedReader extends Reader
       m_aReader = null;
       m_aBuf = null;
     }
+  }
+
+  /**
+   * Returns a {@code Stream}, the elements of which are lines read from this
+   * {@code BufferedReader}. The {@link Stream} is lazily populated, i.e., read
+   * only occurs during the
+   * <a href="../util/stream/package-summary.html#StreamOps">terminal stream
+   * operation</a>.
+   * <p>
+   * The reader must not be operated on during the execution of the terminal
+   * stream operation. Otherwise, the result of the terminal stream operation is
+   * undefined.
+   * <p>
+   * After execution of the terminal stream operation there are no guarantees
+   * that the reader will be at a specific position from which to read the next
+   * character or line.
+   * <p>
+   * If an {@link IOException} is thrown when accessing the underlying
+   * {@code BufferedReader}, it is wrapped in an {@link UncheckedIOException}
+   * which will be thrown from the {@code Stream} method that caused the read to
+   * take place. This method will return a Stream if invoked on a BufferedReader
+   * that is closed. Any operation on that stream that requires reading from the
+   * BufferedReader after it is closed, will cause an UncheckedIOException to be
+   * thrown.
+   *
+   * @return a {@code Stream<String>} providing the lines of text described by
+   *         this {@code BufferedReader}
+   * @since 1.8
+   */
+  @Nonnull
+  public Stream <String> lines ()
+  {
+    final Iterator <String> aIter = new Iterator <String> ()
+    {
+      private String m_sNextLine;
+
+      @Override
+      public boolean hasNext ()
+      {
+        if (m_sNextLine != null)
+          return true;
+        try
+        {
+          m_sNextLine = readLine ();
+          return m_sNextLine != null;
+        }
+        catch (final IOException e)
+        {
+          throw new UncheckedIOException (e);
+        }
+      }
+
+      @Override
+      public String next ()
+      {
+        if (m_sNextLine != null || hasNext ())
+        {
+          final String sLine = m_sNextLine;
+          m_sNextLine = null;
+          return sLine;
+        }
+        throw new NoSuchElementException ();
+      }
+    };
+    return StreamSupport.stream (Spliterators.spliteratorUnknownSize (aIter, Spliterator.ORDERED | Spliterator.NONNULL),
+                                 false);
   }
 }
