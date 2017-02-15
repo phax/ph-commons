@@ -149,7 +149,7 @@ public class ErrorTextProvider implements IErrorTextProvider, Serializable, IClo
     @Override
     public String toString ()
     {
-      return new ToStringGenerator (this).append ("Field", m_eField).append ("Text", m_sText).getAsString ();
+      return new ToStringGenerator (this).append ("Field", m_eField).append ("Text", m_sText).getToString ();
     }
   }
 
@@ -385,6 +385,6 @@ public class ErrorTextProvider implements IErrorTextProvider, Serializable, IClo
   {
     return new ToStringGenerator (this).append ("Items", m_aItems)
                                        .append ("FieldSeparator", m_sFieldSep)
-                                       .getAsString ();
+                                       .getToString ();
   }
 }

@@ -132,6 +132,6 @@ public abstract class AbstractPersistingIntIDFactory implements IIntIDFactory
     return new ToStringGenerator (this).append ("reserveCount", m_nReserveCount)
                                        .append ("ID", m_nID)
                                        .append ("lastID", m_nLastID)
-                                       .getAsString ();
+                                       .getToString ();
   }
 }

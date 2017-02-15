@@ -103,6 +103,6 @@ public final class ArrayIteratorDouble
   {
     return new ToStringGenerator (this).append ("array", Arrays.toString (m_aArray))
                                        .append ("index", m_nIndex)
-                                       .getAsString ();
+                                       .getToString ();
   }
 }

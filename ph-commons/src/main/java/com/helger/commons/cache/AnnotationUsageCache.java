@@ -133,6 +133,6 @@ public class AnnotationUsageCache implements Serializable
   {
     return new ToStringGenerator (this).append ("annotationClass", m_aAnnotationClass)
                                        .append ("map", m_aMap)
-                                       .getAsString ();
+                                       .getToString ();
   }
 }

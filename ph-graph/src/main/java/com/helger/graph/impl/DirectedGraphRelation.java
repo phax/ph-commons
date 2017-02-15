@@ -128,6 +128,6 @@ public class DirectedGraphRelation extends AbstractBaseGraphObject implements IM
     return ToStringGenerator.getDerived (super.toString ())
                             .append ("from", m_aFrom)
                             .append ("to", m_aTo)
-                            .getAsString ();
+                            .getToString ();
   }
 }

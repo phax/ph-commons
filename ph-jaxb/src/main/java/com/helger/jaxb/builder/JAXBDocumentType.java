@@ -91,11 +91,11 @@ public class JAXBDocumentType implements IJAXBDocumentType
     final Package aPackage = aClass.getPackage ();
 
     // The package must have the annotation "XmlSchema" with the corresponding
-    // namespace it supports (maybe empty but not null)
+    // namespace it supports (maybe empty but not null). If the base XSD does
+    // not contain
+    // any namespace URI, the XMLSchema annotation might be missing!
     final XmlSchema aXmlSchema = aPackage.getAnnotation (XmlSchema.class);
-    if (aXmlSchema == null)
-      throw new IllegalArgumentException ("The package '" + aPackage.getName () + "' has no @XmlSchema annotation!");
-    if (aXmlSchema.namespace () == null)
+    if (aXmlSchema != null && aXmlSchema.namespace () == null)
       throw new IllegalArgumentException ("The package '" +
                                           aPackage.getName () +
                                           "' has no namespace URI in the @XmlSchema annotation!");
@@ -109,12 +109,20 @@ public class JAXBDocumentType implements IJAXBDocumentType
     if (aRootElement != null)
     {
       sNamespaceURI = aRootElement.namespace ();
+      if ("##default".equals (sNamespaceURI) && aXmlSchema != null)
+        sNamespaceURI = aXmlSchema.namespace ();
+
       sLocalName = aRootElement.name ();
+      if ("##default".equals (sLocalName))
+        sLocalName = aXmlType.name ();
     }
     else
     {
       // Hack: build the element name from the type name
-      sNamespaceURI = aXmlSchema.namespace ();
+      if (aXmlSchema != null)
+        sNamespaceURI = aXmlSchema.namespace ();
+      else
+        sNamespaceURI = null;
       sLocalName = aXmlType.name ();
     }
     if (aTypeToElementNameMapper != null)
@@ -214,6 +222,6 @@ public class JAXBDocumentType implements IJAXBDocumentType
                                        .append ("XSDPaths", m_aXSDPaths)
                                        .append ("NamespaceURI", m_sNamespaceURI)
                                        .append ("LocalName", m_sLocalName)
-                                       .getAsString ();
+                                       .getToString ();
   }
 }

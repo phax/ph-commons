@@ -319,6 +319,6 @@ public class FileMonitor
   {
     return new ToStringGenerator (this).append ("listener", m_aListener)
                                        .append ("recursive", m_bRecursive)
-                                       .getAsString ();
+                                       .getToString ();
   }
 }

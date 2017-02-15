@@ -106,6 +106,6 @@ public class ExpirableWithReplacement <DATATYPE> implements IMutableExpirableWit
   {
     return new ToStringGenerator (this).append ("expirationDT", m_aExpirationDateTime)
                                        .append ("replacement", m_aReplacement)
-                                       .getAsString ();
+                                       .getToString ();
   }
 }

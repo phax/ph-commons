@@ -64,6 +64,6 @@ public class XMLBracketModeDeterminatorXML implements IXMLBracketModeDeterminato
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).getAsString ();
+    return new ToStringGenerator (this).getToString ();
   }
 }

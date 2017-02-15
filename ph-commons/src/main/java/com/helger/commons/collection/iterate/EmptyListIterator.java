@@ -99,6 +99,6 @@ public class EmptyListIterator <ELEMENTTYPE> implements ListIterator <ELEMENTTYP
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).getAsString ();
+    return new ToStringGenerator (this).getToString ();
   }
 }

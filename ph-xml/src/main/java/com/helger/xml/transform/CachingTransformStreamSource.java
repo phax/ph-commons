@@ -68,6 +68,6 @@ public class CachingTransformStreamSource extends StreamSource
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("systemID", getSystemId ()).getAsString ();
+    return new ToStringGenerator (this).append ("systemID", getSystemId ()).getToString ();
   }
 }

@@ -513,6 +513,6 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
                                        .append ("errorHandler", m_aErrorHandler)
                                        .append ("exceptionHandler", m_aExceptionHandler)
                                        .append ("requiresNewXMLParserExplicitly", m_bRequiresNewXMLParserExplicitly)
-                                       .getAsString ();
+                                       .getToString ();
   }
 }

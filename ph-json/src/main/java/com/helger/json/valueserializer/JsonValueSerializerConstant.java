@@ -85,6 +85,6 @@ public final class JsonValueSerializerConstant implements IJsonValueSerializer
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("value", m_sValue).getAsString ();
+    return new ToStringGenerator (this).append ("value", m_sValue).getToString ();
   }
 }

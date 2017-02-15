@@ -117,6 +117,6 @@ public class LoggingLRUMap <KEYTYPE, VALUETYPE> extends LRUMap <KEYTYPE, VALUETY
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("MapName", m_sMapName).getAsString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("MapName", m_sMapName).getToString ();
   }
 }

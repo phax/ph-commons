@@ -61,6 +61,6 @@ public class EmptyEnumeration <ELEMENTTYPE> implements Enumeration <ELEMENTTYPE>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).getAsString ();
+    return new ToStringGenerator (this).getToString ();
   }
 }

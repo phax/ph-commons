@@ -508,6 +508,6 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     return new ToStringGenerator (this).append ("dataID", m_aDataID)
                                        .append ("data", m_aData)
                                        .append ("children", m_aChildMap)
-                                       .getAsString ();
+                                       .getToString ();
   }
 }

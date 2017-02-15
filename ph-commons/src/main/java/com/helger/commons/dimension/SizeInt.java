@@ -156,6 +156,6 @@ public class SizeInt implements IHasDimensionInt, Serializable
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("width", m_nWidth).append ("height", m_nHeight).getAsString ();
+    return new ToStringGenerator (this).append ("width", m_nWidth).append ("height", m_nHeight).getToString ();
   }
 }

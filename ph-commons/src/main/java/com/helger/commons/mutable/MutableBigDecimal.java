@@ -325,6 +325,6 @@ public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("value", m_aValue).getAsString ();
+    return new ToStringGenerator (this).append ("value", m_aValue).getToString ();
   }
 }

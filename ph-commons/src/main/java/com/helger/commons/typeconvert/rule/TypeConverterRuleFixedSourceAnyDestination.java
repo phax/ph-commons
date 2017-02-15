@@ -80,6 +80,6 @@ public class TypeConverterRuleFixedSourceAnyDestination <SRC> extends AbstractTy
     return ToStringGenerator.getDerived (super.toString ())
                             .append ("srcClass", m_aSrcClass.getName ())
                             .append ("inBetweenConverter", m_aInBetweenConverter)
-                            .getAsString ();
+                            .getToString ();
   }
 }

@@ -106,6 +106,6 @@ public class MicroAttribute implements IMicroAttribute
   {
     return new ToStringGenerator (this).append ("QName", m_aQName)
                                        .append ("AttributeValue", m_sAttributeValue)
-                                       .getAsString ();
+                                       .getToString ();
   }
 }

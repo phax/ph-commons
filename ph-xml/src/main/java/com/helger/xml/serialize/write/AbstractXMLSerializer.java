@@ -170,7 +170,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
     {
       return new ToStringGenerator (this).append ("defaultNSURI", m_sDefaultNamespaceURI)
                                          .append ("url2prefix", m_aURL2PrefixMap)
-                                         .getAsString ();
+                                         .getToString ();
     }
   }
 
@@ -558,6 +558,6 @@ public abstract class AbstractXMLSerializer <NODETYPE>
     return new ToStringGenerator (this).append ("settings", m_aSettings)
                                        .append ("sIndent", m_aIndent.toString ())
                                        .append ("namespaceStack", m_aNSStack)
-                                       .getAsString ();
+                                       .getToString ();
   }
 }

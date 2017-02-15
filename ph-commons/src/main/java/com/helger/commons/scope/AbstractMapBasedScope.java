@@ -234,6 +234,6 @@ public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAn
                             .append ("ScopeID", m_sScopeID)
                             .append ("InDestruction", m_bInDestruction)
                             .append ("Destroyed", m_bDestroyed)
-                            .getAsString ();
+                            .getToString ();
   }
 }

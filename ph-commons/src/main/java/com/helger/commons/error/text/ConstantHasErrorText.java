@@ -75,7 +75,7 @@ public class ConstantHasErrorText implements IHasErrorText
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("Text", m_sText).getAsString ();
+    return new ToStringGenerator (null).append ("Text", m_sText).getToString ();
   }
 
   @Nullable

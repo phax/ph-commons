@@ -75,6 +75,6 @@ public class FileChangeEvent implements Serializable
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("file", m_aFile).getAsString ();
+    return new ToStringGenerator (this).append ("file", m_aFile).getToString ();
   }
 }

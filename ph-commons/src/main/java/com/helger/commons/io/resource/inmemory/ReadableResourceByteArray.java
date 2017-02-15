@@ -79,6 +79,6 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("byte#", m_aBytes.length).getAsString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("byte#", m_aBytes.length).getToString ();
   }
 }

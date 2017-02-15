@@ -657,6 +657,6 @@ public abstract class AbstractMicroNode implements IMicroNode
     return new ToStringGenerator (this).appendIfNotNull ("parentNodeName",
                                                          m_aParentNode == null ? null : m_aParentNode.getNodeName ())
                                        .appendIfNotNull ("eventTargets", m_aEventTargets)
-                                       .getAsString ();
+                                       .getToString ();
   }
 }

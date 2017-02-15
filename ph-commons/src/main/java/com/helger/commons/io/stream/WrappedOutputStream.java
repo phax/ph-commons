@@ -46,6 +46,6 @@ public class WrappedOutputStream extends FilterOutputStream
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("wrappedOS", out).getAsString ();
+    return new ToStringGenerator (this).append ("wrappedOS", out).getToString ();
   }
 }

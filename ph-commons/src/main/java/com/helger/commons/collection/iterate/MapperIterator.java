@@ -119,6 +119,6 @@ public class MapperIterator <SRCTYPE, ELEMENTTYPE> implements IIterableIterator 
   {
     return new ToStringGenerator (this).append ("baseIter", m_aBaseIter)
                                        .append ("converter", m_aConverter)
-                                       .getAsString ();
+                                       .getToString ();
   }
 }

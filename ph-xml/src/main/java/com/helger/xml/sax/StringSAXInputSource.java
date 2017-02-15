@@ -79,6 +79,6 @@ public class StringSAXInputSource extends InputSource
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("text", m_sText).append ("systemID", getSystemId ()).getAsString ();
+    return new ToStringGenerator (this).append ("text", m_sText).append ("systemID", getSystemId ()).getToString ();
   }
 }

@@ -63,6 +63,6 @@ public class CollectingExceptionListCallback <EXTYPE extends Throwable> implemen
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("exceptions", m_aExceptions).getAsString ();
+    return new ToStringGenerator (this).append ("exceptions", m_aExceptions).getToString ();
   }
 }

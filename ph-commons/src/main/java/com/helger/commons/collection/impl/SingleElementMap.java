@@ -195,6 +195,6 @@ public class SingleElementMap <KEYTYPE, VALUETYPE> implements ICommonsMap <KEYTY
     return new ToStringGenerator (this).append ("hasElement", m_bHasElement)
                                        .append ("key", m_aKey)
                                        .append ("value", m_aValue)
-                                       .getAsString ();
+                                       .getToString ();
   }
 }

@@ -25,10 +25,12 @@ This project was the following modules:
 ##News and noteworthy
 
   * v8.6.2
-    * Extended XMLSystemProperties API
-    * Deprecated CCharset- use StandardCharsets instead
+    * Extended `XMLSystemProperties` API
+    * Allowing `JAXBDocumentType` objects to not have an `@XmlSchema` annotation
+    * Deprecated `CCharset - use `StandardCharsets` instead
+    * Deprecated ToStringGenerator `toString()` - use `getToString()` instead
   * v8.6.1 - 2017-01-23
-    * `*MultilingualText` is now based on ICommonsOrderedMap
+    * `*MultilingualText` is now based on `ICommonsOrderedMap`
     * Extended `GlobalDebug` API slightly
     * `JAXBDocumentType` implements equals/hashCode
     * `WSClientConfig` not using chunked encoding by default

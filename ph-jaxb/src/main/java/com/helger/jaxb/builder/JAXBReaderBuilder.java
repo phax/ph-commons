@@ -229,6 +229,6 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
                             .append ("ExceptionHandler", m_aExceptionHandler)
                             .append ("UnmarshallerCustomizer", m_aUnmarshallerCustomizer)
                             .append ("ReadSecure", m_bReadSecure)
-                            .getAsString ();
+                            .getToString ();
   }
 }

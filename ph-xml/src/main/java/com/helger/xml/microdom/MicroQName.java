@@ -159,6 +159,6 @@ public final class MicroQName implements IMicroQName, Comparable <MicroQName>
   {
     return new ToStringGenerator (null).appendIfNotNull ("NamespaceURI", m_sNamespaceURI)
                                        .append ("Name", m_sName)
-                                       .getAsString ();
+                                       .getToString ();
   }
 }

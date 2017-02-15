@@ -241,7 +241,7 @@ public class StopWatch implements IStoppable, Serializable
   {
     return new ToStringGenerator (this).append ("StartDT", m_nStartDT)
                                        .append ("DurationNanos", m_nDurationNanos)
-                                       .getAsString ();
+                                       .getToString ();
   }
 
   /**

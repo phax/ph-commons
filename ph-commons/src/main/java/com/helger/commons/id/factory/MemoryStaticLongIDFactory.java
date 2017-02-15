@@ -71,6 +71,6 @@ public final class MemoryStaticLongIDFactory implements ILongIDFactory
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).getAsString ();
+    return new ToStringGenerator (this).getToString ();
   }
 }

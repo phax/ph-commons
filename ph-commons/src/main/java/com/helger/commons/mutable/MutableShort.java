@@ -235,6 +235,6 @@ public class MutableShort extends AbstractMutableInteger <MutableShort>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("value", m_nValue).getAsString ();
+    return new ToStringGenerator (this).append ("value", m_nValue).getToString ();
   }
 }

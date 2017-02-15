@@ -46,6 +46,6 @@ public abstract class AbstractPasswordHashCreator implements IPasswordHashCreato
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("algorithm", m_sAlgorithm).getAsString ();
+    return new ToStringGenerator (this).append ("algorithm", m_sAlgorithm).getToString ();
   }
 }

@@ -251,6 +251,6 @@ public class ChangeLogEntry extends AbstractChangeLogEntry
                             .append ("isIncompatible", m_bIsIncompatible)
                             .append ("texts", m_aTexts)
                             .append ("issues", m_aIssues)
-                            .getAsString ();
+                            .getToString ();
   }
 }

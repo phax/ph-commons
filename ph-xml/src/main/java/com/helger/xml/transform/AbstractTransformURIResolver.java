@@ -72,6 +72,6 @@ public abstract class AbstractTransformURIResolver implements URIResolver
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).appendIfNotNull ("wrappedURIResolver", m_aWrappedURIResolver).getAsString ();
+    return new ToStringGenerator (this).appendIfNotNull ("wrappedURIResolver", m_aWrappedURIResolver).getToString ();
   }
 }

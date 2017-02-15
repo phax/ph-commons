@@ -105,7 +105,7 @@ public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisti
                                          .append ("min", m_nMin)
                                          .append ("max", m_nMax)
                                          .append ("sum", m_aSum)
-                                         .getAsString ();
+                                         .getToString ();
     }
   }
 

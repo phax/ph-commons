@@ -69,6 +69,6 @@ public final class ReadOnlyExpirable implements IExpirable
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("expirationDT", m_aExpirationDateTime).getAsString ();
+    return new ToStringGenerator (this).append ("expirationDT", m_aExpirationDateTime).getToString ();
   }
 }

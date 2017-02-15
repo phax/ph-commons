@@ -72,6 +72,6 @@ public class StringStreamResult extends StreamResult
   {
     return new ToStringGenerator (this).append ("stringWriter", m_aSW)
                                        .append ("systemID", getSystemId ())
-                                       .getAsString ();
+                                       .getToString ();
   }
 }

@@ -107,6 +107,6 @@ public class FormatableObject <DATATYPE> implements IFormatableObject <DATATYPE>
   {
     return new ToStringGenerator (this).append ("value", m_aValue)
                                        .appendIfNotNull ("formatter", m_aFormatter)
-                                       .getAsString ();
+                                       .getToString ();
   }
 }

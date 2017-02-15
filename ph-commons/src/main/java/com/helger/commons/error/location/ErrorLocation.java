@@ -95,6 +95,6 @@ public class ErrorLocation implements IErrorLocation
     return new ToStringGenerator (null).appendIfNotNull ("ResourceID", m_sResourceID)
                                        .appendIf ("LineNumber", m_nLineNumber, (final int x) -> x >= 0)
                                        .appendIf ("ColumnNumber", m_nColumnNumber, (final int x) -> x >= 0)
-                                       .getAsString ();
+                                       .getToString ();
   }
 }

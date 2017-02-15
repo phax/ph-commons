@@ -222,6 +222,6 @@ public class JsonArray implements IJsonArray
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("values", m_aValues).getAsString ();
+    return new ToStringGenerator (this).append ("values", m_aValues).getToString ();
   }
 }

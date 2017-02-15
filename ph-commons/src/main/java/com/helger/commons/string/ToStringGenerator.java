@@ -379,7 +379,7 @@ public final class ToStringGenerator
   }
 
   @Nonnull
-  public String getAsString ()
+  public String getToString ()
   {
     if ((m_nIndex & APPENDED_CLOSING_BRACKET) == 0)
     {
@@ -394,7 +394,7 @@ public final class ToStringGenerator
   @Deprecated
   public String toString ()
   {
-    return getAsString ();
+    return getToString ();
   }
 
   /**

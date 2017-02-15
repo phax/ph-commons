@@ -111,6 +111,6 @@ public class Wrapper <DATATYPE> implements IMutableWrapper <DATATYPE>, ICloneabl
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("obj", m_aObj).getAsString ();
+    return new ToStringGenerator (this).append ("obj", m_aObj).getToString ();
   }
 }

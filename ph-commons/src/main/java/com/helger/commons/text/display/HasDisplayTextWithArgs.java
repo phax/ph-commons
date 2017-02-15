@@ -76,6 +76,6 @@ public class HasDisplayTextWithArgs implements IHasDisplayText
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("parentText", m_aParentText).append ("args", m_aArgs).getAsString ();
+    return new ToStringGenerator (this).append ("parentText", m_aParentText).append ("args", m_aArgs).getToString ();
   }
 }

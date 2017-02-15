@@ -55,6 +55,6 @@ public class ByteBufferInputStreamProvider implements IHasInputStreamAndReader
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("buffer", m_aBuffer).getAsString ();
+    return new ToStringGenerator (null).append ("buffer", m_aBuffer).getToString ();
   }
 }

@@ -255,6 +255,6 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
   @OverridingMethodsMustInvokeSuper
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("texts", m_aTexts).getAsString ();
+    return new ToStringGenerator (this).append ("texts", m_aTexts).getToString ();
   }
 }

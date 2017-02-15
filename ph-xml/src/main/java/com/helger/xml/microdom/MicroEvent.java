@@ -68,6 +68,6 @@ public final class MicroEvent implements IMicroEvent
     return new ToStringGenerator (this).append ("eventType", m_eEventType)
                                        .appendIfNotNull ("sourceNode", m_aSourceNode)
                                        .appendIfNotNull ("targetNode", m_aTargetNode)
-                                       .getAsString ();
+                                       .getToString ();
   }
 }

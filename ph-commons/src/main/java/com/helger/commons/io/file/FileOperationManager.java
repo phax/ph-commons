@@ -191,6 +191,6 @@ public class FileOperationManager implements IFileOperationManager
   {
     return new ToStringGenerator (this).append ("lastError", m_aLastError)
                                        .append ("callback", m_aCallback)
-                                       .getAsString ();
+                                       .getToString ();
   }
 }

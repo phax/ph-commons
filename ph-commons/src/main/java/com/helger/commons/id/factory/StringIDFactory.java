@@ -78,6 +78,6 @@ public class StringIDFactory implements IStringIDFactory
   {
     return new ToStringGenerator (this).append ("prefix", m_sPrefix)
                                        .append ("BaseFactory", m_aBaseFactory)
-                                       .getAsString ();
+                                       .getToString ();
   }
 }

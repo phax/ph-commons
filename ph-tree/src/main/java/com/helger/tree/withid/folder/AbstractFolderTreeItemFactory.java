@@ -104,6 +104,6 @@ public abstract class AbstractFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE
   {
     return ToStringGenerator.getDerived (super.toString ())
                             .appendIfNotNull ("keyCombinator", m_aKeyCombinator)
-                            .getAsString ();
+                            .getToString ();
   }
 }

@@ -58,6 +58,6 @@ public final class JsonValueSerializerTypeConverterToString implements IJsonValu
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).getAsString ();
+    return new ToStringGenerator (this).getToString ();
   }
 }

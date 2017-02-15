@@ -114,6 +114,6 @@ public final class JsonValueSerializerRegistry implements IJsonValueSerializerRe
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("map", m_aMap).getAsString ();
+    return new ToStringGenerator (this).append ("map", m_aMap).getToString ();
   }
 }

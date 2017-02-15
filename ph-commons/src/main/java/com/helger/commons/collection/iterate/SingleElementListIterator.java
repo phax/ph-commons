@@ -127,7 +127,7 @@ public class SingleElementListIterator <ELEMENTTYPE> implements ListIterator <EL
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("hasNext", m_bHasNext).append ("element", m_aElement).getAsString ();
+    return new ToStringGenerator (this).append ("hasNext", m_bHasNext).append ("element", m_aElement).getToString ();
   }
 
   @Nonnull

@@ -185,7 +185,7 @@ public class SingleError implements IError
                                        .appendIfNotNull ("ErrorLocation", m_aErrorLocation)
                                        .appendIfNotNull ("ErrorText", m_aErrorText)
                                        .appendIfNotNull ("LinkedException", m_aLinkedException)
-                                       .getAsString ();
+                                       .getToString ();
   }
 
   /**

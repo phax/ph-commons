@@ -67,6 +67,6 @@ public class EmptyIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYPE>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).getAsString ();
+    return new ToStringGenerator (this).getToString ();
   }
 }

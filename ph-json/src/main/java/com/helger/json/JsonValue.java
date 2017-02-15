@@ -192,7 +192,7 @@ public class JsonValue implements IJsonValue
   {
     return new ToStringGenerator (this).append ("Value", m_aValue)
                                        .append ("ValueClass", ClassHelper.getClassLocalName (m_aValue))
-                                       .getAsString ();
+                                       .getToString ();
   }
 
   @Nonnull

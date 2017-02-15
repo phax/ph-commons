@@ -402,6 +402,6 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
                             .appendIfNotNull ("namespace", m_sNamespaceURI)
                             .append ("tagname", m_sTagName)
                             .appendIfNotNull ("attrs", m_aAttrs)
-                            .getAsString ();
+                            .getToString ();
   }
 }

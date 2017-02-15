@@ -69,7 +69,7 @@ public class NodeListIterator implements IIterableIterator <Node>
     return new ToStringGenerator (this).append ("NodeList", m_aNL)
                                        .append ("Max", m_nMax)
                                        .append ("Index", m_nIndex)
-                                       .getAsString ();
+                                       .getToString ();
   }
 
   @Nonnull

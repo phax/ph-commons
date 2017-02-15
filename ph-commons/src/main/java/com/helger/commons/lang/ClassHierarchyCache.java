@@ -120,7 +120,7 @@ public final class ClassHierarchyCache
     @Override
     public String toString ()
     {
-      return new ToStringGenerator (this).append ("list", m_aList).getAsString ();
+      return new ToStringGenerator (this).append ("list", m_aList).getToString ();
     }
   }
 

@@ -120,7 +120,7 @@ public final class PasswordSalt implements IPasswordSalt
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("bytes#", m_aBytes.length).getAsString ();
+    return new ToStringGenerator (this).append ("bytes#", m_aBytes.length).getToString ();
   }
 
   /**

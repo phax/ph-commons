@@ -65,6 +65,6 @@ public class ConstantHasSimpleURL implements IHasSimpleURL
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("URL", m_aURL).getAsString ();
+    return new ToStringGenerator (null).append ("URL", m_aURL).getToString ();
   }
 }

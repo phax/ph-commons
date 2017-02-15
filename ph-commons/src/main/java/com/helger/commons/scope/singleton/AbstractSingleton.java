@@ -594,6 +594,6 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
   @Nonnull
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("Status", m_aStatus).getAsString ();
+    return new ToStringGenerator (this).append ("Status", m_aStatus).getToString ();
   }
 }

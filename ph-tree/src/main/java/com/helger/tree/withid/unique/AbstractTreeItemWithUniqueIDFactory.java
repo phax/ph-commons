@@ -161,6 +161,6 @@ public abstract class AbstractTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, IT
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("itemStoreKeys", m_aItemStore.keySet ()).getAsString ();
+    return new ToStringGenerator (this).append ("itemStoreKeys", m_aItemStore.keySet ()).getToString ();
   }
 }

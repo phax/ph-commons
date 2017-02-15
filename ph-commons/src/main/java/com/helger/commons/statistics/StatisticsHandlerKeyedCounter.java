@@ -77,7 +77,7 @@ public class StatisticsHandlerKeyedCounter implements IMutableStatisticsHandlerK
       // No object needed for ctor
       return new ToStringGenerator (null).append ("invocations", m_nInvocationCount)
                                          .append ("count", m_nCount)
-                                         .getAsString ();
+                                         .getToString ();
     }
   }
 

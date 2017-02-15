@@ -47,6 +47,6 @@ public final class ConstantKeySelectorResult implements KeySelectorResult
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("key", m_aKey).getAsString ();
+    return new ToStringGenerator (this).append ("key", m_aKey).getToString ();
   }
 }

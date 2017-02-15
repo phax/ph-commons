@@ -127,6 +127,6 @@ public class MimeTypeParameter implements Serializable
     return new ToStringGenerator (this).append ("attribute", m_sAttribute)
                                        .append ("value", m_sValue)
                                        .append ("valueRequiresQuoting", m_bValueRequiresQuoting)
-                                       .getAsString ();
+                                       .getToString ();
   }
 }

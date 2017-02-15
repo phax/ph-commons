@@ -103,6 +103,6 @@ public class CountingFileOutputStream extends FileOutputStream
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("bytesWritten", m_nBytesWritten).getAsString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("bytesWritten", m_nBytesWritten).getToString ();
   }
 }

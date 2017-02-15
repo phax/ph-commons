@@ -135,6 +135,6 @@ public class RequestScope extends AbstractMapBasedScope implements IRequestScope
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("sessionID", m_sSessionID).getAsString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("sessionID", m_sSessionID).getToString ();
   }
 }

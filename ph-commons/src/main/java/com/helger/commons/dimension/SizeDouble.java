@@ -197,6 +197,6 @@ public class SizeDouble implements IHasDimensionDouble, Serializable
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("width", m_dWidth).append ("height", m_dHeight).getAsString ();
+    return new ToStringGenerator (this).append ("width", m_dWidth).append ("height", m_dHeight).getToString ();
   }
 }

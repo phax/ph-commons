@@ -101,6 +101,6 @@ public class FileLongIDFactory extends AbstractPersistingLongIDFactory
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("file", m_aFile).getAsString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("file", m_aFile).getToString ();
   }
 }

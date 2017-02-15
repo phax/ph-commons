@@ -108,6 +108,6 @@ public final class PasswordSaltBCrypt implements IPasswordSalt
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("Salt", m_sSalt).getAsString ();
+    return new ToStringGenerator (this).append ("Salt", m_sSalt).getToString ();
   }
 }

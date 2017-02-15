@@ -264,6 +264,6 @@ public class SchemaCache extends AbstractNotifyingCache <ICommonsList <? extends
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("schemaTypeName", m_sSchemaTypeName).getAsString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("schemaTypeName", m_sSchemaTypeName).getToString ();
   }
 }

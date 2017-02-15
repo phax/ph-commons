@@ -91,6 +91,6 @@ public class StringReaderProvider implements IHasReader, Serializable
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("data", m_sData).getAsString ();
+    return new ToStringGenerator (null).append ("data", m_sData).getToString ();
   }
 }

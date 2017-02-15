@@ -137,6 +137,6 @@ public class LRUMap <KEYTYPE, VALUETYPE> extends CommonsLinkedHashMap <KEYTYPE, 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("maxSize", m_nMaxSize).append ("map", super.toString ()).getAsString ();
+    return new ToStringGenerator (this).append ("maxSize", m_nMaxSize).append ("map", super.toString ()).getToString ();
   }
 }

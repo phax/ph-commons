@@ -127,6 +127,6 @@ public abstract class AbstractBaseGraph <NODETYPE extends IMutableBaseGraphNode 
     return ToStringGenerator.getDerived (super.toString ())
                             .append ("nodes", m_aNodes)
                             .append ("isChangingConnectedObjectsAllowed", m_bIsChangingConnectedObjectsAllowed)
-                            .getAsString ();
+                            .getToString ();
   }
 }

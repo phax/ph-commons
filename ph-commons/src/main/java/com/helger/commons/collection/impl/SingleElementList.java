@@ -306,6 +306,6 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
   {
     return new ToStringGenerator (this).append ("hasElement", m_bHasElement)
                                        .append ("element", m_aElement)
-                                       .getAsString ();
+                                       .getToString ();
   }
 }

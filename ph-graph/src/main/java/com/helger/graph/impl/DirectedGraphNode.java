@@ -387,6 +387,6 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     return ToStringGenerator.getDerived (super.toString ())
                             .append ("incomingIDs", m_aIncoming == null ? null : m_aIncoming.keySet ())
                             .append ("outgoingIDs", m_aOutgoing == null ? null : m_aOutgoing.keySet ())
-                            .getAsString ();
+                            .getToString ();
   }
 }

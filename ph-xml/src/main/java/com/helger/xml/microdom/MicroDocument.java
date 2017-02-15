@@ -133,6 +133,6 @@ public final class MicroDocument extends AbstractMicroNodeWithChildren implement
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("isStandalone", m_bIsStandalone).getAsString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("isStandalone", m_bIsStandalone).getToString ();
   }
 }

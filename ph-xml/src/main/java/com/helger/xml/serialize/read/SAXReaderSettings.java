@@ -388,7 +388,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
                                        .append ("features", m_aFeatures)
                                        .append ("exceptionHandler", m_aExceptionHandler)
                                        .append ("requiresNewXMLParserExplicitly", m_bRequiresNewXMLParserExplicitly)
-                                       .getAsString ();
+                                       .getToString ();
   }
 
   /**

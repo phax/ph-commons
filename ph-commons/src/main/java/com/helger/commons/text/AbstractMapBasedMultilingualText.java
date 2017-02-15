@@ -178,6 +178,6 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
   {
     return ToStringGenerator.getDerived (super.toString ())
                             .append ("ChangeNotifyCallbacks", m_aChangeNotifyCallbacks)
-                            .getAsString ();
+                            .getToString ();
   }
 }

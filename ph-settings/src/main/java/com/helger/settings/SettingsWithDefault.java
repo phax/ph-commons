@@ -133,6 +133,6 @@ public class SettingsWithDefault extends Settings implements IMutableSettingsWit
   {
     return ToStringGenerator.getDerived (super.toString ())
                             .append ("DefaultSettings", m_aDefaultSettings)
-                            .getAsString ();
+                            .getToString ();
   }
 }

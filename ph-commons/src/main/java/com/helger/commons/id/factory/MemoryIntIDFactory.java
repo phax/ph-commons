@@ -76,6 +76,6 @@ public final class MemoryIntIDFactory implements IIntIDFactory
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("ID", m_aID).getAsString ();
+    return new ToStringGenerator (this).append ("ID", m_aID).getToString ();
   }
 }

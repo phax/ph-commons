@@ -177,6 +177,6 @@ public final class MicroText extends AbstractMicroNode implements IMicroText
                             .append ("text", getData ())
                             .append ("ignorableWhitspace", m_bIgnorableWhitespace)
                             .append ("escape", m_bEscape)
-                            .getAsString ();
+                            .getToString ();
   }
 }

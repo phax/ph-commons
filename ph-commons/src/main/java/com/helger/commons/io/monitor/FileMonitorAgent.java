@@ -175,6 +175,6 @@ final class FileMonitorAgent
                                        .append ("exists", m_bExists)
                                        .append ("timestamp", m_nTimestamp)
                                        .append ("children", m_aChildren)
-                                       .getAsString ();
+                                       .getToString ();
   }
 }

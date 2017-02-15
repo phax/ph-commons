@@ -250,6 +250,6 @@ public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements IMutableCach
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("cacheName", m_sCacheName).append ("content", m_aCache).getAsString ();
+    return new ToStringGenerator (this).append ("cacheName", m_sCacheName).append ("content", m_aCache).getToString ();
   }
 }

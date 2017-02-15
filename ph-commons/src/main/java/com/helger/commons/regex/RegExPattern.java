@@ -188,6 +188,6 @@ public final class RegExPattern implements Serializable
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("regex", m_sRegEx).append ("options", m_nOptions).getAsString ();
+    return new ToStringGenerator (this).append ("regex", m_sRegEx).append ("options", m_nOptions).getToString ();
   }
 }

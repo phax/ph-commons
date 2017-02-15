@@ -60,6 +60,6 @@ public class JAXBNamespacePrefixMapper extends NamespacePrefixMapper
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("NamespaceContext", m_aNC).getAsString ();
+    return new ToStringGenerator (this).append ("NamespaceContext", m_aNC).getToString ();
   }
 }

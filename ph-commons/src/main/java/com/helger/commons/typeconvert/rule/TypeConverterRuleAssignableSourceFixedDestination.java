@@ -80,6 +80,6 @@ public class TypeConverterRuleAssignableSourceFixedDestination <SRC, DST> extend
                             .append ("srcClass", m_aSrcClass.getName ())
                             .append ("dstClass", m_aDstClass.getName ())
                             .append ("converter", m_aConverter)
-                            .getAsString ();
+                            .getToString ();
   }
 }
