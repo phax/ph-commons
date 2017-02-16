@@ -19,6 +19,7 @@ import java.util.EnumSet;
 
 import org.junit.Test;
 
+import com.helger.commons.io.file.PathHelper;
 import com.helger.commons.system.EOperatingSystem;
 
 /**
@@ -190,5 +191,6 @@ public final class PathFuncTest
         return FileVisitResult.CONTINUE;
       }
     });
+    System.out.println (PathHelper.getDirectoryContent (aStartPath));
   }
 }
