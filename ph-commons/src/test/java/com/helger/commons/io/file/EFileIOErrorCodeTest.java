@@ -56,7 +56,7 @@ public final class EFileIOErrorCodeTest
                                 .getErrorCode ());
     try
     {
-      EFileIOErrorCode.SECURITY_ERROR.getAsIOError (EFileIOOperation.CREATE_DIR, null, null);
+      EFileIOErrorCode.SECURITY_ERROR.getAsIOError (EFileIOOperation.CREATE_DIR, (File) null, (File) null);
       fail ();
     }
     catch (final IllegalStateException ex)
