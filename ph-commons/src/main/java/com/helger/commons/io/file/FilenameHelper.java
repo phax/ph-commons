@@ -18,6 +18,7 @@ package com.helger.commons.io.file;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
@@ -300,8 +301,9 @@ public final class FilenameHelper
    */
   public static int getIndexOfLastSeparator (@Nullable final String sFilename)
   {
-    return sFilename == null ? CGlobal.ILLEGAL_UINT : Math.max (sFilename.lastIndexOf (UNIX_SEPARATOR),
-                                                                sFilename.lastIndexOf (WINDOWS_SEPARATOR));
+    return sFilename == null ? CGlobal.ILLEGAL_UINT
+                             : Math.max (sFilename.lastIndexOf (UNIX_SEPARATOR),
+                                         sFilename.lastIndexOf (WINDOWS_SEPARATOR));
   }
 
   /**
@@ -791,6 +793,23 @@ public final class FilenameHelper
   public static boolean isSystemInternalDirectory (@Nullable final File aFile)
   {
     return aFile != null && isSystemInternalDirectory (aFile.getName ());
+  }
+
+  /**
+   * Check if the passed file is a system directory. A system directory is
+   * either {@value #PATH_CURRENT} or {@value #PATH_PARENT}.
+   *
+   * @param aFile
+   *        The file to be checked. May be <code>null</code>.
+   * @return <code>true</code> if the passed file name (not the path) matches
+   *         any of the special directory names, <code>false</code> of the
+   *         passed file is <code>null</code> or does not denote a special
+   *         directory.
+   * @see #isSystemInternalDirectory(CharSequence)
+   */
+  public static boolean isSystemInternalDirectory (@Nullable final Path aFile)
+  {
+    return aFile != null && isSystemInternalDirectory (aFile.getFileName ().toString ());
   }
 
   /**

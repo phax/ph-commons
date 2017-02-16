@@ -132,6 +132,29 @@ public enum EFileIOErrorCode implements ISuccessIndicator, IHasIntID
   }
 
   /**
+   * Use this error code to create a new {@link FileIOError} instance.
+   *
+   * @param eOperation
+   *        The operation carried out. May not be <code>null</code>.
+   * @param aFile1
+   *        The first file on which operation was carried out. May not be
+   *        <code>null</code>.
+   * @param aFile2
+   *        The second file on which operation was carried out. May not be
+   *        <code>null</code>.
+   * @return The new {@link FileIOError} and never <code>null</code>.
+   */
+  @Nonnull
+  public FileIOError getAsIOError (@Nonnull final EFileIOOperation eOperation,
+                                   @Nonnull final Path aFile1,
+                                   @Nonnull final Path aFile2)
+  {
+    if (eOperation.getParamCount () < 2)
+      throw new IllegalStateException ("The operation " + eOperation + " expects only one parameter!");
+    return new FileIOError (eOperation, this, aFile1.toFile (), aFile2.toFile ());
+  }
+
+  /**
    * @return <code>true</code> if this is {@link #NO_ERROR}, <code>false</code>
    *         otherwise.
    */

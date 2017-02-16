@@ -119,7 +119,7 @@ public final class PDTFormatter
   {
     public LocalizedDateFormatCache ()
     {
-      super (LocalizedDateFormatCache.class.getName ());
+      super (1000, LocalizedDateFormatCache.class.getName ());
     }
 
     @Nonnull

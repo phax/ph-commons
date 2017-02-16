@@ -34,7 +34,7 @@ public class SettingsCache extends AbstractNotifyingCache <String, IMutableSetti
 
   public SettingsCache (@Nonnull final ISettingsFactory aSettingsFactory)
   {
-    super ("SettingsCache");
+    super (500, SettingsCache.class.getName ());
     m_aSettingsFactory = ValueEnforcer.notNull (aSettingsFactory, "SettingsFactory");
   }
 

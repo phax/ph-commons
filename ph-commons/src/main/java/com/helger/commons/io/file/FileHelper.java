@@ -163,22 +163,19 @@ public final class FileHelper
     if (aFile == null)
       return false;
 
-    if (existsFile (aFile))
+    if (aFile.exists ())
     {
       // File exists
-      if (!canRead (aFile) || !canWrite (aFile))
+      if (!aFile.canRead () || !aFile.canWrite ())
         return false;
     }
     else
     {
-      // File does not exist
+      // Path does not exist (yet)
+      // Check parent directory
       final File aParentFile = aFile.getParentFile ();
-      if (aParentFile != null && aParentFile.isDirectory ())
-      {
-        // Check parent directory
-        if (!canRead (aParentFile) || !canWrite (aParentFile))
-          return false;
-      }
+      if (aParentFile == null || !aParentFile.isDirectory () || !aParentFile.canRead () || !aParentFile.canWrite ())
+        return false;
     }
     return true;
   }

@@ -56,7 +56,7 @@ public final class JAXBContextCache extends AbstractNotifyingCache <JAXBContextC
 
   private JAXBContextCache ()
   {
-    super (JAXBContextCache.class.getName ());
+    super (500, JAXBContextCache.class.getName ());
   }
 
   public static boolean isInstantiated ()

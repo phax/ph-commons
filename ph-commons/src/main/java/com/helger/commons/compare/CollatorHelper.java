@@ -60,7 +60,7 @@ public final class CollatorHelper
 
     public CollatorCache ()
     {
-      super (-1, CollatorHelper.class.getName ());
+      super (500, CollatorHelper.class.getName ());
     }
 
     @Override

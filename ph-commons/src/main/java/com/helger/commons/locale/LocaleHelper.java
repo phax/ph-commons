@@ -62,6 +62,7 @@ public final class LocaleHelper
   {
     public LocaleListCache ()
     {
+      // Unlimited size
       super (LocaleListCache.class.getName ());
     }
 
@@ -76,7 +77,7 @@ public final class LocaleHelper
         return null;
 
       // List has a maximum of 3 entries
-      final ICommonsList <Locale> ret = new CommonsArrayList<> (3);
+      final ICommonsList <Locale> ret = new CommonsArrayList <> (3);
       final String sLanguage = aBaseLocale.getLanguage ();
       if (sLanguage.length () > 0)
       {
@@ -167,9 +168,9 @@ public final class LocaleHelper
   {
     ValueEnforcer.notNull (aContentLocale, "ContentLocale");
 
-    return new CommonsHashMap<> (LocaleCache.getInstance ().getAllLocales (),
-                                 Function.identity (),
-                                 aLocale -> getLocaleDisplayName (aLocale, aContentLocale));
+    return new CommonsHashMap <> (LocaleCache.getInstance ().getAllLocales (),
+                                  Function.identity (),
+                                  aLocale -> getLocaleDisplayName (aLocale, aContentLocale));
   }
 
   /**

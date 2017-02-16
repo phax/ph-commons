@@ -7,10 +7,15 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileVisitOption;
+import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.EnumSet;
 
 import org.junit.Test;
 
@@ -84,6 +89,12 @@ public final class PathFuncTest
                 p.toAbsolutePath ()
                  .toString ()
                  .endsWith (SEP + "ph-commons" + SEP + ".." + SEP + "ph-commons" + SEP + "pom.xml"));
+
+    assertEquals (3, p.getNameCount ());
+    assertEquals ("..", p.getName (0).toString ());
+    assertEquals ("ph-commons", p.getName (1).toString ());
+    assertEquals ("pom.xml", p.getName (2).toString ());
+    assertEquals ("pom.xml", p.getFileName ().toString ());
   }
 
   @Test
@@ -133,14 +144,6 @@ public final class PathFuncTest
     assertEquals ("cde" + SEP + ".." + SEP + "pom.xml", p.toString ());
     assertEquals ("pom.xml", p.normalize ().toString ());
 
-    // C:\Users\xxx\git\ph-commons\ph-commons\pom.xml
-    assertTrue ("Is <" +
-                p.toAbsolutePath ().toString () +
-                ">",
-                p.toAbsolutePath ()
-                 .toString ()
-                 .endsWith (SEP + "ph-commons" + SEP + "cde" + SEP + ".." + SEP + "pom.xml"));
-
     if (WIN)
     {
       // C:\Users\xxx\git\ph-commons\ph-commons\pom.xml
@@ -162,5 +165,28 @@ public final class PathFuncTest
         // expected
       }
     }
+
+    // C:\Users\xxx\git\ph-commons\ph-commons\pom.xml
+    assertTrue ("Is <" +
+                p.toAbsolutePath ().toString () +
+                ">",
+                p.toAbsolutePath ()
+                 .toString ()
+                 .endsWith (SEP + "ph-commons" + SEP + "cde" + SEP + ".." + SEP + "pom.xml"));
+  }
+
+  @Test
+  public void testIterate1 () throws IOException
+  {
+    final Path p = Paths.get ("pom.xml").toRealPath ();
+    Files.walkFileTree (p.getParent (), EnumSet.noneOf (FileVisitOption.class), 1, new SimpleFileVisitor <Path> ()
+    {
+      @Override
+      public FileVisitResult visitFile (final Path file, final BasicFileAttributes attrs) throws IOException
+      {
+        System.out.println (file + " - " + attrs);
+        return FileVisitResult.CONTINUE;
+      }
+    });
   }
 }
