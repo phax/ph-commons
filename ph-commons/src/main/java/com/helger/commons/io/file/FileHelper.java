@@ -173,7 +173,7 @@ public final class FileHelper
     {
       // Path does not exist (yet)
       // Check parent directory
-      final File aParentFile = aFile.getParentFile ();
+      final File aParentFile = aFile.getAbsoluteFile ().getParentFile ();
       if (aParentFile == null || !aParentFile.isDirectory () || !aParentFile.canRead () || !aParentFile.canWrite ())
         return false;
     }

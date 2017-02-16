@@ -179,12 +179,14 @@ public final class PathFuncTest
   public void testIterate1 () throws IOException
   {
     final Path p = Paths.get ("pom.xml").toRealPath ();
-    Files.walkFileTree (p.getParent (), EnumSet.noneOf (FileVisitOption.class), 1, new SimpleFileVisitor <Path> ()
+    final Path aStartPath = p.getParent ();
+    final int nNames = aStartPath.getNameCount ();
+    Files.walkFileTree (aStartPath, EnumSet.noneOf (FileVisitOption.class), 2, new SimpleFileVisitor <Path> ()
     {
       @Override
-      public FileVisitResult visitFile (final Path file, final BasicFileAttributes attrs) throws IOException
+      public FileVisitResult visitFile (final Path aCurFile, final BasicFileAttributes attrs) throws IOException
       {
-        System.out.println (file + " - " + attrs);
+        System.out.println (aCurFile.subpath (nNames, aCurFile.getNameCount ()));
         return FileVisitResult.CONTINUE;
       }
     });
