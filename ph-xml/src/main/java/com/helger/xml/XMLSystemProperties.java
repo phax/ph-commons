@@ -96,7 +96,7 @@ public final class XMLSystemProperties
    *
    * @param nMaxOccur
    *        A positive integer. Values &le; 0 are treated as no limit.
-   * @since 9.0.0
+   * @since 8.6.2
    * @see #setXMLEntityExpansionLimit(int)
    */
   public static void setXMLEntityExpansionLimitIfLarger (final int nMaxOccur)
@@ -149,7 +149,7 @@ public final class XMLSystemProperties
    * @param sElementAttributeLimit
    *        A positive integer. Values &le; 0 are treated as no limit.
    *        <code>null</code> means the property is deleted
-   * @since 9.0.0
+   * @since 8.6.2
    */
   public static void setXMLElementAttributeLimit (@Nullable final String sElementAttributeLimit)
   {
@@ -164,7 +164,7 @@ public final class XMLSystemProperties
    *
    * @param nElementAttributeLimit
    *        A positive integer. Values &le; 0 are treated as no limit.
-   * @since 9.0.0
+   * @since 8.6.2
    * @see #setXMLElementAttributeLimit(int)
    */
   public static void setXMLElementAttributeLimitIfLarger (final int nElementAttributeLimit)
@@ -219,7 +219,7 @@ public final class XMLSystemProperties
    * @param sMaxOccur
    *        A positive integer. Values &le; 0 are treated as no limit.
    *        <code>null</code> means the property is deleted.
-   * @since 9.0.0
+   * @since 8.6.2
    */
   public static void setXMLMaxOccur (@Nullable final String sMaxOccur)
   {
@@ -234,7 +234,7 @@ public final class XMLSystemProperties
    *
    * @param nMaxOccur
    *        A positive integer. Values &le; 0 are treated as no limit.
-   * @since 9.0.0
+   * @since 8.6.2
    * @see #setXMLMaxOccur(int)
    */
   public static void setXMLMaxOccurIfLarger (final int nMaxOccur)
@@ -289,7 +289,7 @@ public final class XMLSystemProperties
    * @param sTotalEntitySizeLimit
    *        A positive integer. Values &le; 0 are treated as no limit.
    *        <code>null</code> means the property is deleted.
-   * @since 9.0.0
+   * @since 8.6.2
    */
   public static void setXMLTotalEntitySizeLimit (@Nullable final String sTotalEntitySizeLimit)
   {
@@ -303,7 +303,7 @@ public final class XMLSystemProperties
    *
    * @param nTotalEntitySizeLimit
    *        A positive integer. Values &le; 0 are treated as no limit.
-   * @since 9.0.0
+   * @since 8.6.2
    * @see #setXMLTotalEntitySizeLimit(int)
    */
   public static void setXMLTotalEntitySizeLimitIfLarger (final int nTotalEntitySizeLimit)
@@ -358,7 +358,7 @@ public final class XMLSystemProperties
    * @param sMaxGeneralEntitySizeLimit
    *        A positive integer. Values &le; 0 are treated as no limit.
    *        <code>null</code> means the property is deleted.
-   * @since 9.0.0
+   * @since 8.6.2
    */
   public static void setXMLMaxGeneralEntitySizeLimit (@Nullable final String sMaxGeneralEntitySizeLimit)
   {
@@ -373,7 +373,7 @@ public final class XMLSystemProperties
    *
    * @param nMaxGeneralEntitySizeLimit
    *        A positive integer. Values &le; 0 are treated as no limit.
-   * @since 9.0.0
+   * @since 8.6.2
    * @see #setXMLMaxGeneralEntitySizeLimit(int)
    */
   public static void setXMLMaxGeneralEntitySizeLimitIfLarger (final int nMaxGeneralEntitySizeLimit)
@@ -430,7 +430,7 @@ public final class XMLSystemProperties
    * @param sMaxParameterEntitySizeLimit
    *        A positive integer. Values &le; 0 are treated as no limit.
    *        <code>null</code> means the property is deleted.
-   * @since 9.0.0
+   * @since 8.6.2
    */
   public static void setXMLMaxParameterEntitySizeLimit (@Nullable final String sMaxParameterEntitySizeLimit)
   {
@@ -445,7 +445,7 @@ public final class XMLSystemProperties
    *
    * @param nMaxParameterEntitySizeLimit
    *        A positive integer. Values &le; 0 are treated as no limit.
-   * @since 9.0.0
+   * @since 8.6.2
    * @see #setXMLMaxParameterEntitySizeLimit(int)
    */
   public static void setXMLMaxParameterEntitySizeLimitIfLarger (final int nMaxParameterEntitySizeLimit)

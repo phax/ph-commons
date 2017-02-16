@@ -391,7 +391,7 @@ public final class ToStringGenerator
 
   @Override
   @Nonnull
-  // @Deprecated
+  @Deprecated
   public String toString ()
   {
     return getToString ();
