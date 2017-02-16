@@ -133,15 +133,15 @@ public class LoggingInvocationHandler implements InvocationHandler
   }
 
   @Nonnull
-  public static <T> T proxying (@Nonnull final Class <T> aInterfaceClass, @Nonnull final Object aActualTarget)
+  public static <T> T proxying (@Nonnull final Class <? extends T> aInterfaceClass, @Nonnull final T aActualTarget)
   {
     return proxying (aInterfaceClass, aActualTarget, LoggingInvocationHandler::new);
   }
 
   @Nonnull
-  public static <T> T proxying (@Nonnull final Class <T> aInterfaceClass,
-                                @Nonnull final Object aActualTarget,
-                                @Nonnull final Function <Object, InvocationHandler> aFactory)
+  public static <T> T proxying (@Nonnull final Class <? extends T> aInterfaceClass,
+                                @Nonnull final T aActualTarget,
+                                @Nonnull final Function <T, InvocationHandler> aFactory)
   {
     ValueEnforcer.isTrue (aInterfaceClass.isInterface (), "Only interface classes can be proxied!");
     final Object ret = Proxy.newProxyInstance (aInterfaceClass.getClassLoader (),

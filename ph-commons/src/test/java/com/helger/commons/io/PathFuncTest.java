@@ -133,16 +133,17 @@ public final class PathFuncTest
 
     // C:\Users\xxx\git\ph-commons\ph-commons\pom.xml
     assertTrue ("Is <" +
-                p.toRealPath ().toString () +
-                ">",
-                p.toRealPath ().toString ().endsWith (SEP + "ph-commons" + SEP + "pom.xml"));
-
-    // C:\Users\xxx\git\ph-commons\ph-commons\pom.xml
-    assertTrue ("Is <" +
                 p.toAbsolutePath ().toString () +
                 ">",
                 p.toAbsolutePath ()
                  .toString ()
                  .endsWith (SEP + "ph-commons" + SEP + "cde" + SEP + ".." + SEP + "pom.xml"));
+
+    // C:\Users\xxx\git\ph-commons\ph-commons\pom.xml
+    // Gives "cde/../pom.xml" on Linux
+    assertTrue ("Is <" +
+                p.toRealPath ().toString () +
+                ">",
+                p.toRealPath ().toString ().endsWith (SEP + "ph-commons" + SEP + "pom.xml"));
   }
 }
