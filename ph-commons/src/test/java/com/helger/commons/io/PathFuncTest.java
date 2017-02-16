@@ -118,7 +118,16 @@ public final class PathFuncTest
     }
     assertTrue (Files.isSameFile (p, p));
     assertFalse (Files.isSymbolicLink (p));
-    assertTrue (Files.isWritable (p));
+    if (WIN)
+    {
+      assertTrue (Files.isWritable (p));
+      assertTrue (Files.isWritable (p.normalize ()));
+    }
+    else
+    {
+      assertFalse (Files.isWritable (p));
+      assertTrue (Files.isWritable (p.normalize ()));
+    }
     assertEquals ("cde" + SEP + ".." + SEP + "pom.xml", p.toString ());
     assertEquals ("pom.xml", p.normalize ().toString ());
 
