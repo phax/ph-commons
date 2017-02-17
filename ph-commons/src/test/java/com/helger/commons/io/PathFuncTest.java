@@ -19,6 +19,7 @@ import java.util.EnumSet;
 
 import org.junit.Test;
 
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.io.file.PathHelper;
 import com.helger.commons.system.EOperatingSystem;
 
@@ -36,6 +37,10 @@ public final class PathFuncTest
   public void testSimple () throws IOException
   {
     final Path p = Paths.get ("pom.xml");
+    assertTrue (EqualsHelper.equals (p, Paths.get ("pom.xml")));
+    assertTrue (EqualsHelper.equals (p, Paths.get ("../ph-commons/pom.xml")));
+    assertTrue (EqualsHelper.equals (p.toRealPath (), Paths.get ("../ph-commons/pom.xml").toRealPath ()));
+
     assertFalse (p.isAbsolute ());
     assertTrue (Files.exists (p));
     assertTrue (Files.exists (p.normalize ()));

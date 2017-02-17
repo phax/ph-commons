@@ -52,7 +52,7 @@ public final class EFileIOErrorCodeTest
         assertTrue (e.isFailure ());
     }
     assertSame (EFileIOErrorCode.SECURITY_ERROR,
-                EFileIOErrorCode.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, new SecurityException ())
+                EFileIOErrorCode.getSecurityAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, new SecurityException ())
                                 .getErrorCode ());
     try
     {
