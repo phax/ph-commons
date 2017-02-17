@@ -40,4 +40,14 @@ public interface IEqualsImplementation <T>
    *         specification of Object.class.
    */
   boolean areEqual (@Nonnull T aObj1, @Nonnull T aObj2);
+
+  /**
+   * @return <code>true</code> if this implementation is designed to work on an
+   *         interface, but equals is called for an implementation of that
+   *         interface and provides its own equal method.
+   */
+  default boolean implementationEqualsOverridesInterface ()
+  {
+    return true;
+  }
 }

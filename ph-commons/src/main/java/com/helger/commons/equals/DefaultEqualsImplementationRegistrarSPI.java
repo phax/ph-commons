@@ -17,9 +17,11 @@
 package com.helger.commons.equals;
 
 import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URL;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Enumeration;
@@ -232,6 +234,26 @@ public final class DefaultEqualsImplementationRegistrarSPI implements IEqualsImp
                                             (aObj1,
                                              aObj2) -> FilenameHelper.getCleanPath (aObj1.getAbsoluteFile ())
                                                                      .equals (FilenameHelper.getCleanPath (aObj2.getAbsoluteFile ())));
+
+    aRegistry.registerEqualsImplementation (Path.class, new IEqualsImplementation <Path> ()
+    {
+      public boolean areEqual (final Path aObj1, final Path aObj2)
+      {
+        try
+        {
+          return aObj1.toRealPath ().equals (aObj2.toRealPath ());
+        }
+        catch (final IOException ex)
+        {
+          return aObj1.equals (aObj2);
+        }
+      }
+
+      public boolean implementationEqualsOverridesInterface ()
+      {
+        return false;
+      }
+    });
 
     // Special handling for Locale in JDK >= 1.7
     aRegistry.registerEqualsImplementation (Locale.class,
