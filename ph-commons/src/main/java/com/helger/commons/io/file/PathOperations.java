@@ -17,6 +17,7 @@
 package com.helger.commons.io.file;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -24,13 +25,9 @@ import java.nio.file.StandardCopyOption;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.state.ESuccess;
 
 /**
  * Wraps file operations.
@@ -44,8 +41,6 @@ public final class PathOperations
    * The default value for warning if we're about to delete the root directory.
    */
   public static final boolean DEFAULT_EXCEPTION_ON_DELETE_ROOT = true;
-
-  private static final Logger s_aLogger = LoggerFactory.getLogger (PathOperations.class);
 
   private static volatile boolean s_bExceptionOnDeleteRoot = DEFAULT_EXCEPTION_ON_DELETE_ROOT;
 
@@ -63,6 +58,65 @@ public final class PathOperations
   public static void setExceptionOnDeleteRoot (final boolean bExceptionOnDeleteRoot)
   {
     s_bExceptionOnDeleteRoot = bExceptionOnDeleteRoot;
+  }
+
+  private static interface IOpPath
+  {
+    void op (Path aPath) throws IOException;
+  }
+
+  private static interface IOpPath2
+  {
+    void op (Path aPath1, Path aPath2) throws IOException;
+  }
+
+  @Nonnull
+  private static FileIOError _perform (@Nonnull final EFileIOOperation eOperation,
+                                       @Nonnull final IOpPath aRunnable,
+                                       @Nonnull final Path aPath)
+  {
+    try
+    {
+      aRunnable.op (aPath);
+      return EFileIOErrorCode.NO_ERROR.getAsIOError (eOperation, aPath);
+    }
+    catch (final SecurityException ex)
+    {
+      return EFileIOErrorCode.getSecurityAsIOError (eOperation, ex);
+    }
+    catch (final IOException ex)
+    {
+      return EFileIOErrorCode.getAsIOError (eOperation, ex);
+    }
+    catch (final UncheckedIOException ex)
+    {
+      return EFileIOErrorCode.getAsIOError (eOperation, ex);
+    }
+  }
+
+  @Nonnull
+  private static FileIOError _perform (@Nonnull final EFileIOOperation eOp,
+                                       @Nonnull final IOpPath2 aRunnable,
+                                       @Nonnull final Path aPath1,
+                                       @Nonnull final Path aPath2)
+  {
+    try
+    {
+      aRunnable.op (aPath1, aPath2);
+      return EFileIOErrorCode.NO_ERROR.getAsIOError (eOp, aPath1, aPath2);
+    }
+    catch (final SecurityException ex)
+    {
+      return EFileIOErrorCode.getSecurityAsIOError (eOp, ex);
+    }
+    catch (final IOException ex)
+    {
+      return EFileIOErrorCode.getAsIOError (eOp, ex);
+    }
+    catch (final UncheckedIOException ex)
+    {
+      return EFileIOErrorCode.getAsIOError (eOp, ex);
+    }
   }
 
   /**
@@ -86,15 +140,7 @@ public final class PathOperations
     if (aParentDir != null && Files.exists (aParentDir) && !Files.isWritable (aParentDir))
       return EFileIOErrorCode.SOURCE_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.CREATE_DIR, aDir);
 
-    try
-    {
-      final EFileIOErrorCode eError = aDir.mkdir () ? EFileIOErrorCode.NO_ERROR : EFileIOErrorCode.OPERATION_FAILED;
-      return eError.getAsIOError (EFileIOOperation.CREATE_DIR, aDir);
-    }
-    catch (final SecurityException ex)
-    {
-      return EFileIOErrorCode.getAsIOError (EFileIOOperation.CREATE_DIR, ex);
-    }
+    return _perform (EFileIOOperation.CREATE_DIR, Files::createDirectory, aDir);
   }
 
   /**
@@ -111,7 +157,7 @@ public final class PathOperations
   {
     final FileIOError aError = createDir (aDir);
     if (aError.getErrorCode ().equals (EFileIOErrorCode.TARGET_ALREADY_EXISTS))
-      return EFileIOErrorCode.NO_ERROR.getAsIOError (EFileIOOperation.CREATE_DIR, aDir);
+      return aError.withoutErrorCode ();
     return aError;
   }
 
@@ -137,15 +183,7 @@ public final class PathOperations
     if (aParentDir != null && Files.exists (aParentDir) && !Files.isWritable (aParentDir))
       return EFileIOErrorCode.SOURCE_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.CREATE_DIR_RECURSIVE, aDir);
 
-    try
-    {
-      final EFileIOErrorCode eError = aDir.mkdirs () ? EFileIOErrorCode.NO_ERROR : EFileIOErrorCode.OPERATION_FAILED;
-      return eError.getAsIOError (EFileIOOperation.CREATE_DIR_RECURSIVE, aDir);
-    }
-    catch (final SecurityException ex)
-    {
-      return EFileIOErrorCode.getAsIOError (EFileIOOperation.CREATE_DIR_RECURSIVE, ex);
-    }
+    return _perform (EFileIOOperation.CREATE_DIR_RECURSIVE, Files::createDirectories, aDir);
   }
 
   /**
@@ -163,7 +201,7 @@ public final class PathOperations
   {
     final FileIOError aError = createDirRecursive (aDir);
     if (aError.getErrorCode ().equals (EFileIOErrorCode.TARGET_ALREADY_EXISTS))
-      return EFileIOErrorCode.NO_ERROR.getAsIOError (EFileIOOperation.CREATE_DIR_RECURSIVE, aDir);
+      return aError.withoutErrorCode ();
     return aError;
   }
 
@@ -196,17 +234,7 @@ public final class PathOperations
     if (aParentDir != null && !Files.isWritable (aParentDir))
       return EFileIOErrorCode.SOURCE_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.DELETE_DIR, aDir);
 
-    try
-    {
-      // delete may return true even so it internally failed!
-      final EFileIOErrorCode eError = aDir.delete () && !Files.exists (aDir) ? EFileIOErrorCode.NO_ERROR
-                                                                             : EFileIOErrorCode.OPERATION_FAILED;
-      return eError.getAsIOError (EFileIOOperation.DELETE_DIR, aDir);
-    }
-    catch (final SecurityException ex)
-    {
-      return EFileIOErrorCode.getAsIOError (EFileIOOperation.DELETE_DIR, ex);
-    }
+    return _perform (EFileIOOperation.DELETE_DIR, Files::delete, aDir);
   }
 
   /**
@@ -223,7 +251,7 @@ public final class PathOperations
   {
     final FileIOError aError = deleteDir (aDir);
     if (aError.getErrorCode ().equals (EFileIOErrorCode.SOURCE_DOES_NOT_EXIST))
-      return EFileIOErrorCode.NO_ERROR.getAsIOError (EFileIOOperation.DELETE_DIR, aDir);
+      return aError.withoutErrorCode ();
     return aError;
   }
 
@@ -301,7 +329,7 @@ public final class PathOperations
   {
     final FileIOError aError = deleteDirRecursive (aDir);
     if (aError.getErrorCode ().equals (EFileIOErrorCode.SOURCE_DOES_NOT_EXIST))
-      return EFileIOErrorCode.NO_ERROR.getAsIOError (EFileIOOperation.DELETE_DIR_RECURSIVE, aDir);
+      return aError.withoutErrorCode ();
     return aError;
   }
 
@@ -325,17 +353,7 @@ public final class PathOperations
     if (aParentDir != null && !Files.isWritable (aParentDir))
       return EFileIOErrorCode.SOURCE_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.DELETE_FILE, aFile);
 
-    try
-    {
-      // delete may return true even so it internally failed!
-      final EFileIOErrorCode eError = aFile.delete () && !Files.exists (aFile) ? EFileIOErrorCode.NO_ERROR
-                                                                               : EFileIOErrorCode.OPERATION_FAILED;
-      return eError.getAsIOError (EFileIOOperation.DELETE_FILE, aFile);
-    }
-    catch (final SecurityException ex)
-    {
-      return EFileIOErrorCode.getAsIOError (EFileIOOperation.DELETE_FILE, ex);
-    }
+    return _perform (EFileIOOperation.DELETE_FILE, Files::delete, aFile);
   }
 
   /**
@@ -350,8 +368,16 @@ public final class PathOperations
   {
     final FileIOError aError = deleteFile (aFile);
     if (aError.getErrorCode ().equals (EFileIOErrorCode.SOURCE_DOES_NOT_EXIST))
-      return EFileIOErrorCode.NO_ERROR.getAsIOError (EFileIOOperation.DELETE_FILE, aFile);
+      return aError.withoutErrorCode ();
     return aError;
+  }
+
+  public static void atomicMove (@Nonnull final Path aSourcePath, @Nonnull final Path aTargetPath) throws IOException
+  {
+    ValueEnforcer.notNull (aSourcePath, "SourceFile");
+    ValueEnforcer.notNull (aTargetPath, "TargetFile");
+
+    Files.move (aSourcePath, aTargetPath, StandardCopyOption.ATOMIC_MOVE);
   }
 
   /**
@@ -394,16 +420,7 @@ public final class PathOperations
     // Ensure parent of target directory is present
     PathHelper.ensureParentDirectoryIsPresent (aTargetFile);
 
-    try
-    {
-      final EFileIOErrorCode eError = aSourceFile.renameTo (aTargetFile) ? EFileIOErrorCode.NO_ERROR
-                                                                         : EFileIOErrorCode.OPERATION_FAILED;
-      return eError.getAsIOError (EFileIOOperation.RENAME_FILE, aSourceFile, aTargetFile);
-    }
-    catch (final SecurityException ex)
-    {
-      return EFileIOErrorCode.getAsIOError (EFileIOOperation.RENAME_FILE, ex);
-    }
+    return _perform (EFileIOOperation.RENAME_FILE, PathOperations::atomicMove, aSourceFile, aTargetFile);
   }
 
   /**
@@ -452,18 +469,7 @@ public final class PathOperations
     // Ensure parent of target directory is present
     PathHelper.ensureParentDirectoryIsPresent (aTargetDir);
 
-    try
-    {
-      final EFileIOErrorCode eError = Files.move (aSourceDir,
-                                                  aTargetDir,
-                                                  StandardCopyOption.ATOMIC_MOVE) ? EFileIOErrorCode.NO_ERROR
-                                                                                  : EFileIOErrorCode.OPERATION_FAILED;
-      return eError.getAsIOError (EFileIOOperation.RENAME_DIR, aSourceDir, aTargetDir);
-    }
-    catch (final SecurityException ex)
-    {
-      return EFileIOErrorCode.getAsIOError (EFileIOOperation.RENAME_DIR, ex);
-    }
+    return _perform (EFileIOOperation.RENAME_DIR, PathOperations::atomicMove, aSourceDir, aTargetDir);
   }
 
   /**
@@ -507,19 +513,7 @@ public final class PathOperations
     // Ensure the targets parent directory is present
     PathHelper.ensureParentDirectoryIsPresent (aTargetFile);
 
-    ESuccess eSuccess;
-    try
-    {
-      Files.copy (aSourceFile, aTargetFile);
-      eSuccess = ESuccess.SUCCESS;
-    }
-    catch (final IOException ex)
-    {
-      eSuccess = ESuccess.FAILURE;
-    }
-    final EFileIOErrorCode eError = eSuccess.isSuccess () ? EFileIOErrorCode.NO_ERROR
-                                                          : EFileIOErrorCode.OPERATION_FAILED;
-    return eError.getAsIOError (EFileIOOperation.COPY_FILE, aSourceFile, aTargetFile);
+    return _perform (EFileIOOperation.COPY_FILE, Files::copy, aSourceFile, aTargetFile);
   }
 
   /**

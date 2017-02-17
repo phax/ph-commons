@@ -35,7 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public final class FileIOError implements ISuccessIndicator, Serializable
+public class FileIOError implements ISuccessIndicator, Serializable
 {
   private final EFileIOOperation m_eOperation;
   private final EFileIOErrorCode m_eCode;
@@ -45,22 +45,14 @@ public final class FileIOError implements ISuccessIndicator, Serializable
 
   public FileIOError (@Nonnull final EFileIOOperation eOperation, @Nonnull final EFileIOErrorCode eCode)
   {
-    m_eOperation = ValueEnforcer.notNull (eOperation, "Operation");
-    m_eCode = ValueEnforcer.notNull (eCode, "ErrorCode");
-    m_aFile1 = null;
-    m_aFile2 = null;
-    m_aException = null;
+    this (eOperation, eCode, null, null, null);
   }
 
   public FileIOError (@Nonnull final EFileIOOperation eOperation,
                       @Nonnull final EFileIOErrorCode eCode,
                       @Nonnull final File aFile1)
   {
-    m_eOperation = ValueEnforcer.notNull (eOperation, "Operation");
-    m_eCode = ValueEnforcer.notNull (eCode, "ErrorCode");
-    m_aFile1 = ValueEnforcer.notNull (aFile1, "File1");
-    m_aFile2 = null;
-    m_aException = null;
+    this (eOperation, eCode, ValueEnforcer.notNull (aFile1, "File1"), null, null);
   }
 
   public FileIOError (@Nonnull final EFileIOOperation eOperation,
@@ -68,22 +60,27 @@ public final class FileIOError implements ISuccessIndicator, Serializable
                       @Nonnull final File aFile1,
                       @Nonnull final File aFile2)
   {
-    m_eOperation = ValueEnforcer.notNull (eOperation, "Operation");
-    m_eCode = ValueEnforcer.notNull (eCode, "ErrorCode");
-    m_aFile1 = ValueEnforcer.notNull (aFile1, "File1");
-    m_aFile2 = ValueEnforcer.notNull (aFile2, "File2");
-    m_aException = null;
+    this (eOperation, eCode, ValueEnforcer.notNull (aFile1, "File1"), ValueEnforcer.notNull (aFile2, "File2"), null);
   }
 
   public FileIOError (@Nonnull final EFileIOOperation eOperation,
                       @Nonnull final EFileIOErrorCode eCode,
                       @Nonnull final Exception aException)
   {
+    this (eOperation, eCode, null, null, ValueEnforcer.notNull (aException, "Exception"));
+  }
+
+  public FileIOError (@Nonnull final EFileIOOperation eOperation,
+                      @Nonnull final EFileIOErrorCode eCode,
+                      @Nullable final File aFile1,
+                      @Nullable final File aFile2,
+                      @Nullable final Exception aException)
+  {
     m_eOperation = ValueEnforcer.notNull (eOperation, "Operation");
     m_eCode = ValueEnforcer.notNull (eCode, "ErrorCode");
-    m_aFile1 = null;
-    m_aFile2 = null;
-    m_aException = ValueEnforcer.notNull (aException, "Exception");
+    m_aFile1 = aFile1;
+    m_aFile2 = aFile2;
+    m_aException = aException;
   }
 
   /**
@@ -162,6 +159,15 @@ public final class FileIOError implements ISuccessIndicator, Serializable
   public boolean hasException ()
   {
     return m_aException != null;
+  }
+
+  @Nonnull
+  public FileIOError withoutErrorCode ()
+  {
+    if (m_eCode.isSuccess ())
+      return this;
+
+    return new FileIOError (m_eOperation, EFileIOErrorCode.NO_ERROR, m_aFile1, m_aFile2, m_aException);
   }
 
   @Override

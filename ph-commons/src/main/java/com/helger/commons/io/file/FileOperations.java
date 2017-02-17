@@ -99,7 +99,7 @@ public final class FileOperations
     }
     catch (final SecurityException ex)
     {
-      return EFileIOErrorCode.getAsIOError (EFileIOOperation.CREATE_DIR, ex);
+      return EFileIOErrorCode.getSecurityAsIOError (EFileIOOperation.CREATE_DIR, ex);
     }
   }
 
@@ -150,7 +150,7 @@ public final class FileOperations
     }
     catch (final SecurityException ex)
     {
-      return EFileIOErrorCode.getAsIOError (EFileIOOperation.CREATE_DIR_RECURSIVE, ex);
+      return EFileIOErrorCode.getSecurityAsIOError (EFileIOOperation.CREATE_DIR_RECURSIVE, ex);
     }
   }
 
@@ -211,7 +211,7 @@ public final class FileOperations
     }
     catch (final SecurityException ex)
     {
-      return EFileIOErrorCode.getAsIOError (EFileIOOperation.DELETE_DIR, ex);
+      return EFileIOErrorCode.getSecurityAsIOError (EFileIOOperation.DELETE_DIR, ex);
     }
   }
 
@@ -340,7 +340,7 @@ public final class FileOperations
     }
     catch (final SecurityException ex)
     {
-      return EFileIOErrorCode.getAsIOError (EFileIOOperation.DELETE_FILE, ex);
+      return EFileIOErrorCode.getSecurityAsIOError (EFileIOOperation.DELETE_FILE, ex);
     }
   }
 
@@ -408,7 +408,7 @@ public final class FileOperations
     }
     catch (final SecurityException ex)
     {
-      return EFileIOErrorCode.getAsIOError (EFileIOOperation.RENAME_FILE, ex);
+      return EFileIOErrorCode.getSecurityAsIOError (EFileIOOperation.RENAME_FILE, ex);
     }
   }
 
@@ -466,7 +466,7 @@ public final class FileOperations
     }
     catch (final SecurityException ex)
     {
-      return EFileIOErrorCode.getAsIOError (EFileIOOperation.RENAME_DIR, ex);
+      return EFileIOErrorCode.getSecurityAsIOError (EFileIOOperation.RENAME_DIR, ex);
     }
   }
 

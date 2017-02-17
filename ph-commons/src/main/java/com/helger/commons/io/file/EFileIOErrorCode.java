@@ -17,6 +17,8 @@
 package com.helger.commons.io.file;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.file.Path;
 
 import javax.annotation.Nonnegative;
@@ -57,7 +59,9 @@ public enum EFileIOErrorCode implements ISuccessIndicator, IHasIntID
   /** The source parent object is read-only (not writable). */
   SOURCE_PARENT_NOT_WRITABLE (10),
   /** The target parent object is read-only (not writable). */
-  TARGET_PARENT_NOT_WRITABLE (11);
+  TARGET_PARENT_NOT_WRITABLE (11),
+  /** Generic IO code: an IOException occurred. */
+  IO_ERROR (12);
 
   private final int m_nID;
 
@@ -174,10 +178,42 @@ public enum EFileIOErrorCode implements ISuccessIndicator, IHasIntID
    * @return The non-<code>null</code> {@link FileIOError}.
    */
   @Nonnull
-  public static FileIOError getAsIOError (@Nonnull final EFileIOOperation eOperation,
-                                          @Nonnull final SecurityException ex)
+  public static FileIOError getSecurityAsIOError (@Nonnull final EFileIOOperation eOperation,
+                                                  @Nonnull final SecurityException ex)
   {
     return new FileIOError (eOperation, EFileIOErrorCode.SECURITY_ERROR, ex);
+  }
+
+  /**
+   * Static method to create a {@link FileIOError} for an {@link IOException}.
+   *
+   * @param eOperation
+   *        The performed operation. May not be <code>null</code>.
+   * @param ex
+   *        The occurred {@link IOException}. Never <code>null</code>.
+   * @return The non-<code>null</code> {@link FileIOError}.
+   */
+  @Nonnull
+  public static FileIOError getAsIOError (@Nonnull final EFileIOOperation eOperation, @Nonnull final IOException ex)
+  {
+    return new FileIOError (eOperation, EFileIOErrorCode.IO_ERROR, ex);
+  }
+
+  /**
+   * Static method to create a {@link FileIOError} for an
+   * {@link UncheckedIOException}.
+   *
+   * @param eOperation
+   *        The performed operation. May not be <code>null</code>.
+   * @param ex
+   *        The occurred {@link UncheckedIOException}. Never <code>null</code>.
+   * @return The non-<code>null</code> {@link FileIOError}.
+   */
+  @Nonnull
+  public static FileIOError getAsIOError (@Nonnull final EFileIOOperation eOperation,
+                                          @Nonnull final UncheckedIOException ex)
+  {
+    return new FileIOError (eOperation, EFileIOErrorCode.IO_ERROR, ex);
   }
 
   @Nullable
