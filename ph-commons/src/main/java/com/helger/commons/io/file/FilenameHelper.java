@@ -301,9 +301,8 @@ public final class FilenameHelper
    */
   public static int getIndexOfLastSeparator (@Nullable final String sFilename)
   {
-    return sFilename == null ? CGlobal.ILLEGAL_UINT
-                             : Math.max (sFilename.lastIndexOf (UNIX_SEPARATOR),
-                                         sFilename.lastIndexOf (WINDOWS_SEPARATOR));
+    return sFilename == null ? CGlobal.ILLEGAL_UINT : Math.max (sFilename.lastIndexOf (UNIX_SEPARATOR),
+                                                                sFilename.lastIndexOf (WINDOWS_SEPARATOR));
   }
 
   /**
@@ -809,7 +808,10 @@ public final class FilenameHelper
    */
   public static boolean isSystemInternalDirectory (@Nullable final Path aFile)
   {
-    return aFile != null && isSystemInternalDirectory (aFile.getFileName ().toString ());
+    if (aFile == null)
+      return false;
+    final Path aPureFile = aFile.getFileName ();
+    return aPureFile != null && isSystemInternalDirectory (aPureFile.toString ());
   }
 
   /**
@@ -1010,7 +1012,7 @@ public final class FilenameHelper
     }
 
     // Start splitting into paths
-    final ICommonsList <String> aElements = new CommonsArrayList <> ();
+    final ICommonsList <String> aElements = new CommonsArrayList<> ();
     int nParentFolders = 0;
     final String [] aPathArray = StringHelper.getExplodedArray (UNIX_SEPARATOR, sPathToUse);
 

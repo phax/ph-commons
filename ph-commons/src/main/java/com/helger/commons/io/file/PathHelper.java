@@ -413,6 +413,14 @@ public final class PathHelper
     return ret;
   }
 
+  @Nonnull
+  public static Path walkFileTree (@Nonnull final Path aStart,
+                                   @Nonnegative final int nMaxDepth,
+                                   @Nonnull final FileVisitor <? super Path> aVisitor)
+  {
+    return walkFileTree (aStart, EnumSet.noneOf (FileVisitOption.class), nMaxDepth, aVisitor);
+  }
+
   /**
    * Walks a file tree.
    * <p>
@@ -516,8 +524,8 @@ public final class PathHelper
   private static ICommonsList <Path> _getDirectoryContent (@Nonnull final Path aDirectory,
                                                            @Nullable final Predicate <? super Path> aPathFilter)
   {
-    final ICommonsList <Path> ret = new CommonsArrayList <> ();
-    walkFileTree (aDirectory, EnumSet.noneOf (FileVisitOption.class), 1, new SimpleFileVisitor <Path> ()
+    final ICommonsList <Path> ret = new CommonsArrayList<> ();
+    walkFileTree (aDirectory, 1, new SimpleFileVisitor <Path> ()
     {
       @Override
       public FileVisitResult visitFile (final Path aCurFile, final BasicFileAttributes attrs) throws IOException
@@ -531,20 +539,25 @@ public final class PathHelper
     if (ret.isEmpty ())
     {
       // No content returned
-      if (!Files.isDirectory (aDirectory))
-        s_aLogger.warn ("Cannot list non-directory: " + aDirectory.toAbsolutePath ());
-      else
-        if (!Files.isExecutable (aDirectory))
-        {
-          // If this happens, the resulting Path objects are neither files nor
-          // directories (isFile() and isDirectory() both return false!!)
-          s_aLogger.warn ("Existing directory is missing the listing permission: " + aDirectory.toAbsolutePath ());
-        }
+      if (aPathFilter == null)
+      {
+        // Try some diagnosis...
+        if (!Files.isDirectory (aDirectory))
+          s_aLogger.warn ("Cannot list non-directory: " + aDirectory.toAbsolutePath ());
         else
-          if (!Files.isReadable (aDirectory))
-            s_aLogger.warn ("Cannot list directory because of no read-rights: " + aDirectory.toAbsolutePath ());
+          if (!Files.isExecutable (aDirectory))
+          {
+            // If this happens, the resulting Path objects are neither files nor
+            // directories (isFile() and isDirectory() both return false!!)
+            s_aLogger.warn ("Existing directory is missing the listing permission: " + aDirectory.toAbsolutePath ());
+          }
           else
-            s_aLogger.warn ("Directory listing failed because of IO error: " + aDirectory.toAbsolutePath ());
+            if (!Files.isReadable (aDirectory))
+              s_aLogger.warn ("Cannot list directory because of no read-rights: " + aDirectory.toAbsolutePath ());
+            else
+              if (!Files.exists (aDirectory))
+                s_aLogger.warn ("Cannot list non-existing: " + aDirectory.toAbsolutePath ());
+      }
     }
     else
     {

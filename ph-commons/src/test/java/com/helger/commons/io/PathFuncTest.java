@@ -2,6 +2,7 @@ package com.helger.commons.io;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -186,6 +187,7 @@ public final class PathFuncTest
   {
     final Path p = Paths.get ("pom.xml").toRealPath ();
     final Path aStartPath = p.getParent ();
+    assertNotNull (aStartPath);
     final int nNames = aStartPath.getNameCount ();
     Files.walkFileTree (aStartPath, EnumSet.noneOf (FileVisitOption.class), 2, new SimpleFileVisitor <Path> ()
     {
