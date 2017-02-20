@@ -16,13 +16,14 @@
  */
 package com.helger.commons.base64;
 
-import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
+
+import com.helger.commons.io.stream.WrappedOutputStream;
 
 /**
  * A {@link Base64OutputStream} will write data to another
@@ -33,7 +34,7 @@ import javax.annotation.concurrent.NotThreadSafe;
  * @since 1.3
  */
 @NotThreadSafe
-public class Base64OutputStream extends FilterOutputStream
+public class Base64OutputStream extends WrappedOutputStream
 {
   private final boolean m_bEncode;
   private int m_nPosition;

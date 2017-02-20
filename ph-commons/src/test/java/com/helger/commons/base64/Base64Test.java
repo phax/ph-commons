@@ -193,7 +193,7 @@ public final class Base64Test
     {
       assertFalse (FileHelper.existsFile (f2));
       SimpleFileIO.writeFile (f1, "Hallo Wält", StandardCharsets.UTF_8);
-      Base64.encodeFileToFile (f1.getAbsolutePath (), f2.getAbsolutePath ());
+      Base64.encodeFileToFile (f1.getAbsolutePath (), f2.getAbsoluteFile ());
       assertTrue (FileHelper.existsFile (f2));
       final String sEncoded = SimpleFileIO.getFileAsString (f2, StandardCharsets.UTF_8);
       assertEquals ("Hallo Wält", Base64.safeDecodeAsString (sEncoded, StandardCharsets.UTF_8));
@@ -213,7 +213,7 @@ public final class Base64Test
     {
       assertFalse (FileHelper.existsFile (f2));
       final String sDecoded = "Hallo Wält";
-      Base64.encodeToFile (CharsetManager.getAsBytes (sDecoded, StandardCharsets.UTF_8), f2.getAbsolutePath ());
+      Base64.encodeToFile (CharsetManager.getAsBytes (sDecoded, StandardCharsets.UTF_8), f2.getAbsoluteFile ());
       assertTrue (FileHelper.existsFile (f2));
       final String sEncoded = SimpleFileIO.getFileAsString (f2, StandardCharsets.UTF_8);
       assertEquals ("Hallo Wält", Base64.safeDecodeAsString (sEncoded, StandardCharsets.UTF_8));
@@ -235,7 +235,7 @@ public final class Base64Test
       SimpleFileIO.writeFile (f1,
                               CharsetManager.getAsBytes (Base64.safeEncode ("Hallo Wält", StandardCharsets.UTF_8),
                                                          StandardCharsets.ISO_8859_1));
-      Base64.decodeFileToFile (f1.getAbsolutePath (), f2.getAbsolutePath ());
+      Base64.decodeFileToFile (f1.getAbsolutePath (), f2.getAbsoluteFile ());
       assertTrue (FileHelper.existsFile (f2));
       final String sDecoded = SimpleFileIO.getFileAsString (f2, StandardCharsets.UTF_8);
       assertEquals ("Hallo Wält", sDecoded);
@@ -255,7 +255,7 @@ public final class Base64Test
     {
       assertFalse (FileHelper.existsFile (f2));
       final String sEncoded = Base64.safeEncode ("Hallo Wält", StandardCharsets.UTF_8);
-      Base64.decodeToFile (sEncoded, f2.getAbsolutePath ());
+      Base64.decodeToFile (sEncoded, f2.getAbsoluteFile ());
       assertTrue (FileHelper.existsFile (f2));
       final String sDecoded = SimpleFileIO.getFileAsString (f2, StandardCharsets.UTF_8);
       assertEquals ("Hallo Wält", sDecoded);
@@ -301,8 +301,7 @@ public final class Base64Test
   {
     final String sSource = "dgMP$";
     final String sEncoded = Base64.safeEncode (sSource, StandardCharsets.ISO_8859_1);
-    assertArrayEquals (CharsetManager.getAsBytes (sSource, StandardCharsets.ISO_8859_1),
-                       Base64.safeDecode (sEncoded));
+    assertArrayEquals (CharsetManager.getAsBytes (sSource, StandardCharsets.ISO_8859_1), Base64.safeDecode (sEncoded));
     assertArrayEquals (CharsetManager.getAsBytes (sSource, StandardCharsets.ISO_8859_1),
                        Base64.safeDecode (CharsetManager.getAsBytes (sEncoded, StandardCharsets.ISO_8859_1)));
     assertEquals (sSource, Base64.safeDecodeAsString (sEncoded, StandardCharsets.ISO_8859_1));

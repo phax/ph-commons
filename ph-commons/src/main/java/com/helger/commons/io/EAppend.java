@@ -16,6 +16,8 @@
  */
 package com.helger.commons.io;
 
+import java.nio.file.OpenOption;
+import java.nio.file.StandardOpenOption;
 import java.util.function.BooleanSupplier;
 
 import javax.annotation.Nonnull;
@@ -49,5 +51,12 @@ public enum EAppend implements BooleanSupplier
   public boolean isTruncate ()
   {
     return this == TRUNCATE;
+  }
+
+  @Nonnull
+  public OpenOption [] getAsOpenOptions ()
+  {
+    return this == APPEND ? new OpenOption [] { StandardOpenOption.CREATE, StandardOpenOption.APPEND }
+                          : new OpenOption [] { StandardOpenOption.CREATE };
   }
 }

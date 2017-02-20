@@ -32,7 +32,8 @@ This project was the following modules:
     * Replaced `IFilter` with `IPredicate`
     * Replaced `IFilterWithParameter` with `IBiPredicate`
     * Changed `ManagedExecutorService` to `ExecutorServiceHelper`
-    * Removed all `Charset` objects from `CCharset` contained in `StandardCharsets`
+    * Removed class `Charset` - use `StandardCharsets` instead
+    * Added classes `PathHelper` and `PathOperations`    
   * v8.6.2 - 2017-02-15
     * Extended `XMLSystemProperties` API
     * Allowing `JAXBDocumentType` objects to not have an `@XmlSchema` annotation

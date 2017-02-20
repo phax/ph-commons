@@ -220,20 +220,13 @@ public final class FileHelperTest
   {
     try
     {
-      FileHelper.getInputStream ((String) null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
-    try
-    {
       FileHelper.getInputStream ((File) null);
       fail ();
     }
     catch (final NullPointerException ex)
     {}
 
-    final InputStream aIS = FileHelper.getInputStream ("pom.xml");
+    final InputStream aIS = FileHelper.getInputStream (new File ("pom.xml"));
     assertNotNull (aIS);
     StreamHelper.close (aIS);
   }
@@ -241,19 +234,6 @@ public final class FileHelperTest
   @Test
   public void testGetOutputStream ()
   {
-    try
-    {
-      FileHelper.getOutputStream ((String) null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
-    try
-    {
-      FileHelper.getOutputStream ((String) null, EAppend.APPEND);
-      fail ();
-    }
-    catch (final NullPointerException ex)
     {}
     try
     {
@@ -274,7 +254,6 @@ public final class FileHelperTest
     if (EOperatingSystem.getCurrentOS ().isWindowsBased ())
     {
       final String sIllegalFilename = "  ";
-      assertNull (FileHelper.getOutputStream (sIllegalFilename));
       assertNull (FileHelper.getOutputStream (new File (sIllegalFilename)));
       // target is an existing directory
       assertNull (FileHelper.getOutputStream (new File ("target", sIllegalFilename)));

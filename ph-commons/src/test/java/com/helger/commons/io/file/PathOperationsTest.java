@@ -31,7 +31,6 @@ import java.nio.file.Paths;
 
 import javax.annotation.Nonnull;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.commons.charset.CharsetManager;
@@ -41,7 +40,6 @@ import com.helger.commons.charset.CharsetManager;
  *
  * @author Philip Helger
  */
-@Ignore ("Not yet working")
 public final class PathOperationsTest
 {
   private static void _expectedSuccess (@Nonnull final FileIOError ec)

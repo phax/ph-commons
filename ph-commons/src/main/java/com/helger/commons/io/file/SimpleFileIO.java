@@ -17,8 +17,13 @@
 package com.helger.commons.io.file;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.OutputStream;
+import java.io.UncheckedIOException;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -29,6 +34,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.io.stream.NonBlockingBufferedReader;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.state.ESuccess;
 
@@ -60,6 +66,71 @@ public final class SimpleFileIO
   public static byte [] getAllFileBytes (@Nullable final File aFile)
   {
     return aFile == null ? null : StreamHelper.getAllBytes (FileHelper.getInputStream (aFile));
+  }
+
+  @Nullable
+  public static byte [] getAllFileBytes (@Nullable final Path aPath)
+  {
+    try
+    {
+      return aPath == null ? null : Files.readAllBytes (aPath);
+    }
+    catch (final IOException ex)
+    {
+      throw new UncheckedIOException (ex);
+    }
+  }
+
+  /**
+   * Read all lines from a file. This method ensures that the file is closed
+   * when all bytes have been read or an I/O error, or other runtime exception,
+   * is thrown. Bytes from the file are decoded into characters using the
+   * specified charset.
+   * <p>
+   * This method recognizes the following as line terminators:
+   * <ul>
+   * <li><code>&#92;u000D</code> followed by <code>&#92;u000A</code>, CARRIAGE
+   * RETURN followed by LINE FEED</li>
+   * <li><code>&#92;u000A</code>, LINE FEED</li>
+   * <li><code>&#92;u000D</code>, CARRIAGE RETURN</li>
+   * </ul>
+   * <p>
+   * Additional Unicode line terminators may be recognized in future releases.
+   * <p>
+   * Note that this method is intended for simple cases where it is convenient
+   * to read all lines in a single operation. It is not intended for reading in
+   * large files.
+   *
+   * @param aPath
+   *        the path to the file
+   * @param aCharset
+   *        the charset to use for decoding
+   * @return the lines from the file as a {@code List}; whether the {@code
+   *          List} is modifiable or not is implementation dependent and
+   *         therefore not specified
+   * @throws IOException
+   *         if an I/O error occurs reading from the file or a malformed or
+   *         unmappable byte sequence is read
+   * @throws SecurityException
+   *         In the case of the default provider, and a security manager is
+   *         installed, the {@link SecurityManager#checkRead(String) checkRead}
+   *         method is invoked to check read access to the file.
+   */
+  public static List <String> readAllLines (@Nonnull final Path aPath,
+                                            @Nonnull final Charset aCharset) throws IOException
+  {
+    try (NonBlockingBufferedReader reader = PathHelper.getBufferedReader (aPath, aCharset))
+    {
+      final List <String> result = new ArrayList <> ();
+      for (;;)
+      {
+        final String line = reader.readLine ();
+        if (line == null)
+          break;
+        result.add (line);
+      }
+      return result;
+    }
   }
 
   /**

@@ -60,11 +60,23 @@ public final class PathOperations
     s_bExceptionOnDeleteRoot = bExceptionOnDeleteRoot;
   }
 
+  /**
+   * Internal dummy interface for operations with one parameter.
+   * 
+   * @author Philip Helger
+   */
+  @FunctionalInterface
   private static interface IOpPath
   {
     void op (Path aPath) throws IOException;
   }
 
+  /**
+   * Internal dummy interface for operations with two parameters.
+   * 
+   * @author Philip Helger
+   */
+  @FunctionalInterface
   private static interface IOpPath2
   {
     void op (Path aPath1, Path aPath2) throws IOException;
@@ -575,7 +587,7 @@ public final class PathOperations
           continue;
 
         // Copy directory
-        eCode = copyDirRecursive (aChild, aTargetDir.resolve (aChild.relativize (aSourceDir)));
+        eCode = copyDirRecursive (aChild, aTargetDir.resolve (aChild.getFileName ()));
         if (eCode.isFailure ())
           return eCode;
       }
@@ -583,7 +595,7 @@ public final class PathOperations
         if (Files.isRegularFile (aChild))
         {
           // Copy a file
-          eCode = copyFile (aChild, aTargetDir.resolve (aChild.relativize (aSourceDir)));
+          eCode = copyFile (aChild, aTargetDir.resolve (aChild.getFileName ()));
           if (eCode.isFailure ())
             return eCode;
         }

@@ -49,6 +49,8 @@ import com.helger.commons.io.EAppend;
 import com.helger.commons.io.misc.SizeHelper;
 import com.helger.commons.io.stream.CountingFileInputStream;
 import com.helger.commons.io.stream.CountingFileOutputStream;
+import com.helger.commons.io.stream.NonBlockingBufferedInputStream;
+import com.helger.commons.io.stream.NonBlockingBufferedOutputStream;
 import com.helger.commons.io.stream.NonBlockingBufferedReader;
 import com.helger.commons.io.stream.NonBlockingBufferedWriter;
 import com.helger.commons.io.stream.StreamHelper;
@@ -101,52 +103,6 @@ public final class FileHelper
   {
     // returns true if it exists() AND is a directory!
     return aDir != null && aDir.isDirectory ();
-  }
-
-  /**
-   * Tests whether the application can read the file denoted by this abstract
-   * pathname.
-   *
-   * @param aFile
-   *        The file to be checked. May be <code>null</code>.
-   * @return <code>true</code> if and only if the file specified by this
-   *         abstract pathname is not <code>null</code>, exists <em>and</em> can
-   *         be read by the application; <code>false</code> otherwise
-   */
-  public static boolean canRead (@Nullable final File aFile)
-  {
-    return aFile != null && aFile.canRead ();
-  }
-
-  /**
-   * Tests whether the application can modify the file denoted by this abstract
-   * pathname.
-   *
-   * @param aFile
-   *        The file to be checked. May be <code>null</code>.
-   * @return <code>true</code> if and only if the parameter is not
-   *         <code>null</code>, the file system actually contains a file denoted
-   *         by this abstract pathname <em>and</em> the application is allowed
-   *         to write to the file; <code>false</code> otherwise.
-   */
-  public static boolean canWrite (@Nullable final File aFile)
-  {
-    return aFile != null && aFile.canWrite ();
-  }
-
-  /**
-   * Tests whether the application can execute the file denoted by this abstract
-   * pathname.
-   *
-   * @param aFile
-   *        The file to be checked. May be <code>null</code>.
-   * @return <code>true</code> if and only if the abstract pathname is not
-   *         <code>null</code>, exists <em>and</em> the application is allowed
-   *         to execute the file
-   */
-  public static boolean canExecute (@Nullable final File aFile)
-  {
-    return aFile != null && aFile.canExecute ();
   }
 
   /**
@@ -333,14 +289,6 @@ public final class FileHelper
   }
 
   @Nullable
-  public static FileInputStream getInputStream (@Nonnull final String sFilename)
-  {
-    ValueEnforcer.notNull (sFilename, "Filename");
-
-    return getInputStream (new File (sFilename));
-  }
-
-  @Nullable
   public static FileInputStream getInputStream (@Nonnull final File aFile)
   {
     ValueEnforcer.notNull (aFile, "File");
@@ -356,11 +304,14 @@ public final class FileHelper
   }
 
   @Nullable
-  public static Reader getReader (@Nonnull final String sFilename, @Nonnull final Charset aCharset)
+  public static NonBlockingBufferedInputStream getBufferedInputStream (@Nonnull final File aFile)
   {
-    ValueEnforcer.notNull (sFilename, "Filename");
+    ValueEnforcer.notNull (aFile, "File");
 
-    return getReader (new File (sFilename), aCharset);
+    final FileInputStream aIS = getInputStream (aFile);
+    if (aIS == null)
+      return null;
+    return new NonBlockingBufferedInputStream (aIS);
   }
 
   @Nullable
@@ -373,15 +324,7 @@ public final class FileHelper
   }
 
   @Nullable
-  public static Reader getBufferedReader (@Nonnull final String sFilename, @Nonnull final Charset aCharset)
-  {
-    ValueEnforcer.notNull (sFilename, "FileName");
-
-    return getBufferedReader (new File (sFilename), aCharset);
-  }
-
-  @Nullable
-  public static Reader getBufferedReader (@Nonnull final File aFile, @Nonnull final Charset aCharset)
+  public static NonBlockingBufferedReader getBufferedReader (@Nonnull final File aFile, @Nonnull final Charset aCharset)
   {
     ValueEnforcer.notNull (aFile, "File");
     ValueEnforcer.notNull (aCharset, "Charset");
@@ -390,35 +333,6 @@ public final class FileHelper
     if (aReader == null)
       return null;
     return new NonBlockingBufferedReader (aReader);
-  }
-
-  /**
-   * Get an output stream for writing to a file. Any existing file is
-   * overwritten.
-   *
-   * @param sFilename
-   *        The name of the file to write to. May not be <code>null</code>.
-   * @return <code>null</code> if the file could not be opened
-   */
-  @Nullable
-  public static OutputStream getOutputStream (@Nonnull final String sFilename)
-  {
-    return getOutputStream (sFilename, EAppend.DEFAULT);
-  }
-
-  /**
-   * Get an output stream for writing to a file.
-   *
-   * @param sFilename
-   *        The name of the file to write to. May not be <code>null</code>.
-   * @param eAppend
-   *        Appending mode. May not be <code>null</code>.
-   * @return <code>null</code> if the file could not be opened
-   */
-  @Nullable
-  public static OutputStream getOutputStream (@Nonnull final String sFilename, @Nonnull final EAppend eAppend)
-  {
-    return getOutputStream (new File (sFilename), eAppend);
   }
 
   /**
@@ -432,84 +346,6 @@ public final class FileHelper
   public static OutputStream getOutputStream (@Nonnull final File aFile)
   {
     return getOutputStream (aFile, EAppend.DEFAULT);
-  }
-
-  @Nullable
-  public static Writer getWriter (@Nonnull final String sFilename,
-                                  @Nonnull final EAppend eAppend,
-                                  @Nonnull final Charset aCharset)
-  {
-    ValueEnforcer.notNull (sFilename, "FileName");
-
-    return getWriter (new File (sFilename), eAppend, aCharset);
-  }
-
-  @Nullable
-  public static Writer getWriter (@Nonnull final File aFile,
-                                  @Nonnull final EAppend eAppend,
-                                  @Nonnull final Charset aCharset)
-  {
-    ValueEnforcer.notNull (aFile, "File");
-    ValueEnforcer.notNull (aCharset, "Charset");
-
-    return StreamHelper.createWriter (getOutputStream (aFile, eAppend), aCharset);
-  }
-
-  @Nullable
-  public static Writer getBufferedWriter (@Nonnull final String sFilename,
-                                          @Nonnull final EAppend eAppend,
-                                          @Nonnull final Charset aCharset)
-  {
-    ValueEnforcer.notNull (sFilename, "FileName");
-
-    return getBufferedWriter (new File (sFilename), eAppend, aCharset);
-  }
-
-  @Nullable
-  public static Writer getBufferedWriter (@Nonnull final File aFile,
-                                          @Nonnull final EAppend eAppend,
-                                          @Nonnull final Charset aCharset)
-  {
-    ValueEnforcer.notNull (aFile, "File");
-    ValueEnforcer.notNull (aCharset, "Charset");
-
-    final Writer aWriter = getWriter (aFile, eAppend, aCharset);
-    if (aWriter == null)
-      return null;
-
-    return new NonBlockingBufferedWriter (aWriter);
-  }
-
-  @Nonnull
-  static EValidity internalCheckParentDirectoryExistanceAndAccess (@Nonnull final File aFile)
-  {
-    try
-    {
-      ensureParentDirectoryIsPresent (aFile);
-    }
-    catch (final IllegalStateException ex)
-    {
-      // Happens e.g. when the parent directory is " "
-      s_aLogger.warn ("Failed to create parent directory of '" + aFile + "'", ex);
-      return EValidity.INVALID;
-    }
-
-    // Check if parent directory is writable, to avoid catching the
-    // FileNotFoundException with "permission denied" afterwards
-    final File aParentDir = aFile.getParentFile ();
-    if (aParentDir != null && !canWrite (aParentDir))
-    {
-      s_aLogger.warn ("Parent directory '" +
-                      aParentDir +
-                      "' of '" +
-                      aFile +
-                      "' is not writable for current user '" +
-                      SystemProperties.getUserName () +
-                      "'");
-      return EValidity.INVALID;
-    }
-
-    return EValidity.VALID;
   }
 
   /**
@@ -547,6 +383,95 @@ public final class FileHelper
                       ex.getMessage ());
       return null;
     }
+  }
+
+  @Nullable
+  public static NonBlockingBufferedOutputStream getBufferedOutputStream (@Nonnull final File aFile)
+  {
+    return getBufferedOutputStream (aFile, EAppend.DEFAULT);
+  }
+
+  @Nullable
+  public static NonBlockingBufferedOutputStream getBufferedOutputStream (@Nonnull final File aFile,
+                                                                         @Nonnull final EAppend eAppend)
+  {
+    ValueEnforcer.notNull (aFile, "File");
+    ValueEnforcer.notNull (eAppend, "Append");
+
+    final FileOutputStream aFOS = getOutputStream (aFile, eAppend);
+    if (aFOS == null)
+      return null;
+    return new NonBlockingBufferedOutputStream (aFOS);
+  }
+
+  @Nullable
+  public static Writer getWriter (@Nonnull final File aFile, @Nonnull final Charset aCharset)
+  {
+    return getWriter (aFile, EAppend.DEFAULT, aCharset);
+  }
+
+  @Nullable
+  public static Writer getWriter (@Nonnull final File aFile,
+                                  @Nonnull final EAppend eAppend,
+                                  @Nonnull final Charset aCharset)
+  {
+    ValueEnforcer.notNull (aFile, "File");
+    ValueEnforcer.notNull (aCharset, "Charset");
+
+    return StreamHelper.createWriter (getOutputStream (aFile, eAppend), aCharset);
+  }
+
+  @Nullable
+  public static NonBlockingBufferedWriter getBufferedWriter (@Nonnull final File aFile, @Nonnull final Charset aCharset)
+  {
+    return getBufferedWriter (aFile, EAppend.DEFAULT, aCharset);
+  }
+
+  @Nullable
+  public static NonBlockingBufferedWriter getBufferedWriter (@Nonnull final File aFile,
+                                                             @Nonnull final EAppend eAppend,
+                                                             @Nonnull final Charset aCharset)
+  {
+    ValueEnforcer.notNull (aFile, "File");
+    ValueEnforcer.notNull (aCharset, "Charset");
+
+    final Writer aWriter = getWriter (aFile, eAppend, aCharset);
+    if (aWriter == null)
+      return null;
+
+    return new NonBlockingBufferedWriter (aWriter);
+  }
+
+  @Nonnull
+  static EValidity internalCheckParentDirectoryExistanceAndAccess (@Nonnull final File aFile)
+  {
+    try
+    {
+      ensureParentDirectoryIsPresent (aFile);
+    }
+    catch (final IllegalStateException ex)
+    {
+      // Happens e.g. when the parent directory is " "
+      s_aLogger.warn ("Failed to create parent directory of '" + aFile + "'", ex);
+      return EValidity.INVALID;
+    }
+
+    // Check if parent directory is writable, to avoid catching the
+    // FileNotFoundException with "permission denied" afterwards
+    final File aParentDir = aFile.getParentFile ();
+    if (aParentDir != null && !aParentDir.canWrite ())
+    {
+      s_aLogger.warn ("Parent directory '" +
+                      aParentDir +
+                      "' of '" +
+                      aFile +
+                      "' is not writable for current user '" +
+                      SystemProperties.getUserName () +
+                      "'");
+      return EValidity.INVALID;
+    }
+
+    return EValidity.VALID;
   }
 
   @Nullable
@@ -709,21 +634,21 @@ public final class FileHelper
       if (!aDirectory.isDirectory ())
         s_aLogger.warn ("Cannot list non-directory: " + aDirectory.getAbsolutePath ());
       else
-        if (!canExecute (aDirectory))
+        if (!aDirectory.canExecute ())
         {
           // If this happens, the resulting File objects are neither files nor
           // directories (isFile() and isDirectory() both return false!!)
           s_aLogger.warn ("Existing directory is missing the listing permission: " + aDirectory.getAbsolutePath ());
         }
         else
-          if (!canRead (aDirectory))
+          if (!aDirectory.canRead ())
             s_aLogger.warn ("Cannot list directory because of no read-rights: " + aDirectory.getAbsolutePath ());
           else
             s_aLogger.warn ("Directory listing failed because of IO error: " + aDirectory.getAbsolutePath ());
     }
     else
     {
-      if (!canExecute (aDirectory))
+      if (!aDirectory.canExecute ())
       {
         // If this happens, the resulting File objects are neither files nor
         // directories (isFile() and isDirectory() both return false!!)

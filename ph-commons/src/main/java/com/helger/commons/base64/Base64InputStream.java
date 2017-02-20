@@ -16,13 +16,14 @@
  */
 package com.helger.commons.base64;
 
-import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
+
+import com.helger.commons.io.stream.WrappedInputStream;
 
 /**
  * A {@link Base64InputStream} will read data from another
@@ -33,7 +34,7 @@ import javax.annotation.concurrent.NotThreadSafe;
  * @since 1.3
  */
 @NotThreadSafe
-public class Base64InputStream extends FilterInputStream
+public class Base64InputStream extends WrappedInputStream
 {
   // Encoding or decoding
   private final boolean m_bEncode;

@@ -16,7 +16,6 @@
  */
 package com.helger.commons.io.file;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -52,6 +51,8 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.EAppend;
+import com.helger.commons.io.stream.NonBlockingBufferedInputStream;
+import com.helger.commons.io.stream.NonBlockingBufferedOutputStream;
 import com.helger.commons.io.stream.NonBlockingBufferedReader;
 import com.helger.commons.io.stream.NonBlockingBufferedWriter;
 import com.helger.commons.io.stream.StreamHelper;
@@ -266,7 +267,25 @@ public final class PathHelper
   {
     ValueEnforcer.notNull (aFile, "Path");
 
-    return FileHelper.getInputStream (aFile.toFile ());
+    try
+    {
+      return Files.newInputStream (aFile);
+    }
+    catch (final IOException ex)
+    {
+      return null;
+    }
+  }
+
+  @Nullable
+  public static NonBlockingBufferedInputStream getBufferedInputStream (@Nonnull final Path aFile)
+  {
+    ValueEnforcer.notNull (aFile, "File");
+
+    final InputStream aIS = getInputStream (aFile);
+    if (aIS == null)
+      return null;
+    return new NonBlockingBufferedInputStream (aIS);
   }
 
   @Nullable
@@ -279,7 +298,7 @@ public final class PathHelper
   }
 
   @Nullable
-  public static Reader getBufferedReader (@Nonnull final Path aFile, @Nonnull final Charset aCharset)
+  public static NonBlockingBufferedReader getBufferedReader (@Nonnull final Path aFile, @Nonnull final Charset aCharset)
   {
     ValueEnforcer.notNull (aFile, "Path");
     ValueEnforcer.notNull (aCharset, "Charset");
@@ -288,32 +307,6 @@ public final class PathHelper
     if (aReader == null)
       return null;
     return new NonBlockingBufferedReader (aReader);
-  }
-
-  @Nullable
-  public static Writer getWriter (@Nonnull final Path aFile,
-                                  @Nonnull final EAppend eAppend,
-                                  @Nonnull final Charset aCharset)
-  {
-    ValueEnforcer.notNull (aFile, "Path");
-    ValueEnforcer.notNull (aCharset, "Charset");
-
-    return StreamHelper.createWriter (getOutputStream (aFile, eAppend), aCharset);
-  }
-
-  @Nullable
-  public static Writer getBufferedWriter (@Nonnull final Path aFile,
-                                          @Nonnull final EAppend eAppend,
-                                          @Nonnull final Charset aCharset)
-  {
-    ValueEnforcer.notNull (aFile, "Path");
-    ValueEnforcer.notNull (aCharset, "Charset");
-
-    final Writer aWriter = getWriter (aFile, eAppend, aCharset);
-    if (aWriter == null)
-      return null;
-
-    return new NonBlockingBufferedWriter (aWriter);
   }
 
   /**
@@ -339,13 +332,65 @@ public final class PathHelper
    * @return <code>null</code> if the file could not be opened
    */
   @Nullable
-  public static FileOutputStream getOutputStream (@Nonnull final Path aFile, @Nonnull final EAppend eAppend)
+  public static OutputStream getOutputStream (@Nonnull final Path aFile, @Nonnull final EAppend eAppend)
   {
     ValueEnforcer.notNull (aFile, "Path");
     ValueEnforcer.notNull (eAppend, "Append");
 
     // OK, parent is present and writable
-    return FileHelper.getOutputStream (aFile.toFile (), eAppend);
+    try
+    {
+      return Files.newOutputStream (aFile, eAppend.getAsOpenOptions ());
+    }
+    catch (final IOException ex)
+    {
+      return null;
+    }
+  }
+
+  @Nullable
+  public static NonBlockingBufferedOutputStream getBufferedOutputStream (@Nonnull final Path aFile)
+  {
+    return getBufferedOutputStream (aFile, EAppend.DEFAULT);
+  }
+
+  @Nullable
+  public static NonBlockingBufferedOutputStream getBufferedOutputStream (@Nonnull final Path aFile,
+                                                                         @Nonnull final EAppend eAppend)
+  {
+    ValueEnforcer.notNull (aFile, "File");
+    ValueEnforcer.notNull (eAppend, "Append");
+
+    final OutputStream aOS = getOutputStream (aFile, eAppend);
+    if (aOS == null)
+      return null;
+    return new NonBlockingBufferedOutputStream (aOS);
+  }
+
+  @Nullable
+  public static Writer getWriter (@Nonnull final Path aFile,
+                                  @Nonnull final EAppend eAppend,
+                                  @Nonnull final Charset aCharset)
+  {
+    ValueEnforcer.notNull (aFile, "Path");
+    ValueEnforcer.notNull (aCharset, "Charset");
+
+    return StreamHelper.createWriter (getOutputStream (aFile, eAppend), aCharset);
+  }
+
+  @Nullable
+  public static NonBlockingBufferedWriter getBufferedWriter (@Nonnull final Path aFile,
+                                                             @Nonnull final EAppend eAppend,
+                                                             @Nonnull final Charset aCharset)
+  {
+    ValueEnforcer.notNull (aFile, "Path");
+    ValueEnforcer.notNull (aCharset, "Charset");
+
+    final Writer aWriter = getWriter (aFile, eAppend, aCharset);
+    if (aWriter == null)
+      return null;
+
+    return new NonBlockingBufferedWriter (aWriter);
   }
 
   /**
@@ -524,7 +569,7 @@ public final class PathHelper
   private static ICommonsList <Path> _getDirectoryContent (@Nonnull final Path aDirectory,
                                                            @Nullable final Predicate <? super Path> aPathFilter)
   {
-    final ICommonsList <Path> ret = new CommonsArrayList<> ();
+    final ICommonsList <Path> ret = new CommonsArrayList <> ();
     walkFileTree (aDirectory, 1, new SimpleFileVisitor <Path> ()
     {
       @Override

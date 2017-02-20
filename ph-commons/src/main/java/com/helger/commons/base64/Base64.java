@@ -261,7 +261,7 @@ public final class Base64
   /** The new line character (\n) as a byte. */
   public static final byte NEW_LINE = (byte) '\n';
 
-  /** Preferred encoding. */
+  /** Preferred encoding: US-ASCII */
   public static final Charset PREFERRED_ENCODING = StandardCharsets.US_ASCII;
 
   // Indicates white space in encoding
@@ -2357,19 +2357,19 @@ public final class Base64
    *
    * @param aDataToEncode
    *        byte array of data to encode in base64 form
-   * @param sFilename
-   *        Filename for saving encoded data
+   * @param aFile
+   *        File for saving encoded data
    * @throws IOException
    *         if there is an error
    * @throws NullPointerException
    *         if dataToEncode is null
    * @since 2.1
    */
-  public static void encodeToFile (@Nonnull final byte [] aDataToEncode, final String sFilename) throws IOException
+  public static void encodeToFile (@Nonnull final byte [] aDataToEncode, final File aFile) throws IOException
   {
     ValueEnforcer.notNull (aDataToEncode, "DataToEncode");
 
-    try (final Base64OutputStream bos = new Base64OutputStream (FileHelper.getOutputStream (sFilename), ENCODE))
+    try (final Base64OutputStream bos = new Base64OutputStream (FileHelper.getBufferedOutputStream (aFile), ENCODE))
     {
       bos.write (aDataToEncode);
     }
@@ -2383,20 +2383,19 @@ public final class Base64
    * but in retrospect that's a pretty poor way to handle it.
    * </p>
    *
-   * @param dataToDecode
+   * @param sDataToDecode
    *        Base64-encoded data as a string
-   * @param filename
-   *        Filename for saving decoded data
+   * @param aFile
+   *        File for saving decoded data
    * @throws IOException
    *         if there is an error
    * @since 2.1
    */
-  public static void decodeToFile (@Nonnull final String dataToDecode,
-                                   @Nonnull final String filename) throws IOException
+  public static void decodeToFile (@Nonnull final String sDataToDecode, @Nonnull final File aFile) throws IOException
   {
-    try (final Base64OutputStream bos = new Base64OutputStream (FileHelper.getOutputStream (filename), DECODE))
+    try (final Base64OutputStream bos = new Base64OutputStream (FileHelper.getBufferedOutputStream (aFile), DECODE))
     {
-      bos.write (CharsetManager.getAsBytes (dataToDecode, PREFERRED_ENCODING));
+      bos.write (CharsetManager.getAsBytes (sDataToDecode, PREFERRED_ENCODING));
     }
   }
 
@@ -2429,8 +2428,7 @@ public final class Base64
     final byte [] buffer = new byte [(int) file.length ()];
 
     // Open a stream
-    try (final Base64InputStream bis = new Base64InputStream (StreamHelper.getBuffered (FileHelper.getInputStream (file)),
-                                                              DECODE))
+    try (final Base64InputStream bis = new Base64InputStream (FileHelper.getBufferedInputStream (file), DECODE))
     {
       int nOfs = 0;
       int numBytes;
@@ -2470,8 +2468,7 @@ public final class Base64
     final File file = new File (filename);
 
     // Open a stream
-    try (final Base64InputStream bis = new Base64InputStream (StreamHelper.getBuffered (FileHelper.getInputStream (file)),
-                                                              ENCODE))
+    try (final Base64InputStream bis = new Base64InputStream (FileHelper.getBufferedInputStream (file), ENCODE))
     {
       // Need max() for math on small files (v2.2.1);
       // Need +1 for a few corner cases (v2.3.5)
@@ -2497,16 +2494,16 @@ public final class Base64
    *
    * @param infile
    *        Input file
-   * @param outfile
+   * @param aFile
    *        Output file
    * @throws IOException
    *         if there is an error
    * @since 2.2
    */
-  public static void encodeFileToFile (@Nonnull final String infile, @Nonnull final String outfile) throws IOException
+  public static void encodeFileToFile (@Nonnull final String infile, @Nonnull final File aFile) throws IOException
   {
     final String encoded = encodeFromFile (infile);
-    try (final OutputStream out = StreamHelper.getBuffered (FileHelper.getOutputStream (outfile)))
+    try (final OutputStream out = FileHelper.getBufferedOutputStream (aFile))
     {
       // Strict, 7-bit output.
       out.write (CharsetManager.getAsBytes (encoded, PREFERRED_ENCODING));
@@ -2516,18 +2513,18 @@ public final class Base64
   /**
    * Reads <code>infile</code> and decodes it to <code>outfile</code>.
    *
-   * @param infile
+   * @param aInFile
    *        Input file
-   * @param outfile
+   * @param aOutFile
    *        Output file
    * @throws IOException
    *         if there is an error
    * @since 2.2
    */
-  public static void decodeFileToFile (@Nonnull final String infile, @Nonnull final String outfile) throws IOException
+  public static void decodeFileToFile (@Nonnull final String aInFile, @Nonnull final File aOutFile) throws IOException
   {
-    final byte [] decoded = decodeFromFile (infile);
-    try (final OutputStream out = StreamHelper.getBuffered (FileHelper.getOutputStream (outfile)))
+    final byte [] decoded = decodeFromFile (aInFile);
+    try (final OutputStream out = FileHelper.getBufferedOutputStream (aOutFile))
     {
       out.write (decoded);
     }

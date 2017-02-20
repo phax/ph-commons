@@ -164,7 +164,7 @@ public class FileSystemResource implements IReadWriteResource
    */
   public boolean canRead ()
   {
-    return FileHelper.canRead (m_aFile);
+    return m_aFile.canRead ();
   }
 
   /**
@@ -178,7 +178,7 @@ public class FileSystemResource implements IReadWriteResource
    */
   public boolean canWrite ()
   {
-    return FileHelper.canWrite (m_aFile);
+    return m_aFile.canWrite ();
   }
 
   /**
@@ -190,7 +190,7 @@ public class FileSystemResource implements IReadWriteResource
    */
   public boolean canExecute ()
   {
-    return FileHelper.canExecute (m_aFile);
+    return m_aFile.canExecute ();
   }
 
   @Override

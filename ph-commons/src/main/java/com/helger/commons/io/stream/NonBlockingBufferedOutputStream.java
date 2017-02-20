@@ -16,7 +16,6 @@
  */
 package com.helger.commons.io.stream;
 
-import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -31,7 +30,7 @@ import com.helger.commons.ValueEnforcer;
  * @author Philip Helger
  * @see java.io.BufferedOutputStream
  */
-public class NonBlockingBufferedOutputStream extends FilterOutputStream
+public class NonBlockingBufferedOutputStream extends WrappedOutputStream
 {
   /**
    * The internal buffer where data is stored.

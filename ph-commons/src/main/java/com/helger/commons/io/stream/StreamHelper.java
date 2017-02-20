@@ -1334,12 +1334,14 @@ public final class StreamHelper
   @Nullable
   public static InputStreamReader createReader (@Nullable final InputStream aIS, @Nonnull final Charset aCharset)
   {
+    ValueEnforcer.notNull (aCharset, "Charset");
     return aIS == null ? null : new InputStreamReader (aIS, aCharset);
   }
 
   @Nullable
   public static OutputStreamWriter createWriter (@Nullable final OutputStream aOS, @Nonnull final Charset aCharset)
   {
+    ValueEnforcer.notNull (aCharset, "Charset");
     return aOS == null ? null : new OutputStreamWriter (aOS, aCharset);
   }
 

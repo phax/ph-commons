@@ -60,9 +60,9 @@ public final class JavaFileFuncTest
       s_aLogger.info ("  isDirectory:   " + f.isDirectory ());
       s_aLogger.info ("  isFile:        " + f.isFile ());
       s_aLogger.info ("  isHidden:      " + f.isHidden ());
-      s_aLogger.info ("  canRead:       " + FileHelper.canRead (f));
-      s_aLogger.info ("  canWrite:      " + FileHelper.canWrite (f));
-      s_aLogger.info ("  canExecute:    " + FileHelper.canExecute (f));
+      s_aLogger.info ("  canRead:       " + f.canRead ());
+      s_aLogger.info ("  canWrite:      " + f.canWrite ());
+      s_aLogger.info ("  canExecute:    " + f.canExecute ());
     }
   }
 
