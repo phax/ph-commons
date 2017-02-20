@@ -16,6 +16,7 @@
  */
 package com.helger.commons.error.list;
 
+import java.util.Collection;
 import java.util.Locale;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -28,6 +29,7 @@ import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.multimap.IMultiMapListBased;
@@ -176,6 +178,25 @@ public interface IErrorList extends IErrorBaseList <IError>, IHasSize
   }
 
   /**
+   * Get a sub-list with all entries for the specified field names
+   *
+   * @param aSearchFieldNames
+   *        The field names to search.
+   * @return Never <code>null</code>.
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  default IErrorList getListOfFields (@Nullable final Collection <String> aSearchFieldNames)
+  {
+    if (CollectionHelper.isEmpty (aSearchFieldNames))
+    {
+      // Empty sublist
+      return getSubList (x -> false);
+    }
+    return getSubList (x -> x.hasErrorFieldName () && aSearchFieldNames.contains (x.getErrorFieldName ()));
+  }
+
+  /**
    * Get a sub-list with all entries that have field names starting with one of
    * the supplied names.
    *
@@ -287,7 +308,7 @@ public interface IErrorList extends IErrorBaseList <IError>, IHasSize
   @ReturnsMutableCopy
   default <T> ICommonsList <T> getAllDataItems (@Nonnull final Function <? super IError, T> aExtractor)
   {
-    return new CommonsArrayList<> (this, x -> aExtractor.apply (x));
+    return new CommonsArrayList <> (this, x -> aExtractor.apply (x));
   }
 
   /**
@@ -322,7 +343,7 @@ public interface IErrorList extends IErrorBaseList <IError>, IHasSize
   @ReturnsMutableCopy
   default <T> IMultiMapListBased <T, IError> getGrouped (@Nonnull final Function <? super IError, T> aKeyExtractor)
   {
-    final IMultiMapListBased <T, IError> ret = new MultiLinkedHashMapArrayListBased<> ();
+    final IMultiMapListBased <T, IError> ret = new MultiLinkedHashMapArrayListBased <> ();
     forEach (x -> ret.putSingle (aKeyExtractor.apply (x), x));
     return ret;
   }
