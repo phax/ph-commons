@@ -16,7 +16,6 @@
  */
 package com.helger.commons.io.stream;
 
-import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
@@ -33,7 +32,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *
  * @author Philip Helger
  */
-public class NonBlockingBufferedInputStream extends FilterInputStream
+public class NonBlockingBufferedInputStream extends WrappedInputStream
 {
   private static final int DEFAULT_BUFFER_SIZE = 8192;
 

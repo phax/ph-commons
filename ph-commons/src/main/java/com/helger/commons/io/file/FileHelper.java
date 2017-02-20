@@ -57,6 +57,8 @@ import com.helger.commons.io.stream.ByteBufferInputStream;
 import com.helger.commons.io.stream.ByteBufferOutputStream;
 import com.helger.commons.io.stream.CountingFileInputStream;
 import com.helger.commons.io.stream.CountingFileOutputStream;
+import com.helger.commons.io.stream.NonBlockingBufferedInputStream;
+import com.helger.commons.io.stream.NonBlockingBufferedOutputStream;
 import com.helger.commons.io.stream.NonBlockingBufferedReader;
 import com.helger.commons.io.stream.NonBlockingBufferedWriter;
 import com.helger.commons.io.stream.StreamHelper;
@@ -408,6 +410,7 @@ public final class FileHelper
   }
 
   @Nullable
+  @Deprecated
   public static InputStream getInputStream (@Nonnull final String sFilename)
   {
     ValueEnforcer.notNull (sFilename, "Filename");
@@ -436,6 +439,17 @@ public final class FileHelper
       }
     }
     return aFIS;
+  }
+
+  @Nullable
+  public static NonBlockingBufferedInputStream getBufferedInputStream (@Nonnull final File aFile)
+  {
+    ValueEnforcer.notNull (aFile, "File");
+
+    final InputStream aIS = getInputStream (aFile);
+    if (aIS == null)
+      return null;
+    return new NonBlockingBufferedInputStream (aIS);
   }
 
   @Nullable
@@ -639,6 +653,27 @@ public final class FileHelper
   }
 
   @Nullable
+  public static NonBlockingBufferedOutputStream getBufferedOutputStream (@Nonnull final File aFile)
+  {
+    ValueEnforcer.notNull (aFile, "File");
+
+    return getBufferedOutputStream (aFile, EAppend.DEFAULT);
+  }
+
+  @Nullable
+  public static NonBlockingBufferedOutputStream getBufferedOutputStream (@Nonnull final File aFile,
+                                                                         @Nonnull final EAppend eAppend)
+  {
+    ValueEnforcer.notNull (aFile, "File");
+    ValueEnforcer.notNull (eAppend, "Append");
+
+    final OutputStream aOS = getOutputStream (aFile);
+    if (aOS == null)
+      return null;
+    return new NonBlockingBufferedOutputStream (aOS);
+  }
+
+  @Nullable
   @Deprecated
   public static Writer getWriter (@Nonnull final String sFilename,
                                   @Nonnull final EAppend eAppend,
@@ -712,7 +747,7 @@ public final class FileHelper
     // Check if parent directory is writable, to avoid catching the
     // FileNotFoundException with "permission denied" afterwards
     final File aParentDir = aFile.getParentFile ();
-    if (aParentDir != null && !canWrite (aParentDir))
+    if (aParentDir != null && !aParentDir.canWrite ())
     {
       s_aLogger.warn ("Parent directory '" +
                       aParentDir +
@@ -735,6 +770,7 @@ public final class FileHelper
   }
 
   @Nullable
+  @Deprecated
   public static OutputStream getMappedOutputStream (@Nonnull final String sFilename, @Nonnull final EAppend eAppend)
   {
     return getMappedOutputStream (new File (sFilename), eAppend);
@@ -936,21 +972,21 @@ public final class FileHelper
       if (!aDirectory.isDirectory ())
         s_aLogger.warn ("Cannot list non-directory: " + aDirectory.getAbsolutePath ());
       else
-        if (!canExecute (aDirectory))
+        if (!aDirectory.canExecute ())
         {
           // If this happens, the resulting File objects are neither files nor
           // directories (isFile() and isDirectory() both return false!!)
           s_aLogger.warn ("Existing directory is missing the listing permission: " + aDirectory.getAbsolutePath ());
         }
         else
-          if (!canRead (aDirectory))
+          if (!aDirectory.canRead ())
             s_aLogger.warn ("Cannot list directory because of no read-rights: " + aDirectory.getAbsolutePath ());
           else
             s_aLogger.warn ("Directory listing failed because of IO error: " + aDirectory.getAbsolutePath ());
     }
     else
     {
-      if (!canExecute (aDirectory))
+      if (!aDirectory.canExecute ())
       {
         // If this happens, the resulting File objects are neither files nor
         // directories (isFile() and isDirectory() both return false!!)

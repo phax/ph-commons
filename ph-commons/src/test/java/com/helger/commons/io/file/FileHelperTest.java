@@ -215,6 +215,7 @@ public final class FileHelperTest
                   FileHelper.getSecureFile (new File ("any/../abc.txt\u0000.txx")));
   }
 
+  @SuppressWarnings ("deprecation")
   @Test
   public void testGetInputStream ()
   {

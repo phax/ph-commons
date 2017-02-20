@@ -16,7 +16,6 @@
  */
 package com.helger.commons.io.stream;
 
-import java.io.FilterReader;
 import java.io.IOException;
 import java.io.Reader;
 
@@ -31,7 +30,7 @@ import com.helger.commons.ValueEnforcer;
  * @author Philip Helger
  * @see java.io.PushbackReader
  */
-public class NonBlockingPushbackReader extends FilterReader
+public class NonBlockingPushbackReader extends WrappedReader
 {
   /** Pushback buffer */
   private char [] m_aBuf;

@@ -24,6 +24,8 @@ This project was the following modules:
 
 ##News and noteworthy
 
+  * v.8.6.3
+    * Deprecated some String-based `FileHelper` APIs
   * v8.6.2 - 2017-02-15
     * Extended `XMLSystemProperties` API
     * Allowing `JAXBDocumentType` objects to not have an `@XmlSchema` annotation
