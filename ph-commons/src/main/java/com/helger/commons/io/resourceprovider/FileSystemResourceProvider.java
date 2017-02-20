@@ -30,7 +30,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
@@ -70,11 +69,11 @@ public class FileSystemResourceProvider implements IWritableResourceProvider
     {
       ValueEnforcer.isTrue (aBasePath.exists (), () -> "Passed base path '" + aBasePath + "' does not exist!");
       ValueEnforcer.isTrue (aBasePath.isDirectory (), () -> "Passed base path '" + aBasePath + "' is not a directory!");
-      if (!FileHelper.canRead (aBasePath))
+      if (!aBasePath.canRead ())
         s_aLogger.warn ("Cannot read passed base path '" + aBasePath + "'!");
-      if (!FileHelper.canWrite (aBasePath))
+      if (!aBasePath.canWrite ())
         s_aLogger.warn ("Cannot write passed base path '" + aBasePath + "'!");
-      if (!FileHelper.canExecute (aBasePath))
+      if (!aBasePath.canExecute ())
         s_aLogger.warn ("Cannot execute in passed base path '" + aBasePath + "'!");
     }
     m_aBasePath = aBasePath;

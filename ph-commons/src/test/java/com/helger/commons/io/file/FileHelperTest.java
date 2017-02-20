@@ -238,6 +238,7 @@ public final class FileHelperTest
     StreamHelper.close (aIS);
   }
 
+  @SuppressWarnings ("deprecation")
   @Test
   public void testGetOutputStream ()
   {

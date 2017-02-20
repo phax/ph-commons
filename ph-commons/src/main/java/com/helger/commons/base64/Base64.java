@@ -2369,7 +2369,8 @@ public final class Base64
   {
     ValueEnforcer.notNull (aDataToEncode, "DataToEncode");
 
-    try (final Base64OutputStream bos = new Base64OutputStream (FileHelper.getOutputStream (sFilename), ENCODE))
+    try (final Base64OutputStream bos = new Base64OutputStream (FileHelper.getOutputStream (new File (sFilename)),
+                                                                ENCODE))
     {
       bos.write (aDataToEncode);
     }
@@ -2394,7 +2395,8 @@ public final class Base64
   public static void decodeToFile (@Nonnull final String dataToDecode,
                                    @Nonnull final String filename) throws IOException
   {
-    try (final Base64OutputStream bos = new Base64OutputStream (FileHelper.getOutputStream (filename), DECODE))
+    try (final Base64OutputStream bos = new Base64OutputStream (FileHelper.getOutputStream (new File (filename)),
+                                                                DECODE))
     {
       bos.write (CharsetManager.getAsBytes (dataToDecode, PREFERRED_ENCODING));
     }
@@ -2506,7 +2508,7 @@ public final class Base64
   public static void encodeFileToFile (@Nonnull final String infile, @Nonnull final String outfile) throws IOException
   {
     final String encoded = encodeFromFile (infile);
-    try (final OutputStream out = StreamHelper.getBuffered (FileHelper.getOutputStream (outfile)))
+    try (final OutputStream out = StreamHelper.getBuffered (FileHelper.getOutputStream (new File (outfile))))
     {
       // Strict, 7-bit output.
       out.write (CharsetManager.getAsBytes (encoded, PREFERRED_ENCODING));
@@ -2527,7 +2529,7 @@ public final class Base64
   public static void decodeFileToFile (@Nonnull final String infile, @Nonnull final String outfile) throws IOException
   {
     final byte [] decoded = decodeFromFile (infile);
-    try (final OutputStream out = StreamHelper.getBuffered (FileHelper.getOutputStream (outfile)))
+    try (final OutputStream out = StreamHelper.getBuffered (FileHelper.getOutputStream (new File (outfile))))
     {
       out.write (decoded);
     }

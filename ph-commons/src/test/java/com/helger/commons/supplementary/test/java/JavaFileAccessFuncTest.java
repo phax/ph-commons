@@ -129,8 +129,7 @@ public final class JavaFileAccessFuncTest
 
                       final File fFile = new File (fTempDir, sPrefix + sMod + ".dat");
                       if (SimpleFileIO.writeFile (fFile,
-                                                  CharsetManager.getAsBytes ("content",
-                                                                             StandardCharsets.ISO_8859_1))
+                                                  CharsetManager.getAsBytes ("content", StandardCharsets.ISO_8859_1))
                                       .isSuccess ())
                         _exec ("chmod", sMod, fFile.getAbsolutePath ());
 
@@ -146,9 +145,9 @@ public final class JavaFileAccessFuncTest
       final ICommonsList <File> aFiles = FileHelper.getDirectoryContent (fTempDir);
       for (final File f : aFiles.getSorted (Comparator.naturalOrder ()))
       {
-        final boolean bCanRead = FileHelper.canRead (f);
-        final boolean bCanWrite = FileHelper.canWrite (f);
-        final boolean bCanExec = FileHelper.canRead (f);
+        final boolean bCanRead = f.canRead ();
+        final boolean bCanWrite = f.canWrite ();
+        final boolean bCanExec = f.canRead ();
         final String sRights = bCanRead + "/" + bCanWrite + "/" + bCanExec;
         final File f2 = new File (f.getParentFile (), f.getName () + "2");
 

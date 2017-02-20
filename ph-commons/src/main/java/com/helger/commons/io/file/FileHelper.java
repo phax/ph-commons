@@ -122,6 +122,7 @@ public final class FileHelper
    *         abstract pathname is not <code>null</code>, exists <em>and</em> can
    *         be read by the application; <code>false</code> otherwise
    */
+  @Deprecated
   public static boolean canRead (@Nullable final File aFile)
   {
     return aFile != null && aFile.canRead ();
@@ -138,6 +139,7 @@ public final class FileHelper
    *         by this abstract pathname <em>and</em> the application is allowed
    *         to write to the file; <code>false</code> otherwise.
    */
+  @Deprecated
   public static boolean canWrite (@Nullable final File aFile)
   {
     return aFile != null && aFile.canWrite ();
@@ -153,6 +155,7 @@ public final class FileHelper
    *         <code>null</code>, exists <em>and</em> the application is allowed
    *         to execute the file
    */
+  @Deprecated
   public static boolean canExecute (@Nullable final File aFile)
   {
     return aFile != null && aFile.canExecute ();
@@ -175,7 +178,7 @@ public final class FileHelper
     if (existsFile (aFile))
     {
       // File exists
-      if (!canRead (aFile) || !canWrite (aFile))
+      if (!aFile.canRead () || !aFile.canWrite ())
         return false;
     }
     else
@@ -185,7 +188,7 @@ public final class FileHelper
       if (aParentFile != null && aParentFile.isDirectory ())
       {
         // Check parent directory
-        if (!canRead (aParentFile) || !canWrite (aParentFile))
+        if (!aParentFile.canRead () || !aParentFile.canWrite ())
           return false;
       }
     }
@@ -436,6 +439,7 @@ public final class FileHelper
   }
 
   @Nullable
+  @Deprecated
   public static Reader getReader (@Nonnull final String sFilename, @Nonnull final Charset aCharset)
   {
     ValueEnforcer.notNull (sFilename, "Filename");
@@ -453,6 +457,7 @@ public final class FileHelper
   }
 
   @Nullable
+  @Deprecated
   public static Reader getBufferedReader (@Nonnull final String sFilename, @Nonnull final Charset aCharset)
   {
     ValueEnforcer.notNull (sFilename, "FileName");
@@ -576,6 +581,7 @@ public final class FileHelper
    * @return <code>null</code> if the file could not be opened
    */
   @Nullable
+  @Deprecated
   public static OutputStream getOutputStream (@Nonnull final String sFilename)
   {
     return getOutputStream (sFilename, EAppend.DEFAULT);
@@ -591,6 +597,7 @@ public final class FileHelper
    * @return <code>null</code> if the file could not be opened
    */
   @Nullable
+  @Deprecated
   public static OutputStream getOutputStream (@Nonnull final String sFilename, @Nonnull final EAppend eAppend)
   {
     return getOutputStream (new File (sFilename), eAppend);
@@ -609,7 +616,30 @@ public final class FileHelper
     return getOutputStream (aFile, EAppend.DEFAULT);
   }
 
+  /**
+   * Get an output stream for writing to a file.
+   *
+   * @param aFile
+   *        The file to write to. May not be <code>null</code>.
+   * @param eAppend
+   *        Appending mode. May not be <code>null</code>.
+   * @return <code>null</code> if the file could not be opened
+   */
   @Nullable
+  public static OutputStream getOutputStream (@Nonnull final File aFile, @Nonnull final EAppend eAppend)
+  {
+    ValueEnforcer.notNull (aFile, "File");
+    ValueEnforcer.notNull (eAppend, "Append");
+
+    if (_checkParentDirectoryExistanceAndAccess (aFile).isInvalid ())
+      return null;
+
+    // OK, parent is present and writable
+    return _getFileOutputStream (aFile, eAppend);
+  }
+
+  @Nullable
+  @Deprecated
   public static Writer getWriter (@Nonnull final String sFilename,
                                   @Nonnull final EAppend eAppend,
                                   @Nonnull final Charset aCharset)
@@ -617,6 +647,15 @@ public final class FileHelper
     ValueEnforcer.notNull (sFilename, "FileName");
 
     return getWriter (new File (sFilename), eAppend, aCharset);
+  }
+
+  @Nullable
+  public static Writer getWriter (@Nonnull final File aFile, @Nonnull final Charset aCharset)
+  {
+    ValueEnforcer.notNull (aFile, "File");
+    ValueEnforcer.notNull (aCharset, "Charset");
+
+    return getWriter (aFile, EAppend.DEFAULT, aCharset);
   }
 
   @Nullable
@@ -631,6 +670,7 @@ public final class FileHelper
   }
 
   @Nullable
+  @Deprecated
   public static Writer getBufferedWriter (@Nonnull final String sFilename,
                                           @Nonnull final EAppend eAppend,
                                           @Nonnull final Charset aCharset)
@@ -687,29 +727,8 @@ public final class FileHelper
     return EValidity.VALID;
   }
 
-  /**
-   * Get an output stream for writing to a file.
-   *
-   * @param aFile
-   *        The file to write to. May not be <code>null</code>.
-   * @param eAppend
-   *        Appending mode. May not be <code>null</code>.
-   * @return <code>null</code> if the file could not be opened
-   */
   @Nullable
-  public static OutputStream getOutputStream (@Nonnull final File aFile, @Nonnull final EAppend eAppend)
-  {
-    ValueEnforcer.notNull (aFile, "File");
-    ValueEnforcer.notNull (eAppend, "Append");
-
-    if (_checkParentDirectoryExistanceAndAccess (aFile).isInvalid ())
-      return null;
-
-    // OK, parent is present and writable
-    return _getFileOutputStream (aFile, eAppend);
-  }
-
-  @Nullable
+  @Deprecated
   public static OutputStream getMappedOutputStream (@Nonnull final String sFilename)
   {
     return getMappedOutputStream (new File (sFilename));
@@ -757,6 +776,7 @@ public final class FileHelper
   }
 
   @Nullable
+  @Deprecated
   public static RandomAccessFile getRandomAccessFile (@Nonnull final String sFilename,
                                                       @Nonnull final ERandomAccessFileMode eMode)
   {
@@ -937,7 +957,7 @@ public final class FileHelper
         s_aLogger.warn ("Directory is missing the listing permission: " + aDirectory.getAbsolutePath ());
       }
     }
-    return new CommonsArrayList <> (aSelectedContent);
+    return new CommonsArrayList<> (aSelectedContent);
   }
 
   /**

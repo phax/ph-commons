@@ -43,8 +43,8 @@ public final class MainValidFileNames
     s_aLogger.info ("--- testing name: " + sName + " ---");
     s_aLogger.info (sName + ".exists()=" + f.exists ());
     s_aLogger.info (sName + ".getAbsolutePath()=" + f.getAbsolutePath ());
-    s_aLogger.info (sName + ".canRead()=" + FileHelper.canRead (f));
-    s_aLogger.info (sName + ".canWrite()=" + FileHelper.canWrite (f));
+    s_aLogger.info (sName + ".canRead()=" + f.canRead ());
+    s_aLogger.info (sName + ".canWrite()=" + f.canWrite ());
 
     s_aLogger.info ("Writing into " + fileName + " ...");
 
@@ -59,8 +59,8 @@ public final class MainValidFileNames
 
     s_aLogger.info (sName + ".exists()=" + f.exists ());
     s_aLogger.info (sName + ".getAbsolutePath()=" + f.getAbsolutePath ());
-    s_aLogger.info (sName + ".canRead()=" + FileHelper.canRead (f));
-    s_aLogger.info (sName + ".canWrite()=" + FileHelper.canWrite (f));
+    s_aLogger.info (sName + ".canRead()=" + f.canRead ());
+    s_aLogger.info (sName + ".canWrite()=" + f.canWrite ());
     s_aLogger.info ("Reading from " + fileName + " ...");
     FileInputStream in = null;
     try
