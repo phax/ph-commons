@@ -17,7 +17,7 @@
 package com.helger.commons.lang;
 
 import java.io.PrintStream;
-import java.util.Collection;
+import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
@@ -53,19 +53,20 @@ public final class ClassPathHelper
   public static ICommonsList <String> getAllClassPathEntries ()
   {
     final ICommonsList <String> ret = new CommonsArrayList <> ();
-    getAllClassPathEntries (ret);
+    forAllClassPathEntries (ret::add);
     return ret;
   }
 
   /**
    * Add all class path entries into the provided target list.
    *
-   * @param aTarget
-   *        The target collection to be filled. May not be null.
+   * @param aConsumer
+   *        The target consumer invoked for all entries. May not be
+   *        <code>null</code>.
    */
-  public static void getAllClassPathEntries (@Nonnull final Collection <String> aTarget)
+  public static void forAllClassPathEntries (@Nonnull final Consumer <String> aConsumer)
   {
-    StringHelper.getExploded (SystemProperties.getPathSeparator (), SystemProperties.getJavaClassPath (), -1, aTarget);
+    StringHelper.explode (SystemProperties.getPathSeparator (), SystemProperties.getJavaClassPath (), -1, aConsumer);
   }
 
   /**
@@ -91,10 +92,9 @@ public final class ClassPathHelper
    */
   public static void printClassPathEntries (@Nonnull final PrintStream aPS, @Nonnull final String sItemSeparator)
   {
-    for (final String sClassPathEntry : getAllClassPathEntries ())
-    {
-      aPS.print (sClassPathEntry);
+    forAllClassPathEntries (x -> {
+      aPS.print (x);
       aPS.print (sItemSeparator);
-    }
+    });
   }
 }

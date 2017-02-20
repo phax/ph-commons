@@ -57,7 +57,7 @@ public final class ClassLoaderHelper
     return IPrivilegedAction.getContextClassLoader ().invokeSafe ();
   }
 
-  public static void setContextClassLoader (final ClassLoader aClassLoader)
+  public static void setContextClassLoader (@Nonnull final ClassLoader aClassLoader)
   {
     IPrivilegedAction.setContextClassLoader (aClassLoader).invokeSafe ();
   }
