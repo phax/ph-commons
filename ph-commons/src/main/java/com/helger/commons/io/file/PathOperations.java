@@ -62,7 +62,7 @@ public final class PathOperations
 
   /**
    * Internal dummy interface for operations with one parameter.
-   * 
+   *
    * @author Philip Helger
    */
   @FunctionalInterface
@@ -73,7 +73,7 @@ public final class PathOperations
 
   /**
    * Internal dummy interface for operations with two parameters.
-   * 
+   *
    * @author Philip Helger
    */
   @FunctionalInterface
@@ -143,16 +143,18 @@ public final class PathOperations
   {
     ValueEnforcer.notNull (aDir, "Directory");
 
+    final Path aRealDir = aDir.toAbsolutePath ();
+
     // Does the directory already exist?
-    if (Files.exists (aDir))
-      return EFileIOErrorCode.TARGET_ALREADY_EXISTS.getAsIOError (EFileIOOperation.CREATE_DIR, aDir);
+    if (Files.exists (aRealDir))
+      return EFileIOErrorCode.TARGET_ALREADY_EXISTS.getAsIOError (EFileIOOperation.CREATE_DIR, aRealDir);
 
     // Is the parent directory writable?
-    final Path aParentDir = aDir.getParent ();
+    final Path aParentDir = aRealDir.getParent ();
     if (aParentDir != null && Files.exists (aParentDir) && !Files.isWritable (aParentDir))
-      return EFileIOErrorCode.SOURCE_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.CREATE_DIR, aDir);
+      return EFileIOErrorCode.SOURCE_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.CREATE_DIR, aRealDir);
 
-    return _perform (EFileIOOperation.CREATE_DIR, Files::createDirectory, aDir);
+    return _perform (EFileIOOperation.CREATE_DIR, Files::createDirectory, aRealDir);
   }
 
   /**
@@ -186,16 +188,18 @@ public final class PathOperations
   {
     ValueEnforcer.notNull (aDir, "Directory");
 
+    final Path aRealDir = aDir.toAbsolutePath ();
+
     // Does the directory already exist?
-    if (Files.exists (aDir))
-      return EFileIOErrorCode.TARGET_ALREADY_EXISTS.getAsIOError (EFileIOOperation.CREATE_DIR_RECURSIVE, aDir);
+    if (Files.exists (aRealDir))
+      return EFileIOErrorCode.TARGET_ALREADY_EXISTS.getAsIOError (EFileIOOperation.CREATE_DIR_RECURSIVE, aRealDir);
 
     // Is the parent directory writable?
-    final Path aParentDir = aDir.getParent ();
+    final Path aParentDir = aRealDir.getParent ();
     if (aParentDir != null && Files.exists (aParentDir) && !Files.isWritable (aParentDir))
-      return EFileIOErrorCode.SOURCE_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.CREATE_DIR_RECURSIVE, aDir);
+      return EFileIOErrorCode.SOURCE_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.CREATE_DIR_RECURSIVE, aRealDir);
 
-    return _perform (EFileIOOperation.CREATE_DIR_RECURSIVE, Files::createDirectories, aDir);
+    return _perform (EFileIOOperation.CREATE_DIR_RECURSIVE, Files::createDirectories, aRealDir);
   }
 
   /**
@@ -230,23 +234,25 @@ public final class PathOperations
   {
     ValueEnforcer.notNull (aDir, "Directory");
 
+    final Path aRealDir = aDir.toAbsolutePath ();
+
     // Does the directory not exist?
-    if (!Files.isDirectory (aDir))
-      return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.DELETE_DIR, aDir);
+    if (!Files.isDirectory (aRealDir))
+      return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.DELETE_DIR, aRealDir);
 
     if (isExceptionOnDeleteRoot ())
     {
       // Check that we're not deleting the complete hard drive...
-      if (aDir.toAbsolutePath ().getParent () == null)
-        throw new IllegalArgumentException ("Aren't we deleting the full drive: '" + aDir.toAbsolutePath () + "'");
+      if (aRealDir.getParent () == null || aRealDir.getNameCount () == 0)
+        throw new IllegalArgumentException ("Aren't we deleting the full drive: '" + aRealDir + "'");
     }
 
     // Is the parent directory writable?
-    final Path aParentDir = aDir.getParent ();
+    final Path aParentDir = aRealDir.getParent ();
     if (aParentDir != null && !Files.isWritable (aParentDir))
-      return EFileIOErrorCode.SOURCE_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.DELETE_DIR, aDir);
+      return EFileIOErrorCode.SOURCE_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.DELETE_DIR, aRealDir);
 
-    return _perform (EFileIOOperation.DELETE_DIR, Files::delete, aDir);
+    return _perform (EFileIOOperation.DELETE_DIR, Files::delete, aRealDir);
   }
 
   /**
@@ -279,24 +285,26 @@ public final class PathOperations
   {
     ValueEnforcer.notNull (aDir, "Directory");
 
+    final Path aRealDir = aDir.toAbsolutePath ();
+
     // Non-existing directory?
-    if (!Files.isDirectory (aDir))
-      return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.DELETE_DIR_RECURSIVE, aDir);
+    if (!Files.isDirectory (aRealDir))
+      return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.DELETE_DIR_RECURSIVE, aRealDir);
 
     if (isExceptionOnDeleteRoot ())
     {
       // Check that we're not deleting the complete hard drive...
-      if (aDir.toAbsolutePath ().getParent () == null)
-        throw new IllegalArgumentException ("Aren't we deleting the full drive: '" + aDir.toAbsolutePath () + "'");
+      if (aRealDir.getParent () == null || aRealDir.getNameCount () == 0)
+        throw new IllegalArgumentException ("Aren't we deleting the full drive: '" + aRealDir + "'");
     }
 
     // Is the parent directory writable?
-    final Path aParentDir = aDir.getParent ();
+    final Path aParentDir = aRealDir.getParent ();
     if (aParentDir != null && !Files.isWritable (aParentDir))
-      return EFileIOErrorCode.SOURCE_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.DELETE_DIR_RECURSIVE, aDir);
+      return EFileIOErrorCode.SOURCE_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.DELETE_DIR_RECURSIVE, aRealDir);
 
     // iterate directory
-    for (final Path aChild : PathHelper.getDirectoryContent (aDir))
+    for (final Path aChild : PathHelper.getDirectoryContent (aRealDir))
     {
       // is it a file or a directory or ...
       if (Files.isDirectory (aChild))
@@ -326,7 +334,7 @@ public final class PathOperations
     }
 
     // Now this directory should be empty -> delete as if empty
-    return deleteDir (aDir);
+    return deleteDir (aRealDir);
   }
 
   /**
@@ -357,15 +365,17 @@ public final class PathOperations
   {
     ValueEnforcer.notNull (aFile, "Path");
 
-    if (!Files.isRegularFile (aFile))
-      return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.DELETE_FILE, aFile);
+    final Path aRealFile = aFile.toAbsolutePath ();
+
+    if (!Files.isRegularFile (aRealFile))
+      return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.DELETE_FILE, aRealFile);
 
     // Is the parent directory writable?
-    final Path aParentDir = aFile.getParent ();
+    final Path aParentDir = aRealFile.getParent ();
     if (aParentDir != null && !Files.isWritable (aParentDir))
-      return EFileIOErrorCode.SOURCE_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.DELETE_FILE, aFile);
+      return EFileIOErrorCode.SOURCE_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.DELETE_FILE, aRealFile);
 
-    return _perform (EFileIOOperation.DELETE_FILE, Files::delete, aFile);
+    return _perform (EFileIOOperation.DELETE_FILE, Files::delete, aRealFile);
   }
 
   /**
@@ -389,7 +399,10 @@ public final class PathOperations
     ValueEnforcer.notNull (aSourcePath, "SourceFile");
     ValueEnforcer.notNull (aTargetPath, "TargetFile");
 
-    Files.move (aSourcePath, aTargetPath, StandardCopyOption.ATOMIC_MOVE);
+    final Path aRealSourcePath = aSourcePath.toAbsolutePath ();
+    final Path aRealTargetPath = aTargetPath.toAbsolutePath ();
+
+    Files.move (aRealSourcePath, aRealTargetPath, StandardCopyOption.ATOMIC_MOVE);
   }
 
   /**
@@ -407,32 +420,35 @@ public final class PathOperations
     ValueEnforcer.notNull (aSourceFile, "SourceFile");
     ValueEnforcer.notNull (aTargetFile, "TargetFile");
 
+    final Path aRealSourceFile = aSourceFile.toAbsolutePath ();
+    final Path aRealTargetFile = aTargetFile.toAbsolutePath ();
+
     // Does the source file exist?
-    if (!Files.isRegularFile (aSourceFile))
-      return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.RENAME_FILE, aSourceFile);
+    if (!Files.isRegularFile (aRealSourceFile))
+      return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.RENAME_FILE, aRealSourceFile);
 
     // Are source and target different?
-    if (EqualsHelper.equals (aSourceFile, aTargetFile))
-      return EFileIOErrorCode.SOURCE_EQUALS_TARGET.getAsIOError (EFileIOOperation.RENAME_FILE, aSourceFile);
+    if (EqualsHelper.equals (aRealSourceFile, aRealTargetFile))
+      return EFileIOErrorCode.SOURCE_EQUALS_TARGET.getAsIOError (EFileIOOperation.RENAME_FILE, aRealSourceFile);
 
     // Does the target file already exist?
-    if (Files.exists (aTargetFile))
-      return EFileIOErrorCode.TARGET_ALREADY_EXISTS.getAsIOError (EFileIOOperation.RENAME_FILE, aTargetFile);
+    if (Files.exists (aRealTargetFile))
+      return EFileIOErrorCode.TARGET_ALREADY_EXISTS.getAsIOError (EFileIOOperation.RENAME_FILE, aRealTargetFile);
 
     // Is the source parent directory writable?
-    final Path aSourceParentDir = aSourceFile.getParent ();
+    final Path aSourceParentDir = aRealSourceFile.getParent ();
     if (aSourceParentDir != null && !Files.isWritable (aSourceParentDir))
-      return EFileIOErrorCode.SOURCE_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.RENAME_FILE, aSourceFile);
+      return EFileIOErrorCode.SOURCE_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.RENAME_FILE, aRealSourceFile);
 
     // Is the target parent directory writable?
-    final Path aTargetParentDir = aTargetFile.getParent ();
+    final Path aTargetParentDir = aRealTargetFile.getParent ();
     if (aTargetParentDir != null && Files.exists (aTargetParentDir) && !Files.isWritable (aTargetParentDir))
-      return EFileIOErrorCode.TARGET_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.RENAME_FILE, aTargetFile);
+      return EFileIOErrorCode.TARGET_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.RENAME_FILE, aRealTargetFile);
 
     // Ensure parent of target directory is present
-    PathHelper.ensureParentDirectoryIsPresent (aTargetFile);
+    PathHelper.ensureParentDirectoryIsPresent (aRealTargetFile);
 
-    return _perform (EFileIOOperation.RENAME_FILE, PathOperations::atomicMove, aSourceFile, aTargetFile);
+    return _perform (EFileIOOperation.RENAME_FILE, PathOperations::atomicMove, aRealSourceFile, aRealTargetFile);
   }
 
   /**
@@ -450,38 +466,41 @@ public final class PathOperations
     ValueEnforcer.notNull (aSourceDir, "SourceDirectory");
     ValueEnforcer.notNull (aTargetDir, "TargetDirectory");
 
+    final Path aRealSourceDir = aSourceDir.toAbsolutePath ();
+    final Path aRealTargetDir = aTargetDir.toAbsolutePath ();
+
     // Does the source directory exist?
-    if (!Files.isDirectory (aSourceDir))
-      return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.RENAME_DIR, aSourceDir);
+    if (!Files.isDirectory (aRealSourceDir))
+      return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.RENAME_DIR, aRealSourceDir);
 
     // Are source and target different?
-    if (EqualsHelper.equals (aSourceDir, aTargetDir))
-      return EFileIOErrorCode.SOURCE_EQUALS_TARGET.getAsIOError (EFileIOOperation.RENAME_DIR, aSourceDir);
+    if (EqualsHelper.equals (aRealSourceDir, aRealTargetDir))
+      return EFileIOErrorCode.SOURCE_EQUALS_TARGET.getAsIOError (EFileIOOperation.RENAME_DIR, aRealSourceDir);
 
     // Does the target directory already exist?
-    if (Files.exists (aTargetDir))
-      return EFileIOErrorCode.TARGET_ALREADY_EXISTS.getAsIOError (EFileIOOperation.RENAME_DIR, aTargetDir);
+    if (Files.exists (aRealTargetDir))
+      return EFileIOErrorCode.TARGET_ALREADY_EXISTS.getAsIOError (EFileIOOperation.RENAME_DIR, aRealTargetDir);
 
     // Is the source a parent of target?
-    if (PathHelper.isParentDirectory (aSourceDir, aTargetDir))
+    if (PathHelper.isParentDirectory (aRealSourceDir, aRealTargetDir))
       return EFileIOErrorCode.TARGET_IS_CHILD_OF_SOURCE.getAsIOError (EFileIOOperation.RENAME_DIR,
-                                                                      aSourceDir,
-                                                                      aTargetDir);
+                                                                      aRealSourceDir,
+                                                                      aRealTargetDir);
 
     // Is the source parent directory writable?
-    final Path aSourceParentDir = aSourceDir.getParent ();
+    final Path aSourceParentDir = aRealSourceDir.getParent ();
     if (aSourceParentDir != null && !Files.isWritable (aSourceParentDir))
-      return EFileIOErrorCode.SOURCE_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.RENAME_DIR, aSourceDir);
+      return EFileIOErrorCode.SOURCE_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.RENAME_DIR, aRealSourceDir);
 
     // Is the target parent directory writable?
-    final Path aTargetParentDir = aTargetDir.getParent ();
+    final Path aTargetParentDir = aRealTargetDir.getParent ();
     if (aTargetParentDir != null && Files.exists (aTargetParentDir) && !Files.isWritable (aTargetParentDir))
-      return EFileIOErrorCode.TARGET_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.RENAME_DIR, aTargetDir);
+      return EFileIOErrorCode.TARGET_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.RENAME_DIR, aRealTargetDir);
 
     // Ensure parent of target directory is present
-    PathHelper.ensureParentDirectoryIsPresent (aTargetDir);
+    PathHelper.ensureParentDirectoryIsPresent (aRealTargetDir);
 
-    return _perform (EFileIOOperation.RENAME_DIR, PathOperations::atomicMove, aSourceDir, aTargetDir);
+    return _perform (EFileIOOperation.RENAME_DIR, PathOperations::atomicMove, aRealSourceDir, aRealTargetDir);
   }
 
   /**
@@ -501,31 +520,34 @@ public final class PathOperations
     ValueEnforcer.notNull (aSourceFile, "SourceFile");
     ValueEnforcer.notNull (aTargetFile, "TargetFile");
 
+    final Path aRealSourceFile = aSourceFile.toAbsolutePath ();
+    final Path aRealTargetFile = aTargetFile.toAbsolutePath ();
+
     // Does the source file exist?
-    if (!Files.isRegularFile (aSourceFile))
-      return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.COPY_FILE, aSourceFile);
+    if (!Files.isRegularFile (aRealSourceFile))
+      return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.COPY_FILE, aRealSourceFile);
 
     // Are source and target different?
-    if (EqualsHelper.equals (aSourceFile, aTargetFile))
-      return EFileIOErrorCode.SOURCE_EQUALS_TARGET.getAsIOError (EFileIOOperation.COPY_FILE, aSourceFile);
+    if (EqualsHelper.equals (aRealSourceFile, aRealTargetFile))
+      return EFileIOErrorCode.SOURCE_EQUALS_TARGET.getAsIOError (EFileIOOperation.COPY_FILE, aRealSourceFile);
 
     // Does the target file already exist?
-    if (Files.exists (aTargetFile))
-      return EFileIOErrorCode.TARGET_ALREADY_EXISTS.getAsIOError (EFileIOOperation.COPY_FILE, aTargetFile);
+    if (Files.exists (aRealTargetFile))
+      return EFileIOErrorCode.TARGET_ALREADY_EXISTS.getAsIOError (EFileIOOperation.COPY_FILE, aRealTargetFile);
 
     // Is the source file readable?
-    if (!Files.isReadable (aSourceFile))
-      return EFileIOErrorCode.SOURCE_NOT_READABLE.getAsIOError (EFileIOOperation.COPY_FILE, aSourceFile);
+    if (!Files.isReadable (aRealSourceFile))
+      return EFileIOErrorCode.SOURCE_NOT_READABLE.getAsIOError (EFileIOOperation.COPY_FILE, aRealSourceFile);
 
     // Is the target parent directory writable?
-    final Path aTargetParentDir = aTargetFile.getParent ();
+    final Path aTargetParentDir = aRealTargetFile.getParent ();
     if (aTargetParentDir != null && Files.exists (aTargetParentDir) && !Files.isWritable (aTargetParentDir))
-      return EFileIOErrorCode.TARGET_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.COPY_FILE, aTargetFile);
+      return EFileIOErrorCode.TARGET_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.COPY_FILE, aRealTargetFile);
 
     // Ensure the targets parent directory is present
-    PathHelper.ensureParentDirectoryIsPresent (aTargetFile);
+    PathHelper.ensureParentDirectoryIsPresent (aRealTargetFile);
 
-    return _perform (EFileIOOperation.COPY_FILE, Files::copy, aSourceFile, aTargetFile);
+    return _perform (EFileIOOperation.COPY_FILE, Files::copy, aRealSourceFile, aRealTargetFile);
   }
 
   /**
@@ -544,41 +566,45 @@ public final class PathOperations
     ValueEnforcer.notNull (aSourceDir, "SourceDirectory");
     ValueEnforcer.notNull (aTargetDir, "TargetDirectory");
 
+    final Path aRealSourceDir = aSourceDir.toAbsolutePath ();
+    final Path aRealTargetDir = aTargetDir.toAbsolutePath ();
+
     // Does the source directory exist?
-    if (!Files.isDirectory (aSourceDir))
-      return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, aSourceDir);
+    if (!Files.isDirectory (aRealSourceDir))
+      return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, aRealSourceDir);
 
     // Are source and target different?
-    if (EqualsHelper.equals (aSourceDir, aTargetDir))
-      return EFileIOErrorCode.SOURCE_EQUALS_TARGET.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, aSourceDir);
+    if (EqualsHelper.equals (aRealSourceDir, aRealTargetDir))
+      return EFileIOErrorCode.SOURCE_EQUALS_TARGET.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, aRealSourceDir);
 
     // Is the source a parent of target?
-    if (PathHelper.isParentDirectory (aSourceDir, aTargetDir))
+    if (PathHelper.isParentDirectory (aRealSourceDir, aRealTargetDir))
       return EFileIOErrorCode.TARGET_IS_CHILD_OF_SOURCE.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE,
-                                                                      aSourceDir,
-                                                                      aTargetDir);
+                                                                      aRealSourceDir,
+                                                                      aRealTargetDir);
 
     // Does the target directory already exist?
-    if (Files.exists (aTargetDir))
-      return EFileIOErrorCode.TARGET_ALREADY_EXISTS.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, aTargetDir);
+    if (Files.exists (aRealTargetDir))
+      return EFileIOErrorCode.TARGET_ALREADY_EXISTS.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, aRealTargetDir);
 
     // Is the source directory readable?
-    if (!Files.isReadable (aSourceDir))
-      return EFileIOErrorCode.SOURCE_NOT_READABLE.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, aSourceDir);
+    if (!Files.isReadable (aRealSourceDir))
+      return EFileIOErrorCode.SOURCE_NOT_READABLE.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, aRealSourceDir);
 
     // Is the target parent directory writable?
-    final Path aTargetParentDir = aTargetDir.getParent ();
+    final Path aTargetParentDir = aRealTargetDir.getParent ();
     if (aTargetParentDir != null && Files.exists (aTargetParentDir) && !Files.isWritable (aTargetParentDir))
-      return EFileIOErrorCode.TARGET_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, aTargetDir);
+      return EFileIOErrorCode.TARGET_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE,
+                                                                       aRealTargetDir);
 
     FileIOError eCode;
 
     // Ensure the targets parent directory is present
-    eCode = createDirRecursive (aTargetDir);
+    eCode = createDirRecursive (aRealTargetDir);
     if (eCode.isFailure ())
       return eCode;
 
-    for (final Path aChild : PathHelper.getDirectoryContent (aSourceDir))
+    for (final Path aChild : PathHelper.getDirectoryContent (aRealSourceDir))
     {
       if (Files.isDirectory (aChild))
       {
@@ -587,7 +613,7 @@ public final class PathOperations
           continue;
 
         // Copy directory
-        eCode = copyDirRecursive (aChild, aTargetDir.resolve (aChild.getFileName ()));
+        eCode = copyDirRecursive (aChild, aRealTargetDir.resolve (aChild.getFileName ()));
         if (eCode.isFailure ())
           return eCode;
       }
@@ -595,7 +621,7 @@ public final class PathOperations
         if (Files.isRegularFile (aChild))
         {
           // Copy a file
-          eCode = copyFile (aChild, aTargetDir.resolve (aChild.getFileName ()));
+          eCode = copyFile (aChild, aRealTargetDir.resolve (aChild.getFileName ()));
           if (eCode.isFailure ())
             return eCode;
         }
@@ -607,6 +633,6 @@ public final class PathOperations
     }
 
     // Done
-    return EFileIOErrorCode.NO_ERROR.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, aSourceDir, aTargetDir);
+    return EFileIOErrorCode.NO_ERROR.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, aRealSourceDir, aRealTargetDir);
   }
 }

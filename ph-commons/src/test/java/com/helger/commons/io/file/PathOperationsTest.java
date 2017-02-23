@@ -395,6 +395,8 @@ public final class PathOperationsTest
       _expectedError (PathOperations.copyDirRecursive (fDir, fDir), EFileIOErrorCode.SOURCE_DOES_NOT_EXIST);
       _expectedSuccess (PathOperations.createDir (fDir));
       _expectedError (PathOperations.copyDirRecursive (fDir, fDir), EFileIOErrorCode.SOURCE_EQUALS_TARGET);
+      _expectedError (PathOperations.copyDirRecursive (Paths.get ("xx/..").resolve (fDir), fDir),
+                      EFileIOErrorCode.SOURCE_EQUALS_TARGET);
       _expectedError (PathOperations.copyDirRecursive (fDir, Paths.get ("xx/..").resolve (fDir)),
                       EFileIOErrorCode.SOURCE_EQUALS_TARGET);
       _expectedError (PathOperations.copyDirRecursive (fDir, Paths.get (".")), EFileIOErrorCode.TARGET_ALREADY_EXISTS);
