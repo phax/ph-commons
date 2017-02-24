@@ -131,6 +131,12 @@ public final class PathOperations
     }
   }
 
+  @Nonnull
+  private static Path _getUnifiedPath (final Path aPath)
+  {
+    return aPath.toAbsolutePath ().normalize ();
+  }
+
   /**
    * Create a new directory. The direct parent directory already needs to exist.
    *
@@ -143,7 +149,7 @@ public final class PathOperations
   {
     ValueEnforcer.notNull (aDir, "Directory");
 
-    final Path aRealDir = aDir.toAbsolutePath ();
+    final Path aRealDir = _getUnifiedPath (aDir);
 
     // Does the directory already exist?
     if (Files.exists (aRealDir))
@@ -188,7 +194,7 @@ public final class PathOperations
   {
     ValueEnforcer.notNull (aDir, "Directory");
 
-    final Path aRealDir = aDir.toAbsolutePath ();
+    final Path aRealDir = _getUnifiedPath (aDir);
 
     // Does the directory already exist?
     if (Files.exists (aRealDir))
@@ -234,7 +240,7 @@ public final class PathOperations
   {
     ValueEnforcer.notNull (aDir, "Directory");
 
-    final Path aRealDir = aDir.toAbsolutePath ();
+    final Path aRealDir = _getUnifiedPath (aDir);
 
     // Does the directory not exist?
     if (!Files.isDirectory (aRealDir))
@@ -285,7 +291,7 @@ public final class PathOperations
   {
     ValueEnforcer.notNull (aDir, "Directory");
 
-    final Path aRealDir = aDir.toAbsolutePath ();
+    final Path aRealDir = _getUnifiedPath (aDir);
 
     // Non-existing directory?
     if (!Files.isDirectory (aRealDir))
@@ -365,7 +371,7 @@ public final class PathOperations
   {
     ValueEnforcer.notNull (aFile, "Path");
 
-    final Path aRealFile = aFile.toAbsolutePath ();
+    final Path aRealFile = _getUnifiedPath (aFile);
 
     if (!Files.isRegularFile (aRealFile))
       return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.DELETE_FILE, aRealFile);
@@ -394,15 +400,9 @@ public final class PathOperations
     return aError;
   }
 
-  public static void atomicMove (@Nonnull final Path aSourcePath, @Nonnull final Path aTargetPath) throws IOException
+  private static void _atomicMove (@Nonnull final Path aSourcePath, @Nonnull final Path aTargetPath) throws IOException
   {
-    ValueEnforcer.notNull (aSourcePath, "SourceFile");
-    ValueEnforcer.notNull (aTargetPath, "TargetFile");
-
-    final Path aRealSourcePath = aSourcePath.toAbsolutePath ();
-    final Path aRealTargetPath = aTargetPath.toAbsolutePath ();
-
-    Files.move (aRealSourcePath, aRealTargetPath, StandardCopyOption.ATOMIC_MOVE);
+    Files.move (aSourcePath, aTargetPath, StandardCopyOption.ATOMIC_MOVE);
   }
 
   /**
@@ -420,8 +420,8 @@ public final class PathOperations
     ValueEnforcer.notNull (aSourceFile, "SourceFile");
     ValueEnforcer.notNull (aTargetFile, "TargetFile");
 
-    final Path aRealSourceFile = aSourceFile.toAbsolutePath ();
-    final Path aRealTargetFile = aTargetFile.toAbsolutePath ();
+    final Path aRealSourceFile = _getUnifiedPath (aSourceFile);
+    final Path aRealTargetFile = _getUnifiedPath (aTargetFile);
 
     // Does the source file exist?
     if (!Files.isRegularFile (aRealSourceFile))
@@ -448,7 +448,7 @@ public final class PathOperations
     // Ensure parent of target directory is present
     PathHelper.ensureParentDirectoryIsPresent (aRealTargetFile);
 
-    return _perform (EFileIOOperation.RENAME_FILE, PathOperations::atomicMove, aRealSourceFile, aRealTargetFile);
+    return _perform (EFileIOOperation.RENAME_FILE, PathOperations::_atomicMove, aRealSourceFile, aRealTargetFile);
   }
 
   /**
@@ -466,8 +466,8 @@ public final class PathOperations
     ValueEnforcer.notNull (aSourceDir, "SourceDirectory");
     ValueEnforcer.notNull (aTargetDir, "TargetDirectory");
 
-    final Path aRealSourceDir = aSourceDir.toAbsolutePath ();
-    final Path aRealTargetDir = aTargetDir.toAbsolutePath ();
+    final Path aRealSourceDir = _getUnifiedPath (aSourceDir);
+    final Path aRealTargetDir = _getUnifiedPath (aTargetDir);
 
     // Does the source directory exist?
     if (!Files.isDirectory (aRealSourceDir))
@@ -500,7 +500,7 @@ public final class PathOperations
     // Ensure parent of target directory is present
     PathHelper.ensureParentDirectoryIsPresent (aRealTargetDir);
 
-    return _perform (EFileIOOperation.RENAME_DIR, PathOperations::atomicMove, aRealSourceDir, aRealTargetDir);
+    return _perform (EFileIOOperation.RENAME_DIR, PathOperations::_atomicMove, aRealSourceDir, aRealTargetDir);
   }
 
   /**
@@ -520,8 +520,8 @@ public final class PathOperations
     ValueEnforcer.notNull (aSourceFile, "SourceFile");
     ValueEnforcer.notNull (aTargetFile, "TargetFile");
 
-    final Path aRealSourceFile = aSourceFile.toAbsolutePath ();
-    final Path aRealTargetFile = aTargetFile.toAbsolutePath ();
+    final Path aRealSourceFile = _getUnifiedPath (aSourceFile);
+    final Path aRealTargetFile = _getUnifiedPath (aTargetFile);
 
     // Does the source file exist?
     if (!Files.isRegularFile (aRealSourceFile))
@@ -566,8 +566,8 @@ public final class PathOperations
     ValueEnforcer.notNull (aSourceDir, "SourceDirectory");
     ValueEnforcer.notNull (aTargetDir, "TargetDirectory");
 
-    final Path aRealSourceDir = aSourceDir.toAbsolutePath ();
-    final Path aRealTargetDir = aTargetDir.toAbsolutePath ();
+    final Path aRealSourceDir = _getUnifiedPath (aSourceDir);
+    final Path aRealTargetDir = _getUnifiedPath (aTargetDir);
 
     // Does the source directory exist?
     if (!Files.isDirectory (aRealSourceDir))
