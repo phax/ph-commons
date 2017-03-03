@@ -255,7 +255,7 @@ public final class ClassPathResourceTest
                                                                          ClassLoaderHelper.getDefaultClassLoader ()));
       fail ();
     }
-    catch (final IllegalStateException ex)
+    catch (final IllegalArgumentException ex)
     {}
   }
 
