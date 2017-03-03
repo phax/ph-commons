@@ -17,10 +17,8 @@
 package com.helger.commons.annotation;
 
 import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 
 /**
  * This is an indicator, that an object is aware to break the style guide. This
@@ -29,14 +27,6 @@ import java.lang.annotation.Target;
  * @author Philip Helger
  */
 @Retention (RetentionPolicy.CLASS)
-@Target ({ ElementType.TYPE,
-           ElementType.FIELD,
-           ElementType.METHOD,
-           ElementType.PARAMETER,
-           ElementType.CONSTRUCTOR,
-           ElementType.LOCAL_VARIABLE,
-           ElementType.ANNOTATION_TYPE,
-           ElementType.PACKAGE })
 @Documented
 public @interface CodingStyleguideUnaware
 {
@@ -44,11 +34,4 @@ public @interface CodingStyleguideUnaware
    * @return Optional comment why this element is coding styleguide unaware.
    */
   String value() default "";
-
-  /**
-   * @return Optional code identifying the reason why this element is coding
-   *         styleguide unaware. The interpretation of this code is usage
-   *         dependent.
-   */
-  String code() default "";
 }

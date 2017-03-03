@@ -23,13 +23,16 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsLinkedHashMap;
+import com.helger.commons.functional.IPredicate;
 
 /**
  * Soft {@link HashMap} implementation based on
  * http://www.javaspecialists.eu/archive/Issue015.html<br>
  * The <code>entrySet</code> implementation is from
- * <code>org.hypergraphdb.util</code>
+ * <code>org.hypergraphdb.util</code><br>
+ * Note: {@link SoftLinkedHashMap} is <b>NOT</b> serializable!
  *
  * @author Philip Helger
  * @param <K>
@@ -41,18 +44,12 @@ public class SoftLinkedHashMap <K, V> extends AbstractSoftMap <K, V>
 {
   private final int m_nMaxSize;
 
-  @FunctionalInterface
-  private interface IRemoveEldest <K, V>
-  {
-    boolean removeEldestSoftEntry (Map.Entry <K, V> aEntry);
-  }
-
   private static class InternalLinkedHashMap <K, V> extends CommonsLinkedHashMap <K, SoftValue <K, V>>
   {
     // Note: 0.75f is the same as HashMap.DEFAULT_LOAD_FACTOR
     private static final float DEFAULT_LOAD_FACTOR = 0.75f;
 
-    private IRemoveEldest <K, V> m_aCallback;
+    private IPredicate <Map.Entry <K, V>> m_aFilter;
 
     public InternalLinkedHashMap (@Nonnegative final int nMaxSize)
     {
@@ -63,7 +60,7 @@ public class SoftLinkedHashMap <K, V> extends AbstractSoftMap <K, V>
     protected final boolean removeEldestEntry (@Nonnull final Map.Entry <K, SoftValue <K, V>> aEldest)
     {
       final MapEntry <K, V> aEntry = new MapEntry<> (aEldest.getKey (), aEldest.getValue ().get ());
-      return m_aCallback.removeEldestSoftEntry (aEntry);
+      return m_aFilter.test (aEntry);
     }
   }
 
@@ -71,7 +68,8 @@ public class SoftLinkedHashMap <K, V> extends AbstractSoftMap <K, V>
   {
     super (new InternalLinkedHashMap<> (nMaxSize));
     m_nMaxSize = nMaxSize;
-    ((InternalLinkedHashMap <K, V>) m_aSrcMap).m_aCallback = aEldest -> {
+    // Must be set explicitly for dependency handling
+    ((InternalLinkedHashMap <K, V>) m_aSrcMap).m_aFilter = aEldest -> {
       final int nSize = size ();
       if (nSize <= m_nMaxSize)
       {
@@ -106,4 +104,13 @@ public class SoftLinkedHashMap <K, V> extends AbstractSoftMap <K, V>
   @OverrideOnDemand
   protected void onRemoveEldestEntry (@Nonnegative final int nSize, @Nonnull final Map.Entry <K, V> aEldest)
   {}
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public SoftLinkedHashMap <K, V> getClone ()
+  {
+    final SoftLinkedHashMap <K, V> ret = new SoftLinkedHashMap<> (m_nMaxSize);
+    ret.putAll (this);
+    return ret;
+  }
 }

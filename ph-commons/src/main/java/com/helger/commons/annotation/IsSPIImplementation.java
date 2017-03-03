@@ -31,6 +31,7 @@ import java.lang.annotation.Target;
  * {@link UsedViaReflection} also apply.
  *
  * @author Philip Helger
+ * @see IsSPIInterface
  */
 @Retention (RetentionPolicy.RUNTIME)
 @Target ({ ElementType.TYPE })

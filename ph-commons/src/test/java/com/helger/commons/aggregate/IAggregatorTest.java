@@ -39,39 +39,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class IAggregatorTest
 {
   @Test
-  public void testNull ()
-  {
-    final IAggregator <String, String> a1 = IAggregator.createNull ();
-    assertNull (a1.apply (new CommonsArrayList<> ("a", "b")));
-    assertNull (a1.apply (new CommonsArrayList <String> ()));
-  }
-
-  @Test
-  public void testConstant ()
-  {
-    final IAggregator <String, String> a1 = IAggregator.createConstant ("foo");
-    assertEquals ("foo", a1.apply (new CommonsArrayList<> ("a", "b")));
-    assertEquals ("foo", a1.apply (new CommonsArrayList <String> ()));
-  }
-
-  @Test
-  public void testUseAll ()
-  {
-    final IAggregator <String, Collection <String>> a1 = IAggregator.createUseAll ();
-    final IAggregator <String, Collection <String>> a2 = IAggregator.createUseAll ();
-    assertEquals (a1, a1);
-    assertNotEquals (a1, null);
-    assertNotEquals (a1, "any other");
-    assertEquals (a1.hashCode (), a1.hashCode ());
-    assertNotEquals (a1.hashCode (), 0);
-    assertNotEquals (a1.hashCode (), "any other".hashCode ());
-    assertNotNull (a1.toString ());
-    final ICommonsList <String> l = new CommonsArrayList<> ("a", null, "b", "", "c");
-    assertEquals (l, a1.apply (l));
-    assertEquals (l, a2.apply (l));
-  }
-
-  @Test
   public void testUseFirst ()
   {
     final IAggregator <String, String> a1 = IAggregator.createUseFirst ();

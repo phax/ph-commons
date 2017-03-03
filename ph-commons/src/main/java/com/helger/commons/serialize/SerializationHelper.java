@@ -17,6 +17,7 @@
 package com.helger.commons.serialize;
 
 import java.io.IOException;
+import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -66,9 +67,17 @@ public final class SerializationHelper
       // Main sending
       return aBAOS.toByteArray ();
     }
+    catch (final NotSerializableException ex)
+    {
+      throw new IllegalArgumentException ("Not serializable: " + ex.getMessage (), ex);
+    }
     catch (final IOException ex)
     {
-      throw new IllegalStateException ("Failed to write serializable object " + aData, ex);
+      throw new IllegalArgumentException ("Failed to write serializable object " +
+                                          aData +
+                                          " of type " +
+                                          aData.getClass ().getName (),
+                                          ex);
     }
   }
 

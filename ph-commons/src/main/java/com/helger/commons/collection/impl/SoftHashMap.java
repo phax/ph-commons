@@ -18,11 +18,16 @@ package com.helger.commons.collection.impl;
 
 import java.util.HashMap;
 
+import javax.annotation.Nonnull;
+
+import com.helger.commons.annotation.ReturnsMutableCopy;
+
 /**
  * Soft {@link HashMap} implementation based on
  * http://www.javaspecialists.eu/archive/Issue015.html<br>
  * The <code>entrySet</code> implementation is from
- * <code>org.hypergraphdb.util</code>
+ * <code>org.hypergraphdb.util</code><br>
+ * Note: {@link SoftHashMap} is <b>NOT</b> serializable!
  *
  * @author Philip Helger
  * @param <K>
@@ -34,6 +39,15 @@ public class SoftHashMap <K, V> extends AbstractSoftMap <K, V>
 {
   public SoftHashMap ()
   {
-    super (new HashMap <> ());
+    super (new HashMap<> ());
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public SoftHashMap <K, V> getClone ()
+  {
+    final SoftHashMap <K, V> ret = new SoftHashMap<> ();
+    ret.putAll (this);
+    return ret;
   }
 }

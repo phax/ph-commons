@@ -34,6 +34,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.mutable.MutableBoolean;
 
 public final class SoftLinkedHashMapTest
@@ -79,7 +80,7 @@ public final class SoftLinkedHashMapTest
     s_aLogger.info ("Filling memory please wait");
     try
     {
-      final List <Object []> allocations = new CommonsArrayList <> ();
+      final List <Object []> allocations = new CommonsArrayList<> ();
       int size;
       while ((size = Math.min (Math.abs ((int) Runtime.getRuntime ().freeMemory ()), Integer.MAX_VALUE)) > 0)
         allocations.add (new Object [size]);
@@ -91,5 +92,20 @@ public final class SoftLinkedHashMapTest
     s_aLogger.info ("Mapped value (should be null): " + map.get (aKey));
     assertNull (map.get (aKey));
     assertEquals (0, map.size ());
+  }
+
+  @Test
+  public void testEntrySetToArray ()
+  {
+    final SoftLinkedHashMap <Integer, BigDecimal> aMap = new SoftLinkedHashMap<> (17);
+
+    aMap.put (Integer.valueOf (1), BigDecimal.TEN);
+    assertEquals (1, aMap.entrySet ().size ());
+    assertEquals (1, aMap.entrySet ().toArray ().length);
+    assertEquals (1, aMap.entrySet ().toArray (new Map.Entry [0]).length);
+    assertEquals (1, aMap.entrySet ().toArray (new Map.Entry [5]).length);
+    assertEquals (5, aMap.entrySet ().toArray (new MapEntry [5]).length);
+
+    CommonsTestHelper.testGetClone (aMap);
   }
 }

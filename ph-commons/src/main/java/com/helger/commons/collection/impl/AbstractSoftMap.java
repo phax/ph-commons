@@ -31,13 +31,15 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.lang.GenericReflection;
 
 /**
  * Soft {@link Map} implementation based on
  * http://www.javaspecialists.eu/archive/Issue015.html<br>
  * The <code>entrySet</code> implementation is from
- * <code>org.hypergraphdb.util</code>
+ * <code>org.hypergraphdb.util</code><br>
+ * Note: {@link AbstractSoftMap} is <b>NOT</b> serializable!
  *
  * @author Philip Helger
  * @param <K>
@@ -45,7 +47,7 @@ import com.helger.commons.lang.GenericReflection;
  * @param <V>
  *        Value type
  */
-public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V>
+public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V> implements ICommonsMap <K, V>
 {
   /**
    * We define our own subclass of SoftReference which contains not only the
@@ -61,7 +63,7 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V>
   {
     private final K m_aKey;
 
-    private SoftValue (final K aKey, final V aValue, final ReferenceQueue <? super V> aQueue)
+    private SoftValue (final K aKey, final V aValue, @Nullable final ReferenceQueue <? super V> aQueue)
     {
       super (aValue, aQueue);
       m_aKey = aKey;
@@ -73,10 +75,10 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V>
     private final K m_aKey;
     private SoftValue <K, V> m_aSoftValue;
 
-    public SoftMapEntry (final K aKey, final V aValue, @Nonnull final ReferenceQueue <V> aQueue)
+    public SoftMapEntry (final K aKey, final V aValue, @Nullable final ReferenceQueue <V> aQueue)
     {
       m_aKey = aKey;
-      m_aSoftValue = new SoftValue <> (aKey, aValue, aQueue);
+      m_aSoftValue = new SoftValue<> (aKey, aValue, aQueue);
     }
 
     public K getKey ()
@@ -118,7 +120,7 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V>
       public Map.Entry <K, V> next ()
       {
         final Map.Entry <K, SoftValue <K, V>> e = m_aSrcIter.next ();
-        return new MapEntry <> (e.getKey (), e.getValue ().get ());
+        return new MapEntry<> (e.getKey (), e.getValue ().get ());
       }
 
       public void remove ()
@@ -140,7 +142,7 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V>
 
     public boolean add (@Nonnull final Map.Entry <K, V> aEntry)
     {
-      return m_aSrcEntrySet.add (new SoftMapEntry <> (aEntry.getKey (), aEntry.getValue (), m_aQueue));
+      return m_aSrcEntrySet.add (new SoftMapEntry<> (aEntry.getKey (), aEntry.getValue (), m_aQueue));
     }
 
     public boolean addAll (@Nonnull final Collection <? extends Map.Entry <K, V>> c)
@@ -162,7 +164,7 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V>
       if (!(aEntryObj instanceof Map.Entry))
         return false;
       final Map.Entry <K, V> aEntry = GenericReflection.uncheckedCast (aEntryObj);
-      return m_aSrcEntrySet.contains (new SoftMapEntry <> (aEntry.getKey (), aEntry.getValue (), m_aQueue));
+      return m_aSrcEntrySet.contains (new SoftMapEntry<> (aEntry.getKey (), aEntry.getValue (), m_aQueue));
     }
 
     public boolean containsAll (@Nonnull final Collection <?> c)
@@ -182,7 +184,7 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V>
     public Iterator <Map.Entry <K, V>> iterator ()
     {
       final Iterator <Map.Entry <K, SoftValue <K, V>>> aSrcIter = m_aSrcEntrySet.iterator ();
-      return new SoftIterator <> (aSrcIter);
+      return new SoftIterator<> (aSrcIter);
     }
 
     public boolean remove (final Object aEntryObj)
@@ -190,7 +192,7 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V>
       if (!(aEntryObj instanceof Map.Entry <?, ?>))
         return false;
       final Map.Entry <K, V> aEntry = GenericReflection.uncheckedCast (aEntryObj);
-      return m_aSrcEntrySet.remove (new SoftMapEntry <> (aEntry.getKey (), aEntry.getValue (), m_aQueue));
+      return m_aSrcEntrySet.remove (new SoftMapEntry<> (aEntry.getKey (), aEntry.getValue (), m_aQueue));
     }
 
     public boolean removeAll (final Collection <?> c)
@@ -231,7 +233,7 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V>
       for (int i = 0; i < aSrcArray.length; i++)
       {
         final Map.Entry <K, SoftValue <K, V>> e = GenericReflection.uncheckedCast (aSrcArray[i]);
-        result[i] = new MapEntry <> (e.getKey (), e.getValue ().get ());
+        result[i] = new MapEntry<> (e.getKey (), e.getValue ().get ());
       }
       return GenericReflection.uncheckedCast (result);
     }
@@ -241,7 +243,7 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V>
   @CodingStyleguideUnaware
   protected final Map <K, SoftValue <K, V>> m_aSrcMap;
   /** Reference queue for cleared SoftReference objects. */
-  private final ReferenceQueue <V> m_aQueue = new ReferenceQueue <> ();
+  private final ReferenceQueue <V> m_aQueue = new ReferenceQueue<> ();
 
   public AbstractSoftMap (@Nonnull final Map <K, SoftValue <K, V>> aSrcMap)
   {
@@ -303,7 +305,7 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V>
   {
     // throw out garbage collected values first
     _processQueue ();
-    final SoftValue <K, V> aOld = m_aSrcMap.put (aKey, new SoftValue <> (aKey, aValue, m_aQueue));
+    final SoftValue <K, V> aOld = m_aSrcMap.put (aKey, new SoftValue<> (aKey, aValue, m_aQueue));
     return aOld == null ? null : aOld.get ();
   }
 
@@ -338,6 +340,6 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V>
   public Set <Map.Entry <K, V>> entrySet ()
   {
     final Set <Map.Entry <K, SoftValue <K, V>>> aSrcEntrySet = m_aSrcMap.entrySet ();
-    return new SoftEntrySet <> (aSrcEntrySet, m_aQueue);
+    return new SoftEntrySet<> (aSrcEntrySet, m_aQueue);
   }
 }

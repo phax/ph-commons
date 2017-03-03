@@ -29,6 +29,7 @@ import java.lang.annotation.Target;
  * suffix SPI in their name (e.g. <code>IServiceSPI</code>).
  *
  * @author Philip Helger
+ * @see IsSPIImplementation
  */
 @Retention (RetentionPolicy.RUNTIME)
 @Target ({ ElementType.TYPE })

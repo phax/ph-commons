@@ -21,7 +21,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * Just to indicate that a method has only increased visibility for testing.
+ * Indicates that a method has only increased visibility for testing purposes.
+ * This usually means that this API is not-public.
  *
  * @author Philip Helger
  */

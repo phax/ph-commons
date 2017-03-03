@@ -16,6 +16,8 @@
  */
 package com.helger.commons.cache;
 
+import java.io.Serializable;
+
 import javax.annotation.Nullable;
 
 import com.helger.commons.lang.IHasSize;
@@ -30,7 +32,7 @@ import com.helger.commons.name.IHasName;
  * @param <VALUETYPE>
  *        Cache value type.
  */
-public interface ICache <KEYTYPE, VALUETYPE> extends IHasName, IHasSize
+public interface ICache <KEYTYPE, VALUETYPE> extends IHasName, IHasSize, Serializable
 {
   /**
    * Get the cached value associated with the passed key.

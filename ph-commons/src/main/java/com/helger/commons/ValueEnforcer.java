@@ -35,7 +35,9 @@ import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.equals.EqualsHelper;
 
 /**
- * This class contains "runtime assertions" utility methods.
+ * This class contains "runtime assertions" utility methods. It works like
+ * {@link java.util.Objects#requireNonNull(Object)} but offers many more
+ * possibilities.
  *
  * @author Philip Helger
  */
@@ -174,7 +176,6 @@ public final class ValueEnforcer
                                        @Nonnull final Class <? extends T> aClass,
                                        @Nonnull final Supplier <String> aMsg)
   {
-    notNull (aValue, "Value");
     notNull (aClass, "Class");
     if (isEnabled ())
       if (!aClass.isInstance (aValue))

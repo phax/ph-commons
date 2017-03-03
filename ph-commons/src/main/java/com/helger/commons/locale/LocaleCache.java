@@ -26,7 +26,6 @@ import javax.annotation.concurrent.ThreadSafe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.ELockType;
 import com.helger.commons.annotation.MustBeLocked;
 import com.helger.commons.annotation.ReturnsMutableCopy;
@@ -62,7 +61,7 @@ public final class LocaleCache
 
   /** maps a string to a locale. */
   @GuardedBy ("m_aRWLock")
-  private final ICommonsMap <String, Locale> m_aLocales = new CommonsHashMap <> ();
+  private final ICommonsMap <String, Locale> m_aLocales = new CommonsHashMap<> ();
 
   private LocaleCache ()
   {
@@ -96,7 +95,7 @@ public final class LocaleCache
     if (sLanguage != null && sLanguage.length () > 2)
     {
       // parse
-      final String [] aParts = StringHelper.getExplodedArray (CGlobal.LOCALE_SEPARATOR, sLanguage, 3);
+      final String [] aParts = StringHelper.getExplodedArray (LocaleHelper.LOCALE_SEPARATOR, sLanguage, 3);
       if (aParts.length == 3)
         return getLocale (aParts[0], aParts[1], aParts[2]);
       if (aParts.length == 2)
@@ -143,9 +142,9 @@ public final class LocaleCache
     if (sLanguage.length () > 0)
       aLocaleSB.append (sLanguage);
     if (sCountry.length () > 0)
-      aLocaleSB.append (CGlobal.LOCALE_SEPARATOR).append (sCountry);
+      aLocaleSB.append (LocaleHelper.LOCALE_SEPARATOR).append (sCountry);
     if (sVariant.length () > 0)
-      aLocaleSB.append (CGlobal.LOCALE_SEPARATOR).append (sVariant);
+      aLocaleSB.append (LocaleHelper.LOCALE_SEPARATOR).append (sVariant);
     return aLocaleSB.toString ();
   }
 
@@ -200,8 +199,8 @@ public final class LocaleCache
   {
     return m_aRWLock.readLocked ( () -> {
       final ICommonsList <Locale> ret = m_aLocales.copyOfValues ();
-      ret.remove (CGlobal.LOCALE_ALL);
-      ret.remove (CGlobal.LOCALE_INDEPENDENT);
+      ret.remove (LocaleHelper.LOCALE_ALL);
+      ret.remove (LocaleHelper.LOCALE_INDEPENDENT);
       return ret;
     });
   }
@@ -215,7 +214,7 @@ public final class LocaleCache
   @ReturnsMutableCopy
   public ICommonsSet <Locale> getAllLanguages ()
   {
-    final ICommonsSet <Locale> ret = new CommonsHashSet <> ();
+    final ICommonsSet <Locale> ret = new CommonsHashSet<> ();
     for (final Locale aLocale : getAllLocales ())
     {
       final String sLanguage = aLocale.getLanguage ();
@@ -238,7 +237,7 @@ public final class LocaleCache
     if (sLanguage != null && sLanguage.length () > 2)
     {
       // parse
-      final String [] aParts = StringHelper.getExplodedArray (CGlobal.LOCALE_SEPARATOR, sLanguage, 3);
+      final String [] aParts = StringHelper.getExplodedArray (LocaleHelper.LOCALE_SEPARATOR, sLanguage, 3);
       if (aParts.length == 3)
         return containsLocale (aParts[0], aParts[1], aParts[2]);
       if (aParts.length == 2)
@@ -311,8 +310,8 @@ public final class LocaleCache
       m_aLocales.clear ();
 
       // add pseudo locales
-      _initialAdd (CGlobal.LOCALE_ALL);
-      _initialAdd (CGlobal.LOCALE_INDEPENDENT);
+      _initialAdd (LocaleHelper.LOCALE_ALL);
+      _initialAdd (LocaleHelper.LOCALE_INDEPENDENT);
 
       // add all predefined languages
       for (final Locale aLocale : Locale.getAvailableLocales ())

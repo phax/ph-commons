@@ -31,7 +31,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 
-import com.helger.commons.CGlobal;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.junit.DebugModeTestRule;
@@ -52,16 +51,16 @@ public final class LocaleHelperTest extends AbstractCommonsTestCase
   public void testGetLocaleDisplayName ()
   {
     assertNotNull (LocaleHelper.getLocaleDisplayName (null, L_DE));
-    assertNotNull (LocaleHelper.getLocaleDisplayName (CGlobal.LOCALE_ALL, L_DE));
-    assertNotNull (LocaleHelper.getLocaleDisplayName (CGlobal.LOCALE_INDEPENDENT, L_DE));
+    assertNotNull (LocaleHelper.getLocaleDisplayName (LocaleHelper.LOCALE_ALL, L_DE));
+    assertNotNull (LocaleHelper.getLocaleDisplayName (LocaleHelper.LOCALE_INDEPENDENT, L_DE));
     assertNotNull (LocaleHelper.getLocaleDisplayName (L_DE, L_DE));
   }
 
   @Test
   public void testGetLocaleNativeDisplayName ()
   {
-    assertNull (LocaleHelper.getLocaleNativeDisplayName (CGlobal.LOCALE_ALL));
-    assertNull (LocaleHelper.getLocaleNativeDisplayName (CGlobal.LOCALE_INDEPENDENT));
+    assertNull (LocaleHelper.getLocaleNativeDisplayName (LocaleHelper.LOCALE_ALL));
+    assertNull (LocaleHelper.getLocaleNativeDisplayName (LocaleHelper.LOCALE_INDEPENDENT));
     assertNotNull (LocaleHelper.getLocaleNativeDisplayName (L_DE));
     try
     {
@@ -155,7 +154,7 @@ public final class LocaleHelperTest extends AbstractCommonsTestCase
   @Test
   public void testGetLocaleToUseOrFallback ()
   {
-    final ICommonsList <Locale> aLocales = new CommonsArrayList<> (L_DE, L_EN, CGlobal.LOCALE_ALL);
+    final ICommonsList <Locale> aLocales = new CommonsArrayList<> (L_DE, L_EN, LocaleHelper.LOCALE_ALL);
     try
     {
       LocaleHelper.getLocaleToUseOrFallback (null, aLocales, null);
@@ -173,12 +172,12 @@ public final class LocaleHelperTest extends AbstractCommonsTestCase
 
     assertSame (L_DE, LocaleHelper.getLocaleToUseOrFallback (L_DE, aLocales, null));
     assertEquals (L_DE, LocaleHelper.getLocaleToUseOrFallback (L_DE_AT, aLocales, null));
-    assertEquals (CGlobal.LOCALE_ALL, LocaleHelper.getLocaleToUseOrFallback (L_FR, aLocales, null));
-    assertEquals (CGlobal.LOCALE_ALL,
-                  LocaleHelper.getLocaleToUseOrFallback (CGlobal.LOCALE_INDEPENDENT, aLocales, null));
-    assertEquals (CGlobal.LOCALE_INDEPENDENT,
+    assertEquals (LocaleHelper.LOCALE_ALL, LocaleHelper.getLocaleToUseOrFallback (L_FR, aLocales, null));
+    assertEquals (LocaleHelper.LOCALE_ALL,
+                  LocaleHelper.getLocaleToUseOrFallback (LocaleHelper.LOCALE_INDEPENDENT, aLocales, null));
+    assertEquals (LocaleHelper.LOCALE_INDEPENDENT,
                   LocaleHelper.getLocaleToUseOrFallback (L_FR,
-                                                         new CommonsArrayList<> (CGlobal.LOCALE_INDEPENDENT),
+                                                         new CommonsArrayList<> (LocaleHelper.LOCALE_INDEPENDENT),
                                                          null));
     assertNull (LocaleHelper.getLocaleToUseOrFallback (L_FR, new CommonsArrayList<> (L_DE, L_EN), null));
     assertEquals (L_FR_FR, LocaleHelper.getLocaleToUseOrFallback (L_FR, new CommonsArrayList<> (L_DE, L_EN), L_FR_FR));
@@ -188,8 +187,8 @@ public final class LocaleHelperTest extends AbstractCommonsTestCase
   @Test
   public void testIsSpecialLocale ()
   {
-    assertTrue (LocaleHelper.isSpecialLocale (CGlobal.LOCALE_ALL));
-    assertTrue (LocaleHelper.isSpecialLocale (CGlobal.LOCALE_INDEPENDENT));
+    assertTrue (LocaleHelper.isSpecialLocale (LocaleHelper.LOCALE_ALL));
+    assertTrue (LocaleHelper.isSpecialLocale (LocaleHelper.LOCALE_INDEPENDENT));
     assertFalse (LocaleHelper.isSpecialLocale (null));
     assertFalse (LocaleHelper.isSpecialLocale (LocaleCache.getInstance ().getLocale ("de")));
   }
@@ -197,8 +196,8 @@ public final class LocaleHelperTest extends AbstractCommonsTestCase
   @Test
   public void testIsSpecialLocaleCode ()
   {
-    assertTrue (LocaleHelper.isSpecialLocaleCode (CGlobal.LOCALE_ALL.toString ()));
-    assertTrue (LocaleHelper.isSpecialLocaleCode (CGlobal.LOCALE_INDEPENDENT.toString ()));
+    assertTrue (LocaleHelper.isSpecialLocaleCode (LocaleHelper.LOCALE_ALL.toString ()));
+    assertTrue (LocaleHelper.isSpecialLocaleCode (LocaleHelper.LOCALE_INDEPENDENT.toString ()));
     assertFalse (LocaleHelper.isSpecialLocaleCode (null));
     assertFalse (LocaleHelper.isSpecialLocaleCode ("de"));
   }

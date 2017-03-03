@@ -202,14 +202,12 @@ import com.helger.commons.io.stream.StreamHelper;
  * </p>
  *
  * @author Robert Harder
- * @author rob@iharder.net
+ * @author Philip Helger
  * @version 2.3.7
  */
 @Immutable
 public final class Base64
 {
-  /* ******** P U B L I C F I E L D S ******** */
-
   /** No options specified. Value is zero. */
   public static final int NO_OPTIONS = 0;
 

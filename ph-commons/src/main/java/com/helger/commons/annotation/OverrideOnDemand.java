@@ -28,7 +28,7 @@ import java.lang.annotation.Target;
  * @author Philip Helger
  */
 @Retention (RetentionPolicy.CLASS)
-@Target ({ ElementType.TYPE, ElementType.METHOD })
+@Target (ElementType.METHOD)
 @Documented
 public @interface OverrideOnDemand
 {

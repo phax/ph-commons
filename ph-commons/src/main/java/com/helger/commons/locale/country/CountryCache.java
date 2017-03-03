@@ -26,7 +26,6 @@ import javax.annotation.concurrent.ThreadSafe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.Singleton;
@@ -109,7 +108,7 @@ public final class CountryCache
 
     // Was something like "_AT" (e.g. the result of getCountry (...).toString
     // ()) passed in? -> indirect recursion
-    if (sCountry.indexOf (CGlobal.LOCALE_SEPARATOR) >= 0)
+    if (sCountry.indexOf (LocaleHelper.LOCALE_SEPARATOR) >= 0)
       return getCountry (LocaleCache.getInstance ().getLocale (sCountry));
 
     final String sValidCountry = LocaleHelper.getValidCountryCode (sCountry);

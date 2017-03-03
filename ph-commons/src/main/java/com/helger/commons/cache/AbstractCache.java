@@ -18,7 +18,6 @@ package com.helger.commons.cache;
 
 import java.util.Map;
 
-import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -37,6 +36,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.impl.SoftHashMap;
 import com.helger.commons.collection.impl.SoftLinkedHashMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
@@ -77,7 +77,7 @@ public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements IMutableCach
     this (CGlobal.ILLEGAL_UINT, sCacheName);
   }
 
-  public AbstractCache (@CheckForSigned final int nMaxSize, @Nonnull @Nonempty final String sCacheName)
+  public AbstractCache (final int nMaxSize, @Nonnull @Nonempty final String sCacheName)
   {
     m_nMaxSize = nMaxSize;
     m_sCacheName = ValueEnforcer.notEmpty (sCacheName, "cacheName");
@@ -86,12 +86,22 @@ public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements IMutableCach
     m_aCacheClearStats = StatisticsManager.getCounterHandler (STATISTICS_PREFIX + sCacheName + "$clear");
   }
 
+  /**
+   * @return The maximum number of entries allowed in this cache. Values &le; 0
+   *         indicate that the cache size is not limited at all.
+   * @see #hasMaxSize()
+   */
   public final int getMaxSize ()
   {
     // No need to lock, as it is final
     return m_nMaxSize;
   }
 
+  /**
+   * @return <code>true</code> if this cache has a size limit,
+   *         <code>false</code> if not.
+   * @see #getMaxSize()
+   */
   public final boolean hasMaxSize ()
   {
     // No need to lock, as it is final
@@ -106,7 +116,8 @@ public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements IMutableCach
   }
 
   /**
-   * Create a new cache map.
+   * Create a new cache map. This is the internal map that is used to store the
+   * items.
    *
    * @return Never <code>null</code>.
    */
@@ -114,9 +125,9 @@ public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements IMutableCach
   @ReturnsMutableCopy
   @OverrideOnDemand
   @CodingStyleguideUnaware
-  protected Map <KEYTYPE, VALUETYPE> createCache ()
+  protected ICommonsMap <KEYTYPE, VALUETYPE> createCache ()
   {
-    return hasMaxSize () ? new SoftLinkedHashMap <> (m_nMaxSize) : new SoftHashMap <> ();
+    return hasMaxSize () ? new SoftLinkedHashMap<> (m_nMaxSize) : new SoftHashMap<> ();
   }
 
   /**

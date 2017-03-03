@@ -31,6 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.mock.CommonsTestHelper;
 
 public final class SoftHashMapTest
 {
@@ -71,13 +72,15 @@ public final class SoftHashMapTest
   @Test
   public void testEntrySetToArray ()
   {
-    final SoftHashMap <Integer, BigDecimal> map = new SoftHashMap<> ();
+    final SoftHashMap <Integer, BigDecimal> aMap = new SoftHashMap<> ();
 
-    map.put (Integer.valueOf (1), BigDecimal.TEN);
-    assertEquals (1, map.entrySet ().size ());
-    assertEquals (1, map.entrySet ().toArray ().length);
-    assertEquals (1, map.entrySet ().toArray (new Map.Entry [0]).length);
-    assertEquals (1, map.entrySet ().toArray (new Map.Entry [5]).length);
-    assertEquals (5, map.entrySet ().toArray (new MapEntry [5]).length);
+    aMap.put (Integer.valueOf (1), BigDecimal.TEN);
+    assertEquals (1, aMap.entrySet ().size ());
+    assertEquals (1, aMap.entrySet ().toArray ().length);
+    assertEquals (1, aMap.entrySet ().toArray (new Map.Entry [0]).length);
+    assertEquals (1, aMap.entrySet ().toArray (new Map.Entry [5]).length);
+    assertEquals (5, aMap.entrySet ().toArray (new MapEntry [5]).length);
+
+    CommonsTestHelper.testGetClone (aMap);
   }
 }

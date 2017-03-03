@@ -77,7 +77,7 @@ public final class LocaleHelper
         return null;
 
       // List has a maximum of 3 entries
-      final ICommonsList <Locale> ret = new CommonsArrayList <> (3);
+      final ICommonsList <Locale> ret = new CommonsArrayList<> (3);
       final String sLanguage = aBaseLocale.getLanguage ();
       if (sLanguage.length () > 0)
       {
@@ -102,8 +102,34 @@ public final class LocaleHelper
     }
   }
 
-  private static final String LOCALE_ALL_STR = CGlobal.LOCALE_ALL.toString ();
-  private static final String LOCALE_INDEPENDENT_STR = CGlobal.LOCALE_INDEPENDENT.toString ();
+  /**
+   * Separates language and country in a locale string representation.
+   */
+  public static final char LOCALE_SEPARATOR = '_';
+
+  /**
+   * The language string representing the "all" locale. See {@link #LOCALE_ALL}.
+   */
+  public static final String STR_ALL = "all";
+
+  /**
+   * the default locale which means "all locales".
+   */
+  public static final Locale LOCALE_ALL = new Locale (STR_ALL, "", "");
+
+  /**
+   * The language string representing the "independent" locale. See
+   * {@link #LOCALE_INDEPENDENT}.
+   */
+  public static final String STR_INDEPENDENT = "independent";
+
+  /**
+   * the default locale which means "locale independent".
+   */
+  public static final Locale LOCALE_INDEPENDENT = new Locale (STR_INDEPENDENT, "", "");
+
+  private static final String LOCALE_ALL_STR = LOCALE_ALL.toString ();
+  private static final String LOCALE_INDEPENDENT_STR = LOCALE_INDEPENDENT.toString ();
   private static final LocaleListCache s_aLocaleListCache = new LocaleListCache ();
 
   @PresentForCodeCoverage
@@ -125,17 +151,17 @@ public final class LocaleHelper
    *        whereas if display locale is "en" the result would be "German".
    * @return the display name of the language or a fixed text if the passed
    *         Locale is <code>null</code>, "all" or "independent"
-   * @see CGlobal#LOCALE_ALL
-   * @see CGlobal#LOCALE_INDEPENDENT
+   * @see #LOCALE_ALL
+   * @see #LOCALE_INDEPENDENT
    */
   @Nonnull
   public static String getLocaleDisplayName (@Nullable final Locale aLocale, @Nonnull final Locale aContentLocale)
   {
     ValueEnforcer.notNull (aContentLocale, "ContentLocale");
 
-    if (aLocale == null || aLocale.equals (CGlobal.LOCALE_INDEPENDENT))
+    if (aLocale == null || aLocale.equals (LOCALE_INDEPENDENT))
       return ELocaleName.ID_LANGUAGE_INDEPENDENT.getDisplayText (aContentLocale);
-    if (aLocale.equals (CGlobal.LOCALE_ALL))
+    if (aLocale.equals (LOCALE_ALL))
       return ELocaleName.ID_LANGUAGE_ALL.getDisplayText (aContentLocale);
     return aLocale.getDisplayName (aContentLocale);
   }
@@ -168,9 +194,9 @@ public final class LocaleHelper
   {
     ValueEnforcer.notNull (aContentLocale, "ContentLocale");
 
-    return new CommonsHashMap <> (LocaleCache.getInstance ().getAllLocales (),
-                                  Function.identity (),
-                                  aLocale -> getLocaleDisplayName (aLocale, aContentLocale));
+    return new CommonsHashMap<> (LocaleCache.getInstance ().getAllLocales (),
+                                 Function.identity (),
+                                 aLocale -> getLocaleDisplayName (aLocale, aContentLocale));
   }
 
   /**
@@ -229,7 +255,7 @@ public final class LocaleHelper
     String sCountry;
     String sVariant;
 
-    int i1 = sLocaleAsString.indexOf (CGlobal.LOCALE_SEPARATOR);
+    int i1 = sLocaleAsString.indexOf (LOCALE_SEPARATOR);
     if (i1 < 0)
     {
       // No separator present -> use as is
@@ -244,7 +270,7 @@ public final class LocaleHelper
       ++i1;
 
       // Find next separator
-      final int i2 = sLocaleAsString.indexOf (CGlobal.LOCALE_SEPARATOR, i1);
+      final int i2 = sLocaleAsString.indexOf (LOCALE_SEPARATOR, i1);
       if (i2 < 0)
       {
         // No other separator -> country is the rest
@@ -312,12 +338,12 @@ public final class LocaleHelper
           return aCurrentAvailableLocale;
 
     // If none matched, check if "all" is provided
-    if (aAvailableLocales.contains (CGlobal.LOCALE_ALL))
-      return CGlobal.LOCALE_ALL;
+    if (aAvailableLocales.contains (LOCALE_ALL))
+      return LOCALE_ALL;
 
     // If none matched, check if "independent" is provided
-    if (aAvailableLocales.contains (CGlobal.LOCALE_INDEPENDENT))
-      return CGlobal.LOCALE_INDEPENDENT;
+    if (aAvailableLocales.contains (LOCALE_INDEPENDENT))
+      return LOCALE_INDEPENDENT;
 
     // No matching found -> fallback locale
     return aFallback;
@@ -330,12 +356,12 @@ public final class LocaleHelper
    * @param aLocale
    *        The locale to check. May be <code>null</code>.
    * @return if the passed locale is not <code>null</code> and a special locale.
-   * @see CGlobal#LOCALE_ALL
-   * @see CGlobal#LOCALE_INDEPENDENT
+   * @see #LOCALE_ALL
+   * @see #LOCALE_INDEPENDENT
    */
   public static boolean isSpecialLocale (@Nullable final Locale aLocale)
   {
-    return CGlobal.LOCALE_ALL.equals (aLocale) || CGlobal.LOCALE_INDEPENDENT.equals (aLocale);
+    return LOCALE_ALL.equals (aLocale) || LOCALE_INDEPENDENT.equals (aLocale);
   }
 
   /**
@@ -345,8 +371,8 @@ public final class LocaleHelper
    * @param sLocale
    *        The locale to check. May be <code>null</code>.
    * @return if the passed locale is not <code>null</code> and a special locale.
-   * @see CGlobal#LOCALE_ALL
-   * @see CGlobal#LOCALE_INDEPENDENT
+   * @see #LOCALE_ALL
+   * @see #LOCALE_INDEPENDENT
    */
   public static boolean isSpecialLocaleCode (@Nullable final String sLocale)
   {

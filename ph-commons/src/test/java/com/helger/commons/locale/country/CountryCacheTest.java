@@ -26,10 +26,10 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.commons.CGlobal;
 import com.helger.commons.collection.ext.CommonsHashSet;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.locale.LocaleCache;
+import com.helger.commons.locale.LocaleHelper;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -79,7 +79,7 @@ public final class CountryCacheTest
     for (final String sLocale : CountryCache.getInstance ().getAllCountries ())
       assertTrue (CountryCache.getInstance ().containsCountry (sLocale));
     assertFalse (CountryCache.getInstance ().containsCountry ((String) null));
-    assertFalse (CountryCache.getInstance ().containsCountry (CGlobal.LOCALE_ALL));
+    assertFalse (CountryCache.getInstance ().containsCountry (LocaleHelper.LOCALE_ALL));
     assertFalse (CountryCache.getInstance ().containsCountry ((Locale) null));
   }
 
@@ -160,7 +160,7 @@ public final class CountryCacheTest
   @Test
   public void testNoConcurrentModification ()
   {
-    final ICommonsSet <Locale> aCountries = new CommonsHashSet <> ();
+    final ICommonsSet <Locale> aCountries = new CommonsHashSet<> ();
     for (final String sCountry : CountryCache.getInstance ().getAllCountries ())
       aCountries.add (CountryCache.getInstance ().getCountry (sCountry));
 
@@ -175,7 +175,7 @@ public final class CountryCacheTest
   @Test
   public void testNoConcurrentModification2 ()
   {
-    final ICommonsSet <Locale> aCountries = new CommonsHashSet <> ();
+    final ICommonsSet <Locale> aCountries = new CommonsHashSet<> ();
     for (final Locale aCountry : CountryCache.getInstance ().getAllCountryLocales ())
       aCountries.add (CountryCache.getInstance ().getCountry (aCountry));
 
