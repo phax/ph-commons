@@ -24,7 +24,7 @@ This project was the following modules:
 
 ##News and noteworthy
 
-  * v9.0.0
+  * v9.0.0 - work in progress
     * Added `IPredicate` - a serializable `Predicate` interface
     * Added `IBiPredicate` - a serializable `BiPredicate` interface
     * Added `IBiConsumer` - a serializable `BiConsumer` interface
@@ -32,12 +32,15 @@ This project was the following modules:
     * Replaced `IFilter` with `IPredicate`
     * Replaced `IFilterWithParameter` with `IBiPredicate`
     * Changed `ManagedExecutorService` to `ExecutorServiceHelper`
-    * Removed class `Charset` - use `StandardCharsets` instead
+    * Removed class `CCharset` - use `StandardCharsets` instead
     * Added classes `PathHelper` and `PathOperations`    
+  * v.8.6.3 - work in progress
+    * Deprecated some String-based `FileHelper` APIs
+    * Improved CertificateHelper parsing
   * v8.6.2 - 2017-02-15
     * Extended `XMLSystemProperties` API
     * Allowing `JAXBDocumentType` objects to not have an `@XmlSchema` annotation
-    * Deprecated `CCharset - use `StandardCharsets` instead
+    * Deprecated `CCharset` - use `StandardCharsets` instead
     * Deprecated ToStringGenerator `toString()` - use `getToString()` instead
   * v8.6.1 - 2017-01-23
     * `*MultilingualText` is now based on ICommonsOrderedMap
