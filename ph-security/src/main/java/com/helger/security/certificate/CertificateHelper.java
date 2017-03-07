@@ -100,7 +100,7 @@ public final class CertificateHelper
       return null;
 
     // Remove special begin and end stuff
-    String sRealCertificate = sCertificate;
+    String sRealCertificate = sCertificate.trim ();
 
     /**
      * Handle certain misconfiguration issues. E.g. for 9906:testconsip on
