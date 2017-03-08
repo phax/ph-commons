@@ -27,6 +27,11 @@ This project was the following modules:
   * v.8.6.3 - work in progress
     * Deprecated some String-based `FileHelper` APIs
     * Improved CertificateHelper parsing
+    * Added `IPredicate` - a serializable `Predicate` interface
+    * Added `IBiPredicate` - a serializable `BiPredicate` interface
+    * Added `IBiConsumer` - a serializable `BiConsumer` interface
+    * Added `IBiFunction` - a serializable `BiFunction` interface
+    * Added `IComparable` - a serializable and extended `Comparable` interface    
   * v8.6.2 - 2017-02-15
     * Extended `XMLSystemProperties` API
     * Allowing `JAXBDocumentType` objects to not have an `@XmlSchema` annotation
