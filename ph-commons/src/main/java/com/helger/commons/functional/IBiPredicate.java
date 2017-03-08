@@ -35,7 +35,7 @@ import javax.annotation.Nullable;
  * @param <U>
  *        the type of the second argument the predicate
  * @see IPredicate
- * @since 9.0.0
+ * @since 8.6.3
  */
 @FunctionalInterface
 public interface IBiPredicate <T, U> extends BiPredicate <T, U>, Serializable

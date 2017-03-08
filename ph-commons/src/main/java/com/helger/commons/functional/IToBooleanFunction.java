@@ -29,6 +29,7 @@ import java.io.Serializable;
  * @param <T>
  *        the type of the input to the function
  * @see java.util.function.Function
+ * @since 8.0.0
  */
 @FunctionalInterface
 public interface IToBooleanFunction <T> extends Serializable

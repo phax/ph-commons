@@ -27,6 +27,7 @@ import javax.annotation.Nonnull;
  * @author Philip Helger
  * @param <DATATYPE>
  *        The data type to be compared
+ * @since 8.6.3
  */
 public interface IComparable <DATATYPE> extends Comparable <DATATYPE>, Serializable
 {

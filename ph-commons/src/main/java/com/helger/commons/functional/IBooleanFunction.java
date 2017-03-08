@@ -30,7 +30,7 @@ import java.util.function.Function;
  * @param <R>
  *        the type of the result of the function
  * @see Function
- * @since 1.8
+ * @since 8.0.0
  */
 @FunctionalInterface
 public interface IBooleanFunction <R> extends Serializable

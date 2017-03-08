@@ -37,7 +37,7 @@ import javax.annotation.Nonnull;
  * @param <R>
  *        the type of the result of the function
  * @see IFunction
- * @since 9.0.0
+ * @since 8.6.3
  */
 @FunctionalInterface
 public interface IBiFunction <T, U, R> extends BiFunction <T, U, R>, Serializable

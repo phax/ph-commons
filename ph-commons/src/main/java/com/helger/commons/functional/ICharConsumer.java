@@ -32,7 +32,7 @@ import javax.annotation.Nullable;
  * {@link #accept(char)}.
  *
  * @see Consumer
- * @since 1.8
+ * @since 8.0.0
  */
 @FunctionalInterface
 public interface ICharConsumer extends Serializable
@@ -75,7 +75,7 @@ public interface ICharConsumer extends Serializable
           aFirst.accept (x);
           aSecond.accept (x);
         };
-      return x -> aFirst.accept (x);
+      return aFirst;
     }
     return aSecond;
   }

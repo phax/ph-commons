@@ -37,6 +37,7 @@ import javax.annotation.Nullable;
  *        the type of the second argument to the operation
  * @param <V>
  *        the type of the third argument to the operation
+ * @since 8.0.0
  */
 @FunctionalInterface
 public interface ITriConsumer <T, U, V> extends Serializable

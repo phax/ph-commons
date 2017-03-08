@@ -37,7 +37,7 @@ import javax.annotation.Nullable;
  * @param <U>
  *        the type of the second argument to the operation
  * @see IConsumer
- * @since 8.6.0
+ * @since 8.6.3
  */
 @FunctionalInterface
 public interface IBiConsumer <T, U> extends BiConsumer <T, U>, Serializable

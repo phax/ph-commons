@@ -32,7 +32,7 @@ import javax.annotation.Nullable;
  *
  * @param <T>
  *        the type of the input to the predicate
- * @since 9.0.0
+ * @since 8.6.3
  */
 @FunctionalInterface
 public interface IPredicate <T> extends Predicate <T>, Serializable
