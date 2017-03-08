@@ -28,6 +28,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.compare.CompareHelper;
+import com.helger.commons.compare.IComparable;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -44,7 +45,7 @@ import com.helger.xml.CXMLRegEx;
  * @author Philip Helger
  */
 @Immutable
-public final class MicroQName implements IMicroQName, Comparable <MicroQName>
+public final class MicroQName implements IMicroQName, IComparable <MicroQName>
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (MicroQName.class);
 

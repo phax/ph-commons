@@ -16,7 +16,6 @@
  */
 package com.helger.commons.text.codepoint;
 
-import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
@@ -29,6 +28,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.compare.CompareHelper;
+import com.helger.commons.compare.IComparable;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -39,7 +39,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class Codepoint implements Serializable, Comparable <Codepoint>
+public class Codepoint implements IComparable <Codepoint>
 {
   private final int m_nValue;
 

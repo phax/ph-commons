@@ -16,12 +16,13 @@
  */
 package com.helger.commons.filter;
 
-import java.io.Serializable;
 import java.util.Objects;
 import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import com.helger.commons.function.IPredicate;
 
 /**
  * A generic filter interface for simple object selection. If you need an
@@ -34,7 +35,7 @@ import javax.annotation.Nullable;
  *        The type of object to filter.
  */
 @FunctionalInterface
-public interface IFilter <DATATYPE> extends Serializable, Predicate <DATATYPE>
+public interface IFilter <DATATYPE> extends IPredicate <DATATYPE>
 {
   @Nonnull
   default IFilter <DATATYPE> and (@Nonnull final IFilter <? super DATATYPE> other)

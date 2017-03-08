@@ -28,6 +28,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.compare.IComparable;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EChange;
@@ -41,7 +42,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class MimeType implements IMimeType, Comparable <MimeType>
+public class MimeType implements IMimeType, IComparable <MimeType>
 {
   /** The content type (text, application etc.) */
   private final EMimeContentType m_eContentType;

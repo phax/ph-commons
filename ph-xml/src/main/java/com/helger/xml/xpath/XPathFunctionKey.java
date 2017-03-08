@@ -23,6 +23,7 @@ import javax.xml.namespace.QName;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.compare.CompareHelper;
+import com.helger.commons.compare.IComparable;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -32,7 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public final class XPathFunctionKey implements Comparable <XPathFunctionKey>
+public final class XPathFunctionKey implements IComparable <XPathFunctionKey>
 {
   private final QName m_aFunctionName;
   private final int m_nArity;

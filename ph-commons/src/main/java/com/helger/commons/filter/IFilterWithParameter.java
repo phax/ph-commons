@@ -16,8 +16,9 @@
  */
 package com.helger.commons.filter;
 
-import java.io.Serializable;
 import java.util.function.BiPredicate;
+
+import com.helger.commons.function.IBiPredicate;
 
 /**
  * A generic filter interface for simple object selection based on a parameter.
@@ -31,7 +32,7 @@ import java.util.function.BiPredicate;
  *        The type of the parameter
  */
 @FunctionalInterface
-public interface IFilterWithParameter <DATATYPE, PARAMTYPE> extends BiPredicate <DATATYPE, PARAMTYPE>, Serializable
+public interface IFilterWithParameter <DATATYPE, PARAMTYPE> extends IBiPredicate <DATATYPE, PARAMTYPE>
 {
   /* empty */
 }
