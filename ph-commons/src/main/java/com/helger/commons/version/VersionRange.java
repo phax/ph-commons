@@ -16,13 +16,12 @@
  */
 package com.helger.commons.version;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.compare.IComparable;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
@@ -35,7 +34,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public final class VersionRange implements Comparable <VersionRange>, Serializable
+public final class VersionRange implements IComparable <VersionRange>
 {
   /**
    * Default version range string.
