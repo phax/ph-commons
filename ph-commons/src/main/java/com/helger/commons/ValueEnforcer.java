@@ -44,8 +44,8 @@ import com.helger.commons.equals.EqualsHelper;
 @Immutable
 public final class ValueEnforcer
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (ValueEnforcer.class);
   private static final AtomicBoolean s_aEnabled = new AtomicBoolean (true);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (ValueEnforcer.class);
 
   private ValueEnforcer ()
   {}
