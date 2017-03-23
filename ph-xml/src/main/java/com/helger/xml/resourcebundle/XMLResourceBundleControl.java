@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.text.resourcebundle;
+package com.helger.xml.resourcebundle;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -72,17 +72,10 @@ public final class XMLResourceBundleControl extends ResourceBundle.Control
       final String sResourceName = toResourceName (sBundleName, sFormat);
       final URL aResourceUrl = ClassLoaderHelper.getResource (aClassLoader, sResourceName);
       if (aResourceUrl != null)
-      {
-        final InputStream aIS = StreamHelper.getBuffered (URLResource.getInputStream (aResourceUrl));
-        try
+        try (final InputStream aIS = StreamHelper.getBuffered (URLResource.getInputStream (aResourceUrl)))
         {
           return new XMLResourceBundle (aIS);
         }
-        finally
-        {
-          StreamHelper.close (aIS);
-        }
-      }
     }
     return null;
   }

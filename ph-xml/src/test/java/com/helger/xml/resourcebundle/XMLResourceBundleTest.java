@@ -14,51 +14,43 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.text.resourcebundle;
+package com.helger.xml.resourcebundle;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.MissingResourceException;
-import java.util.Properties;
-import java.util.ResourceBundle;
 
 import org.junit.Test;
 
-import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.FileOperations;
+import com.helger.commons.lang.NonBlockingProperties;
 import com.helger.commons.mock.AbstractCommonsTestCase;
+import com.helger.xml.microdom.serialize.MicroWriter;
 
 /**
  * Test class for class {@link XMLResourceBundle}.
  *
  * @author Philip Helger
  */
-// SKIPJDK5
 public final class XMLResourceBundleTest extends AbstractCommonsTestCase
 {
   @Test
-  public void testAll () throws IOException
+  public void testAll ()
   {
     final File aFile = new File ("target/test-classes/unittest-xml-props.xml");
     try
     {
       // Create dummy properties file
-      final Properties p = new Properties ();
+      final NonBlockingProperties p = new NonBlockingProperties ();
       p.setProperty ("prop1", "Value 1");
       p.setProperty ("prop2", "äöü");
-      try (final OutputStream aOS = FileHelper.getOutputStream (aFile))
-      {
-        p.storeToXML (aOS, null, StandardCharsets.UTF_8.name ());
-      }
+      MicroWriter.writeToFile (XMLResourceBundle.getAsPropertiesXML (p), aFile);
 
       // Read again
-      final ResourceBundle aRB = XMLResourceBundle.getXMLBundle ("unittest-xml-props");
+      final XMLResourceBundle aRB = XMLResourceBundle.getXMLBundle ("unittest-xml-props");
       assertNotNull (aRB);
       assertEquals ("Value 1", aRB.getString ("prop1"));
       assertEquals ("äöü", aRB.getString ("prop2"));

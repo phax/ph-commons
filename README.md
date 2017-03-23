@@ -36,6 +36,7 @@ This project was the following modules:
     * Removed class `CCharset` - use `StandardCharsets` instead
     * Added classes `PathHelper` and `PathOperations`    
     * Added `IComparable` - a serializable and extended `Comparable` interface
+    * Moved class `XMLResourceBundle` to ph-xml
   * v.8.6.3 - work in progress
     * Deprecated some String-based `FileHelper` APIs
     * Improved CertificateHelper parsing

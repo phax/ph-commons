@@ -14,19 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.text.resourcebundle;
+package com.helger.xml.resourcebundle;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.WillClose;
 import javax.annotation.WillNotClose;
 import javax.annotation.concurrent.Immutable;
 
@@ -35,8 +34,13 @@ import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.IteratorHelper;
-import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsOrderedMap;
+import com.helger.xml.microdom.IMicroDocument;
+import com.helger.xml.microdom.IMicroElement;
+import com.helger.xml.microdom.MicroDocument;
+import com.helger.xml.microdom.serialize.MicroReader;
 
 /**
  * Helper class to handle XML based properties. It is read-only.<br>
@@ -49,22 +53,37 @@ import com.helger.commons.collection.ext.ICommonsMap;
 @Immutable
 public final class XMLResourceBundle extends ResourceBundle
 {
-  private final ICommonsMap <String, String> m_aValues = new CommonsHashMap <> ();
+  private final ICommonsOrderedMap <String, String> m_aValues;
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static ICommonsOrderedMap <String, String> readFromPropertiesXML (@Nonnull @WillClose final InputStream aIS)
+  {
+    final ICommonsOrderedMap <String, String> ret = new CommonsLinkedHashMap <> ();
+    final IMicroDocument aDoc = MicroReader.readMicroXML (aIS);
+    if (aDoc != null)
+      for (final IMicroElement eChild : aDoc.getDocumentElement ().getAllChildElements ("entry"))
+        ret.put (eChild.getAttributeValue ("key"), eChild.getTextContent ());
+    return ret;
+  }
+
+  @Nonnull
+  public static IMicroDocument getAsPropertiesXML (@Nonnull final ICommonsMap <String, String> aMap)
+  {
+    final IMicroDocument ret = new MicroDocument ();
+    final IMicroElement eRoot = ret.appendElement ("properties");
+    for (final Map.Entry <String, String> aEntry : aMap.entrySet ())
+      eRoot.appendElement ("entry").setAttribute ("key", aEntry.getKey ()).appendText (aEntry.getValue ());
+    return ret;
+  }
 
   @DevelopersNote ("Don't use it manually - use the static methods of this class!")
-  XMLResourceBundle (@Nonnull @WillNotClose final InputStream aIS) throws IOException
+  XMLResourceBundle (@Nonnull @WillNotClose final InputStream aIS)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
 
     // Read the main properties
-    final Properties aProps = new Properties ();
-    aProps.loadFromXML (aIS);
-
-    // Convert to a non-synchronized map, as Properties access would be
-    // synchronized at each call
-    // Note: it is ensured that both key and value are Strings!
-    for (final Map.Entry <Object, Object> aEntry : aProps.entrySet ())
-      m_aValues.put ((String) aEntry.getKey (), (String) aEntry.getValue ());
+    m_aValues = readFromPropertiesXML (aIS);
   }
 
   @Nonnull
@@ -106,9 +125,7 @@ public final class XMLResourceBundle extends ResourceBundle
   @Nonnull
   public static XMLResourceBundle getXMLBundle (@Nonnull final String sBaseName)
   {
-    return (XMLResourceBundle) ResourceBundle.getBundle (sBaseName,
-                                                         Locale.getDefault (),
-                                                         new XMLResourceBundleControl ());
+    return getXMLBundle (sBaseName, Locale.getDefault ());
   }
 
   @Nonnull
