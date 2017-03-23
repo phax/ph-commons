@@ -23,6 +23,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.state.ETriState;
@@ -244,7 +245,7 @@ public class BasicThreadFactory implements ThreadFactory
     if (m_sNamingPattern != null)
     {
       final Long aCount = Long.valueOf (m_aThreadCounter.incrementAndGet ());
-      aThread.setName (String.format (m_sNamingPattern, aCount));
+      aThread.setName (String.format (CGlobal.DEFAULT_LOCALE, m_sNamingPattern, aCount));
     }
 
     if (m_aUncaughtExceptionHandler != null)

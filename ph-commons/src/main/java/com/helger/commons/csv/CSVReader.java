@@ -16,23 +16,6 @@
  */
 package com.helger.commons.csv;
 
-/**
- Copyright 2005 Bytecode Pty Ltd.
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
-
-import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.Reader;
@@ -116,17 +99,14 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
     if (bKeepCR)
       m_aLineReader = new CSVLineReaderKeepCR (aInternallyBufferedReader);
     else
-      if (aInternallyBufferedReader instanceof BufferedReader)
-        m_aLineReader = new CSVLineReaderBufferedReader ((BufferedReader) aInternallyBufferedReader);
-      else
+    {
+      if (!(aInternallyBufferedReader instanceof NonBlockingBufferedReader))
       {
-        if (!(aInternallyBufferedReader instanceof NonBlockingBufferedReader))
-        {
-          // It is buffered, but we need it to support readLine
-          aInternallyBufferedReader = new NonBlockingBufferedReader (aInternallyBufferedReader);
-        }
-        m_aLineReader = new CSVLineReaderNonBlockingBufferedReader ((NonBlockingBufferedReader) aInternallyBufferedReader);
+        // It is buffered, but we need it to support readLine
+        aInternallyBufferedReader = new NonBlockingBufferedReader (aInternallyBufferedReader);
       }
+      m_aLineReader = new CSVLineReaderNonBlockingBufferedReader ((NonBlockingBufferedReader) aInternallyBufferedReader);
+    }
     m_aReader = aInternallyBufferedReader;
     m_aParser = aParser;
     m_bKeepCR = bKeepCR;
@@ -366,7 +346,7 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
   @ReturnsMutableCopy
   public ICommonsList <ICommonsList <String>> readAll () throws IOException
   {
-    final ICommonsList <ICommonsList <String>> ret = new CommonsArrayList<> ();
+    final ICommonsList <ICommonsList <String>> ret = new CommonsArrayList <> ();
     while (m_bHasNext)
     {
       final ICommonsList <String> aNextLineAsTokens = readNext ();

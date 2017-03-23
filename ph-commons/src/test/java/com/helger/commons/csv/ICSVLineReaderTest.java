@@ -18,13 +18,14 @@ package com.helger.commons.csv;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
+
+import com.helger.commons.io.stream.NonBlockingBufferedReader;
 
 /**
  * Test class for class {@link ICSVLineReader}.
@@ -44,8 +45,8 @@ public final class ICSVLineReaderTest
   {
     final StringReader sr = new StringReader (s);
     if (bKeepCR)
-      return new CSVLineReaderKeepCR (new BufferedReader (sr));
-    return new CSVLineReaderBufferedReader (new BufferedReader (sr));
+      return new CSVLineReaderKeepCR (new NonBlockingBufferedReader (sr));
+    return new CSVLineReaderNonBlockingBufferedReader (new NonBlockingBufferedReader (sr));
   }
 
   @Test
