@@ -1132,6 +1132,7 @@ public class MatrixInt implements Serializable, ICloneable <MatrixInt>
    * @param nFractionDigits
    *        Number of digits after the decimal.
    */
+  @Deprecated
   public void print (@Nonnull final PrintStream aPS,
                      @Nonnegative final int nWidth,
                      @Nonnegative final int nFractionDigits)
@@ -1178,6 +1179,7 @@ public class MatrixInt implements Serializable, ICloneable <MatrixInt>
    *        Field width for each column.
    * @see java.text.DecimalFormat#setDecimalFormatSymbols
    */
+  @Deprecated
   public void print (@Nonnull final PrintStream aPS, @Nonnull final NumberFormat aFormat, @Nonnegative final int nWidth)
   {
     print (new PrintWriter (new OutputStreamWriter (aPS, SystemHelper.getSystemCharset ()), true), aFormat, nWidth);

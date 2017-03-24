@@ -23,8 +23,13 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import org.junit.Test;
+import java.io.PrintWriter;
 
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.graph.AbstractGraphTestCase;
 import com.helger.graph.IMutableGraphNode;
@@ -38,6 +43,8 @@ import com.helger.matrix.Matrix;
  */
 public final class SimpleGraphTest extends AbstractGraphTestCase
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (SimpleGraphTest.class);
+
   @Test
   public void testCtor ()
   {
@@ -159,7 +166,9 @@ public final class SimpleGraphTest extends AbstractGraphTestCase
     sg.createRelation ("6", "4");
     assertTrue (sg.containsCycles ());
 
-    sg.createIncidenceMatrix ().print (System.out, 2, 0);
+    final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
+    sg.createIncidenceMatrix ().print (new PrintWriter (aSW), 2, 0);
+    s_aLogger.info (aSW.getAsString ());
   }
 
   @Test
