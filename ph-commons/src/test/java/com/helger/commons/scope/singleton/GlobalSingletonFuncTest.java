@@ -90,4 +90,6 @@ public final class GlobalSingletonFuncTest
       // Expected
     }
   }
+
+  // Don't add any other test because otherwise the assertions may fail
 }

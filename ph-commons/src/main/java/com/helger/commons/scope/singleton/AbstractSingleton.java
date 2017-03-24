@@ -39,7 +39,6 @@ import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.lang.ClassHelper;
-import com.helger.commons.mutable.MutableBoolean;
 import com.helger.commons.scope.IScope;
 import com.helger.commons.scope.IScopeDestructionAware;
 import com.helger.commons.statistics.IMutableStatisticsHandlerKeyedCounter;
@@ -147,7 +146,8 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
 
   /**
    * Called after the singleton was instantiated. The constructor has finished,
-   * and calling getInstance will work!
+   * and calling getInstance will work! This method is present to init the
+   * object with a virtual table present.
    *
    * @param aScope
    *        The scope in which the object was instantiated. Never
@@ -365,6 +365,8 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
     return new StringBuilder (DEFAULT_KEY_LENGTH).append ("singleton.").append (aClass.getName ()).toString ();
   }
 
+  private static SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
+
   /**
    * Get the singleton object if it is already instantiated inside a scope or
    * <code>null</code> if it is not instantiated.
@@ -388,7 +390,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
     if (aScope != null)
     {
       final String sSingletonScopeKey = getSingletonScopeKey (aClass);
-      final Object aObject = aScope.getAttributeObject (sSingletonScopeKey);
+      final Object aObject = s_aRWLock.readLocked ( () -> aScope.getAttributeObject (sSingletonScopeKey));
       if (aObject != null)
       {
         // Object is in the scope
@@ -420,6 +422,21 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
     return getSingletonIfInstantiated (aScope, aClass) != null;
   }
 
+  /**
+   * Instantiate singleton using reflection. The passed class must be a public
+   * class. First a public constructor with a single argument of type
+   * {@link IScope} is searched. If not found the public no-argument constructor
+   * is searched.
+   *
+   * @param aClass
+   *        The class to instantiate. May not be <code>null</code>.
+   * @param aScope
+   *        The scope to be passed to the instantiated class. Never
+   *        <code>null</code>.,
+   * @return Never <code>null</code>.
+   * @throws IllegalStateException
+   *         If instantiation failed
+   */
   @Nonnull
   private static <T extends AbstractSingleton> T _instantiateSingleton (@Nonnull final Class <T> aClass,
                                                                         @Nonnull final IScope aScope)
@@ -494,68 +511,71 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
     final String sSingletonScopeKey = getSingletonScopeKey (aClass);
 
     // check if already contained in passed scope
-    T aInstance = aClass.cast (aScope.getAttributeObject (sSingletonScopeKey));
-    if (aInstance == null)
+    T aInstance = aClass.cast (s_aRWLock.readLocked ( () -> aScope.getAttributeObject (sSingletonScopeKey)));
+    if (aInstance == null || aInstance.isInInstantiation ())
     {
-      // Not yet present
+      // Not yet present or just in instantiation
 
-      // Some final objects to access them from the nested inner class
-      final MutableBoolean aFinalWasInstantiated = new MutableBoolean (false);
-
-      // Safe instantiation:
-      aInstance = aScope.runAtomic (aInnerScope -> {
-        // try to resolve again in case it was set in the meantime
-        T aInnerInstance = aClass.cast (aInnerScope.getAttributeObject (sSingletonScopeKey));
-        if (aInnerInstance == null)
+      // Safe instantiation check in write lock
+      s_aRWLock.writeLock ().lock ();
+      try
+      {
+        // Check again in write lock
+        aInstance = aClass.cast (aScope.getAttributeObject (sSingletonScopeKey));
+        if (aInstance == null)
         {
           // Main instantiation
-          aInnerInstance = _instantiateSingleton (aClass, aInnerScope);
+          aInstance = _instantiateSingleton (aClass, aScope);
 
-          // Set in scope
-          aInnerScope.setAttribute (sSingletonScopeKey, aInnerInstance);
+          // Set in scope so that recursive calls to the same singleton are
+          // caught appropriately
+          aScope.setAttribute (sSingletonScopeKey, aInstance);
 
-          // Remember that we instantiated the object
-          aFinalWasInstantiated.set (true);
+          // Start the initialization process
+          // Do this after the instance was added to the scope
+          aInstance.setInInstantiation (true);
+          try
+          {
+            // Invoke callback method
+            aInstance.onAfterInstantiation (aScope);
+
+            // Set "instantiated" only if no exception was thrown
+            aInstance.setInstantiated (true);
+          }
+          finally
+          {
+            // Ensure field is reset even in case of an exception
+            aInstance.setInInstantiation (false);
+          }
 
           // And some statistics
           s_aStatsCounterInstantiate.increment (sSingletonScopeKey);
         }
+        else
+        {
+          // May not be instantiated if this method is called from the same
+          // thread as the original instantiation
+        }
 
         // We have the instance - maybe from re-querying the scope, maybe from
         // instantiation
-        return aInnerInstance;
-      });
-
-      // Call outside the scope sync block, and after the instance was
-      // registered in the scope
-      if (aFinalWasInstantiated.booleanValue ())
+      }
+      finally
       {
-        aInstance.setInInstantiation (true);
-        try
-        {
-          // Invoke callback method
-          aInstance.onAfterInstantiation (aScope);
-
-          // Set "instantiated" only if no exception was thrown
-          aInstance.setInstantiated (true);
-        }
-        finally
-        {
-          // Ensure field is reset even in case of an exception
-          aInstance.setInInstantiation (false);
-        }
+        s_aRWLock.writeLock ().unlock ();
       }
     }
 
     // This happens too often in practice, therefore this is disabled
-    if (false && GlobalDebug.isDebugMode ())
+    if (SingletonHelper.isDebugConsistency ())
     {
-      // Just a small note in case we're returning an incomplete object
-      if (!aInstance.isInstantiated ())
+      // Just a small note in case we're returning an unusable object
+      if (!aInstance.isUsableObject ())
         s_aLogger.warn ("Singleton '" +
                         aClass.getName () +
-                        "' is not yet instantiated - please check your calling order: " +
-                        aInstance.toString ());
+                        "' is not usable - please check your calling order: " +
+                        aInstance.toString (),
+                        SingletonHelper.getDebugStackTrace ());
     }
 
     return aInstance;
@@ -582,7 +602,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
   {
     ValueEnforcer.notNull (aDesiredClass, "DesiredClass");
 
-    final ICommonsList <T> ret = new CommonsArrayList<> ();
+    final ICommonsList <T> ret = new CommonsArrayList <> ();
     if (aScope != null)
       for (final Object aScopeValue : aScope.getAllAttributeValues ())
         if (aScopeValue != null && aDesiredClass.isAssignableFrom (aScopeValue.getClass ()))
