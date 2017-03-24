@@ -21,8 +21,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.File;
 import java.nio.charset.StandardCharsets;
 
 import javax.xml.stream.XMLOutputFactory;
@@ -33,6 +32,7 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 
 import com.helger.commons.collection.IteratorHelper;
+import com.helger.commons.io.file.FileHelper;
 import com.helger.xml.microdom.IMicroDocument;
 
 public final class JAXBBuilderFuncTest
@@ -118,10 +118,11 @@ public final class JAXBBuilderFuncTest
   }
 
   @Test
-  public void testStreamWriter () throws XMLStreamException, IOException
+  public void testStreamWriter () throws XMLStreamException
   {
     final XMLOutputFactory aOF = XMLOutputFactory.newInstance ();
-    final XMLStreamWriter aSW = aOF.createXMLStreamWriter (new FileWriter ("target/stream-writer-test.xml"));
+    final XMLStreamWriter aSW = aOF.createXMLStreamWriter (FileHelper.getBufferedWriter (new File ("target/stream-writer-test.xml"),
+                                                                                         StandardCharsets.UTF_8));
 
     final com.helger.jaxb.mock.internal.MockJAXBArchive aArc = new com.helger.jaxb.mock.internal.MockJAXBArchive ();
     aArc.setVersion ("1.23");
