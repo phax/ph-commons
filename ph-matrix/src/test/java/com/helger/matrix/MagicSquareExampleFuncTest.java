@@ -16,6 +16,8 @@
  */
 package com.helger.matrix;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Date;
 
 import javax.annotation.Nonnegative;
@@ -24,6 +26,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.commons.CGlobal;
 import com.helger.commons.string.StringHelper;
 
 /** Example of use of Matrix Class, featuring magic squares. **/
@@ -110,7 +113,7 @@ public final class MagicSquareExampleFuncTest
   /* Format double with Fw.d. **/
   public static String fixedWidthDoubletoString (final double x, final int w, final int d)
   {
-    final java.text.DecimalFormat fmt = new java.text.DecimalFormat ();
+    final DecimalFormat fmt = (DecimalFormat) NumberFormat.getNumberInstance (CGlobal.DEFAULT_LOCALE);
     fmt.setMaximumFractionDigits (d);
     fmt.setMinimumFractionDigits (d);
     fmt.setGroupingUsed (false);
