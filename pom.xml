@@ -178,7 +178,7 @@
               <artifactId>ph-forbidden-apis</artifactId>
               <version>1.0.0-SNAPSHOT</version>
               <type>jar</type>
-              <path>forbidden-apis.txt</path>
+              <path>forbidden-apis-ph-commons.txt</path>
             </signaturesArtifact>
           </signaturesArtifacts>
         </configuration>
