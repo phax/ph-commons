@@ -172,16 +172,6 @@
         <groupId>de.thetaphi</groupId>
         <artifactId>forbiddenapis</artifactId>
         <configuration>
-          <bundledSignatures>
-            <!--
-              This will automatically choose the right
-              signatures based on 'maven.compiler.target':
-            -->
-            <bundledSignature>jdk-unsafe</bundledSignature>
-            <bundledSignature>jdk-deprecated</bundledSignature>
-            <!-- disallow undocumented classes like sun.misc.Unsafe: -->
-            <bundledSignature>jdk-non-portable</bundledSignature>
-          </bundledSignatures>
           <signaturesArtifacts>
             <signaturesArtifact>
               <groupId>com.helger</groupId>
