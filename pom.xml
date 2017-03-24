@@ -185,13 +185,7 @@
             <exclude>**/Benchmark*</exclude>
           </excludes>
         </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
+        <!-- local executions are ignored -->
       </plugin>
     </plugins>
   </build>
