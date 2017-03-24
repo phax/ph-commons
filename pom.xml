@@ -181,6 +181,9 @@
               <path>forbidden-apis-ph-commons.txt</path>
             </signaturesArtifact>
           </signaturesArtifacts>
+          <excludes>
+            <exclude>**/Benchmark*</exclude>
+          </excludes>
         </configuration>
         <executions>
           <execution>
