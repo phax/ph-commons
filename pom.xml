@@ -182,7 +182,11 @@
             </signaturesArtifact>
           </signaturesArtifacts>
           <excludes>
+            <!-- uses String methods -->
             <exclude>**/Benchmark*</exclude>
+            <!-- uses java.util.Properties -->
+            <exclude>**/IPrivilegedAction*</exclude>
+            <exclude>**/PropertiesHelper*</exclude>
           </excludes>
         </configuration>
         <!-- local executions are ignored -->
