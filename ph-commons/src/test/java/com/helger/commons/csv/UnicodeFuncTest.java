@@ -18,29 +18,28 @@ package com.helger.commons.csv;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.io.stream.NonBlockingBufferedReader;
+import com.helger.commons.io.stream.NonBlockingStringReader;
+import com.helger.commons.io.stream.NonBlockingStringWriter;
 
-public final class UniCodeFuncTest
+public final class UnicodeFuncTest
 {
   private static final String COMPOUND_STRING = "ä,ö";
   private static final String COMPOUND_STRING_WITH_QUOTES = "\"ä\",\"ö\"";
   private static final String FIRST_STRING = "ä";
   private static final String SECOND_STRING = "ö";
-  private static final ICommonsList <String> UNICODE_ARRAY = CollectionHelper.newList (FIRST_STRING, SECOND_STRING);
-  private static final ICommonsList <String> MIXED_ARRAY = CollectionHelper.newList ("eins, 1",
-                                                                                     "ichi",
-                                                                                     FIRST_STRING,
-                                                                                     SECOND_STRING);
-  private static final ICommonsList <String> ASCII_ARRAY = CollectionHelper.newList ("foo", "bar");
+  private static final ICommonsList <String> UNICODE_ARRAY = new CommonsArrayList <> (FIRST_STRING, SECOND_STRING);
+  private static final ICommonsList <String> MIXED_ARRAY = new CommonsArrayList <> ("eins, 1",
+                                                                                    "ichi",
+                                                                                    FIRST_STRING,
+                                                                                    SECOND_STRING);
+  private static final ICommonsList <String> ASCII_ARRAY = new CommonsArrayList <> ("foo", "bar");
   private static final String ASCII_STRING_WITH_QUOTES = "\"foo\",\"bar\"";
 
   @Test
@@ -48,7 +47,7 @@ public final class UniCodeFuncTest
   {
     final CSVParser aParser = new CSVParser ();
     final String sSimpleString = COMPOUND_STRING;
-    final List <String> aItems = aParser.parseLine (sSimpleString);
+    final ICommonsList <String> aItems = aParser.parseLine (sSimpleString);
     assertEquals (2, aItems.size ());
     assertEquals (FIRST_STRING, aItems.get (0));
     assertEquals (SECOND_STRING, aItems.get (1));
@@ -58,7 +57,7 @@ public final class UniCodeFuncTest
   @Test
   public void readerTest () throws IOException
   {
-    final BufferedReader aReader = new BufferedReader (new StringReader (FIRST_STRING));
+    final NonBlockingBufferedReader aReader = new NonBlockingBufferedReader (new NonBlockingStringReader (FIRST_STRING));
     final String sTestString = aReader.readLine ();
     assertEquals (FIRST_STRING, sTestString);
   }
@@ -66,16 +65,16 @@ public final class UniCodeFuncTest
   @Test
   public void writerTest ()
   {
-    final StringWriter aSW = new StringWriter ();
+    final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     aSW.write (FIRST_STRING);
-    assertEquals (FIRST_STRING, aSW.toString ());
+    assertEquals (FIRST_STRING, aSW.getAsString ());
   }
 
   @Test
   public void runUniCodeThroughCSVReader () throws IOException
   {
-    final CSVReader aReader = new CSVReader (new StringReader (COMPOUND_STRING));
-    final List <String> aItems = aReader.readNext ();
+    final CSVReader aReader = new CSVReader (new NonBlockingStringReader (COMPOUND_STRING));
+    final ICommonsList <String> aItems = aReader.readNext ();
     assertEquals (2, aItems.size ());
     assertEquals (FIRST_STRING, aItems.get (0));
     assertEquals (SECOND_STRING, aItems.get (1));
@@ -85,30 +84,30 @@ public final class UniCodeFuncTest
   @Test
   public void runUniCodeThroughCSVWriter ()
   {
-    final StringWriter aSW = new StringWriter ();
+    final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     final CSVWriter aWriter = new CSVWriter (aSW);
     aWriter.writeNext (UNICODE_ARRAY);
-    assertEquals (COMPOUND_STRING_WITH_QUOTES.trim (), aSW.toString ().trim ());
+    assertEquals (COMPOUND_STRING_WITH_QUOTES.trim (), aSW.getAsString ().trim ());
   }
 
   @Test
   public void runASCIIThroughCSVWriter ()
   {
-    final StringWriter aSW = new StringWriter ();
+    final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     final CSVWriter aWriter = new CSVWriter (aSW);
     aWriter.writeNext (ASCII_ARRAY);
-    assertEquals (ASCII_STRING_WITH_QUOTES.trim (), aSW.toString ().trim ());
+    assertEquals (ASCII_STRING_WITH_QUOTES.trim (), aSW.getAsString ().trim ());
   }
 
   @Test
   public void writeThenReadAscii () throws IOException
   {
-    final StringWriter aSW = new StringWriter ();
+    final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     final CSVWriter aWriter = new CSVWriter (aSW);
     aWriter.writeNext (ASCII_ARRAY);
 
-    final CSVReader aReader = new CSVReader (new StringReader (aSW.toString ()));
-    final List <String> aItems = aReader.readNext ();
+    final CSVReader aReader = new CSVReader (new NonBlockingStringReader (aSW.getAsString ()));
+    final ICommonsList <String> aItems = aReader.readNext ();
     assertEquals (2, aItems.size ());
     assertEquals (ASCII_ARRAY, aItems);
   }
@@ -116,16 +115,16 @@ public final class UniCodeFuncTest
   @Test
   public void writeThenReadTwiceAscii () throws IOException
   {
-    final StringWriter aSW = new StringWriter ();
+    final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     final CSVWriter aWriter = new CSVWriter (aSW);
     aWriter.writeNext (ASCII_ARRAY);
     aWriter.writeNext (ASCII_ARRAY);
 
-    final CSVReader aReader = new CSVReader (new StringReader (aSW.toString ()));
+    final CSVReader aReader = new CSVReader (new NonBlockingStringReader (aSW.getAsString ()));
     final ICommonsList <ICommonsList <String>> aLines = aReader.readAll ();
     assertEquals (2, aLines.size ());
 
-    List <String> aItems = aLines.get (0);
+    ICommonsList <String> aItems = aLines.get (0);
     assertEquals (2, aItems.size ());
     assertEquals (ASCII_ARRAY, aItems);
 
@@ -137,16 +136,16 @@ public final class UniCodeFuncTest
   @Test
   public void writeThenReadTwiceUnicode () throws IOException
   {
-    final StringWriter aSW = new StringWriter ();
+    final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     final CSVWriter aWriter = new CSVWriter (aSW);
     aWriter.writeNext (UNICODE_ARRAY);
     aWriter.writeNext (UNICODE_ARRAY);
 
-    final CSVReader aReader = new CSVReader (new StringReader (aSW.toString ()));
+    final CSVReader aReader = new CSVReader (new NonBlockingStringReader (aSW.getAsString ()));
     final ICommonsList <ICommonsList <String>> aLines = aReader.readAll ();
     assertEquals (2, aLines.size ());
 
-    List <String> aItems = aLines.get (0);
+    ICommonsList <String> aItems = aLines.get (0);
     assertEquals (2, aItems.size ());
     assertEquals (UNICODE_ARRAY, aItems);
 
@@ -158,16 +157,16 @@ public final class UniCodeFuncTest
   @Test
   public void writeThenReadTwiceMixedUnicode () throws IOException
   {
-    final StringWriter aSW = new StringWriter ();
+    final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     final CSVWriter aWriter = new CSVWriter (aSW);
     aWriter.writeNext (MIXED_ARRAY);
     aWriter.writeNext (MIXED_ARRAY);
 
-    final CSVReader aReader = new CSVReader (new StringReader (aSW.toString ()));
+    final CSVReader aReader = new CSVReader (new NonBlockingStringReader (aSW.getAsString ()));
     final ICommonsList <ICommonsList <String>> aLines = aReader.readAll ();
     assertEquals (2, aLines.size ());
 
-    List <String> aItems = aLines.get (0);
+    ICommonsList <String> aItems = aLines.get (0);
     assertEquals (4, aItems.size ());
     assertEquals (MIXED_ARRAY, aItems);
 

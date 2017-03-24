@@ -217,10 +217,10 @@ public final class CSVWriterTest
     final CSVWriter aWriter = new CSVWriter (aSW);
     aWriter.writeAll (allElements);
 
-    final String result = aSW.getAsString ();
-    final String [] lines = result.split ("\n");
+    final String sResult = aSW.getAsString ().trim ();
+    final String [] aLines = StringHelper.getExplodedArray ('\n', sResult);
 
-    assertEquals (3, lines.length);
+    assertEquals (3, aLines.length);
   }
 
   /**
@@ -241,13 +241,13 @@ public final class CSVWriterTest
     final CSVWriter aWriter = new CSVWriter (aSW);
     aWriter.writeAll (allElements, false);
 
-    final String result = aSW.getAsString ();
-    final String [] lines = result.split ("\n");
+    final String sResult = aSW.getAsString ();
+    final String [] aLines = StringHelper.getExplodedArray ('\n', sResult.trim ());
+    assertEquals (3, aLines.length);
 
-    assertEquals (3, lines.length);
-
-    final String [] values = lines[1].split (",");
-    assertEquals ("1234", values[1]);
+    final String [] aValues = StringHelper.getExplodedArray (',', aLines[1]);
+    assertEquals (3, aValues.length);
+    assertEquals ("1234", aValues[1]);
   }
 
   /**

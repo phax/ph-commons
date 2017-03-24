@@ -19,6 +19,8 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.EnumSet;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.io.file.PathHelper;
@@ -31,6 +33,7 @@ import com.helger.commons.system.EOperatingSystem;
  */
 public final class PathFuncTest
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (PathFuncTest.class);
   private static final char SEP = File.separatorChar;
   private static final boolean WIN = EOperatingSystem.getCurrentOS ().isWindowsBased ();
 
@@ -194,10 +197,10 @@ public final class PathFuncTest
       @Override
       public FileVisitResult visitFile (final Path aCurFile, final BasicFileAttributes attrs) throws IOException
       {
-        System.out.println (aCurFile.subpath (nNames, aCurFile.getNameCount ()));
+        s_aLogger.info (aCurFile.subpath (nNames, aCurFile.getNameCount ()).toString ());
         return FileVisitResult.CONTINUE;
       }
     });
-    System.out.println (PathHelper.getDirectoryContent (aStartPath));
+    s_aLogger.info (PathHelper.getDirectoryContent (aStartPath).toString ());
   }
 }
