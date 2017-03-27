@@ -187,6 +187,7 @@
             <!-- uses java.util.Properties -->
             <exclude>**/IPrivilegedAction*</exclude>
             <exclude>**/PropertiesHelper*</exclude>
+            <exclude>**/JavaListDigestProviderFuncTest*</exclude>
           </excludes>
         </configuration>
         <!-- local executions are ignored -->
