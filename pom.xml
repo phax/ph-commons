@@ -187,7 +187,10 @@
             <!-- uses java.util.Properties -->
             <exclude>**/IPrivilegedAction*</exclude>
             <exclude>**/PropertiesHelper*</exclude>
+            <!-- java.security.provider extends java.util.properties -->
             <exclude>**/JavaListDigestProviderFuncTest*</exclude>
+            <exclude>**/EMacAlgorithm*</exclude>
+            <exclude>**/EMessageDigestAlgorithm*</exclude>
           </excludes>
         </configuration>
         <!-- local executions are ignored -->
