@@ -486,4 +486,35 @@ public final class PDTHelper
   {
     return ChronoUnit.DAYS.between (aStartIncl, aEndExcl);
   }
+
+  /**
+   * Convert from Calendar day of week to {@link DayOfWeek} enum.
+   *
+   * @param nCalendarDayOfWeek
+   *        Day of week - must be between 1 and 7.
+   * @return {@link DayOfWeek} and never <code>null</code>.
+   * @since 8.6.3
+   */
+  @Nonnull
+  public static DayOfWeek getAsDayOfWeek (final int nCalendarDayOfWeek)
+  {
+    ValueEnforcer.isBetweenInclusive (nCalendarDayOfWeek, "DayOfWeek", 1, 7);
+    // Convert Calendar DoW to enum DoW
+    final int nIndex = (nCalendarDayOfWeek + 6) % 7;
+    return DayOfWeek.of (nIndex == 0 ? 7 : nIndex);
+  }
+
+  /**
+   * Convert from {@link DayOfWeek} to Calendar day of week.
+   *
+   * @param eDOW
+   *        Day of week. May not be <code>null</code>.
+   * @return Something between Calendar.SUNDAY and Calendar.SATURDAY
+   * @since 8.6.3
+   */
+  public static int getCalendarDayOfWeek (@Nonnull final DayOfWeek eDOW)
+  {
+    ValueEnforcer.notNull (eDOW, "DayOfWeek");
+    return eDOW.getValue () % 7 + 1;
+  }
 }
