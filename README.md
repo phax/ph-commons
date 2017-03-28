@@ -25,21 +25,26 @@ This project was the following modules:
 ## News and noteworthy
 
   * v9.0.0 - work in progress
-    * Added `IPredicate` - a serializable `Predicate` interface
-    * Added `IBiPredicate` - a serializable `BiPredicate` interface
-    * Added `IBiConsumer` - a serializable `BiConsumer` interface
-    * Added `IBiFunction` - a serializable `BiFunction` interface
     * Changed `com.helger.commons.function` package to `com.helger.commons.functional`
     * Replaced `IFilter` with `IPredicate`
     * Replaced `IFilterWithParameter` with `IBiPredicate`
     * Changed `ManagedExecutorService` to `ExecutorServiceHelper`
     * Removed class `CCharset` - use `StandardCharsets` instead
     * Added classes `PathHelper` and `PathOperations`    
-    * Added `IComparable` - a serializable and extended `Comparable` interface
     * Moved class `XMLResourceBundle` to ph-xml
-  * v.8.6.3 - work in progress
+  * v8.6.3 - 2017-03-28
     * Deprecated some String-based `FileHelper` APIs
     * Improved CertificateHelper parsing
+    * Added `IPredicate` - a serializable `Predicate` interface
+    * Added `IBiPredicate` - a serializable `BiPredicate` interface
+    * Added `IBiConsumer` - a serializable `BiConsumer` interface
+    * Added `IBiFunction` - a serializable `BiFunction` interface
+    * Added `IComparable` - a serializable and extended `Comparable` interface
+    * Extended `StringHelper` API
+    * Extended `MicroWriter` API
+    * Extended `XMLWriter` API
+    * Extended `PDTHelper` API
+    * Deprecated `EMonth` and `EDayOfWeek` in favour of JDK `Month` and `DayOfWeek`
   * v8.6.2 - 2017-02-15
     * Extended `XMLSystemProperties` API
     * Allowing `JAXBDocumentType` objects to not have an `@XmlSchema` annotation
@@ -99,7 +104,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-commons</artifactId>
-  <version>8.6.2</version>
+  <version>8.6.3</version>
 </dependency>
 ```
 
@@ -248,7 +253,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-xml</artifactId>
-  <version>8.6.2</version>
+  <version>8.6.3</version>
 </dependency>
 ```
 
@@ -266,7 +271,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-jaxb</artifactId>
-  <version>8.6.2</version>
+  <version>8.6.3</version>
 </dependency>
 ```
 
@@ -289,7 +294,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-tree</artifactId>
-  <version>8.6.2</version>
+  <version>8.6.3</version>
 </dependency>
 ```
 
@@ -307,7 +312,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-less-commons</artifactId>
-  <version>8.6.2</version>
+  <version>8.6.3</version>
 </dependency>
 ```
 
@@ -320,7 +325,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-json</artifactId>
-  <version>8.6.2</version>
+  <version>8.6.3</version>
 </dependency>
 ```
 
@@ -333,7 +338,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-settings</artifactId>
-  <version>8.6.2</version>
+  <version>8.6.3</version>
 </dependency>
 ```
 
@@ -346,7 +351,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-datetime</artifactId>
-  <version>8.6.2</version>
+  <version>8.6.3</version>
 </dependency>
 ```
 
@@ -359,7 +364,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-graph</artifactId>
-  <version>8.6.2</version>
+  <version>8.6.3</version>
 </dependency>
 ```
 
@@ -372,7 +377,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-matrix</artifactId>
-  <version>8.6.2</version>
+  <version>8.6.3</version>
 </dependency>
 ```
 
@@ -385,7 +390,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-charset</artifactId>
-  <version>8.6.2</version>
+  <version>8.6.3</version>
 </dependency>
 ```
 
