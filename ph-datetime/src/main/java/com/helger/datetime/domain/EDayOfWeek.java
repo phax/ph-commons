@@ -33,6 +33,7 @@ import com.helger.commons.lang.EnumHelper;
  *
  * @author Philip Helger
  */
+@Deprecated
 public enum EDayOfWeek implements IHasIntID
 {
   MONDAY (DayOfWeek.MONDAY, Calendar.MONDAY),

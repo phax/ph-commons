@@ -33,6 +33,7 @@ import com.helger.commons.lang.EnumHelper;
  *
  * @author Philip Helger
  */
+@Deprecated
 public enum EMonth implements IHasIntID
 {
   JANUARY (Month.JANUARY, Calendar.JANUARY),
