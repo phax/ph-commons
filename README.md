@@ -33,7 +33,8 @@ This project was the following modules:
     * Added `IBiFunction` - a serializable `BiFunction` interface
     * Added `IComparable` - a serializable and extended `Comparable` interface
     * Extended `StringHelper` API
-    * Extended `MicroWriter` API    
+    * Extended `MicroWriter` API
+    * Extended `XMLWriter` API
   * v8.6.2 - 2017-02-15
     * Extended `XMLSystemProperties` API
     * Allowing `JAXBDocumentType` objects to not have an `@XmlSchema` annotation

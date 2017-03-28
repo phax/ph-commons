@@ -43,6 +43,6 @@ public final class DOMInputStreamProviderTest
 
     final InputStream aIS = new DOMInputStreamProvider (doc, StandardCharsets.UTF_8).getInputStream ();
     final Document doc2 = DOMReader.readXMLDOM (aIS);
-    assertEquals (XMLWriter.getXMLString (doc), XMLWriter.getXMLString (doc2));
+    assertEquals (XMLWriter.getNodeAsString (doc), XMLWriter.getNodeAsString (doc2));
   }
 }

@@ -32,11 +32,10 @@ import org.w3c.dom.Node;
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.state.ESuccess;
-import com.helger.commons.statistics.IMutableStatisticsHandlerSize;
-import com.helger.commons.statistics.StatisticsManager;
 import com.helger.xml.EXMLVersion;
 
 /**
@@ -53,7 +52,6 @@ public final class XMLWriter
   public static final NamespaceContext DEFAULT_NAMESPACE_CTX = null;
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (XMLWriter.class);
-  private static final IMutableStatisticsHandlerSize s_aSizeHdl = StatisticsManager.getSizeHandler (XMLWriter.class);
 
   @PresentForCodeCoverage
   private static final XMLWriter s_aInstance = new XMLWriter ();
@@ -187,28 +185,31 @@ public final class XMLWriter
     return ESuccess.FAILURE;
   }
 
+  /**
+   * Convert the passed micro node to an XML string using the provided XML
+   * writer settings.
+   *
+   * @param aNode
+   *        The node to be converted to a string. May not be <code>null</code> .
+   * @param aSettings
+   *        The XML writer settings to be used. May not be <code>null</code>.
+   * @return The string representation of the passed node.
+   */
   @Nullable
   public static String getNodeAsString (@Nonnull final Node aNode, @Nonnull final IXMLWriterSettings aSettings)
   {
-    NonBlockingStringWriter aWriter = null;
-    try
+    ValueEnforcer.notNull (aNode, "Node");
+    ValueEnforcer.notNull (aSettings, "Settings");
+
+    try (final NonBlockingStringWriter aWriter = new NonBlockingStringWriter (50 * CGlobal.BYTES_PER_KILOBYTE))
     {
       // start serializing
-      aWriter = new NonBlockingStringWriter (50 * CGlobal.BYTES_PER_KILOBYTE);
       if (writeToWriter (aNode, aWriter, aSettings).isSuccess ())
-      {
-        s_aSizeHdl.addSize (aWriter.getSize ());
         return aWriter.getAsString ();
-      }
     }
     catch (final Throwable t)
     {
       s_aLogger.error ("Error serializing DOM node with settings " + aSettings.toString (), t);
-    }
-    finally
-    {
-      // don't forget to close the stream!
-      StreamHelper.close (aWriter);
     }
     return null;
   }
@@ -221,10 +222,77 @@ public final class XMLWriter
    * @param aNode
    *        The node to be converted to a string. May not be <code>null</code> .
    * @return The string representation of the passed node.
+   * @deprecated Use {@link #getNodeAsString(Node)} instead
    */
+  @Deprecated
   @Nullable
   public static String getXMLString (@Nonnull final Node aNode)
   {
+    return getNodeAsString (aNode);
+  }
+
+  /**
+   * Convert the passed micro node to an XML string using
+   * {@link XMLWriterSettings#DEFAULT_XML_SETTINGS}. This is a specialized
+   * version of {@link #getNodeAsString(Node, IXMLWriterSettings)}.
+   *
+   * @param aNode
+   *        The node to be converted to a string. May not be <code>null</code> .
+   * @return The string representation of the passed node.
+   * @since 8.6.3
+   */
+  @Nullable
+  public static String getNodeAsString (@Nonnull final Node aNode)
+  {
     return getNodeAsString (aNode, XMLWriterSettings.DEFAULT_XML_SETTINGS);
+  }
+
+  /**
+   * Convert the passed micro node to an XML byte array using the provided XML
+   * writer settings.
+   *
+   * @param aNode
+   *        The node to be converted to a byte array. May not be
+   *        <code>null</code> .
+   * @param aSettings
+   *        The XML writer settings to be used. May not be <code>null</code>.
+   * @return The byte array representation of the passed node.
+   * @since 8.6.3
+   */
+  @Nullable
+  public static byte [] getNodeAsBytes (@Nonnull final Node aNode, @Nonnull final IXMLWriterSettings aSettings)
+  {
+    ValueEnforcer.notNull (aNode, "Node");
+    ValueEnforcer.notNull (aSettings, "Settings");
+
+    try (final NonBlockingByteArrayOutputStream aWriter = new NonBlockingByteArrayOutputStream (50 *
+                                                                                                CGlobal.BYTES_PER_KILOBYTE))
+    {
+      // start serializing
+      if (writeToStream (aNode, aWriter, aSettings).isSuccess ())
+        return aWriter.toByteArray ();
+    }
+    catch (final Throwable t)
+    {
+      s_aLogger.error ("Error serializing DOM node with settings " + aSettings.toString (), t);
+    }
+    return null;
+  }
+
+  /**
+   * Convert the passed micro node to an XML byte array using
+   * {@link XMLWriterSettings#DEFAULT_XML_SETTINGS}. This is a specialized
+   * version of {@link #getNodeAsBytes(Node, IXMLWriterSettings)}.
+   *
+   * @param aNode
+   *        The node to be converted to a byte array. May not be
+   *        <code>null</code> .
+   * @return The byte array representation of the passed node.
+   * @since 8.6.3
+   */
+  @Nullable
+  public static byte [] getNodeAsBytes (@Nonnull final Node aNode)
+  {
+    return getNodeAsBytes (aNode, XMLWriterSettings.DEFAULT_XML_SETTINGS);
   }
 }

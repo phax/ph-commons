@@ -167,7 +167,7 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
 
     // test as XML (with doc type and indent)
     {
-      final String sResult = XMLWriter.getXMLString (doc);
+      final String sResult = XMLWriter.getNodeAsString (doc);
       assertEquals ("<?xml version=\"1.0\" encoding=\"" +
                     StandardCharsets.UTF_8.name () +
                     "\"?>" +
@@ -320,17 +320,17 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
     // Containing the forbidden CDATA end marker
     Element e = doc.createElement ("a");
     e.appendChild (doc.createCDATASection ("a]]>b"));
-    assertEquals ("<a><![CDATA[a]]]]><![CDATA[>b]]></a>" + CRLF, XMLWriter.getXMLString (e));
+    assertEquals ("<a><![CDATA[a]]]]><![CDATA[>b]]></a>" + CRLF, XMLWriter.getNodeAsString (e));
 
     // Containing more than one forbidden CDATA end marker
     e = doc.createElement ("a");
     e.appendChild (doc.createCDATASection ("a]]>b]]>c"));
-    assertEquals ("<a><![CDATA[a]]]]><![CDATA[>b]]]]><![CDATA[>c]]></a>" + CRLF, XMLWriter.getXMLString (e));
+    assertEquals ("<a><![CDATA[a]]]]><![CDATA[>b]]]]><![CDATA[>c]]></a>" + CRLF, XMLWriter.getNodeAsString (e));
 
     // Containing a complete CDATA section
     e = doc.createElement ("a");
     e.appendChild (doc.createCDATASection ("a<![CDATA[x]]>b"));
-    assertEquals ("<a><![CDATA[a<![CDATA[x]]]]><![CDATA[>b]]></a>" + CRLF, XMLWriter.getXMLString (e));
+    assertEquals ("<a><![CDATA[a<![CDATA[x]]]]><![CDATA[>b]]></a>" + CRLF, XMLWriter.getNodeAsString (e));
   }
 
   @Test
@@ -451,12 +451,12 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
   {
     Document aDoc = XMLFactory.newDocument (EXMLVersion.XML_10);
     aDoc.appendChild (aDoc.createElement ("any"));
-    String sXML = XMLWriter.getXMLString (aDoc);
+    String sXML = XMLWriter.getNodeAsString (aDoc);
     assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" + CRLF + "<any />" + CRLF, sXML);
 
     aDoc = XMLFactory.newDocument (EXMLVersion.XML_11);
     aDoc.appendChild (aDoc.createElement ("any"));
-    sXML = XMLWriter.getXMLString (aDoc);
+    sXML = XMLWriter.getNodeAsString (aDoc);
     assertEquals ("<?xml version=\"1.1\" encoding=\"UTF-8\" standalone=\"yes\"?>" + CRLF + "<any />" + CRLF, sXML);
   }
 
