@@ -335,7 +335,7 @@ public final class DOMReaderTest
     assertNotNull (doc);
 
     // Write again
-    assertNotNull (XMLWriter.getXMLString (doc));
+    assertNotNull (XMLWriter.getNodeAsString (doc));
   }
 
   @Test
@@ -346,7 +346,7 @@ public final class DOMReaderTest
     assertNotNull (doc);
 
     // Write again
-    assertNotNull (XMLWriter.getXMLString (doc));
+    assertNotNull (XMLWriter.getNodeAsString (doc));
   }
 
   @Test

@@ -43,7 +43,7 @@ public final class DOM4JFuncTest extends AbstractCommonsTestCase
   {
     final Document aXML = new DOMDocument ();
     final Element aRoot = aXML.createElement ("rootElement");
-    assertNotNull (XMLWriter.getXMLString (aRoot));
+    assertNotNull (XMLWriter.getNodeAsString (aRoot));
   }
 
   @Test
@@ -55,6 +55,6 @@ public final class DOM4JFuncTest extends AbstractCommonsTestCase
     aChild.appendChild (new DOMText ("anyText"));
     aChild.appendChild (new DOMEntityReference ("abc"));
 
-    assertNotNull (XMLWriter.getXMLString (aXML));
+    assertNotNull (XMLWriter.getNodeAsString (aXML));
   }
 }

@@ -110,7 +110,7 @@ public abstract class AbstractValidationEventHandler implements IValidationEvent
       // Source node found?
       final Node aNode = aLocator.getNode ();
       if (aNode != null)
-        return XMLWriter.getXMLString (aNode);
+        return XMLWriter.getNodeAsString (aNode);
     }
     return null;
   }
