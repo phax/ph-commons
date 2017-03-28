@@ -67,8 +67,8 @@ public final class XMLTestHelper
     assertNotNull (e2);
 
     // Ensure XML representation is identical
-    final String sXML1 = MicroWriter.getXMLString (e);
-    final String sXML2 = MicroWriter.getXMLString (e2);
+    final String sXML1 = MicroWriter.getNodeAsString (e);
+    final String sXML2 = MicroWriter.getNodeAsString (e2);
     CommonsTestHelper._assertEquals ("XML representation must be identical", sXML1, sXML2);
 
     // Ensure they are equals

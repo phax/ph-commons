@@ -89,9 +89,9 @@ public final class ReadWriteXML11FuncTest
                 "\nJava version: " +
                 SystemProperties.getJavaVersion () +
                 "\n" +
-                MicroWriter.getXMLString (aDoc) +
+                MicroWriter.getNodeAsString (aDoc) +
                 "\n\n" +
-                MicroWriter.getXMLString (aDoc2),
+                MicroWriter.getNodeAsString (aDoc2),
                 aDoc.isEqualContent (aDoc2));
   }
 }

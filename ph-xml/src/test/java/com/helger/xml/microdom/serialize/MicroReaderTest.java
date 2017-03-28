@@ -330,7 +330,7 @@ public final class MicroReaderTest
     assertNotNull (doc);
 
     // Write again
-    assertNotNull (MicroWriter.getXMLString (doc));
+    assertNotNull (MicroWriter.getNodeAsString (doc));
   }
 
   @Test
@@ -341,7 +341,7 @@ public final class MicroReaderTest
     assertNotNull (doc);
 
     // Write again
-    assertNotNull (MicroWriter.getXMLString (doc));
+    assertNotNull (MicroWriter.getNodeAsString (doc));
   }
 
   @Test
@@ -364,7 +364,7 @@ public final class MicroReaderTest
     assertNotNull (aHdl.getDocument ());
 
     // Write again
-    assertNotNull (MicroWriter.getXMLString (doc));
+    assertNotNull (MicroWriter.getNodeAsString (doc));
   }
 
   @Test

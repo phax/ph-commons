@@ -115,7 +115,7 @@ public final class BasicMicroTypeConverterRegistrarTest
       // Convert to XML
       final IMicroElement aElement = MicroTypeConverter.convertToMicroElement (aObj, "any");
       assertNotNull (aElement);
-      final String sXML = MicroWriter.getXMLString (aElement);
+      final String sXML = MicroWriter.getNodeAsString (aElement);
       assertTrue (sXML.startsWith ("<any>"));
       assertTrue (sXML.endsWith ("</any>" + ENewLineMode.DEFAULT.getText ()));
 
@@ -133,7 +133,7 @@ public final class BasicMicroTypeConverterRegistrarTest
       // Convert to XML
       final IMicroElement aElement = MicroTypeConverter.convertToMicroElement (aObj, "any");
       assertNotNull (aElement);
-      final String sXML = MicroWriter.getXMLString (aElement);
+      final String sXML = MicroWriter.getNodeAsString (aElement);
       assertTrue (sXML.startsWith ("<any>"));
       assertTrue (sXML.endsWith ("</any>" + ENewLineMode.DEFAULT.getText ()));
 

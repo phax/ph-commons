@@ -82,7 +82,7 @@ public final class SettingsMicroDocumentConverterTest
     final IMicroElement eSrcElement = MicroTypeConverter.convertToMicroElement (aSrc, "root");
     assertNotNull (eSrcElement);
     if (false)
-      s_aLogger.info (MicroWriter.getXMLString (eSrcElement));
+      s_aLogger.info (MicroWriter.getNodeAsString (eSrcElement));
 
     // From XML
     final ISettings aDst = MicroTypeConverter.convertToNative (eSrcElement, Settings.class);

@@ -32,11 +32,10 @@ import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.io.file.FileHelper;
+import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.state.ESuccess;
-import com.helger.commons.statistics.IMutableStatisticsHandlerSize;
-import com.helger.commons.statistics.StatisticsManager;
 import com.helger.xml.microdom.IMicroNode;
 import com.helger.xml.serialize.write.IXMLWriterSettings;
 import com.helger.xml.serialize.write.XMLWriterSettings;
@@ -50,7 +49,6 @@ import com.helger.xml.serialize.write.XMLWriterSettings;
 public final class MicroWriter
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (MicroWriter.class);
-  private static final IMutableStatisticsHandlerSize s_aSizeHdl = StatisticsManager.getSizeHandler (MicroWriter.class);
 
   @PresentForCodeCoverage
   private static final MicroWriter s_aInstance = new MicroWriter ();
@@ -193,30 +191,50 @@ public final class MicroWriter
     }
   }
 
+  /**
+   * Write a Micro Node to a {@link Writer} using the default
+   * {@link XMLWriterSettings#DEFAULT_XML_SETTINGS}.
+   *
+   * @param aNode
+   *        The node to be serialized. May be any kind of node (incl.
+   *        documents). May not be <code>null</code>.
+   * @param aWriter
+   *        The writer to write to. May not be <code>null</code>. The writer is
+   *        closed anyway directly after the operation finishes (on success and
+   *        on error).
+   * @return {@link ESuccess}
+   * @since 8.6.3
+   */
+  @Nonnull
+  public static ESuccess writeToWriter (@Nonnull final IMicroNode aNode, @Nonnull @WillClose final Writer aWriter)
+  {
+    return writeToWriter (aNode, aWriter, XMLWriterSettings.DEFAULT_XML_SETTINGS);
+  }
+
+  /**
+   * Convert the passed micro node to an XML string using the provided settings.
+   *
+   * @param aNode
+   *        The node to be converted to a string. May not be <code>null</code> .
+   * @param aSettings
+   *        The XML writer settings to use. May not be <code>null</code>.
+   * @return The string representation of the passed node.
+   */
   @Nullable
   public static String getNodeAsString (@Nonnull final IMicroNode aNode, @Nonnull final IXMLWriterSettings aSettings)
   {
     ValueEnforcer.notNull (aNode, "Node");
     ValueEnforcer.notNull (aSettings, "Settings");
 
-    NonBlockingStringWriter aWriter = null;
-    try
+    try (final NonBlockingStringWriter aWriter = new NonBlockingStringWriter (50 * CGlobal.BYTES_PER_KILOBYTE))
     {
       // start serializing
-      aWriter = new NonBlockingStringWriter (50 * CGlobal.BYTES_PER_KILOBYTE);
       if (writeToWriter (aNode, aWriter, aSettings).isSuccess ())
-      {
-        s_aSizeHdl.addSize (aWriter.getSize ());
         return aWriter.getAsString ();
-      }
     }
     catch (final Throwable t)
     {
       s_aLogger.error ("Error serializing MicroDOM with settings " + aSettings.toString (), t);
-    }
-    finally
-    {
-      StreamHelper.close (aWriter);
     }
     return null;
   }
@@ -229,10 +247,76 @@ public final class MicroWriter
    * @param aNode
    *        The node to be converted to a string. May not be <code>null</code> .
    * @return The string representation of the passed node.
+   * @deprecated Use {@link #getNodeAsString(IMicroNode)} instead
    */
+  @Deprecated
   @Nullable
   public static String getXMLString (@Nonnull final IMicroNode aNode)
   {
+    return getNodeAsString (aNode);
+  }
+
+  /**
+   * Convert the passed micro node to an XML string using
+   * {@link XMLWriterSettings#DEFAULT_XML_SETTINGS}. This is a specialized
+   * version of {@link #getNodeAsString(IMicroNode, IXMLWriterSettings)}.
+   *
+   * @param aNode
+   *        The node to be converted to a string. May not be <code>null</code> .
+   * @return The string representation of the passed node.
+   * @since 8.6.3
+   */
+  @Nullable
+  public static String getNodeAsString (@Nonnull final IMicroNode aNode)
+  {
     return getNodeAsString (aNode, XMLWriterSettings.DEFAULT_XML_SETTINGS);
+  }
+
+  /**
+   * Convert the passed micro node to an XML byte array using the provided
+   * settings.
+   *
+   * @param aNode
+   *        The node to be converted to a byte array. May not be
+   *        <code>null</code>.
+   * @param aSettings
+   *        The XML writer settings to use. May not be <code>null</code>.
+   * @return The byte array representation of the passed node.
+   * @since 8.6.3
+   */
+  @Nullable
+  public static byte [] getNodeAsBytes (@Nonnull final IMicroNode aNode, @Nonnull final IXMLWriterSettings aSettings)
+  {
+    ValueEnforcer.notNull (aNode, "Node");
+    ValueEnforcer.notNull (aSettings, "Settings");
+    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (50 *
+                                                                                              CGlobal.BYTES_PER_KILOBYTE))
+    {
+      // start serializing
+      if (writeToStream (aNode, aBAOS, aSettings).isSuccess ())
+        return aBAOS.toByteArray ();
+    }
+    catch (final Throwable t)
+    {
+      s_aLogger.error ("Error serializing MicroDOM with settings " + aSettings.toString (), t);
+    }
+    return null;
+  }
+
+  /**
+   * Convert the passed micro node to an XML byte array using
+   * {@link XMLWriterSettings#DEFAULT_XML_SETTINGS}. This is a specialized
+   * version of {@link #getNodeAsBytes(IMicroNode, IXMLWriterSettings)}.
+   *
+   * @param aNode
+   *        The node to be converted to a byte array. May not be
+   *        <code>null</code>.
+   * @return The byte array representation of the passed node.
+   * @since 8.6.3
+   */
+  @Nullable
+  public static byte [] getNodeAsBytes (@Nonnull final IMicroNode aNode)
+  {
+    return getNodeAsBytes (aNode, XMLWriterSettings.DEFAULT_XML_SETTINGS);
   }
 }
