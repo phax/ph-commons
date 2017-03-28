@@ -1,4 +1,4 @@
-#ph-commons
+# ph-commons
 
 Java 1.8+ Library with tons of utility classes required in most of ph-* projects.
 
@@ -22,9 +22,9 @@ This project was the following modules:
   * ph-xml - everything to read and write XML, including "MicroDOM" my personal minimum XML representation shipping with its own serializer.
 
 
-##News and noteworthy
+## News and noteworthy
 
-  * v.8.6.3 - work in progress
+  * v8.6.3 - 2017-03-28
     * Deprecated some String-based `FileHelper` APIs
     * Improved CertificateHelper parsing
     * Added `IPredicate` - a serializable `Predicate` interface
@@ -90,17 +90,17 @@ This project was the following modules:
     * Multiple API changes to better support functional style
     * Base32 codec added
 
-##Maven usage
+## Maven usage
 Add the following to your pom.xml to use this artifact:
 ```
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-commons</artifactId>
-  <version>8.6.0</version>
+  <version>8.6.3</version>
 </dependency>
 ```
 
-##Contents
+## Contents
 In general I tried to make the source comments as useful as possible. Therefore here only an alphabetic package list with the respective contents is shown:
 
   * `com.helger.commons` - The base package that contains only a class with only constant values (`CGlobal`) and a programming utility class (`ValueEnforcer`). 
@@ -216,7 +216,7 @@ In general I tried to make the source comments as useful as possible. Therefore 
   * `com.helger.commons.ws` - some Web Service client caller goodies
     
 
-#ph-xml
+# ph-xml
 A special XML reading and writing project.
 
   * `com.helger.xml` - utility classes to work with standard W3C nodes
@@ -239,17 +239,17 @@ A special XML reading and writing project.
   * `com.helger.xml.util.statistics` - statistics to XML converter.
   * `com.helger.xml.xpath` - utility classes for XPath handling incl. function and variable resolver
 
-##Maven usage
+## Maven usage
 Add the following to your pom.xml to use this artifact:
 ```
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-xml</artifactId>
-  <version>8.6.0</version>
+  <version>8.6.3</version>
 </dependency>
 ```
 
-#ph-jaxb
+# ph-jaxb
 A special JAXB helper project. It supports both the JDK included JAXB as well as an external JAXB that is used via a separate Maven artefact.
 
   * `com.helger.jaxb` - JAXB context cache, abstract reader, writer and validator interfaces.
@@ -257,17 +257,17 @@ A special JAXB helper project. It supports both the JDK included JAXB as well as
   * `com.helger.jaxb.utils` - abstract JAXB marshaller for easy reading and writing from and to different sources and targets.
   * `com.helger.jaxb.validation` - validation event handler (factories) for JAXB marshalling/unmarshalling.
 
-##Maven usage
+## Maven usage
 Add the following to your pom.xml to use this artifact:
 ```
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-jaxb</artifactId>
-  <version>8.6.0</version>
+  <version>8.6.3</version>
 </dependency>
 ```
 
-#ph-tree
+# ph-tree
 A special tree management project.
 
   * `com.helger.tree` - contains interfaces and implementations for a basic tree and a basic tree item
@@ -280,17 +280,17 @@ A special tree management project.
   * `com.helger.tree.withid.unique` - a special tree where each item has an ID that must be unique so that each leaf can be identified easily.
   * `com.helger.tree.xml` - convert a tree into a generic XML.
 
-##Maven usage
+## Maven usage
 Add the following to your pom.xml to use this artifact:
 ```
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-tree</artifactId>
-  <version>8.6.0</version>
+  <version>8.6.3</version>
 </dependency>
 ```
 
-#ph-less-commons
+# ph-less-commons
 A library with less common elements. First available with ph-commons 8.
 A few elements from ph-commons 6 which I'm not really using. But to avoid loss of information this project was added.  
 
@@ -298,91 +298,91 @@ A few elements from ph-commons 6 which I'm not really using. But to avoid loss o
   * `com.helger.lesscommons.i18n` - internationalization (i18n) helper classes, especially for code point handling. Ripped from Apache Abdera.
   * `com.helger.lesscommons.jmx` - very basic JMX utility classes.
 
-##Maven usage
+## Maven usage
 Add the following to your pom.xml to use this artifact:
 ```
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-less-commons</artifactId>
-  <version>8.6.0</version>
+  <version>8.6.3</version>
 </dependency>
 ```
 
-#ph-json
+# ph-json
 Another simple library to read and write JSON documents and streams using a custom parser.
 
-##Maven usage
+## Maven usage
 Add the following to your pom.xml to use this artifact:
 ```
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-json</artifactId>
-  <version>8.6.0</version>
+  <version>8.6.3</version>
 </dependency>
 ```
 
-#ph-settings
+# ph-settings
 Another simple library to deal with configuration files and settings in general.
 
-##Maven usage
+## Maven usage
 Add the following to your pom.xml to use this artifact:
 ```
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-settings</artifactId>
-  <version>8.6.0</version>
+  <version>8.6.3</version>
 </dependency>
 ```
 
-#ph-datetime
+# ph-datetime
 Another library that improves the JDK 8 date time handling with some useful extensions.
 
-##Maven usage
+## Maven usage
 Add the following to your pom.xml to use this artifact:
 ```
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-datetime</artifactId>
-  <version>8.6.0</version>
+  <version>8.6.3</version>
 </dependency>
 ```
 
-#ph-graph
+# ph-graph
 Another library to handle all kind of graphs in a generic way.
 
-##Maven usage
+## Maven usage
 Add the following to your pom.xml to use this artifact:
 ```
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-graph</artifactId>
-  <version>8.6.0</version>
+  <version>8.6.3</version>
 </dependency>
 ```
 
-#ph-matrix
+# ph-matrix
 Another library to handle matrixes in an easy way including some operations on them.
 
-##Maven usage
+## Maven usage
 Add the following to your pom.xml to use this artifact:
 ```
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-matrix</artifactId>
-  <version>8.6.0</version>
+  <version>8.6.3</version>
 </dependency>
 ```
 
-#ph-charset
+# ph-charset
 This library adds support for the UTF-7 charset via Java extension SPI.
 
-##Maven usage
+## Maven usage
 Add the following to your pom.xml to use this artifact:
 ```
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-charset</artifactId>
-  <version>8.6.0</version>
+  <version>8.6.3</version>
 </dependency>
 ```
 
