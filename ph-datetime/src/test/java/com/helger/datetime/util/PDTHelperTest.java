@@ -18,6 +18,7 @@ package com.helger.datetime.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.time.DayOfWeek;
@@ -147,5 +148,18 @@ public final class PDTHelperTest
     final LocalDate aStart = PDTFactory.getCurrentLocalDate ();
     assertEquals (0, PDTHelper.getDaysBetween (aStart, aStart));
     assertEquals (60, PDTHelper.getDaysBetween (LocalDate.of (2016, 1, 22), LocalDate.of (2016, 3, 22)));
+  }
+
+  @Test
+  public void testDayOfWeek ()
+  {
+    for (final DayOfWeek e : DayOfWeek.values ())
+    {
+      final int n = PDTHelper.getCalendarDayOfWeek (e);
+      assertTrue (n >= 1 && n <= 7);
+      final DayOfWeek e2 = PDTHelper.getAsDayOfWeek (n);
+      assertNotNull (e2);
+      assertEquals (e, e2);
+    }
   }
 }
