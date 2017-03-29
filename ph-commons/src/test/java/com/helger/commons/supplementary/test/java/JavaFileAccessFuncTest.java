@@ -18,7 +18,6 @@ package com.helger.commons.supplementary.test.java;
 
 import static org.junit.Assert.assertTrue;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -40,6 +39,7 @@ import com.helger.commons.io.file.FileOperationManager;
 import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.io.file.LoggingFileOperationCallback;
 import com.helger.commons.io.file.SimpleFileIO;
+import com.helger.commons.io.stream.NonBlockingBufferedReader;
 import com.helger.commons.system.EOperatingSystem;
 import com.helger.commons.system.SystemProperties;
 
@@ -63,7 +63,7 @@ public final class JavaFileAccessFuncTest
       try
       {
         final InputStreamReader aISR = new InputStreamReader (m_aIS, StandardCharsets.ISO_8859_1);
-        final BufferedReader aBR = new BufferedReader (aISR);
+        final NonBlockingBufferedReader aBR = new NonBlockingBufferedReader (aISR);
         String line;
         while ((line = aBR.readLine ()) != null)
           _println (m_sCmd + "> " + line);

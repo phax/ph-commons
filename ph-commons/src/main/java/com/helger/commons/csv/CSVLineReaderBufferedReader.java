@@ -30,6 +30,7 @@ import com.helger.commons.ValueEnforcer;
  *
  * @author Philip Helger
  */
+@Deprecated
 public class CSVLineReaderBufferedReader implements ICSVLineReader
 {
   private final BufferedReader m_aReader;

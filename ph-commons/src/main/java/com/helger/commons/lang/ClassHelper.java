@@ -494,7 +494,7 @@ public final class ClassHelper
   @Nullable
   public static String getPathFromClass (@Nullable final String sClassName)
   {
-    return sClassName == null ? null : sClassName.replace ('.', '/');
+    return sClassName == null ? null : StringHelper.replaceAll (sClassName, '.', '/');
   }
 
   /**
@@ -510,7 +510,7 @@ public final class ClassHelper
   @Nullable
   public static String getClassFromPath (@Nullable final String sPath)
   {
-    return sPath == null ? null : sPath.replace ('\\', '.').replace ('/', '.');
+    return sPath == null ? null : StringHelper.replaceMultipleAsString (sPath, new char [] { '\\', '/' }, '.');
   }
 
   /**

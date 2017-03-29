@@ -16,6 +16,7 @@
  */
 package com.helger.commons.concurrent;
 
+import java.util.Locale;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicLong;
@@ -244,7 +245,7 @@ public class BasicThreadFactory implements ThreadFactory
     if (m_sNamingPattern != null)
     {
       final Long aCount = Long.valueOf (m_aThreadCounter.incrementAndGet ());
-      aThread.setName (String.format (m_sNamingPattern, aCount));
+      aThread.setName (String.format (Locale.US, m_sNamingPattern, aCount));
     }
 
     if (m_aUncaughtExceptionHandler != null)

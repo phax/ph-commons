@@ -20,11 +20,13 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.StringReader;
 
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
+
+import com.helger.commons.io.stream.NonBlockingBufferedReader;
+import com.helger.commons.io.stream.NonBlockingStringReader;
 
 /**
  * Test class for class {@link ICSVLineReader}.
@@ -39,12 +41,13 @@ public final class ICSVLineReaderTest
   private static final String EMPTY_STRING = "";
   private static final String NULL_STRING = null;
 
+  @SuppressWarnings ("deprecation")
   @Nonnull
   private static ICSVLineReader createLineReaderforString (@Nonnull final String s, final boolean bKeepCR)
   {
-    final StringReader sr = new StringReader (s);
+    final NonBlockingStringReader sr = new NonBlockingStringReader (s);
     if (bKeepCR)
-      return new CSVLineReaderKeepCR (new BufferedReader (sr));
+      return new CSVLineReaderKeepCR (new NonBlockingBufferedReader (sr));
     return new CSVLineReaderBufferedReader (new BufferedReader (sr));
   }
 

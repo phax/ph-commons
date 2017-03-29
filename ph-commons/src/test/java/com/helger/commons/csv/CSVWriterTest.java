@@ -46,7 +46,6 @@ import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 
 import org.junit.Test;
 
@@ -91,7 +90,7 @@ public final class CSVWriterTest
     final CSVWriter aWriter = new CSVWriter (aSW).setQuoteChar ('\'');
     aWriter.writeNext ((String []) null);
     assertEquals (0, aSW.getAsString ().length ());
-    aWriter.writeNext ((List <String>) null);
+    aWriter.writeNext ((ICommonsList <String>) null);
     assertEquals (0, aSW.getAsString ().length ());
   }
 
@@ -102,7 +101,7 @@ public final class CSVWriterTest
     final CSVWriter aWriter = new CSVWriter (aSW).setQuoteChar ('\'');
     aWriter.writeNext ((String []) null, false);
     assertEquals (0, aSW.getAsString ().length ());
-    aWriter.writeNext ((List <String>) null, false);
+    aWriter.writeNext ((ICommonsList <String>) null, false);
     assertEquals (0, aSW.getAsString ().length ());
   }
 
@@ -218,7 +217,7 @@ public final class CSVWriterTest
     aWriter.writeAll (allElements);
 
     final String result = aSW.getAsString ();
-    final String [] lines = result.split ("\n");
+    final String [] lines = StringHelper.getExplodedArray ('\n', result.trim ());
 
     assertEquals (3, lines.length);
   }
@@ -242,11 +241,11 @@ public final class CSVWriterTest
     aWriter.writeAll (allElements, false);
 
     final String result = aSW.getAsString ();
-    final String [] lines = result.split ("\n");
+    final String [] lines = StringHelper.getExplodedArray ('\n', result.trim ());
 
     assertEquals (3, lines.length);
 
-    final String [] values = lines[1].split (",");
+    final String [] values = StringHelper.getExplodedArray (',', lines[1]);
     assertEquals ("1234", values[1]);
   }
 
