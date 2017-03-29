@@ -176,21 +176,21 @@
             <signaturesArtifact>
               <groupId>com.helger</groupId>
               <artifactId>ph-forbidden-apis</artifactId>
-              <version>1.0.0-SNAPSHOT</version>
+              <version>1.0.0</version>
               <type>jar</type>
               <path>forbidden-apis.txt</path>
             </signaturesArtifact>
           </signaturesArtifacts>
           <excludes>
             <!-- uses String methods -->
-            <exclude>**/Benchmark*</exclude>
+            <exclude>**/Benchmark*.class</exclude>
             <!-- uses java.util.Properties -->
-            <exclude>**/IPrivilegedAction*</exclude>
-            <exclude>**/PropertiesHelper*</exclude>
+            <exclude>**/IPrivilegedAction.class</exclude>
+            <exclude>**/PropertiesHelper.class</exclude>
             <!-- java.security.provider extends java.util.properties -->
-            <exclude>**/JavaListDigestProviderFuncTest*</exclude>
-            <exclude>**/EMacAlgorithm*</exclude>
-            <exclude>**/EMessageDigestAlgorithm*</exclude>
+            <exclude>**/JavaListDigestProviderFuncTest.class</exclude>
+            <exclude>**/EMacAlgorithm.class</exclude>
+            <exclude>**/EMessageDigestAlgorithm.class</exclude>
           </excludes>
         </configuration>
         <!-- local executions are ignored -->
