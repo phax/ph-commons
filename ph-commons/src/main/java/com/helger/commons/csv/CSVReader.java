@@ -105,6 +105,7 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
    *        <code>true</code> to keep carriage returns in data read,
    *        <code>false</code> otherwise
    */
+  @SuppressWarnings ("deprecation")
   public CSVReader (@Nonnull @WillCloseWhenClosed final Reader aReader,
                     @Nonnull final CSVParser aParser,
                     final boolean bKeepCR)
@@ -366,7 +367,7 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
   @ReturnsMutableCopy
   public ICommonsList <ICommonsList <String>> readAll () throws IOException
   {
-    final ICommonsList <ICommonsList <String>> ret = new CommonsArrayList<> ();
+    final ICommonsList <ICommonsList <String>> ret = new CommonsArrayList <> ();
     while (m_bHasNext)
     {
       final ICommonsList <String> aNextLineAsTokens = readNext ();
