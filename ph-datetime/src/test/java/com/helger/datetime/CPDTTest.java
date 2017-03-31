@@ -100,6 +100,7 @@ public final class CPDTTest
   {
     assertEquals (0, CPDT.NULL_PERIOD.getDays ());
     assertEquals (0, CPDT.NULL_PERIOD.getMonths ());
+    assertEquals (0, CPDT.NULL_PERIOD.toTotalMonths ());
     assertEquals (0, CPDT.NULL_PERIOD.getYears ());
   }
 
