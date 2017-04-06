@@ -24,6 +24,9 @@ This project was the following modules:
 
 ## News and noteworthy
 
+  * v8.6.4 - work in progress
+    * Some performance improvements
+    * Fixed error in `StringHelper.replaceMultipleAsString`
   * v8.6.3 - 2017-03-28
     * Deprecated some String-based `FileHelper` APIs
     * Improved CertificateHelper parsing

@@ -1919,7 +1919,7 @@ public final class StringHelper
     return getExploded (cSep,
                         sElements,
                         nMaxItems,
-                        nMaxItems >= 1 ? new CommonsArrayList<> (nMaxItems) : new CommonsArrayList<> ());
+                        nMaxItems >= 1 ? new CommonsArrayList <> (nMaxItems) : new CommonsArrayList <> ());
   }
 
   /**
@@ -2070,7 +2070,7 @@ public final class StringHelper
     return getExploded (sSep,
                         sElements,
                         nMaxItems,
-                        nMaxItems >= 1 ? new CommonsArrayList<> (nMaxItems) : new CommonsArrayList<> ());
+                        nMaxItems >= 1 ? new CommonsArrayList <> (nMaxItems) : new CommonsArrayList <> ());
   }
 
   /**
@@ -2090,7 +2090,7 @@ public final class StringHelper
   @ReturnsMutableCopy
   public static CommonsHashSet <String> getExplodedToSet (@Nonnull final String sSep, @Nullable final String sElements)
   {
-    return getExploded (sSep, sElements, -1, new CommonsHashSet<> ());
+    return getExploded (sSep, sElements, -1, new CommonsHashSet <> ());
   }
 
   /**
@@ -2112,7 +2112,7 @@ public final class StringHelper
   public static CommonsLinkedHashSet <String> getExplodedToOrderedSet (@Nonnull final String sSep,
                                                                        @Nullable final String sElements)
   {
-    return getExploded (sSep, sElements, -1, new CommonsLinkedHashSet<> ());
+    return getExploded (sSep, sElements, -1, new CommonsLinkedHashSet <> ());
   }
 
   /**
@@ -2133,7 +2133,7 @@ public final class StringHelper
   public static CommonsTreeSet <String> getExplodedToSortedSet (@Nonnull final String sSep,
                                                                 @Nullable final String sElements)
   {
-    return getExploded (sSep, sElements, -1, new CommonsTreeSet<> ());
+    return getExploded (sSep, sElements, -1, new CommonsTreeSet <> ());
   }
 
   /**
@@ -4042,7 +4042,7 @@ public final class StringHelper
       return "";
 
     final StringBuilder aSB = new StringBuilder (sInputString.length ());
-    replaceMultipleTo (sInputString, aSearchChars, '_', aSB);
+    replaceMultipleTo (sInputString, aSearchChars, cReplacementChar, aSB);
     return aSB.toString ();
   }
 

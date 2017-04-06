@@ -48,14 +48,20 @@ public abstract class AbstractStatisticsHandlerNumeric implements IStatisticsHan
 
   protected final void addValue (final long nValue)
   {
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLock ().lock ();
+    try
+    {
       m_nInvocationCount++;
       if (m_nMin == CGlobal.ILLEGAL_ULONG || nValue < m_nMin)
         m_nMin = nValue;
       if (m_nMax == CGlobal.ILLEGAL_ULONG || nValue > m_nMax)
         m_nMax = nValue;
       m_aSum = m_aSum.add (BigInteger.valueOf (nValue));
-    });
+    }
+    finally
+    {
+      m_aRWLock.writeLock ().unlock ();
+    }
   }
 
   @Nonnull

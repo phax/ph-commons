@@ -24,6 +24,7 @@ import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.CGlobal;
@@ -111,6 +112,7 @@ public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisti
 
   private final transient SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   private final AtomicInteger m_aInvocationCount = new AtomicInteger (0);
+  @GuardedBy ("m_aRWLock")
   private final ICommonsMap <String, Value> m_aMap = new CommonsHashMap <> ();
 
   @Nonnegative
@@ -129,13 +131,21 @@ public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisti
   protected final void addValue (@Nullable final String sKey, final long nValue)
   {
     m_aInvocationCount.incrementAndGet ();
-    m_aRWLock.writeLocked ( () -> {
+
+    // Better performance when done manually
+    m_aRWLock.writeLock ().lock ();
+    try
+    {
       final Value aValue = m_aMap.get (sKey);
       if (aValue == null)
         m_aMap.put (sKey, new Value (nValue));
       else
         aValue.add (nValue);
-    });
+    }
+    finally
+    {
+      m_aRWLock.writeLock ().unlock ();
+    }
   }
 
   @CheckForSigned
