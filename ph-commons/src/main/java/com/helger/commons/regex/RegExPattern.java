@@ -24,10 +24,9 @@ import java.util.regex.PatternSyntaxException;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.RegEx;
-import javax.annotation.concurrent.ThreadSafe;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.hashcode.IHashCodeGenerator;
@@ -39,17 +38,16 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-@ThreadSafe
-@DevelopersNote ("The mutable m_aHashCode does not contradict thread safety")
+@NotThreadSafe
 public final class RegExPattern implements Serializable
 {
   private static final AtomicBoolean s_aCheckConsistencyEnabled = new AtomicBoolean (false);
 
   private final String m_sRegEx;
   private final int m_nOptions;
-  private Pattern m_aPattern;
 
   // Status vars
+  private transient Pattern m_aPattern;
   private transient int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
   public static boolean areDebugConsistencyChecksEnabled ()
@@ -118,19 +116,6 @@ public final class RegExPattern implements Serializable
 
     if (areDebugConsistencyChecksEnabled ())
       checkPatternConsistency (sRegEx);
-
-    try
-    {
-      m_aPattern = Pattern.compile (m_sRegEx, m_nOptions);
-    }
-    catch (final PatternSyntaxException ex)
-    {
-      throw new IllegalArgumentException ("Regular expression '" +
-                                          m_sRegEx +
-                                          "' is illegal" +
-                                          (m_nOptions == 0 ? "" : " with options " + m_nOptions),
-                                          ex);
-    }
   }
 
   /**
@@ -160,7 +145,24 @@ public final class RegExPattern implements Serializable
   @Nonnull
   public Pattern getAsPattern ()
   {
-    return m_aPattern;
+    Pattern ret = m_aPattern;
+    if (ret == null)
+    {
+      // Lazily initialize
+      try
+      {
+        m_aPattern = ret = Pattern.compile (m_sRegEx, m_nOptions);
+      }
+      catch (final PatternSyntaxException ex)
+      {
+        throw new IllegalArgumentException ("Regular expression '" +
+                                            m_sRegEx +
+                                            "' is illegal" +
+                                            (m_nOptions == 0 ? "" : " with options " + m_nOptions),
+                                            ex);
+      }
+    }
+    return ret;
   }
 
   @Override
