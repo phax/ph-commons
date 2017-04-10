@@ -58,7 +58,7 @@ public final class URLProtocolRegistry
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
-  private final ICommonsMap <String, IURLProtocol> m_aProtocols = new CommonsHashMap<> ();
+  private final ICommonsMap <String, IURLProtocol> m_aProtocols = new CommonsHashMap <> ();
 
   private URLProtocolRegistry ()
   {
@@ -130,7 +130,19 @@ public final class URLProtocolRegistry
     if (sURL == null)
       return null;
 
-    return m_aRWLock.readLocked ( () -> m_aProtocols.findFirstValue (x -> x.getValue ().isUsedInURL (sURL)));
+    // Is called often - so no Lambdas
+    m_aRWLock.readLock ().lock ();
+    try
+    {
+      for (final IURLProtocol aProtocol : m_aProtocols.values ())
+        if (aProtocol.isUsedInURL (sURL))
+          return aProtocol;
+      return null;
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
+    }
   }
 
   /**
