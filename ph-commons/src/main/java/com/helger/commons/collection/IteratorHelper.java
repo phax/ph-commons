@@ -295,6 +295,7 @@ public final class IteratorHelper
    * @param aConsumer
    *        Callback. May not be <code>null</code>.
    */
+  @Deprecated
   public static void forEach (final int nStartIncl, final int nEndExcl, @Nonnull final IntConsumer aConsumer)
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
@@ -310,6 +311,7 @@ public final class IteratorHelper
    * @param aConsumer
    *        Callback. May not be <code>null</code>.
    */
+  @Deprecated
   public static void forEach (final int nEndExcl, @Nonnull final IntConsumer aConsumer)
   {
     forEach (0, nEndExcl, aConsumer);

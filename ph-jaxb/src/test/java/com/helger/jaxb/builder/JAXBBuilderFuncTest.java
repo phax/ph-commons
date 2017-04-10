@@ -21,8 +21,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 import javax.xml.stream.XMLOutputFactory;
@@ -32,7 +30,7 @@ import javax.xml.stream.XMLStreamWriter;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
-import com.helger.commons.collection.IteratorHelper;
+import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.xml.microdom.IMicroDocument;
 
 public final class JAXBBuilderFuncTest
@@ -60,12 +58,13 @@ public final class JAXBBuilderFuncTest
   {
     final com.helger.jaxb.mock.external.MockJAXBArchive aArc = new com.helger.jaxb.mock.external.MockJAXBArchive ();
     aArc.setVersion ("1.23");
-    IteratorHelper.forEach (5, i -> {
+    for (int i = 0; i < 5; ++i)
+    {
       final com.helger.jaxb.mock.external.MockJAXBCollection aCollection = new com.helger.jaxb.mock.external.MockJAXBCollection ();
       aCollection.setDescription ("Internal bla foo");
       aCollection.setID (i);
       aArc.getCollection ().add (aCollection);
-    });
+    }
 
     final MockExternalArchiveWriterBuilder aWriter = new MockExternalArchiveWriterBuilder ().setCharset (StandardCharsets.ISO_8859_1);
     String sText = aWriter.getAsString (aArc);
@@ -80,12 +79,13 @@ public final class JAXBBuilderFuncTest
   {
     final com.helger.jaxb.mock.external.MockJAXBArchive aArc = new com.helger.jaxb.mock.external.MockJAXBArchive ();
     aArc.setVersion ("1.23");
-    IteratorHelper.forEach (5, i -> {
+    for (int i = 0; i < 5; ++i)
+    {
       final com.helger.jaxb.mock.external.MockJAXBCollection aCollection = new com.helger.jaxb.mock.external.MockJAXBCollection ();
       aCollection.setDescription ("Internal bla foo");
       aCollection.setID (i);
       aArc.getCollection ().add (aCollection);
-    });
+    }
 
     final MockExternalArchiveWriterBuilder aWriter = new MockExternalArchiveWriterBuilder ().setFormattedOutput (true);
     String sText = aWriter.getAsString (aArc);
@@ -118,19 +118,20 @@ public final class JAXBBuilderFuncTest
   }
 
   @Test
-  public void testStreamWriter () throws XMLStreamException, IOException
+  public void testStreamWriter () throws XMLStreamException
   {
     final XMLOutputFactory aOF = XMLOutputFactory.newInstance ();
-    final XMLStreamWriter aSW = aOF.createXMLStreamWriter (new FileWriter ("target/stream-writer-test.xml"));
+    final XMLStreamWriter aSW = aOF.createXMLStreamWriter (new NonBlockingStringWriter ());
 
     final com.helger.jaxb.mock.internal.MockJAXBArchive aArc = new com.helger.jaxb.mock.internal.MockJAXBArchive ();
     aArc.setVersion ("1.23");
-    IteratorHelper.forEach (5, i -> {
+    for (int i = 0; i < 5; ++i)
+    {
       final com.helger.jaxb.mock.internal.MockJAXBCollection aCollection = new com.helger.jaxb.mock.internal.MockJAXBCollection ();
       aCollection.setDescription ("Internal bla foo");
       aCollection.setID (i);
       aArc.getCollection ().add (aCollection);
-    });
+    }
 
     final MockInternalArchiveWriterBuilder aWriter = new MockInternalArchiveWriterBuilder ();
     aWriter.write (aArc, aSW);
