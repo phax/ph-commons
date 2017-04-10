@@ -30,7 +30,6 @@ import com.helger.commons.annotation.ELockType;
 import com.helger.commons.annotation.MustBeLocked;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.Singleton;
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.charset.EUnicodeBOM;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
@@ -73,7 +72,7 @@ public final class MimeTypeDeterminator
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
   // Contains all byte[] to mime type mappings
-  private final ICommonsSet <MimeTypeContent> m_aMimeTypeContents = new CommonsHashSet<> ();
+  private final ICommonsSet <MimeTypeContent> m_aMimeTypeContents = new CommonsHashSet <> ();
 
   private MimeTypeDeterminator ()
   {
@@ -96,7 +95,7 @@ public final class MimeTypeDeterminator
     // Add all XML mime types: as the combination of all BOMs and all character
     // encodings as determined by
     // http://www.w3.org/TR/REC-xml/#sec-guessing
-    final ICommonsList <byte []> aXMLStuff = new CommonsArrayList<> ();
+    final ICommonsList <byte []> aXMLStuff = new CommonsArrayList <> ();
     // UCS4
     aXMLStuff.add (new byte [] { 0x3c, 0x00, 0x00, 0x00, 0x3f, 0x00, 0x00, 0x00 });
     aXMLStuff.add (new byte [] { 0x00, 0x3c, 0x00, 0x00, 0x00, 0x3f, 0x00, 0x00 });
@@ -203,7 +202,7 @@ public final class MimeTypeDeterminator
                                           @Nonnull final Charset aCharset,
                                           @Nullable final IMimeType aDefault)
   {
-    return getMimeTypeFromBytes (s == null ? null : CharsetManager.getAsBytes (s, aCharset), aDefault);
+    return getMimeTypeFromBytes (s == null ? null : s.getBytes (aCharset), aDefault);
   }
 
   /**

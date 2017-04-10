@@ -120,7 +120,7 @@ public abstract class AbstractRFC1522Codec implements ICodec <String>
     if (sText == null)
       return null;
 
-    final byte [] aDecodedBuffer = CharsetManager.getAsBytes (sText, m_aCharset);
+    final byte [] aDecodedBuffer = sText.getBytes (m_aCharset);
     final byte [] aEncodedData = getEncoded (aDecodedBuffer, 0, aDecodedBuffer.length);
 
     final StringBuilder aSB = new StringBuilder ();
@@ -129,7 +129,7 @@ public abstract class AbstractRFC1522Codec implements ICodec <String>
        .append (SEP)
        .append (getRFC1522Encoding ())
        .append (SEP)
-       .append (CharsetManager.getAsString (aEncodedData, StandardCharsets.US_ASCII))
+       .append (StringHelper.decodeBytesToChars (aEncodedData, StandardCharsets.US_ASCII))
        .append (POSTFIX);
     return aSB.toString ();
   }
@@ -184,9 +184,8 @@ public abstract class AbstractRFC1522Codec implements ICodec <String>
     // Read encoded data
     nFrom = nTo + 1;
     nTo = sEncodedText.indexOf (SEP, nFrom);
-    final byte [] aEncodedBytes = CharsetManager.getAsBytes (sEncodedText.substring (nFrom, nTo),
-                                                             StandardCharsets.US_ASCII);
+    final byte [] aEncodedBytes = sEncodedText.substring (nFrom, nTo).getBytes (StandardCharsets.US_ASCII);
     final byte [] aDecodedBytes = getDecoded (aEncodedBytes, 0, aEncodedBytes.length);
-    return CharsetManager.getAsString (aDecodedBytes, aDestCharset);
+    return new String (aDecodedBytes, aDestCharset);
   }
 }

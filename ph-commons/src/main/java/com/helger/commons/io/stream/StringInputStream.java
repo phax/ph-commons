@@ -20,8 +20,6 @@ import java.nio.charset.Charset;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.charset.CharsetManager;
-
 /**
  * An input stream based on an input String.
  *
@@ -31,6 +29,6 @@ public class StringInputStream extends NonBlockingByteArrayInputStream
 {
   public StringInputStream (@Nonnull final String sInput, @Nonnull final Charset aCharset)
   {
-    super (CharsetManager.getAsBytes (sInput, aCharset));
+    super (sInput.getBytes (aCharset));
   }
 }

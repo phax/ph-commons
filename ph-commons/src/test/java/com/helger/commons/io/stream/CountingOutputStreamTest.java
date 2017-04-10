@@ -24,8 +24,6 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CharsetManager;
-
 /**
  * Test class for class {@link CountingOutputStream}.
  *
@@ -38,8 +36,7 @@ public final class CountingOutputStreamTest
   {
     final String sTestString = "test 123 - This counts!";
     final CountingOutputStream aCOS = new CountingOutputStream (new NonBlockingByteArrayOutputStream ());
-    StreamHelper.copyInputStreamToOutputStream (new NonBlockingByteArrayInputStream (CharsetManager.getAsBytes (sTestString,
-                                                                                                                StandardCharsets.ISO_8859_1)),
+    StreamHelper.copyInputStreamToOutputStream (new NonBlockingByteArrayInputStream (sTestString.getBytes (StandardCharsets.ISO_8859_1)),
                                                 aCOS);
     assertEquals (sTestString.length (), aCOS.getBytesWritten ());
     aCOS.write (5);

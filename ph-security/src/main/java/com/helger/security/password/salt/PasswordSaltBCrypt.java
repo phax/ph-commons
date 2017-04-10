@@ -26,7 +26,6 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
@@ -64,7 +63,7 @@ public final class PasswordSaltBCrypt implements IPasswordSalt
   {
     ValueEnforcer.isGT0 (nRounds, "Rounds");
     m_sSalt = BCrypt.gensalt (nRounds);
-    m_aBytes = CharsetManager.getAsBytes (m_sSalt, StandardCharsets.UTF_8);
+    m_aBytes = m_sSalt.getBytes (StandardCharsets.UTF_8);
   }
 
   @Nonnegative

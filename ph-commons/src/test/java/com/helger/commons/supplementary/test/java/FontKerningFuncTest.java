@@ -36,7 +36,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -174,7 +173,7 @@ public final class FontKerningFuncTest
       {
         m_nBytePosition += tagBytes.length;
         StreamHelper.readFully (aIS, tagBytes);
-        final String tag = CharsetManager.getAsString (tagBytes, StandardCharsets.ISO_8859_1);
+        final String tag = new String (tagBytes, StandardCharsets.ISO_8859_1);
 
         _skip (aIS, 4);
         final long nOffset = _readUnsignedInt (aIS);

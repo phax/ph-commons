@@ -78,12 +78,12 @@ public final class CharsetManagerTest
   public void testGetAsBytesCharset ()
   {
     final String s = "äbc";
-    assertEquals (3, CharsetManager.getAsBytes (s, StandardCharsets.ISO_8859_1).length);
-    assertEquals (4, CharsetManager.getAsBytes (s, StandardCharsets.UTF_8).length);
+    assertEquals (3, s.getBytes (StandardCharsets.ISO_8859_1).length);
+    assertEquals (4, s.getBytes (StandardCharsets.UTF_8).length);
 
     try
     {
-      CharsetManager.getAsBytes (s, (Charset) null);
+      s.getBytes ((Charset) null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -95,24 +95,17 @@ public final class CharsetManagerTest
   {
     final String s = "äbc";
     assertEquals (3,
-                  CharsetManager.getAsStringInOtherCharset (s,
-                                                            StandardCharsets.ISO_8859_1,
-                                                            StandardCharsets.UTF_8)
+                  CharsetManager.getAsStringInOtherCharset (s, StandardCharsets.ISO_8859_1, StandardCharsets.UTF_8)
                                 .length ());
     assertEquals (4,
-                  CharsetManager.getAsStringInOtherCharset (s,
-                                                            StandardCharsets.UTF_8,
-                                                            StandardCharsets.ISO_8859_1)
+                  CharsetManager.getAsStringInOtherCharset (s, StandardCharsets.UTF_8, StandardCharsets.ISO_8859_1)
                                 .length ());
-    assertNull (CharsetManager.getAsStringInOtherCharset (null,
-                                                          StandardCharsets.ISO_8859_1,
-                                                          StandardCharsets.UTF_8));
+    assertNull (CharsetManager.getAsStringInOtherCharset (null, StandardCharsets.ISO_8859_1, StandardCharsets.UTF_8));
     assertEquals (s,
                   CharsetManager.getAsStringInOtherCharset (s,
                                                             StandardCharsets.ISO_8859_1,
                                                             StandardCharsets.ISO_8859_1));
-    assertEquals (s,
-                  CharsetManager.getAsStringInOtherCharset (s, StandardCharsets.UTF_8, StandardCharsets.UTF_8));
+    assertEquals (s, CharsetManager.getAsStringInOtherCharset (s, StandardCharsets.UTF_8, StandardCharsets.UTF_8));
 
     try
     {
@@ -134,11 +127,11 @@ public final class CharsetManagerTest
   public void testGreek () throws Exception
   {
     final String sAlpha = "?\u03B1";
-    byte [] b = CharsetManager.getAsBytes (sAlpha, StandardCharsets.UTF_8);
-    assertEquals (sAlpha, CharsetManager.getAsString (b, StandardCharsets.UTF_8));
+    byte [] b = sAlpha.getBytes (StandardCharsets.UTF_8);
+    assertEquals (sAlpha, new String (b, StandardCharsets.UTF_8));
 
-    b = CharsetManager.getAsBytes (sAlpha, StandardCharsets.UTF_8);
-    assertEquals (sAlpha, CharsetManager.getAsString (b, StandardCharsets.UTF_8));
+    b = sAlpha.getBytes (StandardCharsets.UTF_8);
+    assertEquals (sAlpha, new String (b, StandardCharsets.UTF_8));
 
     NonBlockingBufferedReader aReader = new NonBlockingBufferedReader (new InputStreamReader (new NonBlockingByteArrayInputStream (b),
                                                                                               StandardCharsets.UTF_8));
@@ -212,7 +205,7 @@ public final class CharsetManagerTest
       assertTrue (nCounted >= nStringLen);
 
       // Convert and count
-      final byte [] b = CharsetManager.getAsBytes (aSB.toString (), StandardCharsets.UTF_8);
+      final byte [] b = aSB.toString ().getBytes (StandardCharsets.UTF_8);
       assertTrue (b.length >= nStringLen);
 
       // Must be equals

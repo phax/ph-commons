@@ -28,7 +28,6 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.resource.ClassPathResource;
 
@@ -44,12 +43,12 @@ public final class SimpleFileIOTest
   {
     final String s = "äöü text";
     final File f = new File ("dummy.txt");
-    assertTrue (SimpleFileIO.writeFile (f, CharsetManager.getAsBytes (s, StandardCharsets.ISO_8859_1)).isSuccess ());
+    assertTrue (SimpleFileIO.writeFile (f, s.getBytes (StandardCharsets.ISO_8859_1)).isSuccess ());
     try
     {
       final byte [] aBytes = SimpleFileIO.getAllFileBytes (f);
       assertNotNull (aBytes);
-      assertArrayEquals (aBytes, CharsetManager.getAsBytes (s, StandardCharsets.ISO_8859_1));
+      assertArrayEquals (aBytes, s.getBytes (StandardCharsets.ISO_8859_1));
       assertNull (SimpleFileIO.getAllFileBytes ((File) null));
       assertNull (SimpleFileIO.getAllFileBytes (new File ("non existing file")));
     }

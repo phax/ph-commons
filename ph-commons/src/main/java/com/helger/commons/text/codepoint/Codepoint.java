@@ -26,10 +26,10 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.compare.IComparable;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -54,7 +54,7 @@ public class Codepoint implements IComparable <Codepoint>
    */
   public Codepoint (@Nonnull final byte [] aBytes, @Nonnull final Charset aEncoding)
   {
-    this (CharsetManager.getAsString (aBytes, aEncoding));
+    this (StringHelper.decodeBytesToChars (aBytes, aEncoding));
   }
 
   private static int _getValueFromCharSequence (@Nonnull final CharSequence s)
@@ -155,8 +155,7 @@ public class Codepoint implements IComparable <Codepoint>
    */
   public Codepoint (@Nonnegative final int nValue)
   {
-    if (!Character.isValidCodePoint (nValue))
-      throw new IllegalArgumentException ("Invalid Codepoint: " + nValue);
+    ValueEnforcer.isTrue (Character.isValidCodePoint (nValue), () -> "Invalid Codepoint: " + nValue);
     m_nValue = nValue;
   }
 
@@ -273,7 +272,7 @@ public class Codepoint implements IComparable <Codepoint>
   @Nonnull
   public byte [] getAsBytes (@Nonnull final Charset aCharset)
   {
-    return CharsetManager.getAsBytes (getAsString (), aCharset);
+    return getAsString ().getBytes (aCharset);
   }
 
   /**

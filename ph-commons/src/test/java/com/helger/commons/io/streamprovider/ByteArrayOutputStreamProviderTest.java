@@ -25,7 +25,6 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.stream.NonBlockingStringReader;
 import com.helger.commons.io.stream.StreamHelper;
@@ -44,11 +43,10 @@ public final class ByteArrayOutputStreamProviderTest
     final ByteArrayOutputStreamProvider aOSP = new ByteArrayOutputStreamProvider ();
     final OutputStream aOS = aOSP.getOutputStream (EAppend.DEFAULT);
     assertNotNull (aOS);
-    StreamHelper.copyInputStreamToOutputStreamAndCloseOS (new StringInputStream ("Hiho",
-                                                                                 StandardCharsets.ISO_8859_1),
+    StreamHelper.copyInputStreamToOutputStreamAndCloseOS (new StringInputStream ("Hiho", StandardCharsets.ISO_8859_1),
                                                           aOS);
     assertEquals ("Hiho", aOSP.getAsString (StandardCharsets.ISO_8859_1));
-    assertArrayEquals (CharsetManager.getAsBytes ("Hiho", StandardCharsets.ISO_8859_1), aOSP.getBytes ());
+    assertArrayEquals ("Hiho".getBytes (StandardCharsets.ISO_8859_1), aOSP.getBytes ());
     // Close the underlying OS
     StreamHelper.close (aOSP.getWriter (StandardCharsets.UTF_8, EAppend.DEFAULT));
 

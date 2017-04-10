@@ -29,7 +29,6 @@ import javax.annotation.WillNotClose;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.IWriteToStream;
 import com.helger.commons.lang.IHasSize;
@@ -281,7 +280,7 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   @Nonnull
   public String getAsString (@Nonnull final Charset aCharset)
   {
-    return CharsetManager.getAsString (m_aBuf, 0, m_nCount, aCharset);
+    return new String (m_aBuf, 0, m_nCount, aCharset);
   }
 
   /**
@@ -305,7 +304,7 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   public String getAsString (@Nonnegative final int nLength, @Nonnull final Charset aCharset)
   {
     ValueEnforcer.isBetweenInclusive (nLength, "Length", 0, m_nCount);
-    return CharsetManager.getAsString (m_aBuf, 0, nLength, aCharset);
+    return new String (m_aBuf, 0, nLength, aCharset);
   }
 
   /**
@@ -334,7 +333,7 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.isBetweenInclusive (nLength, "Length", 0, m_nCount);
-    return CharsetManager.getAsString (m_aBuf, nIndex, nLength, aCharset);
+    return new String (m_aBuf, nIndex, nLength, aCharset);
   }
 
   /**

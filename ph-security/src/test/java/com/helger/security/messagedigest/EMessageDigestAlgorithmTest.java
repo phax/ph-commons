@@ -30,7 +30,6 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.codec.Base32Codec;
 import com.helger.commons.string.StringHelper;
 
@@ -72,7 +71,7 @@ public final class EMessageDigestAlgorithmTest
       final MessageDigest aMD2 = eAlgo.createMessageDigest ();
       for (int i = 0; i < 255; ++i)
       {
-        final byte [] aBytes = CharsetManager.getAsBytes ("abc" + i + "def", StandardCharsets.ISO_8859_1);
+        final byte [] aBytes = ("abc" + i + "def").getBytes (StandardCharsets.ISO_8859_1);
         aMD1.update ((byte) i);
         aMD1.update (aBytes);
         aMD2.update ((byte) i);
@@ -89,18 +88,17 @@ public final class EMessageDigestAlgorithmTest
   {
     final Base32Codec aBase32 = new Base32Codec ().setAddPaddding (false);
     assertEquals ("4444WYPIXHSTJGGABKB7QMG63KJNR7IFMXRALGPORDXI6ZF64HUA",
-                  aBase32.getEncodedAsString (MessageDigestValue.create (CharsetManager.getAsBytes ("urn:oasis:names:tc:ebcore:partyid-type:iso6523:0060:1234567890128",
-                                                                                                    CHARSET),
+                  aBase32.getEncodedAsString (MessageDigestValue.create ("urn:oasis:names:tc:ebcore:partyid-type:iso6523:0060:1234567890128".getBytes (CHARSET),
                                                                          EMessageDigestAlgorithm.SHA_256)
                                                                 .getAllDigestBytes (),
                                               CHARSET));
     assertEquals ("XJ4BNP4PAHH6UQKBIDPF3LRCEOYAGYNDSYLXVHFUCD7WD4QACWWQ",
-                  aBase32.getEncodedAsString (MessageDigestValue.create (CharsetManager.getAsBytes ("abc", CHARSET),
+                  aBase32.getEncodedAsString (MessageDigestValue.create ("abc".getBytes (CHARSET),
                                                                          EMessageDigestAlgorithm.SHA_256)
                                                                 .getAllDigestBytes (),
                                               CHARSET));
     assertEquals ("WXKAIXB7IZX2SH7CZRVL46JDFINFPTPRAT32E3TRNYFB4J4J354A",
-                  aBase32.getEncodedAsString (MessageDigestValue.create (CharsetManager.getAsBytes ("ABC", CHARSET),
+                  aBase32.getEncodedAsString (MessageDigestValue.create ("ABC".getBytes (CHARSET),
                                                                          EMessageDigestAlgorithm.SHA_256)
                                                                 .getAllDigestBytes (),
                                               CHARSET));

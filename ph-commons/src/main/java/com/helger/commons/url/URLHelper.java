@@ -246,7 +246,7 @@ public final class URLHelper
             if (nIndex < nLen && c == '%')
               throw new IllegalArgumentException ("URLDecoder: Incomplete trailing escape (%) pattern");
 
-            aSB.append (new String (aBytes, 0, nPos, aCharset));
+            aSB.append (StringHelper.decodeBytesToChars (aBytes, 0, nPos, aCharset));
           }
           catch (final NumberFormatException e)
           {

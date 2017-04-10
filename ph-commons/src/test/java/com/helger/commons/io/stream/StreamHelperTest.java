@@ -37,7 +37,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.exception.mock.MockIOException;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.resource.ClassPathResource;
@@ -138,7 +137,7 @@ public final class StreamHelperTest
   @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testCopyInputStreamToOutputStream ()
   {
-    final byte [] aInput = CharsetManager.getAsBytes ("Hallo", StandardCharsets.ISO_8859_1);
+    final byte [] aInput = "Hallo".getBytes (StandardCharsets.ISO_8859_1);
     final NonBlockingByteArrayInputStream bais = new NonBlockingByteArrayInputStream (aInput);
     final NonBlockingByteArrayOutputStream baos = new NonBlockingByteArrayOutputStream ();
     assertTrue (StreamHelper.copyInputStreamToOutputStream (bais, baos).isSuccess ());
@@ -186,7 +185,7 @@ public final class StreamHelperTest
   @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testCopyInputStreamToOutputStreamWithLimit ()
   {
-    final byte [] aInput = CharsetManager.getAsBytes ("Hello12Bytes", StandardCharsets.ISO_8859_1);
+    final byte [] aInput = "Hello12Bytes".getBytes (StandardCharsets.ISO_8859_1);
     final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
     assertTrue (StreamHelper.copyInputStreamToOutputStreamWithLimit (new NonBlockingByteArrayInputStream (aInput),
                                                                      aBAOS,
@@ -226,7 +225,7 @@ public final class StreamHelperTest
   @Test
   public void testGetAvailable ()
   {
-    final byte [] aInput = CharsetManager.getAsBytes ("Hallo", StandardCharsets.ISO_8859_1);
+    final byte [] aInput = "Hallo".getBytes (StandardCharsets.ISO_8859_1);
     assertEquals (5, StreamHelper.getAvailable (new NonBlockingByteArrayInputStream (aInput)));
     assertEquals (0, StreamHelper.getAvailable ((InputStream) null));
     assertEquals (0, StreamHelper.getAvailable (new WrappedInputStream (new NonBlockingByteArrayInputStream (aInput))
@@ -244,7 +243,7 @@ public final class StreamHelperTest
   public void testGetAllBytesCharset ()
   {
     final String sInput = "Hallo";
-    final byte [] aInput = CharsetManager.getAsBytes (sInput, StandardCharsets.ISO_8859_1);
+    final byte [] aInput = sInput.getBytes (StandardCharsets.ISO_8859_1);
     assertArrayEquals (aInput, StreamHelper.getAllBytes (new ByteArrayInputStreamProvider (aInput)));
     assertArrayEquals (aInput, StreamHelper.getAllBytes (new NonBlockingByteArrayInputStream (aInput)));
     assertNull (StreamHelper.getAllBytes ((IHasInputStream) null));
@@ -432,7 +431,7 @@ public final class StreamHelperTest
   @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testWriteStream ()
   {
-    final byte [] buf = CharsetManager.getAsBytes ("abcde", StandardCharsets.ISO_8859_1);
+    final byte [] buf = "abcde".getBytes (StandardCharsets.ISO_8859_1);
     final NonBlockingByteArrayOutputStream os = new NonBlockingByteArrayOutputStream ();
     assertTrue (StreamHelper.writeStream (os, buf).isSuccess ());
     assertTrue (StreamHelper.writeStream (os, buf, 0, buf.length).isSuccess ());

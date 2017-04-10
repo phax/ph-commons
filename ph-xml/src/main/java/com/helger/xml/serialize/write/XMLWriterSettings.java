@@ -27,7 +27,6 @@ import javax.xml.namespace.NamespaceContext;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ICloneable;
@@ -490,8 +489,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   public String toString ()
   {
     if (m_sIndentationStringToString == null)
-      m_sIndentationStringToString = StringHelper.getHexEncoded (CharsetManager.getAsBytes (m_sIndentationString,
-                                                                                            StandardCharsets.ISO_8859_1));
+      m_sIndentationStringToString = StringHelper.getHexEncoded (m_sIndentationString.getBytes (StandardCharsets.ISO_8859_1));
     return new ToStringGenerator (this).append ("xmlVersion", m_eXMLVersion)
                                        .append ("serializeXMLDecl", m_eSerializeXMLDecl)
                                        .append ("serializeDocType", m_eSerializeDocType)

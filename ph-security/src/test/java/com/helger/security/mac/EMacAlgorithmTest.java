@@ -31,7 +31,6 @@ import javax.crypto.SecretKey;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -72,7 +71,7 @@ public final class EMacAlgorithmTest
       aMD2.init (aSigningKey);
       for (int i = 0; i < 255; ++i)
       {
-        final byte [] aBytes = CharsetManager.getAsBytes ("abc" + i + "def", StandardCharsets.ISO_8859_1);
+        final byte [] aBytes = ("abc" + i + "def").getBytes (StandardCharsets.ISO_8859_1);
         aMD1.update ((byte) i);
         aMD1.update (aBytes);
         aMD2.update ((byte) i);

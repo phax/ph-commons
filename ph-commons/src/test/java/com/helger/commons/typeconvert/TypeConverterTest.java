@@ -38,7 +38,6 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsHashSet;
@@ -218,8 +217,7 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
                                                    ETopBottom.BOTTOM,
                                                    ETriState.UNDEFINED,
                                                    EValidity.VALID,
-                                                   CharsetManager.getAsBytes ("Jägalä",
-                                                                              StandardCharsets.ISO_8859_1),
+                                                   "Jägalä".getBytes (StandardCharsets.ISO_8859_1),
                                                    new StringBuffer ("Äh ja - wie is das jetzt?"),
                                                    new StringBuilder ("Thät lüks greyt!") };
     for (final Object aSrcValue : aDefinedObjs)

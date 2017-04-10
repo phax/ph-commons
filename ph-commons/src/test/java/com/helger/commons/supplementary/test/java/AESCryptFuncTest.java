@@ -31,7 +31,6 @@ import org.junit.Test;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.random.RandomHelper;
 import com.helger.commons.system.CryptoPolicy;
@@ -168,7 +167,7 @@ public final class AESCryptFuncTest
     final AESCrypter aCrypter = new AESCrypter (aMyKey);
 
     // Our cleartext
-    final byte [] cleartext = CharsetManager.getAsBytes ("This is just än example", StandardCharsets.ISO_8859_1);
+    final byte [] cleartext = "This is just än example".getBytes (StandardCharsets.ISO_8859_1);
 
     // Encrypt the cleartext
     final byte [] ciphertext = aCrypter.encrypt (cleartext);

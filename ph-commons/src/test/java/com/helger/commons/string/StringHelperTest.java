@@ -32,7 +32,6 @@ import java.util.Locale;
 import org.junit.Test;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsHashMap;
@@ -246,9 +245,8 @@ public final class StringHelperTest extends AbstractCommonsTestCase
 
     for (final String sString : new String [] { "Super", "Hallo", "", "Welt!", "fff" })
       assertEquals (sString,
-                    CharsetManager.getAsString (StringHelper.getHexDecoded (StringHelper.getHexEncoded (CharsetManager.getAsBytes (sString,
-                                                                                                                                   StandardCharsets.ISO_8859_1))),
-                                                StandardCharsets.ISO_8859_1));
+                    new String (StringHelper.getHexDecoded (StringHelper.getHexEncoded (sString.getBytes (StandardCharsets.ISO_8859_1))),
+                                StandardCharsets.ISO_8859_1));
 
     assertArrayEquals (new byte [] { 0 }, StringHelper.getHexDecoded ("00"));
     assertArrayEquals (new byte [] { 0, 1 }, StringHelper.getHexDecoded ("0001"));
@@ -416,7 +414,7 @@ public final class StringHelperTest extends AbstractCommonsTestCase
   @Test
   public void testImplodeIterable ()
   {
-    final ICommonsList <String> aList = new CommonsArrayList<> ("a", "b", "c");
+    final ICommonsList <String> aList = new CommonsArrayList <> ("a", "b", "c");
     assertEquals ("", StringHelper.getImploded (".", (String []) null));
     assertEquals ("", StringHelper.getImploded (".", (List <String>) null));
     assertEquals ("a.b.c", StringHelper.getImploded (".", aList));
@@ -563,7 +561,7 @@ public final class StringHelperTest extends AbstractCommonsTestCase
   @Test
   public void testGetImplodedNonEmptyIterable ()
   {
-    final ICommonsList <String> aList = new CommonsArrayList<> (null, "a", "", "b", null, "c", "");
+    final ICommonsList <String> aList = new CommonsArrayList <> (null, "a", "", "b", null, "c", "");
     assertEquals ("", StringHelper.getImplodedNonEmpty (".", (String []) null));
     assertEquals ("", StringHelper.getImplodedNonEmpty (".", (List <String>) null));
     assertEquals ("a.b.c", StringHelper.getImplodedNonEmpty (".", aList));
@@ -641,19 +639,19 @@ public final class StringHelperTest extends AbstractCommonsTestCase
   public void testGetExplodedToList ()
   {
     ICommonsList <String> ret = StringHelper.getExploded ("@", "a@b@@c");
-    assertEquals (new CommonsArrayList<> ("a", "b", "", "c"), ret);
+    assertEquals (new CommonsArrayList <> ("a", "b", "", "c"), ret);
     ret = StringHelper.getExploded ("uu", "auubuuuuuuc");
-    assertEquals (new CommonsArrayList<> ("a", "b", "", "", "c"), ret);
+    assertEquals (new CommonsArrayList <> ("a", "b", "", "", "c"), ret);
     ret = StringHelper.getExploded (".", "a.b...c");
-    assertEquals (new CommonsArrayList<> ("a", "b", "", "", "c"), ret);
+    assertEquals (new CommonsArrayList <> ("a", "b", "", "", "c"), ret);
     ret = StringHelper.getExploded ("o", "boo:and:foo");
-    assertEquals (new CommonsArrayList<> ("b", "", ":and:f", "", ""), ret);
+    assertEquals (new CommonsArrayList <> ("b", "", ":and:f", "", ""), ret);
     ret = StringHelper.getExploded ("@", "@a@b@@c");
-    assertEquals (new CommonsArrayList<> ("", "a", "b", "", "c"), ret);
+    assertEquals (new CommonsArrayList <> ("", "a", "b", "", "c"), ret);
     ret = StringHelper.getExploded ("@", "a@b@@c@");
-    assertEquals (new CommonsArrayList<> ("a", "b", "", "c", ""), ret);
+    assertEquals (new CommonsArrayList <> ("a", "b", "", "c", ""), ret);
     ret = StringHelper.getExploded ("@", "@a@b@@c@");
-    assertEquals (new CommonsArrayList<> ("", "a", "b", "", "c", ""), ret);
+    assertEquals (new CommonsArrayList <> ("", "a", "b", "", "c", ""), ret);
     assertTrue (StringHelper.getExploded ("@", null).isEmpty ());
 
     try
@@ -668,14 +666,14 @@ public final class StringHelperTest extends AbstractCommonsTestCase
   @Test
   public void testGetExplodedToListWithMax ()
   {
-    assertEquals (new CommonsArrayList<> ("a", "b", "", "c"), StringHelper.getExploded ("@", "a@b@@c", 5));
-    assertEquals (new CommonsArrayList<> ("a", "b", "", "c"), StringHelper.getExploded ("@", "a@b@@c", 4));
-    assertEquals (new CommonsArrayList<> ("a", "b", "@c"), StringHelper.getExploded ("@", "a@b@@c", 3));
-    assertEquals (new CommonsArrayList<> ("a", "b@@c"), StringHelper.getExploded ("@", "a@b@@c", 2));
-    assertEquals (new CommonsArrayList<> ("a@b@@c"), StringHelper.getExploded ("@", "a@b@@c", 1));
-    assertEquals (new CommonsArrayList<> ("a", "b", "", "c"), StringHelper.getExploded ("@", "a@b@@c", 0));
-    assertEquals (new CommonsArrayList<> ("a", "b", "", "c"), StringHelper.getExploded ("@", "a@b@@c", -1));
-    assertEquals (new CommonsArrayList<> ("a", "b", "", "c"), StringHelper.getExploded ("@", "a@b@@c", -2));
+    assertEquals (new CommonsArrayList <> ("a", "b", "", "c"), StringHelper.getExploded ("@", "a@b@@c", 5));
+    assertEquals (new CommonsArrayList <> ("a", "b", "", "c"), StringHelper.getExploded ("@", "a@b@@c", 4));
+    assertEquals (new CommonsArrayList <> ("a", "b", "@c"), StringHelper.getExploded ("@", "a@b@@c", 3));
+    assertEquals (new CommonsArrayList <> ("a", "b@@c"), StringHelper.getExploded ("@", "a@b@@c", 2));
+    assertEquals (new CommonsArrayList <> ("a@b@@c"), StringHelper.getExploded ("@", "a@b@@c", 1));
+    assertEquals (new CommonsArrayList <> ("a", "b", "", "c"), StringHelper.getExploded ("@", "a@b@@c", 0));
+    assertEquals (new CommonsArrayList <> ("a", "b", "", "c"), StringHelper.getExploded ("@", "a@b@@c", -1));
+    assertEquals (new CommonsArrayList <> ("a", "b", "", "c"), StringHelper.getExploded ("@", "a@b@@c", -2));
     assertTrue (StringHelper.getExploded ("@", null, 5).isEmpty ());
   }
 
@@ -697,19 +695,19 @@ public final class StringHelperTest extends AbstractCommonsTestCase
   public void testExplodeToSet ()
   {
     ICommonsSet <String> ret = StringHelper.getExplodedToSet ("@", "a@b@@c");
-    assertEquals (new CommonsHashSet<> ("a", "b", "", "c"), ret);
+    assertEquals (new CommonsHashSet <> ("a", "b", "", "c"), ret);
     ret = StringHelper.getExplodedToSet ("uu", "auubuuuuuuc");
-    assertEquals (new CommonsHashSet<> ("a", "b", "", "", "c"), ret);
+    assertEquals (new CommonsHashSet <> ("a", "b", "", "", "c"), ret);
     ret = StringHelper.getExplodedToSet (".", "a.b...c");
-    assertEquals (new CommonsHashSet<> ("a", "b", "", "", "c"), ret);
+    assertEquals (new CommonsHashSet <> ("a", "b", "", "", "c"), ret);
     ret = StringHelper.getExplodedToSet ("o", "boo:and:foo");
-    assertEquals (new CommonsHashSet<> ("b", "", ":and:f", "", ""), ret);
+    assertEquals (new CommonsHashSet <> ("b", "", ":and:f", "", ""), ret);
     ret = StringHelper.getExplodedToSet ("@", "@a@b@@c");
-    assertEquals (new CommonsHashSet<> ("", "a", "b", "", "c"), ret);
+    assertEquals (new CommonsHashSet <> ("", "a", "b", "", "c"), ret);
     ret = StringHelper.getExplodedToSet ("@", "a@b@@c@");
-    assertEquals (new CommonsHashSet<> ("a", "b", "", "c", ""), ret);
+    assertEquals (new CommonsHashSet <> ("a", "b", "", "c", ""), ret);
     ret = StringHelper.getExplodedToSet ("@", "@a@b@@c@");
-    assertEquals (new CommonsHashSet<> ("", "a", "b", "", "c", ""), ret);
+    assertEquals (new CommonsHashSet <> ("", "a", "b", "", "c", ""), ret);
     assertTrue (StringHelper.getExplodedToSet ("@", null).isEmpty ());
 
     try
@@ -725,19 +723,19 @@ public final class StringHelperTest extends AbstractCommonsTestCase
   public void testExplodeToOrderedSet ()
   {
     ICommonsOrderedSet <String> ret = StringHelper.getExplodedToOrderedSet ("@", "a@b@@c");
-    assertEquals (new CommonsHashSet<> ("a", "b", "", "c"), ret);
+    assertEquals (new CommonsHashSet <> ("a", "b", "", "c"), ret);
     ret = StringHelper.getExplodedToOrderedSet ("uu", "auubuuuuuuc");
-    assertEquals (new CommonsHashSet<> ("a", "b", "", "", "c"), ret);
+    assertEquals (new CommonsHashSet <> ("a", "b", "", "", "c"), ret);
     ret = StringHelper.getExplodedToOrderedSet (".", "a.b...c");
-    assertEquals (new CommonsHashSet<> ("a", "b", "", "", "c"), ret);
+    assertEquals (new CommonsHashSet <> ("a", "b", "", "", "c"), ret);
     ret = StringHelper.getExplodedToOrderedSet ("o", "boo:and:foo");
-    assertEquals (new CommonsHashSet<> ("b", "", ":and:f", "", ""), ret);
+    assertEquals (new CommonsHashSet <> ("b", "", ":and:f", "", ""), ret);
     ret = StringHelper.getExplodedToOrderedSet ("@", "@a@b@@c");
-    assertEquals (new CommonsHashSet<> ("", "a", "b", "", "c"), ret);
+    assertEquals (new CommonsHashSet <> ("", "a", "b", "", "c"), ret);
     ret = StringHelper.getExplodedToOrderedSet ("@", "a@b@@c@");
-    assertEquals (new CommonsHashSet<> ("a", "b", "", "c", ""), ret);
+    assertEquals (new CommonsHashSet <> ("a", "b", "", "c", ""), ret);
     ret = StringHelper.getExplodedToOrderedSet ("@", "@a@b@@c@");
-    assertEquals (new CommonsHashSet<> ("", "a", "b", "", "c", ""), ret);
+    assertEquals (new CommonsHashSet <> ("", "a", "b", "", "c", ""), ret);
     assertTrue (StringHelper.getExplodedToOrderedSet ("@", null).isEmpty ());
 
     try
@@ -1597,7 +1595,7 @@ public final class StringHelperTest extends AbstractCommonsTestCase
   @Test
   public void testReplaceMultipleMap ()
   {
-    final ICommonsMap <String, String> aMap = new CommonsHashMap<> ();
+    final ICommonsMap <String, String> aMap = new CommonsHashMap <> ();
     aMap.put ("Hallo", "Hi");
     aMap.put ("Welt", "world");
     aMap.put ("!", "???");

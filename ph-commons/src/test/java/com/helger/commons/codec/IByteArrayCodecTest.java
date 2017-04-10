@@ -25,7 +25,6 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.random.RandomHelper;
 
@@ -72,8 +71,8 @@ public final class IByteArrayCodecTest
   private void _testCodec (@Nonnull final IByteArrayCodec c)
   {
     _testCodec (c, new byte [0]);
-    _testCodec (c, CharsetManager.getAsBytes ("Hallo JÜnit", StandardCharsets.ISO_8859_1));
-    _testCodec (c, CharsetManager.getAsBytes ("Hallo JÜnit", StandardCharsets.UTF_8));
+    _testCodec (c, "Hallo JÜnit".getBytes (StandardCharsets.ISO_8859_1));
+    _testCodec (c, "Hallo JÜnit".getBytes (StandardCharsets.UTF_8));
 
     // Get random bytes
     final byte [] aRandomBytes = new byte [256];

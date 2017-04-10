@@ -121,18 +121,7 @@ public final class CharsetManager
   @ReturnsMutableCopy
   public static ICommonsOrderedMap <String, Charset> getAllCharsets ()
   {
-    return new CommonsLinkedHashMap<> (s_aAllCharsets);
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public static byte [] getAsBytes (@Nonnull final String sText, @Nonnull final Charset aCharset)
-  {
-    ValueEnforcer.notNull (sText, "Text");
-    ValueEnforcer.notNull (aCharset, "Charset");
-    ValueEnforcer.isTrue (aCharset.canEncode (), () -> "Cannot encode to " + aCharset);
-
-    return sText.getBytes (aCharset);
+    return new CommonsLinkedHashMap <> (s_aAllCharsets);
   }
 
   @Nullable
@@ -146,27 +135,7 @@ public final class CharsetManager
     if (sText == null || aCurrentCharset.equals (aNewCharset))
       return sText;
 
-    return getAsString (getAsBytes (sText, aCurrentCharset), aNewCharset);
-  }
-
-  @Nonnull
-  public static String getAsString (@Nonnull final byte [] aBuffer, @Nonnull final Charset aCharset)
-  {
-    ValueEnforcer.notNull (aBuffer, "Buffer");
-
-    return getAsString (aBuffer, 0, aBuffer.length, aCharset);
-  }
-
-  @Nonnull
-  public static String getAsString (@Nonnull final byte [] aBuffer,
-                                    @Nonnegative final int nOfs,
-                                    @Nonnegative final int nLength,
-                                    @Nonnull final Charset aCharset)
-  {
-    ValueEnforcer.isArrayOfsLen (aBuffer, nOfs, nLength);
-    ValueEnforcer.notNull (aCharset, "Charset");
-
-    return new String (aBuffer, nOfs, nLength, aCharset);
+    return new String (sText.getBytes (aCurrentCharset), aNewCharset);
   }
 
   /**

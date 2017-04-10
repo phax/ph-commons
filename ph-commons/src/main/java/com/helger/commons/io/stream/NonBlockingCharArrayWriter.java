@@ -35,7 +35,7 @@ import com.helger.commons.string.StringHelper;
  *
  * @author Philip Helger
  * @see java.io.CharArrayWriter
- * @since 9.0.0
+ * @since 8.6.4
  */
 public class NonBlockingCharArrayWriter extends Writer
 {
@@ -264,7 +264,7 @@ public class NonBlockingCharArrayWriter extends Writer
   @ReturnsMutableCopy
   public byte [] toByteArray (@Nonnull final Charset aCharset)
   {
-    return StringHelper.encodeCharToBytes (aCharset, m_aBuf, 0, m_nCount);
+    return StringHelper.encodeCharToBytes (m_aBuf, 0, m_nCount, aCharset);
   }
 
   /**

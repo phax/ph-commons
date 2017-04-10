@@ -33,8 +33,6 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CharsetManager;
-
 /**
  * Test class for class {@link PathOperations}.
  *
@@ -296,10 +294,10 @@ public final class PathOperationsTest
     assertFalse (Files.isRegularFile (aPath));
     try
     {
-      SimpleFileIO.writeFile (aPath.toFile (), CharsetManager.getAsBytes ("abc", StandardCharsets.ISO_8859_1));
+      SimpleFileIO.writeFile (aPath.toFile (), "abc".getBytes (StandardCharsets.ISO_8859_1));
       assertTrue (Files.isRegularFile (aPath));
 
-      SimpleFileIO.writeFile (aPath2.toFile (), CharsetManager.getAsBytes ("abc", StandardCharsets.ISO_8859_1));
+      SimpleFileIO.writeFile (aPath2.toFile (), "abc".getBytes (StandardCharsets.ISO_8859_1));
       _expectedError (PathOperations.renameFile (aPath, aPath2), EFileIOErrorCode.TARGET_ALREADY_EXISTS);
       _expectedSuccess (PathOperations.deleteFile (aPath2));
 
@@ -345,10 +343,10 @@ public final class PathOperationsTest
 
       _expectedError (PathOperations.copyFile (aPath, aPath2), EFileIOErrorCode.SOURCE_DOES_NOT_EXIST);
 
-      SimpleFileIO.writeFile (aPath.toFile (), CharsetManager.getAsBytes ("abc", StandardCharsets.ISO_8859_1));
+      SimpleFileIO.writeFile (aPath.toFile (), "abc".getBytes (StandardCharsets.ISO_8859_1));
       assertTrue (Files.isRegularFile (aPath));
 
-      SimpleFileIO.writeFile (aPath2.toFile (), CharsetManager.getAsBytes ("abc", StandardCharsets.ISO_8859_1));
+      SimpleFileIO.writeFile (aPath2.toFile (), "abc".getBytes (StandardCharsets.ISO_8859_1));
       _expectedError (PathOperations.copyFile (aPath, aPath2), EFileIOErrorCode.TARGET_ALREADY_EXISTS);
       _expectedSuccess (PathOperations.deleteFile (aPath2));
 
@@ -514,7 +512,7 @@ public final class PathOperationsTest
     final Path f = Paths.get ("delfile.test");
     try
     {
-      SimpleFileIO.writeFile (f.toFile (), CharsetManager.getAsBytes ("abc", StandardCharsets.ISO_8859_1));
+      SimpleFileIO.writeFile (f.toFile (), "abc".getBytes (StandardCharsets.ISO_8859_1));
       assertTrue (Files.isRegularFile (f));
       _expectedSuccess (PathOperations.deleteFile (f));
       assertFalse (Files.isRegularFile (f));
