@@ -25,7 +25,6 @@ import javax.annotation.Nullable;
 import javax.annotation.WillNotClose;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 
 /**
@@ -129,7 +128,7 @@ public interface IByteArrayStreamEncoder extends IByteArrayEncoder
     if (sDecoded == null)
       return null;
 
-    final byte [] aDecoded = CharsetManager.getAsBytes (sDecoded, aCharset);
+    final byte [] aDecoded = sDecoded.getBytes (aCharset);
     return getEncoded (aDecoded);
   }
 
@@ -175,7 +174,7 @@ public interface IByteArrayStreamEncoder extends IByteArrayEncoder
     if (sDecoded == null)
       return null;
 
-    final byte [] aDecoded = CharsetManager.getAsBytes (sDecoded, aCharset);
+    final byte [] aDecoded = sDecoded.getBytes (aCharset);
     return getEncodedAsString (aDecoded, 0, aDecoded.length, aCharset);
   }
 }

@@ -20,7 +20,6 @@ import java.nio.charset.Charset;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.io.resource.IReadableResource;
 
 /**
@@ -33,6 +32,6 @@ public class ReadableResourceString extends ReadableResourceByteArray
 {
   public ReadableResourceString (@Nonnull final String sString, @Nonnull final Charset aCharset)
   {
-    super (CharsetManager.getAsBytes (sString, aCharset));
+    super (sString.getBytes (aCharset));
   }
 }

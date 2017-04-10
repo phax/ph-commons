@@ -30,8 +30,6 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CharsetManager;
-
 /**
  * Test class for class {@link FileOperations}.
  *
@@ -288,10 +286,10 @@ public final class FileOperationsTest
     assertFalse (FileHelper.existsFile (aFile));
     try
     {
-      SimpleFileIO.writeFile (aFile, CharsetManager.getAsBytes ("abc", StandardCharsets.ISO_8859_1));
+      SimpleFileIO.writeFile (aFile, "abc".getBytes (StandardCharsets.ISO_8859_1));
       assertTrue (FileHelper.existsFile (aFile));
 
-      SimpleFileIO.writeFile (aFile2, CharsetManager.getAsBytes ("abc", StandardCharsets.ISO_8859_1));
+      SimpleFileIO.writeFile (aFile2, "abc".getBytes (StandardCharsets.ISO_8859_1));
       _expectedError (FileOperations.renameFile (aFile, aFile2), EFileIOErrorCode.TARGET_ALREADY_EXISTS);
       _expectedSuccess (FileOperations.deleteFile (aFile2));
 
@@ -337,10 +335,10 @@ public final class FileOperationsTest
 
       _expectedError (FileOperations.copyFile (aFile, aFile2), EFileIOErrorCode.SOURCE_DOES_NOT_EXIST);
 
-      SimpleFileIO.writeFile (aFile, CharsetManager.getAsBytes ("abc", StandardCharsets.ISO_8859_1));
+      SimpleFileIO.writeFile (aFile, "abc".getBytes (StandardCharsets.ISO_8859_1));
       assertTrue (FileHelper.existsFile (aFile));
 
-      SimpleFileIO.writeFile (aFile2, CharsetManager.getAsBytes ("abc", StandardCharsets.ISO_8859_1));
+      SimpleFileIO.writeFile (aFile2, "abc".getBytes (StandardCharsets.ISO_8859_1));
       _expectedError (FileOperations.copyFile (aFile, aFile2), EFileIOErrorCode.TARGET_ALREADY_EXISTS);
       _expectedSuccess (FileOperations.deleteFile (aFile2));
 
@@ -503,7 +501,7 @@ public final class FileOperationsTest
     final File f = new File ("delfile.test");
     try
     {
-      SimpleFileIO.writeFile (f, CharsetManager.getAsBytes ("abc", StandardCharsets.ISO_8859_1));
+      SimpleFileIO.writeFile (f, "abc".getBytes (StandardCharsets.ISO_8859_1));
       assertTrue (FileHelper.existsFile (f));
       _expectedSuccess (FileOperations.deleteFile (f));
       assertFalse (FileHelper.existsFile (f));

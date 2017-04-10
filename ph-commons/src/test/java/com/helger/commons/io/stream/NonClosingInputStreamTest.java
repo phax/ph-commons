@@ -23,8 +23,6 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CharsetManager;
-
 /**
  * Test class for class {@link CountingInputStream}.
  *
@@ -56,8 +54,7 @@ public final class NonClosingInputStreamTest
   @Test
   public void testClosing ()
   {
-    final MockCloseCountingInputStream aX = new MockCloseCountingInputStream (new NonBlockingByteArrayInputStream (CharsetManager.getAsBytes ("abc",
-                                                                                                                                              StandardCharsets.ISO_8859_1)));
+    final MockCloseCountingInputStream aX = new MockCloseCountingInputStream (new NonBlockingByteArrayInputStream ("abc".getBytes (StandardCharsets.ISO_8859_1)));
     StreamHelper.copyInputStreamToOutputStream (aX, new NonBlockingByteArrayOutputStream ());
     assertEquals (1, aX.getCloseCount ());
   }
@@ -65,8 +62,7 @@ public final class NonClosingInputStreamTest
   @Test
   public void testNonClosing ()
   {
-    final MockCloseCountingInputStream aX = new MockCloseCountingInputStream (new NonBlockingByteArrayInputStream (CharsetManager.getAsBytes ("abc",
-                                                                                                                                              StandardCharsets.ISO_8859_1)));
+    final MockCloseCountingInputStream aX = new MockCloseCountingInputStream (new NonBlockingByteArrayInputStream ("abc".getBytes (StandardCharsets.ISO_8859_1)));
     StreamHelper.copyInputStreamToOutputStream (new NonClosingInputStream (aX),
                                                 new NonBlockingByteArrayOutputStream ());
     assertEquals (0, aX.getCloseCount ());

@@ -30,7 +30,6 @@ import com.helger.commons.annotation.ELockType;
 import com.helger.commons.annotation.MustBeLocked;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.Singleton;
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.charset.EUnicodeBOM;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
@@ -203,7 +202,7 @@ public final class MimeTypeDeterminator
                                           @Nonnull final Charset aCharset,
                                           @Nullable final IMimeType aDefault)
   {
-    return getMimeTypeFromBytes (s == null ? null : CharsetManager.getAsBytes (s, aCharset), aDefault);
+    return getMimeTypeFromBytes (s == null ? null : s.getBytes (aCharset), aDefault);
   }
 
   /**

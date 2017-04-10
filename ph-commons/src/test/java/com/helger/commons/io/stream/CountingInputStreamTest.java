@@ -23,7 +23,6 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -37,8 +36,7 @@ public final class CountingInputStreamTest
   public void testAll () throws IOException
   {
     final String sTestString = "test 123 - This counts!";
-    final CountingInputStream aCIS = new CountingInputStream (new NonBlockingByteArrayInputStream (CharsetManager.getAsBytes (sTestString,
-                                                                                                                              StandardCharsets.ISO_8859_1)));
+    final CountingInputStream aCIS = new CountingInputStream (new NonBlockingByteArrayInputStream (sTestString.getBytes (StandardCharsets.ISO_8859_1)));
     aCIS.read ();
     StreamHelper.copyInputStreamToOutputStream (aCIS, new NonBlockingByteArrayOutputStream ());
     assertEquals (sTestString.length (), aCIS.getBytesRead ());

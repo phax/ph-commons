@@ -29,7 +29,6 @@ import java.nio.charset.StandardCharsets;
 import org.junit.Test;
 import org.xml.sax.InputSource;
 
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
@@ -99,8 +98,7 @@ public final class MicroReaderTest
     aDoc = MicroReader.readMicroXML (new StringInputStreamProvider (s, StandardCharsets.ISO_8859_1));
     assertNotNull (aDoc);
 
-    aDoc = MicroReader.readMicroXML (new NonBlockingByteArrayInputStream (CharsetManager.getAsBytes (s,
-                                                                                                     StandardCharsets.ISO_8859_1)));
+    aDoc = MicroReader.readMicroXML (new NonBlockingByteArrayInputStream (s.getBytes (StandardCharsets.ISO_8859_1)));
     assertNotNull (aDoc);
 
     aDoc = MicroReader.readMicroXML (s, new SAXReaderSettings ().setErrorHandler (new LoggingSAXErrorHandler ()));

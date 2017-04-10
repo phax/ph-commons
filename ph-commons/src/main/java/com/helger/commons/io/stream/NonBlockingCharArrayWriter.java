@@ -264,7 +264,7 @@ public class NonBlockingCharArrayWriter extends Writer
   @ReturnsMutableCopy
   public byte [] toByteArray (@Nonnull final Charset aCharset)
   {
-    return StringHelper.encodeCharToBytes (aCharset, m_aBuf, 0, m_nCount);
+    return StringHelper.encodeCharToBytes (m_aBuf, 0, m_nCount, aCharset);
   }
 
   /**

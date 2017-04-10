@@ -22,7 +22,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.charset.CharsetManager;
 import com.helger.security.messagedigest.EMessageDigestAlgorithm;
 import com.helger.security.messagedigest.MessageDigestValue;
 import com.helger.security.password.salt.IPasswordSalt;
@@ -55,7 +54,7 @@ public final class PasswordHashCreatorSHA512 extends AbstractPasswordHashCreator
   {
     ValueEnforcer.notNull (sPlainTextPassword, "PlainTextPassword");
 
-    return MessageDigestValue.create (CharsetManager.getAsBytes (sPlainTextPassword, StandardCharsets.UTF_8),
+    return MessageDigestValue.create (sPlainTextPassword.getBytes (StandardCharsets.UTF_8),
                                       USER_PASSWORD_ALGO)
                              .getHexEncodedDigestString ();
   }

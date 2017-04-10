@@ -25,7 +25,6 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.io.stream.StreamHelper;
 
 /**
@@ -38,7 +37,7 @@ public final class ByteBufferInputStreamProviderTest
   @Test
   public void testSimple ()
   {
-    final byte [] aBytes = CharsetManager.getAsBytes ("Hallo Weltäöü", StandardCharsets.ISO_8859_1);
+    final byte [] aBytes = "Hallo Weltäöü".getBytes (StandardCharsets.ISO_8859_1);
     final ByteBuffer bb = ByteBuffer.wrap (aBytes);
     final ByteBufferInputStreamProvider aISP = new ByteBufferInputStreamProvider (bb);
     final InputStream aIS = aISP.getInputStream ();

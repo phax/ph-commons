@@ -32,7 +32,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.FileOperationManager;
@@ -129,7 +128,7 @@ public final class JavaFileAccessFuncTest
 
                       final File fFile = new File (fTempDir, sPrefix + sMod + ".dat");
                       if (SimpleFileIO.writeFile (fFile,
-                                                  CharsetManager.getAsBytes ("content", StandardCharsets.ISO_8859_1))
+                                                  "content".getBytes (StandardCharsets.ISO_8859_1))
                                       .isSuccess ())
                         _exec ("chmod", sMod, fFile.getAbsolutePath ());
 

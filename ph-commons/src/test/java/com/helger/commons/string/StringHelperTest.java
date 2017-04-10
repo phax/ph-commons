@@ -32,7 +32,6 @@ import java.util.Locale;
 import org.junit.Test;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsHashMap;
@@ -246,9 +245,7 @@ public final class StringHelperTest extends AbstractCommonsTestCase
 
     for (final String sString : new String [] { "Super", "Hallo", "", "Welt!", "fff" })
       assertEquals (sString,
-                    CharsetManager.getAsString (StringHelper.getHexDecoded (StringHelper.getHexEncoded (CharsetManager.getAsBytes (sString,
-                                                                                                                                   StandardCharsets.ISO_8859_1))),
-                                                StandardCharsets.ISO_8859_1));
+                    new String (StringHelper.getHexDecoded (StringHelper.getHexEncoded (sString.getBytes (StandardCharsets.ISO_8859_1))), StandardCharsets.ISO_8859_1));
 
     assertArrayEquals (new byte [] { 0 }, StringHelper.getHexDecoded ("00"));
     assertArrayEquals (new byte [] { 0, 1 }, StringHelper.getHexDecoded ("0001"));

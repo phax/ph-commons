@@ -25,7 +25,6 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.file.FileOperations;
 
@@ -48,22 +47,22 @@ public final class CountingFileOutputStreamTest
         StreamHelper.copyInputStreamToOutputStream (new StringInputStream ("abc", StandardCharsets.ISO_8859_1),
                                                     aCFOS);
         aCFOS.write ('a');
-        aCFOS.write (CharsetManager.getAsBytes ("axy", StandardCharsets.ISO_8859_1));
+        aCFOS.write ("axy".getBytes (StandardCharsets.ISO_8859_1));
         assertEquals (7, aCFOS.getBytesWritten ());
       }
       try (final CountingFileOutputStream aCFOS = new CountingFileOutputStream (f, EAppend.APPEND))
       {
-        aCFOS.write (CharsetManager.getAsBytes ("axy", StandardCharsets.ISO_8859_1));
+        aCFOS.write ("axy".getBytes (StandardCharsets.ISO_8859_1));
         assertEquals (3, aCFOS.getBytesWritten ());
       }
       try (final CountingFileOutputStream aCFOS = new CountingFileOutputStream (f.getAbsolutePath ()))
       {
-        aCFOS.write (CharsetManager.getAsBytes ("axy", StandardCharsets.ISO_8859_1));
+        aCFOS.write ("axy".getBytes (StandardCharsets.ISO_8859_1));
         assertEquals (3, aCFOS.getBytesWritten ());
       }
       try (final CountingFileOutputStream aCFOS = new CountingFileOutputStream (f.getAbsolutePath (), EAppend.APPEND))
       {
-        aCFOS.write (CharsetManager.getAsBytes ("axy", StandardCharsets.ISO_8859_1));
+        aCFOS.write ("axy".getBytes (StandardCharsets.ISO_8859_1));
         assertEquals (3, aCFOS.getBytesWritten ());
         assertNotNull (aCFOS.toString ());
       }

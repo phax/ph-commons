@@ -39,7 +39,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
@@ -1632,7 +1631,7 @@ public final class Base64
     }
 
     // Return value according to relevant encoding.
-    return CharsetManager.getAsString (baos.toByteArray (), PREFERRED_ENCODING);
+    return new String (baos.toByteArray (), PREFERRED_ENCODING);
   }
 
   /**
@@ -1795,7 +1794,7 @@ public final class Base64
     final byte [] encoded = encodeBytesToBytes (source, off, len, nOptions);
 
     // Return value according to relevant encoding.
-    return CharsetManager.getAsString (encoded, PREFERRED_ENCODING);
+    return new String (encoded, PREFERRED_ENCODING);
   }
 
   /**
@@ -2226,7 +2225,7 @@ public final class Base64
   {
     ValueEnforcer.notNull (s, "InputString");
 
-    byte [] bytes = CharsetManager.getAsBytes (s, PREFERRED_ENCODING);
+    byte [] bytes = s.getBytes (PREFERRED_ENCODING);
 
     // Decode
     bytes = decode (bytes, 0, bytes.length, options);
@@ -2398,7 +2397,7 @@ public final class Base64
     try (final Base64OutputStream bos = new Base64OutputStream (FileHelper.getOutputStream (new File (filename)),
                                                                 DECODE))
     {
-      bos.write (CharsetManager.getAsBytes (dataToDecode, PREFERRED_ENCODING));
+      bos.write (dataToDecode.getBytes (PREFERRED_ENCODING));
     }
   }
 
@@ -2487,9 +2486,10 @@ public final class Base64
       {
         length += numBytes;
       }
+      final int nLength = length;
 
       // Save in a variable to return
-      final String encodedData = CharsetManager.getAsString (buffer, 0, length, PREFERRED_ENCODING);
+      final String encodedData = new String (buffer, 0, nLength, PREFERRED_ENCODING);
       return encodedData;
     }
   }
@@ -2511,7 +2511,7 @@ public final class Base64
     try (final OutputStream out = StreamHelper.getBuffered (FileHelper.getOutputStream (new File (outfile))))
     {
       // Strict, 7-bit output.
-      out.write (CharsetManager.getAsBytes (encoded, PREFERRED_ENCODING));
+      out.write (encoded.getBytes (PREFERRED_ENCODING));
     }
   }
 
@@ -2679,7 +2679,7 @@ public final class Base64
       try
       {
         final byte [] aDecoded = decode (sEncoded, DONT_GUNZIP);
-        return CharsetManager.getAsString (aDecoded, aCharset);
+        return new String (aDecoded, aCharset);
       }
       catch (final IOException ex)
       {
@@ -2729,7 +2729,7 @@ public final class Base64
       try
       {
         final byte [] aDecoded = decode (aEncodedBytes, nOfs, nLength, DONT_GUNZIP);
-        return CharsetManager.getAsString (aDecoded, aCharset);
+        return new String (aDecoded, aCharset);
       }
       catch (final IOException ex)
       {
@@ -2836,7 +2836,7 @@ public final class Base64
   @Nullable
   public static String safeEncode (@Nonnull final String s, @Nonnull final Charset aCharset)
   {
-    final byte [] aDecoded = CharsetManager.getAsBytes (s, aCharset);
+    final byte [] aDecoded = s.getBytes (aCharset);
     return encodeBytes (aDecoded);
   }
 }

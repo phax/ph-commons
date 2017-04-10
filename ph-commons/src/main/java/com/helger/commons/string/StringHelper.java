@@ -50,7 +50,6 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsHashSet;
@@ -429,7 +428,7 @@ public final class StringHelper
     ValueEnforcer.notNull (sInput, "Input");
     ValueEnforcer.notNull (aCharset, "Charset");
 
-    return getHexEncoded (CharsetManager.getAsBytes (sInput, aCharset));
+    return getHexEncoded (sInput.getBytes (aCharset));
   }
 
   /**
@@ -4990,43 +4989,43 @@ public final class StringHelper
    * Encode a char array to a byte array using the provided charset. This does
    * the same as <code>new String (aCharArray).getBytes (aCharset)</code> just
    * without the intermediate objects.
-   *
-   * @param aCharset
-   *        Charset to be used. May not be <code>null</code>.
    * @param aCharArray
    *        The char array to be encoded. May not be <code>null</code>.
+   * @param aCharset
+   *        Charset to be used. May not be <code>null</code>.
+   *
    * @return The created byte array. Never <code>null</code>.
    * @since 8.6.4
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static byte [] encodeCharToBytes (@Nonnull final Charset aCharset, @Nonnull final char [] aCharArray)
+  public static byte [] encodeCharToBytes (@Nonnull final char [] aCharArray, @Nonnull final Charset aCharset)
   {
-    return encodeCharToBytes (aCharset, aCharArray, 0, aCharArray.length);
+    return encodeCharToBytes (aCharArray, 0, aCharArray.length, aCharset);
   }
 
   /**
    * Encode a char array to a byte array using the provided charset. This does
    * the same as <code>new String (aCharArray).getBytes (aCharset)</code> just
    * without the intermediate objects.
-   *
-   * @param aCharset
-   *        Charset to be used. May not be <code>null</code>.
    * @param aCharArray
    *        The char array to be encoded. May not be <code>null</code>.
    * @param nOfs
    *        Offset into char array. Must be &ge; 0.
    * @param nLen
    *        Chars to encode. Must be &ge; 0.
+   * @param aCharset
+   *        Charset to be used. May not be <code>null</code>.
+   *
    * @return The created byte array. Never <code>null</code>.
    * @since 8.6.4
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static byte [] encodeCharToBytes (@Nonnull final Charset aCharset,
-                                           @Nonnull final char [] aCharArray,
+  public static byte [] encodeCharToBytes (@Nonnull final char [] aCharArray,
                                            @Nonnegative final int nOfs,
-                                           @Nonnegative final int nLen)
+                                           @Nonnegative final int nLen,
+                                           @Nonnull final Charset aCharset)
   {
     ValueEnforcer.isArrayOfsLen (aCharArray, nOfs, nLen);
 
@@ -5065,41 +5064,41 @@ public final class StringHelper
    * Decode a byte array to a char array using the provided charset. This does
    * the same as <code>new String (aByteArray, aCharset)</code> just without the
    * intermediate objects.
-   *
-   * @param aCharset
-   *        Charset to be used. May not be <code>null</code>.
    * @param aByteArray
    *        The byte array to be decoded. May not be <code>null</code>.
+   * @param aCharset
+   *        Charset to be used. May not be <code>null</code>.
+   *
    * @return The created char array. Never <code>null</code>.
    * @since 8.6.4
    */
   @Nonnull
-  public static char [] decodeBytesToChars (@Nonnull final Charset aCharset, @Nonnull final byte [] aByteArray)
+  public static char [] decodeBytesToChars (@Nonnull final byte [] aByteArray, @Nonnull final Charset aCharset)
   {
-    return decodeBytesToChars (aCharset, aByteArray, 0, aByteArray.length);
+    return decodeBytesToChars (aByteArray, 0, aByteArray.length, aCharset);
   }
 
   /**
    * Decode a byte array to a char array using the provided charset. This does
    * the same as <code>new String (aByteArray, aCharset)</code> just without the
    * intermediate objects.
-   *
-   * @param aCharset
-   *        Charset to be used. May not be <code>null</code>.
    * @param aByteArray
    *        The byte array to be decoded. May not be <code>null</code>.
    * @param nOfs
    *        Offset into byte array. Must be &ge; 0.
    * @param nLen
    *        Bytes to encode. Must be &ge; 0.
+   * @param aCharset
+   *        Charset to be used. May not be <code>null</code>.
+   *
    * @return The created char array. Never <code>null</code>.
    * @since 8.6.4
    */
   @Nonnull
-  public static char [] decodeBytesToChars (@Nonnull final Charset aCharset,
-                                            @Nonnull final byte [] aByteArray,
+  public static char [] decodeBytesToChars (@Nonnull final byte [] aByteArray,
                                             @Nonnegative final int nOfs,
-                                            @Nonnegative final int nLen)
+                                            @Nonnegative final int nLen,
+                                            @Nonnull final Charset aCharset)
   {
     final CharsetDecoder aDecoder = aCharset.newDecoder ();
     final int nDecodedLen = (int) (nLen * (double) aDecoder.maxCharsPerByte ());

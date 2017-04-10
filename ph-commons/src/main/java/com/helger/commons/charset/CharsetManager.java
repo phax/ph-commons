@@ -121,11 +121,12 @@ public final class CharsetManager
   @ReturnsMutableCopy
   public static ICommonsOrderedMap <String, Charset> getAllCharsets ()
   {
-    return new CommonsLinkedHashMap<> (s_aAllCharsets);
+    return new CommonsLinkedHashMap <> (s_aAllCharsets);
   }
 
   @Nonnull
   @ReturnsMutableCopy
+  @Deprecated
   public static byte [] getAsBytes (@Nonnull final String sText, @Nonnull final Charset aCharset)
   {
     ValueEnforcer.notNull (sText, "Text");
@@ -146,18 +147,19 @@ public final class CharsetManager
     if (sText == null || aCurrentCharset.equals (aNewCharset))
       return sText;
 
-    return getAsString (getAsBytes (sText, aCurrentCharset), aNewCharset);
+    return new String (sText.getBytes (aCurrentCharset), aNewCharset);
   }
 
   @Nonnull
+  @Deprecated
   public static String getAsString (@Nonnull final byte [] aBuffer, @Nonnull final Charset aCharset)
   {
     ValueEnforcer.notNull (aBuffer, "Buffer");
-
-    return getAsString (aBuffer, 0, aBuffer.length, aCharset);
+    return new String (aBuffer, aCharset);
   }
 
   @Nonnull
+  @Deprecated
   public static String getAsString (@Nonnull final byte [] aBuffer,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLength,

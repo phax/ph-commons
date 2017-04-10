@@ -27,7 +27,6 @@ import javax.annotation.WillNotClose;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.IWriteToStream;
 
@@ -338,7 +337,7 @@ public class ByteBufferOutputStream extends OutputStream implements IWriteToStre
   @Nonnull
   public String getAsString (@Nonnull final Charset aCharset)
   {
-    return CharsetManager.getAsString (m_aBuffer.array (), m_aBuffer.arrayOffset (), m_aBuffer.position (), aCharset);
+    return new String (m_aBuffer.array (), m_aBuffer.arrayOffset (), m_aBuffer.position (), aCharset);
   }
 
   private void _growBy (@Nonnegative final int nBytesToGrow)

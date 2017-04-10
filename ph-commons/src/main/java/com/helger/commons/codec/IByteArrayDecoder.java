@@ -23,7 +23,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.charset.CharsetManager;
 
 /**
  * Interface for a single decoder.
@@ -94,7 +93,7 @@ public interface IByteArrayDecoder extends IDecoder <byte [], byte []>
     if (sEncoded == null)
       return null;
 
-    final byte [] aEncoded = CharsetManager.getAsBytes (sEncoded, aCharset);
+    final byte [] aEncoded = sEncoded.getBytes (aCharset);
     return getDecoded (aEncoded);
   }
 }

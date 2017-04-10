@@ -26,7 +26,6 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.charset.CharsetManager;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
@@ -214,7 +213,7 @@ public final class GraphVizHelper
     final ProcessBuilder aPB = new ProcessBuilder ("neato", "-T" + sFileType).redirectErrorStream (false);
     final Process p = aPB.start ();
     // Set neato stdin
-    p.getOutputStream ().write (CharsetManager.getAsBytes (sDOT, StandardCharsets.UTF_8));
+    p.getOutputStream ().write (sDOT.getBytes (StandardCharsets.UTF_8));
     p.getOutputStream ().close ();
     // Read neato stdout
     final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
