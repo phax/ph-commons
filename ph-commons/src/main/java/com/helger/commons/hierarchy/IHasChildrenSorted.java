@@ -39,7 +39,7 @@ public interface IHasChildrenSorted <CHILDTYPE> extends IHasChildren <CHILDTYPE>
    *         children are present.
    */
   @Nullable
-  ICommonsList <CHILDTYPE> getAllChildren ();
+  ICommonsList <? extends CHILDTYPE> getAllChildren ();
 
   /**
    * Get the child node at the specified index
@@ -80,7 +80,7 @@ public interface IHasChildrenSorted <CHILDTYPE> extends IHasChildren <CHILDTYPE>
   {
     if (hasNoChildren ())
       return null;
-    return getAllChildren ().findFirst (aFilter);
+    return getChildren ().findFirst (aFilter);
   }
 
   /**
@@ -103,7 +103,7 @@ public interface IHasChildrenSorted <CHILDTYPE> extends IHasChildren <CHILDTYPE>
   {
     if (hasNoChildren ())
       return null;
-    return getAllChildren ().findFirstMapped (aFilter, aMapper);
+    return getChildren ().findFirstMapped (aFilter, aMapper);
   }
 
   /**

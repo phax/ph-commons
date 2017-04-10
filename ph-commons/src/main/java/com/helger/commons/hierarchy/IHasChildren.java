@@ -73,7 +73,7 @@ public interface IHasChildren <CHILDTYPE>
    */
   @Nullable
   @ReturnsMutableCopy
-  ICommonsCollection <CHILDTYPE> getAllChildren ();
+  ICommonsCollection <? extends CHILDTYPE> getAllChildren ();
 
   /**
    * @return An iterable over all direct children. May be <code>null</code> if
@@ -87,7 +87,7 @@ public interface IHasChildren <CHILDTYPE>
    * @since 9.0.0
    */
   @Nullable
-  ICommonsIterable <CHILDTYPE> getChildren ();
+  ICommonsIterable <? extends CHILDTYPE> getChildren ();
 
   /**
    * Perform something on all children (if any).<br>
@@ -100,7 +100,7 @@ public interface IHasChildren <CHILDTYPE>
   default void forAllChildren (@Nonnull final Consumer <? super CHILDTYPE> aConsumer)
   {
     if (hasChildren ())
-      getAllChildren ().forEach (aConsumer);
+      getChildren ().forEach (aConsumer);
   }
 
   /**
@@ -117,7 +117,7 @@ public interface IHasChildren <CHILDTYPE>
   default EContinue forAllChildrenBreakable (@Nonnull final Function <? super CHILDTYPE, EContinue> aConsumer)
   {
     if (hasChildren ())
-      return getAllChildren ().forEachBreakable (aConsumer);
+      return getChildren ().forEachBreakable (aConsumer);
     return EContinue.CONTINUE;
   }
 
@@ -138,7 +138,7 @@ public interface IHasChildren <CHILDTYPE>
                                @Nonnull final Consumer <? super CHILDTYPE> aConsumer)
   {
     if (hasChildren ())
-      getAllChildren ().findAll (aFilter, aConsumer);
+      getChildren ().findAll (aFilter, aConsumer);
   }
 
   /**
@@ -164,6 +164,6 @@ public interface IHasChildren <CHILDTYPE>
                                                @Nonnull final Consumer <? super DSTTYPE> aConsumer)
   {
     if (hasChildren ())
-      getAllChildren ().findAllMapped (aFilter, aMapper, aConsumer);
+      getChildren ().findAllMapped (aFilter, aMapper, aConsumer);
   }
 }
