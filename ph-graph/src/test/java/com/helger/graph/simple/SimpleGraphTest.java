@@ -23,8 +23,11 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.PrintWriter;
+
 import org.junit.Test;
 
+import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.graph.AbstractGraphTestCase;
 import com.helger.graph.IMutableGraphNode;
@@ -159,7 +162,7 @@ public final class SimpleGraphTest extends AbstractGraphTestCase
     sg.createRelation ("6", "4");
     assertTrue (sg.containsCycles ());
 
-    sg.createIncidenceMatrix ().print (System.out, 2, 0);
+    sg.createIncidenceMatrix ().print (new PrintWriter (new NonBlockingStringWriter ()), 2, 0);
   }
 
   @Test

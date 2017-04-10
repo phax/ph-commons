@@ -19,15 +19,15 @@ package com.helger.matrix;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
@@ -38,6 +38,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.string.StringHelper;
 
@@ -76,7 +77,7 @@ import com.helger.commons.string.StringHelper;
 public final class MatrixIntTest
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (MatrixIntTest.class);
-  private static final String FILENAME_JAMA_TEST_MATRIX_OUT = "Jamaout";
+  private static final File FILENAME_JAMA_TEST_MATRIX_OUT = new File ("Jamaout");
   private static final double EPSILON = Math.pow (2.0, -52.0);
 
   @SuppressWarnings ("unused")
@@ -906,14 +907,14 @@ public final class MatrixIntTest
     _print ("\nTesting I/O methods...\n");
     try
     {
-      final DecimalFormat fmt = new DecimalFormat ("0");
-      fmt.setDecimalFormatSymbols (DecimalFormatSymbols.getInstance (Locale.US));
+      final DecimalFormat fmt = new DecimalFormat ("0", DecimalFormatSymbols.getInstance (Locale.US));
 
-      try (final PrintWriter aPW = new PrintWriter (new FileOutputStream (FILENAME_JAMA_TEST_MATRIX_OUT)))
+      try (final PrintWriter aPW = new PrintWriter (FileHelper.getBufferedWriter (FILENAME_JAMA_TEST_MATRIX_OUT,
+                                                                                  StandardCharsets.UTF_8)))
       {
         A.print (aPW, fmt, 10);
       }
-      try (final BufferedReader aReader = new BufferedReader (new FileReader (FILENAME_JAMA_TEST_MATRIX_OUT)))
+      try (final Reader aReader = FileHelper.getBufferedReader (FILENAME_JAMA_TEST_MATRIX_OUT, StandardCharsets.UTF_8))
       {
         R = MatrixInt.read (aReader);
       }
@@ -940,12 +941,14 @@ public final class MatrixIntTest
         warningCount = _try_warning (warningCount,
                                      "print()/read()...",
                                      "Formatting error... will try JDK1.1 reformulation...");
-        final DecimalFormat fmt = new DecimalFormat ("0");
-        try (final PrintWriter FILE = new PrintWriter (new FileOutputStream (FILENAME_JAMA_TEST_MATRIX_OUT)))
+        final DecimalFormat fmt = new DecimalFormat ("0", DecimalFormatSymbols.getInstance (Locale.US));
+        try (final PrintWriter FILE = new PrintWriter (FileHelper.getBufferedWriter (FILENAME_JAMA_TEST_MATRIX_OUT,
+                                                                                     StandardCharsets.UTF_8)))
         {
           A.print (FILE, fmt, 10);
         }
-        try (final BufferedReader aReader = new BufferedReader (new FileReader (FILENAME_JAMA_TEST_MATRIX_OUT)))
+        try (final Reader aReader = FileHelper.getBufferedReader (FILENAME_JAMA_TEST_MATRIX_OUT,
+                                                                  StandardCharsets.UTF_8))
         {
           R = MatrixInt.read (aReader);
         }
@@ -967,7 +970,7 @@ public final class MatrixIntTest
     }
     finally
     {
-      FileOperations.deleteFile (new File (FILENAME_JAMA_TEST_MATRIX_OUT));
+      FileOperations.deleteFile (FILENAME_JAMA_TEST_MATRIX_OUT);
     }
 
     R = MatrixInt.random (A.getRowDimension (), A.getColumnDimension ());

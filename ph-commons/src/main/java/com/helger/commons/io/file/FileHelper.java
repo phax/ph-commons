@@ -716,6 +716,12 @@ public final class FileHelper
   }
 
   @Nullable
+  public static Writer getBufferedWriter (@Nonnull final File aFile, @Nonnull final Charset aCharset)
+  {
+    return getBufferedWriter (aFile, EAppend.DEFAULT, aCharset);
+  }
+
+  @Nullable
   public static Writer getBufferedWriter (@Nonnull final File aFile,
                                           @Nonnull final EAppend eAppend,
                                           @Nonnull final Charset aCharset)
@@ -993,7 +999,7 @@ public final class FileHelper
         s_aLogger.warn ("Directory is missing the listing permission: " + aDirectory.getAbsolutePath ());
       }
     }
-    return new CommonsArrayList<> (aSelectedContent);
+    return new CommonsArrayList <> (aSelectedContent);
   }
 
   /**
