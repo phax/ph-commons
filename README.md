@@ -32,6 +32,8 @@ This project was the following modules:
     * Removed class `CCharset` - use `StandardCharsets` instead
     * Added classes `PathHelper` and `PathOperations`    
     * Moved class `XMLResourceBundle` to ph-xml
+    * Added class `NonBlockingCharArrayWriter`
+    * Extended `StringHelper` API
   * v8.6.3 - 2017-03-28
     * Deprecated some String-based `FileHelper` APIs
     * Improved CertificateHelper parsing
