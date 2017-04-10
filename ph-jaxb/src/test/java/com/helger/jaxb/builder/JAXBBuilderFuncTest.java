@@ -31,7 +31,6 @@ import javax.xml.stream.XMLStreamWriter;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
-import com.helger.commons.collection.IteratorHelper;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.xml.microdom.IMicroDocument;
 
@@ -60,12 +59,13 @@ public final class JAXBBuilderFuncTest
   {
     final com.helger.jaxb.mock.external.MockJAXBArchive aArc = new com.helger.jaxb.mock.external.MockJAXBArchive ();
     aArc.setVersion ("1.23");
-    IteratorHelper.forEach (5, i -> {
+    for (int i = 0; i < 5; ++i)
+    {
       final com.helger.jaxb.mock.external.MockJAXBCollection aCollection = new com.helger.jaxb.mock.external.MockJAXBCollection ();
       aCollection.setDescription ("Internal bla foo");
       aCollection.setID (i);
       aArc.getCollection ().add (aCollection);
-    });
+    }
 
     final MockExternalArchiveWriterBuilder aWriter = new MockExternalArchiveWriterBuilder ().setCharset (StandardCharsets.ISO_8859_1);
     String sText = aWriter.getAsString (aArc);
@@ -80,12 +80,13 @@ public final class JAXBBuilderFuncTest
   {
     final com.helger.jaxb.mock.external.MockJAXBArchive aArc = new com.helger.jaxb.mock.external.MockJAXBArchive ();
     aArc.setVersion ("1.23");
-    IteratorHelper.forEach (5, i -> {
+    for (int i = 0; i < 5; ++i)
+    {
       final com.helger.jaxb.mock.external.MockJAXBCollection aCollection = new com.helger.jaxb.mock.external.MockJAXBCollection ();
       aCollection.setDescription ("Internal bla foo");
       aCollection.setID (i);
       aArc.getCollection ().add (aCollection);
-    });
+    }
 
     final MockExternalArchiveWriterBuilder aWriter = new MockExternalArchiveWriterBuilder ().setFormattedOutput (true);
     String sText = aWriter.getAsString (aArc);
@@ -126,12 +127,13 @@ public final class JAXBBuilderFuncTest
 
     final com.helger.jaxb.mock.internal.MockJAXBArchive aArc = new com.helger.jaxb.mock.internal.MockJAXBArchive ();
     aArc.setVersion ("1.23");
-    IteratorHelper.forEach (5, i -> {
+    for (int i = 0; i < 5; ++i)
+    {
       final com.helger.jaxb.mock.internal.MockJAXBCollection aCollection = new com.helger.jaxb.mock.internal.MockJAXBCollection ();
       aCollection.setDescription ("Internal bla foo");
       aCollection.setID (i);
       aArc.getCollection ().add (aCollection);
-    });
+    }
 
     final MockInternalArchiveWriterBuilder aWriter = new MockInternalArchiveWriterBuilder ();
     aWriter.write (aArc, aSW);

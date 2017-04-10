@@ -21,13 +21,11 @@ import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.function.IntConsumer;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.iterate.ArrayIterator;
 import com.helger.commons.collection.iterate.CombinedIterator;
 import com.helger.commons.collection.iterate.EmptyEnumeration;
@@ -283,35 +281,5 @@ public final class IteratorHelper
   public static <ELEMENTTYPE> Enumeration <ELEMENTTYPE> getEmptyEnumeration ()
   {
     return new EmptyEnumeration <> ();
-  }
-
-  /**
-   * <code>for (int i = nStartIncl; i &gt; nEndExcl; ++i) aConsumer.accept (i);</code>
-   *
-   * @param nStartIncl
-   *        Start index inclusive.
-   * @param nEndExcl
-   *        End index exclusive.
-   * @param aConsumer
-   *        Callback. May not be <code>null</code>.
-   */
-  public static void forEach (final int nStartIncl, final int nEndExcl, @Nonnull final IntConsumer aConsumer)
-  {
-    ValueEnforcer.notNull (aConsumer, "Consumer");
-    for (int i = nStartIncl; i < nEndExcl; ++i)
-      aConsumer.accept (i);
-  }
-
-  /**
-   * <code>for (int i = 0; i &gt; nEndExcl; ++i) aConsumer.accept (i);</code>
-   *
-   * @param nEndExcl
-   *        End index exclusive.
-   * @param aConsumer
-   *        Callback. May not be <code>null</code>.
-   */
-  public static void forEach (final int nEndExcl, @Nonnull final IntConsumer aConsumer)
-  {
-    forEach (0, nEndExcl, aConsumer);
   }
 }
