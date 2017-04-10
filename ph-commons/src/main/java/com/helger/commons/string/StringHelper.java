@@ -18,7 +18,13 @@ package com.helger.commons.string;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.CharacterCodingException;
 import java.nio.charset.Charset;
+import java.nio.charset.CharsetEncoder;
+import java.nio.charset.CoderResult;
+import java.nio.charset.CodingErrorAction;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Locale;
@@ -4977,5 +4983,80 @@ public final class StringHelper
         aConsumer.accept (nCodePoint);
       }
     }
+  }
+
+  /**
+   * Encode a char array to a byte array using the provided charset. This does
+   * the same as <code>new String (aCharArray).getBytes (aCharset)</code> just
+   * without the intermediate objects.
+   *
+   * @param aCharset
+   *        Charset to be used. May not be <code>null</code>.
+   * @param aCharArray
+   *        The char array to be encoded. May not be <code>null</code>.
+   * @return The created byte array. Never <code>null</code>.
+   * @since 8.6.4
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public static byte [] encodeCharToBytes (@Nonnull final Charset aCharset, @Nonnull final char [] aCharArray)
+  {
+    return encodeCharToBytes (aCharset, aCharArray, 0, aCharArray.length);
+  }
+
+  /**
+   * Encode a char array to a byte array using the provided charset. This does
+   * the same as <code>new String (aCharArray).getBytes (aCharset)</code> just
+   * without the intermediate objects.
+   *
+   * @param aCharset
+   *        Charset to be used. May not be <code>null</code>.
+   * @param aCharArray
+   *        The char array to be encoded. May not be <code>null</code>.
+   * @param nOfs
+   *        Offset into char array. Must be &ge; 0.
+   * @param nLen
+   *        Chars to encode. Must be &ge; 0.
+   * @return The created byte array. Never <code>null</code>.
+   * @since 8.6.4
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public static byte [] encodeCharToBytes (@Nonnull final Charset aCharset,
+                                           @Nonnull final char [] aCharArray,
+                                           @Nonnegative final int nOfs,
+                                           @Nonnegative final int nLen)
+  {
+    ValueEnforcer.isArrayOfsLen (aCharArray, nOfs, nLen);
+
+    final CharsetEncoder aEncoder = aCharset.newEncoder ();
+    // We need to perform double, not float, arithmetic; otherwise
+    // we lose low order bits when nLen is larger than 2^24.
+    final int nEncodedLen = (int) (nLen * (double) aEncoder.maxBytesPerChar ());
+    final byte [] aByteArray = new byte [nEncodedLen];
+    if (nLen == 0)
+      return aByteArray;
+    aEncoder.onMalformedInput (CodingErrorAction.REPLACE).onUnmappableCharacter (CodingErrorAction.REPLACE).reset ();
+
+    final CharBuffer aSrcBuf = CharBuffer.wrap (aCharArray, nOfs, nLen);
+    final ByteBuffer aDstBuf = ByteBuffer.wrap (aByteArray);
+    try
+    {
+      CoderResult aRes = aEncoder.encode (aSrcBuf, aDstBuf, true);
+      if (!aRes.isUnderflow ())
+        aRes.throwException ();
+      aRes = aEncoder.flush (aDstBuf);
+      if (!aRes.isUnderflow ())
+        aRes.throwException ();
+    }
+    catch (final CharacterCodingException x)
+    {
+      throw new IllegalStateException (x);
+    }
+
+    final int nDstLen = aDstBuf.position ();
+    if (nDstLen == aByteArray.length)
+      return aByteArray;
+    return Arrays.copyOf (aByteArray, nDstLen);
   }
 }
