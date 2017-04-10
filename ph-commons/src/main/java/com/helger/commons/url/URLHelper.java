@@ -16,7 +16,6 @@
  */
 package com.helger.commons.url;
 
-import java.io.CharArrayWriter;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -58,6 +57,7 @@ import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.commons.io.stream.NonBlockingCharArrayWriter;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.ClassLoaderHelper;
@@ -246,7 +246,7 @@ public final class URLHelper
             if (nIndex < nLen && c == '%')
               throw new IllegalArgumentException ("URLDecoder: Incomplete trailing escape (%) pattern");
 
-            aSB.append (new String (aBytes, 0, nPos, aCharset));
+            aSB.append (StringHelper.decodeBytesToChars (aCharset, aBytes, 0, nPos));
           }
           catch (final NumberFormatException e)
           {
@@ -297,23 +297,24 @@ public final class URLHelper
     ValueEnforcer.notNull (aCharset, "Charset");
 
     final int nLen = sValue.length ();
-    boolean bNeedToChange = false;
-    final StringBuilder out = new StringBuilder (nLen * 2);
-    final CharArrayWriter aCAW = new CharArrayWriter ();
+    boolean bChanged = false;
+    final StringBuilder aSB = new StringBuilder (nLen * 2);
+    final NonBlockingCharArrayWriter aCAW = new NonBlockingCharArrayWriter ();
 
-    for (int nIndex = 0; nIndex < nLen;)
+    final char [] aSrcChars = sValue.toCharArray ();
+    int nIndex = 0;
+    while (nIndex < nLen)
     {
-      char c = sValue.charAt (nIndex);
+      char c = aSrcChars[nIndex];
       // System.out.println("Examining character: " + c);
       if (NO_URL_ENCODE.get (c))
       {
         if (c == ' ')
         {
           c = '+';
-          bNeedToChange = true;
+          bChanged = true;
         }
-        // System.out.println("Storing: " + c);
-        out.append (c);
+        aSB.append (c);
         nIndex++;
       }
       else
@@ -329,55 +330,40 @@ public final class URLHelper
            * legal surrogate pair. For now, just treat it as if it were any
            * other character.
            */
-          if (Character.isHighSurrogate (c))
+          if (Character.isHighSurrogate (c) && nIndex + 1 < nLen)
           {
-            /*
-             * System.out.println(Integer.toHexString(c) + " is high surrogate"
-             * );
-             */
-            if (nIndex + 1 < nLen)
+            final char d = aSrcChars[nIndex + 1];
+            if (Character.isLowSurrogate (d))
             {
-              final char d = sValue.charAt (nIndex + 1);
-              /*
-               * System.out.println("\tExamining " + Integer.toHexString(d));
-               */
-              if (Character.isLowSurrogate (d))
-              {
-                /*
-                 * System.out.println("\t" + Integer.toHexString(d) +
-                 * " is low surrogate");
-                 */
-                aCAW.write (d);
-                nIndex++;
-              }
+              aCAW.write (d);
+              nIndex++;
             }
           }
           nIndex++;
-        } while (nIndex < nLen && !NO_URL_ENCODE.get ((c = sValue.charAt (nIndex))));
+        } while (nIndex < nLen && !NO_URL_ENCODE.get (c = aSrcChars[nIndex]));
 
         aCAW.flush ();
-        final String str = new String (aCAW.toCharArray ());
-        final byte [] ba = str.getBytes (aCharset);
+        final byte [] ba = aCAW.toByteArray (aCharset);
         for (final byte element : ba)
         {
-          out.append ('%');
+          aSB.append ('%');
           char ch = Character.forDigit ((element >> 4) & 0xF, 16);
           // converting to use uppercase letter as part of
           // the hex value if ch is a letter.
           if (Character.isLetter (ch))
             ch -= CASE_DIFF;
-          out.append (ch);
+          aSB.append (ch);
           ch = Character.forDigit (element & 0xF, 16);
           if (Character.isLetter (ch))
             ch -= CASE_DIFF;
-          out.append (ch);
+          aSB.append (ch);
         }
         aCAW.reset ();
-        bNeedToChange = true;
+        bChanged = true;
       }
     }
 
-    return bNeedToChange ? out.toString () : sValue;
+    return bChanged ? aSB.toString () : sValue;
   }
 
   private static void _initCleanURL ()
@@ -390,7 +376,7 @@ public final class URLHelper
     // Ever trickier is the when running multiple threads for reading XML (e.g.
     // in the unit test) this code would wait forever in the static initializer
     // because XMLMapHandler internally also acquires an XML reader....
-    final ICommonsOrderedMap <String, String> aCleanURLMap = new CommonsLinkedHashMap<> ();
+    final ICommonsOrderedMap <String, String> aCleanURLMap = new CommonsLinkedHashMap <> ();
     StreamHelper.readStreamLines (ClassPathResource.getInputStream ("codelists/cleanurl-data.dat"),
                                   StandardCharsets.UTF_8,
                                   sLine -> {

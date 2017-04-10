@@ -27,6 +27,8 @@ This project was the following modules:
   * v8.6.4 - work in progress
     * Some performance improvements
     * Fixed error in `StringHelper.replaceMultipleAsString`
+    * Extended `StringHelper` with encode/decode methods    
+    * Added new class `NonBlockingCharArrayWriter`
   * v8.6.3 - 2017-03-28
     * Deprecated some String-based `FileHelper` APIs
     * Improved CertificateHelper parsing

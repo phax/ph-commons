@@ -22,6 +22,7 @@ import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.CharacterCodingException;
 import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CharsetEncoder;
 import java.nio.charset.CoderResult;
 import java.nio.charset.CodingErrorAction;
@@ -5058,5 +5059,76 @@ public final class StringHelper
     if (nDstLen == aByteArray.length)
       return aByteArray;
     return Arrays.copyOf (aByteArray, nDstLen);
+  }
+
+  /**
+   * Decode a byte array to a char array using the provided charset. This does
+   * the same as <code>new String (aByteArray, aCharset)</code> just without the
+   * intermediate objects.
+   *
+   * @param aCharset
+   *        Charset to be used. May not be <code>null</code>.
+   * @param aByteArray
+   *        The byte array to be decoded. May not be <code>null</code>.
+   * @return The created char array. Never <code>null</code>.
+   * @since 8.6.4
+   */
+  @Nonnull
+  public static char [] decodeBytesToChars (@Nonnull final Charset aCharset, @Nonnull final byte [] aByteArray)
+  {
+    return decodeBytesToChars (aCharset, aByteArray, 0, aByteArray.length);
+  }
+
+  /**
+   * Decode a byte array to a char array using the provided charset. This does
+   * the same as <code>new String (aByteArray, aCharset)</code> just without the
+   * intermediate objects.
+   *
+   * @param aCharset
+   *        Charset to be used. May not be <code>null</code>.
+   * @param aByteArray
+   *        The byte array to be decoded. May not be <code>null</code>.
+   * @param nOfs
+   *        Offset into byte array. Must be &ge; 0.
+   * @param nLen
+   *        Bytes to encode. Must be &ge; 0.
+   * @return The created char array. Never <code>null</code>.
+   * @since 8.6.4
+   */
+  @Nonnull
+  public static char [] decodeBytesToChars (@Nonnull final Charset aCharset,
+                                            @Nonnull final byte [] aByteArray,
+                                            @Nonnegative final int nOfs,
+                                            @Nonnegative final int nLen)
+  {
+    final CharsetDecoder aDecoder = aCharset.newDecoder ();
+    final int nDecodedLen = (int) (nLen * (double) aDecoder.maxCharsPerByte ());
+    final char [] aCharArray = new char [nDecodedLen];
+    if (nLen == 0)
+      return aCharArray;
+    aDecoder.onMalformedInput (CodingErrorAction.REPLACE).onUnmappableCharacter (CodingErrorAction.REPLACE).reset ();
+
+    final ByteBuffer aSrcBuf = ByteBuffer.wrap (aByteArray, nOfs, nLen);
+    final CharBuffer aDstBuf = CharBuffer.wrap (aCharArray);
+    try
+    {
+      CoderResult aRes = aDecoder.decode (aSrcBuf, aDstBuf, true);
+      if (!aRes.isUnderflow ())
+        aRes.throwException ();
+      aRes = aDecoder.flush (aDstBuf);
+      if (!aRes.isUnderflow ())
+        aRes.throwException ();
+    }
+    catch (final CharacterCodingException x)
+    {
+      // Substitution is always enabled,
+      // so this shouldn't happen
+      throw new IllegalStateException (x);
+    }
+
+    final int nDstLen = aDstBuf.position ();
+    if (nDstLen == aCharArray.length)
+      return aCharArray;
+    return Arrays.copyOf (aCharArray, nDstLen);
   }
 }
