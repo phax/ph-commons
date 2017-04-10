@@ -201,7 +201,10 @@ public final class ValueEnforcer
    */
   public static <T> T notNull (final T aValue, final String sName)
   {
-    return notNull (aValue, () -> sName);
+    if (isEnabled ())
+      if (aValue == null)
+        throw new NullPointerException ("The value of '" + sName + "' may not be null!");
+    return aValue;
   }
 
   /**
