@@ -30,6 +30,7 @@ import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsEnumMap;
 import com.helger.commons.collection.ext.CommonsLinkedHashSet;
+import com.helger.commons.collection.ext.ICommonsIterable;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.ext.ICommonsOrderedSet;
@@ -368,6 +369,13 @@ public abstract class AbstractMicroNode implements IMicroNode
     return null;
   }
 
+  @OverrideOnDemand
+  @Nullable
+  public ICommonsIterable <IMicroNode> getChildren ()
+  {
+    return null;
+  }
+
   public void forAllChildren (@Nonnull final Consumer <? super IMicroNode> aConsumer)
   {
     // empty
@@ -616,9 +624,9 @@ public abstract class AbstractMicroNode implements IMicroNode
     ValueEnforcer.notNull (aTarget, "EventTarget");
 
     if (m_aEventTargets == null)
-      m_aEventTargets = new CommonsEnumMap<> (EMicroEvent.class);
+      m_aEventTargets = new CommonsEnumMap <> (EMicroEvent.class);
     final ICommonsOrderedSet <IMicroEventTarget> aSet = m_aEventTargets.computeIfAbsent (eEventType,
-                                                                                         k -> new CommonsLinkedHashSet<> ());
+                                                                                         k -> new CommonsLinkedHashSet <> ());
     return aSet.addObject (aTarget);
   }
 
@@ -641,14 +649,14 @@ public abstract class AbstractMicroNode implements IMicroNode
   @ReturnsMutableCopy
   public ICommonsMap <EMicroEvent, ICommonsSet <IMicroEventTarget>> getAllEventTargets ()
   {
-    return new CommonsEnumMap<> (m_aEventTargets);
+    return new CommonsEnumMap <> (m_aEventTargets);
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <IMicroEventTarget> getAllEventTargets (@Nullable final EMicroEvent eEvent)
   {
-    return new CommonsLinkedHashSet<> (m_aEventTargets == null ? null : m_aEventTargets.get (eEvent));
+    return new CommonsLinkedHashSet <> (m_aEventTargets == null ? null : m_aEventTargets.get (eEvent));
   }
 
   @Override

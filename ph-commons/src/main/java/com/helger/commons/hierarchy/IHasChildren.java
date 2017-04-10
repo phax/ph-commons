@@ -24,7 +24,9 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.ICommonsCollection;
+import com.helger.commons.collection.ext.ICommonsIterable;
 import com.helger.commons.state.EContinue;
 
 /**
@@ -62,10 +64,30 @@ public interface IHasChildren <CHILDTYPE>
 
   /**
    * @return A collection of all direct child elements. May be <code>null</code>
-   *         .
+   *         if no children are contained. This method should always return a
+   *         copy of the collection to avoid
+   *         {@link java.util.ConcurrentModificationException} when modifying
+   *         it.
+   * @see #hasChildren()
+   * @see #getChildren()
    */
   @Nullable
-  ICommonsCollection <? extends CHILDTYPE> getAllChildren ();
+  @ReturnsMutableCopy
+  ICommonsCollection <CHILDTYPE> getAllChildren ();
+
+  /**
+   * @return An iterable over all direct children. May be <code>null</code> if
+   *         no children are contained. Compared to {@link #getAllChildren()}
+   *         this method is not supposed to create a copy of the underlying
+   *         container but instead return the iterable only. Be careful when
+   *         using this method to modify a collection - it will lead to a
+   *         {@link java.util.ConcurrentModificationException}.
+   * @see #hasChildren()
+   * @see #getChildren()
+   * @since 9.0.0
+   */
+  @Nullable
+  ICommonsIterable <CHILDTYPE> getChildren ();
 
   /**
    * Perform something on all children (if any).<br>

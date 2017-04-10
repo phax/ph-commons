@@ -30,6 +30,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsIterable;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -190,6 +191,12 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
   public final ICommonsList <ITEMTYPE> getAllChildren ()
   {
     return m_aChildren == null ? null : m_aChildren.getClone ();
+  }
+
+  @Nullable
+  public final ICommonsIterable <ITEMTYPE> getChildren ()
+  {
+    return m_aChildren;
   }
 
   public final void forAllChildren (@Nonnull final Consumer <? super ITEMTYPE> aConsumer)

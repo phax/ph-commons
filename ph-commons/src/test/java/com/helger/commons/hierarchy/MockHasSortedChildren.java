@@ -22,6 +22,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.ICommonsIterable;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.id.IHasID;
 
@@ -54,9 +55,15 @@ public final class MockHasSortedChildren implements IHasChildrenSorted <MockHasS
 
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsList <? extends MockHasSortedChildren> getAllChildren ()
+  public ICommonsList <MockHasSortedChildren> getAllChildren ()
   {
     return m_aList.getClone ();
+  }
+
+  @Nonnull
+  public ICommonsIterable <MockHasSortedChildren> getChildren ()
+  {
+    return m_aList;
   }
 
   @Nullable

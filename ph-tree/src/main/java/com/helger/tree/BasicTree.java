@@ -28,6 +28,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsCollection;
+import com.helger.commons.collection.ext.ICommonsIterable;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.state.EContinue;
 import com.helger.commons.string.ToStringGenerator;
@@ -71,9 +72,15 @@ public class BasicTree <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE
 
   @Nonnull
   @ReturnsMutableCopy
-  public final ICommonsCollection <? extends ITEMTYPE> getAllChildren ()
+  public final ICommonsCollection <ITEMTYPE> getAllChildren ()
   {
     return new CommonsArrayList <> (m_aRootItem);
+  }
+
+  @Nonnull
+  public final ICommonsIterable <ITEMTYPE> getChildren ()
+  {
+    return getAllChildren ();
   }
 
   public final void forAllChildren (@Nonnull final Consumer <? super ITEMTYPE> aConsumer)

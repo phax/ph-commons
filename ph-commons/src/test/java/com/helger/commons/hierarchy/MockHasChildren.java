@@ -23,6 +23,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsCollection;
+import com.helger.commons.collection.ext.ICommonsIterable;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.id.IHasID;
@@ -56,9 +57,15 @@ public final class MockHasChildren implements IHasChildren <MockHasChildren>, IH
 
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsCollection <? extends MockHasChildren> getAllChildren ()
+  public ICommonsCollection <MockHasChildren> getAllChildren ()
   {
     return m_aList.getClone ();
+  }
+
+  @Nonnull
+  public ICommonsIterable <MockHasChildren> getChildren ()
+  {
+    return m_aList;
   }
 
   @Nullable

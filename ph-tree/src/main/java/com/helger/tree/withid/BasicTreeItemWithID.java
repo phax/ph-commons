@@ -31,6 +31,7 @@ import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.ICommonsIterable;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.ext.ICommonsSet;
@@ -231,6 +232,12 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     return m_aChildren == null ? null : m_aChildren.getClone ();
   }
 
+  @Nullable
+  public final ICommonsIterable <ITEMTYPE> getChildren ()
+  {
+    return m_aChildren;
+  }
+
   public final void forAllChildren (@Nonnull final Consumer <? super ITEMTYPE> aConsumer)
   {
     if (m_aChildren != null)
@@ -343,8 +350,8 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
       aItem.setData (aData);
       if (m_aChildMap == null)
       {
-        m_aChildMap = new CommonsHashMap<> ();
-        m_aChildren = new CommonsArrayList<> ();
+        m_aChildMap = new CommonsHashMap <> ();
+        m_aChildren = new CommonsArrayList <> ();
       }
       m_aChildMap.put (aDataID, aItem);
       m_aChildren.add (aItem);
@@ -417,8 +424,8 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     }
     else
     {
-      m_aChildMap = new CommonsHashMap<> ();
-      m_aChildren = new CommonsArrayList<> ();
+      m_aChildMap = new CommonsHashMap <> ();
+      m_aChildren = new CommonsArrayList <> ();
     }
 
     m_aChildMap.put (aDataID, aChild);

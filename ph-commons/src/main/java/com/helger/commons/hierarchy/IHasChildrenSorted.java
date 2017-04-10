@@ -39,7 +39,7 @@ public interface IHasChildrenSorted <CHILDTYPE> extends IHasChildren <CHILDTYPE>
    *         children are present.
    */
   @Nullable
-  ICommonsList <? extends CHILDTYPE> getAllChildren ();
+  ICommonsList <CHILDTYPE> getAllChildren ();
 
   /**
    * Get the child node at the specified index

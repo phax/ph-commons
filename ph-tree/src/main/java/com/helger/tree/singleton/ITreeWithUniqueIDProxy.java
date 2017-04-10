@@ -26,6 +26,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.ICommonsCollection;
+import com.helger.commons.collection.ext.ICommonsIterable;
 import com.helger.commons.state.EChange;
 import com.helger.tree.withid.DefaultTreeItemWithID;
 import com.helger.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
@@ -64,9 +65,15 @@ public interface ITreeWithUniqueIDProxy <KEYTYPE, VALUETYPE> extends
 
   @Nonnull
   @ReturnsMutableCopy
-  default ICommonsCollection <? extends DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> getAllChildren ()
+  default ICommonsCollection <DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> getAllChildren ()
   {
     return getProxyTree ().getAllChildren ();
+  }
+
+  @Nullable
+  default ICommonsIterable <DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> getChildren ()
+  {
+    return getProxyTree ().getChildren ();
   }
 
   default void forAllChildren (@Nonnull final Consumer <? super DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> aConsumer)
