@@ -16,11 +16,11 @@
  */
 package com.helger.matrix;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.io.Reader;
 import java.io.Serializable;
 import java.io.StreamTokenizer;
 import java.text.NumberFormat;
@@ -36,6 +36,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.math.MathHelper;
 import com.helger.commons.string.StringHelper;
@@ -1401,9 +1402,9 @@ public class Matrix implements Serializable, ICloneable <Matrix>
    *         In case of an I/O error
    */
   @Nonnull
-  public static Matrix read (@Nonnull @WillNotClose final BufferedReader aReader) throws IOException
+  public static Matrix read (@Nonnull @WillNotClose final Reader aReader) throws IOException
   {
-    final StreamTokenizer aTokenizer = new StreamTokenizer (aReader);
+    final StreamTokenizer aTokenizer = new StreamTokenizer (StreamHelper.getBuffered (aReader));
 
     // Although StreamTokenizer will parse numbers, it doesn't recognize
     // scientific notation (E or D); however, Double.valueOf does.
@@ -1425,7 +1426,7 @@ public class Matrix implements Serializable, ICloneable <Matrix>
       throw new IOException ("Unexpected EOF on matrix read.");
 
     // Read & store 1st row.
-    final ICommonsList <Double> vD = new CommonsArrayList<> ();
+    final ICommonsList <Double> vD = new CommonsArrayList <> ();
     do
     {
       vD.add (Double.valueOf (aTokenizer.sval));
@@ -1440,7 +1441,7 @@ public class Matrix implements Serializable, ICloneable <Matrix>
       aRow[nCol] = vD.get (nCol).doubleValue ();
     }
 
-    final ICommonsList <double []> v = new CommonsArrayList<> ();
+    final ICommonsList <double []> v = new CommonsArrayList <> ();
     // Start storing rows instead of columns.
     v.add (aRow);
     while (aTokenizer.nextToken () == StreamTokenizer.TT_WORD)
