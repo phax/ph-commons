@@ -135,7 +135,7 @@ public class JsonObject implements IJsonObject
   @Nonnull
   public EChange removeKey (@Nullable final String sName)
   {
-    return EChange.valueOf (m_aValues.remove (sName) != null);
+    return m_aValues.removeObject (sName);
   }
 
   public boolean containsKey (@Nullable final String sName)
