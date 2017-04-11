@@ -59,13 +59,13 @@ public class JsonObject implements IJsonObject
 
   public JsonObject (@Nonnegative final int nInitialCapacity)
   {
-    m_aValues = new CommonsLinkedHashMap<> (nInitialCapacity);
+    m_aValues = new CommonsLinkedHashMap <> (nInitialCapacity);
   }
 
   public JsonObject (@Nonnull final Map <String, ? extends IJson> aJsons)
   {
     ValueEnforcer.notNull (aJsons, "Jsons");
-    m_aValues = new CommonsLinkedHashMap<> (aJsons);
+    m_aValues = new CommonsLinkedHashMap <> (aJsons);
   }
 
   private void writeObject (@Nonnull final ObjectOutputStream aOOS) throws IOException
@@ -78,7 +78,7 @@ public class JsonObject implements IJsonObject
   private void readObject (@Nonnull final ObjectInputStream aOIS) throws IOException
   {
     final int nInitialSize = aOIS.readInt ();
-    m_aValues = new CommonsLinkedHashMap<> (nInitialSize);
+    m_aValues = new CommonsLinkedHashMap <> (nInitialSize);
     final String sJson = StreamHelper.readSafeUTF (aOIS);
     final JsonObject aJson = (JsonObject) JsonReader.readFromString (sJson);
     m_aValues.putAll (aJson.m_aValues);
@@ -135,7 +135,7 @@ public class JsonObject implements IJsonObject
   @Nonnull
   public EChange removeKey (@Nullable final String sName)
   {
-    return EChange.valueOf (m_aValues.remove (sName) != null);
+    return m_aValues.removeObject (sName);
   }
 
   public boolean containsKey (@Nullable final String sName)
@@ -184,7 +184,7 @@ public class JsonObject implements IJsonObject
   @ReturnsMutableCopy
   public ICommonsOrderedMap <String, IJson> getClonedValues ()
   {
-    final ICommonsOrderedMap <String, IJson> ret = new CommonsLinkedHashMap<> ();
+    final ICommonsOrderedMap <String, IJson> ret = new CommonsLinkedHashMap <> ();
     for (final Map.Entry <String, IJson> aEntry : m_aValues.entrySet ())
       ret.put (aEntry.getKey (), aEntry.getValue ().getClone ());
     return ret;

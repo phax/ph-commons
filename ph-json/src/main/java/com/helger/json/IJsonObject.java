@@ -419,6 +419,32 @@ public interface IJsonObject extends
   }
 
   /**
+   * Compute a JSON value if it is not present.
+   *
+   * @param sName
+   *        The name of the property. May not be <code>null</code>.
+   * @param aValueProvider
+   *        The value provider of the property. May not be <code>null</code>. Is
+   *        only invoked, if the property is not present.
+   * @return Either the existing property value, or the newly calculated
+   *         property value.
+   * @since 8.6.4
+   */
+  @Nullable
+  default IJson computeIfAbsent (@Nonnull final String sName,
+                                 @Nonnull final Function <? super String, ? extends IJson> aValueProvider)
+  {
+    IJson ret = get (sName);
+    if (ret == null)
+    {
+      ret = aValueProvider.apply (sName);
+      if (ret != null)
+        add (sName, ret);
+    }
+    return ret;
+  }
+
+  /**
    * @return A map of all cloned values contained in this object in the same
    *         order. Never <code>null</code>.
    */
