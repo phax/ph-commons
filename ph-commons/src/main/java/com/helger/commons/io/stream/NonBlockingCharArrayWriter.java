@@ -27,6 +27,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -254,6 +255,17 @@ public class NonBlockingCharArrayWriter extends Writer
   }
 
   /**
+   * @return The internally used char array. Never <code>null</code>. Handle
+   *         with care!
+   */
+  @Nonnull
+  @ReturnsMutableObject ("by design")
+  public char [] directGetBuffer ()
+  {
+    return m_aBuf;
+  }
+
+  /**
    * Returns a copy of the input data as bytes in the correct charset.
    *
    * @param aCharset
@@ -273,9 +285,43 @@ public class NonBlockingCharArrayWriter extends Writer
    * @return an int representing the current size of the buffer.
    */
   @Nonnegative
-  public int size ()
+  public int getSize ()
   {
     return m_nCount;
+  }
+
+  /**
+   * @return The number of pre-allocated chars. Always &ge; 0.
+   */
+  @Nonnegative
+  public int getBufferSize ()
+  {
+    return m_aBuf.length;
+  }
+
+  public boolean isEmpty ()
+  {
+    return m_nCount == 0;
+  }
+
+  public boolean isNotEmpty ()
+  {
+    return m_nCount > 0;
+  }
+
+  public boolean startsWith (@Nonnull final char [] aChars)
+  {
+    return startsWith (aChars, 0, aChars.length);
+  }
+
+  public boolean startsWith (@Nonnull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  {
+    if (m_nCount < nLen || nLen < 0)
+      return false;
+    for (int i = 0; i < nLen; ++i)
+      if (m_aBuf[i] != aChars[nOfs + i])
+        return false;
+    return true;
   }
 
   /**
@@ -283,9 +329,44 @@ public class NonBlockingCharArrayWriter extends Writer
    *
    * @return the string.
    */
+  @Nonnull
+  @ReturnsMutableCopy
   public String getAsString ()
   {
     return new String (m_aBuf, 0, m_nCount);
+  }
+
+  /**
+   * Converts input data to a string.
+   *
+   * @param nLength
+   *        The number of characters to convert. Must be &le; than
+   *        {@link #getSize()}.
+   * @return the string.
+   */
+  @Nonnull
+  public String getAsString (@Nonnegative final int nLength)
+  {
+    ValueEnforcer.isBetweenInclusive (nLength, "Length", 0, m_nCount);
+    return new String (m_aBuf, 0, nLength);
+  }
+
+  /**
+   * Converts input data to a string.
+   *
+   * @param nOfs
+   *        The offset to start at. Must be &ge; 0.
+   * @param nLength
+   *        The number of characters to convert. Must be &le; than
+   *        {@link #getSize()}.
+   * @return the string.
+   */
+  @Nonnull
+  public String getAsString (@Nonnegative final int nOfs, @Nonnegative final int nLength)
+  {
+    ValueEnforcer.isGE0 (nOfs, "Index");
+    ValueEnforcer.isBetweenInclusive (nLength, "Length", 0, m_nCount);
+    return new String (m_aBuf, nOfs, nLength);
   }
 
   /**
