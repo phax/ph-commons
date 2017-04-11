@@ -254,7 +254,7 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
 
   public boolean startsWith (@Nonnull final byte [] aBytes, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
-    if (m_nCount < nLen)
+    if (m_nCount < nLen || nLen < 0)
       return false;
     for (int i = 0; i < nLen; ++i)
       if (m_aBuf[i] != aBytes[nOfs + i])
@@ -318,7 +318,7 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
    * {@link java.nio.charset.CharsetDecoder} class should be used when more
    * control over the decoding process is required.
    *
-   * @param nIndex
+   * @param nOfs
    *        The start index to use
    * @param nLength
    *        The number of bytes to be converted to a String. Must be &ge; 0.
@@ -327,13 +327,13 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
    * @return String decoded from the buffer's contents.
    */
   @Nonnull
-  public String getAsString (@Nonnegative final int nIndex,
+  public String getAsString (@Nonnegative final int nOfs,
                              @Nonnegative final int nLength,
                              @Nonnull final Charset aCharset)
   {
-    ValueEnforcer.isGE0 (nIndex, "Index");
+    ValueEnforcer.isGE0 (nOfs, "Index");
     ValueEnforcer.isBetweenInclusive (nLength, "Length", 0, m_nCount);
-    return new String (m_aBuf, nIndex, nLength, aCharset);
+    return new String (m_aBuf, nOfs, nLength, aCharset);
   }
 
   /**
