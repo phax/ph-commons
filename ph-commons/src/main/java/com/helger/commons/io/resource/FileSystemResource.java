@@ -17,8 +17,8 @@
 package com.helger.commons.io.resource;
 
 import java.io.File;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.Reader;
 import java.io.Writer;
 import java.net.URI;
@@ -102,7 +102,7 @@ public class FileSystemResource implements IReadWriteResource
   }
 
   @Nullable
-  public InputStream getInputStream ()
+  public FileInputStream getInputStream ()
   {
     return FileHelper.getInputStream (m_aFile);
   }
@@ -114,7 +114,7 @@ public class FileSystemResource implements IReadWriteResource
   }
 
   @Nullable
-  public OutputStream getOutputStream (@Nonnull final EAppend eAppend)
+  public FileOutputStream getOutputStream (@Nonnull final EAppend eAppend)
   {
     return FileHelper.getOutputStream (m_aFile, eAppend);
   }

@@ -23,7 +23,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.RandomAccessFile;
 import java.io.Reader;
@@ -316,7 +317,7 @@ public final class FileHelper
   }
 
   @Nullable
-  public static Reader getReader (@Nonnull final File aFile, @Nonnull final Charset aCharset)
+  public static InputStreamReader getReader (@Nonnull final File aFile, @Nonnull final Charset aCharset)
   {
     ValueEnforcer.notNull (aFile, "File");
     ValueEnforcer.notNull (aCharset, "Charset");
@@ -344,7 +345,7 @@ public final class FileHelper
    * @return <code>null</code> if the file could not be opened
    */
   @Nullable
-  public static OutputStream getOutputStream (@Nonnull final File aFile)
+  public static FileOutputStream getOutputStream (@Nonnull final File aFile)
   {
     return getOutputStream (aFile, EAppend.DEFAULT);
   }
@@ -406,15 +407,15 @@ public final class FileHelper
   }
 
   @Nullable
-  public static Writer getWriter (@Nonnull final File aFile, @Nonnull final Charset aCharset)
+  public static OutputStreamWriter getWriter (@Nonnull final File aFile, @Nonnull final Charset aCharset)
   {
     return getWriter (aFile, EAppend.DEFAULT, aCharset);
   }
 
   @Nullable
-  public static Writer getWriter (@Nonnull final File aFile,
-                                  @Nonnull final EAppend eAppend,
-                                  @Nonnull final Charset aCharset)
+  public static OutputStreamWriter getWriter (@Nonnull final File aFile,
+                                              @Nonnull final EAppend eAppend,
+                                              @Nonnull final Charset aCharset)
   {
     ValueEnforcer.notNull (aFile, "File");
     ValueEnforcer.notNull (aCharset, "Charset");
@@ -670,7 +671,7 @@ public final class FileHelper
         s_aLogger.warn ("Directory is missing the listing permission: " + aDirectory.getAbsolutePath ());
       }
     }
-    return new CommonsArrayList<> (aSelectedContent);
+    return new CommonsArrayList <> (aSelectedContent);
   }
 
   /**
