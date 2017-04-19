@@ -103,7 +103,9 @@ public final class URLHelper
   private static final boolean DEBUG_GET_IS = false;
 
   private static final BitSet NO_URL_ENCODE = new BitSet (256);
-  private static final int CASE_DIFF = ('a' - 'A');
+
+  // Must be upper case for URL encode!
+  private static final char [] URL_ENCODE_CHARS = "0123456789ABCDEF".toCharArray ();
 
   static
   {
@@ -344,22 +346,12 @@ public final class URLHelper
           nIndex++;
         } while (nIndex < nLen && !NO_URL_ENCODE.get (c = aSrcChars[nIndex]));
 
-        aCAW.flush ();
         final byte [] aEncodedBytes = aCAW.toByteArray (aCharset);
         for (final byte nEncByte : aEncodedBytes)
         {
           aSB.append ('%');
-          char ch = Character.forDigit ((nEncByte >> 4) & 0xF, 16);
-          // converting to use uppercase letter as part of
-          // the hex value if ch is a letter.
-          if (Character.isLetter (ch))
-            ch -= CASE_DIFF;
-          aSB.append (ch);
-
-          ch = Character.forDigit (nEncByte & 0xF, 16);
-          if (Character.isLetter (ch))
-            ch -= CASE_DIFF;
-          aSB.append (ch);
+          aSB.append (URL_ENCODE_CHARS[(nEncByte >> 4) & 0xF]);
+          aSB.append (URL_ENCODE_CHARS[nEncByte & 0xF]);
         }
         bChanged = true;
       }
