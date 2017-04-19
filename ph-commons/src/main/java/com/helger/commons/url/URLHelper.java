@@ -17,26 +17,17 @@
 package com.helger.commons.url;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.JarURLConnection;
 import java.net.MalformedURLException;
-import java.net.SocketTimeoutException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.BitSet;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
-import java.util.jar.JarEntry;
 
-import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
@@ -63,7 +54,6 @@ import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
-import com.helger.commons.wrapper.IMutableWrapper;
 
 /**
  * URL utilities.
@@ -99,9 +89,6 @@ public final class URLHelper
 
   private static char [] s_aCleanURLOld;
   private static char [] [] s_aCleanURLNew;
-
-  /** Internal debug logging flag */
-  private static final boolean DEBUG_GET_IS = false;
 
   private static final BitSet NO_URL_ENCODE = new BitSet (256);
   private static final int CASE_DIFF = ('a' - 'A');
@@ -299,7 +286,7 @@ public final class URLHelper
     final int nLen = sValue.length ();
     boolean bChanged = false;
     final StringBuilder aSB = new StringBuilder (nLen * 2);
-    final NonBlockingCharArrayWriter aCAW = new NonBlockingCharArrayWriter ();
+    NonBlockingCharArrayWriter aCAW = null;
 
     final char [] aSrcChars = sValue.toCharArray ();
     int nIndex = 0;
@@ -319,6 +306,11 @@ public final class URLHelper
       else
       {
         // convert to external encoding before hex conversion
+        if (aCAW == null)
+          aCAW = new NonBlockingCharArrayWriter ();
+        else
+          aCAW.reset ();
+
         do
         {
           aCAW.write (c);
@@ -358,7 +350,6 @@ public final class URLHelper
             ch -= CASE_DIFF;
           aSB.append (ch);
         }
-        aCAW.reset ();
         bChanged = true;
       }
     }
@@ -566,6 +557,31 @@ public final class URLHelper
     final boolean bHasQueryParams = StringHelper.hasText (sQueryParams);
     final boolean bHasAnchor = StringHelper.hasText (sAnchor);
 
+    if (GlobalDebug.isDebugMode ())
+    {
+      if (bHasPath)
+      {
+        if (sPath.contains (QUESTIONMARK_STR))
+          s_aLogger.warn ("Path contains the question mark ('?') character: '" + sPath + "'");
+        if (sPath.contains (AMPERSAND_STR))
+          s_aLogger.warn ("Path contains the ampersand ('&') character: '" + sPath + "'");
+        if (sPath.contains (HASH_STR))
+          s_aLogger.warn ("Path contains the hash ('#') character: '" + sPath + "'");
+      }
+
+      if (bHasQueryParams)
+      {
+        if (sQueryParams.contains (QUESTIONMARK_STR))
+          s_aLogger.warn ("Query parameters contain the question mark ('?') character: '" + sQueryParams + "'");
+      }
+
+      if (bHasAnchor)
+      {
+        if (sAnchor.contains (HASH_STR))
+          s_aLogger.warn ("Anchor contains the hash ('#') character: '" + sAnchor + "'");
+      }
+    }
+
     // return URL as is?
     if (!bHasQueryParams && !bHasAnchor)
     {
@@ -575,23 +591,11 @@ public final class URLHelper
 
     final StringBuilder aSB = new StringBuilder ();
     if (bHasPath)
-    {
       aSB.append (sPath);
-      if (sPath.contains (QUESTIONMARK_STR))
-        s_aLogger.warn ("Path contains the question mark ('?') character: '" + sPath + "'");
-      if (sPath.contains (AMPERSAND_STR))
-        s_aLogger.warn ("Path contains the ampersand ('&') character: '" + sPath + "'");
-      if (sPath.contains (HASH_STR))
-        s_aLogger.warn ("Path contains the hash ('#') character: '" + sPath + "'");
-    }
 
     if (bHasQueryParams)
     {
-      if (sQueryParams.contains (QUESTIONMARK_STR))
-        s_aLogger.warn ("Query parameters contain the question mark ('?') character: '" + sQueryParams + "'");
-
       final boolean bHasQuestionMark = aSB.indexOf (QUESTIONMARK_STR) >= 0;
-
       if (bHasQuestionMark)
       {
         // Only if the "?" is not the last char otherwise the base href already
@@ -613,8 +617,6 @@ public final class URLHelper
     // Append anchor
     if (bHasAnchor)
     {
-      if (sAnchor.contains (HASH_STR))
-        s_aLogger.warn ("Anchor contains the hash ('#') character: '" + sAnchor + "'");
       if (StringHelper.getLastChar (aSB) != HASH)
         aSB.append (HASH);
       aSB.append (sAnchor);
@@ -804,157 +806,6 @@ public final class URLHelper
       {
         // fall-through
       }
-    return null;
-  }
-
-  /**
-   * Get an input stream from the specified URL. By default caching is disabled.
-   * This method only handles GET requests - POST requests are not possible.
-   *
-   * @param aURL
-   *        The URL to use. May not be <code>null</code>.
-   * @param nConnectTimeoutMS
-   *        Connect timeout milliseconds. 0 == infinite. &lt; 0: ignored.
-   * @param nReadTimeoutMS
-   *        Read timeout milliseconds. 0 == infinite. &lt; 0: ignored.
-   * @param aConnectionModifier
-   *        An optional callback object to modify the URLConnection before it is
-   *        opened.
-   * @param aExceptionHolder
-   *        An optional exception holder for further outside investigation.
-   * @return <code>null</code> if the input stream could not be opened.
-   */
-  @Nullable
-  public static InputStream getInputStream (@Nonnull final URL aURL,
-                                            @CheckForSigned final int nConnectTimeoutMS,
-                                            @CheckForSigned final int nReadTimeoutMS,
-                                            @Nullable final Consumer <URLConnection> aConnectionModifier,
-                                            @Nullable final IMutableWrapper <IOException> aExceptionHolder)
-  {
-    ValueEnforcer.notNull (aURL, "URL");
-
-    if (DEBUG_GET_IS)
-      s_aLogger.info ("getInputStream ('" +
-                      aURL +
-                      "', " +
-                      nConnectTimeoutMS +
-                      ", " +
-                      nReadTimeoutMS +
-                      ", " +
-                      aConnectionModifier +
-                      ", " +
-                      aExceptionHolder +
-                      ")",
-                      new Exception ());
-
-    URLConnection aConnection;
-    HttpURLConnection aHTTPConnection = null;
-    try
-    {
-      aConnection = aURL.openConnection ();
-      if (nConnectTimeoutMS >= 0)
-        aConnection.setConnectTimeout (nConnectTimeoutMS);
-      if (nReadTimeoutMS >= 0)
-        aConnection.setReadTimeout (nReadTimeoutMS);
-      if (aConnection instanceof HttpURLConnection)
-        aHTTPConnection = (HttpURLConnection) aConnection;
-
-      // Disable caching
-      aConnection.setUseCaches (false);
-
-      // Apply optional callback
-      if (aConnectionModifier != null)
-        aConnectionModifier.accept (aConnection);
-
-      if (aConnection instanceof JarURLConnection)
-      {
-        final JarEntry aJarEntry = ((JarURLConnection) aConnection).getJarEntry ();
-        if (aJarEntry != null)
-        {
-          // Directories are identified by ending with a "/"
-          if (aJarEntry.isDirectory ())
-          {
-            // Cannot open an InputStream on a directory
-            return null;
-          }
-
-          // Heuristics for directories not ending with a "/"
-          if (aJarEntry.getSize () == 0 && aJarEntry.getCrc () == 0)
-          {
-            // Cannot open an InputStream on a directory
-            s_aLogger.warn ("Heuristically determined " + aURL + " to be a directory!");
-            return null;
-          }
-        }
-      }
-
-      // by default follow-redirects is true for HTTPUrlConnections
-      final InputStream ret = aConnection.getInputStream ();
-
-      if (DEBUG_GET_IS)
-        s_aLogger.info ("  returning " + ret);
-
-      return ret;
-    }
-    catch (final IOException ex)
-    {
-      if (aExceptionHolder != null)
-      {
-        // Remember the exception
-        aExceptionHolder.set (ex);
-      }
-      else
-      {
-        if (ex instanceof SocketTimeoutException)
-          s_aLogger.warn ("Timeout to open input stream for '" +
-                          aURL +
-                          "': " +
-                          ex.getClass ().getName () +
-                          " - " +
-                          ex.getMessage ());
-        else
-          s_aLogger.warn ("Failed to open input stream for '" +
-                          aURL +
-                          "': " +
-                          ex.getClass ().getName () +
-                          " - " +
-                          ex.getMessage ());
-      }
-
-      if (aHTTPConnection != null)
-      {
-        // Read error completely for keep-alive (see
-        // http://docs.oracle.com/javase/6/docs/technotes/guides/net/http-keepalive.html)
-        InputStream aErrorIS = null;
-        try
-        {
-          aErrorIS = aHTTPConnection.getErrorStream ();
-          if (aErrorIS != null)
-          {
-            final byte [] aBuf = new byte [1024];
-            // read the response body
-            while (aErrorIS.read (aBuf) > 0)
-            {
-              // Read next
-            }
-          }
-        }
-        catch (final IOException ex2)
-        {
-          // deal with the exception
-          s_aLogger.warn ("Failed to consume error stream for '" +
-                          aURL +
-                          "': " +
-                          ex2.getClass ().getName () +
-                          " - " +
-                          ex2.getMessage ());
-        }
-        finally
-        {
-          StreamHelper.close (aErrorIS);
-        }
-      }
-    }
     return null;
   }
 
