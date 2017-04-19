@@ -104,11 +104,12 @@ public final class URLHelper
   private static final boolean DEBUG_GET_IS = false;
 
   private static final BitSet NO_URL_ENCODE = new BitSet (256);
-  private static final int CASE_DIFF = ('a' - 'A');
+
+  // Must be upper case for URL encode!
+  private static final char [] URL_ENCODE_CHARS = "0123456789ABCDEF".toCharArray ();
 
   static
   {
-
     /**
      * <pre>
      * The list of characters that are not encoded has been
@@ -299,7 +300,7 @@ public final class URLHelper
     final int nLen = sValue.length ();
     boolean bChanged = false;
     final StringBuilder aSB = new StringBuilder (nLen * 2);
-    final NonBlockingCharArrayWriter aCAW = new NonBlockingCharArrayWriter ();
+    NonBlockingCharArrayWriter aCAW = null;
 
     final char [] aSrcChars = sValue.toCharArray ();
     int nIndex = 0;
@@ -320,6 +321,11 @@ public final class URLHelper
       else
       {
         // convert to external encoding before hex conversion
+        if (aCAW == null)
+          aCAW = new NonBlockingCharArrayWriter ();
+        else
+          aCAW.reset ();
+
         do
         {
           aCAW.write (c);
@@ -342,23 +348,13 @@ public final class URLHelper
           nIndex++;
         } while (nIndex < nLen && !NO_URL_ENCODE.get (c = aSrcChars[nIndex]));
 
-        aCAW.flush ();
-        final byte [] ba = aCAW.toByteArray (aCharset);
-        for (final byte element : ba)
+        final byte [] aBytes = aCAW.toByteArray (aCharset);
+        for (final byte nByte : aBytes)
         {
           aSB.append ('%');
-          char ch = Character.forDigit ((element >> 4) & 0xF, 16);
-          // converting to use uppercase letter as part of
-          // the hex value if ch is a letter.
-          if (Character.isLetter (ch))
-            ch -= CASE_DIFF;
-          aSB.append (ch);
-          ch = Character.forDigit (element & 0xF, 16);
-          if (Character.isLetter (ch))
-            ch -= CASE_DIFF;
-          aSB.append (ch);
+          aSB.append (URL_ENCODE_CHARS[(nByte >> 4) & 0xF]);
+          aSB.append (URL_ENCODE_CHARS[nByte & 0xF]);
         }
-        aCAW.reset ();
         bChanged = true;
       }
     }
@@ -566,6 +562,32 @@ public final class URLHelper
     final boolean bHasQueryParams = StringHelper.hasText (sQueryParams);
     final boolean bHasAnchor = StringHelper.hasText (sAnchor);
 
+    if (GlobalDebug.isDebugMode ())
+    {
+      // Consistency checks
+      if (bHasPath)
+      {
+        if (sPath.contains (QUESTIONMARK_STR))
+          s_aLogger.warn ("Path contains the question mark ('?') character: '" + sPath + "'");
+        if (sPath.contains (AMPERSAND_STR))
+          s_aLogger.warn ("Path contains the ampersand ('&') character: '" + sPath + "'");
+        if (sPath.contains (HASH_STR))
+          s_aLogger.warn ("Path contains the hash ('#') character: '" + sPath + "'");
+      }
+
+      if (bHasQueryParams)
+      {
+        if (sQueryParams.contains (QUESTIONMARK_STR))
+          s_aLogger.warn ("Query parameters contain the question mark ('?') character: '" + sQueryParams + "'");
+      }
+
+      if (bHasAnchor)
+      {
+        if (sAnchor.contains (HASH_STR))
+          s_aLogger.warn ("Anchor contains the hash ('#') character: '" + sAnchor + "'");
+      }
+    }
+
     // return URL as is?
     if (!bHasQueryParams && !bHasAnchor)
     {
@@ -577,19 +599,10 @@ public final class URLHelper
     if (bHasPath)
     {
       aSB.append (sPath);
-      if (sPath.contains (QUESTIONMARK_STR))
-        s_aLogger.warn ("Path contains the question mark ('?') character: '" + sPath + "'");
-      if (sPath.contains (AMPERSAND_STR))
-        s_aLogger.warn ("Path contains the ampersand ('&') character: '" + sPath + "'");
-      if (sPath.contains (HASH_STR))
-        s_aLogger.warn ("Path contains the hash ('#') character: '" + sPath + "'");
     }
 
     if (bHasQueryParams)
     {
-      if (sQueryParams.contains (QUESTIONMARK_STR))
-        s_aLogger.warn ("Query parameters contain the question mark ('?') character: '" + sQueryParams + "'");
-
       final boolean bHasQuestionMark = aSB.indexOf (QUESTIONMARK_STR) >= 0;
 
       if (bHasQuestionMark)
@@ -613,8 +626,6 @@ public final class URLHelper
     // Append anchor
     if (bHasAnchor)
     {
-      if (sAnchor.contains (HASH_STR))
-        s_aLogger.warn ("Anchor contains the hash ('#') character: '" + sAnchor + "'");
       if (StringHelper.getLastChar (aSB) != HASH)
         aSB.append (HASH);
       aSB.append (sAnchor);
