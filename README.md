@@ -32,6 +32,14 @@ This project was the following modules:
     * Removed class `CCharset` - use `StandardCharsets` instead
     * Added classes `PathHelper` and `PathOperations`    
     * Moved class `XMLResourceBundle` to ph-xml
+    * Removed some deprecated `CharsetManager` methods
+    * Reworked `format` package
+  * v8.6.4 - 2017-04-12
+    * Some performance improvements
+    * Fixed error in `StringHelper.replaceMultipleAsString`
+    * Extended `StringHelper` with encode/decode methods    
+    * Added new class `NonBlockingCharArrayWriter`
+    * Deprecated some `CharsetManager` methods
   * v8.6.3 - 2017-03-28
     * Deprecated some String-based `FileHelper` APIs
     * Improved CertificateHelper parsing
@@ -104,7 +112,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-commons</artifactId>
-  <version>8.6.3</version>
+  <version>8.6.4</version>
 </dependency>
 ```
 
@@ -253,7 +261,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-xml</artifactId>
-  <version>8.6.3</version>
+  <version>8.6.4</version>
 </dependency>
 ```
 
@@ -271,7 +279,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-jaxb</artifactId>
-  <version>8.6.3</version>
+  <version>8.6.4</version>
 </dependency>
 ```
 
@@ -294,7 +302,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-tree</artifactId>
-  <version>8.6.3</version>
+  <version>8.6.4</version>
 </dependency>
 ```
 
@@ -312,7 +320,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-less-commons</artifactId>
-  <version>8.6.3</version>
+  <version>8.6.4</version>
 </dependency>
 ```
 
@@ -325,7 +333,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-json</artifactId>
-  <version>8.6.3</version>
+  <version>8.6.4</version>
 </dependency>
 ```
 
@@ -338,7 +346,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-settings</artifactId>
-  <version>8.6.3</version>
+  <version>8.6.4</version>
 </dependency>
 ```
 
@@ -351,7 +359,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-datetime</artifactId>
-  <version>8.6.3</version>
+  <version>8.6.4</version>
 </dependency>
 ```
 
@@ -364,7 +372,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-graph</artifactId>
-  <version>8.6.3</version>
+  <version>8.6.4</version>
 </dependency>
 ```
 
@@ -377,7 +385,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-matrix</artifactId>
-  <version>8.6.3</version>
+  <version>8.6.4</version>
 </dependency>
 ```
 
@@ -390,7 +398,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-charset</artifactId>
-  <version>8.6.3</version>
+  <version>8.6.4</version>
 </dependency>
 ```
 
