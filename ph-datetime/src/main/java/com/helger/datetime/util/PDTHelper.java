@@ -517,4 +517,19 @@ public final class PDTHelper
     ValueEnforcer.notNull (eDOW, "DayOfWeek");
     return eDOW.getValue () % 7 + 1;
   }
+
+  /**
+   * Get {@link Month} from int value in a non-throwing version.
+   * 
+   * @param nMonth
+   *        Month to use. 1 == January, 12 == December
+   * @return <code>null</code> if invalid int was provided.
+   */
+  @Nullable
+  public static Month getAsMonth (final int nMonth)
+  {
+    if (nMonth < 1 || nMonth > 12)
+      return null;
+    return Month.of (nMonth);
+  }
 }
