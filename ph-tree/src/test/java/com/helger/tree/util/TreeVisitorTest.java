@@ -87,7 +87,7 @@ public final class TreeVisitorTest
       s_aLogger.info ("Creating tree with " + nExpected + " items");
 
       // count at before children
-      final MutableInt mi = new MutableInt ();
+      final MutableInt aMI = new MutableInt (0);
       TreeVisitor.visitTree (_createTree (nLevel, nItemsPerLevel),
                              new DefaultHierarchyVisitorCallback <DefaultTreeItem <String>> ()
                              {
@@ -96,14 +96,14 @@ public final class TreeVisitorTest
                                {
                                  if (getLevel () < 0)
                                    throw new IllegalStateException ();
-                                 mi.inc ();
+                                 aMI.inc ();
                                  return EHierarchyVisitorReturn.CONTINUE;
                                }
                              });
-      assertEquals (nExpected, mi.intValue ());
+      assertEquals (nExpected, aMI.intValue ());
 
       // count at before children
-      mi.set (0);
+      aMI.set (0);
       TreeVisitor.visitTreeItem (_createTree (nLevel, nItemsPerLevel).getRootItem (),
                                  new DefaultHierarchyVisitorCallback <DefaultTreeItem <String>> ()
                                  {
@@ -112,14 +112,14 @@ public final class TreeVisitorTest
                                    {
                                      if (getLevel () < 0)
                                        throw new IllegalStateException ();
-                                     mi.inc ();
+                                     aMI.inc ();
                                      return EHierarchyVisitorReturn.CONTINUE;
                                    }
                                  });
-      assertEquals (nExpected, mi.intValue ());
+      assertEquals (nExpected, aMI.intValue ());
 
       // count at after children
-      mi.set (0);
+      aMI.set (0);
       TreeVisitor.visitTree (_createTree (nLevel, nItemsPerLevel),
                              new DefaultHierarchyVisitorCallback <DefaultTreeItem <String>> ()
                              {
@@ -128,14 +128,14 @@ public final class TreeVisitorTest
                                {
                                  if (getLevel () < 0)
                                    throw new IllegalStateException ();
-                                 mi.inc ();
+                                 aMI.inc ();
                                  return EHierarchyVisitorReturn.CONTINUE;
                                }
                              });
-      assertEquals (nExpected, mi.intValue ());
+      assertEquals (nExpected, aMI.intValue ());
 
       // count at after children
-      mi.set (0);
+      aMI.set (0);
       TreeVisitor.visitTreeItem (_createTree (nLevel, nItemsPerLevel).getRootItem (),
                                  new DefaultHierarchyVisitorCallback <DefaultTreeItem <String>> ()
                                  {
@@ -144,11 +144,11 @@ public final class TreeVisitorTest
                                    {
                                      if (getLevel () < 0)
                                        throw new IllegalStateException ();
-                                     mi.inc ();
+                                     aMI.inc ();
                                      return EHierarchyVisitorReturn.CONTINUE;
                                    }
                                  });
-      assertEquals (nExpected, mi.intValue ());
+      assertEquals (nExpected, aMI.intValue ());
     }
   }
 
@@ -190,37 +190,37 @@ public final class TreeVisitorTest
       s_aLogger.info ("Creating tree with " + nExpected + " items");
 
       // count at before children
-      final MutableInt mi = new MutableInt ();
-      TreeVisitor.visitTree (_createTreeWithID (nLevel, nItemsPerLevel), new MockTreeVisitorCallback (mi));
-      assertEquals (nExpected, mi.intValue ());
+      final MutableInt aMI = new MutableInt (0);
+      TreeVisitor.visitTree (_createTreeWithID (nLevel, nItemsPerLevel), new MockTreeVisitorCallback (aMI));
+      assertEquals (nExpected, aMI.intValue ());
 
       // count at before children
-      mi.set (0);
+      aMI.set (0);
       TreeVisitor.visitTreeItem (_createTreeWithID (nLevel, nItemsPerLevel).getRootItem (),
-                                 new MockTreeVisitorCallback (mi));
-      assertEquals (nExpected, mi.intValue ());
+                                 new MockTreeVisitorCallback (aMI));
+      assertEquals (nExpected, aMI.intValue ());
 
       // count at after children
-      mi.set (0);
-      TreeVisitor.visitTree (_createTreeWithID (nLevel, nItemsPerLevel), new MockTreeVisitorCallback (mi));
-      assertEquals (nExpected, mi.intValue ());
+      aMI.set (0);
+      TreeVisitor.visitTree (_createTreeWithID (nLevel, nItemsPerLevel), new MockTreeVisitorCallback (aMI));
+      assertEquals (nExpected, aMI.intValue ());
 
       // count at after children
-      mi.set (0);
+      aMI.set (0);
       TreeVisitor.visitTreeItem (_createTreeWithID (nLevel, nItemsPerLevel).getRootItem (),
-                                 new MockTreeVisitorCallback (mi));
-      assertEquals (nExpected, mi.intValue ());
+                                 new MockTreeVisitorCallback (aMI));
+      assertEquals (nExpected, aMI.intValue ());
 
       try
       {
-        TreeVisitor.visitTree ((DefaultTreeWithID <String, Object>) null, new MockTreeVisitorCallback (mi));
+        TreeVisitor.visitTree ((DefaultTreeWithID <String, Object>) null, new MockTreeVisitorCallback (aMI));
         fail ();
       }
       catch (final NullPointerException ex)
       {}
       try
       {
-        TreeVisitor.visitTreeItem ((DefaultTreeItemWithID <String, Object>) null, new MockTreeVisitorCallback (mi));
+        TreeVisitor.visitTreeItem ((DefaultTreeItemWithID <String, Object>) null, new MockTreeVisitorCallback (aMI));
         fail ();
       }
       catch (final NullPointerException ex)

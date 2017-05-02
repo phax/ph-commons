@@ -38,7 +38,7 @@ public final class MutableFloatTest
   @Test
   public void testMutableFloat ()
   {
-    final MutableFloat x = new MutableFloat ();
+    final MutableFloat x = new MutableFloat (0f);
     assertEquals (x.floatValue (), 0, DELTA);
     assertEquals (x.getAsFloat (), Float.valueOf (0));
     assertFalse (x.isNot0 ());

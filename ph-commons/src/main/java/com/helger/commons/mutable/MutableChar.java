@@ -19,7 +19,6 @@ package com.helger.commons.mutable;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -35,18 +34,7 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public class MutableChar extends AbstractMutableInteger <MutableChar>
 {
-  /** The default value if the default constructor is used. */
-  public static final char DEFAULT_VALUE = CGlobal.DEFAULT_CHAR;
-
   private char m_cValue;
-
-  /**
-   * Initialize with default value {@value #DEFAULT_VALUE}.
-   */
-  public MutableChar ()
-  {
-    this (DEFAULT_VALUE);
-  }
 
   /**
    * Initialize with a certain int value. If the value does not fit into a char,

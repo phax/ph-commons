@@ -19,7 +19,6 @@ package com.helger.commons.mutable;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.equals.EqualsHelper;
@@ -36,18 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public class MutableDouble extends AbstractMutableNumeric <MutableDouble>
 {
-  /** The default value if the default constructor is used. */
-  public static final double DEFAULT_VALUE = CGlobal.DEFAULT_DOUBLE;
-
   private double m_dValue;
-
-  /**
-   * Initialize with default value {@value #DEFAULT_VALUE}
-   */
-  public MutableDouble ()
-  {
-    this (DEFAULT_VALUE);
-  }
 
   public MutableDouble (@Nonnull final Number aValue)
   {

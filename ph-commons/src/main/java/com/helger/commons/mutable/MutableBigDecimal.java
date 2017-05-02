@@ -40,18 +40,7 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal>
 {
-  /** The default value if the default constructor is used. */
-  public static final BigDecimal DEFAULT_VALUE = BigDecimal.ZERO;
-
   private BigDecimal m_aValue;
-
-  /**
-   * Initialize with default value {@link #DEFAULT_VALUE}
-   */
-  public MutableBigDecimal ()
-  {
-    this (DEFAULT_VALUE);
-  }
 
   public MutableBigDecimal (final long nValue)
   {

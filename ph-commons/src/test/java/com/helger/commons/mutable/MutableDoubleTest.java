@@ -38,7 +38,7 @@ public final class MutableDoubleTest
   @Test
   public void testMutableDouble ()
   {
-    final MutableDouble x = new MutableDouble ();
+    final MutableDouble x = new MutableDouble (0);
     assertEquals (x.doubleValue (), 0, DELTA);
     assertEquals (x.getAsDouble (), Double.valueOf (0));
     assertFalse (x.isNot0 ());

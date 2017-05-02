@@ -1046,7 +1046,7 @@ public interface IMicroElement extends IMicroNodeWithChildren
   @Nonnegative
   default int getChildElementCount (@Nullable final Predicate <? super IMicroElement> aFilter)
   {
-    final MutableInt ret = new MutableInt ();
+    final MutableInt ret = new MutableInt (0);
     forAllChildElements (aFilter, aChildElement -> ret.inc ());
     return ret.intValue ();
   }

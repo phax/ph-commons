@@ -39,18 +39,7 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger>
 {
-  /** The default value if the default constructor is used. */
-  public static final BigInteger DEFAULT_VALUE = BigInteger.ZERO;
-
   private BigInteger m_aValue;
-
-  /**
-   * Initialize with default value {@link #DEFAULT_VALUE}
-   */
-  public MutableBigInteger ()
-  {
-    this (DEFAULT_VALUE);
-  }
 
   public MutableBigInteger (final long nValue)
   {

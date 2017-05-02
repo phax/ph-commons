@@ -36,7 +36,7 @@ public final class MutableBooleanTest
   @Test
   public void testMutableBoolean ()
   {
-    final MutableBoolean x = new MutableBoolean ();
+    final MutableBoolean x = new MutableBoolean (false);
     assertFalse (x.booleanValue ());
     assertSame (Boolean.FALSE, x.getAsBoolean ());
     assertTrue (x.set (true).isChanged ());

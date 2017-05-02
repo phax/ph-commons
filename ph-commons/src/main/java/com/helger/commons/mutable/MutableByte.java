@@ -19,7 +19,6 @@ package com.helger.commons.mutable;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -35,18 +34,7 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public class MutableByte extends AbstractMutableInteger <MutableByte>
 {
-  /** The default value if the default constructor is used. */
-  public static final byte DEFAULT_VALUE = CGlobal.DEFAULT_BYTE;
-
   private byte m_nValue;
-
-  /**
-   * Initialize with default value {@value #DEFAULT_VALUE}.
-   */
-  public MutableByte ()
-  {
-    this (DEFAULT_VALUE);
-  }
 
   /**
    * Initialize with a certain int value. If the value does not fit into a byte,

@@ -36,7 +36,7 @@ public final class MutableByteTest
   @Test
   public void testMutableByte ()
   {
-    final MutableByte x = new MutableByte ();
+    final MutableByte x = new MutableByte (0);
     assertEquals (x.byteValue (), 0);
     assertEquals (x.getAsByte (), Byte.valueOf ((byte) 0));
     assertFalse (x.isNot0 ());

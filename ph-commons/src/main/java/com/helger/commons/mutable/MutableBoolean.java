@@ -22,7 +22,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.compare.CompareHelper;
@@ -39,15 +38,7 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public class MutableBoolean implements IMutableObject <MutableBoolean>
 {
-  /** The default value if the default constructor is used. */
-  public static final boolean DEFAULT_VALUE = CGlobal.DEFAULT_BOOLEAN;
-
   private boolean m_bValue;
-
-  public MutableBoolean ()
-  {
-    this (DEFAULT_VALUE);
-  }
 
   public MutableBoolean (final boolean bValue)
   {

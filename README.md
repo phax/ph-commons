@@ -34,6 +34,7 @@ This project was the following modules:
     * Moved class `XMLResourceBundle` to ph-xml
     * Removed some deprecated `CharsetManager` methods
     * Reworked `format` package
+    * Removed deprecated 'Mutable*' constructors because of weird defaults
   * v8.6.4 - 2017-04-12
     * Some performance improvements
     * Fixed error in `StringHelper.replaceMultipleAsString`
