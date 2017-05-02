@@ -36,6 +36,7 @@ import com.helger.commons.string.ToStringGenerator;
 public class MutableShort extends AbstractMutableInteger <MutableShort>
 {
   /** The default value if the default constructor is used. */
+  @Deprecated
   public static final short DEFAULT_VALUE = CGlobal.DEFAULT_SHORT;
 
   private short m_nValue;
@@ -43,6 +44,7 @@ public class MutableShort extends AbstractMutableInteger <MutableShort>
   /**
    * Initialize with default value {@value #DEFAULT_VALUE}.
    */
+  @Deprecated
   public MutableShort ()
   {
     this (DEFAULT_VALUE);

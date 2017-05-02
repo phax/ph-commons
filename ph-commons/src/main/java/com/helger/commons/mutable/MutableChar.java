@@ -36,6 +36,7 @@ import com.helger.commons.string.ToStringGenerator;
 public class MutableChar extends AbstractMutableInteger <MutableChar>
 {
   /** The default value if the default constructor is used. */
+  @Deprecated
   public static final char DEFAULT_VALUE = CGlobal.DEFAULT_CHAR;
 
   private char m_cValue;
@@ -43,6 +44,7 @@ public class MutableChar extends AbstractMutableInteger <MutableChar>
   /**
    * Initialize with default value {@value #DEFAULT_VALUE}.
    */
+  @Deprecated
   public MutableChar ()
   {
     this (DEFAULT_VALUE);

@@ -36,6 +36,7 @@ import com.helger.commons.string.ToStringGenerator;
 public class MutableInt extends AbstractMutableInteger <MutableInt>
 {
   /** The default value if the default constructor is used. */
+  @Deprecated
   public static final int DEFAULT_VALUE = CGlobal.DEFAULT_INT;
 
   private int m_nValue;
@@ -43,6 +44,7 @@ public class MutableInt extends AbstractMutableInteger <MutableInt>
   /**
    * Initialize with default value {@value #DEFAULT_VALUE}.
    */
+  @Deprecated
   public MutableInt ()
   {
     this (DEFAULT_VALUE);

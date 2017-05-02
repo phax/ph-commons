@@ -40,10 +40,12 @@ import com.helger.commons.string.ToStringGenerator;
 public class MutableBoolean implements IMutableObject <MutableBoolean>
 {
   /** The default value if the default constructor is used. */
+  @Deprecated
   public static final boolean DEFAULT_VALUE = CGlobal.DEFAULT_BOOLEAN;
 
   private boolean m_bValue;
 
+  @Deprecated
   public MutableBoolean ()
   {
     this (DEFAULT_VALUE);

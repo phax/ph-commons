@@ -36,6 +36,7 @@ import com.helger.commons.string.ToStringGenerator;
 public class MutableLong extends AbstractMutableInteger <MutableLong>
 {
   /** The default value if the default constructor is used. */
+  @Deprecated
   public static final long DEFAULT_VALUE = CGlobal.DEFAULT_LONG;
 
   private long m_nValue;
@@ -43,6 +44,7 @@ public class MutableLong extends AbstractMutableInteger <MutableLong>
   /**
    * Initialize with default value {@value #DEFAULT_VALUE}.
    */
+  @Deprecated
   public MutableLong ()
   {
     this (DEFAULT_VALUE);

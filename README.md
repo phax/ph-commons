@@ -24,6 +24,8 @@ This project was the following modules:
 
 ## News and noteworthy
 
+  * v8.6.5
+    * Deprecated all default Mutable* constructors, because the default values were partially confusing
   * v8.6.4 - 2017-04-12
     * Some performance improvements
     * Fixed error in `StringHelper.replaceMultipleAsString`

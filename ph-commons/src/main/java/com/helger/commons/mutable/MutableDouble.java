@@ -37,6 +37,7 @@ import com.helger.commons.string.ToStringGenerator;
 public class MutableDouble extends AbstractMutableNumeric <MutableDouble>
 {
   /** The default value if the default constructor is used. */
+  @Deprecated
   public static final double DEFAULT_VALUE = CGlobal.DEFAULT_DOUBLE;
 
   private double m_dValue;
@@ -44,6 +45,7 @@ public class MutableDouble extends AbstractMutableNumeric <MutableDouble>
   /**
    * Initialize with default value {@value #DEFAULT_VALUE}
    */
+  @Deprecated
   public MutableDouble ()
   {
     this (DEFAULT_VALUE);

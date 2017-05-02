@@ -36,6 +36,7 @@ import com.helger.commons.string.ToStringGenerator;
 public class MutableByte extends AbstractMutableInteger <MutableByte>
 {
   /** The default value if the default constructor is used. */
+  @Deprecated
   public static final byte DEFAULT_VALUE = CGlobal.DEFAULT_BYTE;
 
   private byte m_nValue;
@@ -43,6 +44,7 @@ public class MutableByte extends AbstractMutableInteger <MutableByte>
   /**
    * Initialize with default value {@value #DEFAULT_VALUE}.
    */
+  @Deprecated
   public MutableByte ()
   {
     this (DEFAULT_VALUE);

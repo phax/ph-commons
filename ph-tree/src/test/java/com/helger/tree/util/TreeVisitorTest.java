@@ -87,7 +87,7 @@ public final class TreeVisitorTest
       s_aLogger.info ("Creating tree with " + nExpected + " items");
 
       // count at before children
-      final MutableInt mi = new MutableInt ();
+      final MutableInt mi = new MutableInt (0);
       TreeVisitor.visitTree (_createTree (nLevel, nItemsPerLevel),
                              new DefaultHierarchyVisitorCallback <DefaultTreeItem <String>> ()
                              {
@@ -190,7 +190,7 @@ public final class TreeVisitorTest
       s_aLogger.info ("Creating tree with " + nExpected + " items");
 
       // count at before children
-      final MutableInt mi = new MutableInt ();
+      final MutableInt mi = new MutableInt (0);
       TreeVisitor.visitTree (_createTreeWithID (nLevel, nItemsPerLevel), new MockTreeVisitorCallback (mi));
       assertEquals (nExpected, mi.intValue ());
 

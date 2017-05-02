@@ -36,7 +36,7 @@ public final class MutableShortTest
   @Test
   public void testMutableByte ()
   {
-    final MutableShort x = new MutableShort ();
+    final MutableShort x = new MutableShort (0);
     assertEquals (x.shortValue (), 0);
     assertEquals (x.getAsShort (), Short.valueOf ((short) 0));
     assertFalse (x.isNot0 ());

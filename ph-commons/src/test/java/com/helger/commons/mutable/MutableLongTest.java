@@ -36,7 +36,7 @@ public final class MutableLongTest
   @Test
   public void testMutableLong ()
   {
-    final MutableLong x = new MutableLong ();
+    final MutableLong x = new MutableLong (0);
     assertEquals (x.longValue (), 0);
     assertEquals (x.getAsLong (), Long.valueOf (0));
     assertFalse (x.isNot0 ());

@@ -37,6 +37,7 @@ import com.helger.commons.string.ToStringGenerator;
 public class MutableFloat extends AbstractMutableNumeric <MutableFloat>
 {
   /** The default value if the default constructor is used. */
+  @Deprecated
   public static final float DEFAULT_VALUE = CGlobal.DEFAULT_FLOAT;
 
   private float m_fValue;
@@ -44,6 +45,7 @@ public class MutableFloat extends AbstractMutableNumeric <MutableFloat>
   /**
    * Initialize with default value {@value #DEFAULT_VALUE}
    */
+  @Deprecated
   public MutableFloat ()
   {
     this (DEFAULT_VALUE);

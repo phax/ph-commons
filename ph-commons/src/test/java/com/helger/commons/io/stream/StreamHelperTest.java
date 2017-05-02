@@ -138,34 +138,34 @@ public final class StreamHelperTest
   public void testCopyInputStreamToOutputStream ()
   {
     final byte [] aInput = "Hallo".getBytes (StandardCharsets.ISO_8859_1);
-    final NonBlockingByteArrayInputStream bais = new NonBlockingByteArrayInputStream (aInput);
-    final NonBlockingByteArrayOutputStream baos = new NonBlockingByteArrayOutputStream ();
-    assertTrue (StreamHelper.copyInputStreamToOutputStream (bais, baos).isSuccess ());
-    assertArrayEquals (aInput, baos.toByteArray ());
+    final NonBlockingByteArrayInputStream aBAIS = new NonBlockingByteArrayInputStream (aInput);
+    final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
+    assertTrue (StreamHelper.copyInputStreamToOutputStream (aBAIS, aBAOS).isSuccess ());
+    assertArrayEquals (aInput, aBAOS.toByteArray ());
 
     // try with null streams
-    assertTrue (StreamHelper.copyInputStreamToOutputStream (bais, null).isFailure ());
-    assertTrue (StreamHelper.copyInputStreamToOutputStream (null, baos).isFailure ());
-    assertTrue (StreamHelper.copyInputStreamToOutputStream (bais, baos, new byte [10]).isSuccess ());
-    final MutableLong aML = new MutableLong ();
-    bais.reset ();
-    assertTrue (StreamHelper.copyInputStreamToOutputStream (bais, baos, new byte [10], aML).isSuccess ());
+    assertTrue (StreamHelper.copyInputStreamToOutputStream (aBAIS, null).isFailure ());
+    assertTrue (StreamHelper.copyInputStreamToOutputStream (null, aBAOS).isFailure ());
+    assertTrue (StreamHelper.copyInputStreamToOutputStream (aBAIS, aBAOS, new byte [10]).isSuccess ());
+    final MutableLong aML = new MutableLong (0);
+    aBAIS.reset ();
+    assertTrue (StreamHelper.copyInputStreamToOutputStream (aBAIS, aBAOS, new byte [10], aML).isSuccess ());
     assertEquals (aML.longValue (), aInput.length);
 
     // Must be a ByteArrayInputStream so that an IOException can be thrown!
-    assertTrue (StreamHelper.copyInputStreamToOutputStream (new WrappedInputStream (bais)
+    assertTrue (StreamHelper.copyInputStreamToOutputStream (new WrappedInputStream (aBAIS)
     {
       @Override
       public int read (final byte [] aBuf, final int nOfs, final int nLen) throws IOException
       {
         throw new MockIOException ();
       }
-    }, baos).isFailure ());
+    }, aBAOS).isFailure ());
 
     try
     {
       // null buffer
-      StreamHelper.copyInputStreamToOutputStream (bais, baos, (byte []) null);
+      StreamHelper.copyInputStreamToOutputStream (aBAIS, aBAOS, (byte []) null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -174,7 +174,7 @@ public final class StreamHelperTest
     try
     {
       // empty buffer
-      StreamHelper.copyInputStreamToOutputStream (bais, baos, new byte [0]);
+      StreamHelper.copyInputStreamToOutputStream (aBAIS, aBAOS, new byte [0]);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -343,36 +343,36 @@ public final class StreamHelperTest
   public void testCopyReaderToWriter ()
   {
     final String sInput = "Hallo";
-    NonBlockingStringReader bais = new NonBlockingStringReader (sInput);
-    final NonBlockingStringWriter baos = new NonBlockingStringWriter ();
-    assertTrue (StreamHelper.copyReaderToWriter (bais, baos).isSuccess ());
-    assertEquals (sInput, baos.getAsString ());
+    NonBlockingStringReader aBAIS = new NonBlockingStringReader (sInput);
+    final NonBlockingStringWriter aBAOS = new NonBlockingStringWriter ();
+    assertTrue (StreamHelper.copyReaderToWriter (aBAIS, aBAOS).isSuccess ());
+    assertEquals (sInput, aBAOS.getAsString ());
 
     // try with null streams
-    bais = new NonBlockingStringReader (sInput);
-    assertTrue (StreamHelper.copyReaderToWriter (bais, null).isFailure ());
-    assertTrue (StreamHelper.copyReaderToWriter (null, baos).isFailure ());
-    bais = new NonBlockingStringReader (sInput);
-    assertTrue (StreamHelper.copyReaderToWriter (bais, baos, new char [10]).isSuccess ());
-    final MutableLong aML = new MutableLong ();
-    bais = new NonBlockingStringReader (sInput);
-    assertTrue (StreamHelper.copyReaderToWriter (bais, baos, new char [10], aML).isSuccess ());
+    aBAIS = new NonBlockingStringReader (sInput);
+    assertTrue (StreamHelper.copyReaderToWriter (aBAIS, null).isFailure ());
+    assertTrue (StreamHelper.copyReaderToWriter (null, aBAOS).isFailure ());
+    aBAIS = new NonBlockingStringReader (sInput);
+    assertTrue (StreamHelper.copyReaderToWriter (aBAIS, aBAOS, new char [10]).isSuccess ());
+    final MutableLong aML = new MutableLong (0);
+    aBAIS = new NonBlockingStringReader (sInput);
+    assertTrue (StreamHelper.copyReaderToWriter (aBAIS, aBAOS, new char [10], aML).isSuccess ());
     assertEquals (aML.longValue (), sInput.length ());
 
     // Must be a ByteArrayReader so that an IOException can be thrown!
-    assertTrue (StreamHelper.copyReaderToWriter (new WrappedReader (bais)
+    assertTrue (StreamHelper.copyReaderToWriter (new WrappedReader (aBAIS)
     {
       @Override
       public int read (final char [] aBuf, final int nOfs, final int nLen) throws IOException
       {
         throw new MockIOException ();
       }
-    }, baos).isFailure ());
+    }, aBAOS).isFailure ());
 
     try
     {
       // null buffer
-      StreamHelper.copyReaderToWriter (bais, baos, (char []) null);
+      StreamHelper.copyReaderToWriter (aBAIS, aBAOS, (char []) null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -381,7 +381,7 @@ public final class StreamHelperTest
     try
     {
       // empty buffer
-      StreamHelper.copyReaderToWriter (bais, baos, new char [0]);
+      StreamHelper.copyReaderToWriter (aBAIS, aBAOS, new char [0]);
       fail ();
     }
     catch (final IllegalArgumentException ex)
