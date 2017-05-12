@@ -42,17 +42,6 @@ public class DefaultEntityResolver implements EntityResolver
   private final String m_sBaseURI;
 
   /**
-   * Constructor with a resource.
-   *
-   * @param aBaseResource
-   *        The base resource. May not be <code>null</code>.
-   */
-  public DefaultEntityResolver (@Nonnull final IReadableResource aBaseResource)
-  {
-    this (aBaseResource.getAsURL ());
-  }
-
-  /**
    * Constructor with a URL.
    *
    * @param aBaseURL
@@ -82,5 +71,19 @@ public class DefaultEntityResolver implements EntityResolver
     if (aResolvedRes == null)
       return null;
     return InputSourceFactory.create (aResolvedRes);
+  }
+
+  /**
+   * Factory method with a resource.
+   *
+   * @param aBaseResource
+   *        The base resource. May not be <code>null</code>.
+   * @return <code>null</code> if the resource does not exist
+   */
+  @Nullable
+  public static DefaultEntityResolver createOnDemand (@Nonnull final IReadableResource aBaseResource)
+  {
+    final URL aURL = aBaseResource.getAsURL ();
+    return aURL == null ? null : new DefaultEntityResolver (aURL);
   }
 }
