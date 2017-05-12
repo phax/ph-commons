@@ -24,8 +24,9 @@ This project was the following modules:
 
 ## News and noteworthy
 
-  * v8.6.5
+  * v8.6.5 - work in progress
     * Deprecated all default Mutable* constructors, because the default values were partially confusing
+    * Added new class `DefaultEntityResolver` using a base URL for resolving. 
   * v8.6.4 - 2017-04-12
     * Some performance improvements
     * Fixed error in `StringHelper.replaceMultipleAsString`
