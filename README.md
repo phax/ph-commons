@@ -27,7 +27,8 @@ This project was the following modules:
   * v8.6.5 - work in progress
     * Deprecated all default Mutable* constructors, because the default values were partially confusing
     * Added new class `DefaultEntityResolver` using a base URL for resolving.
-    * Extracted and renamed classes `PDTZoneID` and `PDTMask` 
+    * Extracted and renamed classes `PDTZoneID` and `PDTMask`
+    * Extended `ILocalDatePeriod` API
   * v8.6.4 - 2017-04-12
     * Some performance improvements
     * Fixed error in `StringHelper.replaceMultipleAsString`

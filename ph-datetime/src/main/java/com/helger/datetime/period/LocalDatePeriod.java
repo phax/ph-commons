@@ -24,6 +24,11 @@ import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
+/**
+ * Default implementation of {@link ILocalDatePeriod}.
+ * 
+ * @author Philip Helger
+ */
 public class LocalDatePeriod implements ILocalDatePeriod
 {
   private final LocalDate m_aStart;
