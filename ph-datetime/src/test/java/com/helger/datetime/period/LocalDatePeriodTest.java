@@ -33,7 +33,7 @@ import com.helger.commons.datetime.PDTFactory;
  *
  * @author Philip Helger
  */
-public class LocalDatePeriodTest
+public final class LocalDatePeriodTest
 {
   @Test
   public void testBasic ()

@@ -27,6 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsCollection;
@@ -64,11 +65,13 @@ public class FileMonitor
   /**
    * File objects to be removed from the monitor map.
    */
+  @CodingStyleguideUnaware
   private final Stack <File> m_aDeleteStack = new Stack <> ();
 
   /**
    * File objects to be added to the monitor map.
    */
+  @CodingStyleguideUnaware
   private final Stack <File> m_aAddStack = new Stack <> ();
 
   /**
