@@ -35,6 +35,10 @@ This project was the following modules:
     * Removed some deprecated `CharsetManager` methods
     * Reworked `format` package
     * Removed deprecated 'Mutable*' constructors because of weird defaults
+  * v8.6.5 - work in progress
+    * Deprecated all default Mutable* constructors, because the default values were partially confusing
+    * Added new class `DefaultEntityResolver` using a base URL for resolving.
+    * Extracted and renamed classes `PDTZoneID` and `PDTMask` 
   * v8.6.4 - 2017-04-12
     * Some performance improvements
     * Fixed error in `StringHelper.replaceMultipleAsString`
