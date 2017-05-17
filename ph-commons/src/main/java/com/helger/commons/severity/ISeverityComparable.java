@@ -35,8 +35,55 @@ public interface ISeverityComparable <THISTYPE extends ISeverityComparable <THIS
    *        The object to compare to.
    * @return <code>true</code> if this object is equally important than the
    *         passed object!
+   * @deprecated Use {@link #isEQ(ISeverityComparable)} instead
    */
-  boolean isEqualSevereThan (@Nonnull THISTYPE aOther);
+  @Deprecated
+  default boolean isEqualSevereThan (@Nonnull final THISTYPE aOther)
+  {
+    return isEQ (aOther);
+  }
+
+  /**
+   * Check if this object is of the same level (= equal important) than the
+   * passed object.
+   *
+   * @param aOther
+   *        The object to compare to.
+   * @return <code>true</code> if this object is equally important than the
+   *         passed object!
+   */
+  boolean isEQ (@Nonnull THISTYPE aOther);
+
+  /**
+   * Check if this object is of a different level (= different importance) than
+   * the passed object.
+   *
+   * @param aOther
+   *        The object to compare to.
+   * @return <code>true</code> if this object is not equally important than the
+   *         passed object!
+   * @since 8.6.5
+   */
+  default boolean isNE (@Nonnull final THISTYPE aOther)
+  {
+    return !isEQ (aOther);
+  }
+
+  /**
+   * Check if this object is of lower level (= less important) than the passed
+   * object.
+   *
+   * @param aOther
+   *        The object to compare to.
+   * @return <code>true</code> if this object is less important than the passed
+   *         object!
+   * @deprecated Use {@link #isLT(ISeverityComparable)} instead
+   */
+  @Deprecated
+  default boolean isLessSevereThan (@Nonnull final THISTYPE aOther)
+  {
+    return isLT (aOther);
+  }
 
   /**
    * Check if this object is of lower level (= less important) than the passed
@@ -47,7 +94,23 @@ public interface ISeverityComparable <THISTYPE extends ISeverityComparable <THIS
    * @return <code>true</code> if this object is less important than the passed
    *         object!
    */
-  boolean isLessSevereThan (@Nonnull THISTYPE aOther);
+  boolean isLT (@Nonnull THISTYPE aOther);
+
+  /**
+   * Check if this object is of equal or lower level (= equally or less
+   * important) than the passed object.
+   *
+   * @param aOther
+   *        The object to compare to.
+   * @return <code>true</code> if this object is equally or less important than
+   *         the passed object!
+   * @deprecated Use {@link #isLE(ISeverityComparable)} instead
+   */
+  @Deprecated
+  default boolean isLessOrEqualSevereThan (@Nonnull final THISTYPE aOther)
+  {
+    return isLE (aOther);
+  }
 
   /**
    * Check if this object is of equal or lower level (= equally or less
@@ -58,7 +121,23 @@ public interface ISeverityComparable <THISTYPE extends ISeverityComparable <THIS
    * @return <code>true</code> if this object is equally or less important than
    *         the passed object!
    */
-  boolean isLessOrEqualSevereThan (@Nonnull THISTYPE aOther);
+  boolean isLE (@Nonnull THISTYPE aOther);
+
+  /**
+   * Check if this object is of higher level (= more important) than the passed
+   * object.
+   *
+   * @param aOther
+   *        The object to compare to.
+   * @return <code>true</code> if this object is more important than the passed
+   *         object!
+   * @deprecated Use {@link #isGT(ISeverityComparable)} instead
+   */
+  @Deprecated
+  default boolean isMoreSevereThan (@Nonnull final THISTYPE aOther)
+  {
+    return isGT (aOther);
+  }
 
   /**
    * Check if this object is of higher level (= more important) than the passed
@@ -69,7 +148,23 @@ public interface ISeverityComparable <THISTYPE extends ISeverityComparable <THIS
    * @return <code>true</code> if this object is more important than the passed
    *         object!
    */
-  boolean isMoreSevereThan (@Nonnull THISTYPE aOther);
+  boolean isGT (@Nonnull THISTYPE aOther);
+
+  /**
+   * Check if this object is of equal or higher level (= equally or more
+   * important) than the passed object.
+   *
+   * @param aOther
+   *        The object to compare to.
+   * @return <code>true</code> if this object is equally or more important than
+   *         the passed object!
+   * @deprecated Use {@link #isGE(ISeverityComparable)} instead
+   */
+  @Deprecated
+  default boolean isMoreOrEqualSevereThan (@Nonnull final THISTYPE aOther)
+  {
+    return isGE (aOther);
+  }
 
   /**
    * Check if this object is of equal or higher level (= equally or more
@@ -80,5 +175,5 @@ public interface ISeverityComparable <THISTYPE extends ISeverityComparable <THIS
    * @return <code>true</code> if this object is equally or more important than
    *         the passed object!
    */
-  boolean isMoreOrEqualSevereThan (@Nonnull THISTYPE aOther);
+  boolean isGE (@Nonnull THISTYPE aOther);
 }

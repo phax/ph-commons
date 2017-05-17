@@ -47,7 +47,7 @@ public class LoggingValidationEventHandler extends AbstractValidationEventHandle
   {
     // As JAXB messages are not localized, we can use a fixed locale here!
     final String sMsg = "JAXB " + aEvent.getAsString (Locale.US);
-    if (aEvent.getErrorLevel ().isLessOrEqualSevereThan (EErrorLevel.WARN))
+    if (aEvent.getErrorLevel ().isLE (EErrorLevel.WARN))
       s_aLogger.warn (sMsg, aEvent.getLinkedException ());
     else
       s_aLogger.error (sMsg, aEvent.getLinkedException ());

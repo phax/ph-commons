@@ -49,6 +49,7 @@ public interface IComparable <DATATYPE> extends Comparable <DATATYPE>, Serializa
    *        value to compare to
    * @return <code>true</code> if this value is greater than the provided
    *         values, <code>false</code> if not.
+   * @since 8.6.5
    */
   default boolean isGT (@Nonnull final DATATYPE aOther)
   {
@@ -73,6 +74,7 @@ public interface IComparable <DATATYPE> extends Comparable <DATATYPE>, Serializa
    *        value to compare to
    * @return <code>true</code> if this value is greater or equal than the
    *         provided values, <code>false</code> if not.
+   * @since 8.6.5
    */
   default boolean isGE (@Nonnull final DATATYPE aOther)
   {
@@ -97,6 +99,7 @@ public interface IComparable <DATATYPE> extends Comparable <DATATYPE>, Serializa
    *        value to compare to
    * @return <code>true</code> if this value is lower than the provided values,
    *         <code>false</code> if not.
+   * @since 8.6.5
    */
   default boolean isLT (@Nonnull final DATATYPE aOther)
   {
@@ -121,6 +124,7 @@ public interface IComparable <DATATYPE> extends Comparable <DATATYPE>, Serializa
    *        value to compare to
    * @return <code>true</code> if this value is lower or equal than the provided
    *         values, <code>false</code> if not.
+   * @since 8.6.5
    */
   default boolean isLE (@Nonnull final DATATYPE aOther)
   {
@@ -145,6 +149,7 @@ public interface IComparable <DATATYPE> extends Comparable <DATATYPE>, Serializa
    *        value to compare to
    * @return <code>true</code> if the values are equal, <code>false</code>
    *         otherwise.
+   * @since 8.6.5
    */
   default boolean isEQ (@Nonnull final DATATYPE aOther)
   {

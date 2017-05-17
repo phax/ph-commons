@@ -108,11 +108,11 @@ public final class LogHelper
    */
   public static boolean isEnabled (@Nonnull final Logger aLogger, @Nonnull final IErrorLevel eErrorLevel)
   {
-    if (eErrorLevel.isMoreOrEqualSevereThan (EErrorLevel.ERROR))
+    if (eErrorLevel.isGE (EErrorLevel.ERROR))
       return aLogger.isErrorEnabled ();
-    if (eErrorLevel.isMoreOrEqualSevereThan (EErrorLevel.WARN))
+    if (eErrorLevel.isGE (EErrorLevel.WARN))
       return aLogger.isWarnEnabled ();
-    if (eErrorLevel.isMoreOrEqualSevereThan (EErrorLevel.INFO))
+    if (eErrorLevel.isGE (EErrorLevel.INFO))
       return aLogger.isInfoEnabled ();
     return aLogger.isDebugEnabled ();
   }
@@ -178,13 +178,13 @@ public final class LogHelper
     ValueEnforcer.notNull (eErrorLevel, "ErrorLevel");
     ValueEnforcer.notNull (sMsg, "Message");
 
-    if (eErrorLevel.isMoreOrEqualSevereThan (EErrorLevel.ERROR))
+    if (eErrorLevel.isGE (EErrorLevel.ERROR))
       aLogger.error (sMsg, t);
     else
-      if (eErrorLevel.isMoreOrEqualSevereThan (EErrorLevel.WARN))
+      if (eErrorLevel.isGE (EErrorLevel.WARN))
         aLogger.warn (sMsg, t);
       else
-        if (eErrorLevel.isMoreOrEqualSevereThan (EErrorLevel.INFO))
+        if (eErrorLevel.isGE (EErrorLevel.INFO))
           aLogger.info (sMsg, t);
         else
           if (aLogger.isDebugEnabled ())

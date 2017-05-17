@@ -36,28 +36,38 @@ public interface IHasErrorLevelComparable <IMPLTYPE extends IHasErrorLevelCompar
                                           IGenericImplTrait <IMPLTYPE>,
                                           Serializable
 {
-  default boolean isEqualSevereThan (@Nonnull final IMPLTYPE aOther)
+  default int compareTo (@Nonnull final IMPLTYPE aOther)
   {
-    return getErrorLevel ().isEqualSevereThan (aOther.getErrorLevel ());
+    return getErrorLevel ().compareTo (aOther.getErrorLevel ());
   }
 
-  default boolean isLessSevereThan (@Nonnull final IMPLTYPE aOther)
+  default boolean isEQ (@Nonnull final IMPLTYPE aOther)
   {
-    return getErrorLevel ().isLessSevereThan (aOther.getErrorLevel ());
+    return getErrorLevel ().isEQ (aOther.getErrorLevel ());
   }
 
-  default boolean isLessOrEqualSevereThan (@Nonnull final IMPLTYPE aOther)
+  default boolean isNE (@Nonnull final IMPLTYPE aOther)
   {
-    return getErrorLevel ().isLessOrEqualSevereThan (aOther.getErrorLevel ());
+    return getErrorLevel ().isNE (aOther.getErrorLevel ());
   }
 
-  default boolean isMoreSevereThan (@Nonnull final IMPLTYPE aOther)
+  default boolean isLT (@Nonnull final IMPLTYPE aOther)
   {
-    return getErrorLevel ().isMoreSevereThan (aOther.getErrorLevel ());
+    return getErrorLevel ().isLT (aOther.getErrorLevel ());
   }
 
-  default boolean isMoreOrEqualSevereThan (@Nonnull final IMPLTYPE aOther)
+  default boolean isLE (@Nonnull final IMPLTYPE aOther)
   {
-    return getErrorLevel ().isMoreOrEqualSevereThan (aOther.getErrorLevel ());
+    return getErrorLevel ().isLE (aOther.getErrorLevel ());
+  }
+
+  default boolean isGT (@Nonnull final IMPLTYPE aOther)
+  {
+    return getErrorLevel ().isGT (aOther.getErrorLevel ());
+  }
+
+  default boolean isGE (@Nonnull final IMPLTYPE aOther)
+  {
+    return getErrorLevel ().isGE (aOther.getErrorLevel ());
   }
 }

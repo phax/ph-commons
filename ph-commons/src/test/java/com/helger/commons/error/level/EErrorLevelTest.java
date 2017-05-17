@@ -37,11 +37,11 @@ public final class EErrorLevelTest
     for (final EErrorLevel e : EErrorLevel.values ())
     {
       assertNotNull (e.getID ());
-      assertTrue (e.isEqualSevereThan (e));
-      assertFalse (e.isLessSevereThan (e));
-      assertTrue (e.isLessOrEqualSevereThan (e));
-      assertFalse (e.isMoreSevereThan (e));
-      assertTrue (e.isMoreOrEqualSevereThan (e));
+      assertTrue (e.isEQ (e));
+      assertFalse (e.isLT (e));
+      assertTrue (e.isLE (e));
+      assertFalse (e.isGT (e));
+      assertTrue (e.isGE (e));
       assertSame (e, EErrorLevel.getFromIDOrNull (e.getID ()));
       assertSame (e, EErrorLevel.getFromIDOrThrow (e.getID ()));
       assertSame (e, EErrorLevel.getFromIDOrDefault (e.getID (), null));
@@ -52,24 +52,24 @@ public final class EErrorLevelTest
   @Test
   public void testCompare ()
   {
-    assertTrue (EErrorLevel.WARN.isEqualSevereThan (EErrorLevel.WARN));
-    assertFalse (EErrorLevel.WARN.isEqualSevereThan (EErrorLevel.INFO));
+    assertTrue (EErrorLevel.WARN.isEQ (EErrorLevel.WARN));
+    assertFalse (EErrorLevel.WARN.isEQ (EErrorLevel.INFO));
 
-    assertTrue (EErrorLevel.WARN.isLessSevereThan (EErrorLevel.ERROR));
-    assertFalse (EErrorLevel.WARN.isLessSevereThan (EErrorLevel.WARN));
-    assertFalse (EErrorLevel.WARN.isLessSevereThan (EErrorLevel.INFO));
+    assertTrue (EErrorLevel.WARN.isLT (EErrorLevel.ERROR));
+    assertFalse (EErrorLevel.WARN.isLT (EErrorLevel.WARN));
+    assertFalse (EErrorLevel.WARN.isLT (EErrorLevel.INFO));
 
-    assertTrue (EErrorLevel.WARN.isLessOrEqualSevereThan (EErrorLevel.ERROR));
-    assertTrue (EErrorLevel.WARN.isLessOrEqualSevereThan (EErrorLevel.WARN));
-    assertFalse (EErrorLevel.WARN.isLessOrEqualSevereThan (EErrorLevel.INFO));
+    assertTrue (EErrorLevel.WARN.isLE (EErrorLevel.ERROR));
+    assertTrue (EErrorLevel.WARN.isLE (EErrorLevel.WARN));
+    assertFalse (EErrorLevel.WARN.isLE (EErrorLevel.INFO));
 
-    assertFalse (EErrorLevel.WARN.isMoreSevereThan (EErrorLevel.ERROR));
-    assertFalse (EErrorLevel.WARN.isMoreSevereThan (EErrorLevel.WARN));
-    assertTrue (EErrorLevel.WARN.isMoreSevereThan (EErrorLevel.INFO));
+    assertFalse (EErrorLevel.WARN.isGT (EErrorLevel.ERROR));
+    assertFalse (EErrorLevel.WARN.isGT (EErrorLevel.WARN));
+    assertTrue (EErrorLevel.WARN.isGT (EErrorLevel.INFO));
 
-    assertFalse (EErrorLevel.WARN.isMoreOrEqualSevereThan (EErrorLevel.ERROR));
-    assertTrue (EErrorLevel.WARN.isMoreOrEqualSevereThan (EErrorLevel.WARN));
-    assertTrue (EErrorLevel.WARN.isMoreOrEqualSevereThan (EErrorLevel.INFO));
+    assertFalse (EErrorLevel.WARN.isGE (EErrorLevel.ERROR));
+    assertTrue (EErrorLevel.WARN.isGE (EErrorLevel.WARN));
+    assertTrue (EErrorLevel.WARN.isGE (EErrorLevel.INFO));
   }
 
   @Test
