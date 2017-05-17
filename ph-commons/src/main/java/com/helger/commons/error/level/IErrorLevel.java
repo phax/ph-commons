@@ -50,52 +50,62 @@ public interface IErrorLevel extends
 
   default boolean isSuccess ()
   {
-    return isEqualSevereThan (EErrorLevel.SUCCESS);
+    return isEQ (EErrorLevel.SUCCESS);
   }
 
   default boolean isFailure ()
   {
-    return isMoreSevereThan (EErrorLevel.SUCCESS);
+    return isGT (EErrorLevel.SUCCESS);
   }
 
   default boolean isError ()
   {
-    return isMoreOrEqualSevereThan (EErrorLevel.ERROR);
+    return isGE (EErrorLevel.ERROR);
   }
 
   default boolean isNoError ()
   {
-    return isLessSevereThan (EErrorLevel.ERROR);
+    return isLT (EErrorLevel.ERROR);
   }
 
-  default boolean isEqualSevereThan (@Nonnull final IErrorLevel aErrorLevel)
+  default int compareTo (@Nonnull final IErrorLevel aErrorLevel)
+  {
+    return Integer.compare (getNumericLevel (), aErrorLevel.getNumericLevel ());
+  }
+
+  default boolean isEQ (@Nonnull final IErrorLevel aErrorLevel)
   {
     return getNumericLevel () == aErrorLevel.getNumericLevel ();
   }
 
-  default boolean isLessSevereThan (@Nonnull final IErrorLevel aErrorLevel)
+  default boolean isNE (@Nonnull final IErrorLevel aErrorLevel)
+  {
+    return getNumericLevel () != aErrorLevel.getNumericLevel ();
+  }
+
+  default boolean isLT (@Nonnull final IErrorLevel aErrorLevel)
   {
     return getNumericLevel () < aErrorLevel.getNumericLevel ();
   }
 
-  default boolean isLessOrEqualSevereThan (@Nonnull final IErrorLevel aErrorLevel)
+  default boolean isLE (@Nonnull final IErrorLevel aErrorLevel)
   {
     return getNumericLevel () <= aErrorLevel.getNumericLevel ();
   }
 
-  default boolean isMoreSevereThan (@Nonnull final IErrorLevel aErrorLevel)
+  default boolean isGT (@Nonnull final IErrorLevel aErrorLevel)
   {
     return getNumericLevel () > aErrorLevel.getNumericLevel ();
   }
 
-  default boolean isMoreOrEqualSevereThan (@Nonnull final IErrorLevel aErrorLevel)
+  default boolean isGE (@Nonnull final IErrorLevel aErrorLevel)
   {
     return getNumericLevel () >= aErrorLevel.getNumericLevel ();
   }
 
   default boolean isHighest ()
   {
-    return isMoreOrEqualSevereThan (EErrorLevel.HIGHEST);
+    return isEQ (EErrorLevel.HIGHEST);
   }
 
   @Nullable
@@ -107,6 +117,6 @@ public interface IErrorLevel extends
       return aLevel2;
     if (aLevel2 == null)
       return aLevel1;
-    return aLevel1.isMoreSevereThan (aLevel2) ? aLevel1 : aLevel2;
+    return aLevel1.isGT (aLevel2) ? aLevel1 : aLevel2;
   }
 }

@@ -179,7 +179,7 @@ public interface IHasErrorLevels <IMPLTYPE extends IHasErrorLevel> extends IComm
    */
   default boolean containsAtLeastOneWarningOrError ()
   {
-    return containsAny (x -> x.getErrorLevel ().isMoreOrEqualSevereThan (EErrorLevel.WARN));
+    return containsAny (x -> x.getErrorLevel ().isGE (EErrorLevel.WARN));
   }
 
   /**
@@ -196,7 +196,7 @@ public interface IHasErrorLevels <IMPLTYPE extends IHasErrorLevel> extends IComm
     for (final IMPLTYPE aItem : this)
     {
       final IErrorLevel aCur = aItem.getErrorLevel ();
-      if (aCur.isMoreSevereThan (ret))
+      if (aCur.isGT (ret))
       {
         ret = aCur;
         if (ret.isHighest ())

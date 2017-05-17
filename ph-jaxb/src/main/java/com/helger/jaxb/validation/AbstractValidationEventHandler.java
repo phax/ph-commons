@@ -138,7 +138,7 @@ public abstract class AbstractValidationEventHandler implements IValidationEvent
   protected boolean continueProcessing (@Nonnull final IErrorLevel aErrorLevel)
   {
     // Continue as long as it is no fatal error. On Fatal error stop!
-    return aErrorLevel.isLessSevereThan (EErrorLevel.FATAL_ERROR);
+    return aErrorLevel.isLT (EErrorLevel.FATAL_ERROR);
   }
 
   public final boolean handleEvent (@Nonnull final ValidationEvent aEvent)
