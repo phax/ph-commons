@@ -177,6 +177,16 @@ public final class BaseTypeConverterRegistrar implements ITypeConverterRegistrar
     aRegistry.registerTypeConverter (Character.class,
                                      BigDecimal.class,
                                      aSource -> BigDecimal.valueOf (aSource.charValue ()));
+    aRegistry.registerTypeConverter (Byte.class, BigDecimal.class, aSource -> BigDecimal.valueOf (aSource.intValue ()));
+    aRegistry.registerTypeConverter (Integer.class,
+                                     BigDecimal.class,
+                                     aSource -> BigDecimal.valueOf (aSource.intValue ()));
+    aRegistry.registerTypeConverter (Long.class,
+                                     BigDecimal.class,
+                                     aSource -> BigDecimal.valueOf (aSource.longValue ()));
+    aRegistry.registerTypeConverter (Short.class,
+                                     BigDecimal.class,
+                                     aSource -> BigDecimal.valueOf (aSource.shortValue ()));
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (BigDecimal.class,
                                                                   aSource -> StringParser.parseBigDecimal (aSource.toString (),
                                                                                                            (BigDecimal) null));
