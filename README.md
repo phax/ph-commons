@@ -43,6 +43,7 @@ This project was the following modules:
     * Extended `ILocalDatePeriod` API
     * Added additional specialized type converters to `BigDecimal`
     * Unified naming for methods that handle: greater than, greater or equals, lower than and lower or equals
+    * Added new type converters for `Month` and `DayOfWeek`
   * v8.6.4 - 2017-04-12
     * Some performance improvements
     * Fixed error in `StringHelper.replaceMultipleAsString`
