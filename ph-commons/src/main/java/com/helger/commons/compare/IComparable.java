@@ -36,37 +36,11 @@ public interface IComparable <DATATYPE> extends Comparable <DATATYPE>, Serializa
    *        value to compare to
    * @return <code>true</code> if this value is greater than the provided
    *         values, <code>false</code> if not.
-   * @deprecated Use {@link #isGT(Object)} instead
-   */
-  @Deprecated
-  default boolean isGreaterThan (@Nonnull final DATATYPE aOther)
-  {
-    return isGT (aOther);
-  }
-
-  /**
-   * @param aOther
-   *        value to compare to
-   * @return <code>true</code> if this value is greater than the provided
-   *         values, <code>false</code> if not.
    * @since 8.6.5
    */
   default boolean isGT (@Nonnull final DATATYPE aOther)
   {
     return compareTo (aOther) > 0;
-  }
-
-  /**
-   * @param aOther
-   *        value to compare to
-   * @return <code>true</code> if this value is greater or equal than the
-   *         provided values, <code>false</code> if not.
-   * @deprecated Use {@link #isGE(Object)} instead
-   */
-  @Deprecated
-  default boolean isGreaterOrEqualThan (@Nonnull final DATATYPE aOther)
-  {
-    return isGE (aOther);
   }
 
   /**
@@ -86,19 +60,6 @@ public interface IComparable <DATATYPE> extends Comparable <DATATYPE>, Serializa
    *        value to compare to
    * @return <code>true</code> if this value is lower than the provided values,
    *         <code>false</code> if not.
-   * @deprecated Use {@link #isLT(Object)} instead
-   */
-  @Deprecated
-  default boolean isLowerThan (@Nonnull final DATATYPE aOther)
-  {
-    return isLT (aOther);
-  }
-
-  /**
-   * @param aOther
-   *        value to compare to
-   * @return <code>true</code> if this value is lower than the provided values,
-   *         <code>false</code> if not.
    * @since 8.6.5
    */
   default boolean isLT (@Nonnull final DATATYPE aOther)
@@ -111,37 +72,11 @@ public interface IComparable <DATATYPE> extends Comparable <DATATYPE>, Serializa
    *        value to compare to
    * @return <code>true</code> if this value is lower or equal than the provided
    *         values, <code>false</code> if not.
-   * @deprecated Use {@link #isLE(Object)} instead
-   */
-  @Deprecated
-  default boolean isLowerOrEqualThan (@Nonnull final DATATYPE aOther)
-  {
-    return isLE (aOther);
-  }
-
-  /**
-   * @param aOther
-   *        value to compare to
-   * @return <code>true</code> if this value is lower or equal than the provided
-   *         values, <code>false</code> if not.
    * @since 8.6.5
    */
   default boolean isLE (@Nonnull final DATATYPE aOther)
   {
     return compareTo (aOther) <= 0;
-  }
-
-  /**
-   * @param aOther
-   *        value to compare to
-   * @return <code>true</code> if the values are equal, <code>false</code>
-   *         otherwise.
-   * @deprecated Use {@link #isEQ(Object)} instead
-   */
-  @Deprecated
-  default boolean isEqualTo (@Nonnull final DATATYPE aOther)
-  {
-    return isEQ (aOther);
   }
 
   /**
