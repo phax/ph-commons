@@ -359,8 +359,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is = 0.
+   * @deprecated Use {@link #isEQ0(BigDecimal)} instead
    */
+  @Deprecated
   public static boolean isEqualToZero (@Nonnull final BigDecimal aValue)
+  {
+    return isEQ0 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is = 0.
+   */
+  public static boolean isEQ0 (@Nonnull final BigDecimal aValue)
   {
     return EqualsHelper.equals (aValue, BigDecimal.ZERO);
   }
@@ -369,8 +381,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is != 0.
+   * @deprecated Use {@link #isNE0(BigDecimal)} instead
    */
+  @Deprecated
   public static boolean isNotEqualToZero (@Nonnull final BigDecimal aValue)
+  {
+    return isNE0 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is != 0.
+   */
+  public static boolean isNE0 (@Nonnull final BigDecimal aValue)
   {
     return !EqualsHelper.equals (aValue, BigDecimal.ZERO);
   }
@@ -379,8 +403,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is &lt; 0.
+   * @deprecated Use {@link #isLT0(BigDecimal)} instead
    */
+  @Deprecated
   public static boolean isLowerThanZero (@Nonnull final BigDecimal aValue)
+  {
+    return isLT0 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is &lt; 0.
+   */
+  public static boolean isLT0 (@Nonnull final BigDecimal aValue)
   {
     return aValue.compareTo (BigDecimal.ZERO) < 0;
   }
@@ -389,8 +425,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is &le; 0.
+   * @deprecated Use {@link #isLE0(BigDecimal)} instead
    */
+  @Deprecated
   public static boolean isLowerOrEqualThanZero (@Nonnull final BigDecimal aValue)
+  {
+    return isLE0 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is &le; 0.
+   */
+  public static boolean isLE0 (@Nonnull final BigDecimal aValue)
   {
     return aValue.compareTo (BigDecimal.ZERO) <= 0;
   }
@@ -399,8 +447,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is &gt; 0.
+   * @deprecated Use {@link #isGT0(BigDecimal)} instead
    */
+  @Deprecated
   public static boolean isGreaterThanZero (@Nonnull final BigDecimal aValue)
+  {
+    return isGT0 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is &gt; 0.
+   */
+  public static boolean isGT0 (@Nonnull final BigDecimal aValue)
   {
     return aValue.compareTo (BigDecimal.ZERO) > 0;
   }
@@ -409,8 +469,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is &ge; 0.
+   * @deprecated Use {@link #isGE0(BigDecimal)} instead
    */
+  @Deprecated
   public static boolean isGreaterOrEqualThanZero (@Nonnull final BigDecimal aValue)
+  {
+    return isGE0 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is &ge; 0.
+   */
+  public static boolean isGE0 (@Nonnull final BigDecimal aValue)
   {
     return aValue.compareTo (BigDecimal.ZERO) >= 0;
   }
@@ -419,8 +491,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is = 1.
+   * @deprecated Use {@link #isEQ1(BigDecimal)} instead
    */
+  @Deprecated
   public static boolean isEqualToOne (@Nonnull final BigDecimal aValue)
+  {
+    return isEQ1 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is = 1.
+   */
+  public static boolean isEQ1 (@Nonnull final BigDecimal aValue)
   {
     return EqualsHelper.equals (aValue, BigDecimal.ONE);
   }
@@ -429,8 +513,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is != 1.
+   * @deprecated Use {@link #isNE1(BigDecimal)} instead
    */
+  @Deprecated
   public static boolean isNotEqualToOne (@Nonnull final BigDecimal aValue)
+  {
+    return isNE1 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is != 1.
+   */
+  public static boolean isNE1 (@Nonnull final BigDecimal aValue)
   {
     return !EqualsHelper.equals (aValue, BigDecimal.ONE);
   }
@@ -439,8 +535,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is &lt; 1.
+   * @deprecated Use {@link #isLT1(BigDecimal)} instead
    */
+  @Deprecated
   public static boolean isLowerThanOne (@Nonnull final BigDecimal aValue)
+  {
+    return isLT1 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is &lt; 1.
+   */
+  public static boolean isLT1 (@Nonnull final BigDecimal aValue)
   {
     return aValue.compareTo (BigDecimal.ONE) < 0;
   }
@@ -449,8 +557,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is &le; 1.
+   * @deprecated Use {@link #isLE1(BigDecimal)} instead
    */
+  @Deprecated
   public static boolean isLowerOrEqualThanOne (@Nonnull final BigDecimal aValue)
+  {
+    return isLE1 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is &le; 1.
+   */
+  public static boolean isLE1 (@Nonnull final BigDecimal aValue)
   {
     return aValue.compareTo (BigDecimal.ONE) <= 0;
   }
@@ -459,8 +579,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is &gt; 1.
+   * @deprecated Use {@link #isGT1(BigDecimal)} instead
    */
+  @Deprecated
   public static boolean isGreaterThanOne (@Nonnull final BigDecimal aValue)
+  {
+    return isGT1 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is &gt; 1.
+   */
+  public static boolean isGT1 (@Nonnull final BigDecimal aValue)
   {
     return aValue.compareTo (BigDecimal.ONE) > 0;
   }
@@ -469,8 +601,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is &ge; 1.
+   * @deprecated Use {@link #isGE1(BigDecimal)} instead
    */
+  @Deprecated
   public static boolean isGreaterOrEqualThanOne (@Nonnull final BigDecimal aValue)
+  {
+    return isGE1 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is &ge; 1.
+   */
+  public static boolean isGE1 (@Nonnull final BigDecimal aValue)
   {
     return aValue.compareTo (BigDecimal.ONE) >= 0;
   }
@@ -479,8 +623,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is = 10.
+   * @deprecated Use {@link #isEQ10(BigDecimal)} instead
    */
+  @Deprecated
   public static boolean isEqualToTen (@Nonnull final BigDecimal aValue)
+  {
+    return isEQ10 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is = 10.
+   */
+  public static boolean isEQ10 (@Nonnull final BigDecimal aValue)
   {
     return EqualsHelper.equals (aValue, BigDecimal.TEN);
   }
@@ -489,8 +645,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is != 10.
+   * @deprecated Use {@link #isNE10(BigDecimal)} instead
    */
+  @Deprecated
   public static boolean isNotEqualToTen (@Nonnull final BigDecimal aValue)
+  {
+    return isNE10 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is != 10.
+   */
+  public static boolean isNE10 (@Nonnull final BigDecimal aValue)
   {
     return !EqualsHelper.equals (aValue, BigDecimal.TEN);
   }
@@ -499,8 +667,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is &lt; 10.
+   * @deprecated Use {@link #isLT10(BigDecimal)} instead
    */
+  @Deprecated
   public static boolean isLowerThanTen (@Nonnull final BigDecimal aValue)
+  {
+    return isLT10 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is &lt; 10.
+   */
+  public static boolean isLT10 (@Nonnull final BigDecimal aValue)
   {
     return aValue.compareTo (BigDecimal.TEN) < 0;
   }
@@ -509,8 +689,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is &le; 10.
+   * @deprecated Use {@link #isLE10(BigDecimal)} instead
    */
+  @Deprecated
   public static boolean isLowerOrEqualThanTen (@Nonnull final BigDecimal aValue)
+  {
+    return isLE10 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is &le; 10.
+   */
+  public static boolean isLE10 (@Nonnull final BigDecimal aValue)
   {
     return aValue.compareTo (BigDecimal.TEN) <= 0;
   }
@@ -519,8 +711,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is &gt; 10.
+   * @deprecated Use {@link #isGT10(BigDecimal)} instead
    */
+  @Deprecated
   public static boolean isGreaterThanTen (@Nonnull final BigDecimal aValue)
+  {
+    return isGT10 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is &gt; 10.
+   */
+  public static boolean isGT10 (@Nonnull final BigDecimal aValue)
   {
     return aValue.compareTo (BigDecimal.TEN) > 0;
   }
@@ -529,8 +733,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is &ge; 10.
+   * @deprecated Use {@link #isGE10(BigDecimal)} instead
    */
+  @Deprecated
   public static boolean isGreaterOrEqualThanTen (@Nonnull final BigDecimal aValue)
+  {
+    return isGE10 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is &ge; 10.
+   */
+  public static boolean isGE10 (@Nonnull final BigDecimal aValue)
   {
     return aValue.compareTo (BigDecimal.TEN) >= 0;
   }
@@ -539,8 +755,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is = 100.
+   * @deprecated Use {@link #isEQ100(BigDecimal)} instead
    */
+  @Deprecated
   public static boolean isEqualTo100 (@Nonnull final BigDecimal aValue)
+  {
+    return isEQ100 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is = 100.
+   */
+  public static boolean isEQ100 (@Nonnull final BigDecimal aValue)
   {
     return EqualsHelper.equals (aValue, CGlobal.BIGDEC_100);
   }
@@ -549,8 +777,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is != 100.
+   * @deprecated Use {@link #isNE100(BigDecimal)} instead
    */
+  @Deprecated
   public static boolean isNotEqualTo100 (@Nonnull final BigDecimal aValue)
+  {
+    return isNE100 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is != 100.
+   */
+  public static boolean isNE100 (@Nonnull final BigDecimal aValue)
   {
     return !EqualsHelper.equals (aValue, CGlobal.BIGDEC_100);
   }
@@ -559,8 +799,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is &lt; 100.
+   * @deprecated Use {@link #isLT100(BigDecimal)} instead
    */
+  @Deprecated
   public static boolean isLowerThan100 (@Nonnull final BigDecimal aValue)
+  {
+    return isLT100 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is &lt; 100.
+   */
+  public static boolean isLT100 (@Nonnull final BigDecimal aValue)
   {
     return aValue.compareTo (CGlobal.BIGDEC_100) < 0;
   }
@@ -569,8 +821,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is &le; 100.
+   * @deprecated Use {@link #isLE100(BigDecimal)} instead
    */
+  @Deprecated
   public static boolean isLowerOrEqualThan100 (@Nonnull final BigDecimal aValue)
+  {
+    return isLE100 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is &le; 100.
+   */
+  public static boolean isLE100 (@Nonnull final BigDecimal aValue)
   {
     return aValue.compareTo (CGlobal.BIGDEC_100) <= 0;
   }
@@ -579,8 +843,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is &gt; 100.
+   * @deprecated Use {@link #isGT100(BigDecimal)} instead
    */
+  @Deprecated
   public static boolean isGreaterThan100 (@Nonnull final BigDecimal aValue)
+  {
+    return isGT100 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is &gt; 100.
+   */
+  public static boolean isGT100 (@Nonnull final BigDecimal aValue)
   {
     return aValue.compareTo (CGlobal.BIGDEC_100) > 0;
   }
@@ -589,8 +865,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is &ge; 100.
+   * @deprecated Use {@link #isGE100(BigDecimal)} instead
    */
+  @Deprecated
   public static boolean isGreaterOrEqualThan100 (@Nonnull final BigDecimal aValue)
+  {
+    return isGE100 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is &ge; 100.
+   */
+  public static boolean isGE100 (@Nonnull final BigDecimal aValue)
   {
     return aValue.compareTo (CGlobal.BIGDEC_100) >= 0;
   }
@@ -599,8 +887,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is = 0.
+   * @deprecated Use {@link #isEQ0(BigInteger)} instead
    */
+  @Deprecated
   public static boolean isEqualToZero (@Nonnull final BigInteger aValue)
+  {
+    return isEQ0 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is = 0.
+   */
+  public static boolean isEQ0 (@Nonnull final BigInteger aValue)
   {
     return EqualsHelper.equals (aValue, BigInteger.ZERO);
   }
@@ -609,8 +909,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is != 0.
+   * @deprecated Use {@link #isNE0(BigInteger)} instead
    */
+  @Deprecated
   public static boolean isNotEqualToZero (@Nonnull final BigInteger aValue)
+  {
+    return isNE0 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is != 0.
+   */
+  public static boolean isNE0 (@Nonnull final BigInteger aValue)
   {
     return !EqualsHelper.equals (aValue, BigInteger.ZERO);
   }
@@ -619,8 +931,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is &lt; 0.
+   * @deprecated Use {@link #isLT0(BigInteger)} instead
    */
+  @Deprecated
   public static boolean isLowerThanZero (@Nonnull final BigInteger aValue)
+  {
+    return isLT0 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is &lt; 0.
+   */
+  public static boolean isLT0 (@Nonnull final BigInteger aValue)
   {
     return aValue.compareTo (BigInteger.ZERO) < 0;
   }
@@ -629,8 +953,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is &le; 0.
+   * @deprecated Use {@link #isLE0(BigInteger)} instead
    */
+  @Deprecated
   public static boolean isLowerOrEqualThanZero (@Nonnull final BigInteger aValue)
+  {
+    return isLE0 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is &le; 0.
+   */
+  public static boolean isLE0 (@Nonnull final BigInteger aValue)
   {
     return aValue.compareTo (BigInteger.ZERO) <= 0;
   }
@@ -639,8 +975,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is &gt; 0.
+   * @deprecated Use {@link #isGT0(BigInteger)} instead
    */
+  @Deprecated
   public static boolean isGreaterThanZero (@Nonnull final BigInteger aValue)
+  {
+    return isGT0 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is &gt; 0.
+   */
+  public static boolean isGT0 (@Nonnull final BigInteger aValue)
   {
     return aValue.compareTo (BigInteger.ZERO) > 0;
   }
@@ -649,8 +997,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is &ge; 0.
+   * @deprecated Use {@link #isGE0(BigInteger)} instead
    */
+  @Deprecated
   public static boolean isGreaterOrEqualThanZero (@Nonnull final BigInteger aValue)
+  {
+    return isGE0 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is &ge; 0.
+   */
+  public static boolean isGE0 (@Nonnull final BigInteger aValue)
   {
     return aValue.compareTo (BigInteger.ZERO) >= 0;
   }
@@ -659,8 +1019,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is = 1.
+   * @deprecated Use {@link #isEQ1(BigInteger)} instead
    */
+  @Deprecated
   public static boolean isEqualToOne (@Nonnull final BigInteger aValue)
+  {
+    return isEQ1 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is = 1.
+   */
+  public static boolean isEQ1 (@Nonnull final BigInteger aValue)
   {
     return EqualsHelper.equals (aValue, BigInteger.ONE);
   }
@@ -669,8 +1041,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is != 1.
+   * @deprecated Use {@link #isNE1(BigInteger)} instead
    */
+  @Deprecated
   public static boolean isNotEqualToOne (@Nonnull final BigInteger aValue)
+  {
+    return isNE1 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is != 1.
+   */
+  public static boolean isNE1 (@Nonnull final BigInteger aValue)
   {
     return !EqualsHelper.equals (aValue, BigInteger.ONE);
   }
@@ -679,8 +1063,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is &lt; 1.
+   * @deprecated Use {@link #isLT1(BigInteger)} instead
    */
+  @Deprecated
   public static boolean isLowerThanOne (@Nonnull final BigInteger aValue)
+  {
+    return isLT1 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is &lt; 1.
+   */
+  public static boolean isLT1 (@Nonnull final BigInteger aValue)
   {
     return aValue.compareTo (BigInteger.ONE) < 0;
   }
@@ -689,8 +1085,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is &le; 1.
+   * @deprecated Use {@link #isLE1(BigInteger)} instead
    */
+  @Deprecated
   public static boolean isLowerOrEqualThanOne (@Nonnull final BigInteger aValue)
+  {
+    return isLE1 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is &le; 1.
+   */
+  public static boolean isLE1 (@Nonnull final BigInteger aValue)
   {
     return aValue.compareTo (BigInteger.ONE) <= 0;
   }
@@ -699,8 +1107,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is &gt; 1.
+   * @deprecated Use {@link #isGT1(BigInteger)} instead
    */
+  @Deprecated
   public static boolean isGreaterThanOne (@Nonnull final BigInteger aValue)
+  {
+    return isGT1 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is &gt; 1.
+   */
+  public static boolean isGT1 (@Nonnull final BigInteger aValue)
   {
     return aValue.compareTo (BigInteger.ONE) > 0;
   }
@@ -709,8 +1129,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is &ge; 1.
+   * @deprecated Use {@link #isGE1(BigInteger)} instead
    */
+  @Deprecated
   public static boolean isGreaterOrEqualThanOne (@Nonnull final BigInteger aValue)
+  {
+    return isGE1 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is &ge; 1.
+   */
+  public static boolean isGE1 (@Nonnull final BigInteger aValue)
   {
     return aValue.compareTo (BigInteger.ONE) >= 0;
   }
@@ -719,8 +1151,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is = 10.
+   * @deprecated Use {@link #isEQ10(BigInteger)} instead
    */
+  @Deprecated
   public static boolean isEqualToTen (@Nonnull final BigInteger aValue)
+  {
+    return isEQ10 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is = 10.
+   */
+  public static boolean isEQ10 (@Nonnull final BigInteger aValue)
   {
     return EqualsHelper.equals (aValue, BigInteger.TEN);
   }
@@ -729,8 +1173,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is != 10.
+   * @deprecated Use {@link #isNE10(BigInteger)} instead
    */
+  @Deprecated
   public static boolean isNotEqualToTen (@Nonnull final BigInteger aValue)
+  {
+    return isNE10 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is != 10.
+   */
+  public static boolean isNE10 (@Nonnull final BigInteger aValue)
   {
     return !EqualsHelper.equals (aValue, BigInteger.TEN);
   }
@@ -739,8 +1195,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is &lt; 10.
+   * @deprecated Use {@link #isLT10(BigInteger)} instead
    */
+  @Deprecated
   public static boolean isLowerThanTen (@Nonnull final BigInteger aValue)
+  {
+    return isLT10 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is &lt; 10.
+   */
+  public static boolean isLT10 (@Nonnull final BigInteger aValue)
   {
     return aValue.compareTo (BigInteger.TEN) < 0;
   }
@@ -749,8 +1217,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is &le; 10.
+   * @deprecated Use {@link #isLE10(BigInteger)} instead
    */
+  @Deprecated
   public static boolean isLowerOrEqualThanTen (@Nonnull final BigInteger aValue)
+  {
+    return isLE10 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is &le; 10.
+   */
+  public static boolean isLE10 (@Nonnull final BigInteger aValue)
   {
     return aValue.compareTo (BigInteger.TEN) <= 0;
   }
@@ -759,8 +1239,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is &gt; 10.
+   * @deprecated Use {@link #isGT10(BigInteger)} instead
    */
+  @Deprecated
   public static boolean isGreaterThanTen (@Nonnull final BigInteger aValue)
+  {
+    return isGT10 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is &gt; 10.
+   */
+  public static boolean isGT10 (@Nonnull final BigInteger aValue)
   {
     return aValue.compareTo (BigInteger.TEN) > 0;
   }
@@ -769,8 +1261,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is &ge; 10.
+   * @deprecated Use {@link #isGE10(BigInteger)} instead
    */
+  @Deprecated
   public static boolean isGreaterOrEqualThanTen (@Nonnull final BigInteger aValue)
+  {
+    return isGE10 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is &ge; 10.
+   */
+  public static boolean isGE10 (@Nonnull final BigInteger aValue)
   {
     return aValue.compareTo (BigInteger.TEN) >= 0;
   }
@@ -779,8 +1283,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is = 100.
+   * @deprecated Use {@link #isEQ100(BigInteger)} instead
    */
+  @Deprecated
   public static boolean isEqualTo100 (@Nonnull final BigInteger aValue)
+  {
+    return isEQ100 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is = 100.
+   */
+  public static boolean isEQ100 (@Nonnull final BigInteger aValue)
   {
     return EqualsHelper.equals (aValue, CGlobal.BIGINT_100);
   }
@@ -789,8 +1305,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is != 100.
+   * @deprecated Use {@link #isNE100(BigInteger)} instead
    */
+  @Deprecated
   public static boolean isNotEqualTo100 (@Nonnull final BigInteger aValue)
+  {
+    return isNE100 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is != 100.
+   */
+  public static boolean isNE100 (@Nonnull final BigInteger aValue)
   {
     return !EqualsHelper.equals (aValue, CGlobal.BIGINT_100);
   }
@@ -799,8 +1327,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is &lt; 100.
+   * @deprecated Use {@link #isLT100(BigInteger)} instead
    */
+  @Deprecated
   public static boolean isLowerThan100 (@Nonnull final BigInteger aValue)
+  {
+    return isLT100 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is &lt; 100.
+   */
+  public static boolean isLT100 (@Nonnull final BigInteger aValue)
   {
     return aValue.compareTo (CGlobal.BIGINT_100) < 0;
   }
@@ -809,8 +1349,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is &le; 100.
+   * @deprecated Use {@link #isLE100(BigInteger)} instead
    */
+  @Deprecated
   public static boolean isLowerOrEqualThan100 (@Nonnull final BigInteger aValue)
+  {
+    return isLE100 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is &le; 100.
+   */
+  public static boolean isLE100 (@Nonnull final BigInteger aValue)
   {
     return aValue.compareTo (CGlobal.BIGINT_100) <= 0;
   }
@@ -819,8 +1371,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is &gt; 100.
+   * @deprecated Use {@link #isGT100(BigInteger)} instead
    */
+  @Deprecated
   public static boolean isGreaterThan100 (@Nonnull final BigInteger aValue)
+  {
+    return isGT100 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is &gt; 100.
+   */
+  public static boolean isGT100 (@Nonnull final BigInteger aValue)
   {
     return aValue.compareTo (CGlobal.BIGINT_100) > 0;
   }
@@ -829,8 +1393,20 @@ public final class MathHelper
    * @param aValue
    *        Value to compare. May not be <code>null</code>.
    * @return <code>true</code> if the value is &ge; 100.
+   * @deprecated Use {@link #isGE100(BigInteger)} instead
    */
+  @Deprecated
   public static boolean isGreaterOrEqualThan100 (@Nonnull final BigInteger aValue)
+  {
+    return isGE100 (aValue);
+  }
+
+  /**
+   * @param aValue
+   *        Value to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the value is &ge; 100.
+   */
+  public static boolean isGE100 (@Nonnull final BigInteger aValue)
   {
     return aValue.compareTo (CGlobal.BIGINT_100) >= 0;
   }

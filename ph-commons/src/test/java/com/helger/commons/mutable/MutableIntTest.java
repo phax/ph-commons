@@ -79,11 +79,11 @@ public final class MutableIntTest
     assertTrue (x.toString ().contains (Integer.toString (x.intValue ())));
 
     x.set (-1);
-    assertFalse (x.isGreater0 ());
+    assertFalse (x.isGT0 ());
     x.set (0);
-    assertFalse (x.isGreater0 ());
+    assertFalse (x.isGT0 ());
     x.set (1);
-    assertTrue (x.isGreater0 ());
+    assertTrue (x.isGT0 ());
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MutableInt (-7), new MutableInt (-7));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MutableInt (6), new MutableInt (7));

@@ -169,22 +169,22 @@ public class MutableLong extends AbstractMutableInteger <MutableLong>
     return m_nValue == 0;
   }
 
-  public boolean isSmaller0 ()
+  public boolean isLT0 ()
   {
     return m_nValue < 0;
   }
 
-  public boolean isSmallerOrEqual0 ()
+  public boolean isLE0 ()
   {
     return m_nValue <= 0;
   }
 
-  public boolean isGreater0 ()
+  public boolean isGT0 ()
   {
     return m_nValue > 0;
   }
 
-  public boolean isGreaterOrEqual0 ()
+  public boolean isGE0 ()
   {
     return m_nValue >= 0;
   }

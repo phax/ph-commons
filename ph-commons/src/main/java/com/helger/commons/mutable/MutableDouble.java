@@ -158,22 +158,22 @@ public class MutableDouble extends AbstractMutableNumeric <MutableDouble>
     return EqualsHelper.equals (m_dValue, 0);
   }
 
-  public boolean isSmaller0 ()
+  public boolean isLT0 ()
   {
     return CompareHelper.compare (m_dValue, 0) < 0;
   }
 
-  public boolean isSmallerOrEqual0 ()
+  public boolean isLE0 ()
   {
     return CompareHelper.compare (m_dValue, 0) <= 0;
   }
 
-  public boolean isGreater0 ()
+  public boolean isGT0 ()
   {
     return CompareHelper.compare (m_dValue, 0) > 0;
   }
 
-  public boolean isGreaterOrEqual0 ()
+  public boolean isGE0 ()
   {
     return CompareHelper.compare (m_dValue, 0) >= 0;
   }

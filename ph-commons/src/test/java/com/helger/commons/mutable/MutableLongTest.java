@@ -79,11 +79,11 @@ public final class MutableLongTest
     assertTrue (x.toString ().contains (Long.toString (x.longValue ())));
 
     x.set (-1);
-    assertFalse (x.isGreater0 ());
+    assertFalse (x.isGT0 ());
     x.set (0);
-    assertFalse (x.isGreater0 ());
+    assertFalse (x.isGT0 ());
     x.set (1);
-    assertTrue (x.isGreater0 ());
+    assertTrue (x.isGT0 ());
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MutableLong (-7000),
                                                                        new MutableLong (-7000));

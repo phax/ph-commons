@@ -40,7 +40,8 @@ This project was the following modules:
     * Added new class `DefaultEntityResolver` using a base URL for resolving.
     * Extracted and renamed classes `PDTZoneID` and `PDTMask`
     * Extended `ILocalDatePeriod` API
-    * Added additional specialized type converters to `BigDecimal` 
+    * Added additional specialized type converters to `BigDecimal`
+    * Unified naming for methods that handle: greater than, greater or equals, lower than and lower or equals
   * v8.6.4 - 2017-04-12
     * Some performance improvements
     * Fixed error in `StringHelper.replaceMultipleAsString`

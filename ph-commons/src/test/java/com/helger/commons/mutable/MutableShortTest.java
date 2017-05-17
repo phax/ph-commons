@@ -97,11 +97,11 @@ public final class MutableShortTest
     assertTrue (x.toString ().contains (Integer.toString (x.shortValue ())));
 
     x.set (-1);
-    assertFalse (x.isGreater0 ());
+    assertFalse (x.isGT0 ());
     x.set (0);
-    assertFalse (x.isGreater0 ());
+    assertFalse (x.isGT0 ());
     x.set (1);
-    assertTrue (x.isGreater0 ());
+    assertTrue (x.isGT0 ());
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MutableShort (-7), new MutableShort (-7));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MutableShort (6), new MutableShort (7));

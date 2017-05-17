@@ -171,23 +171,23 @@ public class MutableChar extends AbstractMutableInteger <MutableChar>
     return m_cValue == 0;
   }
 
-  public boolean isSmaller0 ()
+  public boolean isLT0 ()
   {
     // char is always >= 0
     return false;
   }
 
-  public boolean isSmallerOrEqual0 ()
+  public boolean isLE0 ()
   {
     return m_cValue <= 0;
   }
 
-  public boolean isGreater0 ()
+  public boolean isGT0 ()
   {
     return m_cValue > 0;
   }
 
-  public boolean isGreaterOrEqual0 ()
+  public boolean isGE0 ()
   {
     // char is always >= 0
     return true;

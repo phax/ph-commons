@@ -118,28 +118,28 @@ public final class PDTHelperTest
     assertEquals (p1, p2);
 
     // But this leads to equality :)
-    assertFalse (PDTHelper.isLess (p1, p2));
-    assertTrue (PDTHelper.isLessOrEqual (p1, p2));
+    assertFalse (PDTHelper.isLT (p1, p2));
+    assertTrue (PDTHelper.isLE (p1, p2));
     assertEquals (0, p1.compareTo (p2));
     assertEquals (p1, p2);
-    assertTrue (PDTHelper.isGreaterOrEqual (p1, p2));
-    assertFalse (PDTHelper.isGreater (p1, p2));
+    assertTrue (PDTHelper.isGE (p1, p2));
+    assertFalse (PDTHelper.isGT (p1, p2));
 
     p2 = p2.plusMinutes (1);
     assertEquals (-1, p1.compareTo (p2));
-    assertTrue (PDTHelper.isLess (p1, p2));
-    assertTrue (PDTHelper.isLessOrEqual (p1, p2));
+    assertTrue (PDTHelper.isLT (p1, p2));
+    assertTrue (PDTHelper.isLE (p1, p2));
     assertFalse (p1.equals (p2));
-    assertFalse (PDTHelper.isGreaterOrEqual (p1, p2));
-    assertFalse (PDTHelper.isGreater (p1, p2));
+    assertFalse (PDTHelper.isGE (p1, p2));
+    assertFalse (PDTHelper.isGT (p1, p2));
     assertEquals (+1, p2.compareTo (p1));
     assertFalse (p2.equals (p1));
 
-    assertFalse (PDTHelper.isLess (p2, p1));
-    assertFalse (PDTHelper.isLessOrEqual (p2, p1));
+    assertFalse (PDTHelper.isLT (p2, p1));
+    assertFalse (PDTHelper.isLE (p2, p1));
     assertFalse (p2.equals (p1));
-    assertTrue (PDTHelper.isGreaterOrEqual (p2, p1));
-    assertTrue (PDTHelper.isGreater (p2, p1));
+    assertTrue (PDTHelper.isGE (p2, p1));
+    assertTrue (PDTHelper.isGT (p2, p1));
   }
 
   @Test
