@@ -172,22 +172,22 @@ public class MutableFloat extends AbstractMutableNumeric <MutableFloat>
     return EqualsHelper.equals (m_fValue, 0f);
   }
 
-  public boolean isSmaller0 ()
+  public boolean isLT0 ()
   {
     return CompareHelper.compare (m_fValue, 0f) < 0;
   }
 
-  public boolean isSmallerOrEqual0 ()
+  public boolean isLE0 ()
   {
     return CompareHelper.compare (m_fValue, 0f) <= 0;
   }
 
-  public boolean isGreater0 ()
+  public boolean isGT0 ()
   {
     return CompareHelper.compare (m_fValue, 0f) > 0;
   }
 
-  public boolean isGreaterOrEqual0 ()
+  public boolean isGE0 ()
   {
     return CompareHelper.compare (m_fValue, 0f) >= 0;
   }

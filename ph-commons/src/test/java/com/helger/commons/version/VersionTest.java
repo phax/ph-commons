@@ -706,18 +706,18 @@ public final class VersionTest
   @Test
   public void testCompare ()
   {
-    assertTrue (new Version (1, 2).isGreaterThan (new Version (1, 1)));
-    assertFalse (new Version (1, 2).isGreaterThan (new Version (1, 2)));
-    assertFalse (new Version (1, 2).isGreaterThan (new Version (1, 3)));
-    assertTrue (new Version (1, 2).isGreaterOrEqualThan (new Version (1, 1)));
-    assertTrue (new Version (1, 2).isGreaterOrEqualThan (new Version (1, 2)));
-    assertFalse (new Version (1, 2).isGreaterOrEqualThan (new Version (1, 3)));
-    assertFalse (new Version (1, 2).isLowerThan (new Version (1, 1)));
-    assertFalse (new Version (1, 2).isLowerThan (new Version (1, 2)));
-    assertTrue (new Version (1, 2).isLowerThan (new Version (1, 3)));
-    assertFalse (new Version (1, 2).isLowerOrEqualThan (new Version (1, 1)));
-    assertTrue (new Version (1, 2).isLowerOrEqualThan (new Version (1, 2)));
-    assertTrue (new Version (1, 2).isLowerOrEqualThan (new Version (1, 3)));
+    assertTrue (new Version (1, 2).isGT (new Version (1, 1)));
+    assertFalse (new Version (1, 2).isGT (new Version (1, 2)));
+    assertFalse (new Version (1, 2).isGT (new Version (1, 3)));
+    assertTrue (new Version (1, 2).isGE (new Version (1, 1)));
+    assertTrue (new Version (1, 2).isGE (new Version (1, 2)));
+    assertFalse (new Version (1, 2).isGE (new Version (1, 3)));
+    assertFalse (new Version (1, 2).isLT (new Version (1, 1)));
+    assertFalse (new Version (1, 2).isLT (new Version (1, 2)));
+    assertTrue (new Version (1, 2).isLT (new Version (1, 3)));
+    assertFalse (new Version (1, 2).isLE (new Version (1, 1)));
+    assertTrue (new Version (1, 2).isLE (new Version (1, 2)));
+    assertTrue (new Version (1, 2).isLE (new Version (1, 3)));
   }
 
   @Test

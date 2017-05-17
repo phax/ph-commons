@@ -223,26 +223,6 @@ public final class Version implements IComparable <Version>
     return ret;
   }
 
-  public boolean isGreaterThan (@Nonnull final Version aVersion)
-  {
-    return compareTo (aVersion) > 0;
-  }
-
-  public boolean isGreaterOrEqualThan (@Nonnull final Version aVersion)
-  {
-    return compareTo (aVersion) >= 0;
-  }
-
-  public boolean isLowerThan (@Nonnull final Version aVersion)
-  {
-    return compareTo (aVersion) < 0;
-  }
-
-  public boolean isLowerOrEqualThan (@Nonnull final Version aVersion)
-  {
-    return compareTo (aVersion) <= 0;
-  }
-
   @Nonnull
   public String getAsString ()
   {

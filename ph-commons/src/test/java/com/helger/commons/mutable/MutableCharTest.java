@@ -99,11 +99,11 @@ public final class MutableCharTest
     assertTrue (x.toString ().contains (Character.toString (x.charValue ())));
 
     x.set (-1);
-    assertTrue (x.isGreater0 ());
+    assertTrue (x.isGT0 ());
     x.set (0);
-    assertFalse (x.isGreater0 ());
+    assertFalse (x.isGT0 ());
     x.set (1);
-    assertTrue (x.isGreater0 ());
+    assertTrue (x.isGT0 ());
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MutableChar (-7), new MutableChar (-7));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MutableChar (6), new MutableChar (7));

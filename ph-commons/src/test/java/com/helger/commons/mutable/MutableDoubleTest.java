@@ -78,11 +78,11 @@ public final class MutableDoubleTest
     assertTrue (x.toString ().contains (Double.toString (x.doubleValue ())));
 
     x.set (-1);
-    assertFalse (x.isGreater0 ());
+    assertFalse (x.isGT0 ());
     x.set (0);
-    assertFalse (x.isGreater0 ());
+    assertFalse (x.isGT0 ());
     x.set (1);
-    assertTrue (x.isGreater0 ());
+    assertTrue (x.isGT0 ());
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MutableDouble (3.1234),
                                                                        new MutableDouble (3.1234));

@@ -273,27 +273,27 @@ public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal
 
   public boolean is0 ()
   {
-    return MathHelper.isEqualToZero (m_aValue);
+    return MathHelper.isEQ0 (m_aValue);
   }
 
-  public boolean isSmaller0 ()
+  public boolean isLT0 ()
   {
-    return MathHelper.isLowerThanZero (m_aValue);
+    return MathHelper.isLT0 (m_aValue);
   }
 
-  public boolean isSmallerOrEqual0 ()
+  public boolean isLE0 ()
   {
-    return MathHelper.isLowerOrEqualThanZero (m_aValue);
+    return MathHelper.isLE0 (m_aValue);
   }
 
-  public boolean isGreater0 ()
+  public boolean isGT0 ()
   {
-    return MathHelper.isGreaterThanZero (m_aValue);
+    return MathHelper.isGT0 (m_aValue);
   }
 
-  public boolean isGreaterOrEqual0 ()
+  public boolean isGE0 ()
   {
-    return MathHelper.isGreaterOrEqualThanZero (m_aValue);
+    return MathHelper.isGE0 (m_aValue);
   }
 
   public int compareTo (@Nonnull final MutableBigDecimal rhs)

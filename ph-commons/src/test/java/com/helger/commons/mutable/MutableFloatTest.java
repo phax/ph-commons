@@ -78,11 +78,11 @@ public final class MutableFloatTest
     assertTrue (x.toString ().contains (Float.toString (x.floatValue ())));
 
     x.set (-1);
-    assertFalse (x.isGreater0 ());
+    assertFalse (x.isGT0 ());
     x.set (0);
-    assertFalse (x.isGreater0 ());
+    assertFalse (x.isGT0 ());
     x.set (1);
-    assertTrue (x.isGreater0 ());
+    assertTrue (x.isGT0 ());
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MutableFloat (3.1234f),
                                                                        new MutableFloat (3.1234f));

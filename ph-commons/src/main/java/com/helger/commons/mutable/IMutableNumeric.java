@@ -45,23 +45,63 @@ public interface IMutableNumeric <IMPLTYPE extends IMutableNumeric <IMPLTYPE>> e
 
   /**
    * @return <code>true</code> if the value is &lt; 0
+   * @deprecated Use {@link #isLT0()} instead
    */
-  boolean isSmaller0 ();
+  @Deprecated
+  default boolean isSmaller0 ()
+  {
+    return isLT0 ();
+  }
+
+  /**
+   * @return <code>true</code> if the value is &lt; 0
+   */
+  boolean isLT0 ();
+
+  /**
+   * @return <code>true</code> if the value is &le; 0
+   * @deprecated Use {@link #isLE0()} instead
+   */
+  @Deprecated
+  default boolean isSmallerOrEqual0 ()
+  {
+    return isLE0 ();
+  }
 
   /**
    * @return <code>true</code> if the value is &le; 0
    */
-  boolean isSmallerOrEqual0 ();
+  boolean isLE0 ();
+
+  /**
+   * @return <code>true</code> if the value is &gt; 0
+   * @deprecated Use {@link #isGT0()} instead
+   */
+  @Deprecated
+  default boolean isGreater0 ()
+  {
+    return isGT0 ();
+  }
 
   /**
    * @return <code>true</code> if the value is &gt; 0
    */
-  boolean isGreater0 ();
+  boolean isGT0 ();
+
+  /**
+   * @return <code>true</code> if the value is &ge; 0
+   * @deprecated Use {@link #isGE0()} instead
+   */
+  @Deprecated
+  default boolean isGreaterOrEqual0 ()
+  {
+    return isGE0 ();
+  }
 
   /**
    * @return <code>true</code> if the value is &ge; 0
    */
-  boolean isGreaterOrEqual0 ();
+  boolean isGE0 ();
 
   @Nonnull
   Byte getAsByte ();
