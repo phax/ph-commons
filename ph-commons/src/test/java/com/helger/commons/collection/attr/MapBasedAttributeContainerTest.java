@@ -76,7 +76,7 @@ public final class MapBasedAttributeContainerTest
     CommonsAssert.assertEquals (17, x.getAttributeAsDouble ("key"));
     CommonsAssert.assertEquals (CGlobal.ILLEGAL_DOUBLE, x.getAttributeAsDouble ("key2"));
     assertEquals (new BigInteger ("17"), x.getAttributeAsBigInteger ("key"));
-    assertEquals (new BigDecimal ("17.0"), x.getAttributeAsBigDecimal ("key"));
+    assertEquals (new BigDecimal ("17"), x.getAttributeAsBigDecimal ("key"));
     assertFalse (x.getAttributeAsBoolean ("key2"));
     assertTrue (x.removeAttribute ("key").isChanged ());
     assertFalse (x.removeAttribute ("key").isChanged ());
