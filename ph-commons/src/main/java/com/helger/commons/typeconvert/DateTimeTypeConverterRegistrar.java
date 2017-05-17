@@ -16,11 +16,14 @@
  */
 package com.helger.commons.typeconvert;
 
+import java.time.DateTimeException;
+import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Month;
 import java.time.OffsetDateTime;
 import java.time.Period;
 import java.time.Year;
@@ -101,6 +104,12 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
                                      Date.class,
                                      aSource -> new Date (StringParser.parseLong (aSource, 0)));
     aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (Date.class, Date::toInstant);
+
+    // Source: Month
+    aRegistry.registerTypeConverter (Month.class, Integer.class, aSource -> Integer.valueOf (aSource.getValue ()));
+
+    // Source: DayOfWeek
+    aRegistry.registerTypeConverter (DayOfWeek.class, Integer.class, aSource -> Integer.valueOf (aSource.getValue ()));
 
     // Destination: Date
     aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (Number.class,
@@ -255,5 +264,29 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
 
     // Destination: Period
     aRegistry.registerTypeConverter (String.class, Period.class, Period::parse);
+
+    // Destination: Month
+    aRegistry.registerTypeConverter (Integer.class, Month.class, aSource -> {
+      try
+      {
+        return Month.of (aSource.intValue ());
+      }
+      catch (final DateTimeException ex)
+      {
+        return null;
+      }
+    });
+
+    // Destination: DayOfWeek
+    aRegistry.registerTypeConverter (Integer.class, DayOfWeek.class, aSource -> {
+      try
+      {
+        return DayOfWeek.of (aSource.intValue ());
+      }
+      catch (final DateTimeException ex)
+      {
+        return null;
+      }
+    });
   }
 }
