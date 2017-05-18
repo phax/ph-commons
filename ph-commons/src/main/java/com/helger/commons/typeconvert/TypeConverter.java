@@ -481,7 +481,16 @@ public final class TypeConverter
     }
 
     // Okay, converter was found -> invoke it
-    final Object aRetVal = aConverter.apply (aSrcValue);
+    Object aRetVal;
+    try
+    {
+      aRetVal = aConverter.apply (aSrcValue);
+    }
+    catch (final RuntimeException ex)
+    {
+      // Convert arbitrary runtime exception to a TypeConverterException
+      throw new TypeConverterException (aSrcClass, aUsableDstClass, EReason.CONVERSION_FAILED, ex);
+    }
     if (aRetVal == null)
     {
       s_aLogger.warn ("Type conversion from '" +
