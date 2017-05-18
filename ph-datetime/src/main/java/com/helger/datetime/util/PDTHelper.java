@@ -331,19 +331,6 @@ public final class PDTHelper
   @Deprecated
   public static boolean isGreater (@Nonnull final Duration aDuration1, @Nonnull final Duration aDuration2)
   {
-    return isGT (aDuration1, aDuration2);
-  }
-
-  /**
-   * @param aDuration1
-   *        First value. May not be <code>null</code>.
-   * @param aDuration2
-   *        Second value. May not be <code>null</code>.
-   * @return <code>true</code> if first is &gt; than second, <code>false</code>
-   *         otherwise.
-   */
-  public static boolean isGT (@Nonnull final Duration aDuration1, @Nonnull final Duration aDuration2)
-  {
     return aDuration1.compareTo (aDuration2) > 0;
   }
 
@@ -358,19 +345,6 @@ public final class PDTHelper
    */
   @Deprecated
   public static boolean isGreaterOrEqual (@Nonnull final Duration aDuration1, @Nonnull final Duration aDuration2)
-  {
-    return isGE (aDuration1, aDuration2);
-  }
-
-  /**
-   * @param aDuration1
-   *        First value. May not be <code>null</code>.
-   * @param aDuration2
-   *        Second value. May not be <code>null</code>.
-   * @return <code>true</code> if first is &ge; than second, <code>false</code>
-   *         otherwise.
-   */
-  public static boolean isGE (@Nonnull final Duration aDuration1, @Nonnull final Duration aDuration2)
   {
     return aDuration1.compareTo (aDuration2) >= 0;
   }
@@ -387,19 +361,6 @@ public final class PDTHelper
   @Deprecated
   public static boolean isLess (@Nonnull final Duration aDuration1, @Nonnull final Duration aDuration2)
   {
-    return isLT (aDuration1, aDuration2);
-  }
-
-  /**
-   * @param aDuration1
-   *        First value. May not be <code>null</code>.
-   * @param aDuration2
-   *        Second value. May not be <code>null</code>.
-   * @return <code>true</code> if first is &lt; than second, <code>false</code>
-   *         otherwise.
-   */
-  public static boolean isLT (@Nonnull final Duration aDuration1, @Nonnull final Duration aDuration2)
-  {
     return aDuration1.compareTo (aDuration2) < 0;
   }
 
@@ -414,19 +375,6 @@ public final class PDTHelper
    */
   @Deprecated
   public static boolean isLessOrEqual (@Nonnull final Duration aDuration1, @Nonnull final Duration aDuration2)
-  {
-    return isLE (aDuration1, aDuration2);
-  }
-
-  /**
-   * @param aDuration1
-   *        First value. May not be <code>null</code>.
-   * @param aDuration2
-   *        Second value. May not be <code>null</code>.
-   * @return <code>true</code> if first is &le; than second, <code>false</code>
-   *         otherwise.
-   */
-  public static boolean isLE (@Nonnull final Duration aDuration1, @Nonnull final Duration aDuration2)
   {
     return aDuration1.compareTo (aDuration2) <= 0;
   }
@@ -443,19 +391,6 @@ public final class PDTHelper
   @Deprecated
   public static boolean isGreater (@Nonnull final ZonedDateTime aDT1, @Nonnull final ZonedDateTime aDT2)
   {
-    return isGT (aDT1, aDT2);
-  }
-
-  /**
-   * @param aDT1
-   *        First value. May not be <code>null</code>.
-   * @param aDT2
-   *        Second value. May not be <code>null</code>.
-   * @return <code>true</code> if first is &gt; than second, <code>false</code>
-   *         otherwise.
-   */
-  public static boolean isGT (@Nonnull final ZonedDateTime aDT1, @Nonnull final ZonedDateTime aDT2)
-  {
     return aDT1.compareTo (aDT2) > 0;
   }
 
@@ -470,19 +405,6 @@ public final class PDTHelper
    */
   @Deprecated
   public static boolean isGreaterOrEqual (@Nonnull final ZonedDateTime aDT1, @Nonnull final ZonedDateTime aDT2)
-  {
-    return isGE (aDT1, aDT2);
-  }
-
-  /**
-   * @param aDT1
-   *        First value. May not be <code>null</code>.
-   * @param aDT2
-   *        Second value. May not be <code>null</code>.
-   * @return <code>true</code> if first is &ge; than second, <code>false</code>
-   *         otherwise.
-   */
-  public static boolean isGE (@Nonnull final ZonedDateTime aDT1, @Nonnull final ZonedDateTime aDT2)
   {
     return aDT1.compareTo (aDT2) >= 0;
   }
@@ -499,19 +421,6 @@ public final class PDTHelper
   @Deprecated
   public static boolean isLess (@Nonnull final ZonedDateTime aDT1, @Nonnull final ZonedDateTime aDT2)
   {
-    return isLT (aDT1, aDT2);
-  }
-
-  /**
-   * @param aDT1
-   *        First value. May not be <code>null</code>.
-   * @param aDT2
-   *        Second value. May not be <code>null</code>.
-   * @return <code>true</code> if first is &lt; than second, <code>false</code>
-   *         otherwise.
-   */
-  public static boolean isLT (@Nonnull final ZonedDateTime aDT1, @Nonnull final ZonedDateTime aDT2)
-  {
     return aDT1.compareTo (aDT2) < 0;
   }
 
@@ -526,19 +435,6 @@ public final class PDTHelper
    */
   @Deprecated
   public static boolean isLessOrEqual (@Nonnull final ZonedDateTime aDT1, @Nonnull final ZonedDateTime aDT2)
-  {
-    return isLE (aDT1, aDT2);
-  }
-
-  /**
-   * @param aDT1
-   *        First value. May not be <code>null</code>.
-   * @param aDT2
-   *        Second value. May not be <code>null</code>.
-   * @return <code>true</code> if first is &le; than second, <code>false</code>
-   *         otherwise.
-   */
-  public static boolean isLE (@Nonnull final ZonedDateTime aDT1, @Nonnull final ZonedDateTime aDT2)
   {
     return aDT1.compareTo (aDT2) <= 0;
   }
@@ -555,19 +451,6 @@ public final class PDTHelper
   @Deprecated
   public static boolean isGreater (@Nonnull final LocalDate aDate1, @Nonnull final LocalDate aDate2)
   {
-    return isGT (aDate1, aDate2);
-  }
-
-  /**
-   * @param aDate1
-   *        First value. May not be <code>null</code>.
-   * @param aDate2
-   *        Second value. May not be <code>null</code>.
-   * @return <code>true</code> if first is &gt; than second, <code>false</code>
-   *         otherwise.
-   */
-  public static boolean isGT (@Nonnull final LocalDate aDate1, @Nonnull final LocalDate aDate2)
-  {
     return aDate1.compareTo (aDate2) > 0;
   }
 
@@ -582,19 +465,6 @@ public final class PDTHelper
    */
   @Deprecated
   public static boolean isGreaterOrEqual (@Nonnull final LocalDate aDate1, @Nonnull final LocalDate aDate2)
-  {
-    return isGE (aDate1, aDate2);
-  }
-
-  /**
-   * @param aDate1
-   *        First value. May not be <code>null</code>.
-   * @param aDate2
-   *        Second value. May not be <code>null</code>.
-   * @return <code>true</code> if first is &ge; than second, <code>false</code>
-   *         otherwise.
-   */
-  public static boolean isGE (@Nonnull final LocalDate aDate1, @Nonnull final LocalDate aDate2)
   {
     return aDate1.compareTo (aDate2) >= 0;
   }
@@ -611,19 +481,6 @@ public final class PDTHelper
   @Deprecated
   public static boolean isLess (@Nonnull final LocalDate aDate1, @Nonnull final LocalDate aDate2)
   {
-    return isLT (aDate1, aDate2);
-  }
-
-  /**
-   * @param aDate1
-   *        First value. May not be <code>null</code>.
-   * @param aDate2
-   *        Second value. May not be <code>null</code>.
-   * @return <code>true</code> if first is &lt; than second, <code>false</code>
-   *         otherwise.
-   */
-  public static boolean isLT (@Nonnull final LocalDate aDate1, @Nonnull final LocalDate aDate2)
-  {
     return aDate1.compareTo (aDate2) < 0;
   }
 
@@ -638,19 +495,6 @@ public final class PDTHelper
    */
   @Deprecated
   public static boolean isLessOrEqual (@Nonnull final LocalDate aDate1, @Nonnull final LocalDate aDate2)
-  {
-    return isLE (aDate1, aDate2);
-  }
-
-  /**
-   * @param aDate1
-   *        First value. May not be <code>null</code>.
-   * @param aDate2
-   *        Second value. May not be <code>null</code>.
-   * @return <code>true</code> if first is &le; than second, <code>false</code>
-   *         otherwise.
-   */
-  public static boolean isLE (@Nonnull final LocalDate aDate1, @Nonnull final LocalDate aDate2)
   {
     return aDate1.compareTo (aDate2) <= 0;
   }
@@ -667,19 +511,6 @@ public final class PDTHelper
   @Deprecated
   public static boolean isGreater (@Nonnull final LocalTime aTime1, @Nonnull final LocalTime aTime2)
   {
-    return isGT (aTime1, aTime2);
-  }
-
-  /**
-   * @param aTime1
-   *        First value. May not be <code>null</code>.
-   * @param aTime2
-   *        Second value. May not be <code>null</code>.
-   * @return <code>true</code> if first is &gt; than second, <code>false</code>
-   *         otherwise.
-   */
-  public static boolean isGT (@Nonnull final LocalTime aTime1, @Nonnull final LocalTime aTime2)
-  {
     return aTime1.compareTo (aTime2) > 0;
   }
 
@@ -694,19 +525,6 @@ public final class PDTHelper
    */
   @Deprecated
   public static boolean isGreaterOrEqual (@Nonnull final LocalTime aTime1, @Nonnull final LocalTime aTime2)
-  {
-    return isGE (aTime1, aTime2);
-  }
-
-  /**
-   * @param aTime1
-   *        First value. May not be <code>null</code>.
-   * @param aTime2
-   *        Second value. May not be <code>null</code>.
-   * @return <code>true</code> if first is &ge; than second, <code>false</code>
-   *         otherwise.
-   */
-  public static boolean isGE (@Nonnull final LocalTime aTime1, @Nonnull final LocalTime aTime2)
   {
     return aTime1.compareTo (aTime2) >= 0;
   }
@@ -723,19 +541,6 @@ public final class PDTHelper
   @Deprecated
   public static boolean isLess (@Nonnull final LocalTime aTime1, @Nonnull final LocalTime aTime2)
   {
-    return isLT (aTime1, aTime2);
-  }
-
-  /**
-   * @param aTime1
-   *        First value. May not be <code>null</code>.
-   * @param aTime2
-   *        Second value. May not be <code>null</code>.
-   * @return <code>true</code> if first is &lt; than second, <code>false</code>
-   *         otherwise.
-   */
-  public static boolean isLT (@Nonnull final LocalTime aTime1, @Nonnull final LocalTime aTime2)
-  {
     return aTime1.compareTo (aTime2) < 0;
   }
 
@@ -751,19 +556,6 @@ public final class PDTHelper
   @Deprecated
   public static boolean isLessOrEqual (@Nonnull final LocalTime aTime1, @Nonnull final LocalTime aTime2)
   {
-    return isLE (aTime1, aTime2);
-  }
-
-  /**
-   * @param aTime1
-   *        First value. May not be <code>null</code>.
-   * @param aTime2
-   *        Second value. May not be <code>null</code>.
-   * @return <code>true</code> if first is &le; than second, <code>false</code>
-   *         otherwise.
-   */
-  public static boolean isLE (@Nonnull final LocalTime aTime1, @Nonnull final LocalTime aTime2)
-  {
     return aTime1.compareTo (aTime2) <= 0;
   }
 
@@ -778,19 +570,6 @@ public final class PDTHelper
    */
   @Deprecated
   public static boolean isGreater (@Nonnull final LocalDateTime aDateTime1, @Nonnull final LocalDateTime aDateTime2)
-  {
-    return isGT (aDateTime1, aDateTime2);
-  }
-
-  /**
-   * @param aDateTime1
-   *        First value. May not be <code>null</code>.
-   * @param aDateTime2
-   *        Second value. May not be <code>null</code>.
-   * @return <code>true</code> if first is &gt; than second, <code>false</code>
-   *         otherwise.
-   */
-  public static boolean isGT (@Nonnull final LocalDateTime aDateTime1, @Nonnull final LocalDateTime aDateTime2)
   {
     return aDateTime1.compareTo (aDateTime2) > 0;
   }
@@ -808,19 +587,6 @@ public final class PDTHelper
   public static boolean isGreaterOrEqual (@Nonnull final LocalDateTime aDateTime1,
                                           @Nonnull final LocalDateTime aDateTime2)
   {
-    return isGE (aDateTime1, aDateTime2);
-  }
-
-  /**
-   * @param aDateTime1
-   *        First value. May not be <code>null</code>.
-   * @param aDateTime2
-   *        Second value. May not be <code>null</code>.
-   * @return <code>true</code> if first is &ge; than second, <code>false</code>
-   *         otherwise.
-   */
-  public static boolean isGE (@Nonnull final LocalDateTime aDateTime1, @Nonnull final LocalDateTime aDateTime2)
-  {
     return aDateTime1.compareTo (aDateTime2) >= 0;
   }
 
@@ -836,19 +602,6 @@ public final class PDTHelper
   @Deprecated
   public static boolean isLess (@Nonnull final LocalDateTime aDateTime1, @Nonnull final LocalDateTime aDateTime2)
   {
-    return isLT (aDateTime1, aDateTime2);
-  }
-
-  /**
-   * @param aDateTime1
-   *        First value. May not be <code>null</code>.
-   * @param aDateTime2
-   *        Second value. May not be <code>null</code>.
-   * @return <code>true</code> if first is &lt; than second, <code>false</code>
-   *         otherwise.
-   */
-  public static boolean isLT (@Nonnull final LocalDateTime aDateTime1, @Nonnull final LocalDateTime aDateTime2)
-  {
     return aDateTime1.compareTo (aDateTime2) < 0;
   }
 
@@ -863,19 +616,6 @@ public final class PDTHelper
    */
   @Deprecated
   public static boolean isLessOrEqual (@Nonnull final LocalDateTime aDateTime1, @Nonnull final LocalDateTime aDateTime2)
-  {
-    return isLE (aDateTime1, aDateTime2);
-  }
-
-  /**
-   * @param aDateTime1
-   *        First value. May not be <code>null</code>.
-   * @param aDateTime2
-   *        Second value. May not be <code>null</code>.
-   * @return <code>true</code> if first is &le; than second, <code>false</code>
-   *         otherwise.
-   */
-  public static boolean isLE (@Nonnull final LocalDateTime aDateTime1, @Nonnull final LocalDateTime aDateTime2)
   {
     return aDateTime1.compareTo (aDateTime2) <= 0;
   }
