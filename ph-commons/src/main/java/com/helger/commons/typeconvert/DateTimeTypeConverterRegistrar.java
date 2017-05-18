@@ -16,7 +16,6 @@
  */
 package com.helger.commons.typeconvert;
 
-import java.time.DateTimeException;
 import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.Instant;
@@ -24,6 +23,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
+import java.time.MonthDay;
 import java.time.OffsetDateTime;
 import java.time.Period;
 import java.time.Year;
@@ -138,6 +138,7 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
     aRegistry.registerTypeConverter (Year.class,
                                      Instant.class,
                                      aSource -> PDTFactory.createZonedDateTime (aSource).toInstant ());
+    // Not possible for MonthDay!
 
     // Destination: ZonedDateTime
     aRegistry.registerTypeConverter (GregorianCalendar.class, ZonedDateTime.class, GregorianCalendar::toZonedDateTime);
@@ -248,6 +249,11 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
                                                                   aSource -> Date.from (TypeConverter.convertIfNecessary (aSource,
                                                                                                                           Instant.class)));
 
+    // Destination: MonthDay
+    aRegistry.registerTypeConverter (String.class, MonthDay.class, MonthDay::parse);
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MonthDay.class,
+                                                                  aSource -> MonthDay.from (TypeConverter.convertIfNecessary (aSource,
+                                                                                                                              LocalDate.class)));
     // Destination: YearMonth
     aRegistry.registerTypeConverter (String.class, YearMonth.class, YearMonth::parse);
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (YearMonth.class,
@@ -266,27 +272,9 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
     aRegistry.registerTypeConverter (String.class, Period.class, Period::parse);
 
     // Destination: Month
-    aRegistry.registerTypeConverter (Integer.class, Month.class, aSource -> {
-      try
-      {
-        return Month.of (aSource.intValue ());
-      }
-      catch (final DateTimeException ex)
-      {
-        return null;
-      }
-    });
+    aRegistry.registerTypeConverter (Integer.class, Month.class, aSource -> Month.of (aSource.intValue ()));
 
     // Destination: DayOfWeek
-    aRegistry.registerTypeConverter (Integer.class, DayOfWeek.class, aSource -> {
-      try
-      {
-        return DayOfWeek.of (aSource.intValue ());
-      }
-      catch (final DateTimeException ex)
-      {
-        return null;
-      }
-    });
+    aRegistry.registerTypeConverter (Integer.class, DayOfWeek.class, aSource -> DayOfWeek.of (aSource.intValue ()));
   }
 }
