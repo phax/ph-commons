@@ -36,6 +36,7 @@ This project was the following modules:
     * Reworked `format` package
     * Removed deprecated 'Mutable*' constructors because of weird defaults
     * Removed deprecated methods that handle: greater than, greater or equals, lower than and lower or equals
+    * Made `MicroTypeConverter` type-safe
   * v8.6.5 - work in progress
     * Deprecated all default Mutable* constructors, because the default values were partially confusing
     * Added new class `DefaultEntityResolver` using a base URL for resolving.

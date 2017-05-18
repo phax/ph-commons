@@ -33,6 +33,7 @@ import com.helger.commons.collection.ext.CommonsWeakHashMap;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.ClassHierarchyCache;
+import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.lang.ServiceLoaderHelper;
 
 /**
@@ -61,7 +62,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
   // WeakHashMap because key is a class
-  private final ICommonsMap <Class <?>, IMicroTypeConverter> m_aMap = new CommonsWeakHashMap <> ();
+  private final ICommonsMap <Class <?>, IMicroTypeConverter <?>> m_aMap = new CommonsWeakHashMap <> ();
   private boolean m_bUseClassHierarchy = DEFAULT_USE_CLASS_HIERARCHY;
 
   private MicroTypeConverterRegistry ()
@@ -100,8 +101,8 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
     }
   }
 
-  public void registerMicroElementTypeConverter (@Nonnull final Class <?> aClass,
-                                                 @Nonnull final IMicroTypeConverter aConverter)
+  public <T> void registerMicroElementTypeConverter (@Nonnull final Class <T> aClass,
+                                                     @Nonnull final IMicroTypeConverter <T> aConverter)
   {
     _registerMicroElementTypeConverter (aClass, aConverter);
   }
@@ -116,8 +117,8 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
    * @param aConverter
    *        The type converter from and to XML
    */
-  private void _registerMicroElementTypeConverter (@Nonnull final Class <?> aClass,
-                                                   @Nonnull final IMicroTypeConverter aConverter)
+  private <T> void _registerMicroElementTypeConverter (@Nonnull final Class <T> aClass,
+                                                       @Nonnull final IMicroTypeConverter <T> aConverter)
   {
     ValueEnforcer.notNull (aClass, "Class");
     ValueEnforcer.notNull (aConverter, "Converter");
@@ -152,19 +153,19 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
   }
 
   @Nullable
-  public IMicroTypeConverter getConverterToMicroElement (@Nullable final Class <?> aSrcClass)
+  public <T> IMicroTypeConverter <T> getConverterToMicroElement (@Nullable final Class <T> aSrcClass)
   {
-    return m_aRWLock.readLocked ( () -> m_aMap.get (aSrcClass));
+    return GenericReflection.uncheckedCast (m_aRWLock.readLocked ( () -> m_aMap.get (aSrcClass)));
   }
 
   @Nullable
-  public IMicroTypeConverter getConverterToNative (@Nonnull final Class <?> aDstClass)
+  public <T> IMicroTypeConverter <T> getConverterToNative (@Nonnull final Class <T> aDstClass)
   {
     ValueEnforcer.notNull (aDstClass, "DestClass");
 
-    return m_aRWLock.readLocked ( () -> {
+    final IMicroTypeConverter <?> ret2 = m_aRWLock.readLocked ( () -> {
       // Check for an exact match first
-      IMicroTypeConverter ret = m_aMap.get (aDstClass);
+      IMicroTypeConverter <?> ret = m_aMap.get (aDstClass);
       if (ret != null)
       {
         if (s_aLogger.isTraceEnabled ())
@@ -196,6 +197,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
         }
       return ret;
     });
+    return GenericReflection.uncheckedCast (ret2);
   }
 
   /**
@@ -208,10 +210,10 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
   public void iterateAllRegisteredMicroTypeConverters (@Nonnull final IMicroTypeConverterCallback aCallback)
   {
     // Create a static copy of the map (HashMap not weak!)
-    final ICommonsMap <Class <?>, IMicroTypeConverter> aCopy = m_aRWLock.readLocked ( () -> m_aMap.getClone ());
+    final ICommonsMap <Class <?>, IMicroTypeConverter <?>> aCopy = m_aRWLock.readLocked ( () -> m_aMap.getClone ());
 
     // And iterate the copy
-    for (final Map.Entry <Class <?>, IMicroTypeConverter> aEntry : aCopy.entrySet ())
+    for (final Map.Entry <Class <?>, IMicroTypeConverter <?>> aEntry : aCopy.entrySet ())
       if (aCallback.call (aEntry.getKey (), aEntry.getValue ()).isBreak ())
         break;
   }

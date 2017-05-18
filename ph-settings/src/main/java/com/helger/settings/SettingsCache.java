@@ -30,9 +30,9 @@ import com.helger.settings.factory.ISettingsFactory;
  */
 public class SettingsCache extends AbstractNotifyingCache <String, IMutableSettings>
 {
-  private final ISettingsFactory m_aSettingsFactory;
+  private final ISettingsFactory <?> m_aSettingsFactory;
 
-  public SettingsCache (@Nonnull final ISettingsFactory aSettingsFactory)
+  public SettingsCache (@Nonnull final ISettingsFactory <?> aSettingsFactory)
   {
     super (500, SettingsCache.class.getName ());
     m_aSettingsFactory = ValueEnforcer.notNull (aSettingsFactory, "SettingsFactory");
@@ -42,7 +42,7 @@ public class SettingsCache extends AbstractNotifyingCache <String, IMutableSetti
    * @return The settings factory as specified in the constructor.
    */
   @Nonnull
-  public ISettingsFactory getSettingsFactory ()
+  public ISettingsFactory <?> getSettingsFactory ()
   {
     return m_aSettingsFactory;
   }

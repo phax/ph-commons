@@ -31,9 +31,11 @@ import com.helger.settings.SettingsWithDefault;
  * parameter is the name of the factory set to read. This may e.g. be a file
  * name for file based settings factories.
  *
- * @author philip
+ * @author Philip Helger
+ * @param <T>
+ *        The effective data type to create
  */
-public interface ISettingsFactory extends IFunction <String, IMutableSettings>
+public interface ISettingsFactory <T extends IMutableSettings> extends IFunction <String, T>
 {
   /**
    * Create a new settings object.
@@ -44,16 +46,16 @@ public interface ISettingsFactory extends IFunction <String, IMutableSettings>
    * @return The created settings object. May not be <code>null</code>.
    */
   @Nonnull
-  IMutableSettings apply (@Nonnull @Nonempty String sName);
+  T apply (@Nonnull @Nonempty String sName);
 
   @Nonnull
-  static ISettingsFactory newInstance ()
+  static ISettingsFactory <Settings> newInstance ()
   {
     return sName -> new Settings (sName);
   }
 
   @Nonnull
-  static ISettingsFactory newInstance (@Nonnull final ISettings aDefaultSettings)
+  static ISettingsFactory <SettingsWithDefault> newInstance (@Nonnull final ISettings aDefaultSettings)
   {
     ValueEnforcer.notNull (aDefaultSettings, "DefaultSettings");
     return sName -> new SettingsWithDefault (sName, aDefaultSettings);

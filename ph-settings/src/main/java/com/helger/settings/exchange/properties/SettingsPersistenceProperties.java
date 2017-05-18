@@ -51,14 +51,14 @@ public class SettingsPersistenceProperties implements ISettingsPersistence
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (SettingsPersistenceProperties.class);
 
-  private final ISettingsFactory m_aSettingsFactory;
+  private final ISettingsFactory <?> m_aSettingsFactory;
 
   public SettingsPersistenceProperties ()
   {
     this (ISettingsFactory.newInstance ());
   }
 
-  public SettingsPersistenceProperties (@Nonnull final ISettingsFactory aSettingsFactory)
+  public SettingsPersistenceProperties (@Nonnull final ISettingsFactory <?> aSettingsFactory)
   {
     m_aSettingsFactory = ValueEnforcer.notNull (aSettingsFactory, "SettingsFactory");
   }

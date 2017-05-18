@@ -31,7 +31,7 @@ import com.helger.xml.microdom.MicroElement;
  * @author Philip Helger
  */
 @Immutable
-public final class StringMicroTypeConverter implements IMicroTypeConverter
+public final class StringMicroTypeConverter implements IMicroTypeConverter <String>
 {
   private static final StringMicroTypeConverter s_aInstance = new StringMicroTypeConverter ();
 
@@ -45,12 +45,12 @@ public final class StringMicroTypeConverter implements IMicroTypeConverter
   }
 
   @Nonnull
-  public IMicroElement convertToMicroElement (@Nonnull final Object aObject,
+  public IMicroElement convertToMicroElement (@Nonnull final String aObject,
                                               @Nullable final String sNamespaceURI,
                                               @Nonnull @Nonempty final String sTagName)
   {
     final IMicroElement e = new MicroElement (sNamespaceURI, sTagName);
-    e.appendText ((String) aObject);
+    e.appendText (aObject);
     return e;
   }
 

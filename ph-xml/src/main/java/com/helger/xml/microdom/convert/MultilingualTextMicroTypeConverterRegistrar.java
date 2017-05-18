@@ -42,23 +42,22 @@ import com.helger.xml.microdom.MicroElement;
 @IsSPIImplementation
 public final class MultilingualTextMicroTypeConverterRegistrar implements IMicroTypeConverterRegistrarSPI
 {
-  private abstract static class AbstractMLTConverter implements IMicroTypeConverter
+  private abstract static class AbstractMLTConverter <T extends IMultilingualText> implements IMicroTypeConverter <T>
   {
     private static final String ELEMENT_TEXT = "text";
     private static final String ATTR_LOCALE = "locale";
 
     @Nonnull
-    public final IMicroElement convertToMicroElement (@Nonnull final Object aSource,
+    public final IMicroElement convertToMicroElement (@Nonnull final T aSource,
                                                       @Nullable final String sNamespaceURI,
                                                       @Nonnull @Nonempty final String sTagName)
     {
-      final IMultilingualText aMLT = (IMultilingualText) aSource;
       final IMicroElement eMText = new MicroElement (sNamespaceURI, sTagName);
-      for (final Locale aLocale : aMLT.getAllLocales ().getSorted (Comparator.comparing (Locale::toString)))
+      for (final Locale aLocale : aSource.getAllLocales ().getSorted (Comparator.comparing (Locale::toString)))
       {
         final IMicroElement eText = eMText.appendElement (sNamespaceURI, ELEMENT_TEXT);
         eText.setAttribute (ATTR_LOCALE, aLocale.toString ());
-        eText.appendText (aMLT.getText (aLocale));
+        eText.appendText (aSource.getText (aLocale));
       }
       return eMText;
     }
@@ -77,7 +76,7 @@ public final class MultilingualTextMicroTypeConverterRegistrar implements IMicro
     }
   }
 
-  public static final class ReadOnlyMultilingualTextConverter extends AbstractMLTConverter
+  public static final class ReadOnlyMultilingualTextConverter extends AbstractMLTConverter <ReadOnlyMultilingualText>
   {
     @Nonnull
     public ReadOnlyMultilingualText convertToNative (@Nonnull final IMicroElement aElement)
@@ -86,7 +85,7 @@ public final class MultilingualTextMicroTypeConverterRegistrar implements IMicro
     }
   }
 
-  public static final class MultilingualTextConverter extends AbstractMLTConverter
+  public static final class MultilingualTextConverter extends AbstractMLTConverter <MultilingualText>
   {
     @Nonnull
     public MultilingualText convertToNative (@Nonnull final IMicroElement aElement)

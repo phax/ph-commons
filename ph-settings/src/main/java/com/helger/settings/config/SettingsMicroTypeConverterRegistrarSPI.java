@@ -40,6 +40,6 @@ public final class SettingsMicroTypeConverterRegistrarSPI implements IMicroTypeC
   {
     // Register all available converters here!
     aRegistry.registerMicroElementTypeConverter (Settings.class,
-                                                 new SettingsMicroDocumentConverter (ISettingsFactory.newInstance ()));
+                                                 new SettingsMicroDocumentConverter <> (ISettingsFactory.newInstance ()));
   }
 }

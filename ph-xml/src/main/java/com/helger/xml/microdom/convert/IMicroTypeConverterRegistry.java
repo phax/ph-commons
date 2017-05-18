@@ -34,6 +34,8 @@ public interface IMicroTypeConverterRegistry
    *        <code>null</code>.
    * @param aConverter
    *        The converter to be registered. May not be <code>null</code>.
+   * @param <T>
+   *        Data type
    */
-  void registerMicroElementTypeConverter (@Nonnull Class <?> aClass, @Nonnull IMicroTypeConverter aConverter);
+  <T> void registerMicroElementTypeConverter (@Nonnull Class <T> aClass, @Nonnull IMicroTypeConverter <T> aConverter);
 }

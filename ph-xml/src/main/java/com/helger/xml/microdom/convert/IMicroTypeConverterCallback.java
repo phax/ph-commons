@@ -40,5 +40,5 @@ public interface IMicroTypeConverterCallback
    *         {@link EContinue#BREAK} to stop iteration.
    */
   @Nonnull
-  EContinue call (@Nonnull Class <?> aClass, @Nonnull IMicroTypeConverter aConverter);
+  EContinue call (@Nonnull Class <?> aClass, @Nonnull IMicroTypeConverter <?> aConverter);
 }

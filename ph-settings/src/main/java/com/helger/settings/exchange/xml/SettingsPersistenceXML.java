@@ -28,9 +28,11 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.io.stream.StreamHelper;
+import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.state.ESuccess;
 import com.helger.settings.IMutableSettings;
 import com.helger.settings.ISettings;
+import com.helger.settings.Settings;
 import com.helger.settings.exchange.ISettingsPersistence;
 import com.helger.settings.factory.ISettingsFactory;
 import com.helger.xml.microdom.IMicroDocument;
@@ -45,25 +47,22 @@ import com.helger.xml.serialize.write.XMLWriterSettings;
  * .xml files.
  *
  * @author Philip Helger
+ * @param <T>
+ *        Effective data type
  */
-public class SettingsPersistenceXML implements ISettingsPersistence
+public class SettingsPersistenceXML <T extends IMutableSettings> implements ISettingsPersistence
 {
   public static final boolean DEFAULT_MARSHAL_TYPES = true;
 
-  private final ISettingsFactory m_aSettingsFactory;
+  private final ISettingsFactory <T> m_aSettingsFactory;
   private final IXMLWriterSettings m_aXWS;
 
-  public SettingsPersistenceXML ()
-  {
-    this (ISettingsFactory.newInstance ());
-  }
-
-  public SettingsPersistenceXML (@Nonnull final ISettingsFactory aSettingsFactory)
+  public SettingsPersistenceXML (@Nonnull final ISettingsFactory <T> aSettingsFactory)
   {
     this (aSettingsFactory, XMLWriterSettings.DEFAULT_XML_SETTINGS);
   }
 
-  public SettingsPersistenceXML (@Nonnull final ISettingsFactory aSettingsFactory,
+  public SettingsPersistenceXML (@Nonnull final ISettingsFactory <T> aSettingsFactory,
                                  @Nonnull final IXMLWriterSettings aXWS)
   {
     m_aSettingsFactory = ValueEnforcer.notNull (aSettingsFactory, "SettingsFactory");
@@ -81,7 +80,7 @@ public class SettingsPersistenceXML implements ISettingsPersistence
    *         <code>null</code>.
    */
   @Nonnull
-  public ISettingsFactory getSettingsFactory ()
+  public ISettingsFactory <T> getSettingsFactory ()
   {
     return m_aSettingsFactory;
   }
@@ -106,7 +105,7 @@ public class SettingsPersistenceXML implements ISettingsPersistence
       throw new IllegalArgumentException ("Passed XML document is illegal");
 
     // read items
-    final SettingsMicroDocumentConverter aConverter = new SettingsMicroDocumentConverter (m_aSettingsFactory);
+    final SettingsMicroDocumentConverter <T> aConverter = new SettingsMicroDocumentConverter <> (m_aSettingsFactory);
     return aConverter.convertToNative (aDoc.getDocumentElement ());
   }
 
@@ -145,9 +144,11 @@ public class SettingsPersistenceXML implements ISettingsPersistence
       ValueEnforcer.notNull (aSettings, "Settings");
 
       // No event manager invocation on writing
-      final SettingsMicroDocumentConverter aConverter = new SettingsMicroDocumentConverter (m_aSettingsFactory);
+      final SettingsMicroDocumentConverter <T> aConverter = new SettingsMicroDocumentConverter <> (m_aSettingsFactory);
       final IMicroDocument aDoc = new MicroDocument ();
-      aDoc.appendChild (aConverter.convertToMicroElement (aSettings, getWriteNamespaceURI (), getWriteElementName ()));
+      aDoc.appendChild (aConverter.convertToMicroElement (GenericReflection.uncheckedCast (aSettings),
+                                                          getWriteNamespaceURI (),
+                                                          getWriteElementName ()));
 
       // auto-closes the stream
       return MicroWriter.writeToStream (aDoc, aOS, m_aXWS);
@@ -156,5 +157,11 @@ public class SettingsPersistenceXML implements ISettingsPersistence
     {
       StreamHelper.close (aOS);
     }
+  }
+
+  @Nonnull
+  public static SettingsPersistenceXML <Settings> createDefault ()
+  {
+    return new SettingsPersistenceXML <> (ISettingsFactory.newInstance ());
   }
 }

@@ -24,21 +24,20 @@ import javax.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.settings.IMutableSettings;
-import com.helger.settings.ISettings;
 import com.helger.settings.factory.ISettingsFactory;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
 import com.helger.xml.microdom.convert.IMicroTypeConverter;
 import com.helger.xml.microdom.convert.MicroTypeConverter;
 
-public class SettingsMicroDocumentConverter implements IMicroTypeConverter
+public class SettingsMicroDocumentConverter <T extends IMutableSettings> implements IMicroTypeConverter <T>
 {
   private static final String ELEMENT_SETTING = "setting";
   private static final String ATTR_NAME = "name";
   private static final String ATTR_CLASS = "class";
   private static final String ELEMENT_VALUE = "value";
 
-  private final ISettingsFactory m_aSettingFactory;
+  private final ISettingsFactory <T> m_aSettingFactory;
 
   /**
    * Constructor that uses the default settings factory.
@@ -46,30 +45,29 @@ public class SettingsMicroDocumentConverter implements IMicroTypeConverter
    * @param aSettingsFactory
    *        Settings factory to be used. May not be <code>null</code>.
    */
-  public SettingsMicroDocumentConverter (@Nonnull final ISettingsFactory aSettingsFactory)
+  public SettingsMicroDocumentConverter (@Nonnull final ISettingsFactory <T> aSettingsFactory)
   {
     m_aSettingFactory = ValueEnforcer.notNull (aSettingsFactory, "SettingsFactory");
   }
 
   @Nonnull
-  public ISettingsFactory getSettingsFactory ()
+  public ISettingsFactory <T> getSettingsFactory ()
   {
     return m_aSettingFactory;
   }
 
   @Nonnull
-  public IMicroElement convertToMicroElement (@Nonnull final Object aObject,
+  public IMicroElement convertToMicroElement (@Nonnull final T aObject,
                                               @Nullable final String sNamespaceURI,
                                               @Nonnull final String sTagName)
   {
-    final ISettings aSettings = (ISettings) aObject;
     final IMicroElement eRoot = new MicroElement (sNamespaceURI, sTagName);
-    eRoot.setAttribute (ATTR_NAME, aSettings.getName ());
+    eRoot.setAttribute (ATTR_NAME, aObject.getName ());
 
     // Sort fields to have them deterministic
-    for (final String sFieldName : aSettings.getAllFieldNames ().getSorted (Comparator.naturalOrder ()))
+    for (final String sFieldName : aObject.getAllFieldNames ().getSorted (Comparator.naturalOrder ()))
     {
-      final Object aValue = aSettings.getValue (sFieldName);
+      final Object aValue = aObject.getValue (sFieldName);
 
       final IMicroElement eSetting = eRoot.appendElement (sNamespaceURI, ELEMENT_SETTING);
       eSetting.setAttribute (ATTR_NAME, sFieldName);
@@ -80,11 +78,11 @@ public class SettingsMicroDocumentConverter implements IMicroTypeConverter
   }
 
   @Nonnull
-  public IMutableSettings convertToNative (final IMicroElement aElement)
+  public T convertToNative (final IMicroElement aElement)
   {
     // Create new settings object
     final String sSettingsName = aElement.getAttributeValue (ATTR_NAME);
-    final IMutableSettings aSettings = m_aSettingFactory.apply (sSettingsName);
+    final T aSettings = m_aSettingFactory.apply (sSettingsName);
 
     // settings are only on the top-level
     aElement.forAllChildElements (eSetting -> {

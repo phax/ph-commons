@@ -31,7 +31,7 @@ import com.helger.xml.microdom.MicroElement;
  * @author Saskia Reimerth
  * @author Philip Helger
  */
-public final class ColorMicroTypeConverter implements IMicroTypeConverter
+public final class ColorMicroTypeConverter implements IMicroTypeConverter <Color>
 {
   private static final String ATTR_RED = "red";
   private static final String ATTR_GREEN = "green";
@@ -39,17 +39,16 @@ public final class ColorMicroTypeConverter implements IMicroTypeConverter
   private static final String ATTR_ALPHA = "alpha";
 
   @Nonnull
-  public IMicroElement convertToMicroElement (@Nonnull final Object aObject,
+  public IMicroElement convertToMicroElement (@Nonnull final Color aObject,
                                               @Nullable final String sNamespaceURI,
                                               @Nonnull final String sTagName)
   {
-    final Color aValue = (Color) aObject;
     final IMicroElement aElement = new MicroElement (sNamespaceURI, sTagName);
 
-    aElement.setAttribute (ATTR_RED, aValue.getRed ());
-    aElement.setAttribute (ATTR_GREEN, aValue.getGreen ());
-    aElement.setAttribute (ATTR_BLUE, aValue.getBlue ());
-    aElement.setAttribute (ATTR_ALPHA, aValue.getAlpha ());
+    aElement.setAttribute (ATTR_RED, aObject.getRed ());
+    aElement.setAttribute (ATTR_GREEN, aObject.getGreen ());
+    aElement.setAttribute (ATTR_BLUE, aObject.getBlue ());
+    aElement.setAttribute (ATTR_ALPHA, aObject.getAlpha ());
 
     return aElement;
   }

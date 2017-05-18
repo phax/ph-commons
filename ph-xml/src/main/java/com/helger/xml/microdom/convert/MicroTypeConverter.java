@@ -23,6 +23,7 @@ import javax.annotation.concurrent.ThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.typeconvert.TypeConverterException;
 import com.helger.commons.typeconvert.TypeConverterException.EReason;
 import com.helger.xml.microdom.IMicroElement;
@@ -46,17 +47,17 @@ public final class MicroTypeConverter
   {}
 
   @Nullable
-  public static IMicroElement convertToMicroElement (@Nullable final Object aObject,
-                                                     @Nonnull @Nonempty final String sTagName)
+  public static <T> IMicroElement convertToMicroElement (@Nullable final T aObject,
+                                                         @Nonnull @Nonempty final String sTagName)
   {
     // Use a null namespace
     return convertToMicroElement (aObject, null, sTagName);
   }
 
   @Nullable
-  public static IMicroElement convertToMicroElement (@Nullable final Object aObject,
-                                                     @Nullable final String sNamespaceURI,
-                                                     @Nonnull @Nonempty final String sTagName) throws TypeConverterException
+  public static <T> IMicroElement convertToMicroElement (@Nullable final T aObject,
+                                                         @Nullable final String sNamespaceURI,
+                                                         @Nonnull @Nonempty final String sTagName) throws TypeConverterException
   {
     ValueEnforcer.notEmpty (sTagName, "TagName");
 
@@ -64,9 +65,9 @@ public final class MicroTypeConverter
       return null;
 
     // Lookup converter
-    final Class <?> aSrcClass = aObject.getClass ();
-    final IMicroTypeConverter aConverter = MicroTypeConverterRegistry.getInstance ()
-                                                                     .getConverterToMicroElement (aSrcClass);
+    final Class <T> aSrcClass = GenericReflection.uncheckedCast (aObject.getClass ());
+    final IMicroTypeConverter <T> aConverter = MicroTypeConverterRegistry.getInstance ()
+                                                                         .getConverterToMicroElement (aSrcClass);
     if (aConverter == null)
       throw new TypeConverterException (aSrcClass, IMicroElement.class, EReason.NO_CONVERTER_FOUND);
 
@@ -95,12 +96,13 @@ public final class MicroTypeConverter
       return aNullValue;
 
     // Lookup converter
-    final IMicroTypeConverter aConverter = MicroTypeConverterRegistry.getInstance ().getConverterToNative (aDstClass);
+    final IMicroTypeConverter <DSTTYPE> aConverter = MicroTypeConverterRegistry.getInstance ()
+                                                                               .getConverterToNative (aDstClass);
     if (aConverter == null)
       throw new TypeConverterException (IMicroElement.class, aDstClass, EReason.NO_CONVERTER_FOUND);
 
     // Perform conversion
-    final DSTTYPE ret = aDstClass.cast (aConverter.convertToNative (aElement));
+    final DSTTYPE ret = aConverter.convertToNative (aElement);
     if (ret == null)
       throw new TypeConverterException (IMicroElement.class, aDstClass, EReason.CONVERSION_FAILED);
     return ret;

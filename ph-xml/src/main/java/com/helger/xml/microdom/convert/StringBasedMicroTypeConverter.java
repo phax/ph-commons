@@ -30,12 +30,14 @@ import com.helger.xml.microdom.IMicroElement;
  * conversion.
  *
  * @author Philip Helger
+ * @param <T>
+ *        Effective data type
  */
-public final class StringBasedMicroTypeConverter implements IMicroTypeConverter
+public final class StringBasedMicroTypeConverter <T> implements IMicroTypeConverter <T>
 {
-  private final Class <?> m_aNativeClass;
+  private final Class <T> m_aNativeClass;
 
-  public StringBasedMicroTypeConverter (@Nonnull final Class <?> aNativeClass)
+  public StringBasedMicroTypeConverter (@Nonnull final Class <T> aNativeClass)
   {
     ValueEnforcer.notNull (aNativeClass, "NativeClass");
 
@@ -43,7 +45,7 @@ public final class StringBasedMicroTypeConverter implements IMicroTypeConverter
   }
 
   @Nonnull
-  public IMicroElement convertToMicroElement (@Nonnull final Object aObject,
+  public IMicroElement convertToMicroElement (@Nonnull final T aObject,
                                               @Nullable final String sNamespaceURI,
                                               @Nonnull @Nonempty final String sTagName)
   {
@@ -55,7 +57,7 @@ public final class StringBasedMicroTypeConverter implements IMicroTypeConverter
   }
 
   @Nonnull
-  public Object convertToNative (@Nonnull final IMicroElement aElement)
+  public T convertToNative (@Nonnull final IMicroElement aElement)
   {
     // Convert micro element to string
     final String sValue = StringMicroTypeConverter.getInstance ().convertToNative (aElement);
