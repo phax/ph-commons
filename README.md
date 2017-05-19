@@ -24,7 +24,7 @@ This project was the following modules:
 
 ## News and noteworthy
 
-  * v8.6.5 - work in progress
+  * v8.6.5 - 2017-05-19
     * Deprecated all default Mutable* constructors, because the default values were partially confusing
     * Added new class `DefaultEntityResolver` using a base URL for resolving.
     * Extracted and renamed classes `PDTZoneID` and `PDTMask`
@@ -111,7 +111,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-commons</artifactId>
-  <version>8.6.4</version>
+  <version>8.6.5</version>
 </dependency>
 ```
 
@@ -260,7 +260,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-xml</artifactId>
-  <version>8.6.4</version>
+  <version>8.6.5</version>
 </dependency>
 ```
 
@@ -278,7 +278,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-jaxb</artifactId>
-  <version>8.6.4</version>
+  <version>8.6.5</version>
 </dependency>
 ```
 
@@ -301,7 +301,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-tree</artifactId>
-  <version>8.6.4</version>
+  <version>8.6.5</version>
 </dependency>
 ```
 
@@ -319,7 +319,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-less-commons</artifactId>
-  <version>8.6.4</version>
+  <version>8.6.5</version>
 </dependency>
 ```
 
@@ -332,7 +332,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-json</artifactId>
-  <version>8.6.4</version>
+  <version>8.6.5</version>
 </dependency>
 ```
 
@@ -345,7 +345,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-settings</artifactId>
-  <version>8.6.4</version>
+  <version>8.6.5</version>
 </dependency>
 ```
 
@@ -358,7 +358,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-datetime</artifactId>
-  <version>8.6.4</version>
+  <version>8.6.5</version>
 </dependency>
 ```
 
@@ -371,7 +371,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-graph</artifactId>
-  <version>8.6.4</version>
+  <version>8.6.5</version>
 </dependency>
 ```
 
@@ -384,7 +384,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-matrix</artifactId>
-  <version>8.6.4</version>
+  <version>8.6.5</version>
 </dependency>
 ```
 
@@ -397,7 +397,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-charset</artifactId>
-  <version>8.6.4</version>
+  <version>8.6.5</version>
 </dependency>
 ```
 

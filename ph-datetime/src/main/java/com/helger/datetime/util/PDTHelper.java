@@ -326,7 +326,6 @@ public final class PDTHelper
    *        Second value. May not be <code>null</code>.
    * @return <code>true</code> if first is &gt; than second, <code>false</code>
    *         otherwise.
-   * @deprecated Use {@link #isGT(Duration,Duration)} instead
    */
   @Deprecated
   public static boolean isGreater (@Nonnull final Duration aDuration1, @Nonnull final Duration aDuration2)
@@ -341,7 +340,6 @@ public final class PDTHelper
    *        Second value. May not be <code>null</code>.
    * @return <code>true</code> if first is &ge; than second, <code>false</code>
    *         otherwise.
-   * @deprecated Use {@link #isGE(Duration,Duration)} instead
    */
   @Deprecated
   public static boolean isGreaterOrEqual (@Nonnull final Duration aDuration1, @Nonnull final Duration aDuration2)
@@ -356,7 +354,6 @@ public final class PDTHelper
    *        Second value. May not be <code>null</code>.
    * @return <code>true</code> if first is &lt; than second, <code>false</code>
    *         otherwise.
-   * @deprecated Use {@link #isLT(Duration,Duration)} instead
    */
   @Deprecated
   public static boolean isLess (@Nonnull final Duration aDuration1, @Nonnull final Duration aDuration2)
@@ -371,7 +368,6 @@ public final class PDTHelper
    *        Second value. May not be <code>null</code>.
    * @return <code>true</code> if first is &le; than second, <code>false</code>
    *         otherwise.
-   * @deprecated Use {@link #isLE(Duration,Duration)} instead
    */
   @Deprecated
   public static boolean isLessOrEqual (@Nonnull final Duration aDuration1, @Nonnull final Duration aDuration2)
@@ -386,7 +382,6 @@ public final class PDTHelper
    *        Second value. May not be <code>null</code>.
    * @return <code>true</code> if first is &gt; than second, <code>false</code>
    *         otherwise.
-   * @deprecated Use {@link #isGT(ZonedDateTime,ZonedDateTime)} instead
    */
   @Deprecated
   public static boolean isGreater (@Nonnull final ZonedDateTime aDT1, @Nonnull final ZonedDateTime aDT2)
@@ -401,7 +396,6 @@ public final class PDTHelper
    *        Second value. May not be <code>null</code>.
    * @return <code>true</code> if first is &ge; than second, <code>false</code>
    *         otherwise.
-   * @deprecated Use {@link #isGE(ZonedDateTime,ZonedDateTime)} instead
    */
   @Deprecated
   public static boolean isGreaterOrEqual (@Nonnull final ZonedDateTime aDT1, @Nonnull final ZonedDateTime aDT2)
@@ -416,7 +410,6 @@ public final class PDTHelper
    *        Second value. May not be <code>null</code>.
    * @return <code>true</code> if first is &lt; than second, <code>false</code>
    *         otherwise.
-   * @deprecated Use {@link #isLT(ZonedDateTime,ZonedDateTime)} instead
    */
   @Deprecated
   public static boolean isLess (@Nonnull final ZonedDateTime aDT1, @Nonnull final ZonedDateTime aDT2)
@@ -431,7 +424,6 @@ public final class PDTHelper
    *        Second value. May not be <code>null</code>.
    * @return <code>true</code> if first is &le; than second, <code>false</code>
    *         otherwise.
-   * @deprecated Use {@link #isLE(ZonedDateTime,ZonedDateTime)} instead
    */
   @Deprecated
   public static boolean isLessOrEqual (@Nonnull final ZonedDateTime aDT1, @Nonnull final ZonedDateTime aDT2)
@@ -446,7 +438,6 @@ public final class PDTHelper
    *        Second value. May not be <code>null</code>.
    * @return <code>true</code> if first is &gt; than second, <code>false</code>
    *         otherwise.
-   * @deprecated Use {@link #isGT(LocalDate,LocalDate)} instead
    */
   @Deprecated
   public static boolean isGreater (@Nonnull final LocalDate aDate1, @Nonnull final LocalDate aDate2)
@@ -461,7 +452,6 @@ public final class PDTHelper
    *        Second value. May not be <code>null</code>.
    * @return <code>true</code> if first is &ge; than second, <code>false</code>
    *         otherwise.
-   * @deprecated Use {@link #isGE(LocalDate,LocalDate)} instead
    */
   @Deprecated
   public static boolean isGreaterOrEqual (@Nonnull final LocalDate aDate1, @Nonnull final LocalDate aDate2)
@@ -476,7 +466,6 @@ public final class PDTHelper
    *        Second value. May not be <code>null</code>.
    * @return <code>true</code> if first is &lt; than second, <code>false</code>
    *         otherwise.
-   * @deprecated Use {@link #isLT(LocalDate,LocalDate)} instead
    */
   @Deprecated
   public static boolean isLess (@Nonnull final LocalDate aDate1, @Nonnull final LocalDate aDate2)
@@ -491,7 +480,6 @@ public final class PDTHelper
    *        Second value. May not be <code>null</code>.
    * @return <code>true</code> if first is &le; than second, <code>false</code>
    *         otherwise.
-   * @deprecated Use {@link #isLE(LocalDate,LocalDate)} instead
    */
   @Deprecated
   public static boolean isLessOrEqual (@Nonnull final LocalDate aDate1, @Nonnull final LocalDate aDate2)
@@ -506,7 +494,6 @@ public final class PDTHelper
    *        Second value. May not be <code>null</code>.
    * @return <code>true</code> if first is &gt; than second, <code>false</code>
    *         otherwise.
-   * @deprecated Use {@link #isGT(LocalTime,LocalTime)} instead
    */
   @Deprecated
   public static boolean isGreater (@Nonnull final LocalTime aTime1, @Nonnull final LocalTime aTime2)
@@ -521,7 +508,6 @@ public final class PDTHelper
    *        Second value. May not be <code>null</code>.
    * @return <code>true</code> if first is &ge; than second, <code>false</code>
    *         otherwise.
-   * @deprecated Use {@link #isGE(LocalTime,LocalTime)} instead
    */
   @Deprecated
   public static boolean isGreaterOrEqual (@Nonnull final LocalTime aTime1, @Nonnull final LocalTime aTime2)
@@ -536,7 +522,6 @@ public final class PDTHelper
    *        Second value. May not be <code>null</code>.
    * @return <code>true</code> if first is &lt; than second, <code>false</code>
    *         otherwise.
-   * @deprecated Use {@link #isLT(LocalTime,LocalTime)} instead
    */
   @Deprecated
   public static boolean isLess (@Nonnull final LocalTime aTime1, @Nonnull final LocalTime aTime2)
@@ -551,7 +536,6 @@ public final class PDTHelper
    *        Second value. May not be <code>null</code>.
    * @return <code>true</code> if first is &le; than second, <code>false</code>
    *         otherwise.
-   * @deprecated Use {@link #isLE(LocalTime,LocalTime)} instead
    */
   @Deprecated
   public static boolean isLessOrEqual (@Nonnull final LocalTime aTime1, @Nonnull final LocalTime aTime2)
@@ -566,7 +550,6 @@ public final class PDTHelper
    *        Second value. May not be <code>null</code>.
    * @return <code>true</code> if first is &gt; than second, <code>false</code>
    *         otherwise.
-   * @deprecated Use {@link #isGT(LocalDateTime,LocalDateTime)} instead
    */
   @Deprecated
   public static boolean isGreater (@Nonnull final LocalDateTime aDateTime1, @Nonnull final LocalDateTime aDateTime2)
@@ -581,7 +564,6 @@ public final class PDTHelper
    *        Second value. May not be <code>null</code>.
    * @return <code>true</code> if first is &ge; than second, <code>false</code>
    *         otherwise.
-   * @deprecated Use {@link #isGE(LocalDateTime,LocalDateTime)} instead
    */
   @Deprecated
   public static boolean isGreaterOrEqual (@Nonnull final LocalDateTime aDateTime1,
@@ -597,7 +579,6 @@ public final class PDTHelper
    *        Second value. May not be <code>null</code>.
    * @return <code>true</code> if first is &lt; than second, <code>false</code>
    *         otherwise.
-   * @deprecated Use {@link #isLT(LocalDateTime,LocalDateTime)} instead
    */
   @Deprecated
   public static boolean isLess (@Nonnull final LocalDateTime aDateTime1, @Nonnull final LocalDateTime aDateTime2)
@@ -612,7 +593,6 @@ public final class PDTHelper
    *        Second value. May not be <code>null</code>.
    * @return <code>true</code> if first is &le; than second, <code>false</code>
    *         otherwise.
-   * @deprecated Use {@link #isLE(LocalDateTime,LocalDateTime)} instead
    */
   @Deprecated
   public static boolean isLessOrEqual (@Nonnull final LocalDateTime aDateTime1, @Nonnull final LocalDateTime aDateTime2)
