@@ -728,11 +728,15 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    *
    * @param aValues
    *        The values to be added. May be <code>null</code>.
+   * @return {@link EChange#CHANGED} if something was changed,
+   *         {@link EChange#UNCHANGED} otherwise.
+   * @see #removeAll()
+   * @see #addAll(Iterable)
    */
-  default void setAll (@Nullable final Iterable <? extends ELEMENTTYPE> aValues)
+  @Nonnull
+  default EChange setAll (@Nullable final Iterable <? extends ELEMENTTYPE> aValues)
   {
-    clear ();
-    addAll (aValues);
+    return removeAll ().or (addAll (aValues));
   }
 
   /**
@@ -741,11 +745,15 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    *
    * @param aValues
    *        The values to be added. May be <code>null</code>.
+   * @return {@link EChange#CHANGED} if something was changed,
+   *         {@link EChange#UNCHANGED} otherwise.
+   * @see #removeAll()
+   * @see #addAll(Object...)
    */
-  default void setAll (@SuppressWarnings ("unchecked") @Nullable final ELEMENTTYPE... aValues)
+  @Nonnull
+  default EChange setAll (@SuppressWarnings ("unchecked") @Nullable final ELEMENTTYPE... aValues)
   {
-    clear ();
-    addAll (aValues);
+    return removeAll ().or (addAll (aValues));
   }
 
   /**
