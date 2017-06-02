@@ -307,12 +307,9 @@ public class ErrorTextProvider implements IErrorTextProvider, Serializable, IClo
           if (aLinkedEx != null)
           {
             final String sMsg = aLinkedEx.getMessage ();
-            if (StringHelper.hasText (sMsg))
-            {
-              if (aSB.length () > 0)
-                aSB.append (m_sFieldSep);
-              aSB.append (aItem.getFormattedText (sMsg));
-            }
+            if (aSB.length () > 0)
+              aSB.append (m_sFieldSep);
+            aSB.append (aItem.getFormattedText (sMsg));
           }
           break;
         }
@@ -346,12 +343,9 @@ public class ErrorTextProvider implements IErrorTextProvider, Serializable, IClo
           if (aCause != null)
           {
             final String sMsg = aCause.getMessage ();
-            if (StringHelper.hasText (sMsg))
-            {
-              if (aSB.length () > 0)
-                aSB.append (m_sFieldSep);
-              aSB.append (aItem.getFormattedText (sMsg));
-            }
+            if (aSB.length () > 0)
+              aSB.append (m_sFieldSep);
+            aSB.append (aItem.getFormattedText (sMsg));
           }
           break;
         }
