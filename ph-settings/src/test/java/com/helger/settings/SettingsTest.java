@@ -180,4 +180,21 @@ public final class SettingsTest
     assertTrue (s.getAllFieldNames ().contains (FIELD1));
     assertFalse (s.getAllFieldNames ().contains (FIELD2));
   }
+
+  @Test
+  public void testCopy ()
+  {
+    final Settings s = new Settings ("s1");
+    assertTrue (s.setValue (FIELD1, "My value").isChanged ());
+
+    final Settings s2 = Settings.createFrom (s);
+    assertTrue (s2.getAllFieldNames ().contains (FIELD1));
+    assertFalse (s2.getAllFieldNames ().contains (FIELD2));
+
+    assertTrue (s2.setValue (FIELD2, "Other value").isChanged ());
+    assertTrue (s.getAllFieldNames ().contains (FIELD1));
+    assertFalse (s.getAllFieldNames ().contains (FIELD2));
+    assertTrue (s2.getAllFieldNames ().contains (FIELD1));
+    assertTrue (s2.getAllFieldNames ().contains (FIELD2));
+  }
 }

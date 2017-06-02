@@ -206,7 +206,7 @@ public class Settings implements IMutableSettings
    *
    * @param aOther
    *        The settings to copy from. May not be <code>null</code>.
-   * @return The new {@link Settings} prefilled object. May not be
+   * @return The new {@link Settings} pre-filled object. May not be
    *         <code>null</code>.
    * @since 8.6.6
    */
@@ -216,7 +216,7 @@ public class Settings implements IMutableSettings
   {
     ValueEnforcer.notNull (aOther, "Other");
     final Settings ret = new Settings (aOther.getName ());
-    aOther.forEach ( (k, v) -> ret.setValue (k, v));
+    aOther.forEach ( (k, v) -> ret.m_aMap.put (k, v));
     return ret;
   }
 }
