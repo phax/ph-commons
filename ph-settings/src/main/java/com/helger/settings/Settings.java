@@ -47,6 +47,12 @@ public class Settings implements IMutableSettings
   private final ICommonsMap <String, Object> m_aMap = new CommonsHashMap <> ();
   private final CallbackList <ISettingsAfterChangeCallback> m_aAfterChangeCallbacks = new CallbackList <> ();
 
+  /**
+   * Constructor for new settings.
+   *
+   * @param sName
+   *        Name of the settings. May neither be <code>null</code> nor empty.
+   */
   public Settings (@Nonnull @Nonempty final String sName)
   {
     m_sName = ValueEnforcer.notEmpty (sName, "Name");
@@ -192,5 +198,25 @@ public class Settings implements IMutableSettings
   public String toString ()
   {
     return new ToStringGenerator (this).append ("name", m_sName).append ("map", m_aMap).getToString ();
+  }
+
+  /**
+   * Constructor for copying existing settings. Copies name and settings but
+   * does not copy callbacks!
+   *
+   * @param aOther
+   *        The settings to copy from. May not be <code>null</code>.
+   * @return The new {@link Settings} prefilled object. May not be
+   *         <code>null</code>.
+   * @since 8.6.6
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public static Settings createFrom (@Nonnull final ISettings aOther)
+  {
+    ValueEnforcer.notNull (aOther, "Other");
+    final Settings ret = new Settings (aOther.getName ());
+    aOther.forEach ( (k, v) -> ret.setValue (k, v));
+    return ret;
   }
 }
