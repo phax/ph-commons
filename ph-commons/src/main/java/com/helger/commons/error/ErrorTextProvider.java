@@ -306,7 +306,7 @@ public class ErrorTextProvider implements IErrorTextProvider, Serializable, IClo
           final Throwable aLinkedEx = aError.getLinkedException ();
           if (aLinkedEx != null)
           {
-            final String sMsg = aLinkedEx.getMessage ();
+            final String sMsg = StringHelper.getNotNull (aLinkedEx.getMessage (), "");
             if (aSB.length () > 0)
               aSB.append (m_sFieldSep);
             aSB.append (aItem.getFormattedText (sMsg));
@@ -342,7 +342,7 @@ public class ErrorTextProvider implements IErrorTextProvider, Serializable, IClo
           final Throwable aCause = aLinkedEx != null ? aLinkedEx.getCause () : null;
           if (aCause != null)
           {
-            final String sMsg = aCause.getMessage ();
+            final String sMsg = StringHelper.getNotNull (aCause.getMessage ());
             if (aSB.length () > 0)
               aSB.append (m_sFieldSep);
             aSB.append (aItem.getFormattedText (sMsg));
