@@ -26,7 +26,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.lang.TimeValue;
 import com.helger.commons.state.EChange;
@@ -74,7 +73,6 @@ public class StopWatch implements IStoppable, Serializable
   /**
    * @return The current time in nano seconds.
    */
-  @OverrideOnDemand
   protected final long getCurrentNanoTime ()
   {
     return System.nanoTime ();
