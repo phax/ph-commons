@@ -48,6 +48,8 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 
 import com.helger.commons.collection.ext.CommonsArrayList;
@@ -68,6 +70,7 @@ public final class CSVWriterTest
    * @throws IOException
    *         if there are problems writing
    */
+  @Nonnull
   private static String _invokeWriter (final String [] args) throws IOException
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
@@ -76,6 +79,7 @@ public final class CSVWriterTest
     return aSW.getAsString ();
   }
 
+  @Nonnull
   private static String _invokeNoEscapeWriter (final String [] args)
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
@@ -421,12 +425,26 @@ public final class CSVWriterTest
   @Test
   public void testAlternateLineFeeds ()
   {
-    final String [] line = { "Foo", "Bar", "baz" };
+    final String [] aLine = { "Foo", "Bar", "baz" };
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     final CSVWriter aWriter = new CSVWriter (aSW).setLineEnd ("\r");
-    aWriter.writeNext (line);
+    aWriter.writeNext (aLine);
     final String result = aSW.getAsString ();
 
     assertTrue (result.endsWith ("\r"));
+  }
+
+  @Test
+  public void testAvoidFinalLineEnd ()
+  {
+    final String [] aLine = { "Foo", "Bar", "baz" };
+    final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
+    final CSVWriter aWriter = new CSVWriter (aSW).setAvoidFinalLineEnd (true);
+    aWriter.writeNext (aLine, false);
+    assertEquals ("Foo,Bar,baz", aSW.getAsString ());
+    aWriter.writeNext (aLine, false);
+    assertEquals ("Foo,Bar,baz\nFoo,Bar,baz", aSW.getAsString ());
+    aWriter.writeNext (aLine, false);
+    assertEquals ("Foo,Bar,baz\nFoo,Bar,baz\nFoo,Bar,baz", aSW.getAsString ());
   }
 }

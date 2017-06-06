@@ -71,14 +71,24 @@ public class CSVWriter implements Closeable, Flushable
    */
   public static final String DEFAULT_LINE_END = "\n";
 
+  /**
+   * By default all text fields are always quoted.
+   */
   public static final boolean DEFAULT_QUOTE_ALL = true;
+
+  /**
+   * By default the file ends with a new-line.
+   */
+  public static final boolean DEFAULT_AVOID_FINAL_LINE_END = false;
 
   private final Writer m_aRawWriter;
   private final PrintWriter m_aPW;
+  private int m_nWrittenLines = 0;
   private char m_cSeparatorChar = CCSV.DEFAULT_SEPARATOR;
   private char m_cQuoteChar = CCSV.DEFAULT_QUOTE_CHARACTER;
   private char m_cEscapeChar = CCSV.DEFAULT_ESCAPE_CHARACTER;
   private String m_sLineEnd = DEFAULT_LINE_END;
+  private boolean m_bAvoidFinalLineEnd = DEFAULT_AVOID_FINAL_LINE_END;
 
   /**
    * Constructs {@link CSVWriter} with all default settings.
@@ -188,6 +198,31 @@ public class CSVWriter implements Closeable, Flushable
   }
 
   /**
+   * @return <code>true</code> if the file should not end with a new-line,
+   *         <code>false</code> otherwise.
+   * @since 8.6.6
+   */
+  public boolean isAvoidFinalLineEnd ()
+  {
+    return m_bAvoidFinalLineEnd;
+  }
+
+  /**
+   * Set whether the CSV file should end with a new line or not.
+   *
+   * @param bAvoidFinalLineEnd
+   *        <code>true</code> to avoid the CSV file ending with a new line.
+   * @return this for chaining
+   * @since 8.6.6
+   */
+  @Nonnull
+  public CSVWriter setAvoidFinalLineEnd (final boolean bAvoidFinalLineEnd)
+  {
+    m_bAvoidFinalLineEnd = bAvoidFinalLineEnd;
+    return this;
+  }
+
+  /**
    * Writes the entire list to a CSV file.
    *
    * @param aAllLines
@@ -231,6 +266,13 @@ public class CSVWriter implements Closeable, Flushable
     if (aNextLine != null)
     {
       final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
+
+      if (m_bAvoidFinalLineEnd && m_nWrittenLines > 0)
+      {
+        // End previous line
+        aSB.append (m_sLineEnd);
+      }
+
       final boolean bCanQuote = m_cQuoteChar != NO_QUOTE_CHARACTER;
       boolean bFirst = true;
       while (aNextLine.hasNext ())
@@ -259,8 +301,14 @@ public class CSVWriter implements Closeable, Flushable
         }
       }
 
-      aSB.append (m_sLineEnd);
+      if (!m_bAvoidFinalLineEnd)
+      {
+        // End the line directly
+        aSB.append (m_sLineEnd);
+      }
+
       m_aPW.write (aSB.toString ());
+      m_nWrittenLines++;
     }
   }
 
@@ -307,7 +355,7 @@ public class CSVWriter implements Closeable, Flushable
   public void writeNext (@Nullable final String [] aNextLine, final boolean bApplyQuotesToAll)
   {
     if (aNextLine != null)
-      writeNext (new ArrayIterator<> (aNextLine).iterator (), bApplyQuotesToAll);
+      writeNext (new ArrayIterator <> (aNextLine).iterator (), bApplyQuotesToAll);
   }
 
   /**
@@ -343,7 +391,7 @@ public class CSVWriter implements Closeable, Flushable
                          final boolean bApplyQuotesToAll)
   {
     if (aNextLine != null)
-      writeNext (new ArrayIterator<> (aNextLine, nOfs, nLength).iterator (), bApplyQuotesToAll);
+      writeNext (new ArrayIterator <> (aNextLine, nOfs, nLength).iterator (), bApplyQuotesToAll);
   }
 
   /**
@@ -438,6 +486,16 @@ public class CSVWriter implements Closeable, Flushable
   public boolean checkError ()
   {
     return m_aPW.checkError ();
+  }
+
+  /**
+   * @return The number of written lines. Always &ge; 0.
+   * @since 8.6.6
+   */
+  @Nonnegative
+  public int getWrittenLines ()
+  {
+    return m_nWrittenLines;
   }
 
   /**

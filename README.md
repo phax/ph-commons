@@ -37,7 +37,9 @@ This project was the following modules:
     * Removed deprecated 'Mutable*' constructors because of weird defaults
     * Removed deprecated methods that handle: greater than, greater or equals, lower than and lower or equals
     * Made `MicroTypeConverter` type-safe
-  * v8.6.5 - work in progress
+  * v8.6.6 - work in progress
+    * Extended `CSVWriter` API
+  * v8.6.5 - 2017-05-19
     * Deprecated all default Mutable* constructors, because the default values were partially confusing
     * Added new class `DefaultEntityResolver` using a base URL for resolving.
     * Extracted and renamed classes `PDTZoneID` and `PDTMask`
