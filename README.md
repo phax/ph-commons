@@ -24,6 +24,8 @@ This project was the following modules:
 
 ## News and noteworthy
 
+  * v8.6.6 - work in progress
+    * Extended `CSVWriter` API
   * v8.6.5 - 2017-05-19
     * Deprecated all default Mutable* constructors, because the default values were partially confusing
     * Added new class `DefaultEntityResolver` using a base URL for resolving.
