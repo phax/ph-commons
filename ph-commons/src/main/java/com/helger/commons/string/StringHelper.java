@@ -1841,8 +1841,6 @@ public final class StringHelper
    *        The non-<code>null</code> target collection that should be filled
    *        with the exploded elements
    */
-  @Nonnull
-  @ReturnsMutableObject ("The passed parameter")
   @CodingStyleguideUnaware
   public static void explode (final char cSep,
                               @Nullable final String sElements,

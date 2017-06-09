@@ -50,7 +50,7 @@ public class WrappedCollectingSAXErrorHandler extends AbstractSAXErrorHandler
    */
   @Nonnull
   @ReturnsMutableObject ("design")
-  public ErrorList getWrappedErrorList ()
+  public ErrorList wrappedErrorList ()
   {
     return m_aErrorList;
   }

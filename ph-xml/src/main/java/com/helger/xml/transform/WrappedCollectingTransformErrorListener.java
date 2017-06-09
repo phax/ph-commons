@@ -48,7 +48,7 @@ public class WrappedCollectingTransformErrorListener extends AbstractTransformEr
    */
   @Nonnull
   @ReturnsMutableObject ("design")
-  public ErrorList getWrappedErrorList ()
+  public ErrorList wrappedErrorList ()
   {
     return m_aErrorList;
   }

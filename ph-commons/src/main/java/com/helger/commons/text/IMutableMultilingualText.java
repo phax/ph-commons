@@ -91,5 +91,5 @@ public interface IMutableMultilingualText extends IMultilingualText, IClearable
    */
   @Nonnull
   @ReturnsMutableObject ("Design")
-  CallbackList <IChangeCallback <IMutableMultilingualText>> getChangeNotifyCallbacks ();
+  CallbackList <IChangeCallback <IMutableMultilingualText>> changeNotifyCallbacks ();
 }

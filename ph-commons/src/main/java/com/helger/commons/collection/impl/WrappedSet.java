@@ -53,7 +53,7 @@ public class WrappedSet <ELEMENTTYPE> implements ICommonsSet <ELEMENTTYPE>
   @Nonnull
   @ReturnsMutableObject ("design")
   @CodingStyleguideUnaware
-  protected Set <ELEMENTTYPE> getSource ()
+  protected Set <ELEMENTTYPE> directGetSource ()
   {
     return m_aSrc;
   }

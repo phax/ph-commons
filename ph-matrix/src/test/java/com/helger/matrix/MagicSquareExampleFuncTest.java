@@ -158,7 +158,7 @@ public final class MagicSquareExampleFuncTest
       aSB.append (fixedWidthIntegertoString (t, 10));
 
       final EigenvalueDecomposition E = new EigenvalueDecomposition (M.plus (M.transpose ()).times (0.5));
-      final double [] d = E.getRealEigenvalues ();
+      final double [] d = E.directGetRealEigenvalues ();
       aSB.append (fixedWidthDoubletoString (d[n - 1], 14, 3));
 
       final int r = M.rank ();

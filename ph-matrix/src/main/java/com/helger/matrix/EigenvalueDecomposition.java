@@ -1099,7 +1099,7 @@ public class EigenvalueDecomposition implements Serializable
   @SuppressFBWarnings ("EI_EXPOSE_REP")
   @Nonnull
   @ReturnsMutableObject ("took code as is")
-  public double [] getRealEigenvalues ()
+  public double [] directGetRealEigenvalues ()
   {
     return m_aEVd;
   }
@@ -1112,7 +1112,7 @@ public class EigenvalueDecomposition implements Serializable
   @SuppressFBWarnings ("EI_EXPOSE_REP")
   @Nonnull
   @ReturnsMutableObject ("took code as is")
-  public double [] getImagEigenvalues ()
+  public double [] directGetImagEigenvalues ()
   {
     return m_aEVe;
   }

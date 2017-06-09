@@ -52,7 +52,7 @@ public class WrappedCollection <ELEMENTTYPE> implements ICommonsCollection <ELEM
   @Nonnull
   @ReturnsMutableObject ("design")
   @CodingStyleguideUnaware
-  protected Collection <ELEMENTTYPE> getSource ()
+  protected Collection <ELEMENTTYPE> directGetSource ()
   {
     return m_aSrc;
   }

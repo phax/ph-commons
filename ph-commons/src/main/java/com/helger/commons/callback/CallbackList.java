@@ -56,7 +56,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback>
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
   @GuardedBy ("m_aRWLock")
-  private final ICommonsOrderedSet <CALLBACKTYPE> m_aCallbacks = new CommonsLinkedHashSet<> ();
+  private final ICommonsOrderedSet <CALLBACKTYPE> m_aCallbacks = new CommonsLinkedHashSet <> ();
 
   public CallbackList ()
   {}
@@ -137,7 +137,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback>
   @Nonnull
   public CallbackList <CALLBACKTYPE> getClone ()
   {
-    return m_aRWLock.readLocked ( () -> new CallbackList<> (this));
+    return m_aRWLock.readLocked ( () -> new CallbackList <> (this));
   }
 
   @Nonnull

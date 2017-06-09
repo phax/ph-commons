@@ -61,7 +61,7 @@ public class WrappedList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYPE>
   @Nonnull
   @ReturnsMutableObject ("design")
   @CodingStyleguideUnaware
-  protected List <ELEMENTTYPE> getSource ()
+  protected List <ELEMENTTYPE> directGetSource ()
   {
     return m_aSrc;
   }

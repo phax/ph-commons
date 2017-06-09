@@ -67,7 +67,7 @@ public class Settings implements IMutableSettings
 
   @Nonnull
   @ReturnsMutableObject ("design")
-  public final CallbackList <ISettingsAfterChangeCallback> getAfterChangeCallbackList ()
+  public final CallbackList <ISettingsAfterChangeCallback> afterChangeCallbackList ()
   {
     return m_aAfterChangeCallbacks;
   }

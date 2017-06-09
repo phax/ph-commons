@@ -197,7 +197,7 @@ public class LZWCodec implements IByteArrayCodec
 
     @Nullable
     @ReturnsMutableObject ("speed")
-    public byte [] getAllBytes (@Nonnegative final int nCode)
+    public byte [] directGetAllBytes (@Nonnegative final int nCode)
     {
       return m_aTab[nCode];
     }
@@ -369,7 +369,7 @@ public class LZWCodec implements IByteArrayCodec
       // May be EOF if encoded byte array was empty!
       if (nCode != AbstractLZWDictionary.CODE_EOF)
       {
-        byte [] aByteSeq = aDict.getAllBytes (nCode);
+        byte [] aByteSeq = aDict.directGetAllBytes (nCode);
         if (aByteSeq == null)
           throw new DecodeException ("Failed to resolve initial code " + nCode);
         aOS.write (aByteSeq);
@@ -388,7 +388,7 @@ public class LZWCodec implements IByteArrayCodec
               break;
 
             // upon clear table, don't add something to the table
-            aByteSeq = aDict.getAllBytes (nCode);
+            aByteSeq = aDict.directGetAllBytes (nCode);
             aOS.write (aByteSeq);
             aPrevByteSeq = aByteSeq;
           }
@@ -396,7 +396,7 @@ public class LZWCodec implements IByteArrayCodec
           {
             final int nNextFreeCode = aDict.getNextFreeCode ();
             if (nCode < nNextFreeCode)
-              aByteSeq = aDict.getAllBytes (nCode);
+              aByteSeq = aDict.directGetAllBytes (nCode);
             else
               if (nCode == nNextFreeCode)
                 aByteSeq = ArrayHelper.getConcatenated (aPrevByteSeq, aPrevByteSeq[0]);
