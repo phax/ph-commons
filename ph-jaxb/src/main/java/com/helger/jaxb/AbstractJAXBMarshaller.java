@@ -73,7 +73,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
 
   private final Class <JAXBTYPE> m_aType;
   private final ICommonsList <IReadableResource> m_aXSDs = new CommonsArrayList <> ();
-  private final IFunction <JAXBTYPE, JAXBElement <JAXBTYPE>> m_aWrapper;
+  private final IFunction <? super JAXBTYPE, ? extends JAXBElement <JAXBTYPE>> m_aWrapper;
   private IValidationEventHandlerFactory m_aVEHFactory;
   private boolean m_bReadSecure = DEFAULT_READ_SECURE;
   private boolean m_bFormattedOutput = JAXBBuilderDefaultSettings.DEFAULT_FORMATTED_OUTPUT;
@@ -97,7 +97,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
    *        <code>null</code>.
    */
   protected AbstractJAXBMarshaller (@Nonnull final Class <JAXBTYPE> aType,
-                                    @Nonnull final IFunction <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
+                                    @Nonnull final IFunction <? super JAXBTYPE, ? extends JAXBElement <JAXBTYPE>> aWrapper)
   {
     this (aType, null, aWrapper);
   }
@@ -119,7 +119,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
    */
   protected AbstractJAXBMarshaller (@Nonnull final Class <JAXBTYPE> aType,
                                     @Nullable final List <? extends IReadableResource> aXSDs,
-                                    @Nonnull final IFunction <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
+                                    @Nonnull final IFunction <? super JAXBTYPE, ? extends JAXBElement <JAXBTYPE>> aWrapper)
   {
     m_aType = ValueEnforcer.notNull (aType, "Type");
     if (aXSDs != null)

@@ -39,6 +39,7 @@ This project was the following modules:
     * Made `MicroTypeConverter` type-safe
     * Ensure all `Predicate` usages use `? super`
     * Ensure all `Consumer` usages use `? super`
+    * Ensure all `Function` usages use `? super`/`? extends` where applicable
   * v8.6.6 - work in progress
     * Extended `CSVWriter` API
     * `SimpleLSResourceResolver` can now handle fat jars from Spring Boot (issue #8)

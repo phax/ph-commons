@@ -37,11 +37,11 @@ public class TypeConverterRuleFixedSourceAssignableDestination <SRC, DST> extend
 {
   private final Class <SRC> m_aSrcClass;
   private final Class <DST> m_aDstClass;
-  private final IFunction <SRC, DST> m_aConverter;
+  private final IFunction <? super SRC, ? extends DST> m_aConverter;
 
   public TypeConverterRuleFixedSourceAssignableDestination (@Nonnull final Class <SRC> aSrcClass,
                                                             @Nonnull final Class <DST> aDstClass,
-                                                            @Nonnull final IFunction <SRC, DST> aConverter)
+                                                            @Nonnull final IFunction <? super SRC, ? extends DST> aConverter)
   {
     super (ESubType.FIXED_SRC_ASSIGNABLE_DST);
     m_aSrcClass = ValueEnforcer.notNull (aSrcClass, "SrcClass");

@@ -51,7 +51,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> extends AbstractJAXBMarshaller <JA
    *        <code>null</code>.
    */
   public GenericJAXBMarshaller (@Nonnull final Class <JAXBTYPE> aType,
-                                @Nonnull final IFunction <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
+                                @Nonnull final IFunction <? super JAXBTYPE, ? extends JAXBElement <JAXBTYPE>> aWrapper)
   {
     this (aType, null, aWrapper);
   }
@@ -73,7 +73,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> extends AbstractJAXBMarshaller <JA
    */
   public GenericJAXBMarshaller (@Nonnull final Class <JAXBTYPE> aType,
                                 @Nullable final List <? extends IReadableResource> aXSDs,
-                                @Nonnull final IFunction <JAXBTYPE, JAXBElement <JAXBTYPE>> aWrapper)
+                                @Nonnull final IFunction <? super JAXBTYPE, ? extends JAXBElement <JAXBTYPE>> aWrapper)
   {
     super (aType, aXSDs, aWrapper);
   }

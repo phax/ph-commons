@@ -34,10 +34,10 @@ import com.helger.commons.string.ToStringGenerator;
 public class TypeConverterRuleAnySourceFixedDestination <DST> extends AbstractTypeConverterRule <Object, DST>
 {
   private final Class <DST> m_aDstClass;
-  private final IFunction <Object, DST> m_aConverter;
+  private final IFunction <? super Object, ? extends DST> m_aConverter;
 
   public TypeConverterRuleAnySourceFixedDestination (@Nonnull final Class <DST> aDstClass,
-                                                     @Nonnull final IFunction <Object, DST> aConverter)
+                                                     @Nonnull final IFunction <? super Object, ? extends DST> aConverter)
   {
     super (ESubType.ANY_SRC_FIXED_DST);
     m_aDstClass = ValueEnforcer.notNull (aDstClass, "DestClass");

@@ -117,7 +117,7 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
                                                                          aSource -> new Date (aSource.longValue ()));
 
     // Destination: Instant
-    final IFunction <Number, Instant> fToInstant = aSource -> Instant.ofEpochMilli (aSource.longValue ());
+    final IFunction <? super Number, ? extends Instant> fToInstant = aSource -> Instant.ofEpochMilli (aSource.longValue ());
     aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (Number.class, Instant.class, fToInstant);
     aRegistry.registerTypeConverter (String.class, Instant.class, Instant::parse);
     aRegistry.registerTypeConverter (Date.class, Instant.class, Date::toInstant);

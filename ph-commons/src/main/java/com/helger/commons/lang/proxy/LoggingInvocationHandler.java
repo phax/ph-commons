@@ -141,7 +141,7 @@ public class LoggingInvocationHandler implements InvocationHandler
   @Nonnull
   public static <T> T proxying (@Nonnull final Class <? extends T> aInterfaceClass,
                                 @Nonnull final T aActualTarget,
-                                @Nonnull final Function <T, InvocationHandler> aFactory)
+                                @Nonnull final Function <? super T, ? extends InvocationHandler> aFactory)
   {
     ValueEnforcer.isTrue (aInterfaceClass.isInterface (), "Only interface classes can be proxied!");
     final Object ret = Proxy.newProxyInstance (aInterfaceClass.getClassLoader (),
