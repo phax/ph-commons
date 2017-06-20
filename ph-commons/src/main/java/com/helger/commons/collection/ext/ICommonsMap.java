@@ -64,7 +64,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default <K, V> ICommonsMap <K, V> createInstance ()
   {
-    return new CommonsHashMap<> ();
+    return new CommonsHashMap <> ();
   }
 
   /**
@@ -76,7 +76,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default ICommonsSet <KEYTYPE> copyOfKeySet ()
   {
-    return new CommonsHashSet<> (keySet ());
+    return new CommonsHashSet <> (keySet ());
   }
 
   /**
@@ -108,7 +108,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default ICommonsList <VALUETYPE> copyOfValues ()
   {
-    return new CommonsArrayList<> (values ());
+    return new CommonsArrayList <> (values ());
   }
 
   /**
@@ -187,7 +187,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default ICommonsSet <Map.Entry <KEYTYPE, VALUETYPE>> copyOfEntrySet ()
   {
-    return new CommonsHashSet<> (entrySet ());
+    return new CommonsHashSet <> (entrySet ());
   }
 
   /**
@@ -517,7 +517,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    */
   default void putIf (@Nonnull final KEYTYPE aKey,
                       @Nullable final VALUETYPE aValue,
-                      @Nonnull final Predicate <VALUETYPE> aFilter)
+                      @Nonnull final Predicate <? super VALUETYPE> aFilter)
   {
     ValueEnforcer.notNull (aFilter, "Filter");
     if (aFilter.test (aValue))

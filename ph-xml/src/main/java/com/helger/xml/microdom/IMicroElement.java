@@ -1032,7 +1032,7 @@ public interface IMicroElement extends IMicroNodeWithChildren
   @Nonnegative
   default int getChildElementCount ()
   {
-    return getChildElementCount ((Predicate <IMicroElement>) null);
+    return getChildElementCount ((Predicate <? super IMicroElement>) null);
   }
 
   /**
@@ -1052,20 +1052,20 @@ public interface IMicroElement extends IMicroNodeWithChildren
   }
 
   @Nonnull
-  static IPredicate <IMicroElement> filterNamespaceURI (@Nullable final String sNamespaceURI)
+  static IPredicate <? super IMicroElement> filterNamespaceURI (@Nullable final String sNamespaceURI)
   {
     return aChildElement -> aChildElement.hasNamespaceURI (sNamespaceURI);
   }
 
   @Nonnull
-  static IPredicate <IMicroElement> filterName (@Nullable final String sTagOrLocalName)
+  static IPredicate <? super IMicroElement> filterName (@Nullable final String sTagOrLocalName)
   {
     return aChildElement -> aChildElement.hasTagName (sTagOrLocalName);
   }
 
   @Nonnull
-  static IPredicate <IMicroElement> filterNamespaceURIAndName (@Nullable final String sNamespaceURI,
-                                                               @Nullable final String sTagOrLocalName)
+  static IPredicate <? super IMicroElement> filterNamespaceURIAndName (@Nullable final String sNamespaceURI,
+                                                                       @Nullable final String sTagOrLocalName)
   {
     if (StringHelper.hasNoText (sNamespaceURI))
       return filterName (sTagOrLocalName);
@@ -1085,7 +1085,7 @@ public interface IMicroElement extends IMicroNodeWithChildren
   @ReturnsMutableCopy
   default ICommonsList <IMicroElement> getAllChildElements ()
   {
-    return getAllChildElements ((Predicate <IMicroElement>) null);
+    return getAllChildElements ((Predicate <? super IMicroElement>) null);
   }
 
   /**

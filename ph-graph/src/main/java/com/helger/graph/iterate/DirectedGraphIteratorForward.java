@@ -80,7 +80,7 @@ public final class DirectedGraphIteratorForward implements IIterableIterator <IM
    * Optional filter for graph relations to defined whether thy should be
    * followed or not. May be <code>null</code>.
    */
-  private final IPredicate <IMutableDirectedGraphRelation> m_aRelationFilter;
+  private final IPredicate <? super IMutableDirectedGraphRelation> m_aRelationFilter;
 
   /**
    * This set keeps track of all the nodes we already visited. This is important
@@ -99,7 +99,7 @@ public final class DirectedGraphIteratorForward implements IIterableIterator <IM
   }
 
   public DirectedGraphIteratorForward (@Nonnull final IMutableDirectedGraphNode aStartNode,
-                                       @Nullable final IPredicate <IMutableDirectedGraphRelation> aRelationFilter)
+                                       @Nullable final IPredicate <? super IMutableDirectedGraphRelation> aRelationFilter)
   {
     ValueEnforcer.notNull (aStartNode, "StartNode");
 

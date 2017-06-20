@@ -31,6 +31,8 @@ import java.util.Objects;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.functional.IPredicate;
 import com.helger.commons.mock.CommonsTestHelper;
 
@@ -85,7 +87,7 @@ public final class FilterIteratorTest
   @Test
   public void testConstructorIterable ()
   {
-    final List <String> aList = CollectionHelper.newList ("i1", "i2");
+    final ICommonsList <String> aList = new CommonsArrayList <> ("i1", "i2");
     final IPredicate <String> aFilter = IPredicate.notNull ();
 
     try

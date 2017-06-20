@@ -417,7 +417,7 @@ public final class CollectionHelper
   @Nonnull
   @ReturnsMutableCopy
   public static <KEYTYPE, VALUETYPE> CommonsHashMap <KEYTYPE, VALUETYPE> newMap (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
-                                                                                 @Nonnull final Predicate <Map.Entry <? super KEYTYPE, ? super VALUETYPE>> aFilter)
+                                                                                 @Nonnull final Predicate <? super Map.Entry <? super KEYTYPE, ? super VALUETYPE>> aFilter)
   {
     if (isEmpty (aMap))
       return newMap (0);
@@ -597,7 +597,7 @@ public final class CollectionHelper
   @Nonnull
   @ReturnsMutableCopy
   public static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> newOrderedMap (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
-                                                                                              @Nonnull final Predicate <Map.Entry <? super KEYTYPE, ? super VALUETYPE>> aFilter)
+                                                                                              @Nonnull final Predicate <? super Map.Entry <? super KEYTYPE, ? super VALUETYPE>> aFilter)
   {
     if (isEmpty (aMap))
       return newOrderedMap (0);
@@ -769,7 +769,7 @@ public final class CollectionHelper
   @Nonnull
   @ReturnsMutableCopy
   public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> CommonsTreeMap <KEYTYPE, VALUETYPE> newSortedMap (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
-                                                                                                                            @Nonnull final Predicate <Map.Entry <? super KEYTYPE, ? super VALUETYPE>> aFilter)
+                                                                                                                            @Nonnull final Predicate <? super Map.Entry <? super KEYTYPE, ? super VALUETYPE>> aFilter)
   {
     final CommonsTreeMap <KEYTYPE, VALUETYPE> ret = newSortedMap ();
     ret.putAll (aMap, aFilter);
