@@ -26,6 +26,7 @@ This project was the following modules:
 
   * v8.6.6 - work in progress
     * Extended `CSVWriter` API
+    * `SimpleLSResourceResolver` can now handle fat jars from Spring Boot (issue #8)
   * v8.6.5 - 2017-05-19
     * Deprecated all default Mutable* constructors, because the default values were partially confusing
     * Added new class `DefaultEntityResolver` using a base URL for resolving.
