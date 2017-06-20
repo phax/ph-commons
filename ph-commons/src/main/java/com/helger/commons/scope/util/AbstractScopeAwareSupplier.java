@@ -23,6 +23,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.functional.ISupplier;
 import com.helger.commons.scope.mgr.ScopeManager;
 import com.helger.commons.scope.mock.ScopeAwareTestSetup;
 
@@ -35,7 +36,7 @@ import com.helger.commons.scope.mock.ScopeAwareTestSetup;
  */
 @Immutable
 public abstract class AbstractScopeAwareSupplier <DATATYPE> extends AbstractScopeAwareAction
-                                                 implements Supplier <DATATYPE>
+                                                 implements ISupplier <DATATYPE>
 {
   public AbstractScopeAwareSupplier ()
   {

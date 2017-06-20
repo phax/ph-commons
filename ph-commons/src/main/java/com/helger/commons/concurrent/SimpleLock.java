@@ -111,7 +111,7 @@ public class SimpleLock extends ReentrantLock
    * @param <T>
    *        Return type
    */
-  public <T> T locked (@Nonnull final Supplier <T> aSupplier)
+  public <T> T locked (@Nonnull final Supplier <? extends T> aSupplier)
   {
     ValueEnforcer.notNull (aSupplier, "Supplier");
 
@@ -140,7 +140,7 @@ public class SimpleLock extends ReentrantLock
    * @param <EXTYPE>
    *        Exception type to be thrown
    */
-  public <T, EXTYPE extends Exception> T lockedThrowing (@Nonnull final IThrowingSupplier <T, EXTYPE> aCallable) throws EXTYPE
+  public <T, EXTYPE extends Exception> T lockedThrowing (@Nonnull final IThrowingSupplier <? extends T, EXTYPE> aCallable) throws EXTYPE
   {
     ValueEnforcer.notNull (aCallable, "Callable");
 

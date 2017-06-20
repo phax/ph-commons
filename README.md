@@ -40,6 +40,7 @@ This project was the following modules:
     * Ensure all `Predicate` usages use `? super`
     * Ensure all `Consumer` usages use `? super`
     * Ensure all `Function` usages use `? super`/`? extends` where applicable
+    * Ensure all `Supplier` usages use `? extends`
   * v8.6.6 - work in progress
     * Extended `CSVWriter` API
     * `SimpleLSResourceResolver` can now handle fat jars from Spring Boot (issue #8)

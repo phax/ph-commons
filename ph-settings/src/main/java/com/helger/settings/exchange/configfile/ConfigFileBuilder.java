@@ -51,7 +51,7 @@ public class ConfigFileBuilder
   private static final Logger s_aLogger = LoggerFactory.getLogger (ConfigFileBuilder.class);
 
   private ISettingsPersistence m_aSPP = new SettingsPersistenceProperties (x -> new TrimmedValueSettings (x));
-  private final ICommonsList <String> m_aPaths = new CommonsArrayList<> ();
+  private final ICommonsList <String> m_aPaths = new CommonsArrayList <> ();
   private IReadableResourceProvider m_aResProvider = new DefaultResourceProvider ();
 
   public ConfigFileBuilder ()
@@ -79,7 +79,7 @@ public class ConfigFileBuilder
   }
 
   @Nonnull
-  public ConfigFileBuilder addPath (@Nonnull final Supplier <String> aSupplier)
+  public ConfigFileBuilder addPath (@Nonnull final Supplier <? extends String> aSupplier)
   {
     ValueEnforcer.notNull (aSupplier, "Supplier");
     return addPath (aSupplier.get ());
