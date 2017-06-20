@@ -217,6 +217,18 @@ public final class SimpleLSResourceResolverTest
       assertTrue (aRes.exists ());
     }
 
+    // Issue #8
+    {
+      aRes = SimpleLSResourceResolver.doStandardResourceResolving ("file.txt",
+                                                                   "jar:file:/C:/Users/tore99/IdeaProjects/pia/pia-webapp/build/libs/pia.jar!/BOOT-INF/lib/ph-ubl21-3.3.0.jar!/schemas/ubl21/maindoc/UBL-Invoice-2.1.xsd");
+      assertEquals ("jar:file:/C:/Users/tore99/IdeaProjects/pia/pia-webapp/build/libs/pia.jar!/BOOT-INF/lib/ph-ubl21-3.3.0.jar!/schemas/ubl21/maindoc/file.txt",
+                    aRes.getPath ());
+      aRes = SimpleLSResourceResolver.doStandardResourceResolving ("../file.txt",
+                                                                   "jar:file:/C:/Users/tore99/IdeaProjects/pia/pia-webapp/build/libs/pia.jar!/BOOT-INF/lib/ph-ubl21-3.3.0.jar!/schemas/ubl21/maindoc/UBL-Invoice-2.1.xsd");
+      assertEquals ("jar:file:/C:/Users/tore99/IdeaProjects/pia/pia-webapp/build/libs/pia.jar!/BOOT-INF/lib/ph-ubl21-3.3.0.jar!/schemas/ubl21/file.txt",
+                    aRes.getPath ());
+    }
+
     try
     {
       // Both null is not OK
