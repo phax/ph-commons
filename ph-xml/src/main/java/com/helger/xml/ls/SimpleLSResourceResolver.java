@@ -121,7 +121,8 @@ public class SimpleLSResourceResolver extends AbstractLSResourceResolver impleme
                                                       @Nonnull final String sBaseURI) throws MalformedURLException
   {
     // Base URI is inside a jar file? Skip the JAR file
-    final int i = sBaseURI.indexOf ("!/");
+    // See issue #8 - use lastIndexOf here
+    final int i = sBaseURI.lastIndexOf ("!/");
     String sPrefix;
     String sBasePath;
     if (i < 0)
