@@ -264,7 +264,7 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
       final Marshaller aMarshaller = createMarshaller ();
 
       // Customize on demand
-      final Consumer <Marshaller> aCustomizer = getMarshallerCustomizer ();
+      final Consumer <? super Marshaller> aCustomizer = getMarshallerCustomizer ();
       if (aCustomizer != null)
         aCustomizer.accept (aMarshaller);
 

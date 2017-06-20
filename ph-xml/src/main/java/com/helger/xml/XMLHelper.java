@@ -750,13 +750,14 @@ public final class XMLHelper
     return ret;
   }
 
-  public static void forAllAttributes (@Nullable final Element aSrcNode, @Nonnull final Consumer <Attr> aConsumer)
+  public static void forAllAttributes (@Nullable final Element aSrcNode,
+                                       @Nonnull final Consumer <? super Attr> aConsumer)
   {
     NamedNodeMapIterator.createAttributeIterator (aSrcNode).forEach (x -> aConsumer.accept ((Attr) x));
   }
 
   public static void forAllAttributes (@Nullable final Element aSrcNode,
-                                       @Nonnull final BiConsumer <String, String> aConsumer)
+                                       @Nonnull final BiConsumer <? super String, ? super String> aConsumer)
   {
     forAllAttributes (aSrcNode, x -> aConsumer.accept (x.getName (), x.getValue ()));
   }

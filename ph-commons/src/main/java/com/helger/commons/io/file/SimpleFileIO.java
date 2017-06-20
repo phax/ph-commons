@@ -200,7 +200,7 @@ public final class SimpleFileIO
    */
   public static void readFileLines (@Nullable final File aFile,
                                     @Nonnull final Charset aCharset,
-                                    @Nonnull final Consumer <String> aConsumer)
+                                    @Nonnull final Consumer <? super String> aConsumer)
   {
     if (aFile != null)
       StreamHelper.readStreamLines (FileHelper.getInputStream (aFile), aCharset, aConsumer);

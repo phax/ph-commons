@@ -289,7 +289,7 @@ public interface IJsonObject extends
    *        Consumer with the first param being the key and second param being
    *        the value.
    */
-  void forEach (@Nonnull BiConsumer <String, IJson> aConsumer);
+  void forEach (@Nonnull BiConsumer <? super String, ? super IJson> aConsumer);
 
   /**
    * Check if the passed value is directly contained in the object or not.

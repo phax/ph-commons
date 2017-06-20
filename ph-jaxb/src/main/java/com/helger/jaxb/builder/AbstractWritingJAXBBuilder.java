@@ -64,7 +64,7 @@ public abstract class AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE extends Abs
   }
 
   private IExceptionCallback <JAXBException> m_aExceptionHandler = new DefaultExceptionHandler ();
-  private Consumer <Marshaller> m_aMarshallerCustomizer;
+  private Consumer <? super Marshaller> m_aMarshallerCustomizer;
 
   public AbstractWritingJAXBBuilder (@Nonnull final IJAXBDocumentType aDocType)
   {
@@ -85,13 +85,13 @@ public abstract class AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE extends Abs
   }
 
   @Nullable
-  public Consumer <Marshaller> getMarshallerCustomizer ()
+  public Consumer <? super Marshaller> getMarshallerCustomizer ()
   {
     return m_aMarshallerCustomizer;
   }
 
   @Nonnull
-  public IMPLTYPE setMarshallerCustomizer (@Nullable final Consumer <Marshaller> aMarshallerCustomizer)
+  public IMPLTYPE setMarshallerCustomizer (@Nullable final Consumer <? super Marshaller> aMarshallerCustomizer)
   {
     m_aMarshallerCustomizer = aMarshallerCustomizer;
     return thisAsT ();
@@ -124,9 +124,9 @@ public abstract class AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE extends Abs
   @Nonnull
   protected <T> JAXBElement <T> createJAXBElement (@Nonnull final T aValue)
   {
-    return new JAXBElement<> (new QName (m_aDocType.getNamespaceURI (), m_aDocType.getLocalName ()),
-                              GenericReflection.uncheckedCast (aValue.getClass ()),
-                              null,
-                              aValue);
+    return new JAXBElement <> (new QName (m_aDocType.getNamespaceURI (), m_aDocType.getLocalName ()),
+                               GenericReflection.uncheckedCast (aValue.getClass ()),
+                               null,
+                               aValue);
   }
 }

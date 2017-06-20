@@ -38,6 +38,7 @@ This project was the following modules:
     * Removed deprecated methods that handle: greater than, greater or equals, lower than and lower or equals
     * Made `MicroTypeConverter` type-safe
     * Ensure all `Predicate` usages use `? super`
+    * Ensure all `Consumer` usages use `? super`
   * v8.6.6 - work in progress
     * Extended `CSVWriter` API
     * `SimpleLSResourceResolver` can now handle fat jars from Spring Boot (issue #8)

@@ -71,7 +71,7 @@ public final class CombinationGeneratorFlexible <DATATYPE>
    *        Callback to invoke
    */
   public void iterateAllCombinations (@Nonnull final ICommonsList <DATATYPE> aElements,
-                                      @Nonnull final Consumer <ICommonsList <DATATYPE>> aCallback)
+                                      @Nonnull final Consumer <? super ICommonsList <DATATYPE>> aCallback)
   {
     ValueEnforcer.notNull (aElements, "Elements");
     ValueEnforcer.notNull (aCallback, "Callback");
@@ -111,7 +111,7 @@ public final class CombinationGeneratorFlexible <DATATYPE>
 
   public static <DATATYPE> void iterateAllCombinations (@Nonnull final ICommonsList <DATATYPE> aElements,
                                                         final boolean bAllowEmpty,
-                                                        @Nonnull final Consumer <ICommonsList <DATATYPE>> aCallback)
+                                                        @Nonnull final Consumer <? super ICommonsList <DATATYPE>> aCallback)
   {
     new CombinationGeneratorFlexible <DATATYPE> (aElements.size (), bAllowEmpty).iterateAllCombinations (aElements,
                                                                                                          aCallback);
