@@ -53,6 +53,7 @@ public final class SafeVectorTest
       assertNull (sMember);
   }
 
+  @SuppressWarnings ("unused")
   @Test
   public void testSafeVectorNewInstanceFactory ()
   {
