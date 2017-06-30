@@ -219,6 +219,38 @@ public final class XMLMaskHelperTest extends AbstractCommonsTestCase
                                                        EXMLCharMode.ATTRIBUTE_VALUE_SINGLE_QUOTES,
                                                        EXMLIncorrectCharacterHandling.DO_NOT_WRITE_LOG_WARNING,
                                                        "'ab'\"cd\""));
+
+    // Special test for text
+    assertArrayEquals ("1 &amp; ".toCharArray (),
+                       XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.XML_10,
+                                                       EXMLCharMode.TEXT,
+                                                       EXMLIncorrectCharacterHandling.DO_NOT_WRITE_LOG_WARNING,
+                                                       "1 & \u0000"));
+    assertArrayEquals ("1 &amp; ".toCharArray (),
+                       XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.XML_11,
+                                                       EXMLCharMode.TEXT,
+                                                       EXMLIncorrectCharacterHandling.DO_NOT_WRITE_LOG_WARNING,
+                                                       "1 & \u0000"));
+    assertArrayEquals ("1 &amp; ".toCharArray (),
+                       XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.HTML,
+                                                       EXMLCharMode.TEXT,
+                                                       EXMLIncorrectCharacterHandling.DO_NOT_WRITE_LOG_WARNING,
+                                                       "1 & \u0000"));
+    assertArrayEquals ("abcdef".toCharArray (),
+                       XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.XML_10,
+                                                       EXMLCharMode.TEXT,
+                                                       EXMLIncorrectCharacterHandling.DO_NOT_WRITE_LOG_WARNING,
+                                                       "ab\u0000cd\u0000ef"));
+    assertArrayEquals ("abcdef".toCharArray (),
+                       XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.XML_11,
+                                                       EXMLCharMode.TEXT,
+                                                       EXMLIncorrectCharacterHandling.DO_NOT_WRITE_LOG_WARNING,
+                                                       "ab\u0000cd\u0000ef"));
+    assertArrayEquals ("abcdef".toCharArray (),
+                       XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.HTML,
+                                                       EXMLCharMode.TEXT,
+                                                       EXMLIncorrectCharacterHandling.DO_NOT_WRITE_LOG_WARNING,
+                                                       "ab\u0000cd\u0000ef"));
   }
 
   @Test
@@ -234,18 +266,12 @@ public final class XMLMaskHelperTest extends AbstractCommonsTestCase
                                                         EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
                                                         EXMLIncorrectCharacterHandling.WRITE_TO_FILE_NO_LOG,
                                                         "\u0001"));
-    assertEquals (2 +
-                  5 +
-                  1 +
-                  1,
+    assertEquals (2 + 5 + 1 + 1,
                   XMLMaskHelper.getMaskedXMLTextLength (EXMLSerializeVersion.XML_10,
                                                         EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
                                                         EXMLIncorrectCharacterHandling.WRITE_TO_FILE_NO_LOG,
                                                         "1 & \u0001"));
-    assertEquals (2 +
-                  5 +
-                  1 +
-                  4,
+    assertEquals (2 + 5 + 1 + 4,
                   XMLMaskHelper.getMaskedXMLTextLength (EXMLSerializeVersion.XML_11,
                                                         EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
                                                         EXMLIncorrectCharacterHandling.WRITE_TO_FILE_NO_LOG,
