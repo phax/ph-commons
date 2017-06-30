@@ -152,7 +152,7 @@ public interface IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE, MAPTYPE exten
     return ret;
   }
 
-  default void forEachSingle (@Nonnull final ITriConsumer <KEYTYPE1, KEYTYPE2, VALUETYPE> aConsumer)
+  default void forEachSingle (@Nonnull final ITriConsumer <? super KEYTYPE1, ? super KEYTYPE2, ? super VALUETYPE> aConsumer)
   {
     for (final Entry <KEYTYPE1, MAPTYPE> aEntry : entrySet ())
       for (final Map.Entry <KEYTYPE2, VALUETYPE> aEntry2 : aEntry.getValue ().entrySet ())

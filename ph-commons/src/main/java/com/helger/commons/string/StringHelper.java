@@ -1845,7 +1845,7 @@ public final class StringHelper
   public static void explode (final char cSep,
                               @Nullable final String sElements,
                               final int nMaxItems,
-                              @Nonnull final Consumer <String> aConsumer)
+                              @Nonnull final Consumer <? super String> aConsumer)
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
 
@@ -1981,7 +1981,7 @@ public final class StringHelper
   public static void explode (@Nonnull final String sSep,
                               @Nullable final String sElements,
                               final int nMaxItems,
-                              @Nonnull final Consumer <String> aConsumer)
+                              @Nonnull final Consumer <? super String> aConsumer)
   {
     ValueEnforcer.notNull (sSep, "Separator");
     ValueEnforcer.notNull (aConsumer, "Collection");

@@ -34,12 +34,12 @@ import com.helger.commons.typeconvert.TypeConverter;
 public class TypeConverterRuleFixedSourceAnyDestination <SRC> extends AbstractTypeConverterRule <SRC, Object>
 {
   private final Class <SRC> m_aSrcClass;
-  private final IFunction <SRC, Object> m_aInBetweenConverter;
+  private final IFunction <? super SRC, ? extends Object> m_aInBetweenConverter;
   // Status vars
   private transient Class <?> m_aEffectiveDstClass;
 
   public TypeConverterRuleFixedSourceAnyDestination (@Nonnull final Class <SRC> aSrcClass,
-                                                     @Nonnull final IFunction <SRC, Object> aInBetweenConverter)
+                                                     @Nonnull final IFunction <? super SRC, ? extends Object> aInBetweenConverter)
   {
     super (ESubType.FIXED_SRC_ANY_DST);
     m_aSrcClass = ValueEnforcer.notNull (aSrcClass, "SrcClass");

@@ -110,7 +110,7 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @param <T>
    *        Return type
    */
-  public <T> T readLocked (@Nonnull final Supplier <T> aSupplier)
+  public <T> T readLocked (@Nonnull final Supplier <? extends T> aSupplier)
   {
     readLock ().lock ();
     try
@@ -137,7 +137,7 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @param <EXTYPE>
    *        Exception type to be thrown
    */
-  public <T, EXTYPE extends Exception> T readLockedThrowing (@Nonnull final IThrowingSupplier <T, EXTYPE> aCallable) throws EXTYPE
+  public <T, EXTYPE extends Exception> T readLockedThrowing (@Nonnull final IThrowingSupplier <? extends T, EXTYPE> aCallable) throws EXTYPE
   {
     readLock ().lock ();
     try
@@ -282,7 +282,7 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @param <T>
    *        Return type
    */
-  public <T> T writeLocked (@Nonnull final Supplier <T> aSupplier)
+  public <T> T writeLocked (@Nonnull final Supplier <? extends T> aSupplier)
   {
     writeLock ().lock ();
     try
@@ -309,7 +309,7 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @param <EXTYPE>
    *        Exception type to be thrown
    */
-  public <T, EXTYPE extends Exception> T writeLockedThrowing (@Nonnull final IThrowingSupplier <T, EXTYPE> aCallable) throws EXTYPE
+  public <T, EXTYPE extends Exception> T writeLockedThrowing (@Nonnull final IThrowingSupplier <? extends T, EXTYPE> aCallable) throws EXTYPE
   {
     writeLock ().lock ();
     try

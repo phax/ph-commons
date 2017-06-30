@@ -71,7 +71,7 @@ public class JAXBValidationBuilder <JAXBTYPE, IMPLTYPE extends JAXBValidationBui
       aMarshaller.setEventHandler (aEventHandler);
 
       // Customize on demand
-      final Consumer <Marshaller> aCustomizer = getMarshallerCustomizer ();
+      final Consumer <? super Marshaller> aCustomizer = getMarshallerCustomizer ();
       if (aCustomizer != null)
         aCustomizer.accept (aMarshaller);
 

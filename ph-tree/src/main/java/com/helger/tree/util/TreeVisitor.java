@@ -47,10 +47,10 @@ public final class TreeVisitor
                                                              extends DefaultHierarchyVisitorCallback <ITEMTYPE>
   {
     private final IHierarchyVisitorCallback <? super DATATYPE> m_aDataCallback;
-    private final IFunction <ITEMTYPE, DATATYPE> m_aConverter;
+    private final IFunction <? super ITEMTYPE, ? extends DATATYPE> m_aConverter;
 
     public HierarchyVisitorCallbackWithConversion (@Nonnull final IHierarchyVisitorCallback <? super DATATYPE> aDataCallback,
-                                                   @Nonnull final IFunction <ITEMTYPE, DATATYPE> aConverter)
+                                                   @Nonnull final IFunction <? super ITEMTYPE, ? extends DATATYPE> aConverter)
     {
       m_aDataCallback = ValueEnforcer.notNull (aDataCallback, "DataCallback");
       m_aConverter = ValueEnforcer.notNull (aConverter, "Converter");

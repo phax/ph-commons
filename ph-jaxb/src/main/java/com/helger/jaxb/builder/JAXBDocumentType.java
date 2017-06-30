@@ -77,7 +77,7 @@ public class JAXBDocumentType implements IJAXBDocumentType
    */
   public JAXBDocumentType (@Nonnull final Class <?> aClass,
                            @Nullable final List <String> aXSDPaths,
-                           @Nullable final Function <String, String> aTypeToElementNameMapper)
+                           @Nullable final Function <? super String, ? extends String> aTypeToElementNameMapper)
   {
     ValueEnforcer.notNull (aClass, "Class");
     ValueEnforcer.noNullValue (aXSDPaths, "XSDPaths");

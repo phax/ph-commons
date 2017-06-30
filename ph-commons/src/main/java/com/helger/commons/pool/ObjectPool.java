@@ -58,7 +58,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
   private final boolean [] m_aUsed;
 
   // The factory for creating objects
-  private final ISupplier <DATATYPE> m_aFactory;
+  private final ISupplier <? extends DATATYPE> m_aFactory;
 
   /**
    * Create a new object pool for a certain amount of items and a factory that
@@ -71,7 +71,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
    *        factory may not create <code>null</code> objects, as this leads to
    *        an error!
    */
-  public ObjectPool (@Nonnegative final int nItemCount, @Nonnull final ISupplier <DATATYPE> aFactory)
+  public ObjectPool (@Nonnegative final int nItemCount, @Nonnull final ISupplier <? extends DATATYPE> aFactory)
   {
     ValueEnforcer.isGT0 (nItemCount, "ItemCount");
     ValueEnforcer.notNull (aFactory, "Factory");

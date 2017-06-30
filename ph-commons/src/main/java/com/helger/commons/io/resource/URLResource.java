@@ -124,7 +124,7 @@ public class URLResource implements IReadableResource
   {
     return getInputStream (nConnectTimeoutMS,
                            nReadTimeoutMS,
-                           (Consumer <URLConnection>) null,
+                           (Consumer <? super URLConnection>) null,
                            (IMutableWrapper <IOException>) null);
   }
 
@@ -139,13 +139,16 @@ public class URLResource implements IReadableResource
                                      @CheckForSigned final int nReadTimeoutMS,
                                      @Nullable final IMutableWrapper <IOException> aExceptionHolder)
   {
-    return getInputStream (nConnectTimeoutMS, nReadTimeoutMS, (Consumer <URLConnection>) null, aExceptionHolder);
+    return getInputStream (nConnectTimeoutMS,
+                           nReadTimeoutMS,
+                           (Consumer <? super URLConnection>) null,
+                           aExceptionHolder);
   }
 
   @Nullable
   public InputStream getInputStream (@CheckForSigned final int nConnectTimeoutMS,
                                      @CheckForSigned final int nReadTimeoutMS,
-                                     @Nullable final Consumer <URLConnection> aConnectionModifier,
+                                     @Nullable final Consumer <? super URLConnection> aConnectionModifier,
                                      @Nullable final IMutableWrapper <IOException> aExceptionHolder)
   {
     return URLHelper.getInputStream (m_aURL, nConnectTimeoutMS, nReadTimeoutMS, aConnectionModifier, aExceptionHolder);

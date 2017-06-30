@@ -93,7 +93,7 @@ public interface IScope extends IMutableAttributeContainerAny <String>, IHasID <
    *        The consumer to be executed. May not be <code>null</code>. The
    *        parameter to the runnable is <code>this</code> scope.
    */
-  void runAtomic (@Nonnull final Consumer <IScope> aConsumer);
+  void runAtomic (@Nonnull final Consumer <? super IScope> aConsumer);
 
   /**
    * Perform stuff as a single action. All actions are executed in a write-lock!
@@ -106,7 +106,7 @@ public interface IScope extends IMutableAttributeContainerAny <String>, IHasID <
    *        The return type of the callable
    */
   @Nullable
-  <T> T runAtomic (@Nonnull final Function <IScope, T> aFunction);
+  <T> T runAtomic (@Nonnull final Function <? super IScope, ? extends T> aFunction);
 
   /**
    * @return The non-<code>null</code> map with all contained attributes that

@@ -64,14 +64,14 @@ public final class EnumHelper
 
   @Nonnull
   public static <ENUMTYPE extends Enum <ENUMTYPE>> ENUMTYPE findFirst (@Nonnull final Class <ENUMTYPE> aClass,
-                                                                       @Nullable final Predicate <ENUMTYPE> aFilter)
+                                                                       @Nullable final Predicate <? super ENUMTYPE> aFilter)
   {
     return findFirst (aClass, aFilter, null);
   }
 
   @Nonnull
   public static <ENUMTYPE extends Enum <ENUMTYPE>> ENUMTYPE findFirst (@Nonnull final Class <ENUMTYPE> aClass,
-                                                                       @Nullable final Predicate <ENUMTYPE> aFilter,
+                                                                       @Nullable final Predicate <? super ENUMTYPE> aFilter,
                                                                        @Nullable final ENUMTYPE eDefault)
   {
     return ArrayHelper.findFirst (aClass.getEnumConstants (), aFilter, eDefault);

@@ -81,7 +81,7 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
   private final Class <JAXBTYPE> m_aImplClass;
   private ValidationEventHandler m_aEventHandler = JAXBBuilderDefaultSettings.getDefaultValidationEventHandler ();
   private IExceptionCallback <JAXBException> m_aExceptionHandler = new DefaultExceptionHandler ();
-  private Consumer <Unmarshaller> m_aUnmarshallerCustomizer;
+  private Consumer <? super Unmarshaller> m_aUnmarshallerCustomizer;
   private boolean m_bReadSecure = true;
 
   public JAXBReaderBuilder (@Nonnull final IJAXBDocumentType aDocType)
@@ -140,13 +140,13 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
   }
 
   @Nullable
-  public Consumer <Unmarshaller> getUnmarshallerCustomizer ()
+  public Consumer <? super Unmarshaller> getUnmarshallerCustomizer ()
   {
     return m_aUnmarshallerCustomizer;
   }
 
   @Nonnull
-  public IMPLTYPE setUnmarshallerCustomizer (@Nullable final Consumer <Unmarshaller> aUnmarshallerCustomizer)
+  public IMPLTYPE setUnmarshallerCustomizer (@Nullable final Consumer <? super Unmarshaller> aUnmarshallerCustomizer)
   {
     m_aUnmarshallerCustomizer = aUnmarshallerCustomizer;
     return thisAsT ();

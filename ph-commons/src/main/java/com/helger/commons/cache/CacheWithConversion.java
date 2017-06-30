@@ -61,7 +61,7 @@ public class CacheWithConversion <KEYTYPE, VALUETYPE> extends AbstractCache <KEY
    */
   @Nonnull
   public final VALUETYPE getFromCache (@Nonnull final KEYTYPE aKey,
-                                       @Nonnull final Function <KEYTYPE, VALUETYPE> aValueRetriever)
+                                       @Nonnull final Function <? super KEYTYPE, ? extends VALUETYPE> aValueRetriever)
   {
     // Already in the cache?
     VALUETYPE aValue = super.getFromCacheNoStats (aKey);

@@ -64,7 +64,7 @@ public final class ClassPathHelper
    *        The target consumer invoked for all entries. May not be
    *        <code>null</code>.
    */
-  public static void forAllClassPathEntries (@Nonnull final Consumer <String> aConsumer)
+  public static void forAllClassPathEntries (@Nonnull final Consumer <? super String> aConsumer)
   {
     StringHelper.explode (SystemProperties.getPathSeparator (), SystemProperties.getJavaClassPath (), -1, aConsumer);
   }

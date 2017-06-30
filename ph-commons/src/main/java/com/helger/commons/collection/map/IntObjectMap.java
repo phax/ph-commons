@@ -116,7 +116,7 @@ public class IntObjectMap <T> implements Serializable
   }
 
   @Nullable
-  public T computeIfAbsent (final int key, @Nonnull final IntFunction <T> aProvider)
+  public T computeIfAbsent (final int key, @Nonnull final IntFunction <? extends T> aProvider)
   {
     T ret = get (key);
     if (ret == null)

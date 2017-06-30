@@ -834,7 +834,7 @@ public final class URLHelper
   public static InputStream getInputStream (@Nonnull final URL aURL,
                                             @CheckForSigned final int nConnectTimeoutMS,
                                             @CheckForSigned final int nReadTimeoutMS,
-                                            @Nullable final Consumer <URLConnection> aConnectionModifier,
+                                            @Nullable final Consumer <? super URLConnection> aConnectionModifier,
                                             @Nullable final IMutableWrapper <IOException> aExceptionHolder)
   {
     ValueEnforcer.notNull (aURL, "URL");

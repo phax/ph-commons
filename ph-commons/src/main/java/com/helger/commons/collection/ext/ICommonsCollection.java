@@ -295,7 +295,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @see #add(Object)
    */
   @Nonnull
-  default EChange addIf (@Nullable final ELEMENTTYPE aElement, @Nullable final Predicate <ELEMENTTYPE> aFilter)
+  default EChange addIf (@Nullable final ELEMENTTYPE aElement, @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     if (aFilter != null && !aFilter.test (aElement))
       return EChange.UNCHANGED;

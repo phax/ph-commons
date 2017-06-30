@@ -98,13 +98,13 @@ public class MutableBoolean implements IMutableObject <MutableBoolean>
   }
 
   @Nullable
-  public <T> T getIf (@Nonnull final Supplier <T> aSupplier)
+  public <T> T getIf (@Nonnull final Supplier <? extends T> aSupplier)
   {
     return getIf (aSupplier, null);
   }
 
   @Nullable
-  public <T> T getIf (@Nonnull final Supplier <T> aSupplier, @Nullable final T aDefault)
+  public <T> T getIf (@Nonnull final Supplier <? extends T> aSupplier, @Nullable final T aDefault)
   {
     if (m_bValue)
       return aSupplier.get ();

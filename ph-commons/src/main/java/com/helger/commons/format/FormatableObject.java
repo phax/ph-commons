@@ -38,7 +38,7 @@ public class FormatableObject <DATATYPE> implements IFormatableObject <DATATYPE>
   private final DATATYPE m_aValue;
 
   /** The optional formatter to use. */
-  private final IFunction <DATATYPE, String> m_aFormatter;
+  private final IFunction <? super DATATYPE, ? extends String> m_aFormatter;
 
   /**
    * Init the field with a value.
@@ -48,7 +48,8 @@ public class FormatableObject <DATATYPE> implements IFormatableObject <DATATYPE>
    * @param aFormatter
    *        The optional formatter to use. May be <code>null</code>.
    */
-  public FormatableObject (@Nullable final DATATYPE aValue, @Nullable final IFunction <DATATYPE, String> aFormatter)
+  public FormatableObject (@Nullable final DATATYPE aValue,
+                           @Nullable final IFunction <? super DATATYPE, ? extends String> aFormatter)
   {
     m_aValue = aValue;
     m_aFormatter = aFormatter;
@@ -61,7 +62,7 @@ public class FormatableObject <DATATYPE> implements IFormatableObject <DATATYPE>
   }
 
   @Nullable
-  public IFunction <DATATYPE, String> getFormatter ()
+  public IFunction <? super DATATYPE, ? extends String> getFormatter ()
   {
     return m_aFormatter;
   }

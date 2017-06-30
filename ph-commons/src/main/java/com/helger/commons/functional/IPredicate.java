@@ -89,19 +89,19 @@ public interface IPredicate <T> extends Predicate <T>, Serializable
   @Nonnull
   default IPredicate <T> negate ()
   {
-    return (x) -> !test (x);
+    return x -> !test (x);
   }
 
   @Nonnull
   static <DATATYPE> IPredicate <DATATYPE> all ()
   {
-    return (x) -> true;
+    return x -> true;
   }
 
   @Nonnull
   static <DATATYPE> IPredicate <DATATYPE> none ()
   {
-    return (x) -> false;
+    return x -> false;
   }
 
   @Nonnull

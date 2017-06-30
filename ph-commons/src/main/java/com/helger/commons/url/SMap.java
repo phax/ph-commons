@@ -108,7 +108,7 @@ public class SMap extends CommonsLinkedHashMap <String, String>
   @Nonnull
   public final SMap addIf (@Nonnull final String sName,
                            @Nullable final String sValue,
-                           @Nonnull final Predicate <String> aFilter)
+                           @Nonnull final Predicate <? super String> aFilter)
   {
     super.putIf (sName, sValue, aFilter);
     return this;

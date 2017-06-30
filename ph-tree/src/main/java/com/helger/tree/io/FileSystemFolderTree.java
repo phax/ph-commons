@@ -43,8 +43,8 @@ public class FileSystemFolderTree extends DefaultFolderTree <String, File, IComm
 {
   private static void _iterate (@Nonnull final DefaultFolderTreeItem <String, File, ICommonsList <File>> aTreeItem,
                                 @Nonnull final File aDir,
-                                @Nullable final Predicate <File> aDirFilter,
-                                @Nullable final Predicate <File> aFileFilter)
+                                @Nullable final Predicate <? super File> aDirFilter,
+                                @Nullable final Predicate <? super File> aFileFilter)
   {
     if (aDir != null)
       for (final File aChild : FileHelper.getDirectoryContent (aDir))
@@ -79,19 +79,19 @@ public class FileSystemFolderTree extends DefaultFolderTree <String, File, IComm
 
   public FileSystemFolderTree (@Nonnull final File aStartDir)
   {
-    this (aStartDir, (Predicate <File>) null, (Predicate <File>) null);
+    this (aStartDir, (Predicate <? super File>) null, (Predicate <? super File>) null);
   }
 
   public FileSystemFolderTree (@Nonnull final String sStartDir,
-                               @Nullable final Predicate <File> aDirFilter,
-                               @Nullable final Predicate <File> aFileFilter)
+                               @Nullable final Predicate <? super File> aDirFilter,
+                               @Nullable final Predicate <? super File> aFileFilter)
   {
     this (new File (sStartDir), aDirFilter, aFileFilter);
   }
 
   public FileSystemFolderTree (@Nonnull final File aStartDir,
-                               @Nullable final Predicate <File> aDirFilter,
-                               @Nullable final Predicate <File> aFileFilter)
+                               @Nullable final Predicate <? super File> aDirFilter,
+                               @Nullable final Predicate <? super File> aFileFilter)
   {
     super (IAggregator.createStringIgnoreEmpty ('/'));
     ValueEnforcer.notNull (aStartDir, "StartDirectory");

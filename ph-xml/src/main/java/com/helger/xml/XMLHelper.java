@@ -154,46 +154,46 @@ public final class XMLHelper
   }
 
   @Nonnull
-  public static IPredicate <Node> filterNodeIsElement ()
+  public static IPredicate <? super Node> filterNodeIsElement ()
   {
     return x -> x != null && x.getNodeType () == Node.ELEMENT_NODE;
   }
 
   @Nonnull
-  public static IPredicate <Element> filterElementWithNamespace ()
+  public static IPredicate <? super Element> filterElementWithNamespace ()
   {
     return x -> x != null && StringHelper.hasText (x.getNamespaceURI ());
   }
 
   @Nonnull
-  public static IPredicate <Element> filterElementWithoutNamespace ()
+  public static IPredicate <? super Element> filterElementWithoutNamespace ()
   {
     return x -> x != null && hasNoNamespaceURI (x);
   }
 
   @Nonnull
-  public static IPredicate <Element> filterElementWithNamespace (@Nullable final String sNamespaceURI)
+  public static IPredicate <? super Element> filterElementWithNamespace (@Nullable final String sNamespaceURI)
   {
     return x -> x != null && hasNamespaceURI (x, sNamespaceURI);
   }
 
   @Nonnull
-  public static IPredicate <Element> filterElementWithNamespaceAndLocalName (@Nullable final String sNamespaceURI,
-                                                                             @Nonnull @Nonempty final String sLocalName)
+  public static IPredicate <? super Element> filterElementWithNamespaceAndLocalName (@Nullable final String sNamespaceURI,
+                                                                                     @Nonnull @Nonempty final String sLocalName)
   {
     ValueEnforcer.notEmpty (sLocalName, "LocalName");
     return x -> x != null && hasNamespaceURI (x, sNamespaceURI) && x.getLocalName ().equals (sLocalName);
   }
 
   @Nonnull
-  public static IPredicate <Element> filterElementWithTagName (@Nonnull @Nonempty final String sTagName)
+  public static IPredicate <? super Element> filterElementWithTagName (@Nonnull @Nonempty final String sTagName)
   {
     ValueEnforcer.notEmpty (sTagName, "TagName");
     return x -> EqualsHelper.equals (getElementName (x), sTagName);
   }
 
   @Nonnull
-  public static IPredicate <Element> filterElementWithTagNameNoNS (@Nonnull @Nonempty final String sTagName)
+  public static IPredicate <? super Element> filterElementWithTagNameNoNS (@Nonnull @Nonempty final String sTagName)
   {
     ValueEnforcer.notEmpty (sTagName, "TagName");
     return x -> hasNoNamespaceURI (x) && x.getTagName ().equals (sTagName);
@@ -750,13 +750,14 @@ public final class XMLHelper
     return ret;
   }
 
-  public static void forAllAttributes (@Nullable final Element aSrcNode, @Nonnull final Consumer <Attr> aConsumer)
+  public static void forAllAttributes (@Nullable final Element aSrcNode,
+                                       @Nonnull final Consumer <? super Attr> aConsumer)
   {
     NamedNodeMapIterator.createAttributeIterator (aSrcNode).forEach (x -> aConsumer.accept ((Attr) x));
   }
 
   public static void forAllAttributes (@Nullable final Element aSrcNode,
-                                       @Nonnull final BiConsumer <String, String> aConsumer)
+                                       @Nonnull final BiConsumer <? super String, ? super String> aConsumer)
   {
     forAllAttributes (aSrcNode, x -> aConsumer.accept (x.getName (), x.getValue ()));
   }

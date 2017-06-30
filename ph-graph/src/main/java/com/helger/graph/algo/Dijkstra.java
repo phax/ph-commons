@@ -130,7 +130,7 @@ public final class Dijkstra
     public WorkRow (@Nonnegative final int nElements)
     {
       ValueEnforcer.isGT0 (nElements, "Elements");
-      m_aElements = new CommonsLinkedHashMap<> (nElements);
+      m_aElements = new CommonsLinkedHashMap <> (nElements);
     }
 
     public void add (@Nonnull final WorkElement <N> aElement)
@@ -247,7 +247,7 @@ public final class Dijkstra
   public static <N extends IMutableBaseGraphNode <N, R>, R extends IMutableBaseGraphRelation <N, R>> Dijkstra.Result <N> applyDijkstra (@Nonnull final IMutableBaseGraph <N, R> aGraph,
                                                                                                                                         @Nonnull @Nonempty final String sFromID,
                                                                                                                                         @Nonnull @Nonempty final String sToID,
-                                                                                                                                        @Nonnull final ToIntFunction <R> aRelationCostProvider)
+                                                                                                                                        @Nonnull final ToIntFunction <? super R> aRelationCostProvider)
   {
     final N aStartNode = aGraph.getNodeOfID (sFromID);
     if (aStartNode == null)
@@ -257,7 +257,7 @@ public final class Dijkstra
       throw new IllegalArgumentException ("Invalid To ID: " + sToID);
 
     // Ordered set for deterministic results
-    final ICommonsOrderedSet <N> aAllRemainingNodes = new CommonsLinkedHashSet<> (aGraph.getAllNodes ().values ());
+    final ICommonsOrderedSet <N> aAllRemainingNodes = new CommonsLinkedHashSet <> (aGraph.getAllNodes ().values ());
 
     if (GlobalDebug.isDebugMode ())
       s_aLogger.info ("Starting Dijkstra on directed graph with " +
@@ -269,13 +269,13 @@ public final class Dijkstra
                       "'");
 
     // Map from to-node-id to element
-    final ICommonsOrderedMap <String, WorkElement <N>> aAllMatches = new CommonsLinkedHashMap<> ();
+    final ICommonsOrderedMap <String, WorkElement <N>> aAllMatches = new CommonsLinkedHashMap <> ();
     WorkElement <N> aLastMatch = null;
     WorkRow <N> aLastRow = null;
     int nIteration = 0;
     do
     {
-      final WorkRow <N> aRow = new WorkRow<> (aAllRemainingNodes.size ());
+      final WorkRow <N> aRow = new WorkRow <> (aAllRemainingNodes.size ());
       if (aLastRow == null)
       {
         // Initial row - no from node
@@ -283,13 +283,13 @@ public final class Dijkstra
           if (aNode.equals (aStartNode))
           {
             // Start node has distance 0 to itself
-            aRow.add (new WorkElement<> (0, aNode));
+            aRow.add (new WorkElement <> (0, aNode));
           }
           else
           {
             // All other elements have infinite distance to the start node (for
             // now)
-            aRow.add (new WorkElement<> (Integer.MAX_VALUE, aNode));
+            aRow.add (new WorkElement <> (Integer.MAX_VALUE, aNode));
           }
       }
       else
@@ -310,7 +310,7 @@ public final class Dijkstra
 
             // Use only, if distance is shorter (=better) than before!
             if (nNewDistance < aPrevElement.getDistance ())
-              aRow.add (new WorkElement<> (aLastMatch.getToNode (), nNewDistance, aNode));
+              aRow.add (new WorkElement <> (aLastMatch.getToNode (), nNewDistance, aNode));
             else
               aRow.add (aPrevElement);
           }
@@ -349,7 +349,7 @@ public final class Dijkstra
 
     // Now get the result path from back to front
     final int nResultDistance = aLastMatch.getDistance ();
-    final ICommonsList <N> aResultNodes = new CommonsArrayList<> ();
+    final ICommonsList <N> aResultNodes = new CommonsArrayList <> ();
     while (true)
     {
       aResultNodes.add (0, aLastMatch.getToNode ());
@@ -362,6 +362,6 @@ public final class Dijkstra
     }
 
     // Results
-    return new Dijkstra.Result<> (aResultNodes, nResultDistance);
+    return new Dijkstra.Result <> (aResultNodes, nResultDistance);
   }
 }

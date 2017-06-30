@@ -170,7 +170,7 @@ public class JsonObject implements IJsonObject
     return m_aValues.getClone ();
   }
 
-  public void forEach (@Nonnull final BiConsumer <String, IJson> aConsumer)
+  public void forEach (@Nonnull final BiConsumer <? super String, ? super IJson> aConsumer)
   {
     m_aValues.forEach (aConsumer);
   }

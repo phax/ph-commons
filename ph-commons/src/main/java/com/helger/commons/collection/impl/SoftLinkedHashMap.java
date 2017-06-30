@@ -49,7 +49,7 @@ public class SoftLinkedHashMap <K, V> extends AbstractSoftMap <K, V>
     // Note: 0.75f is the same as HashMap.DEFAULT_LOAD_FACTOR
     private static final float DEFAULT_LOAD_FACTOR = 0.75f;
 
-    private IPredicate <Map.Entry <K, V>> m_aFilter;
+    private IPredicate <? super Map.Entry <K, V>> m_aFilter;
 
     public InternalLinkedHashMap (@Nonnegative final int nMaxSize)
     {
@@ -59,14 +59,14 @@ public class SoftLinkedHashMap <K, V> extends AbstractSoftMap <K, V>
     @Override
     protected final boolean removeEldestEntry (@Nonnull final Map.Entry <K, SoftValue <K, V>> aEldest)
     {
-      final MapEntry <K, V> aEntry = new MapEntry<> (aEldest.getKey (), aEldest.getValue ().get ());
+      final MapEntry <K, V> aEntry = new MapEntry <> (aEldest.getKey (), aEldest.getValue ().get ());
       return m_aFilter.test (aEntry);
     }
   }
 
   public SoftLinkedHashMap (@Nonnegative final int nMaxSize)
   {
-    super (new InternalLinkedHashMap<> (nMaxSize));
+    super (new InternalLinkedHashMap <> (nMaxSize));
     m_nMaxSize = nMaxSize;
     // Must be set explicitly for dependency handling
     ((InternalLinkedHashMap <K, V>) m_aSrcMap).m_aFilter = aEldest -> {
@@ -109,7 +109,7 @@ public class SoftLinkedHashMap <K, V> extends AbstractSoftMap <K, V>
   @ReturnsMutableCopy
   public SoftLinkedHashMap <K, V> getClone ()
   {
-    final SoftLinkedHashMap <K, V> ret = new SoftLinkedHashMap<> (m_nMaxSize);
+    final SoftLinkedHashMap <K, V> ret = new SoftLinkedHashMap <> (m_nMaxSize);
     ret.putAll (this);
     return ret;
   }

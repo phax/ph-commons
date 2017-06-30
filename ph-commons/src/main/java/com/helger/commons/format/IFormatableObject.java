@@ -42,7 +42,7 @@ public interface IFormatableObject <DATATYPE>
    *         <code>null</code>.
    */
   @Nullable
-  IFunction <DATATYPE, String> getFormatter ();
+  IFunction <? super DATATYPE, ? extends String> getFormatter ();
 
   /**
    * Get the value converted to a string with the specified formatter.

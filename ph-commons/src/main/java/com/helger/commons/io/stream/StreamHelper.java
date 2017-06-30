@@ -16,27 +16,7 @@
  */
 package com.helger.commons.io.stream;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.DataInput;
-import java.io.DataInputStream;
-import java.io.DataOutput;
-import java.io.DataOutputStream;
-import java.io.EOFException;
-import java.io.Flushable;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Reader;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.io.Writer;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -1142,7 +1122,7 @@ public final class StreamHelper
    */
   public static void readStreamLines (@WillClose @Nullable final InputStream aIS,
                                       @Nonnull @Nonempty final Charset aCharset,
-                                      @Nonnull final Consumer <String> aLineCallback)
+                                      @Nonnull final Consumer <? super String> aLineCallback)
   {
     if (aIS != null)
       readStreamLines (aIS, aCharset, 0, CGlobal.ILLEGAL_UINT, aLineCallback);
@@ -1150,7 +1130,7 @@ public final class StreamHelper
 
   private static void _readFromReader (final int nLinesToSkip,
                                        final int nLinesToRead,
-                                       final Consumer <String> aLineCallback,
+                                       final Consumer <? super String> aLineCallback,
                                        final boolean bReadAllLines,
                                        final NonBlockingBufferedReader aBR) throws IOException
   {
@@ -1215,7 +1195,7 @@ public final class StreamHelper
                                       @Nonnull @Nonempty final Charset aCharset,
                                       @Nonnegative final int nLinesToSkip,
                                       final int nLinesToRead,
-                                      @Nonnull final Consumer <String> aLineCallback)
+                                      @Nonnull final Consumer <? super String> aLineCallback)
   {
     ValueEnforcer.notNull (aCharset, "Charset");
     ValueEnforcer.isGE0 (nLinesToSkip, "LinesToSkip");
@@ -1469,7 +1449,7 @@ public final class StreamHelper
 
   private static void _readUntilEOF (@Nonnull @WillNotClose final InputStream aIS,
                                      @Nonnull final byte [] aBuffer,
-                                     @Nonnull final ObjIntConsumer <byte []> aConsumer) throws IOException
+                                     @Nonnull final ObjIntConsumer <? super byte []> aConsumer) throws IOException
   {
     ValueEnforcer.notNull (aIS, "InputStream");
     ValueEnforcer.notNull (aBuffer, "Buffer");
@@ -1482,14 +1462,14 @@ public final class StreamHelper
   }
 
   public static void readUntilEOF (@Nonnull @WillClose final InputStream aIS,
-                                   @Nonnull final ObjIntConsumer <byte []> aConsumer) throws IOException
+                                   @Nonnull final ObjIntConsumer <? super byte []> aConsumer) throws IOException
   {
     readUntilEOF (aIS, new byte [DEFAULT_BUFSIZE], aConsumer);
   }
 
   public static void readUntilEOF (@Nonnull @WillClose final InputStream aIS,
                                    @Nonnull final byte [] aBuffer,
-                                   @Nonnull final ObjIntConsumer <byte []> aConsumer) throws IOException
+                                   @Nonnull final ObjIntConsumer <? super byte []> aConsumer) throws IOException
   {
     ValueEnforcer.notNull (aIS, "InputStream");
     ValueEnforcer.notNull (aBuffer, "Buffer");
@@ -1507,7 +1487,7 @@ public final class StreamHelper
 
   private static void _readUntilEOF (@Nonnull @WillNotClose final Reader aReader,
                                      @Nonnull final char [] aBuffer,
-                                     @Nonnull final ObjIntConsumer <char []> aConsumer) throws IOException
+                                     @Nonnull final ObjIntConsumer <? super char []> aConsumer) throws IOException
   {
     ValueEnforcer.notNull (aReader, "Reader");
     ValueEnforcer.notNull (aBuffer, "Buffer");
@@ -1520,14 +1500,14 @@ public final class StreamHelper
   }
 
   public static void readUntilEOF (@Nonnull @WillClose final Reader aReader,
-                                   @Nonnull final ObjIntConsumer <char []> aConsumer) throws IOException
+                                   @Nonnull final ObjIntConsumer <? super char []> aConsumer) throws IOException
   {
     readUntilEOF (aReader, new char [DEFAULT_BUFSIZE], aConsumer);
   }
 
   public static void readUntilEOF (@Nonnull @WillClose final Reader aReader,
                                    @Nonnull final char [] aBuffer,
-                                   @Nonnull final ObjIntConsumer <char []> aConsumer) throws IOException
+                                   @Nonnull final ObjIntConsumer <? super char []> aConsumer) throws IOException
   {
     ValueEnforcer.notNull (aReader, "Reader");
     ValueEnforcer.notNull (aBuffer, "Buffer");

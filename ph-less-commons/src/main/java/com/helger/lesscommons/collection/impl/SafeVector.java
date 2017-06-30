@@ -47,14 +47,14 @@ import com.helger.commons.string.ToStringGenerator;
 public class SafeVector <ELEMENTTYPE> extends CommonsVector <ELEMENTTYPE>
 {
   @MustImplementEqualsAndHashcode
-  private final ISupplier <ELEMENTTYPE> m_aFactory;
+  private final ISupplier <? extends ELEMENTTYPE> m_aFactory;
 
   /**
    * Constructor filling up the missing elements with <code>null</code> values.
    */
   public SafeVector ()
   {
-    this ( () -> null);
+    this (ISupplier.allNull ());
   }
 
   /**
@@ -63,7 +63,7 @@ public class SafeVector <ELEMENTTYPE> extends CommonsVector <ELEMENTTYPE>
    * @param aFactory
    *        The factory to use. May not be <code>null</code>.
    */
-  public SafeVector (@Nonnull final ISupplier <ELEMENTTYPE> aFactory)
+  public SafeVector (@Nonnull final ISupplier <? extends ELEMENTTYPE> aFactory)
   {
     m_aFactory = ValueEnforcer.notNull (aFactory, "Factory");
   }
@@ -73,7 +73,7 @@ public class SafeVector <ELEMENTTYPE> extends CommonsVector <ELEMENTTYPE>
    *         constructor.
    */
   @Nonnull
-  public ISupplier <ELEMENTTYPE> getFactory ()
+  public ISupplier <? extends ELEMENTTYPE> getFactory ()
   {
     return m_aFactory;
   }
