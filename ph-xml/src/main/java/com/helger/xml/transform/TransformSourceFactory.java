@@ -22,6 +22,7 @@ import java.io.Reader;
 import java.net.URI;
 import java.net.URL;
 import java.nio.ByteBuffer;
+import java.nio.file.Path;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -59,6 +60,12 @@ public final class TransformSourceFactory
   public static StreamSource create (@Nonnull final File aFile)
   {
     return new StreamSource (aFile);
+  }
+
+  @Nonnull
+  public static StreamSource create (@Nonnull final Path aPath)
+  {
+    return new StreamSource (aPath.toFile ());
   }
 
   @Nonnull

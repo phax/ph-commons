@@ -24,6 +24,7 @@ import java.io.Writer;
 import java.net.URI;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.nio.file.Path;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -87,6 +88,11 @@ public class FileSystemResource implements IReadWriteResource
     // Note: cache absolute path for performance reasons
     // Note: this path always uses the platform dependent path separator
     m_sPath = m_aFile.getAbsolutePath ();
+  }
+
+  public FileSystemResource (@Nonnull final Path aPath)
+  {
+    this (aPath.toFile ());
   }
 
   @Nonnull

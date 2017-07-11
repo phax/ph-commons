@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.Reader;
 import java.nio.ByteBuffer;
+import java.nio.file.Path;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -133,6 +134,21 @@ public interface IJAXBReader <JAXBTYPE>
   {
     ValueEnforcer.notNull (aFile, "File");
     return read (InputSourceFactory.create (aFile));
+  }
+
+  /**
+   * Read a document from the specified Path. The secure reading feature has
+   * affect when using this method.
+   *
+   * @param aPath
+   *        The path to read. May not be <code>null</code>.
+   * @return <code>null</code> in case reading fails.
+   */
+  @Nullable
+  default JAXBTYPE read (@Nonnull final Path aPath)
+  {
+    ValueEnforcer.notNull (aPath, "Path");
+    return read (InputSourceFactory.create (aPath));
   }
 
   /**

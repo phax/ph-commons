@@ -22,6 +22,7 @@ import java.io.Reader;
 import java.net.URI;
 import java.net.URL;
 import java.nio.ByteBuffer;
+import java.nio.file.Path;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -59,6 +60,12 @@ public final class InputSourceFactory
   public static InputSource create (@Nonnull final File aFile)
   {
     return create (new FileSystemResource (aFile));
+  }
+
+  @Nullable
+  public static InputSource create (@Nonnull final Path aPath)
+  {
+    return create (new FileSystemResource (aPath));
   }
 
   @Nonnull
