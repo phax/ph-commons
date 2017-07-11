@@ -280,7 +280,7 @@ public class DefaultResourceResolver
       return ret;
     }
 
-    final File aParent = aBaseFile.getParentFile ();
+    final File aParent = aBaseFile.isDirectory () ? aBaseFile : aBaseFile.getParentFile ();
     final File aRealFile = new File (aParent, aSystemFile.getPath ());
     // path is cleaned (canonicalized) inside FileSystemResource
     final FileSystemResource ret = new FileSystemResource (aRealFile);

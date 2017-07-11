@@ -76,7 +76,7 @@ public final class SystemProperties
   public static final String SYSTEM_PROPERTY_SUN_IO_SERIALIZATION_EXTENDEDDEBUGINFO = "sun.io.serialization.extendedDebugInfo";
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (SystemProperties.class);
-  private static final ICommonsSet <String> s_aWarnedPropertyNames = new CommonsCopyOnWriteArraySet<> ();
+  private static final ICommonsSet <String> s_aWarnedPropertyNames = new CommonsCopyOnWriteArraySet <> ();
 
   @PresentForCodeCoverage
   private static final SystemProperties s_aInstance = new SystemProperties ();
@@ -124,7 +124,7 @@ public final class SystemProperties
   public static ICommonsSet <String> getAllWarnedPropertyNames ()
   {
     // Convert from CopyOnWrite to regular HashSet
-    return new CommonsHashSet<> (s_aWarnedPropertyNames);
+    return new CommonsHashSet <> (s_aWarnedPropertyNames);
   }
 
   /**
@@ -183,12 +183,17 @@ public final class SystemProperties
    */
   public static void setPropertyValue (@Nonnull final String sKey, @Nullable final String sValue)
   {
+    boolean bChanged;
     if (sValue == null)
-      removePropertyValue (sKey);
+    {
+      // Was something removed?
+      bChanged = removePropertyValue (sKey) != null;
+    }
     else
     {
-      IPrivilegedAction.systemSetProperty (sKey, sValue).invokeSafe ();
-      if (s_aLogger.isDebugEnabled ())
+      final String sOld = IPrivilegedAction.systemSetProperty (sKey, sValue).invokeSafe ();
+      bChanged = sOld != null && !sValue.equals (sOld);
+      if (s_aLogger.isDebugEnabled () && bChanged)
         s_aLogger.debug ("Set system property '" + sKey + "' to '" + sValue + "'");
     }
   }
@@ -398,7 +403,7 @@ public final class SystemProperties
   {
     final Properties aProperties = IPrivilegedAction.systemGetProperties ().invokeSafe ();
     if (aProperties == null)
-      return new CommonsHashMap<> ();
+      return new CommonsHashMap <> ();
     return PropertiesHelper.getAsStringMap (aProperties);
   }
 
