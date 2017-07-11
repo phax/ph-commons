@@ -134,7 +134,16 @@ public class DefaultResourceResolver
     final String sNewPath = FilenameHelper.getCleanPath (aBaseFile == null ? sSystemId
                                                                            : aBaseFile.getPath () + '/' + sSystemId);
 
-    final URLResource ret = new URLResource (sPrefix + sNewPath);
+    String sAggregatedPath;
+    if (sPrefix.endsWith ("/") && sNewPath.startsWith ("/"))
+    {
+      // Avoid "//"
+      sAggregatedPath = sPrefix + sNewPath.substring (1);
+    }
+    else
+      sAggregatedPath = sPrefix + sNewPath;
+
+    final URLResource ret = new URLResource (sAggregatedPath);
     if (DEBUG_RESOLVE)
       s_aLogger.info ("  [JarFile] resolved base + system to " + ret);
     return ret;

@@ -189,6 +189,14 @@ public final class DefaultResourceResolverTest
                                                           "jar:file:/C:/Users/tore99/IdeaProjects/pia/pia-webapp/build/libs/pia.jar!/BOOT-INF/lib/ph-ubl21-3.3.0.jar!/schemas/ubl21/maindoc/UBL-Invoice-2.1.xsd");
       assertEquals ("jar:file:/C:/Users/tore99/IdeaProjects/pia/pia-webapp/build/libs/pia.jar!/BOOT-INF/lib/ph-ubl21-3.3.0.jar!/schemas/ubl21/file.txt",
                     aRes.getPath ());
+
+      // Extended tests
+      aRes = DefaultResourceResolver.getResolvedResource ("file.txt", "jar:file:/C:/x.jar!/");
+      assertEquals ("jar:file:/C:/x.jar!/file.txt", aRes.getPath ());
+      aRes = DefaultResourceResolver.getResolvedResource ("/file.txt", "jar:file:/C:/x.jar!/");
+      assertEquals ("jar:file:/C:/x.jar!/file.txt", aRes.getPath ());
+      aRes = DefaultResourceResolver.getResolvedResource ("../file.txt", "jar:file:/C:/x.jar!/");
+      assertEquals ("jar:file:/C:/x.jar!/../file.txt", aRes.getPath ());
     }
 
     try
