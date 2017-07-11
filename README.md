@@ -45,6 +45,7 @@ This project was the following modules:
     * Extended `CSVWriter` API
     * `SimpleLSResourceResolver` can now handle fat jars from Spring Boot (issue #8)
     * Extracted `DefaultResourceResolver` from `SimpleLSResourceResolver` and added in ph-commons
+    * Added rudimentary support for `Path` based APIs
   * v8.6.5 - 2017-05-19
     * Deprecated all default Mutable* constructors, because the default values were partially confusing
     * Added new class `DefaultEntityResolver` using a base URL for resolving.

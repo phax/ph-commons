@@ -19,6 +19,7 @@ package com.helger.xml.transform;
 import java.io.File;
 import java.io.OutputStream;
 import java.io.Writer;
+import java.nio.file.Path;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -50,6 +51,12 @@ public final class TransformResultFactory
   public static StreamResult create (@Nonnull final File aFile)
   {
     return new StreamResult (aFile);
+  }
+
+  @Nonnull
+  public static StreamResult create (@Nonnull final Path aPath)
+  {
+    return new StreamResult (aPath.toFile ());
   }
 
   @Nonnull

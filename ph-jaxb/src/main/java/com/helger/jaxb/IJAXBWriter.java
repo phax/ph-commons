@@ -22,6 +22,7 @@ import java.io.Writer;
 import java.nio.BufferOverflowException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
+import java.nio.file.Path;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -120,6 +121,21 @@ public interface IJAXBWriter <JAXBTYPE>
   default ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull final File aResultFile)
   {
     return write (aObject, TransformResultFactory.create (aResultFile));
+  }
+
+  /**
+   * Write the passed object to a {@link Path}.
+   *
+   * @param aObject
+   *        The object to be written. May not be <code>null</code>.
+   * @param aResultPath
+   *        The result path to be written to. May not be <code>null</code>.
+   * @return {@link ESuccess}
+   */
+  @Nonnull
+  default ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull final Path aResultPath)
+  {
+    return write (aObject, TransformResultFactory.create (aResultPath));
   }
 
   /**
