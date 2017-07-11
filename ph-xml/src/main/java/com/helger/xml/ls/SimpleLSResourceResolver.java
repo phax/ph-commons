@@ -16,8 +16,6 @@
  */
 package com.helger.xml.ls;
 
-import java.io.IOException;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -27,7 +25,6 @@ import org.w3c.dom.ls.LSInput;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resourceresolver.DefaultResourceResolver;
 import com.helger.commons.lang.IHasClassLoader;
@@ -58,58 +55,6 @@ public class SimpleLSResourceResolver extends AbstractLSResourceResolver impleme
   public ClassLoader getClassLoader ()
   {
     return m_aClassLoader;
-  }
-
-  /**
-   * Do the standard resource resolving of sSystemId relative to sBaseURI
-   *
-   * @param sSystemId
-   *        The resource to search. May be <code>null</code> if base URI is set.
-   * @param sBaseURI
-   *        The base URI from where the search is initiated. May be
-   *        <code>null</code> if systemId is set.
-   * @return The non-<code>null</code> resource. May be non-existing!
-   * @throws IOException
-   *         In case the file resolution (to an absolute file) fails.
-   */
-  @Nonnull
-  @Deprecated
-  public static IReadableResource doStandardResourceResolving (@Nullable final String sSystemId,
-                                                               @Nullable final String sBaseURI) throws IOException
-  {
-    return DefaultResourceResolver.getResolvedResource (sSystemId, sBaseURI);
-  }
-
-  @Deprecated
-  public static boolean isExplicitJarFileResource (@Nullable final String sName)
-  {
-    return DefaultResourceResolver.isExplicitJarFileResource (sName);
-  }
-
-  /**
-   * Do the standard resource resolving of sSystemId relative to sBaseURI
-   *
-   * @param sSystemId
-   *        The resource to search. May be relative to the base URI or absolute.
-   *        May be <code>null</code> if base URI is set.
-   * @param sBaseURI
-   *        The base URI from where the search is initiated. May be
-   *        <code>null</code> if sSystemId is set.
-   * @param aClassLoader
-   *        The class loader to be used for {@link ClassPathResource} objects.
-   *        May be <code>null</code> in which case the default class loader is
-   *        used.
-   * @return The non-<code>null</code> resource. May be non-existing!
-   * @throws IOException
-   *         In case the file resolution (to an absolute file) fails.
-   */
-  @Nonnull
-  @Deprecated
-  public static IReadableResource doStandardResourceResolving (@Nullable final String sSystemId,
-                                                               @Nullable final String sBaseURI,
-                                                               @Nullable final ClassLoader aClassLoader) throws IOException
-  {
-    return DefaultResourceResolver.getResolvedResource (sSystemId, sBaseURI, aClassLoader);
   }
 
   /**
