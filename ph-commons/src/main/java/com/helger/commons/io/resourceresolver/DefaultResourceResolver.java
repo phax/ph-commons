@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -47,12 +48,22 @@ import com.helger.commons.url.URLHelper;
 public class DefaultResourceResolver
 {
   /** Internal debug flag for console debugging */
-  protected static final boolean DEBUG_RESOLVE = false;
+  private static final AtomicBoolean s_aDebugResolve = new AtomicBoolean (false);
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (DefaultResourceResolver.class);
 
   private DefaultResourceResolver ()
   {}
+
+  public static boolean isDebugResolve ()
+  {
+    return s_aDebugResolve.get ();
+  }
+
+  public static void setDebugResolve (final boolean bDebugResolve)
+  {
+    s_aDebugResolve.set (bDebugResolve);
+  }
 
   public static boolean isExplicitJarFileResource (@Nullable final String sName)
   {
@@ -98,7 +109,7 @@ public class DefaultResourceResolver
                                                                            : aBaseFile.getPath () + '/' + sSystemId);
 
     final ClassPathResource ret = new ClassPathResource (sNewPath, aClassLoader);
-    if (DEBUG_RESOLVE)
+    if (isDebugResolve ())
       s_aLogger.info ("  [ClassPath] resolved base + system to " + ret);
     return ret;
   }
@@ -144,7 +155,7 @@ public class DefaultResourceResolver
       sAggregatedPath = sPrefix + sNewPath;
 
     final URLResource ret = new URLResource (sAggregatedPath);
-    if (DEBUG_RESOLVE)
+    if (isDebugResolve ())
       s_aLogger.info ("  [JarFile] resolved base + system to " + ret);
     return ret;
   }
@@ -179,7 +190,7 @@ public class DefaultResourceResolver
                                  aBaseURL.getPort (),
                                  URLHelper.getURLString (sNewPath, aBaseURL.getQuery (), aBaseURL.getRef ()));
     final URLResource ret = new URLResource (aNewURL);
-    if (DEBUG_RESOLVE)
+    if (isDebugResolve ())
       s_aLogger.info ("  [URL] resolved base + system to " + ret);
     return ret;
   }
@@ -209,6 +220,9 @@ public class DefaultResourceResolver
     if (sSystemId == null && sBaseURI == null)
       throw new IllegalArgumentException ("Both systemID and baseURI are null!");
 
+    // Retrieve only once
+    final boolean bDebugResolve = isDebugResolve ();
+
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug ("Trying to resolve resource " +
                        sSystemId +
@@ -216,7 +230,7 @@ public class DefaultResourceResolver
                        sBaseURI +
                        (aClassLoader == null ? "" : " with ClassLoader " + aClassLoader));
 
-    if (DEBUG_RESOLVE)
+    if (bDebugResolve)
       s_aLogger.info ("doStandardResourceResolving ('" + sSystemId + "', '" + sBaseURI + "', " + aClassLoader + ")");
 
     final URL aSystemURL = URLHelper.getAsURL (sSystemId);
@@ -229,7 +243,7 @@ public class DefaultResourceResolver
       if (!aSystemURL.getProtocol ().equals (URLHelper.PROTOCOL_FILE))
       {
         final URLResource ret = new URLResource (aSystemURL);
-        if (DEBUG_RESOLVE)
+        if (bDebugResolve)
           s_aLogger.info ("  resolved system URL to " + ret);
         return ret;
       }
@@ -260,7 +274,7 @@ public class DefaultResourceResolver
     {
       // Nothing to resolve
       final FileSystemResource ret = new FileSystemResource (aBaseFile);
-      if (DEBUG_RESOLVE)
+      if (bDebugResolve)
         s_aLogger.info ("  resolved base URL to " + ret);
       return ret;
     }
@@ -275,7 +289,7 @@ public class DefaultResourceResolver
     if (aSystemFile.isAbsolute ())
     {
       final FileSystemResource ret = new FileSystemResource (aSystemFile);
-      if (DEBUG_RESOLVE)
+      if (bDebugResolve)
         s_aLogger.info ("  resolved system URL to " + ret);
       return ret;
     }
@@ -284,7 +298,7 @@ public class DefaultResourceResolver
     final File aRealFile = new File (aParent, aSystemFile.getPath ());
     // path is cleaned (canonicalized) inside FileSystemResource
     final FileSystemResource ret = new FileSystemResource (aRealFile);
-    if (DEBUG_RESOLVE)
+    if (bDebugResolve)
       s_aLogger.info ("  resolved base + system URL to " + ret);
     return ret;
   }
