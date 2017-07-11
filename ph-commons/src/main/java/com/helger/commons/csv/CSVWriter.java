@@ -89,6 +89,7 @@ public class CSVWriter implements Closeable, Flushable
   private char m_cEscapeChar = CCSV.DEFAULT_ESCAPE_CHARACTER;
   private String m_sLineEnd = DEFAULT_LINE_END;
   private boolean m_bAvoidFinalLineEnd = DEFAULT_AVOID_FINAL_LINE_END;
+  private boolean m_bApplyQuotesToAll = DEFAULT_QUOTE_ALL;
 
   /**
    * Constructs {@link CSVWriter} with all default settings.
@@ -223,6 +224,33 @@ public class CSVWriter implements Closeable, Flushable
   }
 
   /**
+   * @return <code>true</code> if all cells should always be quoted,
+   *         <code>false</code> otherwise. The default is
+   *         {@value #DEFAULT_QUOTE_ALL}.
+   * @since 8.6.6
+   */
+  public boolean isApplyQuotesToAll ()
+  {
+    return m_bApplyQuotesToAll;
+  }
+
+  /**
+   * Set whether all cells should be quoted by default or not.
+   *
+   * @param bApplyQuotesToAll
+   *        <code>true</code> to quote all cells, <code>false</code> to quote
+   *        only the ones where it is necessary
+   * @return this for chaining
+   * @since 8.6.6
+   */
+  @Nonnull
+  public CSVWriter setApplyQuotesToAll (final boolean bApplyQuotesToAll)
+  {
+    m_bApplyQuotesToAll = bApplyQuotesToAll;
+    return this;
+  }
+
+  /**
    * Writes the entire list to a CSV file.
    *
    * @param aAllLines
@@ -240,15 +268,16 @@ public class CSVWriter implements Closeable, Flushable
   }
 
   /**
-   * Writes the entire list to a CSV file with quoting enabled.
+   * Writes the entire list to a CSV file using the default quoting setting.
    *
    * @param aAllLines
    *        a List of List of String, with each List of String representing a
    *        line of the file.
+   * @see #isApplyQuotesToAll()
    */
   public void writeAll (@Nonnull final List <? extends List <String>> aAllLines)
   {
-    writeAll (aAllLines, DEFAULT_QUOTE_ALL);
+    writeAll (aAllLines, m_bApplyQuotesToAll);
   }
 
   /**
@@ -330,15 +359,16 @@ public class CSVWriter implements Closeable, Flushable
   }
 
   /**
-   * Writes the next line to the file.
+   * Writes the next line to the file using the default quoting settings.
    *
    * @param aNextLine
    *        a string array with each comma-separated element as a separate
    *        entry.
+   * @see #isApplyQuotesToAll()
    */
   public void writeNext (@Nullable final Iterable <String> aNextLine)
   {
-    writeNext (aNextLine, DEFAULT_QUOTE_ALL);
+    writeNext (aNextLine, m_bApplyQuotesToAll);
   }
 
   /**
@@ -359,15 +389,16 @@ public class CSVWriter implements Closeable, Flushable
   }
 
   /**
-   * Writes the next line to the file.
+   * Writes the next line to the file using the default quoting settings.
    *
    * @param aNextLine
    *        a string array with each comma-separated element as a separate
    *        entry.
+   * @see #isApplyQuotesToAll()
    */
   public void writeNext (@Nullable final String... aNextLine)
   {
-    writeNext (aNextLine, DEFAULT_QUOTE_ALL);
+    writeNext (aNextLine, m_bApplyQuotesToAll);
   }
 
   /**
@@ -395,7 +426,7 @@ public class CSVWriter implements Closeable, Flushable
   }
 
   /**
-   * Writes the next line to the file.
+   * Writes the next line to the file using the default quoting setting.
    *
    * @param aNextLine
    *        a string array with each comma-separated element as a separate
@@ -404,12 +435,13 @@ public class CSVWriter implements Closeable, Flushable
    *        Array Offset. Must be &ge; 0.
    * @param nLength
    *        Array Length. Must be &ge; 0.
+   * @see #isApplyQuotesToAll()
    */
   public void writeNext (@Nullable final String [] aNextLine,
                          @Nonnegative final int nOfs,
                          @Nonnegative final int nLength)
   {
-    writeNext (aNextLine, nOfs, nLength, DEFAULT_QUOTE_ALL);
+    writeNext (aNextLine, nOfs, nLength, m_bApplyQuotesToAll);
   }
 
   /**

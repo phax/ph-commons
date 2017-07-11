@@ -73,40 +73,49 @@ public final class CSVWriterTest
   private static String _invokeWriter (final String [] args) throws IOException
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    final CSVWriter aWriter = new CSVWriter (aSW).setQuoteChar ('\'').setEscapeChar ('"');
-    aWriter.writeNext (args);
+    try (final CSVWriter aWriter = new CSVWriter (aSW).setQuoteChar ('\'').setEscapeChar ('"'))
+    {
+      aWriter.writeNext (args);
+    }
     return aSW.getAsString ();
   }
 
   @Nonnull
-  private static String _invokeNoEscapeWriter (final String [] args)
+  private static String _invokeNoEscapeWriter (final String [] args) throws IOException
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    final CSVWriter aWriter = new CSVWriter (aSW).setQuoteChar ('\'').setEscapeChar (CSVWriter.NO_ESCAPE_CHARACTER);
-    aWriter.writeNext (args);
+    try (final CSVWriter aWriter = new CSVWriter (aSW).setQuoteChar ('\'')
+                                                      .setEscapeChar (CSVWriter.NO_ESCAPE_CHARACTER))
+    {
+      aWriter.writeNext (args);
+    }
     return aSW.getAsString ();
   }
 
   @Test
-  public void correctlyParseNullString ()
+  public void correctlyParseNullString () throws IOException
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    final CSVWriter aWriter = new CSVWriter (aSW).setQuoteChar ('\'');
-    aWriter.writeNext ((String []) null);
-    assertEquals (0, aSW.getAsString ().length ());
-    aWriter.writeNext ((ICommonsList <String>) null);
-    assertEquals (0, aSW.getAsString ().length ());
+    try (final CSVWriter aWriter = new CSVWriter (aSW).setQuoteChar ('\''))
+    {
+      aWriter.writeNext ((String []) null);
+      assertEquals (0, aSW.getAsString ().length ());
+      aWriter.writeNext ((ICommonsList <String>) null);
+      assertEquals (0, aSW.getAsString ().length ());
+    }
   }
 
   @Test
-  public void correctlyParserNullObject ()
+  public void correctlyParserNullObject () throws IOException
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    final CSVWriter aWriter = new CSVWriter (aSW).setQuoteChar ('\'');
-    aWriter.writeNext ((String []) null, false);
-    assertEquals (0, aSW.getAsString ().length ());
-    aWriter.writeNext ((ICommonsList <String>) null, false);
-    assertEquals (0, aSW.getAsString ().length ());
+    try (final CSVWriter aWriter = new CSVWriter (aSW).setQuoteChar ('\''))
+    {
+      aWriter.writeNext ((String []) null, false);
+      assertEquals (0, aSW.getAsString ().length ());
+      aWriter.writeNext ((ICommonsList <String>) null, false);
+      assertEquals (0, aSW.getAsString ().length ());
+    }
   }
 
   /**
@@ -195,7 +204,7 @@ public final class CSVWriterTest
   }
 
   @Test
-  public void parseLineWithNoEscapeCharAndQuotes ()
+  public void parseLineWithNoEscapeCharAndQuotes () throws IOException
   {
     final String [] quoteLine = { "This is a \" 'multiline' entry", "so is \n this" };
     final String output = _invokeNoEscapeWriter (quoteLine);
@@ -217,8 +226,10 @@ public final class CSVWriterTest
     allElements.add (StringHelper.getExploded ('#', "John#5678#john@efgh.com"));
 
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    final CSVWriter aWriter = new CSVWriter (aSW);
-    aWriter.writeAll (allElements);
+    try (final CSVWriter aWriter = new CSVWriter (aSW))
+    {
+      aWriter.writeAll (allElements);
+    }
 
     final String result = aSW.getAsString ();
     final String [] lines = StringHelper.getExplodedArray ('\n', result.trim ());
@@ -241,8 +252,10 @@ public final class CSVWriterTest
     allElements.add (StringHelper.getExploded ('#', "John#5678#john@efgh.com"));
 
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    final CSVWriter aWriter = new CSVWriter (aSW);
-    aWriter.writeAll (allElements, false);
+    try (final CSVWriter aWriter = new CSVWriter (aSW))
+    {
+      aWriter.writeAll (allElements, false);
+    }
 
     final String result = aSW.getAsString ();
     final String [] lines = StringHelper.getExplodedArray ('\n', result.trim ());
@@ -264,10 +277,12 @@ public final class CSVWriterTest
   {
     final String [] line = { "Foo", "Bar", "Baz" };
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    final CSVWriter aWriter = new CSVWriter (aSW).setQuoteChar (CSVWriter.NO_QUOTE_CHARACTER);
-    aWriter.writeNext (line);
-    final String result = aSW.getAsString ();
+    try (final CSVWriter aWriter = new CSVWriter (aSW).setQuoteChar (CSVWriter.NO_QUOTE_CHARACTER))
+    {
+      aWriter.writeNext (line);
+    }
 
+    final String result = aSW.getAsString ();
     assertEquals ("Foo,Bar,Baz\n", result);
   }
 
@@ -283,9 +298,11 @@ public final class CSVWriterTest
 
     final String [] line = { "Foo", "Bar", "Baz" };
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    final CSVWriter aWriter = new CSVWriter (aSW).setQuoteChar (CSVWriter.NO_QUOTE_CHARACTER)
-                                                 .setEscapeChar (CSVWriter.NO_ESCAPE_CHARACTER);
-    aWriter.writeNext (line);
+    try (final CSVWriter aWriter = new CSVWriter (aSW).setQuoteChar (CSVWriter.NO_QUOTE_CHARACTER)
+                                                      .setEscapeChar (CSVWriter.NO_ESCAPE_CHARACTER))
+    {
+      aWriter.writeNext (line);
+    }
     final String result = aSW.getAsString ();
 
     assertEquals ("Foo,Bar,Baz\n", result);
@@ -294,14 +311,19 @@ public final class CSVWriterTest
   /**
    * Tests the ability for the writer to apply quotes only where strings contain
    * the separator, escape, quote or new line characters.
+   *
+   * @throws IOException
+   *         On IO error
    */
   @Test
-  public void testIntelligentQuotes ()
+  public void testIntelligentQuotes () throws IOException
   {
     final String [] line = { "1", "Foo", "With,Separator", "Line\nBreak", "Hello \"Foo Bar\" World", "Bar" };
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    final CSVWriter aWriter = new CSVWriter (aSW);
-    aWriter.writeNext (line, false);
+    try (final CSVWriter aWriter = new CSVWriter (aSW))
+    {
+      aWriter.writeNext (line, false);
+    }
     final String result = aSW.getAsString ();
 
     assertEquals ("1,Foo,\"With,Separator\",\"Line\nBreak\",\"Hello \\\"Foo Bar\\\" World\",Bar\n", result);
@@ -319,10 +341,11 @@ public final class CSVWriterTest
 
     final String [] line = { "Foo", null, "Bar", "baz" };
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    final CSVWriter aWriter = new CSVWriter (aSW);
-    aWriter.writeNext (line);
+    try (final CSVWriter aWriter = new CSVWriter (aSW))
+    {
+      aWriter.writeNext (line);
+    }
     final String result = aSW.getAsString ();
-
     assertEquals ("\"Foo\",,\"Bar\",\"baz\"\n", result);
   }
 
@@ -333,12 +356,10 @@ public final class CSVWriterTest
     final String [] nextLine = new String [] { "aaaa", "bbbb", "cccc", "dddd" };
 
     final Writer fileWriter = new OutputStreamWriter (new FileOutputStream (WRITE_FILE), CHARSET);
-    try (final CSVWriter writer = new CSVWriter (fileWriter))
-    {
-      writer.writeNext (nextLine);
+    final CSVWriter writer = new CSVWriter (fileWriter);
+    writer.writeNext (nextLine);
 
-      // If close is not executed, it is not written in the file.
-    }
+    // If close is not executed, it is not written in the file.
   }
 
   @Test (expected = IOException.class)
@@ -362,23 +383,27 @@ public final class CSVWriterTest
   }
 
   @Test
-  public void testAlternateEscapeChar ()
+  public void testAlternateEscapeChar () throws IOException
   {
     final String [] line = { "Foo", "bar's" };
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    final CSVWriter aWriter = new CSVWriter (aSW).setEscapeChar ('\'');
-    aWriter.writeNext (line);
+    try (final CSVWriter aWriter = new CSVWriter (aSW).setEscapeChar ('\''))
+    {
+      aWriter.writeNext (line);
+    }
     assertEquals ("\"Foo\",\"bar''s\"\n", aSW.getAsString ());
   }
 
   @Test
-  public void testNoQuotingNoEscaping ()
+  public void testNoQuotingNoEscaping () throws IOException
   {
     final String [] line = { "\"Foo\",\"Bar\"" };
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    final CSVWriter aWriter = new CSVWriter (aSW).setQuoteChar (CSVWriter.NO_QUOTE_CHARACTER)
-                                                 .setEscapeChar (CSVWriter.NO_ESCAPE_CHARACTER);
-    aWriter.writeNext (line);
+    try (final CSVWriter aWriter = new CSVWriter (aSW).setQuoteChar (CSVWriter.NO_QUOTE_CHARACTER)
+                                                      .setEscapeChar (CSVWriter.NO_ESCAPE_CHARACTER))
+    {
+      aWriter.writeNext (line);
+    }
     assertEquals ("\"Foo\",\"Bar\"\n", aSW.getAsString ());
   }
 
@@ -422,28 +447,45 @@ public final class CSVWriterTest
   }
 
   @Test
-  public void testAlternateLineFeeds ()
+  public void testAlternateLineFeeds () throws IOException
   {
     final String [] aLine = { "Foo", "Bar", "baz" };
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    final CSVWriter aWriter = new CSVWriter (aSW).setLineEnd ("\r");
-    aWriter.writeNext (aLine);
+    try (final CSVWriter aWriter = new CSVWriter (aSW).setLineEnd ("\r"))
+    {
+      aWriter.writeNext (aLine);
+    }
     final String result = aSW.getAsString ();
-
     assertTrue (result.endsWith ("\r"));
   }
 
   @Test
-  public void testAvoidFinalLineEnd ()
+  public void testAvoidFinalLineEnd () throws IOException
   {
     final String [] aLine = { "Foo", "Bar", "baz" };
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    final CSVWriter aWriter = new CSVWriter (aSW).setAvoidFinalLineEnd (true);
-    aWriter.writeNext (aLine, false);
-    assertEquals ("Foo,Bar,baz", aSW.getAsString ());
-    aWriter.writeNext (aLine, false);
-    assertEquals ("Foo,Bar,baz\nFoo,Bar,baz", aSW.getAsString ());
-    aWriter.writeNext (aLine, false);
-    assertEquals ("Foo,Bar,baz\nFoo,Bar,baz\nFoo,Bar,baz", aSW.getAsString ());
+    try (final CSVWriter aWriter = new CSVWriter (aSW).setAvoidFinalLineEnd (true))
+    {
+      aWriter.writeNext (aLine, false);
+      assertEquals ("Foo,Bar,baz", aSW.getAsString ());
+      aWriter.writeNext (aLine, false);
+      assertEquals ("Foo,Bar,baz\nFoo,Bar,baz", aSW.getAsString ());
+      aWriter.writeNext (aLine, false);
+      assertEquals ("Foo,Bar,baz\nFoo,Bar,baz\nFoo,Bar,baz", aSW.getAsString ());
+    }
+  }
+
+  @Test
+  public void testApplyQuotesToAll () throws IOException
+  {
+    final String [] aLine = { "Foo", "ab\"cd", "baz" };
+    final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
+    try (final CSVWriter aWriter = new CSVWriter (aSW).setApplyQuotesToAll (false))
+    {
+      aWriter.writeNext (aLine);
+      assertEquals ("Foo,\"ab\\\"cd\",baz\n", aSW.getAsString ());
+      aWriter.writeNext (aLine);
+      assertEquals ("Foo,\"ab\\\"cd\",baz\nFoo,\"ab\\\"cd\",baz\n", aSW.getAsString ());
+    }
   }
 }
