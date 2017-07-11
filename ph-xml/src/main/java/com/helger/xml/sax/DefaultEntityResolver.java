@@ -28,6 +28,7 @@ import org.xml.sax.SAXException;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.resource.IReadableResource;
+import com.helger.commons.io.resourceresolver.DefaultResourceResolver;
 import com.helger.xml.ls.SimpleLSResourceResolver;
 
 /**
@@ -67,7 +68,7 @@ public class DefaultEntityResolver implements EntityResolver
   public InputSource resolveEntity (@Nullable final String sPublicID,
                                     @Nullable final String sSystemID) throws SAXException, IOException
   {
-    final IReadableResource aResolvedRes = SimpleLSResourceResolver.doStandardResourceResolving (sSystemID, m_sBaseURI);
+    final IReadableResource aResolvedRes = DefaultResourceResolver.getResolvedResource (sSystemID, m_sBaseURI);
     if (aResolvedRes == null)
       return null;
     return InputSourceFactory.create (aResolvedRes);
