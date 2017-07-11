@@ -22,6 +22,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.URIResolver;
 
 import com.helger.commons.io.resource.IReadableResource;
+import com.helger.commons.io.resourceresolver.DefaultResourceResolver;
 import com.helger.xml.ls.SimpleLSResourceResolver;
 
 /**
@@ -48,7 +49,7 @@ public class DefaultTransformURIResolver extends AbstractTransformURIResolver
   {
     try
     {
-      final IReadableResource aRes = SimpleLSResourceResolver.doStandardResourceResolving (sHref, sBase);
+      final IReadableResource aRes = DefaultResourceResolver.getResolvedResource (sHref, sBase);
       if (aRes != null && aRes.exists ())
         return TransformSourceFactory.create (aRes);
     }
