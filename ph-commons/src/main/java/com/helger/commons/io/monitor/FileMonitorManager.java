@@ -36,7 +36,10 @@ import com.helger.commons.timing.StopWatch;
  * This class manages all the available {@link FileMonitor} objects.
  *
  * @author Philip Helger
+ * @deprecated As of v8.6.6 - Use the new
+ *             {@link com.helger.commons.io.watchdir.WatchDir} instead.
  */
+@Deprecated
 public class FileMonitorManager implements Runnable
 {
   public static final long DEFAULT_DELAY = 1000;
@@ -47,7 +50,7 @@ public class FileMonitorManager implements Runnable
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
   /** All FileMonitors contained */
-  private final ICommonsList <FileMonitor> m_aMonitorList = new CommonsArrayList<> ();
+  private final ICommonsList <FileMonitor> m_aMonitorList = new CommonsArrayList <> ();
 
   /** The low priority thread used for checking the files being monitored. */
   private Thread m_aMonitorThread;

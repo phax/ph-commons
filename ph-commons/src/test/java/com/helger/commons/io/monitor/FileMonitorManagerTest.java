@@ -31,6 +31,7 @@ import com.helger.commons.concurrent.ThreadHelper;
  *
  * @author Philip Helger
  */
+@Deprecated
 public final class FileMonitorManagerTest
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (FileMonitorManagerTest.class);

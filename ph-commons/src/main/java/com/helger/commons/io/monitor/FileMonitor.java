@@ -43,7 +43,10 @@ import com.helger.commons.string.ToStringGenerator;
  * {@link FileMonitor}.
  *
  * @author Philip Helger
+ * @deprecated As of v8.6.6 - Use the new
+ *             {@link com.helger.commons.io.watchdir.WatchDir} instead.
  */
+@Deprecated
 public class FileMonitor
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (FileMonitor.class);

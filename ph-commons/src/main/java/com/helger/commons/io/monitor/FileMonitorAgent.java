@@ -34,6 +34,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author commons-vfs
  * @author Philip Helger
  */
+@Deprecated
 @NotThreadSafe
 final class FileMonitorAgent
 {
