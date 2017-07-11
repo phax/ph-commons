@@ -34,6 +34,7 @@ import com.helger.commons.state.EChange;
  * @author Philip Helger
  */
 @Singleton
+@Deprecated
 public class ScopedFileMonitorManager extends AbstractGlobalSingleton
 {
   private final FileMonitorManager m_aFMM = new FileMonitorManager ();

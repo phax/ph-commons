@@ -31,7 +31,10 @@ import com.helger.commons.string.ToStringGenerator;
  * @author <a href="http://commons.apache.org/vfs/team-list.html">Commons VFS
  *         team</a>
  * @author Philip Helger
+ * @deprecated As of v8.6.6 - Use the new
+ *             {@link com.helger.commons.io.watchdir.WatchDir} instead.
  */
+@Deprecated
 public class FileChangeEvent implements Serializable
 {
   /**
