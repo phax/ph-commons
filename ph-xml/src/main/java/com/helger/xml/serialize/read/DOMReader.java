@@ -22,6 +22,7 @@ import java.io.Reader;
 import java.net.URI;
 import java.net.URL;
 import java.nio.ByteBuffer;
+import java.nio.file.Path;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -65,8 +66,8 @@ public final class DOMReader
                                                                                                                      "$DOMERRORS");
 
   // In practice no more than 5 readers are required (even 3 would be enough)
-  private static final ObjectPool <DocumentBuilder> s_aDOMPool = new ObjectPool<> (5,
-                                                                                   () -> XMLFactory.createDocumentBuilder ());
+  private static final ObjectPool <DocumentBuilder> s_aDOMPool = new ObjectPool <> (5,
+                                                                                    () -> XMLFactory.createDocumentBuilder ());
 
   @PresentForCodeCoverage
   private static final DOMReader s_aInstance = new DOMReader ();
@@ -166,6 +167,19 @@ public final class DOMReader
                                      @Nonnull final IDOMReaderSettings aSettings) throws SAXException
   {
     return readXMLDOM (InputSourceFactory.create (aFile), aSettings);
+  }
+
+  @Nullable
+  public static Document readXMLDOM (@Nonnull final Path aPath) throws SAXException
+  {
+    return readXMLDOM (aPath, new DOMReaderSettings ());
+  }
+
+  @Nullable
+  public static Document readXMLDOM (@Nonnull final Path aPath,
+                                     @Nonnull final IDOMReaderSettings aSettings) throws SAXException
+  {
+    return readXMLDOM (InputSourceFactory.create (aPath), aSettings);
   }
 
   @Nullable

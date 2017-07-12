@@ -19,6 +19,7 @@ package com.helger.xml.microdom.serialize;
 import java.io.File;
 import java.io.OutputStream;
 import java.io.Writer;
+import java.nio.file.Path;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -99,6 +100,44 @@ public final class MicroWriter
     // No need to wrap the OS in a BufferedOutputStream as inside, it is later
     // on wrapped in a BufferedWriter
     return writeToStream (aNode, aOS, aSettings);
+  }
+
+  /**
+   * Write a Micro Node to a file using the default settings.
+   *
+   * @param aNode
+   *        The node to be serialized. May be any kind of node (incl.
+   *        documents). May not be <code>null</code>.
+   * @param aPath
+   *        The file to write to. May not be <code>null</code>.
+   * @return {@link ESuccess}
+   */
+  @Nonnull
+  public static ESuccess writeToFile (@Nonnull final IMicroNode aNode, @Nonnull final Path aPath)
+  {
+    return writeToFile (aNode, aPath, XMLWriterSettings.DEFAULT_XML_SETTINGS);
+  }
+
+  /**
+   * Write a Micro Node to a file.
+   *
+   * @param aNode
+   *        The node to be serialized. May be any kind of node (incl.
+   *        documents). May not be <code>null</code>.
+   * @param aPath
+   *        The file to write to. May not be <code>null</code>.
+   * @param aSettings
+   *        The settings to be used for the creation. May not be
+   *        <code>null</code>.
+   * @return {@link ESuccess}
+   */
+  @Nonnull
+  public static ESuccess writeToFile (@Nonnull final IMicroNode aNode,
+                                      @Nonnull final Path aPath,
+                                      @Nonnull final IXMLWriterSettings aSettings)
+  {
+    ValueEnforcer.notNull (aPath, "Path");
+    return writeToFile (aNode, aPath.toFile (), aSettings);
   }
 
   /**
