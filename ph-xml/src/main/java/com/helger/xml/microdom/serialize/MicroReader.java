@@ -22,6 +22,7 @@ import java.io.Reader;
 import java.net.URI;
 import java.net.URL;
 import java.nio.ByteBuffer;
+import java.nio.file.Path;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nullable;
@@ -143,6 +144,21 @@ public final class MicroReader
       return null;
 
     return readMicroXML (InputSourceFactory.create (aFile), aSettings);
+  }
+
+  @Nullable
+  public static IMicroDocument readMicroXML (@Nullable final Path aPath)
+  {
+    return readMicroXML (aPath, (ISAXReaderSettings) null);
+  }
+
+  @Nullable
+  public static IMicroDocument readMicroXML (@Nullable final Path aPath, @Nullable final ISAXReaderSettings aSettings)
+  {
+    if (aPath == null)
+      return null;
+
+    return readMicroXML (InputSourceFactory.create (aPath), aSettings);
   }
 
   @Nullable

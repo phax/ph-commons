@@ -22,6 +22,7 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -191,9 +192,9 @@ public final class JsonReader
   }
 
   /**
-   * Check if the passed input stream can be resembled to valid Json content.
-   * This is accomplished by fully parsing the Json file each time the method is
-   * called. This consumes <b>less memory</b> than calling any of the
+   * Check if the passed File can be resembled to valid Json content. This is
+   * accomplished by fully parsing the Json file each time the method is called.
+   * This consumes <b>less memory</b> than calling any of the
    * <code>read...</code> methods and checking for a non-<code>null</code>
    * result.
    *
@@ -208,9 +209,9 @@ public final class JsonReader
   }
 
   /**
-   * Check if the passed input stream can be resembled to valid Json content.
-   * This is accomplished by fully parsing the Json file each time the method is
-   * called. This consumes <b>less memory</b> than calling any of the
+   * Check if the passed File can be resembled to valid Json content. This is
+   * accomplished by fully parsing the Json file each time the method is called.
+   * This consumes <b>less memory</b> than calling any of the
    * <code>read...</code> methods and checking for a non-<code>null</code>
    * result.
    *
@@ -225,6 +226,43 @@ public final class JsonReader
   public static boolean isValidJson (@Nonnull final File aFile, @Nonnull final Charset aFallbackCharset)
   {
     return isValidJson (new FileSystemResource (aFile), aFallbackCharset);
+  }
+
+  /**
+   * Check if the passed Path can be resembled to valid Json content. This is
+   * accomplished by fully parsing the Json file each time the method is called.
+   * This consumes <b>less memory</b> than calling any of the
+   * <code>read...</code> methods and checking for a non-<code>null</code>
+   * result.
+   *
+   * @param aPath
+   *        The file to be parsed. May not be <code>null</code>.
+   * @return <code>true</code> if the file can be parsed without error,
+   *         <code>false</code> if not
+   */
+  public static boolean isValidJson (@Nonnull final Path aPath)
+  {
+    return isValidJson (aPath, DEFAULT_CHARSET);
+  }
+
+  /**
+   * Check if the passed Path can be resembled to valid Json content. This is
+   * accomplished by fully parsing the Json file each time the method is called.
+   * This consumes <b>less memory</b> than calling any of the
+   * <code>read...</code> methods and checking for a non-<code>null</code>
+   * result.
+   *
+   * @param aPath
+   *        The file to be parsed. May not be <code>null</code>.
+   * @param aFallbackCharset
+   *        The charset to be used for reading the Json file in case no BOM is
+   *        present. May not be <code>null</code>.
+   * @return <code>true</code> if the file can be parsed without error,
+   *         <code>false</code> if not
+   */
+  public static boolean isValidJson (@Nonnull final Path aPath, @Nonnull final Charset aFallbackCharset)
+  {
+    return isValidJson (new FileSystemResource (aPath), aFallbackCharset);
   }
 
   /**
@@ -485,6 +523,62 @@ public final class JsonReader
                                     @Nullable final IJsonParseExceptionCallback aCustomExceptionHandler)
   {
     return readFromStream (new FileSystemResource (aFile), aFallbackCharset, aCustomExceptionHandler);
+  }
+
+  /**
+   * Read the Json from the passed Path using the default charset.
+   *
+   * @param aPath
+   *        The file containing the Json to be parsed. May not be
+   *        <code>null</code>.
+   * @return <code>null</code> if reading failed, the Json declarations
+   *         otherwise.
+   */
+  @Nullable
+  public static IJson readFromPath (@Nonnull final Path aPath)
+  {
+    return readFromPath (aPath, DEFAULT_CHARSET);
+  }
+
+  /**
+   * Read the Json from the passed Path.
+   *
+   * @param aPath
+   *        The file containing the Json to be parsed. May not be
+   *        <code>null</code>.
+   * @param aFallbackCharset
+   *        The charset to be used in case no is BOM is present. May not be
+   *        <code>null</code>.
+   * @return <code>null</code> if reading failed, the Json declarations
+   *         otherwise.
+   */
+  @Nullable
+  public static IJson readFromPath (@Nonnull final Path aPath, @Nonnull final Charset aFallbackCharset)
+  {
+    return readFromPath (aPath, aFallbackCharset, null);
+  }
+
+  /**
+   * Read the Json from the passed Path.
+   *
+   * @param aPath
+   *        The file containing the Json to be parsed. May not be
+   *        <code>null</code>.
+   * @param aFallbackCharset
+   *        The charset to be used in case no BOM is present. May not be
+   *        <code>null</code>.
+   * @param aCustomExceptionHandler
+   *        An optional custom exception handler that can be used to collect the
+   *        unrecoverable parsing errors. May be <code>null</code>.
+   * @return <code>null</code> if reading failed, the Json declarations
+   *         otherwise.
+   */
+  @Nullable
+  public static IJson readFromPath (@Nonnull final Path aPath,
+                                    @Nonnull final Charset aFallbackCharset,
+                                    @Nullable final IJsonParseExceptionCallback aCustomExceptionHandler)
+  {
+    return readFromStream (new FileSystemResource (aPath), aFallbackCharset, aCustomExceptionHandler);
   }
 
   /**
