@@ -45,6 +45,7 @@ This project was the following modules:
     * Removed deprecated methods in `SimpleLSResourceResolver`
     * Removed package `com.helger.commons.io.monitor`
     * Removed package `com.helger.commons.scope.singletons`
+    * `@ReturnsMutableObject` does not require a value anymore (but you can still pass one of course)
   * v8.6.6 - work in progress
     * Extended `CSVWriter` API
     * `SimpleLSResourceResolver` can now handle fat jars from Spring Boot (issue #8)

@@ -38,5 +38,5 @@ public @interface ReturnsMutableObject
   /**
    * @return developer comment to explain why the mutable object is returned.
    */
-  String value();
+  String value() default "";
 }
