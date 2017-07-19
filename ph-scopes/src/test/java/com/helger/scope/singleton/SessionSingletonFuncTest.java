@@ -31,7 +31,6 @@ import org.junit.rules.TestRule;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.scope.mock.ScopeTestRule;
-import com.helger.scope.singleton.AbstractSessionSingleton;
 
 /**
  * Test class for class {@link AbstractSessionSingleton}.<br>
@@ -62,7 +61,7 @@ public final class SessionSingletonFuncTest
     CommonsTestHelper.testDefaultSerialization (a);
   }
 
-  @SuppressWarnings ("deprecation")
+  @SuppressWarnings ({ "deprecation", "unused" })
   @Test
   public void testInstantiateManually ()
   {

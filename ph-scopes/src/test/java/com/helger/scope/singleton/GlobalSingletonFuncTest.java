@@ -32,7 +32,6 @@ import org.junit.rules.TestRule;
 
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.scope.mock.ScopeTestRule;
-import com.helger.scope.singleton.AbstractGlobalSingleton;
 
 /**
  * Test class for class {@link AbstractGlobalSingleton}.
@@ -74,7 +73,7 @@ public final class GlobalSingletonFuncTest
     assertSame (a, MockGlobalSingleton.getInstance ());
   }
 
-  @SuppressWarnings ("deprecation")
+  @SuppressWarnings ({ "deprecation", "unused" })
   @Test
   public void testInstantiateManually ()
   {

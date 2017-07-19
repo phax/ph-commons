@@ -30,7 +30,6 @@ import org.junit.rules.TestRule;
 
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.scope.mock.ScopeTestRule;
-import com.helger.scope.singleton.AbstractRequestSingleton;
 
 /**
  * Test class for class {@link AbstractRequestSingleton}.<br>
@@ -61,7 +60,7 @@ public final class RequestSingletonFuncTest
     assertSame (a, b);
   }
 
-  @SuppressWarnings ("deprecation")
+  @SuppressWarnings ({ "deprecation", "unused" })
   @Test
   public void testInstantiateManually ()
   {
