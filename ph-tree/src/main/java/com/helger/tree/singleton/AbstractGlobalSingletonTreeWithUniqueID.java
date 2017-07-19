@@ -18,7 +18,7 @@ package com.helger.tree.singleton;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.scope.singleton.AbstractGlobalSingleton;
+import com.helger.scope.singleton.AbstractGlobalSingleton;
 import com.helger.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
 
 /**

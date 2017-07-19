@@ -18,7 +18,7 @@ package com.helger.tree.singleton;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.scope.singleton.AbstractSessionSingleton;
+import com.helger.scope.singleton.AbstractSessionSingleton;
 import com.helger.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;

@@ -27,8 +27,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 
-import com.helger.commons.scope.mock.ScopeTestRule;
-import com.helger.commons.scope.singleton.AbstractGlobalSingleton;
+import com.helger.scope.mock.ScopeTestRule;
+import com.helger.scope.singleton.AbstractGlobalSingleton;
 import com.helger.tree.withid.DefaultTreeItemWithID;
 
 /**

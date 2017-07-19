@@ -28,8 +28,8 @@ import org.junit.Test;
 import org.junit.rules.TestRule;
 
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.scope.mock.ScopeTestRule;
-import com.helger.commons.scope.singleton.AbstractSessionApplicationSingleton;
+import com.helger.scope.mock.ScopeTestRule;
+import com.helger.scope.singleton.AbstractSessionApplicationSingleton;
 import com.helger.tree.withid.DefaultTreeItemWithID;
 
 /**

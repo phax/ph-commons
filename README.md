@@ -46,6 +46,7 @@ This project was the following modules:
     * Removed package `com.helger.commons.io.monitor`
     * Removed package `com.helger.commons.scope.singletons`
     * `@ReturnsMutableObject` does not require a value anymore (but you can still pass one of course)
+    * Extracted `ph-scopes` project to lower size of `ph-commons` slightly
   * v8.6.6 - 2017-07-12
     * Extended `CSVWriter` API
     * `SimpleLSResourceResolver` can now handle fat jars from Spring Boot (issue #8)
