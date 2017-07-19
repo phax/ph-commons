@@ -24,12 +24,12 @@
     <artifactId>ph-commons-parent-pom</artifactId>
     <version>9.0.0-SNAPSHOT</version>
   </parent>
-  <artifactId>ph-tree</artifactId>
+  <artifactId>ph-scopes</artifactId>
   <packaging>bundle</packaging>
-  <name>ph-tree</name>
-  <description>Java 1.8+ Library with tree structures</description>
-  <url>https://github.com/phax/ph-commons/ph-tree</url>
-  <inceptionYear>2014</inceptionYear>
+  <name>ph-scopes</name>
+  <description>All scope related functionality</description>
+  <url>https://github.com/phax/ph-commons/ph-scopes</url>
+  <inceptionYear>2016</inceptionYear>
   <licenses>
     <license>
       <name>Apache 2</name>
@@ -55,21 +55,6 @@
       <artifactId>ph-commons</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.helger</groupId>
-      <artifactId>ph-xml</artifactId>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>com.helger</groupId>
-      <artifactId>ph-scopes</artifactId>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <scope>test</scope>
@@ -83,7 +68,7 @@
         <extensions>true</extensions>
         <configuration>
           <instructions>
-            <Export-Package>com.helger.tree.*</Export-Package>
+            <Export-Package>com.helger.scopes.*</Export-Package>
             <Import-Package>!javax.annotation.*,*</Import-Package>
           </instructions>
         </configuration>
