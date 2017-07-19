@@ -171,19 +171,6 @@ public final class IteratorHelper
   }
 
   /**
-   * Create an empty iterator.
-   *
-   * @param <ELEMENTTYPE>
-   *        The type the iterator's elements.
-   * @return A non-<code>null</code> object.
-   */
-  @Nonnull
-  public static <ELEMENTTYPE> Iterator <ELEMENTTYPE> getEmptyIterator ()
-  {
-    return new EmptyIterator <> ();
-  }
-
-  /**
    * Get a merged iterator of both iterators. The first iterator is iterated
    * first, the second one afterwards.
    *
@@ -247,7 +234,6 @@ public final class IteratorHelper
   {
     if (aIter == null)
       return new EmptyEnumeration <> ();
-
     return new EnumerationFromIterator <> (aIter);
   }
 
@@ -268,18 +254,5 @@ public final class IteratorHelper
     if (aMap == null)
       return new EmptyEnumeration <> ();
     return getEnumeration (aMap.entrySet ());
-  }
-
-  /**
-   * Create an empty enumeration.
-   *
-   * @param <ELEMENTTYPE>
-   *        The type the enumeration's elements.
-   * @return A non-<code>null</code> object.
-   */
-  @Nonnull
-  public static <ELEMENTTYPE> Enumeration <ELEMENTTYPE> getEmptyEnumeration ()
-  {
-    return new EmptyEnumeration <> ();
   }
 }

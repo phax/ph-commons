@@ -17,8 +17,6 @@
 package com.helger.commons.collection;
 
 import static com.helger.commons.collection.CollectionHelper.newList;
-import static com.helger.commons.collection.IteratorHelper.getEmptyEnumeration;
-import static com.helger.commons.collection.IteratorHelper.getEmptyIterator;
 import static com.helger.commons.collection.IteratorHelper.getEnumeration;
 import static com.helger.commons.collection.IteratorHelper.getIterator;
 import static com.helger.commons.collection.IteratorHelper.getReverseIterator;
@@ -56,8 +54,8 @@ public final class IteratorHelperTest
   public void testIsEmpty_Enumeration ()
   {
     assertTrue (isEmpty ((Enumeration <?>) null));
-    assertTrue (isEmpty (getEnumeration (new CommonsArrayList<> ())));
-    assertTrue (isEmpty (new EmptyEnumeration<> ()));
+    assertTrue (isEmpty (getEnumeration (new CommonsArrayList <> ())));
+    assertTrue (isEmpty (new EmptyEnumeration <> ()));
     assertFalse (isEmpty (getEnumeration (newList ("any"))));
   }
 
@@ -65,19 +63,19 @@ public final class IteratorHelperTest
   public void testIsEmpty_Iterator ()
   {
     assertTrue (isEmpty ((Iterator <?>) null));
-    assertTrue (isEmpty (new CommonsArrayList<> ().iterator ()));
-    assertTrue (isEmpty (new EmptyIterator<> ()));
+    assertTrue (isEmpty (new CommonsArrayList <> ().iterator ()));
+    assertTrue (isEmpty (new EmptyIterator <> ()));
     assertFalse (isEmpty (newList ("any").iterator ()));
-    assertTrue (isEmpty (new EmptyIterator<> ()));
+    assertTrue (isEmpty (new EmptyIterator <> ()));
   }
 
   @Test
   public void testIsEmpty_IIterableIterator ()
   {
     assertTrue (isEmpty ((IIterableIterator <?>) null));
-    assertTrue (isEmpty (new IterableIterator<> (new CommonsArrayList<> ())));
+    assertTrue (isEmpty (new IterableIterator <> (new CommonsArrayList <> ())));
     assertTrue (isEmpty (IterableIterator.<String> createEmpty ()));
-    assertFalse (isEmpty (new IterableIterator<> (newList ("any"))));
+    assertFalse (isEmpty (new IterableIterator <> (newList ("any"))));
   }
 
   @Test
@@ -85,7 +83,7 @@ public final class IteratorHelperTest
   {
     assertEquals (0, getSize ((IIterableIterator <?>) null));
     assertEquals (0, getSize (IterableIterator.createEmpty ()));
-    assertEquals (1, getSize (new IterableIterator<> (newList ("any"))));
+    assertEquals (1, getSize (new IterableIterator <> (newList ("any"))));
   }
 
   @Test
@@ -148,46 +146,6 @@ public final class IteratorHelperTest
       fail ();
     }
     catch (final UnsupportedOperationException ex)
-    {}
-  }
-
-  @Test
-  public void testEmptyIterator ()
-  {
-    final Iterator <String> it = getEmptyIterator ();
-    assertNotNull (it);
-    assertFalse (it.hasNext ());
-
-    try
-    {
-      it.next ();
-      fail ();
-    }
-    catch (final NoSuchElementException ex)
-    {}
-
-    try
-    {
-      it.remove ();
-      fail ();
-    }
-    catch (final UnsupportedOperationException ex)
-    {}
-  }
-
-  @Test
-  public void testEmptyEnumeration ()
-  {
-    final Enumeration <String> aEnum = getEmptyEnumeration ();
-    assertNotNull (aEnum);
-    assertFalse (aEnum.hasMoreElements ());
-
-    try
-    {
-      aEnum.nextElement ();
-      fail ();
-    }
-    catch (final NoSuchElementException ex)
     {}
   }
 

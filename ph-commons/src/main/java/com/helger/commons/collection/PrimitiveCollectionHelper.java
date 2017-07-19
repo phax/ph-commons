@@ -24,7 +24,6 @@ import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsHashSet;
 import com.helger.commons.collection.ext.CommonsLinkedHashSet;
 import com.helger.commons.collection.ext.CommonsTreeSet;
-import com.helger.commons.collection.impl.NonBlockingStack;
 
 /**
  * Collection helper for primitive data types (boolean, byte, char, double,

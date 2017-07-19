@@ -33,11 +33,11 @@ import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.annotation.Singleton;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.CommonsTreeMap;
 import com.helger.commons.collection.ext.CommonsWeakHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.ext.ICommonsMap;
-import com.helger.commons.collection.multimap.IMultiMapListBased;
-import com.helger.commons.collection.multimap.MultiTreeMapArrayListBased;
+import com.helger.commons.collection.ext.ICommonsSortedMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.lang.ClassHelper;
@@ -70,9 +70,9 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
 
   // Use a weak hash map, because the key is a class
   @GuardedBy ("m_aRWLock")
-  private final ICommonsMap <Class <?>, ICommonsMap <Class <?>, ITypeConverter <?, ?>>> m_aConverter = new CommonsWeakHashMap<> ();
+  private final ICommonsMap <Class <?>, ICommonsMap <Class <?>, ITypeConverter <?, ?>>> m_aConverter = new CommonsWeakHashMap <> ();
   @GuardedBy ("m_aRWLock")
-  private final IMultiMapListBased <ITypeConverterRule.ESubType, ITypeConverterRule <?, ?>> m_aRules = new MultiTreeMapArrayListBased<> ();
+  private final ICommonsSortedMap <ITypeConverterRule.ESubType, ICommonsList <ITypeConverterRule <?, ?>>> m_aRules = new CommonsTreeMap <> ();
 
   private TypeConverterRegistry ()
   {
@@ -103,7 +103,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
       ret = m_aRWLock.writeLocked ( () -> {
         // Try again in write lock
         // Weak hash map because key is a class
-        return m_aConverter.computeIfAbsent (aClass, k -> new CommonsWeakHashMap<> ());
+        return m_aConverter.computeIfAbsent (aClass, k -> new CommonsWeakHashMap <> ());
       });
     }
     return ret;
@@ -296,7 +296,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
       {
         // Perform a check, whether there is more than one potential converter
         // present!
-        final ICommonsList <String> aAllConverters = new CommonsArrayList<> ();
+        final ICommonsList <String> aAllConverters = new CommonsArrayList <> ();
         _iterateFuzzyConverters (aSrcClass, aDstClass, (aCurSrcClass, aCurDstClass, aConverter) -> {
           final boolean bExact = aSrcClass.equals (aCurSrcClass) && aDstClass.equals (aCurDstClass);
           aAllConverters.add ("[" + aCurSrcClass.getName () + "->" + aCurDstClass.getName () + "]");
@@ -312,7 +312,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
       }
 
       // Iterate and find the first matching type converter
-      final Wrapper <ITypeConverter <?, ?>> ret = new Wrapper<> ();
+      final Wrapper <ITypeConverter <?, ?>> ret = new Wrapper <> ();
       _iterateFuzzyConverters (aSrcClass, aDstClass, (aCurSrcClass, aCurDstClass, aConverter) -> {
         ret.set (aConverter);
         return EContinue.BREAK;
@@ -330,7 +330,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
   public void iterateAllRegisteredTypeConverters (@Nonnull final ITypeConverterCallback aCallback)
   {
     // Create a copy of the map
-    final Map <Class <?>, Map <Class <?>, ITypeConverter <?, ?>>> aCopy = m_aRWLock.readLocked ( () -> new CommonsHashMap<> (m_aConverter));
+    final Map <Class <?>, Map <Class <?>, ITypeConverter <?, ?>>> aCopy = m_aRWLock.readLocked ( () -> new CommonsHashMap <> (m_aConverter));
 
     // And iterate the copy
     outer: for (final Map.Entry <Class <?>, Map <Class <?>, ITypeConverter <?, ?>>> aSrcEntry : aCopy.entrySet ())
@@ -357,7 +357,9 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
   {
     ValueEnforcer.notNull (aTypeConverterRule, "TypeConverterRule");
 
-    m_aRWLock.writeLocked ( () -> m_aRules.putSingle (aTypeConverterRule.getSubType (), aTypeConverterRule));
+    m_aRWLock.writeLocked ( () -> m_aRules.computeIfAbsent (aTypeConverterRule.getSubType (),
+                                                            x -> new CommonsArrayList <> ())
+                                          .add (aTypeConverterRule));
 
     if (s_aLogger.isTraceEnabled ())
       s_aLogger.trace ("Registered type converter rule " +
@@ -369,7 +371,12 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
   @Nonnegative
   public long getRegisteredTypeConverterRuleCount ()
   {
-    return m_aRWLock.readLocked ( () -> m_aRules.getTotalValueCount ());
+    return m_aRWLock.readLocked ( () -> {
+      int ret = 0;
+      for (final ICommonsList <?> aValue : m_aRules.values ())
+        ret += aValue.size ();
+      return ret;
+    });
   }
 
   private void _reinitialize ()

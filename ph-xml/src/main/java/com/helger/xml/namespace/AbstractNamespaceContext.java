@@ -22,8 +22,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.XMLConstants;
 
-import com.helger.commons.collection.IteratorHelper;
-import com.helger.commons.collection.iterate.SingleElementIterator;
+import com.helger.collection.iterate.SingleElementIterator;
+import com.helger.commons.collection.iterate.EmptyIterator;
 
 /**
  * Represents an abstract namespace context that does the predefined mapping as
@@ -46,12 +46,12 @@ public abstract class AbstractNamespaceContext implements IIterableNamespaceCont
     if (sNamespaceURI == null)
       throw new IllegalArgumentException ();
     if (sNamespaceURI.equals (XMLConstants.XML_NS_URI))
-      return SingleElementIterator.create (XMLConstants.XML_NS_PREFIX);
+      return new SingleElementIterator <> (XMLConstants.XML_NS_PREFIX);
     if (sNamespaceURI.equals (XMLConstants.XMLNS_ATTRIBUTE_NS_URI))
-      return SingleElementIterator.create (XMLConstants.XMLNS_ATTRIBUTE);
+      return new SingleElementIterator <> (XMLConstants.XMLNS_ATTRIBUTE);
 
     final Iterator <?> ret = getCustomPrefixes (sNamespaceURI);
-    return ret != null ? ret : IteratorHelper.<String> getEmptyIterator ();
+    return ret != null ? ret : new EmptyIterator <> ();
   }
 
   @Nullable

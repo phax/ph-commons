@@ -26,7 +26,6 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.NonBlockingStack;
 
 @Immutable
 public final class StackHelper

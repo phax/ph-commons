@@ -26,7 +26,6 @@ import java.util.Objects;
 import org.junit.Test;
 
 import com.helger.commons.collection.ext.CommonsArrayList;
-import com.helger.commons.collection.impl.NonBlockingStack;
 import com.helger.commons.collection.iterate.IterableIterator;
 
 /**
@@ -67,5 +66,18 @@ public final class StackHelperTest
     StackHelper.newStack (new CommonsArrayList <> ("a"), Objects::nonNull);
     StackHelper.newStackMapped (new CommonsArrayList <Object> ("a"), Object::toString);
     StackHelper.newStackMapped (new Object [] { "a" }, Object::toString);
+  }
+
+  @Test
+  public void testNewStackSingleValue ()
+  {
+    NonBlockingStack <String> aStack = StackHelper.newStack ();
+    assertNotNull (aStack);
+    aStack = StackHelper.newStack ("Hallo");
+    assertNotNull (aStack);
+    assertEquals (aStack.size (), 1);
+    assertTrue (aStack.contains ("Hallo"));
+    assertEquals ("Hallo", aStack.peek ());
+    assertEquals ("Hallo", aStack.pop ());
   }
 }

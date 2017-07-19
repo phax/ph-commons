@@ -55,6 +55,10 @@
       <artifactId>ph-commons</artifactId>
     </dependency>
     <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-collection</artifactId>
+    </dependency>
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <optional>true</optional>

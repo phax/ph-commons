@@ -27,7 +27,7 @@ import java.util.function.Function;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.impl.MapEntry;
+import com.helger.commons.collection.map.MapEntry;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.url.SMap;
 

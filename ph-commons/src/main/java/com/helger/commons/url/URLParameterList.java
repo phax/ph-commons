@@ -27,11 +27,11 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.CommonsLinkedHashSet;
 import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.collection.ext.ICommonsOrderedSet;
-import com.helger.commons.collection.multimap.IMultiMapListBased;
-import com.helger.commons.collection.multimap.MultiLinkedHashMapArrayListBased;
 
 /**
  * A list of URL parameters with a sanity API. It allows for multiple URL
@@ -175,7 +175,7 @@ public class URLParameterList extends CommonsArrayList <URLParameter>
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllParamNames ()
   {
-    final ICommonsOrderedSet <String> ret = new CommonsLinkedHashSet<> ();
+    final ICommonsOrderedSet <String> ret = new CommonsLinkedHashSet <> ();
     forEach (aParam -> ret.add (aParam.getName ()));
     return ret;
   }
@@ -184,7 +184,7 @@ public class URLParameterList extends CommonsArrayList <URLParameter>
   @ReturnsMutableCopy
   public ICommonsList <String> getAllParamValues (@Nullable final String sName)
   {
-    final ICommonsList <String> ret = new CommonsArrayList<> ();
+    final ICommonsList <String> ret = new CommonsArrayList <> ();
     if (sName != null)
       findAll (aParam -> aParam.hasName (sName), aParam -> ret.add (aParam.getValue ()));
     return ret;
@@ -209,10 +209,11 @@ public class URLParameterList extends CommonsArrayList <URLParameter>
    */
   @Nonnull
   @ReturnsMutableCopy
-  public IMultiMapListBased <String, String> getAsMultiMap ()
+  public ICommonsOrderedMap <String, ICommonsList <String>> getAsMultiMap ()
   {
-    final IMultiMapListBased <String, String> ret = new MultiLinkedHashMapArrayListBased<> ();
-    forEach (aParam -> ret.putSingle (aParam.getName (), aParam.getValue ()));
+    final ICommonsOrderedMap <String, ICommonsList <String>> ret = new CommonsLinkedHashMap <> ();
+    forEach (aParam -> ret.computeIfAbsent (aParam.getName (), x -> new CommonsArrayList <> ())
+                          .add (aParam.getValue ()));
     return ret;
   }
 

@@ -29,7 +29,10 @@ import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.annotation.IsSPIInterface;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.cache.AnnotationUsageCache;
-import com.helger.commons.collection.multimap.MultiTreeMapTreeSetBased;
+import com.helger.commons.collection.ext.CommonsTreeMap;
+import com.helger.commons.collection.ext.CommonsTreeSet;
+import com.helger.commons.collection.ext.ICommonsSortedMap;
+import com.helger.commons.collection.ext.ICommonsSortedSet;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.iterate.FileSystemIterator;
 import com.helger.commons.io.stream.NonBlockingBufferedReader;
@@ -69,12 +72,12 @@ public final class SPITestHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static MultiTreeMapTreeSetBased <String, String> testIfAllSPIImplementationsAreValid (@Nonnull final String sBaseDir,
-                                                                                               @Nonnull final EMode eMode) throws IOException
+  public static ICommonsSortedMap <String, ICommonsSortedSet <String>> testIfAllSPIImplementationsAreValid (@Nonnull final String sBaseDir,
+                                                                                                            @Nonnull final EMode eMode) throws IOException
   {
     final boolean bDoResolve = eMode.isResolve ();
     final ClassLoader aCL = ReflectionSecurityManager.INSTANCE.getCallerClass (1).getClassLoader ();
-    final MultiTreeMapTreeSetBased <String, String> aAllImplementations = new MultiTreeMapTreeSetBased <> ();
+    final ICommonsSortedMap <String, ICommonsSortedSet <String>> aAllImplementations = new CommonsTreeMap <> ();
     final File aBaseDir = new File (sBaseDir);
     if (aBaseDir.exists () && aBaseDir.isDirectory ())
       for (final File aFile : new FileSystemIterator (sBaseDir))
@@ -125,7 +128,8 @@ public final class SPITestHelper
                     if (!s_aCacheImplementation.hasAnnotation (aImplClass))
                       s_aLogger.warn (aImplClass + " should have the @IsSPIImplementation annotation");
                     ++nCount;
-                    aAllImplementations.putSingle (sInterfaceClassName, sImplClassName);
+                    aAllImplementations.computeIfAbsent (sInterfaceClassName, x -> new CommonsTreeSet <> ())
+                                       .add (sImplClassName);
                   }
                   catch (final Throwable t)
                   {
@@ -140,7 +144,8 @@ public final class SPITestHelper
                 else
                 {
                   ++nCount;
-                  aAllImplementations.putSingle (sInterfaceClassName, sImplClassName);
+                  aAllImplementations.computeIfAbsent (sInterfaceClassName, x -> new CommonsTreeSet <> ())
+                                     .add (sImplClassName);
                 }
               }
             }
@@ -158,30 +163,30 @@ public final class SPITestHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  public static MultiTreeMapTreeSetBased <String, String> testIfAllMainSPIImplementationsAreValid (final boolean bContinueOnError) throws IOException
+  public static ICommonsSortedMap <String, ICommonsSortedSet <String>> testIfAllMainSPIImplementationsAreValid (final boolean bContinueOnError) throws IOException
   {
     return testIfAllSPIImplementationsAreValid (MAIN_SERVICES, bContinueOnError ? EMode.IGNORE_ERRORS : EMode.STRICT);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static MultiTreeMapTreeSetBased <String, String> testIfAllTestSPIImplementationsAreValid (final boolean bContinueOnError) throws IOException
+  public static ICommonsSortedMap <String, ICommonsSortedSet <String>> testIfAllTestSPIImplementationsAreValid (final boolean bContinueOnError) throws IOException
   {
     return testIfAllSPIImplementationsAreValid (TEST_SERVICES, bContinueOnError ? EMode.IGNORE_ERRORS : EMode.STRICT);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static MultiTreeMapTreeSetBased <String, String> testIfAllSPIImplementationsAreValid (final boolean bContinueOnError) throws IOException
+  public static ICommonsSortedMap <String, ICommonsSortedSet <String>> testIfAllSPIImplementationsAreValid (final boolean bContinueOnError) throws IOException
   {
-    final MultiTreeMapTreeSetBased <String, String> aAllImplementations = testIfAllMainSPIImplementationsAreValid (bContinueOnError);
+    final ICommonsSortedMap <String, ICommonsSortedSet <String>> aAllImplementations = testIfAllMainSPIImplementationsAreValid (bContinueOnError);
     aAllImplementations.putAll (testIfAllTestSPIImplementationsAreValid (bContinueOnError));
     return aAllImplementations;
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public static MultiTreeMapTreeSetBased <String, String> testIfAllSPIImplementationsAreValid () throws IOException
+  public static ICommonsSortedMap <String, ICommonsSortedSet <String>> testIfAllSPIImplementationsAreValid () throws IOException
   {
     return testIfAllSPIImplementationsAreValid (false);
   }

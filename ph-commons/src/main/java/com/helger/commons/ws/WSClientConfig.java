@@ -19,7 +19,6 @@ package com.helger.commons.ws;
 import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -40,20 +39,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
-import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.collection.ext.ICommonsOrderedMap;
-import com.helger.commons.collection.multimap.IMultiMapListBased;
-import com.helger.commons.collection.multimap.MultiLinkedHashMapArrayListBased;
+import com.helger.commons.http.CHTTPHeader;
+import com.helger.commons.http.HTTPHeaderMap;
 import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.commons.lang.priviledged.IPrivilegedAction;
 import com.helger.commons.random.VerySecureRandom;
-import com.helger.commons.state.EChange;
 import com.helger.commons.state.ETriState;
 import com.helger.commons.string.StringHelper;
 
@@ -65,7 +61,6 @@ import com.helger.commons.string.StringHelper;
 @NotThreadSafe
 public class WSClientConfig
 {
-  private static final String HTTP_HEADER_ACCEPT_ENCODING = "Accept-Encoding";
   public static final int DEFAULT_CONNECTION_TIMEOUT_MS = 5000;
   public static final int DEFAULT_REQUEST_TIMEOUT_MS = 5000;
   public static final int DEFAULT_CHUNK_SIZE = -1;
@@ -81,9 +76,9 @@ public class WSClientConfig
   private String m_sUserName;
   private String m_sPassword;
   private String m_sSOAPAction;
-  private IMultiMapListBased <String, String> m_aHTTPHeaders;
+  private final HTTPHeaderMap m_aHTTPHeaders = new HTTPHeaderMap ();
   private ETriState m_eCookiesSupport = ETriState.UNDEFINED;
-  private final ICommonsList <Handler <? extends MessageContext>> m_aHandlers = new CommonsArrayList<> ();
+  private final ICommonsList <Handler <? extends MessageContext>> m_aHandlers = new CommonsArrayList <> ();
 
   private boolean m_bWorkAroundMASM0003 = true;
 
@@ -369,193 +364,14 @@ public class WSClientConfig
     return this;
   }
 
+  /**
+   * @return The mutable HTTP header map used inside
+   */
   @Nonnull
-  private IMultiMapListBased <String, String> _getHeaderMap ()
+  @ReturnsMutableObject
+  public HTTPHeaderMap httpHeaders ()
   {
-    if (m_aHTTPHeaders == null)
-      m_aHTTPHeaders = new MultiLinkedHashMapArrayListBased<> ();
     return m_aHTTPHeaders;
-  }
-
-  /**
-   * Add an HTTP header to be send. If another HTTP header with the same name is
-   * already present the passed value is appended!
-   *
-   * @param sName
-   *        Header name. May neither be <code>null</code> nor empty.
-   * @param sValue
-   *        Header value. May not be <code>null</code>.
-   * @see #addHTTPHeader(String, Collection)
-   * @see #setHTTPHeader(String, String)
-   * @see #setHTTPHeader(String, Collection)
-   * @return this for chaining
-   */
-  @Nonnull
-  public WSClientConfig addHTTPHeader (@Nonnull @Nonempty final String sName, @Nonnull final String sValue)
-  {
-    ValueEnforcer.notEmpty (sName, "Name");
-    ValueEnforcer.notNull (sValue, "Value");
-
-    _getHeaderMap ().putSingle (sName, sValue);
-    return this;
-  }
-
-  /**
-   * Add an HTTP header to be send. This method adds values to an existing
-   * header with the same name.
-   *
-   * @param sName
-   *        Header name. May neither be <code>null</code> nor empty.
-   * @param aValues
-   *        Header values to be added. May not be <code>null</code> but may not
-   *        contain <code>null</code> values. If this collection is empty
-   *        nothing happens.
-   * @see #addHTTPHeader(String, String)
-   * @see #setHTTPHeader(String, String)
-   * @see #setHTTPHeader(String, Collection)
-   * @return this for chaining
-   */
-  @Nonnull
-  public WSClientConfig addHTTPHeader (@Nonnull @Nonempty final String sName,
-                                       @Nonnull final Collection <String> aValues)
-  {
-    ValueEnforcer.notEmpty (sName, "Name");
-    ValueEnforcer.notNullNoNullValue (aValues, "Values");
-
-    _getHeaderMap ().getOrCreate (sName).addAll (aValues);
-    return this;
-  }
-
-  /**
-   * Add an HTTP header to be send. If another HTTP header with the same name is
-   * already present it will be overwritten!
-   *
-   * @param sName
-   *        Header name. May neither be <code>null</code> nor empty.
-   * @param sValue
-   *        Header value. May not be <code>null</code>.
-   * @see #addHTTPHeader(String, String)
-   * @see #addHTTPHeader(String, Collection)
-   * @see #setHTTPHeader(String, Collection)
-   * @return this for chaining
-   */
-  @Nonnull
-  public WSClientConfig setHTTPHeader (@Nonnull @Nonempty final String sName, @Nonnull final String sValue)
-  {
-    ValueEnforcer.notEmpty (sName, "Name");
-    ValueEnforcer.notNull (sValue, "Value");
-
-    _getHeaderMap ().put (sName, new CommonsArrayList<> (sValue));
-    return this;
-  }
-
-  /**
-   * Add an HTTP header to be send. This method overwrites an existing header
-   * with the same name.
-   *
-   * @param sName
-   *        Header name. May neither be <code>null</code> nor empty.
-   * @param aValues
-   *        Header values to be added. May not be <code>null</code> but may not
-   *        contain <code>null</code> values. If this collection is empty the
-   *        header will be removed.
-   * @see #addHTTPHeader(String, String)
-   * @see #addHTTPHeader(String, Collection)
-   * @see #setHTTPHeader(String, String)
-   * @return this for chaining
-   */
-  @Nonnull
-  public WSClientConfig setHTTPHeader (@Nonnull @Nonempty final String sName,
-                                       @Nonnull final Collection <String> aValues)
-  {
-    ValueEnforcer.notEmpty (sName, "Name");
-    ValueEnforcer.notNullNoNullValue (aValues, "Values");
-
-    if (aValues.isEmpty ())
-      removeHTTPHeader (sName);
-    else
-      _getHeaderMap ().put (sName, new CommonsArrayList<> (aValues));
-    return this;
-  }
-
-  /**
-   * Remove all HTTP header values with the passed name.
-   *
-   * @param sName
-   *        Header name. May be <code>null</code>.
-   * @return {@link EChange#CHANGED} if remove was successful.
-   */
-  @Nonnull
-  public EChange removeHTTPHeader (@Nonnull final String sName)
-  {
-    if (m_aHTTPHeaders == null || StringHelper.hasNoText (sName))
-      return EChange.UNCHANGED;
-
-    return m_aHTTPHeaders.removeObject (sName);
-  }
-
-  /**
-   * Remove the HTTP header with the passed name and value.
-   *
-   * @param sName
-   *        Header name. May be <code>null</code>.
-   * @param sValue
-   *        Header value. May be <code>null</code>.
-   * @return {@link EChange#CHANGED} if remove was successful.
-   */
-  @Nonnull
-  public EChange removeHTTPHeader (@Nullable final String sName, @Nullable final String sValue)
-  {
-    if (m_aHTTPHeaders == null || StringHelper.hasNoText (sName) || sValue == null)
-      return EChange.UNCHANGED;
-
-    final ICommonsList <String> aValues = m_aHTTPHeaders.get (sName);
-    if (aValues != null)
-      if (aValues.remove (sValue))
-      {
-        // If no more value for the passed name is present, remove the whole
-        // list
-        if (aValues.isEmpty ())
-          m_aHTTPHeaders.remove (sName);
-
-        return EChange.CHANGED;
-      }
-    return EChange.UNCHANGED;
-  }
-
-  /**
-   * @param sName
-   *        HTTP header name
-   * @return <code>true</code> if the HTTP is contained and contains at least
-   *         one value.
-   */
-  public boolean containsHTTPHeader (@Nullable final String sName)
-  {
-    if (m_aHTTPHeaders == null || StringHelper.hasNoText (sName))
-      return false;
-    return CollectionHelper.isNotEmpty (m_aHTTPHeaders.get (sName));
-  }
-
-  /**
-   * @param sName
-   *        HTTP header name. May be <code>null</code>.
-   * @return The list of all HTTP header values registered for the past name.
-   *         Never <code>null</code> but maybe empty.
-   */
-  @Nonnull
-  @ReturnsMutableCopy
-  public ICommonsList <String> getAllHTTPHeaderValues (@Nullable final String sName)
-  {
-    if (m_aHTTPHeaders == null || StringHelper.hasNoText (sName))
-      return new CommonsArrayList<> (0);
-    return new CommonsArrayList<> (m_aHTTPHeaders.get (sName));
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public ICommonsOrderedMap <String, ICommonsList <String>> getAllHTTPHeaders ()
-  {
-    return new CommonsLinkedHashMap<> (m_aHTTPHeaders);
   }
 
   /**
@@ -569,9 +385,9 @@ public class WSClientConfig
   public WSClientConfig setCompressedRequest (final boolean bCompress)
   {
     if (bCompress)
-      setHTTPHeader ("Content-Encoding", "gzip");
+      m_aHTTPHeaders.setHeader (CHTTPHeader.CONTENT_ENCODING, "gzip");
     else
-      removeHTTPHeader ("Content-Encoding");
+      m_aHTTPHeaders.removeHeaders (CHTTPHeader.CONTENT_ENCODING);
     return this;
   }
 
@@ -587,9 +403,9 @@ public class WSClientConfig
   public WSClientConfig setCompressedResponse (final boolean bCompress)
   {
     if (bCompress)
-      setHTTPHeader (HTTP_HEADER_ACCEPT_ENCODING, "gzip");
+      m_aHTTPHeaders.setHeader (CHTTPHeader.ACCEPT_ENCODING, "gzip");
     else
-      removeHTTPHeader (HTTP_HEADER_ACCEPT_ENCODING);
+      m_aHTTPHeaders.removeHeaders (CHTTPHeader.ACCEPT_ENCODING);
     return this;
   }
 

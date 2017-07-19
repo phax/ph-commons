@@ -25,8 +25,6 @@ import javax.annotation.WillNotClose;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collection.pair.IPair;
-import com.helger.commons.collection.pair.Pair;
 import com.helger.commons.io.stream.NonBlockingPushbackReader;
 import com.helger.commons.string.StringHelper;
 import com.helger.json.CJson;
@@ -396,6 +394,18 @@ public class JsonParser
     return (c >= 0x21 && c <= 0x7a) && c != ':';
   }
 
+  private static final class TwoStrings
+  {
+    final String m_sOriginal;
+    final String m_sUnescaped;
+
+    private TwoStrings (@Nonnull final String sOriginal, @Nonnull final String sUnescaped)
+    {
+      m_sOriginal = sOriginal;
+      m_sUnescaped = sUnescaped;
+    }
+  }
+
   /**
    * @param EStringQuoteMode
    *        The quoting mode used. May not be <code>null</code>.
@@ -405,7 +415,7 @@ public class JsonParser
    * @throws JsonParseException
    */
   @Nonnull
-  private IPair <String, String> _readString (@Nonnull final EStringQuoteMode eQuoteMode) throws JsonParseException
+  private TwoStrings _readString (@Nonnull final EStringQuoteMode eQuoteMode) throws JsonParseException
   {
     final IJsonParsePosition aStartPos = m_aPos.getClone ();
     final JsonStringBuilder aStrStringOriginalContent = new JsonStringBuilder (256);
@@ -490,7 +500,7 @@ public class JsonParser
       }
     }
 
-    return Pair.create (aStrStringOriginalContent.getAsString (), aStrStringUnescapedContent.getAsString ());
+    return new TwoStrings (aStrStringOriginalContent.getAsString (), aStrStringUnescapedContent.getAsString ());
   }
 
   @Nonnull
@@ -786,8 +796,8 @@ public class JsonParser
       final EStringQuoteMode eQuoteMode = EStringQuoteMode.getFromCharOrDefault (c);
       _backupChar (c);
 
-      final IPair <String, String> aName = _readString (eQuoteMode);
-      m_aCallback.onObjectName (aName.getFirst (), aName.getSecond ());
+      final TwoStrings aName = _readString (eQuoteMode);
+      m_aCallback.onObjectName (aName.m_sOriginal, aName.m_sUnescaped);
 
       _skipSpaces ();
 
@@ -828,15 +838,15 @@ public class JsonParser
       case '\'':
       {
         _backupChar (cFirst);
-        final IPair <String, String> aString = _readString (EStringQuoteMode.SINGLE);
-        m_aCallback.onString (aString.getFirst (), aString.getSecond ());
+        final TwoStrings aString = _readString (EStringQuoteMode.SINGLE);
+        m_aCallback.onString (aString.m_sOriginal, aString.m_sUnescaped);
         break;
       }
       case '"':
       {
         _backupChar (cFirst);
-        final IPair <String, String> aString = _readString (EStringQuoteMode.DOUBLE);
-        m_aCallback.onString (aString.getFirst (), aString.getSecond ());
+        final TwoStrings aString = _readString (EStringQuoteMode.DOUBLE);
+        m_aCallback.onString (aString.m_sOriginal, aString.m_sUnescaped);
         break;
       }
       case '-':

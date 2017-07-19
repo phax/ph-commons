@@ -28,10 +28,12 @@ import javax.xml.XMLConstants;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.ext.CommonsHashSet;
 import com.helger.commons.collection.ext.CommonsLinkedHashMap;
+import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.collection.ext.ICommonsSet;
-import com.helger.commons.collection.multimap.MultiHashMapHashSetBased;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ICloneable;
@@ -47,8 +49,8 @@ import com.helger.commons.string.ToStringGenerator;
 public class MapBasedNamespaceContext extends AbstractNamespaceContext implements ICloneable <MapBasedNamespaceContext>
 {
   private String m_sDefaultNamespaceURI;
-  private final ICommonsOrderedMap <String, String> m_aPrefix2NS = new CommonsLinkedHashMap<> ();
-  private final MultiHashMapHashSetBased <String, String> m_aNS2Prefix = new MultiHashMapHashSetBased<> ();
+  private final ICommonsOrderedMap <String, String> m_aPrefix2NS = new CommonsLinkedHashMap <> ();
+  private final ICommonsMap <String, ICommonsSet <String>> m_aNS2Prefix = new CommonsHashMap <> ();
 
   /**
    * Default constructor.
@@ -129,7 +131,7 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
     if (sPrefix.equals (XMLConstants.DEFAULT_NS_PREFIX))
       m_sDefaultNamespaceURI = sNamespaceURI;
     m_aPrefix2NS.put (sPrefix, sNamespaceURI);
-    m_aNS2Prefix.putSingle (sNamespaceURI, sPrefix);
+    m_aNS2Prefix.computeIfAbsent (sNamespaceURI, x -> new CommonsHashSet <> ()).add (sPrefix);
     return this;
   }
 
@@ -217,9 +219,11 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
       return EChange.UNCHANGED;
 
     // Remove from namespace 2 prefix map as well
-    if (m_aNS2Prefix.removeSingle (sNamespaceURI, sPrefix).isUnchanged ())
-      throw new IllegalStateException ("Internal inconsistency removing '" + sPrefix + "' and '" + sNamespaceURI + "'");
-    return EChange.CHANGED;
+    final ICommonsSet <String> aSet = m_aNS2Prefix.get (sNamespaceURI);
+    if (aSet != null && aSet.removeObject (sPrefix).isChanged ())
+      return EChange.CHANGED;
+
+    throw new IllegalStateException ("Internal inconsistency removing '" + sPrefix + "' and '" + sNamespaceURI + "'");
   }
 
   @Nonnull

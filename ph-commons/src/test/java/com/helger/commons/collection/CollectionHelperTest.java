@@ -31,7 +31,6 @@ import static org.junit.Assert.fail;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
@@ -58,8 +57,6 @@ import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.collection.ext.ICommonsSortedMap;
 import com.helger.commons.collection.ext.ICommonsSortedSet;
-import com.helger.commons.collection.impl.NonBlockingStack;
-import com.helger.commons.collection.iterate.ArrayEnumeration;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.collection.iterate.IterableIterator;
 import com.helger.commons.compare.IComparator;
@@ -1009,24 +1006,6 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   }
 
   @Test
-  public void testNewListEnumeration ()
-  {
-    ICommonsList <String> aList = newList (new ArrayEnumeration <> ("Hallo", "Welt", "from", "Vienna"));
-    assertNotNull (aList);
-    assertEquals (4, aList.size ());
-    assertTrue (aList.contains ("Hallo"));
-    assertTrue (aList.contains ("Welt"));
-    assertTrue (aList.contains ("from"));
-    assertTrue (aList.contains ("Vienna"));
-
-    aList = newList (IteratorHelper.<String> getEmptyEnumeration ());
-    assertNotNull (aList);
-
-    aList = newList ((Enumeration <String>) null);
-    assertNotNull (aList);
-  }
-
-  @Test
   public void testNewListIterator ()
   {
     final ICommonsList <String> aSource = new CommonsArrayList <> ();
@@ -1043,7 +1022,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
     assertTrue (aList.contains ("from"));
     assertTrue (aList.contains ("Vienna"));
 
-    aList = newList (IteratorHelper.<String> getEmptyIterator ());
+    aList = newList (new CommonsArrayList <String> ().iterator ());
     assertNotNull (aList);
 
     aList = newList ((Iterator <String>) null);
@@ -1108,19 +1087,6 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
 
     aList = newList ((IIterableIterator <String>) null);
     assertNotNull (aList);
-  }
-
-  @Test
-  public void testNewStackSingleValue ()
-  {
-    NonBlockingStack <String> aStack = StackHelper.newStack ();
-    assertNotNull (aStack);
-    aStack = StackHelper.newStack ("Hallo");
-    assertNotNull (aStack);
-    assertEquals (aStack.size (), 1);
-    assertTrue (aStack.contains ("Hallo"));
-    assertEquals ("Hallo", aStack.peek ());
-    assertEquals ("Hallo", aStack.pop ());
   }
 
   @Test

@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.impl.NonBlockingStack;
+import com.helger.commons.collection.NonBlockingStack;
 import com.helger.json.IJson;
 import com.helger.json.IJsonCollection;
 import com.helger.json.JsonArray;

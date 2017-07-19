@@ -25,7 +25,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.datetime.PDTFactory;
-import com.helger.datetime.format.PDTToString;
+import com.helger.commons.datetime.PDTToString;
 
 /**
  * Some date time specific routines especially helpful for IO.

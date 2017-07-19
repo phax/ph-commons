@@ -31,9 +31,10 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.ext.CommonsLinkedHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.collection.multimap.IMultiMapListBased;
-import com.helger.commons.collection.multimap.MultiLinkedHashMapArrayListBased;
+import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.error.IError;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
@@ -316,7 +317,7 @@ public interface IErrorList extends IErrorBaseList <IError>, IHasSize
    */
   @Nonnull
   @ReturnsMutableCopy
-  default IMultiMapListBased <String, IError> getGroupedByID ()
+  default ICommonsMap <String, ICommonsList <IError>> getGroupedByID ()
   {
     return getGrouped (IError::getErrorID);
   }
@@ -327,7 +328,7 @@ public interface IErrorList extends IErrorBaseList <IError>, IHasSize
    */
   @Nonnull
   @ReturnsMutableCopy
-  default IMultiMapListBased <String, IError> getGroupedByFieldName ()
+  default ICommonsMap <String, ICommonsList <IError>> getGroupedByFieldName ()
   {
     return getGrouped (IError::getErrorFieldName);
   }
@@ -341,10 +342,11 @@ public interface IErrorList extends IErrorBaseList <IError>, IHasSize
    */
   @Nonnull
   @ReturnsMutableCopy
-  default <T> IMultiMapListBased <T, IError> getGrouped (@Nonnull final Function <? super IError, T> aKeyExtractor)
+  default <T> ICommonsOrderedMap <T, ICommonsList <IError>> getGrouped (@Nonnull final Function <? super IError, T> aKeyExtractor)
   {
-    final IMultiMapListBased <T, IError> ret = new MultiLinkedHashMapArrayListBased <> ();
-    forEach (x -> ret.putSingle (aKeyExtractor.apply (x), x));
+    final ICommonsOrderedMap <T, ICommonsList <IError>> ret = new CommonsLinkedHashMap <> ();
+    // create a list for each key, and add the respective entry
+    forEach (x -> ret.computeIfAbsent (aKeyExtractor.apply (x), k -> new CommonsArrayList <> ()).add (x));
     return ret;
   }
 }
