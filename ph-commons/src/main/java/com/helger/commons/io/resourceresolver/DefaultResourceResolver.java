@@ -195,6 +195,16 @@ public class DefaultResourceResolver
     return ret;
   }
 
+  @Nonnull
+  private static FileSystemResource _getChildResource (@Nonnull final File aBaseFile, @Nonnull final File aSystemFile)
+  {
+    final File aParent = aBaseFile.isDirectory () ? aBaseFile : aBaseFile.getParentFile ();
+    final File aRealFile = new File (aParent, aSystemFile.getPath ());
+    // path is cleaned (canonicalized) inside FileSystemResource
+    final FileSystemResource ret = new FileSystemResource (aRealFile);
+    return ret;
+  }
+
   /**
    * Do the standard resource resolving of sSystemId relative to sBaseURI
    *
@@ -286,18 +296,32 @@ public class DefaultResourceResolver
     else
       aSystemFile = new File (sSystemId);
 
+    // If the provided file is an absolute file, take it
     if (aSystemFile.isAbsolute ())
     {
-      final FileSystemResource ret = new FileSystemResource (aSystemFile);
+      final FileSystemResource aAbsFile = new FileSystemResource (aSystemFile);
+      if (!aAbsFile.exists ())
+      {
+        // Sometimes paths starting with "/" are passed in - as they are
+        // considered absolute when running on Linux, try if a combined file
+        // eventually exists
+        final FileSystemResource aMerged = _getChildResource (aBaseFile, aSystemFile);
+        if (aMerged.exists ())
+        {
+          if (bDebugResolve)
+            s_aLogger.info ("  resolved base + system URL to " + aMerged);
+          return aMerged;
+        }
+      }
+
+      // If the absolute version exists, or if both the absolute and the merged
+      // version do NOT exist, return the absolute version anyway.
       if (bDebugResolve)
-        s_aLogger.info ("  resolved system URL to " + ret);
-      return ret;
+        s_aLogger.info ("  resolved system URL to " + aAbsFile);
+      return aAbsFile;
     }
 
-    final File aParent = aBaseFile.isDirectory () ? aBaseFile : aBaseFile.getParentFile ();
-    final File aRealFile = new File (aParent, aSystemFile.getPath ());
-    // path is cleaned (canonicalized) inside FileSystemResource
-    final FileSystemResource ret = new FileSystemResource (aRealFile);
+    final FileSystemResource ret = _getChildResource (aBaseFile, aSystemFile);
     if (bDebugResolve)
       s_aLogger.info ("  resolved base + system URL to " + ret);
     return ret;
