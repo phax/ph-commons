@@ -50,7 +50,5 @@ public final class EmptyIteratorTest
     }
     catch (final UnsupportedOperationException ex)
     {}
-
-    assertFalse (eit.equals ("sthg else"));
   }
 }

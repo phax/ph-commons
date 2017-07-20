@@ -79,7 +79,5 @@ public final class EmptyListIteratorTest
     }
     catch (final UnsupportedOperationException ex)
     {}
-
-    assertFalse (eit.equals ("other thinggy"));
   }
 }
