@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.io.file.iterate;
+package com.helger.commons.io.file;
 
 import java.io.File;
 
@@ -22,7 +22,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.collection.iterate.IterableIterator;
-import com.helger.commons.io.file.FileHelper;
 
 /**
  * Iterate over the content of a single directory. Iteration is <b>not</b>

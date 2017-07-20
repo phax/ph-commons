@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.io.file.iterate;
+package com.helger.commons.io.file;
 
 import java.io.File;
 import java.util.NoSuchElementException;
@@ -28,8 +28,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.collection.iterate.IIterableIterator;
-import com.helger.commons.io.file.FileHelper;
-import com.helger.commons.io.file.filter.IFileFilter;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 

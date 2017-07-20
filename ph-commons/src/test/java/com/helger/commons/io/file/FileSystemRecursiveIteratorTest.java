@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.io.file.iterate;
+package com.helger.commons.io.file;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -27,7 +27,6 @@ import java.util.NoSuchElementException;
 import org.junit.Test;
 
 import com.helger.commons.collection.iterate.IIterableIterator;
-import com.helger.commons.io.file.filter.IFileFilter;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**

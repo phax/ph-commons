@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.io.file.filter;
+package com.helger.commons.io.file;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -27,8 +27,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.functional.IPredicate;
-import com.helger.commons.io.file.FileHelper;
-import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.regex.RegExHelper;
 
 /**
