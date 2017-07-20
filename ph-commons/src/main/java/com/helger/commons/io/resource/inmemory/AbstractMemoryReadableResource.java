@@ -22,6 +22,8 @@ import java.net.URL;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.ToStringGenerator;
@@ -33,10 +35,21 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public abstract class AbstractMemoryReadableResource implements IReadableResource
+public abstract class AbstractMemoryReadableResource implements IMemoryReadableResource
 {
-  public AbstractMemoryReadableResource ()
-  {}
+  private final String m_sResourceID;
+
+  public AbstractMemoryReadableResource (@Nonnull @Nonempty final String sResourceID)
+  {
+    m_sResourceID = ValueEnforcer.notEmpty (sResourceID, "ResourceID");
+  }
+
+  @Nonnull
+  @Nonempty
+  public String getResourceID ()
+  {
+    return m_sResourceID;
+  }
 
   @Nonnull
   public String getPath ()
@@ -65,12 +78,16 @@ public abstract class AbstractMemoryReadableResource implements IReadableResourc
   @UnsupportedOperation
   public IReadableResource getReadableCloneForPath (@Nonnull final String sPath)
   {
-    throw new UnsupportedOperationException ();
+    throw new UnsupportedOperationException ("Cannot clone in-memory resource '" +
+                                             m_sResourceID +
+                                             "' for path '" +
+                                             sPath +
+                                             "'");
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).getToString ();
+    return new ToStringGenerator (this).append ("ResourceID", m_sResourceID).getToString ();
   }
 }

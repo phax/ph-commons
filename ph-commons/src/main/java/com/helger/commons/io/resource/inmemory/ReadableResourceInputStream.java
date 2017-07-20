@@ -19,10 +19,11 @@ package com.helger.commons.io.resource.inmemory;
 import java.io.InputStream;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.io.resource.IReadableResource;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -36,14 +37,13 @@ public class ReadableResourceInputStream extends AbstractMemoryReadableResource
 
   public ReadableResourceInputStream (@Nonnull final InputStream aIS)
   {
-    m_aIS = ValueEnforcer.notNull (aIS, "InputStream");
+    this (null, aIS);
   }
 
-  @Nonnull
-  @Nonempty
-  public String getResourceID ()
+  public ReadableResourceInputStream (@Nullable final String sResourceID, @Nonnull final InputStream aIS)
   {
-    return "input-stream";
+    super (StringHelper.hasText (sResourceID) ? sResourceID : "input-stream");
+    m_aIS = ValueEnforcer.notNull (aIS, "InputStream");
   }
 
   @Nonnull
@@ -55,6 +55,6 @@ public class ReadableResourceInputStream extends AbstractMemoryReadableResource
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("inputStream", m_aIS).getToString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("InputStream", m_aIS).getToString ();
   }
 }

@@ -19,8 +19,10 @@ package com.helger.commons.io.resource.inmemory;
 import java.nio.charset.Charset;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.io.resource.IReadableResource;
+import com.helger.commons.string.StringHelper;
 
 /**
  * An in-memory {@link IReadableResource} based on a {@link String} which is
@@ -32,6 +34,14 @@ public class ReadableResourceString extends ReadableResourceByteArray
 {
   public ReadableResourceString (@Nonnull final String sString, @Nonnull final Charset aCharset)
   {
-    super (sString.getBytes (aCharset));
+    this (null, sString, aCharset);
+  }
+
+  public ReadableResourceString (@Nullable final String sResourceID,
+                                 @Nonnull final String sString,
+                                 @Nonnull final Charset aCharset)
+  {
+    super (StringHelper.hasText (sResourceID) ? sResourceID : "String[" + aCharset.name () + "]",
+           sString.getBytes (aCharset));
   }
 }

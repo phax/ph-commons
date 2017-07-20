@@ -20,14 +20,15 @@ import java.io.InputStream;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.lang.IHasSize;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -41,15 +42,14 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
 
   public ReadableResourceByteArray (@Nonnull final byte [] aBytes)
   {
-    // Create a copy to avoid outside modifications
-    m_aBytes = ArrayHelper.getCopy (ValueEnforcer.notNull (aBytes, "Schematron"));
+    this (null, aBytes);
   }
 
-  @Nonnull
-  @Nonempty
-  public String getResourceID ()
+  public ReadableResourceByteArray (@Nullable final String sResourceID, @Nonnull final byte [] aBytes)
   {
-    return "byte[]";
+    super (StringHelper.hasText (sResourceID) ? sResourceID : "byte[]");
+    // Create a copy to avoid outside modifications
+    m_aBytes = ArrayHelper.getCopy (ValueEnforcer.notNull (aBytes, "Bytes"));
   }
 
   @Nonnull
