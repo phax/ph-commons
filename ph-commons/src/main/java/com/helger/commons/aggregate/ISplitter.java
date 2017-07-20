@@ -1,0 +1,43 @@
+/**
+ * Copyright (C) 2014-2017 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.helger.commons.aggregate;
+
+import javax.annotation.Nonnull;
+
+import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.functional.IFunction;
+import com.helger.commons.string.StringHelper;
+
+/**
+ * Splits an input object to a list of output objects (change 1 to n).
+ *
+ * @author Philip Helger
+ * @param <SRCTYPE>
+ *        The input type.
+ * @param <DSTTYPE>
+ *        The output type.
+ * @since 9.0.0
+ */
+@FunctionalInterface
+public interface ISplitter <SRCTYPE, DSTTYPE> extends IFunction <SRCTYPE, ICommonsList <DSTTYPE>>
+{
+  @Nonnull
+  static ISplitter <String, String> createStringSplit (final char cSep)
+  {
+    return sSrc -> StringHelper.getExploded (cSep, sSrc);
+  }
+}
