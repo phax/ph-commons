@@ -41,7 +41,7 @@ public class GZIPWritableResource extends AbstractWrappedWritableResource
   @Nullable
   public OutputStream getOutputStream (@Nonnull final EAppend eAppend)
   {
-    final OutputStream aIS = getBaseResource ().getOutputStream (eAppend);
+    final OutputStream aIS = getWrappedWritableResource ().getOutputStream (eAppend);
     if (aIS == null)
       return null;
     try
@@ -57,6 +57,6 @@ public class GZIPWritableResource extends AbstractWrappedWritableResource
   @Nonnull
   public GZIPWritableResource getWritableCloneForPath (@Nonnull final String sPath)
   {
-    return new GZIPWritableResource (getBaseResource ().getWritableCloneForPath (sPath));
+    return new GZIPWritableResource (getWrappedWritableResource ().getWritableCloneForPath (sPath));
   }
 }

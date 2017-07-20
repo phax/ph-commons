@@ -40,7 +40,7 @@ public class GZIPReadableResource extends AbstractWrappedReadableResource
   @Nullable
   public InputStream getInputStream ()
   {
-    final InputStream aIS = getBaseResource ().getInputStream ();
+    final InputStream aIS = getWrappedReadableResource ().getInputStream ();
     if (aIS == null)
       return null;
     try
@@ -56,6 +56,6 @@ public class GZIPReadableResource extends AbstractWrappedReadableResource
   @Nonnull
   public GZIPReadableResource getReadableCloneForPath (@Nonnull final String sPath)
   {
-    return new GZIPReadableResource (getBaseResource ().getReadableCloneForPath (sPath));
+    return new GZIPReadableResource (getWrappedReadableResource ().getReadableCloneForPath (sPath));
   }
 }

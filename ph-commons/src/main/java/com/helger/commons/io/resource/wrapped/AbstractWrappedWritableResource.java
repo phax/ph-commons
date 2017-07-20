@@ -32,7 +32,7 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public abstract class AbstractWrappedWritableResource implements IWritableResource
+public abstract class AbstractWrappedWritableResource implements IWrappedWritableResource
 {
   private final IWritableResource m_aBaseResource;
 
@@ -42,7 +42,7 @@ public abstract class AbstractWrappedWritableResource implements IWritableResour
   }
 
   @Nonnull
-  protected IWritableResource getBaseResource ()
+  public IWritableResource getWrappedWritableResource ()
   {
     return m_aBaseResource;
   }
