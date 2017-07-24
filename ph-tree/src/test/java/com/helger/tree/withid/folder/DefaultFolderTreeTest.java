@@ -27,6 +27,7 @@ import com.helger.commons.collection.PrimitiveCollectionHelper;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.commons.string.StringHelper;
 
 /**
  * Test class for class {@link DefaultFolderTree}.
@@ -38,7 +39,7 @@ public final class DefaultFolderTreeTest extends AbstractCommonsTestCase
   @Test
   public void testBasic ()
   {
-    final IAggregator <String, String> aCombinator = IAggregator.createStringAll ('/');
+    final IAggregator <String, String> aCombinator = x -> StringHelper.getImploded ('/', x);
     final DefaultFolderTree <String, Integer, ICommonsSet <Integer>> ft = DefaultFolderTree.createForSet (aCombinator);
     assertNotNull (ft.getRootItem ());
 

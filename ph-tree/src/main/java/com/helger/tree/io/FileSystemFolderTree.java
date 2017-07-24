@@ -24,11 +24,11 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.aggregate.IAggregator;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.FilenameHelper;
+import com.helger.commons.string.StringHelper;
 import com.helger.tree.withid.folder.DefaultFolderTree;
 import com.helger.tree.withid.folder.DefaultFolderTreeItem;
 
@@ -93,7 +93,7 @@ public class FileSystemFolderTree extends DefaultFolderTree <String, File, IComm
                                @Nullable final Predicate <? super File> aDirFilter,
                                @Nullable final Predicate <? super File> aFileFilter)
   {
-    super (IAggregator.createStringIgnoreEmpty ('/'));
+    super (x -> StringHelper.getImplodedNonEmpty ('/', x));
     ValueEnforcer.notNull (aStartDir, "StartDirectory");
     ValueEnforcer.isTrue (aStartDir.isDirectory (), "Start directory is not a directory!");
 

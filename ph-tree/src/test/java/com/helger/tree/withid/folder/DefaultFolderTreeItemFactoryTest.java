@@ -25,6 +25,7 @@ import org.junit.Test;
 
 import com.helger.commons.aggregate.IAggregator;
 import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.commons.string.StringHelper;
 
 /**
  * Test class for class {@link DefaultFolderTreeItemFactory}.
@@ -36,7 +37,8 @@ public final class DefaultFolderTreeItemFactoryTest
   @Test
   public void testBasic ()
   {
-    final DefaultFolderTreeItemFactory <String, String, List <String>> ftif = new DefaultFolderTreeItemFactory <> (IAggregator.createStringAll ('/'));
+    final DefaultFolderTreeItemFactory <String, String, List <String>> ftif = new DefaultFolderTreeItemFactory <> (x -> StringHelper.getImploded ('/',
+                                                                                                                                                  x));
     assertNotNull (ftif.createRoot ());
     try
     {
@@ -50,12 +52,13 @@ public final class DefaultFolderTreeItemFactoryTest
   @Test
   public void testEquals ()
   {
-    final IAggregator <String, String> aAggregator = IAggregator.createStringAll ('/');
+    final IAggregator <String, String> aAggregator = x -> StringHelper.getImploded ('/', x);
     final DefaultFolderTreeItemFactory <String, String, List <String>> ftif = new DefaultFolderTreeItemFactory <> (aAggregator);
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ftif,
                                                                        new DefaultFolderTreeItemFactory <> (aAggregator));
     // New aggregator - different object!
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ftif,
-                                                                           new DefaultFolderTreeItemFactory <> (IAggregator.createStringAll ('/')));
+                                                                           new DefaultFolderTreeItemFactory <> (x -> StringHelper.getImploded ('/',
+                                                                                                                                               x)));
   }
 }

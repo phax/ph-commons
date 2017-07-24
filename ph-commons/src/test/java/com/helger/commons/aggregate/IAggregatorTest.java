@@ -20,16 +20,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
 
 import java.util.Collection;
 
 import org.junit.Test;
 
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import com.helger.commons.string.StringHelper;
 
 /**
  * Test class for class {@link IAggregator}.
@@ -41,7 +40,7 @@ public final class IAggregatorTest
   @Test
   public void testUseFirst ()
   {
-    final IAggregator <String, String> a1 = IAggregator.createUseFirst ();
+    final IAggregator <String, String> a1 = CollectionHelper::getFirstElement;
     assertEquals (a1, a1);
     assertNotEquals (a1, null);
     assertNotEquals (a1, "any other");
@@ -49,7 +48,7 @@ public final class IAggregatorTest
     assertNotEquals (a1.hashCode (), 0);
     assertNotEquals (a1.hashCode (), "any other".hashCode ());
     assertNotNull (a1.toString ());
-    final ICommonsList <String> l = new CommonsArrayList<> ("a", null, "b", "", "c");
+    final ICommonsList <String> l = new CommonsArrayList <> ("a", null, "b", "", "c");
     assertEquals ("a", a1.apply (l));
     assertNull (a1.apply (new CommonsArrayList <String> ()));
     assertNull (a1.apply ((Collection <String>) null));
@@ -58,7 +57,7 @@ public final class IAggregatorTest
   @Test
   public void testUseLast ()
   {
-    final IAggregator <String, String> a1 = IAggregator.createUseLast ();
+    final IAggregator <String, String> a1 = CollectionHelper::getLastElement;
     assertEquals (a1, a1);
     assertNotEquals (a1, null);
     assertNotEquals (a1, "any other");
@@ -66,7 +65,7 @@ public final class IAggregatorTest
     assertNotEquals (a1.hashCode (), 0);
     assertNotEquals (a1.hashCode (), "any other".hashCode ());
     assertNotNull (a1.toString ());
-    final ICommonsList <String> l = new CommonsArrayList<> ("a", null, "b", "", "c");
+    final ICommonsList <String> l = new CommonsArrayList <> ("a", null, "b", "", "c");
     assertEquals ("c", a1.apply (l));
     assertNull (a1.apply (new CommonsArrayList <String> ()));
     assertNull (a1.apply ((Collection <String>) null));
@@ -75,7 +74,7 @@ public final class IAggregatorTest
   @Test
   public void testGetStringCombinator ()
   {
-    final IAggregator <String, String> c = IAggregator.createStringAll ();
+    final IAggregator <String, String> c = StringHelper::getImploded;
     assertEquals ("ab", c.apply ("a", "b"));
     assertEquals ("anull", c.apply ("a", null));
     assertEquals ("nullb", c.apply (null, "b"));
@@ -86,7 +85,7 @@ public final class IAggregatorTest
   @Test
   public void testGetStringCombinatorWithSeparatorChar ()
   {
-    final IAggregator <String, String> c = IAggregator.createStringAll (',');
+    final IAggregator <String, String> c = x -> StringHelper.getImploded (',', x);
     assertEquals ("a,b", c.apply ("a", "b"));
     assertEquals ("a,null", c.apply ("a", null));
     assertEquals ("null,b", c.apply (null, "b"));
@@ -95,30 +94,20 @@ public final class IAggregatorTest
   }
 
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testGetStringCombinatorWithSeparatorString ()
   {
-    final IAggregator <String, String> c = IAggregator.createStringAll (";");
+    final IAggregator <String, String> c = x -> StringHelper.getImploded (";", x);
     assertEquals ("a;b", c.apply ("a", "b"));
     assertEquals ("a;null", c.apply ("a", null));
     assertEquals ("null;b", c.apply (null, "b"));
     assertEquals ("null;null", c.apply (null, null));
     assertEquals (";", c.apply ("", ""));
-
-    try
-    {
-      // null separator not allowed
-      IAggregator.createStringAll (null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
   }
 
   @Test
   public void testGetStringCombinatorIgnoreNull ()
   {
-    final IAggregator <String, String> c = IAggregator.createStringIgnoreEmpty ();
+    final IAggregator <String, String> c = StringHelper::getImplodedNonEmpty;
     assertEquals ("ab", c.apply ("a", "b"));
     assertEquals ("a", c.apply ("a", null));
     assertEquals ("b", c.apply (null, "b"));
@@ -130,7 +119,7 @@ public final class IAggregatorTest
   @Test
   public void testGetStringCombinatorWithSeparatorIgnoreEmptyChar ()
   {
-    final IAggregator <String, String> c = IAggregator.createStringIgnoreEmpty (',');
+    final IAggregator <String, String> c = x -> StringHelper.getImplodedNonEmpty (',', x);
     assertEquals ("a,b", c.apply ("a", "b"));
     assertEquals ("a", c.apply ("a", null));
     assertEquals ("b", c.apply (null, "b"));
@@ -139,23 +128,13 @@ public final class IAggregatorTest
   }
 
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testGetStringCombinatorWithSeparatorIgnoreEmptyString ()
   {
-    final IAggregator <String, String> c = IAggregator.createStringIgnoreEmpty (";");
+    final IAggregator <String, String> c = x -> StringHelper.getImplodedNonEmpty (";", x);
     assertEquals ("a;b", c.apply ("a", "b"));
     assertEquals ("a", c.apply ("a", null));
     assertEquals ("b", c.apply (null, "b"));
     assertEquals ("", c.apply (null, null));
     assertEquals ("", c.apply ("", ""));
-
-    try
-    {
-      // null separator not allowed
-      IAggregator.createStringIgnoreEmpty (null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
   }
 }
