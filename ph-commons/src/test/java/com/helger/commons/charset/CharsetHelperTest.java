@@ -54,7 +54,7 @@ public final class CharsetHelperTest
       CharsetHelper.getCharsetFromName (null);
       fail ();
     }
-    catch (final IllegalArgumentException ex)
+    catch (final NullPointerException ex)
     {}
     try
     {
@@ -96,15 +96,15 @@ public final class CharsetHelperTest
     final String s = "äbc";
     assertEquals (3,
                   CharsetHelper.getAsStringInOtherCharset (s, StandardCharsets.ISO_8859_1, StandardCharsets.UTF_8)
-                                .length ());
+                               .length ());
     assertEquals (4,
                   CharsetHelper.getAsStringInOtherCharset (s, StandardCharsets.UTF_8, StandardCharsets.ISO_8859_1)
-                                .length ());
+                               .length ());
     assertNull (CharsetHelper.getAsStringInOtherCharset (null, StandardCharsets.ISO_8859_1, StandardCharsets.UTF_8));
     assertEquals (s,
                   CharsetHelper.getAsStringInOtherCharset (s,
-                                                            StandardCharsets.ISO_8859_1,
-                                                            StandardCharsets.ISO_8859_1));
+                                                           StandardCharsets.ISO_8859_1,
+                                                           StandardCharsets.ISO_8859_1));
     assertEquals (s, CharsetHelper.getAsStringInOtherCharset (s, StandardCharsets.UTF_8, StandardCharsets.UTF_8));
 
     try

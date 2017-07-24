@@ -67,12 +67,6 @@ public class FormatableObject <DATATYPE> implements IFormatableObject <DATATYPE>
     return m_aFormatter;
   }
 
-  @Nullable
-  public String getAsString ()
-  {
-    return m_aFormatter != null ? m_aFormatter.apply (m_aValue) : String.valueOf (m_aValue);
-  }
-
   @Override
   public boolean equals (final Object o)
   {

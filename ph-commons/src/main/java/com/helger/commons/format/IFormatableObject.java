@@ -51,5 +51,12 @@ public interface IFormatableObject <DATATYPE>
    *         dependent on the semantics of the formatter.
    */
   @Nullable
-  String getAsString ();
+  default String getAsString ()
+  {
+    IFunction <? super DATATYPE, ? extends String> aFormatter = getFormatter ();
+    if (aFormatter == null)
+      aFormatter = String::valueOf;
+    return aFormatter.apply (getValue ());
+  }
+
 }
