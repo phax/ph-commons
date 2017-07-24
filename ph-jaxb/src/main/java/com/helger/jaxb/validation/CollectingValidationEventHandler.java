@@ -81,7 +81,7 @@ public class CollectingValidationEventHandler extends AbstractValidationEventHan
   @Nonnull
   public EChange clearResourceErrors ()
   {
-    return m_aRWLock.writeLocked ( () -> m_aErrors.clear ());
+    return m_aRWLock.writeLocked ( () -> m_aErrors.removeAll ());
   }
 
   @Override

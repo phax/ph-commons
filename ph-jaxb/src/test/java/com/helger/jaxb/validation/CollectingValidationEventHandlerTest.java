@@ -75,7 +75,7 @@ public final class CollectingValidationEventHandlerTest
       final JAXBElement <MockJAXBArchive> o = um.unmarshal (TransformSourceFactory.create (new FileSystemResource ("src/test/resources/xml/test-archive-03.xml")),
                                                             MockJAXBArchive.class);
       assertNotNull (o);
-      assertEquals (1, cveh.getErrorList ().getSize ());
+      assertEquals (1, cveh.getErrorList ().size ());
 
       // For code coverage completion
       CommonsTestHelper.testToStringImplementation (cveh);

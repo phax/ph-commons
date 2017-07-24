@@ -103,5 +103,4 @@ public interface IErrorLocation extends Serializable
     }
     return ret;
   }
-
 }

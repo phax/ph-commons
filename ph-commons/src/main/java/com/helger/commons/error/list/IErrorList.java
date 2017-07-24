@@ -38,7 +38,7 @@ import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.error.IError;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
-import com.helger.commons.lang.IHasSize;
+import com.helger.commons.error.level.IHasErrorLevels;
 import com.helger.commons.regex.RegExHelper;
 
 /**
@@ -48,15 +48,8 @@ import com.helger.commons.regex.RegExHelper;
  * @since 8.5.0
  */
 @MustImplementEqualsAndHashcode
-public interface IErrorList extends IErrorBaseList <IError>, IHasSize
+public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IError>
 {
-  /**
-   * @return A list with all contained items. Never <code>null</code>.
-   */
-  @Nonnull
-  @ReturnsMutableCopy
-  ICommonsList <IError> getAllItems ();
-
   /**
    * Check if no entry for the specified field is present
    *
