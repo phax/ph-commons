@@ -31,7 +31,7 @@ import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.ext.ICommonsOrderedMap;
 import com.helger.commons.collection.ext.ICommonsOrderedSet;
 import com.helger.commons.state.EChange;
-import com.helger.commons.traits.IConvertibleByKeyTrait;
+import com.helger.commons.traits.IGetterByKeyTrait;
 import com.helger.json.convert.JsonConverter;
 
 /**
@@ -42,7 +42,7 @@ import com.helger.json.convert.JsonConverter;
 public interface IJsonObject extends
                              IJsonCollection,
                              ICommonsIterable <Map.Entry <String, IJson>>,
-                             IConvertibleByKeyTrait <String>
+                             IGetterByKeyTrait <String>
 {
   @Nonnull
   IJsonObject add (@Nonnull String sName, @Nonnull IJson aValue);

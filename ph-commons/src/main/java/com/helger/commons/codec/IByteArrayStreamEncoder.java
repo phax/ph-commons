@@ -56,10 +56,10 @@ public interface IByteArrayStreamEncoder extends IByteArrayEncoder
    * @throws EncodeException
    *         In case something goes wrong
    */
-  void encode (@Nullable final byte [] aDecodedBuffer,
-               @Nonnegative final int nOfs,
-               @Nonnegative final int nLen,
-               @Nonnull @WillNotClose final OutputStream aOS);
+  void encode (@Nullable byte [] aDecodedBuffer,
+               @Nonnegative int nOfs,
+               @Nonnegative int nLen,
+               @Nonnull @WillNotClose OutputStream aOS);
 
   /**
    * Encode a byte array.

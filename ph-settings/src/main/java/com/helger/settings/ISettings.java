@@ -27,14 +27,14 @@ import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.ext.ICommonsSet;
 import com.helger.commons.lang.IHasSize;
 import com.helger.commons.name.IHasName;
-import com.helger.commons.traits.IConvertibleByKeyTrait;
+import com.helger.commons.traits.IGetterByKeyTrait;
 
 /**
  * Read-only settings base interface
  *
  * @author philip
  */
-public interface ISettings extends IHasName, IHasSize, IConvertibleByKeyTrait <String>
+public interface ISettings extends IHasName, IHasSize, IGetterByKeyTrait <String>
 {
   /**
    * @return A non-<code>null</code> set of all available field names in any

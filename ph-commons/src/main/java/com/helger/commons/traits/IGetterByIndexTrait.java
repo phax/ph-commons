@@ -36,7 +36,7 @@ import com.helger.commons.typeconvert.TypeConverterException;
  * @author Philip Helger
  */
 @FunctionalInterface
-public interface IConvertibleByIndexTrait
+public interface IGetterByIndexTrait
 {
   /**
    * Get the value at the specified index.

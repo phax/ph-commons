@@ -37,7 +37,7 @@ import com.helger.commons.typeconvert.TypeConverterException;
  *        The key type. E.g. String etc.
  */
 @FunctionalInterface
-public interface IConvertibleByKeyTrait <KEYTYPE>
+public interface IGetterByKeyTrait <KEYTYPE>
 {
   /**
    * Get the value matching the provided key.

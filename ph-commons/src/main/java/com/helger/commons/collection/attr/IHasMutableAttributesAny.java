@@ -29,14 +29,15 @@ import com.helger.commons.annotation.ReturnsMutableObject;
  *        Key type
  */
 @FunctionalInterface
-public interface IHasMutableAttributesAny <KEYTYPE>
-                                   extends IHasMutableAttributes <KEYTYPE, Object>, IHasAttributesAny <KEYTYPE>
+public interface IHasMutableAttributesAny <KEYTYPE> extends
+                                          IHasMutableAttributes <KEYTYPE, Object>,
+                                          IHasAttributesAny <KEYTYPE>
 {
   @Nonnull
   @ReturnsImmutableObject
-  default IAttributeContainer <KEYTYPE, Object> getAttributes ()
+  default IAttributeContainer <KEYTYPE, Object> attributes ()
   {
-    return getMutableAttributes ();
+    return mutableAttributes ();
   }
 
   /**
@@ -44,5 +45,5 @@ public interface IHasMutableAttributesAny <KEYTYPE>
    */
   @Nonnull
   @ReturnsMutableObject ("design")
-  IMutableAttributeContainerAny <KEYTYPE> getMutableAttributes ();
+  IMutableAttributeContainerAny <KEYTYPE> mutableAttributes ();
 }

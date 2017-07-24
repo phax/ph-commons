@@ -39,7 +39,7 @@ public interface IHasAttributes <KEYTYPE, VALUETYPE>
    */
   @Nonnull
   @ReturnsImmutableObject
-  IAttributeContainer <KEYTYPE, VALUETYPE> getAttributes ();
+  IAttributeContainer <KEYTYPE, VALUETYPE> attributes ();
 
   /**
    * @return The map with all contained attributes. Never <code>null</code> but
@@ -49,6 +49,6 @@ public interface IHasAttributes <KEYTYPE, VALUETYPE>
   @ReturnsMutableCopy
   default ICommonsMap <KEYTYPE, VALUETYPE> getAllAttributes ()
   {
-    return getAttributes ().getAllAttributes ();
+    return attributes ().getAllAttributes ();
   }
 }

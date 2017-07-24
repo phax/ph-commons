@@ -35,7 +35,7 @@ import com.helger.commons.typeconvert.TypeConverterException;
  * @author Philip Helger
  */
 @FunctionalInterface
-public interface IConvertibleDirectTrait
+public interface IGetterDirectTrait
 {
   /**
    * @return The value of interest. No <code>null</code> constraints applicable.
@@ -657,7 +657,7 @@ public interface IConvertibleDirectTrait
    * @return The convertible object
    */
   @Nonnull
-  static IConvertibleDirectTrait wrap (@Nullable final Object o)
+  static IGetterDirectTrait wrap (@Nullable final Object o)
   {
     return () -> o;
   }

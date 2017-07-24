@@ -29,7 +29,7 @@ import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.system.SystemProperties;
-import com.helger.commons.traits.IConvertibleByKeyTrait;
+import com.helger.commons.traits.IGetterByKeyTrait;
 import com.helger.commons.ws.WSHelper;
 import com.helger.settings.ISettings;
 
@@ -40,7 +40,7 @@ import com.helger.settings.ISettings;
  * @author Philip Helger
  */
 @Immutable
-public class ConfigFile implements IConvertibleByKeyTrait <String>
+public class ConfigFile implements IGetterByKeyTrait <String>
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (ConfigFile.class);
 

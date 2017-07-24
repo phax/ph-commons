@@ -35,9 +35,9 @@ public interface IHasMutableAttributes <KEYTYPE, VALUETYPE> extends IHasAttribut
 {
   @Nonnull
   @ReturnsImmutableObject
-  default IAttributeContainer <KEYTYPE, VALUETYPE> getAttributes ()
+  default IAttributeContainer <KEYTYPE, VALUETYPE> attributes ()
   {
-    return getMutableAttributes ();
+    return mutableAttributes ();
   }
 
   /**
@@ -45,5 +45,5 @@ public interface IHasMutableAttributes <KEYTYPE, VALUETYPE> extends IHasAttribut
    */
   @Nonnull
   @ReturnsMutableObject ("design")
-  IMutableAttributeContainer <KEYTYPE, VALUETYPE> getMutableAttributes ();
+  IMutableAttributeContainer <KEYTYPE, VALUETYPE> mutableAttributes ();
 }

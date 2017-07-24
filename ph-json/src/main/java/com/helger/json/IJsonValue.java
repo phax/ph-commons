@@ -24,7 +24,7 @@ import java.math.BigInteger;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.traits.IConvertibleDirectTrait;
+import com.helger.commons.traits.IGetterDirectTrait;
 import com.helger.json.valueserializer.IJsonValueSerializer;
 
 /**
@@ -32,7 +32,7 @@ import com.helger.json.valueserializer.IJsonValueSerializer;
  *
  * @author Philip Helger
  */
-public interface IJsonValue extends IJson, IConvertibleDirectTrait
+public interface IJsonValue extends IJson, IGetterDirectTrait
 {
   /**
    * @return The contained native object value. May be <code>null</code>.

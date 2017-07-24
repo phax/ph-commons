@@ -50,10 +50,10 @@ public interface IByteArrayStreamDecoder extends IByteArrayDecoder
    * @throws DecodeException
    *         in case something goes wrong
    */
-  void decode (@Nullable final byte [] aEncodedBuffer,
-               @Nonnegative final int nOfs,
-               @Nonnegative final int nLen,
-               @Nonnull @WillNotClose final OutputStream aOS);
+  void decode (@Nullable byte [] aEncodedBuffer,
+               @Nonnegative int nOfs,
+               @Nonnegative int nLen,
+               @Nonnull @WillNotClose OutputStream aOS);
 
   /**
    * Decode a byte array.

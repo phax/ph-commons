@@ -28,7 +28,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ext.ICommonsIterable;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.state.EChange;
-import com.helger.commons.traits.IConvertibleByIndexTrait;
+import com.helger.commons.traits.IGetterByIndexTrait;
 import com.helger.json.convert.JsonConverter;
 
 /**
@@ -36,7 +36,7 @@ import com.helger.json.convert.JsonConverter;
  *
  * @author Philip Helger
  */
-public interface IJsonArray extends IJsonCollection, ICommonsIterable <IJson>, IConvertibleByIndexTrait
+public interface IJsonArray extends IJsonCollection, ICommonsIterable <IJson>, IGetterByIndexTrait
 {
   @Nonnull
   IJsonArray add (@Nonnull IJson aValue);
