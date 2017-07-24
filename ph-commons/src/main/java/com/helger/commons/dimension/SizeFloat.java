@@ -44,6 +44,11 @@ public class SizeFloat implements IHasDimensionFloat, Serializable
     this (aObj.getWidth (), aObj.getHeight ());
   }
 
+  public SizeFloat (@Nonnull final IHasDimensionLong aObj)
+  {
+    this (aObj.getWidth (), aObj.getHeight ());
+  }
+
   public SizeFloat (@Nonnull final IHasDimensionFloat aObj)
   {
     this (aObj.getWidth (), aObj.getHeight ());

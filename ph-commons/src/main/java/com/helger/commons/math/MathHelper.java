@@ -88,6 +88,24 @@ public final class MathHelper
   }
 
   /**
+   * Divides the passed int dividend through the passed divisor (nDividend /
+   * nDivisor)
+   *
+   * @param nDividend
+   *        the dividend
+   * @param nDivisor
+   *        the divisor
+   * @return a double representing the exact quotient. Returns
+   *         {@link Double#NaN} if the divisor is 0.
+   */
+  public static double getDividedDouble (final long nDividend, final long nDivisor)
+  {
+    final double dDividend = nDividend;
+    final double dDivisor = nDivisor;
+    return dDividend / dDivisor;
+  }
+
+  /**
    * Get the division result using {@link BigDecimal}.
    *
    * @param nDividend
@@ -99,7 +117,7 @@ public final class MathHelper
    *         if the divisor is 0.
    */
   @Nonnull
-  public static BigDecimal getDividedBigDecimal (final int nDividend, final int nDivisor) throws ArithmeticException
+  public static BigDecimal getDividedBigDecimal (final long nDividend, final long nDivisor) throws ArithmeticException
   {
     final BigDecimal aDividend = BigDecimal.valueOf (nDividend);
     final BigDecimal aDivisor = BigDecimal.valueOf (nDivisor);
@@ -982,9 +1000,8 @@ public final class MathHelper
                                             @Nonnegative final int nScale,
                                             @Nonnull final RoundingMode eRoundingMode)
   {
-    return aBase.multiply (CGlobal.BIGDEC_100.subtract (aPercentage)).divide (CGlobal.BIGDEC_100,
-                                                                              nScale,
-                                                                              eRoundingMode);
+    return aBase.multiply (CGlobal.BIGDEC_100.subtract (aPercentage))
+                .divide (CGlobal.BIGDEC_100, nScale, eRoundingMode);
   }
 
   /**

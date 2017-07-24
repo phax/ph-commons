@@ -44,6 +44,16 @@ public class SizeDouble implements IHasDimensionDouble, Serializable
     this (aObj.getWidth (), aObj.getHeight ());
   }
 
+  public SizeDouble (@Nonnull final IHasDimensionLong aObj)
+  {
+    this (aObj.getWidth (), aObj.getHeight ());
+  }
+
+  public SizeDouble (@Nonnull final IHasDimensionFloat aObj)
+  {
+    this (aObj.getWidth (), aObj.getHeight ());
+  }
+
   public SizeDouble (@Nonnull final IHasDimensionDouble aObj)
   {
     this (aObj.getWidth (), aObj.getHeight ());
