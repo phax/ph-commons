@@ -134,7 +134,7 @@ public class MapBasedReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> implements 
   }
 
   @Nonnegative
-  public int getCount ()
+  public int getSize ()
   {
     return m_aAttrs.size ();
   }

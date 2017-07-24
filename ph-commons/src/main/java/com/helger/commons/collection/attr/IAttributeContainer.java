@@ -34,6 +34,7 @@ import com.helger.commons.collection.impl.ICommonsIterable;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.lang.GenericReflection;
+import com.helger.commons.lang.IHasSize;
 import com.helger.commons.typeconvert.TypeConverter;
 
 /**
@@ -46,13 +47,15 @@ import com.helger.commons.typeconvert.TypeConverter;
  * @param <VALUETYPE>
  *        Value type
  */
-public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends ICommonsIterable <Map.Entry <KEYTYPE, VALUETYPE>>
+public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends
+                                     ICommonsIterable <Map.Entry <KEYTYPE, VALUETYPE>>,
+                                     IHasSize
 {
   /**
    * @return The number of contained attributes. Always &ge; 0.
    */
   @Nonnegative
-  int getCount ();
+  int getSize ();
 
   /**
    * @return <code>true</code> if this attribute container does not contain any
