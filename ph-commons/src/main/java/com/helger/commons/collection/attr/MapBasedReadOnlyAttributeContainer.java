@@ -55,18 +55,18 @@ public class MapBasedReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> implements 
 
   public MapBasedReadOnlyAttributeContainer (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
-    this (true, new CommonsHashMap<> ());
+    this (true, new CommonsHashMap <> ());
     m_aAttrs.put (aKey, aValue);
   }
 
   public MapBasedReadOnlyAttributeContainer (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
-    this (true, new CommonsHashMap<> (aMap));
+    this (true, new CommonsHashMap <> (aMap));
   }
 
   public MapBasedReadOnlyAttributeContainer (@Nonnull final IAttributeContainer <? extends KEYTYPE, ? extends VALUETYPE> aCont)
   {
-    this (true, new CommonsHashMap<> (aCont.getAllAttributes ()));
+    this (true, new CommonsHashMap <> (aCont.getAllAttributes ()));
   }
 
   /**
@@ -77,8 +77,8 @@ public class MapBasedReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> implements 
    * @param aAttrMap
    *        The attribute map to be used.
    */
-  protected MapBasedReadOnlyAttributeContainer (final boolean bDummy,
-                                                @Nonnull final ICommonsMap <KEYTYPE, VALUETYPE> aAttrMap)
+  public MapBasedReadOnlyAttributeContainer (final boolean bDummy,
+                                             @Nonnull final ICommonsMap <KEYTYPE, VALUETYPE> aAttrMap)
   {
     m_aAttrs = ValueEnforcer.notNull (aAttrMap, "AttrMap");
   }
@@ -134,7 +134,7 @@ public class MapBasedReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> implements 
   }
 
   @Nonnegative
-  public int getAttributeCount ()
+  public int getCount ()
   {
     return m_aAttrs.size ();
   }

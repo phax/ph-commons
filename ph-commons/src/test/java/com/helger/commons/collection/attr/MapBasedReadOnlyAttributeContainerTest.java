@@ -50,7 +50,7 @@ public final class MapBasedReadOnlyAttributeContainerTest
                                                                             new Serializable [] { "value",
                                                                                                   "value2",
                                                                                                   null }));
-    assertEquals (3, x.getAttributeCount ());
+    assertEquals (3, x.getCount ());
     assertFalse (x.isEmpty ());
     assertEquals ("value2", x.getAttributeObject ("key2"));
     assertEquals ("value2", x.getAttributeAsString ("key2"));

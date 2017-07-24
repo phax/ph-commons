@@ -352,7 +352,7 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>, 
    * @return The number objects contained. Always &ge; 0.
    */
   @Nonnegative
-  default int getIteratorCount ()
+  default int getCount ()
   {
     return IteratorHelper.getSize (iterator ());
   }
@@ -363,13 +363,13 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>, 
    * @param aFilter
    *        The filter to be applied. May be <code>null</code>.
    * @return The number of matching elements. Always &ge; 0. If no filter is
-   *         provided this is the same as {@link #getIteratorCount()}.
+   *         provided this is the same as {@link #getCount()}.
    */
   @Nonnegative
-  default int getIteratorCount (@Nullable final Predicate <? super ELEMENTTYPE> aFilter)
+  default int getCount (@Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     if (aFilter == null)
-      return getIteratorCount ();
+      return getCount ();
 
     int ret = 0;
     for (final ELEMENTTYPE aElement : this)

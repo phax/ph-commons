@@ -23,6 +23,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.attr.IMutableAttributeContainerAny;
 import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.id.IHasID;
@@ -43,7 +44,7 @@ import com.helger.commons.id.IHasID;
  *
  * @author Philip Helger
  */
-public interface IScope extends IMutableAttributeContainerAny <String>, IHasID <String>
+public interface IScope extends IHasID <String>
 {
   /**
    * Init the scope. In contrast to the constructor of a scope, this happens
@@ -93,7 +94,7 @@ public interface IScope extends IMutableAttributeContainerAny <String>, IHasID <
    *        The consumer to be executed. May not be <code>null</code>. The
    *        parameter to the runnable is <code>this</code> scope.
    */
-  void runAtomic (@Nonnull final Consumer <? super IScope> aConsumer);
+  void runAtomic (@Nonnull Consumer <? super IScope> aConsumer);
 
   /**
    * Perform stuff as a single action. All actions are executed in a write-lock!
@@ -106,7 +107,14 @@ public interface IScope extends IMutableAttributeContainerAny <String>, IHasID <
    *        The return type of the callable
    */
   @Nullable
-  <T> T runAtomic (@Nonnull final Function <? super IScope, ? extends T> aFunction);
+  <T> T runAtomic (@Nonnull Function <? super IScope, ? extends T> aFunction);
+
+  /**
+   * @return The mutable scope attributes. Never <code>null</code>.
+   */
+  @Nonnull
+  @ReturnsMutableObject
+  IMutableAttributeContainerAny <String> attrs ();
 
   /**
    * @return The non-<code>null</code> map with all contained attributes that

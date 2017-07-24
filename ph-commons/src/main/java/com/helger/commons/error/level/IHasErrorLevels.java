@@ -42,7 +42,7 @@ public interface IHasErrorLevels <IMPLTYPE extends IHasErrorLevel> extends IComm
    */
   default boolean containsOnlySuccess ()
   {
-    return containsOnly (x -> x.isSuccess ());
+    return containsOnly (IHasErrorLevel::isSuccess);
   }
 
   /**
@@ -53,7 +53,7 @@ public interface IHasErrorLevels <IMPLTYPE extends IHasErrorLevel> extends IComm
    */
   default boolean containsAtLeastOneSuccess ()
   {
-    return containsAny (x -> x.isSuccess ());
+    return containsAny (IHasErrorLevel::isSuccess);
   }
 
   /**
@@ -65,7 +65,7 @@ public interface IHasErrorLevels <IMPLTYPE extends IHasErrorLevel> extends IComm
    */
   default boolean containsNoSuccess ()
   {
-    return containsNone (x -> x.isSuccess ());
+    return containsNone (IHasErrorLevel::isSuccess);
   }
 
   /**
@@ -74,7 +74,7 @@ public interface IHasErrorLevels <IMPLTYPE extends IHasErrorLevel> extends IComm
   @Nonnegative
   default int getSuccessCount ()
   {
-    return getIteratorCount (x -> x.isSuccess ());
+    return getCount (IHasErrorLevel::isSuccess);
   }
 
   /**
@@ -88,7 +88,7 @@ public interface IHasErrorLevels <IMPLTYPE extends IHasErrorLevel> extends IComm
    */
   default boolean containsOnlyFailure ()
   {
-    return containsOnly (x -> x.isFailure ());
+    return containsOnly (IHasErrorLevel::isFailure);
   }
 
   /**
@@ -100,7 +100,7 @@ public interface IHasErrorLevels <IMPLTYPE extends IHasErrorLevel> extends IComm
    */
   default boolean containsAtLeastOneFailure ()
   {
-    return containsAny (x -> x.isFailure ());
+    return containsAny (IHasErrorLevel::isFailure);
   }
 
   /**
@@ -112,7 +112,7 @@ public interface IHasErrorLevels <IMPLTYPE extends IHasErrorLevel> extends IComm
    */
   default boolean containsNoFailure ()
   {
-    return containsNone (x -> x.isFailure ());
+    return containsNone (IHasErrorLevel::isFailure);
   }
 
   /**
@@ -121,7 +121,7 @@ public interface IHasErrorLevels <IMPLTYPE extends IHasErrorLevel> extends IComm
   @Nonnegative
   default int getFailureCount ()
   {
-    return getIteratorCount (x -> x.isFailure ());
+    return getCount (IHasErrorLevel::isFailure);
   }
 
   /**
@@ -135,7 +135,7 @@ public interface IHasErrorLevels <IMPLTYPE extends IHasErrorLevel> extends IComm
    */
   default boolean containsOnlyError ()
   {
-    return containsOnly (x -> x.isError ());
+    return containsOnly (IHasErrorLevel::isError);
   }
 
   /**
@@ -147,7 +147,7 @@ public interface IHasErrorLevels <IMPLTYPE extends IHasErrorLevel> extends IComm
    */
   default boolean containsAtLeastOneError ()
   {
-    return containsAny (x -> x.isError ());
+    return containsAny (IHasErrorLevel::isError);
   }
 
   /**
@@ -159,7 +159,7 @@ public interface IHasErrorLevels <IMPLTYPE extends IHasErrorLevel> extends IComm
    */
   default boolean containsNoError ()
   {
-    return containsNone (x -> x.isError ());
+    return containsNone (IHasErrorLevel::isError);
   }
 
   /**
@@ -170,7 +170,7 @@ public interface IHasErrorLevels <IMPLTYPE extends IHasErrorLevel> extends IComm
   @Nonnegative
   default int getErrorCount ()
   {
-    return getIteratorCount (x -> x.isError ());
+    return getCount (IHasErrorLevel::isError);
   }
 
   /**

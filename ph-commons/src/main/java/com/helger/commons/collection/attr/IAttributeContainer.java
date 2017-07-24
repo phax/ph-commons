@@ -52,7 +52,7 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends ICommonsIterab
    * @return The number of contained attributes. Always &ge; 0.
    */
   @Nonnegative
-  int getAttributeCount ();
+  int getCount ();
 
   /**
    * @return <code>true</code> if this attribute container does not contain any

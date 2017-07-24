@@ -34,8 +34,8 @@ import com.helger.commons.collection.ext.ICommonsMap;
  *        Key type
  */
 @NotThreadSafe
-public class MapBasedAttributeContainerAny <KEYTYPE> extends MapBasedAttributeContainer <KEYTYPE, Object>
-                                           implements IMutableAttributeContainerAny <KEYTYPE>
+public class MapBasedAttributeContainerAny <KEYTYPE> extends MapBasedAttributeContainer <KEYTYPE, Object> implements
+                                           IMutableAttributeContainerAny <KEYTYPE>
 {
   public MapBasedAttributeContainerAny ()
   {
@@ -57,7 +57,7 @@ public class MapBasedAttributeContainerAny <KEYTYPE> extends MapBasedAttributeCo
     super (aCont);
   }
 
-  protected MapBasedAttributeContainerAny (final boolean bDummy, @Nonnull final ICommonsMap <KEYTYPE, Object> aAttrMap)
+  public MapBasedAttributeContainerAny (final boolean bDummy, @Nonnull final ICommonsMap <KEYTYPE, Object> aAttrMap)
   {
     super (bDummy, aAttrMap);
   }

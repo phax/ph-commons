@@ -195,7 +195,7 @@ public final class ScopeManager
   @Nullable
   public static String getRequestApplicationID (@Nonnull final IRequestScope aRequestScope)
   {
-    return aRequestScope.getAttributeAsString (REQ_APPLICATION_ID);
+    return aRequestScope.attrs ().getAttributeAsString (REQ_APPLICATION_ID);
   }
 
   /**
@@ -425,7 +425,7 @@ public final class ScopeManager
     s_aRequestScope.set (aRequestScope);
 
     // assign the application ID to the current request
-    if (aRequestScope.setAttribute (REQ_APPLICATION_ID, sApplicationID).isUnchanged ())
+    if (aRequestScope.attrs ().setAttribute (REQ_APPLICATION_ID, sApplicationID).isUnchanged ())
     {
       s_aLogger.warn ("Failed to set the application ID '" +
                       sApplicationID +

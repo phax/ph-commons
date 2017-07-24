@@ -25,9 +25,6 @@ import javax.annotation.Nonnull;
 import org.junit.Test;
 
 import com.helger.commons.mutable.MutableBoolean;
-import com.helger.scope.GlobalScope;
-import com.helger.scope.IScope;
-import com.helger.scope.IScopeDestructionAware;
 
 /**
  * Test class for class {@link GlobalScope}.
@@ -41,12 +38,12 @@ public final class GlobalScopeTest
   {
     final GlobalScope aGS = new GlobalScope ("test");
     assertEquals ("test", aGS.getID ());
-    assertEquals (0, aGS.getAttributeCount ());
-    assertTrue (aGS.setAttribute ("key1", "whatsoever").isChanged ());
-    assertEquals (1, aGS.getAttributeCount ());
+    assertEquals (0, aGS.attrs ().getCount ());
+    assertTrue (aGS.attrs ().setAttribute ("key1", "whatsoever").isChanged ());
+    assertEquals (1, aGS.attrs ().getCount ());
     final MutableBoolean aPreDestroyedCalled = new MutableBoolean (false);
     final MutableBoolean aDestroyedCalled = new MutableBoolean (false);
-    assertTrue (aGS.setAttribute ("key2", new IScopeDestructionAware ()
+    assertTrue (aGS.attrs ().setAttribute ("key2", new IScopeDestructionAware ()
     {
       public void onBeforeScopeDestruction (@Nonnull final IScope aScopeToBeDestroyed) throws Exception
       {
@@ -64,10 +61,10 @@ public final class GlobalScopeTest
         aDestroyedCalled.set (true);
       }
     }).isChanged ());
-    assertEquals (2, aGS.getAttributeCount ());
+    assertEquals (2, aGS.attrs ().getCount ());
     // Check null value - no change
-    assertTrue (aGS.setAttribute ("key3", null).isUnchanged ());
-    assertEquals (2, aGS.getAttributeCount ());
+    assertTrue (aGS.attrs ().setAttribute ("key3", null).isUnchanged ());
+    assertEquals (2, aGS.attrs ().getCount ());
     assertTrue (aGS.isValid ());
     assertFalse (aGS.isInPreDestruction ());
     assertFalse (aGS.isInDestruction ());

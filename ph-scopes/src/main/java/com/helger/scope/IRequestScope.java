@@ -92,7 +92,7 @@ public interface IRequestScope extends IScope
    */
   default boolean hasAttributeValue (@Nullable final String sName, @Nullable final String sDesiredValue)
   {
-    return EqualsHelper.equals (getAttributeAsString (sName), sDesiredValue);
+    return EqualsHelper.equals (attrs ().getAttributeAsString (sName), sDesiredValue);
   }
 
   /**
@@ -116,7 +116,7 @@ public interface IRequestScope extends IScope
                                      @Nullable final String sDesiredValue,
                                      final boolean bDefault)
   {
-    final String sValue = getAttributeAsString (sName);
+    final String sValue = attrs ().getAttributeAsString (sName);
     return sValue == null ? bDefault : EqualsHelper.equals (sValue, sDesiredValue);
   }
 }

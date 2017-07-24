@@ -30,6 +30,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.attr.MapBasedAttributeContainerAny;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsConcurrentHashMap;
@@ -46,7 +47,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @ThreadSafe
-public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAny <String> implements IScope
+public abstract class AbstractMapBasedScope implements IScope
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractMapBasedScope.class);
 
@@ -59,6 +60,8 @@ public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAn
   private boolean m_bInDestruction = false;
   /** Is the scope already completely destroyed? */
   private boolean m_bDestroyed = false;
+  private final MapBasedAttributeContainerAny <String> m_aAttrs = new MapBasedAttributeContainerAny <> (true,
+                                                                                                        new CommonsConcurrentHashMap <> ());
 
   /**
    * Ctor.
@@ -68,7 +71,6 @@ public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAn
    */
   public AbstractMapBasedScope (@Nonnull @Nonempty final String sScopeID)
   {
-    super (true, new CommonsConcurrentHashMap <> ());
     m_sScopeID = ValueEnforcer.notEmpty (sScopeID, "ScopeID");
   }
 
@@ -133,7 +135,7 @@ public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAn
     preDestroy ();
 
     final ICommonsList <IScopeDestructionAware> aDestructionAware = new CommonsArrayList <> ();
-    forAllAttributeValues (x -> {
+    m_aAttrs.forAllAttributeValues (x -> {
       if (x instanceof IScopeDestructionAware)
         aDestructionAware.add ((IScopeDestructionAware) x);
     });
@@ -176,19 +178,13 @@ public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAn
     // Finished destruction process -> remember this
     m_aRWLock.writeLocked ( () -> {
       // remove all attributes (double write lock is no problem)
-      clear ();
+      m_aAttrs.clear ();
 
       m_bDestroyed = true;
       m_bInDestruction = false;
     });
 
     postDestroy ();
-  }
-
-  public final void runAtomic (@Nonnull final Consumer <? super IScope> aConsumer)
-  {
-    ValueEnforcer.notNull (aConsumer, "Consumer");
-    m_aRWLock.writeLocked ( () -> aConsumer.accept (this));
   }
 
   @Nullable
@@ -198,12 +194,25 @@ public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAn
     return m_aRWLock.writeLocked ( () -> aFunction.apply (this));
   }
 
+  public final void runAtomic (@Nonnull final Consumer <? super IScope> aConsumer)
+  {
+    ValueEnforcer.notNull (aConsumer, "Consumer");
+    m_aRWLock.writeLocked ( () -> aConsumer.accept (this));
+  }
+
+  @Nonnull
+  @ReturnsMutableObject
+  public final MapBasedAttributeContainerAny <String> attrs ()
+  {
+    return m_aAttrs;
+  }
+
   @Nonnull
   @ReturnsMutableCopy
   public final ICommonsMap <String, IScopeRenewalAware> getAllScopeRenewalAwareAttributes ()
   {
     final ICommonsMap <String, IScopeRenewalAware> ret = new CommonsHashMap <> ();
-    forAllAttributes ( (n, v) -> {
+    m_aAttrs.forAllAttributes ( (n, v) -> {
       if (v instanceof IScopeRenewalAware)
         ret.put (n, (IScopeRenewalAware) v);
     });
@@ -230,10 +239,11 @@ public abstract class AbstractMapBasedScope extends MapBasedAttributeContainerAn
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ())
-                            .append ("ScopeID", m_sScopeID)
-                            .append ("InDestruction", m_bInDestruction)
-                            .append ("Destroyed", m_bDestroyed)
-                            .getToString ();
+    return new ToStringGenerator (this).append ("ScopeID", m_sScopeID)
+                                       .append ("InPreDestruction", m_bInPreDestruction)
+                                       .append ("InDestruction", m_bInDestruction)
+                                       .append ("Destroyed", m_bDestroyed)
+                                       .append ("Attrs", m_aAttrs)
+                                       .getToString ();
   }
 }

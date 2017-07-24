@@ -45,25 +45,25 @@ import com.helger.commons.string.ToStringGenerator;
  *        Value type
  */
 @NotThreadSafe
-public class MapBasedAttributeContainer <KEYTYPE, VALUETYPE>
-                                        extends MapBasedReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> implements
+public class MapBasedAttributeContainer <KEYTYPE, VALUETYPE> extends
+                                        MapBasedReadOnlyAttributeContainer <KEYTYPE, VALUETYPE> implements
                                         IMutableAttributeContainer <KEYTYPE, VALUETYPE>,
                                         ICloneable <MapBasedAttributeContainer <KEYTYPE, VALUETYPE>>
 {
   public MapBasedAttributeContainer ()
   {
-    this (true, new CommonsHashMap<> ());
+    this (true, new CommonsHashMap <> ());
   }
 
   public MapBasedAttributeContainer (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
-    this (true, new CommonsHashMap<> ());
+    this (true, new CommonsHashMap <> ());
     m_aAttrs.put (aKey, aValue);
   }
 
   public MapBasedAttributeContainer (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
-    this (true, new CommonsHashMap<> (aMap));
+    this (true, new CommonsHashMap <> (aMap));
   }
 
   public MapBasedAttributeContainer (@Nonnull final IAttributeContainer <KEYTYPE, VALUETYPE> aCont)
@@ -72,7 +72,7 @@ public class MapBasedAttributeContainer <KEYTYPE, VALUETYPE>
     this (true, aCont.getAllAttributes ());
   }
 
-  protected MapBasedAttributeContainer (final boolean bDummy, @Nonnull final ICommonsMap <KEYTYPE, VALUETYPE> aAttrMap)
+  public MapBasedAttributeContainer (final boolean bDummy, @Nonnull final ICommonsMap <KEYTYPE, VALUETYPE> aAttrMap)
   {
     super (bDummy, aAttrMap);
   }
@@ -190,7 +190,7 @@ public class MapBasedAttributeContainer <KEYTYPE, VALUETYPE>
   @ReturnsMutableCopy
   public MapBasedAttributeContainer <KEYTYPE, VALUETYPE> getClone ()
   {
-    return new MapBasedAttributeContainer<> (m_aAttrs);
+    return new MapBasedAttributeContainer <> (m_aAttrs);
   }
 
   @Override

@@ -129,5 +129,4 @@ public interface IMutableAttributeContainerAny <KEYTYPE> extends IMutableAttribu
     setAttribute (aName, Boolean.TRUE);
     return false;
   }
-
 }

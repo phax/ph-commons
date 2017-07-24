@@ -48,10 +48,7 @@ public class RequestScope extends AbstractMapBasedScope implements IRequestScope
 
     // done initialization
     if (ScopeHelper.debugRequestScopeLifeCycle (s_aLogger))
-      s_aLogger.info ("Created request scope '" +
-                      sScopeID +
-                      "' of class " +
-                      ClassHelper.getClassLocalName (this),
+      s_aLogger.info ("Created request scope '" + sScopeID + "' of class " + ClassHelper.getClassLocalName (this),
                       ScopeHelper.getDebugStackTrace ());
   }
 
@@ -69,10 +66,7 @@ public class RequestScope extends AbstractMapBasedScope implements IRequestScope
   protected void preDestroy ()
   {
     if (ScopeHelper.debugRequestScopeLifeCycle (s_aLogger))
-      s_aLogger.info ("Destroying request scope '" +
-                      getID () +
-                      "' of class " +
-                      ClassHelper.getClassLocalName (this),
+      s_aLogger.info ("Destroying request scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
                       ScopeHelper.getDebugStackTrace ());
   }
 
@@ -80,10 +74,7 @@ public class RequestScope extends AbstractMapBasedScope implements IRequestScope
   protected void postDestroy ()
   {
     if (ScopeHelper.debugRequestScopeLifeCycle (s_aLogger))
-      s_aLogger.info ("Destroyed request scope '" +
-                      getID () +
-                      "' of class " +
-                      ClassHelper.getClassLocalName (this),
+      s_aLogger.info ("Destroyed request scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
                       ScopeHelper.getDebugStackTrace ());
   }
 
@@ -116,18 +107,18 @@ public class RequestScope extends AbstractMapBasedScope implements IRequestScope
   public ICommonsList <String> getAttributeAsList (@Nullable final String sName,
                                                    @Nullable final ICommonsList <String> aDefault)
   {
-    final Object aValue = getAttributeObject (sName);
+    final Object aValue = attrs ().getAttributeObject (sName);
     if (aValue == null)
       return null;
     if (aValue instanceof String [])
     {
       // multiple values passed in the request
-      return new CommonsArrayList<> ((String []) aValue);
+      return new CommonsArrayList <> ((String []) aValue);
     }
     if (aValue instanceof String)
     {
       // single value passed in the request
-      return new CommonsArrayList<> ((String) aValue);
+      return new CommonsArrayList <> ((String) aValue);
     }
     return getAttributeAsListCustom (sName, aValue, aDefault);
   }
