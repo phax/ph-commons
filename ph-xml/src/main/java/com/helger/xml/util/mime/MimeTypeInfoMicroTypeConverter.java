@@ -36,8 +36,8 @@ package com.helger.xml.util.mime;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.collection.ext.CommonsLinkedHashSet;
-import com.helger.commons.collection.ext.ICommonsOrderedSet;
+import com.helger.commons.collection.impl.CommonsLinkedHashSet;
+import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.mime.MimeType;
 import com.helger.commons.mime.MimeTypeParser;
 import com.helger.commons.string.StringHelper;

@@ -50,4 +50,12 @@ public interface IMutableConcurrentCollector <DATATYPE> extends IConcurrentColle
    */
   @Nonnull
   ESuccess stopQueuingNewObjects ();
+
+  /**
+   * This method starts the collector by taking objects from the internal queue.
+   * So this method blocks and must be invoked from a separate thread. This
+   * method runs until {@link #stopQueuingNewObjects()} is new called and the
+   * queue is empty.
+   */
+  void collect ();
 }

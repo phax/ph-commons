@@ -29,9 +29,9 @@ import javax.annotation.WillCloseWhenClosed;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsArrayList;
-import com.helger.commons.collection.ext.ICommonsIterable;
-import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.ICommonsIterable;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.io.stream.NonBlockingBufferedReader;
 import com.helger.commons.io.stream.StreamHelper;
 
@@ -39,6 +39,7 @@ import com.helger.commons.io.stream.StreamHelper;
  * A very simple CSV reader released under a commercial-friendly license.
  *
  * @author Glen Smith
+ * @author Philip Helger
  */
 public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <String>>
 {

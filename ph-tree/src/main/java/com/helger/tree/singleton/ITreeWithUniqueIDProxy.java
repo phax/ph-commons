@@ -25,8 +25,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.ICommonsCollection;
-import com.helger.commons.collection.ext.ICommonsIterable;
+import com.helger.commons.collection.impl.ICommonsCollection;
+import com.helger.commons.collection.impl.ICommonsIterable;
 import com.helger.commons.state.EChange;
 import com.helger.tree.withid.DefaultTreeItemWithID;
 import com.helger.tree.withid.unique.DefaultTreeWithGlobalUniqueID;

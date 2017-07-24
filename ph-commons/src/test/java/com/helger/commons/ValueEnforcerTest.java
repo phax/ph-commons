@@ -18,9 +18,9 @@ package com.helger.commons;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.ext.CommonsArrayList;
-import com.helger.commons.collection.ext.CommonsHashMap;
-import com.helger.commons.collection.ext.CommonsVector;
+import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.CommonsHashMap;
+import com.helger.commons.collection.impl.CommonsVector;
 
 /**
  * Test class for class {@link ValueEnforcer}.

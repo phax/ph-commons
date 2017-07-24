@@ -20,10 +20,10 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsArrayList;
-import com.helger.commons.collection.ext.CommonsHashSet;
-import com.helger.commons.collection.ext.CommonsLinkedHashSet;
-import com.helger.commons.collection.ext.CommonsTreeSet;
+import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.CommonsHashSet;
+import com.helger.commons.collection.impl.CommonsLinkedHashSet;
+import com.helger.commons.collection.impl.CommonsTreeSet;
 
 /**
  * Collection helper for primitive data types (boolean, byte, char, double,

@@ -24,8 +24,8 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsVector;
-import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.impl.CommonsVector;
+import com.helger.commons.collection.impl.ICommonsList;
 
 /**
  * Multi map based on {@link ConcurrentHashMap} and {@link CommonsVector}

@@ -25,8 +25,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.ext.CommonsLinkedHashSet;
-import com.helger.commons.collection.ext.ICommonsOrderedSet;
+import com.helger.commons.collection.impl.CommonsLinkedHashSet;
+import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.mime.MimeType;

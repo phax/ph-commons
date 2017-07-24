@@ -23,8 +23,8 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsLinkedHashMap;
-import com.helger.commons.collection.ext.ICommonsCollection;
+import com.helger.commons.collection.impl.CommonsLinkedHashMap;
+import com.helger.commons.collection.impl.ICommonsCollection;
 
 /**
  * Abstract multi map based on {@link CommonsLinkedHashMap}.

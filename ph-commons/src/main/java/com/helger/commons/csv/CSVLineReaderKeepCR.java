@@ -31,6 +31,7 @@ import com.helger.commons.ValueEnforcer;
  * or remove them from the data being read.
  *
  * @author scott on 2/19/15.
+ * @author Philip Helger
  */
 public class CSVLineReaderKeepCR implements ICSVLineReader
 {

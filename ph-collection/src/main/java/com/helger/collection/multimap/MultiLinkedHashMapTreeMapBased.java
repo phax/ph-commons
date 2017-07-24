@@ -22,8 +22,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsTreeMap;
-import com.helger.commons.collection.ext.ICommonsSortedMap;
+import com.helger.commons.collection.impl.CommonsTreeMap;
+import com.helger.commons.collection.impl.ICommonsSortedMap;
 
 public class MultiLinkedHashMapTreeMapBased <KEYTYPE1, KEYTYPE2 extends Comparable <? super KEYTYPE2>, VALUETYPE>
                                             extends

@@ -27,8 +27,8 @@ import org.junit.Test;
 
 import com.helger.collection.map.IntObjectMap;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.ext.CommonsHashSet;
-import com.helger.commons.collection.ext.ICommonsSet;
+import com.helger.commons.collection.impl.CommonsHashSet;
+import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.random.RandomHelper;
 
 public final class IntObjectMapTest

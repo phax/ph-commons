@@ -97,7 +97,7 @@ public final class DateTimeFormatterPattern
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final DateTimeFormatterPattern rhs = (DateTimeFormatterPattern) o;
-    // m_aPattern is a state variable
+    // m_aFormatter is a state variable
     return m_sPattern.equals (rhs.m_sPattern) && m_eResolverStyle.equals (rhs.m_eResolverStyle);
   }
 

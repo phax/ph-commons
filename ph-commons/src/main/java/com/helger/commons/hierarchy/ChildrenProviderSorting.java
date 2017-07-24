@@ -23,8 +23,8 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collection.ext.ICommonsCollection;
-import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.impl.ICommonsCollection;
+import com.helger.commons.collection.impl.ICommonsList;
 
 /**
  * An {@link IChildrenProvider} that returns the children in

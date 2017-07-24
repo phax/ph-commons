@@ -23,8 +23,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.collection.ext.CommonsTreeMap;
-import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.impl.CommonsTreeMap;
+import com.helger.commons.collection.impl.ICommonsMap;
 
 /**
  * Abstract multi map based on {@link CommonsTreeMap}.

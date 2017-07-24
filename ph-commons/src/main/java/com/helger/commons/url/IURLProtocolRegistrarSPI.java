@@ -19,7 +19,7 @@ package com.helger.commons.url;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.IsSPIInterface;
-import com.helger.commons.collection.ext.ICommonsSet;
+import com.helger.commons.collection.impl.ICommonsSet;
 
 /**
  * Interface for a registrar providing custom URL protocols

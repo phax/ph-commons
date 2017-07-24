@@ -24,8 +24,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.ext.CommonsConcurrentHashMap;
-import com.helger.commons.collection.ext.ICommonsCollection;
+import com.helger.commons.collection.impl.CommonsConcurrentHashMap;
+import com.helger.commons.collection.impl.ICommonsCollection;
 
 /**
  * Abstract multi map based on {@link java.util.concurrent.ConcurrentHashMap}.

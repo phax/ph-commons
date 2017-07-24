@@ -131,7 +131,7 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
    *         if no performer is set - see
    *         {@link #setPerformer(IConcurrentPerformer)}
    */
-  public final void run ()
+  public final void collect ()
   {
     if (m_aPerformer == null)
       throw new IllegalStateException ("No performer set!");

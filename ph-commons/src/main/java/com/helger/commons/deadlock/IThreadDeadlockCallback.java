@@ -26,6 +26,7 @@ import com.helger.commons.callback.ICallback;
  *
  * @author Philip Helger
  */
+@FunctionalInterface
 public interface IThreadDeadlockCallback extends ICallback
 {
   /**

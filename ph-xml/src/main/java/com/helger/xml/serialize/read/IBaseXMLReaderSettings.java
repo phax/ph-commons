@@ -26,7 +26,7 @@ import org.xml.sax.ErrorHandler;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.callback.exception.IExceptionCallback;
-import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.EXMLParserProperty;
 

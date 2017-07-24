@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.lang.IHasSize;
 import com.helger.commons.locale.IHasLocales;
 

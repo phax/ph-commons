@@ -26,8 +26,8 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.ls.LSInput;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsArrayList;
-import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 
 /**

@@ -34,14 +34,14 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.base64.Base64;
 import com.helger.commons.collection.PrimitiveCollectionHelper;
-import com.helger.commons.collection.ext.CommonsArrayList;
-import com.helger.commons.collection.ext.CommonsCopyOnWriteArrayList;
-import com.helger.commons.collection.ext.CommonsCopyOnWriteArraySet;
-import com.helger.commons.collection.ext.CommonsHashSet;
-import com.helger.commons.collection.ext.CommonsLinkedHashSet;
-import com.helger.commons.collection.ext.CommonsLinkedList;
-import com.helger.commons.collection.ext.CommonsTreeSet;
-import com.helger.commons.collection.ext.CommonsVector;
+import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.CommonsCopyOnWriteArrayList;
+import com.helger.commons.collection.impl.CommonsCopyOnWriteArraySet;
+import com.helger.commons.collection.impl.CommonsHashSet;
+import com.helger.commons.collection.impl.CommonsLinkedHashSet;
+import com.helger.commons.collection.impl.CommonsLinkedList;
+import com.helger.commons.collection.impl.CommonsTreeSet;
+import com.helger.commons.collection.impl.CommonsVector;
 
 /**
  * Register the base type converter

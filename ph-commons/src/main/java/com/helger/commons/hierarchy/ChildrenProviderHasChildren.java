@@ -20,7 +20,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.collection.ext.ICommonsCollection;
+import com.helger.commons.collection.impl.ICommonsCollection;
 
 /**
  * A standard implementation of the {@link IChildrenProvider} interface that

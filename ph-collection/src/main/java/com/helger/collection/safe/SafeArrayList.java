@@ -25,7 +25,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
-import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.functional.ISupplier;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;

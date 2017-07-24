@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.aggregate.IAggregator;
-import com.helger.commons.collection.ext.ICommonsSet;
+import com.helger.commons.collection.impl.ICommonsSet;
 
 /**
  * Root class for a simple tree. The elements of the tree are not sorted by any

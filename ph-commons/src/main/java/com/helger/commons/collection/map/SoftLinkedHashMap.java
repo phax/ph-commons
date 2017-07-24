@@ -24,7 +24,7 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsLinkedHashMap;
+import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.functional.IPredicate;
 
 /**

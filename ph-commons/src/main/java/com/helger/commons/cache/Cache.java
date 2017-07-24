@@ -35,7 +35,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.map.SoftHashMap;
 import com.helger.commons.collection.map.SoftLinkedHashMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;

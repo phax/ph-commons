@@ -27,8 +27,8 @@ import javax.xml.ws.EndpointReference;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.ext.CommonsHashMap;
-import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.impl.CommonsHashMap;
+import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.url.URLHelper;
 
 /**

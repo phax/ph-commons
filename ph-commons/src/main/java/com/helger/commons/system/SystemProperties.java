@@ -28,11 +28,11 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsCopyOnWriteArraySet;
-import com.helger.commons.collection.ext.CommonsHashMap;
-import com.helger.commons.collection.ext.CommonsHashSet;
-import com.helger.commons.collection.ext.ICommonsMap;
-import com.helger.commons.collection.ext.ICommonsSet;
+import com.helger.commons.collection.impl.CommonsCopyOnWriteArraySet;
+import com.helger.commons.collection.impl.CommonsHashMap;
+import com.helger.commons.collection.impl.CommonsHashSet;
+import com.helger.commons.collection.impl.ICommonsMap;
+import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.lang.PropertiesHelper;
 import com.helger.commons.lang.priviledged.IPrivilegedAction;
 

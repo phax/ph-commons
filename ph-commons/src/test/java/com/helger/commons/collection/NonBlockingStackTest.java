@@ -26,8 +26,8 @@ import java.util.EmptyStackException;
 import org.junit.Test;
 
 import com.helger.commons.collection.NonBlockingStack;
-import com.helger.commons.collection.ext.CommonsArrayList;
-import com.helger.commons.collection.ext.CommonsHashSet;
+import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**

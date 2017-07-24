@@ -316,7 +316,7 @@ public class BasicThreadFactory implements ThreadFactory
      *         if the passed in {@code ThreadFactory} is <b>null</b>
      */
     @Nonnull
-    public Builder setWrappedFactory (final ThreadFactory aWrappedFactory)
+    public final Builder setWrappedFactory (final ThreadFactory aWrappedFactory)
     {
       ValueEnforcer.notNull (aWrappedFactory, "Factory");
       m_aWrappedFactory = aWrappedFactory;
@@ -334,7 +334,7 @@ public class BasicThreadFactory implements ThreadFactory
      *         if the exception handler is <b>null</b>
      */
     @Nonnull
-    public Builder setUncaughtExceptionHandler (final Thread.UncaughtExceptionHandler aExceptionHandler)
+    public final Builder setUncaughtExceptionHandler (final Thread.UncaughtExceptionHandler aExceptionHandler)
     {
       ValueEnforcer.notNull (aExceptionHandler, "ExceptionHandler");
       m_aUncaughtExceptionHandler = aExceptionHandler;
@@ -354,7 +354,7 @@ public class BasicThreadFactory implements ThreadFactory
      *         if the naming pattern is <b>null</b>
      */
     @Nonnull
-    public Builder setNamingPattern (final String sNamingPattern)
+    public final Builder setNamingPattern (final String sNamingPattern)
     {
       ValueEnforcer.notNull (sNamingPattern, "NamingPattern");
       m_sNamingPattern = sNamingPattern;
@@ -370,7 +370,7 @@ public class BasicThreadFactory implements ThreadFactory
      * @return a reference to this {@code Builder}
      */
     @Nonnull
-    public Builder setPriority (final int nPriority)
+    public final Builder setPriority (final int nPriority)
     {
       m_nPriority = Integer.valueOf (nPriority);
       return this;
@@ -385,7 +385,7 @@ public class BasicThreadFactory implements ThreadFactory
      * @return a reference to this {@code Builder}
      */
     @Nonnull
-    public Builder setDaemon (final boolean bDaemon)
+    public final Builder setDaemon (final boolean bDaemon)
     {
       m_eDaemon = ETriState.valueOf (bDaemon);
       return this;

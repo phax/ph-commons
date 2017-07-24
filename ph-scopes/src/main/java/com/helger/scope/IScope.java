@@ -25,7 +25,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.attr.IMutableAttributeContainerAny;
-import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.id.IHasID;
 
 /**

@@ -23,7 +23,7 @@ import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.statistics.IStatisticsHandlerCache;
 import com.helger.commons.statistics.IStatisticsHandlerCounter;
 import com.helger.commons.statistics.IStatisticsHandlerKeyedCounter;

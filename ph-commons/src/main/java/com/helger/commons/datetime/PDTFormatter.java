@@ -111,15 +111,15 @@ public final class PDTFormatter
   {
     public LocalizedDateFormatCache ()
     {
-      super (aKey -> {
-        String sPattern = getSourcePattern (aKey);
+      super (aCacheKey -> {
+        String sPattern = getSourcePattern (aCacheKey);
 
         // Change "year of era" to "year"
         sPattern = StringHelper.replaceAll (sPattern, 'y', 'u');
 
-        if (aKey.m_eMode == EDTFormatterMode.PARSE &&
-            "de".equals (aKey.m_aLocale.getLanguage ()) &&
-            aKey.m_eStyle == FormatStyle.MEDIUM)
+        if (aCacheKey.m_eMode == EDTFormatterMode.PARSE &&
+            "de".equals (aCacheKey.m_aLocale.getLanguage ()) &&
+            aCacheKey.m_eStyle == FormatStyle.MEDIUM)
         {
           // Change from 2 required fields to 1
           sPattern = StringHelper.replaceAll (sPattern, "dd", "d");

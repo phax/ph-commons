@@ -24,7 +24,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.UseDirectEqualsAndHashCode;
-import com.helger.commons.collection.ext.CommonsLinkedHashMap;
+import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;

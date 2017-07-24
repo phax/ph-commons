@@ -24,7 +24,7 @@ import org.junit.Test;
 
 import com.helger.commons.aggregate.IAggregator;
 import com.helger.commons.collection.PrimitiveCollectionHelper;
-import com.helger.commons.collection.ext.ICommonsSet;
+import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;

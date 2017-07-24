@@ -29,8 +29,8 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsArrayList;
-import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.lang.GenericReflection;
@@ -44,7 +44,7 @@ import com.helger.commons.state.ESuccess;
  *        The type of the objects in the queue.
  */
 @ThreadSafe
-public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutableConcurrentCollector <DATATYPE>, Runnable
+public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutableConcurrentCollector <DATATYPE>
 {
   /** Default maximum queue size */
   public static final int DEFAULT_MAX_QUEUE_SIZE = 100;
@@ -78,7 +78,7 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
    */
   public AbstractConcurrentCollector (@Nonnegative final int nMaxQueueSize)
   {
-    this (new ArrayBlockingQueue<> (ValueEnforcer.isGT0 (nMaxQueueSize, "MaxQueueSize")));
+    this (new ArrayBlockingQueue <> (ValueEnforcer.isGT0 (nMaxQueueSize, "MaxQueueSize")));
   }
 
   /**
@@ -154,11 +154,11 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
   public final ICommonsList <DATATYPE> drainQueue ()
   {
     // Drain all objects to this queue
-    final ICommonsList <Object> aDrainedToList = new CommonsArrayList<> ();
+    final ICommonsList <Object> aDrainedToList = new CommonsArrayList <> ();
     m_aRWLock.writeLocked ( () -> m_aQueue.drainTo (aDrainedToList));
 
     // Change data type
-    final ICommonsList <DATATYPE> ret = new CommonsArrayList<> ();
+    final ICommonsList <DATATYPE> ret = new CommonsArrayList <> ();
     for (final Object aObj : aDrainedToList)
       if (!EqualsHelper.identityEqual (aObj, STOP_QUEUE_OBJECT))
         ret.add (GenericReflection.uncheckedCast (aObj));

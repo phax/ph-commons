@@ -70,13 +70,13 @@ public final class MainDeadLock2
   public static void main (final String [] args) throws Exception
   {
     final ThreadDeadlockDetectionTimer tdc = new ThreadDeadlockDetectionTimer ();
-    tdc.addCallback (new LoggingThreadDeadlockCallback ());
+    tdc.callbacks ().add (new LoggingThreadDeadlockCallback ());
 
     final A a = new A ();
     final Thread t1 = new Thread ((Runnable) () -> {
       while (true)
         a.f ();
-    } , "t1");
+    }, "t1");
     final Thread t2 = new Thread ((Runnable) () -> a.g (), "t2");
     t1.start ();
     t2.start ();

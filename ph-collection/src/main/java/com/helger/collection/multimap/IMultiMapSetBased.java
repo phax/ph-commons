@@ -16,7 +16,7 @@
  */
 package com.helger.collection.multimap;
 
-import com.helger.commons.collection.ext.ICommonsSet;
+import com.helger.commons.collection.impl.ICommonsSet;
 
 /**
  * Interface for a multi map that uses a {@link ICommonsSet} for the storage.

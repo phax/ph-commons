@@ -39,9 +39,9 @@ import javax.annotation.Nonnull;
 import org.junit.Test;
 
 import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.collection.ext.CommonsArrayList;
-import com.helger.commons.collection.ext.CommonsHashSet;
-import com.helger.commons.collection.ext.CommonsLinkedHashSet;
+import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.CommonsHashSet;
+import com.helger.commons.collection.impl.CommonsLinkedHashSet;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.locale.ELocaleName;

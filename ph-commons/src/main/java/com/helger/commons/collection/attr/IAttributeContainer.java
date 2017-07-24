@@ -29,10 +29,10 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.ICommonsCollection;
-import com.helger.commons.collection.ext.ICommonsIterable;
-import com.helger.commons.collection.ext.ICommonsMap;
-import com.helger.commons.collection.ext.ICommonsSet;
+import com.helger.commons.collection.impl.ICommonsCollection;
+import com.helger.commons.collection.impl.ICommonsIterable;
+import com.helger.commons.collection.impl.ICommonsMap;
+import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.typeconvert.TypeConverter;
 

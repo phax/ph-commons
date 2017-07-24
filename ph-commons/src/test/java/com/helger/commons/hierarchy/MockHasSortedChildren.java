@@ -22,8 +22,8 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.ext.ICommonsIterable;
-import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.impl.ICommonsIterable;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.id.IHasID;
 
 public final class MockHasSortedChildren implements IHasChildrenSorted <MockHasSortedChildren>, IHasID <String>

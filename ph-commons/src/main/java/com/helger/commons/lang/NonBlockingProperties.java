@@ -31,7 +31,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.WillNotClose;
 
-import com.helger.commons.collection.ext.CommonsLinkedHashMap;
+import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.io.stream.NonBlockingBufferedWriter;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;

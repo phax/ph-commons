@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.Singleton;
-import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.exception.mock.IMockException;
 import com.helger.commons.lang.ServiceLoaderHelper;

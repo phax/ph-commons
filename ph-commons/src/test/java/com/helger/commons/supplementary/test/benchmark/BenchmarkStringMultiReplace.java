@@ -18,8 +18,8 @@ package com.helger.commons.supplementary.test.benchmark;
 
 import java.util.regex.Pattern;
 
-import com.helger.commons.collection.ext.CommonsLinkedHashMap;
-import com.helger.commons.collection.ext.ICommonsOrderedMap;
+import com.helger.commons.collection.impl.CommonsLinkedHashMap;
+import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.string.StringHelper;
 
 /**

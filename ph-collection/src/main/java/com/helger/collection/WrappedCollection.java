@@ -28,7 +28,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.ext.ICommonsCollection;
+import com.helger.commons.collection.impl.ICommonsCollection;
 
 /**
  * This is a facade for a {@link Set}. It may be used to wrap any kind of

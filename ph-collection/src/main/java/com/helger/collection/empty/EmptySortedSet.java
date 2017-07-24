@@ -26,7 +26,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.CodingStyleguideUnaware;
-import com.helger.commons.collection.ext.ICommonsSortedSet;
+import com.helger.commons.collection.impl.ICommonsSortedSet;
 import com.helger.commons.collection.iterate.EmptyIterator;
 
 /**

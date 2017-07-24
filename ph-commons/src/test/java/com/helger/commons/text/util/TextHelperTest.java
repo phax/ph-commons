@@ -25,10 +25,10 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.ext.CommonsArrayList;
-import com.helger.commons.collection.ext.CommonsHashMap;
-import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.CommonsHashMap;
+import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.text.IMultilingualText;
 import com.helger.commons.text.MultilingualText;

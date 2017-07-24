@@ -29,8 +29,8 @@ import java.util.Map;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.ext.CommonsHashMap;
-import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.impl.CommonsHashMap;
+import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.IHasOutputStream;
 import com.helger.commons.io.resource.ClassPathResource;

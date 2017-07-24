@@ -28,7 +28,7 @@ import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.iterate.EmptyEnumeration;
 import com.helger.commons.mock.CommonsTestHelper;
 

@@ -24,9 +24,9 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsLinkedHashSet;
-import com.helger.commons.collection.ext.CommonsTreeMap;
-import com.helger.commons.collection.ext.ICommonsOrderedSet;
+import com.helger.commons.collection.impl.CommonsLinkedHashSet;
+import com.helger.commons.collection.impl.CommonsTreeMap;
+import com.helger.commons.collection.impl.ICommonsOrderedSet;
 
 /**
  * Multi map based on {@link CommonsTreeMap} and {@link CommonsLinkedHashSet}

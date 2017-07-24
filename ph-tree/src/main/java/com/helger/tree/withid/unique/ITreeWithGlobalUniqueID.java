@@ -20,7 +20,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.collection.ext.ICommonsCollection;
+import com.helger.commons.collection.impl.ICommonsCollection;
 import com.helger.commons.hierarchy.IChildrenProviderWithID;
 import com.helger.commons.state.EChange;
 import com.helger.tree.withid.ITreeItemWithID;

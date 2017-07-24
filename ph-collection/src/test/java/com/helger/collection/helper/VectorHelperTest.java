@@ -21,7 +21,7 @@ import java.util.Objects;
 import org.junit.Test;
 
 import com.helger.collection.helper.VectorHelper;
-import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.iterate.IterableIterator;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 

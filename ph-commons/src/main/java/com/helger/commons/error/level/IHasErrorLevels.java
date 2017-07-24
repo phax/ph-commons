@@ -19,7 +19,7 @@ package com.helger.commons.error.level;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
-import com.helger.commons.collection.ext.ICommonsIterable;
+import com.helger.commons.collection.impl.ICommonsIterable;
 
 /**
  * Interface representing an object having multiple objects with an error level

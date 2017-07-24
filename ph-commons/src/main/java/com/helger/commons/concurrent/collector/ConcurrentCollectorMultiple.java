@@ -27,8 +27,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collection.ext.CommonsArrayList;
-import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.state.ESuccess;
@@ -200,7 +200,7 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
    *         if no performer is set - see
    *         {@link #setPerformer(IConcurrentPerformer)}
    */
-  public final void run ()
+  public final void collect ()
   {
     if (m_aPerformer == null)
       throw new IllegalStateException ("No performer set!");
@@ -208,7 +208,7 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
     try
     {
       // The temporary list that contains all objects to be delivered
-      final ICommonsList <DATATYPE> aObjectsToPerform = new CommonsArrayList<> ();
+      final ICommonsList <DATATYPE> aObjectsToPerform = new CommonsArrayList <> ();
       boolean bQueueIsStopped = false;
 
       while (true)

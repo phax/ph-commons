@@ -32,8 +32,8 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
 
-import com.helger.commons.collection.ext.CommonsTreeMap;
-import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.impl.CommonsTreeMap;
+import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.string.StringHelper;
 import com.helger.xml.CXML;
 import com.helger.xml.EXMLVersion;

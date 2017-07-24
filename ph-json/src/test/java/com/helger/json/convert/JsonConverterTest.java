@@ -26,12 +26,12 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.ext.CommonsHashMap;
-import com.helger.commons.collection.ext.CommonsLinkedHashMap;
-import com.helger.commons.collection.ext.CommonsTreeMap;
-import com.helger.commons.collection.ext.ICommonsMap;
-import com.helger.commons.collection.ext.ICommonsNavigableMap;
-import com.helger.commons.collection.ext.ICommonsOrderedMap;
+import com.helger.commons.collection.impl.CommonsHashMap;
+import com.helger.commons.collection.impl.CommonsLinkedHashMap;
+import com.helger.commons.collection.impl.CommonsTreeMap;
+import com.helger.commons.collection.impl.ICommonsMap;
+import com.helger.commons.collection.impl.ICommonsNavigableMap;
+import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.json.JsonArray;
 import com.helger.json.JsonObject;
 import com.helger.json.JsonValue;

@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.ICommonsOrderedSet;
+import com.helger.commons.collection.impl.ICommonsOrderedSet;
 
 /**
  * Base interface for a single graph node.

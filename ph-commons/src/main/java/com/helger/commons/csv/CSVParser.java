@@ -38,8 +38,8 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.collection.ext.CommonsArrayList;
-import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -48,6 +48,7 @@ import com.helger.commons.string.StringHelper;
  *
  * @author Glen Smith
  * @author Rainer Pruy
+ * @author Philip Helger
  */
 public class CSVParser
 {
@@ -328,12 +329,12 @@ public class CSVParser
       {
         final String s = m_sPending;
         m_sPending = null;
-        return new CommonsArrayList<> (s);
+        return new CommonsArrayList <> (s);
       }
       return null;
     }
 
-    final ICommonsList <String> aTokensOnThisLine = new CommonsArrayList<> ();
+    final ICommonsList <String> aTokensOnThisLine = new CommonsArrayList <> ();
     StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
     boolean bInQuotes = false;
     if (m_sPending != null)

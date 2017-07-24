@@ -31,13 +31,13 @@ import javax.annotation.Nonnull;
 import com.helger.collection.multimap.IMultiMap;
 import com.helger.collection.multimap.IMultiMapListBased;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.ext.CommonsConcurrentHashMap;
-import com.helger.commons.collection.ext.ICommonsCollection;
-import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.collection.ext.ICommonsMap;
-import com.helger.commons.collection.ext.ICommonsNavigableSet;
-import com.helger.commons.collection.ext.ICommonsOrderedSet;
-import com.helger.commons.collection.ext.ICommonsSet;
+import com.helger.commons.collection.impl.CommonsConcurrentHashMap;
+import com.helger.commons.collection.impl.ICommonsCollection;
+import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.collection.impl.ICommonsMap;
+import com.helger.commons.collection.impl.ICommonsNavigableSet;
+import com.helger.commons.collection.impl.ICommonsOrderedSet;
+import com.helger.commons.collection.impl.ICommonsSet;
 
 /**
  * Abstract class for class {@link IMultiMap} implementations.

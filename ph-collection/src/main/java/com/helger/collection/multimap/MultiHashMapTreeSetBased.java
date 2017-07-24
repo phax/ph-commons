@@ -23,8 +23,8 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsTreeSet;
-import com.helger.commons.collection.ext.ICommonsNavigableSet;
+import com.helger.commons.collection.impl.CommonsTreeSet;
+import com.helger.commons.collection.impl.ICommonsNavigableSet;
 
 /**
  * Multi map based on {@link java.util.HashMap} and {@link CommonsTreeSet}

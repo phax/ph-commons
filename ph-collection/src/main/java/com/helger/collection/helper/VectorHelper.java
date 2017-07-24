@@ -32,7 +32,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.ext.CommonsVector;
+import com.helger.commons.collection.impl.CommonsVector;
 import com.helger.commons.collection.iterate.IIterableIterator;
 
 @Immutable

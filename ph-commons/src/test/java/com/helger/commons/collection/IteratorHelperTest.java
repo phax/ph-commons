@@ -37,7 +37,7 @@ import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.iterate.EmptyEnumeration;
 import com.helger.commons.collection.iterate.EmptyIterator;
 import com.helger.commons.collection.iterate.IIterableIterator;

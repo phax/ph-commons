@@ -19,7 +19,7 @@ package com.helger.graph;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.ICommonsSet;
+import com.helger.commons.collection.impl.ICommonsSet;
 
 /**
  * Interface for a directed graph.

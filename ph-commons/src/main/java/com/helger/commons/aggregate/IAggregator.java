@@ -20,7 +20,7 @@ import java.util.Collection;
 
 import javax.annotation.Nullable;
 
-import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.functional.IFunction;
 
 /**

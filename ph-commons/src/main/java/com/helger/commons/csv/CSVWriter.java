@@ -54,6 +54,7 @@ import com.helger.commons.io.stream.StreamHelper;
  * A very simple CSV writer released under a commercial-friendly license.
  *
  * @author Glen Smith
+ * @author Philip Helger
  */
 public class CSVWriter implements Closeable, Flushable
 {

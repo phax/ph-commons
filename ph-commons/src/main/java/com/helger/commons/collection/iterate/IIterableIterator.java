@@ -20,7 +20,7 @@ import java.util.Iterator;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.collection.ext.ICommonsIterable;
+import com.helger.commons.collection.impl.ICommonsIterable;
 import com.helger.commons.functional.IFunction;
 import com.helger.commons.functional.IPredicate;
 

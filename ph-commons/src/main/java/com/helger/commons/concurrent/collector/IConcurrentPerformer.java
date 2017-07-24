@@ -18,6 +18,13 @@ package com.helger.commons.concurrent.collector;
 
 import javax.annotation.Nullable;
 
+/**
+ * Async runnable
+ * 
+ * @author Philip Helger
+ * @param <DATATYPE>
+ *        Data type
+ */
 @FunctionalInterface
 public interface IConcurrentPerformer <DATATYPE>
 {

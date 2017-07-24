@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.ext.ICommonsList;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.hierarchy.visit.DefaultHierarchyVisitorCallback;
 import com.helger.commons.hierarchy.visit.EHierarchyVisitorReturn;
 import com.helger.commons.io.file.FileHelper;

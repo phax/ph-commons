@@ -27,8 +27,8 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.ext.CommonsHashSet;
-import com.helger.commons.collection.ext.ICommonsSet;
+import com.helger.commons.collection.impl.CommonsHashSet;
+import com.helger.commons.collection.impl.ICommonsSet;
 
 public final class UTF7CharsetProviderSPITest
 {

@@ -20,7 +20,7 @@ import org.junit.Test;
 
 import com.helger.collection.multimap.IMultiMapSetBased;
 import com.helger.collection.multimap.MultiWeakHashMapLinkedHashSetBased;
-import com.helger.commons.collection.ext.ICommonsSet;
+import com.helger.commons.collection.impl.ICommonsSet;
 
 /**
  * Test class for class {@link MultiWeakHashMapLinkedHashSetBased}.

@@ -83,7 +83,7 @@ public class ThreadDeadlockInfo
    */
   @Nullable
   @ReturnsMutableCopy
-  public StackTraceElement [] getStackTrace ()
+  public StackTraceElement [] getAllStackTraceElements ()
   {
     return ArrayHelper.getCopy (m_aStackTrace);
   }

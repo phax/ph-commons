@@ -21,7 +21,7 @@ import java.util.HashMap;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsHashMap;
+import com.helger.commons.collection.impl.CommonsHashMap;
 
 /**
  * Soft {@link HashMap} implementation based on

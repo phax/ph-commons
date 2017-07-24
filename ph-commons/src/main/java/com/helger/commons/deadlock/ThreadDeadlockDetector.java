@@ -22,21 +22,16 @@ import java.lang.management.ThreadMXBean;
 import java.util.Arrays;
 import java.util.Map;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.collection.ext.CommonsCopyOnWriteArraySet;
-import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.collection.ext.ICommonsSet;
-import com.helger.commons.state.EChange;
+import com.helger.commons.collection.impl.CommonsCopyOnWriteArraySet;
+import com.helger.commons.collection.impl.ICommonsSet;
 
 /**
  * This is the main dead lock detector, based on JMX {@link ThreadMXBean}
@@ -49,7 +44,7 @@ public class ThreadDeadlockDetector
   private static final Logger s_aLogger = LoggerFactory.getLogger (ThreadDeadlockDetector.class);
 
   private final ThreadMXBean m_aMBean = ManagementFactory.getThreadMXBean ();
-  private final ICommonsSet <IThreadDeadlockCallback> m_aCallbacks = new CommonsCopyOnWriteArraySet<> ();
+  private final ICommonsSet <IThreadDeadlockCallback> m_aCallbacks = new CommonsCopyOnWriteArraySet <> ();
 
   /**
    * This is the main method to be invoked to find deadlocked threads. In case a
@@ -102,35 +97,9 @@ public class ThreadDeadlockDetector
   }
 
   @Nonnull
-  public EChange addCallback (@Nonnull final IThreadDeadlockCallback aCallback)
+  @ReturnsMutableObject
+  public ICommonsSet <IThreadDeadlockCallback> callbacks ()
   {
-    ValueEnforcer.notNull (aCallback, "Callback");
-
-    return m_aCallbacks.addObject (aCallback);
-  }
-
-  @Nonnull
-  public EChange removeCallback (@Nullable final IThreadDeadlockCallback aCallback)
-  {
-    return m_aCallbacks.removeObject (aCallback);
-  }
-
-  @Nonnull
-  public EChange removeAllCallbacks ()
-  {
-    return m_aCallbacks.removeAll ();
-  }
-
-  @Nonnegative
-  public int getCallbackCount ()
-  {
-    return m_aCallbacks.size ();
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public ICommonsList <IThreadDeadlockCallback> getAllCallbacks ()
-  {
-    return m_aCallbacks.getCopyAsList ();
+    return m_aCallbacks;
   }
 }

@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.impl.ICommonsMap;
 
 /**
  * A special namespace context interface that allows the iteration of the

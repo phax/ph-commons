@@ -29,7 +29,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.callback.CallbackList;
 import com.helger.commons.callback.IChangeCallback;
-import com.helger.commons.collection.ext.ICommonsOrderedMap;
+import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.locale.LocaleHelper;
 import com.helger.commons.state.EChange;

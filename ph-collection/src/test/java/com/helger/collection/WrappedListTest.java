@@ -29,7 +29,7 @@ import java.util.List;
 import org.junit.Test;
 
 import com.helger.collection.WrappedList;
-import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.lang.GenericReflection;
 
 /**

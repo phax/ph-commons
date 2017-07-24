@@ -23,9 +23,9 @@ import javax.annotation.Nullable;
 import javax.xml.namespace.QName;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.collection.ext.CommonsLinkedHashMap;
-import com.helger.commons.collection.ext.ICommonsList;
-import com.helger.commons.collection.ext.ICommonsOrderedMap;
+import com.helger.commons.collection.impl.CommonsLinkedHashMap;
+import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.string.StringHelper;
 import com.helger.xml.microdom.IMicroCDATA;
 import com.helger.xml.microdom.IMicroComment;

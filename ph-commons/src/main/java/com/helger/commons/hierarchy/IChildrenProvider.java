@@ -19,7 +19,7 @@ package com.helger.commons.hierarchy;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nullable;
 
-import com.helger.commons.collection.ext.ICommonsCollection;
+import com.helger.commons.collection.impl.ICommonsCollection;
 
 /**
  * This interface can be used to generically resolved children of a certain

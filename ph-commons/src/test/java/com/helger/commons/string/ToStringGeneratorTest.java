@@ -28,7 +28,7 @@ import javax.annotation.Nullable;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.ext.CommonsArrayList;
+import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.compare.ESortOrder;
 
 /**

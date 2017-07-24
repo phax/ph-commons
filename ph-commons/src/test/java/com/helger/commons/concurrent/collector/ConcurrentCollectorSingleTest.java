@@ -58,7 +58,7 @@ public final class ConcurrentCollectorSingleTest
     try
     {
       // no performer
-      ccm.run ();
+      ccm.collect ();
       fail ();
     }
     catch (final IllegalStateException ex)
@@ -76,7 +76,7 @@ public final class ConcurrentCollectorSingleTest
     final int nPerThreadQueueAdd = 7230;
 
     final MockConcurrentCollectorSingle aQueue = new MockConcurrentCollectorSingle ();
-    final Thread aQueueThread = new Thread (aQueue, "ph-MockConcurrentQueue");
+    final Thread aQueueThread = new Thread (aQueue::collect, "ph-MockConcurrentQueue");
     aQueueThread.start ();
     assertEquals (0, aQueue.getPerformCount ());
     // create and run producers

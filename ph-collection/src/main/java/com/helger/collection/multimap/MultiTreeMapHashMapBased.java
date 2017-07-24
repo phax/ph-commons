@@ -23,8 +23,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ext.CommonsHashMap;
-import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.impl.CommonsHashMap;
+import com.helger.commons.collection.impl.ICommonsMap;
 
 public class MultiTreeMapHashMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE> extends
                                       AbstractMultiTreeMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE, ICommonsMap <KEYTYPE2, VALUETYPE>>

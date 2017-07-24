@@ -23,11 +23,11 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.collection.ext.ICommonsSet;
+import com.helger.commons.collection.impl.ICommonsSet;
 
 /**
  * Abstract multi map based on
- * {@link com.helger.commons.collection.ext.CommonsTreeMap} and
+ * {@link com.helger.commons.collection.impl.CommonsTreeMap} and
  * {@link ICommonsSet} values.<br>
  *
  * @author Philip Helger

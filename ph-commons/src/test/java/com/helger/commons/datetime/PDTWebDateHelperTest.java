@@ -33,7 +33,6 @@ import org.junit.Test;
 
 import com.helger.commons.datetime.PDTConfig;
 import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.datetime.net.PDTWebDateHelper;
 
 /**
  * Test class for class {@link PDTWebDateHelper}.

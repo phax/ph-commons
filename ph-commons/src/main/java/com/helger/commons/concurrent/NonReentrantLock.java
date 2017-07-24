@@ -21,6 +21,8 @@ import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 
+import javax.annotation.Nonnull;
+
 /**
  * Non reentrant lock. Copied from Netty 3.7 sources.
  *
@@ -49,9 +51,9 @@ public final class NonReentrantLock extends AbstractQueuedSynchronizer implement
     return tryAcquire (1);
   }
 
-  public boolean tryLock (final long time, final TimeUnit unit) throws InterruptedException
+  public boolean tryLock (final long nTime, final TimeUnit eUnit) throws InterruptedException
   {
-    return tryAcquireNanos (1, unit.toNanos (time));
+    return tryAcquireNanos (1, eUnit.toNanos (nTime));
   }
 
   public void unlock ()
@@ -64,6 +66,7 @@ public final class NonReentrantLock extends AbstractQueuedSynchronizer implement
     return isHeldExclusively ();
   }
 
+  @Nonnull
   public Condition newCondition ()
   {
     return new ConditionObject ();

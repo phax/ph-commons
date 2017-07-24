@@ -36,8 +36,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.collection.ext.CommonsHashMap;
-import com.helger.commons.collection.ext.ICommonsMap;
+import com.helger.commons.collection.impl.CommonsHashMap;
+import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.system.EOperatingSystem;
