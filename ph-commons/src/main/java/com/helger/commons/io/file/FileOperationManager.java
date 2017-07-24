@@ -22,6 +22,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.callback.CallbackList;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -34,16 +36,16 @@ import com.helger.commons.string.ToStringGenerator;
 public class FileOperationManager implements IFileOperationManager
 {
   private FileIOError m_aLastError;
-  private final IFileOperationCallback m_aCallback;
+  private final CallbackList <IFileOperationCallback> m_aCallbacks = new CallbackList <> ();
 
   public FileOperationManager ()
-  {
-    this (null);
-  }
+  {}
 
-  public FileOperationManager (@Nullable final IFileOperationCallback aCallback)
+  @Nonnull
+  @ReturnsMutableObject
+  public CallbackList <IFileOperationCallback> callbacks ()
   {
-    m_aCallback = aCallback;
+    return m_aCallbacks;
   }
 
   @Nullable
@@ -60,17 +62,19 @@ public class FileOperationManager implements IFileOperationManager
 
   private void _handleLastError (@Nonnull final FileIOError aLastError)
   {
-    if (m_aCallback != null)
+    if (m_aCallbacks.isNotEmpty ())
     {
       // Invoke callback
       if (aLastError.isSuccess ())
-        m_aCallback.onSuccess (aLastError.getOperation (), aLastError.getFile1 (), aLastError.getFile2 ());
+        m_aCallbacks.forEach (x -> x.onSuccess (aLastError.getOperation (),
+                                                aLastError.getFile1 (),
+                                                aLastError.getFile2 ()));
       else
-        m_aCallback.onError (aLastError.getOperation (),
-                             aLastError.getErrorCode (),
-                             aLastError.getFile1 (),
-                             aLastError.getFile2 (),
-                             aLastError.getException ());
+        m_aCallbacks.forEach (x -> x.onError (aLastError.getOperation (),
+                                              aLastError.getErrorCode (),
+                                              aLastError.getFile1 (),
+                                              aLastError.getFile2 (),
+                                              aLastError.getException ()));
     }
   }
 
@@ -189,8 +193,8 @@ public class FileOperationManager implements IFileOperationManager
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("lastError", m_aLastError)
-                                       .append ("callback", m_aCallback)
+    return new ToStringGenerator (this).append ("LastError", m_aLastError)
+                                       .append ("Callback", m_aCallbacks)
                                        .getToString ();
   }
 }

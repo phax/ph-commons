@@ -102,7 +102,8 @@ public final class JavaFileAccessFuncTest
   {
     if (EOperatingSystem.getCurrentOS ().isUnixBased ())
     {
-      final FileOperationManager aFOM = new FileOperationManager (new LoggingFileOperationCallback ());
+      final FileOperationManager aFOM = new FileOperationManager ();
+      aFOM.callbacks ().add (new LoggingFileOperationCallback ());
       final File fTempDir = new File (SystemProperties.getTmpDir (), "helger");
       FileOperations.createDirIfNotExisting (fTempDir);
       assertTrue (fTempDir.getAbsolutePath (), fTempDir.exists ());

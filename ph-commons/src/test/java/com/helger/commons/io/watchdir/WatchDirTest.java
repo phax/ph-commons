@@ -47,10 +47,10 @@ public final class WatchDirTest
 
     final IWatchDirCallback aCB = (eAction, aPath) -> s_aLogger.info ("CB: " + eAction + " - " + aPath);
 
-    try (final WatchDir d = new WatchDir (aDir, bRecursive))
+    try (final WatchDir aWD = new WatchDir (aDir, bRecursive))
     {
-      d.callbacks ().addCallback (aCB);
-      new Thread ( () -> d.processEvents (), "WatchDir-" + d.getStartDirectory ()).start ();
+      aWD.callbacks ().add (aCB);
+      new Thread ( () -> aWD.processEvents (), "WatchDir-" + aWD.getStartDirectory ()).start ();
       ThreadHelper.sleep (10, TimeUnit.SECONDS);
     }
 

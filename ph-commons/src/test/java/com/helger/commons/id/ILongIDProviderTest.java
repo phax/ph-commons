@@ -30,7 +30,7 @@ public final class ILongIDProviderTest
   @Test
   public void testAll ()
   {
-    final ILongIDProvider <MockHasLongID> x = ILongIDProvider.createHasLongID ();
+    final ILongIDProvider <MockHasLongID> x = IHasLongID::getID;
     assertEquals (5L, x.getID (new MockHasLongID (5L)));
   }
 }

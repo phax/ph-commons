@@ -30,7 +30,7 @@ public final class IIDProviderTest
   @Test
   public void testAll ()
   {
-    final IIDProvider <MockHasIDString, String> x = IIDProvider.createHasID ();
+    final IIDProvider <MockHasIDString, String> x = IHasID <String>::getID;
     assertEquals ("success", x.getID (new MockHasIDString ("success")));
   }
 }

@@ -22,6 +22,9 @@ import java.io.Serializable;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.callback.CallbackList;
+
 /**
  * Interface for a manager operating on the file system. Is implemented by
  * {@link FileOperationManager}.
@@ -30,6 +33,13 @@ import javax.annotation.Nullable;
  */
 public interface IFileOperationManager extends Serializable
 {
+  /**
+   * @return The mutable callback list. Never <code>null</code>.
+   */
+  @Nonnull
+  @ReturnsMutableObject
+  CallbackList <IFileOperationCallback> callbacks ();
+
   /**
    * @return The last error that occurred. May be <code>null</code> if no action
    *         was yet performed.

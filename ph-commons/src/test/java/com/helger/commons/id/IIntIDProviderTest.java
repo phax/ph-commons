@@ -30,7 +30,7 @@ public final class IIntIDProviderTest
   @Test
   public void testAll ()
   {
-    final IIntIDProvider <MockHasIntID> x = IIntIDProvider.createHasIntID ();
+    final IIntIDProvider <MockHasIntID> x = IHasIntID::getID;
     assertEquals (-3, x.getID (new MockHasIntID (-3)));
   }
 }

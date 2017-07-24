@@ -23,6 +23,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.ICommonsIterable;
 import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.lang.IHasSize;
 
 /**
  * Read-only interface for a list of {@link ICallback} objects.<br>
@@ -35,7 +36,7 @@ import com.helger.commons.collection.impl.ICommonsList;
  * @param <CALLBACKTYPE>
  *        The callback type.
  */
-public interface ICallbackList <CALLBACKTYPE extends ICallback> extends ICommonsIterable <CALLBACKTYPE>
+public interface ICallbackList <CALLBACKTYPE extends ICallback> extends ICommonsIterable <CALLBACKTYPE>, IHasSize
 {
   /**
    * @return A list of all callbacks. Never <code>null</code> and only
@@ -54,16 +55,4 @@ public interface ICallbackList <CALLBACKTYPE extends ICallback> extends ICommons
    */
   @Nullable
   CALLBACKTYPE getCallbackAtIndex (@Nonnegative int nIndex);
-
-  /**
-   * @return The number of contained callbacks. Always &ge; 0.
-   */
-  @Nonnegative
-  int getCallbackCount ();
-
-  /**
-   * @return <code>true</code> if at least a single callback is present,
-   *         <code>false</code> otherwise.
-   */
-  boolean hasCallbacks ();
 }

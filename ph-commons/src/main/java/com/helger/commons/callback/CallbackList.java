@@ -48,8 +48,9 @@ import com.helger.commons.string.ToStringGenerator;
  *        The callback type.
  */
 @ThreadSafe
-public class CallbackList <CALLBACKTYPE extends ICallback>
-                          implements ICallbackList <CALLBACKTYPE>, ICloneable <CallbackList <CALLBACKTYPE>>
+public class CallbackList <CALLBACKTYPE extends ICallback> implements
+                          ICallbackList <CALLBACKTYPE>,
+                          ICloneable <CallbackList <CALLBACKTYPE>>
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (CallbackList.class);
 
@@ -75,7 +76,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback>
    * @return this
    */
   @Nonnull
-  public CallbackList <CALLBACKTYPE> addCallback (@Nonnull final CALLBACKTYPE aCallback)
+  public CallbackList <CALLBACKTYPE> add (@Nonnull final CALLBACKTYPE aCallback)
   {
     ValueEnforcer.notNull (aCallback, "Callback");
 
@@ -91,7 +92,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback>
    * @return {@link EChange}
    */
   @Nonnull
-  public EChange removeCallback (@Nullable final CALLBACKTYPE aCallback)
+  public EChange remove (@Nullable final CALLBACKTYPE aCallback)
   {
     if (aCallback == null)
       return EChange.UNCHANGED;
@@ -105,7 +106,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback>
    * @return {@link EChange}
    */
   @Nonnull
-  public EChange removeAllCallbacks ()
+  public EChange removeAll ()
   {
     return m_aRWLock.writeLocked ( () -> m_aCallbacks.removeAll ());
   }
@@ -124,14 +125,14 @@ public class CallbackList <CALLBACKTYPE extends ICallback>
   }
 
   @Nonnegative
-  public int getCallbackCount ()
+  public int getSize ()
   {
     return m_aRWLock.readLocked ( () -> m_aCallbacks.size ());
   }
 
-  public boolean hasCallbacks ()
+  public boolean isEmpty ()
   {
-    return m_aRWLock.readLocked ( () -> m_aCallbacks.isNotEmpty ());
+    return m_aRWLock.readLocked ( () -> m_aCallbacks.isEmpty ());
   }
 
   @Nonnull

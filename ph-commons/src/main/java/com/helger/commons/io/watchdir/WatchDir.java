@@ -235,7 +235,7 @@ public class WatchDir implements AutoCloseable
                     "'" +
                     (m_bRecursive ? " (recursively)" : ""));
 
-    if (!m_aCallbacks.hasCallbacks ())
+    if (m_aCallbacks.isEmpty ())
       throw new IllegalStateException ("No callback registered for watching directory changes in " + m_aStartDir);
 
     m_aProcessing.set (true);
@@ -368,7 +368,7 @@ public class WatchDir implements AutoCloseable
                                                      @Nonnull final IWatchDirCallback aCallback) throws IOException
   {
     final WatchDir ret = new WatchDir (aDir, bRecursive);
-    ret.callbacks ().addCallback (aCallback);
+    ret.callbacks ().add (aCallback);
     new Thread (ret::processEvents,
                 "WatchDir-" + ret.getStartDirectory () + "-" + RandomHelper.getRandom ().nextInt ()).start ();
     return ret;

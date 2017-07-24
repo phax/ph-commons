@@ -68,12 +68,12 @@ public final class MultilingualTextTest extends AbstractCommonsTestCase
     final MockChangeCallback aNotify = new MockChangeCallback ();
     try
     {
-      aMLT.changeNotifyCallbacks ().addCallback (null);
+      aMLT.changeNotifyCallbacks ().add (null);
       fail ();
     }
     catch (final NullPointerException ex)
     {}
-    aMLT.changeNotifyCallbacks ().addCallback (aNotify);
+    aMLT.changeNotifyCallbacks ().add (aNotify);
 
     try
     {

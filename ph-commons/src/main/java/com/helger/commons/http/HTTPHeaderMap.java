@@ -46,6 +46,7 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.lang.IHasSize;
 import com.helger.commons.state.EChange;
+import com.helger.commons.state.IClearable;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -53,12 +54,14 @@ import com.helger.commons.string.ToStringGenerator;
  * Abstracts HTTP header interface for external usage.
  *
  * @author Philip Helger
+ * @since 9.0.0
  */
 @NotThreadSafe
 public class HTTPHeaderMap implements
                            IHasSize,
                            ICommonsIterable <Map.Entry <String, ICommonsList <String>>>,
-                           ICloneable <HTTPHeaderMap>
+                           ICloneable <HTTPHeaderMap>,
+                           IClearable
 {
   private final ICommonsOrderedMap <String, ICommonsList <String>> m_aHeaders = new CommonsLinkedHashMap <> ();
 
@@ -73,7 +76,6 @@ public class HTTPHeaderMap implements
    *
    * @param aOther
    *        Map to copy from. May not be <code>null</code>.
-   * @since 6.0.5
    */
   public HTTPHeaderMap (@Nonnull final HTTPHeaderMap aOther)
   {
@@ -85,15 +87,11 @@ public class HTTPHeaderMap implements
    * Remove all contained headers.
    *
    * @return {@link EChange}.
-   * @since 6.0.5
    */
   @Nonnull
-  public EChange clear ()
+  public EChange removeAll ()
   {
-    if (m_aHeaders.isEmpty ())
-      return EChange.UNCHANGED;
-    m_aHeaders.clear ();
-    return EChange.CHANGED;
+    return m_aHeaders.removeAll ();
   }
 
   @Nonnull
@@ -184,7 +182,6 @@ public class HTTPHeaderMap implements
    * @param aLD
    *        The LocalDate to set as a date. The time is set to start of day. May
    *        not be <code>null</code>.
-   * @since 6.0.5
    */
   public void setDateHeader (@Nonnull @Nonempty final String sName, @Nonnull final LocalDate aLD)
   {
@@ -198,7 +195,6 @@ public class HTTPHeaderMap implements
    *        Header name. May neither be <code>null</code> nor empty.
    * @param aLDT
    *        The LocalDateTime to set as a date. May not be <code>null</code>.
-   * @since 6.0.5
    */
   public void setDateHeader (@Nonnull @Nonempty final String sName, @Nonnull final LocalDateTime aLDT)
   {
@@ -239,7 +235,6 @@ public class HTTPHeaderMap implements
    * @param aLD
    *        The LocalDate to set as a date. The time is set to start of day. May
    *        not be <code>null</code>.
-   * @since 6.0.5
    */
   public void addDateHeader (@Nonnull @Nonempty final String sName, @Nonnull final LocalDate aLD)
   {
@@ -253,7 +248,6 @@ public class HTTPHeaderMap implements
    *        Header name. May neither be <code>null</code> nor empty.
    * @param aLDT
    *        The LocalDateTime to set as a date. May not be <code>null</code>.
-   * @since 6.0.5
    */
   public void addDateHeader (@Nonnull @Nonempty final String sName, @Nonnull final LocalDateTime aLDT)
   {
@@ -306,7 +300,6 @@ public class HTTPHeaderMap implements
    *        Header name. May neither be <code>null</code> nor empty.
    * @param nValue
    *        The value to be set. May not be <code>null</code>.
-   * @since 6.0.5
    */
   public void setLongHeader (@Nonnull @Nonempty final String sName, final long nValue)
   {
@@ -320,7 +313,6 @@ public class HTTPHeaderMap implements
    *        Header name. May neither be <code>null</code> nor empty.
    * @param nValue
    *        The value to be set. May not be <code>null</code>.
-   * @since 6.0.5
    */
   public void addLongHeader (@Nonnull @Nonempty final String sName, final long nValue)
   {
@@ -332,13 +324,11 @@ public class HTTPHeaderMap implements
    *
    * @param aOther
    *        The header map to add. May not be <code>null</code>.
-   * @since 6.0.5
    */
   public void addAllHeaders (@Nonnull final HTTPHeaderMap aOther)
   {
     ValueEnforcer.notNull (aOther, "Other");
-
-    aOther.forEachSingleHeader ( (k, v) -> _addHeader (k, v));
+    m_aHeaders.putAll (aOther.m_aHeaders);
   }
 
   @Nonnull
@@ -350,7 +340,6 @@ public class HTTPHeaderMap implements
 
   /**
    * @return A copy of all contained header names. Never <code>null</code>.
-   * @since 8.7.0
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -366,7 +355,6 @@ public class HTTPHeaderMap implements
    *        The name to be searched.
    * @return The list with all matching values. Never <code>null</code> but
    *         maybe empty.
-   * @since 6.0.5
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -382,7 +370,6 @@ public class HTTPHeaderMap implements
    *        The name filter to be applied. May not be <code>null</code>.
    * @return The list with all matching values of the first header matching the
    *         passed filter. Never <code>null</code> but maybe empty.
-   * @since 8.5.1
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -405,7 +392,6 @@ public class HTTPHeaderMap implements
    * @param aNameFilter
    *        The name filter to be applied. May not be <code>null</code>.
    * @return <code>null</code> if no such header exists, or if the has no value.
-   * @since 8.5.1
    */
   @Nullable
   public String getFirstHeaderValueByName (@Nonnull final Predicate <String> aNameFilter)
@@ -423,7 +409,6 @@ public class HTTPHeaderMap implements
    *        The name to be searched.
    * @return The list with all matching values. Never <code>null</code> but
    *         maybe empty.
-   * @since 6.0.5
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -431,7 +416,7 @@ public class HTTPHeaderMap implements
   {
     if (StringHelper.hasNoText (sName))
       return new CommonsArrayList <> ();
-    return getAllHeaderValuesByName (x -> sName.equalsIgnoreCase (x));
+    return getAllHeaderValuesByName (sName::equalsIgnoreCase);
   }
 
   /**
@@ -440,14 +425,13 @@ public class HTTPHeaderMap implements
    * @param sName
    *        The name to be searched.
    * @return The first matching value or <code>null</code>.
-   * @since 8.5.1
    */
   @Nullable
   public String getFirstHeaderValueCaseInsensitive (@Nullable final String sName)
   {
     if (StringHelper.hasNoText (sName))
       return null;
-    return getFirstHeaderValueByName (x -> sName.equalsIgnoreCase (x));
+    return getFirstHeaderValueByName (sName::equalsIgnoreCase);
   }
 
   public boolean containsHeaders (@Nullable final String sName)
@@ -457,13 +441,12 @@ public class HTTPHeaderMap implements
 
   public boolean containsHeadersCaseInsensitive (@Nullable final String sName)
   {
-    return StringHelper.hasText (sName) &&
-           CollectionHelper.containsAny (m_aHeaders.keySet (), x -> sName.equalsIgnoreCase (x));
+    return StringHelper.hasText (sName) && CollectionHelper.containsAny (m_aHeaders.keySet (), sName::equalsIgnoreCase);
   }
 
   /**
    * Remove all header values with the provided name
-   * 
+   *
    * @param sName
    *        The name to be removed. May be <code>null</code>.
    * @return {@link EChange}
@@ -471,7 +454,9 @@ public class HTTPHeaderMap implements
   @Nonnull
   public EChange removeHeaders (@Nullable final String sName)
   {
-    return EChange.valueOf (sName != null && m_aHeaders.remove (sName) != null);
+    if (sName == null)
+      return EChange.UNCHANGED;
+    return m_aHeaders.removeObject (sName);
   }
 
   @Nonnull
@@ -510,7 +495,6 @@ public class HTTPHeaderMap implements
    *
    * @param aConsumer
    *        Consumer to be invoked. May not be <code>null</code>.
-   * @since 8.7.3
    */
   public void forEachSingleHeader (@Nonnull final BiConsumer <String, String> aConsumer)
   {
@@ -522,9 +506,6 @@ public class HTTPHeaderMap implements
     }
   }
 
-  /**
-   * @since 6.0.5
-   */
   @Nonnull
   @ReturnsMutableCopy
   public HTTPHeaderMap getClone ()

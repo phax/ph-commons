@@ -83,6 +83,11 @@ public final class CHTTPHeader
    * e.g. X-Content-Type-Options: nosniff
    */
   public static final String X_CONTENT_TYPE_OPTIONS = "X-Content-Type-Options";
+  /**
+   * https://scotthelme.co.uk/a-new-security-header-referrer-policy/<br>
+   * E.g. Referrer-Policy: strict-origin
+   */
+  public static final String REFERRER_POLICY = "Referrer-Policy";
 
   /**
    * The Retry-After response-header field can be used with a 503 (Service
