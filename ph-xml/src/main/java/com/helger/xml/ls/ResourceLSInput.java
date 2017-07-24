@@ -27,7 +27,7 @@ import org.w3c.dom.ls.LSInput;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.UnsupportedOperation;
-import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.ToStringGenerator;
@@ -117,7 +117,7 @@ public class ResourceLSInput implements LSInput
 
   public void setEncoding (@Nullable final String sEncoding)
   {
-    m_aEncoding = sEncoding == null ? null : CharsetManager.getCharsetFromName (sEncoding);
+    m_aEncoding = sEncoding == null ? null : CharsetHelper.getCharsetFromName (sEncoding);
   }
 
   @Nullable

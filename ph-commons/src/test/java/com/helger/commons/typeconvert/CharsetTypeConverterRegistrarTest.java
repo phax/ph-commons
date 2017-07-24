@@ -23,7 +23,7 @@ import java.nio.charset.Charset;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.charset.CharsetHelper;
 
 /**
  * Test class for class {@link CharsetTypeConverterRegistrar}.
@@ -35,7 +35,7 @@ public final class CharsetTypeConverterRegistrarTest
   @Test
   public void testConvert ()
   {
-    for (final Charset aCS : CharsetManager.getAllCharsets ().values ())
+    for (final Charset aCS : CharsetHelper.getAllCharsets ().values ())
     {
       final String sCS = TypeConverter.convertIfNecessary (aCS, String.class);
       assertNotNull (sCS);

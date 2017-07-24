@@ -46,7 +46,7 @@ public class XMLLoggingExceptionCallback extends LoggingExceptionCallback
 
   public XMLLoggingExceptionCallback (@Nonnull final IErrorLevel aErrorLevel)
   {
-    super (aErrorLevel);
+    setErrorLevel (aErrorLevel);
   }
 
   @Override

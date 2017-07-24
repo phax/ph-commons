@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.changelog;
+package com.helger.xml.util.changelog;
 
 import com.helger.commons.callback.ICallback;
 import com.helger.commons.functional.IConsumer;

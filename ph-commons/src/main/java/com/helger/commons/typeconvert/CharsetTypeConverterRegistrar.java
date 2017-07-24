@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.IsSPIImplementation;
-import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.charset.CharsetHelper;
 
 /**
  * Register the locale specific type converter
@@ -39,6 +39,6 @@ public final class CharsetTypeConverterRegistrar implements ITypeConverterRegist
     aRegistry.registerTypeConverter (Charset.class, String.class, aSource -> aSource.name ());
     aRegistry.registerTypeConverter (String.class,
                                      Charset.class,
-                                     aSource -> CharsetManager.getCharsetFromName (aSource));
+                                     aSource -> CharsetHelper.getCharsetFromName (aSource));
   }
 }

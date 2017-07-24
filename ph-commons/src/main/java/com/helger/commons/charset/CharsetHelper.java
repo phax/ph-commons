@@ -41,7 +41,7 @@ import com.helger.commons.string.StringHelper;
  * @author Philip Helger
  */
 @Immutable
-public final class CharsetManager
+public final class CharsetHelper
 {
   @CodingStyleguideUnaware
   private static final SortedMap <String, Charset> s_aAllCharsets;
@@ -53,9 +53,9 @@ public final class CharsetManager
   }
 
   @PresentForCodeCoverage
-  private static final CharsetManager s_aInstance = new CharsetManager ();
+  private static final CharsetHelper s_aInstance = new CharsetHelper ();
 
-  private CharsetManager ()
+  private CharsetHelper ()
   {}
 
   /**
@@ -73,6 +73,7 @@ public final class CharsetManager
   @Nonnull
   public static Charset getCharsetFromName (@Nonnull @Nonempty final String sCharsetName)
   {
+    ValueEnforcer.notNull (sCharsetName, "CharsetName");
     try
     {
       return Charset.forName (sCharsetName);

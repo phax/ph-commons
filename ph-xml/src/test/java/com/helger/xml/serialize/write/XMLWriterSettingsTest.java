@@ -27,7 +27,7 @@ import java.nio.charset.StandardCharsets;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.mock.CommonsAssert;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.string.StringHelper;
@@ -128,7 +128,7 @@ public final class XMLWriterSettingsTest
             {
               aXWS.setIncorrectCharacterHandling (eIncorrectCharHandling);
               assertEquals (eIncorrectCharHandling, aXWS.getIncorrectCharacterHandling ());
-              for (final Charset aCS : CharsetManager.getAllCharsets ().values ())
+              for (final Charset aCS : CharsetHelper.getAllCharsets ().values ())
               {
                 aXWS.setCharset (aCS);
                 assertEquals (aCS, aXWS.getCharsetObj ());

@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -168,7 +168,7 @@ public abstract class AbstractRFC1522Codec implements ICodec <String>
     final String sDestCharset = sEncodedText.substring (nFrom, nTo);
     if (StringHelper.hasNoText (sDestCharset))
       throw new DecodeException ("RFC 1522 violation: charset not specified");
-    final Charset aDestCharset = CharsetManager.getCharsetFromNameOrNull (sDestCharset);
+    final Charset aDestCharset = CharsetHelper.getCharsetFromNameOrNull (sDestCharset);
     if (aDestCharset == null)
       throw new DecodeException ("Failed to resolve charset '" + sDestCharset + "'");
 

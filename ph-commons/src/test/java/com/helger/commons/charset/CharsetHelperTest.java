@@ -38,20 +38,20 @@ import com.helger.commons.random.RandomHelper;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
- * Test class for class {@link CharsetManager}.
+ * Test class for class {@link CharsetHelper}.
  *
  * @author Philip Helger
  */
-public final class CharsetManagerTest
+public final class CharsetHelperTest
 {
   @Test
   @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testCharsetFromName ()
   {
-    assertNotNull (CharsetManager.getCharsetFromName ("UTF-8"));
+    assertNotNull (CharsetHelper.getCharsetFromName ("UTF-8"));
     try
     {
-      CharsetManager.getCharsetFromName (null);
+      CharsetHelper.getCharsetFromName (null);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -59,7 +59,7 @@ public final class CharsetManagerTest
     try
     {
       // Illegal name
-      CharsetManager.getCharsetFromName ("does not exist");
+      CharsetHelper.getCharsetFromName ("does not exist");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -67,7 +67,7 @@ public final class CharsetManagerTest
     try
     {
       // Unsupported
-      CharsetManager.getCharsetFromName ("bla");
+      CharsetHelper.getCharsetFromName ("bla");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -95,28 +95,28 @@ public final class CharsetManagerTest
   {
     final String s = "äbc";
     assertEquals (3,
-                  CharsetManager.getAsStringInOtherCharset (s, StandardCharsets.ISO_8859_1, StandardCharsets.UTF_8)
+                  CharsetHelper.getAsStringInOtherCharset (s, StandardCharsets.ISO_8859_1, StandardCharsets.UTF_8)
                                 .length ());
     assertEquals (4,
-                  CharsetManager.getAsStringInOtherCharset (s, StandardCharsets.UTF_8, StandardCharsets.ISO_8859_1)
+                  CharsetHelper.getAsStringInOtherCharset (s, StandardCharsets.UTF_8, StandardCharsets.ISO_8859_1)
                                 .length ());
-    assertNull (CharsetManager.getAsStringInOtherCharset (null, StandardCharsets.ISO_8859_1, StandardCharsets.UTF_8));
+    assertNull (CharsetHelper.getAsStringInOtherCharset (null, StandardCharsets.ISO_8859_1, StandardCharsets.UTF_8));
     assertEquals (s,
-                  CharsetManager.getAsStringInOtherCharset (s,
+                  CharsetHelper.getAsStringInOtherCharset (s,
                                                             StandardCharsets.ISO_8859_1,
                                                             StandardCharsets.ISO_8859_1));
-    assertEquals (s, CharsetManager.getAsStringInOtherCharset (s, StandardCharsets.UTF_8, StandardCharsets.UTF_8));
+    assertEquals (s, CharsetHelper.getAsStringInOtherCharset (s, StandardCharsets.UTF_8, StandardCharsets.UTF_8));
 
     try
     {
-      CharsetManager.getAsStringInOtherCharset (s, null, StandardCharsets.UTF_8);
+      CharsetHelper.getAsStringInOtherCharset (s, null, StandardCharsets.UTF_8);
       fail ();
     }
     catch (final NullPointerException ex)
     {}
     try
     {
-      CharsetManager.getAsStringInOtherCharset (s, StandardCharsets.ISO_8859_1, null);
+      CharsetHelper.getAsStringInOtherCharset (s, StandardCharsets.ISO_8859_1, null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -155,30 +155,30 @@ public final class CharsetManagerTest
   @Test
   public void testGetUTF8ByteCount ()
   {
-    assertEquals (0, CharsetManager.getUTF8ByteCount ((String) null));
-    assertEquals (0, CharsetManager.getUTF8ByteCount ((char []) null));
+    assertEquals (0, CharsetHelper.getUTF8ByteCount ((String) null));
+    assertEquals (0, CharsetHelper.getUTF8ByteCount ((char []) null));
 
-    assertEquals (2, CharsetManager.getUTF8ByteCount ("\0"));
-    assertEquals (2, CharsetManager.getUTF8ByteCount ("ä"));
-    assertEquals (2, CharsetManager.getUTF8ByteCount ('ä'));
-    assertEquals (0, CharsetManager.getUTF8ByteCount (""));
-    assertEquals (3, CharsetManager.getUTF8ByteCount ("abc"));
-    assertEquals (9, CharsetManager.getUTF8ByteCount ("abcäöü"));
-    assertEquals (3, CharsetManager.getUTF8ByteCount ("\ud7ff"));
+    assertEquals (2, CharsetHelper.getUTF8ByteCount ("\0"));
+    assertEquals (2, CharsetHelper.getUTF8ByteCount ("ä"));
+    assertEquals (2, CharsetHelper.getUTF8ByteCount ('ä'));
+    assertEquals (0, CharsetHelper.getUTF8ByteCount (""));
+    assertEquals (3, CharsetHelper.getUTF8ByteCount ("abc"));
+    assertEquals (9, CharsetHelper.getUTF8ByteCount ("abcäöü"));
+    assertEquals (3, CharsetHelper.getUTF8ByteCount ("\ud7ff"));
 
-    assertEquals (0, CharsetManager.getUTF8ByteCount ("\udfff"));
-    assertEquals (0, CharsetManager.getUTF8ByteCount ("\ue000"));
-    assertEquals (0, CharsetManager.getUTF8ByteCount ("\uffff"));
+    assertEquals (0, CharsetHelper.getUTF8ByteCount ("\udfff"));
+    assertEquals (0, CharsetHelper.getUTF8ByteCount ("\ue000"));
+    assertEquals (0, CharsetHelper.getUTF8ByteCount ("\uffff"));
     try
     {
-      CharsetManager.getUTF8ByteCount (0x110000);
+      CharsetHelper.getUTF8ByteCount (0x110000);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
     try
     {
-      CharsetManager.getUTF8ByteCount (0x10000);
+      CharsetHelper.getUTF8ByteCount (0x10000);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -201,7 +201,7 @@ public final class CharsetManagerTest
       }
 
       // Count
-      final int nCounted = CharsetManager.getUTF8ByteCount (aSB.toString ());
+      final int nCounted = CharsetHelper.getUTF8ByteCount (aSB.toString ());
       assertTrue (nCounted >= nStringLen);
 
       // Convert and count
@@ -216,7 +216,7 @@ public final class CharsetManagerTest
   @Test
   public void testBasic ()
   {
-    assertNotNull (CharsetManager.getAllCharsets ());
-    assertTrue (CharsetManager.getAllCharsets ().size () > 0);
+    assertNotNull (CharsetHelper.getAllCharsets ());
+    assertTrue (CharsetHelper.getAllCharsets ().size () > 0);
   }
 }

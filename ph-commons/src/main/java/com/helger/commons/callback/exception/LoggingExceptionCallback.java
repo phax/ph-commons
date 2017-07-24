@@ -44,17 +44,10 @@ public class LoggingExceptionCallback implements IExceptionCallback <Throwable>,
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingExceptionCallback.class);
 
-  private final IErrorLevel m_aErrorLevel;
+  private IErrorLevel m_aErrorLevel = EErrorLevel.ERROR;
 
   public LoggingExceptionCallback ()
-  {
-    this (EErrorLevel.ERROR);
-  }
-
-  public LoggingExceptionCallback (@Nonnull final IErrorLevel aErrorLevel)
-  {
-    m_aErrorLevel = ValueEnforcer.notNull (aErrorLevel, "ErrorLevel");
-  }
+  {}
 
   /**
    * @return The configured error level. Never <code>null</code>.
@@ -63,6 +56,20 @@ public class LoggingExceptionCallback implements IExceptionCallback <Throwable>,
   public IErrorLevel getErrorLevel ()
   {
     return m_aErrorLevel;
+  }
+
+  /**
+   * Set the error level to be used.
+   *
+   * @param aErrorLevel
+   *        Error level to use. May not be <code>null</code>.
+   * @return this for chaining
+   */
+  @Nonnull
+  public final LoggingExceptionCallback setErrorLevel (@Nonnull final IErrorLevel aErrorLevel)
+  {
+    m_aErrorLevel = ValueEnforcer.notNull (aErrorLevel, "ErrorLevel");
+    return this;
   }
 
   /**
@@ -79,7 +86,7 @@ public class LoggingExceptionCallback implements IExceptionCallback <Throwable>,
   {
     if (t == null)
       return "An error occurred";
-    return "Exception occurred";
+    return "An exception was thrown";
   }
 
   /**

@@ -48,6 +48,9 @@ This project was the following modules:
     * `@ReturnsMutableObject` does not require a value anymore (but you can still pass one of course)
     * Extracted `ph-scopes` project to lower size of `ph-commons` slightly
     * Extracted `ph-collection` project to lower size of `ph-commons` slightly
+    * Removed default methods from `IAggregator`
+    * Added reverse interface `ISplitter`
+    * Changed caching API to use a function instead of a protected methods
   * v8.6.6 - 2017-07-12
     * Extended `CSVWriter` API
     * `SimpleLSResourceResolver` can now handle fat jars from Spring Boot (issue #8)

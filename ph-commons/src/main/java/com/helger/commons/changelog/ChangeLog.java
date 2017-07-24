@@ -18,7 +18,6 @@ package com.helger.commons.changelog;
 
 import java.io.Serializable;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
@@ -26,6 +25,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -44,7 +44,7 @@ public class ChangeLog implements Serializable
   private final String m_sOriginalVersion;
   private final Version m_aVersion;
   private final String m_sComponent;
-  private final ICommonsList <AbstractChangeLogEntry> m_aEntries = new CommonsArrayList<> ();
+  private final ICommonsList <AbstractChangeLogEntry> m_aEntries = new CommonsArrayList <> ();
 
   /**
    * Constructor.
@@ -92,41 +92,14 @@ public class ChangeLog implements Serializable
   }
 
   /**
-   * Add a new change log entry at the end.
-   *
-   * @param aEntry
-   *        The entry to be added. May not be <code>null</code>.
-   */
-  public void addEntry (@Nonnull final ChangeLogEntry aEntry)
-  {
-    ValueEnforcer.notNull (aEntry, "Entry");
-    m_aEntries.add (aEntry);
-  }
-
-  /**
-   * Add a new change log entry at the specified index.
-   *
-   * @param nIndex
-   *        The index to add the change log entry. May not be &lt; 0.
-   * @param aEntry
-   *        The entry to be added. May not be <code>null</code>.
-   */
-  public void addEntry (@Nonnegative final int nIndex, @Nonnull final ChangeLogEntry aEntry)
-  {
-    ValueEnforcer.notNull (aEntry, "Entry");
-    m_aEntries.add (nIndex, aEntry);
-  }
-
-  /**
-   * @return An copy of the list with all contained change log items. Never
-   *         <code>null</code>. The elements my be of type
-   *         {@link ChangeLogEntry} or {@link ChangeLogRelease}.
+   * @return The internal modifiable list of entries. Never <code>null</code>.
+   * @since 9.0.0
    */
   @Nonnull
-  @ReturnsMutableCopy
-  public ICommonsList <AbstractChangeLogEntry> getAllBaseEntries ()
+  @ReturnsMutableObject
+  public ICommonsList <AbstractChangeLogEntry> entries ()
   {
-    return m_aEntries.getClone ();
+    return m_aEntries;
   }
 
   /**
@@ -154,38 +127,12 @@ public class ChangeLog implements Serializable
   {
     ValueEnforcer.notNull (eCategory, "Category");
 
-    final ICommonsList <ChangeLogEntry> ret = new CommonsArrayList<> ();
-    m_aEntries.findAllInstanceOf (ChangeLogEntry.class, e -> {
-      if (e.getCategory ().equals (eCategory))
-        ret.add (e);
+    final ICommonsList <ChangeLogEntry> ret = new CommonsArrayList <> ();
+    m_aEntries.findAllInstanceOf (ChangeLogEntry.class, x -> {
+      if (x.getCategory ().equals (eCategory))
+        ret.add (x);
     });
     return ret;
-  }
-
-  /**
-   * Add a new release at the end.
-   *
-   * @param aRelease
-   *        The release to be added. May not be <code>null</code>.
-   */
-  public void addRelease (@Nonnull final ChangeLogRelease aRelease)
-  {
-    ValueEnforcer.notNull (aRelease, "Release");
-    m_aEntries.add (aRelease);
-  }
-
-  /**
-   * Add a new release at the specified index.
-   *
-   * @param nIndex
-   *        The index to add the release. May not be &lt; 0.
-   * @param aRelease
-   *        The release to be added. May not be <code>null</code>.
-   */
-  public void addRelease (@Nonnegative final int nIndex, @Nonnull final ChangeLogRelease aRelease)
-  {
-    ValueEnforcer.notNull (aRelease, "Release");
-    m_aEntries.add (nIndex, aRelease);
   }
 
   /**

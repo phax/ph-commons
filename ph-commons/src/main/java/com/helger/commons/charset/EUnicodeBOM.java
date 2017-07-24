@@ -107,7 +107,7 @@ public enum EUnicodeBOM
     ValueEnforcer.isBetweenInclusive (aBytes.length, "Byte count", 1, MAXIMUM_BOM_BYTE_COUNT);
     m_aBOMBytes = aBytes;
     m_sCharsetName = sCharset;
-    m_aCharset = CharsetManager.getCharsetFromNameOrNull (sCharset);
+    m_aCharset = CharsetHelper.getCharsetFromNameOrNull (sCharset);
   }
 
   /**

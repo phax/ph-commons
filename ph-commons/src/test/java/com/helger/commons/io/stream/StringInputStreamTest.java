@@ -23,7 +23,7 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.charset.CharsetHelper;
 
 /**
  * Test class for class {@link StringInputStream}.
@@ -41,7 +41,7 @@ public final class StringInputStreamTest
                                                 aBAOS);
     assertEquals (sTestString, aBAOS.getAsString (StandardCharsets.ISO_8859_1));
     aBAOS.reset ();
-    final Charset aCS = CharsetManager.getCharsetFromName ("UTF-16");
+    final Charset aCS = CharsetHelper.getCharsetFromName ("UTF-16");
     StreamHelper.copyInputStreamToOutputStream (new StringInputStream (sTestString, aCS), aBAOS);
     assertEquals (sTestString, aBAOS.getAsString (aCS));
   }

@@ -21,7 +21,7 @@ import java.nio.charset.Charset;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.charset.CharsetHelper;
 
 /**
  * Contains some utility methods for handling MIME types.
@@ -61,6 +61,6 @@ public final class MimeTypeHelper
   public static Charset getCharsetFromMimeType (@Nullable final IMimeType aMimeType)
   {
     final String sCharsetName = getCharsetNameFromMimeType (aMimeType);
-    return CharsetManager.getCharsetFromNameOrNull (sCharsetName);
+    return CharsetHelper.getCharsetFromNameOrNull (sCharsetName);
   }
 }

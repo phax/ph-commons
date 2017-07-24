@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.charset.CharsetHelper;
 
 /**
  * Special property resource bundle that wraps all strings into UTF-8 strings.
@@ -57,7 +57,7 @@ final class Utf8PropertyResourceBundle extends ResourceBundle
   {
     final String sValue = m_aBundle.getString (sKey);
     // This does the main trick of converting the String to UTF-8
-    return CharsetManager.getAsStringInOtherCharset (sValue,
+    return CharsetHelper.getAsStringInOtherCharset (sValue,
                                                      StandardCharsets.ISO_8859_1,
                                                      StandardCharsets.UTF_8);
   }

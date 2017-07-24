@@ -27,7 +27,7 @@ import javax.annotation.concurrent.Immutable;
 import javax.imageio.ImageIO;
 
 import com.helger.commons.annotation.IsSPIImplementation;
-import com.helger.commons.charset.CharsetManager;
+import com.helger.commons.charset.CharsetHelper;
 
 /**
  * Implementation of {@link ISerializationConverterRegistrarSPI} for basic types
@@ -65,7 +65,7 @@ public final class BasicSerializationConverterRegistrar implements ISerializatio
     public Charset readConvertedObject (@Nonnull final ObjectInputStream aOIS) throws IOException
     {
       final String sCharsetName = aOIS.readUTF ();
-      return CharsetManager.getCharsetFromName (sCharsetName);
+      return CharsetHelper.getCharsetFromName (sCharsetName);
     }
   }
 

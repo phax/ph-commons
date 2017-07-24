@@ -41,8 +41,6 @@ import com.helger.commons.changelog.ChangeLogEntry;
 import com.helger.commons.changelog.ChangeLogRelease;
 import com.helger.commons.changelog.EChangeLogAction;
 import com.helger.commons.changelog.EChangeLogCategory;
-import com.helger.commons.changelog.IChangeLogSerializerCallback;
-import com.helger.commons.changelog.LoggingChangeLogSerializerCallback;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsMap;
@@ -181,7 +179,7 @@ public final class ChangeLogSerializer
         final boolean bIsIncompatible = StringHelper.hasText (sIncompatible) && StringParser.parseBool (sIncompatible);
 
         final ChangeLogEntry aEntry = new ChangeLogEntry (ret, aLocalDate, eAction, eCategory, bIsIncompatible);
-        ret.addEntry (aEntry);
+        ret.entries ().add (aEntry);
 
         final IMicroElement eChange = eElement.getFirstChildElement (CChangeLog.CHANGELOG_NAMESPACE_10, ELEMENT_CHANGE);
         if (eChange == null)
@@ -215,7 +213,7 @@ public final class ChangeLogSerializer
             s_aLogger.warn ("Failed to parse release date '" + sDate + "'");
             continue;
           }
-          ret.addRelease (new ChangeLogRelease (aLocalDate, Version.parse (sVersion, false)));
+          ret.entries ().add (new ChangeLogRelease (aLocalDate, Version.parse (sVersion, false)));
         }
         else
           aErrorCallback.accept ("Changelog contains unsupported element '" + sTagName + "!");
@@ -263,7 +261,7 @@ public final class ChangeLogSerializer
       final ClassLoader aRealClassLoader = aClassLoader != null ? aClassLoader
                                                                 : ClassLoaderHelper.getDefaultClassLoader ();
 
-      final ICommonsMap <URI, ChangeLog> ret = new CommonsHashMap<> ();
+      final ICommonsMap <URI, ChangeLog> ret = new CommonsHashMap <> ();
       // Find all change log XML files in the classpath
       for (final URL aURL : CollectionHelper.newList (ClassLoaderHelper.getResources (aRealClassLoader,
                                                                                       CChangeLog.CHANGELOG_XML_FILENAME)))
@@ -297,7 +295,7 @@ public final class ChangeLogSerializer
     if (StringHelper.hasText (aChangeLog.getComponent ()))
       eRoot.setAttribute (ATTR_COMPONENT, aChangeLog.getComponent ());
 
-    for (final AbstractChangeLogEntry aBaseEntry : aChangeLog.getAllBaseEntries ())
+    for (final AbstractChangeLogEntry aBaseEntry : aChangeLog.entries ())
     {
       if (aBaseEntry instanceof ChangeLogEntry)
       {
