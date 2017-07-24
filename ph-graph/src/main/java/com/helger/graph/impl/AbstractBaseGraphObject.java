@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.attr.MapBasedAttributeContainerAny;
+import com.helger.commons.collection.attr.AttributeContainerAny;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -33,10 +33,10 @@ import com.helger.graph.IMutableBaseGraphObject;
  * @author Philip Helger
  */
 @NotThreadSafe
-public abstract class AbstractBaseGraphObject extends MapBasedAttributeContainerAny <String>
-                                              implements IMutableBaseGraphObject
+public abstract class AbstractBaseGraphObject implements IMutableBaseGraphObject
 {
   private final String m_sID;
+  private final AttributeContainerAny <String> m_aAttrs = new AttributeContainerAny <> ();
 
   /**
    * Constructor
@@ -60,26 +60,31 @@ public abstract class AbstractBaseGraphObject extends MapBasedAttributeContainer
     return m_sID;
   }
 
+  public final AttributeContainerAny <String> attrs ()
+  {
+    return m_aAttrs;
+  }
+
   @Override
   public boolean equals (final Object o)
   {
     if (o == this)
       return true;
-    if (!super.equals (o))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final AbstractBaseGraphObject rhs = (AbstractBaseGraphObject) o;
-    return m_sID.equals (rhs.m_sID);
+    return m_sID.equals (rhs.m_sID) && m_aAttrs.equals (rhs.m_aAttrs);
   }
 
   @Override
   public int hashCode ()
   {
-    return HashCodeGenerator.getDerived (super.hashCode ()).append (m_sID).getHashCode ();
+    return new HashCodeGenerator (this).append (m_sID).append (m_aAttrs).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("id", m_sID).getToString ();
+    return new ToStringGenerator (this).append ("ID", m_sID).append ("Attrs", m_aAttrs).getToString ();
   }
 }

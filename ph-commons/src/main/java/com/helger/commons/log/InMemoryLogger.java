@@ -161,7 +161,7 @@ public class InMemoryLogger implements IHasErrorLevels <LogMessage>, IHasSize, I
   }
 
   @Nonnull
-  public EChange clear ()
+  public EChange removeAll ()
   {
     return m_aMessages.removeAll ();
   }

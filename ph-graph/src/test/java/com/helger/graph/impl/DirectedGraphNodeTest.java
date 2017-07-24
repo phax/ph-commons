@@ -231,9 +231,9 @@ public final class DirectedGraphNodeTest
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new DirectedGraphNode ("id0"),
                                                                            new DirectedGraphNode ("id1"));
     final DirectedGraphNode n1 = new DirectedGraphNode ("id0");
-    n1.setAttribute ("a", "b");
+    n1.attrs ().setAttribute ("a", "b");
     final DirectedGraphNode n2 = new DirectedGraphNode ("id0");
-    n2.setAttribute ("a", "c");
+    n2.attrs ().setAttribute ("a", "c");
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (n1, n2);
   }
 

@@ -390,7 +390,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
     if (aScope != null)
     {
       final String sSingletonScopeKey = getSingletonScopeKey (aClass);
-      final Object aObject = s_aRWLock.readLocked ( () -> aScope.attrs ().getAttributeObject (sSingletonScopeKey));
+      final Object aObject = s_aRWLock.readLocked ( () -> aScope.attrs ().get (sSingletonScopeKey));
       if (aObject != null)
       {
         // Object is in the scope
@@ -511,7 +511,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
     final String sSingletonScopeKey = getSingletonScopeKey (aClass);
 
     // check if already contained in passed scope
-    T aInstance = aClass.cast (s_aRWLock.readLocked ( () -> aScope.attrs ().getAttributeObject (sSingletonScopeKey)));
+    T aInstance = s_aRWLock.readLocked ( () -> aScope.attrs ().getCastedValue (sSingletonScopeKey));
     if (aInstance == null || aInstance.isInInstantiation ())
     {
       // Not yet present or just in instantiation
@@ -521,7 +521,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
       try
       {
         // Check again in write lock
-        aInstance = aClass.cast (aScope.attrs ().getAttributeObject (sSingletonScopeKey));
+        aInstance = aScope.attrs ().getCastedValue (sSingletonScopeKey);
         if (aInstance == null)
         {
           // Main instantiation
@@ -604,7 +604,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
 
     final ICommonsList <T> ret = new CommonsArrayList <> ();
     if (aScope != null)
-      for (final Object aScopeValue : aScope.attrs ().getAllAttributeValues ())
+      for (final Object aScopeValue : aScope.attrs ().values ())
         if (aScopeValue != null && aDesiredClass.isAssignableFrom (aScopeValue.getClass ()))
           ret.add (aDesiredClass.cast (aScopeValue));
     return ret;

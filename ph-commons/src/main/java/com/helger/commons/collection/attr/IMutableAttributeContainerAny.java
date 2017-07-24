@@ -41,7 +41,6 @@ public interface IMutableAttributeContainerAny <KEYTYPE> extends IMutableAttribu
    *        The value of the attribute.
    * @return {@link EChange#CHANGED} if something changed,
    *         {@link EChange#UNCHANGED} otherwise.
-   * @see IMutableAttributeContainer#removeAttribute(Object)
    */
   @Nonnull
   default EChange setAttribute (@Nonnull final KEYTYPE aName, final boolean bValue)
@@ -59,7 +58,6 @@ public interface IMutableAttributeContainerAny <KEYTYPE> extends IMutableAttribu
    *        The value of the attribute.
    * @return {@link EChange#CHANGED} if something changed,
    *         {@link EChange#UNCHANGED} otherwise.
-   * @see IMutableAttributeContainer#removeAttribute(Object)
    */
   @Nonnull
   default EChange setAttribute (@Nonnull final KEYTYPE aName, final int nValue)
@@ -77,7 +75,6 @@ public interface IMutableAttributeContainerAny <KEYTYPE> extends IMutableAttribu
    *        The value of the attribute.
    * @return {@link EChange#CHANGED} if something changed,
    *         {@link EChange#UNCHANGED} otherwise.
-   * @see IMutableAttributeContainer#removeAttribute(Object)
    */
   @Nonnull
   default EChange setAttribute (@Nonnull final KEYTYPE aName, final long nValue)
@@ -95,7 +92,6 @@ public interface IMutableAttributeContainerAny <KEYTYPE> extends IMutableAttribu
    *        The value of the attribute.
    * @return {@link EChange#CHANGED} if something changed,
    *         {@link EChange#UNCHANGED} otherwise.
-   * @see IMutableAttributeContainer#removeAttribute(Object)
    */
   @Nonnull
   default EChange setAttribute (@Nonnull final KEYTYPE aName, final double dValue)
@@ -107,8 +103,8 @@ public interface IMutableAttributeContainerAny <KEYTYPE> extends IMutableAttribu
    * Atomic operation to set a flag to <code>true</code> if it was previously
    * set to <code>false</code> (meaning not existing). There is no possibility
    * to define a value for this flag. The value used is {@link Boolean#TRUE}.
-   * {@link IMutableAttributeContainer#containsAttribute(Object)} can be used to
-   * check if the attribute is already present.
+   * {@link IMutableAttributeContainer#containsKey(Object)} can be used to check
+   * if the attribute is already present.
    *
    * @param aName
    *        The name of the flag to set.
@@ -119,14 +115,14 @@ public interface IMutableAttributeContainerAny <KEYTYPE> extends IMutableAttribu
    */
   default boolean getAndSetAttributeFlag (@Nonnull final KEYTYPE aName)
   {
-    final Object aOldValue = getAttributeObject (aName);
+    final Object aOldValue = get (aName);
     if (aOldValue != null)
     {
       // Attribute flag is already present
       return true;
     }
     // Attribute flag is not yet present -> set it
-    setAttribute (aName, Boolean.TRUE);
+    put (aName, Boolean.TRUE);
     return false;
   }
 }

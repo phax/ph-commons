@@ -28,7 +28,7 @@ public final class MockSPIClearableValid implements IClearable
   private int m_nCallCount = 0;
 
   @Nonnull
-  public EChange clear ()
+  public EChange removeAll ()
   {
     m_nCallCount++;
     return EChange.CHANGED;

@@ -213,13 +213,11 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
     return ret;
   }
 
-  @Override
   @Nonnull
-  public EChange clear ()
+  public EChange removeAll ()
   {
-    if (m_aNodes.isEmpty ())
+    if (m_aNodes.removeAll ().isUnchanged ())
       return EChange.UNCHANGED;
-    m_aNodes.clear ();
 
     _invalidateCache ();
     return EChange.CHANGED;

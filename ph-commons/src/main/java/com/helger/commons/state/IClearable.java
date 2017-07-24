@@ -33,5 +33,5 @@ public interface IClearable
    *         {@link EChange#UNCHANGED} otherwise.
    */
   @Nonnull
-  EChange clear ();
+  EChange removeAll ();
 }

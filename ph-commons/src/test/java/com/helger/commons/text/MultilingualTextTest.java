@@ -153,14 +153,14 @@ public final class MultilingualTextTest extends AbstractCommonsTestCase
   }
 
   @Test
-  public void testClear ()
+  public void testRemoveAll ()
   {
     final MultilingualText t = new MultilingualText ();
     assertTrue (t.isEmpty ());
-    assertTrue (t.clear ().isUnchanged ());
+    assertTrue (t.removeAll ().isUnchanged ());
     assertTrue (t.setText (L_DE, "de").isChanged ());
-    assertTrue (t.clear ().isChanged ());
-    assertTrue (t.clear ().isUnchanged ());
+    assertTrue (t.removeAll ().isChanged ());
+    assertTrue (t.removeAll ().isUnchanged ());
   }
 
   @Test

@@ -114,8 +114,8 @@ public final class SimpleGraphTest extends AbstractGraphTestCase
     final GraphNode n2 = new GraphNode ();
     assertTrue (sg.addNode (n2).isChanged ());
 
-    assertTrue (sg.clear ().isChanged ());
-    assertFalse (sg.clear ().isChanged ());
+    assertTrue (sg.removeAll ().isChanged ());
+    assertFalse (sg.removeAll ().isChanged ());
   }
 
   @Test
@@ -192,7 +192,7 @@ public final class SimpleGraphTest extends AbstractGraphTestCase
     // Remove nodes
     assertTrue (sg.removeNode (n1).isChanged ());
     assertFalse (sg.removeNode (n2).isChanged ());
-    assertFalse (sg.clear ().isChanged ());
+    assertFalse (sg.removeAll ().isChanged ());
 
     // n1 does not belongs to the graph
     n1 = new GraphNode ("any");

@@ -16,6 +16,7 @@
  */
 package com.helger.scope;
 
+import java.io.Serializable;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -44,7 +45,7 @@ import com.helger.commons.id.IHasID;
  *
  * @author Philip Helger
  */
-public interface IScope extends IHasID <String>
+public interface IScope extends IHasID <String>, Serializable
 {
   /**
    * Init the scope. In contrast to the constructor of a scope, this happens

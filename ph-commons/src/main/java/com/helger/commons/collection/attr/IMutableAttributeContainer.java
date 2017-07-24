@@ -16,14 +16,16 @@
  */
 package com.helger.commons.collection.attr;
 
-import java.util.Map;
-import java.util.function.Function;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.callback.CallbackList;
+import com.helger.commons.callback.ICallback;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.state.EChange;
-import com.helger.commons.state.IClearable;
+import com.helger.commons.state.EContinue;
 
 /**
  * This is the writable extension of the {@link IAttributeContainer}.
@@ -35,9 +37,22 @@ import com.helger.commons.state.IClearable;
  * @param <VALUETYPE>
  *        Value type
  */
-public interface IMutableAttributeContainer <KEYTYPE, VALUETYPE>
-                                            extends IAttributeContainer <KEYTYPE, VALUETYPE>, IClearable
+public interface IMutableAttributeContainer <KEYTYPE, VALUETYPE> extends IAttributeContainer <KEYTYPE, VALUETYPE>
 {
+  public static interface IBeforeSetAttributeCallback <KEYTYPE, VALUETYPE> extends ICallback
+  {
+    @Nonnull
+    EContinue beforeSetAttribute (@Nonnull KEYTYPE aName, @Nullable VALUETYPE aValue);
+  }
+
+  /**
+   * @return Callbacks to be invoked before attribute values are set. May not be
+   *         <code>null</code>.
+   */
+  @Nonnull
+  @ReturnsMutableObject
+  CallbackList <IBeforeSetAttributeCallback <KEYTYPE, VALUETYPE>> beforeSetAttributeCallbacks ();
+
   /**
    * Set/overwrite an attribute value.
    *
@@ -48,70 +63,22 @@ public interface IMutableAttributeContainer <KEYTYPE, VALUETYPE>
    *        will be removed.
    * @return {@link EChange#CHANGED} if something changed,
    *         {@link EChange#UNCHANGED} otherwise.
-   * @see #removeAttribute(Object)
+   * @see #removeObject(Object)
    */
   @Nonnull
-  EChange setAttribute (@Nonnull KEYTYPE aName, @Nullable VALUETYPE aValue);
-
-  /**
-   * Set/overwrite an arbitrary number of attribute values.
-   *
-   * @param aValues
-   *        The map of attributes to be set. May be <code>null</code>.
-   * @return {@link EChange#CHANGED} if something changed,
-   *         {@link EChange#UNCHANGED} otherwise.
-   * @see #setAttribute(Object,Object)
-   */
-  @Nonnull
-  EChange setAttributes (@Nullable Map <? extends KEYTYPE, ? extends VALUETYPE> aValues);
-
-  /**
-   * Set/overwrite an arbitrary number of attribute values.
-   *
-   * @param aValues
-   *        The attributes to be set. May be <code>null</code>.
-   * @return {@link EChange#CHANGED} if something changed,
-   *         {@link EChange#UNCHANGED} otherwise.
-   * @see #setAttribute(Object,Object)
-   */
-  @Nonnull
-  EChange setAttributes (@Nullable IAttributeContainer <? extends KEYTYPE, ? extends VALUETYPE> aValues);
-
-  /**
-   * Remove the specified attribute from the container.
-   *
-   * @param aName
-   *        The attribute name to be removed. If it is <code>null</code> nothing
-   *        happens.
-   * @return {@link EChange#CHANGED} if something changed,
-   *         {@link EChange#UNCHANGED} otherwise.
-   */
-  @Nonnull
-  EChange removeAttribute (@Nullable KEYTYPE aName);
-
-  /**
-   * Compute an attribute value if it is not present.
-   * 
-   * @param aName
-   *        The name of the attribute. May not be <code>null</code>.
-   * @param aValueProvider
-   *        The value provider of the attribute. May not be <code>null</code>.
-   *        Is only invoked, if the attribute is not present.
-   * @return Either the existing attribute value, or the newly calculated
-   *         attribute value.
-   * @since 8.5.5
-   */
-  @Nullable
-  default VALUETYPE computeIfAbsent (@Nonnull final KEYTYPE aName,
-                                     @Nonnull final Function <? super KEYTYPE, ? extends VALUETYPE> aValueProvider)
+  default EChange setAttribute (@Nonnull final KEYTYPE aName, @Nullable final VALUETYPE aValue)
   {
-    VALUETYPE ret = getAttributeObject (aName);
-    if (ret == null)
-    {
-      ret = aValueProvider.apply (aName);
-      if (ret != null)
-        setAttribute (aName, ret);
-    }
-    return ret;
+    ValueEnforcer.notNull (aName, "Name");
+
+    if (aValue == null)
+      return removeObject (aName);
+
+    // Callback for checks etc.
+    if (beforeSetAttributeCallbacks ().forEachBreakable (x -> x.beforeSetAttribute (aName, aValue)).isBreak ())
+      return EChange.UNCHANGED;
+
+    // Set and compare
+    final VALUETYPE aOldValue = put (aName, aValue);
+    return EChange.valueOf (!EqualsHelper.equals (aValue, aOldValue));
   }
 }

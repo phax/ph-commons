@@ -41,7 +41,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
 {
   /**
    * Get the value matching the provided key.
-   * 
+   *
    * @param aKey
    *        The key to query. May be <code>null</code>.
    * @return The value matching the key. No <code>null</code> constraints
@@ -69,7 +69,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @return <code>true</code> if the value is not <code>null</code>. Same as
    *         <code>getValue()!=null</code>.
    */
-  default boolean hasValue (@Nullable final KEYTYPE aKey)
+  default boolean containsNonNullValue (@Nullable final KEYTYPE aKey)
   {
     return getValue (aKey) != null;
   }
@@ -80,7 +80,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @return <code>true</code> if the value is <code>null</code>. Same as
    *         <code>getValue()==null</code>.
    */
-  default boolean hasNoValue (@Nullable final KEYTYPE aKey)
+  default boolean containsNullValue (@Nullable final KEYTYPE aKey)
   {
     return getValue (aKey) == null;
   }

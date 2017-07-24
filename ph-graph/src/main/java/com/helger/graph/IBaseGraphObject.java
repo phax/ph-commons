@@ -16,6 +16,9 @@
  */
 package com.helger.graph;
 
+import javax.annotation.Nonnull;
+
+import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.attr.IAttributeContainer;
 import com.helger.commons.id.IHasID;
 
@@ -24,8 +27,12 @@ import com.helger.commons.id.IHasID;
  *
  * @author Philip Helger
  */
-public interface IBaseGraphObject extends IHasID <String>, IAttributeContainer <String, Object>
+public interface IBaseGraphObject extends IHasID <String>
 {
+  @Nonnull
+  @ReturnsMutableObject
+  IAttributeContainer <String, Object> attrs ();
+
   /**
    * Check if the object is directed or undirected. Directed nodes must
    * implement {@link IMutableDirectedGraphNode} whereas undirected relations

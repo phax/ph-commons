@@ -107,7 +107,7 @@ public class RequestScope extends AbstractMapBasedScope implements IRequestScope
   public ICommonsList <String> getAttributeAsList (@Nullable final String sName,
                                                    @Nullable final ICommonsList <String> aDefault)
   {
-    final Object aValue = attrs ().getAttributeObject (sName);
+    final Object aValue = attrs ().getValue (sName);
     if (aValue == null)
       return null;
     if (aValue instanceof String [])

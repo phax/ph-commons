@@ -99,7 +99,7 @@ public final class GraphVizHelper
       aSB.append (aGraphNode.getID ());
       if (StringHelper.hasText (sNodeLabelAttr))
       {
-        final String sLabel = aGraphNode.getAttributeAsString (sNodeLabelAttr);
+        final String sLabel = aGraphNode.attrs ().getAsString (sNodeLabelAttr);
         aSB.append ('[').append (getAttribute ("label", sLabel)).append (']');
       }
       aSB.append (';');
@@ -110,7 +110,7 @@ public final class GraphVizHelper
       aSB.append (it.next ().getID ()).append ("--").append (it.next ().getID ());
       if (StringHelper.hasText (sRelationLabelAttr))
       {
-        final String sLabel = aGraphRelation.getAttributeAsString (sRelationLabelAttr);
+        final String sLabel = aGraphRelation.attrs ().getAsString (sRelationLabelAttr);
         aSB.append ('[').append (getAttribute ("label", sLabel)).append (']');
       }
       aSB.append (";\n");
@@ -155,7 +155,7 @@ public final class GraphVizHelper
       aSB.append (aGraphNode.getID ());
       if (StringHelper.hasText (sNodeLabelAttr))
       {
-        final String sLabel = aGraphNode.getAttributeAsString (sNodeLabelAttr);
+        final String sLabel = aGraphNode.attrs ().getAsString (sNodeLabelAttr);
         aSB.append ("[label=<")
            .append (XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.XML_10,
                                                     EXMLCharMode.ELEMENT_NAME,
@@ -170,7 +170,7 @@ public final class GraphVizHelper
       aSB.append (aGraphRelation.getFromID ()).append ("->").append (aGraphRelation.getToID ());
       if (StringHelper.hasText (sRelationLabelAttr))
       {
-        final String sLabel = aGraphRelation.getAttributeAsString (sRelationLabelAttr);
+        final String sLabel = aGraphRelation.attrs ().getAsString (sRelationLabelAttr);
         aSB.append ("[label=<")
            .append (XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.XML_10,
                                                     EXMLCharMode.ELEMENT_NAME,

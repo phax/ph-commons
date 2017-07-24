@@ -31,9 +31,8 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.attr.MapBasedAttributeContainerAny;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsConcurrentHashMap;
+import com.helger.commons.collection.attr.AttributeContainerAnyConcurrent;
+import com.helger.commons.collection.attr.IMutableAttributeContainerAny;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsMap;
@@ -60,8 +59,7 @@ public abstract class AbstractMapBasedScope implements IScope
   private boolean m_bInDestruction = false;
   /** Is the scope already completely destroyed? */
   private boolean m_bDestroyed = false;
-  private final MapBasedAttributeContainerAny <String> m_aAttrs = new MapBasedAttributeContainerAny <> (true,
-                                                                                                        new CommonsConcurrentHashMap <> ());
+  private final AttributeContainerAnyConcurrent <String> m_aAttrs = new AttributeContainerAnyConcurrent <> ();
 
   /**
    * Ctor.
@@ -134,11 +132,8 @@ public abstract class AbstractMapBasedScope implements IScope
 
     preDestroy ();
 
-    final ICommonsList <IScopeDestructionAware> aDestructionAware = new CommonsArrayList <> ();
-    m_aAttrs.forAllAttributeValues (x -> {
-      if (x instanceof IScopeDestructionAware)
-        aDestructionAware.add ((IScopeDestructionAware) x);
-    });
+    final ICommonsList <IScopeDestructionAware> aDestructionAware = m_aAttrs.copyOfValuesMapped (x -> x instanceof IScopeDestructionAware,
+                                                                                                 x -> (IScopeDestructionAware) x);
 
     // Call callback (if special interface is implemented)
     for (final IScopeDestructionAware aValue : aDestructionAware)
@@ -202,7 +197,7 @@ public abstract class AbstractMapBasedScope implements IScope
 
   @Nonnull
   @ReturnsMutableObject
-  public final MapBasedAttributeContainerAny <String> attrs ()
+  public final IMutableAttributeContainerAny <String> attrs ()
   {
     return m_aAttrs;
   }
@@ -212,7 +207,7 @@ public abstract class AbstractMapBasedScope implements IScope
   public final ICommonsMap <String, IScopeRenewalAware> getAllScopeRenewalAwareAttributes ()
   {
     final ICommonsMap <String, IScopeRenewalAware> ret = new CommonsHashMap <> ();
-    m_aAttrs.forAllAttributes ( (n, v) -> {
+    m_aAttrs.forEach ( (n, v) -> {
       if (v instanceof IScopeRenewalAware)
         ret.put (n, (IScopeRenewalAware) v);
     });
@@ -224,7 +219,7 @@ public abstract class AbstractMapBasedScope implements IScope
   {
     if (o == this)
       return true;
-    if (!super.equals (o))
+    if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final AbstractMapBasedScope rhs = (AbstractMapBasedScope) o;
     return m_sScopeID.equals (rhs.m_sScopeID);
@@ -233,7 +228,7 @@ public abstract class AbstractMapBasedScope implements IScope
   @Override
   public int hashCode ()
   {
-    return HashCodeGenerator.getDerived (super.hashCode ()).append (m_sScopeID).getHashCode ();
+    return new HashCodeGenerator (this).append (m_sScopeID).getHashCode ();
   }
 
   @Override

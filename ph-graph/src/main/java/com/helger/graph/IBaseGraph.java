@@ -26,6 +26,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
+import com.helger.commons.state.IClearable;
 import com.helger.matrix.Matrix;
 
 /**
@@ -38,7 +39,9 @@ import com.helger.matrix.Matrix;
  *        Relation class
  */
 public interface IBaseGraph <NODETYPE extends IBaseGraphNode <NODETYPE, RELATIONTYPE>, RELATIONTYPE extends IBaseGraphRelation <NODETYPE, RELATIONTYPE>>
-                            extends IBaseGraphObject
+                            extends
+                            IBaseGraphObject,
+                            IClearable
 {
   /**
    * @return The number of nodes currently in the graph. Always &ge; 0.

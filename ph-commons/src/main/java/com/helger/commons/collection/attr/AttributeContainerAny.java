@@ -22,9 +22,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsMap;
-
 /**
  * Base class for all kind of string-object mapping container. This
  * implementation is not thread-safe!
@@ -34,39 +31,21 @@ import com.helger.commons.collection.impl.ICommonsMap;
  *        Key type
  */
 @NotThreadSafe
-public class MapBasedAttributeContainerAny <KEYTYPE> extends MapBasedAttributeContainer <KEYTYPE, Object> implements
-                                           IMutableAttributeContainerAny <KEYTYPE>
+public class AttributeContainerAny <KEYTYPE> extends AttributeContainer <KEYTYPE, Object> implements
+                                   IMutableAttributeContainerAny <KEYTYPE>
 {
-  public MapBasedAttributeContainerAny ()
+  public AttributeContainerAny ()
   {
     super ();
   }
 
-  public MapBasedAttributeContainerAny (@Nonnull final KEYTYPE sKey, @Nullable final Object aValue)
+  public AttributeContainerAny (@Nonnull final KEYTYPE sKey, @Nullable final Object aValue)
   {
     super (sKey, aValue);
   }
 
-  public MapBasedAttributeContainerAny (@Nullable final Map <? extends KEYTYPE, ? extends Object> aMap)
+  public AttributeContainerAny (@Nullable final Map <? extends KEYTYPE, ? extends Object> aMap)
   {
     super (aMap);
-  }
-
-  public MapBasedAttributeContainerAny (@Nonnull final IAttributeContainer <KEYTYPE, Object> aCont)
-  {
-    super (aCont);
-  }
-
-  public MapBasedAttributeContainerAny (final boolean bDummy, @Nonnull final ICommonsMap <KEYTYPE, Object> aAttrMap)
-  {
-    super (bDummy, aAttrMap);
-  }
-
-  @Override
-  @Nonnull
-  @ReturnsMutableCopy
-  public MapBasedAttributeContainerAny <KEYTYPE> getClone ()
-  {
-    return new MapBasedAttributeContainerAny <> (this);
   }
 }

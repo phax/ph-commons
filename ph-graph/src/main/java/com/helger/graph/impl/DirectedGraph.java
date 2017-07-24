@@ -48,7 +48,8 @@ import com.helger.matrix.Matrix;
  */
 @NotThreadSafe
 public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode, IMutableDirectedGraphRelation>
-                           implements IMutableDirectedGraph
+                           implements
+                           IMutableDirectedGraph
 {
   private final IMutableDirectedGraphObjectFactory m_aFactory;
   private ETriState m_eCacheHasCycles = ETriState.UNDEFINED;
@@ -255,13 +256,11 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     }
   }
 
-  @Override
   @Nonnull
-  public EChange clear ()
+  public EChange removeAll ()
   {
-    if (m_aNodes.isEmpty ())
+    if (m_aNodes.removeAll ().isUnchanged ())
       return EChange.UNCHANGED;
-    m_aNodes.clear ();
 
     _invalidateCache ();
     return EChange.CHANGED;

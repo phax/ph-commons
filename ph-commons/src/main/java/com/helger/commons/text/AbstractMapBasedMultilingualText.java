@@ -44,11 +44,11 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyMapBasedMultilingualText
-                                                       implements IMutableMultilingualText
+public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyMapBasedMultilingualText implements
+                                                       IMutableMultilingualText
 {
   /** A list of callback upon change. */
-  private final CallbackList <IChangeCallback <IMutableMultilingualText>> m_aChangeNotifyCallbacks = new CallbackList<> ();
+  private final CallbackList <IChangeCallback <IMutableMultilingualText>> m_aChangeNotifyCallbacks = new CallbackList <> ();
 
   public AbstractMapBasedMultilingualText ()
   {}
@@ -139,7 +139,7 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
   }
 
   @Nonnull
-  public final EChange clear ()
+  public final EChange removeAll ()
   {
     if (isEmpty () || _beforeChange ().isBreak ())
       return EChange.UNCHANGED;

@@ -142,8 +142,8 @@ public final class SimpleDirectedGraphTest extends AbstractGraphTestCase
     final DirectedGraphNode n2 = new DirectedGraphNode ();
     assertTrue (sg.addNode (n2).isChanged ());
 
-    assertTrue (sg.clear ().isChanged ());
-    assertFalse (sg.clear ().isChanged ());
+    assertTrue (sg.removeAll ().isChanged ());
+    assertFalse (sg.removeAll ().isChanged ());
 
     assertTrue (sg.getAllStartNodes ().isEmpty ());
     assertTrue (sg.getAllEndNodes ().isEmpty ());
@@ -237,7 +237,7 @@ public final class SimpleDirectedGraphTest extends AbstractGraphTestCase
     assertTrue (sg.containsCycles ());
 
     final ICommonsSet <String> aRelationIDs1 = sg.getAllRelationIDs ();
-    final ICommonsSet <String> aRelationIDs2 = new CommonsHashSet<> ();
+    final ICommonsSet <String> aRelationIDs2 = new CommonsHashSet <> ();
     sg.forEachRelation (x -> aRelationIDs2.add (x.getID ()));
     assertTrue (EqualsHelper.equalsCollection (aRelationIDs1, aRelationIDs2));
   }
@@ -263,7 +263,7 @@ public final class SimpleDirectedGraphTest extends AbstractGraphTestCase
     // Remove nodes
     assertTrue (sg.removeNode (n1).isChanged ());
     assertFalse (sg.removeNode (n2).isChanged ());
-    assertFalse (sg.clear ().isChanged ());
+    assertFalse (sg.removeAll ().isChanged ());
 
     // n1 does not belongs to the graph
     n1 = new DirectedGraphNode ("any");

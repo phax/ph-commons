@@ -46,26 +46,27 @@ public final class DijkstraTest
     g.createNode ("D");
     g.createNode ("E");
     g.createNode ("T");
-    g.createRelation ("O", "A").setAttribute (ATTR_WEIGHT, 2);
-    g.createRelation ("O", "B").setAttribute (ATTR_WEIGHT, 5);
-    g.createRelation ("O", "C").setAttribute (ATTR_WEIGHT, 4);
-    g.createRelation ("A", "D").setAttribute (ATTR_WEIGHT, 7);
-    g.createRelation ("A", "B").setAttribute (ATTR_WEIGHT, 2);
-    g.createRelation ("C", "B").setAttribute (ATTR_WEIGHT, 1);
-    g.createRelation ("C", "E").setAttribute (ATTR_WEIGHT, 4);
-    g.createRelation ("B", "D").setAttribute (ATTR_WEIGHT, 4);
-    g.createRelation ("B", "E").setAttribute (ATTR_WEIGHT, 3);
-    g.createRelation ("D", "E").setAttribute (ATTR_WEIGHT, 1);
-    g.createRelation ("D", "T").setAttribute (ATTR_WEIGHT, 5);
-    g.createRelation ("E", "T").setAttribute (ATTR_WEIGHT, 7);
+    g.createRelation ("O", "A").attrs ().setAttribute (ATTR_WEIGHT, 2);
+    g.createRelation ("O", "B").attrs ().setAttribute (ATTR_WEIGHT, 5);
+    g.createRelation ("O", "C").attrs ().setAttribute (ATTR_WEIGHT, 4);
+    g.createRelation ("A", "D").attrs ().setAttribute (ATTR_WEIGHT, 7);
+    g.createRelation ("A", "B").attrs ().setAttribute (ATTR_WEIGHT, 2);
+    g.createRelation ("C", "B").attrs ().setAttribute (ATTR_WEIGHT, 1);
+    g.createRelation ("C", "E").attrs ().setAttribute (ATTR_WEIGHT, 4);
+    g.createRelation ("B", "D").attrs ().setAttribute (ATTR_WEIGHT, 4);
+    g.createRelation ("B", "E").attrs ().setAttribute (ATTR_WEIGHT, 3);
+    g.createRelation ("D", "E").attrs ().setAttribute (ATTR_WEIGHT, 1);
+    g.createRelation ("D", "T").attrs ().setAttribute (ATTR_WEIGHT, 5);
+    g.createRelation ("E", "T").attrs ().setAttribute (ATTR_WEIGHT, 7);
     assertEquals ("O", g.getSingleStartNode ().getID ());
     assertEquals ("T", g.getSingleEndNode ().getID ());
 
     final Dijkstra.Result <IMutableDirectedGraphNode> r = Dijkstra.applyDijkstra (g,
                                                                                   "O",
                                                                                   "T",
-                                                                                  x -> x.getAttributeAsInt (ATTR_WEIGHT,
-                                                                                                            Integer.MIN_VALUE));
+                                                                                  x -> x.attrs ()
+                                                                                        .getAsInt (ATTR_WEIGHT,
+                                                                                                   Integer.MIN_VALUE));
     assertNotNull (r);
     s_aLogger.info (r.getAsString ());
     assertEquals (13, r.getResultDistance ());
@@ -77,22 +78,23 @@ public final class DijkstraTest
     final SimpleDirectedGraph g = new SimpleDirectedGraph (new SimpleDirectedGraphObjectFastFactory ());
     for (int i = 1; i <= 6; ++i)
       g.createNode (Integer.toString (i));
-    g.createRelation ("1", "2").setAttribute (ATTR_WEIGHT, 3);
-    g.createRelation ("1", "3").setAttribute (ATTR_WEIGHT, 1);
-    g.createRelation ("2", "5").setAttribute (ATTR_WEIGHT, 1);
-    g.createRelation ("3", "4").setAttribute (ATTR_WEIGHT, 1);
-    g.createRelation ("3", "6").setAttribute (ATTR_WEIGHT, 4);
-    g.createRelation ("4", "5").setAttribute (ATTR_WEIGHT, 5);
-    g.createRelation ("4", "6").setAttribute (ATTR_WEIGHT, 5);
-    g.createRelation ("5", "6").setAttribute (ATTR_WEIGHT, 2);
+    g.createRelation ("1", "2").attrs ().setAttribute (ATTR_WEIGHT, 3);
+    g.createRelation ("1", "3").attrs ().setAttribute (ATTR_WEIGHT, 1);
+    g.createRelation ("2", "5").attrs ().setAttribute (ATTR_WEIGHT, 1);
+    g.createRelation ("3", "4").attrs ().setAttribute (ATTR_WEIGHT, 1);
+    g.createRelation ("3", "6").attrs ().setAttribute (ATTR_WEIGHT, 4);
+    g.createRelation ("4", "5").attrs ().setAttribute (ATTR_WEIGHT, 5);
+    g.createRelation ("4", "6").attrs ().setAttribute (ATTR_WEIGHT, 5);
+    g.createRelation ("5", "6").attrs ().setAttribute (ATTR_WEIGHT, 2);
     assertEquals ("1", g.getSingleStartNode ().getID ());
     assertEquals ("6", g.getSingleEndNode ().getID ());
 
     final Dijkstra.Result <IMutableDirectedGraphNode> r = Dijkstra.applyDijkstra (g,
                                                                                   "1",
                                                                                   "6",
-                                                                                  x -> x.getAttributeAsInt (ATTR_WEIGHT,
-                                                                                                            Integer.MIN_VALUE));
+                                                                                  x -> x.attrs ()
+                                                                                        .getAsInt (ATTR_WEIGHT,
+                                                                                                   Integer.MIN_VALUE));
     assertNotNull (r);
     s_aLogger.info (r.getAsString ());
     assertEquals (5, r.getResultDistance ());
@@ -104,19 +106,19 @@ public final class DijkstraTest
     final SimpleGraph g = new SimpleGraph (new SimpleGraphObjectFastFactory ());
     for (int i = 1; i <= 6; ++i)
       g.createNode (Integer.toString (i));
-    g.createRelation ("1", "2").setAttribute (ATTR_WEIGHT, 3);
-    g.createRelation ("1", "3").setAttribute (ATTR_WEIGHT, 1);
-    g.createRelation ("2", "5").setAttribute (ATTR_WEIGHT, 1);
-    g.createRelation ("3", "4").setAttribute (ATTR_WEIGHT, 1);
-    g.createRelation ("3", "6").setAttribute (ATTR_WEIGHT, 4);
-    g.createRelation ("4", "5").setAttribute (ATTR_WEIGHT, 5);
-    g.createRelation ("4", "6").setAttribute (ATTR_WEIGHT, 5);
-    g.createRelation ("5", "6").setAttribute (ATTR_WEIGHT, 2);
+    g.createRelation ("1", "2").attrs ().setAttribute (ATTR_WEIGHT, 3);
+    g.createRelation ("1", "3").attrs ().setAttribute (ATTR_WEIGHT, 1);
+    g.createRelation ("2", "5").attrs ().setAttribute (ATTR_WEIGHT, 1);
+    g.createRelation ("3", "4").attrs ().setAttribute (ATTR_WEIGHT, 1);
+    g.createRelation ("3", "6").attrs ().setAttribute (ATTR_WEIGHT, 4);
+    g.createRelation ("4", "5").attrs ().setAttribute (ATTR_WEIGHT, 5);
+    g.createRelation ("4", "6").attrs ().setAttribute (ATTR_WEIGHT, 5);
+    g.createRelation ("5", "6").attrs ().setAttribute (ATTR_WEIGHT, 2);
 
     final Dijkstra.Result <IMutableGraphNode> r = Dijkstra.applyDijkstra (g,
                                                                           "1",
                                                                           "6",
-                                                                          x -> x.getAttributeAsInt (ATTR_WEIGHT,
+                                                                          x -> x.attrs ().getAsInt (ATTR_WEIGHT,
                                                                                                     Integer.MIN_VALUE));
     assertNotNull (r);
     s_aLogger.info (r.getAsString ());
@@ -137,31 +139,32 @@ public final class DijkstraTest
     g.createNode ("H");
     g.createNode ("I");
     g.createNode ("T");
-    g.createRelation ("O", "A").setAttribute (ATTR_WEIGHT, 12);
-    g.createRelation ("O", "B").setAttribute (ATTR_WEIGHT, 5);
-    g.createRelation ("O", "C").setAttribute (ATTR_WEIGHT, 8);
-    g.createRelation ("C", "F").setAttribute (ATTR_WEIGHT, 1);
-    g.createRelation ("A", "B").setAttribute (ATTR_WEIGHT, 4);
-    g.createRelation ("A", "D").setAttribute (ATTR_WEIGHT, 4);
-    g.createRelation ("A", "E").setAttribute (ATTR_WEIGHT, 6);
-    g.createRelation ("A", "I").setAttribute (ATTR_WEIGHT, 3);
-    g.createRelation ("B", "F").setAttribute (ATTR_WEIGHT, 5);
-    g.createRelation ("B", "E").setAttribute (ATTR_WEIGHT, 7);
-    g.createRelation ("F", "E").setAttribute (ATTR_WEIGHT, 4);
-    g.createRelation ("E", "D").setAttribute (ATTR_WEIGHT, 2);
-    g.createRelation ("F", "I").setAttribute (ATTR_WEIGHT, 7);
-    g.createRelation ("E", "H").setAttribute (ATTR_WEIGHT, 5);
-    g.createRelation ("D", "T").setAttribute (ATTR_WEIGHT, 10);
-    g.createRelation ("H", "T").setAttribute (ATTR_WEIGHT, 10);
-    g.createRelation ("I", "H").setAttribute (ATTR_WEIGHT, 11);
+    g.createRelation ("O", "A").attrs ().setAttribute (ATTR_WEIGHT, 12);
+    g.createRelation ("O", "B").attrs ().setAttribute (ATTR_WEIGHT, 5);
+    g.createRelation ("O", "C").attrs ().setAttribute (ATTR_WEIGHT, 8);
+    g.createRelation ("C", "F").attrs ().setAttribute (ATTR_WEIGHT, 1);
+    g.createRelation ("A", "B").attrs ().setAttribute (ATTR_WEIGHT, 4);
+    g.createRelation ("A", "D").attrs ().setAttribute (ATTR_WEIGHT, 4);
+    g.createRelation ("A", "E").attrs ().setAttribute (ATTR_WEIGHT, 6);
+    g.createRelation ("A", "I").attrs ().setAttribute (ATTR_WEIGHT, 3);
+    g.createRelation ("B", "F").attrs ().setAttribute (ATTR_WEIGHT, 5);
+    g.createRelation ("B", "E").attrs ().setAttribute (ATTR_WEIGHT, 7);
+    g.createRelation ("F", "E").attrs ().setAttribute (ATTR_WEIGHT, 4);
+    g.createRelation ("E", "D").attrs ().setAttribute (ATTR_WEIGHT, 2);
+    g.createRelation ("F", "I").attrs ().setAttribute (ATTR_WEIGHT, 7);
+    g.createRelation ("E", "H").attrs ().setAttribute (ATTR_WEIGHT, 5);
+    g.createRelation ("D", "T").attrs ().setAttribute (ATTR_WEIGHT, 10);
+    g.createRelation ("H", "T").attrs ().setAttribute (ATTR_WEIGHT, 10);
+    g.createRelation ("I", "H").attrs ().setAttribute (ATTR_WEIGHT, 11);
     assertEquals ("O", g.getSingleStartNode ().getID ());
     assertEquals ("T", g.getSingleEndNode ().getID ());
 
     final Dijkstra.Result <IMutableDirectedGraphNode> r = Dijkstra.applyDijkstra (g,
                                                                                   "O",
                                                                                   "T",
-                                                                                  x -> x.getAttributeAsInt (ATTR_WEIGHT,
-                                                                                                            Integer.MIN_VALUE));
+                                                                                  x -> x.attrs ()
+                                                                                        .getAsInt (ATTR_WEIGHT,
+                                                                                                   Integer.MIN_VALUE));
     assertNotNull (r);
     s_aLogger.info (r.getAsString ());
     assertEquals (24, r.getResultDistance ());
@@ -178,27 +181,27 @@ public final class DijkstraTest
     g.createNode ("Geneve");
     g.createNode ("Paris");
     g.createNode ("Lausanne");
-    g.createRelation ("Barcelona", "Narbonne").setAttribute (ATTR_WEIGHT, 250);
-    g.createRelation ("Narbonne", "Marseille").setAttribute (ATTR_WEIGHT, 260);
-    g.createRelation ("Narbonne", "Toulouse").setAttribute (ATTR_WEIGHT, 150);
-    g.createRelation ("Narbonne", "Geneve").setAttribute (ATTR_WEIGHT, 550);
-    g.createRelation ("Marseille", "Geneve").setAttribute (ATTR_WEIGHT, 470);
-    g.createRelation ("Toulouse", "Paris").setAttribute (ATTR_WEIGHT, 680);
-    g.createRelation ("Toulouse", "Geneve").setAttribute (ATTR_WEIGHT, 700);
-    g.createRelation ("Geneve", "Paris").setAttribute (ATTR_WEIGHT, 540);
-    g.createRelation ("Geneve", "Lausanne").setAttribute (ATTR_WEIGHT, 64);
-    g.createRelation ("Lausanne", "Paris").setAttribute (ATTR_WEIGHT, 536);
+    g.createRelation ("Barcelona", "Narbonne").attrs ().setAttribute (ATTR_WEIGHT, 250);
+    g.createRelation ("Narbonne", "Marseille").attrs ().setAttribute (ATTR_WEIGHT, 260);
+    g.createRelation ("Narbonne", "Toulouse").attrs ().setAttribute (ATTR_WEIGHT, 150);
+    g.createRelation ("Narbonne", "Geneve").attrs ().setAttribute (ATTR_WEIGHT, 550);
+    g.createRelation ("Marseille", "Geneve").attrs ().setAttribute (ATTR_WEIGHT, 470);
+    g.createRelation ("Toulouse", "Paris").attrs ().setAttribute (ATTR_WEIGHT, 680);
+    g.createRelation ("Toulouse", "Geneve").attrs ().setAttribute (ATTR_WEIGHT, 700);
+    g.createRelation ("Geneve", "Paris").attrs ().setAttribute (ATTR_WEIGHT, 540);
+    g.createRelation ("Geneve", "Lausanne").attrs ().setAttribute (ATTR_WEIGHT, 64);
+    g.createRelation ("Lausanne", "Paris").attrs ().setAttribute (ATTR_WEIGHT, 536);
 
     Dijkstra.Result <IMutableGraphNode> r = Dijkstra.applyDijkstra (g,
                                                                     "Barcelona",
                                                                     "Lausanne",
-                                                                    x -> x.getAttributeAsInt (ATTR_WEIGHT,
+                                                                    x -> x.attrs ().getAsInt (ATTR_WEIGHT,
                                                                                               Integer.MIN_VALUE));
     assertNotNull (r);
     s_aLogger.info (r.getAsString ());
     assertEquals (864, r.getResultDistance ());
 
-    r = Dijkstra.applyDijkstra (g, "Lausanne", "Barcelona", x -> x.getAttributeAsInt (ATTR_WEIGHT, Integer.MIN_VALUE));
+    r = Dijkstra.applyDijkstra (g, "Lausanne", "Barcelona", x -> x.attrs ().getAsInt (ATTR_WEIGHT, Integer.MIN_VALUE));
     assertNotNull (r);
     s_aLogger.info (r.getAsString ());
     assertEquals (864, r.getResultDistance ());

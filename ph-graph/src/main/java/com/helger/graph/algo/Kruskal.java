@@ -96,9 +96,9 @@ public final class Kruskal
                                         @Nonnull @Nonempty final String sRelationCostAttr)
   {
     return "{" +
-           StringHelper.getImploded (',', new CommonsTreeSet<> (aRel.getAllConnectedNodeIDs ())) +
+           StringHelper.getImploded (',', new CommonsTreeSet <> (aRel.getAllConnectedNodeIDs ())) +
            ":" +
-           aRel.getAttributeAsInt (sRelationCostAttr) +
+           aRel.attrs ().getAsInt (sRelationCostAttr) +
            "}";
   }
 
@@ -107,12 +107,15 @@ public final class Kruskal
                                              @Nonnull @Nonempty final String sRelationCostAttr)
   {
     final ICommonsList <IMutableGraphRelation> aSortedRelations = aGraph.getAllRelationObjs ()
-                                                                        .getSortedInline (Comparator.comparingInt (aObject -> aObject.getAttributeAsInt (sRelationCostAttr)));
+                                                                        .getSortedInline (Comparator.comparingInt (x -> x.attrs ()
+                                                                                                                         .getAsInt (sRelationCostAttr)));
     if (GlobalDebug.isDebugMode ())
     {
       s_aLogger.info ("Starting Kruskal on " + aSortedRelations.size () + " relations");
       s_aLogger.info ("Sorted relations: " +
-                      StringHelper.getImplodedMapped (';', aSortedRelations, x -> _getWeightInfo (x, sRelationCostAttr)));
+                      StringHelper.getImplodedMapped (';',
+                                                      aSortedRelations,
+                                                      x -> _getWeightInfo (x, sRelationCostAttr)));
     }
 
     final SimpleGraph ret = new SimpleGraph (new SimpleGraphObjectFastFactory ());
@@ -120,7 +123,7 @@ public final class Kruskal
     for (final IMutableGraphNode aNode : aGraph.getAllNodes ().values ())
     {
       final IMutableGraphNode aNewNode = ret.createNode (aNode.getID ());
-      aNewNode.setAttributes (aNode.getAllAttributes ());
+      aNewNode.attrs ().putAll (aNode.attrs ());
     }
 
     // Now start adding the relations (undirected!)
@@ -128,9 +131,9 @@ public final class Kruskal
     int nTotalWeight = 0;
     for (final IMutableGraphRelation aRelation : aSortedRelations)
     {
-      final int nWeight = aRelation.getAttributeAsInt (sRelationCostAttr);
+      final int nWeight = aRelation.attrs ().getAsInt (sRelationCostAttr);
       final IMutableGraphRelation aNewRelation = ret.createRelation (aRelation.getNode1ID (), aRelation.getNode2ID ());
-      aNewRelation.setAttributes (aRelation.getAllAttributes ());
+      aNewRelation.attrs ().putAll (aRelation.attrs ());
       if (ret.containsCycles ())
       {
         if (GlobalDebug.isDebugMode ())

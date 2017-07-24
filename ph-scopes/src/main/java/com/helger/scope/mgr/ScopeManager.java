@@ -195,7 +195,7 @@ public final class ScopeManager
   @Nullable
   public static String getRequestApplicationID (@Nonnull final IRequestScope aRequestScope)
   {
-    return aRequestScope.attrs ().getAttributeAsString (REQ_APPLICATION_ID);
+    return aRequestScope.attrs ().getAsString (REQ_APPLICATION_ID);
   }
 
   /**

@@ -34,85 +34,85 @@ import com.helger.commons.mock.CommonsAssert;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
- * Test class for class {@link MapBasedAttributeContainerAny}.
+ * Test class for class {@link AttributeContainerAny}.
  *
  * @author Philip Helger
  */
-public final class MapBasedAttributeContainerTest
+public final class AttributeContainerAnyTest
 {
   @Test
   public void testInit ()
   {
-    final MapBasedAttributeContainerAny <String> x = new MapBasedAttributeContainerAny <> ();
-    assertNotNull (x.getAllAttributeNames ());
-    assertTrue (x.getAllAttributeNames ().isEmpty ());
+    final AttributeContainerAny <String> x = new AttributeContainerAny <> ();
+    assertNotNull (x.keySet ());
+    assertTrue (x.keySet ().isEmpty ());
     assertTrue (x.isEmpty ());
     assertTrue (x.setAttribute ("key", "value").isChanged ());
     assertFalse (x.isEmpty ());
-    assertEquals (1, x.getCount ());
+    assertEquals (1, x.size ());
     assertTrue (x.setAttribute ("key2", "value2").isChanged ());
     assertTrue (x.setAttribute ("key", "value3").isChanged ());
     assertFalse (x.setAttribute ("key", "value3").isChanged ());
-    assertEquals ("value2", x.getAttributeObject ("key2"));
-    assertEquals ("value2", x.getAttributeAsString ("key2"));
-    assertEquals ("value2", x.<String> getCastedAttribute ("key2"));
-    assertEquals ("value2", x.getTypedAttribute ("key2", String.class));
-    assertEquals ("def", x.<String> getCastedAttribute ("key none", "def"));
-    assertEquals ("def", x.getTypedAttribute ("key none", String.class, "def"));
-    assertTrue (x.containsAttribute ("key2"));
-    assertTrue (x.clear ().isChanged ());
-    assertFalse (x.clear ().isChanged ());
-    assertFalse (x.containsAttribute ("key2"));
-    assertTrue (x.getAllAttributes ().isEmpty ());
-    assertTrue (x.getAllAttributeNames ().isEmpty ());
-    assertFalse (x.removeAttribute ("key2").isChanged ());
+    assertEquals ("value2", x.getValue ("key2"));
+    assertEquals ("value2", x.getAsString ("key2"));
+    assertEquals ("value2", x.<String> getCastedValue ("key2"));
+    assertEquals ("value2", x.getConvertedValue ("key2", String.class));
+    assertEquals ("def", x.<String> getCastedValue ("key none", "def"));
+    assertEquals ("def", x.getConvertedValue ("key none", "def", String.class));
+    assertTrue (x.containsKey ("key2"));
+    assertTrue (x.removeAll ().isChanged ());
+    assertFalse (x.removeAll ().isChanged ());
+    assertFalse (x.containsKey ("key2"));
+    assertTrue (x.isEmpty ());
+    assertTrue (x.keySet ().isEmpty ());
+    assertFalse (x.removeObject ("key2").isChanged ());
 
     assertTrue (x.setAttribute ("key", Integer.valueOf (17)).isChanged ());
-    assertTrue (x.getAttributeAsBoolean ("key"));
-    assertEquals (17, x.getAttributeAsInt ("key"));
-    assertEquals (17, x.getAttributeAsLong ("key"));
-    assertEquals (CGlobal.ILLEGAL_UINT, x.getAttributeAsInt ("key2"));
-    assertEquals (Integer.valueOf (17), x.getCastedAttribute ("key"));
-    CommonsAssert.assertEquals (17, x.getAttributeAsDouble ("key"));
-    CommonsAssert.assertEquals (CGlobal.ILLEGAL_DOUBLE, x.getAttributeAsDouble ("key2"));
-    assertEquals (new BigInteger ("17"), x.getAttributeAsBigInteger ("key"));
-    assertEquals (new BigDecimal ("17"), x.getAttributeAsBigDecimal ("key"));
-    assertFalse (x.getAttributeAsBoolean ("key2"));
-    assertTrue (x.removeAttribute ("key").isChanged ());
-    assertFalse (x.removeAttribute ("key").isChanged ());
+    assertTrue (x.getAsBoolean ("key"));
+    assertEquals (17, x.getAsInt ("key"));
+    assertEquals (17, x.getAsLong ("key"));
+    assertEquals (CGlobal.ILLEGAL_UINT, x.getAsInt ("key2"));
+    assertEquals (Integer.valueOf (17), x.getCastedValue ("key"));
+    CommonsAssert.assertEquals (17, x.getAsDouble ("key"));
+    CommonsAssert.assertEquals (CGlobal.ILLEGAL_DOUBLE, x.getAsDouble ("key2"));
+    assertEquals (new BigInteger ("17"), x.getAsBigInteger ("key"));
+    assertEquals (new BigDecimal ("17"), x.getAsBigDecimal ("key"));
+    assertFalse (x.getAsBoolean ("key2"));
+    assertTrue (x.removeObject ("key").isChanged ());
+    assertFalse (x.removeObject ("key").isChanged ());
 
     // Check null values
     assertTrue (x.setAttribute ("null1", null).isUnchanged ());
-    assertNull (x.getAttributeObject ("null1"));
-    assertFalse (x.containsAttribute ("null1"));
-    assertTrue (x.removeAttribute ("null1").isUnchanged ());
+    assertNull (x.getValue ("null1"));
+    assertFalse (x.containsKey ("null1"));
+    assertTrue (x.removeObject ("null1").isUnchanged ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MapBasedAttributeContainerAny <String> (),
-                                                                       new MapBasedAttributeContainerAny <String> ());
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MapBasedAttributeContainerAny <> (CollectionHelper.newMap (new String [] { "key",
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new AttributeContainerAny <String> (),
+                                                                       new AttributeContainerAny <String> ());
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new AttributeContainerAny <> (CollectionHelper.newMap (new String [] { "key",
                                                                                                                                                       "key2" },
                                                                                                                                       new Object [] { "value",
                                                                                                                                                       "value2" })),
-                                                                       new MapBasedAttributeContainerAny <> (CollectionHelper.newMap (new String [] { "key",
+                                                                       new AttributeContainerAny <> (CollectionHelper.newMap (new String [] { "key",
                                                                                                                                                       "key2" },
                                                                                                                                       new Object [] { "value",
                                                                                                                                                       "value2" })));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MapBasedAttributeContainerAny <> (CollectionHelper.newMap (new String [] { "key",
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new AttributeContainerAny <> (CollectionHelper.newMap (new String [] { "key",
                                                                                                                                                           "key2" },
                                                                                                                                           new Object [] { "value",
                                                                                                                                                           "value2" })),
-                                                                           new MapBasedAttributeContainerAny <> (CollectionHelper.newMap (new String [] { "key",
+                                                                           new AttributeContainerAny <> (CollectionHelper.newMap (new String [] { "key",
                                                                                                                                                           "key2" },
                                                                                                                                           new Object [] { "value",
                                                                                                                                                           "value" })));
 
-    assertTrue (new MapBasedAttributeContainerAny <> ((Map <String, Object>) null).isEmpty ());
+    assertTrue (new AttributeContainerAny <> ((Map <String, Object>) null).isEmpty ());
   }
 
   @Test
   public void testGetAndSetAttributeFlag ()
   {
-    final MapBasedAttributeContainerAny <String> aCont = new MapBasedAttributeContainerAny <> ();
+    final AttributeContainerAny <String> aCont = new AttributeContainerAny <> ();
     // Not yet present
     assertFalse (aCont.getAndSetAttributeFlag ("any"));
     // Now it is present

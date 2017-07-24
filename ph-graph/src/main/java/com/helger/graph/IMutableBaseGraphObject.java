@@ -16,6 +16,9 @@
  */
 package com.helger.graph;
 
+import javax.annotation.Nonnull;
+
+import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.attr.IMutableAttributeContainerAny;
 
 /**
@@ -23,7 +26,9 @@ import com.helger.commons.collection.attr.IMutableAttributeContainerAny;
  *
  * @author Philip Helger
  */
-public interface IMutableBaseGraphObject extends IBaseGraphObject, IMutableAttributeContainerAny <String>
+public interface IMutableBaseGraphObject extends IBaseGraphObject
 {
-  /* empty */
+  @Nonnull
+  @ReturnsMutableObject
+  IMutableAttributeContainerAny <String> attrs ();
 }
