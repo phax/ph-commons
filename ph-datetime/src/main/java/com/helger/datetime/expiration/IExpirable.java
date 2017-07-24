@@ -19,6 +19,7 @@ package com.helger.datetime.expiration;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.datetime.PDTFactory;
@@ -32,7 +33,7 @@ public interface IExpirable extends Serializable
 {
   /**
    * Check if the object has an expiration date defined. To check if the page is
-   * already expired, use {@link #isExpired()} instead.
+   * already expired, use {@link #isExpired^()} instead.
    *
    * @return <code>true</code> if an expiration date is defined,
    *         <code>false</code> otherwise.
@@ -54,8 +55,23 @@ public interface IExpirable extends Serializable
    *         expiration date is in the past, <code>false</code> otherwise.
    * @see #isExpirationDefined()
    */
-  default boolean isExpired ()
+  default boolean isExpiredNow ()
   {
-    return isExpirationDefined () && PDTFactory.getCurrentLocalDateTime ().isAfter (getExpirationDateTime ());
+    return isExpiredAt (PDTFactory.getCurrentLocalDateTime ());
+  }
+
+  /**
+   * Check if this object is expired at the provided date time. This is only
+   * possible if an expiration date is defined.
+   *
+   * @param aDT
+   *        The date time to check against. May not be <code>null</code>.
+   * @return <code>true</code> if an expiration date is defined and the
+   *         expiration date is in the past, <code>false</code> otherwise.
+   * @see #isExpirationDefined()
+   */
+  default boolean isExpiredAt (@Nonnull final LocalDateTime aDT)
+  {
+    return isExpirationDefined () && aDT.isAfter (getExpirationDateTime ());
   }
 }

@@ -28,6 +28,10 @@ import com.helger.commons.collection.attr.IMutableAttributeContainerAny;
  */
 public interface IMutableBaseGraphObject extends IBaseGraphObject
 {
+  /**
+   * @return The mutable attributes of this graph object. Never
+   *         <code>null</code>.
+   */
   @Nonnull
   @ReturnsMutableObject
   IMutableAttributeContainerAny <String> attrs ();

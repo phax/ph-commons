@@ -38,7 +38,8 @@ import com.helger.commons.collection.impl.ICommonsSet;
  */
 @MustImplementEqualsAndHashcode
 public interface IDirectedGraphNode <NODETYPE extends IDirectedGraphNode <NODETYPE, RELATIONTYPE>, RELATIONTYPE extends IDirectedGraphRelation <NODETYPE, RELATIONTYPE>>
-                                    extends IBaseGraphNode <NODETYPE, RELATIONTYPE>
+                                    extends
+                                    IBaseGraphNode <NODETYPE, RELATIONTYPE>
 {
   /**
    * @return <code>true</code> if this node has at least one incoming relation.
@@ -69,7 +70,7 @@ public interface IDirectedGraphNode <NODETYPE extends IDirectedGraphNode <NODETY
   ICommonsList <RELATIONTYPE> getAllIncomingRelations ();
 
   /**
-   * Iterate each icoming relation calling the provided consumer with the
+   * Iterate each incoming relation calling the provided consumer with the
    * relation object.
    *
    * @param aConsumer
@@ -183,7 +184,10 @@ public interface IDirectedGraphNode <NODETYPE extends IDirectedGraphNode <NODETY
    * @return <code>true</code> if this node has at least one incoming or
    *         outgoing relation.
    */
-  boolean hasIncomingOrOutgoingRelations ();
+  default boolean hasIncomingOrOutgoingRelations ()
+  {
+    return hasIncomingRelations () || hasOutgoingRelations ();
+  }
 
   /**
    * Check if this node has incoming <b>and</b> outgoing relations. This is
@@ -193,5 +197,25 @@ public interface IDirectedGraphNode <NODETYPE extends IDirectedGraphNode <NODETY
    * @return <code>true</code> if this node has at least one incoming and at
    *         least one outgoing relation.
    */
-  boolean hasIncomingAndOutgoingRelations ();
+  default boolean hasIncomingAndOutgoingRelations ()
+  {
+    return hasIncomingRelations () && hasOutgoingRelations ();
+  }
+
+  default boolean hasRelations ()
+  {
+    return hasIncomingOrOutgoingRelations ();
+  }
+
+  @Nonnegative
+  default int getRelationCount ()
+  {
+    return getIncomingRelationCount () + getOutgoingRelationCount ();
+  }
+
+  default void forEachRelation (@Nonnull final Consumer <? super RELATIONTYPE> aConsumer)
+  {
+    forEachIncomingRelation (aConsumer);
+    forEachOutgoingRelation (aConsumer);
+  }
 }

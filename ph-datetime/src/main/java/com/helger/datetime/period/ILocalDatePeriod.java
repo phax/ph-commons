@@ -20,41 +20,17 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import com.helger.commons.datetime.PDTFactory;
+import com.helger.datetime.domain.IHasStartAndEnd;
 
 /**
  * Base interface for a period consisting of 2 local date periods.
  *
  * @author Philip Helger
  */
-public interface ILocalDatePeriod extends Serializable
+public interface ILocalDatePeriod extends Serializable, IHasStartAndEnd <LocalDate>
 {
-  @Nullable
-  LocalDate getStart ();
-
-  /**
-   * @return <code>true</code> if a start is present, <code>false</code> if not.
-   * @since 8.6.5
-   */
-  default boolean hasStart ()
-  {
-    return getStart () != null;
-  }
-
-  @Nullable
-  LocalDate getEnd ();
-
-  /**
-   * @return <code>true</code> if an end is present, <code>false</code> if not.
-   * @since 8.6.5
-   */
-  default boolean hasEnd ()
-  {
-    return getEnd () != null;
-  }
-
   /**
    * Check if the provided date is inside this period, assuming that start and
    * end are included in/part of the range.

@@ -29,6 +29,9 @@ import com.helger.commons.id.IHasID;
  */
 public interface IBaseGraphObject extends IHasID <String>
 {
+  /**
+   * @return The attributes of this graph object. Never <code>null</code>.
+   */
   @Nonnull
   @ReturnsMutableObject
   IAttributeContainer <String, Object> attrs ();

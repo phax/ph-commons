@@ -18,7 +18,7 @@ package com.helger.datetime.domain;
 
 import java.time.LocalDateTime;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Interface for objects having a creation date time.
@@ -31,6 +31,11 @@ public interface IHasCreationDateTime
   /**
    * @return The non-<code>null</code> creation date time of the object
    */
-  @Nonnull
+  @Nullable
   LocalDateTime getCreationDateTime ();
+
+  default boolean hasCreationDateTime ()
+  {
+    return getCreationDateTime () != null;
+  }
 }

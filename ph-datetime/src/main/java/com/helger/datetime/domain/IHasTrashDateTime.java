@@ -34,4 +34,9 @@ public interface IHasTrashDateTime
    */
   @Nullable
   LocalDateTime getTrashDateTime ();
+
+  default boolean hasTrashDateTime ()
+  {
+    return getTrashDateTime () != null;
+  }
 }

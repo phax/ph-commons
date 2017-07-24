@@ -34,8 +34,26 @@ public interface IHasStartAndEnd <DATATYPE>
   DATATYPE getStart ();
 
   /**
+   * @return <code>true</code> if a start is present, <code>false</code> if not.
+   * @since 9.0.0
+   */
+  default boolean hasStart ()
+  {
+    return getStart () != null;
+  }
+
+  /**
    * @return The end. May be <code>null</code>.
    */
   @Nullable
   DATATYPE getEnd ();
+
+  /**
+   * @return <code>true</code> if an end is present, <code>false</code> if not.
+   * @since 9.0.0
+   */
+  default boolean hasEnd ()
+  {
+    return getEnd () != null;
+  }
 }

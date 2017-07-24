@@ -38,7 +38,10 @@ public interface IMutableGraphRelation extends IMutableBaseGraphRelation <IMutab
    * @return The ID of node1 of this relation. Never <code>null</code>.
    */
   @Nonnull
-  String getNode1ID ();
+  default String getNode1ID ()
+  {
+    return getNode1 ().getID ();
+  }
 
   /**
    * @return Node2 of this relation. Never <code>null</code>.
@@ -50,5 +53,8 @@ public interface IMutableGraphRelation extends IMutableBaseGraphRelation <IMutab
    * @return The ID of node2 of this relation. Never <code>null</code>.
    */
   @Nonnull
-  String getNode2ID ();
+  default String getNode2ID ()
+  {
+    return getNode2 ().getID ();
+  }
 }

@@ -60,8 +60,6 @@ public interface IMutableDirectedGraphNode extends
   @Nonnull
   EChange removeAllIncomingRelations ();
 
-  // --- outgoing ---
-
   /**
    * Add a new outgoing relation from this node
    *
@@ -90,6 +88,12 @@ public interface IMutableDirectedGraphNode extends
   @Nonnull
   EChange removeAllOutgoingRelations ();
 
-  // --- incoming and/or outgoing
-
+  @Nonnull
+  default EChange removeAllRelations ()
+  {
+    EChange ret = EChange.UNCHANGED;
+    ret = ret.or (removeAllIncomingRelations ());
+    ret = ret.or (removeAllOutgoingRelations ());
+    return ret;
+  }
 }

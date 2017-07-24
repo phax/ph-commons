@@ -70,14 +70,14 @@ public class GraphRelation extends AbstractBaseGraphObject implements IMutableGr
   @ReturnsMutableCopy
   public ICommonsOrderedSet <IMutableGraphNode> getAllConnectedNodes ()
   {
-    return new CommonsLinkedHashSet<> (m_aNode1, m_aNode2);
+    return new CommonsLinkedHashSet <> (m_aNode1, m_aNode2);
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllConnectedNodeIDs ()
   {
-    return new CommonsLinkedHashSet<> (m_aNode1.getID (), m_aNode2.getID ());
+    return new CommonsLinkedHashSet <> (m_aNode1.getID (), m_aNode2.getID ());
   }
 
   @Nonnull
@@ -87,21 +87,9 @@ public class GraphRelation extends AbstractBaseGraphObject implements IMutableGr
   }
 
   @Nonnull
-  public String getNode1ID ()
-  {
-    return m_aNode1.getID ();
-  }
-
-  @Nonnull
   public IMutableGraphNode getNode2 ()
   {
     return m_aNode2;
-  }
-
-  @Nonnull
-  public String getNode2ID ()
-  {
-    return m_aNode2.getID ();
   }
 
   @Override

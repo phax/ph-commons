@@ -21,6 +21,7 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.attr.AttributeContainerAny;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
@@ -60,6 +61,8 @@ public abstract class AbstractBaseGraphObject implements IMutableBaseGraphObject
     return m_sID;
   }
 
+  @Nonnull
+  @ReturnsMutableObject
   public final AttributeContainerAny <String> attrs ()
   {
     return m_aAttrs;
