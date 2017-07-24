@@ -16,20 +16,12 @@
  */
 package com.helger.commons.cache;
 
-import javax.annotation.Nullable;
-
 import com.helger.commons.string.StringHelper;
 
-public final class MockNotifyingCache extends AbstractNotifyingCache <String, String>
+public final class MockNotifyingCache extends Cache <String, String>
 {
   public MockNotifyingCache (final int nMaxSize)
   {
-    super (nMaxSize, "Mock");
-  }
-
-  @Override
-  protected String getValueToCache (@Nullable final String aKey)
-  {
-    return StringHelper.getNotNull (aKey);
+    super (StringHelper::getNotNull, nMaxSize, "Mock");
   }
 }

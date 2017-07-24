@@ -19,8 +19,7 @@ package com.helger.settings;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.cache.AbstractNotifyingCache;
+import com.helger.commons.cache.Cache;
 import com.helger.settings.factory.ISettingsFactory;
 
 /**
@@ -28,13 +27,13 @@ import com.helger.settings.factory.ISettingsFactory;
  *
  * @author Philip Helger
  */
-public class SettingsCache extends AbstractNotifyingCache <String, IMutableSettings>
+public class SettingsCache extends Cache <String, IMutableSettings>
 {
   private final ISettingsFactory <?> m_aSettingsFactory;
 
   public SettingsCache (@Nonnull final ISettingsFactory <?> aSettingsFactory)
   {
-    super (500, SettingsCache.class.getName ());
+    super (aSettingsFactory::apply, 500, SettingsCache.class.getName ());
     m_aSettingsFactory = ValueEnforcer.notNull (aSettingsFactory, "SettingsFactory");
   }
 
@@ -45,11 +44,5 @@ public class SettingsCache extends AbstractNotifyingCache <String, IMutableSetti
   public ISettingsFactory <?> getSettingsFactory ()
   {
     return m_aSettingsFactory;
-  }
-
-  @Override
-  protected IMutableSettings getValueToCache (@Nonnull @Nonempty final String sSettingName)
-  {
-    return m_aSettingsFactory.apply (sSettingName);
   }
 }

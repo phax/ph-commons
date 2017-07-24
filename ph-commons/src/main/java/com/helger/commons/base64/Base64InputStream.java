@@ -231,22 +231,25 @@ public class Base64InputStream extends WrappedInputStream
                    @Nonnegative final int nOfs,
                    @Nonnegative final int nLen) throws IOException
   {
-    int i = 0;
-    for (; i < nLen; i++)
+    int nIndex = 0;
+    for (; nIndex < nLen; nIndex++)
     {
-      final int b = read ();
+      final int nByte = read ();
 
-      if (b >= 0)
-        aDest[nOfs + i] = (byte) b;
+      if (nByte >= 0)
+        aDest[nOfs + nIndex] = (byte) nByte;
       else
-        if (i == 0)
+        if (nIndex == 0)
+        {
+          // First byte is not Base64 - nothing read
           return -1;
+        }
         else
         {
           // Out of 'for' loop
           break;
         }
     }
-    return i;
+    return nIndex;
   }
 }

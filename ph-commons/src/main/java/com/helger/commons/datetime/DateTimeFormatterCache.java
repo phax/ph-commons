@@ -22,11 +22,9 @@ import java.time.format.ResolverStyle;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 
-import com.helger.commons.annotation.ELockType;
-import com.helger.commons.annotation.IsLocked;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.Singleton;
-import com.helger.commons.cache.AbstractNotifyingCache;
+import com.helger.commons.cache.Cache;
 
 /**
  * This class provides a cache for {@link DateTimeFormatter} instances. It
@@ -36,7 +34,7 @@ import com.helger.commons.cache.AbstractNotifyingCache;
  */
 @ThreadSafe
 @Singleton
-public final class DateTimeFormatterCache extends AbstractNotifyingCache <DateTimeFormatterPattern, DateTimeFormatter>
+public final class DateTimeFormatterCache extends Cache <DateTimeFormatterPattern, DateTimeFormatter>
 {
   private static final class SingletonHolder
   {
@@ -50,7 +48,7 @@ public final class DateTimeFormatterCache extends AbstractNotifyingCache <DateTi
 
   private DateTimeFormatterCache ()
   {
-    super (MAX_CACHE_SIZE, DateTimeFormatterCache.class.getName ());
+    super (DateTimeFormatterPattern::getAsFormatter, MAX_CACHE_SIZE, DateTimeFormatterCache.class.getName ());
   }
 
   public static boolean isInstantiated ()
@@ -64,14 +62,6 @@ public final class DateTimeFormatterCache extends AbstractNotifyingCache <DateTi
     final DateTimeFormatterCache ret = SingletonHolder.s_aInstance;
     s_bDefaultInstantiated = true;
     return ret;
-  }
-
-  @Override
-  @Nonnull
-  @IsLocked (ELockType.WRITE)
-  protected DateTimeFormatter getValueToCache (@Nonnull final DateTimeFormatterPattern aPattern)
-  {
-    return aPattern.getAsFormatter ();
   }
 
   /**

@@ -29,12 +29,10 @@ import javax.annotation.concurrent.ThreadSafe;
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.CodingStyleguideUnaware;
-import com.helger.commons.annotation.ELockType;
-import com.helger.commons.annotation.IsLocked;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsImmutableObject;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.cache.AbstractNotifyingCache;
+import com.helger.commons.cache.Cache;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.CommonsHashMap;
 import com.helger.commons.collection.ext.ICommonsList;
@@ -58,47 +56,38 @@ public final class LocaleHelper
    * @author Philip Helger
    */
   @ThreadSafe
-  private static final class LocaleListCache extends AbstractNotifyingCache <Locale, List <Locale>>
+  private static final class LocaleListCache extends Cache <Locale, List <Locale>>
   {
     public LocaleListCache ()
     {
       // Unlimited size
-      super (LocaleListCache.class.getName ());
-    }
+      super (aBaseLocale -> {
+        ValueEnforcer.notNull (aBaseLocale, "BaseLocale");
 
-    @Override
-    @Nullable
-    @IsLocked (ELockType.WRITE)
-    @ReturnsImmutableObject
-    @CodingStyleguideUnaware
-    protected List <Locale> getValueToCache (@Nullable final Locale aBaseLocale)
-    {
-      if (aBaseLocale == null)
-        return null;
-
-      // List has a maximum of 3 entries
-      final ICommonsList <Locale> ret = new CommonsArrayList<> (3);
-      final String sLanguage = aBaseLocale.getLanguage ();
-      if (sLanguage.length () > 0)
-      {
-        final LocaleCache aLC = LocaleCache.getInstance ();
-
-        // Use only the language
-        ret.add (0, aLC.getLocale (sLanguage));
-        final String sCountry = aBaseLocale.getCountry ();
-        if (sCountry.length () > 0)
+        // List has a maximum of 3 entries
+        final ICommonsList <Locale> ret = new CommonsArrayList <> (3);
+        final String sLanguage = aBaseLocale.getLanguage ();
+        if (sLanguage.length () > 0)
         {
-          // Use language + country
-          ret.add (0, aLC.getLocale (sLanguage, sCountry));
-          final String sVariant = aBaseLocale.getVariant ();
-          if (sVariant.length () > 0)
+          final LocaleCache aLC = LocaleCache.getInstance ();
+
+          // Use only the language
+          ret.add (0, aLC.getLocale (sLanguage));
+          final String sCountry = aBaseLocale.getCountry ();
+          if (sCountry.length () > 0)
           {
-            // Use language + country + variant
-            ret.add (0, aLC.getLocale (sLanguage, sCountry, sVariant));
+            // Use language + country
+            ret.add (0, aLC.getLocale (sLanguage, sCountry));
+            final String sVariant = aBaseLocale.getVariant ();
+            if (sVariant.length () > 0)
+            {
+              // Use language + country + variant
+              ret.add (0, aLC.getLocale (sLanguage, sCountry, sVariant));
+            }
           }
         }
-      }
-      return ret.getAsUnmodifiable ();
+        return ret.getAsUnmodifiable ();
+      }, CGlobal.ILLEGAL_UINT, LocaleListCache.class.getName ());
     }
   }
 
@@ -194,9 +183,9 @@ public final class LocaleHelper
   {
     ValueEnforcer.notNull (aContentLocale, "ContentLocale");
 
-    return new CommonsHashMap<> (LocaleCache.getInstance ().getAllLocales (),
-                                 Function.identity (),
-                                 aLocale -> getLocaleDisplayName (aLocale, aContentLocale));
+    return new CommonsHashMap <> (LocaleCache.getInstance ().getAllLocales (),
+                                  Function.identity (),
+                                  aLocale -> getLocaleDisplayName (aLocale, aContentLocale));
   }
 
   /**

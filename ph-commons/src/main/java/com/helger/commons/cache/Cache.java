@@ -27,7 +27,6 @@ import javax.annotation.concurrent.ThreadSafe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.ELockType;
@@ -40,6 +39,7 @@ import com.helger.commons.collection.ext.ICommonsMap;
 import com.helger.commons.collection.map.SoftHashMap;
 import com.helger.commons.collection.map.SoftLinkedHashMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
+import com.helger.commons.functional.IFunction;
 import com.helger.commons.state.EChange;
 import com.helger.commons.statistics.IMutableStatisticsHandlerCache;
 import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
@@ -56,31 +56,30 @@ import com.helger.commons.string.ToStringGenerator;
  *        The cache value type
  */
 @ThreadSafe
-public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements IMutableCache <KEYTYPE, VALUETYPE>
+public class Cache <KEYTYPE, VALUETYPE> implements IMutableCache <KEYTYPE, VALUETYPE>
 {
   /** The prefix to be used for statistics elements */
   public static final String STATISTICS_PREFIX = "cache:";
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractCache.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (Cache.class);
 
   protected final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
+  private final IFunction <KEYTYPE, VALUETYPE> m_aCacheValueProvider;
   private final int m_nMaxSize;
-  private final String m_sCacheName;
-  protected final IMutableStatisticsHandlerCache m_aCacheAccessStats;
+  private final String m_sName;
+  private final IMutableStatisticsHandlerCache m_aCacheAccessStats;
   private final IMutableStatisticsHandlerCounter m_aCacheRemoveStats;
   private final IMutableStatisticsHandlerCounter m_aCacheClearStats;
   @CodingStyleguideUnaware
   private Map <KEYTYPE, VALUETYPE> m_aCache;
 
-  public AbstractCache (@Nonnull final String sCacheName)
+  public Cache (@Nonnull final IFunction <KEYTYPE, VALUETYPE> aCacheValueProvider,
+                final int nMaxSize,
+                @Nonnull @Nonempty final String sCacheName)
   {
-    this (CGlobal.ILLEGAL_UINT, sCacheName);
-  }
-
-  public AbstractCache (final int nMaxSize, @Nonnull @Nonempty final String sCacheName)
-  {
+    m_aCacheValueProvider = ValueEnforcer.notNull (aCacheValueProvider, "CacheValueProvider");
     m_nMaxSize = nMaxSize;
-    m_sCacheName = ValueEnforcer.notEmpty (sCacheName, "cacheName");
+    m_sName = ValueEnforcer.notEmpty (sCacheName, "CacheName");
     m_aCacheAccessStats = StatisticsManager.getCacheHandler (STATISTICS_PREFIX + sCacheName + "$access");
     m_aCacheRemoveStats = StatisticsManager.getCounterHandler (STATISTICS_PREFIX + sCacheName + "$remove");
     m_aCacheClearStats = StatisticsManager.getCounterHandler (STATISTICS_PREFIX + sCacheName + "$clear");
@@ -112,7 +111,7 @@ public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements IMutableCach
   @Nonempty
   public final String getName ()
   {
-    return m_sCacheName;
+    return m_sName;
   }
 
   /**
@@ -127,7 +126,7 @@ public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements IMutableCach
   @CodingStyleguideUnaware
   protected ICommonsMap <KEYTYPE, VALUETYPE> createCache ()
   {
-    return hasMaxSize () ? new SoftLinkedHashMap<> (m_nMaxSize) : new SoftHashMap<> ();
+    return hasMaxSize () ? new SoftLinkedHashMap <> (m_nMaxSize) : new SoftHashMap <> ();
   }
 
   /**
@@ -187,28 +186,44 @@ public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements IMutableCach
     return m_aRWLock.readLocked ( () -> getFromCacheNoStatsNotLocked (aKey));
   }
 
-  private void _updateStats (final boolean bMiss)
-  {
-    if (bMiss)
-      m_aCacheAccessStats.cacheMiss ();
-    else
-      m_aCacheAccessStats.cacheHit ();
-  }
-
-  @Nullable
-  protected final VALUETYPE getFromCacheNotLocked (@Nullable final KEYTYPE aKey)
-  {
-    final VALUETYPE aValue = getFromCacheNoStatsNotLocked (aKey);
-    _updateStats (aValue == null);
-    return aValue;
-  }
-
   @Nullable
   @OverridingMethodsMustInvokeSuper
   public VALUETYPE getFromCache (final KEYTYPE aKey)
   {
-    final VALUETYPE aValue = getFromCacheNoStats (aKey);
-    _updateStats (aValue == null);
+    VALUETYPE aValue = getFromCacheNoStats (aKey);
+    if (aValue == null)
+    {
+      // No old value in the cache
+      m_aRWLock.writeLock ().lock ();
+      try
+      {
+        // Read again, in case the value was set between the two locking
+        // sections
+        // Note: do not increase statistics in this second try
+        aValue = getFromCacheNoStatsNotLocked (aKey);
+        if (aValue == null)
+        {
+          // Call the abstract method to create the value to cache
+          aValue = m_aCacheValueProvider.apply (aKey);
+
+          // Just a consistency check
+          if (aValue == null)
+            throw new IllegalStateException ("The value to cache was null for key '" + aKey + "'");
+
+          // Put the new value into the cache
+          putInCacheNotLocked (aKey, aValue);
+          m_aCacheAccessStats.cacheMiss ();
+        }
+        else
+          m_aCacheAccessStats.cacheHit ();
+      }
+      finally
+      {
+        m_aRWLock.writeLock ().unlock ();
+      }
+    }
+    else
+      m_aCacheAccessStats.cacheHit ();
     return aValue;
   }
 
@@ -228,18 +243,23 @@ public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements IMutableCach
   @OverridingMethodsMustInvokeSuper
   public EChange clearCache ()
   {
-    return m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLock ().lock ();
+    try
+    {
       if (m_aCache == null || m_aCache.isEmpty ())
         return EChange.UNCHANGED;
 
       m_aCache.clear ();
       m_aCacheClearStats.increment ();
+    }
+    finally
+    {
+      m_aRWLock.writeLock ().unlock ();
+    }
 
-      if (s_aLogger.isDebugEnabled ())
-        s_aLogger.debug ("Cache was cleared: " + getClass ().getName ());
-
-      return EChange.CHANGED;
-    });
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("Cache '" + m_sName + "' was cleared");
+    return EChange.CHANGED;
   }
 
   @Nonnegative
@@ -261,8 +281,10 @@ public abstract class AbstractCache <KEYTYPE, VALUETYPE> implements IMutableCach
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("CacheName", m_sCacheName)
-                                       .append ("CacheContent", m_aCache)
+    return new ToStringGenerator (this).append ("CacheValueProvider", m_aCacheValueProvider)
+                                       .append ("Name", m_sName)
+                                       .append ("MaxSize", m_nMaxSize)
+                                       .append ("Cache", m_aCache)
                                        .getToString ();
   }
 }

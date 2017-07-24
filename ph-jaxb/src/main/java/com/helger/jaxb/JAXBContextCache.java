@@ -27,10 +27,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ELockType;
-import com.helger.commons.annotation.IsLocked;
 import com.helger.commons.annotation.Singleton;
-import com.helger.commons.cache.AbstractNotifyingCache;
+import com.helger.commons.cache.Cache;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.state.EChange;
@@ -43,7 +41,7 @@ import com.helger.commons.state.EChange;
  */
 @ThreadSafe
 @Singleton
-public final class JAXBContextCache extends AbstractNotifyingCache <JAXBContextCacheKey, JAXBContext>
+public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBContext>
 {
   private static final class SingletonHolder
   {
@@ -56,7 +54,42 @@ public final class JAXBContextCache extends AbstractNotifyingCache <JAXBContextC
 
   private JAXBContextCache ()
   {
-    super (500, JAXBContextCache.class.getName ());
+    super (aCacheKey -> {
+      ValueEnforcer.notNull (aCacheKey, "CacheKey");
+
+      final Package aPackage = aCacheKey.getPackage ();
+      final ClassLoader aClassLoader = aCacheKey.getClassLoader ();
+
+      if (GlobalDebug.isDebugMode ())
+        s_aLogger.info ("Creating JAXB context for package " +
+                        aPackage.getName () +
+                        " using ClassLoader " +
+                        aClassLoader);
+
+      try
+      {
+        // When using "-npa" on JAXB no package-info class is created!
+        if (aPackage.getAnnotation (XmlSchema.class) == null &&
+            GenericReflection.getClassFromNameSafe (aPackage.getName () + ".ObjectFactory") == null)
+        {
+          s_aLogger.warn ("The package " +
+                          aPackage.getName () +
+                          " does not seem to be JAXB generated! Trying to create a JAXBContext anyway.");
+        }
+
+        return JAXBContext.newInstance (aPackage.getName (), aClassLoader);
+      }
+      catch (final JAXBException ex)
+      {
+        final String sMsg = "Failed to create JAXB context for package '" +
+                            aPackage.getName () +
+                            "'" +
+                            " using ClassLoader " +
+                            aClassLoader;
+        s_aLogger.error (sMsg + ": " + ex.getMessage ());
+        throw new IllegalArgumentException (sMsg, ex);
+      }
+    }, 500, JAXBContextCache.class.getName ());
   }
 
   public static boolean isInstantiated ()
@@ -70,48 +103,6 @@ public final class JAXBContextCache extends AbstractNotifyingCache <JAXBContextC
     final JAXBContextCache ret = SingletonHolder.s_aInstance;
     s_bDefaultInstantiated = true;
     return ret;
-  }
-
-  @Override
-  @Nullable
-  @IsLocked (ELockType.WRITE)
-  public JAXBContext getValueToCache (@Nullable final JAXBContextCacheKey aCacheKey)
-  {
-    if (aCacheKey == null)
-      return null;
-
-    final Package aPackage = aCacheKey.getPackage ();
-    final ClassLoader aClassLoader = aCacheKey.getClassLoader ();
-
-    if (GlobalDebug.isDebugMode ())
-      s_aLogger.info ("Creating JAXB context for package " +
-                      aPackage.getName () +
-                      " using ClassLoader " +
-                      aClassLoader);
-
-    try
-    {
-      // When using "-npa" on JAXB no package-info class is created!
-      if (aPackage.getAnnotation (XmlSchema.class) == null &&
-          GenericReflection.getClassFromNameSafe (aPackage.getName () + ".ObjectFactory") == null)
-      {
-        s_aLogger.warn ("The package " +
-                        aPackage.getName () +
-                        " does not seem to be JAXB generated! Trying to create a JAXBContext anyway.");
-      }
-
-      return JAXBContext.newInstance (aPackage.getName (), aClassLoader);
-    }
-    catch (final JAXBException ex)
-    {
-      final String sMsg = "Failed to create JAXB context for package '" +
-                          aPackage.getName () +
-                          "'" +
-                          " using ClassLoader " +
-                          aClassLoader;
-      s_aLogger.error (sMsg + ": " + ex.getMessage ());
-      throw new IllegalArgumentException (sMsg, ex);
-    }
   }
 
   /**

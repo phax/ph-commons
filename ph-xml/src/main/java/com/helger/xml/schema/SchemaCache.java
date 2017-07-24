@@ -31,10 +31,8 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ELockType;
-import com.helger.commons.annotation.IsLocked;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.cache.AbstractNotifyingCache;
+import com.helger.commons.cache.Cache;
 import com.helger.commons.collection.ext.CommonsArrayList;
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.io.resource.IReadableResource;
@@ -49,7 +47,7 @@ import com.helger.xml.transform.TransformSourceFactory;
  * @author Philip Helger
  */
 @ThreadSafe
-public class SchemaCache extends AbstractNotifyingCache <ICommonsList <? extends IReadableResource>, Schema>
+public class SchemaCache extends Cache <ICommonsList <? extends IReadableResource>, Schema>
 {
   private final String m_sSchemaTypeName;
   private final SchemaFactory m_aSchemaFactory;
@@ -59,7 +57,9 @@ public class SchemaCache extends AbstractNotifyingCache <ICommonsList <? extends
                       @Nullable final ErrorHandler aErrorHandler,
                       @Nullable final LSResourceResolver aResourceResolver)
   {
-    super (500, SchemaCache.class.getName () + "$" + sSchemaTypeName);
+    super (aKey -> createSchema (aSchemaFactory, sSchemaTypeName, aKey),
+           500,
+           SchemaCache.class.getName () + "$" + sSchemaTypeName);
     ValueEnforcer.notNull (sSchemaTypeName, "SchemaTypeName");
     ValueEnforcer.notNull (aSchemaFactory, "SchemaFactory");
     m_sSchemaTypeName = sSchemaTypeName;
@@ -119,14 +119,6 @@ public class SchemaCache extends AbstractNotifyingCache <ICommonsList <? extends
     {
       throw new IllegalArgumentException ("Failed to parse " + sSchemaTypeName + " from " + aResources.toString (), ex);
     }
-  }
-
-  @Override
-  @Nonnull
-  @IsLocked (ELockType.WRITE)
-  protected Schema getValueToCache (@Nonnull @Nonempty final ICommonsList <? extends IReadableResource> aKey)
-  {
-    return createSchema (m_aSchemaFactory, m_sSchemaTypeName, aKey);
   }
 
   /**

@@ -28,7 +28,7 @@ import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.cache.AbstractNotifyingCache;
+import com.helger.commons.cache.Cache;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 
@@ -47,7 +47,7 @@ public final class PDTFormatter
    * @author Philip Helger
    */
   @Immutable
-  private static final class CacheKey
+  public static final class CacheKey
   {
     private final EDTType m_eDTType;
     private final Locale m_aLocale;
@@ -107,15 +107,37 @@ public final class PDTFormatter
    * @author Philip Helger
    */
   @ThreadSafe
-  private static final class LocalizedDateFormatCache extends AbstractNotifyingCache <CacheKey, DateTimeFormatter>
+  public static final class LocalizedDateFormatCache extends Cache <CacheKey, DateTimeFormatter>
   {
     public LocalizedDateFormatCache ()
     {
-      super (1000, LocalizedDateFormatCache.class.getName ());
+      super (aKey -> {
+        String sPattern = getSourcePattern (aKey);
+
+        // Change "year of era" to "year"
+        sPattern = StringHelper.replaceAll (sPattern, 'y', 'u');
+
+        if (aKey.m_eMode == EDTFormatterMode.PARSE &&
+            "de".equals (aKey.m_aLocale.getLanguage ()) &&
+            aKey.m_eStyle == FormatStyle.MEDIUM)
+        {
+          // Change from 2 required fields to 1
+          sPattern = StringHelper.replaceAll (sPattern, "dd", "d");
+          sPattern = StringHelper.replaceAll (sPattern, "MM", "M");
+          sPattern = StringHelper.replaceAll (sPattern, "HH", "H");
+          sPattern = StringHelper.replaceAll (sPattern, "mm", "m");
+          sPattern = StringHelper.replaceAll (sPattern, "ss", "s");
+        }
+
+        // And finally create the cached DateTimeFormatter
+        // Default to strict - can be changed afterwards
+        final DateTimeFormatter ret = DateTimeFormatterCache.getDateTimeFormatterStrict (sPattern);
+        return ret;
+      }, 1000, LocalizedDateFormatCache.class.getName ());
     }
 
     @Nonnull
-    public String getSourcePattern (@Nonnull final CacheKey aKey)
+    public static String getSourcePattern (@Nonnull final CacheKey aKey)
     {
       switch (aKey.m_eDTType)
       {
@@ -126,32 +148,6 @@ public final class PDTFormatter
         default:
           return PDTFormatPatterns.getPatternDateTime (aKey.m_eStyle, aKey.m_aLocale);
       }
-    }
-
-    @Override
-    protected DateTimeFormatter getValueToCache (@Nonnull final CacheKey aKey)
-    {
-      String sPattern = getSourcePattern (aKey);
-
-      // Change "year of era" to "year"
-      sPattern = StringHelper.replaceAll (sPattern, 'y', 'u');
-
-      if (aKey.m_eMode == EDTFormatterMode.PARSE &&
-          "de".equals (aKey.m_aLocale.getLanguage ()) &&
-          aKey.m_eStyle == FormatStyle.MEDIUM)
-      {
-        // Change from 2 required fields to 1
-        sPattern = StringHelper.replaceAll (sPattern, "dd", "d");
-        sPattern = StringHelper.replaceAll (sPattern, "MM", "M");
-        sPattern = StringHelper.replaceAll (sPattern, "HH", "H");
-        sPattern = StringHelper.replaceAll (sPattern, "mm", "m");
-        sPattern = StringHelper.replaceAll (sPattern, "ss", "s");
-      }
-
-      // And finally create the cached DateTimeFormatter
-      // Default to strict - can be changed afterwards
-      final DateTimeFormatter ret = DateTimeFormatterCache.getDateTimeFormatterStrict (sPattern);
-      return ret;
     }
   }
 
@@ -204,7 +200,7 @@ public final class PDTFormatter
                                    @Nonnull final FormatStyle eStyle,
                                    @Nonnull final EDTFormatterMode eMode)
   {
-    return s_aParserCache.getSourcePattern (new CacheKey (eDTType, aLocale, eStyle, eMode));
+    return LocalizedDateFormatCache.getSourcePattern (new CacheKey (eDTType, aLocale, eStyle, eMode));
   }
 
   /**

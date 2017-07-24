@@ -35,9 +35,9 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * A simple cache for the usage of a certain annotation class at other classes.
  * <br>
- * Note: cannot use {@link com.helger.commons.cache.AbstractNotifyingCache}
- * because it would need a <code>Class&lt;?&gt;</code> as a key and this would
- * be a hard wired reference.
+ * Note: cannot use {@link com.helger.commons.cache.Cache} because it
+ * would need a <code>Class&lt;?&gt;</code> as a key and this would be a hard
+ * wired reference.
  *
  * @author Philip Helger
  */
@@ -47,7 +47,7 @@ public class AnnotationUsageCache implements Serializable
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   private final Class <? extends Annotation> m_aAnnotationClass;
   @GuardedBy ("m_aRWLock")
-  private final ICommonsMap <String, ETriState> m_aMap = new CommonsHashMap<> ();
+  private final ICommonsMap <String, ETriState> m_aMap = new CommonsHashMap <> ();
 
   /**
    * Constructor
@@ -109,7 +109,7 @@ public class AnnotationUsageCache implements Serializable
     {
       // Try again in write-lock
       eHas = m_aRWLock.writeLocked ( () -> m_aMap.computeIfAbsent (sClassName,
-                                                                  x -> ETriState.valueOf (aClass.getAnnotation (m_aAnnotationClass) != null)));
+                                                                   x -> ETriState.valueOf (aClass.getAnnotation (m_aAnnotationClass) != null)));
     }
     return eHas.isTrue ();
   }

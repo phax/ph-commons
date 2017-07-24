@@ -21,11 +21,11 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
- * Test class for class {@link AbstractNotifyingCache}.
+ * Test class for class {@link Cache}.
  *
  * @author Philip Helger
  */
-public final class AbstractNotifyingCacheTest
+public final class CacheTest
 {
   @Test
   public void testAll ()

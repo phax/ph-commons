@@ -23,11 +23,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.RegEx;
 import javax.annotation.concurrent.ThreadSafe;
 
-import com.helger.commons.annotation.ELockType;
-import com.helger.commons.annotation.IsLocked;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.Singleton;
-import com.helger.commons.cache.AbstractNotifyingCache;
+import com.helger.commons.cache.Cache;
 
 /**
  * This class provides a cached for compiled regular expressions. It caches up
@@ -37,7 +35,7 @@ import com.helger.commons.cache.AbstractNotifyingCache;
  */
 @ThreadSafe
 @Singleton
-public final class RegExCache extends AbstractNotifyingCache <RegExPattern, Pattern>
+public final class RegExCache extends Cache <RegExPattern, Pattern>
 {
   private static final class SingletonHolder
   {
@@ -51,7 +49,7 @@ public final class RegExCache extends AbstractNotifyingCache <RegExPattern, Patt
 
   private RegExCache ()
   {
-    super (MAX_CACHE_SIZE, RegExCache.class.getName ());
+    super (RegExPattern::getAsPattern, MAX_CACHE_SIZE, RegExCache.class.getName ());
   }
 
   public static boolean isInstantiated ()
@@ -65,14 +63,6 @@ public final class RegExCache extends AbstractNotifyingCache <RegExPattern, Patt
     final RegExCache ret = SingletonHolder.s_aInstance;
     s_bDefaultInstantiated = true;
     return ret;
-  }
-
-  @Override
-  @Nonnull
-  @IsLocked (ELockType.WRITE)
-  protected Pattern getValueToCache (@Nonnull final RegExPattern aRegEx)
-  {
-    return aRegEx.getAsPattern ();
   }
 
   /**

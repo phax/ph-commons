@@ -16,11 +16,8 @@
  */
 package com.helger.commons.aggregate;
 
-import javax.annotation.Nonnull;
-
 import com.helger.commons.collection.ext.ICommonsList;
 import com.helger.commons.functional.IFunction;
-import com.helger.commons.string.StringHelper;
 
 /**
  * Splits an input object to a list of output objects (change 1 to n).
@@ -35,9 +32,5 @@ import com.helger.commons.string.StringHelper;
 @FunctionalInterface
 public interface ISplitter <SRCTYPE, DSTTYPE> extends IFunction <SRCTYPE, ICommonsList <DSTTYPE>>
 {
-  @Nonnull
-  static ISplitter <String, String> createStringSplit (final char cSep)
-  {
-    return sSrc -> StringHelper.getExploded (cSep, sSrc);
-  }
+  /* empty */
 }

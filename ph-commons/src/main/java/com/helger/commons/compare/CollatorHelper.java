@@ -28,16 +28,12 @@ import javax.annotation.concurrent.ThreadSafe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.ELockType;
-import com.helger.commons.annotation.IsLocked;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.cache.AbstractNotifyingCache;
+import com.helger.commons.cache.Cache;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.system.SystemHelper;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * Helper class to easily create commonly used {@link Collator} objects.
@@ -54,67 +50,60 @@ public final class CollatorHelper
    * @author Philip Helger
    */
   @ThreadSafe
-  private static final class CollatorCache extends AbstractNotifyingCache <Locale, Collator>
+  private static final class CollatorCache extends Cache <Locale, Collator>
   {
     private static final Logger s_aLogger = LoggerFactory.getLogger (CollatorCache.class);
 
     public CollatorCache ()
     {
-      super (500, CollatorHelper.class.getName ());
-    }
-
-    @Override
-    @Nonnull
-    @IsLocked (ELockType.WRITE)
-    @SuppressFBWarnings ("RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE")
-    protected Collator getValueToCache (@Nullable final Locale aLocale)
-    {
-      if (aLocale == null)
-      {
-        s_aLogger.error ("Very weird: no locale passed in. Falling back to system locale.");
-        return Collator.getInstance (SystemHelper.getSystemLocale ());
-      }
-
-      // Collator.getInstance is synchronized and therefore extremely slow ->
-      // that's why we put a cache around it!
-      final Collator aCollator = Collator.getInstance (aLocale);
-      if (aCollator == null)
-      {
-        final Locale aSystemLocale = SystemHelper.getSystemLocale ();
-        s_aLogger.error ("Failed to get Collator for Locale " +
-                         aLocale +
-                         " - using Collator for syste locale " +
-                         aSystemLocale +
-                         "!");
-        return Collator.getInstance (aSystemLocale);
-      }
-      if (!(aCollator instanceof RuleBasedCollator))
-      {
-        s_aLogger.warn ("Collator.getInstance did not return a RulleBasedCollator but a " +
-                        aCollator.getClass ().getName ());
-        return aCollator;
-      }
-
-      try
-      {
-        final String sRules = ((RuleBasedCollator) aCollator).getRules ();
-        if (!sRules.contains ("<'.'<"))
+      super (aLocale -> {
+        if (aLocale == null)
         {
-          // Nothing to replace - use collator as it is
-          s_aLogger.warn ("Failed to identify the Collator rule part to be replaced. Locale used: " + aLocale);
+          s_aLogger.error ("Very weird: no locale passed in. Falling back to system locale.");
+          return Collator.getInstance (SystemHelper.getSystemLocale ());
+        }
+
+        // Collator.getInstance is synchronized and therefore extremely slow ->
+        // that's why we put a cache around it!
+        final Collator aCollator = Collator.getInstance (aLocale);
+        if (aCollator == null)
+        {
+          final Locale aSystemLocale = SystemHelper.getSystemLocale ();
+          s_aLogger.error ("Failed to get Collator for Locale " +
+                           aLocale +
+                           " - using Collator for syste locale " +
+                           aSystemLocale +
+                           "!");
+          return Collator.getInstance (aSystemLocale);
+        }
+        if (!(aCollator instanceof RuleBasedCollator))
+        {
+          s_aLogger.warn ("Collator.getInstance did not return a RulleBasedCollator but a " +
+                          aCollator.getClass ().getName ());
           return aCollator;
         }
 
-        final String sNewRules = StringHelper.replaceAll (sRules, "<'.'<", "<' '<'.'<");
-        final RuleBasedCollator aNewCollator = new RuleBasedCollator (sNewRules);
-        aNewCollator.setStrength (Collator.TERTIARY);
-        aNewCollator.setDecomposition (Collator.FULL_DECOMPOSITION);
-        return aNewCollator;
-      }
-      catch (final ParseException ex)
-      {
-        throw new IllegalStateException ("Failed to parse collator rule set for locale " + aLocale, ex);
-      }
+        try
+        {
+          final String sRules = ((RuleBasedCollator) aCollator).getRules ();
+          if (!sRules.contains ("<'.'<"))
+          {
+            // Nothing to replace - use collator as it is
+            s_aLogger.warn ("Failed to identify the Collator rule part to be replaced. Locale used: " + aLocale);
+            return aCollator;
+          }
+
+          final String sNewRules = StringHelper.replaceAll (sRules, "<'.'<", "<' '<'.'<");
+          final RuleBasedCollator aNewCollator = new RuleBasedCollator (sNewRules);
+          aNewCollator.setStrength (Collator.TERTIARY);
+          aNewCollator.setDecomposition (Collator.FULL_DECOMPOSITION);
+          return aNewCollator;
+        }
+        catch (final ParseException ex)
+        {
+          throw new IllegalStateException ("Failed to parse collator rule set for locale " + aLocale, ex);
+        }
+      }, 500, CollatorHelper.class.getName ());
     }
   }
 
