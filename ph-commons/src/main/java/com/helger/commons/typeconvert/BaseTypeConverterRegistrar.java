@@ -18,12 +18,15 @@ package com.helger.commons.typeconvert;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
+
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.collection.impl.ICommonsList;
@@ -276,6 +279,21 @@ public final class BaseTypeConverterRegistrar implements ITypeConverterRegistrar
       {
         return null;
       }
+    });
+
+    // String[] to any
+    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (String [].class, x -> {
+      if (x.length == 0)
+        return null;
+      if (x.length > 1)
+      {
+        LoggerFactory.getLogger ("TypeConverter")
+                     .warn ("An array with " +
+                            x.length +
+                            " items is present; using the first value: " +
+                            Arrays.toString (x));
+      }
+      return x[0];
     });
   }
 }

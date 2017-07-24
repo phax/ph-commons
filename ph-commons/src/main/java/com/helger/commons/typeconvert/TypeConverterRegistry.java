@@ -100,11 +100,9 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
 
     if (ret == null)
     {
-      ret = m_aRWLock.writeLocked ( () -> {
-        // Try again in write lock
-        // Weak hash map because key is a class
-        return m_aConverter.computeIfAbsent (aClass, k -> new CommonsWeakHashMap <> ());
-      });
+      // Try again in write lock
+      // Weak hash map because key is a class
+      ret = m_aRWLock.writeLocked ( () -> m_aConverter.computeIfAbsent (aClass, k -> new CommonsWeakHashMap <> ()));
     }
     return ret;
   }

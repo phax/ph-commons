@@ -90,21 +90,21 @@ public final class AttributeContainerAnyTest
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new AttributeContainerAny <String> (),
                                                                        new AttributeContainerAny <String> ());
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new AttributeContainerAny <> (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                                                      "key2" },
-                                                                                                                                      new Object [] { "value",
-                                                                                                                                                      "value2" })),
+                                                                                                                                              "key2" },
+                                                                                                                              new Object [] { "value",
+                                                                                                                                              "value2" })),
                                                                        new AttributeContainerAny <> (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                                                      "key2" },
-                                                                                                                                      new Object [] { "value",
-                                                                                                                                                      "value2" })));
+                                                                                                                                              "key2" },
+                                                                                                                              new Object [] { "value",
+                                                                                                                                              "value2" })));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new AttributeContainerAny <> (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                                                          "key2" },
-                                                                                                                                          new Object [] { "value",
-                                                                                                                                                          "value2" })),
+                                                                                                                                                  "key2" },
+                                                                                                                                  new Object [] { "value",
+                                                                                                                                                  "value2" })),
                                                                            new AttributeContainerAny <> (CollectionHelper.newMap (new String [] { "key",
-                                                                                                                                                          "key2" },
-                                                                                                                                          new Object [] { "value",
-                                                                                                                                                          "value" })));
+                                                                                                                                                  "key2" },
+                                                                                                                                  new Object [] { "value",
+                                                                                                                                                  "value" })));
 
     assertTrue (new AttributeContainerAny <> ((Map <String, Object>) null).isEmpty ());
   }
@@ -119,5 +119,22 @@ public final class AttributeContainerAnyTest
     assertTrue (aCont.getAndSetAttributeFlag ("any"));
     for (int i = 0; i < 20; ++i)
       assertTrue (aCont.getAndSetAttributeFlag ("any"));
+  }
+
+  @Test
+  public void testWithStringArray ()
+  {
+    final AttributeContainerAny <String> aCont = new AttributeContainerAny <> ();
+    aCont.setAttribute ("a", new String [] { "1", "20" });
+    // Expected to use the first
+    assertEquals ("1", aCont.getAsString ("a"));
+    assertEquals (1, aCont.getAsInt ("a"));
+    assertEquals (1, aCont.getAsLong ("a"));
+    assertEquals (1, aCont.getAsShort ("a"));
+    assertEquals (1, aCont.getAsByte ("a"));
+    CommonsAssert.assertEquals (1, aCont.getAsDouble ("a"));
+    CommonsAssert.assertEquals (1, aCont.getAsFloat ("a"));
+    assertEquals (BigDecimal.ONE, aCont.getAsBigDecimal ("a"));
+    assertEquals (BigInteger.ONE, aCont.getAsBigInteger ("a"));
   }
 }
