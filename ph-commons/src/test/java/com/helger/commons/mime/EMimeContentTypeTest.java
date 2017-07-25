@@ -21,6 +21,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Locale;
+
 import org.junit.Test;
 
 import com.helger.commons.mock.AbstractCommonsTestCase;
@@ -42,6 +44,8 @@ public final class EMimeContentTypeTest extends AbstractCommonsTestCase
       assertTrue (StringHelper.hasText (e.getText ()));
       assertNotNull (e.buildMimeType ("x-junit-test"));
       assertTrue (e.isTypeOf (e.getText () + "/x-junit-test"));
+      assertTrue (e.isTypeOf (e.getText ().toLowerCase (Locale.US) + "/x-junit-test"));
+      assertTrue (e.isTypeOf (e.getText ().toUpperCase (Locale.US) + "/x-junit-test"));
       assertFalse (e.isTypeOf ("maintype/x-junit-test"));
       assertSame (e, EMimeContentType.valueOf (e.name ()));
       assertSame (e, EMimeContentType.getFromIDOrNull (e.getID ()));

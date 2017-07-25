@@ -56,13 +56,19 @@ public enum EMimeContentType implements IHasID <String>
 
   private final String m_sText;
 
+  /**
+   * Constructor
+   *
+   * @param sText
+   *        Must be lowercase MIME content type
+   */
   private EMimeContentType (@Nonnull @Nonempty final String sText)
   {
     m_sText = sText;
   }
 
   /**
-   * @return The text representation of this MIME content type.
+   * @return The lower case text representation of this MIME content type.
    */
   @Nonnull
   @Nonempty
@@ -72,7 +78,8 @@ public enum EMimeContentType implements IHasID <String>
   }
 
   /**
-   * @return The same as {@link #getID()}
+   * @return The lower case text representation of this MIME content type.
+   * @see #getID()
    */
   @Nonnull
   @Nonempty
@@ -106,7 +113,12 @@ public enum EMimeContentType implements IHasID <String>
    */
   public boolean isTypeOf (@Nullable final String sMimeType)
   {
-    return StringHelper.startsWith (sMimeType, m_sText + CMimeType.SEPARATOR_CONTENTTYPE_SUBTYPE);
+    if (StringHelper.hasNoText (sMimeType))
+      return false;
+    final int nIdx = sMimeType.indexOf (CMimeType.SEPARATOR_CONTENTTYPE_SUBTYPE);
+    if (nIdx < 0)
+      return false;
+    return m_sText.equalsIgnoreCase (sMimeType.substring (0, nIdx));
   }
 
   @Nullable
