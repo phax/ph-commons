@@ -46,11 +46,6 @@ public class AttributeContainerConcurrent <KEYTYPE, VALUETYPE> extends CommonsCo
   public AttributeContainerConcurrent ()
   {}
 
-  public AttributeContainerConcurrent (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
-  {
-    put (aKey, aValue);
-  }
-
   public AttributeContainerConcurrent (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
     super (aMap);
