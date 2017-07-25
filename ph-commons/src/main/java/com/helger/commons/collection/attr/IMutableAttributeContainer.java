@@ -16,6 +16,8 @@
  */
 package com.helger.commons.collection.attr;
 
+import java.util.Map;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -80,5 +82,15 @@ public interface IMutableAttributeContainer <KEYTYPE, VALUETYPE> extends IAttrib
     // Set and compare
     final VALUETYPE aOldValue = put (aName, aValue);
     return EChange.valueOf (!EqualsHelper.equals (aValue, aOldValue));
+  }
+
+  @Nonnull
+  default EChange setAttributes (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aAttrs)
+  {
+    EChange eChange = EChange.UNCHANGED;
+    if (aAttrs != null)
+      for (final Map.Entry <? extends KEYTYPE, ? extends VALUETYPE> aEntry : aAttrs.entrySet ())
+        eChange = eChange.or (setAttribute (aEntry.getKey (), aEntry.getValue ()));
+    return eChange;
   }
 }
