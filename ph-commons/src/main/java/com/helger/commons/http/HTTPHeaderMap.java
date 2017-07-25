@@ -506,6 +506,16 @@ public class HTTPHeaderMap implements
     }
   }
 
+  public void setContentLength (final int nLength)
+  {
+    _setHeader (CHTTPHeader.CONTENT_LENGTH, Integer.toString (nLength));
+  }
+
+  public void setContentType (@Nonnull final String sContentType)
+  {
+    _setHeader (CHTTPHeader.CONTENT_TYPE, sContentType);
+  }
+
   @Nonnull
   @ReturnsMutableCopy
   public HTTPHeaderMap getClone ()
