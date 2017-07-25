@@ -26,7 +26,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.ICommonsIterable;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.state.EChange;
-import com.helger.commons.traits.IAddByIndexTrait;
+import com.helger.commons.traits.IGenericAdderTrait;
 import com.helger.commons.traits.IGetterByIndexTrait;
 import com.helger.commons.traits.IPrimitiveConverterTo;
 
@@ -39,7 +39,7 @@ public interface IJsonArray extends
                             IJsonCollection,
                             ICommonsIterable <IJson>,
                             IGetterByIndexTrait,
-                            IAddByIndexTrait <IJson, IJsonArray>
+                            IGenericAdderTrait <IJson, IJsonArray>
 {
   @Nonnull
   default IPrimitiveConverterTo <IJson> getPrimitiveConverterTo ()
