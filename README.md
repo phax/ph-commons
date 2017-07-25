@@ -436,6 +436,54 @@ Add the following to your pom.xml to use this artifact:
 </dependency>
 ```
 
+# ph-scopes
+
+Contains all the global scope handling as well as the scoped singleton base classes.
+
+## Maven usage
+
+Add the following to your pom.xml to use this artifact:
+```
+<dependency>
+  <groupId>com.helger</groupId>
+  <artifactId>ph-scopes</artifactId>
+  <version>9.0.0-SNAPSHOT</version>
+</dependency>
+```
+
+# ph-collection
+
+Some special collections not used everywhere (like multi maps etc.)
+
+## Maven usage
+
+Add the following to your pom.xml to use this artifact:
+```
+<dependency>
+  <groupId>com.helger</groupId>
+  <artifactId>ph-collection</artifactId>
+  <version>9.0.0-SNAPSHOT</version>
+</dependency>
+```
+
+# ph-cli
+
+Fork of Apache commons-cli 1.4 with cleansing.
+* Remove deprecated stuff
+* Adopted naming of variables
+* Adopted class names
+
+## Maven usage
+
+Add the following to your pom.xml to use this artifact:
+```
+<dependency>
+  <groupId>com.helger</groupId>
+  <artifactId>ph-cli</artifactId>
+  <version>9.0.0-SNAPSHOT</version>
+</dependency>
+```
+
 ---
 
 My personal [Coding Styleguide](https://github.com/phax/meta/blob/master/CodeingStyleguide.md) |
