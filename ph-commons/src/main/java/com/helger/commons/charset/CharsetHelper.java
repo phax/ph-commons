@@ -102,6 +102,24 @@ public final class CharsetHelper
   @Nullable
   public static Charset getCharsetFromNameOrNull (@Nullable final String sCharsetName)
   {
+    return getCharsetFromNameOrNull (sCharsetName, null);
+  }
+
+  /**
+   * Resolve the charset by the specified name. The difference to
+   * {@link Charset#forName(String)} is, that this method throws no exceptions.
+   *
+   * @param sCharsetName
+   *        The charset to be resolved. May be <code>null</code> or empty.
+   * @param aDefault
+   *        the default charset to be returned if none is provided. May be
+   *        <code>null</code>.
+   * @return The Charset object or the provided default if no such charset was
+   *         found.
+   */
+  @Nullable
+  public static Charset getCharsetFromNameOrNull (@Nullable final String sCharsetName, @Nullable final Charset aDefault)
+  {
     if (StringHelper.hasText (sCharsetName))
       try
       {
@@ -111,7 +129,7 @@ public final class CharsetHelper
       {
         // Fall through
       }
-    return null;
+    return aDefault;
   }
 
   /**
