@@ -209,6 +209,8 @@
             <exclude>**/JavaListDigestProviderFuncTest.class</exclude>
             <exclude>**/EMacAlgorithm.class</exclude>
             <exclude>**/EMessageDigestAlgorithm.class</exclude>
+            <!-- CLI module printing to System.out -->
+            <exclude>**/HelpFormatter.class</exclude>
           </excludes>
         </configuration>
         <!-- local executions are ignored -->

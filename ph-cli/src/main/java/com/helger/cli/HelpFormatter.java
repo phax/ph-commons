@@ -553,9 +553,9 @@ public class HelpFormatter
    * Print the help for <code>options</code> with the specified command line
    * syntax.
    *
-   * @param pw
+   * @param aPW
    *        the writer to which the help will be written
-   * @param width
+   * @param nWidth
    *        the number of characters to be displayed on each line
    * @param cmdLineSyntax
    *        the syntax for this application
@@ -575,8 +575,8 @@ public class HelpFormatter
    * @throws IllegalStateException
    *         if there is no room to print a line
    */
-  public void printHelp (final PrintWriter pw,
-                         final int width,
+  public void printHelp (final PrintWriter aPW,
+                         final int nWidth,
                          @Nonnull @Nonempty final String cmdLineSyntax,
                          @Nullable final String header,
                          final Options options,
@@ -588,23 +588,23 @@ public class HelpFormatter
     ValueEnforcer.notEmpty (cmdLineSyntax, "cmdLineSyntax");
 
     if (bAutoUsage)
-      printUsage (pw, width, cmdLineSyntax, options);
+      printUsage (aPW, nWidth, cmdLineSyntax, options);
     else
-      printUsage (pw, width, cmdLineSyntax);
+      printUsage (aPW, nWidth, cmdLineSyntax);
 
     if (header != null && header.trim ().length () > 0)
-      printWrapped (pw, width, header);
+      printWrapped (aPW, nWidth, header);
 
-    printOptions (pw, width, options, leftPad, descPad);
+    printOptions (aPW, nWidth, options, leftPad, descPad);
 
     if (footer != null && footer.trim ().length () > 0)
-      printWrapped (pw, width, footer);
+      printWrapped (aPW, nWidth, footer);
   }
 
   /**
    * Prints the usage statement for the specified application.
    *
-   * @param pw
+   * @param aPW
    *        The PrintWriter to print the usage statement
    * @param width
    *        The number of characters to display per line
@@ -613,7 +613,7 @@ public class HelpFormatter
    * @param options
    *        The command line Options
    */
-  public void printUsage (final PrintWriter pw, final int width, final String app, final Options options)
+  public void printUsage (@Nonnull final PrintWriter aPW, final int width, final String app, final Options options)
   {
     // initialise the string buffer
     final StringBuilder buff = new StringBuilder (getSyntaxPrefix ()).append (app).append (" ");
@@ -661,7 +661,7 @@ public class HelpFormatter
     }
 
     // call printWrapped
-    printWrapped (pw, width, buff.toString ().indexOf (' ') + 1, buff.toString ());
+    printWrapped (aPW, width, buff.toString ().indexOf (' ') + 1, buff.toString ());
   }
 
   /**
@@ -735,18 +735,18 @@ public class HelpFormatter
   /**
    * Print the cmdLineSyntax to the specified writer, using the specified width.
    *
-   * @param pw
+   * @param aPW
    *        The printWriter to write the help to
    * @param width
    *        The number of characters per line for the usage statement.
    * @param cmdLineSyntax
    *        The usage statement.
    */
-  public void printUsage (final PrintWriter pw, final int width, final String cmdLineSyntax)
+  public void printUsage (@Nonnull final PrintWriter aPW, final int width, final String cmdLineSyntax)
   {
-    final int argPos = cmdLineSyntax.indexOf (' ') + 1;
+    final int nArgPos = cmdLineSyntax.indexOf (' ') + 1;
 
-    printWrapped (pw, width, getSyntaxPrefix ().length () + argPos, getSyntaxPrefix () + cmdLineSyntax);
+    printWrapped (aPW, width, getSyntaxPrefix ().length () + nArgPos, getSyntaxPrefix () + cmdLineSyntax);
   }
 
   /**
@@ -780,16 +780,16 @@ public class HelpFormatter
   /**
    * Print the specified text to the specified PrintWriter.
    *
-   * @param pw
+   * @param aPW
    *        The printWriter to write the help to
-   * @param width
+   * @param nWidth
    *        The number of characters to display per line
    * @param sText
    *        The text to be written to the PrintWriter
    */
-  public void printWrapped (@Nonnull final PrintWriter pw, final int width, @Nonnull final String sText)
+  public void printWrapped (@Nonnull final PrintWriter aPW, final int nWidth, @Nonnull final String sText)
   {
-    printWrapped (pw, width, 0, sText);
+    printWrapped (aPW, nWidth, 0, sText);
   }
 
   /**
@@ -797,51 +797,49 @@ public class HelpFormatter
    *
    * @param aPW
    *        The printWriter to write the help to
-   * @param width
+   * @param nWidth
    *        The number of characters to display per line
-   * @param nextLineTabStop
+   * @param nNextLineTabStop
    *        The position on the next line for the first tab.
    * @param sText
    *        The text to be written to the PrintWriter
    */
   public void printWrapped (@Nonnull final PrintWriter aPW,
-                            final int width,
-                            final int nextLineTabStop,
+                            final int nWidth,
+                            final int nNextLineTabStop,
                             @Nonnull final String sText)
   {
     final StringBuilder aSB = new StringBuilder (sText.length ());
 
-    _renderWrappedTextBlock (aSB, width, nextLineTabStop, sText);
+    _renderWrappedTextBlock (aSB, nWidth, nNextLineTabStop, sText);
     aPW.println (aSB.toString ());
   }
-
-  // --------------------------------------------------------------- Protected
 
   /**
    * Render the specified Options and return the rendered Options in a
    * StringBuilder.
    *
-   * @param sb
+   * @param ret
    *        The StringBuilder to place the rendered Options into.
-   * @param width
+   * @param nWidth
    *        The number of characters to display per line
-   * @param options
+   * @param aOptions
    *        The command line Options
-   * @param leftPad
+   * @param nLeftPad
    *        the number of characters of padding to be prefixed to each line
-   * @param descPad
+   * @param nDescPad
    *        the number of characters of padding to be prefixed to each
    *        description line
    * @return the StringBuilder with the rendered Options contents.
    */
-  protected StringBuilder renderOptions (final StringBuilder sb,
-                                         final int width,
-                                         final Options options,
-                                         final int leftPad,
-                                         final int descPad)
+  protected StringBuilder renderOptions (final StringBuilder ret,
+                                         final int nWidth,
+                                         final Options aOptions,
+                                         final int nLeftPad,
+                                         final int nDescPad)
   {
-    final String sLeftPad = createPadding (leftPad);
-    final String sDescPad = createPadding (descPad);
+    final String sLeftPad = createPadding (nLeftPad);
+    final String sDescPad = createPadding (nDescPad);
 
     // first create list containing only <lpad>-a,--aaa where
     // -a is opt and --aaa is long opt; in parallel look for
@@ -849,7 +847,7 @@ public class HelpFormatter
     // sort options ascending
     int nMaxLen = 0;
     final ICommonsList <StringBuilder> aPrefixList = new CommonsArrayList <> ();
-    final ICommonsList <Option> aOptList = options.getAllOptions ();
+    final ICommonsList <Option> aOptList = aOptions.getAllOptions ();
 
     if (getOptionComparator () != null)
       aOptList.sort (getOptionComparator ());
@@ -900,18 +898,18 @@ public class HelpFormatter
 
       aSB.append (sDescPad);
 
-      final int nNextLineTabStop = nMaxLen + descPad;
+      final int nNextLineTabStop = nMaxLen + nDescPad;
 
       if (aOption.hasDescription ())
         aSB.append (aOption.getDescription ());
 
-      renderWrappedText (sb, width, nNextLineTabStop, aSB.toString ());
+      renderWrappedText (ret, nWidth, nNextLineTabStop, aSB.toString ());
 
       if (it.hasNext ())
-        sb.append (getNewLine ());
+        ret.append (getNewLine ());
     }
 
-    return sb;
+    return ret;
   }
 
   /**
