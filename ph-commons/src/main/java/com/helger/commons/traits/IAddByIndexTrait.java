@@ -1,5 +1,6 @@
 package com.helger.commons.traits;
 
+import java.io.Serializable;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -10,34 +11,45 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.CGlobal;
 
-public interface IGenericAdderTrait <DSTTYPE, IMPLTYPE extends IGenericAdderTrait <DSTTYPE, IMPLTYPE>> extends
+/**
+ * Add arbitrary objects to this
+ *
+ * @author Philip Helger
+ * @param <ELEMENTTYPE>
+ *        The element type to be added. Must implement Serializable as a hack,
+ *        so that the APIs <code>add(Object)</code> and
+ *        <code>add(ELEMENTTYPE)</code> can co-exist. Otherwise there would be a
+ *        problem with type erasure.
+ * @param <IMPLTYPE>
+ *        The implementation type for chaining API
+ */
+public interface IAddByIndexTrait <ELEMENTTYPE extends Serializable, IMPLTYPE extends IAddByIndexTrait <ELEMENTTYPE, IMPLTYPE>>
+                                    extends
+                                    IHasPrimitiveConverter <ELEMENTTYPE>,
                                     IGenericImplTrait <IMPLTYPE>
 {
   @Nonnull
-  IPrimitiveConverterTo <DSTTYPE> getPrimitiveConverterTo ();
-
-  @Nonnull
-  default IMPLTYPE addNative (final DSTTYPE aValue)
+  default IMPLTYPE add (final ELEMENTTYPE aValue)
   {
-    return addNativeAt (CGlobal.ILLEGAL_UINT, aValue);
+    return addAt (CGlobal.ILLEGAL_UINT, aValue);
   }
 
   @Nonnull
-  IMPLTYPE addNativeAt (@CheckForSigned int nIndex, DSTTYPE aValue);
+  IMPLTYPE addAt (@CheckForSigned int nIndex, ELEMENTTYPE aValue);
 
   @Nonnull
-  default IMPLTYPE addNativeIf (@Nonnull final DSTTYPE aValue, @Nonnull final Predicate <? super DSTTYPE> aFilter)
+  default IMPLTYPE addIf (@Nonnull final ELEMENTTYPE aValue, @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
   {
     if (aFilter.test (aValue))
-      addNative (aValue);
+      add (aValue);
     return thisAsT ();
   }
 
   @Nonnull
-  default IMPLTYPE addNativeIfNotNull (@Nullable final DSTTYPE aValue)
+  default IMPLTYPE addIfNotNull (@Nullable final ELEMENTTYPE aValue)
   {
     if (aValue != null)
-      addNative (aValue);
+      add (aValue);
     return thisAsT ();
   }
 
@@ -46,12 +58,12 @@ public interface IGenericAdderTrait <DSTTYPE, IMPLTYPE extends IGenericAdderTrai
    *
    * @param aValue
    *        The value to be added. May be <code>null</code>.
-   * @return thisAsT ()
+   * @return this for chaining
    */
   @Nonnull
   default IMPLTYPE add (@Nullable final Object aValue)
   {
-    return addNative (getPrimitiveConverterTo ().convert (aValue));
+    return add (getPrimitiveConverterTo ().convert (aValue));
   }
 
   @Nonnull
@@ -65,49 +77,49 @@ public interface IGenericAdderTrait <DSTTYPE, IMPLTYPE extends IGenericAdderTrai
   @Nonnull
   default IMPLTYPE add (final boolean bValue)
   {
-    return addNative (getPrimitiveConverterTo ().convert (bValue));
+    return add (getPrimitiveConverterTo ().convert (bValue));
   }
 
   @Nonnull
   default IMPLTYPE add (final byte nValue)
   {
-    return addNative (getPrimitiveConverterTo ().convert (nValue));
+    return add (getPrimitiveConverterTo ().convert (nValue));
   }
 
   @Nonnull
   default IMPLTYPE add (final char cValue)
   {
-    return addNative (getPrimitiveConverterTo ().convert (cValue));
+    return add (getPrimitiveConverterTo ().convert (cValue));
   }
 
   @Nonnull
   default IMPLTYPE add (final double dValue)
   {
-    return addNative (getPrimitiveConverterTo ().convert (dValue));
+    return add (getPrimitiveConverterTo ().convert (dValue));
   }
 
   @Nonnull
   default IMPLTYPE add (final float fValue)
   {
-    return addNative (getPrimitiveConverterTo ().convert (fValue));
+    return add (getPrimitiveConverterTo ().convert (fValue));
   }
 
   @Nonnull
   default IMPLTYPE add (final int nValue)
   {
-    return addNative (getPrimitiveConverterTo ().convert (nValue));
+    return add (getPrimitiveConverterTo ().convert (nValue));
   }
 
   @Nonnull
   default IMPLTYPE add (final long nValue)
   {
-    return addNative (getPrimitiveConverterTo ().convert (nValue));
+    return add (getPrimitiveConverterTo ().convert (nValue));
   }
 
   @Nonnull
   default IMPLTYPE add (final short nValue)
   {
-    return addNative (getPrimitiveConverterTo ().convert (nValue));
+    return add (getPrimitiveConverterTo ().convert (nValue));
   }
 
   /**
@@ -122,55 +134,55 @@ public interface IGenericAdderTrait <DSTTYPE, IMPLTYPE extends IGenericAdderTrai
   @Nonnull
   default IMPLTYPE addAt (@Nonnegative final int nIndex, @Nullable final Object aValue)
   {
-    return addNativeAt (nIndex, getPrimitiveConverterTo ().convert (aValue));
+    return addAt (nIndex, getPrimitiveConverterTo ().convert (aValue));
   }
 
   @Nonnull
   default IMPLTYPE addAt (@Nonnegative final int nIndex, final boolean bValue)
   {
-    return addNativeAt (nIndex, getPrimitiveConverterTo ().convert (bValue));
+    return addAt (nIndex, getPrimitiveConverterTo ().convert (bValue));
   }
 
   @Nonnull
   default IMPLTYPE addAt (@Nonnegative final int nIndex, final byte nValue)
   {
-    return addNativeAt (nIndex, getPrimitiveConverterTo ().convert (nValue));
+    return addAt (nIndex, getPrimitiveConverterTo ().convert (nValue));
   }
 
   @Nonnull
   default IMPLTYPE addAt (@Nonnegative final int nIndex, final char cValue)
   {
-    return addNativeAt (nIndex, getPrimitiveConverterTo ().convert (cValue));
+    return addAt (nIndex, getPrimitiveConverterTo ().convert (cValue));
   }
 
   @Nonnull
   default IMPLTYPE addAt (@Nonnegative final int nIndex, final double dValue)
   {
-    return addNativeAt (nIndex, getPrimitiveConverterTo ().convert (dValue));
+    return addAt (nIndex, getPrimitiveConverterTo ().convert (dValue));
   }
 
   @Nonnull
   default IMPLTYPE addAt (@Nonnegative final int nIndex, final float fValue)
   {
-    return addNativeAt (nIndex, getPrimitiveConverterTo ().convert (fValue));
+    return addAt (nIndex, getPrimitiveConverterTo ().convert (fValue));
   }
 
   @Nonnull
   default IMPLTYPE addAt (@Nonnegative final int nIndex, final int nValue)
   {
-    return addNativeAt (nIndex, getPrimitiveConverterTo ().convert (nValue));
+    return addAt (nIndex, getPrimitiveConverterTo ().convert (nValue));
   }
 
   @Nonnull
   default IMPLTYPE addAt (@Nonnegative final int nIndex, final long nValue)
   {
-    return addNativeAt (nIndex, getPrimitiveConverterTo ().convert (nValue));
+    return addAt (nIndex, getPrimitiveConverterTo ().convert (nValue));
   }
 
   @Nonnull
   default IMPLTYPE addAt (@Nonnegative final int nIndex, final short nValue)
   {
-    return addNativeAt (nIndex, getPrimitiveConverterTo ().convert (nValue));
+    return addAt (nIndex, getPrimitiveConverterTo ().convert (nValue));
   }
 
   @Nonnull
@@ -256,11 +268,11 @@ public interface IGenericAdderTrait <DSTTYPE, IMPLTYPE extends IGenericAdderTrai
 
   @Nonnull
   default <T> IMPLTYPE addAllMapped (@Nullable final T [] aValues,
-                                     @Nonnull final Function <? super T, ? extends DSTTYPE> aMapper)
+                                     @Nonnull final Function <? super T, ? extends ELEMENTTYPE> aMapper)
   {
     if (aValues != null)
       for (final T aValue : aValues)
-        addNative (aMapper.apply (aValue));
+        add (aMapper.apply (aValue));
     return thisAsT ();
   }
 
@@ -275,11 +287,11 @@ public interface IGenericAdderTrait <DSTTYPE, IMPLTYPE extends IGenericAdderTrai
 
   @Nonnull
   default <T> IMPLTYPE addAllMapped (@Nullable final Iterable <? extends T> aValues,
-                                     @Nonnull final Function <? super T, ? extends DSTTYPE> aMapper)
+                                     @Nonnull final Function <? super T, ? extends ELEMENTTYPE> aMapper)
   {
     if (aValues != null)
       for (final T aItem : aValues)
-        addNative (aMapper.apply (aItem));
+        add (aMapper.apply (aItem));
     return thisAsT ();
   }
 
@@ -446,14 +458,14 @@ public interface IGenericAdderTrait <DSTTYPE, IMPLTYPE extends IGenericAdderTrai
   @Nonnull
   default <T> IMPLTYPE addAllMappedAt (@Nonnegative final int nIndex,
                                        @Nullable final T [] aValues,
-                                       @Nonnull final Function <? super T, ? extends DSTTYPE> aMapper)
+                                       @Nonnull final Function <? super T, ? extends ELEMENTTYPE> aMapper)
   {
     if (aValues != null)
     {
       int nRealIndex = nIndex;
       for (final T aItem : aValues)
       {
-        addNativeAt (nRealIndex, aMapper.apply (aItem));
+        addAt (nRealIndex, aMapper.apply (aItem));
         nRealIndex++;
       }
     }
@@ -463,14 +475,14 @@ public interface IGenericAdderTrait <DSTTYPE, IMPLTYPE extends IGenericAdderTrai
   @Nonnull
   default <T> IMPLTYPE addAllMappedAt (@Nonnegative final int nIndex,
                                        @Nullable final Iterable <? extends T> aValues,
-                                       @Nonnull final Function <? super T, ? extends DSTTYPE> aMapper)
+                                       @Nonnull final Function <? super T, ? extends ELEMENTTYPE> aMapper)
   {
     if (aValues != null)
     {
       int nRealIndex = nIndex;
       for (final T aItem : aValues)
       {
-        addNativeAt (nRealIndex, aMapper.apply (aItem));
+        addAt (nRealIndex, aMapper.apply (aItem));
         nRealIndex++;
       }
     }
