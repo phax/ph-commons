@@ -92,6 +92,11 @@
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
+        <artifactId>ph-cli</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger</groupId>
         <artifactId>ph-security</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -165,6 +170,7 @@
     <module>ph-commons</module>
     <module>ph-collection</module>
     <module>ph-scopes</module>
+    <module>ph-cli</module>
     <module>ph-security</module>
     <module>ph-xml</module>
     <module>ph-jaxb</module>

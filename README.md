@@ -51,6 +51,8 @@ This project was the following modules:
     * Removed default methods from `IAggregator`
     * Added reverse interface `ISplitter`
     * Changed caching API to use a function instead of a protected methods
+    * Integrated `ph-cli` here
+    * Improved and extended traits API 
   * v8.6.6 - 2017-07-12
     * Extended `CSVWriter` API
     * `SimpleLSResourceResolver` can now handle fat jars from Spring Boot (issue #8)
