@@ -18,13 +18,13 @@
 package com.helger.cli.bug;
 
 import java.io.PrintWriter;
-import java.io.StringWriter;
 
 import org.junit.Test;
 
 import com.helger.cli.HelpFormatter;
 import com.helger.cli.Option;
 import com.helger.cli.Options;
+import com.helger.commons.io.stream.NonBlockingStringWriter;
 
 /**
  * http://issues.apache.org/jira/browse/CLI-18
@@ -43,7 +43,7 @@ public final class BugCLI18Test
     options.addOption (Option.builder ("c").desc ("ccccccc").build ());
 
     final HelpFormatter formatter = new HelpFormatter ();
-    final StringWriter out = new StringWriter ();
+    final NonBlockingStringWriter out = new NonBlockingStringWriter ();
 
     formatter.printHelp (new PrintWriter (out),
                          80,

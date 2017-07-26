@@ -20,6 +20,7 @@ package com.helger.cli;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 
@@ -249,7 +250,7 @@ public final class HelpFormatterTest
     Options options = null;
     String expected = "usage: app [-a]";
     final NonBlockingByteArrayOutputStream out = new NonBlockingByteArrayOutputStream ();
-    final PrintWriter pw = new PrintWriter (out);
+    final PrintWriter pw = new PrintWriter (new OutputStreamWriter (out, StandardCharsets.ISO_8859_1));
 
     options = new Options ().addOption (Option.builder ("a").desc ("aaaa aaaa aaaa aaaa aaaa").build ());
     hf.printUsage (pw, 60, "app", options);
@@ -279,12 +280,12 @@ public final class HelpFormatterTest
     opts.addOption (optionB);
     opts.addOption (optionC);
     final HelpFormatter helpFormatter = new HelpFormatter ();
-    final NonBlockingByteArrayOutputStream bytesOut = new NonBlockingByteArrayOutputStream ();
-    try (final PrintWriter printWriter = new PrintWriter (bytesOut))
+    final NonBlockingStringWriter out = new NonBlockingStringWriter ();
+    try (final PrintWriter printWriter = new PrintWriter (out))
     {
       helpFormatter.printUsage (printWriter, 80, "app", opts);
     }
-    assertEquals ("usage: app [-a] [-b] [-c]" + EOL, bytesOut.getAsString (StandardCharsets.ISO_8859_1));
+    assertEquals ("usage: app [-a] [-b] [-c]" + EOL, out.getAsString ());
   }
 
   // uses the test for CLI-131 to implement CLI-155

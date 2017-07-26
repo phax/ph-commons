@@ -22,8 +22,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
@@ -37,6 +37,7 @@ import com.helger.cli.Options;
 import com.helger.cli.ex.CommandLineParseException;
 import com.helger.cli.ex.MissingArgumentException;
 import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.lang.NonBlockingProperties;
 
 public final class BugsTest
@@ -237,12 +238,12 @@ public final class BugsTest
     final PrintStream oldSystemOut = System.out;
     try
     {
-      final ByteArrayOutputStream bytes = new ByteArrayOutputStream ();
-      final PrintStream print = new PrintStream (bytes);
+      final NonBlockingByteArrayOutputStream bytes = new NonBlockingByteArrayOutputStream ();
+      final PrintStream print = new PrintStream (bytes, false, StandardCharsets.UTF_8.name ());
 
       // capture this platform's eol symbol
       print.println ();
-      final String eol = bytes.toString ();
+      final String eol = bytes.getAsString (StandardCharsets.UTF_8);
       bytes.reset ();
 
       System.setOut (new PrintStream (bytes));
@@ -250,7 +251,7 @@ public final class BugsTest
       final HelpFormatter formatter = new HelpFormatter ();
       formatter.printHelp ("dir", options);
 
-      assertEquals ("usage: dir" + eol + " -d <arg>   dir" + eol, bytes.toString ());
+      assertEquals ("usage: dir" + eol + " -d <arg>   dir" + eol, bytes.getAsString (StandardCharsets.UTF_8));
     }
     finally
     {

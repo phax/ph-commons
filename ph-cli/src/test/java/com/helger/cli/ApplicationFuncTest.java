@@ -21,12 +21,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.PrintWriter;
-import java.io.StringWriter;
 
 import org.junit.Test;
 
 import com.helger.cli.ex.CommandLineParseException;
 import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.io.stream.NonBlockingStringWriter;
 
 /**
  * This is a collection of tests that test real world applications command
@@ -288,8 +288,8 @@ public final class ApplicationFuncTest
 
     final HelpFormatter hf = new HelpFormatter ();
     final String EOL = System.getProperty ("line.separator");
-    final StringWriter out = new StringWriter ();
-    hf.printHelp (new PrintWriter (out),
+    final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
+    hf.printHelp (new PrintWriter (aSW),
                   60,
                   cmdLine,
                   null,
@@ -378,7 +378,7 @@ public final class ApplicationFuncTest
                   EOL +
                   " -Z,--ditroff              use groff with selected device." +
                   EOL,
-                  out.toString ());
+                  aSW.getAsString ());
   }
 
   /**

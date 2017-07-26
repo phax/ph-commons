@@ -20,7 +20,6 @@ package com.helger.cli.bug;
 import static org.junit.Assert.assertEquals;
 
 import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.sql.ParameterMetaData;
 import java.sql.Types;
 
@@ -31,6 +30,7 @@ import com.helger.cli.HelpFormatter;
 import com.helger.cli.Option;
 import com.helger.cli.OptionGroup;
 import com.helger.cli.Options;
+import com.helger.commons.io.stream.NonBlockingStringWriter;
 
 public final class BugCLI162Test
 {
@@ -38,13 +38,13 @@ public final class BugCLI162Test
   private static final String CR = System.getProperty ("line.separator");
 
   private HelpFormatter m_aFormatter;
-  private StringWriter m_aSW;
+  private NonBlockingStringWriter m_aSW;
 
   @Before
   public void setUp () throws Exception
   {
     m_aFormatter = new HelpFormatter ();
-    m_aSW = new StringWriter ();
+    m_aSW = new NonBlockingStringWriter ();
   }
 
   @Test
@@ -76,7 +76,7 @@ public final class BugCLI162Test
                             CR +
                             "             tion" +
                             CR;
-    assertEquals (expected, m_aSW.toString ());
+    assertEquals (expected, m_aSW.getAsString ());
   }
 
   @Test
@@ -443,7 +443,7 @@ public final class BugCLI162Test
                             CR +
                             "                             VARCHAR\"" +
                             CR;
-    assertEquals (expected, m_aSW.toString ());
+    assertEquals (expected, m_aSW.getAsString ());
   }
 
   @Test
@@ -505,7 +505,7 @@ public final class BugCLI162Test
                             CR +
                             "Footer" +
                             CR;
-    assertEquals ("Long arguments did not split as expected", expected, m_aSW.toString ());
+    assertEquals ("Long arguments did not split as expected", expected, m_aSW.getAsString ());
   }
 
   @Test
@@ -540,7 +540,7 @@ public final class BugCLI162Test
                             CR +
                             "Footer" +
                             CR;
-    assertEquals ("Long arguments did not split as expected", expected, m_aSW.toString ());
+    assertEquals ("Long arguments did not split as expected", expected, m_aSW.getAsString ());
   }
 
 }

@@ -22,6 +22,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.Locale;
+
 import org.junit.Test;
 
 import com.helger.cli.ex.CommandLineParseException;
@@ -148,8 +150,8 @@ public final class OptionsTest
 
     final String s = options.toString ();
     assertNotNull ("null string returned", s);
-    assertTrue ("foo option missing", s.toLowerCase ().contains ("foo"));
-    assertTrue ("bar option missing", s.toLowerCase ().contains ("bar"));
+    assertTrue ("foo option missing", s.toLowerCase (Locale.US).contains ("foo"));
+    assertTrue ("bar option missing", s.toLowerCase (Locale.US).contains ("bar"));
   }
 
   @Test
