@@ -175,6 +175,59 @@ public interface IGetterByKeyTrait <KEYTYPE>
   }
 
   /**
+   * Get the contained value casted to the specified class, but only if the cast
+   * is possible.
+   *
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @param aDefault
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
+   * @param aClass
+   *        The class to cast to.
+   * @return The object value casted to the passed class. May be
+   *         <code>null</code> if the contained value is <code>null</code>.
+   * @throws ClassCastException
+   *         in case the value types are not convertible
+   * @param <T>
+   *        Destination type
+   * @see #getSafeCastedValue(Object, Object, Class)
+   */
+  @Nullable
+  default <T> T getSafeCastedValue (@Nullable final KEYTYPE aKey, @Nonnull final Class <T> aClass)
+  {
+    return getSafeCastedValue (aKey, null, aClass);
+  }
+
+  /**
+   * Get the contained value casted to the specified class, but only if the cast
+   * is possible.
+   *
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @param aDefault
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
+   * @param aClass
+   *        The class to cast to.
+   * @return The object value casted to the passed class. May be
+   *         <code>null</code> if the contained value is <code>null</code>.
+   * @throws ClassCastException
+   *         in case the value types are not convertible
+   * @param <T>
+   *        Destination type
+   * @see #getSafeCastedValue(Object, Class)
+   */
+  @Nullable
+  default <T> T getSafeCastedValue (@Nullable final KEYTYPE aKey,
+                                    @Nullable final T aDefault,
+                                    @Nonnull final Class <T> aClass)
+  {
+    final Object aValue = getValue (aKey);
+    return aValue != null && aValue.getClass ().isAssignableFrom (aClass) ? aClass.cast (aValue) : aDefault;
+  }
+
+  /**
    * Get the contained value converted using TypeConverter to the passed class.
    *
    * @param aKey

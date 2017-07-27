@@ -21,6 +21,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -56,8 +57,19 @@ public final class AttributeContainerAnyTest
     assertEquals ("value2", x.getValue ("key2"));
     assertEquals ("value2", x.getAsString ("key2"));
     assertEquals ("value2", x.<String> getCastedValue ("key2"));
+    assertEquals ("value2", x.getCastedValue ("key2", String.class));
+    try
+    {
+      x.getCastedValue ("key2", Integer.class);
+      fail ();
+    }
+    catch (final ClassCastException ex)
+    {}
+    assertEquals ("value2", x.getSafeCastedValue ("key2", String.class));
+    assertNull (x.getSafeCastedValue ("key2", Integer.class));
     assertEquals ("value2", x.getConvertedValue ("key2", String.class));
     assertEquals ("def", x.<String> getCastedValue ("key none", "def"));
+    assertEquals (Integer.valueOf (5), x.getSafeCastedValue ("key2", Integer.valueOf (5), Integer.class));
     assertEquals ("def", x.getConvertedValue ("key none", "def", String.class));
     assertTrue (x.containsKey ("key2"));
     assertTrue (x.removeAll ().isChanged ());
