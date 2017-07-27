@@ -40,7 +40,7 @@ public interface IGetterByIndexTrait
 {
   /**
    * Get the value at the specified index.
-   * 
+   *
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
    * @return The value at the specified index. No <code>null</code> constraints
@@ -169,6 +169,54 @@ public interface IGetterByIndexTrait
   {
     final Object aValue = getValue (nIndex);
     return aValue == null ? aDefault : aClass.cast (aValue);
+  }
+
+  /**
+   * Get the contained value casted to the specified class, but only if the cast
+   * is possible.
+   *
+   * @param nIndex
+   *        The index to be accessed. Should be &ge; 0.
+   * @param aClass
+   *        The class to cast to.
+   * @return The object value casted to the passed class. May be
+   *         <code>null</code> if the contained value is <code>null</code>.
+   * @throws ClassCastException
+   *         in case the value types are not convertible
+   * @param <T>
+   *        Destination type
+   */
+  @Nullable
+  default <T> T getSafeCastedValue (@Nonnegative final int nIndex, @Nonnull final Class <T> aClass)
+  {
+    return getSafeCastedValue (nIndex, null, aClass);
+  }
+
+  /**
+   * Get the contained value casted to the specified class, but only if the cast
+   * is possible.
+   *
+   * @param nIndex
+   *        The index to be accessed. Should be &ge; 0.
+   * @param aDefault
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
+   * @param aClass
+   *        The class to cast to.
+   * @return The object value casted to the passed class. May be
+   *         <code>null</code> if the contained value is <code>null</code>.
+   * @throws ClassCastException
+   *         in case the value types are not convertible
+   * @param <T>
+   *        Destination type
+   */
+  @Nullable
+  default <T> T getSafeCastedValue (@Nonnegative final int nIndex,
+                                    @Nullable final T aDefault,
+                                    @Nonnull final Class <T> aClass)
+  {
+    final Object aValue = getValue (nIndex);
+    return aValue != null && aValue.getClass ().isAssignableFrom (aClass) ? aClass.cast (aValue) : aDefault;
   }
 
   /**
