@@ -16,7 +16,9 @@
  */
 package com.helger.datetime.domain;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import javax.annotation.Nullable;
 
@@ -38,5 +40,19 @@ public interface IHasDeletionDateTime
   default boolean hasDeletionDateTime ()
   {
     return getDeletionDateTime () != null;
+  }
+
+  @Nullable
+  default LocalDate getDeletionDate ()
+  {
+    final LocalDateTime aLDT = getDeletionDateTime ();
+    return aLDT == null ? null : aLDT.toLocalDate ();
+  }
+
+  @Nullable
+  default LocalTime getDeletionTime ()
+  {
+    final LocalDateTime aLDT = getDeletionDateTime ();
+    return aLDT == null ? null : aLDT.toLocalTime ();
   }
 }

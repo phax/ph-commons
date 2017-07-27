@@ -16,7 +16,9 @@
  */
 package com.helger.datetime.domain;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import javax.annotation.Nullable;
 
@@ -38,5 +40,19 @@ public interface IHasLastModificationDateTime
   default boolean hasLastModificationDateTime ()
   {
     return getLastModificationDateTime () != null;
+  }
+
+  @Nullable
+  default LocalDate getLastModificationDate ()
+  {
+    final LocalDateTime aLDT = getLastModificationDateTime ();
+    return aLDT == null ? null : aLDT.toLocalDate ();
+  }
+
+  @Nullable
+  default LocalTime getLastModificationTime ()
+  {
+    final LocalDateTime aLDT = getLastModificationDateTime ();
+    return aLDT == null ? null : aLDT.toLocalTime ();
   }
 }

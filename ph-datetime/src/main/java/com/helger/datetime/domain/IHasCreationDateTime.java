@@ -16,7 +16,9 @@
  */
 package com.helger.datetime.domain;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import javax.annotation.Nullable;
 
@@ -37,5 +39,19 @@ public interface IHasCreationDateTime
   default boolean hasCreationDateTime ()
   {
     return getCreationDateTime () != null;
+  }
+
+  @Nullable
+  default LocalDate getCreationDate ()
+  {
+    final LocalDateTime aLDT = getCreationDateTime ();
+    return aLDT == null ? null : aLDT.toLocalDate ();
+  }
+
+  @Nullable
+  default LocalTime getCreationTime ()
+  {
+    final LocalDateTime aLDT = getCreationDateTime ();
+    return aLDT == null ? null : aLDT.toLocalTime ();
   }
 }

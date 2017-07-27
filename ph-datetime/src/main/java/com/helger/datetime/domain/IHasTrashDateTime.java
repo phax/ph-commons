@@ -16,7 +16,9 @@
  */
 package com.helger.datetime.domain;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import javax.annotation.Nullable;
 
@@ -38,5 +40,19 @@ public interface IHasTrashDateTime
   default boolean hasTrashDateTime ()
   {
     return getTrashDateTime () != null;
+  }
+
+  @Nullable
+  default LocalDate getTrashDate ()
+  {
+    final LocalDateTime aLDT = getTrashDateTime ();
+    return aLDT == null ? null : aLDT.toLocalDate ();
+  }
+
+  @Nullable
+  default LocalTime getTrashTime ()
+  {
+    final LocalDateTime aLDT = getTrashDateTime ();
+    return aLDT == null ? null : aLDT.toLocalTime ();
   }
 }
