@@ -26,7 +26,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.CommonsLinkedHashSet;
 import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.typeconvert.TypeConverter;
@@ -839,6 +841,48 @@ public interface IGetterByKeyTrait <KEYTYPE>
     {
       // single value passed in the request
       return new CommonsArrayList <> ((String) aValue);
+    }
+    return aDefault;
+  }
+
+  /**
+   * Get a set of all attribute values with the same name.
+   *
+   * @param aKey
+   *        The name of the attribute to query.
+   * @return <code>null</code> if no such attribute value exists
+   */
+  @Nullable
+  default ICommonsOrderedSet <String> getAttributeAsStringSet (@Nullable final KEYTYPE aKey)
+  {
+    return getAttributeAsStringSet (aKey, null);
+  }
+
+  /**
+   * Get a set of all attribute values with the same name.
+   *
+   * @param aKey
+   *        The name of the attribute to query.
+   * @param aDefault
+   *        The default value to be returned, if no such attribute is present.
+   * @return <code>aDefault</code> if no such attribute value exists
+   */
+  @Nullable
+  default ICommonsOrderedSet <String> getAttributeAsStringSet (@Nullable final KEYTYPE aKey,
+                                                               @Nullable final ICommonsOrderedSet <String> aDefault)
+  {
+    final Object aValue = getValue (aKey);
+    if (aValue == null)
+      return null;
+    if (aValue instanceof String [])
+    {
+      // multiple values passed in the request
+      return new CommonsLinkedHashSet <> ((String []) aValue);
+    }
+    if (aValue instanceof String)
+    {
+      // single value passed in the request
+      return new CommonsLinkedHashSet <> ((String) aValue);
     }
     return aDefault;
   }
