@@ -50,7 +50,8 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends
   }
 
   /**
-   * Get the attribute value associated to the given attribute name.
+   * Get the attribute value associated to the given attribute name.<br>
+   * Avoid throwing TypeConverterException by providing a default value.
    *
    * @param aName
    *        the attribute name
@@ -64,7 +65,8 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends
   }
 
   /**
-   * Get the attribute value associated to the given attribute name.
+   * Get the attribute value associated to the given attribute name.<br>
+   * Avoid throwing TypeConverterException by providing a default value.
    *
    * @param aName
    *        the attribute name
@@ -78,7 +80,8 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends
   }
 
   /**
-   * Get the attribute value associated to the given attribute name.
+   * Get the attribute value associated to the given attribute name.<br>
+   * Avoid throwing TypeConverterException by providing a default value.
    *
    * @param aName
    *        the attribute name
@@ -106,7 +109,8 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends
   }
 
   /**
-   * Get the attribute value associated to the given attribute name.
+   * Get the attribute value associated to the given attribute name.<br>
+   * Avoid throwing TypeConverterException by providing a default value.
    *
    * @param aName
    *        the attribute name
