@@ -48,12 +48,12 @@ public final class AttributeContainerAnyTest
     assertNotNull (x.keySet ());
     assertTrue (x.keySet ().isEmpty ());
     assertTrue (x.isEmpty ());
-    assertTrue (x.setAttribute ("key", "value").isChanged ());
+    assertTrue (x.putIn ("key", "value").isChanged ());
     assertFalse (x.isEmpty ());
     assertEquals (1, x.size ());
-    assertTrue (x.setAttribute ("key2", "value2").isChanged ());
-    assertTrue (x.setAttribute ("key", "value3").isChanged ());
-    assertFalse (x.setAttribute ("key", "value3").isChanged ());
+    assertTrue (x.putIn ("key2", "value2").isChanged ());
+    assertTrue (x.putIn ("key", "value3").isChanged ());
+    assertFalse (x.putIn ("key", "value3").isChanged ());
     assertEquals ("value2", x.getValue ("key2"));
     assertEquals ("value2", x.getAsString ("key2"));
     assertEquals ("value2", x.<String> getCastedValue ("key2"));
@@ -79,7 +79,7 @@ public final class AttributeContainerAnyTest
     assertTrue (x.keySet ().isEmpty ());
     assertFalse (x.removeObject ("key2").isChanged ());
 
-    assertTrue (x.setAttribute ("key", Integer.valueOf (17)).isChanged ());
+    assertTrue (x.putIn ("key", Integer.valueOf (17)).isChanged ());
     assertTrue (x.getAsBoolean ("key"));
     assertEquals (17, x.getAsInt ("key"));
     assertEquals (17, x.getAsLong ("key"));
@@ -94,7 +94,7 @@ public final class AttributeContainerAnyTest
     assertFalse (x.removeObject ("key").isChanged ());
 
     // Check null values
-    assertTrue (x.setAttribute ("null1", null).isUnchanged ());
+    assertTrue (x.putIn ("null1", null).isUnchanged ());
     assertNull (x.getValue ("null1"));
     assertFalse (x.containsKey ("null1"));
     assertTrue (x.removeObject ("null1").isUnchanged ());
@@ -137,7 +137,7 @@ public final class AttributeContainerAnyTest
   public void testWithStringArray ()
   {
     final AttributeContainerAny <String> aCont = new AttributeContainerAny <> ();
-    aCont.setAttribute ("a", new String [] { "1", "20" });
+    aCont.putIn ("a", new String [] { "1", "20" });
     // Expected to use the first
     assertEquals ("1", aCont.getAsString ("a"));
     assertEquals (1, aCont.getAsInt ("a"));

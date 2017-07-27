@@ -33,7 +33,7 @@ public interface IMutableAttributeContainerAny <KEYTYPE> extends IMutableAttribu
 {
   /**
    * Set/overwrite an in attribute value. This is a shortcut for
-   * <code>setAttribute (aName, Boolean.valueOf (bValue));</code>
+   * <code>putIn (aName, Boolean.valueOf (bValue));</code>
    *
    * @param aName
    *        The name of the attribute. May not be <code>null</code>.
@@ -43,14 +43,14 @@ public interface IMutableAttributeContainerAny <KEYTYPE> extends IMutableAttribu
    *         {@link EChange#UNCHANGED} otherwise.
    */
   @Nonnull
-  default EChange setAttribute (@Nonnull final KEYTYPE aName, final boolean bValue)
+  default EChange putIn (@Nonnull final KEYTYPE aName, final boolean bValue)
   {
-    return setAttribute (aName, Boolean.valueOf (bValue));
+    return putIn (aName, Boolean.valueOf (bValue));
   }
 
   /**
    * Set/overwrite an in attribute value. This is a shortcut for
-   * <code>setAttribute (aName, Integer.valueOf (nValue));</code>
+   * <code>putIn (aName, Integer.valueOf (nValue));</code>
    *
    * @param aName
    *        The name of the attribute. May not be <code>null</code>.
@@ -60,14 +60,14 @@ public interface IMutableAttributeContainerAny <KEYTYPE> extends IMutableAttribu
    *         {@link EChange#UNCHANGED} otherwise.
    */
   @Nonnull
-  default EChange setAttribute (@Nonnull final KEYTYPE aName, final int nValue)
+  default EChange putIn (@Nonnull final KEYTYPE aName, final int nValue)
   {
-    return setAttribute (aName, Integer.valueOf (nValue));
+    return putIn (aName, Integer.valueOf (nValue));
   }
 
   /**
    * Set/overwrite an in attribute value. This is a shortcut for
-   * <code>setAttribute (aName, Long.valueOf (nValue));</code>
+   * <code>putIn (aName, Long.valueOf (nValue));</code>
    *
    * @param aName
    *        The name of the attribute. May not be <code>null</code>.
@@ -77,14 +77,31 @@ public interface IMutableAttributeContainerAny <KEYTYPE> extends IMutableAttribu
    *         {@link EChange#UNCHANGED} otherwise.
    */
   @Nonnull
-  default EChange setAttribute (@Nonnull final KEYTYPE aName, final long nValue)
+  default EChange putIn (@Nonnull final KEYTYPE aName, final long nValue)
   {
-    return setAttribute (aName, Long.valueOf (nValue));
+    return putIn (aName, Long.valueOf (nValue));
   }
 
   /**
    * Set/overwrite an in attribute value. This is a shortcut for
-   * <code>setAttribute (aName, Double.valueOf (nValue));</code>
+   * <code>putIn (aName, Float.valueOf (fValue));</code>
+   *
+   * @param aName
+   *        The name of the attribute. May not be <code>null</code>.
+   * @param fValue
+   *        The value of the attribute.
+   * @return {@link EChange#CHANGED} if something changed,
+   *         {@link EChange#UNCHANGED} otherwise.
+   */
+  @Nonnull
+  default EChange putIn (@Nonnull final KEYTYPE aName, final float fValue)
+  {
+    return putIn (aName, Float.valueOf (fValue));
+  }
+
+  /**
+   * Set/overwrite an in attribute value. This is a shortcut for
+   * <code>putIn (aName, Double.valueOf (dValue));</code>
    *
    * @param aName
    *        The name of the attribute. May not be <code>null</code>.
@@ -94,9 +111,9 @@ public interface IMutableAttributeContainerAny <KEYTYPE> extends IMutableAttribu
    *         {@link EChange#UNCHANGED} otherwise.
    */
   @Nonnull
-  default EChange setAttribute (@Nonnull final KEYTYPE aName, final double dValue)
+  default EChange putIn (@Nonnull final KEYTYPE aName, final double dValue)
   {
-    return setAttribute (aName, Double.valueOf (dValue));
+    return putIn (aName, Double.valueOf (dValue));
   }
 
   /**

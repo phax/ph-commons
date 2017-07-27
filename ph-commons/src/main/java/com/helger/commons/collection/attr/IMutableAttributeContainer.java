@@ -68,7 +68,7 @@ public interface IMutableAttributeContainer <KEYTYPE, VALUETYPE> extends IAttrib
    * @see #removeObject(Object)
    */
   @Nonnull
-  default EChange setAttribute (@Nonnull final KEYTYPE aName, @Nullable final VALUETYPE aValue)
+  default EChange putIn (@Nonnull final KEYTYPE aName, @Nullable final VALUETYPE aValue)
   {
     ValueEnforcer.notNull (aName, "Name");
 
@@ -76,8 +76,9 @@ public interface IMutableAttributeContainer <KEYTYPE, VALUETYPE> extends IAttrib
       return removeObject (aName);
 
     // Callback for checks etc.
-    if (beforeSetAttributeCallbacks ().forEachBreakable (x -> x.beforeSetAttribute (aName, aValue)).isBreak ())
-      return EChange.UNCHANGED;
+    if (beforeSetAttributeCallbacks ().isNotEmpty ())
+      if (beforeSetAttributeCallbacks ().forEachBreakable (x -> x.beforeSetAttribute (aName, aValue)).isBreak ())
+        return EChange.UNCHANGED;
 
     // Set and compare
     final VALUETYPE aOldValue = put (aName, aValue);
@@ -85,12 +86,12 @@ public interface IMutableAttributeContainer <KEYTYPE, VALUETYPE> extends IAttrib
   }
 
   @Nonnull
-  default EChange setAttributes (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aAttrs)
+  default EChange putAllIn (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aAttrs)
   {
     EChange eChange = EChange.UNCHANGED;
     if (aAttrs != null)
       for (final Map.Entry <? extends KEYTYPE, ? extends VALUETYPE> aEntry : aAttrs.entrySet ())
-        eChange = eChange.or (setAttribute (aEntry.getKey (), aEntry.getValue ()));
+        eChange = eChange.or (putIn (aEntry.getKey (), aEntry.getValue ()));
     return eChange;
   }
 }

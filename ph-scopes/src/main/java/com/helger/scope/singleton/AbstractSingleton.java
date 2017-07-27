@@ -529,7 +529,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
 
           // Set in scope so that recursive calls to the same singleton are
           // caught appropriately
-          aScope.attrs ().setAttribute (sSingletonScopeKey, aInstance);
+          aScope.attrs ().putIn (sSingletonScopeKey, aInstance);
 
           // Start the initialization process
           // Do this after the instance was added to the scope

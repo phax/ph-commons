@@ -425,7 +425,7 @@ public final class ScopeManager
     s_aRequestScope.set (aRequestScope);
 
     // assign the application ID to the current request
-    if (aRequestScope.attrs ().setAttribute (REQ_APPLICATION_ID, sApplicationID).isUnchanged ())
+    if (aRequestScope.attrs ().putIn (REQ_APPLICATION_ID, sApplicationID).isUnchanged ())
     {
       s_aLogger.warn ("Failed to set the application ID '" +
                       sApplicationID +

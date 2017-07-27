@@ -30,7 +30,7 @@ public abstract class AbstractGraphTestCase extends AbstractCommonsTestCase
   private static final IMutableDirectedGraphNode _createDGN (final SimpleDirectedGraph aGraph, final int i)
   {
     final IMutableDirectedGraphNode aNode = aGraph.createNode (Integer.toString (i));
-    aNode.attrs ().setAttribute (ATTR_VALUE, Integer.valueOf (i + 1));
+    aNode.attrs ().putIn (ATTR_VALUE, Integer.valueOf (i + 1));
     return aNode;
   }
 
@@ -38,7 +38,7 @@ public abstract class AbstractGraphTestCase extends AbstractCommonsTestCase
   private static final IMutableGraphNode _createGN (final SimpleGraph aGraph, final int i)
   {
     final IMutableGraphNode aNode = aGraph.createNode (Integer.toString (i));
-    aNode.attrs ().setAttribute (ATTR_VALUE, Integer.valueOf (i + 1));
+    aNode.attrs ().putIn (ATTR_VALUE, Integer.valueOf (i + 1));
     return aNode;
   }
 

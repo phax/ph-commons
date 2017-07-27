@@ -86,9 +86,9 @@ public final class GraphNodeTest
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new GraphNode ("id0"),
                                                                            new GraphNode ("id1"));
     final GraphNode n1 = new GraphNode ("id0");
-    n1.attrs ().setAttribute ("a", "b");
+    n1.attrs ().putIn ("a", "b");
     final GraphNode n2 = new GraphNode ("id0");
-    n2.attrs ().setAttribute ("a", "c");
+    n2.attrs ().putIn ("a", "c");
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (n1, n2);
   }
 

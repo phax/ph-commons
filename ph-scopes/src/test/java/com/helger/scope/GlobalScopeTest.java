@@ -39,11 +39,11 @@ public final class GlobalScopeTest
     final GlobalScope aGS = new GlobalScope ("test");
     assertEquals ("test", aGS.getID ());
     assertEquals (0, aGS.attrs ().size ());
-    assertTrue (aGS.attrs ().setAttribute ("key1", "whatsoever").isChanged ());
+    assertTrue (aGS.attrs ().putIn ("key1", "whatsoever").isChanged ());
     assertEquals (1, aGS.attrs ().size ());
     final MutableBoolean aPreDestroyedCalled = new MutableBoolean (false);
     final MutableBoolean aDestroyedCalled = new MutableBoolean (false);
-    assertTrue (aGS.attrs ().setAttribute ("key2", new IScopeDestructionAware ()
+    assertTrue (aGS.attrs ().putIn ("key2", new IScopeDestructionAware ()
     {
       public void onBeforeScopeDestruction (@Nonnull final IScope aScopeToBeDestroyed) throws Exception
       {
@@ -63,7 +63,7 @@ public final class GlobalScopeTest
     }).isChanged ());
     assertEquals (2, aGS.attrs ().size ());
     // Check null value - no change
-    assertTrue (aGS.attrs ().setAttribute ("key3", null).isUnchanged ());
+    assertTrue (aGS.attrs ().putIn ("key3", null).isUnchanged ());
     assertEquals (2, aGS.attrs ().size ());
     assertTrue (aGS.isValid ());
     assertFalse (aGS.isInPreDestruction ());
