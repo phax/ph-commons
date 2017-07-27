@@ -94,4 +94,19 @@ public interface IMutableAttributeContainer <KEYTYPE, VALUETYPE> extends IAttrib
         eChange = eChange.or (putIn (aEntry.getKey (), aEntry.getValue ()));
     return eChange;
   }
+
+  /**
+   * Shortcut for clear and put-all
+   * 
+   * @param aAttrs
+   *        New attributes. May be <code>null</code>.
+   * @return {@link EChange}
+   */
+  @Nonnull
+  default EChange replaceAll (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aAttrs)
+  {
+    EChange eChange = removeAll ();
+    eChange = eChange.or (putAllIn (aAttrs));
+    return eChange;
+  }
 }
