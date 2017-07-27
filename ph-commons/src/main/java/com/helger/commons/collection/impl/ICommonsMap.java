@@ -670,11 +670,20 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    *
    * @param aValues
    *        The values to be added. May be <code>null</code>.
+   * @return {@link EChange}
    */
-  default void setAll (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aValues)
+  @Nonnull
+  default EChange setAll (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aValues)
   {
-    clear ();
-    addAll (aValues);
+    EChange ret = removeAll ();
+    if (aValues != null)
+    {
+      // nothing is contained
+      putAll (aValues);
+      if (isNotEmpty ())
+        ret = EChange.CHANGED;
+    }
+    return ret;
   }
 
   /**
