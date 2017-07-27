@@ -31,7 +31,7 @@ import com.helger.commons.lang.ClassHelper;
  * @author Philip Helger
  */
 @ThreadSafe
-public class ApplicationScope extends AbstractMapBasedScope implements IApplicationScope
+public class ApplicationScope extends AbstractScope implements IApplicationScope
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (ApplicationScope.class);
 

@@ -44,7 +44,7 @@ import com.helger.scope.spi.ScopeSPIManager;
  * @author Philip Helger
  */
 @ThreadSafe
-public class GlobalScope extends AbstractMapBasedScope implements IGlobalScope
+public class GlobalScope extends AbstractScope implements IGlobalScope
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (GlobalScope.class);
 

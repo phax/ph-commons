@@ -42,7 +42,7 @@ import com.helger.scope.spi.ScopeSPIManager;
  * @author Philip Helger
  */
 @ThreadSafe
-public class SessionScope extends AbstractMapBasedScope implements ISessionScope
+public class SessionScope extends AbstractScope implements ISessionScope
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (SessionScope.class);
 

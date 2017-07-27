@@ -33,7 +33,7 @@ import com.helger.commons.lang.ClassHelper;
  * @author Philip Helger
  */
 @ThreadSafe
-public class SessionApplicationScope extends AbstractMapBasedScope implements ISessionApplicationScope
+public class SessionApplicationScope extends AbstractScope implements ISessionApplicationScope
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (SessionApplicationScope.class);
 

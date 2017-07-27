@@ -46,9 +46,9 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @ThreadSafe
-public abstract class AbstractMapBasedScope implements IScope
+public abstract class AbstractScope implements IScope
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractMapBasedScope.class);
+  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractScope.class);
 
   protected final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   /** ID of the scope */
@@ -67,7 +67,7 @@ public abstract class AbstractMapBasedScope implements IScope
    * @param sScopeID
    *        The scope ID. May neither be <code>null</code> nor empty.
    */
-  public AbstractMapBasedScope (@Nonnull @Nonempty final String sScopeID)
+  public AbstractScope (@Nonnull @Nonempty final String sScopeID)
   {
     m_sScopeID = ValueEnforcer.notEmpty (sScopeID, "ScopeID");
   }
@@ -221,7 +221,7 @@ public abstract class AbstractMapBasedScope implements IScope
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final AbstractMapBasedScope rhs = (AbstractMapBasedScope) o;
+    final AbstractScope rhs = (AbstractScope) o;
     return m_sScopeID.equals (rhs.m_sScopeID);
   }
 
