@@ -119,6 +119,16 @@ public class BasicThreadFactory implements ThreadFactory
     s_aDefaultUncaughtExceptionHandler = aHdl;
   }
 
+  /**
+   * @return The default uncaught exception handler used. Never
+   *         <code>null</code>.
+   */
+  @Nonnull
+  public static Thread.UncaughtExceptionHandler getDefaultUncaughtExceptionHandler ()
+  {
+    return s_aDefaultUncaughtExceptionHandler;
+  }
+
   /** A counter for the threads created by this factory. */
   private final AtomicLong m_aThreadCounter;
 
