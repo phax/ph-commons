@@ -869,7 +869,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    */
   @Nullable
   default ICommonsOrderedSet <String> getAsStringSet (@Nullable final KEYTYPE aKey,
-                                                               @Nullable final ICommonsOrderedSet <String> aDefault)
+                                                      @Nullable final ICommonsOrderedSet <String> aDefault)
   {
     final Object aValue = getValue (aKey);
     if (aValue == null)
@@ -898,7 +898,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @return <code>true</code> if an attribute with the given name is present
    *         and has the desired value
    */
-  default boolean hasAttributeValue (@Nullable final KEYTYPE aKey, @Nullable final String sDesiredValue)
+  default boolean hasStringValue (@Nullable final KEYTYPE aKey, @Nullable final String sDesiredValue)
   {
     return EqualsHelper.equals (getAsString (aKey), sDesiredValue);
   }
@@ -920,9 +920,9 @@ public interface IGetterByKeyTrait <KEYTYPE>
    *         present but has a different value. If the attribute is not present,
    *         the default value is returned.
    */
-  default boolean hasAttributeValue (@Nullable final KEYTYPE aKey,
-                                     @Nullable final String sDesiredValue,
-                                     final boolean bDefault)
+  default boolean hasStringValue (@Nullable final KEYTYPE aKey,
+                                  @Nullable final String sDesiredValue,
+                                  final boolean bDefault)
   {
     final String sValue = getAsString (aKey);
     return sValue == null ? bDefault : EqualsHelper.equals (sValue, sDesiredValue);
