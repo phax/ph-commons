@@ -16,6 +16,10 @@
  */
 package com.helger.commons.collection.attr;
 
+import java.util.Iterator;
+import java.util.Map;
+
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.CGlobal;
@@ -34,8 +38,15 @@ import com.helger.commons.traits.IGetterByKeyTrait;
  */
 public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends
                                      ICommonsMap <KEYTYPE, VALUETYPE>,
-                                     IGetterByKeyTrait <KEYTYPE>
+                                     IGetterByKeyTrait <KEYTYPE>,
+                                     Iterable <Map.Entry <KEYTYPE, VALUETYPE>>
 {
+  @Nonnull
+  default Iterator <Map.Entry <KEYTYPE, VALUETYPE>> iterator ()
+  {
+    return entrySet ().iterator ();
+  }
+
   /**
    * Get the attribute value associated to the given attribute name.
    *
