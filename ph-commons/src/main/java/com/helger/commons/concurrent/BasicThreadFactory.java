@@ -23,6 +23,9 @@ import java.util.concurrent.atomic.AtomicLong;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
@@ -96,6 +99,26 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public class BasicThreadFactory implements ThreadFactory
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (BasicThreadFactory.class);
+
+  private static Thread.UncaughtExceptionHandler s_aDefaultUncaughtExceptionHandler = (t, e) -> {
+    s_aLogger.error ("Uncaught exception from Thread " + t.getName (), e);
+  };
+
+  /**
+   * Set the default uncaught exception handler for future instances of
+   * BasicThreadFactory. By default a logging exception handler is present.
+   *
+   * @param aHdl
+   *        The handlers to be used. May not be <code>null</code>.
+   * @since 9.0.0
+   */
+  public static void setDefaultUncaughtExceptionHandler (@Nonnull final Thread.UncaughtExceptionHandler aHdl)
+  {
+    ValueEnforcer.notNull (aHdl, "DefaultUncaughtExceptionHandler");
+    s_aDefaultUncaughtExceptionHandler = aHdl;
+  }
+
   /** A counter for the threads created by this factory. */
   private final AtomicLong m_aThreadCounter;
 
@@ -213,24 +236,6 @@ public class BasicThreadFactory implements ThreadFactory
   }
 
   /**
-   * Creates a new thread. This implementation delegates to the wrapped factory
-   * for creating the thread. Then, on the newly created thread the
-   * corresponding configuration options are set.
-   *
-   * @param aRunnable
-   *        the {@code Runnable} to be executed by the new thread
-   * @return the newly created thread
-   */
-  @Nonnull
-  public Thread newThread (@Nonnull final Runnable aRunnable)
-  {
-    ValueEnforcer.notNull (aRunnable, "Runnable");
-    final Thread t = getWrappedFactory ().newThread (aRunnable);
-    initializeThread (t);
-    return t;
-  }
-
-  /**
    * Initializes the specified thread. This method is called by
    * {@link #newThread(Runnable)} after a new thread has been obtained from the
    * wrapped thread factory. It initializes the thread according to the options
@@ -256,6 +261,24 @@ public class BasicThreadFactory implements ThreadFactory
 
     if (m_eDaemon.isDefined ())
       aThread.setDaemon (m_eDaemon.getAsBooleanValue ());
+  }
+
+  /**
+   * Creates a new thread. This implementation delegates to the wrapped factory
+   * for creating the thread. Then, on the newly created thread the
+   * corresponding configuration options are set.
+   *
+   * @param aRunnable
+   *        the {@code Runnable} to be executed by the new thread
+   * @return the newly created thread
+   */
+  @Nonnull
+  public Thread newThread (@Nonnull final Runnable aRunnable)
+  {
+    ValueEnforcer.notNull (aRunnable, "Runnable");
+    final Thread t = getWrappedFactory ().newThread (aRunnable);
+    initializeThread (t);
+    return t;
   }
 
   @Override
@@ -291,7 +314,7 @@ public class BasicThreadFactory implements ThreadFactory
     private ThreadFactory m_aWrappedFactory;
 
     /** The uncaught exception handler. */
-    private Thread.UncaughtExceptionHandler m_aUncaughtExceptionHandler;
+    private Thread.UncaughtExceptionHandler m_aUncaughtExceptionHandler = s_aDefaultUncaughtExceptionHandler;
 
     /** The naming pattern. */
     private String m_sNamingPattern;
@@ -316,7 +339,7 @@ public class BasicThreadFactory implements ThreadFactory
      *         if the passed in {@code ThreadFactory} is <b>null</b>
      */
     @Nonnull
-    public final Builder setWrappedFactory (final ThreadFactory aWrappedFactory)
+    public final Builder setWrappedFactory (@Nonnull final ThreadFactory aWrappedFactory)
     {
       ValueEnforcer.notNull (aWrappedFactory, "Factory");
       m_aWrappedFactory = aWrappedFactory;
@@ -334,7 +357,7 @@ public class BasicThreadFactory implements ThreadFactory
      *         if the exception handler is <b>null</b>
      */
     @Nonnull
-    public final Builder setUncaughtExceptionHandler (final Thread.UncaughtExceptionHandler aExceptionHandler)
+    public final Builder setUncaughtExceptionHandler (@Nonnull final Thread.UncaughtExceptionHandler aExceptionHandler)
     {
       ValueEnforcer.notNull (aExceptionHandler, "ExceptionHandler");
       m_aUncaughtExceptionHandler = aExceptionHandler;
@@ -354,7 +377,7 @@ public class BasicThreadFactory implements ThreadFactory
      *         if the naming pattern is <b>null</b>
      */
     @Nonnull
-    public final Builder setNamingPattern (final String sNamingPattern)
+    public final Builder setNamingPattern (@Nonnull final String sNamingPattern)
     {
       ValueEnforcer.notNull (sNamingPattern, "NamingPattern");
       m_sNamingPattern = sNamingPattern;
