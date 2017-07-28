@@ -88,6 +88,11 @@ public final class CHTTPHeader
    * E.g. Referrer-Policy: strict-origin
    */
   public static final String REFERRER_POLICY = "Referrer-Policy";
+  /**
+   * The "Proxy" header famous from the Httpoxy attack.<br>
+   * https://www.apache.org/security/asf-httpoxy-response.txt
+   */
+  public static final String PROXY = "proxy";
 
   /**
    * The Retry-After response-header field can be used with a 503 (Service
