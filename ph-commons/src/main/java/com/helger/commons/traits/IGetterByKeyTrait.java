@@ -811,9 +811,9 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @return <code>null</code> if no such attribute value exists
    */
   @Nullable
-  default ICommonsList <String> getAttributeAsStringList (@Nullable final KEYTYPE aKey)
+  default ICommonsList <String> getAsStringList (@Nullable final KEYTYPE aKey)
   {
-    return getAttributeAsStringList (aKey, null);
+    return getAsStringList (aKey, null);
   }
 
   /**
@@ -826,8 +826,8 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @return <code>aDefault</code> if no such attribute value exists
    */
   @Nullable
-  default ICommonsList <String> getAttributeAsStringList (@Nullable final KEYTYPE aKey,
-                                                          @Nullable final ICommonsList <String> aDefault)
+  default ICommonsList <String> getAsStringList (@Nullable final KEYTYPE aKey,
+                                                 @Nullable final ICommonsList <String> aDefault)
   {
     final Object aValue = getValue (aKey);
     if (aValue == null)
@@ -853,9 +853,9 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @return <code>null</code> if no such attribute value exists
    */
   @Nullable
-  default ICommonsOrderedSet <String> getAttributeAsStringSet (@Nullable final KEYTYPE aKey)
+  default ICommonsOrderedSet <String> getAsStringSet (@Nullable final KEYTYPE aKey)
   {
-    return getAttributeAsStringSet (aKey, null);
+    return getAsStringSet (aKey, null);
   }
 
   /**
@@ -868,7 +868,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @return <code>aDefault</code> if no such attribute value exists
    */
   @Nullable
-  default ICommonsOrderedSet <String> getAttributeAsStringSet (@Nullable final KEYTYPE aKey,
+  default ICommonsOrderedSet <String> getAsStringSet (@Nullable final KEYTYPE aKey,
                                                                @Nullable final ICommonsOrderedSet <String> aDefault)
   {
     final Object aValue = getValue (aKey);
