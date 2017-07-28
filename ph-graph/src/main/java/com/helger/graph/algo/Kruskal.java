@@ -123,7 +123,7 @@ public final class Kruskal
     for (final IMutableGraphNode aNode : aGraph.getAllNodes ().values ())
     {
       final IMutableGraphNode aNewNode = ret.createNode (aNode.getID ());
-      aNewNode.attrs ().putAll (aNode.attrs ());
+      aNewNode.attrs ().putAllIn (aNode.attrs ());
     }
 
     // Now start adding the relations (undirected!)
@@ -133,7 +133,7 @@ public final class Kruskal
     {
       final int nWeight = aRelation.attrs ().getAsInt (sRelationCostAttr);
       final IMutableGraphRelation aNewRelation = ret.createRelation (aRelation.getNode1ID (), aRelation.getNode2ID ());
-      aNewRelation.attrs ().putAll (aRelation.attrs ());
+      aNewRelation.attrs ().putAllIn (aRelation.attrs ());
       if (ret.containsCycles ())
       {
         if (GlobalDebug.isDebugMode ())

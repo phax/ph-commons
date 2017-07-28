@@ -16,10 +16,6 @@
  */
 package com.helger.commons.collection.attr;
 
-import java.util.Iterator;
-import java.util.Map;
-
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.CGlobal;
@@ -28,7 +24,9 @@ import com.helger.commons.traits.IGetterByKeyTrait;
 
 /**
  * Base interface for a generic read-only attribute container. It maps keys to
- * values.
+ * values.<br>
+ * Note: don't implement Iterable<Map.Entry<...>> because this would make the
+ * object ambiguous to e.g. HashCodeGenerator
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -38,15 +36,8 @@ import com.helger.commons.traits.IGetterByKeyTrait;
  */
 public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends
                                      ICommonsMap <KEYTYPE, VALUETYPE>,
-                                     IGetterByKeyTrait <KEYTYPE>,
-                                     Iterable <Map.Entry <KEYTYPE, VALUETYPE>>
+                                     IGetterByKeyTrait <KEYTYPE>
 {
-  @Nonnull
-  default Iterator <Map.Entry <KEYTYPE, VALUETYPE>> iterator ()
-  {
-    return entrySet ().iterator ();
-  }
-
   /**
    * Get the attribute value associated to the given attribute name.
    *
