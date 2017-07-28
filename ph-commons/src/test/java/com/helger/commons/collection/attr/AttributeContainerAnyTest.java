@@ -126,11 +126,11 @@ public final class AttributeContainerAnyTest
   {
     final AttributeContainerAny <String> aCont = new AttributeContainerAny <> ();
     // Not yet present
-    assertFalse (aCont.getAndSetAttributeFlag ("any"));
+    assertFalse (aCont.getAndSetFlag ("any"));
     // Now it is present
-    assertTrue (aCont.getAndSetAttributeFlag ("any"));
+    assertTrue (aCont.getAndSetFlag ("any"));
     for (int i = 0; i < 20; ++i)
-      assertTrue (aCont.getAndSetAttributeFlag ("any"));
+      assertTrue (aCont.getAndSetFlag ("any"));
   }
 
   @Test

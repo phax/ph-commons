@@ -130,15 +130,15 @@ public interface IMutableAttributeContainerAny <KEYTYPE> extends IMutableAttribu
    *         already present, <code>true</code> is returned. Any other than the
    *         first call for the same flag is always returning <code>true</code>.
    */
-  default boolean getAndSetAttributeFlag (@Nonnull final KEYTYPE aName)
+  default boolean getAndSetFlag (@Nonnull final KEYTYPE aName)
   {
     final Object aOldValue = get (aName);
     if (aOldValue != null)
     {
-      // Attribute flag is already present
+      // flag is already present
       return true;
     }
-    // Attribute flag is not yet present -> set it
+    // flag is not yet present -> set it
     put (aName, Boolean.TRUE);
     return false;
   }
