@@ -29,9 +29,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.callback.CallbackList;
 import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.collection.impl.CommonsCopyOnWriteArraySet;
-import com.helger.commons.collection.impl.ICommonsSet;
 
 /**
  * This is the main dead lock detector, based on JMX {@link ThreadMXBean}
@@ -44,7 +43,7 @@ public class ThreadDeadlockDetector
   private static final Logger s_aLogger = LoggerFactory.getLogger (ThreadDeadlockDetector.class);
 
   private final ThreadMXBean m_aMBean = ManagementFactory.getThreadMXBean ();
-  private final ICommonsSet <IThreadDeadlockCallback> m_aCallbacks = new CommonsCopyOnWriteArraySet <> ();
+  private final CallbackList <IThreadDeadlockCallback> m_aCallbacks = new CallbackList <> ();
 
   /**
    * This is the main method to be invoked to find deadlocked threads. In case a
@@ -91,14 +90,13 @@ public class ThreadDeadlockDetector
       if (m_aCallbacks.isEmpty ())
         s_aLogger.warn ("Found a deadlock of " + aThreadInfos.length + " threads but no callbacks are present!");
       else
-        for (final IThreadDeadlockCallback aCallback : m_aCallbacks)
-          aCallback.onDeadlockDetected (aThreadInfos);
+        m_aCallbacks.forEach (x -> x.onDeadlockDetected (aThreadInfos));
     }
   }
 
   @Nonnull
   @ReturnsMutableObject
-  public ICommonsSet <IThreadDeadlockCallback> callbacks ()
+  public CallbackList <IThreadDeadlockCallback> callbacks ()
   {
     return m_aCallbacks;
   }
