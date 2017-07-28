@@ -2376,14 +2376,6 @@ public final class CollectionHelper
 
   public static <ELEMENTTYPE> void findAll (@Nullable final Iterable <? extends ELEMENTTYPE> aSrc,
                                             @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                            @Nonnull final Collection <? super ELEMENTTYPE> aDst)
-  {
-    ValueEnforcer.notNull (aDst, "Dst");
-    findAll (aSrc, aFilter, aDst::add);
-  }
-
-  public static <ELEMENTTYPE> void findAll (@Nullable final Iterable <? extends ELEMENTTYPE> aSrc,
-                                            @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
                                             @Nonnull final Consumer <? super ELEMENTTYPE> aConsumer)
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
@@ -2399,13 +2391,6 @@ public final class CollectionHelper
 
   public static <SRCTYPE, DSTTYPE> void findAllMapped (@Nullable final Iterable <? extends SRCTYPE> aSrc,
                                                        @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
-                                                       @Nonnull final Collection <? super DSTTYPE> aDst)
-  {
-    findAllMapped (aSrc, aMapper, aDst::add);
-  }
-
-  public static <SRCTYPE, DSTTYPE> void findAllMapped (@Nullable final Iterable <? extends SRCTYPE> aSrc,
-                                                       @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
                                                        @Nonnull final Consumer <? super DSTTYPE> aConsumer)
   {
     ValueEnforcer.notNull (aMapper, "Mapper");
@@ -2414,30 +2399,6 @@ public final class CollectionHelper
     if (isNotEmpty (aSrc))
       for (final SRCTYPE aElement : aSrc)
         aConsumer.accept (aMapper.apply (aElement));
-  }
-
-  /**
-   * Iterate, filter, map, add.
-   *
-   * @param aSrc
-   *        Source collection. May be <code>null</code>.
-   * @param aFilter
-   *        Filter on source object to use. May be <code>null</code>.
-   * @param aMapper
-   *        Mapping function. May not be <code>null</code>.
-   * @param aDst
-   *        Destination collection. May not be <code>null</code>.
-   * @param <SRCTYPE>
-   *        Source object type
-   * @param <DSTTYPE>
-   *        Destination object type
-   */
-  public static <SRCTYPE, DSTTYPE> void findAllMapped (@Nullable final Iterable <? extends SRCTYPE> aSrc,
-                                                       @Nullable final Predicate <? super SRCTYPE> aFilter,
-                                                       @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
-                                                       @Nonnull final Collection <? super DSTTYPE> aDst)
-  {
-    findAllMapped (aSrc, aFilter, aMapper, aDst::add);
   }
 
   /**
@@ -2471,31 +2432,6 @@ public final class CollectionHelper
         for (final SRCTYPE aElement : aSrc)
           if (aFilter.test (aElement))
             aConsumer.accept (aMapper.apply (aElement));
-  }
-
-  /**
-   * Iterate, map, filter, add.
-   *
-   * @param aSrc
-   *        Source collection. May be <code>null</code>.
-   * @param aMapper
-   *        Mapping function. May not be <code>null</code>.
-   * @param aFilter
-   *        Filter on mapped object to use. May be <code>null</code>.
-   * @param aDst
-   *        Destination collection. May not be <code>null</code>.
-   * @param <SRCTYPE>
-   *        Source object type
-   * @param <DSTTYPE>
-   *        Destination object type
-   * @since 8.5.2
-   */
-  public static <SRCTYPE, DSTTYPE> void findAllMapped (@Nullable final Iterable <? extends SRCTYPE> aSrc,
-                                                       @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
-                                                       @Nullable final Predicate <? super DSTTYPE> aFilter,
-                                                       @Nonnull final Collection <? super DSTTYPE> aDst)
-  {
-    findAllMapped (aSrc, aMapper, aFilter, aDst::add);
   }
 
   /**
