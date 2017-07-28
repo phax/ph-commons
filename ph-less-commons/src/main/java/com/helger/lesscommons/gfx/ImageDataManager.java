@@ -187,15 +187,15 @@ public final class ImageDataManager
     // Main read data outside of lock!
     final SizeInt aData = _readImageData (aRes);
 
-    return m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked ( () -> {
       // In case the image is invalid (why-so-ever), remember a null value
       if (aData == null)
         m_aNonExistingResources.add (aRes);
       else
         m_aImageData.put (aRes, aData);
       s_aStatsHdl.cacheMiss ();
-      return aData;
     });
+    return aData;
   }
 
   /**
