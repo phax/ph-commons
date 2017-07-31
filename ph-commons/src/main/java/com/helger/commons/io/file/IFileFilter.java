@@ -24,7 +24,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.functional.IPredicate;
 import com.helger.commons.regex.RegExHelper;
@@ -35,7 +34,6 @@ import com.helger.commons.regex.RegExHelper;
  *
  * @author Philip Helger
  */
-@MustImplementEqualsAndHashcode
 @FunctionalInterface
 public interface IFileFilter extends FileFilter, FilenameFilter, IPredicate <File>
 {
