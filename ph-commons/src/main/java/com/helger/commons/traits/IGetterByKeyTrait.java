@@ -29,7 +29,6 @@ import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsLinkedHashSet;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
-import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.typeconvert.TypeConverter;
 import com.helger.commons.typeconvert.TypeConverterException;
@@ -900,7 +899,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    */
   default boolean hasStringValue (@Nullable final KEYTYPE aKey, @Nullable final String sDesiredValue)
   {
-    return EqualsHelper.equals (getAsString (aKey), sDesiredValue);
+    return hasStringValue (aKey, sDesiredValue, false);
   }
 
   /**
@@ -925,6 +924,6 @@ public interface IGetterByKeyTrait <KEYTYPE>
                                   final boolean bDefault)
   {
     final String sValue = getAsString (aKey);
-    return sValue == null ? bDefault : EqualsHelper.equals (sValue, sDesiredValue);
+    return sValue == null ? bDefault : sValue.equals (sDesiredValue);
   }
 }

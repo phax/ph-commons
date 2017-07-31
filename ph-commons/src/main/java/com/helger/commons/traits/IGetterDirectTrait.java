@@ -648,17 +648,4 @@ public interface IGetterDirectTrait
   {
     return getConvertedValue (java.sql.Timestamp.class);
   }
-
-  /**
-   * Convert the passed object to a convertible object :)
-   *
-   * @param o
-   *        Source object. May be <code>null</code>.
-   * @return The convertible object
-   */
-  @Nonnull
-  static IGetterDirectTrait wrap (@Nullable final Object o)
-  {
-    return () -> o;
-  }
 }

@@ -58,10 +58,7 @@ public interface ISettings extends IHasName, IHasSize, IGetterByKeyTrait <String
    *        The consumer to be invoked. May not be <code>null</code>.
    * @see #forEach(BiPredicate,BiConsumer)
    */
-  default void forEach (@Nonnull final BiConsumer <? super String, ? super Object> aConsumer)
-  {
-    getAllEntries ().forEach (aConsumer);
-  }
+  void forEach (@Nonnull final BiConsumer <? super String, ? super Object> aConsumer);
 
   /**
    * Invoke the provided consumer on each entry (pair of key and value) that
@@ -73,11 +70,8 @@ public interface ISettings extends IHasName, IHasSize, IGetterByKeyTrait <String
    *        The consumer to be invoked. May not be <code>null</code>.
    * @see #forEach(BiConsumer)
    */
-  default void forEach (@Nullable final BiPredicate <? super String, ? super Object> aFilter,
-                        @Nonnull final BiConsumer <? super String, ? super Object> aConsumer)
-  {
-    getAllEntries ().forEach (aFilter, aConsumer);
-  }
+  void forEach (@Nullable final BiPredicate <? super String, ? super Object> aFilter,
+                @Nonnull final BiConsumer <? super String, ? super Object> aConsumer);
 
   /**
    * Check if a value is present for the given field name.
