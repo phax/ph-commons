@@ -281,7 +281,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
                                                                                 aAttrMap,
                                                                                 bHasChildren);
 
-      aXMLWriter.onElementStart (sElementNSPrefix, sTagName, aAttrMap, bHasChildren, eBracketMode);
+      aXMLWriter.onElementStart (sElementNSPrefix, sTagName, aAttrMap, eBracketMode);
 
       // write child nodes (if present)
       if (bHasChildren)
@@ -315,7 +315,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
           aXMLWriter.onContentElementWhitespace (m_aIndent);
       }
 
-      aXMLWriter.onElementEnd (sElementNSPrefix, sTagName, bHasChildren, eBracketMode);
+      aXMLWriter.onElementEnd (sElementNSPrefix, sTagName, eBracketMode);
 
       if (eIndentOuter.isAlign () && bIndentNext)
         aXMLWriter.onContentElementWhitespace (m_aSettings.getNewLineString ());

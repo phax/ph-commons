@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.WillNotClose;
@@ -139,6 +140,29 @@ public class XMLEmitter
   }
 
   @Nonnull
+  private XMLEmitter _appendMasked (@Nonnull final EXMLCharMode eXMLCharMode,
+                                    @Nonnull final char [] aText,
+                                    @Nonnegative final int nOfs,
+                                    @Nonnegative final int nLen)
+  {
+    try
+    {
+      XMLMaskHelper.maskXMLTextTo (m_eXMLVersion,
+                                   eXMLCharMode,
+                                   m_aSettings.getIncorrectCharacterHandling (),
+                                   aText,
+                                   nOfs,
+                                   nLen,
+                                   m_aWriter);
+      return this;
+    }
+    catch (final IOException ex)
+    {
+      throw new IllegalStateException ("Failed to append masked string '" + new String (aText, nOfs, nLen) + "'", ex);
+    }
+  }
+
+  @Nonnull
   private XMLEmitter _appendAttrValue (@Nullable final String sValue)
   {
     return _append (m_cAttrValueBoundary)._appendMasked (m_eAttrValueCharMode, sValue)._append (m_cAttrValueBoundary);
@@ -195,11 +219,11 @@ public class XMLEmitter
                                                      @Nonnull final EXMLIncorrectCharacterHandling eIncorrectCharHandling,
                                                      @Nonnull final IMicroDocumentType aDocType)
   {
-    return getDocTypeHTMLRepresentation (eXMLVersion,
-                                         eIncorrectCharHandling,
-                                         aDocType.getQualifiedName (),
-                                         aDocType.getPublicID (),
-                                         aDocType.getSystemID ());
+    return getDocTypeXMLRepresentation (eXMLVersion,
+                                        eIncorrectCharHandling,
+                                        aDocType.getQualifiedName (),
+                                        aDocType.getPublicID (),
+                                        aDocType.getSystemID ());
   }
 
   /**
@@ -219,11 +243,11 @@ public class XMLEmitter
    * @return The string DOCTYPE representation.
    */
   @Nonnull
-  public static String getDocTypeHTMLRepresentation (@Nonnull final EXMLSerializeVersion eXMLVersion,
-                                                     @Nonnull final EXMLIncorrectCharacterHandling eIncorrectCharHandling,
-                                                     @Nonnull final String sQualifiedName,
-                                                     @Nullable final String sPublicID,
-                                                     @Nullable final String sSystemID)
+  public static String getDocTypeXMLRepresentation (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                                    @Nonnull final EXMLIncorrectCharacterHandling eIncorrectCharHandling,
+                                                    @Nonnull final String sQualifiedName,
+                                                    @Nullable final String sPublicID,
+                                                    @Nullable final String sSystemID)
   {
     // do not return a line break at the end! (JS variable assignment)
     final StringBuilder aSB = new StringBuilder (128);
@@ -273,11 +297,11 @@ public class XMLEmitter
   {
     ValueEnforcer.notNull (sQualifiedElementName, "QualifiedElementName");
 
-    final String sDocType = getDocTypeHTMLRepresentation (m_eXMLVersion,
-                                                          m_aSettings.getIncorrectCharacterHandling (),
-                                                          sQualifiedElementName,
-                                                          sPublicID,
-                                                          sSystemID);
+    final String sDocType = getDocTypeXMLRepresentation (m_eXMLVersion,
+                                                         m_aSettings.getIncorrectCharacterHandling (),
+                                                         sQualifiedElementName,
+                                                         sPublicID,
+                                                         sSystemID);
     _append (sDocType);
     if (m_aSettings.getIndent ().isAlign ())
       _append (m_aSettings.getNewLineString ());
@@ -343,12 +367,38 @@ public class XMLEmitter
   }
 
   /**
+   * XML text node.
+   *
+   * @param sText
+   *        The contained text
+   */
+  public void onText (@Nullable final String sText)
+  {
+    _appendMasked (EXMLCharMode.TEXT, sText);
+  }
+
+  /**
+   * XML text node.
+   *
+   * @param aText
+   *        The contained text array
+   * @param nOfs
+   *        Offset into the array where to start
+   * @param nLen
+   *        Number of chars to use, starting from the provided offset.
+   */
+  public void onText (@Nonnull final char [] aText, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  {
+    _appendMasked (EXMLCharMode.TEXT, aText, nOfs, nLen);
+  }
+
+  /**
    * Text node.
    *
    * @param sText
    *        The contained text
    * @param bEscape
-   *        If <code>true</code> the text should be XML masked,
+   *        If <code>true</code> the text should be XML masked (the default),
    *        <code>false</code> if not. The <code>false</code> case is especially
    *        interesting for HTML inline JS and CSS code.
    */
@@ -394,25 +444,7 @@ public class XMLEmitter
     }
   }
 
-  /**
-   * Start of an element.
-   *
-   * @param sNamespacePrefix
-   *        Optional namespace prefix. May be <code>null</code>.
-   * @param sTagName
-   *        Tag name
-   * @param aAttrs
-   *        Optional set of attributes.
-   * @param bHasChildren
-   *        <code>true</code> if the current element has children
-   * @param eBracketMode
-   *        Bracket mode to use. Never <code>null</code>.
-   */
-  public void onElementStart (@Nullable final String sNamespacePrefix,
-                              @Nonnull final String sTagName,
-                              @Nullable final Map <QName, String> aAttrs,
-                              final boolean bHasChildren,
-                              @Nonnull final EXMLSerializeBracketMode eBracketMode)
+  public void elementStartOpen (@Nullable final String sNamespacePrefix, @Nonnull final String sTagName)
   {
     _append ('<');
     if (StringHelper.hasText (sNamespacePrefix))
@@ -421,28 +453,23 @@ public class XMLEmitter
       _appendMasked (EXMLCharMode.ELEMENT_NAME, sNamespacePrefix)._append (CXML.XML_PREFIX_NAMESPACE_SEP);
     }
     _appendMasked (EXMLCharMode.ELEMENT_NAME, sTagName);
+  }
 
-    if (aAttrs != null && !aAttrs.isEmpty ())
+  public void elementAttr (@Nullable final String sAttrNamespacePrefix,
+                           @Nonnull final String sAttrName,
+                           @Nonnull final String sAttrValue)
+  {
+    _append (' ');
+    if (StringHelper.hasText (sAttrNamespacePrefix))
     {
-      // assuming that the order of the passed attributes is consistent!
-      // Emit all attributes
-      for (final Map.Entry <QName, String> aEntry : aAttrs.entrySet ())
-      {
-        final QName aAttrName = aEntry.getKey ();
-        final String sAttrNamespacePrefix = aAttrName.getPrefix ();
-        final String sAttrName = aAttrName.getLocalPart ();
-        final String sAttrValue = aEntry.getValue ();
-
-        _append (' ');
-        if (StringHelper.hasText (sAttrNamespacePrefix))
-        {
-          // We have an attribute namespace prefix
-          _append (sAttrNamespacePrefix)._append (CXML.XML_PREFIX_NAMESPACE_SEP);
-        }
-        _appendMasked (EXMLCharMode.ATTRIBUTE_NAME, sAttrName)._append ('=')._appendAttrValue (sAttrValue);
-      }
+      // We have an attribute namespace prefix
+      _append (sAttrNamespacePrefix)._append (CXML.XML_PREFIX_NAMESPACE_SEP);
     }
+    _appendMasked (EXMLCharMode.ATTRIBUTE_NAME, sAttrName)._append ('=')._appendAttrValue (sAttrValue);
+  }
 
+  public void elementStartClose (@Nonnull final EXMLSerializeBracketMode eBracketMode)
+  {
     if (eBracketMode.isSelfClosed ())
     {
       // Note: according to HTML compatibility guideline a space should be added
@@ -457,20 +484,50 @@ public class XMLEmitter
   }
 
   /**
+   * Start of an element.
+   *
+   * @param sNamespacePrefix
+   *        Optional namespace prefix. May be <code>null</code>.
+   * @param sTagName
+   *        Tag name
+   * @param aAttrs
+   *        Optional set of attributes.
+   * @param eBracketMode
+   *        Bracket mode to use. Never <code>null</code>.
+   */
+  public void onElementStart (@Nullable final String sNamespacePrefix,
+                              @Nonnull final String sTagName,
+                              @Nullable final Map <QName, String> aAttrs,
+                              @Nonnull final EXMLSerializeBracketMode eBracketMode)
+  {
+    elementStartOpen (sNamespacePrefix, sTagName);
+
+    if (aAttrs != null && !aAttrs.isEmpty ())
+    {
+      // assuming that the order of the passed attributes is consistent!
+      // Emit all attributes
+      for (final Map.Entry <QName, String> aEntry : aAttrs.entrySet ())
+      {
+        final QName aAttrName = aEntry.getKey ();
+        elementAttr (aAttrName.getPrefix (), aAttrName.getLocalPart (), aEntry.getValue ());
+      }
+    }
+
+    elementStartClose (eBracketMode);
+  }
+
+  /**
    * End of an element.
    *
    * @param sNamespacePrefix
    *        Optional namespace prefix. May be <code>null</code>.
    * @param sTagName
    *        Tag name
-   * @param bHasChildren
-   *        <code>true</code> if the current element has children
    * @param eBracketMode
    *        Bracket mode to use. Never <code>null</code>.
    */
   public void onElementEnd (@Nullable final String sNamespacePrefix,
                             @Nonnull final String sTagName,
-                            final boolean bHasChildren,
                             @Nonnull final EXMLSerializeBracketMode eBracketMode)
   {
     if (eBracketMode.isOpenClose ())

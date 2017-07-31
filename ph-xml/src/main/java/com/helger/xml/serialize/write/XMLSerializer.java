@@ -255,7 +255,7 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
         aXMLWriter.onContentElementWhitespace (m_aIndent);
 
       // Open tag
-      aXMLWriter.onElementStart (sElementNSPrefix, sTagName, aAttrMap, bHasChildren, eBracketMode);
+      aXMLWriter.onElementStart (sElementNSPrefix, sTagName, aAttrMap, eBracketMode);
 
       // write child nodes (if present)
       if (bHasChildren)
@@ -289,7 +289,7 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
       }
 
       // add closing tag
-      aXMLWriter.onElementEnd (sElementNSPrefix, sTagName, bHasChildren, eBracketMode);
+      aXMLWriter.onElementEnd (sElementNSPrefix, sTagName, eBracketMode);
 
       // Align?
       if (eIndentOuter.isAlign () && bIndentNext)

@@ -662,19 +662,36 @@ public final class XMLMaskHelper
                                     @Nullable final String s,
                                     @Nonnull final Writer aWriter) throws IOException
   {
-    if (StringHelper.hasNoText (s))
+    if (StringHelper.hasText (s))
+      maskXMLTextTo (eXMLVersion, eXMLCharMode, eIncorrectCharHandling, s.toCharArray (), 0, s.length (), aWriter);
+  }
+
+  public static void maskXMLTextTo (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                    @Nonnull final EXMLCharMode eXMLCharMode,
+                                    @Nonnull final EXMLIncorrectCharacterHandling eIncorrectCharHandling,
+                                    @Nonnull final char [] aText,
+                                    @Nonnegative final int nOfs,
+                                    @Nonnegative final int nLen,
+                                    @Nonnull final Writer aWriter) throws IOException
+  {
+    if (nLen == 0)
       return;
 
-    char [] aChars = s.toCharArray ();
+    char [] aChars = aText;
 
     // 1. do incorrect character handling
     if (eIncorrectCharHandling.isTestRequired ())
     {
-      if (XMLCharHelper.containsInvalidXMLChar (eXMLVersion, eXMLCharMode, aChars))
+      if (XMLCharHelper.containsInvalidXMLChar (eXMLVersion, eXMLCharMode, aChars, nOfs, nLen))
       {
         final ICommonsSet <Character> aAllInvalidChars = XMLCharHelper.getAllInvalidXMLChars (eXMLVersion,
                                                                                               eXMLCharMode,
-                                                                                              aChars);
+                                                                                              aChars,
+                                                                                              nOfs,
+                                                                                              nLen);
+        // Here we can convert, because this part should not be called very
+        // often
+        final String s = new String (aText, nOfs, nLen);
         eIncorrectCharHandling.notifyOnInvalidXMLCharacter (s, aAllInvalidChars);
         if (eIncorrectCharHandling.isReplaceWithNothing ())
         {

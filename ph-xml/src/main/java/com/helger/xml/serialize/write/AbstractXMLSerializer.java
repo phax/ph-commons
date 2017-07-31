@@ -132,7 +132,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
       else
       {
         if (m_aURL2PrefixMap == null)
-          m_aURL2PrefixMap = new CommonsHashMap<> ();
+          m_aURL2PrefixMap = new CommonsHashMap <> ();
         m_aURL2PrefixMap.put (sNamespaceURI, sPrefix);
       }
     }
@@ -182,7 +182,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
    */
   protected static final class NamespaceStack
   {
-    private final ICommonsList <NamespaceLevel> m_aStack = new CommonsArrayList<> ();
+    private final ICommonsList <NamespaceLevel> m_aStack = new CommonsArrayList <> ();
     private final NamespaceContext m_aNamespaceCtx;
 
     public NamespaceStack (@Nonnull final NamespaceContext aNamespaceCtx)
@@ -555,9 +555,9 @@ public abstract class AbstractXMLSerializer <NODETYPE>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("settings", m_aSettings)
-                                       .append ("sIndent", m_aIndent.toString ())
-                                       .append ("namespaceStack", m_aNSStack)
+    return new ToStringGenerator (this).append ("Settings", m_aSettings)
+                                       .append ("Indent", m_aIndent.toString ())
+                                       .append ("NamespaceStack", m_aNSStack)
                                        .getToString ();
   }
 }

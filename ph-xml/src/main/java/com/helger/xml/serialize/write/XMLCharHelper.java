@@ -18,16 +18,15 @@ package com.helger.xml.serialize.write;
 
 import java.util.BitSet;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.impl.CommonsLinkedHashSet;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
-import com.helger.commons.collection.impl.ICommonsSet;
 
 /**
  * This class contains XML utility methods for character handling.
@@ -681,17 +680,26 @@ public final class XMLCharHelper
   public static boolean containsInvalidXMLNameChar (@Nonnull final EXMLSerializeVersion eXMLVersion,
                                                     @Nullable final String s)
   {
-    return s != null && containsInvalidXMLNameChar (eXMLVersion, s.toCharArray ());
+    return s != null && s.length () > 0 && containsInvalidXMLNameChar (eXMLVersion, s.toCharArray (), 0, s.length ());
   }
 
   public static boolean containsInvalidXMLNameChar (@Nonnull final EXMLSerializeVersion eXMLVersion,
                                                     @Nullable final char [] aChars)
   {
-    if (aChars != null)
+    return aChars != null && aChars.length > 0 && containsInvalidXMLNameChar (eXMLVersion, aChars, 0, aChars.length);
+  }
+
+  public static boolean containsInvalidXMLNameChar (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                                    @Nullable final char [] aChars,
+                                                    @Nonnegative final int nOfs,
+                                                    @Nonnegative final int nLen)
+  {
+    if (aChars != null && nLen > 0)
     {
       int nIndex = 0;
-      for (final char c : aChars)
+      for (int i = 0; i < nLen; ++i)
       {
+        final char c = aChars[nOfs + i];
         if (nIndex == 0)
         {
           if (isInvalidXMLNameStartChar (eXMLVersion, c))
@@ -710,10 +718,10 @@ public final class XMLCharHelper
 
   @Nullable
   @ReturnsMutableCopy
-  public static ICommonsSet <Character> getAllInvalidXMLNameChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
-                                                                   @Nullable final String s)
+  public static ICommonsOrderedSet <Character> getAllInvalidXMLNameChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                                                          @Nullable final String s)
   {
-    return s == null ? null : getAllInvalidXMLNameChars (eXMLVersion, s.toCharArray ());
+    return s == null || s.length () == 0 ? null : getAllInvalidXMLNameChars (eXMLVersion, s.toCharArray ());
   }
 
   @Nullable
@@ -721,13 +729,25 @@ public final class XMLCharHelper
   public static ICommonsOrderedSet <Character> getAllInvalidXMLNameChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
                                                                           @Nullable final char [] aChars)
   {
-    if (ArrayHelper.isEmpty (aChars))
+    return aChars == null || aChars.length == 0 ? null
+                                                : getAllInvalidXMLNameChars (eXMLVersion, aChars, 0, aChars.length);
+  }
+
+  @Nullable
+  @ReturnsMutableCopy
+  public static ICommonsOrderedSet <Character> getAllInvalidXMLNameChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                                                          @Nullable final char [] aChars,
+                                                                          @Nonnegative final int nOfs,
+                                                                          @Nonnegative final int nLen)
+  {
+    if (aChars == null || nLen <= 0)
       return null;
 
     final ICommonsOrderedSet <Character> aRes = new CommonsLinkedHashSet <> ();
     int nIndex = 0;
-    for (final char c : aChars)
+    for (int i = 0; i < nLen; ++i)
     {
+      final char c = aChars[nOfs + i];
       if (nIndex == 0)
       {
         if (isInvalidXMLNameStartChar (eXMLVersion, c))
@@ -770,25 +790,37 @@ public final class XMLCharHelper
   public static boolean containsInvalidXMLTextChar (@Nonnull final EXMLSerializeVersion eXMLVersion,
                                                     @Nullable final String s)
   {
-    return s != null && containsInvalidXMLTextChar (eXMLVersion, s.toCharArray ());
+    return s != null && s.length () > 0 && containsInvalidXMLTextChar (eXMLVersion, s.toCharArray (), 0, s.length ());
   }
 
   public static boolean containsInvalidXMLTextChar (@Nonnull final EXMLSerializeVersion eXMLVersion,
                                                     @Nullable final char [] aChars)
   {
-    if (aChars != null)
-      for (final char c : aChars)
+    return aChars != null && aChars.length > 0 && containsInvalidXMLTextChar (eXMLVersion, aChars, 0, aChars.length);
+  }
+
+  public static boolean containsInvalidXMLTextChar (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                                    @Nullable final char [] aChars,
+                                                    @Nonnegative final int nOfs,
+                                                    @Nonnegative final int nLen)
+  {
+    if (aChars != null && nLen > 0)
+      for (int i = 0; i < nLen; ++i)
+      {
+        final char c = aChars[nOfs + i];
         if (isInvalidXMLTextChar (eXMLVersion, c))
           return true;
+      }
     return false;
   }
 
   @Nullable
   @ReturnsMutableCopy
-  public static ICommonsSet <Character> getAllInvalidXMLTextChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
-                                                                   @Nullable final String s)
+  public static ICommonsOrderedSet <Character> getAllInvalidXMLTextChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                                                          @Nullable final String s)
   {
-    return s == null ? null : getAllInvalidXMLTextChars (eXMLVersion, s.toCharArray ());
+    return s == null || s.length () == 0 ? null
+                                         : getAllInvalidXMLTextChars (eXMLVersion, s.toCharArray (), 0, s.length ());
   }
 
   @Nullable
@@ -796,13 +828,27 @@ public final class XMLCharHelper
   public static ICommonsOrderedSet <Character> getAllInvalidXMLTextChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
                                                                           @Nullable final char [] aChars)
   {
-    if (ArrayHelper.isEmpty (aChars))
+    return aChars == null || aChars.length == 0 ? null
+                                                : getAllInvalidXMLTextChars (eXMLVersion, aChars, 0, aChars.length);
+  }
+
+  @Nullable
+  @ReturnsMutableCopy
+  public static ICommonsOrderedSet <Character> getAllInvalidXMLTextChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                                                          @Nullable final char [] aChars,
+                                                                          @Nonnegative final int nOfs,
+                                                                          @Nonnegative final int nLen)
+  {
+    if (aChars == null || nLen <= 0)
       return null;
 
     final ICommonsOrderedSet <Character> aRes = new CommonsLinkedHashSet <> ();
-    for (final char c : aChars)
+    for (int i = 0; i < nLen; ++i)
+    {
+      final char c = aChars[nOfs + i];
       if (isInvalidXMLTextChar (eXMLVersion, c))
         aRes.add (Character.valueOf (c));
+    }
     return aRes;
   }
 
@@ -833,25 +879,37 @@ public final class XMLCharHelper
   public static boolean containsInvalidXMLCDATAChar (@Nonnull final EXMLSerializeVersion eXMLVersion,
                                                      @Nullable final String s)
   {
-    return s != null && containsInvalidXMLCDATAChar (eXMLVersion, s.toCharArray ());
+    return s != null && s.length () > 0 && containsInvalidXMLCDATAChar (eXMLVersion, s.toCharArray (), 0, s.length ());
   }
 
   public static boolean containsInvalidXMLCDATAChar (@Nonnull final EXMLSerializeVersion eXMLVersion,
                                                      @Nullable final char [] aChars)
   {
-    if (aChars != null)
-      for (final char c : aChars)
+    return aChars != null && aChars.length > 0 && containsInvalidXMLCDATAChar (eXMLVersion, aChars, 0, aChars.length);
+  }
+
+  public static boolean containsInvalidXMLCDATAChar (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                                     @Nullable final char [] aChars,
+                                                     @Nonnegative final int nOfs,
+                                                     @Nonnegative final int nLen)
+  {
+    if (aChars != null && nLen > 0)
+      for (int i = 0; i < nLen; ++i)
+      {
+        final char c = aChars[nOfs + i];
         if (isInvalidXMLCDATAChar (eXMLVersion, c))
           return true;
+      }
     return false;
   }
 
   @Nullable
   @ReturnsMutableCopy
-  public static ICommonsSet <Character> getAllInvalidXMLCDATAChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
-                                                                    @Nullable final String s)
+  public static ICommonsOrderedSet <Character> getAllInvalidXMLCDATAChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                                                           @Nullable final String s)
   {
-    return s == null ? null : getAllInvalidXMLCDATAChars (eXMLVersion, s.toCharArray ());
+    return s == null || s.length () == 0 ? null
+                                         : getAllInvalidXMLCDATAChars (eXMLVersion, s.toCharArray (), 0, s.length ());
   }
 
   @Nullable
@@ -859,13 +917,27 @@ public final class XMLCharHelper
   public static ICommonsOrderedSet <Character> getAllInvalidXMLCDATAChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
                                                                            @Nullable final char [] aChars)
   {
-    if (ArrayHelper.isEmpty (aChars))
+    return aChars == null || aChars.length == 0 ? null
+                                                : getAllInvalidXMLCDATAChars (eXMLVersion, aChars, 0, aChars.length);
+  }
+
+  @Nullable
+  @ReturnsMutableCopy
+  public static ICommonsOrderedSet <Character> getAllInvalidXMLCDATAChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                                                           @Nullable final char [] aChars,
+                                                                           @Nonnegative final int nOfs,
+                                                                           @Nonnegative final int nLen)
+  {
+    if (aChars == null || nLen <= 0)
       return null;
 
     final ICommonsOrderedSet <Character> aRes = new CommonsLinkedHashSet <> ();
-    for (final char c : aChars)
+    for (int i = 0; i < nLen; ++i)
+    {
+      final char c = aChars[nOfs + i];
       if (isInvalidXMLCDATAChar (eXMLVersion, c))
         aRes.add (Character.valueOf (c));
+    }
     return aRes;
   }
 
@@ -896,25 +968,42 @@ public final class XMLCharHelper
   public static boolean containsInvalidXMLAttributeValueChar (@Nonnull final EXMLSerializeVersion eXMLVersion,
                                                               @Nullable final String s)
   {
-    return s != null && containsInvalidXMLAttributeValueChar (eXMLVersion, s.toCharArray ());
+    return s != null &&
+           s.length () > 0 &&
+           containsInvalidXMLAttributeValueChar (eXMLVersion, s.toCharArray (), 0, s.length ());
   }
 
   public static boolean containsInvalidXMLAttributeValueChar (@Nonnull final EXMLSerializeVersion eXMLVersion,
                                                               @Nullable final char [] aChars)
   {
-    if (aChars != null)
-      for (final char c : aChars)
+    return aChars != null &&
+           aChars.length > 0 &&
+           containsInvalidXMLAttributeValueChar (eXMLVersion, aChars, 0, aChars.length);
+  }
+
+  public static boolean containsInvalidXMLAttributeValueChar (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                                              @Nullable final char [] aChars,
+                                                              @Nonnegative final int nOfs,
+                                                              @Nonnegative final int nLen)
+  {
+    if (aChars != null && nLen > 0)
+      for (int i = 0; i < nLen; ++i)
+      {
+        final char c = aChars[nOfs + i];
         if (isInvalidXMLAttributeValueChar (eXMLVersion, c))
           return true;
+      }
     return false;
   }
 
   @Nullable
   @ReturnsMutableCopy
-  public static ICommonsSet <Character> getAllInvalidXMLAttributeValueChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
-                                                                             @Nullable final String s)
+  public static ICommonsOrderedSet <Character> getAllInvalidXMLAttributeValueChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                                                                    @Nullable final String s)
   {
-    return s == null ? null : getAllInvalidXMLAttributeValueChars (eXMLVersion, s.toCharArray ());
+    return s == null ||
+           s.length () == 0 ? null
+                            : getAllInvalidXMLAttributeValueChars (eXMLVersion, s.toCharArray (), 0, s.length ());
   }
 
   @Nullable
@@ -922,13 +1011,27 @@ public final class XMLCharHelper
   public static ICommonsOrderedSet <Character> getAllInvalidXMLAttributeValueChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
                                                                                     @Nullable final char [] aChars)
   {
-    if (ArrayHelper.isEmpty (aChars))
+    return aChars == null ||
+           aChars.length == 0 ? null : getAllInvalidXMLAttributeValueChars (eXMLVersion, aChars, 0, aChars.length);
+  }
+
+  @Nullable
+  @ReturnsMutableCopy
+  public static ICommonsOrderedSet <Character> getAllInvalidXMLAttributeValueChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                                                                    @Nullable final char [] aChars,
+                                                                                    @Nonnegative final int nOfs,
+                                                                                    @Nonnegative final int nLen)
+  {
+    if (aChars == null || nLen <= 0)
       return null;
 
     final ICommonsOrderedSet <Character> aRes = new CommonsLinkedHashSet <> ();
-    for (final char c : aChars)
+    for (int i = 0; i < nLen; ++i)
+    {
+      final char c = aChars[nOfs + i];
       if (isInvalidXMLAttributeValueChar (eXMLVersion, c))
         aRes.add (Character.valueOf (c));
+    }
     return aRes;
   }
 
@@ -936,25 +1039,38 @@ public final class XMLCharHelper
                                                 @Nonnull final EXMLCharMode eXMLCharMode,
                                                 @Nullable final String s)
   {
-    return s != null && containsInvalidXMLChar (eXMLVersion, eXMLCharMode, s.toCharArray ());
+    return s != null &&
+           s.length () > 0 &&
+           containsInvalidXMLChar (eXMLVersion, eXMLCharMode, s.toCharArray (), 0, s.length ());
   }
 
   public static boolean containsInvalidXMLChar (@Nonnull final EXMLSerializeVersion eXMLVersion,
                                                 @Nonnull final EXMLCharMode eXMLCharMode,
                                                 @Nullable final char [] aChars)
   {
+    return aChars != null &&
+           aChars.length > 0 &&
+           containsInvalidXMLChar (eXMLVersion, eXMLCharMode, aChars, 0, aChars.length);
+  }
+
+  public static boolean containsInvalidXMLChar (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                                @Nonnull final EXMLCharMode eXMLCharMode,
+                                                @Nullable final char [] aChars,
+                                                @Nonnegative final int nOfs,
+                                                @Nonnegative final int nLen)
+  {
     switch (eXMLCharMode)
     {
       case ELEMENT_NAME:
       case ATTRIBUTE_NAME:
-        return containsInvalidXMLNameChar (eXMLVersion, aChars);
+        return containsInvalidXMLNameChar (eXMLVersion, aChars, nOfs, nLen);
       case ATTRIBUTE_VALUE_DOUBLE_QUOTES:
       case ATTRIBUTE_VALUE_SINGLE_QUOTES:
-        return containsInvalidXMLAttributeValueChar (eXMLVersion, aChars);
+        return containsInvalidXMLAttributeValueChar (eXMLVersion, aChars, nOfs, nLen);
       case TEXT:
-        return containsInvalidXMLTextChar (eXMLVersion, aChars);
+        return containsInvalidXMLTextChar (eXMLVersion, aChars, nOfs, nLen);
       case CDATA:
-        return containsInvalidXMLCDATAChar (eXMLVersion, aChars);
+        return containsInvalidXMLCDATAChar (eXMLVersion, aChars, nOfs, nLen);
       default:
         throw new IllegalArgumentException ("Unsupported XML character mode " + eXMLCharMode + "!");
     }
@@ -962,31 +1078,45 @@ public final class XMLCharHelper
 
   @Nullable
   @ReturnsMutableCopy
-  public static ICommonsSet <Character> getAllInvalidXMLChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
-                                                               @Nonnull final EXMLCharMode eXMLCharMode,
-                                                               @Nullable final String s)
+  public static ICommonsOrderedSet <Character> getAllInvalidXMLChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                                                      @Nonnull final EXMLCharMode eXMLCharMode,
+                                                                      @Nullable final String s)
   {
-    return s == null ? null : getAllInvalidXMLChars (eXMLVersion, eXMLCharMode, s.toCharArray ());
+    return s == null ||
+           s.length () == 0 ? null
+                            : getAllInvalidXMLChars (eXMLVersion, eXMLCharMode, s.toCharArray (), 0, s.length ());
   }
 
   @Nullable
   @ReturnsMutableCopy
-  public static ICommonsSet <Character> getAllInvalidXMLChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
-                                                               @Nonnull final EXMLCharMode eXMLCharMode,
-                                                               @Nullable final char [] aChars)
+  public static ICommonsOrderedSet <Character> getAllInvalidXMLChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                                                      @Nonnull final EXMLCharMode eXMLCharMode,
+                                                                      @Nullable final char [] aChars)
+  {
+    return aChars == null ||
+           aChars.length == 0 ? null : getAllInvalidXMLChars (eXMLVersion, eXMLCharMode, aChars, 0, aChars.length);
+  }
+
+  @Nullable
+  @ReturnsMutableCopy
+  public static ICommonsOrderedSet <Character> getAllInvalidXMLChars (@Nonnull final EXMLSerializeVersion eXMLVersion,
+                                                                      @Nonnull final EXMLCharMode eXMLCharMode,
+                                                                      @Nullable final char [] aChars,
+                                                                      @Nonnegative final int nOfs,
+                                                                      @Nonnegative final int nLen)
   {
     switch (eXMLCharMode)
     {
       case ELEMENT_NAME:
       case ATTRIBUTE_NAME:
-        return getAllInvalidXMLNameChars (eXMLVersion, aChars);
+        return getAllInvalidXMLNameChars (eXMLVersion, aChars, nOfs, nLen);
       case ATTRIBUTE_VALUE_DOUBLE_QUOTES:
       case ATTRIBUTE_VALUE_SINGLE_QUOTES:
-        return getAllInvalidXMLAttributeValueChars (eXMLVersion, aChars);
+        return getAllInvalidXMLAttributeValueChars (eXMLVersion, aChars, nOfs, nLen);
       case TEXT:
-        return getAllInvalidXMLTextChars (eXMLVersion, aChars);
+        return getAllInvalidXMLTextChars (eXMLVersion, aChars, nOfs, nLen);
       case CDATA:
-        return getAllInvalidXMLCDATAChars (eXMLVersion, aChars);
+        return getAllInvalidXMLCDATAChars (eXMLVersion, aChars, nOfs, nLen);
       default:
         throw new IllegalArgumentException ("Unsupported XML character mode " + eXMLCharMode + "!");
     }
