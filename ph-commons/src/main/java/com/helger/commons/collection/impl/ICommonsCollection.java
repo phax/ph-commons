@@ -713,13 +713,15 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    *
    * @param aValue
    *        The value to be added. May be <code>null</code>.
+   * @return {@link EChange#CHANGED} if something was changed,
+   *         {@link EChange#UNCHANGED} otherwise.
    * @see #clear()
    * @see #add(Object)
    */
-  default void set (@Nullable final ELEMENTTYPE aValue)
+  @Nonnull
+  default EChange set (@Nullable final ELEMENTTYPE aValue)
   {
-    clear ();
-    add (aValue);
+    return removeAll ().or (add (aValue));
   }
 
   /**

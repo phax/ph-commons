@@ -34,6 +34,8 @@ import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXParseException;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.callback.CallbackList;
 import com.helger.commons.callback.exception.IExceptionCallback;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.string.ToStringGenerator;
@@ -50,8 +52,9 @@ import com.helger.jaxb.validation.LoggingValidationEventHandler;
  *        The implementation class implementing this abstract class.
  */
 @NotThreadSafe
-public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JAXBTYPE, IMPLTYPE>>
-                               extends AbstractJAXBBuilder <IMPLTYPE> implements IJAXBReader <JAXBTYPE>
+public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JAXBTYPE, IMPLTYPE>> extends
+                               AbstractJAXBBuilder <IMPLTYPE> implements
+                               IJAXBReader <JAXBTYPE>
 {
   public static class DefaultExceptionHandler implements IExceptionCallback <JAXBException>
   {
@@ -80,7 +83,7 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
 
   private final Class <JAXBTYPE> m_aImplClass;
   private ValidationEventHandler m_aEventHandler = JAXBBuilderDefaultSettings.getDefaultValidationEventHandler ();
-  private IExceptionCallback <JAXBException> m_aExceptionHandler = new DefaultExceptionHandler ();
+  private final CallbackList <IExceptionCallback <JAXBException>> m_aExceptionCallbacks = new CallbackList <> ();
   private Consumer <? super Unmarshaller> m_aUnmarshallerCustomizer;
   private boolean m_bReadSecure = true;
 
@@ -93,6 +96,7 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
   {
     super (aDocType);
     m_aImplClass = ValueEnforcer.notNull (aImplClass, "ImplClass");
+    m_aExceptionCallbacks.add (new DefaultExceptionHandler ());
   }
 
   @Nonnull
@@ -127,16 +131,10 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
   }
 
   @Nonnull
-  public IExceptionCallback <JAXBException> getExceptionHandler ()
+  @ReturnsMutableObject
+  public final CallbackList <IExceptionCallback <JAXBException>> exceptionCallbacks ()
   {
-    return m_aExceptionHandler;
-  }
-
-  @Nonnull
-  public IMPLTYPE setExceptionHandler (@Nonnull final IExceptionCallback <JAXBException> aExceptionHandler)
-  {
-    m_aExceptionHandler = ValueEnforcer.notNull (aExceptionHandler, "ExceptionHandler");
-    return thisAsT ();
+    return m_aExceptionCallbacks;
   }
 
   @Nullable
@@ -214,7 +212,7 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
     }
     catch (final JAXBException ex)
     {
-      getExceptionHandler ().onException (ex);
+      m_aExceptionCallbacks.forEach (x -> x.onException (ex));
     }
 
     return ret;
@@ -226,7 +224,7 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
     return ToStringGenerator.getDerived (super.toString ())
                             .append ("ImplClass", m_aImplClass)
                             .append ("EventHandler", m_aEventHandler)
-                            .append ("ExceptionHandler", m_aExceptionHandler)
+                            .append ("ExceptionHandler", m_aExceptionCallbacks)
                             .append ("UnmarshallerCustomizer", m_aUnmarshallerCustomizer)
                             .append ("ReadSecure", m_bReadSecure)
                             .getToString ();

@@ -50,7 +50,7 @@ public final class DOMReaderDefaultSettingsTest
     CommonsAssert.assertEquals (XMLFactory.DEFAULT_DOM_XINCLUDE_AWARE, DOMReaderDefaultSettings.isXIncludeAware ());
     assertNull (DOMReaderDefaultSettings.getEntityResolver ());
     assertNotNull (DOMReaderDefaultSettings.getErrorHandler ());
-    assertNotNull (DOMReaderDefaultSettings.getExceptionHandler ());
+    assertNotNull (DOMReaderDefaultSettings.exceptionCallbacks ());
     assertFalse (DOMReaderDefaultSettings.isRequiresNewXMLParserExplicitly ());
 
     assertFalse (DOMReaderDefaultSettings.requiresNewXMLParser ());

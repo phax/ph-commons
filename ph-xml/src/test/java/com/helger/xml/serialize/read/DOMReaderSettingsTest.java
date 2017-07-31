@@ -38,13 +38,13 @@ public final class DOMReaderSettingsTest
   @BeforeClass
   public static void bc ()
   {
-    DOMReaderDefaultSettings.setExceptionHandler ( (ex) -> {});
+    DOMReaderDefaultSettings.exceptionCallbacks ().removeAll ();
   }
 
   @AfterClass
   public static void ac ()
   {
-    DOMReaderDefaultSettings.setExceptionHandler (new XMLLoggingExceptionCallback ());
+    DOMReaderDefaultSettings.exceptionCallbacks ().set (new XMLLoggingExceptionCallback ());
   }
 
   @Test
@@ -64,7 +64,7 @@ public final class DOMReaderSettingsTest
     CommonsAssert.assertEquals (XMLFactory.DEFAULT_DOM_XINCLUDE_AWARE, aDRS.isXIncludeAware ());
     assertNull (aDRS.getEntityResolver ());
     assertNotNull (aDRS.getErrorHandler ());
-    assertNotNull (aDRS.getExceptionHandler ());
+    assertNotNull (aDRS.exceptionCallbacks ());
     assertFalse (aDRS.isRequiresNewXMLParserExplicitly ());
 
     assertFalse (aDRS.requiresNewXMLParser ());

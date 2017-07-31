@@ -68,6 +68,19 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
     m_aCallbacks.addAll (aOther.m_aCallbacks);
   }
 
+  @Nonnull
+  public EChange set (@Nonnull final CallbackList <CALLBACKTYPE> rhs)
+  {
+    return m_aCallbacks.setAll (rhs.m_aCallbacks);
+  }
+
+  @Nonnull
+  public EChange set (@Nonnull final CALLBACKTYPE aCallback)
+  {
+    ValueEnforcer.notNull (aCallback, "Callback");
+    return m_aCallbacks.set (aCallback);
+  }
+
   /**
    * Add a callback.
    *

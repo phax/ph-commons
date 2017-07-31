@@ -32,8 +32,9 @@ import javax.xml.validation.Schema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.callback.CallbackList;
 import com.helger.commons.callback.exception.IExceptionCallback;
 import com.helger.commons.lang.GenericReflection;
 
@@ -48,7 +49,8 @@ import com.helger.commons.lang.GenericReflection;
  */
 @NotThreadSafe
 public abstract class AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE extends AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE>>
-                                                 extends AbstractJAXBBuilder <IMPLTYPE>
+                                                 extends
+                                                 AbstractJAXBBuilder <IMPLTYPE>
 {
   public static class DefaultExceptionHandler implements IExceptionCallback <JAXBException>
   {
@@ -63,25 +65,20 @@ public abstract class AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE extends Abs
     }
   }
 
-  private IExceptionCallback <JAXBException> m_aExceptionHandler = new DefaultExceptionHandler ();
+  private final CallbackList <IExceptionCallback <JAXBException>> m_aExceptionCallbacks = new CallbackList <> ();
   private Consumer <? super Marshaller> m_aMarshallerCustomizer;
 
   public AbstractWritingJAXBBuilder (@Nonnull final IJAXBDocumentType aDocType)
   {
     super (aDocType);
+    m_aExceptionCallbacks.add (new DefaultExceptionHandler ());
   }
 
   @Nonnull
-  public IExceptionCallback <JAXBException> getExceptionHandler ()
+  @ReturnsMutableObject
+  public CallbackList <IExceptionCallback <JAXBException>> exceptionCallbacks ()
   {
-    return m_aExceptionHandler;
-  }
-
-  @Nonnull
-  public IMPLTYPE setExceptionHandler (@Nonnull final IExceptionCallback <JAXBException> aExceptionHandler)
-  {
-    m_aExceptionHandler = ValueEnforcer.notNull (aExceptionHandler, "ExceptionHandler");
-    return thisAsT ();
+    return m_aExceptionCallbacks;
   }
 
   @Nullable

@@ -188,8 +188,8 @@ public final class SAXReader
    * @param aIS
    *        The input source to read from. Automatically closed upon success or
    *        error. May not be <code>null</code>.
-   *        {@link com.helger.xml.sax.InputSourceFactory} may be used to
-   *        create {@link InputSource} objects from different input types.
+   *        {@link com.helger.xml.sax.InputSourceFactory} may be used to create
+   *        {@link InputSource} objects from different input types.
    * @param aSettings
    *        Reader settings. At least a content handler should be set. May be
    *        <code>null</code>.
@@ -257,11 +257,11 @@ public final class SAXReader
         }
 
       if (!bHandled)
-        aSettings.getExceptionHandler ().onException (ex);
+        aSettings.exceptionCallbacks ().forEach (x -> x.onException (ex));
     }
     catch (final Throwable t)
     {
-      aSettings.getExceptionHandler ().onException (t);
+      aSettings.exceptionCallbacks ().forEach (x -> x.onException (t));
     }
     finally
     {

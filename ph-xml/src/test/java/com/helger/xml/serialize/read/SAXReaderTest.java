@@ -44,13 +44,13 @@ public final class SAXReaderTest
   @BeforeClass
   public static void bc ()
   {
-    SAXReaderDefaultSettings.setExceptionHandler ( (ex) -> {});
+    SAXReaderDefaultSettings.exceptionCallbacks ().removeAll ();
   }
 
   @AfterClass
   public static void ac ()
   {
-    SAXReaderDefaultSettings.setExceptionHandler (new XMLLoggingExceptionCallback ());
+    SAXReaderDefaultSettings.exceptionCallbacks ().set (new XMLLoggingExceptionCallback ());
   }
 
   @Test

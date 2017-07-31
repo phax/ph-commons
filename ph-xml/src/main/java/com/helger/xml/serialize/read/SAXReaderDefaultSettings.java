@@ -34,6 +34,8 @@ import org.xml.sax.ext.LexicalHandler;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.callback.CallbackList;
 import com.helger.commons.callback.exception.IExceptionCallback;
 import com.helger.commons.collection.impl.CommonsEnumMap;
 import com.helger.commons.collection.impl.ICommonsMap;
@@ -66,11 +68,14 @@ public final class SAXReaderDefaultSettings
   @GuardedBy ("s_aRWLock")
   private static ErrorHandler s_aDefaultErrorHandler = new LoggingSAXErrorHandler ();
   @GuardedBy ("s_aRWLock")
-  private static final ICommonsMap <EXMLParserProperty, Object> s_aDefaultProperties = new CommonsEnumMap<> (EXMLParserProperty.class);
+  private static final ICommonsMap <EXMLParserProperty, Object> s_aDefaultProperties = new CommonsEnumMap <> (EXMLParserProperty.class);
   @GuardedBy ("s_aRWLock")
-  private static final ICommonsMap <EXMLParserFeature, Boolean> s_aDefaultFeatures = new CommonsEnumMap<> (EXMLParserFeature.class);
-  @GuardedBy ("s_aRWLock")
-  private static IExceptionCallback <Throwable> s_aDefaultExceptionHandler = new XMLLoggingExceptionCallback ();
+  private static final ICommonsMap <EXMLParserFeature, Boolean> s_aDefaultFeatures = new CommonsEnumMap <> (EXMLParserFeature.class);
+  private static CallbackList <IExceptionCallback <Throwable>> s_aDefaultExceptionCallbacks = new CallbackList <> ();
+  static
+  {
+    s_aDefaultExceptionCallbacks.add (new XMLLoggingExceptionCallback ());
+  }
   @GuardedBy ("s_aRWLock")
   private static boolean s_bDefaultRequiresNewXMLParserExplicitly = DEFAULT_REQUIRES_NEW_XML_PARSER_EXPLICITLY;
 
@@ -306,16 +311,10 @@ public final class SAXReaderDefaultSettings
   }
 
   @Nonnull
-  public static IExceptionCallback <Throwable> getExceptionHandler ()
+  @ReturnsMutableObject
+  public static CallbackList <IExceptionCallback <Throwable>> exceptionCallbacks ()
   {
-    return s_aRWLock.readLocked ( () -> s_aDefaultExceptionHandler);
-  }
-
-  public static void setExceptionHandler (@Nonnull final IExceptionCallback <Throwable> aExceptionHandler)
-  {
-    ValueEnforcer.notNull (aExceptionHandler, "ExceptionHandler");
-
-    s_aRWLock.writeLocked ( () -> s_aDefaultExceptionHandler = aExceptionHandler);
+    return s_aDefaultExceptionCallbacks;
   }
 
   public static boolean isRequiresNewXMLParserExplicitly ()

@@ -44,7 +44,7 @@ import com.helger.commons.string.ToStringGenerator;
 public class Settings implements IMutableSettings
 {
   private final String m_sName;
-  private final ICommonsMap <String, Object> m_aMap = new CommonsHashMap <> ();
+  private final ICommonsMap <String, Object> m_aValues = new CommonsHashMap <> ();
   private final CallbackList <ISettingsAfterChangeCallback> m_aAfterChangeCallbacks = new CallbackList <> ();
 
   /**
@@ -75,48 +75,48 @@ public class Settings implements IMutableSettings
   @Nonnegative
   public int getSize ()
   {
-    return m_aMap.size ();
+    return m_aValues.size ();
   }
 
   public boolean isEmpty ()
   {
-    return m_aMap.isEmpty ();
+    return m_aValues.isEmpty ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public final ICommonsSet <String> getAllFieldNames ()
   {
-    return m_aMap.copyOfKeySet ();
+    return m_aValues.copyOfKeySet ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public ICommonsMap <String, Object> getAllEntries ()
   {
-    return m_aMap.getClone ();
+    return m_aValues.getClone ();
   }
 
   public void forEach (@Nonnull final BiConsumer <? super String, ? super Object> aConsumer)
   {
-    m_aMap.forEach (aConsumer);
+    m_aValues.forEach (aConsumer);
   }
 
   public void forEach (@Nullable final BiPredicate <? super String, ? super Object> aFilter,
                        @Nonnull final BiConsumer <? super String, ? super Object> aConsumer)
   {
-    m_aMap.forEach (aFilter, aConsumer);
+    m_aValues.forEach (aFilter, aConsumer);
   }
 
   public boolean containsField (@Nullable final String sFieldName)
   {
-    return m_aMap.containsKey (sFieldName);
+    return m_aValues.containsKey (sFieldName);
   }
 
   @Nullable
   public Object getValue (@Nullable final String sFieldName)
   {
-    return m_aMap.get (sFieldName);
+    return m_aValues.get (sFieldName);
   }
 
   @Nullable
@@ -130,7 +130,7 @@ public class Settings implements IMutableSettings
     ValueEnforcer.notEmpty (sFieldName, "FieldName");
     ValueEnforcer.notNull (aNewValue, "NewValue");
 
-    m_aMap.put (sFieldName, aNewValue);
+    m_aValues.put (sFieldName, aNewValue);
   }
 
   @Nonnull
@@ -147,13 +147,13 @@ public class Settings implements IMutableSettings
   @Nonnull
   public EChange removeValue (@Nullable final String sFieldName)
   {
-    return m_aMap.removeObject (sFieldName);
+    return m_aValues.removeObject (sFieldName);
   }
 
   @Nonnull
   public EChange clear ()
   {
-    return m_aMap.removeAll ();
+    return m_aValues.removeAll ();
   }
 
   @Nonnull
@@ -168,9 +168,9 @@ public class Settings implements IMutableSettings
 
     // Value changed -> trigger update
     if (aNewValue == null)
-      m_aMap.remove (sFieldName);
+      m_aValues.remove (sFieldName);
     else
-      m_aMap.put (sFieldName, aNewValue);
+      m_aValues.put (sFieldName, aNewValue);
 
     // Invoke callbacks
     m_aAfterChangeCallbacks.forEach (x -> x.onAfterSettingsChanged (sFieldName, aOldValue, aNewValue));
@@ -185,19 +185,19 @@ public class Settings implements IMutableSettings
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final Settings rhs = (Settings) o;
-    return m_sName.equals (rhs.m_sName) && EqualsHelper.equals (m_aMap, rhs.m_aMap);
+    return m_sName.equals (rhs.m_sName) && EqualsHelper.equals (m_aValues, rhs.m_aValues);
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_sName).append (m_aMap).getHashCode ();
+    return new HashCodeGenerator (this).append (m_sName).append (m_aValues).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("name", m_sName).append ("map", m_aMap).getToString ();
+    return new ToStringGenerator (this).append ("name", m_sName).append ("map", m_aValues).getToString ();
   }
 
   /**
@@ -216,7 +216,7 @@ public class Settings implements IMutableSettings
   {
     ValueEnforcer.notNull (aOther, "Other");
     final Settings ret = new Settings (aOther.getName ());
-    aOther.forEach ( (k, v) -> ret.m_aMap.put (k, v));
+    aOther.forEach ( (k, v) -> ret.m_aValues.put (k, v));
     return ret;
   }
 }

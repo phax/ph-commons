@@ -33,6 +33,7 @@ import org.xml.sax.ErrorHandler;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.callback.CallbackList;
 import com.helger.commons.callback.exception.IExceptionCallback;
 import com.helger.commons.collection.impl.CommonsEnumMap;
 import com.helger.commons.collection.impl.ICommonsMap;
@@ -62,15 +63,15 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
   private boolean m_bCoalescing;
   private Schema m_aSchema;
   private boolean m_bXIncludeAware;
-  private final ICommonsMap <EXMLParserProperty, Object> m_aProperties = new CommonsEnumMap<> (EXMLParserProperty.class);
-  private final ICommonsMap <EXMLParserFeature, Boolean> m_aFeatures = new CommonsEnumMap<> (EXMLParserFeature.class);
+  private final ICommonsMap <EXMLParserProperty, Object> m_aProperties = new CommonsEnumMap <> (EXMLParserProperty.class);
+  private final ICommonsMap <EXMLParserFeature, Boolean> m_aFeatures = new CommonsEnumMap <> (EXMLParserFeature.class);
 
   // DocumentBuilder properties
   private EntityResolver m_aEntityResolver;
   private ErrorHandler m_aErrorHandler;
 
   // Handling properties
-  private IExceptionCallback <Throwable> m_aExceptionHandler;
+  private final CallbackList <IExceptionCallback <Throwable>> m_aExceptionCallbacks = new CallbackList <> ();
   private boolean m_bRequiresNewXMLParserExplicitly;
 
   /**
@@ -94,7 +95,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     setEntityResolver (DOMReaderDefaultSettings.getEntityResolver ());
     setErrorHandler (DOMReaderDefaultSettings.getErrorHandler ());
     // Custom
-    setExceptionHandler (DOMReaderDefaultSettings.getExceptionHandler ());
+    exceptionCallbacks ().set (DOMReaderDefaultSettings.exceptionCallbacks ());
     setRequiresNewXMLParserExplicitly (DOMReaderDefaultSettings.isRequiresNewXMLParserExplicitly ());
   }
 
@@ -123,7 +124,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     setEntityResolver (aOther.getEntityResolver ());
     setErrorHandler (aOther.getErrorHandler ());
     // Custom
-    setExceptionHandler (aOther.getExceptionHandler ());
+    exceptionCallbacks ().set (aOther.exceptionCallbacks ());
     setRequiresNewXMLParserExplicitly (aOther.isRequiresNewXMLParserExplicitly ());
   }
 
@@ -415,18 +416,9 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
   }
 
   @Nonnull
-  public IExceptionCallback <Throwable> getExceptionHandler ()
+  public CallbackList <IExceptionCallback <Throwable>> exceptionCallbacks ()
   {
-    return m_aExceptionHandler;
-  }
-
-  @Nonnull
-  public final DOMReaderSettings setExceptionHandler (@Nonnull final IExceptionCallback <Throwable> aExceptionHandler)
-  {
-    ValueEnforcer.notNull (aExceptionHandler, "ExceptionHandler");
-
-    m_aExceptionHandler = aExceptionHandler;
-    return this;
+    return m_aExceptionCallbacks;
   }
 
   public boolean isRequiresNewXMLParserExplicitly ()
@@ -511,7 +503,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
                                        .append ("features", m_aFeatures)
                                        .append ("entityResolver", m_aEntityResolver)
                                        .append ("errorHandler", m_aErrorHandler)
-                                       .append ("exceptionHandler", m_aExceptionHandler)
+                                       .append ("exceptionCallbacks", m_aExceptionCallbacks)
                                        .append ("requiresNewXMLParserExplicitly", m_bRequiresNewXMLParserExplicitly)
                                        .getToString ();
   }

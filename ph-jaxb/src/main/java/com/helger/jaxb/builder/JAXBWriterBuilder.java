@@ -49,8 +49,9 @@ import com.helger.jaxb.validation.LoggingValidationEventHandler;
  *        The implementation class implementing this abstract class.
  */
 @NotThreadSafe
-public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JAXBTYPE, IMPLTYPE>>
-                               extends AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE> implements IJAXBWriter <JAXBTYPE>
+public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JAXBTYPE, IMPLTYPE>> extends
+                               AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE> implements
+                               IJAXBWriter <JAXBTYPE>
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (JAXBWriterBuilder.class);
 
@@ -275,7 +276,7 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
     }
     catch (final JAXBException ex)
     {
-      getExceptionHandler ().onException (ex);
+      exceptionCallbacks ().forEach (x -> x.onException (ex));
     }
     return ESuccess.FAILURE;
   }

@@ -40,7 +40,7 @@ public final class SAXReaderDefaultSettingsTest
     assertNotNull (SAXReaderDefaultSettings.getErrorHandler ());
     assertFalse (SAXReaderDefaultSettings.hasAnyFeature ());
     assertFalse (SAXReaderDefaultSettings.hasAnyProperties ());
-    assertNotNull (SAXReaderDefaultSettings.getExceptionHandler ());
+    assertNotNull (SAXReaderDefaultSettings.exceptionCallbacks ());
     assertFalse (SAXReaderDefaultSettings.isRequiresNewXMLParserExplicitly ());
 
     assertFalse (SAXReaderDefaultSettings.requiresNewXMLParser ());

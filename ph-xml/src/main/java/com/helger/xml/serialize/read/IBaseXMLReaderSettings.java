@@ -25,6 +25,8 @@ import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.callback.CallbackList;
 import com.helger.commons.callback.exception.IExceptionCallback;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.xml.EXMLParserFeature;
@@ -108,7 +110,8 @@ public interface IBaseXMLReaderSettings
    * @return A special exception handler to be used. Never <code>null</code>.
    */
   @Nonnull
-  IExceptionCallback <Throwable> getExceptionHandler ();
+  @ReturnsMutableObject
+  CallbackList <IExceptionCallback <Throwable>> exceptionCallbacks ();
 
   /**
    * Check if the current settings require a separate DOM

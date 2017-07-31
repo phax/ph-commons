@@ -34,6 +34,8 @@ import org.xml.sax.ext.LexicalHandler;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.callback.CallbackList;
 import com.helger.commons.callback.exception.IExceptionCallback;
 import com.helger.commons.collection.impl.CommonsEnumMap;
 import com.helger.commons.collection.impl.ICommonsMap;
@@ -57,9 +59,9 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
   private DTDHandler m_aDTDHandler;
   private ContentHandler m_aContentHandler;
   private ErrorHandler m_aErrorHandler;
-  private final ICommonsMap <EXMLParserProperty, Object> m_aProperties = new CommonsEnumMap<> (EXMLParserProperty.class);
-  private final ICommonsMap <EXMLParserFeature, Boolean> m_aFeatures = new CommonsEnumMap<> (EXMLParserFeature.class);
-  private IExceptionCallback <Throwable> m_aExceptionHandler;
+  private final ICommonsMap <EXMLParserProperty, Object> m_aProperties = new CommonsEnumMap <> (EXMLParserProperty.class);
+  private final ICommonsMap <EXMLParserFeature, Boolean> m_aFeatures = new CommonsEnumMap <> (EXMLParserFeature.class);
+  private final CallbackList <IExceptionCallback <Throwable>> m_aExceptionCallbacks = new CallbackList <> ();
   private boolean m_bRequiresNewXMLParserExplicitly;
 
   /**
@@ -74,7 +76,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
     setErrorHandler (SAXReaderDefaultSettings.getErrorHandler ());
     setPropertyValues (SAXReaderDefaultSettings.getAllPropertyValues ());
     setFeatureValues (SAXReaderDefaultSettings.getAllFeatureValues ());
-    setExceptionHandler (SAXReaderDefaultSettings.getExceptionHandler ());
+    exceptionCallbacks ().set (SAXReaderDefaultSettings.exceptionCallbacks ());
     setRequiresNewXMLParserExplicitly (SAXReaderDefaultSettings.isRequiresNewXMLParserExplicitly ());
   }
 
@@ -95,7 +97,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
     setErrorHandler (aOther.getErrorHandler ());
     setPropertyValues (aOther.getAllPropertyValues ());
     setFeatureValues (aOther.getAllFeatureValues ());
-    setExceptionHandler (aOther.getExceptionHandler ());
+    exceptionCallbacks ().set (aOther.exceptionCallbacks ());
     setRequiresNewXMLParserExplicitly (aOther.isRequiresNewXMLParserExplicitly ());
   }
 
@@ -325,18 +327,10 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
   }
 
   @Nonnull
-  public IExceptionCallback <Throwable> getExceptionHandler ()
+  @ReturnsMutableObject
+  public CallbackList <IExceptionCallback <Throwable>> exceptionCallbacks ()
   {
-    return m_aExceptionHandler;
-  }
-
-  @Nonnull
-  public final SAXReaderSettings setExceptionHandler (@Nonnull final IExceptionCallback <Throwable> aExceptionHandler)
-  {
-    ValueEnforcer.notNull (aExceptionHandler, "ExceptionHandler");
-
-    m_aExceptionHandler = aExceptionHandler;
-    return this;
+    return m_aExceptionCallbacks;
   }
 
   public boolean isRequiresNewXMLParserExplicitly ()
@@ -386,7 +380,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
                                        .append ("errorHandler", m_aErrorHandler)
                                        .append ("properties", m_aProperties)
                                        .append ("features", m_aFeatures)
-                                       .append ("exceptionHandler", m_aExceptionHandler)
+                                       .append ("exceptionHandler", m_aExceptionCallbacks)
                                        .append ("requiresNewXMLParserExplicitly", m_bRequiresNewXMLParserExplicitly)
                                        .getToString ();
   }

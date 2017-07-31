@@ -367,7 +367,7 @@ public final class DOMReader
     }
     catch (final Throwable t)
     {
-      aSettings.getExceptionHandler ().onException (t);
+      aSettings.exceptionCallbacks ().forEach (x -> x.onException (t));
       s_aDomErrorCounterHdl.increment ();
 
       if (t instanceof SAXException)
