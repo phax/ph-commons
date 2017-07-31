@@ -21,12 +21,12 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 
 /**
- * HTTP header constants.
+ * Predefined HTTP header names and values.
  *
  * @author Philip Helger
  */
 @Immutable
-public final class CHTTPHeader
+public final class CHttpHeader
 {
   public static final String ACCEPT = "Accept";
   public static final String ACCEPT_CHARSET = "Accept-Charset";
@@ -170,8 +170,8 @@ public final class CHTTPHeader
   public static final String VALUE_SAMEORIGIN = "SAMEORIGIN";
 
   @PresentForCodeCoverage
-  private static final CHTTPHeader s_aInstance = new CHTTPHeader ();
+  private static final CHttpHeader s_aInstance = new CHttpHeader ();
 
-  private CHTTPHeader ()
+  private CHttpHeader ()
   {}
 }

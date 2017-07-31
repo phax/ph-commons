@@ -57,10 +57,10 @@ import com.helger.commons.string.ToStringGenerator;
  * @since 9.0.0
  */
 @NotThreadSafe
-public class HTTPHeaderMap implements
+public class HttpHeaderMap implements
                            IHasSize,
                            ICommonsIterable <Map.Entry <String, ICommonsList <String>>>,
-                           ICloneable <HTTPHeaderMap>,
+                           ICloneable <HttpHeaderMap>,
                            IClearable
 {
   private final ICommonsOrderedMap <String, ICommonsList <String>> m_aHeaders = new CommonsLinkedHashMap <> ();
@@ -68,7 +68,7 @@ public class HTTPHeaderMap implements
   /**
    * Default constructor.
    */
-  public HTTPHeaderMap ()
+  public HttpHeaderMap ()
   {}
 
   /**
@@ -77,7 +77,7 @@ public class HTTPHeaderMap implements
    * @param aOther
    *        Map to copy from. May not be <code>null</code>.
    */
-  public HTTPHeaderMap (@Nonnull final HTTPHeaderMap aOther)
+  public HttpHeaderMap (@Nonnull final HttpHeaderMap aOther)
   {
     ValueEnforcer.notNull (aOther, "Other");
     m_aHeaders.putAll (aOther.m_aHeaders);
@@ -325,7 +325,7 @@ public class HTTPHeaderMap implements
    * @param aOther
    *        The header map to add. May not be <code>null</code>.
    */
-  public void addAllHeaders (@Nonnull final HTTPHeaderMap aOther)
+  public void addAllHeaders (@Nonnull final HttpHeaderMap aOther)
   {
     ValueEnforcer.notNull (aOther, "Other");
     m_aHeaders.putAll (aOther.m_aHeaders);
@@ -508,19 +508,19 @@ public class HTTPHeaderMap implements
 
   public void setContentLength (final int nLength)
   {
-    _setHeader (CHTTPHeader.CONTENT_LENGTH, Integer.toString (nLength));
+    _setHeader (CHttpHeader.CONTENT_LENGTH, Integer.toString (nLength));
   }
 
   public void setContentType (@Nonnull final String sContentType)
   {
-    _setHeader (CHTTPHeader.CONTENT_TYPE, sContentType);
+    _setHeader (CHttpHeader.CONTENT_TYPE, sContentType);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public HTTPHeaderMap getClone ()
+  public HttpHeaderMap getClone ()
   {
-    return new HTTPHeaderMap (this);
+    return new HttpHeaderMap (this);
   }
 
   @Override
@@ -530,7 +530,7 @@ public class HTTPHeaderMap implements
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final HTTPHeaderMap rhs = (HTTPHeaderMap) o;
+    final HttpHeaderMap rhs = (HttpHeaderMap) o;
     return m_aHeaders.equals (rhs.m_aHeaders);
   }
 
@@ -544,5 +544,23 @@ public class HTTPHeaderMap implements
   public String toString ()
   {
     return new ToStringGenerator (this).append ("Headers", m_aHeaders).getToString ();
+  }
+
+  /**
+   * Avoid having header values spanning multiple lines. This has been
+   * deprecated by RFC 7230 and Jetty 9.3 refuses to parse these requests with
+   * HTTP 400 by default.
+   *
+   * @param sValue
+   *        The source header value. May be <code>null</code>.
+   * @return The unified header value without \r, \n and \t. Never
+   *         <code>null</code>.
+   */
+  @Nonnull
+  public static String getUnifiedHTTPHeaderValue (@Nullable final String sValue)
+  {
+    final StringBuilder aSB = new StringBuilder ();
+    StringHelper.replaceMultipleTo (sValue, new char [] { '\r', '\n', '\t' }, ' ', aSB);
+    return aSB.toString ();
   }
 }

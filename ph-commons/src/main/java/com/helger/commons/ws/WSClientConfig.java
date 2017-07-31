@@ -45,8 +45,8 @@ import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.http.CHTTPHeader;
-import com.helger.commons.http.HTTPHeaderMap;
+import com.helger.commons.http.CHttpHeader;
+import com.helger.commons.http.HttpHeaderMap;
 import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.commons.lang.priviledged.IPrivilegedAction;
 import com.helger.commons.random.VerySecureRandom;
@@ -76,7 +76,7 @@ public class WSClientConfig
   private String m_sUserName;
   private String m_sPassword;
   private String m_sSOAPAction;
-  private final HTTPHeaderMap m_aHTTPHeaders = new HTTPHeaderMap ();
+  private final HttpHeaderMap m_aHTTPHeaders = new HttpHeaderMap ();
   private ETriState m_eCookiesSupport = ETriState.UNDEFINED;
   private final ICommonsList <Handler <? extends MessageContext>> m_aHandlers = new CommonsArrayList <> ();
 
@@ -369,7 +369,7 @@ public class WSClientConfig
    */
   @Nonnull
   @ReturnsMutableObject
-  public HTTPHeaderMap httpHeaders ()
+  public HttpHeaderMap httpHeaders ()
   {
     return m_aHTTPHeaders;
   }
@@ -385,9 +385,9 @@ public class WSClientConfig
   public WSClientConfig setCompressedRequest (final boolean bCompress)
   {
     if (bCompress)
-      m_aHTTPHeaders.setHeader (CHTTPHeader.CONTENT_ENCODING, "gzip");
+      m_aHTTPHeaders.setHeader (CHttpHeader.CONTENT_ENCODING, "gzip");
     else
-      m_aHTTPHeaders.removeHeaders (CHTTPHeader.CONTENT_ENCODING);
+      m_aHTTPHeaders.removeHeaders (CHttpHeader.CONTENT_ENCODING);
     return this;
   }
 
@@ -403,9 +403,9 @@ public class WSClientConfig
   public WSClientConfig setCompressedResponse (final boolean bCompress)
   {
     if (bCompress)
-      m_aHTTPHeaders.setHeader (CHTTPHeader.ACCEPT_ENCODING, "gzip");
+      m_aHTTPHeaders.setHeader (CHttpHeader.ACCEPT_ENCODING, "gzip");
     else
-      m_aHTTPHeaders.removeHeaders (CHTTPHeader.ACCEPT_ENCODING);
+      m_aHTTPHeaders.removeHeaders (CHttpHeader.ACCEPT_ENCODING);
     return this;
   }
 
