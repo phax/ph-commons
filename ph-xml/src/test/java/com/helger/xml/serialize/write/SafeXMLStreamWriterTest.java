@@ -7,6 +7,7 @@ import javax.xml.stream.XMLStreamException;
 import org.junit.Test;
 
 import com.helger.commons.io.stream.NonBlockingStringWriter;
+import com.helger.commons.system.ENewLineMode;
 
 /**
  * Test class for class {@link SafeXMLStreamWriter}
@@ -19,7 +20,8 @@ public class SafeXMLStreamWriterTest
   public void testBasic () throws XMLStreamException
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    try (final SafeXMLStreamWriter aXSW = SafeXMLStreamWriter.create (aSW, new XMLWriterSettings ()))
+    try (final SafeXMLStreamWriter aXSW = SafeXMLStreamWriter.create (aSW,
+                                                                      new XMLWriterSettings ().setNewLineMode (ENewLineMode.UNIX)))
     {
       aXSW.writeStartDocument ();
       aXSW.writeStartElement ("Root");
@@ -31,7 +33,7 @@ public class SafeXMLStreamWriterTest
       aXSW.writeEndDocument ();
       aXSW.flush ();
     }
-    assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" +
+    assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                   "<Root Version=\"2.0\"><Child>Hello World</Child></Root>",
                   aSW.getAsString ());
   }
@@ -41,7 +43,8 @@ public class SafeXMLStreamWriterTest
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     final String sNSURI = "urn:example.org/test";
-    try (final SafeXMLStreamWriter aXSW = SafeXMLStreamWriter.create (aSW, new XMLWriterSettings ()))
+    try (final SafeXMLStreamWriter aXSW = SafeXMLStreamWriter.create (aSW,
+                                                                      new XMLWriterSettings ().setNewLineMode (ENewLineMode.UNIX)))
     {
       aXSW.writeStartDocument ();
       aXSW.writeStartElement (sNSURI, "Root");
@@ -54,7 +57,7 @@ public class SafeXMLStreamWriterTest
       aXSW.writeEndDocument ();
       aXSW.flush ();
     }
-    assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n" +
+    assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                   "<Root xmlns=\"urn:example.org/test\" Version=\"2.0\"><Child>Hello World</Child></Root>",
                   aSW.getAsString ());
   }
