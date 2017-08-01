@@ -287,7 +287,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
       if (bHasChildren)
       {
         final EXMLSerializeIndent eIndentInner = m_aSettings.getIndentDeterminator ()
-                                                            .getIndentOuter (sParentNamespaceURI,
+                                                            .getIndentInner (sParentNamespaceURI,
                                                                              sParentTagName,
                                                                              sElementNamespaceURI,
                                                                              sTagName,

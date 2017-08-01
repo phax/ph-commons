@@ -41,7 +41,7 @@ import com.helger.xml.microdom.IMicroDocumentType;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class XMLEmitter
+public class XMLEmitter implements AutoCloseable
 {
   /** By default an exception is thrown for nested comments */
   public static final boolean DEFAULT_THROW_EXCEPTION_ON_NESTED_COMMENTS = true;
@@ -199,6 +199,20 @@ public class XMLEmitter
     if (bStandalone)
       _append (" standalone=")._appendAttrValue ("yes");
     _append (PI_END);
+    if (m_aSettings.getIndent ().isAlign ())
+      _append (m_aSettings.getNewLineString ());
+  }
+
+  /**
+   * Write a DTD section. This string represents the entire doctypedecl
+   * production from the XML 1.0 specification.
+   *
+   * @param sDTD
+   *        the DTD to be written. May not be <code>null</code>.
+   */
+  public void onDTD (@Nonnull final String sDTD)
+  {
+    _append (sDTD);
     if (m_aSettings.getIndent ().isAlign ())
       _append (m_aSettings.getNewLineString ());
   }
@@ -537,6 +551,16 @@ public class XMLEmitter
         _appendMasked (EXMLCharMode.ELEMENT_NAME, sNamespacePrefix)._append (CXML.XML_PREFIX_NAMESPACE_SEP);
       _appendMasked (EXMLCharMode.ELEMENT_NAME, sTagName)._append ('>');
     }
+  }
+
+  public void flush () throws IOException
+  {
+    m_aWriter.flush ();
+  }
+
+  public void close () throws IOException
+  {
+    m_aWriter.close ();
   }
 
   @Override
