@@ -1,7 +1,6 @@
 package com.helger.xml.serialize.write;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
@@ -27,6 +26,7 @@ import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.collection.NonBlockingStack;
 import com.helger.commons.collection.iterate.CombinedIterator;
 import com.helger.commons.io.file.FileHelper;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
@@ -40,7 +40,7 @@ import com.helger.xml.namespace.MapBasedNamespaceContext;
  * @author Philip Helger
  * @since 9.0.0
  */
-public class SafeXMLStreamWriter implements XMLStreamWriter
+public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
 {
   private static final class ElementState
   {
@@ -260,11 +260,22 @@ public class SafeXMLStreamWriter implements XMLStreamWriter
     if (!m_bInElementStart)
       throw new IllegalStateException ("No element open");
 
-    final boolean bIsDefault = sPrefix == null || sPrefix.equals ("") || sPrefix.equals ("xmlns");
-    if (bIsDefault)
-      m_aNamespaceContext.m_aInternalContext.addDefaultNamespaceURI (sNamespaceURI);
-    else
-      m_aNamespaceContext.m_aInternalContext.addMapping (sPrefix, sNamespaceURI);
+    // Avoid double mapping
+    if (m_aNamespaceContext.getPrefix (sNamespaceURI) == null)
+    {
+      final boolean bIsDefault = sPrefix == null ||
+                                 sPrefix.equals (XMLConstants.DEFAULT_NS_PREFIX) ||
+                                 sPrefix.equals (XMLConstants.XMLNS_ATTRIBUTE);
+      if (bIsDefault)
+        m_aNamespaceContext.m_aInternalContext.addDefaultNamespaceURI (sNamespaceURI);
+      else
+        m_aNamespaceContext.m_aInternalContext.addMapping (sPrefix, sNamespaceURI);
+
+      if (bIsDefault)
+        writeAttribute (null, null, XMLConstants.XMLNS_ATTRIBUTE, sNamespaceURI);
+      else
+        writeAttribute (XMLConstants.XMLNS_ATTRIBUTE, null, sPrefix, sNamespaceURI);
+    }
   }
 
   public void writeDefaultNamespace (final String sNamespaceURI) throws XMLStreamException
@@ -349,27 +360,13 @@ public class SafeXMLStreamWriter implements XMLStreamWriter
   public void flush () throws XMLStreamException
   {
     debug ( () -> "flush ()");
-    try
-    {
-      m_aEmitter.flush ();
-    }
-    catch (final IOException ex)
-    {
-      throw new XMLStreamException ("Error flushing XML emitter", ex);
-    }
+    StreamHelper.flush (m_aEmitter);
   }
 
   public void close () throws XMLStreamException
   {
     debug ( () -> "close ()");
-    try
-    {
-      m_aEmitter.close ();
-    }
-    catch (final IOException ex)
-    {
-      throw new XMLStreamException ("Error closing XML emitter", ex);
-    }
+    StreamHelper.close (m_aEmitter);
   }
 
   public String getPrefix (@Nonnull final String sUri) throws XMLStreamException

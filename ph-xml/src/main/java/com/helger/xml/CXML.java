@@ -20,7 +20,6 @@ import java.util.Comparator;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
-import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
@@ -70,24 +69,15 @@ public final class CXML
   public static final char XML_PREFIX_NAMESPACE_SEP = ':';
   /** separator between namespace prefix and element name */
   public static final String XML_PREFIX_NAMESPACE_SEP_STR = Character.toString (XML_PREFIX_NAMESPACE_SEP);
-  /** The default xmlns attribute */
-  public static final String XML_ATTR_XMLNS = XMLConstants.XMLNS_ATTRIBUTE;
+  
 
   // xml:*
 
-  // XML Schema Definition (XS and XSD) stuff:
-  /** The XML namespace URI */
-  public static final String XML_NS_XML = XMLConstants.XML_NS_URI;
-  /** The XML schema namespace URI */
-  public static final String XML_NS_XSD = XMLConstants.W3C_XML_SCHEMA_NS_URI;
   /** The preferred XML Schema namespace prefix */
   public static final String XML_NS_PREFIX_XSD = "xsd";
   /** Special XSD attribute targetNamespace */
   public static final String XML_ATTR_XSD_TARGETNAMESPACE = "targetNamespace";
 
-  // XML Schema Instance (XSI) stuff:
-  /** XML Schema instance namespace URI */
-  public static final String XML_NS_XSI = XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI;
   /** Preferred XML Schema instance namespace prefix */
   public static final String XML_NS_PREFIX_XSI = "xsi";
   /** Special XSI attribute schemaLocation */

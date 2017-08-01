@@ -289,8 +289,8 @@ public final class ChangeLogSerializer
 
     final IMicroDocument ret = new MicroDocument ();
     final IMicroElement eRoot = ret.appendElement (CChangeLog.CHANGELOG_NAMESPACE_10, ELEMENT_CHANGELOG);
-    eRoot.setAttribute (XMLConstants.XMLNS_ATTRIBUTE_NS_URI, CXML.XML_NS_PREFIX_XSI, CXML.XML_NS_XSI);
-    eRoot.setAttribute (CXML.XML_NS_XSI, "schemaLocation", CChangeLog.CHANGELOG_SCHEMALOCATION_10);
+    eRoot.setAttribute (XMLConstants.XMLNS_ATTRIBUTE_NS_URI, CXML.XML_NS_PREFIX_XSI, XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI);
+    eRoot.setAttribute (XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI, "schemaLocation", CChangeLog.CHANGELOG_SCHEMALOCATION_10);
     eRoot.setAttribute (ATTR_VERSION, aChangeLog.getOriginalVersion ());
     if (StringHelper.hasText (aChangeLog.getComponent ()))
       eRoot.setAttribute (ATTR_COMPONENT, aChangeLog.getComponent ());

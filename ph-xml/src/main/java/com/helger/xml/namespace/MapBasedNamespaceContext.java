@@ -112,7 +112,11 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
     ValueEnforcer.notNull (sPrefix, "Prefix");
     ValueEnforcer.notNull (sNamespaceURI, "NamespaceURI");
     if (!bAllowOverwrite && m_aPrefix2NS.containsKey (sPrefix))
-      throw new IllegalArgumentException ("The prefix '" + sPrefix + "' is already registered!");
+      throw new IllegalArgumentException ("The prefix '" +
+                                          sPrefix +
+                                          "' is already registered to '" +
+                                          m_aPrefix2NS.get (sPrefix) +
+                                          "'!");
 
     if (sPrefix.equals (XMLConstants.DEFAULT_NS_PREFIX))
       m_sDefaultNamespaceURI = sNamespaceURI;

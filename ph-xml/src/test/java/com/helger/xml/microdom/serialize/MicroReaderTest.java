@@ -26,6 +26,8 @@ import java.io.Reader;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 
+import javax.xml.XMLConstants;
+
 import org.junit.Test;
 import org.xml.sax.InputSource;
 
@@ -37,7 +39,6 @@ import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.stream.NonBlockingStringReader;
 import com.helger.commons.io.streamprovider.StringInputStreamProvider;
 import com.helger.commons.system.ENewLineMode;
-import com.helger.xml.CXML;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
@@ -405,11 +406,11 @@ public final class MicroReaderTest
     final IMicroDocument aDoc = MicroReader.readMicroXML (s);
     assertNotNull (aDoc);
     final IMicroElement eRoot = aDoc.getDocumentElement ();
-    assertEquals ("en", eRoot.getAttributeValue (CXML.XML_NS_XML, "lang"));
+    assertEquals ("en", eRoot.getAttributeValue (XMLConstants.XML_NS_URI, "lang"));
     assertNull (eRoot.getAttributeValue ("lang"));
-    assertEquals ("preserve", eRoot.getAttributeValue (CXML.XML_NS_XML, "space"));
-    assertEquals ("baseuri", eRoot.getAttributeValue (CXML.XML_NS_XML, "base"));
-    assertEquals ("4711", eRoot.getAttributeValue (CXML.XML_NS_XML, "id"));
+    assertEquals ("preserve", eRoot.getAttributeValue (XMLConstants.XML_NS_URI, "space"));
+    assertEquals ("baseuri", eRoot.getAttributeValue (XMLConstants.XML_NS_URI, "base"));
+    assertEquals ("4711", eRoot.getAttributeValue (XMLConstants.XML_NS_URI, "id"));
 
     // Ensure they are written as well
     assertEquals (s, MicroWriter.getNodeAsString (aDoc, new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)));

@@ -782,10 +782,10 @@ public final class XMLHelper
     if (sNSPrefix == null || sNSPrefix.equals (XMLConstants.DEFAULT_NS_PREFIX))
     {
       // Default (empty) namespace prefix
-      return new QName (XMLConstants.XMLNS_ATTRIBUTE_NS_URI, CXML.XML_ATTR_XMLNS);
+      return new QName (XMLConstants.XMLNS_ATTRIBUTE_NS_URI, XMLConstants.XMLNS_ATTRIBUTE);
     }
     // Named XML namespace prefix
-    return new QName (XMLConstants.XMLNS_ATTRIBUTE_NS_URI, sNSPrefix, CXML.XML_ATTR_XMLNS);
+    return new QName (XMLConstants.XMLNS_ATTRIBUTE_NS_URI, sNSPrefix, XMLConstants.XMLNS_ATTRIBUTE);
   }
 
   /**

@@ -21,6 +21,7 @@ import java.io.IOException;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.xml.XMLConstants;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +42,6 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.string.StringHelper;
-import com.helger.xml.CXML;
 import com.helger.xml.microdom.IMicroCDATA;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroDocumentType;
@@ -136,7 +136,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
 
         // Ignore the "xmlns" attributes, as the SAX handler passes the correct
         // namespace URIs
-        if (!sAttrName.startsWith (CXML.XML_ATTR_XMLNS))
+        if (!sAttrName.startsWith (XMLConstants.XMLNS_ATTRIBUTE))
           aElement.setAttribute (sAttrNamespaceURI, sAttrName, sAttrValue);
       }
     }
