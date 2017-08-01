@@ -30,6 +30,9 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
@@ -52,6 +55,7 @@ public final class KeyStoreHelper
   public static final String KEYSTORE_TYPE_JKS = "JKS";
   public static final String KEYSTORE_TYPE_PKCS12 = "PKCS12";
 
+  private static final Logger s_aLogger = LoggerFactory.getLogger (KeyStoreHelper.class);
   private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("s_aRWLock")
   private static IReadableResourceProvider s_aResourceProvider = new ReadableResourceProviderChain (new FileSystemResourceProvider ().setCanReadRelativePaths (true),
@@ -222,6 +226,7 @@ public final class KeyStoreHelper
     }
     catch (final IllegalArgumentException ex)
     {
+      s_aLogger.warn ("No such key store '" + sKeyStorePath + "': " + ex.getMessage (), ex.getCause ());
       return new LoadedKeyStore (null,
                                  EKeyStoreLoadError.KEYSTORE_LOAD_ERROR_NON_EXISTING,
                                  sKeyStorePath,
@@ -229,6 +234,8 @@ public final class KeyStoreHelper
     }
     catch (final Exception ex)
     {
+      s_aLogger.warn ("Failed to load key store '" + sKeyStorePath + "': " + ex.getMessage (), ex.getCause ());
+
       final boolean bInvalidPW = ex instanceof IOException && ex.getCause () instanceof UnrecoverableKeyException;
 
       return new LoadedKeyStore (null,
@@ -253,10 +260,10 @@ public final class KeyStoreHelper
     ValueEnforcer.notNull (sKeyStorePath, "KeyStorePath");
 
     if (StringHelper.hasNoText (sKeyStoreKeyAlias))
-      return new LoadedKey<> (null, EKeyStoreLoadError.KEY_NO_ALIAS, sKeyStorePath);
+      return new LoadedKey <> (null, EKeyStoreLoadError.KEY_NO_ALIAS, sKeyStorePath);
 
     if (aKeyStoreKeyPassword == null)
-      return new LoadedKey<> (null, EKeyStoreLoadError.KEY_NO_PASSWORD, sKeyStoreKeyAlias, sKeyStorePath);
+      return new LoadedKey <> (null, EKeyStoreLoadError.KEY_NO_PASSWORD, sKeyStoreKeyAlias, sKeyStorePath);
 
     // Try to load the key.
     T aKeyEntry = null;
@@ -267,38 +274,38 @@ public final class KeyStoreHelper
       if (aEntry == null)
       {
         // No such entry
-        return new LoadedKey<> (null, EKeyStoreLoadError.KEY_INVALID_ALIAS, sKeyStoreKeyAlias, sKeyStorePath);
+        return new LoadedKey <> (null, EKeyStoreLoadError.KEY_INVALID_ALIAS, sKeyStoreKeyAlias, sKeyStorePath);
       }
       if (!aTargetClass.isAssignableFrom (aEntry.getClass ()))
       {
         // Not a matching
-        return new LoadedKey<> (null,
-                                EKeyStoreLoadError.KEY_INVALID_TYPE,
-                                sKeyStoreKeyAlias,
-                                sKeyStorePath,
-                                ClassHelper.getClassName (aEntry));
+        return new LoadedKey <> (null,
+                                 EKeyStoreLoadError.KEY_INVALID_TYPE,
+                                 sKeyStoreKeyAlias,
+                                 sKeyStorePath,
+                                 ClassHelper.getClassName (aEntry));
       }
       aKeyEntry = aTargetClass.cast (aEntry);
     }
     catch (final UnrecoverableKeyException ex)
     {
-      return new LoadedKey<> (null,
-                              EKeyStoreLoadError.KEY_INVALID_PASSWORD,
-                              sKeyStoreKeyAlias,
-                              sKeyStorePath,
-                              ex.getMessage ());
+      return new LoadedKey <> (null,
+                               EKeyStoreLoadError.KEY_INVALID_PASSWORD,
+                               sKeyStoreKeyAlias,
+                               sKeyStorePath,
+                               ex.getMessage ());
     }
     catch (final GeneralSecurityException ex)
     {
-      return new LoadedKey<> (null,
-                              EKeyStoreLoadError.KEY_LOAD_ERROR,
-                              sKeyStoreKeyAlias,
-                              sKeyStorePath,
-                              ex.getMessage ());
+      return new LoadedKey <> (null,
+                               EKeyStoreLoadError.KEY_LOAD_ERROR,
+                               sKeyStoreKeyAlias,
+                               sKeyStorePath,
+                               ex.getMessage ());
     }
 
     // Finally success
-    return new LoadedKey<> (aKeyEntry, null);
+    return new LoadedKey <> (aKeyEntry, null);
   }
 
   /**
