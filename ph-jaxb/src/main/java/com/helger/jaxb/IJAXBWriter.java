@@ -46,6 +46,7 @@ import com.helger.commons.system.ENewLineMode;
 import com.helger.xml.XMLFactory;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.serialize.MicroSAXHandler;
+import com.helger.xml.serialize.write.EXMLIncorrectCharacterHandling;
 import com.helger.xml.serialize.write.EXMLSerializeIndent;
 import com.helger.xml.serialize.write.IXMLWriterSettings;
 import com.helger.xml.serialize.write.SafeXMLStreamWriter;
@@ -141,7 +142,8 @@ public interface IJAXBWriter <JAXBTYPE>
       ret.setIndentationString (getIndentString ());
     if (hasCharset ())
       ret.setCharset (getCharset ());
-    return ret.setNewLineMode (ENewLineMode.DEFAULT);
+    return ret.setNewLineMode (ENewLineMode.DEFAULT)
+              .setIncorrectCharacterHandling (EXMLIncorrectCharacterHandling.DO_NOT_WRITE_LOG_WARNING);
   }
 
   /**
