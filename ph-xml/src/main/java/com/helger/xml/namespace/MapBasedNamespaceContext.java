@@ -104,20 +104,6 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
     return m_sDefaultNamespaceURI;
   }
 
-  /**
-   * Set the default namespace URL
-   *
-   * @param sNamespaceURI
-   *        The namespace URI to be used as the default. May not be
-   *        <code>null</code> but maybe empty.
-   * @return this
-   */
-  @Nonnull
-  public MapBasedNamespaceContext setDefaultNamespaceURI (@Nonnull final String sNamespaceURI)
-  {
-    return addMapping (XMLConstants.DEFAULT_NS_PREFIX, sNamespaceURI);
-  }
-
   @Nonnull
   private MapBasedNamespaceContext _addMapping (@Nonnull final String sPrefix,
                                                 @Nonnull final String sNamespaceURI,
@@ -211,6 +197,34 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
     return this;
   }
 
+  /**
+   * Add the default namespace URL
+   *
+   * @param sNamespaceURI
+   *        The namespace URI to be used as the default. May not be
+   *        <code>null</code> but maybe empty.
+   * @return this
+   */
+  @Nonnull
+  public MapBasedNamespaceContext addDefaultNamespaceURI (@Nonnull final String sNamespaceURI)
+  {
+    return addMapping (XMLConstants.DEFAULT_NS_PREFIX, sNamespaceURI);
+  }
+
+  /**
+   * Set the default namespace URL
+   *
+   * @param sNamespaceURI
+   *        The namespace URI to be used as the default. May not be
+   *        <code>null</code> but maybe empty.
+   * @return this
+   */
+  @Nonnull
+  public MapBasedNamespaceContext setDefaultNamespaceURI (@Nonnull final String sNamespaceURI)
+  {
+    return setMapping (XMLConstants.DEFAULT_NS_PREFIX, sNamespaceURI);
+  }
+
   @Nonnull
   public EChange removeMapping (@Nullable final String sPrefix)
   {
@@ -224,6 +238,16 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
       return EChange.CHANGED;
 
     throw new IllegalStateException ("Internal inconsistency removing '" + sPrefix + "' and '" + sNamespaceURI + "'");
+  }
+
+  public boolean isPrefixMapped (@Nullable final String sPrefix)
+  {
+    return m_aPrefix2NS.containsKey (sPrefix);
+  }
+
+  public boolean isNamespaceURIMapped (@Nullable final String sNamespaceURI)
+  {
+    return m_aNS2Prefix.containsKey (sNamespaceURI);
   }
 
   @Nonnull
