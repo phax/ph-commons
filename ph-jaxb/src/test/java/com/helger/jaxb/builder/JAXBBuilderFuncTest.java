@@ -106,7 +106,7 @@ public final class JAXBBuilderFuncTest
     // Not yet
     if (false)
       assertTrue (sText, sText.contains ("\t<Collection"));
-    assertFalse (sText, sText.contains ("<Collection"));
+    assertFalse (sText, sText.contains ("  <Collection"));
   }
 
   @Test
