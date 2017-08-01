@@ -47,20 +47,23 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
     private final String m_sPrefix;
     private final String m_sLocalName;
     private final EXMLSerializeBracketMode m_eBracketMode;
+    private final MapBasedNamespaceContext m_aNamespaceContext;
 
     public ElementState (@Nullable final String sPrefix,
                          @Nonnull final String sLocalName,
-                         @Nonnull final EXMLSerializeBracketMode eBracketMode)
+                         @Nonnull final EXMLSerializeBracketMode eBracketMode,
+                         @Nonnull final MapBasedNamespaceContext aNamespaceContext)
     {
       m_sPrefix = sPrefix;
       m_sLocalName = sLocalName;
       m_eBracketMode = eBracketMode;
+      m_aNamespaceContext = aNamespaceContext;
     }
   }
 
   private static final class MultiNamespaceContext implements NamespaceContext
   {
-    private final MapBasedNamespaceContext m_aInternalContext = new MapBasedNamespaceContext ();
+    private MapBasedNamespaceContext m_aInternalContext = new MapBasedNamespaceContext ();
     private NamespaceContext m_aUserContext;
 
     public MultiNamespaceContext ()
@@ -205,7 +208,10 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
     debug ( () -> "writeStartElement (" + sPrefix + ", " + sLocalName + ", " + sNamespaceURI + ")");
     _elementStartClose ();
     m_aEmitter.elementStartOpen (sPrefix, sLocalName);
-    m_aElementStateStack.push (new ElementState (sPrefix, sLocalName, EXMLSerializeBracketMode.OPEN_CLOSE));
+    m_aElementStateStack.push (new ElementState (sPrefix,
+                                                 sLocalName,
+                                                 EXMLSerializeBracketMode.OPEN_CLOSE,
+                                                 m_aNamespaceContext.m_aInternalContext.getClone ()));
     m_bInElementStart = true;
   }
 
@@ -226,7 +232,10 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
     debug ( () -> "writeEmptyElement (" + sPrefix + ", " + sLocalName + ", " + sNamespaceURI + ")");
     _elementStartClose ();
     m_aEmitter.elementStartOpen (sPrefix, sLocalName);
-    m_aElementStateStack.push (new ElementState (sPrefix, sLocalName, EXMLSerializeBracketMode.SELF_CLOSED));
+    m_aElementStateStack.push (new ElementState (sPrefix,
+                                                 sLocalName,
+                                                 EXMLSerializeBracketMode.SELF_CLOSED,
+                                                 m_aNamespaceContext.m_aInternalContext.getClone ()));
     m_bInElementStart = true;
   }
 
@@ -261,24 +270,21 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
       throw new IllegalStateException ("No element open");
 
     // Avoid double mapping
-    if (m_aNamespaceContext.getPrefix (sNamespaceURI) == null)
-    {
-      final boolean bIsDefault = sPrefix == null ||
-                                 sPrefix.equals (XMLConstants.DEFAULT_NS_PREFIX) ||
-                                 sPrefix.equals (XMLConstants.XMLNS_ATTRIBUTE);
-      if (bIsDefault)
-        m_aNamespaceContext.m_aInternalContext.addDefaultNamespaceURI (sNamespaceURI);
-      else
-        m_aNamespaceContext.m_aInternalContext.addMapping (sPrefix, sNamespaceURI);
+    final boolean bIsDefault = sPrefix == null ||
+                               sPrefix.equals (XMLConstants.DEFAULT_NS_PREFIX) ||
+                               sPrefix.equals (XMLConstants.XMLNS_ATTRIBUTE);
+    if (bIsDefault)
+      m_aNamespaceContext.m_aInternalContext.setDefaultNamespaceURI (sNamespaceURI);
+    else
+      m_aNamespaceContext.m_aInternalContext.setMapping (sPrefix, sNamespaceURI);
 
-      if (bIsDefault)
-        writeAttribute (null, null, XMLConstants.XMLNS_ATTRIBUTE, sNamespaceURI);
-      else
-        writeAttribute (XMLConstants.XMLNS_ATTRIBUTE, null, sPrefix, sNamespaceURI);
-    }
+    if (bIsDefault)
+      writeAttribute (null, null, XMLConstants.XMLNS_ATTRIBUTE, sNamespaceURI);
+    else
+      writeAttribute (XMLConstants.XMLNS_ATTRIBUTE, null, sPrefix, sNamespaceURI);
   }
 
-  public void writeDefaultNamespace (final String sNamespaceURI) throws XMLStreamException
+  public void writeDefaultNamespace (@Nonnull final String sNamespaceURI) throws XMLStreamException
   {
     writeNamespace (null, sNamespaceURI);
   }
@@ -298,6 +304,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
     _elementStartClose ();
     final ElementState eState = m_aElementStateStack.pop ();
     m_aEmitter.onElementEnd (eState.m_sPrefix, eState.m_sLocalName, eState.m_eBracketMode);
+    m_aNamespaceContext.m_aInternalContext = eState.m_aNamespaceContext;
   }
 
   public void writeComment (final String sData) throws XMLStreamException
