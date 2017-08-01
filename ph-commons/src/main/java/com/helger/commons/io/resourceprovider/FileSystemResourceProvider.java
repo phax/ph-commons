@@ -154,18 +154,20 @@ public class FileSystemResourceProvider implements IWritableResourceProvider
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final FileSystemResourceProvider rhs = (FileSystemResourceProvider) o;
-    return EqualsHelper.equals (m_aBasePath, rhs.m_aBasePath);
+    return EqualsHelper.equals (m_aBasePath, rhs.m_aBasePath) && m_bCanReadRelativePaths == rhs.m_bCanReadRelativePaths;
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_aBasePath).getHashCode ();
+    return new HashCodeGenerator (this).append (m_aBasePath).append (m_bCanReadRelativePaths).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).appendIfNotNull ("basePath", m_aBasePath).getToString ();
+    return new ToStringGenerator (this).appendIfNotNull ("BasePath", m_aBasePath)
+                                       .append ("CanReadRelativePaths", m_bCanReadRelativePaths)
+                                       .getToString ();
   }
 }
