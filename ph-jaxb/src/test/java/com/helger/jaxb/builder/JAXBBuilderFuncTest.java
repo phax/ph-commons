@@ -166,7 +166,7 @@ public final class JAXBBuilderFuncTest
     }
 
     final MockExternalArchiveWriterBuilder aWriter = new MockExternalArchiveWriterBuilder ();
-    aWriter.setNamespaceContext (new MapBasedNamespaceContext ().setDefaultNamespaceURI ("http://urn.example.org/bla"));
+    aWriter.setNamespaceContext (new MapBasedNamespaceContext ().addDefaultNamespaceURI ("http://urn.example.org/bla"));
 
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     aWriter.write (aArc,

@@ -236,14 +236,18 @@ public class SafeXMLStreamWriter implements XMLStreamWriter
     writeAttribute (null, sNamespaceURI, sLocalName, sValue);
   }
 
-  public void writeNamespace (@Nullable final String sPrefix, final String sNamespaceURI) throws XMLStreamException
+  public void writeNamespace (@Nullable final String sPrefix,
+                              @Nonnull final String sNamespaceURI) throws XMLStreamException
   {
-    debug ( () -> "writeAttribute (" + sPrefix + ", " + sNamespaceURI + ")");
+    debug ( () -> "writeNamespace (" + sPrefix + ", " + sNamespaceURI + ")");
     if (!m_bInElementStart)
       throw new IllegalStateException ("No element open");
 
     final boolean bIsDefault = sPrefix == null || sPrefix.equals ("") || sPrefix.equals ("xmlns");
-    System.out.println ("writeNamespace (" + sPrefix + ", " + sNamespaceURI + ") - " + bIsDefault);
+    if (bIsDefault)
+      m_aNamespaceContext.m_aInternalContext.addDefaultNamespaceURI (sNamespaceURI);
+    else
+      m_aNamespaceContext.m_aInternalContext.addMapping (sPrefix, sNamespaceURI);
   }
 
   public void writeDefaultNamespace (final String sNamespaceURI) throws XMLStreamException
@@ -366,7 +370,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter
   public void setDefaultNamespace (@Nonnull final String sUri) throws XMLStreamException
   {
     debug ( () -> "setDefaultNamespace (" + sUri + ")");
-    m_aNamespaceContext.m_aInternalContext.setDefaultNamespaceURI (sUri);
+    m_aNamespaceContext.m_aInternalContext.addDefaultNamespaceURI (sUri);
   }
 
   public void setNamespaceContext (@Nullable final NamespaceContext aContext) throws XMLStreamException
