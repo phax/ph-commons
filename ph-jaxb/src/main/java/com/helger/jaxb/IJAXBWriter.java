@@ -96,6 +96,14 @@ public interface IJAXBWriter <JAXBTYPE>
   String getSchemaLocation ();
 
   /**
+   * @return The no namespace schema location to be used for writing.
+   *         <code>null</code> by default.
+   * @since 9.0.0
+   */
+  @Nullable
+  String getNoNamespaceSchemaLocation ();
+
+  /**
    * A special bi-consumer that additionally can throw a {@link JAXBException}
    *
    * @author Philip Helger

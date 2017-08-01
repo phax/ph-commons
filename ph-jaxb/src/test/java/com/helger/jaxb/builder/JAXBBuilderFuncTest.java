@@ -172,7 +172,8 @@ public final class JAXBBuilderFuncTest
     aWriter.write (aArc,
                    SafeXMLStreamWriter.create (aSW,
                                                new XMLWriterSettings ().setIndent (EXMLSerializeIndent.ALIGN_ONLY)
-                                                                       .setNewLineMode (ENewLineMode.UNIX)));
+                                                                       .setNewLineMode (ENewLineMode.UNIX))
+                                      .setDebugMode (true));
     assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                   "<Root Version=\"1.23\">" +
                   "<Collection ID=\"0\" Description=\"InternalDesc-0\">" +

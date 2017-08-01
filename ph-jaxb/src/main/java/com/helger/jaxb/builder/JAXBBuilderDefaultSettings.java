@@ -56,6 +56,8 @@ public final class JAXBBuilderDefaultSettings
   private static String s_sIndentString;
   @GuardedBy ("s_aRWLock")
   private static String s_sSchemaLocation;
+  @GuardedBy ("s_aRWLock")
+  private static String s_sNoNamespaceSchemaLocation;
 
   private JAXBBuilderDefaultSettings ()
   {}
@@ -214,5 +216,29 @@ public final class JAXBBuilderDefaultSettings
   public static String getDefaultSchemaLocation ()
   {
     return s_aRWLock.readLocked ( () -> s_sSchemaLocation);
+  }
+
+  /**
+   * Set the no namespace schema location to be used for writing JAXB objects.
+   *
+   * @param sNoNamespaceSchemaLocation
+   *        The no namespace schema location to be used by default. May be
+   *        <code>null</code>.
+   * @since 9.0.0
+   */
+  public static void setDefaultNoNamespaceSchemaLocation (@Nullable final String sNoNamespaceSchemaLocation)
+  {
+    s_aRWLock.writeLocked ( () -> s_sNoNamespaceSchemaLocation = sNoNamespaceSchemaLocation);
+  }
+
+  /**
+   * @return The JAXB no namespace schema location to be used for writing.
+   *         <code>null</code> by default.
+   * @since 9.0.0
+   */
+  @Nullable
+  public static String getDefaultNoNamespaceSchemaLocation ()
+  {
+    return s_aRWLock.readLocked ( () -> s_sNoNamespaceSchemaLocation);
   }
 }

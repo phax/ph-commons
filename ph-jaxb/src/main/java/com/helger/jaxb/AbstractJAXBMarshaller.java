@@ -17,6 +17,7 @@
 package com.helger.jaxb;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -50,6 +51,8 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.lang.IHasClassLoader;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.ESuccess;
+import com.helger.commons.string.StringHelper;
+import com.helger.commons.string.ToStringGenerator;
 import com.helger.jaxb.builder.JAXBBuilderDefaultSettings;
 import com.helger.jaxb.validation.IValidationEventHandlerFactory;
 import com.helger.xml.namespace.INamespaceContext;
@@ -64,8 +67,10 @@ import com.helger.xml.schema.XMLSchemaCache;
  *        The JAXB type to be marshaled
  */
 @NotThreadSafe
-public abstract class AbstractJAXBMarshaller <JAXBTYPE>
-                                             implements IHasClassLoader, IJAXBReader <JAXBTYPE>, IJAXBWriter <JAXBTYPE>
+public abstract class AbstractJAXBMarshaller <JAXBTYPE> implements
+                                             IHasClassLoader,
+                                             IJAXBReader <JAXBTYPE>,
+                                             IJAXBWriter <JAXBTYPE>
 {
   public static final boolean DEFAULT_READ_SECURE = true;
 
@@ -81,6 +86,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
   private Charset m_aCharset;
   private String m_sIndentString;
   private String m_sSchemaLocation;
+  private String m_sNoNamespaceSchemaLocation;
   private boolean m_bUseContextCache = JAXBBuilderDefaultSettings.DEFAULT_USE_CONTEXT_CACHE;
   private ClassLoader m_aClassLoader;
 
@@ -308,6 +314,30 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
     return EChange.CHANGED;
   }
 
+  @Nullable
+  public String getNoNamespaceSchemaLocation ()
+  {
+    return m_sNoNamespaceSchemaLocation;
+  }
+
+  /**
+   * Set the no namespace schema location to be used for writing JAXB objects.
+   *
+   * @param sNoNamespaceSchemaLocation
+   *        The no namespace schema location to be used. May be
+   *        <code>null</code>.
+   * @return {@link EChange}
+   * @since 9.0.0
+   */
+  @Nonnull
+  public EChange setNoNamespaceSchemaLocation (@Nullable final String sNoNamespaceSchemaLocation)
+  {
+    if (EqualsHelper.equals (sNoNamespaceSchemaLocation, m_sNoNamespaceSchemaLocation))
+      return EChange.UNCHANGED;
+    m_sNoNamespaceSchemaLocation = sNoNamespaceSchemaLocation;
+    return EChange.CHANGED;
+  }
+
   /**
    * Change whether the context cache should be used or not. Since creating the
    * JAXB context is quite cost intensive it is recommended to leave it enabled.
@@ -488,6 +518,9 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
     if (m_sSchemaLocation != null)
       JAXBMarshallerHelper.setSchemaLocation (aMarshaller, m_sSchemaLocation);
 
+    if (m_sNoNamespaceSchemaLocation != null)
+      JAXBMarshallerHelper.setNoNamespaceSchemaLocation (aMarshaller, m_sNoNamespaceSchemaLocation);
+
     // Set XSD (if any)
     final Schema aValidationSchema = createValidationSchema ();
     if (aValidationSchema != null)
@@ -538,5 +571,26 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE>
       handleWriteException (ex);
     }
     return ESuccess.FAILURE;
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).append ("Type", m_aType)
+                                       .append ("XSDs", m_aXSDs)
+                                       .append ("Wrapper", m_aWrapper)
+                                       .append ("VEHFactory", m_aVEHFactory)
+                                       .append ("ReadSecure", m_bReadSecure)
+                                       .append ("FormattedOutput", m_bFormattedOutput)
+                                       .append ("NSContext", m_aNSContext)
+                                       .append ("Charset", m_aCharset)
+                                       .append ("IndentString",
+                                                StringHelper.getHexEncoded (m_sIndentString,
+                                                                            StandardCharsets.ISO_8859_1))
+                                       .append ("SchemaLocation", m_sSchemaLocation)
+                                       .append ("NoNamespaceSchemaLocation", m_sNoNamespaceSchemaLocation)
+                                       .append ("UseContextCache", m_bUseContextCache)
+                                       .append ("ClassLoader", m_aClassLoader)
+                                       .getToString ();
   }
 }

@@ -17,6 +17,7 @@
 package com.helger.jaxb.builder;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
@@ -34,6 +35,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.state.ESuccess;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.jaxb.IJAXBWriter;
 import com.helger.jaxb.JAXBMarshallerHelper;
@@ -61,6 +63,7 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
   private Charset m_aCharset = JAXBBuilderDefaultSettings.getDefaultCharset ();
   private String m_sIndentString = JAXBBuilderDefaultSettings.getDefaultIndentString ();
   private String m_sSchemaLocation = JAXBBuilderDefaultSettings.getDefaultSchemaLocation ();
+  private String m_sNoNamespaceSchemaLocation = JAXBBuilderDefaultSettings.getDefaultNoNamespaceSchemaLocation ();
 
   public JAXBWriterBuilder (@Nonnull final IJAXBDocumentType aDocType)
   {
@@ -201,6 +204,28 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
     return thisAsT ();
   }
 
+  @Nullable
+  public String getNoNamespaceSchemaLocation ()
+  {
+    return m_sNoNamespaceSchemaLocation;
+  }
+
+  /**
+   * Set the no namespace Schema Location to be used for writing JAXB objects.
+   *
+   * @param sNoNamespaceSchemaLocation
+   *        The no namespace Schema Location to be used. May be
+   *        <code>null</code>.
+   * @return this for chaining
+   * @since 9.0.0
+   */
+  @Nonnull
+  public IMPLTYPE setNoNamespaceSchemaLocation (@Nullable final String sNoNamespaceSchemaLocation)
+  {
+    m_sNoNamespaceSchemaLocation = sNoNamespaceSchemaLocation;
+    return thisAsT ();
+  }
+
   @Override
   @Nonnull
   protected Marshaller createMarshaller () throws JAXBException
@@ -239,6 +264,9 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
 
     if (m_sSchemaLocation != null)
       JAXBMarshallerHelper.setSchemaLocation (aMarshaller, m_sSchemaLocation);
+
+    if (m_sNoNamespaceSchemaLocation != null)
+      JAXBMarshallerHelper.setNoNamespaceSchemaLocation (aMarshaller, m_sNoNamespaceSchemaLocation);
 
     return aMarshaller;
   }
@@ -287,6 +315,12 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
     return ToStringGenerator.getDerived (super.toString ())
                             .append ("EventHandler", m_aEventHandler)
                             .append ("NamespaceContext", m_aNSContext)
+                            .append ("FormattedOutput", m_bFormattedOutput)
+                            .append ("Charset", m_aCharset)
+                            .append ("IndentString",
+                                     StringHelper.getHexEncoded (m_sIndentString, StandardCharsets.ISO_8859_1))
+                            .append ("SchemaLocation", m_sSchemaLocation)
+                            .append ("NoNamespaceSchemaLocation", m_sNoNamespaceSchemaLocation)
                             .getToString ();
   }
 }
