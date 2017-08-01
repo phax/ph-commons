@@ -44,6 +44,10 @@ import com.helger.commons.state.ESuccess;
 import com.helger.xml.XMLFactory;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.serialize.MicroSAXHandler;
+import com.helger.xml.serialize.write.EXMLSerializeIndent;
+import com.helger.xml.serialize.write.IXMLWriterSettings;
+import com.helger.xml.serialize.write.SafeXMLStreamWriter;
+import com.helger.xml.serialize.write.XMLWriterSettings;
 import com.helger.xml.transform.TransformResultFactory;
 
 /**
@@ -55,6 +59,14 @@ import com.helger.xml.transform.TransformResultFactory;
  */
 public interface IJAXBWriter <JAXBTYPE>
 {
+  /**
+   * Use the {@link SafeXMLStreamWriter} where applicable to ensure valid XML is
+   * created? This is a work around for
+   * https://github.com/javaee/jaxb-v2/issues/614 and
+   * https://github.com/javaee/jaxb-v2/issues/960
+   */
+  boolean USE_JAXB_CHARSET_FIX = true;
+
   /**
    * @return The special JAXB namespace context to be used. May be
    *         <code>null</code>.
@@ -103,6 +115,12 @@ public interface IJAXBWriter <JAXBTYPE>
   @Nullable
   String getNoNamespaceSchemaLocation ();
 
+  default IXMLWriterSettings getXMLWriterSettings ()
+  {
+    return new XMLWriterSettings ().setIndent (isFormattedOutput () ? EXMLSerializeIndent.INDENT_AND_ALIGN
+                                                                    : EXMLSerializeIndent.NONE);
+  }
+
   /**
    * A special bi-consumer that additionally can throw a {@link JAXBException}
    *
@@ -128,6 +146,7 @@ public interface IJAXBWriter <JAXBTYPE>
   @Nonnull
   default ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull final File aResultFile)
   {
+    // TODO
     return write (aObject, TransformResultFactory.create (aResultFile));
   }
 
@@ -143,6 +162,7 @@ public interface IJAXBWriter <JAXBTYPE>
   @Nonnull
   default ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull final Path aResultPath)
   {
+    // TODO
     return write (aObject, TransformResultFactory.create (aResultPath));
   }
 
@@ -161,6 +181,10 @@ public interface IJAXBWriter <JAXBTYPE>
   {
     try
     {
+      if (USE_JAXB_CHARSET_FIX)
+      {
+        return write (aObject, SafeXMLStreamWriter.create (aOS, getXMLWriterSettings ()));
+      }
       return write (aObject, TransformResultFactory.create (aOS));
     }
     finally
@@ -185,6 +209,10 @@ public interface IJAXBWriter <JAXBTYPE>
   {
     try
     {
+      if (USE_JAXB_CHARSET_FIX)
+      {
+        return write (aObject, SafeXMLStreamWriter.create (aWriter, getXMLWriterSettings ()));
+      }
       return write (aObject, TransformResultFactory.create (aWriter));
     }
     finally
@@ -307,6 +335,8 @@ public interface IJAXBWriter <JAXBTYPE>
   @Nullable
   default Document getAsDocument (@Nonnull final JAXBTYPE aObject)
   {
+    // No need for charset fix, because the document is returned in an internal
+    // representation
     final Document aDoc = XMLFactory.newDocument ();
     return write (aObject, TransformResultFactory.create (aDoc)).isSuccess () ? aDoc : null;
   }
@@ -321,6 +351,8 @@ public interface IJAXBWriter <JAXBTYPE>
   @Nullable
   default IMicroDocument getAsMicroDocument (@Nonnull final JAXBTYPE aObject)
   {
+    // No need for charset fix, because the document is returned in an internal
+    // representation
     final MicroSAXHandler aHandler = new MicroSAXHandler (false, null);
     return write (aObject, aHandler).isSuccess () ? aHandler.getDocument () : null;
   }
@@ -337,8 +369,16 @@ public interface IJAXBWriter <JAXBTYPE>
   @Nullable
   default String getAsString (@Nonnull final JAXBTYPE aObject)
   {
-    final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    return write (aObject, TransformResultFactory.create (aSW)).isSuccess () ? aSW.getAsString () : null;
+    try (final NonBlockingStringWriter aSW = new NonBlockingStringWriter ())
+    {
+      if (USE_JAXB_CHARSET_FIX)
+      {
+        return write (aObject,
+                      SafeXMLStreamWriter.create (aSW, getXMLWriterSettings ())).isSuccess () ? aSW.getAsString ()
+                                                                                              : null;
+      }
+      return write (aObject, TransformResultFactory.create (aSW)).isSuccess () ? aSW.getAsString () : null;
+    }
   }
 
   /**
@@ -352,8 +392,16 @@ public interface IJAXBWriter <JAXBTYPE>
   @Nullable
   default ByteBuffer getAsByteBuffer (@Nonnull final JAXBTYPE aObject)
   {
-    final ByteBufferOutputStream aBBOS = new ByteBufferOutputStream ();
-    return write (aObject, aBBOS).isFailure () ? null : aBBOS.getBuffer ();
+    try (final ByteBufferOutputStream aBBOS = new ByteBufferOutputStream ())
+    {
+      if (USE_JAXB_CHARSET_FIX)
+      {
+        return write (aObject,
+                      SafeXMLStreamWriter.create (aBBOS, getXMLWriterSettings ())).isFailure () ? null
+                                                                                                : aBBOS.getBuffer ();
+      }
+      return write (aObject, aBBOS).isFailure () ? null : aBBOS.getBuffer ();
+    }
   }
 
   /**
@@ -367,7 +415,15 @@ public interface IJAXBWriter <JAXBTYPE>
   @Nullable
   default byte [] getAsBytes (@Nonnull final JAXBTYPE aObject)
   {
-    final ByteBufferOutputStream aBBOS = new ByteBufferOutputStream ();
-    return write (aObject, aBBOS).isFailure () ? null : aBBOS.getAsByteArray ();
+    try (final ByteBufferOutputStream aBBOS = new ByteBufferOutputStream ())
+    {
+      if (USE_JAXB_CHARSET_FIX)
+      {
+        return write (aObject,
+                      SafeXMLStreamWriter.create (aBBOS, getXMLWriterSettings ())).isFailure () ? null
+                                                                                                : aBBOS.getAsByteArray ();
+      }
+      return write (aObject, aBBOS).isFailure () ? null : aBBOS.getAsByteArray ();
+    }
   }
 }
