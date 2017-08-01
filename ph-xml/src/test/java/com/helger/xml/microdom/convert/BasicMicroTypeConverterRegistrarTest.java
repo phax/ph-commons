@@ -114,6 +114,7 @@ public final class BasicMicroTypeConverterRegistrarTest
       final IMicroElement aElement = MicroTypeConverter.convertToMicroElement (aObj, "any");
       assertNotNull (aElement);
       final String sXML = MicroWriter.getNodeAsString (aElement);
+      assertNotNull (sXML);
       assertTrue (sXML.startsWith ("<any>"));
       assertTrue (sXML.endsWith ("</any>" + ENewLineMode.DEFAULT.getText ()));
 

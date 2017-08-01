@@ -2446,10 +2446,9 @@ public final class StringHelper
                                 @Nonnegative final int nFromIndex,
                                 @Nullable final String sSearch)
   {
-    return sText != null && sSearch != null && (sText.length () - nFromIndex) >= sSearch.length ()
-                                                                                                   ? sText.indexOf (sSearch,
-                                                                                                                    nFromIndex)
-                                                                                                   : STRING_NOT_FOUND;
+    return sText != null &&
+           sSearch != null &&
+           (sText.length () - nFromIndex) >= sSearch.length () ? sText.indexOf (sSearch, nFromIndex) : STRING_NOT_FOUND;
   }
 
   /**
@@ -2488,10 +2487,10 @@ public final class StringHelper
                                     @Nonnegative final int nFromIndex,
                                     @Nullable final String sSearch)
   {
-    return sText != null && sSearch != null && (sText.length () - nFromIndex) >= sSearch.length ()
-                                                                                                   ? sText.lastIndexOf (sSearch,
-                                                                                                                        nFromIndex)
-                                                                                                   : STRING_NOT_FOUND;
+    return sText != null &&
+           sSearch != null &&
+           (sText.length () - nFromIndex) >= sSearch.length () ? sText.lastIndexOf (sSearch, nFromIndex)
+                                                               : STRING_NOT_FOUND;
   }
 
   /**
@@ -2586,10 +2585,9 @@ public final class StringHelper
                                           @Nullable final String sSearch,
                                           @Nonnull final Locale aSortLocale)
   {
-    return sText != null && sSearch != null && sText.length () >= sSearch.length ()
-                                                                                    ? sText.toLowerCase (aSortLocale)
-                                                                                           .indexOf (sSearch.toLowerCase (aSortLocale))
-                                                                                    : STRING_NOT_FOUND;
+    return sText != null &&
+           sSearch != null &&
+           sText.length () >= sSearch.length () ? sText.toLowerCase (aSortLocale).indexOf (sSearch.toLowerCase (aSortLocale)) : STRING_NOT_FOUND;
   }
 
   /**
@@ -2614,11 +2612,13 @@ public final class StringHelper
                                           @Nullable final String sSearch,
                                           @Nonnull final Locale aSortLocale)
   {
-    return sText != null && sSearch != null && (sText.length () - nFromIndex) >= sSearch.length ()
-                                                                                                   ? sText.toLowerCase (aSortLocale)
-                                                                                                          .indexOf (sSearch.toLowerCase (aSortLocale),
-                                                                                                                    nFromIndex)
-                                                                                                   : STRING_NOT_FOUND;
+    return sText != null &&
+           sSearch != null &&
+           (sText.length () - nFromIndex) >= sSearch.length ()
+                                                               ? sText.toLowerCase (aSortLocale)
+                                                                      .indexOf (sSearch.toLowerCase (aSortLocale),
+                                                                                nFromIndex)
+                                                               : STRING_NOT_FOUND;
   }
 
   /**
@@ -2639,10 +2639,9 @@ public final class StringHelper
                                               @Nullable final String sSearch,
                                               @Nonnull final Locale aSortLocale)
   {
-    return sText != null && sSearch != null && sText.length () >= sSearch.length ()
-                                                                                    ? sText.toLowerCase (aSortLocale)
-                                                                                           .lastIndexOf (sSearch.toLowerCase (aSortLocale))
-                                                                                    : STRING_NOT_FOUND;
+    return sText != null &&
+           sSearch != null &&
+           sText.length () >= sSearch.length () ? sText.toLowerCase (aSortLocale).lastIndexOf (sSearch.toLowerCase (aSortLocale)) : STRING_NOT_FOUND;
   }
 
   /**
@@ -2667,11 +2666,13 @@ public final class StringHelper
                                               @Nullable final String sSearch,
                                               @Nonnull final Locale aSortLocale)
   {
-    return sText != null && sSearch != null && (sText.length () - nFromIndex) >= sSearch.length ()
-                                                                                                   ? sText.toLowerCase (aSortLocale)
-                                                                                                          .lastIndexOf (sSearch.toLowerCase (aSortLocale),
-                                                                                                                        nFromIndex)
-                                                                                                   : STRING_NOT_FOUND;
+    return sText != null &&
+           sSearch != null &&
+           (sText.length () - nFromIndex) >= sSearch.length ()
+                                                               ? sText.toLowerCase (aSortLocale)
+                                                                      .lastIndexOf (sSearch.toLowerCase (aSortLocale),
+                                                                                    nFromIndex)
+                                                               : STRING_NOT_FOUND;
   }
 
   /**
@@ -3821,7 +3822,7 @@ public final class StringHelper
    * take place!
    *
    * @param aInput
-   *        The input string.
+   *        The input char array. May not be <code>null</code>.
    * @param aSearchChars
    *        The characters to replace.
    * @param aReplacementStrings
@@ -3840,28 +3841,67 @@ public final class StringHelper
                                        @Nonnull final char [] [] aReplacementStrings,
                                        @Nonnull final Writer aTarget) throws IOException
   {
+    return aInput == null ? 0
+                          : replaceMultipleTo (aInput, 0, aInput.length, aSearchChars, aReplacementStrings, aTarget);
+  }
+
+  /**
+   * Specialized version of {@link #replaceMultiple(String, char[], char[][])}
+   * where the object where the output should be appended is passed in as a
+   * parameter. This has the advantage, that not length calculation needs to
+   * take place!
+   *
+   * @param aInput
+   *        The input char array. May be <code>null</code>.
+   * @param nOfs
+   *        Offset into input array. Must be &ge; 0.
+   * @param nLen
+   *        Number of characters from input array. Must be &ge; 0.
+   * @param aSearchChars
+   *        The characters to replace.
+   * @param aReplacementStrings
+   *        The new strings to be inserted instead. Must have the same array
+   *        length as aPatterns.
+   * @param aTarget
+   *        Where the replaced objects should be written to. May not be
+   *        <code>null</code>.
+   * @return The number of replacements performed. Always &ge; 0.
+   * @throws IOException
+   *         In case writing to the Writer fails
+   */
+  @Nonnegative
+  public static int replaceMultipleTo (@Nullable final char [] aInput,
+                                       @Nonnegative final int nOfs,
+                                       @Nonnegative final int nLen,
+                                       @Nonnull final char [] aSearchChars,
+                                       @Nonnull final char [] [] aReplacementStrings,
+                                       @Nonnull final Writer aTarget) throws IOException
+  {
+    if (aInput != null)
+      ValueEnforcer.isArrayOfsLen (aInput, nOfs, nLen);
     ValueEnforcer.notNull (aSearchChars, "SearchChars");
     ValueEnforcer.notNull (aReplacementStrings, "ReplacementStrings");
     ValueEnforcer.isEqual (aSearchChars.length, aReplacementStrings.length, "array length mismatch");
     ValueEnforcer.notNull (aTarget, "Target");
 
-    if (aInput == null || aInput.length == 0)
+    if (aInput == null || aInput.length == 0 || nLen == 0)
       return 0;
 
     if (aSearchChars.length == 0)
     {
       // No modifications required
-      aTarget.write (aInput);
+      aTarget.write (aInput, nOfs, nLen);
       return 0;
     }
 
     // for all input string characters
-    int nFirstNonReplace = 0;
-    int nInputIndex = 0;
+    int nFirstNonReplace = nOfs;
+    int nInputIndex = nOfs;
     int nTotalReplacements = 0;
     final int nMaxSearchChars = aSearchChars.length;
-    for (final char cInput : aInput)
+    for (int i = 0; i < nLen; ++i)
     {
+      final char cInput = aInput[nOfs + i];
       for (int nPatternIndex = 0; nPatternIndex < nMaxSearchChars; nPatternIndex++)
       {
         if (cInput == aSearchChars[nPatternIndex])

@@ -337,7 +337,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
 
   public void writeCharacters (final char [] aText, final int nStart, final int nLen) throws XMLStreamException
   {
-    debug ( () -> "writeCharacters (" + String.valueOf (aText) + ", " + nStart + ", " + nLen + ")");
+    debug ( () -> "writeCharacters (" + String.valueOf (aText, nStart, nLen) + ", " + nStart + ", " + nLen + ")");
     _elementStartClose ();
     m_aEmitter.onText (aText, nStart, nLen);
   }

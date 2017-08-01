@@ -678,26 +678,36 @@ public final class XMLMaskHelper
       return;
 
     char [] aChars = aText;
+    int nRealOfs = nOfs;
+    int nRealLen = nLen;
 
     // 1. do incorrect character handling
     if (eIncorrectCharHandling.isTestRequired ())
     {
-      if (XMLCharHelper.containsInvalidXMLChar (eXMLVersion, eXMLCharMode, aChars, nOfs, nLen))
+      if (XMLCharHelper.containsInvalidXMLChar (eXMLVersion, eXMLCharMode, aChars, nRealOfs, nRealLen))
       {
         final ICommonsSet <Character> aAllInvalidChars = XMLCharHelper.getAllInvalidXMLChars (eXMLVersion,
                                                                                               eXMLCharMode,
                                                                                               aChars,
-                                                                                              nOfs,
-                                                                                              nLen);
+                                                                                              nRealOfs,
+                                                                                              nRealLen);
         // Here we can convert, because this part should not be called very
         // often
-        final String s = new String (aText, nOfs, nLen);
+        final String s = new String (aText, nRealOfs, nRealLen);
         eIncorrectCharHandling.notifyOnInvalidXMLCharacter (s, aAllInvalidChars);
         if (eIncorrectCharHandling.isReplaceWithNothing ())
         {
           final char [] aSrcMap = getAsCharArray (aAllInvalidChars);
           final char [] [] aDstMap = _createEmptyReplacement (aSrcMap);
+
           aChars = StringHelper.replaceMultiple (s, aSrcMap, aDstMap);
+          nRealOfs = 0;
+          nRealLen = aChars.length;
+          if (nRealLen == 0)
+          {
+            // Nothing left after replacement
+            return;
+          }
         }
       }
     }
@@ -707,12 +717,12 @@ public final class XMLMaskHelper
     if (aSrcMap == null)
     {
       // Nothing to replace
-      aWriter.write (aChars);
+      aWriter.write (aChars, nRealOfs, nRealLen);
     }
     else
     {
       final char [] [] aDstMap = _findReplaceMap (eXMLVersion, eXMLCharMode);
-      StringHelper.replaceMultipleTo (aChars, aSrcMap, aDstMap, aWriter);
+      StringHelper.replaceMultipleTo (aChars, nRealOfs, nRealLen, aSrcMap, aDstMap, aWriter);
     }
   }
 }
