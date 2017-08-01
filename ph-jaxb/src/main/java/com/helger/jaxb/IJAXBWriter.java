@@ -41,6 +41,7 @@ import com.helger.commons.io.stream.ByteBufferOutputStream;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.state.ESuccess;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.system.ENewLineMode;
 import com.helger.xml.XMLFactory;
 import com.helger.xml.microdom.IMicroDocument;
@@ -91,6 +92,11 @@ public interface IJAXBWriter <JAXBTYPE>
   @Nullable
   Charset getCharset ();
 
+  default boolean hasCharset ()
+  {
+    return getCharset () != null;
+  }
+
   /**
    * @return The JAXB indentation string to be used for writing.
    *         <code>null</code> by default. Only used when formatted output is
@@ -99,6 +105,11 @@ public interface IJAXBWriter <JAXBTYPE>
    */
   @Nullable
   String getIndentString ();
+
+  default boolean hasIndentString ()
+  {
+    return StringHelper.hasText (getIndentString ());
+  }
 
   /**
    * @return The schema location to be used for writing. <code>null</code> by
@@ -123,12 +134,14 @@ public interface IJAXBWriter <JAXBTYPE>
   @Nonnull
   default IXMLWriterSettings getXMLWriterSettings ()
   {
-    return new XMLWriterSettings ().setNamespaceContext (getNamespaceContext ())
-                                   .setIndent (isFormattedOutput () ? EXMLSerializeIndent.INDENT_AND_ALIGN
-                                                                    : EXMLSerializeIndent.NONE)
-                                   .setIndentationString (getIndentString ())
-                                   .setCharset (getCharset ())
-                                   .setNewLineMode (ENewLineMode.DEFAULT);
+    final XMLWriterSettings ret = new XMLWriterSettings ().setNamespaceContext (getNamespaceContext ())
+                                                          .setIndent (isFormattedOutput () ? EXMLSerializeIndent.INDENT_AND_ALIGN
+                                                                                           : EXMLSerializeIndent.NONE);
+    if (hasIndentString ())
+      ret.setIndentationString (getIndentString ());
+    if (hasCharset ())
+      ret.setCharset (getCharset ());
+    return ret.setNewLineMode (ENewLineMode.DEFAULT);
   }
 
   /**
