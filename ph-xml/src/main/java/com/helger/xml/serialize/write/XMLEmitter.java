@@ -16,6 +16,7 @@
  */
 package com.helger.xml.serialize.write;
 
+import java.io.Flushable;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
@@ -41,7 +42,7 @@ import com.helger.xml.microdom.IMicroDocumentType;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class XMLEmitter implements AutoCloseable
+public class XMLEmitter implements AutoCloseable, Flushable
 {
   /** By default an exception is thrown for nested comments */
   public static final boolean DEFAULT_THROW_EXCEPTION_ON_NESTED_COMMENTS = true;
