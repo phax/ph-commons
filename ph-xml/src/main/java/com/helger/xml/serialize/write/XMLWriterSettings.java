@@ -127,7 +127,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     setIndent (aOther.getIndent ());
     setIndentDeterminator (aOther.getIndentDeterminator ());
     setIncorrectCharacterHandling (aOther.getIncorrectCharacterHandling ());
-    setCharset (aOther.getCharsetObj ());
+    setCharset (aOther.getCharset ());
     setNamespaceContext (aOther.getNamespaceContext ());
     setBracketModeDeterminator (aOther.getBracketModeDeterminator ());
     setUseDoubleQuotesForAttributes (aOther.isUseDoubleQuotesForAttributes ());
@@ -300,13 +300,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   }
 
   @Nonnull
-  public String getCharset ()
-  {
-    return m_aCharset.name ();
-  }
-
-  @Nonnull
-  public Charset getCharsetObj ()
+  public Charset getCharset ()
   {
     return m_aCharset;
   }

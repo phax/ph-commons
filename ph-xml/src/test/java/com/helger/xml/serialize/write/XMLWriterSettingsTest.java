@@ -50,9 +50,9 @@ public final class XMLWriterSettingsTest
     assertEquals (EXMLSerializeXMLDeclaration.EMIT, mws.getSerializeXMLDeclaration ());
     assertEquals (EXMLSerializeDocType.EMIT, mws.getSerializeDocType ());
     assertEquals (EXMLSerializeComments.EMIT, mws.getSerializeComments ());
-    assertEquals (XMLWriterSettings.DEFAULT_XML_CHARSET, mws.getCharset ());
+    assertEquals (XMLWriterSettings.DEFAULT_XML_CHARSET, mws.getCharset ().name ());
     assertEquals (EXMLSerializeIndent.INDENT_AND_ALIGN, mws.getIndent ());
-    assertEquals (StandardCharsets.UTF_8, mws.getCharsetObj ());
+    assertEquals (StandardCharsets.UTF_8, mws.getCharset ());
     assertTrue (mws.isSpaceOnSelfClosedElement ());
     assertTrue (mws.isUseDoubleQuotesForAttributes ());
     assertEquals (ENewLineMode.DEFAULT, mws.getNewLineMode ());
@@ -65,9 +65,9 @@ public final class XMLWriterSettingsTest
     assertEquals (EXMLSerializeXMLDeclaration.EMIT, mws.getSerializeXMLDeclaration ());
     assertEquals (EXMLSerializeDocType.EMIT, mws.getSerializeDocType ());
     assertEquals (EXMLSerializeComments.EMIT, mws.getSerializeComments ());
-    assertEquals (XMLWriterSettings.DEFAULT_XML_CHARSET, mws.getCharset ());
+    assertEquals (XMLWriterSettings.DEFAULT_XML_CHARSET, mws.getCharset ().name ());
     assertEquals (EXMLSerializeIndent.INDENT_AND_ALIGN, mws.getIndent ());
-    assertEquals (StandardCharsets.UTF_8, mws.getCharsetObj ());
+    assertEquals (StandardCharsets.UTF_8, mws.getCharset ());
     assertTrue (mws.isSpaceOnSelfClosedElement ());
     assertTrue (mws.isUseDoubleQuotesForAttributes ());
     assertTrue (mws.isEmitNamespaces ());
@@ -131,8 +131,8 @@ public final class XMLWriterSettingsTest
               for (final Charset aCS : CharsetHelper.getAllCharsets ().values ())
               {
                 aXWS.setCharset (aCS);
-                assertEquals (aCS, aXWS.getCharsetObj ());
-                assertEquals (aCS.name (), aXWS.getCharset ());
+                assertEquals (aCS, aXWS.getCharset ());
+                assertEquals (aCS.name (), aXWS.getCharset ().name ());
                 for (final boolean bUseDoubleQuotesForAttributes : BOOLS)
                 {
                   aXWS.setUseDoubleQuotesForAttributes (bUseDoubleQuotesForAttributes);
@@ -186,8 +186,8 @@ public final class XMLWriterSettingsTest
                   }
                   CommonsAssert.assertEquals (bUseDoubleQuotesForAttributes, aXWS.isUseDoubleQuotesForAttributes ());
                 }
-                assertEquals (aCS, aXWS.getCharsetObj ());
-                assertEquals (aCS.name (), aXWS.getCharset ());
+                assertEquals (aCS, aXWS.getCharset ());
+                assertEquals (aCS.name (), aXWS.getCharset ().name ());
               }
               assertEquals (eIncorrectCharHandling, aXWS.getIncorrectCharacterHandling ());
             }

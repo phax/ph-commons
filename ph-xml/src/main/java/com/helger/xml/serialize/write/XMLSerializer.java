@@ -121,7 +121,7 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
       }
       final EXMLVersion eXMLVersion = EXMLVersion.getFromVersionOrDefault (sXMLVersion, m_aSettings.getXMLVersion ());
       aXMLWriter.onXMLDeclaration (eXMLVersion,
-                                   m_aSettings.getCharset (),
+                                   m_aSettings.getCharset ().name (),
                                    bIsDocumentStandalone || aDocument.getDoctype () == null);
     }
 
@@ -187,7 +187,7 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
 
     // get all attributes (sorting is important because the order from
     // getAttributes is not guaranteed to be consistent!)
-    final ICommonsMap <QName, String> aAttrMap = new CommonsTreeMap<> (CXML.getComparatorQName ());
+    final ICommonsMap <QName, String> aAttrMap = new CommonsTreeMap <> (CXML.getComparatorQName ());
 
     m_aNSStack.push ();
 
@@ -229,9 +229,8 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
       });
 
       // Determine indent
-      final Element aParentElement = aParentNode != null && aParentNode.getNodeType () == Node.ELEMENT_NODE
-                                                                                                            ? (Element) aParentNode
-                                                                                                            : null;
+      final Element aParentElement = aParentNode != null &&
+                                     aParentNode.getNodeType () == Node.ELEMENT_NODE ? (Element) aParentNode : null;
       final String sParentNamespaceURI = aParentElement != null ? aParentNode.getNamespaceURI () : null;
       final String sParentTagName = aParentElement != null ? aParentElement.getLocalName () != null ? aParentElement.getLocalName ()
                                                                                                     : aParentElement.getTagName ()

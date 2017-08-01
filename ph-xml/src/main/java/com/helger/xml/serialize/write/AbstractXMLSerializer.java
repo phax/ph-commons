@@ -528,7 +528,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
 
     // Create a writer for the passed output stream
     final NonBlockingBufferedWriter aWriter = new NonBlockingBufferedWriter (StreamHelper.createWriter (aOS,
-                                                                                                        m_aSettings.getCharsetObj ()));
+                                                                                                        m_aSettings.getCharset ()));
     // Inside the other write method, the writer must be flushed!
     write (aNode, aWriter);
     // Do not close the writer!

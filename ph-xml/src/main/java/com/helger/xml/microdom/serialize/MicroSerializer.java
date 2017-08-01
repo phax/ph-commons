@@ -140,7 +140,9 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
   private void _writeDocument (@Nonnull final XMLEmitter aXMLWriter, final IMicroDocument aDocument)
   {
     if (m_aSettings.getSerializeXMLDeclaration ().isEmit ())
-      aXMLWriter.onXMLDeclaration (m_aSettings.getXMLVersion (), m_aSettings.getCharset (), aDocument.isStandalone ());
+      aXMLWriter.onXMLDeclaration (m_aSettings.getXMLVersion (),
+                                   m_aSettings.getCharset ().name (),
+                                   aDocument.isStandalone ());
 
     if (aDocument.hasChildren ())
       _writeNodeList (aXMLWriter, aDocument, aDocument.getAllChildren ());

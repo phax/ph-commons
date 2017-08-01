@@ -1,8 +1,12 @@
 package com.helger.xml.serialize.write;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.Charset;
+import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.function.Supplier;
 
@@ -19,8 +23,10 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.collection.NonBlockingStack;
 import com.helger.commons.collection.iterate.CombinedIterator;
+import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
@@ -148,21 +154,32 @@ public class SafeXMLStreamWriter implements XMLStreamWriter
       s_aLogger.info (aSupplier.get ());
   }
 
+  @Nonnull
+  private IXMLWriterSettings _getSettings ()
+  {
+    return m_aEmitter.getXMLWriterSettings ();
+  }
+
   public void writeStartDocument () throws XMLStreamException
   {
-    writeStartDocument (StandardCharsets.UTF_8.name (), EXMLVersion.XML_10.getVersion ());
+    writeStartDocument (_getSettings ().getCharset (), _getSettings ().getXMLVersion ());
   }
 
   public void writeStartDocument (@Nullable final String sVersion) throws XMLStreamException
   {
-    writeStartDocument (StandardCharsets.UTF_8.name (), sVersion);
+    writeStartDocument (_getSettings ().getCharset (), EXMLVersion.getFromVersionOrNull (sVersion));
   }
 
   public void writeStartDocument (@Nullable final String sEncoding,
                                   @Nullable final String sVersion) throws XMLStreamException
   {
-    debug ( () -> "writeStartDocument (" + sEncoding + ", " + sVersion + ")");
-    m_aEmitter.onXMLDeclaration (EXMLVersion.getFromVersionOrNull (sVersion), sEncoding, false);
+    writeStartDocument (CharsetHelper.getCharsetFromName (sEncoding), EXMLVersion.getFromVersionOrNull (sVersion));
+  }
+
+  public void writeStartDocument (@Nonnull final Charset aEncoding, @Nonnull final EXMLVersion eVersion)
+  {
+    debug ( () -> "writeStartDocument (" + aEncoding + ", " + eVersion + ")");
+    m_aEmitter.onXMLDeclaration (eVersion, aEncoding.name (), false);
   }
 
   public void writeDTD (@Nonnull final String sDTD) throws XMLStreamException
@@ -409,5 +426,27 @@ public class SafeXMLStreamWriter implements XMLStreamWriter
                                             @Nonnull final IXMLWriterSettings aSettings)
   {
     return new SafeXMLStreamWriter (new XMLEmitter (aWriter, aSettings));
+  }
+
+  @Nonnull
+  public static SafeXMLStreamWriter create (@Nonnull @WillCloseWhenClosed final OutputStream aOS,
+                                            @Nonnull final IXMLWriterSettings aSettings)
+  {
+    ValueEnforcer.notNull (aOS, "OutputStream");
+    return create (new OutputStreamWriter (aOS, aSettings.getCharset ()), aSettings);
+  }
+
+  @Nonnull
+  public static SafeXMLStreamWriter create (@Nonnull final File aFile, @Nonnull final IXMLWriterSettings aSettings)
+  {
+    ValueEnforcer.notNull (aFile, "File");
+    return create (FileHelper.getOutputStream (aFile), aSettings);
+  }
+
+  @Nonnull
+  public static SafeXMLStreamWriter create (@Nonnull final Path aPath, @Nonnull final IXMLWriterSettings aSettings)
+  {
+    ValueEnforcer.notNull (aPath, "Path");
+    return create (aPath.toFile (), aSettings);
   }
 }

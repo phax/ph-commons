@@ -78,7 +78,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE> implements
 
   private final Class <JAXBTYPE> m_aType;
   private final ICommonsList <IReadableResource> m_aXSDs = new CommonsArrayList <> ();
-  private final IFunction <? super JAXBTYPE, ? extends JAXBElement <JAXBTYPE>> m_aWrapper;
+  private final IFunction <? super JAXBTYPE, ? extends JAXBElement <JAXBTYPE>> m_aJAXBElementWrapper;
   private IValidationEventHandlerFactory m_aVEHFactory;
   private boolean m_bReadSecure = DEFAULT_READ_SECURE;
   private boolean m_bFormattedOutput = JAXBBuilderDefaultSettings.DEFAULT_FORMATTED_OUTPUT;
@@ -117,7 +117,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE> implements
    * @param aXSDs
    *        The XSDs used to validate document. May be <code>null</code> or
    *        empty indicating, that no XSD check is needed.
-   * @param aWrapper
+   * @param aJAXBElementWrapper
    *        Wrap the passed domain object into a {@link JAXBElement} for
    *        marshalling (writing). This can usually be done using the
    *        respective's package ObjectFactory implementation. May not be
@@ -125,7 +125,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE> implements
    */
   protected AbstractJAXBMarshaller (@Nonnull final Class <JAXBTYPE> aType,
                                     @Nullable final List <? extends IReadableResource> aXSDs,
-                                    @Nonnull final IFunction <? super JAXBTYPE, ? extends JAXBElement <JAXBTYPE>> aWrapper)
+                                    @Nonnull final IFunction <? super JAXBTYPE, ? extends JAXBElement <JAXBTYPE>> aJAXBElementWrapper)
   {
     m_aType = ValueEnforcer.notNull (aType, "Type");
     if (aXSDs != null)
@@ -133,7 +133,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE> implements
       ValueEnforcer.notEmptyNoNullValue (aXSDs, "XSDs");
       m_aXSDs.addAll (aXSDs);
     }
-    m_aWrapper = ValueEnforcer.notNull (aWrapper, "Wrapper");
+    m_aJAXBElementWrapper = ValueEnforcer.notNull (aJAXBElementWrapper, "JAXBElementWrapper");
   }
 
   /**
@@ -562,7 +562,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE> implements
       final Marshaller aMarshaller = _createMarshaller ();
       customizeMarshaller (aMarshaller);
 
-      final JAXBElement <JAXBTYPE> aJAXBElement = m_aWrapper.apply (aObject);
+      final JAXBElement <JAXBTYPE> aJAXBElement = m_aJAXBElementWrapper.apply (aObject);
       aMarshallerFunc.doMarshal (aMarshaller, aJAXBElement);
       return ESuccess.SUCCESS;
     }
@@ -578,7 +578,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE> implements
   {
     return new ToStringGenerator (this).append ("Type", m_aType)
                                        .append ("XSDs", m_aXSDs)
-                                       .append ("Wrapper", m_aWrapper)
+                                       .append ("JAXBElementWrapper", m_aJAXBElementWrapper)
                                        .append ("VEHFactory", m_aVEHFactory)
                                        .append ("ReadSecure", m_bReadSecure)
                                        .append ("FormattedOutput", m_bFormattedOutput)

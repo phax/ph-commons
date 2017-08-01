@@ -68,6 +68,6 @@ public class MicroDOMInputStreamProvider extends StringInputStreamProvider
    */
   public MicroDOMInputStreamProvider (@Nonnull final IMicroNode aNode, @Nonnull final IXMLWriterSettings aSettings)
   {
-    super (MicroWriter.getNodeAsString (aNode, aSettings), aSettings.getCharsetObj ());
+    super (MicroWriter.getNodeAsString (aNode, aSettings), aSettings.getCharset ());
   }
 }

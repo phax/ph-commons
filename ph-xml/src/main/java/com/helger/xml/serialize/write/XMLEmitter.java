@@ -62,16 +62,6 @@ public class XMLEmitter implements AutoCloseable
   private final char m_cAttrValueBoundary;
   private final EXMLCharMode m_eAttrValueCharMode;
 
-  public XMLEmitter (@Nonnull @WillNotClose final Writer aWriter, @Nonnull final IXMLWriterSettings aSettings)
-  {
-    m_aWriter = ValueEnforcer.notNull (aWriter, "Writer");
-    m_aSettings = ValueEnforcer.notNull (aSettings, "Settings");
-    m_eXMLVersion = aSettings.getSerializeVersion ();
-    m_cAttrValueBoundary = aSettings.isUseDoubleQuotesForAttributes () ? '"' : '\'';
-    m_eAttrValueCharMode = aSettings.isUseDoubleQuotesForAttributes () ? EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES
-                                                                       : EXMLCharMode.ATTRIBUTE_VALUE_SINGLE_QUOTES;
-  }
-
   /**
    * Define whether nested XML comments throw an exception or not.
    *
@@ -91,6 +81,26 @@ public class XMLEmitter implements AutoCloseable
   public static boolean isThrowExceptionOnNestedComments ()
   {
     return s_bThrowExceptionOnNestedComments;
+  }
+
+  public XMLEmitter (@Nonnull @WillNotClose final Writer aWriter, @Nonnull final IXMLWriterSettings aSettings)
+  {
+    m_aWriter = ValueEnforcer.notNull (aWriter, "Writer");
+    m_aSettings = ValueEnforcer.notNull (aSettings, "Settings");
+    m_eXMLVersion = aSettings.getSerializeVersion ();
+    m_cAttrValueBoundary = aSettings.isUseDoubleQuotesForAttributes () ? '"' : '\'';
+    m_eAttrValueCharMode = aSettings.isUseDoubleQuotesForAttributes () ? EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES
+                                                                       : EXMLCharMode.ATTRIBUTE_VALUE_SINGLE_QUOTES;
+  }
+
+  /**
+   * @return The XML writer settings as provided in the constructor. Never
+   *         <code>null</code>.
+   */
+  @Nonnull
+  public IXMLWriterSettings getXMLWriterSettings ()
+  {
+    return m_aSettings;
   }
 
   @Nonnull
@@ -158,7 +168,7 @@ public class XMLEmitter implements AutoCloseable
     }
     catch (final IOException ex)
     {
-      throw new IllegalStateException ("Failed to append masked string '" + new String (aText, nOfs, nLen) + "'", ex);
+      throw new IllegalStateException ("Failed to append masked char[] '" + new String (aText, nOfs, nLen) + "'", ex);
     }
   }
 
@@ -566,11 +576,11 @@ public class XMLEmitter implements AutoCloseable
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("writer", m_aWriter)
-                                       .append ("settings", m_aSettings)
-                                       .append ("version", m_eXMLVersion)
-                                       .append ("attrValueBoundary", m_cAttrValueBoundary)
-                                       .append ("attrValueCharMode", m_eAttrValueCharMode)
+    return new ToStringGenerator (this).append ("Writer", m_aWriter)
+                                       .append ("Settings", m_aSettings)
+                                       .append ("Version", m_eXMLVersion)
+                                       .append ("AttrValueBoundary", m_cAttrValueBoundary)
+                                       .append ("AttrValueCharMode", m_eAttrValueCharMode)
                                        .getToString ();
   }
 }

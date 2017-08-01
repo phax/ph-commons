@@ -72,7 +72,7 @@ public class SettingsPersistenceXML <T extends IMutableSettings> implements ISet
   @Nonnull
   public final Charset getCharset ()
   {
-    return m_aXWS.getCharsetObj ();
+    return m_aXWS.getCharset ();
   }
 
   /**
