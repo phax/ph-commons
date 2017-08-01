@@ -30,15 +30,15 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public final class LoadedKeyStore implements ISuccessIndicator
+public class LoadedKeyStore implements ISuccessIndicator
 {
   private final KeyStore m_aKeyStore;
   private final EKeyStoreLoadError m_eError;
   private final String [] m_aErrorParams;
 
-  LoadedKeyStore (@Nullable final KeyStore aKeyStore,
-                  @Nullable final EKeyStoreLoadError eError,
-                  @Nullable final String... aErrorParams)
+  public LoadedKeyStore (@Nullable final KeyStore aKeyStore,
+                         @Nullable final EKeyStoreLoadError eError,
+                         @Nullable final String... aErrorParams)
   {
     m_aKeyStore = aKeyStore;
     m_eError = eError;

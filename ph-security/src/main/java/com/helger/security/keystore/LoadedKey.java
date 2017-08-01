@@ -32,15 +32,15 @@ import com.helger.commons.string.ToStringGenerator;
  * @param <T>
  *        The keystore entry type loaded.
  */
-public final class LoadedKey <T extends KeyStore.Entry> implements ISuccessIndicator
+public class LoadedKey <T extends KeyStore.Entry> implements ISuccessIndicator
 {
   private final T m_aKeyEntry;
   private final EKeyStoreLoadError m_eError;
   private final String [] m_aErrorParams;
 
-  LoadedKey (@Nullable final T aKeyEntry,
-             @Nullable final EKeyStoreLoadError eError,
-             @Nullable final String... aErrorParams)
+  public LoadedKey (@Nullable final T aKeyEntry,
+                    @Nullable final EKeyStoreLoadError eError,
+                    @Nullable final String... aErrorParams)
   {
     m_aKeyEntry = aKeyEntry;
     m_eError = eError;
