@@ -50,7 +50,7 @@ public final class JAXBMarshallerHelperTest
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (JAXBMarshallerHelperTest.class);
 
-  private <T> void _testAll (@Nonnull final Class <T> aClass, final boolean bIsInternal) throws JAXBException
+  private void _testAll (@Nonnull final Class <?> aClass, final boolean bIsInternal) throws JAXBException
   {
     final JAXBContext aCtx = JAXBContextCache.getInstance ().getFromCache (aClass);
     assertNotNull (aCtx);

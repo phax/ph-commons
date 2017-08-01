@@ -22,6 +22,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 
 import javax.xml.stream.XMLOutputFactory;
@@ -32,7 +33,13 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 
 import com.helger.commons.io.file.FileHelper;
+import com.helger.commons.io.stream.NonBlockingStringWriter;
+import com.helger.commons.system.ENewLineMode;
 import com.helger.xml.microdom.IMicroDocument;
+import com.helger.xml.namespace.MapBasedNamespaceContext;
+import com.helger.xml.serialize.write.EXMLSerializeIndent;
+import com.helger.xml.serialize.write.SafeXMLStreamWriter;
+import com.helger.xml.serialize.write.XMLWriterSettings;
 
 public final class JAXBBuilderFuncTest
 {
@@ -137,5 +144,48 @@ public final class JAXBBuilderFuncTest
 
     final MockInternalArchiveWriterBuilder aWriter = new MockInternalArchiveWriterBuilder ();
     aWriter.write (aArc, aSW);
+  }
+
+  @Test
+  public void testSafeXMLStreamWriter ()
+  {
+    final com.helger.jaxb.mock.external.MockJAXBArchive aArc = new com.helger.jaxb.mock.external.MockJAXBArchive ();
+    aArc.setVersion ("1.23");
+    for (int i = 0; i < 2; ++i)
+    {
+      final com.helger.jaxb.mock.external.MockJAXBCollection aCollection = new com.helger.jaxb.mock.external.MockJAXBCollection ();
+      aCollection.setDescription ("InternalDesc-" + i);
+      aCollection.setID (i);
+
+      final com.helger.jaxb.mock.external.MockJAXBIssue aIssue = new com.helger.jaxb.mock.external.MockJAXBIssue ();
+      aIssue.setTitle (BigDecimal.valueOf (10000 + i));
+      aIssue.setSubTitle ("Test" + i);
+      aCollection.getIssue ().add (aIssue);
+
+      aArc.getCollection ().add (aCollection);
+    }
+
+    final MockExternalArchiveWriterBuilder aWriter = new MockExternalArchiveWriterBuilder ();
+    aWriter.setNamespaceContext (new MapBasedNamespaceContext ().setDefaultNamespaceURI ("http://urn.example.org/bla"));
+
+    final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
+    aWriter.write (aArc,
+                   SafeXMLStreamWriter.create (aSW,
+                                               new XMLWriterSettings ().setIndent (EXMLSerializeIndent.ALIGN_ONLY)
+                                                                       .setNewLineMode (ENewLineMode.UNIX)));
+    assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                  "<Root Version=\"1.23\">" +
+                  "<Collection ID=\"0\" Description=\"InternalDesc-0\">" +
+                  "<Issue ID=\"0\" CollectionID=\"0\" PageCount=\"0\" ArticleCount=\"0\" DirAbsolute=\"0\">" +
+                  "<Title>10000</Title>" +
+                  "<SubTitle>Test0</SubTitle>" +
+                  "</Issue></Collection>" +
+                  "<Collection ID=\"1\" Description=\"InternalDesc-1\">" +
+                  "<Issue ID=\"0\" CollectionID=\"0\" PageCount=\"0\" ArticleCount=\"0\" DirAbsolute=\"0\">" +
+                  "<Title>10001</Title>" +
+                  "<SubTitle>Test1</SubTitle>" +
+                  "</Issue></Collection>" +
+                  "</Root>",
+                  aSW.getAsString ());
   }
 }

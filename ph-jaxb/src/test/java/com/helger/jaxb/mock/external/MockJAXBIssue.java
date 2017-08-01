@@ -75,39 +75,39 @@ public final class MockJAXBIssue
 {
   @XmlElement (name = "Title", required = true)
   private BigDecimal m_aTitle;
-  @XmlElement (name = "SubTitle", required = true)
+  @XmlElement (name = "SubTitle")
   private String m_sSubTitle;
-  @XmlElement (name = "DateDescription", required = true)
+  @XmlElement (name = "DateDescription")
   private String m_sDateDescription;
-  @XmlElement (name = "FirstPage", required = true)
+  @XmlElement (name = "FirstPage")
   private MockJAXBIssue.FirstPage m_aFirstPage;
-  @XmlAttribute (name = "ID", required = true)
+  @XmlAttribute (name = "ID")
   @XmlSchemaType (name = "unsignedInt")
   private long m_nID;
-  @XmlAttribute (name = "CollectionID", required = true)
+  @XmlAttribute (name = "CollectionID")
   @XmlSchemaType (name = "unsignedInt")
   private long m_nCollectionID;
-  @XmlAttribute (name = "ContentLanguage", required = true)
+  @XmlAttribute (name = "ContentLanguage")
   private String m_sContentLanguage;
-  @XmlAttribute (name = "MenuLanguage", required = true)
+  @XmlAttribute (name = "MenuLanguage")
   private String m_sMenuLanguage;
-  @XmlAttribute (name = "MenuLayout", required = true)
+  @XmlAttribute (name = "MenuLayout")
   private String m_sMenuLayout;
-  @XmlAttribute (name = "PageCount", required = true)
+  @XmlAttribute (name = "PageCount")
   @XmlSchemaType (name = "unsignedInt")
   private long m_nPageCount;
-  @XmlAttribute (name = "ArticleCount", required = true)
+  @XmlAttribute (name = "ArticleCount")
   @XmlSchemaType (name = "unsignedInt")
   private long m_nArticleCount;
-  @XmlAttribute (name = "Directory", required = true)
+  @XmlAttribute (name = "Directory")
   private String m_sDirectory;
-  @XmlAttribute (name = "DateSort", required = true)
+  @XmlAttribute (name = "DateSort")
   private String m_sDateSort;
-  @XmlAttribute (name = "DateFrom", required = true)
+  @XmlAttribute (name = "DateFrom")
   private String m_sDateFrom;
-  @XmlAttribute (name = "DateTo", required = true)
+  @XmlAttribute (name = "DateTo")
   private String m_sDateTo;
-  @XmlAttribute (name = "DirAbsolute", required = true)
+  @XmlAttribute (name = "DirAbsolute")
   @XmlSchemaType (name = "unsignedInt")
   private long m_nDirAbsolute;
 
