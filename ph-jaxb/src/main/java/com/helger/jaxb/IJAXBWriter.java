@@ -41,6 +41,7 @@ import com.helger.commons.io.stream.ByteBufferOutputStream;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.state.ESuccess;
+import com.helger.commons.system.ENewLineMode;
 import com.helger.xml.XMLFactory;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.serialize.MicroSAXHandler;
@@ -115,10 +116,19 @@ public interface IJAXBWriter <JAXBTYPE>
   @Nullable
   String getNoNamespaceSchemaLocation ();
 
+  /**
+   * @return The XML writer settings to be used based on this writer settings.
+   *         Never <code>null</code>.
+   */
+  @Nonnull
   default IXMLWriterSettings getXMLWriterSettings ()
   {
-    return new XMLWriterSettings ().setIndent (isFormattedOutput () ? EXMLSerializeIndent.INDENT_AND_ALIGN
-                                                                    : EXMLSerializeIndent.NONE);
+    return new XMLWriterSettings ().setNamespaceContext (getNamespaceContext ())
+                                   .setIndent (isFormattedOutput () ? EXMLSerializeIndent.INDENT_AND_ALIGN
+                                                                    : EXMLSerializeIndent.NONE)
+                                   .setIndentationString (getIndentString ())
+                                   .setCharset (getCharset ())
+                                   .setNewLineMode (ENewLineMode.DEFAULT);
   }
 
   /**
