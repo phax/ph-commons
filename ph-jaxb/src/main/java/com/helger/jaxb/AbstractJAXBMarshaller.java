@@ -134,6 +134,9 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE> implements
       m_aXSDs.addAll (aXSDs);
     }
     m_aJAXBElementWrapper = ValueEnforcer.notNull (aJAXBElementWrapper, "JAXBElementWrapper");
+    // By default this class loader of the type to be marshalled should be used
+    // This is important for OSGI application containers and ANT tasks
+    m_aClassLoader = aType.getClassLoader ();
   }
 
   /**
