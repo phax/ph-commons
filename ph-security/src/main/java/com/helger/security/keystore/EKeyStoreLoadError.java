@@ -16,16 +16,25 @@
  */
 package com.helger.security.keystore;
 
+import java.util.Locale;
+
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.id.IHasID;
+import com.helger.commons.text.display.IHasDisplayTextWithArgs;
 
-public enum EKeyStoreLoadError implements IHasID <String>
+/**
+ * Errors that can occur in {@link KeyStoreHelper}
+ *
+ * @author Philip Helger
+ */
+public enum EKeyStoreLoadError implements IHasID <String>, IHasDisplayTextWithArgs
 {
   // KeyStore loading
   /** No keystore path provided. Parameters: none */
-  KEYSTORE_NO_PATH ("keystore-no-path"),
+  KEYSTORE_NO_PATH ("keystore-no-path", EKeyStoreLoadErrorText.KEYSTORE_NO_PATH),
   /**
    * Keystore not existing. Parameters:
    * <ul>
@@ -33,7 +42,8 @@ public enum EKeyStoreLoadError implements IHasID <String>
    * <li>Exception text</li>
    * </ul>
    */
-  KEYSTORE_LOAD_ERROR_NON_EXISTING ("keystore-load-error-non-existing"),
+  KEYSTORE_LOAD_ERROR_NON_EXISTING ("keystore-load-error-non-existing",
+                                    EKeyStoreLoadErrorText.KEYSTORE_LOAD_ERROR_NON_EXISTING),
   /**
    * Invalid keystore password. Parameters:
    * <ul>
@@ -41,7 +51,7 @@ public enum EKeyStoreLoadError implements IHasID <String>
    * <li>Exception text</li>
    * </ul>
    */
-  KEYSTORE_INVALID_PASSWORD ("keystore-invalid-password"),
+  KEYSTORE_INVALID_PASSWORD ("keystore-invalid-password", EKeyStoreLoadErrorText.KEYSTORE_INVALID_PASSWORD),
   /**
    * Invalid password or generic error. Parameters:
    * <ul>
@@ -49,7 +59,8 @@ public enum EKeyStoreLoadError implements IHasID <String>
    * <li>Exception text</li>
    * </ul>
    */
-  KEYSTORE_LOAD_ERROR_FORMAT_ERROR ("keystore-load-error-format-error"),
+  KEYSTORE_LOAD_ERROR_FORMAT_ERROR ("keystore-load-error-format-error",
+                                    EKeyStoreLoadErrorText.KEYSTORE_LOAD_ERROR_FORMAT_ERROR),
   // Key loading
   /**
    * No alias specified. Parameters:
@@ -57,7 +68,7 @@ public enum EKeyStoreLoadError implements IHasID <String>
    * <li>KeyStore path</li>
    * </ul>
    */
-  KEY_NO_ALIAS ("key-no-alias"),
+  KEY_NO_ALIAS ("key-no-alias", EKeyStoreLoadErrorText.KEY_NO_ALIAS),
   /**
    * No password specified. Parameters:
    * <ul>
@@ -65,7 +76,7 @@ public enum EKeyStoreLoadError implements IHasID <String>
    * <li>KeyStore path</li>
    * </ul>
    */
-  KEY_NO_PASSWORD ("key-no-password"),
+  KEY_NO_PASSWORD ("key-no-password", EKeyStoreLoadErrorText.KEY_NO_PASSWORD),
   /**
    * Alias does not exist. Parameters:
    * <ul>
@@ -73,7 +84,7 @@ public enum EKeyStoreLoadError implements IHasID <String>
    * <li>KeyStore path</li>
    * </ul>
    */
-  KEY_INVALID_ALIAS ("key-invalid-alias"),
+  KEY_INVALID_ALIAS ("key-invalid-alias", EKeyStoreLoadErrorText.KEY_INVALID_ALIAS),
   /**
    * Key is not of expected type. Parameters:
    * <ul>
@@ -82,7 +93,7 @@ public enum EKeyStoreLoadError implements IHasID <String>
    * <li>Effective technical type name</li>
    * </ul>
    */
-  KEY_INVALID_TYPE ("key-invalid-type"),
+  KEY_INVALID_TYPE ("key-invalid-type", EKeyStoreLoadErrorText.KEY_INVALID_TYPE),
   /**
    * Invalid password for the key. Parameters:
    * <ul>
@@ -91,7 +102,7 @@ public enum EKeyStoreLoadError implements IHasID <String>
    * <li>Exception message</li>
    * </ul>
    */
-  KEY_INVALID_PASSWORD ("key-invalid-password"),
+  KEY_INVALID_PASSWORD ("key-invalid-password", EKeyStoreLoadErrorText.KEY_INVALID_PASSWORD),
   /**
    * Generic error loading the key. Parameters:
    * <ul>
@@ -100,13 +111,15 @@ public enum EKeyStoreLoadError implements IHasID <String>
    * <li>Exception message</li>
    * </ul>
    */
-  KEY_LOAD_ERROR ("key-load-error");
+  KEY_LOAD_ERROR ("key-load-error", EKeyStoreLoadErrorText.KEY_LOAD_ERROR);
 
   private final String m_sID;
+  private final EKeyStoreLoadErrorText m_aDisplayText;
 
-  private EKeyStoreLoadError (@Nonnull @Nonempty final String sID)
+  private EKeyStoreLoadError (@Nonnull @Nonempty final String sID, @Nonnull final EKeyStoreLoadErrorText aDisplayText)
   {
     m_sID = sID;
+    m_aDisplayText = aDisplayText;
   }
 
   @Nonnull
@@ -114,5 +127,11 @@ public enum EKeyStoreLoadError implements IHasID <String>
   public String getID ()
   {
     return m_sID;
+  }
+
+  @Nullable
+  public String getDisplayText (@Nonnull final Locale aContentLocale)
+  {
+    return m_aDisplayText.getDisplayText (aContentLocale);
   }
 }

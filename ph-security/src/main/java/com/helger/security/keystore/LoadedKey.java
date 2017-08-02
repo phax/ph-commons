@@ -17,7 +17,9 @@
 package com.helger.security.keystore;
 
 import java.security.KeyStore;
+import java.util.Locale;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.collection.ArrayHelper;
@@ -80,6 +82,19 @@ public class LoadedKey <T extends KeyStore.Entry> implements ISuccessIndicator
   public String [] getErrorParams ()
   {
     return m_eError == null ? null : ArrayHelper.getCopy (m_aErrorParams);
+  }
+
+  /**
+   * Get the error text
+   *
+   * @param aContentLocale
+   *        The locale to use. May not be <code>null</code>.
+   * @return <code>null</code> if no error occurred, the error text otherwise.
+   */
+  @Nullable
+  public String getErrorText (@Nonnull final Locale aContentLocale)
+  {
+    return m_eError == null ? null : m_eError.getDisplayTextWithArgs (aContentLocale, (Object []) m_aErrorParams);
   }
 
   @Override

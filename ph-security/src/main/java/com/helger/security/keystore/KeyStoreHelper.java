@@ -234,9 +234,10 @@ public final class KeyStoreHelper
     }
     catch (final Exception ex)
     {
-      s_aLogger.warn ("Failed to load key store '" + sKeyStorePath + "': " + ex.getMessage (), ex.getCause ());
-
       final boolean bInvalidPW = ex instanceof IOException && ex.getCause () instanceof UnrecoverableKeyException;
+
+      s_aLogger.warn ("Failed to load key store '" + sKeyStorePath + "': " + ex.getMessage (),
+                      bInvalidPW ? null : ex.getCause ());
 
       return new LoadedKeyStore (null,
                                  bInvalidPW ? EKeyStoreLoadError.KEYSTORE_INVALID_PASSWORD

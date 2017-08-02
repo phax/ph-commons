@@ -34,6 +34,7 @@ import java.security.Security;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.security.auth.x500.X500Principal;
 
@@ -208,6 +209,7 @@ public final class KeyStoreHelperTest
     assertTrue (ks.isFailure ());
     assertNull (ks.getKeyStore ());
     assertEquals (EKeyStoreLoadError.KEYSTORE_LOAD_ERROR_NON_EXISTING, ks.getError ());
+    assertNotNull (ks.getErrorText (Locale.GERMANY));
 
     // Invalid password
     ks = KeyStoreHelper.loadKeyStore ("keystores/keystore-pw-peppol.jks", "wrongpw");
@@ -215,6 +217,7 @@ public final class KeyStoreHelperTest
     assertTrue (ks.isFailure ());
     assertNull (ks.getKeyStore ());
     assertEquals (EKeyStoreLoadError.KEYSTORE_INVALID_PASSWORD, ks.getError ());
+    assertNotNull (ks.getErrorText (Locale.GERMANY));
 
     // Not a keystore
     ks = KeyStoreHelper.loadKeyStore ("keystores/no-keystore.txt", "wrongpw");
@@ -222,6 +225,7 @@ public final class KeyStoreHelperTest
     assertTrue (ks.isFailure ());
     assertNull (ks.getKeyStore ());
     assertEquals (EKeyStoreLoadError.KEYSTORE_LOAD_ERROR_FORMAT_ERROR, ks.getError ());
+    assertNotNull (ks.getErrorText (Locale.GERMANY));
 
     // Non existing file
     ks = KeyStoreHelper.loadKeyStore ("keystores/non-existing-keystore.jks", "any");
@@ -229,6 +233,7 @@ public final class KeyStoreHelperTest
     assertTrue (ks.isFailure ());
     assertNull (ks.getKeyStore ());
     assertEquals (EKeyStoreLoadError.KEYSTORE_LOAD_ERROR_NON_EXISTING, ks.getError ());
+    assertNotNull (ks.getErrorText (Locale.GERMANY));
   }
 
   private static final String TRUSTSTORE_PRODUCTION_ALIAS_ROOT = "peppol root ca";
