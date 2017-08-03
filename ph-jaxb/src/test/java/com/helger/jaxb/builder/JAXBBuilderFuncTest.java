@@ -103,9 +103,7 @@ public final class JAXBBuilderFuncTest
     assertFalse (sText, sText.contains ("  <Collection"));
 
     sText = aWriter.setFormattedOutput (true).setIndentString ("\t").getAsString (aArc);
-    // Not yet
-    if (false)
-      assertTrue (sText, sText.contains ("\t<Collection"));
+    assertTrue (sText, sText.contains ("\t<Collection"));
     assertFalse (sText, sText.contains ("  <Collection"));
   }
 
@@ -177,17 +175,19 @@ public final class JAXBBuilderFuncTest
                                                                        .setNewLineMode (ENewLineMode.UNIX))
                                       .setDebugMode (true));
     assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                  "<Root Version=\"1.23\">" +
-                  "<Collection ID=\"0\" Description=\"InternalDesc-0\">" +
-                  "<Issue ID=\"0\" CollectionID=\"0\" PageCount=\"0\" ArticleCount=\"0\" DirAbsolute=\"0\">" +
-                  "<Title>10000</Title>" +
-                  "<SubTitle>Test0</SubTitle>" +
-                  "</Issue></Collection>" +
-                  "<Collection ID=\"1\" Description=\"InternalDesc-1\">" +
-                  "<Issue ID=\"0\" CollectionID=\"0\" PageCount=\"0\" ArticleCount=\"0\" DirAbsolute=\"0\">" +
-                  "<Title>10001</Title>" +
-                  "<SubTitle>Test1</SubTitle>" +
-                  "</Issue></Collection>" +
+                  "<Root Version=\"1.23\">\n" +
+                  "<Collection ID=\"0\" Description=\"InternalDesc-0\">\n" +
+                  "<Issue ID=\"0\" CollectionID=\"0\" PageCount=\"0\" ArticleCount=\"0\" DirAbsolute=\"0\">\n" +
+                  "<Title>10000</Title>\n" +
+                  "<SubTitle>Test0</SubTitle>\n" +
+                  "</Issue>\n" +
+                  "</Collection>\n" +
+                  "<Collection ID=\"1\" Description=\"InternalDesc-1\">\n" +
+                  "<Issue ID=\"0\" CollectionID=\"0\" PageCount=\"0\" ArticleCount=\"0\" DirAbsolute=\"0\">\n" +
+                  "<Title>10001</Title>\n" +
+                  "<SubTitle>Test1</SubTitle>\n" +
+                  "</Issue>\n" +
+                  "</Collection>\n" +
                   "</Root>",
                   aSW.getAsString ());
   }

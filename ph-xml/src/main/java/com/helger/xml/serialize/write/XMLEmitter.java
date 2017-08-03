@@ -58,7 +58,8 @@ public class XMLEmitter implements AutoCloseable, Flushable
   private static boolean s_bThrowExceptionOnNestedComments = DEFAULT_THROW_EXCEPTION_ON_NESTED_COMMENTS;
 
   private final Writer m_aWriter;
-  private final IXMLWriterSettings m_aSettings;
+  private final IXMLWriterSettings m_aXMLWriterSettings;
+  // Sratus vars
   private EXMLSerializeVersion m_eXMLVersion;
   private final char m_cAttrValueBoundary;
   private final EXMLCharMode m_eAttrValueCharMode;
@@ -87,7 +88,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
   public XMLEmitter (@Nonnull @WillNotClose final Writer aWriter, @Nonnull final IXMLWriterSettings aSettings)
   {
     m_aWriter = ValueEnforcer.notNull (aWriter, "Writer");
-    m_aSettings = ValueEnforcer.notNull (aSettings, "Settings");
+    m_aXMLWriterSettings = ValueEnforcer.notNull (aSettings, "Settings");
     m_eXMLVersion = aSettings.getSerializeVersion ();
     m_cAttrValueBoundary = aSettings.isUseDoubleQuotesForAttributes () ? '"' : '\'';
     m_eAttrValueCharMode = aSettings.isUseDoubleQuotesForAttributes () ? EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES
@@ -101,7 +102,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
   @Nonnull
   public IXMLWriterSettings getXMLWriterSettings ()
   {
-    return m_aSettings;
+    return m_aXMLWriterSettings;
   }
 
   @Nonnull
@@ -133,13 +134,27 @@ public class XMLEmitter implements AutoCloseable, Flushable
   }
 
   @Nonnull
+  private XMLEmitter _append (final char [] aValue, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  {
+    try
+    {
+      m_aWriter.write (aValue, nOfs, nLen);
+      return this;
+    }
+    catch (final IOException ex)
+    {
+      throw new IllegalStateException ("Failed to append character '" + new String (aValue, nOfs, nLen) + "'", ex);
+    }
+  }
+
+  @Nonnull
   private XMLEmitter _appendMasked (@Nonnull final EXMLCharMode eXMLCharMode, @Nullable final String sValue)
   {
     try
     {
       XMLMaskHelper.maskXMLTextTo (m_eXMLVersion,
                                    eXMLCharMode,
-                                   m_aSettings.getIncorrectCharacterHandling (),
+                                   m_aXMLWriterSettings.getIncorrectCharacterHandling (),
                                    sValue,
                                    m_aWriter);
       return this;
@@ -160,7 +175,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
     {
       XMLMaskHelper.maskXMLTextTo (m_eXMLVersion,
                                    eXMLCharMode,
-                                   m_aSettings.getIncorrectCharacterHandling (),
+                                   m_aXMLWriterSettings.getIncorrectCharacterHandling (),
                                    aText,
                                    nOfs,
                                    nLen,
@@ -177,6 +192,14 @@ public class XMLEmitter implements AutoCloseable, Flushable
   private XMLEmitter _appendAttrValue (@Nullable final String sValue)
   {
     return _append (m_cAttrValueBoundary)._appendMasked (m_eAttrValueCharMode, sValue)._append (m_cAttrValueBoundary);
+  }
+
+  @Nonnull
+  public XMLEmitter newLine ()
+  {
+    if (m_aXMLWriterSettings.getIndent ().isAlign ())
+      _append (m_aXMLWriterSettings.getNewLineString ());
+    return this;
   }
 
   /**
@@ -210,8 +233,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
     if (bStandalone)
       _append (" standalone=")._appendAttrValue ("yes");
     _append (PI_END);
-    if (m_aSettings.getIndent ().isAlign ())
-      _append (m_aSettings.getNewLineString ());
+    newLine ();
   }
 
   /**
@@ -224,8 +246,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
   public void onDTD (@Nonnull final String sDTD)
   {
     _append (sDTD);
-    if (m_aSettings.getIndent ().isAlign ())
-      _append (m_aSettings.getNewLineString ());
+    newLine ();
   }
 
   /**
@@ -323,13 +344,12 @@ public class XMLEmitter implements AutoCloseable, Flushable
     ValueEnforcer.notNull (sQualifiedElementName, "QualifiedElementName");
 
     final String sDocType = getDocTypeXMLRepresentation (m_eXMLVersion,
-                                                         m_aSettings.getIncorrectCharacterHandling (),
+                                                         m_aXMLWriterSettings.getIncorrectCharacterHandling (),
                                                          sQualifiedElementName,
                                                          sPublicID,
                                                          sSystemID);
     _append (sDocType);
-    if (m_aSettings.getIndent ().isAlign ())
-      _append (m_aSettings.getNewLineString ());
+    newLine ();
   }
 
   /**
@@ -346,8 +366,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
     if (StringHelper.hasText (sData))
       _append (' ')._append (sData);
     _append (PI_END);
-    if (m_aSettings.getIndent ().isAlign ())
-      _append (m_aSettings.getNewLineString ());
+    newLine ();
   }
 
   /**
@@ -399,7 +418,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
    */
   public void onText (@Nullable final String sText)
   {
-    _appendMasked (EXMLCharMode.TEXT, sText);
+    onText (sText, true);
   }
 
   /**
@@ -414,7 +433,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
    */
   public void onText (@Nonnull final char [] aText, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
-    _appendMasked (EXMLCharMode.TEXT, aText, nOfs, nLen);
+    onText (aText, nOfs, nLen, true);
   }
 
   /**
@@ -433,6 +452,31 @@ public class XMLEmitter implements AutoCloseable, Flushable
       _appendMasked (EXMLCharMode.TEXT, sText);
     else
       _append (sText);
+  }
+
+  /**
+   * Text node.
+   *
+   * @param aText
+   *        The contained text array
+   * @param nOfs
+   *        Offset into the array where to start
+   * @param nLen
+   *        Number of chars to use, starting from the provided offset.
+   * @param bEscape
+   *        If <code>true</code> the text should be XML masked (the default),
+   *        <code>false</code> if not. The <code>false</code> case is especially
+   *        interesting for HTML inline JS and CSS code.
+   */
+  public void onText (@Nonnull final char [] aText,
+                      @Nonnegative final int nOfs,
+                      @Nonnegative final int nLen,
+                      final boolean bEscape)
+  {
+    if (bEscape)
+      _appendMasked (EXMLCharMode.TEXT, aText, nOfs, nLen);
+    else
+      _append (aText, nOfs, nLen);
   }
 
   /**
@@ -499,7 +543,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
     {
       // Note: according to HTML compatibility guideline a space should be added
       // before the self-closing
-      _append (m_aSettings.isSpaceOnSelfClosedElement () ? " />" : "/>");
+      _append (m_aXMLWriterSettings.isSpaceOnSelfClosedElement () ? " />" : "/>");
     }
     else
     {
@@ -578,8 +622,8 @@ public class XMLEmitter implements AutoCloseable, Flushable
   public String toString ()
   {
     return new ToStringGenerator (this).append ("Writer", m_aWriter)
-                                       .append ("Settings", m_aSettings)
-                                       .append ("Version", m_eXMLVersion)
+                                       .append ("XMLWriterSettings", m_aXMLWriterSettings)
+                                       .append ("XMLVersion", m_eXMLVersion)
                                        .append ("AttrValueBoundary", m_cAttrValueBoundary)
                                        .append ("AttrValueCharMode", m_eAttrValueCharMode)
                                        .getToString ();

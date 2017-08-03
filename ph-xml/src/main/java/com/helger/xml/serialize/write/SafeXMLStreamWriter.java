@@ -27,6 +27,7 @@ import com.helger.commons.collection.NonBlockingStack;
 import com.helger.commons.collection.iterate.CombinedIterator;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.stream.StreamHelper;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
@@ -48,6 +49,9 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
     private final String m_sLocalName;
     private final EXMLSerializeBracketMode m_eBracketMode;
     private final MapBasedNamespaceContext m_aNamespaceContext;
+    // Status vars
+    private int m_nTextBaseContentCount = 0;
+    public boolean m_nOnAfterEndNewLine = false;
 
     public ElementState (@Nullable final String sPrefix,
                          @Nonnull final String sLocalName,
@@ -113,6 +117,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
   private static final Logger s_aLogger = LoggerFactory.getLogger (SafeXMLStreamWriter.class);
 
   private final XMLEmitter m_aEmitter;
+  private final boolean m_bIndent;
   private final MultiNamespaceContext m_aNamespaceContext = new MultiNamespaceContext ();
   private final NonBlockingStack <ElementState> m_aElementStateStack = new NonBlockingStack <> ();
   private boolean m_bInElementStart = false;
@@ -122,6 +127,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
   {
     ValueEnforcer.notNull (aEmitter, "Emitter");
     m_aEmitter = aEmitter;
+    m_bIndent = aEmitter.getXMLWriterSettings ().getIndent ().isIndent ();
   }
 
   /**
@@ -148,6 +154,79 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
   {
     m_bDebugMode = bDebugMode;
     return this;
+  }
+
+  private void _indentBeforeStartElement ()
+  {
+    // Indentation enabled?
+    if (m_bIndent)
+    {
+      // Current level?
+      final int nLevel = m_aElementStateStack.size ();
+      if (nLevel > 0)
+      {
+        if (m_aElementStateStack.peek ().m_nTextBaseContentCount == 0)
+          m_aEmitter.onContentElementWhitespace (StringHelper.getRepeated (m_aEmitter.getXMLWriterSettings ()
+                                                                                     .getIndentationString (),
+                                                                           nLevel));
+      }
+    }
+  }
+
+  private void _indentAfterEndElement ()
+  {
+    // Indentation enabled?
+    if (m_bIndent)
+    {
+      // Current level?
+      final int nLevel = m_aElementStateStack.size () - 1;
+      if (nLevel > 0)
+      {
+        if (m_aElementStateStack.peek ().m_nTextBaseContentCount == 0)
+          m_aEmitter.onContentElementWhitespace (StringHelper.getRepeated (m_aEmitter.getXMLWriterSettings ()
+                                                                                     .getIndentationString (),
+                                                                           nLevel));
+      }
+    }
+  }
+
+  private void _newLineBeforeStartElement ()
+  {
+    final int nLevel = m_aElementStateStack.size ();
+    if (nLevel > 0)
+    {
+      final ElementState aState = m_aElementStateStack.peek ();
+      if (aState.m_nTextBaseContentCount == 0 && !aState.m_nOnAfterEndNewLine)
+      {
+        if (false)
+          m_aEmitter.onContentElementWhitespace ("[BS]");
+        m_aEmitter.newLine ();
+      }
+    }
+  }
+
+  private boolean _newLineAfterEndElement ()
+  {
+    final int nLevel = m_aElementStateStack.size ();
+    if (nLevel > 0)
+    {
+      final ElementState aState = m_aElementStateStack.peek ();
+      if (aState.m_nTextBaseContentCount == 0)
+      {
+        if (false)
+          m_aEmitter.onContentElementWhitespace ("[AE]");
+        m_aEmitter.newLine ();
+        aState.m_nOnAfterEndNewLine = true;
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private void _setTextBasedComment ()
+  {
+    final ElementState aState = m_aElementStateStack.peek ();
+    aState.m_nTextBaseContentCount++;
   }
 
   @OverrideOnDemand
@@ -207,6 +286,8 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
   {
     debug ( () -> "writeStartElement (" + sPrefix + ", " + sLocalName + ", " + sNamespaceURI + ")");
     _elementStartClose ();
+    _newLineBeforeStartElement ();
+    _indentBeforeStartElement ();
     m_aEmitter.elementStartOpen (sPrefix, sLocalName);
     m_aElementStateStack.push (new ElementState (sPrefix,
                                                  sLocalName,
@@ -231,6 +312,8 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
   {
     debug ( () -> "writeEmptyElement (" + sPrefix + ", " + sLocalName + ", " + sNamespaceURI + ")");
     _elementStartClose ();
+    _newLineBeforeStartElement ();
+    _indentBeforeStartElement ();
     m_aEmitter.elementStartOpen (sPrefix, sLocalName);
     m_aElementStateStack.push (new ElementState (sPrefix,
                                                  sLocalName,
@@ -303,14 +386,19 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
     debug ( () -> "writeEndElement ()");
     _elementStartClose ();
     final ElementState eState = m_aElementStateStack.pop ();
+
     m_aEmitter.onElementEnd (eState.m_sPrefix, eState.m_sLocalName, eState.m_eBracketMode);
+    // Restore namespace context
     m_aNamespaceContext.m_aInternalContext = eState.m_aNamespaceContext;
+    if (_newLineAfterEndElement ())
+      _indentAfterEndElement ();
   }
 
   public void writeComment (final String sData) throws XMLStreamException
   {
     debug ( () -> "writeComment (" + sData + ")");
     _elementStartClose ();
+    _setTextBasedComment ();
     m_aEmitter.onComment (sData);
   }
 
@@ -318,6 +406,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
   {
     debug ( () -> "writeCData (" + sData + ")");
     _elementStartClose ();
+    _setTextBasedComment ();
     m_aEmitter.onCDATA (sData);
   }
 
@@ -325,6 +414,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
   {
     debug ( () -> "writeEntityRef (" + sName + ")");
     _elementStartClose ();
+    _setTextBasedComment ();
     m_aEmitter.onEntityReference (sName);
   }
 
@@ -332,6 +422,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
   {
     debug ( () -> "writeCharacters (" + sText + ")");
     _elementStartClose ();
+    _setTextBasedComment ();
     m_aEmitter.onText (sText);
   }
 
@@ -339,6 +430,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
   {
     debug ( () -> "writeCharacters (" + String.valueOf (aText, nStart, nLen) + ", " + nStart + ", " + nLen + ")");
     _elementStartClose ();
+    _setTextBasedComment ();
     m_aEmitter.onText (aText, nStart, nLen);
   }
 
@@ -352,6 +444,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
   {
     debug ( () -> "writeProcessingInstruction (" + sTarget + ", " + sData + ")");
     _elementStartClose ();
+    _setTextBasedComment ();
     m_aEmitter.onProcessingInstruction (sTarget, sData);
   }
 

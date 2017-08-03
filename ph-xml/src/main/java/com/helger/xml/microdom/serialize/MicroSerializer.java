@@ -186,9 +186,13 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
     {
       if (m_aSettings.getIndent ().isIndent () && m_aIndent.length () > 0)
         aXMLWriter.onContentElementWhitespace (m_aIndent);
-      aXMLWriter.onComment (aComment.getData ().toString ());
-      if (m_aSettings.getIndent ().isAlign ())
-        aXMLWriter.onContentElementWhitespace (m_aSettings.getNewLineString ());
+      final String sComment = aComment.getData ().toString ();
+      aXMLWriter.onComment (sComment);
+      if (sComment.indexOf ('\n') >= 0)
+      {
+        // Newline only after multi-line comments
+        aXMLWriter.newLine ();
+      }
     }
   }
 

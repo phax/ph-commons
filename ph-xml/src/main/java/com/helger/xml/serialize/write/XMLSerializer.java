@@ -150,14 +150,20 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
   {
     if (m_aSettings.getSerializeComments ().isEmit ())
     {
-      aXMLWriter.onComment (aComment.getData ());
+      final String sComment = aComment.getData ();
+      aXMLWriter.onComment (sComment);
+      if (sComment.indexOf ('\n') >= 0)
+      {
+        // Newline only after multi-line comments
+        aXMLWriter.newLine ();
+      }
     }
   }
 
   private static void _writeText (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final Text aText)
   {
     // DOM text is always escaped!
-    aXMLWriter.onText (aText.getData (), true);
+    aXMLWriter.onText (aText.getData ());
   }
 
   private static void _writeCDATA (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final Text aText)
