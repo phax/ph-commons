@@ -20,8 +20,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Map;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
@@ -29,11 +31,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsIterable;
@@ -63,6 +67,7 @@ public class HttpHeaderMap implements
                            ICloneable <HttpHeaderMap>,
                            IClearable
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (HttpHeaderMap.class);
   private final ICommonsOrderedMap <String, ICommonsList <String>> m_aHeaders = new CommonsLinkedHashMap <> ();
 
   /**
@@ -83,6 +88,19 @@ public class HttpHeaderMap implements
     m_aHeaders.putAll (aOther.m_aHeaders);
   }
 
+  @Nonnull
+  @Nonempty
+  public static String unifyName (@Nonnull @Nonempty final String s)
+  {
+    // HTTP Header name are case-insensitive
+    // https://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html#sec4.2
+
+    // HTTP header names must have at least one char
+    // https://www.ietf.org/rfc/rfc0822.txt
+    // Chapter 3.2
+    return s.toLowerCase (Locale.US);
+  }
+
   /**
    * Remove all contained headers.
    *
@@ -95,7 +113,7 @@ public class HttpHeaderMap implements
   }
 
   @Nonnull
-  @ReturnsMutableObject ("design")
+  @ReturnsMutableObject
   private ICommonsList <String> _getOrCreateHeaderList (@Nonnull @Nonempty final String sName)
   {
     return m_aHeaders.computeIfAbsent (sName, x -> new CommonsArrayList <> (2));
@@ -106,7 +124,9 @@ public class HttpHeaderMap implements
     ValueEnforcer.notEmpty (sName, "Name");
     ValueEnforcer.notNull (sValue, "Value");
 
-    _getOrCreateHeaderList (sName).set (sValue);
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("Setting HTTP header: '" + sName + "' = '" + sValue + "'");
+    _getOrCreateHeaderList (unifyName (sName)).set (sValue);
   }
 
   private void _addHeader (@Nonnull @Nonempty final String sName, @Nonnull final String sValue)
@@ -114,7 +134,9 @@ public class HttpHeaderMap implements
     ValueEnforcer.notEmpty (sName, "Name");
     ValueEnforcer.notNull (sValue, "Value");
 
-    _getOrCreateHeaderList (sName).add (sValue);
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("Adding HTTP header: '" + sName + "' = '" + sValue + "'");
+    _getOrCreateHeaderList (unifyName (sName)).add (sValue);
   }
 
   /**
@@ -320,7 +342,21 @@ public class HttpHeaderMap implements
   }
 
   /**
-   * Add all headers from the passed map.
+   * Add all headers from the passed map. Existing headers with the same name
+   * are overwritten.
+   *
+   * @param aOther
+   *        The header map to add. May not be <code>null</code>.
+   */
+  public void setAllHeaders (@Nonnull final HttpHeaderMap aOther)
+  {
+    ValueEnforcer.notNull (aOther, "Other");
+    m_aHeaders.putAll (aOther.m_aHeaders);
+  }
+
+  /**
+   * Add all headers from the passed map. Existing headers with the same name
+   * are extended.
    *
    * @param aOther
    *        The header map to add. May not be <code>null</code>.
@@ -328,7 +364,12 @@ public class HttpHeaderMap implements
   public void addAllHeaders (@Nonnull final HttpHeaderMap aOther)
   {
     ValueEnforcer.notNull (aOther, "Other");
-    m_aHeaders.putAll (aOther.m_aHeaders);
+    for (final Map.Entry <String, ICommonsList <String>> aEntry : m_aHeaders.entrySet ())
+    {
+      final String sKey = aEntry.getKey ();
+      for (final String sValue : aEntry.getValue ())
+        addHeader (sKey, sValue);
+    }
   }
 
   @Nonnull
@@ -349,7 +390,7 @@ public class HttpHeaderMap implements
   }
 
   /**
-   * Get all header values doing a case sensitive match
+   * Get all header values of a certain header name
    *
    * @param sName
    *        The name to be searched.
@@ -360,88 +401,73 @@ public class HttpHeaderMap implements
   @ReturnsMutableCopy
   public ICommonsList <String> getAllHeaderValues (@Nullable final String sName)
   {
-    return new CommonsArrayList <> (m_aHeaders.get (sName));
+    if (StringHelper.hasText (sName))
+    {
+      final ICommonsList <String> aValues = m_aHeaders.get (unifyName (sName));
+      if (aValues != null)
+        return aValues.getClone ();
+    }
+    return new CommonsArrayList <> ();
   }
 
   /**
-   * Get all header values matching the provided header name filter.
-   *
-   * @param aNameFilter
-   *        The name filter to be applied. May not be <code>null</code>.
-   * @return The list with all matching values of the first header matching the
-   *         passed filter. Never <code>null</code> but maybe empty.
-   */
-  @Nonnull
-  @ReturnsMutableCopy
-  public ICommonsList <String> getAllHeaderValuesByName (@Nonnull final Predicate <String> aNameFilter)
-  {
-    final ICommonsList <String> ret = new CommonsArrayList <> ();
-    for (final Map.Entry <String, ICommonsList <String>> aEntry : m_aHeaders.entrySet ())
-      if (aNameFilter.test (aEntry.getKey ()))
-      {
-        ret.addAll (aEntry.getValue ());
-        break;
-      }
-    return ret;
-  }
-
-  /**
-   * Get the first header value of the first header matching the provided header
-   * name filter.
-   *
-   * @param aNameFilter
-   *        The name filter to be applied. May not be <code>null</code>.
-   * @return <code>null</code> if no such header exists, or if the has no value.
-   */
-  @Nullable
-  public String getFirstHeaderValueByName (@Nonnull final Predicate <String> aNameFilter)
-  {
-    for (final Map.Entry <String, ICommonsList <String>> aEntry : m_aHeaders.entrySet ())
-      if (aNameFilter.test (aEntry.getKey ()))
-        return aEntry.getValue ().getFirst ();
-    return null;
-  }
-
-  /**
-   * Get all header values doing a case insensitive match
-   *
-   * @param sName
-   *        The name to be searched.
-   * @return The list with all matching values. Never <code>null</code> but
-   *         maybe empty.
-   */
-  @Nonnull
-  @ReturnsMutableCopy
-  public ICommonsList <String> getAllHeaderValuesCaseInsensitive (@Nullable final String sName)
-  {
-    if (StringHelper.hasNoText (sName))
-      return new CommonsArrayList <> ();
-    return getAllHeaderValuesByName (sName::equalsIgnoreCase);
-  }
-
-  /**
-   * Get the first header value doing a case insensitive match
+   * Get the first header value of a certain header name
    *
    * @param sName
    *        The name to be searched.
    * @return The first matching value or <code>null</code>.
    */
   @Nullable
-  public String getFirstHeaderValueCaseInsensitive (@Nullable final String sName)
+  public String getFirstHeaderValue (@Nullable final String sName)
   {
-    if (StringHelper.hasNoText (sName))
-      return null;
-    return getFirstHeaderValueByName (sName::equalsIgnoreCase);
+    if (StringHelper.hasText (sName))
+    {
+      final ICommonsList <String> aValues = m_aHeaders.get (unifyName (sName));
+      if (aValues != null)
+        return aValues.getFirst ();
+    }
+    return null;
+  }
+
+  /**
+   * Get the header value as a combination of all contained values
+   *
+   * @param sName
+   *        The header name to retrieve. May be <code>null</code>.
+   * @param sDelimiter
+   *        The delimiter to be used. May not be <code>null</code>.
+   * @return <code>null</code> if no such header is contained.
+   */
+  @Nullable
+  public String getHeaderCombined (@Nullable final String sName, @Nonnull final String sDelimiter)
+  {
+    if (StringHelper.hasText (sName))
+    {
+      final ICommonsList <String> aValues = m_aHeaders.get (unifyName (sName));
+      if (aValues != null)
+        return StringHelper.getImploded (sDelimiter, aValues);
+    }
+    return null;
   }
 
   public boolean containsHeaders (@Nullable final String sName)
   {
-    return m_aHeaders.containsKey (sName);
+    if (StringHelper.hasNoText (sName))
+      return false;
+    return m_aHeaders.containsKey (unifyName (sName));
   }
 
-  public boolean containsHeadersCaseInsensitive (@Nullable final String sName)
+  /**
+   * Remove all header values where the name matches the provided filter.
+   *
+   * @param aNameFilter
+   *        The name filter to be applied. May not be <code>null</code>.
+   * @return {@link EChange}
+   */
+  @Nonnull
+  public EChange removeHeadersIf (@Nonnull final Predicate <? super String> aNameFilter)
   {
-    return StringHelper.hasText (sName) && CollectionHelper.containsAny (m_aHeaders.keySet (), sName::equalsIgnoreCase);
+    return m_aHeaders.removeIfKey (aNameFilter);
   }
 
   /**
@@ -454,20 +480,21 @@ public class HttpHeaderMap implements
   @Nonnull
   public EChange removeHeaders (@Nullable final String sName)
   {
-    if (sName == null)
+    if (StringHelper.hasNoText (sName))
       return EChange.UNCHANGED;
-    return m_aHeaders.removeObject (sName);
+    return m_aHeaders.removeObject (unifyName (sName));
   }
 
   @Nonnull
   public EChange removeHeader (@Nullable final String sName, @Nullable final String sValue)
   {
-    final ICommonsList <String> aValues = m_aHeaders.get (sName);
+    final String sUnifiedName = unifyName (sName);
+    final ICommonsList <String> aValues = m_aHeaders.get (sUnifiedName);
     final boolean bRemoved = aValues != null && aValues.remove (sValue);
     if (bRemoved && aValues.isEmpty ())
     {
       // If the last value was removed, remove the whole header
-      m_aHeaders.remove (sName);
+      m_aHeaders.remove (sUnifiedName);
     }
 
     return EChange.valueOf (bRemoved);
@@ -496,7 +523,7 @@ public class HttpHeaderMap implements
    * @param aConsumer
    *        Consumer to be invoked. May not be <code>null</code>.
    */
-  public void forEachSingleHeader (@Nonnull final BiConsumer <String, String> aConsumer)
+  public void forEachSingleHeader (@Nonnull final BiConsumer <? super String, ? super String> aConsumer)
   {
     for (final Map.Entry <String, ICommonsList <String>> aEntry : m_aHeaders.entrySet ())
     {
@@ -506,9 +533,28 @@ public class HttpHeaderMap implements
     }
   }
 
-  public void setContentLength (final int nLength)
+  public void forEachHeaderLine (@Nonnull final Consumer <? super String> aConsumer)
   {
-    _setHeader (CHttpHeader.CONTENT_LENGTH, Integer.toString (nLength));
+    for (final Map.Entry <String, ICommonsList <String>> aEntry : m_aHeaders.entrySet ())
+    {
+      final String sKey = aEntry.getKey ();
+      for (final String sValue : aEntry.getValue ())
+        aConsumer.accept (sKey + ": " + sValue);
+    }
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public ICommonsList <String> getAllHeaderLines ()
+  {
+    final ICommonsList <String> ret = new CommonsArrayList <> ();
+    forEachHeaderLine (ret::add);
+    return ret;
+  }
+
+  public void setContentLength (final long nLength)
+  {
+    _setHeader (CHttpHeader.CONTENT_LENGTH, Long.toString (nLength));
   }
 
   public void setContentType (@Nonnull final String sContentType)
