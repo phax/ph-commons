@@ -39,6 +39,7 @@ public final class CHttpHeader
   public static final String CONTENT_DESCRIPTION = "Content-Description";
   public static final String CONTENT_DISPOSITION = "Content-Disposition";
   public static final String CONTENT_ENCODING = "Content-Encoding";
+  public static final String CONTENT_ID = "Content-ID";
   public static final String CONTENT_TYPE = "Content-Type";
   public static final String COOKIE = "Cookie";
   public static final String DATE = "Date";
@@ -151,10 +152,12 @@ public final class CHttpHeader
   public static final String AS2_VERSION = "AS2-Version";
   public static final String CONTENT_TRANSFER_ENCODING = "Content-Transfer-Encoding";
   public static final String DISPOSITION_NOTIFICATION_OPTIONS = "Disposition-Notification-Options";
+  /** The URL where the async MDN should be send to - limited to RFC 2822 */
   public static final String DISPOSITION_NOTIFICATION_TO = "Disposition-Notification-To";
   public static final String FROM = "From";
   public static final String MESSAGE_ID = "Message-ID";
   public static final String MIME_VERSION = "Mime-Version";
+  /** The URL where the async MDN should be send to */
   public static final String RECEIPT_DELIVERY_OPTION = "Receipt-Delivery-Option";
   public static final String RECIPIENT_ADDRESS = "Recipient-Address";
   public static final String SERVER = "Server";
