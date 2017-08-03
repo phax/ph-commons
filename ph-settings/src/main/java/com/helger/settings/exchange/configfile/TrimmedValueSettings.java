@@ -33,8 +33,8 @@ final class TrimmedValueSettings extends Settings
 
   @Override
   @Nonnull
-  public EChange setValue (@Nonnull @Nonempty final String sFieldName, @Nullable final Object aNewValue)
+  public EChange putIn (@Nonnull @Nonempty final String sFieldName, @Nullable final Object aNewValue)
   {
-    return super.setValue (sFieldName, StringHelper.trim ((String) aNewValue));
+    return super.putIn (sFieldName, StringHelper.trim ((String) aNewValue));
   }
 }

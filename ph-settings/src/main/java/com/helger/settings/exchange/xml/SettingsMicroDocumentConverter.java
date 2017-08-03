@@ -17,24 +17,27 @@
 package com.helger.settings.exchange.xml;
 
 import java.util.Comparator;
+import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.lang.GenericReflection;
-import com.helger.settings.IMutableSettings;
+import com.helger.settings.ISettings;
 import com.helger.settings.factory.ISettingsFactory;
 import com.helger.xml.microdom.IMicroElement;
+import com.helger.xml.microdom.IMicroQName;
 import com.helger.xml.microdom.MicroElement;
+import com.helger.xml.microdom.MicroQName;
 import com.helger.xml.microdom.convert.IMicroTypeConverter;
 import com.helger.xml.microdom.convert.MicroTypeConverter;
 
-public class SettingsMicroDocumentConverter <T extends IMutableSettings> implements IMicroTypeConverter <T>
+public class SettingsMicroDocumentConverter <T extends ISettings> implements IMicroTypeConverter <T>
 {
   private static final String ELEMENT_SETTING = "setting";
-  private static final String ATTR_NAME = "name";
-  private static final String ATTR_CLASS = "class";
+  private static final IMicroQName ATTR_NAME = new MicroQName ("name");
+  private static final IMicroQName ATTR_CLASS = new MicroQName ("class");
   private static final String ELEMENT_VALUE = "value";
 
   private final ISettingsFactory <T> m_aSettingFactory;
@@ -65,9 +68,10 @@ public class SettingsMicroDocumentConverter <T extends IMutableSettings> impleme
     eRoot.setAttribute (ATTR_NAME, aObject.getName ());
 
     // Sort fields to have them deterministic
-    for (final String sFieldName : aObject.getAllFieldNames ().getSorted (Comparator.naturalOrder ()))
+    for (final Map.Entry <String, Object> aEntry : aObject.getSortedByKey (Comparator.naturalOrder ()).entrySet ())
     {
-      final Object aValue = aObject.getValue (sFieldName);
+      final String sFieldName = aEntry.getKey ();
+      final Object aValue = aEntry.getValue ();
 
       final IMicroElement eSetting = eRoot.appendElement (sNamespaceURI, ELEMENT_SETTING);
       eSetting.setAttribute (ATTR_NAME, sFieldName);

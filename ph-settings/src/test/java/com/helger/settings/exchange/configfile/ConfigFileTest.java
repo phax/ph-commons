@@ -42,8 +42,12 @@ public final class ConfigFileTest
     assertEquals ("string", aCF.getAsString ("element1"));
     assertArrayEquals ("string".toCharArray (), aCF.getAsCharArray ("element1"));
     assertEquals (6, aCF.getAsCharArray ("element1").length);
+
     assertEquals (2, aCF.getAsInt ("element2", 5));
+
     assertFalse (aCF.getAsBoolean ("element3", true));
+    assertFalse (aCF.getAsBoolean ("element3"));
+
     assertEquals ("abc", aCF.getAsString ("element4"));
 
     // Non-existing elements
@@ -53,7 +57,7 @@ public final class ConfigFileTest
     assertTrue (aCF.getAsBoolean ("element3a", true));
 
     // All keys
-    assertEquals (5, aCF.getAllEntries ().size ());
+    assertEquals (5, aCF.getSettings ().size ());
 
     assertNotNull (aCF.toString ());
   }

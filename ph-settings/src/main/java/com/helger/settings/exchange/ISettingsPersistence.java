@@ -31,7 +31,6 @@ import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.stream.StringInputStream;
 import com.helger.commons.state.ESuccess;
-import com.helger.settings.IMutableSettings;
 import com.helger.settings.ISettings;
 
 /**
@@ -48,8 +47,8 @@ public interface ISettingsPersistence
   Charset getCharset ();
 
   /**
-   * Read settings from a String and convert it to an {@link IMutableSettings}
-   * object. Note: to read from a file you need to explicitly invoke the
+   * Read settings from a String and convert it to an {@link ISettings} object.
+   * Note: to read from a file you need to explicitly invoke the
    * {@link #readSettings(File)} method!
    *
    * @param sSettings
@@ -58,7 +57,7 @@ public interface ISettingsPersistence
    *         settings object otherwise.
    */
   @Nonnull
-  default IMutableSettings readSettings (@Nonnull final String sSettings)
+  default ISettings readSettings (@Nonnull final String sSettings)
   {
     ValueEnforcer.notNull (sSettings, "Settings");
 
@@ -66,8 +65,7 @@ public interface ISettingsPersistence
   }
 
   /**
-   * Read settings from a file and convert it to an {@link IMutableSettings}
-   * object.
+   * Read settings from a file and convert it to an {@link ISettings} object.
    *
    * @param aFile
    *        The settings file. May not be <code>null</code>.
@@ -75,7 +73,7 @@ public interface ISettingsPersistence
    *         settings object otherwise.
    */
   @Nonnull
-  default IMutableSettings readSettings (@Nonnull final File aFile)
+  default ISettings readSettings (@Nonnull final File aFile)
   {
     ValueEnforcer.notNull (aFile, "File");
 
@@ -84,7 +82,7 @@ public interface ISettingsPersistence
 
   /**
    * Read settings from an InputStream provider and convert it to an
-   * {@link IMutableSettings} object.
+   * {@link ISettings} object.
    *
    * @param aISP
    *        The InputStream provider to read from. May not be <code>null</code>.
@@ -92,7 +90,7 @@ public interface ISettingsPersistence
    *         settings object otherwise.
    */
   @Nonnull
-  default IMutableSettings readSettings (@Nonnull final IHasInputStream aISP)
+  default ISettings readSettings (@Nonnull final IHasInputStream aISP)
   {
     ValueEnforcer.notNull (aISP, "InputStreamProvider");
 
@@ -103,8 +101,8 @@ public interface ISettingsPersistence
   }
 
   /**
-   * Read settings from an input stream and convert it to an
-   * {@link IMutableSettings} object.
+   * Read settings from an input stream and convert it to an {@link ISettings}
+   * object.
    *
    * @param aIS
    *        The input stream to read from. May not be <code>null</code>. Must be
@@ -113,7 +111,7 @@ public interface ISettingsPersistence
    *         settings object otherwise.
    */
   @Nullable
-  IMutableSettings readSettings (@Nonnull @WillClose InputStream aIS);
+  ISettings readSettings (@Nonnull @WillClose InputStream aIS);
 
   /**
    * Write settings to a String.

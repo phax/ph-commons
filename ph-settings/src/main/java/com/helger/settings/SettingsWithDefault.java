@@ -27,12 +27,12 @@ import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * Default implementation of {@link IMutableSettingsWithDefault} based on
+ * Default implementation of {@link ISettingsWithDefault} based on
  * {@link Settings}.
  *
  * @author Philip Helger
  */
-public class SettingsWithDefault extends Settings implements IMutableSettingsWithDefault
+public class SettingsWithDefault extends Settings implements ISettingsWithDefault
 {
   private final ISettings m_aDefaultSettings;
 
@@ -47,17 +47,17 @@ public class SettingsWithDefault extends Settings implements IMutableSettingsWit
     m_aDefaultSettings = ValueEnforcer.notNull (aDefaultSettings, "DefaultSettings");
   }
 
-  public boolean containsFieldDirect (@Nullable final String sFieldName)
+  public boolean containsKeyDirect (@Nullable final String sFieldName)
   {
-    return super.containsField (sFieldName);
+    return super.containsKey (sFieldName);
   }
 
   @Override
-  public boolean containsField (@Nullable final String sFieldName)
+  public boolean containsKey (@Nullable final Object sFieldName)
   {
-    if (containsFieldDirect (sFieldName))
+    if (containsKeyDirect ((String) sFieldName))
       return true;
-    return m_aDefaultSettings.containsField (sFieldName);
+    return m_aDefaultSettings.containsKey (sFieldName);
   }
 
   @Nullable
@@ -80,7 +80,7 @@ public class SettingsWithDefault extends Settings implements IMutableSettingsWit
   }
 
   @Nonnull
-  public ISettings getDefault ()
+  public ISettings getDefaultSettings ()
   {
     return m_aDefaultSettings;
   }
@@ -93,21 +93,21 @@ public class SettingsWithDefault extends Settings implements IMutableSettingsWit
       return EChange.UNCHANGED;
 
     // set if field is present in the configuration
-    return setValue (sFieldName, aDefaultValue);
+    return putIn (sFieldName, aDefaultValue);
   }
 
   @Nonnull
   public EChange setAllToDefault ()
   {
     EChange eChange = EChange.UNCHANGED;
-    for (final String sFieldName : m_aDefaultSettings.getAllFieldNames ())
+    for (final String sFieldName : m_aDefaultSettings.keySet ())
       eChange = eChange.or (setToDefault (sFieldName));
     return eChange;
   }
 
   public boolean isSetToDefault (@Nullable final String sFieldName)
   {
-    return containsFieldDirect (sFieldName) &&
+    return containsKeyDirect (sFieldName) &&
            EqualsHelper.equals (getValueDirect (sFieldName), m_aDefaultSettings.getValue (sFieldName));
   }
 

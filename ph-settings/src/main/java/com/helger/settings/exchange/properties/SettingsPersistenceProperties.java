@@ -36,7 +36,6 @@ import com.helger.commons.lang.NonBlockingProperties;
 import com.helger.commons.lang.PropertiesHelper;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.typeconvert.TypeConverter;
-import com.helger.settings.IMutableSettings;
 import com.helger.settings.ISettings;
 import com.helger.settings.exchange.ISettingsPersistence;
 import com.helger.settings.factory.ISettingsFactory;
@@ -78,19 +77,19 @@ public class SettingsPersistenceProperties implements ISettingsPersistence
   }
 
   @Nonnull
-  public IMutableSettings readSettings (@Nonnull @WillClose final InputStream aIS)
+  public ISettings readSettings (@Nonnull @WillClose final InputStream aIS)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
 
     // Create the settings object
-    final IMutableSettings aSettings = m_aSettingsFactory.apply (getReadSettingsName ());
+    final ISettings aSettings = m_aSettingsFactory.apply (getReadSettingsName ());
 
     // Read the properties file from the input stream
     final NonBlockingProperties aProps = PropertiesHelper.loadProperties (aIS);
 
     if (aProps != null)
       for (final Map.Entry <String, String> aEntry : aProps.entrySet ())
-        aSettings.setValue (aEntry.getKey (), aEntry.getValue ());
+        aSettings.putIn (aEntry.getKey (), aEntry.getValue ());
     return aSettings;
   }
 
@@ -103,7 +102,7 @@ public class SettingsPersistenceProperties implements ISettingsPersistence
     {
       final NonBlockingProperties aProps = new NonBlockingProperties ();
       // Must not be sorted, as Properties sorts them as it wishes...
-      for (final Map.Entry <String, Object> aEntry : aSettings.getAllEntries ().entrySet ())
+      for (final Map.Entry <String, Object> aEntry : aSettings.entrySet ())
       {
         final String sName = aEntry.getKey ();
         final Object aValue = aEntry.getValue ();

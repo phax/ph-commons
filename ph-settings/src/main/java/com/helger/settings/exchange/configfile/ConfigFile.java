@@ -101,8 +101,8 @@ public class ConfigFile implements IGetterByKeyTrait <String>
   public ICommonsMap <String, Object> getAllEntries ()
   {
     if (m_aSettings == null)
-      return new CommonsHashMap<> ();
-    return m_aSettings.getAllEntries ();
+      return new CommonsHashMap <> ();
+    return m_aSettings.getClone ();
   }
 
   /**

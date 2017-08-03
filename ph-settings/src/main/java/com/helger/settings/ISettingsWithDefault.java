@@ -17,6 +17,9 @@
 package com.helger.settings;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import com.helger.commons.state.EChange;
 
 /**
  * Read-only settings with default are a special kind of settings. The behave
@@ -31,7 +34,7 @@ public interface ISettingsWithDefault extends ISettings
    * @return The underlying default settings object. Never <code>null</code>.
    */
   @Nonnull
-  ISettings getDefault ();
+  ISettings getDefaultSettings ();
 
   /**
    * Check if the value of the passed field is equal to the default value.
@@ -43,4 +46,47 @@ public interface ISettingsWithDefault extends ISettings
    *         settings.
    */
   boolean isSetToDefault (@Nonnull String sFieldName);
+
+  /**
+   * Change the preferences values of the given field name back to the default
+   * as it is present in the configuration.
+   *
+   * @param sFieldName
+   *        The field name to be reset. May not be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the value was changed by setting it to
+   *         default, {@link EChange#UNCHANGED} if nothing happened.
+   */
+  @Nonnull
+  EChange setToDefault (@Nonnull String sFieldName);
+
+  /**
+   * Set all fields to default. This effects only fields that are present in the
+   * default settings. Fields that are present in these settings but are not
+   * present in the default settings are not altered by this method.
+   *
+   * @return {@link EChange#CHANGED} if at least one field value was changed.
+   */
+  @Nonnull
+  EChange setAllToDefault ();
+
+  /**
+   * Check if the key is contained in the settings and is not part of the
+   * default setting
+   *
+   * @param sFieldName
+   *        Field name to query. May be <code>null</code>.
+   * @return <code>true</code> if the key is directly in the settings,
+   *         <code>false</code> otherwise
+   */
+  boolean containsKeyDirect (@Nullable String sFieldName);
+
+  /**
+   * Get the direct value with access to the default settings
+   *
+   * @param sFieldName
+   *        Field name to query. May be <code>null</code>.
+   * @return <code>null</code> if no such entry is present
+   */
+  @Nullable
+  Object getValueDirect (@Nullable final String sFieldName);
 }

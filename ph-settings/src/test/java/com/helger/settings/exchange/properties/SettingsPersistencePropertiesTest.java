@@ -31,7 +31,7 @@ import org.junit.Test;
 
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.string.StringParser;
-import com.helger.settings.IMutableSettings;
+import com.helger.settings.ISettings;
 import com.helger.settings.Settings;
 
 public final class SettingsPersistencePropertiesTest
@@ -40,34 +40,34 @@ public final class SettingsPersistencePropertiesTest
   public void testViceVersaConversion () throws UnsupportedEncodingException
   {
     // Name is important!
-    final IMutableSettings aSrc = new Settings ("anonymous");
-    aSrc.setValue ("field1a", BigInteger.valueOf (1234));
-    aSrc.setValue ("field1b", BigInteger.valueOf (-23423424));
-    aSrc.setValue ("field2a", BigDecimal.valueOf (12.34));
-    aSrc.setValue ("field2b", BigDecimal.valueOf (-2342.334599424));
-    aSrc.setValue ("field3a", "My wonderbra string\n(incl newline)");
-    aSrc.setValue ("field3b", "");
-    aSrc.setValue ("field9a", Boolean.TRUE);
-    aSrc.setValue ("field9b", StringParser.parseByteObj ("5"));
-    aSrc.setValue ("field9c", Character.valueOf ('ä'));
-    aSrc.setValue ("fieldxa", PDTFactory.getCurrentLocalDate ());
-    aSrc.setValue ("fieldxb", PDTFactory.getCurrentLocalTime ());
-    aSrc.setValue ("fieldxc", PDTFactory.getCurrentLocalDateTime ());
-    aSrc.setValue ("fieldxd", PDTFactory.getCurrentZonedDateTime ());
-    aSrc.setValue ("fieldxe", Duration.ofHours (5));
-    aSrc.setValue ("fieldxf", Period.ofDays (3));
-    aSrc.setValue ("fieldxg", "Any byte ärräy".getBytes (StandardCharsets.UTF_8.name ()));
+    final ISettings aSrc = new Settings ("anonymous");
+    aSrc.putIn ("field1a", BigInteger.valueOf (1234));
+    aSrc.putIn ("field1b", BigInteger.valueOf (-23423424));
+    aSrc.putIn ("field2a", BigDecimal.valueOf (12.34));
+    aSrc.putIn ("field2b", BigDecimal.valueOf (-2342.334599424));
+    aSrc.putIn ("field3a", "My wonderbra string\n(incl newline)");
+    aSrc.putIn ("field3b", "");
+    aSrc.putIn ("field9a", Boolean.TRUE);
+    aSrc.putIn ("field9b", StringParser.parseByteObj ("5"));
+    aSrc.putIn ("field9c", Character.valueOf ('ä'));
+    aSrc.putIn ("fieldxa", PDTFactory.getCurrentLocalDate ());
+    aSrc.putIn ("fieldxb", PDTFactory.getCurrentLocalTime ());
+    aSrc.putIn ("fieldxc", PDTFactory.getCurrentLocalDateTime ());
+    aSrc.putIn ("fieldxd", PDTFactory.getCurrentZonedDateTime ());
+    aSrc.putIn ("fieldxe", Duration.ofHours (5));
+    aSrc.putIn ("fieldxf", Period.ofDays (3));
+    aSrc.putIn ("fieldxg", "Any byte ärräy".getBytes (StandardCharsets.UTF_8.name ()));
 
     final SettingsPersistenceProperties aSPP = new SettingsPersistenceProperties ();
     final String sSrc = aSPP.writeSettings (aSrc);
     assertNotNull (sSrc);
 
     // The created object is different, because now all values are String typed!
-    final IMutableSettings aDst1 = aSPP.readSettings (sSrc);
+    final ISettings aDst1 = aSPP.readSettings (sSrc);
     assertNotNull (aDst1);
 
     // Reading the String typed version again should result in the same object
-    final IMutableSettings aDst2 = aSPP.readSettings (aSPP.writeSettings (aDst1));
+    final ISettings aDst2 = aSPP.readSettings (aSPP.writeSettings (aDst1));
     assertNotNull (aDst2);
     assertEquals (aDst1, aDst2);
 

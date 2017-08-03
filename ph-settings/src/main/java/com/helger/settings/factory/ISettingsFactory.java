@@ -21,7 +21,6 @@ import javax.annotation.Nonnull;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.functional.IFunction;
-import com.helger.settings.IMutableSettings;
 import com.helger.settings.ISettings;
 import com.helger.settings.Settings;
 import com.helger.settings.SettingsWithDefault;
@@ -35,7 +34,7 @@ import com.helger.settings.SettingsWithDefault;
  * @param <T>
  *        The effective data type to create
  */
-public interface ISettingsFactory <T extends IMutableSettings> extends IFunction <String, T>
+public interface ISettingsFactory <T extends ISettings> extends IFunction <String, T>
 {
   /**
    * Create a new settings object.

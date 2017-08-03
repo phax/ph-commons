@@ -44,13 +44,13 @@ public final class SettingsTest
   {
     final Settings s = new Settings ("My first settings");
     assertEquals ("My first settings", s.getName ());
-    assertTrue (s.getAllFieldNames ().isEmpty ());
+    assertTrue (s.keySet ().isEmpty ());
 
     {
       final BigDecimal v = BigDecimal.valueOf (1.1);
       assertNull (s.getValue (FIELD1));
-      assertTrue (s.setValue (FIELD1, v).isChanged ());
-      assertFalse (s.setValue (FIELD1, v).isChanged ());
+      assertTrue (s.putIn (FIELD1, v).isChanged ());
+      assertFalse (s.putIn (FIELD1, v).isChanged ());
       assertNotNull (s.getValue (FIELD1));
       assertEquals (v, s.getValue (FIELD1));
     }
@@ -58,8 +58,8 @@ public final class SettingsTest
     {
       final BigInteger v = BigInteger.valueOf (4711);
       assertNull (s.getValue (FIELD2));
-      assertTrue (s.setValue (FIELD2, v).isChanged ());
-      assertFalse (s.setValue (FIELD2, v).isChanged ());
+      assertTrue (s.putIn (FIELD2, v).isChanged ());
+      assertFalse (s.putIn (FIELD2, v).isChanged ());
       assertNotNull (s.getValue (FIELD2));
       assertEquals (v, s.getValue (FIELD2));
     }
@@ -67,32 +67,32 @@ public final class SettingsTest
     {
       final String v = "Hallo settings";
       assertNull (s.getValue (FIELD3));
-      assertTrue (s.setValue (FIELD3, v).isChanged ());
-      assertFalse (s.setValue (FIELD3, v).isChanged ());
+      assertTrue (s.putIn (FIELD3, v).isChanged ());
+      assertFalse (s.putIn (FIELD3, v).isChanged ());
       assertNotNull (s.getValue (FIELD3));
       assertEquals (v, s.getValue (FIELD3));
     }
 
-    assertTrue (s.containsField (FIELD1));
-    assertTrue (s.containsField (FIELD2));
-    assertTrue (s.containsField (FIELD3));
-    assertFalse (s.containsField (FIELD4));
-    assertFalse (s.containsField (FIELD5));
+    assertTrue (s.containsKey (FIELD1));
+    assertTrue (s.containsKey (FIELD2));
+    assertTrue (s.containsKey (FIELD3));
+    assertFalse (s.containsKey (FIELD4));
+    assertFalse (s.containsKey (FIELD5));
 
-    assertTrue (s.setValue (FIELD4, Boolean.TRUE).isChanged ());
-    assertTrue (s.setValue (FIELD5, Boolean.TRUE).isChanged ());
+    assertTrue (s.putIn (FIELD4, Boolean.TRUE).isChanged ());
+    assertTrue (s.putIn (FIELD5, Boolean.TRUE).isChanged ());
 
-    assertEquals (5, s.getAllFieldNames ().size ());
-    assertTrue (s.containsField (FIELD1));
-    assertTrue (s.containsField (FIELD2));
-    assertTrue (s.containsField (FIELD3));
-    assertTrue (s.containsField (FIELD4));
-    assertTrue (s.containsField (FIELD5));
-    assertTrue (s.getAllFieldNames ().contains (FIELD1));
-    assertTrue (s.getAllFieldNames ().contains (FIELD2));
-    assertTrue (s.getAllFieldNames ().contains (FIELD3));
-    assertTrue (s.getAllFieldNames ().contains (FIELD4));
-    assertTrue (s.getAllFieldNames ().contains (FIELD5));
+    assertEquals (5, s.keySet ().size ());
+    assertTrue (s.containsKey (FIELD1));
+    assertTrue (s.containsKey (FIELD2));
+    assertTrue (s.containsKey (FIELD3));
+    assertTrue (s.containsKey (FIELD4));
+    assertTrue (s.containsKey (FIELD5));
+    assertTrue (s.keySet ().contains (FIELD1));
+    assertTrue (s.keySet ().contains (FIELD2));
+    assertTrue (s.keySet ().contains (FIELD3));
+    assertTrue (s.keySet ().contains (FIELD4));
+    assertTrue (s.keySet ().contains (FIELD5));
   }
 
   @Test
@@ -109,7 +109,7 @@ public final class SettingsTest
     try
     {
       // null name not allowed
-      new Settings (null);
+      new Settings ((String) null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -127,7 +127,7 @@ public final class SettingsTest
     try
     {
       // illegal field name
-      new Settings ("xxx").setValue (null, "my value");
+      new Settings ("xxx").putIn (null, "my value");
       fail ();
     }
     catch (final NullPointerException ex)
@@ -136,7 +136,7 @@ public final class SettingsTest
     try
     {
       // illegal field name
-      new Settings ("xxx").setValue ("", "my value");
+      new Settings ("xxx").putIn ("", "my value");
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -147,23 +147,23 @@ public final class SettingsTest
   public void testStdMethods ()
   {
     final Settings s = new Settings ("s1");
-    assertTrue (s.setValue (FIELD1, "My value").isChanged ());
+    assertTrue (s.putIn (FIELD1, "My value").isChanged ());
 
     {
       final Settings t = new Settings ("s1");
-      assertTrue (t.setValue (FIELD1, "My value").isChanged ());
+      assertTrue (t.putIn (FIELD1, "My value").isChanged ());
       CommonsTestHelper.testDefaultImplementationWithEqualContentObject (s, t);
     }
 
     {
       final Settings t = new Settings ("s1");
-      t.setValue (FIELD1, "My other value");
+      t.putIn (FIELD1, "My other value");
       CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (s, t);
     }
 
     {
       final Settings t = new Settings ("other name");
-      t.setValue (FIELD1, "My value");
+      t.putIn (FIELD1, "My value");
       CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (s, t);
     }
   }
@@ -172,29 +172,29 @@ public final class SettingsTest
   public void testNull ()
   {
     final Settings s = new Settings ("s1");
-    assertTrue (s.setValue (FIELD1, "My value").isChanged ());
-    assertTrue (s.getAllFieldNames ().contains (FIELD1));
-    assertFalse (s.getAllFieldNames ().contains (FIELD2));
+    assertTrue (s.putIn (FIELD1, "My value").isChanged ());
+    assertTrue (s.keySet ().contains (FIELD1));
+    assertFalse (s.keySet ().contains (FIELD2));
 
-    assertFalse (s.setValue (FIELD2, null).isChanged ());
-    assertTrue (s.getAllFieldNames ().contains (FIELD1));
-    assertFalse (s.getAllFieldNames ().contains (FIELD2));
+    assertFalse (s.putIn (FIELD2, null).isChanged ());
+    assertTrue (s.keySet ().contains (FIELD1));
+    assertFalse (s.keySet ().contains (FIELD2));
   }
 
   @Test
   public void testCopy ()
   {
     final Settings s = new Settings ("s1");
-    assertTrue (s.setValue (FIELD1, "My value").isChanged ());
+    assertTrue (s.putIn (FIELD1, "My value").isChanged ());
 
-    final Settings s2 = Settings.createFrom (s);
-    assertTrue (s2.getAllFieldNames ().contains (FIELD1));
-    assertFalse (s2.getAllFieldNames ().contains (FIELD2));
+    final Settings s2 = new Settings (s);
+    assertTrue (s2.keySet ().contains (FIELD1));
+    assertFalse (s2.keySet ().contains (FIELD2));
 
-    assertTrue (s2.setValue (FIELD2, "Other value").isChanged ());
-    assertTrue (s.getAllFieldNames ().contains (FIELD1));
-    assertFalse (s.getAllFieldNames ().contains (FIELD2));
-    assertTrue (s2.getAllFieldNames ().contains (FIELD1));
-    assertTrue (s2.getAllFieldNames ().contains (FIELD2));
+    assertTrue (s2.putIn (FIELD2, "Other value").isChanged ());
+    assertTrue (s.keySet ().contains (FIELD1));
+    assertFalse (s.keySet ().contains (FIELD2));
+    assertTrue (s2.keySet ().contains (FIELD1));
+    assertTrue (s2.keySet ().contains (FIELD2));
   }
 }

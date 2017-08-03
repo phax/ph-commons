@@ -35,7 +35,6 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.string.StringParser;
-import com.helger.settings.IMutableSettings;
 import com.helger.settings.ISettings;
 import com.helger.settings.Settings;
 import com.helger.xml.microdom.IMicroElement;
@@ -55,28 +54,28 @@ public final class SettingsMicroDocumentConverterTest
   public void testConversionWithTypes () throws UnsupportedEncodingException
   {
     final Settings aSrc = new Settings ("myName");
-    aSrc.setValue ("field1a", BigInteger.valueOf (1234));
-    aSrc.setValue ("field1b", BigInteger.valueOf (-23423424));
-    aSrc.setValue ("field2a", BigDecimal.valueOf (12.34));
-    aSrc.setValue ("field2b", BigDecimal.valueOf (-2342.334599424));
-    aSrc.setValue ("field3a", "My wonderbra string\n(incl newline)");
-    aSrc.setValue ("field3b", "");
-    aSrc.setValue ("field9a", Boolean.TRUE);
-    aSrc.setValue ("field9b", StringParser.parseByteObj ("5"));
-    aSrc.setValue ("field9c", Character.valueOf ('ä'));
-    aSrc.setValue ("fieldxa", PDTFactory.getCurrentLocalDate ());
-    aSrc.setValue ("fieldxb", PDTFactory.getCurrentLocalTime ());
-    aSrc.setValue ("fieldxc", PDTFactory.getCurrentLocalDateTime ());
-    aSrc.setValue ("fieldxd", PDTFactory.getCurrentZonedDateTime ());
-    aSrc.setValue ("fieldxe", Duration.ofHours (5));
-    aSrc.setValue ("fieldxf", Period.ofDays (3));
-    aSrc.setValue ("fieldxg", "Any byte ärräy".getBytes (StandardCharsets.UTF_8.name ()));
+    aSrc.putIn ("field1a", BigInteger.valueOf (1234));
+    aSrc.putIn ("field1b", BigInteger.valueOf (-23423424));
+    aSrc.putIn ("field2a", BigDecimal.valueOf (12.34));
+    aSrc.putIn ("field2b", BigDecimal.valueOf (-2342.334599424));
+    aSrc.putIn ("field3a", "My wonderbra string\n(incl newline)");
+    aSrc.putIn ("field3b", "");
+    aSrc.putIn ("field9a", Boolean.TRUE);
+    aSrc.putIn ("field9b", StringParser.parseByteObj ("5"));
+    aSrc.putIn ("field9c", Character.valueOf ('ä'));
+    aSrc.putIn ("fieldxa", PDTFactory.getCurrentLocalDate ());
+    aSrc.putIn ("fieldxb", PDTFactory.getCurrentLocalTime ());
+    aSrc.putIn ("fieldxc", PDTFactory.getCurrentLocalDateTime ());
+    aSrc.putIn ("fieldxd", PDTFactory.getCurrentZonedDateTime ());
+    aSrc.putIn ("fieldxe", Duration.ofHours (5));
+    aSrc.putIn ("fieldxf", Period.ofDays (3));
+    aSrc.putIn ("fieldxg", "Any byte ärräy".getBytes (StandardCharsets.UTF_8.name ()));
 
     final Settings aNestedSettings = new Settings ("nestedSettings");
-    aNestedSettings.setValue ("a", "b");
-    aNestedSettings.setValue ("c", "d");
-    aNestedSettings.setValue ("e", Clock.systemDefaultZone ().millis ());
-    aSrc.setValue ("fieldxh", aNestedSettings);
+    aNestedSettings.putIn ("a", "b");
+    aNestedSettings.putIn ("c", "d");
+    aNestedSettings.putIn ("e", Clock.systemDefaultZone ().millis ());
+    aSrc.putIn ("fieldxh", aNestedSettings);
 
     // To XML
     final IMicroElement eSrcElement = MicroTypeConverter.convertToMicroElement (aSrc, "root");
@@ -92,10 +91,10 @@ public final class SettingsMicroDocumentConverterTest
     // Compare list
     assertEquals (BigInteger.valueOf (1234), aDst.getValue ("field1a"));
 
-    final IMutableSettings aDst2 = new Settings (aDst.getName ());
-    aDst2.setValues (aDst);
+    final ISettings aDst2 = new Settings (aDst.getName ());
+    aDst2.putAllIn (aDst);
     assertEquals (aDst, aDst2);
-    assertTrue (aDst2.setValue ("field3b", "doch was").isChanged ());
+    assertTrue (aDst2.putIn ("field3b", "doch was").isChanged ());
     assertFalse (aDst.equals (aDst2));
   }
 }

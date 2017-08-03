@@ -30,7 +30,6 @@ import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.state.ESuccess;
-import com.helger.settings.IMutableSettings;
 import com.helger.settings.ISettings;
 import com.helger.settings.Settings;
 import com.helger.settings.exchange.ISettingsPersistence;
@@ -50,7 +49,7 @@ import com.helger.xml.serialize.write.XMLWriterSettings;
  * @param <T>
  *        Effective data type
  */
-public class SettingsPersistenceXML <T extends IMutableSettings> implements ISettingsPersistence
+public class SettingsPersistenceXML <T extends ISettings> implements ISettingsPersistence
 {
   public static final boolean DEFAULT_MARSHAL_TYPES = true;
 
@@ -96,7 +95,7 @@ public class SettingsPersistenceXML <T extends IMutableSettings> implements ISet
   }
 
   @Nonnull
-  public IMutableSettings readSettings (@Nonnull @WillClose final InputStream aIS)
+  public T readSettings (@Nonnull @WillClose final InputStream aIS)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
 

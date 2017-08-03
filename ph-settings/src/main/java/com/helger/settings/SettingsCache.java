@@ -27,7 +27,7 @@ import com.helger.settings.factory.ISettingsFactory;
  *
  * @author Philip Helger
  */
-public class SettingsCache extends Cache <String, IMutableSettings>
+public class SettingsCache extends Cache <String, ISettings>
 {
   private final ISettingsFactory <?> m_aSettingsFactory;
 

@@ -16,92 +16,15 @@
  */
 package com.helger.settings;
 
-import java.util.function.BiConsumer;
-import java.util.function.BiPredicate;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.lang.IHasSize;
+import com.helger.commons.collection.attr.IMutableAttributeContainerAny;
 import com.helger.commons.name.IHasName;
-import com.helger.commons.traits.IGetterByKeyTrait;
 
 /**
  * Read-only settings base interface
  *
  * @author philip
  */
-public interface ISettings extends IHasName, IHasSize, IGetterByKeyTrait <String>
+public interface ISettings extends IHasName, IMutableAttributeContainerAny <String>
 {
-  /**
-   * @return A non-<code>null</code> set of all available field names in any
-   *         order.
-   */
-  @Nonnull
-  @ReturnsMutableCopy
-  ICommonsSet <String> getAllFieldNames ();
-
-  /**
-   * @return A non-<code>null</code> map with all key-value-pairs.
-   */
-  @Nonnull
-  @ReturnsMutableCopy
-  ICommonsMap <String, Object> getAllEntries ();
-
-  /**
-   * Invoke the provided consumer on each entry (pair of key and value).
-   *
-   * @param aConsumer
-   *        The consumer to be invoked. May not be <code>null</code>.
-   * @see #forEach(BiPredicate,BiConsumer)
-   */
-  void forEach (@Nonnull final BiConsumer <? super String, ? super Object> aConsumer);
-
-  /**
-   * Invoke the provided consumer on each entry (pair of key and value) that
-   * matches the provided filter.
-   *
-   * @param aFilter
-   *        The filter to be applied. May be <code>null</code>.
-   * @param aConsumer
-   *        The consumer to be invoked. May not be <code>null</code>.
-   * @see #forEach(BiConsumer)
-   */
-  void forEach (@Nullable final BiPredicate <? super String, ? super Object> aFilter,
-                @Nonnull final BiConsumer <? super String, ? super Object> aConsumer);
-
-  /**
-   * Check if a value is present for the given field name.
-   *
-   * @param sFieldName
-   *        The field name to check.
-   * @return <code>true</code> if any value (even <code>null</code>) is set,
-   *         <code>false</code> otherwise.
-   */
-  boolean containsField (@Nullable String sFieldName);
-
-  /**
-   * Get the value associated with the passed field name as an untyped object.
-   *
-   * @param sFieldName
-   *        The field name to be queried. May be <code>null</code> resulting in
-   *        a <code>null</code> return value
-   * @return <code>null</code> if no such field exists
-   */
-  @Nullable
-  Object getValue (@Nullable String sFieldName);
-
-  /**
-   * Get a nested settings value. This is like retrieving a map.
-   *
-   * @param sFieldName
-   *        The field to retrieve. May be <code>null</code> resulting in a
-   *        <code>null</code> return value.
-   * @return <code>null</code> if no such field is available.
-   */
-  @Nullable
-  ISettings getSettingsValue (@Nullable String sFieldName);
+  /* empty */
 }
