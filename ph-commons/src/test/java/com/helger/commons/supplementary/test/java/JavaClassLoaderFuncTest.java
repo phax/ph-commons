@@ -25,6 +25,7 @@ import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.commons.system.EJavaVersion;
+import com.helger.commons.system.JavaVersionHelper;
 
 /**
  * Test the difference between loading from a ClassLoader and a Class. The
@@ -328,8 +329,19 @@ public final class JavaClassLoaderFuncTest
     assertNotNull (ClassLoaderHelper.getResource (ClassLoaderHelper.getContextClassLoader (), sWithSlash));
 
     // -- different here --
-    assertNull (ClassLoaderHelper.getResourceAsStream (ClassLoaderHelper.getContextClassLoader (), sWithoutSlash));
-    assertNull (ClassLoaderHelper.getResourceAsStream (ClassLoaderHelper.getContextClassLoader (), sWithSlash));
+    // This is "not null" since JDK 1.8.0_144
+    // http://www.oracle.com/technetwork/java/javase/8u144-relnotes-3838694.html
+    final boolean isAtLeast1_8_0_144 = JavaVersionHelper.isAtLeast (8, 144);
+    if (isAtLeast1_8_0_144)
+    {
+      assertNotNull (ClassLoaderHelper.getResourceAsStream (ClassLoaderHelper.getContextClassLoader (), sWithoutSlash));
+      assertNotNull (ClassLoaderHelper.getResourceAsStream (ClassLoaderHelper.getContextClassLoader (), sWithSlash));
+    }
+    else
+    {
+      assertNull (ClassLoaderHelper.getResourceAsStream (ClassLoaderHelper.getContextClassLoader (), sWithoutSlash));
+      assertNull (ClassLoaderHelper.getResourceAsStream (ClassLoaderHelper.getContextClassLoader (), sWithSlash));
+    }
 
     // Current class
     assertNull (JavaClassLoaderFuncTest.class.getResource (sWithoutSlash));
@@ -343,8 +355,16 @@ public final class JavaClassLoaderFuncTest
     assertNotNull (ClassHelper.getResource (JavaClassLoaderFuncTest.class, sWithSlash));
 
     // -- different here --
-    assertNull (ClassHelper.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithoutSlash));
-    assertNull (ClassHelper.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithSlash));
+    if (isAtLeast1_8_0_144)
+    {
+      assertNotNull (ClassHelper.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithoutSlash));
+      assertNotNull (ClassHelper.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithSlash));
+    }
+    else
+    {
+      assertNull (ClassHelper.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithoutSlash));
+      assertNull (ClassHelper.getResourceAsStream (JavaClassLoaderFuncTest.class, sWithSlash));
+    }
 
     // Current class class loader
     assertNotNull (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class).getResource (sWithoutSlash));
@@ -361,10 +381,20 @@ public final class JavaClassLoaderFuncTest
                                                   sWithSlash));
 
     // -- different here --
-    assertNull (ClassLoaderHelper.getResourceAsStream (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class),
-                                                       sWithoutSlash));
-    assertNull (ClassLoaderHelper.getResourceAsStream (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class),
-                                                       sWithSlash));
+    if (isAtLeast1_8_0_144)
+    {
+      assertNotNull (ClassLoaderHelper.getResourceAsStream (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class),
+                                                            sWithoutSlash));
+      assertNotNull (ClassLoaderHelper.getResourceAsStream (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class),
+                                                            sWithSlash));
+    }
+    else
+    {
+      assertNull (ClassLoaderHelper.getResourceAsStream (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class),
+                                                         sWithoutSlash));
+      assertNull (ClassLoaderHelper.getResourceAsStream (ClassLoaderHelper.getClassClassLoader (JavaClassLoaderFuncTest.class),
+                                                         sWithSlash));
+    }
 
     // System class loader
     assertNotNull (ClassLoaderHelper.getSystemClassLoader ().getResource (sWithoutSlash));
@@ -378,8 +408,16 @@ public final class JavaClassLoaderFuncTest
     assertNotNull (ClassLoaderHelper.getResource (ClassLoaderHelper.getSystemClassLoader (), sWithSlash));
 
     // -- different here --
-    assertNull (ClassLoaderHelper.getResourceAsStream (ClassLoaderHelper.getSystemClassLoader (), sWithoutSlash));
-    assertNull (ClassLoaderHelper.getResourceAsStream (ClassLoaderHelper.getSystemClassLoader (), sWithSlash));
+    if (isAtLeast1_8_0_144)
+    {
+      assertNotNull (ClassLoaderHelper.getResourceAsStream (ClassLoaderHelper.getSystemClassLoader (), sWithoutSlash));
+      assertNotNull (ClassLoaderHelper.getResourceAsStream (ClassLoaderHelper.getSystemClassLoader (), sWithSlash));
+    }
+    else
+    {
+      assertNull (ClassLoaderHelper.getResourceAsStream (ClassLoaderHelper.getSystemClassLoader (), sWithoutSlash));
+      assertNull (ClassLoaderHelper.getResourceAsStream (ClassLoaderHelper.getSystemClassLoader (), sWithSlash));
+    }
   }
 
   @Test

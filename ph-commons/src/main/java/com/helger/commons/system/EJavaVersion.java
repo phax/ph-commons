@@ -55,7 +55,7 @@ public enum EJavaVersion
   {
     m_dMinVersionIncl = CGlobal.ILLEGAL_DOUBLE;
     m_dMaxVersionExcl = CGlobal.ILLEGAL_DOUBLE;
-    m_bIsIt = EqualsHelper.equals (CGlobal.ILLEGAL_DOUBLE, JavaVersionConstants.CLASS_VERSION);
+    m_bIsIt = EqualsHelper.equals (CGlobal.ILLEGAL_DOUBLE, JavaVersionHelper.JAVA_CLASS_VERSION);
   }
 
   /**
@@ -70,7 +70,7 @@ public enum EJavaVersion
   {
     m_dMinVersionIncl = dMinVersionIncl;
     m_dMaxVersionExcl = dMaxVersionExcl;
-    m_bIsIt = isMatchingVersion (JavaVersionConstants.CLASS_VERSION);
+    m_bIsIt = isMatchingVersion (JavaVersionHelper.JAVA_CLASS_VERSION);
   }
 
   protected boolean isMatchingVersion (final double dVersion)
