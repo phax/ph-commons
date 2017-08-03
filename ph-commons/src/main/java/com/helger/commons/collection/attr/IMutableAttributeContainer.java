@@ -41,48 +41,106 @@ import com.helger.commons.state.EContinue;
  */
 public interface IMutableAttributeContainer <KEYTYPE, VALUETYPE> extends IAttributeContainer <KEYTYPE, VALUETYPE>
 {
-  public static interface IBeforeSetAttributeCallback <KEYTYPE, VALUETYPE> extends ICallback
+  @FunctionalInterface
+  public static interface IBeforeSetValueCallback <KEYTYPE, VALUETYPE> extends ICallback
   {
+    /**
+     * Invoked before a new value is set
+     *
+     * @param aName
+     *        The attribute key. May not be <code>null</code>.
+     * @param aNewValue
+     *        The new value to be set. May be <code>null</code>.
+     * @return {@link EContinue#CONTINUE} if the value can be set,
+     *         <code>false</code> if the value cannot be set.
+     */
     @Nonnull
-    EContinue beforeSetAttribute (@Nonnull KEYTYPE aName, @Nullable VALUETYPE aValue);
+    EContinue beforeSetValue (@Nonnull KEYTYPE aName, @Nullable VALUETYPE aNewValue);
+  }
+
+  @FunctionalInterface
+  public static interface IAfterSetValueCallback <KEYTYPE, VALUETYPE> extends ICallback
+  {
+    /**
+     * Method that is invoked after a value changed.
+     *
+     * @param aName
+     *        The changed key. Neither <code>null</code> nor empty.
+     * @param aOldValue
+     *        The old value. May be <code>null</code>.
+     * @param aNewValue
+     *        The new value. May be <code>null</code> in which case the value
+     *        was removed.
+     */
+    void afterSetValue (@Nonnull KEYTYPE aName, @Nullable VALUETYPE aOldValue, @Nullable VALUETYPE aNewValue);
   }
 
   /**
-   * @return Callbacks to be invoked before attribute values are set. May not be
+   * @return Callbacks to be invoked before values are set. May not be
    *         <code>null</code>.
    */
   @Nonnull
   @ReturnsMutableObject
-  CallbackList <IBeforeSetAttributeCallback <KEYTYPE, VALUETYPE>> beforeSetAttributeCallbacks ();
+  CallbackList <IBeforeSetValueCallback <KEYTYPE, VALUETYPE>> beforeSetValueCallbacks ();
+
+  /**
+   * @return Callbacks to be invoked after values are set. May not be
+   *         <code>null</code>.
+   */
+  @Nonnull
+  @ReturnsMutableObject
+  CallbackList <IAfterSetValueCallback <KEYTYPE, VALUETYPE>> afterSetValueCallbacks ();
+
+  /**
+   * Restore a value from serialization. Does not trigger an event!
+   *
+   * @param aName
+   *        The name of the field.
+   * @param aNewValue
+   *        The value to be set. May be <code>null</code> .
+   */
+  default void restoreValue (@Nonnull final KEYTYPE aName, @Nullable final VALUETYPE aNewValue)
+  {
+    ValueEnforcer.notNull (aName, "Name");
+    if (aNewValue == null)
+      removeObject (aName);
+    else
+      put (aName, aNewValue);
+  }
 
   /**
    * Set/overwrite an attribute value.
    *
    * @param aName
    *        The name of the attribute. May not be <code>null</code>.
-   * @param aValue
-   *        The value of the attribute. If it is <code>null</code>, the value
-   *        will be removed.
+   * @param aNewValue
+   *        The new value of the attribute. If it is <code>null</code>, the
+   *        value will be removed.
    * @return {@link EChange#CHANGED} if something changed,
    *         {@link EChange#UNCHANGED} otherwise.
    * @see #removeObject(Object)
    */
   @Nonnull
-  default EChange putIn (@Nonnull final KEYTYPE aName, @Nullable final VALUETYPE aValue)
+  default EChange putIn (@Nonnull final KEYTYPE aName, @Nullable final VALUETYPE aNewValue)
   {
     ValueEnforcer.notNull (aName, "Name");
 
-    if (aValue == null)
+    if (aNewValue == null)
       return removeObject (aName);
 
-    // Callback for checks etc.
-    if (beforeSetAttributeCallbacks ().isNotEmpty ())
-      if (beforeSetAttributeCallbacks ().forEachBreakable (x -> x.beforeSetAttribute (aName, aValue)).isBreak ())
-        return EChange.UNCHANGED;
+    // Before change checking callback
+    if (beforeSetValueCallbacks ().forEachBreakable (x -> x.beforeSetValue (aName, aNewValue)).isBreak ())
+      return EChange.UNCHANGED;
 
     // Set and compare
-    final VALUETYPE aOldValue = put (aName, aValue);
-    return EChange.valueOf (!EqualsHelper.equals (aValue, aOldValue));
+    final VALUETYPE aOldValue = put (aName, aNewValue);
+    if (EqualsHelper.equals (aNewValue, aOldValue))
+      return EChange.UNCHANGED;
+
+    // After change callback
+    afterSetValueCallbacks ().forEach (x -> x.afterSetValue (aName, aOldValue, aNewValue));
+
+    return EChange.CHANGED;
   }
 
   @Nonnull

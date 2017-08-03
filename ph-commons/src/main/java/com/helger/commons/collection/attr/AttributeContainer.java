@@ -24,6 +24,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.callback.CallbackList;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 
 /**
@@ -40,7 +41,8 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 public class AttributeContainer <KEYTYPE, VALUETYPE> extends CommonsLinkedHashMap <KEYTYPE, VALUETYPE> implements
                                 IMutableAttributeContainer <KEYTYPE, VALUETYPE>
 {
-  private final CallbackList <IBeforeSetAttributeCallback <KEYTYPE, VALUETYPE>> m_aCallbacks = new CallbackList <> ();
+  private final CallbackList <IBeforeSetValueCallback <KEYTYPE, VALUETYPE>> m_aBeforeCallbacks = new CallbackList <> ();
+  private final CallbackList <IAfterSetValueCallback <KEYTYPE, VALUETYPE>> m_aAfterCallbacks = new CallbackList <> ();
 
   public AttributeContainer ()
   {}
@@ -56,15 +58,26 @@ public class AttributeContainer <KEYTYPE, VALUETYPE> extends CommonsLinkedHashMa
   }
 
   @Nonnull
-  public CallbackList <IBeforeSetAttributeCallback <KEYTYPE, VALUETYPE>> beforeSetAttributeCallbacks ()
+  public final CallbackList <IBeforeSetValueCallback <KEYTYPE, VALUETYPE>> beforeSetValueCallbacks ()
   {
-    return m_aCallbacks;
+    return m_aBeforeCallbacks;
+  }
+
+  @Nonnull
+  public final CallbackList <IAfterSetValueCallback <KEYTYPE, VALUETYPE>> afterSetValueCallbacks ()
+  {
+    return m_aAfterCallbacks;
   }
 
   @Override
   public boolean equals (final Object o)
   {
-    return super.equals (o);
+    if (o == this)
+      return true;
+    if (o == null || !getClass ().equals (o.getClass ()))
+      return false;
+    // Required for correct content checking with equalsHelper
+    return EqualsHelper.equalsMap (this, (AttributeContainer <?, ?>) o);
   }
 
   @Override

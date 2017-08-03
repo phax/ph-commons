@@ -41,7 +41,8 @@ public class AttributeContainerConcurrent <KEYTYPE, VALUETYPE> extends CommonsCo
                                           implements
                                           IMutableAttributeContainer <KEYTYPE, VALUETYPE>
 {
-  private final CallbackList <IBeforeSetAttributeCallback <KEYTYPE, VALUETYPE>> m_aCallbacks = new CallbackList <> ();
+  private final CallbackList <IBeforeSetValueCallback <KEYTYPE, VALUETYPE>> m_aBeforeCallbacks = new CallbackList <> ();
+  private final CallbackList <IAfterSetValueCallback <KEYTYPE, VALUETYPE>> m_aAfterCallbacks = new CallbackList <> ();
 
   public AttributeContainerConcurrent ()
   {}
@@ -52,9 +53,15 @@ public class AttributeContainerConcurrent <KEYTYPE, VALUETYPE> extends CommonsCo
   }
 
   @Nonnull
-  public CallbackList <IBeforeSetAttributeCallback <KEYTYPE, VALUETYPE>> beforeSetAttributeCallbacks ()
+  public final CallbackList <IBeforeSetValueCallback <KEYTYPE, VALUETYPE>> beforeSetValueCallbacks ()
   {
-    return m_aCallbacks;
+    return m_aBeforeCallbacks;
+  }
+
+  @Nonnull
+  public final CallbackList <IAfterSetValueCallback <KEYTYPE, VALUETYPE>> afterSetValueCallbacks ()
+  {
+    return m_aAfterCallbacks;
   }
 
   @Override
@@ -75,6 +82,10 @@ public class AttributeContainerConcurrent <KEYTYPE, VALUETYPE> extends CommonsCo
   @Override
   public boolean equals (final Object o)
   {
+    if (o == this)
+      return true;
+    if (o == null || !getClass ().equals (o.getClass ()))
+      return false;
     return super.equals (o);
   }
 

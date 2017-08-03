@@ -22,6 +22,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
@@ -232,6 +233,45 @@ public final class EqualsHelper
     return EqualsImplementationRegistry.areEqual (aObj1, aObj2);
   }
 
+  public static <K, V> boolean equalsMap (@Nonnull final Map <K, V> aCont1, @Nonnull final Map <?, ?> aCont2)
+  {
+    if (aCont1.size () != aCont2.size ())
+      return false;
+
+    final Iterator <Map.Entry <K, V>> it = aCont1.entrySet ().iterator ();
+    while (it.hasNext ())
+    {
+      final Map.Entry <K, V> aEntry = it.next ();
+      final K aKey = aEntry.getKey ();
+      final V aValue = aEntry.getValue ();
+      if (aValue == null)
+      {
+        if (aCont2.get (aKey) == null && aCont2.containsKey (aKey))
+        {
+          // Also contains a null value
+        }
+        else
+          return false;
+      }
+      else
+      {
+        if (!_areChildrenEqual (aValue, aCont2.get (aKey)))
+          return false;
+      }
+    }
+    return true;
+  }
+
+  public static boolean equalsSet (@Nonnull final Set <?> aCont1, @Nonnull final Set <?> aCont2)
+  {
+    if (aCont1.size () != aCont2.size ())
+      return false;
+    for (final Object aChildObj1 : aCont1)
+      if (!aCont2.contains (aChildObj1))
+        return false;
+    return true;
+  }
+
   /**
    * Check if the content of the passed containers is equal. If the container
    * itself contains nested containers, this method is invoked recursively. For
@@ -298,32 +338,14 @@ public final class EqualsHelper
         // Valid for Set
         final Set <?> aCont1 = (Set <?>) aObj1;
         final Set <?> aCont2 = (Set <?>) aObj2;
-        if (aCont1.isEmpty () && aCont2.isEmpty ())
-          return true;
-        if (aCont1.size () != aCont2.size ())
-          return false;
-        for (final Object aChildObj1 : aCont1)
-          if (!aCont2.contains (aChildObj1))
-            return false;
-        return true;
+        return equalsSet (aCont1, aCont2);
       }
       case MAP:
       {
         // Valid for Map
         final Map <?, ?> aCont1 = (Map <?, ?>) aObj1;
         final Map <?, ?> aCont2 = (Map <?, ?>) aObj2;
-        if (aCont1.isEmpty () && aCont2.isEmpty ())
-          return true;
-        if (aCont1.size () != aCont2.size ())
-          return false;
-        for (final Map.Entry <?, ?> aEntry : aCont1.entrySet ())
-        {
-          final Object aChildObj1 = aEntry.getValue ();
-          final Object aChildObj2 = aCont2.get (aEntry.getKey ());
-          if (!_areChildrenEqual (aChildObj1, aChildObj2))
-            return false;
-        }
-        return true;
+        return equalsMap (aCont1, aCont2);
       }
       case ARRAY:
       {
