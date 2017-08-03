@@ -98,7 +98,8 @@ public class SettingsMicroDocumentConverter <T extends ISettings> implements IMi
 
       final Object aValue = MicroTypeConverter.convertToNative (eSetting.getFirstChildElement (ELEMENT_VALUE),
                                                                 aDestClass);
-      aSettings.restoreValue (sFieldName, aValue);
+      // Use put instead of putIn to avoid that the callbacks are invoked!
+      aSettings.put (sFieldName, aValue);
     });
     return aSettings;
   }

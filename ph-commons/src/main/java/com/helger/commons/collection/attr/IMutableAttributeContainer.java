@@ -92,24 +92,7 @@ public interface IMutableAttributeContainer <KEYTYPE, VALUETYPE> extends IAttrib
   CallbackList <IAfterSetValueCallback <KEYTYPE, VALUETYPE>> afterSetValueCallbacks ();
 
   /**
-   * Restore a value from serialization. Does not trigger an event!
-   *
-   * @param aName
-   *        The name of the field.
-   * @param aNewValue
-   *        The value to be set. May be <code>null</code> .
-   */
-  default void restoreValue (@Nonnull final KEYTYPE aName, @Nullable final VALUETYPE aNewValue)
-  {
-    ValueEnforcer.notNull (aName, "Name");
-    if (aNewValue == null)
-      removeObject (aName);
-    else
-      put (aName, aNewValue);
-  }
-
-  /**
-   * Set/overwrite an attribute value.
+   * Set/overwrite an attribute value including before and after callbacks.
    *
    * @param aName
    *        The name of the attribute. May not be <code>null</code>.
