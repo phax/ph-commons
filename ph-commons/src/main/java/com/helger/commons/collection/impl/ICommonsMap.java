@@ -19,6 +19,7 @@ package com.helger.commons.collection.impl;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
@@ -563,7 +564,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    * @since 8.5.5
    */
   default void putAll (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
-                       @Nullable final Predicate <? super Map.Entry <? super KEYTYPE, ? super VALUETYPE>> aFilter)
+                       @Nullable final Predicate <? super Map.Entry <? extends KEYTYPE, ? extends VALUETYPE>> aFilter)
   {
     if (aMap != null)
     {
@@ -717,6 +718,35 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   default EChange removeObject (@Nullable final KEYTYPE aKey)
   {
     return EChange.valueOf (remove (aKey) != null);
+  }
+
+  @Nonnull
+  default EChange removeIf (@Nonnull final Predicate <? super Map.Entry <? extends KEYTYPE, ? extends VALUETYPE>> aFilter)
+  {
+    ValueEnforcer.notNull (aFilter, "Filter");
+    EChange ret = EChange.UNCHANGED;
+    final Iterator <Map.Entry <KEYTYPE, VALUETYPE>> it = entrySet ().iterator ();
+    while (it.hasNext ())
+    {
+      if (aFilter.test (it.next ()))
+      {
+        it.remove ();
+        ret = EChange.CHANGED;
+      }
+    }
+    return ret;
+  }
+
+  @Nonnull
+  default EChange removeIfKey (@Nonnull final Predicate <? super KEYTYPE> aFilter)
+  {
+    return removeIf (e -> aFilter.test (e.getKey ()));
+  }
+
+  @Nonnull
+  default EChange removeIfValue (@Nonnull final Predicate <? super VALUETYPE> aFilter)
+  {
+    return removeIf (e -> aFilter.test (e.getValue ()));
   }
 
   /**
