@@ -20,7 +20,7 @@ import com.helger.commons.collection.attr.IMutableAttributeContainerAny;
 import com.helger.commons.name.IHasName;
 
 /**
- * Read-only settings base interface
+ * Read-only settings base interface.
  *
  * @author philip
  */
