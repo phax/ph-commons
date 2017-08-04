@@ -95,7 +95,7 @@ public class SMap extends CommonsLinkedHashMap <String, String>
   @Nonnull
   public final SMap addIfNotNull (@Nonnull final String sName, @Nonnull final Object aValue)
   {
-    return addIfNotNull (sName, TypeConverter.convertIfNecessary (aValue, String.class));
+    return addIfNotNull (sName, TypeConverter.convert (aValue, String.class));
   }
 
   @Nonnull
@@ -117,7 +117,7 @@ public class SMap extends CommonsLinkedHashMap <String, String>
   @Nonnull
   public final SMap add (@Nonnull final String sName, @Nonnull final Object aValue)
   {
-    return add (sName, TypeConverter.convertIfNecessary (aValue, String.class));
+    return add (sName, TypeConverter.convert (aValue, String.class));
   }
 
   @Nonnull

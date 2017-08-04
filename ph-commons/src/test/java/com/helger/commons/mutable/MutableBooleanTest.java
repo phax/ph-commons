@@ -56,7 +56,7 @@ public final class MutableBooleanTest
   public void testTypeConversion ()
   {
     final MutableBoolean x = new MutableBoolean (true);
-    final Boolean b = TypeConverter.convertIfNecessary (x, Boolean.class);
+    final Boolean b = TypeConverter.convert (x, Boolean.class);
     assertNotNull (b);
     assertTrue (b.booleanValue ());
     assertTrue (TypeConverter.convertToBoolean (x));

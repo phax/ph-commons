@@ -157,7 +157,7 @@ public final class JsonConverter
       final JsonObject aJsonObject = new JsonObject (aMap.size ());
       for (final Map.Entry <?, ?> aEntry : aMap.entrySet ())
       {
-        final String sKey = TypeConverter.convertIfNecessary (aEntry.getKey (), String.class);
+        final String sKey = TypeConverter.convert (aEntry.getKey (), String.class);
         if (sKey == null)
           throw new IllegalArgumentException ("Map key '" + aEntry.getKey () + "' could not be converted to a String!");
         // Recursive conversion

@@ -236,7 +236,7 @@ public interface IGetterByIndexTrait
   @Nullable
   default <T> T getConvertedValue (@Nonnegative final int nIndex, @Nonnull final Class <T> aClass)
   {
-    return TypeConverter.convertIfNecessary (getValue (nIndex), aClass);
+    return TypeConverter.convert (getValue (nIndex), aClass);
   }
 
   /**
@@ -262,7 +262,7 @@ public interface IGetterByIndexTrait
                                    @Nonnull final Class <T> aClass)
   {
     final Object aValue = getValue (nIndex);
-    return aValue == null ? aDefault : TypeConverter.convertIfNecessary (aValue, aClass);
+    return aValue == null ? aDefault : TypeConverter.convert (aValue, aClass);
   }
 
   default boolean getAsBoolean (@Nonnegative final int nIndex) throws TypeConverterException

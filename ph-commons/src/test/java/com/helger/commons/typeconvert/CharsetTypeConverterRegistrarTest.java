@@ -37,9 +37,9 @@ public final class CharsetTypeConverterRegistrarTest
   {
     for (final Charset aCS : CharsetHelper.getAllCharsets ().values ())
     {
-      final String sCS = TypeConverter.convertIfNecessary (aCS, String.class);
+      final String sCS = TypeConverter.convert (aCS, String.class);
       assertNotNull (sCS);
-      assertEquals (aCS, TypeConverter.convertIfNecessary (sCS, Charset.class));
+      assertEquals (aCS, TypeConverter.convert (sCS, Charset.class));
     }
   }
 }

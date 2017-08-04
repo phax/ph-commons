@@ -245,7 +245,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
   @Nullable
   default <T> T getConvertedValue (@Nullable final KEYTYPE aKey, @Nonnull final Class <T> aClass)
   {
-    return TypeConverter.convertIfNecessary (getValue (aKey), aClass);
+    return TypeConverter.convert (getValue (aKey), aClass);
   }
 
   /**
@@ -271,7 +271,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
                                    @Nonnull final Class <T> aClass)
   {
     final Object aValue = getValue (aKey);
-    return aValue == null ? aDefault : TypeConverter.convertIfNecessary (aValue, aClass);
+    return aValue == null ? aDefault : TypeConverter.convert (aValue, aClass);
   }
 
   default boolean getAsBoolean (@Nullable final KEYTYPE aKey) throws TypeConverterException

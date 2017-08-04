@@ -851,7 +851,7 @@ public interface IMicroElement extends IMicroNodeWithChildren
   default IMicroElement setAttributeWithConversion (@Nonnull final IMicroQName aAttrName,
                                                     @Nullable final Object aAttrValue)
   {
-    final String sAttrValue = TypeConverter.convertIfNecessary (aAttrValue, String.class);
+    final String sAttrValue = TypeConverter.convert (aAttrValue, String.class);
     return setAttribute (aAttrName, sAttrValue);
   }
 

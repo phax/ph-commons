@@ -213,14 +213,14 @@ public final class BaseTypeConverterRegistrar implements ITypeConverterRegistrar
     aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (AtomicBoolean.class,
                                                                   aSource -> Boolean.valueOf (aSource.get ()));
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (AtomicBoolean.class,
-                                                                  aSource -> new AtomicBoolean (TypeConverter.convertIfNecessary (aSource,
+                                                                  aSource -> new AtomicBoolean (TypeConverter.convert (aSource,
                                                                                                                                   Boolean.class)
                                                                                                              .booleanValue ()));
     // AtomicInteger
     aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (AtomicInteger.class,
                                                                   aSource -> Integer.valueOf (aSource.get ()));
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (AtomicInteger.class,
-                                                                  aSource -> new AtomicInteger (TypeConverter.convertIfNecessary (aSource,
+                                                                  aSource -> new AtomicInteger (TypeConverter.convert (aSource,
                                                                                                                                   Integer.class)
                                                                                                              .intValue ()));
 
@@ -228,7 +228,7 @@ public final class BaseTypeConverterRegistrar implements ITypeConverterRegistrar
     aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (AtomicLong.class,
                                                                   aSource -> Long.valueOf (aSource.get ()));
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (AtomicLong.class,
-                                                                  aSource -> new AtomicLong (TypeConverter.convertIfNecessary (aSource,
+                                                                  aSource -> new AtomicLong (TypeConverter.convert (aSource,
                                                                                                                                Long.class)
                                                                                                           .longValue ()));
 
@@ -236,14 +236,14 @@ public final class BaseTypeConverterRegistrar implements ITypeConverterRegistrar
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (StringBuilder.class, aSource -> {
       if (aSource instanceof CharSequence)
         return new StringBuilder ((CharSequence) aSource);
-      return new StringBuilder (TypeConverter.convertIfNecessary (aSource, String.class));
+      return new StringBuilder (TypeConverter.convert (aSource, String.class));
     });
 
     // to StringBuffer
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (StringBuffer.class, aSource -> {
       if (aSource instanceof CharSequence)
         return new StringBuffer ((CharSequence) aSource);
-      return new StringBuffer (TypeConverter.convertIfNecessary (aSource, String.class));
+      return new StringBuffer (TypeConverter.convert (aSource, String.class));
     });
 
     // Enum

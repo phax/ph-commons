@@ -51,7 +51,7 @@ public final class JsonValueSerializerTypeConverterToString implements IJsonValu
   {
     ValueEnforcer.notNull (aWriter, "Writer");
 
-    final String sValue = TypeConverter.convertIfNecessary (aValue, String.class);
+    final String sValue = TypeConverter.convert (aValue, String.class);
     aWriter.write (sValue);
   }
 

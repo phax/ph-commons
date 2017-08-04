@@ -187,7 +187,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     if (StringHelper.hasNoText (sAttrValue))
       return null;
     // throws IllegalArgumentException if nothing can be converted
-    final DSTTYPE ret = TypeConverter.convertIfNecessary (sAttrValue, aDstClass);
+    final DSTTYPE ret = TypeConverter.convert (sAttrValue, aDstClass);
     return ret;
   }
 

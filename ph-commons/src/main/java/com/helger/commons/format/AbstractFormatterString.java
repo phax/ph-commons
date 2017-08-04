@@ -50,7 +50,7 @@ public abstract class AbstractFormatterString implements IFunction <Object, Stri
   @Nonnull
   protected String getValueAsString (@Nullable final Object aValue)
   {
-    final String sValue = TypeConverter.convertIfNecessary (aValue, String.class);
+    final String sValue = TypeConverter.convert (aValue, String.class);
     return sValue != null ? sValue : "";
   }
 

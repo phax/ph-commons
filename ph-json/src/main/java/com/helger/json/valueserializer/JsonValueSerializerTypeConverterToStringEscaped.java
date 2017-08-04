@@ -52,7 +52,7 @@ public final class JsonValueSerializerTypeConverterToStringEscaped implements IJ
   {
     ValueEnforcer.notNull (aWriter, "Writer");
 
-    final String sValue = TypeConverter.convertIfNecessary (aValue, String.class);
+    final String sValue = TypeConverter.convert (aValue, String.class);
     JsonValueSerializerEscaped.appendEscapedJsonString (sValue, aWriter);
   }
 

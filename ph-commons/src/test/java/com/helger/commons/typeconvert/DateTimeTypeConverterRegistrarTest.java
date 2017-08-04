@@ -78,79 +78,79 @@ public final class DateTimeTypeConverterRegistrarTest
   @Test
   public void testDateTime ()
   {
-    assertNotNull (TypeConverter.convertIfNecessary (PDTFactory.createCalendar (), ZonedDateTime.class));
-    assertNotNull (TypeConverter.convertIfNecessary (PDTFactory.createGregorianCalendar (), ZonedDateTime.class));
-    assertNotNull (TypeConverter.convertIfNecessary (new Date (), ZonedDateTime.class));
+    assertNotNull (TypeConverter.convert (PDTFactory.createCalendar (), ZonedDateTime.class));
+    assertNotNull (TypeConverter.convert (PDTFactory.createGregorianCalendar (), ZonedDateTime.class));
+    assertNotNull (TypeConverter.convert (new Date (), ZonedDateTime.class));
     for (final Object aNumber : NUMBERS)
-      assertNotNull (TypeConverter.convertIfNecessary (aNumber, ZonedDateTime.class));
+      assertNotNull (TypeConverter.convert (aNumber, ZonedDateTime.class));
 
     // Test auto conversion to and from string
     final ZonedDateTime aNow = PDTFactory.getCurrentZonedDateTime ();
-    final String sNow = TypeConverter.convertIfNecessary (aNow, String.class);
-    final ZonedDateTime aNow2 = TypeConverter.convertIfNecessary (sNow, aNow.getClass ());
+    final String sNow = TypeConverter.convert (aNow, String.class);
+    final ZonedDateTime aNow2 = TypeConverter.convert (sNow, aNow.getClass ());
     assertEquals (aNow, aNow2);
   }
 
   @Test
   public void testLocalDateTime ()
   {
-    assertNotNull (TypeConverter.convertIfNecessary (PDTFactory.createCalendar (), LocalDateTime.class));
-    assertNotNull (TypeConverter.convertIfNecessary (PDTFactory.createGregorianCalendar (), LocalDateTime.class));
-    assertNotNull (TypeConverter.convertIfNecessary (new Date (), LocalDateTime.class));
+    assertNotNull (TypeConverter.convert (PDTFactory.createCalendar (), LocalDateTime.class));
+    assertNotNull (TypeConverter.convert (PDTFactory.createGregorianCalendar (), LocalDateTime.class));
+    assertNotNull (TypeConverter.convert (new Date (), LocalDateTime.class));
     for (final Object aNumber : NUMBERS)
-      assertNotNull (TypeConverter.convertIfNecessary (aNumber, LocalDateTime.class));
+      assertNotNull (TypeConverter.convert (aNumber, LocalDateTime.class));
 
     // Test auto conversion to and from string
     final LocalDateTime aNow = PDTFactory.getCurrentLocalDateTime ();
-    final String sNow = TypeConverter.convertIfNecessary (aNow, String.class);
-    final LocalDateTime aNow2 = TypeConverter.convertIfNecessary (sNow, aNow.getClass ());
+    final String sNow = TypeConverter.convert (aNow, String.class);
+    final LocalDateTime aNow2 = TypeConverter.convert (sNow, aNow.getClass ());
     assertEquals (aNow, aNow2);
   }
 
   @Test
   public void testLocalDate ()
   {
-    assertNotNull (TypeConverter.convertIfNecessary (PDTFactory.createCalendar (), LocalDate.class));
-    assertNotNull (TypeConverter.convertIfNecessary (PDTFactory.createGregorianCalendar (), LocalDate.class));
-    assertNotNull (TypeConverter.convertIfNecessary (new Date (), LocalDate.class));
+    assertNotNull (TypeConverter.convert (PDTFactory.createCalendar (), LocalDate.class));
+    assertNotNull (TypeConverter.convert (PDTFactory.createGregorianCalendar (), LocalDate.class));
+    assertNotNull (TypeConverter.convert (new Date (), LocalDate.class));
     for (final Object aNumber : NUMBERS)
-      assertNotNull (TypeConverter.convertIfNecessary (aNumber, LocalDate.class));
+      assertNotNull (TypeConverter.convert (aNumber, LocalDate.class));
 
     // Test auto conversion to and from string
     final LocalDate aNow = PDTFactory.getCurrentLocalDate ();
-    final String sNow = TypeConverter.convertIfNecessary (aNow, String.class);
-    final LocalDate aNow2 = TypeConverter.convertIfNecessary (sNow, aNow.getClass ());
+    final String sNow = TypeConverter.convert (aNow, String.class);
+    final LocalDate aNow2 = TypeConverter.convert (sNow, aNow.getClass ());
     assertEquals (aNow, aNow2);
   }
 
   @Test
   public void testLocalTime ()
   {
-    assertNotNull (TypeConverter.convertIfNecessary (PDTFactory.createCalendar (), LocalTime.class));
-    assertNotNull (TypeConverter.convertIfNecessary (PDTFactory.createGregorianCalendar (), LocalTime.class));
-    assertNotNull (TypeConverter.convertIfNecessary (new Date (), LocalTime.class));
+    assertNotNull (TypeConverter.convert (PDTFactory.createCalendar (), LocalTime.class));
+    assertNotNull (TypeConverter.convert (PDTFactory.createGregorianCalendar (), LocalTime.class));
+    assertNotNull (TypeConverter.convert (new Date (), LocalTime.class));
     for (final Object aNumber : NUMBERS)
-      assertNotNull (TypeConverter.convertIfNecessary (aNumber, LocalTime.class));
+      assertNotNull (TypeConverter.convert (aNumber, LocalTime.class));
 
     // Test auto conversion to and from string
     final LocalTime aNowTime = PDTFactory.getCurrentLocalTime ();
-    final String sNow = TypeConverter.convertIfNecessary (aNowTime, String.class);
-    final LocalTime aNowTime2 = TypeConverter.convertIfNecessary (sNow, aNowTime.getClass ());
+    final String sNow = TypeConverter.convert (aNowTime, String.class);
+    final LocalTime aNowTime2 = TypeConverter.convert (sNow, aNowTime.getClass ());
     assertEquals (aNowTime, aNowTime2);
 
     // Test auto conversion between default types
     for (final Class <?> aDestClass : new Class <?> [] { ZonedDateTime.class, LocalDateTime.class })
     {
       final LocalTime aNow = PDTFactory.getCurrentLocalTime ();
-      final Object aDT = TypeConverter.convertIfNecessary (aNow, aDestClass);
-      final LocalTime aNow2 = TypeConverter.convertIfNecessary (aDT, aNow.getClass ());
+      final Object aDT = TypeConverter.convert (aNow, aDestClass);
+      final LocalTime aNow2 = TypeConverter.convert (aDT, aNow.getClass ());
       assertEquals (aNow, aNow2);
     }
     for (final Class <?> aDestClass : new Class <?> [] { ZonedDateTime.class, LocalDateTime.class })
     {
       final LocalDate aNow = PDTFactory.getCurrentLocalDate ();
-      final Object aDT = TypeConverter.convertIfNecessary (aNow, aDestClass);
-      final LocalDate aNow2 = TypeConverter.convertIfNecessary (aDT, aNow.getClass ());
+      final Object aDT = TypeConverter.convert (aNow, aDestClass);
+      final LocalDate aNow2 = TypeConverter.convert (aDT, aNow.getClass ());
       assertEquals (aNow, aNow2);
     }
   }
@@ -174,9 +174,9 @@ public final class DateTimeTypeConverterRegistrarTest
     for (final Map.Entry <Class <?>, Object> aSrc : aValues.entrySet ())
     {
       // Convert to String and back
-      final String s = TypeConverter.convertIfNecessary (aSrc.getValue (), String.class);
+      final String s = TypeConverter.convert (aSrc.getValue (), String.class);
       assertNotNull (s);
-      final Object aSrcValue2 = TypeConverter.convertIfNecessary (s, aSrc.getKey ());
+      final Object aSrcValue2 = TypeConverter.convert (s, aSrc.getKey ());
       assertNotNull (aSrcValue2);
       assertEquals ("Difference after reading from: " + s, aSrc.getValue (), aSrcValue2);
 
@@ -198,7 +198,7 @@ public final class DateTimeTypeConverterRegistrarTest
           else
           {
             s_aLogger.info ("Converting from " + aSrc.getKey ().getName () + " to " + aDst.getName ());
-            final Object aDstValue = TypeConverter.convertIfNecessary (aSrc.getValue (), aDst);
+            final Object aDstValue = TypeConverter.convert (aSrc.getValue (), aDst);
             assertNotNull (aDstValue);
           }
         }

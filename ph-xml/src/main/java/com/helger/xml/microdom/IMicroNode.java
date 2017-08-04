@@ -301,7 +301,7 @@ public interface IMicroNode extends
   default IMicroText appendTextWithConversion (@Nullable final Object aValue) throws MicroException
   {
     // Throws IlliegalArgumentException when no conversion is available
-    final String sValue = TypeConverter.convertIfNecessary (aValue, String.class);
+    final String sValue = TypeConverter.convert (aValue, String.class);
     return appendText (sValue);
   }
 
@@ -424,7 +424,7 @@ public interface IMicroNode extends
   default IMicroCDATA appendCDATAWithConversion (@Nullable final Object aValue) throws MicroException
   {
     // Throws IlliegalArgumentException when no conversion is available
-    final String sValue = TypeConverter.convertIfNecessary (aValue, String.class);
+    final String sValue = TypeConverter.convert (aValue, String.class);
     return appendCDATA (sValue);
   }
 
@@ -495,7 +495,7 @@ public interface IMicroNode extends
   default IMicroComment appendCommentWithConversion (@Nullable final Object aValue) throws MicroException
   {
     // Throws IlliegalArgumentException when no conversion is available
-    final String sValue = TypeConverter.convertIfNecessary (aValue, String.class);
+    final String sValue = TypeConverter.convert (aValue, String.class);
     return appendComment (sValue);
   }
 

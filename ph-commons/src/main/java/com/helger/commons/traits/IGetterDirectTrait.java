@@ -163,7 +163,7 @@ public interface IGetterDirectTrait
   @Nullable
   default <T> T getConvertedValue (@Nonnull final Class <T> aClass)
   {
-    return TypeConverter.convertIfNecessary (getValue (), aClass);
+    return TypeConverter.convert (getValue (), aClass);
   }
 
   /**
@@ -185,7 +185,7 @@ public interface IGetterDirectTrait
   default <T> T getConvertedValue (@Nullable final T aDefault, @Nonnull final Class <T> aClass)
   {
     final Object aValue = getValue ();
-    return aValue == null ? aDefault : TypeConverter.convertIfNecessary (aValue, aClass);
+    return aValue == null ? aDefault : TypeConverter.convert (aValue, aClass);
   }
 
   default boolean getAsBoolean () throws TypeConverterException

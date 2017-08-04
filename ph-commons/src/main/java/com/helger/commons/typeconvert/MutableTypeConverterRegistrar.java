@@ -53,8 +53,8 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableBigDecimal.class,
                                                                   aSource -> aSource.getAsBigDecimal ());
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableBigDecimal.class,
-                                                                  aSource -> new MutableBigDecimal (TypeConverter.convertIfNecessary (aSource,
-                                                                                                                                      BigDecimal.class)));
+                                                                  aSource -> new MutableBigDecimal (TypeConverter.convert (aSource,
+                                                                                                                           BigDecimal.class)));
 
     // MutableBigInteger
     aRegistry.registerTypeConverter (MutableBigInteger.class, BigInteger.class, aSource -> aSource.getAsBigInteger ());
@@ -64,8 +64,8 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableBigInteger.class,
                                                                   aSource -> aSource.getAsBigInteger ());
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableBigInteger.class,
-                                                                  aSource -> new MutableBigInteger (TypeConverter.convertIfNecessary (aSource,
-                                                                                                                                      BigInteger.class)));
+                                                                  aSource -> new MutableBigInteger (TypeConverter.convert (aSource,
+                                                                                                                           BigInteger.class)));
 
     // MutableBoolean
     aRegistry.registerTypeConverter (MutableBoolean.class, Boolean.class, aSource -> aSource.getAsBoolean ());
@@ -73,16 +73,16 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableBoolean.class,
                                                                   aSource -> aSource.getAsBoolean ());
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableBoolean.class,
-                                                                  aSource -> new MutableBoolean (TypeConverter.convertIfNecessary (aSource,
-                                                                                                                                   Boolean.class)));
+                                                                  aSource -> new MutableBoolean (TypeConverter.convert (aSource,
+                                                                                                                        Boolean.class)));
 
     // MutableByte
     aRegistry.registerTypeConverter (MutableByte.class, Byte.class, aSource -> aSource.getAsByte ());
     aRegistry.registerTypeConverter (Byte.class, MutableByte.class, aSource -> new MutableByte (aSource));
     aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableByte.class, aSource -> aSource.getAsByte ());
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableByte.class,
-                                                                  aSource -> new MutableByte (TypeConverter.convertIfNecessary (aSource,
-                                                                                                                                Byte.class)));
+                                                                  aSource -> new MutableByte (TypeConverter.convert (aSource,
+                                                                                                                     Byte.class)));
 
     // MutableChar
     aRegistry.registerTypeConverter (MutableChar.class, Character.class, aSource -> aSource.getAsCharacter ());
@@ -90,8 +90,8 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableChar.class,
                                                                   aSource -> aSource.getAsCharacter ());
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableChar.class,
-                                                                  aSource -> new MutableChar (TypeConverter.convertIfNecessary (aSource,
-                                                                                                                                Character.class)));
+                                                                  aSource -> new MutableChar (TypeConverter.convert (aSource,
+                                                                                                                     Character.class)));
 
     // MutableDouble
     aRegistry.registerTypeConverter (MutableDouble.class, Double.class, aSource -> aSource.getAsDouble ());
@@ -99,39 +99,39 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableDouble.class,
                                                                   aSource -> aSource.getAsDouble ());
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableDouble.class,
-                                                                  aSource -> new MutableDouble (TypeConverter.convertIfNecessary (aSource,
-                                                                                                                                  Double.class)));
+                                                                  aSource -> new MutableDouble (TypeConverter.convert (aSource,
+                                                                                                                       Double.class)));
 
     // MutableFloat
     aRegistry.registerTypeConverter (MutableFloat.class, Float.class, aSource -> aSource.getAsFloat ());
     aRegistry.registerTypeConverter (Float.class, MutableFloat.class, aSource -> new MutableFloat (aSource));
     aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableFloat.class, aSource -> aSource.getAsFloat ());
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableFloat.class,
-                                                                  aSource -> new MutableFloat (TypeConverter.convertIfNecessary (aSource,
-                                                                                                                                 Float.class)));
+                                                                  aSource -> new MutableFloat (TypeConverter.convert (aSource,
+                                                                                                                      Float.class)));
 
     // MutableInt
     aRegistry.registerTypeConverter (MutableInt.class, Integer.class, aSource -> aSource.getAsInteger ());
     aRegistry.registerTypeConverter (Integer.class, MutableInt.class, aSource -> new MutableInt (aSource));
     aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableInt.class, aSource -> aSource.getAsInteger ());
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableInt.class,
-                                                                  aSource -> new MutableInt (TypeConverter.convertIfNecessary (aSource,
-                                                                                                                               Integer.class)));
+                                                                  aSource -> new MutableInt (TypeConverter.convert (aSource,
+                                                                                                                    Integer.class)));
 
     // MutableLong
     aRegistry.registerTypeConverter (MutableLong.class, Long.class, aSource -> aSource.getAsLong ());
     aRegistry.registerTypeConverter (Long.class, MutableLong.class, aSource -> new MutableLong (aSource));
     aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableLong.class, aSource -> aSource.getAsLong ());
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableLong.class,
-                                                                  aSource -> new MutableLong (TypeConverter.convertIfNecessary (aSource,
-                                                                                                                                Long.class)));
+                                                                  aSource -> new MutableLong (TypeConverter.convert (aSource,
+                                                                                                                     Long.class)));
 
     // MutableShort
     aRegistry.registerTypeConverter (MutableShort.class, Short.class, aSource -> aSource.getAsShort ());
     aRegistry.registerTypeConverter (Short.class, MutableShort.class, aSource -> new MutableShort (aSource));
     aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableShort.class, aSource -> aSource.getAsShort ());
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableShort.class,
-                                                                  aSource -> new MutableShort (TypeConverter.convertIfNecessary (aSource,
-                                                                                                                                 Short.class)));
+                                                                  aSource -> new MutableShort (TypeConverter.convert (aSource,
+                                                                                                                      Short.class)));
   }
 }

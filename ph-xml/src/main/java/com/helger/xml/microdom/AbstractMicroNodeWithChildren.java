@@ -329,7 +329,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
     if (StringHelper.hasNoText (sTextContent))
       return null;
 
-    final DSTTYPE ret = TypeConverter.convertIfNecessary (sTextContent, aDstClass);
+    final DSTTYPE ret = TypeConverter.convert (sTextContent, aDstClass);
     return ret;
   }
 

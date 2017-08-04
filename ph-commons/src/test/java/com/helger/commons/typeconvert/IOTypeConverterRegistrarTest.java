@@ -49,50 +49,50 @@ public final class IOTypeConverterRegistrarTest
                                                                   new URLResource ("file://src/test/resources/test1.txt") };
     for (final IReadableResource aRes : aRess)
     {
-      final String s = TypeConverter.convertIfNecessary (aRes, String.class);
-      final IReadableResource aRes2 = TypeConverter.convertIfNecessary (s, aRes.getClass ());
+      final String s = TypeConverter.convert (aRes, String.class);
+      final IReadableResource aRes2 = TypeConverter.convert (s, aRes.getClass ());
       assertEquals (aRes, aRes2);
 
       // Avoid calling exists on the URLs
       if (aRes instanceof ClassPathResource && aRes.exists ())
       {
-        final URL u = TypeConverter.convertIfNecessary (aRes, URL.class);
-        final IReadableResource aRes3 = TypeConverter.convertIfNecessary (u, aRes.getClass ());
+        final URL u = TypeConverter.convert (aRes, URL.class);
+        final IReadableResource aRes3 = TypeConverter.convert (u, aRes.getClass ());
         assertEquals (aRes.getResourceID (), aRes3.getResourceID ());
       }
     }
 
     // File <--> String
     final File f = new File ("x/../targetfile").getAbsoluteFile ();
-    final String s = TypeConverter.convertIfNecessary (f, String.class);
-    assertEquals (f, TypeConverter.convertIfNecessary (s, File.class));
+    final String s = TypeConverter.convert (f, String.class);
+    assertEquals (f, TypeConverter.convert (s, File.class));
 
     // FileSystemResource <--> URL
     final URL u = FileHelper.getCanonicalFile (f).toURI ().toURL ();
-    final FileSystemResource fs = TypeConverter.convertIfNecessary (u, FileSystemResource.class);
+    final FileSystemResource fs = TypeConverter.convert (u, FileSystemResource.class);
     try
     {
-      TypeConverter.convertIfNecessary (new URL ("http://www.google.com"), FileSystemResource.class);
+      TypeConverter.convert (new URL ("http://www.google.com"), FileSystemResource.class);
       fail ();
     }
     catch (final TypeConverterException ex)
     {}
-    assertEquals (u, TypeConverter.convertIfNecessary (fs, URL.class));
+    assertEquals (u, TypeConverter.convert (fs, URL.class));
 
     // String <--> URLResource
     final URLResource ur = new URLResource (new URL ("http://www.helger.com"));
-    final String s2 = TypeConverter.convertIfNecessary (ur, String.class);
-    assertEquals (ur, TypeConverter.convertIfNecessary (s2, URLResource.class));
+    final String s2 = TypeConverter.convert (ur, String.class);
+    assertEquals (ur, TypeConverter.convert (s2, URLResource.class));
     try
     {
-      TypeConverter.convertIfNecessary ("what the heck - I don't care!", URLResource.class);
+      TypeConverter.convert ("what the heck - I don't care!", URLResource.class);
       fail ();
     }
     catch (final TypeConverterException ex)
     {}
 
     // URL <--> URLResource
-    final URL u2 = TypeConverter.convertIfNecessary (ur, URL.class);
-    assertEquals (ur, TypeConverter.convertIfNecessary (u2, URLResource.class));
+    final URL u2 = TypeConverter.convert (ur, URL.class);
+    assertEquals (ur, TypeConverter.convert (u2, URLResource.class));
   }
 }

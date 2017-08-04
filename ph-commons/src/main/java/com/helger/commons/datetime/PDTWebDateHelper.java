@@ -182,7 +182,7 @@ public final class PDTWebDateHelper
                            aMask.getPattern () +
                            "' to " +
                            ret.getClass ().getName ());
-        return TypeConverter.convertIfNecessary (ret, OffsetDateTime.class);
+        return TypeConverter.convert (ret, OffsetDateTime.class);
       }
       catch (final DateTimeParseException ex)
       {
@@ -229,7 +229,7 @@ public final class PDTWebDateHelper
                            aMask.getPattern () +
                            "' to " +
                            ret.getClass ().getName ());
-        return TypeConverter.convertIfNecessary (ret, ZonedDateTime.class);
+        return TypeConverter.convert (ret, ZonedDateTime.class);
       }
       catch (final DateTimeParseException ex)
       {

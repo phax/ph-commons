@@ -110,7 +110,7 @@ public class SettingsPersistenceProperties implements ISettingsPersistence
           throw new IllegalArgumentException ("When saving settings to a Properties object, it may not contained nested settings! Now the key '" +
                                               sName +
                                               "' is mapped to a nested ISettings object!");
-        final String sValue = TypeConverter.convertIfNecessary (aValue, String.class);
+        final String sValue = TypeConverter.convert (aValue, String.class);
         aProps.put (sName, sValue);
       }
       // Does not close the output stream!

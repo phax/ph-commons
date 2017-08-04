@@ -53,49 +53,49 @@ public final class TypeConverter
   @Nullable
   public static <DSTTYPE> DSTTYPE convert (final boolean aSrcValue, @Nonnull final Class <DSTTYPE> aDstClass)
   {
-    return convertIfNecessary (Boolean.valueOf (aSrcValue), aDstClass);
+    return convert (Boolean.valueOf (aSrcValue), aDstClass);
   }
 
   @Nullable
   public static <DSTTYPE> DSTTYPE convert (final byte aSrcValue, @Nonnull final Class <DSTTYPE> aDstClass)
   {
-    return convertIfNecessary (Byte.valueOf (aSrcValue), aDstClass);
+    return convert (Byte.valueOf (aSrcValue), aDstClass);
   }
 
   @Nullable
   public static <DSTTYPE> DSTTYPE convert (final char aSrcValue, @Nonnull final Class <DSTTYPE> aDstClass)
   {
-    return convertIfNecessary (Character.valueOf (aSrcValue), aDstClass);
+    return convert (Character.valueOf (aSrcValue), aDstClass);
   }
 
   @Nullable
   public static <DSTTYPE> DSTTYPE convert (final double aSrcValue, @Nonnull final Class <DSTTYPE> aDstClass)
   {
-    return convertIfNecessary (Double.valueOf (aSrcValue), aDstClass);
+    return convert (Double.valueOf (aSrcValue), aDstClass);
   }
 
   @Nullable
   public static <DSTTYPE> DSTTYPE convert (final float aSrcValue, @Nonnull final Class <DSTTYPE> aDstClass)
   {
-    return convertIfNecessary (Float.valueOf (aSrcValue), aDstClass);
+    return convert (Float.valueOf (aSrcValue), aDstClass);
   }
 
   @Nullable
   public static <DSTTYPE> DSTTYPE convert (final int aSrcValue, @Nonnull final Class <DSTTYPE> aDstClass)
   {
-    return convertIfNecessary (Integer.valueOf (aSrcValue), aDstClass);
+    return convert (Integer.valueOf (aSrcValue), aDstClass);
   }
 
   @Nullable
   public static <DSTTYPE> DSTTYPE convert (final long aSrcValue, @Nonnull final Class <DSTTYPE> aDstClass)
   {
-    return convertIfNecessary (Long.valueOf (aSrcValue), aDstClass);
+    return convert (Long.valueOf (aSrcValue), aDstClass);
   }
 
   @Nullable
   public static <DSTTYPE> DSTTYPE convert (final short aSrcValue, @Nonnull final Class <DSTTYPE> aDstClass)
   {
-    return convertIfNecessary (Short.valueOf (aSrcValue), aDstClass);
+    return convert (Short.valueOf (aSrcValue), aDstClass);
   }
 
   /**
@@ -115,7 +115,7 @@ public final class TypeConverter
   {
     if (aSrcValue == null)
       throw new TypeConverterException (boolean.class, EReason.NULL_SOURCE_NOT_ALLOWED);
-    final Boolean aValue = convertIfNecessary (aSrcValue, Boolean.class);
+    final Boolean aValue = convert (aSrcValue, Boolean.class);
     return aValue.booleanValue ();
   }
 
@@ -134,7 +134,7 @@ public final class TypeConverter
    */
   public static boolean convertToBoolean (@Nullable final Object aSrcValue, final boolean bDefault)
   {
-    final Boolean aValue = convertIfNecessary (aSrcValue, Boolean.class, null);
+    final Boolean aValue = convert (aSrcValue, Boolean.class, null);
     return aValue == null ? bDefault : aValue.booleanValue ();
   }
 
@@ -155,7 +155,7 @@ public final class TypeConverter
   {
     if (aSrcValue == null)
       throw new TypeConverterException (byte.class, EReason.NULL_SOURCE_NOT_ALLOWED);
-    final Byte aValue = convertIfNecessary (aSrcValue, Byte.class);
+    final Byte aValue = convert (aSrcValue, Byte.class);
     return aValue.byteValue ();
   }
 
@@ -174,7 +174,7 @@ public final class TypeConverter
    */
   public static byte convertToByte (@Nullable final Object aSrcValue, final byte nDefault)
   {
-    final Byte aValue = convertIfNecessary (aSrcValue, Byte.class, null);
+    final Byte aValue = convert (aSrcValue, Byte.class, null);
     return aValue == null ? nDefault : aValue.byteValue ();
   }
 
@@ -195,7 +195,7 @@ public final class TypeConverter
   {
     if (aSrcValue == null)
       throw new TypeConverterException (char.class, EReason.NULL_SOURCE_NOT_ALLOWED);
-    final Character aValue = convertIfNecessary (aSrcValue, Character.class);
+    final Character aValue = convert (aSrcValue, Character.class);
     return aValue.charValue ();
   }
 
@@ -214,7 +214,7 @@ public final class TypeConverter
    */
   public static char convertToChar (@Nullable final Object aSrcValue, final char cDefault)
   {
-    final Character aValue = convertIfNecessary (aSrcValue, Character.class, null);
+    final Character aValue = convert (aSrcValue, Character.class, null);
     return aValue == null ? cDefault : aValue.charValue ();
   }
 
@@ -235,7 +235,7 @@ public final class TypeConverter
   {
     if (aSrcValue == null)
       throw new TypeConverterException (double.class, EReason.NULL_SOURCE_NOT_ALLOWED);
-    final Double aValue = convertIfNecessary (aSrcValue, Double.class);
+    final Double aValue = convert (aSrcValue, Double.class);
     return aValue.doubleValue ();
   }
 
@@ -254,7 +254,7 @@ public final class TypeConverter
    */
   public static double convertToDouble (@Nullable final Object aSrcValue, final double dDefault)
   {
-    final Double aValue = convertIfNecessary (aSrcValue, Double.class, null);
+    final Double aValue = convert (aSrcValue, Double.class, null);
     return aValue == null ? dDefault : aValue.doubleValue ();
   }
 
@@ -275,7 +275,7 @@ public final class TypeConverter
   {
     if (aSrcValue == null)
       throw new TypeConverterException (float.class, EReason.NULL_SOURCE_NOT_ALLOWED);
-    final Float aValue = convertIfNecessary (aSrcValue, Float.class);
+    final Float aValue = convert (aSrcValue, Float.class);
     return aValue.floatValue ();
   }
 
@@ -294,7 +294,7 @@ public final class TypeConverter
    */
   public static float convertToFloat (@Nullable final Object aSrcValue, final float fDefault)
   {
-    final Float aValue = convertIfNecessary (aSrcValue, Float.class, null);
+    final Float aValue = convert (aSrcValue, Float.class, null);
     return aValue == null ? fDefault : aValue.floatValue ();
   }
 
@@ -315,7 +315,7 @@ public final class TypeConverter
   {
     if (aSrcValue == null)
       throw new TypeConverterException (int.class, EReason.NULL_SOURCE_NOT_ALLOWED);
-    final Integer aValue = convertIfNecessary (aSrcValue, Integer.class);
+    final Integer aValue = convert (aSrcValue, Integer.class);
     return aValue.intValue ();
   }
 
@@ -334,7 +334,7 @@ public final class TypeConverter
    */
   public static int convertToInt (@Nullable final Object aSrcValue, final int nDefault)
   {
-    final Integer aValue = convertIfNecessary (aSrcValue, Integer.class, null);
+    final Integer aValue = convert (aSrcValue, Integer.class, null);
     return aValue == null ? nDefault : aValue.intValue ();
   }
 
@@ -355,7 +355,7 @@ public final class TypeConverter
   {
     if (aSrcValue == null)
       throw new TypeConverterException (long.class, EReason.NULL_SOURCE_NOT_ALLOWED);
-    final Long aValue = convertIfNecessary (aSrcValue, Long.class);
+    final Long aValue = convert (aSrcValue, Long.class);
     return aValue.longValue ();
   }
 
@@ -374,7 +374,7 @@ public final class TypeConverter
    */
   public static long convertToLong (@Nullable final Object aSrcValue, final long nDefault)
   {
-    final Long aValue = convertIfNecessary (aSrcValue, Long.class, null);
+    final Long aValue = convert (aSrcValue, Long.class, null);
     return aValue == null ? nDefault : aValue.longValue ();
   }
 
@@ -395,7 +395,7 @@ public final class TypeConverter
   {
     if (aSrcValue == null)
       throw new TypeConverterException (short.class, EReason.NULL_SOURCE_NOT_ALLOWED);
-    final Short aValue = convertIfNecessary (aSrcValue, Short.class);
+    final Short aValue = convert (aSrcValue, Short.class);
     return aValue.shortValue ();
   }
 
@@ -414,7 +414,7 @@ public final class TypeConverter
    */
   public static short convertToShort (@Nullable final Object aSrcValue, final short nDefault)
   {
-    final Short aValue = convertIfNecessary (aSrcValue, Short.class, null);
+    final Short aValue = convert (aSrcValue, Short.class, null);
     return aValue == null ? nDefault : aValue.shortValue ();
   }
 
@@ -437,10 +437,9 @@ public final class TypeConverter
    * @see TypeConverterProviderBestMatch
    */
   @Nullable
-  public static <DSTTYPE> DSTTYPE convertIfNecessary (@Nullable final Object aSrcValue,
-                                                      @Nonnull final Class <DSTTYPE> aDstClass)
+  public static <DSTTYPE> DSTTYPE convert (@Nullable final Object aSrcValue, @Nonnull final Class <DSTTYPE> aDstClass)
   {
-    return convertIfNecessary (TypeConverterProviderBestMatch.getInstance (), aSrcValue, aDstClass);
+    return convert (TypeConverterProviderBestMatch.getInstance (), aSrcValue, aDstClass);
   }
 
   /**
@@ -527,9 +526,9 @@ public final class TypeConverter
    *         If the converter itself throws an exception
    */
   @Nullable
-  public static <DSTTYPE> DSTTYPE convertIfNecessary (@Nonnull final ITypeConverterProvider aTypeConverterProvider,
-                                                      @Nullable final Object aSrcValue,
-                                                      @Nonnull final Class <DSTTYPE> aDstClass) throws TypeConverterException
+  public static <DSTTYPE> DSTTYPE convert (@Nonnull final ITypeConverterProvider aTypeConverterProvider,
+                                           @Nullable final Object aSrcValue,
+                                           @Nonnull final Class <DSTTYPE> aDstClass) throws TypeConverterException
   {
     ValueEnforcer.notNull (aTypeConverterProvider, "TypeConverterProvider");
     ValueEnforcer.notNull (aDstClass, "DstClass");
@@ -575,11 +574,11 @@ public final class TypeConverter
    * @see TypeConverterProviderBestMatch
    */
   @Nullable
-  public static <DSTTYPE> DSTTYPE convertIfNecessary (@Nullable final Object aSrcValue,
-                                                      @Nonnull final Class <DSTTYPE> aDstClass,
-                                                      @Nullable final DSTTYPE aDefault)
+  public static <DSTTYPE> DSTTYPE convert (@Nullable final Object aSrcValue,
+                                           @Nonnull final Class <DSTTYPE> aDstClass,
+                                           @Nullable final DSTTYPE aDefault)
   {
-    return convertIfNecessary (TypeConverterProviderBestMatch.getInstance (), aSrcValue, aDstClass, aDefault);
+    return convert (TypeConverterProviderBestMatch.getInstance (), aSrcValue, aDstClass, aDefault);
   }
 
   /**
@@ -603,14 +602,14 @@ public final class TypeConverter
    *         If the converter itself throws an exception
    */
   @Nullable
-  public static <DSTTYPE> DSTTYPE convertIfNecessary (@Nonnull final ITypeConverterProvider aTypeConverterProvider,
-                                                      @Nullable final Object aSrcValue,
-                                                      @Nonnull final Class <DSTTYPE> aDstClass,
-                                                      @Nullable final DSTTYPE aDefault) throws TypeConverterException
+  public static <DSTTYPE> DSTTYPE convert (@Nonnull final ITypeConverterProvider aTypeConverterProvider,
+                                           @Nullable final Object aSrcValue,
+                                           @Nonnull final Class <DSTTYPE> aDstClass,
+                                           @Nullable final DSTTYPE aDefault) throws TypeConverterException
   {
     try
     {
-      return convertIfNecessary (TypeConverterProviderBestMatch.getInstance (), aSrcValue, aDstClass);
+      return convert (TypeConverterProviderBestMatch.getInstance (), aSrcValue, aDstClass);
     }
     catch (final TypeConverterException ex)
     {

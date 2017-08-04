@@ -508,7 +508,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
         for (int i = 0; i < nLength; ++i)
         {
           final Object aSourceElement = Array.get (aSource, i);
-          ret[i] = TypeConverter.convertIfNecessary (aSourceElement, String.class);
+          ret[i] = TypeConverter.convert (aSourceElement, String.class);
         }
       }
       else
@@ -519,13 +519,13 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
           ret = new String [aSourceCollection.size ()];
           int nIndex = 0;
           for (final Object aSourceElement : aSourceCollection)
-            ret[nIndex++] = TypeConverter.convertIfNecessary (aSourceElement, String.class);
+            ret[nIndex++] = TypeConverter.convert (aSourceElement, String.class);
         }
         else
         {
           /* Use object as is */
           ret = new String [1];
-          ret[0] = TypeConverter.convertIfNecessary (aSource, String.class);
+          ret[0] = TypeConverter.convert (aSource, String.class);
         }
       return ret;
     });

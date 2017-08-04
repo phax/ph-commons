@@ -147,14 +147,14 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
 
       // Convert into all other types
       for (final Class <?> aDstClass : CONVERTIBLE_CLASSES)
-        assertNotNull (TypeConverter.convertIfNecessary (aSrcValue, aDstClass));
+        assertNotNull (TypeConverter.convert (aSrcValue, aDstClass));
 
       // Convert to primitive types
       for (final Class <?> aDstClass : ClassHelper.getAllPrimitiveClasses ())
-        assertNotNull (TypeConverter.convertIfNecessary (aSrcValue, aDstClass));
+        assertNotNull (TypeConverter.convert (aSrcValue, aDstClass));
 
-      assertNotNull (TypeConverter.convertIfNecessary (aSrcValue, List.class));
-      assertNotNull (TypeConverter.convertIfNecessary (aSrcValue, Set.class));
+      assertNotNull (TypeConverter.convert (aSrcValue, List.class));
+      assertNotNull (TypeConverter.convert (aSrcValue, Set.class));
     }
   }
 
@@ -166,11 +166,11 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
       final Boolean aSrcValue = Boolean.valueOf (i == 0);
 
       for (final Class <?> aDstClass : CONVERTIBLE_CLASSES)
-        assertNotNull (TypeConverter.convertIfNecessary (aSrcValue, aDstClass));
+        assertNotNull (TypeConverter.convert (aSrcValue, aDstClass));
 
       // Convert to primitive types
       for (final Class <?> aDstClass : ClassHelper.getAllPrimitiveClasses ())
-        assertNotNull (TypeConverter.convertIfNecessary (aSrcValue, aDstClass));
+        assertNotNull (TypeConverter.convert (aSrcValue, aDstClass));
     }
   }
 
@@ -181,7 +181,7 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
     for (final Class <?> aDstClass : ArrayHelper.getConcatenated (CONVERTIBLE_CLASSES, new Class <?> [] { Enum.class }))
       try
       {
-        TypeConverter.convertIfNecessary ("not a number", aDstClass);
+        TypeConverter.convert ("not a number", aDstClass);
       }
       catch (final TypeConverterException ex)
       {
@@ -222,8 +222,8 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
                                                    new StringBuilder ("Thät lüks greyt!") };
     for (final Object aSrcValue : aDefinedObjs)
     {
-      final String sValue = TypeConverter.convertIfNecessary (aSrcValue, String.class);
-      final Object aObj2 = TypeConverter.convertIfNecessary (sValue, aSrcValue.getClass ());
+      final String sValue = TypeConverter.convert (aSrcValue, String.class);
+      final Object aObj2 = TypeConverter.convert (sValue, aSrcValue.getClass ());
       assertTrue (EqualsHelper.equals (aSrcValue, aObj2));
     }
 
@@ -232,8 +232,8 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
     final Object [] aUpCastObjs = new Object [] { ELocaleName.ID_LANGUAGE_ALL };
     for (final Object aSrcValue : aUpCastObjs)
     {
-      final String sValue = TypeConverter.convertIfNecessary (aSrcValue, String.class);
-      final Object aObj2 = TypeConverter.convertIfNecessary (sValue, aSrcValue.getClass ());
+      final String sValue = TypeConverter.convert (aSrcValue, String.class);
+      final Object aObj2 = TypeConverter.convert (sValue, aSrcValue.getClass ());
       assertEquals (aSrcValue, aObj2);
     }
 
@@ -247,14 +247,14 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
                                                   new StringBuffer (),
                                                   new StringBuffer ("Das gilt auch für StringBuffer") })
     {
-      String sValue = TypeConverter.convertIfNecessary (aSrcValue, String.class);
-      Object aObj2 = TypeConverter.convertIfNecessary (sValue, aSrcValue.getClass ());
+      String sValue = TypeConverter.convert (aSrcValue, String.class);
+      Object aObj2 = TypeConverter.convert (sValue, aSrcValue.getClass ());
       assertEquals (aSrcValue.toString (), aObj2.toString ());
 
-      sValue = TypeConverter.convertIfNecessary (TypeConverterProviderRuleBased.getInstance (),
+      sValue = TypeConverter.convert (TypeConverterProviderRuleBased.getInstance (),
                                                  aSrcValue,
                                                  String.class);
-      aObj2 = TypeConverter.convertIfNecessary (TypeConverterProviderRuleBased.getInstance (),
+      aObj2 = TypeConverter.convert (TypeConverterProviderRuleBased.getInstance (),
                                                 sValue,
                                                 aSrcValue.getClass ());
       assertEquals (aSrcValue.toString (), aObj2.toString ());
@@ -267,9 +267,9 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
     // Check if conversion works for all locales
     for (final Locale aLocale : LocaleCache.getInstance ().getAllLocales ())
     {
-      final String sLocale = TypeConverter.convertIfNecessary (aLocale, String.class);
+      final String sLocale = TypeConverter.convert (aLocale, String.class);
       assertNotNull (aLocale.toString (), sLocale);
-      final Locale aLocale2 = TypeConverter.convertIfNecessary (sLocale, Locale.class);
+      final Locale aLocale2 = TypeConverter.convert (sLocale, Locale.class);
       assertTrue (EqualsHelper.equals (aLocale, aLocale2));
     }
   }
@@ -279,16 +279,16 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
   {
     // Check if conversion works for char[]
     final char [] aValue1 = "xyz".toCharArray ();
-    String sValue = TypeConverter.convertIfNecessary (aValue1, String.class);
-    final char [] aValue2 = TypeConverter.convertIfNecessary (sValue, char [].class);
+    String sValue = TypeConverter.convert (aValue1, String.class);
+    final char [] aValue2 = TypeConverter.convert (sValue, char [].class);
     assertArrayEquals (aValue1, aValue2);
 
     // Check if conversion works for byte[]
     final byte [] aValue3 = new byte [256];
     for (int i = 0; i < aValue3.length; ++i)
       aValue3[i] = (byte) i;
-    sValue = TypeConverter.convertIfNecessary (aValue3, String.class);
-    final byte [] aValue4 = TypeConverter.convertIfNecessary (sValue, byte [].class);
+    sValue = TypeConverter.convert (aValue3, String.class);
+    final byte [] aValue4 = TypeConverter.convert (sValue, byte [].class);
     assertArrayEquals (aValue3, aValue4);
   }
 
@@ -296,12 +296,12 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
   public void testBigX ()
   {
     BigInteger aBI = BigInteger.valueOf (1234);
-    BigDecimal aBD = TypeConverter.convertIfNecessary (aBI, BigDecimal.class);
+    BigDecimal aBD = TypeConverter.convert (aBI, BigDecimal.class);
     assertEquals (1234, aBD.intValue ());
     assertEquals (aBI, aBD.toBigInteger ());
 
     aBD = new BigDecimal ("4567.891");
-    aBI = TypeConverter.convertIfNecessary (aBD, BigInteger.class);
+    aBI = TypeConverter.convert (aBD, BigInteger.class);
     assertEquals (4567, aBI.intValue ());
     assertEquals ("4567", aBI.toString ());
   }
@@ -309,7 +309,7 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
   @Test
   public void testConvertToObject ()
   {
-    final Object aObj = TypeConverter.convertIfNecessary (this, Object.class);
+    final Object aObj = TypeConverter.convert (this, Object.class);
     assertNotNull (aObj);
     assertSame (this, aObj);
   }
@@ -319,11 +319,11 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
   {
     // No type converter present, but objects are assignable
     final MockImplementation aImpl = new MockImplementation ();
-    assertSame (aImpl, TypeConverter.convertIfNecessary (aImpl, IMockInterface.class));
+    assertSame (aImpl, TypeConverter.convert (aImpl, IMockInterface.class));
 
     final MockSubImplementation aSubImpl = new MockSubImplementation ();
-    assertSame (aSubImpl, TypeConverter.convertIfNecessary (aSubImpl, IMockInterface.class));
-    assertSame (aSubImpl, TypeConverter.convertIfNecessary (aSubImpl, MockImplementation.class));
+    assertSame (aSubImpl, TypeConverter.convert (aSubImpl, IMockInterface.class));
+    assertSame (aSubImpl, TypeConverter.convert (aSubImpl, MockImplementation.class));
   }
 
   @Test
@@ -331,7 +331,7 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
   {
     try
     {
-      final MultilingualText m = TypeConverter.convertIfNecessary ("1234", MultilingualText.class);
+      final MultilingualText m = TypeConverter.convert ("1234", MultilingualText.class);
       assertNotNull (m);
       fail ();
     }
@@ -343,96 +343,96 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
   public void testBooleanArray ()
   {
     final boolean [] aBooleans = new boolean [] { true, false, true };
-    assertFalse (TypeConverter.convertIfNecessary (aBooleans, List.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aBooleans, CommonsArrayList.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aBooleans, Set.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aBooleans, CommonsHashSet.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aBooleans, CommonsLinkedHashSet.class).isEmpty ());
-    assertEquals (3, TypeConverter.convertIfNecessary (aBooleans, String [].class).length);
+    assertFalse (TypeConverter.convert (aBooleans, List.class).isEmpty ());
+    assertFalse (TypeConverter.convert (aBooleans, CommonsArrayList.class).isEmpty ());
+    assertFalse (TypeConverter.convert (aBooleans, Set.class).isEmpty ());
+    assertFalse (TypeConverter.convert (aBooleans, CommonsHashSet.class).isEmpty ());
+    assertFalse (TypeConverter.convert (aBooleans, CommonsLinkedHashSet.class).isEmpty ());
+    assertEquals (3, TypeConverter.convert (aBooleans, String [].class).length);
   }
 
   @Test
   public void testByteArray ()
   {
     final byte [] aBytes = new byte [] { 5, 6, 7 };
-    assertFalse (TypeConverter.convertIfNecessary (aBytes, List.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aBytes, CommonsArrayList.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aBytes, Set.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aBytes, CommonsHashSet.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aBytes, CommonsLinkedHashSet.class).isEmpty ());
-    assertEquals (3, TypeConverter.convertIfNecessary (aBytes, String [].class).length);
+    assertFalse (TypeConverter.convert (aBytes, List.class).isEmpty ());
+    assertFalse (TypeConverter.convert (aBytes, CommonsArrayList.class).isEmpty ());
+    assertFalse (TypeConverter.convert (aBytes, Set.class).isEmpty ());
+    assertFalse (TypeConverter.convert (aBytes, CommonsHashSet.class).isEmpty ());
+    assertFalse (TypeConverter.convert (aBytes, CommonsLinkedHashSet.class).isEmpty ());
+    assertEquals (3, TypeConverter.convert (aBytes, String [].class).length);
   }
 
   @Test
   public void testCharArray ()
   {
     final char [] aChars = new char [] { 'a', 'b', 'c' };
-    assertFalse (TypeConverter.convertIfNecessary (aChars, List.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aChars, CommonsArrayList.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aChars, Set.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aChars, CommonsHashSet.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aChars, CommonsLinkedHashSet.class).isEmpty ());
-    assertEquals (3, TypeConverter.convertIfNecessary (aChars, String [].class).length);
+    assertFalse (TypeConverter.convert (aChars, List.class).isEmpty ());
+    assertFalse (TypeConverter.convert (aChars, CommonsArrayList.class).isEmpty ());
+    assertFalse (TypeConverter.convert (aChars, Set.class).isEmpty ());
+    assertFalse (TypeConverter.convert (aChars, CommonsHashSet.class).isEmpty ());
+    assertFalse (TypeConverter.convert (aChars, CommonsLinkedHashSet.class).isEmpty ());
+    assertEquals (3, TypeConverter.convert (aChars, String [].class).length);
   }
 
   @Test
   public void testDoubleArray ()
   {
     final double [] aDoubles = new double [] { 7, 3.14, 47.11 };
-    assertFalse (TypeConverter.convertIfNecessary (aDoubles, List.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aDoubles, CommonsArrayList.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aDoubles, Set.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aDoubles, CommonsHashSet.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aDoubles, CommonsLinkedHashSet.class).isEmpty ());
-    assertEquals (3, TypeConverter.convertIfNecessary (aDoubles, String [].class).length);
+    assertFalse (TypeConverter.convert (aDoubles, List.class).isEmpty ());
+    assertFalse (TypeConverter.convert (aDoubles, CommonsArrayList.class).isEmpty ());
+    assertFalse (TypeConverter.convert (aDoubles, Set.class).isEmpty ());
+    assertFalse (TypeConverter.convert (aDoubles, CommonsHashSet.class).isEmpty ());
+    assertFalse (TypeConverter.convert (aDoubles, CommonsLinkedHashSet.class).isEmpty ());
+    assertEquals (3, TypeConverter.convert (aDoubles, String [].class).length);
   }
 
   @Test
   public void testFloatArray ()
   {
     final float [] aFloats = new float [] { 5, 1.1f, 12234.5f };
-    assertFalse (TypeConverter.convertIfNecessary (aFloats, List.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aFloats, CommonsArrayList.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aFloats, Set.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aFloats, CommonsHashSet.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aFloats, CommonsLinkedHashSet.class).isEmpty ());
-    assertEquals (3, TypeConverter.convertIfNecessary (aFloats, String [].class).length);
+    assertFalse (TypeConverter.convert (aFloats, List.class).isEmpty ());
+    assertFalse (TypeConverter.convert (aFloats, CommonsArrayList.class).isEmpty ());
+    assertFalse (TypeConverter.convert (aFloats, Set.class).isEmpty ());
+    assertFalse (TypeConverter.convert (aFloats, CommonsHashSet.class).isEmpty ());
+    assertFalse (TypeConverter.convert (aFloats, CommonsLinkedHashSet.class).isEmpty ());
+    assertEquals (3, TypeConverter.convert (aFloats, String [].class).length);
   }
 
   @Test
   public void testIntArray ()
   {
     final int [] aInts = new int [] { 6, 8, 110 };
-    assertFalse (TypeConverter.convertIfNecessary (aInts, List.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aInts, CommonsArrayList.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aInts, Set.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aInts, CommonsHashSet.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aInts, CommonsLinkedHashSet.class).isEmpty ());
-    assertEquals (3, TypeConverter.convertIfNecessary (aInts, String [].class).length);
+    assertFalse (TypeConverter.convert (aInts, List.class).isEmpty ());
+    assertFalse (TypeConverter.convert (aInts, CommonsArrayList.class).isEmpty ());
+    assertFalse (TypeConverter.convert (aInts, Set.class).isEmpty ());
+    assertFalse (TypeConverter.convert (aInts, CommonsHashSet.class).isEmpty ());
+    assertFalse (TypeConverter.convert (aInts, CommonsLinkedHashSet.class).isEmpty ());
+    assertEquals (3, TypeConverter.convert (aInts, String [].class).length);
   }
 
   @Test
   public void testLongArray ()
   {
     final long [] aLongs = new long [] { 10, 111, 1212 };
-    assertFalse (TypeConverter.convertIfNecessary (aLongs, List.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aLongs, CommonsArrayList.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aLongs, Set.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aLongs, CommonsHashSet.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aLongs, CommonsLinkedHashSet.class).isEmpty ());
-    assertEquals (3, TypeConverter.convertIfNecessary (aLongs, String [].class).length);
+    assertFalse (TypeConverter.convert (aLongs, List.class).isEmpty ());
+    assertFalse (TypeConverter.convert (aLongs, CommonsArrayList.class).isEmpty ());
+    assertFalse (TypeConverter.convert (aLongs, Set.class).isEmpty ());
+    assertFalse (TypeConverter.convert (aLongs, CommonsHashSet.class).isEmpty ());
+    assertFalse (TypeConverter.convert (aLongs, CommonsLinkedHashSet.class).isEmpty ());
+    assertEquals (3, TypeConverter.convert (aLongs, String [].class).length);
   }
 
   @Test
   public void testShortArray ()
   {
     final short [] aShorts = new short [] { 4, 5, 4 };
-    assertFalse (TypeConverter.convertIfNecessary (aShorts, List.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aShorts, CommonsArrayList.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aShorts, Set.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aShorts, CommonsHashSet.class).isEmpty ());
-    assertFalse (TypeConverter.convertIfNecessary (aShorts, CommonsLinkedHashSet.class).isEmpty ());
-    assertEquals (3, TypeConverter.convertIfNecessary (aShorts, String [].class).length);
+    assertFalse (TypeConverter.convert (aShorts, List.class).isEmpty ());
+    assertFalse (TypeConverter.convert (aShorts, CommonsArrayList.class).isEmpty ());
+    assertFalse (TypeConverter.convert (aShorts, Set.class).isEmpty ());
+    assertFalse (TypeConverter.convert (aShorts, CommonsHashSet.class).isEmpty ());
+    assertFalse (TypeConverter.convert (aShorts, CommonsLinkedHashSet.class).isEmpty ());
+    assertEquals (3, TypeConverter.convert (aShorts, String [].class).length);
   }
 
   @Test

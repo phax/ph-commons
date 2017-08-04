@@ -65,7 +65,7 @@ public class TypeConverterRuleFixedSourceAnyDestination <SRC> extends AbstractTy
   public final Object apply (@Nonnull final SRC aSource)
   {
     final Object aInBetweenValue = getInBetweenValue (aSource);
-    return TypeConverter.convertIfNecessary (aInBetweenValue, m_aEffectiveDstClass);
+    return TypeConverter.convert (aInBetweenValue, m_aEffectiveDstClass);
   }
 
   @Nonnull
