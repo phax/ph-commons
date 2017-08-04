@@ -25,7 +25,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsEnumMap;
@@ -38,7 +37,6 @@ import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.EContinue;
 import com.helger.commons.string.ToStringGenerator;
-import com.helger.commons.typeconvert.TypeConverter;
 
 /**
  * This is an abstract base class for the micro document object model. It
@@ -146,142 +144,6 @@ public abstract class AbstractMicroNode implements IMicroNode
     return aChildNode;
   }
 
-  @Nonnull
-  public final IMicroText appendText (@Nullable final CharSequence sText)
-  {
-    final MicroText aNode = new MicroText (sText, false);
-    onAppendChild (aNode);
-    return aNode;
-  }
-
-  @Nonnull
-  public final IMicroText appendText (@Nonnull final char [] aChars,
-                                      @Nonnegative final int nOfs,
-                                      @Nonnegative final int nLen)
-  {
-    final MicroText aNode = new MicroText (aChars, nOfs, nLen, false);
-    onAppendChild (aNode);
-    return aNode;
-  }
-
-  @Nonnull
-  public final IMicroText appendTextWithConversion (@Nullable final Object aValue)
-  {
-    // Throws IlliegalArgumentException when no conversion is available
-    final String sValue = TypeConverter.convertIfNecessary (aValue, String.class);
-    return appendText (sValue);
-  }
-
-  @Nonnull
-  public final IMicroText appendIgnorableWhitespaceText (@Nullable final CharSequence sText)
-  {
-    final MicroText aNode = new MicroText (sText, true);
-    onAppendChild (aNode);
-    return aNode;
-  }
-
-  @Nonnull
-  public final IMicroText appendIgnorableWhitespaceText (@Nonnull final char [] aChars,
-                                                         @Nonnegative final int nOfs,
-                                                         @Nonnegative final int nLen)
-  {
-    final MicroText aNode = new MicroText (aChars, nOfs, nLen, true);
-    onAppendChild (aNode);
-    return aNode;
-  }
-
-  @Nonnull
-  public final IMicroCDATA appendCDATA (@Nullable final CharSequence sText)
-  {
-    final MicroCDATA aNode = new MicroCDATA (sText);
-    onAppendChild (aNode);
-    return aNode;
-  }
-
-  @Nonnull
-  public final IMicroCDATA appendCDATA (@Nonnull final char [] aChars,
-                                        @Nonnegative final int nOfs,
-                                        @Nonnegative final int nLen)
-  {
-    final MicroCDATA aNode = new MicroCDATA (aChars, nOfs, nLen);
-    onAppendChild (aNode);
-    return aNode;
-  }
-
-  @Nonnull
-  public final IMicroCDATA appendCDATAWithConversion (@Nullable final Object aValue)
-  {
-    // Throws IlliegalArgumentException when no conversion is available
-    final String sValue = TypeConverter.convertIfNecessary (aValue, String.class);
-    return appendCDATA (sValue);
-  }
-
-  @Nonnull
-  public final IMicroComment appendComment (@Nullable final CharSequence sText)
-  {
-    final MicroComment aNode = new MicroComment (sText);
-    onAppendChild (aNode);
-    return aNode;
-  }
-
-  @Nonnull
-  public final IMicroComment appendComment (@Nonnull final char [] aChars,
-                                            @Nonnegative final int nOfs,
-                                            @Nonnegative final int nLen)
-  {
-    final MicroComment aNode = new MicroComment (aChars, nOfs, nLen);
-    onAppendChild (aNode);
-    return aNode;
-  }
-
-  @Nonnull
-  public final IMicroComment appendCommentWithConversion (@Nullable final Object aValue)
-  {
-    // Throws IlliegalArgumentException when no conversion is available
-    final String sValue = TypeConverter.convertIfNecessary (aValue, String.class);
-    return appendComment (sValue);
-  }
-
-  @Nonnull
-  public final IMicroEntityReference appendEntityReference (@Nonnull @Nonempty final String sName)
-  {
-    final MicroEntityReference aNode = new MicroEntityReference (sName);
-    onAppendChild (aNode);
-    return aNode;
-  }
-
-  @Nonnull
-  public final IMicroElement appendElement (@Nonnull @Nonempty final String sTagName)
-  {
-    return appendElement (null, sTagName);
-  }
-
-  @Nonnull
-  public final IMicroElement appendElement (@Nullable final String sNamespaceURI,
-                                            @Nonnull @Nonempty final String sTagName)
-  {
-    final MicroElement aNode = new MicroElement (sNamespaceURI, sTagName);
-    onAppendChild (aNode);
-    return aNode;
-  }
-
-  @Nonnull
-  public final IMicroProcessingInstruction appendProcessingInstruction (@Nonnull @Nonempty final String sTarget,
-                                                                        @Nullable final String sData)
-  {
-    final MicroProcessingInstruction aNode = new MicroProcessingInstruction (sTarget, sData);
-    onAppendChild (aNode);
-    return aNode;
-  }
-
-  @Nonnull
-  public final IMicroContainer appendContainer ()
-  {
-    final MicroContainer aNode = new MicroContainer ();
-    onAppendChild (aNode);
-    return aNode;
-  }
-
   /**
    * Callback when a child is removed.
    *
@@ -341,19 +203,6 @@ public abstract class AbstractMicroNode implements IMicroNode
   public final EChange removeAllChildren ()
   {
     return onRemoveAllChildren ();
-  }
-
-  @Nonnull
-  public final EChange replaceChild (@Nonnull final IMicroNode aOldChild, @Nonnull final IMicroNode aNewChild)
-  {
-    ValueEnforcer.notNull (aOldChild, "OldChild");
-    ValueEnforcer.notNull (aNewChild, "NewChild");
-
-    if (aOldChild.equals (aNewChild))
-      return EChange.UNCHANGED;
-    insertBefore (aNewChild, aOldChild);
-    removeChild (aOldChild);
-    return EChange.CHANGED;
   }
 
   @OverrideOnDemand
