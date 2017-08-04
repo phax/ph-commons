@@ -164,4 +164,29 @@ public class SafeXMLStreamWriterTest
                   "</Root>",
                   aSW.getAsString ());
   }
+
+  @Test
+  public void testInvalidChars () throws XMLStreamException
+  {
+    final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
+    try (final SafeXMLStreamWriter aXSW = SafeXMLStreamWriter.create (aSW,
+                                                                      new XMLWriterSettings ().setNewLineMode (ENewLineMode.UNIX)))
+    {
+      aXSW.writeStartDocument ();
+      aXSW.writeStartElement ("Root");
+      aXSW.writeAttribute ("Version", "2.0");
+      aXSW.writeStartElement ("Child");
+      // The \u0000 will be removed
+      aXSW.writeCharacters ("Hello _\u0000_");
+      aXSW.writeEndElement ();
+      aXSW.writeEndElement ();
+      aXSW.writeEndDocument ();
+      aXSW.flush ();
+    }
+    assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                  "<Root Version=\"2.0\">\n" +
+                  "  <Child>Hello __</Child>\n" +
+                  "</Root>",
+                  aSW.getAsString ());
+  }
 }

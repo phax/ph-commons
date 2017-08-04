@@ -535,10 +535,22 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
   }
 
   @Nonnull
+  public static SafeXMLStreamWriter create (@Nonnull @WillCloseWhenClosed final Writer aWriter)
+  {
+    return create (aWriter, new XMLWriterSettings ());
+  }
+
+  @Nonnull
   public static SafeXMLStreamWriter create (@Nonnull @WillCloseWhenClosed final Writer aWriter,
                                             @Nonnull final IXMLWriterSettings aSettings)
   {
     return new SafeXMLStreamWriter (new XMLEmitter (aWriter, aSettings));
+  }
+
+  @Nonnull
+  public static SafeXMLStreamWriter create (@Nonnull @WillCloseWhenClosed final OutputStream aOS)
+  {
+    return create (aOS, new XMLWriterSettings ());
   }
 
   @Nonnull
@@ -550,10 +562,22 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
   }
 
   @Nonnull
+  public static SafeXMLStreamWriter create (@Nonnull final File aFile)
+  {
+    return create (aFile, new XMLWriterSettings ());
+  }
+
+  @Nonnull
   public static SafeXMLStreamWriter create (@Nonnull final File aFile, @Nonnull final IXMLWriterSettings aSettings)
   {
     ValueEnforcer.notNull (aFile, "File");
     return create (FileHelper.getOutputStream (aFile), aSettings);
+  }
+
+  @Nonnull
+  public static SafeXMLStreamWriter create (@Nonnull final Path aPath)
+  {
+    return create (aPath, new XMLWriterSettings ());
   }
 
   @Nonnull
