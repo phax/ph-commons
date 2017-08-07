@@ -183,9 +183,6 @@ public interface IGetterByKeyTrait <KEYTYPE>
    *
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
    * @param aClass
    *        The class to cast to.
    * @return The object value casted to the passed class. May be

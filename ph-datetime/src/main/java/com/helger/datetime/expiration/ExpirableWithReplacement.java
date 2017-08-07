@@ -48,11 +48,6 @@ public class ExpirableWithReplacement <DATATYPE> implements IMutableExpirableWit
     m_aReplacement = aReplacement;
   }
 
-  public boolean isExpirationDefined ()
-  {
-    return m_aExpirationDateTime != null;
-  }
-
   @Nullable
   public LocalDateTime getExpirationDateTime ()
   {

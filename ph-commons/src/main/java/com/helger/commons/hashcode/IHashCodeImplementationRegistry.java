@@ -32,6 +32,8 @@ public interface IHashCodeImplementationRegistry
    *        The class for which the hashCode implementation is valid
    * @param aImpl
    *        The main implementation
+   * @param <T>
+   *        Type to register
    */
   <T> void registerHashCodeImplementation (@Nonnull Class <T> aClass, @Nonnull IHashCodeImplementation <T> aImpl);
 }

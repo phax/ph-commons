@@ -43,11 +43,6 @@ public class Expirable implements IMutableExpirable
     m_aExpirationDateTime = aExpirationDateTime;
   }
 
-  public boolean isExpirationDefined ()
-  {
-    return m_aExpirationDateTime != null;
-  }
-
   @Nullable
   public LocalDateTime getExpirationDateTime ()
   {

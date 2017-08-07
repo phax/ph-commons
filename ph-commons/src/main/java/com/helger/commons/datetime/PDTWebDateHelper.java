@@ -152,10 +152,8 @@ public final class PDTWebDateHelper
   {}
 
   /**
-   * Parses a Date out of a string using an array of masks.
-   * <p/>
-   * It uses the masks in order until one of them succeeds or all fail.
-   * <p/>
+   * Parses a Date out of a string using an array of masks. It uses the masks in
+   * order until one of them succeeds or all fail.
    *
    * @param aMasks
    *        array of masks to use for parsing the string
@@ -194,10 +192,8 @@ public final class PDTWebDateHelper
   }
 
   /**
-   * Parses a Date out of a string using an array of masks.
-   * <p/>
-   * It uses the masks in order until one of them succeeds or all fail.
-   * <p/>
+   * Parses a Date out of a string using an array of masks. It uses the masks in
+   * order until one of them succeeds or all fail.
    *
    * @param aMasks
    *        array of masks to use for parsing the string

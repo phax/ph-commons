@@ -54,7 +54,7 @@ public class SafeArrayList <ELEMENTTYPE> extends CommonsArrayList <ELEMENTTYPE>
    */
   public SafeArrayList ()
   {
-    this (ISupplier.allNull ());
+    this ( () -> null);
   }
 
   /**

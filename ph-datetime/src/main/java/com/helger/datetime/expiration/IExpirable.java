@@ -32,20 +32,23 @@ import com.helger.commons.datetime.PDTFactory;
 public interface IExpirable extends Serializable
 {
   /**
-   * Check if the object has an expiration date defined. To check if the page is
-   * already expired, use {@link #isExpired^()} instead.
-   *
-   * @return <code>true</code> if an expiration date is defined,
-   *         <code>false</code> otherwise.
-   */
-  boolean isExpirationDefined ();
-
-  /**
    * @return The date time when the object will expire/expired. May be
    *         <code>null</code> if no expiration is defined.
    */
   @Nullable
   LocalDateTime getExpirationDateTime ();
+
+  /**
+   * Check if the object has an expiration date defined. To check if the object
+   * is already expired, use {@link #isExpiredNow()} instead.
+   *
+   * @return <code>true</code> if an expiration date is defined,
+   *         <code>false</code> otherwise.
+   */
+  default boolean isExpirationDefined ()
+  {
+    return getExpirationDateTime () != null;
+  }
 
   /**
    * Check if this object is already expired. This is only possible if an

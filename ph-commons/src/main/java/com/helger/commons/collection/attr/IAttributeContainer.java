@@ -25,8 +25,9 @@ import com.helger.commons.traits.IGetterByKeyTrait;
 /**
  * Base interface for a generic read-only attribute container. It maps keys to
  * values.<br>
- * Note: don't implement Iterable<Map.Entry<...>> because this would make the
- * object ambiguous to e.g. HashCodeGenerator
+ * Note: don't implement <code>Iterable&lt;Map.Entry&lt;...&gt;&gt;</code>
+ * because this would make the object ambiguous to e.g.
+ * <code>HashCodeGenerator</code>
  *
  * @author Philip Helger
  * @param <KEYTYPE>

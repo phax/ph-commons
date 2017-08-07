@@ -19,8 +19,6 @@ package com.helger.commons.functional;
 import java.io.Serializable;
 import java.util.function.Supplier;
 
-import javax.annotation.Nonnull;
-
 /**
  * Represents a supplier of results that is serializable.
  * <p>
@@ -36,13 +34,5 @@ import javax.annotation.Nonnull;
 @FunctionalInterface
 public interface ISupplier <T> extends Supplier <T>, Serializable
 {
-  /**
-   * @return A new supplier that always returns <code>null</code>.
-   * @since 9.0.0
-   */
-  @Nonnull
-  static <DATATYPE> ISupplier <DATATYPE> allNull ()
-  {
-    return () -> null;
-  }
+  /* empty */
 }

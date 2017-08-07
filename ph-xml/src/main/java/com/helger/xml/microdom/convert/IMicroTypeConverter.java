@@ -34,12 +34,10 @@ public interface IMicroTypeConverter <T>
 {
   /**
    * Convert the passed object to a micro element using the specified tag name
+   * and a <code>null</code> namespace URI.
    *
    * @param aObject
    *        The object to be converted. May not be <code>null</code>.
-   * @param sNamespaceURI
-   *        The namespace URI for the element to be created. May be
-   *        <code>null</code>.
    * @param sTagName
    *        The tag name to be used. May neither be <code>null</code> nor empty.
    * @return <code>null</code> in case creation failed. A micro element with the

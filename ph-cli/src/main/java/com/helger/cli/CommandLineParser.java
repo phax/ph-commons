@@ -620,6 +620,8 @@ public class CommandLineParser implements ICommandLineParser
    * @param sToken
    *        The current token to be <b>burst</b> at the first non-Option
    *        encountered.
+   * @param aCmdLine
+   *        The command line object to fill. May not be <code>null</code>.
    * @throws CommandLineParseException
    *         if there are any problems encountered while parsing the command
    *         line token.

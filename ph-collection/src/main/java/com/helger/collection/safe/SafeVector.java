@@ -54,7 +54,7 @@ public class SafeVector <ELEMENTTYPE> extends CommonsVector <ELEMENTTYPE>
    */
   public SafeVector ()
   {
-    this (ISupplier.allNull ());
+    this ( () -> null);
   }
 
   /**
