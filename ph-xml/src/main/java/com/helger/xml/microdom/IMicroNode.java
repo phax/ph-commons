@@ -121,7 +121,7 @@ public interface IMicroNode extends
       return null;
 
     final ICommonsList <IMicroNode> ret = new CommonsArrayList <> ();
-    forAllChildrenRecursive (aNode -> ret.add (aNode));
+    forAllChildrenRecursive (ret::add);
     return ret;
   }
 
@@ -163,10 +163,19 @@ public interface IMicroNode extends
   IMicroNode detachFromParent ();
 
   @Nullable
-  IMicroElement getParentElementWithName (@Nullable String sTagName);
+  IMicroElement findParentElement (@Nonnull Predicate <? super IMicroElement> aFilter);
 
   @Nullable
-  IMicroElement getParentElementWithName (@Nullable String sNamespaceURI, @Nullable String sTagName);
+  default IMicroElement getParentElementWithName (@Nullable final String sTagName)
+  {
+    return findParentElement (x -> x.getTagName ().equals (sTagName));
+  }
+
+  @Nullable
+  default IMicroElement getParentElementWithName (@Nullable final String sNamespaceURI, @Nullable final String sTagName)
+  {
+    return findParentElement (x -> x.hasNamespaceURI (sNamespaceURI) && x.getTagName ().equals (sTagName));
+  }
 
   /**
    * Append any child to the node.

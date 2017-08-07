@@ -358,28 +358,13 @@ public abstract class AbstractMicroNode implements IMicroNode
   }
 
   @Nullable
-  public final IMicroElement getParentElementWithName (@Nullable final String sTagName)
+  public IMicroElement findParentElement (@Nonnull final Predicate <? super IMicroElement> aFilter)
   {
     IMicroNode aParent = m_aParentNode;
     while (aParent != null && aParent.isElement ())
     {
       final IMicroElement aParentElement = (IMicroElement) aParent;
-      if (aParentElement.getTagName ().equals (sTagName))
-        return aParentElement;
-      aParent = aParent.getParent ();
-    }
-    return null;
-  }
-
-  @Nullable
-  public final IMicroElement getParentElementWithName (@Nullable final String sNamespaceURI,
-                                                       @Nullable final String sTagName)
-  {
-    IMicroNode aParent = m_aParentNode;
-    while (aParent != null && aParent.isElement ())
-    {
-      final IMicroElement aParentElement = (IMicroElement) aParent;
-      if (aParentElement.hasNamespaceURI (sNamespaceURI) && aParentElement.getTagName ().equals (sTagName))
+      if (aFilter.test (aParentElement))
         return aParentElement;
       aParent = aParent.getParent ();
     }
