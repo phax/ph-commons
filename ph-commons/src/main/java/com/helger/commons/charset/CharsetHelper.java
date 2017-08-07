@@ -267,10 +267,20 @@ public final class CharsetHelper
       return m_eBOM;
     }
 
+    public boolean hasBOM ()
+    {
+      return m_eBOM != null;
+    }
+
     @Nullable
     public Charset getCharset ()
     {
       return m_aCharset;
+    }
+
+    public boolean hasCharset ()
+    {
+      return m_aCharset != null;
     }
 
     @Nullable
@@ -281,13 +291,15 @@ public final class CharsetHelper
   }
 
   /**
-   * Open the {@link InputStream} provided by the passed {@link IHasInputStream}
-   * . If a BOM is present in the {@link InputStream} it is read and if possible
+   * If a BOM is present in the {@link InputStream} it is read and if possible
    * the charset is automatically determined from the BOM.
    *
    * @param aIS
    *        The input stream to use. May not be <code>null</code>.
-   * @return Never <code>null</code>
+   * @return Never <code>null</code>. Always use the input stream contained in
+   *         the returned object and never the one passed in as a parameter,
+   *         because the returned IS is a push-back InputStream that has a
+   *         couple of bytes already buffered!
    */
   @Nonnull
   public static InputStreamAndCharset getInputStreamAndCharsetFromBOM (@Nonnull @WillNotClose final InputStream aIS)
@@ -317,8 +329,7 @@ public final class CharsetHelper
         }
         else
         {
-          if (s_aLogger.isDebugEnabled ())
-            s_aLogger.info ("Found BOM " + eBOM + " on InputStream!");
+          s_aLogger.info ("Found " + eBOM + " on " + aIS.getClass ().getName ());
 
           // Unread the unnecessary parts of the BOM
           final int nBOMBytes = eBOM.getByteCount ();

@@ -37,7 +37,15 @@ import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.charset.CharsetHelper;
+import com.helger.commons.charset.CharsetHelper.InputStreamAndCharset;
+import com.helger.commons.io.IHasInputStream;
+import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.resource.IReadableResource;
+import com.helger.commons.io.stream.ByteBufferInputStream;
+import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
+import com.helger.commons.io.stream.NonBlockingStringReader;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.sax.InputSourceFactory;
 import com.helger.xml.serialize.read.SAXReaderFactory;
@@ -122,51 +130,6 @@ public interface IJAXBReader <JAXBTYPE>
   }
 
   /**
-   * Read a document from the specified file. The secure reading feature has
-   * affect when using this method.
-   *
-   * @param aFile
-   *        The file to read. May not be <code>null</code>.
-   * @return <code>null</code> in case reading fails.
-   */
-  @Nullable
-  default JAXBTYPE read (@Nonnull final File aFile)
-  {
-    ValueEnforcer.notNull (aFile, "File");
-    return read (InputSourceFactory.create (aFile));
-  }
-
-  /**
-   * Read a document from the specified Path. The secure reading feature has
-   * affect when using this method.
-   *
-   * @param aPath
-   *        The path to read. May not be <code>null</code>.
-   * @return <code>null</code> in case reading fails.
-   */
-  @Nullable
-  default JAXBTYPE read (@Nonnull final Path aPath)
-  {
-    ValueEnforcer.notNull (aPath, "Path");
-    return read (InputSourceFactory.create (aPath));
-  }
-
-  /**
-   * Read a document from the specified resource. The secure reading feature has
-   * affect when using this method.
-   *
-   * @param aResource
-   *        The resource to read. May not be <code>null</code>.
-   * @return <code>null</code> in case reading fails.
-   */
-  @Nullable
-  default JAXBTYPE read (@Nonnull final IReadableResource aResource)
-  {
-    ValueEnforcer.notNull (aResource, "Resource");
-    return read (InputSourceFactory.create (aResource));
-  }
-
-  /**
    * Read a document from the specified input stream. The secure reading feature
    * has affect when using this method.
    *
@@ -178,7 +141,17 @@ public interface IJAXBReader <JAXBTYPE>
   default JAXBTYPE read (@Nonnull final InputStream aIS)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
-    return read (InputSourceFactory.create (aIS));
+
+    final InputStreamAndCharset aISAndBOM = CharsetHelper.getInputStreamAndCharsetFromBOM (aIS);
+    if (aISAndBOM.hasCharset ())
+    {
+      // BOM was found - read from Reader
+      return read (StreamHelper.createReader (aISAndBOM.getInputStream (), aISAndBOM.getCharset ()));
+    }
+
+    // No BOM found - use the returned InputStream anyway, so that the pushed
+    // back bytes are read
+    return read (InputSourceFactory.create (aISAndBOM.getInputStream ()));
   }
 
   /**
@@ -197,6 +170,74 @@ public interface IJAXBReader <JAXBTYPE>
   }
 
   /**
+   * Read a document from the specified file. The secure reading feature has
+   * affect when using this method.
+   *
+   * @param aFile
+   *        The file to read. May not be <code>null</code>.
+   * @return <code>null</code> in case reading fails.
+   */
+  @Nullable
+  default JAXBTYPE read (@Nonnull final File aFile)
+  {
+    ValueEnforcer.notNull (aFile, "File");
+
+    // Ensure to use InputStream for BOM handling
+    return read (FileHelper.getInputStream (aFile));
+  }
+
+  /**
+   * Read a document from the specified Path. The secure reading feature has
+   * affect when using this method.
+   *
+   * @param aPath
+   *        The path to read. May not be <code>null</code>.
+   * @return <code>null</code> in case reading fails.
+   */
+  @Nullable
+  default JAXBTYPE read (@Nonnull final Path aPath)
+  {
+    ValueEnforcer.notNull (aPath, "Path");
+
+    // Ensure to use InputStream for BOM handling
+    return read (aPath.toFile ());
+  }
+
+  /**
+   * Read a document from the specified resource. The secure reading feature has
+   * affect when using this method.
+   *
+   * @param aResource
+   *        The resource to read. May not be <code>null</code>.
+   * @return <code>null</code> in case reading fails.
+   */
+  @Nullable
+  default JAXBTYPE read (@Nonnull final IReadableResource aResource)
+  {
+    ValueEnforcer.notNull (aResource, "Resource");
+
+    // Ensure to use InputStream for BOM handling
+    return read (aResource.getInputStream ());
+  }
+
+  /**
+   * Read a document from the specified input stream provider. The secure
+   * reading feature has affect when using this method.
+   *
+   * @param aISP
+   *        The input stream provider to read. May not be <code>null</code>.
+   * @return <code>null</code> in case reading fails.
+   */
+  @Nullable
+  default JAXBTYPE read (@Nonnull final IHasInputStream aISP)
+  {
+    ValueEnforcer.notNull (aISP, "Resource");
+
+    // Ensure to use InputStream for BOM handling
+    return read (aISP.getInputStream ());
+  }
+
+  /**
    * Read a document from the specified byte array. The secure reading feature
    * has affect when using this method.
    *
@@ -208,7 +249,9 @@ public interface IJAXBReader <JAXBTYPE>
   default JAXBTYPE read (@Nonnull final byte [] aXML)
   {
     ValueEnforcer.notNull (aXML, "XML");
-    return read (InputSourceFactory.create (aXML));
+
+    // Ensure to use InputStream for BOM handling
+    return read (new NonBlockingByteArrayInputStream (aXML));
   }
 
   /**
@@ -223,7 +266,9 @@ public interface IJAXBReader <JAXBTYPE>
   default JAXBTYPE read (@Nonnull final ByteBuffer aXML)
   {
     ValueEnforcer.notNull (aXML, "XML");
-    return read (InputSourceFactory.create (aXML));
+
+    // Ensure to use InputStream for BOM handling
+    return read (new ByteBufferInputStream (aXML));
   }
 
   /**
@@ -238,7 +283,22 @@ public interface IJAXBReader <JAXBTYPE>
   default JAXBTYPE read (@Nonnull final String sXML)
   {
     ValueEnforcer.notNull (sXML, "XML");
-    return read (InputSourceFactory.create (sXML));
+    return read (new NonBlockingStringReader (sXML));
+  }
+
+  /**
+   * Read a document from the specified char array. The secure reading feature
+   * has affect when using this method.
+   *
+   * @param aXML
+   *        The XML string to read. May not be <code>null</code>.
+   * @return <code>null</code> in case reading fails.
+   */
+  @Nullable
+  default JAXBTYPE read (@Nonnull final char [] aXML)
+  {
+    ValueEnforcer.notNull (aXML, "XML");
+    return read (new NonBlockingStringReader (aXML));
   }
 
   /**
@@ -264,6 +324,7 @@ public interface IJAXBReader <JAXBTYPE>
   default JAXBTYPE read (@Nonnull final Source aSource)
   {
     ValueEnforcer.notNull (aSource, "Source");
+
     return read ( (aUnmarshaller, aClass) -> aUnmarshaller.unmarshal (aSource, aClass));
   }
 

@@ -38,21 +38,24 @@ import com.helger.commons.ValueEnforcer;
 @NotThreadSafe
 public class NonBlockingStringReader extends Reader
 {
-  private String m_sStr;
+  private char [] m_aChars;
   private final int m_nLength;
-  private int m_nNext = 0;
-  private int m_nMark = 0;
+  private int m_nNext;
+  private int m_nMark;
 
   public NonBlockingStringReader (@Nonnull final char [] aChars)
   {
-    this (new String (aChars));
+    this (aChars, 0, aChars.length);
   }
 
   public NonBlockingStringReader (@Nonnull final char [] aChars,
                                   @Nonnegative final int nOfs,
                                   @Nonnegative final int nLen)
   {
-    this (new String (aChars, nOfs, nLen));
+    ValueEnforcer.isArrayOfsLen (aChars, nOfs, nLen);
+    m_aChars = aChars;
+    m_nLength = nLen;
+    m_nNext = m_nMark = nOfs;
   }
 
   /**
@@ -63,8 +66,12 @@ public class NonBlockingStringReader extends Reader
    */
   public NonBlockingStringReader (@Nonnull final String sStr)
   {
-    m_sStr = ValueEnforcer.notNull (sStr, "String");
-    m_nLength = sStr.length ();
+    this (sStr.toCharArray (), 0, sStr.length ());
+  }
+
+  public NonBlockingStringReader (@Nonnull final String sStr, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  {
+    this (sStr.toCharArray (), nOfs, nLen);
   }
 
   /**
@@ -75,7 +82,7 @@ public class NonBlockingStringReader extends Reader
    */
   private void _ensureOpen () throws IOException
   {
-    if (m_sStr == null)
+    if (m_aChars == null)
       throw new IOException ("Stream closed");
   }
 
@@ -93,7 +100,7 @@ public class NonBlockingStringReader extends Reader
     _ensureOpen ();
     if (m_nNext >= m_nLength)
       return -1;
-    return m_sStr.charAt (m_nNext++);
+    return m_aChars[m_nNext++];
   }
 
   /**
@@ -124,7 +131,7 @@ public class NonBlockingStringReader extends Reader
     if (m_nNext >= m_nLength)
       return -1;
     final int nChars = Math.min (m_nLength - m_nNext, nLen);
-    m_sStr.getChars (m_nNext, m_nNext + nChars, aBuf, nOfs);
+    System.arraycopy (m_aChars, m_nNext, aBuf, nOfs, nChars);
     m_nNext += nChars;
     return nChars;
   }
@@ -230,6 +237,6 @@ public class NonBlockingStringReader extends Reader
   @Override
   public void close ()
   {
-    m_sStr = null;
+    m_aChars = null;
   }
 }
