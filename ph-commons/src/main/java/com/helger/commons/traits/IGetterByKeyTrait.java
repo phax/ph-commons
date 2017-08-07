@@ -838,7 +838,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
   {
     final Object aValue = getValue (aKey);
     if (aValue == null)
-      return null;
+      return aDefault;
     if (aValue instanceof String [])
     {
       // multiple values passed in the request
@@ -880,7 +880,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
   {
     final Object aValue = getValue (aKey);
     if (aValue == null)
-      return null;
+      return aDefault;
     if (aValue instanceof String [])
     {
       // multiple values passed in the request
