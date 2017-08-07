@@ -243,11 +243,15 @@ public final class CharsetHelper
   public static final class InputStreamAndCharset implements IHasInputStream
   {
     private final InputStream m_aIS;
+    private final EUnicodeBOM m_eBOM;
     private final Charset m_aCharset;
 
-    public InputStreamAndCharset (@Nonnull final InputStream aIS, @Nullable final Charset aCharset)
+    public InputStreamAndCharset (@Nonnull final InputStream aIS,
+                                  @Nullable final EUnicodeBOM eBOM,
+                                  @Nullable final Charset aCharset)
     {
       m_aIS = aIS;
+      m_eBOM = eBOM;
       m_aCharset = aCharset;
     }
 
@@ -258,9 +262,21 @@ public final class CharsetHelper
     }
 
     @Nullable
+    public EUnicodeBOM getBOM ()
+    {
+      return m_eBOM;
+    }
+
+    @Nullable
     public Charset getCharset ()
     {
       return m_aCharset;
+    }
+
+    @Nullable
+    public Charset getCharset (@Nullable final Charset aFallbackCharset)
+    {
+      return m_aCharset != null ? m_aCharset : aFallbackCharset;
     }
   }
 
@@ -280,24 +296,30 @@ public final class CharsetHelper
 
     // Check for BOM
     final int nMaxBOMBytes = EUnicodeBOM.getMaximumByteCount ();
-    final NonBlockingPushbackInputStream aPIS = new NonBlockingPushbackInputStream (aIS, nMaxBOMBytes);
+    final NonBlockingPushbackInputStream aPIS = new NonBlockingPushbackInputStream (StreamHelper.getBuffered (aIS),
+                                                                                    nMaxBOMBytes);
     try
     {
       // Try to read as many bytes as necessary to determine all supported BOMs
       final byte [] aBOM = new byte [nMaxBOMBytes];
       final int nReadBOMBytes = aPIS.read (aBOM);
+      EUnicodeBOM eBOM = null;
       Charset aDeterminedCharset = null;
       if (nReadBOMBytes > 0)
       {
-        // Some byte BOMs were read
-        final EUnicodeBOM eBOM = EUnicodeBOM.getFromBytesOrNull (ArrayHelper.getCopy (aBOM, 0, nReadBOMBytes));
+        // Some byte BOMs were read - determine
+        eBOM = EUnicodeBOM.getFromBytesOrNull (ArrayHelper.getCopy (aBOM, 0, nReadBOMBytes));
         if (eBOM == null)
         {
           // Unread the whole BOM
           aPIS.unread (aBOM, 0, nReadBOMBytes);
+          // aDeterminedCharset stays null
         }
         else
         {
+          if (s_aLogger.isDebugEnabled ())
+            s_aLogger.info ("Found BOM " + eBOM + " on InputStream!");
+
           // Unread the unnecessary parts of the BOM
           final int nBOMBytes = eBOM.getByteCount ();
           if (nBOMBytes < nReadBOMBytes)
@@ -307,7 +329,7 @@ public final class CharsetHelper
           aDeterminedCharset = eBOM.getCharset ();
         }
       }
-      return new InputStreamAndCharset (aPIS, aDeterminedCharset);
+      return new InputStreamAndCharset (aPIS, eBOM, aDeterminedCharset);
     }
     catch (final IOException ex)
     {
@@ -323,13 +345,12 @@ public final class CharsetHelper
     ValueEnforcer.notNull (aIS, "InputStream");
     ValueEnforcer.notNull (aFallbackCharset, "FallbackCharset");
 
-    // Open input stream
+    // Determine BOM/Charset
     final InputStreamAndCharset aISAndBOM = getInputStreamAndCharsetFromBOM (aIS);
 
-    Charset aStreamCharset = aISAndBOM.getCharset ();
-    if (aStreamCharset == null)
-      aStreamCharset = aFallbackCharset;
-
-    return StreamHelper.createReader (aISAndBOM.getInputStream (), aStreamCharset);
+    // Create the reader with the current position of the InputStream and the
+    // correct charset
+    final Charset aEffectiveCharset = aISAndBOM.getCharset (aFallbackCharset);
+    return StreamHelper.createReader (aISAndBOM.getInputStream (), aEffectiveCharset);
   }
 }
