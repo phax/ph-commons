@@ -33,9 +33,13 @@ import javax.xml.bind.Marshaller;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.transform.Result;
+import javax.xml.transform.stream.StreamResult;
 
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
+import com.helger.commons.io.EAppend;
+import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.resource.IWritableResource;
 import com.helger.commons.io.stream.ByteBufferOutputStream;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
@@ -120,6 +124,11 @@ public interface IJAXBWriter <JAXBTYPE>
   @Nullable
   String getSchemaLocation ();
 
+  default boolean hasSchemaLocation ()
+  {
+    return StringHelper.hasText (getSchemaLocation ());
+  }
+
   /**
    * @return The no namespace schema location to be used for writing.
    *         <code>null</code> by default.
@@ -127,6 +136,11 @@ public interface IJAXBWriter <JAXBTYPE>
    */
   @Nullable
   String getNoNamespaceSchemaLocation ();
+
+  default boolean hasNoNamespaceSchemaLocation ()
+  {
+    return StringHelper.hasText (getNoNamespaceSchemaLocation ());
+  }
 
   /**
    * @return The XML writer settings to be used based on this writer settings.
@@ -171,7 +185,13 @@ public interface IJAXBWriter <JAXBTYPE>
   @Nonnull
   default ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull final File aResultFile)
   {
-    // TODO
+    if (USE_JAXB_CHARSET_FIX)
+    {
+      final OutputStream aOS = FileHelper.getBufferedOutputStream (aResultFile);
+      if (aOS == null)
+        return ESuccess.FAILURE;
+      return write (aObject, aOS);
+    }
     return write (aObject, TransformResultFactory.create (aResultFile));
   }
 
@@ -187,7 +207,8 @@ public interface IJAXBWriter <JAXBTYPE>
   @Nonnull
   default ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull final Path aResultPath)
   {
-    // TODO
+    if (USE_JAXB_CHARSET_FIX)
+      return write (aObject, aResultPath.toFile ());
     return write (aObject, TransformResultFactory.create (aResultPath));
   }
 
@@ -277,6 +298,13 @@ public interface IJAXBWriter <JAXBTYPE>
   @Nonnull
   default ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull final IWritableResource aResource)
   {
+    if (USE_JAXB_CHARSET_FIX)
+    {
+      final OutputStream aOS = aResource.getOutputStream (EAppend.TRUNCATE);
+      if (aOS == null)
+        return ESuccess.FAILURE;
+      return write (aObject, aOS);
+    }
     return write (aObject, TransformResultFactory.create (aResource));
   }
 
@@ -293,17 +321,27 @@ public interface IJAXBWriter <JAXBTYPE>
   ESuccess write (@Nonnull JAXBTYPE aObject, @Nonnull IJAXBMarshaller <JAXBTYPE> aMarshallerFunc);
 
   /**
-   * Convert the passed object to XML.
+   * Convert the passed object to XML. This method is potentially dangerous,
+   * when using StreamResult because it may create invalid XML. Only when using
+   * the {@link SafeXMLStreamWriter} it is ensured that only valid XML is
+   * created!
    *
    * @param aObject
    *        The object to be converted. May not be <code>null</code>.
    * @param aResult
-   *        The result object holder. May not be <code>null</code>.
+   *        The result object holder. May not be <code>null</code>. Usually
+   *        SAXResult, DOMResult and StreamResult are supported.
    * @return {@link ESuccess}
    */
   @Nonnull
   default ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull final Result aResult)
   {
+    if (USE_JAXB_CHARSET_FIX && aResult instanceof StreamResult)
+    {
+      LoggerFactory.getLogger (IJAXBWriter.class)
+                   .warn ("Potentially invalid XML is created by using StreamResult object: " + aResult);
+    }
+
     return write (aObject, (m, e) -> m.marshal (e, aResult));
   }
 
@@ -320,6 +358,8 @@ public interface IJAXBWriter <JAXBTYPE>
   @Nonnull
   default ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull final org.xml.sax.ContentHandler aHandler)
   {
+    // No need for charset fix, because it is up to the ContentHandler, if it is
+    // converting to a byte[] or not.
     return write (aObject, (m, e) -> m.marshal (e, aHandler));
   }
 
@@ -336,11 +376,20 @@ public interface IJAXBWriter <JAXBTYPE>
   default ESuccess write (@Nonnull final JAXBTYPE aObject,
                           @Nonnull @WillClose final javax.xml.stream.XMLStreamWriter aWriter)
   {
+    // No need for charset fix, because it is up to the XMLStreamWriter, if it
+    // is converting to a byte[] or not.
     final ESuccess ret = write (aObject, (m, e) -> m.marshal (e, aWriter));
-    // Needs to be manually closed
+    // Needs to be manually flushed and closed
     try
     {
       aWriter.flush ();
+    }
+    catch (final XMLStreamException ex)
+    {
+      throw new IllegalStateException ("Failed to flush XMLStreamWriter", ex);
+    }
+    try
+    {
       aWriter.close ();
     }
     catch (final XMLStreamException ex)
@@ -361,7 +410,7 @@ public interface IJAXBWriter <JAXBTYPE>
   default Document getAsDocument (@Nonnull final JAXBTYPE aObject)
   {
     // No need for charset fix, because the document is returned in an internal
-    // representation
+    // representation with String content
     final Document aDoc = XMLFactory.newDocument ();
     return write (aObject, TransformResultFactory.create (aDoc)).isSuccess () ? aDoc : null;
   }
@@ -377,7 +426,7 @@ public interface IJAXBWriter <JAXBTYPE>
   default IMicroDocument getAsMicroDocument (@Nonnull final JAXBTYPE aObject)
   {
     // No need for charset fix, because the document is returned in an internal
-    // representation
+    // representation with String content
     final MicroSAXHandler aHandler = new MicroSAXHandler (false, null);
     return write (aObject, aHandler).isSuccess () ? aHandler.getDocument () : null;
   }

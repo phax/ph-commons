@@ -16,6 +16,10 @@
  */
 package com.helger.commons.charset;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UncheckedIOException;
 import java.nio.charset.Charset;
 import java.nio.charset.IllegalCharsetNameException;
 import java.nio.charset.UnsupportedCharsetException;
@@ -24,15 +28,23 @@ import java.util.SortedMap;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.WillNotClose;
 import javax.annotation.concurrent.Immutable;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
+import com.helger.commons.io.IHasInputStream;
+import com.helger.commons.io.stream.NonBlockingPushbackInputStream;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -43,6 +55,8 @@ import com.helger.commons.string.StringHelper;
 @Immutable
 public final class CharsetHelper
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (CharsetHelper.class);
+
   @CodingStyleguideUnaware
   private static final SortedMap <String, Charset> s_aAllCharsets;
 
@@ -224,5 +238,98 @@ public final class CharsetHelper
 
     // It's a surrogate...
     return 0;
+  }
+
+  public static final class InputStreamAndCharset implements IHasInputStream
+  {
+    private final InputStream m_aIS;
+    private final Charset m_aCharset;
+
+    public InputStreamAndCharset (@Nonnull final InputStream aIS, @Nullable final Charset aCharset)
+    {
+      m_aIS = aIS;
+      m_aCharset = aCharset;
+    }
+
+    @Nonnull
+    public InputStream getInputStream ()
+    {
+      return m_aIS;
+    }
+
+    @Nullable
+    public Charset getCharset ()
+    {
+      return m_aCharset;
+    }
+  }
+
+  /**
+   * Open the {@link InputStream} provided by the passed {@link IHasInputStream}
+   * . If a BOM is present in the {@link InputStream} it is read and if possible
+   * the charset is automatically determined from the BOM.
+   *
+   * @param aIS
+   *        The input stream to use. May not be <code>null</code>.
+   * @return Never <code>null</code>
+   */
+  @Nonnull
+  public static InputStreamAndCharset getInputStreamAndCharsetFromBOM (@Nonnull @WillNotClose final InputStream aIS)
+  {
+    ValueEnforcer.notNull (aIS, "InputStream");
+
+    // Check for BOM
+    final int nMaxBOMBytes = EUnicodeBOM.getMaximumByteCount ();
+    final NonBlockingPushbackInputStream aPIS = new NonBlockingPushbackInputStream (aIS, nMaxBOMBytes);
+    try
+    {
+      // Try to read as many bytes as necessary to determine all supported BOMs
+      final byte [] aBOM = new byte [nMaxBOMBytes];
+      final int nReadBOMBytes = aPIS.read (aBOM);
+      Charset aDeterminedCharset = null;
+      if (nReadBOMBytes > 0)
+      {
+        // Some byte BOMs were read
+        final EUnicodeBOM eBOM = EUnicodeBOM.getFromBytesOrNull (ArrayHelper.getCopy (aBOM, 0, nReadBOMBytes));
+        if (eBOM == null)
+        {
+          // Unread the whole BOM
+          aPIS.unread (aBOM, 0, nReadBOMBytes);
+        }
+        else
+        {
+          // Unread the unnecessary parts of the BOM
+          final int nBOMBytes = eBOM.getByteCount ();
+          if (nBOMBytes < nReadBOMBytes)
+            aPIS.unread (aBOM, nBOMBytes, nReadBOMBytes - nBOMBytes);
+
+          // Use the Charset of the BOM - maybe null!
+          aDeterminedCharset = eBOM.getCharset ();
+        }
+      }
+      return new InputStreamAndCharset (aPIS, aDeterminedCharset);
+    }
+    catch (final IOException ex)
+    {
+      s_aLogger.error ("Failed to determine BOM", ex);
+      throw new UncheckedIOException (ex);
+    }
+  }
+
+  @Nonnull
+  public static InputStreamReader getReaderByBOM (@Nonnull final InputStream aIS,
+                                                  @Nonnull final Charset aFallbackCharset)
+  {
+    ValueEnforcer.notNull (aIS, "InputStream");
+    ValueEnforcer.notNull (aFallbackCharset, "FallbackCharset");
+
+    // Open input stream
+    final InputStreamAndCharset aISAndBOM = getInputStreamAndCharsetFromBOM (aIS);
+
+    Charset aStreamCharset = aISAndBOM.getCharset ();
+    if (aStreamCharset == null)
+      aStreamCharset = aFallbackCharset;
+
+    return StreamHelper.createReader (aISAndBOM.getInputStream (), aStreamCharset);
   }
 }

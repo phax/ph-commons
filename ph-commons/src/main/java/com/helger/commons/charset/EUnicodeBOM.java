@@ -161,7 +161,8 @@ public enum EUnicodeBOM
 
   /**
    * @return The charset matching this BOM. May be <code>null</code> if the
-   *         charset is not part of the Sun JDK.
+   *         charset is not part of the Sun JDK or there is not even a defined
+   *         charset.
    */
   @Nullable
   public Charset getCharset ()

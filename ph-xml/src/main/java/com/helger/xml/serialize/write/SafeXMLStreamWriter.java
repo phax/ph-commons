@@ -16,12 +16,10 @@
  */
 package com.helger.xml.serialize.write;
 
-import java.io.File;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.Charset;
-import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.function.Supplier;
 
@@ -41,7 +39,6 @@ import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.collection.NonBlockingStack;
 import com.helger.commons.collection.iterate.CombinedIterator;
-import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -535,22 +532,10 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
   }
 
   @Nonnull
-  public static SafeXMLStreamWriter create (@Nonnull @WillCloseWhenClosed final Writer aWriter)
-  {
-    return create (aWriter, new XMLWriterSettings ());
-  }
-
-  @Nonnull
   public static SafeXMLStreamWriter create (@Nonnull @WillCloseWhenClosed final Writer aWriter,
                                             @Nonnull final IXMLWriterSettings aSettings)
   {
     return new SafeXMLStreamWriter (new XMLEmitter (aWriter, aSettings));
-  }
-
-  @Nonnull
-  public static SafeXMLStreamWriter create (@Nonnull @WillCloseWhenClosed final OutputStream aOS)
-  {
-    return create (aOS, new XMLWriterSettings ());
   }
 
   @Nonnull
@@ -559,31 +544,5 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
   {
     ValueEnforcer.notNull (aOS, "OutputStream");
     return create (new OutputStreamWriter (aOS, aSettings.getCharset ()), aSettings);
-  }
-
-  @Nonnull
-  public static SafeXMLStreamWriter create (@Nonnull final File aFile)
-  {
-    return create (aFile, new XMLWriterSettings ());
-  }
-
-  @Nonnull
-  public static SafeXMLStreamWriter create (@Nonnull final File aFile, @Nonnull final IXMLWriterSettings aSettings)
-  {
-    ValueEnforcer.notNull (aFile, "File");
-    return create (FileHelper.getOutputStream (aFile), aSettings);
-  }
-
-  @Nonnull
-  public static SafeXMLStreamWriter create (@Nonnull final Path aPath)
-  {
-    return create (aPath, new XMLWriterSettings ());
-  }
-
-  @Nonnull
-  public static SafeXMLStreamWriter create (@Nonnull final Path aPath, @Nonnull final IXMLWriterSettings aSettings)
-  {
-    ValueEnforcer.notNull (aPath, "Path");
-    return create (aPath.toFile (), aSettings);
   }
 }

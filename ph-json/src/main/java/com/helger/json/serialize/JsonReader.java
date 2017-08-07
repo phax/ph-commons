@@ -17,7 +17,6 @@
 package com.helger.json.serialize;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.nio.charset.Charset;
@@ -35,12 +34,10 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.charset.EUnicodeBOM;
-import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.resource.FileSystemResource;
-import com.helger.commons.io.stream.NonBlockingPushbackInputStream;
 import com.helger.commons.io.stream.NonBlockingStringReader;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.state.ESuccess;
@@ -350,26 +347,13 @@ public final class JsonReader
     ValueEnforcer.notNull (aIS, "InputStream");
     ValueEnforcer.notNull (aFallbackCharset, "FallbackCharset");
 
-    // Open input stream
-    final InputStreamAndCharset aISAndBOM = _getInputStreamWithoutBOM (aIS);
-    if (aISAndBOM == null || !aISAndBOM.hasInputStream ())
-    {
-      // Failed to open stream!
-      return false;
-    }
-
-    final InputStream aISToUse = aISAndBOM.getInputStream ();
-    final Charset aCharsetToUse = aISAndBOM.getCharset () != null ? aISAndBOM.getCharset () : aFallbackCharset;
-
     try
     {
-      final Reader aReader = StreamHelper.getBuffered (StreamHelper.createReader (aISToUse, aCharsetToUse));
-
+      final Reader aReader = CharsetHelper.getReaderByBOM (aIS, aFallbackCharset);
       return isValidJson (aReader);
     }
     finally
     {
-      StreamHelper.close (aISToUse);
       StreamHelper.close (aIS);
     }
   }
@@ -671,88 +655,6 @@ public final class JsonReader
     return readFromStream (aIS, aFallbackCharset, null);
   }
 
-  private static final class InputStreamAndCharset implements IHasInputStream
-  {
-    private final InputStream m_aIS;
-    private final Charset m_aCharset;
-
-    public InputStreamAndCharset (@Nullable final InputStream aIS, @Nullable final Charset aCharset)
-    {
-      m_aIS = aIS;
-      m_aCharset = aCharset;
-    }
-
-    @Nullable
-    public InputStream getInputStream ()
-    {
-      return m_aIS;
-    }
-
-    public boolean hasInputStream ()
-    {
-      return m_aIS != null;
-    }
-
-    @Nullable
-    public Charset getCharset ()
-    {
-      return m_aCharset;
-    }
-  }
-
-  /**
-   * If a BOM is present in the {@link InputStream} it is read and if possible
-   * the charset is automatically determined from the BOM.
-   *
-   * @param aIS
-   *        The input stream to use. May not be <code>null</code>.
-   * @return <code>null</code> if no InputStream could be opened, the pair with
-   *         non-<code>null</code> {@link InputStream} and a potentially
-   *         <code>null</code> {@link Charset} otherwise.
-   */
-  @Nullable
-  private static InputStreamAndCharset _getInputStreamWithoutBOM (@Nonnull final InputStream aIS)
-  {
-    ValueEnforcer.notNull (aIS, "InputStream");
-
-    // Check for BOM
-    final int nMaxBOMBytes = EUnicodeBOM.getMaximumByteCount ();
-    final NonBlockingPushbackInputStream aPIS = new NonBlockingPushbackInputStream (aIS, nMaxBOMBytes);
-    try
-    {
-      final byte [] aBOM = new byte [nMaxBOMBytes];
-      final int nReadBOMBytes = aPIS.read (aBOM);
-      Charset aDeterminedCharset = null;
-      if (nReadBOMBytes > 0)
-      {
-        // Some byte BOMs were read
-        final EUnicodeBOM eBOM = EUnicodeBOM.getFromBytesOrNull (ArrayHelper.getCopy (aBOM, 0, nReadBOMBytes));
-        if (eBOM == null)
-        {
-          // Unread the whole BOM
-          aPIS.unread (aBOM, 0, nReadBOMBytes);
-        }
-        else
-        {
-          // Unread the unnecessary parts of the BOM
-          final int nBOMBytes = eBOM.getByteCount ();
-          if (nBOMBytes < nReadBOMBytes)
-            aPIS.unread (aBOM, nBOMBytes, nReadBOMBytes - nBOMBytes);
-
-          // Use the Charset of the BOM - maybe null!
-          aDeterminedCharset = eBOM.getCharset ();
-        }
-      }
-      return new InputStreamAndCharset (aPIS, aDeterminedCharset);
-    }
-    catch (final IOException ex)
-    {
-      s_aLogger.error ("Failed to determine BOM", ex);
-      StreamHelper.close (aPIS);
-      return null;
-    }
-  }
-
   /**
    * Read the Json from the passed {@link InputStream}.
    *
@@ -775,26 +677,13 @@ public final class JsonReader
     ValueEnforcer.notNull (aIS, "InputStream");
     ValueEnforcer.notNull (aFallbackCharset, "FallbackCharset");
 
-    // Open input stream
-    final InputStreamAndCharset aISAndBOM = _getInputStreamWithoutBOM (aIS);
-    if (aISAndBOM == null || !aISAndBOM.hasInputStream ())
-    {
-      // Failed to open stream!
-      return null;
-    }
-
-    final InputStream aISToUse = aISAndBOM.getInputStream ();
-    final Charset aCharsetToUse = aISAndBOM.getCharset () != null ? aISAndBOM.getCharset () : aFallbackCharset;
-
     try
     {
-      final Reader aReader = StreamHelper.getBuffered (StreamHelper.createReader (aISToUse, aCharsetToUse));
-
+      final Reader aReader = CharsetHelper.getReaderByBOM (aIS, aFallbackCharset);
       return _readJson (aReader, aCustomExceptionCallback);
     }
     finally
     {
-      StreamHelper.close (aISToUse);
       StreamHelper.close (aIS);
     }
   }

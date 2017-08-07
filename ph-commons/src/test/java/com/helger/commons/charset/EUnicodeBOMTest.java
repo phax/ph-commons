@@ -64,6 +64,7 @@ public final class EUnicodeBOMTest
     {
       // Check whether declared length matches byte length
       assertEquals (eBOM.getByteCount (), eBOM.getAllBytes ().length);
+      assertTrue (eBOM.getByteCount () <= EUnicodeBOM.getMaximumByteCount ());
       assertFalse (eBOM.isPresent (null));
       assertFalse (eBOM.isPresent (new byte [0]));
       assertFalse (eBOM.isPresent (new byte [] { 1 }));
