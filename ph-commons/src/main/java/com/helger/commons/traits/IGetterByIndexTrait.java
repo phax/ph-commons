@@ -26,6 +26,8 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.typeconvert.TypeConverter;
 import com.helger.commons.typeconvert.TypeConverterException;
@@ -216,7 +218,18 @@ public interface IGetterByIndexTrait
                                     @Nonnull final Class <T> aClass)
   {
     final Object aValue = getValue (nIndex);
-    return aValue != null && aValue.getClass ().isAssignableFrom (aClass) ? aClass.cast (aValue) : aDefault;
+    final T ret = aValue != null && aClass.isAssignableFrom (aValue.getClass ()) ? aClass.cast (aValue) : aDefault;
+    if (ret == null && aValue != null)
+    {
+      LoggerFactory.getLogger (IGetterByIndexTrait.class)
+                   .info ("Index '" +
+                          nIndex +
+                          "' is present, but not as a " +
+                          aClass +
+                          " but as a " +
+                          aValue.getClass ());
+    }
+    return ret;
   }
 
   /**

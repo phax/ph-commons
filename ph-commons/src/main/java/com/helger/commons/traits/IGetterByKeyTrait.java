@@ -25,6 +25,8 @@ import java.time.LocalTime;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsLinkedHashSet;
 import com.helger.commons.collection.impl.ICommonsList;
@@ -225,7 +227,13 @@ public interface IGetterByKeyTrait <KEYTYPE>
                                     @Nonnull final Class <T> aClass)
   {
     final Object aValue = getValue (aKey);
-    return aValue != null && aValue.getClass ().isAssignableFrom (aClass) ? aClass.cast (aValue) : aDefault;
+    final T ret = aValue != null && aClass.isAssignableFrom (aValue.getClass ()) ? aClass.cast (aValue) : aDefault;
+    if (ret == null && aValue != null)
+    {
+      LoggerFactory.getLogger (IGetterByKeyTrait.class)
+                   .info ("Key '" + aKey + "' is present, but not as a " + aClass + " but as a " + aValue.getClass ());
+    }
+    return ret;
   }
 
   /**
