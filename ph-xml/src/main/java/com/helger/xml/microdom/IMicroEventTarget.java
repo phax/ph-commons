@@ -18,12 +18,14 @@ package com.helger.xml.microdom;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.callback.ICallback;
+
 /**
  * Interface for MicroDOM event handlers.
  *
  * @author Philip Helger
  */
-public interface IMicroEventTarget
+public interface IMicroEventTarget extends ICallback
 {
   /**
    * Called when a {@link IMicroEvent} is triggered.

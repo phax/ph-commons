@@ -26,10 +26,10 @@ import javax.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.callback.CallbackList;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.hierarchy.IHasChildrenRecursive;
 import com.helger.commons.hierarchy.IHasChildrenSorted;
 import com.helger.commons.hierarchy.IHasParent;
@@ -735,7 +735,7 @@ public interface IMicroNode extends
    */
   @Nonnull
   @ReturnsMutableCopy
-  ICommonsMap <EMicroEvent, ICommonsSet <IMicroEventTarget>> getAllEventTargets ();
+  ICommonsMap <EMicroEvent, CallbackList <IMicroEventTarget>> getAllEventTargets ();
 
   /**
    * Get all event targets for a certain event.
@@ -746,7 +746,7 @@ public interface IMicroNode extends
    */
   @Nonnull
   @ReturnsMutableCopy
-  ICommonsSet <IMicroEventTarget> getAllEventTargets (@Nullable EMicroEvent eEvent);
+  CallbackList <IMicroEventTarget> getAllEventTargets (@Nullable EMicroEvent eEvent);
 
   /**
    * As instances of this class may not implement equals/hashCode we need a way

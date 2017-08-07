@@ -27,13 +27,11 @@ import javax.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.callback.CallbackList;
 import com.helger.commons.collection.impl.CommonsEnumMap;
-import com.helger.commons.collection.impl.CommonsLinkedHashSet;
 import com.helger.commons.collection.impl.ICommonsIterable;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.collection.impl.ICommonsOrderedSet;
-import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.EContinue;
 import com.helger.commons.string.ToStringGenerator;
@@ -50,7 +48,7 @@ public abstract class AbstractMicroNode implements IMicroNode
 {
   /** The parent node of this node. */
   private AbstractMicroNodeWithChildren m_aParentNode;
-  private CommonsEnumMap <EMicroEvent, ICommonsOrderedSet <IMicroEventTarget>> m_aEventTargets;
+  private CommonsEnumMap <EMicroEvent, CallbackList <IMicroEventTarget>> m_aEventTargets;
 
   /**
    * Callback that is invoked once a child is to be appended.
@@ -429,13 +427,9 @@ public abstract class AbstractMicroNode implements IMicroNode
     if (m_aEventTargets != null && m_aEventTargets.isNotEmpty ())
     {
       // Get all event handler
-      final ICommonsSet <IMicroEventTarget> aTargets = m_aEventTargets.get (eEventType);
-      if (aTargets != null && aTargets.isNotEmpty ())
-      {
-        // fire the event
-        for (final IMicroEventTarget aTarget : aTargets)
-          aTarget.handleEvent (aEvent);
-      }
+      final CallbackList <IMicroEventTarget> aTargets = m_aEventTargets.get (eEventType);
+      if (aTargets != null)
+        aTargets.forEach (x -> x.handleEvent (aEvent));
     }
 
     // Bubble to parent
@@ -459,9 +453,9 @@ public abstract class AbstractMicroNode implements IMicroNode
 
     if (m_aEventTargets == null)
       m_aEventTargets = new CommonsEnumMap <> (EMicroEvent.class);
-    final ICommonsOrderedSet <IMicroEventTarget> aSet = m_aEventTargets.computeIfAbsent (eEventType,
-                                                                                         k -> new CommonsLinkedHashSet <> ());
-    return aSet.addObject (aTarget);
+    final CallbackList <IMicroEventTarget> aSet = m_aEventTargets.computeIfAbsent (eEventType,
+                                                                                   k -> new CallbackList <> ());
+    return EChange.valueOf (aSet.add (aTarget));
   }
 
   @Nonnull
@@ -472,8 +466,8 @@ public abstract class AbstractMicroNode implements IMicroNode
 
     if (m_aEventTargets != null && m_aEventTargets.isNotEmpty ())
     {
-      final ICommonsSet <IMicroEventTarget> aSet = m_aEventTargets.get (eEventType);
-      if (aSet != null && !aSet.isEmpty ())
+      final CallbackList <IMicroEventTarget> aSet = m_aEventTargets.get (eEventType);
+      if (aSet != null)
         return aSet.removeObject (aTarget);
     }
     return EChange.UNCHANGED;
@@ -481,24 +475,24 @@ public abstract class AbstractMicroNode implements IMicroNode
 
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsMap <EMicroEvent, ICommonsSet <IMicroEventTarget>> getAllEventTargets ()
+  public ICommonsMap <EMicroEvent, CallbackList <IMicroEventTarget>> getAllEventTargets ()
   {
     return new CommonsEnumMap <> (m_aEventTargets);
   }
 
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsOrderedSet <IMicroEventTarget> getAllEventTargets (@Nullable final EMicroEvent eEvent)
+  public CallbackList <IMicroEventTarget> getAllEventTargets (@Nullable final EMicroEvent eEvent)
   {
-    return new CommonsLinkedHashSet <> (m_aEventTargets == null ? null : m_aEventTargets.get (eEvent));
+    return new CallbackList <> (m_aEventTargets == null ? null : m_aEventTargets.get (eEvent));
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).appendIfNotNull ("parentNodeName",
+    return new ToStringGenerator (this).appendIfNotNull ("ParentNodeName",
                                                          m_aParentNode == null ? null : m_aParentNode.getNodeName ())
-                                       .appendIfNotNull ("eventTargets", m_aEventTargets)
+                                       .appendIfNotNull ("EventTargets", m_aEventTargets)
                                        .getToString ();
   }
 }

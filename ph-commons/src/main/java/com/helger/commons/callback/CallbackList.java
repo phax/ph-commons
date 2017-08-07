@@ -62,23 +62,23 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
   public CallbackList ()
   {}
 
-  public CallbackList (@Nonnull final CallbackList <CALLBACKTYPE> aOther)
+  public CallbackList (@Nullable final CallbackList <CALLBACKTYPE> aOther)
   {
-    ValueEnforcer.notNull (aOther, "Other");
-    m_aCallbacks.addAll (aOther.m_aCallbacks);
+    if (aOther != null)
+      m_aCallbacks.addAll (aOther.m_aCallbacks);
   }
 
   @Nonnull
   public EChange set (@Nonnull final CallbackList <CALLBACKTYPE> rhs)
   {
-    return m_aCallbacks.setAll (rhs.m_aCallbacks);
+    return m_aRWLock.writeLocked ( () -> m_aCallbacks.setAll (rhs.m_aCallbacks));
   }
 
   @Nonnull
   public EChange set (@Nonnull final CALLBACKTYPE aCallback)
   {
     ValueEnforcer.notNull (aCallback, "Callback");
-    return m_aCallbacks.set (aCallback);
+    return m_aRWLock.writeLocked ( () -> m_aCallbacks.set (aCallback));
   }
 
   /**
@@ -86,15 +86,23 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
    *
    * @param aCallback
    *        May not be <code>null</code>.
-   * @return this
+   * @return {@link EChange}
    */
   @Nonnull
-  public CallbackList <CALLBACKTYPE> add (@Nonnull final CALLBACKTYPE aCallback)
+  public EChange add (@Nonnull final CALLBACKTYPE aCallback)
   {
     ValueEnforcer.notNull (aCallback, "Callback");
 
-    m_aRWLock.writeLocked ( () -> m_aCallbacks.add (aCallback));
-    return this;
+    return m_aRWLock.writeLocked ( () -> m_aCallbacks.addObject (aCallback));
+  }
+
+  @Nonnull
+  @SafeVarargs
+  public final EChange addAll (@Nonnull final CALLBACKTYPE... aCallbacks)
+  {
+    ValueEnforcer.notNullNoNullValue (aCallbacks, "Callbacks");
+
+    return m_aRWLock.writeLocked ( () -> m_aCallbacks.addAll (aCallbacks));
   }
 
   /**
@@ -105,7 +113,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
    * @return {@link EChange}
    */
   @Nonnull
-  public EChange remove (@Nullable final CALLBACKTYPE aCallback)
+  public EChange removeObject (@Nullable final CALLBACKTYPE aCallback)
   {
     if (aCallback == null)
       return EChange.UNCHANGED;
