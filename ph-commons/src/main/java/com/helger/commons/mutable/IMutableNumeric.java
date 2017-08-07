@@ -28,7 +28,9 @@ import javax.annotation.Nonnull;
  * @param <IMPLTYPE>
  *        Implementation type
  */
-public interface IMutableNumeric <IMPLTYPE extends IMutableNumeric <IMPLTYPE>> extends IMutableObject <IMPLTYPE>
+public interface IMutableNumeric <IMPLTYPE extends IMutableNumeric <IMPLTYPE>> extends
+                                 IMutableObject <IMPLTYPE>,
+                                 INumber
 {
   /**
    * @return <code>true</code> if the value is 0
@@ -64,29 +66,57 @@ public interface IMutableNumeric <IMPLTYPE extends IMutableNumeric <IMPLTYPE>> e
   boolean isGE0 ();
 
   @Nonnull
-  Byte getAsByte ();
+  default Byte getAsByte ()
+  {
+    return Byte.valueOf (byteValue ());
+  }
 
   @Nonnull
-  Character getAsCharacter ();
+  default Character getAsCharacter ()
+  {
+    return Character.valueOf ((char) intValue ());
+  }
 
   @Nonnull
-  Double getAsDouble ();
+  default Double getAsDouble ()
+  {
+    return Double.valueOf (doubleValue ());
+  }
 
   @Nonnull
-  Float getAsFloat ();
+  default Float getAsFloat ()
+  {
+    return Float.valueOf (floatValue ());
+  }
 
   @Nonnull
-  Integer getAsInteger ();
+  default Integer getAsInteger ()
+  {
+    return Integer.valueOf (intValue ());
+  }
 
   @Nonnull
-  Long getAsLong ();
+  default Long getAsLong ()
+  {
+    return Long.valueOf (longValue ());
+  }
 
   @Nonnull
-  Short getAsShort ();
+  default Short getAsShort ()
+  {
+    return Short.valueOf (shortValue ());
+  }
 
   @Nonnull
-  BigInteger getAsBigInteger ();
+  default BigInteger getAsBigInteger ()
+  {
+    return BigInteger.valueOf (longValue ());
+  }
 
   @Nonnull
-  BigDecimal getAsBigDecimal ();
+  default BigDecimal getAsBigDecimal ()
+  {
+    return BigDecimal.valueOf (doubleValue ());
+  }
+
 }
