@@ -41,7 +41,7 @@ import com.helger.commons.state.EContinue;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * This class manages a list of callbacks.
+ * This class manages a list of callbacks. In reality it is a Set of callbacks.
  *
  * @author Philip Helger
  * @param <CALLBACKTYPE>
