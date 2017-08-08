@@ -37,9 +37,9 @@ import com.helger.xml.microdom.MicroDocument;
  */
 public final class SimpleDAOFuncTest
 {
-  private static final class MySimpleDAO extends AbstractSimpleDAO
+  private static final class MockSimpleDAO extends AbstractSimpleDAO
   {
-    public MySimpleDAO (final String sFilename) throws DAOException
+    public MockSimpleDAO (final String sFilename) throws DAOException
     {
       super (FileRelativeIO.createForCurrentDir (), () -> sFilename);
       initialRead ();
@@ -64,7 +64,7 @@ public final class SimpleDAOFuncTest
   @Test
   public void testBasic () throws DAOException
   {
-    final MySimpleDAO aDAO = new MySimpleDAO ("notexisting.xml");
+    final MockSimpleDAO aDAO = new MockSimpleDAO ("notexisting.xml");
     assertNotNull (aDAO.getLastInitDateTime ());
     assertEquals (1, aDAO.getInitCount ());
     assertNull (aDAO.getLastReadDateTime ());
