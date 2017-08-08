@@ -20,9 +20,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Map;
@@ -31,6 +33,8 @@ import org.junit.Test;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.CommonsLinkedHashSet;
 import com.helger.commons.mock.CommonsAssert;
 import com.helger.commons.mock.CommonsTestHelper;
 
@@ -148,5 +152,24 @@ public final class AttributeContainerAnyTest
     CommonsAssert.assertEquals (1, aCont.getAsFloat ("a"));
     assertEquals (BigDecimal.ONE, aCont.getAsBigDecimal ("a"));
     assertEquals (BigInteger.ONE, aCont.getAsBigInteger ("a"));
+    assertEquals (new CommonsArrayList <> ("1", "20"), aCont.getAsStringList ("a"));
+    assertEquals (new CommonsLinkedHashSet <> ("1", "20"), aCont.getAsStringSet ("a"));
+  }
+
+  @Test
+  public void testCastAndConvert ()
+  {
+    final AttributeContainerAny <String> aCont = new AttributeContainerAny <> ();
+    aCont.putIn ("a", BigDecimal.TEN);
+
+    assertSame (BigDecimal.TEN, aCont.getCastedValue ("a", BigDecimal.class));
+    assertSame (BigDecimal.TEN, aCont.getCastedValue ("a", Number.class));
+    assertSame (BigDecimal.TEN, aCont.getCastedValue ("a", Object.class));
+    assertSame (BigDecimal.TEN, aCont.getCastedValue ("a", Serializable.class));
+
+    assertSame (BigDecimal.TEN, aCont.getConvertedValue ("a", BigDecimal.class));
+    assertSame (BigDecimal.TEN, aCont.getConvertedValue ("a", Number.class));
+    assertSame (BigDecimal.TEN, aCont.getConvertedValue ("a", Object.class));
+    assertSame (BigDecimal.TEN, aCont.getConvertedValue ("a", Serializable.class));
   }
 }

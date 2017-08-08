@@ -26,6 +26,7 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.collection.impl.CommonsArrayList;
@@ -47,6 +48,8 @@ import com.helger.commons.typeconvert.TypeConverterException;
 @FunctionalInterface
 public interface IGetterByKeyTrait <KEYTYPE>
 {
+  Logger s_aLogger = LoggerFactory.getLogger (IGetterByKeyTrait.class);
+
   /**
    * Get the value matching the provided key.
    *
@@ -229,8 +232,8 @@ public interface IGetterByKeyTrait <KEYTYPE>
     final T ret = aValue != null && aClass.isAssignableFrom (aValue.getClass ()) ? aClass.cast (aValue) : aDefault;
     if (ret == null && aValue != null)
     {
-      LoggerFactory.getLogger (IGetterByKeyTrait.class)
-                   .info ("Key '" + aKey + "' is present, but not as a " + aClass + " but as a " + aValue.getClass ());
+      if (s_aLogger.isDebugEnabled ())
+        s_aLogger.debug ("Key '" + aKey + "' is present, but not as a " + aClass + " but as a " + aValue.getClass ());
     }
     return ret;
   }

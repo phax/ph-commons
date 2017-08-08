@@ -27,6 +27,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.collection.impl.CommonsArrayList;
@@ -46,6 +47,8 @@ import com.helger.commons.typeconvert.TypeConverterException;
 @FunctionalInterface
 public interface IGetterByIndexTrait
 {
+  Logger s_aLogger = LoggerFactory.getLogger (IGetterByIndexTrait.class);
+
   /**
    * Get the value at the specified index.
    *
@@ -227,13 +230,13 @@ public interface IGetterByIndexTrait
     final T ret = aValue != null && aClass.isAssignableFrom (aValue.getClass ()) ? aClass.cast (aValue) : aDefault;
     if (ret == null && aValue != null)
     {
-      LoggerFactory.getLogger (IGetterByIndexTrait.class)
-                   .info ("Index '" +
-                          nIndex +
-                          "' is present, but not as a " +
-                          aClass +
-                          " but as a " +
-                          aValue.getClass ());
+      if (s_aLogger.isDebugEnabled ())
+        s_aLogger.debug ("Index '" +
+                         nIndex +
+                         "' is present, but not as a " +
+                         aClass +
+                         " but as a " +
+                         aValue.getClass ());
     }
     return ret;
   }
