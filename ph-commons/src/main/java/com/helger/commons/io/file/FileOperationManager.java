@@ -35,6 +35,13 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public class FileOperationManager implements IFileOperationManager
 {
+  public static final IFileOperationManager INSTANCE = new FileOperationManager ();
+  static
+  {
+    // Add a logging callback by default
+    ((FileOperationManager) INSTANCE).callbacks ().add (new LoggingFileOperationCallback ());
+  }
+
   private FileIOError m_aLastError;
   private final CallbackList <IFileOperationCallback> m_aCallbacks = new CallbackList <> ();
 
@@ -66,15 +73,19 @@ public class FileOperationManager implements IFileOperationManager
     {
       // Invoke callback
       if (aLastError.isSuccess ())
+      {
         m_aCallbacks.forEach (x -> x.onSuccess (aLastError.getOperation (),
                                                 aLastError.getFile1 (),
                                                 aLastError.getFile2 ()));
+      }
       else
+      {
         m_aCallbacks.forEach (x -> x.onError (aLastError.getOperation (),
                                               aLastError.getErrorCode (),
                                               aLastError.getFile1 (),
                                               aLastError.getFile2 (),
                                               aLastError.getException ()));
+      }
     }
   }
 
