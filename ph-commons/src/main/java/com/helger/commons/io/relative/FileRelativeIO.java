@@ -17,6 +17,8 @@
 package com.helger.commons.io.relative;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.UncheckedIOException;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
@@ -95,7 +97,14 @@ public class FileRelativeIO implements IFileRelativeIO
     // Must be an existing directory (and not e.g. a file)
     if (!aBasePath.isDirectory ())
       throw new InitializationException ("The passed base path " + aBasePath + " exists but is not a directory!");
-    m_aBasePath = aBasePath;
+    try
+    {
+      m_aBasePath = aBasePath.getCanonicalFile ();
+    }
+    catch (final IOException ex)
+    {
+      throw new UncheckedIOException (ex);
+    }
   }
 
   @Nonnull

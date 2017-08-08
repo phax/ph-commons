@@ -150,6 +150,11 @@
         <artifactId>ph-less-commons</artifactId>
         <version>${project.version}</version>
       </dependency>
+      <dependency>
+        <groupId>com.helger</groupId>
+        <artifactId>ph-dao</artifactId>
+        <version>${project.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -182,6 +187,7 @@
     <module>ph-settings</module>
     <module>ph-charset</module>
     <module>ph-less-commons</module>
+    <module>ph-dao</module>
   </modules>
 
   <build>
