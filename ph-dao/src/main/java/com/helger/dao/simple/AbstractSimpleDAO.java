@@ -40,6 +40,8 @@ import com.helger.commons.datetime.PDTToString;
 import com.helger.commons.functional.ISupplier;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.FileIOError;
+import com.helger.commons.io.file.FileOperationManager;
+import com.helger.commons.io.relative.IFileRelativeIO;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.state.EChange;
@@ -93,7 +95,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
   private final IMutableStatisticsHandlerTimer m_aStatsCounterWriteTimer = StatisticsManager.getTimerHandler (getClass ().getName () +
                                                                                                               "$write");
 
-  private final ISimpleDAOIO m_aIO;
+  private final IFileRelativeIO m_aIO;
   private final ISupplier <String> m_aFilenameProvider;
   private String m_sPreviousFilename;
   private int m_nInitCount = 0;
@@ -103,12 +105,12 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
   private int m_nWriteCount = 0;
   private LocalDateTime m_aLastWriteDT;
 
-  protected AbstractSimpleDAO (@Nonnull final ISimpleDAOIO aIO, @Nullable final String sFilename)
+  protected AbstractSimpleDAO (@Nonnull final IFileRelativeIO aIO, @Nullable final String sFilename)
   {
     this (aIO, () -> sFilename);
   }
 
-  protected AbstractSimpleDAO (@Nonnull final ISimpleDAOIO aIO, @Nonnull final ISupplier <String> aFilenameProvider)
+  protected AbstractSimpleDAO (@Nonnull final IFileRelativeIO aIO, @Nonnull final ISupplier <String> aFilenameProvider)
   {
     m_aIO = ValueEnforcer.notNull (aIO, "IO");
     m_aFilenameProvider = ValueEnforcer.notNull (aFilenameProvider, "FilenameProvider");
@@ -157,7 +159,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
     ValueEnforcer.notNull (sFilename, "Filename");
     ValueEnforcer.notNull (eMode, "Mode");
 
-    final File aFile = m_aIO.getFileRelativeIO ().getFile (sFilename);
+    final File aFile = m_aIO.getFile (sFilename);
     if (aFile.exists ())
     {
       // file exist -> must be a file!
@@ -196,7 +198,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
       final File aParentDir = aFile.getParentFile ();
       if (aParentDir != null)
       {
-        final FileIOError aError = m_aIO.createDirRecursiveIfNotExisting (aParentDir);
+        final FileIOError aError = FileOperationManager.INSTANCE.createDirRecursiveIfNotExisting (aParentDir);
         if (aError.isFailure ())
           throw new DAOException ("The DAO of class " +
                                   getClass ().getName () +

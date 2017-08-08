@@ -20,14 +20,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-import java.io.File;
-
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
 
 import com.helger.commons.io.relative.FileRelativeIO;
-import com.helger.commons.io.relative.IFileRelativeIO;
 import com.helger.commons.state.EChange;
 import com.helger.dao.DAOException;
 import com.helger.xml.microdom.IMicroDocument;
@@ -42,11 +39,9 @@ public final class SimpleDAOFuncTest
 {
   private static final class MySimpleDAO extends AbstractSimpleDAO
   {
-    private static final IFileRelativeIO FILE_RELATIVE_IO = new FileRelativeIO (new File (".").getAbsoluteFile ());
-
     public MySimpleDAO (final String sFilename) throws DAOException
     {
-      super ((ISimpleDAOIO) () -> FILE_RELATIVE_IO, sFilename);
+      super (FileRelativeIO.createForCurrentDir (), sFilename);
       initialRead ();
     }
 

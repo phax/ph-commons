@@ -53,6 +53,7 @@ import com.helger.commons.io.file.EFileIOErrorCode;
 import com.helger.commons.io.file.EFileIOOperation;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.FileIOError;
+import com.helger.commons.io.file.FileOperationManager;
 import com.helger.commons.io.relative.IFileRelativeIO;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
@@ -121,7 +122,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
                                                                            .setIndent (EXMLSerializeIndent.NONE);
 
   private Class <DATATYPE> m_aDataTypeClass;
-  private final IWALDAOIO m_aIO;
+  private final IFileRelativeIO m_aIO;
   private final ISupplier <String> m_aFilenameProvider;
   private String m_sPreviousFilename;
   private int m_nInitCount = 0;
@@ -137,18 +138,18 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
   private WALListener m_aWALListener;
 
   protected AbstractWALDAO (@Nonnull final Class <DATATYPE> aDataTypeClass,
-                            @Nonnull final IWALDAOIO aDAOIO,
+                            @Nonnull final IFileRelativeIO aIO,
                             @Nullable final String sFilename)
   {
-    this (aDataTypeClass, aDAOIO, () -> sFilename);
+    this (aDataTypeClass, aIO, () -> sFilename);
   }
 
   protected AbstractWALDAO (@Nonnull final Class <DATATYPE> aDataTypeClass,
-                            @Nonnull final IWALDAOIO aDAOIO,
+                            @Nonnull final IFileRelativeIO aIO,
                             @Nonnull final ISupplier <String> aFilenameProvider)
   {
     m_aDataTypeClass = ValueEnforcer.notNull (aDataTypeClass, "DataTypeClass");
-    m_aIO = ValueEnforcer.notNull (aDAOIO, "DAOIO");
+    m_aIO = ValueEnforcer.notNull (aIO, "DAOIO");
     m_aFilenameProvider = ValueEnforcer.notNull (aFilenameProvider, "FilenameProvider");
 
     // Remember instance in case it is trigger upon shutdown
@@ -203,7 +204,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
     ValueEnforcer.notNull (sFilename, "Filename");
     ValueEnforcer.notNull (eMode, "Mode");
 
-    final File aFile = m_aIO.getFileRelativeIO ().getFile (sFilename);
+    final File aFile = m_aIO.getFile (sFilename);
     if (aFile.exists ())
     {
       // file exist -> must be a file!
@@ -242,7 +243,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
       final File aParentDir = aFile.getParentFile ();
       if (aParentDir != null)
       {
-        final FileIOError aError = m_aIO.createDirRecursiveIfNotExisting (aParentDir);
+        final FileIOError aError = FileOperationManager.INSTANCE.createDirRecursiveIfNotExisting (aParentDir);
         if (aError.isFailure ())
           throw new DAOException ("The DAO of class " +
                                   getClass ().getName () +
@@ -481,7 +482,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
 
         // Check if there is anything to recover
         final String sWALFilename = _getWALFilename ();
-        final File aWALFile = sWALFilename == null ? null : m_aIO.getFileRelativeIO ().getFile (sWALFilename);
+        final File aWALFile = sWALFilename == null ? null : m_aIO.getFile (sWALFilename);
         if (aWALFile != null && aWALFile.exists ())
         {
           s_aLogger.info ("Trying to recover from WAL file " + aWALFile.getAbsolutePath ());
@@ -754,12 +755,11 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
         throw new DAOException ("Failed to write DAO XML data to file");
 
       // Rename existing file to old
-      final IFileRelativeIO aFileIO = m_aIO.getFileRelativeIO ();
       FileIOError aIOError;
       boolean bRenamedToPrev = false;
-      if (aFileIO.existsFile (sFilename))
+      if (m_aIO.existsFile (sFilename))
       {
-        aIOError = aFileIO.renameFile (sFilename, sFilenamePrev);
+        aIOError = m_aIO.renameFile (sFilename, sFilenamePrev);
         bRenamedToPrev = true;
       }
       else
@@ -767,18 +767,18 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
       if (aIOError.isSuccess ())
       {
         // Rename new file to final
-        aIOError = aFileIO.renameFile (sFilenameNew, sFilename);
+        aIOError = m_aIO.renameFile (sFilenameNew, sFilename);
         if (aIOError.isSuccess ())
         {
           // Finally delete old file
-          aIOError = aFileIO.deleteFileIfExisting (sFilenamePrev);
+          aIOError = m_aIO.deleteFileIfExisting (sFilenamePrev);
         }
         else
         {
           // 2nd rename failed
           // -> Revert original rename to stay as consistent as possible
           if (bRenamedToPrev)
-            aFileIO.renameFile (sFilenamePrev, sFilename);
+            m_aIO.renameFile (sFilenamePrev, sFilename);
         }
       }
       if (aIOError.isFailure ())
@@ -843,8 +843,8 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
   final void _deleteWALFile (@Nonnull @Nonempty final String sWALFilename)
   {
     ValueEnforcer.notEmpty (sWALFilename, "WALFilename");
-    final File aWALFile = m_aIO.getFileRelativeIO ().getFile (sWALFilename);
-    if (m_aIO.deleteFile (aWALFile).isFailure ())
+    final File aWALFile = m_aIO.getFile (sWALFilename);
+    if (FileOperationManager.INSTANCE.deleteFile (aWALFile).isFailure ())
       s_aLogger.error ("Failed to delete WAL file " + aWALFile.getAbsolutePath ());
   }
 
@@ -878,7 +878,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
                                   @Nonnull final EDAOActionType eActionType,
                                   @Nonnull @Nonempty final String sWALFilename)
   {
-    final FileSystemResource aWALRes = m_aIO.getFileRelativeIO ().getResource (sWALFilename);
+    final FileSystemResource aWALRes = m_aIO.getResource (sWALFilename);
     try (final DataOutputStream aDOS = new DataOutputStream (aWALRes.getOutputStream (EAppend.APPEND)))
     {
       // Write action type ID

@@ -135,4 +135,10 @@ public class FileRelativeIO implements IFileRelativeIO
   {
     return new ToStringGenerator (this).append ("BasePath", m_aBasePath).getToString ();
   }
+
+  @Nonnull
+  public static FileRelativeIO createForCurrentDir ()
+  {
+    return new FileRelativeIO (new File (".").getAbsoluteFile ());
+  }
 }

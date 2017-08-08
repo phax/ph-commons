@@ -50,6 +50,7 @@ import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.functional.IPredicate;
 import com.helger.commons.id.IHasID;
+import com.helger.commons.io.relative.IFileRelativeIO;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
@@ -134,7 +135,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
    *
    * @param aImplClass
    *        Implementation class. May not be <code>null</code>.
-   * @param aDAOIO
+   * @param aIO
    *        IO abstraction to be used. May not be <code>null</code>.
    * @param sFilename
    *        The filename to read and write.
@@ -142,18 +143,18 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
    *         If reading and reading fails
    */
   public AbstractMapBasedWALDAO (@Nonnull final Class <IMPLTYPE> aImplClass,
-                                 @Nonnull final IWALDAOIO aDAOIO,
+                                 @Nonnull final IFileRelativeIO aIO,
                                  @Nullable final String sFilename) throws DAOException
   {
-    this (aImplClass, aDAOIO, sFilename, new InitSettings <> ());
+    this (aImplClass, aIO, sFilename, new InitSettings <> ());
   }
 
   public AbstractMapBasedWALDAO (@Nonnull final Class <IMPLTYPE> aImplClass,
-                                 @Nonnull final IWALDAOIO aDAOIO,
+                                 @Nonnull final IFileRelativeIO aIO,
                                  @Nullable final String sFilename,
                                  @Nonnull final InitSettings <IMPLTYPE> aInitSettings) throws DAOException
   {
-    super (aImplClass, aDAOIO, sFilename);
+    super (aImplClass, aIO, sFilename);
     m_aMap = aInitSettings.m_aMapSupplier.get ();
     m_aReadElementFilter = aInitSettings.m_aReadElementFilter;
     if (aInitSettings.m_bDoInitialRead)
