@@ -117,6 +117,12 @@ public interface IDAO extends IChangeable, IAutoSaveAware
   default void reload () throws DAOException
   {
     if (isReloadable ())
+    {
+      // Needs to be implemented by subclasses
       throw new UnsupportedOperationException ("Reloadable is specified, but 'reload' is not implemented!");
+    }
+
+    // Not reloadable - don't call
+    throw new UnsupportedOperationException ("This class is not reloadable. Call this method only if 'isReloadable' returns true!");
   }
 }
