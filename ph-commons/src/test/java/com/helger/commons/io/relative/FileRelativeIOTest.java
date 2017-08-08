@@ -16,6 +16,7 @@
  */
 package com.helger.commons.io.relative;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -23,6 +24,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
@@ -40,7 +42,7 @@ public final class FileRelativeIOTest
   {
     final IFileRelativeIO aIO = FileRelativeIO.createForCurrentDir ();
     final String sTestFile = "testfile";
-    final String sTestContent = "Das ist der Inhalt der TestDatei";
+    final String sTestContent = "This is the test file content";
     final String sTestFile2 = "testfile2";
 
     // may not exist
@@ -51,7 +53,7 @@ public final class FileRelativeIOTest
       // write file
       final OutputStream aOS = aIO.getOutputStream (sTestFile);
       assertNotNull (aOS);
-      aOS.write (sTestContent.getBytes ());
+      aOS.write (sTestContent.getBytes (StandardCharsets.ISO_8859_1));
       assertTrue (StreamHelper.close (aOS).isSuccess ());
 
       // rename a to b
@@ -70,9 +72,12 @@ public final class FileRelativeIOTest
       assertFalse (aIO.existsFile (sTestFile2));
 
       // read file
-      final InputStream aIS = aIO.getResource (sTestFile).getInputStream ();
-      assertNotNull (aIS);
-      StreamHelper.close (aIS);
+      try (final InputStream aIS = aIO.getResource (sTestFile).getInputStream ())
+      {
+        assertNotNull (aIS);
+        final String sReadContent = StreamHelper.getAllBytesAsString (aIS, StandardCharsets.ISO_8859_1);
+        assertEquals (sTestContent, sReadContent);
+      }
     }
     finally
     {
