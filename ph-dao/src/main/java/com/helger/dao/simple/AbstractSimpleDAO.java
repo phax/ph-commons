@@ -105,15 +105,20 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
   private int m_nWriteCount = 0;
   private LocalDateTime m_aLastWriteDT;
 
-  protected AbstractSimpleDAO (@Nonnull final IFileRelativeIO aIO, @Nullable final String sFilename)
-  {
-    this (aIO, () -> sFilename);
-  }
-
   protected AbstractSimpleDAO (@Nonnull final IFileRelativeIO aIO, @Nonnull final ISupplier <String> aFilenameProvider)
   {
     m_aIO = ValueEnforcer.notNull (aIO, "IO");
     m_aFilenameProvider = ValueEnforcer.notNull (aFilenameProvider, "FilenameProvider");
+  }
+
+  /**
+   * @return The file-relative IO as passed in the constructor. Never
+   *         <code>null</code>.
+   */
+  @Nonnull
+  protected final IFileRelativeIO getIO ()
+  {
+    return m_aIO;
   }
 
   /**

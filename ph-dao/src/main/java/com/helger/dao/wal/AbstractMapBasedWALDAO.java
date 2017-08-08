@@ -127,11 +127,12 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @GuardedBy ("m_aRWLock")
   private final ICommonsMap <String, IMPLTYPE> m_aMap;
   private final CallbackList <IDAOChangeCallback <INTERFACETYPE>> m_aCallbacks = new CallbackList <> ();
-  private IPredicate <IMicroElement> m_aReadElementFilter;
+  private final IPredicate <IMicroElement> m_aReadElementFilter;
 
   /**
    * Default constructor. Automatically tries to read the file in the
-   * constructor.
+   * constructor (except this is changed in the init settings). WAL based
+   * classes must have a fixed filename!
    *
    * @param aImplClass
    *        Implementation class. May not be <code>null</code>.
@@ -139,22 +140,18 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
    *        IO abstraction to be used. May not be <code>null</code>.
    * @param sFilename
    *        The filename to read and write.
+   * @param aInitSettings
+   *        Optional initialization settings to be used. May not be
+   *        <code>null</code>.
    * @throws DAOException
    *         If reading and reading fails
    */
   public AbstractMapBasedWALDAO (@Nonnull final Class <IMPLTYPE> aImplClass,
                                  @Nonnull final IFileRelativeIO aIO,
-                                 @Nullable final String sFilename) throws DAOException
-  {
-    this (aImplClass, aIO, sFilename, new InitSettings <> ());
-  }
-
-  public AbstractMapBasedWALDAO (@Nonnull final Class <IMPLTYPE> aImplClass,
-                                 @Nonnull final IFileRelativeIO aIO,
                                  @Nullable final String sFilename,
                                  @Nonnull final InitSettings <IMPLTYPE> aInitSettings) throws DAOException
   {
-    super (aImplClass, aIO, sFilename);
+    super (aImplClass, aIO, () -> sFilename);
     m_aMap = aInitSettings.m_aMapSupplier.get ();
     m_aReadElementFilter = aInitSettings.m_aReadElementFilter;
     if (aInitSettings.m_bDoInitialRead)

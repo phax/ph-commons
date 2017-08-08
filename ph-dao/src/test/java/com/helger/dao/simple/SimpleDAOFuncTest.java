@@ -41,7 +41,7 @@ public final class SimpleDAOFuncTest
   {
     public MySimpleDAO (final String sFilename) throws DAOException
     {
-      super (FileRelativeIO.createForCurrentDir (), sFilename);
+      super (FileRelativeIO.createForCurrentDir (), () -> sFilename);
       initialRead ();
     }
 

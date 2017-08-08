@@ -121,7 +121,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
   public static final IXMLWriterSettings WAL_XWS = new XMLWriterSettings ().setIncorrectCharacterHandling (EXMLIncorrectCharacterHandling.WRITE_TO_FILE_NO_LOG)
                                                                            .setIndent (EXMLSerializeIndent.NONE);
 
-  private Class <DATATYPE> m_aDataTypeClass;
+  private final Class <DATATYPE> m_aDataTypeClass;
   private final IFileRelativeIO m_aIO;
   private final ISupplier <String> m_aFilenameProvider;
   private String m_sPreviousFilename;
@@ -135,14 +135,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
   private TimeValue m_aWaitingTime = DEFAULT_WAITING_TIME;
 
   // Status vars
-  private WALListener m_aWALListener;
-
-  protected AbstractWALDAO (@Nonnull final Class <DATATYPE> aDataTypeClass,
-                            @Nonnull final IFileRelativeIO aIO,
-                            @Nullable final String sFilename)
-  {
-    this (aDataTypeClass, aIO, () -> sFilename);
-  }
+  private final WALListener m_aWALListener;
 
   protected AbstractWALDAO (@Nonnull final Class <DATATYPE> aDataTypeClass,
                             @Nonnull final IFileRelativeIO aIO,
@@ -159,6 +152,16 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
   final void internalWriteLocked (@Nonnull final Runnable aRunnable)
   {
     m_aRWLock.writeLocked (aRunnable);
+  }
+
+  /**
+   * @return The file-relative IO as passed in the constructor. Never
+   *         <code>null</code>.
+   */
+  @Nonnull
+  protected final IFileRelativeIO getIO ()
+  {
+    return m_aIO;
   }
 
   /**
