@@ -26,6 +26,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.attr.IMutableAttributeContainerAny;
+import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.id.IHasID;
 
@@ -123,5 +124,13 @@ public interface IScope extends IHasID <String>, Serializable
    */
   @Nonnull
   @ReturnsMutableCopy
-  ICommonsMap <String, IScopeRenewalAware> getAllScopeRenewalAwareAttributes ();
+  default ICommonsMap <String, IScopeRenewalAware> getAllScopeRenewalAwareAttributes ()
+  {
+    final ICommonsMap <String, IScopeRenewalAware> ret = new CommonsHashMap <> ();
+    attrs ().forEach ( (n, v) -> {
+      if (v instanceof IScopeRenewalAware)
+        ret.put (n, (IScopeRenewalAware) v);
+    });
+    return ret;
+  }
 }

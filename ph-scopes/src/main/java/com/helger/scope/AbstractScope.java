@@ -29,13 +29,10 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.attr.AttributeContainerAnyConcurrent;
 import com.helger.commons.collection.attr.IMutableAttributeContainerAny;
-import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
@@ -200,18 +197,6 @@ public abstract class AbstractScope implements IScope
   public final IMutableAttributeContainerAny <String> attrs ()
   {
     return m_aAttrs;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public final ICommonsMap <String, IScopeRenewalAware> getAllScopeRenewalAwareAttributes ()
-  {
-    final ICommonsMap <String, IScopeRenewalAware> ret = new CommonsHashMap <> ();
-    m_aAttrs.forEach ( (n, v) -> {
-      if (v instanceof IScopeRenewalAware)
-        ret.put (n, (IScopeRenewalAware) v);
-    });
-    return ret;
   }
 
   @Override
