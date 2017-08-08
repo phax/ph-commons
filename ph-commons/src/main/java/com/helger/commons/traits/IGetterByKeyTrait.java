@@ -48,7 +48,7 @@ import com.helger.commons.typeconvert.TypeConverterException;
 @FunctionalInterface
 public interface IGetterByKeyTrait <KEYTYPE>
 {
-  Logger s_aLogger = LoggerFactory.getLogger (IGetterByKeyTrait.class);
+  Logger s_aTraitLogger = LoggerFactory.getLogger (IGetterByKeyTrait.class);
 
   /**
    * Get the value matching the provided key.
@@ -232,8 +232,8 @@ public interface IGetterByKeyTrait <KEYTYPE>
     final T ret = aValue != null && aClass.isAssignableFrom (aValue.getClass ()) ? aClass.cast (aValue) : aDefault;
     if (ret == null && aValue != null)
     {
-      if (s_aLogger.isDebugEnabled ())
-        s_aLogger.debug ("Key '" + aKey + "' is present, but not as a " + aClass + " but as a " + aValue.getClass ());
+      if (s_aTraitLogger.isDebugEnabled ())
+        s_aTraitLogger.debug ("Key '" + aKey + "' is present, but not as a " + aClass + " but as a " + aValue.getClass ());
     }
     return ret;
   }

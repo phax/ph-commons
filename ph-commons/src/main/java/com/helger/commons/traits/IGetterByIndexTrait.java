@@ -47,7 +47,7 @@ import com.helger.commons.typeconvert.TypeConverterException;
 @FunctionalInterface
 public interface IGetterByIndexTrait
 {
-  Logger s_aLogger = LoggerFactory.getLogger (IGetterByIndexTrait.class);
+  Logger s_aTraitLogger = LoggerFactory.getLogger (IGetterByIndexTrait.class);
 
   /**
    * Get the value at the specified index.
@@ -230,8 +230,8 @@ public interface IGetterByIndexTrait
     final T ret = aValue != null && aClass.isAssignableFrom (aValue.getClass ()) ? aClass.cast (aValue) : aDefault;
     if (ret == null && aValue != null)
     {
-      if (s_aLogger.isDebugEnabled ())
-        s_aLogger.debug ("Index '" +
+      if (s_aTraitLogger.isDebugEnabled ())
+        s_aTraitLogger.debug ("Index '" +
                          nIndex +
                          "' is present, but not as a " +
                          aClass +
