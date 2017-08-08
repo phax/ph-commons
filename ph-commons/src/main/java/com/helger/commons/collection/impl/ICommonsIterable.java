@@ -347,7 +347,9 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>, 
   }
 
   /**
-   * Retrieve the size of this {@link Iterable}.
+   * Retrieve the size of this {@link Iterable}. This method does by default
+   * iterate all elements. Please provide a more efficient solution. If this is
+   * a collection, consider using <code>size()</code> instead.
    *
    * @return The number objects contained. Always &ge; 0.
    */

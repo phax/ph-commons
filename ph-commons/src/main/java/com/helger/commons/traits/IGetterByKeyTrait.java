@@ -21,6 +21,7 @@ import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Locale;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -31,6 +32,7 @@ import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsLinkedHashSet;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
+import com.helger.commons.datetime.PDTFromString;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.typeconvert.TypeConverter;
 import com.helger.commons.typeconvert.TypeConverterException;
@@ -808,10 +810,61 @@ public interface IGetterByKeyTrait <KEYTYPE>
   }
 
   /**
+   * Get the value as a String, interpreted as a {@link LocalDate}.
+   *
+   * @param aKey
+   *        The key to check. May be <code>null</code>.
+   * @param aContentLocale
+   *        Locale to use for conversion.
+   * @return <code>null</code> if either the conversion to String or the parsing
+   *         of the String failed.
+   */
+  @Nullable
+  default LocalDate getAsLocalDate (@Nullable final KEYTYPE aKey, @Nonnull final Locale aContentLocale)
+  {
+    final String sStartDate = getAsString (aKey);
+    return PDTFromString.getLocalDateFromString (sStartDate, aContentLocale);
+  }
+
+  /**
+   * Get the value as a String, interpreted as a {@link LocalTime}.
+   *
+   * @param aKey
+   *        The key to check. May be <code>null</code>.
+   * @param aContentLocale
+   *        Locale to use for conversion.
+   * @return <code>null</code> if either the conversion to String or the parsing
+   *         of the String failed.
+   */
+  @Nullable
+  default LocalTime getAsLocalTime (@Nullable final KEYTYPE aKey, @Nonnull final Locale aContentLocale)
+  {
+    final String sStartDate = getAsString (aKey);
+    return PDTFromString.getLocalTimeFromString (sStartDate, aContentLocale);
+  }
+
+  /**
+   * Get the value as a String, interpreted as a {@link LocalDateTime}.
+   *
+   * @param aKey
+   *        The key to check. May be <code>null</code>.
+   * @param aContentLocale
+   *        Locale to use for conversion.
+   * @return <code>null</code> if either the conversion to String or the parsing
+   *         of the String failed.
+   */
+  @Nullable
+  default LocalDateTime getAsLocalDateTime (@Nullable final KEYTYPE aKey, @Nonnull final Locale aContentLocale)
+  {
+    final String sStartDate = getAsString (aKey);
+    return PDTFromString.getLocalDateTimeFromString (sStartDate, aContentLocale);
+  }
+
+  /**
    * Get a list of all attribute values with the same name.
    *
    * @param aKey
-   *        The name of the attribute to query.
+   *        The key to check. May be <code>null</code>.
    * @return <code>null</code> if no such attribute value exists
    */
   @Nullable
@@ -824,7 +877,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * Get a list of all attribute values with the same name.
    *
    * @param aKey
-   *        The name of the attribute to query.
+   *        The key to check. May be <code>null</code>.
    * @param aDefault
    *        The default value to be returned, if no such attribute is present.
    * @return <code>aDefault</code> if no such attribute value exists
@@ -834,17 +887,18 @@ public interface IGetterByKeyTrait <KEYTYPE>
                                                  @Nullable final ICommonsList <String> aDefault)
   {
     final Object aValue = getValue (aKey);
-    if (aValue == null)
-      return aDefault;
-    if (aValue instanceof String [])
+    if (aValue != null)
     {
-      // multiple values passed in the request
-      return new CommonsArrayList <> ((String []) aValue);
-    }
-    if (aValue instanceof String)
-    {
-      // single value passed in the request
-      return new CommonsArrayList <> ((String) aValue);
+      if (aValue instanceof String [])
+      {
+        // multiple values passed in the request
+        return new CommonsArrayList <> ((String []) aValue);
+      }
+      if (aValue instanceof String)
+      {
+        // single value passed in the request
+        return new CommonsArrayList <> ((String) aValue);
+      }
     }
     return aDefault;
   }
@@ -853,7 +907,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * Get a set of all attribute values with the same name.
    *
    * @param aKey
-   *        The name of the attribute to query.
+   *        The key to check. May be <code>null</code>.
    * @return <code>null</code> if no such attribute value exists
    */
   @Nullable
@@ -866,7 +920,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * Get a set of all attribute values with the same name.
    *
    * @param aKey
-   *        The name of the attribute to query.
+   *        The key to check. May be <code>null</code>.
    * @param aDefault
    *        The default value to be returned, if no such attribute is present.
    * @return <code>aDefault</code> if no such attribute value exists
@@ -876,17 +930,18 @@ public interface IGetterByKeyTrait <KEYTYPE>
                                                       @Nullable final ICommonsOrderedSet <String> aDefault)
   {
     final Object aValue = getValue (aKey);
-    if (aValue == null)
-      return aDefault;
-    if (aValue instanceof String [])
+    if (aValue != null)
     {
-      // multiple values passed in the request
-      return new CommonsLinkedHashSet <> ((String []) aValue);
-    }
-    if (aValue instanceof String)
-    {
-      // single value passed in the request
-      return new CommonsLinkedHashSet <> ((String) aValue);
+      if (aValue instanceof String [])
+      {
+        // multiple values passed in the request
+        return new CommonsLinkedHashSet <> ((String []) aValue);
+      }
+      if (aValue instanceof String)
+      {
+        // single value passed in the request
+        return new CommonsLinkedHashSet <> ((String) aValue);
+      }
     }
     return aDefault;
   }
@@ -896,7 +951,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * the specified value.
    *
    * @param aKey
-   *        The name of the attribute to check
+   *        The key to check. May be <code>null</code>.
    * @param sDesiredValue
    *        The value to be matched
    * @return <code>true</code> if an attribute with the given name is present
@@ -913,7 +968,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * value is returned.
    *
    * @param aKey
-   *        The name of the attribute to check
+   *        The key to check. May be <code>null</code>.
    * @param sDesiredValue
    *        The value to be matched
    * @param bDefault
