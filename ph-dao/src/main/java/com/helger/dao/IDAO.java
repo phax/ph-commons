@@ -95,4 +95,28 @@ public interface IDAO extends IChangeable, IAutoSaveAware
    */
   @Nullable
   LocalDateTime getLastWriteDateTime ();
+
+  /**
+   * @return <code>true</code> if this DAO support re-loading,
+   *         <code>false</code> otherwise.
+   * @see #reload()
+   */
+  default boolean isReloadable ()
+  {
+    return false;
+  }
+
+  /**
+   * The method that is invoke if a DAO is reloaded. This method is only
+   * triggered if this DAO indicates that it is reloadable via
+   * {@link #isReloadable()}.
+   *
+   * @throws DAOException
+   *         In case reloading fails
+   */
+  default void reload () throws DAOException
+  {
+    if (isReloadable ())
+      throw new UnsupportedOperationException ("Reloadable is specified, but 'reload' is not implemented!");
+  }
 }
