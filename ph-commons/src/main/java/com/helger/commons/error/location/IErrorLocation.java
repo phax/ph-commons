@@ -101,6 +101,12 @@ public interface IErrorLocation extends Serializable
       else
         ret += "(" + getLineNumber () + ":?)";
     }
+    else
+    {
+      if (hasColumnNumber ())
+        ret += "(?:" + getColumnNumber () + ")";
+      // else: neither nor
+    }
     return ret;
   }
 }
