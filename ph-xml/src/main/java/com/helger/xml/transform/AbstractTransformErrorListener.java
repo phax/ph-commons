@@ -18,7 +18,6 @@ package com.helger.xml.transform;
 
 import javax.annotation.Nonnull;
 import javax.xml.transform.ErrorListener;
-import javax.xml.transform.SourceLocator;
 import javax.xml.transform.TransformerException;
 
 import com.helger.commons.error.IError;
@@ -27,7 +26,6 @@ import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.error.location.ErrorLocation;
 import com.helger.commons.error.location.IErrorLocation;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.text.IMultilingualText;
 
@@ -46,13 +44,7 @@ public abstract class AbstractTransformErrorListener implements ITransformErrorL
                                      @Nonnull final IErrorLevel aErrorLevel,
                                      @Nonnull final IMultilingualText aErrorMsg)
   {
-    final SourceLocator aLocator = ex.getLocator ();
-    final IErrorLocation aLocation = aLocator != null ? new ErrorLocation (StringHelper.getConcatenatedOnDemand (aLocator.getPublicId (),
-                                                                                                                 "/",
-                                                                                                                 aLocator.getSystemId ()),
-                                                                           aLocator.getLineNumber (),
-                                                                           aLocator.getColumnNumber ())
-                                                      : null;
+    final IErrorLocation aLocation = ErrorLocation.create (ex.getLocator ());
     return SingleError.builder ()
                       .setErrorLevel (aErrorLevel)
                       .setErrorLocation (aLocation)

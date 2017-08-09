@@ -18,9 +18,13 @@ package com.helger.commons.error.location;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
+import javax.xml.transform.SourceLocator;
+
+import org.xml.sax.Locator;
 
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -93,8 +97,34 @@ public class ErrorLocation implements IErrorLocation
   public String toString ()
   {
     return new ToStringGenerator (null).appendIfNotNull ("ResourceID", m_sResourceID)
-                                       .appendIf ("LineNumber", m_nLineNumber, (final int x) -> x >= 0)
-                                       .appendIf ("ColumnNumber", m_nColumnNumber, (final int x) -> x >= 0)
+                                       .appendIf ("LineNumber", m_nLineNumber, (final int x) -> x > ILLEGAL_NUMBER)
+                                       .appendIf ("ColumnNumber", m_nColumnNumber, (final int x) -> x > ILLEGAL_NUMBER)
                                        .getToString ();
+  }
+
+  @Nullable
+  public static ErrorLocation create (@Nullable final Locator aLocator)
+  {
+    if (aLocator == null)
+      return null;
+
+    return new ErrorLocation (StringHelper.getConcatenatedOnDemand (aLocator.getPublicId (),
+                                                                    "/",
+                                                                    aLocator.getSystemId ()),
+                              aLocator.getLineNumber (),
+                              aLocator.getColumnNumber ());
+  }
+
+  @Nullable
+  public static ErrorLocation create (@Nullable final SourceLocator aLocator)
+  {
+    if (aLocator == null)
+      return null;
+
+    return new ErrorLocation (StringHelper.getConcatenatedOnDemand (aLocator.getPublicId (),
+                                                                    "/",
+                                                                    aLocator.getSystemId ()),
+                              aLocator.getLineNumber (),
+                              aLocator.getColumnNumber ());
   }
 }
