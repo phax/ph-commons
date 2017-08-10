@@ -108,41 +108,23 @@ public final class JAXBBuilderFuncTest
   }
 
   @Test
-  public void testInternalNoXSD ()
-  {
-    final com.helger.jaxb.mock.internal.MockJAXBArchive aArc = new com.helger.jaxb.mock.internal.MockJAXBArchive ();
-    aArc.setVersion ("1.23");
-
-    final MockInternalArchiveWriterBuilder aWriter = new MockInternalArchiveWriterBuilder ();
-    final Document aDoc = aWriter.getAsDocument (aArc);
-    assertNotNull (aDoc);
-    final IMicroDocument aDoc2 = aWriter.getAsMicroDocument (aArc);
-    assertNotNull (aDoc2);
-
-    final com.helger.jaxb.mock.internal.MockJAXBArchive aArc2 = new MockInternalArchiveReaderBuilder ().read (aDoc);
-    assertNotNull (aArc2);
-
-    assertEquals (aWriter.getAsString (aArc), aWriter.getAsString (aArc2));
-  }
-
-  @Test
   public void testStreamWriter () throws XMLStreamException
   {
     final XMLOutputFactory aOF = XMLOutputFactory.newInstance ();
     final XMLStreamWriter aSW = aOF.createXMLStreamWriter (FileHelper.getBufferedWriter (new File ("target/stream-writer-test.xml"),
                                                                                          StandardCharsets.UTF_8));
 
-    final com.helger.jaxb.mock.internal.MockJAXBArchive aArc = new com.helger.jaxb.mock.internal.MockJAXBArchive ();
+    final com.helger.jaxb.mock.external.MockJAXBArchive aArc = new com.helger.jaxb.mock.external.MockJAXBArchive ();
     aArc.setVersion ("1.23");
     for (int i = 0; i < 5; ++i)
     {
-      final com.helger.jaxb.mock.internal.MockJAXBCollection aCollection = new com.helger.jaxb.mock.internal.MockJAXBCollection ();
+      final com.helger.jaxb.mock.external.MockJAXBCollection aCollection = new com.helger.jaxb.mock.external.MockJAXBCollection ();
       aCollection.setDescription ("Internal bla foo");
       aCollection.setID (i);
       aArc.getCollection ().add (aCollection);
     }
 
-    final MockInternalArchiveWriterBuilder aWriter = new MockInternalArchiveWriterBuilder ();
+    final MockExternalArchiveWriterBuilder aWriter = new MockExternalArchiveWriterBuilder ();
     aWriter.write (aArc, aSW);
   }
 

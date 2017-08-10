@@ -108,7 +108,6 @@ public final class JAXBContextCacheTest
   public void testReadWrite () throws JAXBException
   {
     _testReadWrite (com.helger.jaxb.mock.external.MockJAXBArchive.class);
-    _testReadWrite (com.helger.jaxb.mock.internal.MockJAXBArchive.class);
   }
 
   @Test
@@ -119,9 +118,7 @@ public final class JAXBContextCacheTest
     final Marshaller m = aCtx.createMarshaller ();
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     m.marshal (new JAXBElement <> (new QName ("element"), String.class, sMsg), aSW);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><element>" +
-                  sMsg +
-                  "</element>",
+    assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><element>" + sMsg + "</element>",
                   aSW.getAsString ());
   }
 
@@ -134,9 +131,7 @@ public final class JAXBContextCacheTest
     final Marshaller m = aCtx.createMarshaller ();
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     m.marshal (new JAXBElement <> (new QName ("element"), String.class, sMsg), aSW);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><element>" +
-                  sMsg +
-                  "</element>",
+    assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><element>" + sMsg + "</element>",
                   aSW.getAsString ());
   }
 }
