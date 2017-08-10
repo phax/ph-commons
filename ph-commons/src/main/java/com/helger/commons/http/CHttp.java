@@ -18,12 +18,15 @@ package com.helger.commons.http;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
+import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.datetime.PDTFactory;
 
 /**
  * Predefined HTTP constants.
@@ -177,5 +180,26 @@ public final class CHttp
         break;
     }
     return sMsg;
+  }
+
+  /**
+   * Get milliseconds suitable for HTTP requests/responses. Rounds down to the
+   * nearest second for a proper compare. Java has milliseconds, HTTP
+   * requests/responses have not.
+   *
+   * @param nMillis
+   *        Milliseconds to use
+   * @return The rounded milliseconds
+   */
+  public static final long getUnifiedMillis (final long nMillis)
+  {
+    return nMillis / CGlobal.MILLISECONDS_PER_SECOND * CGlobal.MILLISECONDS_PER_SECOND;
+  }
+
+  @Nonnull
+  public static final LocalDateTime convertMillisToLocalDateTime (final long nMillis)
+  {
+    // Round down to the nearest second for a proper compare
+    return PDTFactory.createLocalDateTime (getUnifiedMillis (nMillis));
   }
 }
