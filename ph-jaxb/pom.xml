@@ -49,12 +49,25 @@
       <url>http://www.helger.com</url>
     </developer>
   </developers>
+  <repositories>
+    <repository>
+      <id>jvnet-nexus-promoted</id>
+      <name>Java.net Promoted Repositories</name>
+      <url>https://maven.java.net/content/repositories/promoted/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
   <dependencyManagement>
     <dependencies>
       <dependency>
         <groupId>org.glassfish.jaxb</groupId>
         <artifactId>jaxb-bom</artifactId>
-        <version>2.2.11</version>
+        <version>2.3.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -73,26 +86,10 @@
     <dependency>
       <groupId>org.glassfish.jaxb</groupId>
       <artifactId>jaxb-runtime</artifactId>
-      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>org.glassfish.jaxb</groupId>
       <artifactId>jaxb-core</artifactId>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>com.sun.istack</groupId>
-      <artifactId>istack-commons-runtime</artifactId>
-      <optional>true</optional>
-    </dependency>
-    <!-- Required to use the special JAXB internal namespace mapper -->
-    <dependency>
-      <groupId>com.sun</groupId>
-      <artifactId>rt</artifactId>
-      <version>1.5.0_06</version>
-      <scope>system</scope>
-      <systemPath>${java.home}/lib/rt.jar</systemPath>
-      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
