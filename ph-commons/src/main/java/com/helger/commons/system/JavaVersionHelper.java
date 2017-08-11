@@ -18,6 +18,9 @@ package com.helger.commons.system;
 
 import javax.annotation.concurrent.Immutable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.string.StringParser;
@@ -39,6 +42,8 @@ public final class JavaVersionHelper
   // 1.8.0_144 => 144
   public static final int JAVA_MINOR_VERSION;
 
+  private static final Logger s_aLogger = LoggerFactory.getLogger (JavaVersionHelper.class);
+
   static
   {
     String sJavaVersion = SystemProperties.getJavaVersion ();
@@ -50,7 +55,15 @@ public final class JavaVersionHelper
       throw new IllegalStateException ("Failed to determine Java major version from '" + sJavaVersion + "'");
     JAVA_MINOR_VERSION = StringParser.parseInt (sJavaVersion.substring (sJavaVersion.indexOf ('_') + 1), -1);
     if (JAVA_MINOR_VERSION < 0)
-      throw new IllegalStateException ("Failed to determine Java major version from '" + sJavaVersion + "'");
+      throw new IllegalStateException ("Failed to determine Java minor version from '" + sJavaVersion + "'");
+
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("Java version '" +
+                       SystemProperties.getJavaVersion () +
+                       "' split into MAJOR=" +
+                       JAVA_MAJOR_VERSION +
+                       " and MINOR=" +
+                       JAVA_MINOR_VERSION);
   }
 
   @PresentForCodeCoverage
@@ -59,12 +72,14 @@ public final class JavaVersionHelper
   private JavaVersionHelper ()
   {}
 
-  public static boolean isAtLeast (final int nJavaMajor, final int nJavaMinor)
+  public static boolean isAtLeast (final int nRequestedJavaMajor, final int nRequestedJavaMinor)
   {
-    if (nJavaMajor > JAVA_MAJOR_VERSION)
+    if (JAVA_MAJOR_VERSION > nRequestedJavaMajor)
       return true;
-    if (nJavaMajor == JAVA_MAJOR_VERSION)
-      return nJavaMinor >= JAVA_MINOR_VERSION;
+    if (JAVA_MAJOR_VERSION == nRequestedJavaMajor)
+      return JAVA_MINOR_VERSION >= nRequestedJavaMinor;
+
+    // JAVA_MAJOR_VERSION < nRequestedJavaMajor
     return false;
   }
 }
