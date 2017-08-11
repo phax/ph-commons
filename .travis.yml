@@ -1,10 +1,3 @@
-# Workaround as per https://github.com/travis-ci/travis-ci/issues/3259
-sudo: false
-addons:
-  apt:
-    packages:
-      - oracle-java8-installer
-      
 language: java
 
 env:
@@ -19,12 +12,6 @@ GgAm8tAjsmE4yejBl1E4xYKoHXY2Gs1tI+/v6CQ7R5VbA+Z/LiCTO8cozl2zI0DlN7VRVDmBt0WqUCdk
 uHu4/XKtXs21U040Z0DoVZZqk3ZyVEdkfRdnkj3BuOkCuf4zPS+3+3y5QWWRmsTruVHETwUq3vBbo9DLEUbxU6qag/Nnao="
     - MAVEN_OPTS=-Xmx1024m
 
-before_script:
-# should be empty
- - "echo $JAVA_OPTS"
- - "export JAVA_OPTS=-Djava.security.egd=file:/dev/./urandom"
- - "export MAVEN_OPTS=-Djava.security.egd=file:/dev/./urandom"
- 
 jdk:
   - oraclejdk8
   
