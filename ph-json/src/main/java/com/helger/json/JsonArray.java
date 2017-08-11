@@ -179,9 +179,9 @@ public class JsonArray implements IJsonArray
     m_aValues.forEach (aConsumer);
   }
 
-  public void forEach (@Nonnull final ObjIntConsumer <? super IJson> aConsumer)
+  public void forEachByIndex (@Nonnull final ObjIntConsumer <? super IJson> aConsumer)
   {
-    m_aValues.forEach (aConsumer);
+    m_aValues.forEachByIndex (aConsumer);
   }
 
   public boolean contains (@Nullable final IJson aValue)

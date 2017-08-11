@@ -47,7 +47,7 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>, 
    * @param aConsumer
    *        The consumer to use. May not be <code>null</code>.
    */
-  default void forEach (@Nonnull final ObjIntConsumer <? super ELEMENTTYPE> aConsumer)
+  default void forEachByIndex (@Nonnull final ObjIntConsumer <? super ELEMENTTYPE> aConsumer)
   {
     int nIndex = 0;
     for (final ELEMENTTYPE aItem : this)
