@@ -132,6 +132,7 @@
     <comment>JSON document</comment>
     <parent-type>application/javascript</parent-type>
     <extension>json</extension>
+    <extension>map</extension>
   </item>
   <item source="old">
     <mime-type>application/mac-binhex40</mime-type>
