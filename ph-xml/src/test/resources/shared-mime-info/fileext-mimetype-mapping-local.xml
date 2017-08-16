@@ -374,6 +374,7 @@ Source: http://www.freedesktop.org/wiki/Software/shared-mime-info
   <map key="mab" value="application/x-markaby" />
   <map key="man" value="application/x-troff-man" />
   <map key="manifest" value="text/cache-manifest" />
+  <map key="map" value="application/octet-stream" />
   <map key="mbox" value="application/mbox" />
   <map key="md" value="text/x-markdown" />
   <map key="mdb" value="application/vnd.ms-access" />

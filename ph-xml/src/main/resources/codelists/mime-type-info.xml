@@ -1,23 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-    Copyright (C) 2014-2017 Philip Helger (www.helger.com)
-    philip[at]helger[dot]com
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-            http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
--->
 <mime-type-info>
+  <item source="old">
+    <mime-type>application/STEP</mime-type>
+    <extension>step</extension>
+    <extension source="old">stp</extension>
+  </item>
   <item source="shared-mime-info">
     <mime-type>application/andrew-inset</mime-type>
     <comment>ATK inset</comment>
@@ -85,6 +72,14 @@
     <extension>fif</extension>
   </item>
   <item source="shared-mime-info">
+    <mime-type>application/geo+json</mime-type>
+    <mime-type>application/vnd.geo+json</mime-type>
+    <comment>GeoJSON geospatial data</comment>
+    <parent-type>application/json</parent-type>
+    <glob>*.geo.json</glob>
+    <extension>geojson</extension>
+  </item>
+  <item source="shared-mime-info">
     <mime-type>application/gml+xml</mime-type>
     <comment>GML document</comment>
     <parent-type>application/xml</parent-type>
@@ -94,6 +89,15 @@
     <mime-type>application/gnunet-directory</mime-type>
     <comment>GNUnet search file</comment>
     <extension>gnd</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/gpx+xml</mime-type>
+    <mime-type>application/gpx</mime-type>
+    <mime-type>application/x-gpx+xml</mime-type>
+    <mime-type>application/x-gpx</mime-type>
+    <comment>GPX geographic data</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>gpx</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>application/gzip</mime-type>
@@ -128,11 +132,28 @@
     <extension>jsm</extension>
   </item>
   <item source="shared-mime-info">
+    <mime-type>application/jrd+json</mime-type>
+    <comment>JRD document</comment>
+    <parent-type>application/json</parent-type>
+    <extension>jrd</extension>
+  </item>
+  <item source="shared-mime-info">
     <mime-type>application/json</mime-type>
     <comment>JSON document</comment>
     <parent-type>application/javascript</parent-type>
     <extension>json</extension>
-    <extension>map</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/json-patch+json</mime-type>
+    <comment>JSON patch</comment>
+    <parent-type>application/json</parent-type>
+    <glob>*.json-patch</glob>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/ld+json</mime-type>
+    <comment>JSON-LD document</comment>
+    <parent-type>application/json</parent-type>
+    <extension>jsonld</extension>
   </item>
   <item source="old">
     <mime-type>application/mac-binhex40</mime-type>
@@ -202,6 +223,7 @@
     <extension source="old"></extension>
     <extension source="old">dms</extension>
     <extension source="old">exe</extension>
+    <extension source="old">map</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>application/oda</mime-type>
@@ -219,6 +241,12 @@
     <extension>axs</extension>
   </item>
   <item source="shared-mime-info">
+    <mime-type>application/owl+xml</mime-type>
+    <comment>OWL XML file</comment>
+    <parent-type>application/xml</parent-type>
+    <extension>owx</extension>
+  </item>
+  <item source="shared-mime-info">
     <mime-type>application/oxps</mime-type>
     <mime-type>application/vnd.ms-xpsdocument</mime-type>
     <comment>XPS document</comment>
@@ -231,6 +259,7 @@
     <mime-type>application/x-pdf</mime-type>
     <mime-type>image/pdf</mime-type>
     <mime-type>application/acrobat</mime-type>
+    <mime-type>application/nappdf</mime-type>
     <comment>PDF document</comment>
     <extension>pdf</extension>
   </item>
@@ -270,6 +299,13 @@
     <mime-type>application/pkcs10</mime-type>
     <comment>PKCS#10 certification request</comment>
     <extension>p10</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/pkcs12</mime-type>
+    <mime-type>application/x-pkcs12</mime-type>
+    <comment>PKCS#12 certificate bundle</comment>
+    <extension>p12</extension>
+    <extension>pfx</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>application/pkcs7-mime</mime-type>
@@ -321,6 +357,12 @@
     <extension>ram</extension>
   </item>
   <item source="shared-mime-info">
+    <mime-type>application/raml+yaml</mime-type>
+    <comment>RAML document</comment>
+    <parent-type>application/x-yaml</parent-type>
+    <extension>raml</extension>
+  </item>
+  <item source="shared-mime-info">
     <mime-type>application/rdf+xml</mime-type>
     <mime-type>text/rdf</mime-type>
     <comment>RDF file</comment>
@@ -355,6 +397,7 @@
     <mime-type>application/x-sdp</mime-type>
     <mime-type>application/vnd.sdp</mime-type>
     <comment>SDP multicast stream file</comment>
+    <parent-type>text/plain</parent-type>
     <extension>sdp</extension>
   </item>
   <item source="old">
@@ -396,11 +439,6 @@
     <parent-type>text/plain</parent-type>
     <extension>sql</extension>
   </item>
-  <item source="old">
-    <mime-type>application/STEP</mime-type>
-    <extension>step</extension>
-    <extension source="old">stp</extension>
-  </item>
   <item source="shared-mime-info">
     <mime-type>application/vnd.adobe.flash.movie</mime-type>
     <mime-type>application/x-shockwave-flash</mime-type>
@@ -418,8 +456,29 @@
   <item source="shared-mime-info">
     <mime-type>application/vnd.apple.mpegurl</mime-type>
     <comment>HTTP Live Streaming playlist</comment>
+    <parent-type>text/plain</parent-type>
     <extension>m3u</extension>
     <extension>m3u8</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.chess-pgn</mime-type>
+    <mime-type>application/x-chess-pgn</mime-type>
+    <comment>PGN chess game notation</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>pgn</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.coffeescript</mime-type>
+    <comment>CoffeeScript document</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>coffee</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.comicbook+zip</mime-type>
+    <mime-type>application/x-cbz</mime-type>
+    <comment>comic book archive</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>cbz</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>application/vnd.corel-draw</mime-type>
@@ -445,6 +504,25 @@
     <mime-type>application/vnd.emusic-emusic_package</mime-type>
     <comment>eMusic download package</comment>
     <extension>emp</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.flatpak</mime-type>
+    <mime-type>application/vnd.xdgapp</mime-type>
+    <comment>Flatpak application bundle</comment>
+    <extension>flatpak</extension>
+    <extension>xdgapp</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.flatpak.repo</mime-type>
+    <comment>Flatpak repository description</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>flatpakrepo</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.framemaker</mime-type>
+    <mime-type>application/x-frame</mime-type>
+    <comment>Adobe FrameMaker document</comment>
+    <extension>fm</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>application/vnd.google-earth.kml+xml</mime-type>
@@ -553,13 +631,13 @@
   </item>
   <item source="shared-mime-info">
     <mime-type>application/vnd.ms-excel.sheet.macroEnabled.12</mime-type>
-    <comment>Excel macro-enabled spreadsheet</comment>
+    <comment>Excel spreadsheet</comment>
     <parent-type>application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</parent-type>
     <extension>xlsm</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>application/vnd.ms-excel.template.macroEnabled.12</mime-type>
-    <comment>Excel macro-enabled spreadsheet template</comment>
+    <comment>Excel spreadsheet template</comment>
     <parent-type>application/vnd.openxmlformats-officedocument.spreadsheetml.template</parent-type>
     <extension>xltm</extension>
   </item>
@@ -603,25 +681,25 @@
   </item>
   <item source="shared-mime-info">
     <mime-type>application/vnd.ms-powerpoint.presentation.macroEnabled.12</mime-type>
-    <comment>PowerPoint macro-enabled presentation</comment>
+    <comment>PowerPoint presentation</comment>
     <parent-type>application/vnd.openxmlformats-officedocument.presentationml.presentation</parent-type>
     <extension>pptm</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>application/vnd.ms-powerpoint.slide.macroEnabled.12</mime-type>
-    <comment>PowerPoint macro-enabled slide</comment>
+    <comment>PowerPoint slide</comment>
     <parent-type>application/vnd.openxmlformats-officedocument.presentationml.slide</parent-type>
     <extension>sldm</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>application/vnd.ms-powerpoint.slideshow.macroEnabled.12</mime-type>
-    <comment>PowerPoint macro-enabled presentation</comment>
+    <comment>PowerPoint presentation</comment>
     <parent-type>application/vnd.openxmlformats-officedocument.presentationml.slideshow</parent-type>
     <extension>ppsm</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>application/vnd.ms-powerpoint.template.macroEnabled.12</mime-type>
-    <comment>PowerPoint macro-enabled presentation template</comment>
+    <comment>PowerPoint presentation template</comment>
     <parent-type>application/vnd.openxmlformats-officedocument.presentationml.template</parent-type>
     <extension>potm</extension>
   </item>
@@ -641,14 +719,50 @@
     <extension>tnf</extension>
   </item>
   <item source="shared-mime-info">
+    <mime-type>application/vnd.ms-visio.drawing.macroEnabled.main+xml</mime-type>
+    <comment>Office Open XML Visio Drawing</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>vsdm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.ms-visio.drawing.main+xml</mime-type>
+    <comment>Office Open XML Visio Drawing</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>vsdx</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.ms-visio.stencil.macroEnabled.main+xml</mime-type>
+    <comment>Office Open XML Visio Stencil</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>vssm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.ms-visio.stencil.main+xml</mime-type>
+    <comment>Office Open XML Visio Stencil</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>vssx</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.ms-visio.template.macroEnabled.main+xml</mime-type>
+    <comment>Office Open XML Visio Template</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>vstm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.ms-visio.template.main+xml</mime-type>
+    <comment>Office Open XML Visio Template</comment>
+    <parent-type>application/zip</parent-type>
+    <extension>vstx</extension>
+  </item>
+  <item source="shared-mime-info">
     <mime-type>application/vnd.ms-word.document.macroEnabled.12</mime-type>
-    <comment>Word macro-enabled document</comment>
+    <comment>Word document</comment>
     <parent-type>application/vnd.openxmlformats-officedocument.wordprocessingml.document</parent-type>
     <extension>docm</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>application/vnd.ms-word.template.macroEnabled.12</mime-type>
-    <comment>Word macro-enabled document template</comment>
+    <comment>Word document template</comment>
     <parent-type>application/vnd.openxmlformats-officedocument.wordprocessingml.template</parent-type>
     <extension>dotm</extension>
   </item>
@@ -858,6 +972,13 @@
     <extension>pqa</extension>
     <extension>oprc</extension>
   </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.rar</mime-type>
+    <mime-type>application/x-rar</mime-type>
+    <mime-type>application/x-rar-compressed</mime-type>
+    <comment>RAR archive</comment>
+    <extension>rar</extension>
+  </item>
   <item source="old">
     <mime-type>application/vnd.rim.cod</mime-type>
     <extension>cod</extension>
@@ -871,6 +992,17 @@
     <extension>rms</extension>
     <extension>rmx</extension>
     <extension>rmvb</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.snap</mime-type>
+    <comment>Snap package</comment>
+    <parent-type>application/vnd.squashfs</parent-type>
+    <extension>snap</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/vnd.squashfs</mime-type>
+    <comment>Squashfs filesystem</comment>
+    <extension>sqsh</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>application/vnd.stardivision.calc</mime-type>
@@ -1037,6 +1169,11 @@
     <extension>alz</extension>
   </item>
   <item source="shared-mime-info">
+    <mime-type>application/x-amiga-disk-format</mime-type>
+    <comment>Amiga disk image</comment>
+    <extension>adf</extension>
+  </item>
+  <item source="shared-mime-info">
     <mime-type>application/x-amipro</mime-type>
     <comment>Lotus AmiPro document</comment>
     <extension>sam</extension>
@@ -1044,7 +1181,7 @@
   <item source="shared-mime-info">
     <mime-type>application/x-aportisdoc</mime-type>
     <comment>AportisDoc document</comment>
-    <parent-type>application/x-palm-database</parent-type>
+    <parent-type>application/vnd.palm</parent-type>
     <extension>pdb</extension>
     <extension>pdc</extension>
   </item>
@@ -1081,6 +1218,16 @@
     <extension>asp</extension>
   </item>
   <item source="shared-mime-info">
+    <mime-type>application/x-atari-2600-rom</mime-type>
+    <comment>Atari 2600</comment>
+    <extension>a26</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-atari-7800-rom</mime-type>
+    <comment>Atari 7800</comment>
+    <extension>a78</extension>
+  </item>
+  <item source="shared-mime-info">
     <mime-type>application/x-awk</mime-type>
     <comment>AWK script</comment>
     <parent-type>application/x-executable</parent-type>
@@ -1103,6 +1250,11 @@
     <extension>blender</extension>
     <extension>blend</extension>
     <extension>BLEND</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-bsdiff</mime-type>
+    <comment>binary differences between files</comment>
+    <extension>bsdiff</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>application/x-bzdvi</mime-type>
@@ -1148,7 +1300,7 @@
   <item source="shared-mime-info">
     <mime-type>application/x-cbr</mime-type>
     <comment>comic book archive</comment>
-    <parent-type>application/x-rar</parent-type>
+    <parent-type>application/vnd.rar</parent-type>
     <extension>cbr</extension>
   </item>
   <item source="shared-mime-info">
@@ -1156,12 +1308,6 @@
     <comment>comic book archive</comment>
     <parent-type>application/x-tar</parent-type>
     <extension>cbt</extension>
-  </item>
-  <item source="shared-mime-info">
-    <mime-type>application/x-cbz</mime-type>
-    <comment>comic book archive</comment>
-    <parent-type>application/zip</parent-type>
-    <extension>cbz</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>application/x-ccmx</mime-type>
@@ -1186,12 +1332,6 @@
     <comment>CD Table Of Contents</comment>
     <parent-type>text/plain</parent-type>
     <extension>toc</extension>
-  </item>
-  <item source="shared-mime-info">
-    <mime-type>application/x-chess-pgn</mime-type>
-    <comment>PGN chess game notation</comment>
-    <parent-type>text/plain</parent-type>
-    <extension>pgn</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>application/x-cisco-vpn-settings</mime-type>
@@ -1256,7 +1396,7 @@
   </item>
   <item source="shared-mime-info">
     <mime-type>application/x-dc-rom</mime-type>
-    <comment>Dreamcast ROM</comment>
+    <comment>Dreamcast GD-ROM</comment>
     <extension>dc</extension>
   </item>
   <item source="shared-mime-info">
@@ -1298,6 +1438,11 @@
     <parent-type>application/xml</parent-type>
     <extension>dbk</extension>
     <extension>docbook</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-doom-wad</mime-type>
+    <comment>Doom WAD</comment>
+    <extension>wad</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>application/x-dvi</mime-type>
@@ -1369,7 +1514,7 @@
   <item source="shared-mime-info">
     <mime-type>application/x-font-ttx</mime-type>
     <comment>TrueType XML font</comment>
-    <parent-type>text/xml</parent-type>
+    <parent-type>application/xml</parent-type>
     <extension>ttx</extension>
   </item>
   <item source="shared-mime-info">
@@ -1385,9 +1530,16 @@
     <extension>pre</extension>
   </item>
   <item source="shared-mime-info">
+    <mime-type>application/x-gameboy-color-rom</mime-type>
+    <comment>Game Boy Color ROM</comment>
+    <extension>gbc</extension>
+    <extension>cgb</extension>
+  </item>
+  <item source="shared-mime-info">
     <mime-type>application/x-gameboy-rom</mime-type>
     <comment>Game Boy ROM</comment>
     <extension>gb</extension>
+    <extension>sgb</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>application/x-gamecube-rom</mime-type>
@@ -1396,9 +1548,15 @@
     <extension>iso</extension>
   </item>
   <item source="shared-mime-info">
+    <mime-type>application/x-gamegear-rom</mime-type>
+    <comment>Game Gear ROM</comment>
+    <extension>gg</extension>
+  </item>
+  <item source="shared-mime-info">
     <mime-type>application/x-gba-rom</mime-type>
     <comment>Game Boy Advance ROM</comment>
     <extension>gba</extension>
+    <extension>agb</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>application/x-gedcom</mime-type>
@@ -1408,9 +1566,16 @@
     <extension>gedcom</extension>
   </item>
   <item source="shared-mime-info">
+    <mime-type>application/x-genesis-32x-rom</mime-type>
+    <comment>Genesis 32X ROM</comment>
+    <extension>32x</extension>
+    <extension>mdx</extension>
+  </item>
+  <item source="shared-mime-info">
     <mime-type>application/x-genesis-rom</mime-type>
     <comment>Genesis ROM</comment>
     <extension>gen</extension>
+    <extension>smd</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>application/x-gettext-translation</mime-type>
@@ -1527,6 +1692,20 @@
   <item source="old">
     <mime-type>application/x-ipscript</mime-type>
     <extension>ips</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-ipynb+json</mime-type>
+    <comment>Jupyter Notebook</comment>
+    <parent-type>application/json</parent-type>
+    <extension>ipynb</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-iso9660-appimage</mime-type>
+    <comment>AppImage application bundle</comment>
+    <parent-type>application/x-executable</parent-type>
+    <parent-type>application/x-iso9660-image</parent-type>
+    <extension>appimage</extension>
+    <extension>AppImage</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>application/x-it87</mime-type>
@@ -1722,9 +1901,21 @@
     <extension>lz4</extension>
   </item>
   <item source="shared-mime-info">
+    <mime-type>application/x-lz4-compressed-tar</mime-type>
+    <comment>Tar archive (LZ4-compressed)</comment>
+    <parent-type>application/x-lz4</parent-type>
+    <glob>*.tar.lz4</glob>
+  </item>
+  <item source="shared-mime-info">
     <mime-type>application/x-lzip</mime-type>
     <comment>Lzip archive</comment>
     <extension>lz</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-lzip-compressed-tar</mime-type>
+    <comment>Tar archive (lzip-compressed)</comment>
+    <parent-type>application/x-lzip</parent-type>
+    <glob>*.tar.lz</glob>
   </item>
   <item source="shared-mime-info">
     <mime-type>application/x-lzma</mime-type>
@@ -1776,7 +1967,7 @@
   <item source="shared-mime-info">
     <mime-type>application/x-mobipocket-ebook</mime-type>
     <comment>Mobipocket e-book</comment>
-    <parent-type>application/x-palm-database</parent-type>
+    <parent-type>application/vnd.palm</parent-type>
     <extension>mobi</extension>
     <extension>prc</extension>
   </item>
@@ -1787,7 +1978,7 @@
   </item>
   <item source="shared-mime-info">
     <mime-type>application/x-ms-wim</mime-type>
-    <comment>Windows Imaging Format Disk Image</comment>
+    <comment>WIM disk Image</comment>
     <extension>wim</extension>
     <extension>swm</extension>
   </item>
@@ -1860,9 +2051,17 @@
     <extension>ani</extension>
   </item>
   <item source="shared-mime-info">
+    <mime-type>application/x-neo-geo-pocket-rom</mime-type>
+    <comment>Neo-Geo Pocket ROM</comment>
+    <extension>ngp</extension>
+  </item>
+  <item source="shared-mime-info">
     <mime-type>application/x-nes-rom</mime-type>
     <comment>NES ROM</comment>
     <extension>nes</extension>
+    <extension>nez</extension>
+    <extension>unf</extension>
+    <extension>unif</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>application/x-netcdf</mime-type>
@@ -1961,12 +2160,6 @@
     <extension>phps</extension>
   </item>
   <item source="shared-mime-info">
-    <mime-type>application/x-pkcs12</mime-type>
-    <comment>PKCS#12 certificate bundle</comment>
-    <extension>p12</extension>
-    <extension>pfx</extension>
-  </item>
-  <item source="shared-mime-info">
     <mime-type>application/x-pkcs7-certificates</mime-type>
     <comment>PKCS#7 certificate bundle</comment>
     <extension>p7b</extension>
@@ -2035,12 +2228,6 @@
     <extension>qif</extension>
   </item>
   <item source="shared-mime-info">
-    <mime-type>application/x-rar</mime-type>
-    <mime-type>application/x-rar-compressed</mime-type>
-    <comment>RAR archive</comment>
-    <extension>rar</extension>
-  </item>
-  <item source="shared-mime-info">
     <mime-type>application/x-raw-disk-image</mime-type>
     <comment>Raw disk image</comment>
     <glob>*.raw-disk-image</glob>
@@ -2072,6 +2259,23 @@
     <parent-type>text/plain</parent-type>
     <extension>smi</extension>
     <extension>sami</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-saturn-rom</mime-type>
+    <comment>Sega Saturn disc image</comment>
+    <extension>bin</extension>
+    <extension>iso</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-sega-cd-rom</mime-type>
+    <comment>Sega CD disc image</comment>
+    <extension>bin</extension>
+    <extension>iso</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-sg1000-rom</mime-type>
+    <comment>SG-1000 ROM</comment>
+    <extension>sg</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>application/x-shar</mime-type>
@@ -2116,9 +2320,9 @@
   </item>
   <item source="shared-mime-info">
     <mime-type>application/x-sms-rom</mime-type>
-    <comment>Sega Master System/Game Gear ROM</comment>
+    <comment>Master System ROM</comment>
     <extension>sms</extension>
-    <extension>gg</extension>
+    <extension source="old">gg</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>application/x-source-rpm</mime-type>
@@ -2225,7 +2429,7 @@
   </item>
   <item source="shared-mime-info">
     <mime-type>application/x-troff-man</mime-type>
-    <comment>Troff document (with manpage macros)</comment>
+    <comment>Manpage manual document</comment>
     <parent-type>text/plain</parent-type>
     <extension>man</extension>
   </item>
@@ -2239,7 +2443,7 @@
   <item source="shared-mime-info">
     <mime-type>application/x-ufraw</mime-type>
     <comment>UFRaw ID image</comment>
-    <parent-type>text/xml</parent-type>
+    <parent-type>application/xml</parent-type>
     <extension>ufraw</extension>
   </item>
   <item source="shared-mime-info">
@@ -2260,6 +2464,11 @@
     <mime-type>application/x-wia</mime-type>
     <comment>Wii disc image</comment>
     <extension>iso</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-wii-wad</mime-type>
+    <comment>WiiWare bundle</comment>
+    <extension>wad</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>application/x-windows-themepack</mime-type>
@@ -2286,6 +2495,12 @@
     <extension>crt</extension>
     <extension>cert</extension>
     <extension>pem</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>application/x-xar</mime-type>
+    <comment>XAR archive</comment>
+    <extension>xar</extension>
+    <extension>pkg</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>application/x-xbel</mime-type>
@@ -2349,6 +2564,7 @@
     <comment>XHTML page</comment>
     <parent-type>application/xml</parent-type>
     <extension>xhtml</extension>
+    <extension>xht</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>application/xml</mime-type>
@@ -2405,6 +2621,22 @@
     <extension>zz</extension>
   </item>
   <item source="shared-mime-info">
+    <mime-type>audio/AMR</mime-type>
+    <mime-type>audio/amr-encrypted</mime-type>
+    <comment>AMR audio</comment>
+    <extension>amr</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>audio/AMR-WB</mime-type>
+    <mime-type>audio/amr-wb-encrypted</mime-type>
+    <comment>AMR-WB audio</comment>
+    <extension>awb</extension>
+  </item>
+  <item source="old">
+    <mime-type>audio/TSP-audio</mime-type>
+    <extension>tsi</extension>
+  </item>
+  <item source="shared-mime-info">
     <mime-type>audio/aac</mime-type>
     <comment>AAC audio</comment>
     <extension>aac</extension>
@@ -2413,16 +2645,6 @@
     <mime-type>audio/ac3</mime-type>
     <comment>Dolby Digital audio</comment>
     <extension>ac3</extension>
-  </item>
-  <item source="shared-mime-info">
-    <mime-type>audio/AMR</mime-type>
-    <comment>AMR audio</comment>
-    <extension>amr</extension>
-  </item>
-  <item source="shared-mime-info">
-    <mime-type>audio/AMR-WB</mime-type>
-    <comment>AMR-WB audio</comment>
-    <extension>awb</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>audio/annodex</mime-type>
@@ -2491,10 +2713,6 @@
     <comment>Commodore 64 audio</comment>
     <extension>sid</extension>
     <extension>psid</extension>
-  </item>
-  <item source="old">
-    <mime-type>audio/TSP-audio</mime-type>
-    <extension>tsi</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>audio/vnd.dts</mime-type>
@@ -2751,11 +2969,20 @@
     <mime-type>image/x-MS-bmp</mime-type>
     <comment>Windows BMP image</comment>
     <extension>bmp</extension>
+    <extension>dib</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>image/cgm</mime-type>
     <comment>Computer Graphics Metafile</comment>
     <extension>cgm</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/emf</mime-type>
+    <mime-type>image/x-emf</mime-type>
+    <mime-type>application/x-emf</mime-type>
+    <mime-type>application/emf</mime-type>
+    <comment>EMF image</comment>
+    <extension>emf</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>image/fax-g3</mime-type>
@@ -2802,6 +3029,7 @@
   <item source="shared-mime-info">
     <mime-type>image/openraster</mime-type>
     <comment>OpenRaster archiving image</comment>
+    <parent-type>application/zip</parent-type>
     <extension>ora</extension>
   </item>
   <item source="old">
@@ -2856,6 +3084,13 @@
     <extension>djv</extension>
   </item>
   <item source="shared-mime-info">
+    <mime-type>image/vnd.djvu+multipage</mime-type>
+    <comment>DjVu document</comment>
+    <parent-type>image/vnd.djvu</parent-type>
+    <extension>djvu</extension>
+    <extension>djv</extension>
+  </item>
+  <item source="shared-mime-info">
     <mime-type>image/vnd.dwg</mime-type>
     <comment>AutoCAD image</comment>
     <extension>dwg</extension>
@@ -2892,9 +3127,25 @@
     <extension>wbmp</extension>
   </item>
   <item source="shared-mime-info">
+    <mime-type>image/vnd.zbrush.pcx</mime-type>
+    <mime-type>image/x-pcx</mime-type>
+    <comment>PCX image</comment>
+    <extension>pcx</extension>
+  </item>
+  <item source="shared-mime-info">
     <mime-type>image/webp</mime-type>
     <comment>WebP image</comment>
     <extension>webp</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>image/wmf</mime-type>
+    <mime-type>image/x-wmf</mime-type>
+    <mime-type>image/x-win-metafile</mime-type>
+    <mime-type>application/x-wmf</mime-type>
+    <mime-type>application/wmf</mime-type>
+    <mime-type>application/x-msmetafile</mime-type>
+    <comment>WMF image</comment>
+    <extension>wmf</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>image/x-3ds</mime-type>
@@ -2953,14 +3204,6 @@
     <mime-type>image/x-dds</mime-type>
     <comment>DirectDraw surface</comment>
     <extension>dds</extension>
-  </item>
-  <item source="shared-mime-info">
-    <mime-type>image/x-emf</mime-type>
-    <mime-type>image/emf</mime-type>
-    <mime-type>application/x-emf</mime-type>
-    <mime-type>application/emf</mime-type>
-    <comment>EMF image</comment>
-    <extension>emf</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>image/x-eps</mime-type>
@@ -3082,11 +3325,6 @@
     <extension>rw2</extension>
   </item>
   <item source="shared-mime-info">
-    <mime-type>image/x-pcx</mime-type>
-    <comment>PCX image</comment>
-    <extension>pcx</extension>
-  </item>
-  <item source="shared-mime-info">
     <mime-type>image/x-pentax-pef</mime-type>
     <comment>Pentax PEF raw image</comment>
     <parent-type>image/x-dcraw</parent-type>
@@ -3199,16 +3437,6 @@
     <extension>cur</extension>
   </item>
   <item source="shared-mime-info">
-    <mime-type>image/x-wmf</mime-type>
-    <mime-type>image/wmf</mime-type>
-    <mime-type>image/x-win-metafile</mime-type>
-    <mime-type>application/x-wmf</mime-type>
-    <mime-type>application/wmf</mime-type>
-    <mime-type>application/x-msmetafile</mime-type>
-    <comment>WMF image</comment>
-    <extension>wmf</extension>
-  </item>
-  <item source="shared-mime-info">
     <mime-type>image/x-xbitmap</mime-type>
     <comment>XBM image</comment>
     <extension>xbm</extension>
@@ -3248,10 +3476,12 @@
     <comment>GNU mail message</comment>
     <glob>RMAIL</glob>
   </item>
-  <item source="old">
+  <item source="shared-mime-info">
     <mime-type>model/iges</mime-type>
+    <comment>IGES document</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>igs</extension>
     <extension>iges</extension>
-    <extension source="old">igs</extension>
   </item>
   <item source="old">
     <mime-type>model/mesh</mime-type>
@@ -3297,6 +3527,12 @@
     <parent-type>text/plain</parent-type>
     <extension>csv</extension>
   </item>
+  <item source="shared-mime-info">
+    <mime-type>text/csv-schema</mime-type>
+    <comment>CSV Schema document</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>csvs</extension>
+  </item>
   <item source="old">
     <mime-type>text/h323</mime-type>
     <extension>323</extension>
@@ -3335,6 +3571,12 @@
     <parent-type>text/plain</parent-type>
     <extension>rtx</extension>
   </item>
+  <item source="shared-mime-info">
+    <mime-type>text/rust</mime-type>
+    <comment>Rust source code</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>rs</extension>
+  </item>
   <item source="old">
     <mime-type>text/scriptlet</mime-type>
     <extension>sct</extension>
@@ -3368,6 +3610,12 @@
     <extension>tr</extension>
     <extension>roff</extension>
     <extension>t</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/turtle</mime-type>
+    <comment>Turtle document</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>ttl</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>text/vcard</mime-type>
@@ -3587,6 +3835,12 @@
     <extension>pot</extension>
   </item>
   <item source="shared-mime-info">
+    <mime-type>text/x-gherkin</mime-type>
+    <comment>feature specification in Gherkin format</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>feature</extension>
+  </item>
+  <item source="shared-mime-info">
     <mime-type>text/x-go</mime-type>
     <comment>Go source code</comment>
     <parent-type>text/plain</parent-type>
@@ -3605,18 +3859,18 @@
     <extension>hs</extension>
   </item>
   <item source="shared-mime-info">
-    <mime-type>text/x-idl</mime-type>
-    <comment>IDL document</comment>
-    <parent-type>text/plain</parent-type>
-    <extension>idl</extension>
-  </item>
-  <item source="shared-mime-info">
     <mime-type>text/x-iMelody</mime-type>
     <mime-type>audio/x-iMelody</mime-type>
     <mime-type>audio/iMelody</mime-type>
     <comment>iMelody ringtone</comment>
     <extension>imy</extension>
     <extension>ime</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-idl</mime-type>
+    <comment>IDL document</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>idl</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>text/x-install</mime-type>
@@ -3683,6 +3937,13 @@
     <comment>MATLAB script/function</comment>
     <parent-type>text/plain</parent-type>
     <extension>m</extension>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-meson</mime-type>
+    <comment>Meson source code</comment>
+    <parent-type>text/plain</parent-type>
+    <glob>meson.build</glob>
+    <glob>meson_options.txt</glob>
   </item>
   <item source="shared-mime-info">
     <mime-type>text/x-microdvd</mime-type>
@@ -3821,6 +4082,12 @@
     <extension>spec</extension>
   </item>
   <item source="shared-mime-info">
+    <mime-type>text/x-sass</mime-type>
+    <comment>Sass CSS pre-processor file</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>sass</extension>
+  </item>
+  <item source="shared-mime-info">
     <mime-type>text/x-scala</mime-type>
     <comment>Scala source code</comment>
     <parent-type>text/plain</parent-type>
@@ -3840,6 +4107,12 @@
     <glob>SConstruct</glob>
     <glob>SConscript</glob>
     <glob>SConscript.*</glob>
+  </item>
+  <item source="shared-mime-info">
+    <mime-type>text/x-scss</mime-type>
+    <comment>Sass CSS pre-processor file</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>scss</extension>
   </item>
   <item source="shared-mime-info">
     <mime-type>text/x-setext</mime-type>
@@ -3918,6 +4191,12 @@
     <extension>ms</extension>
   </item>
   <item source="shared-mime-info">
+    <mime-type>text/x-twig</mime-type>
+    <comment>Twig template</comment>
+    <parent-type>text/plain</parent-type>
+    <extension>twig</extension>
+  </item>
+  <item source="shared-mime-info">
     <mime-type>text/x-txt2tags</mime-type>
     <comment>txt2tags document</comment>
     <parent-type>text/plain</parent-type>
@@ -3979,10 +4258,6 @@
     <mime-type>audio/3gpp</mime-type>
     <mime-type>video/3gpp-encrypted</mime-type>
     <mime-type>audio/3gpp-encrypted</mime-type>
-    <mime-type>audio/amr</mime-type>
-    <mime-type>audio/amr-encrypted</mime-type>
-    <mime-type>audio/amr-wb</mime-type>
-    <mime-type>audio/amr-wb-encrypted</mime-type>
     <mime-type>audio/x-rn-3gpp-amr</mime-type>
     <mime-type>audio/x-rn-3gpp-amr-encrypted</mime-type>
     <mime-type>audio/x-rn-3gpp-amr-wb</mime-type>
