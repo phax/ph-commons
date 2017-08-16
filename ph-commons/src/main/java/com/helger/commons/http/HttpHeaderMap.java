@@ -145,11 +145,13 @@ public class HttpHeaderMap implements
    * @param sName
    *        Header name. May neither be <code>null</code> nor empty.
    * @param sValue
-   *        The value to be set. May not be <code>null</code>.
+   *        The value to be set. May be <code>null</code> in which case nothing
+   *        happens.
    */
-  public void setHeader (@Nonnull @Nonempty final String sName, @Nonnull final String sValue)
+  public void setHeader (@Nonnull @Nonempty final String sName, @Nullable final String sValue)
   {
-    _setHeader (sName, sValue);
+    if (sValue != null)
+      _setHeader (sName, sValue);
   }
 
   /**
@@ -158,11 +160,13 @@ public class HttpHeaderMap implements
    * @param sName
    *        Header name. May neither be <code>null</code> nor empty.
    * @param sValue
-   *        The value to be set. May not be <code>null</code>.
+   *        The value to be set. May be <code>null</code> in which case nothing
+   *        happens.
    */
-  public void addHeader (@Nonnull @Nonempty final String sName, @Nonnull final String sValue)
+  public void addHeader (@Nonnull @Nonempty final String sName, @Nullable final String sValue)
   {
-    _addHeader (sName, sValue);
+    if (sValue != null)
+      _addHeader (sName, sValue);
   }
 
   @Nonnull
