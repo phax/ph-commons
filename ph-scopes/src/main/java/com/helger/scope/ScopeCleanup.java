@@ -38,7 +38,8 @@ public final class ScopeCleanup
 
   /**
    * Cleanup all custom caches contained in this library. Loaded SPI
-   * implementations are not affected by this method!
+   * implementations are not affected by this method! This method does not
+   * destroy any scopes!
    */
   public static void cleanup ()
   {
