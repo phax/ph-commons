@@ -100,7 +100,9 @@ public final class ScopeManager
       if (s_aGlobalScope != null)
         throw new IllegalStateException ("Another global scope with ID '" +
                                          s_aGlobalScope.getID () +
-                                         "' is already present");
+                                         "' is already present. New global scope with ID '" +
+                                         aGlobalScope.getID () +
+                                         "' is not set!");
 
       s_aGlobalScope = aGlobalScope;
 
