@@ -17,7 +17,7 @@
 package com.helger.commons.io.resourceresolver;
 
 import java.io.File;
-import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -83,12 +83,12 @@ public class DefaultResourceResolver
    *        The base URI from where the search is initiated. May be
    *        <code>null</code> if systemId is set.
    * @return The non-<code>null</code> resource. May be non-existing!
-   * @throws IOException
+   * @throws UncheckedIOException
    *         In case the file resolution (to an absolute file) fails.
    */
   @Nonnull
   public static IReadableResource getResolvedResource (@Nullable final String sSystemId,
-                                                       @Nullable final String sBaseURI) throws IOException
+                                                       @Nullable final String sBaseURI)
   {
     return getResolvedResource (sSystemId, sBaseURI, (ClassLoader) null);
   }
@@ -196,8 +196,11 @@ public class DefaultResourceResolver
   }
 
   @Nonnull
-  private static FileSystemResource _getChildResource (@Nonnull final File aBaseFile, @Nonnull final File aSystemFile)
+  private static FileSystemResource _getChildResource (@Nullable final File aBaseFile, @Nonnull final File aSystemFile)
   {
+    if (aBaseFile == null)
+      return new FileSystemResource (aSystemFile);
+
     final File aParent = aBaseFile.isDirectory () ? aBaseFile : aBaseFile.getParentFile ();
     final File aRealFile = new File (aParent, aSystemFile.getPath ());
     // path is cleaned (canonicalized) inside FileSystemResource
@@ -219,15 +222,15 @@ public class DefaultResourceResolver
    *        May be <code>null</code> in which case the default class loader is
    *        used.
    * @return The non-<code>null</code> resource. May be non-existing!
-   * @throws IOException
+   * @throws UncheckedIOException
    *         In case the file resolution (to an absolute file) fails.
    */
   @Nonnull
   public static IReadableResource getResolvedResource (@Nullable final String sSystemId,
                                                        @Nullable final String sBaseURI,
-                                                       @Nullable final ClassLoader aClassLoader) throws IOException
+                                                       @Nullable final ClassLoader aClassLoader)
   {
-    if (sSystemId == null && sBaseURI == null)
+    if (StringHelper.hasNoText (sSystemId) && StringHelper.hasNoText (sBaseURI))
       throw new IllegalArgumentException ("Both systemID and baseURI are null!");
 
     // Retrieve only once
@@ -264,25 +267,43 @@ public class DefaultResourceResolver
 
     // jar:file or wsjar:file or zip:file???
     if (isExplicitJarFileResource (sBaseURI))
-      return _resolveJarFileResource (sSystemId, sBaseURI);
+      try
+      {
+        return _resolveJarFileResource (sSystemId, sBaseURI);
+      }
+      catch (final MalformedURLException ex)
+      {
+        throw new UncheckedIOException (ex);
+      }
 
     // Try whether the base is a URI
     final URL aBaseURL = URLHelper.getAsURL (sBaseURI);
 
     // Handle "file" protocol separately
     if (aBaseURL != null && !aBaseURL.getProtocol ().equals (URLHelper.PROTOCOL_FILE))
-      return _resolveURLResource (sSystemId, aBaseURL);
+      try
+      {
+        return _resolveURLResource (sSystemId, aBaseURL);
+      }
+      catch (final MalformedURLException ex)
+      {
+        throw new UncheckedIOException (ex);
+      }
 
     // Base is not a URL or a file based URL
     File aBaseFile;
     if (aBaseURL != null)
       aBaseFile = URLHelper.getAsFile (aBaseURL);
     else
-      aBaseFile = new File (sBaseURI);
+      if (sBaseURI != null)
+        aBaseFile = new File (sBaseURI);
+      else
+        aBaseFile = null;
 
     if (StringHelper.hasNoText (sSystemId))
     {
       // Nothing to resolve
+      // Note: BaseFile should always be set here!
       final FileSystemResource ret = new FileSystemResource (aBaseFile);
       if (bDebugResolve)
         s_aLogger.info ("  resolved base URL to " + ret);
