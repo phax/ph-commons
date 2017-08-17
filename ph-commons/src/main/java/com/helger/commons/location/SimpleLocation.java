@@ -18,6 +18,7 @@ package com.helger.commons.location;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
+import javax.xml.stream.Location;
 import javax.xml.transform.SourceLocator;
 
 import org.xml.sax.Locator;
@@ -131,6 +132,19 @@ public class SimpleLocation implements ILocation
 
   @Nullable
   public static SimpleLocation create (@Nullable final SAXParseException aLocator)
+  {
+    if (aLocator == null)
+      return null;
+
+    return new SimpleLocation (StringHelper.getConcatenatedOnDemand (aLocator.getPublicId (),
+                                                                     "/",
+                                                                     aLocator.getSystemId ()),
+                               aLocator.getLineNumber (),
+                               aLocator.getColumnNumber ());
+  }
+
+  @Nullable
+  public static SimpleLocation create (@Nullable final Location aLocator)
   {
     if (aLocator == null)
       return null;
