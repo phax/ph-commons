@@ -19,7 +19,7 @@ package com.helger.graph;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.attr.IAttributeContainer;
+import com.helger.commons.collection.attr.IAttributeContainerAny;
 import com.helger.commons.id.IHasID;
 
 /**
@@ -34,7 +34,7 @@ public interface IBaseGraphObject extends IHasID <String>
    */
   @Nonnull
   @ReturnsMutableObject
-  IAttributeContainer <String, Object> attrs ();
+  IAttributeContainerAny <String> attrs ();
 
   /**
    * Check if the object is directed or undirected. Directed nodes must

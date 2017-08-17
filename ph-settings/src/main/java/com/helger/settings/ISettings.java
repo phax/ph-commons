@@ -16,7 +16,7 @@
  */
 package com.helger.settings;
 
-import com.helger.commons.collection.attr.IMutableAttributeContainerAny;
+import com.helger.commons.collection.attr.IAttributeContainerAny;
 import com.helger.commons.name.IHasName;
 
 /**
@@ -24,7 +24,7 @@ import com.helger.commons.name.IHasName;
  *
  * @author philip
  */
-public interface ISettings extends IHasName, IMutableAttributeContainerAny <String>
+public interface ISettings extends IHasName, IAttributeContainerAny <String>
 {
   /* empty */
 }

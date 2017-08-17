@@ -25,7 +25,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.attr.IMutableAttributeContainerAny;
+import com.helger.commons.collection.attr.IAttributeContainerAny;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.id.IHasID;
@@ -116,7 +116,7 @@ public interface IScope extends IHasID <String>, Serializable
    */
   @Nonnull
   @ReturnsMutableObject
-  IMutableAttributeContainerAny <String> attrs ();
+  IAttributeContainerAny <String> attrs ();
 
   /**
    * @return The non-<code>null</code> map with all contained attributes that

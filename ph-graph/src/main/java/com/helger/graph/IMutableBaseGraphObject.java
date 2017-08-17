@@ -16,11 +16,6 @@
  */
 package com.helger.graph;
 
-import javax.annotation.Nonnull;
-
-import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.attr.IMutableAttributeContainerAny;
-
 /**
  * Base interface for graph nodes and graph relations.
  *
@@ -28,11 +23,5 @@ import com.helger.commons.collection.attr.IMutableAttributeContainerAny;
  */
 public interface IMutableBaseGraphObject extends IBaseGraphObject
 {
-  /**
-   * @return The mutable attributes of this graph object. Never
-   *         <code>null</code>.
-   */
-  @Nonnull
-  @ReturnsMutableObject
-  IMutableAttributeContainerAny <String> attrs ();
+  /* empty */
 }

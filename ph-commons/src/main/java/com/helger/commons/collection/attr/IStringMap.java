@@ -26,7 +26,7 @@ import com.helger.commons.state.EChange;
  * @author Philip Helger
  * @since 9.0.0
  */
-public interface IStringMap extends IMutableAttributeContainer <String, String>
+public interface IStringMap extends IAttributeContainer <String, String>
 {
   @Nonnull
   default EChange putIn (@Nonnull final String sName, final boolean bValue)

@@ -29,7 +29,7 @@ import com.helger.commons.state.EChange;
  * @param <KEYTYPE>
  *        Key type
  */
-public interface IMutableAttributeContainerAny <KEYTYPE> extends IMutableAttributeContainer <KEYTYPE, Object>
+public interface IAttributeContainerAny <KEYTYPE> extends IAttributeContainer <KEYTYPE, Object>
 {
   /**
    * Set/overwrite an in attribute value. This is a shortcut for
@@ -120,8 +120,8 @@ public interface IMutableAttributeContainerAny <KEYTYPE> extends IMutableAttribu
    * Atomic operation to set a flag to <code>true</code> if it was previously
    * set to <code>false</code> (meaning not existing). There is no possibility
    * to define a value for this flag. The value used is {@link Boolean#TRUE}.
-   * {@link IMutableAttributeContainer#containsKey(Object)} can be used to check
-   * if the attribute is already present.
+   * {@link IAttributeContainer#containsKey(Object)} can be used to check if the
+   * attribute is already present.
    *
    * @param aName
    *        The name of the flag to set.

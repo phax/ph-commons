@@ -31,7 +31,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.attr.AttributeContainerAnyConcurrent;
-import com.helger.commons.collection.attr.IMutableAttributeContainerAny;
+import com.helger.commons.collection.attr.IAttributeContainerAny;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -194,7 +194,7 @@ public abstract class AbstractScope implements IScope
 
   @Nonnull
   @ReturnsMutableObject
-  public final IMutableAttributeContainerAny <String> attrs ()
+  public final IAttributeContainerAny <String> attrs ()
   {
     return m_aAttrs;
   }

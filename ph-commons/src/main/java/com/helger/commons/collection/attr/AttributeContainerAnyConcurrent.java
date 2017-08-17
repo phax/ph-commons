@@ -31,7 +31,7 @@ import javax.annotation.concurrent.ThreadSafe;
  */
 @ThreadSafe
 public class AttributeContainerAnyConcurrent <KEYTYPE> extends AttributeContainerConcurrent <KEYTYPE, Object> implements
-                                             IMutableAttributeContainerAny <KEYTYPE>
+                                             IAttributeContainerAny <KEYTYPE>
 {
   public AttributeContainerAnyConcurrent ()
   {
