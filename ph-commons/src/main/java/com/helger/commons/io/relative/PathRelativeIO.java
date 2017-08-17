@@ -16,9 +16,6 @@
  */
 package com.helger.commons.io.relative;
 
-import java.io.IOException;
-import java.io.UncheckedIOException;
-
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
@@ -58,19 +55,12 @@ public class PathRelativeIO implements IPathRelativeIO
   {
     ValueEnforcer.notEmpty (sRelativePath, "RelativePath");
 
-    try
-    {
-      // Remove any leading slash to avoid that the resource resolver considers
-      // this an absolute URL on Linux!
-      final String sEffectiveRelativePath = FilenameHelper.startsWithPathSeparatorChar (sRelativePath) ? sRelativePath.substring (1)
-                                                                                                       : sRelativePath;
+    // Remove any leading slash to avoid that the resource resolver considers
+    // this an absolute URL on Linux!
+    final String sEffectiveRelativePath = FilenameHelper.startsWithPathSeparatorChar (sRelativePath) ? sRelativePath.substring (1)
+                                                                                                     : sRelativePath;
 
-      return DefaultResourceResolver.getResolvedResource (sEffectiveRelativePath, m_sBasePath);
-    }
-    catch (final IOException ex)
-    {
-      throw new UncheckedIOException ("Error resolving '" + sRelativePath + "' on base path '" + m_sBasePath + "'", ex);
-    }
+    return DefaultResourceResolver.getResolvedResource (sEffectiveRelativePath, m_sBasePath);
   }
 
   @Override
