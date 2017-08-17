@@ -109,21 +109,21 @@ public class MimeTypeContent
   /**
    * Main match method
    *
-   * @param aBytes
+   * @param aSrcBytes
    *        The bytes to compare to this type.
-   * @param nOffset
+   * @param nSrcOffset
    *        The offset within aBytes to start searching
    * @param aCmpBytes
    *        The compare bytes of this object.
    * @return <code>true</code> if the bytes match, <code>false</code> otherwise.
    */
-  private static boolean _match (@Nonnull final byte [] aBytes,
-                                 @Nonnegative final int nOffset,
+  private static boolean _match (@Nonnull final byte [] aSrcBytes,
+                                 @Nonnegative final int nSrcOffset,
                                  @Nonnull final byte [] aCmpBytes)
   {
     final int nEnd = aCmpBytes.length;
     for (int i = 0; i < nEnd; ++i)
-      if (aBytes[nOffset + i] != aCmpBytes[i])
+      if (aSrcBytes[nSrcOffset + i] != aCmpBytes[i])
         return false;
     return true;
   }
