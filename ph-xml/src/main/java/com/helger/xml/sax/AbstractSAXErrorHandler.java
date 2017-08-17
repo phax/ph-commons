@@ -26,7 +26,6 @@ import com.helger.commons.error.SingleError;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.location.SimpleLocation;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -55,11 +54,9 @@ public abstract class AbstractSAXErrorHandler implements ISAXErrorHandler
   @Nonnull
   public static IError getSaxParseError (@Nonnull final IErrorLevel aErrorLevel, @Nonnull final SAXParseException ex)
   {
-    final String sResourceID = StringHelper.getConcatenatedOnDemand (ex.getPublicId (), "/", ex.getSystemId ());
-
     return SingleError.builder ()
                       .setErrorLevel (aErrorLevel)
-                      .setErrorLocation (new SimpleLocation (sResourceID, ex.getLineNumber (), ex.getColumnNumber ()))
+                      .setErrorLocation (SimpleLocation.create (ex))
                       .setErrorText ("[SAX] " + ex.getMessage ())
                       .setLinkedException (ex)
                       .build ();
