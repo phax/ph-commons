@@ -92,8 +92,8 @@ public class AttributeContainer <KEYTYPE, VALUETYPE> extends CommonsLinkedHashMa
   public String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ())
-                            .append ("beforeCallbacks", m_aBeforeCallbacks)
-                            .append ("afterCallbacks", m_aAfterCallbacks)
+                            .append ("BeforeCallbacks", m_aBeforeCallbacks)
+                            .append ("AfterCallbacks", m_aAfterCallbacks)
                             .getToString ();
   }
 }

@@ -22,7 +22,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.state.EChange;
 
 /**
  * Base class for all kind of string-string mapping container. This
@@ -41,29 +40,6 @@ public class StringMap extends AttributeContainer <String, String> implements IS
   public StringMap (@Nonnull final Map <String, String> aMap)
   {
     super (aMap);
-  }
-
-  public StringMap (@Nonnull final IStringMap aCont)
-  {
-    super (aCont);
-  }
-
-  @Nonnull
-  public EChange putIn (@Nonnull final String sName, final boolean bValue)
-  {
-    return putIn (sName, Boolean.toString (bValue));
-  }
-
-  @Nonnull
-  public EChange putIn (@Nonnull final String sName, final int nValue)
-  {
-    return putIn (sName, Integer.toString (nValue));
-  }
-
-  @Nonnull
-  public EChange putIn (@Nonnull final String sName, final long nValue)
-  {
-    return putIn (sName, Long.toString (nValue));
   }
 
   @Override

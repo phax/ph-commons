@@ -32,7 +32,7 @@ import com.helger.commons.state.EChange;
 public interface IAttributeContainerAny <KEYTYPE> extends IAttributeContainer <KEYTYPE, Object>
 {
   /**
-   * Set/overwrite an in attribute value. This is a shortcut for
+   * Set/overwrite an attribute value. This is a shortcut for
    * <code>putIn (aName, Boolean.valueOf (bValue));</code>
    *
    * @param aName
@@ -49,7 +49,7 @@ public interface IAttributeContainerAny <KEYTYPE> extends IAttributeContainer <K
   }
 
   /**
-   * Set/overwrite an in attribute value. This is a shortcut for
+   * Set/overwrite an attribute value. This is a shortcut for
    * <code>putIn (aName, Integer.valueOf (nValue));</code>
    *
    * @param aName
@@ -66,7 +66,7 @@ public interface IAttributeContainerAny <KEYTYPE> extends IAttributeContainer <K
   }
 
   /**
-   * Set/overwrite an in attribute value. This is a shortcut for
+   * Set/overwrite an attribute value. This is a shortcut for
    * <code>putIn (aName, Long.valueOf (nValue));</code>
    *
    * @param aName
@@ -83,7 +83,24 @@ public interface IAttributeContainerAny <KEYTYPE> extends IAttributeContainer <K
   }
 
   /**
-   * Set/overwrite an in attribute value. This is a shortcut for
+   * Set/overwrite an attribute value. This is a shortcut for
+   * <code>putIn (aName, Short.valueOf (nValue));</code>
+   *
+   * @param aName
+   *        The name of the attribute. May not be <code>null</code>.
+   * @param nValue
+   *        The value of the attribute.
+   * @return {@link EChange#CHANGED} if something changed,
+   *         {@link EChange#UNCHANGED} otherwise.
+   */
+  @Nonnull
+  default EChange putIn (@Nonnull final KEYTYPE aName, final short nValue)
+  {
+    return putIn (aName, Short.valueOf (nValue));
+  }
+
+  /**
+   * Set/overwrite an attribute value. This is a shortcut for
    * <code>putIn (aName, Float.valueOf (fValue));</code>
    *
    * @param aName
@@ -100,7 +117,7 @@ public interface IAttributeContainerAny <KEYTYPE> extends IAttributeContainer <K
   }
 
   /**
-   * Set/overwrite an in attribute value. This is a shortcut for
+   * Set/overwrite an attribute value. This is a shortcut for
    * <code>putIn (aName, Double.valueOf (dValue));</code>
    *
    * @param aName
@@ -139,7 +156,8 @@ public interface IAttributeContainerAny <KEYTYPE> extends IAttributeContainer <K
       return true;
     }
     // flag is not yet present -> set it
-    put (aName, Boolean.TRUE);
+    // Invoke callback!
+    putIn (aName, Boolean.TRUE);
     return false;
   }
 }
