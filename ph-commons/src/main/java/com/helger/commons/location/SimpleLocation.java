@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.error.location;
+package com.helger.commons.location;
 
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -28,27 +28,27 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * Default implementation of the {@link IErrorLocation} interface. The
- * implementation is immutable.
+ * Default implementation of the {@link ILocation} interface. The implementation
+ * is immutable.
  *
  * @author Philip Helger
  */
 @Immutable
-public class ErrorLocation implements IErrorLocation
+public class SimpleLocation implements ILocation
 {
   /** A constant representing no location */
-  public static final ErrorLocation NO_LOCATION = new ErrorLocation (null);
+  public static final SimpleLocation NO_LOCATION = new SimpleLocation (null);
 
   private final String m_sResourceID;
   private final int m_nColumnNumber;
   private final int m_nLineNumber;
 
-  public ErrorLocation (@Nullable final String sResourceID)
+  public SimpleLocation (@Nullable final String sResourceID)
   {
     this (sResourceID, ILLEGAL_NUMBER, ILLEGAL_NUMBER);
   }
 
-  public ErrorLocation (@Nullable final String sResourceID, final int nLineNumber, final int nColumnNumber)
+  public SimpleLocation (@Nullable final String sResourceID, final int nLineNumber, final int nColumnNumber)
   {
     m_sResourceID = sResourceID;
     m_nLineNumber = nLineNumber;
@@ -78,7 +78,7 @@ public class ErrorLocation implements IErrorLocation
       return true;
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
-    final ErrorLocation rhs = (ErrorLocation) o;
+    final SimpleLocation rhs = (SimpleLocation) o;
     return EqualsHelper.equals (m_sResourceID, rhs.m_sResourceID) &&
            m_nLineNumber == rhs.m_nLineNumber &&
            m_nColumnNumber == rhs.m_nColumnNumber;
@@ -103,28 +103,28 @@ public class ErrorLocation implements IErrorLocation
   }
 
   @Nullable
-  public static ErrorLocation create (@Nullable final Locator aLocator)
+  public static SimpleLocation create (@Nullable final Locator aLocator)
   {
     if (aLocator == null)
       return null;
 
-    return new ErrorLocation (StringHelper.getConcatenatedOnDemand (aLocator.getPublicId (),
-                                                                    "/",
-                                                                    aLocator.getSystemId ()),
-                              aLocator.getLineNumber (),
-                              aLocator.getColumnNumber ());
+    return new SimpleLocation (StringHelper.getConcatenatedOnDemand (aLocator.getPublicId (),
+                                                                     "/",
+                                                                     aLocator.getSystemId ()),
+                               aLocator.getLineNumber (),
+                               aLocator.getColumnNumber ());
   }
 
   @Nullable
-  public static ErrorLocation create (@Nullable final SourceLocator aLocator)
+  public static SimpleLocation create (@Nullable final SourceLocator aLocator)
   {
     if (aLocator == null)
       return null;
 
-    return new ErrorLocation (StringHelper.getConcatenatedOnDemand (aLocator.getPublicId (),
-                                                                    "/",
-                                                                    aLocator.getSystemId ()),
-                              aLocator.getLineNumber (),
-                              aLocator.getColumnNumber ());
+    return new SimpleLocation (StringHelper.getConcatenatedOnDemand (aLocator.getPublicId (),
+                                                                     "/",
+                                                                     aLocator.getSystemId ()),
+                               aLocator.getLineNumber (),
+                               aLocator.getColumnNumber ());
   }
 }

@@ -351,7 +351,7 @@ public final class MicroReaderTest
                                                          new SAXReaderSettings ().setEntityResolver (new EmptyEntityResolver ()));
     assertNotNull (doc);
 
-    final MicroSAXHandler aHdl = new MicroSAXHandler (true, new EmptyEntityResolver ());
+    final MicroSAXHandler aHdl = new MicroSAXHandler (true, new EmptyEntityResolver (), true);
     final ISAXReaderSettings aSettings = new SAXReaderSettings ().setEntityResolver (aHdl)
                                                                  .setDTDHandler (aHdl)
                                                                  .setContentHandler (aHdl)

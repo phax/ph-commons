@@ -28,8 +28,8 @@ import java.util.Locale;
 import org.junit.Test;
 
 import com.helger.commons.error.level.EErrorLevel;
-import com.helger.commons.error.location.ErrorLocation;
 import com.helger.commons.exception.mock.MockRuntimeException;
+import com.helger.commons.location.SimpleLocation;
 
 /**
  * Test class for class {@link SingleError}.
@@ -102,7 +102,7 @@ public final class SingleErrorTest
   public void testLocation ()
   {
     final Locale aDisplayLocale = Locale.US;
-    final SingleError aErr = SingleError.builder ().setErrorLocation (new ErrorLocation ("abc", 4, 17)).build ();
+    final SingleError aErr = SingleError.builder ().setErrorLocation (new SimpleLocation ("abc", 4, 17)).build ();
     assertEquals (EErrorLevel.ERROR, aErr.getErrorLevel ());
     assertNull (aErr.getErrorID ());
     assertNull (aErr.getErrorFieldName ());
@@ -167,7 +167,7 @@ public final class SingleErrorTest
     final SingleError aErr = SingleError.builder ()
                                         .setErrorID ("id1")
                                         .setErrorFieldName ("field")
-                                        .setErrorLocation (new ErrorLocation ("file.xml", 4, 13))
+                                        .setErrorLocation (new SimpleLocation ("file.xml", 4, 13))
                                         .setErrorText ("abc")
                                         .setLinkedException (ex)
                                         .build ();

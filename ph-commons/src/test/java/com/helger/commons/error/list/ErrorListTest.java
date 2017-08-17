@@ -43,8 +43,8 @@ import org.junit.Test;
 
 import com.helger.commons.error.SingleError;
 import com.helger.commons.error.level.EErrorLevel;
-import com.helger.commons.error.location.ErrorLocation;
 import com.helger.commons.exception.mock.MockIOException;
+import com.helger.commons.location.SimpleLocation;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -288,7 +288,7 @@ public final class ErrorListTest
                           .setErrorID ("test-1")
                           .setErrorFieldName ("field1")
                           .setErrorText ("TestInfo")
-                          .setErrorLocation (new ErrorLocation ("here.xml", 17, 3))
+                          .setErrorLocation (new SimpleLocation ("here.xml", 17, 3))
                           .build ());
     CommonsTestHelper.testDefaultSerialization (aList);
 
@@ -296,7 +296,7 @@ public final class ErrorListTest
                           .setErrorID ("test-2")
                           .setErrorFieldName ("field1")
                           .setErrorText ("TestInfo")
-                          .setErrorLocation (new ErrorLocation ("here.xml", 17, 3))
+                          .setErrorLocation (new SimpleLocation ("here.xml", 17, 3))
                           .setLinkedException (new MockIOException ("Mock"))
                           .build ());
     CommonsTestHelper.testDefaultSerialization (aList);

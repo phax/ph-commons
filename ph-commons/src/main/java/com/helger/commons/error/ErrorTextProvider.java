@@ -28,11 +28,11 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.error.location.IErrorLocation;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.lang.StackTraceHelper;
+import com.helger.commons.location.ILocation;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -270,7 +270,7 @@ public class ErrorTextProvider implements IErrorTextProvider, Serializable, IClo
         }
         case ERROR_LOCATION:
         {
-          final IErrorLocation aLocation = aError.getErrorLocation ();
+          final ILocation aLocation = aError.getErrorLocation ();
           if (aLocation.isAnyInformationPresent ())
           {
             if (aSB.length () > 0)

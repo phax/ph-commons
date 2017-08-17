@@ -35,8 +35,8 @@ import com.helger.commons.error.SingleError;
 import com.helger.commons.error.SingleError.SingleErrorBuilder;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
-import com.helger.commons.error.location.ErrorLocation;
-import com.helger.commons.error.location.IErrorLocation;
+import com.helger.commons.location.SimpleLocation;
+import com.helger.commons.location.ILocation;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.xml.serialize.write.XMLWriter;
 
@@ -147,11 +147,11 @@ public abstract class AbstractValidationEventHandler implements IValidationEvent
     final SingleErrorBuilder aErrBuilder = SingleError.builder ().setErrorLevel (aErrorLevel);
 
     final ValidationEventLocator aLocator = aEvent.getLocator ();
-    aErrBuilder.setErrorLocation (new ErrorLocation (getLocationResourceID (aLocator),
+    aErrBuilder.setErrorLocation (new SimpleLocation (getLocationResourceID (aLocator),
                                                      aLocator != null ? aLocator.getLineNumber ()
-                                                                      : IErrorLocation.ILLEGAL_NUMBER,
+                                                                      : ILocation.ILLEGAL_NUMBER,
                                                      aLocator != null ? aLocator.getColumnNumber ()
-                                                                      : IErrorLocation.ILLEGAL_NUMBER))
+                                                                      : ILocation.ILLEGAL_NUMBER))
                .setErrorFieldName (getErrorFieldName (aLocator));
 
     // Message may be null in some cases (e.g. when a linked exception is

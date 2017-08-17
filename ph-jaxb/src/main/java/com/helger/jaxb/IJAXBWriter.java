@@ -427,7 +427,7 @@ public interface IJAXBWriter <JAXBTYPE>
   {
     // No need for charset fix, because the document is returned in an internal
     // representation with String content
-    final MicroSAXHandler aHandler = new MicroSAXHandler (false, null);
+    final MicroSAXHandler aHandler = new MicroSAXHandler (false, null, true);
     return write (aObject, aHandler).isSuccess () ? aHandler.getDocument () : null;
   }
 

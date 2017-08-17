@@ -25,7 +25,7 @@ import com.helger.commons.error.IError;
 import com.helger.commons.error.SingleError;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
-import com.helger.commons.error.location.ErrorLocation;
+import com.helger.commons.location.SimpleLocation;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -59,7 +59,7 @@ public abstract class AbstractSAXErrorHandler implements ISAXErrorHandler
 
     return SingleError.builder ()
                       .setErrorLevel (aErrorLevel)
-                      .setErrorLocation (new ErrorLocation (sResourceID, ex.getLineNumber (), ex.getColumnNumber ()))
+                      .setErrorLocation (new SimpleLocation (sResourceID, ex.getLineNumber (), ex.getColumnNumber ()))
                       .setErrorText ("[SAX] " + ex.getMessage ())
                       .setLinkedException (ex)
                       .build ();

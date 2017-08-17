@@ -25,12 +25,12 @@ import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
-import com.helger.commons.error.location.ErrorLocation;
-import com.helger.commons.error.location.IErrorLocation;
 import com.helger.commons.error.text.ConstantHasErrorText;
 import com.helger.commons.error.text.DynamicHasErrorText;
 import com.helger.commons.error.text.IHasErrorText;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.location.SimpleLocation;
+import com.helger.commons.location.ILocation;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.text.IMultilingualText;
 import com.helger.commons.traits.IGenericImplTrait;
@@ -49,21 +49,21 @@ public class SingleError implements IError
   private final IErrorLevel m_aErrorLevel;
   private final String m_sErrorID;
   private final String m_sErrorFieldName;
-  private final IErrorLocation m_aErrorLocation;
+  private final ILocation m_aErrorLocation;
   private final IHasErrorText m_aErrorText;
   private final Throwable m_aLinkedException;
 
   public SingleError (@Nonnull final IErrorLevel aErrorLevel,
                       @Nullable final String sErrorID,
                       @Nullable final String sErrorFieldName,
-                      @Nullable final IErrorLocation aErrorLocation,
+                      @Nullable final ILocation aErrorLocation,
                       @Nullable final IHasErrorText aErrorText,
                       @Nullable final Throwable aLinkedException)
   {
     m_aErrorLevel = ValueEnforcer.notNull (aErrorLevel, "ErrorLevel");
     m_sErrorID = sErrorID;
     m_sErrorFieldName = sErrorFieldName;
-    m_aErrorLocation = aErrorLocation != null ? aErrorLocation : ErrorLocation.NO_LOCATION;
+    m_aErrorLocation = aErrorLocation != null ? aErrorLocation : SimpleLocation.NO_LOCATION;
     m_aErrorText = aErrorText;
     m_aLinkedException = aLinkedException;
   }
@@ -87,7 +87,7 @@ public class SingleError implements IError
   }
 
   @Nonnull
-  public IErrorLocation getErrorLocation ()
+  public ILocation getErrorLocation ()
   {
     return m_aErrorLocation;
   }
@@ -205,7 +205,7 @@ public class SingleError implements IError
     protected IErrorLevel m_aErrorLevel = DEFAULT_ERROR_LEVEL;
     protected String m_sErrorID;
     protected String m_sErrorFieldName;
-    protected IErrorLocation m_aErrorLocation;
+    protected ILocation m_aErrorLocation;
     protected IHasErrorText m_aErrorText;
     protected Throwable m_aLinkedException;
 
@@ -246,7 +246,7 @@ public class SingleError implements IError
     }
 
     @Nonnull
-    public final IMPLTYPE setErrorLocation (@Nullable final IErrorLocation aErrorLocation)
+    public final IMPLTYPE setErrorLocation (@Nullable final ILocation aErrorLocation)
     {
       m_aErrorLocation = aErrorLocation;
       return thisAsT ();

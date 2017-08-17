@@ -24,9 +24,9 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.error.level.IHasErrorLevelComparable;
-import com.helger.commons.error.location.ErrorLocation;
-import com.helger.commons.error.location.IErrorLocation;
 import com.helger.commons.error.text.IHasErrorText;
+import com.helger.commons.location.SimpleLocation;
+import com.helger.commons.location.ILocation;
 
 /**
  * Common interface for single errors and resource errors.
@@ -56,14 +56,14 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
 
   /**
    * @return The non-<code>null</code> location of the error. Use
-   *         {@link ErrorLocation#NO_LOCATION} to indicate no location is
+   *         {@link SimpleLocation#NO_LOCATION} to indicate no location is
    *         available.
    * @see #hasErrorLocation()
    */
   @Nonnull
-  default IErrorLocation getErrorLocation ()
+  default ILocation getErrorLocation ()
   {
-    return ErrorLocation.NO_LOCATION;
+    return SimpleLocation.NO_LOCATION;
   }
 
   /**

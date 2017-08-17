@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.error.location;
+package com.helger.commons.location;
 
 import java.io.Serializable;
 
@@ -31,7 +31,7 @@ import com.helger.commons.string.StringHelper;
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
-public interface IErrorLocation extends Serializable
+public interface ILocation extends Serializable
 {
   /** Constant for an illegal row or column number */
   int ILLEGAL_NUMBER = CGlobal.ILLEGAL_UINT;

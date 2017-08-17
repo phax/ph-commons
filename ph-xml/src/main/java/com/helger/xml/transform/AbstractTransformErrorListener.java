@@ -24,8 +24,8 @@ import com.helger.commons.error.IError;
 import com.helger.commons.error.SingleError;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
-import com.helger.commons.error.location.ErrorLocation;
-import com.helger.commons.error.location.IErrorLocation;
+import com.helger.commons.location.SimpleLocation;
+import com.helger.commons.location.ILocation;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.text.IMultilingualText;
 
@@ -44,7 +44,7 @@ public abstract class AbstractTransformErrorListener implements ITransformErrorL
                                      @Nonnull final IErrorLevel aErrorLevel,
                                      @Nonnull final IMultilingualText aErrorMsg)
   {
-    final IErrorLocation aLocation = ErrorLocation.create (ex.getLocator ());
+    final ILocation aLocation = SimpleLocation.create (ex.getLocator ());
     return SingleError.builder ()
                       .setErrorLevel (aErrorLevel)
                       .setErrorLocation (aLocation)

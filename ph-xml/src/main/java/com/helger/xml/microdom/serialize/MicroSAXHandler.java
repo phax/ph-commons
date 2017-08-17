@@ -36,11 +36,13 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.ext.EntityResolver2;
 import org.xml.sax.ext.LexicalHandler;
+import org.xml.sax.ext.Locator2;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.error.level.EErrorLevel;
 import com.helger.commons.error.level.IErrorLevel;
+import com.helger.commons.location.SimpleLocation;
 import com.helger.commons.string.StringHelper;
 import com.helger.xml.microdom.IMicroCDATA;
 import com.helger.xml.microdom.IMicroDocument;
@@ -70,12 +72,19 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
   private final boolean m_bSaveIgnorableWhitespaces;
   private final EntityResolver m_aEntityResolver;
   private final EntityResolver2 m_aEntityResolver2;
+  private final boolean m_bTrackPosition;
+  private Locator m_aLocator;
+  private String m_sSourceXMLVersion;
+  private String m_sSourceXMLEncoding;
 
-  public MicroSAXHandler (final boolean bSaveIgnorableWhitespaces, @Nullable final EntityResolver aEntityResolver)
+  public MicroSAXHandler (final boolean bSaveIgnorableWhitespaces,
+                          @Nullable final EntityResolver aEntityResolver,
+                          final boolean bTrackPosition)
   {
     m_bSaveIgnorableWhitespaces = bSaveIgnorableWhitespaces;
     m_aEntityResolver = aEntityResolver;
     m_aEntityResolver2 = aEntityResolver instanceof EntityResolver2 ? (EntityResolver2) aEntityResolver : null;
+    m_bTrackPosition = bTrackPosition;
   }
 
   private void _createParentDocument ()
@@ -87,18 +96,44 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
     }
   }
 
+  private void _updatePosition (@Nonnull final String sWhat)
+  {
+    if (m_aLocator != null)
+    {
+      // Handle location
+      final SimpleLocation aLocation = SimpleLocation.create (m_aLocator);
+      s_aLogger.info (sWhat + " " + aLocation.toString ());
+    }
+  }
+
   // Called before startDocument (if called)
-  public void setDocumentLocator (final Locator aLocator)
-  {}
+  public void setDocumentLocator (@Nullable final Locator aLocator)
+  {
+    if (m_bTrackPosition)
+    {
+      m_aLocator = aLocator;
+      _updatePosition ("setLocator");
+      if (aLocator instanceof Locator2)
+      {
+        m_sSourceXMLVersion = ((Locator2) aLocator).getXMLVersion ();
+        m_sSourceXMLEncoding = ((Locator2) aLocator).getEncoding ();
+      }
+    }
+  }
 
   public void startDocument ()
-  {}
+  {
+    _updatePosition ("startDocument");
+  }
 
   public void endDocument ()
-  {}
+  {
+    _updatePosition ("endDocument");
+  }
 
   public void startDTD (final String sName, final String sPublicId, final String sSystemId) throws SAXException
   {
+    _updatePosition ("startDTD");
     if (m_aDocType == null)
       m_aDocType = new MicroDocumentType (sName, sPublicId, sSystemId);
     else
@@ -108,6 +143,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
 
   public void endDTD () throws SAXException
   {
+    _updatePosition ("endDTD");
     m_bDTDMode = false;
   }
 
@@ -116,6 +152,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
                             @Nullable final String sQName,
                             @Nullable final Attributes aAttributes)
   {
+    _updatePosition ("startElement");
     _createParentDocument ();
 
     IMicroElement aElement;
@@ -146,11 +183,15 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
 
   public void endElement (final String sNamespaceURI, final String sLocalName, final String sQName)
   {
+    _updatePosition ("endElement");
+
+    // Go one level up in the stack
     m_aParent = m_aParent.getParent ();
   }
 
   public void characters (@Nonnull final char [] aChars, @Nonnegative final int nStart, @Nonnegative final int nLength)
   {
+    _updatePosition ("characters");
     if (m_bCDATAMode)
     {
       // CDATA mode
@@ -199,6 +240,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
                                    @Nonnegative final int nStart,
                                    @Nonnegative final int nLength)
   {
+    _updatePosition ("ignorableWhitespace");
     if (m_bSaveIgnorableWhitespaces)
     {
       final IMicroNode aLastChild = m_aParent.getLastChild ();
@@ -221,6 +263,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
 
   public void processingInstruction (final String sTarget, final String sData)
   {
+    _updatePosition ("processingInstruction");
     _createParentDocument ();
     m_aParent.appendProcessingInstruction (sTarget, sData);
   }
@@ -228,6 +271,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
   @Nullable
   public InputSource resolveEntity (final String sPublicId, final String sSystemId) throws IOException, SAXException
   {
+    _updatePosition ("resolveEntity");
     final EntityResolver aER = m_aEntityResolver;
     if (aER != null)
       return aER.resolveEntity (sPublicId, sSystemId);
@@ -248,6 +292,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
   public InputSource getExternalSubset (final String sName, @Nullable final String sBaseURI) throws SAXException,
                                                                                              IOException
   {
+    _updatePosition ("getExternalSubset");
     final EntityResolver2 aER2 = m_aEntityResolver2;
     if (aER2 != null)
       return aER2.getExternalSubset (sName, sBaseURI);
@@ -260,6 +305,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
                                     @Nullable final String sBaseURI,
                                     @Nonnull final String sSystemId) throws SAXException, IOException
   {
+    _updatePosition ("resolveEntity2");
     final EntityResolver2 aER2 = m_aEntityResolver2;
     if (aER2 != null)
       return aER2.resolveEntity (sName, sPublicId, sBaseURI, sSystemId);
@@ -287,17 +333,61 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
                                   final String sSystemId,
                                   final String sNotationName)
   {
+    _updatePosition ("unparsedEntityDecl");
     s_aLogger.warn ("Unparsed entity decl: " + sName + "--" + sPublicId + "--" + sSystemId + "--" + sNotationName);
   }
 
   public void notationDecl (final String sName, final String sPublicId, final String sSystemId) throws SAXException
   {
+    _updatePosition ("notationDecl");
     s_aLogger.warn ("Unparsed notation decl: " + sName + "--" + sPublicId + "--" + sSystemId);
   }
 
   public void skippedEntity (final String sName)
   {
+    _updatePosition ("skippedEntity");
     s_aLogger.warn ("Skipped entity: " + sName);
+  }
+
+  public void startEntity (final String sName) throws SAXException
+  {
+    _updatePosition ("startEntity");
+    s_aLogger.warn ("Start entity: " + sName);
+  }
+
+  public void endEntity (final String sName) throws SAXException
+  {
+    _updatePosition ("endEntity");
+    s_aLogger.warn ("End entity: " + sName);
+  }
+
+  public void startCDATA () throws SAXException
+  {
+    _updatePosition ("startCDATA");
+    // Begin of CDATA
+    m_bCDATAMode = true;
+  }
+
+  public void endCDATA () throws SAXException
+  {
+    _updatePosition ("endCDATA");
+    // End of CDATA
+    m_bCDATAMode = false;
+  }
+
+  public void comment (@Nonnull final char [] aChars,
+                       @Nonnegative final int nStart,
+                       @Nonnegative final int nLength) throws SAXException
+  {
+    _updatePosition ("comment");
+    // Ignore comments in DTD
+    if (!m_bDTDMode)
+    {
+      // In case the comment comes before the root element....
+      _createParentDocument ();
+
+      m_aParent.appendComment (aChars, nStart, nLength);
+    }
   }
 
   // For namespace handling
@@ -331,38 +421,6 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
     s_aLogger.error (_getMsg (EErrorLevel.FATAL_ERROR, ex));
   }
 
-  public void startEntity (final String sName) throws SAXException
-  {}
-
-  public void endEntity (final String sName) throws SAXException
-  {}
-
-  public void startCDATA () throws SAXException
-  {
-    // Begin of CDATA
-    m_bCDATAMode = true;
-  }
-
-  public void endCDATA () throws SAXException
-  {
-    // End of CDATA
-    m_bCDATAMode = false;
-  }
-
-  public void comment (@Nonnull final char [] aChars,
-                       @Nonnegative final int nStart,
-                       @Nonnegative final int nLength) throws SAXException
-  {
-    // Ignore comments in DTD
-    if (!m_bDTDMode)
-    {
-      // In case the comment comes before the root element....
-      _createParentDocument ();
-
-      m_aParent.appendComment (aChars, nStart, nLength);
-    }
-  }
-
   /**
    * @return The created and filled micro document. May be <code>null</code> if
    *         no document start event came in.
@@ -371,5 +429,23 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
   public IMicroDocument getDocument ()
   {
     return m_aDoc;
+  }
+
+  /**
+   * @return The XML version read. May be <code>null</code>.
+   */
+  @Nullable
+  public String getSourceXMLVersion ()
+  {
+    return m_sSourceXMLVersion;
+  }
+
+  /**
+   * @return The source encoding of the read XML. May be <code>null</code>.
+   */
+  @Nullable
+  public String getSourceXMLEncoding ()
+  {
+    return m_sSourceXMLEncoding;
   }
 }
