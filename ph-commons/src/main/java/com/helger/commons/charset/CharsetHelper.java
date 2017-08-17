@@ -329,7 +329,8 @@ public final class CharsetHelper
         }
         else
         {
-          s_aLogger.info ("Found " + eBOM + " on " + aIS.getClass ().getName ());
+          if (s_aLogger.isDebugEnabled ())
+            s_aLogger.debug ("Found " + eBOM + " on " + aIS.getClass ().getName ());
 
           // Unread the unnecessary parts of the BOM
           final int nBOMBytes = eBOM.getByteCount ();
