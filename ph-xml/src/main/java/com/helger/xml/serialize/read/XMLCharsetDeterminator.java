@@ -30,6 +30,7 @@ import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 @Immutable
 public final class XMLCharsetDeterminator
 {
+  public static final Charset FALLBACK_CHARSET = StandardCharsets.UTF_8;
   private static final ICommonsSet <Charset> XML_CHARSETS = new CommonsHashSet <> ();
   static
   {
@@ -249,7 +250,7 @@ public final class XMLCharsetDeterminator
     if (aParseCharset == null)
     {
       // Fallback charset is always UTF-8
-      aParseCharset = StandardCharsets.UTF_8;
+      aParseCharset = FALLBACK_CHARSET;
     }
 
     // Now read with a reader
