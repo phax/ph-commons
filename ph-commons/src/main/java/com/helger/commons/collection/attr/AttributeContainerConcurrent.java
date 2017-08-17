@@ -22,9 +22,11 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 
+import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.callback.CallbackList;
 import com.helger.commons.collection.impl.CommonsConcurrentHashMap;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Base class for all kind of any-any mapping container. This implementation is
@@ -53,12 +55,14 @@ public class AttributeContainerConcurrent <KEYTYPE, VALUETYPE> extends CommonsCo
   }
 
   @Nonnull
+  @ReturnsMutableObject
   public final CallbackList <IBeforeSetValueCallback <KEYTYPE, VALUETYPE>> beforeSetValueCallbacks ()
   {
     return m_aBeforeCallbacks;
   }
 
   @Nonnull
+  @ReturnsMutableObject
   public final CallbackList <IAfterSetValueCallback <KEYTYPE, VALUETYPE>> afterSetValueCallbacks ()
   {
     return m_aAfterCallbacks;
@@ -96,5 +100,14 @@ public class AttributeContainerConcurrent <KEYTYPE, VALUETYPE> extends CommonsCo
     for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : entrySet ())
       aGen.append (aEntry.getKey ()).append (aEntry.getValue ());
     return aGen.getHashCode ();
+  }
+
+  @Override
+  public String toString ()
+  {
+    return ToStringGenerator.getDerived (super.toString ())
+                            .append ("beforeCallbacks", m_aBeforeCallbacks)
+                            .append ("afterCallbacks", m_aAfterCallbacks)
+                            .getToString ();
   }
 }

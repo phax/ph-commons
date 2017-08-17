@@ -102,7 +102,8 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
     {
       // Handle location
       final SimpleLocation aLocation = SimpleLocation.create (m_aLocator);
-      s_aLogger.info (sWhat + " " + aLocation.toString ());
+      if (false)
+        s_aLogger.info (sWhat + " " + aLocation.toString ());
     }
   }
 

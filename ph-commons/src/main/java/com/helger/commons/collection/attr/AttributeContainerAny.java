@@ -18,7 +18,6 @@ package com.helger.commons.collection.attr;
 
 import java.util.Map;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
@@ -37,11 +36,6 @@ public class AttributeContainerAny <KEYTYPE> extends AttributeContainer <KEYTYPE
   public AttributeContainerAny ()
   {
     super ();
-  }
-
-  public AttributeContainerAny (@Nonnull final KEYTYPE sKey, @Nullable final Object aValue)
-  {
-    super (sKey, aValue);
   }
 
   public AttributeContainerAny (@Nullable final Map <? extends KEYTYPE, ? extends Object> aMap)
