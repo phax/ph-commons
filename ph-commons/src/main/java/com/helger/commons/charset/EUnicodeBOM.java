@@ -171,6 +171,17 @@ public enum EUnicodeBOM
   }
 
   /**
+   * @return <code>true</code> if this BOM has an assigned charset,
+   *         <code>false</code> if not.
+   * @see #getCharset()
+   * @since 9.0.0
+   */
+  public boolean hasCharset ()
+  {
+    return m_aCharset != null;
+  }
+
+  /**
    * @return The maximum number of bytes a BOM may have.
    */
   @Nonnegative
