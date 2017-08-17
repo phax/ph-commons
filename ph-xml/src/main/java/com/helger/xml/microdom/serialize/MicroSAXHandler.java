@@ -190,6 +190,13 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
     m_aParent = m_aParent.getParent ();
   }
 
+  public void processingInstruction (final String sTarget, final String sData)
+  {
+    _updatePosition ("processingInstruction");
+    _createParentDocument ();
+    m_aParent.appendProcessingInstruction (sTarget, sData);
+  }
+
   public void characters (@Nonnull final char [] aChars, @Nonnegative final int nStart, @Nonnegative final int nLength)
   {
     _updatePosition ("characters");
@@ -237,6 +244,21 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
     }
   }
 
+  public void comment (@Nonnull final char [] aChars,
+                       @Nonnegative final int nStart,
+                       @Nonnegative final int nLength) throws SAXException
+  {
+    _updatePosition ("comment");
+    // Ignore comments in DTD
+    if (!m_bDTDMode)
+    {
+      // In case the comment comes before the root element....
+      _createParentDocument ();
+
+      m_aParent.appendComment (aChars, nStart, nLength);
+    }
+  }
+
   public void ignorableWhitespace (@Nonnull final char [] aChars,
                                    @Nonnegative final int nStart,
                                    @Nonnegative final int nLength)
@@ -260,13 +282,6 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
       else
         m_aParent.appendIgnorableWhitespaceText (aChars, nStart, nLength);
     }
-  }
-
-  public void processingInstruction (final String sTarget, final String sData)
-  {
-    _updatePosition ("processingInstruction");
-    _createParentDocument ();
-    m_aParent.appendProcessingInstruction (sTarget, sData);
   }
 
   @Nullable
@@ -310,12 +325,10 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
     final EntityResolver2 aER2 = m_aEntityResolver2;
     if (aER2 != null)
       return aER2.resolveEntity (sName, sPublicId, sBaseURI, sSystemId);
-    else
-    {
-      final EntityResolver aER = m_aEntityResolver;
-      if (aER != null)
-        return aER.resolveEntity (sPublicId, sSystemId);
-    }
+
+    final EntityResolver aER = m_aEntityResolver;
+    if (aER != null)
+      return aER.resolveEntity (sPublicId, sSystemId);
 
     s_aLogger.info ("Need to resolve entity with name '" +
                     sName +
@@ -353,13 +366,15 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
   public void startEntity (final String sName) throws SAXException
   {
     _updatePosition ("startEntity");
-    s_aLogger.warn ("Start entity: " + sName);
+    if (false)
+      s_aLogger.warn ("Start entity: " + sName);
   }
 
   public void endEntity (final String sName) throws SAXException
   {
     _updatePosition ("endEntity");
-    s_aLogger.warn ("End entity: " + sName);
+    if (false)
+      s_aLogger.warn ("End entity: " + sName);
   }
 
   public void startCDATA () throws SAXException
@@ -374,21 +389,6 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
     _updatePosition ("endCDATA");
     // End of CDATA
     m_bCDATAMode = false;
-  }
-
-  public void comment (@Nonnull final char [] aChars,
-                       @Nonnegative final int nStart,
-                       @Nonnegative final int nLength) throws SAXException
-  {
-    _updatePosition ("comment");
-    // Ignore comments in DTD
-    if (!m_bDTDMode)
-    {
-      // In case the comment comes before the root element....
-      _createParentDocument ();
-
-      m_aParent.appendComment (aChars, nStart, nLength);
-    }
   }
 
   // For namespace handling
