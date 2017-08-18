@@ -219,10 +219,10 @@ public final class ApplicationFuncTest
                              .desc ("interpret 'page' argument(s) as local filename(s)")
                              .build ());
     options.addOption (Option.builder ("u").longOpt ("update").desc ("force a cache consistency check.").build ());
-    // FIXME - should generate -r,--prompt string
     options.addOption (Option.builder ("r")
                              .longOpt ("prompt")
                              .oneArg ()
+                             .argName ("string")
                              .desc ("provide 'less' pager with prompt.")
                              .build ());
     options.addOption (Option.builder ("c")
@@ -234,10 +234,10 @@ public final class ApplicationFuncTest
                              .desc ("display ASCII translation or certain latin1 chars.")
                              .build ());
     options.addOption (Option.builder ("t").longOpt ("troff").desc ("use troff format pages.").build ());
-    // FIXME - should generate -T,--troff-device device
     options.addOption (Option.builder ("T")
                              .longOpt ("troff-device")
                              .oneArg ()
+                             .argName ("device")
                              .desc ("use groff with selected device.")
                              .build ());
     options.addOption (Option.builder ("Z").longOpt ("ditroff").desc ("use groff with selected device.").build ());
@@ -245,40 +245,40 @@ public final class ApplicationFuncTest
                              .longOpt ("default")
                              .desc ("reset all options to their default values.")
                              .build ());
-    // FIXME - should generate -M,--manpath path
     options.addOption (Option.builder ("M")
                              .longOpt ("manpath")
                              .oneArg ()
+                             .argName ("path")
                              .desc ("set search path for manual pages to 'path'.")
                              .build ());
-    // FIXME - should generate -P,--pager pager
     options.addOption (Option.builder ("P")
                              .longOpt ("pager")
                              .oneArg ()
+                             .argName ("pager")
                              .desc ("use program 'pager' to display output.")
                              .build ());
-    // FIXME - should generate -S,--sections list
     options.addOption (Option.builder ("S")
                              .longOpt ("sections")
                              .oneArg ()
+                             .argName ("list")
                              .desc ("use colon separated section list.")
                              .build ());
-    // FIXME - should generate -m,--systems system
     options.addOption (Option.builder ("m")
                              .longOpt ("systems")
                              .oneArg ()
+                             .argName ("system")
                              .desc ("search for man pages from other unix system(s).")
                              .build ());
-    // FIXME - should generate -L,--locale locale
     options.addOption (Option.builder ("L")
                              .longOpt ("locale")
                              .oneArg ()
+                             .argName ("locale")
                              .desc ("define the locale for this particular man search.")
                              .build ());
-    // FIXME - should generate -p,--preprocessor string
     options.addOption (Option.builder ("p")
                              .longOpt ("preprocessor")
                              .oneArg ()
+                             .argName ("string")
                              .desc ("string indicates which preprocessor to run.\n" +
                                     " e - [n]eqn  p - pic     t - tbl\n" +
                                     " g - grap    r - refer   v - vgrind")
@@ -304,79 +304,93 @@ public final class ApplicationFuncTest
                   EOL +
                   "           [-Llocale] [-eextension] [section] page ..." +
                   EOL +
-                  " -7,--ascii                display ASCII translation or" +
+                  " -7,--ascii                   display ASCII translation or" +
                   EOL +
-                  "                           certain latin1 chars." +
+                  "                              certain latin1 chars." +
                   EOL +
-                  " -a,--all                  find all matching manual pages." +
+                  " -a,--all                     find all matching manual" +
                   EOL +
-                  " -c,--catman               used by catman to reformat out of" +
+                  "                              pages." +
                   EOL +
-                  "                           date cat pages." +
+                  " -c,--catman                  used by catman to reformat out" +
                   EOL +
-                  " -d,--debug                emit debugging messages." +
+                  "                              of date cat pages." +
                   EOL +
-                  " -D,--default              reset all options to their" +
+                  " -d,--debug                   emit debugging messages." +
                   EOL +
-                  "                           default values." +
+                  " -D,--default                 reset all options to their" +
                   EOL +
-                  " -e,--extension            limit search to extension type" +
+                  "                              default values." +
                   EOL +
-                  "                           'extension'." +
+                  " -e,--extension               limit search to extension type" +
                   EOL +
-                  " -f,--whatis               equivalent to whatis." +
+                  "                              'extension'." +
                   EOL +
-                  " -h,--help                 show this usage message." +
+                  " -f,--whatis                  equivalent to whatis." +
                   EOL +
-                  " -k,--apropos              equivalent to apropos." +
+                  " -h,--help                    show this usage message." +
                   EOL +
-                  " -l,--local-file           interpret 'page' argument(s) as" +
+                  " -k,--apropos                 equivalent to apropos." +
                   EOL +
-                  "                           local filename(s)" +
+                  " -l,--local-file              interpret 'page' argument(s)" +
                   EOL +
-                  " -L,--locale <arg>         define the locale for this" +
+                  "                              as local filename(s)" +
                   EOL +
-                  "                           particular man search." +
+                  " -L,--locale <locale>         define the locale for this" +
                   EOL +
-                  " -M,--manpath <arg>        set search path for manual pages" +
+                  "                              particular man search." +
                   EOL +
-                  "                           to 'path'." +
+                  " -M,--manpath <path>          set search path for manual" +
                   EOL +
-                  " -m,--systems <arg>        search for man pages from other" +
+                  "                              pages to 'path'." +
                   EOL +
-                  "                           unix system(s)." +
+                  " -m,--systems <system>        search for man pages from" +
                   EOL +
-                  " -P,--pager <arg>          use program 'pager' to display" +
+                  "                              other unix system(s)." +
                   EOL +
-                  "                           output." +
+                  " -P,--pager <pager>           use program 'pager' to display" +
                   EOL +
-                  " -p,--preprocessor <arg>   string indicates which" +
+                  "                              output." +
                   EOL +
-                  "                           preprocessor to run." +
+                  " -p,--preprocessor <string>   string indicates which" +
                   EOL +
-                  "                           e - [n]eqn  p - pic     t - tbl" +
+                  "                              preprocessor to run." +
                   EOL +
-                  "                           g - grap    r - refer   v -" +
+                  "                              e - [n]eqn  p - pic     t -" +
                   EOL +
-                  "                           vgrind" +
+                  "                              tbl" +
                   EOL +
-                  " -r,--prompt <arg>         provide 'less' pager with prompt." +
+                  "                              g - grap    r - refer   v -" +
                   EOL +
-                  " -S,--sections <arg>       use colon separated section list." +
+                  "                              vgrind" +
                   EOL +
-                  " -t,--troff                use troff format pages." +
+                  " -r,--prompt <string>         provide 'less' pager with" +
                   EOL +
-                  " -T,--troff-device <arg>   use groff with selected device." +
+                  "                              prompt." +
                   EOL +
-                  " -u,--update               force a cache consistency check." +
+                  " -S,--sections <list>         use colon separated section" +
                   EOL +
-                  " -V,--version              show version." +
+                  "                              list." +
                   EOL +
-                  " -w,--location             print physical location of man" +
+                  " -t,--troff                   use troff format pages." +
                   EOL +
-                  "                           page(s)." +
+                  " -T,--troff-device <device>   use groff with selected" +
                   EOL +
-                  " -Z,--ditroff              use groff with selected device." +
+                  "                              device." +
+                  EOL +
+                  " -u,--update                  force a cache consistency" +
+                  EOL +
+                  "                              check." +
+                  EOL +
+                  " -V,--version                 show version." +
+                  EOL +
+                  " -w,--location                print physical location of man" +
+                  EOL +
+                  "                              page(s)." +
+                  EOL +
+                  " -Z,--ditroff                 use groff with selected" +
+                  EOL +
+                  "                              device." +
                   EOL,
                   aSW.getAsString ());
   }
