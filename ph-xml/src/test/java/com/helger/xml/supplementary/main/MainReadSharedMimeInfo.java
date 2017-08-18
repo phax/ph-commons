@@ -90,7 +90,7 @@ public final class MainReadSharedMimeInfo
     for (final IMicroElement eSrcMimeType : aDoc.getDocumentElement ().getAllChildElements (NS, "mime-type"))
     {
       final String sMIMEType = eSrcMimeType.getAttributeValue ("type");
-      final ICommonsOrderedSet <MimeTypeWithSource> aLocalNames = new CommonsLinkedHashSet<> ();
+      final ICommonsOrderedSet <MimeTypeWithSource> aLocalNames = new CommonsLinkedHashSet <> ();
 
       // Names
       aLocalNames.add (new MimeTypeWithSource (sMIMEType));
@@ -110,7 +110,7 @@ public final class MainReadSharedMimeInfo
         }
 
       // Sub class of
-      final ICommonsOrderedSet <String> aSubClassOf = new CommonsLinkedHashSet<> ();
+      final ICommonsOrderedSet <String> aSubClassOf = new CommonsLinkedHashSet <> ();
       for (final IMicroElement eSrcChild : eSrcMimeType.getAllChildElements (NS, "sub-class-of"))
       {
         final String s = eSrcChild.getAttributeValue ("type");
@@ -118,8 +118,8 @@ public final class MainReadSharedMimeInfo
       }
 
       boolean bHasAnyGlob = false;
-      final ICommonsOrderedSet <String> aGlobs = new CommonsLinkedHashSet<> ();
-      final ICommonsOrderedSet <ExtensionWithSource> aExts = new CommonsLinkedHashSet<> ();
+      final ICommonsOrderedSet <String> aGlobs = new CommonsLinkedHashSet <> ();
+      final ICommonsOrderedSet <ExtensionWithSource> aExts = new CommonsLinkedHashSet <> ();
       for (final IMicroElement eSrcChild : eSrcMimeType.getAllChildElements (NS, "glob"))
       {
         final String sPattern = eSrcChild.getAttributeValue ("pattern");
@@ -147,11 +147,9 @@ public final class MainReadSharedMimeInfo
 
     s_aLogger.info ("Read " + aMgr.getAllMimeTypeInfos ().size () + " mime type infos");
 
-    // FIXME read existing MimeTypeInfo data
-
     // Maps file extension to MIME type
     s_aLogger.info ("Reading shared-mime-info/fileext-mimetype-mapping-local.xml");
-    final Map <String, String> FileExtMap = new HashMap<> ();
+    final Map <String, String> FileExtMap = new HashMap <> ();
     if (XMLMapHandler.readMap (new FileSystemResource ("src/test/resources/shared-mime-info/fileext-mimetype-mapping-local.xml"),
                                FileExtMap)
                      .isFailure ())
@@ -224,8 +222,8 @@ public final class MainReadSharedMimeInfo
           // Create a new entry
           aMgr.registerMimeType (new MimeTypeInfo (CollectionHelper.newOrderedSet (new MimeTypeWithSource (sOldMimeType)),
                                                    null,
-                                                   new CommonsLinkedHashSet<> (),
-                                                   new CommonsLinkedHashSet<> (),
+                                                   new CommonsLinkedHashSet <> (),
+                                                   new CommonsLinkedHashSet <> (),
                                                    CollectionHelper.newOrderedSet (new ExtensionWithSource (sOldExt)),
                                                    "old"));
           if (false)

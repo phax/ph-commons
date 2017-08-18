@@ -49,7 +49,7 @@ public class LoggingSAXErrorHandler extends AbstractSAXErrorHandler
   @OverrideOnDemand
   protected String getErrorMessage (@Nonnull final IErrorLevel aErrorLevel, final SAXParseException aException)
   {
-    // XXX As the SAX error messages are not localized at the moment, we can use
+    // As the SAX error messages are not localized at the moment, we can use
     // a fixed locale here
     return getSaxParseError (aErrorLevel, aException).getAsString (CGlobal.DEFAULT_LOCALE);
   }
