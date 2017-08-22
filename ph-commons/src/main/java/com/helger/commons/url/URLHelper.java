@@ -646,7 +646,7 @@ public final class URLHelper
    * @return <code>null</code> if no parameter is present.
    */
   @Nullable
-  public static String getQueryParametersAsString (@Nullable final List <URLParameter> aQueryParams,
+  public static String getQueryParametersAsString (@Nullable final List <? extends URLParameter> aQueryParams,
                                                    @Nullable final IEncoder <String, String> aQueryParameterEncoder)
   {
     if (CollectionHelper.isEmpty (aQueryParams))
@@ -688,7 +688,7 @@ public final class URLHelper
    */
   @Nullable
   public static String getURLString (@Nullable final String sPath,
-                                     @Nullable final List <URLParameter> aQueryParams,
+                                     @Nullable final List <? extends URLParameter> aQueryParams,
                                      @Nullable final String sAnchor,
                                      @Nullable final IEncoder <String, String> aQueryParameterEncoder)
   {
@@ -711,7 +711,7 @@ public final class URLHelper
    */
   @Nullable
   public static String getURLString (@Nullable final String sPath,
-                                     @Nullable final List <URLParameter> aQueryParams,
+                                     @Nullable final List <? extends URLParameter> aQueryParams,
                                      @Nullable final String sAnchor,
                                      @Nullable final Charset aParameterCharset)
   {

@@ -191,19 +191,17 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends
    * @param aName
    *        The name of the attribute. May not be <code>null</code>.
    * @param aNewValue
-   *        The new value of the attribute. If it is <code>null</code>, the
-   *        value will be removed.
+   *        The new value of the attribute. May be <code>null</code>.
    * @return {@link EChange#CHANGED} if something changed,
    *         {@link EChange#UNCHANGED} otherwise.
+   * @see #beforeSetValueCallbacks()
+   * @see #afterSetValueCallbacks()
    * @see #removeObject(Object)
    */
   @Nonnull
   default EChange putIn (@Nonnull final KEYTYPE aName, @Nullable final VALUETYPE aNewValue)
   {
     ValueEnforcer.notNull (aName, "Name");
-
-    if (aNewValue == null)
-      return removeObject (aName);
 
     // Before change checking callback
     if (beforeSetValueCallbacks ().forEachBreakable (x -> x.beforeSetValue (aName, aNewValue)).isBreak ())
@@ -216,7 +214,6 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends
 
     // After change callback
     afterSetValueCallbacks ().forEach (x -> x.afterSetValue (aName, aOldValue, aNewValue));
-
     return EChange.CHANGED;
   }
 

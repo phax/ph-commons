@@ -100,6 +100,9 @@ public final class AttributeContainerAnyTest
     // Check null values
     assertTrue (x.putIn ("null1", null).isUnchanged ());
     assertNull (x.getValue ("null1"));
+    assertTrue (x.containsKey ("null1"));
+    assertTrue (x.removeObject ("null1").isUnchanged ());
+    assertNull (x.getValue ("null1"));
     assertFalse (x.containsKey ("null1"));
     assertTrue (x.removeObject ("null1").isUnchanged ());
 

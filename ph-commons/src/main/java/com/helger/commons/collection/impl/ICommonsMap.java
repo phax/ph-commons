@@ -722,7 +722,9 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   }
 
   /**
-   * Remove the object with the passed key from this map.
+   * Remove the object with the passed key from this map. <br>
+   * Note: this method returns {@link EChange#UNCHANGED} even if removal was
+   * successful if the value was <code>null</code>.
    *
    * @param aKey
    *        The key to be removed. May be <code>null</code>.
