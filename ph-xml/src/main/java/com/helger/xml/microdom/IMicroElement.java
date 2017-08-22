@@ -39,7 +39,7 @@ import com.helger.commons.string.StringHelper;
  *
  * @author Philip Helger
  */
-public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeContainer
+public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeContainer <IMicroElement>
 {
   /**
    * Get the namespace URI of this element
