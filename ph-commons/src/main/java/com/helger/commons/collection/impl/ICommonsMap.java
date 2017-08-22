@@ -505,6 +505,22 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   }
 
   /**
+   * Special put overload that takes an entry and should simplify copying from
+   * other maps.
+   *
+   * @param aEntry
+   *        Entry to be added. May not be <code>null</code>.
+   * @return the return value of {@link #put(Object, Object)}. May be
+   *         <code>null</code>.
+   * @since 9.0.0
+   */
+  @Nullable
+  default VALUETYPE put (@Nonnull final Map.Entry <? extends KEYTYPE, ? extends VALUETYPE> aEntry)
+  {
+    return put (aEntry.getKey (), aEntry.getValue ());
+  }
+
+  /**
    * Put the passed value into the map if the provided predicate is fulfilled.
    *
    * @param aKey
