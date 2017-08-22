@@ -19,6 +19,7 @@ package com.helger.scope;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import javax.annotation.Nonnull;
 
@@ -62,8 +63,16 @@ public final class GlobalScopeTest
       }
     }).isChanged ());
     assertEquals (2, aGS.attrs ().size ());
-    // Check null value - no change
-    assertTrue (aGS.attrs ().putIn ("key3", null).isUnchanged ());
+    // Check null value - exception
+    try
+    {
+      aGS.attrs ().putIn ("key3", null);
+      fail ();
+    }
+    catch (final NullPointerException ex)
+    {
+      // ConcurrentHashMap does not allow null values
+    }
     assertEquals (2, aGS.attrs ().size ());
     assertTrue (aGS.isValid ());
     assertFalse (aGS.isInPreDestruction ());
