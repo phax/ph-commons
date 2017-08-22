@@ -16,21 +16,22 @@
  */
 package com.helger.xml.serialize.write;
 
+import java.io.Serializable;
 import java.nio.charset.Charset;
 
 import javax.annotation.Nonnull;
-import javax.xml.namespace.NamespaceContext;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.system.ENewLineMode;
 import com.helger.xml.EXMLVersion;
+import com.helger.xml.namespace.INamespaceContext;
 
 /**
  * Interface for the settings to be used for serializing XML nodes.
  *
  * @author Philip Helger
  */
-public interface IXMLWriterSettings
+public interface IXMLWriterSettings extends Serializable
 {
   /**
    * @return The XML version to use. Default is <code>1.0</code>
@@ -93,7 +94,7 @@ public interface IXMLWriterSettings
    * @return The namespace context to be used. Never <code>null</code>.
    */
   @Nonnull
-  NamespaceContext getNamespaceContext ();
+  INamespaceContext getNamespaceContext ();
 
   /**
    * @return <code>true</code> if attribute values should be enclosed in double

@@ -27,7 +27,6 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.ValidationEventHandler;
-import javax.xml.namespace.NamespaceContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +39,7 @@ import com.helger.commons.string.ToStringGenerator;
 import com.helger.jaxb.IJAXBWriter;
 import com.helger.jaxb.JAXBMarshallerHelper;
 import com.helger.jaxb.validation.LoggingValidationEventHandler;
+import com.helger.xml.namespace.INamespaceContext;
 
 /**
  * Builder class for writing JAXB documents.
@@ -58,7 +58,7 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
   private static final Logger s_aLogger = LoggerFactory.getLogger (JAXBWriterBuilder.class);
 
   private ValidationEventHandler m_aEventHandler = JAXBBuilderDefaultSettings.getDefaultValidationEventHandler ();
-  private NamespaceContext m_aNSContext = JAXBBuilderDefaultSettings.getDefaultNamespaceContext ();
+  private INamespaceContext m_aNSContext = JAXBBuilderDefaultSettings.getDefaultNamespaceContext ();
   private boolean m_bFormattedOutput = JAXBBuilderDefaultSettings.isDefaultFormattedOutput ();
   private Charset m_aCharset = JAXBBuilderDefaultSettings.getDefaultCharset ();
   private String m_sIndentString = JAXBBuilderDefaultSettings.getDefaultIndentString ();
@@ -101,7 +101,7 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
    *         used.
    */
   @Nullable
-  public NamespaceContext getNamespaceContext ()
+  public INamespaceContext getNamespaceContext ()
   {
     return m_aNSContext;
   }
@@ -114,7 +114,7 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
    * @return this for chaining
    */
   @Nonnull
-  public IMPLTYPE setNamespaceContext (@Nullable final NamespaceContext aNSContext)
+  public IMPLTYPE setNamespaceContext (@Nullable final INamespaceContext aNSContext)
   {
     m_aNSContext = aNSContext;
     return thisAsT ();

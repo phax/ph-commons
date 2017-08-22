@@ -31,7 +31,6 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.UnmarshalException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.ValidationEventHandler;
-import javax.xml.namespace.NamespaceContext;
 import javax.xml.validation.Schema;
 
 import org.slf4j.Logger;
@@ -204,7 +203,7 @@ public abstract class AbstractJAXBMarshaller <JAXBTYPE> implements
   }
 
   @Nullable
-  public final NamespaceContext getNamespaceContext ()
+  public final INamespaceContext getNamespaceContext ()
   {
     return m_aNSContext;
   }

@@ -22,9 +22,9 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 import javax.xml.bind.ValidationEventHandler;
-import javax.xml.namespace.NamespaceContext;
 
 import com.helger.commons.concurrent.SimpleReadWriteLock;
+import com.helger.xml.namespace.INamespaceContext;
 
 /**
  * A class containing some default settings for the various JAXB builders. Each
@@ -47,7 +47,7 @@ public final class JAXBBuilderDefaultSettings
   @GuardedBy ("s_aRWLock")
   private static ValidationEventHandler s_aEventHandler;
   @GuardedBy ("s_aRWLock")
-  private static NamespaceContext s_aNamespaceContext;
+  private static INamespaceContext s_aNamespaceContext;
   @GuardedBy ("s_aRWLock")
   private static boolean s_bFormattedOutput = DEFAULT_FORMATTED_OUTPUT;
   @GuardedBy ("s_aRWLock")
@@ -116,7 +116,7 @@ public final class JAXBBuilderDefaultSettings
    *        The namespace context to be used by default. May be
    *        <code>null</code>.
    */
-  public static void setDefaultNamespaceContext (@Nullable final NamespaceContext aNamespaceContext)
+  public static void setDefaultNamespaceContext (@Nullable final INamespaceContext aNamespaceContext)
   {
     s_aRWLock.writeLocked ( () -> s_aNamespaceContext = aNamespaceContext);
   }
@@ -126,7 +126,7 @@ public final class JAXBBuilderDefaultSettings
    *         default.
    */
   @Nullable
-  public static NamespaceContext getDefaultNamespaceContext ()
+  public static INamespaceContext getDefaultNamespaceContext ()
   {
     return s_aRWLock.readLocked ( () -> s_aNamespaceContext);
   }
