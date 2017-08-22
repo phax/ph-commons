@@ -178,7 +178,7 @@ public final class SettingsTest
 
     assertFalse (s.putIn (FIELD2, null).isChanged ());
     assertTrue (s.keySet ().contains (FIELD1));
-    assertFalse (s.keySet ().contains (FIELD2));
+    assertTrue (s.keySet ().contains (FIELD2));
   }
 
   @Test
