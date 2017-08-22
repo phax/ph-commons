@@ -37,6 +37,7 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ICloneable;
+import com.helger.commons.random.RandomHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -194,6 +195,21 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
   public final SimpleURL add (@Nonnull @Nonempty final String sName)
   {
     return add (sName, "");
+  }
+
+  /**
+   * Add a parameter with a random long value
+   *
+   * @param sName
+   *        The name of the parameter. May neither be <code>null</code> nor
+   *        empty.
+   * @return this
+   * @since 9.0.0
+   */
+  @Nonnull
+  public final SimpleURL addRandom (@Nonnull @Nonempty final String sName)
+  {
+    return add (sName, RandomHelper.getRandom ().nextLong ());
   }
 
   @Nonnull
