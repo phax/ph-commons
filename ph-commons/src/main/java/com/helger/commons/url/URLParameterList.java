@@ -200,7 +200,7 @@ public class URLParameterList extends CommonsArrayList <URLParameter>
   @Nullable
   public String getFirstParamValue (@Nullable final String sName)
   {
-    return sName == null ? null : findFirstMapped (aParam -> aParam.hasName (sName), aParam -> aParam.getValue ());
+    return sName == null ? null : findFirstMapped (aParam -> aParam.hasName (sName), URLParameter::getValue);
   }
 
   /**

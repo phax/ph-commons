@@ -56,6 +56,7 @@ This project was the following modules:
     * JAXB components can now use a safe way to write XML with special chars
     * JAXB components can now read XML documents with a BOM
     * Extracted ph-oton DAO handling into new subproject `ph-dao`
+    * Replaced `SMap` with `StringMap`
   * v8.6.6 - 2017-07-12
     * Extended `CSVWriter` API
     * `SimpleLSResourceResolver` can now handle fat jars from Spring Boot (issue #8)

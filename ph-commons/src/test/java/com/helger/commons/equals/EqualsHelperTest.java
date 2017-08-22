@@ -37,6 +37,7 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.IteratorHelper;
 import com.helger.commons.collection.NonBlockingStack;
 import com.helger.commons.collection.StackHelper;
+import com.helger.commons.collection.attr.StringMap;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.CommonsHashSet;
@@ -51,7 +52,6 @@ import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsAssert;
 import com.helger.commons.string.StringParser;
-import com.helger.commons.url.SMap;
 
 /**
  * Test class for class {@link EqualsHelper}.
@@ -375,22 +375,22 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
   @Test
   public void testMap ()
   {
-    final SMap aMap = new SMap ("a", "b").add ("c", "d");
+    final StringMap aMap = new StringMap ("a", "b").add ("c", "d");
     assertTrue (EqualsHelper.equalsCollection (aMap, aMap));
     assertTrue (EqualsHelper.equalsCollection (aMap, CollectionHelper.makeUnmodifiable (aMap)));
     assertTrue (EqualsHelper.equalsCollection (aMap, Collections.synchronizedMap (aMap)));
-    assertTrue (EqualsHelper.equalsCollection (aMap, new SMap ("a", "b").add ("c", "d")));
+    assertTrue (EqualsHelper.equalsCollection (aMap, new StringMap ("a", "b").add ("c", "d")));
     assertTrue (EqualsHelper.equalsCollection (new CommonsHashMap <Integer, Integer> (),
                                                new CommonsHashMap <Double, Float> ()));
 
     assertFalse (EqualsHelper.equalsCollection (aMap, new CommonsHashMap <Integer, Integer> ()));
     assertFalse (EqualsHelper.equalsCollection (new CommonsHashMap <Integer, Integer> (), aMap));
-    assertFalse (EqualsHelper.equalsCollection (aMap, new SMap ("a", "b")));
-    assertFalse (EqualsHelper.equalsCollection (aMap, new SMap ("A", "b").add ("c", "d")));
-    assertFalse (EqualsHelper.equalsCollection (aMap, new SMap ("a", "B").add ("c", "d")));
-    assertFalse (EqualsHelper.equalsCollection (aMap, new SMap ("a", "b").add ("C", "d")));
-    assertFalse (EqualsHelper.equalsCollection (aMap, new SMap ("a", "b").add ("c", "D")));
-    assertFalse (EqualsHelper.equalsCollection (aMap, new SMap ("a", "b").add ("c", "d").add ("e", "f")));
+    assertFalse (EqualsHelper.equalsCollection (aMap, new StringMap ("a", "b")));
+    assertFalse (EqualsHelper.equalsCollection (aMap, new StringMap ("A", "b").add ("c", "d")));
+    assertFalse (EqualsHelper.equalsCollection (aMap, new StringMap ("a", "B").add ("c", "d")));
+    assertFalse (EqualsHelper.equalsCollection (aMap, new StringMap ("a", "b").add ("C", "d")));
+    assertFalse (EqualsHelper.equalsCollection (aMap, new StringMap ("a", "b").add ("c", "D")));
+    assertFalse (EqualsHelper.equalsCollection (aMap, new StringMap ("a", "b").add ("c", "d").add ("e", "f")));
     assertFalse (EqualsHelper.equalsCollection (aMap, new CommonsArrayList <> ("a", "b", "c")));
     assertFalse (EqualsHelper.equalsCollection (aMap, new CommonsHashSet <> ("a", "b", "c")));
     assertFalse (EqualsHelper.equalsCollection (aMap, ArrayHelper.newArray ("a", "b", "c")));
@@ -459,7 +459,9 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
     assertFalse (EqualsHelper.equalsCollection (aMap, ArrayHelper.newArray ("a", "b", "c", "d")));
     assertFalse (EqualsHelper.equalsCollection (aMap, new CommonsArrayList <> ("a", "b", "c")));
     assertFalse (EqualsHelper.equalsCollection (aMap, new CommonsHashSet <> ("a", "b", "c")));
-    assertFalse (EqualsHelper.equalsCollection (aMap, new SMap ().add ("a", "b")));
+    final ICommonsMap <String, String> aMap1a = new CommonsHashMap <> ();
+    aMap1a.put ("a", "b");
+    assertFalse (EqualsHelper.equalsCollection (aMap, aMap1a));
     final ICommonsMap <ICommonsList <String>, String> aMap2 = new CommonsHashMap <> ();
     aMap2.put (new CommonsArrayList <> ("a", "b", "c"), "d");
     aMap2.put (new CommonsArrayList <> ("a", "b", "d"), "e");
@@ -597,7 +599,8 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
                                                                                                         "c",
                                                                                                         "d"))));
     assertFalse (EqualsHelper.equalsCollection (IteratorHelper.getEnumeration (aCont),
-                                                IteratorHelper.getEnumeration (new SMap ("a", "b").add ("c", "d"))));
+                                                IteratorHelper.getEnumeration (new StringMap ("a", "b").add ("c",
+                                                                                                             "d"))));
     assertFalse (EqualsHelper.equalsCollection (IteratorHelper.getEnumeration (aCont),
                                                 new CommonsHashSet <> ("a", "b", "c")));
     assertFalse (EqualsHelper.equalsCollection (IteratorHelper.getEnumeration (aCont),

@@ -151,6 +151,6 @@ public class URLParameter implements Serializable
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("name", m_sName).append ("value", m_sValue).getToString ();
+    return new ToStringGenerator (null).append ("Name", m_sName).append ("Value", m_sValue).getToString ();
   }
 }

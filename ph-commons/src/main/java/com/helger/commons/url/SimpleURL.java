@@ -37,6 +37,7 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ICloneable;
+import com.helger.commons.math.MathHelper;
 import com.helger.commons.random.RandomHelper;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -209,7 +210,7 @@ public class SimpleURL implements ISimpleURL, ICloneable <SimpleURL>
   @Nonnull
   public final SimpleURL addRandom (@Nonnull @Nonempty final String sName)
   {
-    return add (sName, RandomHelper.getRandom ().nextLong ());
+    return add (sName, MathHelper.abs (RandomHelper.getRandom ().nextLong ()));
   }
 
   @Nonnull

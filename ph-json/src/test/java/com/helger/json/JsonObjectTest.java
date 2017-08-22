@@ -27,9 +27,9 @@ import java.util.function.Function;
 
 import org.junit.Test;
 
+import com.helger.commons.collection.attr.StringMap;
 import com.helger.commons.collection.map.MapEntry;
 import com.helger.commons.mock.CommonsTestHelper;
-import com.helger.commons.url.SMap;
 
 /**
  * Test class for class {@link JsonObject}.
@@ -65,17 +65,17 @@ public final class JsonObjectTest
     CommonsTestHelper.testDefaultSerialization (aObject);
     aObject.add ("key11", new JsonObject ().add ("n1", "nested").add ("n2", 0).add ("n3", Double.valueOf (12.34)));
     CommonsTestHelper.testDefaultSerialization (aObject);
-    aObject.add (new MapEntry<> ("key12", "value12"));
+    aObject.add (new MapEntry <> ("key12", "value12"));
     CommonsTestHelper.testDefaultSerialization (aObject);
 
     final JsonObject aObject2 = new JsonObject ();
     aObject2.addAll (aObject);
     CommonsTestHelper.testDefaultSerialization (aObject2);
-    aObject2.addAll (new SMap ().add ("a", "b").add ("c", "d"));
+    aObject2.addAll (new StringMap ().add ("a", "b").add ("c", "d"));
     CommonsTestHelper.testDefaultSerialization (aObject2);
-    aObject2.addAllMapped (new SMap ().add ("a", "b").add ("c", "d"), JsonValue::create);
+    aObject2.addAllMapped (new StringMap ().add ("a", "b").add ("c", "d"), JsonValue::create);
     CommonsTestHelper.testDefaultSerialization (aObject2);
-    aObject2.addAllMapped (new SMap ().add ("e", "f").add ("g", "h"), Function.identity (), JsonValue::create);
+    aObject2.addAllMapped (new StringMap ().add ("e", "f").add ("g", "h"), Function.identity (), JsonValue::create);
     CommonsTestHelper.testDefaultSerialization (aObject2);
   }
 

@@ -24,6 +24,7 @@ import java.util.Map;
 
 import org.junit.Test;
 
+import com.helger.commons.collection.attr.StringMap;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -168,29 +169,29 @@ public final class SimpleURLTest
 
     // params
     // 1. default
-    aURL = new SimpleURL ("http://www.helger.com", new SMap ("a", "b"));
+    aURL = new SimpleURL ("http://www.helger.com", new StringMap ("a", "b"));
     assertEquals ("http://www.helger.com?a=b", aURL.getAsStringWithEncodedParameters ());
     // 2. plus params in href
-    aURL = new SimpleURL ("http://www.helger.com?x=y", new SMap ("a", "b"));
+    aURL = new SimpleURL ("http://www.helger.com?x=y", new StringMap ("a", "b"));
     assertEquals ("http://www.helger.com?x=y&a=b", aURL.getAsStringWithEncodedParameters ());
     // 3. add parameter with same name in href
-    aURL = new SimpleURL ("http://www.helger.com?a=a", new SMap ("a", "b"));
+    aURL = new SimpleURL ("http://www.helger.com?a=a", new StringMap ("a", "b"));
     assertEquals ("http://www.helger.com?a=a&a=b", aURL.getAsStringWithEncodedParameters ());
     // 4. only params
-    aURL = new SimpleURL ("", new SMap ("a", "b"));
+    aURL = new SimpleURL ("", new StringMap ("a", "b"));
     assertEquals ("?a=b", aURL.getAsStringWithEncodedParameters ());
     // 4a. only params
-    aURL = new SimpleURL ("?", new SMap ("a", "b"));
+    aURL = new SimpleURL ("?", new StringMap ("a", "b"));
     assertEquals ("?a=b", aURL.getAsStringWithEncodedParameters ());
     // 4b. only params
-    aURL = new SimpleURL ("#", new SMap ("a", "b"));
+    aURL = new SimpleURL ("#", new StringMap ("a", "b"));
     assertEquals ("?a=b", aURL.getAsStringWithEncodedParameters ());
     assertEquals ("?a=b", aURL.getAsStringWithEncodedParameters ());
     // 4c. only params
-    aURL = new SimpleURL ("#", new SMap ().add ("a", null));
+    aURL = new SimpleURL ("#", new StringMap ().add ("a", null));
     assertEquals ("?a", aURL.getAsStringWithEncodedParameters ());
     // 4d. only params
-    aURL = new SimpleURL ("#", new SMap ().add ("a", ""));
+    aURL = new SimpleURL ("#", new StringMap ().add ("a", ""));
     assertEquals ("?a", aURL.getAsStringWithEncodedParameters ());
     // 4e. only params
     aURL = new SimpleURL ("#").add ("a");
@@ -201,16 +202,16 @@ public final class SimpleURLTest
 
     // anchor
     // 1. default
-    aURL = new SimpleURL ("http://www.helger.com", new SMap ("a", "b"), "root");
+    aURL = new SimpleURL ("http://www.helger.com", new StringMap ("a", "b"), "root");
     assertEquals ("http://www.helger.com?a=b#root", aURL.getAsStringWithEncodedParameters ());
     // 2. overwrite anchor
-    aURL = new SimpleURL ("http://www.helger.com#main", new SMap ("a", "b"), "root");
+    aURL = new SimpleURL ("http://www.helger.com#main", new StringMap ("a", "b"), "root");
     assertEquals ("http://www.helger.com?a=b#root", aURL.getAsStringWithEncodedParameters ());
     // 3. only anchor in href
-    aURL = new SimpleURL ("http://www.helger.com#main", new SMap ("a", "b"));
+    aURL = new SimpleURL ("http://www.helger.com#main", new StringMap ("a", "b"));
     assertEquals ("http://www.helger.com?a=b#main", aURL.getAsStringWithEncodedParameters ());
     // 4. only params and anchor
-    aURL = new SimpleURL ("#main", new SMap ("a", "b"));
+    aURL = new SimpleURL ("#main", new StringMap ("a", "b"));
     assertEquals ("?a=b#main", aURL.getAsStringWithEncodedParameters ());
     // 5. only anchor
     aURL = new SimpleURL ("#main");
