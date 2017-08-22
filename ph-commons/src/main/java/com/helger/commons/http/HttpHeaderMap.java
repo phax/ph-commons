@@ -88,17 +88,40 @@ public class HttpHeaderMap implements
     m_aHeaders.putAll (aOther.m_aHeaders);
   }
 
+  /**
+   * Unify the parameter name by lower casing it.<br>
+   * HTTP Header name are case-insensitive<br>
+   * https://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html#sec4.2<br>
+   * HTTP header names must have at least one char<br>
+   * https://www.ietf.org/rfc/rfc0822.txt Chapter 3.2
+   *
+   * @param s
+   *        Name to unify. May neither be <code>null</code> nor empty.
+   * @return The unified name and never <code>null</code>.
+   */
   @Nonnull
   @Nonempty
-  public static String unifyName (@Nonnull @Nonempty final String s)
+  public static String getUnifiedName (@Nonnull @Nonempty final String s)
   {
-    // HTTP Header name are case-insensitive
-    // https://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html#sec4.2
-
-    // HTTP header names must have at least one char
-    // https://www.ietf.org/rfc/rfc0822.txt
-    // Chapter 3.2
     return s.toLowerCase (Locale.US);
+  }
+
+  /**
+   * Avoid having header values spanning multiple lines. This has been
+   * deprecated by RFC 7230 and Jetty 9.3 refuses to parse these requests with
+   * HTTP 400 by default.
+   *
+   * @param sValue
+   *        The source header value. May be <code>null</code>.
+   * @return The unified header value without \r, \n and \t. Never
+   *         <code>null</code>.
+   */
+  @Nonnull
+  public static String getUnifiedValue (@Nullable final String sValue)
+  {
+    final StringBuilder aSB = new StringBuilder ();
+    StringHelper.replaceMultipleTo (sValue, new char [] { '\r', '\n', '\t' }, ' ', aSB);
+    return aSB.toString ();
   }
 
   /**
@@ -126,7 +149,7 @@ public class HttpHeaderMap implements
 
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug ("Setting HTTP header: '" + sName + "' = '" + sValue + "'");
-    _getOrCreateHeaderList (unifyName (sName)).set (sValue);
+    _getOrCreateHeaderList (getUnifiedName (sName)).set (sValue);
   }
 
   private void _addHeader (@Nonnull @Nonempty final String sName, @Nonnull final String sValue)
@@ -136,7 +159,7 @@ public class HttpHeaderMap implements
 
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug ("Adding HTTP header: '" + sName + "' = '" + sValue + "'");
-    _getOrCreateHeaderList (unifyName (sName)).add (sValue);
+    _getOrCreateHeaderList (getUnifiedName (sName)).add (sValue);
   }
 
   /**
@@ -407,7 +430,7 @@ public class HttpHeaderMap implements
   {
     if (StringHelper.hasText (sName))
     {
-      final ICommonsList <String> aValues = m_aHeaders.get (unifyName (sName));
+      final ICommonsList <String> aValues = m_aHeaders.get (getUnifiedName (sName));
       if (aValues != null)
         return aValues.getClone ();
     }
@@ -426,7 +449,7 @@ public class HttpHeaderMap implements
   {
     if (StringHelper.hasText (sName))
     {
-      final ICommonsList <String> aValues = m_aHeaders.get (unifyName (sName));
+      final ICommonsList <String> aValues = m_aHeaders.get (getUnifiedName (sName));
       if (aValues != null)
         return aValues.getFirst ();
     }
@@ -447,7 +470,7 @@ public class HttpHeaderMap implements
   {
     if (StringHelper.hasText (sName))
     {
-      final ICommonsList <String> aValues = m_aHeaders.get (unifyName (sName));
+      final ICommonsList <String> aValues = m_aHeaders.get (getUnifiedName (sName));
       if (aValues != null)
         return StringHelper.getImploded (sDelimiter, aValues);
     }
@@ -458,7 +481,7 @@ public class HttpHeaderMap implements
   {
     if (StringHelper.hasNoText (sName))
       return false;
-    return m_aHeaders.containsKey (unifyName (sName));
+    return m_aHeaders.containsKey (getUnifiedName (sName));
   }
 
   /**
@@ -486,13 +509,13 @@ public class HttpHeaderMap implements
   {
     if (StringHelper.hasNoText (sName))
       return EChange.UNCHANGED;
-    return m_aHeaders.removeObject (unifyName (sName));
+    return m_aHeaders.removeObject (getUnifiedName (sName));
   }
 
   @Nonnull
   public EChange removeHeader (@Nullable final String sName, @Nullable final String sValue)
   {
-    final String sUnifiedName = unifyName (sName);
+    final String sUnifiedName = getUnifiedName (sName);
     final ICommonsList <String> aValues = m_aHeaders.get (sUnifiedName);
     final boolean bRemoved = aValues != null && aValues.remove (sValue);
     if (bRemoved && aValues.isEmpty ())
@@ -594,23 +617,5 @@ public class HttpHeaderMap implements
   public String toString ()
   {
     return new ToStringGenerator (this).append ("Headers", m_aHeaders).getToString ();
-  }
-
-  /**
-   * Avoid having header values spanning multiple lines. This has been
-   * deprecated by RFC 7230 and Jetty 9.3 refuses to parse these requests with
-   * HTTP 400 by default.
-   *
-   * @param sValue
-   *        The source header value. May be <code>null</code>.
-   * @return The unified header value without \r, \n and \t. Never
-   *         <code>null</code>.
-   */
-  @Nonnull
-  public static String getUnifiedHTTPHeaderValue (@Nullable final String sValue)
-  {
-    final StringBuilder aSB = new StringBuilder ();
-    StringHelper.replaceMultipleTo (sValue, new char [] { '\r', '\n', '\t' }, ' ', aSB);
-    return aSB.toString ();
   }
 }
