@@ -333,7 +333,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   }
 
   @Nullable
-  public IMicroElement findFirstChildElement (@Nullable final Predicate <? super IMicroElement> aFilter)
+  public IMicroElement getFirstChildElement (@Nullable final Predicate <? super IMicroElement> aFilter)
   {
     return _findFirstChildElement (this, aFilter);
   }

@@ -319,7 +319,7 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
   @Nullable
   default IMicroElement getFirstChildElement ()
   {
-    return findFirstChildElement (null);
+    return getFirstChildElement ((Predicate <? super IMicroElement>) null);
   }
 
   /**
@@ -333,7 +333,7 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
   @Nullable
   default IMicroElement getFirstChildElement (@Nullable final String sTagName)
   {
-    return findFirstChildElement (filterName (sTagName));
+    return getFirstChildElement (filterName (sTagName));
   }
 
   /**
@@ -349,11 +349,11 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
   @Nullable
   default IMicroElement getFirstChildElement (@Nullable final String sNamespaceURI, @Nullable final String sLocalName)
   {
-    return findFirstChildElement (filterNamespaceURIAndName (sNamespaceURI, sLocalName));
+    return getFirstChildElement (filterNamespaceURIAndName (sNamespaceURI, sLocalName));
   }
 
   @Nullable
-  IMicroElement findFirstChildElement (@Nullable Predicate <? super IMicroElement> aFilter);
+  IMicroElement getFirstChildElement (@Nullable Predicate <? super IMicroElement> aFilter);
 
   default void forAllChildElements (@Nonnull final Consumer <? super IMicroElement> aConsumer)
   {
