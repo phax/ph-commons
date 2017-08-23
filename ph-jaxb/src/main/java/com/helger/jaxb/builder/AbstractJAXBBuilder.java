@@ -24,6 +24,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.validation.Schema;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.lang.IHasClassLoader;
 import com.helger.commons.string.ToStringGenerator;
@@ -38,8 +39,9 @@ import com.helger.jaxb.JAXBContextCache;
  *        The implementation class implementing this abstract class.
  */
 @NotThreadSafe
-public abstract class AbstractJAXBBuilder <IMPLTYPE extends AbstractJAXBBuilder <IMPLTYPE>>
-                                          implements IGenericImplTrait <IMPLTYPE>, IHasClassLoader
+public abstract class AbstractJAXBBuilder <IMPLTYPE extends AbstractJAXBBuilder <IMPLTYPE>> implements
+                                          IGenericImplTrait <IMPLTYPE>,
+                                          IHasClassLoader
 {
   protected final IJAXBDocumentType m_aDocType;
   private ClassLoader m_aClassLoader;
@@ -48,6 +50,9 @@ public abstract class AbstractJAXBBuilder <IMPLTYPE extends AbstractJAXBBuilder 
   public AbstractJAXBBuilder (@Nonnull final IJAXBDocumentType aDocType)
   {
     m_aDocType = ValueEnforcer.notNull (aDocType, "DocType");
+    // By default this class loader of the type to be marshalled should be used
+    // This is important for OSGI application containers and ANT tasks
+    m_aClassLoader = aDocType.getImplementationClass ().getClassLoader ();
   }
 
   /**
@@ -64,20 +69,23 @@ public abstract class AbstractJAXBBuilder <IMPLTYPE extends AbstractJAXBBuilder 
    * @return The special class loader to be used. <code>null</code> by default.
    */
   @Nullable
-  public ClassLoader getClassLoader ()
+  public final ClassLoader getClassLoader ()
   {
     return m_aClassLoader;
   }
 
   /**
-   * Set the class loader to be used. This is optional.
+   * Set the class loader to be used. This is optional. Since v9.0.0 a class
+   * loader is set by default, so this method is most likely not needed anymore!
    *
    * @param aClassLoader
    *        The class loader to be used. May be <code>null</code>.
    * @return this
    */
   @Nonnull
-  public IMPLTYPE setClassLoader (@Nullable final ClassLoader aClassLoader)
+  @Deprecated
+  @DevelopersNote ("Deprecated since v9.0.0")
+  public final IMPLTYPE setClassLoader (@Nullable final ClassLoader aClassLoader)
   {
     m_aClassLoader = aClassLoader;
     return thisAsT ();
