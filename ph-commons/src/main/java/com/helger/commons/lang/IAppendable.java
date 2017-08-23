@@ -27,10 +27,10 @@ import org.w3c.dom.Node;
  * Defines a generic interface for appending objects to something.
  *
  * @author Philip Helger
- * @param <THISTYPE>
+ * @param <IMPLTYPE>
  *        The implementation type.
  */
-public interface IAppendable <THISTYPE extends IAppendable <THISTYPE>>
+public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
 {
   /**
    * @param x
@@ -38,7 +38,7 @@ public interface IAppendable <THISTYPE extends IAppendable <THISTYPE>>
    * @return this
    */
   @Nonnull
-  THISTYPE append (boolean x);
+  IMPLTYPE append (boolean x);
 
   /**
    * @param x
@@ -46,7 +46,7 @@ public interface IAppendable <THISTYPE extends IAppendable <THISTYPE>>
    * @return this
    */
   @Nonnull
-  THISTYPE append (byte x);
+  IMPLTYPE append (byte x);
 
   /**
    * @param x
@@ -54,7 +54,7 @@ public interface IAppendable <THISTYPE extends IAppendable <THISTYPE>>
    * @return this
    */
   @Nonnull
-  THISTYPE append (char x);
+  IMPLTYPE append (char x);
 
   /**
    * @param x
@@ -62,7 +62,7 @@ public interface IAppendable <THISTYPE extends IAppendable <THISTYPE>>
    * @return this
    */
   @Nonnull
-  THISTYPE append (double x);
+  IMPLTYPE append (double x);
 
   /**
    * @param x
@@ -70,7 +70,7 @@ public interface IAppendable <THISTYPE extends IAppendable <THISTYPE>>
    * @return this
    */
   @Nonnull
-  THISTYPE append (float x);
+  IMPLTYPE append (float x);
 
   /**
    * @param x
@@ -78,7 +78,7 @@ public interface IAppendable <THISTYPE extends IAppendable <THISTYPE>>
    * @return this
    */
   @Nonnull
-  THISTYPE append (int x);
+  IMPLTYPE append (int x);
 
   /**
    * @param x
@@ -86,7 +86,7 @@ public interface IAppendable <THISTYPE extends IAppendable <THISTYPE>>
    * @return this
    */
   @Nonnull
-  THISTYPE append (long x);
+  IMPLTYPE append (long x);
 
   /**
    * @param x
@@ -94,7 +94,7 @@ public interface IAppendable <THISTYPE extends IAppendable <THISTYPE>>
    * @return this
    */
   @Nonnull
-  THISTYPE append (short x);
+  IMPLTYPE append (short x);
 
   /**
    * @param x
@@ -102,7 +102,7 @@ public interface IAppendable <THISTYPE extends IAppendable <THISTYPE>>
    * @return this
    */
   @Nonnull
-  THISTYPE append (@Nullable Object x);
+  IMPLTYPE append (@Nullable Object x);
 
   /**
    * @param x
@@ -110,7 +110,7 @@ public interface IAppendable <THISTYPE extends IAppendable <THISTYPE>>
    * @return this
    */
   @Nonnull
-  THISTYPE append (@Nullable Enum <?> x);
+  IMPLTYPE append (@Nullable Enum <?> x);
 
   /**
    * @param x
@@ -118,7 +118,7 @@ public interface IAppendable <THISTYPE extends IAppendable <THISTYPE>>
    * @return this
    */
   @Nonnull
-  THISTYPE append (@Nullable boolean [] x);
+  IMPLTYPE append (@Nullable boolean [] x);
 
   /**
    * @param x
@@ -126,7 +126,7 @@ public interface IAppendable <THISTYPE extends IAppendable <THISTYPE>>
    * @return this
    */
   @Nonnull
-  THISTYPE append (@Nullable byte [] x);
+  IMPLTYPE append (@Nullable byte [] x);
 
   /**
    * @param x
@@ -134,7 +134,7 @@ public interface IAppendable <THISTYPE extends IAppendable <THISTYPE>>
    * @return this
    */
   @Nonnull
-  THISTYPE append (@Nullable char [] x);
+  IMPLTYPE append (@Nullable char [] x);
 
   /**
    * @param x
@@ -142,7 +142,7 @@ public interface IAppendable <THISTYPE extends IAppendable <THISTYPE>>
    * @return this
    */
   @Nonnull
-  THISTYPE append (@Nullable double [] x);
+  IMPLTYPE append (@Nullable double [] x);
 
   /**
    * @param x
@@ -150,7 +150,7 @@ public interface IAppendable <THISTYPE extends IAppendable <THISTYPE>>
    * @return this
    */
   @Nonnull
-  THISTYPE append (@Nullable float [] x);
+  IMPLTYPE append (@Nullable float [] x);
 
   /**
    * @param x
@@ -158,7 +158,7 @@ public interface IAppendable <THISTYPE extends IAppendable <THISTYPE>>
    * @return this
    */
   @Nonnull
-  THISTYPE append (@Nullable int [] x);
+  IMPLTYPE append (@Nullable int [] x);
 
   /**
    * @param x
@@ -166,7 +166,7 @@ public interface IAppendable <THISTYPE extends IAppendable <THISTYPE>>
    * @return this
    */
   @Nonnull
-  THISTYPE append (@Nullable long [] x);
+  IMPLTYPE append (@Nullable long [] x);
 
   /**
    * @param x
@@ -174,7 +174,7 @@ public interface IAppendable <THISTYPE extends IAppendable <THISTYPE>>
    * @return this
    */
   @Nonnull
-  THISTYPE append (@Nullable short [] x);
+  IMPLTYPE append (@Nullable short [] x);
 
   /**
    * @param x
@@ -182,7 +182,7 @@ public interface IAppendable <THISTYPE extends IAppendable <THISTYPE>>
    * @return this
    */
   @Nonnull
-  THISTYPE append (@Nullable Object [] x);
+  IMPLTYPE append (@Nullable Object [] x);
 
   /**
    * @param x
@@ -190,7 +190,7 @@ public interface IAppendable <THISTYPE extends IAppendable <THISTYPE>>
    * @return this
    */
   @Nonnull
-  THISTYPE append (@Nullable Enum <?> [] x);
+  IMPLTYPE append (@Nullable Enum <?> [] x);
 
   /**
    * @param x
@@ -198,7 +198,7 @@ public interface IAppendable <THISTYPE extends IAppendable <THISTYPE>>
    * @return this
    */
   @Nonnull
-  THISTYPE append (@Nullable Iterable <?> x);
+  IMPLTYPE append (@Nullable Iterable <?> x);
 
   /**
    * @param x
@@ -206,7 +206,7 @@ public interface IAppendable <THISTYPE extends IAppendable <THISTYPE>>
    * @return this
    */
   @Nonnull
-  THISTYPE append (@Nullable Map <?, ?> x);
+  IMPLTYPE append (@Nullable Map <?, ?> x);
 
   /**
    * @param x
@@ -214,5 +214,5 @@ public interface IAppendable <THISTYPE extends IAppendable <THISTYPE>>
    * @return this
    */
   @Nonnull
-  THISTYPE append (@Nullable Node x);
+  IMPLTYPE append (@Nullable Node x);
 }

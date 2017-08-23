@@ -24,10 +24,10 @@ import javax.annotation.Nonnull;
  * Interface for comparable objects based on their severity.
  *
  * @author Philip Helger
- * @param <THISTYPE>
+ * @param <IMPLTYPE>
  *        The implementation type
  */
-public interface ISeverityComparable <THISTYPE extends ISeverityComparable <THISTYPE>> extends Serializable
+public interface ISeverityComparable <IMPLTYPE extends ISeverityComparable <IMPLTYPE>> extends Serializable
 {
   /**
    * Check if this object is of the same level (= equal important) than the
@@ -38,7 +38,7 @@ public interface ISeverityComparable <THISTYPE extends ISeverityComparable <THIS
    * @return <code>true</code> if this object is equally important than the
    *         passed object!
    */
-  boolean isEQ (@Nonnull THISTYPE aOther);
+  boolean isEQ (@Nonnull IMPLTYPE aOther);
 
   /**
    * Check if this object is of a different level (= different importance) than
@@ -50,7 +50,7 @@ public interface ISeverityComparable <THISTYPE extends ISeverityComparable <THIS
    *         passed object!
    * @since 8.6.5
    */
-  default boolean isNE (@Nonnull final THISTYPE aOther)
+  default boolean isNE (@Nonnull final IMPLTYPE aOther)
   {
     return !isEQ (aOther);
   }
@@ -64,7 +64,7 @@ public interface ISeverityComparable <THISTYPE extends ISeverityComparable <THIS
    * @return <code>true</code> if this object is less important than the passed
    *         object!
    */
-  boolean isLT (@Nonnull THISTYPE aOther);
+  boolean isLT (@Nonnull IMPLTYPE aOther);
 
   /**
    * Check if this object is of equal or lower level (= equally or less
@@ -75,7 +75,7 @@ public interface ISeverityComparable <THISTYPE extends ISeverityComparable <THIS
    * @return <code>true</code> if this object is equally or less important than
    *         the passed object!
    */
-  boolean isLE (@Nonnull THISTYPE aOther);
+  boolean isLE (@Nonnull IMPLTYPE aOther);
 
   /**
    * Check if this object is of higher level (= more important) than the passed
@@ -86,7 +86,7 @@ public interface ISeverityComparable <THISTYPE extends ISeverityComparable <THIS
    * @return <code>true</code> if this object is more important than the passed
    *         object!
    */
-  boolean isGT (@Nonnull THISTYPE aOther);
+  boolean isGT (@Nonnull IMPLTYPE aOther);
 
   /**
    * Check if this object is of equal or higher level (= equally or more
@@ -97,5 +97,5 @@ public interface ISeverityComparable <THISTYPE extends ISeverityComparable <THIS
    * @return <code>true</code> if this object is equally or more important than
    *         the passed object!
    */
-  boolean isGE (@Nonnull THISTYPE aOther);
+  boolean isGE (@Nonnull IMPLTYPE aOther);
 }
