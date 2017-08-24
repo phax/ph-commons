@@ -20,7 +20,10 @@ import javax.annotation.Nullable;
 
 /**
  * Base interface for all objects having optional support for custom
- * {@link ClassLoader} objects.
+ * {@link ClassLoader} objects.<br>
+ * Note: when you implement this interface and want to have a
+ * {@link ClassLoader} as a member, please consider storing it as a
+ * {@link java.lang.ref.WeakReference} to avoid potential memory leaks.
  *
  * @author Philip Helger
  */
@@ -32,4 +35,17 @@ public interface IHasClassLoader
    */
   @Nullable
   ClassLoader getClassLoader ();
+
+  /**
+   * Check if this object has a custom class loader or not.
+   *
+   * @return <code>true</code> if a class loader is present, <code>false</code>
+   *         if not.
+   * @see #getClassLoader()
+   * @since 9.0.0
+   */
+  default boolean hasClassLoader ()
+  {
+    return getClassLoader () != null;
+  }
 }
