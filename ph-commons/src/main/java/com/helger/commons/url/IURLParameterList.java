@@ -51,7 +51,7 @@ public interface IURLParameterList <IMPLTYPE extends IURLParameterList <IMPLTYPE
   @Nonnull
   default IMPLTYPE add (@Nonnull @Nonempty final String sName)
   {
-    return add (sName, "");
+    return add (sName, (String) null);
   }
 
   @Nonnull
@@ -81,13 +81,14 @@ public interface IURLParameterList <IMPLTYPE extends IURLParameterList <IMPLTYPE
   @Nonnull
   default IMPLTYPE add (@Nonnull @Nonempty final String sName, @Nullable final BigInteger aValue)
   {
-    return add (sName, aValue == null ? "" : aValue.toString ());
+    return add (sName, aValue == null ? null : aValue.toString ());
   }
 
   @Nonnull
-  default IMPLTYPE add (@Nonnull @Nonempty final String sName, @Nonnull final String sValue)
+  default IMPLTYPE add (@Nonnull @Nonempty final String sName, @Nullable final String sValue)
   {
-    add (new URLParameter (sName, sValue));
+    // Ensure the parameter is kept - maybe without a value
+    add (new URLParameter (sName, sValue != null ? sValue : ""));
     return thisAsT ();
   }
 
