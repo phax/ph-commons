@@ -25,6 +25,7 @@ import javax.xml.bind.ValidationEventHandler;
 
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.xml.namespace.INamespaceContext;
+import com.helger.xml.serialize.write.XMLWriterSettings;
 
 /**
  * A class containing some default settings for the various JAXB builders. Each
@@ -40,6 +41,7 @@ public final class JAXBBuilderDefaultSettings
 {
   public static final boolean DEFAULT_USE_CONTEXT_CACHE = true;
   public static final boolean DEFAULT_FORMATTED_OUTPUT = false;
+  public static final Charset DEFAULT_CHARSET = XMLWriterSettings.DEFAULT_XML_CHARSET_OBJ;
 
   private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("s_aRWLock")
@@ -51,7 +53,7 @@ public final class JAXBBuilderDefaultSettings
   @GuardedBy ("s_aRWLock")
   private static boolean s_bFormattedOutput = DEFAULT_FORMATTED_OUTPUT;
   @GuardedBy ("s_aRWLock")
-  private static Charset s_aCharset;
+  private static Charset s_aCharset = DEFAULT_CHARSET;
   @GuardedBy ("s_aRWLock")
   private static String s_sIndentString;
   @GuardedBy ("s_aRWLock")
