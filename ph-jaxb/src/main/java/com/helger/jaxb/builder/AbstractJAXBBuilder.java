@@ -73,7 +73,7 @@ public abstract class AbstractJAXBBuilder <IMPLTYPE extends AbstractJAXBBuilder 
   @Nullable
   public final ClassLoader getClassLoader ()
   {
-    return m_aClassLoader == null ? null : m_aClassLoader.get ();
+    return m_aClassLoader.get ();
   }
 
   /**

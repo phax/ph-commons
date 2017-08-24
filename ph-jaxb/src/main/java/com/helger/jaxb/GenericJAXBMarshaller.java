@@ -161,7 +161,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
   @Nullable
   public final ClassLoader getClassLoader ()
   {
-    return m_aClassLoader == null ? null : m_aClassLoader.get ();
+    return m_aClassLoader.get ();
   }
 
   /**
