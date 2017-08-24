@@ -49,7 +49,6 @@ import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.functional.IFunction;
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.lang.IHasClassLoader;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.ESuccess;
@@ -76,7 +75,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
   private static final Logger s_aLogger = LoggerFactory.getLogger (GenericJAXBMarshaller.class);
 
   private final Class <JAXBTYPE> m_aType;
-  private final ICommonsList <IReadableResource> m_aXSDs = new CommonsArrayList <> ();
+  private final ICommonsList <ClassPathResource> m_aXSDs = new CommonsArrayList <> ();
   private final IFunction <? super JAXBTYPE, ? extends JAXBElement <JAXBTYPE>> m_aJAXBElementWrapper;
   private IValidationEventHandlerFactory m_aVEHFactory;
   private boolean m_bReadSecure = DEFAULT_READ_SECURE;
@@ -123,7 +122,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
    *        <code>null</code>.
    */
   public GenericJAXBMarshaller (@Nonnull final Class <JAXBTYPE> aType,
-                                @Nullable final List <? extends IReadableResource> aXSDs,
+                                @Nullable final List <? extends ClassPathResource> aXSDs,
                                 @Nonnull final IFunction <? super JAXBTYPE, ? extends JAXBElement <JAXBTYPE>> aJAXBElementWrapper)
   {
     m_aType = ValueEnforcer.notNull (aType, "Type");
@@ -132,10 +131,9 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
       ValueEnforcer.notEmptyNoNullValue (aXSDs, "XSDs");
       m_aXSDs.addAll (aXSDs);
     }
-    for (final IReadableResource aRes : m_aXSDs)
-      if (aRes instanceof ClassPathResource)
-        ValueEnforcer.isTrue (((ClassPathResource) aRes).hasClassLoader (),
-                              () -> "ClassPathResource " + aRes + " should define its class loader for OSGI handling!");
+    for (final ClassPathResource aRes : m_aXSDs)
+      ValueEnforcer.isTrue (aRes.hasClassLoader (),
+                            () -> "ClassPathResource " + aRes + " should define its class loader for OSGI handling!");
 
     m_aJAXBElementWrapper = ValueEnforcer.notNull (aJAXBElementWrapper, "JAXBElementWrapper");
     // By default this class loader of the type to be marshaled should be used
@@ -377,7 +375,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
   @Nonnull
   @Nonempty
   @ReturnsMutableCopy
-  public final ICommonsList <IReadableResource> getOriginalXSDs ()
+  public final ICommonsList <ClassPathResource> getOriginalXSDs ()
   {
     return m_aXSDs.getClone ();
   }
