@@ -16,6 +16,7 @@
  */
 package com.helger.jaxb;
 
+import java.lang.ref.WeakReference;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -47,6 +48,7 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.functional.IFunction;
+import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.lang.IHasClassLoader;
 import com.helger.commons.state.EChange;
@@ -85,7 +87,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
   private String m_sSchemaLocation = JAXBBuilderDefaultSettings.getDefaultSchemaLocation ();
   private String m_sNoNamespaceSchemaLocation = JAXBBuilderDefaultSettings.getDefaultNoNamespaceSchemaLocation ();
   private boolean m_bUseContextCache = JAXBBuilderDefaultSettings.isDefaultUseContextCache ();
-  private ClassLoader m_aClassLoader;
+  private WeakReference <ClassLoader> m_aClassLoader;
 
   /**
    * Constructor without XSD paths.
@@ -130,10 +132,15 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
       ValueEnforcer.notEmptyNoNullValue (aXSDs, "XSDs");
       m_aXSDs.addAll (aXSDs);
     }
+    for (final IReadableResource aRes : m_aXSDs)
+      if (aRes instanceof ClassPathResource)
+        ValueEnforcer.isTrue (((ClassPathResource) aRes).hasClassLoader (),
+                              () -> "ClassPathResource " + aRes + " should define its class loader for OSGI handling!");
+
     m_aJAXBElementWrapper = ValueEnforcer.notNull (aJAXBElementWrapper, "JAXBElementWrapper");
-    // By default this class loader of the type to be marshalled should be used
+    // By default this class loader of the type to be marshaled should be used
     // This is important for OSGI application containers and ANT tasks
-    m_aClassLoader = aType.getClassLoader ();
+    m_aClassLoader = new WeakReference <> (aType.getClassLoader ());
   }
 
   /**
@@ -148,13 +155,13 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
   @DevelopersNote ("Deprecated since v9.0.0")
   public final void setClassLoader (@Nullable final ClassLoader aClassLoader)
   {
-    m_aClassLoader = aClassLoader;
+    m_aClassLoader = new WeakReference <> (aClassLoader);
   }
 
   @Nullable
   public final ClassLoader getClassLoader ()
   {
-    return m_aClassLoader;
+    return m_aClassLoader == null ? null : m_aClassLoader.get ();
   }
 
   /**
@@ -383,7 +390,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
   @OverrideOnDemand
   protected Schema createValidationSchema ()
   {
-    return m_aXSDs.isEmpty () ? null : XMLSchemaCache.getInstanceOfClassLoader (m_aClassLoader).getSchema (m_aXSDs);
+    return m_aXSDs.isEmpty () ? null : XMLSchemaCache.getInstanceOfClassLoader (getClassLoader ()).getSchema (m_aXSDs);
   }
 
   /**
@@ -458,7 +465,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
 
     try
     {
-      final Unmarshaller aUnmarshaller = _createUnmarshaller (m_aClassLoader);
+      final Unmarshaller aUnmarshaller = _createUnmarshaller (getClassLoader ());
       customizeUnmarshaller (aUnmarshaller);
       return aHandler.doUnmarshal (aUnmarshaller, m_aType).getValue ();
     }
@@ -479,9 +486,10 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
   private Marshaller _createMarshaller () throws JAXBException
   {
     final Package aPackage = m_aType.getPackage ();
-    final JAXBContext aJAXBContext = m_bUseContextCache ? JAXBContextCache.getInstance ().getFromCache (aPackage,
-                                                                                                        m_aClassLoader)
-                                                        : JAXBContext.newInstance (aPackage.getName (), m_aClassLoader);
+    final JAXBContext aJAXBContext = m_bUseContextCache ? JAXBContextCache.getInstance ()
+                                                                          .getFromCache (aPackage, getClassLoader ())
+                                                        : JAXBContext.newInstance (aPackage.getName (),
+                                                                                   getClassLoader ());
 
     // create an Unmarshaller
     final Marshaller aMarshaller = aJAXBContext.createMarshaller ();

@@ -16,6 +16,8 @@
  */
 package com.helger.jaxb.builder;
 
+import java.lang.ref.WeakReference;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
@@ -44,7 +46,7 @@ public abstract class AbstractJAXBBuilder <IMPLTYPE extends AbstractJAXBBuilder 
                                           IHasClassLoader
 {
   protected final IJAXBDocumentType m_aDocType;
-  private ClassLoader m_aClassLoader;
+  private WeakReference <ClassLoader> m_aClassLoader;
   private boolean m_bUseJAXBContextCache = JAXBBuilderDefaultSettings.isDefaultUseContextCache ();
 
   public AbstractJAXBBuilder (@Nonnull final IJAXBDocumentType aDocType)
@@ -52,7 +54,7 @@ public abstract class AbstractJAXBBuilder <IMPLTYPE extends AbstractJAXBBuilder 
     m_aDocType = ValueEnforcer.notNull (aDocType, "DocType");
     // By default this class loader of the type to be marshalled should be used
     // This is important for OSGI application containers and ANT tasks
-    m_aClassLoader = aDocType.getImplementationClass ().getClassLoader ();
+    m_aClassLoader = new WeakReference <> (aDocType.getImplementationClass ().getClassLoader ());
   }
 
   /**
@@ -71,7 +73,7 @@ public abstract class AbstractJAXBBuilder <IMPLTYPE extends AbstractJAXBBuilder 
   @Nullable
   public final ClassLoader getClassLoader ()
   {
-    return m_aClassLoader;
+    return m_aClassLoader == null ? null : m_aClassLoader.get ();
   }
 
   /**
@@ -87,7 +89,7 @@ public abstract class AbstractJAXBBuilder <IMPLTYPE extends AbstractJAXBBuilder 
   @DevelopersNote ("Deprecated since v9.0.0")
   public final IMPLTYPE setClassLoader (@Nullable final ClassLoader aClassLoader)
   {
-    m_aClassLoader = aClassLoader;
+    m_aClassLoader = new WeakReference <> (aClassLoader);
     return thisAsT ();
   }
 
@@ -123,7 +125,7 @@ public abstract class AbstractJAXBBuilder <IMPLTYPE extends AbstractJAXBBuilder 
   @Nullable
   protected final Schema getSchema ()
   {
-    return m_aDocType.getSchema (m_aClassLoader);
+    return m_aDocType.getSchema (getClassLoader ());
   }
 
   @Nonnull
@@ -134,11 +136,11 @@ public abstract class AbstractJAXBBuilder <IMPLTYPE extends AbstractJAXBBuilder 
     {
       // Since creating the JAXB context is quite cost intensive this is done
       // only once!
-      return JAXBContextCache.getInstance ().getFromCache (m_aDocType.getImplementationClass (), m_aClassLoader);
+      return JAXBContextCache.getInstance ().getFromCache (m_aDocType.getImplementationClass (), getClassLoader ());
     }
 
     // Create a new JAXBContext - inefficient
-    return JAXBContext.newInstance (m_aDocType.getImplementationClass ().getPackage ().getName (), m_aClassLoader);
+    return JAXBContext.newInstance (m_aDocType.getImplementationClass ().getPackage ().getName (), getClassLoader ());
   }
 
   @Override

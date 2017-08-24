@@ -16,6 +16,8 @@
  */
 package com.helger.xml.ls;
 
+import java.lang.ref.WeakReference;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -39,7 +41,7 @@ public class SimpleLSResourceResolver extends AbstractLSResourceResolver impleme
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (SimpleLSResourceResolver.class);
 
-  private final ClassLoader m_aClassLoader;
+  private final WeakReference <ClassLoader> m_aClassLoader;
 
   public SimpleLSResourceResolver ()
   {
@@ -48,13 +50,13 @@ public class SimpleLSResourceResolver extends AbstractLSResourceResolver impleme
 
   public SimpleLSResourceResolver (@Nullable final ClassLoader aClassLoader)
   {
-    m_aClassLoader = aClassLoader;
+    m_aClassLoader = new WeakReference <> (aClassLoader);
   }
 
   @Nullable
   public ClassLoader getClassLoader ()
   {
-    return m_aClassLoader;
+    return m_aClassLoader.get ();
   }
 
   /**
@@ -113,7 +115,7 @@ public class SimpleLSResourceResolver extends AbstractLSResourceResolver impleme
                       sBaseURI +
                       ")");
 
-    return DefaultResourceResolver.getResolvedResource (sSystemId, sBaseURI, m_aClassLoader);
+    return DefaultResourceResolver.getResolvedResource (sSystemId, sBaseURI, getClassLoader ());
   }
 
   /**

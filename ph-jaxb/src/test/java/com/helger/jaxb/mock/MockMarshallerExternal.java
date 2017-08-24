@@ -16,13 +16,10 @@
  */
 package com.helger.jaxb.mock;
 
-import javax.annotation.Nonnull;
 import javax.xml.bind.JAXBElement;
-import javax.xml.bind.Marshaller;
 import javax.xml.namespace.QName;
 
 import com.helger.jaxb.GenericJAXBMarshaller;
-import com.helger.jaxb.JAXBMarshallerHelper;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
 
 public final class MockMarshallerExternal extends GenericJAXBMarshaller <com.helger.jaxb.mock.external.MockJAXBArchive>
@@ -32,17 +29,10 @@ public final class MockMarshallerExternal extends GenericJAXBMarshaller <com.hel
     // No XSD available
     super (com.helger.jaxb.mock.external.MockJAXBArchive.class,
            null,
-           x -> new JAXBElement<> (new QName ("urn:test:external", "any"),
-                                   com.helger.jaxb.mock.external.MockJAXBArchive.class,
-                                   x));
+           x -> new JAXBElement <> (new QName ("urn:test:external", "any"),
+                                    com.helger.jaxb.mock.external.MockJAXBArchive.class,
+                                    x));
     setFormattedOutput (true);
-  }
-
-  @Override
-  protected void customizeMarshaller (@Nonnull final Marshaller aMarshaller)
-  {
-    JAXBMarshallerHelper.setSunNamespacePrefixMapper (aMarshaller,
-                                                      new MapBasedNamespaceContext ().addMapping ("def",
-                                                                                                  "urn:test:external"));
+    setNamespaceContext (new MapBasedNamespaceContext ().addMapping ("def", "urn:test:external"));
   }
 }

@@ -16,11 +16,14 @@
  */
 package com.helger.jaxb;
 
+import java.lang.ref.WeakReference;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.commons.lang.IHasClassLoader;
@@ -35,12 +38,12 @@ import com.helger.commons.string.ToStringGenerator;
 public class JAXBContextCacheKey implements IHasClassLoader
 {
   private final Package m_aPackage;
-  private final ClassLoader m_aClassLoader;
+  private final WeakReference <ClassLoader> m_aClassLoader;
 
   public JAXBContextCacheKey (@Nonnull final Package aPackage, @Nullable final ClassLoader aClassLoader)
   {
     m_aPackage = ValueEnforcer.notNull (aPackage, "Package");
-    m_aClassLoader = aClassLoader != null ? aClassLoader : ClassLoaderHelper.getDefaultClassLoader ();
+    m_aClassLoader = new WeakReference <> (aClassLoader);
   }
 
   /**
@@ -57,9 +60,10 @@ public class JAXBContextCacheKey implements IHasClassLoader
    *         loader. Never <code>null</code>.
    */
   @Nonnull
-  public ClassLoader getClassLoader ()
+  public final ClassLoader getClassLoader ()
   {
-    return m_aClassLoader;
+    final ClassLoader ret = m_aClassLoader.get ();
+    return ret != null ? ret : ClassLoaderHelper.getDefaultClassLoader ();
   }
 
   @Override
@@ -70,13 +74,13 @@ public class JAXBContextCacheKey implements IHasClassLoader
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final JAXBContextCacheKey rhs = (JAXBContextCacheKey) o;
-    return m_aPackage.equals (rhs.m_aPackage) && m_aClassLoader.equals (rhs.m_aClassLoader);
+    return m_aPackage.equals (rhs.m_aPackage) && EqualsHelper.equals (getClassLoader (), rhs.getClassLoader ());
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_aPackage).append (m_aClassLoader).getHashCode ();
+    return new HashCodeGenerator (this).append (m_aPackage).append (getClassLoader ()).getHashCode ();
   }
 
   @Override
