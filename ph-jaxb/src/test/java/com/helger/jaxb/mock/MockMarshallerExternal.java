@@ -21,11 +21,11 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
 import javax.xml.namespace.QName;
 
-import com.helger.jaxb.AbstractJAXBMarshaller;
+import com.helger.jaxb.GenericJAXBMarshaller;
 import com.helger.jaxb.JAXBMarshallerHelper;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
 
-public final class MockMarshallerExternal extends AbstractJAXBMarshaller <com.helger.jaxb.mock.external.MockJAXBArchive>
+public final class MockMarshallerExternal extends GenericJAXBMarshaller <com.helger.jaxb.mock.external.MockJAXBArchive>
 {
   public MockMarshallerExternal ()
   {
