@@ -18,13 +18,10 @@ package com.helger.commons.url;
 
 import java.io.Serializable;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.string.StringHelper;
 
@@ -63,62 +60,11 @@ public interface IURLData extends Serializable
   String getPath ();
 
   /**
-   * @return <code>true</code> if at least one parameter is present,
-   *         <code>false</code> otherwise.
-   */
-  boolean hasParams ();
-
-  /**
-   * @return The number of parameters present. Always &ge; 0.
-   */
-  @Nonnegative
-  int getParamCount ();
-
-  /**
    * @return A map of all query string parameters. May be <code>null</code>.
    */
   @Nullable
-  @ReturnsMutableObject ("design")
-  URLParameterList directGetAllParams ();
-
-  /**
-   * @return A map of all query string parameters in the order they were passed
-   *         on. Never <code>null</code>.
-   */
-  @Nonnull
-  @ReturnsMutableCopy
-  URLParameterList getAllParams ();
-
-  /**
-   * Check if at least one parameter with the given name is contained.
-   *
-   * @param sName
-   *        The name to check. May be <code>null</code>.
-   * @return <code>true</code> if at least one parameter with this name is
-   *         present, <code>false</code> otherwise.
-   */
-  boolean containsParam (@Nullable String sName);
-
-  /**
-   * Get the first parameter value of the given key.
-   *
-   * @param sName
-   *        The key to check. May be <code>null</code>.
-   * @return <code>null</code> if no such parameter is present.
-   */
-  @Nullable
-  String getParam (@Nullable String sName);
-
-  /**
-   * Get all parameter values of the passed key.
-   *
-   * @param sName
-   *        The key to check. May be <code>null</code>.
-   * @return A non-<code>null</code> but maybe empty list.
-   */
-  @Nonnull
-  @ReturnsMutableCopy
-  ICommonsList <String> getAllParams (@Nullable String sName);
+  @ReturnsMutableObject
+  URLParameterList params ();
 
   /**
    * @return The name of the anchor (everything after the "#") or

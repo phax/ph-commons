@@ -84,26 +84,26 @@ public final class URLHelperTest
     assertNotNull (aData);
     assertEquals (EURLProtocol.HTTP, aData.getProtocol ());
     assertEquals ("http://www.helger.com/folder", aData.getPath ());
-    assertEquals (2, aData.getParamCount ());
-    assertEquals ("y", aData.getParam ("x"));
-    assertEquals ("b", aData.getParam ("a"));
+    assertEquals (2, aData.params ().size ());
+    assertEquals ("y", aData.params ().getFirstParamValue ("x"));
+    assertEquals ("b", aData.params ().getFirstParamValue ("a"));
     assertEquals ("c", aData.getAnchor ());
 
     aData = URLHelper.getAsURLData ("?x=y&a=b#c");
     assertNotNull (aData);
     assertNull (aData.getProtocol ());
     assertEquals ("", aData.getPath ());
-    assertEquals (2, aData.getParamCount ());
-    assertEquals ("y", aData.getParam ("x"));
-    assertEquals ("b", aData.getParam ("a"));
+    assertEquals (2, aData.params ().size ());
+    assertEquals ("y", aData.params ().getFirstParamValue ("x"));
+    assertEquals ("b", aData.params ().getFirstParamValue ("a"));
     assertEquals ("c", aData.getAnchor ());
 
     aData = URLHelper.getAsURLData ("?x=y&=b#c");
     assertNotNull (aData);
     assertNull (aData.getProtocol ());
     assertEquals ("", aData.getPath ());
-    assertEquals (1, aData.getParamCount ());
-    assertEquals ("y", aData.getParam ("x"));
+    assertEquals (1, aData.params ().size ());
+    assertEquals ("y", aData.params ().getFirstParamValue ("x"));
     assertEquals ("c", aData.getAnchor ());
   }
 

@@ -23,8 +23,8 @@ import javax.annotation.Nonnull;
 import com.helger.commons.ValueEnforcer;
 
 /**
- * Interface for a simple URL that works around the issues with the Java default
- * URL.
+ * Interface for a simple URL that works around the usability issues with the
+ * Java default java.net.URL.
  *
  * @author Philip Helger
  */

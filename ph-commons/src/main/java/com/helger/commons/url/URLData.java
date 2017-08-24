@@ -16,16 +16,12 @@
  */
 package com.helger.commons.url;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -61,69 +57,25 @@ public class URLData implements IURLData
   public URLData (@Nonnull final String sPath, @Nullable final URLParameterList aParams, @Nullable final String sAnchor)
   {
     m_sPath = ValueEnforcer.notNull (sPath, "Path");
-    m_aParams = aParams;
+    m_aParams = aParams != null ? aParams : new URLParameterList ();
     m_sAnchor = sAnchor;
   }
 
   @Nonnull
-  public String getPath ()
+  public final String getPath ()
   {
     return m_sPath;
   }
 
-  public boolean hasParams ()
-  {
-    return CollectionHelper.isNotEmpty (m_aParams);
-  }
-
-  @Nonnegative
-  public int getParamCount ()
-  {
-    return CollectionHelper.getSize (m_aParams);
-  }
-
-  public final boolean containsParam (@Nullable final String sName)
-  {
-    return getParam (sName) != null;
-  }
-
-  @Nullable
-  public final String getParam (@Nullable final String sName)
-  {
-    if (m_aParams != null)
-      for (final URLParameter aParam : m_aParams)
-        if (aParam.hasName (sName))
-          return aParam.getValue ();
-    return null;
-  }
-
-  @Nullable
-  public final ICommonsList <String> getAllParams (@Nullable final String sName)
-  {
-    final ICommonsList <String> ret = new CommonsArrayList<> ();
-    if (m_aParams != null)
-      for (final URLParameter aParam : m_aParams)
-        if (aParam.hasName (sName))
-          ret.add (aParam.getValue ());
-    return ret;
-  }
-
-  @Nullable
-  @ReturnsMutableObject ("design")
-  public final URLParameterList directGetAllParams ()
+  @Nonnull
+  @ReturnsMutableObject
+  public final URLParameterList params ()
   {
     return m_aParams;
   }
 
-  @Nonnull
-  @ReturnsMutableCopy
-  public final URLParameterList getAllParams ()
-  {
-    return new URLParameterList (m_aParams);
-  }
-
   @Nullable
-  public String getAnchor ()
+  public final String getAnchor ()
   {
     return m_sAnchor;
   }
@@ -137,7 +89,7 @@ public class URLData implements IURLData
       return false;
     final URLData rhs = (URLData) o;
     return m_sPath.equals (rhs.m_sPath) &&
-           EqualsHelper.equals (m_aParams, rhs.m_aParams) &&
+           m_aParams.equals (rhs.m_aParams) &&
            EqualsHelper.equals (m_sAnchor, rhs.m_sAnchor);
   }
 
@@ -150,9 +102,9 @@ public class URLData implements IURLData
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("path", m_sPath)
-                                       .appendIfNotNull ("params", m_aParams)
-                                       .appendIfNotNull ("anchor", m_sAnchor)
+    return new ToStringGenerator (this).append ("Path", m_sPath)
+                                       .appendIf ("Params", m_aParams, ICommonsList::isNotEmpty)
+                                       .appendIfNotNull ("Anchor", m_sAnchor)
                                        .getToString ();
   }
 }

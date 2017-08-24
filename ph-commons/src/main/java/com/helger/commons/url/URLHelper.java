@@ -668,7 +668,7 @@ public final class URLHelper
   @Nonnull
   public static String getURLString (@Nonnull final IURLData aURL, @Nullable final Charset aParameterCharset)
   {
-    return getURLString (aURL.getPath (), aURL.directGetAllParams (), aURL.getAnchor (), aParameterCharset);
+    return getURLString (aURL.getPath (), aURL.params (), aURL.getAnchor (), aParameterCharset);
   }
 
   /**
