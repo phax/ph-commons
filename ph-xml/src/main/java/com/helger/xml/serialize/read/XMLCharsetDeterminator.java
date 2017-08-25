@@ -203,7 +203,7 @@ public final class XMLCharsetDeterminator
    * @param aBytes
    *        XML byte representation
    * @return <code>null</code> if no charset was found. In that case you might
-   *         wann try UTF-8 as the fallback.
+   *         wanna try UTF-8 as the fallback.
    */
   @Nullable
   public static Charset determineXMLCharset (@Nonnull final byte [] aBytes)
