@@ -14,21 +14,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.security.authentication;
+package com.helger.security.authentication.subject.user;
 
-import javax.annotation.concurrent.Immutable;
+import javax.annotation.Nonnull;
+
+import com.helger.commons.annotation.Nonempty;
 
 /**
- * Constants for user handling
+ * Interface for objects having a user ID.
  *
  * @author Philip Helger
  */
-@Immutable
-public final class CBasicSecurity
+public interface IHasUserID
 {
-  /** The user ID to be used, if no user is logged in */
-  public static final String USER_ID_NONE_LOGGED_IN = "$GUEST$";
+  /**
+   * @return The ID of the user. Must be present.
+   */
+  @Nonnull
+  @Nonempty
+  String getUserID ();
 
-  private CBasicSecurity ()
-  {}
+  /**
+   * @return <code>true</code> if the user ID equals
+   *         {@link com.helger.security.authentication.subject.user.CUserID#USER_ID_GUEST}
+   */
+  default boolean isAnonymousUser ()
+  {
+    return CUserID.USER_ID_GUEST.equals (getUserID ());
+  }
 }
