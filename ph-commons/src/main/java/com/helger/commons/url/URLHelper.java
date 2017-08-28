@@ -727,10 +727,12 @@ public final class URLHelper
    *
    * @param sURL
    *        Source URL. May be <code>null</code>.
+   * @param bWhine
+   *        <code>true</code> to debug log if conversion failed
    * @return <code>null</code> if the passed URL is empty or invalid.
    */
   @Nullable
-  public static URL getAsURL (@Nullable final String sURL)
+  public static URL getAsURL (@Nullable final String sURL, final boolean bWhine)
   {
     if (StringHelper.hasText (sURL))
       try
@@ -740,10 +742,24 @@ public final class URLHelper
       catch (final MalformedURLException ex)
       {
         // fall-through
-        if (GlobalDebug.isDebugMode ())
+        if (bWhine && GlobalDebug.isDebugMode ())
           s_aLogger.warn ("Debug warn: failed to convert '" + sURL + "' to a URL!");
       }
     return null;
+  }
+
+  /**
+   * Get the passed String as an URL. If the string is empty or not an URL
+   * <code>null</code> is returned.
+   *
+   * @param sURL
+   *        Source URL. May be <code>null</code>.
+   * @return <code>null</code> if the passed URL is empty or invalid.
+   */
+  @Nullable
+  public static URL getAsURL (@Nullable final String sURL)
+  {
+    return getAsURL (sURL, true);
   }
 
   /**

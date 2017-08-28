@@ -21,12 +21,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
-import java.net.MalformedURLException;
 
 import org.junit.Test;
 
-import com.helger.commons.io.relative.IPathRelativeIO;
-import com.helger.commons.io.relative.PathRelativeIO;
+import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.system.EOperatingSystem;
 
 /**
@@ -55,9 +53,9 @@ public final class PathRelativeIOTest
   }
 
   @Test
-  public void testURLBased () throws MalformedURLException
+  public void testURLBased ()
   {
-    final String sBase = new File ("").getAbsoluteFile ().toURI ().toURL ().toExternalForm ();
+    final String sBase = FileHelper.getAsURLString (new File (""));
     final IPathRelativeIO aIO = new PathRelativeIO (sBase);
 
     assertEquals (sBase, aIO.getBasePath ());

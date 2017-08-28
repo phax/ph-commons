@@ -751,4 +751,20 @@ public final class FileHelper
       return null;
     }
   }
+
+  @Nullable
+  public static String getAsURLString (@Nonnull final File aFile)
+  {
+    ValueEnforcer.notNull (aFile, "File");
+
+    try
+    {
+      return aFile.toURI ().toURL ().toExternalForm ();
+    }
+    catch (final MalformedURLException ex)
+    {
+      s_aLogger.warn ("Failed to convert file to URL: " + aFile, ex);
+      return null;
+    }
+  }
 }

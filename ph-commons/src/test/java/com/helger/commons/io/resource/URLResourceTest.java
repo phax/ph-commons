@@ -31,6 +31,7 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
+import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
@@ -80,7 +81,7 @@ public final class URLResourceTest extends AbstractCommonsTestCase
   @Test
   public void testAccess () throws IOException
   {
-    final URL aFileURL = new File ("pom.xml").toURI ().toURL ();
+    final URL aFileURL = FileHelper.getAsURL (new File ("pom.xml"));
     final URLResource ur = new URLResource (aFileURL);
     assertTrue (ur.exists ());
     assertTrue (ur.getResourceID ().endsWith ("/pom.xml"));
@@ -91,7 +92,7 @@ public final class URLResourceTest extends AbstractCommonsTestCase
     assertNotNull (ur.getAsFile ());
     ur.getReader (StandardCharsets.ISO_8859_1).close ();
 
-    final URL aNoNExistingURL = new File ("pom2.xml").toURI ().toURL ();
+    final URL aNoNExistingURL = FileHelper.getAsURL (new File ("pom2.xml"));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ur, new URLResource (aFileURL));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ur, ur.getReadableCloneForPath (aFileURL));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ur,

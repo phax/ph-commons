@@ -246,7 +246,8 @@ public class DefaultResourceResolver
     if (bDebugResolve)
       s_aLogger.info ("doStandardResourceResolving ('" + sSystemId + "', '" + sBaseURI + "', " + aClassLoader + ")");
 
-    final URL aSystemURL = URLHelper.getAsURL (sSystemId);
+    // It happens quite often that some resolution does not work here
+    final URL aSystemURL = URLHelper.getAsURL (sSystemId, false);
 
     // Was an absolute URL requested?
     if (aSystemURL != null)

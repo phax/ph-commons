@@ -25,7 +25,6 @@ import static org.junit.Assert.fail;
 import java.io.File;
 import java.io.InputStream;
 import java.io.Reader;
-import java.net.MalformedURLException;
 import java.nio.charset.StandardCharsets;
 
 import javax.xml.validation.Schema;
@@ -39,6 +38,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 import com.helger.commons.callback.IThrowingRunnable;
+import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
@@ -364,7 +364,7 @@ public final class DOMReaderTest
   }
 
   @Test
-  public void testExternalEntityExpansion () throws SAXException, MalformedURLException
+  public void testExternalEntityExpansion () throws SAXException
   {
     // Include a dummy file
     final File aFile = new File ("src/test/resources/test1.txt");
@@ -377,7 +377,7 @@ public final class DOMReaderTest
                         "<!DOCTYPE root [" +
                         " <!ELEMENT root ANY >" +
                         " <!ENTITY xxe SYSTEM \"" +
-                        aFile.toURI ().toURL ().toExternalForm () +
+                        FileHelper.getAsURLString (aFile) +
                         "\" >]>" +
                         "<root>&xxe;</root>";
     final DOMReaderSettings aDRS = new DOMReaderSettings ().setEntityResolver ( (publicId,
@@ -436,8 +436,7 @@ public final class DOMReaderTest
     // Should fail because too many entity expansions
     try
     {
-      DOMReader.readXMLDOM (sXMLEntities +
-                            "<root>&e6;</root>",
+      DOMReader.readXMLDOM (sXMLEntities + "<root>&e6;</root>",
                             aDRS.getClone ().setFeatureValues (EXMLParserFeature.AVOID_DOS_SETTINGS));
       fail ();
     }
@@ -462,8 +461,7 @@ public final class DOMReaderTest
     }
 
     // Set directly in settings
-    assertNotNull (DOMReader.readXMLDOM (sXMLEntities +
-                                         "<root>&e6;</root>",
+    assertNotNull (DOMReader.readXMLDOM (sXMLEntities + "<root>&e6;</root>",
                                          new DOMReaderSettings ().setFeatureValue (EXMLParserFeature.SECURE_PROCESSING,
                                                                                    false)));
     XMLSystemProperties.setXMLEntityExpansionLimit (null);

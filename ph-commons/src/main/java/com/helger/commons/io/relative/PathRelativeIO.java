@@ -17,7 +17,6 @@
 package com.helger.commons.io.relative;
 
 import java.io.File;
-import java.net.MalformedURLException;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
@@ -25,6 +24,7 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resourceresolver.DefaultResourceResolver;
@@ -46,18 +46,12 @@ public class PathRelativeIO implements IPathRelativeIO
     ValueEnforcer.notEmpty (sBasePath, "BasePath");
     m_sBasePath = sBasePath;
 
-    String sBaseURL = sBasePath;
+    // Use special base URL if base path is an existing file!
+    String sBaseURL = null;
     final File aFile = new File (sBasePath);
     if (aFile.exists ())
-      try
-      {
-        sBaseURL = aFile.toURI ().toURL ().toExternalForm ();
-      }
-      catch (final MalformedURLException ex)
-      {
-        // Don't use it as base URL :)
-      }
-    m_sBaseURL = sBaseURL;
+      sBaseURL = FileHelper.getAsURLString (aFile);
+    m_sBaseURL = sBaseURL != null ? sBaseURL : sBasePath;
   }
 
   @Nonnull
