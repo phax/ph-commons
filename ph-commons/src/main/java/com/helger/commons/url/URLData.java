@@ -28,12 +28,12 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * Default implementation of the {@link IURLData} interface.
+ * Read-only implementation of {@link ISimpleURL}
  *
  * @author Philip Helger
  */
 @Immutable
-public class URLData implements IURLData
+public class URLData implements ISimpleURL
 {
   /**
    * The string representing an empty URL. Must contain at least one character.

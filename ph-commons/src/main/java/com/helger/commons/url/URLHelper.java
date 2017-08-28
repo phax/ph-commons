@@ -426,7 +426,7 @@ public final class URLHelper
   }
 
   @Nonnull
-  public static IURLData getAsURLData (@Nonnull final String sHref)
+  public static ISimpleURL getAsURLData (@Nonnull final String sHref)
   {
     return getAsURLData (sHref, null);
   }
@@ -438,11 +438,12 @@ public final class URLHelper
    *        The URL to be parsed
    * @param aParameterDecoder
    *        The parameter decoder to use. May be <code>null</code>.
-   * @return the corresponding {@link IURLData} representation of the passed URL
+   * @return the corresponding {@link ISimpleURL} representation of the passed
+   *         URL
    */
   @Nonnull
-  public static IURLData getAsURLData (@Nonnull final String sHref,
-                                       @Nullable final IDecoder <String, String> aParameterDecoder)
+  public static ISimpleURL getAsURLData (@Nonnull final String sHref,
+                                         @Nullable final IDecoder <String, String> aParameterDecoder)
   {
     ValueEnforcer.notNull (sHref, "Href");
 
@@ -666,7 +667,7 @@ public final class URLHelper
   }
 
   @Nonnull
-  public static String getURLString (@Nonnull final IURLData aURL, @Nullable final Charset aParameterCharset)
+  public static String getURLString (@Nonnull final ISimpleURL aURL, @Nullable final Charset aParameterCharset)
   {
     return getURLString (aURL.getPath (), aURL.params (), aURL.getAnchor (), aParameterCharset);
   }
@@ -739,6 +740,8 @@ public final class URLHelper
       catch (final MalformedURLException ex)
       {
         // fall-through
+        if (GlobalDebug.isDebugMode ())
+          s_aLogger.warn ("Debug warn: failed to convert '" + sURL + "' to a URL!");
       }
     return null;
   }
@@ -763,6 +766,8 @@ public final class URLHelper
       catch (final MalformedURLException ex)
       {
         // fall-through
+        if (GlobalDebug.isDebugMode ())
+          s_aLogger.warn ("Debug warn: failed to convert '" + aURI + "' to a URL!");
       }
     return null;
   }
@@ -786,6 +791,8 @@ public final class URLHelper
       catch (final URISyntaxException ex)
       {
         // fall-through
+        if (GlobalDebug.isDebugMode ())
+          s_aLogger.warn ("Debug warn: failed to convert '" + sURI + "' to a URI!");
       }
     return null;
   }
@@ -809,6 +816,8 @@ public final class URLHelper
       catch (final URISyntaxException ex)
       {
         // fall-through
+        if (GlobalDebug.isDebugMode ())
+          s_aLogger.warn ("Debug warn: failed to convert '" + aURL + "' to a URI!");
       }
     return null;
   }

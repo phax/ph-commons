@@ -153,7 +153,7 @@ public final class URLProtocolRegistry
    * @return The corresponding URL protocol or <code>null</code> if unresolved
    */
   @Nullable
-  public IURLProtocol getProtocol (@Nullable final IURLData aURL)
+  public IURLProtocol getProtocol (@Nullable final ISimpleURL aURL)
   {
     return aURL == null ? null : getProtocol (aURL.getPath ());
   }
@@ -179,7 +179,7 @@ public final class URLProtocolRegistry
    * @return <code>true</code> if the protocol is known, <code>false</code>
    *         otherwise
    */
-  public boolean hasKnownProtocol (@Nullable final IURLData aURL)
+  public boolean hasKnownProtocol (@Nullable final ISimpleURL aURL)
   {
     return getProtocol (aURL) != null;
   }
