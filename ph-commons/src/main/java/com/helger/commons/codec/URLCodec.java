@@ -24,7 +24,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.WillNotClose;
-import javax.annotation.concurrent.NotThreadSafe;
+import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.string.StringHelper;
@@ -34,7 +34,7 @@ import com.helger.commons.string.StringHelper;
  *
  * @author Philip Helger
  */
-@NotThreadSafe
+@ThreadSafe
 public class URLCodec implements IByteArrayCodec
 {
   private static final byte ESCAPE_CHAR = '%';
@@ -63,6 +63,7 @@ public class URLCodec implements IByteArrayCodec
     PRINTABLE_CHARS.set ('~');
     // blank to be replaced with +
     PRINTABLE_CHARS.set (SPACE);
+    // Apache Http-client also adds "*" to printable chars
   }
 
   /**

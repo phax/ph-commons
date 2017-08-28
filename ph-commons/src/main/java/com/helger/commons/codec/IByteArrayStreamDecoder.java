@@ -40,6 +40,26 @@ public interface IByteArrayStreamDecoder extends IByteArrayDecoder
    *
    * @param aEncodedBuffer
    *        The byte array to be decoded. May be <code>null</code>.
+   * @param aOS
+   *        The output stream to write to. May not be <code>null</code> and is
+   *        NOT closed afterwards!
+   * @throws DecodeException
+   *         in case something goes wrong
+   * @since 9.0.0
+   */
+  default void decode (@Nullable final byte [] aEncodedBuffer, @Nonnull @WillNotClose final OutputStream aOS)
+  {
+    if (aEncodedBuffer == null)
+      decode (null, 0, 0, aOS);
+    else
+      decode (aEncodedBuffer, 0, aEncodedBuffer.length, aOS);
+  }
+
+  /**
+   * Decode (part of) a byte array.
+   *
+   * @param aEncodedBuffer
+   *        The byte array to be decoded. May be <code>null</code>.
    * @param nOfs
    *        Offset into the byte array to start from.
    * @param nLen

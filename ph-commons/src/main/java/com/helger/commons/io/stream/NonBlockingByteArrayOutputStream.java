@@ -77,6 +77,7 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   }
 
   @Nonnull
+  @ReturnsMutableCopy
   private static byte [] _enlarge (@Nonnull final byte [] aBuf, @Nonnegative final int nNewSize)
   {
     final byte [] ret = new byte [nNewSize];
@@ -341,7 +342,7 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
    *         with care!
    */
   @Nonnull
-  @ReturnsMutableObject ("by design")
+  @ReturnsMutableObject
   public byte [] directGetBuffer ()
   {
     return m_aBuf;
@@ -356,11 +357,28 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   public void close ()
   {}
 
+  /**
+   * Create a new InputStream from the contained byte array <b>WITHOUT
+   * COPYING</b> it. So please be careful as this method is not thread-safe and
+   * any modifications done later on this object are <b>NOT</b> reflected in the
+   * InputStream!<br>
+   * This is a shortcut for
+   * <code>new NonBlockingByteArrayInputStream (directGetBuffer (), 0, getSize ())</code>
+   *
+   * @return A new {@link NonBlockingByteArrayInputStream}.
+   * @since 9.0.0
+   */
+  @Nonnull
+  public NonBlockingByteArrayInputStream getAsInputStream ()
+  {
+    return new NonBlockingByteArrayInputStream (m_aBuf, 0, m_nCount);
+  }
+
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("buf#", ArrayHelper.getSize (m_aBuf))
-                                       .append ("size", m_nCount)
+    return new ToStringGenerator (this).append ("Buf#", ArrayHelper.getSize (m_aBuf))
+                                       .append ("Count", m_nCount)
                                        .getToString ();
   }
 }

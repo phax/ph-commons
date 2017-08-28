@@ -42,6 +42,26 @@ public interface IByteArrayStreamEncoder extends IByteArrayEncoder
   }
 
   /**
+   * Encode a byte array to an {@link OutputStream}.
+   *
+   * @param aDecodedBuffer
+   *        The byte array to be encoded. May be <code>null</code>.
+   * @param aOS
+   *        The output stream to write to. May not be <code>null</code> and is
+   *        NOT closed afterwards!
+   * @throws EncodeException
+   *         In case something goes wrong
+   * @since 9.0.0
+   */
+  default void encode (@Nullable final byte [] aDecodedBuffer, @Nonnull @WillNotClose final OutputStream aOS)
+  {
+    if (aDecodedBuffer == null)
+      encode (null, 0, 0, aOS);
+    else
+      encode (aDecodedBuffer, 0, aDecodedBuffer.length, aOS);
+  }
+
+  /**
    * Encode (part of) a byte array to an {@link OutputStream}.
    *
    * @param aDecodedBuffer
