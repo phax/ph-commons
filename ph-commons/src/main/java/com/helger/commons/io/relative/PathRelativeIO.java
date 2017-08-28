@@ -16,6 +16,9 @@
  */
 package com.helger.commons.io.relative;
 
+import java.io.File;
+import java.net.MalformedURLException;
+
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
@@ -36,11 +39,25 @@ import com.helger.commons.string.ToStringGenerator;
 public class PathRelativeIO implements IPathRelativeIO
 {
   private final String m_sBasePath;
+  private final String m_sBaseURL;
 
   public PathRelativeIO (@Nonnull @Nonempty final String sBasePath)
   {
     ValueEnforcer.notEmpty (sBasePath, "BasePath");
     m_sBasePath = sBasePath;
+
+    String sBaseURL = sBasePath;
+    final File aFile = new File (sBasePath);
+    if (aFile.exists ())
+      try
+      {
+        sBaseURL = aFile.toURI ().toURL ().toExternalForm ();
+      }
+      catch (final MalformedURLException ex)
+      {
+        // Don't use it as base URL :)
+      }
+    m_sBaseURL = sBaseURL;
   }
 
   @Nonnull
@@ -48,6 +65,13 @@ public class PathRelativeIO implements IPathRelativeIO
   public String getBasePath ()
   {
     return m_sBasePath;
+  }
+
+  @Nonnull
+  @Nonempty
+  public String getBaseURL ()
+  {
+    return m_sBaseURL;
   }
 
   @Nonnull
@@ -60,7 +84,7 @@ public class PathRelativeIO implements IPathRelativeIO
     final String sEffectiveRelativePath = FilenameHelper.startsWithPathSeparatorChar (sRelativePath) ? sRelativePath.substring (1)
                                                                                                      : sRelativePath;
 
-    return DefaultResourceResolver.getResolvedResource (sEffectiveRelativePath, m_sBasePath);
+    return DefaultResourceResolver.getResolvedResource (sEffectiveRelativePath, m_sBaseURL);
   }
 
   @Override
@@ -83,6 +107,6 @@ public class PathRelativeIO implements IPathRelativeIO
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("BasePath", m_sBasePath).getToString ();
+    return new ToStringGenerator (this).append ("BasePath", m_sBasePath).append ("BaseURL", m_sBaseURL).getToString ();
   }
 }
