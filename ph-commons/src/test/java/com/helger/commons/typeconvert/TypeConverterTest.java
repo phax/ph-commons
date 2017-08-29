@@ -59,7 +59,6 @@ import com.helger.commons.mutable.MutableShort;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.EContinue;
 import com.helger.commons.state.EEnabled;
-import com.helger.commons.state.EFinish;
 import com.helger.commons.state.EInterrupt;
 import com.helger.commons.state.ELeftRight;
 import com.helger.commons.state.EMandatory;
@@ -209,7 +208,6 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
                                                    EChange.CHANGED,
                                                    EContinue.BREAK,
                                                    EEnabled.DISABLED,
-                                                   EFinish.FINISHED,
                                                    EInterrupt.INTERRUPTED,
                                                    ELeftRight.RIGHT,
                                                    EMandatory.MANDATORY,
@@ -251,12 +249,8 @@ public final class TypeConverterTest extends AbstractCommonsTestCase
       Object aObj2 = TypeConverter.convert (sValue, aSrcValue.getClass ());
       assertEquals (aSrcValue.toString (), aObj2.toString ());
 
-      sValue = TypeConverter.convert (TypeConverterProviderRuleBased.getInstance (),
-                                                 aSrcValue,
-                                                 String.class);
-      aObj2 = TypeConverter.convert (TypeConverterProviderRuleBased.getInstance (),
-                                                sValue,
-                                                aSrcValue.getClass ());
+      sValue = TypeConverter.convert (TypeConverterProviderRuleBased.getInstance (), aSrcValue, String.class);
+      aObj2 = TypeConverter.convert (TypeConverterProviderRuleBased.getInstance (), sValue, aSrcValue.getClass ());
       assertEquals (aSrcValue.toString (), aObj2.toString ());
     }
   }

@@ -31,7 +31,6 @@ import com.helger.commons.mock.CommonsAssert;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.EContinue;
 import com.helger.commons.state.EEnabled;
-import com.helger.commons.state.EFinish;
 import com.helger.commons.state.EInterrupt;
 import com.helger.commons.state.ELeftRight;
 import com.helger.commons.state.EMandatory;
@@ -88,8 +87,6 @@ public final class BasicMicroTypeConverterRegistrarTest
                                                    EContinue.BREAK,
                                                    EEnabled.ENABLED,
                                                    EEnabled.DISABLED,
-                                                   EFinish.FINISHED,
-                                                   EFinish.UNFINISHED,
                                                    EInterrupt.INTERRUPTED,
                                                    EInterrupt.NOT_INTERRUPTED,
                                                    ELeftRight.LEFT,

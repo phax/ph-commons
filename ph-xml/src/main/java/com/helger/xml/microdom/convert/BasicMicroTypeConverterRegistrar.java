@@ -39,7 +39,6 @@ import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.EContinue;
 import com.helger.commons.state.EEnabled;
-import com.helger.commons.state.EFinish;
 import com.helger.commons.state.EInterrupt;
 import com.helger.commons.state.ELeftRight;
 import com.helger.commons.state.EMandatory;
@@ -111,7 +110,6 @@ public final class BasicMicroTypeConverterRegistrar implements IMicroTypeConvert
     aRegistry.registerMicroElementTypeConverter (EContinue.class,
                                                  new StringBasedMicroTypeConverter <> (EContinue.class));
     aRegistry.registerMicroElementTypeConverter (EEnabled.class, new StringBasedMicroTypeConverter <> (EEnabled.class));
-    aRegistry.registerMicroElementTypeConverter (EFinish.class, new StringBasedMicroTypeConverter <> (EFinish.class));
     aRegistry.registerMicroElementTypeConverter (EInterrupt.class,
                                                  new StringBasedMicroTypeConverter <> (EInterrupt.class));
     aRegistry.registerMicroElementTypeConverter (ELeftRight.class,

@@ -29,7 +29,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.state.EFinish;
+import com.helger.commons.state.EContinue;
 
 /**
  * A special string encoder that can be used to convert a set of
@@ -107,17 +107,17 @@ public final class StringEncoder
    *        Source string
    * @param aDestBuffer
    *        a ByteBuffer that will be filled with data.
-   * @return {@link EFinish}
+   * @return {@link EContinue}
    */
   @Nonnull
-  public EFinish encode (@Nonnull final String sSource, @Nonnull final ByteBuffer aDestBuffer)
+  public EContinue encode (@Nonnull final String sSource, @Nonnull final ByteBuffer aDestBuffer)
   {
     ValueEnforcer.notNull (sSource, "Source");
     ValueEnforcer.notNull (aDestBuffer, "DestBuffer");
 
     // We need to special case the empty string
     if (sSource.length () == 0)
-      return EFinish.FINISHED;
+      return EContinue.BREAK;
 
     // read data in, if needed
     if (!m_aInChar.hasRemaining () && m_nReadOffset < sSource.length ())
@@ -137,7 +137,7 @@ public final class StringEncoder
           // NOTE: destination could space remaining, in case of a multi-byte
           // sequence
           assert aDestBuffer.remaining () < m_aEncoder.maxBytesPerChar ();
-          return EFinish.UNFINISHED;
+          return EContinue.CONTINUE;
         }
         assert aResult == CoderResult.UNDERFLOW;
 
@@ -164,13 +164,13 @@ public final class StringEncoder
       // out
       assert false;
       // We attempt to handle it anyway
-      return EFinish.UNFINISHED;
+      return EContinue.CONTINUE;
     }
     assert aResult == CoderResult.UNDERFLOW;
 
     // done!
     reset ();
-    return EFinish.FINISHED;
+    return EContinue.BREAK;
   }
 
   @Nonnegative
@@ -196,7 +196,7 @@ public final class StringEncoder
     // Optimized for 1 byte per character strings (ASCII)
     ByteBuffer ret = ByteBuffer.allocate (sSource.length () + BUFFER_EXTRA_BYTES);
 
-    while (encode (sSource, ret).isUnfinished ())
+    while (encode (sSource, ret).isContinue ())
     {
       // need a larger buffer
       // estimate the average bytes per character from the current sample
@@ -244,7 +244,7 @@ public final class StringEncoder
   {
     // Optimized for short strings
     assert m_aArrayBuffer.remaining () == m_aArrayBuffer.capacity ();
-    if (encode (sSource, m_aArrayBuffer).isFinished ())
+    if (encode (sSource, m_aArrayBuffer).isBreak ())
     {
       // copy the exact correct bytes out
       final byte [] ret = new byte [m_aArrayBuffer.position ()];
@@ -257,8 +257,8 @@ public final class StringEncoder
     // Worst case: assume max bytes per remaining character.
     final int charsRemaining = sSource.length () - _getCharsConverted ();
     final ByteBuffer aRestBuffer = ByteBuffer.allocate (charsRemaining * UTF8_MAX_BYTES_PER_CHAR);
-    final EFinish eDone = encode (sSource, aRestBuffer);
-    assert eDone.isFinished ();
+    final EContinue eDone = encode (sSource, aRestBuffer);
+    assert eDone.isBreak ();
 
     // Combine everything and return it
     final byte [] ret = new byte [m_aArrayBuffer.position () + aRestBuffer.position ()];
