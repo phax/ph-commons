@@ -18,6 +18,7 @@
 package com.helger.cli;
 
 import java.util.Iterator;
+import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -28,7 +29,6 @@ import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsIterable;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.lang.NonBlockingProperties;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.traits.IGetterByKeyTrait;
 
 /**
@@ -55,6 +55,33 @@ public class CommandLine implements ICommonsIterable <Option>
   protected CommandLine ()
   {}
 
+  private void _forEachOption (@Nullable final String sOpt, @Nonnull final Consumer <? super Option> aConsumer)
+  {
+    final String sRealOpt = Util.stripLeadingHyphens (sOpt);
+    if (sRealOpt != null)
+      for (final Option aOption : m_aOptions)
+        if (aOption.hasOpt (sRealOpt) || aOption.hasLongOpt (sRealOpt))
+          aConsumer.accept (aOption);
+  }
+
+  /**
+   * Retrieves the option object given the long or short option as a String
+   *
+   * @param sOpt
+   *        short or long name of the option
+   * @return Canonicalized option
+   */
+  @Nullable
+  private Option _findOption (@Nullable final String sOpt)
+  {
+    final String sRealOpt = Util.stripLeadingHyphens (sOpt);
+    if (sRealOpt != null)
+      for (final Option aOption : m_aOptions)
+        if (aOption.hasOpt (sRealOpt) || aOption.hasLongOpt (sRealOpt))
+          return aOption;
+    return null;
+  }
+
   /**
    * Query to see if an option has been set.
    *
@@ -64,7 +91,7 @@ public class CommandLine implements ICommonsIterable <Option>
    */
   public boolean hasOption (@Nullable final String sOpt)
   {
-    return m_aOptions.contains (_resolveOption (sOpt));
+    return _findOption (sOpt) != null;
   }
 
   /**
@@ -93,7 +120,7 @@ public class CommandLine implements ICommonsIterable <Option>
    * Retrieves the array of values, if any, of an option.
    *
    * @param sOpt
-   *        string name of the option
+   *        string name of the option.
    * @return Values of the argument if option is set, and has an argument,
    *         otherwise null.
    */
@@ -102,34 +129,8 @@ public class CommandLine implements ICommonsIterable <Option>
   public ICommonsList <String> getAllOptionValues (@Nullable final String sOpt)
   {
     final ICommonsList <String> ret = new CommonsArrayList <> ();
-    if (StringHelper.hasText (sOpt))
-      for (final Option aOption : m_aOptions)
-        if (sOpt.equals (aOption.getOpt ()) || sOpt.equals (aOption.getLongOpt ()))
-          aOption.addAllValuesTo (ret);
+    _forEachOption (sOpt, x -> x.addAllValuesTo (ret));
     return ret;
-  }
-
-  /**
-   * Retrieves the option object given the long or short option as a String
-   *
-   * @param sOpt
-   *        short or long name of the option
-   * @return Canonicalized option
-   */
-  @Nullable
-  private Option _resolveOption (@Nullable final String sOpt)
-  {
-    final String sRealOpt = Util.stripLeadingHyphens (sOpt);
-    if (sRealOpt != null)
-      for (final Option sOption : m_aOptions)
-      {
-        if (sRealOpt.equals (sOption.getOpt ()))
-          return sOption;
-
-        if (sRealOpt.equals (sOption.getLongOpt ()))
-          return sOption;
-      }
-    return null;
   }
 
   /**
@@ -213,7 +214,7 @@ public class CommandLine implements ICommonsIterable <Option>
    * -Dparam2=value2</tt>. The first argument of the option is the key, and the
    * 2nd argument is the value. If the option has only one argument
    * (<tt>-Dfoo</tt>) it is considered as a boolean flag and the value is
-   * <tt>"true"</tt>.
+   * <tt>"true"</tt>. If the option has more than 2 values it is ignored
    *
    * @param sOpt
    *        name of the option
@@ -226,24 +227,20 @@ public class CommandLine implements ICommonsIterable <Option>
   public NonBlockingProperties getOptionProperties (@Nullable final String sOpt)
   {
     final NonBlockingProperties ret = new NonBlockingProperties ();
-
-    if (sOpt != null)
-      for (final Option aOption : m_aOptions)
-        if (sOpt.equals (aOption.getOpt ()) || sOpt.equals (aOption.getLongOpt ()))
-        {
-          final ICommonsList <String> values = aOption.getAllValues ();
-          if (values.size () >= 2)
-          {
-            // use the first 2 arguments as the key/value pair
-            ret.put (values.get (0), values.get (1));
-          }
-          else
-            if (values.size () == 1)
-            {
-              // no explicit value, handle it as a boolean
-              ret.put (values.get (0), "true");
-            }
-        }
+    _forEachOption (sOpt, x -> {
+      final ICommonsList <String> aValues = x.values ();
+      switch (aValues.size ())
+      {
+        case 1:
+          // no explicit value, handle it as a boolean
+          ret.put (aValues.get (0), "true");
+          break;
+        case 2:
+          // use the first 2 arguments as the key/value pair
+          ret.put (aValues.get (0), aValues.get (1));
+          break;
+      }
+    });
 
     return ret;
   }

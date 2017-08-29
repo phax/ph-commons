@@ -200,14 +200,14 @@ public final class OptionTest
   {
     final Option option = Option.builder ("f").unlimitedArgs ().build ();
 
-    assertEquals ("default", option.getValue ("default"));
+    assertEquals ("default", option.values ().getFirst ("default"));
     assertEquals (null, option.getValue (0));
 
     option.addValueForProcessing ("foo");
 
     assertEquals ("foo", option.getValue ());
     assertEquals ("foo", option.getValue (0));
-    assertEquals ("foo", option.getValue ("default"));
+    assertEquals ("foo", option.values ().getFirst ("default"));
   }
 
   @Test

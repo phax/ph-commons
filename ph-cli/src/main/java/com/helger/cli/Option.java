@@ -26,6 +26,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.equals.EqualsHelper;
@@ -77,13 +78,13 @@ public class Option implements ICloneable <Option>, Serializable
   private boolean m_bRequired;
 
   /** specifies whether the argument value of this Option is optional */
-  private boolean m_bOptionalArg;
+  private final boolean m_bOptionalArg;
 
   /** the number of argument values this option can have */
   private int m_nNumberOfArgs = UNINITIALIZED;
 
   /** the name of the argument for this option */
-  private String m_sArgName;
+  private final String m_sArgName;
 
   /** the character that is the value separator */
   private char m_cValueSep = DEFAULT_VALUE_SEPARATOR;
@@ -94,72 +95,41 @@ public class Option implements ICloneable <Option>, Serializable
   /**
    * Private constructor used by the nested Builder class.
    *
-   * @param builder
+   * @param aBuilder
    *        builder used to create this option
    */
-  protected Option (@Nonnull final Builder builder)
+  protected Option (@Nonnull final Builder aBuilder)
   {
-    m_sOpt = builder.m_sOpt;
-    m_sLongOpt = builder.m_sLongOpt;
-    m_sDescription = builder.m_sDescription;
-    m_bRequired = builder.m_bRequired;
-    m_bOptionalArg = builder.m_bOptionalArg;
-    m_nNumberOfArgs = builder.m_nNumberOfArgs;
-    m_sArgName = builder.m_sArgName;
-    m_cValueSep = builder.m_cValueSep;
+    ValueEnforcer.notNull (aBuilder, "Builder");
+    m_sOpt = aBuilder.m_sOpt;
+    m_sLongOpt = aBuilder.m_sLongOpt;
+    m_sDescription = aBuilder.m_sDescription;
+    m_bRequired = aBuilder.m_bRequired;
+    m_bOptionalArg = aBuilder.m_bOptionalArg;
+    m_nNumberOfArgs = aBuilder.m_nNumberOfArgs;
+    m_sArgName = aBuilder.m_sArgName;
+    m_cValueSep = aBuilder.m_cValueSep;
     // No values
   }
 
   /**
    * Constructor for cloning
    *
-   * @param rhs
+   * @param aOther
    *        The object to clone from.
    */
-  protected Option (@Nonnull final Option rhs)
+  protected Option (@Nonnull final Option aOther)
   {
-    m_sOpt = rhs.m_sOpt;
-    m_sLongOpt = rhs.m_sLongOpt;
-    m_sDescription = rhs.m_sDescription;
-    m_bRequired = rhs.m_bRequired;
-    m_bOptionalArg = rhs.m_bOptionalArg;
-    m_nNumberOfArgs = rhs.m_nNumberOfArgs;
-    m_sArgName = rhs.m_sArgName;
-    m_cValueSep = rhs.m_cValueSep;
-    m_aValues.addAll (rhs.m_aValues);
-  }
-
-  /**
-   * Creates an Option using the specified parameters.
-   *
-   * @param sOpt
-   *        short representation of the option
-   * @param sLongOpt
-   *        the long representation of the option
-   * @param bHasArg
-   *        specifies whether the Option takes an argument or not
-   * @param description
-   *        describes the function of the option
-   * @throws IllegalArgumentException
-   *         if there are any non valid Option characters in <code>opt</code>.
-   */
-  @Deprecated
-  public Option (@Nullable final String sOpt,
-                 @Nullable final String sLongOpt,
-                 final boolean bHasArg,
-                 @Nullable final String description) throws IllegalArgumentException
-  {
-    // ensure that the option is valid
-    if (sOpt != null)
-      OptionValidator.validateShortOption (sOpt);
-
-    m_sOpt = sOpt;
-    m_sLongOpt = sLongOpt;
-    m_sDescription = description;
-
-    // if hasArg is set then the number of arguments is 1
-    if (bHasArg)
-      m_nNumberOfArgs = 1;
+    ValueEnforcer.notNull (aOther, "Other");
+    m_sOpt = aOther.m_sOpt;
+    m_sLongOpt = aOther.m_sLongOpt;
+    m_sDescription = aOther.m_sDescription;
+    m_bRequired = aOther.m_bRequired;
+    m_bOptionalArg = aOther.m_bOptionalArg;
+    m_nNumberOfArgs = aOther.m_nNumberOfArgs;
+    m_sArgName = aOther.m_sArgName;
+    m_cValueSep = aOther.m_cValueSep;
+    m_aValues.addAll (aOther.m_aValues);
   }
 
   void setRequired (final boolean bRequired)
@@ -170,6 +140,8 @@ public class Option implements ICloneable <Option>, Serializable
   /**
    * @return the 'unique' internal Option identifier. Either short or long
    *         option name.
+   * @see #getOpt()
+   * @see #getLongOpt()
    */
   @Nonnull
   public final String getKey ()
@@ -184,7 +156,10 @@ public class Option implements ICloneable <Option>, Serializable
    * {@link CommandLine#getOptionValue(String opt)} to check for existence and
    * argument.
    *
-   * @return The name of this option
+   * @return The name of this option. May be <code>null</code> if this instance
+   *         only has a "long option".
+   * @see #hasOpt()
+   * @see #getLongOpt()
    */
   @Nullable
   public String getOpt ()
@@ -197,10 +172,18 @@ public class Option implements ICloneable <Option>, Serializable
     return StringHelper.hasText (m_sOpt);
   }
 
+  public boolean hasOpt (@Nullable final String sOpt)
+  {
+    return sOpt != null && sOpt.equals (m_sOpt);
+  }
+
   /**
    * Retrieve the long name of this Option.
    *
-   * @return Long name of this option, or null, if there is no long name
+   * @return Long name of this option, or <code>null</code> if there is no long
+   *         name.
+   * @see #hasLongOpt()
+   * @see #getOpt()
    */
   @Nullable
   public String getLongOpt ()
@@ -216,6 +199,11 @@ public class Option implements ICloneable <Option>, Serializable
   public boolean hasLongOpt ()
   {
     return m_sLongOpt != null;
+  }
+
+  public boolean hasLongOpt (@Nullable final String sLongOpt)
+  {
+    return sLongOpt != null && sLongOpt.equals (m_sLongOpt);
   }
 
   /**
@@ -431,7 +419,7 @@ public class Option implements ICloneable <Option>, Serializable
   @Nullable
   public String getValue ()
   {
-    return m_aValues.getFirst (null);
+    return m_aValues.getFirst ();
   }
 
   /**
@@ -450,27 +438,9 @@ public class Option implements ICloneable <Option>, Serializable
   }
 
   /**
-   * Returns the value/first value of this Option or the
-   * <code>defaultValue</code> if there is no value.
+   * Return all values of this Option.
    *
-   * @param sDefaultValue
-   *        The value to be returned if there is no value.
-   * @return the value/first value of this Option or the
-   *         <code>defaultValue</code> if there are no values.
-   */
-  @Nullable
-  public String getValue (@Nullable final String sDefaultValue)
-  {
-    final String value = getValue ();
-    return value != null ? value : sDefaultValue;
-  }
-
-  /**
-   * Return the values of this Option as a String array or null if there are no
-   * values
-   *
-   * @return the values of this Option as a String array or null if there are no
-   *         values
+   * @return the values of this Option. Never <code>null</code> but maybe empty.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -479,9 +449,11 @@ public class Option implements ICloneable <Option>, Serializable
     return m_aValues.getClone ();
   }
 
-  public boolean hasNoValues ()
+  @Nonnull
+  @ReturnsMutableObject
+  public ICommonsList <String> values ()
   {
-    return m_aValues.isEmpty ();
+    return m_aValues;
   }
 
   void addAllValuesTo (@Nonnull final Collection <? super String> aTarget)

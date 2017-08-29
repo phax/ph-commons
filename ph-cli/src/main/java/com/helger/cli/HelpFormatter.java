@@ -31,7 +31,9 @@ import javax.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.compare.IComparator;
 import com.helger.commons.io.stream.NonBlockingBufferedReader;
 import com.helger.commons.io.stream.NonBlockingStringReader;
@@ -277,7 +279,7 @@ public class HelpFormatter
   }
 
   /**
-   * Returns the 'optPrefix'.
+   * Returns the 'optPrefix'. The default is {@link #DEFAULT_OPT_PREFIX}.
    *
    * @return the 'optPrefix'
    */
@@ -300,7 +302,8 @@ public class HelpFormatter
   }
 
   /**
-   * Returns the 'longOptPrefix'.
+   * Returns the 'longOptPrefix'. The default is
+   * {@link #DEFAULT_LONG_OPT_PREFIX}.
    *
    * @return the 'longOptPrefix'
    */
@@ -327,6 +330,7 @@ public class HelpFormatter
 
   /**
    * Returns the separator displayed between a long option and its value.
+   * Defaults to {@link #DEFAULT_LONG_OPT_SEPARATOR}.
    *
    * @return the separator
    * @since 1.3
@@ -391,162 +395,138 @@ public class HelpFormatter
    * Print the help for <code>options</code> with the specified command line
    * syntax. This method prints help information to System.out.
    *
-   * @param cmdLineSyntax
+   * @param sCmdLineSyntax
    *        the syntax for this application
-   * @param options
+   * @param aOptions
    *        the Options instance
    */
-  public void printHelp (final String cmdLineSyntax, final Options options)
+  public void printHelp (@Nonnull @Nonempty final String sCmdLineSyntax, @Nonnull final Options aOptions)
   {
-    printHelp (getWidth (), cmdLineSyntax, null, options, null, false);
+    printHelp (getWidth (), sCmdLineSyntax, null, aOptions, null, false);
   }
 
   /**
    * Print the help for <code>options</code> with the specified command line
    * syntax. This method prints help information to System.out.
    *
-   * @param cmdLineSyntax
+   * @param sCmdLineSyntax
    *        the syntax for this application
-   * @param options
+   * @param aOptions
    *        the Options instance
-   * @param autoUsage
+   * @param bAutoUsage
    *        whether to print an automatically generated usage statement
    */
-  public void printHelp (final String cmdLineSyntax, final Options options, final boolean autoUsage)
+  public void printHelp (@Nonnull @Nonempty final String sCmdLineSyntax,
+                         @Nonnull final Options aOptions,
+                         final boolean bAutoUsage)
   {
-    printHelp (getWidth (), cmdLineSyntax, null, options, null, autoUsage);
+    printHelp (getWidth (), sCmdLineSyntax, null, aOptions, null, bAutoUsage);
   }
 
   /**
    * Print the help for <code>options</code> with the specified command line
    * syntax. This method prints help information to System.out.
    *
-   * @param cmdLineSyntax
+   * @param sCmdLineSyntax
    *        the syntax for this application
-   * @param header
+   * @param sHeader
    *        the banner to display at the beginning of the help
-   * @param options
+   * @param aOptions
    *        the Options instance
-   * @param footer
+   * @param sFooter
    *        the banner to display at the end of the help
    */
-  public void printHelp (final String cmdLineSyntax, final String header, final Options options, final String footer)
+  public void printHelp (@Nonnull @Nonempty final String sCmdLineSyntax,
+                         @Nullable final String sHeader,
+                         @Nonnull final Options aOptions,
+                         @Nullable final String sFooter)
   {
-    printHelp (cmdLineSyntax, header, options, footer, false);
+    printHelp (sCmdLineSyntax, sHeader, aOptions, sFooter, false);
   }
 
   /**
    * Print the help for <code>options</code> with the specified command line
    * syntax. This method prints help information to System.out.
    *
-   * @param cmdLineSyntax
+   * @param sCmdLineSyntax
    *        the syntax for this application
-   * @param header
+   * @param sHeader
    *        the banner to display at the beginning of the help
-   * @param options
+   * @param aOptions
    *        the Options instance
-   * @param footer
+   * @param sFooter
    *        the banner to display at the end of the help
-   * @param autoUsage
+   * @param bAutoUsage
    *        whether to print an automatically generated usage statement
    */
-  public void printHelp (final String cmdLineSyntax,
-                         final String header,
-                         final Options options,
-                         final String footer,
-                         final boolean autoUsage)
+  public void printHelp (@Nonnull @Nonempty final String sCmdLineSyntax,
+                         @Nullable final String sHeader,
+                         @Nonnull final Options aOptions,
+                         @Nullable final String sFooter,
+                         final boolean bAutoUsage)
   {
-    printHelp (getWidth (), cmdLineSyntax, header, options, footer, autoUsage);
+    printHelp (getWidth (), sCmdLineSyntax, sHeader, aOptions, sFooter, bAutoUsage);
   }
 
   /**
    * Print the help for <code>options</code> with the specified command line
    * syntax. This method prints help information to System.out.
    *
-   * @param width
+   * @param nWidth
    *        the number of characters to be displayed on each line
-   * @param cmdLineSyntax
+   * @param sCmdLineSyntax
    *        the syntax for this application
-   * @param header
+   * @param sHeader
    *        the banner to display at the beginning of the help
-   * @param options
+   * @param aOptions
    *        the Options instance
-   * @param footer
+   * @param sFooter
    *        the banner to display at the end of the help
    */
-  public void printHelp (final int width,
-                         final String cmdLineSyntax,
-                         final String header,
-                         final Options options,
-                         final String footer)
+  public void printHelp (final int nWidth,
+                         @Nonnull @Nonempty final String sCmdLineSyntax,
+                         @Nullable final String sHeader,
+                         @Nonnull final Options aOptions,
+                         @Nullable final String sFooter)
   {
-    printHelp (width, cmdLineSyntax, header, options, footer, false);
+    printHelp (nWidth, sCmdLineSyntax, sHeader, aOptions, sFooter, false);
   }
 
   /**
    * Print the help for <code>options</code> with the specified command line
    * syntax. This method prints help information to System.out.
    *
-   * @param width
+   * @param nWidth
    *        the number of characters to be displayed on each line
-   * @param cmdLineSyntax
+   * @param sCmdLineSyntax
    *        the syntax for this application
-   * @param header
+   * @param sHeader
    *        the banner to display at the beginning of the help
-   * @param options
+   * @param aOptions
    *        the Options instance
-   * @param footer
+   * @param sFooter
    *        the banner to display at the end of the help
-   * @param autoUsage
+   * @param bAutoUsage
    *        whether to print an automatically generated usage statement
    */
-  public void printHelp (final int width,
-                         final String cmdLineSyntax,
-                         final String header,
-                         final Options options,
-                         final String footer,
-                         final boolean autoUsage)
+  public void printHelp (final int nWidth,
+                         @Nonnull @Nonempty final String sCmdLineSyntax,
+                         @Nullable final String sHeader,
+                         @Nonnull final Options aOptions,
+                         @Nullable final String sFooter,
+                         final boolean bAutoUsage)
   {
-    final PrintWriter pw = new PrintWriter (System.out);
-
-    printHelp (pw, width, cmdLineSyntax, header, options, getLeftPadding (), getDescPadding (), footer, autoUsage);
-    pw.flush ();
-  }
-
-  /**
-   * Print the help for <code>options</code> with the specified command line
-   * syntax.
-   *
-   * @param pw
-   *        the writer to which the help will be written
-   * @param width
-   *        the number of characters to be displayed on each line
-   * @param cmdLineSyntax
-   *        the syntax for this application
-   * @param header
-   *        the banner to display at the beginning of the help
-   * @param options
-   *        the Options instance
-   * @param leftPad
-   *        the number of characters of padding to be prefixed to each line
-   * @param descPad
-   *        the number of characters of padding to be prefixed to each
-   *        description line
-   * @param footer
-   *        the banner to display at the end of the help
-   * @throws IllegalStateException
-   *         if there is no room to print a line
-   */
-  public void printHelp (final PrintWriter pw,
-                         final int width,
-                         final String cmdLineSyntax,
-                         final String header,
-                         final Options options,
-                         final int leftPad,
-                         final int descPad,
-                         final String footer)
-  {
-    printHelp (pw, width, cmdLineSyntax, header, options, leftPad, descPad, footer, false);
+    final PrintWriter aPW = new PrintWriter (System.out);
+    printHelp (aPW,
+               nWidth,
+               sCmdLineSyntax,
+               sHeader,
+               aOptions,
+               getLeftPadding (),
+               getDescPadding (),
+               sFooter,
+               bAutoUsage);
+    aPW.flush ();
   }
 
   /**
@@ -557,48 +537,84 @@ public class HelpFormatter
    *        the writer to which the help will be written
    * @param nWidth
    *        the number of characters to be displayed on each line
-   * @param cmdLineSyntax
+   * @param sCmdLineSyntax
    *        the syntax for this application
-   * @param header
+   * @param sHeader
    *        the banner to display at the beginning of the help
-   * @param options
+   * @param aOptions
    *        the Options instance
-   * @param leftPad
+   * @param nLeftPad
    *        the number of characters of padding to be prefixed to each line
-   * @param descPad
+   * @param nDescPad
    *        the number of characters of padding to be prefixed to each
    *        description line
-   * @param footer
+   * @param sFooter
+   *        the banner to display at the end of the help
+   * @throws IllegalStateException
+   *         if there is no room to print a line
+   */
+  public void printHelp (@Nonnull final PrintWriter aPW,
+                         final int nWidth,
+                         @Nonnull @Nonempty final String sCmdLineSyntax,
+                         @Nullable final String sHeader,
+                         @Nonnull final Options aOptions,
+                         final int nLeftPad,
+                         final int nDescPad,
+                         @Nullable final String sFooter)
+  {
+    printHelp (aPW, nWidth, sCmdLineSyntax, sHeader, aOptions, nLeftPad, nDescPad, sFooter, false);
+  }
+
+  /**
+   * Print the help for <code>options</code> with the specified command line
+   * syntax.
+   *
+   * @param aPW
+   *        the writer to which the help will be written
+   * @param nWidth
+   *        the number of characters to be displayed on each line
+   * @param sCmdLineSyntax
+   *        the syntax for this application
+   * @param sHeader
+   *        the banner to display at the beginning of the help
+   * @param aOptions
+   *        the Options instance
+   * @param nLeftPad
+   *        the number of characters of padding to be prefixed to each line
+   * @param nDescPad
+   *        the number of characters of padding to be prefixed to each
+   *        description line
+   * @param sFooter
    *        the banner to display at the end of the help
    * @param bAutoUsage
    *        whether to print an automatically generated usage statement
    * @throws IllegalStateException
    *         if there is no room to print a line
    */
-  public void printHelp (final PrintWriter aPW,
+  public void printHelp (@Nonnull final PrintWriter aPW,
                          final int nWidth,
-                         @Nonnull @Nonempty final String cmdLineSyntax,
-                         @Nullable final String header,
-                         final Options options,
-                         final int leftPad,
-                         final int descPad,
-                         @Nullable final String footer,
+                         @Nonnull @Nonempty final String sCmdLineSyntax,
+                         @Nullable final String sHeader,
+                         @Nonnull final Options aOptions,
+                         final int nLeftPad,
+                         final int nDescPad,
+                         @Nullable final String sFooter,
                          final boolean bAutoUsage)
   {
-    ValueEnforcer.notEmpty (cmdLineSyntax, "cmdLineSyntax");
+    ValueEnforcer.notEmpty (sCmdLineSyntax, "sCmdLineSyntax");
 
     if (bAutoUsage)
-      printUsage (aPW, nWidth, cmdLineSyntax, options);
+      printUsage (aPW, nWidth, sCmdLineSyntax, aOptions);
     else
-      printUsage (aPW, nWidth, cmdLineSyntax);
+      printUsage (aPW, nWidth, sCmdLineSyntax);
 
-    if (header != null && header.trim ().length () > 0)
-      printWrapped (aPW, nWidth, header);
+    if (sHeader != null && sHeader.trim ().length () > 0)
+      printWrapped (aPW, nWidth, sHeader);
 
-    printOptions (aPW, nWidth, options, leftPad, descPad);
+    printOptions (aPW, nWidth, aOptions, nLeftPad, nDescPad);
 
-    if (footer != null && footer.trim ().length () > 0)
-      printWrapped (aPW, nWidth, footer);
+    if (sFooter != null && sFooter.trim ().length () > 0)
+      printWrapped (aPW, nWidth, sFooter);
   }
 
   /**
@@ -606,45 +622,45 @@ public class HelpFormatter
    *
    * @param aPW
    *        The PrintWriter to print the usage statement
-   * @param width
+   * @param nWidth
    *        The number of characters to display per line
-   * @param app
+   * @param sAppName
    *        The application name
-   * @param options
+   * @param aOptions
    *        The command line Options
    */
-  public void printUsage (@Nonnull final PrintWriter aPW, final int width, final String app, final Options options)
+  public void printUsage (@Nonnull final PrintWriter aPW,
+                          final int nWidth,
+                          final String sAppName,
+                          final Options aOptions)
   {
     // initialise the string buffer
-    final StringBuilder buff = new StringBuilder (getSyntaxPrefix ()).append (app).append (" ");
+    final StringBuilder aSB = new StringBuilder (getSyntaxPrefix ()).append (sAppName).append (' ');
 
     // create a list for processed option groups
-    final ICommonsList <OptionGroup> processedGroups = new CommonsArrayList <> ();
+    final ICommonsSet <OptionGroup> aProcessedGroups = new CommonsHashSet <> ();
 
-    final ICommonsList <Option> optList = new CommonsArrayList <> (options.getAllOptions ());
+    final ICommonsList <Option> aOptList = new CommonsArrayList <> (aOptions.getAllOptions ());
     if (getOptionComparator () != null)
-      optList.sort (getOptionComparator ());
+      aOptList.sort (getOptionComparator ());
 
     // iterate over the options
-    for (final Iterator <Option> it = optList.iterator (); it.hasNext ();)
+    for (final Iterator <Option> aIt = aOptList.iterator (); aIt.hasNext ();)
     {
       // get the next Option
-      final Option option = it.next ();
+      final Option aOption = aIt.next ();
 
       // check if the option is part of an OptionGroup
-      final OptionGroup group = options.getOptionGroup (option);
+      final OptionGroup group = aOptions.getOptionGroup (aOption);
 
       // if the option is part of a group
       if (group != null)
       {
         // and if the group has not already been processed
-        if (!processedGroups.contains (group))
+        if (aProcessedGroups.add (group))
         {
-          // add the group to the processed list
-          processedGroups.add (group);
-
           // add the usage clause
-          _appendOptionGroup (buff, group);
+          _appendOptionGroup (aSB, group);
         }
 
         // otherwise the option was displayed in the group
@@ -653,15 +669,15 @@ public class HelpFormatter
       else
       {
         // if the Option is not part of an OptionGroup
-        _appendOption (buff, option, option.isRequired ());
+        _appendOption (aSB, aOption, aOption.isRequired ());
       }
 
-      if (it.hasNext ())
-        buff.append (' ');
+      if (aIt.hasNext ())
+        aSB.append (' ');
     }
 
     // call printWrapped
-    printWrapped (aPW, width, buff.toString ().indexOf (' ') + 1, buff.toString ());
+    printWrapped (aPW, nWidth, aSB.toString ().indexOf (' ') + 1, aSB.toString ());
   }
 
   /**
@@ -716,9 +732,9 @@ public class HelpFormatter
       aSB.append ('[');
 
     if (aOption.hasOpt ())
-      aSB.append ("-").append (aOption.getOpt ());
+      aSB.append (getOptPrefix ()).append (aOption.getOpt ());
     else
-      aSB.append ("--").append (aOption.getLongOpt ());
+      aSB.append (getLongOptPrefix ()).append (aOption.getLongOpt ());
 
     // if the Option has a value and a non blank argname
     if (aOption.hasArg ())
@@ -733,20 +749,21 @@ public class HelpFormatter
   }
 
   /**
-   * Print the cmdLineSyntax to the specified writer, using the specified width.
+   * Print the sCmdLineSyntax to the specified writer, using the specified
+   * width.
    *
    * @param aPW
    *        The printWriter to write the help to
-   * @param width
+   * @param nWidth
    *        The number of characters per line for the usage statement.
-   * @param cmdLineSyntax
+   * @param sCmdLineSyntax
    *        The usage statement.
    */
-  public void printUsage (@Nonnull final PrintWriter aPW, final int width, final String cmdLineSyntax)
+  public void printUsage (@Nonnull final PrintWriter aPW, final int nWidth, final String sCmdLineSyntax)
   {
-    final int nArgPos = cmdLineSyntax.indexOf (' ') + 1;
+    final int nArgPos = sCmdLineSyntax.indexOf (' ') + 1;
 
-    printWrapped (aPW, width, getSyntaxPrefix ().length () + nArgPos, getSyntaxPrefix () + cmdLineSyntax);
+    printWrapped (aPW, nWidth, getSyntaxPrefix ().length () + nArgPos, getSyntaxPrefix () + sCmdLineSyntax);
   }
 
   /**
@@ -755,24 +772,24 @@ public class HelpFormatter
    *
    * @param aPW
    *        The printWriter to write the help to
-   * @param width
+   * @param nWidth
    *        The number of characters to display per line
-   * @param options
+   * @param aOptions
    *        The command line Options
-   * @param leftPad
+   * @param nLeftPad
    *        the number of characters of padding to be prefixed to each line
-   * @param descPad
+   * @param nDescPad
    *        the number of characters of padding to be prefixed to each
    *        description line
    */
-  public void printOptions (final PrintWriter aPW,
-                            final int width,
-                            final Options options,
-                            final int leftPad,
-                            final int descPad)
+  public void printOptions (@Nonnull final PrintWriter aPW,
+                            final int nWidth,
+                            @Nonnull final Options aOptions,
+                            final int nLeftPad,
+                            final int nDescPad)
   {
     final StringBuilder aSB = new StringBuilder ();
-    renderOptions (aSB, width, options, leftPad, descPad);
+    renderOptions (aSB, nWidth, aOptions, nLeftPad, nDescPad);
 
     aPW.println (aSB.toString ());
   }
@@ -832,9 +849,9 @@ public class HelpFormatter
    *        description line
    * @return the StringBuilder with the rendered Options contents.
    */
-  protected StringBuilder renderOptions (final StringBuilder ret,
+  protected StringBuilder renderOptions (@Nonnull final StringBuilder ret,
                                          final int nWidth,
-                                         final Options aOptions,
+                                         @Nonnull final Options aOptions,
                                          final int nLeftPad,
                                          final int nDescPad)
   {

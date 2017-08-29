@@ -187,7 +187,7 @@ public class CommandLineParser implements ICommandLineParser
 
         if (opt.hasArg ())
         {
-          if (opt.hasNoValues ())
+          if (opt.values ().isEmpty ())
           {
             opt.addValueForProcessing (sValue);
           }

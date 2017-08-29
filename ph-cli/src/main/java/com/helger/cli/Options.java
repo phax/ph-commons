@@ -203,7 +203,9 @@ public class Options implements Serializable
   public Options addOption (@Nonnull final Option aOpt)
   {
     ValueEnforcer.notNull (aOpt, "opt");
-    final String key = aOpt.getKey ();
+
+    final String sKey = aOpt.getKey ();
+    m_aShortOpts.put (sKey, aOpt);
 
     // add it to the long option list
     if (aOpt.hasLongOpt ())
@@ -215,12 +217,11 @@ public class Options implements Serializable
     if (aOpt.isRequired ())
     {
       // Ensure order is correct
-      final RequiredArg aKey = new RequiredArg (key);
+      final RequiredArg aKey = new RequiredArg (sKey);
       m_aRequiredOpts.remove (aKey);
       m_aRequiredOpts.add (aKey);
     }
 
-    m_aShortOpts.put (key, aOpt);
     return this;
   }
 
