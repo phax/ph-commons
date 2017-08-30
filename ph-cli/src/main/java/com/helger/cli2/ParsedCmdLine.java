@@ -22,7 +22,7 @@ public class ParsedCmdLine
   public ParsedCmdLine ()
   {}
 
-  void addValue (@Nonnull final Option aOption, @Nonnull final ICommonsList <String> aValues)
+  public void internalAddValue (@Nonnull final Option aOption, @Nonnull final ICommonsList <String> aValues)
   {
     ValueEnforcer.notNull (aOption, "Option");
     ValueEnforcer.notNull (aValues, "Values");
@@ -30,7 +30,7 @@ public class ParsedCmdLine
     m_aParams.computeIfAbsent (aOption, k -> new CommonsArrayList <> ()).addAll (aValues);
   }
 
-  void addUnhandledToken (@Nonnull @Nonempty final String sUnknownToken)
+  void internalAddUnhandledToken (@Nonnull @Nonempty final String sUnknownToken)
   {
     ValueEnforcer.notEmpty (sUnknownToken, "UnknownToken");
     m_aUnknownTokens.add (sUnknownToken);

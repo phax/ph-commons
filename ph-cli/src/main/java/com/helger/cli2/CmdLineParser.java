@@ -1,5 +1,7 @@
 package com.helger.cli2;
 
+import java.util.Arrays;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -130,6 +132,14 @@ public class CmdLineParser
           {
             // Found option - read values
             final Option aOption = aMatchedOption.m_aOption;
+
+            if (!aOption.isRepeatable () && ret.hasOption (aOption))
+              throw new CmdLineParseException (ECmdLineParseError.NON_REPEATABLE_OPTION_OCCURS_MORE_THAN_ONCE,
+                                               aOption,
+                                               "The option " +
+                                                        _getDisplayName (aOption) +
+                                                        " was already specified but cannot be contained more than once!");
+
             final String sValueInArg = sArg.substring (aMatchedOption.m_sMatchedText.length ());
 
             if (s_aLogger.isDebugEnabled ())
@@ -141,16 +151,16 @@ public class CmdLineParser
 
             final int nMinArgs = aOption.getMinArgCount ();
             final int nMaxArgs = aOption.getMaxArgCount ();
-            final boolean bUnlimitedArgs = aOption.hasUnlimitedArgs ();
+            final boolean bUnlimitedArgs = aOption.hasInfiniteArgs ();
             final ICommonsList <String> aValues = new CommonsArrayList <> ();
 
             if (StringHelper.hasText (sValueInArg))
             {
-              // As e.g. in "-Dtest=value" or "-Xmx512m"
+              // As e.g. in "-Dtest=value"
               if (aOption.hasValueSeparator ())
                 StringHelper.explode (aOption.getValueSeparator (),
                                       sValueInArg,
-                                      bUnlimitedArgs ? -1 : nMaxArgs,
+                                      bUnlimitedArgs ? -1 : nMaxArgs - aValues.size (),
                                       aValues::add);
               else
                 aValues.add (sValueInArg);
@@ -172,7 +182,7 @@ public class CmdLineParser
                 }
 
                 // It is an option, but the number of required arguments is too
-                // little
+                // little - use as value
               }
 
               // Lets consume this argument
@@ -180,7 +190,7 @@ public class CmdLineParser
 
               if (StringHelper.hasText (sNextArg))
               {
-                // As e.g. in "-Dtest=value" or "-Xmx512m"
+                // As e.g. in "-Dtest=value"
                 if (aOption.hasValueSeparator ())
                 {
                   StringHelper.explode (aOption.getValueSeparator (),
@@ -194,20 +204,32 @@ public class CmdLineParser
             }
 
             if (aValues.size () < nMinArgs)
-              throw new CmdLineParseException (_getDisplayName (aOption) +
-                                               " requires at least " +
-                                               nMinArgs +
-                                               " values but has only " +
-                                               aValues.size ());
+              throw new CmdLineParseException (ECmdLineParseError.TOO_LITTLE_REQUIRED_VALUES,
+                                               aOption,
+                                               _getDisplayName (aOption) +
+                                                        " requires at least " +
+                                                        nMinArgs +
+                                                        " values but has only " +
+                                                        aValues.size ());
 
-            ret.addValue (aOption, aValues);
+            ret.internalAddValue (aOption, aValues);
           }
           else
           {
-            ret.addUnhandledToken (sArg);
+            ret.internalAddUnhandledToken (sArg);
           }
         }
       }
+
+    // Check if all required options are present
+    for (final Option aOption : aOptions)
+      if (aOption.isRequired () && !ret.hasOption (aOption))
+        throw new CmdLineParseException (ECmdLineParseError.REQUIRED_OPTION_IS_MISSING,
+                                         aOption,
+                                         "The option " + _getDisplayName (aOption) + " is required but is missing!");
+
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug ("Parsed command line args " + Arrays.toString (aArgs) + " to " + ret);
     return ret;
   }
 

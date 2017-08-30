@@ -20,20 +20,45 @@ package com.helger.cli2;
 import javax.annotation.Nonnull;
 
 /**
- * Base class for commandline parse exceptions
+ * Base class for commandline parse exceptions. Is a checked exception, as
+ * invalid values are possible from the user side, so it is advisable to catch
+ * them any way!
  *
  * @author Philip Helger
  */
-public class CmdLineParseException extends RuntimeException
+public class CmdLineParseException extends Exception
 {
+  private final ECmdLineParseError m_eError;
+  private final Option m_aOption;
+
   /**
    * Constructor.
    *
+   * @param eError
+   *        Error code. May not be <code>null</code>.
+   * @param aOption
+   *        Affected option. May not be <code>null</code>.
    * @param sMessage
    *        the detail message
    */
-  public CmdLineParseException (@Nonnull final String sMessage)
+  public CmdLineParseException (@Nonnull final ECmdLineParseError eError,
+                                @Nonnull final Option aOption,
+                                @Nonnull final String sMessage)
   {
     super (sMessage);
+    m_eError = eError;
+    m_aOption = aOption;
+  }
+
+  @Nonnull
+  public ECmdLineParseError getError ()
+  {
+    return m_eError;
+  }
+
+  @Nonnull
+  public Option getOption ()
+  {
+    return m_aOption;
   }
 }

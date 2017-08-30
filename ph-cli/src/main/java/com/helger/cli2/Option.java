@@ -40,10 +40,82 @@ import com.helger.commons.string.ToStringGenerator;
 @Immutable
 public class Option implements Serializable
 {
+  public static enum EOptionMultiplicity
+  {
+    /** 0..1, <code>{0,1} or ?</code> */
+    OPTIONAL_ONCE,
+    /** 0..n, <code>{0,} or *</code> */
+    OPTIONAL_MANY,
+    /** 1..1, required */
+    REQUIRED_ONCE,
+    /** 1..n, <code>{1,} or +</code> */
+    REQUIRED_MANY;
+
+    public boolean isOptional ()
+    {
+      return this == OPTIONAL_ONCE || this == OPTIONAL_MANY;
+    }
+
+    public boolean isRequired ()
+    {
+      return this == REQUIRED_ONCE || this == REQUIRED_MANY;
+    }
+
+    public boolean isOnce ()
+    {
+      return this == OPTIONAL_ONCE || this == REQUIRED_ONCE;
+    }
+
+    public boolean isRepeatable ()
+    {
+      return this == OPTIONAL_MANY || this == REQUIRED_MANY;
+    }
+
+    @Nonnull
+    public EOptionMultiplicity getAsRequired ()
+    {
+      if (this == OPTIONAL_ONCE)
+        return REQUIRED_ONCE;
+      if (this == OPTIONAL_MANY)
+        return REQUIRED_MANY;
+      return this;
+    }
+
+    @Nonnull
+    public EOptionMultiplicity getAsOptional ()
+    {
+      if (this == REQUIRED_ONCE)
+        return OPTIONAL_ONCE;
+      if (this == REQUIRED_MANY)
+        return OPTIONAL_MANY;
+      return this;
+    }
+
+    @Nonnull
+    public EOptionMultiplicity getAsRepeatable ()
+    {
+      if (this == OPTIONAL_ONCE)
+        return OPTIONAL_MANY;
+      if (this == REQUIRED_ONCE)
+        return REQUIRED_MANY;
+      return this;
+    }
+
+    @Nonnull
+    public EOptionMultiplicity getAsOnce ()
+    {
+      if (this == OPTIONAL_MANY)
+        return OPTIONAL_ONCE;
+      if (this == REQUIRED_MANY)
+        return REQUIRED_ONCE;
+      return this;
+    }
+  }
+
   public static final char DEFAULT_VALUE_SEPARATOR = 0;
 
   /** constant that specifies the number of argument values is infinite */
-  public static final int UNLIMITED_VALUES = -1;
+  public static final int INFINITE_VALUES = -1;
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (Option.class);
 
@@ -69,10 +141,9 @@ public class Option implements Serializable
   private final String m_sArgName;
 
   /**
-   * specifies whether this option is required to be present. Makes only sense
-   * if minArgs &gt; 0
+   * Multiplicity to use.
    */
-  private final boolean m_bRequired;
+  private final EOptionMultiplicity m_eMultiplicity;
 
   /**
    * the character that is the value separator. Makes only sense if minArgs &gt;
@@ -95,7 +166,7 @@ public class Option implements Serializable
     m_nMinArgs = aBuilder.m_nMinArgs;
     m_nMaxArgs = aBuilder.m_nMaxArgs;
     m_sArgName = aBuilder.m_sArgName;
-    m_bRequired = aBuilder.m_bRequired;
+    m_eMultiplicity = aBuilder.m_eMultiplicity;
     m_cValueSep = aBuilder.m_cValueSep;
   }
 
@@ -198,9 +269,14 @@ public class Option implements Serializable
     return m_nMinArgs;
   }
 
+  public boolean hasMinArgs ()
+  {
+    return m_nMinArgs != 0;
+  }
+
   /**
    * @return Maximum number of arguments. Is always &ge; 0 or
-   *         {@link #UNLIMITED_VALUES} for unlimited arguments.
+   *         {@link #INFINITE_VALUES} for unlimited arguments.
    */
   @Nonnegative
   public int getMaxArgCount ()
@@ -208,21 +284,21 @@ public class Option implements Serializable
     return m_nMaxArgs;
   }
 
-  public boolean hasUnlimitedArgs ()
+  public boolean hasInfiniteArgs ()
   {
-    return m_nMaxArgs == UNLIMITED_VALUES;
+    return m_nMaxArgs == INFINITE_VALUES;
   }
 
   public boolean canHaveMoreValues (final int nSize)
   {
-    return hasUnlimitedArgs () || nSize < m_nMaxArgs;
+    return hasInfiniteArgs () || nSize < m_nMaxArgs;
   }
 
   @CheckForSigned
   public int getOptionalArgCount ()
   {
-    if (m_nMaxArgs == UNLIMITED_VALUES)
-      return UNLIMITED_VALUES;
+    if (m_nMaxArgs == INFINITE_VALUES)
+      return INFINITE_VALUES;
     return m_nMaxArgs - m_nMinArgs;
   }
 
@@ -238,13 +314,22 @@ public class Option implements Serializable
   }
 
   /**
+   * @return <code>true</code> if this option can appear multiple times on a
+   *         commandline, <code>false</code> if it can occur at maximum once.
+   */
+  public boolean isRepeatable ()
+  {
+    return m_eMultiplicity.isRepeatable ();
+  }
+
+  /**
    * Query to see if this {@link Option} is mandatory
    *
    * @return boolean flag indicating whether this Option is mandatory
    */
   public boolean isRequired ()
   {
-    return m_bRequired;
+    return m_eMultiplicity.isRequired ();
   }
 
   /**
@@ -298,16 +383,17 @@ public class Option implements Serializable
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("Opt", m_sShortOpt)
-                                       .append ("LongOpt", m_sLongOpt)
-                                       .append ("Description", m_sDescription)
-                                       .appendIf ("MinArgs", m_nMinArgs, (final int x) -> x != 0)
-                                       .appendIf ("MaxArgs", m_nMaxArgs, (final int x) -> x != 0)
-                                       .append ("Required", m_bRequired)
+    return new ToStringGenerator (this).appendIfNotNull ("Opt", m_sShortOpt)
+                                       .appendIfNotNull ("LongOpt", m_sLongOpt)
+                                       .appendIfNotNull ("Description", m_sDescription)
+                                       .appendIf ("MinArgs", m_nMinArgs, this::hasMinArgs)
+                                       .appendIf ("MaxArgs",
+                                                  m_nMaxArgs == INFINITE_VALUES ? "infinite"
+                                                                                 : Integer.toString (m_nMaxArgs),
+                                                  this::hasInfiniteArgs)
                                        .appendIfNotNull ("ArgName", m_sArgName)
-                                       .appendIf ("ValueSep",
-                                                  m_cValueSep,
-                                                  (final char x) -> x != DEFAULT_VALUE_SEPARATOR)
+                                       .append ("Multiplicity", m_eMultiplicity)
+                                       .appendIf ("ValueSep", m_cValueSep, this::hasValueSeparator)
                                        .getToString ();
   }
 
@@ -364,7 +450,7 @@ public class Option implements Serializable
      * specifies whether this option is required to be present. Makes only sense
      * if minArgs &gt; 0
      */
-    private boolean m_bRequired = false;
+    private EOptionMultiplicity m_eMultiplicity = EOptionMultiplicity.OPTIONAL_ONCE;
 
     /**
      * the character that is the value separator in case the value. Makes only
@@ -418,7 +504,8 @@ public class Option implements Serializable
 
     /**
      * Set the minimum number of arguments that must be present. By default it
-     * is 0. This is the number of required arguments.
+     * is 0. This is the number of required arguments. If the option is
+     * repeatable, this value is per occurrence.
      *
      * @param nMinArgs
      *        Number of minimum arguments. Must be &ge; 0.
@@ -435,19 +522,19 @@ public class Option implements Serializable
     /**
      * Set the maximum number of arguments that can be present. By default it is
      * 0. The difference between minimum and maximum arguments are the optional
-     * arguments.
+     * arguments. If the option is repeatable, this value is per occurrence.
      *
      * @param nMaxArgs
      *        Number of maximum arguments. Must be &ge; 0 or
-     *        {@link #UNLIMITED_VALUES}
+     *        {@link #INFINITE_VALUES}
      * @return this for chaining
-     * @see #maxArgsUnlimited()
+     * @see #maxArgsInfinite()
      */
     @Nonnull
     public Builder maxArgs (final int nMaxArgs)
     {
-      ValueEnforcer.isTrue (nMaxArgs == UNLIMITED_VALUES || nMaxArgs >= 0,
-                            () -> "MaxArgs must be " + UNLIMITED_VALUES + " or >= 0!");
+      ValueEnforcer.isTrue (nMaxArgs == INFINITE_VALUES || nMaxArgs >= 0,
+                            () -> "MaxArgs must be " + INFINITE_VALUES + " or >= 0!");
       m_nMaxArgs = nMaxArgs;
       return this;
     }
@@ -459,19 +546,20 @@ public class Option implements Serializable
      * @see #maxArgs(int)
      */
     @Nonnull
-    public Builder maxArgsUnlimited ()
+    public Builder maxArgsInfinite ()
     {
-      return maxArgs (UNLIMITED_VALUES);
+      return maxArgs (INFINITE_VALUES);
     }
 
     /**
-     * Shortcut for setting minArgs and maxArgs at once
+     * Shortcut for setting minArgs and maxArgs at once. If the option is
+     * repeatable, this value is per occurrence.
      *
      * @param nMinArgs
      *        Number of minimum arguments. Must be &ge; 0.
      * @param nMaxArgs
      *        Number of maximum arguments. Must be &ge; 0 or
-     *        {@link #UNLIMITED_VALUES}
+     *        {@link #INFINITE_VALUES}
      * @return this for chaining
      * @see #minArgs(int)
      * @see #maxArgs(int)
@@ -485,7 +573,8 @@ public class Option implements Serializable
 
     /**
      * Shortcut for setting minArgs and maxArgs to the same value, making this
-     * the number of required arguments.
+     * the number of required arguments. If the option is repeatable, this value
+     * is per occurrence.
      *
      * @param nArgs
      *        Number of arguments. Must be &ge; 0.
@@ -525,7 +614,28 @@ public class Option implements Serializable
     @Nonnull
     public Builder required (final boolean bRequired)
     {
-      m_bRequired = bRequired;
+      if (bRequired)
+        m_eMultiplicity = m_eMultiplicity.getAsRequired ();
+      else
+        m_eMultiplicity = m_eMultiplicity.getAsOptional ();
+      return this;
+    }
+
+    /**
+     * Mark this option as repeatable or not. By default it is not repeatable.
+     *
+     * @param bRepeatable
+     *        <code>true</code> if this option can be repeated,
+     *        <code>false</code> if not.
+     * @return this builder, to allow method chaining
+     */
+    @Nonnull
+    public Builder repeatable (final boolean bRepeatable)
+    {
+      if (bRepeatable)
+        m_eMultiplicity = m_eMultiplicity.getAsRepeatable ();
+      else
+        m_eMultiplicity = m_eMultiplicity.getAsOnce ();
       return this;
     }
 
@@ -570,14 +680,16 @@ public class Option implements Serializable
     {
       if (StringHelper.hasNoText (m_sShortOpt) && StringHelper.hasNoText (m_sLongOpt))
         throw new IllegalStateException ("Either opt or longOpt must be specified");
-      if (m_nMaxArgs != UNLIMITED_VALUES && m_nMaxArgs < m_nMinArgs)
+      if (m_nMaxArgs != INFINITE_VALUES && m_nMaxArgs < m_nMinArgs)
         throw new IllegalStateException ("MinArgs (" + m_nMinArgs + ") must be <= MaxArgs (" + m_nMaxArgs + ")");
       if (m_nMinArgs == 0 && m_nMaxArgs == 0)
       {
         if (m_sArgName != null)
           throw new IllegalStateException ("ArgName may only be provided if at least one argument is present");
-        if (m_bRequired)
+        if (m_eMultiplicity.isRequired ())
           s_aLogger.warn ("Having a required option without an argument may not be what is desired.");
+        if (m_eMultiplicity.isRepeatable ())
+          s_aLogger.warn ("Having a repeatable option without an argument may not be what is desired.");
         if (m_cValueSep != DEFAULT_VALUE_SEPARATOR)
           throw new IllegalStateException ("ValueSeparator may only be provided if at least one argument is present");
       }
