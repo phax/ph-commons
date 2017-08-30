@@ -28,6 +28,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.functional.IBooleanPredicate;
+import com.helger.commons.functional.ICharPredicate;
 
 /**
  * This is a utility class for easier <code>toString</code> method creations. It
@@ -338,6 +339,14 @@ public final class ToStringGenerator
                                      @Nonnull final IBooleanPredicate aFilter)
   {
     return aFilter.test (bValue) ? append (sField, bValue) : this;
+  }
+
+  @Nonnull
+  public ToStringGenerator appendIf (@Nonnull final String sField,
+                                     final char cValue,
+                                     @Nonnull final ICharPredicate aFilter)
+  {
+    return aFilter.test (cValue) ? append (sField, cValue) : this;
   }
 
   @Nonnull
