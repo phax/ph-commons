@@ -3,7 +3,11 @@ package com.helger.cli2;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
@@ -12,6 +16,23 @@ import com.helger.commons.string.StringHelper;
 
 public class CmdLineParser
 {
+  public static final String PREFIX_SHORT_OPT = "-";
+  public static final String PREFIX_LONG_OPT = "--";
+
+  private static final Logger s_aLogger = LoggerFactory.getLogger (CmdLineParser.class);
+
+  private static final class MatchedOption
+  {
+    private final Option m_aOption;
+    private final String m_sMatchedText;
+
+    MatchedOption (@Nonnull final Option aOption, @Nonnull @Nonempty final String sMatchedText)
+    {
+      m_aOption = aOption;
+      m_sMatchedText = sMatchedText;
+    }
+  }
+
   private final ICommonsList <Option> m_aOptions;
 
   public CmdLineParser (@Nullable final Iterable <? extends Option> aOptions)
@@ -19,20 +40,17 @@ public class CmdLineParser
     m_aOptions = new CommonsArrayList <> (aOptions);
   }
 
-  private static Option _findOption (@Nonnull final ICommonsMap <String, Option> aStrToOptionMap,
-                                     @Nullable final String sToken,
-                                     @Nonnull final ParsedCmdLine ret)
+  @Nullable
+  private static MatchedOption _findMatchingOption (@Nonnull final ICommonsMap <String, Option> aStrToOptionMap,
+                                                    @Nonnull @Nonempty final String sToken)
   {
-    if (StringHelper.hasNoText (sToken))
-      return null;
-
-    // Skip prefix
+    // Skip prefix (long before first)
     String sText = sToken;
-    if (sText.startsWith ("--"))
-      sText = sText.substring (2);
+    if (sText.startsWith (PREFIX_LONG_OPT))
+      sText = sText.substring (PREFIX_LONG_OPT.length ());
     else
-      if (sText.startsWith ("-"))
-        sText = sText.substring (1);
+      if (sText.startsWith (PREFIX_SHORT_OPT))
+        sText = sText.substring (PREFIX_SHORT_OPT.length ());
 
     if (sText.length () == 0)
     {
@@ -41,20 +59,27 @@ public class CmdLineParser
     }
 
     Option aOption = aStrToOptionMap.get (sText);
-    if (aOption == null)
-    {
-      // No direct match - try something like -Dversion=1.0 or -Xmx512m
-      while (aOption == null)
-      {
-        // Remove last char and try
-        sText = sText.substring (0, sText.length () - 1);
-        if (sText.length () == 0)
-          break;
+    if (aOption != null)
+      return new MatchedOption (aOption, sText);
 
-        aOption = aStrToOptionMap.get (sText);
-      }
+    // No direct match - try something like -Dversion=1.0 or -Xmx512m
+    while (true)
+    {
+      // Remove last char and try
+      sText = sText.substring (0, sText.length () - 1);
+      if (sText.length () == 0)
+        break;
+
+      aOption = aStrToOptionMap.get (sText);
+      if (aOption != null)
+        return new MatchedOption (aOption, sText);
     }
-    return aOption;
+    return null;
+  }
+
+  private static void _unknownToken (@Nullable final String sArg)
+  {
+    s_aLogger.error ("Ignoring unknown token '" + sArg + "'");
   }
 
   @Nonnull
@@ -76,7 +101,17 @@ public class CmdLineParser
     final ParsedCmdLine ret = new ParsedCmdLine ();
     if (aArgs != null)
       for (final String sArg : aArgs)
-        _findOption (aStrToOptionMap, sArg, ret);
+        if (StringHelper.hasText (sArg))
+        {
+          final MatchedOption aMatchedOption = _findMatchingOption (aStrToOptionMap, sArg);
+          if (aMatchedOption != null)
+          {
+            // Found option - read values
+            s_aLogger.info ("Matched '" + aMatchedOption.m_sMatchedText + "' to " + aMatchedOption.m_aOption);
+          }
+          else
+            _unknownToken (sArg);
+        }
     return ret;
   }
 
