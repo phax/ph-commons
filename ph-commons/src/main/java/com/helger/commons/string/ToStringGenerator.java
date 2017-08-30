@@ -17,6 +17,7 @@
 package com.helger.commons.string;
 
 import java.util.Arrays;
+import java.util.function.BooleanSupplier;
 import java.util.function.DoublePredicate;
 import java.util.function.IntPredicate;
 import java.util.function.LongPredicate;
@@ -152,7 +153,7 @@ public final class ToStringGenerator
   public ToStringGenerator append (@Nonnull final String sField, final char aValue)
   {
     _beforeAddField ();
-    m_aSB.append (sField).append ('=').append (aValue);
+    m_aSB.append (sField).append ('=').append ('\'').append (aValue).append ('\'');
     return this;
   }
 
@@ -343,10 +344,26 @@ public final class ToStringGenerator
 
   @Nonnull
   public ToStringGenerator appendIf (@Nonnull final String sField,
+                                     final boolean bValue,
+                                     @Nonnull final BooleanSupplier aFilter)
+  {
+    return aFilter.getAsBoolean () ? append (sField, bValue) : this;
+  }
+
+  @Nonnull
+  public ToStringGenerator appendIf (@Nonnull final String sField,
                                      final char cValue,
                                      @Nonnull final ICharPredicate aFilter)
   {
     return aFilter.test (cValue) ? append (sField, cValue) : this;
+  }
+
+  @Nonnull
+  public ToStringGenerator appendIf (@Nonnull final String sField,
+                                     final char cValue,
+                                     @Nonnull final BooleanSupplier aFilter)
+  {
+    return aFilter.getAsBoolean () ? append (sField, cValue) : this;
   }
 
   @Nonnull
@@ -359,10 +376,26 @@ public final class ToStringGenerator
 
   @Nonnull
   public ToStringGenerator appendIf (@Nonnull final String sField,
+                                     final int nValue,
+                                     @Nonnull final BooleanSupplier aFilter)
+  {
+    return aFilter.getAsBoolean () ? append (sField, nValue) : this;
+  }
+
+  @Nonnull
+  public ToStringGenerator appendIf (@Nonnull final String sField,
                                      final long nValue,
                                      @Nonnull final LongPredicate aFilter)
   {
     return aFilter.test (nValue) ? append (sField, nValue) : this;
+  }
+
+  @Nonnull
+  public ToStringGenerator appendIf (@Nonnull final String sField,
+                                     final long nValue,
+                                     @Nonnull final BooleanSupplier aFilter)
+  {
+    return aFilter.getAsBoolean () ? append (sField, nValue) : this;
   }
 
   @Nonnull
@@ -374,11 +407,27 @@ public final class ToStringGenerator
   }
 
   @Nonnull
+  public ToStringGenerator appendIf (@Nonnull final String sField,
+                                     final double dValue,
+                                     @Nonnull final BooleanSupplier aFilter)
+  {
+    return aFilter.getAsBoolean () ? append (sField, dValue) : this;
+  }
+
+  @Nonnull
   public <T> ToStringGenerator appendIf (@Nonnull final String sField,
                                          @Nullable final T aValue,
                                          @Nonnull final Predicate <? super T> aFilter)
   {
     return aFilter.test (aValue) ? append (sField, aValue) : this;
+  }
+
+  @Nonnull
+  public <T> ToStringGenerator appendIf (@Nonnull final String sField,
+                                         @Nullable final T aValue,
+                                         @Nonnull final BooleanSupplier aFilter)
+  {
+    return aFilter.getAsBoolean () ? append (sField, aValue) : this;
   }
 
   @Nonnull
