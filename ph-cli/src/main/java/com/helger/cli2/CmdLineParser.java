@@ -46,11 +46,19 @@ public class CmdLineParser
   {
     // Skip prefix (long before first)
     String sText = sToken;
+    String sPrefix = "";
+    int nPrefix = 0;
     if (sText.startsWith (PREFIX_LONG_OPT))
-      sText = sText.substring (PREFIX_LONG_OPT.length ());
+      nPrefix = PREFIX_LONG_OPT.length ();
     else
       if (sText.startsWith (PREFIX_SHORT_OPT))
-        sText = sText.substring (PREFIX_SHORT_OPT.length ());
+        nPrefix = PREFIX_SHORT_OPT.length ();
+
+    if (nPrefix > 0)
+    {
+      sPrefix = sText.substring (0, nPrefix);
+      sText = sText.substring (nPrefix);
+    }
 
     if (sText.length () == 0)
     {
@@ -60,7 +68,7 @@ public class CmdLineParser
 
     Option aOption = aStrToOptionMap.get (sText);
     if (aOption != null)
-      return new MatchedOption (aOption, sText);
+      return new MatchedOption (aOption, sPrefix + sText);
 
     // No direct match - try something like -Dversion=1.0 or -Xmx512m
     while (true)
@@ -72,19 +80,31 @@ public class CmdLineParser
 
       aOption = aStrToOptionMap.get (sText);
       if (aOption != null)
-        return new MatchedOption (aOption, sText);
+      {
+        return new MatchedOption (aOption, sPrefix + sText);
+      }
     }
     return null;
   }
 
-  private static void _unknownToken (@Nullable final String sArg)
+  @Nonnull
+  private static String _getDisplayName (@Nonnull final Option aOption)
   {
-    s_aLogger.error ("Ignoring unknown token '" + sArg + "'");
+    String ret = "";
+    if (aOption.hasShortOpt ())
+      ret += PREFIX_SHORT_OPT + aOption.getShortOpt ();
+    if (aOption.hasLongOpt ())
+    {
+      if (ret.length () > 0)
+        ret += "/";
+      ret += PREFIX_LONG_OPT + aOption.getLongOpt ();
+    }
+    return ret;
   }
 
   @Nonnull
   public static ParsedCmdLine parseStatic (@Nonnull final ICommonsList <Option> aOptions,
-                                           @Nullable final String [] aArgs)
+                                           @Nullable final String [] aArgs) throws CmdLineParseException
   {
     ValueEnforcer.notNull (aOptions, "Options");
 
@@ -92,31 +112,107 @@ public class CmdLineParser
     final ICommonsMap <String, Option> aStrToOptionMap = new CommonsHashMap <> ();
     for (final Option aOption : aOptions)
     {
-      if (aOption.hasOpt ())
-        aStrToOptionMap.put (aOption.getOpt (), aOption);
+      if (aOption.hasShortOpt ())
+        aStrToOptionMap.put (aOption.getShortOpt (), aOption);
       if (aOption.hasLongOpt ())
         aStrToOptionMap.put (aOption.getLongOpt (), aOption);
     }
 
     final ParsedCmdLine ret = new ParsedCmdLine ();
     if (aArgs != null)
-      for (final String sArg : aArgs)
+      for (int nArgIndex = 0; nArgIndex < aArgs.length; ++nArgIndex)
+      {
+        final String sArg = StringHelper.trim (aArgs[nArgIndex]);
         if (StringHelper.hasText (sArg))
         {
           final MatchedOption aMatchedOption = _findMatchingOption (aStrToOptionMap, sArg);
           if (aMatchedOption != null)
           {
             // Found option - read values
-            s_aLogger.info ("Matched '" + aMatchedOption.m_sMatchedText + "' to " + aMatchedOption.m_aOption);
+            final Option aOption = aMatchedOption.m_aOption;
+            final String sValueInArg = sArg.substring (aMatchedOption.m_sMatchedText.length ());
+
+            if (s_aLogger.isDebugEnabled ())
+              s_aLogger.debug ("Matched '" +
+                               aMatchedOption.m_sMatchedText +
+                               "' to " +
+                               _getDisplayName (aOption) +
+                               (sValueInArg.length () > 0 ? "; rest is '" + sValueInArg + "'" : ""));
+
+            final int nMinArgs = aOption.getMinArgCount ();
+            final int nMaxArgs = aOption.getMaxArgCount ();
+            final boolean bUnlimitedArgs = aOption.hasUnlimitedArgs ();
+            final ICommonsList <String> aValues = new CommonsArrayList <> ();
+
+            if (StringHelper.hasText (sValueInArg))
+            {
+              // As e.g. in "-Dtest=value" or "-Xmx512m"
+              if (aOption.hasValueSeparator ())
+                StringHelper.explode (aOption.getValueSeparator (),
+                                      sValueInArg,
+                                      bUnlimitedArgs ? -1 : nMaxArgs,
+                                      aValues::add);
+              else
+                aValues.add (sValueInArg);
+            }
+
+            // Find remaining values
+            while (nArgIndex + 1 < aArgs.length && aOption.canHaveMoreValues (aValues.size ()))
+            {
+              final String sNextArg = StringHelper.trim (aArgs[nArgIndex + 1]);
+
+              // Is the next argument also an option?
+              if (_findMatchingOption (aStrToOptionMap, sNextArg) != null)
+              {
+                if (aValues.size () >= nMinArgs)
+                {
+                  // We already have all the required options - go to next
+                  // option
+                  break;
+                }
+
+                // It is an option, but the number of required arguments is too
+                // little
+              }
+
+              // Lets consume this argument
+              nArgIndex++;
+
+              if (StringHelper.hasText (sNextArg))
+              {
+                // As e.g. in "-Dtest=value" or "-Xmx512m"
+                if (aOption.hasValueSeparator ())
+                {
+                  StringHelper.explode (aOption.getValueSeparator (),
+                                        sNextArg,
+                                        bUnlimitedArgs ? -1 : nMaxArgs - aValues.size (),
+                                        aValues::add);
+                }
+                else
+                  aValues.add (sNextArg);
+              }
+            }
+
+            if (aValues.size () < nMinArgs)
+              throw new CmdLineParseException (_getDisplayName (aOption) +
+                                               " requires at least " +
+                                               nMinArgs +
+                                               " values but has only " +
+                                               aValues.size ());
+
+            ret.addValue (aOption, aValues);
           }
           else
-            _unknownToken (sArg);
+          {
+            ret.addUnhandledToken (sArg);
+          }
         }
+      }
     return ret;
   }
 
   @Nonnull
-  public ParsedCmdLine parse (@Nullable final String [] aArgs)
+  public ParsedCmdLine parse (@Nullable final String [] aArgs) throws CmdLineParseException
   {
     return parseStatic (m_aOptions, aArgs);
   }

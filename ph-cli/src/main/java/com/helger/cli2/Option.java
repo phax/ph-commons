@@ -20,8 +20,13 @@ package com.helger.cli2;
 import java.io.Serializable;
 
 import javax.annotation.CheckForSigned;
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.cli.CommandLine;
 import com.helger.commons.ValueEnforcer;
@@ -32,12 +37,15 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
+@Immutable
 public class Option implements Serializable
 {
   public static final char DEFAULT_VALUE_SEPARATOR = 0;
 
   /** constant that specifies the number of argument values is infinite */
-  public static final int UNLIMITED_VALUES = -2;
+  public static final int UNLIMITED_VALUES = -1;
+
+  private static final Logger s_aLogger = LoggerFactory.getLogger (Option.class);
 
   /** the name of the option */
   private final String m_sShortOpt;
@@ -48,19 +56,28 @@ public class Option implements Serializable
   /** description of the option */
   private final String m_sDescription;
 
-  /** specifies whether this option is required to be present */
-  private final boolean m_bRequired;
+  /** The minimum argument count. Must be &le; maxArgs */
+  private final int m_nMinArgs;
 
-  /** specifies whether the argument value of this Option is optional */
-  private final boolean m_bOptionalArg;
+  /** The maximum argument count. Must be &ge; minArgs */
+  private final int m_nMaxArgs;
 
-  /** the number of argument values this option can have */
-  private final int m_nNumberOfArgs;
-
-  /** the name of the argument for this option */
+  /**
+   * the name of the argument for this option. Makes only sense, if minArgs &gt;
+   * 0
+   */
   private final String m_sArgName;
 
-  /** the character that is the value separator */
+  /**
+   * specifies whether this option is required to be present. Makes only sense
+   * if minArgs &gt; 0
+   */
+  private final boolean m_bRequired;
+
+  /**
+   * the character that is the value separator. Makes only sense if minArgs &gt;
+   * 0
+   */
   private final char m_cValueSep;
 
   /**
@@ -72,40 +89,20 @@ public class Option implements Serializable
   protected Option (@Nonnull final Builder aBuilder)
   {
     ValueEnforcer.notNull (aBuilder, "Builder");
-    m_sShortOpt = aBuilder.m_sOpt;
+    m_sShortOpt = aBuilder.m_sShortOpt;
     m_sLongOpt = aBuilder.m_sLongOpt;
     m_sDescription = aBuilder.m_sDescription;
-    m_bRequired = aBuilder.m_bRequired;
-    m_bOptionalArg = aBuilder.m_bOptionalArg;
-    m_nNumberOfArgs = aBuilder.m_nNumberOfArgs;
+    m_nMinArgs = aBuilder.m_nMinArgs;
+    m_nMaxArgs = aBuilder.m_nMaxArgs;
     m_sArgName = aBuilder.m_sArgName;
+    m_bRequired = aBuilder.m_bRequired;
     m_cValueSep = aBuilder.m_cValueSep;
-    // No values
-  }
-
-  /**
-   * Constructor for cloning
-   *
-   * @param aOther
-   *        The object to clone from.
-   */
-  protected Option (@Nonnull final Option aOther)
-  {
-    ValueEnforcer.notNull (aOther, "Other");
-    m_sShortOpt = aOther.m_sShortOpt;
-    m_sLongOpt = aOther.m_sLongOpt;
-    m_sDescription = aOther.m_sDescription;
-    m_bRequired = aOther.m_bRequired;
-    m_bOptionalArg = aOther.m_bOptionalArg;
-    m_nNumberOfArgs = aOther.m_nNumberOfArgs;
-    m_sArgName = aOther.m_sArgName;
-    m_cValueSep = aOther.m_cValueSep;
   }
 
   /**
    * @return the 'unique' internal Option identifier. Either short or long
    *         option name.
-   * @see #getOpt()
+   * @see #getShortOpt()
    * @see #getLongOpt()
    */
   @Nonnull
@@ -113,7 +110,7 @@ public class Option implements Serializable
   public final String getKey ()
   {
     // if 'opt' is null, then it is a 'long' option
-    return hasOpt () ? m_sShortOpt : m_sLongOpt;
+    return hasShortOpt () ? m_sShortOpt : m_sLongOpt;
   }
 
   /**
@@ -124,23 +121,23 @@ public class Option implements Serializable
    *
    * @return The name of this option. May be <code>null</code> if this instance
    *         only has a "long option".
-   * @see #hasOpt()
+   * @see #hasShortOpt()
    * @see #getLongOpt()
    */
   @Nullable
-  public String getOpt ()
+  public String getShortOpt ()
   {
     return m_sShortOpt;
   }
 
-  public boolean hasOpt ()
+  public boolean hasShortOpt ()
   {
     return StringHelper.hasText (m_sShortOpt);
   }
 
-  public boolean hasOpt (@Nullable final String sOpt)
+  public boolean hasShortOpt (@Nullable final String sShortOpt)
   {
-    return sOpt != null && sOpt.equals (m_sShortOpt);
+    return sShortOpt != null && sShortOpt.equals (m_sShortOpt);
   }
 
   /**
@@ -149,7 +146,7 @@ public class Option implements Serializable
    * @return Long name of this option, or <code>null</code> if there is no long
    *         name.
    * @see #hasLongOpt()
-   * @see #getOpt()
+   * @see #getShortOpt()
    */
   @Nullable
   public String getLongOpt ()
@@ -193,13 +190,40 @@ public class Option implements Serializable
   }
 
   /**
-   * Query to see if this {@link Option} is mandatory
-   *
-   * @return boolean flag indicating whether this Option is mandatory
+   * @return Minimum number of (required) arguments. Always &ge; 0.
    */
-  public boolean isRequired ()
+  @Nonnegative
+  public int getMinArgCount ()
   {
-    return m_bRequired;
+    return m_nMinArgs;
+  }
+
+  /**
+   * @return Maximum number of arguments. Is always &ge; 0 or
+   *         {@link #UNLIMITED_VALUES} for unlimited arguments.
+   */
+  @Nonnegative
+  public int getMaxArgCount ()
+  {
+    return m_nMaxArgs;
+  }
+
+  public boolean hasUnlimitedArgs ()
+  {
+    return m_nMaxArgs == UNLIMITED_VALUES;
+  }
+
+  public boolean canHaveMoreValues (final int nSize)
+  {
+    return hasUnlimitedArgs () || nSize < m_nMaxArgs;
+  }
+
+  @CheckForSigned
+  public int getOptionalArgCount ()
+  {
+    if (m_nMaxArgs == UNLIMITED_VALUES)
+      return UNLIMITED_VALUES;
+    return m_nMaxArgs - m_nMinArgs;
   }
 
   /**
@@ -211,6 +235,16 @@ public class Option implements Serializable
   public String getArgName ()
   {
     return m_sArgName;
+  }
+
+  /**
+   * Query to see if this {@link Option} is mandatory
+   *
+   * @return boolean flag indicating whether this Option is mandatory
+   */
+  public boolean isRequired ()
+  {
+    return m_bRequired;
   }
 
   /**
@@ -243,53 +277,6 @@ public class Option implements Serializable
     return m_cValueSep != DEFAULT_VALUE_SEPARATOR;
   }
 
-  /**
-   * Returns the number of argument values this Option can take. A value equal
-   * to the constant {@link #UNLIMITED_VALUES} indicates that this options takes
-   * an unlimited amount of values.
-   *
-   * @return num the number of argument values.
-   * @see #isUnlimitedNumberOfArgs()
-   */
-  @CheckForSigned
-  public int getNumberOfArgs ()
-  {
-    return m_nNumberOfArgs;
-  }
-
-  public boolean isUnlimitedNumberOfArgs ()
-  {
-    return m_nNumberOfArgs == UNLIMITED_VALUES;
-  }
-
-  /**
-   * Query to see if this Option requires an argument
-   *
-   * @return boolean flag indicating if an argument is required
-   */
-  public boolean hasAtLeastOneArg ()
-  {
-    return m_nNumberOfArgs > 0 || isUnlimitedNumberOfArgs ();
-  }
-
-  /**
-   * Query to see if this Option can take many values.
-   *
-   * @return boolean flag indicating if multiple values are allowed
-   */
-  public boolean hasMoreThanOneArgs ()
-  {
-    return m_nNumberOfArgs > 1 || isUnlimitedNumberOfArgs ();
-  }
-
-  /**
-   * @return whether this Option can have an optional argument
-   */
-  public boolean isArgOptional ()
-  {
-    return m_bOptionalArg;
-  }
-
   @Override
   public boolean equals (final Object o)
   {
@@ -314,11 +301,13 @@ public class Option implements Serializable
     return new ToStringGenerator (this).append ("Opt", m_sShortOpt)
                                        .append ("LongOpt", m_sLongOpt)
                                        .append ("Description", m_sDescription)
+                                       .appendIf ("MinArgs", m_nMinArgs, (final int x) -> x != 0)
+                                       .appendIf ("MaxArgs", m_nMaxArgs, (final int x) -> x != 0)
                                        .append ("Required", m_bRequired)
-                                       .append ("OptionalArg", m_bOptionalArg)
-                                       .append ("NumberOfArgs", m_nNumberOfArgs)
-                                       .append ("ArgName", m_sArgName)
-                                       .append ("ValueSep", m_cValueSep)
+                                       .appendIfNotNull ("ArgName", m_sArgName)
+                                       .appendIf ("ValueSep",
+                                                  m_cValueSep,
+                                                  (final char x) -> x != DEFAULT_VALUE_SEPARATOR)
                                        .getToString ();
   }
 
@@ -326,16 +315,16 @@ public class Option implements Serializable
    * Returns a {@link Builder} to create an {@link Option} using descriptive
    * methods.
    *
-   * @param sOpt
+   * @param sShortOpt
    *        short representation of the option
    * @return a new {@link Builder} instance
    * @throws IllegalArgumentException
    *         if there are any non valid Option characters in {@code opt}
    */
   @Nonnull
-  public static Builder builder (@Nullable final String sOpt)
+  public static Builder builder (@Nullable final String sShortOpt)
   {
-    return new Builder (sOpt);
+    return new Builder (sShortOpt);
   }
 
   /**
@@ -351,7 +340,7 @@ public class Option implements Serializable
   public static class Builder implements Serializable
   {
     /** the name of the option */
-    private final String m_sOpt;
+    private final String m_sShortOpt;
 
     /** the long representation of the option */
     private String m_sLongOpt;
@@ -359,35 +348,44 @@ public class Option implements Serializable
     /** description of the option */
     private String m_sDescription;
 
-    /** specifies whether this option is required to be present */
-    private boolean m_bRequired;
+    /** The minimum argument count. Must be &le; maxArgs */
+    private int m_nMinArgs = 0;
 
-    /** specifies whether the argument value of this Option is optional */
-    private boolean m_bOptionalArg;
+    /** The maximum argument count. Must be &ge; minArgs */
+    private int m_nMaxArgs = 0;
 
-    /** the number of argument values this option can have */
-    private int m_nNumberOfArgs = 0;
-
-    /** the name of the argument for this option */
+    /**
+     * the name of the argument for this option. Makes only sense, if minArgs
+     * &gt; 0
+     */
     private String m_sArgName;
 
-    /** the character that is the value separator */
+    /**
+     * specifies whether this option is required to be present. Makes only sense
+     * if minArgs &gt; 0
+     */
+    private boolean m_bRequired = false;
+
+    /**
+     * the character that is the value separator in case the value. Makes only
+     * sense if minArgs &gt; 0
+     */
     private char m_cValueSep = DEFAULT_VALUE_SEPARATOR;
 
     /**
      * Constructs a new <code>Builder</code> with the minimum required
      * parameters for an <code>Option</code> instance.
      *
-     * @param sOpt
+     * @param sShortOpt
      *        short representation of the option
      * @throws IllegalArgumentException
      *         if there are any non valid Option characters in {@code opt}
      */
-    protected Builder (@Nullable final String sOpt) throws IllegalArgumentException
+    protected Builder (@Nullable final String sShortOpt) throws IllegalArgumentException
     {
-      if (sOpt != null)
-        OptionValidator.validateShortOption (sOpt);
-      m_sOpt = sOpt;
+      if (sShortOpt != null)
+        OptionValidator.validateShortOption (sShortOpt);
+      m_sShortOpt = sShortOpt;
     }
 
     /**
@@ -419,21 +417,92 @@ public class Option implements Serializable
     }
 
     /**
-     * Sets whether the Option is mandatory.
+     * Set the minimum number of arguments that must be present. By default it
+     * is 0. This is the number of required arguments.
      *
-     * @param bRequired
-     *        specifies whether the Option is mandatory
-     * @return this builder, to allow method chaining
+     * @param nMinArgs
+     *        Number of minimum arguments. Must be &ge; 0.
+     * @return this for chaining
      */
     @Nonnull
-    public Builder required (final boolean bRequired)
+    public Builder minArgs (@Nonnegative final int nMinArgs)
     {
-      m_bRequired = bRequired;
+      ValueEnforcer.isGE0 (nMinArgs, "MinArgs");
+      m_nMinArgs = nMinArgs;
       return this;
     }
 
     /**
-     * Sets the display name for the argument value.
+     * Set the maximum number of arguments that can be present. By default it is
+     * 0. The difference between minimum and maximum arguments are the optional
+     * arguments.
+     *
+     * @param nMaxArgs
+     *        Number of maximum arguments. Must be &ge; 0 or
+     *        {@link #UNLIMITED_VALUES}
+     * @return this for chaining
+     * @see #maxArgsUnlimited()
+     */
+    @Nonnull
+    public Builder maxArgs (final int nMaxArgs)
+    {
+      ValueEnforcer.isTrue (nMaxArgs == UNLIMITED_VALUES || nMaxArgs >= 0,
+                            () -> "MaxArgs must be " + UNLIMITED_VALUES + " or >= 0!");
+      m_nMaxArgs = nMaxArgs;
+      return this;
+    }
+
+    /**
+     * Shortcut for <code>maxArgs (UNLIMITED_VALUES);</code>
+     *
+     * @return this for chaining
+     * @see #maxArgs(int)
+     */
+    @Nonnull
+    public Builder maxArgsUnlimited ()
+    {
+      return maxArgs (UNLIMITED_VALUES);
+    }
+
+    /**
+     * Shortcut for setting minArgs and maxArgs at once
+     *
+     * @param nMinArgs
+     *        Number of minimum arguments. Must be &ge; 0.
+     * @param nMaxArgs
+     *        Number of maximum arguments. Must be &ge; 0 or
+     *        {@link #UNLIMITED_VALUES}
+     * @return this for chaining
+     * @see #minArgs(int)
+     * @see #maxArgs(int)
+     * @see #args(int)
+     */
+    @Nonnull
+    public Builder args (@Nonnegative final int nMinArgs, final int nMaxArgs)
+    {
+      return minArgs (nMinArgs).maxArgs (nMaxArgs);
+    }
+
+    /**
+     * Shortcut for setting minArgs and maxArgs to the same value, making this
+     * the number of required arguments.
+     *
+     * @param nArgs
+     *        Number of arguments. Must be &ge; 0.
+     * @return this for chaining
+     * @see #minArgs(int)
+     * @see #maxArgs(int)
+     * @see #args(int, int)
+     */
+    @Nonnull
+    public Builder args (@Nonnegative final int nArgs)
+    {
+      return minArgs (nArgs).maxArgs (nArgs);
+    }
+
+    /**
+     * Sets the display name for the argument value. May only be used if at
+     * least one argument is present.
      *
      * @param sArgName
      *        the display name for the argument value.
@@ -446,60 +515,17 @@ public class Option implements Serializable
       return this;
     }
 
-    @Nonnull
-    public Builder oneOptionalArg ()
-    {
-      return optionalNumberOfArgs (1);
-    }
-
-    @Nonnull
-    public Builder unlimitedOptionalArgs ()
-    {
-      return optionalNumberOfArgs (UNLIMITED_VALUES);
-    }
-
-    @Nonnull
-    public Builder optionalNumberOfArgs (final int nNumberOfArgs)
-    {
-      m_bOptionalArg = true;
-      m_nNumberOfArgs = nNumberOfArgs;
-      return this;
-    }
-
     /**
-     * Indicates that the Option will require an argument.
+     * Sets whether the Option is mandatory.
      *
+     * @param bRequired
+     *        specifies whether the Option is mandatory
      * @return this builder, to allow method chaining
      */
     @Nonnull
-    public Builder oneRequiredArg ()
+    public Builder required (final boolean bRequired)
     {
-      return requiredNumberOfArgs (1);
-    }
-
-    /**
-     * Indicates that the Option can have unlimited argument values.
-     *
-     * @return this builder, to allow method chaining
-     */
-    @Nonnull
-    public Builder unlimitedRequiredArgs ()
-    {
-      return requiredNumberOfArgs (Option.UNLIMITED_VALUES);
-    }
-
-    /**
-     * Sets the number of argument values the Option can take.
-     *
-     * @param nNumberOfArgs
-     *        the number of argument values
-     * @return this builder, to allow method chaining
-     */
-    @Nonnull
-    public Builder requiredNumberOfArgs (final int nNumberOfArgs)
-    {
-      m_bOptionalArg = false;
-      m_nNumberOfArgs = nNumberOfArgs;
+      m_bRequired = bRequired;
       return this;
     }
 
@@ -542,8 +568,20 @@ public class Option implements Serializable
     @ReturnsMutableCopy
     public Option build ()
     {
-      if (StringHelper.hasNoText (m_sOpt) && StringHelper.hasNoText (m_sLongOpt))
-        throw new IllegalArgumentException ("Either opt or longOpt must be specified");
+      if (StringHelper.hasNoText (m_sShortOpt) && StringHelper.hasNoText (m_sLongOpt))
+        throw new IllegalStateException ("Either opt or longOpt must be specified");
+      if (m_nMaxArgs != UNLIMITED_VALUES && m_nMaxArgs < m_nMinArgs)
+        throw new IllegalStateException ("MinArgs (" + m_nMinArgs + ") must be <= MaxArgs (" + m_nMaxArgs + ")");
+      if (m_nMinArgs == 0 && m_nMaxArgs == 0)
+      {
+        if (m_sArgName != null)
+          throw new IllegalStateException ("ArgName may only be provided if at least one argument is present");
+        if (m_bRequired)
+          s_aLogger.warn ("Having a required option without an argument may not be what is desired.");
+        if (m_cValueSep != DEFAULT_VALUE_SEPARATOR)
+          throw new IllegalStateException ("ValueSeparator may only be provided if at least one argument is present");
+      }
+
       return new Option (this);
     }
   }
