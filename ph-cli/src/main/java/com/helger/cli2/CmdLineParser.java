@@ -35,11 +35,12 @@ public class CmdLineParser
     }
   }
 
-  private final ICommonsList <Option> m_aOptions;
+  private final Options m_aOptions;
 
-  public CmdLineParser (@Nullable final Iterable <? extends Option> aOptions)
+  public CmdLineParser (@Nonnull final Options aOptions)
   {
-    m_aOptions = new CommonsArrayList <> (aOptions);
+    ValueEnforcer.notNull (aOptions, "Options");
+    m_aOptions = aOptions;
   }
 
   @Nullable
@@ -105,14 +106,16 @@ public class CmdLineParser
   }
 
   @Nonnull
-  public static ParsedCmdLine parseStatic (@Nonnull final ICommonsList <Option> aOptions,
+  public static ParsedCmdLine parseStatic (@Nonnull final Options aOptions,
                                            @Nullable final String [] aArgs) throws CmdLineParseException
   {
     ValueEnforcer.notNull (aOptions, "Options");
 
+    final ICommonsList <Option> aAllOptions = aOptions.getAllOptions ();
+
     // Create map from option name to option definition
     final ICommonsMap <String, Option> aStrToOptionMap = new CommonsHashMap <> ();
-    for (final Option aOption : aOptions)
+    for (final Option aOption : aAllOptions)
     {
       if (aOption.hasShortOpt ())
         aStrToOptionMap.put (aOption.getShortOpt (), aOption);
@@ -222,7 +225,7 @@ public class CmdLineParser
       }
 
     // Check if all required options are present
-    for (final Option aOption : aOptions)
+    for (final Option aOption : aAllOptions)
       if (aOption.isRequired () && !ret.hasOption (aOption))
         throw new CmdLineParseException (ECmdLineParseError.REQUIRED_OPTION_IS_MISSING,
                                          aOption,

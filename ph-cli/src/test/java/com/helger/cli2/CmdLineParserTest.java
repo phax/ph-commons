@@ -11,7 +11,6 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.ICommonsList;
 
 /**
  * Test class for class {@link CmdLineParser}.
@@ -22,12 +21,12 @@ public class CmdLineParserTest
 {
   private static void _parse (final String... aArgs) throws CmdLineParseException
   {
-    final ICommonsList <Option> aOptions = new CommonsArrayList <> (Option.builder ("D")
-                                                                          .longOpt ("def")
-                                                                          .desc ("Define what so ever")
-                                                                          .args (1)
-                                                                          .valueSeparator (';')
-                                                                          .build ());
+    final Options aOptions = new Options ().addOption (Option.builder ("D")
+                                                             .longOpt ("def")
+                                                             .desc ("Define what so ever")
+                                                             .args (1)
+                                                             .valueSeparator (';')
+                                                             .build ());
     final CmdLineParser p = new CmdLineParser (aOptions);
     final ParsedCmdLine aPCL = p.parse (aArgs);
     assertNotNull (aPCL);
@@ -54,10 +53,7 @@ public class CmdLineParserTest
   @Test
   public void testValuesBasic () throws CmdLineParseException
   {
-    final ICommonsList <Option> aOptions = new CommonsArrayList <> (Option.builder ("D")
-                                                                          .longOpt ("def")
-                                                                          .args (2)
-                                                                          .build ());
+    final Options aOptions = new Options ().addOption (Option.builder ("D").longOpt ("def").args (2).build ());
     final CmdLineParser p = new CmdLineParser (aOptions);
 
     try
@@ -95,12 +91,12 @@ public class CmdLineParserTest
   @Test
   public void testValuesValueSep () throws CmdLineParseException
   {
-    final ICommonsList <Option> aOptions = new CommonsArrayList <> (Option.builder ("D")
-                                                                          .args (2)
-                                                                          .valueSeparator ('=')
-                                                                          .repeatable (false)
-                                                                          .required (true)
-                                                                          .build ());
+    final Options aOptions = new Options ().addOption (Option.builder ("D")
+                                                             .args (2)
+                                                             .valueSeparator ('=')
+                                                             .repeatable (false)
+                                                             .required (true)
+                                                             .build ());
     final CmdLineParser p = new CmdLineParser (aOptions);
 
     // With value separator
@@ -119,12 +115,12 @@ public class CmdLineParserTest
   @Test
   public void testValuesValueSepUnbounded () throws CmdLineParseException
   {
-    final ICommonsList <Option> aOptions = new CommonsArrayList <> (Option.builder ("D")
-                                                                          .longOpt ("def")
-                                                                          .minArgs (2)
-                                                                          .maxArgsInfinite ()
-                                                                          .valueSeparator ('=')
-                                                                          .build ());
+    final Options aOptions = new Options ().addOption (Option.builder ("D")
+                                                             .longOpt ("def")
+                                                             .minArgs (2)
+                                                             .maxArgsInfinite ()
+                                                             .valueSeparator ('=')
+                                                             .build ());
     final CmdLineParser p = new CmdLineParser (aOptions);
 
     // With value separator
@@ -149,13 +145,13 @@ public class CmdLineParserTest
   @Test
   public void testValuesValueSepUnboundedRepeatable () throws CmdLineParseException
   {
-    final ICommonsList <Option> aOptions = new CommonsArrayList <> (Option.builder ("D")
-                                                                          .longOpt ("def")
-                                                                          .minArgs (2)
-                                                                          .maxArgsInfinite ()
-                                                                          .repeatable (true)
-                                                                          .valueSeparator (';')
-                                                                          .build ());
+    final Options aOptions = new Options ().addOption (Option.builder ("D")
+                                                             .longOpt ("def")
+                                                             .minArgs (2)
+                                                             .maxArgsInfinite ()
+                                                             .repeatable (true)
+                                                             .valueSeparator (';')
+                                                             .build ());
     final CmdLineParser p = new CmdLineParser (aOptions);
 
     // With value separator
@@ -186,11 +182,11 @@ public class CmdLineParserTest
   @Test
   public void testParseUndefinedActions () throws CmdLineParseException
   {
-    final ICommonsList <Option> aOptions = new CommonsArrayList <> (Option.builder ("D")
-                                                                          .longOpt ("def")
-                                                                          .args (2)
-                                                                          .valueSeparator ('=')
-                                                                          .build ());
+    final Options aOptions = new Options ().addOption (Option.builder ("D")
+                                                             .longOpt ("def")
+                                                             .args (2)
+                                                             .valueSeparator ('=')
+                                                             .build ());
     final CmdLineParser p = new CmdLineParser (aOptions);
 
     ParsedCmdLine aPCL = p.parse (new String [] { "-foo", "-bar" });
@@ -208,10 +204,7 @@ public class CmdLineParserTest
   @Test
   public void testParseMultiple () throws CmdLineParseException
   {
-    final ICommonsList <Option> aOptions = new CommonsArrayList <> (Option.builder ("D")
-                                                                          .args (0, 2)
-                                                                          .repeatable (true)
-                                                                          .build ());
+    final Options aOptions = new Options ().addOption (Option.builder ("D").args (0, 2).repeatable (true).build ());
     final CmdLineParser p = new CmdLineParser (aOptions);
 
     ParsedCmdLine aPCL = p.parse (new String [] { "-D" });
@@ -244,11 +237,11 @@ public class CmdLineParserTest
   @Test
   public void testParseRequired () throws CmdLineParseException
   {
-    final ICommonsList <Option> aOptions = new CommonsArrayList <> (Option.builder ("D")
-                                                                          .args (2)
-                                                                          .valueSeparator ('=')
-                                                                          .required (true)
-                                                                          .build ());
+    final Options aOptions = new Options ().addOption (Option.builder ("D")
+                                                             .args (2)
+                                                             .valueSeparator ('=')
+                                                             .required (true)
+                                                             .build ());
     final CmdLineParser p = new CmdLineParser (aOptions);
 
     try
@@ -269,11 +262,11 @@ public class CmdLineParserTest
   @Test
   public void testParseNotRepeatable () throws CmdLineParseException
   {
-    final ICommonsList <Option> aOptions = new CommonsArrayList <> (Option.builder ("D")
-                                                                          .args (2)
-                                                                          .valueSeparator ('=')
-                                                                          .repeatable (false)
-                                                                          .build ());
+    final Options aOptions = new Options ().addOption (Option.builder ("D")
+                                                             .args (2)
+                                                             .valueSeparator ('=')
+                                                             .repeatable (false)
+                                                             .build ());
     final CmdLineParser p = new CmdLineParser (aOptions);
 
     try
@@ -294,12 +287,10 @@ public class CmdLineParserTest
   @Test
   public void testParseChooseBest () throws CmdLineParseException
   {
-    final ICommonsList <Option> aOptions = new CommonsArrayList <> (Option.builder ("A")
-                                                                          .longOpt ("definition")
-                                                                          .build (),
-                                                                    Option.builder ("B").longOpt ("definitio").build (),
-                                                                    Option.builder ("C").longOpt ("definiti").build (),
-                                                                    Option.builder ("D").longOpt ("definit").build ());
+    final Options aOptions = new Options ().addOption (Option.builder ("A").longOpt ("definition").build ())
+                                           .addOption (Option.builder ("B").longOpt ("definitio").build ())
+                                           .addOption (Option.builder ("C").longOpt ("definiti").build ())
+                                           .addOption (Option.builder ("D").longOpt ("definit").build ());
     final CmdLineParser p = new CmdLineParser (aOptions);
 
     ParsedCmdLine aPCL = p.parse (new String [] { "--definition" });

@@ -19,7 +19,6 @@ package com.helger.cli2;
 
 import java.io.Serializable;
 
-import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -38,7 +37,7 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 @Immutable
-public class Option implements Serializable
+public class Option implements IOptionBase
 {
   public static enum EOptionMultiplicity
   {
@@ -294,12 +293,9 @@ public class Option implements Serializable
     return hasInfiniteArgs () || nSize < m_nMaxArgs;
   }
 
-  @CheckForSigned
-  public int getOptionalArgCount ()
+  public boolean canHaveArgs ()
   {
-    if (m_nMaxArgs == INFINITE_VALUES)
-      return INFINITE_VALUES;
-    return m_nMaxArgs - m_nMinArgs;
+    return hasInfiniteArgs () || m_nMaxArgs > 0;
   }
 
   /**
@@ -389,8 +385,8 @@ public class Option implements Serializable
                                        .appendIf ("MinArgs", m_nMinArgs, this::hasMinArgs)
                                        .appendIf ("MaxArgs",
                                                   m_nMaxArgs == INFINITE_VALUES ? "infinite"
-                                                                                 : Integer.toString (m_nMaxArgs),
-                                                  this::hasInfiniteArgs)
+                                                                                : Integer.toString (m_nMaxArgs),
+                                                  this::canHaveArgs)
                                        .appendIfNotNull ("ArgName", m_sArgName)
                                        .append ("Multiplicity", m_eMultiplicity)
                                        .appendIf ("ValueSep", m_cValueSep, this::hasValueSeparator)
