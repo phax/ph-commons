@@ -1,6 +1,6 @@
 package com.helger.cli2;
 
-import java.io.Serializable;
+import java.util.Iterator;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -8,15 +8,16 @@ import javax.annotation.Nullable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.ICommonsIterable;
 import com.helger.commons.collection.impl.ICommonsList;
 
 /**
  * Manager for {@link IOptionBase} objects which may be {@link Option} or
  * {@link OptionGroup}.
- * 
+ *
  * @author Philip Helger
  */
-public class Options implements Serializable
+public class Options implements ICommonsIterable <IOptionBase>
 {
   private final ICommonsList <IOptionBase> m_aOptions = new CommonsArrayList <> ();
 
@@ -45,13 +46,6 @@ public class Options implements Serializable
     return this;
   }
 
-  @Nullable
-  public OptionGroup getOptionGroup (final Option aOption)
-  {
-    // TODO
-    return null;
-  }
-
   @Nonnull
   @ReturnsMutableCopy
   public ICommonsList <Option> getAllOptions ()
@@ -60,9 +54,35 @@ public class Options implements Serializable
   }
 
   @Nonnull
-  @ReturnsMutableCopy
-  public ICommonsList <OptionGroup> getAllOptionGroups ()
+  public Iterator <IOptionBase> iterator ()
   {
-    return m_aOptions.getAllInstanceOf (OptionGroup.class);
+    return m_aOptions.iterator ();
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public ICommonsList <Option> getAllResolvedOptions ()
+  {
+    final ICommonsList <Option> ret = new CommonsArrayList <> ();
+    for (final IOptionBase aOptionBase : m_aOptions)
+      if (aOptionBase instanceof Option)
+        ret.add ((Option) aOptionBase);
+      else
+        ret.addAll (((OptionGroup) aOptionBase).getAllOptions ());
+    return ret;
+  }
+
+  @Nullable
+  public OptionGroup getOptionGroup (@Nullable final Option aOption)
+  {
+    if (aOption != null)
+      for (final IOptionBase aOptionBase : m_aOptions)
+        if (aOptionBase instanceof OptionGroup)
+        {
+          final OptionGroup aOptionGroup = (OptionGroup) aOptionBase;
+          if (aOptionGroup.contains (aOption))
+            return aOptionGroup;
+        }
+    return null;
   }
 }

@@ -24,7 +24,6 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
@@ -329,7 +328,6 @@ public final class HelpFormatterTest
   }
 
   @Test
-  @Ignore ("OptionGroups don't work yet")
   public void testPrintOptionGroupUsage ()
   {
     final OptionGroup group = new OptionGroup ().addOption (Option.builder ("a"))
@@ -349,7 +347,6 @@ public final class HelpFormatterTest
   }
 
   @Test
-  @Ignore ("OptionGroups don't work yet")
   public void testPrintRequiredOptionGroupUsage ()
   {
     final OptionGroup group = new OptionGroup ().addOption (Option.builder ("a"))

@@ -46,4 +46,21 @@ public class OptionGroup extends CommonsArrayList <Option> implements IOptionBas
   {
     return getClone ();
   }
+
+  @Override
+  public boolean equals (final Object o)
+  {
+    if (this == o)
+      return true;
+    if (o == null || getClass () != o.getClass ())
+      return false;
+
+    return super.equals (o);
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    return super.hashCode ();
+  }
 }

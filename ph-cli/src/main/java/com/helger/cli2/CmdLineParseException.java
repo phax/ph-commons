@@ -18,6 +18,7 @@
 package com.helger.cli2;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Base class for commandline parse exceptions. Is a checked exception, as
@@ -30,6 +31,7 @@ public class CmdLineParseException extends Exception
 {
   private final ECmdLineParseError m_eError;
   private final Option m_aOption;
+  private final OptionGroup m_aOptionGroup;
 
   /**
    * Constructor.
@@ -48,6 +50,27 @@ public class CmdLineParseException extends Exception
     super (sMessage);
     m_eError = eError;
     m_aOption = aOption;
+    m_aOptionGroup = null;
+  }
+
+  /**
+   * Constructor.
+   *
+   * @param eError
+   *        Error code. May not be <code>null</code>.
+   * @param aOptionGroup
+   *        Affected option group. May not be <code>null</code>.
+   * @param sMessage
+   *        the detail message
+   */
+  public CmdLineParseException (@Nonnull final ECmdLineParseError eError,
+                                @Nonnull final OptionGroup aOptionGroup,
+                                @Nonnull final String sMessage)
+  {
+    super (sMessage);
+    m_eError = eError;
+    m_aOption = null;
+    m_aOptionGroup = aOptionGroup;
   }
 
   @Nonnull
@@ -56,9 +79,15 @@ public class CmdLineParseException extends Exception
     return m_eError;
   }
 
-  @Nonnull
+  @Nullable
   public Option getOption ()
   {
     return m_aOption;
+  }
+
+  @Nullable
+  public OptionGroup getOptionGroup ()
+  {
+    return m_aOptionGroup;
   }
 }

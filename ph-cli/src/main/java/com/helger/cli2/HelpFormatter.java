@@ -634,7 +634,7 @@ public class HelpFormatter
     // create a list for processed option groups
     final ICommonsSet <OptionGroup> aProcessedGroups = new CommonsHashSet <> ();
 
-    final ICommonsList <Option> aOptList = aOptions.getAllOptions ();
+    final ICommonsList <Option> aOptList = aOptions.getAllResolvedOptions ();
     if (m_aOptionComparator != null)
       aOptList.sort (m_aOptionComparator);
 

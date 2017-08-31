@@ -106,6 +106,12 @@ public class CmdLineParser
   }
 
   @Nonnull
+  private static String _getDisplayName (@Nonnull final OptionGroup aOptionGroup)
+  {
+    return "[" + StringHelper.getImplodedMapped (" | ", aOptionGroup, CmdLineParser::_getDisplayName) + "]";
+  }
+
+  @Nonnull
   public static ParsedCmdLine parseStatic (@Nonnull final Options aOptions,
                                            @Nullable final String [] aArgs) throws CmdLineParseException
   {
@@ -225,11 +231,30 @@ public class CmdLineParser
       }
 
     // Check if all required options are present
-    for (final Option aOption : aAllOptions)
-      if (aOption.isRequired () && !ret.hasOption (aOption))
-        throw new CmdLineParseException (ECmdLineParseError.REQUIRED_OPTION_IS_MISSING,
-                                         aOption,
-                                         "The option " + _getDisplayName (aOption) + " is required but is missing!");
+    for (final IOptionBase aOptionBase : aOptions)
+      if (aOptionBase.isRequired ())
+      {
+        if (aOptionBase instanceof Option)
+        {
+          final Option aOption = (Option) aOptionBase;
+          if (!ret.hasOption (aOption))
+            throw new CmdLineParseException (ECmdLineParseError.REQUIRED_OPTION_IS_MISSING,
+                                             aOption,
+                                             "The option " +
+                                                      _getDisplayName (aOption) +
+                                                      " is required but is missing!");
+        }
+        else
+        {
+          final OptionGroup aOptionGroup = (OptionGroup) aOptionBase;
+          if (!ret.hasOption (aOptionGroup))
+            throw new CmdLineParseException (ECmdLineParseError.REQUIRED_OPTION_IS_MISSING,
+                                             aOptionGroup,
+                                             "An option of " +
+                                                           _getDisplayName (aOptionGroup) +
+                                                           " is required but is missing!");
+        }
+      }
 
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug ("Parsed command line args " + Arrays.toString (aArgs) + " to " + ret);

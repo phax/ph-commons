@@ -1,5 +1,7 @@
 package com.helger.cli2;
 
+import java.util.Map;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
@@ -16,7 +18,7 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public class ParsedCmdLine
 {
-  private final ICommonsOrderedMap <Option, ICommonsList <String>> m_aParams = new CommonsLinkedHashMap <> ();
+  private final ICommonsOrderedMap <IOptionBase, ICommonsList <String>> m_aParams = new CommonsLinkedHashMap <> ();
   private final ICommonsList <String> m_aUnknownTokens = new CommonsArrayList <> ();
 
   public ParsedCmdLine ()
@@ -37,19 +39,38 @@ public class ParsedCmdLine
   }
 
   @Nullable
-  private ICommonsList <String> _find (@Nullable final Option aOption)
+  private ICommonsList <String> _find (@Nullable final IOptionBase aOption)
   {
     return aOption == null ? null : m_aParams.get (aOption);
+  }
+
+  private static boolean _matches (@Nonnull final Option aOption, @Nonnull @Nonempty final String sOption)
+  {
+    return aOption.hasShortOpt (sOption) || aOption.hasLongOpt (sOption);
   }
 
   @Nullable
   private ICommonsList <String> _find (@Nullable final String sOption)
   {
-    return StringHelper.hasNoText (sOption) ? null : m_aParams.findFirstValue (x -> x.getKey ().hasShortOpt (sOption) ||
-                                                                                    x.getKey ().hasLongOpt (sOption));
+    if (StringHelper.hasNoText (sOption))
+      return null;
+
+    for (final Map.Entry <IOptionBase, ICommonsList <String>> aEntry : m_aParams.entrySet ())
+      if (aEntry.getKey () instanceof Option)
+      {
+        if (_matches ((Option) aEntry.getKey (), sOption))
+          return aEntry.getValue ();
+      }
+      else
+      {
+        for (final Option aOption : (OptionGroup) aEntry.getKey ())
+          if (_matches (aOption, sOption))
+            return aEntry.getValue ();
+      }
+    return null;
   }
 
-  public boolean hasOption (@Nullable final Option aOption)
+  public boolean hasOption (@Nullable final IOptionBase aOption)
   {
     return _find (aOption) != null;
   }
@@ -60,7 +81,7 @@ public class ParsedCmdLine
   }
 
   @Nullable
-  public String getValue (@Nonnull final Option aOption)
+  public String getValue (@Nonnull final IOptionBase aOption)
   {
     final ICommonsList <String> aValues = _find (aOption);
     return aValues == null ? null : aValues.getFirst ();
@@ -74,7 +95,7 @@ public class ParsedCmdLine
   }
 
   @Nullable
-  public ICommonsList <String> getAllValues (@Nonnull final Option aOption)
+  public ICommonsList <String> getAllValues (@Nonnull final IOptionBase aOption)
   {
     final ICommonsList <String> aValues = _find (aOption);
     return aValues == null ? null : aValues.getClone ();
