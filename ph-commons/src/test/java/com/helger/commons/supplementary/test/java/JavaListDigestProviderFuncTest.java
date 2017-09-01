@@ -20,6 +20,7 @@ import java.security.Provider;
 import java.security.Security;
 import java.util.Comparator;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,9 +33,10 @@ public final class JavaListDigestProviderFuncTest
   private static final Logger s_aLogger = LoggerFactory.getLogger (JavaListDigestProviderFuncTest.class);
 
   @Test
+  @Ignore ("Too verbose")
   public void testListAllDigestProvider ()
   {
-    for (final Provider aElement : new CommonsArrayList<> (Security.getProviders ()).getSortedInline (Comparator.comparing (Provider::getName)))
+    for (final Provider aElement : new CommonsArrayList <> (Security.getProviders ()).getSortedInline (Comparator.comparing (Provider::getName)))
     {
       s_aLogger.info ("Provider: '" + aElement + "'");
 

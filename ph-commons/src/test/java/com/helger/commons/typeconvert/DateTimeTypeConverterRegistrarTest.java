@@ -158,7 +158,7 @@ public final class DateTimeTypeConverterRegistrarTest
   @Test
   public void testConvertIntoEachOther ()
   {
-    final ICommonsOrderedMap <Class <?>, Object> aValues = new CommonsLinkedHashMap<> ();
+    final ICommonsOrderedMap <Class <?>, Object> aValues = new CommonsLinkedHashMap <> ();
     aValues.put (Date.class, new Date ());
     aValues.put (Calendar.class, PDTFactory.createCalendar ());
     aValues.put (GregorianCalendar.class, PDTFactory.createGregorianCalendar ());
@@ -197,7 +197,8 @@ public final class DateTimeTypeConverterRegistrarTest
           }
           else
           {
-            s_aLogger.info ("Converting from " + aSrc.getKey ().getName () + " to " + aDst.getName ());
+            if (s_aLogger.isDebugEnabled ())
+              s_aLogger.debug ("Converting from " + aSrc.getKey ().getName () + " to " + aDst.getName ());
             final Object aDstValue = TypeConverter.convert (aSrc.getValue (), aDst);
             assertNotNull (aDstValue);
           }

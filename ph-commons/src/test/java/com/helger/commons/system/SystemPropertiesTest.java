@@ -24,6 +24,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Map;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
@@ -37,12 +38,17 @@ import com.helger.commons.mock.AbstractCommonsTestCase;
 public final class SystemPropertiesTest extends AbstractCommonsTestCase
 {
   @Test
-  public void testGetAll ()
+  @Ignore ("Too verbose")
+  public void testPrintAll ()
   {
     for (final Map.Entry <String, String> aEntry : CollectionHelper.getSortedByKey (SystemProperties.getAllProperties ())
                                                                    .entrySet ())
       m_aLogger.info ("[all] " + aEntry.getKey () + "=" + aEntry.getValue ());
+  }
 
+  @Test
+  public void testGetAll ()
+  {
     for (final String sKey : SystemProperties.getAllPropertyNames ())
       assertNotNull (SystemProperties.getPropertyValue (sKey));
 

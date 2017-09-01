@@ -19,6 +19,7 @@ package com.helger.commons.supplementary.test.java;
 import java.util.Comparator;
 import java.util.Locale;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +32,7 @@ public final class JavaListAllLocalesFuncTest
   private static final Logger s_aLogger = LoggerFactory.getLogger (JavaListAllLocalesFuncTest.class);
 
   @Test
+  @Ignore ("Too verbose")
   public void testListAllCountries ()
   {
     for (final Locale aLocale : CollectionHelper.getSorted (Locale.getAvailableLocales (),

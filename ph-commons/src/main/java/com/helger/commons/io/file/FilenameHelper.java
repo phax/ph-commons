@@ -922,7 +922,9 @@ public final class FilenameHelper
       catch (final IOException ex)
       {
         // Use our method
-        s_aLogger.warn ("Using getCleanPath on an invalid file '" + aFile + "'", ex);
+        // This is most likely an IOException from "File.getCanonicalPath ()"
+        // stating "Invalid file path"
+        s_aLogger.warn ("Using getCleanPath on an invalid file '" + aFile + "' - " + ex.getMessage ());
       }
 
     // Fallback: do it manually
@@ -1012,7 +1014,7 @@ public final class FilenameHelper
     }
 
     // Start splitting into paths
-    final ICommonsList <String> aElements = new CommonsArrayList<> ();
+    final ICommonsList <String> aElements = new CommonsArrayList <> ();
     int nParentFolders = 0;
     final String [] aPathArray = StringHelper.getExplodedArray (UNIX_SEPARATOR, sPathToUse);
 

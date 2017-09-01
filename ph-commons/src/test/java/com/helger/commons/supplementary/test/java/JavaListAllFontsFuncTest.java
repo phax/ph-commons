@@ -19,6 +19,7 @@ package com.helger.commons.supplementary.test.java;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +29,7 @@ public final class JavaListAllFontsFuncTest
   private static final Logger s_aLogger = LoggerFactory.getLogger (JavaListAllFontsFuncTest.class);
 
   @Test
+  @Ignore ("Too verbose")
   public void testGetAllFonts ()
   {
     for (final Font aFont : GraphicsEnvironment.getLocalGraphicsEnvironment ().getAllFonts ())

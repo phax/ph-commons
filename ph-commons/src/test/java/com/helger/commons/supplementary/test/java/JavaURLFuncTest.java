@@ -22,6 +22,7 @@ import java.net.URL;
 
 import javax.annotation.Nonnull;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,6 +48,7 @@ public final class JavaURLFuncTest
   }
 
   @Test
+  @Ignore ("Too verbose")
   public void testURLParts () throws URISyntaxException, MalformedURLException
   {
     _log (new URL ("http://example.com:80/docs/books/tutorial/index.html?name=networking&x=y#DOWNLOADING"));

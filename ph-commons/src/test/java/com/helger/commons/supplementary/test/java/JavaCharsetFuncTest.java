@@ -19,6 +19,7 @@ package com.helger.commons.supplementary.test.java;
 import java.nio.charset.Charset;
 import java.util.Map;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +29,7 @@ public final class JavaCharsetFuncTest
   private static final Logger s_aLogger = LoggerFactory.getLogger (JavaCharsetFuncTest.class);
 
   @Test
+  @Ignore ("Too verbose")
   public void testAllCharsets ()
   {
     for (final Map.Entry <String, Charset> aEntry : Charset.availableCharsets ().entrySet ())
@@ -35,6 +37,7 @@ public final class JavaCharsetFuncTest
   }
 
   @Test
+  @Ignore ("Too verbose")
   public void testAllCharsetNamess ()
   {
     s_aLogger.info (Charset.availableCharsets ().keySet ().toString ());

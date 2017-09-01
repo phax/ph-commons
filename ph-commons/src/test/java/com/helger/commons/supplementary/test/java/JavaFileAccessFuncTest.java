@@ -78,7 +78,8 @@ public final class JavaFileAccessFuncTest
 
   private static synchronized void _println (final String s)
   {
-    s_aLogger.info (s);
+    if (s_aLogger.isDebugEnabled ())
+      s_aLogger.debug (s);
   }
 
   private static void _exec (@Nonnull final String... aCmdArray) throws IOException, InterruptedException
