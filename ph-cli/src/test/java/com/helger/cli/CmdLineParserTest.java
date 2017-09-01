@@ -10,13 +10,6 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.cli.CmdLineParseException;
-import com.helger.cli.CmdLineParser;
-import com.helger.cli.ECmdLineParseError;
-import com.helger.cli.Option;
-import com.helger.cli.OptionGroup;
-import com.helger.cli.Options;
-import com.helger.cli.ParsedCmdLine;
 import com.helger.commons.collection.impl.CommonsArrayList;
 
 /**
@@ -90,9 +83,9 @@ public class CmdLineParserTest
     assertEquals ("name", aPCL.getValue ("D"));
     assertEquals ("name", aPCL.getValue ("def"));
     assertNull (aPCL.getValue ("e"));
-    assertEquals (new CommonsArrayList <> ("name", "value"), aPCL.getAllValues ("D"));
-    assertEquals (new CommonsArrayList <> ("name", "value"), aPCL.getAllValues ("def"));
-    assertNull (aPCL.getAllValues ("e"));
+    assertEquals (new CommonsArrayList <> ("name", "value"), aPCL.values ("D"));
+    assertEquals (new CommonsArrayList <> ("name", "value"), aPCL.values ("def"));
+    assertNull (aPCL.values ("e"));
   }
 
   @Test
@@ -110,13 +103,13 @@ public class CmdLineParserTest
     ParsedCmdLine aPCL = p.parse (new String [] { "-D", "name=value" });
     assertTrue (aPCL.hasOption ("D"));
     assertEquals ("name", aPCL.getValue ("D"));
-    assertEquals (new CommonsArrayList <> ("name", "value"), aPCL.getAllValues ("D"));
+    assertEquals (new CommonsArrayList <> ("name", "value"), aPCL.values ("D"));
 
     // Without value separator
     aPCL = p.parse (new String [] { "-D", "name", "value" });
     assertTrue (aPCL.hasOption ("D"));
     assertEquals ("name", aPCL.getValue ("D"));
-    assertEquals (new CommonsArrayList <> ("name", "value"), aPCL.getAllValues ("D"));
+    assertEquals (new CommonsArrayList <> ("name", "value"), aPCL.values ("D"));
   }
 
   @Test
@@ -134,19 +127,19 @@ public class CmdLineParserTest
     ParsedCmdLine aPCL = p.parse (new String [] { "-Dvalue0=value1=value2=value3=value4" });
     assertTrue (aPCL.hasOption ("D"));
     assertEquals ("value0", aPCL.getValue ("D"));
-    assertEquals (new CommonsArrayList <> ("value0", "value1", "value2", "value3", "value4"), aPCL.getAllValues ("D"));
+    assertEquals (new CommonsArrayList <> ("value0", "value1", "value2", "value3", "value4"), aPCL.values ("D"));
 
     // With value separator
     aPCL = p.parse (new String [] { "-D", "value0=value1", "value2=value3=value4" });
     assertTrue (aPCL.hasOption ("D"));
     assertEquals ("value0", aPCL.getValue ("D"));
-    assertEquals (new CommonsArrayList <> ("value0", "value1", "value2", "value3", "value4"), aPCL.getAllValues ("D"));
+    assertEquals (new CommonsArrayList <> ("value0", "value1", "value2", "value3", "value4"), aPCL.values ("D"));
 
     // Without value separator
     aPCL = p.parse (new String [] { "-D", "value0", "value1", "value2", "value3", "value4" });
     assertTrue (aPCL.hasOption ("D"));
     assertEquals ("value0", aPCL.getValue ("D"));
-    assertEquals (new CommonsArrayList <> ("value0", "value1", "value2", "value3", "value4"), aPCL.getAllValues ("D"));
+    assertEquals (new CommonsArrayList <> ("value0", "value1", "value2", "value3", "value4"), aPCL.values ("D"));
   }
 
   @Test
@@ -165,13 +158,13 @@ public class CmdLineParserTest
     ParsedCmdLine aPCL = p.parse (new String [] { "-Dvalue0;value1", "-Dvalue2;value3;value4" });
     assertTrue (aPCL.hasOption ("D"));
     assertEquals ("value0", aPCL.getValue ("D"));
-    assertEquals (new CommonsArrayList <> ("value0", "value1", "value2", "value3", "value4"), aPCL.getAllValues ("D"));
+    assertEquals (new CommonsArrayList <> ("value0", "value1", "value2", "value3", "value4"), aPCL.values ("D"));
 
     // Without value separator
     aPCL = p.parse (new String [] { "-D", "value0", "value1", "-D", "value2", "value3", "value4" });
     assertTrue (aPCL.hasOption ("D"));
     assertEquals ("value0", aPCL.getValue ("D"));
-    assertEquals (new CommonsArrayList <> ("value0", "value1", "value2", "value3", "value4"), aPCL.getAllValues ("D"));
+    assertEquals (new CommonsArrayList <> ("value0", "value1", "value2", "value3", "value4"), aPCL.values ("D"));
 
     // Without value separator
     try
@@ -201,11 +194,11 @@ public class CmdLineParserTest
 
     aPCL = p.parse (new String [] { "-Da=b", "-foo", "-bar" });
     assertTrue (aPCL.hasOption ("D"));
-    assertEquals (new CommonsArrayList <> ("a", "b"), aPCL.getAllValues ("D"));
+    assertEquals (new CommonsArrayList <> ("a", "b"), aPCL.values ("D"));
 
     aPCL = p.parse (new String [] { "-D", "-foo", "-bar" });
     assertTrue (aPCL.hasOption ("D"));
-    assertEquals (new CommonsArrayList <> ("-foo", "-bar"), aPCL.getAllValues ("D"));
+    assertEquals (new CommonsArrayList <> ("-foo", "-bar"), aPCL.values ("D"));
   }
 
   @Test
@@ -216,29 +209,29 @@ public class CmdLineParserTest
 
     ParsedCmdLine aPCL = p.parse (new String [] { "-D" });
     assertTrue (aPCL.hasOption ("D"));
-    assertEquals (new CommonsArrayList <> (), aPCL.getAllValues ("D"));
+    assertEquals (new CommonsArrayList <> (), aPCL.values ("D"));
 
     aPCL = p.parse (new String [] { "-D", "-D", "-D", "-D" });
     assertTrue (aPCL.hasOption ("D"));
-    assertEquals (new CommonsArrayList <> (), aPCL.getAllValues ("D"));
+    assertEquals (new CommonsArrayList <> (), aPCL.values ("D"));
 
     aPCL = p.parse (new String [] { "-D", "a" });
     assertTrue (aPCL.hasOption ("D"));
-    assertEquals (new CommonsArrayList <> ("a"), aPCL.getAllValues ("D"));
+    assertEquals (new CommonsArrayList <> ("a"), aPCL.values ("D"));
 
     aPCL = p.parse (new String [] { "-D", "a", "-D", "-D" });
     assertTrue (aPCL.hasOption ("D"));
-    assertEquals (new CommonsArrayList <> ("a"), aPCL.getAllValues ("D"));
+    assertEquals (new CommonsArrayList <> ("a"), aPCL.values ("D"));
 
     // Drop "c"
     aPCL = p.parse (new String [] { "-D", "a", "b", "c" });
     assertTrue (aPCL.hasOption ("D"));
-    assertEquals (new CommonsArrayList <> ("a", "b"), aPCL.getAllValues ("D"));
+    assertEquals (new CommonsArrayList <> ("a", "b"), aPCL.values ("D"));
 
     // Do not drop "c" - separate "-D"
     aPCL = p.parse (new String [] { "-D", "a", "-D", "b", "c" });
     assertTrue (aPCL.hasOption ("D"));
-    assertEquals (new CommonsArrayList <> ("a", "b", "c"), aPCL.getAllValues ("D"));
+    assertEquals (new CommonsArrayList <> ("a", "b", "c"), aPCL.values ("D"));
   }
 
   @Test
@@ -263,7 +256,7 @@ public class CmdLineParserTest
 
     final ParsedCmdLine aPCL = p.parse (new String [] { "-Dname=value", "-e", "15", "-port", "8080" });
     assertTrue (aPCL.hasOption ("D"));
-    assertEquals (new CommonsArrayList <> ("name", "value"), aPCL.getAllValues ("D"));
+    assertEquals (new CommonsArrayList <> ("name", "value"), aPCL.values ("D"));
   }
 
   @Test
@@ -288,7 +281,7 @@ public class CmdLineParserTest
 
     final ParsedCmdLine aPCL = p.parse (new String [] { "-Dname=value", "-e", "15", "-port", "8080" });
     assertTrue (aPCL.hasOption ("D"));
-    assertEquals (new CommonsArrayList <> ("name", "value"), aPCL.getAllValues ("D"));
+    assertEquals (new CommonsArrayList <> ("name", "value"), aPCL.values ("D"));
   }
 
   @Test
@@ -366,7 +359,7 @@ public class CmdLineParserTest
   {
     final OptionGroup aGroup1 = new OptionGroup ().addOption (Option.builder ("a"))
                                                   .addOption (Option.builder ("b"))
-                                                  .addOption (Option.builder ("c"));
+                                                  .addOption (Option.builder ("c").longOpt ("ceasar"));
     final Options aOptions = new Options ().addOptionGroup (aGroup1).addOption (Option.builder ("d"));
     final CmdLineParser p = new CmdLineParser (aOptions);
 
@@ -389,6 +382,15 @@ public class CmdLineParserTest
     assertFalse (aPCL.hasOption ("a"));
     assertFalse (aPCL.hasOption ("b"));
     assertTrue (aPCL.hasOption ("c"));
+    assertTrue (aPCL.hasOption ("ceasar"));
+    assertFalse (aPCL.hasOption ("d"));
+
+    aPCL = p.parse (new String [] { "--ceasar" });
+    assertTrue (aPCL.hasOption (aGroup1));
+    assertFalse (aPCL.hasOption ("a"));
+    assertFalse (aPCL.hasOption ("b"));
+    assertTrue (aPCL.hasOption ("c"));
+    assertTrue (aPCL.hasOption ("ceasar"));
     assertFalse (aPCL.hasOption ("d"));
 
     aPCL = p.parse (new String [] { "-d" });
