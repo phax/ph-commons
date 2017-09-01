@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.cli2;
+package com.helger.cli;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -26,6 +26,10 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
+import com.helger.cli.HelpFormatter;
+import com.helger.cli.Option;
+import com.helger.cli.OptionGroup;
+import com.helger.cli.Options;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
 

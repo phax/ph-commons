@@ -1,4 +1,4 @@
-package com.helger.cli2;
+package com.helger.cli;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -10,6 +10,13 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import com.helger.cli.CmdLineParseException;
+import com.helger.cli.CmdLineParser;
+import com.helger.cli.ECmdLineParseError;
+import com.helger.cli.Option;
+import com.helger.cli.OptionGroup;
+import com.helger.cli.Options;
+import com.helger.cli.ParsedCmdLine;
 import com.helger.commons.collection.impl.CommonsArrayList;
 
 /**

@@ -1,4 +1,4 @@
-package com.helger.cli2;
+package com.helger.cli;
 
 import javax.annotation.Nonnull;
 

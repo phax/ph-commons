@@ -1,4 +1,4 @@
-package com.helger.cli2;
+package com.helger.cli;
 
 /**
  * Errors that can occur when parsing the command line.
