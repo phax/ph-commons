@@ -500,7 +500,7 @@ public final class TypeConverter
                       aUsableDstClass.getName () +
                       "' with converter '" +
                       aConverter.toString () +
-                      "' failed");
+                      "' failed; null was returned from converter!");
       throw new TypeConverterException (aSrcClass, aUsableDstClass, EReason.CONVERSION_FAILED);
     }
     return aRetVal;
