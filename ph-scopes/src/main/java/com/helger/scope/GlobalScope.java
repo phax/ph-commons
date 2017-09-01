@@ -33,7 +33,6 @@ import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.string.ToStringGenerator;
-import com.helger.scope.mgr.MetaScopeFactory;
 import com.helger.scope.spi.ScopeSPIManager;
 
 /**
@@ -49,17 +48,14 @@ public class GlobalScope extends AbstractScope implements IGlobalScope
   private static final Logger s_aLogger = LoggerFactory.getLogger (GlobalScope.class);
 
   /** Contained application scopes */
-  private final ICommonsMap <String, IApplicationScope> m_aAppScopes = new CommonsHashMap<> ();
+  private final ICommonsMap <String, IApplicationScope> m_aAppScopes = new CommonsHashMap <> ();
 
   public GlobalScope (@Nonnull @Nonempty final String sScopeID)
   {
     super (sScopeID);
 
     if (ScopeHelper.debugGlobalScopeLifeCycle (s_aLogger))
-      s_aLogger.info ("Created global scope '" +
-                      getID () +
-                      "' of class " +
-                      ClassHelper.getClassLocalName (this),
+      s_aLogger.info ("Created global scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
                       ScopeHelper.getDebugStackTrace ());
   }
 
@@ -86,10 +82,7 @@ public class GlobalScope extends AbstractScope implements IGlobalScope
   protected void preDestroy ()
   {
     if (ScopeHelper.debugGlobalScopeLifeCycle (s_aLogger))
-      s_aLogger.info ("Destroying global scope '" +
-                      getID () +
-                      "' of class " +
-                      ClassHelper.getClassLocalName (this),
+      s_aLogger.info ("Destroying global scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
                       ScopeHelper.getDebugStackTrace ());
   }
 
@@ -97,10 +90,7 @@ public class GlobalScope extends AbstractScope implements IGlobalScope
   protected void postDestroy ()
   {
     if (ScopeHelper.debugGlobalScopeLifeCycle (s_aLogger))
-      s_aLogger.info ("Destroyed global scope '" +
-                      getID () +
-                      "' of class " +
-                      ClassHelper.getClassLocalName (this),
+      s_aLogger.info ("Destroyed global scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
                       ScopeHelper.getDebugStackTrace ());
   }
 
@@ -116,7 +106,7 @@ public class GlobalScope extends AbstractScope implements IGlobalScope
   @OverrideOnDemand
   protected IApplicationScope createApplicationScope (@Nonnull @Nonempty final String sApplicationID)
   {
-    return MetaScopeFactory.getScopeFactory ().createApplicationScope (sApplicationID);
+    return new ApplicationScope (sApplicationID);
   }
 
   @Nullable

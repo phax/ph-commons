@@ -33,7 +33,6 @@ import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.state.EContinue;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
-import com.helger.scope.mgr.MetaScopeFactory;
 import com.helger.scope.spi.ScopeSPIManager;
 
 /**
@@ -47,7 +46,7 @@ public class SessionScope extends AbstractScope implements ISessionScope
   private static final Logger s_aLogger = LoggerFactory.getLogger (SessionScope.class);
 
   /** The contained session application scopes */
-  private final ICommonsMap <String, ISessionApplicationScope> m_aSessionAppScopes = new CommonsHashMap<> ();
+  private final ICommonsMap <String, ISessionApplicationScope> m_aSessionAppScopes = new CommonsHashMap <> ();
 
   public SessionScope (@Nonnull @Nonempty final String sScopeID)
   {
@@ -55,10 +54,7 @@ public class SessionScope extends AbstractScope implements ISessionScope
 
     // Sessions are always displayed to see what's happening
     if (ScopeHelper.debugSessionScopeLifeCycle (s_aLogger))
-      s_aLogger.info ("Created session scope '" +
-                      getID () +
-                      "' of class " +
-                      ClassHelper.getClassLocalName (this),
+      s_aLogger.info ("Created session scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
                       ScopeHelper.getDebugStackTrace ());
   }
 
@@ -85,10 +81,7 @@ public class SessionScope extends AbstractScope implements ISessionScope
   protected void preDestroy ()
   {
     if (ScopeHelper.debugSessionScopeLifeCycle (s_aLogger))
-      s_aLogger.info ("Destroying session scope '" +
-                      getID () +
-                      "' of class " +
-                      ClassHelper.getClassLocalName (this),
+      s_aLogger.info ("Destroying session scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
                       ScopeHelper.getDebugStackTrace ());
   }
 
@@ -96,10 +89,7 @@ public class SessionScope extends AbstractScope implements ISessionScope
   protected void postDestroy ()
   {
     if (ScopeHelper.debugSessionScopeLifeCycle (s_aLogger))
-      s_aLogger.info ("Destroyed session scope '" +
-                      getID () +
-                      "' of class " +
-                      ClassHelper.getClassLocalName (this),
+      s_aLogger.info ("Destroyed session scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
                       ScopeHelper.getDebugStackTrace ());
   }
 
@@ -147,7 +137,7 @@ public class SessionScope extends AbstractScope implements ISessionScope
   @Nonnull
   protected ISessionApplicationScope createSessionApplicationScope (@Nonnull @Nonempty final String sApplicationID)
   {
-    return MetaScopeFactory.getScopeFactory ().createSessionApplicationScope (sApplicationID);
+    return new SessionApplicationScope (sApplicationID);
   }
 
   @Nullable

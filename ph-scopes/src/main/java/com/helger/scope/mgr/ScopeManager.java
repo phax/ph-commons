@@ -16,6 +16,9 @@
  */
 package com.helger.scope.mgr;
 
+import java.util.function.BiFunction;
+import java.util.function.Function;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
@@ -29,12 +32,15 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.concurrent.SimpleLock;
 import com.helger.commons.string.StringHelper;
+import com.helger.scope.GlobalScope;
 import com.helger.scope.IApplicationScope;
 import com.helger.scope.IGlobalScope;
 import com.helger.scope.IRequestScope;
 import com.helger.scope.ISessionApplicationScope;
 import com.helger.scope.ISessionScope;
+import com.helger.scope.RequestScope;
 import com.helger.scope.ScopeHelper;
+import com.helger.scope.SessionScope;
 import com.helger.scope.spi.ScopeSPIManager;
 
 /**
@@ -125,7 +131,14 @@ public final class ScopeManager
   @Nonnull
   public static IGlobalScope onGlobalBegin (@Nonnull @Nonempty final String sScopeID)
   {
-    final IGlobalScope aGlobalScope = MetaScopeFactory.getScopeFactory ().createGlobalScope (sScopeID);
+    return onGlobalBegin (sScopeID, GlobalScope::new);
+  }
+
+  @Nonnull
+  public static <T extends IGlobalScope> T onGlobalBegin (@Nonnull @Nonempty final String sScopeID,
+                                                          @Nonnull final Function <? super String, T> aFactory)
+  {
+    final T aGlobalScope = aFactory.apply (sScopeID);
     setGlobalScope (aGlobalScope);
     return aGlobalScope;
   }
@@ -293,6 +306,12 @@ public final class ScopeManager
     return getSessionScope (ScopeManager.DEFAULT_CREATE_SCOPE);
   }
 
+  @Nonnull
+  public static ISessionScope getSessionScope (@Nonnull final Function <? super String, ? extends ISessionScope> aFactory)
+  {
+    return getSessionScope (ScopeManager.DEFAULT_CREATE_SCOPE, aFactory);
+  }
+
   /**
    * Get the current session scope, based on the current request scope.
    *
@@ -311,6 +330,13 @@ public final class ScopeManager
   @Nullable
   public static ISessionScope getSessionScope (final boolean bCreateIfNotExisting)
   {
+    return getSessionScope (bCreateIfNotExisting, SessionScope::new);
+  }
+
+  @Nullable
+  public static ISessionScope getSessionScope (final boolean bCreateIfNotExisting,
+                                               @Nonnull final Function <? super String, ? extends ISessionScope> aFactory)
+  {
     final IRequestScope aRequestScope = getRequestScopeOrNull ();
     if (aRequestScope != null)
     {
@@ -327,7 +353,7 @@ public final class ScopeManager
           throw new IllegalStateException ("Cannot create a SessionScope without a known session ID!");
 
         // Create a new session scope
-        aSessionScope = MetaScopeFactory.getScopeFactory ().createSessionScope (sSessionID);
+        aSessionScope = aFactory.apply (sSessionID);
 
         // And register in the Session Manager
         aSSM.onScopeBegin (aSessionScope);
@@ -448,7 +474,16 @@ public final class ScopeManager
                                               @Nonnull @Nonempty final String sScopeID,
                                               @Nonnull @Nonempty final String sSessionID)
   {
-    final IRequestScope aRequestScope = MetaScopeFactory.getScopeFactory ().createRequestScope (sScopeID, sSessionID);
+    return onRequestBegin (sApplicationID, sScopeID, sSessionID, RequestScope::new);
+  }
+
+  @Nonnull
+  public static <T extends IRequestScope> T onRequestBegin (@Nonnull @Nonempty final String sApplicationID,
+                                                            @Nonnull @Nonempty final String sScopeID,
+                                                            @Nonnull @Nonempty final String sSessionID,
+                                                            @Nonnull final BiFunction <? super String, ? super String, T> aFactory)
+  {
+    final T aRequestScope = aFactory.apply (sScopeID, sSessionID);
     setAndInitRequestScope (sApplicationID, aRequestScope);
     return aRequestScope;
   }
