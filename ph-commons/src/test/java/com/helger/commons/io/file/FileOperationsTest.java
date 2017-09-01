@@ -456,7 +456,7 @@ public final class FileOperationsTest
   @Test
   public void testDeleteDirRecursive ()
   {
-    final File aDir = new File ("deldirrec.test");
+    final File aDir = new File ("deldirrec1.test");
     try
     {
       assertFalse (FileHelper.existsDir (aDir));

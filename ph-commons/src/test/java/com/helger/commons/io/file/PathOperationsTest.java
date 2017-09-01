@@ -467,7 +467,7 @@ public final class PathOperationsTest
   @Test
   public void testDeleteDirRecursive ()
   {
-    final Path aDir = Paths.get ("deldirrec.test");
+    final Path aDir = Paths.get ("deldirrec2.test");
     try
     {
       assertFalse (Files.isDirectory (aDir));

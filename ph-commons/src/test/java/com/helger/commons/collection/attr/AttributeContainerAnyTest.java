@@ -174,5 +174,17 @@ public final class AttributeContainerAnyTest
     assertSame (BigDecimal.TEN, aCont.getConvertedValue ("a", Number.class));
     assertSame (BigDecimal.TEN, aCont.getConvertedValue ("a", Object.class));
     assertSame (BigDecimal.TEN, aCont.getConvertedValue ("a", Serializable.class));
+
+    // Source is String
+    aCont.putIn ("a", "1381");
+    assertEquals (1381, aCont.getAsInt ("a"));
+
+    // Source is String
+    aCont.putIn ("a", "1381.2");
+    assertEquals (1381, aCont.getAsInt ("a"));
+
+    // Source is double
+    aCont.putIn ("a", 1381.2);
+    assertEquals (1381, aCont.getAsInt ("a"));
   }
 }
