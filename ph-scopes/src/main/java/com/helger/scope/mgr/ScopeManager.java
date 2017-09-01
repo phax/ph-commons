@@ -67,6 +67,11 @@ public final class ScopeManager
 
   public static final boolean DEFAULT_CREATE_SCOPE = true;
 
+  /**
+   * Special application ID indicating that no special application ID is needed.
+   */
+  public static final String APPLICATION_ID_NOT_AVAILABLE = "no-app-id";
+
   private static final Logger s_aLogger = LoggerFactory.getLogger (ScopeManager.class);
 
   /**

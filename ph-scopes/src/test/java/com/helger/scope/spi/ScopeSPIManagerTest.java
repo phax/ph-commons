@@ -23,7 +23,7 @@ import org.junit.Test;
 import com.helger.scope.ISessionScope;
 import com.helger.scope.ScopeHelper;
 import com.helger.scope.mgr.ScopeManager;
-import com.helger.scope.spi.ScopeSPIManager;
+import com.helger.scope.mgr.Scoped;
 
 /**
  * Test class for class {@link ScopeSPIManager}.
@@ -81,14 +81,15 @@ public final class ScopeSPIManagerTest
     // Create request scope
     nPrev = AbstractMockScopeSPI.getBegin ();
     nPrevT = AbstractMockThrowingScopeSPI.getBegin ();
-    ScopeManager.onRequestBegin ("appid", "scopeid", "sessionid");
-    assertEquals (nPrev + 1, AbstractMockScopeSPI.getBegin ());
-    assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getBegin ());
+    try (final Scoped aScoped = new Scoped ())
+    {
+      assertEquals (nPrev + 1, AbstractMockScopeSPI.getBegin ());
+      assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getBegin ());
 
-    // End request scope
-    nPrev = AbstractMockScopeSPI.getEnd ();
-    nPrevT = AbstractMockThrowingScopeSPI.getEnd ();
-    ScopeManager.onRequestEnd ();
+      // End request scope
+      nPrev = AbstractMockScopeSPI.getEnd ();
+      nPrevT = AbstractMockThrowingScopeSPI.getEnd ();
+    }
     assertEquals (nPrev + 1, AbstractMockScopeSPI.getEnd ());
     assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getEnd ());
     ScopeManager.onRequestEnd ();
@@ -119,21 +120,22 @@ public final class ScopeSPIManagerTest
     // Create request scope
     nPrev = AbstractMockScopeSPI.getBegin ();
     nPrevT = AbstractMockThrowingScopeSPI.getBegin ();
-    ScopeManager.onRequestBegin ("appid", "scopeid", "sessionid");
-    assertEquals (nPrev + 1, AbstractMockScopeSPI.getBegin ());
-    assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getBegin ());
+    try (final Scoped aScoped = new Scoped ())
+    {
+      assertEquals (nPrev + 1, AbstractMockScopeSPI.getBegin ());
+      assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getBegin ());
 
-    // Create application scope
-    nPrev = AbstractMockScopeSPI.getBegin ();
-    nPrevT = AbstractMockThrowingScopeSPI.getBegin ();
-    ScopeManager.getApplicationScope ();
-    assertEquals (nPrev + 1, AbstractMockScopeSPI.getBegin ());
-    assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getBegin ());
+      // Create application scope
+      nPrev = AbstractMockScopeSPI.getBegin ();
+      nPrevT = AbstractMockThrowingScopeSPI.getBegin ();
+      ScopeManager.getApplicationScope ();
+      assertEquals (nPrev + 1, AbstractMockScopeSPI.getBegin ());
+      assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getBegin ());
 
-    // End request scope
-    nPrev = AbstractMockScopeSPI.getEnd ();
-    nPrevT = AbstractMockThrowingScopeSPI.getEnd ();
-    ScopeManager.onRequestEnd ();
+      // End request scope
+      nPrev = AbstractMockScopeSPI.getEnd ();
+      nPrevT = AbstractMockThrowingScopeSPI.getEnd ();
+    }
     assertEquals (nPrev + 1, AbstractMockScopeSPI.getEnd ());
     assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getEnd ());
     ScopeManager.onRequestEnd ();
@@ -146,7 +148,7 @@ public final class ScopeSPIManagerTest
     ScopeManager.onGlobalEnd ();
     assertEquals (nPrev + 2, AbstractMockScopeSPI.getEnd ());
     assertEquals (nPrev + 2, AbstractMockThrowingScopeSPI.getEnd ());
-    ScopeManager.onGlobalEnd ();
+    ScopeManager.onRequestEnd ();
     assertEquals (nPrev + 2, AbstractMockScopeSPI.getEnd ());
     assertEquals (nPrev + 2, AbstractMockThrowingScopeSPI.getEnd ());
   }
@@ -164,28 +166,29 @@ public final class ScopeSPIManagerTest
     // Create request scope
     nPrev = AbstractMockScopeSPI.getBegin ();
     nPrevT = AbstractMockThrowingScopeSPI.getBegin ();
-    ScopeManager.onRequestBegin ("appid", "scopeid", "sessionid");
-    assertEquals (nPrev + 1, AbstractMockScopeSPI.getBegin ());
-    assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getBegin ());
+    try (final Scoped aScoped = new Scoped ())
+    {
+      assertEquals (nPrev + 1, AbstractMockScopeSPI.getBegin ());
+      assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getBegin ());
 
-    // Create application scope
-    nPrev = AbstractMockScopeSPI.getBegin ();
-    nPrevT = AbstractMockThrowingScopeSPI.getBegin ();
-    ScopeManager.getApplicationScope ();
-    assertEquals (nPrev + 1, AbstractMockScopeSPI.getBegin ());
-    assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getBegin ());
+      // Create application scope
+      nPrev = AbstractMockScopeSPI.getBegin ();
+      nPrevT = AbstractMockThrowingScopeSPI.getBegin ();
+      ScopeManager.getApplicationScope ();
+      assertEquals (nPrev + 1, AbstractMockScopeSPI.getBegin ());
+      assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getBegin ());
 
-    // Create second application scope
-    nPrev = AbstractMockScopeSPI.getBegin ();
-    nPrevT = AbstractMockThrowingScopeSPI.getBegin ();
-    ScopeManager.getApplicationScope ("any other blabla");
-    assertEquals (nPrev + 1, AbstractMockScopeSPI.getBegin ());
-    assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getBegin ());
+      // Create second application scope
+      nPrev = AbstractMockScopeSPI.getBegin ();
+      nPrevT = AbstractMockThrowingScopeSPI.getBegin ();
+      ScopeManager.getApplicationScope ("any other blabla");
+      assertEquals (nPrev + 1, AbstractMockScopeSPI.getBegin ());
+      assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getBegin ());
 
-    // End request scope
-    nPrev = AbstractMockScopeSPI.getEnd ();
-    nPrevT = AbstractMockThrowingScopeSPI.getEnd ();
-    ScopeManager.onRequestEnd ();
+      // End request scope
+      nPrev = AbstractMockScopeSPI.getEnd ();
+      nPrevT = AbstractMockThrowingScopeSPI.getEnd ();
+    }
     assertEquals (nPrev + 1, AbstractMockScopeSPI.getEnd ());
     assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getEnd ());
     ScopeManager.onRequestEnd ();
@@ -216,35 +219,37 @@ public final class ScopeSPIManagerTest
     // Create request scope
     nPrev = AbstractMockScopeSPI.getBegin ();
     nPrevT = AbstractMockThrowingScopeSPI.getBegin ();
-    ScopeManager.onRequestBegin ("appid", "scopeid", "sessionid");
-    assertEquals (nPrev + 1, AbstractMockScopeSPI.getBegin ());
-    assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getBegin ());
+    ISessionScope aSessionScope;
+    try (final Scoped aScoped = new Scoped ())
+    {
+      assertEquals (nPrev + 1, AbstractMockScopeSPI.getBegin ());
+      assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getBegin ());
 
-    // Create application scope
-    nPrev = AbstractMockScopeSPI.getBegin ();
-    nPrevT = AbstractMockThrowingScopeSPI.getBegin ();
-    ScopeManager.getApplicationScope ();
-    assertEquals (nPrev + 1, AbstractMockScopeSPI.getBegin ());
-    assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getBegin ());
+      // Create application scope
+      nPrev = AbstractMockScopeSPI.getBegin ();
+      nPrevT = AbstractMockThrowingScopeSPI.getBegin ();
+      ScopeManager.getApplicationScope ();
+      assertEquals (nPrev + 1, AbstractMockScopeSPI.getBegin ());
+      assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getBegin ());
 
-    // Create second application scope
-    nPrev = AbstractMockScopeSPI.getBegin ();
-    nPrevT = AbstractMockThrowingScopeSPI.getBegin ();
-    ScopeManager.getApplicationScope ("any other blabla");
-    assertEquals (nPrev + 1, AbstractMockScopeSPI.getBegin ());
-    assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getBegin ());
+      // Create second application scope
+      nPrev = AbstractMockScopeSPI.getBegin ();
+      nPrevT = AbstractMockThrowingScopeSPI.getBegin ();
+      ScopeManager.getApplicationScope ("any other blabla");
+      assertEquals (nPrev + 1, AbstractMockScopeSPI.getBegin ());
+      assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getBegin ());
 
-    // Begin session scope
-    nPrev = AbstractMockScopeSPI.getBegin ();
-    nPrevT = AbstractMockThrowingScopeSPI.getBegin ();
-    final ISessionScope aSessionScope = ScopeManager.getSessionScope ();
-    assertEquals (nPrev + 1, AbstractMockScopeSPI.getBegin ());
-    assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getBegin ());
+      // Begin session scope
+      nPrev = AbstractMockScopeSPI.getBegin ();
+      nPrevT = AbstractMockThrowingScopeSPI.getBegin ();
+      aSessionScope = ScopeManager.getSessionScope ();
+      assertEquals (nPrev + 1, AbstractMockScopeSPI.getBegin ());
+      assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getBegin ());
 
-    // End request scope
-    nPrev = AbstractMockScopeSPI.getEnd ();
-    nPrevT = AbstractMockThrowingScopeSPI.getEnd ();
-    ScopeManager.onRequestEnd ();
+      // End request scope
+      nPrev = AbstractMockScopeSPI.getEnd ();
+      nPrevT = AbstractMockThrowingScopeSPI.getEnd ();
+    }
     assertEquals (nPrev + 1, AbstractMockScopeSPI.getEnd ());
     assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getEnd ());
     ScopeManager.onRequestEnd ();
@@ -285,49 +290,51 @@ public final class ScopeSPIManagerTest
     // Create request scope
     nPrev = AbstractMockScopeSPI.getBegin ();
     nPrevT = AbstractMockThrowingScopeSPI.getBegin ();
-    ScopeManager.onRequestBegin ("appid", "scopeid", "sessionid");
-    assertEquals (nPrev + 1, AbstractMockScopeSPI.getBegin ());
-    assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getBegin ());
+    ISessionScope aSessionScope;
+    try (final Scoped aScoped = new Scoped ())
+    {
+      assertEquals (nPrev + 1, AbstractMockScopeSPI.getBegin ());
+      assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getBegin ());
 
-    // Create application scope
-    nPrev = AbstractMockScopeSPI.getBegin ();
-    nPrevT = AbstractMockThrowingScopeSPI.getBegin ();
-    ScopeManager.getApplicationScope ();
-    assertEquals (nPrev + 1, AbstractMockScopeSPI.getBegin ());
-    assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getBegin ());
+      // Create application scope
+      nPrev = AbstractMockScopeSPI.getBegin ();
+      nPrevT = AbstractMockThrowingScopeSPI.getBegin ();
+      ScopeManager.getApplicationScope ();
+      assertEquals (nPrev + 1, AbstractMockScopeSPI.getBegin ());
+      assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getBegin ());
 
-    // Create second application scope
-    nPrev = AbstractMockScopeSPI.getBegin ();
-    nPrevT = AbstractMockThrowingScopeSPI.getBegin ();
-    ScopeManager.getApplicationScope ("any other blabla");
-    assertEquals (nPrev + 1, AbstractMockScopeSPI.getBegin ());
-    assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getBegin ());
+      // Create second application scope
+      nPrev = AbstractMockScopeSPI.getBegin ();
+      nPrevT = AbstractMockThrowingScopeSPI.getBegin ();
+      ScopeManager.getApplicationScope ("any other blabla");
+      assertEquals (nPrev + 1, AbstractMockScopeSPI.getBegin ());
+      assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getBegin ());
 
-    // Begin session scope
-    nPrev = AbstractMockScopeSPI.getBegin ();
-    nPrevT = AbstractMockThrowingScopeSPI.getBegin ();
-    final ISessionScope aSessionScope = ScopeManager.getSessionScope ();
-    assertEquals (nPrev + 1, AbstractMockScopeSPI.getBegin ());
-    assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getBegin ());
+      // Begin session scope
+      nPrev = AbstractMockScopeSPI.getBegin ();
+      nPrevT = AbstractMockThrowingScopeSPI.getBegin ();
+      aSessionScope = ScopeManager.getSessionScope ();
+      assertEquals (nPrev + 1, AbstractMockScopeSPI.getBegin ());
+      assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getBegin ());
 
-    // Get session application scope
-    nPrev = AbstractMockScopeSPI.getBegin ();
-    nPrevT = AbstractMockThrowingScopeSPI.getBegin ();
-    ScopeManager.getSessionApplicationScope ();
-    assertEquals (nPrev + 1, AbstractMockScopeSPI.getBegin ());
-    assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getBegin ());
+      // Get session application scope
+      nPrev = AbstractMockScopeSPI.getBegin ();
+      nPrevT = AbstractMockThrowingScopeSPI.getBegin ();
+      ScopeManager.getSessionApplicationScope ();
+      assertEquals (nPrev + 1, AbstractMockScopeSPI.getBegin ());
+      assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getBegin ());
 
-    // Get second session application scope
-    nPrev = AbstractMockScopeSPI.getBegin ();
-    nPrevT = AbstractMockThrowingScopeSPI.getBegin ();
-    ScopeManager.getSessionApplicationScope ("session web scope for testing");
-    assertEquals (nPrev + 1, AbstractMockScopeSPI.getBegin ());
-    assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getBegin ());
+      // Get second session application scope
+      nPrev = AbstractMockScopeSPI.getBegin ();
+      nPrevT = AbstractMockThrowingScopeSPI.getBegin ();
+      ScopeManager.getSessionApplicationScope ("session web scope for testing");
+      assertEquals (nPrev + 1, AbstractMockScopeSPI.getBegin ());
+      assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getBegin ());
 
-    // End request scope
-    nPrev = AbstractMockScopeSPI.getEnd ();
-    nPrevT = AbstractMockThrowingScopeSPI.getEnd ();
-    ScopeManager.onRequestEnd ();
+      // End request scope
+      nPrev = AbstractMockScopeSPI.getEnd ();
+      nPrevT = AbstractMockThrowingScopeSPI.getEnd ();
+    }
     assertEquals (nPrev + 1, AbstractMockScopeSPI.getEnd ());
     assertEquals (nPrevT + 1, AbstractMockThrowingScopeSPI.getEnd ());
     ScopeManager.onRequestEnd ();
