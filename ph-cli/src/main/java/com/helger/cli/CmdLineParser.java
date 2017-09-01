@@ -280,4 +280,17 @@ public class CmdLineParser
   {
     return parseStatic (m_aOptions, aArgs);
   }
+
+  @Nullable
+  public ParsedCmdLine parseOrNull (@Nullable final String [] aArgs)
+  {
+    try
+    {
+      return parse (aArgs);
+    }
+    catch (final CmdLineParseException ex)
+    {
+      return null;
+    }
+  }
 }
