@@ -66,7 +66,7 @@ public final class ClassPathHelper
    */
   public static void forAllClassPathEntries (@Nonnull final Consumer <? super String> aConsumer)
   {
-    StringHelper.explode (SystemProperties.getPathSeparator (), SystemProperties.getJavaClassPath (), -1, aConsumer);
+    StringHelper.explode (SystemProperties.getPathSeparator (), SystemProperties.getJavaClassPath (), aConsumer);
   }
 
   /**

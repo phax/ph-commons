@@ -1824,8 +1824,28 @@ public final class StringHelper
   }
 
   /**
-   * Take a concatenated String and return the passed Collection of all elements
-   * in the passed string, using specified separator string.
+   * Split the provided string by the provided separator and invoke the consumer
+   * for each matched element. The number of returned items is unlimited.
+   *
+   * @param cSep
+   *        The separator to use.
+   * @param sElements
+   *        The concatenated String to convert. May be <code>null</code> or
+   *        empty.
+   * @param aConsumer
+   *        The non-<code>null</code> consumer that is invoked for each exploded
+   *        element
+   */
+  public static void explode (final char cSep,
+                              @Nullable final String sElements,
+                              @Nonnull final Consumer <? super String> aConsumer)
+  {
+    explode (cSep, sElements, -1, aConsumer);
+  }
+
+  /**
+   * Split the provided string by the provided separator and invoke the consumer
+   * for each matched element. The maximum number of elements can be specified.
    *
    * @param cSep
    *        The separator to use.
@@ -1838,10 +1858,9 @@ public final class StringHelper
    *        returned as is. If max items is larger than the number of elements
    *        found, it has no effect.
    * @param aConsumer
-   *        The non-<code>null</code> target collection that should be filled
-   *        with the exploded elements
+   *        The non-<code>null</code> consumer that is invoked for each exploded
+   *        element
    */
-  @CodingStyleguideUnaware
   public static void explode (final char cSep,
                               @Nullable final String sElements,
                               final int nMaxItems,
@@ -1959,9 +1978,28 @@ public final class StringHelper
   }
 
   /**
-   * Take a concatenated String, split it by the passed separator, limit the
-   * results to the provided number of maximum items and call the Consumer for
-   * every matched part.
+   * Split the provided string by the provided separator and invoke the consumer
+   * for each matched element.
+   *
+   * @param sSep
+   *        The separator to use. May not be <code>null</code>.
+   * @param sElements
+   *        The concatenated String to convert. May be <code>null</code> or
+   *        empty.
+   * @param aConsumer
+   *        The non-<code>null</code> consumer that is invoked for each exploded
+   *        element
+   */
+  public static void explode (@Nonnull final String sSep,
+                              @Nullable final String sElements,
+                              @Nonnull final Consumer <? super String> aConsumer)
+  {
+    explode (sSep, sElements, -1, aConsumer);
+  }
+
+  /**
+   * Split the provided string by the provided separator and invoke the consumer
+   * for each matched element. The maximum number of elements can be specified.
    *
    * @param sSep
    *        The separator to use. May not be <code>null</code>.
@@ -1974,10 +2012,9 @@ public final class StringHelper
    *        returned as is. If max items is larger than the number of elements
    *        found, it has no effect.
    * @param aConsumer
-   *        The non-<code>null</code> target collection that should be filled
-   *        with the exploded elements
+   *        The non-<code>null</code> consumer that is invoked for each exploded
+   *        element
    */
-  @Nonnull
   public static void explode (@Nonnull final String sSep,
                               @Nullable final String sElements,
                               final int nMaxItems,
