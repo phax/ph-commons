@@ -306,12 +306,6 @@ public final class ScopeManager
     return getSessionScope (ScopeManager.DEFAULT_CREATE_SCOPE);
   }
 
-  @Nonnull
-  public static ISessionScope getSessionScope (@Nonnull final Function <? super String, ? extends ISessionScope> aFactory)
-  {
-    return getSessionScope (ScopeManager.DEFAULT_CREATE_SCOPE, aFactory);
-  }
-
   /**
    * Get the current session scope, based on the current request scope.
    *
@@ -426,13 +420,13 @@ public final class ScopeManager
    * @param aRequestScope
    *        The request scope to use. May not be <code>null</code>.
    */
-  public static void setAndInitRequestScope (@Nonnull @Nonempty final String sApplicationID,
-                                             @Nonnull final IRequestScope aRequestScope)
+  public static void internalSetAndInitRequestScope (@Nonnull @Nonempty final String sApplicationID,
+                                                     @Nonnull final IRequestScope aRequestScope)
   {
     ValueEnforcer.notEmpty (sApplicationID, "ApplicationID");
     ValueEnforcer.notNull (aRequestScope, "RequestScope");
-    if (!isGlobalScopePresent ())
-      throw new IllegalStateException ("No global context present! May be the global context listener is not installed?");
+    ValueEnforcer.isTrue ( () -> isGlobalScopePresent (),
+                           "No global context present! May be the global context listener is not installed?");
 
     // Happens if an internal redirect happens in a web-application (e.g. for
     // 404 page)
@@ -484,7 +478,7 @@ public final class ScopeManager
                                                             @Nonnull final BiFunction <? super String, ? super String, T> aFactory)
   {
     final T aRequestScope = aFactory.apply (sScopeID, sSessionID);
-    setAndInitRequestScope (sApplicationID, aRequestScope);
+    internalSetAndInitRequestScope (sApplicationID, aRequestScope);
     return aRequestScope;
   }
 
