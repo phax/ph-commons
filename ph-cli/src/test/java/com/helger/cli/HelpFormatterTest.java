@@ -26,10 +26,6 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.cli.HelpFormatter;
-import com.helger.cli.Option;
-import com.helger.cli.OptionGroup;
-import com.helger.cli.Options;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
 
@@ -652,6 +648,33 @@ public final class HelpFormatterTest
       formatter.printUsage (new PrintWriter (out), 80, "create", options);
 
       assertEquals ("usage: create [--age=<arg>] [-f <arg>] [-s <SIZE>]", out.getAsString ().trim ());
+    }
+  }
+
+  @Test
+  public void testRequiredOption ()
+  {
+    final Options options = new Options ();
+    options.addOption (Option.builder ("a").longOpt ("aaa").desc ("aaaaaaa"));
+    options.addOption (Option.builder (null).longOpt ("bbb").desc ("bbbbbbb"));
+    options.addOption (Option.builder ("c").desc ("ccccccc").required (true));
+    options.addOption (Option.builder ("d").required (true));
+
+    final HelpFormatter formatter = new HelpFormatter ();
+    try (final NonBlockingStringWriter out = new NonBlockingStringWriter ())
+    {
+      formatter.printHelp (new PrintWriter (out), 80, "foobar", "", options, 2, 2, "", true);
+      assertEquals ("usage: foobar [-a] [--bbb] -c -d" +
+                    EOL +
+                    "  -a,--aaa  aaaaaaa" +
+                    EOL +
+                    "     --bbb  bbbbbbb" +
+                    EOL +
+                    "  -c        ccccccc" +
+                    EOL +
+                    "  -d" +
+                    EOL,
+                    out.getAsString ());
     }
   }
 }
