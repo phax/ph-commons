@@ -1,5 +1,6 @@
 package com.helger.cli;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -8,15 +9,23 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
+import com.helger.commons.traits.IGetterByKeyTrait;
 
+/**
+ * This class represents a parsed command line. Parsing happens in class
+ * {@link CmdLineParser}.
+ *
+ * @author Philip Helger
+ */
 @NotThreadSafe
-public class ParsedCmdLine
+public class ParsedCmdLine implements Serializable, IGetterByKeyTrait <String>
 {
   private final ICommonsOrderedMap <IOptionBase, ICommonsList <String>> m_aParams = new CommonsLinkedHashMap <> ();
   private final ICommonsList <String> m_aUnknownTokens = new CommonsArrayList <> ();
@@ -24,7 +33,7 @@ public class ParsedCmdLine
   public ParsedCmdLine ()
   {}
 
-  public void internalAddValue (@Nonnull final IOptionBase aOption, @Nonnull final ICommonsList <String> aValues)
+  void internalAddValue (@Nonnull final IOptionBase aOption, @Nonnull final ICommonsList <String> aValues)
   {
     ValueEnforcer.notNull (aOption, "Option");
     ValueEnforcer.notNull (aValues, "Values");
@@ -44,11 +53,6 @@ public class ParsedCmdLine
     return aOption == null ? null : m_aParams.get (aOption);
   }
 
-  private static boolean _matches (@Nonnull final Option aOption, @Nonnull @Nonempty final String sOption)
-  {
-    return aOption.hasShortOpt (sOption) || aOption.hasLongOpt (sOption);
-  }
-
   @Nullable
   private ICommonsList <String> _find (@Nullable final String sOption)
   {
@@ -58,7 +62,7 @@ public class ParsedCmdLine
     for (final Map.Entry <IOptionBase, ICommonsList <String>> aEntry : m_aParams.entrySet ())
       if (aEntry.getKey () instanceof Option)
       {
-        if (_matches ((Option) aEntry.getKey (), sOption))
+        if (((Option) aEntry.getKey ()).matches (sOption))
           return aEntry.getValue ();
       }
       else
@@ -66,7 +70,7 @@ public class ParsedCmdLine
         if (false)
         {
           for (final Option aOption : (OptionGroup) aEntry.getKey ())
-            if (_matches (aOption, sOption))
+            if (aOption.matches (sOption))
               return aEntry.getValue ();
         }
     return null;
@@ -97,17 +101,26 @@ public class ParsedCmdLine
   }
 
   @Nullable
-  public ICommonsList <String> getAllValues (@Nonnull final IOptionBase aOption)
+  @ReturnsMutableObject
+  public ICommonsList <String> values (@Nonnull final IOptionBase aOption)
   {
     final ICommonsList <String> aValues = _find (aOption);
     return aValues == null ? null : aValues.getClone ();
   }
 
   @Nullable
-  public ICommonsList <String> getAllValues (@Nonnull final String sOption)
+  @ReturnsMutableObject
+  public ICommonsList <String> values (@Nonnull final String sOption)
   {
     final ICommonsList <String> aValues = _find (sOption);
     return aValues == null ? null : aValues.getClone ();
+  }
+
+  @Nonnull
+  @ReturnsMutableObject
+  public ICommonsList <String> unknownTokens ()
+  {
+    return m_aUnknownTokens;
   }
 
   @Override
