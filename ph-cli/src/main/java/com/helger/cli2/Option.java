@@ -27,7 +27,6 @@ import javax.annotation.concurrent.Immutable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.cli.CommandLine;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
@@ -184,10 +183,7 @@ public class Option implements IOptionBase
   }
 
   /**
-   * Retrieve the name of this Option. It is this String which can be used with
-   * {@link CommandLine#hasOption(String opt)} and
-   * {@link CommandLine#getOptionValue(String opt)} to check for existence and
-   * argument.
+   * Retrieve the name of this Option.
    *
    * @return The name of this option. May be <code>null</code> if this instance
    *         only has a "long option".
