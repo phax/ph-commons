@@ -12,8 +12,10 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashMap;
+import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsMap;
+import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.string.StringHelper;
 
 public class CmdLineParser
@@ -117,7 +119,8 @@ public class CmdLineParser
   {
     ValueEnforcer.notNull (aOptions, "Options");
 
-    final ICommonsList <Option> aAllOptions = aOptions.getAllOptions ();
+    final ICommonsList <Option> aAllOptions = aOptions.getAllResolvedOptions ();
+    final ICommonsSet <OptionGroup> aParsedOptionGroups = new CommonsHashSet <> ();
 
     // Create map from option name to option definition
     final ICommonsMap <String, Option> aStrToOptionMap = new CommonsHashMap <> ();
@@ -141,6 +144,15 @@ public class CmdLineParser
           {
             // Found option - read values
             final Option aOption = aMatchedOption.m_aOption;
+
+            // Is it part of an option group?
+            final OptionGroup aOG = aOptions.getOptionGroup (aOption);
+            if (aOG != null && !aParsedOptionGroups.add (aOG))
+              throw new CmdLineParseException (ECmdLineParseError.ANOTHER_OPTION_OF_GROUP_ALREADY_PRESENT,
+                                               aOG,
+                                               "The option " +
+                                                    _getDisplayName (aOption) +
+                                                    " cannot be selected because another option of the same group is already present!");
 
             if (!aOption.isRepeatable () && ret.hasOption (aOption))
               throw new CmdLineParseException (ECmdLineParseError.NON_REPEATABLE_OPTION_OCCURS_MORE_THAN_ONCE,
@@ -222,6 +234,8 @@ public class CmdLineParser
                                                         aValues.size ());
 
             ret.internalAddValue (aOption, aValues);
+            if (aOG != null)
+              ret.internalAddValue (aOG, aValues);
           }
           else
           {

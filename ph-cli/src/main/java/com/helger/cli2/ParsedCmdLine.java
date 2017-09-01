@@ -24,7 +24,7 @@ public class ParsedCmdLine
   public ParsedCmdLine ()
   {}
 
-  public void internalAddValue (@Nonnull final Option aOption, @Nonnull final ICommonsList <String> aValues)
+  public void internalAddValue (@Nonnull final IOptionBase aOption, @Nonnull final ICommonsList <String> aValues)
   {
     ValueEnforcer.notNull (aOption, "Option");
     ValueEnforcer.notNull (aValues, "Values");
@@ -62,11 +62,13 @@ public class ParsedCmdLine
           return aEntry.getValue ();
       }
       else
-      {
-        for (final Option aOption : (OptionGroup) aEntry.getKey ())
-          if (_matches (aOption, sOption))
-            return aEntry.getValue ();
-      }
+        // Do not resolve option groups, as the resolution happens on insertion!
+        if (false)
+        {
+          for (final Option aOption : (OptionGroup) aEntry.getKey ())
+            if (_matches (aOption, sOption))
+              return aEntry.getValue ();
+        }
     return null;
   }
 

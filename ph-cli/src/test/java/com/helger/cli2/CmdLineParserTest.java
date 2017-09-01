@@ -353,4 +353,103 @@ public class CmdLineParserTest
     assertFalse (aPCL.hasOption ("C"));
     assertFalse (aPCL.hasOption ("D"));
   }
+
+  @Test
+  public void testParseGroup () throws CmdLineParseException
+  {
+    final OptionGroup aGroup1 = new OptionGroup ().addOption (Option.builder ("a"))
+                                                  .addOption (Option.builder ("b"))
+                                                  .addOption (Option.builder ("c"));
+    final Options aOptions = new Options ().addOptionGroup (aGroup1).addOption (Option.builder ("d"));
+    final CmdLineParser p = new CmdLineParser (aOptions);
+
+    ParsedCmdLine aPCL = p.parse (new String [] { "-a" });
+    assertTrue (aPCL.hasOption (aGroup1));
+    assertTrue (aPCL.hasOption ("a"));
+    assertFalse (aPCL.hasOption ("b"));
+    assertFalse (aPCL.hasOption ("c"));
+    assertFalse (aPCL.hasOption ("d"));
+
+    aPCL = p.parse (new String [] { "-b" });
+    assertTrue (aPCL.hasOption (aGroup1));
+    assertFalse (aPCL.hasOption ("a"));
+    assertTrue (aPCL.hasOption ("b"));
+    assertFalse (aPCL.hasOption ("c"));
+    assertFalse (aPCL.hasOption ("d"));
+
+    aPCL = p.parse (new String [] { "-c" });
+    assertTrue (aPCL.hasOption (aGroup1));
+    assertFalse (aPCL.hasOption ("a"));
+    assertFalse (aPCL.hasOption ("b"));
+    assertTrue (aPCL.hasOption ("c"));
+    assertFalse (aPCL.hasOption ("d"));
+
+    aPCL = p.parse (new String [] { "-d" });
+    assertFalse (aPCL.hasOption (aGroup1));
+    assertFalse (aPCL.hasOption ("a"));
+    assertFalse (aPCL.hasOption ("b"));
+    assertFalse (aPCL.hasOption ("c"));
+    assertTrue (aPCL.hasOption ("d"));
+
+    aPCL = p.parse (new String [] { "-a", "-d" });
+    assertTrue (aPCL.hasOption (aGroup1));
+    assertTrue (aPCL.hasOption ("a"));
+    assertFalse (aPCL.hasOption ("b"));
+    assertFalse (aPCL.hasOption ("c"));
+    assertTrue (aPCL.hasOption ("d"));
+
+    try
+    {
+      // 2 options from the same group
+      p.parse (new String [] { "-a", "-b" });
+      fail ();
+    }
+    catch (final CmdLineParseException ex)
+    {
+      assertSame (ECmdLineParseError.ANOTHER_OPTION_OF_GROUP_ALREADY_PRESENT, ex.getError ());
+    }
+  }
+
+  @Test
+  public void testParseGroupRequired () throws CmdLineParseException
+  {
+    final OptionGroup aGroup1 = new OptionGroup ().addOption (Option.builder ("a"))
+                                                  .addOption (Option.builder ("b"))
+                                                  .addOption (Option.builder ("c"))
+                                                  .setRequired (true);
+    final Options aOptions = new Options ().addOptionGroup (aGroup1).addOption (Option.builder ("d"));
+    final CmdLineParser p = new CmdLineParser (aOptions);
+
+    ParsedCmdLine aPCL = p.parse (new String [] { "-a" });
+    assertTrue (aPCL.hasOption (aGroup1));
+    assertTrue (aPCL.hasOption ("a"));
+    assertFalse (aPCL.hasOption ("b"));
+    assertFalse (aPCL.hasOption ("c"));
+    assertFalse (aPCL.hasOption ("d"));
+
+    aPCL = p.parse (new String [] { "-b" });
+    assertTrue (aPCL.hasOption (aGroup1));
+    assertFalse (aPCL.hasOption ("a"));
+    assertTrue (aPCL.hasOption ("b"));
+    assertFalse (aPCL.hasOption ("c"));
+    assertFalse (aPCL.hasOption ("d"));
+
+    aPCL = p.parse (new String [] { "-c" });
+    assertTrue (aPCL.hasOption (aGroup1));
+    assertFalse (aPCL.hasOption ("a"));
+    assertFalse (aPCL.hasOption ("b"));
+    assertTrue (aPCL.hasOption ("c"));
+    assertFalse (aPCL.hasOption ("d"));
+
+    try
+    {
+      // Option from required group is missing
+      p.parse (new String [] { "-d" });
+      fail ();
+    }
+    catch (final CmdLineParseException ex)
+    {
+      assertSame (ECmdLineParseError.REQUIRED_OPTION_IS_MISSING, ex.getError ());
+    }
+  }
 }
