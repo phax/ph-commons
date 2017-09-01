@@ -21,6 +21,7 @@ import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
 import javax.annotation.Nonnegative;
@@ -104,6 +105,38 @@ public final class ValueEnforcer
   }
 
   /**
+   * Check that the passed value is <code>true</code>.
+   *
+   * @param aValue
+   *        The value to check.
+   * @param sMsg
+   *        The message to be emitted in case the value is <code>false</code>
+   * @throws IllegalArgumentException
+   *         if the passed value is not <code>null</code>.
+   */
+  public static void isTrue (@Nonnull final BooleanSupplier aValue, final String sMsg)
+  {
+    isTrue (aValue, () -> sMsg);
+  }
+
+  /**
+   * Check that the passed value is <code>true</code>.
+   *
+   * @param aValue
+   *        The value to check.
+   * @param aMsg
+   *        The message to be emitted in case the value is <code>false</code>
+   * @throws IllegalArgumentException
+   *         if the passed value is not <code>null</code>.
+   */
+  public static void isTrue (@Nonnull final BooleanSupplier aValue, @Nonnull final Supplier <? extends String> aMsg)
+  {
+    if (isEnabled ())
+      if (!aValue.getAsBoolean ())
+        throw new IllegalArgumentException ("The expression must be true but it is not: " + aMsg.get ());
+  }
+
+  /**
    * Check that the passed value is <code>false</code>.
    *
    * @param bValue
@@ -132,6 +165,38 @@ public final class ValueEnforcer
   {
     if (isEnabled ())
       if (bValue)
+        throw new IllegalArgumentException ("The expression must be false but it is not: " + aMsg.get ());
+  }
+
+  /**
+   * Check that the passed value is <code>false</code>.
+   *
+   * @param aValue
+   *        The value to check.
+   * @param sMsg
+   *        The message to be emitted in case the value is <code>true</code>
+   * @throws IllegalArgumentException
+   *         if the passed value is not <code>null</code>.
+   */
+  public static void isFalse (@Nonnull final BooleanSupplier aValue, final String sMsg)
+  {
+    isFalse (aValue, () -> sMsg);
+  }
+
+  /**
+   * Check that the passed value is <code>false</code>.
+   *
+   * @param aValue
+   *        The value to check.
+   * @param aMsg
+   *        The message to be emitted in case the value is <code>true</code>
+   * @throws IllegalArgumentException
+   *         if the passed value is not <code>null</code>.
+   */
+  public static void isFalse (@Nonnull final BooleanSupplier aValue, @Nonnull final Supplier <? extends String> aMsg)
+  {
+    if (isEnabled ())
+      if (aValue.getAsBoolean ())
         throw new IllegalArgumentException ("The expression must be false but it is not: " + aMsg.get ());
   }
 
