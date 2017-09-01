@@ -235,6 +235,11 @@ public class Option implements IOptionBase
     return sLongOpt != null && sLongOpt.equals (m_sLongOpt);
   }
 
+  public boolean matches (@Nullable final String sOptName)
+  {
+    return sOptName != null && (sOptName.equals (m_sShortOpt) || sOptName.equals (m_sLongOpt));
+  }
+
   /**
    * Retrieve the self-documenting description of this Option
    *

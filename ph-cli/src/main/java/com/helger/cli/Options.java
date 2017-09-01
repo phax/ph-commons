@@ -6,7 +6,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsIterable;
@@ -25,11 +24,6 @@ public class Options implements ICommonsIterable <IOptionBase>
   public Options ()
   {}
 
-  private static boolean _matches (@Nonnull final Option aOption, @Nonnull @Nonempty final String sOption)
-  {
-    return aOption.hasShortOpt (sOption) || aOption.hasLongOpt (sOption);
-  }
-
   @Nullable
   public Option _getFromName (final String s)
   {
@@ -37,13 +31,13 @@ public class Options implements ICommonsIterable <IOptionBase>
     {
       if (aOB instanceof Option)
       {
-        if (_matches ((Option) aOB, s))
+        if (((Option) aOB).matches (s))
           return (Option) aOB;
       }
       else
       {
         for (final Option aOption : (OptionGroup) aOB)
-          if (_matches (aOption, s))
+          if (aOption.matches (s))
             return aOption;
       }
     }
