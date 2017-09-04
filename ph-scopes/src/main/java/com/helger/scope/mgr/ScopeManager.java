@@ -87,7 +87,7 @@ public final class ScopeManager
   private static volatile IGlobalScope s_aGlobalScope;
 
   /** Request scope */
-  private static final ThreadLocal <IRequestScope> s_aRequestScope = new ThreadLocal <> ();
+  private static final ThreadLocal <IRequestScope> s_aRequestScopeTL = new ThreadLocal <> ();
 
   @PresentForCodeCoverage
   private static final ScopeManager s_aInstance = new ScopeManager ();
@@ -435,7 +435,7 @@ public final class ScopeManager
 
     // Happens if an internal redirect happens in a web-application (e.g. for
     // 404 page)
-    final IRequestScope aExistingRequestScope = s_aRequestScope.get ();
+    final IRequestScope aExistingRequestScope = s_aRequestScopeTL.get ();
     if (aExistingRequestScope != null)
     {
       s_aLogger.warn ("A request scope is already present - will overwrite it: " + aExistingRequestScope.toString ());
@@ -449,7 +449,7 @@ public final class ScopeManager
     }
 
     // set request context
-    s_aRequestScope.set (aRequestScope);
+    s_aRequestScopeTL.set (aRequestScope);
 
     // assign the application ID to the current request
     if (aRequestScope.attrs ().putIn (REQ_APPLICATION_ID, sApplicationID).isUnchanged ())
@@ -494,7 +494,7 @@ public final class ScopeManager
   @Nullable
   public static IRequestScope getRequestScopeOrNull ()
   {
-    return s_aRequestScope.get ();
+    return s_aRequestScopeTL.get ();
   }
 
   /**
@@ -530,6 +530,17 @@ public final class ScopeManager
   }
 
   /**
+   * Internal method to clear request scope thread local.
+   *
+   * @since 9.0.0
+   */
+  public static void internalClearRequestScope ()
+  {
+    // Remove from ThreadLocal
+    s_aRequestScopeTL.remove ();
+  }
+
+  /**
    * To be called after a request finished.
    */
   public static void onRequestEnd ()
@@ -552,7 +563,7 @@ public final class ScopeManager
     finally
     {
       // Remove from ThreadLocal
-      s_aRequestScope.remove ();
+      internalClearRequestScope ();
     }
   }
 
