@@ -198,7 +198,8 @@ public class SingleError implements IError
    *        Implementation type
    */
   public abstract static class AbstractBuilder <T extends SingleError, IMPLTYPE extends AbstractBuilder <T, IMPLTYPE>>
-                                               implements IGenericImplTrait <IMPLTYPE>
+                                               implements
+                                               IGenericImplTrait <IMPLTYPE>
   {
     public static final IErrorLevel DEFAULT_ERROR_LEVEL = EErrorLevel.ERROR;
 
@@ -253,7 +254,7 @@ public class SingleError implements IError
     }
 
     @Nonnull
-    public IMPLTYPE setErrorText (@Nullable final String sErrorText)
+    public final IMPLTYPE setErrorText (@Nullable final String sErrorText)
     {
       return setErrorText (ConstantHasErrorText.createOnDemand (sErrorText));
     }

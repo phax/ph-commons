@@ -47,14 +47,14 @@ public final class VerySecureRandomTest
     for (int j = 0; j < 2; ++j)
     {
       s_aLogger.info ("Round " + (j + 1) + " with int");
-      final ICommonsSet <Integer> aInts = new CommonsHashSet<> ();
+      final ICommonsSet <Integer> aInts = new CommonsHashSet <> ();
       int nDuplicates = 0;
       for (int i = 0; i < MAX_RUNS; ++i)
       {
         final int n1 = aRandom.nextInt ();
         final int n2 = aRandom.nextInt ();
         // should be different
-        assertTrue (n1 != n2);
+        assertNotEquals (n1, n2);
         // should not be contained!
         if (!aInts.add (Integer.valueOf (n1)))
           nDuplicates++;
@@ -65,7 +65,7 @@ public final class VerySecureRandomTest
 
       s_aLogger.info ("Round " + (j + 1) + " with long");
       nDuplicates = 0;
-      final ICommonsSet <Long> aLongs = new CommonsHashSet<> ();
+      final ICommonsSet <Long> aLongs = new CommonsHashSet <> ();
       for (int i = 0; i < MAX_RUNS; ++i)
       {
         final long n1 = aRandom.nextLong ();

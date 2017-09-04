@@ -926,10 +926,12 @@ public final class StringHelper
     final StringBuilder aSB = new StringBuilder ();
     if (aElements != null)
     {
-      int nIndex = 0;
+      boolean bFirst = true;
       for (final Map.Entry <? extends KEYTYPE, ? extends VALUETYPE> aElement : aElements.entrySet ())
       {
-        if (nIndex++ > 0)
+        if (bFirst)
+          bFirst = false;
+        else
           aSB.append (sSepOuter);
         aSB.append (aKeyMapper.apply (aElement.getKey ()))
            .append (sSepInner)

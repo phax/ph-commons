@@ -117,7 +117,8 @@ public class NonBlockingBitOutputStream implements Closeable, Flushable
       else
         m_nBuffer |= (aBit << m_nBufferedBitCount);
 
-    if (++m_nBufferedBitCount == CGlobal.BITS_PER_BYTE)
+    ++m_nBufferedBitCount;
+    if (m_nBufferedBitCount == CGlobal.BITS_PER_BYTE)
       flush ();
   }
 

@@ -19,6 +19,7 @@ package com.helger.commons.string;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
@@ -30,8 +31,6 @@ import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsAssert;
 import com.helger.commons.wrapper.Wrapper;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link StringParser}.
  *
@@ -40,7 +39,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class StringParserTest extends AbstractCommonsTestCase
 {
   @Test
-  @SuppressFBWarnings (value = "DM_BOOLEAN_CTOR")
   public void testParseBool ()
   {
     assertTrue (StringParser.parseBool ("true"));
@@ -65,40 +63,39 @@ public final class StringParserTest extends AbstractCommonsTestCase
   }
 
   @Test
-  @SuppressFBWarnings (value = "DM_BOOLEAN_CTOR")
   public void testParseBoolObj ()
   {
-    assertEquals (Boolean.TRUE, StringParser.parseBoolObj ("true"));
-    assertEquals (Boolean.TRUE, StringParser.parseBoolObj ("TRUE"));
-    assertEquals (Boolean.TRUE, StringParser.parseBoolObj (Boolean.TRUE.toString ()));
-    assertEquals (Boolean.FALSE, StringParser.parseBoolObj ("false"));
-    assertEquals (Boolean.FALSE, StringParser.parseBoolObj ("FALSE"));
-    assertEquals (Boolean.FALSE, StringParser.parseBoolObj (Boolean.FALSE.toString ()));
-    assertEquals (Boolean.FALSE, StringParser.parseBoolObj ("anything"));
-    assertEquals (Boolean.FALSE, StringParser.parseBoolObj ((String) null));
+    assertSame (Boolean.TRUE, StringParser.parseBoolObj ("true"));
+    assertSame (Boolean.TRUE, StringParser.parseBoolObj ("TRUE"));
+    assertSame (Boolean.TRUE, StringParser.parseBoolObj (Boolean.TRUE.toString ()));
+    assertSame (Boolean.FALSE, StringParser.parseBoolObj ("false"));
+    assertSame (Boolean.FALSE, StringParser.parseBoolObj ("FALSE"));
+    assertSame (Boolean.FALSE, StringParser.parseBoolObj (Boolean.FALSE.toString ()));
+    assertSame (Boolean.FALSE, StringParser.parseBoolObj ("anything"));
+    assertSame (Boolean.FALSE, StringParser.parseBoolObj ((String) null));
 
-    assertEquals (Boolean.TRUE, StringParser.parseBoolObj ((Object) "true"));
-    assertEquals (Boolean.FALSE, StringParser.parseBoolObj ((Object) "false"));
-    assertEquals (Boolean.FALSE, StringParser.parseBoolObj ((Object) "anything"));
-    assertEquals (Boolean.TRUE, StringParser.parseBoolObj (Boolean.TRUE));
-    assertEquals (Boolean.FALSE, StringParser.parseBoolObj (Boolean.FALSE));
+    assertSame (Boolean.TRUE, StringParser.parseBoolObj ((Object) "true"));
+    assertSame (Boolean.FALSE, StringParser.parseBoolObj ((Object) "false"));
+    assertSame (Boolean.FALSE, StringParser.parseBoolObj ((Object) "anything"));
+    assertSame (Boolean.TRUE, StringParser.parseBoolObj (Boolean.TRUE));
+    assertSame (Boolean.FALSE, StringParser.parseBoolObj (Boolean.FALSE));
     assertNull (StringParser.parseBoolObj ((Object) null));
-    assertEquals (Boolean.FALSE, StringParser.parseBoolObj (Integer.valueOf (0)));
-    assertEquals (Boolean.FALSE, StringParser.parseBoolObj (Integer.valueOf (1)));
-    assertEquals (Boolean.FALSE, StringParser.parseBoolObj (Integer.valueOf (0), Boolean.TRUE));
-    assertEquals (Boolean.FALSE, StringParser.parseBoolObj (Integer.valueOf (1), Boolean.TRUE));
-    assertEquals (Boolean.FALSE, StringParser.parseBoolObj (Integer.valueOf (0), null));
+    assertSame (Boolean.FALSE, StringParser.parseBoolObj (Integer.valueOf (0)));
+    assertSame (Boolean.FALSE, StringParser.parseBoolObj (Integer.valueOf (1)));
+    assertSame (Boolean.FALSE, StringParser.parseBoolObj (Integer.valueOf (0), Boolean.TRUE));
+    assertSame (Boolean.FALSE, StringParser.parseBoolObj (Integer.valueOf (1), Boolean.TRUE));
+    assertSame (Boolean.FALSE, StringParser.parseBoolObj (Integer.valueOf (0), null));
   }
 
   @Test
   public void testParseBoolObjExact ()
   {
-    assertEquals (Boolean.TRUE, StringParser.parseBoolObjExact ("true"));
-    assertEquals (Boolean.TRUE, StringParser.parseBoolObjExact ("trUE"));
-    assertEquals (Boolean.TRUE, StringParser.parseBoolObjExact (Boolean.TRUE.toString ()));
-    assertEquals (Boolean.FALSE, StringParser.parseBoolObjExact ("false"));
-    assertEquals (Boolean.FALSE, StringParser.parseBoolObjExact ("FALse"));
-    assertEquals (Boolean.FALSE, StringParser.parseBoolObjExact (Boolean.FALSE.toString ()));
+    assertSame (Boolean.TRUE, StringParser.parseBoolObjExact ("true"));
+    assertSame (Boolean.TRUE, StringParser.parseBoolObjExact ("trUE"));
+    assertSame (Boolean.TRUE, StringParser.parseBoolObjExact (Boolean.TRUE.toString ()));
+    assertSame (Boolean.FALSE, StringParser.parseBoolObjExact ("false"));
+    assertSame (Boolean.FALSE, StringParser.parseBoolObjExact ("FALse"));
+    assertSame (Boolean.FALSE, StringParser.parseBoolObjExact (Boolean.FALSE.toString ()));
     assertNull (StringParser.parseBoolObjExact ("anything"));
     assertNull (StringParser.parseBoolObjExact (""));
     assertNull (StringParser.parseBoolObjExact (null));

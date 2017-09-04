@@ -99,10 +99,12 @@ public class JsonWriter
         if (bIsIndentEnabled)
           aWriter.write (sNewlineString);
 
-        int nIndex = 0;
+        boolean bFirst = true;
         for (final IJson aChild : (IJsonArray) aJson)
         {
-          if (nIndex++ > 0)
+          if (bFirst)
+            bFirst = false;
+          else
           {
             aWriter.write (CJson.ITEM_SEPARATOR);
 

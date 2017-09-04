@@ -1443,7 +1443,8 @@ public class BCrypt
       byte o = (byte) (c1 << 2);
       o |= (c2 & 0x30) >> 4;
       rs.append ((char) o);
-      if (++olen >= nMaxLen || off >= slen)
+      ++olen;
+      if (olen >= nMaxLen || off >= slen)
         break;
       final byte c3 = _char64 (sToDecode.charAt (off++));
       if (c3 == -1)
@@ -1451,7 +1452,8 @@ public class BCrypt
       o = (byte) ((c2 & 0x0f) << 4);
       o |= (c3 & 0x3c) >> 2;
       rs.append ((char) o);
-      if (++olen >= nMaxLen || off >= slen)
+      ++olen;
+      if (olen >= nMaxLen || off >= slen)
         break;
       final byte c4 = _char64 (sToDecode.charAt (off++));
       o = (byte) ((c3 & 0x03) << 6);
@@ -1543,7 +1545,8 @@ public class BCrypt
   {
     final int koffp[] = { 0 };
     final int lr[] = { 0, 0 };
-    final int plen = m_aP.length, slen = m_aS.length;
+    final int plen = m_aP.length;
+    final int slen = m_aS.length;
 
     for (int i = 0; i < plen; i++)
       m_aP[i] = m_aP[i] ^ _streamtoword (key, koffp);

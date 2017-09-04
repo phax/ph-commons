@@ -16,6 +16,7 @@
  */
 package com.helger.xml.ls;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -83,7 +84,7 @@ public final class SimpleLSResourceResolverTest
       // Bundle 0 is the org.apache.felix.framework bundle
       final Bundle b = aOSGI.getBundleContext ().getBundle (0);
       assertNotNull (b);
-      assertTrue (b.getState () == Bundle.ACTIVE);
+      assertEquals (b.getState (), Bundle.ACTIVE);
 
       // No leading slash is important as the ClassLoader is used!
       assertNotNull (b.getResource ("org/apache/felix/framework/util/Mutex.class"));

@@ -450,7 +450,7 @@ public final class HelpFormatterTest
     try (final NonBlockingStringWriter out = new NonBlockingStringWriter ())
     {
       formatter.printHelp (new PrintWriter (out), 80, "foobar", header, options, 2, 2, footer, true);
-      assertEquals ("usage: foobar" + EOL + "" + EOL + "Header" + EOL + "" + EOL + "Footer" + EOL, out.getAsString ());
+      assertEquals ("usage: foobar" + EOL + EOL + "Header" + EOL + EOL + "Footer" + EOL, out.getAsString ());
     }
   }
 
@@ -472,7 +472,6 @@ public final class HelpFormatterTest
                     EOL +
                     "  Header2" +
                     EOL +
-                    "" +
                     EOL +
                     "  Footer1" +
                     EOL +

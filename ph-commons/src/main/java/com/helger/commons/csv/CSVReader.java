@@ -19,6 +19,7 @@ package com.helger.commons.csv;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.UncheckedIOException;
 import java.util.Iterator;
 import java.util.function.Consumer;
 
@@ -484,7 +485,7 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
     }
     catch (final IOException e)
     {
-      throw new RuntimeException ("Error creating CSVIterator", e);
+      throw new UncheckedIOException ("Error creating CSVIterator", e);
     }
   }
 }

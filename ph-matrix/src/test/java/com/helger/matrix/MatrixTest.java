@@ -111,7 +111,8 @@ public final class MatrixTest
                                    { 0, 0, 0, 1, 0 },
                                    { 1, 1, 0, 0, 1 },
                                    { 1, 0, 1, 0, 1 } };
-    final int rows = 3, cols = 4;
+    final int rows = 3;
+    final int cols = 4;
     /*
      * should trigger bad shape for construction with val
      */
@@ -128,13 +129,16 @@ public final class MatrixTest
      */
     final int nonconformld = 4;
     /* index ranges for sub Matrix */
-    final int ib = 1, ie = 2, jb = 1, je = 3;
+    final int ib = 1;
+    final int ie = 2;
+    final int jb = 1;
+    final int je = 3;
     final int [] rowindexset = { 1, 2 };
     final int [] badrowindexset = { 1, 3 };
     final int [] columnindexset = { 1, 2, 3 };
     final int [] badcolumnindexset = { 1, 2, 4 };
-    final double columnsummax = 33.;
-    final double rowsummax = 30.;
+    final double columnsummax = 33;
+    final double rowsummax = 30;
     final double sumofdiagonals = 15;
     final double sumofsquares = 650;
 
@@ -322,8 +326,7 @@ public final class MatrixTest
     }
     try
     {
-      if (b.get (b.getRowDimension () -
-                 1,
+      if (b.get (b.getRowDimension () - 1,
                  b.getColumnDimension () - 1) != avals[b.getRowDimension () - 1][b.getColumnDimension () - 1])
       {
         fail ("Matrix entry (i,j) not successfully retreived");
