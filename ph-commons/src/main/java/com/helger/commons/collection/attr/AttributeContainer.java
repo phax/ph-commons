@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.callback.CallbackList;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
@@ -66,6 +67,14 @@ public class AttributeContainer <KEYTYPE, VALUETYPE> extends CommonsLinkedHashMa
   public final CallbackList <IAfterSetValueCallback <KEYTYPE, VALUETYPE>> afterSetValueCallbacks ()
   {
     return m_aAfterCallbacks;
+  }
+
+  @Override
+  @Nonnull
+  @ReturnsMutableCopy
+  public AttributeContainer <KEYTYPE, VALUETYPE> getClone ()
+  {
+    return new AttributeContainer <> (this);
   }
 
   @Override

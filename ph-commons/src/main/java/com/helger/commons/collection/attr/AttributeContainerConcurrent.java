@@ -22,6 +22,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.callback.CallbackList;
 import com.helger.commons.collection.impl.CommonsConcurrentHashMap;
@@ -81,6 +82,14 @@ public class AttributeContainerConcurrent <KEYTYPE, VALUETYPE> extends CommonsCo
   {
     // Cannot handle null keys!
     return aKey != null ? super.get (aKey) : null;
+  }
+
+  @Override
+  @Nonnull
+  @ReturnsMutableCopy
+  public AttributeContainerConcurrent <KEYTYPE, VALUETYPE> getClone ()
+  {
+    return new AttributeContainerConcurrent <> (this);
   }
 
   @Override

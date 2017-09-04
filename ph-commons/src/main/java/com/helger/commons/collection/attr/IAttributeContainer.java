@@ -23,6 +23,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.callback.CallbackList;
 import com.helger.commons.callback.ICallback;
@@ -226,4 +227,8 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends
         eChange = eChange.or (putIn (aEntry.getKey (), aEntry.getValue ()));
     return eChange;
   }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  IAttributeContainer <KEYTYPE, VALUETYPE> getClone ();
 }

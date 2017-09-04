@@ -18,8 +18,11 @@ package com.helger.commons.collection.attr;
 
 import java.util.Map;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
+
+import com.helger.commons.annotation.ReturnsMutableCopy;
 
 /**
  * Base class for all kind of string-object mapping container. This
@@ -41,5 +44,13 @@ public class AttributeContainerAny <KEYTYPE> extends AttributeContainer <KEYTYPE
   public AttributeContainerAny (@Nullable final Map <? extends KEYTYPE, ? extends Object> aMap)
   {
     super (aMap);
+  }
+
+  @Override
+  @Nonnull
+  @ReturnsMutableCopy
+  public AttributeContainerAny <KEYTYPE> getClone ()
+  {
+    return new AttributeContainerAny <> (this);
   }
 }

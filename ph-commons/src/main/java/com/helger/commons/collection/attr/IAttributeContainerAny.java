@@ -18,6 +18,7 @@ package com.helger.commons.collection.attr;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.state.EChange;
 
 /**
@@ -160,4 +161,8 @@ public interface IAttributeContainerAny <KEYTYPE> extends IAttributeContainer <K
     putIn (aName, Boolean.TRUE);
     return false;
   }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  IAttributeContainerAny <KEYTYPE> getClone ();
 }
