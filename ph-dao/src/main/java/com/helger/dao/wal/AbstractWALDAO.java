@@ -137,6 +137,16 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
   // Status vars
   private final WALListener m_aWALListener;
 
+  private static String _getFilenameNew (final String sFilename)
+  {
+    return sFilename + ".new";
+  }
+
+  private static String _getFilenamePrev (final String sFilename)
+  {
+    return sFilename + ".prev";
+  }
+
   protected AbstractWALDAO (@Nonnull final Class <DATATYPE> aDataTypeClass,
                             @Nonnull final IFileRelativeIO aIO,
                             @Nonnull final ISupplier <String> aFilenameProvider)
@@ -147,6 +157,36 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
 
     // Remember instance in case it is trigger upon shutdown
     m_aWALListener = WALListener.getInstance ();
+
+    // Consistency checks
+    final String sFilename = m_aFilenameProvider.get ();
+    if (sFilename != null)
+    {
+      try
+      {
+        final File aFileNew = getSafeFile (_getFilenameNew (sFilename), EMode.WRITE);
+        if (aFileNew.exists ())
+          throw new IllegalStateException ("The temporary WAL file " +
+                                           aFileNew.getAbsolutePath () +
+                                           " already exists!");
+      }
+      catch (final DAOException ex)
+      {
+        // Ignore
+      }
+      try
+      {
+        final File aFilePrev = getSafeFile (_getFilenamePrev (sFilename), EMode.WRITE);
+        if (aFilePrev.exists ())
+          throw new IllegalStateException ("The temporary WAL file " +
+                                           aFilePrev.getAbsolutePath () +
+                                           " already exists!");
+      }
+      catch (final DAOException ex)
+      {
+        // Ignore
+      }
+    }
   }
 
   final void internalWriteLocked (@Nonnull final Runnable aRunnable)
@@ -725,8 +765,8 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
 
     File aFileNew = null;
     IMicroDocument aDoc = null;
-    final String sFilenameNew = sFilename + ".new";
-    final String sFilenamePrev = sFilename + ".prev";
+    final String sFilenameNew = _getFilenameNew (sFilename);
+    final String sFilenamePrev = _getFilenamePrev (sFilename);
     try
     {
       // Get the file handle
