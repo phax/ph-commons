@@ -26,7 +26,6 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.functional.IIntToFloatFunction;
 
 /**
  * Special int-float-primitive map. Based on:
@@ -38,6 +37,26 @@ import com.helger.commons.functional.IIntToFloatFunction;
 @NotThreadSafe
 public class IntFloatMap implements Serializable
 {
+  /**
+   * Represents a function that accepts an key-type argument and produces a
+   * value-typed result.
+   * <p>
+   * This is a functional interface whose functional method is
+   * {@link #apply(int)}.
+   */
+  @FunctionalInterface
+  public interface IKeyToValueFunction extends Serializable
+  {
+    /**
+     * Applies this function to the given argument.
+     *
+     * @param value
+     *        the function argument
+     * @return the function result
+     */
+    float apply (int value);
+  }
+
   private static final int FREE_KEY = 0;
 
   public static final float NO_VALUE = Float.NEGATIVE_INFINITY;
@@ -107,12 +126,12 @@ public class IntFloatMap implements Serializable
     return idx != -1 ? m_aValues[idx] : fDefault;
   }
 
-  public float computeIfAbsent (final int key, @Nonnull final IIntToFloatFunction aProvider)
+  public float computeIfAbsent (final int key, @Nonnull final IKeyToValueFunction aProvider)
   {
     float ret = get (key);
     if (ret == NO_VALUE)
     {
-      ret = aProvider.applyAsFloat (key);
+      ret = aProvider.apply (key);
       if (ret != NO_VALUE)
         put (key, ret);
     }
