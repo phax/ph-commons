@@ -63,7 +63,7 @@ public final class ScopeManager
    * The prefix to be used for attribute names in any scope to indicate system
    * internal attributes
    */
-  public static final String SCOPE_ATTRIBUTE_PREFIX_INTERNAL = "$ph.";
+  public static final String SCOPE_ATTRIBUTE_PREFIX_INTERNAL = "$ph-";
 
   public static final boolean DEFAULT_CREATE_SCOPE = true;
 
