@@ -18,7 +18,6 @@ package com.helger.scope.spi;
 
 import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.scope.ISessionApplicationScope;
-import com.helger.scope.spi.ISessionApplicationScopeSPI;
 
 @IsSPIImplementation
 public final class MockThrowingSessionApplicationScopeSPI extends AbstractMockThrowingScopeSPI implements ISessionApplicationScopeSPI

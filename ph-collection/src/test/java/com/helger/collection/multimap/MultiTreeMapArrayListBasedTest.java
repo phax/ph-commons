@@ -18,8 +18,6 @@ package com.helger.collection.multimap;
 
 import org.junit.Test;
 
-import com.helger.collection.multimap.MultiTreeMapArrayListBased;
-
 /**
  * Test class for class {@link MultiTreeMapArrayListBased}.
  *

@@ -21,8 +21,6 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
-import com.helger.scope.SessionScope;
-
 /**
  * Test class for class {@link SessionScope}.
  *

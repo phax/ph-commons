@@ -23,7 +23,6 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import com.helger.collection.map.IntFloatMap;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.random.RandomHelper;
 

@@ -18,7 +18,6 @@ package com.helger.scope.spi;
 
 import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.scope.IGlobalScope;
-import com.helger.scope.spi.IGlobalScopeSPI;
 
 @IsSPIImplementation
 public final class MockThrowingGlobalScopeSPI extends AbstractMockThrowingScopeSPI implements IGlobalScopeSPI

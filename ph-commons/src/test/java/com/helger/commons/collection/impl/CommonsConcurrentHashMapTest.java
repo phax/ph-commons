@@ -25,10 +25,6 @@ import java.util.function.Function;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsConcurrentHashMap;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**

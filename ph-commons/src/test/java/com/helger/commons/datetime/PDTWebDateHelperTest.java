@@ -31,9 +31,6 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 
-import com.helger.commons.datetime.PDTConfig;
-import com.helger.commons.datetime.PDTFactory;
-
 /**
  * Test class for class {@link PDTWebDateHelper}.
  *

@@ -18,7 +18,6 @@ package com.helger.scope.spi;
 
 import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.scope.IRequestScope;
-import com.helger.scope.spi.IRequestScopeSPI;
 
 @IsSPIImplementation
 public final class MockThrowingRequestScopeSPI extends AbstractMockThrowingScopeSPI implements IRequestScopeSPI

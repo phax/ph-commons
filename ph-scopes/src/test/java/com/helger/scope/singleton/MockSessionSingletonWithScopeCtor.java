@@ -22,7 +22,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.UsedViaReflection;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.scope.IScope;
-import com.helger.scope.singleton.AbstractSessionSingleton;
 
 /**
  * Mock implementation of {@link AbstractSessionSingleton}.

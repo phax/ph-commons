@@ -21,7 +21,6 @@ import javax.annotation.Nonnull;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.UsedViaReflection;
 import com.helger.scope.IScope;
-import com.helger.scope.singleton.AbstractGlobalSingleton;
 
 /**
  * Mock implementation of {@link AbstractGlobalSingleton}

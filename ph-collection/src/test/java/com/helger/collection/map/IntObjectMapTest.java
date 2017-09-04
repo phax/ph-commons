@@ -25,7 +25,6 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 
-import com.helger.collection.map.IntObjectMap;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsSet;

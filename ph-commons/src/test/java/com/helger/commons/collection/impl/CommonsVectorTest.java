@@ -21,8 +21,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.impl.CommonsVector;
-import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**

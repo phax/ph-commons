@@ -22,7 +22,6 @@ import java.util.Objects;
 
 import org.junit.Test;
 
-import com.helger.collection.helper.QueueHelper;
 import com.helger.commons.collection.IteratorHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;

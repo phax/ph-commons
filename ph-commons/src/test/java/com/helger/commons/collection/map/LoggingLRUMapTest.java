@@ -22,7 +22,6 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.map.LoggingLRUMap;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**

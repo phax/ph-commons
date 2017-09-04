@@ -27,7 +27,6 @@ import javax.annotation.Nonnull;
 import org.junit.Test;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.datetime.PDTFormatPatterns;
 import com.helger.commons.locale.LocaleCache;
 
 /**

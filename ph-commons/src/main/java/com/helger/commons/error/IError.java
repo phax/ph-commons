@@ -25,8 +25,8 @@ import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.error.level.IHasErrorLevelComparable;
 import com.helger.commons.error.text.IHasErrorText;
-import com.helger.commons.location.SimpleLocation;
 import com.helger.commons.location.ILocation;
+import com.helger.commons.location.SimpleLocation;
 
 /**
  * Common interface for single errors and resource errors.

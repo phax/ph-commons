@@ -18,8 +18,6 @@ package com.helger.collection.multimap;
 
 import org.junit.Test;
 
-import com.helger.collection.multimap.IMultiMapSetBased;
-import com.helger.collection.multimap.MultiHashMapLinkedHashSetBased;
 import com.helger.commons.collection.impl.ICommonsSet;
 
 /**

@@ -19,7 +19,6 @@ package com.helger.scope.singleton;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.UsedViaReflection;
-import com.helger.scope.singleton.AbstractRequestSingleton;
 
 /**
  * Mock implementation of {@link AbstractRequestSingleton}.

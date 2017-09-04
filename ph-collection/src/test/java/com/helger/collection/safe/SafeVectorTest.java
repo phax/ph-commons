@@ -23,7 +23,6 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.collection.safe.SafeVector;
 import com.helger.commons.factory.FactoryNewInstance;
 import com.helger.commons.mock.CommonsTestHelper;
 

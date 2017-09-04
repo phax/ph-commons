@@ -22,7 +22,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 
-import com.helger.scope.mgr.EScope;
 import com.helger.scope.mock.ScopeTestRule;
 
 /**

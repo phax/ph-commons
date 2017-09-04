@@ -32,10 +32,6 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.datetime.PDTFormatter;
-import com.helger.commons.datetime.PDTFromString;
-
 /**
  * Test class for class {@link PDTFromString}.
  *

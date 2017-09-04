@@ -34,8 +34,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.map.MapEntry;
-import com.helger.commons.collection.map.SoftLinkedHashMap;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.mutable.MutableBoolean;
 

@@ -20,8 +20,6 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
 
-import com.helger.commons.concurrent.ThreadHelper;
-
 /**
  * Test class for class {@link ThreadHelper}.
  *

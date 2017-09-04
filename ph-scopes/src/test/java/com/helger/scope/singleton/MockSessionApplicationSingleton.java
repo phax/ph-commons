@@ -20,7 +20,6 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.UsedViaReflection;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.scope.singleton.AbstractSessionApplicationSingleton;
 
 /**
  * Mock implementation of {@link AbstractSessionApplicationSingleton}.

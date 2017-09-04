@@ -16,33 +16,7 @@
  */
 package com.helger.commons.collection;
 
-import static com.helger.commons.collection.ArrayHelper.contains;
-import static com.helger.commons.collection.ArrayHelper.containsAnyNullElement;
-import static com.helger.commons.collection.ArrayHelper.getAllExcept;
-import static com.helger.commons.collection.ArrayHelper.getAllExceptFirst;
-import static com.helger.commons.collection.ArrayHelper.getAllExceptLast;
-import static com.helger.commons.collection.ArrayHelper.getAsObjectArray;
-import static com.helger.commons.collection.ArrayHelper.getComponentType;
-import static com.helger.commons.collection.ArrayHelper.getConcatenated;
-import static com.helger.commons.collection.ArrayHelper.getCopy;
-import static com.helger.commons.collection.ArrayHelper.getFirst;
-import static com.helger.commons.collection.ArrayHelper.getFirstIndex;
-import static com.helger.commons.collection.ArrayHelper.getLast;
-import static com.helger.commons.collection.ArrayHelper.getLastIndex;
-import static com.helger.commons.collection.ArrayHelper.getSafeElement;
-import static com.helger.commons.collection.ArrayHelper.getSize;
-import static com.helger.commons.collection.ArrayHelper.isArray;
-import static com.helger.commons.collection.ArrayHelper.isArrayEquals;
-import static com.helger.commons.collection.ArrayHelper.isEmpty;
-import static com.helger.commons.collection.ArrayHelper.newArray;
-import static com.helger.commons.collection.ArrayHelper.newBooleanArray;
-import static com.helger.commons.collection.ArrayHelper.newByteArray;
-import static com.helger.commons.collection.ArrayHelper.newCharArray;
-import static com.helger.commons.collection.ArrayHelper.newDoubleArray;
-import static com.helger.commons.collection.ArrayHelper.newFloatArray;
-import static com.helger.commons.collection.ArrayHelper.newIntArray;
-import static com.helger.commons.collection.ArrayHelper.newLongArray;
-import static com.helger.commons.collection.ArrayHelper.newShortArray;
+import static com.helger.commons.collection.ArrayHelper.*;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

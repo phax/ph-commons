@@ -27,8 +27,6 @@ import java.util.Locale;
 import org.junit.Test;
 
 import com.helger.commons.collection.impl.CommonsVector;
-import com.helger.commons.compare.CollatorHelper;
-import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
 

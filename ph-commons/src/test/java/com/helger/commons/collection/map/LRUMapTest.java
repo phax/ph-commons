@@ -21,8 +21,6 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
-import com.helger.commons.collection.map.LRUMap;
-
 /**
  * Test for class {@link LRUMap}
  *

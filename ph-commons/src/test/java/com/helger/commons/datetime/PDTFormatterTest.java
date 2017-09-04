@@ -31,7 +31,6 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.commons.datetime.PDTFormatter;
 import com.helger.commons.locale.LocaleCache;
 
 /**

@@ -28,8 +28,6 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
-import com.helger.collection.multimap.IMultiMap;
-import com.helger.collection.multimap.IMultiMapListBased;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.impl.CommonsConcurrentHashMap;
 import com.helger.commons.collection.impl.ICommonsCollection;
