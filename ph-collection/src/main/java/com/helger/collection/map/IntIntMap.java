@@ -27,6 +27,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.lang.IHasSize;
 
 /**
  * Special int-int-primitive map. Source: https://github.com/mikvor/hashmapTest
@@ -35,7 +36,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class IntIntMap implements Serializable
+public class IntIntMap implements IHasSize, Serializable
 {
   private static final int FREE_KEY = 0;
 
@@ -302,5 +303,27 @@ public class IntIntMap implements Serializable
   private int _getNextIndex (final int currentIndex)
   {
     return (currentIndex + 1) & m_nMask;
+  }
+
+  public static interface IConsumer
+  {
+    void accept (int nKey, int nValue);
+  }
+
+  public void forEach (@Nonnull final IConsumer aConsumer)
+  {
+    if (m_bHasFreeKey)
+      aConsumer.accept (FREE_KEY, m_nFreeValue);
+    final int nLen = m_aKeys.length;
+    for (int i = 0; i < nLen; ++i)
+    {
+      final int nKey = m_aKeys[i];
+      if (nKey != FREE_KEY)
+      {
+        final int nValue = m_aValues[i];
+        if (nValue != NO_VALUE)
+          aConsumer.accept (nKey, nValue);
+      }
+    }
   }
 }

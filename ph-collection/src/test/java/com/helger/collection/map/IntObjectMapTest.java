@@ -18,6 +18,7 @@ package com.helger.collection.map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Random;
 
@@ -36,7 +37,7 @@ public final class IntObjectMapTest
 
   private static IntObjectMap <String> _makeMap (final int size, final float fillFactor)
   {
-    return new IntObjectMap<> (size, fillFactor);
+    return new IntObjectMap <> (size, fillFactor);
   }
 
   @Nonnull
@@ -44,13 +45,6 @@ public final class IntObjectMapTest
   private static String _make (final int i)
   {
     return "str" + i;
-  }
-
-  @Test
-  public void testPut ()
-  {
-    for (final float ff : FILL_FACTORS)
-      _testPutHelper (ff);
   }
 
   private void _testPutHelper (final float fillFactor)
@@ -68,10 +62,10 @@ public final class IntObjectMapTest
   }
 
   @Test
-  public void testPutNegative ()
+  public void testPut ()
   {
     for (final float ff : FILL_FACTORS)
-      _testPutNegative (ff);
+      _testPutHelper (ff);
   }
 
   private void _testPutNegative (final float fillFactor)
@@ -89,17 +83,17 @@ public final class IntObjectMapTest
   }
 
   @Test
-  public void testPutRandom ()
+  public void testPutNegative ()
   {
     for (final float ff : FILL_FACTORS)
-      _testPutRandom (ff);
+      _testPutNegative (ff);
   }
 
   private void _testPutRandom (final float fillFactor)
   {
     final Random aRandom = RandomHelper.getRandom ();
     final int SIZE = 100 * 1000;
-    final ICommonsSet <Integer> set = new CommonsHashSet<> (SIZE);
+    final ICommonsSet <Integer> set = new CommonsHashSet <> (SIZE);
     final int [] vals = new int [SIZE];
     while (set.size () < SIZE)
       set.add (Integer.valueOf (aRandom.nextInt ()));
@@ -120,10 +114,10 @@ public final class IntObjectMapTest
   }
 
   @Test
-  public void testRemove ()
+  public void testPutRandom ()
   {
     for (final float ff : FILL_FACTORS)
-      _testRemoveHelper (ff);
+      _testPutRandom (ff);
   }
 
   private void _testRemoveHelper (final float fillFactor)
@@ -145,5 +139,38 @@ public final class IntObjectMapTest
     }
     for (int i = removeCnt; i < addCnt; ++i)
       assertEquals (_make (i), map.get (i));
+  }
+
+  @Test
+  public void testRemove ()
+  {
+    for (final float ff : FILL_FACTORS)
+      _testRemoveHelper (ff);
+  }
+
+  private void _testForEachHelper (final float fillFactor)
+  {
+    final IntObjectMap <String> map = _makeMap (100, fillFactor);
+    for (int i = 0; i <= 10; ++i)
+      assertNull (map.put (i, _make (i)));
+    assertEquals (11, map.size ());
+
+    final boolean [] aKeysFound = new boolean [map.size ()];
+    final boolean [] aValuesFound = new boolean [map.size ()];
+    map.forEach ( (k, v) -> {
+      aKeysFound[k] = true;
+      aValuesFound[Integer.parseInt (v.substring (3))] = true;
+    });
+    for (final boolean b : aKeysFound)
+      assertTrue (b);
+    for (final boolean b : aValuesFound)
+      assertTrue (b);
+  }
+
+  @Test
+  public void testForEach ()
+  {
+    for (final float ff : FILL_FACTORS)
+      _testForEachHelper (ff);
   }
 }

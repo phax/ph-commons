@@ -26,6 +26,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.lang.IHasSize;
 
 /**
  * Special int-float-primitive map. Based on:
@@ -35,7 +36,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class IntDoubleMap implements Serializable
+public class IntDoubleMap implements IHasSize, Serializable
 {
   /**
    * Represents a function that accepts an key-type argument and produces a
@@ -69,7 +70,7 @@ public class IntDoubleMap implements Serializable
   /** Do we have 'free' key in the map? */
   private boolean m_bHasFreeKey;
   /** Value of 'free' key */
-  private double m_aFreeValue = NO_VALUE;
+  private double m_dFreeValue = NO_VALUE;
 
   /** Fill factor, must be between (0 and 1) */
   private final float m_fFillFactor;
@@ -120,7 +121,7 @@ public class IntDoubleMap implements Serializable
   public double get (final int key, final double fDefault)
   {
     if (key == FREE_KEY)
-      return m_bHasFreeKey ? m_aFreeValue : fDefault;
+      return m_bHasFreeKey ? m_dFreeValue : fDefault;
 
     final int idx = _getReadIndex (key);
     return idx != -1 ? m_aValues[idx] : fDefault;
@@ -142,13 +143,13 @@ public class IntDoubleMap implements Serializable
   {
     if (key == FREE_KEY)
     {
-      final double ret = m_aFreeValue;
+      final double ret = m_dFreeValue;
       if (!m_bHasFreeKey)
       {
         ++m_nSize;
         m_bHasFreeKey = true;
       }
-      m_aFreeValue = value;
+      m_dFreeValue = value;
       return ret;
     }
 
@@ -184,8 +185,8 @@ public class IntDoubleMap implements Serializable
       if (!m_bHasFreeKey)
         return NO_VALUE;
       m_bHasFreeKey = false;
-      final double ret = m_aFreeValue;
-      m_aFreeValue = NO_VALUE;
+      final double ret = m_dFreeValue;
+      m_dFreeValue = NO_VALUE;
       --m_nSize;
       return ret;
     }
@@ -322,5 +323,27 @@ public class IntDoubleMap implements Serializable
   private int _getNextIndex (final int currentIndex)
   {
     return (currentIndex + 1) & m_nMask;
+  }
+
+  public static interface IConsumer
+  {
+    void accept (int nKey, double dValue);
+  }
+
+  public void forEach (@Nonnull final IConsumer aConsumer)
+  {
+    if (m_bHasFreeKey)
+      aConsumer.accept (FREE_KEY, m_dFreeValue);
+    final int nLen = m_aKeys.length;
+    for (int i = 0; i < nLen; ++i)
+    {
+      final int nKey = m_aKeys[i];
+      if (nKey != FREE_KEY)
+      {
+        final double dValue = m_aValues[i];
+        if (dValue != NO_VALUE)
+          aConsumer.accept (nKey, dValue);
+      }
+    }
   }
 }

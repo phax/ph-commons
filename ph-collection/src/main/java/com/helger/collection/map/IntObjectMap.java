@@ -30,6 +30,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.lang.GenericReflection;
+import com.helger.commons.lang.IHasSize;
 
 /**
  * Special int-Object map. Based on: https://github.com/mikvor/hashmapTest
@@ -40,7 +41,7 @@ import com.helger.commons.lang.GenericReflection;
  *        Element type
  */
 @NotThreadSafe
-public class IntObjectMap <T> implements Serializable
+public class IntObjectMap <T> implements IHasSize, Serializable
 {
   private static final int FREE_KEY = 0;
 
@@ -134,6 +135,7 @@ public class IntObjectMap <T> implements Serializable
     return EqualsHelper.identityEqual (aValue, m_aNoValue) ? null : aValue;
   }
 
+  @Nullable
   public T put (final int key, final T value)
   {
     if (key == FREE_KEY)
@@ -173,6 +175,7 @@ public class IntObjectMap <T> implements Serializable
     return _getOld (prev);
   }
 
+  @Nullable
   public T remove (final int key)
   {
     if (key == FREE_KEY)
@@ -224,6 +227,11 @@ public class IntObjectMap <T> implements Serializable
       if (aOldKeys[i] != FREE_KEY)
         put (aOldKeys[i], aOldValues[i]);
     }
+  }
+
+  private int _getNextIndex (final int currentIndex)
+  {
+    return (currentIndex + 1) & m_nMask;
   }
 
   private int _shiftKeys (final int nPos)
@@ -316,8 +324,25 @@ public class IntObjectMap <T> implements Serializable
     return idx;
   }
 
-  private int _getNextIndex (final int currentIndex)
+  public static interface IConsumer <T>
   {
-    return (currentIndex + 1) & m_nMask;
+    void accept (int nKey, T aValue);
+  }
+
+  public void forEach (@Nonnull final IConsumer <T> aConsumer)
+  {
+    if (m_bHasFreeKey)
+      aConsumer.accept (FREE_KEY, m_aFreeValue);
+    final int nLen = m_aKeys.length;
+    for (int i = 0; i < nLen; ++i)
+    {
+      final int nKey = m_aKeys[i];
+      if (nKey != FREE_KEY)
+      {
+        final T aValue = m_aValues[i];
+        if (!EqualsHelper.identityEqual (aValue, m_aNoValue))
+          aConsumer.accept (nKey, aValue);
+      }
+    }
   }
 }
