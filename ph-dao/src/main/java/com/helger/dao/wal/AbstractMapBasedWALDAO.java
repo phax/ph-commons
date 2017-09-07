@@ -485,7 +485,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   @IsLocked (ELockType.READ)
-  public final boolean containsAny ()
+  public final boolean isNotEmpty ()
   {
     return m_aRWLock.readLocked ( () -> m_aMap.isNotEmpty ());
   }
@@ -497,7 +497,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   @IsLocked (ELockType.READ)
-  public final boolean containsNone ()
+  public final boolean isEmpty ()
   {
     return m_aRWLock.readLocked ( () -> m_aMap.isEmpty ());
   }
@@ -638,7 +638,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   @Nonnegative
-  public final int getCount ()
+  public final int size ()
   {
     return m_aRWLock.readLocked ( () -> m_aMap.size ());
   }

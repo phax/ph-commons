@@ -29,9 +29,10 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.id.IHasID;
+import com.helger.commons.lang.IHasSize;
 
 @ThreadSafe
-public interface IMapBasedDAO <INTERFACETYPE extends IHasID <String>>
+public interface IMapBasedDAO <INTERFACETYPE extends IHasID <String>> extends IHasSize
 {
   @Nonnull
   @ReturnsMutableCopy
@@ -60,11 +61,7 @@ public interface IMapBasedDAO <INTERFACETYPE extends IHasID <String>>
   <RETTYPE> RETTYPE findFirstMapped (@Nullable Predicate <? super INTERFACETYPE> aFilter,
                                      @Nonnull Function <? super INTERFACETYPE, ? extends RETTYPE> aMapper);
 
-  boolean containsAny ();
-
   boolean containsAny (@Nullable Predicate <? super INTERFACETYPE> aFilter);
-
-  boolean containsNone ();
 
   boolean containsNone (@Nullable Predicate <? super INTERFACETYPE> aFilter);
 
@@ -75,9 +72,6 @@ public interface IMapBasedDAO <INTERFACETYPE extends IHasID <String>>
   @Nonnull
   @ReturnsMutableCopy
   ICommonsSet <String> getAllIDs ();
-
-  @Nonnegative
-  int getCount ();
 
   @Nonnegative
   int getCount (@Nullable Predicate <? super INTERFACETYPE> aFilter);
