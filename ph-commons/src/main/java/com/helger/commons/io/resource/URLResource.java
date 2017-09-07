@@ -87,7 +87,7 @@ public class URLResource implements IReadableResource
    */
   public static boolean isExplicitURLResource (@Nullable final String sName)
   {
-    return URLHelper.getAsURL (sName) != null;
+    return URLHelper.getAsURL (sName, false) != null;
   }
 
   @Nonnull
