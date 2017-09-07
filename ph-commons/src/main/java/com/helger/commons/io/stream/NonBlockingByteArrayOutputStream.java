@@ -125,7 +125,9 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   @Override
   public void write (@Nonnull final byte [] aBuf, final int nOfs, final int nLen)
   {
-    ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
+    // Disable because this can have a performance impact!
+    if (false)
+      ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
     if (nLen > 0)
     {
       final int nNewCount = m_nCount + nLen;
