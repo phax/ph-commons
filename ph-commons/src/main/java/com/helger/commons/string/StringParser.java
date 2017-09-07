@@ -1546,8 +1546,8 @@ public final class StringParser
     if (sStr != null)
       try
       {
-        final int ret = Integer.parseInt (sStr, DEFAULT_RADIX);
-        return ret >= 0;
+        Integer.parseUnsignedInt (sStr, DEFAULT_RADIX);
+        return true;
       }
       catch (final NumberFormatException ex)
       {
