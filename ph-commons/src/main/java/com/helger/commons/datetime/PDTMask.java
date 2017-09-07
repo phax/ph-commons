@@ -42,11 +42,14 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public class PDTMask <T extends Temporal & Serializable> implements Serializable
 {
+  // Typedef
+  protected static interface ITemporalQuery <R> extends TemporalQuery <R>, Serializable
+  {}
+
   private final String m_sPattern;
   private final TemporalQuery <T> m_aQuery;
 
-  protected <U extends TemporalQuery <T> & Serializable> PDTMask (@Nonnull @Nonempty final String sPattern,
-                                                                  @Nonnull final U aQuery)
+  protected PDTMask (@Nonnull @Nonempty final String sPattern, @Nonnull final ITemporalQuery <T> aQuery)
   {
     ValueEnforcer.notEmpty (sPattern, "Pattern");
     ValueEnforcer.notNull (aQuery, "Query");
