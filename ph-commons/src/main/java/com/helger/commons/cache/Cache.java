@@ -263,7 +263,7 @@ public class Cache <KEYTYPE, VALUETYPE> implements IMutableCache <KEYTYPE, VALUE
   }
 
   @Nonnegative
-  public int getSize ()
+  public int size ()
   {
     return m_aRWLock.readLocked ( () -> CollectionHelper.getSize (m_aCache));
   }

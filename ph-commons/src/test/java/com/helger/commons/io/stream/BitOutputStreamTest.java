@@ -95,7 +95,7 @@ public final class BitOutputStreamTest
     for (int i = 0; i < 7; ++i)
       aBOS.writeBit (0);
 
-    assertTrue (aBAOS.getSize () > 0);
+    assertTrue (aBAOS.size () > 0);
     final int aByte = aBAOS.toByteArray ()[0] & 0xff;
     assertEquals (128, aByte);
   }
@@ -110,7 +110,7 @@ public final class BitOutputStreamTest
       aBOS.writeBit (0);
     aBOS.writeBit (1);
 
-    assertTrue (aBAOS.getSize () > 0);
+    assertTrue (aBAOS.size () > 0);
     final int aByte = aBAOS.toByteArray ()[0] & 0xff;
     assertEquals (128, aByte);
   }

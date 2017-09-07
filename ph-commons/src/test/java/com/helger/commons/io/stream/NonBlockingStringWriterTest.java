@@ -41,16 +41,16 @@ public final class NonBlockingStringWriterTest
     try (final NonBlockingStringWriter aSW = new NonBlockingStringWriter ())
     {
       assertTrue (aSW.isEmpty ());
-      assertEquals (0, aSW.getSize ());
+      assertEquals (0, aSW.size ());
       aSW.write ('a');
       assertFalse (aSW.isEmpty ());
-      assertEquals (1, aSW.getSize ());
+      assertEquals (1, aSW.size ());
       aSW.write ("bc".toCharArray ());
       aSW.write ("de".toCharArray (), 0, 1);
       aSW.write ("ef");
       aSW.write ("fgh", 1, 1);
       assertEquals ("abcdefg", aSW.getAsString ());
-      assertEquals (7, aSW.getSize ());
+      assertEquals (7, aSW.size ());
       aSW.append ('0').append ("12").append ("234", 1, 2);
       assertEquals ("abcdefg0123", aSW.getAsString ());
       assertEquals ("abcdefg0123", aSW.directGetStringBuilder ().toString ());

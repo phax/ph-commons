@@ -265,7 +265,7 @@ public class SingleError implements IError
       if (aMLT == null)
         m_aErrorText = null;
       else
-        if (aMLT.getSize () == 1)
+        if (aMLT.size () == 1)
         {
           // If the multilingual text contains only a single locale, use it as a
           // constant value

@@ -35,6 +35,6 @@ public final class CacheTest
 
     for (int i = 0; i < c.getMaxSize () + 1; ++i)
       c.getFromCache ("key" + i);
-    assertEquals (5, c.getSize ());
+    assertEquals (5, c.size ());
   }
 }

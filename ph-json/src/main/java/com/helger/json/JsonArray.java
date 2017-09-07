@@ -102,7 +102,7 @@ public class JsonArray implements IJsonArray
   }
 
   @Nonnegative
-  public int getSize ()
+  public int size ()
   {
     return m_aValues.size ();
   }

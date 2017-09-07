@@ -274,7 +274,7 @@ public class NonBlockingStringWriter extends Writer implements IHasSize, Seriali
   }
 
   @Nonnegative
-  public int getSize ()
+  public int size ()
   {
     return m_aSB.length ();
   }

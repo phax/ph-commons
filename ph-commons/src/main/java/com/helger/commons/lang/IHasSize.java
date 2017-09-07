@@ -29,20 +29,23 @@ public interface IHasSize
    * @return The number of contained elements. Always &ge; 0.
    */
   @Nonnegative
-  int getSize ();
+  int size ();
 
   /**
    * @return <code>true</code> if no items are present, <code>false</code> if at
    *         least a single item is present.
-   * @see #getSize()
+   * @see #size()
    * @see #isNotEmpty()
    */
-  boolean isEmpty ();
+  default boolean isEmpty ()
+  {
+    return size () == 0;
+  }
 
   /**
    * @return <code>true</code> if at least one item is present,
    *         <code>false</code> if no item is present.
-   * @see #getSize()
+   * @see #size()
    * @see #isEmpty()
    */
   default boolean isNotEmpty ()

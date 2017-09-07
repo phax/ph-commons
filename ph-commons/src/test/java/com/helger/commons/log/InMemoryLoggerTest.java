@@ -38,18 +38,18 @@ public final class InMemoryLoggerTest
   {
     final InMemoryLogger log = new InMemoryLogger ();
     assertTrue (log.isEmpty ());
-    assertEquals (0, log.getSize ());
+    assertEquals (0, log.size ());
     log.error ("error");
     log.error ("error2", new Exception ());
-    assertEquals (2, log.getSize ());
+    assertEquals (2, log.size ());
     assertFalse (log.isEmpty ());
     log.warn ("warn");
     log.warn ("warn2", new Exception ());
     log.info ("Info");
-    assertEquals (5, log.getSize ());
+    assertEquals (5, log.size ());
     assertEquals (5, log.getAllMessages ().size ());
     assertNotNull (log.toString ());
     log.log (EErrorLevel.WARN, "msg");
-    assertFalse (new CommonsArrayList<> (log).isEmpty ());
+    assertFalse (new CommonsArrayList <> (log).isEmpty ());
   }
 }

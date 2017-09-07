@@ -533,15 +533,15 @@ public class HttpHeaderMap implements
     return m_aHeaders.entrySet ().iterator ();
   }
 
+  @Nonnegative
+  public int size ()
+  {
+    return m_aHeaders.size ();
+  }
+
   public boolean isEmpty ()
   {
     return m_aHeaders.isEmpty ();
-  }
-
-  @Nonnegative
-  public int getSize ()
-  {
-    return m_aHeaders.size ();
   }
 
   /**

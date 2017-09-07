@@ -100,7 +100,7 @@ public class JsonObject implements IJsonObject
   }
 
   @Nonnegative
-  public int getSize ()
+  public int size ()
   {
     return m_aValues.size ();
   }

@@ -218,24 +218,24 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   }
 
   /**
-   * Returns the current size of the buffer.
-   *
-   * @return the value of the <code>count</code> field, which is the number of
-   *         valid bytes in this output stream.
-   */
-  @Nonnegative
-  public int getSize ()
-  {
-    return m_nCount;
-  }
-
-  /**
    * @return The number of pre-allocated bytes. Always &ge; 0.
    */
   @Nonnegative
   public int getBufferSize ()
   {
     return m_aBuf.length;
+  }
+
+  /**
+   * Returns the current size of the buffer.
+   *
+   * @return the value of the <code>count</code> field, which is the number of
+   *         valid bytes in this output stream.
+   */
+  @Nonnegative
+  public int size ()
+  {
+    return m_nCount;
   }
 
   public boolean isEmpty ()

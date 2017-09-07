@@ -209,7 +209,7 @@ public final class XMLWriter
       aWriter = new NonBlockingStringWriter (50 * CGlobal.BYTES_PER_KILOBYTE);
       if (writeToWriter (aNode, aWriter, aSettings).isSuccess ())
       {
-        s_aSizeHdl.addSize (aWriter.getSize ());
+        s_aSizeHdl.addSize (aWriter.size ());
         return aWriter.getAsString ();
       }
     }

@@ -43,12 +43,12 @@ public final class MultilingualTextTest extends AbstractCommonsTestCase
   public void testCtor ()
   {
     IMutableMultilingualText aMLT = new MultilingualText ();
-    assertEquals (0, aMLT.getSize ());
+    assertEquals (0, aMLT.size ());
     assertNotNull (aMLT.getAllLocales ());
     assertTrue (aMLT.getAllLocales ().isEmpty ());
 
     aMLT = TextHelper.create_DE_EN ("de", "en");
-    assertEquals (2, aMLT.getSize ());
+    assertEquals (2, aMLT.size ());
     assertEquals ("de", aMLT.getText (L_DE));
     assertEquals ("en", aMLT.getText (L_EN));
 
@@ -89,11 +89,11 @@ public final class MultilingualTextTest extends AbstractCommonsTestCase
     assertTrue (aMLT.addText (Locale.ENGLISH, "Hello").isChanged ());
     assertEquals (aNotify.getCallCountBefore (), 1);
     assertEquals (aNotify.getCallCountAfter (), 1);
-    assertEquals (aMLT.getSize (), 1);
+    assertEquals (aMLT.size (), 1);
     assertTrue (aMLT.addText (Locale.ENGLISH, "Hello2").isUnchanged ());
     assertEquals (aNotify.getCallCountBefore (), 1);
     assertEquals (aNotify.getCallCountAfter (), 1);
-    assertEquals (aMLT.getSize (), 1);
+    assertEquals (aMLT.size (), 1);
     assertTrue (aMLT.getAllLocales ().contains (Locale.ENGLISH));
     assertFalse (aMLT.getAllLocales ().contains (Locale.GERMAN));
 
@@ -103,7 +103,7 @@ public final class MultilingualTextTest extends AbstractCommonsTestCase
     assertTrue (aMLT.addText (Locale.GERMAN, "Hallo2").isUnchanged ());
     assertEquals (aNotify.getCallCountBefore (), 2);
     assertEquals (aNotify.getCallCountAfter (), 2);
-    assertEquals (aMLT.getSize (), 2);
+    assertEquals (aMLT.size (), 2);
     assertTrue (aMLT.getAllLocales ().contains (Locale.ENGLISH));
     assertTrue (aMLT.getAllLocales ().contains (Locale.GERMAN));
   }
@@ -123,10 +123,10 @@ public final class MultilingualTextTest extends AbstractCommonsTestCase
     {}
 
     assertTrue (aMLT.setText (Locale.ENGLISH, "Hello").isChanged ());
-    assertEquals (aMLT.getSize (), 1);
+    assertEquals (aMLT.size (), 1);
     assertFalse (aMLT.setText (Locale.ENGLISH, "Hello").isChanged ());
     assertTrue (aMLT.setText (Locale.ENGLISH, "Hello2").isChanged ());
-    assertEquals (aMLT.getSize (), 1);
+    assertEquals (aMLT.size (), 1);
     assertTrue (aMLT.containsLocale (Locale.ENGLISH));
     assertTrue (aMLT.getAllLocales ().contains (Locale.ENGLISH));
     assertFalse (aMLT.containsLocale (Locale.GERMAN));
@@ -136,7 +136,7 @@ public final class MultilingualTextTest extends AbstractCommonsTestCase
 
     aMLT.setText (Locale.GERMAN, "Hallo");
     aMLT.setText (Locale.GERMAN, "Hallo2");
-    assertEquals (aMLT.getSize (), 2);
+    assertEquals (aMLT.size (), 2);
     assertTrue (aMLT.containsLocale (Locale.ENGLISH));
     assertTrue (aMLT.getAllLocales ().contains (Locale.ENGLISH));
     assertTrue (aMLT.containsLocale (Locale.GERMAN));
@@ -170,17 +170,17 @@ public final class MultilingualTextTest extends AbstractCommonsTestCase
 
     // 1 element
     assertTrue (t.assignFrom (new ReadOnlyMultilingualText (CollectionHelper.newMap (L_DE, "de"))).isChanged ());
-    assertEquals (1, t.getSize ());
+    assertEquals (1, t.size ());
     assertTrue (t.containsLocale (L_DE));
 
     // Assign the exact same content again
     assertFalse (t.assignFrom (new ReadOnlyMultilingualText (CollectionHelper.newMap (L_DE, "de"))).isChanged ());
-    assertEquals (1, t.getSize ());
+    assertEquals (1, t.size ());
     assertTrue (t.containsLocale (L_DE));
 
     // Assign empty text
     assertTrue (t.assignFrom (new MultilingualText ()).isChanged ());
-    assertEquals (0, t.getSize ());
+    assertEquals (0, t.size ());
 
     try
     {

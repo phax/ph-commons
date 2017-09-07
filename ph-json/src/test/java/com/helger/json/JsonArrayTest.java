@@ -105,96 +105,96 @@ public final class JsonArrayTest
   public void testAddAll ()
   {
     final JsonArray aArray = new JsonArray ();
-    assertEquals (0, aArray.getSize ());
+    assertEquals (0, aArray.size ());
 
     aArray.add ("Test");
-    assertEquals (1, aArray.getSize ());
+    assertEquals (1, aArray.size ());
 
     aArray.addAll (new boolean [] { true, true, true });
-    assertEquals (4, aArray.getSize ());
+    assertEquals (4, aArray.size ());
     aArray.addAll (new boolean [0]);
-    assertEquals (4, aArray.getSize ());
+    assertEquals (4, aArray.size ());
     aArray.addAll ((boolean []) null);
-    assertEquals (4, aArray.getSize ());
+    assertEquals (4, aArray.size ());
 
     aArray.addAll (new byte [] { 1, 2, 3 });
-    assertEquals (7, aArray.getSize ());
+    assertEquals (7, aArray.size ());
     aArray.addAll (new byte [0]);
-    assertEquals (7, aArray.getSize ());
+    assertEquals (7, aArray.size ());
     aArray.addAll ((byte []) null);
-    assertEquals (7, aArray.getSize ());
+    assertEquals (7, aArray.size ());
 
     aArray.addAll (new char [] { 'x', 'y', 'z' });
-    assertEquals (10, aArray.getSize ());
+    assertEquals (10, aArray.size ());
     aArray.addAll (new char [0]);
-    assertEquals (10, aArray.getSize ());
+    assertEquals (10, aArray.size ());
     aArray.addAll ((char []) null);
-    assertEquals (10, aArray.getSize ());
+    assertEquals (10, aArray.size ());
 
     aArray.addAll (new double [] { 1.2, 3.4, 5.6 });
-    assertEquals (13, aArray.getSize ());
+    assertEquals (13, aArray.size ());
     aArray.addAll (new double [0]);
-    assertEquals (13, aArray.getSize ());
+    assertEquals (13, aArray.size ());
     aArray.addAll ((double []) null);
-    assertEquals (13, aArray.getSize ());
+    assertEquals (13, aArray.size ());
 
     aArray.addAll (new float [] { 1.2f, 3.4f, 5.6f });
-    assertEquals (16, aArray.getSize ());
+    assertEquals (16, aArray.size ());
     aArray.addAll (new float [0]);
-    assertEquals (16, aArray.getSize ());
+    assertEquals (16, aArray.size ());
     aArray.addAll ((float []) null);
-    assertEquals (16, aArray.getSize ());
+    assertEquals (16, aArray.size ());
 
     aArray.addAll (new int [] { 1, 2, 3 });
-    assertEquals (19, aArray.getSize ());
+    assertEquals (19, aArray.size ());
     aArray.addAll (new int [0]);
-    assertEquals (19, aArray.getSize ());
+    assertEquals (19, aArray.size ());
     aArray.addAll ((int []) null);
-    assertEquals (19, aArray.getSize ());
+    assertEquals (19, aArray.size ());
 
     aArray.addAll (new long [] { 1000, 1001, 1002 });
-    assertEquals (22, aArray.getSize ());
+    assertEquals (22, aArray.size ());
     aArray.addAll (new long [0]);
-    assertEquals (22, aArray.getSize ());
+    assertEquals (22, aArray.size ());
     aArray.addAll ((long []) null);
-    assertEquals (22, aArray.getSize ());
+    assertEquals (22, aArray.size ());
 
     aArray.addAll (new short [] { 1, 2, 3 });
-    assertEquals (25, aArray.getSize ());
+    assertEquals (25, aArray.size ());
     aArray.addAll (new short [0]);
-    assertEquals (25, aArray.getSize ());
+    assertEquals (25, aArray.size ());
     aArray.addAll ((short []) null);
-    assertEquals (25, aArray.getSize ());
+    assertEquals (25, aArray.size ());
 
     aArray.addAll (new Object [] { "xyz",
                                    Integer.valueOf (7),
                                    new BigDecimal ("11111111111111111111111111111111111122222.4") });
-    assertEquals (28, aArray.getSize ());
+    assertEquals (28, aArray.size ());
     aArray.addAll (new Object [0]);
-    assertEquals (28, aArray.getSize ());
+    assertEquals (28, aArray.size ());
     aArray.addAll ((Object []) null);
-    assertEquals (28, aArray.getSize ());
+    assertEquals (28, aArray.size ());
     aArray.addAll ((Iterable <Object>) null);
-    assertEquals (28, aArray.getSize ());
+    assertEquals (28, aArray.size ());
 
     aArray.addAll (new JsonArray ().add ("xyz")
                                    .add (7)
                                    .add (new BigDecimal ("11111111111111111111111111111111111122222.4")));
-    assertEquals (31, aArray.getSize ());
+    assertEquals (31, aArray.size ());
     aArray.addAll (new JsonArray ());
-    assertEquals (31, aArray.getSize ());
+    assertEquals (31, aArray.size ());
     aArray.addAll ((IJsonArray) null);
-    assertEquals (31, aArray.getSize ());
+    assertEquals (31, aArray.size ());
 
     aArray.addAllMapped (new CommonsArrayList <Object> ("xyz",
                                                         Integer.valueOf (7),
                                                         new BigDecimal ("11111111111111111111111111111111111122222.4")),
                          JsonValue::create);
-    assertEquals (34, aArray.getSize ());
+    assertEquals (34, aArray.size ());
     aArray.addAllMapped (new CommonsArrayList <> (0), JsonValue::create);
-    assertEquals (34, aArray.getSize ());
+    assertEquals (34, aArray.size ());
     aArray.addAllMapped ((Iterable <Object>) null, JsonValue::create);
-    assertEquals (34, aArray.getSize ());
+    assertEquals (34, aArray.size ());
 
     assertEquals (String.class, aArray.getValueAtIndex (0).getValueClass ());
     assertEquals (Boolean.class, aArray.getValueAtIndex (1).getValueClass ());
@@ -223,99 +223,99 @@ public final class JsonArrayTest
   public void testAddAllAtIndex ()
   {
     final JsonArray aArray = new JsonArray ();
-    assertEquals (0, aArray.getSize ());
+    assertEquals (0, aArray.size ());
 
     aArray.add ("Test");
-    assertEquals (1, aArray.getSize ());
+    assertEquals (1, aArray.size ());
 
     aArray.addAllAt (0, new boolean [] { true, true, true });
-    assertEquals (4, aArray.getSize ());
+    assertEquals (4, aArray.size ());
     aArray.addAllAt (0, new boolean [0]);
-    assertEquals (4, aArray.getSize ());
+    assertEquals (4, aArray.size ());
     aArray.addAllAt (0, (boolean []) null);
-    assertEquals (4, aArray.getSize ());
+    assertEquals (4, aArray.size ());
 
     aArray.addAllAt (0, new byte [] { 1, 2, 3 });
-    assertEquals (7, aArray.getSize ());
+    assertEquals (7, aArray.size ());
     aArray.addAllAt (0, new byte [0]);
-    assertEquals (7, aArray.getSize ());
+    assertEquals (7, aArray.size ());
     aArray.addAllAt (0, (byte []) null);
-    assertEquals (7, aArray.getSize ());
+    assertEquals (7, aArray.size ());
 
     aArray.addAllAt (0, new char [] { 'x', 'y', 'z' });
-    assertEquals (10, aArray.getSize ());
+    assertEquals (10, aArray.size ());
     aArray.addAllAt (0, new char [0]);
-    assertEquals (10, aArray.getSize ());
+    assertEquals (10, aArray.size ());
     aArray.addAllAt (0, (char []) null);
-    assertEquals (10, aArray.getSize ());
+    assertEquals (10, aArray.size ());
 
     aArray.addAllAt (0, new double [] { 1.2, 3.4, 5.6 });
-    assertEquals (13, aArray.getSize ());
+    assertEquals (13, aArray.size ());
     aArray.addAllAt (0, new double [0]);
-    assertEquals (13, aArray.getSize ());
+    assertEquals (13, aArray.size ());
     aArray.addAllAt (0, (double []) null);
-    assertEquals (13, aArray.getSize ());
+    assertEquals (13, aArray.size ());
 
     aArray.addAllAt (0, new float [] { 1.2f, 3.4f, 5.6f });
-    assertEquals (16, aArray.getSize ());
+    assertEquals (16, aArray.size ());
     aArray.addAllAt (0, new float [0]);
-    assertEquals (16, aArray.getSize ());
+    assertEquals (16, aArray.size ());
     aArray.addAllAt (0, (float []) null);
-    assertEquals (16, aArray.getSize ());
+    assertEquals (16, aArray.size ());
 
     aArray.addAllAt (0, new int [] { 1, 2, 3 });
-    assertEquals (19, aArray.getSize ());
+    assertEquals (19, aArray.size ());
     aArray.addAllAt (0, new int [0]);
-    assertEquals (19, aArray.getSize ());
+    assertEquals (19, aArray.size ());
     aArray.addAllAt (0, (int []) null);
-    assertEquals (19, aArray.getSize ());
+    assertEquals (19, aArray.size ());
 
     aArray.addAllAt (0, new long [] { 1000, 1001, 1002 });
-    assertEquals (22, aArray.getSize ());
+    assertEquals (22, aArray.size ());
     aArray.addAllAt (0, new long [0]);
-    assertEquals (22, aArray.getSize ());
+    assertEquals (22, aArray.size ());
     aArray.addAllAt (0, (long []) null);
-    assertEquals (22, aArray.getSize ());
+    assertEquals (22, aArray.size ());
 
     aArray.addAllAt (0, new short [] { 1, 2, 3 });
-    assertEquals (25, aArray.getSize ());
+    assertEquals (25, aArray.size ());
     aArray.addAllAt (0, new short [0]);
-    assertEquals (25, aArray.getSize ());
+    assertEquals (25, aArray.size ());
     aArray.addAllAt (0, (short []) null);
-    assertEquals (25, aArray.getSize ());
+    assertEquals (25, aArray.size ());
 
     aArray.addAllAt (0,
                      new Object [] { "xyz",
                                      Integer.valueOf (7),
                                      new BigDecimal ("11111111111111111111111111111111111122222.4") });
-    assertEquals (28, aArray.getSize ());
+    assertEquals (28, aArray.size ());
     aArray.addAllAt (0, new Object [0]);
-    assertEquals (28, aArray.getSize ());
+    assertEquals (28, aArray.size ());
     aArray.addAllAt (0, (Object []) null);
-    assertEquals (28, aArray.getSize ());
+    assertEquals (28, aArray.size ());
     aArray.addAllAt (0, (Iterable <Object>) null);
-    assertEquals (28, aArray.getSize ());
+    assertEquals (28, aArray.size ());
 
     aArray.addAllAt (0,
                      new JsonArray ().add ("xyz")
                                      .add (7)
                                      .add (new BigDecimal ("11111111111111111111111111111111111122222.4")));
-    assertEquals (31, aArray.getSize ());
+    assertEquals (31, aArray.size ());
     aArray.addAllAt (0, new JsonArray ());
-    assertEquals (31, aArray.getSize ());
+    assertEquals (31, aArray.size ());
     aArray.addAllAt (0, (IJsonArray) null);
-    assertEquals (31, aArray.getSize ());
+    assertEquals (31, aArray.size ());
 
     aArray.addAllMappedAt (0,
                            new CommonsArrayList <Object> ("xyz",
                                                           Integer.valueOf (7),
                                                           new BigDecimal ("11111111111111111111111111111111111122222.4")),
                            JsonValue::create);
-    assertEquals (34, aArray.getSize ());
+    assertEquals (34, aArray.size ());
     aArray.addAllMappedAt (0, new CommonsArrayList <> (0), JsonValue::create);
-    assertEquals (34, aArray.getSize ());
+    assertEquals (34, aArray.size ());
     aArray.addAllMappedAt (0, (Iterable <Object>) null, JsonValue::create);
-    assertEquals (34, aArray.getSize ());
+    assertEquals (34, aArray.size ());
 
     assertEquals (String.class, aArray.getValueAtIndex (33).getValueClass ());
     assertEquals (Boolean.class, aArray.getValueAtIndex (30).getValueClass ());

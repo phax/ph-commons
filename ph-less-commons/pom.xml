@@ -55,6 +55,10 @@
       <artifactId>ph-commons</artifactId>
     </dependency>
     <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-collection</artifactId>
+    </dependency>
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <optional>true</optional>
@@ -85,6 +89,7 @@
           <excludes>
             <exclude>**/LICENSE</exclude>
             <exclude>**/NOTICE</exclude>
+            <exclude>src/main/resources/homoglpyh/**</exclude>
             <!-- Ignore because of charset issues -->
             <exclude>src/test/resources/properties/**</exclude>
             <exclude>src/test/resources/**/*.txt</exclude>

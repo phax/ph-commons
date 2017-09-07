@@ -42,14 +42,14 @@ public final class ReadOnlyMultilingualTextTest extends AbstractCommonsTestCase
   public void testCtor ()
   {
     IMultilingualText aMLT = new ReadOnlyMultilingualText ();
-    assertEquals (0, aMLT.getSize ());
+    assertEquals (0, aMLT.size ());
     assertNotNull (aMLT.getAllLocales ());
     assertTrue (aMLT.getAllLocales ().isEmpty ());
 
     final Map <Locale, String> aMap = CollectionHelper.newMap (new Locale [] { L_DE, L_EN },
                                                                new String [] { "de", "en" });
     aMLT = new ReadOnlyMultilingualText (aMap);
-    assertEquals (2, aMLT.getSize ());
+    assertEquals (2, aMLT.size ());
     assertEquals (2, aMLT.getAllLocales ().size ());
     assertTrue (aMLT.containsLocale (L_DE));
     assertFalse (aMLT.containsLocale (L_FR));
@@ -63,7 +63,7 @@ public final class ReadOnlyMultilingualTextTest extends AbstractCommonsTestCase
     for (final Map.Entry <Locale, String> aEntry : aMap.entrySet ())
       t.setText (aEntry.getKey (), aEntry.getValue ());
     aMLT = new ReadOnlyMultilingualText (t);
-    assertEquals (2, aMLT.getSize ());
+    assertEquals (2, aMLT.size ());
     assertEquals (2, aMLT.getAllLocales ().size ());
     assertTrue (aMLT.containsLocale (L_DE));
     assertFalse (aMLT.containsLocale (L_FR));
@@ -74,7 +74,7 @@ public final class ReadOnlyMultilingualTextTest extends AbstractCommonsTestCase
     assertEquals (2, aMLT.getAllTexts ().size ());
 
     aMLT = new ReadOnlyMultilingualText (t);
-    assertEquals (2, aMLT.getSize ());
+    assertEquals (2, aMLT.size ());
     assertEquals (2, aMLT.getAllLocales ().size ());
     assertTrue (aMLT.containsLocale (L_DE));
     assertFalse (aMLT.containsLocale (L_FR));

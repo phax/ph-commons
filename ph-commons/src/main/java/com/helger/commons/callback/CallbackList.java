@@ -146,7 +146,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
   }
 
   @Nonnegative
-  public int getSize ()
+  public int size ()
   {
     return m_aRWLock.readLocked ( () -> m_aCallbacks.size ());
   }

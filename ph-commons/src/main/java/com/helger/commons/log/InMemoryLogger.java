@@ -150,7 +150,7 @@ public class InMemoryLogger implements IHasErrorLevels <LogMessage>, IHasSize, I
   }
 
   @Nonnegative
-  public int getSize ()
+  public int size ()
   {
     return m_aMessages.size ();
   }

@@ -19,12 +19,13 @@ package com.helger.commons.text;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.impl.ICommonsCollection;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.lang.IHasSize;
-import com.helger.commons.locale.IHasLocales;
 
 /**
  * Read-only interface for a multilingual text
@@ -32,8 +33,37 @@ import com.helger.commons.locale.IHasLocales;
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
-public interface IMultilingualText extends IHasTextWithArgs, IHasLocales, IHasSize
+public interface IMultilingualText extends IHasTextWithArgs, IHasSize
 {
+  /**
+   * @return The locales of this object. May not be <code>null</code>.
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  ICommonsCollection <Locale> getAllLocales ();
+
+  /**
+   * Check if the passed locale is directly contained.
+   *
+   * @param aLocale
+   *        The locale to check. May be <code>null</code>.
+   * @return <code>true</code> if the locale is directly contained,
+   *         <code>false</code> if not.
+   */
+  boolean containsLocale (@Nullable Locale aLocale);
+
+  /**
+   * Check if the passed locale is directly or by fallback contained. The
+   * implementation class MUST add locale-generalisation when resolving the text
+   * ("de_DE" =&gt; "de" =&gt; <i>default</i>).
+   *
+   * @param aLocale
+   *        The locale to check. May be <code>null</code>.
+   * @return <code>true</code> if the locale is contained, <code>false</code> if
+   *         not.
+   */
+  boolean containsLocaleWithFallback (@Nullable Locale aLocale);
+
   /**
    * @return A map over all contained locale/text pairs. Never <code>null</code>
    *         .

@@ -59,7 +59,7 @@ public final class TextHelperTest extends AbstractCommonsTestCase
     final MultilingualText aMLT = new MultilingualText ();
     assertTrue (aMLT.setText (Locale.ENGLISH, "Hi").isChanged ());
     assertTrue (aMLT.setText (Locale.GERMAN, "Moin").isChanged ());
-    assertEquals (aMLT.getSize (), 2);
+    assertEquals (aMLT.size (), 2);
 
     final ICommonsList <Locale> aLocaleList = new CommonsArrayList <> ();
     aLocaleList.add (Locale.ENGLISH);
@@ -76,12 +76,12 @@ public final class TextHelperTest extends AbstractCommonsTestCase
   {
     final ICommonsMap <String, String> aParamNames = new CommonsHashMap <> ();
     IMultilingualText aMLT = TextHelper.createMultilingualTextFromMap (aParamNames);
-    assertEquals (aMLT.getSize (), 0);
+    assertEquals (aMLT.size (), 0);
 
     aParamNames.put ("de", "x");
     aParamNames.put ("en", "y");
     aMLT = TextHelper.createMultilingualTextFromMap (aParamNames);
-    assertEquals (aMLT.getSize (), 2);
+    assertEquals (aMLT.size (), 2);
     assertEquals (aMLT.getText (L_DE), "x");
     assertEquals (aMLT.getText (L_EN), "y");
   }

@@ -42,14 +42,20 @@ public class CodepointIteratorCharArray extends AbstractCodepointIterator
   @Override
   protected char get ()
   {
-    return m_nPosition < m_nLimit ? m_aBuffer[m_nPosition++] : (char) -1;
+    if (m_nPosition < m_nLimit)
+    {
+      final char ret = m_aBuffer[m_nPosition];
+      m_nPosition++;
+      return ret;
+    }
+    return (char) -1;
   }
 
   @Override
-  protected char get (final int index)
+  protected char get (final int nIndex)
   {
-    if (index < 0 || index >= m_nLimit)
-      throw new ArrayIndexOutOfBoundsException (index);
-    return m_aBuffer[index];
+    if (nIndex < 0 || nIndex >= m_nLimit)
+      throw new ArrayIndexOutOfBoundsException (nIndex);
+    return m_aBuffer[nIndex];
   }
 }

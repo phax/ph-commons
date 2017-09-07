@@ -66,14 +66,9 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
   }
 
   @Nonnegative
-  public int getSize ()
+  public int size ()
   {
     return m_aBytes.length;
-  }
-
-  public boolean isEmpty ()
-  {
-    return m_aBytes.length == 0;
   }
 
   @Override
