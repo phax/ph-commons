@@ -34,6 +34,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.collection.iterate.IterableIterator;
+import com.helger.commons.lang.IHasSize;
 import com.helger.commons.state.EChange;
 
 /**
@@ -43,17 +44,11 @@ import com.helger.commons.state.EChange;
  * @param <ELEMENTTYPE>
  *        The data type stored in the collection
  */
-public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYPE>, ICommonsIterable <ELEMENTTYPE>
+public interface ICommonsCollection <ELEMENTTYPE> extends
+                                    Collection <ELEMENTTYPE>,
+                                    ICommonsIterable <ELEMENTTYPE>,
+                                    IHasSize
 {
-  /**
-   * @return <code>true</code> if the map is not empty, <code>false</code>
-   *         otherwise.
-   */
-  default boolean isNotEmpty ()
-  {
-    return !isEmpty ();
-  }
-
   @Nonnull
   @ReturnsMutableCopy
   default ICommonsList <ELEMENTTYPE> getCopyAsList ()

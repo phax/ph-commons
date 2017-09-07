@@ -37,10 +37,7 @@ public interface IHasSize
    * @see #size()
    * @see #isNotEmpty()
    */
-  default boolean isEmpty ()
-  {
-    return size () == 0;
-  }
+  boolean isEmpty ();
 
   /**
    * @return <code>true</code> if at least one item is present,

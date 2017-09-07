@@ -208,6 +208,11 @@ public class IntFloatMap implements IHasSize, Serializable
     return m_nSize;
   }
 
+  public boolean isEmpty ()
+  {
+    return m_nSize == 0;
+  }
+
   private void _rehash (final int nNewCapacity)
   {
     m_nThreshold = (int) (nNewCapacity * m_fFillFactor);

@@ -71,6 +71,11 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
     return m_aBytes.length;
   }
 
+  public boolean isEmpty ()
+  {
+    return m_aBytes.length == 0;
+  }
+
   @Override
   public String toString ()
   {

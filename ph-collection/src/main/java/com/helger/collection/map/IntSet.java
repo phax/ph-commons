@@ -55,6 +55,11 @@ public class IntSet implements IHasSize, Serializable
     return m_aMap.size ();
   }
 
+  public boolean isEmpty ()
+  {
+    return m_aMap.isEmpty ();
+  }
+
   public boolean contains (final int key)
   {
     return m_aMap.get (key) != null;
