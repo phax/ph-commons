@@ -84,6 +84,9 @@
           <instructions>
             <Export-Package>com.helger.security.*</Export-Package>
             <Import-Package>!javax.annotation.*,*</Import-Package>
+            <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",
+osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.security.authentication.credentials.IAuthCredentialToSubjectResolverSPI)"; cardinality:=multiple,
+osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.security.authentication.credentials.IAuthCredentialValidatorSPI)"; cardinality:=multiple</Require-Capability>
           </instructions>
         </configuration>
       </plugin>
