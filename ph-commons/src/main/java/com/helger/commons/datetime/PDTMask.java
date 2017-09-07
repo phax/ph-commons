@@ -45,7 +45,8 @@ public class PDTMask <T extends Temporal & Serializable> implements Serializable
   private final String m_sPattern;
   private final TemporalQuery <T> m_aQuery;
 
-  protected PDTMask (@Nonnull @Nonempty final String sPattern, @Nonnull final TemporalQuery <T> aQuery)
+  protected <U extends TemporalQuery <T> & Serializable> PDTMask (@Nonnull @Nonempty final String sPattern,
+                                                                  @Nonnull final U aQuery)
   {
     ValueEnforcer.notEmpty (sPattern, "Pattern");
     ValueEnforcer.notNull (aQuery, "Query");
