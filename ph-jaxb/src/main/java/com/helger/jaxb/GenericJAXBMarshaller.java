@@ -385,7 +385,6 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
    *         indicating that no validation is required.
    */
   @Nullable
-  @OverrideOnDemand
   protected Schema createValidationSchema ()
   {
     return m_aXSDs.isEmpty () ? null : XMLSchemaCache.getInstanceOfClassLoader (getClassLoader ()).getSchema (m_aXSDs);
