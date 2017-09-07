@@ -898,6 +898,73 @@ public final class StringParser
     return aDefault;
   }
 
+  /**
+   * Parse the given {@link String} as unsigned {@link Integer} with radix
+   * {@value #DEFAULT_RADIX}.
+   *
+   * @param sStr
+   *        The string to parse. May be <code>null</code>.
+   * @return <code>null</code> if the string does not represent a valid value.
+   * @since 9.0.0
+   */
+  @Nullable
+  public static Long parseUnsignedIntObj (@Nullable final String sStr)
+  {
+    return parseUnsignedIntObj (sStr, DEFAULT_RADIX, null);
+  }
+
+  /**
+   * Parse the given {@link String} as unsigned {@link Integer} with radix
+   * {@link #DEFAULT_RADIX}.
+   *
+   * @param sStr
+   *        The string to parse. May be <code>null</code>.
+   * @param aDefault
+   *        The default value to be returned if the passed string could not be
+   *        converted to a valid value. May be <code>null</code>.
+   * @return <code>aDefault</code> if the string does not represent a valid
+   *         value.
+   * @since 9.0.0
+   */
+  @Nullable
+  public static Long parseUnsignedIntObj (@Nullable final String sStr, @Nullable final Long aDefault)
+  {
+    return parseUnsignedIntObj (sStr, DEFAULT_RADIX, aDefault);
+  }
+
+  /**
+   * Parse the given {@link String} as unsigned {@link Integer} with the
+   * specified radix.
+   *
+   * @param sStr
+   *        The string to parse. May be <code>null</code>.
+   * @param nRadix
+   *        The radix to use. Must be &ge; {@link Character#MIN_RADIX} and &le;
+   *        {@link Character#MAX_RADIX}.
+   * @param aDefault
+   *        The default value to be returned if the passed string could not be
+   *        converted to a valid value. May be <code>null</code>.
+   * @return <code>aDefault</code> if the string does not represent a valid
+   *         value.
+   * @since 9.0.0
+   */
+  @Nullable
+  public static Long parseUnsignedIntObj (@Nullable final String sStr,
+                                          @Nonnegative final int nRadix,
+                                          @Nullable final Long aDefault)
+  {
+    if (sStr != null && sStr.length () > 0)
+      try
+      {
+        return Long.valueOf (Integer.parseUnsignedInt (sStr, nRadix) & 0xffff_ffffL);
+      }
+      catch (final NumberFormatException ex)
+      {
+        // Fall through
+      }
+    return aDefault;
+  }
+
   // ---[long]---
 
   /**

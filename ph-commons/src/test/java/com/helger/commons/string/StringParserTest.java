@@ -613,4 +613,13 @@ public final class StringParserTest extends AbstractCommonsTestCase
     assertFalse (StringParser.isDouble (""));
     assertFalse (StringParser.isDouble (null));
   }
+
+  @Test
+  public void testParseUnsignedIntegerObj ()
+  {
+    for (final long l : new long [] { 0, 1, 2, 10, 100, Integer.MAX_VALUE, 0x8000_0000L, 0xffff_ffffL })
+      assertEquals (Long.valueOf (l), StringParser.parseUnsignedIntObj (Long.toString (l)));
+    assertNull (StringParser.parseUnsignedIntObj ("100000000", 16, null));
+    assertNull (StringParser.parseUnsignedIntObj ("-1"));
+  }
 }
