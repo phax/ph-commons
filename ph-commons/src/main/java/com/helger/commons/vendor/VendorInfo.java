@@ -20,13 +20,13 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.email.EmailAddressHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.url.EURLProtocol;
@@ -164,21 +164,17 @@ public final class VendorInfo
   @ReturnsMutableCopy
   public static ICommonsList <String> getFileHeaderLines ()
   {
+    final int nYear = PDTFactory.getCurrentYear ();
     return new CommonsArrayList <> ("THIS FILE IS GENERATED - DO NOT EDIT",
                                     "",
                                     "Copyright",
                                     "",
-                                    "Copyright (c) " +
-                                        getVendorName () +
-                                        " " +
-                                        getInceptionYear () +
-                                        " - " +
-                                        CGlobal.CURRENT_YEAR,
+                                    "Copyright (c) " + getVendorName () + " " + getInceptionYear () + " - " + nYear,
                                     getVendorURL (),
                                     "",
                                     "All Rights Reserved",
                                     "Use, duplication or disclosure restricted by " + getVendorName (),
                                     "",
-                                    getVendorLocation () + ", " + getInceptionYear () + " - " + CGlobal.CURRENT_YEAR);
+                                    getVendorLocation () + ", " + getInceptionYear () + " - " + nYear);
   }
 }
