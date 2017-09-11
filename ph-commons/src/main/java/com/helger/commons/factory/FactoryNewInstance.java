@@ -20,6 +20,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.functional.ISupplier;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -42,10 +43,11 @@ public class FactoryNewInstance <DATATYPE> implements ISupplier <DATATYPE>
 
   public FactoryNewInstance (@Nullable final Class <? extends DATATYPE> aClass, final boolean bCheckInstancable)
   {
-    if (bCheckInstancable && !ClassHelper.isInstancableClass (aClass))
-      throw new IllegalArgumentException ("The passed class '" +
-                                          aClass +
-                                          "' is not instancable or doesn't have a public no-argument constructor!");
+    if (bCheckInstancable)
+      ValueEnforcer.isTrue (ClassHelper.isInstancableClass (aClass),
+                            () -> "The passed class '" +
+                                  aClass +
+                                  "' is not instancable or doesn't have a public no-argument constructor!");
     m_aClass = aClass;
   }
 
