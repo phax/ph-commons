@@ -31,6 +31,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.concurrent.SimpleLock;
+import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 import com.helger.scope.GlobalScope;
 import com.helger.scope.IApplicationScope;
@@ -72,13 +73,13 @@ public final class ScopeManager
    */
   public static final String APPLICATION_ID_NOT_AVAILABLE = "no-app-id";
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (ScopeManager.class);
-
   /**
    * The name of the attribute used to store the application scope in the
    * current request
    */
-  private static final String REQ_APPLICATION_ID = SCOPE_ATTRIBUTE_PREFIX_INTERNAL + "applicationscope";
+  public static final String REQ_APPLICATION_ID = SCOPE_ATTRIBUTE_PREFIX_INTERNAL + "application-id";
+
+  private static final Logger s_aLogger = LoggerFactory.getLogger (ScopeManager.class);
 
   private static final SimpleLock s_aGlobalLock = new SimpleLock ();
 
@@ -216,6 +217,14 @@ public final class ScopeManager
   public static String getRequestApplicationID (@Nonnull final IRequestScope aRequestScope)
   {
     return aRequestScope.attrs ().getAsString (REQ_APPLICATION_ID);
+  }
+
+  @Nonnull
+  public static EChange internalSetRequestApplicationID (@Nonnull final IRequestScope aRequestScope,
+                                                         @Nonnull @Nonempty final String sApplicationID)
+  {
+    ValueEnforcer.notEmpty (sApplicationID, "ApplicationID");
+    return aRequestScope.attrs ().putIn (REQ_APPLICATION_ID, sApplicationID);
   }
 
   /**
@@ -452,7 +461,7 @@ public final class ScopeManager
     s_aRequestScopeTL.set (aRequestScope);
 
     // assign the application ID to the current request
-    if (aRequestScope.attrs ().putIn (REQ_APPLICATION_ID, sApplicationID).isUnchanged ())
+    if (internalSetRequestApplicationID (aRequestScope, sApplicationID).isUnchanged ())
     {
       s_aLogger.warn ("Failed to set the application ID '" +
                       sApplicationID +
