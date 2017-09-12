@@ -150,16 +150,24 @@ public interface IJsonObject extends
   {
     if (aMap != null)
       for (final Map.Entry <String, ?> aEntry : aMap.entrySet ())
-        add (aEntry.getKey (), aEntry.getValue ());
+        add (aEntry);
     return this;
   }
 
+  /**
+   * Add all entries of the passed object to this object. So this is a
+   * "flattening add all".
+   *
+   * @param aObject
+   *        The object to add from. May be <code>null</code>.
+   * @return this for chaining
+   */
   @Nonnull
   default IJsonObject addAll (@Nonnull final IJsonObject aObject)
   {
     if (aObject != null)
       for (final Map.Entry <String, IJson> aEntry : aObject)
-        add (aEntry.getKey (), aEntry.getValue ());
+        add (aEntry);
     return this;
   }
 
