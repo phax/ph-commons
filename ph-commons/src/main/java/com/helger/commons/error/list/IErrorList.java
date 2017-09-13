@@ -236,7 +236,7 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
   @ReturnsMutableCopy
   default IErrorList getListWithoutField ()
   {
-    return getSubList (x -> x.hasNoErrorFieldName ());
+    return getSubList (IError::hasNoErrorFieldName);
   }
 
   /**
@@ -248,7 +248,7 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
   @Nonnull
   default IErrorList getAllFailures ()
   {
-    return getSubList (x -> x.isFailure ());
+    return getSubList (IError::isFailure);
   }
 
   /**
@@ -260,7 +260,7 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
   @Nonnull
   default IErrorList getAllErrors ()
   {
-    return getSubList (x -> x.isError ());
+    return getSubList (IError::isError);
   }
 
   /**
@@ -300,9 +300,9 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
    */
   @Nonnull
   @ReturnsMutableCopy
-  default <T> ICommonsList <T> getAllDataItems (@Nonnull final Function <? super IError, T> aExtractor)
+  default <T> ICommonsList <T> getAllDataItems (@Nonnull final Function <? super IError, ? extends T> aExtractor)
   {
-    return new CommonsArrayList <> (this, x -> aExtractor.apply (x));
+    return new CommonsArrayList <> (this, aExtractor);
   }
 
   /**
