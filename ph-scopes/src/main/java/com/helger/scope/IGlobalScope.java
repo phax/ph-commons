@@ -16,13 +16,6 @@
  */
 package com.helger.scope;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.impl.ICommonsMap;
-
 /**
  * Interface for a single global scope object.
  *
@@ -30,31 +23,5 @@ import com.helger.commons.collection.impl.ICommonsMap;
  */
 public interface IGlobalScope extends IScope
 {
-  /**
-   * Get or create an application scope with the given ID.
-   *
-   * @param sAppID
-   *        The ID of the application scope to create. May neither be
-   *        <code>null</code> nor empty.
-   * @param bCreateIfNotExisting
-   *        if <code>true</code> the scope is created on first demand if it is
-   *        not yet existing.
-   * @return <code>null</code> if bCreateIfNotExisting is <code>false</code> and
-   *         the scope is not present
-   */
-  @Nullable
-  IApplicationScope getApplicationScope (@Nonnull @Nonempty String sAppID, boolean bCreateIfNotExisting);
-
-  /**
-   * @return A non-<code>null</code> map with all available application scopes.
-   *         The key is the application ID and the value is the scope.
-   */
-  @Nonnull
-  ICommonsMap <String, IApplicationScope> getAllApplicationScopes ();
-
-  /**
-   * @return The number of contained application scopes. Always &ge; 0.
-   */
-  @Nonnegative
-  int getApplicationScopeCount ();
+  /* empty */
 }

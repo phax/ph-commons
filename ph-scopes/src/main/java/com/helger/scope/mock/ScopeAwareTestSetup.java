@@ -34,7 +34,6 @@ import com.helger.scope.mgr.ScopeManager;
 public final class ScopeAwareTestSetup
 {
   public static final String MOCK_GLOBAL_SCOPE_ID = "mock.global";
-  public static final String MOCK_APPLICATION_SCOPE_ID = "mock.appid";
   public static final String MOCK_REQUEST_SCOPE_ID = "mock.request";
   public static final String MOCK_SESSION_SCOPE_ID = "mock.session";
 
@@ -56,7 +55,7 @@ public final class ScopeAwareTestSetup
     ScopeManager.onGlobalBegin (MOCK_GLOBAL_SCOPE_ID);
 
     // begin request
-    ScopeManager.onRequestBegin (MOCK_APPLICATION_SCOPE_ID, MOCK_REQUEST_SCOPE_ID, MOCK_SESSION_SCOPE_ID);
+    ScopeManager.onRequestBegin (MOCK_REQUEST_SCOPE_ID, MOCK_SESSION_SCOPE_ID);
   }
 
   /**

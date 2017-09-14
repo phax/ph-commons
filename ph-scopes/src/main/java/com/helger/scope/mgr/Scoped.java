@@ -23,7 +23,7 @@ import com.helger.scope.IRequestScope;
 
 /**
  * Auto closable wrapper around
- * {@link ScopeManager#onRequestBegin(String, String, String)} and
+ * {@link ScopeManager#onRequestBegin( String, String)} and
  * {@link ScopeManager#onRequestEnd()}
  *
  * @author Philip Helger
@@ -35,14 +35,12 @@ public class Scoped implements AutoCloseable
 
   public Scoped ()
   {
-    this (ScopeManager.APPLICATION_ID_NOT_AVAILABLE, "scope-id", "session-id");
+    this ("scope-id", "session-id");
   }
 
-  public Scoped (@Nonnull @Nonempty final String sApplicationID,
-                 @Nonnull @Nonempty final String sScopeID,
-                 @Nonnull @Nonempty final String sSessionID)
+  public Scoped (@Nonnull @Nonempty final String sScopeID, @Nonnull @Nonempty final String sSessionID)
   {
-    m_aRequestScope = ScopeManager.onRequestBegin (sApplicationID, sScopeID, sSessionID);
+    m_aRequestScope = ScopeManager.onRequestBegin (sScopeID, sSessionID);
   }
 
   @Nonnull

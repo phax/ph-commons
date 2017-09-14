@@ -16,24 +16,15 @@
  */
 package com.helger.scope;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.state.EContinue;
-import com.helger.commons.string.StringHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.scope.spi.ScopeSPIManager;
 
 /**
  * Default implementation of the {@link ISessionScope} interface
@@ -44,9 +35,6 @@ import com.helger.scope.spi.ScopeSPIManager;
 public class SessionScope extends AbstractScope implements ISessionScope
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (SessionScope.class);
-
-  /** The contained session application scopes */
-  private final ICommonsMap <String, ISessionApplicationScope> m_aSessionAppScopes = new CommonsHashMap <> ();
 
   public SessionScope (@Nonnull @Nonempty final String sScopeID)
   {
@@ -60,22 +48,6 @@ public class SessionScope extends AbstractScope implements ISessionScope
 
   public void initScope ()
   {}
-
-  @Override
-  protected final void destroyOwnedScopes ()
-  {
-    m_aRWLock.writeLocked ( () -> {
-      for (final ISessionApplicationScope aSessionAppScope : m_aSessionAppScopes.values ())
-      {
-        // Invoke SPIs
-        ScopeSPIManager.getInstance ().onSessionApplicationScopeEnd (aSessionAppScope);
-
-        // destroy the scope
-        aSessionAppScope.destroyScope ();
-      }
-      m_aSessionAppScopes.clear ();
-    });
-  }
 
   @Override
   protected void preDestroy ()
@@ -101,111 +73,5 @@ public class SessionScope extends AbstractScope implements ISessionScope
     // Note: don't call ScopeSessionManager.onScopeEnd here. This must be done
     // manually if this method returns "CONTINUE".
     return EContinue.CONTINUE;
-  }
-
-  @Nonnull
-  @Nonempty
-  private String _getApplicationScopeIDPrefix ()
-  {
-    return getID () + '.';
-  }
-
-  @Nonnull
-  @Nonempty
-  public String createApplicationScopeID (@Nonnull @Nonempty final String sApplicationID)
-  {
-    ValueEnforcer.notEmpty (sApplicationID, "ApplicationID");
-
-    // To make the ID unique, prepend the application ID with this scope ID
-    return _getApplicationScopeIDPrefix () + sApplicationID;
-  }
-
-  @Nullable
-  public String getApplicationIDFromApplicationScopeID (@Nullable final String sApplicationScopeID)
-  {
-    if (StringHelper.hasNoText (sApplicationScopeID))
-      return null;
-
-    final String sPrefix = _getApplicationScopeIDPrefix ();
-    if (sApplicationScopeID.startsWith (sPrefix))
-      return sApplicationScopeID.substring (sPrefix.length ());
-
-    // Not a valid application scope ID
-    return null;
-  }
-
-  @Nonnull
-  protected ISessionApplicationScope createSessionApplicationScope (@Nonnull @Nonempty final String sApplicationID)
-  {
-    return new SessionApplicationScope (sApplicationID);
-  }
-
-  @Nullable
-  public ISessionApplicationScope getSessionApplicationScope (@Nonnull @Nonempty final String sApplicationID,
-                                                              final boolean bCreateIfNotExisting)
-  {
-    ValueEnforcer.notEmpty (sApplicationID, "ApplicationID");
-
-    final String sAppScopeID = createApplicationScopeID (sApplicationID);
-
-    // Try with read-lock only
-    ISessionApplicationScope aSessionAppScope = m_aRWLock.readLocked ( () -> m_aSessionAppScopes.get (sAppScopeID));
-
-    if (aSessionAppScope == null && bCreateIfNotExisting)
-    {
-      aSessionAppScope = m_aRWLock.writeLocked ( () -> {
-        // Check again - now in write lock
-        ISessionApplicationScope aWLSessionAppScope = m_aSessionAppScopes.get (sAppScopeID);
-        if (aWLSessionAppScope == null)
-        {
-          // Definitively not present
-          aWLSessionAppScope = createSessionApplicationScope (sAppScopeID);
-          // First put to map, than init scope
-          m_aSessionAppScopes.put (sAppScopeID, aWLSessionAppScope);
-          aWLSessionAppScope.initScope ();
-
-          // Invoke SPIs
-          ScopeSPIManager.getInstance ().onSessionApplicationScopeBegin (aWLSessionAppScope);
-        }
-        return aWLSessionAppScope;
-      });
-    }
-    return aSessionAppScope;
-  }
-
-  public void restoreSessionApplicationScope (@Nonnull @Nonempty final String sScopeID,
-                                              @Nonnull final ISessionApplicationScope aScope)
-  {
-    ValueEnforcer.notEmpty (sScopeID, "ScopeID");
-    ValueEnforcer.notNull (aScope, "Scope");
-
-    m_aRWLock.writeLocked ( () -> {
-      if (m_aSessionAppScopes.containsKey (sScopeID))
-        throw new IllegalArgumentException ("A session application scope with the ID '" +
-                                            sScopeID +
-                                            "' is already contained!");
-      m_aSessionAppScopes.put (sScopeID, aScope);
-    });
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public ICommonsMap <String, ISessionApplicationScope> getAllSessionApplicationScopes ()
-  {
-    return m_aRWLock.readLocked ( () -> m_aSessionAppScopes.getClone ());
-  }
-
-  @Nonnegative
-  public int getSessionApplicationScopeCount ()
-  {
-    return m_aRWLock.readLocked ( () -> m_aSessionAppScopes.size ());
-  }
-
-  @Override
-  public String toString ()
-  {
-    return ToStringGenerator.getDerived (super.toString ())
-                            .append ("sessionAppScopes", m_aSessionAppScopes)
-                            .getToString ();
   }
 }

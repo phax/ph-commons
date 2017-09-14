@@ -16,12 +16,8 @@
  */
 package com.helger.scope;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.state.EContinue;
 
 /**
@@ -41,72 +37,4 @@ public interface ISessionScope extends IScope
    */
   @Nonnull
   EContinue selfDestruct ();
-
-  /**
-   * Create the unique ID, under which a session application scope will be
-   * created within this scope. The default implementation is
-   * <code>getID () + "." + sApplicationID</code>.
-   *
-   * @param sApplicationID
-   *        The application ID to be used. May neither be <code>null</code> nor
-   *        empty.
-   * @return The application scope ID to be used.
-   * @see #getApplicationIDFromApplicationScopeID(String) to get the application
-   *      ID from an application scope ID (reverse operation)
-   */
-  @Nonnull
-  @Nonempty
-  String createApplicationScopeID (@Nonnull @Nonempty String sApplicationID);
-
-  /**
-   * Extract the application ID from an application scope ID.
-   *
-   * @param sApplicationScopeID
-   *        The application scope ID to use. May be <code>null</code>.
-   * @return <code>null</code> if no application ID could be extracted
-   * @see #createApplicationScopeID(String) To creation an application scope ID
-   *      from an application ID
-   */
-  @Nullable
-  String getApplicationIDFromApplicationScopeID (@Nullable String sApplicationScopeID);
-
-  /**
-   * Create an application specific scope within the session.
-   *
-   * @param sApplicationID
-   *        The application ID to use. May not be <code>null</code>.
-   * @param bCreateIfNotExisting
-   *        Create the session application scope if does not yet exist. If
-   *        <code>false</code> and the scope does not exist than
-   *        <code>null</code> is returned.
-   * @return <code>null</code> if bCreateIfNotExisting is <code>false</code> and
-   *         the scope is not present
-   */
-  @Nullable
-  ISessionApplicationScope getSessionApplicationScope (@Nonnull @Nonempty String sApplicationID,
-                                                       boolean bCreateIfNotExisting);
-
-  /**
-   * Restore a persisted session application scope
-   *
-   * @param sScopeID
-   *        The ID of the restored application scope. May neither be
-   *        <code>null</code> nor empty.
-   * @param aScope
-   *        The scope to be restored. May not be <code>null</code>.
-   */
-  void restoreSessionApplicationScope (@Nonnull @Nonempty String sScopeID, @Nonnull ISessionApplicationScope aScope);
-
-  /**
-   * @return A non-<code>null</code> map with all available session application
-   *         scopes. The key is the application ID and the value is the scope.
-   */
-  @Nonnull
-  ICommonsMap <String, ISessionApplicationScope> getAllSessionApplicationScopes ();
-
-  /**
-   * @return The number of contained session application scopes. Always &ge; 0.
-   */
-  @Nonnegative
-  int getSessionApplicationScopeCount ();
 }

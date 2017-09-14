@@ -105,13 +105,6 @@ public abstract class AbstractScope implements IScope
   {}
 
   /**
-   * Override this method to destroy all scopes owned by this scope.
-   */
-  @OverrideOnDemand
-  protected void destroyOwnedScopes ()
-  {}
-
-  /**
    * Override this method to perform further actions AFTER the scope was
    * destroyed. The state is "destroyed".
    */
@@ -152,9 +145,6 @@ public abstract class AbstractScope implements IScope
       m_bInDestruction = true;
       m_bInPreDestruction = false;
     });
-
-    // destroy all owned scopes before destroying this scope!
-    destroyOwnedScopes ();
 
     // Call callback (if special interface is implemented)
     for (final IScopeDestructionAware aValue : aDestructionAware)

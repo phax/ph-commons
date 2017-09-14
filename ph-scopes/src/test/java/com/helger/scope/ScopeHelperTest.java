@@ -32,27 +32,19 @@ public final class ScopeHelperTest
   public void testSettings ()
   {
     assertTrue (ScopeHelper.DEFAULT_DEBUG_GLOBAL_SCOPE == ScopeHelper.isDebugGlobalScopeEnabled ());
-    assertTrue (ScopeHelper.DEFAULT_DEBUG_APPLICATION_SCOPE == ScopeHelper.isDebugApplicationScopeEnabled ());
     assertTrue (ScopeHelper.DEFAULT_DEBUG_SESSION_SCOPE == ScopeHelper.isDebugSessionScopeEnabled ());
-    assertTrue (ScopeHelper.DEFAULT_DEBUG_SESSION_APPLICATION_SCOPE == ScopeHelper.isDebugSessionApplicationScopeEnabled ());
     assertTrue (ScopeHelper.DEFAULT_DEBUG_REQUEST_SCOPE == ScopeHelper.isDebugRequestScopeEnabled ());
 
     ScopeHelper.setDebugGlobalScopeEnabled (!ScopeHelper.DEFAULT_DEBUG_GLOBAL_SCOPE);
-    ScopeHelper.setDebugApplicationScopeEnabled (!ScopeHelper.DEFAULT_DEBUG_APPLICATION_SCOPE);
     ScopeHelper.setDebugSessionScopeEnabled (!ScopeHelper.DEFAULT_DEBUG_SESSION_SCOPE);
-    ScopeHelper.setDebugSessionApplicationScopeEnabled (!ScopeHelper.DEFAULT_DEBUG_SESSION_APPLICATION_SCOPE);
     ScopeHelper.setDebugRequestScopeEnabled (!ScopeHelper.DEFAULT_DEBUG_REQUEST_SCOPE);
 
     assertFalse (ScopeHelper.DEFAULT_DEBUG_GLOBAL_SCOPE == ScopeHelper.isDebugGlobalScopeEnabled ());
-    assertFalse (ScopeHelper.DEFAULT_DEBUG_APPLICATION_SCOPE == ScopeHelper.isDebugApplicationScopeEnabled ());
     assertFalse (ScopeHelper.DEFAULT_DEBUG_SESSION_SCOPE == ScopeHelper.isDebugSessionScopeEnabled ());
-    assertFalse (ScopeHelper.DEFAULT_DEBUG_SESSION_APPLICATION_SCOPE == ScopeHelper.isDebugSessionApplicationScopeEnabled ());
     assertFalse (ScopeHelper.DEFAULT_DEBUG_REQUEST_SCOPE == ScopeHelper.isDebugRequestScopeEnabled ());
 
     ScopeHelper.setDebugGlobalScopeEnabled (ScopeHelper.DEFAULT_DEBUG_GLOBAL_SCOPE);
-    ScopeHelper.setDebugApplicationScopeEnabled (ScopeHelper.DEFAULT_DEBUG_APPLICATION_SCOPE);
     ScopeHelper.setDebugSessionScopeEnabled (ScopeHelper.DEFAULT_DEBUG_SESSION_SCOPE);
-    ScopeHelper.setDebugSessionApplicationScopeEnabled (ScopeHelper.DEFAULT_DEBUG_SESSION_APPLICATION_SCOPE);
     ScopeHelper.setDebugRequestScopeEnabled (ScopeHelper.DEFAULT_DEBUG_REQUEST_SCOPE);
   }
 }

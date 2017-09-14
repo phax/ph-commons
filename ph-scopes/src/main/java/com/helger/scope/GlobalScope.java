@@ -16,24 +16,14 @@
  */
 package com.helger.scope;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.annotation.concurrent.ThreadSafe;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ClassHelper;
-import com.helger.commons.string.ToStringGenerator;
-import com.helger.scope.spi.ScopeSPIManager;
 
 /**
  * Base implementation of the {@link IGlobalScope} interface.<br>
@@ -47,9 +37,6 @@ public class GlobalScope extends AbstractScope implements IGlobalScope
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (GlobalScope.class);
 
-  /** Contained application scopes */
-  private final ICommonsMap <String, IApplicationScope> m_aAppScopes = new CommonsHashMap <> ();
-
   public GlobalScope (@Nonnull @Nonempty final String sScopeID)
   {
     super (sScopeID);
@@ -61,22 +48,6 @@ public class GlobalScope extends AbstractScope implements IGlobalScope
 
   public void initScope ()
   {}
-
-  @Override
-  protected void destroyOwnedScopes ()
-  {
-    m_aRWLock.writeLocked ( () -> {
-      for (final IApplicationScope aAppScope : m_aAppScopes.values ())
-      {
-        // Invoke SPIs
-        ScopeSPIManager.getInstance ().onApplicationScopeEnd (aAppScope);
-
-        // Destroy the scope
-        aAppScope.destroyScope ();
-      }
-      m_aAppScopes.clear ();
-    });
-  }
 
   @Override
   protected void preDestroy ()
@@ -94,64 +65,6 @@ public class GlobalScope extends AbstractScope implements IGlobalScope
                       ScopeHelper.getDebugStackTrace ());
   }
 
-  /**
-   * This method creates a new application scope. Override in WebScopeManager to
-   * create an IApplicationWebScope!
-   *
-   * @param sApplicationID
-   *        The application ID to use
-   * @return Never <code>null</code>.
-   */
-  @Nonnull
-  @OverrideOnDemand
-  protected IApplicationScope createApplicationScope (@Nonnull @Nonempty final String sApplicationID)
-  {
-    return new ApplicationScope (sApplicationID);
-  }
-
-  @Nullable
-  public IApplicationScope getApplicationScope (@Nonnull @Nonempty final String sApplicationID,
-                                                final boolean bCreateIfNotExisting)
-  {
-    ValueEnforcer.notEmpty (sApplicationID, "ApplicationID");
-
-    // Read-lock only
-    IApplicationScope aAppScope = m_aRWLock.readLocked ( () -> m_aAppScopes.get (sApplicationID));
-    if (aAppScope == null && bCreateIfNotExisting)
-    {
-      // now write lock
-      aAppScope = m_aRWLock.writeLocked ( () -> {
-        // Make sure it was not added in the mean time
-        IApplicationScope aWLAppScope = m_aAppScopes.get (sApplicationID);
-        if (aWLAppScope == null)
-        {
-          aWLAppScope = createApplicationScope (sApplicationID);
-          // First add to map, than init
-          m_aAppScopes.put (sApplicationID, aWLAppScope);
-          aWLAppScope.initScope ();
-
-          // Invoke SPIs
-          ScopeSPIManager.getInstance ().onApplicationScopeBegin (aWLAppScope);
-        }
-        return aWLAppScope;
-      });
-    }
-    return aAppScope;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public ICommonsMap <String, IApplicationScope> getAllApplicationScopes ()
-  {
-    return m_aRWLock.readLocked ( () -> m_aAppScopes.getClone ());
-  }
-
-  @Nonnegative
-  public int getApplicationScopeCount ()
-  {
-    return m_aRWLock.readLocked ( () -> m_aAppScopes.size ());
-  }
-
   @Override
   public boolean equals (final Object o)
   {
@@ -159,19 +72,6 @@ public class GlobalScope extends AbstractScope implements IGlobalScope
       return true;
     if (!super.equals (o))
       return false;
-    final GlobalScope rhs = (GlobalScope) o;
-    return m_aAppScopes.equals (rhs.m_aAppScopes);
-  }
-
-  @Override
-  public int hashCode ()
-  {
-    return HashCodeGenerator.getDerived (super.hashCode ()).append (m_aAppScopes).getHashCode ();
-  }
-
-  @Override
-  public String toString ()
-  {
-    return ToStringGenerator.getDerived (super.toString ()).append ("appScopes", m_aAppScopes).getToString ();
+    return true;
   }
 }

@@ -31,12 +31,8 @@ public enum EScope
 {
   /** The global scope. */
   GLOBAL,
-  /** The application scope. */
-  APPLICATION,
   /** The session scope */
   SESSION,
-  /** The session application scope */
-  SESSION_APPLICATION,
   /** The request scope. */
   REQUEST;
 
@@ -73,12 +69,8 @@ public enum EScope
     {
       case GLOBAL:
         return bCreateIfNotExisting ? ScopeManager.getGlobalScope () : ScopeManager.getGlobalScopeOrNull ();
-      case APPLICATION:
-        return ScopeManager.getApplicationScope (bCreateIfNotExisting);
       case SESSION:
         return ScopeManager.getSessionScope (bCreateIfNotExisting);
-      case SESSION_APPLICATION:
-        return ScopeManager.getSessionApplicationScope (bCreateIfNotExisting);
       case REQUEST:
         return bCreateIfNotExisting ? ScopeManager.getRequestScope () : ScopeManager.getRequestScopeOrNull ();
       default:

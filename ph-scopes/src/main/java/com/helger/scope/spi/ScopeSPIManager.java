@@ -29,10 +29,8 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.exception.mock.IMockException;
 import com.helger.commons.lang.ServiceLoaderHelper;
-import com.helger.scope.IApplicationScope;
 import com.helger.scope.IGlobalScope;
 import com.helger.scope.IRequestScope;
-import com.helger.scope.ISessionApplicationScope;
 import com.helger.scope.ISessionScope;
 
 /**
@@ -59,11 +57,7 @@ public final class ScopeSPIManager
   @GuardedBy ("m_aRWLock")
   private ICommonsList <IGlobalScopeSPI> m_aGlobalSPIs;
   @GuardedBy ("m_aRWLock")
-  private ICommonsList <IApplicationScopeSPI> m_aApplicationSPIs;
-  @GuardedBy ("m_aRWLock")
   private ICommonsList <ISessionScopeSPI> m_aSessionSPIs;
-  @GuardedBy ("m_aRWLock")
-  private ICommonsList <ISessionApplicationScopeSPI> m_aSessionApplicationSPIs;
   @GuardedBy ("m_aRWLock")
   private ICommonsList <IRequestScopeSPI> m_aRequestSPIs;
 
@@ -90,9 +84,7 @@ public final class ScopeSPIManager
     // Register all listeners
     m_aRWLock.writeLocked ( () -> {
       m_aGlobalSPIs = ServiceLoaderHelper.getAllSPIImplementations (IGlobalScopeSPI.class);
-      m_aApplicationSPIs = ServiceLoaderHelper.getAllSPIImplementations (IApplicationScopeSPI.class);
       m_aSessionSPIs = ServiceLoaderHelper.getAllSPIImplementations (ISessionScopeSPI.class);
-      m_aSessionApplicationSPIs = ServiceLoaderHelper.getAllSPIImplementations (ISessionApplicationScopeSPI.class);
       m_aRequestSPIs = ServiceLoaderHelper.getAllSPIImplementations (IRequestScopeSPI.class);
     });
 
@@ -112,17 +104,6 @@ public final class ScopeSPIManager
   }
 
   /**
-   * @return All registered application scope SPI listeners. Never
-   *         <code>null</code> but maybe empty.
-   */
-  @Nonnull
-  @ReturnsMutableCopy
-  public ICommonsList <IApplicationScopeSPI> getAllApplicationScopeSPIs ()
-  {
-    return m_aRWLock.readLocked ( () -> m_aApplicationSPIs.getClone ());
-  }
-
-  /**
    * @return All registered session scope SPI listeners. Never <code>null</code>
    *         but maybe empty.
    */
@@ -131,17 +112,6 @@ public final class ScopeSPIManager
   public ICommonsList <ISessionScopeSPI> getAllSessionScopeSPIs ()
   {
     return m_aRWLock.readLocked ( () -> m_aSessionSPIs.getClone ());
-  }
-
-  /**
-   * @return All registered session application scope SPI listeners. Never
-   *         <code>null</code> but maybe empty.
-   */
-  @Nonnull
-  @ReturnsMutableCopy
-  public ICommonsList <ISessionApplicationScopeSPI> getAllSessionApplicationScopeSPIs ()
-  {
-    return m_aRWLock.readLocked ( () -> m_aSessionApplicationSPIs.getClone ());
   }
 
   /**
@@ -164,10 +134,7 @@ public final class ScopeSPIManager
       }
       catch (final Throwable t)
       {
-        s_aLogger.error ("Failed to invoke SPI method onGlobalScopeBegin on " +
-                         aSPI +
-                         " with scope " +
-                         aGlobalScope,
+        s_aLogger.error ("Failed to invoke SPI method onGlobalScopeBegin on " + aSPI + " with scope " + aGlobalScope,
                          t instanceof IMockException ? null : t);
       }
   }
@@ -181,44 +148,7 @@ public final class ScopeSPIManager
       }
       catch (final Throwable t)
       {
-        s_aLogger.error ("Failed to invoke SPI method onGlobalScopeEnd on " +
-                         aSPI +
-                         " with scope " +
-                         aGlobalScope,
-                         t instanceof IMockException ? null : t);
-      }
-  }
-
-  public void onApplicationScopeBegin (@Nonnull final IApplicationScope aApplicationScope)
-  {
-    for (final IApplicationScopeSPI aSPI : getAllApplicationScopeSPIs ())
-      try
-      {
-        aSPI.onApplicationScopeBegin (aApplicationScope);
-      }
-      catch (final Throwable t)
-      {
-        s_aLogger.error ("Failed to invoke SPI method onApplicationScopeBegin on " +
-                         aSPI +
-                         " with scope " +
-                         aApplicationScope,
-                         t instanceof IMockException ? null : t);
-      }
-  }
-
-  public void onApplicationScopeEnd (@Nonnull final IApplicationScope aApplicationScope)
-  {
-    for (final IApplicationScopeSPI aSPI : getAllApplicationScopeSPIs ())
-      try
-      {
-        aSPI.onApplicationScopeEnd (aApplicationScope);
-      }
-      catch (final Throwable t)
-      {
-        s_aLogger.error ("Failed to invoke SPI method onApplicationScopeEnd on " +
-                         aSPI +
-                         " with scope " +
-                         aApplicationScope,
+        s_aLogger.error ("Failed to invoke SPI method onGlobalScopeEnd on " + aSPI + " with scope " + aGlobalScope,
                          t instanceof IMockException ? null : t);
       }
   }
@@ -232,10 +162,7 @@ public final class ScopeSPIManager
       }
       catch (final Throwable t)
       {
-        s_aLogger.error ("Failed to invoke SPI method onSessionScopeBegin on " +
-                         aSPI +
-                         " with scope " +
-                         aSessionScope,
+        s_aLogger.error ("Failed to invoke SPI method onSessionScopeBegin on " + aSPI + " with scope " + aSessionScope,
                          t instanceof IMockException ? null : t);
       }
   }
@@ -249,44 +176,7 @@ public final class ScopeSPIManager
       }
       catch (final Throwable t)
       {
-        s_aLogger.error ("Failed to invoke SPI method onSessionScopeEnd on " +
-                         aSPI +
-                         " with scope " +
-                         aSessionScope,
-                         t instanceof IMockException ? null : t);
-      }
-  }
-
-  public void onSessionApplicationScopeBegin (@Nonnull final ISessionApplicationScope aSessionApplicationScope)
-  {
-    for (final ISessionApplicationScopeSPI aSPI : getAllSessionApplicationScopeSPIs ())
-      try
-      {
-        aSPI.onSessionApplicationScopeBegin (aSessionApplicationScope);
-      }
-      catch (final Throwable t)
-      {
-        s_aLogger.error ("Failed to invoke SPI method onSessionApplicationScopeBegin on " +
-                         aSPI +
-                         " with scope " +
-                         aSessionApplicationScope,
-                         t instanceof IMockException ? null : t);
-      }
-  }
-
-  public void onSessionApplicationScopeEnd (@Nonnull final ISessionApplicationScope aSessionApplicationScope)
-  {
-    for (final ISessionApplicationScopeSPI aSPI : getAllSessionApplicationScopeSPIs ())
-      try
-      {
-        aSPI.onSessionApplicationScopeEnd (aSessionApplicationScope);
-      }
-      catch (final Throwable t)
-      {
-        s_aLogger.error ("Failed to invoke SPI method onSessionApplicationScopeEnd on " +
-                         aSPI +
-                         " with scope " +
-                         aSessionApplicationScope,
+        s_aLogger.error ("Failed to invoke SPI method onSessionScopeEnd on " + aSPI + " with scope " + aSessionScope,
                          t instanceof IMockException ? null : t);
       }
   }
@@ -300,10 +190,7 @@ public final class ScopeSPIManager
       }
       catch (final Throwable t)
       {
-        s_aLogger.error ("Failed to invoke SPI method onRequestScopeBegin on " +
-                         aSPI +
-                         " with scope " +
-                         aRequestScope,
+        s_aLogger.error ("Failed to invoke SPI method onRequestScopeBegin on " + aSPI + " with scope " + aRequestScope,
                          t instanceof IMockException ? null : t);
       }
   }
@@ -317,10 +204,7 @@ public final class ScopeSPIManager
       }
       catch (final Throwable t)
       {
-        s_aLogger.error ("Failed to invoke SPI method onRequestScopeEnd on " +
-                         aSPI +
-                         " with scope " +
-                         aRequestScope,
+        s_aLogger.error ("Failed to invoke SPI method onRequestScopeEnd on " + aSPI + " with scope " + aRequestScope,
                          t instanceof IMockException ? null : t);
       }
   }

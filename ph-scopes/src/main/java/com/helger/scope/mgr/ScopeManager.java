@@ -31,13 +31,10 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.concurrent.SimpleLock;
-import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 import com.helger.scope.GlobalScope;
-import com.helger.scope.IApplicationScope;
 import com.helger.scope.IGlobalScope;
 import com.helger.scope.IRequestScope;
-import com.helger.scope.ISessionApplicationScope;
 import com.helger.scope.ISessionScope;
 import com.helger.scope.RequestScope;
 import com.helger.scope.ScopeHelper;
@@ -72,12 +69,6 @@ public final class ScopeManager
    * Special application ID indicating that no special application ID is needed.
    */
   public static final String APPLICATION_ID_NOT_AVAILABLE = "no-app-id";
-
-  /**
-   * The name of the attribute used to store the application scope in the
-   * current request
-   */
-  public static final String REQ_APPLICATION_ID = SCOPE_ATTRIBUTE_PREFIX_INTERNAL + "application-id";
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (ScopeManager.class);
 
@@ -204,106 +195,6 @@ public final class ScopeManager
     });
   }
 
-  // --- application scope ---
-
-  /**
-   * Get the application ID associated to the passed request scope
-   *
-   * @param aRequestScope
-   *        The request scope to use. May not be <code>null</code>.
-   * @return <code>null</code> if no application ID is present
-   */
-  @Nullable
-  public static String getRequestApplicationID (@Nonnull final IRequestScope aRequestScope)
-  {
-    return aRequestScope.attrs ().getAsString (REQ_APPLICATION_ID);
-  }
-
-  @Nonnull
-  public static EChange internalSetRequestApplicationID (@Nonnull final IRequestScope aRequestScope,
-                                                         @Nonnull @Nonempty final String sApplicationID)
-  {
-    ValueEnforcer.notEmpty (sApplicationID, "ApplicationID");
-    return aRequestScope.attrs ().putIn (REQ_APPLICATION_ID, sApplicationID);
-  }
-
-  /**
-   * Get the application ID associated to the current request scope
-   *
-   * @return Never <code>null</code>
-   * @throws IllegalStateException
-   *         if no application ID is present
-   */
-  @Nonnull
-  public static String getRequestApplicationID ()
-  {
-    final String ret = getRequestApplicationID (getRequestScope ());
-    if (ret == null)
-      throw new IllegalStateException ("Weird state - no appid!");
-    return ret;
-  }
-
-  /**
-   * Get or create the current application scope using the application ID
-   * present in the request scope.
-   *
-   * @return Never <code>null</code>.
-   */
-  @Nonnull
-  public static IApplicationScope getApplicationScope ()
-  {
-    return getApplicationScope (DEFAULT_CREATE_SCOPE);
-  }
-
-  /**
-   * Get or create the current application scope using the application ID
-   * present in the request scope.
-   *
-   * @param bCreateIfNotExisting
-   *        if <code>false</code> an no application scope is present, none will
-   *        be created
-   * @return <code>null</code> if bCreateIfNotExisting is <code>false</code> and
-   *         no such scope is present
-   */
-  @Nullable
-  public static IApplicationScope getApplicationScope (final boolean bCreateIfNotExisting)
-  {
-    return getApplicationScope (getRequestApplicationID (), bCreateIfNotExisting);
-  }
-
-  /**
-   * Get or create an application scope.
-   *
-   * @param sApplicationID
-   *        The ID of the application scope be retrieved or created. May neither
-   *        be <code>null</code> nor empty.
-   * @return Never <code>null</code>.
-   */
-  @Nonnull
-  public static IApplicationScope getApplicationScope (@Nonnull @Nonempty final String sApplicationID)
-  {
-    return getApplicationScope (sApplicationID, DEFAULT_CREATE_SCOPE);
-  }
-
-  /**
-   * Get or create an application scope.
-   *
-   * @param sApplicationID
-   *        The ID of the application scope be retrieved or created. May neither
-   *        be <code>null</code> nor empty.
-   * @param bCreateIfNotExisting
-   *        if <code>false</code> an no application scope is present, none will
-   *        be created
-   * @return <code>null</code> if bCreateIfNotExisting is <code>false</code> and
-   *         no such scope is present
-   */
-  @Nullable
-  public static IApplicationScope getApplicationScope (@Nonnull @Nonempty final String sApplicationID,
-                                                       final boolean bCreateIfNotExisting)
-  {
-    return getGlobalScope ().getApplicationScope (sApplicationID, bCreateIfNotExisting);
-  }
-
   // --- session scope ---
 
   /**
@@ -392,52 +283,16 @@ public final class ScopeManager
     ScopeSessionManager.getInstance ().onScopeEnd (aSessionScope);
   }
 
-  // --- session application scope ---
-
-  @Nonnull
-  public static ISessionApplicationScope getSessionApplicationScope ()
-  {
-    return getSessionApplicationScope (ScopeManager.DEFAULT_CREATE_SCOPE);
-  }
-
-  @Nullable
-  public static ISessionApplicationScope getSessionApplicationScope (final boolean bCreateIfNotExisting)
-  {
-    return getSessionApplicationScope (ScopeManager.getRequestApplicationID (), bCreateIfNotExisting);
-  }
-
-  @Nonnull
-  public static ISessionApplicationScope getSessionApplicationScope (@Nonnull @Nonempty final String sApplicationID)
-  {
-    return getSessionApplicationScope (sApplicationID, ScopeManager.DEFAULT_CREATE_SCOPE);
-  }
-
-  @Nullable
-  public static ISessionApplicationScope getSessionApplicationScope (@Nonnull @Nonempty final String sApplicationID,
-                                                                     final boolean bCreateIfNotExisting)
-  {
-    final ISessionScope aSessionScope = getSessionScope (bCreateIfNotExisting);
-    // Session scope may only be null if bCreateIfNotExisting is false, else an
-    // exception was already thrown in getSessionScope
-    return aSessionScope == null ? null
-                                 : aSessionScope.getSessionApplicationScope (sApplicationID, bCreateIfNotExisting);
-  }
-
   // --- request scope ---
 
   /**
    * This method is only to be called by this class and the web scope manager!
    *
-   * @param sApplicationID
-   *        The application ID to use. May neither be <code>null</code> nor
-   *        empty.
    * @param aRequestScope
    *        The request scope to use. May not be <code>null</code>.
    */
-  public static void internalSetAndInitRequestScope (@Nonnull @Nonempty final String sApplicationID,
-                                                     @Nonnull final IRequestScope aRequestScope)
+  public static void internalSetAndInitRequestScope (@Nonnull final IRequestScope aRequestScope)
   {
-    ValueEnforcer.notEmpty (sApplicationID, "ApplicationID");
     ValueEnforcer.notNull (aRequestScope, "RequestScope");
     ValueEnforcer.isTrue ( () -> isGlobalScopePresent (),
                            "No global context present! May be the global context listener is not installed?");
@@ -460,16 +315,6 @@ public final class ScopeManager
     // set request context
     s_aRequestScopeTL.set (aRequestScope);
 
-    // assign the application ID to the current request
-    if (internalSetRequestApplicationID (aRequestScope, sApplicationID).isUnchanged ())
-    {
-      s_aLogger.warn ("Failed to set the application ID '" +
-                      sApplicationID +
-                      "' into the request scope '" +
-                      aRequestScope.getID () +
-                      "'");
-    }
-
     // Now init the scope
     aRequestScope.initScope ();
 
@@ -478,21 +323,19 @@ public final class ScopeManager
   }
 
   @Nonnull
-  public static IRequestScope onRequestBegin (@Nonnull @Nonempty final String sApplicationID,
-                                              @Nonnull @Nonempty final String sScopeID,
+  public static IRequestScope onRequestBegin (@Nonnull @Nonempty final String sScopeID,
                                               @Nonnull @Nonempty final String sSessionID)
   {
-    return onRequestBegin (sApplicationID, sScopeID, sSessionID, RequestScope::new);
+    return onRequestBegin (sScopeID, sSessionID, RequestScope::new);
   }
 
   @Nonnull
-  public static <T extends IRequestScope> T onRequestBegin (@Nonnull @Nonempty final String sApplicationID,
-                                                            @Nonnull @Nonempty final String sScopeID,
+  public static <T extends IRequestScope> T onRequestBegin (@Nonnull @Nonempty final String sScopeID,
                                                             @Nonnull @Nonempty final String sSessionID,
                                                             @Nonnull final BiFunction <? super String, ? super String, T> aFactory)
   {
     final T aRequestScope = aFactory.apply (sScopeID, sSessionID);
-    internalSetAndInitRequestScope (sApplicationID, aRequestScope);
+    internalSetAndInitRequestScope (aRequestScope);
     return aRequestScope;
   }
 

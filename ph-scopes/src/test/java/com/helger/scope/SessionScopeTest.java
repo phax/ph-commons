@@ -16,7 +16,6 @@
  */
 package com.helger.scope;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
@@ -34,9 +33,7 @@ public final class SessionScopeTest
     final SessionScope aScope = new SessionScope ("test");
     try
     {
-      assertEquals ("test.app", aScope.createApplicationScopeID ("app"));
-      assertEquals ("app", aScope.getApplicationIDFromApplicationScopeID ("test.app"));
-      assertNull (aScope.getApplicationIDFromApplicationScopeID ("test2.app"));
+      assertNull (aScope.attrs ().getAsString ("any"));
     }
     finally
     {
