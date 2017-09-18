@@ -100,7 +100,7 @@ public final class GlobalIDFactory
       if (EqualsHelper.equals (s_aPersistentIntIDFactory, aFactory))
         return EChange.UNCHANGED;
       if (s_aLogger.isInfoEnabled ())
-        s_aLogger.info ("Setting persistent int ID factory " + aFactory);
+        s_aLogger.info ("Setting persistent int ID factory " + aFactory.toString ());
       s_aPersistentIntIDFactory = aFactory;
       return EChange.CHANGED;
     });

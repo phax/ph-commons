@@ -64,7 +64,7 @@ public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBCont
         s_aLogger.info ("Creating JAXB context for package " +
                         aPackage.getName () +
                         " using ClassLoader " +
-                        aClassLoader);
+                        aClassLoader.toString ());
 
       try
       {
