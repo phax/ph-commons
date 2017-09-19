@@ -20,8 +20,10 @@ import java.io.InputStream;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.functional.ISupplier;
 import com.helger.commons.io.IHasInputStream;
+import com.helger.commons.string.ToStringGenerator;
 
 /**
  * Special implementation of {@link IHasInputStream} with that has an
@@ -29,10 +31,30 @@ import com.helger.commons.io.IHasInputStream;
  *
  * @author Philip Helger
  */
-public class HasInputStreamMultiple extends HasInputStream
+public class HasInputStream implements IHasInputStream
 {
-  public HasInputStreamMultiple (@Nonnull final ISupplier <? extends InputStream> aISP)
+  private final ISupplier <? extends InputStream> m_aISP;
+  private final boolean m_bReadMultiple;
+
+  public HasInputStream (@Nonnull final ISupplier <? extends InputStream> aISP, final boolean bReadMultiple)
   {
-    super (aISP, true);
+    m_aISP = ValueEnforcer.notNull (aISP, "ISP");
+    m_bReadMultiple = bReadMultiple;
+  }
+
+  public final boolean isReadMultiple ()
+  {
+    return m_bReadMultiple;
+  }
+
+  public final InputStream getInputStream ()
+  {
+    return m_aISP.get ();
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).append ("ISP", m_aISP).append ("ReadMultiple", m_bReadMultiple).getToString ();
   }
 }
