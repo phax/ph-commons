@@ -81,7 +81,8 @@ public final class PDTWebDateHelper
    * (year of era)
    */
   private static final PDTMask <?> [] RFC822_MASKS = { PDTMask.zonedDateTime (FORMAT_RFC822),
-                                                       PDTMask.zonedDateTime ("EEE, dd MMM uuuu HH:mm:ss XX"),
+                                                       PDTMask.zonedDateTime ("EEE, dd MMM uuuu HH:mm:ss " +
+                                                                              ZONE_PATTERN2),
                                                        PDTMask.localDateTime ("EEE, dd MMM uuuu HH:mm:ss"),
                                                        PDTMask.localDateTime ("EEE, dd MMM uu HH:mm:ss"),
                                                        PDTMask.localDateTime ("EEE, dd MMM uuuu HH:mm"),
