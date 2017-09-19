@@ -32,4 +32,9 @@ public interface IWrappedReadableResource extends IReadableResource
    */
   @Nonnull
   IReadableResource getWrappedReadableResource ();
+
+  default boolean isReadMultiple ()
+  {
+    return getWrappedReadableResource ().isReadMultiple ();
+  }
 }

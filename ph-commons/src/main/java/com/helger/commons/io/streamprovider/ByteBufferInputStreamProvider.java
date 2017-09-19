@@ -21,6 +21,7 @@ import java.nio.ByteBuffer;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.io.IHasInputStreamAndReader;
 import com.helger.commons.io.stream.ByteBufferInputStream;
 import com.helger.commons.string.ToStringGenerator;
@@ -41,7 +42,8 @@ public class ByteBufferInputStreamProvider implements IHasInputStreamAndReader
   }
 
   @Nonnull
-  public ByteBuffer getByteBuffer ()
+  @ReturnsMutableObject
+  public final ByteBuffer getByteBuffer ()
   {
     return m_aBuffer;
   }
@@ -50,6 +52,11 @@ public class ByteBufferInputStreamProvider implements IHasInputStreamAndReader
   public final ByteBufferInputStream getInputStream ()
   {
     return new ByteBufferInputStream (m_aBuffer);
+  }
+
+  public final boolean isReadMultiple ()
+  {
+    return true;
   }
 
   @Override

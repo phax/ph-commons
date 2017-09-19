@@ -284,6 +284,11 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
     return _getInputStream (m_sPath, aURL, getClassLoader ());
   }
 
+  public final boolean isReadMultiple ()
+  {
+    return true;
+  }
+
   /**
    * Get the input stream to the this resource, using the passed class loader
    * only.

@@ -53,25 +53,30 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
   }
 
   @Nonnull
-  public InputStream getInputStream ()
+  public final InputStream getInputStream ()
   {
     return new NonBlockingByteArrayInputStream (m_aBytes);
   }
 
+  public final boolean isReadMultiple ()
+  {
+    return true;
+  }
+
   @Nonnull
   @ReturnsMutableCopy
-  public byte [] getAllBytes ()
+  public final byte [] getAllBytes ()
   {
     return ArrayHelper.getCopy (m_aBytes);
   }
 
   @Nonnegative
-  public int size ()
+  public final int size ()
   {
     return m_aBytes.length;
   }
 
-  public boolean isEmpty ()
+  public final boolean isEmpty ()
   {
     return m_aBytes.length == 0;
   }

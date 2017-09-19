@@ -154,6 +154,11 @@ public class URLResource implements IReadableResource
     return URLHelper.getInputStream (m_aURL, nConnectTimeoutMS, nReadTimeoutMS, aConnectionModifier, aExceptionHolder);
   }
 
+  public final boolean isReadMultiple ()
+  {
+    return true;
+  }
+
   public boolean exists ()
   {
     // 1. as file

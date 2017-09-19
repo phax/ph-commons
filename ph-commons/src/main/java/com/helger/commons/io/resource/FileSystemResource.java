@@ -119,6 +119,11 @@ public class FileSystemResource implements IReadWriteResource
     return FileHelper.getReader (m_aFile, aCharset);
   }
 
+  public final boolean isReadMultiple ()
+  {
+    return true;
+  }
+
   @Nullable
   public FileOutputStream getOutputStream (@Nonnull final EAppend eAppend)
   {

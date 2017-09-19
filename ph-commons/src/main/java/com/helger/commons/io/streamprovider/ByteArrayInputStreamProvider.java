@@ -64,19 +64,19 @@ public class ByteArrayInputStreamProvider implements IHasInputStreamAndReader, S
 
   @Nonnull
   @ReturnsMutableCopy
-  public byte [] getData ()
+  public final byte [] getData ()
   {
     return ArrayHelper.getCopy (m_aData);
   }
 
   @Nonnegative
-  public int getOffset ()
+  public final int getOffset ()
   {
     return m_nOfs;
   }
 
   @Nonnegative
-  public int getLength ()
+  public final int getLength ()
   {
     return m_nLen;
   }
@@ -85,6 +85,11 @@ public class ByteArrayInputStreamProvider implements IHasInputStreamAndReader, S
   public final InputStream getInputStream ()
   {
     return new NonBlockingByteArrayInputStream (m_aData, m_nOfs, m_nLen);
+  }
+
+  public final boolean isReadMultiple ()
+  {
+    return true;
   }
 
   @Override

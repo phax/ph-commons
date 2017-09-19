@@ -47,9 +47,14 @@ public class ReadableResourceInputStream extends AbstractMemoryReadableResource
   }
 
   @Nonnull
-  public InputStream getInputStream ()
+  public final InputStream getInputStream ()
   {
     return m_aIS;
+  }
+
+  public final boolean isReadMultiple ()
+  {
+    return false;
   }
 
   @Override

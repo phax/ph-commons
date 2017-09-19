@@ -30,7 +30,6 @@ import com.helger.commons.io.stream.StreamHelper;
  *
  * @author Philip Helger
  */
-@FunctionalInterface
 public interface IHasInputStreamAndReader extends IHasInputStream
 {
   /**

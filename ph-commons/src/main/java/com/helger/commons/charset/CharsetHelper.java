@@ -261,6 +261,11 @@ public final class CharsetHelper
       return m_aIS;
     }
 
+    public final boolean isReadMultiple ()
+    {
+      return false;
+    }
+
     @Nullable
     public EUnicodeBOM getBOM ()
     {

@@ -25,7 +25,6 @@ import javax.annotation.Nullable;
  *
  * @author Philip Helger
  */
-@FunctionalInterface
 public interface IHasInputStream
 {
   /**
@@ -36,4 +35,10 @@ public interface IHasInputStream
    */
   @Nullable
   InputStream getInputStream ();
+
+  /**
+   * @return <code>true</code> if the input stream can be acquired more than
+   *         once, <code>false</code> if not.
+   */
+  boolean isReadMultiple ();
 }

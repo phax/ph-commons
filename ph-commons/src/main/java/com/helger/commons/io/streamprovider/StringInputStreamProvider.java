@@ -81,13 +81,13 @@ public class StringInputStreamProvider implements IHasInputStreamAndReader, IHas
   }
 
   @Nonnull
-  public String getData ()
+  public final String getData ()
   {
     return m_sData;
   }
 
   @Nonnull
-  public Charset getCharset ()
+  public final Charset getCharset ()
   {
     return m_aCharset;
   }
@@ -108,6 +108,11 @@ public class StringInputStreamProvider implements IHasInputStreamAndReader, IHas
   public final NonBlockingStringReader getReader ()
   {
     return new NonBlockingStringReader (m_sData);
+  }
+
+  public final boolean isReadMultiple ()
+  {
+    return true;
   }
 
   @Override

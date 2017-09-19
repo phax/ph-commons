@@ -30,4 +30,9 @@ public final class MockNullInputStreamProvider implements IHasInputStream, Seria
   {
     return null;
   }
+
+  public boolean isReadMultiple ()
+  {
+    return false;
+  }
 }
