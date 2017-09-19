@@ -19,8 +19,10 @@ package com.helger.commons.io.stream;
 import java.io.InputStream;
 
 import javax.annotation.Nonnull;
+import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.functional.ISupplier;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.string.ToStringGenerator;
@@ -31,6 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
+@Immutable
 public class HasInputStream implements IHasInputStream
 {
   private final ISupplier <? extends InputStream> m_aISP;
@@ -56,5 +59,19 @@ public class HasInputStream implements IHasInputStream
   public String toString ()
   {
     return new ToStringGenerator (this).append ("ISP", m_aISP).append ("ReadMultiple", m_bReadMultiple).getToString ();
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static HasInputStream multiple (@Nonnull final ISupplier <? extends InputStream> aISP)
+  {
+    return new HasInputStream (aISP, true);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static HasInputStream once (@Nonnull final ISupplier <? extends InputStream> aISP)
+  {
+    return new HasInputStream (aISP, false);
   }
 }
