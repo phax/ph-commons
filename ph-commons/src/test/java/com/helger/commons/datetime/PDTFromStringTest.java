@@ -45,15 +45,27 @@ public final class PDTFromStringTest
     // No chronology
     DateTimeFormatter aDTF = PDTFormatter.getForPattern ("uuuu/MM/dd HH:mm:ss");
     assertNotNull (aDTF);
-    LocalDateTime aDT = PDTFromString.getLocalDateTimeFromString ("2009/03/28 15:06:34", aDTF);
-    assertNotNull (aDT);
-    assertEquals (IsoChronology.INSTANCE, aDT.getChronology ());
+    LocalDateTime aLDT = PDTFromString.getLocalDateTimeFromString ("2009/03/28 15:06:34", aDTF);
+    assertNotNull (aLDT);
+    assertEquals (IsoChronology.INSTANCE, aLDT.getChronology ());
 
     // Our default chronology
     aDTF = PDTFormatter.getForPattern ("uuuu/MM/dd HH:mm:ss");
     assertNotNull (aDTF);
-    aDT = PDTFromString.getLocalDateTimeFromString ("2009/03/28 15:06:34", aDTF);
-    assertNotNull (aDT);
+    aLDT = PDTFromString.getLocalDateTimeFromString ("2009/03/28 15:06:34", aDTF);
+    assertNotNull (aLDT);
+    assertEquals ("2009/03/28 15:06:34",
+                  aDTF.format (PDTFactory.createLocalDateTime (2009, Month.MARCH, 28, 15, 6, 34)));
+
+    // 'y' instead of 'u'
+    // y == year of era
+    // u == year
+    aDTF = PDTFormatter.getForPattern ("yyyy/MM/dd HH:mm:ss");
+    assertNotNull (aDTF);
+    aLDT = PDTFromString.getLocalDateTimeFromString ("2009/03/28 15:06:34", aDTF);
+    assertNull (aLDT);
+    assertEquals ("2009/03/28 15:06:34",
+                  aDTF.format (PDTFactory.createLocalDateTime (2009, Month.MARCH, 28, 15, 6, 34)));
   }
 
   @Test
