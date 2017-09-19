@@ -31,18 +31,18 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public class HasFixedInputStream implements IHasInputStream
+public class HasInputStreamOnce implements IHasInputStream
 {
   private final InputStream m_aIS;
   private final ISupplier <? extends InputStream> m_aISP;
 
-  public HasFixedInputStream (@Nonnull final InputStream aIS)
+  public HasInputStreamOnce (@Nonnull final InputStream aIS)
   {
     m_aIS = ValueEnforcer.notNull (aIS, "IS");
     m_aISP = null;
   }
 
-  public HasFixedInputStream (@Nonnull final ISupplier <? extends InputStream> aISP)
+  public HasInputStreamOnce (@Nonnull final ISupplier <? extends InputStream> aISP)
   {
     m_aIS = null;
     m_aISP = ValueEnforcer.notNull (aISP, "ISP");

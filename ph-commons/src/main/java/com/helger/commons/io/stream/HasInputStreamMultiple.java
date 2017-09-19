@@ -31,11 +31,11 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public class HasInputStreamReadMultiple implements IHasInputStream
+public class HasInputStreamMultiple implements IHasInputStream
 {
   private final ISupplier <? extends InputStream> m_aISP;
 
-  public HasInputStreamReadMultiple (@Nonnull final ISupplier <? extends InputStream> aISP)
+  public HasInputStreamMultiple (@Nonnull final ISupplier <? extends InputStream> aISP)
   {
     m_aISP = ValueEnforcer.notNull (aISP, "ISP");
   }
