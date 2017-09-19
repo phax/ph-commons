@@ -136,6 +136,11 @@ public class FileSystemResource implements IReadWriteResource
     return FileHelper.getWriter (m_aFile, eAppend, aCharset);
   }
 
+  public final boolean isWriteMultiple ()
+  {
+    return true;
+  }
+
   public boolean exists ()
   {
     return m_aFile.exists ();

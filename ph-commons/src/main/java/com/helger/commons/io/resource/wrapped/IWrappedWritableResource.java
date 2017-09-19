@@ -32,4 +32,9 @@ public interface IWrappedWritableResource extends IWritableResource
    */
   @Nonnull
   IWritableResource getWrappedWritableResource ();
+
+  default boolean isWriteMultiple ()
+  {
+    return getWrappedWritableResource ().isWriteMultiple ();
+  }
 }

@@ -47,18 +47,23 @@ public class ByteArrayOutputStreamProvider implements IHasOutputStreamAndWriter,
     return m_aOS;
   }
 
+  public final boolean isWriteMultiple ()
+  {
+    return true;
+  }
+
   /**
    * @return All bytes already written
    */
   @Nonnull
   @ReturnsMutableCopy
-  public byte [] getBytes ()
+  public final byte [] getBytes ()
   {
     return m_aOS.toByteArray ();
   }
 
   @Nonnull
-  public String getAsString (@Nonnull final Charset aCharset)
+  public final String getAsString (@Nonnull final Charset aCharset)
   {
     return m_aOS.getAsString (aCharset);
   }

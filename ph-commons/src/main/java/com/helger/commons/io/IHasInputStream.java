@@ -37,6 +37,9 @@ public interface IHasInputStream
   InputStream getInputStream ();
 
   /**
+   * Check if the {@link InputStream} from {@link #getInputStream()} can be
+   * acquired more than once.
+   * 
    * @return <code>true</code> if the input stream can be acquired more than
    *         once, <code>false</code> if not.
    */

@@ -26,7 +26,6 @@ import javax.annotation.Nullable;
  *
  * @author Philip Helger
  */
-@FunctionalInterface
 public interface IHasOutputStream
 {
   /**
@@ -39,4 +38,13 @@ public interface IHasOutputStream
    */
   @Nullable
   OutputStream getOutputStream (@Nonnull EAppend eAppend);
+
+  /**
+   * Check if the {@link OutputStream} from {@link #getOutputStream(EAppend)}
+   * can be qcquired more than once or not.
+   * 
+   * @return <code>true</code> if the output stream can be acquired more than
+   *         once, <code>false</code> if not.
+   */
+  boolean isWriteMultiple ();
 }
