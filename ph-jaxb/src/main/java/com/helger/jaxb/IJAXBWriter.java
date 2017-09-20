@@ -48,6 +48,7 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.system.ENewLineMode;
 import com.helger.xml.XMLFactory;
 import com.helger.xml.microdom.IMicroDocument;
+import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.serialize.MicroSAXHandler;
 import com.helger.xml.namespace.INamespaceContext;
 import com.helger.xml.serialize.write.EXMLIncorrectCharacterHandling;
@@ -429,6 +430,28 @@ public interface IJAXBWriter <JAXBTYPE>
     // representation with String content
     final MicroSAXHandler aHandler = new MicroSAXHandler (false, null, true);
     return write (aObject, aHandler).isSuccess () ? aHandler.getDocument () : null;
+  }
+
+  /**
+   * Convert the passed object to a new micro document and return only the root
+   * element.
+   *
+   * @param aObject
+   *        The object to be converted. May not be <code>null</code>.
+   * @return <code>null</code> if converting the document failed.
+   */
+  @Nullable
+  default IMicroElement getAsMicroElement (@Nonnull final JAXBTYPE aObject)
+  {
+    final IMicroDocument aDoc = getAsMicroDocument (aObject);
+    if (aDoc == null)
+      return null;
+
+    final IMicroElement ret = aDoc.getDocumentElement ();
+    // Important to detach from document - otherwise the element cannot be
+    // re-added somewhere else
+    ret.detachFromParent ();
+    return ret;
   }
 
   /**
