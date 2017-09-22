@@ -52,6 +52,7 @@ public final class GlobalDebug
   public static final String SYSTEM_PROPERTY_JAVAX_ACTIVATION_DEBUG = "javax.activation.debug";
   public static final String SYSTEM_PROPERTY_JAVAX_NET_DEBUG = "javax.net.debug";
   public static final String SYSTEM_PROPERTY_JAXP_DEBUG = "jaxp.debug";
+  public static final String SYSTEM_PROPERTY_SERIALIZATION_DEBUG = "sun.io.serialization.extendedDebugInfo";
 
   private static final AtomicBoolean s_aDebugMode = new AtomicBoolean (DEFAULT_DEBUG_MODE);
   private static final AtomicBoolean s_aProductionMode = new AtomicBoolean (DEFAULT_PRODUCTION_MODE);
@@ -92,6 +93,9 @@ public final class GlobalDebug
 
     // Set javax.mail debugging
     SystemProperties.setPropertyValue (SYSTEM_PROPERTY_MAIL_DEBUG, bDebugMode);
+
+    // Set serialization debugging
+    SystemProperties.setPropertyValue (SYSTEM_PROPERTY_SERIALIZATION_DEBUG, bDebugMode);
   }
 
   /**
