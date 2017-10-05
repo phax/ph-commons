@@ -71,10 +71,8 @@
             <Export-Package>com.helger.scopes.*</Export-Package>
             <Import-Package>!javax.annotation.*,*</Import-Package>
             <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",
-osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.scope.spi.IApplicationScopeSPI)"; cardinality:=multiple,
 osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.scope.spi.IGlobalScopeSPI)"; cardinality:=multiple,
 osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.scope.spi.IRequestScopeSPI)"; cardinality:=multiple,
-osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.scope.spi.ISessionApplicationScopeSPI)"; cardinality:=multiple,
 osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.scope.spi.ISessionScopeSPI)"; cardinality:=multiple</Require-Capability>
           </instructions>
         </configuration>
