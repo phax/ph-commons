@@ -49,15 +49,6 @@
       <url>http://www.helger.com</url>
     </developer>
   </developers>
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.bouncycastle</groupId>
-        <artifactId>bcpkix-jdk15on</artifactId>
-        <version>1.58</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
   <dependencies>
     <dependency>
       <groupId>com.helger</groupId>

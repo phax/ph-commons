@@ -58,11 +58,7 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
-      <scope>test</scope>
+      <scope>compile</scope>
     </dependency>
   </dependencies>
   <build>

@@ -95,11 +95,6 @@
       <groupId>com.sun.istack</groupId>
       <artifactId>istack-commons-runtime</artifactId>
     </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
   <build>
     <pluginManagement>
