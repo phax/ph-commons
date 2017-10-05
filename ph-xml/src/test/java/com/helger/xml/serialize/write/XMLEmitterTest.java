@@ -24,7 +24,6 @@ import org.junit.Test;
 
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.streamprovider.ByteArrayOutputStreamProvider;
-import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.xml.microdom.MicroDocumentType;
 
@@ -33,7 +32,7 @@ import com.helger.xml.microdom.MicroDocumentType;
  *
  * @author Philip Helger
  */
-public final class XMLEmitterTest extends AbstractCommonsTestCase
+public final class XMLEmitterTest
 {
   @Test
   public void testMisc ()

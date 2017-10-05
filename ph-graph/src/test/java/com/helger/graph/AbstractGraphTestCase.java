@@ -18,11 +18,10 @@ package com.helger.graph;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.graph.simple.SimpleDirectedGraph;
 import com.helger.graph.simple.SimpleGraph;
 
-public abstract class AbstractGraphTestCase extends AbstractCommonsTestCase
+public abstract class AbstractGraphTestCase
 {
   protected static final String ATTR_VALUE = "value";
 

@@ -32,7 +32,6 @@ import org.junit.Test;
 import org.junit.rules.TestRule;
 
 import com.helger.commons.junit.DebugModeTestRule;
-import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.text.MultilingualText;
 import com.helger.commons.typeconvert.TypeConverterException;
@@ -44,7 +43,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *
  * @author Philip Helger
  */
-public final class MicroElementTest extends AbstractCommonsTestCase
+public final class MicroElementTest
 {
   @Rule
   public final TestRule m_aRule = new DebugModeTestRule ();
@@ -140,8 +139,8 @@ public final class MicroElementTest extends AbstractCommonsTestCase
     assertFalse (new MicroElement ("myns", "xyz").isEqualContent (new MicroElement ("myns", "xy")));
     assertFalse (new MicroElement ("myns", "xyz").isEqualContent (new MicroElement ("myns2", "xyz")));
     assertFalse (new MicroElement ("myns", "xyz").isEqualContent (new MicroElement (null, "xyz")));
-    assertFalse (new MicroElement ("myns",
-                                   "xyz").isEqualContent (new MicroElement ("myns", "xyz").setAttribute ("name",
+    assertFalse (new MicroElement ("myns", "xyz").isEqualContent (new MicroElement ("myns",
+                                                                                    "xyz").setAttribute ("name",
                                                                                                          "value")));
 
     e = new MicroElement ("ns1:element");

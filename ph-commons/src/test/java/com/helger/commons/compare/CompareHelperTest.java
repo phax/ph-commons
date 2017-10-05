@@ -24,15 +24,16 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.AbstractCommonsTestCase;
-
 /**
  * Test class for class {@link CompareHelper}.
  *
  * @author Philip Helger
  */
-public final class CompareHelperTest extends AbstractCommonsTestCase
+public final class CompareHelperTest
 {
+  private static final Locale L_DE = new Locale ("de");
+  private static final Locale L_EN = new Locale ("en");
+
   @Test
   public void testNullSafeCompare ()
   {

@@ -28,7 +28,6 @@ import java.util.Locale;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.text.util.TextHelper;
 
@@ -37,8 +36,15 @@ import com.helger.commons.text.util.TextHelper;
  *
  * @author Philip Helger
  */
-public final class MultilingualTextTest extends AbstractCommonsTestCase
+public final class MultilingualTextTest
 {
+  private static final Locale L_DE = new Locale ("de");
+  private static final Locale L_EN = new Locale ("en");
+  private static final Locale L_DE_DE = new Locale ("de", "DE");
+  private static final Locale L_FR = new Locale ("fr");
+  private static final Locale L_EN_GB = new Locale ("en", "GB");
+  private static final Locale L_EN_US = new Locale ("en", "US");
+
   @Test
   public void testCtor ()
   {

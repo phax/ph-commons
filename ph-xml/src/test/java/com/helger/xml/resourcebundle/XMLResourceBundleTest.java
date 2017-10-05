@@ -27,7 +27,6 @@ import org.junit.Test;
 
 import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.lang.NonBlockingProperties;
-import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.xml.microdom.serialize.MicroWriter;
 
 /**
@@ -35,7 +34,7 @@ import com.helger.xml.microdom.serialize.MicroWriter;
  *
  * @author Philip Helger
  */
-public final class XMLResourceBundleTest extends AbstractCommonsTestCase
+public final class XMLResourceBundleTest
 {
   @Test
   public void testAll ()

@@ -29,14 +29,13 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
  * Test class for class {@link NodeListIterator}.
  *
  * @author Philip Helger
  */
-public final class NodeListIteratorTest extends AbstractCommonsTestCase
+public final class NodeListIteratorTest
 {
   @Test
   public void testGetRecursiveChildIter ()

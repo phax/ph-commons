@@ -29,7 +29,6 @@ import java.util.Locale;
 import org.junit.Test;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsAssert;
 import com.helger.commons.string.StringParser;
 
@@ -38,8 +37,11 @@ import com.helger.commons.string.StringParser;
  *
  * @author Philip Helger
  */
-public final class LocaleParserTest extends AbstractCommonsTestCase
+public final class LocaleParserTest
 {
+  private static final Locale L_DE = new Locale ("de");
+  private static final Locale L_EN = new Locale ("en");
+
   @Test
   public void testParse ()
   {

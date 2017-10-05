@@ -18,12 +18,17 @@ package com.helger.commons.supplementary.test.java;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Locale;
+
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.helger.commons.mock.AbstractCommonsTestCase;
-
-public final class JavaCharToLowercaseFuncTest extends AbstractCommonsTestCase
+public final class JavaCharToLowercaseFuncTest
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (JavaCharToLowercaseFuncTest.class);
+  private static final Locale L_DE = new Locale ("de");
+
   @Test
   public void testAllCharsets ()
   {
@@ -35,7 +40,7 @@ public final class JavaCharToLowercaseFuncTest extends AbstractCommonsTestCase
 
       if (cUp != c)
         if (false)
-          m_aLogger.info ("c(" + (char) c + ") ==> (" + cUp + ")");
+          s_aLogger.info ("c(" + (char) c + ") ==> (" + cUp + ")");
     }
   }
 }

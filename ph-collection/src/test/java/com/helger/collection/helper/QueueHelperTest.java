@@ -27,14 +27,13 @@ import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.iterate.IterableIterator;
 import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
  * Test class for class {@link QueueHelper}
  *
  * @author Philip Helger
  */
-public final class QueueHelperTest extends AbstractCommonsTestCase
+public class QueueHelperTest
 {
   @Test
   public void testNew ()

@@ -33,7 +33,6 @@ import org.junit.Test;
 
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.url.URLHelper;
 
@@ -42,7 +41,7 @@ import com.helger.commons.url.URLHelper;
  *
  * @author Philip Helger
  */
-public final class URLResourceTest extends AbstractCommonsTestCase
+public final class URLResourceTest
 {
   @Test
   public void testCtor () throws MalformedURLException

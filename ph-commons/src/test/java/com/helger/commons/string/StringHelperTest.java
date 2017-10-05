@@ -42,7 +42,6 @@ import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
-import com.helger.commons.mock.AbstractCommonsTestCase;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -51,8 +50,10 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *
  * @author Philip Helger
  */
-public final class StringHelperTest extends AbstractCommonsTestCase
+public final class StringHelperTest
 {
+  private static final Locale L_DE = new Locale ("de");
+
   @Test
   public void testHasTextAndHasNoText ()
   {
@@ -1627,14 +1628,14 @@ public final class StringHelperTest extends AbstractCommonsTestCase
                        StringHelper.replaceMultiple ("cac",
                                                      new char [] { 'a' },
                                                      new char [] [] { "bb".toCharArray () }));
-    assertArrayEquals ("ddbbdd".toCharArray (), StringHelper.replaceMultiple ("cac",
-                                                                              new char [] { 'a', 'c' },
-                                                                              new char [] [] { "bb".toCharArray (),
-                                                                                               "dd".toCharArray () }));
-    assertArrayEquals ("<ddbbdd>".toCharArray (), StringHelper.replaceMultiple ("<cac>",
-                                                                                new char [] { 'a', 'c' },
-                                                                                new char [] [] { "bb".toCharArray (),
-                                                                                                 "dd".toCharArray () }));
+    assertArrayEquals ("ddbbdd".toCharArray (),
+                       StringHelper.replaceMultiple ("cac",
+                                                     new char [] { 'a', 'c' },
+                                                     new char [] [] { "bb".toCharArray (), "dd".toCharArray () }));
+    assertArrayEquals ("<ddbbdd>".toCharArray (),
+                       StringHelper.replaceMultiple ("<cac>",
+                                                     new char [] { 'a', 'c' },
+                                                     new char [] [] { "bb".toCharArray (), "dd".toCharArray () }));
     assertArrayEquals (new char [0],
                        StringHelper.replaceMultiple ("",
                                                      new char [] { 'a', 'c' },
@@ -1792,6 +1793,7 @@ public final class StringHelperTest extends AbstractCommonsTestCase
   @Test
   public void testToString ()
   {
+    final Integer I1 = Integer.valueOf (1);
     assertEquals ("1", StringHelper.getToString (I1));
     assertEquals ("any", StringHelper.getToString ("any"));
     assertEquals ("", StringHelper.getToString (null));

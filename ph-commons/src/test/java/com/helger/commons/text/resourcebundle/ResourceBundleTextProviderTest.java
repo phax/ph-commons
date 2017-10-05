@@ -19,9 +19,10 @@ package com.helger.commons.text.resourcebundle;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.util.Locale;
+
 import org.junit.Test;
 
-import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -29,8 +30,10 @@ import com.helger.commons.mock.CommonsTestHelper;
  *
  * @author Philip Helger
  */
-public final class ResourceBundleTextProviderTest extends AbstractCommonsTestCase
+public final class ResourceBundleTextProviderTest
 {
+  private static final Locale L_DE = new Locale ("de");
+
   @Test
   public void testISO8859 ()
   {

@@ -37,7 +37,6 @@ import org.w3c.dom.Node;
 
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.iterate.IterableIterator;
-import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.xml.xpath.XPathExpressionHelper;
 
 /**
@@ -45,7 +44,7 @@ import com.helger.xml.xpath.XPathExpressionHelper;
  *
  * @author Philip Helger
  */
-public final class XMLHelperTest extends AbstractCommonsTestCase
+public final class XMLHelperTest
 {
   private static final String TEST_NS = "http://www.helger.com/dev/unittests/commons/";
 
@@ -218,7 +217,7 @@ public final class XMLHelperTest extends AbstractCommonsTestCase
     XMLHelper.append (eRoot, "TextNode");
     XMLHelper.append (eRoot, doc2.createElement ("child"));
     XMLHelper.append (eRoot, CollectionHelper.newList ("Text 1", " ", "Text 2"));
-    XMLHelper.append (eRoot, new IterableIterator<> (CollectionHelper.newList ("Text 1", " ", "Text 2")));
+    XMLHelper.append (eRoot, new IterableIterator <> (CollectionHelper.newList ("Text 1", " ", "Text 2")));
     XMLHelper.append (eRoot, doc.createElement ("foobar"));
     XMLHelper.append (eRoot, _getTestDoc ());
     XMLHelper.append (eRoot, CollectionHelper.newSet (doc.createElement ("e1"), doc.createElement ("e2")));

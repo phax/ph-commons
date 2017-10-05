@@ -21,6 +21,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Locale;
+
 import javax.xml.transform.Templates;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -31,7 +33,6 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.xml.XMLFactory;
 
@@ -40,8 +41,10 @@ import com.helger.xml.XMLFactory;
  *
  * @author Philip Helger
  */
-public final class CollectingTransformErrorListenerTest extends AbstractCommonsTestCase
+public final class CollectingTransformErrorListenerTest
 {
+  public static final Locale L_EN = new Locale ("en");
+
   @Test
   public void testAll () throws TransformerConfigurationException, TransformerException
   {

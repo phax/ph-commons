@@ -22,14 +22,13 @@ import org.junit.Test;
 
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.iterate.IterableIterator;
-import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
  * Test class for class {@link VectorHelper}
  *
  * @author Philip Helger
  */
-public final class VectorHelperTest extends AbstractCommonsTestCase
+public final class VectorHelperTest
 {
   @Test
   public void testNew ()

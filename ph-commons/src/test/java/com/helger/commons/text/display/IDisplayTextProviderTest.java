@@ -19,17 +19,19 @@ package com.helger.commons.text.display;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-import org.junit.Test;
+import java.util.Locale;
 
-import com.helger.commons.mock.AbstractCommonsTestCase;
+import org.junit.Test;
 
 /**
  * Test class for class {@link IDisplayTextProvider}.
  *
  * @author Philip Helger
  */
-public final class IDisplayTextProviderTest extends AbstractCommonsTestCase
+public final class IDisplayTextProviderTest
 {
+  private static final Locale L_DE = new Locale ("de");
+
   @Test
   public void testAll ()
   {

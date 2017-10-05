@@ -26,7 +26,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsAssert;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -36,7 +35,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *
  * @author Philip Helger
  */
-public final class EqualsImplementationRegistryTest extends AbstractCommonsTestCase
+public final class EqualsImplementationRegistryTest
 {
   @Test
   @SuppressFBWarnings ("EC_BAD_ARRAY_COMPARE")

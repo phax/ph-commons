@@ -60,7 +60,6 @@ import com.helger.commons.collection.impl.ICommonsSortedSet;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.collection.iterate.IterableIterator;
 import com.helger.commons.compare.IComparator;
-import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.supplementary.tools.collection.MainCreateCollectionHelperCode2;
 
@@ -71,8 +70,14 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *
  * @author Philip Helger
  */
-public final class CollectionHelperTest extends AbstractCommonsTestCase
+public final class CollectionHelperTest
 {
+  private static final Integer I1 = Integer.valueOf (1);
+  private static final Integer I2 = Integer.valueOf (2);
+  private static final Integer I3 = Integer.valueOf (3);
+  private static final Integer I4 = Integer.valueOf (4);
+  private static final Integer I5 = Integer.valueOf (5);
+
   @Test
   public void testGetDifference ()
   {
@@ -521,7 +526,7 @@ public final class CollectionHelperTest extends AbstractCommonsTestCase
   @Test
   public void testNewOrderedMap_ArrayArray ()
   {
-    Map <String, Integer> aMap = newOrderedMap (new String [] { "Hallo", "Alice" }, new Integer [] { I1, I2 });
+    ICommonsMap <String, Integer> aMap = newOrderedMap (new String [] { "Hallo", "Alice" }, new Integer [] { I1, I2 });
     assertNotNull (aMap);
     assertEquals (2, aMap.size ());
     assertNotNull (aMap.get ("Hallo"));

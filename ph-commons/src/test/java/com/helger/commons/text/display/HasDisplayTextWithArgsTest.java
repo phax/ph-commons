@@ -20,9 +20,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
+import java.util.Locale;
+
 import org.junit.Test;
 
-import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -30,8 +31,11 @@ import com.helger.commons.mock.CommonsTestHelper;
  *
  * @author Philip Helger
  */
-public final class HasDisplayTextWithArgsTest extends AbstractCommonsTestCase
+public final class HasDisplayTextWithArgsTest
 {
+  private static final Locale L_DE = new Locale ("de");
+  private static final Locale L_FR = new Locale ("fr");
+
   @Test
   public void testAll ()
   {

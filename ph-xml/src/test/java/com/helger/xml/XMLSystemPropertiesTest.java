@@ -20,14 +20,12 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.AbstractCommonsTestCase;
-
 /**
  * Test class for class {@link XMLSystemProperties}
  *
  * @author Philip Helger
  */
-public final class XMLSystemPropertiesTest extends AbstractCommonsTestCase
+public final class XMLSystemPropertiesTest
 {
   @Test
   public void testXMLProperties ()

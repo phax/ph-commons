@@ -27,7 +27,6 @@ import java.util.Locale;
 import org.junit.Test;
 
 import com.helger.commons.collection.impl.CommonsVector;
-import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -35,8 +34,11 @@ import com.helger.commons.mock.CommonsTestHelper;
  *
  * @author Philip Helger
  */
-public final class CollatorHelperTest extends AbstractCommonsTestCase
+public final class CollatorHelperTest
 {
+  public static final Locale L_DE = new Locale ("de");
+  public static final Locale L_EN = new Locale ("en");
+
   @Test
   public void testGetCollatorSpaceBeforeDot ()
   {

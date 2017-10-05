@@ -20,21 +20,23 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.lang.ClassLoaderHelper;
-import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
  * Test class for class {@link Utf8ResourceBundle}.
  *
  * @author Philip Helger
  */
-public final class Utf8ResourceBundleTest extends AbstractCommonsTestCase
+public final class Utf8ResourceBundleTest
 {
+  private static final Locale L_DE = new Locale ("de");
+
   @Test
   public void testAll ()
   {

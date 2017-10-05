@@ -28,7 +28,6 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -36,7 +35,7 @@ import com.helger.commons.mock.CommonsTestHelper;
  *
  * @author Philip Helger
  */
-public final class MimeTypeTest extends AbstractCommonsTestCase
+public final class MimeTypeTest
 {
   @Test
   public void testCtor ()

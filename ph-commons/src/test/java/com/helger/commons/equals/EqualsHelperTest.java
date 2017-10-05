@@ -49,7 +49,6 @@ import com.helger.commons.collection.impl.ICommonsIterable;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsAssert;
 import com.helger.commons.string.StringParser;
 
@@ -58,11 +57,12 @@ import com.helger.commons.string.StringParser;
  *
  * @author Philip Helger
  */
-public final class EqualsHelperTest extends AbstractCommonsTestCase
+public final class EqualsHelperTest
 {
   @Test
   public void testEquals_Float ()
   {
+    CommonsAssert.assertEquals (0f, -0f);
     CommonsAssert.assertEquals (1.1f, 1.1f);
     CommonsAssert.assertEquals (Float.NaN, Float.NaN);
     CommonsAssert.assertEquals (1f / 0f, Float.POSITIVE_INFINITY);
@@ -76,6 +76,7 @@ public final class EqualsHelperTest extends AbstractCommonsTestCase
   @Test
   public void testEquals_Double ()
   {
+    CommonsAssert.assertEquals (0d, -0d);
     CommonsAssert.assertEquals (1.1d, 1.1d);
     CommonsAssert.assertEquals (Double.NaN, Double.NaN);
     CommonsAssert.assertEquals (1d / 0d, Double.POSITIVE_INFINITY);

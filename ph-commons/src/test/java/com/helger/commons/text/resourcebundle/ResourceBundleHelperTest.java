@@ -19,17 +19,20 @@ package com.helger.commons.text.resourcebundle;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-import org.junit.Test;
+import java.util.Locale;
 
-import com.helger.commons.mock.AbstractCommonsTestCase;
+import org.junit.Test;
 
 /**
  * Test class for class {@link ResourceBundleHelper}.
  *
  * @author Philip Helger
  */
-public final class ResourceBundleHelperTest extends AbstractCommonsTestCase
+public final class ResourceBundleHelperTest
 {
+  private static final Locale L_DE = new Locale ("de");
+  private static final Locale L_FR = new Locale ("fr");
+
   @Test
   public void testGetString ()
   {

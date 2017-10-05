@@ -27,7 +27,6 @@ import java.math.BigInteger;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsAssert;
 import com.helger.commons.wrapper.Wrapper;
 
@@ -36,8 +35,16 @@ import com.helger.commons.wrapper.Wrapper;
  *
  * @author Philip Helger
  */
-public final class StringParserTest extends AbstractCommonsTestCase
+public final class StringParserTest
 {
+  private static final Integer I_1 = Integer.valueOf (-1);
+  private static final Integer I0 = Integer.valueOf (0);
+  private static final Integer I1 = Integer.valueOf (1);
+
+  private static final Long L_1 = Long.valueOf (-1);
+  private static final Long L0 = Long.valueOf (0);
+  private static final Long L1 = Long.valueOf (1);
+
   @Test
   public void testParseBool ()
   {

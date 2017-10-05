@@ -26,8 +26,6 @@ import java.util.regex.PatternSyntaxException;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.AbstractCommonsTestCase;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
@@ -35,7 +33,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *
  * @author Philip Helger
  */
-public final class RegExCacheTest extends AbstractCommonsTestCase
+public final class RegExCacheTest
 {
   /**
    * Test method getPattern

@@ -18,43 +18,42 @@ package com.helger.commons.math;
 
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
  * Test base class for combinator testing
  *
  * @author Philip Helger
  */
-public abstract class AbstractCombinationGeneratorTestCase extends AbstractCommonsTestCase
+public abstract class AbstractCombinationGeneratorTestCase
 {
-  protected static final ICommonsList <String> HUGE_LIST = new CommonsArrayList<> ("a",
-                                                                                   "b",
-                                                                                   "c",
-                                                                                   "d",
-                                                                                   "e",
-                                                                                   "f",
-                                                                                   "g",
-                                                                                   "h",
-                                                                                   "i",
-                                                                                   "j",
-                                                                                   "k",
-                                                                                   "l",
-                                                                                   "m",
-                                                                                   "a",
-                                                                                   "b",
-                                                                                   "c",
-                                                                                   "d",
-                                                                                   "e",
-                                                                                   "f",
-                                                                                   "g",
-                                                                                   "h",
-                                                                                   "i",
-                                                                                   "j",
-                                                                                   "k",
-                                                                                   "l",
-                                                                                   "m",
-                                                                                   "n",
-                                                                                   "o",
-                                                                                   "p",
-                                                                                   "q");
+  protected static final ICommonsList <String> HUGE_LIST = new CommonsArrayList <> ("a",
+                                                                                    "b",
+                                                                                    "c",
+                                                                                    "d",
+                                                                                    "e",
+                                                                                    "f",
+                                                                                    "g",
+                                                                                    "h",
+                                                                                    "i",
+                                                                                    "j",
+                                                                                    "k",
+                                                                                    "l",
+                                                                                    "m",
+                                                                                    "a",
+                                                                                    "b",
+                                                                                    "c",
+                                                                                    "d",
+                                                                                    "e",
+                                                                                    "f",
+                                                                                    "g",
+                                                                                    "h",
+                                                                                    "i",
+                                                                                    "j",
+                                                                                    "k",
+                                                                                    "l",
+                                                                                    "m",
+                                                                                    "n",
+                                                                                    "o",
+                                                                                    "p",
+                                                                                    "q");
 }

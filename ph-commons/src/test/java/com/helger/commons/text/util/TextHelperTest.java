@@ -29,7 +29,6 @@ import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.text.IMultilingualText;
 import com.helger.commons.text.MultilingualText;
 
@@ -38,8 +37,11 @@ import com.helger.commons.text.MultilingualText;
  *
  * @author Philip Helger
  */
-public final class TextHelperTest extends AbstractCommonsTestCase
+public final class TextHelperTest
 {
+  private static final Locale L_DE = new Locale ("de");
+  private static final Locale L_EN = new Locale ("en");
+
   @Test
   public void testGetFormattedText ()
   {

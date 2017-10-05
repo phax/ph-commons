@@ -34,7 +34,6 @@ import org.junit.rules.TestRule;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.junit.DebugModeTestRule;
-import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.system.SystemHelper;
 
 /**
@@ -42,8 +41,14 @@ import com.helger.commons.system.SystemHelper;
  *
  * @author Philip Helger
  */
-public final class LocaleHelperTest extends AbstractCommonsTestCase
+public final class LocaleHelperTest
 {
+  private static final Locale L_DE = new Locale ("de");
+  private static final Locale L_EN = new Locale ("en");
+  private static final Locale L_DE_AT = new Locale ("de", "AT");
+  private static final Locale L_FR = new Locale ("fr");
+  private static final Locale L_FR_FR = new Locale ("fr", "FR");
+
   @Rule
   public final TestRule m_aRule = new DebugModeTestRule ();
 
@@ -108,9 +113,8 @@ public final class LocaleHelperTest extends AbstractCommonsTestCase
     assertEquals (LocaleCache.getInstance ().getLocale ("de"), aList.get (1));
 
     // Language + country + Variant
-    aList = LocaleHelper.getCalculatedLocaleListForResolving (LocaleCache.getInstance ().getLocale ("de",
-                                                                                                    "AT",
-                                                                                                    "Wien"));
+    aList = LocaleHelper.getCalculatedLocaleListForResolving (LocaleCache.getInstance ()
+                                                                         .getLocale ("de", "AT", "Wien"));
     assertNotNull (aList);
     assertEquals (3, aList.size ());
     assertEquals (LocaleCache.getInstance ().getLocale ("de", "AT", "Wien"), aList.get (0));
@@ -154,7 +158,7 @@ public final class LocaleHelperTest extends AbstractCommonsTestCase
   @Test
   public void testGetLocaleToUseOrFallback ()
   {
-    final ICommonsList <Locale> aLocales = new CommonsArrayList<> (L_DE, L_EN, LocaleHelper.LOCALE_ALL);
+    final ICommonsList <Locale> aLocales = new CommonsArrayList <> (L_DE, L_EN, LocaleHelper.LOCALE_ALL);
     try
     {
       LocaleHelper.getLocaleToUseOrFallback (null, aLocales, null);
@@ -177,11 +181,11 @@ public final class LocaleHelperTest extends AbstractCommonsTestCase
                   LocaleHelper.getLocaleToUseOrFallback (LocaleHelper.LOCALE_INDEPENDENT, aLocales, null));
     assertEquals (LocaleHelper.LOCALE_INDEPENDENT,
                   LocaleHelper.getLocaleToUseOrFallback (L_FR,
-                                                         new CommonsArrayList<> (LocaleHelper.LOCALE_INDEPENDENT),
+                                                         new CommonsArrayList <> (LocaleHelper.LOCALE_INDEPENDENT),
                                                          null));
-    assertNull (LocaleHelper.getLocaleToUseOrFallback (L_FR, new CommonsArrayList<> (L_DE, L_EN), null));
-    assertEquals (L_FR_FR, LocaleHelper.getLocaleToUseOrFallback (L_FR, new CommonsArrayList<> (L_DE, L_EN), L_FR_FR));
-    assertEquals (L_FR_FR, LocaleHelper.getLocaleToUseOrFallback (L_FR, new CommonsArrayList<> (L_FR_FR), null));
+    assertNull (LocaleHelper.getLocaleToUseOrFallback (L_FR, new CommonsArrayList <> (L_DE, L_EN), null));
+    assertEquals (L_FR_FR, LocaleHelper.getLocaleToUseOrFallback (L_FR, new CommonsArrayList <> (L_DE, L_EN), L_FR_FR));
+    assertEquals (L_FR_FR, LocaleHelper.getLocaleToUseOrFallback (L_FR, new CommonsArrayList <> (L_FR_FR), null));
   }
 
   @Test

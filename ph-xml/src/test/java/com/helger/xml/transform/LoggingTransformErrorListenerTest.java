@@ -19,13 +19,14 @@ package com.helger.xml.transform;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import java.util.Locale;
+
 import javax.xml.transform.Templates;
 import javax.xml.transform.TransformerFactory;
 
 import org.junit.Test;
 
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -33,8 +34,10 @@ import com.helger.commons.mock.CommonsTestHelper;
  *
  * @author Philip Helger
  */
-public final class LoggingTransformErrorListenerTest extends AbstractCommonsTestCase
+public final class LoggingTransformErrorListenerTest
 {
+  private static final Locale L_EN = new Locale ("en");
+
   @Test
   public void testAll ()
   {

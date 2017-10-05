@@ -47,7 +47,6 @@ import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.locale.ELocaleName;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.math.MathHelper;
-import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mutable.MutableBoolean;
 import com.helger.commons.mutable.MutableByte;
 import com.helger.commons.mutable.MutableChar;
@@ -75,7 +74,7 @@ import com.helger.commons.typeconvert.TypeConverterException.EReason;
  *
  * @author Philip Helger
  */
-public final class TypeConverterTest extends AbstractCommonsTestCase
+public final class TypeConverterTest
 {
   // All classes for which type converters from and to each other are defined
   private static final Class <?> [] CONVERTIBLE_CLASSES = new Class <?> [] { Boolean.class,

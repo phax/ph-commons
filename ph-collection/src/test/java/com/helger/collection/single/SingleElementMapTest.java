@@ -30,19 +30,25 @@ import java.util.Map;
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
  * Test class for class {@link SingleElementMap}.
  *
  * @author Philip Helger
  */
-public final class SingleElementMapTest extends AbstractCommonsTestCase
+public final class SingleElementMapTest
 {
+  private static final Integer I1 = Integer.valueOf (1);
+  private static final Integer I2 = Integer.valueOf (2);
+  private static final Integer I3 = Integer.valueOf (3);
+  private static final Integer I4 = Integer.valueOf (4);
+  private static final Integer I5 = Integer.valueOf (5);
+  private static final Integer I6 = Integer.valueOf (6);
+
   @Test
   public void testEmptyCtor ()
   {
-    final Map <String, Integer> aMap = new SingleElementMap<> ();
+    final Map <String, Integer> aMap = new SingleElementMap <> ();
     assertEquals (0, aMap.size ());
     assertTrue (aMap.isEmpty ());
     assertFalse (aMap.containsKey ("any"));
@@ -56,7 +62,7 @@ public final class SingleElementMapTest extends AbstractCommonsTestCase
   @Test
   public void testNonEmptyCtor ()
   {
-    final Map <String, Integer> aMap = new SingleElementMap<> ("any", I5);
+    final Map <String, Integer> aMap = new SingleElementMap <> ("any", I5);
     assertEquals (1, aMap.size ());
     assertFalse (aMap.isEmpty ());
     assertTrue (aMap.containsKey ("any"));
@@ -78,7 +84,7 @@ public final class SingleElementMapTest extends AbstractCommonsTestCase
   @Test
   public void testRemove ()
   {
-    final Map <String, Integer> aMap = new SingleElementMap<> ("any", I5);
+    final Map <String, Integer> aMap = new SingleElementMap <> ("any", I5);
     assertNull (aMap.remove ("dummy"));
     assertEquals (I5, aMap.remove ("any"));
     assertEquals (0, aMap.size ());
@@ -91,7 +97,7 @@ public final class SingleElementMapTest extends AbstractCommonsTestCase
   @Test
   public void testPut ()
   {
-    final Map <String, Integer> aMap = new SingleElementMap<> ();
+    final Map <String, Integer> aMap = new SingleElementMap <> ();
     assertEquals (0, aMap.size ());
     assertNull (aMap.put ("any", I1));
     assertEquals (1, aMap.size ());
@@ -126,8 +132,8 @@ public final class SingleElementMapTest extends AbstractCommonsTestCase
   @Test
   public void testEquals ()
   {
-    final Map <String, Integer> aMap = new SingleElementMap<> ();
-    final Map <String, Integer> aMap2 = new SingleElementMap<> ();
+    final Map <String, Integer> aMap = new SingleElementMap <> ();
+    final Map <String, Integer> aMap2 = new SingleElementMap <> ();
     assertEquals (aMap, aMap);
     assertEquals (aMap, aMap2);
     assertEquals (aMap2, aMap);
@@ -149,7 +155,7 @@ public final class SingleElementMapTest extends AbstractCommonsTestCase
   @Test
   public void testCollections ()
   {
-    final Map <String, Integer> aMap = new SingleElementMap<> ();
+    final Map <String, Integer> aMap = new SingleElementMap <> ();
     assertEquals (0, aMap.keySet ().size ());
     assertEquals (0, aMap.values ().size ());
     assertEquals (0, aMap.entrySet ().size ());

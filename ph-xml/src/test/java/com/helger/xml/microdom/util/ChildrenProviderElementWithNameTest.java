@@ -22,7 +22,6 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
@@ -32,7 +31,7 @@ import com.helger.xml.microdom.MicroDocument;
  *
  * @author Philip Helger
  */
-public final class ChildrenProviderElementWithNameTest extends AbstractCommonsTestCase
+public final class ChildrenProviderElementWithNameTest
 {
   private static IMicroDocument _buildTestDoc ()
   {

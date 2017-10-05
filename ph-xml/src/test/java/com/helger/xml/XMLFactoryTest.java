@@ -31,7 +31,6 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.xml.schema.XMLSchemaCache;
 
 /**
@@ -39,7 +38,7 @@ import com.helger.xml.schema.XMLSchemaCache;
  *
  * @author Philip Helger
  */
-public final class XMLFactoryTest extends AbstractCommonsTestCase
+public final class XMLFactoryTest
 {
   @Test
   public void testCreateDefaultDocumentBuilderFactory ()

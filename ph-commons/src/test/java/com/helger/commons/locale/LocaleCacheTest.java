@@ -26,7 +26,6 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -34,7 +33,7 @@ import com.helger.commons.string.StringHelper;
  *
  * @author Philip Helger
  */
-public final class LocaleCacheTest extends AbstractCommonsTestCase
+public final class LocaleCacheTest
 {
   @Test
   public void testGet ()

@@ -28,7 +28,6 @@ import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -36,8 +35,11 @@ import com.helger.commons.mock.CommonsTestHelper;
  *
  * @author Philip Helger
  */
-public final class IComparatorTest extends AbstractCommonsTestCase
+public final class IComparatorTest
 {
+  private static final Locale L_FR = new Locale ("fr");
+  private static final Locale L_EN = new Locale ("en");
+
   @Test
   public void testCollating ()
   {

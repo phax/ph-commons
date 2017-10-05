@@ -25,7 +25,6 @@ import java.util.Locale;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -33,7 +32,7 @@ import com.helger.commons.string.StringHelper;
  *
  * @author Philip Helger
  */
-public final class EMimeContentTypeTest extends AbstractCommonsTestCase
+public final class EMimeContentTypeTest
 {
   @Test
   public void testAll ()

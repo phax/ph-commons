@@ -33,7 +33,6 @@ import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
-import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.system.ENewLineMode;
 import com.helger.xml.EXMLVersion;
@@ -48,7 +47,7 @@ import com.helger.xml.transform.XMLTransformerFactory;
  *
  * @author Philip Helger
  */
-public final class XMLWriterTest extends AbstractCommonsTestCase
+public final class XMLWriterTest
 {
   private static final String DOCTYPE_XHTML10_QNAME = "-//W3C//DTD XHTML 1.0 Strict//EN";
   private static final String DOCTYPE_XHTML10_URI = "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd";
@@ -124,11 +123,7 @@ public final class XMLWriterTest extends AbstractCommonsTestCase
                                                         XMLWriterSettings.createForXHTML ()
                                                                          .setSerializeDocType (EXMLSerializeDocType.IGNORE)
                                                                          .setIndent (EXMLSerializeIndent.NONE));
-      assertEquals ("<html xmlns=\"" +
-                    DOCTYPE_XHTML10_URI +
-                    "\"><head>Hallo</head>" +
-                    sSerTagName +
-                    "</html>",
+      assertEquals ("<html xmlns=\"" + DOCTYPE_XHTML10_URI + "\"><head>Hallo</head>" + sSerTagName + "</html>",
                     sResult);
       assertEquals (sResult,
                     XMLWriter.getNodeAsString (doc,

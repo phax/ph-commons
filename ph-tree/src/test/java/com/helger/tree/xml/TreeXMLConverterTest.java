@@ -22,7 +22,6 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 import com.helger.commons.io.resource.ClassPathResource;
-import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.tree.DefaultTree;
 import com.helger.tree.mock.MockHasName;
 import com.helger.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
@@ -35,7 +34,7 @@ import com.helger.xml.microdom.serialize.MicroReader;
  *
  * @author Philip Helger
  */
-public final class TreeXMLConverterTest extends AbstractCommonsTestCase
+public final class TreeXMLConverterTest
 {
   @Test
   public void testReadWrite ()

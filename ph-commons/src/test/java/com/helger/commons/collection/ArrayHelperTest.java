@@ -33,7 +33,6 @@ import org.junit.Test;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.commons.mock.CommonsAssert;
 import com.helger.commons.string.StringParser;
 
@@ -45,8 +44,15 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * @author Philip Helger
  */
 @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
-public final class ArrayHelperTest extends AbstractCommonsTestCase
+public final class ArrayHelperTest
 {
+  private static final Integer I1 = Integer.valueOf (1);
+  private static final Integer I2 = Integer.valueOf (2);
+  private static final Integer I3 = Integer.valueOf (3);
+  private static final Integer I4 = Integer.valueOf (4);
+  private static final Integer I5 = Integer.valueOf (5);
+  private static final Integer I6 = Integer.valueOf (6);
+
   @Test
   public void testGetComponentClass ()
   {

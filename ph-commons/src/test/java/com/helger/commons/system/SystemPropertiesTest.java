@@ -26,24 +26,27 @@ import java.util.Map;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.collection.CollectionHelper;
-import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
  * Test class for class {@link SystemProperties}
  *
  * @author Philip Helger
  */
-public final class SystemPropertiesTest extends AbstractCommonsTestCase
+public final class SystemPropertiesTest
 {
+  private static final Logger s_aLogger = LoggerFactory.getLogger (SystemPropertiesTest.class);
+
   @Test
   @Ignore ("Too verbose")
   public void testPrintAll ()
   {
     for (final Map.Entry <String, String> aEntry : CollectionHelper.getSortedByKey (SystemProperties.getAllProperties ())
                                                                    .entrySet ())
-      m_aLogger.info ("[all] " + aEntry.getKey () + "=" + aEntry.getValue ());
+      s_aLogger.info ("[all] " + aEntry.getKey () + "=" + aEntry.getValue ());
   }
 
   @Test

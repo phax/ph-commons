@@ -28,7 +28,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import com.helger.commons.mock.AbstractCommonsTestCase;
 import com.helger.xml.serialize.write.XMLWriter;
 
 /**
@@ -36,7 +35,7 @@ import com.helger.xml.serialize.write.XMLWriter;
  *
  * @author Philip Helger
  */
-public final class DOM4JFuncTest extends AbstractCommonsTestCase
+public final class DOM4JFuncTest
 {
   @Test
   public void testMisc ()

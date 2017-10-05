@@ -19,18 +19,23 @@ package com.helger.commons.locale;
 import static org.junit.Assert.assertEquals;
 
 import java.math.BigInteger;
+import java.util.Locale;
 
 import org.junit.Test;
-
-import com.helger.commons.mock.AbstractCommonsTestCase;
 
 /**
  * Test class for class {@link LocaleFormatter}.
  *
  * @author Philip Helger
  */
-public final class LocaleFormatterTest extends AbstractCommonsTestCase
+public final class LocaleFormatterTest
 {
+  private static final Locale L_DE = new Locale ("de");
+  private static final Locale L_EN = new Locale ("en");
+  private static final Locale L_DE_AT = new Locale ("de", "AT");
+  private static final Locale L_EN_US = new Locale ("en", "US");
+  private static final Locale L_FR_FR = new Locale ("fr", "FR");
+
   @Test
   public void testGetFormatted_Double ()
   {

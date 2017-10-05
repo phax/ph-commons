@@ -21,14 +21,12 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.helger.commons.mock.AbstractCommonsTestCase;
-
 /**
  * Test class for class {@link EMimeContentType}
  *
  * @author Philip Helger
  */
-public final class EMimeQuotingTest extends AbstractCommonsTestCase
+public final class EMimeQuotingTest
 {
   @Test
   public void testAll ()

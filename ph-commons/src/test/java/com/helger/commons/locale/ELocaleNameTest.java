@@ -19,17 +19,20 @@ package com.helger.commons.locale;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 
-import org.junit.Test;
+import java.util.Locale;
 
-import com.helger.commons.mock.AbstractCommonsTestCase;
+import org.junit.Test;
 
 /**
  * Test class for class {@link ELocaleName}.
  *
  * @author Philip Helger
  */
-public final class ELocaleNameTest extends AbstractCommonsTestCase
+public final class ELocaleNameTest
 {
+  private static final Locale L_DE = new Locale ("de");
+  private static final Locale L_EN = new Locale ("en");
+
   @Test
   public void testAll ()
   {
