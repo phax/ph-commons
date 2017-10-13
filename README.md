@@ -57,6 +57,7 @@ This project was the following modules:
     * JAXB components can now read XML documents with a BOM
     * Extracted ph-oton DAO handling into new subproject `ph-dao`
     * Replaced `SMap` with `StringMap`
+    * An `Automatic-Module-Name` was added after beta 1
   * v8.6.6 - 2017-07-12
     * Extended `CSVWriter` API
     * `SimpleLSResourceResolver` can now handle fat jars from Spring Boot (issue #8)
