@@ -17,8 +17,10 @@
 package com.helger.security.keystore;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.lang.EnumHelper;
 
 /**
  * The default key store types.
@@ -47,8 +49,29 @@ public enum EKeyStoreType implements IKeyStoreType
     m_sID = sID;
   }
 
+  @Nonnull
+  @Nonempty
   public String getID ()
   {
     return m_sID;
+  }
+
+  @Nullable
+  public static EKeyStoreType getFromIDOrNull (@Nullable final String sID)
+  {
+    return EnumHelper.getFromIDOrNull (EKeyStoreType.class, sID);
+  }
+
+  @Nullable
+  public static EKeyStoreType getFromIDCaseInsensitiveOrNull (@Nullable final String sID)
+  {
+    return EnumHelper.getFromIDCaseInsensitiveOrNull (EKeyStoreType.class, sID);
+  }
+
+  @Nullable
+  public static EKeyStoreType getFromIDCaseInsensitiveOrDefault (@Nullable final String sID,
+                                                                 @Nullable final EKeyStoreType eDefault)
+  {
+    return EnumHelper.getFromIDCaseInsensitiveOrDefault (EKeyStoreType.class, sID, eDefault);
   }
 }
