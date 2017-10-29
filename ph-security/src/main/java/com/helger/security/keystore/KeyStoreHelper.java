@@ -52,9 +52,6 @@ import com.helger.commons.string.StringHelper;
 @ThreadSafe
 public final class KeyStoreHelper
 {
-  public static final String KEYSTORE_TYPE_JKS = "JKS";
-  public static final String KEYSTORE_TYPE_PKCS12 = "PKCS12";
-
   private static final Logger s_aLogger = LoggerFactory.getLogger (KeyStoreHelper.class);
   private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("s_aRWLock")
@@ -80,12 +77,6 @@ public final class KeyStoreHelper
   }
 
   @Nonnull
-  public static KeyStore getJKSKeyStore () throws KeyStoreException
-  {
-    return KeyStore.getInstance (KEYSTORE_TYPE_JKS);
-  }
-
-  @Nonnull
   public static KeyStore getSimiliarKeyStore (@Nonnull final KeyStore aOther) throws KeyStoreException
   {
     return KeyStore.getInstance (aOther.getType (), aOther.getProvider ());
@@ -94,6 +85,8 @@ public final class KeyStoreHelper
   /**
    * Load a key store from a resource.
    *
+   * @param aKeyStoreType
+   *        Type of key store. May not be <code>null</code>.
    * @param sKeyStorePath
    *        The path pointing to the key store. May not be <code>null</code>.
    * @param sKeyStorePassword
@@ -109,16 +102,21 @@ public final class KeyStoreHelper
    *         If the keystore path is invalid
    */
   @Nonnull
-  public static KeyStore loadKeyStoreDirect (@Nonnull final String sKeyStorePath,
+  public static KeyStore loadKeyStoreDirect (@Nonnull final IKeyStoreType aKeyStoreType,
+                                             @Nonnull final String sKeyStorePath,
                                              @Nullable final String sKeyStorePassword) throws GeneralSecurityException,
                                                                                        IOException
   {
-    return loadKeyStoreDirect (sKeyStorePath, sKeyStorePassword == null ? null : sKeyStorePassword.toCharArray ());
+    return loadKeyStoreDirect (aKeyStoreType,
+                               sKeyStorePath,
+                               sKeyStorePassword == null ? null : sKeyStorePassword.toCharArray ());
   }
 
   /**
    * Load a key store from a resource.
    *
+   * @param aKeyStoreType
+   *        Type of key store. May not be <code>null</code>.
    * @param sKeyStorePath
    *        The path pointing to the key store. May not be <code>null</code>.
    * @param aKeyStorePassword
@@ -134,10 +132,12 @@ public final class KeyStoreHelper
    *         If the keystore path is invalid
    */
   @Nonnull
-  public static KeyStore loadKeyStoreDirect (@Nonnull final String sKeyStorePath,
+  public static KeyStore loadKeyStoreDirect (@Nonnull final IKeyStoreType aKeyStoreType,
+                                             @Nonnull final String sKeyStorePath,
                                              @Nullable final char [] aKeyStorePassword) throws GeneralSecurityException,
                                                                                         IOException
   {
+    ValueEnforcer.notNull (aKeyStoreType, "KeyStoreType");
     ValueEnforcer.notNull (sKeyStorePath, "KeyStorePath");
 
     // Open the resource stream
@@ -147,7 +147,7 @@ public final class KeyStoreHelper
 
     try
     {
-      final KeyStore aKeyStore = getJKSKeyStore ();
+      final KeyStore aKeyStore = aKeyStoreType.getKeyStore ();
       aKeyStore.load (aIS, aKeyStorePassword);
       return aKeyStore;
     }
@@ -204,6 +204,8 @@ public final class KeyStoreHelper
   /**
    * Load the provided keystore in a safe manner.
    *
+   * @param aKeyStoreType
+   *        Type of key store. May not be <code>null</code>.
    * @param sKeyStorePath
    *        Path to the keystore. May not be <code>null</code> to succeed.
    * @param sKeyStorePassword
@@ -211,9 +213,12 @@ public final class KeyStoreHelper
    * @return The keystore loading result. Never <code>null</code>.
    */
   @Nonnull
-  public static LoadedKeyStore loadKeyStore (@Nullable final String sKeyStorePath,
+  public static LoadedKeyStore loadKeyStore (@Nonnull final IKeyStoreType aKeyStoreType,
+                                             @Nullable final String sKeyStorePath,
                                              @Nullable final String sKeyStorePassword)
   {
+    ValueEnforcer.notNull (aKeyStoreType, "KeyStoreType");
+
     // Get the parameters for the key store
     if (StringHelper.hasNoText (sKeyStorePath))
       return new LoadedKeyStore (null, EKeyStoreLoadError.KEYSTORE_NO_PATH);
@@ -222,7 +227,7 @@ public final class KeyStoreHelper
     // Try to load key store
     try
     {
-      aKeyStore = loadKeyStoreDirect (sKeyStorePath, sKeyStorePassword);
+      aKeyStore = loadKeyStoreDirect (aKeyStoreType, sKeyStorePath, sKeyStorePassword);
     }
     catch (final IllegalArgumentException ex)
     {
