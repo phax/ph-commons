@@ -19,9 +19,11 @@ package com.helger.security.keystore;
 import java.io.Serializable;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
+import java.security.NoSuchProviderException;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.id.IHasID;
 
 /**
@@ -42,5 +44,24 @@ public interface IKeyStoreType extends IHasID <String>, Serializable
   default KeyStore getKeyStore () throws KeyStoreException
   {
     return KeyStore.getInstance (getID ());
+  }
+
+  /**
+   * @param sProvider
+   *        Security provider to be used. E.g. for BouncyCastle. May neither be
+   *        <code>null</code> nor empty.
+   * @return A Key store object of this type. Never <code>null</code>.
+   * @throws KeyStoreException
+   *         if no Provider supports a KeyStoreSpi implementation for the
+   *         specified type.
+   * @exception NoSuchProviderException
+   *            if the specified provider is not registered in the security
+   *            provider list.
+   */
+  @Nonnull
+  default KeyStore getKeyStore (@Nonnull @Nonempty final String sProvider) throws KeyStoreException,
+                                                                           NoSuchProviderException
+  {
+    return KeyStore.getInstance (getID (), sProvider);
   }
 }
