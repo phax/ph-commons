@@ -93,7 +93,6 @@ public final class KeyStoreHelper
    *        The key store password. May be <code>null</code> to indicate that no
    *        password is required.
    * @return The Java key-store object.
-   * @see KeyStore#load(InputStream, char[])
    * @throws GeneralSecurityException
    *         In case of a key store error
    * @throws IOException
@@ -153,7 +152,7 @@ public final class KeyStoreHelper
     }
     catch (final KeyStoreException ex)
     {
-      throw new IllegalStateException ("No provider can handle JKS key stores! Very weird!", ex);
+      throw new IllegalStateException ("No provider can handle key stores of type " + aKeyStoreType, ex);
     }
     finally
     {
