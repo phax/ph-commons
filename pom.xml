@@ -245,6 +245,7 @@
             <exclude>**/JavaListDigestProviderFuncTest.class</exclude>
             <exclude>**/EMacAlgorithm.class</exclude>
             <exclude>**/EMessageDigestAlgorithm.class</exclude>
+            <exclude>**/IKeyStoreType.class</exclude>
             <!-- CLI module printing to System.out -->
             <exclude>**/HelpFormatter.class</exclude>
             <exclude>**/BugsTest.class</exclude>
