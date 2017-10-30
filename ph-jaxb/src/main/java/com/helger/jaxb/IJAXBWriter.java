@@ -401,7 +401,7 @@ public interface IJAXBWriter <JAXBTYPE>
   }
 
   /**
-   * Convert the passed object to a new DOM document.
+   * Convert the passed object to a new DOM document (write).
    *
    * @param aObject
    *        The object to be converted. May not be <code>null</code>.
@@ -417,7 +417,7 @@ public interface IJAXBWriter <JAXBTYPE>
   }
 
   /**
-   * Convert the passed object to a new micro document.
+   * Convert the passed object to a new micro document (write).
    *
    * @param aObject
    *        The object to be converted. May not be <code>null</code>.
@@ -434,7 +434,7 @@ public interface IJAXBWriter <JAXBTYPE>
 
   /**
    * Convert the passed object to a new micro document and return only the root
-   * element.
+   * element (write).
    *
    * @param aObject
    *        The object to be converted. May not be <code>null</code>.
@@ -456,7 +456,7 @@ public interface IJAXBWriter <JAXBTYPE>
 
   /**
    * Utility method to directly convert the passed domain object to an XML
-   * string.
+   * string (write).
    *
    * @param aObject
    *        The domain object to be converted. May not be <code>null</code>.
@@ -478,7 +478,7 @@ public interface IJAXBWriter <JAXBTYPE>
   }
 
   /**
-   * Write the passed object to a {@link ByteBuffer} and return it.
+   * Write the passed object to a {@link ByteBuffer} and return it (write).
    *
    * @param aObject
    *        The object to be written. May not be <code>null</code>.
@@ -501,7 +501,8 @@ public interface IJAXBWriter <JAXBTYPE>
   }
 
   /**
-   * Write the passed object to a byte array and return the created byte array.
+   * Write the passed object to a byte array and return the created byte array
+   * (write).
    *
    * @param aObject
    *        The object to be written. May not be <code>null</code>.
