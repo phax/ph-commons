@@ -470,9 +470,8 @@ public interface IJAXBWriter <JAXBTYPE>
     {
       if (USE_JAXB_CHARSET_FIX)
       {
-        return write (aObject,
-                      SafeXMLStreamWriter.create (aSW, getXMLWriterSettings ())).isSuccess () ? aSW.getAsString ()
-                                                                                              : null;
+        final SafeXMLStreamWriter aXSW = SafeXMLStreamWriter.create (aSW, getXMLWriterSettings ());
+        return write (aObject, aXSW).isSuccess () ? aSW.getAsString () : null;
       }
       return write (aObject, TransformResultFactory.create (aSW)).isSuccess () ? aSW.getAsString () : null;
     }
