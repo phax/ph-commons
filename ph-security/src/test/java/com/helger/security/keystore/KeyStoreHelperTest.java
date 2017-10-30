@@ -225,7 +225,7 @@ public final class KeyStoreHelperTest
     assertEquals (EKeyStoreLoadError.KEYSTORE_INVALID_PASSWORD, ks.getError ());
     assertNotNull (ks.getErrorText (Locale.GERMANY));
 
-    // Not a keystore
+    // Not a key store
     ks = KeyStoreHelper.loadKeyStore (EKeyStoreType.JKS, "keystores/no-keystore.txt", "wrongpw");
     assertNotNull (ks);
     assertTrue (ks.isFailure ());

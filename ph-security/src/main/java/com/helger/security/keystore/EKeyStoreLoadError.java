@@ -33,10 +33,10 @@ import com.helger.commons.text.display.IHasDisplayTextWithArgs;
 public enum EKeyStoreLoadError implements IHasID <String>, IHasDisplayTextWithArgs
 {
   // KeyStore loading
-  /** No keystore path provided. Parameters: none */
+  /** No key store path provided. Parameters: none */
   KEYSTORE_NO_PATH ("keystore-no-path", EKeyStoreLoadErrorText.KEYSTORE_NO_PATH),
   /**
-   * Keystore not existing. Parameters:
+   * Key store not existing. Parameters:
    * <ul>
    * <li>KeyStore path</li>
    * <li>Exception text</li>
@@ -45,7 +45,7 @@ public enum EKeyStoreLoadError implements IHasID <String>, IHasDisplayTextWithAr
   KEYSTORE_LOAD_ERROR_NON_EXISTING ("keystore-load-error-non-existing",
                                     EKeyStoreLoadErrorText.KEYSTORE_LOAD_ERROR_NON_EXISTING),
   /**
-   * Invalid keystore password. Parameters:
+   * Invalid key store password. Parameters:
    * <ul>
    * <li>KeyStore path</li>
    * <li>Exception text</li>

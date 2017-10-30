@@ -27,7 +27,7 @@ import com.helger.commons.state.ISuccessIndicator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * This class contains the result of loading a keystore from e.g. a
+ * This class contains the result of loading a key store from e.g. a
  * configuration file.
  *
  * @author Philip Helger
@@ -53,7 +53,7 @@ public class LoadedKeyStore implements ISuccessIndicator
   }
 
   /**
-   * @return The loaded keystore. Never <code>null</code> in case of success.
+   * @return The loaded key store. Never <code>null</code> in case of success.
    *         Always <code>null</code> in case of failure.
    */
   @Nullable

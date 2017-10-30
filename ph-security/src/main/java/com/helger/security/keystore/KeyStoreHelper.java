@@ -98,7 +98,7 @@ public final class KeyStoreHelper
    * @throws IOException
    *         In case key store loading fails
    * @throws IllegalArgumentException
-   *         If the keystore path is invalid
+   *         If the key store path is invalid
    */
   @Nonnull
   public static KeyStore loadKeyStoreDirect (@Nonnull final IKeyStoreType aKeyStoreType,
@@ -128,7 +128,7 @@ public final class KeyStoreHelper
    * @throws IOException
    *         In case key store loading fails
    * @throws IllegalArgumentException
-   *         If the keystore path is invalid
+   *         If the key store path is invalid
    */
   @Nonnull
   public static KeyStore loadKeyStoreDirect (@Nonnull final IKeyStoreType aKeyStoreType,
@@ -201,15 +201,15 @@ public final class KeyStoreHelper
   }
 
   /**
-   * Load the provided keystore in a safe manner.
+   * Load the provided key store in a safe manner.
    *
    * @param aKeyStoreType
    *        Type of key store. May not be <code>null</code>.
    * @param sKeyStorePath
-   *        Path to the keystore. May not be <code>null</code> to succeed.
+   *        Path to the key store. May not be <code>null</code> to succeed.
    * @param sKeyStorePassword
-   *        Password for the keystore. May not be <code>null</code> to succeed.
-   * @return The keystore loading result. Never <code>null</code>.
+   *        Password for the key store. May not be <code>null</code> to succeed.
+   * @return The key store loading result. Never <code>null</code>.
    */
   @Nonnull
   public static LoadedKeyStore loadKeyStore (@Nonnull final IKeyStoreType aKeyStoreType,
@@ -314,18 +314,18 @@ public final class KeyStoreHelper
   }
 
   /**
-   * Load the specified private key entry from the provided keystore.
+   * Load the specified private key entry from the provided key store.
    *
    * @param aKeyStore
-   *        The keystore to load the key from. May not be <code>null</code>.
+   *        The key store to load the key from. May not be <code>null</code>.
    * @param sKeyStorePath
-   *        Keystore path. For nice error messages only. May be
+   *        Key store path. For nice error messages only. May be
    *        <code>null</code>.
    * @param sKeyStoreKeyAlias
-   *        The alias to be resolved in the keystore. Must be non-
+   *        The alias to be resolved in the key store. Must be non-
    *        <code>null</code> to succeed.
    * @param aKeyStoreKeyPassword
-   *        The key password for the keystore. Must be non-<code>null</code> to
+   *        The key password for the key store. Must be non-<code>null</code> to
    *        succeed.
    * @return The key loading result. Never <code>null</code>.
    */
@@ -339,18 +339,18 @@ public final class KeyStoreHelper
   }
 
   /**
-   * Load the specified secret key entry from the provided keystore.
+   * Load the specified secret key entry from the provided key store.
    *
    * @param aKeyStore
-   *        The keystore to load the key from. May not be <code>null</code>.
+   *        The key store to load the key from. May not be <code>null</code>.
    * @param sKeyStorePath
-   *        Keystore path. For nice error messages only. May be
+   *        Key store path. For nice error messages only. May be
    *        <code>null</code>.
    * @param sKeyStoreKeyAlias
-   *        The alias to be resolved in the keystore. Must be non-
+   *        The alias to be resolved in the key store. Must be non-
    *        <code>null</code> to succeed.
    * @param aKeyStoreKeyPassword
-   *        The key password for the keystore. Must be non-<code>null</code> to
+   *        The key password for the key store. Must be non-<code>null</code> to
    *        succeed.
    * @return The key loading result. Never <code>null</code>.
    */
@@ -364,18 +364,18 @@ public final class KeyStoreHelper
   }
 
   /**
-   * Load the specified private key entry from the provided keystore.
+   * Load the specified private key entry from the provided key store.
    *
    * @param aKeyStore
-   *        The keystore to load the key from. May not be <code>null</code>.
+   *        The key store to load the key from. May not be <code>null</code>.
    * @param sKeyStorePath
-   *        Keystore path. For nice error messages only. May be
+   *        Key store path. For nice error messages only. May be
    *        <code>null</code>.
    * @param sKeyStoreKeyAlias
-   *        The alias to be resolved in the keystore. Must be non-
+   *        The alias to be resolved in the key store. Must be non-
    *        <code>null</code> to succeed.
    * @param aKeyStoreKeyPassword
-   *        The key password for the keystore. Must be non-<code>null</code> to
+   *        The key password for the key store. Must be non-<code>null</code> to
    *        succeed.
    * @return The key loading result. Never <code>null</code>.
    */

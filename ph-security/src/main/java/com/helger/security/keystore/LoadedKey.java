@@ -32,7 +32,7 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  * @param <T>
- *        The keystore entry type loaded.
+ *        The key store entry type loaded.
  */
 public class LoadedKey <T extends KeyStore.Entry> implements ISuccessIndicator
 {
