@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchProviderException;
+import java.security.Provider;
 
 import javax.annotation.Nonnull;
 
@@ -63,5 +64,20 @@ public interface IKeyStoreType extends IHasID <String>, Serializable
                                                                            NoSuchProviderException
   {
     return KeyStore.getInstance (getID (), sProvider);
+  }
+
+  /**
+   * @param aProvider
+   *        Security provider to be used. E.g. for BouncyCastle. May not be
+   *        <code>null</code>.
+   * @return A Key store object of this type. Never <code>null</code>.
+   * @throws KeyStoreException
+   *         if no Provider supports a KeyStoreSpi implementation for the
+   *         specified type.
+   */
+  @Nonnull
+  default KeyStore getKeyStore (@Nonnull final Provider aProvider) throws KeyStoreException
+  {
+    return KeyStore.getInstance (getID (), aProvider);
   }
 }
