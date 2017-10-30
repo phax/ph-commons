@@ -523,6 +523,11 @@ public final class PDTFactory
     return Instant.now (Clock.system (_getZoneId ()));
   }
 
+  public static long getCurrentMillis ()
+  {
+    return getCurrentInstant ().toEpochMilli ();
+  }
+
   public static long getMillis (@Nonnull final LocalDate aLD)
   {
     return createZonedDateTime (aLD).toInstant ().toEpochMilli ();
