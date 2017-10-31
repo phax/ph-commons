@@ -113,6 +113,17 @@ public final class CHttpHeader
   public static final String UA = "UA";
   public static final String X_DEVICE_USER_AGENT = "x-device-user-agent";
 
+  // HTML
+  public static final String CONTENT_LANGUAGE = "Content-Language";
+  public static final String CONTENT_SCRIPT_TYPE = "Content-Script-Type";
+  public static final String CONTENT_STYLE_TYPE = "Content-Style-Type";
+  public static final String DEFAULT_STYLE = "Default-Style";
+  public static final String REFRESH = "Refresh";
+  public static final String WINDOW_TARGET = "Window-target";
+  public static final String EXT_CACHE = "Ext-cache";
+  public static final String PICS_LABEL = "PICS-Label";
+  public static final String X_UA_COMPATIBLE = "X-UA-Compatible";
+
   // Response codes
   public static final String CONNECTION = "Connection";
   public static final String CONTENT_LENGTH = "Content-Length";
