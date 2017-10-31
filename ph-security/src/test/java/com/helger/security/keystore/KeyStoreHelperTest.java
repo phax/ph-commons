@@ -60,7 +60,8 @@ public final class KeyStoreHelperTest
   @BeforeClass
   public static void init ()
   {
-    Security.addProvider (new BouncyCastleProvider ());
+    if (Security.getProvider (BouncyCastleProvider.PROVIDER_NAME) == null)
+      Security.addProvider (new BouncyCastleProvider ());
   }
 
   private static KeyPair _createKeyPair (final int nKeySizeInBits) throws Exception
