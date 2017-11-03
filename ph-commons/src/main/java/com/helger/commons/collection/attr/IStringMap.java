@@ -63,4 +63,8 @@ public interface IStringMap extends IAttributeContainer <String, String>
   {
     return putIn (sName, Float.toString (fValue));
   }
+
+  // Change return type
+  @Nonnull
+  IStringMap getClone ();
 }
