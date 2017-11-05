@@ -38,7 +38,7 @@ public final class WatchDirTest
   private static final Logger s_aLogger = LoggerFactory.getLogger (WatchDirTest.class);
 
   @Test
-  @Ignore ("Manually tested and considered to be working. Takes too long.")
+  // @Ignore ("Manually tested and considered to be working. Takes too long.")
   public void testRecursive () throws IOException
   {
     // register directory and process its events
@@ -50,12 +50,12 @@ public final class WatchDirTest
     try (final WatchDir aWD = new WatchDir (aDir, bRecursive))
     {
       aWD.callbacks ().add (aCB);
-      new Thread ( () -> aWD.processEvents (), "WatchDir-" + aWD.getStartDirectory ()).start ();
+      aWD.runAsync ();
       ThreadHelper.sleep (10, TimeUnit.SECONDS);
     }
 
     // Simplified
-    try (WatchDir d = WatchDir.createAsyncRunningWatchDir (aDir, bRecursive, aCB))
+    try (final WatchDir d = WatchDir.createAsyncRunningWatchDir (aDir, bRecursive, aCB))
     {
       ThreadHelper.sleep (10, TimeUnit.SECONDS);
     }

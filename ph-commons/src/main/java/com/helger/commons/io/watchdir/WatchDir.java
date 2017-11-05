@@ -54,7 +54,7 @@ import com.helger.commons.system.EOperatingSystem;
  * class.
  *
  * @author Philip Helger
- * @since 8.6.6
+ * @since 9.0.0
  */
 public class WatchDir implements AutoCloseable
 {
@@ -165,7 +165,7 @@ public class WatchDir implements AutoCloseable
    * @return The modifiable callback list. Never <code>null</code>.
    */
   @Nonnull
-  @ReturnsMutableObject ("design")
+  @ReturnsMutableObject
   public CallbackList <IWatchDirCallback> callbacks ()
   {
     return m_aCallbacks;
@@ -195,8 +195,17 @@ public class WatchDir implements AutoCloseable
    */
   public void close () throws IOException
   {
-    stopProcessing ();
-    m_aWatcher.close ();
+    try
+    {
+      // Mark the processing to end
+      // This ends the processing started in #processEvents and will end any
+      // eventually running thread
+      stopProcessing ();
+    }
+    finally
+    {
+      m_aWatcher.close ();
+    }
   }
 
   /**
@@ -226,7 +235,9 @@ public class WatchDir implements AutoCloseable
    * Process all events for keys queued to the watcher. Call
    * {@link #stopProcessing()} or {@link #close()} to stop processing within a
    * reasonable time. This method should run in a separate thread, as it
-   * contains an infinite loop!
+   * contains an infinite loop! Usually you don't call this method manually.
+   *
+   * @see #runAsync()
    */
   public void processEvents ()
   {
@@ -344,6 +355,18 @@ public class WatchDir implements AutoCloseable
   }
 
   /**
+   * Call this method to process events. This method creates a background thread
+   * than runs {@link #processEvents()} and performs the heavy lifting.
+   */
+  public void runAsync ()
+  {
+    final Thread aThread = new Thread (this::processEvents,
+                                       "WatchDir-" + m_aStartDir + "-" + RandomHelper.getRandom ().nextInt ());
+    aThread.setDaemon (true);
+    aThread.start ();
+  }
+
+  /**
    * Static factory method to create a simple {@link WatchDir} instance that
    * already spawned an Thread to listen. To close the thread call the
    * {@link WatchDir#close()} method.
@@ -369,8 +392,7 @@ public class WatchDir implements AutoCloseable
   {
     final WatchDir ret = new WatchDir (aDir, bRecursive);
     ret.callbacks ().add (aCallback);
-    new Thread (ret::processEvents,
-                "WatchDir-" + ret.getStartDirectory () + "-" + RandomHelper.getRandom ().nextInt ()).start ();
+    ret.runAsync ();
     return ret;
   }
 }
