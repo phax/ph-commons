@@ -17,9 +17,6 @@
 package com.helger.collection.pair;
 
 import java.io.Serializable;
-import java.util.Comparator;
-
-import javax.annotation.Nonnull;
 
 /**
  * Represents a basic read-only pair.
@@ -39,20 +36,24 @@ public interface IPair <DATA1TYPE, DATA2TYPE> extends Serializable
   DATA1TYPE getFirst ();
 
   /**
+   * @return <code>true</code> if {@link #getFirst()} != <code>null</code>
+   */
+  default boolean hasFirst ()
+  {
+    return getFirst () != null;
+  }
+
+  /**
    * @return The second element. May be <code>null</code> depending on the
    *         implementation.
    */
   DATA2TYPE getSecond ();
 
-  @Nonnull
-  static <T1 extends Comparable <? super T1>, T2> Comparator <IPair <T1, T2>> getComparatorFirst ()
+  /**
+   * @return <code>true</code> if {@link #getSecond()} != <code>null</code>
+   */
+  default boolean hasSecond ()
   {
-    return Comparator.comparing (IPair::getFirst);
-  }
-
-  @Nonnull
-  static <T1, T2 extends Comparable <? super T2>> Comparator <IPair <T1, T2>> getComparatorSecond ()
-  {
-    return Comparator.comparing (IPair::getSecond);
+    return getSecond () != null;
   }
 }
