@@ -67,7 +67,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
     // Status vars
     private int m_nTextBasedContentCount = 0;
     private int m_nElementBasedContentCount = 0;
-    public boolean m_nOnAfterEndNewLine = false;
+    private boolean m_nOnAfterEndNewLine = false;
 
     public ElementState (@Nullable final String sPrefix,
                          @Nonnull final String sLocalName,

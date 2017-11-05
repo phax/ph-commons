@@ -31,7 +31,7 @@ import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.string.StringHelper;
 
-public class XMLCharsetDeterminatorTest
+public final class XMLCharsetDeterminatorTest
 {
   @Test
   public void testAllCharsetsDoubleQuotes ()

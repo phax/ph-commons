@@ -396,8 +396,8 @@ public class JsonParser
 
   private static final class TwoStrings
   {
-    final String m_sOriginal;
-    final String m_sUnescaped;
+    private final String m_sOriginal;
+    private final String m_sUnescaped;
 
     private TwoStrings (@Nonnull final String sOriginal, @Nonnull final String sUnescaped)
     {

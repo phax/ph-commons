@@ -33,7 +33,7 @@ import com.helger.commons.equals.EqualsHelper;
  *
  * @author Philip Helger
  */
-public class QueueHelperTest
+public final class QueueHelperTest
 {
   @Test
   public void testNew ()

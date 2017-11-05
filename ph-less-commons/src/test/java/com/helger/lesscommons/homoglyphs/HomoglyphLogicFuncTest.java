@@ -18,8 +18,6 @@ package com.helger.lesscommons.homoglyphs;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,7 +25,7 @@ import com.helger.collection.map.IntSet;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 
-public class HomoglyphLogicTest
+public final class HomoglyphLogicFuncTest
 {
   private Homoglyph m_aHomoglyph;
 
@@ -52,14 +50,14 @@ public class HomoglyphLogicTest
   @Test
   public void whenTextDoesNotContainAnyTargetWords_thenNoMatchesFound ()
   {
-    final List <HomoglyphSearchResult> r = m_aHomoglyph.search ("Nothing to see here", "TARGET");
+    final ICommonsList <HomoglyphSearchResult> r = m_aHomoglyph.search ("Nothing to see here", "TARGET");
     assertEquals (0, r.size ());
   }
 
   @Test
   public void whenTextIdenticalToTargetWord_thenMatchFound ()
   {
-    final List <HomoglyphSearchResult> r = m_aHomoglyph.search ("SOIL", "SOIL");
+    final ICommonsList <HomoglyphSearchResult> r = m_aHomoglyph.search ("SOIL", "SOIL");
     assertEquals (1, r.size ());
     checkResult (r.get (0), 0, "SOIL", "SOIL");
   }
@@ -67,7 +65,7 @@ public class HomoglyphLogicTest
   @Test
   public void whenTextContainsTargetWord_thenMatchFound ()
   {
-    final List <HomoglyphSearchResult> r = m_aHomoglyph.search ("I have SOIL in my garden", "SOIL");
+    final ICommonsList <HomoglyphSearchResult> r = m_aHomoglyph.search ("I have SOIL in my garden", "SOIL");
     assertEquals (1, r.size ());
     checkResult (r.get (0), 7, "SOIL", "SOIL");
   }
@@ -75,10 +73,10 @@ public class HomoglyphLogicTest
   @Test
   public void whenTextContainsOneOfTheTargetWords_thenMatchFound ()
   {
-    final List <HomoglyphSearchResult> r = m_aHomoglyph.search ("I have SOIL in my garden",
-                                                                "CHEESE",
-                                                                "SOIL",
-                                                                "FALCONS");
+    final ICommonsList <HomoglyphSearchResult> r = m_aHomoglyph.search ("I have SOIL in my garden",
+                                                                        "CHEESE",
+                                                                        "SOIL",
+                                                                        "FALCONS");
     assertEquals (1, r.size ());
     checkResult (r.get (0), 7, "SOIL", "SOIL");
   }
@@ -86,10 +84,10 @@ public class HomoglyphLogicTest
   @Test
   public void whenTargetWordContainsHomoglyphs_thenMatchFound ()
   {
-    final List <HomoglyphSearchResult> r = m_aHomoglyph.search ("I have 501L in my garden",
-                                                                "CHEESE",
-                                                                "SOIL",
-                                                                "FALCONS");
+    final ICommonsList <HomoglyphSearchResult> r = m_aHomoglyph.search ("I have 501L in my garden",
+                                                                        "CHEESE",
+                                                                        "SOIL",
+                                                                        "FALCONS");
     assertEquals (1, r.size ());
     checkResult (r.get (0), 7, "SOIL", "501L");
   }
@@ -97,7 +95,7 @@ public class HomoglyphLogicTest
   @Test
   public void whenTargetWordIsAtStartOfText_thenMatchFound ()
   {
-    final List <HomoglyphSearchResult> r = m_aHomoglyph.search ("FALC0N5 fly", "CHEESE", "SOIL", "FALCONS");
+    final ICommonsList <HomoglyphSearchResult> r = m_aHomoglyph.search ("FALC0N5 fly", "CHEESE", "SOIL", "FALCONS");
     assertEquals (1, r.size ());
     checkResult (r.get (0), 0, "FALCONS", "FALC0N5");
   }
@@ -105,7 +103,7 @@ public class HomoglyphLogicTest
   @Test
   public void whenTargetWordIsAtEndOfText_thenMatchFound ()
   {
-    final List <HomoglyphSearchResult> r = m_aHomoglyph.search ("I like FALC0N5", "CHEESE", "SOIL", "FALCONS");
+    final ICommonsList <HomoglyphSearchResult> r = m_aHomoglyph.search ("I like FALC0N5", "CHEESE", "SOIL", "FALCONS");
     assertEquals (1, r.size ());
     checkResult (r.get (0), 7, "FALCONS", "FALC0N5");
   }
@@ -113,7 +111,7 @@ public class HomoglyphLogicTest
   @Test
   public void whenTargetWordHasDifferentCaseInText_thenMatchFound ()
   {
-    final List <HomoglyphSearchResult> r = m_aHomoglyph.search ("I like fALc0N5 fly", "Falcons");
+    final ICommonsList <HomoglyphSearchResult> r = m_aHomoglyph.search ("I like fALc0N5 fly", "Falcons");
     assertEquals (1, r.size ());
     checkResult (r.get (0), 7, "Falcons", "fALc0N5");
   }
@@ -121,10 +119,10 @@ public class HomoglyphLogicTest
   @Test
   public void whenTargetWordContainsMultipleMatchesWithDifferentHomoglyphs_thenMatchFound ()
   {
-    final List <HomoglyphSearchResult> r = m_aHomoglyph.search ("I have 501L and FALC0N5 in my garden, I prefer the SO|L",
-                                                                "CHEESE",
-                                                                "SOIL",
-                                                                "FALCONS");
+    final ICommonsList <HomoglyphSearchResult> r = m_aHomoglyph.search ("I have 501L and FALC0N5 in my garden, I prefer the SO|L",
+                                                                        "CHEESE",
+                                                                        "SOIL",
+                                                                        "FALCONS");
     assertEquals (3, r.size ());
     checkResult (r.get (0), 7, "SOIL", "501L");
     checkResult (r.get (1), 51, "SOIL", "SO|L");

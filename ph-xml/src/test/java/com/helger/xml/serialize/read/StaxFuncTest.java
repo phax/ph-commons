@@ -42,7 +42,7 @@ import com.helger.xml.microdom.IMicroText;
 import com.helger.xml.microdom.MicroDocument;
 import com.helger.xml.microdom.serialize.MicroWriter;
 
-public class StaxFuncTest
+public final class StaxFuncTest
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (StaxFuncTest.class);
 

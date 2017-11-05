@@ -30,7 +30,7 @@ import com.helger.commons.system.ENewLineMode;
  *
  * @author Philip Helger
  */
-public class SafeXMLStreamWriterTest
+public final class SafeXMLStreamWriterTest
 {
   @Test
   public void testBasic1 () throws XMLStreamException

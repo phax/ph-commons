@@ -34,7 +34,7 @@ import com.helger.commons.collection.impl.CommonsArrayList;
  *
  * @author Philip Helger
  */
-public class CmdLineParserTest
+public final class CmdLineParserTest
 {
   private static void _parse (final String... aArgs) throws CmdLineParseException
   {

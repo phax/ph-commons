@@ -20,20 +20,20 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.util.Arrays;
 
 import org.junit.Test;
 
+import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 
-public class HomoglyphDataTest
+public final class HomoglyphTest
 {
-  private static Homoglyph homoglyph;
+  private static Homoglyph s_aHomoglyph;
   static
   {
     try
     {
-      homoglyph = HomoglyphBuilder.build ();
+      s_aHomoglyph = HomoglyphBuilder.build ();
     }
     catch (final IOException ex)
     {
@@ -43,7 +43,7 @@ public class HomoglyphDataTest
 
   private void _check (final String text, final String targetWord)
   {
-    final ICommonsList <HomoglyphSearchResult> r = homoglyph.search (text, Arrays.asList (targetWord));
+    final ICommonsList <HomoglyphSearchResult> r = s_aHomoglyph.search (text, new CommonsArrayList <> (targetWord));
     assertEquals (1, r.size ());
     assertEquals (targetWord, r.get (0).getWord ());
   }

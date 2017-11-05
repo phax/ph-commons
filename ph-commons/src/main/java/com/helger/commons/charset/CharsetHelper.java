@@ -261,7 +261,7 @@ public final class CharsetHelper
       return m_aIS;
     }
 
-    public final boolean isReadMultiple ()
+    public boolean isReadMultiple ()
     {
       return false;
     }

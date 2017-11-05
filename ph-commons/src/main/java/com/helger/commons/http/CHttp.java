@@ -191,13 +191,13 @@ public final class CHttp
    *        Milliseconds to use
    * @return The rounded milliseconds
    */
-  public static final long getUnifiedMillis (final long nMillis)
+  public static long getUnifiedMillis (final long nMillis)
   {
     return nMillis / CGlobal.MILLISECONDS_PER_SECOND * CGlobal.MILLISECONDS_PER_SECOND;
   }
 
   @Nonnull
-  public static final LocalDateTime convertMillisToLocalDateTime (final long nMillis)
+  public static LocalDateTime convertMillisToLocalDateTime (final long nMillis)
   {
     // Round down to the nearest second for a proper compare
     return PDTFactory.createLocalDateTime (getUnifiedMillis (nMillis));
