@@ -33,13 +33,19 @@ import javax.annotation.Nullable;
  *
  * @author Philip Helger
  */
-public interface IDAO extends IChangeable, IAutoSaveAware
+public interface IDAO extends IAutoSaveAware
 {
   public enum EMode
   {
     READ,
     WRITE;
   }
+
+  /**
+   * @return <code>true</code> if there are pending changes, <code>false</code>
+   *         if the content is unchanged.
+   */
+  boolean hasPendingChanges ();
 
   /**
    * This method is called to persist the content in disk in case there are

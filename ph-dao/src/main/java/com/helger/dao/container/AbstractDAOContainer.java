@@ -19,6 +19,7 @@ package com.helger.dao.container;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
 import javax.annotation.concurrent.ThreadSafe;
 
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.dao.IDAO;
 
@@ -40,8 +41,9 @@ public abstract class AbstractDAOContainer implements IDAOContainer
 
   public final void beginWithoutAutoSave ()
   {
+    final ICommonsList <IDAO> aDAOs = getAllContainedDAOs ();
     m_aRWLock.writeLocked ( () -> {
-      for (final IDAO aDAO : getAllContainedDAOs ())
+      for (final IDAO aDAO : aDAOs)
         if (aDAO != null)
           aDAO.beginWithoutAutoSave ();
     });
@@ -49,8 +51,9 @@ public abstract class AbstractDAOContainer implements IDAOContainer
 
   public final void endWithoutAutoSave ()
   {
+    final ICommonsList <IDAO> aDAOs = getAllContainedDAOs ();
     m_aRWLock.writeLocked ( () -> {
-      for (final IDAO aDAO : getAllContainedDAOs ())
+      for (final IDAO aDAO : aDAOs)
         if (aDAO != null)
           aDAO.endWithoutAutoSave ();
     });
