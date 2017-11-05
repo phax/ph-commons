@@ -107,7 +107,7 @@ public final class EmptySortedSet <T> extends AbstractSet <T> implements ICommon
   }
 
   @Nonnull
-  public ICommonsSortedSet <T> getClone ()
+  public EmptySortedSet <T> getClone ()
   {
     return this;
   }
