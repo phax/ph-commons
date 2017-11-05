@@ -19,7 +19,6 @@ package com.helger.collection.iterate;
 import java.util.Enumeration;
 import java.util.NoSuchElementException;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
@@ -85,11 +84,5 @@ public class SingleElementEnumeration <ELEMENTTYPE> implements Enumeration <ELEM
     return new ToStringGenerator (this).append ("hasMoreElements", m_bHasMoreElements)
                                        .append ("element", m_aElement)
                                        .getToString ();
-  }
-
-  @Nonnull
-  public static <T> Enumeration <T> create (@Nullable final T aElement)
-  {
-    return new SingleElementEnumeration<> (aElement);
   }
 }
