@@ -9,13 +9,17 @@ So please ensure to not mix 5.x, 6.x and 8x. versions of ph-commons!
 
 This project was the following modules:
   * ph-charset - support for additional character sets (e.g. UTF-7)
+  * ph-cli - library with commandline parameter definition support; loosely based on commons-cli
+  * ph-collection - library with extended collection related classes
   * ph-commons - the most common base library stuff
+  * ph-dao - file based DAO library with WAL support
   * ph-datetime - extension library for handling Java date and time special cases
   * ph-graph - generic graph library with directed and undirected graphs
   * ph-jaxb - the JAXB utility classes building upon ph-commons and ph-xml
   * ph-json - a generic simple JSON reader, visitor and writer
   * ph-less-commons - previously contained in ph-commons not really used but I was afraid to dump it :)
   * ph-matrix - a simple library for handling matrix data structures and operations
+  * ph-scopes - based library for non-web related scope handling
   * ph-security - security related topics like key store handling, message digests etc
   * ph-settings - a small library for handling configuration files in an easy way
   * ph-tree - generic tree structures and tree singleton base classes
@@ -24,7 +28,7 @@ This project was the following modules:
 
 ## News and noteworthy
 
-  * v9.0.0 - work in progress
+  * v9.0.0 - 2017-11-05
     * Changed `com.helger.commons.function` package to `com.helger.commons.functional`
     * Replaced `IFilter` with `IPredicate`
     * Replaced `IFilterWithParameter` with `IBiPredicate`
@@ -58,6 +62,7 @@ This project was the following modules:
     * Extracted ph-oton DAO handling into new subproject `ph-dao`
     * Replaced `SMap` with `StringMap`
     * An `Automatic-Module-Name` was added after beta 1
+    * Removed support for the application and session application scopes
   * v8.6.6 - 2017-07-12
     * Extended `CSVWriter` API
     * `SimpleLSResourceResolver` can now handle fat jars from Spring Boot (issue #8)
@@ -151,11 +156,14 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-commons</artifactId>
-  <version>8.6.6</version>
+  <version>9.0.0</version>
 </dependency>
 ```
 
 ## Contents
+
+Note: to be updated for 9.x - this is for 8.x
+
 In general I tried to make the source comments as useful as possible. Therefore here only an alphabetic package list with the respective contents is shown:
 
   * `com.helger.commons` - The base package that contains only a class with only constant values (`CGlobal`) and a programming utility class (`ValueEnforcer`). 
@@ -300,7 +308,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-xml</artifactId>
-  <version>8.6.6</version>
+  <version>9.0.0</version>
 </dependency>
 ```
 
@@ -318,7 +326,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-jaxb</artifactId>
-  <version>8.6.6</version>
+  <version>9.0.0</version>
 </dependency>
 ```
 
@@ -341,7 +349,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-tree</artifactId>
-  <version>8.6.6</version>
+  <version>9.0.0</version>
 </dependency>
 ```
 
@@ -359,7 +367,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-less-commons</artifactId>
-  <version>8.6.6</version>
+  <version>9.0.0</version>
 </dependency>
 ```
 
@@ -372,7 +380,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-json</artifactId>
-  <version>8.6.6</version>
+  <version>9.0.0</version>
 </dependency>
 ```
 
@@ -385,7 +393,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-settings</artifactId>
-  <version>8.6.6</version>
+  <version>9.0.0</version>
 </dependency>
 ```
 
@@ -398,7 +406,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-datetime</artifactId>
-  <version>8.6.6</version>
+  <version>9.0.0</version>
 </dependency>
 ```
 
@@ -411,7 +419,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-graph</artifactId>
-  <version>8.6.6</version>
+  <version>9.0.0</version>
 </dependency>
 ```
 
@@ -424,7 +432,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-matrix</artifactId>
-  <version>8.6.6</version>
+  <version>9.0.0</version>
 </dependency>
 ```
 
@@ -437,7 +445,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-charset</artifactId>
-  <version>8.6.6</version>
+  <version>9.0.0</version>
 </dependency>
 ```
 
@@ -452,7 +460,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-scopes</artifactId>
-  <version>9.0.0-SNAPSHOT</version>
+  <version>9.0.0</version>
 </dependency>
 ```
 
@@ -467,7 +475,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-collection</artifactId>
-  <version>9.0.0-SNAPSHOT</version>
+  <version>9.0.0</version>
 </dependency>
 ```
 
@@ -485,7 +493,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-cli</artifactId>
-  <version>9.0.0-SNAPSHOT</version>
+  <version>9.0.0</version>
 </dependency>
 ```
 
