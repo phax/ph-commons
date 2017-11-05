@@ -45,14 +45,14 @@ public final class VectorHelper
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nonnegative final int nInitialCapacity)
   {
-    return new CommonsVector<> (nInitialCapacity);
+    return new CommonsVector <> (nInitialCapacity);
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector ()
   {
-    return new CommonsVector<> ();
+    return new CommonsVector <> ();
   }
 
   @Nonnull
@@ -63,8 +63,7 @@ public final class VectorHelper
     if (CollectionHelper.isEmpty (aCollection))
       return newVector (0);
     final CommonsVector <DSTTYPE> ret = newVector (aCollection.size ());
-    for (final SRCTYPE aValue : aCollection)
-      ret.add (aMapper.apply (aValue));
+    ret.addAllMapped (aCollection, aMapper);
     return ret;
   }
 
@@ -76,8 +75,7 @@ public final class VectorHelper
     if (ArrayHelper.isEmpty (aArray))
       return newVector (0);
     final CommonsVector <DSTTYPE> ret = newVector (aArray.length);
-    for (final SRCTYPE aValue : aArray)
-      ret.add (aMapper.apply (aValue));
+    ret.addAllMapped (aArray, aMapper);
     return ret;
   }
 
@@ -89,9 +87,7 @@ public final class VectorHelper
     if (CollectionHelper.isEmpty (aCollection))
       return newVector (0);
     final CommonsVector <ELEMENTTYPE> ret = newVector (aCollection.size ());
-    for (final ELEMENTTYPE aValue : aCollection)
-      if (aFilter.test (aValue))
-        ret.add (aValue);
+    ret.addAll (aCollection, aFilter);
     return ret;
   }
 
@@ -112,9 +108,7 @@ public final class VectorHelper
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nullable final ELEMENTTYPE aValue)
   {
-    final CommonsVector <ELEMENTTYPE> ret = newVector (1);
-    ret.add (aValue);
-    return ret;
+    return new CommonsVector <> (aValue);
   }
 
   @Nonnull
@@ -126,9 +120,7 @@ public final class VectorHelper
     if (ArrayHelper.isEmpty (aValues))
       return newVector (0);
 
-    final CommonsVector <ELEMENTTYPE> ret = newVector (aValues.length);
-    Collections.addAll (ret, aValues);
-    return ret;
+    return new CommonsVector <> (aValues);
   }
 
   /**
@@ -147,9 +139,7 @@ public final class VectorHelper
   public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
   {
     final CommonsVector <ELEMENTTYPE> ret = newVector ();
-    if (aEnum != null)
-      while (aEnum.hasMoreElements ())
-        ret.add (aEnum.nextElement ());
+    ret.addAll (aEnum);
     return ret;
   }
 
@@ -158,9 +148,7 @@ public final class VectorHelper
   public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
   {
     final CommonsVector <ELEMENTTYPE> ret = newVector ();
-    if (aIter != null)
-      while (aIter.hasNext ())
-        ret.add (aIter.next ());
+    ret.addAll (aIter);
     return ret;
   }
 
@@ -169,9 +157,7 @@ public final class VectorHelper
   public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nullable final Iterable <? extends ELEMENTTYPE> aIter)
   {
     final CommonsVector <ELEMENTTYPE> ret = newVector ();
-    if (aIter != null)
-      for (final ELEMENTTYPE aObj : aIter)
-        ret.add (aObj);
+    ret.addAll (aIter);
     return ret;
   }
 
@@ -182,7 +168,7 @@ public final class VectorHelper
     if (CollectionHelper.isEmpty (aCont))
       return newVector (0);
 
-    return newVector ((Iterable <? extends ELEMENTTYPE>) aCont);
+    return new CommonsVector <> (aCont);
   }
 
   @Nonnull
