@@ -19,7 +19,6 @@ package com.helger.commons.supplementary.test.java;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 import javax.annotation.WillClose;
@@ -70,7 +69,7 @@ public final class JavaClassLoaderFuncTest
   }
 
   @Test
-  public void testGetResourceThisProject () throws IOException
+  public void testGetResourceThisProject ()
   {
     final String sWithoutSlash = "classldr/test1.txt";
     final String sWithSlash = "/" + sWithoutSlash;
