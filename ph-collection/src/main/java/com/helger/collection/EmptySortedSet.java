@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.collection.empty;
+package com.helger.collection;
 
 import java.util.AbstractSet;
 import java.util.Comparator;

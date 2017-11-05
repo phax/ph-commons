@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.collection;
+package com.helger.collection.wrapped;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -28,6 +28,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.helger.collection.wrapped.WrappedList;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.lang.GenericReflection;
 
