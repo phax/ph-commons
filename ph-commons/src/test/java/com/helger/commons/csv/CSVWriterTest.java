@@ -54,6 +54,7 @@ import org.junit.Test;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
+import com.helger.commons.io.stream.NonClosingWriter;
 import com.helger.commons.string.StringHelper;
 
 public final class CSVWriterTest
@@ -355,11 +356,14 @@ public final class CSVWriterTest
     final String WRITE_FILE = "target/myfile.csv";
     final String [] nextLine = new String [] { "aaaa", "bbbb", "cccc", "dddd" };
 
-    final Writer fileWriter = new OutputStreamWriter (new FileOutputStream (WRITE_FILE), CHARSET);
-    final CSVWriter writer = new CSVWriter (fileWriter);
-    writer.writeNext (nextLine);
+    try (final Writer fileWriter = new NonClosingWriter (new OutputStreamWriter (new FileOutputStream (WRITE_FILE),
+                                                                                 CHARSET)))
+    {
+      final CSVWriter writer = new CSVWriter (fileWriter);
+      writer.writeNext (nextLine);
 
-    // If close is not executed, it is not written in the file.
+      // If close is not executed, it is not written in the file.
+    }
   }
 
   @Test (expected = IOException.class)

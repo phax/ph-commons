@@ -127,8 +127,7 @@ public final class StreamHelper
       catch (final Exception ex)
       {
         if (!isKnownEOFException (ex))
-          s_aLogger.error ("Failed to close object " +
-                           aCloseable.getClass ().getName (),
+          s_aLogger.error ("Failed to close object " + aCloseable.getClass ().getName (),
                            ex instanceof IMockException ? null : ex);
       }
     }
@@ -167,8 +166,7 @@ public final class StreamHelper
       catch (final Exception ex)
       {
         if (!isKnownEOFException (ex))
-          s_aLogger.error ("Failed to close object " +
-                           aCloseable.getClass ().getName (),
+          s_aLogger.error ("Failed to close object " + aCloseable.getClass ().getName (),
                            ex instanceof IMockException ? null : ex);
       }
     }
@@ -199,8 +197,7 @@ public final class StreamHelper
       catch (final IOException ex)
       {
         if (!isKnownEOFException (ex))
-          s_aLogger.error ("Failed to flush object " +
-                           aFlushable.getClass ().getName (),
+          s_aLogger.error ("Failed to flush object " + aFlushable.getClass ().getName (),
                            ex instanceof IMockException ? null : ex);
       }
     return ESuccess.FAILURE;
@@ -468,11 +465,11 @@ public final class StreamHelper
                                                         @Nullable final MutableLong aCopyByteCount,
                                                         @Nullable final Long aLimit)
   {
-    ValueEnforcer.notEmpty (aBuffer, "Buffer");
-    ValueEnforcer.isTrue (aLimit == null || aLimit.longValue () >= 0, () -> "Limit may not be negative: " + aLimit);
-
     try
     {
+      ValueEnforcer.notEmpty (aBuffer, "Buffer");
+      ValueEnforcer.isTrue (aLimit == null || aLimit.longValue () >= 0, () -> "Limit may not be negative: " + aLimit);
+
       if (aIS != null && aOS != null)
       {
         // both streams are not null
@@ -899,11 +896,11 @@ public final class StreamHelper
                                              @Nullable final MutableLong aCopyCharCount,
                                              @Nullable final Long aLimit)
   {
-    ValueEnforcer.notEmpty (aBuffer, "Buffer");
-    ValueEnforcer.isTrue (aLimit == null || aLimit.longValue () >= 0, () -> "Limit may not be negative: " + aLimit);
-
     try
     {
+      ValueEnforcer.notEmpty (aBuffer, "Buffer");
+      ValueEnforcer.isTrue (aLimit == null || aLimit.longValue () >= 0, () -> "Limit may not be negative: " + aLimit);
+
       if (aReader != null && aWriter != null)
       {
         // both streams are not null
@@ -1130,9 +1127,9 @@ public final class StreamHelper
 
   private static void _readFromReader (final int nLinesToSkip,
                                        final int nLinesToRead,
-                                       final Consumer <? super String> aLineCallback,
+                                       @Nonnull final Consumer <? super String> aLineCallback,
                                        final boolean bReadAllLines,
-                                       final NonBlockingBufferedReader aBR) throws IOException
+                                       @Nonnull final NonBlockingBufferedReader aBR) throws IOException
   {
     // Skip all requested lines
     String sLine;
@@ -1197,44 +1194,36 @@ public final class StreamHelper
                                       final int nLinesToRead,
                                       @Nonnull final Consumer <? super String> aLineCallback)
   {
-    ValueEnforcer.notNull (aCharset, "Charset");
-    ValueEnforcer.isGE0 (nLinesToSkip, "LinesToSkip");
-    final boolean bReadAllLines = nLinesToRead == CGlobal.ILLEGAL_UINT;
-    ValueEnforcer.isTrue (bReadAllLines ||
-                          nLinesToRead >= 0,
-                          () -> "Line count may not be that negative: " + nLinesToRead);
-    ValueEnforcer.notNull (aLineCallback, "LineCallback");
+    try
+    {
+      ValueEnforcer.notNull (aCharset, "Charset");
+      ValueEnforcer.isGE0 (nLinesToSkip, "LinesToSkip");
+      final boolean bReadAllLines = nLinesToRead == CGlobal.ILLEGAL_UINT;
+      ValueEnforcer.isTrue (bReadAllLines || nLinesToRead >= 0,
+                            () -> "Line count may not be that negative: " + nLinesToRead);
+      ValueEnforcer.notNull (aLineCallback, "LineCallback");
 
-    if (aIS != null)
-      try
-      {
-        // Start the action only if there is something to read
+      // Start the action only if there is something to read
+      if (aIS != null)
         if (bReadAllLines || nLinesToRead > 0)
         {
-          NonBlockingBufferedReader aBR = null;
-          try
+          try (final NonBlockingBufferedReader aBR = new NonBlockingBufferedReader (createReader (aIS, aCharset)))
           {
             // read with the passed charset
-            aBR = new NonBlockingBufferedReader (createReader (aIS, aCharset));
             _readFromReader (nLinesToSkip, nLinesToRead, aLineCallback, bReadAllLines, aBR);
           }
           catch (final IOException ex)
           {
             s_aLogger.error ("Failed to read from input stream", ex instanceof IMockException ? null : ex);
           }
-          finally
-          {
-            // Close buffered reader
-            close (aBR);
-          }
         }
-      }
-      finally
-      {
-        // Close input stream in case something went wrong with the buffered
-        // reader.
-        close (aIS);
-      }
+    }
+    finally
+    {
+      // Close input stream in case something went wrong with the buffered
+      // reader.
+      close (aIS);
+    }
   }
 
   /**
@@ -1259,11 +1248,11 @@ public final class StreamHelper
                                       @Nonnegative final int nOfs,
                                       @Nonnegative final int nLen)
   {
-    ValueEnforcer.notNull (aOS, "OutputStream");
-    ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
-
     try
     {
+      ValueEnforcer.notNull (aOS, "OutputStream");
+      ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
+
       aOS.write (aBuf, nOfs, nLen);
       aOS.flush ();
       return ESuccess.SUCCESS;
@@ -1471,12 +1460,12 @@ public final class StreamHelper
                                    @Nonnull final byte [] aBuffer,
                                    @Nonnull final ObjIntConsumer <? super byte []> aConsumer) throws IOException
   {
-    ValueEnforcer.notNull (aIS, "InputStream");
-    ValueEnforcer.notNull (aBuffer, "Buffer");
-    ValueEnforcer.notNull (aConsumer, "Consumer");
-
     try
     {
+      ValueEnforcer.notNull (aIS, "InputStream");
+      ValueEnforcer.notNull (aBuffer, "Buffer");
+      ValueEnforcer.notNull (aConsumer, "Consumer");
+
       _readUntilEOF (aIS, aBuffer, aConsumer);
     }
     finally
@@ -1509,12 +1498,12 @@ public final class StreamHelper
                                    @Nonnull final char [] aBuffer,
                                    @Nonnull final ObjIntConsumer <? super char []> aConsumer) throws IOException
   {
-    ValueEnforcer.notNull (aReader, "Reader");
-    ValueEnforcer.notNull (aBuffer, "Buffer");
-    ValueEnforcer.notNull (aConsumer, "Consumer");
-
     try
     {
+      ValueEnforcer.notNull (aReader, "Reader");
+      ValueEnforcer.notNull (aBuffer, "Buffer");
+      ValueEnforcer.notNull (aConsumer, "Consumer");
+
       _readUntilEOF (aReader, aBuffer, aConsumer);
     }
     finally
@@ -1592,7 +1581,7 @@ public final class StreamHelper
       try
       {
         /*
-         * This will fail if ret is a FilterInputStream with a <code>null</code>
+         * This will fail if IS is a FilterInputStream with a <code>null</code>
          * contained InputStream. This happens e.g. when a JAR URL with a
          * directory that does not end with a slash is returned.
          */
@@ -1611,24 +1600,25 @@ public final class StreamHelper
    * Because {@link DataOutputStream#writeUTF(String)} has a limit of 64KB this
    * methods provides a similar solution but simply writing the bytes.
    *
-   * @param aDOS
-   *        {@link DataOutputStream} to write to. May not be <code>null</code>.
+   * @param aDO
+   *        {@link DataOutput} to write to. May not be <code>null</code>.
    * @param s
    *        The string to be written. May be <code>null</code>.
    * @throws IOException
    *         on write error
    * @see #readSafeUTF(DataInput)
    */
-  public static void writeSafeUTF (@Nonnull final DataOutput aDOS, @Nullable final String s) throws IOException
+  public static void writeSafeUTF (@Nonnull final DataOutput aDO, @Nullable final String s) throws IOException
   {
+    ValueEnforcer.notNull (aDO, "DataOutput");
     if (s == null)
-      aDOS.writeByte (0);
+      aDO.writeByte (0);
     else
     {
-      aDOS.writeByte (1);
+      aDO.writeByte (1);
       final byte [] aUTF8Bytes = s.getBytes (StandardCharsets.UTF_8);
-      aDOS.writeInt (aUTF8Bytes.length);
-      aDOS.write (aUTF8Bytes);
+      aDO.writeInt (aUTF8Bytes.length);
+      aDO.write (aUTF8Bytes);
     }
   }
 
@@ -1638,22 +1628,23 @@ public final class StreamHelper
    * {@link DataInputStream#readUTF()} but what was written in
    * {@link #writeSafeUTF(DataOutput, String)}.
    *
-   * @param aDIS
-   *        {@link DataInputStream} to read from. May not be <code>null</code>.
+   * @param aDI
+   *        {@link DataInput} to read from. May not be <code>null</code>.
    * @return The read string. May be <code>null</code>.
    * @throws IOException
    *         on read error
    * @see #writeSafeUTF(DataOutput, String)
    */
   @Nullable
-  public static String readSafeUTF (@Nonnull final DataInput aDIS) throws IOException
+  public static String readSafeUTF (@Nonnull final DataInput aDI) throws IOException
   {
-    if (aDIS.readByte () == 0)
+    ValueEnforcer.notNull (aDI, "DataInput");
+    if (aDI.readByte () == 0)
       return null;
 
-    final int nLength = aDIS.readInt ();
+    final int nLength = aDI.readInt ();
     final byte [] aData = new byte [nLength];
-    aDIS.readFully (aData);
+    aDI.readFully (aData);
     return new String (aData, StandardCharsets.UTF_8);
   }
 }

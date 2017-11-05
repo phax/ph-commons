@@ -33,10 +33,10 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 
 import org.junit.Test;
 
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.exception.mock.MockIOException;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.resource.ClassPathResource;
@@ -278,7 +278,7 @@ public final class StreamHelperTest
     final IReadableResource aRes = new ClassPathResource ("streamutils-lines");
 
     // Read all lines
-    List <String> aLines = StreamHelper.readStreamLines (aRes, StandardCharsets.UTF_8);
+    ICommonsList <String> aLines = StreamHelper.readStreamLines (aRes, StandardCharsets.UTF_8);
     assertNotNull (aLines);
     assertEquals (10, aLines.size ());
     for (int i = 0; i < 10; ++i)

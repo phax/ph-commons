@@ -30,12 +30,15 @@ import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+import javax.annotation.WillClose;
 import javax.annotation.concurrent.Immutable;
 
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -106,13 +109,11 @@ public final class FontKerningFuncTest
      * @throws IOException
      *         If the font could not be read.
      */
-    public Kerning (final InputStream aIS) throws IOException
+    public Kerning (@Nonnull @WillClose final InputStream aIS) throws IOException
     {
-      if (aIS == null)
-        throw new IllegalArgumentException ("aIS cannot be null.");
+      ValueEnforcer.notNull (aIS, "IS");
 
-      final InputStream aDIS = aIS;
-      try
+      try (final InputStream aDIS = aIS)
       {
         _readTableDirectory (aDIS);
         if (m_nHeadOffset == -1)
@@ -134,10 +135,6 @@ public final class FontKerningFuncTest
           _readKERN (aDIS);
           _readHEAD (aDIS);
         }
-      }
-      finally
-      {
-        StreamHelper.close (aDIS);
       }
     }
 
