@@ -19,7 +19,6 @@ package com.helger.lesscommons.cleanup;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.lesscommons.gfx.ImageDataManager;
 
 /**
  * The sole purpose of this class to clear all caches, that reside in this
@@ -43,9 +42,5 @@ public final class LessCommonsCleanup
   public static void cleanup ()
   {
     // Reinitialize singletons to the default values
-
-    // Clear caches
-    if (ImageDataManager.isInstantiated ())
-      ImageDataManager.getInstance ().clearCache ();
   }
 }

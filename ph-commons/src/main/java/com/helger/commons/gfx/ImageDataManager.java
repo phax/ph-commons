@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.lesscommons.gfx;
+package com.helger.commons.gfx;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -42,7 +42,6 @@ import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.dimension.SizeInt;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.state.EChange;
 import com.helger.commons.statistics.IMutableStatisticsHandlerCache;
 import com.helger.commons.statistics.StatisticsManager;
@@ -98,10 +97,10 @@ public final class ImageDataManager
   private static SizeInt _readImageData (@Nonnull final IHasInputStream aRes)
   {
     SizeInt aData = null;
-    InputStream aIS = null;
-    try
+
+    // ImageIO.read doesn't close the stream!
+    try (final InputStream aIS = aRes.getInputStream ())
     {
-      aIS = aRes.getInputStream ();
       if (aIS != null)
       {
         // Returned image may be null in case it is not a valid image!
@@ -141,11 +140,6 @@ public final class ImageDataManager
     {
       // can be thrown by the BMP reader :)
       s_aLogger.error ("Failed to read image data from resource " + aRes + ": " + ex.getMessage ());
-    }
-    finally
-    {
-      // ImageIO.read doesn't close the stream!
-      StreamHelper.close (aIS);
     }
     return aData;
   }
