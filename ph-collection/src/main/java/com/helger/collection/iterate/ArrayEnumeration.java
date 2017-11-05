@@ -39,7 +39,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        Type of object to iterate.
  */
 @NotThreadSafe
-public final class ArrayEnumeration <ELEMENTTYPE> implements Enumeration <ELEMENTTYPE>
+public class ArrayEnumeration <ELEMENTTYPE> implements Enumeration <ELEMENTTYPE>
 {
   private ELEMENTTYPE [] m_aArray;
   private int m_nIndex;
@@ -75,6 +75,24 @@ public final class ArrayEnumeration <ELEMENTTYPE> implements Enumeration <ELEMEN
     ValueEnforcer.isGE0 (nLength, "Length");
     m_nIndex = 0;
     m_aArray = ArrayHelper.getCopy (aArray, nStartIndex, nLength);
+  }
+
+  @Nonnegative
+  protected final int getIndex ()
+  {
+    return m_nIndex;
+  }
+
+  @Nullable
+  protected final ELEMENTTYPE get (@Nonnegative final int nIndex)
+  {
+    return m_aArray[nIndex];
+  }
+
+  @Nonnegative
+  protected final int getCount ()
+  {
+    return m_aArray.length;
   }
 
   public boolean hasMoreElements ()
