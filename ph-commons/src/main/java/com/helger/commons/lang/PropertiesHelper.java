@@ -48,6 +48,8 @@ import com.helger.commons.url.ISimpleURL;
 @Immutable
 public final class PropertiesHelper
 {
+  // No logger here!
+
   private PropertiesHelper ()
   {}
 
@@ -57,7 +59,7 @@ public final class PropertiesHelper
   {
     ValueEnforcer.notNull (aProps, "Props");
 
-    final ICommonsMap <String, String> ret = new CommonsHashMap<> ();
+    final ICommonsMap <String, String> ret = new CommonsHashMap <> ();
     for (final Map.Entry <Object, Object> aEntry : aProps.entrySet ())
       ret.put ((String) aEntry.getKey (), (String) aEntry.getValue ());
     return ret;

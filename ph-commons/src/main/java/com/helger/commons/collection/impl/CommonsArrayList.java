@@ -38,6 +38,8 @@ import com.helger.commons.collection.CollectionHelper;
  */
 public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYPE>
 {
+  // No logger here!
+
   public CommonsArrayList ()
   {}
 

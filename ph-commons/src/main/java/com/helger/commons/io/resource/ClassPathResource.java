@@ -59,6 +59,8 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
   /** Internal debug logging flag */
   private static final boolean DEBUG_GET_IS = false;
 
+  // No logger here!
+
   private String m_sPath;
   private final WeakReference <ClassLoader> m_aClassLoader;
   private boolean m_bURLResolved = false;

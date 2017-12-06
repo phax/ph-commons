@@ -82,11 +82,11 @@ import com.helger.commons.system.ENewLineMode;
  */
 public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
 {
+  // No logger here!
+
   /**
    * A property list that contains default values for any keys not found in this
    * property list.
-   *
-   * @serial
    */
   protected NonBlockingProperties m_aDefaults;
 
@@ -95,7 +95,7 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
    */
   public NonBlockingProperties ()
   {
-    this (null);
+    this ((NonBlockingProperties) null);
   }
 
   /**
@@ -823,9 +823,7 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
    */
   public void store (@Nonnull @WillNotClose final OutputStream aOS, @Nullable final String sComments) throws IOException
   {
-    _store (new NonBlockingBufferedWriter (new OutputStreamWriter (aOS, StandardCharsets.ISO_8859_1)),
-            sComments,
-            true);
+    _store (new NonBlockingBufferedWriter (new OutputStreamWriter (aOS, StandardCharsets.ISO_8859_1)), sComments, true);
   }
 
   private void _store (@Nonnull @WillNotClose final Writer aWriter,
@@ -906,11 +904,11 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
    *         <code>null</code>.
    */
   @Nonnull
-  public static NonBlockingProperties create (@Nullable final Map <Object, Object> aProperties)
+  public static NonBlockingProperties create (@Nullable final Map <?, ?> aProperties)
   {
     final NonBlockingProperties ret = new NonBlockingProperties ();
     if (aProperties != null)
-      for (final Map.Entry <Object, Object> aEntry : aProperties.entrySet ())
+      for (final Map.Entry <?, ?> aEntry : aProperties.entrySet ())
         ret.put ((String) aEntry.getKey (), (String) aEntry.getValue ());
     return ret;
   }
