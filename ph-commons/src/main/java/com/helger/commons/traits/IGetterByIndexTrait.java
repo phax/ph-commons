@@ -27,9 +27,6 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsLinkedHashSet;
 import com.helger.commons.collection.impl.ICommonsList;
@@ -47,8 +44,6 @@ import com.helger.commons.typeconvert.TypeConverterException;
 @FunctionalInterface
 public interface IGetterByIndexTrait
 {
-  Logger s_aTraitLogger = LoggerFactory.getLogger (IGetterByIndexTrait.class);
-
   /**
    * Get the value at the specified index.
    *
@@ -204,6 +199,30 @@ public interface IGetterByIndexTrait
   }
 
   /**
+   * Implement this method to handle cases of
+   * {@link #getSafeCastedValue(int, Object, Class)} that failed because invalid
+   * provided class.
+   *
+   * <pre>
+   * "Index '" + nIndex + "' is present, but not as a " + aClass + " but as a " + aValue.getClass ()
+   * </pre>
+   *
+   * @param nIndex
+   *        The index to be accessed. Should be &ge; 0.
+   * @param aClass
+   *        The class that was desired
+   * @param aValue
+   *        The value that was retrieved and cannot be casted to the class
+   * @since 9.0.1
+   */
+  default void onSafeCastError (@Nonnegative final int nIndex,
+                                @Nonnull final Class <?> aClass,
+                                @Nonnull final Object aValue)
+  {
+    // empty
+  }
+
+  /**
    * Get the contained value casted to the specified class, but only if the cast
    * is possible.
    *
@@ -229,15 +248,7 @@ public interface IGetterByIndexTrait
     final Object aValue = getValue (nIndex);
     final T ret = aValue != null && aClass.isAssignableFrom (aValue.getClass ()) ? aClass.cast (aValue) : aDefault;
     if (ret == null && aValue != null)
-    {
-      if (s_aTraitLogger.isDebugEnabled ())
-        s_aTraitLogger.debug ("Index '" +
-                         nIndex +
-                         "' is present, but not as a " +
-                         aClass +
-                         " but as a " +
-                         aValue.getClass ());
-    }
+      onSafeCastError (nIndex, aClass, aValue);
     return ret;
   }
 

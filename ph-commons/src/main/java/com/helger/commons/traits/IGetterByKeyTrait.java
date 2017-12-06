@@ -26,9 +26,6 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsLinkedHashSet;
 import com.helger.commons.collection.impl.ICommonsList;
@@ -48,8 +45,6 @@ import com.helger.commons.typeconvert.TypeConverterException;
 @FunctionalInterface
 public interface IGetterByKeyTrait <KEYTYPE>
 {
-  Logger s_aTraitLogger = LoggerFactory.getLogger (IGetterByKeyTrait.class);
-
   /**
    * Get the value matching the provided key.
    *
@@ -205,6 +200,30 @@ public interface IGetterByKeyTrait <KEYTYPE>
   }
 
   /**
+   * Implement this method to handle cases of
+   * {@link #getSafeCastedValue(Object, Object, Class)} that failed because
+   * invalid provided class.
+   *
+   * <pre>
+   * "Key '" + aKey + "' is present, but not as a " + aClass + " but as a " + aValue.getClass ()
+   * </pre>
+   *
+   * @param aKey
+   *        Key that was searched
+   * @param aClass
+   *        The class that was desired
+   * @param aValue
+   *        The value that was retrieved and cannot be casted to the class
+   * @since 9.0.1
+   */
+  default void onSafeCastError (@Nullable final KEYTYPE aKey,
+                                @Nonnull final Class <?> aClass,
+                                @Nonnull final Object aValue)
+  {
+    // empty
+  }
+
+  /**
    * Get the contained value casted to the specified class, but only if the cast
    * is possible.
    *
@@ -231,10 +250,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
     final Object aValue = getValue (aKey);
     final T ret = aValue != null && aClass.isAssignableFrom (aValue.getClass ()) ? aClass.cast (aValue) : aDefault;
     if (ret == null && aValue != null)
-    {
-      if (s_aTraitLogger.isDebugEnabled ())
-        s_aTraitLogger.debug ("Key '" + aKey + "' is present, but not as a " + aClass + " but as a " + aValue.getClass ());
-    }
+      onSafeCastError (aKey, aClass, aValue);
     return ret;
   }
 
