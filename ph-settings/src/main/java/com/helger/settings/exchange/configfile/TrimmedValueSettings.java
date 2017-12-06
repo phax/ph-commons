@@ -24,7 +24,7 @@ import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 import com.helger.settings.Settings;
 
-final class TrimmedValueSettings extends Settings
+public final class TrimmedValueSettings extends Settings
 {
   public TrimmedValueSettings (@Nonnull @Nonempty final String sName)
   {
