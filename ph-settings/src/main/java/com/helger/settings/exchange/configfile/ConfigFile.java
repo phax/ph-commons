@@ -55,7 +55,7 @@ public class ConfigFile implements IGetterByKeyTrait <String>
    * @param aSettings
    *        The settings that were read. May be <code>null</code>.
    */
-  protected ConfigFile (@Nullable final IReadableResource aRes, @Nullable final ISettings aSettings)
+  public ConfigFile (@Nullable final IReadableResource aRes, @Nullable final ISettings aSettings)
   {
     m_aReadResource = aRes;
     m_aSettings = aSettings;
