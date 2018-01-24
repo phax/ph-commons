@@ -28,127 +28,130 @@ This project was the following modules:
 
 ## News and noteworthy
 
-  * v9.0.0 - 2017-11-05
-    * Changed `com.helger.commons.function` package to `com.helger.commons.functional`
-    * Replaced `IFilter` with `IPredicate`
-    * Replaced `IFilterWithParameter` with `IBiPredicate`
-    * Changed `ManagedExecutorService` to `ExecutorServiceHelper`
-    * Removed class `CCharset` - use `StandardCharsets` instead
-    * Added classes `PathHelper` and `PathOperations`    
-    * Moved class `XMLResourceBundle` to ph-xml
-    * Removed some deprecated `CharsetManager` methods
-    * Reworked `format` package
-    * Removed deprecated 'Mutable*' constructors because of weird defaults
-    * Removed deprecated methods that handle: greater than, greater or equals, lower than and lower or equals
-    * Made `MicroTypeConverter` type-safe
-    * Ensure all `Predicate` usages use `? super`
-    * Ensure all `Consumer` usages use `? super`
-    * Ensure all `Function` usages use `? super`/`? extends` where applicable
-    * Ensure all `Supplier` usages use `? extends`
-    * Moved `ThreadHelper` to package `com.helger.commons.concurrent`
-    * Removed deprecated methods in `SimpleLSResourceResolver`
-    * Removed package `com.helger.commons.io.monitor`
-    * Removed package `com.helger.commons.scope.singletons`
-    * `@ReturnsMutableObject` does not require a value anymore (but you can still pass one of course)
-    * Extracted `ph-scopes` project to lower size of `ph-commons` slightly
-    * Extracted `ph-collection` project to lower size of `ph-commons` slightly
-    * Removed default methods from `IAggregator`
-    * Added reverse interface `ISplitter`
-    * Changed caching API to use a function instead of a protected methods
-    * Integrated `ph-cli` here
-    * Improved and extended traits API
-    * JAXB components can now use a safe way to write XML with special chars
-    * JAXB components can now read XML documents with a BOM
-    * Extracted ph-oton DAO handling into new subproject `ph-dao`
-    * Replaced `SMap` with `StringMap`
-    * An `Automatic-Module-Name` was added after beta 1
-    * Removed support for the application and session application scopes
-  * v8.6.6 - 2017-07-12
-    * Extended `CSVWriter` API
-    * `SimpleLSResourceResolver` can now handle fat jars from Spring Boot (issue #8)
-    * Extracted `DefaultResourceResolver` from `SimpleLSResourceResolver` and added in ph-commons
-    * Added rudimentary support for `Path` based APIs
-    * Added `WatchService` based `WatchDir` in favor of `FileMonitor`
-  * v8.6.5 - 2017-05-19
-    * Deprecated all default Mutable* constructors, because the default values were partially confusing
-    * Added new class `DefaultEntityResolver` using a base URL for resolving.
-    * Extracted and renamed classes `PDTZoneID` and `PDTMask`
-    * Extended `ILocalDatePeriod` API
-    * Added additional specialized type converters to `BigDecimal`
-    * Unified naming for methods that handle: greater than, greater or equals, lower than and lower or equals
-    * Added new type converters for `Month`, `DayOfWeek` and `MonthDay`
-    * `RuntimeException`s during type conversion are encapsulated in `TypeConverterException`s.
-  * v8.6.4 - 2017-04-12
-    * Some performance improvements
-    * Fixed error in `StringHelper.replaceMultipleAsString`
-    * Extended `StringHelper` with encode/decode methods    
-    * Added new class `NonBlockingCharArrayWriter`
-    * Deprecated some `CharsetManager` methods
-  * v8.6.3 - 2017-03-28
-    * Deprecated some String-based `FileHelper` APIs
-    * Improved CertificateHelper parsing
-    * Added `IPredicate` - a serializable `Predicate` interface
-    * Added `IBiPredicate` - a serializable `BiPredicate` interface
-    * Added `IBiConsumer` - a serializable `BiConsumer` interface
-    * Added `IBiFunction` - a serializable `BiFunction` interface
-    * Added `IComparable` - a serializable and extended `Comparable` interface
-    * Extended `StringHelper` API
-    * Extended `MicroWriter` API
-    * Extended `XMLWriter` API
-    * Extended `PDTHelper` API
-    * Deprecated `EMonth` and `EDayOfWeek` in favour of JDK `Month` and `DayOfWeek`
-  * v8.6.2 - 2017-02-15
-    * Extended `XMLSystemProperties` API
-    * Allowing `JAXBDocumentType` objects to not have an `@XmlSchema` annotation
-    * Deprecated `CCharset` - use `StandardCharsets` instead
-    * Deprecated ToStringGenerator `toString()` - use `getToString()` instead
-  * v8.6.1 - 2017-01-23
-    * `*MultilingualText` is now based on ICommonsOrderedMap
-    * Extended `GlobalDebug` API slightly
-    * `JAXBDocumentType` implements equals/hashCode
-    * `WSClientConfig` not using chunked encoding by default
-  * v8.6.0 - 2017-01-09
-    * Removed deprecated methods
-    * Minor API extensions
-  * v8.5.6 - 2016-12-10
-    * Extended APIs
-    * Fixed a nasty bug with date/time formatting due to pattern modifications (introduced in 8.5.5)
-  * v8.5.5 - 2016-11-25
-    * Extended APIs
-  * v8.5.4 - 2016-11-08
-    * Fixed a nasty NPE
-  * v8.5.3 - 2016-11-08
-    * Added support for `EntityResolver2` in MicroXML parsing
-    * Extended some APIs
-  * v8.5.2 - 2016-09-25
-    * Fixed an error with JAXB context creation if @XMLRootElement was used
-    * Improved consistency of IHasText(WithArgs) and IHasDisplayText(WithArgs) so that they can be used interchangeably
-    * Extended collection API slightly
-  * v8.5.1 - 2016-09-12
-    * Fixed error text retrieval in Single Error; further API extensions and improvements
-  * v8.5.0 - 2016-09-09
-    * Reworked the error objects so that there is now a single error handling object. The old objects are retained for backwards compatibility.
-  * v8.4.0 - 2016-08-21
-    * Started adding JDK 9 compatibility
-    * Added new interface `IWriteToStream`
-    * Added support for new Message digest and Mac algorithms
-    * Added new functional interfaces (IThrowingSupplier, IThrowingConsumer and IThrowingFunction) with customizable Exception type
-    * Deprecated some legacy interfaces and adapters that may lead to a compiler error (!) 
-  * v8.3.0 - 2016-08-02
-    * Moved the following sub-projects into this project: ph-datetime, ph-json, ph-charset, ph-graph, ph-matrix and ph-settings
-  * v8.2.2 - 2016-07-22
-  * v8.2.1 - 2016-07-15
-  * v8.2.0 - 2016-07-10
-    * Added new sub-project `ph-security` that contains MessageDigest, HMac, Keystore etc. stuff
-  * v8.1.0 - 2016-06-26: 
-    * Minor small API optimizations for JAXB.
-    * `ValueEnforcer` supports Supplier` functional interface.
-    * GZIP based readable and writable resources added.
-  * v8.0.0 - 2016-06-08: 
-    * It splits the old big ph-commons library into slightly smaller pieces: `ph-commons`, `ph-xml`, `ph-jaxb`, `ph-tree` and `ph-less-commons`.
-    * The first version that requires JDK 8
-    * Multiple API changes to better support functional style
-    * Base32 codec added
+* v9.0.1 - work in progress
+  * Minor API adoptions
+  * Updated to BouncyCastle 1.59
+* v9.0.0 - 2017-11-05
+  * Changed `com.helger.commons.function` package to `com.helger.commons.functional`
+  * Replaced `IFilter` with `IPredicate`
+  * Replaced `IFilterWithParameter` with `IBiPredicate`
+  * Changed `ManagedExecutorService` to `ExecutorServiceHelper`
+  * Removed class `CCharset` - use `StandardCharsets` instead
+  * Added classes `PathHelper` and `PathOperations`    
+  * Moved class `XMLResourceBundle` to ph-xml
+  * Removed some deprecated `CharsetManager` methods
+  * Reworked `format` package
+  * Removed deprecated 'Mutable*' constructors because of weird defaults
+  * Removed deprecated methods that handle: greater than, greater or equals, lower than and lower or equals
+  * Made `MicroTypeConverter` type-safe
+  * Ensure all `Predicate` usages use `? super`
+  * Ensure all `Consumer` usages use `? super`
+  * Ensure all `Function` usages use `? super`/`? extends` where applicable
+  * Ensure all `Supplier` usages use `? extends`
+  * Moved `ThreadHelper` to package `com.helger.commons.concurrent`
+  * Removed deprecated methods in `SimpleLSResourceResolver`
+  * Removed package `com.helger.commons.io.monitor`
+  * Removed package `com.helger.commons.scope.singletons`
+  * `@ReturnsMutableObject` does not require a value anymore (but you can still pass one of course)
+  * Extracted `ph-scopes` project to lower size of `ph-commons` slightly
+  * Extracted `ph-collection` project to lower size of `ph-commons` slightly
+  * Removed default methods from `IAggregator`
+  * Added reverse interface `ISplitter`
+  * Changed caching API to use a function instead of a protected methods
+  * Integrated `ph-cli` here
+  * Improved and extended traits API
+  * JAXB components can now use a safe way to write XML with special chars
+  * JAXB components can now read XML documents with a BOM
+  * Extracted ph-oton DAO handling into new subproject `ph-dao`
+  * Replaced `SMap` with `StringMap`
+  * An `Automatic-Module-Name` was added after beta 1
+  * Removed support for the application and session application scopes
+* v8.6.6 - 2017-07-12
+  * Extended `CSVWriter` API
+  * `SimpleLSResourceResolver` can now handle fat jars from Spring Boot (issue #8)
+  * Extracted `DefaultResourceResolver` from `SimpleLSResourceResolver` and added in ph-commons
+  * Added rudimentary support for `Path` based APIs
+  * Added `WatchService` based `WatchDir` in favor of `FileMonitor`
+* v8.6.5 - 2017-05-19
+  * Deprecated all default Mutable* constructors, because the default values were partially confusing
+  * Added new class `DefaultEntityResolver` using a base URL for resolving.
+  * Extracted and renamed classes `PDTZoneID` and `PDTMask`
+  * Extended `ILocalDatePeriod` API
+  * Added additional specialized type converters to `BigDecimal`
+  * Unified naming for methods that handle: greater than, greater or equals, lower than and lower or equals
+  * Added new type converters for `Month`, `DayOfWeek` and `MonthDay`
+  * `RuntimeException`s during type conversion are encapsulated in `TypeConverterException`s.
+* v8.6.4 - 2017-04-12
+  * Some performance improvements
+  * Fixed error in `StringHelper.replaceMultipleAsString`
+  * Extended `StringHelper` with encode/decode methods    
+  * Added new class `NonBlockingCharArrayWriter`
+  * Deprecated some `CharsetManager` methods
+* v8.6.3 - 2017-03-28
+  * Deprecated some String-based `FileHelper` APIs
+  * Improved CertificateHelper parsing
+  * Added `IPredicate` - a serializable `Predicate` interface
+  * Added `IBiPredicate` - a serializable `BiPredicate` interface
+  * Added `IBiConsumer` - a serializable `BiConsumer` interface
+  * Added `IBiFunction` - a serializable `BiFunction` interface
+  * Added `IComparable` - a serializable and extended `Comparable` interface
+  * Extended `StringHelper` API
+  * Extended `MicroWriter` API
+  * Extended `XMLWriter` API
+  * Extended `PDTHelper` API
+  * Deprecated `EMonth` and `EDayOfWeek` in favour of JDK `Month` and `DayOfWeek`
+* v8.6.2 - 2017-02-15
+  * Extended `XMLSystemProperties` API
+  * Allowing `JAXBDocumentType` objects to not have an `@XmlSchema` annotation
+  * Deprecated `CCharset` - use `StandardCharsets` instead
+  * Deprecated ToStringGenerator `toString()` - use `getToString()` instead
+* v8.6.1 - 2017-01-23
+  * `*MultilingualText` is now based on ICommonsOrderedMap
+  * Extended `GlobalDebug` API slightly
+  * `JAXBDocumentType` implements equals/hashCode
+  * `WSClientConfig` not using chunked encoding by default
+* v8.6.0 - 2017-01-09
+  * Removed deprecated methods
+  * Minor API extensions
+* v8.5.6 - 2016-12-10
+  * Extended APIs
+  * Fixed a nasty bug with date/time formatting due to pattern modifications (introduced in 8.5.5)
+* v8.5.5 - 2016-11-25
+  * Extended APIs
+* v8.5.4 - 2016-11-08
+  * Fixed a nasty NPE
+* v8.5.3 - 2016-11-08
+  * Added support for `EntityResolver2` in MicroXML parsing
+  * Extended some APIs
+* v8.5.2 - 2016-09-25
+  * Fixed an error with JAXB context creation if @XMLRootElement was used
+  * Improved consistency of IHasText(WithArgs) and IHasDisplayText(WithArgs) so that they can be used interchangeably
+  * Extended collection API slightly
+* v8.5.1 - 2016-09-12
+  * Fixed error text retrieval in Single Error; further API extensions and improvements
+* v8.5.0 - 2016-09-09
+  * Reworked the error objects so that there is now a single error handling object. The old objects are retained for backwards compatibility.
+* v8.4.0 - 2016-08-21
+  * Started adding JDK 9 compatibility
+  * Added new interface `IWriteToStream`
+  * Added support for new Message digest and Mac algorithms
+  * Added new functional interfaces (IThrowingSupplier, IThrowingConsumer and IThrowingFunction) with customizable Exception type
+  * Deprecated some legacy interfaces and adapters that may lead to a compiler error (!) 
+* v8.3.0 - 2016-08-02
+  * Moved the following sub-projects into this project: ph-datetime, ph-json, ph-charset, ph-graph, ph-matrix and ph-settings
+* v8.2.2 - 2016-07-22
+* v8.2.1 - 2016-07-15
+* v8.2.0 - 2016-07-10
+  * Added new sub-project `ph-security` that contains MessageDigest, HMac, Keystore etc. stuff
+* v8.1.0 - 2016-06-26: 
+  * Minor small API optimizations for JAXB.
+  * `ValueEnforcer` supports Supplier` functional interface.
+  * GZIP based readable and writable resources added.
+* v8.0.0 - 2016-06-08: 
+  * It splits the old big ph-commons library into slightly smaller pieces: `ph-commons`, `ph-xml`, `ph-jaxb`, `ph-tree` and `ph-less-commons`.
+  * The first version that requires JDK 8
+  * Multiple API changes to better support functional style
+  * Base32 codec added
 
 ## Maven usage
 Add the following to your pom.xml to use this artifact:
