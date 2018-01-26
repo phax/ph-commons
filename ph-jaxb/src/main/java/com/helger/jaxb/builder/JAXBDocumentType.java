@@ -17,6 +17,7 @@
 package com.helger.jaxb.builder;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.function.Function;
 
 import javax.annotation.Nonnull;
@@ -162,21 +163,32 @@ public class JAXBDocumentType implements IJAXBDocumentType
     return m_sLocalName;
   }
 
+  /**
+   * Create the schema. Overload this method to create the schema differently.
+   * The result of this call may be cached.
+   *
+   * @param aClassLoader
+   *        Optional class loader to use. May be <code>null</code>.
+   * @param aLocale
+   *        Optional Locale to use. May be <code>null</code>.
+   * @return A non-<code>null</code> {@link Schema} instance.
+   */
   @Nonnull
-  private Schema _createSchema (@Nullable final ClassLoader aClassLoader)
+  protected Schema createSchema (@Nullable final ClassLoader aClassLoader, @Nullable final Locale aLocale)
   {
     final ICommonsList <? extends IReadableResource> aXSDRes = getAllXSDResources (aClassLoader);
-    final Schema ret = XMLSchemaCache.getInstanceOfClassLoader (aClassLoader).getSchema (aXSDRes);
+    final Schema ret = XMLSchemaCache.getInstanceOf (aClassLoader, aLocale).getSchema (aXSDRes);
     if (ret == null)
       throw new IllegalStateException ("Failed to create Schema from " +
                                        aXSDRes +
-                                       " using class loader " +
-                                       aClassLoader);
+                                       (aClassLoader == null ? " with default class loader"
+                                                             : " using class loader " + aClassLoader) +
+                                       (aLocale == null ? "" : " and locale " + aLocale));
     return ret;
   }
 
   @Nullable
-  public Schema getSchema (@Nullable final ClassLoader aClassLoader)
+  public Schema getSchema (@Nullable final ClassLoader aClassLoader, @Nullable final Locale aLocale)
   {
     if (m_aXSDPaths.isEmpty ())
     {
@@ -184,16 +196,16 @@ public class JAXBDocumentType implements IJAXBDocumentType
       return null;
     }
 
-    if (aClassLoader != null)
+    if (aClassLoader != null || aLocale != null)
     {
-      // Don't cache if a class loader is provided
-      return _createSchema (aClassLoader);
+      // Don't cache if a class loader or locale is provided
+      return createSchema (aClassLoader, aLocale);
     }
 
     if (m_aCachedSchema == null)
     {
-      // Lazy initialization if no class loader is present
-      m_aCachedSchema = _createSchema (aClassLoader);
+      // Lazy initialization if no class loader and no locale is present
+      m_aCachedSchema = createSchema (null, null);
     }
     return m_aCachedSchema;
   }

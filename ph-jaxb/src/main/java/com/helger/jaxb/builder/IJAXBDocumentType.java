@@ -17,6 +17,7 @@
 package com.helger.jaxb.builder;
 
 import java.io.Serializable;
+import java.util.Locale;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -32,6 +33,7 @@ import com.helger.commons.error.list.IErrorList;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.xml.schema.IHasSchema;
+import com.helger.xml.schema.XMLSchemaCache;
 import com.helger.xml.schema.XMLSchemaValidationHelper;
 
 /**
@@ -82,7 +84,7 @@ public interface IJAXBDocumentType extends IHasSchema, Serializable
   @ReturnsMutableCopy
   default ICommonsList <? extends IReadableResource> getAllXSDResources ()
   {
-    return new CommonsArrayList<> (getAllXSDPaths (), x -> new ClassPathResource (x));
+    return new CommonsArrayList <> (getAllXSDPaths (), x -> new ClassPathResource (x));
   }
 
   /**
@@ -96,7 +98,7 @@ public interface IJAXBDocumentType extends IHasSchema, Serializable
   @ReturnsMutableCopy
   default ICommonsList <? extends IReadableResource> getAllXSDResources (@Nullable final ClassLoader aClassLoader)
   {
-    return new CommonsArrayList<> (getAllXSDPaths (), x -> new ClassPathResource (x, aClassLoader));
+    return new CommonsArrayList <> (getAllXSDPaths (), x -> new ClassPathResource (x, aClassLoader));
   }
 
   /**
@@ -108,7 +110,31 @@ public interface IJAXBDocumentType extends IHasSchema, Serializable
    *         <code>null</code> if no XSD was provided.
    */
   @Nullable
-  Schema getSchema (@Nullable ClassLoader aClassLoader);
+  default Schema getSchema (@Nullable final ClassLoader aClassLoader)
+  {
+    return getSchema (aClassLoader, (Locale) null);
+  }
+
+  /**
+   * @param aClassLoader
+   *        The class loader to be used. May be <code>null</code> indicating
+   *        that the default class loader should be used.
+   * @param aLocale
+   *        The locale to use for error message creation. May be
+   *        <code>null</code> to use the system locale.
+   * @return The compiled {@link Schema} object retrieved by the
+   *         {@link com.helger.xml.schema.XMLSchemaCache}. May be
+   *         <code>null</code> if no XSD was provided.
+   * @since 9.0.1
+   */
+  @Nullable
+  default Schema getSchema (@Nullable final ClassLoader aClassLoader, @Nullable final Locale aLocale)
+  {
+    // This is a very inefficient implementation and just here for the sake of
+    // interface compatibility.
+    // JAXBDocumentType implementation is the one to use!
+    return XMLSchemaCache.getInstanceOf (aClassLoader, aLocale).getSchema (getAllXSDResources (aClassLoader));
+  }
 
   /**
    * @return The compiled {@link Validator} object retrieved from the schema to
@@ -119,7 +145,7 @@ public interface IJAXBDocumentType extends IHasSchema, Serializable
   @Nullable
   default Validator getValidator ()
   {
-    return getValidator ((ClassLoader) null);
+    return getValidator ((ClassLoader) null, (Locale) null);
   }
 
   /**
@@ -134,7 +160,26 @@ public interface IJAXBDocumentType extends IHasSchema, Serializable
   @Nullable
   default Validator getValidator (@Nullable final ClassLoader aClassLoader)
   {
-    final Schema aSchema = getSchema (aClassLoader);
+    return getValidator (aClassLoader, (Locale) null);
+  }
+
+  /**
+   * @param aClassLoader
+   *        The class loader to be used. May be <code>null</code> indicating
+   *        that the default class loader should be used.
+   * @param aLocale
+   *        The locale to use for error message creation. May be
+   *        <code>null</code> to use the system locale.
+   * @return The compiled {@link Validator} object retrieved from the schema to
+   *         be obtained from {@link #getSchema(ClassLoader)}. If this document
+   *         type has no XML Schema that no {@link Validator} can be created and
+   *         the return value is <code>null</code>.
+   * @since 9.0.1
+   */
+  @Nullable
+  default Validator getValidator (@Nullable final ClassLoader aClassLoader, @Nullable final Locale aLocale)
+  {
+    final Schema aSchema = getSchema (aClassLoader, aLocale);
     return aSchema == null ? null : aSchema.newValidator ();
   }
 

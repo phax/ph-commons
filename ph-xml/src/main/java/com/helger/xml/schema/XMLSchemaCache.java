@@ -65,7 +65,7 @@ public class XMLSchemaCache extends SchemaCache
   /**
    * Create a new XSD {@link SchemaFactory} using a special locale used to
    * create error messages.
-   * 
+   *
    * @param aLocale
    *        The locale to be used. May be <code>null</code> to indicate the
    *        usage of the system default locale.
@@ -87,12 +87,12 @@ public class XMLSchemaCache extends SchemaCache
 
   public XMLSchemaCache (@Nullable final ErrorHandler aErrorHandler)
   {
-    this (aErrorHandler, null);
+    this (aErrorHandler, (LSResourceResolver) null);
   }
 
   public XMLSchemaCache (@Nullable final LSResourceResolver aResourceResolver)
   {
-    this (null, aResourceResolver);
+    this ((ErrorHandler) null, aResourceResolver);
   }
 
   public XMLSchemaCache (@Nullable final ErrorHandler aErrorHandler,
@@ -134,20 +134,30 @@ public class XMLSchemaCache extends SchemaCache
   @Nonnull
   public static XMLSchemaCache getInstanceOfClassLoader (@Nullable final ClassLoader aClassLoader)
   {
-    if (aClassLoader == null)
+    return getInstanceOf (aClassLoader, (Locale) null);
+  }
+
+  @Nonnull
+  public static XMLSchemaCache getInstanceOf (@Nullable final ClassLoader aClassLoader, @Nullable final Locale aLocale)
+  {
+    if (aClassLoader == null && aLocale == null)
     {
       // Use default instance
       return getInstance ();
     }
 
-    final String sKey = aClassLoader.toString ();
+    final String sKey = String.valueOf (aClassLoader) + "-" + String.valueOf (aLocale);
+
     XMLSchemaCache aCache = s_aRWLock.readLocked ( () -> s_aPerClassLoaderCache.get (sKey));
     if (aCache == null)
     {
       // Not found in read-lock
       // Try again in write lock
       aCache = s_aRWLock.writeLocked ( () -> s_aPerClassLoaderCache.computeIfAbsent (sKey,
-                                                                                     x -> new XMLSchemaCache (new SimpleLSResourceResolver (aClassLoader))));
+                                                                                     x -> new XMLSchemaCache (createXSDSchemaFactory (aLocale),
+                                                                                                              (ErrorHandler) null,
+                                                                                                              aClassLoader == null ? null
+                                                                                                                                   : new SimpleLSResourceResolver (aClassLoader))));
     }
     return aCache;
   }
