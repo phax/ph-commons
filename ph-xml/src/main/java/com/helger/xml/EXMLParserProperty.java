@@ -298,6 +298,32 @@ public enum EXMLParserProperty implements IHasName
     return m_sValueClassName;
   }
 
+  @Nonnull
+  private Object _getFixedValue (@Nonnull final Object aValue)
+  {
+    if (this == EXMLParserProperty.GENERAL_LOCALE && aValue instanceof Locale)
+    {
+      final Locale aLocale = (Locale) aValue;
+      if (Locale.ENGLISH.getLanguage ().equals (aLocale.getLanguage ()))
+      {
+        /**
+         * This hack is needed, because if the "en_US" locale is used and the
+         * system default Locale would e.g. be "de_AT" and a
+         * <code>com.sun.org.apache.xerces.internal.impl.msg.XMLSchemaMessages_de_AT.properties</code>
+         * or
+         * <code>com.sun.org.apache.xerces.internal.impl.msg.XMLSchemaMessages_de.properties</code>
+         * is present it would have precedence over the provided locale because
+         * it is more specific than the fallback locale "".<br>
+         * Therefore by explicitly providing the locale "" it is matched to
+         * <code>com.sun.org.apache.xerces.internal.impl.msg.XMLSchemaMessages.properties</code>
+         * which are the English texts, and this is what we want
+         */
+        return Locale.ROOT;
+      }
+    }
+    return aValue;
+  }
+
   public void applyTo (@Nonnull final org.xml.sax.XMLReader aParser, final Object aValue)
   {
     ValueEnforcer.notNull (aParser, "Parser");
@@ -307,7 +333,8 @@ public enum EXMLParserProperty implements IHasName
 
     try
     {
-      aParser.setProperty (m_sName, aValue);
+      final Object aRealValue = _getFixedValue (aValue);
+      aParser.setProperty (m_sName, aRealValue);
     }
     catch (final SAXNotRecognizedException ex)
     {
@@ -332,7 +359,8 @@ public enum EXMLParserProperty implements IHasName
 
     try
     {
-      aDocumentBuilderFactory.setAttribute (m_sName, aValue);
+      final Object aRealValue = _getFixedValue (aValue);
+      aDocumentBuilderFactory.setAttribute (m_sName, aRealValue);
     }
     catch (final IllegalArgumentException ex)
     {
@@ -360,7 +388,8 @@ public enum EXMLParserProperty implements IHasName
 
     try
     {
-      aSchemaFactory.setProperty (m_sName, aValue);
+      final Object aRealValue = _getFixedValue (aValue);
+      aSchemaFactory.setProperty (m_sName, aRealValue);
     }
     catch (final SAXNotRecognizedException ex)
     {
@@ -396,28 +425,7 @@ public enum EXMLParserProperty implements IHasName
 
     try
     {
-      Object aRealValue = aValue;
-      if (this == EXMLParserProperty.GENERAL_LOCALE && aValue instanceof Locale)
-      {
-        final Locale aLocale = (Locale) aValue;
-        if (Locale.ENGLISH.getLanguage ().equals (aLocale.getLanguage ()))
-        {
-          /**
-           * This hack is needed, because if the "en_US" locale is used and the
-           * system default Locale would e.g. be "de_AT" and a
-           * <code>com.sun.org.apache.xerces.internal.impl.msg.XMLSchemaMessages_de_AT.properties</code>
-           * or
-           * <code>com.sun.org.apache.xerces.internal.impl.msg.XMLSchemaMessages_de.properties</code>
-           * is present it would have precedence over the provided locale
-           * because it is more specific than the fallback locale "".<br>
-           * Therefore by explicitly providing the locale "" it is matched to
-           * <code>com.sun.org.apache.xerces.internal.impl.msg.XMLSchemaMessages.properties</code>
-           * which are the English texts, and this is what we want
-           */
-          aRealValue = Locale.ROOT;
-        }
-      }
-
+      final Object aRealValue = _getFixedValue (aValue);
       aValidator.setProperty (m_sName, aRealValue);
     }
     catch (final SAXNotRecognizedException ex)
