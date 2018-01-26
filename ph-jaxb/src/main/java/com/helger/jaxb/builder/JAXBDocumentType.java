@@ -17,7 +17,6 @@
 package com.helger.jaxb.builder;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.function.Function;
 
 import javax.annotation.Nonnull;
@@ -169,26 +168,23 @@ public class JAXBDocumentType implements IJAXBDocumentType
    *
    * @param aClassLoader
    *        Optional class loader to use. May be <code>null</code>.
-   * @param aLocale
-   *        Optional Locale to use. May be <code>null</code>.
    * @return A non-<code>null</code> {@link Schema} instance.
    */
   @Nonnull
-  protected Schema createSchema (@Nullable final ClassLoader aClassLoader, @Nullable final Locale aLocale)
+  protected Schema createSchema (@Nullable final ClassLoader aClassLoader)
   {
     final ICommonsList <? extends IReadableResource> aXSDRes = getAllXSDResources (aClassLoader);
-    final Schema ret = XMLSchemaCache.getInstanceOf (aClassLoader, aLocale).getSchema (aXSDRes);
+    final Schema ret = XMLSchemaCache.getInstanceOfClassLoader (aClassLoader).getSchema (aXSDRes);
     if (ret == null)
       throw new IllegalStateException ("Failed to create Schema from " +
                                        aXSDRes +
                                        (aClassLoader == null ? " with default class loader"
-                                                             : " using class loader " + aClassLoader) +
-                                       (aLocale == null ? "" : " and locale " + aLocale));
+                                                             : " using class loader " + aClassLoader));
     return ret;
   }
 
   @Nullable
-  public Schema getSchema (@Nullable final ClassLoader aClassLoader, @Nullable final Locale aLocale)
+  public Schema getSchema (@Nullable final ClassLoader aClassLoader)
   {
     if (m_aXSDPaths.isEmpty ())
     {
@@ -196,16 +192,16 @@ public class JAXBDocumentType implements IJAXBDocumentType
       return null;
     }
 
-    if (aClassLoader != null || aLocale != null)
+    if (aClassLoader != null)
     {
-      // Don't cache if a class loader or locale is provided
-      return createSchema (aClassLoader, aLocale);
+      // Don't cache if a class loader is provided
+      return createSchema (aClassLoader);
     }
 
     if (m_aCachedSchema == null)
     {
-      // Lazy initialization if no class loader and no locale is present
-      m_aCachedSchema = createSchema (null, null);
+      // Lazy initialization if no class loader is present
+      m_aCachedSchema = createSchema (null);
     }
     return m_aCachedSchema;
   }

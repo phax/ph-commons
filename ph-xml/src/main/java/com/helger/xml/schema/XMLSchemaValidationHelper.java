@@ -16,7 +16,10 @@
  */
 package com.helger.xml.schema;
 
+import java.util.Locale;
+
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 import javax.xml.transform.Source;
 import javax.xml.validation.Schema;
@@ -28,6 +31,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.error.list.ErrorList;
 import com.helger.commons.error.list.IErrorList;
 import com.helger.commons.io.resource.IReadableResource;
+import com.helger.xml.EXMLParserProperty;
 import com.helger.xml.sax.WrappedCollectingSAXErrorHandler;
 import com.helger.xml.transform.TransformSourceFactory;
 
@@ -107,12 +111,39 @@ public final class XMLSchemaValidationHelper
                                @Nonnull final Source aXML,
                                @Nonnull final ErrorList aErrorList)
   {
+    validate (aSchema, aXML, aErrorList, (Locale) null);
+  }
+
+  /**
+   * Validate the passed XML against the passed XSD and put all errors in the
+   * passed error list.
+   *
+   * @param aSchema
+   *        The source XSD. May not be <code>null</code>.
+   * @param aXML
+   *        The XML to be validated. May not be <code>null</code>.
+   * @param aErrorList
+   *        The error list to be filled. May not be <code>null</code>.
+   * @param aLocale
+   *        The locale to use for error messages. May be <code>null</code> to
+   *        use the system default locale.
+   * @throws IllegalArgumentException
+   *         If XSD validation failed with an exception
+   * @since 9.0.1
+   */
+  public static void validate (@Nonnull final Schema aSchema,
+                               @Nonnull final Source aXML,
+                               @Nonnull final ErrorList aErrorList,
+                               @Nullable final Locale aLocale)
+  {
     ValueEnforcer.notNull (aSchema, "Schema");
     ValueEnforcer.notNull (aXML, "XML");
     ValueEnforcer.notNull (aErrorList, "ErrorList");
 
     // Build the validator
     final Validator aValidator = aSchema.newValidator ();
+    if (aLocale != null)
+      EXMLParserProperty.GENERAL_LOCALE.applyTo (aValidator, aLocale);
     aValidator.setErrorHandler (new WrappedCollectingSAXErrorHandler (aErrorList));
     try
     {

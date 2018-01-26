@@ -16,8 +16,6 @@
  */
 package com.helger.xml.schema;
 
-import java.util.Locale;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
@@ -34,7 +32,6 @@ import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.IHasClassLoader;
 import com.helger.commons.state.EChange;
-import com.helger.xml.EXMLParserProperty;
 import com.helger.xml.ls.SimpleLSResourceResolver;
 import com.helger.xml.sax.LoggingSAXErrorHandler;
 
@@ -54,29 +51,15 @@ public class XMLSchemaCache extends SchemaCache
 
   private static boolean s_bDefaultInstantiated = false;
 
-  @Nonnull
-  public static SchemaFactory createXSDSchemaFactory ()
-  {
-    // By default return English error messages (otherwise the Locale of the
-    // system is used)
-    return createXSDSchemaFactory (Locale.US);
-  }
-
   /**
-   * Create a new XSD {@link SchemaFactory} using a special locale used to
-   * create error messages.
+   * Create a new XSD {@link SchemaFactory}.
    *
-   * @param aLocale
-   *        The locale to be used. May be <code>null</code> to indicate the
-   *        usage of the system default locale.
    * @return A new {@link SchemaFactory} and never <code>null</code>.
    */
   @Nonnull
-  public static SchemaFactory createXSDSchemaFactory (@Nullable final Locale aLocale)
+  public static SchemaFactory createXSDSchemaFactory ()
   {
     final SchemaFactory ret = SchemaFactory.newInstance (XMLConstants.W3C_XML_SCHEMA_NS_URI);
-    if (aLocale != null)
-      EXMLParserProperty.GENERAL_LOCALE.applyTo (ret, aLocale);
     return ret;
   }
 
@@ -134,19 +117,13 @@ public class XMLSchemaCache extends SchemaCache
   @Nonnull
   public static XMLSchemaCache getInstanceOfClassLoader (@Nullable final ClassLoader aClassLoader)
   {
-    return getInstanceOf (aClassLoader, (Locale) null);
-  }
-
-  @Nonnull
-  public static XMLSchemaCache getInstanceOf (@Nullable final ClassLoader aClassLoader, @Nullable final Locale aLocale)
-  {
-    if (aClassLoader == null && aLocale == null)
+    if (aClassLoader == null)
     {
       // Use default instance
       return getInstance ();
     }
 
-    final String sKey = String.valueOf (aClassLoader) + "-" + String.valueOf (aLocale);
+    final String sKey = String.valueOf (aClassLoader);
 
     XMLSchemaCache aCache = s_aRWLock.readLocked ( () -> s_aPerClassLoaderCache.get (sKey));
     if (aCache == null)
@@ -154,10 +131,7 @@ public class XMLSchemaCache extends SchemaCache
       // Not found in read-lock
       // Try again in write lock
       aCache = s_aRWLock.writeLocked ( () -> s_aPerClassLoaderCache.computeIfAbsent (sKey,
-                                                                                     x -> new XMLSchemaCache (createXSDSchemaFactory (aLocale),
-                                                                                                              (ErrorHandler) null,
-                                                                                                              aClassLoader == null ? null
-                                                                                                                                   : new SimpleLSResourceResolver (aClassLoader))));
+                                                                                     x -> new XMLSchemaCache (new SimpleLSResourceResolver (aClassLoader))));
     }
     return aCache;
   }

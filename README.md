@@ -31,6 +31,7 @@ This project was the following modules:
 * v9.0.1 - work in progress
   * Minor API adoptions
   * Updated to BouncyCastle 1.59
+  * XML validation now works with custom locales as well
 * v9.0.0 - 2017-11-05
   * Changed `com.helger.commons.function` package to `com.helger.commons.functional`
   * Replaced `IFilter` with `IPredicate`

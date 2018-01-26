@@ -32,8 +32,8 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.error.list.IErrorList;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
+import com.helger.xml.EXMLParserProperty;
 import com.helger.xml.schema.IHasSchema;
-import com.helger.xml.schema.XMLSchemaCache;
 import com.helger.xml.schema.XMLSchemaValidationHelper;
 
 /**
@@ -110,31 +110,7 @@ public interface IJAXBDocumentType extends IHasSchema, Serializable
    *         <code>null</code> if no XSD was provided.
    */
   @Nullable
-  default Schema getSchema (@Nullable final ClassLoader aClassLoader)
-  {
-    return getSchema (aClassLoader, (Locale) null);
-  }
-
-  /**
-   * @param aClassLoader
-   *        The class loader to be used. May be <code>null</code> indicating
-   *        that the default class loader should be used.
-   * @param aLocale
-   *        The locale to use for error message creation. May be
-   *        <code>null</code> to use the system locale.
-   * @return The compiled {@link Schema} object retrieved by the
-   *         {@link com.helger.xml.schema.XMLSchemaCache}. May be
-   *         <code>null</code> if no XSD was provided.
-   * @since 9.0.1
-   */
-  @Nullable
-  default Schema getSchema (@Nullable final ClassLoader aClassLoader, @Nullable final Locale aLocale)
-  {
-    // This is a very inefficient implementation and just here for the sake of
-    // interface compatibility.
-    // JAXBDocumentType implementation is the one to use!
-    return XMLSchemaCache.getInstanceOf (aClassLoader, aLocale).getSchema (getAllXSDResources (aClassLoader));
-  }
+  Schema getSchema (@Nullable final ClassLoader aClassLoader);
 
   /**
    * @return The compiled {@link Validator} object retrieved from the schema to
@@ -179,8 +155,18 @@ public interface IJAXBDocumentType extends IHasSchema, Serializable
   @Nullable
   default Validator getValidator (@Nullable final ClassLoader aClassLoader, @Nullable final Locale aLocale)
   {
-    final Schema aSchema = getSchema (aClassLoader, aLocale);
-    return aSchema == null ? null : aSchema.newValidator ();
+    final Schema aSchema = getSchema (aClassLoader);
+    if (aSchema != null)
+    {
+      final Validator aValidator = aSchema.newValidator ();
+      if (aValidator != null)
+      {
+        if (aLocale != null)
+          EXMLParserProperty.GENERAL_LOCALE.applyTo (aValidator, aLocale);
+        return aValidator;
+      }
+    }
+    return null;
   }
 
   /**

@@ -16,10 +16,13 @@
  */
 package com.helger.xml;
 
+import java.util.Locale;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -245,6 +248,7 @@ public enum EXMLParserProperty implements IHasName
   @CodingStyleguideUnaware
   private boolean m_bWarnedOnceXMLReader = false;
   private boolean m_bWarnedOnceSchemaFactory = false;
+  private boolean m_bWarnedOnceValidator = false;
   private final String m_sValueClassName;
 
   private EXMLParserProperty (@Nonnull final EXMLParserPropertyType ePropertyType,
@@ -369,6 +373,64 @@ public enum EXMLParserProperty implements IHasName
     catch (final SAXNotSupportedException ex)
     {
       s_aLogger.warn ("SchemaFactory does not support property '" + name () + "'");
+    }
+  }
+
+  /**
+   * Apply this property safely onto the passed {@link Validator}. Only
+   * properties of type {@link EXMLParserPropertyType#GENERAL} can be used with
+   * this method.
+   *
+   * @param aValidator
+   *        The Validator to apply it onto. May not be <code>null</code>.
+   * @param aValue
+   *        The value to use. May be <code>null</code> depending on the context.
+   * @since 9.0.1
+   */
+  public void applyTo (@Nonnull final Validator aValidator, final Object aValue)
+  {
+    ValueEnforcer.notNull (aValidator, "Validator");
+
+    if (m_ePropertyType != EXMLParserPropertyType.GENERAL)
+      s_aLogger.warn ("Parser property '" + name () + "' is not applicable for Validator!");
+
+    try
+    {
+      Object aRealValue = aValue;
+      if (this == EXMLParserProperty.GENERAL_LOCALE && aValue instanceof Locale)
+      {
+        final Locale aLocale = (Locale) aValue;
+        if (Locale.ENGLISH.getLanguage ().equals (aLocale.getLanguage ()))
+        {
+          /**
+           * This hack is needed, because if the "en_US" locale is used and the
+           * system default Locale would e.g. be "de_AT" and a
+           * <code>com.sun.org.apache.xerces.internal.impl.msg.XMLSchemaMessages_de_AT.properties</code>
+           * or
+           * <code>com.sun.org.apache.xerces.internal.impl.msg.XMLSchemaMessages_de.properties</code>
+           * is present it would have precedence over the provided locale
+           * because it is more specific than the fallback locale "".<br>
+           * Therefore by explicitly providing the locale "" it is matched to
+           * <code>com.sun.org.apache.xerces.internal.impl.msg.XMLSchemaMessages.properties</code>
+           * which are the English texts, and this is what we want
+           */
+          aRealValue = Locale.ROOT;
+        }
+      }
+
+      aValidator.setProperty (m_sName, aRealValue);
+    }
+    catch (final SAXNotRecognizedException ex)
+    {
+      if (!m_bWarnedOnceValidator)
+      {
+        s_aLogger.warn ("Validator does not recognize property '" + name () + "'");
+        m_bWarnedOnceValidator = true;
+      }
+    }
+    catch (final SAXNotSupportedException ex)
+    {
+      s_aLogger.warn ("Validator does not support property '" + name () + "'");
     }
   }
 
