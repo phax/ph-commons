@@ -103,7 +103,7 @@ public interface IDOMReaderSettings extends IBaseXMLReaderSettings
    *        The {@link DocumentBuilderFactory} to apply the settings onto. May
    *        not be <code>null</code>.
    */
-  void applyToDocumentBuilderFactory (@Nonnull final DocumentBuilderFactory aDBF);
+  void applyToDocumentBuilderFactory (@Nonnull DocumentBuilderFactory aDBF);
 
   /**
    * Apply settings of this object onto the specified {@link DocumentBuilder}
@@ -113,5 +113,5 @@ public interface IDOMReaderSettings extends IBaseXMLReaderSettings
    *        The {@link DocumentBuilder} to apply the settings onto. May not be
    *        <code>null</code>.
    */
-  void applyToDocumentBuilder (@Nonnull final DocumentBuilder aDB);
+  void applyToDocumentBuilder (@Nonnull DocumentBuilder aDB);
 }

@@ -82,5 +82,5 @@ public interface ISAXReaderSettings extends IBaseXMLReaderSettings
    *        The XML reader to apply the settings onto. May not be
    *        <code>null</code>.
    */
-  void applyToSAXReader (@Nonnull final org.xml.sax.XMLReader aParser);
+  void applyToSAXReader (@Nonnull org.xml.sax.XMLReader aParser);
 }
