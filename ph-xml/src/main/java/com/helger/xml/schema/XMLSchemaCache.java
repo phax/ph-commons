@@ -16,6 +16,8 @@
  */
 package com.helger.xml.schema;
 
+import java.util.Locale;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
@@ -32,6 +34,7 @@ import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.IHasClassLoader;
 import com.helger.commons.state.EChange;
+import com.helger.xml.EXMLParserProperty;
 import com.helger.xml.ls.SimpleLSResourceResolver;
 import com.helger.xml.sax.LoggingSAXErrorHandler;
 
@@ -54,7 +57,27 @@ public class XMLSchemaCache extends SchemaCache
   @Nonnull
   public static SchemaFactory createXSDSchemaFactory ()
   {
-    return SchemaFactory.newInstance (XMLConstants.W3C_XML_SCHEMA_NS_URI);
+    // By default return English error messages (otherwise the Locale of the
+    // system is used)
+    return createXSDSchemaFactory (Locale.US);
+  }
+
+  /**
+   * Create a new XSD {@link SchemaFactory} using a special locale used to
+   * create error messages.
+   * 
+   * @param aLocale
+   *        The locale to be used. May be <code>null</code> to indicate the
+   *        usage of the system default locale.
+   * @return A new {@link SchemaFactory} and never <code>null</code>.
+   */
+  @Nonnull
+  public static SchemaFactory createXSDSchemaFactory (@Nullable final Locale aLocale)
+  {
+    final SchemaFactory ret = SchemaFactory.newInstance (XMLConstants.W3C_XML_SCHEMA_NS_URI);
+    if (aLocale != null)
+      EXMLParserProperty.GENERAL_LOCALE.applyTo (ret, aLocale);
+    return ret;
   }
 
   public XMLSchemaCache ()
@@ -75,7 +98,14 @@ public class XMLSchemaCache extends SchemaCache
   public XMLSchemaCache (@Nullable final ErrorHandler aErrorHandler,
                          @Nullable final LSResourceResolver aResourceResolver)
   {
-    super ("XSD", createXSDSchemaFactory (), aErrorHandler, aResourceResolver);
+    this (createXSDSchemaFactory (), aErrorHandler, aResourceResolver);
+  }
+
+  public XMLSchemaCache (@Nonnull final SchemaFactory aSchemaFactory,
+                         @Nullable final ErrorHandler aErrorHandler,
+                         @Nullable final LSResourceResolver aResourceResolver)
+  {
+    super ("XSD", aSchemaFactory, aErrorHandler, aResourceResolver);
   }
 
   public static boolean isInstantiated ()

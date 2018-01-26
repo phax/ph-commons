@@ -19,6 +19,7 @@ package com.helger.xml;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.validation.SchemaFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,7 +68,9 @@ public enum EXMLParserProperty implements IHasName
    * documents: e.g, "http://www.example.com file_name.xsd". The user can
    * specify more than one XML Schema in the list.
    */
-  GENERAL_EXTERNAL_SCHEMALOCATION (EXMLParserPropertyType.GENERAL, "http://apache.org/xml/properties/schema/external-schemaLocation", String.class),
+  GENERAL_EXTERNAL_SCHEMALOCATION (EXMLParserPropertyType.GENERAL,
+                                   "http://apache.org/xml/properties/schema/external-schemaLocation",
+                                   String.class),
   /**
    * This property allows the user to specify an XML Schema with no namespace.
    * <br>
@@ -76,7 +79,9 @@ public enum EXMLParserProperty implements IHasName
    * only one XML Schema. For more information see the documentation for the
    * http://apache.org/xml/properties/schema/external-schemaLocation property.
    */
-  GENERAL_EXTERNAL_NONAMESPACE_SCHEMALOCATION (EXMLParserPropertyType.GENERAL, "http://apache.org/xml/properties/schema/external-noNamespaceSchemaLocation", String.class),
+  GENERAL_EXTERNAL_NONAMESPACE_SCHEMALOCATION (EXMLParserPropertyType.GENERAL,
+                                               "http://apache.org/xml/properties/schema/external-noNamespaceSchemaLocation",
+                                               String.class),
   /**
    * A QName or XSElementDeclaration object representing the top-level element
    * declaration used when validating the root element of a document or document
@@ -94,7 +99,9 @@ public enum EXMLParserProperty implements IHasName
    * be thrown or processing of substitution groups, xsi:type and wildcards may
    * fail to locate otherwise available schema components.
    */
-  GENERAL_ROOT_ELEMENT_DECLARATION (EXMLParserPropertyType.GENERAL, "http://apache.org/xml/properties/validation/schema/root-element-declaration", javax.xml.namespace.QName.class),
+  GENERAL_ROOT_ELEMENT_DECLARATION (EXMLParserPropertyType.GENERAL,
+                                    "http://apache.org/xml/properties/validation/schema/root-element-declaration",
+                                    javax.xml.namespace.QName.class),
   /**
    * A QName or XSTypeDefinition object representing the top-level type
    * definition used when validating the root element of a document or document
@@ -114,7 +121,9 @@ public enum EXMLParserProperty implements IHasName
    * processing of substitution groups, xsi:type and wildcards may fail to
    * locate otherwise available schema components.
    */
-  GENERAL_ROOT_TYPE_DECLARATION (EXMLParserPropertyType.GENERAL, "http://apache.org/xml/properties/validation/schema/root-type-definition", javax.xml.namespace.QName.class),
+  GENERAL_ROOT_TYPE_DECLARATION (EXMLParserPropertyType.GENERAL,
+                                 "http://apache.org/xml/properties/validation/schema/root-type-definition",
+                                 javax.xml.namespace.QName.class),
   /**
    * The size of the input buffer in the readers. This determines how many bytes
    * to read for each chunk.<br>
@@ -132,7 +141,9 @@ public enum EXMLParserProperty implements IHasName
    * instance if the document contains a name which is longer than the input
    * buffer.
    */
-  GENERAL_INPUT_BUFFER_SIZE (EXMLParserPropertyType.GENERAL, "http://apache.org/xml/properties/input-buffer-size", Integer.class),
+  GENERAL_INPUT_BUFFER_SIZE (EXMLParserPropertyType.GENERAL,
+                             "http://apache.org/xml/properties/input-buffer-size",
+                             Integer.class),
   /**
    * The locale to use for reporting errors and warnings. When the value of this
    * property is null the platform default returned from
@@ -155,14 +166,18 @@ public enum EXMLParserProperty implements IHasName
    * this property is set. By default, this property is not set; Xerces's
    * behaviour is therefore strictly spec-compliant by default.
    */
-  GENERAL_SECURITY_MANAGER (EXMLParserPropertyType.GENERAL, "http://apache.org/xml/properties/security-manager", "org.apache.xerces.util.SecurityManager"),
+  GENERAL_SECURITY_MANAGER (EXMLParserPropertyType.GENERAL,
+                            "http://apache.org/xml/properties/security-manager",
+                            "org.apache.xerces.util.SecurityManager"),
 
   /**
    * The current DOM element node while parsing.<br>
    * This property is useful for determining the location with a DOM document
    * when an error occurs.
    */
-  DOM_CURRENT_ELEMENT_NODE (EXMLParserPropertyType.DOM, "http://apache.org/xml/properties/dom/current-element-node", org.w3c.dom.Element.class),
+  DOM_CURRENT_ELEMENT_NODE (EXMLParserPropertyType.DOM,
+                            "http://apache.org/xml/properties/dom/current-element-node",
+                            org.w3c.dom.Element.class),
   /**
    * The fully qualified name of the class implementing the org.w3c.dom.Document
    * interface. The implementation used must have a zero argument constructor.
@@ -171,12 +186,18 @@ public enum EXMLParserProperty implements IHasName
    * default document factory, the deferred node expansion feature does not
    * work.
    */
-  DOM_DOCUMENT_CLASS_NAME (EXMLParserPropertyType.DOM, "http://apache.org/xml/properties/dom/document-class-name", String.class),
+  DOM_DOCUMENT_CLASS_NAME (EXMLParserPropertyType.DOM,
+                           "http://apache.org/xml/properties/dom/document-class-name",
+                           String.class),
 
   /** The handler for DTD declarations. */
-  SAX_DECLARATION_HANDLER (EXMLParserPropertyType.SAX, "http://xml.org/sax/properties/declaration-handler", org.xml.sax.ext.DeclHandler.class),
+  SAX_DECLARATION_HANDLER (EXMLParserPropertyType.SAX,
+                           "http://xml.org/sax/properties/declaration-handler",
+                           org.xml.sax.ext.DeclHandler.class),
   /** The handler for lexical parsing events. */
-  SAX_LEXICAL_HANDLER (EXMLParserPropertyType.SAX, "http://xml.org/sax/properties/lexical-handler", org.xml.sax.ext.LexicalHandler.class),
+  SAX_LEXICAL_HANDLER (EXMLParserPropertyType.SAX,
+                       "http://xml.org/sax/properties/lexical-handler",
+                       org.xml.sax.ext.LexicalHandler.class),
   /**
    * The DOM node currently being visited, if SAX is being used as a DOM
    * iterator. If the parser recognizes and supports this property but is not
@@ -196,7 +217,9 @@ public enum EXMLParserProperty implements IHasName
    * The Schema language to be used. E.g.
    * <code>http://www.w3.org/2001/XMLSchema</code>.
    */
-  JAXP_SCHEMA_LANGUAGE (EXMLParserPropertyType.GENERAL, "http://java.sun.com/xml/jaxp/properties/schemaLanguage", String.class),
+  JAXP_SCHEMA_LANGUAGE (EXMLParserPropertyType.GENERAL,
+                        "http://java.sun.com/xml/jaxp/properties/schemaLanguage",
+                        String.class),
   /**
    * Sets the location of the schema. This is the one of most interest. It
    * accepts many values, such as:
@@ -210,7 +233,9 @@ public enum EXMLParserProperty implements IHasName
    * application accepts documents that can conform to different schemas.</li>
    * </ul>
    */
-  JAXP_SCHEMA_SORUCE (EXMLParserPropertyType.GENERAL, "http://java.sun.com/xml/jaxp/properties/schemaSource", Object.class);
+  JAXP_SCHEMA_SORUCE (EXMLParserPropertyType.GENERAL,
+                      "http://java.sun.com/xml/jaxp/properties/schemaSource",
+                      Object.class);
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (EXMLParserProperty.class);
 
@@ -218,7 +243,8 @@ public enum EXMLParserProperty implements IHasName
   private final String m_sName;
   private Class <?> m_aValueClass;
   @CodingStyleguideUnaware
-  private boolean m_bWarnedOnce = false;
+  private boolean m_bWarnedOnceXMLReader = false;
+  private boolean m_bWarnedOnceSchemaFactory = false;
   private final String m_sValueClassName;
 
   private EXMLParserProperty (@Nonnull final EXMLParserPropertyType ePropertyType,
@@ -281,10 +307,10 @@ public enum EXMLParserProperty implements IHasName
     }
     catch (final SAXNotRecognizedException ex)
     {
-      if (!m_bWarnedOnce)
+      if (!m_bWarnedOnceXMLReader)
       {
         s_aLogger.warn ("XML Parser does not recognize property '" + name () + "'");
-        m_bWarnedOnce = true;
+        m_bWarnedOnceXMLReader = true;
       }
     }
     catch (final SAXNotSupportedException ex)
@@ -307,6 +333,42 @@ public enum EXMLParserProperty implements IHasName
     catch (final IllegalArgumentException ex)
     {
       s_aLogger.warn ("DOM parser does not support property '" + name () + "'");
+    }
+  }
+
+  /**
+   * Apply this property safely onto the passed {@link SchemaFactory}. Only
+   * properties of type {@link EXMLParserPropertyType#GENERAL} can be used with
+   * this method.
+   *
+   * @param aSchemaFactory
+   *        The Schema factory to apply it onto. May not be <code>null</code>.
+   * @param aValue
+   *        The value to use. May be <code>null</code> depending on the context.
+   * @since 9.0.1
+   */
+  public void applyTo (@Nonnull final SchemaFactory aSchemaFactory, final Object aValue)
+  {
+    ValueEnforcer.notNull (aSchemaFactory, "SchemaFactory");
+
+    if (m_ePropertyType != EXMLParserPropertyType.GENERAL)
+      s_aLogger.warn ("Parser property '" + name () + "' is not applicable for SchemaFactory!");
+
+    try
+    {
+      aSchemaFactory.setProperty (m_sName, aValue);
+    }
+    catch (final SAXNotRecognizedException ex)
+    {
+      if (!m_bWarnedOnceSchemaFactory)
+      {
+        s_aLogger.warn ("SchemaFactory does not recognize property '" + name () + "'");
+        m_bWarnedOnceSchemaFactory = true;
+      }
+    }
+    catch (final SAXNotSupportedException ex)
+    {
+      s_aLogger.warn ("SchemaFactory does not support property '" + name () + "'");
     }
   }
 
