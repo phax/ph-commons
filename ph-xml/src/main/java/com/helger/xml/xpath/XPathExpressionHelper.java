@@ -77,7 +77,7 @@ public final class XPathExpressionHelper
 
     try
     {
-      final XPathExpression aXPathExpression = XPathHelper.createNewXPathExpresion (aXPath, sXPath);
+      final XPathExpression aXPathExpression = XPathHelper.createNewXPathExpression (aXPath, sXPath);
       return aXPathExpression.evaluate (aDoc, aReturnType);
     }
     catch (final XPathExpressionException ex)

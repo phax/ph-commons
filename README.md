@@ -25,7 +25,6 @@ This project was the following modules:
   * ph-tree - generic tree structures and tree singleton base classes
   * ph-xml - everything to read and write XML, including "MicroDOM" my personal minimum XML representation shipping with its own serializer.
 
-
 ## News and noteworthy
 
 * v9.0.1 - work in progress
@@ -33,6 +32,7 @@ This project was the following modules:
   * Updated to BouncyCastle 1.59
   * XML validation now works with custom locales as well
   * Added `XPathHelper.createXPathFactorySaxonFirst`
+  * Fixed typo in `XPathHelper` - `createNewXPathExpression` instead of `createNewXPathExpresion`
 * v9.0.0 - 2017-11-05
   * Changed `com.helger.commons.function` package to `com.helger.commons.functional`
   * Replaced `IFilter` with `IPredicate`
