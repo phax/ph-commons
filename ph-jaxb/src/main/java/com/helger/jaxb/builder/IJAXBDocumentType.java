@@ -84,7 +84,7 @@ public interface IJAXBDocumentType extends IHasSchema, Serializable
   @ReturnsMutableCopy
   default ICommonsList <? extends IReadableResource> getAllXSDResources ()
   {
-    return new CommonsArrayList <> (getAllXSDPaths (), x -> new ClassPathResource (x));
+    return new CommonsArrayList <> (getAllXSDPaths (), ClassPathResource::new);
   }
 
   /**
