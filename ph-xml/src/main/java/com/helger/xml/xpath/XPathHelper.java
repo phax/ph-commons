@@ -32,6 +32,7 @@ import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.lang.ClassLoaderHelper;
+import com.helger.xml.EXMLParserFeature;
 
 /**
  * Utility class to create {@link XPath} and {@link XPathExpression} objects
@@ -42,7 +43,13 @@ import com.helger.commons.lang.ClassLoaderHelper;
 @NotThreadSafe
 public final class XPathHelper
 {
-  private static final XPathFactory s_aXPathFactory = XPathFactory.newInstance ();
+  private static final XPathFactory s_aXPathFactory;
+
+  static
+  {
+    s_aXPathFactory = XPathFactory.newInstance ();
+    EXMLParserFeature.SECURE_PROCESSING.applyTo (s_aXPathFactory, true);
+  }
 
   @PresentForCodeCoverage
   private static final XPathHelper s_aInstance = new XPathHelper ();
@@ -94,6 +101,9 @@ public final class XPathHelper
         throw new IllegalStateException ("Failed to create JAXP XPathFactory", ex2);
       }
     }
+
+    // Secure processing by default
+    EXMLParserFeature.SECURE_PROCESSING.applyTo (aXPathFactory, true);
     return aXPathFactory;
   }
 
