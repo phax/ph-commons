@@ -246,6 +246,20 @@ public class SingleError implements IError
       return thisAsT ();
     }
 
+    /**
+     * Set a simple error location without line and column number
+     * 
+     * @param sErrorLocation
+     *        Error location string
+     * @return this for chaining
+     * @since 9.0.2
+     */
+    @Nonnull
+    public final IMPLTYPE setErrorLocation (@Nullable final String sErrorLocation)
+    {
+      return setErrorLocation (new SimpleLocation (sErrorLocation));
+    }
+
     @Nonnull
     public final IMPLTYPE setErrorLocation (@Nullable final ILocation aErrorLocation)
     {
