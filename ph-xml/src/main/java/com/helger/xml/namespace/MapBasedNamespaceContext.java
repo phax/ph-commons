@@ -210,7 +210,7 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
    * @return this
    */
   @Nonnull
-  public MapBasedNamespaceContext addDefaultNamespaceURI (@Nonnull final String sNamespaceURI)
+  public final MapBasedNamespaceContext addDefaultNamespaceURI (@Nonnull final String sNamespaceURI)
   {
     return addMapping (XMLConstants.DEFAULT_NS_PREFIX, sNamespaceURI);
   }
@@ -224,7 +224,7 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
    * @return this
    */
   @Nonnull
-  public MapBasedNamespaceContext setDefaultNamespaceURI (@Nonnull final String sNamespaceURI)
+  public final MapBasedNamespaceContext setDefaultNamespaceURI (@Nonnull final String sNamespaceURI)
   {
     return setMapping (XMLConstants.DEFAULT_NS_PREFIX, sNamespaceURI);
   }
