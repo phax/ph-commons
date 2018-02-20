@@ -39,6 +39,16 @@ public class HasInputStream implements IHasInputStream
   private final ISupplier <? extends InputStream> m_aISP;
   private final boolean m_bReadMultiple;
 
+  /**
+   * Constructor
+   * 
+   * @param aISP
+   *        {@link InputStream} supplier. May not be <code>null</code>.
+   * @param bReadMultiple
+   *        <code>true</code> if the supplier can be invoked more than once
+   *        (e.g. from a byte[]) or <code>false</code> if it can be invoked only
+   *        once (e.g. from an open socket).
+   */
   public HasInputStream (@Nonnull final ISupplier <? extends InputStream> aISP, final boolean bReadMultiple)
   {
     m_aISP = ValueEnforcer.notNull (aISP, "ISP");
@@ -61,6 +71,13 @@ public class HasInputStream implements IHasInputStream
     return new ToStringGenerator (this).append ("ISP", m_aISP).append ("ReadMultiple", m_bReadMultiple).getToString ();
   }
 
+  /**
+   * Create a new object with a supplier that can read multiple times.
+   *
+   * @param aISP
+   *        {@link InputStream} provider. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @Nonnull
   @ReturnsMutableCopy
   public static HasInputStream multiple (@Nonnull final ISupplier <? extends InputStream> aISP)
@@ -68,6 +85,13 @@ public class HasInputStream implements IHasInputStream
     return new HasInputStream (aISP, true);
   }
 
+  /**
+   * Create a new object with a supplier that can be read only once.
+   *
+   * @param aISP
+   *        {@link InputStream} provider. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @Nonnull
   @ReturnsMutableCopy
   public static HasInputStream once (@Nonnull final ISupplier <? extends InputStream> aISP)
