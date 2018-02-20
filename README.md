@@ -27,6 +27,8 @@ This project was the following modules:
 
 ## News and noteworthy
 
+* v9.0.2 - work in progress
+  * Made setter methods of `JAXB*Builder` final so that they can be called from derived constructors 
 * v9.0.1 - 2018-02-01
   * Minor API adoptions
   * Updated to BouncyCastle 1.59

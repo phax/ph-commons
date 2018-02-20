@@ -124,7 +124,7 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
    * @return this
    */
   @Nonnull
-  public IMPLTYPE setValidationEventHandler (@Nullable final ValidationEventHandler aEventHandler)
+  public final IMPLTYPE setValidationEventHandler (@Nullable final ValidationEventHandler aEventHandler)
   {
     m_aEventHandler = aEventHandler;
     return thisAsT ();
@@ -144,7 +144,7 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
   }
 
   @Nonnull
-  public IMPLTYPE setUnmarshallerCustomizer (@Nullable final Consumer <? super Unmarshaller> aUnmarshallerCustomizer)
+  public final IMPLTYPE setUnmarshallerCustomizer (@Nullable final Consumer <? super Unmarshaller> aUnmarshallerCustomizer)
   {
     m_aUnmarshallerCustomizer = aUnmarshallerCustomizer;
     return thisAsT ();
@@ -156,7 +156,7 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
   }
 
   @Nonnull
-  public IMPLTYPE setReadSecure (final boolean bReadSecure)
+  public final IMPLTYPE setReadSecure (final boolean bReadSecure)
   {
     m_bReadSecure = bReadSecure;
     return thisAsT ();

@@ -76,7 +76,7 @@ public abstract class AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE extends Abs
 
   @Nonnull
   @ReturnsMutableObject
-  public CallbackList <IExceptionCallback <JAXBException>> exceptionCallbacks ()
+  public final CallbackList <IExceptionCallback <JAXBException>> exceptionCallbacks ()
   {
     return m_aExceptionCallbacks;
   }
@@ -88,7 +88,7 @@ public abstract class AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE extends Abs
   }
 
   @Nonnull
-  public IMPLTYPE setMarshallerCustomizer (@Nullable final Consumer <? super Marshaller> aMarshallerCustomizer)
+  public final IMPLTYPE setMarshallerCustomizer (@Nullable final Consumer <? super Marshaller> aMarshallerCustomizer)
   {
     m_aMarshallerCustomizer = aMarshallerCustomizer;
     return thisAsT ();

@@ -112,7 +112,7 @@ public abstract class AbstractJAXBBuilder <IMPLTYPE extends AbstractJAXBBuilder 
    * @return this
    */
   @Nonnull
-  public IMPLTYPE setUseJAXBContextCache (final boolean bUseJAXBContextCache)
+  public final IMPLTYPE setUseJAXBContextCache (final boolean bUseJAXBContextCache)
   {
     m_bUseJAXBContextCache = bUseJAXBContextCache;
     return thisAsT ();

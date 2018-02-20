@@ -89,7 +89,7 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
    * @return this for chaining
    */
   @Nonnull
-  public IMPLTYPE setValidationEventHandler (@Nullable final ValidationEventHandler aEventHandler)
+  public final IMPLTYPE setValidationEventHandler (@Nullable final ValidationEventHandler aEventHandler)
   {
     m_aEventHandler = aEventHandler;
     return thisAsT ();
@@ -114,7 +114,7 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
    * @return this for chaining
    */
   @Nonnull
-  public IMPLTYPE setNamespaceContext (@Nullable final INamespaceContext aNSContext)
+  public final IMPLTYPE setNamespaceContext (@Nullable final INamespaceContext aNSContext)
   {
     m_aNSContext = aNSContext;
     return thisAsT ();
@@ -133,7 +133,7 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
    * @return this for chaining
    */
   @Nonnull
-  public IMPLTYPE setFormattedOutput (final boolean bFormattedOutput)
+  public final IMPLTYPE setFormattedOutput (final boolean bFormattedOutput)
   {
     m_bFormattedOutput = bFormattedOutput;
     return thisAsT ();
@@ -157,7 +157,7 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
    * @return this for chaining
    */
   @Nonnull
-  public IMPLTYPE setCharset (@Nullable final Charset aCharset)
+  public final IMPLTYPE setCharset (@Nullable final Charset aCharset)
   {
     m_aCharset = aCharset;
     return thisAsT ();
@@ -177,7 +177,7 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
    * @return this for chaining
    */
   @Nonnull
-  public IMPLTYPE setIndentString (@Nullable final String sIndentString)
+  public final IMPLTYPE setIndentString (@Nullable final String sIndentString)
   {
     m_sIndentString = sIndentString;
     return thisAsT ();
@@ -198,7 +198,7 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
    * @since 8.6.0
    */
   @Nonnull
-  public IMPLTYPE setSchemaLocation (@Nullable final String sSchemaLocation)
+  public final IMPLTYPE setSchemaLocation (@Nullable final String sSchemaLocation)
   {
     m_sSchemaLocation = sSchemaLocation;
     return thisAsT ();
@@ -220,7 +220,7 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
    * @since 9.0.0
    */
   @Nonnull
-  public IMPLTYPE setNoNamespaceSchemaLocation (@Nullable final String sNoNamespaceSchemaLocation)
+  public final IMPLTYPE setNoNamespaceSchemaLocation (@Nullable final String sNoNamespaceSchemaLocation)
   {
     m_sNoNamespaceSchemaLocation = sNoNamespaceSchemaLocation;
     return thisAsT ();
