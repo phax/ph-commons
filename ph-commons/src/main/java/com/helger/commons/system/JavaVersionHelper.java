@@ -38,24 +38,55 @@ public final class JavaVersionHelper
   public static final double JAVA_CLASS_VERSION = StringParser.parseDouble (SystemProperties.getJavaClassVersion (),
                                                                             CGlobal.ILLEGAL_DOUBLE);
   // 1.8.0_144 => 8
+  // 9.0.4 => 9
   public static final int JAVA_MAJOR_VERSION;
   // 1.8.0_144 => 144
+  // 9.0.4 => 0
   public static final int JAVA_MINOR_VERSION;
+  // 1.8.0_144 => -1
+  // 9.0.4 => 4
+  public static final int JAVA_MICRO_VERSION;
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (JavaVersionHelper.class);
 
   static
   {
     String sJavaVersion = SystemProperties.getJavaVersion ();
-    if (!sJavaVersion.startsWith ("1."))
-      throw new IllegalStateException ("Java version does not start with '1.': '" + sJavaVersion + "'");
-    sJavaVersion = sJavaVersion.substring (2);
-    JAVA_MAJOR_VERSION = StringParser.parseInt (sJavaVersion.substring (0, sJavaVersion.indexOf ('.')), -1);
-    if (JAVA_MAJOR_VERSION < 0)
-      throw new IllegalStateException ("Failed to determine Java major version from '" + sJavaVersion + "'");
-    JAVA_MINOR_VERSION = StringParser.parseInt (sJavaVersion.substring (sJavaVersion.indexOf ('_') + 1), -1);
-    if (JAVA_MINOR_VERSION < 0)
-      throw new IllegalStateException ("Failed to determine Java minor version from '" + sJavaVersion + "'");
+    if (sJavaVersion.startsWith ("1."))
+    {
+      // Old up to and including v8: 1.8.0_144
+
+      // Skip "1."
+      sJavaVersion = sJavaVersion.substring (2);
+      // All up to first "."
+      JAVA_MAJOR_VERSION = StringParser.parseInt (sJavaVersion.substring (0, sJavaVersion.indexOf ('.')), -1);
+      if (JAVA_MAJOR_VERSION < 0)
+        throw new IllegalStateException ("Failed to determine Java major version from '" + sJavaVersion + "'");
+      // Everything after "_"
+      JAVA_MINOR_VERSION = StringParser.parseInt (sJavaVersion.substring (sJavaVersion.indexOf ('_') + 1), -1);
+      if (JAVA_MINOR_VERSION < 0)
+        throw new IllegalStateException ("Failed to determine Java minor version from '" + sJavaVersion + "'");
+      // Not present
+      JAVA_MICRO_VERSION = -1;
+    }
+    else
+    {
+      // New since v9: e.g. 9.0.4
+
+      final int nFirst = sJavaVersion.indexOf ('.');
+      JAVA_MAJOR_VERSION = StringParser.parseInt (sJavaVersion.substring (0, nFirst), -1);
+      if (JAVA_MAJOR_VERSION < 0)
+        throw new IllegalStateException ("Failed to determine Java major version from '" + sJavaVersion + "'");
+
+      final int nSecond = sJavaVersion.indexOf ('.', nFirst + 1);
+      JAVA_MINOR_VERSION = StringParser.parseInt (sJavaVersion.substring (nFirst + 1, nSecond), -1);
+      if (JAVA_MINOR_VERSION < 0)
+        throw new IllegalStateException ("Failed to determine Java minor version from '" + sJavaVersion + "'");
+
+      JAVA_MICRO_VERSION = StringParser.parseInt (sJavaVersion.substring (nSecond + 1), -1);
+      if (JAVA_MICRO_VERSION < 0)
+        throw new IllegalStateException ("Failed to determine Java micro version from '" + sJavaVersion + "'");
+    }
 
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug ("Java version '" +
