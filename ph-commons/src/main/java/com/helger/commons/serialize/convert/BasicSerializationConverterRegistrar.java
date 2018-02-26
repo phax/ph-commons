@@ -28,6 +28,7 @@ import javax.imageio.ImageIO;
 
 import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.charset.CharsetHelper;
+import com.helger.commons.io.stream.StreamHelper;
 
 /**
  * Implementation of {@link ISerializationConverterRegistrarSPI} for basic types
@@ -59,12 +60,12 @@ public final class BasicSerializationConverterRegistrar implements ISerializatio
     public void writeConvertedObject (@Nonnull final Charset aSourceObject,
                                       @Nonnull final ObjectOutputStream aOOS) throws IOException
     {
-      aOOS.writeUTF (aSourceObject.name ());
+      StreamHelper.writeSafeUTF (aOOS, aSourceObject.name ());
     }
 
     public Charset readConvertedObject (@Nonnull final ObjectInputStream aOIS) throws IOException
     {
-      final String sCharsetName = aOIS.readUTF ();
+      final String sCharsetName = StreamHelper.readSafeUTF (aOIS);
       return CharsetHelper.getCharsetFromName (sCharsetName);
     }
   }

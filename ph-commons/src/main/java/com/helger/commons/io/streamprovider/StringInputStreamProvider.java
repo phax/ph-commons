@@ -30,6 +30,7 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.IHasInputStreamAndReader;
 import com.helger.commons.io.IHasReader;
 import com.helger.commons.io.stream.NonBlockingStringReader;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.io.stream.StringInputStream;
 import com.helger.commons.serialize.convert.SerializationConverter;
 import com.helger.commons.string.ToStringGenerator;
@@ -70,13 +71,13 @@ public class StringInputStreamProvider implements IHasInputStreamAndReader, IHas
 
   private void writeObject (@Nonnull final ObjectOutputStream aOOS) throws IOException
   {
-    aOOS.writeUTF (m_sData);
+    StreamHelper.writeSafeUTF (aOOS, m_sData);
     SerializationConverter.writeConvertedObject (m_aCharset, aOOS);
   }
 
   private void readObject (@Nonnull final ObjectInputStream aOIS) throws IOException
   {
-    m_sData = aOIS.readUTF ();
+    m_sData = StreamHelper.readSafeUTF (aOIS);
     m_aCharset = SerializationConverter.readConvertedObject (aOIS, Charset.class);
   }
 
