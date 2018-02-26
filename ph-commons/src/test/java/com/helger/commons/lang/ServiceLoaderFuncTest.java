@@ -108,6 +108,7 @@ public final class ServiceLoaderFuncTest
     {
       try
       {
+        // this fails
         it.hasNext ();
         fail ();
       }
@@ -116,8 +117,16 @@ public final class ServiceLoaderFuncTest
     }
     else
     {
-      System.out.println (CollectionHelper.newList (ServiceLoader.load (IStoppable.class).iterator ()));
-      assertFalse (it.hasNext ());
+      // Here it works but fails when reading
+      assertTrue (it.hasNext ());
+      try
+      {
+        // this fails
+        CollectionHelper.newList (it);
+        fail ();
+      }
+      catch (final ServiceConfigurationError ex)
+      {}
     }
   }
 
