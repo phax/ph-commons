@@ -29,6 +29,7 @@ import java.util.ServiceLoader;
 
 import org.junit.Test;
 
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.hierarchy.MockChildrenProvider;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.state.IClearable;
@@ -115,6 +116,7 @@ public final class ServiceLoaderFuncTest
     }
     else
     {
+      System.out.println (CollectionHelper.newList (ServiceLoader.load (IStoppable.class).iterator ()));
       assertFalse (it.hasNext ());
     }
   }

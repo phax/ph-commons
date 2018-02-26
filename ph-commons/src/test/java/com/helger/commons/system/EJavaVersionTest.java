@@ -61,7 +61,9 @@ public final class EJavaVersionTest
     assertEquals (EJavaVersion.JDK_1_7, EJavaVersion.getFromVersionNumber (51.0));
     assertEquals (EJavaVersion.JDK_1_8, EJavaVersion.getFromVersionNumber (52.0));
     assertEquals (EJavaVersion.JDK_9, EJavaVersion.getFromVersionNumber (53.0));
-    assertEquals (EJavaVersion.UNKNOWN, EJavaVersion.getFromVersionNumber (54.0));
+    assertEquals (EJavaVersion.JDK_10, EJavaVersion.getFromVersionNumber (54.0));
+    assertEquals (EJavaVersion.JDK_11, EJavaVersion.getFromVersionNumber (55.0));
+    assertEquals (EJavaVersion.UNKNOWN, EJavaVersion.getFromVersionNumber (56.0));
 
     assertTrue (EJavaVersion.JDK_1_1.isSupportedVersion ());
     assertTrue (EJavaVersion.JDK_1_2.isSupportedVersion ());
