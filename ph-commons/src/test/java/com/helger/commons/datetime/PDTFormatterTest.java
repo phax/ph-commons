@@ -32,6 +32,7 @@ import java.util.Locale;
 import org.junit.Test;
 
 import com.helger.commons.locale.LocaleCache;
+import com.helger.commons.system.EJavaVersion;
 
 /**
  * Test class for class {@link PDTFormatter}.
@@ -116,10 +117,21 @@ public final class PDTFormatterTest
     assertEquals (LocalDate.of (2015, Month.FEBRUARY, 1), aFormatter.parse ("1.2.2015", LocalDate::from));
 
     aFormatter = PDTFormatter.getFormatterDateTime (PDTFormatter.DEFAULT_STYLE, Locale.GERMANY, EDTFormatterMode.PARSE);
-    assertEquals (LocalDateTime.of (2015, Month.FEBRUARY, 1, 3, 45, 1),
-                  aFormatter.parse ("01.02.2015 03:45:01", LocalDateTime::from));
-    assertEquals (LocalDateTime.of (2015, Month.FEBRUARY, 1, 3, 45, 1),
-                  aFormatter.parse ("1.2.2015 3:45:1", LocalDateTime::from));
+    if (EJavaVersion.JDK_9.isSupportedVersion ())
+    {
+      // Assume CLDR - the "," was added!
+      assertEquals (LocalDateTime.of (2015, Month.FEBRUARY, 1, 3, 45, 1),
+                    aFormatter.parse ("01.02.2015, 03:45:01", LocalDateTime::from));
+      assertEquals (LocalDateTime.of (2015, Month.FEBRUARY, 1, 3, 45, 1),
+                    aFormatter.parse ("1.2.2015, 3:45:1", LocalDateTime::from));
+    }
+    else
+    {
+      assertEquals (LocalDateTime.of (2015, Month.FEBRUARY, 1, 3, 45, 1),
+                    aFormatter.parse ("01.02.2015 03:45:01", LocalDateTime::from));
+      assertEquals (LocalDateTime.of (2015, Month.FEBRUARY, 1, 3, 45, 1),
+                    aFormatter.parse ("1.2.2015 3:45:1", LocalDateTime::from));
+    }
   }
 
   @Test

@@ -16,6 +16,10 @@ jdk:
   - oraclejdk8
   - oraclejdk9
   
+matrix:
+  allow_failures:
+    jdk: oraclejdk9
+  
 install:
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U -P jdeps
 

@@ -460,7 +460,7 @@ public final class JavaClassLoaderFuncTest
   {
     // This test does not work with JDK 1.9 or higher because of the new module
     // system
-    if (EJavaVersion.getCurrentVersion ().isOlderOrEqualsThan (EJavaVersion.JDK_18))
+    if (EJavaVersion.getCurrentVersion ().isOlderOrEqualsThan (EJavaVersion.JDK_1_8))
     {
       final String sWithoutSlash = "java/lang/String.class";
       final String sWithSlash = "/" + sWithoutSlash;

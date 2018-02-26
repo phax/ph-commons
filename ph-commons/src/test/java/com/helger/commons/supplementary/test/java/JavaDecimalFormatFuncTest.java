@@ -29,6 +29,7 @@ import org.junit.Test;
 import com.helger.commons.CGlobal;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.system.EJavaVersion;
 
 public final class JavaDecimalFormatFuncTest
 {
@@ -117,10 +118,16 @@ public final class JavaDecimalFormatFuncTest
     assertTrue (curFormat instanceof DecimalFormat);
 
     final String pattern = ((DecimalFormat) curFormat).toPattern ();
-    assertEquals ("#,##0.00 \u00A4", pattern);
+    if (EJavaVersion.JDK_9.isSupportedVersion ())
+      assertEquals ("#,##0.00\u00A0\u00A4", pattern);
+    else
+      assertEquals ("#,##0.00 \u00A4", pattern);
 
     final String patternWithoutCurSym = StringHelper.removeAll (pattern, '\u00A4');
-    assertEquals ("#,##0.00 ", patternWithoutCurSym);
+    if (EJavaVersion.JDK_9.isSupportedVersion ())
+      assertEquals ("#,##0.00\u00A0", patternWithoutCurSym);
+    else
+      assertEquals ("#,##0.00 ", patternWithoutCurSym);
 
     curFormat = new DecimalFormat (patternWithoutCurSym,
                                    DecimalFormatSymbols.getInstance (CGlobal.LOCALE_FIXED_NUMBER_FORMAT));

@@ -33,6 +33,7 @@ import com.helger.commons.hierarchy.MockChildrenProvider;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.state.IClearable;
 import com.helger.commons.state.IStoppable;
+import com.helger.commons.system.EJavaVersion;
 import com.helger.commons.type.IHasObjectType;
 
 /**
@@ -102,13 +103,20 @@ public final class ServiceLoaderFuncTest
     final ServiceLoader <IStoppable> aSL = ServiceLoader.load (IStoppable.class);
     final Iterator <IStoppable> it = aSL.iterator ();
     assertNotNull (it);
-    try
+    if (EJavaVersion.getCurrentVersion ().isOlderOrEqualsThan (EJavaVersion.JDK_1_8))
     {
-      it.hasNext ();
-      fail ();
+      try
+      {
+        it.hasNext ();
+        fail ();
+      }
+      catch (final ServiceConfigurationError ex)
+      {}
     }
-    catch (final ServiceConfigurationError ex)
-    {}
+    else
+    {
+      assertFalse (it.hasNext ());
+    }
   }
 
   @Test

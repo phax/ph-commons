@@ -117,6 +117,14 @@ public final class PDTFormatter
         // Change "year of era" to "year"
         sPattern = StringHelper.replaceAll (sPattern, 'y', 'u');
 
+        if (false)
+          if (aCacheKey.m_eMode == EDTFormatterMode.PARSE && StringHelper.getCharCount (sPattern, 'u') == 1)
+          {
+            // In Java 9, if CLDR mode is active, switch from a single "u" to
+            // "uuuu" (for parsing)
+            sPattern = StringHelper.replaceAll (sPattern, "u", "uuuu");
+          }
+
         if (aCacheKey.m_eMode == EDTFormatterMode.PARSE &&
             "de".equals (aCacheKey.m_aLocale.getLanguage ()) &&
             aCacheKey.m_eStyle == FormatStyle.MEDIUM)

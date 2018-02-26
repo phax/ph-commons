@@ -23,6 +23,8 @@ import java.util.Locale;
 
 import org.junit.Test;
 
+import com.helger.commons.system.EJavaVersion;
+
 /**
  * Test class for class {@link LocaleFormatter}.
  *
@@ -73,20 +75,38 @@ public final class LocaleFormatterTest
   @Test
   public void testGetFormattedPercent ()
   {
-    assertEquals ("12%", LocaleFormatter.getFormattedPercent (0.123, L_DE));
-    assertEquals ("12%", LocaleFormatter.getFormattedPercent (0.123, L_DE_AT));
+    if (EJavaVersion.JDK_9.isSupportedVersion ())
+    {
+      assertEquals ("12\u00A0%", LocaleFormatter.getFormattedPercent (0.123, L_DE));
+      assertEquals ("12\u00A0%", LocaleFormatter.getFormattedPercent (0.123, L_DE_AT));
+      assertEquals ("12\u00A0%", LocaleFormatter.getFormattedPercent (0.123, L_FR_FR));
+    }
+    else
+    {
+      assertEquals ("12%", LocaleFormatter.getFormattedPercent (0.123, L_DE));
+      assertEquals ("12%", LocaleFormatter.getFormattedPercent (0.123, L_DE_AT));
+      assertEquals ("12 %", LocaleFormatter.getFormattedPercent (0.123, L_FR_FR));
+    }
     assertEquals ("12%", LocaleFormatter.getFormattedPercent (0.123, L_EN));
     assertEquals ("12%", LocaleFormatter.getFormattedPercent (0.123, L_EN_US));
-    assertEquals ("12 %", LocaleFormatter.getFormattedPercent (0.123, L_FR_FR));
   }
 
   @Test
   public void testGetFormattedPercent_Scale ()
   {
-    assertEquals ("12,3%", LocaleFormatter.getFormattedPercent (0.123, 1, L_DE));
-    assertEquals ("12,3%", LocaleFormatter.getFormattedPercent (0.123, 1, L_DE_AT));
+    if (EJavaVersion.JDK_9.isSupportedVersion ())
+    {
+      assertEquals ("12,3\u00A0%", LocaleFormatter.getFormattedPercent (0.123, 1, L_DE));
+      assertEquals ("12,3\u00A0%", LocaleFormatter.getFormattedPercent (0.123, 1, L_DE_AT));
+      assertEquals ("12,3\u00A0%", LocaleFormatter.getFormattedPercent (0.123, 1, L_FR_FR));
+    }
+    else
+    {
+      assertEquals ("12,3%", LocaleFormatter.getFormattedPercent (0.123, 1, L_DE));
+      assertEquals ("12,3%", LocaleFormatter.getFormattedPercent (0.123, 1, L_DE_AT));
+      assertEquals ("12,3 %", LocaleFormatter.getFormattedPercent (0.123, 1, L_FR_FR));
+    }
     assertEquals ("12.3%", LocaleFormatter.getFormattedPercent (0.123, 1, L_EN));
     assertEquals ("12.3%", LocaleFormatter.getFormattedPercent (0.123, 1, L_EN_US));
-    assertEquals ("12,3 %", LocaleFormatter.getFormattedPercent (0.123, 1, L_FR_FR));
   }
 }
