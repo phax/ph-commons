@@ -30,9 +30,13 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.lang.ClassLoaderHelper;
+import com.helger.commons.system.EJavaVersion;
 
 /**
- * Resource bundle utility methods
+ * Resource bundle utility methods.<br>
+ * Note: the UTF-8 resource bundles are only needed when using Java 1.8 or below
+ * since the default was ISO-8859-1. Since Java 9 all ResurceBundles are UTF-8
+ * by default.
  *
  * @author Philip Helger
  */
@@ -83,6 +87,11 @@ public final class ResourceBundleHelper
   {
     try
     {
+      if (EJavaVersion.JDK_9.isSupportedVersion ())
+      {
+        // Since Java9 all ResourceBundles use UTF-8
+        return ResourceBundle.getBundle (sBundleName, aContentLocale, aClassLoader);
+      }
       return Utf8ResourceBundle.getBundle (sBundleName, aContentLocale, aClassLoader);
     }
     catch (final MissingResourceException ex)
