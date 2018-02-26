@@ -26,6 +26,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoField;
 
 import javax.annotation.Nonnull;
 
@@ -112,7 +113,9 @@ public final class PDTWebDateHelperTest
   @Test
   public void testXSDDateTime ()
   {
-    final ZonedDateTime aDT = ZonedDateTime.now (Clock.systemUTC ());
+    ZonedDateTime aDT = ZonedDateTime.now (Clock.systemUTC ());
+    // Cut everything more specific than millis
+    aDT = aDT.withNano (aDT.get (ChronoField.MILLI_OF_SECOND) * 1_000_000);
     final String s = PDTWebDateHelper.getAsStringXSD (aDT);
     assertNotNull (s);
     assertEquals (aDT, PDTWebDateHelper.getDateTimeFromXSD (s));
