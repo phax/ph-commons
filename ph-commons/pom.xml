@@ -65,18 +65,18 @@
     <profile>
       <id>java-9</id>
       <activation>
-        <jdk>9</jdk>
+        <jdk>[9,)</jdk>
       </activation>
       <build>
         <plugins>
           <plugin>
             <artifactId>maven-compiler-plugin</artifactId>
             <configuration>
+              <!-- Must fork, other args get not applied! -->
+              <fork>true</fork>
               <compilerArgs>
                 <arg>--add-modules=java.xml.ws</arg>
               </compilerArgs>
-              <!-- Must fork, other args get not applied! -->
-              <fork>true</fork>
             </configuration>
           </plugin>
           <plugin>
