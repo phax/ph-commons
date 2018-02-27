@@ -219,6 +219,30 @@
     <module>ph-less-commons</module>
     <module>ph-dao</module>
   </modules>
+  
+  <profiles>
+    <profile>
+      <id>jdk9</id>
+      <activation>
+        <jdk>9</jdk>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>de.thetaphi</groupId>
+            <artifactId>forbiddenapis</artifactId>
+            <dependencies>
+              <dependency>
+                <groupId>javax.xml.bind</groupId>
+                <artifactId>jaxb-api</artifactId>
+                <version>2.3.0</version>
+              </dependency>
+            </dependencies>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
   <build>
     <plugins>
@@ -252,13 +276,6 @@
           </excludes>
         </configuration>
         <!-- local executions are ignored -->
-        <dependencies>
-          <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-            <version>2.2.11</version>
-          </dependency>
-        </dependencies>
       </plugin>
     </plugins>
   </build>
