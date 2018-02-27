@@ -275,7 +275,7 @@ public final class GenericReflection
     if (aClass != null)
       try
       {
-        return aClass.newInstance ();
+        return aClass.getDeclaredConstructor ().newInstance ();
       }
       catch (final Throwable t)
       {
@@ -296,7 +296,7 @@ public final class GenericReflection
     if (sClassName != null && aDesiredType != null)
       try
       {
-        return aDesiredType.cast (getClassFromName (aClassLoader, sClassName).newInstance ());
+        return aDesiredType.cast (getClassFromName (aClassLoader, sClassName).getDeclaredConstructor ().newInstance ());
       }
       catch (final Throwable t)
       {
@@ -317,7 +317,7 @@ public final class GenericReflection
     if (sClassName != null && aDesiredType != null)
       try
       {
-        return aDesiredType.cast (getClassFromName (sClassName).newInstance ());
+        return aDesiredType.cast (getClassFromName (sClassName).getDeclaredConstructor ().newInstance ());
       }
       catch (final Throwable t)
       {
@@ -339,7 +339,9 @@ public final class GenericReflection
     if (sClassName != null && aDesiredType != null && aClassLoaderToUse != null)
       try
       {
-        return aDesiredType.cast (Class.forName (sClassName, true, aClassLoaderToUse).newInstance ());
+        return aDesiredType.cast (Class.forName (sClassName, true, aClassLoaderToUse)
+                                       .getDeclaredConstructor ()
+                                       .newInstance ());
       }
       catch (final Throwable t)
       {
