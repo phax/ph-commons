@@ -252,6 +252,13 @@
           </excludes>
         </configuration>
         <!-- local executions are ignored -->
+        <dependencies>
+          <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.2.11</version>
+          </dependency>
+        </dependencies>
       </plugin>
     </plugins>
   </build>
