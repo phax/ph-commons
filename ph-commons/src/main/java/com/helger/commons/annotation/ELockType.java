@@ -25,5 +25,11 @@ package com.helger.commons.annotation;
 public enum ELockType
 {
   READ,
-  WRITE;
+  WRITE,
+  /**
+   * Indicates that depending on the context it can be read OR write.
+   * 
+   * @since 9.0.2
+   */
+  DEPENDS;
 }

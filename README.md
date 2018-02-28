@@ -31,6 +31,7 @@ This project was the following modules:
   * Made setter methods of `JAXB*Builder` final so that they can be called from derived constructors
   * Improved Java 9 compliance
   * `EJavaVersion` was changed incompatible to allow support for Java 10 and 11
+  * Added `ELockType.DEPENDS` enum constant
 * v9.0.1 - 2018-02-01
   * Minor API adoptions
   * Updated to BouncyCastle 1.59
