@@ -1119,6 +1119,13 @@ public final class MathHelper
   }
 
   @Nonnull
+  public static BigDecimal toBigDecimal (@Nonnull final String sNumber)
+  {
+    ValueEnforcer.notNull (sNumber, "Number");
+    return new BigDecimal (sNumber);
+  }
+
+  @Nonnull
   public static BigInteger toBigInteger (final int n)
   {
     return BigInteger.valueOf (n);
@@ -1135,6 +1142,13 @@ public final class MathHelper
   {
     ValueEnforcer.notNull (aNumber, "Number");
     return new BigInteger (aNumber.toString ());
+  }
+
+  @Nonnull
+  public static BigInteger toBigInteger (@Nonnull final String sNumber)
+  {
+    ValueEnforcer.notNull (sNumber, "Number");
+    return new BigInteger (sNumber);
   }
 
   /**
