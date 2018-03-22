@@ -201,10 +201,13 @@ public final class FilenameHelperTest
     // illegal characters
     assertFalse (FilenameHelper.isValidFilename ("ab<c"));
     assertFalse (FilenameHelper.isValidFilename ("ab>c"));
-    assertFalse (FilenameHelper.isValidFilename ("ab:c"));
     assertFalse (FilenameHelper.isValidFilename ("ab?c"));
     assertFalse (FilenameHelper.isValidFilename ("ab*c"));
     assertFalse (FilenameHelper.isValidFilename ("ab\"c"));
+    if (EOperatingSystem.getCurrentOS ().isWindowsBased ())
+      assertFalse (FilenameHelper.isValidFilename ("ab:c"));
+    else
+      assertTrue (FilenameHelper.isValidFilename ("ab:c"));
   }
 
   @Test
@@ -266,6 +269,8 @@ public final class FilenameHelperTest
     assertTrue (FilenameHelper.isValidFilenameWithPaths ("a/b"));
     if (EOperatingSystem.getCurrentOS ().isWindowsBased ())
       assertTrue (FilenameHelper.isValidFilenameWithPaths ("a\\b"));
+    else
+      assertFalse (FilenameHelper.isValidFilenameWithPaths ("a\\b"));
     assertTrue (FilenameHelper.isValidFilenameWithPaths ("a/b/c"));
     assertTrue (FilenameHelper.isValidFilenameWithPaths ("a/b/c.exe"));
     assertTrue (FilenameHelper.isValidFilenameWithPaths ("a/b/c.exe/def.com"));
@@ -309,12 +314,21 @@ public final class FilenameHelperTest
     // illegal characters
     assertEquals ("ab_c", FilenameHelper.getAsSecureValidFilename ("ab<c"));
     assertEquals ("ab_c", FilenameHelper.getAsSecureValidFilename ("ab>c"));
-    assertEquals ("ab_c", FilenameHelper.getAsSecureValidFilename ("ab:c"));
     assertEquals ("ab_c", FilenameHelper.getAsSecureValidFilename ("ab?c"));
     assertEquals ("ab_c", FilenameHelper.getAsSecureValidFilename ("ab*c"));
     assertEquals ("ab_c", FilenameHelper.getAsSecureValidFilename ("ab\"c"));
-    assertEquals ("ab______c", FilenameHelper.getAsSecureValidFilename ("ab<>:?*\"c"));
-    assertEquals ("ab______c______d", FilenameHelper.getAsSecureValidFilename ("ab<>:?*\"c<>:?*\"d"));
+    if (EOperatingSystem.getCurrentOS ().isWindowsBased ())
+    {
+      assertEquals ("ab_c", FilenameHelper.getAsSecureValidFilename ("ab:c"));
+      assertEquals ("ab______c", FilenameHelper.getAsSecureValidFilename ("ab<>:?*\"c"));
+      assertEquals ("ab______c______d", FilenameHelper.getAsSecureValidFilename ("ab<>:?*\"c<>:?*\"d"));
+    }
+    else
+    {
+      assertEquals ("ab:c", FilenameHelper.getAsSecureValidFilename ("ab:c"));
+      assertEquals ("ab__:___c", FilenameHelper.getAsSecureValidFilename ("ab<>:?*\"c"));
+      assertEquals ("ab__:___c__:___d", FilenameHelper.getAsSecureValidFilename ("ab<>:?*\"c<>:?*\"d"));
+    }
   }
 
   /**
@@ -543,20 +557,15 @@ public final class FilenameHelperTest
     assertEquals (sRootPath + "file", FilenameHelper.getCleanPath (new File ("", "/../file").getAbsoluteFile ()));
     assertEquals (sRootPath + "file", FilenameHelper.getCleanPath (new File ("/", "/../file").getAbsoluteFile ()));
     assertEquals (sRootPath + "dir/file", FilenameHelper.getCleanPath (new File ("/../dir/file").getAbsoluteFile ()));
-    assertEquals (sRootPath +
-                  "dir/file",
+    assertEquals (sRootPath + "dir/file",
                   FilenameHelper.getCleanPath (new File ("", "/../dir/file").getAbsoluteFile ()));
-    assertEquals (sRootPath +
-                  "dir/file",
+    assertEquals (sRootPath + "dir/file",
                   FilenameHelper.getCleanPath (new File ("/", "/../dir/file").getAbsoluteFile ()));
-    assertEquals (sRootPath +
-                  "dir/file.x",
+    assertEquals (sRootPath + "dir/file.x",
                   FilenameHelper.getCleanPath (new File ("/../dir/file.x").getAbsoluteFile ()));
-    assertEquals (sRootPath +
-                  "dir/file.x",
+    assertEquals (sRootPath + "dir/file.x",
                   FilenameHelper.getCleanPath (new File ("", "/../dir/file.x").getAbsoluteFile ()));
-    assertEquals (sRootPath +
-                  "dir/file.x",
+    assertEquals (sRootPath + "dir/file.x",
                   FilenameHelper.getCleanPath (new File ("/", "/../dir/file.x").getAbsoluteFile ()));
 
     if (EOperatingSystem.getCurrentOS ().isWindowsBased ())
@@ -572,16 +581,14 @@ public final class FilenameHelperTest
       File aFile = new File (FilenameHelper.WINDOWS_UNC_PREFIX_LOCAL1 + aBaseFile.getAbsolutePath ());
       assertTrue (aFile.exists ());
       assertTrue (FilenameHelper.isWindowsLocalUNCPath (aFile));
-      assertEquals (FilenameHelper.WINDOWS_UNC_PREFIX_LOCAL1 +
-                    aBaseFile.getAbsolutePath (),
+      assertEquals (FilenameHelper.WINDOWS_UNC_PREFIX_LOCAL1 + aBaseFile.getAbsolutePath (),
                     FilenameHelper.getCleanPath (aFile));
 
       // Prefix "\\?\" for a local UNC path
       aFile = new File (FilenameHelper.WINDOWS_UNC_PREFIX_LOCAL2 + aBaseFile.getAbsolutePath ());
       assertTrue (aFile.exists ());
       assertTrue (FilenameHelper.isWindowsLocalUNCPath (aFile));
-      assertEquals (FilenameHelper.WINDOWS_UNC_PREFIX_LOCAL2 +
-                    aBaseFile.getAbsolutePath (),
+      assertEquals (FilenameHelper.WINDOWS_UNC_PREFIX_LOCAL2 + aBaseFile.getAbsolutePath (),
                     FilenameHelper.getCleanPath (aFile));
     }
 
@@ -713,27 +720,21 @@ public final class FilenameHelperTest
   {
     final File aParentDir = new File (".");
     final String sParentBaseDir = FilenameHelper.getCleanPath (aParentDir);
-    assertEquals (sParentBaseDir +
-                  "/test.txt",
+    assertEquals (sParentBaseDir + "/test.txt",
                   FilenameHelper.getAbsoluteWithEnsuredParentDirectory (aParentDir, "test.txt"));
     // Fails on Linux!
     if (false)
-      assertEquals (sParentBaseDir +
-                    "/test.txt",
+      assertEquals (sParentBaseDir + "/test.txt",
                     FilenameHelper.getAbsoluteWithEnsuredParentDirectory (aParentDir, "/test.txt"));
-    assertEquals (sParentBaseDir +
-                  "/test.txt",
+    assertEquals (sParentBaseDir + "/test.txt",
                   FilenameHelper.getAbsoluteWithEnsuredParentDirectory (aParentDir, "./test.txt"));
-    assertEquals (sParentBaseDir +
-                  "/dir/test.txt",
+    assertEquals (sParentBaseDir + "/dir/test.txt",
                   FilenameHelper.getAbsoluteWithEnsuredParentDirectory (aParentDir, "dir/test.txt"));
-    assertEquals (sParentBaseDir +
-                  "/test.txt",
+    assertEquals (sParentBaseDir + "/test.txt",
                   FilenameHelper.getAbsoluteWithEnsuredParentDirectory (aParentDir, "dir/../test.txt"));
     // Fails on Linux!
     if (false)
-      assertEquals (sParentBaseDir +
-                    "/test.txt",
+      assertEquals (sParentBaseDir + "/test.txt",
                     FilenameHelper.getAbsoluteWithEnsuredParentDirectory (aParentDir, "/dir/../test.txt"));
     assertNull (FilenameHelper.getAbsoluteWithEnsuredParentDirectory (aParentDir, "../test.txt"));
 
