@@ -27,12 +27,13 @@ This project was the following modules:
 
 ## News and noteworthy
 
-* v9.0.2 - work in progress
+* v9.0.2 - 2018-03-22
   * Made setter methods of `JAXB*Builder` final so that they can be called from derived constructors
   * Improved Java 9 compliance
   * `EJavaVersion` was changed incompatible to allow support for Java 10 and 11
   * Added `ELockType.DEPENDS` enum constant
-  * Different forbidden characters depending on OS - https://github.com/phax/as2-server/issues/20
+  * Added some more `MathHelper.toBig(Decimal|Integer)` overloads so that it can be used without thinking 
+  * Different forbidden characters in filenames depending on OS - https://github.com/phax/as2-server/issues/20
 * v9.0.1 - 2018-02-01
   * Minor API adoptions
   * Updated to BouncyCastle 1.59
@@ -168,7 +169,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-commons</artifactId>
-  <version>9.0.1</version>
+  <version>9.0.2</version>
 </dependency>
 ```
 
@@ -320,7 +321,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-xml</artifactId>
-  <version>9.0.1</version>
+  <version>9.0.2</version>
 </dependency>
 ```
 
@@ -338,7 +339,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-jaxb</artifactId>
-  <version>9.0.1</version>
+  <version>9.0.2</version>
 </dependency>
 ```
 
@@ -361,7 +362,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-tree</artifactId>
-  <version>9.0.1</version>
+  <version>9.0.2</version>
 </dependency>
 ```
 
@@ -379,7 +380,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-less-commons</artifactId>
-  <version>9.0.1</version>
+  <version>9.0.2</version>
 </dependency>
 ```
 
@@ -392,7 +393,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-json</artifactId>
-  <version>9.0.1</version>
+  <version>9.0.2</version>
 </dependency>
 ```
 
@@ -405,7 +406,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-settings</artifactId>
-  <version>9.0.1</version>
+  <version>9.0.2</version>
 </dependency>
 ```
 
@@ -418,7 +419,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-datetime</artifactId>
-  <version>9.0.1</version>
+  <version>9.0.2</version>
 </dependency>
 ```
 
@@ -431,7 +432,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-graph</artifactId>
-  <version>9.0.1</version>
+  <version>9.0.2</version>
 </dependency>
 ```
 
@@ -444,7 +445,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-matrix</artifactId>
-  <version>9.0.1</version>
+  <version>9.0.2</version>
 </dependency>
 ```
 
@@ -457,7 +458,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-charset</artifactId>
-  <version>9.0.1</version>
+  <version>9.0.2</version>
 </dependency>
 ```
 
@@ -472,7 +473,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-scopes</artifactId>
-  <version>9.0.1</version>
+  <version>9.0.2</version>
 </dependency>
 ```
 
@@ -487,7 +488,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-collection</artifactId>
-  <version>9.0.1</version>
+  <version>9.0.2</version>
 </dependency>
 ```
 
@@ -505,7 +506,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-cli</artifactId>
-  <version>9.0.1</version>
+  <version>9.0.2</version>
 </dependency>
 ```
 
