@@ -37,6 +37,7 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.system.EOperatingSystem;
 import com.helger.commons.system.SystemHelper;
 
 /**
@@ -92,7 +93,12 @@ public final class FilenameHelper
    * Illegal characters in Windows file names.<br>
    * see http://en.wikipedia.org/wiki/Filename
    */
-  private static final char [] ILLEGAL_CHARACTERS = { 0, '<', '>', '?', '*', ':', '|', '"' };
+  private static final char [] ILLEGAL_CHARACTERS_WINDOWS = { 0, '<', '>', '?', '*', ':', '|', '"' };
+  private static final char [] ILLEGAL_CHARACTERS_OTHERS = { 0, '<', '>', '?', '*', '|', '"' };
+  // separate by OS - allow ":" as name part on Linux
+  private static final char [] ILLEGAL_CHARACTERS = EOperatingSystem.getCurrentOS ()
+                                                                    .isWindowsBased () ? ILLEGAL_CHARACTERS_WINDOWS
+                                                                                       : ILLEGAL_CHARACTERS_OTHERS;
 
   /**
    * see http://www.w3.org/TR/widgets/#zip-relative <br>

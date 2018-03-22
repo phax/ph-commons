@@ -32,6 +32,7 @@ This project was the following modules:
   * Improved Java 9 compliance
   * `EJavaVersion` was changed incompatible to allow support for Java 10 and 11
   * Added `ELockType.DEPENDS` enum constant
+  * Different forbidden characters depending on OS - https://github.com/phax/as2-server/issues/20
 * v9.0.1 - 2018-02-01
   * Minor API adoptions
   * Updated to BouncyCastle 1.59
