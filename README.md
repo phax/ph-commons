@@ -34,6 +34,7 @@ This project was the following modules:
   * Added `ELockType.DEPENDS` enum constant
   * Added some more `MathHelper.toBig(Decimal|Integer)` overloads so that it can be used without thinking 
   * Different forbidden characters in filenames depending on OS - https://github.com/phax/as2-server/issues/20
+  * Updated to parent POM 1.10.2
 * v9.0.1 - 2018-02-01
   * Minor API adoptions
   * Updated to BouncyCastle 1.59
