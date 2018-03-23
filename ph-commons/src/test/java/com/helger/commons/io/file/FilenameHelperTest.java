@@ -278,7 +278,10 @@ public final class FilenameHelperTest
     // illegal characters
     assertFalse (FilenameHelper.isValidFilenameWithPaths ("ab<c"));
     assertFalse (FilenameHelper.isValidFilenameWithPaths ("ab>c"));
-    assertFalse (FilenameHelper.isValidFilenameWithPaths ("ab:c"));
+    if (EOperatingSystem.getCurrentOS ().isWindowsBased ())
+      assertFalse (FilenameHelper.isValidFilenameWithPaths ("ab:c"));
+    else
+      assertTrue (FilenameHelper.isValidFilenameWithPaths ("ab:c"));
     assertFalse (FilenameHelper.isValidFilenameWithPaths ("ab?c"));
     assertFalse (FilenameHelper.isValidFilenameWithPaths ("ab*c"));
     assertFalse (FilenameHelper.isValidFilenameWithPaths ("ab\"c"));
@@ -361,7 +364,10 @@ public final class FilenameHelperTest
     // illegal characters
     assertEquals ("ab_c", FilenameHelper.getAsSecureValidASCIIFilename ("ab<c"));
     assertEquals ("ab_c", FilenameHelper.getAsSecureValidASCIIFilename ("ab>c"));
-    assertEquals ("ab_c", FilenameHelper.getAsSecureValidASCIIFilename ("ab:c"));
+    if (EOperatingSystem.getCurrentOS ().isWindowsBased ())
+      assertEquals ("ab_c", FilenameHelper.getAsSecureValidASCIIFilename ("ab:c"));
+    else
+      assertEquals ("ab:c", FilenameHelper.getAsSecureValidASCIIFilename ("ab:c"));
     assertEquals ("ab_c", FilenameHelper.getAsSecureValidASCIIFilename ("ab?c"));
     assertEquals ("ab_c", FilenameHelper.getAsSecureValidASCIIFilename ("ab*c"));
     assertEquals ("ab_c", FilenameHelper.getAsSecureValidASCIIFilename ("ab\"c"));
