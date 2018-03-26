@@ -24,11 +24,12 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import org.junit.Test;
 
-import com.helger.collection.wrapped.WrappedList;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.lang.GenericReflection;
 
@@ -40,8 +41,13 @@ import com.helger.commons.lang.GenericReflection;
 public final class WrappedListTest
 {
   private static <T> void _testList (final List <T> aList, final Class <T> aClass) throws InstantiationException,
-                                                                                   IllegalAccessException
+                                                                                   IllegalAccessException,
+                                                                                   NoSuchMethodException,
+                                                                                   SecurityException,
+                                                                                   InvocationTargetException
   {
+    final Constructor <T> aCtor = aClass.getConstructor ();
+
     // empty at the beginning
     assertTrue (aList.isEmpty ());
     assertEquals (0, aList.size ());
@@ -60,61 +66,61 @@ public final class WrappedListTest
     assertEquals (1, aList.size ());
 
     // add new
-    aList.add (0, aClass.newInstance ());
+    aList.add (0, aCtor.newInstance ());
     assertNotNull (aList.get (0));
     assertEquals (2, aList.size ());
 
     // add all
-    aList.addAll (new CommonsArrayList<> (aClass.newInstance (), aClass.newInstance ()));
+    aList.addAll (new CommonsArrayList <> (aCtor.newInstance (), aCtor.newInstance ()));
 
     // add all
-    aList.addAll (1, new CommonsArrayList<> (aClass.newInstance (), aClass.newInstance ()));
+    aList.addAll (1, new CommonsArrayList <> (aCtor.newInstance (), aCtor.newInstance ()));
 
     // and empty instance is already contained
-    assertTrue (aList.contains (aClass.newInstance ()));
+    assertTrue (aList.contains (aCtor.newInstance ()));
 
     // contains all
-    assertTrue (aList.containsAll (new CommonsArrayList<> (aClass.newInstance (), aClass.newInstance ())));
+    assertTrue (aList.containsAll (new CommonsArrayList <> (aCtor.newInstance (), aCtor.newInstance ())));
 
     // indexOf
-    assertEquals (0, aList.indexOf (aClass.newInstance ()));
+    assertEquals (0, aList.indexOf (aCtor.newInstance ()));
 
     // check last index
-    assertEquals (aList.size () - 1, aList.lastIndexOf (aClass.newInstance ()));
+    assertEquals (aList.size () - 1, aList.lastIndexOf (aCtor.newInstance ()));
 
     // remove
     final int nOldSize = aList.size ();
-    assertTrue (aList.remove (aClass.newInstance ()));
+    assertTrue (aList.remove (aCtor.newInstance ()));
     assertEquals (nOldSize - 1, aList.size ());
 
     assertNotNull (aList.remove (0));
     assertEquals (nOldSize - 2, aList.size ());
 
-    assertTrue (aList.removeAll (new CommonsArrayList<> (aClass.newInstance ())));
+    assertTrue (aList.removeAll (new CommonsArrayList <> (aCtor.newInstance ())));
     assertEquals (1, aList.size ());
     assertNull (aList.get (0));
 
-    assertTrue (aList.retainAll (new CommonsArrayList<> (aClass.newInstance ())));
+    assertTrue (aList.retainAll (new CommonsArrayList <> (aCtor.newInstance ())));
     assertEquals (0, aList.size ());
 
     // re-fill
     assertTrue (aList.add (null));
-    assertTrue (aList.add (aClass.newInstance ()));
+    assertTrue (aList.add (aCtor.newInstance ()));
     assertEquals (2, aList.size ());
-    assertNull (aList.set (0, aClass.newInstance ()));
+    assertNull (aList.set (0, aCtor.newInstance ()));
     assertEquals (2, aList.size ());
     assertEquals (aList, aList.subList (0, 2));
 
     // array
-    assertArrayEquals (new Object [] { aClass.newInstance (), aClass.newInstance () }, aList.toArray ());
+    assertArrayEquals (new Object [] { aCtor.newInstance (), aCtor.newInstance () }, aList.toArray ());
     assertNotNull (aList.toArray (GenericReflection.uncheckedCast (Array.newInstance (aClass, 27))));
     assertTrue (aList.hashCode () > 0);
     assertNotNull (aList.toString ());
   }
 
   @Test
-  public void testList () throws InstantiationException, IllegalAccessException
+  public void testList () throws Exception
   {
-    _testList (new WrappedList<> (new CommonsArrayList<> ()), String.class);
+    _testList (new WrappedList <> (new CommonsArrayList <> ()), String.class);
   }
 }
