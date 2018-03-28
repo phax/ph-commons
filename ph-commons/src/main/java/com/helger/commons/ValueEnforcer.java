@@ -1442,7 +1442,7 @@ public final class ValueEnforcer
    * @param aExpectedValue
    *        The expected value. May be <code>null</code>.
    * @return The passed value and maybe <code>null</code> if the expected value
-   *         is null.
+   *         is <code>null</code>.
    * @throws IllegalArgumentException
    *         if the passed value is not <code>null</code>.
    */
@@ -1481,7 +1481,7 @@ public final class ValueEnforcer
   public static <T> T isEqual (final T aValue, @Nullable final T aExpectedValue, final String sName)
   {
     if (isEnabled ())
-      return isSame (aValue, () -> sName, aExpectedValue);
+      return isEqual (aValue, aExpectedValue, () -> sName);
     return aValue;
   }
 
