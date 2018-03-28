@@ -48,6 +48,7 @@ public abstract class AbstractJAXBBuilder <IMPLTYPE extends AbstractJAXBBuilder 
   protected final IJAXBDocumentType m_aDocType;
   private WeakReference <ClassLoader> m_aClassLoader;
   private boolean m_bUseJAXBContextCache = JAXBBuilderDefaultSettings.isDefaultUseContextCache ();
+  private boolean m_bUseSchema = true;
 
   public AbstractJAXBBuilder (@Nonnull final IJAXBDocumentType aDocType)
   {
@@ -62,7 +63,7 @@ public abstract class AbstractJAXBBuilder <IMPLTYPE extends AbstractJAXBBuilder 
    *         <code>null</code>.
    */
   @Nonnull
-  public IJAXBDocumentType getJAXBDocumentType ()
+  public final IJAXBDocumentType getJAXBDocumentType ()
   {
     return m_aDocType;
   }
@@ -97,7 +98,7 @@ public abstract class AbstractJAXBBuilder <IMPLTYPE extends AbstractJAXBBuilder 
    * @return <code>true</code> if the {@link JAXBContextCache} is used,
    *         <code>false</code> if not. Default is <code>true</code>.
    */
-  public boolean isUseJAXBContextCache ()
+  public final boolean isUseJAXBContextCache ()
   {
     return m_bUseJAXBContextCache;
   }
@@ -119,13 +120,44 @@ public abstract class AbstractJAXBBuilder <IMPLTYPE extends AbstractJAXBBuilder 
   }
 
   /**
+   * @return <code>true</code> if the XML Schema should be used to validate on
+   *         unmarshalling, <code>false</code> if not. Default is
+   *         <code>true</code>.
+   * @since 9.0.3
+   */
+  public final boolean isUseSchema ()
+  {
+    return m_bUseSchema;
+  }
+
+  /**
+   * Set usage of XML Schema. By default it is enabled, but for rare cases it
+   * could make sense to disable validation e.g. because of performance reasons.
+   *
+   * @param bUseSchema
+   *        <code>true</code> to use XML Schema, <code>false</code> to not do
+   *        it.
+   * @return this
+   * @since 9.0.3
+   */
+  @Nonnull
+  public final IMPLTYPE setUseSchema (final boolean bUseSchema)
+  {
+    m_bUseSchema = bUseSchema;
+    return thisAsT ();
+  }
+
+  /**
    * @return The XML schema to be used for validating instances. May be
-   *         <code>null</code> if no XSDs are present.
+   *         <code>null</code> if no XSDs are present. Also <code>null</code> if
    */
   @Nullable
   protected final Schema getSchema ()
   {
-    return m_aDocType.getSchema (getClassLoader ());
+    if (m_bUseSchema)
+      return m_aDocType.getSchema (getClassLoader ());
+
+    return null;
   }
 
   @Nonnull
@@ -149,6 +181,7 @@ public abstract class AbstractJAXBBuilder <IMPLTYPE extends AbstractJAXBBuilder 
     return new ToStringGenerator (this).append ("DocType", m_aDocType)
                                        .appendIfNotNull ("ClassLoader", m_aClassLoader)
                                        .append ("UseJAXBContextCache", m_bUseJAXBContextCache)
+                                       .append ("UseSchema", m_bUseSchema)
                                        .getToString ();
   }
 }

@@ -189,7 +189,7 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
 
     // as we don't have a node, we need to trust the implementation class
     final Schema aSchema = getSchema ();
-    if (aSchema == null)
+    if (aSchema == null && isUseSchema ())
       s_aLogger.warn ("Don't know how to read JAXB document of type " + m_aImplClass.getName ());
 
     JAXBTYPE ret = null;
