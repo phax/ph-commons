@@ -91,7 +91,8 @@ public final class PDTXMLConverterTest
     assertEquals (DatatypeConstants.FIELD_UNDEFINED, c1.getTimezone ());
     final LocalTime aLT2 = PDTXMLConverter.getLocalTime (c1);
     assertNotNull (aLT2);
-    assertEquals (aLT, aLT2);
+    // In Java9 aLDT2 only has millis
+    assertEquals (aLT.withNano (c1.getMillisecond () * (int) CGlobal.NANOSECONDS_PER_MILLISECOND), aLT2);
     assertNull (PDTXMLConverter.getLocalTime (null));
   }
 
@@ -112,7 +113,8 @@ public final class PDTXMLConverterTest
     assertEquals (DatatypeConstants.FIELD_UNDEFINED, c1.getTimezone ());
     final LocalDateTime aLT2 = PDTXMLConverter.getLocalDateTime (c1);
     assertNotNull (aLT2);
-    assertEquals (aLDT, aLT2);
+    // In Java9 aLDT2 only has millis
+    assertEquals (aLDT.withNano (c1.getMillisecond () * (int) CGlobal.NANOSECONDS_PER_MILLISECOND), aLT2);
     assertNull (PDTXMLConverter.getLocalDateTime (null));
   }
 
@@ -130,10 +132,14 @@ public final class PDTXMLConverterTest
     assertEquals (aLDT.getMinute (), c1.getMinute ());
     assertEquals (aLDT.getSecond (), c1.getSecond ());
     assertEquals (aLDT.get (ChronoField.MILLI_OF_SECOND), c1.getMillisecond ());
+    // assertTrue (c1.getFractionalSecond () + " is supposed to be 0",
+    // MathHelper.isEQ0 (c1.getFractionalSecond ()));
     assertEquals (aLDT.getOffset ().get (ChronoField.OFFSET_SECONDS) / CGlobal.SECONDS_PER_MINUTE, c1.getTimezone ());
     final ZonedDateTime aLDT2 = PDTXMLConverter.getZonedDateTime (c1);
     assertNotNull (aLDT2);
-    assertEquals (aLDT.toLocalDateTime (), aLDT2.toLocalDateTime ());
+    // In Java9 aLDT2 only has millis
+    assertEquals (aLDT.toLocalDateTime ().withNano (c1.getMillisecond () * (int) CGlobal.NANOSECONDS_PER_MILLISECOND),
+                  aLDT2.toLocalDateTime ());
     assertEquals (aLDT.getOffset (), aLDT2.getOffset ());
   }
 
