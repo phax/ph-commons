@@ -425,7 +425,8 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
     // Use new CommonsArrayList to get the return type to NOT use "? extends
     // INTERFACETYPE"
     final ICommonsList <INTERFACETYPE> ret = new CommonsArrayList <> ();
-    m_aRWLock.readLocked ( () -> CollectionHelper.findAll (m_aMap.values (), aFilter, ret::add));
+    // (Runnable) cast for Java 9
+    m_aRWLock.readLocked ((Runnable) () -> CollectionHelper.findAll (m_aMap.values (), aFilter, ret::add));
     return ret;
   }
 
@@ -449,7 +450,8 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   public final void findAll (@Nullable final Predicate <? super INTERFACETYPE> aFilter,
                              @Nonnull final Consumer <? super INTERFACETYPE> aConsumer)
   {
-    m_aRWLock.readLocked ( () -> CollectionHelper.findAll (m_aMap.values (), aFilter, aConsumer));
+    // (Runnable) cast for Java 9
+    m_aRWLock.readLocked ((Runnable) () -> CollectionHelper.findAll (m_aMap.values (), aFilter, aConsumer));
   }
 
   @Nonnull
@@ -466,7 +468,11 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
                                              @Nonnull final Function <? super INTERFACETYPE, ? extends RETTYPE> aMapper,
                                              @Nonnull final Consumer <? super RETTYPE> aConsumer)
   {
-    m_aRWLock.readLocked ( () -> CollectionHelper.findAllMapped (m_aMap.values (), aFilter, aMapper, aConsumer));
+    // (Runnable) cast for Java 9
+    m_aRWLock.readLocked ((Runnable) () -> CollectionHelper.findAllMapped (m_aMap.values (),
+                                                                           aFilter,
+                                                                           aMapper,
+                                                                           aConsumer));
   }
 
   @IsLocked (ELockType.READ)
