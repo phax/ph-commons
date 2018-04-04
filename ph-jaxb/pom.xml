@@ -95,7 +95,8 @@
       <groupId>com.sun.istack</groupId>
       <artifactId>istack-commons-runtime</artifactId>
     </dependency>
-    <profiles>
+  </dependencies>
+  <profiles>
     <profile>
       <id>java-9</id>
       <activation>
@@ -125,7 +126,6 @@
       </build>
     </profile>
   </profiles>
-  </dependencies>
   <build>
     <pluginManagement>
       <plugins>
