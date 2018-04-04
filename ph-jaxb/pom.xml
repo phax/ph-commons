@@ -108,7 +108,7 @@
             <artifactId>maven-surefire-plugin</artifactId>
             <configuration>
               <argLine>
-                --add-modules java.xml
+                --add-modules java.xml.bind
                 --illegal-access=deny
               </argLine>
             </configuration>
@@ -117,7 +117,7 @@
             <artifactId>maven-failsafe-plugin</artifactId>
             <configuration>
               <argLine>
-                --add-modules java.xml
+                --add-modules java.xml.bind
                 --illegal-access=deny
               </argLine>
             </configuration>
