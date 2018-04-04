@@ -95,6 +95,36 @@
       <groupId>com.sun.istack</groupId>
       <artifactId>istack-commons-runtime</artifactId>
     </dependency>
+    <profiles>
+    <profile>
+      <id>java-9</id>
+      <activation>
+        <jdk>[9,)</jdk>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <argLine>
+                --add-modules java.xml
+                --illegal-access=deny
+              </argLine>
+            </configuration>
+          </plugin>
+          <plugin>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <configuration>
+              <argLine>
+                --add-modules java.xml
+                --illegal-access=deny
+              </argLine>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
   </dependencies>
   <build>
     <pluginManagement>
