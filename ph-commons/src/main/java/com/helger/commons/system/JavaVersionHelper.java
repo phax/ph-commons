@@ -16,6 +16,7 @@
  */
 package com.helger.commons.system;
 
+import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import org.slf4j.Logger;
@@ -23,6 +24,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.string.StringParser;
 
 /**
@@ -49,73 +51,107 @@ public final class JavaVersionHelper
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (JavaVersionHelper.class);
 
-  static
+  @Nonnull
+  @ReturnsMutableCopy
+  static int [] getAsUnifiedVersion (@Nonnull final String sOriginalJavaVersion)
   {
-    final String sOriginalJavaVersion = SystemProperties.getJavaVersion ();
-    String sJavaVersion = sOriginalJavaVersion;
-    if (sJavaVersion.startsWith ("1."))
+    int nMajor = 0;
+    int nMinor = 0;
+    int nMicro = 0;
+
+    String s = sOriginalJavaVersion;
+    if (s.startsWith ("1."))
     {
-      // Old up to and including v8: 1.8.0_144
+      // Old up to and including v8. E.g.
+      // 1.8.0_144
 
       // Skip "1."
-      sJavaVersion = sJavaVersion.substring (2);
+      s = s.substring (2);
       // All up to first "."
-      final int nSecondDot = sJavaVersion.indexOf ('.');
+      final int nSecondDot = s.indexOf ('.');
       if (nSecondDot < 0)
         throw new IllegalStateException ("Unexpected Java version string '" + sOriginalJavaVersion + "'");
-      JAVA_MAJOR_VERSION = StringParser.parseInt (sJavaVersion.substring (0, nSecondDot), -1);
-      if (JAVA_MAJOR_VERSION < 0)
+      nMajor = StringParser.parseInt (s.substring (0, nSecondDot), -1);
+      if (nMajor < 0)
         throw new IllegalStateException ("Failed to determine Java major version from '" + sOriginalJavaVersion + "'");
 
       // Everything after "_"
-      final int nUnderscore = sJavaVersion.indexOf ('_');
+      final int nUnderscore = s.indexOf ('_');
       if (nUnderscore < 0)
         throw new IllegalStateException ("Unexpected Java version string '" + sOriginalJavaVersion + "'");
-      JAVA_MINOR_VERSION = StringParser.parseInt (sJavaVersion.substring (nUnderscore + 1), -1);
-      if (JAVA_MINOR_VERSION < 0)
+      nMinor = StringParser.parseInt (s.substring (nUnderscore + 1), -1);
+      if (nMinor < 0)
         throw new IllegalStateException ("Failed to determine Java minor version from '" + sOriginalJavaVersion + "'");
 
-      // Not present
-      JAVA_MICRO_VERSION = -1;
+      // Micro part is not present
+      nMicro = -1;
     }
     else
     {
-      // New since v9:
-      // e.g. 9.0.4
-      // or: 9-Ubuntu
-      final int nFirstDash = sJavaVersion.indexOf ('-');
+      // New since v9. E.g.:
+      // 9.0.4
+      // 9-Ubuntu
+      final int nFirstDash = s.indexOf ('-');
       if (nFirstDash > 0)
       {
         // Cut everything including and after the dash
-        sJavaVersion = sJavaVersion.substring (0, nFirstDash);
+        s = s.substring (0, nFirstDash);
       }
 
-      final int nFirstDot = sJavaVersion.indexOf ('.');
+      final int nFirstDot = s.indexOf ('.');
       if (nFirstDot < 0)
-        throw new IllegalStateException ("Unexpected Java version string '" + sOriginalJavaVersion + "'");
-      JAVA_MAJOR_VERSION = StringParser.parseInt (sJavaVersion.substring (0, nFirstDot), -1);
-      if (JAVA_MAJOR_VERSION < 0)
+      {
+        // No dot at all as in "9-Ubuntu"
+        nMajor = StringParser.parseInt (s, -1);
+      }
+      else
+        nMajor = StringParser.parseInt (s.substring (0, nFirstDot), -1);
+      if (nMajor < 0)
         throw new IllegalStateException ("Failed to determine Java major version from '" + sOriginalJavaVersion + "'");
 
-      final int nSecondDot = sJavaVersion.indexOf ('.', nFirstDot + 1);
-      if (nSecondDot < 0)
-        throw new IllegalStateException ("Unexpected Java version string '" + sOriginalJavaVersion + "'");
-      JAVA_MINOR_VERSION = StringParser.parseInt (sJavaVersion.substring (nFirstDot + 1, nSecondDot), -1);
-      if (JAVA_MINOR_VERSION < 0)
-        throw new IllegalStateException ("Failed to determine Java minor version from '" + sOriginalJavaVersion + "'");
+      if (nFirstDot >= 0)
+      {
+        final int nSecondDot = s.indexOf ('.', nFirstDot + 1);
+        if (nSecondDot < 0)
+        {
+          // No second dot as in "9.1"
+          nMinor = StringParser.parseInt (s.substring (nFirstDot + 1), -1);
+        }
+        else
+          nMinor = StringParser.parseInt (s.substring (nFirstDot + 1, nSecondDot), -1);
+        if (nMinor < 0)
+          throw new IllegalStateException ("Failed to determine Java minor version from '" +
+                                           sOriginalJavaVersion +
+                                           "'");
 
-      JAVA_MICRO_VERSION = StringParser.parseInt (sJavaVersion.substring (nSecondDot + 1), -1);
-      if (JAVA_MICRO_VERSION < 0)
-        throw new IllegalStateException ("Failed to determine Java micro version from '" + sOriginalJavaVersion + "'");
+        if (nSecondDot >= 0)
+        {
+          nMicro = StringParser.parseInt (s.substring (nSecondDot + 1), -1);
+          if (nMicro < 0)
+            throw new IllegalStateException ("Failed to determine Java micro version from '" +
+                                             sOriginalJavaVersion +
+                                             "'");
+        }
+      }
     }
 
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug ("Java version '" +
-                       SystemProperties.getJavaVersion () +
-                       "' split into MAJOR=" +
-                       JAVA_MAJOR_VERSION +
-                       " and MINOR=" +
-                       JAVA_MINOR_VERSION);
+                       sOriginalJavaVersion +
+                       "' split into " +
+                       nMajor +
+                       "." +
+                       nMinor +
+                       (nMicro >= 0 ? "." + nMicro : ""));
+    return new int [] { nMajor, nMinor, nMicro };
+  }
+
+  static
+  {
+    final int [] aParts = getAsUnifiedVersion (SystemProperties.getJavaVersion ());
+    JAVA_MAJOR_VERSION = aParts[0];
+    JAVA_MINOR_VERSION = aParts[1];
+    JAVA_MICRO_VERSION = aParts[2];
   }
 
   @PresentForCodeCoverage
