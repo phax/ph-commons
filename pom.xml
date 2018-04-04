@@ -222,9 +222,9 @@
   
   <profiles>
     <profile>
-      <id>jdk9</id>
+      <id>before-jdk9</id>
       <activation>
-        <jdk>9</jdk>
+        <jdk>[,9)</jdk>
       </activation>
       <build>
         <plugins>
@@ -238,22 +238,43 @@
                   <artifactId>ph-forbidden-apis</artifactId>
                   <version>1.1.1</version>
                   <type>jar</type>
-                  <path>forbidden-apis-java9.txt</path>
+                  <path>forbidden-apis-java8.txt</path>
                 </signaturesArtifact>
               </signaturesArtifacts>
+              <excludes>
+                <!-- uses String methods -->
+                <exclude>**/Benchmark*.class</exclude>
+                <!-- uses java.util.Properties -->
+                <exclude>**/IPrivilegedAction.class</exclude>
+                <exclude>**/PropertiesHelper.class</exclude>
+                <!-- java.security.provider extends java.util.properties -->
+                <exclude>**/JavaListDigestProviderFuncTest.class</exclude>
+                <exclude>**/EMacAlgorithm.class</exclude>
+                <exclude>**/EMessageDigestAlgorithm.class</exclude>
+                <exclude>**/IKeyStoreType.class</exclude>
+                <!-- CLI module printing to System.out -->
+                <exclude>**/HelpFormatter.class</exclude>
+                <exclude>**/BugsTest.class</exclude>
+              </excludes>
             </configuration>
-            <dependencies>
-              <dependency>
-                <groupId>javax.xml.bind</groupId>
-                <artifactId>jaxb-api</artifactId>
-                <version>2.3.0</version>
-              </dependency>
-            </dependencies>
+            <!-- local executions are ignored -->
           </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>jdk9</id>
+      <activation>
+        <jdk>[9,10)</jdk>
+      </activation>
+      <build>
+        <plugins>
+          <!-- No forbidden APIs atm -->
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
             <configuration>
+              <fork>true</fork>
               <target>1.9</target>
             </configuration>
           </plugin>
@@ -264,37 +285,6 @@
 
   <build>
     <plugins>
-      <plugin>
-        <groupId>de.thetaphi</groupId>
-        <artifactId>forbiddenapis</artifactId>
-        <configuration>
-          <signaturesArtifacts>
-            <signaturesArtifact>
-              <groupId>com.helger</groupId>
-              <artifactId>ph-forbidden-apis</artifactId>
-              <version>1.1.1</version>
-              <type>jar</type>
-              <path>forbidden-apis-java8.txt</path>
-            </signaturesArtifact>
-          </signaturesArtifacts>
-          <excludes>
-            <!-- uses String methods -->
-            <exclude>**/Benchmark*.class</exclude>
-            <!-- uses java.util.Properties -->
-            <exclude>**/IPrivilegedAction.class</exclude>
-            <exclude>**/PropertiesHelper.class</exclude>
-            <!-- java.security.provider extends java.util.properties -->
-            <exclude>**/JavaListDigestProviderFuncTest.class</exclude>
-            <exclude>**/EMacAlgorithm.class</exclude>
-            <exclude>**/EMessageDigestAlgorithm.class</exclude>
-            <exclude>**/IKeyStoreType.class</exclude>
-            <!-- CLI module printing to System.out -->
-            <exclude>**/HelpFormatter.class</exclude>
-            <exclude>**/BugsTest.class</exclude>
-          </excludes>
-        </configuration>
-        <!-- local executions are ignored -->
-      </plugin>
     </plugins>
   </build>
 </project>
