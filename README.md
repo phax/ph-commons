@@ -30,6 +30,8 @@ This project was the following modules:
 * v9.0.3 - work in progress
   * Fixed invalid call in `ValueEnforcer.isEqual`
   * `AbstractJAXBBuilder` got an explicit possibility to disable XML schema usage
+  * Improved Java version identification by adding support for JEP 223 identifiers
+  * Kicked Travis Java 9 integration - was unable to find a Maven configuration working locally, in Eclipse and in Travis :(
 * v9.0.2 - 2018-03-22
   * Made setter methods of `JAXB*Builder` final so that they can be called from derived constructors
   * Improved Java 9 compliance
