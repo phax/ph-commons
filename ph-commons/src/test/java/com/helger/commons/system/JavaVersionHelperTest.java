@@ -80,5 +80,19 @@ public class JavaVersionHelperTest
     assertEquals (9, aParts[0]);
     assertEquals (0, aParts[1]);
     assertEquals (4, aParts[2]);
+
+    aParts = JavaVersionHelper.getAsUnifiedVersion ("9.1.2+62");
+    assertNotNull (aParts);
+    assertEquals (3, aParts.length);
+    assertEquals (9, aParts[0]);
+    assertEquals (1, aParts[1]);
+    assertEquals (2, aParts[2]);
+
+    aParts = JavaVersionHelper.getAsUnifiedVersion ("9-ea+19");
+    assertNotNull (aParts);
+    assertEquals (3, aParts.length);
+    assertEquals (9, aParts[0]);
+    assertEquals (0, aParts[1]);
+    assertEquals (0, aParts[2]);
   }
 }

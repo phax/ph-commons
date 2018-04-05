@@ -90,12 +90,24 @@ public final class JavaVersionHelper
     {
       // New since v9. E.g.:
       // 9.0.4
-      // 9-Ubuntu
+      // See http://openjdk.java.net/jeps/223
+
+      // E.g 9-Ubuntu
       final int nFirstDash = s.indexOf ('-');
       if (nFirstDash > 0)
       {
+        // '-' indicates "prerelease identifier"
         // Cut everything including and after the dash
         s = s.substring (0, nFirstDash);
+      }
+
+      // E.g. 9.1.2+62
+      final int nFirstPlus = s.indexOf ('+');
+      if (nFirstPlus > 0)
+      {
+        // "+" indicates the build number
+        // Cut everything including and after the plus
+        s = s.substring (0, nFirstPlus);
       }
 
       final int nFirstDot = s.indexOf ('.');
