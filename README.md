@@ -27,7 +27,7 @@ This project was the following modules:
 
 ## News and noteworthy
 
-* v9.0.3 - work in progress
+* v9.1.0 - work in progress
   * Fixed invalid call in `ValueEnforcer.isEqual`
   * `AbstractJAXBBuilder` got an explicit possibility to disable XML schema usage
   * Improved Java version identification by adding support for JEP 223 identifiers
