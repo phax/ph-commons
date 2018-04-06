@@ -193,6 +193,40 @@ public interface IMicroNode extends
   <NODETYPE extends IMicroNode> NODETYPE appendChild (@Nullable NODETYPE aChildNode) throws MicroException;
 
   /**
+   * Append multiple children to the node at once.
+   * 
+   * @param aChildren
+   *        The child nodes to be appended. May be <code>null</code> and may
+   *        contain <code>null</code> values.
+   * @throws MicroException
+   *         if this node cannot have children
+   * @since 9.0.3
+   */
+  default void appendChildren (@Nullable final IMicroNode... aChildren) throws MicroException
+  {
+    if (aChildren != null)
+      for (final IMicroNode aChild : aChildren)
+        appendChild (aChild);
+  }
+
+  /**
+   * Append multiple children to the node at once.
+   * 
+   * @param aChildren
+   *        The child nodes to be appended. May be <code>null</code> and may
+   *        contain <code>null</code> values.
+   * @throws MicroException
+   *         if this node cannot have children
+   * @since 9.0.3
+   */
+  default void appendChildren (@Nullable final Iterable <? extends IMicroNode> aChildren) throws MicroException
+  {
+    if (aChildren != null)
+      for (final IMicroNode aChild : aChildren)
+        appendChild (aChild);
+  }
+
+  /**
    * Insert an existing node before a certain child node of this.
    *
    * @param <NODETYPE>

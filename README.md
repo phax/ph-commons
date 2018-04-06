@@ -32,6 +32,7 @@ This project was the following modules:
   * `AbstractJAXBBuilder` got an explicit possibility to disable XML schema usage
   * Improved Java version identification by adding support for JEP 223 identifiers
   * Kicked Travis Java 9 integration - was unable to find a Maven configuration working locally, in Eclipse and in Travis :(
+  * Added `IMicroNode.appendChildren` default methods
 * v9.0.2 - 2018-03-22
   * Made setter methods of `JAXB*Builder` final so that they can be called from derived constructors
   * Improved Java 9 compliance
