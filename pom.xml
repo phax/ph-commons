@@ -87,6 +87,11 @@
       </dependency>
       <dependency>
         <groupId>com.helger</groupId>
+        <artifactId>ph-wsclient</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger</groupId>
         <artifactId>ph-collection</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -203,6 +208,7 @@
   
   <modules>
     <module>ph-commons</module>
+    <module>ph-wsclient</module>
     <module>ph-collection</module>
     <module>ph-scopes</module>
     <module>ph-cli</module>

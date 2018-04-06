@@ -14,9 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.ws;
+package com.helger.wsclient;
 
 import org.junit.Test;
+
+import com.helger.wsclient.WSHelper;
 
 /**
  * Test class for class {@link WSHelper}.

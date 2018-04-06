@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.ws;
+package com.helger.wsclient;
 
 import static org.junit.Assert.assertEquals;
 
@@ -30,6 +30,7 @@ import org.junit.Test;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.url.URLHelper;
+import com.helger.wsclient.WSClientConfig;
 
 /**
  * Test class for class {@link WSClientConfig}.

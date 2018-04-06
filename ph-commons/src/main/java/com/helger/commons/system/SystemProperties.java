@@ -33,6 +33,7 @@ import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsSet;
+import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.lang.PropertiesHelper;
 import com.helger.commons.lang.priviledged.IPrivilegedAction;
 
@@ -418,5 +419,32 @@ public final class SystemProperties
   public static boolean containsPropertyName (final String sPropertyName)
   {
     return getAllProperties ().containsKey (sPropertyName);
+  }
+
+  /**
+   * Get a set of system property names which are relevant for network
+   * debugging/proxy handling. This method is meant to be used for reading the
+   * appropriate settings from a configuration file.
+   *
+   * @return An array with all system property names which are relevant for
+   *         debugging/proxy handling. Never <code>null</code> and never empty.
+   *         Each call returns a new array.
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public static String [] getAllJavaNetSystemProperties ()
+  {
+    // http://docs.oracle.com/javase/7/docs/technotes/guides/security/jsse/ReadDebug.html
+    // http://download.oracle.com/javase/6/docs/technotes/guides/net/proxies.html
+    // The first 2 (*.debug) should both be set to "all" to have the most
+    // effects
+    return new String [] { GlobalDebug.SYSTEM_PROPERTY_JAVAX_NET_DEBUG,
+                           GlobalDebug.SYSTEM_PROPERTY_JAVA_SECURITY_DEBUG,
+                           "java.net.useSystemProxies",
+                           "http.proxyHost",
+                           "http.proxyPort",
+                           "http.nonProxyHosts",
+                           "https.proxyHost",
+                           "https.proxyPort" };
   }
 }

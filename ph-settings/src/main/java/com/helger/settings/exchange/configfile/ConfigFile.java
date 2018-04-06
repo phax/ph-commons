@@ -30,7 +30,6 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.system.SystemProperties;
 import com.helger.commons.traits.IGetterByKeyTrait;
-import com.helger.commons.ws.WSHelper;
 import com.helger.settings.ISettings;
 
 /**
@@ -136,7 +135,7 @@ public class ConfigFile implements IGetterByKeyTrait <String>
    */
   public void applyAllNetworkSystemProperties ()
   {
-    applyAsSystemProperties (WSHelper.getAllJavaNetSystemProperties ());
+    applyAsSystemProperties (SystemProperties.getAllJavaNetSystemProperties ());
   }
 
   @Override

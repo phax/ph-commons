@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.ws;
+package com.helger.wsclient;
 
 import java.net.URL;
 import java.security.KeyManagementException;
@@ -52,6 +52,8 @@ import com.helger.commons.lang.priviledged.IPrivilegedAction;
 import com.helger.commons.random.VerySecureRandom;
 import com.helger.commons.state.ETriState;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.ws.HostnameVerifierVerifyAll;
+import com.helger.commons.ws.TrustManagerTrustAll;
 
 /**
  * Base configuration for a webservice client caller.

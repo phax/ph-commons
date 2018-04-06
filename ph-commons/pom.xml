@@ -61,46 +61,6 @@
       <scope>compile</scope>
     </dependency>
   </dependencies>
-  <profiles>
-    <profile>
-      <id>java-9</id>
-      <activation>
-        <jdk>[9,)</jdk>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <configuration>
-              <!-- Must fork, other args get not applied! -->
-              <fork>true</fork>
-              <compilerArgs>
-                <arg>--add-modules=java.xml.ws</arg>
-              </compilerArgs>
-            </configuration>
-          </plugin>
-          <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <argLine>
-                --add-modules java.xml.ws
-                --illegal-access=deny
-              </argLine>
-            </configuration>
-          </plugin>
-          <plugin>
-            <artifactId>maven-failsafe-plugin</artifactId>
-            <configuration>
-              <argLine>
-                --add-modules java.xml.ws
-                --illegal-access=deny
-              </argLine>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
   <build>
     <plugins>
       <plugin>

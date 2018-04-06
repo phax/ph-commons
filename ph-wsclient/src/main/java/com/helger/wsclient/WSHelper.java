@@ -14,15 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.ws;
+package com.helger.wsclient;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 import javax.xml.ws.handler.MessageContext;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.system.SystemProperties;
 
 /**
@@ -115,33 +113,6 @@ public final class WSHelper
     SystemProperties.setPropertyValue ("com.sun.xml.wss.jaxws.impl.SecurityServerTube.dump", Boolean.toString (bDebug));
     SystemProperties.setPropertyValue ("com.sun.xml.wss.jaxws.impl.SecurityClientTube.dump", Boolean.toString (bDebug));
     SystemProperties.setPropertyValue ("com.sun.xml.ws.rx.rm.runtime.ClientTube.dump", Boolean.toString (bDebug));
-  }
-
-  /**
-   * Get a set of system property names which are relevant for network
-   * debugging/proxy handling. This method is meant to be used for reading the
-   * appropriate settings from a configuration file.
-   *
-   * @return An array with all system property names which are relevant for
-   *         debugging/proxy handling. Never <code>null</code> and never empty.
-   *         Each call returns a new array.
-   */
-  @Nonnull
-  @ReturnsMutableCopy
-  public static String [] getAllJavaNetSystemProperties ()
-  {
-    // http://docs.oracle.com/javase/7/docs/technotes/guides/security/jsse/ReadDebug.html
-    // http://download.oracle.com/javase/6/docs/technotes/guides/net/proxies.html
-    // The first 2 (*.debug) should both be set to "all" to have the most
-    // effects
-    return new String [] { GlobalDebug.SYSTEM_PROPERTY_JAVAX_NET_DEBUG,
-                           GlobalDebug.SYSTEM_PROPERTY_JAVA_SECURITY_DEBUG,
-                           "java.net.useSystemProxies",
-                           "http.proxyHost",
-                           "http.proxyPort",
-                           "http.nonProxyHosts",
-                           "https.proxyHost",
-                           "https.proxyPort" };
   }
 
   public static boolean isOutboundMessage (@Nonnull final MessageContext aContext)
