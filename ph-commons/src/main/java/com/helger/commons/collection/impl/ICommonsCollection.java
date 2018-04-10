@@ -754,6 +754,54 @@ public interface ICommonsCollection <ELEMENTTYPE> extends
   }
 
   /**
+   * Clear all elements and add all provided values. If no value is provided,
+   * the collection is empty afterwards.
+   *
+   * @param aValues
+   *        The values to be added. May be <code>null</code>.
+   * @param aMapper
+   *        The mapping function to be executed for all provided elements. May
+   *        not be <code>null</code>.
+   * @return {@link EChange#CHANGED} if something was changed,
+   *         {@link EChange#UNCHANGED} otherwise.
+   * @see #removeAll()
+   * @see #addAllMapped(Iterable, Function)
+   * @param <SRCTYPE>
+   *        The source type to be mapped from
+   * @since 9.1.0
+   */
+  @Nonnull
+  default <SRCTYPE> EChange setAllMapped (@Nullable final Iterable <? extends SRCTYPE> aValues,
+                                          @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+  {
+    return removeAll ().or (addAllMapped (aValues, aMapper));
+  }
+
+  /**
+   * Clear all elements and add all provided values. If no value is provided,
+   * the collection is empty afterwards.
+   *
+   * @param aValues
+   *        The values to be added. May be <code>null</code>.
+   * @param aMapper
+   *        The mapping function to be executed for all provided elements. May
+   *        not be <code>null</code>.
+   * @return {@link EChange#CHANGED} if something was changed,
+   *         {@link EChange#UNCHANGED} otherwise.
+   * @see #removeAll()
+   * @see #addAllMapped(Object[], Function)
+   * @param <SRCTYPE>
+   *        The source type to be mapped from
+   * @since 9.1.0
+   */
+  @Nonnull
+  default <SRCTYPE> EChange setAllMapped (@Nullable final SRCTYPE [] aValues,
+                                          @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+  {
+    return removeAll ().or (addAllMapped (aValues, aMapper));
+  }
+
+  /**
    * Remove all elements from this collection. This is similar to
    * {@link #clear()} but it returns a different value whether something was
    * cleared or not.
