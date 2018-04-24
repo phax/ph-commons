@@ -34,6 +34,7 @@ public enum EMimeContentType implements IHasID <String>
   APPLICATION ("application"),
   AUDIO ("audio"),
   EXAMPLE ("example"),
+  FONT ("font"),
   IMAGE ("image"),
   MESSAGE ("message"),
   MODEL ("model"),
