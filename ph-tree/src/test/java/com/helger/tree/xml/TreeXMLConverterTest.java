@@ -44,7 +44,7 @@ public final class TreeXMLConverterTest
     assertNotNull (aDoc1);
 
     // convert document to tree
-    final DefaultTreeWithGlobalUniqueID <String, MockHasName> t1 = TreeXMLConverter.getXMLAsTreeWithUniqueStringID (aDoc1,
+    final DefaultTreeWithGlobalUniqueID <String, MockHasName> t1 = TreeXMLConverter.getXMLAsTreeWithUniqueStringID (aDoc1.getDocumentElement (),
                                                                                                                     new MockHasNameConverter ());
     assertNotNull (t1);
 

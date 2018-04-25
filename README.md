@@ -37,6 +37,7 @@ This project was the following modules:
   * Added `ICommonsCollection.setAllMapped`
   * Added class `CommonsMock` - a very simple mocking engine
   * Added `EMimeContentType.FONT`
+  * Extended `TreeXMLConverter` API to be able to reuse existing trees for filling
 * v9.0.2 - 2018-03-22
   * Made setter methods of `JAXB*Builder` final so that they can be called from derived constructors
   * Improved Java 9 compliance
