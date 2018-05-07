@@ -13,4 +13,5 @@ hs_err_pid*
 /target/
 /**/.pmd
 /**/*.iml
+.idea/
 /**/pom.xml.versionsBackup

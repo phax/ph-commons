@@ -98,9 +98,7 @@
             <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)",
 osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",
 osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.xml.microdom.convert.IMicroTypeConverterRegistrarSPI)"; cardinality:=multiple</Require-Capability>
-            <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.xml.microdom.convert.BasicMicroTypeConverterRegistrar,
-osgi.serviceloader; osgi.serviceloader=com.helger.xml.microdom.convert.MultilingualTextMicroTypeConverterRegistrar,
-osgi.serviceloader; osgi.serviceloader=com.helger.xml.util.mime.MimeTypeInfoMicroTypeConverterRegistrar</Provide-Capability>
+            <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.xml.microdom.convert.IMicroTypeConverterRegistrarSPI</Provide-Capability>
           </instructions>
         </configuration>
       </plugin>
