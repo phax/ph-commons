@@ -79,18 +79,12 @@ osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.commons.hashcode.IHa
 osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.commons.serialize.convert.ISerializationConverterRegistrarSPI)"; cardinality:=multiple,
 osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.commons.thirdparty.IThirdPartyModuleProviderSPI)"; cardinality:=multiple,
 osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.commons.typeconvert.ITypeConverterRegistrarSPI)"; cardinality:=multiple,
-osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.commons.url.IURLProtocolRegistrarSPI)"; cardinality:=multiple</Require-Capability>
-            <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.commons.equals.DefaultEqualsImplementationRegistrarSPI,
-osgi.serviceloader; osgi.serviceloader=com.helger.commons.hashcode.DefaultHashCodeImplementationRegistrarSPI,
-osgi.serviceloader; osgi.serviceloader=com.helger.commons.serialize.convert.BasicSerializationConverterRegistrar,
-osgi.serviceloader; osgi.serviceloader=com.helger.commons.thirdparty.ThirdPartyModuleProvider_ph_commons,
-osgi.serviceloader; osgi.serviceloader=com.helger.commons.typeconvert.BaseTypeConverterRegistrar,
-osgi.serviceloader; osgi.serviceloader=com.helger.commons.typeconvert.CharsetTypeConverterRegistrar,
-osgi.serviceloader; osgi.serviceloader=com.helger.commons.typeconvert.CollectionTypeConverterRegistrar,
-osgi.serviceloader; osgi.serviceloader=com.helger.commons.typeconvert.DateTimeTypeConverterRegistrar,
-osgi.serviceloader; osgi.serviceloader=com.helger.commons.typeconvert.IOTypeConverterRegistrar,
-osgi.serviceloader; osgi.serviceloader=com.helger.commons.typeconvert.LocaleTypeConverterRegistrar,
-osgi.serviceloader; osgi.serviceloader=com.helger.commons.typeconvert.MutableTypeConverterRegistrar</Provide-Capability>
+osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.commons.url.IURLProtocolRegistrarSPI)"; cardinality:=multiple; resolution:=optional</Require-Capability>
+            <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.commons.equals.IEqualsImplementationRegistrarSPI,
+osgi.serviceloader; osgi.serviceloader=com.helger.commons.hashcode.IHashCodeImplementationRegistrarSPI,
+osgi.serviceloader; osgi.serviceloader=com.helger.commons.serialize.convert.ISerializationConverterRegistrarSPI,
+osgi.serviceloader; osgi.serviceloader=com.helger.commons.thirdparty.IThirdPartyModuleProviderSPI,
+osgi.serviceloader; osgi.serviceloader=com.helger.commons.typeconvert.ITypeConverterRegistrarSPI</Provide-Capability>
           </instructions>
         </configuration>
       </plugin>
