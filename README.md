@@ -27,7 +27,7 @@ This project was the following modules:
 
 ## News and noteworthy
 
-* v9.1.0 - work in progress
+* v9.1.0 - 2018-05-08
   * Fixed invalid call in `ValueEnforcer.isEqual`
   * `AbstractJAXBBuilder` got an explicit possibility to disable XML schema usage
   * Improved Java version identification by adding support for JEP 223 identifiers
@@ -38,6 +38,7 @@ This project was the following modules:
   * Added class `CommonsMock` - a very simple mocking engine
   * Added `EMimeContentType.FONT`
   * Extended `TreeXMLConverter` API to be able to reuse existing trees for filling
+  * Fixed OSGI ServiceProvider configuration
 * v9.0.2 - 2018-03-22
   * Made setter methods of `JAXB*Builder` final so that they can be called from derived constructors
   * Improved Java 9 compliance
