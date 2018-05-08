@@ -25,6 +25,7 @@ import javax.annotation.Nonnull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.annotation.IsSPIInterface;
 import com.helger.commons.annotation.ReturnsMutableCopy;
@@ -43,7 +44,9 @@ import com.helger.commons.string.StringHelper;
 
 public final class SPITestHelper
 {
+  /** Project relative path to test SPI directory */
   public static final String TEST_SERVICES = "src/test/resources/META-INF/services";
+  /** Project relative path to main SPI directory */
   public static final String MAIN_SERVICES = "src/main/resources/META-INF/services";
 
   private static final Logger s_aLogger = LoggerFactory.getLogger (SPITestHelper.class);
@@ -70,11 +73,27 @@ public final class SPITestHelper
     }
   }
 
+  /**
+   * Test if all SPI configurations and implementations are correctly
+   * configured.
+   *
+   * @param sBaseDir
+   *        Base directory. May not be <code>null</code>.
+   * @param eMode
+   *        Validation mode. May not be <code>null</code>.
+   * @return A map from interface to all found implementations in the order of
+   *         appearance.
+   * @throws IOException
+   *         In case of read error
+   */
   @Nonnull
   @ReturnsMutableCopy
   public static ICommonsSortedMap <String, ICommonsSortedSet <String>> testIfAllSPIImplementationsAreValid (@Nonnull final String sBaseDir,
                                                                                                             @Nonnull final EMode eMode) throws IOException
   {
+    ValueEnforcer.notNull (sBaseDir, "BaseDir");
+    ValueEnforcer.notNull (eMode, "Mode");
+
     final boolean bDoResolve = eMode.isResolve ();
     final ClassLoader aCL = ReflectionSecurityManager.INSTANCE.getCallerClass (1).getClassLoader ();
     final ICommonsSortedMap <String, ICommonsSortedSet <String>> aAllImplementations = new CommonsTreeMap <> ();
