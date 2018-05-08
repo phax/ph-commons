@@ -67,7 +67,7 @@
             <Export-Package>com.helger.charset.*</Export-Package>
             <Import-Package>!javax.annotation.*,*</Import-Package>
             <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)"</Require-Capability>
-            <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.charset.utf7.UTF7CharsetProviderSPI</Provide-Capability>
+            <Provide-Capability>osgi.serviceloader; osgi.serviceloader=java.nio.charset.spi.CharsetProvider</Provide-Capability>
           </instructions>
         </configuration>
       </plugin>
