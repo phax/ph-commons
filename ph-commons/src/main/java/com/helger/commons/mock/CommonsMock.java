@@ -226,10 +226,12 @@ public final class CommonsMock
      *        The supplier/factory without parameters to be used. May not be
      *        <code>null</code>.
      * @return Never <code>null</code>.
+     * @param <T>
+     *        The type to be mocked
      */
     @Nonnull
-    public static MockSupplier createNoParams (@Nonnull final Class <?> aDstClass,
-                                               @Nonnull final Supplier <?> aSupplier)
+    public static <T> MockSupplier createNoParams (@Nonnull final Class <T> aDstClass,
+                                                   @Nonnull final Supplier <T> aSupplier)
     {
       ValueEnforcer.notNull (aDstClass, "DstClass");
       ValueEnforcer.notNull (aSupplier, "Supplier");
@@ -333,6 +335,8 @@ public final class CommonsMock
    * @param aObject
    *        The object to be used as a mock result. May not be <code>null</code>
    *        .
+   * @param <T>
+   *        The type to be mocked
    */
   public static final <T> void registerStaticConstant (@Nonnull final T aObject)
   {
@@ -430,6 +434,8 @@ public final class CommonsMock
    * @param aObject
    *        The object to be used as a mock result. May not be <code>null</code>
    *        .
+   * @param <T>
+   *        The type to be mocked
    */
   public final <T> void registerPerInstanceConstant (@Nonnull final T aObject)
   {
@@ -580,6 +586,8 @@ public final class CommonsMock
    * @return The mocked object. Never <code>null</code>.
    * @throws IllegalStateException
    *         If an exception occurred during the mock instance creation.
+   * @param <T>
+   *        The type to be mocked
    */
   @Nonnull
   public <T> T mock (@Nonnull final Class <T> aClass, @Nullable final Object... aParams)
@@ -611,6 +619,8 @@ public final class CommonsMock
    *        An optional array of parameters to be passed to the mocking supplier
    *        for each object to be mocked. May be <code>null</code> or empty.
    * @return The list with <code>nCount</code> entries.
+   * @param <T>
+   *        The type to be mocked
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -635,6 +645,8 @@ public final class CommonsMock
    *        An optional array of parameters to be passed to the mocking supplier
    *        for each object to be mocked. May be <code>null</code> or empty.
    * @return The set with <code>nCount</code> entries.
+   * @param <T>
+   *        The type to be mocked
    */
   @Nonnull
   @ReturnsMutableCopy
