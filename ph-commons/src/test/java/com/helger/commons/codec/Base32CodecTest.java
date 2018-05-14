@@ -63,6 +63,7 @@ public final class Base32CodecTest
     assertNull (aBase32.getEncodedAsString ((String) null, CHARSET));
     assertEquals ("", aBase32.getEncodedAsString (new byte [0], CHARSET));
     assertEquals ("AA======", aBase32.getEncodedAsString (new byte [] { 0 }, CHARSET));
+    assertEquals ("74======", aBase32.getEncodedAsString (new byte [] { (byte) 0xff }, CHARSET));
     assertEquals ("IE======", aBase32.getEncodedAsString ("A", CHARSET));
     assertEquals ("MY======", aBase32.getEncodedAsString ("f", CHARSET));
     assertEquals ("IFBA====", aBase32.getEncodedAsString ("AB", CHARSET));
@@ -76,6 +77,7 @@ public final class Base32CodecTest
 
     aBase32.setAddPaddding (false);
     assertEquals ("AA", aBase32.getEncodedAsString (new byte [] { 0 }, CHARSET));
+    assertEquals ("74", aBase32.getEncodedAsString (new byte [] { (byte) 0xff }, CHARSET));
     assertEquals ("IE", aBase32.getEncodedAsString ("A", CHARSET));
     assertEquals ("MY", aBase32.getEncodedAsString ("f", CHARSET));
     assertEquals ("IFBA", aBase32.getEncodedAsString ("AB", CHARSET));
