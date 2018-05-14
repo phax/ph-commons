@@ -27,6 +27,8 @@ This project was the following modules:
 
 ## News and noteworthy
 
+* v9.1.1 - work in progress
+  * Really fixed OSGI ServiceProvider configuration
 * v9.1.0 - 2018-05-08
   * Fixed invalid call in `ValueEnforcer.isEqual`
   * `AbstractJAXBBuilder` got an explicit possibility to disable XML schema usage

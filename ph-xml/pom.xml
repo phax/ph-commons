@@ -76,8 +76,7 @@
         </exclusion>
       </exclusions>
     </dependency>
-    <!-- OSGI container is required for a test case -->
-    <dependency>
+    <!-- OSGI container is required for a test case -->    <dependency>
       <groupId>org.apache.felix</groupId>
       <artifactId>org.apache.felix.framework</artifactId>
       <version>5.6.10</version>
@@ -97,7 +96,7 @@
             <Import-Package>!javax.annotation.*,*</Import-Package>
             <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)",
 osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",
-osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.xml.microdom.convert.IMicroTypeConverterRegistrarSPI)"; cardinality:=multiple</Require-Capability>
+osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.xml.microdom.convert.IMicroTypeConverterRegistrarSPI)"; cardinality:=multiple; resolution:=optional</Require-Capability>
             <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.xml.microdom.convert.IMicroTypeConverterRegistrarSPI</Provide-Capability>
           </instructions>
         </configuration>
