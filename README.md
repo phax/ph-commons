@@ -27,6 +27,8 @@ This project was the following modules:
 
 ## News and noteworthy
 
+* v9.1.2 - work in progress
+  * Made setters of `WSClientConfig` final
 * v9.1.1 - 2018-05-14
   * Really fixed OSGI ServiceProvider configuration
 * v9.1.0 - 2018-05-08

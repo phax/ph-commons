@@ -128,7 +128,7 @@ public class WSClientConfig
    * @return this for chaining
    */
   @Nonnull
-  public WSClientConfig setSSLSocketFactoryTrustAll () throws KeyManagementException
+  public final WSClientConfig setSSLSocketFactoryTrustAll () throws KeyManagementException
   {
     try
     {
@@ -152,7 +152,7 @@ public class WSClientConfig
    * @return this for chaining
    */
   @Nonnull
-  public WSClientConfig setSSLSocketFactory (@Nullable final SSLSocketFactory aSSLSocketFactory)
+  public final WSClientConfig setSSLSocketFactory (@Nullable final SSLSocketFactory aSSLSocketFactory)
   {
     m_aSSLSocketFactory = aSSLSocketFactory;
     return this;
@@ -174,7 +174,7 @@ public class WSClientConfig
    * @return this for chaining
    */
   @Nonnull
-  public WSClientConfig setHostnameVerifierTrustAll ()
+  public final WSClientConfig setHostnameVerifierTrustAll ()
   {
     return setHostnameVerifier (new HostnameVerifierVerifyAll ());
   }
@@ -188,7 +188,7 @@ public class WSClientConfig
    * @return this for chaining
    */
   @Nonnull
-  public WSClientConfig setHostnameVerifier (@Nullable final HostnameVerifier aHostnameVerifier)
+  public final WSClientConfig setHostnameVerifier (@Nullable final HostnameVerifier aHostnameVerifier)
   {
     m_aHostnameVerifier = aHostnameVerifier;
     return this;
@@ -211,7 +211,7 @@ public class WSClientConfig
    * @return this for chaining
    */
   @Nonnull
-  public WSClientConfig setConnectionTimeoutMS (final int nConnectionTimeoutMS)
+  public final WSClientConfig setConnectionTimeoutMS (final int nConnectionTimeoutMS)
   {
     m_nConnectionTimeoutMS = nConnectionTimeoutMS;
     return this;
@@ -234,7 +234,7 @@ public class WSClientConfig
    * @return this for chaining
    */
   @Nonnull
-  public WSClientConfig setRequestTimeoutMS (final int nRequestTimeoutMS)
+  public final WSClientConfig setRequestTimeoutMS (final int nRequestTimeoutMS)
   {
     m_nRequestTimeoutMS = nRequestTimeoutMS;
     return this;
@@ -261,7 +261,7 @@ public class WSClientConfig
    * @since 8.5.7
    */
   @Nonnull
-  public WSClientConfig setChunkSize (final int nChunkSize)
+  public final WSClientConfig setChunkSize (final int nChunkSize)
   {
     m_nChunkSize = nChunkSize;
     return this;
@@ -294,7 +294,7 @@ public class WSClientConfig
    * @return this for chaining
    */
   @Nonnull
-  public WSClientConfig setUserName (@Nullable final String sUserName)
+  public final WSClientConfig setUserName (@Nullable final String sUserName)
   {
     m_sUserName = sUserName;
     return this;
@@ -327,7 +327,7 @@ public class WSClientConfig
    * @return this for chaining
    */
   @Nonnull
-  public WSClientConfig setPassword (@Nullable final String sPassword)
+  public final WSClientConfig setPassword (@Nullable final String sPassword)
   {
     m_sPassword = sPassword;
     return this;
@@ -360,7 +360,7 @@ public class WSClientConfig
    * @return this for chaining
    */
   @Nonnull
-  public WSClientConfig setSOAPAction (@Nullable final String sSOAPAction)
+  public final WSClientConfig setSOAPAction (@Nullable final String sSOAPAction)
   {
     m_sSOAPAction = sSOAPAction;
     return this;
@@ -384,7 +384,7 @@ public class WSClientConfig
    * @return this for chaining
    */
   @Nonnull
-  public WSClientConfig setCompressedRequest (final boolean bCompress)
+  public final WSClientConfig setCompressedRequest (final boolean bCompress)
   {
     if (bCompress)
       m_aHTTPHeaders.setHeader (CHttpHeader.CONTENT_ENCODING, "gzip");
@@ -402,7 +402,7 @@ public class WSClientConfig
    * @return this for chaining
    */
   @Nonnull
-  public WSClientConfig setCompressedResponse (final boolean bCompress)
+  public final WSClientConfig setCompressedResponse (final boolean bCompress)
   {
     if (bCompress)
       m_aHTTPHeaders.setHeader (CHttpHeader.ACCEPT_ENCODING, "gzip");
@@ -417,7 +417,7 @@ public class WSClientConfig
   }
 
   @Nonnull
-  public WSClientConfig setCookiesSupportEnabled (final boolean bEnabled)
+  public final WSClientConfig setCookiesSupportEnabled (final boolean bEnabled)
   {
     m_eCookiesSupport = ETriState.valueOf (bEnabled);
     return this;
@@ -430,20 +430,30 @@ public class WSClientConfig
    *        The handler to be added. May not be <code>null</code>
    * @return this for chaining
    */
+  @Deprecated
   @Nonnull
-  public WSClientConfig addHandler (@Nonnull final Handler <? extends MessageContext> aHandler)
+  public final WSClientConfig addHandler (@Nonnull final Handler <? extends MessageContext> aHandler)
   {
     ValueEnforcer.notNull (aHandler, "Handler");
     m_aHandlers.add (aHandler);
     return this;
   }
 
+  @Nonnull
+  @ReturnsMutableObject
+  public ICommonsList <Handler <? extends MessageContext>> handlers ()
+  {
+    return m_aHandlers;
+  }
+
+  @Deprecated
   @Nonnegative
   public int getHandlerCount ()
   {
     return m_aHandlers.size ();
   }
 
+  @Deprecated
   @Nonnull
   @ReturnsMutableCopy
   public ICommonsList <Handler <? extends MessageContext>> getAllHandlers ()
