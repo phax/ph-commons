@@ -85,7 +85,9 @@ public class JAXBDocumentType implements IJAXBDocumentType
     // Check whether it is an @XmlType class
     final XmlType aXmlType = aClass.getAnnotation (XmlType.class);
     if (aXmlType == null)
-      throw new IllegalArgumentException ("The passed class does not have an @XmlType annotation!");
+      throw new IllegalArgumentException ("The passed class '" +
+                                          aClass.getName () +
+                                          "' does not have an @XmlType annotation!");
 
     // Get the package of the passed Class
     final Package aPackage = aClass.getPackage ();
@@ -108,6 +110,7 @@ public class JAXBDocumentType implements IJAXBDocumentType
     final XmlRootElement aRootElement = aClass.getAnnotation (XmlRootElement.class);
     if (aRootElement != null)
     {
+      // Annotation is present
       sNamespaceURI = aRootElement.namespace ();
       if ("##default".equals (sNamespaceURI) && aXmlSchema != null)
         sNamespaceURI = aXmlSchema.namespace ();
@@ -125,6 +128,7 @@ public class JAXBDocumentType implements IJAXBDocumentType
         sNamespaceURI = null;
       sLocalName = aXmlType.name ();
     }
+    // Call customizer (if provided)
     if (aTypeToElementNameMapper != null)
       sLocalName = aTypeToElementNameMapper.apply (sLocalName);
     if (StringHelper.hasNoText (sLocalName))
