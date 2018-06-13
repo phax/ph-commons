@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (C) 2014-2018 Philip Helger (www.helger.com)
+    Original copyright by Apache Software Foundation
+    Copyright (C) 2017-2018 Philip Helger (www.helger.com)
     philip[at]helger[dot]com
 
     Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,12 +25,12 @@
     <artifactId>ph-commons-parent-pom</artifactId>
     <version>9.1.2-SNAPSHOT</version>
   </parent>
-  <artifactId>ph-security</artifactId>
+  <artifactId>ph-bc</artifactId>
   <packaging>bundle</packaging>
-  <name>ph-security</name>
-  <description>Special Java 1.8+ Library with security related functionality</description>
-  <url>https://github.com/phax/ph-commons/ph-security</url>
-  <inceptionYear>2016</inceptionYear>
+  <name>ph-bc</name>
+  <description>BouncyCastle common use case wrapper</description>
+  <url>https://github.com/phax/ph-commons/ph-bc</url>
+  <inceptionYear>2018</inceptionYear>
   <licenses>
     <license>
       <name>Apache 2</name>
@@ -55,14 +56,12 @@
       <artifactId>ph-commons</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.helger</groupId>
-      <artifactId>ph-bc</artifactId>
-      <scope>test</scope>
+      <groupId>org.bouncycastle</groupId>
+      <artifactId>bcprov-jdk15on</artifactId>
     </dependency>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
+      <groupId>org.bouncycastle</groupId>
+      <artifactId>bcpkix-jdk15on</artifactId>
     </dependency>
   </dependencies>
   <build>
@@ -73,12 +72,9 @@
         <extensions>true</extensions>
         <configuration>
           <instructions>
-            <Automatic-Module-Name>com.helger.security</Automatic-Module-Name>
-            <Export-Package>com.helger.security.*</Export-Package>
+            <Automatic-Module-Name>com.helger.bc</Automatic-Module-Name>
+            <Export-Package>com.helger.bc.*</Export-Package>
             <Import-Package>!javax.annotation.*,*</Import-Package>
-            <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",
-osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.security.authentication.credentials.IAuthCredentialToSubjectResolverSPI)"; cardinality:=multiple; resolution:=optional,
-osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.security.authentication.credentials.IAuthCredentialValidatorSPI)"; cardinality:=multiple; resolution:=optional</Require-Capability>
           </instructions>
         </configuration>
       </plugin>

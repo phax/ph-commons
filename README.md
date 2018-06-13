@@ -8,6 +8,7 @@ Version 8.x was re-designed to best work with JDK 8.
 So please ensure to not mix 5.x, 6.x and 8x. versions of ph-commons!
 
 This project was the following modules:
+  * ph-bc - BouncyCastle support library (since 9.1.2)
   * ph-charset - support for additional character sets (e.g. UTF-7)
   * ph-cli - library with commandline parameter definition support; loosely based on commons-cli
   * ph-collection - library with extended collection related classes
@@ -29,7 +30,8 @@ This project was the following modules:
 
 * v9.1.2 - work in progress
   * Made setters of `WSClientConfig` final
-  * Changed method name in `CharsetHelper` from `getCharsetFromNameOrNull` to `getCharsetFromNameOrDefault`  
+  * Changed method name in `CharsetHelper` from `getCharsetFromNameOrNull` to `getCharsetFromNameOrDefault`
+  * Added new sub-project `ph-bc` with some common BouncyCastle helper methods
 * v9.1.1 - 2018-05-14
   * Really fixed OSGI ServiceProvider configuration
 * v9.1.0 - 2018-05-08

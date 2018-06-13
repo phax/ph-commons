@@ -30,23 +30,23 @@ import java.security.KeyPairGenerator;
 import java.security.KeyStore;
 import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.security.Security;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.annotation.Nonnull;
 import javax.security.auth.x500.X500Principal;
 
 import org.bouncycastle.cert.X509CertificateHolder;
 import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
 import org.bouncycastle.cert.jcajce.JcaX509v1CertificateBuilder;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.operator.ContentSigner;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.helger.bc.PBCProvider;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 
@@ -60,10 +60,10 @@ public final class KeyStoreHelperTest
   @BeforeClass
   public static void init ()
   {
-    if (Security.getProvider (BouncyCastleProvider.PROVIDER_NAME) == null)
-      Security.addProvider (new BouncyCastleProvider ());
+    PBCProvider.getProvider ();
   }
 
+  @Nonnull
   private static KeyPair _createKeyPair (final int nKeySizeInBits) throws Exception
   {
     final KeyPairGenerator aGenerator = KeyPairGenerator.getInstance ("RSA");
@@ -72,12 +72,13 @@ public final class KeyStoreHelperTest
     return keyPair;
   }
 
+  @Nonnull
   private static X509Certificate _createX509V1Certificate (final KeyPair aKeyPair) throws Exception
   {
     // generate the certificate
     final PublicKey aPublicKey = aKeyPair.getPublic ();
     final PrivateKey aPrivateKey = aKeyPair.getPrivate ();
-    final ContentSigner aContentSigner = new JcaContentSignerBuilder ("SHA256WithRSA").setProvider (BouncyCastleProvider.PROVIDER_NAME)
+    final ContentSigner aContentSigner = new JcaContentSignerBuilder ("SHA256WithRSA").setProvider (PBCProvider.getProvider ())
                                                                                       .build (aPrivateKey);
 
     final X509CertificateHolder aCertHolder = new JcaX509v1CertificateBuilder (new X500Principal ("CN=Test Certificate"),

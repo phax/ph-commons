@@ -64,6 +64,7 @@
   <properties>
     <!-- For surefire plugin (use property for JaCoCo integration -->
     <argLine>-Xmx1024m</argLine>
+    <bc.version>1.59</bc.version>
   </properties>
   
   <dependencyManagement>
@@ -77,7 +78,17 @@
       <dependency>
         <groupId>org.bouncycastle</groupId>
         <artifactId>bcpkix-jdk15on</artifactId>
-        <version>1.59</version>
+        <version>${bc.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.bouncycastle</groupId>
+        <artifactId>bcprov-jdk15on</artifactId>
+        <version>${bc.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.bouncycastle</groupId>
+        <artifactId>bcmail-jdk15on</artifactId>
+        <version>${bc.version}</version>
       </dependency>
 
       <dependency>
@@ -103,6 +114,11 @@
       <dependency>
         <groupId>com.helger</groupId>
         <artifactId>ph-cli</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger</groupId>
+        <artifactId>ph-bc</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
@@ -212,6 +228,7 @@
     <module>ph-collection</module>
     <module>ph-scopes</module>
     <module>ph-cli</module>
+    <module>ph-bc</module>
     <module>ph-security</module>
     <module>ph-xml</module>
     <module>ph-jaxb</module>
