@@ -43,7 +43,6 @@ import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
 import org.bouncycastle.cert.jcajce.JcaX509v1CertificateBuilder;
 import org.bouncycastle.operator.ContentSigner;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.helger.bc.PBCProvider;
@@ -57,12 +56,6 @@ import com.helger.commons.io.resource.ClassPathResource;
  */
 public final class KeyStoreHelperTest
 {
-  @BeforeClass
-  public static void init ()
-  {
-    PBCProvider.getProvider ();
-  }
-
   @Nonnull
   private static KeyPair _createKeyPair (final int nKeySizeInBits) throws Exception
   {

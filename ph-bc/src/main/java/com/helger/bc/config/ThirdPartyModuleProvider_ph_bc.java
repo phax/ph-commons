@@ -1,5 +1,6 @@
 /**
- * Copyright (C) 2014-2018 Philip Helger (www.helger.com)
+ * Original copyright by Apache Software Foundation
+ * Copyright (C) 2017-2018 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
