@@ -28,8 +28,17 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 @Immutable
 public final class CMimeType
 {
+  /** Atom XML feed. */
+  public static final IMimeType APPLICATION_ATOM_XML = EMimeContentType.APPLICATION.buildMimeType ("atom+xml");
+
+  /** Downloadable document. Special MimeType not used with filenames! */
+  public static final IMimeType APPLICATION_FORCE_DOWNLOAD = EMimeContentType.APPLICATION.buildMimeType ("force-download");
+
   /** GZip document. */
   public static final IMimeType APPLICATION_GZIP = EMimeContentType.APPLICATION.buildMimeType ("gzip");
+
+  /** Java applet */
+  public static final IMimeType APPLICATION_JAVA_APPLET = EMimeContentType.APPLICATION.buildMimeType ("java-applet");
 
   /** Word document. */
   public static final IMimeType APPLICATION_MS_WORD = EMimeContentType.APPLICATION.buildMimeType ("msword");
@@ -55,35 +64,32 @@ public final class CMimeType
   /** PDF document. */
   public static final IMimeType APPLICATION_PDF = EMimeContentType.APPLICATION.buildMimeType ("pdf");
 
-  /** Downloadable document. Special MimeType not used with filenames! */
-  public static final IMimeType APPLICATION_FORCE_DOWNLOAD = EMimeContentType.APPLICATION.buildMimeType ("force-download");
-
   /** ZIP document. */
   public static final IMimeType APPLICATION_ZIP = EMimeContentType.APPLICATION.buildMimeType ("zip");
 
   /** JSON document. */
   public static final IMimeType APPLICATION_JSON = EMimeContentType.APPLICATION.buildMimeType ("json");
 
-  /** Atom XML feed. */
-  public static final IMimeType APPLICATION_ATOM_XML = EMimeContentType.APPLICATION.buildMimeType ("atom+xml");
+  /** OCSP request document. */
+  public static final IMimeType APPLICATION_OCSP_REQUEST = EMimeContentType.APPLICATION.buildMimeType ("ocsp-request");
+
+  /** OCSP response document. */
+  public static final IMimeType APPLICATION_OCSP_RESPONSE = EMimeContentType.APPLICATION.buildMimeType ("ocsp-response");
 
   /** RSS XML feed. */
   public static final IMimeType APPLICATION_RSS_XML = EMimeContentType.APPLICATION.buildMimeType ("rss+xml");
 
-  /** SOAP XML. */
-  public static final IMimeType APPLICATION_SOAP_XML = EMimeContentType.APPLICATION.buildMimeType ("soap+xml");
-
   /** Shockwave/Flash */
   public static final IMimeType APPLICATION_SHOCKWAVE_FLASH = EMimeContentType.APPLICATION.buildMimeType ("x-shockwave-flash");
 
-  /** Java applet */
-  public static final IMimeType APPLICATION_JAVA_APPLET = EMimeContentType.APPLICATION.buildMimeType ("java-applet");
-
-  /** XML document. */
-  public static final IMimeType APPLICATION_XML = EMimeContentType.APPLICATION.buildMimeType ("xml");
+  /** SOAP XML. */
+  public static final IMimeType APPLICATION_SOAP_XML = EMimeContentType.APPLICATION.buildMimeType ("soap+xml");
 
   /** For URL posting. Not used in filenames! */
   public static final IMimeType APPLICATION_X_WWW_FORM_URLENCODED = EMimeContentType.APPLICATION.buildMimeType ("x-www-form-urlencoded");
+
+  /** XML document. */
+  public static final IMimeType APPLICATION_XML = EMimeContentType.APPLICATION.buildMimeType ("xml");
 
   /** For MP3 files */
   public static final IMimeType AUDIO_MP3 = EMimeContentType.AUDIO.buildMimeType ("mpeg");
