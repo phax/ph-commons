@@ -71,17 +71,18 @@ public class CommonsLinkedList <ELEMENTTYPE> extends LinkedList <ELEMENTTYPE> im
     addAllMapped (aValues, aMapper);
   }
 
+  @Override
   @Nonnull
   @ReturnsMutableCopy
   public <T> CommonsLinkedList <T> createInstance ()
   {
-    return new CommonsLinkedList<> ();
+    return new CommonsLinkedList <> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public CommonsLinkedList <ELEMENTTYPE> getClone ()
   {
-    return new CommonsLinkedList<> (this);
+    return new CommonsLinkedList <> (this);
   }
 }

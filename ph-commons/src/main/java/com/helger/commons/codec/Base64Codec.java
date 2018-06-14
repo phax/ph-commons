@@ -43,6 +43,7 @@ public class Base64Codec implements IByteArrayCodec
   public Base64Codec ()
   {}
 
+  @Override
   public int getEncodedLength (final int nLen)
   {
     return MathHelper.getRoundedUp (nLen * 4 / 3, 4);
@@ -68,6 +69,7 @@ public class Base64Codec implements IByteArrayCodec
 
   @Nullable
   @ReturnsMutableCopy
+  @Override
   public byte [] getEncoded (@Nullable final byte [] aDecodedBuffer,
                              @Nonnegative final int nOfs,
                              @Nonnegative final int nLen)
@@ -75,6 +77,7 @@ public class Base64Codec implements IByteArrayCodec
     return Base64.safeEncodeBytesToBytes (aDecodedBuffer, nOfs, nLen);
   }
 
+  @Override
   public int getDecodedLength (final int nLen)
   {
     return MathHelper.getRoundedUp (nLen, 4) * 3 / 4;
@@ -100,6 +103,7 @@ public class Base64Codec implements IByteArrayCodec
 
   @Nullable
   @ReturnsMutableCopy
+  @Override
   public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
                              @Nonnegative final int nOfs,
                              @Nonnegative final int nLen)

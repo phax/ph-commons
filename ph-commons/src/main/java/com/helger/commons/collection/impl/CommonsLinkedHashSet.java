@@ -35,8 +35,8 @@ import com.helger.commons.collection.CollectionHelper;
  * @param <ELEMENTTYPE>
  *        Set element type
  */
-public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTYPE>
-                                  implements ICommonsOrderedSet <ELEMENTTYPE>
+public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTYPE> implements
+                                  ICommonsOrderedSet <ELEMENTTYPE>
 {
   public CommonsLinkedHashSet ()
   {}
@@ -96,17 +96,18 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
     addAllMapped (aValues, aMapper);
   }
 
+  @Override
   @Nonnull
   @ReturnsMutableCopy
   public <T> CommonsLinkedHashSet <T> createInstance ()
   {
-    return new CommonsLinkedHashSet<> ();
+    return new CommonsLinkedHashSet <> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public CommonsLinkedHashSet <ELEMENTTYPE> getClone ()
   {
-    return new CommonsLinkedHashSet<> (this);
+    return new CommonsLinkedHashSet <> (this);
   }
 }

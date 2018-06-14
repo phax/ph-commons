@@ -93,7 +93,7 @@ public class IntObjectMap <T> implements IHasSize, Serializable
 
   @Nonnull
   @ReturnsMutableCopy
-  private T [] _createValueArray (@Nonnegative final int nSize)
+  private static <T> T [] _createValueArray (@Nonnegative final int nSize)
   {
     final Object [] ret = new Object [nSize];
     Arrays.fill (ret, NO_VALUE);

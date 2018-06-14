@@ -515,9 +515,8 @@ public class MimeTypeInfoManager
     ValueEnforcer.notNull (sExtension, "Extension");
 
     final ICommonsList <MimeTypeInfo> aInfos = getAllInfosOfExtension (sExtension);
-    if (aInfos != null)
-      for (final MimeTypeInfo aInfo : aInfos)
-        return aInfo.getPrimaryMimeType ();
+    if (aInfos != null && aInfos.isNotEmpty ())
+      return aInfos.getFirst ().getPrimaryMimeType ();
     return null;
   }
 
@@ -536,9 +535,8 @@ public class MimeTypeInfoManager
     ValueEnforcer.notNull (sExtension, "Extension");
 
     final ICommonsList <MimeTypeInfo> aInfos = getAllInfosOfExtension (sExtension);
-    if (aInfos != null)
-      for (final MimeTypeInfo aInfo : aInfos)
-        return aInfo.getPrimaryMimeTypeString ();
+    if (aInfos != null && aInfos.isNotEmpty ())
+      return aInfos.getFirst ().getPrimaryMimeTypeString ();
     return null;
   }
 

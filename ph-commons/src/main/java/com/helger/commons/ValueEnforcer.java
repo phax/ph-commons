@@ -69,7 +69,8 @@ public final class ValueEnforcer
   public static void setEnabled (final boolean bEnabled)
   {
     s_aEnabled.set (bEnabled);
-    s_aLogger.info ("ValueEnforcer checks are now " + (bEnabled ? "enabled" : "disabled"));
+    if (s_aLogger.isInfoEnabled ())
+      s_aLogger.info ("ValueEnforcer checks are now " + (bEnabled ? "enabled" : "disabled"));
   }
 
   /**

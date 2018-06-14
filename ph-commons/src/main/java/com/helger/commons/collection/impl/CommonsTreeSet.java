@@ -78,18 +78,19 @@ public class CommonsTreeSet <ELEMENTTYPE> extends TreeSet <ELEMENTTYPE> implemen
     addAllMapped (aValues, aMapper);
   }
 
+  @Override
   @Nonnull
   @ReturnsMutableCopy
   public <T> CommonsTreeSet <T> createInstance ()
   {
-    return new CommonsTreeSet<> ();
+    return new CommonsTreeSet <> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public CommonsTreeSet <ELEMENTTYPE> getClone ()
   {
-    final CommonsTreeSet <ELEMENTTYPE> ret = new CommonsTreeSet<> (comparator ());
+    final CommonsTreeSet <ELEMENTTYPE> ret = new CommonsTreeSet <> (comparator ());
     ret.addAll (this);
     return ret;
   }

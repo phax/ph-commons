@@ -273,6 +273,7 @@ public class Cache <KEYTYPE, VALUETYPE> implements IMutableCache <KEYTYPE, VALUE
     return m_aRWLock.readLocked ( () -> CollectionHelper.isEmpty (m_aCache));
   }
 
+  @Override
   public boolean isNotEmpty ()
   {
     return m_aRWLock.readLocked ( () -> CollectionHelper.isNotEmpty (m_aCache));

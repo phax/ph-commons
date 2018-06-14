@@ -37,18 +37,20 @@ import com.helger.commons.collection.CollectionHelper;
  */
 public interface ICommonsOrderedMap <KEYTYPE, VALUETYPE> extends ICommonsMap <KEYTYPE, VALUETYPE>
 {
+  @Override
   @Nonnull
   @ReturnsMutableCopy
   default <K, V> ICommonsOrderedMap <K, V> createInstance ()
   {
-    return new CommonsLinkedHashMap<> ();
+    return new CommonsLinkedHashMap <> ();
   }
 
+  @Override
   @Nonnull
   @ReturnsMutableCopy
   default ICommonsOrderedSet <KEYTYPE> copyOfKeySet ()
   {
-    return new CommonsLinkedHashSet<> (keySet ());
+    return new CommonsLinkedHashSet <> (keySet ());
   }
 
   @Nonnull
@@ -64,7 +66,7 @@ public interface ICommonsOrderedMap <KEYTYPE, VALUETYPE> extends ICommonsMap <KE
   @ReturnsMutableCopy
   default ICommonsOrderedSet <Map.Entry <KEYTYPE, VALUETYPE>> copyOfEntrySet ()
   {
-    return new CommonsLinkedHashSet<> (entrySet ());
+    return new CommonsLinkedHashSet <> (entrySet ());
   }
 
   @Nullable

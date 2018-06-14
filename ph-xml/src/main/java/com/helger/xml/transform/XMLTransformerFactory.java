@@ -102,9 +102,13 @@ public final class XMLTransformerFactory
     {
       aFactory.setFeature (XMLConstants.FEATURE_SECURE_PROCESSING, true);
 
-      final String sCombined = StringHelper.getImplodedNonEmpty (',', aAllowedExternalSchemes);
-      if (sCombined.length () > 0)
-        aFactory.setAttribute (XMLConstants.ACCESS_EXTERNAL_STYLESHEET, sCombined);
+      final String sCombinedSchemes = StringHelper.getImplodedNonEmpty (',', aAllowedExternalSchemes);
+      if (sCombinedSchemes.length () > 0)
+      {
+        aFactory.setAttribute (XMLConstants.ACCESS_EXTERNAL_DTD, sCombinedSchemes);
+        aFactory.setAttribute (XMLConstants.ACCESS_EXTERNAL_SCHEMA, sCombinedSchemes);
+        aFactory.setAttribute (XMLConstants.ACCESS_EXTERNAL_STYLESHEET, sCombinedSchemes);
+      }
     }
     catch (final TransformerConfigurationException ex)
     {

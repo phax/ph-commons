@@ -38,8 +38,8 @@ import com.helger.commons.collection.CollectionHelper;
  * @param <VALUETYPE>
  *        Map value type
  */
-public class CommonsConcurrentHashMap <KEYTYPE, VALUETYPE> extends ConcurrentHashMap <KEYTYPE, VALUETYPE>
-                                      implements ICommonsMap <KEYTYPE, VALUETYPE>
+public class CommonsConcurrentHashMap <KEYTYPE, VALUETYPE> extends ConcurrentHashMap <KEYTYPE, VALUETYPE> implements
+                                      ICommonsMap <KEYTYPE, VALUETYPE>
 {
   public CommonsConcurrentHashMap ()
   {}
@@ -69,17 +69,18 @@ public class CommonsConcurrentHashMap <KEYTYPE, VALUETYPE> extends ConcurrentHas
     putAllMapped (aValues, aKeyMapper, aValueMapper);
   }
 
+  @Override
   @Nonnull
   @ReturnsMutableCopy
   public <K, V> CommonsConcurrentHashMap <K, V> createInstance ()
   {
-    return new CommonsConcurrentHashMap<> ();
+    return new CommonsConcurrentHashMap <> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public CommonsConcurrentHashMap <KEYTYPE, VALUETYPE> getClone ()
   {
-    return new CommonsConcurrentHashMap<> (this);
+    return new CommonsConcurrentHashMap <> (this);
   }
 }

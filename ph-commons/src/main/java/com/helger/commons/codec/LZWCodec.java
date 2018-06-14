@@ -338,9 +338,9 @@ public class LZWCodec implements IByteArrayCodec
 
       aBOS.writeBits (AbstractLZWDictionary.CODE_EOF, nCodeLength);
     }
-    catch (final Throwable t)
+    catch (final Exception ex)
     {
-      throw new EncodeException ("Failed to encode LZW", t);
+      throw new EncodeException ("Failed to encode LZW", ex);
     }
     finally
     {

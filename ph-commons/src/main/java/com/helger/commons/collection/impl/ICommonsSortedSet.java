@@ -59,6 +59,7 @@ public interface ICommonsSortedSet <ELEMENTTYPE> extends SortedSet <ELEMENTTYPE>
     return isEmpty () ? aDefault : last ();
   }
 
+  @Override
   @Nonnull
   @CodingStyleguideUnaware
   default SortedSet <ELEMENTTYPE> getAsUnmodifiable ()

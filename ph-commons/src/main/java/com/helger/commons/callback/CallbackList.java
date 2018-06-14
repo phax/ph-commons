@@ -168,6 +168,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
     return m_aRWLock.readLocked ( () -> m_aCallbacks.iterator ());
   }
 
+  @Override
   public void forEach (@Nonnull final Consumer <? super CALLBACKTYPE> aConsumer)
   {
     // Create a copy to iterate!
@@ -176,13 +177,14 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
       {
         aConsumer.accept (aCallback);
       }
-      catch (final Throwable t)
+      catch (final Exception ex)
       {
-        s_aLogger.error ("Failed to invoke callback " + aCallback, t);
+        s_aLogger.error ("Failed to invoke callback " + aCallback, ex);
       }
   }
 
   @Nonnull
+  @Override
   public EContinue forEachBreakable (@Nonnull final Function <? super CALLBACKTYPE, EContinue> aFunction)
   {
     // Create a copy to iterate!
@@ -192,9 +194,9 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
         if (aFunction.apply (aCallback).isBreak ())
           return EContinue.BREAK;
       }
-      catch (final Throwable t)
+      catch (final Exception ex)
       {
-        s_aLogger.error ("Failed to invoke callback " + aCallback, t);
+        s_aLogger.error ("Failed to invoke callback " + aCallback, ex);
       }
     return EContinue.CONTINUE;
   }

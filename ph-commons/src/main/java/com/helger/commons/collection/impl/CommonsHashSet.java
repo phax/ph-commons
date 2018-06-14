@@ -95,17 +95,18 @@ public class CommonsHashSet <ELEMENTTYPE> extends HashSet <ELEMENTTYPE> implemen
     addAllMapped (aValues, aMapper);
   }
 
+  @Override
   @Nonnull
   @ReturnsMutableCopy
   public <T> CommonsHashSet <T> createInstance ()
   {
-    return new CommonsHashSet<> ();
+    return new CommonsHashSet <> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public CommonsHashSet <ELEMENTTYPE> getClone ()
   {
-    return new CommonsHashSet<> (this);
+    return new CommonsHashSet <> (this);
   }
 }

@@ -37,8 +37,8 @@ import com.helger.commons.collection.CollectionHelper;
  * @param <VALUETYPE>
  *        Map value type
  */
-public class CommonsHashMap <KEYTYPE, VALUETYPE> extends HashMap <KEYTYPE, VALUETYPE>
-                            implements ICommonsMap <KEYTYPE, VALUETYPE>
+public class CommonsHashMap <KEYTYPE, VALUETYPE> extends HashMap <KEYTYPE, VALUETYPE> implements
+                            ICommonsMap <KEYTYPE, VALUETYPE>
 {
   public CommonsHashMap ()
   {}
@@ -68,17 +68,18 @@ public class CommonsHashMap <KEYTYPE, VALUETYPE> extends HashMap <KEYTYPE, VALUE
     putAllMapped (aValues, aKeyMapper, aValueMapper);
   }
 
+  @Override
   @Nonnull
   @ReturnsMutableCopy
   public <K, V> CommonsHashMap <K, V> createInstance ()
   {
-    return new CommonsHashMap<> ();
+    return new CommonsHashMap <> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public CommonsHashMap <KEYTYPE, VALUETYPE> getClone ()
   {
-    return new CommonsHashMap<> (this);
+    return new CommonsHashMap <> (this);
   }
 }

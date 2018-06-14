@@ -25,6 +25,7 @@ import javax.annotation.concurrent.Immutable;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
+import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.exception.InitializationException;
 
 /**
@@ -55,6 +56,12 @@ public final class PBCProvider
     }
     PROVIDER = aProvider;
   }
+
+  @PresentForCodeCoverage
+  private static final PBCProvider s_aInstance = new PBCProvider ();
+
+  private PBCProvider ()
+  {}
 
   /**
    * @return The non-<code>null</code> BouncyCastleProvider instance

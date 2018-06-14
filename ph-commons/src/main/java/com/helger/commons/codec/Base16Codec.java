@@ -42,6 +42,7 @@ public class Base16Codec implements IByteArrayCodec
   public Base16Codec ()
   {}
 
+  @Override
   public int getEncodedLength (final int nLen)
   {
     return nLen * 2;
@@ -82,6 +83,7 @@ public class Base16Codec implements IByteArrayCodec
     }
   }
 
+  @Override
   public int getDecodedLength (final int nLen)
   {
     return nLen / 2;

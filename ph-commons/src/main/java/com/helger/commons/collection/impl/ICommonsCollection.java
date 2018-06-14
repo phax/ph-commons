@@ -64,6 +64,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends
    * @return The number of elements matching the provided filter or the total
    *         number of elements if no filter is provided. Always &ge; 0.
    */
+  @Override
   @Nonnegative
   default int getCount (@Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {

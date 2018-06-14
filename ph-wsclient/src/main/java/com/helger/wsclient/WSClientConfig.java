@@ -132,7 +132,7 @@ public class WSClientConfig
   {
     try
     {
-      final SSLContext aSSLContext = SSLContext.getInstance ("TLS");
+      final SSLContext aSSLContext = SSLContext.getInstance ("TLSv1.2");
       aSSLContext.init (null, new TrustManager [] { new TrustManagerTrustAll () }, VerySecureRandom.getInstance ());
       final SSLSocketFactory aSF = aSSLContext.getSocketFactory ();
       return setSSLSocketFactory (aSF);

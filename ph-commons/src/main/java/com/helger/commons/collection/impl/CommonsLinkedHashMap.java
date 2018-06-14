@@ -38,8 +38,8 @@ import com.helger.commons.collection.CollectionHelper;
  * @param <VALUETYPE>
  *        Map value type
  */
-public class CommonsLinkedHashMap <KEYTYPE, VALUETYPE> extends LinkedHashMap <KEYTYPE, VALUETYPE>
-                                  implements ICommonsOrderedMap <KEYTYPE, VALUETYPE>
+public class CommonsLinkedHashMap <KEYTYPE, VALUETYPE> extends LinkedHashMap <KEYTYPE, VALUETYPE> implements
+                                  ICommonsOrderedMap <KEYTYPE, VALUETYPE>
 {
   public CommonsLinkedHashMap ()
   {}
@@ -76,17 +76,18 @@ public class CommonsLinkedHashMap <KEYTYPE, VALUETYPE> extends LinkedHashMap <KE
     putAllMapped (aValues, aKeyMapper, aValueMapper);
   }
 
+  @Override
   @Nonnull
   @ReturnsMutableCopy
   public <K, V> CommonsLinkedHashMap <K, V> createInstance ()
   {
-    return new CommonsLinkedHashMap<> ();
+    return new CommonsLinkedHashMap <> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public CommonsLinkedHashMap <KEYTYPE, VALUETYPE> getClone ()
   {
-    return new CommonsLinkedHashMap<> (this);
+    return new CommonsLinkedHashMap <> (this);
   }
 }

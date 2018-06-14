@@ -33,8 +33,8 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
  * @param <ELEMENTTYPE>
  *        List element type
  */
-public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayList <ELEMENTTYPE>
-                                         implements ICommonsList <ELEMENTTYPE>
+public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayList <ELEMENTTYPE> implements
+                                         ICommonsList <ELEMENTTYPE>
 {
   public CommonsCopyOnWriteArrayList ()
   {}
@@ -73,17 +73,18 @@ public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayL
     addAllMapped (aValues, aMapper);
   }
 
+  @Override
   @Nonnull
   @ReturnsMutableCopy
   public <T> CommonsCopyOnWriteArrayList <T> createInstance ()
   {
-    return new CommonsCopyOnWriteArrayList<> ();
+    return new CommonsCopyOnWriteArrayList <> ();
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public CommonsCopyOnWriteArrayList <ELEMENTTYPE> getClone ()
   {
-    return new CommonsCopyOnWriteArrayList<> (this);
+    return new CommonsCopyOnWriteArrayList <> (this);
   }
 }

@@ -36,6 +36,7 @@ import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 public interface IByteArrayStreamEncoder extends IByteArrayEncoder
 {
   @Nonnegative
+  @Override
   default int getEncodedLength (@Nonnegative final int nDecodedLen)
   {
     return nDecodedLen;
@@ -91,6 +92,7 @@ public interface IByteArrayStreamEncoder extends IByteArrayEncoder
    * @throws EncodeException
    *         In case something goes wrong
    */
+  @Override
   @Nullable
   @ReturnsMutableCopy
   default byte [] getEncoded (@Nullable final byte [] aDecodedBuffer)
@@ -141,6 +143,7 @@ public interface IByteArrayStreamEncoder extends IByteArrayEncoder
    * @throws EncodeException
    *         In case something goes wrong
    */
+  @Override
   @Nullable
   @ReturnsMutableCopy
   default byte [] getEncoded (@Nullable final String sDecoded, @Nonnull final Charset aCharset)

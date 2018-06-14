@@ -107,6 +107,7 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends
    *         {@link com.helger.commons.CGlobal#ILLEGAL_UINT} if no such
    *         attribute exists
    */
+  @Override
   default int getAsInt (@Nullable final KEYTYPE aName)
   {
     return getAsInt (aName, CGlobal.ILLEGAL_UINT);
@@ -122,6 +123,7 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends
    *         {@link com.helger.commons.CGlobal#ILLEGAL_ULONG} if no such
    *         attribute exists
    */
+  @Override
   default long getAsLong (@Nullable final KEYTYPE aName)
   {
     return getAsLong (aName, CGlobal.ILLEGAL_ULONG);
@@ -137,6 +139,7 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends
    *         {@link com.helger.commons.CGlobal#ILLEGAL_UINT} if no such
    *         attribute exists
    */
+  @Override
   default float getAsFloat (@Nullable final KEYTYPE aName)
   {
     return getAsFloat (aName, CGlobal.ILLEGAL_UINT);
@@ -151,6 +154,7 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends
    *         {@link com.helger.commons.CGlobal#ILLEGAL_UINT} if no such
    *         attribute exists
    */
+  @Override
   default double getAsDouble (@Nullable final KEYTYPE aName)
   {
     return getAsDouble (aName, CGlobal.ILLEGAL_UINT);
@@ -165,6 +169,7 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends
    * @return The attribute value or <code>false</code> if no such attribute
    *         exists
    */
+  @Override
   default boolean getAsBoolean (@Nullable final KEYTYPE aName)
   {
     return getAsBoolean (aName, false);

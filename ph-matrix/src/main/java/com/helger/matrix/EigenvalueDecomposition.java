@@ -470,15 +470,31 @@ public class EigenvalueDecomposition implements Serializable
     {
       final double r = yi / yr;
       final double d = yr + r * yi;
-      m_dCdivr = (xr + r * xi) / d;
-      m_dCdivi = (xi - r * xr) / d;
+      if (d == 0)
+      {
+        m_dCdivr = 0;
+        m_dCdivi = 0;
+      }
+      else
+      {
+        m_dCdivr = (xr + r * xi) / d;
+        m_dCdivi = (xi - r * xr) / d;
+      }
     }
     else
     {
       final double r = yi == 0 ? 0 : yr / yi;
       final double d = yi + r * yr;
-      m_dCdivr = (r * xr + xi) / d;
-      m_dCdivi = (r * xi - xr) / d;
+      if (d == 0)
+      {
+        m_dCdivr = 0;
+        m_dCdivi = 0;
+      }
+      else
+      {
+        m_dCdivr = (r * xr + xi) / d;
+        m_dCdivi = (r * xi - xr) / d;
+      }
     }
   }
 

@@ -2035,7 +2035,7 @@ public final class Base64
       final int outBuff = ((aDecodabet[source[srcOffset]] & 0xFF) << 18) |
                           ((aDecodabet[source[srcOffset + 1]] & 0xFF) << 12) |
                           ((aDecodabet[source[srcOffset + 2]] & 0xFF) << 6) |
-                          ((aDecodabet[source[srcOffset + 3]] & 0xFF));
+                          (aDecodabet[source[srcOffset + 3]] & 0xFF);
 
       destination[destOffset] = (byte) (outBuff >> 16);
       destination[destOffset + 1] = (byte) (outBuff >> 8);

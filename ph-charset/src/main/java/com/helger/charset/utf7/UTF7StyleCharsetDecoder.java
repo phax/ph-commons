@@ -107,7 +107,7 @@ final class UTF7StyleCharsetDecoder extends CharsetDecoder
   }
 
   @Nonnull
-  private CoderResult _overflow (@Nonnull final ByteBuffer in)
+  private static CoderResult _overflow (@Nonnull final ByteBuffer in)
   {
     in.position (in.position () - 1);
     return CoderResult.OVERFLOW;

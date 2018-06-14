@@ -22,7 +22,6 @@ import java.util.NoSuchElementException;
 
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -43,12 +42,6 @@ public class EmptyIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYPE>, Seri
   public ELEMENTTYPE next ()
   {
     throw new NoSuchElementException ();
-  }
-
-  @UnsupportedOperation
-  public void remove ()
-  {
-    throw new UnsupportedOperationException ();
   }
 
   @Override

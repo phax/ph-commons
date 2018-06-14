@@ -38,50 +38,57 @@ import com.helger.commons.collection.CollectionHelper;
  * @param <VALUETYPE>
  *        Map value type
  */
-public interface ICommonsSortedMap <KEYTYPE, VALUETYPE>
-                                   extends SortedMap <KEYTYPE, VALUETYPE>, ICommonsMap <KEYTYPE, VALUETYPE>
+public interface ICommonsSortedMap <KEYTYPE, VALUETYPE> extends
+                                   SortedMap <KEYTYPE, VALUETYPE>,
+                                   ICommonsMap <KEYTYPE, VALUETYPE>
 {
   /**
    * Create a new {@link CommonsTreeMap}.
    */
+  @Override
   @Nonnull
   @ReturnsMutableCopy
   default <K, V> ICommonsSortedMap <K, V> createInstance ()
   {
-    return new CommonsTreeMap<> ();
+    return new CommonsTreeMap <> ();
   }
 
+  @Override
   @Nonnull
   @ReturnsMutableCopy
   default ICommonsSortedSet <KEYTYPE> copyOfKeySet ()
   {
-    return new CommonsTreeSet<> (keySet ());
+    return new CommonsTreeSet <> (keySet ());
   }
 
+  @Override
   @Nonnull
   @ReturnsMutableCopy
   default ICommonsSortedSet <KEYTYPE> copyOfKeySet (@Nullable final Predicate <? super KEYTYPE> aFilter)
   {
     if (aFilter == null)
       return copyOfKeySet ();
-    final CommonsTreeSet <KEYTYPE> ret = new CommonsTreeSet<> ();
+    final CommonsTreeSet <KEYTYPE> ret = new CommonsTreeSet <> ();
     CollectionHelper.findAll (keySet (), aFilter, ret::add);
     return ret;
   }
 
+  @Override
   @Nonnull
   @ReturnsMutableCopy
   default ICommonsOrderedSet <Map.Entry <KEYTYPE, VALUETYPE>> copyOfEntrySet ()
   {
-    return new CommonsLinkedHashSet<> (entrySet ());
+    return new CommonsLinkedHashSet <> (entrySet ());
   }
 
+  @Override
   @Nullable
   default KEYTYPE getFirstKey (@Nullable final KEYTYPE aDefault)
   {
     return isEmpty () ? aDefault : firstKey ();
   }
 
+  @Override
   @Nullable
   default VALUETYPE getFirstValue (@Nullable final VALUETYPE aDefault)
   {

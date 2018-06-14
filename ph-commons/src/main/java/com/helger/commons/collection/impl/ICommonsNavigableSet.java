@@ -34,6 +34,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
  */
 public interface ICommonsNavigableSet <ELEMENTTYPE> extends NavigableSet <ELEMENTTYPE>, ICommonsSortedSet <ELEMENTTYPE>
 {
+  @Override
   @Nonnull
   @CodingStyleguideUnaware
   default NavigableSet <ELEMENTTYPE> getAsUnmodifiable ()
