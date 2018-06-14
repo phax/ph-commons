@@ -1,3 +1,5 @@
+dist: trusty
+sudo: required
 language: java
 
 env:
@@ -12,6 +14,15 @@ GgAm8tAjsmE4yejBl1E4xYKoHXY2Gs1tI+/v6CQ7R5VbA+Z/LiCTO8cozl2zI0DlN7VRVDmBt0WqUCdk
 uHu4/XKtXs21U040Z0DoVZZqk3ZyVEdkfRdnkj3BuOkCuf4zPS+3+3y5QWWRmsTruVHETwUq3vBbo9DLEUbxU6qag/Nnao="
     - MAVEN_OPTS=-Xmx1024m
 
+addons:
+  sonarcloud:
+    organization: "phax-github"
+    token:
+      secure: "a8TJ+zLYierSLAYkfVTvlqB8oM9yBOyxtGykaVibXVL20ruxHjHCRQmd83kWwwPCGA92AzgWLDq6Rtj0Z/0q/GlIxa7VkzXxdP/czBGf+oDIJ3EJMrNMnwiWac2KHgc0W6FQUhoz67ymBZs1n7+ps
+XQ9ptu++h+GQfyPO1Qf6dUF6jgJL2GpiPn3GdxNAOd4nM3kehNodjFfviXmBOpDwl5vL1HcnlZ16oydtM4ZZbojH392Y+PFn7F8jMeyIZTqqPxAfoSbefmAwW+J//CEdRBqRXF4rPidWgYXIyLm/g7bPIz40gHQ8
+hIci5TGKINvCjXuTebRcvPB8fhstj3xTlQW2V2T5PaBZy+J27+J1JDZ1Ci3ub9iJWSg9oKHnKel+TtxKwkH4GMIscuVOuXPvkNlr70yJA1+ma3a5I5g/mOWPVYLn8ii/mzcPNozDpypGm1SgHmkJZkeUtzmkpxk4
+EJ6d/rZueTk3CkFot4xvFiYjQ+ChgTQw3MJEIZ3K3reB/EEwPVM0oYx8pggn25Z0Q4OA7Pf9jjV+dolPd6d8hVTNS7hPVrRSQWRTx85SBipIhlQGfaw+YHH3Ecq87U3cWX/PHkCa2v2I327K+GTSIVJPQ/TaJSR3
+K8wBuzwe9c2J1nPDC022lkmiMAnfRrt/rzBkN/LwVY2rsj+/R8Eus4="
 jdk:
   - oraclejdk8
   
@@ -19,7 +30,7 @@ install:
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U -P jdeps
 
 script:
-  - mvn test -B -P coverage
+  - mvn test -B -P coverage sonar:sonar
 
 cache:
   directories:
