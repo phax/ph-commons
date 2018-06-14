@@ -659,7 +659,7 @@ public class Base32Codec implements IByteArrayCodec
             aOS.write (aDecodeBuf[1] << 6 | aDecodeBuf[2] << 1 | aDecodeBuf[3] >> 4);
             aOS.write (aDecodeBuf[3] << 4 | aDecodeBuf[4] >> 1);
             aOS.write (aDecodeBuf[4] << 7 | aDecodeBuf[5] << 2 | aDecodeBuf[6] >> 3);
-            aOS.write (aDecodeBuf[6] << 5 | aDecodeBuf[7]);
+            aOS.write (aDecodeBuf[6] << 5 | aDecodeBuf[7] & 0xff);
             break;
           default:
             throw new DecodeException ("Unexpected number of Base32 bytes left: " + nBytesToDecode);

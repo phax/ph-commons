@@ -19,6 +19,7 @@ package com.helger.xml.transform;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
+import javax.xml.XMLConstants;
 import javax.xml.transform.ErrorListener;
 import javax.xml.transform.Source;
 import javax.xml.transform.Templates;
@@ -67,13 +68,14 @@ public final class XMLTransformerFactory
     try
     {
       final TransformerFactory aFactory = TransformerFactory.newInstance ();
+      aFactory.setFeature (XMLConstants.FEATURE_SECURE_PROCESSING, true);
       if (aErrorListener != null)
         aFactory.setErrorListener (aErrorListener);
       if (aURIResolver != null)
         aFactory.setURIResolver (aURIResolver);
       return aFactory;
     }
-    catch (final TransformerFactoryConfigurationError ex)
+    catch (final TransformerFactoryConfigurationError | TransformerConfigurationException ex)
     {
       throw new InitializationException ("Failed to create XML TransformerFactory", ex);
     }

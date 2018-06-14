@@ -936,7 +936,7 @@ public class EigenvalueDecomposition implements Serializable
                 y = m_aHessenBerg[i + 1][i];
                 vr = (m_aEVd[i] - p) * (m_aEVd[i] - p) + m_aEVe[i] * m_aEVe[i] - q * q;
                 vi = (m_aEVd[i] - p) * 2.0 * q;
-                if (vr == 0.0 & vi == 0.0)
+                if (vr == 0.0 && vi == 0.0)
                 {
                   vr = EPSILON *
                        norm *
@@ -982,7 +982,7 @@ public class EigenvalueDecomposition implements Serializable
 
     for (int i = 0; i < nn; i++)
     {
-      if (i < low | i > high)
+      if (i < low || i > high)
       {
         for (int j = i; j < nn; j++)
         {

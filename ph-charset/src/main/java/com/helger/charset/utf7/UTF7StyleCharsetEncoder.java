@@ -23,8 +23,6 @@ import java.nio.charset.CoderResult;
 
 import javax.annotation.Nonnull;
 
-import com.helger.commons.system.SystemProperties;
-
 /**
  * <p>
  * The CharsetEncoder used to encode both variants of the UTF-7 charset and the
@@ -46,16 +44,6 @@ final class UTF7StyleCharsetEncoder extends CharsetEncoder
 {
   private static final float AVG_BYTES_PER_CHAR = 1.5f;
   private static final float MAX_BYTES_PER_CHAR = 5.0f;
-
-  private static final boolean s_bUseUglyHackToForceCallToFlushInJava5;
-
-  static
-  {
-    final String version = SystemProperties.getPropertyValue ("java.specification.version");
-    final String vendor = SystemProperties.getPropertyValue ("java.vm.vendor");
-    s_bUseUglyHackToForceCallToFlushInJava5 = ("1.4".equals (version) || "1.5".equals (version)) &&
-                                              "Sun Microsystems Inc.".equals (vendor);
-  }
 
   private final AbstractUTF7StyleCharset m_aCharset;
   private final UTF7Base64Helper m_aBase64;
@@ -168,17 +156,7 @@ final class UTF7StyleCharsetEncoder extends CharsetEncoder
         else
           _encodeBase64 (ch, out);
     }
-    /*
-     * <HACK type="ugly"> These lines are required to trick JDK 1.5 and earlier
-     * into flushing when using Charset.encode(String),
-     * Charset.encode(CharBuffer) or CharsetEncoder.encode(CharBuffer) Without
-     * them, the last few bytes may be missing.
-     */
-    if (m_bBase64mode &&
-        s_bUseUglyHackToForceCallToFlushInJava5 &&
-        out.limit () != (int) (MAX_BYTES_PER_CHAR * in.limit ()))
-      return CoderResult.OVERFLOW;
-    /* </HACK> */
+
     return CoderResult.UNDERFLOW;
   }
 

@@ -565,9 +565,7 @@ public final class CommonsMock
       }
       catch (final Exception ex)
       {
-        // continue
-        if (false)
-          ex.printStackTrace ();
+        // continue to exception below
       }
     }
 

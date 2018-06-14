@@ -69,7 +69,7 @@ public class ASCIIHexCodec implements IByteArrayStreamDecoder
         if (bFirstByte)
           nFirstByte = nDecByte;
         else
-          aOS.write ((byte) (nFirstByte << 4 | nDecByte));
+          aOS.write ((byte) (nFirstByte << 4 | nDecByte & 0xff));
         bFirstByte = !bFirstByte;
       }
 
