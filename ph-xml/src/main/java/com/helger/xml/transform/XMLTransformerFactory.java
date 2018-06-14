@@ -106,8 +106,8 @@ public final class XMLTransformerFactory
       if (sCombinedSchemes.length () > 0)
       {
         aFactory.setAttribute (XMLConstants.ACCESS_EXTERNAL_DTD, sCombinedSchemes);
-        aFactory.setAttribute (XMLConstants.ACCESS_EXTERNAL_SCHEMA, sCombinedSchemes);
         aFactory.setAttribute (XMLConstants.ACCESS_EXTERNAL_STYLESHEET, sCombinedSchemes);
+        // external schema is unknown
       }
     }
     catch (final TransformerConfigurationException ex)
