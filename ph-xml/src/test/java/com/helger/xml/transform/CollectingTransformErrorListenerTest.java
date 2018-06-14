@@ -83,4 +83,46 @@ public final class CollectingTransformErrorListenerTest
 
     CommonsTestHelper.testToStringImplementation (el);
   }
+
+  @Test
+  public void testSecure () throws TransformerConfigurationException, TransformerException
+  {
+    final CollectingTransformErrorListener el = new CollectingTransformErrorListener ();
+    final TransformerFactory fac = XMLTransformerFactory.createTransformerFactory (el.andThen (new LoggingTransformErrorListener (L_EN)),
+                                                                                   new LoggingTransformURIResolver ());
+    assertNotNull (fac);
+
+    // "file" access is needed for the tests
+    XMLTransformerFactory.makeTransformerFactorySecure (fac, "file");
+
+    // Read valid XSLT
+    Templates t1 = XMLTransformerFactory.newTemplates (fac, new ClassPathResource ("xml/test1.xslt"));
+    assertNotNull (t1);
+    // May contain warning in JDK 1.7
+    // (http://javax.xml.XMLConstants/property/accessExternalDTD is unknown)
+    assertTrue (el.getErrorList ().containsNoError ());
+
+    // Try a real transformation
+    {
+      final Document aDoc = XMLFactory.newDocument ();
+      t1.newTransformer ().transform (TransformSourceFactory.create (new ClassPathResource ("xml/xslt1.xml")),
+                                      new DOMResult (aDoc));
+      assertNotNull (aDoc);
+      assertNotNull (aDoc.getDocumentElement ());
+      assertEquals ("html", aDoc.getDocumentElement ().getTagName ());
+    }
+
+    // Read valid XSLT (with import)
+    t1 = XMLTransformerFactory.newTemplates (fac, new ClassPathResource ("xml/test2.xslt"));
+    assertNotNull (t1);
+    // May contain warning in JDK 1.7
+    // (http://javax.xml.XMLConstants/property/accessExternalDTD is unknown)
+    assertTrue (el.getErrorList ().containsNoError ());
+
+    // Read invalid XSLT
+    assertNull (XMLTransformerFactory.newTemplates (fac, new ClassPathResource ("test1.txt")));
+    assertTrue (el.getErrorList ().containsAtLeastOneError ());
+
+    CommonsTestHelper.testToStringImplementation (el);
+  }
 }

@@ -37,6 +37,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.io.resource.IReadableResource;
+import com.helger.commons.string.StringHelper;
 
 /**
  * A global factory for XML transformation objects.
@@ -68,16 +69,46 @@ public final class XMLTransformerFactory
     try
     {
       final TransformerFactory aFactory = TransformerFactory.newInstance ();
-      aFactory.setFeature (XMLConstants.FEATURE_SECURE_PROCESSING, true);
       if (aErrorListener != null)
         aFactory.setErrorListener (aErrorListener);
       if (aURIResolver != null)
         aFactory.setURIResolver (aURIResolver);
       return aFactory;
     }
-    catch (final TransformerFactoryConfigurationError | TransformerConfigurationException ex)
+    catch (final TransformerFactoryConfigurationError ex)
     {
       throw new InitializationException ("Failed to create XML TransformerFactory", ex);
+    }
+  }
+
+  /**
+   * Set the secure processing feature to a {@link TransformerFactory}. See
+   * https://docs.oracle.com/javase/tutorial/jaxp/properties/properties.html for
+   * details.
+   *
+   * @param aFactory
+   *        The factory to secure. May not be <code>null</code>.
+   * @param aAllowedExternalSchemes
+   *        Optional external URL schemes that are allowed to be accessed (as in
+   *        "file" or "http")
+   * @since 9.1.2
+   */
+  public static void makeTransformerFactorySecure (@Nonnull final TransformerFactory aFactory,
+                                                   @Nullable final String... aAllowedExternalSchemes)
+  {
+    ValueEnforcer.notNull (aFactory, "Factory");
+
+    try
+    {
+      aFactory.setFeature (XMLConstants.FEATURE_SECURE_PROCESSING, true);
+
+      final String sCombined = StringHelper.getImplodedNonEmpty (',', aAllowedExternalSchemes);
+      if (sCombined.length () > 0)
+        aFactory.setAttribute (XMLConstants.ACCESS_EXTERNAL_STYLESHEET, sCombined);
+    }
+    catch (final TransformerConfigurationException ex)
+    {
+      throw new InitializationException ("Failed to secure XML TransformerFactory", ex);
     }
   }
 
