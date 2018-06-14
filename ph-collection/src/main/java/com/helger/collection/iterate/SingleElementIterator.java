@@ -22,7 +22,6 @@ import java.util.NoSuchElementException;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
-import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
@@ -60,12 +59,6 @@ public class SingleElementIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYP
       return m_aElement;
     }
     throw new NoSuchElementException ();
-  }
-
-  @UnsupportedOperation
-  public void remove ()
-  {
-    throw new UnsupportedOperationException ();
   }
 
   @Override

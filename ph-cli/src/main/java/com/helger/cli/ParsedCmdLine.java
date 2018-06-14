@@ -111,7 +111,7 @@ public class ParsedCmdLine implements Serializable, IGetterByKeyTrait <String>
   }
 
   @Nullable
-  public String getValue (@Nonnull final String sOption)
+  public String getValue (@Nullable final String sOption)
   {
     final ICommonsList <String> aValues = _find (sOption);
     return aValues == null ? null : aValues.getFirst ();

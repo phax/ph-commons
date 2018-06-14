@@ -32,7 +32,9 @@ This project was the following modules:
   * Made setters of `WSClientConfig` final
   * Changed method name in `CharsetHelper` from `getCharsetFromNameOrNull` to `getCharsetFromNameOrDefault`
   * Added new sub-project `ph-bc` with some common BouncyCastle helper methods
-  * Added OCSP MIME types
+  * Added OCSP MIME type constants
+  * Extended `XMLTransformerFactory` API to support creating secure instances
+  * Improved code quality based on SonarQube analysis
 * v9.1.1 - 2018-05-14
   * Really fixed OSGI ServiceProvider configuration
 * v9.1.0 - 2018-05-08

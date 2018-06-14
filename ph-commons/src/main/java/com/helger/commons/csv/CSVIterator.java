@@ -18,6 +18,7 @@ package com.helger.commons.csv;
 
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import javax.annotation.Nonnull;
 
@@ -69,6 +70,9 @@ public class CSVIterator implements Iterator <ICommonsList <String>>
   public ICommonsList <String> next ()
   {
     final ICommonsList <String> ret = m_aNextLine;
+    if (ret == null)
+      throw new NoSuchElementException ();
+
     try
     {
       m_aNextLine = m_aReader.readNext ();

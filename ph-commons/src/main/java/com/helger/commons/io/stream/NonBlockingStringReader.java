@@ -159,7 +159,7 @@ public class NonBlockingStringReader extends Reader
     if (m_nNext >= m_nLength)
       return 0;
     // Bound skip by beginning and end of the source
-    long n = Math.min (m_nLength - m_nNext, nCharsToSkip);
+    long n = Math.min ((long) m_nLength - m_nNext, nCharsToSkip);
     n = Math.max (-m_nNext, n);
     m_nNext += n;
     return n;

@@ -38,7 +38,7 @@ import com.helger.commons.string.ToStringGenerator;
 @Immutable
 public class Option implements IOptionBase
 {
-  public static enum EOptionMultiplicity
+  public enum EOptionMultiplicity
   {
     /** 0..1, <code>{0,1} or ?</code> */
     OPTIONAL_ONCE,
@@ -464,7 +464,7 @@ public class Option implements IOptionBase
      * @throws IllegalArgumentException
      *         if there are any non valid Option characters in {@code opt}
      */
-    protected Builder (@Nullable final String sShortOpt) throws IllegalArgumentException
+    protected Builder (@Nullable final String sShortOpt)
     {
       if (sShortOpt != null)
         OptionValidator.validateShortOption (sShortOpt);

@@ -508,7 +508,7 @@ public final class FileOperations
           // Main copying - the loop version is much quicker than then
           // transferTo with full size!
           long nBytesWritten = 0;
-          final long nChunkSize = 1 * CGlobal.BYTES_PER_MEGABYTE;
+          final long nChunkSize = 1L * CGlobal.BYTES_PER_MEGABYTE;
           while (nBytesWritten < nBytesToRead)
             nBytesWritten += aSrcChannel.transferTo (nBytesWritten, nChunkSize, aDstChannel);
 

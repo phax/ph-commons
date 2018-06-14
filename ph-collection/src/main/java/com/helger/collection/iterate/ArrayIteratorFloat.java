@@ -23,7 +23,6 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -72,13 +71,6 @@ public final class ArrayIteratorFloat
     if (!hasNext ())
       throw new NoSuchElementException ();
     return m_aArray[m_nIndex++];
-  }
-
-  @UnsupportedOperation
-  @Deprecated
-  public void remove ()
-  {
-    throw new UnsupportedOperationException ();
   }
 
   @Override

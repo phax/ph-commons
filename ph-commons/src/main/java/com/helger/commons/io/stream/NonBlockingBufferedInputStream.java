@@ -359,7 +359,7 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
     if (nBytesToSkip <= 0)
       return 0;
 
-    long nAvail = m_nCount - m_nPos;
+    long nAvail = (long) m_nCount - m_nPos;
     if (nAvail <= 0)
     {
       // If no mark position set then don't keep in buffer
@@ -368,7 +368,7 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
 
       // Fill in buffer to save bytes for reset
       _fill ();
-      nAvail = m_nCount - m_nPos;
+      nAvail = (long) m_nCount - m_nPos;
       if (nAvail <= 0)
         return 0;
     }

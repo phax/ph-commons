@@ -320,7 +320,7 @@ public class MimeType implements IMimeType, IComparable <MimeType>
     return new MimeType (m_eContentType, m_sContentSubType);
   }
 
-  public int compareTo (final MimeType o)
+  public int compareTo (@Nonnull final MimeType o)
   {
     return m_sMainTypeAsString.compareTo (o.m_sMainTypeAsString);
   }

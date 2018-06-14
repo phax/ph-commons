@@ -27,7 +27,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.WillClose;
 
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.stream.StreamHelper;
 
 /**
  * @author Apache Abdera
@@ -37,21 +36,16 @@ public class CodepointIteratorReadableByteChannel extends CodepointIteratorByteB
   @Nonnull
   private static ByteBuffer _convert (@Nonnull @WillClose final ReadableByteChannel aChannel) throws IOException
   {
-    try
+    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
+         final WritableByteChannel aOutChannel = Channels.newChannel (aBAOS))
     {
       final ByteBuffer buf = ByteBuffer.allocate (1024);
-      final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
-      final WritableByteChannel aOutChannel = Channels.newChannel (aBAOS);
       while (aChannel.read (buf) > 0)
       {
         buf.flip ();
         aOutChannel.write (buf);
       }
       return ByteBuffer.wrap (aBAOS.toByteArray ());
-    }
-    finally
-    {
-      StreamHelper.close (aChannel);
     }
   }
 

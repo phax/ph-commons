@@ -45,7 +45,7 @@ final class OptionValidator
    * @throws IllegalArgumentException
    *         if the Option is not valid.
    */
-  static void validateShortOption (@Nonnull final String sOpt) throws IllegalArgumentException
+  static void validateShortOption (@Nonnull final String sOpt)
   {
     // handle the single character opt
     if (sOpt.length () == 1)

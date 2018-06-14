@@ -64,14 +64,4 @@ public class GlobalScope extends AbstractScope implements IGlobalScope
       s_aLogger.info ("Destroyed global scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
                       ScopeHelper.getDebugStackTrace ());
   }
-
-  @Override
-  public boolean equals (final Object o)
-  {
-    if (o == this)
-      return true;
-    if (!super.equals (o))
-      return false;
-    return true;
-  }
 }
