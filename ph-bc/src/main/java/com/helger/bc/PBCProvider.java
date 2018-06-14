@@ -25,6 +25,8 @@ import javax.annotation.concurrent.Immutable;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
+import com.helger.commons.exception.InitializationException;
+
 /**
  * One and only BouncyCastle (BC) Provider Provider
  *
@@ -39,17 +41,19 @@ public final class PBCProvider
   static
   {
     Provider aProvider = Security.getProvider (BouncyCastleProvider.PROVIDER_NAME);
-    if (aProvider != null)
+    if (aProvider == null)
     {
-      // Provider already present
-      PROVIDER = aProvider;
+      // Create and add a new one
+      aProvider = new BouncyCastleProvider ();
+      Security.addProvider (aProvider);
     }
     else
     {
-      // Create and add a new one
-      PROVIDER = aProvider = new BouncyCastleProvider ();
-      Security.addProvider (PROVIDER);
+      // Check if existing one is from BC
+      if (!(aProvider instanceof BouncyCastleProvider))
+        throw new InitializationException ("Invalid BouncyCastleProvider present!");
     }
+    PROVIDER = aProvider;
   }
 
   /**
