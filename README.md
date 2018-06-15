@@ -35,6 +35,7 @@ This project was the following modules:
   * Added OCSP MIME type constants
   * Extended `XMLTransformerFactory` API to support creating secure instances
   * Improved code quality based on SonarQube analysis
+  * Removed the Generic type from `IConcurrentCollector`
 * v9.1.1 - 2018-05-14
   * Really fixed OSGI ServiceProvider configuration
 * v9.1.0 - 2018-05-08

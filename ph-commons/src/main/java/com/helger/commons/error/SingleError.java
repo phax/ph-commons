@@ -74,6 +74,7 @@ public class SingleError implements IError
     return m_aErrorLevel;
   }
 
+  @Override
   @Nullable
   public String getErrorID ()
   {

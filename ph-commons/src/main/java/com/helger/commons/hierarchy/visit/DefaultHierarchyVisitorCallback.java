@@ -48,12 +48,14 @@ public class DefaultHierarchyVisitorCallback <DATATYPE> implements IHierarchyVis
     return m_nLevel;
   }
 
+  @Override
   @OverridingMethodsMustInvokeSuper
   public void onLevelDown ()
   {
     ++m_nLevel;
   }
 
+  @Override
   @OverridingMethodsMustInvokeSuper
   public void onLevelUp ()
   {

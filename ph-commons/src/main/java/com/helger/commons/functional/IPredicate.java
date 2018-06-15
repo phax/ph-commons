@@ -53,6 +53,7 @@ public interface IPredicate <T> extends Predicate <T>, Serializable
    * @return a composed predicate that represents the short-circuiting logical
    *         AND of this predicate and the {@code other} predicate
    */
+  @Override
   @Nonnull
   default IPredicate <T> and (@Nullable final Predicate <? super T> other)
   {
@@ -75,6 +76,7 @@ public interface IPredicate <T> extends Predicate <T>, Serializable
    * @return a composed predicate that represents the short-circuiting logical
    *         OR of this predicate and the {@code other} predicate
    */
+  @Override
   @Nonnull
   default IPredicate <T> or (@Nullable final Predicate <? super T> other)
   {
@@ -86,6 +88,7 @@ public interface IPredicate <T> extends Predicate <T>, Serializable
    *
    * @return a predicate that represents the logical negation of this predicate
    */
+  @Override
   @Nonnull
   default IPredicate <T> negate ()
   {

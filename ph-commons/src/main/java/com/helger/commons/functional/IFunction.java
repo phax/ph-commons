@@ -55,6 +55,7 @@ public interface IFunction <T, R> extends Function <T, R>, Serializable
    *         if before is null
    * @see #andThen(Function)
    */
+  @Override
   @Nonnull
   default <V> IFunction <V, R> compose (@Nonnull final Function <? super V, ? extends T> before)
   {
@@ -79,6 +80,7 @@ public interface IFunction <T, R> extends Function <T, R>, Serializable
    *         if after is null
    * @see #compose(Function)
    */
+  @Override
   @Nonnull
   default <V> IFunction <T, V> andThen (@Nonnull final Function <? super R, ? extends V> after)
   {

@@ -33,6 +33,7 @@ public class LoggingFileOperationCallback implements IFileOperationCallback
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingFileOperationCallback.class);
 
+  @Override
   public void onSuccess (@Nonnull final EFileIOOperation eOperation,
                          @Nonnull final File aFile1,
                          @Nullable final File aFile2)
@@ -46,6 +47,7 @@ public class LoggingFileOperationCallback implements IFileOperationCallback
                        (aFile2 == null ? "" : " and '" + aFile2 + "'"));
   }
 
+  @Override
   public void onError (@Nonnull final EFileIOOperation eOperation,
                        @Nonnull final EFileIOErrorCode eErrorCode,
                        @Nonnull final File aFile1,

@@ -157,6 +157,9 @@ public final class CHttp
       case 417:
         sMsg = "Expectation Failed";
         break;
+      case 418:
+        sMsg = "I'm a teapot";
+        break;
       case 500:
         sMsg = "Internal Server Error";
         break;

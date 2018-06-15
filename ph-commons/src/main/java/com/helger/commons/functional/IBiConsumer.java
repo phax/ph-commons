@@ -55,6 +55,7 @@ public interface IBiConsumer <T, U> extends BiConsumer <T, U>, Serializable
    * @return a composed {@code BiConsumer} that performs in sequence this
    *         operation followed by the {@code after} operation
    */
+  @Override
   @Nonnull
   default IBiConsumer <T, U> andThen (@Nullable final BiConsumer <? super T, ? super U> after)
   {

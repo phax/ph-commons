@@ -90,24 +90,27 @@ public final class PathHelper
     if (aFile == null)
       return false;
 
-    if (Files.isRegularFile (aFile))
-    {
-      // Path exists
-      if (!Files.isReadable (aFile) || !Files.isWritable (aFile))
-        return false;
-    }
-    else
-    {
-      // Path does not exist (yet)
-      // Check parent directory
-      final Path aParentDir = aFile.getParent ();
-      if (aParentDir == null ||
-          !Files.isDirectory (aParentDir) ||
-          !Files.isReadable (aParentDir) ||
-          !Files.isWritable (aParentDir))
-        return false;
-    }
-    return true;
+    // The Files API seem to be slow
+    return FileHelper.canReadAndWriteFile (aFile.toFile ());
+
+    // if (Files.isRegularFile (aFile))
+    // {
+    // // Path exists
+    // if (!Files.isReadable (aFile) || !Files.isWritable (aFile))
+    // return false;
+    // }
+    // else
+    // {
+    // // Path does not exist (yet)
+    // // Check parent directory
+    // final Path aParentDir = aFile.getParent ();
+    // if (aParentDir == null ||
+    // !Files.isDirectory (aParentDir) ||
+    // !Files.isReadable (aParentDir) ||
+    // !Files.isWritable (aParentDir))
+    // return false;
+    // }
+    // return true;
   }
 
   @Nonnull

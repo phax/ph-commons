@@ -76,7 +76,7 @@ public final class GlobalIDFactory
       if (EqualsHelper.equals (s_aIntIDFactory, aFactory))
         return EChange.UNCHANGED;
       if (s_aLogger.isInfoEnabled ())
-        s_aLogger.info ("Setting in-memory int ID factory " + String.valueOf (aFactory));
+        s_aLogger.info ("Setting in-memory int ID factory " + aFactory);
       s_aIntIDFactory = aFactory;
       return EChange.CHANGED;
     });
@@ -100,7 +100,7 @@ public final class GlobalIDFactory
       if (EqualsHelper.equals (s_aPersistentIntIDFactory, aFactory))
         return EChange.UNCHANGED;
       if (s_aLogger.isInfoEnabled ())
-        s_aLogger.info ("Setting persistent int ID factory " + String.valueOf (aFactory));
+        s_aLogger.info ("Setting persistent int ID factory " + aFactory);
       s_aPersistentIntIDFactory = aFactory;
       return EChange.CHANGED;
     });
@@ -124,7 +124,7 @@ public final class GlobalIDFactory
       if (EqualsHelper.equals (s_aLongIDFactory, aFactory))
         return EChange.UNCHANGED;
       if (s_aLogger.isInfoEnabled ())
-        s_aLogger.info ("Setting in-memory long ID factory " + String.valueOf (aFactory));
+        s_aLogger.info ("Setting in-memory long ID factory " + aFactory);
       s_aLongIDFactory = aFactory;
       return EChange.CHANGED;
     });
@@ -148,7 +148,7 @@ public final class GlobalIDFactory
       if (EqualsHelper.equals (s_aPersistentLongIDFactory, aFactory))
         return EChange.UNCHANGED;
       if (s_aLogger.isInfoEnabled ())
-        s_aLogger.info ("Setting persistent long ID factory " + String.valueOf (aFactory));
+        s_aLogger.info ("Setting persistent long ID factory " + aFactory);
       s_aPersistentLongIDFactory = aFactory;
       return EChange.CHANGED;
     });
@@ -172,7 +172,7 @@ public final class GlobalIDFactory
       if (EqualsHelper.equals (s_aStringIDFactory, aFactory))
         return EChange.UNCHANGED;
       if (s_aLogger.isInfoEnabled ())
-        s_aLogger.info ("Setting in-memory string ID factory " + String.valueOf (aFactory));
+        s_aLogger.info ("Setting in-memory string ID factory " + aFactory);
       s_aStringIDFactory = aFactory;
       return EChange.CHANGED;
     });
@@ -196,7 +196,7 @@ public final class GlobalIDFactory
       if (EqualsHelper.equals (s_aPersistentStringIDFactory, aFactory))
         return EChange.UNCHANGED;
       if (s_aLogger.isInfoEnabled ())
-        s_aLogger.info ("Setting persistent string ID factory " + String.valueOf (aFactory));
+        s_aLogger.info ("Setting persistent string ID factory " + aFactory);
       s_aPersistentStringIDFactory = aFactory;
       return EChange.CHANGED;
     });

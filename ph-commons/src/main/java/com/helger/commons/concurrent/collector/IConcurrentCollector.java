@@ -22,10 +22,8 @@ import javax.annotation.Nonnegative;
  * Base interface for a concurrent queue worker.
  *
  * @author Philip Helger
- * @param <DATATYPE>
- *        The type of objects to be queued
  */
-public interface IConcurrentCollector <DATATYPE>
+public interface IConcurrentCollector
 {
   /**
    * @return <code>true</code> if the queue is empty, <code>false</code>

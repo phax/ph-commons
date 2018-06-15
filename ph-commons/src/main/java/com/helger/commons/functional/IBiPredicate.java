@@ -56,6 +56,7 @@ public interface IBiPredicate <T, U> extends BiPredicate <T, U>, Serializable
    * @return a composed predicate that represents the short-circuiting logical
    *         AND of this predicate and the {@code other} predicate
    */
+  @Override
   @Nonnull
   default IBiPredicate <T, U> and (@Nullable final BiPredicate <? super T, ? super U> other)
   {
@@ -78,6 +79,7 @@ public interface IBiPredicate <T, U> extends BiPredicate <T, U>, Serializable
    * @return a composed predicate that represents the short-circuiting logical
    *         OR of this predicate and the {@code other} predicate
    */
+  @Override
   @Nonnull
   default IBiPredicate <T, U> or (@Nullable final BiPredicate <? super T, ? super U> other)
   {
@@ -89,6 +91,7 @@ public interface IBiPredicate <T, U> extends BiPredicate <T, U>, Serializable
    *
    * @return a predicate that represents the logical negation of this predicate
    */
+  @Override
   @Nonnull
   default IBiPredicate <T, U> negate ()
   {

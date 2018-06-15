@@ -53,6 +53,7 @@ public interface IErrorLevel extends
     return isEQ (EErrorLevel.SUCCESS);
   }
 
+  @Override
   default boolean isFailure ()
   {
     return isGT (EErrorLevel.SUCCESS);
@@ -63,6 +64,7 @@ public interface IErrorLevel extends
     return isGE (EErrorLevel.ERROR);
   }
 
+  @Override
   default boolean isNoError ()
   {
     return isLT (EErrorLevel.ERROR);
@@ -78,6 +80,7 @@ public interface IErrorLevel extends
     return getNumericLevel () == aErrorLevel.getNumericLevel ();
   }
 
+  @Override
   default boolean isNE (@Nonnull final IErrorLevel aErrorLevel)
   {
     return getNumericLevel () != aErrorLevel.getNumericLevel ();

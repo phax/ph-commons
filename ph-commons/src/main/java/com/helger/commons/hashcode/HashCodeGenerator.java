@@ -520,6 +520,8 @@ public final class HashCodeGenerator implements IHashCodeGenerator
 
   /**
    * Never compare {@link HashCodeGenerator} objects :)
+   *
+   * @deprecated Don't call this
    */
   @Deprecated
   @Override
@@ -533,6 +535,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *
    * @return {@link #getHashCode()}
    * @see #getHashCode()
+   * @deprecated Don't call this
    */
   @Override
   @Deprecated

@@ -1104,7 +1104,9 @@ public final class FilenameHelper
   @CheckReturnValue
   public static String ensurePathStartingWithSeparator (@Nullable final String sPath)
   {
-    return sPath == null ? null : startsWithPathSeparatorChar (sPath) ? sPath : File.separator + sPath;
+    if (sPath == null)
+      return null;
+    return startsWithPathSeparatorChar (sPath) ? sPath : File.separator + sPath;
   }
 
   /**
@@ -1145,7 +1147,9 @@ public final class FilenameHelper
   @CheckReturnValue
   public static String ensurePathEndingWithSeparator (@Nullable final String sPath)
   {
-    return sPath == null ? null : endsWithPathSeparatorChar (sPath) ? sPath : sPath + File.separator;
+    if (sPath == null)
+      return null;
+    return endsWithPathSeparatorChar (sPath) ? sPath : sPath + File.separator;
   }
 
   /**

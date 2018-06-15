@@ -43,6 +43,7 @@ public interface IHasErrorLevelComparable <IMPLTYPE extends IHasErrorLevelCompar
     return getErrorLevel ().isEQ (aOther.getErrorLevel ());
   }
 
+  @Override
   default boolean isNE (@Nonnull final IMPLTYPE aOther)
   {
     return getErrorLevel ().isNE (aOther.getErrorLevel ());

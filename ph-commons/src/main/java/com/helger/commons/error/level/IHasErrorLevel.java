@@ -38,7 +38,7 @@ public interface IHasErrorLevel extends ISuccessIndicator, IErrorIndicator
 
   /**
    * Check if this object has the provided error level.
-   * 
+   *
    * @param aErrorLevel
    *        The error level to check. May be <code>null</code>.
    * @return <code>true</code> if {@link #getErrorLevel()} and the passed error
@@ -54,6 +54,7 @@ public interface IHasErrorLevel extends ISuccessIndicator, IErrorIndicator
     return getErrorLevel ().isSuccess ();
   }
 
+  @Override
   default boolean isFailure ()
   {
     return getErrorLevel ().isFailure ();
@@ -64,6 +65,7 @@ public interface IHasErrorLevel extends ISuccessIndicator, IErrorIndicator
     return getErrorLevel ().isError ();
   }
 
+  @Override
   default boolean isNoError ()
   {
     return getErrorLevel ().isNoError ();

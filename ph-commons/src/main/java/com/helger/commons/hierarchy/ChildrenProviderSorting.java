@@ -69,6 +69,7 @@ public class ChildrenProviderSorting <CHILDTYPE> implements IChildrenProvider <C
     return m_aComparator;
   }
 
+  @Override
   public final boolean hasChildren (@Nullable final CHILDTYPE aCurrent)
   {
     // Just pass on to the original children resolver

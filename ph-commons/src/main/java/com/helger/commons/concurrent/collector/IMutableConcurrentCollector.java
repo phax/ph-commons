@@ -28,7 +28,7 @@ import com.helger.commons.state.ESuccess;
  * @param <DATATYPE>
  *        The type of objects to be queued
  */
-public interface IMutableConcurrentCollector <DATATYPE> extends IConcurrentCollector <DATATYPE>
+public interface IMutableConcurrentCollector <DATATYPE> extends IConcurrentCollector
 {
   /**
    * Submit an object to the queue.

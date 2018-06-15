@@ -470,7 +470,8 @@ public final class FileHelper
     catch (final IllegalStateException ex)
     {
       // Happens e.g. when the parent directory is " "
-      s_aLogger.warn ("Failed to create parent directory of '" + aFile + "'", ex);
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("Failed to create parent directory of '" + aFile + "'", ex);
       return EValidity.INVALID;
     }
 
@@ -479,13 +480,14 @@ public final class FileHelper
     final File aParentDir = aFile.getParentFile ();
     if (aParentDir != null && !aParentDir.canWrite ())
     {
-      s_aLogger.warn ("Parent directory '" +
-                      aParentDir +
-                      "' of '" +
-                      aFile +
-                      "' is not writable for current user '" +
-                      SystemProperties.getUserName () +
-                      "'");
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("Parent directory '" +
+                        aParentDir +
+                        "' of '" +
+                        aFile +
+                        "' is not writable for current user '" +
+                        SystemProperties.getUserName () +
+                        "'");
       return EValidity.INVALID;
     }
 

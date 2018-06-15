@@ -109,7 +109,10 @@ public final class ImageDataManager
         if (aImage != null)
           aData = new SizeInt (aImage.getWidth (), aImage.getHeight ());
         else
-          s_aLogger.warn ("Does not seem to be an image resource: " + aRes);
+        {
+          if (s_aLogger.isWarnEnabled ())
+            s_aLogger.warn ("Does not seem to be an image resource: " + aRes);
+        }
       }
       else
       {

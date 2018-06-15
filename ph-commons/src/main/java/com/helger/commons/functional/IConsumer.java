@@ -51,6 +51,7 @@ public interface IConsumer <T> extends Consumer <T>, Serializable
    * @return a composed {@code Consumer} that performs in sequence this
    *         operation followed by the {@code after} operation
    */
+  @Override
   @Nonnull
   default IConsumer <T> andThen (@Nonnull final Consumer <? super T> after)
   {

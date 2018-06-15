@@ -58,6 +58,7 @@ public interface IBiFunction <T, U, R> extends BiFunction <T, U, R>, Serializabl
    * @throws NullPointerException
    *         if after is null
    */
+  @Override
   @Nonnull
   default <V> IBiFunction <T, U, V> andThen (@Nonnull final Function <? super R, ? extends V> aAfter)
   {
