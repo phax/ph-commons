@@ -52,25 +52,29 @@ public class LoggingInputStream extends WrappedInputStream
   @OverrideOnDemand
   protected void onRead (final int nBytesRead, final long nNewPosition)
   {
-    s_aLogger.info ("Read " + nBytesRead + " byte(s); now at " + nNewPosition);
+    if (s_aLogger.isInfoEnabled ())
+      s_aLogger.info ("Read " + nBytesRead + " byte(s); now at " + nNewPosition);
   }
 
   @OverrideOnDemand
   protected void onSkip (final long nBytesSkipped, final long nNewPosition)
   {
-    s_aLogger.info ("Skipped " + nBytesSkipped + " byte(s); now at " + nNewPosition);
+    if (s_aLogger.isInfoEnabled ())
+      s_aLogger.info ("Skipped " + nBytesSkipped + " byte(s); now at " + nNewPosition);
   }
 
   @OverrideOnDemand
   protected void onMark (final int nReadLimit, final long nCurrentPosition)
   {
-    s_aLogger.info ("Marked at " + nCurrentPosition + " with read-limit of " + nReadLimit);
+    if (s_aLogger.isInfoEnabled ())
+      s_aLogger.info ("Marked at " + nCurrentPosition + " with read-limit of " + nReadLimit);
   }
 
   @OverrideOnDemand
   protected void onReset (final long nCurrentPosition)
   {
-    s_aLogger.info ("Reset at " + nCurrentPosition);
+    if (s_aLogger.isInfoEnabled ())
+      s_aLogger.info ("Reset at " + nCurrentPosition);
   }
 
   @Override

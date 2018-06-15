@@ -88,7 +88,10 @@ public class ThreadDeadlockDetector
 
       // Invoke all callbacks
       if (m_aCallbacks.isEmpty ())
-        s_aLogger.warn ("Found a deadlock of " + aThreadInfos.length + " threads but no callbacks are present!");
+      {
+        if (s_aLogger.isWarnEnabled ())
+          s_aLogger.warn ("Found a deadlock of " + aThreadInfos.length + " threads but no callbacks are present!");
+      }
       else
         m_aCallbacks.forEach (x -> x.onDeadlockDetected (aThreadInfos));
     }

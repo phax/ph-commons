@@ -112,7 +112,10 @@ public final class ImageDataManager
           s_aLogger.warn ("Does not seem to be an image resource: " + aRes);
       }
       else
-        s_aLogger.warn ("Failed to resolve image resource: " + aRes);
+      {
+        if (s_aLogger.isWarnEnabled ())
+          s_aLogger.warn ("Failed to resolve image resource: " + aRes);
+      }
     }
     catch (final UnsatisfiedLinkError | NoClassDefFoundError ex)
     {

@@ -64,7 +64,7 @@ public class LoggingLRUMap <KEYTYPE, VALUETYPE> extends LRUMap <KEYTYPE, VALUETY
   @Nonnull
   public LoggingLRUMap <KEYTYPE, VALUETYPE> getClone ()
   {
-    return new LoggingLRUMap<> (this);
+    return new LoggingLRUMap <> (this);
   }
 
   @Nullable
@@ -84,17 +84,18 @@ public class LoggingLRUMap <KEYTYPE, VALUETYPE> extends LRUMap <KEYTYPE, VALUETY
   protected void onRemoveEldestEntry (@Nonnegative final int nSize,
                                       @Nonnull final Map.Entry <KEYTYPE, VALUETYPE> aEntry)
   {
-    s_aLogger.warn ("Map" +
-                    (m_sMapName != null ? " '" + m_sMapName + "'" : "") +
-                    " is full with " +
-                    nSize +
-                    " ≥ " +
-                    getMaxSize () +
-                    " items! Removed key (" +
-                    aEntry.getKey () +
-                    ") and value (" +
-                    aEntry.getValue () +
-                    ")");
+    if (s_aLogger.isWarnEnabled ())
+      s_aLogger.warn ("Map" +
+                      (m_sMapName != null ? " '" + m_sMapName + "'" : "") +
+                      " is full with " +
+                      nSize +
+                      " ≥ " +
+                      getMaxSize () +
+                      " items! Removed key (" +
+                      aEntry.getKey () +
+                      ") and value (" +
+                      aEntry.getValue () +
+                      ")");
   }
 
   @Override

@@ -30,8 +30,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
-import org.slf4j.LoggerFactory;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.equals.EqualsHelper;
@@ -55,9 +53,6 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
   public static final String CLASSPATH_PREFIX_LONG = "classpath:";
   /** Use this prefix to uniquely identify classpath resources - alternative */
   public static final String CLASSPATH_PREFIX_SHORT = "cp:";
-
-  /** Internal debug logging flag */
-  private static final boolean DEBUG_GET_IS = false;
 
   // No logger here!
 
@@ -204,10 +199,6 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
                                               @Nullable final URL aURL,
                                               @Nullable final ClassLoader aClassLoader)
   {
-    if (DEBUG_GET_IS)
-      LoggerFactory.getLogger (ClassPathResource.class)
-                   .info ("_getInputStream ('" + sPath + "', " + aURL + ", " + aClassLoader + ")");
-
     // Simple version
     InputStream ret = null;
     if (aClassLoader != null)
@@ -221,9 +212,6 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
         // Resolve from URL
         ret = URLResource.getInputStream (aURL);
       }
-
-    if (DEBUG_GET_IS)
-      LoggerFactory.getLogger (ClassPathResource.class).info ("  returning " + ret);
 
     return ret;
   }

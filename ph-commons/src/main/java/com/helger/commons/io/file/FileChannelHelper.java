@@ -82,7 +82,8 @@ public final class FileChannelHelper
     try
     {
       final MappedByteBuffer aBuffer = aChannel.map (MapMode.READ_ONLY, 0, aChannel.size ());
-      s_aLogger.info ("Created memory mapped input stream for " + aFile);
+      if (s_aLogger.isInfoEnabled ())
+        s_aLogger.info ("Created memory mapped input stream for " + aFile);
       return new ByteBufferInputStream (aBuffer);
     }
     catch (final IOException ex)
@@ -154,7 +155,8 @@ public final class FileChannelHelper
       return aIS;
 
     // Memory mapping failed - return the original input stream
-    s_aLogger.warn ("Failed to map file " + aFile + ". Falling though to regular FileInputStream");
+    if (s_aLogger.isWarnEnabled ())
+      s_aLogger.warn ("Failed to map file " + aFile + ". Falling though to regular FileInputStream");
     return aFIS;
   }
 
@@ -166,7 +168,8 @@ public final class FileChannelHelper
     {
       // Maximum is Integer.MAX_VALUE even if a long is taken!
       final MappedByteBuffer aBuffer = aChannel.map (MapMode.READ_WRITE, 0, Integer.MAX_VALUE);
-      s_aLogger.info ("Created memory mapped output stream for " + aFile);
+      if (s_aLogger.isInfoEnabled ())
+        s_aLogger.info ("Created memory mapped output stream for " + aFile);
       return new ByteBufferOutputStream (aBuffer, false);
     }
     catch (final IOException ex)
@@ -236,7 +239,8 @@ public final class FileChannelHelper
     final RandomAccessFile aRAF = FileHelper.getRandomAccessFile (aFile, ERandomAccessFileMode.READ_WRITE);
     if (aRAF == null)
     {
-      s_aLogger.error ("Failed to open random access file " + aFile);
+      if (s_aLogger.isErrorEnabled ())
+        s_aLogger.error ("Failed to open random access file " + aFile);
       return null;
     }
 
@@ -247,7 +251,8 @@ public final class FileChannelHelper
 
     // Memory mapping failed - return the original output stream
     StreamHelper.close (aRAF);
-    s_aLogger.warn ("Failed to map file " + aFile + ". Falling though to regular FileOutputStream");
+    if (s_aLogger.isWarnEnabled ())
+      s_aLogger.warn ("Failed to map file " + aFile + ". Falling though to regular FileOutputStream");
     return FileHelper.getOutputStream (aFile, eAppend);
   }
 }

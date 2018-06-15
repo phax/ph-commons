@@ -38,15 +38,15 @@ public final class SafeVectorTest
   {
     // create with a "null"-creating factory
     final SafeVector <String> sv = new SafeVector <> ();
-    assertEquals (sv.size (), 0);
+    assertEquals (0, sv.size ());
 
     // no such index 0 -> create using the factory
     assertNull (sv.get (0));
-    assertEquals (sv.size (), 1);
+    assertEquals (1, sv.size ());
 
     // no such index 10 -> create using the factory
     assertNull (sv.get (10));
-    assertEquals (sv.size (), 11);
+    assertEquals (11, sv.size ());
 
     // check if all other elements are also null
     for (final String sMember : sv)
@@ -67,15 +67,15 @@ public final class SafeVectorTest
 
     // create with a "null"-creating factory
     final SafeVector <String> sv = new SafeVector <> (FactoryNewInstance.create (String.class));
-    assertEquals (sv.size (), 0);
+    assertEquals (0, sv.size ());
 
     // no such index 0 -> create using the factory
     assertNotNull (sv.get (0));
-    assertEquals (sv.size (), 1);
+    assertEquals (1, sv.size ());
 
     // no such index 10 -> create using the factory
     assertNotNull (sv.get (10));
-    assertEquals (sv.size (), 11);
+    assertEquals (11, sv.size ());
 
     // check if all other elements are also not null
     for (final String sMember : sv)

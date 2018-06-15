@@ -189,7 +189,8 @@ public final class ChannelHelper
       }
       catch (final IOException ex)
       {
-        s_aLogger.error ("Failed to release object " + aFileLock, ex instanceof IMockException ? null : ex);
+        if (s_aLogger.isErrorEnabled ())
+          s_aLogger.error ("Failed to release object " + aFileLock, ex instanceof IMockException ? null : ex);
       }
     }
 

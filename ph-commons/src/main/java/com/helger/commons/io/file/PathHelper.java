@@ -120,7 +120,8 @@ public final class PathHelper
     if (aParent == null || Files.exists (aParent))
     {
       if (aParent != null && !Files.isDirectory (aParent))
-        s_aLogger.warn ("Parent object specified is not a directory: '" + aParent + "'");
+        if (s_aLogger.isWarnEnabled ())
+          s_aLogger.warn ("Parent object specified is not a directory: '" + aParent + "'");
       return EChange.UNCHANGED;
     }
 
@@ -588,20 +589,30 @@ public final class PathHelper
       {
         // Try some diagnosis...
         if (!Files.isDirectory (aDirectory))
-          s_aLogger.warn ("Cannot list non-directory: " + aDirectory.toAbsolutePath ());
+        {
+          if (s_aLogger.isWarnEnabled ())
+            s_aLogger.warn ("Cannot list non-directory: " + aDirectory.toAbsolutePath ());
+        }
         else
           if (!Files.isExecutable (aDirectory))
           {
             // If this happens, the resulting Path objects are neither files nor
             // directories (isFile() and isDirectory() both return false!!)
-            s_aLogger.warn ("Existing directory is missing the listing permission: " + aDirectory.toAbsolutePath ());
+            if (s_aLogger.isWarnEnabled ())
+              s_aLogger.warn ("Existing directory is missing the listing permission: " + aDirectory.toAbsolutePath ());
           }
           else
             if (!Files.isReadable (aDirectory))
-              s_aLogger.warn ("Cannot list directory because of no read-rights: " + aDirectory.toAbsolutePath ());
+            {
+              if (s_aLogger.isWarnEnabled ())
+                s_aLogger.warn ("Cannot list directory because of no read-rights: " + aDirectory.toAbsolutePath ());
+            }
             else
               if (!Files.exists (aDirectory))
-                s_aLogger.warn ("Cannot list non-existing: " + aDirectory.toAbsolutePath ());
+              {
+                if (s_aLogger.isWarnEnabled ())
+                  s_aLogger.warn ("Cannot list non-existing: " + aDirectory.toAbsolutePath ());
+              }
       }
     }
     else
@@ -610,7 +621,8 @@ public final class PathHelper
       {
         // If this happens, the resulting Path objects are neither files nor
         // directories (isFile() and isDirectory() both return false!!)
-        s_aLogger.warn ("Directory is missing the listing permission: " + aDirectory.toAbsolutePath ());
+        if (s_aLogger.isWarnEnabled ())
+          s_aLogger.warn ("Directory is missing the listing permission: " + aDirectory.toAbsolutePath ());
       }
     }
     return ret;
@@ -666,7 +678,8 @@ public final class PathHelper
     }
     catch (final MalformedURLException ex)
     {
-      s_aLogger.warn ("Failed to convert path to URL: " + aPath, ex);
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("Failed to convert path to URL: " + aPath, ex);
       return null;
     }
   }

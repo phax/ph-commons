@@ -70,11 +70,14 @@ public class FileSystemResourceProvider implements IWritableResourceProvider
       ValueEnforcer.isTrue (aBasePath.exists (), () -> "Passed base path '" + aBasePath + "' does not exist!");
       ValueEnforcer.isTrue (aBasePath.isDirectory (), () -> "Passed base path '" + aBasePath + "' is not a directory!");
       if (!aBasePath.canRead ())
-        s_aLogger.warn ("Cannot read passed base path '" + aBasePath + "'!");
+        if (s_aLogger.isWarnEnabled ())
+          s_aLogger.warn ("Cannot read passed base path '" + aBasePath + "'!");
       if (!aBasePath.canWrite ())
-        s_aLogger.warn ("Cannot write passed base path '" + aBasePath + "'!");
+        if (s_aLogger.isWarnEnabled ())
+          s_aLogger.warn ("Cannot write passed base path '" + aBasePath + "'!");
       if (!aBasePath.canExecute ())
-        s_aLogger.warn ("Cannot execute in passed base path '" + aBasePath + "'!");
+        if (s_aLogger.isWarnEnabled ())
+          s_aLogger.warn ("Cannot execute in passed base path '" + aBasePath + "'!");
     }
     m_aBasePath = aBasePath;
   }

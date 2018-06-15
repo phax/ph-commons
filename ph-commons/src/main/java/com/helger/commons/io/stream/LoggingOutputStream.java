@@ -56,7 +56,8 @@ public class LoggingOutputStream extends WrappedOutputStream
   @OverrideOnDemand
   protected void onWrite (@Nonnegative final int nBytesWritten, final long nTotalBytesWritten)
   {
-    s_aLogger.info ("Wrote " + nBytesWritten + " byte(s); now at " + nTotalBytesWritten);
+    if (s_aLogger.isInfoEnabled ())
+      s_aLogger.info ("Wrote " + nBytesWritten + " byte(s); now at " + nTotalBytesWritten);
   }
 
   @Override

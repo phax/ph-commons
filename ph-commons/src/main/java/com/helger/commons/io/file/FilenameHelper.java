@@ -930,7 +930,8 @@ public final class FilenameHelper
         // Use our method
         // This is most likely an IOException from "File.getCanonicalPath ()"
         // stating "Invalid file path"
-        s_aLogger.warn ("Using getCleanPath on an invalid file '" + aFile + "' - " + ex.getMessage ());
+        if (s_aLogger.isWarnEnabled ())
+          s_aLogger.warn ("Using getCleanPath on an invalid file '" + aFile + "' - " + ex.getMessage ());
       }
 
     // Fallback: do it manually
@@ -1221,11 +1222,12 @@ public final class FilenameHelper
     {
       if (!aParentDirectory.isAbsolute ())
       {
-        s_aLogger.error ("Cannot express absolute child file ('" +
-                         aSubFile +
-                         "') relative to a relative parent file ('" +
-                         aParentDirectory +
-                         "')!");
+        if (s_aLogger.isErrorEnabled ())
+          s_aLogger.error ("Cannot express absolute child file ('" +
+                           aSubFile +
+                           "') relative to a relative parent file ('" +
+                           aParentDirectory +
+                           "')!");
         return null;
       }
       sRelativeSubPath = getRelativeToParentDirectory (aSubFile, aParentDirectory);

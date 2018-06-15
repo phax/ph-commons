@@ -148,7 +148,8 @@ public final class FileHelper
     if (aParent == null || aParent.exists ())
     {
       if (aParent != null && !aParent.isDirectory ())
-        s_aLogger.warn ("Parent object specified is not a directory: '" + aParent + "'");
+        if (s_aLogger.isWarnEnabled ())
+          s_aLogger.warn ("Parent object specified is not a directory: '" + aParent + "'");
       return EChange.UNCHANGED;
     }
 
@@ -375,14 +376,15 @@ public final class FileHelper
     }
     catch (final FileNotFoundException ex)
     {
-      s_aLogger.warn ("Failed to create output stream for '" +
-                      aFile +
-                      "'; append: " +
-                      eAppend +
-                      ": " +
-                      ex.getClass ().getName () +
-                      " - " +
-                      ex.getMessage ());
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("Failed to create output stream for '" +
+                        aFile +
+                        "'; append: " +
+                        eAppend +
+                        ": " +
+                        ex.getClass ().getName () +
+                        " - " +
+                        ex.getMessage ());
       return null;
     }
   }

@@ -34,18 +34,21 @@ public class LoggingThreadDeadlockCallback implements IThreadDeadlockCallback
 
   public void onDeadlockDetected (@Nonnull final ThreadDeadlockInfo [] aDeadlockedThreads)
   {
-    final StringBuilder aMsg = new StringBuilder ();
-    aMsg.append (aDeadlockedThreads.length).append (" deadlocked threads:\n");
-    for (final ThreadDeadlockInfo aThreadInformation : aDeadlockedThreads)
+    if (s_aLogger.isErrorEnabled ())
     {
-      final Thread aThread = aThreadInformation.getThread ();
+      final StringBuilder aMsg = new StringBuilder ();
+      aMsg.append (aDeadlockedThreads.length).append (" deadlocked threads:\n");
+      for (final ThreadDeadlockInfo aThreadInformation : aDeadlockedThreads)
+      {
+        final Thread aThread = aThreadInformation.getThread ();
 
-      aMsg.append ('\n')
-          .append (aThread.toString ())
-          .append (":\n")
-          .append (StackTraceHelper.getStackAsString (aThread.getStackTrace ()));
+        aMsg.append ('\n')
+            .append (aThread.toString ())
+            .append (":\n")
+            .append (StackTraceHelper.getStackAsString (aThread.getStackTrace ()));
+      }
+
+      s_aLogger.error (aMsg.toString ());
     }
-
-    s_aLogger.error (aMsg.toString ());
   }
 }

@@ -476,15 +476,17 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
       final T ret = aCtor.newInstance ((Object []) null);
       return ret;
     }
-    catch (final Throwable t)
+    catch (final RuntimeException ex)
     {
-      if (t instanceof RuntimeException)
-        throw (RuntimeException) t;
+      throw ex;
+    }
+    catch (final Exception ex)
+    {
       throw new IllegalStateException ("Error instantiating singleton of class " +
                                        aClass.getName () +
                                        " in scope " +
                                        aScope.toString (),
-                                       t);
+                                       ex);
     }
   }
 

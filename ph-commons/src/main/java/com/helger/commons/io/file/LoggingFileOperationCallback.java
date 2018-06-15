@@ -52,14 +52,15 @@ public class LoggingFileOperationCallback implements IFileOperationCallback
                        @Nullable final File aFile2,
                        @Nullable final Exception aException)
   {
-    s_aLogger.warn ("File operation " +
-                    eOperation.name () +
-                    " failed with error code " +
-                    eErrorCode.name () +
-                    " on '" +
-                    aFile1 +
-                    "'" +
-                    (aFile2 == null ? "" : " and '" + aFile2 + "'"),
-                    aException);
+    if (s_aLogger.isWarnEnabled ())
+      s_aLogger.warn ("File operation " +
+                      eOperation.name () +
+                      " failed with error code " +
+                      eErrorCode.name () +
+                      " on '" +
+                      aFile1 +
+                      "'" +
+                      (aFile2 == null ? "" : " and '" + aFile2 + "'"),
+                      aException);
   }
 }
