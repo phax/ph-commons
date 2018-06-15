@@ -62,8 +62,8 @@ public final class StackTraceHelper
 
   private static boolean _stopStackTraceListing (@Nonnull final String sStackTraceLine)
   {
-    return STACKTRACE_OMIT_UNITTEST.containsAny (s -> sStackTraceLine.startsWith (s)) ||
-           STACKTRACE_OMIT_APPSRV.containsAny (s -> sStackTraceLine.startsWith (s));
+    return STACKTRACE_OMIT_UNITTEST.containsAny (sStackTraceLine::startsWith) ||
+           STACKTRACE_OMIT_APPSRV.containsAny (sStackTraceLine::startsWith);
   }
 
   private static boolean _matchesParentStackTrace (@Nonnull final StackTraceElement aElement,
@@ -255,7 +255,7 @@ public final class StackTraceHelper
       for (final StackTraceElement aStackTraceElement : aStackTrace)
       {
         final String sStackTraceLine = aStackTraceElement.toString ();
-        if (STACKTRACE_OMIT_UNITTEST.containsAny (s -> sStackTraceLine.startsWith (s)))
+        if (STACKTRACE_OMIT_UNITTEST.containsAny (sStackTraceLine::startsWith))
           return true;
       }
     return false;

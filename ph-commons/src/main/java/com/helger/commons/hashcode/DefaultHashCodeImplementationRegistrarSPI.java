@@ -81,14 +81,14 @@ public final class DefaultHashCodeImplementationRegistrarSPI implements IHashCod
 
     // Special handling for arrays
     // (Object[] is handled internally)
-    aRegistry.registerHashCodeImplementation (boolean [].class, x -> Arrays.hashCode (x));
-    aRegistry.registerHashCodeImplementation (byte [].class, x -> Arrays.hashCode (x));
-    aRegistry.registerHashCodeImplementation (char [].class, x -> Arrays.hashCode (x));
-    aRegistry.registerHashCodeImplementation (double [].class, x -> Arrays.hashCode (x));
-    aRegistry.registerHashCodeImplementation (float [].class, x -> Arrays.hashCode (x));
-    aRegistry.registerHashCodeImplementation (int [].class, x -> Arrays.hashCode (x));
-    aRegistry.registerHashCodeImplementation (long [].class, x -> Arrays.hashCode (x));
-    aRegistry.registerHashCodeImplementation (short [].class, x -> Arrays.hashCode (x));
+    aRegistry.registerHashCodeImplementation (boolean [].class, Arrays::hashCode);
+    aRegistry.registerHashCodeImplementation (byte [].class, Arrays::hashCode);
+    aRegistry.registerHashCodeImplementation (char [].class, Arrays::hashCode);
+    aRegistry.registerHashCodeImplementation (double [].class, Arrays::hashCode);
+    aRegistry.registerHashCodeImplementation (float [].class, Arrays::hashCode);
+    aRegistry.registerHashCodeImplementation (int [].class, Arrays::hashCode);
+    aRegistry.registerHashCodeImplementation (long [].class, Arrays::hashCode);
+    aRegistry.registerHashCodeImplementation (short [].class, Arrays::hashCode);
 
     // Special handling for Map
     aRegistry.registerHashCodeImplementation (Map.class, x -> {

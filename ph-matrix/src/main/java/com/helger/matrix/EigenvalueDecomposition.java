@@ -468,7 +468,7 @@ public class EigenvalueDecomposition implements Serializable
   {
     if (MathHelper.abs (yr) > MathHelper.abs (yi))
     {
-      final double r = yi / yr;
+      final double r = yr == 0 ? 0 : yi / yr;
       final double d = yr + r * yi;
       if (d == 0)
       {

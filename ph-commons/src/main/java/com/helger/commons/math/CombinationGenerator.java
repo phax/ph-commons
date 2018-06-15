@@ -18,6 +18,7 @@ package com.helger.commons.math;
 
 import java.math.BigInteger;
 import java.util.Collection;
+import java.util.NoSuchElementException;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -128,6 +129,9 @@ public class CombinationGenerator <DATATYPE> implements IIterableIterator <IComm
   @ReturnsMutableCopy
   public ICommonsList <DATATYPE> next ()
   {
+    if (!hasNext ())
+      throw new NoSuchElementException ();
+
     // Not for the very first item, as the first item is the original order
     final boolean bFirstItem = m_bUseLong ? m_nCombinationsLeft == m_nTotalCombinations
                                           : m_aCombinationsLeft.equals (m_aTotalCombinations);
@@ -156,7 +160,7 @@ public class CombinationGenerator <DATATYPE> implements IIterableIterator <IComm
       m_aCombinationsLeft = m_aCombinationsLeft.subtract (BigInteger.ONE);
 
     // Build result list
-    final ICommonsList <DATATYPE> aResult = new CommonsArrayList<> (m_aIndexResult.length);
+    final ICommonsList <DATATYPE> aResult = new CommonsArrayList <> (m_aIndexResult.length);
     for (final int nIndex : m_aIndexResult)
       aResult.add (m_aElements[nIndex]);
     return aResult;
@@ -179,7 +183,7 @@ public class CombinationGenerator <DATATYPE> implements IIterableIterator <IComm
   public static <DATATYPE> ICommonsList <ICommonsList <DATATYPE>> getAllPermutations (@Nonnull @Nonempty final ICommonsList <DATATYPE> aInput,
                                                                                       @Nonnegative final int nSlotCount)
   {
-    final ICommonsList <ICommonsList <DATATYPE>> aResultList = new CommonsArrayList<> ();
+    final ICommonsList <ICommonsList <DATATYPE>> aResultList = new CommonsArrayList <> ();
     addAllPermutations (aInput, nSlotCount, aResultList);
     return aResultList;
   }
@@ -202,7 +206,7 @@ public class CombinationGenerator <DATATYPE> implements IIterableIterator <IComm
                                                     @Nonnegative final int nSlotCount,
                                                     @Nonnull final Collection <ICommonsList <DATATYPE>> aResultList)
   {
-    for (final ICommonsList <DATATYPE> aPermutation : new CombinationGenerator<> (aInput, nSlotCount))
+    for (final ICommonsList <DATATYPE> aPermutation : new CombinationGenerator <> (aInput, nSlotCount))
       aResultList.add (aPermutation);
   }
 }

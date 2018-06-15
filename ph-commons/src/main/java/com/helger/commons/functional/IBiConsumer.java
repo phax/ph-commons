@@ -72,10 +72,10 @@ public interface IBiConsumer <T, U> extends BiConsumer <T, U>, Serializable
           aFirst.accept (x, y);
           aSecond.accept (x, y);
         };
-      return (x, y) -> aFirst.accept (x, y);
+      return aFirst::accept;
     }
     if (aSecond != null)
-      return (x, y) -> aSecond.accept (x, y);
+      return aSecond::accept;
     return null;
   }
 }

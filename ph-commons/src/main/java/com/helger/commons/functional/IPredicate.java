@@ -124,10 +124,10 @@ public interface IPredicate <T> extends Predicate <T>, Serializable
     {
       if (aSecond != null)
         return x -> aFirst.test (x) && aSecond.test (x);
-      return x -> aFirst.test (x);
+      return aFirst::test;
     }
     if (aSecond != null)
-      return x -> aSecond.test (x);
+      return aSecond::test;
     return null;
   }
 
@@ -139,10 +139,10 @@ public interface IPredicate <T> extends Predicate <T>, Serializable
     {
       if (aSecond != null)
         return x -> aFirst.test (x) || aSecond.test (x);
-      return x -> aFirst.test (x);
+      return aFirst::test;
     }
     if (aSecond != null)
-      return x -> aSecond.test (x);
+      return aSecond::test;
     return null;
   }
 
@@ -161,6 +161,6 @@ public interface IPredicate <T> extends Predicate <T>, Serializable
   @Nonnull
   static <T> IPredicate <T> isEqual (@Nullable final Object aCmpTo)
   {
-    return aCmpTo == null ? isNull () : x -> aCmpTo.equals (x);
+    return aCmpTo == null ? isNull () : aCmpTo::equals;
   }
 }

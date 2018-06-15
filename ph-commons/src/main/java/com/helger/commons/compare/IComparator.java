@@ -50,7 +50,7 @@ public interface IComparator <DATATYPE> extends Comparator <DATATYPE>, Serializa
   static Comparator <String> getComparatorCollating (@Nonnull final Collator aCollator)
   {
     ValueEnforcer.notNull (aCollator, "Collator");
-    return Comparator.nullsFirst ( (c1, c2) -> aCollator.compare (c1, c2));
+    return Comparator.nullsFirst (aCollator::compare);
   }
 
   @Nonnull

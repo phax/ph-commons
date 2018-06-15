@@ -246,13 +246,13 @@ public final class ImageDataManager
   @ReturnsMutableCopy
   public ICommonsMap <IReadableResource, SizeInt> getAllCachedSizes ()
   {
-    return m_aRWLock.readLocked ( () -> m_aImageData.getClone ());
+    return m_aRWLock.readLocked (m_aImageData::getClone);
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public ICommonsSet <IReadableResource> getAllNotExistingResources ()
   {
-    return m_aRWLock.readLocked ( () -> m_aNonExistingResources.getClone ());
+    return m_aRWLock.readLocked (m_aNonExistingResources::getClone);
   }
 }

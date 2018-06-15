@@ -136,7 +136,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
   @ReturnsMutableCopy
   public ICommonsList <CALLBACKTYPE> getAllCallbacks ()
   {
-    return m_aRWLock.readLocked ( () -> m_aCallbacks.getCopyAsList ());
+    return m_aRWLock.readLocked (m_aCallbacks::getCopyAsList);
   }
 
   @Nullable
@@ -148,12 +148,12 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
   @Nonnegative
   public int size ()
   {
-    return m_aRWLock.readLocked ( () -> m_aCallbacks.size ());
+    return m_aRWLock.readLocked (m_aCallbacks::size);
   }
 
   public boolean isEmpty ()
   {
-    return m_aRWLock.readLocked ( () -> m_aCallbacks.isEmpty ());
+    return m_aRWLock.readLocked (m_aCallbacks::isEmpty);
   }
 
   @Nonnull
@@ -165,7 +165,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
   @Nonnull
   public Iterator <CALLBACKTYPE> iterator ()
   {
-    return m_aRWLock.readLocked ( () -> m_aCallbacks.iterator ());
+    return m_aRWLock.readLocked (m_aCallbacks::iterator);
   }
 
   @Override

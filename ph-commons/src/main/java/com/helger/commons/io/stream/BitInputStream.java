@@ -81,6 +81,6 @@ public class BitInputStream extends NonBlockingBitInputStream
   @Override
   public void close ()
   {
-    m_aLock.locked ( () -> super.close ());
+    m_aLock.locked (super::close);
   }
 }

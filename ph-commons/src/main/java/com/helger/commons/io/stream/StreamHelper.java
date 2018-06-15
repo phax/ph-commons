@@ -1068,7 +1068,7 @@ public final class StreamHelper
                                       @Nonnull final List <String> aTargetList)
   {
     if (aIS != null)
-      readStreamLines (aIS, aCharset, 0, CGlobal.ILLEGAL_UINT, sLine -> aTargetList.add (sLine));
+      readStreamLines (aIS, aCharset, 0, CGlobal.ILLEGAL_UINT, aTargetList::add);
   }
 
   /**

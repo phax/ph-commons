@@ -57,7 +57,7 @@ public interface IFileFilter extends FileFilter, FilenameFilter, IPredicate <Fil
   @Nonnull
   static IFileFilter directoryOnly ()
   {
-    return aFile -> FileHelper.existsDir (aFile);
+    return FileHelper::existsDir;
   }
 
   /**
@@ -87,7 +87,7 @@ public interface IFileFilter extends FileFilter, FilenameFilter, IPredicate <Fil
   @Nonnull
   static IFileFilter fileOnly ()
   {
-    return aFile -> FileHelper.existsFile (aFile);
+    return FileHelper::existsFile;
   }
 
   /**
@@ -96,7 +96,7 @@ public interface IFileFilter extends FileFilter, FilenameFilter, IPredicate <Fil
   @Nonnull
   static IFileFilter filenameHidden ()
   {
-    return aFile -> FilenameHelper.isHiddenFilename (aFile);
+    return FilenameHelper::isHiddenFilename;
   }
 
   /**

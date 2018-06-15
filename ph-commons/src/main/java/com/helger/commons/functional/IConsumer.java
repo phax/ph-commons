@@ -68,10 +68,10 @@ public interface IConsumer <T> extends Consumer <T>, Serializable
           aFirst.accept (x);
           aSecond.accept (x);
         };
-      return x -> aFirst.accept (x);
+      return aFirst::accept;
     }
     if (aSecond != null)
-      return x -> aSecond.accept (x);
+      return aSecond::accept;
     return null;
   }
 }

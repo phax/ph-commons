@@ -35,9 +35,9 @@ import com.helger.commons.string.ToStringGenerator;
 /**
  * A simple cache for the usage of a certain annotation class at other classes.
  * <br>
- * Note: cannot use {@link com.helger.commons.cache.Cache} because it
- * would need a <code>Class&lt;?&gt;</code> as a key and this would be a hard
- * wired reference.
+ * Note: cannot use {@link com.helger.commons.cache.Cache} because it would need
+ * a <code>Class&lt;?&gt;</code> as a key and this would be a hard wired
+ * reference.
  *
  * @author Philip Helger
  */
@@ -125,7 +125,7 @@ public class AnnotationUsageCache implements Serializable
 
   public void clearCache ()
   {
-    m_aRWLock.writeLocked ( () -> m_aMap.clear ());
+    m_aRWLock.writeLocked (m_aMap::clear);
   }
 
   @Override

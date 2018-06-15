@@ -16,14 +16,13 @@
  */
 package com.helger.commons.text.codepoint;
 
+import java.util.NoSuchElementException;
 import java.util.function.IntPredicate;
 
 import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import com.helger.commons.annotation.UnsupportedOperation;
 
 /**
  * Provides an iterator over Unicode Codepoints
@@ -106,23 +105,23 @@ public abstract class AbstractCodepointIterator implements ICodepointIterator
    * and low surrogate chars
    */
   @Nullable
-  private char [] _peekChars (@Nonnegative final int pos)
+  private char [] _peekChars (@Nonnegative final int nPos)
   {
-    if (pos < 0 || pos >= limit ())
+    if (nPos < 0 || nPos >= limit ())
       return null;
 
-    final char c1 = get (pos);
-    if (Character.isHighSurrogate (c1) && pos < limit ())
+    final char c1 = get (nPos);
+    if (Character.isHighSurrogate (c1) && nPos < limit ())
     {
-      final char c2 = get (pos + 1);
+      final char c2 = get (nPos + 1);
       if (Character.isLowSurrogate (c2))
         return new char [] { c1, c2 };
       throw new InvalidCharacterException (c2);
     }
 
-    if (Character.isLowSurrogate (c1) && pos > 1)
+    if (Character.isLowSurrogate (c1) && nPos > 1)
     {
-      final char c2 = get (pos - 1);
+      final char c2 = get (nPos - 1);
       if (Character.isHighSurrogate (c2))
         return new char [] { c2, c1 };
       throw new InvalidCharacterException (c2);
@@ -131,10 +130,13 @@ public abstract class AbstractCodepointIterator implements ICodepointIterator
     return new char [] { c1 };
   }
 
-  @Nullable
+  @Nonnull
   public Codepoint next ()
   {
-    return _toCodepoint (nextChars ());
+    final Codepoint ret = _toCodepoint (nextChars ());
+    if (ret == null)
+      throw new NoSuchElementException ();
+    return ret;
   }
 
   @Nullable
@@ -144,17 +146,17 @@ public abstract class AbstractCodepointIterator implements ICodepointIterator
   }
 
   @Nullable
-  public Codepoint peek (final int index)
+  public Codepoint peek (final int nIndex)
   {
-    return _toCodepoint (_peekChars (index));
+    return _toCodepoint (_peekChars (nIndex));
   }
 
   @Nullable
-  private static Codepoint _toCodepoint (@Nullable final char [] chars)
+  private static Codepoint _toCodepoint (@Nullable final char [] aChars)
   {
-    if (chars == null || chars.length == 0)
+    if (aChars == null || aChars.length == 0)
       return null;
-    return new Codepoint (chars);
+    return new Codepoint (aChars);
   }
 
   private void _checkLimit (@Nonnegative final int n)
@@ -211,12 +213,6 @@ public abstract class AbstractCodepointIterator implements ICodepointIterator
   {
     _checkLimit (index);
     return Character.isLowSurrogate (get (index));
-  }
-
-  @UnsupportedOperation
-  public void remove ()
-  {
-    throw new UnsupportedOperationException ();
   }
 
   @Nonnull

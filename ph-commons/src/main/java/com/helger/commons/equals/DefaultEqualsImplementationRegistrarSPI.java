@@ -136,14 +136,14 @@ public final class DefaultEqualsImplementationRegistrarSPI implements IEqualsImp
 
     // Default array implementations
     // (Object[].class is handled specially!)
-    aRegistry.registerEqualsImplementation (boolean [].class, (o1, o2) -> Arrays.equals (o1, o2));
-    aRegistry.registerEqualsImplementation (byte [].class, (o1, o2) -> Arrays.equals (o1, o2));
-    aRegistry.registerEqualsImplementation (char [].class, (o1, o2) -> Arrays.equals (o1, o2));
-    aRegistry.registerEqualsImplementation (double [].class, (o1, o2) -> Arrays.equals (o1, o2));
-    aRegistry.registerEqualsImplementation (float [].class, (o1, o2) -> Arrays.equals (o1, o2));
-    aRegistry.registerEqualsImplementation (int [].class, (o1, o2) -> Arrays.equals (o1, o2));
-    aRegistry.registerEqualsImplementation (long [].class, (o1, o2) -> Arrays.equals (o1, o2));
-    aRegistry.registerEqualsImplementation (short [].class, (o1, o2) -> Arrays.equals (o1, o2));
+    aRegistry.registerEqualsImplementation (boolean [].class, Arrays::equals);
+    aRegistry.registerEqualsImplementation (byte [].class, Arrays::equals);
+    aRegistry.registerEqualsImplementation (char [].class, Arrays::equals);
+    aRegistry.registerEqualsImplementation (double [].class, Arrays::equals);
+    aRegistry.registerEqualsImplementation (float [].class, Arrays::equals);
+    aRegistry.registerEqualsImplementation (int [].class, Arrays::equals);
+    aRegistry.registerEqualsImplementation (long [].class, Arrays::equals);
+    aRegistry.registerEqualsImplementation (short [].class, Arrays::equals);
 
     // Special handling for Map
     aRegistry.registerEqualsImplementation (Map.class, (aObj1, aObj2) -> {

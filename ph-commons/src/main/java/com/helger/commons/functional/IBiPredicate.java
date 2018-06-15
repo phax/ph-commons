@@ -103,10 +103,10 @@ public interface IBiPredicate <T, U> extends BiPredicate <T, U>, Serializable
     {
       if (aSecond != null)
         return (x, y) -> aFirst.test (x, y) && aSecond.test (x, y);
-      return (x, y) -> aFirst.test (x, y);
+      return aFirst::test;
     }
     if (aSecond != null)
-      return (x, y) -> aSecond.test (x, y);
+      return aSecond::test;
     return null;
   }
 
@@ -118,10 +118,10 @@ public interface IBiPredicate <T, U> extends BiPredicate <T, U>, Serializable
     {
       if (aSecond != null)
         return (x, y) -> aFirst.test (x, y) || aSecond.test (x, y);
-      return (x, y) -> aFirst.test (x, y);
+      return aFirst::test;
     }
     if (aSecond != null)
-      return (x, y) -> aSecond.test (x, y);
+      return aSecond::test;
     return null;
   }
 }

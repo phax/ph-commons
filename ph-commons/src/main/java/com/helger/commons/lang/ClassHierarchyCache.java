@@ -147,7 +147,7 @@ public final class ClassHierarchyCache
   @Nonnull
   public static EChange clearCache ()
   {
-    final EChange ret = s_aRWLock.writeLocked ( () -> s_aClassHierarchy.removeAll ());
+    final EChange ret = s_aRWLock.writeLocked (s_aClassHierarchy::removeAll);
     if (ret.isUnchanged ())
       return EChange.UNCHANGED;
 

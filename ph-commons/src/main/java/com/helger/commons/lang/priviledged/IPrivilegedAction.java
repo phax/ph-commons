@@ -50,19 +50,19 @@ public interface IPrivilegedAction <T> extends PrivilegedAction <T>
   @Nonnull
   static IPrivilegedAction <ClassLoader> classLoaderGetParent (@Nonnull final ClassLoader aBaseClassLoader)
   {
-    return () -> aBaseClassLoader.getParent ();
+    return aBaseClassLoader::getParent;
   }
 
   @Nonnull
   static IPrivilegedAction <ClassLoader> getClassLoader (@Nonnull final Class <?> aClass)
   {
-    return () -> aClass.getClassLoader ();
+    return aClass::getClassLoader;
   }
 
   @Nonnull
   static IPrivilegedAction <ClassLoader> getContextClassLoader ()
   {
-    return () -> Thread.currentThread ().getContextClassLoader ();
+    return Thread.currentThread ()::getContextClassLoader;
   }
 
   @Nonnull
@@ -78,7 +78,7 @@ public interface IPrivilegedAction <T> extends PrivilegedAction <T>
   @Nonnull
   static IPrivilegedAction <ClassLoader> getSystemClassLoader ()
   {
-    return () -> ClassLoader.getSystemClassLoader ();
+    return ClassLoader::getSystemClassLoader;
   }
 
   @Nonnull
@@ -98,7 +98,7 @@ public interface IPrivilegedAction <T> extends PrivilegedAction <T>
   @Nonnull
   static IPrivilegedAction <Properties> systemGetProperties ()
   {
-    return () -> System.getProperties ();
+    return System::getProperties;
   }
 
   @Nonnull

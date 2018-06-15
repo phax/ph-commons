@@ -87,7 +87,7 @@ public class BitOutputStream extends NonBlockingBitOutputStream
   @Override
   public void flush () throws IOException
   {
-    m_aLock.lockedThrowing ( () -> super.flush ());
+    m_aLock.lockedThrowing (super::flush);
   }
 
   /**
@@ -96,6 +96,6 @@ public class BitOutputStream extends NonBlockingBitOutputStream
   @Override
   public void close ()
   {
-    m_aLock.locked ( () -> super.close ());
+    m_aLock.locked (super::close);
   }
 }

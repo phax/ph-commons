@@ -116,13 +116,13 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
 
   public boolean isQueueEmpty ()
   {
-    return m_aRWLock.readLocked ( () -> m_aQueue.isEmpty ());
+    return m_aRWLock.readLocked (m_aQueue::isEmpty);
   }
 
   @Nonnegative
   public final int getQueueLength ()
   {
-    return m_aRWLock.readLocked ( () -> m_aQueue.size ());
+    return m_aRWLock.readLocked (m_aQueue::size);
   }
 
   @Nonnull
