@@ -448,9 +448,9 @@ public class CSVParser
    * @return new position in the line.
    */
   @Nonnegative
-  private int _appendNextCharacterAndAdvanceLoop (@Nonnull final String sLine,
-                                                  @Nonnull final StringBuilder aSB,
-                                                  @Nonnegative final int nIndex)
+  private static int _appendNextCharacterAndAdvanceLoop (@Nonnull final String sLine,
+                                                         @Nonnull final StringBuilder aSB,
+                                                         @Nonnegative final int nIndex)
   {
     aSB.append (sLine.charAt (nIndex + 1));
     return nIndex + 1;

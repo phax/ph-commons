@@ -199,12 +199,8 @@ public final class DefaultEqualsImplementationRegistrarSPI implements IEqualsImp
         if (!EqualsImplementationRegistry.areEqual (aChild1, aChild2))
           return false;
       }
-      if (aObj2.hasNext ())
-      {
-        // Second iterator is longer
-        return false;
-      }
-      return true;
+      // Second iterator should not be longer
+      return !aObj2.hasNext ();
     });
 
     // Special handling for Enumeration
@@ -221,12 +217,8 @@ public final class DefaultEqualsImplementationRegistrarSPI implements IEqualsImp
         if (!EqualsImplementationRegistry.areEqual (aChild1, aChild2))
           return false;
       }
-      if (aObj2.hasMoreElements ())
-      {
-        // Second enumeration is long
-        return false;
-      }
-      return true;
+      // Second enumeration should not be longer
+      return !aObj2.hasMoreElements ();
     });
 
     // Special handling for File
@@ -249,6 +241,7 @@ public final class DefaultEqualsImplementationRegistrarSPI implements IEqualsImp
         }
       }
 
+      @Override
       public boolean implementationEqualsOverridesInterface ()
       {
         return false;

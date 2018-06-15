@@ -53,6 +53,7 @@ public interface ICommonsOrderedMap <KEYTYPE, VALUETYPE> extends ICommonsMap <KE
     return new CommonsLinkedHashSet <> (keySet ());
   }
 
+  @Override
   @Nonnull
   @ReturnsMutableCopy
   default ICommonsOrderedSet <KEYTYPE> copyOfKeySet (@Nullable final Predicate <? super KEYTYPE> aFilter)
@@ -62,6 +63,7 @@ public interface ICommonsOrderedMap <KEYTYPE, VALUETYPE> extends ICommonsMap <KE
     return CollectionHelper.newOrderedSet (keySet (), aFilter);
   }
 
+  @Override
   @Nonnull
   @ReturnsMutableCopy
   default ICommonsOrderedSet <Map.Entry <KEYTYPE, VALUETYPE>> copyOfEntrySet ()

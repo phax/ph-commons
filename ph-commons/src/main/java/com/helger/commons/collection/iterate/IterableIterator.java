@@ -35,13 +35,13 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public class IterableIterator <ELEMENTTYPE> implements IIterableIterator <ELEMENTTYPE>
 {
-  private static final IterableIterator <Object> s_aEmpty = new IterableIterator<> (new EmptyIterator<> ());
+  private static final IterableIterator <Object> s_aEmpty = new IterableIterator <> (new EmptyIterator <> ());
 
   private final Iterator <ELEMENTTYPE> m_aIter;
 
   public IterableIterator (@Nonnull final ELEMENTTYPE [] aCont)
   {
-    this (new ArrayIterator<> (aCont).iterator ());
+    this (new ArrayIterator <> (aCont).iterator ());
   }
 
   public IterableIterator (@Nonnull final Iterable <ELEMENTTYPE> aCont)
@@ -65,11 +65,13 @@ public class IterableIterator <ELEMENTTYPE> implements IIterableIterator <ELEMEN
     return m_aIter.next ();
   }
 
+  @Override
   public final void remove ()
   {
     m_aIter.remove ();
   }
 
+  @Override
   @Nonnull
   public final Iterator <ELEMENTTYPE> iterator ()
   {

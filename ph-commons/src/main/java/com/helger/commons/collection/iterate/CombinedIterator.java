@@ -69,6 +69,7 @@ public final class CombinedIterator <ELEMENTTYPE> implements Iterator <ELEMENTTY
     return m_aIter2.next ();
   }
 
+  @Override
   public void remove ()
   {
     if (m_bFirstIter)
@@ -91,11 +92,11 @@ public final class CombinedIterator <ELEMENTTYPE> implements Iterator <ELEMENTTY
                                                              @Nullable final Iterator <ELEMENTTYPE> aIter2)
   {
     if (aIter1 == null && aIter2 == null)
-      return new EmptyIterator<> ();
+      return new EmptyIterator <> ();
     if (aIter1 == null)
       return aIter2;
     if (aIter2 == null)
       return aIter1;
-    return new CombinedIterator<> (aIter1, aIter2);
+    return new CombinedIterator <> (aIter1, aIter2);
   }
 }

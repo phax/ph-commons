@@ -112,12 +112,12 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
       // "stop queue message" was received or not
       m_aPerformer.runAsync (aObject);
     }
-    catch (final Throwable t)
+    catch (final Exception ex)
     {
       s_aLogger.error ("Failed to perform actions on object with performer " +
                        m_aPerformer +
                        " - object has been lost!",
-                       t);
+                       ex);
     }
   }
 
@@ -149,9 +149,9 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
         _perform (GenericReflection.uncheckedCast (aCurrentObject));
       }
     }
-    catch (final Throwable t)
+    catch (final Exception ex)
     {
-      s_aLogger.error ("Error taking elements from queue - queue has been interrupted!!!", t);
+      s_aLogger.error ("Error taking elements from queue - queue has been interrupted!!!", ex);
     }
   }
 }

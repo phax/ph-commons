@@ -49,7 +49,7 @@ public class ErrorTextProvider implements IErrorTextProvider, Serializable, IClo
   public static final char PLACEHOLDER = '$';
   public static final String PLACEHOLDER_STR = Character.toString (PLACEHOLDER);
 
-  public static enum EField implements IHasID <String>
+  public enum EField implements IHasID <String>
   {
     CONSTANT ("const"),
     ERROR_LEVEL ("level"),
@@ -169,7 +169,7 @@ public class ErrorTextProvider implements IErrorTextProvider, Serializable, IClo
 
   public ErrorTextProvider ()
   {
-    m_aItems = new CommonsArrayList<> ();
+    m_aItems = new CommonsArrayList <> ();
   }
 
   /**

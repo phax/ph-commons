@@ -106,6 +106,7 @@ public class MapperIterator <SRCTYPE, ELEMENTTYPE> implements IIterableIterator 
     return m_aConverter.apply (ret);
   }
 
+  @Override
   public void remove ()
   {
     m_aBaseIter.remove ();

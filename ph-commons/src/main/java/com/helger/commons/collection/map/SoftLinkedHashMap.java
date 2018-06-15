@@ -26,6 +26,7 @@ import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.functional.IPredicate;
+import com.helger.commons.hashcode.HashCodeGenerator;
 
 /**
  * Soft {@link HashMap} implementation based on
@@ -112,5 +113,22 @@ public class SoftLinkedHashMap <K, V> extends AbstractSoftMap <K, V>
     final SoftLinkedHashMap <K, V> ret = new SoftLinkedHashMap <> (m_nMaxSize);
     ret.putAll (this);
     return ret;
+  }
+
+  @Override
+  public boolean equals (final Object o)
+  {
+    if (o == this)
+      return true;
+    if (!super.equals (o))
+      return false;
+    final SoftLinkedHashMap <?, ?> rhs = (SoftLinkedHashMap <?, ?>) o;
+    return m_nMaxSize == rhs.m_nMaxSize;
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    return HashCodeGenerator.getDerived (super.hashCode ()).append (m_nMaxSize).getHashCode ();
   }
 }

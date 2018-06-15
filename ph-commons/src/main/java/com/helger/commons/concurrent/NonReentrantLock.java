@@ -29,7 +29,7 @@ import javax.annotation.Nonnull;
  * @author Philip Helger
  * @since 5.6.1
  */
-public final class NonReentrantLock extends AbstractQueuedSynchronizer implements Lock
+public class NonReentrantLock extends AbstractQueuedSynchronizer implements Lock
 {
   private Thread m_aOwner;
 

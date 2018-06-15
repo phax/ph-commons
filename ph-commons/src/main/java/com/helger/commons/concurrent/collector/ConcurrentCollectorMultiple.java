@@ -172,14 +172,14 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
         // "stop queue message" was received or not
         m_aPerformer.runAsync (aObjectsToPerform);
       }
-      catch (final Throwable t)
+      catch (final Exception ex)
       {
         s_aLogger.error ("Failed to perform actions on " +
                          aObjectsToPerform.size () +
                          " objects with performer " +
                          m_aPerformer +
                          " - objects are lost!",
-                         t);
+                         ex);
         return ESuccess.FAILURE;
       }
 
@@ -250,9 +250,9 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
       // perform any remaining actions
       _perform (aObjectsToPerform);
     }
-    catch (final Throwable t)
+    catch (final Exception ex)
     {
-      s_aLogger.error ("Error taking elements from queue - queue has been interrupted!!!", t);
+      s_aLogger.error ("Error taking elements from queue - queue has been interrupted!!!", ex);
     }
   }
 }

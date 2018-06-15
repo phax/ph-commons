@@ -59,7 +59,9 @@ public final class CompareHelper
    */
   public static int compareTrueBeforeFalse (final boolean b1, final boolean b2)
   {
-    return b1 == b2 ? 0 : b1 ? +1 : -1;
+    if (b1 == b2)
+      return 0;
+    return b1 ? +1 : -1;
   }
 
   /**
@@ -73,7 +75,9 @@ public final class CompareHelper
    */
   public static int compareFalseBeforeTrue (final boolean b1, final boolean b2)
   {
-    return b1 == b2 ? 0 : b1 ? -1 : +1;
+    if (b1 == b2)
+      return 0;
+    return b1 ? -1 : +1;
   }
 
   /**

@@ -132,6 +132,7 @@ public class FilterIterator <ELEMENTTYPE> implements IIterableIterator <ELEMENTT
     return aRet;
   }
 
+  @Override
   public void remove ()
   {
     m_aBaseIter.remove ();

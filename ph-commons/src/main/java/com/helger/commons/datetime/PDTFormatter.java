@@ -139,8 +139,7 @@ public final class PDTFormatter
 
         // And finally create the cached DateTimeFormatter
         // Default to strict - can be changed afterwards
-        final DateTimeFormatter ret = DateTimeFormatterCache.getDateTimeFormatterStrict (sPattern);
-        return ret;
+        return DateTimeFormatterCache.getDateTimeFormatterStrict (sPattern);
       }, 1000, LocalizedDateFormatCache.class.getName ());
     }
 
@@ -182,8 +181,9 @@ public final class PDTFormatter
         return FormatStyle.MEDIUM;
       case DateFormat.SHORT:
         return FormatStyle.SHORT;
+      default:
+        throw new IllegalArgumentException ("Invalid style passed: " + nStyle);
     }
-    throw new IllegalArgumentException ("Invalid style passed: " + nStyle);
   }
 
   public static int toDateStyle (@Nonnull final FormatStyle eStyle)
@@ -198,8 +198,9 @@ public final class PDTFormatter
         return DateFormat.MEDIUM;
       case SHORT:
         return DateFormat.SHORT;
+      default:
+        throw new IllegalArgumentException ("Unsupported style passed: " + eStyle);
     }
-    throw new IllegalArgumentException ("Unsupported style passed: " + eStyle);
   }
 
   @Nonnull
@@ -309,7 +310,7 @@ public final class PDTFormatter
    *         If the pattern is illegal
    */
   @Nonnull
-  public static DateTimeFormatter getForPattern (@Nonnull final String sPattern) throws IllegalArgumentException
+  public static DateTimeFormatter getForPattern (@Nonnull final String sPattern)
   {
     return getForPattern (sPattern, null);
   }
@@ -327,8 +328,7 @@ public final class PDTFormatter
    *         If the pattern is illegal
    */
   @Nonnull
-  public static DateTimeFormatter getForPattern (@Nonnull final String sPattern,
-                                                 @Nullable final Locale aDisplayLocale) throws IllegalArgumentException
+  public static DateTimeFormatter getForPattern (@Nonnull final String sPattern, @Nullable final Locale aDisplayLocale)
   {
     final DateTimeFormatter aDTF = DateTimeFormatterCache.getDateTimeFormatterStrict (sPattern);
     return getWithLocale (aDTF, aDisplayLocale);

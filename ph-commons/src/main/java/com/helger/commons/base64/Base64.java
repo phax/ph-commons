@@ -2088,8 +2088,7 @@ public final class Base64
   @ReturnsMutableCopy
   public static byte [] decode (@Nonnull final byte [] source, final int options) throws IOException
   {
-    final byte [] decoded = decode (source, 0, source.length, options);
-    return decoded;
+    return decode (source, 0, source.length, options);
   }
 
   /**
@@ -2469,20 +2468,19 @@ public final class Base64
     {
       // Need max() for math on small files (v2.2.1);
       // Need +1 for a few corner cases (v2.3.5)
-      final byte [] buffer = new byte [Math.max ((int) (file.length () * 1.4 + 1), 40)];
+      final byte [] aBuffer = new byte [Math.max ((int) (file.length () * 1.4 + 1), 40)];
 
-      int length = 0;
-      int numBytes;
+      int nLength = 0;
+      int nBytes;
 
       // Read until done
-      while ((numBytes = bis.read (buffer, length, 4096)) >= 0)
+      while ((nBytes = bis.read (aBuffer, nLength, 4096)) >= 0)
       {
-        length += numBytes;
+        nLength += nBytes;
       }
 
       // Save in a variable to return
-      final String encodedData = new String (buffer, 0, length, PREFERRED_ENCODING);
-      return encodedData;
+      return new String (aBuffer, 0, nLength, PREFERRED_ENCODING);
     }
   }
 

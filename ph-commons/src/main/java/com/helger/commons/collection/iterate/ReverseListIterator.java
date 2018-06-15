@@ -26,7 +26,6 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.CodingStyleguideUnaware;
-import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -62,12 +61,6 @@ public class ReverseListIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYPE>
     final ELEMENTTYPE ret = m_aList.get (m_nIndex);
     --m_nIndex;
     return ret;
-  }
-
-  @UnsupportedOperation
-  public void remove ()
-  {
-    throw new UnsupportedOperationException ();
   }
 
   @Override

@@ -115,7 +115,7 @@ public abstract class AbstractRFC1522Codec implements ICodec <String>
    *      Standard charsets</a>
    */
   @Nullable
-  public String getEncoded (@Nullable final String sText) throws EncodeException
+  public String getEncoded (@Nullable final String sText)
   {
     if (sText == null)
       return null;
@@ -148,7 +148,7 @@ public abstract class AbstractRFC1522Codec implements ICodec <String>
    *         thrown if there is an error condition during the decoding process.
    */
   @Nullable
-  public String getDecoded (@Nullable final String sEncodedText) throws DecodeException
+  public String getDecoded (@Nullable final String sEncodedText)
   {
     if (sEncodedText == null)
       return null;

@@ -49,7 +49,7 @@ public final class DateTimeFormatterPattern
   private transient int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
   public DateTimeFormatterPattern (@Nonnull @Nonempty final String sPattern,
-                                   @Nonnull final ResolverStyle eResolverStyle) throws IllegalArgumentException
+                                   @Nonnull final ResolverStyle eResolverStyle)
   {
     ValueEnforcer.notEmpty (sPattern, "RegEx");
     ValueEnforcer.notNull (eResolverStyle, "ResolverStyle");

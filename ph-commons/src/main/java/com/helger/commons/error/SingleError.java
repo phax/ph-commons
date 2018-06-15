@@ -80,24 +80,28 @@ public class SingleError implements IError
     return m_sErrorID;
   }
 
+  @Override
   @Nullable
   public String getErrorFieldName ()
   {
     return m_sErrorFieldName;
   }
 
+  @Override
   @Nonnull
   public ILocation getErrorLocation ()
   {
     return m_aErrorLocation;
   }
 
+  @Override
   @Nullable
   public IHasErrorText getErrorTexts ()
   {
     return m_aErrorText;
   }
 
+  @Override
   @Nullable
   public Throwable getLinkedException ()
   {
@@ -248,7 +252,7 @@ public class SingleError implements IError
 
     /**
      * Set a simple error location without line and column number
-     * 
+     *
      * @param sErrorLocation
      *        Error location string
      * @return this for chaining

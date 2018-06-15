@@ -182,7 +182,7 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
   @ReturnsMutableCopy
   protected byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
                                 @Nonnegative final int nOfs,
-                                @Nonnegative final int nLen) throws DecodeException
+                                @Nonnegative final int nLen)
   {
     if (aEncodedBuffer == null)
       return null;
