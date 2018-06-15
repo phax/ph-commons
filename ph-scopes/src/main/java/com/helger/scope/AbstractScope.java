@@ -131,9 +131,9 @@ public abstract class AbstractScope implements IScope
       {
         aValue.onBeforeScopeDestruction (this);
       }
-      catch (final Throwable t)
+      catch (final Exception ex)
       {
-        s_aLogger.error ("Failed to call onBeforeScopeDestruction in scope " + getID () + " for " + aValue, t);
+        s_aLogger.error ("Failed to call onBeforeScopeDestruction in scope " + getID () + " for " + aValue, ex);
       }
 
     m_aRWLock.writeLocked ( () -> {
@@ -152,9 +152,9 @@ public abstract class AbstractScope implements IScope
       {
         aValue.onScopeDestruction (this);
       }
-      catch (final Throwable t)
+      catch (final Exception ex)
       {
-        s_aLogger.error ("Failed to call onScopeDestruction in scope " + getID () + " for " + aValue, t);
+        s_aLogger.error ("Failed to call onScopeDestruction in scope " + getID () + " for " + aValue, ex);
       }
 
     // Finished destruction process -> remember this

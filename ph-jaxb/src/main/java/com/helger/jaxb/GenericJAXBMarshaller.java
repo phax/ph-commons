@@ -503,16 +503,16 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
       {
         JAXBMarshallerHelper.setSunNamespacePrefixMapper (aMarshaller, m_aNSContext);
       }
-      catch (final Throwable t)
+      catch (final Exception ex)
       {
         // Might be an IllegalArgumentException or a NoClassDefFoundError
         s_aLogger.error ("Failed to set the namespace context " +
                          m_aNSContext +
                          ": " +
-                         t.getClass ().getName () +
+                         ex.getClass ().getName () +
                          " -- " +
-                         t.getMessage (),
-                         GlobalDebug.isDebugMode () ? t.getCause () : null);
+                         ex.getMessage (),
+                         GlobalDebug.isDebugMode () ? ex.getCause () : null);
       }
 
     JAXBMarshallerHelper.setFormattedOutput (aMarshaller, m_bFormattedOutput);

@@ -118,25 +118,31 @@ public final class PathHelper
   {
     ValueEnforcer.notNull (aFile, "Path");
 
-    // If the file has no parent, it is located in the root...
-    final Path aParent = aFile.getParent ();
-    if (aParent == null || Files.exists (aParent))
-    {
-      if (aParent != null && !Files.isDirectory (aParent))
-        if (s_aLogger.isWarnEnabled ())
-          s_aLogger.warn ("Parent object specified is not a directory: '" + aParent + "'");
-      return EChange.UNCHANGED;
-    }
+    // The Files API seem to be slow
+    return FileHelper.ensureParentDirectoryIsPresent (aFile.toFile ());
 
-    // Now try to create the directory
-    final FileIOError aError = PathOperations.createDirRecursive (aParent);
-    if (aError.isFailure ())
-      throw new IllegalStateException ("Failed to create parent of " + aFile.toAbsolutePath () + ": " + aError);
-
-    // Check again if it exists, to be 100% sure :)
-    if (!Files.exists (aParent))
-      throw new IllegalStateException ("Parent of " + aFile.toAbsolutePath () + " is still not existing!");
-    return EChange.CHANGED;
+    // // If the file has no parent, it is located in the root...
+    // final Path aParent = aFile.getParent ();
+    // if (aParent == null || Files.exists (aParent))
+    // {
+    // if (aParent != null && !Files.isDirectory (aParent))
+    // if (s_aLogger.isWarnEnabled ())
+    // s_aLogger.warn ("Parent object specified is not a directory: '" + aParent
+    // + "'");
+    // return EChange.UNCHANGED;
+    // }
+    //
+    // // Now try to create the directory
+    // final FileIOError aError = PathOperations.createDirRecursive (aParent);
+    // if (aError.isFailure ())
+    // throw new IllegalStateException ("Failed to create parent of " +
+    // aFile.toAbsolutePath () + ": " + aError);
+    //
+    // // Check again if it exists, to be 100% sure :)
+    // if (!Files.exists (aParent))
+    // throw new IllegalStateException ("Parent of " + aFile.toAbsolutePath () +
+    // " is still not existing!");
+    // return EChange.CHANGED;
   }
 
   /**
@@ -416,27 +422,31 @@ public final class PathHelper
     ValueEnforcer.notNull (aFile1, "File1");
     ValueEnforcer.notNull (aFile2, "aFile2");
 
-    // Compare with the same file?
-    if (aFile1.equals (aFile2))
-      return false;
+    // The Files API seem to be slow
+    return FileHelper.isFileNewer (aFile1.toFile (), aFile2.toFile ());
 
-    // if the first file does not exists, always false
-    if (!Files.exists (aFile1))
-      return false;
-
-    // first file exists, but second file does not
-    if (!Files.exists (aFile2))
-      return true;
-
-    try
-    {
-      // both exist, compare file times
-      return Files.getLastModifiedTime (aFile1).compareTo (Files.getLastModifiedTime (aFile2)) > 0;
-    }
-    catch (final IOException ex)
-    {
-      throw new UncheckedIOException (ex);
-    }
+    // // Compare with the same file?
+    // if (aFile1.equals (aFile2))
+    // return false;
+    //
+    // // if the first file does not exists, always false
+    // if (!Files.exists (aFile1))
+    // return false;
+    //
+    // // first file exists, but second file does not
+    // if (!Files.exists (aFile2))
+    // return true;
+    //
+    // try
+    // {
+    // // both exist, compare file times
+    // return Files.getLastModifiedTime (aFile1).compareTo
+    // (Files.getLastModifiedTime (aFile2)) > 0;
+    // }
+    // catch (final IOException ex)
+    // {
+    // throw new UncheckedIOException (ex);
+    // }
   }
 
   /**

@@ -266,7 +266,7 @@ public final class CommonsTestHelper
    *        The runnable to execute. May not be <code>null</code>.
    */
   public static void testInParallel (@Nonnegative final int nCalls,
-                                     @Nonnull final IThrowingRunnable <? extends Throwable> aRunnable)
+                                     @Nonnull final IThrowingRunnable <? extends Exception> aRunnable)
   {
     ValueEnforcer.isGE0 (nCalls, "Calls");
     ValueEnforcer.notNull (aRunnable, "Runnable");
@@ -281,10 +281,10 @@ public final class CommonsTestHelper
         {
           aRunnable.run ();
         }
-        catch (final Throwable t)
+        catch (final Exception ex)
         {
           // Remember thread stack
-          aErrors.add (t.getMessage () + "\n" + StackTraceHelper.getStackAsString (t));
+          aErrors.add (ex.getMessage () + "\n" + StackTraceHelper.getStackAsString (ex));
         }
       });
     }

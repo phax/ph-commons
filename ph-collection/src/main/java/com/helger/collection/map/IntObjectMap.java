@@ -169,7 +169,8 @@ public class IntObjectMap <T> implements IHasSize, Serializable
     else
     {
       // it means used cell with our key
-      assert m_aKeys[idx] == key;
+      if (m_aKeys[idx] != key)
+        throw new IllegalStateException ();
       m_aValues[idx] = value;
     }
     return _getOld (prev);

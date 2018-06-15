@@ -4546,7 +4546,9 @@ public final class StringHelper
                                         final boolean bIncludingSearchChar)
   {
     final int nIndex = getIndexOf (sStr, cSearch);
-    return nIndex == STRING_NOT_FOUND ? null : sStr.substring (0, nIndex + (bIncludingSearchChar ? 1 : 0));
+    if (nIndex == STRING_NOT_FOUND)
+      return null;
+    return sStr.substring (0, nIndex + (bIncludingSearchChar ? 1 : 0));
   }
 
   /**
@@ -4590,8 +4592,9 @@ public final class StringHelper
       return "";
 
     final int nIndex = getIndexOf (sStr, sSearch);
-    return nIndex == STRING_NOT_FOUND ? null
-                                      : sStr.substring (0, nIndex + (bIncludingSearchChar ? sSearch.length () : 0));
+    if (nIndex == STRING_NOT_FOUND)
+      return null;
+    return sStr.substring (0, nIndex + (bIncludingSearchChar ? sSearch.length () : 0));
   }
 
   /**
@@ -4634,7 +4637,9 @@ public final class StringHelper
                                        final boolean bIncludingSearchChar)
   {
     final int nIndex = getLastIndexOf (sStr, cSearch);
-    return nIndex == STRING_NOT_FOUND ? null : sStr.substring (0, nIndex + (bIncludingSearchChar ? 1 : 0));
+    if (nIndex == STRING_NOT_FOUND)
+      return null;
+    return sStr.substring (0, nIndex + (bIncludingSearchChar ? 1 : 0));
   }
 
   /**
@@ -4678,8 +4683,9 @@ public final class StringHelper
       return "";
 
     final int nIndex = getLastIndexOf (sStr, sSearch);
-    return nIndex == STRING_NOT_FOUND ? null
-                                      : sStr.substring (0, nIndex + (bIncludingSearchChar ? sSearch.length () : 0));
+    if (nIndex == STRING_NOT_FOUND)
+      return null;
+    return sStr.substring (0, nIndex + (bIncludingSearchChar ? sSearch.length () : 0));
   }
 
   /**
@@ -4722,7 +4728,9 @@ public final class StringHelper
                                        final boolean bIncludingSearchChar)
   {
     final int nIndex = getIndexOf (sStr, cSearch);
-    return nIndex == STRING_NOT_FOUND ? null : sStr.substring (nIndex + (bIncludingSearchChar ? 0 : 1));
+    if (nIndex == STRING_NOT_FOUND)
+      return null;
+    return sStr.substring (nIndex + (bIncludingSearchChar ? 0 : 1));
   }
 
   /**
@@ -4766,8 +4774,9 @@ public final class StringHelper
       return sStr;
 
     final int nIndex = getIndexOf (sStr, sSearch);
-    return nIndex == STRING_NOT_FOUND ? null
-                                      : sStr.substring (nIndex + (bIncludingSearchString ? 0 : sSearch.length ()));
+    if (nIndex == STRING_NOT_FOUND)
+      return null;
+    return sStr.substring (nIndex + (bIncludingSearchString ? 0 : sSearch.length ()));
   }
 
   /**
@@ -4810,7 +4819,9 @@ public final class StringHelper
                                       final boolean bIncludingSearchChar)
   {
     final int nIndex = getLastIndexOf (sStr, cSearch);
-    return nIndex == STRING_NOT_FOUND ? null : sStr.substring (nIndex + (bIncludingSearchChar ? 0 : 1));
+    if (nIndex == STRING_NOT_FOUND)
+      return null;
+    return sStr.substring (nIndex + (bIncludingSearchChar ? 0 : 1));
   }
 
   /**
@@ -4854,8 +4865,9 @@ public final class StringHelper
       return sStr;
 
     final int nIndex = getLastIndexOf (sStr, sSearch);
-    return nIndex == STRING_NOT_FOUND ? null
-                                      : sStr.substring (nIndex + (bIncludingSearchString ? 0 : sSearch.length ()));
+    if (nIndex == STRING_NOT_FOUND)
+      return null;
+    return sStr.substring (nIndex + (bIncludingSearchString ? 0 : sSearch.length ()));
   }
 
   /**

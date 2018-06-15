@@ -202,11 +202,9 @@ public final class XMLWriter
   @Nullable
   public static String getNodeAsString (@Nonnull final Node aNode, @Nonnull final IXMLWriterSettings aSettings)
   {
-    NonBlockingStringWriter aWriter = null;
-    try
+    // start serializing
+    try (final NonBlockingStringWriter aWriter = new NonBlockingStringWriter (50 * CGlobal.BYTES_PER_KILOBYTE))
     {
-      // start serializing
-      aWriter = new NonBlockingStringWriter (50 * CGlobal.BYTES_PER_KILOBYTE);
       if (writeToWriter (aNode, aWriter, aSettings).isSuccess ())
       {
         s_aSizeHdl.addSize (aWriter.size ());
@@ -216,11 +214,6 @@ public final class XMLWriter
     catch (final Throwable t)
     {
       s_aLogger.error ("Error serializing DOM node with settings " + aSettings.toString (), t);
-    }
-    finally
-    {
-      // don't forget to close the stream!
-      StreamHelper.close (aWriter);
     }
     return null;
   }

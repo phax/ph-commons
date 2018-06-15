@@ -47,14 +47,14 @@ public class ReadableResourceProviderChain implements IReadableResourceProvider
   {
     ValueEnforcer.notEmptyNoNullValue (aResProviders, "ResourceProviders");
 
-    m_aReadingResourceProviders = new CommonsArrayList<> (aResProviders);
+    m_aReadingResourceProviders = new CommonsArrayList <> (aResProviders);
   }
 
   public ReadableResourceProviderChain (@Nonnull final Iterable <? extends IReadableResourceProvider> aResProviders)
   {
     ValueEnforcer.notEmptyNoNullValue (aResProviders, "ResourceProviders");
 
-    m_aReadingResourceProviders = new CommonsArrayList<> (aResProviders);
+    m_aReadingResourceProviders = new CommonsArrayList <> (aResProviders);
   }
 
   @Nonnull
@@ -85,6 +85,7 @@ public class ReadableResourceProviderChain implements IReadableResourceProvider
                                         m_aReadingResourceProviders);
   }
 
+  @Override
   @Nullable
   public InputStream getInputStream (@Nonnull final String sName)
   {

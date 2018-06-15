@@ -114,15 +114,16 @@ public final class SPITestHelper
               if (sInterfaceClassName.startsWith ("com.helger.") && !s_aCacheInterface.hasAnnotation (aInterfaceClass))
                 s_aLogger.warn (aInterfaceClass + " should have the @IsSPIInterface annotation");
             }
-            catch (final Throwable t)
+            catch (final Exception ex)
             {
               final String sMsg = "No interface representing " +
                                   sInterfaceClassName +
                                   " exists: " +
-                                  ClassHelper.getClassLocalName (t) +
+                                  ClassHelper.getClassLocalName (ex) +
                                   " - " +
-                                  t.getMessage ();
-              s_aLogger.warn (sMsg);
+                                  ex.getMessage ();
+              if (s_aLogger.isWarnEnabled ())
+                s_aLogger.warn (sMsg);
               if (eMode.isStrict ())
                 throw new IllegalStateException (sMsg);
             }
@@ -150,14 +151,13 @@ public final class SPITestHelper
                     aAllImplementations.computeIfAbsent (sInterfaceClassName, x -> new CommonsTreeSet <> ())
                                        .add (sImplClassName);
                   }
-                  catch (final Throwable t)
+                  catch (final Exception ex)
                   {
                     // Ensure the path name of the currently checked file is
-                    // contained
-                    // in the exception text!
-                    s_aLogger.warn ("  Error checking content: " + t.getMessage ());
+                    // contained in the exception text!
+                    s_aLogger.warn ("  Error checking content: " + ex.getMessage ());
                     if (eMode.isStrict ())
-                      throw new IllegalStateException ("Error checking SPI file " + aFile.getAbsolutePath (), t);
+                      throw new IllegalStateException ("Error checking SPI file " + aFile.getAbsolutePath (), ex);
                   }
                 }
                 else

@@ -150,17 +150,22 @@ public final class PathOperations
     ValueEnforcer.notNull (aDir, "Directory");
 
     final Path aRealDir = _getUnifiedPath (aDir);
+    return FileOperations.createDir (aRealDir.toFile ());
 
-    // Does the directory already exist?
-    if (Files.exists (aRealDir))
-      return EFileIOErrorCode.TARGET_ALREADY_EXISTS.getAsIOError (EFileIOOperation.CREATE_DIR, aRealDir);
-
-    // Is the parent directory writable?
-    final Path aParentDir = aRealDir.getParent ();
-    if (aParentDir != null && Files.exists (aParentDir) && !Files.isWritable (aParentDir))
-      return EFileIOErrorCode.SOURCE_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.CREATE_DIR, aRealDir);
-
-    return _perform (EFileIOOperation.CREATE_DIR, Files::createDirectory, aRealDir);
+    // // Does the directory already exist?
+    // if (Files.exists (aRealDir))
+    // return EFileIOErrorCode.TARGET_ALREADY_EXISTS.getAsIOError
+    // (EFileIOOperation.CREATE_DIR, aRealDir);
+    //
+    // // Is the parent directory writable?
+    // final Path aParentDir = aRealDir.getParent ();
+    // if (aParentDir != null && Files.exists (aParentDir) && !Files.isWritable
+    // (aParentDir))
+    // return EFileIOErrorCode.SOURCE_PARENT_NOT_WRITABLE.getAsIOError
+    // (EFileIOOperation.CREATE_DIR, aRealDir);
+    //
+    // return _perform (EFileIOOperation.CREATE_DIR, Files::createDirectory,
+    // aRealDir);
   }
 
   /**
@@ -195,17 +200,22 @@ public final class PathOperations
     ValueEnforcer.notNull (aDir, "Directory");
 
     final Path aRealDir = _getUnifiedPath (aDir);
+    return FileOperations.createDirRecursive (aRealDir.toFile ());
 
-    // Does the directory already exist?
-    if (Files.exists (aRealDir))
-      return EFileIOErrorCode.TARGET_ALREADY_EXISTS.getAsIOError (EFileIOOperation.CREATE_DIR_RECURSIVE, aRealDir);
-
-    // Is the parent directory writable?
-    final Path aParentDir = aRealDir.getParent ();
-    if (aParentDir != null && Files.exists (aParentDir) && !Files.isWritable (aParentDir))
-      return EFileIOErrorCode.SOURCE_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.CREATE_DIR_RECURSIVE, aRealDir);
-
-    return _perform (EFileIOOperation.CREATE_DIR_RECURSIVE, Files::createDirectories, aRealDir);
+    // // Does the directory already exist?
+    // if (Files.exists (aRealDir))
+    // return EFileIOErrorCode.TARGET_ALREADY_EXISTS.getAsIOError
+    // (EFileIOOperation.CREATE_DIR_RECURSIVE, aRealDir);
+    //
+    // // Is the parent directory writable?
+    // final Path aParentDir = aRealDir.getParent ();
+    // if (aParentDir != null && Files.exists (aParentDir) && !Files.isWritable
+    // (aParentDir))
+    // return EFileIOErrorCode.SOURCE_PARENT_NOT_WRITABLE.getAsIOError
+    // (EFileIOOperation.CREATE_DIR_RECURSIVE, aRealDir);
+    //
+    // return _perform (EFileIOOperation.CREATE_DIR_RECURSIVE,
+    // Files::createDirectories, aRealDir);
   }
 
   /**

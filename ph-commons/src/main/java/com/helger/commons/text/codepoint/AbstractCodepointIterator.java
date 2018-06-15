@@ -60,7 +60,9 @@ public abstract class AbstractCodepointIterator implements ICodepointIterator
   public int lastPosition ()
   {
     final int nPos = position ();
-    return nPos >= 0 ? nPos >= limit () ? nPos : nPos - 1 : -1;
+    if (nPos < 0)
+      return -1;
+    return nPos >= limit () ? nPos : nPos - 1;
   }
 
   @Nullable

@@ -311,7 +311,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
    * @param aFile
    *        The file that was read. May be <code>null</code> for in-memory DAOs.
    */
-  protected static void triggerExceptionHandlersRead (@Nonnull final Throwable t,
+  protected static void triggerExceptionHandlersRead (@Nonnull final Exception ex,
                                                       final boolean bIsInitialization,
                                                       @Nullable final File aFile)
   {
@@ -319,7 +319,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
     if (exceptionHandlersRead ().isNotEmpty ())
     {
       final IReadableResource aRes = aFile == null ? null : new FileSystemResource (aFile);
-      exceptionHandlersRead ().forEach (aCB -> aCB.onDAOReadException (t, bIsInitialization, aRes));
+      exceptionHandlersRead ().forEach (aCB -> aCB.onDAOReadException (ex, bIsInitialization, aRes));
     }
   }
 
@@ -508,15 +508,15 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
             s_aLogger.error ("File '" + aFinalFile.getAbsolutePath () + "' has pending changes after initialRead!");
           }
         }
-        catch (final Throwable t)
+        catch (final Exception ex)
         {
-          triggerExceptionHandlersRead (t, bIsInitialization, aFinalFile);
+          triggerExceptionHandlersRead (ex, bIsInitialization, aFinalFile);
           throw new DAOException ("Error " +
                                   (bIsInitialization ? "initializing" : "reading") +
                                   " the file '" +
                                   aFinalFile.getAbsolutePath () +
                                   "'",
-                                  t);
+                                  ex);
         }
 
         // Trigger after read before WAL
@@ -611,11 +611,11 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
             bFinishedSuccessful = true;
             s_aLogger.info ("Successfully finished recovery from WAL file " + aWALFile.getAbsolutePath ());
           }
-          catch (final Throwable t)
+          catch (final Exception ex)
           {
-            s_aLogger.error ("Failed to recover from WAL file " + aWALFile.getAbsolutePath (), t);
-            triggerExceptionHandlersRead (t, false, aWALFile);
-            throw new DAOException ("Error the WAL file '" + aWALFile.getAbsolutePath () + "'", t);
+            s_aLogger.error ("Failed to recover from WAL file " + aWALFile.getAbsolutePath (), ex);
+            triggerExceptionHandlersRead (ex, false, aWALFile);
+            throw new DAOException ("Error the WAL file '" + aWALFile.getAbsolutePath () + "'", ex);
           }
 
           if (bFinishedSuccessful)
@@ -720,7 +720,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
    *        The XML content that should be written. May be <code>null</code> if
    *        the error occurred in XML creation.
    */
-  protected static void triggerExceptionHandlersWrite (@Nonnull final Throwable t,
+  protected static void triggerExceptionHandlersWrite (@Nonnull final Exception ex,
                                                        @Nonnull final String sErrorFilename,
                                                        @Nullable final IMicroDocument aDoc)
   {
@@ -729,7 +729,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
     {
       final IReadableResource aRes = new FileSystemResource (sErrorFilename);
       final String sXMLContent = aDoc == null ? "no XML document created" : MicroWriter.getNodeAsString (aDoc);
-      exceptionHandlersWrite ().forEach (aCB -> aCB.onDAOWriteException (t, aRes, sXMLContent));
+      exceptionHandlersWrite ().forEach (aCB -> aCB.onDAOWriteException (ex, aRes, sXMLContent));
     }
   }
 
@@ -834,7 +834,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
       m_aLastWriteDT = PDTFactory.getCurrentLocalDateTime ();
       return ESuccess.SUCCESS;
     }
-    catch (final Throwable t)
+    catch (final Exception ex)
     {
       final String sErrorFilename = aFileNew != null ? aFileNew.getAbsolutePath () : sFilename;
 
@@ -843,9 +843,9 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
                        " failed to write the DAO data to '" +
                        sErrorFilename +
                        "'",
-                       t);
+                       ex);
 
-      triggerExceptionHandlersWrite (t, sErrorFilename, aDoc);
+      triggerExceptionHandlersWrite (ex, sErrorFilename, aDoc);
       m_aStatsCounterWriteExceptions.increment ();
       return ESuccess.FAILURE;
     }
@@ -936,10 +936,10 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
       }
       return ESuccess.SUCCESS;
     }
-    catch (final Throwable t)
+    catch (final Exception ex)
     {
-      s_aLogger.error ("Error writing WAL file " + aWALRes, t);
-      triggerExceptionHandlersWrite (t, sWALFilename, (IMicroDocument) null);
+      s_aLogger.error ("Error writing WAL file " + aWALRes, ex);
+      triggerExceptionHandlersWrite (ex, sWALFilename, (IMicroDocument) null);
     }
     return ESuccess.FAILURE;
   }

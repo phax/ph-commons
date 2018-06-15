@@ -113,6 +113,7 @@ public class FileSystemResource implements IReadWriteResource
     return FileHelper.getInputStream (m_aFile);
   }
 
+  @Override
   @Nullable
   public Reader getReader (@Nonnull final Charset aCharset)
   {
@@ -130,6 +131,7 @@ public class FileSystemResource implements IReadWriteResource
     return FileHelper.getOutputStream (m_aFile, eAppend);
   }
 
+  @Override
   @Nullable
   public Writer getWriter (@Nonnull final Charset aCharset, @Nonnull final EAppend eAppend)
   {

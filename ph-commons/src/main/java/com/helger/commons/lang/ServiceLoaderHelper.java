@@ -142,7 +142,7 @@ public final class ServiceLoaderHelper
       s_aLogger.warn (aSPIClass + " should have the @IsSPIInterface annotation");
 
     final ServiceLoader <T> aServiceLoader = ServiceLoader.<T> load (aSPIClass, aClassLoader);
-    final ICommonsList <T> ret = new CommonsArrayList<> ();
+    final ICommonsList <T> ret = new CommonsArrayList <> ();
 
     // We use the iterator to be able to catch exceptions thrown
     // when loading SPI implementations (e.g. the SPI implementation class does
@@ -157,9 +157,9 @@ public final class ServiceLoaderHelper
           s_aLogger.warn (aInstance + " should have the @IsSPIImplementation annotation");
         ret.add (aInstance);
       }
-      catch (final Throwable t)
+      catch (final Exception ex)
       {
-        aRealLogger.error ("Unable to load an SPI implementation of " + aSPIClass, t);
+        aRealLogger.error ("Unable to load an SPI implementation of " + aSPIClass, ex);
       }
     }
 

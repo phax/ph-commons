@@ -288,8 +288,9 @@ public final class ToStringGenerator
   @Nonnull
   private String _getObjectValue (@Nullable final Object aValue)
   {
-    return aValue == null ? CONSTANT_NULL
-                          : EqualsHelper.identityEqual (aValue, m_aSrc) ? CONSTANT_THIS : aValue.toString ();
+    if (aValue == null)
+      return CONSTANT_NULL;
+    return EqualsHelper.identityEqual (aValue, m_aSrc) ? CONSTANT_THIS : aValue.toString ();
   }
 
   @Nonnull

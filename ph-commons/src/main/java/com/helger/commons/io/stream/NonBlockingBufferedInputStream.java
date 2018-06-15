@@ -204,7 +204,7 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
             int nsz = m_nPos * 2;
             if (nsz > m_nMarkLimit)
               nsz = m_nMarkLimit;
-            final byte nbuf[] = new byte [nsz];
+            final byte [] nbuf = new byte [nsz];
             System.arraycopy (buffer, 0, nbuf, 0, m_nPos);
             if (!s_aBufUpdater.compareAndSet (this, buffer, nbuf))
             {

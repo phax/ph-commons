@@ -70,7 +70,7 @@ public final class VerySecureRandom
       if (s_aLogger.isDebugEnabled ())
         s_aLogger.debug ("Using SecureRandom: IBMSecureRandom, IBMJCE");
     }
-    catch (final Throwable t)
+    catch (final Exception ex)
     {
       try
       {
@@ -86,7 +86,7 @@ public final class VerySecureRandom
         if (s_aLogger.isDebugEnabled ())
           s_aLogger.debug ("Using SecureRandom: SHA1PRNG");
       }
-      catch (final Throwable t2)
+      catch (final Exception ex2)
       {
         if (s_aLogger.isDebugEnabled ())
           s_aLogger.debug ("Trying to get default SecureRandom");

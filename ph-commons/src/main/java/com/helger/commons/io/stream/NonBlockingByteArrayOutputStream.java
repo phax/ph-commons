@@ -245,6 +245,7 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
     return m_nCount == 0;
   }
 
+  @Override
   public boolean isNotEmpty ()
   {
     return m_nCount > 0;

@@ -228,7 +228,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
    * @param aFile
    *        The file that was read. May be <code>null</code> for in-memory DAOs.
    */
-  protected static void triggerExceptionHandlersRead (@Nonnull final Throwable t,
+  protected static void triggerExceptionHandlersRead (@Nonnull final Exception ex,
                                                       final boolean bIsInitialization,
                                                       @Nullable final File aFile)
   {
@@ -236,7 +236,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
     if (exceptionHandlersRead ().isNotEmpty ())
     {
       final IReadableResource aRes = aFile == null ? null : new FileSystemResource (aFile);
-      exceptionHandlersRead ().forEach (aCB -> aCB.onDAOReadException (t, bIsInitialization, aRes));
+      exceptionHandlersRead ().forEach (aCB -> aCB.onDAOReadException (ex, bIsInitialization, aRes));
     }
   }
 
@@ -344,15 +344,15 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
         else
           s_aLogger.warn ("File '" + aFinalFile + "' has pending changes after initialRead!");
       }
-      catch (final Throwable t)
+      catch (final Exception ex)
       {
-        triggerExceptionHandlersRead (t, bIsInitialization, aFinalFile);
+        triggerExceptionHandlersRead (ex, bIsInitialization, aFinalFile);
         throw new DAOException ("Error " +
                                 (bIsInitialization ? "initializing" : "reading") +
                                 " the file '" +
                                 aFinalFile +
                                 "'",
-                                t);
+                                ex);
       }
     });
   }
@@ -451,7 +451,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
    *        The XML content that should be written. May be <code>null</code> if
    *        the error occurred in XML creation.
    */
-  protected static void triggerExceptionHandlersWrite (@Nonnull final Throwable t,
+  protected static void triggerExceptionHandlersWrite (@Nonnull final Exception ex,
                                                        @Nonnull final String sErrorFilename,
                                                        @Nullable final IMicroDocument aDoc)
   {
@@ -460,7 +460,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
     {
       final IReadableResource aRes = new FileSystemResource (sErrorFilename);
       final String sXMLContent = aDoc == null ? "no XML document created" : MicroWriter.getNodeAsString (aDoc);
-      exceptionHandlersWrite ().forEach (aCB -> aCB.onDAOWriteException (t, aRes, sXMLContent));
+      exceptionHandlersWrite ().forEach (aCB -> aCB.onDAOWriteException (ex, aRes, sXMLContent));
     }
   }
 
@@ -536,7 +536,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
       m_aLastWriteDT = PDTFactory.getCurrentLocalDateTime ();
       return ESuccess.SUCCESS;
     }
-    catch (final Throwable t)
+    catch (final Exception ex)
     {
       final String sErrorFilename = aFile != null ? aFile.getAbsolutePath () : sFilename;
 
@@ -545,9 +545,9 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
                        " failed to write the DAO data to '" +
                        sErrorFilename +
                        "'",
-                       t);
+                       ex);
 
-      triggerExceptionHandlersWrite (t, sErrorFilename, aDoc);
+      triggerExceptionHandlersWrite (ex, sErrorFilename, aDoc);
       m_aStatsCounterWriteExceptions.increment ();
       return ESuccess.FAILURE;
     }
