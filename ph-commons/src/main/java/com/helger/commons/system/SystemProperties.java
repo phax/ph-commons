@@ -101,7 +101,8 @@ public final class SystemProperties
       if (ret == null && s_aWarnedPropertyNames.add (sKey))
       {
         // Warn about each property once
-        s_aLogger.warn ("System property '" + sKey + "' is not set!");
+        if (s_aLogger.isWarnEnabled ())
+          s_aLogger.warn ("System property '" + sKey + "' is not set!");
       }
     }
     return ret;
@@ -197,6 +198,7 @@ public final class SystemProperties
       if (s_aLogger.isDebugEnabled () && bChanged)
         s_aLogger.debug ("Set system property '" + sKey + "' to '" + sValue + "'");
     }
+    // TODO next minor release - change to EChange return type
   }
 
   /**

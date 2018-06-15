@@ -46,8 +46,7 @@ public final class SerializationConverter
   {}
 
   public static <T> void writeConvertedObject (@Nullable final T aObject,
-                                               @Nonnull final ObjectOutputStream aOOS) throws TypeConverterException,
-                                                                                       IOException
+                                               @Nonnull final ObjectOutputStream aOOS) throws IOException
   {
     ValueEnforcer.notNull (aOOS, "ObjectOutputStream");
 
@@ -69,8 +68,7 @@ public final class SerializationConverter
 
   @Nullable
   public static <DSTTYPE> DSTTYPE readConvertedObject (@Nonnull final ObjectInputStream aOIS,
-                                                       @Nonnull final Class <DSTTYPE> aDstClass) throws TypeConverterException,
-                                                                                                 IOException
+                                                       @Nonnull final Class <DSTTYPE> aDstClass) throws IOException
   {
     ValueEnforcer.notNull (aOIS, "ObjectInputStream");
     ValueEnforcer.notNull (aDstClass, "DestinationClass");

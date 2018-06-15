@@ -241,10 +241,11 @@ public class WatchDir implements AutoCloseable
    */
   public void processEvents ()
   {
-    s_aLogger.info ("Start processing directory change events in '" +
-                    m_aStartDir +
-                    "'" +
-                    (m_bRecursive ? " (recursively)" : ""));
+    if (s_aLogger.isInfoEnabled ())
+      s_aLogger.info ("Start processing directory change events in '" +
+                      m_aStartDir +
+                      "'" +
+                      (m_bRecursive ? " (recursively)" : ""));
 
     if (m_aCallbacks.isEmpty ())
       throw new IllegalStateException ("No callback registered for watching directory changes in " + m_aStartDir);
@@ -282,7 +283,8 @@ public class WatchDir implements AutoCloseable
         final WatchEvent.Kind <?> aKind = aEvent.kind ();
         if (aKind == StandardWatchEventKinds.OVERFLOW)
         {
-          s_aLogger.warn ("Got an overflow event on directory " + aSrcDir);
+          if (s_aLogger.isWarnEnabled ())
+            s_aLogger.warn ("Got an overflow event on directory " + aSrcDir);
           continue;
         }
 
@@ -342,7 +344,8 @@ public class WatchDir implements AutoCloseable
       final boolean bValid = aKey.reset ();
       if (!bValid)
       {
-        s_aLogger.info ("Unregister directory " + aSrcDir);
+        if (s_aLogger.isInfoEnabled ())
+          s_aLogger.info ("Unregister directory " + aSrcDir);
         m_aKeys.remove (aKey);
 
         // all directories are inaccessible
@@ -351,7 +354,8 @@ public class WatchDir implements AutoCloseable
           break;
       }
     }
-    s_aLogger.info ("Finished processing directory change events in '" + m_aStartDir + "'");
+    if (s_aLogger.isInfoEnabled ())
+      s_aLogger.info ("Finished processing directory change events in '" + m_aStartDir + "'");
   }
 
   /**

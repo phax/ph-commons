@@ -49,7 +49,7 @@ public interface IDisplayNameProvider <DATATYPE> extends Serializable
   @Nonnull
   default Comparator <DATATYPE> getComparatorCollating (@Nullable final Locale aSortLocale)
   {
-    return IComparator.getComparatorCollating (aObject -> getDisplayName (aObject), aSortLocale);
+    return IComparator.getComparatorCollating (this::getDisplayName, aSortLocale);
   }
 
   @Nonnull

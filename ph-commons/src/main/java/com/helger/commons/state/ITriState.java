@@ -61,7 +61,7 @@ public interface ITriState
    *         If this is undefined
    * @see #getAsBooleanValue(boolean)
    */
-  boolean getAsBooleanValue () throws IllegalStateException;
+  boolean getAsBooleanValue ();
 
   /**
    * Convert the tri state value into a boolean value, depending on what

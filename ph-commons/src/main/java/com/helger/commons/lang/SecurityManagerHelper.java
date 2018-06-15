@@ -41,7 +41,7 @@ public final class SecurityManagerHelper
     return aSM != null ? aSM.getThreadGroup () : Thread.currentThread ().getThreadGroup ();
   }
 
-  public static void checkPermission (@Nonnull final Permission aPermission) throws SecurityException
+  public static void checkPermission (@Nonnull final Permission aPermission)
   {
     ValueEnforcer.notNull (aPermission, "Permission");
 

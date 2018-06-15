@@ -25,7 +25,6 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.lang.IHasSize;
@@ -286,10 +285,10 @@ public class NonBlockingStringWriter extends Writer implements IHasSize, Seriali
 
   /**
    * @return the buffer's current value as a string.
+   * @deprecated Use getAsString instead
    */
   @Override
   @Deprecated
-  @DevelopersNote ("Use getAsString as it is more explicit!")
   public String toString ()
   {
     return getAsString ();

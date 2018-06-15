@@ -99,6 +99,7 @@ public class StringInputStreamProvider implements IHasInputStreamAndReader, IHas
     return new StringInputStream (m_sData, m_aCharset);
   }
 
+  @Override
   @Nonnull
   public final NonBlockingStringReader getReader (@Nonnull final Charset aCharset)
   {

@@ -116,17 +116,12 @@ public final class Punycode
     int n = INITIAL_N;
     int delta = 0;
     int bias = INITIAL_BIAS;
-    int i = -1;
     while (aIter.hasNext ())
     {
-      i = aIter.next ().getValue ();
+      final int i = aIter.next ().getValue ();
       if (_basic (i))
-      {
         if (aCaseFlags == null)
-        {
           aSB.append ((char) i);
-        }
-      }
     }
     final int b = aSB.length ();
     int h = b;
@@ -135,11 +130,10 @@ public final class Punycode
     while (h < aChars.length)
     {
       aIter.position (0);
-      i = -1;
       int m = Integer.MAX_VALUE;
       while (aIter.hasNext ())
       {
-        i = aIter.next ().getValue ();
+        final int i = aIter.next ().getValue ();
         if (i >= n && i < m)
           m = i;
       }
@@ -148,10 +142,9 @@ public final class Punycode
       delta += (m - n) * (h + 1);
       n = m;
       aIter.position (0);
-      i = -1;
       while (aIter.hasNext ())
       {
-        i = aIter.next ().getValue ();
+        final int i = aIter.next ().getValue ();
         if (i < n)
         {
           ++delta;
@@ -171,7 +164,7 @@ public final class Punycode
             q = (q - t) / (BASE - t);
             k += BASE;
           }
-          aSB.append ((char) _encode_digit (q, (aCaseFlags != null) ? aCaseFlags[aIter.position () - 1] : false));
+          aSB.append ((char) _encode_digit (q, aCaseFlags != null ? aCaseFlags[aIter.position () - 1] : false));
           bias = _adapt (delta, h + 1, h == b);
           delta = 0;
           ++h;
@@ -227,7 +220,7 @@ public final class Punycode
         if (digit > (Integer.MAX_VALUE - i) / w)
           throw new DecodeException ("Overflow");
         i += digit * w;
-        final int t = (k <= bias) ? TMIN : (k >= bias + TMAX) ? TMAX : k - bias;
+        final int t = k <= bias ? TMIN : k >= bias + TMAX ? TMAX : k - bias;
         if (digit < t)
           break;
         if (w > Integer.MAX_VALUE / (BASE - t))

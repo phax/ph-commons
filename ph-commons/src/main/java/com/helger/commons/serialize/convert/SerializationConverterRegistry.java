@@ -166,12 +166,12 @@ public final class SerializationConverterRegistry implements ISerializationConve
   @Nonnegative
   public int getRegisteredSerializationConverterCount ()
   {
-    return m_aRWLock.readLocked ( () -> m_aMap.size ());
+    return m_aRWLock.readLocked (m_aMap::size);
   }
 
   public void reinitialize ()
   {
-    m_aRWLock.writeLocked ( () -> m_aMap.clear ());
+    m_aRWLock.writeLocked (m_aMap::clear);
 
     // Register all custom micro type converter
     for (final ISerializationConverterRegistrarSPI aSPI : ServiceLoaderHelper.getAllSPIImplementations (ISerializationConverterRegistrarSPI.class))

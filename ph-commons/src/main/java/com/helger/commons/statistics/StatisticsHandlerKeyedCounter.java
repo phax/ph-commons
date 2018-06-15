@@ -18,6 +18,7 @@ package com.helger.commons.statistics;
 
 import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Supplier;
 
 import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnegative;
@@ -83,7 +84,7 @@ public class StatisticsHandlerKeyedCounter implements IMutableStatisticsHandlerK
 
   private final transient SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   private final AtomicInteger m_aInvocationCount = new AtomicInteger ();
-  private final ICommonsMap <String, Value> m_aMap = new CommonsHashMap<> ();
+  private final ICommonsMap <String, Value> m_aMap = new CommonsHashMap <> ();
 
   @Nonnegative
   public int getInvocationCount ()
@@ -112,7 +113,7 @@ public class StatisticsHandlerKeyedCounter implements IMutableStatisticsHandlerK
   @ReturnsMutableCopy
   public ICommonsSet <String> getAllKeys ()
   {
-    return m_aRWLock.readLocked ( () -> m_aMap.copyOfKeySet ());
+    return m_aRWLock.readLocked ((Supplier <ICommonsSet <String>>) m_aMap::copyOfKeySet);
   }
 
   @CheckForSigned

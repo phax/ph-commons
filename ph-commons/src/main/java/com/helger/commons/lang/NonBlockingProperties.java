@@ -517,7 +517,10 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
    * chars to their original forms
    */
   @Nonnull
-  private String _loadConvert (final char [] aIn, final int nOfs, final int nLen, @Nonnull final char [] aConvBuf)
+  private static String _loadConvert (@Nonnull final char [] aIn,
+                                      final int nOfs,
+                                      final int nLen,
+                                      @Nonnull final char [] aConvBuf)
   {
     int nCurOfs = nOfs;
     char [] aOut;
@@ -612,7 +615,7 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
    * a preceding slash
    */
   @Nonnull
-  private String _saveConvert (final String sStr, final boolean bEscapeSpace, final boolean bEscapeUnicode)
+  private static String _saveConvert (final String sStr, final boolean bEscapeSpace, final boolean bEscapeUnicode)
   {
     final int nLen = sStr.length ();
     int nBufLen = nLen * 2;
@@ -892,6 +895,22 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
   {
     final String sValue = getProperty (sKey);
     return sValue == null ? sDefaultValue : sValue;
+  }
+
+  @Override
+  public boolean equals (final Object o)
+  {
+    if (o == this)
+      return true;
+    if (o == null || !getClass ().equals (o.getClass ()))
+      return false;
+    return super.equals (o);
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    return super.hashCode ();
   }
 
   /**

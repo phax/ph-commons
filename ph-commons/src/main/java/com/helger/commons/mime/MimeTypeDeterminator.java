@@ -254,7 +254,7 @@ public final class MimeTypeDeterminator
   @ReturnsMutableCopy
   public ICommonsCollection <MimeTypeContent> getAllMimeTypeContents ()
   {
-    return m_aRWLock.readLocked ( () -> m_aMimeTypeContents.getClone ());
+    return m_aRWLock.readLocked (m_aMimeTypeContents::getClone);
   }
 
   /**

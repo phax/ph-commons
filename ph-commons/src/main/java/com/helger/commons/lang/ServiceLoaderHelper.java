@@ -139,7 +139,8 @@ public final class ServiceLoaderHelper
       aRealLogger.trace ("Trying to retrieve all SPI implementations of " + aSPIClass);
 
     if (!s_aCacheInterface.hasAnnotation (aSPIClass))
-      s_aLogger.warn (aSPIClass + " should have the @IsSPIInterface annotation");
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn (aSPIClass + " should have the @IsSPIInterface annotation");
 
     final ServiceLoader <T> aServiceLoader = ServiceLoader.<T> load (aSPIClass, aClassLoader);
     final ICommonsList <T> ret = new CommonsArrayList <> ();
@@ -154,7 +155,8 @@ public final class ServiceLoaderHelper
       {
         final T aInstance = aIterator.next ();
         if (!s_aCacheImplementation.hasAnnotation (aInstance))
-          s_aLogger.warn (aInstance + " should have the @IsSPIImplementation annotation");
+          if (s_aLogger.isWarnEnabled ())
+            s_aLogger.warn (aInstance + " should have the @IsSPIImplementation annotation");
         ret.add (aInstance);
       }
       catch (final Exception ex)
@@ -258,12 +260,13 @@ public final class ServiceLoaderHelper
     if (aAll.size () > 1)
     {
       // More than one implementation found
-      aRealLogger.warn ("Requested only one SPI implementation of " +
-                        aSPIClass +
-                        " but found " +
-                        aAll.size () +
-                        " - using the first one. Details: " +
-                        aAll);
+      if (aRealLogger.isWarnEnabled ())
+        aRealLogger.warn ("Requested only one SPI implementation of " +
+                          aSPIClass +
+                          " but found " +
+                          aAll.size () +
+                          " - using the first one. Details: " +
+                          aAll);
     }
     return aAll.getFirst ();
   }

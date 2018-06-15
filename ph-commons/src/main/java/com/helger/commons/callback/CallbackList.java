@@ -19,6 +19,7 @@ package com.helger.commons.callback;
 import java.util.Iterator;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -129,7 +130,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
   @Nonnull
   public EChange removeAll ()
   {
-    return m_aRWLock.writeLocked ( () -> m_aCallbacks.removeAll ());
+    return m_aRWLock.writeLocked ((Supplier <EChange>) m_aCallbacks::removeAll);
   }
 
   @Nonnull

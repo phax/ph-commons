@@ -35,7 +35,8 @@ public class StatisticsHandlerTimer extends AbstractStatisticsHandlerNumeric imp
   public void addTime (@Nonnegative final long nMillis)
   {
     if (nMillis < 0)
-      s_aLogger.warn ("A negative value (" + nMillis + ") is added to " + getClass ().getName ());
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("A negative value (" + nMillis + ") is added to " + getClass ().getName ());
     addValue (nMillis);
   }
 }

@@ -85,8 +85,8 @@ public final class MimeTypeParser
 
   /**
    * Check if the passed character is a valid token character. According to RFC
-   * 2045 this can be
-   * <em>any (US-ASCII) CHAR except SPACE, CTLs, or tspecials</em>
+   * 2045 this can be <em>any (US-ASCII) CHAR except SPACE, CTLs, or
+   * tspecials</em>
    *
    * @param c
    *        The character to check.
@@ -126,7 +126,7 @@ public final class MimeTypeParser
 
   private static void _parseAndAddParameters (@Nonnull final MimeType aMimeType,
                                               @Nonnull @Nonempty final String sParameters,
-                                              @Nonnull final EMimeQuoting eQuotingAlgorithm) throws MimeTypeParserException
+                                              @Nonnull final EMimeQuoting eQuotingAlgorithm)
   {
     if (eQuotingAlgorithm.isQuotedString ())
     {
@@ -289,7 +289,7 @@ public final class MimeTypeParser
    *         In case of an error
    */
   @Nullable
-  public static MimeType parseMimeType (@Nullable final String sMimeType) throws MimeTypeParserException
+  public static MimeType parseMimeType (@Nullable final String sMimeType)
   {
     return parseMimeType (sMimeType, CMimeType.DEFAULT_QUOTING);
   }
@@ -309,8 +309,7 @@ public final class MimeTypeParser
    *         In case of an error
    */
   @Nullable
-  public static MimeType parseMimeType (@Nullable final String sMimeType,
-                                        @Nonnull final EMimeQuoting eQuotingAlgorithm) throws MimeTypeParserException
+  public static MimeType parseMimeType (@Nullable final String sMimeType, @Nonnull final EMimeQuoting eQuotingAlgorithm)
   {
     ValueEnforcer.notNull (eQuotingAlgorithm, "QuotingAlgorithm");
 

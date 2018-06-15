@@ -117,7 +117,7 @@ public final class MathHelper
    *         if the divisor is 0.
    */
   @Nonnull
-  public static BigDecimal getDividedBigDecimal (final long nDividend, final long nDivisor) throws ArithmeticException
+  public static BigDecimal getDividedBigDecimal (final long nDividend, final long nDivisor)
   {
     final BigDecimal aDividend = BigDecimal.valueOf (nDividend);
     final BigDecimal aDivisor = BigDecimal.valueOf (nDivisor);

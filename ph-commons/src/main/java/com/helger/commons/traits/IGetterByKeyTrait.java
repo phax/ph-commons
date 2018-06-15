@@ -104,7 +104,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    *        Destination type
    */
   @Nullable
-  default <T> T getCastedValue (@Nullable final KEYTYPE aKey) throws ClassCastException
+  default <T> T getCastedValue (@Nullable final KEYTYPE aKey)
   {
     return GenericReflection.uncheckedCast (getValue (aKey));
   }
@@ -125,7 +125,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    *        Destination type
    */
   @Nullable
-  default <T> T getCastedValue (@Nullable final KEYTYPE aKey, @Nullable final T aDefault) throws ClassCastException
+  default <T> T getCastedValue (@Nullable final KEYTYPE aKey, @Nullable final T aDefault)
   {
     final Object aValue = getValue (aKey);
     return aValue == null ? aDefault : GenericReflection.uncheckedCast (aValue);
@@ -146,7 +146,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    *        Destination type
    */
   @Nullable
-  default <T> T getCastedValue (@Nullable final KEYTYPE aKey, @Nonnull final Class <T> aClass) throws ClassCastException
+  default <T> T getCastedValue (@Nullable final KEYTYPE aKey, @Nonnull final Class <T> aClass)
   {
     return aClass.cast (getValue (aKey));
   }
@@ -171,7 +171,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
   @Nullable
   default <T> T getCastedValue (@Nullable final KEYTYPE aKey,
                                 @Nullable final T aDefault,
-                                @Nonnull final Class <T> aClass) throws ClassCastException
+                                @Nonnull final Class <T> aClass)
   {
     final Object aValue = getValue (aKey);
     return aValue == null ? aDefault : aClass.cast (aValue);
@@ -300,7 +300,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
     return aValue == null ? aDefault : TypeConverter.convert (aValue, aClass);
   }
 
-  default boolean getAsBoolean (@Nullable final KEYTYPE aKey) throws TypeConverterException
+  default boolean getAsBoolean (@Nullable final KEYTYPE aKey)
   {
     return TypeConverter.convertToBoolean (getValue (aKey));
   }
@@ -310,7 +310,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
     return TypeConverter.convertToBoolean (getValue (aKey), bDefault);
   }
 
-  default byte getAsByte (@Nullable final KEYTYPE aKey) throws TypeConverterException
+  default byte getAsByte (@Nullable final KEYTYPE aKey)
   {
     return TypeConverter.convertToByte (getValue (aKey));
   }
@@ -320,7 +320,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
     return TypeConverter.convertToByte (getValue (aKey), nDefault);
   }
 
-  default char getAsChar (@Nullable final KEYTYPE aKey) throws TypeConverterException
+  default char getAsChar (@Nullable final KEYTYPE aKey)
   {
     return TypeConverter.convertToChar (getValue (aKey));
   }
@@ -330,7 +330,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
     return TypeConverter.convertToChar (getValue (aKey), cDefault);
   }
 
-  default double getAsDouble (@Nullable final KEYTYPE aKey) throws TypeConverterException
+  default double getAsDouble (@Nullable final KEYTYPE aKey)
   {
     return TypeConverter.convertToDouble (getValue (aKey));
   }
@@ -340,7 +340,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
     return TypeConverter.convertToDouble (getValue (aKey), dDefault);
   }
 
-  default float getAsFloat (@Nullable final KEYTYPE aKey) throws TypeConverterException
+  default float getAsFloat (@Nullable final KEYTYPE aKey)
   {
     return TypeConverter.convertToFloat (getValue (aKey));
   }
@@ -350,7 +350,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
     return TypeConverter.convertToFloat (getValue (aKey), fDefault);
   }
 
-  default int getAsInt (@Nullable final KEYTYPE aKey) throws TypeConverterException
+  default int getAsInt (@Nullable final KEYTYPE aKey)
   {
     return TypeConverter.convertToInt (getValue (aKey));
   }
@@ -360,7 +360,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
     return TypeConverter.convertToInt (getValue (aKey), nDefault);
   }
 
-  default long getAsLong (@Nullable final KEYTYPE aKey) throws TypeConverterException
+  default long getAsLong (@Nullable final KEYTYPE aKey)
   {
     return TypeConverter.convertToLong (getValue (aKey));
   }
@@ -370,7 +370,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
     return TypeConverter.convertToLong (getValue (aKey), nDefault);
   }
 
-  default short getAsShort (@Nullable final KEYTYPE aKey) throws TypeConverterException
+  default short getAsShort (@Nullable final KEYTYPE aKey)
   {
     return TypeConverter.convertToShort (getValue (aKey));
   }
@@ -389,7 +389,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default String getAsString (@Nullable final KEYTYPE aKey) throws TypeConverterException
+  default String getAsString (@Nullable final KEYTYPE aKey)
   {
     return getConvertedValue (aKey, String.class);
   }
@@ -406,8 +406,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
-  default String getAsString (@Nullable final KEYTYPE aKey,
-                              @Nullable final String sDefault) throws TypeConverterException
+  default String getAsString (@Nullable final KEYTYPE aKey, @Nullable final String sDefault)
   {
     return getConvertedValue (aKey, sDefault, String.class);
   }
@@ -421,7 +420,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default char [] getAsCharArray (@Nullable final KEYTYPE aKey) throws TypeConverterException
+  default char [] getAsCharArray (@Nullable final KEYTYPE aKey)
   {
     return getConvertedValue (aKey, char [].class);
   }
@@ -438,8 +437,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
-  default char [] getAsCharArray (@Nullable final KEYTYPE aKey,
-                                  @Nullable final char [] aDefault) throws TypeConverterException
+  default char [] getAsCharArray (@Nullable final KEYTYPE aKey, @Nullable final char [] aDefault)
   {
     return getConvertedValue (aKey, aDefault, char [].class);
   }
@@ -453,7 +451,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default BigDecimal getAsBigDecimal (@Nullable final KEYTYPE aKey) throws TypeConverterException
+  default BigDecimal getAsBigDecimal (@Nullable final KEYTYPE aKey)
   {
     return getConvertedValue (aKey, BigDecimal.class);
   }
@@ -470,8 +468,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
-  default BigDecimal getAsBigDecimal (@Nullable final KEYTYPE aKey,
-                                      @Nullable final BigDecimal aDefault) throws TypeConverterException
+  default BigDecimal getAsBigDecimal (@Nullable final KEYTYPE aKey, @Nullable final BigDecimal aDefault)
   {
     return getConvertedValue (aKey, aDefault, BigDecimal.class);
   }
@@ -485,7 +482,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default BigInteger getAsBigInteger (@Nullable final KEYTYPE aKey) throws TypeConverterException
+  default BigInteger getAsBigInteger (@Nullable final KEYTYPE aKey)
   {
     return getConvertedValue (aKey, BigInteger.class);
   }
@@ -502,8 +499,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @see #getConvertedValue(Object,Object, Class)
    */
   @Nullable
-  default BigInteger getAsBigInteger (@Nullable final KEYTYPE aKey,
-                                      @Nullable final BigInteger aDefault) throws TypeConverterException
+  default BigInteger getAsBigInteger (@Nullable final KEYTYPE aKey, @Nullable final BigInteger aDefault)
   {
     return getConvertedValue (aKey, aDefault, BigInteger.class);
   }
@@ -517,7 +513,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default LocalDate getAsLocalDate (@Nullable final KEYTYPE aKey) throws TypeConverterException
+  default LocalDate getAsLocalDate (@Nullable final KEYTYPE aKey)
   {
     return getConvertedValue (aKey, LocalDate.class);
   }
@@ -534,8 +530,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
-  default LocalDate getAsLocalDate (@Nullable final KEYTYPE aKey,
-                                    @Nullable final LocalDate aDefault) throws TypeConverterException
+  default LocalDate getAsLocalDate (@Nullable final KEYTYPE aKey, @Nullable final LocalDate aDefault)
   {
     return getConvertedValue (aKey, aDefault, LocalDate.class);
   }
@@ -549,7 +544,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default LocalTime getAsLocalTime (@Nullable final KEYTYPE aKey) throws TypeConverterException
+  default LocalTime getAsLocalTime (@Nullable final KEYTYPE aKey)
   {
     return getConvertedValue (aKey, LocalTime.class);
   }
@@ -566,8 +561,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
-  default LocalTime getAsLocalTime (@Nullable final KEYTYPE aKey,
-                                    @Nullable final LocalTime aDefault) throws TypeConverterException
+  default LocalTime getAsLocalTime (@Nullable final KEYTYPE aKey, @Nullable final LocalTime aDefault)
   {
     return getConvertedValue (aKey, aDefault, LocalTime.class);
   }
@@ -581,7 +575,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default LocalDateTime getAsLocalDateTime (@Nullable final KEYTYPE aKey) throws TypeConverterException
+  default LocalDateTime getAsLocalDateTime (@Nullable final KEYTYPE aKey)
   {
     return getConvertedValue (aKey, LocalDateTime.class);
   }
@@ -598,8 +592,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
-  default LocalDateTime getAsLocalDateTime (@Nullable final KEYTYPE aKey,
-                                            @Nullable final LocalDateTime aDefault) throws TypeConverterException
+  default LocalDateTime getAsLocalDateTime (@Nullable final KEYTYPE aKey, @Nullable final LocalDateTime aDefault)
   {
     return getConvertedValue (aKey, aDefault, LocalDateTime.class);
   }
@@ -613,7 +606,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default byte [] getAsByteArray (@Nullable final KEYTYPE aKey) throws TypeConverterException
+  default byte [] getAsByteArray (@Nullable final KEYTYPE aKey)
   {
     return getConvertedValue (aKey, byte [].class);
   }
@@ -627,7 +620,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default Boolean getAsBooleanObj (@Nullable final KEYTYPE aKey) throws TypeConverterException
+  default Boolean getAsBooleanObj (@Nullable final KEYTYPE aKey)
   {
     return getConvertedValue (aKey, Boolean.class);
   }
@@ -641,7 +634,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default Byte getAsByteObj (@Nullable final KEYTYPE aKey) throws TypeConverterException
+  default Byte getAsByteObj (@Nullable final KEYTYPE aKey)
   {
     return getConvertedValue (aKey, Byte.class);
   }
@@ -655,7 +648,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default Character getAsCharObj (@Nullable final KEYTYPE aKey) throws TypeConverterException
+  default Character getAsCharObj (@Nullable final KEYTYPE aKey)
   {
     return getConvertedValue (aKey, Character.class);
   }
@@ -683,7 +676,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default Float getAsFloatObj (@Nullable final KEYTYPE aKey) throws TypeConverterException
+  default Float getAsFloatObj (@Nullable final KEYTYPE aKey)
   {
     return getConvertedValue (aKey, Float.class);
   }
@@ -697,7 +690,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default Integer getAsIntObj (@Nullable final KEYTYPE aKey) throws TypeConverterException
+  default Integer getAsIntObj (@Nullable final KEYTYPE aKey)
   {
     return getConvertedValue (aKey, Integer.class);
   }
@@ -711,7 +704,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default Long getAsLongObj (@Nullable final KEYTYPE aKey) throws TypeConverterException
+  default Long getAsLongObj (@Nullable final KEYTYPE aKey)
   {
     return getConvertedValue (aKey, Long.class);
   }
@@ -725,7 +718,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default Short getAsShortObj (@Nullable final KEYTYPE aKey) throws TypeConverterException
+  default Short getAsShortObj (@Nullable final KEYTYPE aKey)
   {
     return getConvertedValue (aKey, Short.class);
   }
@@ -739,7 +732,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default java.sql.Blob getAsSqlBlob (@Nullable final KEYTYPE aKey) throws TypeConverterException
+  default java.sql.Blob getAsSqlBlob (@Nullable final KEYTYPE aKey)
   {
     return getConvertedValue (aKey, java.sql.Blob.class);
   }
@@ -753,7 +746,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default java.sql.Clob getAsSqlClob (@Nullable final KEYTYPE aKey) throws TypeConverterException
+  default java.sql.Clob getAsSqlClob (@Nullable final KEYTYPE aKey)
   {
     return getConvertedValue (aKey, java.sql.Clob.class);
   }
@@ -767,7 +760,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default java.sql.Date getAsSqlDate (@Nullable final KEYTYPE aKey) throws TypeConverterException
+  default java.sql.Date getAsSqlDate (@Nullable final KEYTYPE aKey)
   {
     return getConvertedValue (aKey, java.sql.Date.class);
   }
@@ -781,7 +774,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default java.sql.NClob getAsSqlNClob (@Nullable final KEYTYPE aKey) throws TypeConverterException
+  default java.sql.NClob getAsSqlNClob (@Nullable final KEYTYPE aKey)
   {
     return getConvertedValue (aKey, java.sql.NClob.class);
   }
@@ -795,7 +788,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default java.sql.RowId getAsSqlRowId (@Nullable final KEYTYPE aKey) throws TypeConverterException
+  default java.sql.RowId getAsSqlRowId (@Nullable final KEYTYPE aKey)
   {
     return getConvertedValue (aKey, java.sql.RowId.class);
   }
@@ -809,7 +802,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default java.sql.Time getAsSqlTime (@Nullable final KEYTYPE aKey) throws TypeConverterException
+  default java.sql.Time getAsSqlTime (@Nullable final KEYTYPE aKey)
   {
     return getConvertedValue (aKey, java.sql.Time.class);
   }
@@ -823,7 +816,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default java.sql.Timestamp getAsSqlTimestamp (@Nullable final KEYTYPE aKey) throws TypeConverterException
+  default java.sql.Timestamp getAsSqlTimestamp (@Nullable final KEYTYPE aKey)
   {
     return getConvertedValue (aKey, java.sql.Timestamp.class);
   }

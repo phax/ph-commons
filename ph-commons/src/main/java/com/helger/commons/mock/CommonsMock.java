@@ -49,7 +49,6 @@ import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.ClassHierarchyCache;
 import com.helger.commons.lang.GenericReflection;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.traits.IGetterDirectTrait;
 
 /**
@@ -304,11 +303,11 @@ public final class CommonsMock
       };
       registerStatic (String.class, aStringSupplier);
     }
-    registerStatic (LocalDate.class, () -> PDTFactory.getCurrentLocalDate ());
-    registerStatic (LocalTime.class, () -> PDTFactory.getCurrentLocalTime ());
-    registerStatic (LocalDateTime.class, () -> PDTFactory.getCurrentLocalDateTime ());
-    registerStatic (OffsetDateTime.class, () -> PDTFactory.getCurrentOffsetDateTime ());
-    registerStatic (ZonedDateTime.class, () -> PDTFactory.getCurrentZonedDateTime ());
+    registerStatic (LocalDate.class, PDTFactory::getCurrentLocalDate);
+    registerStatic (LocalTime.class, PDTFactory::getCurrentLocalTime);
+    registerStatic (LocalDateTime.class, PDTFactory::getCurrentLocalDateTime);
+    registerStatic (OffsetDateTime.class, PDTFactory::getCurrentOffsetDateTime);
+    registerStatic (ZonedDateTime.class, PDTFactory::getCurrentZonedDateTime);
     registerStaticConstant (BigDecimal.ZERO);
     registerStaticConstant (BigInteger.ZERO);
   }
@@ -499,9 +498,6 @@ public final class CommonsMock
                         @Nullable final Object [] aParams,
                         final int nLevel) throws Exception
   {
-    if (false)
-      System.out.println (StringHelper.getRepeated ("  ", nLevel) + aClass.getName ());
-
     // Check for static supplier
     final MockSupplier aStatic = s_aStaticSupplier.get (aClass);
     if (aStatic != null)

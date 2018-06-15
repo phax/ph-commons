@@ -60,7 +60,7 @@ public final class RegExPattern implements Serializable
     s_aCheckConsistencyEnabled.set (bEnable);
   }
 
-  public static void checkPatternConsistency (@Nonnull @RegEx final String sRegEx) throws IllegalArgumentException
+  public static void checkPatternConsistency (@Nonnull @RegEx final String sRegEx)
   {
     // Check if a '$' is escaped if no digits follow
     int nIndex = 0;
@@ -100,14 +100,13 @@ public final class RegExPattern implements Serializable
     }
   }
 
-  public RegExPattern (@Nonnull @Nonempty @RegEx final String sRegEx) throws IllegalArgumentException
+  public RegExPattern (@Nonnull @Nonempty @RegEx final String sRegEx)
   {
     // Default: no options
     this (sRegEx, 0);
   }
 
-  public RegExPattern (@Nonnull @Nonempty @RegEx final String sRegEx,
-                       @Nonnegative final int nOptions) throws IllegalArgumentException
+  public RegExPattern (@Nonnull @Nonempty @RegEx final String sRegEx, @Nonnegative final int nOptions)
   {
     ValueEnforcer.notEmpty (sRegEx, "RegEx");
     ValueEnforcer.isGE0 (nOptions, "Options");

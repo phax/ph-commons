@@ -16,6 +16,8 @@
  */
 package com.helger.commons.statistics;
 
+import java.util.function.Supplier;
+
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 
@@ -92,7 +94,7 @@ public final class StatisticsManager
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllCacheHandler ()
   {
-    return s_aRWLockCache.readLocked ( () -> s_aHdlCache.copyOfKeySet ());
+    return s_aRWLockCache.readLocked ((Supplier <ICommonsSet <String>>) s_aHdlCache::copyOfKeySet);
   }
 
   @Nonnull
@@ -122,7 +124,7 @@ public final class StatisticsManager
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllTimerHandler ()
   {
-    return s_aRWLockTimer.readLocked ( () -> s_aHdlTimer.copyOfKeySet ());
+    return s_aRWLockTimer.readLocked ((Supplier <ICommonsSet <String>>) s_aHdlTimer::copyOfKeySet);
   }
 
   @Nonnull
@@ -152,7 +154,7 @@ public final class StatisticsManager
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllKeyedTimerHandler ()
   {
-    return s_aRWLockKeyedTimer.readLocked ( () -> s_aHdlKeyedTimer.copyOfKeySet ());
+    return s_aRWLockKeyedTimer.readLocked ((Supplier <ICommonsSet <String>>) s_aHdlKeyedTimer::copyOfKeySet);
   }
 
   @Nonnull
@@ -181,7 +183,7 @@ public final class StatisticsManager
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllSizeHandler ()
   {
-    return s_aRWLockSize.readLocked ( () -> s_aHdlSize.copyOfKeySet ());
+    return s_aRWLockSize.readLocked ((Supplier <ICommonsSet <String>>) s_aHdlSize::copyOfKeySet);
   }
 
   @Nonnull
@@ -211,7 +213,7 @@ public final class StatisticsManager
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllKeyedSizeHandler ()
   {
-    return s_aRWLockKeyedSize.readLocked ( () -> s_aHdlKeyedSize.copyOfKeySet ());
+    return s_aRWLockKeyedSize.readLocked ((Supplier <ICommonsSet <String>>) s_aHdlKeyedSize::copyOfKeySet);
   }
 
   @Nonnull
@@ -241,7 +243,7 @@ public final class StatisticsManager
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllCounterHandler ()
   {
-    return s_aRWLockCounter.readLocked ( () -> s_aHdlCounter.copyOfKeySet ());
+    return s_aRWLockCounter.readLocked ((Supplier <ICommonsSet <String>>) s_aHdlCounter::copyOfKeySet);
   }
 
   @Nonnull
@@ -271,18 +273,18 @@ public final class StatisticsManager
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllKeyedCounterHandler ()
   {
-    return s_aRWLockKeyedCounter.readLocked ( () -> s_aHdlKeyedCounter.copyOfKeySet ());
+    return s_aRWLockKeyedCounter.readLocked ((Supplier <ICommonsSet <String>>) s_aHdlKeyedCounter::copyOfKeySet);
   }
 
   public static void clearCache ()
   {
-    s_aRWLockCache.writeLocked ( () -> s_aHdlCache.clear ());
-    s_aRWLockTimer.writeLocked ( () -> s_aHdlTimer.clear ());
-    s_aRWLockKeyedTimer.writeLocked ( () -> s_aHdlKeyedTimer.clear ());
-    s_aRWLockSize.writeLocked ( () -> s_aHdlSize.clear ());
-    s_aRWLockKeyedSize.writeLocked ( () -> s_aHdlKeyedSize.clear ());
-    s_aRWLockCounter.writeLocked ( () -> s_aHdlCounter.clear ());
-    s_aRWLockKeyedCounter.writeLocked ( () -> s_aHdlKeyedCounter.clear ());
+    s_aRWLockCache.writeLocked (s_aHdlCache::clear);
+    s_aRWLockTimer.writeLocked (s_aHdlTimer::clear);
+    s_aRWLockKeyedTimer.writeLocked (s_aHdlKeyedTimer::clear);
+    s_aRWLockSize.writeLocked (s_aHdlSize::clear);
+    s_aRWLockKeyedSize.writeLocked (s_aHdlKeyedSize::clear);
+    s_aRWLockCounter.writeLocked (s_aHdlCounter::clear);
+    s_aRWLockKeyedCounter.writeLocked (s_aHdlKeyedCounter::clear);
 
     if (s_aLogger.isDebugEnabled ())
       s_aLogger.debug ("Cache was cleared: " + StatisticsManager.class.getName ());

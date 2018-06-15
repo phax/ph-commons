@@ -23,6 +23,7 @@ import java.io.Reader;
 import java.net.MalformedURLException;
 import java.util.Map;
 import java.util.Properties;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -151,10 +152,31 @@ public final class PropertiesHelper
    * @param sValue
    *        Source value. May be <code>null</code>.
    * @return <code>null</code> if source is <code>null</code>.
+   * @see #expandProperties(String, Function)
    */
   @Nullable
   public static String expandSystemProperties (@Nullable final String sValue)
   {
+    return expandProperties (sValue, SystemProperties::getPropertyValue);
+  }
+
+  /**
+   * Special version of {@link #expandSystemProperties(String)} that takes an
+   * arbitrary value provider and is not limited to system properties.
+   *
+   * @param sValue
+   *        Source value. May be <code>null</code>.
+   * @param aValueProvider
+   *        The value provider to be used. May not be <code>null</code>.
+   * @return <code>null</code> if the source value is <code>null</code>.
+   * @since 9.1.2
+   */
+  @Nullable
+  public static String expandProperties (@Nullable final String sValue,
+                                         @Nonnull final Function <String, String> aValueProvider)
+  {
+    ValueEnforcer.notNull (aValueProvider, "ValueProvider");
+
     if (sValue == null)
       return null;
 
@@ -169,13 +191,12 @@ public final class PropertiesHelper
     // index of last character we copied
     int nCurPos = 0;
 
-    scanner: while (nIndex < nMax)
+    while (nIndex < nMax)
     {
       if (nIndex > nCurPos)
       {
         // copy in anything before the special stuff
         aSB.append (sValue.substring (nCurPos, nIndex));
-        nCurPos = nIndex;
       }
       int pe = nIndex + 2;
 
@@ -187,7 +208,7 @@ public final class PropertiesHelper
         {
           // append remaining chars
           aSB.append (sValue.substring (nIndex));
-          break scanner;
+          break;
         }
         // append as normal text
         pe++;
@@ -202,7 +223,7 @@ public final class PropertiesHelper
         {
           // no matching '}' found, just add in as normal text
           aSB.append (sValue.substring (nIndex, pe));
-          break scanner;
+          break;
         }
 
         final String sPropName = sValue.substring (nIndex + 2, pe);
@@ -212,7 +233,7 @@ public final class PropertiesHelper
         }
         else
         {
-          final String sPropVal = SystemProperties.getPropertyValue (sPropName);
+          final String sPropVal = aValueProvider.apply (sPropName);
           if (sPropVal == null)
           {
             // Return original value
@@ -229,7 +250,7 @@ public final class PropertiesHelper
         if (nCurPos < nMax)
           aSB.append (sValue.substring (nCurPos, nMax));
         // break out of loop
-        break scanner;
+        break;
       }
     }
     return aSB.toString ();

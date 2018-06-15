@@ -21,7 +21,6 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.text.display.IHasDisplayTextWithArgs;
 import com.helger.commons.text.util.TextHelper;
 
@@ -46,7 +45,6 @@ public interface IHasTextWithArgs extends IHasText
    */
   @Nullable
   @Deprecated
-  @DevelopersNote ("Use getText instead!")
   default String getTextWithArgs (@Nonnull final Locale aContentLocale)
   {
     return getText (aContentLocale);
@@ -79,6 +77,6 @@ public interface IHasTextWithArgs extends IHasText
   @Nonnull
   default IHasDisplayTextWithArgs getAsHasDisplayTextWithArgs ()
   {
-    return x -> getText (x);
+    return this::getText;
   }
 }

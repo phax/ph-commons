@@ -37,13 +37,13 @@ public class ReflectionSecurityManager extends SecurityManager
   }
 
   @Nonnull
-  public Class <?> getCallerClass (final int nCallStackDepth) throws ArrayIndexOutOfBoundsException
+  public Class <?> getCallerClass (final int nCallStackDepth)
   {
     return getCallerClassContext ()[nCallStackDepth];
   }
 
   @Nonnull
-  public String getCallerClassName (final int nCallStackDepth) throws ArrayIndexOutOfBoundsException
+  public String getCallerClassName (final int nCallStackDepth)
   {
     return getCallerClass (nCallStackDepth).getName ();
   }

@@ -23,7 +23,6 @@ import javax.annotation.Nullable;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.name.IHasDisplayName;
 import com.helger.commons.version.IHasVersion;
-import com.helger.commons.version.Version;
 
 /**
  * Represents a single license.
@@ -32,9 +31,6 @@ import com.helger.commons.version.Version;
  */
 public interface ILicense extends IHasID <String>, IHasDisplayName, IHasVersion, Serializable
 {
-  @Nullable
-  Version getVersion ();
-
   @Nullable
   String getURL ();
 }

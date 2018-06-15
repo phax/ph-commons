@@ -21,6 +21,7 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.Nonempty;
@@ -77,6 +78,8 @@ public enum EOperatingSystem implements IHasDisplayName
    * The value indicating an unknown operating system.
    */
   UNKNOWN ("Unknown", false);
+
+  private static final Logger s_aLogger = LoggerFactory.getLogger (EOperatingSystem.class);
 
   /** The current OS. */
   private static volatile EOperatingSystem s_aInstance = null;
@@ -229,8 +232,7 @@ public enum EOperatingSystem implements IHasDisplayName
       ret = forName (sCurrentOSName);
       s_aInstance = ret;
       if (ret == UNKNOWN)
-        LoggerFactory.getLogger (EOperatingSystem.class)
-                     .error ("Failed to resolve operating system from name '" + sCurrentOSName + "'!!!");
+        s_aLogger.error ("Failed to resolve operating system from name '" + sCurrentOSName + "'!!!");
     }
     return ret;
   }

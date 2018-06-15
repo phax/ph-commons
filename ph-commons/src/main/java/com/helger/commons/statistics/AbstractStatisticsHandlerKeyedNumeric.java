@@ -19,6 +19,7 @@ package com.helger.commons.statistics;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Supplier;
 
 import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnegative;
@@ -125,7 +126,7 @@ public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisti
   @ReturnsMutableCopy
   public ICommonsSet <String> getAllKeys ()
   {
-    return m_aRWLock.readLocked ( () -> m_aMap.copyOfKeySet ());
+    return m_aRWLock.readLocked ((Supplier <ICommonsSet <String>>) m_aMap::copyOfKeySet);
   }
 
   protected final void addValue (@Nullable final String sKey, final long nValue)

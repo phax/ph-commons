@@ -59,6 +59,29 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
   }
 
   /**
+   * Execute the provided callable in a read lock. Note: no
+   * nullable/non-nullable can be assumed.
+   *
+   * @param aSupplier
+   *        Callable to be executed. May not be <code>null</code>.
+   * @return The return value of the callable. May be <code>null</code>.
+   * @param <T>
+   *        Return type
+   */
+  public <T> T readLocked (@Nonnull final Supplier <? extends T> aSupplier)
+  {
+    readLock ().lock ();
+    try
+    {
+      return aSupplier.get ();
+    }
+    finally
+    {
+      readLock ().unlock ();
+    }
+  }
+
+  /**
    * Execute the provided runnable in a read lock.
    *
    * @param aRunnable
@@ -93,29 +116,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
     try
     {
       aRunnable.run ();
-    }
-    finally
-    {
-      readLock ().unlock ();
-    }
-  }
-
-  /**
-   * Execute the provided callable in a read lock. Note: no
-   * nullable/non-nullable can be assumed.
-   *
-   * @param aSupplier
-   *        Callable to be executed. May not be <code>null</code>.
-   * @return The return value of the callable. May be <code>null</code>.
-   * @param <T>
-   *        Return type
-   */
-  public <T> T readLocked (@Nonnull final Supplier <? extends T> aSupplier)
-  {
-    readLock ().lock ();
-    try
-    {
-      return aSupplier.get ();
     }
     finally
     {

@@ -29,20 +29,21 @@ import org.slf4j.LoggerFactory;
  * @author Philip Helger
  */
 @ThreadSafe
-public class StatisticsHandlerKeyedTimer extends AbstractStatisticsHandlerKeyedNumeric
-                                         implements IMutableStatisticsHandlerKeyedTimer
+public class StatisticsHandlerKeyedTimer extends AbstractStatisticsHandlerKeyedNumeric implements
+                                         IMutableStatisticsHandlerKeyedTimer
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (StatisticsHandlerKeyedTimer.class);
 
   public void addTime (@Nullable final String sKey, @Nonnegative final long nMillis)
   {
     if (nMillis < 0)
-      s_aLogger.warn ("A negative value (" +
-                      nMillis +
-                      ") for key '" +
-                      sKey +
-                      "' is added to " +
-                      getClass ().getName ());
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("A negative value (" +
+                        nMillis +
+                        ") for key '" +
+                        sKey +
+                        "' is added to " +
+                        getClass ().getName ());
     addValue (sKey, nMillis);
   }
 }

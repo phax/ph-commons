@@ -39,7 +39,7 @@ import com.helger.commons.string.StringHelper;
 @Immutable
 public final class RoundHelper
 {
-  public static enum EDecimalType
+  public enum EDecimalType
   {
     /** Fixed number representation */
     FIX,

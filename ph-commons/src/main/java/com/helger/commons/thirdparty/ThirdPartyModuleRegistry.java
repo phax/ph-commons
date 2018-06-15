@@ -54,7 +54,7 @@ public final class ThirdPartyModuleRegistry
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
-  private final ICommonsOrderedSet <IThirdPartyModule> m_aModules = new CommonsLinkedHashSet<> ();
+  private final ICommonsOrderedSet <IThirdPartyModule> m_aModules = new CommonsLinkedHashSet <> ();
 
   private ThirdPartyModuleRegistry ()
   {
@@ -93,13 +93,13 @@ public final class ThirdPartyModuleRegistry
   @ReturnsMutableCopy
   public ICommonsOrderedSet <IThirdPartyModule> getAllRegisteredThirdPartyModules ()
   {
-    return m_aRWLock.readLocked ( () -> m_aModules.getClone ());
+    return m_aRWLock.readLocked (m_aModules::getClone);
   }
 
   @Nonnegative
   public int getRegisteredThirdPartyModuleCount ()
   {
-    return m_aRWLock.readLocked ( () -> m_aModules.size ());
+    return m_aRWLock.readLocked (m_aModules::size);
   }
 
   public void reinitialize ()

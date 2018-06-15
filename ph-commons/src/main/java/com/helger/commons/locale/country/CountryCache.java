@@ -62,7 +62,7 @@ public final class CountryCache
 
   /** Contains all known countries (as ISO 3166 2-letter codes). */
   @GuardedBy ("m_aRWLock")
-  private final ICommonsSet <String> m_aCountries = new CommonsHashSet<> ();
+  private final ICommonsSet <String> m_aCountries = new CommonsHashSet <> ();
 
   private CountryCache ()
   {
@@ -113,7 +113,8 @@ public final class CountryCache
 
     final String sValidCountry = LocaleHelper.getValidCountryCode (sCountry);
     if (!containsCountry (sValidCountry))
-      s_aLogger.warn ("Trying to retrieve unsupported country " + sCountry);
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("Trying to retrieve unsupported country " + sCountry);
     return LocaleCache.getInstance ().getLocale ("", sValidCountry, "");
   }
 
@@ -124,7 +125,7 @@ public final class CountryCache
   @ReturnsMutableCopy
   public ICommonsSet <String> getAllCountries ()
   {
-    return m_aRWLock.readLocked ( () -> m_aCountries.getClone ());
+    return m_aRWLock.readLocked (m_aCountries::getClone);
   }
 
   /**
@@ -134,9 +135,9 @@ public final class CountryCache
   @ReturnsMutableCopy
   public ICommonsSet <Locale> getAllCountryLocales ()
   {
-    return m_aRWLock.readLocked ( () -> new CommonsHashSet<> (m_aCountries,
-                                                              sCountry -> LocaleCache.getInstance ()
-                                                                                     .getLocale ("", sCountry, "")));
+    return m_aRWLock.readLocked ( () -> new CommonsHashSet <> (m_aCountries,
+                                                               sCountry -> LocaleCache.getInstance ()
+                                                                                      .getLocale ("", sCountry, "")));
   }
 
   /**
@@ -176,7 +177,7 @@ public final class CountryCache
    */
   public void reinitialize ()
   {
-    m_aRWLock.writeLocked ( () -> m_aCountries.clear ());
+    m_aRWLock.writeLocked (m_aCountries::clear);
 
     for (final Locale aLocale : LocaleCache.getInstance ().getAllLocales ())
     {

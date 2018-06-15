@@ -22,8 +22,6 @@ import java.util.BitSet;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.codec.DecodeException;
-import com.helger.commons.codec.EncodeException;
 import com.helger.commons.codec.QuotedPrintableCodec;
 import com.helger.commons.codec.URLCodec;
 
@@ -144,11 +142,11 @@ public enum EMimeQuoting
 
   @Nonnull
   @Nonempty
-  public abstract String getQuotedString (@Nonnull @Nonempty String sUnquotedString) throws EncodeException;
+  public abstract String getQuotedString (@Nonnull @Nonempty String sUnquotedString);
 
   @Nonnull
   @Nonempty
-  public abstract String getUnquotedString (@Nonnull @Nonempty String sQuotedString) throws DecodeException;
+  public abstract String getUnquotedString (@Nonnull @Nonempty String sQuotedString);
 
   public boolean isQuotedString ()
   {

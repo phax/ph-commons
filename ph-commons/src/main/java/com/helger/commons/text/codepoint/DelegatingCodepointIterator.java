@@ -54,6 +54,7 @@ public class DelegatingCodepointIterator implements ICodepointIterator
     return m_aInternal.get (index);
   }
 
+  @Override
   public boolean hasNext ()
   {
     return m_aInternal.hasNext ();
@@ -124,17 +125,20 @@ public class DelegatingCodepointIterator implements ICodepointIterator
     m_aInternal.position (position);
   }
 
+  @Override
   public void remove ()
   {
     m_aInternal.remove ();
   }
 
+  @Override
   @Nonnull
   public CodepointIteratorRestricted restrict (@Nonnull final IntPredicate aFilter)
   {
     return m_aInternal.restrict (aFilter);
   }
 
+  @Override
   @Nonnull
   public CodepointIteratorRestricted restrict (@Nonnull final IntPredicate aFilter, final boolean bScanning)
   {

@@ -50,7 +50,7 @@ public interface IEnumTextResolver
 
   @Nullable
   @Deprecated
-  @DevelopersNote ("Use getTextStatic instead when no argument is needed!")
+  @DevelopersNote ("Use getText instead when no argument is needed!")
   default String getTextWithArgs (@Nonnull final Enum <?> aEnum,
                                   @Nonnull final IHasTextWithArgs aTP,
                                   @Nonnull final Locale aContentLocale)

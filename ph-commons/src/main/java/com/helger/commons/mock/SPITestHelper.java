@@ -56,7 +56,7 @@ public final class SPITestHelper
   private SPITestHelper ()
   {}
 
-  public static enum EMode
+  public enum EMode
   {
     STRICT,
     IGNORE_ERRORS,
@@ -103,7 +103,8 @@ public final class SPITestHelper
         if (aFile.isFile ())
         {
           if (bDoResolve)
-            s_aLogger.info ("Checking SPI file " + aFile.getAbsolutePath ());
+            if (s_aLogger.isInfoEnabled ())
+              s_aLogger.info ("Checking SPI file " + aFile.getAbsolutePath ());
           final String sInterfaceClassName = aFile.getName ();
 
           // Check if interface exists
@@ -146,7 +147,8 @@ public final class SPITestHelper
                   {
                     final Class <?> aImplClass = aCL.loadClass (sImplClassName);
                     if (!s_aCacheImplementation.hasAnnotation (aImplClass))
-                      s_aLogger.warn (aImplClass + " should have the @IsSPIImplementation annotation");
+                      if (s_aLogger.isWarnEnabled ())
+                        s_aLogger.warn (aImplClass + " should have the @IsSPIImplementation annotation");
                     ++nCount;
                     aAllImplementations.computeIfAbsent (sInterfaceClassName, x -> new CommonsTreeSet <> ())
                                        .add (sImplClassName);
@@ -155,7 +157,8 @@ public final class SPITestHelper
                   {
                     // Ensure the path name of the currently checked file is
                     // contained in the exception text!
-                    s_aLogger.warn ("  Error checking content: " + ex.getMessage ());
+                    if (s_aLogger.isWarnEnabled ())
+                      s_aLogger.warn ("  Error checking content: " + ex.getMessage ());
                     if (eMode.isStrict ())
                       throw new IllegalStateException ("Error checking SPI file " + aFile.getAbsolutePath (), ex);
                   }
@@ -173,7 +176,10 @@ public final class SPITestHelper
               if (nCount == 0)
                 s_aLogger.warn ("  Contains no single valid implementation!");
               else
-                s_aLogger.info ("  All implementations (" + nCount + ") are valid!");
+              {
+                if (s_aLogger.isInfoEnabled ())
+                  s_aLogger.info ("  All implementations (" + nCount + ") are valid!");
+              }
             }
           }
         }

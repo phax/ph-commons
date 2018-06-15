@@ -183,7 +183,8 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
     s_aStatsFailed.increment (PREFIX_FALLBACK + aContentLocale.toString () + ':' + sID);
     if (GlobalDebug.isDebugMode ())
     {
-      s_aLogger.warn ("getFallbackString (" + sID + "; " + aContentLocale.toString () + ") failed!");
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("getFallbackString (" + sID + "; " + aContentLocale.toString () + ") failed!");
 
       // Return consistent results
       if (false)
@@ -200,7 +201,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
   @ReturnsMutableCopy
   public ICommonsSet <String> getAllUsedOverrideBundleNames ()
   {
-    return m_aRWLock.readLocked ( () -> m_aUsedOverrideBundles.getClone ());
+    return m_aRWLock.readLocked (m_aUsedOverrideBundles::getClone);
   }
 
   /**
@@ -211,7 +212,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
   @ReturnsMutableCopy
   public ICommonsSet <String> getAllUsedFallbackBundleNames ()
   {
-    return m_aRWLock.readLocked ( () -> m_aUsedFallbackBundles.getClone ());
+    return m_aRWLock.readLocked (m_aUsedFallbackBundles::getClone);
   }
 
   public void clearCache ()

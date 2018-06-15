@@ -33,11 +33,11 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 @Immutable
 public final class SystemHelper
 {
-  private static final int s_nNumberOfProcessors;
+  private static final int NUMBER_OF_PROCESSORS;
 
   static
   {
-    s_nNumberOfProcessors = Runtime.getRuntime ().availableProcessors ();
+    NUMBER_OF_PROCESSORS = Runtime.getRuntime ().availableProcessors ();
   }
 
   @PresentForCodeCoverage
@@ -52,7 +52,7 @@ public final class SystemHelper
   @Nonnegative
   public static int getNumberOfProcessors ()
   {
-    return s_nNumberOfProcessors;
+    return NUMBER_OF_PROCESSORS;
   }
 
   /**

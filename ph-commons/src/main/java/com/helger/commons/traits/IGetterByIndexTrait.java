@@ -103,7 +103,7 @@ public interface IGetterByIndexTrait
    *        Destination type
    */
   @Nullable
-  default <T> T getCastedValue (@Nonnegative final int nIndex) throws ClassCastException
+  default <T> T getCastedValue (@Nonnegative final int nIndex)
   {
     return GenericReflection.uncheckedCast (getValue (nIndex));
   }
@@ -124,7 +124,7 @@ public interface IGetterByIndexTrait
    *        Destination type
    */
   @Nullable
-  default <T> T getCastedValue (@Nonnegative final int nIndex, @Nullable final T aDefault) throws ClassCastException
+  default <T> T getCastedValue (@Nonnegative final int nIndex, @Nullable final T aDefault)
   {
     final Object aValue = getValue (nIndex);
     return aValue == null ? aDefault : GenericReflection.uncheckedCast (aValue);
@@ -145,8 +145,7 @@ public interface IGetterByIndexTrait
    *        Destination type
    */
   @Nullable
-  default <T> T getCastedValue (@Nonnegative final int nIndex,
-                                @Nonnull final Class <T> aClass) throws ClassCastException
+  default <T> T getCastedValue (@Nonnegative final int nIndex, @Nonnull final Class <T> aClass)
   {
     return aClass.cast (getValue (nIndex));
   }
@@ -171,7 +170,7 @@ public interface IGetterByIndexTrait
   @Nullable
   default <T> T getCastedValue (@Nonnegative final int nIndex,
                                 @Nullable final T aDefault,
-                                @Nonnull final Class <T> aClass) throws ClassCastException
+                                @Nonnull final Class <T> aClass)
   {
     final Object aValue = getValue (nIndex);
     return aValue == null ? aDefault : aClass.cast (aValue);
@@ -298,7 +297,7 @@ public interface IGetterByIndexTrait
     return aValue == null ? aDefault : TypeConverter.convert (aValue, aClass);
   }
 
-  default boolean getAsBoolean (@Nonnegative final int nIndex) throws TypeConverterException
+  default boolean getAsBoolean (@Nonnegative final int nIndex)
   {
     return TypeConverter.convertToBoolean (getValue (nIndex));
   }
@@ -308,7 +307,7 @@ public interface IGetterByIndexTrait
     return TypeConverter.convertToBoolean (getValue (nIndex), bDefault);
   }
 
-  default byte getAsByte (@Nonnegative final int nIndex) throws TypeConverterException
+  default byte getAsByte (@Nonnegative final int nIndex)
   {
     return TypeConverter.convertToByte (getValue (nIndex));
   }
@@ -318,7 +317,7 @@ public interface IGetterByIndexTrait
     return TypeConverter.convertToByte (getValue (nIndex), nDefault);
   }
 
-  default char getAsChar (@Nonnegative final int nIndex) throws TypeConverterException
+  default char getAsChar (@Nonnegative final int nIndex)
   {
     return TypeConverter.convertToChar (getValue (nIndex));
   }
@@ -328,7 +327,7 @@ public interface IGetterByIndexTrait
     return TypeConverter.convertToChar (getValue (nIndex), cDefault);
   }
 
-  default double getAsDouble (@Nonnegative final int nIndex) throws TypeConverterException
+  default double getAsDouble (@Nonnegative final int nIndex)
   {
     return TypeConverter.convertToDouble (getValue (nIndex));
   }
@@ -338,7 +337,7 @@ public interface IGetterByIndexTrait
     return TypeConverter.convertToDouble (getValue (nIndex), dDefault);
   }
 
-  default float getAsFloat (@Nonnegative final int nIndex) throws TypeConverterException
+  default float getAsFloat (@Nonnegative final int nIndex)
   {
     return TypeConverter.convertToFloat (getValue (nIndex));
   }
@@ -348,7 +347,7 @@ public interface IGetterByIndexTrait
     return TypeConverter.convertToFloat (getValue (nIndex), fDefault);
   }
 
-  default int getAsInt (@Nonnegative final int nIndex) throws TypeConverterException
+  default int getAsInt (@Nonnegative final int nIndex)
   {
     return TypeConverter.convertToInt (getValue (nIndex));
   }
@@ -358,7 +357,7 @@ public interface IGetterByIndexTrait
     return TypeConverter.convertToInt (getValue (nIndex), nDefault);
   }
 
-  default long getAsLong (@Nonnegative final int nIndex) throws TypeConverterException
+  default long getAsLong (@Nonnegative final int nIndex)
   {
     return TypeConverter.convertToLong (getValue (nIndex));
   }
@@ -368,7 +367,7 @@ public interface IGetterByIndexTrait
     return TypeConverter.convertToLong (getValue (nIndex), nDefault);
   }
 
-  default short getAsShort (@Nonnegative final int nIndex) throws TypeConverterException
+  default short getAsShort (@Nonnegative final int nIndex)
   {
     return TypeConverter.convertToShort (getValue (nIndex));
   }
@@ -387,7 +386,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Class)
    */
   @Nullable
-  default String getAsString (@Nonnegative final int nIndex) throws TypeConverterException
+  default String getAsString (@Nonnegative final int nIndex)
   {
     return getConvertedValue (nIndex, String.class);
   }
@@ -404,8 +403,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
-  default String getAsString (@Nonnegative final int nIndex,
-                              @Nullable final String sDefault) throws TypeConverterException
+  default String getAsString (@Nonnegative final int nIndex, @Nullable final String sDefault)
   {
     return getConvertedValue (nIndex, sDefault, String.class);
   }
@@ -419,7 +417,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Class)
    */
   @Nullable
-  default char [] getAsCharArray (@Nonnegative final int nIndex) throws TypeConverterException
+  default char [] getAsCharArray (@Nonnegative final int nIndex)
   {
     return getConvertedValue (nIndex, char [].class);
   }
@@ -436,8 +434,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
-  default char [] getAsCharArray (@Nonnegative final int nIndex,
-                                  @Nullable final char [] aDefault) throws TypeConverterException
+  default char [] getAsCharArray (@Nonnegative final int nIndex, @Nullable final char [] aDefault)
   {
     return getConvertedValue (nIndex, aDefault, char [].class);
   }
@@ -451,7 +448,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Class)
    */
   @Nullable
-  default BigDecimal getAsBigDecimal (@Nonnegative final int nIndex) throws TypeConverterException
+  default BigDecimal getAsBigDecimal (@Nonnegative final int nIndex)
   {
     return getConvertedValue (nIndex, BigDecimal.class);
   }
@@ -468,8 +465,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
-  default BigDecimal getAsBigDecimal (@Nonnegative final int nIndex,
-                                      @Nullable final BigDecimal aDefault) throws TypeConverterException
+  default BigDecimal getAsBigDecimal (@Nonnegative final int nIndex, @Nullable final BigDecimal aDefault)
   {
     return getConvertedValue (nIndex, aDefault, BigDecimal.class);
   }
@@ -483,7 +479,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Class)
    */
   @Nullable
-  default BigInteger getAsBigInteger (@Nonnegative final int nIndex) throws TypeConverterException
+  default BigInteger getAsBigInteger (@Nonnegative final int nIndex)
   {
     return getConvertedValue (nIndex, BigInteger.class);
   }
@@ -500,8 +496,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
-  default BigInteger getAsBigInteger (@Nonnegative final int nIndex,
-                                      @Nullable final BigInteger aDefault) throws TypeConverterException
+  default BigInteger getAsBigInteger (@Nonnegative final int nIndex, @Nullable final BigInteger aDefault)
   {
     return getConvertedValue (nIndex, aDefault, BigInteger.class);
   }
@@ -515,7 +510,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Class)
    */
   @Nullable
-  default LocalDate getAsLocalDate (@Nonnegative final int nIndex) throws TypeConverterException
+  default LocalDate getAsLocalDate (@Nonnegative final int nIndex)
   {
     return getConvertedValue (nIndex, LocalDate.class);
   }
@@ -532,8 +527,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
-  default LocalDate getAsLocalDate (@Nonnegative final int nIndex,
-                                    @Nullable final LocalDate aDefault) throws TypeConverterException
+  default LocalDate getAsLocalDate (@Nonnegative final int nIndex, @Nullable final LocalDate aDefault)
   {
     return getConvertedValue (nIndex, aDefault, LocalDate.class);
   }
@@ -547,7 +541,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Class)
    */
   @Nullable
-  default LocalTime getAsLocalTime (@Nonnegative final int nIndex) throws TypeConverterException
+  default LocalTime getAsLocalTime (@Nonnegative final int nIndex)
   {
     return getConvertedValue (nIndex, LocalTime.class);
   }
@@ -564,8 +558,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
-  default LocalTime getAsLocalTime (@Nonnegative final int nIndex,
-                                    @Nullable final LocalTime aDefault) throws TypeConverterException
+  default LocalTime getAsLocalTime (@Nonnegative final int nIndex, @Nullable final LocalTime aDefault)
   {
     return getConvertedValue (nIndex, aDefault, LocalTime.class);
   }
@@ -579,7 +572,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Class)
    */
   @Nullable
-  default LocalDateTime getAsLocalDateTime (@Nonnegative final int nIndex) throws TypeConverterException
+  default LocalDateTime getAsLocalDateTime (@Nonnegative final int nIndex)
   {
     return getConvertedValue (nIndex, LocalDateTime.class);
   }
@@ -596,8 +589,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
-  default LocalDateTime getAsLocalDateTime (@Nonnegative final int nIndex,
-                                            @Nullable final LocalDateTime aDefault) throws TypeConverterException
+  default LocalDateTime getAsLocalDateTime (@Nonnegative final int nIndex, @Nullable final LocalDateTime aDefault)
   {
     return getConvertedValue (nIndex, aDefault, LocalDateTime.class);
   }
@@ -611,7 +603,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Class)
    */
   @Nullable
-  default byte [] getAsByteArray (@Nonnegative final int nIndex) throws TypeConverterException
+  default byte [] getAsByteArray (@Nonnegative final int nIndex)
   {
     return getConvertedValue (nIndex, byte [].class);
   }
@@ -625,7 +617,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Class)
    */
   @Nullable
-  default Boolean getAsBooleanObj (@Nonnegative final int nIndex) throws TypeConverterException
+  default Boolean getAsBooleanObj (@Nonnegative final int nIndex)
   {
     return getConvertedValue (nIndex, Boolean.class);
   }
@@ -639,7 +631,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Class)
    */
   @Nullable
-  default Byte getAsByteObj (@Nonnegative final int nIndex) throws TypeConverterException
+  default Byte getAsByteObj (@Nonnegative final int nIndex)
   {
     return getConvertedValue (nIndex, Byte.class);
   }
@@ -653,7 +645,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Class)
    */
   @Nullable
-  default Character getAsCharObj (@Nonnegative final int nIndex) throws TypeConverterException
+  default Character getAsCharObj (@Nonnegative final int nIndex)
   {
     return getConvertedValue (nIndex, Character.class);
   }
@@ -681,7 +673,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Class)
    */
   @Nullable
-  default Float getAsFloatObj (@Nonnegative final int nIndex) throws TypeConverterException
+  default Float getAsFloatObj (@Nonnegative final int nIndex)
   {
     return getConvertedValue (nIndex, Float.class);
   }
@@ -695,7 +687,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Class)
    */
   @Nullable
-  default Integer getAsIntObj (@Nonnegative final int nIndex) throws TypeConverterException
+  default Integer getAsIntObj (@Nonnegative final int nIndex)
   {
     return getConvertedValue (nIndex, Integer.class);
   }
@@ -709,7 +701,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Class)
    */
   @Nullable
-  default Long getAsLongObj (@Nonnegative final int nIndex) throws TypeConverterException
+  default Long getAsLongObj (@Nonnegative final int nIndex)
   {
     return getConvertedValue (nIndex, Long.class);
   }
@@ -723,7 +715,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Class)
    */
   @Nullable
-  default Short getAsShortObj (@Nonnegative final int nIndex) throws TypeConverterException
+  default Short getAsShortObj (@Nonnegative final int nIndex)
   {
     return getConvertedValue (nIndex, Short.class);
   }
@@ -737,7 +729,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Class)
    */
   @Nullable
-  default java.sql.Blob getAsSqlBlob (@Nonnegative final int nIndex) throws TypeConverterException
+  default java.sql.Blob getAsSqlBlob (@Nonnegative final int nIndex)
   {
     return getConvertedValue (nIndex, java.sql.Blob.class);
   }
@@ -751,7 +743,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Class)
    */
   @Nullable
-  default java.sql.Clob getAsSqlClob (@Nonnegative final int nIndex) throws TypeConverterException
+  default java.sql.Clob getAsSqlClob (@Nonnegative final int nIndex)
   {
     return getConvertedValue (nIndex, java.sql.Clob.class);
   }
@@ -765,7 +757,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Class)
    */
   @Nullable
-  default java.sql.Date getAsSqlDate (@Nonnegative final int nIndex) throws TypeConverterException
+  default java.sql.Date getAsSqlDate (@Nonnegative final int nIndex)
   {
     return getConvertedValue (nIndex, java.sql.Date.class);
   }
@@ -779,7 +771,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Class)
    */
   @Nullable
-  default java.sql.NClob getAsSqlNClob (@Nonnegative final int nIndex) throws TypeConverterException
+  default java.sql.NClob getAsSqlNClob (@Nonnegative final int nIndex)
   {
     return getConvertedValue (nIndex, java.sql.NClob.class);
   }
@@ -793,7 +785,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Class)
    */
   @Nullable
-  default java.sql.RowId getAsSqlRowId (@Nonnegative final int nIndex) throws TypeConverterException
+  default java.sql.RowId getAsSqlRowId (@Nonnegative final int nIndex)
   {
     return getConvertedValue (nIndex, java.sql.RowId.class);
   }
@@ -807,7 +799,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Class)
    */
   @Nullable
-  default java.sql.Time getAsSqlTime (@Nonnegative final int nIndex) throws TypeConverterException
+  default java.sql.Time getAsSqlTime (@Nonnegative final int nIndex)
   {
     return getConvertedValue (nIndex, java.sql.Time.class);
   }
@@ -821,7 +813,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Class)
    */
   @Nullable
-  default java.sql.Timestamp getAsSqlTimestamp (@Nonnegative final int nIndex) throws TypeConverterException
+  default java.sql.Timestamp getAsSqlTimestamp (@Nonnegative final int nIndex)
   {
     return getConvertedValue (nIndex, java.sql.Timestamp.class);
   }

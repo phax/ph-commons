@@ -83,7 +83,7 @@ public interface IGetterDirectTrait
    *        Destination type
    */
   @Nullable
-  default <T> T getCastedValue () throws ClassCastException
+  default <T> T getCastedValue ()
   {
     return GenericReflection.uncheckedCast (getValue ());
   }
@@ -102,7 +102,7 @@ public interface IGetterDirectTrait
    *        Destination type
    */
   @Nullable
-  default <T> T getCastedValue (@Nullable final T aDefault) throws ClassCastException
+  default <T> T getCastedValue (@Nullable final T aDefault)
   {
     final Object aValue = getValue ();
     return aValue == null ? aDefault : GenericReflection.uncheckedCast (aValue);
@@ -121,7 +121,7 @@ public interface IGetterDirectTrait
    *        Destination type
    */
   @Nullable
-  default <T> T getCastedValue (@Nonnull final Class <T> aClass) throws ClassCastException
+  default <T> T getCastedValue (@Nonnull final Class <T> aClass)
   {
     return aClass.cast (getValue ());
   }
@@ -142,7 +142,7 @@ public interface IGetterDirectTrait
    *        Destination type
    */
   @Nullable
-  default <T> T getCastedValue (@Nullable final T aDefault, @Nonnull final Class <T> aClass) throws ClassCastException
+  default <T> T getCastedValue (@Nullable final T aDefault, @Nonnull final Class <T> aClass)
   {
     final Object aValue = getValue ();
     return aValue == null ? aDefault : aClass.cast (aValue);
@@ -188,7 +188,7 @@ public interface IGetterDirectTrait
     return aValue == null ? aDefault : TypeConverter.convert (aValue, aClass);
   }
 
-  default boolean getAsBoolean () throws TypeConverterException
+  default boolean getAsBoolean ()
   {
     return TypeConverter.convertToBoolean (getValue ());
   }
@@ -198,7 +198,7 @@ public interface IGetterDirectTrait
     return TypeConverter.convertToBoolean (getValue (), bDefault);
   }
 
-  default byte getAsByte () throws TypeConverterException
+  default byte getAsByte ()
   {
     return TypeConverter.convertToByte (getValue ());
   }
@@ -208,7 +208,7 @@ public interface IGetterDirectTrait
     return TypeConverter.convertToByte (getValue (), nDefault);
   }
 
-  default char getAsChar () throws TypeConverterException
+  default char getAsChar ()
   {
     return TypeConverter.convertToChar (getValue ());
   }
@@ -218,7 +218,7 @@ public interface IGetterDirectTrait
     return TypeConverter.convertToChar (getValue (), cDefault);
   }
 
-  default double getAsDouble () throws TypeConverterException
+  default double getAsDouble ()
   {
     return TypeConverter.convertToDouble (getValue ());
   }
@@ -228,7 +228,7 @@ public interface IGetterDirectTrait
     return TypeConverter.convertToDouble (getValue (), dDefault);
   }
 
-  default float getAsFloat () throws TypeConverterException
+  default float getAsFloat ()
   {
     return TypeConverter.convertToFloat (getValue ());
   }
@@ -238,7 +238,7 @@ public interface IGetterDirectTrait
     return TypeConverter.convertToFloat (getValue (), fDefault);
   }
 
-  default int getAsInt () throws TypeConverterException
+  default int getAsInt ()
   {
     return TypeConverter.convertToInt (getValue ());
   }
@@ -248,7 +248,7 @@ public interface IGetterDirectTrait
     return TypeConverter.convertToInt (getValue (), nDefault);
   }
 
-  default long getAsLong () throws TypeConverterException
+  default long getAsLong ()
   {
     return TypeConverter.convertToLong (getValue ());
   }
@@ -258,7 +258,7 @@ public interface IGetterDirectTrait
     return TypeConverter.convertToLong (getValue (), nDefault);
   }
 
-  default short getAsShort () throws TypeConverterException
+  default short getAsShort ()
   {
     return TypeConverter.convertToShort (getValue ());
   }
@@ -275,7 +275,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Class)
    */
   @Nullable
-  default String getAsString () throws TypeConverterException
+  default String getAsString ()
   {
     return getConvertedValue (String.class);
   }
@@ -290,7 +290,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default String getAsString (@Nullable final String sDefault) throws TypeConverterException
+  default String getAsString (@Nullable final String sDefault)
   {
     return getConvertedValue (sDefault, String.class);
   }
@@ -302,7 +302,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Class)
    */
   @Nullable
-  default char [] getAsCharArray () throws TypeConverterException
+  default char [] getAsCharArray ()
   {
     return getConvertedValue (char [].class);
   }
@@ -317,7 +317,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default char [] getAsCharArray (@Nullable final char [] aDefault) throws TypeConverterException
+  default char [] getAsCharArray (@Nullable final char [] aDefault)
   {
     return getConvertedValue (aDefault, char [].class);
   }
@@ -329,7 +329,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Class)
    */
   @Nullable
-  default BigDecimal getAsBigDecimal () throws TypeConverterException
+  default BigDecimal getAsBigDecimal ()
   {
     return getConvertedValue (BigDecimal.class);
   }
@@ -344,7 +344,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default BigDecimal getAsBigDecimal (@Nullable final BigDecimal aDefault) throws TypeConverterException
+  default BigDecimal getAsBigDecimal (@Nullable final BigDecimal aDefault)
   {
     return getConvertedValue (aDefault, BigDecimal.class);
   }
@@ -356,7 +356,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Class)
    */
   @Nullable
-  default BigInteger getAsBigInteger () throws TypeConverterException
+  default BigInteger getAsBigInteger ()
   {
     return getConvertedValue (BigInteger.class);
   }
@@ -371,7 +371,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default BigInteger getAsBigInteger (@Nullable final BigInteger aDefault) throws TypeConverterException
+  default BigInteger getAsBigInteger (@Nullable final BigInteger aDefault)
   {
     return getConvertedValue (aDefault, BigInteger.class);
   }
@@ -383,7 +383,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Class)
    */
   @Nullable
-  default LocalDate getAsLocalDate () throws TypeConverterException
+  default LocalDate getAsLocalDate ()
   {
     return getConvertedValue (LocalDate.class);
   }
@@ -398,7 +398,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default LocalDate getAsLocalDate (@Nullable final LocalDate aDefault) throws TypeConverterException
+  default LocalDate getAsLocalDate (@Nullable final LocalDate aDefault)
   {
     return getConvertedValue (aDefault, LocalDate.class);
   }
@@ -410,7 +410,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Class)
    */
   @Nullable
-  default LocalTime getAsLocalTime () throws TypeConverterException
+  default LocalTime getAsLocalTime ()
   {
     return getConvertedValue (LocalTime.class);
   }
@@ -425,7 +425,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default LocalTime getAsLocalTime (@Nullable final LocalTime aDefault) throws TypeConverterException
+  default LocalTime getAsLocalTime (@Nullable final LocalTime aDefault)
   {
     return getConvertedValue (aDefault, LocalTime.class);
   }
@@ -437,7 +437,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Class)
    */
   @Nullable
-  default LocalDateTime getAsLocalDateTime () throws TypeConverterException
+  default LocalDateTime getAsLocalDateTime ()
   {
     return getConvertedValue (LocalDateTime.class);
   }
@@ -452,7 +452,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default LocalDateTime getAsLocalDateTime (@Nullable final LocalDateTime aDefault) throws TypeConverterException
+  default LocalDateTime getAsLocalDateTime (@Nullable final LocalDateTime aDefault)
   {
     return getConvertedValue (LocalDateTime.class);
   }
@@ -464,7 +464,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Class)
    */
   @Nullable
-  default byte [] getAsByteArray () throws TypeConverterException
+  default byte [] getAsByteArray ()
   {
     return getConvertedValue (byte [].class);
   }
@@ -476,7 +476,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Class)
    */
   @Nullable
-  default Boolean getAsBooleanObj () throws TypeConverterException
+  default Boolean getAsBooleanObj ()
   {
     return getConvertedValue (Boolean.class);
   }
@@ -488,7 +488,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Class)
    */
   @Nullable
-  default Byte getAsByteObj () throws TypeConverterException
+  default Byte getAsByteObj ()
   {
     return getConvertedValue (Byte.class);
   }
@@ -500,7 +500,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Class)
    */
   @Nullable
-  default Character getAsCharObj () throws TypeConverterException
+  default Character getAsCharObj ()
   {
     return getConvertedValue (Character.class);
   }
@@ -524,7 +524,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Class)
    */
   @Nullable
-  default Float getAsFloatObj () throws TypeConverterException
+  default Float getAsFloatObj ()
   {
     return getConvertedValue (Float.class);
   }
@@ -536,7 +536,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Class)
    */
   @Nullable
-  default Integer getAsIntObj () throws TypeConverterException
+  default Integer getAsIntObj ()
   {
     return getConvertedValue (Integer.class);
   }
@@ -548,7 +548,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Class)
    */
   @Nullable
-  default Long getAsLongObj () throws TypeConverterException
+  default Long getAsLongObj ()
   {
     return getConvertedValue (Long.class);
   }
@@ -560,7 +560,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Class)
    */
   @Nullable
-  default Short getAsShortObj () throws TypeConverterException
+  default Short getAsShortObj ()
   {
     return getConvertedValue (Short.class);
   }
@@ -572,7 +572,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Class)
    */
   @Nullable
-  default java.sql.Blob getAsSqlBlob () throws TypeConverterException
+  default java.sql.Blob getAsSqlBlob ()
   {
     return getConvertedValue (java.sql.Blob.class);
   }
@@ -584,7 +584,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Class)
    */
   @Nullable
-  default java.sql.Clob getAsSqlClob () throws TypeConverterException
+  default java.sql.Clob getAsSqlClob ()
   {
     return getConvertedValue (java.sql.Clob.class);
   }
@@ -596,7 +596,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Class)
    */
   @Nullable
-  default java.sql.Date getAsSqlDate () throws TypeConverterException
+  default java.sql.Date getAsSqlDate ()
   {
     return getConvertedValue (java.sql.Date.class);
   }
@@ -608,7 +608,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Class)
    */
   @Nullable
-  default java.sql.NClob getAsSqlNClob () throws TypeConverterException
+  default java.sql.NClob getAsSqlNClob ()
   {
     return getConvertedValue (java.sql.NClob.class);
   }
@@ -620,7 +620,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Class)
    */
   @Nullable
-  default java.sql.RowId getAsSqlRowId () throws TypeConverterException
+  default java.sql.RowId getAsSqlRowId ()
   {
     return getConvertedValue (java.sql.RowId.class);
   }
@@ -632,7 +632,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Class)
    */
   @Nullable
-  default java.sql.Time getAsSqlTime () throws TypeConverterException
+  default java.sql.Time getAsSqlTime ()
   {
     return getConvertedValue (java.sql.Time.class);
   }
@@ -644,7 +644,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Class)
    */
   @Nullable
-  default java.sql.Timestamp getAsSqlTimestamp () throws TypeConverterException
+  default java.sql.Timestamp getAsSqlTimestamp ()
   {
     return getConvertedValue (java.sql.Timestamp.class);
   }

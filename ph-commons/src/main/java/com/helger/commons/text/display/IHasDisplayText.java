@@ -51,7 +51,7 @@ public interface IHasDisplayText extends Serializable
   @Nonnull
   default IHasText getAsHasText ()
   {
-    return x -> getDisplayText (x);
+    return this::getDisplayText;
   }
 
   @Nonnull

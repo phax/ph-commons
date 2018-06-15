@@ -448,6 +448,9 @@ public final class ToStringGenerator
     return m_aSB.toString ();
   }
 
+  /**
+   * @deprecated Use {@link #getToString()} instead
+   */
   @Override
   @Nonnull
   @Deprecated

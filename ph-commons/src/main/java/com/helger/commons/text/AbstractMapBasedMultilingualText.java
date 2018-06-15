@@ -173,6 +173,22 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
   }
 
   @Override
+  public boolean equals (final Object o)
+  {
+    if (o == this)
+      return true;
+    if (o == null || !getClass ().equals (o.getClass ()))
+      return false;
+    return super.equals (o);
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    return super.hashCode ();
+  }
+
+  @Override
   @OverridingMethodsMustInvokeSuper
   public String toString ()
   {

@@ -110,20 +110,24 @@ public class LoggingInvocationHandler implements InvocationHandler
                            " (" +
                            _getParameter (aMethod.getParameters (), aArgs) +
                            ")";
-    s_aLogger.info (sMethod + " - invoke");
+    if (s_aLogger.isInfoEnabled ())
+      s_aLogger.info (sMethod + " - invoke");
     final Object ret = aMethod.invoke (m_aActualTarget, aArgs);
 
     if (aReturnType == Void.TYPE)
     {
-      s_aLogger.info (sMethod + " - return");
+      if (s_aLogger.isInfoEnabled ())
+        s_aLogger.info (sMethod + " - return");
       return null;
     }
     if (ret == null)
     {
-      s_aLogger.info (sMethod + " - return null");
+      if (s_aLogger.isInfoEnabled ())
+        s_aLogger.info (sMethod + " - return null");
       return null;
     }
-    s_aLogger.info (sMethod + " - return " + ret);
+    if (s_aLogger.isInfoEnabled ())
+      s_aLogger.info (sMethod + " - return " + ret);
     if (m_bProxyReturnValues && aReturnType.isInterface ())
     {
       // Proxy result type only if it is an interface
