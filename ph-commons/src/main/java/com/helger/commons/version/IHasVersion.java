@@ -16,8 +16,6 @@
  */
 package com.helger.commons.version;
 
-import javax.annotation.Nullable;
-
 /**
  * Base interface for objects having a version.
  *
@@ -27,8 +25,8 @@ import javax.annotation.Nullable;
 public interface IHasVersion
 {
   /**
-   * @return The version number of the object. May be <code>null</code> .
+   * @return The version number of the object. No assumption on nullable can be
+   *         done.
    */
-  @Nullable
   Version getVersion ();
 }

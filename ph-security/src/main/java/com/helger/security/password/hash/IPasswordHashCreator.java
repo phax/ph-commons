@@ -19,7 +19,6 @@ package com.helger.security.password.hash;
 import java.io.Serializable;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.security.password.salt.IPasswordSalt;
@@ -57,5 +56,5 @@ public interface IPasswordHashCreator extends Serializable
    *         encode in UTF-8.
    */
   @Nonnull
-  String createPasswordHash (@Nullable IPasswordSalt aSalt, @Nonnull String sPlainTextPassword);
+  String createPasswordHash (IPasswordSalt aSalt, @Nonnull String sPlainTextPassword);
 }

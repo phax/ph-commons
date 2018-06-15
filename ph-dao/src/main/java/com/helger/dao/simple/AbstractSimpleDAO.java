@@ -492,7 +492,8 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
     }
 
     if (isDebugLogging ())
-      s_aLogger.info ("Trying to write DAO file '" + sFilename + "'");
+      if (s_aLogger.isInfoEnabled ())
+        s_aLogger.info ("Trying to write DAO file '" + sFilename + "'");
 
     File aFile = null;
     IMicroDocument aDoc = null;

@@ -40,7 +40,9 @@ import com.helger.tree.IBasicTreeItem;
  *        The implementation type.
  */
 public interface ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>>
-                                 extends IBasicTreeItem <DATATYPE, ITEMTYPE>, IHasID <KEYTYPE>
+                                 extends
+                                 IBasicTreeItem <DATATYPE, ITEMTYPE>,
+                                 IHasID <KEYTYPE>
 {
   /**
    * @return The factory used to create instances of this interface.
@@ -112,9 +114,8 @@ public interface ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
    *        circumstances.
    * @param aData
    *        The data associated with this item.
-   * @return the created tree item
+   * @return the created tree item. May be null in certain implementations
    */
-  @Nonnull
   ITEMTYPE createChildItem (@Nullable final KEYTYPE aDataID, @Nullable final DATATYPE aData);
 
   /**
