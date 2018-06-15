@@ -36,9 +36,7 @@ public final class CharsetTypeConverterRegistrar implements ITypeConverterRegist
   public void registerTypeConverter (@Nonnull final ITypeConverterRegistry aRegistry)
   {
     // Charset
-    aRegistry.registerTypeConverter (Charset.class, String.class, aSource -> aSource.name ());
-    aRegistry.registerTypeConverter (String.class,
-                                     Charset.class,
-                                     aSource -> CharsetHelper.getCharsetFromName (aSource));
+    aRegistry.registerTypeConverter (Charset.class, String.class, Charset::name);
+    aRegistry.registerTypeConverter (String.class, Charset.class, CharsetHelper::getCharsetFromName);
   }
 }

@@ -46,90 +46,83 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
   public void registerTypeConverter (@Nonnull final ITypeConverterRegistry aRegistry)
   {
     // MutableBigDecimal
-    aRegistry.registerTypeConverter (MutableBigDecimal.class, BigDecimal.class, aSource -> aSource.getAsBigDecimal ());
-    aRegistry.registerTypeConverter (BigDecimal.class,
-                                     MutableBigDecimal.class,
-                                     aSource -> new MutableBigDecimal (aSource));
+    aRegistry.registerTypeConverter (MutableBigDecimal.class, BigDecimal.class, MutableBigDecimal::getAsBigDecimal);
+    aRegistry.registerTypeConverter (BigDecimal.class, MutableBigDecimal.class, MutableBigDecimal::new);
     aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableBigDecimal.class,
-                                                                  aSource -> aSource.getAsBigDecimal ());
+                                                                  MutableBigDecimal::getAsBigDecimal);
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableBigDecimal.class,
                                                                   aSource -> new MutableBigDecimal (TypeConverter.convert (aSource,
                                                                                                                            BigDecimal.class)));
 
     // MutableBigInteger
-    aRegistry.registerTypeConverter (MutableBigInteger.class, BigInteger.class, aSource -> aSource.getAsBigInteger ());
-    aRegistry.registerTypeConverter (BigInteger.class,
-                                     MutableBigInteger.class,
-                                     aSource -> new MutableBigInteger (aSource));
+    aRegistry.registerTypeConverter (MutableBigInteger.class, BigInteger.class, MutableBigInteger::getAsBigInteger);
+    aRegistry.registerTypeConverter (BigInteger.class, MutableBigInteger.class, MutableBigInteger::new);
     aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableBigInteger.class,
-                                                                  aSource -> aSource.getAsBigInteger ());
+                                                                  MutableBigInteger::getAsBigInteger);
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableBigInteger.class,
                                                                   aSource -> new MutableBigInteger (TypeConverter.convert (aSource,
                                                                                                                            BigInteger.class)));
 
     // MutableBoolean
-    aRegistry.registerTypeConverter (MutableBoolean.class, Boolean.class, aSource -> aSource.getAsBoolean ());
-    aRegistry.registerTypeConverter (Boolean.class, MutableBoolean.class, aSource -> new MutableBoolean (aSource));
-    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableBoolean.class,
-                                                                  aSource -> aSource.getAsBoolean ());
+    aRegistry.registerTypeConverter (MutableBoolean.class, Boolean.class, MutableBoolean::getAsBoolean);
+    aRegistry.registerTypeConverter (Boolean.class, MutableBoolean.class, MutableBoolean::new);
+    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableBoolean.class, MutableBoolean::getAsBoolean);
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableBoolean.class,
                                                                   aSource -> new MutableBoolean (TypeConverter.convert (aSource,
                                                                                                                         Boolean.class)));
 
     // MutableByte
-    aRegistry.registerTypeConverter (MutableByte.class, Byte.class, aSource -> aSource.getAsByte ());
-    aRegistry.registerTypeConverter (Byte.class, MutableByte.class, aSource -> new MutableByte (aSource));
-    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableByte.class, aSource -> aSource.getAsByte ());
+    aRegistry.registerTypeConverter (MutableByte.class, Byte.class, MutableByte::getAsByte);
+    aRegistry.registerTypeConverter (Byte.class, MutableByte.class, MutableByte::new);
+    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableByte.class, MutableByte::getAsByte);
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableByte.class,
                                                                   aSource -> new MutableByte (TypeConverter.convert (aSource,
                                                                                                                      Byte.class)));
 
     // MutableChar
-    aRegistry.registerTypeConverter (MutableChar.class, Character.class, aSource -> aSource.getAsCharacter ());
-    aRegistry.registerTypeConverter (Character.class, MutableChar.class, aSource -> new MutableChar (aSource));
-    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableChar.class,
-                                                                  aSource -> aSource.getAsCharacter ());
+    aRegistry.registerTypeConverter (MutableChar.class, Character.class, MutableChar::getAsCharacter);
+    aRegistry.registerTypeConverter (Character.class, MutableChar.class, MutableChar::new);
+    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableChar.class, MutableChar::getAsCharacter);
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableChar.class,
                                                                   aSource -> new MutableChar (TypeConverter.convert (aSource,
                                                                                                                      Character.class)));
 
     // MutableDouble
-    aRegistry.registerTypeConverter (MutableDouble.class, Double.class, aSource -> aSource.getAsDouble ());
-    aRegistry.registerTypeConverter (Double.class, MutableDouble.class, aSource -> new MutableDouble (aSource));
-    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableDouble.class,
-                                                                  aSource -> aSource.getAsDouble ());
+    aRegistry.registerTypeConverter (MutableDouble.class, Double.class, MutableDouble::getAsDouble);
+    aRegistry.registerTypeConverter (Double.class, MutableDouble.class, MutableDouble::new);
+    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableDouble.class, MutableDouble::getAsDouble);
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableDouble.class,
                                                                   aSource -> new MutableDouble (TypeConverter.convert (aSource,
                                                                                                                        Double.class)));
 
     // MutableFloat
-    aRegistry.registerTypeConverter (MutableFloat.class, Float.class, aSource -> aSource.getAsFloat ());
-    aRegistry.registerTypeConverter (Float.class, MutableFloat.class, aSource -> new MutableFloat (aSource));
-    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableFloat.class, aSource -> aSource.getAsFloat ());
+    aRegistry.registerTypeConverter (MutableFloat.class, Float.class, MutableFloat::getAsFloat);
+    aRegistry.registerTypeConverter (Float.class, MutableFloat.class, MutableFloat::new);
+    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableFloat.class, MutableFloat::getAsFloat);
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableFloat.class,
                                                                   aSource -> new MutableFloat (TypeConverter.convert (aSource,
                                                                                                                       Float.class)));
 
     // MutableInt
-    aRegistry.registerTypeConverter (MutableInt.class, Integer.class, aSource -> aSource.getAsInteger ());
-    aRegistry.registerTypeConverter (Integer.class, MutableInt.class, aSource -> new MutableInt (aSource));
-    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableInt.class, aSource -> aSource.getAsInteger ());
+    aRegistry.registerTypeConverter (MutableInt.class, Integer.class, MutableInt::getAsInteger);
+    aRegistry.registerTypeConverter (Integer.class, MutableInt.class, MutableInt::new);
+    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableInt.class, MutableInt::getAsInteger);
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableInt.class,
                                                                   aSource -> new MutableInt (TypeConverter.convert (aSource,
                                                                                                                     Integer.class)));
 
     // MutableLong
-    aRegistry.registerTypeConverter (MutableLong.class, Long.class, aSource -> aSource.getAsLong ());
-    aRegistry.registerTypeConverter (Long.class, MutableLong.class, aSource -> new MutableLong (aSource));
-    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableLong.class, aSource -> aSource.getAsLong ());
+    aRegistry.registerTypeConverter (MutableLong.class, Long.class, MutableLong::getAsLong);
+    aRegistry.registerTypeConverter (Long.class, MutableLong.class, MutableLong::new);
+    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableLong.class, MutableLong::getAsLong);
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableLong.class,
                                                                   aSource -> new MutableLong (TypeConverter.convert (aSource,
                                                                                                                      Long.class)));
 
     // MutableShort
-    aRegistry.registerTypeConverter (MutableShort.class, Short.class, aSource -> aSource.getAsShort ());
-    aRegistry.registerTypeConverter (Short.class, MutableShort.class, aSource -> new MutableShort (aSource));
-    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableShort.class, aSource -> aSource.getAsShort ());
+    aRegistry.registerTypeConverter (MutableShort.class, Short.class, MutableShort::getAsShort);
+    aRegistry.registerTypeConverter (Short.class, MutableShort.class, MutableShort::new);
+    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableShort.class, MutableShort::getAsShort);
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableShort.class,
                                                                   aSource -> new MutableShort (TypeConverter.convert (aSource,
                                                                                                                       Short.class)));

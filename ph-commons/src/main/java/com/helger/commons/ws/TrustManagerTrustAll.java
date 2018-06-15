@@ -66,13 +66,15 @@ public class TrustManagerTrustAll implements X509TrustManager
   public void checkServerTrusted (final X509Certificate [] aChain, final String sAuthType)
   {
     if (m_bDebug)
-      s_aLogger.info ("checkServerTrusted (" + Arrays.toString (aChain) + ", " + sAuthType + ")");
+      if (s_aLogger.isInfoEnabled ())
+        s_aLogger.info ("checkServerTrusted (" + Arrays.toString (aChain) + ", " + sAuthType + ")");
   }
 
   public void checkClientTrusted (final X509Certificate [] aChain, final String sAuthType)
   {
     if (m_bDebug)
-      s_aLogger.info ("checkClientTrusted (" + Arrays.toString (aChain) + ", " + sAuthType + ")");
+      if (s_aLogger.isInfoEnabled ())
+        s_aLogger.info ("checkClientTrusted (" + Arrays.toString (aChain) + ", " + sAuthType + ")");
   }
 
   @Override

@@ -183,10 +183,10 @@ public final class BaseTypeConverterRegistrar implements ITypeConverterRegistrar
                                                                                                          (Short) null));
 
     // to String
-    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (String.class, aSource -> aSource.toString ());
+    aRegistry.registerTypeConverterRuleAnySourceFixedDestination (String.class, Object::toString);
 
     // to BigDecimal
-    aRegistry.registerTypeConverter (BigInteger.class, BigDecimal.class, aSource -> new BigDecimal (aSource));
+    aRegistry.registerTypeConverter (BigInteger.class, BigDecimal.class, BigDecimal::new);
     aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (Number.class,
                                                                          BigDecimal.class,
                                                                          aSource -> BigDecimal.valueOf (aSource.doubleValue ()));
@@ -211,7 +211,7 @@ public final class BaseTypeConverterRegistrar implements ITypeConverterRegistrar
                                                                                                            (BigDecimal) null));
 
     // to BigInteger
-    aRegistry.registerTypeConverter (BigDecimal.class, BigInteger.class, aSource -> aSource.toBigInteger ());
+    aRegistry.registerTypeConverter (BigDecimal.class, BigInteger.class, BigDecimal::toBigInteger);
     aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (Number.class,
                                                                          BigInteger.class,
                                                                          aSource -> BigInteger.valueOf (aSource.longValue ()));

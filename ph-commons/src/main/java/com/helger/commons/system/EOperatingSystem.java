@@ -232,7 +232,8 @@ public enum EOperatingSystem implements IHasDisplayName
       ret = forName (sCurrentOSName);
       s_aInstance = ret;
       if (ret == UNKNOWN)
-        s_aLogger.error ("Failed to resolve operating system from name '" + sCurrentOSName + "'!!!");
+        if (s_aLogger.isErrorEnabled ())
+          s_aLogger.error ("Failed to resolve operating system from name '" + sCurrentOSName + "'!!!");
     }
     return ret;
   }

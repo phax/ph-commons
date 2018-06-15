@@ -161,8 +161,8 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
                                      PrimitiveCollectionHelper::newPrimitiveSortedSet);
 
     // char[]
-    aRegistry.registerTypeConverter (char [].class, String.class, aSource -> new String (aSource));
-    aRegistry.registerTypeConverter (String.class, char [].class, aSource -> aSource.toCharArray ());
+    aRegistry.registerTypeConverter (char [].class, String.class, String::new);
+    aRegistry.registerTypeConverter (String.class, char [].class, String::toCharArray);
     aRegistry.registerTypeConverter (char [].class,
                                      CommonsArrayList.class,
                                      PrimitiveCollectionHelper::newPrimitiveList);

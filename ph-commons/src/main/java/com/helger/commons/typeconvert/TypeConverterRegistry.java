@@ -133,11 +133,12 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
     ValueEnforcer.isFalse (aConverter instanceof ITypeConverterRule,
                            "Type converter rules must be registered via registerTypeConverterRule");
     if (ClassHelper.areConvertibleClasses (aSrcClass, aDstClass))
-      s_aLogger.warn ("No type converter needed between " +
-                      aSrcClass +
-                      " and " +
-                      aDstClass +
-                      " because types are convertible!");
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("No type converter needed between " +
+                        aSrcClass +
+                        " and " +
+                        aDstClass +
+                        " because types are convertible!");
 
     // The main class should not already be registered
     final Map <Class <?>, ITypeConverter <?, ?>> aSrcMap = _getOrCreateConverterMap (aSrcClass);

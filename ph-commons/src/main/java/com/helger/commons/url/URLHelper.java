@@ -462,7 +462,8 @@ public final class URLHelper
         }
         catch (final MalformedURLException ex)
         {
-          s_aLogger.warn ("java.net.URL claims URL '" + sRealHref + "' to be invalid: " + ex.getMessage ());
+          if (s_aLogger.isWarnEnabled ())
+            s_aLogger.warn ("java.net.URL claims URL '" + sRealHref + "' to be invalid: " + ex.getMessage ());
         }
 
     String sPath;
@@ -567,23 +568,28 @@ public final class URLHelper
       if (bHasPath)
       {
         if (sPath.contains (QUESTIONMARK_STR))
-          s_aLogger.warn ("Path contains the question mark ('?') character: '" + sPath + "'");
+          if (s_aLogger.isWarnEnabled ())
+            s_aLogger.warn ("Path contains the question mark ('?') character: '" + sPath + "'");
         if (sPath.contains (AMPERSAND_STR))
-          s_aLogger.warn ("Path contains the ampersand ('&') character: '" + sPath + "'");
+          if (s_aLogger.isWarnEnabled ())
+            s_aLogger.warn ("Path contains the ampersand ('&') character: '" + sPath + "'");
         if (sPath.contains (HASH_STR))
-          s_aLogger.warn ("Path contains the hash ('#') character: '" + sPath + "'");
+          if (s_aLogger.isWarnEnabled ())
+            s_aLogger.warn ("Path contains the hash ('#') character: '" + sPath + "'");
       }
 
       if (bHasQueryParams)
       {
         if (sQueryParams.contains (QUESTIONMARK_STR))
-          s_aLogger.warn ("Query parameters contain the question mark ('?') character: '" + sQueryParams + "'");
+          if (s_aLogger.isWarnEnabled ())
+            s_aLogger.warn ("Query parameters contain the question mark ('?') character: '" + sQueryParams + "'");
       }
 
       if (bHasAnchor)
       {
         if (sAnchor.contains (HASH_STR))
-          s_aLogger.warn ("Anchor contains the hash ('#') character: '" + sAnchor + "'");
+          if (s_aLogger.isWarnEnabled ())
+            s_aLogger.warn ("Anchor contains the hash ('#') character: '" + sAnchor + "'");
       }
     }
 
@@ -743,7 +749,8 @@ public final class URLHelper
       {
         // fall-through
         if (bWhine && GlobalDebug.isDebugMode ())
-          s_aLogger.warn ("Debug warn: failed to convert '" + sURL + "' to a URL!");
+          if (s_aLogger.isWarnEnabled ())
+            s_aLogger.warn ("Debug warn: failed to convert '" + sURL + "' to a URL!");
       }
     return null;
   }
@@ -783,7 +790,8 @@ public final class URLHelper
       {
         // fall-through
         if (GlobalDebug.isDebugMode ())
-          s_aLogger.warn ("Debug warn: failed to convert '" + aURI + "' to a URL!");
+          if (s_aLogger.isWarnEnabled ())
+            s_aLogger.warn ("Debug warn: failed to convert '" + aURI + "' to a URL!");
       }
     return null;
   }
@@ -808,7 +816,8 @@ public final class URLHelper
       {
         // fall-through
         if (GlobalDebug.isDebugMode ())
-          s_aLogger.warn ("Debug warn: failed to convert '" + sURI + "' to a URI!");
+          if (s_aLogger.isWarnEnabled ())
+            s_aLogger.warn ("Debug warn: failed to convert '" + sURI + "' to a URI!");
       }
     return null;
   }
@@ -833,7 +842,8 @@ public final class URLHelper
       {
         // fall-through
         if (GlobalDebug.isDebugMode ())
-          s_aLogger.warn ("Debug warn: failed to convert '" + aURL + "' to a URI!");
+          if (s_aLogger.isWarnEnabled ())
+            s_aLogger.warn ("Debug warn: failed to convert '" + aURL + "' to a URI!");
       }
     return null;
   }
@@ -865,18 +875,19 @@ public final class URLHelper
     ValueEnforcer.notNull (aURL, "URL");
 
     if (DEBUG_GET_IS)
-      s_aLogger.info ("getInputStream ('" +
-                      aURL +
-                      "', " +
-                      nConnectTimeoutMS +
-                      ", " +
-                      nReadTimeoutMS +
-                      ", " +
-                      aConnectionModifier +
-                      ", " +
-                      aExceptionHolder +
-                      ")",
-                      new Exception ());
+      if (s_aLogger.isInfoEnabled ())
+        s_aLogger.info ("getInputStream ('" +
+                        aURL +
+                        "', " +
+                        nConnectTimeoutMS +
+                        ", " +
+                        nReadTimeoutMS +
+                        ", " +
+                        aConnectionModifier +
+                        ", " +
+                        aExceptionHolder +
+                        ")",
+                        new Exception ());
 
     URLConnection aConnection;
     HttpURLConnection aHTTPConnection = null;
@@ -913,7 +924,8 @@ public final class URLHelper
           if (aJarEntry.getSize () == 0 && aJarEntry.getCrc () == 0)
           {
             // Cannot open an InputStream on a directory
-            s_aLogger.warn ("Heuristically determined " + aURL + " to be a directory!");
+            if (s_aLogger.isWarnEnabled ())
+              s_aLogger.warn ("Heuristically determined " + aURL + " to be a directory!");
             return null;
           }
         }
@@ -923,7 +935,8 @@ public final class URLHelper
       final InputStream ret = aConnection.getInputStream ();
 
       if (DEBUG_GET_IS)
-        s_aLogger.info ("  returning " + ret);
+        if (s_aLogger.isInfoEnabled ())
+          s_aLogger.info ("  returning " + ret);
 
       return ret;
     }
@@ -937,19 +950,25 @@ public final class URLHelper
       else
       {
         if (ex instanceof SocketTimeoutException)
-          s_aLogger.warn ("Timeout to open input stream for '" +
-                          aURL +
-                          "': " +
-                          ex.getClass ().getName () +
-                          " - " +
-                          ex.getMessage ());
+        {
+          if (s_aLogger.isWarnEnabled ())
+            s_aLogger.warn ("Timeout to open input stream for '" +
+                            aURL +
+                            "': " +
+                            ex.getClass ().getName () +
+                            " - " +
+                            ex.getMessage ());
+        }
         else
-          s_aLogger.warn ("Failed to open input stream for '" +
-                          aURL +
-                          "': " +
-                          ex.getClass ().getName () +
-                          " - " +
-                          ex.getMessage ());
+        {
+          if (s_aLogger.isWarnEnabled ())
+            s_aLogger.warn ("Failed to open input stream for '" +
+                            aURL +
+                            "': " +
+                            ex.getClass ().getName () +
+                            " - " +
+                            ex.getMessage ());
+        }
       }
 
       if (aHTTPConnection != null)
@@ -973,12 +992,13 @@ public final class URLHelper
         catch (final IOException ex2)
         {
           // deal with the exception
-          s_aLogger.warn ("Failed to consume error stream for '" +
-                          aURL +
-                          "': " +
-                          ex2.getClass ().getName () +
-                          " - " +
-                          ex2.getMessage ());
+          if (s_aLogger.isWarnEnabled ())
+            s_aLogger.warn ("Failed to consume error stream for '" +
+                            aURL +
+                            "': " +
+                            ex2.getClass ().getName () +
+                            " - " +
+                            ex2.getMessage ());
         }
         finally
         {

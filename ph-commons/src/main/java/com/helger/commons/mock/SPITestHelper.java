@@ -113,7 +113,8 @@ public final class SPITestHelper
             {
               final Class <?> aInterfaceClass = aCL.loadClass (sInterfaceClassName);
               if (sInterfaceClassName.startsWith ("com.helger.") && !s_aCacheInterface.hasAnnotation (aInterfaceClass))
-                s_aLogger.warn (aInterfaceClass + " should have the @IsSPIInterface annotation");
+                if (s_aLogger.isWarnEnabled ())
+                  s_aLogger.warn (aInterfaceClass + " should have the @IsSPIInterface annotation");
             }
             catch (final Exception ex)
             {

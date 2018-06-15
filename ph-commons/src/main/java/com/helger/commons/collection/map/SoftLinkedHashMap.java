@@ -63,6 +63,22 @@ public class SoftLinkedHashMap <K, V> extends AbstractSoftMap <K, V>
       final MapEntry <K, V> aEntry = new MapEntry <> (aEldest.getKey (), aEldest.getValue ().get ());
       return m_aFilter.test (aEntry);
     }
+
+    @Override
+    public boolean equals (final Object o)
+    {
+      if (o == this)
+        return true;
+      if (o == null || !getClass ().equals (o.getClass ()))
+        return false;
+      return super.equals (o);
+    }
+
+    @Override
+    public int hashCode ()
+    {
+      return super.hashCode ();
+    }
   }
 
   public SoftLinkedHashMap (@Nonnegative final int nMaxSize)

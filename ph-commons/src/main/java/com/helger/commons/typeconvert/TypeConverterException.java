@@ -33,7 +33,7 @@ import com.helger.commons.text.util.TextHelper;
 public final class TypeConverterException extends RuntimeException
 {
   @NoTranslationRequired (value = "because whenever an exception is thrown, no locale is present!")
-  public static enum EReason
+  public enum EReason
   {
     CONVERSION_FAILED (2, "Conversion from type {0} to type {1} failed!"),
     NO_CONVERTER_FOUND (2, "No converter found to convert an object of type {0} to type {1}"),

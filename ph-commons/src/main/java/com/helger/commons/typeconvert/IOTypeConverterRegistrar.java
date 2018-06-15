@@ -53,12 +53,12 @@ public final class IOTypeConverterRegistrar implements ITypeConverterRegistrarSP
   public void registerTypeConverter (@Nonnull final ITypeConverterRegistry aRegistry)
   {
     // File
-    aRegistry.registerTypeConverter (File.class, String.class, aSource -> aSource.getAbsolutePath ());
-    aRegistry.registerTypeConverter (File.class, URI.class, aSource -> aSource.toURI ());
+    aRegistry.registerTypeConverter (File.class, String.class, File::getAbsolutePath);
+    aRegistry.registerTypeConverter (File.class, URI.class, File::toURI);
     aRegistry.registerTypeConverter (File.class, URL.class, aSource -> URLHelper.getAsURL (aSource.toURI ()));
-    aRegistry.registerTypeConverter (URI.class, File.class, aSource -> new File (aSource));
+    aRegistry.registerTypeConverter (URI.class, File.class, File::new);
     aRegistry.registerTypeConverter (URI.class, URL.class, aSource -> URLHelper.getAsURL (aSource));
-    aRegistry.registerTypeConverter (URL.class, String.class, aSource -> aSource.toExternalForm ());
+    aRegistry.registerTypeConverter (URL.class, String.class, URL::toExternalForm);
     aRegistry.registerTypeConverter (URL.class, File.class, aSource -> {
       try
       {
@@ -70,30 +70,30 @@ public final class IOTypeConverterRegistrar implements ITypeConverterRegistrarSP
         return new File (aSource.getPath ());
       }
     });
-    aRegistry.registerTypeConverter (URL.class, URI.class, aSource -> URLHelper.getAsURI (aSource));
-    aRegistry.registerTypeConverter (String.class, File.class, aSource -> new File (aSource));
-    aRegistry.registerTypeConverter (String.class, URI.class, aSource -> URLHelper.getAsURI (aSource));
-    aRegistry.registerTypeConverter (String.class, URL.class, aSource -> URLHelper.getAsURL (aSource));
+    aRegistry.registerTypeConverter (URL.class, URI.class, URLHelper::getAsURI);
+    aRegistry.registerTypeConverter (String.class, File.class, File::new);
+    aRegistry.registerTypeConverter (String.class, URI.class, URLHelper::getAsURI);
+    aRegistry.registerTypeConverter (String.class, URL.class, URLHelper::getAsURL);
 
     // IResourceBase to string
     aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (IResourceBase.class,
                                                                          String.class,
-                                                                         aSource -> aSource.getPath ());
+                                                                         IResourceBase::getPath);
 
     // IReadableResource to URL
     aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (IResourceBase.class,
                                                                          URL.class,
-                                                                         aSource -> aSource.getAsURL ());
+                                                                         IResourceBase::getAsURL);
 
     // IResourceBase to File
     aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (IResourceBase.class,
                                                                          File.class,
-                                                                         aSource -> aSource.getAsFile ());
+                                                                         IResourceBase::getAsFile);
 
     // IInputStreamProvider to InputStream
     aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (IHasInputStream.class,
                                                                          InputStream.class,
-                                                                         aSource -> aSource.getInputStream ());
+                                                                         IHasInputStream::getInputStream);
 
     // IOutputStreamProvider to OutputStream
     aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (IHasOutputStream.class,
@@ -103,34 +103,30 @@ public final class IOTypeConverterRegistrar implements ITypeConverterRegistrarSP
     // IReaderProvider to Reader
     aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (IHasReader.class,
                                                                          Reader.class,
-                                                                         aSource -> aSource.getReader ());
+                                                                         IHasReader::getReader);
 
     // IWriterProvider to Writer
     aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (IHasWriter.class,
                                                                          Writer.class,
-                                                                         aSource -> aSource.getWriter ());
+                                                                         IHasWriter::getWriter);
 
     // ClassPathResource
-    aRegistry.registerTypeConverter (String.class, ClassPathResource.class, aSource -> new ClassPathResource (aSource));
-    aRegistry.registerTypeConverter (URL.class, ClassPathResource.class, aSource -> new ClassPathResource (aSource));
+    aRegistry.registerTypeConverter (String.class, ClassPathResource.class, ClassPathResource::new);
+    aRegistry.registerTypeConverter (URL.class, ClassPathResource.class, ClassPathResource::new);
 
     // FileSystemResource
-    aRegistry.registerTypeConverter (String.class,
-                                     FileSystemResource.class,
-                                     aSource -> new FileSystemResource (aSource));
+    aRegistry.registerTypeConverter (String.class, FileSystemResource.class, FileSystemResource::new);
     aRegistry.registerTypeConverter (URL.class, FileSystemResource.class, aSource -> {
       try
       {
         final URI aURI = aSource.toURI ();
         return new FileSystemResource (aURI);
       }
-      catch (final IllegalArgumentException e1)
+      catch (final IllegalArgumentException | URISyntaxException ex)
       {
-        // When passing a "http://..." URL into the file ctor
-      }
-      catch (final URISyntaxException e2)
-      {
-        // Fall through
+        // IllegalArgumentException: When passing a "http://..." URL into the
+        // file ctor
+        // URISyntaxException: Fall through
       }
       return null;
     });
@@ -146,7 +142,7 @@ public final class IOTypeConverterRegistrar implements ITypeConverterRegistrarSP
         return null;
       }
     });
-    aRegistry.registerTypeConverter (URL.class, URLResource.class, aSource -> new URLResource (aSource));
+    aRegistry.registerTypeConverter (URL.class, URLResource.class, URLResource::new);
     aRegistry.registerTypeConverter (URI.class, URLResource.class, aSource -> {
       try
       {

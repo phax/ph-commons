@@ -462,7 +462,7 @@ public final class TypeConverter
   private static Object _performConversion (@Nonnull final ITypeConverterProvider aTypeConverterProvider,
                                             @Nonnull final Class <?> aSrcClass,
                                             @Nonnull final Class <?> aUsableDstClass,
-                                            @Nonnull final Object aSrcValue) throws TypeConverterException
+                                            @Nonnull final Object aSrcValue)
   {
     // try to find matching converter
     final ITypeConverter <Object, Object> aConverter = aTypeConverterProvider.getTypeConverter (aSrcClass,
@@ -492,15 +492,16 @@ public final class TypeConverter
     }
     if (aRetVal == null)
     {
-      s_aLogger.warn ("Type conversion from '" +
-                      aSrcValue +
-                      "' of class '" +
-                      aSrcClass.getName () +
-                      "' to '" +
-                      aUsableDstClass.getName () +
-                      "' with converter '" +
-                      aConverter.toString () +
-                      "' failed; null was returned from converter!");
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("Type conversion from '" +
+                        aSrcValue +
+                        "' of class '" +
+                        aSrcClass.getName () +
+                        "' to '" +
+                        aUsableDstClass.getName () +
+                        "' with converter '" +
+                        aConverter.toString () +
+                        "' failed; null was returned from converter!");
       throw new TypeConverterException (aSrcClass, aUsableDstClass, EReason.CONVERSION_FAILED);
     }
     return aRetVal;
@@ -528,7 +529,7 @@ public final class TypeConverter
   @Nullable
   public static <DSTTYPE> DSTTYPE convert (@Nonnull final ITypeConverterProvider aTypeConverterProvider,
                                            @Nullable final Object aSrcValue,
-                                           @Nonnull final Class <DSTTYPE> aDstClass) throws TypeConverterException
+                                           @Nonnull final Class <DSTTYPE> aDstClass)
   {
     ValueEnforcer.notNull (aTypeConverterProvider, "TypeConverterProvider");
     ValueEnforcer.notNull (aDstClass, "DstClass");
@@ -550,8 +551,7 @@ public final class TypeConverter
     // Done :)
     // Note: aUsableDstClass.cast (aRetValue) does not work on conversion from
     // "boolean" to "Boolean" whereas casting works
-    final DSTTYPE ret = GenericReflection.uncheckedCast (aRetVal);
-    return ret;
+    return GenericReflection.uncheckedCast (aRetVal);
   }
 
   /**
@@ -605,7 +605,7 @@ public final class TypeConverter
   public static <DSTTYPE> DSTTYPE convert (@Nonnull final ITypeConverterProvider aTypeConverterProvider,
                                            @Nullable final Object aSrcValue,
                                            @Nonnull final Class <DSTTYPE> aDstClass,
-                                           @Nullable final DSTTYPE aDefault) throws TypeConverterException
+                                           @Nullable final DSTTYPE aDefault)
   {
     try
     {
