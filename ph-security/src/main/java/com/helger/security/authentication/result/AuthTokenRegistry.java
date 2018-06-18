@@ -101,7 +101,7 @@ public final class AuthTokenRegistry
     if (aToken == null)
       return null;
 
-    s_aRWLock.writeLocked ( () -> aToken.updateLastAccess ());
+    s_aRWLock.writeLocked (aToken::updateLastAccess);
     return aToken;
   }
 

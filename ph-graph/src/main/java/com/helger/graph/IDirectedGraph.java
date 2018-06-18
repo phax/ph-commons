@@ -31,7 +31,8 @@ import com.helger.commons.collection.impl.ICommonsSet;
  *        Directed relation class
  */
 public interface IDirectedGraph <NODETYPE extends IDirectedGraphNode <NODETYPE, RELATIONTYPE>, RELATIONTYPE extends IDirectedGraphRelation <NODETYPE, RELATIONTYPE>>
-                                extends IBaseGraph <NODETYPE, RELATIONTYPE>
+                                extends
+                                IBaseGraph <NODETYPE, RELATIONTYPE>
 {
   /**
    * Try to retrieve the single start node of this graph. A start node is
@@ -42,7 +43,7 @@ public interface IDirectedGraph <NODETYPE extends IDirectedGraphNode <NODETYPE, 
    *         In case the graph has no or more than one start node.
    */
   @Nonnull
-  NODETYPE getSingleStartNode () throws IllegalStateException;
+  NODETYPE getSingleStartNode ();
 
   /**
    * Get all start nodes of this graph. Start nodes are identified by having no
@@ -63,7 +64,7 @@ public interface IDirectedGraph <NODETYPE extends IDirectedGraphNode <NODETYPE, 
    *         In case the graph has no or more than one end node.
    */
   @Nonnull
-  NODETYPE getSingleEndNode () throws IllegalStateException;
+  NODETYPE getSingleEndNode ();
 
   /**
    * Get all end nodes of this graph. End nodes are identified by having no

@@ -190,11 +190,11 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @Nullable
-  <NODETYPE extends IMicroNode> NODETYPE appendChild (@Nullable NODETYPE aChildNode) throws MicroException;
+  <NODETYPE extends IMicroNode> NODETYPE appendChild (@Nullable NODETYPE aChildNode);
 
   /**
    * Append multiple children to the node at once.
-   * 
+   *
    * @param aChildren
    *        The child nodes to be appended. May be <code>null</code> and may
    *        contain <code>null</code> values.
@@ -211,7 +211,7 @@ public interface IMicroNode extends
 
   /**
    * Append multiple children to the node at once.
-   * 
+   *
    * @param aChildren
    *        The child nodes to be appended. May be <code>null</code> and may
    *        contain <code>null</code> values.
@@ -240,8 +240,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @Nullable
-  <NODETYPE extends IMicroNode> NODETYPE insertBefore (@Nullable NODETYPE aChildNode,
-                                                       @Nonnull IMicroNode aSuccessor) throws MicroException;
+  <NODETYPE extends IMicroNode> NODETYPE insertBefore (@Nullable NODETYPE aChildNode, @Nonnull IMicroNode aSuccessor);
 
   /**
    * Insert an existing node after a certain child node of this.
@@ -257,8 +256,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @Nullable
-  <NODETYPE extends IMicroNode> NODETYPE insertAfter (@Nullable NODETYPE aChildNode,
-                                                      @Nonnull IMicroNode aPredecessor) throws MicroException;
+  <NODETYPE extends IMicroNode> NODETYPE insertAfter (@Nullable NODETYPE aChildNode, @Nonnull IMicroNode aPredecessor);
 
   /**
    * Insert an existing node as a child at the specified index.
@@ -274,8 +272,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @Nullable
-  <NODETYPE extends IMicroNode> NODETYPE insertAtIndex (@Nonnegative int nIndex,
-                                                        @Nullable NODETYPE aChildNode) throws MicroException;
+  <NODETYPE extends IMicroNode> NODETYPE insertAtIndex (@Nonnegative int nIndex, @Nullable NODETYPE aChildNode);
 
   /**
    * Append a text node to this node.

@@ -50,7 +50,7 @@ public class ConfigFileBuilder
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (ConfigFileBuilder.class);
 
-  private ISettingsPersistence m_aSPP = new SettingsPersistenceProperties (x -> new TrimmedValueSettings (x));
+  private ISettingsPersistence m_aSPP = new SettingsPersistenceProperties (TrimmedValueSettings::new);
   private final ICommonsList <String> m_aPaths = new CommonsArrayList <> ();
   private IReadableResourceProvider m_aResProvider = new DefaultResourceProvider ();
 
@@ -187,7 +187,8 @@ public class ConfigFileBuilder
     }
 
     if (aSettings == null)
-      s_aLogger.warn ("Failed to resolve config file paths: " + m_aPaths);
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("Failed to resolve config file paths: " + m_aPaths);
 
     return new ConfigFile (aSettings != null ? aRes : null, aSettings);
   }

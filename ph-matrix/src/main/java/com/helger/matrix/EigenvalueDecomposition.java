@@ -66,7 +66,8 @@ public class EigenvalueDecomposition implements Serializable
    *
    * @serial internal storage of eigenvalues.
    */
-  private final double [] m_aEVd, m_aEVe;
+  private final double [] m_aEVd;
+  private final double [] m_aEVe;
 
   /**
    * Array for internal storage of eigenvectors.
@@ -462,7 +463,8 @@ public class EigenvalueDecomposition implements Serializable
 
   // Complex scalar division.
 
-  private double m_dCdivr, m_dCdivi;
+  private double m_dCdivr;
+  private double m_dCdivi;
 
   private void _cdiv (final double xr, final double xi, final double yr, final double yi)
   {

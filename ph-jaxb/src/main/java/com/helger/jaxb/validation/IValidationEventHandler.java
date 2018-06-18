@@ -42,33 +42,33 @@ public interface IValidationEventHandler extends ValidationEventHandler, Seriali
    * Create an instance of {@link IValidationEventHandler} that invokes both
    * passed event handlers.
    *
-   * @param aOne
+   * @param aFirst
    *        The first event handler. May be <code>null</code>.
-   * @param aOther
+   * @param aSecond
    *        The second event handler. May be <code>null</code>.
    * @return Never <code>null</code>.
    * @since 8.6.0
    */
   @Nonnull
-  static IValidationEventHandler and (@Nullable final ValidationEventHandler aOne,
-                                      @Nullable final ValidationEventHandler aOther)
+  static IValidationEventHandler and (@Nullable final ValidationEventHandler aFirst,
+                                      @Nullable final ValidationEventHandler aSecond)
   {
-    if (aOne != null)
+    if (aFirst != null)
     {
-      if (aOther != null)
+      if (aSecond != null)
         return x -> {
-          if (!aOne.handleEvent (x))
+          if (!aFirst.handleEvent (x))
           {
             // We should not continue
             return false;
           }
-          return aOther.handleEvent (x);
+          return aSecond.handleEvent (x);
         };
-      return x -> aOne.handleEvent (x);
+      return aFirst::handleEvent;
     }
 
-    if (aOther != null)
-      return x -> aOther.handleEvent (x);
+    if (aSecond != null)
+      return aSecond::handleEvent;
 
     return x -> true;
   }

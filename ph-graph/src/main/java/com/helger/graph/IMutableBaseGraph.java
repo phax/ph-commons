@@ -31,7 +31,9 @@ import com.helger.commons.state.EChange;
  *        Relation class
  */
 public interface IMutableBaseGraph <NODETYPE extends IMutableBaseGraphNode <NODETYPE, RELATIONTYPE>, RELATIONTYPE extends IMutableBaseGraphRelation <NODETYPE, RELATIONTYPE>>
-                                   extends IBaseGraph <NODETYPE, RELATIONTYPE>, IMutableBaseGraphObject
+                                   extends
+                                   IBaseGraph <NODETYPE, RELATIONTYPE>,
+                                   IMutableBaseGraphObject
 {
   /**
    * Allow or disallow that {@link #addNode(IMutableBaseGraphNode)} and
@@ -65,7 +67,7 @@ public interface IMutableBaseGraph <NODETYPE extends IMutableBaseGraphNode <NODE
    * @see #setChangingConnectedObjectsAllowed(boolean)
    */
   @Nonnull
-  EChange addNode (@Nonnull NODETYPE aNode) throws IllegalArgumentException;
+  EChange addNode (@Nonnull NODETYPE aNode);
 
   /**
    * Remove an existing node from the graph. <br>
@@ -83,7 +85,7 @@ public interface IMutableBaseGraph <NODETYPE extends IMutableBaseGraphNode <NODE
    * @see #setChangingConnectedObjectsAllowed(boolean)
    */
   @Nonnull
-  EChange removeNode (@Nonnull NODETYPE aNode) throws IllegalArgumentException;
+  EChange removeNode (@Nonnull NODETYPE aNode);
 
   /**
    * Remove an existing node and all connected relations from the graph.

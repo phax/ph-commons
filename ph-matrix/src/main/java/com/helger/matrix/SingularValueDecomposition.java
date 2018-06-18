@@ -54,7 +54,8 @@ public class SingularValueDecomposition implements Serializable
    * @serial internal storage of U.
    * @serial internal storage of V.
    */
-  private final double [] [] m_aU, m_aV;
+  private final double [] [] m_aU;
+  private final double [] [] m_aV;
 
   /**
    * Array for internal storage of singular values.

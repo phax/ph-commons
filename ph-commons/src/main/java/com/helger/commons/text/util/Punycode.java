@@ -164,7 +164,7 @@ public final class Punycode
             q = (q - t) / (BASE - t);
             k += BASE;
           }
-          aSB.append ((char) _encode_digit (q, aCaseFlags != null ? aCaseFlags[aIter.position () - 1] : false));
+          aSB.append ((char) _encode_digit (q, aCaseFlags != null && aCaseFlags[aIter.position () - 1]));
           bias = _adapt (delta, h + 1, h == b);
           delta = 0;
           ++h;

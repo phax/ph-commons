@@ -1543,8 +1543,8 @@ public class BCrypt
    */
   private void _key (final byte [] key)
   {
-    final int koffp[] = { 0 };
-    final int lr[] = { 0, 0 };
+    final int [] koffp = { 0 };
+    final int [] lr = { 0, 0 };
     final int plen = m_aP.length;
     final int slen = m_aS.length;
 
@@ -1686,27 +1686,27 @@ public class BCrypt
       throw new IllegalArgumentException ("Missing salt rounds");
     final int rounds = Integer.parseInt (sSalt.substring (off, off + 2));
 
-    final String real_salt = sSalt.substring (off + 3, off + 25);
-    final byte [] passwordb = (sPassword + (minor >= 'a' ? "\000" : "")).getBytes (StandardCharsets.UTF_8);
-    final byte [] saltb = _decode_base64 (real_salt, BCRYPT_SALT_LEN);
-    final BCrypt B = new BCrypt ();
-    final byte [] hashed = B.crypt_raw (passwordb, saltb, rounds, BF_CRYPT_CIPHERTEXT.clone ());
+    final String sRealSalt = sSalt.substring (off + 3, off + 25);
+    final byte [] aPasswordb = (sPassword + (minor >= 'a' ? "\000" : "")).getBytes (StandardCharsets.UTF_8);
+    final byte [] aSaltb = _decode_base64 (sRealSalt, BCRYPT_SALT_LEN);
+    final BCrypt aBCrypt = new BCrypt ();
+    final byte [] hashed = aBCrypt.crypt_raw (aPasswordb, aSaltb, rounds, BF_CRYPT_CIPHERTEXT.clone ());
 
-    final StringBuilder rs = new StringBuilder ();
-    rs.append ("$2");
+    final StringBuilder aSB = new StringBuilder ();
+    aSB.append ("$2");
     if (minor >= 'a')
-      rs.append (minor);
-    rs.append ('$');
+      aSB.append (minor);
+    aSB.append ('$');
     if (rounds < 10)
-      rs.append ('0');
+      aSB.append ('0');
     else
       if (rounds > 30)
         throw new IllegalArgumentException ("rounds exceeds maximum (30)");
-    rs.append (Integer.toString (rounds));
-    rs.append ('$');
-    rs.append (_encode_base64 (saltb, saltb.length));
-    rs.append (_encode_base64 (hashed, BF_CRYPT_CIPHERTEXT.length * 4 - 1));
-    return rs.toString ();
+    aSB.append (Integer.toString (rounds));
+    aSB.append ('$');
+    aSB.append (_encode_base64 (aSaltb, aSaltb.length));
+    aSB.append (_encode_base64 (hashed, BF_CRYPT_CIPHERTEXT.length * 4 - 1));
+    return aSB.toString ();
   }
 
   /**

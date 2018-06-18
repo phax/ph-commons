@@ -87,7 +87,7 @@ public final class CollectionHelperTest
     // Result should be "Hello" and "Vienna"
     final Set <String> ret = getDifference (l1, l2);
     assertNotNull (ret);
-    assertEquals (ret.size (), 2);
+    assertEquals (2, ret.size ());
     assertTrue (ret.contains ("Hello"));
     assertFalse (ret.contains ("Welt"));
     assertFalse (ret.contains ("from"));
@@ -108,7 +108,7 @@ public final class CollectionHelperTest
     // Result should be "Hello" and "Vienna"
     final Set <String> ret = getIntersected (l1, l2);
     assertNotNull (ret);
-    assertEquals (ret.size (), 2);
+    assertEquals (2, ret.size ());
     assertFalse (ret.contains ("Hello"));
     assertTrue (ret.contains ("Welt"));
     assertTrue (ret.contains ("from"));
@@ -241,7 +241,7 @@ public final class CollectionHelperTest
 
     final Map <String, String> aMap = newMap ("Hallo", "Welt", "from", "Vienna");
     assertNotNull (aMap);
-    assertEquals (aMap.size (), 2);
+    assertEquals (2, aMap.size ());
     assertNotNull (aMap.get ("Hallo"));
     assertEquals (aMap.get ("Hallo"), "Welt");
     assertNotNull (aMap.get ("from"));
@@ -516,7 +516,7 @@ public final class CollectionHelperTest
 
     final Map <String, String> aMap = newOrderedMap ("Hallo", "Welt", "from", "Vienna");
     assertNotNull (aMap);
-    assertEquals (aMap.size (), 2);
+    assertEquals (2, aMap.size ());
     assertNotNull (aMap.get ("Hallo"));
     assertEquals (aMap.get ("Hallo"), "Welt");
     assertNotNull (aMap.get ("from"));
@@ -1101,11 +1101,11 @@ public final class CollectionHelperTest
 
     final ICommonsList <String> aList = newList ("d", "c", "b", "a");
     final ICommonsList <String> aSorted = getSorted (aList.iterator ());
-    assertEquals (aSorted.size (), 4);
-    assertEquals (aSorted.get (0), "a");
-    assertEquals (aSorted.get (1), "b");
-    assertEquals (aSorted.get (2), "c");
-    assertEquals (aSorted.get (3), "d");
+    assertEquals (4, aSorted.size ());
+    assertEquals ("a", aSorted.get (0));
+    assertEquals ("b", aSorted.get (1));
+    assertEquals ("c", aSorted.get (2));
+    assertEquals ("d", aSorted.get (3));
   }
 
   @Test
@@ -1115,11 +1115,11 @@ public final class CollectionHelperTest
 
     final ICommonsList <String> aList = newList ("d", "c", "b", "a");
     final ICommonsList <String> aSorted = getSorted (aList);
-    assertEquals (aSorted.size (), 4);
-    assertEquals (aSorted.get (0), "a");
-    assertEquals (aSorted.get (1), "b");
-    assertEquals (aSorted.get (2), "c");
-    assertEquals (aSorted.get (3), "d");
+    assertEquals (4, aSorted.size ());
+    assertEquals ("a", aSorted.get (0));
+    assertEquals ("b", aSorted.get (1));
+    assertEquals ("c", aSorted.get (2));
+    assertEquals ("d", aSorted.get (3));
   }
 
   @Test
@@ -1129,25 +1129,22 @@ public final class CollectionHelperTest
 
     final ICommonsList <String> aList = newList ("d", "c", "b", "a");
     ICommonsList <String> aSorted = getSorted (new IterableIterator <> (aList));
-    assertEquals (aSorted.size (), 4);
-    assertEquals (aSorted.get (0), "a");
-    assertEquals (aSorted.get (1), "b");
-    assertEquals (aSorted.get (2), "c");
-    assertEquals (aSorted.get (3), "d");
+    assertEquals (4, aSorted.size ());
+    assertEquals ("a", aSorted.get (0));
+    assertEquals ("b", aSorted.get (1));
+    assertEquals ("c", aSorted.get (2));
+    assertEquals ("d", aSorted.get (3));
 
     aSorted = getSorted (new IterableIterator <> (aList), IComparator.getComparatorCollating (Locale.US));
-    assertEquals (aSorted.size (), 4);
-    assertEquals (aSorted.get (0), "a");
-    assertEquals (aSorted.get (1), "b");
-    assertEquals (aSorted.get (2), "c");
-    assertEquals (aSorted.get (3), "d");
+    assertEquals (4, aSorted.size ());
+    assertEquals ("a", aSorted.get (0));
+    assertEquals ("b", aSorted.get (1));
+    assertEquals ("c", aSorted.get (2));
+    assertEquals ("d", aSorted.get (3));
   }
 
   private static final class MyStringCompi implements IComparator <String>
   {
-    public MyStringCompi ()
-    {}
-
     public int compare (@Nonnull final String sStr1, @Nonnull final String sStr2)
     {
       if (sStr1.equals ("b"))
@@ -1175,11 +1172,11 @@ public final class CollectionHelperTest
     {}
 
     final ICommonsList <String> aSorted = getSorted (aList.iterator (), new MyStringCompi ());
-    assertEquals (aSorted.size (), 4);
-    assertEquals (aSorted.get (0), "b");
-    assertEquals (aSorted.get (1), "a");
-    assertEquals (aSorted.get (2), "c");
-    assertEquals (aSorted.get (3), "d");
+    assertEquals (4, aSorted.size ());
+    assertEquals ("b", aSorted.get (0));
+    assertEquals ("a", aSorted.get (1));
+    assertEquals ("c", aSorted.get (2));
+    assertEquals ("d", aSorted.get (3));
   }
 
   @Test
@@ -1199,11 +1196,11 @@ public final class CollectionHelperTest
     {}
 
     final ICommonsList <String> aSorted = getSorted (aList, new MyStringCompi ());
-    assertEquals (aSorted.size (), 4);
-    assertEquals (aSorted.get (0), "b");
-    assertEquals (aSorted.get (1), "a");
-    assertEquals (aSorted.get (2), "c");
-    assertEquals (aSorted.get (3), "d");
+    assertEquals (4, aSorted.size ());
+    assertEquals ("b", aSorted.get (0));
+    assertEquals ("a", aSorted.get (1));
+    assertEquals ("c", aSorted.get (2));
+    assertEquals ("d", aSorted.get (3));
   }
 
   @Test
@@ -1212,11 +1209,11 @@ public final class CollectionHelperTest
     assertNotNull (getSorted ((String []) null));
 
     final ICommonsList <String> aSorted = getSorted ("d", "c", "b", "a");
-    assertEquals (aSorted.size (), 4);
-    assertEquals (aSorted.get (0), "a");
-    assertEquals (aSorted.get (1), "b");
-    assertEquals (aSorted.get (2), "c");
-    assertEquals (aSorted.get (3), "d");
+    assertEquals (4, aSorted.size ());
+    assertEquals ("a", aSorted.get (0));
+    assertEquals ("b", aSorted.get (1));
+    assertEquals ("c", aSorted.get (2));
+    assertEquals ("d", aSorted.get (3));
   }
 
   @Test
@@ -1234,11 +1231,11 @@ public final class CollectionHelperTest
     {}
 
     final ICommonsList <String> aSorted = getSorted (new String [] { "d", "c", "b", "a" }, new MyStringCompi ());
-    assertEquals (aSorted.size (), 4);
-    assertEquals (aSorted.get (0), "b");
-    assertEquals (aSorted.get (1), "a");
-    assertEquals (aSorted.get (2), "c");
-    assertEquals (aSorted.get (3), "d");
+    assertEquals (4, aSorted.size ());
+    assertEquals ("b", aSorted.get (0));
+    assertEquals ("a", aSorted.get (1));
+    assertEquals ("c", aSorted.get (2));
+    assertEquals ("d", aSorted.get (3));
   }
 
   @Test

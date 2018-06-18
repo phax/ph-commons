@@ -123,7 +123,8 @@ public class ConfigFile implements IGetterByKeyTrait <String>
         if (sConfigFileValue != null)
         {
           SystemProperties.setPropertyValue (sProperty, sConfigFileValue);
-          s_aLogger.info ("Set Java system property from configuration: " + sProperty + "=" + sConfigFileValue);
+          if (s_aLogger.isInfoEnabled ())
+            s_aLogger.info ("Set Java system property from configuration: " + sProperty + "=" + sConfigFileValue);
         }
       }
   }

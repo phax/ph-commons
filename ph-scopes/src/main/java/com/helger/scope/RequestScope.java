@@ -44,8 +44,9 @@ public class RequestScope extends AbstractScope implements IRequestScope
 
     // done initialization
     if (ScopeHelper.debugRequestScopeLifeCycle (s_aLogger))
-      s_aLogger.info ("Created request scope '" + sScopeID + "' of class " + ClassHelper.getClassLocalName (this),
-                      ScopeHelper.getDebugStackTrace ());
+      if (s_aLogger.isInfoEnabled ())
+        s_aLogger.info ("Created request scope '" + sScopeID + "' of class " + ClassHelper.getClassLocalName (this),
+                        ScopeHelper.getDebugStackTrace ());
   }
 
   @Nonnull
@@ -62,16 +63,18 @@ public class RequestScope extends AbstractScope implements IRequestScope
   protected void preDestroy ()
   {
     if (ScopeHelper.debugRequestScopeLifeCycle (s_aLogger))
-      s_aLogger.info ("Destroying request scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
-                      ScopeHelper.getDebugStackTrace ());
+      if (s_aLogger.isInfoEnabled ())
+        s_aLogger.info ("Destroying request scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
+                        ScopeHelper.getDebugStackTrace ());
   }
 
   @Override
   protected void postDestroy ()
   {
     if (ScopeHelper.debugRequestScopeLifeCycle (s_aLogger))
-      s_aLogger.info ("Destroyed request scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
-                      ScopeHelper.getDebugStackTrace ());
+      if (s_aLogger.isInfoEnabled ())
+        s_aLogger.info ("Destroyed request scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
+                        ScopeHelper.getDebugStackTrace ());
   }
 
   @Override

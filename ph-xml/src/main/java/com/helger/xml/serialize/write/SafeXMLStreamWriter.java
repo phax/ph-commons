@@ -275,7 +275,8 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
   protected void debug (@Nonnull final Supplier <String> aSupplier)
   {
     if (m_bDebugMode)
-      s_aLogger.info (aSupplier.get ());
+      if (s_aLogger.isInfoEnabled ())
+        s_aLogger.info (aSupplier.get ());
   }
 
   @Nonnull
@@ -568,7 +569,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
   }
 
   @Nullable
-  public Object getProperty (final String sName) throws IllegalArgumentException
+  public Object getProperty (final String sName)
   {
     debug ( () -> "getProperty (" + sName + ") - UNSUPPORTED");
     return null;

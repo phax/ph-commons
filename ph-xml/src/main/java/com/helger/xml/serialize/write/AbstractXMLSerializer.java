@@ -276,7 +276,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
 
     private boolean _containsNoNamespace ()
     {
-      return m_aStack.containsNone (x -> x.hasAnyNamespace ());
+      return m_aStack.containsNone (NamespaceLevel::hasAnyNamespace);
     }
 
     /**

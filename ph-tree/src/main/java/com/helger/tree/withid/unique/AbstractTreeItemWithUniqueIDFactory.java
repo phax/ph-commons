@@ -137,7 +137,7 @@ public abstract class AbstractTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, IT
   @ReturnsMutableCopy
   public final ICommonsList <DATATYPE> getAllItemDatas ()
   {
-    return m_aItemStore.copyOfValuesMapped (x -> x.getData ());
+    return m_aItemStore.copyOfValuesMapped (ITEMTYPE::getData);
   }
 
   @Override

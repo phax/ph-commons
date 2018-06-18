@@ -340,7 +340,7 @@ public interface IJAXBWriter <JAXBTYPE>
     if (USE_JAXB_CHARSET_FIX && aResult instanceof StreamResult)
     {
       LoggerFactory.getLogger (IJAXBWriter.class)
-                   .warn ("Potentially invalid XML is created by using StreamResult object: " + aResult);
+                   .warn ("Potentially invalid XML is created by using StreamResult object: {}", aResult);
     }
 
     return write (aObject, (m, e) -> m.marshal (e, aResult));

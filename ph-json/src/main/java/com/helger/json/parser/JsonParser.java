@@ -211,9 +211,11 @@ public class JsonParser
    * Backup the provided char if it is not end of input
    *
    * @param c
+   *        char to backup
    * @throws JsonParseException
+   *         in case of error
    */
-  private void _backupChar (final int c) throws JsonParseException
+  private void _backupChar (final int c)
   {
     if (c != EOI)
       try

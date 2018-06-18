@@ -181,7 +181,7 @@ public final class SAXReaderDefaultSettings
   @ReturnsMutableCopy
   public static ICommonsMap <EXMLParserProperty, Object> getAllPropertyValues ()
   {
-    return s_aRWLock.readLocked ( () -> s_aDefaultProperties.getClone ());
+    return s_aRWLock.readLocked (s_aDefaultProperties::getClone);
   }
 
   public static void setPropertyValue (@Nonnull final EXMLParserProperty eProperty,
@@ -244,7 +244,7 @@ public final class SAXReaderDefaultSettings
   @ReturnsMutableCopy
   public static ICommonsMap <EXMLParserFeature, Boolean> getAllFeatureValues ()
   {
-    return s_aRWLock.readLocked ( () -> s_aDefaultFeatures.getClone ());
+    return s_aRWLock.readLocked (s_aDefaultFeatures::getClone);
   }
 
   public static void setFeatureValue (@Nonnull final EXMLParserFeature eFeature, final boolean bValue)

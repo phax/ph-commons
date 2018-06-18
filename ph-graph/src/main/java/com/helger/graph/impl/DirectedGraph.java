@@ -180,7 +180,7 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
   }
 
   @Nonnull
-  public IMutableDirectedGraphNode getSingleStartNode () throws IllegalStateException
+  public IMutableDirectedGraphNode getSingleStartNode ()
   {
     final ICommonsSet <IMutableDirectedGraphNode> aStartNodes = getAllStartNodes ();
     if (aStartNodes.size () > 1)
@@ -198,7 +198,7 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
   }
 
   @Nonnull
-  public IMutableDirectedGraphNode getSingleEndNode () throws IllegalStateException
+  public IMutableDirectedGraphNode getSingleEndNode ()
   {
     final ICommonsSet <IMutableDirectedGraphNode> aEndNodes = getAllEndNodes ();
     if (aEndNodes.size () > 1)
@@ -324,5 +324,17 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
           }
     }
     return ret;
+  }
+
+  @Override
+  public boolean equals (final Object o)
+  {
+    return super.equals (o);
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    return super.hashCode ();
   }
 }

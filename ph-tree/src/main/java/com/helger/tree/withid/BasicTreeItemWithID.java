@@ -58,7 +58,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 @NotThreadSafe
 public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>>
-                                 implements ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>
+                                 implements
+                                 ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>
 {
   // item factory
   private final ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE> m_aFactory;
@@ -274,7 +275,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   {
     if (m_aChildren == null)
       return null;
-    return m_aChildren.getAllMapped (x -> x.getData ());
+    return m_aChildren.getAllMapped (ITEMTYPE::getData);
   }
 
   @Nullable

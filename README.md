@@ -37,6 +37,7 @@ This project was the following modules:
   * Improved code quality based on SonarQube analysis
   * Removed the Generic type from `IConcurrentCollector`
   * Added `PropertiesHelper.expandProperties`
+  * Removed empty class `AbstractTreeItemFactory`
 * v9.1.1 - 2018-05-14
   * Really fixed OSGI ServiceProvider configuration
 * v9.1.0 - 2018-05-08

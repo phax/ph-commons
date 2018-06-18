@@ -51,7 +51,7 @@ public class CollectingLSResourceResolver extends AbstractLSResourceResolver
   @ReturnsMutableCopy
   public ICommonsList <LSResourceData> getAllRequestedResources ()
   {
-    return m_aRWLock.readLocked ( () -> m_aList.getClone ());
+    return m_aRWLock.readLocked (m_aList::getClone);
   }
 
   @Override

@@ -57,7 +57,7 @@ public final class MicroTypeConverter
   @Nullable
   public static <T> IMicroElement convertToMicroElement (@Nullable final T aObject,
                                                          @Nullable final String sNamespaceURI,
-                                                         @Nonnull @Nonempty final String sTagName) throws TypeConverterException
+                                                         @Nonnull @Nonempty final String sTagName)
   {
     ValueEnforcer.notEmpty (sTagName, "TagName");
 
@@ -80,7 +80,7 @@ public final class MicroTypeConverter
 
   @Nullable
   public static <DSTTYPE> DSTTYPE convertToNative (@Nullable final IMicroElement aElement,
-                                                   @Nonnull final Class <DSTTYPE> aDstClass) throws TypeConverterException
+                                                   @Nonnull final Class <DSTTYPE> aDstClass)
   {
     return convertToNative (aElement, aDstClass, null);
   }
@@ -88,7 +88,7 @@ public final class MicroTypeConverter
   @Nullable
   public static <DSTTYPE> DSTTYPE convertToNative (@Nullable final IMicroElement aElement,
                                                    @Nonnull final Class <DSTTYPE> aDstClass,
-                                                   @Nullable final DSTTYPE aNullValue) throws TypeConverterException
+                                                   @Nullable final DSTTYPE aNullValue)
   {
     ValueEnforcer.notNull (aDstClass, "DestClass");
 

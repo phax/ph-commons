@@ -50,7 +50,7 @@ public final class JAXBMarshallerHelper
 
   private static void _setProperty (@Nonnull final Marshaller aMarshaller,
                                     @Nonnull final String sPropertyName,
-                                    @Nullable final Object aValue) throws IllegalArgumentException
+                                    @Nullable final Object aValue)
   {
     try
     {
@@ -63,8 +63,7 @@ public final class JAXBMarshallerHelper
   }
 
   @Nullable
-  private static Object _getProperty (@Nonnull final Marshaller aMarshaller,
-                                      @Nonnull final String sPropertyName) throws IllegalArgumentException
+  private static Object _getProperty (@Nonnull final Marshaller aMarshaller, @Nonnull final String sPropertyName)
   {
     try
     {
@@ -77,14 +76,13 @@ public final class JAXBMarshallerHelper
   }
 
   private static boolean _getBooleanProperty (@Nonnull final Marshaller aMarshaller,
-                                              @Nonnull final String sPropertyName) throws IllegalArgumentException
+                                              @Nonnull final String sPropertyName)
   {
     return ((Boolean) _getProperty (aMarshaller, sPropertyName)).booleanValue ();
   }
 
   @Nullable
-  private static String _getStringProperty (@Nonnull final Marshaller aMarshaller,
-                                            @Nonnull final String sPropertyName) throws IllegalArgumentException
+  private static String _getStringProperty (@Nonnull final Marshaller aMarshaller, @Nonnull final String sPropertyName)
   {
     return (String) _getProperty (aMarshaller, sPropertyName);
   }
@@ -253,7 +251,7 @@ public final class JAXBMarshallerHelper
    *         If the passed NamespaceContext cannot be set.
    */
   public static void setSunNamespacePrefixMapper (@Nonnull final Marshaller aMarshaller,
-                                                  @Nonnull final NamespaceContext aNamespaceContext) throws IllegalArgumentException
+                                                  @Nonnull final NamespaceContext aNamespaceContext)
   {
     final JAXBNamespacePrefixMapper aNamespacePrefixMapper = new JAXBNamespacePrefixMapper (aNamespaceContext);
     setSunNamespacePrefixMapper (aMarshaller, aNamespacePrefixMapper);

@@ -77,7 +77,7 @@ public final class XPathHelper
    *         In case neither Saxon nor default factory could be instantiated!
    */
   @Nonnull
-  public static XPathFactory createXPathFactorySaxonFirst () throws IllegalStateException
+  public static XPathFactory createXPathFactorySaxonFirst ()
   {
     // The XPath object used to compile the expressions
     XPathFactory aXPathFactory;

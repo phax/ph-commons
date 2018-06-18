@@ -41,7 +41,7 @@ public enum EXMLIncorrectCharacterHandling
   {
     @Override
     public void notifyOnInvalidXMLCharacter (@Nonnull @Nonempty final String sText,
-                                             @Nonnull final Set <Character> aInvalidChars) throws IllegalArgumentException
+                                             @Nonnull final Set <Character> aInvalidChars)
     {
       throw new IllegalArgumentException ("XML content contains invalid character data: '" +
                                           sText +

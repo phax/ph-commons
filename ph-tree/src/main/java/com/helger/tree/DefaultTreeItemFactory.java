@@ -30,7 +30,7 @@ import com.helger.commons.ValueEnforcer;
  *        tree item value type
  */
 @NotThreadSafe
-public class DefaultTreeItemFactory <DATATYPE> extends AbstractTreeItemFactory <DATATYPE, DefaultTreeItem <DATATYPE>>
+public class DefaultTreeItemFactory <DATATYPE> implements ITreeItemFactory <DATATYPE, DefaultTreeItem <DATATYPE>>
 {
   @Nonnull
   public DefaultTreeItem <DATATYPE> createRoot ()

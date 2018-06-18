@@ -150,7 +150,7 @@ public final class XMLHelper
 
   public static boolean isEmpty (@Nullable final NodeList aNL)
   {
-    return aNL == null ? true : aNL.getLength () == 0;
+    return aNL == null || aNL.getLength () == 0;
   }
 
   @Nonnull
@@ -746,7 +746,7 @@ public final class XMLHelper
   public static ICommonsOrderedMap <String, String> getAllAttributesAsMap (@Nullable final Element aSrcNode)
   {
     final ICommonsOrderedMap <String, String> ret = new CommonsLinkedHashMap <> ();
-    forAllAttributes (aSrcNode, (sName, sValue) -> ret.put (sName, sValue));
+    forAllAttributes (aSrcNode, ret::put);
     return ret;
   }
 

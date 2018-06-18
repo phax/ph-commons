@@ -36,13 +36,12 @@ public final class JAXBHashCodeImplementationRegistrarSPI implements IHashCodeIm
   public void registerHashCodeImplementations (@Nonnull final IHashCodeImplementationRegistry aRegistry)
   {
     // JAXBElement does not implement hashCode!
-    aRegistry.registerHashCodeImplementation (JAXBElement.class, aObj -> {
-      return new HashCodeGenerator (aObj.getClass ()).append (aObj.getDeclaredType ())
-                                                     .append (aObj.getName ())
-                                                     .append (aObj.getScope ())
-                                                     .append (aObj.isNil ())
-                                                     .append (aObj.getValue ())
-                                                     .getHashCode ();
-    });
+    aRegistry.registerHashCodeImplementation (JAXBElement.class,
+                                              aObj -> new HashCodeGenerator (aObj.getClass ()).append (aObj.getDeclaredType ())
+                                                                                              .append (aObj.getName ())
+                                                                                              .append (aObj.getScope ())
+                                                                                              .append (aObj.isNil ())
+                                                                                              .append (aObj.getValue ())
+                                                                                              .getHashCode ());
   }
 }

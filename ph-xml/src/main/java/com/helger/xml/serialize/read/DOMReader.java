@@ -67,7 +67,7 @@ public final class DOMReader
 
   // In practice no more than 5 readers are required (even 3 would be enough)
   private static final ObjectPool <DocumentBuilder> s_aDOMPool = new ObjectPool <> (5,
-                                                                                    () -> XMLFactory.createDocumentBuilder ());
+                                                                                    XMLFactory::createDocumentBuilder);
 
   @PresentForCodeCoverage
   private static final DOMReader s_aInstance = new DOMReader ();

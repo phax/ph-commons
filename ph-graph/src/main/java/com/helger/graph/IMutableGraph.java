@@ -62,7 +62,7 @@ public interface IMutableGraph extends
    * @see #setChangingConnectedObjectsAllowed(boolean)
    */
   @Nonnull
-  EChange addNode (@Nonnull IMutableGraphNode aNode) throws IllegalArgumentException;
+  EChange addNode (@Nonnull IMutableGraphNode aNode);
 
   /**
    * Remove an existing node from the graph. <br>
@@ -80,7 +80,7 @@ public interface IMutableGraph extends
    * @see #setChangingConnectedObjectsAllowed(boolean)
    */
   @Nonnull
-  EChange removeNode (@Nonnull IMutableGraphNode aNode) throws IllegalArgumentException;
+  EChange removeNode (@Nonnull IMutableGraphNode aNode);
 
   /**
    * Remove the passed relation from the graph.

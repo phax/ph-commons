@@ -16,6 +16,8 @@
  */
 package com.helger.xml.schema;
 
+import java.util.function.Supplier;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
@@ -59,8 +61,7 @@ public class XMLSchemaCache extends SchemaCache
   @Nonnull
   public static SchemaFactory createXSDSchemaFactory ()
   {
-    final SchemaFactory ret = SchemaFactory.newInstance (XMLConstants.W3C_XML_SCHEMA_NS_URI);
-    return ret;
+    return SchemaFactory.newInstance (XMLConstants.W3C_XML_SCHEMA_NS_URI);
   }
 
   public XMLSchemaCache ()
@@ -139,6 +140,6 @@ public class XMLSchemaCache extends SchemaCache
   @Nonnull
   public static EChange clearPerClassLoaderCache ()
   {
-    return s_aRWLock.writeLocked ( () -> s_aPerClassLoaderCache.removeAll ());
+    return s_aRWLock.writeLocked ((Supplier <EChange>) s_aPerClassLoaderCache::removeAll);
   }
 }

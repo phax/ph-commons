@@ -32,6 +32,7 @@ import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.equals.EqualsHelper;
@@ -629,28 +630,21 @@ public final class FilenameHelper
       while (ret.length () > 0 && StringHelper.endsWithAny (ret, ILLEGAL_SUFFIXES))
         ret = ret.substring (0, ret.length () - 1);
 
-      // Replace all characters that are illegal inside a file name
+      // Replace all characters that are illegal inside a filename
       for (final char cIllegal : ILLEGAL_CHARACTERS)
         ret = StringHelper.replaceAll (ret, cIllegal, ILLEGAL_FILENAME_CHAR_REPLACEMENT);
 
       // Check if a file matches an illegal prefix
-      for (final String sIllegalPrefix : ILLEGAL_PREFIXES)
-        if (ret.equalsIgnoreCase (sIllegalPrefix))
-        {
-          ret = ILLEGAL_FILENAME_CHAR_REPLACEMENT + ret;
-          break;
-        }
+      final String sTempRet = ret;
+      if (ArrayHelper.containsAny (ILLEGAL_PREFIXES, x -> sTempRet.equalsIgnoreCase (x)))
+        ret = ILLEGAL_FILENAME_CHAR_REPLACEMENT + ret;
 
       // check if filename is prefixed with an illegal prefix
       // Note: we can use the default locale, since all fixed names are pure
       // ANSI names
       final String sUCFilename = ret.toUpperCase (SystemHelper.getSystemLocale ());
-      for (final String sIllegalPrefix : ILLEGAL_PREFIXES)
-        if (sUCFilename.startsWith (sIllegalPrefix + "."))
-        {
-          ret = ILLEGAL_FILENAME_CHAR_REPLACEMENT + ret;
-          break;
-        }
+      if (ArrayHelper.containsAny (ILLEGAL_PREFIXES, x -> sUCFilename.startsWith (x + ".")))
+        ret = ILLEGAL_FILENAME_CHAR_REPLACEMENT + ret;
     }
 
     // Avoid returning an empty string as valid file name

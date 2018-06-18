@@ -289,15 +289,16 @@ public final class ScopeManager
   public static void internalSetAndInitRequestScope (@Nonnull final IRequestScope aRequestScope)
   {
     ValueEnforcer.notNull (aRequestScope, "RequestScope");
-    ValueEnforcer.isTrue ( () -> isGlobalScopePresent (),
-                           "No global context present! May be the global context listener is not installed?");
+    ValueEnforcer.isTrue (ScopeManager::isGlobalScopePresent,
+                          "No global context present! May be the global context listener is not installed?");
 
     // Happens if an internal redirect happens in a web-application (e.g. for
     // 404 page)
     final IRequestScope aExistingRequestScope = s_aRequestScopeTL.get ();
     if (aExistingRequestScope != null)
     {
-      s_aLogger.warn ("A request scope is already present - will overwrite it: " + aExistingRequestScope.toString ());
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("A request scope is already present - will overwrite it: " + aExistingRequestScope.toString ());
       if (aExistingRequestScope.isValid ())
       {
         // The scope shall be destroyed here, as this is most probably a

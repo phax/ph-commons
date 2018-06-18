@@ -98,9 +98,7 @@ public final class JsonReader
   {
     ValueEnforcer.notNull (aDefaultParseExceptionCallback, "DefaultParseExceptionCallback");
 
-    s_aRWLock.writeLocked ( () -> {
-      s_aDefaultParseExceptionCallback = aDefaultParseExceptionCallback;
-    });
+    s_aRWLock.writeLocked ( () -> s_aDefaultParseExceptionCallback = aDefaultParseExceptionCallback);
   }
 
   /**
@@ -302,7 +300,8 @@ public final class JsonReader
     final InputStream aIS = aISP.getInputStream ();
     if (aIS == null)
     {
-      s_aLogger.warn ("Failed to open Json InputStream from " + aISP);
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("Failed to open Json InputStream from " + aISP);
       return false;
     }
     return isValidJson (aIS, aFallbackCharset);

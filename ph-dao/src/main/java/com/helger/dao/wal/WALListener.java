@@ -167,11 +167,9 @@ public final class WALListener extends AbstractGlobalSingleton
       // Schedule exactly once in the specified waiting time
       final ScheduledFuture <?> aFuture = m_aES.schedule (r, aWaitingWime.getDuration (), aWaitingWime.getTimeUnit ());
 
-      m_aRWLock.writeLocked ( () -> {
-        // Remember the scheduled item and the runnable so that the task can
-        // be rescheduled upon shutdown.
-        m_aScheduledItems.put (sKey, new WALItem (aFuture, r));
-      });
+      // Remember the scheduled item and the runnable so that the task can
+      // be rescheduled upon shutdown.
+      m_aRWLock.writeLocked ( () -> m_aScheduledItems.put (sKey, new WALItem (aFuture, r)));
     }
     // else the writing of the passed DAO is already scheduled and no further
     // action is necessary

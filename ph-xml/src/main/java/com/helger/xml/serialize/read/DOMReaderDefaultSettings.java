@@ -199,7 +199,7 @@ public final class DOMReaderDefaultSettings
   @ReturnsMutableCopy
   public static ICommonsMap <EXMLParserProperty, Object> getAllPropertyValues ()
   {
-    return s_aRWLock.readLocked ( () -> s_aDefaultProperties.getClone ());
+    return s_aRWLock.readLocked (s_aDefaultProperties::getClone);
   }
 
   public static void setPropertyValue (@Nonnull final EXMLParserProperty eProperty,
@@ -235,12 +235,12 @@ public final class DOMReaderDefaultSettings
   @Nonnull
   public static EChange removeAllPropertyValues ()
   {
-    return s_aRWLock.writeLocked ( () -> s_aDefaultProperties.removeAll ());
+    return s_aRWLock.writeLocked (s_aDefaultProperties::removeAll);
   }
 
   public static boolean hasAnyFeature ()
   {
-    return s_aRWLock.readLocked ( () -> s_aDefaultFeatures.isNotEmpty ());
+    return s_aRWLock.readLocked (s_aDefaultFeatures::isNotEmpty);
   }
 
   @Nullable
@@ -257,7 +257,7 @@ public final class DOMReaderDefaultSettings
   @ReturnsMutableCopy
   public static ICommonsMap <EXMLParserFeature, Boolean> getAllFeatureValues ()
   {
-    return s_aRWLock.readLocked ( () -> s_aDefaultFeatures.getClone ());
+    return s_aRWLock.readLocked (s_aDefaultFeatures::getClone);
   }
 
   public static void setFeatureValue (@Nonnull final EXMLParserFeature eFeature, final boolean bValue)

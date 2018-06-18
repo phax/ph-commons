@@ -260,13 +260,14 @@ public final class Dijkstra
     final ICommonsOrderedSet <N> aAllRemainingNodes = new CommonsLinkedHashSet <> (aGraph.getAllNodes ().values ());
 
     if (GlobalDebug.isDebugMode ())
-      s_aLogger.info ("Starting Dijkstra on directed graph with " +
-                      aAllRemainingNodes.size () +
-                      " nodes starting from '" +
-                      sFromID +
-                      "' and up to '" +
-                      sToID +
-                      "'");
+      if (s_aLogger.isInfoEnabled ())
+        s_aLogger.info ("Starting Dijkstra on directed graph with " +
+                        aAllRemainingNodes.size () +
+                        " nodes starting from '" +
+                        sFromID +
+                        "' and up to '" +
+                        sToID +
+                        "'");
 
     // Map from to-node-id to element
     final ICommonsOrderedMap <String, WorkElement <N>> aAllMatches = new CommonsLinkedHashMap <> ();
@@ -331,7 +332,8 @@ public final class Dijkstra
         for (final WorkElement <N> e : aRow.getAllElements ())
           aSB.append (e.getAsString ());
         aSB.append (" ==> ").append (aClosest.getAsString ());
-        s_aLogger.info (aSB.toString ());
+        if (s_aLogger.isInfoEnabled ())
+          s_aLogger.info (aSB.toString ());
       }
 
       aAllRemainingNodes.remove (aClosest.getToNode ());

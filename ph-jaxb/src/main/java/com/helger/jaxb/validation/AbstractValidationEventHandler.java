@@ -77,7 +77,8 @@ public abstract class AbstractValidationEventHandler implements IValidationEvent
       case ValidationEvent.FATAL_ERROR:
         return EErrorLevel.FATAL_ERROR;
       default:
-        s_aLogger.warn ("Unknown JAXB validation severity: " + nSeverity + "; defaulting to error");
+        if (s_aLogger.isWarnEnabled ())
+          s_aLogger.warn ("Unknown JAXB validation severity: " + nSeverity + "; defaulting to error");
         return EErrorLevel.ERROR;
     }
   }
@@ -148,10 +149,10 @@ public abstract class AbstractValidationEventHandler implements IValidationEvent
 
     final ValidationEventLocator aLocator = aEvent.getLocator ();
     aErrBuilder.setErrorLocation (new SimpleLocation (getLocationResourceID (aLocator),
-                                                     aLocator != null ? aLocator.getLineNumber ()
-                                                                      : ILocation.ILLEGAL_NUMBER,
-                                                     aLocator != null ? aLocator.getColumnNumber ()
-                                                                      : ILocation.ILLEGAL_NUMBER))
+                                                      aLocator != null ? aLocator.getLineNumber ()
+                                                                       : ILocation.ILLEGAL_NUMBER,
+                                                      aLocator != null ? aLocator.getColumnNumber ()
+                                                                       : ILocation.ILLEGAL_NUMBER))
                .setErrorFieldName (getErrorFieldName (aLocator));
 
     // Message may be null in some cases (e.g. when a linked exception is

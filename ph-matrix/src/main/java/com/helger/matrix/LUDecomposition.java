@@ -54,7 +54,8 @@ public class LUDecomposition implements Serializable
    * @serial row dimension.
    * @serial pivot sign.
    */
-  private final int m_nRows, m_nCols;
+  private final int m_nRows;
+  private final int m_nCols;
 
   private final int m_nPivSign;
 

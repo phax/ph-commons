@@ -50,7 +50,7 @@ public interface ISettingsFactory <T extends ISettings> extends IFunction <Strin
   @Nonnull
   static ISettingsFactory <Settings> newInstance ()
   {
-    return sName -> new Settings (sName);
+    return Settings::new;
   }
 
   @Nonnull

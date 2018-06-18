@@ -61,7 +61,8 @@ public final class AuthIdentificationManager
     final ICredentialValidationResult aValidationResult = AuthCredentialValidatorManager.validateCredentials (aCredentials);
     if (aValidationResult.isFailure ())
     {
-      s_aLogger.warn ("Credentials have been rejected: " + aCredentials);
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("Credentials have been rejected: " + aCredentials);
       return AuthIdentificationResult.createFailure (aValidationResult);
     }
 
@@ -76,7 +77,10 @@ public final class AuthIdentificationManager
         s_aLogger.debug ("Credentials " + aCredentials + " correspond to subject " + aSubject);
     }
     else
-      s_aLogger.error ("Failed to resolve credentials " + aCredentials + " to an auth subject!");
+    {
+      if (s_aLogger.isErrorEnabled ())
+        s_aLogger.error ("Failed to resolve credentials " + aCredentials + " to an auth subject!");
+    }
 
     // Create the identification element
     final AuthIdentification aIdentification = new AuthIdentification (aSubject);

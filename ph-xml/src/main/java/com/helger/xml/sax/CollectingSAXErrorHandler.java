@@ -16,6 +16,8 @@
  */
 package com.helger.xml.sax;
 
+import java.util.function.Supplier;
+
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
@@ -24,6 +26,7 @@ import org.xml.sax.SAXParseException;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
+import com.helger.commons.error.IError;
 import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.error.list.ErrorList;
 import com.helger.commons.error.list.IErrorList;
@@ -49,19 +52,20 @@ public class CollectingSAXErrorHandler extends AbstractSAXErrorHandler
   @Override
   protected void internalLog (@Nonnull final IErrorLevel aErrorLevel, final SAXParseException aException)
   {
-    m_aRWLock.writeLocked ( () -> m_aErrors.add (getSaxParseError (aErrorLevel, aException)));
+    final IError aError = getSaxParseError (aErrorLevel, aException);
+    m_aRWLock.writeLocked ( () -> m_aErrors.add (aError));
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public IErrorList getErrorList ()
   {
-    return m_aRWLock.readLocked ( () -> m_aErrors.getClone ());
+    return m_aRWLock.readLocked (m_aErrors::getClone);
   }
 
   public boolean containsAtLeastOneError ()
   {
-    return m_aRWLock.readLocked ( () -> m_aErrors.containsAtLeastOneError ());
+    return m_aRWLock.readLocked (m_aErrors::containsAtLeastOneError);
   }
 
   /**
@@ -72,7 +76,7 @@ public class CollectingSAXErrorHandler extends AbstractSAXErrorHandler
   @Nonnull
   public EChange clearResourceErrors ()
   {
-    return m_aRWLock.writeLocked ( () -> m_aErrors.removeAll ());
+    return m_aRWLock.writeLocked ((Supplier <EChange>) m_aErrors::removeAll);
   }
 
   @Override

@@ -57,7 +57,7 @@ public final class IOTypeConverterRegistrar implements ITypeConverterRegistrarSP
     aRegistry.registerTypeConverter (File.class, URI.class, File::toURI);
     aRegistry.registerTypeConverter (File.class, URL.class, aSource -> URLHelper.getAsURL (aSource.toURI ()));
     aRegistry.registerTypeConverter (URI.class, File.class, File::new);
-    aRegistry.registerTypeConverter (URI.class, URL.class, aSource -> URLHelper.getAsURL (aSource));
+    aRegistry.registerTypeConverter (URI.class, URL.class, URLHelper::getAsURL);
     aRegistry.registerTypeConverter (URL.class, String.class, URL::toExternalForm);
     aRegistry.registerTypeConverter (URL.class, File.class, aSource -> {
       try

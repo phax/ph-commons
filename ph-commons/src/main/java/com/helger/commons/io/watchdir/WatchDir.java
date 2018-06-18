@@ -274,7 +274,8 @@ public class WatchDir implements AutoCloseable
       final Path aSrcDir = m_aKeys.get (aKey);
       if (aSrcDir == null)
       {
-        s_aLogger.error ("WatchKey " + aKey + " not recognized!!");
+        if (s_aLogger.isErrorEnabled ())
+          s_aLogger.error ("WatchKey " + aKey + " not recognized!!");
         continue;
       }
 
@@ -305,7 +306,8 @@ public class WatchDir implements AutoCloseable
             else
             {
               eAction = null;
-              s_aLogger.error ("Unsupported event kind: " + aKind + " on path: '" + aFullEventPath + "'");
+              if (s_aLogger.isErrorEnabled ())
+                s_aLogger.error ("Unsupported event kind: " + aKind + " on path: '" + aFullEventPath + "'");
             }
 
         if (eAction != null)

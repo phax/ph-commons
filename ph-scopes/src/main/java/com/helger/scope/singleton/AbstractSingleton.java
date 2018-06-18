@@ -258,20 +258,35 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
 
     // Check init state
     if (isInInstantiation ())
-      s_aLogger.warn ("Object currently in instantiation is destroyed soon: " + toString ());
+    {
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("Object currently in instantiation is destroyed soon: " + toString ());
+    }
     else
       if (!isInstantiated ())
-        s_aLogger.warn ("Object not instantiated is destroyed soon: " + toString ());
+      {
+        if (s_aLogger.isWarnEnabled ())
+          s_aLogger.warn ("Object not instantiated is destroyed soon: " + toString ());
+      }
 
     // Check destruction state
     if (isInPreDestruction ())
-      s_aLogger.error ("Object already in pre destruction is destroyed soon again: " + toString ());
+    {
+      if (s_aLogger.isErrorEnabled ())
+        s_aLogger.error ("Object already in pre destruction is destroyed soon again: " + toString ());
+    }
     else
       if (isInDestruction ())
-        s_aLogger.error ("Object already in destruction is destroyed soon again: " + toString ());
+      {
+        if (s_aLogger.isErrorEnabled ())
+          s_aLogger.error ("Object already in destruction is destroyed soon again: " + toString ());
+      }
       else
         if (isDestroyed ())
-          s_aLogger.error ("Object already destroyed is destroyed soon again: " + toString ());
+        {
+          if (s_aLogger.isErrorEnabled ())
+            s_aLogger.error ("Object already destroyed is destroyed soon again: " + toString ());
+        }
 
     setInPreDestruction (true);
 
@@ -306,20 +321,34 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
 
     // Check init state
     if (isInInstantiation ())
-      s_aLogger.warn ("Object currently in instantiation is now destroyed: " + toString ());
+    {
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("Object currently in instantiation is now destroyed: " + toString ());
+    }
     else
       if (!isInstantiated ())
-        s_aLogger.warn ("Object not instantiated is now destroyed: " + toString ());
+      {
+        if (s_aLogger.isWarnEnabled ())
+          s_aLogger.warn ("Object not instantiated is now destroyed: " + toString ());
+      }
 
     // Check destruction state
     if (!isInPreDestruction ())
-      s_aLogger.error ("Object should be in pre destruction phase but is not: " + toString ());
-
+    {
+      if (s_aLogger.isErrorEnabled ())
+        s_aLogger.error ("Object should be in pre destruction phase but is not: " + toString ());
+    }
     if (isInDestruction ())
-      s_aLogger.error ("Object already in destruction is now destroyed again: " + toString ());
+    {
+      if (s_aLogger.isErrorEnabled ())
+        s_aLogger.error ("Object already in destruction is now destroyed again: " + toString ());
+    }
     else
       if (isDestroyed ())
-        s_aLogger.error ("Object already destroyed is now destroyed again: " + toString ());
+      {
+        if (s_aLogger.isErrorEnabled ())
+          s_aLogger.error ("Object already destroyed is now destroyed again: " + toString ());
+      }
 
     setInDestruction (true);
     // Set after destruction is set to true
@@ -457,8 +486,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
         final Constructor <T> aCtor = aClass.getDeclaredConstructor (IScope.class);
 
         // Invoke ctor with scope
-        final T ret = aCtor.newInstance (aScope);
-        return ret;
+        return aCtor.newInstance (aScope);
       }
       catch (final NoSuchMethodException ex)
       {
@@ -473,8 +501,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
       // (java.lang.reflect.ReflectPermission suppressAccessChecks)
 
       // Invoke default ctor
-      final T ret = aCtor.newInstance ((Object []) null);
-      return ret;
+      return aCtor.newInstance ((Object []) null);
     }
     catch (final RuntimeException ex)
     {

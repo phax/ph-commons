@@ -320,7 +320,7 @@ public class MimeTypeInfoManager
   @ReturnsMutableCopy
   public ICommonsList <MimeTypeInfo> getAllMimeTypeInfos ()
   {
-    return m_aRWLock.readLocked ( () -> m_aList.getClone ());
+    return m_aRWLock.readLocked (m_aList::getClone);
   }
 
   /**

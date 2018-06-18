@@ -16,6 +16,8 @@
  */
 package com.helger.scope.mgr;
 
+import java.util.function.Supplier;
+
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -188,9 +190,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
         finally
         {
           // Remove from "in destruction" list
-          m_aRWLock.writeLocked ( () -> {
-            m_aSessionsInDestruction.remove (sSessionID);
-          });
+          m_aRWLock.writeLocked ( () -> m_aSessionsInDestruction.remove (sSessionID));
         }
       }
     }
@@ -202,7 +202,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
    */
   public boolean containsAnySession ()
   {
-    return m_aRWLock.readLocked ( () -> !m_aSessionScopes.isEmpty ());
+    return m_aRWLock.readLocked (m_aSessionScopes::isNotEmpty);
   }
 
   /**
@@ -211,7 +211,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
   @Nonnegative
   public int getSessionCount ()
   {
-    return m_aRWLock.readLocked ( () -> m_aSessionScopes.size ());
+    return m_aRWLock.readLocked (m_aSessionScopes::size);
   }
 
   /**
@@ -222,7 +222,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
   @ReturnsMutableCopy
   public ICommonsList <ISessionScope> getAllSessionScopes ()
   {
-    return m_aRWLock.readLocked ( () -> m_aSessionScopes.copyOfValues ());
+    return m_aRWLock.readLocked ((Supplier <ICommonsList <ISessionScope>>) m_aSessionScopes::copyOfValues);
   }
 
   private void _checkIfAnySessionsExist ()

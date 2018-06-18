@@ -90,7 +90,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   public static final class InitSettings <IMPLTYPE>
   {
     private boolean m_bDoInitialRead = true;
-    private Supplier <ICommonsMap <String, IMPLTYPE>> m_aMapSupplier = () -> new CommonsHashMap <> ();
+    private Supplier <ICommonsMap <String, IMPLTYPE>> m_aMapSupplier = CommonsHashMap::new;
     private IPredicate <IMicroElement> m_aReadElementFilter = IPredicate.all ();
 
     @Nonnull
@@ -110,7 +110,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
     @Nonnull
     public InitSettings <IMPLTYPE> setOrderedMapSupplier ()
     {
-      return setMapSupplier ( () -> new CommonsLinkedHashMap <> ());
+      return setMapSupplier (CommonsLinkedHashMap::new);
     }
 
     @Nonnull
@@ -435,7 +435,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @IsLocked (ELockType.READ)
   protected final Iterable <IMPLTYPE> internalDirectGetAll ()
   {
-    return m_aRWLock.readLocked ( () -> m_aMap.values ());
+    return m_aRWLock.readLocked (m_aMap::values);
   }
 
   @Nonnull
@@ -493,7 +493,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @IsLocked (ELockType.READ)
   public final boolean isNotEmpty ()
   {
-    return m_aRWLock.readLocked ( () -> m_aMap.isNotEmpty ());
+    return m_aRWLock.readLocked (m_aMap::isNotEmpty);
   }
 
   @IsLocked (ELockType.READ)
@@ -505,7 +505,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @IsLocked (ELockType.READ)
   public final boolean isEmpty ()
   {
-    return m_aRWLock.readLocked ( () -> m_aMap.isEmpty ());
+    return m_aRWLock.readLocked (m_aMap::isEmpty);
   }
 
   @IsLocked (ELockType.READ)
@@ -640,13 +640,13 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @ReturnsMutableCopy
   public final ICommonsSet <String> getAllIDs ()
   {
-    return m_aRWLock.readLocked ( () -> m_aMap.copyOfKeySet ());
+    return m_aRWLock.readLocked ((Supplier <ICommonsSet <String>>) m_aMap::copyOfKeySet);
   }
 
   @Nonnegative
   public final int size ()
   {
-    return m_aRWLock.readLocked ( () -> m_aMap.size ());
+    return m_aRWLock.readLocked (m_aMap::size);
   }
 
   @Nonnegative

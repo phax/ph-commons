@@ -49,7 +49,7 @@ public final class JsonValueSerializerRegistry implements IJsonValueSerializerRe
 
   // WeakHashMap because key is a class
   @GuardedBy ("m_aRWLock")
-  private final ICommonsMap <Class <?>, IJsonValueSerializer> m_aMap = new CommonsWeakHashMap<> ();
+  private final ICommonsMap <Class <?>, IJsonValueSerializer> m_aMap = new CommonsWeakHashMap <> ();
 
   static
   {
@@ -94,12 +94,12 @@ public final class JsonValueSerializerRegistry implements IJsonValueSerializerRe
   @Nonnegative
   public int getRegisteredJsonValueSerializerCount ()
   {
-    return m_aRWLock.readLocked ( () -> m_aMap.size ());
+    return m_aRWLock.readLocked (m_aMap::size);
   }
 
   public void reinitialize (@Nullable final ClassLoader aClassLoader)
   {
-    m_aRWLock.writeLocked ( () -> m_aMap.clear ());
+    m_aRWLock.writeLocked (m_aMap::clear);
 
     // Register all json value serializer
     for (final IJsonValueSerializerRegistrarSPI aSPI : ServiceLoaderHelper.getAllSPIImplementations (IJsonValueSerializerRegistrarSPI.class,

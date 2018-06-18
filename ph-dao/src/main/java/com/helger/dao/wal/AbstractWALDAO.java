@@ -749,7 +749,8 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
     if (sFilename == null)
     {
       // We're not operating on a file! Required for testing
-      s_aLogger.warn ("The DAO of class " + getClass ().getName () + " cannot write to a file");
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("The DAO of class " + getClass ().getName () + " cannot write to a file");
       return ESuccess.FAILURE;
     }
 
@@ -761,7 +762,8 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
     }
 
     if (isDebugLogging ())
-      s_aLogger.info ("Trying to write WAL DAO file '" + sFilename + "'");
+      if (s_aLogger.isInfoEnabled ())
+        s_aLogger.info ("Trying to write WAL DAO file '" + sFilename + "'");
 
     File aFileNew = null;
     IMicroDocument aDoc = null;
@@ -858,11 +860,12 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
       internalSetPendingChanges (false);
     else
     {
-      s_aLogger.error ("The DAO of class " +
-                       getClass ().getName () +
-                       " still has pending changes after " +
-                       sCallingMethodName +
-                       "!");
+      if (s_aLogger.isErrorEnabled ())
+        s_aLogger.error ("The DAO of class " +
+                         getClass ().getName () +
+                         " still has pending changes after " +
+                         sCallingMethodName +
+                         "!");
     }
   }
 
@@ -1032,10 +1035,8 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
   {
     if (hasPendingChanges ())
     {
-      m_aRWLock.writeLocked ( () -> {
-        // Write to file
-        _writeToFileAndResetPendingChanges ("writeToFileOnPendingChanges");
-      });
+      // Write to file
+      m_aRWLock.writeLocked ( () -> _writeToFileAndResetPendingChanges ("writeToFileOnPendingChanges"));
     }
   }
 
