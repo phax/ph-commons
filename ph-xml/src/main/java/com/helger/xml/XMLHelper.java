@@ -746,7 +746,8 @@ public final class XMLHelper
   public static ICommonsOrderedMap <String, String> getAllAttributesAsMap (@Nullable final Element aSrcNode)
   {
     final ICommonsOrderedMap <String, String> ret = new CommonsLinkedHashMap <> ();
-    forAllAttributes (aSrcNode, ret::put);
+    // Cast needed for Oracle JDK 8
+    forAllAttributes (aSrcNode, (BiConsumer <? super String, ? super String>) ret::put);
     return ret;
   }
 
