@@ -89,27 +89,27 @@ public final class MultilingualTextTest
     }
     catch (final NullPointerException ex)
     {}
-    assertEquals (aNotify.getCallCountBefore (), 0);
-    assertEquals (aNotify.getCallCountAfter (), 0);
+    assertEquals (0, aNotify.getCallCountBefore ());
+    assertEquals (0, aNotify.getCallCountAfter ());
 
     assertTrue (aMLT.addText (Locale.ENGLISH, "Hello").isChanged ());
-    assertEquals (aNotify.getCallCountBefore (), 1);
-    assertEquals (aNotify.getCallCountAfter (), 1);
-    assertEquals (aMLT.size (), 1);
+    assertEquals (1, aNotify.getCallCountBefore ());
+    assertEquals (1, aNotify.getCallCountAfter ());
+    assertEquals (1, aMLT.size ());
     assertTrue (aMLT.addText (Locale.ENGLISH, "Hello2").isUnchanged ());
-    assertEquals (aNotify.getCallCountBefore (), 1);
-    assertEquals (aNotify.getCallCountAfter (), 1);
-    assertEquals (aMLT.size (), 1);
+    assertEquals (1, aNotify.getCallCountBefore ());
+    assertEquals (1, aNotify.getCallCountAfter ());
+    assertEquals (1, aMLT.size ());
     assertTrue (aMLT.getAllLocales ().contains (Locale.ENGLISH));
     assertFalse (aMLT.getAllLocales ().contains (Locale.GERMAN));
 
     assertTrue (aMLT.addText (Locale.GERMAN, "Hallo").isChanged ());
-    assertEquals (aNotify.getCallCountBefore (), 2);
-    assertEquals (aNotify.getCallCountAfter (), 2);
+    assertEquals (2, aNotify.getCallCountBefore ());
+    assertEquals (2, aNotify.getCallCountAfter ());
     assertTrue (aMLT.addText (Locale.GERMAN, "Hallo2").isUnchanged ());
-    assertEquals (aNotify.getCallCountBefore (), 2);
-    assertEquals (aNotify.getCallCountAfter (), 2);
-    assertEquals (aMLT.size (), 2);
+    assertEquals (2, aNotify.getCallCountBefore ());
+    assertEquals (2, aNotify.getCallCountAfter ());
+    assertEquals (2, aMLT.size ());
     assertTrue (aMLT.getAllLocales ().contains (Locale.ENGLISH));
     assertTrue (aMLT.getAllLocales ().contains (Locale.GERMAN));
   }
@@ -129,10 +129,10 @@ public final class MultilingualTextTest
     {}
 
     assertTrue (aMLT.setText (Locale.ENGLISH, "Hello").isChanged ());
-    assertEquals (aMLT.size (), 1);
+    assertEquals (1, aMLT.size ());
     assertFalse (aMLT.setText (Locale.ENGLISH, "Hello").isChanged ());
     assertTrue (aMLT.setText (Locale.ENGLISH, "Hello2").isChanged ());
-    assertEquals (aMLT.size (), 1);
+    assertEquals (1, aMLT.size ());
     assertTrue (aMLT.containsLocale (Locale.ENGLISH));
     assertTrue (aMLT.getAllLocales ().contains (Locale.ENGLISH));
     assertFalse (aMLT.containsLocale (Locale.GERMAN));
@@ -142,7 +142,7 @@ public final class MultilingualTextTest
 
     aMLT.setText (Locale.GERMAN, "Hallo");
     aMLT.setText (Locale.GERMAN, "Hallo2");
-    assertEquals (aMLT.size (), 2);
+    assertEquals (2, aMLT.size ());
     assertTrue (aMLT.containsLocale (Locale.ENGLISH));
     assertTrue (aMLT.getAllLocales ().contains (Locale.ENGLISH));
     assertTrue (aMLT.containsLocale (Locale.GERMAN));

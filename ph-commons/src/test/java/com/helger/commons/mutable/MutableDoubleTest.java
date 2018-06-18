@@ -39,36 +39,36 @@ public final class MutableDoubleTest
   public void testMutableDouble ()
   {
     final MutableDouble x = new MutableDouble (0);
-    assertEquals (x.doubleValue (), 0, DELTA);
+    assertEquals (0, x.doubleValue (), DELTA);
     assertEquals (x.getAsDouble (), Double.valueOf (0));
     assertFalse (x.isNot0 ());
     assertTrue (x.is0 ());
 
     x.inc ();
-    assertEquals (x.doubleValue (), 1, DELTA);
+    assertEquals (1, x.doubleValue (), DELTA);
     assertNotEquals (x.hashCode (), x.doubleValue (), DELTA);
 
     x.inc (5);
-    assertEquals (x.doubleValue (), 6, DELTA);
+    assertEquals (6, x.doubleValue (), DELTA);
     assertNotEquals (x.hashCode (), x.doubleValue (), DELTA);
 
     x.inc (-2);
-    assertEquals (x.doubleValue (), 4, DELTA);
+    assertEquals (4, x.doubleValue (), DELTA);
     assertNotEquals (x.hashCode (), x.doubleValue (), DELTA);
 
     x.dec ();
-    assertEquals (x.doubleValue (), 3, DELTA);
+    assertEquals (3, x.doubleValue (), DELTA);
     assertNotEquals (x.hashCode (), x.doubleValue (), DELTA);
 
     x.dec (5);
-    assertEquals (x.doubleValue (), -2, DELTA);
+    assertEquals (-2, x.doubleValue (), DELTA);
     assertTrue (x.isNot0 ());
     assertFalse (x.is0 ());
     assertNotEquals (x.hashCode (), x.doubleValue (), DELTA);
 
     assertTrue (x.set (4711).isChanged ());
     assertFalse (x.set (4711).isChanged ());
-    assertEquals (x.doubleValue (), 4711, DELTA);
+    assertEquals (4711, x.doubleValue (), DELTA);
 
     assertEquals (-1, new MutableDouble (4).compareTo (new MutableDouble (5)));
     assertEquals (0, new MutableDouble (5).compareTo (new MutableDouble (5)));

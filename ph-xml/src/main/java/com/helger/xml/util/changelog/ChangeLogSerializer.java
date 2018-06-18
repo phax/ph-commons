@@ -210,7 +210,8 @@ public final class ChangeLogSerializer
           }
           catch (final DateTimeParseException ex)
           {
-            s_aLogger.warn ("Failed to parse release date '" + sDate + "'");
+            if (s_aLogger.isWarnEnabled ())
+              s_aLogger.warn ("Failed to parse release date '" + sDate + "'");
             continue;
           }
           ret.entries ().add (new ChangeLogRelease (aLocalDate, Version.parse (sVersion, false)));
@@ -271,7 +272,10 @@ public final class ChangeLogSerializer
         if (aChangeLog != null)
           ret.put (aRes.getAsURI (), aChangeLog);
         else
-          s_aLogger.warn ("Failed to read changelog from URL " + aURL.toExternalForm ());
+        {
+          if (s_aLogger.isWarnEnabled ())
+            s_aLogger.warn ("Failed to read changelog from URL " + aURL.toExternalForm ());
+        }
       }
       return ret;
     }
@@ -289,8 +293,12 @@ public final class ChangeLogSerializer
 
     final IMicroDocument ret = new MicroDocument ();
     final IMicroElement eRoot = ret.appendElement (CChangeLog.CHANGELOG_NAMESPACE_10, ELEMENT_CHANGELOG);
-    eRoot.setAttribute (XMLConstants.XMLNS_ATTRIBUTE_NS_URI, CXML.XML_NS_PREFIX_XSI, XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI);
-    eRoot.setAttribute (XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI, "schemaLocation", CChangeLog.CHANGELOG_SCHEMALOCATION_10);
+    eRoot.setAttribute (XMLConstants.XMLNS_ATTRIBUTE_NS_URI,
+                        CXML.XML_NS_PREFIX_XSI,
+                        XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI);
+    eRoot.setAttribute (XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI,
+                        "schemaLocation",
+                        CChangeLog.CHANGELOG_SCHEMALOCATION_10);
     eRoot.setAttribute (ATTR_VERSION, aChangeLog.getOriginalVersion ());
     if (StringHelper.hasText (aChangeLog.getComponent ()))
       eRoot.setAttribute (ATTR_COMPONENT, aChangeLog.getComponent ());

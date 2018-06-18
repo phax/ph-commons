@@ -77,6 +77,18 @@ public class RequestScope extends AbstractScope implements IRequestScope
   }
 
   @Override
+  public boolean equals (final Object o)
+  {
+    return super.equals (o);
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    return super.hashCode ();
+  }
+
+  @Override
   public String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ()).append ("sessionID", m_sSessionID).getToString ();

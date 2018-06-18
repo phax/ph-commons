@@ -202,7 +202,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    * @since 9.0.3
    */
-  default void appendChildren (@Nullable final IMicroNode... aChildren) throws MicroException
+  default void appendChildren (@Nullable final IMicroNode... aChildren)
   {
     if (aChildren != null)
       for (final IMicroNode aChild : aChildren)
@@ -219,7 +219,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    * @since 9.0.3
    */
-  default void appendChildren (@Nullable final Iterable <? extends IMicroNode> aChildren) throws MicroException
+  default void appendChildren (@Nullable final Iterable <? extends IMicroNode> aChildren)
   {
     if (aChildren != null)
       for (final IMicroNode aChild : aChildren)
@@ -284,7 +284,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @Nonnull
-  default IMicroText appendText (@Nullable final CharSequence sText) throws MicroException
+  default IMicroText appendText (@Nullable final CharSequence sText)
   {
     return appendChild (new MicroText (sText, false));
   }
@@ -299,7 +299,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @Nonnull
-  default IMicroText appendText (@Nonnull final char [] aChars) throws MicroException
+  default IMicroText appendText (@Nonnull final char [] aChars)
   {
     return appendText (aChars, 0, aChars.length);
   }
@@ -321,7 +321,7 @@ public interface IMicroNode extends
   @Nonnull
   default IMicroText appendText (@Nonnull final char [] aChars,
                                  @Nonnegative final int nOfs,
-                                 @Nonnegative final int nLen) throws MicroException
+                                 @Nonnegative final int nLen)
   {
     return appendChild (new MicroText (aChars, nOfs, nLen, false));
   }
@@ -338,7 +338,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @Nonnull
-  default IMicroText appendTextWithConversion (@Nullable final Object aValue) throws MicroException
+  default IMicroText appendTextWithConversion (@Nullable final Object aValue)
   {
     // Throws IlliegalArgumentException when no conversion is available
     final String sValue = TypeConverter.convert (aValue, String.class);
@@ -355,7 +355,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @Nonnull
-  default IMicroText appendIgnorableWhitespaceText (@Nullable final CharSequence sText) throws MicroException
+  default IMicroText appendIgnorableWhitespaceText (@Nullable final CharSequence sText)
   {
     return appendChild (new MicroText (sText, true));
   }
@@ -370,7 +370,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @Nonnull
-  default IMicroText appendIgnorableWhitespaceText (@Nonnull final char [] aChars) throws MicroException
+  default IMicroText appendIgnorableWhitespaceText (@Nonnull final char [] aChars)
   {
     return appendIgnorableWhitespaceText (aChars, 0, aChars.length);
   }
@@ -392,7 +392,7 @@ public interface IMicroNode extends
   @Nonnull
   default IMicroText appendIgnorableWhitespaceText (@Nonnull final char [] aChars,
                                                     @Nonnegative final int nOfs,
-                                                    @Nonnegative final int nLen) throws MicroException
+                                                    @Nonnegative final int nLen)
   {
     return appendChild (new MicroText (aChars, nOfs, nLen, true));
   }
@@ -407,7 +407,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @Nonnull
-  default IMicroCDATA appendCDATA (@Nullable final CharSequence sText) throws MicroException
+  default IMicroCDATA appendCDATA (@Nullable final CharSequence sText)
   {
     return appendChild (new MicroCDATA (sText));
   }
@@ -422,7 +422,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @Nonnull
-  default IMicroCDATA appendCDATA (@Nonnull final char [] aChars) throws MicroException
+  default IMicroCDATA appendCDATA (@Nonnull final char [] aChars)
   {
     return appendCDATA (aChars, 0, aChars.length);
   }
@@ -444,7 +444,7 @@ public interface IMicroNode extends
   @Nonnull
   default IMicroCDATA appendCDATA (@Nonnull final char [] aChars,
                                    @Nonnegative final int nOfs,
-                                   @Nonnegative final int nLen) throws MicroException
+                                   @Nonnegative final int nLen)
   {
     return appendChild (new MicroCDATA (aChars, nOfs, nLen));
   }
@@ -461,7 +461,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @Nonnull
-  default IMicroCDATA appendCDATAWithConversion (@Nullable final Object aValue) throws MicroException
+  default IMicroCDATA appendCDATAWithConversion (@Nullable final Object aValue)
   {
     // Throws IlliegalArgumentException when no conversion is available
     final String sValue = TypeConverter.convert (aValue, String.class);
@@ -478,7 +478,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @Nonnull
-  default IMicroComment appendComment (@Nullable final CharSequence sText) throws MicroException
+  default IMicroComment appendComment (@Nullable final CharSequence sText)
   {
     return appendChild (new MicroComment (sText));
   }
@@ -493,7 +493,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @Nonnull
-  default IMicroComment appendComment (@Nonnull final char [] aChars) throws MicroException
+  default IMicroComment appendComment (@Nonnull final char [] aChars)
   {
     return appendComment (aChars, 0, aChars.length);
   }
@@ -515,7 +515,7 @@ public interface IMicroNode extends
   @Nonnull
   default IMicroComment appendComment (@Nonnull final char [] aChars,
                                        @Nonnegative final int nOfs,
-                                       @Nonnegative final int nLen) throws MicroException
+                                       @Nonnegative final int nLen)
   {
     return appendChild (new MicroComment (aChars, nOfs, nLen));
   }
@@ -532,7 +532,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @Nonnull
-  default IMicroComment appendCommentWithConversion (@Nullable final Object aValue) throws MicroException
+  default IMicroComment appendCommentWithConversion (@Nullable final Object aValue)
   {
     // Throws IlliegalArgumentException when no conversion is available
     final String sValue = TypeConverter.convert (aValue, String.class);
@@ -549,7 +549,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @Nonnull
-  default IMicroEntityReference appendEntityReference (@Nonnull final String sName) throws MicroException
+  default IMicroEntityReference appendEntityReference (@Nonnull final String sName)
   {
     return appendChild (new MicroEntityReference (sName));
   }
@@ -565,7 +565,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @Nonnull
-  default IMicroElement appendElement (@Nonnull @Nonempty final String sTagName) throws MicroException
+  default IMicroElement appendElement (@Nonnull @Nonempty final String sTagName)
   {
     return appendElement (null, sTagName);
   }
@@ -583,8 +583,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @Nonnull
-  default IMicroElement appendElement (@Nullable final String sNamespaceURI,
-                                       @Nonnull @Nonempty final String sTagName) throws MicroException
+  default IMicroElement appendElement (@Nullable final String sNamespaceURI, @Nonnull @Nonempty final String sTagName)
   {
     return appendChild (new MicroElement (sNamespaceURI, sTagName));
   }
@@ -602,7 +601,7 @@ public interface IMicroNode extends
    */
   @Nonnull
   default IMicroProcessingInstruction appendProcessingInstruction (@Nonnull @Nonempty final String sTarget,
-                                                                   @Nullable final String sData) throws MicroException
+                                                                   @Nullable final String sData)
   {
     return appendChild (new MicroProcessingInstruction (sTarget, sData));
   }
@@ -615,7 +614,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @Nonnull
-  default IMicroContainer appendContainer () throws MicroException
+  default IMicroContainer appendContainer ()
   {
     return appendChild (new MicroContainer ());
   }

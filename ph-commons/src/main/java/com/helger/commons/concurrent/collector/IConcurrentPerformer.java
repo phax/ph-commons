@@ -16,11 +16,9 @@
  */
 package com.helger.commons.concurrent.collector;
 
-import javax.annotation.Nullable;
-
 /**
  * Async runnable
- * 
+ *
  * @author Philip Helger
  * @param <DATATYPE>
  *        Data type
@@ -28,5 +26,14 @@ import javax.annotation.Nullable;
 @FunctionalInterface
 public interface IConcurrentPerformer <DATATYPE>
 {
-  void runAsync (@Nullable DATATYPE aCurrentObject) throws Exception;
+  /**
+   * Run something asynchronously.
+   * 
+   * @param aCurrentObject
+   *        The current object to work on. No assumptions on
+   *        <code>null</code>-ness can be provided.
+   * @throws Exception
+   *         Can be thrown in case of an error.
+   */
+  void runAsync (DATATYPE aCurrentObject) throws Exception;
 }

@@ -39,36 +39,36 @@ public final class MutableFloatTest
   public void testMutableFloat ()
   {
     final MutableFloat x = new MutableFloat (0f);
-    assertEquals (x.floatValue (), 0, DELTA);
+    assertEquals (0, x.floatValue (), DELTA);
     assertEquals (x.getAsFloat (), Float.valueOf (0));
     assertFalse (x.isNot0 ());
     assertTrue (x.is0 ());
 
     x.inc ();
-    assertEquals (x.floatValue (), 1, DELTA);
+    assertEquals (1, x.floatValue (), DELTA);
     assertNotEquals (x.hashCode (), x.floatValue (), DELTA);
 
     x.inc (5);
-    assertEquals (x.floatValue (), 6, DELTA);
+    assertEquals (6, x.floatValue (), DELTA);
     assertNotEquals (x.hashCode (), x.floatValue (), DELTA);
 
     x.inc (-2);
-    assertEquals (x.floatValue (), 4, DELTA);
+    assertEquals (4, x.floatValue (), DELTA);
     assertNotEquals (x.hashCode (), x.floatValue (), DELTA);
 
     x.dec ();
-    assertEquals (x.floatValue (), 3, DELTA);
+    assertEquals (3, x.floatValue (), DELTA);
     assertNotEquals (x.hashCode (), x.floatValue (), DELTA);
 
     x.dec (5);
-    assertEquals (x.floatValue (), -2, DELTA);
+    assertEquals (-2, x.floatValue (), DELTA);
     assertTrue (x.isNot0 ());
     assertFalse (x.is0 ());
     assertNotEquals (x.hashCode (), x.floatValue (), DELTA);
 
     assertTrue (x.set (4711).isChanged ());
     assertFalse (x.set (4711).isChanged ());
-    assertEquals (x.floatValue (), 4711, DELTA);
+    assertEquals (4711, x.floatValue (), DELTA);
 
     assertEquals (-1, new MutableFloat (4).compareTo (new MutableFloat (5)));
     assertEquals (0, new MutableFloat (5).compareTo (new MutableFloat (5)));

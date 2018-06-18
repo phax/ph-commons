@@ -45,8 +45,9 @@ import com.helger.tree.withid.BasicTreeItemWithID;
  */
 @NotThreadSafe
 public class BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collection <DATATYPE>, ITEMTYPE extends BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>>
-                                 extends BasicTreeItemWithID <KEYTYPE, COLLTYPE, ITEMTYPE>
-                                 implements IFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>
+                                 extends
+                                 BasicTreeItemWithID <KEYTYPE, COLLTYPE, ITEMTYPE> implements
+                                 IFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>
 {
   // Combinator to create a global unique ID.
   private final IAggregator <KEYTYPE, KEYTYPE> m_aKeyCombinator;
@@ -103,7 +104,7 @@ public class BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collection
     if (aParent == null)
       return getID ();
 
-    final ICommonsList <KEYTYPE> aList = new CommonsArrayList<> (aParent.getGlobalUniqueDataID (), getID ());
+    final ICommonsList <KEYTYPE> aList = new CommonsArrayList <> (aParent.getGlobalUniqueDataID (), getID ());
     return m_aKeyCombinator.apply (aList);
   }
 

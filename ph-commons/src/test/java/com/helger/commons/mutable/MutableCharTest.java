@@ -60,7 +60,7 @@ public final class MutableCharTest
     assertNotEquals (x.hashCode (), x.charValue ());
 
     x.dec (2);
-    assertEquals (x.charValue (), 1);
+    assertEquals (1, x.charValue ());
     assertTrue (x.isNot0 ());
     assertFalse (x.is0 ());
     assertFalse (x.isEven ());
@@ -69,27 +69,27 @@ public final class MutableCharTest
     assertTrue (x.set (65535).isChanged ());
     assertFalse (x.set (65535).isChanged ());
     assertFalse (x.isEven ());
-    assertEquals (x.charValue (), 65535);
+    assertEquals (65535, x.charValue ());
 
     assertTrue (x.set (65536).isChanged ());
     assertTrue (x.isEven ());
-    assertEquals (x.charValue (), 0);
+    assertEquals (0, x.charValue ());
 
     assertTrue (x.set (65537).isChanged ());
     assertFalse (x.isEven ());
-    assertEquals (x.charValue (), 1);
+    assertEquals (1, x.charValue ());
 
     assertTrue (x.set (0).isChanged ());
-    assertEquals (x.charValue (), 0);
+    assertEquals (0, x.charValue ());
 
     assertTrue (x.set (1).isChanged ());
-    assertEquals (x.charValue (), 1);
+    assertEquals (1, x.charValue ());
 
     assertTrue (x.set (-1).isChanged ());
-    assertEquals (x.charValue (), 65535);
+    assertEquals (65535, x.charValue ());
 
     assertTrue (x.set (-2).isChanged ());
-    assertEquals (x.charValue (), 65534);
+    assertEquals (65534, x.charValue ());
 
     assertEquals (-1, new MutableChar (4).compareTo (new MutableChar (5)));
     assertEquals (0, new MutableChar (5).compareTo (new MutableChar (5)));

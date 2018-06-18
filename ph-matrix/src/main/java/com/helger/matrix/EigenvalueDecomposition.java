@@ -256,12 +256,8 @@ public class EigenvalueDecomposition implements Serializable
 
       if (m > l)
       {
-        int iter = 0;
         do
         {
-          // (Could check iteration count here.)
-          iter++;
-
           // Compute implicit shift
           double g = m_aEVd[l];
           double p = (m_aEVd[l + 1] - g) / (2.0 * m_aEVe[l]);

@@ -156,15 +156,15 @@ public final class StringHelperTest
     catch (final IllegalArgumentException ex)
     {}
 
-    assertEquals (StringHelper.getHexEncoded (new byte [] {}), "");
-    assertEquals (StringHelper.getHexEncoded (new byte [] { 1 }), "01");
-    assertEquals (StringHelper.getHexEncoded (new byte [] { 1, 10 }), "010a");
-    assertEquals (StringHelper.getHexEncoded (new byte [] { 0, 1, 10, (byte) 255 }), "00010aff");
+    assertEquals ("", StringHelper.getHexEncoded (new byte [] {}));
+    assertEquals ("01", StringHelper.getHexEncoded (new byte [] { 1 }));
+    assertEquals ("010a", StringHelper.getHexEncoded (new byte [] { 1, 10 }));
+    assertEquals ("00010aff", StringHelper.getHexEncoded (new byte [] { 0, 1, 10, (byte) 255 }));
 
     // Byte offset
-    assertEquals (StringHelper.getHexEncoded (new byte [] { 1, 10 }, 0, 2), "010a");
-    assertEquals (StringHelper.getHexEncoded (new byte [] { 1, 10 }, 0, 1), "01");
-    assertEquals (StringHelper.getHexEncoded (new byte [] { 1, 10 }, 1, 1), "0a");
+    assertEquals ("010a", StringHelper.getHexEncoded (new byte [] { 1, 10 }, 0, 2));
+    assertEquals ("01", StringHelper.getHexEncoded (new byte [] { 1, 10 }, 0, 1));
+    assertEquals ("0a", StringHelper.getHexEncoded (new byte [] { 1, 10 }, 1, 1));
     try
     {
       // length is too large

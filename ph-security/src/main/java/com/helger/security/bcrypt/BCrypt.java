@@ -1363,7 +1363,7 @@ public class BCrypt
    * @exception IllegalArgumentException
    *            if the length is invalid
    */
-  private static String _encode_base64 (final byte [] aToEncode, final int nLen) throws IllegalArgumentException
+  private static String _encode_base64 (final byte [] aToEncode, final int nLen)
   {
     if (nLen <= 0 || nLen > aToEncode.length)
       throw new IllegalArgumentException ("Invalid len");
@@ -1422,9 +1422,9 @@ public class BCrypt
    *        the maximum number of bytes to decode
    * @return an array containing the decoded bytes
    * @throws IllegalArgumentException
-   *         if maxlen is invalid
+   *         if nMaxLen is invalid
    */
-  private static byte [] _decode_base64 (final String sToDecode, final int nMaxLen) throws IllegalArgumentException
+  private static byte [] _decode_base64 (final String sToDecode, final int nMaxLen)
   {
     if (nMaxLen <= 0)
       throw new IllegalArgumentException ("Invalid maxlen");

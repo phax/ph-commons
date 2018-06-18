@@ -33,15 +33,15 @@ public final class LRUMapTest
   @Test
   public void testLRUCache ()
   {
-    final LRUMap <Integer, String> aCache = new LRUMap<> (MAX_SIZE);
+    final LRUMap <Integer, String> aCache = new LRUMap <> (MAX_SIZE);
     for (int i = 0; i < MAX_SIZE * 2; ++i)
     {
       if (i < MAX_SIZE)
-        assertEquals (aCache.size (), i);
+        assertEquals (i, aCache.size ());
       else
-        assertEquals (aCache.size (), MAX_SIZE);
+        assertEquals (MAX_SIZE, aCache.size ());
       assertNull (aCache.put (Integer.valueOf (i), "Hallo Welt"));
     }
-    assertEquals (aCache.size (), MAX_SIZE);
+    assertEquals (MAX_SIZE, aCache.size ());
   }
 }

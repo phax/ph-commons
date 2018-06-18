@@ -37,30 +37,30 @@ public final class MutableIntTest
   public void testMutableInt ()
   {
     final MutableInt x = new MutableInt (0);
-    assertEquals (x.intValue (), 0);
+    assertEquals (0, x.intValue ());
     assertEquals (x.getAsInteger (), Integer.valueOf (0));
     assertFalse (x.isNot0 ());
     assertTrue (x.is0 ());
 
     x.inc ();
-    assertEquals (x.intValue (), 1);
+    assertEquals (1, x.intValue ());
     assertNotEquals (x.hashCode (), x.intValue ());
 
     x.inc (5);
-    assertEquals (x.intValue (), 6);
+    assertEquals (6, x.intValue ());
     assertNotEquals (x.hashCode (), x.intValue ());
 
     x.inc (-2);
-    assertEquals (x.intValue (), 4);
+    assertEquals (4, x.intValue ());
     assertNotEquals (x.hashCode (), x.intValue ());
 
     x.dec ();
-    assertEquals (x.intValue (), 3);
+    assertEquals (3, x.intValue ());
     assertFalse (x.isEven ());
     assertNotEquals (x.hashCode (), x.intValue ());
 
     x.dec (5);
-    assertEquals (x.intValue (), -2);
+    assertEquals (-2, x.intValue ());
     assertTrue (x.isNot0 ());
     assertFalse (x.is0 ());
     assertTrue (x.isEven ());
@@ -69,7 +69,7 @@ public final class MutableIntTest
     assertTrue (x.set (4711).isChanged ());
     assertFalse (x.set (4711).isChanged ());
     assertFalse (x.isEven ());
-    assertEquals (x.intValue (), 4711);
+    assertEquals (4711, x.intValue ());
 
     assertEquals (-1, new MutableInt (4).compareTo (new MutableInt (5)));
     assertEquals (0, new MutableInt (5).compareTo (new MutableInt (5)));

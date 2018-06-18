@@ -31,26 +31,26 @@ public final class JavaBitOperationsFuncTest
   @Test
   public void testBitWise ()
   {
-    assertEquals ("1", nA & nB, 0);
-    assertEquals ("1b", nB & nA, 0);
-    assertEquals ("2", nA & nC, 0);
-    assertEquals ("2b", nC & nA, 0);
-    assertEquals ("3", nA & nD, 0);
-    assertEquals ("3b", nD & nA, 0);
-    assertEquals ("4", nA & nE, 0);
-    assertEquals ("4b", nE & nA, 0);
-    assertEquals ("5", nB & nC, 0);
-    assertEquals ("5b", nC & nB, 0);
-    assertEquals ("6", nB & nD, 0);
-    assertEquals ("6b", nD & nB, 0);
-    assertEquals ("7", nB & nE, 0);
-    assertEquals ("7b", nE & nB, 0);
-    assertEquals ("8", nC & nD, 0);
-    assertEquals ("8b", nD & nC, 0);
-    assertEquals ("9", nC & nE, 0);
-    assertEquals ("9b", nE & nC, 0);
-    assertEquals ("10", nD & nE, 0);
-    assertEquals ("10b", nE & nD, 0);
+    assertEquals ("1", 0, nA & nB);
+    assertEquals ("1b", 0, nB & nA);
+    assertEquals ("2", 0, nA & nC);
+    assertEquals ("2b", 0, nC & nA);
+    assertEquals ("3", 0, nA & nD);
+    assertEquals ("3b", 0, nD & nA);
+    assertEquals ("4", 0, nA & nE);
+    assertEquals ("4b", 0, nE & nA);
+    assertEquals ("5", 0, nB & nC);
+    assertEquals ("5b", 0, nC & nB);
+    assertEquals ("6", 0, nB & nD);
+    assertEquals ("6b", 0, nD & nB);
+    assertEquals ("7", 0, nB & nE);
+    assertEquals ("7b", 0, nE & nB);
+    assertEquals ("8", 0, nC & nD);
+    assertEquals ("8b", 0, nD & nC);
+    assertEquals ("9", 0, nC & nE);
+    assertEquals ("9b", 0, nE & nC);
+    assertEquals ("10", 0, nD & nE);
+    assertEquals ("10b", 0, nE & nD);
   }
 
   @Test

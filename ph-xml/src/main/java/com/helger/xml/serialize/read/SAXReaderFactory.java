@@ -55,11 +55,7 @@ public final class SAXReaderFactory implements ISupplier <org.xml.sax.XMLReader>
       }
       return ret;
     }
-    catch (final ParserConfigurationException ex)
-    {
-      throw new InitializationException ("Failed to instantiate XML reader!", ex);
-    }
-    catch (final SAXException ex)
+    catch (final ParserConfigurationException | SAXException ex)
     {
       throw new InitializationException ("Failed to instantiate XML reader!", ex);
     }

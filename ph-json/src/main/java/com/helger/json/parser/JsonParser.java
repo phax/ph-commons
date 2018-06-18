@@ -40,7 +40,7 @@ import com.helger.json.parser.handler.IJsonParserHandler;
 @NotThreadSafe
 public class JsonParser
 {
-  private static enum EStringQuoteMode
+  private enum EStringQuoteMode
   {
     DOUBLE ('"'),
     SINGLE ('\'');

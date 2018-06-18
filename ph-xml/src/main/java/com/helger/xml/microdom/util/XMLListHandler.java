@@ -171,7 +171,10 @@ public final class XMLListHandler
           s_aLogger.warn ("Ignoring list item because value is null");
         else
           if (!aTargetList.add (sValue))
-            s_aLogger.warn ("Ignoring list item '" + sValue + "' because value is already contained");
+          {
+            if (s_aLogger.isWarnEnabled ())
+              s_aLogger.warn ("Ignoring list item '" + sValue + "' because value is already contained");
+          }
       }
       return ESuccess.SUCCESS;
     }

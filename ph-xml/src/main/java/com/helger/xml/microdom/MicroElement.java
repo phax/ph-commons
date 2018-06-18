@@ -78,11 +78,12 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     else
     {
       // Cut the prefix
-      s_aLogger.warn ("Removing micro element namespace prefix '" +
-                      sTagName.substring (0, nPrefixEnd) +
-                      "' from tag name '" +
-                      sTagName +
-                      "'");
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("Removing micro element namespace prefix '" +
+                        sTagName.substring (0, nPrefixEnd) +
+                        "' from tag name '" +
+                        sTagName +
+                        "'");
       m_sTagName = sTagName.substring (nPrefixEnd + 1);
     }
 

@@ -202,7 +202,8 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
     {
       final long nMillis = aSW.stopAndGetMillis ();
       if (nMillis > 1000)
-        s_aLogger.warn ("Took " + nMillis + " ms to get all thread descriptors!");
+        if (s_aLogger.isWarnEnabled ())
+          s_aLogger.warn ("Took " + nMillis + " ms to get all thread descriptors!");
     }
     return ret;
   }

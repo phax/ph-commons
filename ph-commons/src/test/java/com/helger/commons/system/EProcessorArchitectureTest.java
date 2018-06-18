@@ -50,7 +50,7 @@ public final class EProcessorArchitectureTest
     if (EJVMVendor.getCurrentVendor ().isSun ())
     {
       // For Sun JVMs the architecture must be determined!
-      assertNotSame (eArch, EProcessorArchitecture.UNKNOWN);
+      assertNotSame (EProcessorArchitecture.UNKNOWN, eArch);
     }
     assertEquals (CGlobal.ILLEGAL_UINT, EProcessorArchitecture.UNKNOWN.getBytes ());
     assertEquals (CGlobal.ILLEGAL_UINT, EProcessorArchitecture.UNKNOWN.getBits ());

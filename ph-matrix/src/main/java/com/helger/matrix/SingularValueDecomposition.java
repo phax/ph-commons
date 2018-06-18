@@ -271,7 +271,6 @@ public class SingularValueDecomposition implements Serializable
 
     // Main iteration loop for the singular values.
     final int pp = p - 1;
-    int iter = 0;
     while (p > 0)
     {
       int k;
@@ -458,7 +457,6 @@ public class SingularValueDecomposition implements Serializable
             }
           }
           e[p - 2] = f;
-          iter++;
           break;
         }
 
@@ -504,7 +502,6 @@ public class SingularValueDecomposition implements Serializable
             }
             k++;
           }
-          iter = 0;
           p--;
           break;
         }

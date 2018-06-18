@@ -79,10 +79,11 @@ public enum EXMLIncorrectCharacterHandling
     public void notifyOnInvalidXMLCharacter (@Nonnull @Nonempty final String sText,
                                              @Nonnull final Set <Character> aInvalidChars)
     {
-      s_aLogger.warn ("XML content contains invalid character data (no replacement): '" +
-                      sText +
-                      "'. Invalid chars are: " +
-                      _getAsString (aInvalidChars));
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("XML content contains invalid character data (no replacement): '" +
+                        sText +
+                        "'. Invalid chars are: " +
+                        _getAsString (aInvalidChars));
     }
   },
 
@@ -110,10 +111,11 @@ public enum EXMLIncorrectCharacterHandling
     public void notifyOnInvalidXMLCharacter (@Nonnull @Nonempty final String sText,
                                              @Nonnull final Set <Character> aInvalidChars)
     {
-      s_aLogger.warn ("XML content contains invalid character data (will replace): '" +
-                      sText +
-                      "'. Invalid chars are: " +
-                      _getAsString (aInvalidChars));
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("XML content contains invalid character data (will replace): '" +
+                        sText +
+                        "'. Invalid chars are: " +
+                        _getAsString (aInvalidChars));
     }
   };
 

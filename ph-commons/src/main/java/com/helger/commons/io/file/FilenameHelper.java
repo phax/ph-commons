@@ -636,7 +636,7 @@ public final class FilenameHelper
 
       // Check if a file matches an illegal prefix
       final String sTempRet = ret;
-      if (ArrayHelper.containsAny (ILLEGAL_PREFIXES, x -> sTempRet.equalsIgnoreCase (x)))
+      if (ArrayHelper.containsAny (ILLEGAL_PREFIXES, sTempRet::equalsIgnoreCase))
         ret = ILLEGAL_FILENAME_CHAR_REPLACEMENT + ret;
 
       // check if filename is prefixed with an illegal prefix
