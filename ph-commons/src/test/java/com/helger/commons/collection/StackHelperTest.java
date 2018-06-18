@@ -41,7 +41,7 @@ public final class StackHelperTest
     final NonBlockingStack <String> aStack = StackHelper.newStack ("Hallo", "Welt");
     assertEquals (StackHelper.getStackCopyWithoutTop (aStack), StackHelper.newStack ("Hallo"));
     assertNotNull (aStack);
-    assertEquals (aStack.size (), 2);
+    assertEquals (2, aStack.size ());
     assertTrue (aStack.contains ("Welt"));
     assertTrue (aStack.contains ("Hallo"));
     assertEquals ("Welt", aStack.peek ());
@@ -75,7 +75,7 @@ public final class StackHelperTest
     assertNotNull (aStack);
     aStack = StackHelper.newStack ("Hallo");
     assertNotNull (aStack);
-    assertEquals (aStack.size (), 1);
+    assertEquals (1, aStack.size ());
     assertTrue (aStack.contains ("Hallo"));
     assertEquals ("Hallo", aStack.peek ());
     assertEquals ("Hallo", aStack.pop ());

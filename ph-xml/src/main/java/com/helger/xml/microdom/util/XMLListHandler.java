@@ -141,9 +141,10 @@ public final class XMLListHandler
         return ESuccess.SUCCESS;
       }
     }
-    catch (final Throwable t)
+    catch (final Exception ex)
     {
-      s_aLogger.warn ("Failed to read list resource '" + aIS + "'", t);
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("Failed to read list resource '" + aIS + "'", ex);
     }
     finally
     {
@@ -174,9 +175,9 @@ public final class XMLListHandler
       }
       return ESuccess.SUCCESS;
     }
-    catch (final Throwable t)
+    catch (final Exception ex)
     {
-      s_aLogger.warn ("Failed to read list document", t);
+      s_aLogger.warn ("Failed to read list document", ex);
     }
     return ESuccess.FAILURE;
   }

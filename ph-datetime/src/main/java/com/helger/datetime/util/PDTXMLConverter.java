@@ -217,12 +217,13 @@ public final class PDTXMLConverter
   @Nullable
   public static XMLGregorianCalendar getXMLCalendarDate (@Nullable final XMLGregorianCalendar aBase)
   {
-    return aBase == null ? null
-                         : s_aDTFactory.newXMLGregorianCalendarDate (aBase.getYear (),
-                                                                     aBase.getMonth (),
-                                                                     aBase.getDay (),
-                                                                     aBase.getTimezone () == 0 ? DatatypeConstants.FIELD_UNDEFINED
-                                                                                               : aBase.getTimezone ());
+    if (aBase == null)
+      return null;
+    return s_aDTFactory.newXMLGregorianCalendarDate (aBase.getYear (),
+                                                     aBase.getMonth (),
+                                                     aBase.getDay (),
+                                                     aBase.getTimezone () == 0 ? DatatypeConstants.FIELD_UNDEFINED
+                                                                               : aBase.getTimezone ());
   }
 
   /**

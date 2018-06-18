@@ -103,17 +103,18 @@ public class SimpleLSResourceResolver extends AbstractLSResourceResolver impleme
                                                        @Nullable final String sBaseURI) throws Exception
   {
     if (DEBUG_RESOLVE)
-      s_aLogger.info ("internalResolveResource (" +
-                      sType +
-                      ", " +
-                      sNamespaceURI +
-                      ", " +
-                      sPublicId +
-                      ", " +
-                      sSystemId +
-                      ", " +
-                      sBaseURI +
-                      ")");
+      if (s_aLogger.isInfoEnabled ())
+        s_aLogger.info ("internalResolveResource (" +
+                        sType +
+                        ", " +
+                        sNamespaceURI +
+                        ", " +
+                        sPublicId +
+                        ", " +
+                        sSystemId +
+                        ", " +
+                        sBaseURI +
+                        ")");
 
     return DefaultResourceResolver.getResolvedResource (sSystemId, sBaseURI, getClassLoader ());
   }

@@ -66,14 +66,14 @@ public final class WSTestHelper
           {
             aImplClass = Class.forName (sImplementation);
           }
-          catch (final Throwable t)
+          catch (final Exception ex)
           {
             final String sMsg = "The implementation class '" +
                                 sImplementation +
                                 "' of endpoint '" +
                                 sName +
                                 "' is invalid - " +
-                                t.getMessage ();
+                                ex.getMessage ();
             s_aLogger.warn (sMsg);
             if (!bContinueOnError)
               throw new IllegalStateException (sMsg);
@@ -104,14 +104,14 @@ public final class WSTestHelper
               {
                 aInterfaceClass = Class.forName (sEndpointInterface);
               }
-              catch (final Throwable t)
+              catch (final Exception ex)
               {
                 final String sMsg = "The endpoint interface class '" +
                                     sEndpointInterface +
                                     "' of implementation class '" +
                                     sImplementation +
                                     "' is invalid - " +
-                                    t.getMessage ();
+                                    ex.getMessage ();
                 s_aLogger.warn (sMsg);
                 if (!bContinueOnError)
                   throw new IllegalStateException (sMsg);

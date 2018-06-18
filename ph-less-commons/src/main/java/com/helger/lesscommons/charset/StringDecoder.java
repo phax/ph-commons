@@ -82,8 +82,10 @@ public final class StringDecoder
 
       m_aBuffer = CharBuffer.allocate (nDesiredLength);
     }
-    assert m_aBuffer.position () == 0;
-    assert nExpectedLength <= m_aBuffer.capacity ();
+    if (m_aBuffer.position () != 0)
+      throw new IllegalStateException ("Buffer position weird!");
+    if (nExpectedLength > m_aBuffer.capacity ())
+      throw new IllegalStateException ();
   }
 
   private void _decode (@Nonnull final ByteBuffer aByteBuffer, final boolean bEndOfInput)

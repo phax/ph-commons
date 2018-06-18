@@ -365,13 +365,13 @@ public final class DOMReader
         }
       }
     }
-    catch (final Throwable t)
+    catch (final Exception ex)
     {
-      aSettings.exceptionCallbacks ().forEach (x -> x.onException (t));
+      aSettings.exceptionCallbacks ().forEach (x -> x.onException (ex));
       s_aDomErrorCounterHdl.increment ();
 
-      if (t instanceof SAXException)
-        throw (SAXException) t;
+      if (ex instanceof SAXException)
+        throw (SAXException) ex;
     }
     finally
     {

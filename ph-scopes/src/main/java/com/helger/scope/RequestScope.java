@@ -45,8 +45,7 @@ public class RequestScope extends AbstractScope implements IRequestScope
     // done initialization
     if (ScopeHelper.debugRequestScopeLifeCycle (s_aLogger))
       if (s_aLogger.isInfoEnabled ())
-        s_aLogger.info ("Created request scope '" + sScopeID + "' of class " + ClassHelper.getClassLocalName (this),
-                        ScopeHelper.getDebugStackTrace ());
+        s_aLogger.info ("Created request scope '" + sScopeID + "'", ScopeHelper.getDebugStackTrace ());
   }
 
   @Nonnull

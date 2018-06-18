@@ -193,10 +193,10 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
         ret.addDescriptor (new ThreadDescriptor (aEntry.getKey (), sStackTrace));
       }
     }
-    catch (final Throwable t)
+    catch (final Exception ex)
     {
-      s_aLogger.error ("Error collecting all thread descriptors", t);
-      ret.setError ("Error collecting all thread descriptors: " + _getAsString (t));
+      s_aLogger.error ("Error collecting all thread descriptors", ex);
+      ret.setError ("Error collecting all thread descriptors: " + _getAsString (ex));
     }
     finally
     {

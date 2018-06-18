@@ -329,7 +329,8 @@ public enum EXMLParserProperty implements IHasName
     ValueEnforcer.notNull (aParser, "Parser");
 
     if (m_ePropertyType != EXMLParserPropertyType.GENERAL && m_ePropertyType != EXMLParserPropertyType.SAX)
-      s_aLogger.warn ("Parser property '" + name () + "' is not applicable for SAX parsers!");
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("Parser property '" + name () + "' is not applicable for SAX parsers!");
 
     try
     {
@@ -341,12 +342,14 @@ public enum EXMLParserProperty implements IHasName
       if (!m_bWarnedOnceXMLReader)
       {
         s_aLogger.warn ("XML Parser does not recognize property '" + name () + "'");
-        m_bWarnedOnceXMLReader = true;
+        if (s_aLogger.isWarnEnabled ())
+          m_bWarnedOnceXMLReader = true;
       }
     }
     catch (final SAXNotSupportedException ex)
     {
-      s_aLogger.warn ("XML Parser does not support property '" + name () + "'");
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("XML Parser does not support property '" + name () + "'");
     }
   }
 
@@ -355,7 +358,8 @@ public enum EXMLParserProperty implements IHasName
     ValueEnforcer.notNull (aDocumentBuilderFactory, "DocumentBuilderFactory");
 
     if (m_ePropertyType != EXMLParserPropertyType.GENERAL && m_ePropertyType != EXMLParserPropertyType.DOM)
-      s_aLogger.warn ("Parser property '" + name () + "' is not applicable for DOM parsers!");
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("Parser property '" + name () + "' is not applicable for DOM parsers!");
 
     try
     {
@@ -364,7 +368,8 @@ public enum EXMLParserProperty implements IHasName
     }
     catch (final IllegalArgumentException ex)
     {
-      s_aLogger.warn ("DOM parser does not support property '" + name () + "'");
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("DOM parser does not support property '" + name () + "'");
     }
   }
 
@@ -384,7 +389,8 @@ public enum EXMLParserProperty implements IHasName
     ValueEnforcer.notNull (aSchemaFactory, "SchemaFactory");
 
     if (m_ePropertyType != EXMLParserPropertyType.GENERAL)
-      s_aLogger.warn ("Parser property '" + name () + "' is not applicable for SchemaFactory!");
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("Parser property '" + name () + "' is not applicable for SchemaFactory!");
 
     try
     {
@@ -395,13 +401,15 @@ public enum EXMLParserProperty implements IHasName
     {
       if (!m_bWarnedOnceSchemaFactory)
       {
-        s_aLogger.warn ("SchemaFactory does not recognize property '" + name () + "'");
+        if (s_aLogger.isWarnEnabled ())
+          s_aLogger.warn ("SchemaFactory does not recognize property '" + name () + "'");
         m_bWarnedOnceSchemaFactory = true;
       }
     }
     catch (final SAXNotSupportedException ex)
     {
-      s_aLogger.warn ("SchemaFactory does not support property '" + name () + "'");
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("SchemaFactory does not support property '" + name () + "'");
     }
   }
 
@@ -421,7 +429,8 @@ public enum EXMLParserProperty implements IHasName
     ValueEnforcer.notNull (aValidator, "Validator");
 
     if (m_ePropertyType != EXMLParserPropertyType.GENERAL)
-      s_aLogger.warn ("Parser property '" + name () + "' is not applicable for Validator!");
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("Parser property '" + name () + "' is not applicable for Validator!");
 
     try
     {
@@ -432,13 +441,15 @@ public enum EXMLParserProperty implements IHasName
     {
       if (!m_bWarnedOnceValidator)
       {
-        s_aLogger.warn ("Validator does not recognize property '" + name () + "'");
+        if (s_aLogger.isWarnEnabled ())
+          s_aLogger.warn ("Validator does not recognize property '" + name () + "'");
         m_bWarnedOnceValidator = true;
       }
     }
     catch (final SAXNotSupportedException ex)
     {
-      s_aLogger.warn ("Validator does not support property '" + name () + "'");
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("Validator does not support property '" + name () + "'");
     }
   }
 

@@ -32,27 +32,27 @@ public final class CloneHelperTest
   public void testGetClonedValue () throws CloneNotSupportedException
   {
     assertNull (CloneHelper.getClonedValue (null));
-    assertEquals (CloneHelper.getClonedValue ("Hallo"), "Hallo");
-    assertEquals (CloneHelper.getClonedValue (Double.valueOf (3.1234)), Double.valueOf (3.1234));
+    assertEquals ("Hallo", CloneHelper.getClonedValue ("Hallo"));
+    assertEquals (Double.valueOf (3.1234), CloneHelper.getClonedValue (Double.valueOf (3.1234)));
 
     // java.lang.Cloneable
     final MockCloneable d0 = new MockCloneable ();
-    assertEquals (d0.getI (), 0);
-    assertEquals (d0.clone ().getI (), 1);
-    assertEquals (d0.clone ().clone ().getI (), 2);
-    assertEquals (CloneHelper.getClonedValue (d0).getI (), 1);
+    assertEquals (0, d0.getI ());
+    assertEquals (1, d0.clone ().getI ());
+    assertEquals (2, d0.clone ().clone ().getI ());
+    assertEquals (1, CloneHelper.getClonedValue (d0).getI ());
 
     // ICloneable
     final MockICloneable d1 = new MockICloneable ();
-    assertEquals (d1.getI (), 0);
-    assertEquals (d1.getClone ().getI (), 1);
-    assertEquals (d1.getClone ().getClone ().getI (), 2);
-    assertEquals (CloneHelper.getClonedValue (d1).getI (), 1);
+    assertEquals (0, d1.getI ());
+    assertEquals (1, d1.getClone ().getI ());
+    assertEquals (2, d1.getClone ().getClone ().getI ());
+    assertEquals (1, CloneHelper.getClonedValue (d1).getI ());
 
     final MockWithCopyCtor d2 = new MockWithCopyCtor ();
     // If you get a NullPointerException here, the test class is not in the same
     // package as the class to test!
-    assertEquals (CloneHelper.getClonedValue (d2).getI (), 1);
+    assertEquals (1, CloneHelper.getClonedValue (d2).getI ());
 
     final MockWithPrivateCopyCtor d3 = new MockWithPrivateCopyCtor ();
     assertNull (CloneHelper.getClonedValue (d3));

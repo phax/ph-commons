@@ -76,7 +76,11 @@ public final class XMLHelper
   @Nullable
   public static Document getOwnerDocument (@Nullable final Node aNode)
   {
-    return aNode == null ? null : aNode instanceof Document ? (Document) aNode : aNode.getOwnerDocument ();
+    if (aNode == null)
+      return null;
+    if (aNode instanceof Document)
+      return (Document) aNode;
+    return aNode.getOwnerDocument ();
   }
 
   @Nullable

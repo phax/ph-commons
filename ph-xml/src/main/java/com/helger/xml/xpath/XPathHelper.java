@@ -88,7 +88,7 @@ public final class XPathHelper
                                                 "net.sf.saxon.xpath.XPathFactoryImpl",
                                                 ClassLoaderHelper.getContextClassLoader ());
     }
-    catch (final Throwable t)
+    catch (final Exception ex)
     {
       // Must be Throwable because of e.g. IllegalAccessError (see issue #19)
       // Seems like Saxon is not in the class path - fall back to default JAXP

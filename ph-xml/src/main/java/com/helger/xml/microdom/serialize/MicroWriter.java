@@ -271,9 +271,10 @@ public final class MicroWriter
       if (writeToWriter (aNode, aWriter, aSettings).isSuccess ())
         return aWriter.getAsString ();
     }
-    catch (final Throwable t)
+    catch (final Exception ex)
     {
-      s_aLogger.error ("Error serializing MicroDOM with settings " + aSettings.toString (), t);
+      if (s_aLogger.isErrorEnabled ())
+        s_aLogger.error ("Error serializing MicroDOM with settings " + aSettings.toString (), ex);
     }
     return null;
   }
@@ -319,9 +320,10 @@ public final class MicroWriter
       if (writeToStream (aNode, aBAOS, aSettings).isSuccess ())
         return aBAOS.toByteArray ();
     }
-    catch (final Throwable t)
+    catch (final Exception ex)
     {
-      s_aLogger.error ("Error serializing MicroDOM with settings " + aSettings.toString (), t);
+      if (s_aLogger.isErrorEnabled ())
+        s_aLogger.error ("Error serializing MicroDOM with settings " + aSettings.toString (), ex);
     }
     return null;
   }

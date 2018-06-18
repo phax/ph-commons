@@ -37,30 +37,30 @@ public final class MutableByteTest
   public void testMutableByte ()
   {
     final MutableByte x = new MutableByte (0);
-    assertEquals (x.byteValue (), 0);
+    assertEquals (0, x.byteValue ());
     assertEquals (x.getAsByte (), Byte.valueOf ((byte) 0));
     assertFalse (x.isNot0 ());
     assertTrue (x.is0 ());
 
     x.inc ();
-    assertEquals (x.byteValue (), 1);
+    assertEquals (1, x.byteValue ());
     assertNotEquals (x.hashCode (), x.byteValue ());
 
     x.inc (5);
-    assertEquals (x.byteValue (), 6);
+    assertEquals (6, x.byteValue ());
     assertNotEquals (x.hashCode (), x.byteValue ());
 
     x.inc (-2);
-    assertEquals (x.byteValue (), 4);
+    assertEquals (4, x.byteValue ());
     assertNotEquals (x.hashCode (), x.byteValue ());
 
     x.dec ();
-    assertEquals (x.byteValue (), 3);
+    assertEquals (3, x.byteValue ());
     assertFalse (x.isEven ());
     assertNotEquals (x.hashCode (), x.byteValue ());
 
     x.dec (5);
-    assertEquals (x.byteValue (), -2);
+    assertEquals (-2, x.byteValue ());
     assertTrue (x.isNot0 ());
     assertFalse (x.is0 ());
     assertTrue (x.isEven ());
@@ -69,25 +69,25 @@ public final class MutableByteTest
     assertTrue (x.set (255).isChanged ());
     assertFalse (x.set (255).isChanged ());
     assertFalse (x.isEven ());
-    assertEquals (x.byteValue (), -1);
+    assertEquals (-1, x.byteValue ());
 
     assertTrue (x.set (0).isChanged ());
-    assertEquals (x.byteValue (), 0);
+    assertEquals (0, x.byteValue ());
 
     assertTrue (x.set (127).isChanged ());
-    assertEquals (x.byteValue (), 127);
+    assertEquals (127, x.byteValue ());
 
     assertTrue (x.set (128).isChanged ());
-    assertEquals (x.byteValue (), -128);
+    assertEquals (-128, x.byteValue ());
 
     assertTrue (x.set (255).isChanged ());
-    assertEquals (x.byteValue (), -1);
+    assertEquals (-1, x.byteValue ());
 
     assertTrue (x.set (256).isChanged ());
-    assertEquals (x.byteValue (), 0);
+    assertEquals (0, x.byteValue ());
 
     assertTrue (x.set (257).isChanged ());
-    assertEquals (x.byteValue (), 1);
+    assertEquals (1, x.byteValue ());
 
     assertEquals (-1, new MutableByte (4).compareTo (new MutableByte (5)));
     assertEquals (0, new MutableByte (5).compareTo (new MutableByte (5)));

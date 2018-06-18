@@ -318,10 +318,6 @@ public class EigenvalueDecomposition implements Serializable
           // Check for convergence.
 
         } while (MathHelper.abs (m_aEVe[l]) > EPSILON * tst1);
-
-        // Dummy
-        if (iter > 0)
-        {}
       }
       m_aEVd[l] = m_aEVd[l] + f;
       m_aEVe[l] = 0.0;

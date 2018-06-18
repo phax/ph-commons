@@ -65,7 +65,7 @@ public final class MicroProcessingInstruction extends AbstractMicroNode implemen
   @Nonempty
   public String getNodeValue ()
   {
-    return m_sTarget;
+    return getTarget ();
   }
 
   public String getTarget ()

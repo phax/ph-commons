@@ -72,11 +72,12 @@ public final class MicroQName implements IMicroQName, IComparable <MicroQName>
     else
     {
       // Cut the prefix
-      s_aLogger.warn ("Removing namespace prefix '" +
-                      sName.substring (0, nPrefixEnd) +
-                      "' from micro XML name '" +
-                      sName +
-                      "'");
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("Removing namespace prefix '" +
+                        sName.substring (0, nPrefixEnd) +
+                        "' from micro XML name '" +
+                        sName +
+                        "'");
       m_sName = sName.substring (nPrefixEnd + 1);
     }
 

@@ -100,13 +100,13 @@ public final class IteratorHelperTest
     final List <String> aList = newList ("d", "c", "b", "a");
     Enumeration <String> aEnum = getEnumeration (aList.iterator ());
     assertTrue (aEnum.hasMoreElements ());
-    assertEquals (aEnum.nextElement (), "d");
+    assertEquals ("d", aEnum.nextElement ());
     assertTrue (aEnum.hasMoreElements ());
-    assertEquals (aEnum.nextElement (), "c");
+    assertEquals ("c", aEnum.nextElement ());
     assertTrue (aEnum.hasMoreElements ());
-    assertEquals (aEnum.nextElement (), "b");
+    assertEquals ("b", aEnum.nextElement ());
     assertTrue (aEnum.hasMoreElements ());
-    assertEquals (aEnum.nextElement (), "a");
+    assertEquals ("a", aEnum.nextElement ());
     assertFalse (aEnum.hasMoreElements ());
     assertFalse (aEnum.hasMoreElements ());
 
@@ -123,13 +123,13 @@ public final class IteratorHelperTest
     final List <String> aList = newList ("d", "c", "b", "a");
     final Iterator <String> it = getReverseIterator (aList);
     assertTrue (it.hasNext ());
-    assertEquals (it.next (), "a");
+    assertEquals ("a", it.next ());
     assertTrue (it.hasNext ());
-    assertEquals (it.next (), "b");
+    assertEquals ("b", it.next ());
     assertTrue (it.hasNext ());
-    assertEquals (it.next (), "c");
+    assertEquals ("c", it.next ());
     assertTrue (it.hasNext ());
-    assertEquals (it.next (), "d");
+    assertEquals ("d", it.next ());
     assertFalse (it.hasNext ());
     assertFalse (it.hasNext ());
     try

@@ -103,7 +103,8 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
       // Handle location
       final SimpleLocation aLocation = SimpleLocation.create (m_aLocator);
       if (false)
-        s_aLogger.info (sWhat + " " + aLocation.toString ());
+        if (s_aLogger.isInfoEnabled ())
+          s_aLogger.info (sWhat + " " + aLocation.toString ());
     }
   }
 
@@ -295,12 +296,25 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
     // If using XHTML this should be replaced by using the LocalEntityResolver
     // instead
     if (sPublicId == null)
-      s_aLogger.info ("Need to resolve entity with system ID '" + sSystemId + "'");
+    {
+      if (s_aLogger.isInfoEnabled ())
+        s_aLogger.info ("Need to resolve entity with system ID '" + sSystemId + "'");
+    }
     else
       if (sSystemId == null)
-        s_aLogger.info ("Need to resolve entity with public ID '" + sPublicId + "'");
+      {
+        if (s_aLogger.isInfoEnabled ())
+          s_aLogger.info ("Need to resolve entity with public ID '" + sPublicId + "'");
+      }
       else
-        s_aLogger.info ("Need to resolve entity with public ID '" + sPublicId + "' and system ID '" + sSystemId + "'");
+      {
+        if (s_aLogger.isInfoEnabled ())
+          s_aLogger.info ("Need to resolve entity with public ID '" +
+                          sPublicId +
+                          "' and system ID '" +
+                          sSystemId +
+                          "'");
+      }
     return null;
   }
 
@@ -330,15 +344,16 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
     if (aER != null)
       return aER.resolveEntity (sPublicId, sSystemId);
 
-    s_aLogger.info ("Need to resolve entity with name '" +
-                    sName +
-                    "', public ID '" +
-                    sPublicId +
-                    "' base URI '" +
-                    sBaseURI +
-                    "' and system ID '" +
-                    sSystemId +
-                    "'");
+    if (s_aLogger.isInfoEnabled ())
+      s_aLogger.info ("Need to resolve entity with name '" +
+                      sName +
+                      "', public ID '" +
+                      sPublicId +
+                      "' base URI '" +
+                      sBaseURI +
+                      "' and system ID '" +
+                      sSystemId +
+                      "'");
     return null;
   }
 
@@ -348,33 +363,38 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
                                   final String sNotationName)
   {
     _updatePosition ("unparsedEntityDecl");
-    s_aLogger.warn ("Unparsed entity decl: " + sName + "--" + sPublicId + "--" + sSystemId + "--" + sNotationName);
+    if (s_aLogger.isWarnEnabled ())
+      s_aLogger.warn ("Unparsed entity decl: " + sName + "--" + sPublicId + "--" + sSystemId + "--" + sNotationName);
   }
 
   public void notationDecl (final String sName, final String sPublicId, final String sSystemId) throws SAXException
   {
     _updatePosition ("notationDecl");
-    s_aLogger.warn ("Unparsed notation decl: " + sName + "--" + sPublicId + "--" + sSystemId);
+    if (s_aLogger.isWarnEnabled ())
+      s_aLogger.warn ("Unparsed notation decl: " + sName + "--" + sPublicId + "--" + sSystemId);
   }
 
   public void skippedEntity (final String sName)
   {
     _updatePosition ("skippedEntity");
-    s_aLogger.warn ("Skipped entity: " + sName);
+    if (s_aLogger.isWarnEnabled ())
+      s_aLogger.warn ("Skipped entity: " + sName);
   }
 
   public void startEntity (final String sName) throws SAXException
   {
     _updatePosition ("startEntity");
     if (false)
-      s_aLogger.warn ("Start entity: " + sName);
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("Start entity: " + sName);
   }
 
   public void endEntity (final String sName) throws SAXException
   {
     _updatePosition ("endEntity");
     if (false)
-      s_aLogger.warn ("End entity: " + sName);
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("End entity: " + sName);
   }
 
   public void startCDATA () throws SAXException
@@ -409,17 +429,20 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
 
   public void warning (final SAXParseException ex)
   {
-    s_aLogger.warn (_getMsg (EErrorLevel.WARN, ex));
+    if (s_aLogger.isWarnEnabled ())
+      s_aLogger.warn (_getMsg (EErrorLevel.WARN, ex));
   }
 
   public void error (final SAXParseException ex)
   {
-    s_aLogger.error (_getMsg (EErrorLevel.ERROR, ex));
+    if (s_aLogger.isErrorEnabled ())
+      s_aLogger.error (_getMsg (EErrorLevel.ERROR, ex));
   }
 
   public void fatalError (final SAXParseException ex)
   {
-    s_aLogger.error (_getMsg (EErrorLevel.FATAL_ERROR, ex));
+    if (s_aLogger.isErrorEnabled ())
+      s_aLogger.error (_getMsg (EErrorLevel.FATAL_ERROR, ex));
   }
 
   /**

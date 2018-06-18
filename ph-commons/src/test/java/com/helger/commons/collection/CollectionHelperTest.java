@@ -191,7 +191,7 @@ public final class CollectionHelperTest
   {
     final Map <String, Integer> aMap = newMap ("Hallo", I5);
     assertNotNull (aMap);
-    assertEquals (aMap.size (), 1);
+    assertEquals (1, aMap.size ());
     assertNotNull (aMap.get ("Hallo"));
     assertEquals (I5, aMap.get ("Hallo"));
   }
@@ -203,7 +203,7 @@ public final class CollectionHelperTest
     assertNotNull (aMap);
 
     final Map <String, Integer> aMap2 = newMap (aMap);
-    assertEquals (aMap2.size (), 1);
+    assertEquals (1, aMap2.size ());
     assertNotNull (aMap2.get ("Hallo"));
     assertEquals (I5, aMap2.get ("Hallo"));
   }
@@ -215,12 +215,12 @@ public final class CollectionHelperTest
     final Map <String, Integer> aMapB = newMap ("Welt", I3);
 
     Map <String, Integer> aMap2 = newMap (ArrayHelper.newArray (aMapA, aMapB));
-    assertEquals (aMap2.size (), 2);
+    assertEquals (2, aMap2.size ());
     assertEquals (I5, aMap2.get ("Hallo"));
     assertEquals (I3, aMap2.get ("Welt"));
 
     aMap2 = newMap (ArrayHelper.newArray (aMapA, aMapA));
-    assertEquals (aMap2.size (), 1);
+    assertEquals (1, aMap2.size ());
     assertEquals (I5, aMap2.get ("Hallo"));
   }
 
@@ -494,7 +494,7 @@ public final class CollectionHelperTest
   {
     final Map <String, Integer> aMap = newOrderedMap ("Hallo", I5);
     assertNotNull (aMap);
-    assertEquals (aMap.size (), 1);
+    assertEquals (1, aMap.size ());
     assertNotNull (aMap.get ("Hallo"));
     assertEquals (I5, aMap.get ("Hallo"));
   }

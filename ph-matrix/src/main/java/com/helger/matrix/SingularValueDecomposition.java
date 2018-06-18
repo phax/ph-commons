@@ -512,10 +512,6 @@ public class SingularValueDecomposition implements Serializable
           throw new IllegalStateException ();
       }
     }
-
-    // Dummy
-    if (iter > 0)
-    {}
   }
 
   /*

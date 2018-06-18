@@ -42,8 +42,7 @@ public class SessionScope extends AbstractScope implements ISessionScope
 
     // Sessions are always displayed to see what's happening
     if (ScopeHelper.debugSessionScopeLifeCycle (s_aLogger))
-      s_aLogger.info ("Created session scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
-                      ScopeHelper.getDebugStackTrace ());
+      s_aLogger.info ("Created session scope '" + sScopeID + "'", ScopeHelper.getDebugStackTrace ());
   }
 
   public void initScope ()

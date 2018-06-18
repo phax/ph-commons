@@ -252,11 +252,14 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     if (aPropertyValue != null &&
         eProperty.getValueClass () != null &&
         !eProperty.getValueClass ().isAssignableFrom (aPropertyValue.getClass ()))
-      s_aLogger.warn ("Setting the XML parser property '" +
-                      eProperty +
-                      "' to a value of " +
-                      aPropertyValue.getClass () +
-                      " will most likely not be interpreted!");
+    {
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("Setting the XML parser property '" +
+                        eProperty +
+                        "' to a value of " +
+                        aPropertyValue.getClass () +
+                        " will most likely not be interpreted!");
+    }
 
     if (aPropertyValue != null)
       m_aProperties.put (eProperty, aPropertyValue);
@@ -455,7 +458,8 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     }
     catch (final UnsupportedOperationException ex)
     {
-      s_aLogger.warn ("DocumentBuilderFactory does not support XML Schema: " + ex.getMessage ());
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("DocumentBuilderFactory does not support XML Schema: " + ex.getMessage ());
     }
     try
     {
@@ -463,7 +467,8 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     }
     catch (final UnsupportedOperationException ex)
     {
-      s_aLogger.warn ("DocumentBuilderFactory does not support XInclude setting: " + ex.getMessage ());
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("DocumentBuilderFactory does not support XInclude setting: " + ex.getMessage ());
     }
 
     // Apply properties

@@ -111,22 +111,24 @@ public abstract class AbstractXMLSerializer <NODETYPE>
       // namespace prefix uniqueness check
       final String sExistingNamespaceURI = getNamespaceURIOfPrefix (sPrefix);
       if (sExistingNamespaceURI != null && !sExistingNamespaceURI.equals (sNamespaceURI))
-        s_aLogger.warn ("Overwriting namespace prefix '" +
-                        sPrefix +
-                        "' to use URL '" +
-                        sNamespaceURI +
-                        "' instead of '" +
-                        sExistingNamespaceURI +
-                        "'");
+        if (s_aLogger.isWarnEnabled ())
+          s_aLogger.warn ("Overwriting namespace prefix '" +
+                          sPrefix +
+                          "' to use URL '" +
+                          sNamespaceURI +
+                          "' instead of '" +
+                          sExistingNamespaceURI +
+                          "'");
 
       if (StringHelper.hasNoText (sPrefix))
       {
         if (m_sDefaultNamespaceURI != null)
-          s_aLogger.warn ("Overwriting default namespace '" +
-                          m_sDefaultNamespaceURI +
-                          "' with namespace '" +
-                          sNamespaceURI +
-                          "'");
+          if (s_aLogger.isWarnEnabled ())
+            s_aLogger.warn ("Overwriting default namespace '" +
+                            m_sDefaultNamespaceURI +
+                            "' with namespace '" +
+                            sNamespaceURI +
+                            "'");
         m_sDefaultNamespaceURI = sNamespaceURI;
       }
       else

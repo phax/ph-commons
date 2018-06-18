@@ -600,11 +600,12 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
     {
       // Just a small note in case we're returning an unusable object
       if (!aInstance.isUsableObject ())
-        s_aLogger.warn ("Singleton '" +
-                        aClass.getName () +
-                        "' is not usable - please check your calling order: " +
-                        aInstance.toString (),
-                        SingletonHelper.getDebugStackTrace ());
+        if (s_aLogger.isWarnEnabled ())
+          s_aLogger.warn ("Singleton '" +
+                          aClass.getName () +
+                          "' is not usable - please check your calling order: " +
+                          aInstance.toString (),
+                          SingletonHelper.getDebugStackTrace ());
     }
 
     return aInstance;

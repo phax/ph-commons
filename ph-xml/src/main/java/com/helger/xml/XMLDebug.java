@@ -109,7 +109,8 @@ public final class XMLDebug
   {
     for (final Map.Entry <EXMLDOMFeatureVersion, ICommonsList <String>> aEntry : s_aSupportedFeatures.entrySet ())
       for (final String sFeature : aEntry.getValue ())
-        s_aLogger.info ("DOM " + aEntry.getKey ().getID () + " feature '" + sFeature + "' is present");
+        if (s_aLogger.isInfoEnabled ())
+          s_aLogger.info ("DOM " + aEntry.getKey ().getID () + " feature '" + sFeature + "' is present");
   }
 
   @Nonnull
@@ -119,7 +120,8 @@ public final class XMLDebug
     if (eNodeType != null)
       return eNodeType.name ();
 
-    s_aLogger.warn ("Unknown Node type " + nNodeType);
+    if (s_aLogger.isWarnEnabled ())
+      s_aLogger.warn ("Unknown Node type " + nNodeType);
     return Integer.toString (nNodeType);
   }
 }

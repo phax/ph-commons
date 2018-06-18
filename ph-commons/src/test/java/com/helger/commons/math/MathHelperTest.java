@@ -267,7 +267,7 @@ public final class MathHelperTest
   @Test
   public void testGetUnsignedInt ()
   {
-    assertEquals (MathHelper.getUnsignedInt (-740679319), 3554287977L);
+    assertEquals (3554287977L, MathHelper.getUnsignedInt (-740679319));
   }
 
   @Test

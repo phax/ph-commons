@@ -132,7 +132,7 @@ public final class XMLMapHandler
     ValueEnforcer.notNull (aIS, "InputStream");
     ValueEnforcer.notNull (aTargetMap, "TargetMap");
 
-    try
+    try (final InputStream aCloseMe = aIS)
     {
       // open file
       final IMicroDocument aDoc = MicroReader.readMicroXML (aIS);
@@ -142,13 +142,10 @@ public final class XMLMapHandler
         return ESuccess.SUCCESS;
       }
     }
-    catch (final Throwable t)
+    catch (final Exception ex)
     {
-      s_aLogger.warn ("Failed to read mapping resource '" + aIS + "'", t);
-    }
-    finally
-    {
-      StreamHelper.close (aIS);
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("Failed to read mapping resource '" + aIS + "'", ex);
     }
     return ESuccess.FAILURE;
   }
@@ -176,16 +173,18 @@ public final class XMLMapHandler
           else
           {
             if (aTargetMap.containsKey (sName))
-              s_aLogger.warn ("Key '" + sName + "' is already contained - overwriting!");
+              if (s_aLogger.isWarnEnabled ())
+                s_aLogger.warn ("Key '" + sName + "' is already contained - overwriting!");
             aTargetMap.put (sName, sValue);
           }
         }
       }
       return ESuccess.SUCCESS;
     }
-    catch (final Throwable t)
+    catch (final Exception ex)
     {
-      s_aLogger.warn ("Failed to read mapping document", t);
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("Failed to read mapping document", ex);
     }
     return ESuccess.FAILURE;
   }

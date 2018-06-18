@@ -105,7 +105,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   @Nonempty
   public String getNodeName ()
   {
-    return m_sTagName;
+    return getTagName ();
   }
 
   public boolean hasAttributes ()

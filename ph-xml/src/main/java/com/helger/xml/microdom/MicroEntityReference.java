@@ -57,7 +57,7 @@ public final class MicroEntityReference extends AbstractMicroNode implements IMi
   @Nonempty
   public String getNodeValue ()
   {
-    return m_sName;
+    return getName ();
   }
 
   @Nonnull

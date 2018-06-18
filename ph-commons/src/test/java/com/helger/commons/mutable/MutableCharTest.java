@@ -37,25 +37,25 @@ public final class MutableCharTest
   public void testMutableChar ()
   {
     final MutableChar x = new MutableChar ('\0');
-    assertEquals (x.charValue (), 0);
+    assertEquals (0, x.charValue ());
     assertEquals (x.getAsCharacter (), Character.valueOf ((char) 0));
     assertFalse (x.isNot0 ());
     assertTrue (x.is0 ());
 
     x.inc ();
-    assertEquals (x.charValue (), 1);
+    assertEquals (1, x.charValue ());
     assertNotEquals (x.hashCode (), x.charValue ());
 
     x.inc (5);
-    assertEquals (x.charValue (), 6);
+    assertEquals (6, x.charValue ());
     assertNotEquals (x.hashCode (), x.charValue ());
 
     x.inc (-2);
-    assertEquals (x.charValue (), 4);
+    assertEquals (4, x.charValue ());
     assertNotEquals (x.hashCode (), x.charValue ());
 
     x.dec ();
-    assertEquals (x.charValue (), 3);
+    assertEquals (3, x.charValue ());
     assertFalse (x.isEven ());
     assertNotEquals (x.hashCode (), x.charValue ());
 

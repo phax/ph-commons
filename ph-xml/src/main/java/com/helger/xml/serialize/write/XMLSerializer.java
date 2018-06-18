@@ -114,7 +114,7 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
         sXMLVersion = aDocument.getXmlVersion ();
         bIsDocumentStandalone = aDocument.getXmlStandalone ();
       }
-      catch (final Throwable t)
+      catch (final LinkageError ex)
       {
         // Happens e.g. in dom4j 1.6.1:
         // AbstractMethodError: getXmlVersion and getXmlStandalone

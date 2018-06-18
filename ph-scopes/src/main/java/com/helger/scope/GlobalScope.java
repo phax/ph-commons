@@ -42,8 +42,7 @@ public class GlobalScope extends AbstractScope implements IGlobalScope
     super (sScopeID);
 
     if (ScopeHelper.debugGlobalScopeLifeCycle (s_aLogger))
-      s_aLogger.info ("Created global scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
-                      ScopeHelper.getDebugStackTrace ());
+      s_aLogger.info ("Created global scope '" + sScopeID + "'", ScopeHelper.getDebugStackTrace ());
   }
 
   public void initScope ()

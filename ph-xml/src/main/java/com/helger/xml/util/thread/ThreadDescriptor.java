@@ -99,9 +99,10 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
       if (isEnableThreadInfo ())
         aThreadInfo = THREAD_MX.getThreadInfo (new long [] { m_nID }, true, true)[0];
     }
-    catch (final Throwable t)
+    catch (final Exception ex)
     {
-      s_aLogger.error ("Failed to get ThreadInfo for thread " + m_nID + ": " + t.toString ());
+      if (s_aLogger.isErrorEnabled ())
+        s_aLogger.error ("Failed to get ThreadInfo for thread " + m_nID + ":", ex);
     }
     m_aThreadInfo = aThreadInfo;
   }
@@ -174,9 +175,9 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
           }
         }
       }
-      catch (final Throwable t)
+      catch (final Exception ex)
       {
-        aSB.append ("Error retrieving infos: ").append (t.toString ());
+        aSB.append ("Error retrieving infos: ").append (ex.toString ());
       }
     return aSB.toString ();
   }
@@ -237,9 +238,9 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
           }
         }
       }
-      catch (final Throwable t)
+      catch (final Exception ex)
       {
-        eThreadInfo.setAttribute ("error", t.getMessage ()).appendText (StackTraceHelper.getStackAsString (t));
+        eThreadInfo.setAttribute ("error", ex.getMessage ()).appendText (StackTraceHelper.getStackAsString (ex));
       }
     }
     return eRet;

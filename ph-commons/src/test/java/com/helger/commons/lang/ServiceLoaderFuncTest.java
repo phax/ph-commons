@@ -152,7 +152,7 @@ public final class ServiceLoaderFuncTest
     aNext = it.next ();
     assertNotNull (aNext);
     assertTrue (aNext instanceof MockSPIClearableValid);
-    assertEquals (((MockSPIClearableValid) aNext).getCallCount (), 0);
+    assertEquals (0, ((MockSPIClearableValid) aNext).getCallCount ());
     assertFalse (it.hasNext ());
     try
     {

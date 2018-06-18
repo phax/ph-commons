@@ -259,9 +259,9 @@ public final class SAXReader
       if (!bHandled)
         aSettings.exceptionCallbacks ().forEach (x -> x.onException (ex));
     }
-    catch (final Throwable t)
+    catch (final Exception ex)
     {
-      aSettings.exceptionCallbacks ().forEach (x -> x.onException (t));
+      aSettings.exceptionCallbacks ().forEach (x -> x.onException (ex));
     }
     finally
     {

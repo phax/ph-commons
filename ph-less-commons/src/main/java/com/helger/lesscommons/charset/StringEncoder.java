@@ -136,7 +136,8 @@ public final class StringEncoder
         {
           // NOTE: destination could space remaining, in case of a multi-byte
           // sequence
-          assert aDestBuffer.remaining () < m_aEncoder.maxBytesPerChar ();
+          if (aDestBuffer.remaining () >= m_aEncoder.maxBytesPerChar ())
+            throw new IllegalStateException ();
           return EContinue.CONTINUE;
         }
         assert aResult == CoderResult.UNDERFLOW;
@@ -154,7 +155,8 @@ public final class StringEncoder
         _readInputChunk (sSource);
       }
     }
-    assert !m_aInChar.hasRemaining ();
+    if (m_aInChar.hasRemaining ())
+      throw new IllegalStateException ();
     assert m_nReadOffset == sSource.length ();
 
     final CoderResult aResult = m_aEncoder.flush (aDestBuffer);
