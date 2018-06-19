@@ -311,7 +311,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
    * @param aFile
    *        The file that was read. May be <code>null</code> for in-memory DAOs.
    */
-  protected static void triggerExceptionHandlersRead (@Nonnull final Exception ex,
+  protected static void triggerExceptionHandlersRead (@Nonnull final Throwable t,
                                                       final boolean bIsInitialization,
                                                       @Nullable final File aFile)
   {
@@ -319,7 +319,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
     if (exceptionHandlersRead ().isNotEmpty ())
     {
       final IReadableResource aRes = aFile == null ? null : new FileSystemResource (aFile);
-      exceptionHandlersRead ().forEach (aCB -> aCB.onDAOReadException (ex, bIsInitialization, aRes));
+      exceptionHandlersRead ().forEach (aCB -> aCB.onDAOReadException (t, bIsInitialization, aRes));
     }
   }
 
@@ -720,7 +720,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
    *        The XML content that should be written. May be <code>null</code> if
    *        the error occurred in XML creation.
    */
-  protected static void triggerExceptionHandlersWrite (@Nonnull final Exception ex,
+  protected static void triggerExceptionHandlersWrite (@Nonnull final Throwable t,
                                                        @Nonnull final String sErrorFilename,
                                                        @Nullable final IMicroDocument aDoc)
   {
@@ -729,7 +729,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
     {
       final IReadableResource aRes = new FileSystemResource (sErrorFilename);
       final String sXMLContent = aDoc == null ? "no XML document created" : MicroWriter.getNodeAsString (aDoc);
-      exceptionHandlersWrite ().forEach (aCB -> aCB.onDAOWriteException (ex, aRes, sXMLContent));
+      exceptionHandlersWrite ().forEach (aCB -> aCB.onDAOWriteException (t, aRes, sXMLContent));
     }
   }
 
