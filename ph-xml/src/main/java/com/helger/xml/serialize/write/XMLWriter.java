@@ -211,9 +211,10 @@ public final class XMLWriter
         return aWriter.getAsString ();
       }
     }
-    catch (final Throwable t)
+    catch (final Exception ex)
     {
-      s_aLogger.error ("Error serializing DOM node with settings " + aSettings.toString (), t);
+      if (s_aLogger.isErrorEnabled ())
+        s_aLogger.error ("Error serializing DOM node with settings " + aSettings.toString (), ex);
     }
     return null;
   }
@@ -259,9 +260,10 @@ public final class XMLWriter
       if (writeToStream (aNode, aWriter, aSettings).isSuccess ())
         return aWriter.toByteArray ();
     }
-    catch (final Throwable t)
+    catch (final Exception ex)
     {
-      s_aLogger.error ("Error serializing DOM node with settings " + aSettings.toString (), t);
+      if (s_aLogger.isErrorEnabled ())
+        s_aLogger.error ("Error serializing DOM node with settings " + aSettings.toString (), ex);
     }
     return null;
   }

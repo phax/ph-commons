@@ -137,7 +137,7 @@ public final class MultilingualTextTest
     assertTrue (aMLT.getAllLocales ().contains (Locale.ENGLISH));
     assertFalse (aMLT.containsLocale (Locale.GERMAN));
     assertFalse (aMLT.getAllLocales ().contains (Locale.GERMAN));
-    assertEquals (aMLT.getText (Locale.ENGLISH), "Hello2");
+    assertEquals ("Hello2", aMLT.getText (Locale.ENGLISH));
     assertNull (aMLT.getText (Locale.GERMAN));
 
     aMLT.setText (Locale.GERMAN, "Hallo");
@@ -147,8 +147,8 @@ public final class MultilingualTextTest
     assertTrue (aMLT.getAllLocales ().contains (Locale.ENGLISH));
     assertTrue (aMLT.containsLocale (Locale.GERMAN));
     assertTrue (aMLT.getAllLocales ().contains (Locale.GERMAN));
-    assertEquals (aMLT.getText (Locale.ENGLISH), "Hello2");
-    assertEquals (aMLT.getText (Locale.GERMAN), "Hallo2");
+    assertEquals ("Hello2", aMLT.getText (Locale.ENGLISH));
+    assertEquals ("Hallo2", aMLT.getText (Locale.GERMAN));
   }
 
   @Test

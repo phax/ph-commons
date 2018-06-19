@@ -215,6 +215,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     return m_aData;
   }
 
+  @Override
   public final boolean hasChildren ()
   {
     return m_aChildMap != null && m_aChildMap.isNotEmpty ();
@@ -239,12 +240,14 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     return m_aChildren;
   }
 
+  @Override
   public final void forAllChildren (@Nonnull final Consumer <? super ITEMTYPE> aConsumer)
   {
     if (m_aChildren != null)
       m_aChildren.forEach (aConsumer);
   }
 
+  @Override
   public final void forAllChildren (@Nonnull final Predicate <? super ITEMTYPE> aFilter,
                                     @Nonnull final Consumer <? super ITEMTYPE> aConsumer)
   {
@@ -252,6 +255,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
       m_aChildren.findAll (aFilter, aConsumer);
   }
 
+  @Override
   public final <DSTTYPE> void forAllChildrenMapped (@Nonnull final Predicate <? super ITEMTYPE> aFilter,
                                                     @Nonnull final Function <? super ITEMTYPE, ? extends DSTTYPE> aMapper,
                                                     @Nonnull final Consumer <? super DSTTYPE> aConsumer)
@@ -286,18 +290,21 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     return m_aChildren.get (nIndex);
   }
 
+  @Override
   @Nullable
   public final ITEMTYPE getFirstChild ()
   {
     return m_aChildren == null ? null : m_aChildren.getFirst ();
   }
 
+  @Override
   @Nullable
   public final ITEMTYPE findFirstChild (@Nonnull final Predicate <? super ITEMTYPE> aFilter)
   {
     return m_aChildren == null ? null : m_aChildren.findFirst (aFilter);
   }
 
+  @Override
   @Nullable
   public final <DSTTYPE> DSTTYPE findFirstChildMapped (@Nonnull final Predicate <? super ITEMTYPE> aFilter,
                                                        @Nonnull final Function <? super ITEMTYPE, ? extends DSTTYPE> aMapper)
@@ -305,6 +312,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     return m_aChildren == null ? null : m_aChildren.findFirstMapped (aFilter, aMapper);
   }
 
+  @Override
   @Nullable
   public final ITEMTYPE getLastChild ()
   {

@@ -47,11 +47,13 @@ public interface ITreeWithUniqueIDProxy <KEYTYPE, VALUETYPE> extends
   @Nonnull
   DefaultTreeWithGlobalUniqueID <KEYTYPE, VALUETYPE> getProxyTree ();
 
+  @Override
   default boolean hasChildren ()
   {
     return getProxyTree ().hasChildren ();
   }
 
+  @Override
   default boolean hasNoChildren ()
   {
     return getProxyTree ().hasNoChildren ();
@@ -76,17 +78,20 @@ public interface ITreeWithUniqueIDProxy <KEYTYPE, VALUETYPE> extends
     return getProxyTree ().getChildren ();
   }
 
+  @Override
   default void forAllChildren (@Nonnull final Consumer <? super DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> aConsumer)
   {
     getProxyTree ().forAllChildren (aConsumer);
   }
 
+  @Override
   default void forAllChildren (@Nonnull final Predicate <? super DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> aFilter,
                                @Nonnull final Consumer <? super DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> aConsumer)
   {
     getProxyTree ().forAllChildren (aFilter, aConsumer);
   }
 
+  @Override
   default <DSTTYPE> void forAllChildrenMapped (@Nonnull final Predicate <? super DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> aFilter,
                                                @Nonnull final Function <? super DefaultTreeItemWithID <KEYTYPE, VALUETYPE>, ? extends DSTTYPE> aMapper,
                                                @Nonnull final Consumer <? super DSTTYPE> aConsumer)
@@ -107,11 +112,13 @@ public interface ITreeWithUniqueIDProxy <KEYTYPE, VALUETYPE> extends
     return getProxyTree ().getChildWithID (aCurrent, aID);
   }
 
+  @Override
   default boolean hasChildren (@Nullable final DefaultTreeItemWithID <KEYTYPE, VALUETYPE> aCurrent)
   {
     return getProxyTree ().hasChildren (aCurrent);
   }
 
+  @Override
   default boolean hasNoChildren (@Nullable final DefaultTreeItemWithID <KEYTYPE, VALUETYPE> aCurrent)
   {
     return getProxyTree ().hasNoChildren (aCurrent);

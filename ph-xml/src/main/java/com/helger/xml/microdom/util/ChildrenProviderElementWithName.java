@@ -53,6 +53,7 @@ public final class ChildrenProviderElementWithName implements IChildrenProvider 
     m_sTagName = ValueEnforcer.notEmpty (sTagName, "TagName");
   }
 
+  @Override
   public boolean hasChildren (@Nullable final IMicroElement aCurrent)
   {
     // Not an element?

@@ -234,6 +234,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
       m_aChildren.findAllMapped (aFilter, aMapper, aConsumer);
   }
 
+  @Override
   public boolean containsAnyChild (@Nonnull final Predicate <? super IMicroNode> aFilter)
   {
     ValueEnforcer.notNull (aFilter, "Filter");

@@ -40,118 +40,118 @@ public final class VersionRangeTest
   {
     VersionRange vr = VersionRange.parse ("[1.2.3, 4.5.6)");
     assertTrue (vr.isIncludingFloor ());
-    assertEquals (vr.getFloorVersion ().getAsString (), "1.2.3");
+    assertEquals ("1.2.3", vr.getFloorVersion ().getAsString ());
     assertFalse (vr.isIncludingCeil ());
-    assertEquals (vr.getCeilVersion ().getAsString (), "4.5.6");
+    assertEquals ("4.5.6", vr.getCeilVersion ().getAsString ());
     assertNotNull (vr.toString ());
 
     vr = VersionRange.parse ("   [1.2.3, 4.5.6)   ");
     assertTrue (vr.isIncludingFloor ());
-    assertEquals (vr.getFloorVersion ().getAsString (), "1.2.3");
+    assertEquals ("1.2.3", vr.getFloorVersion ().getAsString ());
     assertFalse (vr.isIncludingCeil ());
-    assertEquals (vr.getCeilVersion ().getAsString (), "4.5.6");
+    assertEquals ("4.5.6", vr.getCeilVersion ().getAsString ());
 
     vr = VersionRange.parse ("[1.2.3, 4.5.6]");
     assertTrue (vr.isIncludingFloor ());
-    assertEquals (vr.getFloorVersion ().getAsString (), "1.2.3");
+    assertEquals ("1.2.3", vr.getFloorVersion ().getAsString ());
     assertTrue (vr.isIncludingCeil ());
-    assertEquals (vr.getCeilVersion ().getAsString (), "4.5.6");
+    assertEquals ("4.5.6", vr.getCeilVersion ().getAsString ());
 
     vr = VersionRange.parse ("(1.2.3, 4.5.6]");
     assertFalse (vr.isIncludingFloor ());
-    assertEquals (vr.getFloorVersion ().getAsString (), "1.2.3");
+    assertEquals ("1.2.3", vr.getFloorVersion ().getAsString ());
     assertTrue (vr.isIncludingCeil ());
-    assertEquals (vr.getCeilVersion ().getAsString (), "4.5.6");
+    assertEquals ("4.5.6", vr.getCeilVersion ().getAsString ());
 
     vr = VersionRange.parse ("(1.2.3, 4.5.6)");
     assertFalse (vr.isIncludingFloor ());
-    assertEquals (vr.getFloorVersion ().getAsString (), "1.2.3");
+    assertEquals ("1.2.3", vr.getFloorVersion ().getAsString ());
     assertFalse (vr.isIncludingCeil ());
-    assertEquals (vr.getCeilVersion ().getAsString (), "4.5.6");
+    assertEquals ("4.5.6", vr.getCeilVersion ().getAsString ());
 
     vr = VersionRange.parse ("1.2.3");
     assertTrue (vr.isIncludingFloor ());
-    assertEquals (vr.getFloorVersion ().getAsString (), "1.2.3");
+    assertEquals ("1.2.3", vr.getFloorVersion ().getAsString ());
     assertFalse (vr.isIncludingCeil ());
     assertNull (vr.getCeilVersion ());
 
     vr = VersionRange.parse ("[1.2.3");
     assertTrue (vr.isIncludingFloor ());
-    assertEquals (vr.getFloorVersion ().getAsString (), "1.2.3");
+    assertEquals ("1.2.3", vr.getFloorVersion ().getAsString ());
     assertFalse (vr.isIncludingCeil ());
     assertNull (vr.getCeilVersion ());
 
     vr = VersionRange.parse ("(1.2.3");
     assertFalse (vr.isIncludingFloor ());
-    assertEquals (vr.getFloorVersion ().getAsString (), "1.2.3");
+    assertEquals ("1.2.3", vr.getFloorVersion ().getAsString ());
     assertFalse (vr.isIncludingCeil ());
     assertNull (vr.getCeilVersion ());
 
     vr = VersionRange.parse ("1.2.3]");
     assertTrue (vr.isIncludingFloor ());
-    assertEquals (vr.getFloorVersion ().getAsString (), "1.2.3");
+    assertEquals ("1.2.3", vr.getFloorVersion ().getAsString ());
     assertTrue (vr.isIncludingCeil ());
     assertNull (vr.getCeilVersion ());
 
     vr = VersionRange.parse ("1.2.3)");
     assertTrue (vr.isIncludingFloor ());
-    assertEquals (vr.getFloorVersion ().getAsString (), "1.2.3");
+    assertEquals ("1.2.3", vr.getFloorVersion ().getAsString ());
     assertFalse (vr.isIncludingCeil ());
     assertNull (vr.getCeilVersion ());
 
     vr = VersionRange.parse ("[1.2.3]");
     assertTrue (vr.isIncludingFloor ());
-    assertEquals (vr.getFloorVersion ().getAsString (), "1.2.3");
+    assertEquals ("1.2.3", vr.getFloorVersion ().getAsString ());
     assertTrue (vr.isIncludingCeil ());
     assertNull (vr.getCeilVersion ());
 
     vr = VersionRange.parse ("(1.2.3]");
     assertFalse (vr.isIncludingFloor ());
-    assertEquals (vr.getFloorVersion ().getAsString (), "1.2.3");
+    assertEquals ("1.2.3", vr.getFloorVersion ().getAsString ());
     assertTrue (vr.isIncludingCeil ());
     assertNull (vr.getCeilVersion ());
 
     vr = VersionRange.parse ("5");
     assertTrue (vr.isIncludingFloor ());
-    assertEquals (vr.getFloorVersion ().getAsString (), "5");
+    assertEquals ("5", vr.getFloorVersion ().getAsString ());
     assertFalse (vr.isIncludingCeil ());
     assertNull (vr.getCeilVersion ());
 
     vr = VersionRange.parse ("5,6");
     assertTrue (vr.isIncludingFloor ());
-    assertEquals (vr.getFloorVersion ().getAsString (), "5");
+    assertEquals ("5", vr.getFloorVersion ().getAsString ());
     assertFalse (vr.isIncludingCeil ());
-    assertEquals (vr.getCeilVersion ().getAsString (), "6");
+    assertEquals ("6", vr.getCeilVersion ().getAsString ());
 
     vr = VersionRange.parse (",6");
     assertTrue (vr.isIncludingFloor ());
-    assertEquals (vr.getFloorVersion ().getAsString (), Version.DEFAULT_VERSION_STRING);
+    assertEquals (Version.DEFAULT_VERSION_STRING, vr.getFloorVersion ().getAsString ());
     assertFalse (vr.isIncludingCeil ());
-    assertEquals (vr.getCeilVersion ().getAsString (), "6");
+    assertEquals ("6", vr.getCeilVersion ().getAsString ());
 
     vr = VersionRange.parse ("(,6]");
     assertFalse (vr.isIncludingFloor ());
-    assertEquals (vr.getFloorVersion ().getAsString (), Version.DEFAULT_VERSION_STRING);
+    assertEquals (Version.DEFAULT_VERSION_STRING, vr.getFloorVersion ().getAsString ());
     assertTrue (vr.isIncludingCeil ());
-    assertEquals (vr.getCeilVersion ().getAsString (), "6");
+    assertEquals ("6", vr.getCeilVersion ().getAsString ());
 
     vr = VersionRange.parse ("(]");
     assertFalse (vr.isIncludingFloor ());
-    assertEquals (vr.getFloorVersion ().getAsString (), Version.DEFAULT_VERSION_STRING);
+    assertEquals (Version.DEFAULT_VERSION_STRING, vr.getFloorVersion ().getAsString ());
     assertTrue (vr.isIncludingCeil ());
     assertNull (vr.getCeilVersion ());
 
     // empty string: okay
     vr = VersionRange.parse ("");
     assertTrue (vr.isIncludingFloor ());
-    assertEquals (vr.getFloorVersion ().getAsString (), Version.DEFAULT_VERSION_STRING);
+    assertEquals (Version.DEFAULT_VERSION_STRING, vr.getFloorVersion ().getAsString ());
     assertFalse (vr.isIncludingCeil ());
     assertNull (vr.getCeilVersion ());
 
     // null: okay
     vr = VersionRange.parse (null);
     assertTrue (vr.isIncludingFloor ());
-    assertEquals (vr.getFloorVersion ().getAsString (), Version.DEFAULT_VERSION_STRING);
+    assertEquals (Version.DEFAULT_VERSION_STRING, vr.getFloorVersion ().getAsString ());
     assertFalse (vr.isIncludingCeil ());
     assertNull (vr.getCeilVersion ());
 
@@ -327,65 +327,65 @@ public final class VersionRangeTest
   @Test
   public void testCompareTo ()
   {
-    assertEquals (_compare ("[1.2,2.0]", "[1.2,2.0]"), 0);
-    assertEquals (_compare ("[1.2,2.0]", "[1.2,2.0)"), +1);
-    assertEquals (_compare ("[1.2,2.0]", "(1.2,2.0]"), -1);
-    assertEquals (_compare ("[1.2,2.0]", "(1.2,2.0)"), -1);
+    assertEquals (0, _compare ("[1.2,2.0]", "[1.2,2.0]"));
+    assertEquals (+1, _compare ("[1.2,2.0]", "[1.2,2.0)"));
+    assertEquals (-1, _compare ("[1.2,2.0]", "(1.2,2.0]"));
+    assertEquals (-1, _compare ("[1.2,2.0]", "(1.2,2.0)"));
 
-    assertEquals (_compare ("[1.2,2.0)", "[1.2,2.0]"), -1);
-    assertEquals (_compare ("[1.2,2.0)", "[1.2,2.0)"), 0);
-    assertEquals (_compare ("[1.2,2.0)", "(1.2,2.0]"), -1);
-    assertEquals (_compare ("[1.2,2.0)", "(1.2,2.0)"), -1);
+    assertEquals (-1, _compare ("[1.2,2.0)", "[1.2,2.0]"));
+    assertEquals (0, _compare ("[1.2,2.0)", "[1.2,2.0)"));
+    assertEquals (-1, _compare ("[1.2,2.0)", "(1.2,2.0]"));
+    assertEquals (-1, _compare ("[1.2,2.0)", "(1.2,2.0)"));
 
-    assertEquals (_compare ("(1.2,2.0]", "[1.2,2.0]"), +1);
-    assertEquals (_compare ("(1.2,2.0]", "[1.2,2.0)"), +1);
-    assertEquals (_compare ("(1.2,2.0]", "(1.2,2.0]"), 0);
-    assertEquals (_compare ("(1.2,2.0]", "(1.2,2.0)"), +1);
+    assertEquals (+1, _compare ("(1.2,2.0]", "[1.2,2.0]"));
+    assertEquals (+1, _compare ("(1.2,2.0]", "[1.2,2.0)"));
+    assertEquals (0, _compare ("(1.2,2.0]", "(1.2,2.0]"));
+    assertEquals (+1, _compare ("(1.2,2.0]", "(1.2,2.0)"));
 
-    assertEquals (_compare ("(1.2,2.0)", "[1.2,2.0]"), +1);
-    assertEquals (_compare ("(1.2,2.0)", "[1.2,2.0)"), +1);
-    assertEquals (_compare ("(1.2,2.0)", "(1.2,2.0]"), -1);
-    assertEquals (_compare ("(1.2,2.0)", "(1.2,2.0)"), 0);
+    assertEquals (+1, _compare ("(1.2,2.0)", "[1.2,2.0]"));
+    assertEquals (+1, _compare ("(1.2,2.0)", "[1.2,2.0)"));
+    assertEquals (-1, _compare ("(1.2,2.0)", "(1.2,2.0]"));
+    assertEquals (0, _compare ("(1.2,2.0)", "(1.2,2.0)"));
 
-    assertEquals (_compare ("(1.2,)", "[1.2,]"), +1);
-    assertEquals (_compare ("(1.2,)", "[1.2,)"), +1);
-    assertEquals (_compare ("(1.2,)", "(1.2,]"), -1);
-    assertEquals (_compare ("(1.2,)", "(1.2,)"), 0);
+    assertEquals (+1, _compare ("(1.2,)", "[1.2,]"));
+    assertEquals (+1, _compare ("(1.2,)", "[1.2,)"));
+    assertEquals (-1, _compare ("(1.2,)", "(1.2,]"));
+    assertEquals (0, _compare ("(1.2,)", "(1.2,)"));
 
-    assertEquals (_compare ("(,2.0)", "[,2.0]"), +1);
-    assertEquals (_compare ("(,2.0)", "[,2.0)"), +1);
-    assertEquals (_compare ("(,2.0)", "(,2.0]"), -1);
-    assertEquals (_compare ("(,2.0)", "(,2.0)"), 0);
+    assertEquals (+1, _compare ("(,2.0)", "[,2.0]"));
+    assertEquals (+1, _compare ("(,2.0)", "[,2.0)"));
+    assertEquals (-1, _compare ("(,2.0)", "(,2.0]"));
+    assertEquals (0, _compare ("(,2.0)", "(,2.0)"));
 
-    assertEquals (_compare ("(1.2,)", "[1.2,2.0]"), +1);
-    assertEquals (_compare ("(1.2,)", "[1.2,2.0)"), +1);
-    assertEquals (_compare ("(1.2,)", "(1.2,2.0]"), +1);
-    assertEquals (_compare ("(1.2,)", "(1.2,2.0)"), +1);
+    assertEquals (+1, _compare ("(1.2,)", "[1.2,2.0]"));
+    assertEquals (+1, _compare ("(1.2,)", "[1.2,2.0)"));
+    assertEquals (+1, _compare ("(1.2,)", "(1.2,2.0]"));
+    assertEquals (+1, _compare ("(1.2,)", "(1.2,2.0)"));
 
-    assertEquals (_compare ("[1.2,2.0]", "(1.2,)"), -1);
-    assertEquals (_compare ("[1.2,2.0)", "(1.2,)"), -1);
-    assertEquals (_compare ("(1.2,2.0]", "(1.2,)"), -1);
-    assertEquals (_compare ("(1.2,2.0)", "(1.2,)"), -1);
+    assertEquals (-1, _compare ("[1.2,2.0]", "(1.2,)"));
+    assertEquals (-1, _compare ("[1.2,2.0)", "(1.2,)"));
+    assertEquals (-1, _compare ("(1.2,2.0]", "(1.2,)"));
+    assertEquals (-1, _compare ("(1.2,2.0)", "(1.2,)"));
 
-    assertEquals (_compare ("(,2.0)", "[1.2,2.0]"), -1);
-    assertEquals (_compare ("(,2.0)", "[1.2,2.0)"), -1);
-    assertEquals (_compare ("(,2.0)", "(1.2,2.0]"), -1);
-    assertEquals (_compare ("(,2.0)", "(1.2,2.0)"), -1);
+    assertEquals (-1, _compare ("(,2.0)", "[1.2,2.0]"));
+    assertEquals (-1, _compare ("(,2.0)", "[1.2,2.0)"));
+    assertEquals (-1, _compare ("(,2.0)", "(1.2,2.0]"));
+    assertEquals (-1, _compare ("(,2.0)", "(1.2,2.0)"));
 
     // test single versions
-    assertEquals (_compare ("1.2", "1.1"), +1);
-    assertEquals (_compare ("1.2", "1.1.9"), +1);
-    assertEquals (_compare ("1.2", "1.2"), 0);
-    assertEquals (_compare ("1.2", "1.2.0"), 0);
-    assertEquals (_compare ("1.2", "1.2.0.alpha"), -1);
-    assertEquals (_compare ("1.2", "1.2.1"), -1);
-    assertEquals (_compare ("1.2", "1.3"), -1);
+    assertEquals (+1, _compare ("1.2", "1.1"));
+    assertEquals (+1, _compare ("1.2", "1.1.9"));
+    assertEquals (0, _compare ("1.2", "1.2"));
+    assertEquals (0, _compare ("1.2", "1.2.0"));
+    assertEquals (-1, _compare ("1.2", "1.2.0.alpha"));
+    assertEquals (-1, _compare ("1.2", "1.2.1"));
+    assertEquals (-1, _compare ("1.2", "1.3"));
 
     // test qualifier stuff
-    assertEquals (_compare ("1.2.0.beta", "1.2.0.alpha"), +1);
-    assertEquals (_compare ("1.2.0.beta", "1.2.0.beta"), 0);
-    assertEquals (_compare ("1.2.0.beta", "1.2.0.beta1"), -1);
-    assertEquals (_compare ("1.2.0.beta", "1.2.0.gamma"), -1);
+    assertEquals (+1, _compare ("1.2.0.beta", "1.2.0.alpha"));
+    assertEquals (0, _compare ("1.2.0.beta", "1.2.0.beta"));
+    assertEquals (-1, _compare ("1.2.0.beta", "1.2.0.beta1"));
+    assertEquals (-1, _compare ("1.2.0.beta", "1.2.0.gamma"));
   }
 
   @Test

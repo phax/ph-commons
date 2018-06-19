@@ -37,30 +37,30 @@ public final class MutableLongTest
   public void testMutableLong ()
   {
     final MutableLong x = new MutableLong (0);
-    assertEquals (x.longValue (), 0);
+    assertEquals (0, x.longValue ());
     assertEquals (x.getAsLong (), Long.valueOf (0));
     assertFalse (x.isNot0 ());
     assertTrue (x.is0 ());
 
     x.inc ();
-    assertEquals (x.longValue (), 1);
+    assertEquals (1, x.longValue ());
     assertNotEquals (x.hashCode (), x.longValue ());
 
     x.inc (5);
-    assertEquals (x.longValue (), 6);
+    assertEquals (6, x.longValue ());
     assertNotEquals (x.hashCode (), x.longValue ());
 
     x.inc (-2);
-    assertEquals (x.longValue (), 4);
+    assertEquals (4, x.longValue ());
     assertNotEquals (x.hashCode (), x.longValue ());
 
     x.dec ();
-    assertEquals (x.longValue (), 3);
+    assertEquals (3, x.longValue ());
     assertFalse (x.isEven ());
     assertNotEquals (x.hashCode (), x.longValue ());
 
     x.dec (5);
-    assertEquals (x.longValue (), -2);
+    assertEquals (-2, x.longValue ());
     assertTrue (x.isNot0 ());
     assertFalse (x.is0 ());
     assertTrue (x.isEven ());

@@ -490,6 +490,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
     return m_aRWLock.readLocked ( () -> CollectionHelper.findFirstMapped (m_aMap.values (), aFilter, aMapper));
   }
 
+  @Override
   @IsLocked (ELockType.READ)
   public final boolean isNotEmpty ()
   {

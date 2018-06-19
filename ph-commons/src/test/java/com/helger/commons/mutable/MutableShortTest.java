@@ -37,30 +37,30 @@ public final class MutableShortTest
   public void testMutableByte ()
   {
     final MutableShort x = new MutableShort (0);
-    assertEquals (x.shortValue (), 0);
-    assertEquals (x.getAsShort (), Short.valueOf ((short) 0));
+    assertEquals (0, x.shortValue ());
+    assertEquals (Short.valueOf ((short) 0), x.getAsShort ());
     assertFalse (x.isNot0 ());
     assertTrue (x.is0 ());
 
     x.inc ();
-    assertEquals (x.shortValue (), 1);
+    assertEquals (1, x.shortValue ());
     assertNotEquals (x.hashCode (), x.shortValue ());
 
     x.inc (5);
-    assertEquals (x.shortValue (), 6);
+    assertEquals (6, x.shortValue ());
     assertNotEquals (x.hashCode (), x.shortValue ());
 
     x.inc (-2);
-    assertEquals (x.shortValue (), 4);
+    assertEquals (4, x.shortValue ());
     assertNotEquals (x.hashCode (), x.shortValue ());
 
     x.dec ();
-    assertEquals (x.shortValue (), 3);
+    assertEquals (3, x.shortValue ());
     assertFalse (x.isEven ());
     assertNotEquals (x.hashCode (), x.shortValue ());
 
     x.dec (5);
-    assertEquals (x.shortValue (), -2);
+    assertEquals (-2, x.shortValue ());
     assertTrue (x.isNot0 ());
     assertFalse (x.is0 ());
     assertTrue (x.isEven ());
@@ -72,22 +72,22 @@ public final class MutableShortTest
     assertEquals (x.shortValue (), 255);
 
     assertTrue (x.set (0).isChanged ());
-    assertEquals (x.shortValue (), 0);
+    assertEquals (0, x.shortValue ());
 
     assertTrue (x.set (32767).isChanged ());
-    assertEquals (x.shortValue (), 32767);
+    assertEquals (32767, x.shortValue ());
 
     assertTrue (x.set (32768).isChanged ());
-    assertEquals (x.shortValue (), -32768);
+    assertEquals (-32768, x.shortValue ());
 
     assertTrue (x.set (65535).isChanged ());
-    assertEquals (x.shortValue (), -1);
+    assertEquals (-1, x.shortValue ());
 
     assertTrue (x.set (65536).isChanged ());
-    assertEquals (x.shortValue (), 0);
+    assertEquals (0, x.shortValue ());
 
     assertTrue (x.set (65537).isChanged ());
-    assertEquals (x.shortValue (), 1);
+    assertEquals (1, x.shortValue ());
 
     assertEquals (-1, new MutableShort (4).compareTo (new MutableShort (5)));
     assertEquals (0, new MutableShort (5).compareTo (new MutableShort (5)));

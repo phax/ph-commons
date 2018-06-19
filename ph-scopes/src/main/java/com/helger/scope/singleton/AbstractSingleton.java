@@ -248,6 +248,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    * Implementation of {@link IScopeDestructionAware}. Calls the protected
    * {@link #onBeforeDestroy()} method.
    */
+  @Override
   public final void onBeforeScopeDestruction (@Nonnull final IScope aScopeToBeDestroyed) throws Exception
   {
     if (s_aLogger.isDebugEnabled ())
@@ -314,6 +315,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    * Implementation of {@link IScopeDestructionAware}. Calls the protected
    * {@link #onDestroy()} method.
    */
+  @Override
   public final void onScopeDestruction (@Nonnull final IScope aScopeInDestruction) throws Exception
   {
     if (s_aLogger.isDebugEnabled ())

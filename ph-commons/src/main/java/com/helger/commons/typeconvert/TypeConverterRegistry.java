@@ -155,14 +155,19 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
           if (!aSrcMap.containsKey (aCurDstClass))
           {
             if (aSrcMap.put (aCurDstClass, aConverter) != null)
-              s_aLogger.warn ("Overwriting converter from " + aSrcClass + " to " + aCurDstClass);
+            {
+              if (s_aLogger.isWarnEnabled ())
+                s_aLogger.warn ("Overwriting converter from " + aSrcClass + " to " + aCurDstClass);
+            }
             else
+            {
               if (s_aLogger.isTraceEnabled ())
                 s_aLogger.trace ("Registered type converter from '" +
                                  aSrcClass.toString () +
                                  "' to '" +
                                  aCurDstClass.toString () +
                                  "'");
+            }
           }
       }
     });

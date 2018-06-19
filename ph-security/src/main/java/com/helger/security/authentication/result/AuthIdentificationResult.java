@@ -62,6 +62,7 @@ public class AuthIdentificationResult implements ISuccessIndicator, Serializable
     return m_aAuthToken != null;
   }
 
+  @Override
   public boolean isFailure ()
   {
     return m_aCredentialValidationFailure != null;

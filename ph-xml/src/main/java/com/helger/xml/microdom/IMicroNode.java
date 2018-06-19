@@ -97,6 +97,7 @@ public interface IMicroNode extends
    * @return The first child node of this node, or <code>null</code> if this
    *         node has no children.
    */
+  @Override
   @Nullable
   IMicroNode getFirstChild ();
 
@@ -104,6 +105,7 @@ public interface IMicroNode extends
    * @return The last child node of this node, or <code>null</code> if this node
    *         has no children.
    */
+  @Override
   @Nullable
   IMicroNode getLastChild ();
 
@@ -143,6 +145,7 @@ public interface IMicroNode extends
    * @return <code>true</code> if this node has a parent node assigned,
    *         <code>false</code> otherwise.
    */
+  @Override
   boolean hasParent ();
 
   /**

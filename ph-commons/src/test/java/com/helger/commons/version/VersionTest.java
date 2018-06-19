@@ -58,8 +58,8 @@ public final class VersionTest
 
     // use 9.7
     v = new Version (9, 7);
-    assertEquals (v.getMajor (), 9);
-    assertEquals (v.getMinor (), 7);
+    assertEquals (9, v.getMajor ());
+    assertEquals (7, v.getMinor ());
     assertEquals (0, v.getMicro ());
     assertNull (v.getQualifier ());
 
@@ -72,24 +72,24 @@ public final class VersionTest
 
     // use 2
     v = new Version (2);
-    assertEquals (v.getMajor (), 2);
+    assertEquals (2, v.getMajor ());
     assertEquals (0, v.getMinor ());
     assertEquals (0, v.getMicro ());
     assertNull (v.getQualifier ());
 
     // try 97.98.99
     v = new Version (97, 98, 99);
-    assertEquals (v.getMajor (), 97);
-    assertEquals (v.getMinor (), 98);
-    assertEquals (v.getMicro (), 99);
+    assertEquals (97, v.getMajor ());
+    assertEquals (98, v.getMinor ());
+    assertEquals (99, v.getMicro ());
     assertNull (v.getQualifier ());
 
     // try 97.98.99.alpha
     v = new Version (97, 98, 99, "alpha");
-    assertEquals (v.getMajor (), 97);
-    assertEquals (v.getMinor (), 98);
-    assertEquals (v.getMicro (), 99);
-    assertEquals (v.getQualifier (), "alpha");
+    assertEquals (97, v.getMajor ());
+    assertEquals (98, v.getMinor ());
+    assertEquals (99, v.getMicro ());
+    assertEquals ("alpha", v.getQualifier ());
 
     try
     {
@@ -124,28 +124,28 @@ public final class VersionTest
   {
     // check valid
     Version v = Version.parse ("1.2.3.alpha");
-    assertEquals (v.getMajor (), 1);
-    assertEquals (v.getMinor (), 2);
-    assertEquals (v.getMicro (), 3);
-    assertEquals (v.getQualifier (), "alpha");
+    assertEquals (1, v.getMajor ());
+    assertEquals (2, v.getMinor ());
+    assertEquals (3, v.getMicro ());
+    assertEquals ("alpha", v.getQualifier ());
 
     // no qualifier
     v = Version.parse ("4.5.6");
-    assertEquals (v.getMajor (), 4);
-    assertEquals (v.getMinor (), 5);
-    assertEquals (v.getMicro (), 6);
+    assertEquals (4, v.getMajor ());
+    assertEquals (5, v.getMinor ());
+    assertEquals (6, v.getMicro ());
     assertNull (v.getQualifier ());
 
     // no micro
     v = Version.parse ("7.8");
-    assertEquals (v.getMajor (), 7);
-    assertEquals (v.getMinor (), 8);
+    assertEquals (7, v.getMajor ());
+    assertEquals (8, v.getMinor ());
     assertEquals (0, v.getMicro ());
     assertNull (v.getQualifier ());
 
     // no minor
     v = Version.parse ("9");
-    assertEquals (v.getMajor (), 9);
+    assertEquals (9, v.getMajor ());
     assertEquals (0, v.getMinor ());
     assertEquals (0, v.getMicro ());
     assertNull (v.getQualifier ());

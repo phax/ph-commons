@@ -49,7 +49,7 @@ public class CredentialValidationResultList implements ICredentialValidationResu
   public CredentialValidationResultList (@Nonnull @Nonempty final Iterable <? extends ICredentialValidationResult> aResults)
   {
     ValueEnforcer.notEmpty (aResults, "Results");
-    m_aResults = new CommonsArrayList<> (aResults);
+    m_aResults = new CommonsArrayList <> (aResults);
     m_bFailure = m_aResults.containsAny (ICredentialValidationResult::isFailure);
   }
 
@@ -58,6 +58,7 @@ public class CredentialValidationResultList implements ICredentialValidationResu
     return !m_bFailure;
   }
 
+  @Override
   public boolean isFailure ()
   {
     return m_bFailure;

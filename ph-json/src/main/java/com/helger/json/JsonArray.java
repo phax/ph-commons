@@ -118,6 +118,7 @@ public class JsonArray implements IJsonArray
     return m_aValues.iterator ();
   }
 
+  @Override
   @Nonnull
   public JsonArray add (@Nonnull final IJson aValue)
   {
@@ -174,6 +175,7 @@ public class JsonArray implements IJsonArray
     return m_aValues.getClone ();
   }
 
+  @Override
   public void forEach (@Nonnull final Consumer <? super IJson> aConsumer)
   {
     m_aValues.forEach (aConsumer);

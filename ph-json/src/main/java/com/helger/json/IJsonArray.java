@@ -157,6 +157,7 @@ public interface IJsonArray extends
    *        Consumer with the first param being the value and second param being
    *        the 0-based index.
    */
+  @Override
   void forEachByIndex (@Nonnull ObjIntConsumer <? super IJson> aConsumer);
 
   /**

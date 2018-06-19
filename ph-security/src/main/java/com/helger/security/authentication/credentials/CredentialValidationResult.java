@@ -60,6 +60,7 @@ public class CredentialValidationResult implements ICredentialValidationResult
     return m_sErrorMsg == null;
   }
 
+  @Override
   public boolean isFailure ()
   {
     return m_sErrorMsg != null;

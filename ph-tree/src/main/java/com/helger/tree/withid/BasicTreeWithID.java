@@ -48,7 +48,8 @@ import com.helger.commons.string.ToStringGenerator;
  */
 @NotThreadSafe
 public class BasicTreeWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>>
-                             implements ITreeWithID <KEYTYPE, DATATYPE, ITEMTYPE>
+                             implements
+                             ITreeWithID <KEYTYPE, DATATYPE, ITEMTYPE>
 {
   // Root item.
   private final ITEMTYPE m_aRootItem;
@@ -64,6 +65,7 @@ public class BasicTreeWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithI
       throw new IllegalStateException ("Create root item has a non-null parent!!!");
   }
 
+  @Override
   public final boolean hasChildren ()
   {
     // root item is always present
@@ -90,17 +92,20 @@ public class BasicTreeWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithI
     return getAllChildren ();
   }
 
+  @Override
   public final void forAllChildren (@Nonnull final Consumer <? super ITEMTYPE> aConsumer)
   {
     aConsumer.accept (m_aRootItem);
   }
 
+  @Override
   @Nonnull
   public final EContinue forAllChildrenBreakable (@Nonnull final Function <? super ITEMTYPE, EContinue> aConsumer)
   {
     return aConsumer.apply (m_aRootItem);
   }
 
+  @Override
   public final void forAllChildren (@Nonnull final Predicate <? super ITEMTYPE> aFilter,
                                     @Nonnull final Consumer <? super ITEMTYPE> aConsumer)
   {
@@ -108,6 +113,7 @@ public class BasicTreeWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithI
       aConsumer.accept (m_aRootItem);
   }
 
+  @Override
   public final <DSTTYPE> void forAllChildrenMapped (@Nonnull final Predicate <? super ITEMTYPE> aFilter,
                                                     @Nonnull final Function <? super ITEMTYPE, ? extends DSTTYPE> aMapper,
                                                     @Nonnull final Consumer <? super DSTTYPE> aConsumer)

@@ -56,10 +56,10 @@ public final class JavaBitOperationsFuncTest
   @Test
   public void testBitWiseOr ()
   {
-    assertEquals ("1", nA | nB, 3); // 01 | 10 -> 11
+    assertEquals ("1", 3, nA | nB); // 01 | 10 -> 11
 
-    assertEquals ("check", (nA | nB) & nB, nB);
-    assertEquals ("2", nA | nC, 5); // 01 | 100 -> 101
-    assertEquals ("3", nA | nD, 129); // 01 | 10000000 -> 10000001
+    assertEquals ("check", nB, (nA | nB) & nB);
+    assertEquals ("2", 5, nA | nC); // 01 | 100 -> 101
+    assertEquals ("3", 129, nA | nD); // 01 | 10000000 -> 10000001
   }
 }

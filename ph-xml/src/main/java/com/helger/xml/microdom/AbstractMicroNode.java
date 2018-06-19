@@ -203,6 +203,7 @@ public abstract class AbstractMicroNode implements IMicroNode
     return onRemoveAllChildren ();
   }
 
+  @Override
   @OverrideOnDemand
   public boolean hasChildren ()
   {
@@ -223,23 +224,27 @@ public abstract class AbstractMicroNode implements IMicroNode
     return null;
   }
 
+  @Override
   public void forAllChildren (@Nonnull final Consumer <? super IMicroNode> aConsumer)
   {
     // empty
   }
 
+  @Override
   @Nonnull
   public EContinue forAllChildrenBreakable (@Nonnull final Function <? super IMicroNode, EContinue> aConsumer)
   {
     return EContinue.CONTINUE;
   }
 
+  @Override
   public void forAllChildren (@Nonnull final Predicate <? super IMicroNode> aFilter,
                               @Nonnull final Consumer <? super IMicroNode> aConsumer)
   {
     // empty
   }
 
+  @Override
   public <DSTTYPE> void forAllChildrenMapped (@Nonnull final Predicate <? super IMicroNode> aFilter,
                                               @Nonnull final Function <? super IMicroNode, ? extends DSTTYPE> aMapper,
                                               @Nonnull final Consumer <? super DSTTYPE> aConsumer)
@@ -268,12 +273,14 @@ public abstract class AbstractMicroNode implements IMicroNode
     return null;
   }
 
+  @Override
   @Nullable
   public IMicroNode findFirstChild (@Nonnull final Predicate <? super IMicroNode> aFilter)
   {
     return null;
   }
 
+  @Override
   @Nullable
   public <DSTTYPE> DSTTYPE findFirstChildMapped (@Nonnull final Predicate <? super IMicroNode> aFilter,
                                                  @Nonnull final Function <? super IMicroNode, ? extends DSTTYPE> aMapper)

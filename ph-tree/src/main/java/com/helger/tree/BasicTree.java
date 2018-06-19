@@ -57,6 +57,7 @@ public class BasicTree <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE
       throw new IllegalStateException ("Failed to create root item!");
   }
 
+  @Override
   public final boolean hasChildren ()
   {
     // root item is always present
@@ -83,6 +84,7 @@ public class BasicTree <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE
     return getAllChildren ();
   }
 
+  @Override
   public final void forAllChildren (@Nonnull final Consumer <? super ITEMTYPE> aConsumer)
   {
     aConsumer.accept (m_aRootItem);
@@ -94,6 +96,7 @@ public class BasicTree <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE
     return aConsumer.apply (m_aRootItem);
   }
 
+  @Override
   public final void forAllChildren (@Nonnull final Predicate <? super ITEMTYPE> aFilter,
                                     @Nonnull final Consumer <? super ITEMTYPE> aConsumer)
   {
@@ -101,6 +104,7 @@ public class BasicTree <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE
       aConsumer.accept (m_aRootItem);
   }
 
+  @Override
   public final <DSTTYPE> void forAllChildrenMapped (@Nonnull final Predicate <? super ITEMTYPE> aFilter,
                                                     @Nonnull final Function <? super ITEMTYPE, ? extends DSTTYPE> aMapper,
                                                     @Nonnull final Consumer <? super DSTTYPE> aConsumer)

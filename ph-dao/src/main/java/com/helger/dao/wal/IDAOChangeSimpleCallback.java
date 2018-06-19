@@ -30,8 +30,8 @@ import com.helger.commons.id.IHasID;
  * @param <INTERFACETYPE>
  *        The interface typed used by the DAO.
  */
-public interface IDAOChangeSimpleCallback <INTERFACETYPE extends IHasID <String> & Serializable>
-                                          extends IDAOChangeCallback <INTERFACETYPE>
+public interface IDAOChangeSimpleCallback <INTERFACETYPE extends IHasID <String> & Serializable> extends
+                                          IDAOChangeCallback <INTERFACETYPE>
 {
   /**
    * Called after an item was created, deleted or changed.
@@ -47,6 +47,7 @@ public interface IDAOChangeSimpleCallback <INTERFACETYPE extends IHasID <String>
    * @param aNewItem
    *        The newly created item. Never <code>null</code>.
    */
+  @Override
   default void onCreateItem (@Nonnull final INTERFACETYPE aNewItem)
   {
     onChange (aNewItem);
@@ -58,6 +59,7 @@ public interface IDAOChangeSimpleCallback <INTERFACETYPE extends IHasID <String>
    * @param aItem
    *        The updated item. Never <code>null</code>.
    */
+  @Override
   default void onUpdateItem (@Nonnull final INTERFACETYPE aItem)
   {
     onChange (aItem);
@@ -69,6 +71,7 @@ public interface IDAOChangeSimpleCallback <INTERFACETYPE extends IHasID <String>
    * @param aItem
    *        The removed item. Never <code>null</code>.
    */
+  @Override
   default void onDeleteItem (@Nonnull final INTERFACETYPE aItem)
   {
     onChange (aItem);
@@ -81,6 +84,7 @@ public interface IDAOChangeSimpleCallback <INTERFACETYPE extends IHasID <String>
    * @param aItem
    *        The item that was marked as deleted. Never <code>null</code>.
    */
+  @Override
   default void onMarkItemDeleted (@Nonnull final INTERFACETYPE aItem)
   {
     onChange (aItem);
@@ -93,6 +97,7 @@ public interface IDAOChangeSimpleCallback <INTERFACETYPE extends IHasID <String>
    *        The item that was marked as not deleted anymore. Never
    *        <code>null</code>.
    */
+  @Override
   default void onMarkItemUndeleted (@Nonnull final INTERFACETYPE aItem)
   {
     onChange (aItem);
