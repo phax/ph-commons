@@ -61,7 +61,7 @@ public final class DirectedGraphIteratorForwardTest extends AbstractGraphTestCas
 
     final IMutableDirectedGraph aGraph = _buildDirectedGraph ();
     final IMutableDirectedGraphNode aStart = aGraph.getSingleStartNode ();
-    assertEquals (aStart.getID (), "0");
+    assertEquals ("0", aStart.getID ());
     final DirectedGraphIteratorForward it = new DirectedGraphIteratorForward (aStart);
 
     try

@@ -38,7 +38,7 @@ public final class MutableLongTest
   {
     final MutableLong x = new MutableLong (0);
     assertEquals (0, x.longValue ());
-    assertEquals (x.getAsLong (), Long.valueOf (0));
+    assertEquals (Long.valueOf (0), x.getAsLong ());
     assertFalse (x.isNot0 ());
     assertTrue (x.is0 ());
 
@@ -69,7 +69,7 @@ public final class MutableLongTest
     assertTrue (x.set (4711).isChanged ());
     assertFalse (x.set (4711).isChanged ());
     assertFalse (x.isEven ());
-    assertEquals (x.longValue (), 4711);
+    assertEquals (4711, x.longValue ());
 
     assertEquals (-1, new MutableLong (4).compareTo (new MutableLong (5)));
     assertEquals (0, new MutableLong (5).compareTo (new MutableLong (5)));

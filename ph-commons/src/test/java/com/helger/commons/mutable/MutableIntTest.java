@@ -38,7 +38,7 @@ public final class MutableIntTest
   {
     final MutableInt x = new MutableInt (0);
     assertEquals (0, x.intValue ());
-    assertEquals (x.getAsInteger (), Integer.valueOf (0));
+    assertEquals (Integer.valueOf (0), x.getAsInteger ());
     assertFalse (x.isNot0 ());
     assertTrue (x.is0 ());
 

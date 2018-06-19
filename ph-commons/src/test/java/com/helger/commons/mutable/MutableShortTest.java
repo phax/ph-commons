@@ -69,7 +69,7 @@ public final class MutableShortTest
     assertTrue (x.set (255).isChanged ());
     assertFalse (x.set (255).isChanged ());
     assertFalse (x.isEven ());
-    assertEquals (x.shortValue (), 255);
+    assertEquals (255, x.shortValue ());
 
     assertTrue (x.set (0).isChanged ());
     assertEquals (0, x.shortValue ());

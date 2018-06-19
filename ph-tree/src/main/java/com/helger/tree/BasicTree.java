@@ -90,6 +90,7 @@ public class BasicTree <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE
     aConsumer.accept (m_aRootItem);
   }
 
+  @Override
   @Nonnull
   public final EContinue forAllChildrenBreakable (@Nonnull final Function <? super ITEMTYPE, EContinue> aConsumer)
   {

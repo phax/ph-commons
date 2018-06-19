@@ -56,39 +56,43 @@ public final class CloneHelper
 
     try
     {
-      try
-      {
-        // 2. find Object.clone method
-        return GenericReflection.invokeMethod (aObject, "clone");
-      }
-      catch (final Exception ex)
-      {
-        s_aLogger.warn ("Failed to invoke clone on " + aObject.getClass ().getName ());
-      }
-
-      // 3. find copy-constructor
-      final Constructor <DATATYPE> aCtor = GenericReflection.findConstructor (aObject, aObject.getClass ());
-      if (aCtor != null)
-        return aCtor.newInstance (aObject);
-    }
-    catch (final IllegalAccessException ex)
-    {
-      s_aLogger.error ("Failed to clone object of type '" +
-                       aObject.getClass ().getName () +
-                       "' because it has neither a (visible) clone method nor a copy constructor or the methods are invisible.");
-    }
-    catch (final NoSuchMethodException ex)
-    {
-      s_aLogger.error ("Failed to clone object of type '" +
-                       aObject.getClass ().getName () +
-                       "' because it has neither a clone method nor a (visible) copy constructor or the methods are invisible.");
+      // 2. find Object.clone method
+      return GenericReflection.invokeMethod (aObject, "clone");
     }
     catch (final Exception ex)
     {
-      s_aLogger.error ("Failed to clone object of type '" +
-                       aObject.getClass ().getName () +
-                       "' because it has neither a (visible) clone method nor a copy constructor.",
-                       ex);
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("Failed to invoke clone on " + aObject.getClass ().getName ());
+
+      try
+      {
+        // 3. find copy-constructor
+        final Constructor <DATATYPE> aCtor = GenericReflection.findConstructor (aObject, aObject.getClass ());
+        if (aCtor != null)
+          return aCtor.newInstance (aObject);
+      }
+      catch (final IllegalAccessException ex2)
+      {
+        if (s_aLogger.isErrorEnabled ())
+          s_aLogger.error ("Failed to clone object of type '" +
+                           aObject.getClass ().getName () +
+                           "' because it has neither a (visible) clone method nor a copy constructor or the methods are invisible.");
+      }
+      catch (final NoSuchMethodException ex2)
+      {
+        if (s_aLogger.isErrorEnabled ())
+          s_aLogger.error ("Failed to clone object of type '" +
+                           aObject.getClass ().getName () +
+                           "' because it has neither a clone method nor a (visible) copy constructor or the methods are invisible.");
+      }
+      catch (final Exception ex2)
+      {
+        if (s_aLogger.isErrorEnabled ())
+          s_aLogger.error ("Failed to clone object of type '" +
+                           aObject.getClass ().getName () +
+                           "' because it has neither a (visible) clone method nor a copy constructor.",
+                           ex2);
+      }
     }
     return null;
   }
@@ -166,7 +170,7 @@ public final class CloneHelper
   @ReturnsMutableCopy
   public static <DATATYPE> ICommonsList <DATATYPE> getGenericClonedList (@Nullable final Iterable <DATATYPE> aList)
   {
-    final ICommonsList <DATATYPE> ret = new CommonsArrayList<> ();
+    final ICommonsList <DATATYPE> ret = new CommonsArrayList <> ();
     if (aList != null)
       for (final DATATYPE aItem : aList)
         ret.add (getClonedValue (aItem));
@@ -187,7 +191,7 @@ public final class CloneHelper
   @ReturnsMutableCopy
   public static <DATATYPE extends ICloneable <DATATYPE>> ICommonsList <DATATYPE> getClonedList (@Nullable final Iterable <DATATYPE> aList)
   {
-    final ICommonsList <DATATYPE> ret = new CommonsArrayList<> ();
+    final ICommonsList <DATATYPE> ret = new CommonsArrayList <> ();
     if (aList != null)
       for (final DATATYPE aItem : aList)
         ret.add (getCloneIfNotNull (aItem));
@@ -200,10 +204,10 @@ public final class CloneHelper
     if (aObj == null)
       return null;
 
-    final JAXBElement <DATATYPE> ret = new JAXBElement<> (aObj.getName (),
-                                                          aObj.getDeclaredType (),
-                                                          aObj.getScope (),
-                                                          getClonedValue (aObj.getValue ()));
+    final JAXBElement <DATATYPE> ret = new JAXBElement <> (aObj.getName (),
+                                                           aObj.getDeclaredType (),
+                                                           aObj.getScope (),
+                                                           getClonedValue (aObj.getValue ()));
     ret.setNil (aObj.isNil ());
     return ret;
   }

@@ -38,7 +38,7 @@ public final class MutableCharTest
   {
     final MutableChar x = new MutableChar ('\0');
     assertEquals (0, x.charValue ());
-    assertEquals (x.getAsCharacter (), Character.valueOf ((char) 0));
+    assertEquals (Character.valueOf ((char) 0), x.getAsCharacter ());
     assertFalse (x.isNot0 ());
     assertTrue (x.is0 ());
 

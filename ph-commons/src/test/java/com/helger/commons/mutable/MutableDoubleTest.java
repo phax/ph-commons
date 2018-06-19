@@ -40,7 +40,7 @@ public final class MutableDoubleTest
   {
     final MutableDouble x = new MutableDouble (0);
     assertEquals (0, x.doubleValue (), DELTA);
-    assertEquals (x.getAsDouble (), Double.valueOf (0));
+    assertEquals (Double.valueOf (0), x.getAsDouble ());
     assertFalse (x.isNot0 ());
     assertTrue (x.is0 ());
 

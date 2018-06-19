@@ -52,7 +52,7 @@ public final class DirectedGraphIteratorBackwardTest extends AbstractGraphTestCa
 
     final IMutableDirectedGraph aGraph = _buildDirectedGraph ();
     final IMutableDirectedGraphNode aEnd = aGraph.getSingleEndNode ();
-    assertEquals (aEnd.getID (), "4");
+    assertEquals ("4", aEnd.getID ());
     final DirectedGraphIteratorBackward it = new DirectedGraphIteratorBackward (aEnd);
 
     try

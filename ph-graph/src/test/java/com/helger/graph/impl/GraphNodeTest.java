@@ -49,7 +49,7 @@ public final class GraphNodeTest
 
     final GraphNode n3 = new GraphNode ("id1");
     assertNotNull (n3.getID ());
-    assertEquals (n3.getID (), "id1");
+    assertEquals ("id1", n3.getID ());
   }
 
   @Test

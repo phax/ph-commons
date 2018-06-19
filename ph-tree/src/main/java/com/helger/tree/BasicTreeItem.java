@@ -200,6 +200,7 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
     return m_aChildren;
   }
 
+  @Override
   public final void forAllChildren (@Nonnull final Consumer <? super ITEMTYPE> aConsumer)
   {
     if (m_aChildren != null)

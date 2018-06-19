@@ -16,6 +16,9 @@
  */
 package com.helger.commons.codec;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
@@ -27,6 +30,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.charset.CharsetHelper;
+import com.helger.commons.serialize.convert.SerializationConverter;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -57,7 +61,7 @@ public abstract class AbstractRFC1522Codec implements ICodec <String>
   /**
    * The default charset used for string decoding and encoding.
    */
-  private final Charset m_aCharset;
+  private transient Charset m_aCharset;
 
   /**
    * Constructor which allows for the selection of a default charset
@@ -68,6 +72,18 @@ public abstract class AbstractRFC1522Codec implements ICodec <String>
   protected AbstractRFC1522Codec (@Nonnull final Charset aCharset)
   {
     m_aCharset = ValueEnforcer.notNull (aCharset, "Charset");
+  }
+
+  private void writeObject (@Nonnull final ObjectOutputStream aOOS) throws IOException
+  {
+    aOOS.defaultWriteObject ();
+    SerializationConverter.writeConvertedObject (m_aCharset, aOOS);
+  }
+
+  private void readObject (@Nonnull final ObjectInputStream aOIS) throws IOException, ClassNotFoundException
+  {
+    aOIS.defaultReadObject ();
+    m_aCharset = SerializationConverter.readConvertedObject (aOIS, Charset.class);
   }
 
   @Nonnull

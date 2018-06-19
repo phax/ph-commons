@@ -40,7 +40,7 @@ public final class MutableFloatTest
   {
     final MutableFloat x = new MutableFloat (0f);
     assertEquals (0, x.floatValue (), DELTA);
-    assertEquals (x.getAsFloat (), Float.valueOf (0));
+    assertEquals (Float.valueOf (0), x.getAsFloat ());
     assertFalse (x.isNot0 ());
     assertTrue (x.is0 ());
 

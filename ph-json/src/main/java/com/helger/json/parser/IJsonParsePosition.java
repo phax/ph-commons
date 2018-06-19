@@ -16,10 +16,17 @@
  */
 package com.helger.json.parser;
 
+import java.io.Serializable;
+
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
-public interface IJsonParsePosition
+/**
+ * Read-only parsing position with a line and a column number.
+ * 
+ * @author Philip Helger
+ */
+public interface IJsonParsePosition extends Serializable
 {
   /**
    * @return The current line number. First line has a value of 1.

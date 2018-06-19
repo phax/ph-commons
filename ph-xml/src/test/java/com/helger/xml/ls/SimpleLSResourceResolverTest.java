@@ -84,7 +84,7 @@ public final class SimpleLSResourceResolverTest
       // Bundle 0 is the org.apache.felix.framework bundle
       final Bundle b = aOSGI.getBundleContext ().getBundle (0);
       assertNotNull (b);
-      assertEquals (b.getState (), Bundle.ACTIVE);
+      assertEquals (Bundle.ACTIVE, b.getState ());
 
       // No leading slash is important as the ClassLoader is used!
       assertNotNull (b.getResource ("org/apache/felix/framework/util/Mutex.class"));

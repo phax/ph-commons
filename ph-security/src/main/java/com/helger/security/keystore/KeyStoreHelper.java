@@ -230,7 +230,9 @@ public final class KeyStoreHelper
     }
     catch (final IllegalArgumentException ex)
     {
-      s_aLogger.warn ("No such key store '" + sKeyStorePath + "': " + ex.getMessage (), ex.getCause ());
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("No such key store '" + sKeyStorePath + "': " + ex.getMessage (), ex.getCause ());
+
       return new LoadedKeyStore (null,
                                  EKeyStoreLoadError.KEYSTORE_LOAD_ERROR_NON_EXISTING,
                                  sKeyStorePath,
@@ -240,8 +242,9 @@ public final class KeyStoreHelper
     {
       final boolean bInvalidPW = ex instanceof IOException && ex.getCause () instanceof UnrecoverableKeyException;
 
-      s_aLogger.warn ("Failed to load key store '" + sKeyStorePath + "': " + ex.getMessage (),
-                      bInvalidPW ? null : ex.getCause ());
+      if (s_aLogger.isWarnEnabled ())
+        s_aLogger.warn ("Failed to load key store '" + sKeyStorePath + "': " + ex.getMessage (),
+                        bInvalidPW ? null : ex.getCause ());
 
       return new LoadedKeyStore (null,
                                  bInvalidPW ? EKeyStoreLoadError.KEYSTORE_INVALID_PASSWORD

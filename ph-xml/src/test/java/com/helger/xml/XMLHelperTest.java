@@ -109,7 +109,7 @@ public final class XMLHelperTest
       assertEquals (sExpectedTagName, aElement.getTagName ());
       ++nCount;
     }
-    assertEquals (nCount, 1);
+    assertEquals (1, nCount);
   }
 
   @Test
@@ -146,7 +146,7 @@ public final class XMLHelperTest
       assertEquals (sExpectedTagName, aElement.getLocalName ());
       ++nCount;
     }
-    assertEquals (nCount, 1);
+    assertEquals (1, nCount);
   }
 
   @Test

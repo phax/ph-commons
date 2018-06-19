@@ -295,9 +295,9 @@ public final class VersionTest
     final Version v9 = new Version (0, 0, 0);
 
     // check v1
-    assertEquals (v1.compareTo (v1), 0);
-    assertEquals (v1.compareTo (v2), 0);
-    assertEquals (v1.compareTo (v3), 0);
+    assertEquals (0, v1.compareTo (v1));
+    assertEquals (0, v1.compareTo (v2));
+    assertEquals (0, v1.compareTo (v3));
     assertTrue (v1.compareTo (v4) < 0);
     assertTrue (v1.compareTo (v5) < 0);
     assertTrue (v1.compareTo (v6) > 0);
@@ -306,9 +306,9 @@ public final class VersionTest
     assertTrue (v1.compareTo (v9) > 0);
 
     // check v2
-    assertEquals (v2.compareTo (v1), 0);
-    assertEquals (v2.compareTo (v2), 0);
-    assertEquals (v2.compareTo (v3), 0);
+    assertEquals (0, v2.compareTo (v1));
+    assertEquals (0, v2.compareTo (v2));
+    assertEquals (0, v2.compareTo (v3));
     assertTrue (v2.compareTo (v4) < 0);
     assertTrue (v2.compareTo (v5) < 0);
     assertTrue (v2.compareTo (v6) > 0);
@@ -317,9 +317,9 @@ public final class VersionTest
     assertTrue (v2.compareTo (v9) > 0);
 
     // check v3
-    assertEquals (v3.compareTo (v1), 0);
-    assertEquals (v3.compareTo (v2), 0);
-    assertEquals (v3.compareTo (v3), 0);
+    assertEquals (0, v3.compareTo (v1));
+    assertEquals (0, v3.compareTo (v2));
+    assertEquals (0, v3.compareTo (v3));
     assertTrue (v3.compareTo (v4) < 0);
     assertTrue (v3.compareTo (v5) < 0);
     assertTrue (v3.compareTo (v6) > 0);
@@ -331,7 +331,7 @@ public final class VersionTest
     assertTrue (v4.compareTo (v1) > 0);
     assertTrue (v4.compareTo (v2) > 0);
     assertTrue (v4.compareTo (v3) > 0);
-    assertEquals (v4.compareTo (v4), 0);
+    assertEquals (0, v4.compareTo (v4));
     assertTrue (v4.compareTo (v5) < 0);
     assertTrue (v4.compareTo (v6) > 0);
     assertTrue (v4.compareTo (v7) > 0);
@@ -343,7 +343,7 @@ public final class VersionTest
     assertTrue (v5.compareTo (v2) > 0);
     assertTrue (v5.compareTo (v3) > 0);
     assertTrue (v5.compareTo (v4) > 0);
-    assertEquals (v5.compareTo (v5), 0);
+    assertEquals (0, v5.compareTo (v5));
     assertTrue (v5.compareTo (v6) > 0);
     assertTrue (v5.compareTo (v7) > 0);
     assertTrue (v5.compareTo (v8) > 0);
@@ -355,7 +355,7 @@ public final class VersionTest
     assertTrue (v6.compareTo (v3) < 0);
     assertTrue (v6.compareTo (v4) < 0);
     assertTrue (v6.compareTo (v5) < 0);
-    assertEquals (v6.compareTo (v6), 0);
+    assertEquals (0, v6.compareTo (v6));
     assertTrue (v6.compareTo (v7) > 0);
     assertTrue (v6.compareTo (v8) > 0);
     assertTrue (v6.compareTo (v9) > 0);
@@ -367,7 +367,7 @@ public final class VersionTest
     assertTrue (v7.compareTo (v4) < 0);
     assertTrue (v7.compareTo (v5) < 0);
     assertTrue (v7.compareTo (v6) < 0);
-    assertEquals (v7.compareTo (v7), 0);
+    assertEquals (0, v7.compareTo (v7));
     assertTrue (v7.compareTo (v8) > 0);
     assertTrue (v7.compareTo (v9) > 0);
 
@@ -379,8 +379,8 @@ public final class VersionTest
     assertTrue (v8.compareTo (v5) < 0);
     assertTrue (v8.compareTo (v6) < 0);
     assertTrue (v8.compareTo (v7) < 0);
-    assertEquals (v8.compareTo (v8), 0);
-    assertEquals (v8.compareTo (v9), 0);
+    assertEquals (0, v8.compareTo (v8));
+    assertEquals (0, v8.compareTo (v9));
 
     // check v9
     assertTrue (v9.compareTo (v1) < 0);
@@ -390,8 +390,8 @@ public final class VersionTest
     assertTrue (v9.compareTo (v5) < 0);
     assertTrue (v9.compareTo (v6) < 0);
     assertTrue (v9.compareTo (v7) < 0);
-    assertEquals (v9.compareTo (v8), 0);
-    assertEquals (v9.compareTo (v9), 0);
+    assertEquals (0, v9.compareTo (v8));
+    assertEquals (0, v9.compareTo (v9));
 
     // test weird stuff
     try
