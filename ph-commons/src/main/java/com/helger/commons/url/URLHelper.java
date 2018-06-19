@@ -324,7 +324,7 @@ public final class URLHelper
         else
           aCAW.reset ();
 
-        while (nIndex < nLen)
+        while (true)
         {
           aCAW.write (c);
           /*
@@ -344,6 +344,8 @@ public final class URLHelper
             }
           }
           nIndex++;
+          if (nIndex >= nLen)
+            break;
 
           // Try next char
           c = aSrcChars[nIndex];
