@@ -109,6 +109,7 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
       catch (final InterruptedException ex)
       {
         s_aLogger.error ("Failed to submit object to queue", ex);
+        Thread.currentThread ().interrupt ();
         return ESuccess.FAILURE;
       }
     });
@@ -139,6 +140,7 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
       catch (final InterruptedException ex)
       {
         s_aLogger.error ("Error stopping queue", ex);
+        Thread.currentThread ().interrupt ();
         return ESuccess.FAILURE;
       }
     });

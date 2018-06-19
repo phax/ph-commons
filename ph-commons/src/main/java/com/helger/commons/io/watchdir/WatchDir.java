@@ -259,7 +259,13 @@ public class WatchDir implements AutoCloseable
       {
         aKey = m_aWatcher.poll (1, TimeUnit.SECONDS);
       }
-      catch (final InterruptedException | ClosedWatchServiceException x)
+      catch (final InterruptedException x)
+      {
+        // Watcher was interrupted - stop loop
+        Thread.currentThread ().interrupt ();
+        break;
+      }
+      catch (final ClosedWatchServiceException x)
       {
         // Watcher was interrupted - stop loop
         break;

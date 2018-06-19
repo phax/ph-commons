@@ -324,7 +324,7 @@ public final class URLHelper
         else
           aCAW.reset ();
 
-        do
+        while (nIndex < nLen)
         {
           aCAW.write (c);
           /*
@@ -344,14 +344,17 @@ public final class URLHelper
             }
           }
           nIndex++;
-        } while (nIndex < nLen && !NO_URL_ENCODE.get (c = aSrcChars[nIndex]));
+
+          // Try next char
+          c = aSrcChars[nIndex];
+          if (NO_URL_ENCODE.get (c))
+            break;
+        }
 
         final byte [] aEncodedBytes = aCAW.toByteArray (aCharset);
         for (final byte nEncByte : aEncodedBytes)
         {
-          aSB.append ('%');
-          aSB.append (URL_ENCODE_CHARS[(nEncByte >> 4) & 0xF]);
-          aSB.append (URL_ENCODE_CHARS[nEncByte & 0xF]);
+          aSB.append ('%').append (URL_ENCODE_CHARS[(nEncByte >> 4) & 0xF]).append (URL_ENCODE_CHARS[nEncByte & 0xF]);
         }
         bChanged = true;
       }

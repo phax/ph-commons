@@ -84,7 +84,8 @@ public class DCTCodec implements IByteArrayDecoder
     }
     catch (final InterruptedException ex)
     {
-      throw new DecodeException (ex);
+      Thread.currentThread ().interrupt ();
+      throw new DecodeException ("Interrupted while grabbing pixels", ex);
     }
 
     final byte [] ret = new byte [aPixels.length * 3];

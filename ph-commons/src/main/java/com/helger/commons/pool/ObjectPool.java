@@ -105,6 +105,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
     {
       // In case of acquisition interruption -> return null
       s_aLogger.error ("ObjectPool interrupted", ex);
+      Thread.currentThread ().interrupt ();
       return null;
     }
 
