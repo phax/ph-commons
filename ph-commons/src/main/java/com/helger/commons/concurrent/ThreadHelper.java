@@ -122,6 +122,7 @@ public final class ThreadHelper
     }
     catch (final InterruptedException ex)
     {
+      Thread.currentThread ().interrupt ();
       return ESuccess.FAILURE;
     }
   }
