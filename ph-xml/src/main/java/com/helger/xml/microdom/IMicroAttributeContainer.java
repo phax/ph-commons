@@ -24,6 +24,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
@@ -806,6 +807,14 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
     return setAttributeWithConversion (new MicroQName (sAttrName), aAttrValue);
   }
 
+  @Deprecated
+  @Nonnull
+  @DevelopersNote ("No need for setAttributeWithConversion - setAttribute is enough")
+  default IMPLTYPE setAttributeWithConversion (@Nonnull final String sAttrName, @Nullable final String sAttrValue)
+  {
+    return setAttribute (sAttrName, sAttrValue);
+  }
+
   /**
    * Set an attribute value of this element. If the type of the value is not
    * {@link String}, the {@link com.helger.commons.typeconvert.TypeConverter} is
@@ -828,6 +837,16 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
     return setAttributeWithConversion (new MicroQName (sNamespaceURI, sAttrName), aAttrValue);
   }
 
+  @Deprecated
+  @Nonnull
+  @DevelopersNote ("No need for setAttributeWithConversion - setAttribute is enough")
+  default IMPLTYPE setAttributeWithConversion (@Nullable final String sNamespaceURI,
+                                               @Nonnull final String sAttrName,
+                                               @Nullable final String sAttrValue)
+  {
+    return setAttribute (sNamespaceURI, sAttrName, sAttrValue);
+  }
+
   /**
    * Set an attribute value of this element. If the type of the value is not
    * {@link String}, the {@link com.helger.commons.typeconvert.TypeConverter} is
@@ -845,6 +864,14 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
   default IMPLTYPE setAttributeWithConversion (@Nonnull final IMicroQName aAttrName, @Nullable final Object aAttrValue)
   {
     final String sAttrValue = TypeConverter.convert (aAttrValue, String.class);
+    return setAttribute (aAttrName, sAttrValue);
+  }
+
+  @Deprecated
+  @Nonnull
+  @DevelopersNote ("No need for setAttributeWithConversion - setAttribute is enough")
+  default IMPLTYPE setAttributeWithConversion (@Nonnull final IMicroQName aAttrName, @Nullable final String sAttrValue)
+  {
     return setAttribute (aAttrName, sAttrValue);
   }
 
