@@ -1,3 +1,6 @@
 target/
 cov-int/
 felix-cache/
+/.settings/ 
+/.project 
+/.classpath 
