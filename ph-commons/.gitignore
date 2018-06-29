@@ -3,3 +3,6 @@ cov-int/
 myfile.csv
 /felix-cache/
 /deldirrec.test/
+/.settings/ 
+/.project 
+/.classpath 
