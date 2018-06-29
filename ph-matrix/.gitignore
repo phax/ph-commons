@@ -1,2 +1,5 @@
 target/
 cov-int/
+/.settings/ 
+/.project 
+/.classpath 
