@@ -15,3 +15,6 @@ hs_err_pid*
 /**/*.iml
 .idea/
 /**/pom.xml.versionsBackup
+/.settings/ 
+/.project 
+/.classpath 
