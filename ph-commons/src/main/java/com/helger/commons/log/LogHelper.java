@@ -16,6 +16,8 @@
  */
 package com.helger.commons.log;
 
+import java.util.function.Supplier;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -38,11 +40,68 @@ import com.helger.commons.error.level.IHasErrorLevel;
 @Immutable
 public final class LogHelper
 {
+  /**
+   * Abstraction interface for <code>logger.is...Enabled ()</code> depending on
+   * the error level.
+   *
+   * @author Philip Helger
+   * @since 9.1.3
+   */
+  @FunctionalInterface
+  public static interface IFuncIsLoggingEnabled
+  {
+    boolean isEnabled ();
+  }
+
+  /**
+   * Abstraction interface for <code>logger.debug</code> or
+   * <code>logger.info</code> depending on the error level.
+   *
+   * @author Philip Helger
+   * @since 9.1.3
+   */
+  @FunctionalInterface
+  public static interface IFuncLogger
+  {
+    void log (@Nonnull String sMsg, @Nullable Throwable t);
+  }
+
   @PresentForCodeCoverage
   private static final LogHelper s_aInstance = new LogHelper ();
 
   private LogHelper ()
   {}
+
+  @Nonnull
+  public static IFuncIsLoggingEnabled getFuncIsEnabled (@Nonnull final Logger aLogger,
+                                                        @Nonnull final IErrorLevel aErrorLevel)
+  {
+    ValueEnforcer.notNull (aLogger, "Logger");
+    ValueEnforcer.notNull (aErrorLevel, "ErrorLevel");
+
+    if (aErrorLevel.isGE (EErrorLevel.ERROR))
+      return aLogger::isErrorEnabled;
+    if (aErrorLevel.isGE (EErrorLevel.WARN))
+      return aLogger::isWarnEnabled;
+    if (aErrorLevel.isGE (EErrorLevel.INFO))
+      return aLogger::isInfoEnabled;
+    return aLogger::isDebugEnabled;
+  }
+
+  @Nonnull
+  public static IFuncLogger getFuncLogger (@Nonnull final Logger aLogger, @Nonnull final IErrorLevel aErrorLevel)
+  {
+    ValueEnforcer.notNull (aLogger, "Logger");
+    ValueEnforcer.notNull (aErrorLevel, "ErrorLevel");
+
+    if (aErrorLevel.isGE (EErrorLevel.ERROR))
+      return aLogger::error;
+    if (aErrorLevel.isGE (EErrorLevel.WARN))
+      return aLogger::warn;
+    if (aErrorLevel.isGE (EErrorLevel.INFO))
+      return aLogger::info;
+    return aLogger::debug;
+  }
 
   /**
    * Check if logging is enabled for the passed class based on the error level
@@ -85,14 +144,14 @@ public final class LogHelper
    * @param aLoggingClass
    *        The class to determine the logger from. May not be <code>null</code>
    *        .
-   * @param eErrorLevel
+   * @param aErrorLevel
    *        The error level. May not be <code>null</code>.
    * @return <code>true</code> if the respective log level is allowed,
    *         <code>false</code> if not
    */
-  public static boolean isEnabled (@Nonnull final Class <?> aLoggingClass, @Nonnull final IErrorLevel eErrorLevel)
+  public static boolean isEnabled (@Nonnull final Class <?> aLoggingClass, @Nonnull final IErrorLevel aErrorLevel)
   {
-    return isEnabled (LoggerFactory.getLogger (aLoggingClass), eErrorLevel);
+    return isEnabled (LoggerFactory.getLogger (aLoggingClass), aErrorLevel);
   }
 
   /**
@@ -101,22 +160,26 @@ public final class LogHelper
    *
    * @param aLogger
    *        The logger. May not be <code>null</code>.
-   * @param eErrorLevel
+   * @param aErrorLevel
    *        The error level. May not be <code>null</code>.
    * @return <code>true</code> if the respective log level is allowed,
    *         <code>false</code> if not
    */
-  public static boolean isEnabled (@Nonnull final Logger aLogger, @Nonnull final IErrorLevel eErrorLevel)
+  public static boolean isEnabled (@Nonnull final Logger aLogger, @Nonnull final IErrorLevel aErrorLevel)
   {
-    if (eErrorLevel.isGE (EErrorLevel.ERROR))
-      return aLogger.isErrorEnabled ();
-    if (eErrorLevel.isGE (EErrorLevel.WARN))
-      return aLogger.isWarnEnabled ();
-    if (eErrorLevel.isGE (EErrorLevel.INFO))
-      return aLogger.isInfoEnabled ();
-    return aLogger.isDebugEnabled ();
+    return getFuncIsEnabled (aLogger, aErrorLevel).isEnabled ();
   }
 
+  /**
+   * Generically log something
+   *
+   * @param aLoggingClass
+   *        Logging class to use. May not be <code>null</code>.
+   * @param aErrorLevelProvider
+   *        Error level provided to use. May not be <code>null</code>.
+   * @param sMsg
+   *        The message to log. May not be <code>null</code>.
+   */
   public static void log (@Nonnull final Class <?> aLoggingClass,
                           @Nonnull final IHasErrorLevel aErrorLevelProvider,
                           @Nonnull final String sMsg)
@@ -124,6 +187,18 @@ public final class LogHelper
     log (aLoggingClass, aErrorLevelProvider.getErrorLevel (), sMsg, null);
   }
 
+  /**
+   * Generically log something
+   *
+   * @param aLoggingClass
+   *        Logging class to use. May not be <code>null</code>.
+   * @param aErrorLevelProvider
+   *        Error level provided to use. May not be <code>null</code>.
+   * @param sMsg
+   *        The message to log. May not be <code>null</code>.
+   * @param t
+   *        Optional exception that occurred. May be <code>null</code>.
+   */
   public static void log (@Nonnull final Class <?> aLoggingClass,
                           @Nonnull final IHasErrorLevel aErrorLevelProvider,
                           @Nonnull final String sMsg,
@@ -132,6 +207,16 @@ public final class LogHelper
     log (LoggerFactory.getLogger (aLoggingClass), aErrorLevelProvider.getErrorLevel (), sMsg, t);
   }
 
+  /**
+   * Generically log something
+   *
+   * @param aLogger
+   *        Logger to use. May not be <code>null</code>.
+   * @param aErrorLevelProvider
+   *        Error level provider to use. May not be <code>null</code>.
+   * @param sMsg
+   *        The message to log. May not be <code>null</code>.
+   */
   public static void log (@Nonnull final Logger aLogger,
                           @Nonnull final IHasErrorLevel aErrorLevelProvider,
                           @Nonnull final String sMsg)
@@ -139,6 +224,18 @@ public final class LogHelper
     log (aLogger, aErrorLevelProvider.getErrorLevel (), sMsg, null);
   }
 
+  /**
+   * Generically log something
+   *
+   * @param aLogger
+   *        Logger to use. May not be <code>null</code>.
+   * @param aErrorLevelProvider
+   *        Error level provider to use. May not be <code>null</code>.
+   * @param sMsg
+   *        The message to log. May not be <code>null</code>.
+   * @param t
+   *        Optional exception that occurred. May be <code>null</code>.
+   */
   public static void log (@Nonnull final Logger aLogger,
                           @Nonnull final IHasErrorLevel aErrorLevelProvider,
                           @Nonnull final String sMsg,
@@ -147,6 +244,16 @@ public final class LogHelper
     log (aLogger, aErrorLevelProvider.getErrorLevel (), sMsg, t);
   }
 
+  /**
+   * Generically log something
+   *
+   * @param aLoggingClass
+   *        Logging class to use. May not be <code>null</code>.
+   * @param aErrorLevel
+   *        Error level to use. May not be <code>null</code>.
+   * @param sMsg
+   *        The message to log. May not be <code>null</code>.
+   */
   public static void log (@Nonnull final Class <?> aLoggingClass,
                           @Nonnull final IErrorLevel aErrorLevel,
                           @Nonnull final String sMsg)
@@ -154,40 +261,242 @@ public final class LogHelper
     log (aLoggingClass, aErrorLevel, sMsg, null);
   }
 
+  /**
+   * Generically log something
+   *
+   * @param aLoggingClass
+   *        Logging class to use. May not be <code>null</code>.
+   * @param aErrorLevel
+   *        Error level to use. May not be <code>null</code>.
+   * @param sMsg
+   *        The message to log. May not be <code>null</code>.
+   * @param t
+   *        Optional exception that occurred. May be <code>null</code>.
+   */
   public static void log (@Nonnull final Class <?> aLoggingClass,
-                          @Nonnull final IErrorLevel eErrorLevel,
+                          @Nonnull final IErrorLevel aErrorLevel,
                           @Nonnull final String sMsg,
                           @Nullable final Throwable t)
   {
-    log (LoggerFactory.getLogger (aLoggingClass), eErrorLevel, sMsg, t);
+    log (LoggerFactory.getLogger (aLoggingClass), aErrorLevel, sMsg, t);
   }
 
+  /**
+   * Generically log something
+   *
+   * @param aLogger
+   *        Logger to use. May not be <code>null</code>.
+   * @param aErrorLevel
+   *        Error level to use. May not be <code>null</code>.
+   * @param sMsg
+   *        The message to log. May not be <code>null</code>.
+   */
   public static void log (@Nonnull final Logger aLogger,
-                          @Nonnull final IErrorLevel eErrorLevel,
+                          @Nonnull final IErrorLevel aErrorLevel,
                           @Nonnull final String sMsg)
   {
-    log (aLogger, eErrorLevel, sMsg, null);
+    log (aLogger, aErrorLevel, sMsg, null);
   }
 
+  /**
+   * Generically log something
+   *
+   * @param aLogger
+   *        Logger to use. May not be <code>null</code>.
+   * @param aErrorLevel
+   *        Error level to use. May not be <code>null</code>.
+   * @param sMsg
+   *        The message to log. May not be <code>null</code>.
+   * @param t
+   *        Optional exception that occurred. May be <code>null</code>.
+   */
   public static void log (@Nonnull final Logger aLogger,
-                          @Nonnull final IErrorLevel eErrorLevel,
+                          @Nonnull final IErrorLevel aErrorLevel,
                           @Nonnull final String sMsg,
                           @Nullable final Throwable t)
   {
     ValueEnforcer.notNull (aLogger, "Logger");
-    ValueEnforcer.notNull (eErrorLevel, "ErrorLevel");
+    ValueEnforcer.notNull (aErrorLevel, "ErrorLevel");
     ValueEnforcer.notNull (sMsg, "Message");
 
-    if (eErrorLevel.isGE (EErrorLevel.ERROR))
-      aLogger.error (sMsg, t);
-    else
-      if (eErrorLevel.isGE (EErrorLevel.WARN))
-        aLogger.warn (sMsg, t);
-      else
-        if (eErrorLevel.isGE (EErrorLevel.INFO))
-          aLogger.info (sMsg, t);
-        else
-          if (aLogger.isDebugEnabled ())
-            aLogger.debug (sMsg, t);
+    if (isEnabled (aLogger, aErrorLevel))
+      getFuncLogger (aLogger, aErrorLevel).log (sMsg, t);
+  }
+
+  /**
+   * Generically log something
+   *
+   * @param aLoggingClass
+   *        Logging class to use. May not be <code>null</code>.
+   * @param aErrorLevelProvider
+   *        Error level provided to use. May not be <code>null</code>.
+   * @param aMsgSupplier
+   *        Message supplier to use. The supplier is only invoked if the log
+   *        level is enabled on the provided logger. May not be
+   *        <code>null</code>.
+   * @since 9.1.3
+   */
+  public static void log (@Nonnull final Class <?> aLoggingClass,
+                          @Nonnull final IHasErrorLevel aErrorLevelProvider,
+                          @Nonnull final Supplier <String> aMsgSupplier)
+  {
+    log (aLoggingClass, aErrorLevelProvider.getErrorLevel (), aMsgSupplier, null);
+  }
+
+  /**
+   * Generically log something
+   *
+   * @param aLoggingClass
+   *        Logging class to use. May not be <code>null</code>.
+   * @param aErrorLevelProvider
+   *        Error level provided to use. May not be <code>null</code>.
+   * @param aMsgSupplier
+   *        Message supplier to use. The supplier is only invoked if the log
+   *        level is enabled on the provided logger. May not be
+   *        <code>null</code>.
+   * @param t
+   *        Optional exception that occurred. May be <code>null</code>.
+   * @since 9.1.3
+   */
+  public static void log (@Nonnull final Class <?> aLoggingClass,
+                          @Nonnull final IHasErrorLevel aErrorLevelProvider,
+                          @Nonnull final Supplier <String> aMsgSupplier,
+                          @Nullable final Throwable t)
+  {
+    log (LoggerFactory.getLogger (aLoggingClass), aErrorLevelProvider.getErrorLevel (), aMsgSupplier, t);
+  }
+
+  /**
+   * Generically log something
+   *
+   * @param aLogger
+   *        Logger to use. May not be <code>null</code>.
+   * @param aErrorLevelProvider
+   *        Error level provider to use. May not be <code>null</code>.
+   * @param aMsgSupplier
+   *        Message supplier to use. The supplier is only invoked if the log
+   *        level is enabled on the provided logger. May not be
+   *        <code>null</code>.
+   * @since 9.1.3
+   */
+  public static void log (@Nonnull final Logger aLogger,
+                          @Nonnull final IHasErrorLevel aErrorLevelProvider,
+                          @Nonnull final Supplier <String> aMsgSupplier)
+  {
+    log (aLogger, aErrorLevelProvider.getErrorLevel (), aMsgSupplier, null);
+  }
+
+  /**
+   * Generically log something
+   *
+   * @param aLogger
+   *        Logger to use. May not be <code>null</code>.
+   * @param aErrorLevelProvider
+   *        Error level provider to use. May not be <code>null</code>.
+   * @param aMsgSupplier
+   *        Message supplier to use. The supplier is only invoked if the log
+   *        level is enabled on the provided logger. May not be
+   *        <code>null</code>.
+   * @param t
+   *        Optional exception that occurred. May be <code>null</code>.
+   * @since 9.1.3
+   */
+  public static void log (@Nonnull final Logger aLogger,
+                          @Nonnull final IHasErrorLevel aErrorLevelProvider,
+                          @Nonnull final Supplier <String> aMsgSupplier,
+                          @Nullable final Throwable t)
+  {
+    log (aLogger, aErrorLevelProvider.getErrorLevel (), aMsgSupplier, t);
+  }
+
+  /**
+   * Generically log something
+   *
+   * @param aLoggingClass
+   *        Logging class to use. May not be <code>null</code>.
+   * @param aErrorLevel
+   *        Error level to use. May not be <code>null</code>.
+   * @param aMsgSupplier
+   *        Message supplier to use. The supplier is only invoked if the log
+   *        level is enabled on the provided logger. May not be
+   *        <code>null</code>.
+   * @since 9.1.3
+   */
+  public static void log (@Nonnull final Class <?> aLoggingClass,
+                          @Nonnull final IErrorLevel aErrorLevel,
+                          @Nonnull final Supplier <String> aMsgSupplier)
+  {
+    log (aLoggingClass, aErrorLevel, aMsgSupplier, null);
+  }
+
+  /**
+   * Generically log something
+   *
+   * @param aLoggingClass
+   *        Logging class to use. May not be <code>null</code>.
+   * @param aErrorLevel
+   *        Error level to use. May not be <code>null</code>.
+   * @param aMsgSupplier
+   *        Message supplier to use. The supplier is only invoked if the log
+   *        level is enabled on the provided logger. May not be
+   *        <code>null</code>.
+   * @param t
+   *        Optional exception that occurred. May be <code>null</code>.
+   * @since 9.1.3
+   */
+  public static void log (@Nonnull final Class <?> aLoggingClass,
+                          @Nonnull final IErrorLevel aErrorLevel,
+                          @Nonnull final Supplier <String> aMsgSupplier,
+                          @Nullable final Throwable t)
+  {
+    log (LoggerFactory.getLogger (aLoggingClass), aErrorLevel, aMsgSupplier, t);
+  }
+
+  /**
+   * Generically log something
+   *
+   * @param aLogger
+   *        Logger to use. May not be <code>null</code>.
+   * @param aErrorLevel
+   *        Error level to use. May not be <code>null</code>.
+   * @param aMsgSupplier
+   *        Message supplier to use. The supplier is only invoked if the log
+   *        level is enabled on the provided logger. May not be
+   *        <code>null</code>.
+   * @since 9.1.3
+   */
+  public static void log (@Nonnull final Logger aLogger,
+                          @Nonnull final IErrorLevel aErrorLevel,
+                          @Nonnull final Supplier <String> aMsgSupplier)
+  {
+    log (aLogger, aErrorLevel, aMsgSupplier, null);
+  }
+
+  /**
+   * Generically log something
+   *
+   * @param aLogger
+   *        Logger to use. May not be <code>null</code>.
+   * @param aErrorLevel
+   *        Error level to use. May not be <code>null</code>.
+   * @param aMsgSupplier
+   *        Message supplier to use. The supplier is only invoked if the log
+   *        level is enabled on the provided logger. May not be
+   *        <code>null</code>.
+   * @param t
+   *        Optional exception that occurred. May be <code>null</code>.
+   * @since 9.1.3
+   */
+  public static void log (@Nonnull final Logger aLogger,
+                          @Nonnull final IErrorLevel aErrorLevel,
+                          @Nonnull final Supplier <String> aMsgSupplier,
+                          @Nullable final Throwable t)
+  {
+    ValueEnforcer.notNull (aLogger, "Logger");
+    ValueEnforcer.notNull (aErrorLevel, "ErrorLevel");
+    ValueEnforcer.notNull (aMsgSupplier, "MessageSupplier");
+
+    if (isEnabled (aLogger, aErrorLevel))
+      getFuncLogger (aLogger, aErrorLevel).log (aMsgSupplier.get (), t);
   }
 }
