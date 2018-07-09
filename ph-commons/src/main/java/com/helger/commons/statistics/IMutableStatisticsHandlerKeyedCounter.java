@@ -31,7 +31,10 @@ public interface IMutableStatisticsHandlerKeyedCounter extends IStatisticsHandle
    * @param sKey
    *        The key to be incremented.
    */
-  void increment (@Nullable String sKey);
+  default void increment (@Nullable final String sKey)
+  {
+    increment (sKey, 1L);
+  }
 
   /**
    * Increment by <i>n</i>

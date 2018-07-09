@@ -46,12 +46,6 @@ public class StatisticsHandlerCounter implements IMutableStatisticsHandlerCounte
     return m_aCount.longValue ();
   }
 
-  public void increment ()
-  {
-    m_aInvocationCount.incrementAndGet ();
-    m_aCount.incrementAndGet ();
-  }
-
   public void increment (final long nByHowMany)
   {
     m_aInvocationCount.incrementAndGet ();

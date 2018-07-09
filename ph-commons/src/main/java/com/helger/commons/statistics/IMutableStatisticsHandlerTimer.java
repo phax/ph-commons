@@ -29,7 +29,7 @@ public interface IMutableStatisticsHandlerTimer extends IStatisticsHandlerTimer
    * Add a single execution time.
    *
    * @param nMillis
-   *        The milli seconds it took to execute something. Should not be
+   *        The milliseconds it took to execute something. Should not be
    *        negative.
    */
   void addTime (@Nonnegative long nMillis);

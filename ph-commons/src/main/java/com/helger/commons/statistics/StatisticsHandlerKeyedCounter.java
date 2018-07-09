@@ -92,11 +92,6 @@ public class StatisticsHandlerKeyedCounter implements IMutableStatisticsHandlerK
     return m_aInvocationCount.intValue ();
   }
 
-  public void increment (@Nullable final String sKey)
-  {
-    increment (sKey, 1L);
-  }
-
   public void increment (@Nullable final String sKey, final long nByHowMany)
   {
     m_aInvocationCount.incrementAndGet ();

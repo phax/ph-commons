@@ -26,7 +26,10 @@ public interface IMutableStatisticsHandlerCounter extends IStatisticsHandlerCoun
   /**
    * Increment the counter by 1
    */
-  void increment ();
+  default void increment ()
+  {
+    increment (1L);
+  }
 
   /**
    * Increment the counter by an arbitrary number
