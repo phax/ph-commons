@@ -87,7 +87,7 @@ public final class SimpleLSResourceResolverTest
       assertEquals (Bundle.ACTIVE, b.getState ());
 
       // No leading slash is important as the ClassLoader is used!
-      assertNotNull (b.getResource ("org/apache/felix/framework/util/Mutex.class"));
+      assertNotNull (b.getResource ("org/apache/felix/framework/util/Util.class"));
 
       final LSResourceResolver aRR = new SimpleLSResourceResolver ();
 
@@ -96,7 +96,7 @@ public final class SimpleLSResourceResolverTest
                                   null,
                                   null,
                                   "../Felix.class",
-                                  "bundle://0.0:1/org/apache/felix/framework/util/Mutex.class");
+                                  "bundle://0.0:1/org/apache/felix/framework/util/Util.class");
       assertTrue (aRes instanceof ResourceLSInput);
       final IHasInputStream aISP = ((ResourceLSInput) aRes).getInputStreamProvider ();
       assertTrue (aISP instanceof URLResource);
