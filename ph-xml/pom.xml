@@ -76,10 +76,11 @@
         </exclusion>
       </exclusions>
     </dependency>
-    <!-- OSGI container is required for a test case -->    <dependency>
+    <!-- OSGI container is required for a test case -->
+    <dependency>
       <groupId>org.apache.felix</groupId>
       <artifactId>org.apache.felix.framework</artifactId>
-      <version>5.6.10</version>
+      <version>6.0.0</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
