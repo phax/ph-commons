@@ -572,9 +572,7 @@ public final class CollectionHelper
   {
     if (isEmpty (aMap))
       return newOrderedMap (0);
-    final CommonsLinkedHashMap <DSTKEYTYPE, DSTVALUETYPE> ret = newOrderedMap (aMap.size ());
-    ret.putAllMapped (aMap, aKeyMapper, aValueMapper);
-    return ret;
+    return new CommonsLinkedHashMap <> (aMap, aKeyMapper, aValueMapper);
   }
 
   @Nonnull
@@ -585,9 +583,7 @@ public final class CollectionHelper
   {
     if (isEmpty (aCollection))
       return newOrderedMap (0);
-    final CommonsLinkedHashMap <DSTKEYTYPE, DSTVALUETYPE> ret = newOrderedMap (aCollection.size ());
-    ret.putAllMapped (aCollection, aKeyMapper, aValueMapper);
-    return ret;
+    return new CommonsLinkedHashMap <> (aCollection, aKeyMapper, aValueMapper);
   }
 
   @Nonnull
@@ -757,9 +753,7 @@ public final class CollectionHelper
                                                                                                                                                                            @Nonnull final Function <? super SRCKEYTYPE, DSTKEYTYPE> aKeyMapper,
                                                                                                                                                                            @Nonnull final Function <? super SRCVALUETYPE, DSTVALUETYPE> aValueMapper)
   {
-    final CommonsTreeMap <DSTKEYTYPE, DSTVALUETYPE> ret = newSortedMap ();
-    ret.putAllMapped (aMap, aKeyMapper, aValueMapper);
-    return ret;
+    return new CommonsTreeMap <> (aMap, aKeyMapper, aValueMapper);
   }
 
   @Nonnull
