@@ -61,6 +61,13 @@ public class CommonsTreeMap <KEYTYPE, VALUETYPE> extends TreeMap <KEYTYPE, VALUE
     putAllMapped (aValues, aKeyMapper, aValueMapper);
   }
 
+  public <SRCKEYTYPE, SRCVALUETYPE> CommonsTreeMap (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aValues,
+                                                    @Nonnull final Function <? super SRCKEYTYPE, ? extends KEYTYPE> aKeyMapper,
+                                                    @Nonnull final Function <? super SRCVALUETYPE, ? extends VALUETYPE> aValueMapper)
+  {
+    putAllMapped (aValues, aKeyMapper, aValueMapper);
+  }
+
   @Override
   @Nonnull
   @ReturnsMutableCopy

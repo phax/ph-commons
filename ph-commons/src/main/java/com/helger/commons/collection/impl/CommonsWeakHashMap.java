@@ -68,6 +68,14 @@ public class CommonsWeakHashMap <KEYTYPE, VALUETYPE> extends WeakHashMap <KEYTYP
     putAllMapped (aValues, aKeyMapper, aValueMapper);
   }
 
+  public <SRCKEYTYPE, SRCVALUETYPE> CommonsWeakHashMap (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aValues,
+                                                        @Nonnull final Function <? super SRCKEYTYPE, ? extends KEYTYPE> aKeyMapper,
+                                                        @Nonnull final Function <? super SRCVALUETYPE, ? extends VALUETYPE> aValueMapper)
+  {
+    super (CollectionHelper.getSize (aValues));
+    putAllMapped (aValues, aKeyMapper, aValueMapper);
+  }
+
   @Override
   @Nonnull
   @ReturnsMutableCopy

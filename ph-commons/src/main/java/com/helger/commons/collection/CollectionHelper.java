@@ -396,9 +396,7 @@ public final class CollectionHelper
   {
     if (isEmpty (aMap))
       return newMap (0);
-    final CommonsHashMap <DSTKEYTYPE, DSTVALUETYPE> ret = newMap (aMap.size ());
-    ret.putAllMapped (aMap, aKeyMapper, aValueMapper);
-    return ret;
+    return new CommonsHashMap <> (aMap, aKeyMapper, aValueMapper);
   }
 
   @Nonnull
@@ -409,9 +407,7 @@ public final class CollectionHelper
   {
     if (isEmpty (aCollection))
       return newMap (0);
-    final CommonsHashMap <DSTKEYTYPE, DSTVALUETYPE> ret = newMap (aCollection.size ());
-    ret.putAllMapped (aCollection, aKeyMapper, aValueMapper);
-    return ret;
+    return new CommonsHashMap <> (aCollection, aKeyMapper, aValueMapper);
   }
 
   @Nonnull
@@ -1083,8 +1079,7 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  @SuppressFBWarnings (value = { "NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE" },
-                       justification = "When using the constructor with the Comparator it works with null values!")
+  @SuppressFBWarnings (value = { "NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE" }, justification = "When using the constructor with the Comparator it works with null values!")
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> newSortedSet (@Nullable final ELEMENTTYPE aValue)
   {
     final CommonsTreeSet <ELEMENTTYPE> ret = newSortedSet ();

@@ -76,6 +76,14 @@ public class CommonsLinkedHashMap <KEYTYPE, VALUETYPE> extends LinkedHashMap <KE
     putAllMapped (aValues, aKeyMapper, aValueMapper);
   }
 
+  public <SRCKEYTYPE, SRCVALUETYPE> CommonsLinkedHashMap (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aValues,
+                                                          @Nonnull final Function <? super SRCKEYTYPE, ? extends KEYTYPE> aKeyMapper,
+                                                          @Nonnull final Function <? super SRCVALUETYPE, ? extends VALUETYPE> aValueMapper)
+  {
+    super (CollectionHelper.getSize (aValues));
+    putAllMapped (aValues, aKeyMapper, aValueMapper);
+  }
+
   @Override
   @Nonnull
   @ReturnsMutableCopy

@@ -68,6 +68,14 @@ public class CommonsHashMap <KEYTYPE, VALUETYPE> extends HashMap <KEYTYPE, VALUE
     putAllMapped (aValues, aKeyMapper, aValueMapper);
   }
 
+  public <SRCKEYTYPE, SRCVALUETYPE> CommonsHashMap (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aValues,
+                                                    @Nonnull final Function <? super SRCKEYTYPE, ? extends KEYTYPE> aKeyMapper,
+                                                    @Nonnull final Function <? super SRCVALUETYPE, ? extends VALUETYPE> aValueMapper)
+  {
+    super (CollectionHelper.getSize (aValues));
+    putAllMapped (aValues, aKeyMapper, aValueMapper);
+  }
+
   @Override
   @Nonnull
   @ReturnsMutableCopy
