@@ -28,6 +28,7 @@ import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.locale.LocaleHelper;
 import com.helger.commons.locale.country.CountryCache;
+import com.helger.commons.locale.language.LanguageCache;
 import com.helger.commons.mime.MimeTypeDeterminator;
 import com.helger.commons.regex.RegExCache;
 import com.helger.commons.serialize.convert.SerializationConverterRegistry;
@@ -65,6 +66,8 @@ public final class CommonsCleanup
       LocaleCache.getInstance ().reinitialize ();
     if (CountryCache.isInstantiated ())
       CountryCache.getInstance ().reinitialize ();
+    if (LanguageCache.isInstantiated ())
+      LanguageCache.getInstance ().reinitialize ();
     if (SerializationConverterRegistry.isInstantiated ())
       SerializationConverterRegistry.getInstance ().reinitialize ();
     if (MimeTypeDeterminator.isInstantiated ())

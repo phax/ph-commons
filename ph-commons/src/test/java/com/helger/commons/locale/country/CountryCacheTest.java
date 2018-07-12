@@ -160,12 +160,13 @@ public final class CountryCacheTest
   @Test
   public void testNoConcurrentModification ()
   {
-    final ICommonsSet <Locale> aCountries = new CommonsHashSet<> ();
+    final ICommonsSet <Locale> aCountries = new CommonsHashSet <> ();
     for (final String sCountry : CountryCache.getInstance ().getAllCountries ())
       aCountries.add (CountryCache.getInstance ().getCountry (sCountry));
 
     for (final Locale aCountry : aCountries)
     {
+      assertNotNull (aCountry);
       assertTrue (StringHelper.hasNoText (aCountry.getLanguage ()));
       assertTrue (StringHelper.hasText (aCountry.getCountry ()));
       assertTrue (StringHelper.hasNoText (aCountry.getVariant ()));
@@ -175,12 +176,13 @@ public final class CountryCacheTest
   @Test
   public void testNoConcurrentModification2 ()
   {
-    final ICommonsSet <Locale> aCountries = new CommonsHashSet<> ();
+    final ICommonsSet <Locale> aCountries = new CommonsHashSet <> ();
     for (final Locale aCountry : CountryCache.getInstance ().getAllCountryLocales ())
       aCountries.add (CountryCache.getInstance ().getCountry (aCountry));
 
     for (final Locale aCountry : aCountries)
     {
+      assertNotNull (aCountry);
       assertTrue (StringHelper.hasNoText (aCountry.getLanguage ()));
       assertTrue (StringHelper.hasText (aCountry.getCountry ()));
       assertTrue (StringHelper.hasNoText (aCountry.getVariant ()));

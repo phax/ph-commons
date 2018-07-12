@@ -114,7 +114,7 @@ public final class CountryCache
     final String sValidCountry = LocaleHelper.getValidCountryCode (sCountry);
     if (!containsCountry (sValidCountry))
       if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("Trying to retrieve unsupported country " + sCountry);
+        s_aLogger.warn ("Trying to retrieve unsupported country '" + sCountry + "'");
     return LocaleCache.getInstance ().getLocale ("", sValidCountry, "");
   }
 
