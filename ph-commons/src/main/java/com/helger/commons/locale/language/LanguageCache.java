@@ -135,9 +135,10 @@ public final class LanguageCache
   @ReturnsMutableCopy
   public ICommonsSet <Locale> getAllLanguageLocales ()
   {
-    return m_aRWLock.readLocked ( () -> new CommonsHashSet <> (m_aLanguages,
-                                                               sLanguage -> LocaleCache.getInstance ()
-                                                                                       .getLocale (sLanguage, "", "")));
+    return m_aRWLock.readLocked ( () -> {
+      final LocaleCache aLC = LocaleCache.getInstance ();
+      return new CommonsHashSet <> (m_aLanguages, sLanguage -> aLC.getLocale (sLanguage, "", ""));
+    });
   }
 
   /**
@@ -183,7 +184,10 @@ public final class LanguageCache
     {
       final String sLanguage = aLocale.getLanguage ();
       if (StringHelper.hasText (sLanguage))
+      {
+        // Allows for duplicates!
         addLanguage (sLanguage);
+      }
     }
 
     if (s_aLogger.isDebugEnabled ())

@@ -179,6 +179,7 @@ public final class LanguageCacheTest
   public void testNoConcurrentModification2 ()
   {
     final ICommonsSet <Locale> aCountries = new CommonsHashSet <> ();
+    assertTrue (LanguageCache.getInstance ().getAllLanguages ().size () > 10);
     for (final Locale aLanguage : LanguageCache.getInstance ().getAllLanguageLocales ())
       aCountries.add (LanguageCache.getInstance ().getLanguage (aLanguage));
 

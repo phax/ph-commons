@@ -135,9 +135,10 @@ public final class CountryCache
   @ReturnsMutableCopy
   public ICommonsSet <Locale> getAllCountryLocales ()
   {
-    return m_aRWLock.readLocked ( () -> new CommonsHashSet <> (m_aCountries,
-                                                               sCountry -> LocaleCache.getInstance ()
-                                                                                      .getLocale ("", sCountry, "")));
+    return m_aRWLock.readLocked ( () -> {
+      final LocaleCache aLC = LocaleCache.getInstance ();
+      return new CommonsHashSet <> (m_aCountries, sCountry -> aLC.getLocale ("", sCountry, ""));
+    });
   }
 
   /**
