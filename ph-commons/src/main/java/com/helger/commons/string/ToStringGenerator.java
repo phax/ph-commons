@@ -438,6 +438,12 @@ public final class ToStringGenerator
   }
 
   @Nonnull
+  public ToStringGenerator appendPasswordIf (@Nonnull final String sField, final BooleanSupplier aFilter)
+  {
+    return aFilter.getAsBoolean () ? appendPassword (sField) : this;
+  }
+
+  @Nonnull
   public String getToString ()
   {
     if ((m_nIndex & APPENDED_CLOSING_BRACKET) == 0)

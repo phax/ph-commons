@@ -45,6 +45,7 @@ This project was the following modules:
   * Extended `IPrivilegedAction` with new static methods
   * Added new class `Predicates` with basic typed predicates for primitive types
   * Added some static `IBooleanPredicate` factory methods
+  * Added `ToStringGenerator.appendPasswordIf` method
 * v9.1.2 - 2018-06-19
   * Made setters of `WSClientConfig` final
   * Changed method name in `CharsetHelper` from `getCharsetFromNameOrNull` to `getCharsetFromNameOrDefault`
