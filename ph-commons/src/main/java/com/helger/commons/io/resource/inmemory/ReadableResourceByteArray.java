@@ -38,18 +38,35 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public class ReadableResourceByteArray extends AbstractMemoryReadableResource implements IHasSize
 {
+  public static final boolean DEFAULT_COPY_NEEDED = true;
+
   private final byte [] m_aBytes;
+  private final boolean m_bIsCopy;
 
   public ReadableResourceByteArray (@Nonnull final byte [] aBytes)
   {
-    this (null, aBytes);
+    this (null, aBytes, DEFAULT_COPY_NEEDED);
+  }
+
+  public ReadableResourceByteArray (@Nonnull final byte [] aBytes, final boolean bCopyNeeded)
+  {
+    this ((String) null, aBytes, bCopyNeeded);
   }
 
   public ReadableResourceByteArray (@Nullable final String sResourceID, @Nonnull final byte [] aBytes)
   {
+    this (sResourceID, aBytes, DEFAULT_COPY_NEEDED);
+  }
+
+  public ReadableResourceByteArray (@Nullable final String sResourceID,
+                                    @Nonnull final byte [] aBytes,
+                                    final boolean bCopyNeeded)
+  {
     super (StringHelper.hasText (sResourceID) ? sResourceID : "byte[]");
+    ValueEnforcer.notNull (aBytes, "Bytes");
     // Create a copy to avoid outside modifications
-    m_aBytes = ArrayHelper.getCopy (ValueEnforcer.notNull (aBytes, "Bytes"));
+    m_aBytes = bCopyNeeded ? ArrayHelper.getCopy (aBytes) : aBytes;
+    m_bIsCopy = bCopyNeeded;
   }
 
   @Nonnull
@@ -81,9 +98,22 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
     return m_aBytes.length == 0;
   }
 
+  /**
+   * @return <code>true</code> if the contained byte array was copied in the
+   *         constructor or not.
+   * @since 9.1.3
+   */
+  public final boolean isCopy ()
+  {
+    return m_bIsCopy;
+  }
+
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("byte#", m_aBytes.length).getToString ();
+    return ToStringGenerator.getDerived (super.toString ())
+                            .append ("byte#", m_aBytes.length)
+                            .append ("IsCopy", m_bIsCopy)
+                            .getToString ();
   }
 }
