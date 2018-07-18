@@ -593,7 +593,11 @@ public final class StreamHelper
     if (aIS == null)
       return null;
 
-    return getCopy (aIS).toByteArray ();
+    try (NonBlockingByteArrayOutputStream aBAOS = getCopy (aIS))
+    {
+      // No need to copy, because the BAOS goes out of scope anyway
+      return aBAOS.getBufferOrCopy ();
+    }
   }
 
   /**

@@ -352,6 +352,23 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   }
 
   /**
+   * @return The direct buffer, if the array size and the count are identical, a
+   *         copy otherwise.
+   * @see #size()
+   * @see #directGetBuffer()
+   * @see #toByteArray()
+   * @since 9.1.3
+   */
+  @Nonnull
+  public byte [] getBufferOrCopy ()
+  {
+    if (m_aBuf.length == m_nCount)
+      return directGetBuffer ();
+    // Copy is needed
+    return toByteArray ();
+  }
+
+  /**
    * Closing a <tt>ByteArrayOutputStream</tt> has no effect. The methods in this
    * class can be called after the stream has been closed without generating an
    * <tt>IOException</tt>. This operation does nothing on this class.
