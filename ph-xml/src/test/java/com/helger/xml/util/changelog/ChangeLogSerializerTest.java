@@ -17,10 +17,8 @@
 package com.helger.xml.util.changelog;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.net.URI;
@@ -60,13 +58,13 @@ public final class ChangeLogSerializerTest
   public void testRead () throws SAXException
   {
     // Read valid
-    final ChangeLog aCL = ChangeLogSerializer.readChangeLog (new FileSystemResource ("src/main/resources/" +
+    final ChangeLog aCL = ChangeLogSerializer.readChangeLog (new FileSystemResource ("src/test/resources/" +
                                                                                      CChangeLog.CHANGELOG_XML_FILENAME));
     assertNotNull (aCL);
     assertEquals (new Version (1, 0), aCL.getVersion ());
     assertEquals ("ph-xml", aCL.getComponent ());
-    assertTrue (aCL.getAllEntries ().size () > 0);
-    assertTrue (aCL.getAllReleases ().size () > 0);
+    assertNotNull (aCL.getAllEntries ());
+    assertNotNull (aCL.getAllReleases ());
     assertNotNull (aCL.getLatestRelease ());
     for (final EChangeLogCategory eCat : EChangeLogCategory.values ())
       assertNotNull (aCL.getAllEntriesOfCategory (eCat));
@@ -95,7 +93,6 @@ public final class ChangeLogSerializerTest
   {
     final Map <URI, ChangeLog> aChangeLogs = ChangeLogSerializer.readAllChangeLogs ();
     assertNotNull (aChangeLogs);
-    assertFalse (aChangeLogs.isEmpty ());
   }
 
   @Test
