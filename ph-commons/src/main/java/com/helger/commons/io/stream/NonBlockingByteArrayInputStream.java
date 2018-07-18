@@ -23,6 +23,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.collection.ArrayHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -34,6 +35,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public class NonBlockingByteArrayInputStream extends InputStream implements Serializable
 {
+  public static final boolean DEFAULT_COPY_NEEDED = false;
+
   /**
    * An array of bytes that was provided by the creator of the stream. Elements
    * <code>buf[0]</code> through <code>buf[count-1]</code> are the only bytes
@@ -51,11 +54,11 @@ public class NonBlockingByteArrayInputStream extends InputStream implements Seri
   protected int m_nPos;
 
   /**
-   * The currently marked position in the stream. ByteArrayInputStream objects
-   * are marked at position zero by default when constructed. They may be marked
-   * at another position within the buffer by the <code>mark()</code> method.
-   * The current buffer position is set to this point by the
-   * <code>reset()</code> method.
+   * The currently marked position in the stream.
+   * NonBlockingByteArrayInputStream objects are marked at position zero by
+   * default when constructed. They may be marked at another position within the
+   * buffer by the <code>mark()</code> method. The current buffer position is
+   * set to this point by the <code>reset()</code> method.
    * <p>
    * If no mark has been set, then the value of mark is the offset passed to the
    * constructor (or 0 if the offset was not supplied).
@@ -71,8 +74,10 @@ public class NonBlockingByteArrayInputStream extends InputStream implements Seri
    */
   protected int m_nCount;
 
+  private final boolean m_bIsCopy;
+
   /**
-   * Creates a <code>ByteArrayInputStream</code> so that it uses
+   * Creates a <code>NonBlockingByteArrayInputStream</code> so that it uses
    * <code>buf</code> as its buffer array. The buffer array is not copied. The
    * initial value of <code>pos</code> is <code>0</code> and the initial value
    * of <code>count</code> is the length of <code>buf</code>.
@@ -80,18 +85,35 @@ public class NonBlockingByteArrayInputStream extends InputStream implements Seri
    * @param aBuf
    *        the input buffer.
    */
-  @SuppressFBWarnings ({ "EI_EXPOSE_REP2" })
   public NonBlockingByteArrayInputStream (@Nonnull final byte [] aBuf)
   {
-    this (aBuf, 0, aBuf.length);
+    this (aBuf, 0, aBuf.length, DEFAULT_COPY_NEEDED);
   }
 
   /**
-   * Creates <code>ByteArrayInputStream</code> that uses <code>aBuf</code> as
-   * its buffer array. The initial value of <code>nOfs</code> is
-   * <code>offset</code> and the initial value of <code>m_nCount</code> is the
-   * minimum of <code>nOfs+nLen</code> and <code>aBuf.length</code>. The buffer
-   * array is not copied. The buffer's mark is set to the specified offset.
+   * Creates a <code>NonBlockingByteArrayInputStream</code> so that it uses
+   * <code>buf</code> as its buffer array. The buffer array is not copied. The
+   * initial value of <code>pos</code> is <code>0</code> and the initial value
+   * of <code>count</code> is the length of <code>buf</code>.
+   *
+   * @param aBuf
+   *        the input buffer.
+   * @param bIsCopyNeeded
+   *        <code>true</code> if the array should be copied, <code>false</code>
+   *        if not.
+   */
+  public NonBlockingByteArrayInputStream (@Nonnull final byte [] aBuf, final boolean bIsCopyNeeded)
+  {
+    this (aBuf, 0, aBuf.length, bIsCopyNeeded);
+  }
+
+  /**
+   * Creates <code>NonBlockingByteArrayInputStream</code> that uses
+   * <code>aBuf</code> as its buffer array. The initial value of
+   * <code>nOfs</code> is <code>offset</code> and the initial value of
+   * <code>m_nCount</code> is the minimum of <code>nOfs+nLen</code> and
+   * <code>aBuf.length</code>. The buffer array is not copied. The buffer's mark
+   * is set to the specified offset.
    *
    * @param aBuf
    *        the input buffer.
@@ -100,23 +122,30 @@ public class NonBlockingByteArrayInputStream extends InputStream implements Seri
    * @param nLen
    *        the maximum number of bytes to read from the buffer.
    */
-  @SuppressFBWarnings ({ "EI_EXPOSE_REP2" })
-  public NonBlockingByteArrayInputStream (final byte [] aBuf, final int nOfs, final int nLen)
+  public NonBlockingByteArrayInputStream (@Nonnull final byte [] aBuf,
+                                          @Nonnegative final int nOfs,
+                                          @Nonnegative final int nLen)
   {
-    ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
-    m_aBuf = aBuf;
-    m_nPos = nOfs;
-    m_nCount = Math.min (nOfs + nLen, aBuf.length);
-    m_nMark = nOfs;
+    this (aBuf, nOfs, nLen, DEFAULT_COPY_NEEDED);
   }
 
-  public NonBlockingByteArrayInputStream (final byte [] aBuf, final int nOfs, final int nLen, final boolean bCopy)
+  @SuppressFBWarnings ({ "EI_EXPOSE_REP2" })
+  public NonBlockingByteArrayInputStream (@Nonnull final byte [] aBuf,
+                                          @Nonnegative final int nOfs,
+                                          @Nonnegative final int nLen,
+                                          final boolean bIsCopyNeeded)
   {
     ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
-    m_aBuf = aBuf;
-    m_nPos = nOfs;
-    m_nCount = Math.min (nOfs + nLen, aBuf.length);
-    m_nMark = nOfs;
+    m_aBuf = bIsCopyNeeded ? ArrayHelper.getCopy (aBuf, nOfs, nLen) : aBuf;
+    m_nPos = bIsCopyNeeded ? 0 : nOfs;
+    m_nCount = bIsCopyNeeded ? nLen : Math.min (nOfs + nLen, aBuf.length);
+    m_nMark = m_nPos;
+    m_bIsCopy = bIsCopyNeeded;
+  }
+
+  public final boolean isCopy ()
+  {
+    return m_bIsCopy;
   }
 
   /**
@@ -133,7 +162,12 @@ public class NonBlockingByteArrayInputStream extends InputStream implements Seri
   @Override
   public int read ()
   {
-    return m_nPos < m_nCount ? (m_aBuf[m_nPos++] & 0xff) : -1;
+    if (m_nPos >= m_nCount)
+      return -1;
+
+    final int ret = m_aBuf[m_nPos] & 0xff;
+    m_nPos++;
+    return ret;
   }
 
   /**
@@ -213,8 +247,9 @@ public class NonBlockingByteArrayInputStream extends InputStream implements Seri
 
   /**
    * Tests if this <code>InputStream</code> supports mark/reset. The
-   * <code>markSupported</code> method of <code>ByteArrayInputStream</code>
-   * always returns <code>true</code>.
+   * <code>markSupported</code> method of
+   * <code>NonBlockingByteArrayInputStream</code> always returns
+   * <code>true</code>.
    *
    * @return Always true
    */
@@ -225,9 +260,10 @@ public class NonBlockingByteArrayInputStream extends InputStream implements Seri
   }
 
   /**
-   * Set the current marked position in the stream. ByteArrayInputStream objects
-   * are marked at position zero by default when constructed. They may be marked
-   * at another position within the buffer by this method.
+   * Set the current marked position in the stream.
+   * NonBlockingByteArrayInputStream objects are marked at position zero by
+   * default when constructed. They may be marked at another position within the
+   * buffer by this method.
    * <p>
    * If no mark has been set, then the value of the mark is the offset passed to
    * the constructor (or 0 if the offset was not supplied).
@@ -253,9 +289,9 @@ public class NonBlockingByteArrayInputStream extends InputStream implements Seri
   }
 
   /**
-   * Closing a <tt>ByteArrayInputStream</tt> has no effect. The methods in this
-   * class can be called after the stream has been closed without generating an
-   * <tt>IOException</tt>.
+   * Closing a <tt>NonBlockingByteArrayInputStream</tt> has no effect. The
+   * methods in this class can be called after the stream has been closed
+   * without generating an <tt>IOException</tt>.
    */
   @Override
   public void close ()
