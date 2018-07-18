@@ -90,17 +90,17 @@ public final class EMessageDigestAlgorithmTest
     assertEquals ("4444WYPIXHSTJGGABKB7QMG63KJNR7IFMXRALGPORDXI6ZF64HUA",
                   aBase32.getEncodedAsString (MessageDigestValue.create ("urn:oasis:names:tc:ebcore:partyid-type:iso6523:0060:1234567890128".getBytes (CHARSET),
                                                                          EMessageDigestAlgorithm.SHA_256)
-                                                                .getAllDigestBytes (),
+                                                                .getAllBytes (),
                                               CHARSET));
     assertEquals ("XJ4BNP4PAHH6UQKBIDPF3LRCEOYAGYNDSYLXVHFUCD7WD4QACWWQ",
                   aBase32.getEncodedAsString (MessageDigestValue.create ("abc".getBytes (CHARSET),
                                                                          EMessageDigestAlgorithm.SHA_256)
-                                                                .getAllDigestBytes (),
+                                                                .getAllBytes (),
                                               CHARSET));
     assertEquals ("WXKAIXB7IZX2SH7CZRVL46JDFINFPTPRAT32E3TRNYFB4J4J354A",
                   aBase32.getEncodedAsString (MessageDigestValue.create ("ABC".getBytes (CHARSET),
                                                                          EMessageDigestAlgorithm.SHA_256)
-                                                                .getAllDigestBytes (),
+                                                                .getAllBytes (),
                                               CHARSET));
   }
 }

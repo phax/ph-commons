@@ -24,6 +24,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.WillNotClose;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.ArrayHelper;
@@ -111,6 +112,7 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader
    */
   default void writeTo (@Nonnull @WillNotClose final OutputStream aOS) throws IOException
   {
+    ValueEnforcer.notNull (aOS, "OutputStream");
     aOS.write (bytes (), getOffset (), size ());
   }
 
@@ -122,7 +124,7 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader
    * @return <code>true</code> if the passed bytes start with the bytes in this
    *         object.
    */
-  default boolean matchesBeginning (@Nonnull final byte [] aCmpBytes)
+  default boolean startsWith (@Nonnull final byte [] aCmpBytes)
   {
     return ArrayHelper.startsWith (bytes (), aCmpBytes);
   }

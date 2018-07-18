@@ -133,10 +133,10 @@ public class MessageDigestValue implements IHasByteArray, Serializable
    * @throws IOException
    *         In case of a write error
    */
+  @Deprecated
   public void writeDigestBytes (@Nonnull @WillNotClose final OutputStream aOS) throws IOException
   {
-    ValueEnforcer.notNull (aOS, "OutputStream");
-    aOS.write (m_aDigestBytes, 0, m_aDigestBytes.length);
+    writeTo (aOS);
   }
 
   /**

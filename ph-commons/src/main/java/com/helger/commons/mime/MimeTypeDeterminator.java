@@ -222,7 +222,7 @@ public final class MimeTypeDeterminator
   /**
    * Try to determine the MIME type from the given byte array.
    *
-   * @param b
+   * @param aBytes
    *        The byte array to parse. May be <code>null</code> or empty.
    * @param aDefault
    *        The default MIME type to be returned, if no matching MIME type was
@@ -231,14 +231,14 @@ public final class MimeTypeDeterminator
    *         be <code>null</code>.
    */
   @Nullable
-  public IMimeType getMimeTypeFromBytes (@Nullable final byte [] b, @Nullable final IMimeType aDefault)
+  public IMimeType getMimeTypeFromBytes (@Nullable final byte [] aBytes, @Nullable final IMimeType aDefault)
   {
-    if (b == null || b.length == 0)
+    if (aBytes == null || aBytes.length == 0)
       return aDefault;
 
     return m_aRWLock.readLocked ( () -> {
       for (final MimeTypeContent aMTC : m_aMimeTypeContents)
-        if (aMTC.matchesBeginning (b))
+        if (aMTC.matchesBeginning (aBytes))
           return aMTC.getMimeType ();
 
       // default fallback
