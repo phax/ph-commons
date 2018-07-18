@@ -37,6 +37,7 @@ This project was the following modules:
   * Deprecated all the `ChangeLog` classes - they will be moved to ph-less-commons in v9.2
   * Added new interface `IHasByteArray`
   * Implementing `IHasByteArray` in `ReadableResourceByteArray`, `ByteArrayInputStreamProvider`, `ArrayIteratorByte`, `MessageDigestValue`
+  * Added new class `ByteArrayWrapper`
   * Added new method `NonBlockingByteArrayOutputStream.getBufferOrCopy()` that copies only on demand
 * v9.1.2 - 2018-06-19
   * Made setters of `WSClientConfig` final

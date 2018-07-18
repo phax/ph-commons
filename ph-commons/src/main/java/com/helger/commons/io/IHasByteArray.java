@@ -16,10 +16,13 @@
  */
 package com.helger.commons.io;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import javax.annotation.WillNotClose;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
@@ -78,6 +81,15 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader
   @Nonnegative
   int getOffset ();
 
+  /**
+   * @return <code>true</code> if an offset is present, <code>false</code> if
+   *         not.
+   */
+  default boolean hasOffset ()
+  {
+    return getOffset () > 0;
+  }
+
   @Nonnull
   default InputStream getInputStream ()
   {
@@ -87,5 +99,18 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader
   default boolean isReadMultiple ()
   {
     return true;
+  }
+
+  /**
+   * Write the relevant part of the byte array onto the provided output stream.
+   * 
+   * @param aOS
+   *        The output stream to write to. May not be <code>null</code>.
+   * @throws IOException
+   *         In case of a write error.
+   */
+  default void writeTo (@Nonnull @WillNotClose final OutputStream aOS) throws IOException
+  {
+    aOS.write (bytes (), getOffset (), size ());
   }
 }

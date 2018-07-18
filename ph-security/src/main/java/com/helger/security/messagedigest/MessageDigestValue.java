@@ -54,7 +54,6 @@ public class MessageDigestValue implements IHasByteArray, Serializable
 
   private final EMessageDigestAlgorithm m_eAlgorithm;
   private final byte [] m_aDigestBytes;
-
   private final boolean m_bIsCopy;
 
   public MessageDigestValue (@Nonnull final EMessageDigestAlgorithm eAlgorithm,
