@@ -43,6 +43,8 @@ This project was the following modules:
   * Added static factory methods in `CommonsCopyOnWriteArrayList`
   * The internal logger name was changed from `s_aLogger` to `LOGGER`
   * Extended `IPrivilegedAction` with new static methods
+  * Added new class `Predicates` with basic typed predicates for primitive types
+  * Added some static `IBooleanPredicate` factory methods
 * v9.1.2 - 2018-06-19
   * Made setters of `WSClientConfig` final
   * Changed method name in `CharsetHelper` from `getCharsetFromNameOrNull` to `getCharsetFromNameOrDefault`

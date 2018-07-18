@@ -25,6 +25,7 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXParseException;
 
 import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.functional.Predicates;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -99,8 +100,8 @@ public class SimpleLocation implements ILocation
   public String toString ()
   {
     return new ToStringGenerator (null).appendIfNotNull ("ResourceID", m_sResourceID)
-                                       .appendIf ("LineNumber", m_nLineNumber, (final int x) -> x > ILLEGAL_NUMBER)
-                                       .appendIf ("ColumnNumber", m_nColumnNumber, (final int x) -> x > ILLEGAL_NUMBER)
+                                       .appendIf ("LineNumber", m_nLineNumber, Predicates.intIsGE0 ())
+                                       .appendIf ("ColumnNumber", m_nColumnNumber, Predicates.intIsGE0 ())
                                        .getToString ();
   }
 

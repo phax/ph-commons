@@ -104,4 +104,29 @@ public interface IBooleanPredicate extends Serializable
     ValueEnforcer.notNull (aOther, "Other");
     return x -> test (x) || aOther.test (x);
   }
+
+  @Nonnull
+  static IBooleanPredicate all ()
+  {
+    return x -> true;
+  }
+
+  @Nonnull
+  static IBooleanPredicate none ()
+  {
+    return x -> false;
+  }
+
+  @Nonnull
+  static IBooleanPredicate ifTrue ()
+  {
+    // This is a brainer ;) "if true" is the identity function
+    return x -> x;
+  }
+
+  @Nonnull
+  static IBooleanPredicate ifFalse ()
+  {
+    return x -> !x;
+  }
 }
