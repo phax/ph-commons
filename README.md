@@ -40,6 +40,7 @@ This project was the following modules:
   * Added new class `ByteArrayWrapper`
   * Added new method `NonBlockingByteArrayOutputStream.getBufferOrCopy()` that copies only on demand
   * Added new `ArrayHelper.startsWith` overloads
+  * Added static factory methods in `CommonsCopyOnWriteArrayList`
 * v9.1.2 - 2018-06-19
   * Made setters of `WSClientConfig` final
   * Changed method name in `CharsetHelper` from `getCharsetFromNameOrNull` to `getCharsetFromNameOrDefault`
