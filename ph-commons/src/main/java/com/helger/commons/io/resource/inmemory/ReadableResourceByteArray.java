@@ -16,18 +16,15 @@
  */
 package com.helger.commons.io.resource.inmemory;
 
-import java.io.InputStream;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.io.IHasByteArray;
 import com.helger.commons.io.resource.IReadableResource;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
-import com.helger.commons.lang.IHasSize;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -36,11 +33,13 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public class ReadableResourceByteArray extends AbstractMemoryReadableResource implements IHasSize
+public class ReadableResourceByteArray extends AbstractMemoryReadableResource implements IHasByteArray
 {
   public static final boolean DEFAULT_COPY_NEEDED = true;
 
   private final byte [] m_aBytes;
+  private final int m_nOfs;
+  private final int m_nLen;
   private final boolean m_bIsCopy;
 
   public ReadableResourceByteArray (@Nonnull final byte [] aBytes)
@@ -48,9 +47,24 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
     this (null, aBytes, DEFAULT_COPY_NEEDED);
   }
 
+  public ReadableResourceByteArray (@Nonnull final byte [] aBytes,
+                                    @Nonnegative final int nOfs,
+                                    @Nonnegative final int nLen)
+  {
+    this (null, aBytes, nOfs, nLen, DEFAULT_COPY_NEEDED);
+  }
+
   public ReadableResourceByteArray (@Nonnull final byte [] aBytes, final boolean bCopyNeeded)
   {
     this ((String) null, aBytes, bCopyNeeded);
+  }
+
+  public ReadableResourceByteArray (@Nonnull final byte [] aBytes,
+                                    @Nonnegative final int nOfs,
+                                    @Nonnegative final int nLen,
+                                    final boolean bCopyNeeded)
+  {
+    this ((String) null, aBytes, nOfs, nLen, bCopyNeeded);
   }
 
   public ReadableResourceByteArray (@Nullable final String sResourceID, @Nonnull final byte [] aBytes)
@@ -60,52 +74,56 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
 
   public ReadableResourceByteArray (@Nullable final String sResourceID,
                                     @Nonnull final byte [] aBytes,
+                                    @Nonnegative final int nOfs,
+                                    @Nonnegative final int nLen)
+  {
+    this (sResourceID, aBytes, nOfs, nLen, DEFAULT_COPY_NEEDED);
+  }
+
+  public ReadableResourceByteArray (@Nullable final String sResourceID,
+                                    @Nonnull final byte [] aBytes,
+                                    final boolean bCopyNeeded)
+  {
+    this (sResourceID, aBytes, 0, aBytes.length, bCopyNeeded);
+  }
+
+  public ReadableResourceByteArray (@Nullable final String sResourceID,
+                                    @Nonnull final byte [] aBytes,
+                                    @Nonnegative final int nOfs,
+                                    @Nonnegative final int nLen,
                                     final boolean bCopyNeeded)
   {
     super (StringHelper.hasText (sResourceID) ? sResourceID : "byte[]");
-    ValueEnforcer.notNull (aBytes, "Bytes");
+    ValueEnforcer.isArrayOfsLen (aBytes, nOfs, nLen);
     // Create a copy to avoid outside modifications
-    m_aBytes = bCopyNeeded ? ArrayHelper.getCopy (aBytes) : aBytes;
+    m_aBytes = bCopyNeeded ? ArrayHelper.getCopy (aBytes, nOfs, nLen) : aBytes;
+    m_nOfs = bCopyNeeded ? 0 : nOfs;
+    m_nLen = nLen;
     m_bIsCopy = bCopyNeeded;
   }
 
-  @Nonnull
-  public final InputStream getInputStream ()
+  public final boolean isCopy ()
   {
-    return new NonBlockingByteArrayInputStream (m_aBytes);
-  }
-
-  public final boolean isReadMultiple ()
-  {
-    return true;
+    return m_bIsCopy;
   }
 
   @Nonnull
-  @ReturnsMutableCopy
-  public final byte [] getAllBytes ()
+  @ReturnsMutableObject
+  public final byte [] bytes ()
   {
-    return ArrayHelper.getCopy (m_aBytes);
+    return m_aBytes;
+  }
+
+  @Nonnegative
+  public final int getOffset ()
+  {
+    return m_nOfs;
   }
 
   @Nonnegative
   public final int size ()
   {
-    return m_aBytes.length;
-  }
-
-  public final boolean isEmpty ()
-  {
-    return m_aBytes.length == 0;
-  }
-
-  /**
-   * @return <code>true</code> if the contained byte array was copied in the
-   *         constructor or not.
-   * @since 9.1.3
-   */
-  public final boolean isCopy ()
-  {
-    return m_bIsCopy;
+    return m_nLen;
   }
 
   @Override
@@ -113,6 +131,8 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
   {
     return ToStringGenerator.getDerived (super.toString ())
                             .append ("byte#", m_aBytes.length)
+                            .append ("Offset", m_nOfs)
+                            .append ("Length", m_nLen)
                             .append ("IsCopy", m_bIsCopy)
                             .getToString ();
   }

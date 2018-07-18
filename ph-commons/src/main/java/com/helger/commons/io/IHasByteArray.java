@@ -1,0 +1,91 @@
+/**
+ * Copyright (C) 2014-2018 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.helger.commons.io;
+
+import java.io.InputStream;
+
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
+
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
+import com.helger.commons.lang.IHasSize;
+
+/**
+ * Base interface for all objects owning a byte array.
+ *
+ * @author Philip Helger
+ * @since 9.1.3
+ */
+public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader
+{
+  default boolean isEmpty ()
+  {
+    return size () == 0;
+  }
+
+  default boolean isNotEmpty ()
+  {
+    return size () > 0;
+  }
+
+  /**
+   * @return <code>true</code> if the contained byte array was copied in the
+   *         constructor or not.
+   */
+  boolean isCopy ();
+
+  /**
+   * @return A copy of all bytes contained. Never <code>null</code>.
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  default byte [] getAllBytes ()
+  {
+    return ArrayHelper.getCopy (bytes ());
+  }
+
+  /**
+   * @return A reference to the contained byte array. Gives write access to the
+   *         payload! Never <code>null</code>.
+   */
+  @Nonnull
+  @ReturnsMutableObject
+  byte [] bytes ();
+
+  /**
+   * @return The offset into the byte array to start reading. This is always 0
+   *         when copied. Must be ge; 0.
+   * @see #bytes()
+   * @see #size()
+   */
+  @Nonnegative
+  int getOffset ();
+
+  @Nonnull
+  default InputStream getInputStream ()
+  {
+    return new NonBlockingByteArrayInputStream (bytes (), getOffset (), size ());
+  }
+
+  default boolean isReadMultiple ()
+  {
+    return true;
+  }
+}

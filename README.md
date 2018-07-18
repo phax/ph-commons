@@ -35,7 +35,8 @@ This project was the following modules:
   * Added new class `LanguageCache`
   * Added new `CommonsArrayList` static factory methods
   * Deprecated all the `ChangeLog` classes - they will be moved to ph-less-commons in v9.2
-  * Added possibility to avoid copying byte array in constructor of `ReadableResourceByteArray`
+  * Added new interface `IHasByteArray`
+  * Implementing `IHasByteArray` in `ReadableResourceByteArray`, 
 * v9.1.2 - 2018-06-19
   * Made setters of `WSClientConfig` final
   * Changed method name in `CharsetHelper` from `getCharsetFromNameOrNull` to `getCharsetFromNameOrDefault`

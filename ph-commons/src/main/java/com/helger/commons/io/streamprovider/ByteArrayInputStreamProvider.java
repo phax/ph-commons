@@ -16,7 +16,6 @@
  */
 package com.helger.commons.io.streamprovider;
 
-import java.io.InputStream;
 import java.io.Serializable;
 
 import javax.annotation.Nonnegative;
@@ -24,9 +23,9 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.io.IHasInputStreamAndReader;
-import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
+import com.helger.commons.io.IHasByteArray;
 import com.helger.commons.string.ToStringGenerator;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -36,37 +35,63 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *
  * @author Philip Helger
  */
-public class ByteArrayInputStreamProvider implements IHasInputStreamAndReader, Serializable
+public class ByteArrayInputStreamProvider implements IHasByteArray, Serializable
 {
-  private final byte [] m_aData;
+  public static final boolean DEFAULT_COPY_NEEDED = false;
+
+  private final byte [] m_aBytes;
   private final int m_nOfs;
   private final int m_nLen;
+  private final boolean m_bIsCopy;
 
-  @SuppressFBWarnings ({ "EI_EXPOSE_REP2" })
   public ByteArrayInputStreamProvider (@Nonnull final byte [] aData)
   {
-    ValueEnforcer.notNull (aData, "Data");
-    m_aData = aData;
-    m_nOfs = 0;
-    m_nLen = aData.length;
+    this (aData, 0, aData.length, DEFAULT_COPY_NEEDED);
+  }
+
+  public ByteArrayInputStreamProvider (@Nonnull final byte [] aData, final boolean bCopyNeeded)
+  {
+    this (aData, 0, aData.length, bCopyNeeded);
+  }
+
+  public ByteArrayInputStreamProvider (@Nonnull final byte [] aData,
+                                       @Nonnegative final int nOfs,
+                                       @Nonnegative final int nLen)
+  {
+    this (aData, nOfs, nLen, DEFAULT_COPY_NEEDED);
   }
 
   @SuppressFBWarnings ({ "EI_EXPOSE_REP2" })
   public ByteArrayInputStreamProvider (@Nonnull final byte [] aData,
                                        @Nonnegative final int nOfs,
-                                       @Nonnegative final int nLen)
+                                       @Nonnegative final int nLen,
+                                       final boolean bCopyNeeded)
   {
     ValueEnforcer.isArrayOfsLen (aData, nOfs, nLen);
-    m_aData = aData;
-    m_nOfs = nOfs;
+    m_aBytes = bCopyNeeded ? ArrayHelper.getCopy (aData, nOfs, nLen) : aData;
+    m_nOfs = bCopyNeeded ? 0 : nOfs;
     m_nLen = nLen;
+    m_bIsCopy = bCopyNeeded;
+  }
+
+  public final boolean isCopy ()
+  {
+    return m_bIsCopy;
   }
 
   @Nonnull
   @ReturnsMutableCopy
+  @Deprecated
   public final byte [] getData ()
   {
-    return ArrayHelper.getCopy (m_aData);
+    return getAllBytes ();
+  }
+
+  @Nonnull
+  @ReturnsMutableObject
+  public final byte [] bytes ()
+  {
+    return m_aBytes;
   }
 
   @Nonnegative
@@ -76,28 +101,25 @@ public class ByteArrayInputStreamProvider implements IHasInputStreamAndReader, S
   }
 
   @Nonnegative
+  @Deprecated
   public final int getLength ()
   {
+    return size ();
+  }
+
+  @Nonnegative
+  public final int size ()
+  {
     return m_nLen;
-  }
-
-  @Nonnull
-  public final InputStream getInputStream ()
-  {
-    return new NonBlockingByteArrayInputStream (m_aData, m_nOfs, m_nLen);
-  }
-
-  public final boolean isReadMultiple ()
-  {
-    return true;
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("byteArray[]", m_aData.length + " bytes")
-                                       .append ("ofs", m_nOfs)
-                                       .append ("len", m_nLen)
+    return new ToStringGenerator (null).append ("byte[]#", m_aBytes.length)
+                                       .append ("Offset", m_nOfs)
+                                       .append ("Length", m_nLen)
+                                       .append ("IsCopy", m_bIsCopy)
                                        .getToString ();
   }
 }
