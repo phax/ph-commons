@@ -16,6 +16,8 @@
  */
 package com.helger.commons.lang.priviledged;
 
+import java.net.Authenticator;
+import java.net.ProxySelector;
 import java.security.PrivilegedAction;
 import java.util.Properties;
 
@@ -36,6 +38,10 @@ import com.helger.commons.ValueEnforcer;
 @FunctionalInterface
 public interface IPrivilegedAction <T> extends PrivilegedAction <T>
 {
+  /**
+   * @return The result of {@link #run()} dependent if a system manager is
+   *         installed or not.
+   */
   @Nullable
   default T invokeSafe ()
   {
@@ -45,6 +51,15 @@ public interface IPrivilegedAction <T> extends PrivilegedAction <T>
       return run ();
     }
     return AccessControllerHelper.call (this);
+  }
+
+  @Nonnull
+  static IPrivilegedAction <Object> asVoid (@Nonnull final Runnable aRunnable)
+  {
+    return () -> {
+      aRunnable.run ();
+      return null;
+    };
   }
 
   @Nonnull
@@ -69,10 +84,7 @@ public interface IPrivilegedAction <T> extends PrivilegedAction <T>
   static IPrivilegedAction <Object> setContextClassLoader (@Nonnull final ClassLoader aClassLoader)
   {
     ValueEnforcer.notNull (aClassLoader, "ClassLoader");
-    return () -> {
-      Thread.currentThread ().setContextClassLoader (aClassLoader);
-      return null;
-    };
+    return asVoid ( () -> Thread.currentThread ().setContextClassLoader (aClassLoader));
   }
 
   @Nonnull
@@ -107,5 +119,23 @@ public interface IPrivilegedAction <T> extends PrivilegedAction <T>
     ValueEnforcer.notNull (sKey, "Key");
     ValueEnforcer.notNull (sValue, "Value");
     return () -> System.setProperty (sKey, sValue);
+  }
+
+  @Nonnull
+  static IPrivilegedAction <ProxySelector> proxySelectorGetDefault ()
+  {
+    return ProxySelector::getDefault;
+  }
+
+  @Nonnull
+  static IPrivilegedAction <Object> proxySelectorSetDefault (@Nullable final ProxySelector aProxySelector)
+  {
+    return asVoid ( () -> ProxySelector.setDefault (aProxySelector));
+  }
+
+  @Nonnull
+  static IPrivilegedAction <Object> authenticatorSetDefault (@Nullable final Authenticator aAuthenticator)
+  {
+    return asVoid ( () -> Authenticator.setDefault (aAuthenticator));
   }
 }
