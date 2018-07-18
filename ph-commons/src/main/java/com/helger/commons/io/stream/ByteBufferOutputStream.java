@@ -181,6 +181,16 @@ public class ByteBufferOutputStream extends OutputStream implements IWriteToStre
     return ArrayHelper.getCopy (aArray, nOfs, nLength);
   }
 
+  @Nonnull
+  public NonBlockingByteArrayInputStream getAsByteArrayInputStream (final boolean bCopyNeeded)
+  {
+    final byte [] aBytes = m_aBuffer.array ();
+    final int nOfs = m_aBuffer.arrayOffset ();
+    final int nLength = m_aBuffer.position ();
+
+    return new NonBlockingByteArrayInputStream (aBytes, nOfs, nLength, bCopyNeeded);
+  }
+
   /**
    * Write everything currently contained to the specified buffer. If the passed
    * buffer is too small, a {@link java.nio.BufferOverflowException} is thrown.

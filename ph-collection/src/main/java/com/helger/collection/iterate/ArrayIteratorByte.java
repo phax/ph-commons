@@ -23,9 +23,10 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.io.IHasByteArray;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -33,42 +34,87 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public final class ArrayIteratorByte
+public final class ArrayIteratorByte implements IHasByteArray
 {
-  private final byte [] m_aArray;
+  public static final boolean DEFAULT_COPY_NEEDED = true;
+
+  private final byte [] m_aBytes;
+  private final int m_nOffset;
+  private final int m_nLength;
+  private final boolean m_bIsCopy;
   private int m_nIndex = 0;
 
   public ArrayIteratorByte (@Nonnull final byte... aArray)
   {
-    this (aArray, 0, aArray.length);
+    this (aArray, 0, aArray.length, DEFAULT_COPY_NEEDED);
+  }
+
+  public ArrayIteratorByte (@Nonnull final byte [] aArray, final boolean bCopyNeeded)
+  {
+    this (aArray, 0, aArray.length, bCopyNeeded);
   }
 
   /**
-   * constructor with offset and length
+   * Constructor with offset and length
    *
-   * @param aArray
+   * @param aBytes
    *        Source array
    * @param nOfs
    *        Offset. Must be &ge; 0.
    * @param nLength
    *        Length. Must be &ge; 0.
    */
-  public ArrayIteratorByte (@Nonnull final byte [] aArray, @Nonnegative final int nOfs, @Nonnegative final int nLength)
+  public ArrayIteratorByte (@Nonnull final byte [] aBytes, @Nonnegative final int nOfs, @Nonnegative final int nLength)
   {
-    ValueEnforcer.isArrayOfsLen (aArray, nOfs, nLength);
-    m_aArray = ArrayHelper.getCopy (aArray, nOfs, nLength);
+    this (aBytes, nOfs, nLength, DEFAULT_COPY_NEEDED);
+  }
+
+  public ArrayIteratorByte (@Nonnull final byte [] aBytes,
+                            @Nonnegative final int nOfs,
+                            @Nonnegative final int nLength,
+                            final boolean bCopyNeeded)
+  {
+    ValueEnforcer.isArrayOfsLen (aBytes, nOfs, nLength);
+    m_aBytes = bCopyNeeded ? ArrayHelper.getCopy (aBytes, nOfs, nLength) : aBytes;
+    m_nOffset = bCopyNeeded ? 0 : nOfs;
+    m_nLength = nLength;
+    m_bIsCopy = bCopyNeeded;
   }
 
   public boolean hasNext ()
   {
-    return m_nIndex < m_aArray.length;
+    return m_nIndex < m_aBytes.length;
   }
 
   public byte next ()
   {
     if (!hasNext ())
       throw new NoSuchElementException ();
-    return m_aArray[m_nIndex++];
+    return m_aBytes[m_nIndex++];
+  }
+
+  public boolean isCopy ()
+  {
+    return m_bIsCopy;
+  }
+
+  @Nonnull
+  @ReturnsMutableObject
+  public byte [] bytes ()
+  {
+    return m_aBytes;
+  }
+
+  @Nonnegative
+  public int getOffset ()
+  {
+    return m_nOffset;
+  }
+
+  @Nonnegative
+  public int size ()
+  {
+    return m_nLength;
   }
 
   @Override
@@ -79,20 +125,32 @@ public final class ArrayIteratorByte
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ArrayIteratorByte rhs = (ArrayIteratorByte) o;
-    return EqualsHelper.equals (m_aArray, rhs.m_aArray) && m_nIndex == rhs.m_nIndex;
+    return Arrays.equals (m_aBytes, rhs.m_aBytes) &&
+           m_nOffset == rhs.m_nOffset &&
+           m_nLength == rhs.m_nLength &&
+           m_bIsCopy == rhs.m_bIsCopy &&
+           m_nIndex == rhs.m_nIndex;
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_aArray).append (m_nIndex).getHashCode ();
+    return new HashCodeGenerator (this).append (m_aBytes)
+                                       .append (m_nOffset)
+                                       .append (m_nLength)
+                                       .append (m_bIsCopy)
+                                       .append (m_nIndex)
+                                       .getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("array", Arrays.toString (m_aArray))
-                                       .append ("index", m_nIndex)
+    return new ToStringGenerator (this).append ("byte[]#", m_aBytes.length)
+                                       .append ("Offset", m_nOffset)
+                                       .append ("Length", m_nLength)
+                                       .append ("IsCopy", m_bIsCopy)
+                                       .append ("Index", m_nIndex)
                                        .getToString ();
   }
 }

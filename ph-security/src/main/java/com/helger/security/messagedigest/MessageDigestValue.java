@@ -23,6 +23,7 @@ import java.io.Serializable;
 import java.security.MessageDigest;
 import java.util.Arrays;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.WillClose;
 import javax.annotation.WillNotClose;
@@ -31,9 +32,11 @@ import javax.annotation.concurrent.Immutable;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.io.IHasByteArray;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -45,16 +48,30 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public class MessageDigestValue implements Serializable
+public class MessageDigestValue implements IHasByteArray, Serializable
 {
+  public static final boolean DEFAULT_COPY_NEEDED = true;
+
   private final EMessageDigestAlgorithm m_eAlgorithm;
   private final byte [] m_aDigestBytes;
+
+  private final boolean m_bIsCopy;
 
   public MessageDigestValue (@Nonnull final EMessageDigestAlgorithm eAlgorithm,
                              @Nonnull @Nonempty final byte [] aDigestBytes)
   {
-    m_eAlgorithm = ValueEnforcer.notNull (eAlgorithm, "Algorithm");
-    m_aDigestBytes = ArrayHelper.getCopy (ValueEnforcer.notEmpty (aDigestBytes, "DigestBytes"));
+    this (eAlgorithm, aDigestBytes, DEFAULT_COPY_NEEDED);
+  }
+
+  public MessageDigestValue (@Nonnull final EMessageDigestAlgorithm eAlgorithm,
+                             @Nonnull @Nonempty final byte [] aDigestBytes,
+                             final boolean bIsCopyNeeded)
+  {
+    ValueEnforcer.notNull (eAlgorithm, "Algorithm");
+    ValueEnforcer.notEmpty (aDigestBytes, "DigestBytes");
+    m_eAlgorithm = eAlgorithm;
+    m_aDigestBytes = bIsCopyNeeded ? ArrayHelper.getCopy (aDigestBytes) : aDigestBytes;
+    m_bIsCopy = bIsCopyNeeded;
   }
 
   /**
@@ -66,6 +83,11 @@ public class MessageDigestValue implements Serializable
     return m_eAlgorithm;
   }
 
+  public boolean isCopy ()
+  {
+    return m_bIsCopy;
+  }
+
   /**
    * @return A copy of the message digest bytes. The length depends on the used
    *         algorithm. Never <code>null</code>.
@@ -73,9 +95,35 @@ public class MessageDigestValue implements Serializable
   @Nonnull
   @Nonempty
   @ReturnsMutableCopy
+  @Deprecated
   public byte [] getAllDigestBytes ()
   {
-    return ArrayHelper.getCopy (m_aDigestBytes);
+    return getAllBytes ();
+  }
+
+  /**
+   * @return The message digest bytes. The length depends on the used algorithm.
+   *         Never <code>null</code>.
+   * @since 9.1.3
+   */
+  @Nonnull
+  @Nonempty
+  @ReturnsMutableObject
+  public byte [] bytes ()
+  {
+    return m_aDigestBytes;
+  }
+
+  @Nonnegative
+  public int size ()
+  {
+    return m_aDigestBytes.length;
+  }
+
+  @Nonnegative
+  public int getOffset ()
+  {
+    return 0;
   }
 
   /**
@@ -145,7 +193,8 @@ public class MessageDigestValue implements Serializable
   {
     final MessageDigest aMD = eAlgorithm.createMessageDigest ();
     aMD.update (aBytes);
-    return new MessageDigestValue (eAlgorithm, aMD.digest ());
+    // aMD goes out of scope anyway, so no need to copy byte[]
+    return new MessageDigestValue (eAlgorithm, aMD.digest (), false);
   }
 
   /**
@@ -166,6 +215,7 @@ public class MessageDigestValue implements Serializable
   {
     final MessageDigest aMD = eAlgorithm.createMessageDigest ();
     StreamHelper.readUntilEOF (aIS, (aBytes, nBytes) -> aMD.update (aBytes, 0, nBytes));
-    return new MessageDigestValue (eAlgorithm, aMD.digest ());
+    // aMD goes out of scope anyway, so no need to copy byte[]
+    return new MessageDigestValue (eAlgorithm, aMD.digest (), false);
   }
 }

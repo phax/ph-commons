@@ -110,6 +110,15 @@ public class NonBlockingByteArrayInputStream extends InputStream implements Seri
     m_nMark = nOfs;
   }
 
+  public NonBlockingByteArrayInputStream (final byte [] aBuf, final int nOfs, final int nLen, final boolean bCopy)
+  {
+    ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
+    m_aBuf = aBuf;
+    m_nPos = nOfs;
+    m_nCount = Math.min (nOfs + nLen, aBuf.length);
+    m_nMark = nOfs;
+  }
+
   /**
    * Reads the next byte of data from this input stream. The value byte is
    * returned as an <code>int</code> in the range <code>0</code> to
