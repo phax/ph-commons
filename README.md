@@ -33,6 +33,7 @@ This project was the following modules:
   * Extended `LogHelper` to have overloads with `Supplier<String>`
   * Added new `Commons...Map` constructors with parameters `Map, Function, Function`
   * Added new class `LanguageCache`
+  * Added new `CommonsArrayList` static factory methods
 * v9.1.2 - 2018-06-19
   * Made setters of `WSClientConfig` final
   * Changed method name in `CharsetHelper` from `getCharsetFromNameOrNull` to `getCharsetFromNameOrDefault`
