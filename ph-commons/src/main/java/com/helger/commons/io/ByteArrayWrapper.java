@@ -16,6 +16,7 @@
  */
 package com.helger.commons.io;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 import javax.annotation.Nonnegative;
@@ -35,7 +36,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @since 9.1.3
  */
 @MustImplementEqualsAndHashcode
-public final class ByteArrayWrapper implements IHasByteArray
+public final class ByteArrayWrapper implements IHasByteArray, Serializable
 {
   private final byte [] m_aBytes;
   private final int m_nOffset;
@@ -103,6 +104,18 @@ public final class ByteArrayWrapper implements IHasByteArray
   public int size ()
   {
     return m_nLength;
+  }
+
+  @Override
+  public boolean isEmpty ()
+  {
+    return m_nLength == 0;
+  }
+
+  @Override
+  public boolean isNotEmpty ()
+  {
+    return m_nLength > 0;
   }
 
   @Override

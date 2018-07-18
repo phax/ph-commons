@@ -16,17 +16,14 @@
  */
 package com.helger.collection.iterate;
 
-import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.io.IHasByteArray;
+import com.helger.commons.io.ByteArrayWrapper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -34,14 +31,11 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public final class ArrayIteratorByte implements IHasByteArray
+public final class ArrayIteratorByte
 {
   public static final boolean DEFAULT_COPY_NEEDED = true;
 
-  private final byte [] m_aBytes;
-  private final int m_nOffset;
-  private final int m_nLength;
-  private final boolean m_bIsCopy;
+  private final ByteArrayWrapper m_aBytes;
   private int m_nIndex = 0;
 
   public ArrayIteratorByte (@Nonnull final byte... aArray)
@@ -75,46 +69,19 @@ public final class ArrayIteratorByte implements IHasByteArray
                             final boolean bCopyNeeded)
   {
     ValueEnforcer.isArrayOfsLen (aBytes, nOfs, nLength);
-    m_aBytes = bCopyNeeded ? ArrayHelper.getCopy (aBytes, nOfs, nLength) : aBytes;
-    m_nOffset = bCopyNeeded ? 0 : nOfs;
-    m_nLength = nLength;
-    m_bIsCopy = bCopyNeeded;
+    m_aBytes = new ByteArrayWrapper (aBytes, nOfs, nLength, bCopyNeeded);
   }
 
   public boolean hasNext ()
   {
-    return m_nIndex < m_aBytes.length;
+    return m_nIndex < m_aBytes.size ();
   }
 
   public byte next ()
   {
     if (!hasNext ())
       throw new NoSuchElementException ();
-    return m_aBytes[m_nIndex++];
-  }
-
-  public boolean isCopy ()
-  {
-    return m_bIsCopy;
-  }
-
-  @Nonnull
-  @ReturnsMutableObject
-  public byte [] bytes ()
-  {
-    return m_aBytes;
-  }
-
-  @Nonnegative
-  public int getOffset ()
-  {
-    return m_nOffset;
-  }
-
-  @Nonnegative
-  public int size ()
-  {
-    return m_nLength;
+    return m_aBytes.bytes ()[m_nIndex++];
   }
 
   @Override
@@ -125,32 +92,18 @@ public final class ArrayIteratorByte implements IHasByteArray
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ArrayIteratorByte rhs = (ArrayIteratorByte) o;
-    return Arrays.equals (m_aBytes, rhs.m_aBytes) &&
-           m_nOffset == rhs.m_nOffset &&
-           m_nLength == rhs.m_nLength &&
-           m_bIsCopy == rhs.m_bIsCopy &&
-           m_nIndex == rhs.m_nIndex;
+    return m_aBytes.equals (rhs.m_aBytes) && m_nIndex == rhs.m_nIndex;
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_aBytes)
-                                       .append (m_nOffset)
-                                       .append (m_nLength)
-                                       .append (m_bIsCopy)
-                                       .append (m_nIndex)
-                                       .getHashCode ();
+    return new HashCodeGenerator (this).append (m_aBytes).append (m_nIndex).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("byte[]#", m_aBytes.length)
-                                       .append ("Offset", m_nOffset)
-                                       .append ("Length", m_nLength)
-                                       .append ("IsCopy", m_bIsCopy)
-                                       .append ("Index", m_nIndex)
-                                       .getToString ();
+    return new ToStringGenerator (this).append ("Bytes", m_aBytes).append ("Index", m_nIndex).getToString ();
   }
 }

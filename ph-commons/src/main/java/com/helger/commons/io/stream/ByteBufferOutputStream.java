@@ -28,6 +28,7 @@ import javax.annotation.WillNotClose;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.io.ByteArrayWrapper;
 import com.helger.commons.io.IWriteToStream;
 
 /**
@@ -189,6 +190,16 @@ public class ByteBufferOutputStream extends OutputStream implements IWriteToStre
     final int nLength = m_aBuffer.position ();
 
     return new NonBlockingByteArrayInputStream (aBytes, nOfs, nLength, bCopyNeeded);
+  }
+
+  @Nonnull
+  public ByteArrayWrapper getAsByteArrayWrapper (final boolean bCopyNeeded)
+  {
+    final byte [] aBytes = m_aBuffer.array ();
+    final int nOfs = m_aBuffer.arrayOffset ();
+    final int nLength = m_aBuffer.position ();
+
+    return new ByteArrayWrapper (aBytes, nOfs, nLength, bCopyNeeded);
   }
 
   /**

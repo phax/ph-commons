@@ -21,7 +21,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.security.MessageDigest;
-import java.util.Arrays;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -33,12 +32,10 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.io.ByteArrayWrapper;
 import com.helger.commons.io.IHasByteArray;
 import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -53,8 +50,7 @@ public class MessageDigestValue implements IHasByteArray, Serializable
   public static final boolean DEFAULT_COPY_NEEDED = true;
 
   private final EMessageDigestAlgorithm m_eAlgorithm;
-  private final byte [] m_aDigestBytes;
-  private final boolean m_bIsCopy;
+  private final ByteArrayWrapper m_aBytes;
 
   public MessageDigestValue (@Nonnull final EMessageDigestAlgorithm eAlgorithm,
                              @Nonnull @Nonempty final byte [] aDigestBytes)
@@ -69,8 +65,7 @@ public class MessageDigestValue implements IHasByteArray, Serializable
     ValueEnforcer.notNull (eAlgorithm, "Algorithm");
     ValueEnforcer.notEmpty (aDigestBytes, "DigestBytes");
     m_eAlgorithm = eAlgorithm;
-    m_aDigestBytes = bIsCopyNeeded ? ArrayHelper.getCopy (aDigestBytes) : aDigestBytes;
-    m_bIsCopy = bIsCopyNeeded;
+    m_aBytes = new ByteArrayWrapper (aDigestBytes, bIsCopyNeeded);
   }
 
   /**
@@ -84,7 +79,7 @@ public class MessageDigestValue implements IHasByteArray, Serializable
 
   public boolean isCopy ()
   {
-    return m_bIsCopy;
+    return m_aBytes.isCopy ();
   }
 
   /**
@@ -110,13 +105,13 @@ public class MessageDigestValue implements IHasByteArray, Serializable
   @ReturnsMutableObject
   public byte [] bytes ()
   {
-    return m_aDigestBytes;
+    return m_aBytes.bytes ();
   }
 
   @Nonnegative
   public int size ()
   {
-    return m_aDigestBytes.length;
+    return m_aBytes.size ();
   }
 
   @Nonnegative
@@ -136,7 +131,7 @@ public class MessageDigestValue implements IHasByteArray, Serializable
   @Deprecated
   public void writeDigestBytes (@Nonnull @WillNotClose final OutputStream aOS) throws IOException
   {
-    writeTo (aOS);
+    m_aBytes.writeTo (aOS);
   }
 
   /**
@@ -147,7 +142,7 @@ public class MessageDigestValue implements IHasByteArray, Serializable
   @Nonempty
   public String getHexEncodedDigestString ()
   {
-    return StringHelper.getHexEncoded (m_aDigestBytes);
+    return m_aBytes.getHexEncoded ();
   }
 
   @Override
@@ -158,21 +153,19 @@ public class MessageDigestValue implements IHasByteArray, Serializable
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MessageDigestValue rhs = (MessageDigestValue) o;
-    return m_eAlgorithm.equals (rhs.m_eAlgorithm) && EqualsHelper.equals (m_aDigestBytes, rhs.m_aDigestBytes);
+    return m_eAlgorithm.equals (rhs.m_eAlgorithm) && m_aBytes.equals (rhs.m_aBytes);
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_eAlgorithm).append (m_aDigestBytes).getHashCode ();
+    return new HashCodeGenerator (this).append (m_eAlgorithm).append (m_aBytes).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("algorithm", m_eAlgorithm)
-                                       .append ("bytes", Arrays.toString (m_aDigestBytes))
-                                       .getToString ();
+    return new ToStringGenerator (this).append ("Algorithm", m_eAlgorithm).append ("Bytes", m_aBytes).getToString ();
   }
 
   /**

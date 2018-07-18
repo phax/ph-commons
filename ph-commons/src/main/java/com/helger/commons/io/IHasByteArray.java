@@ -30,6 +30,7 @@ import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.lang.IHasSize;
+import com.helger.commons.string.StringHelper;
 
 /**
  * Base interface for all objects owning a byte array.
@@ -127,5 +128,15 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader
   default boolean startsWith (@Nonnull final byte [] aCmpBytes)
   {
     return ArrayHelper.startsWith (bytes (), aCmpBytes);
+  }
+
+  /**
+   * @return The hex encoded version of this string. Never <code>null</code> but
+   *         maybe empty, if the underlying array length is empty.
+   */
+  @Nonnull
+  default String getHexEncoded ()
+  {
+    return StringHelper.getHexEncoded (bytes (), getOffset (), size ());
   }
 }

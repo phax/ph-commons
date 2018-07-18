@@ -253,17 +253,12 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
 
   public boolean startsWith (@Nonnull final byte [] aBytes)
   {
-    return startsWith (aBytes, 0, aBytes.length);
+    return ArrayHelper.startsWith (m_aBuf, m_nCount, aBytes);
   }
 
   public boolean startsWith (@Nonnull final byte [] aBytes, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
-    if (m_nCount < nLen || nLen < 0)
-      return false;
-    for (int i = 0; i < nLen; ++i)
-      if (m_aBuf[i] != aBytes[nOfs + i])
-        return false;
-    return true;
+    return ArrayHelper.startsWith (m_aBuf, m_nCount, aBytes, nOfs, nLen);
   }
 
   /**

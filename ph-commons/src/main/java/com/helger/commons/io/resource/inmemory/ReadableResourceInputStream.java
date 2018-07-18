@@ -20,6 +20,7 @@ import java.io.InputStream;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.WillNotClose;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.resource.IReadableResource;
@@ -40,7 +41,7 @@ public class ReadableResourceInputStream extends AbstractMemoryReadableResource
     this (null, aIS);
   }
 
-  public ReadableResourceInputStream (@Nullable final String sResourceID, @Nonnull final InputStream aIS)
+  public ReadableResourceInputStream (@Nullable final String sResourceID, @Nonnull @WillNotClose final InputStream aIS)
   {
     super (StringHelper.hasText (sResourceID) ? sResourceID : "input-stream");
     m_aIS = ValueEnforcer.notNull (aIS, "InputStream");

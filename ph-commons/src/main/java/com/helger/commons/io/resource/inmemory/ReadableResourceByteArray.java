@@ -16,13 +16,15 @@
  */
 package com.helger.commons.io.resource.inmemory;
 
+import java.io.InputStream;
+
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.io.ByteArrayWrapper;
 import com.helger.commons.io.IHasByteArray;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.StringHelper;
@@ -37,10 +39,7 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
 {
   public static final boolean DEFAULT_COPY_NEEDED = true;
 
-  private final byte [] m_aBytes;
-  private final int m_nOfs;
-  private final int m_nLen;
-  private final boolean m_bIsCopy;
+  private final ByteArrayWrapper m_aBytes;
 
   public ReadableResourceByteArray (@Nonnull final byte [] aBytes)
   {
@@ -96,44 +95,52 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
     super (StringHelper.hasText (sResourceID) ? sResourceID : "byte[]");
     ValueEnforcer.isArrayOfsLen (aBytes, nOfs, nLen);
     // Create a copy to avoid outside modifications
-    m_aBytes = bCopyNeeded ? ArrayHelper.getCopy (aBytes, nOfs, nLen) : aBytes;
-    m_nOfs = bCopyNeeded ? 0 : nOfs;
-    m_nLen = nLen;
-    m_bIsCopy = bCopyNeeded;
+    m_aBytes = new ByteArrayWrapper (aBytes, nOfs, nLen, bCopyNeeded);
   }
 
   public final boolean isCopy ()
   {
-    return m_bIsCopy;
+    return m_aBytes.isCopy ();
   }
 
   @Nonnull
   @ReturnsMutableObject
   public final byte [] bytes ()
   {
-    return m_aBytes;
+    return m_aBytes.bytes ();
   }
 
   @Nonnegative
-  public final int getOffset ()
+  public int getOffset ()
   {
-    return m_nOfs;
+    return m_aBytes.getOffset ();
   }
 
   @Nonnegative
   public final int size ()
   {
-    return m_nLen;
+    return m_aBytes.size ();
+  }
+
+  public boolean isEmpty ()
+  {
+    return m_aBytes.isEmpty ();
+  }
+
+  @Nonnull
+  public InputStream getInputStream ()
+  {
+    return m_aBytes.getInputStream ();
+  }
+
+  public boolean isReadMultiple ()
+  {
+    return m_aBytes.isReadMultiple ();
   }
 
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ())
-                            .append ("byte#", m_aBytes.length)
-                            .append ("Offset", m_nOfs)
-                            .append ("Length", m_nLen)
-                            .append ("IsCopy", m_bIsCopy)
-                            .getToString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("Bytes", m_aBytes).getToString ();
   }
 }

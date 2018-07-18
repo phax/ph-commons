@@ -4254,16 +4254,33 @@ public final class ArrayHelper
   {
     if (aSearch == null)
       return false;
-    return startsWith (aArray, aSearch, 0, aSearch.length);
+    return startsWith (aArray, aArray.length, aSearch, 0, aSearch.length);
   }
 
   public static boolean startsWith (@Nonnull final byte [] aArray,
-                                    @Nonnull final byte [] aSearch,
+                                    @Nonnegative final int nArrayLen,
+                                    @Nullable final byte [] aSearch)
+  {
+    if (aSearch == null)
+      return false;
+    return startsWith (aArray, nArrayLen, aSearch, 0, aSearch.length);
+  }
+
+  public static boolean startsWith (@Nonnull final byte [] aArray,
+                                    @Nullable final byte [] aSearch,
                                     @Nonnegative final int nSearchOfs,
                                     @Nonnegative final int nSearchLen)
   {
-    final int nArrayLen = aArray.length;
-    if (nArrayLen == 0 || nArrayLen < nSearchLen)
+    return startsWith (aArray, aArray.length, aSearch, nSearchOfs, nSearchLen);
+  }
+
+  public static boolean startsWith (@Nonnull final byte [] aArray,
+                                    @Nonnegative final int nArrayLen,
+                                    @Nullable final byte [] aSearch,
+                                    @Nonnegative final int nSearchOfs,
+                                    @Nonnegative final int nSearchLen)
+  {
+    if (aSearch == null || nArrayLen <= 0 || nSearchLen <= 0 || nArrayLen < nSearchLen)
       return false;
 
     for (int i = 0; i < nSearchLen; i++)
@@ -4280,12 +4297,29 @@ public final class ArrayHelper
   }
 
   public static boolean startsWith (@Nonnull final char [] aArray,
-                                    @Nonnull final char [] aSearch,
+                                    @Nonnegative final int nArrayLen,
+                                    @Nullable final char [] aSearch)
+  {
+    if (aSearch == null)
+      return false;
+    return startsWith (aArray, nArrayLen, aSearch, 0, aSearch.length);
+  }
+
+  public static boolean startsWith (@Nonnull final char [] aArray,
+                                    @Nullable final char [] aSearch,
                                     @Nonnegative final int nSearchOfs,
                                     @Nonnegative final int nSearchLen)
   {
-    final int nArrayLen = aArray.length;
-    if (nArrayLen == 0 || nArrayLen < nSearchLen)
+    return startsWith (aArray, aArray.length, aSearch, nSearchOfs, nSearchLen);
+  }
+
+  public static boolean startsWith (@Nonnull final char [] aArray,
+                                    @Nonnegative final int nArrayLen,
+                                    @Nullable final char [] aSearch,
+                                    @Nonnegative final int nSearchOfs,
+                                    @Nonnegative final int nSearchLen)
+  {
+    if (aSearch == null || nArrayLen <= 0 || nSearchLen <= 0 || nArrayLen < nSearchLen)
       return false;
 
     for (int i = 0; i < nSearchLen; i++)

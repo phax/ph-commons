@@ -24,11 +24,9 @@ import javax.annotation.Nonnull;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.io.ByteArrayWrapper;
 import com.helger.commons.io.IHasByteArray;
 import com.helger.commons.string.ToStringGenerator;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * An {@link java.io.InputStream} provider based on a byte array.
@@ -39,10 +37,7 @@ public class ByteArrayInputStreamProvider implements IHasByteArray, Serializable
 {
   public static final boolean DEFAULT_COPY_NEEDED = false;
 
-  private final byte [] m_aBytes;
-  private final int m_nOfs;
-  private final int m_nLen;
-  private final boolean m_bIsCopy;
+  private final ByteArrayWrapper m_aBytes;
 
   public ByteArrayInputStreamProvider (@Nonnull final byte [] aData)
   {
@@ -61,22 +56,18 @@ public class ByteArrayInputStreamProvider implements IHasByteArray, Serializable
     this (aData, nOfs, nLen, DEFAULT_COPY_NEEDED);
   }
 
-  @SuppressFBWarnings ({ "EI_EXPOSE_REP2" })
   public ByteArrayInputStreamProvider (@Nonnull final byte [] aData,
                                        @Nonnegative final int nOfs,
                                        @Nonnegative final int nLen,
                                        final boolean bCopyNeeded)
   {
     ValueEnforcer.isArrayOfsLen (aData, nOfs, nLen);
-    m_aBytes = bCopyNeeded ? ArrayHelper.getCopy (aData, nOfs, nLen) : aData;
-    m_nOfs = bCopyNeeded ? 0 : nOfs;
-    m_nLen = nLen;
-    m_bIsCopy = bCopyNeeded;
+    m_aBytes = new ByteArrayWrapper (aData, nOfs, nLen, bCopyNeeded);
   }
 
   public final boolean isCopy ()
   {
-    return m_bIsCopy;
+    return m_aBytes.isCopy ();
   }
 
   @Nonnull
@@ -91,13 +82,13 @@ public class ByteArrayInputStreamProvider implements IHasByteArray, Serializable
   @ReturnsMutableObject
   public final byte [] bytes ()
   {
-    return m_aBytes;
+    return m_aBytes.bytes ();
   }
 
   @Nonnegative
   public final int getOffset ()
   {
-    return m_nOfs;
+    return m_aBytes.getOffset ();
   }
 
   @Nonnegative
@@ -110,16 +101,12 @@ public class ByteArrayInputStreamProvider implements IHasByteArray, Serializable
   @Nonnegative
   public final int size ()
   {
-    return m_nLen;
+    return m_aBytes.size ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("byte[]#", m_aBytes.length)
-                                       .append ("Offset", m_nOfs)
-                                       .append ("Length", m_nLen)
-                                       .append ("IsCopy", m_bIsCopy)
-                                       .getToString ();
+    return new ToStringGenerator (null).append ("Bytes", m_aBytes).getToString ();
   }
 }
