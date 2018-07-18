@@ -47,18 +47,18 @@ public final class SimpleLSResourceResolverTest
 {
   public static final class LoggingSecurityManager extends SecurityManager
   {
-    private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingSecurityManager.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger (LoggingSecurityManager.class);
 
     @Override
     public void checkPermission (final Permission perm)
     {
-      s_aLogger.info (perm.toString ());
+      LOGGER.info (perm.toString ());
     }
 
     @Override
     public void checkPermission (final Permission perm, final Object context)
     {
-      s_aLogger.info ("[CTX] " + context + ": " + perm.toString ());
+      LOGGER.info ("[CTX] " + context + ": " + perm.toString ());
     }
   }
 

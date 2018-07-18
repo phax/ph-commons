@@ -44,15 +44,15 @@ public final class BenchmarkBigDecimalEquals extends AbstractBenchmarkTask
     for (int i = 0; i < aNums.length; ++i)
       aNums[i] = BigDecimal.valueOf (RandomHelper.getRandom ().nextDouble () *
                                      (50 + RandomHelper.getRandom ().nextDouble ()));
-    s_aLogger.info ("Starting");
+    LOGGER.info ("Starting");
 
     final double dTime1 = benchmarkTask (new BigDecimalCompare (aNums));
-    s_aLogger.info ("Time compare:  " + BigDecimal.valueOf (dTime1).toString () + " us");
+    LOGGER.info ("Time compare:  " + BigDecimal.valueOf (dTime1).toString () + " us");
 
     final double dTime2 = benchmarkTask (new BigDecimalSetScale (aNums));
-    s_aLogger.info ("Time setScale: " + BigDecimal.valueOf (dTime2).toString () + " us");
+    LOGGER.info ("Time setScale: " + BigDecimal.valueOf (dTime2).toString () + " us");
 
-    s_aLogger.info ("Time1 is " + BigDecimal.valueOf (dTime1 / dTime2 * 100).toString () + "% of time2");
+    LOGGER.info ("Time1 is " + BigDecimal.valueOf (dTime1 / dTime2 * 100).toString () + "% of time2");
   }
 
   private static final class BigDecimalCompare implements Runnable
@@ -75,7 +75,7 @@ public final class BenchmarkBigDecimalEquals extends AbstractBenchmarkTask
           b = aBD1.compareTo (aBD2) == 0;
         }
       if (b)
-        s_aLogger.info ("Equals: " + b);
+        LOGGER.info ("Equals: " + b);
     }
   }
 
@@ -100,7 +100,7 @@ public final class BenchmarkBigDecimalEquals extends AbstractBenchmarkTask
           b = aBD1.setScale (nMaxScale).equals (aBD2.setScale (nMaxScale));
         }
       if (b)
-        s_aLogger.info ("Equals: " + b);
+        LOGGER.info ("Equals: " + b);
     }
   }
 }

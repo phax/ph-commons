@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 
 public final class MainReadWriteLockReentrance
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainReadWriteLockReentrance.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainReadWriteLockReentrance.class);
 
   private MainReadWriteLockReentrance ()
   {}
@@ -36,7 +36,7 @@ public final class MainReadWriteLockReentrance
     aRWLock.readLock ().lock ();
     try
     {
-      s_aLogger.info ("in readLock");
+      LOGGER.info ("in readLock");
     }
     finally
     {
@@ -46,7 +46,7 @@ public final class MainReadWriteLockReentrance
     aRWLock.writeLock ().lock ();
     try
     {
-      s_aLogger.info ("in writeLock");
+      LOGGER.info ("in writeLock");
     }
     finally
     {
@@ -59,7 +59,7 @@ public final class MainReadWriteLockReentrance
       aRWLock.readLock ().lock ();
       try
       {
-        s_aLogger.info ("in double readLock");
+        LOGGER.info ("in double readLock");
       }
       finally
       {
@@ -77,7 +77,7 @@ public final class MainReadWriteLockReentrance
       aRWLock.writeLock ().lock ();
       try
       {
-        s_aLogger.info ("in double writeLock");
+        LOGGER.info ("in double writeLock");
       }
       finally
       {
@@ -98,7 +98,7 @@ public final class MainReadWriteLockReentrance
         aRWLock.writeLock ().lock ();
         try
         {
-          s_aLogger.info ("in readLock and writeLock");
+          LOGGER.info ("in readLock and writeLock");
         }
         finally
         {
@@ -117,7 +117,7 @@ public final class MainReadWriteLockReentrance
       aRWLock.readLock ().lock ();
       try
       {
-        s_aLogger.info ("in writeLock and readLock");
+        LOGGER.info ("in writeLock and readLock");
       }
       finally
       {
@@ -129,6 +129,6 @@ public final class MainReadWriteLockReentrance
       aRWLock.writeLock ().unlock ();
     }
 
-    s_aLogger.info ("-done-");
+    LOGGER.info ("-done-");
   }
 }

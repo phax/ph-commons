@@ -28,7 +28,7 @@ import com.helger.commons.collection.PrimitiveCollectionHelper;
  */
 public final class MainCreateCollectionHelperCode2
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainCreateCollectionHelperCode2.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainCreateCollectionHelperCode2.class);
 
   private MainCreateCollectionHelperCode2 ()
   {}
@@ -65,6 +65,6 @@ public final class MainCreateCollectionHelperCode2
         aSB.append (sMapped).append ("(new Object[]{\"a\"}, Object::toString);\n");
       }
 
-    s_aLogger.info (aSB.toString ());
+    LOGGER.info (aSB.toString ());
   }
 }

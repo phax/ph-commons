@@ -54,7 +54,7 @@ public final class CountryCache
     private static final CountryCache s_aInstance = new CountryCache ();
   }
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (CountryCache.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (CountryCache.class);
 
   private static boolean s_bDefaultInstantiated = false;
 
@@ -113,8 +113,8 @@ public final class CountryCache
 
     final String sValidCountry = LocaleHelper.getValidCountryCode (sCountry);
     if (!containsCountry (sValidCountry))
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("Trying to retrieve unsupported country '" + sCountry + "'");
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("Trying to retrieve unsupported country '" + sCountry + "'");
     return LocaleCache.getInstance ().getLocale ("", sValidCountry, "");
   }
 
@@ -187,7 +187,7 @@ public final class CountryCache
         addCountry (sCountry);
     }
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Reinitialized " + CountryCache.class.getName ());
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Reinitialized " + CountryCache.class.getName ());
   }
 }

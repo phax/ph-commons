@@ -37,7 +37,7 @@ import com.helger.commons.error.level.EErrorLevel;
 @NotThreadSafe
 public class LoggingValidationEventHandler extends AbstractValidationEventHandler
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingValidationEventHandler.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (LoggingValidationEventHandler.class);
 
   public LoggingValidationEventHandler ()
   {}
@@ -48,8 +48,8 @@ public class LoggingValidationEventHandler extends AbstractValidationEventHandle
     // As JAXB messages are not localized, we can use a fixed locale here!
     final String sMsg = "JAXB " + aEvent.getAsString (Locale.US);
     if (aEvent.getErrorLevel ().isLE (EErrorLevel.WARN))
-      s_aLogger.warn (sMsg, aEvent.getLinkedException ());
+      LOGGER.warn (sMsg, aEvent.getLinkedException ());
     else
-      s_aLogger.error (sMsg, aEvent.getLinkedException ());
+      LOGGER.error (sMsg, aEvent.getLinkedException ());
   }
 }

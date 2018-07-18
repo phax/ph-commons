@@ -37,7 +37,7 @@ public final class CommonsWeakHashMapTest
   @Test
   public void testBasic ()
   {
-    final ICommonsMap <String, String> aTest = new CommonsWeakHashMap<> ();
+    final ICommonsMap <String, String> aTest = new CommonsWeakHashMap <> ();
     aTest.put ("aaa", "bla");
     aTest.put ("bbb", "blb");
     aTest.put ("ccc", "blc");
@@ -55,21 +55,21 @@ public final class CommonsWeakHashMapTest
   @Test
   public void testCtor ()
   {
-    CommonsWeakHashMap <String, Integer> aTest = new CommonsWeakHashMap<> ();
+    CommonsWeakHashMap <String, Integer> aTest = new CommonsWeakHashMap <> ();
     assertEquals (0, aTest.size ());
-    aTest = new CommonsWeakHashMap<> (7_000_123);
+    aTest = new CommonsWeakHashMap <> (7_000_123);
     assertEquals (0, aTest.size ());
-    aTest = new CommonsWeakHashMap<> (7_000_123, 0.1f);
+    aTest = new CommonsWeakHashMap <> (7_000_123, 0.1f);
     assertEquals (0, aTest.size ());
-    aTest = new CommonsWeakHashMap<> (new CommonsArrayList<> ("test", "any", "foo"),
-                                      Function.identity (),
-                                      x -> Integer.valueOf (x.length ()));
+    aTest = new CommonsWeakHashMap <> (new CommonsArrayList <> ("test", "any", "foo"),
+                                       Function.identity (),
+                                       x -> Integer.valueOf (x.length ()));
     assertEquals (3, aTest.size ());
-    aTest = new CommonsWeakHashMap<> (new CommonsWeakHashMap <String, Integer> (new CommonsArrayList<> ("test",
-                                                                                                        "any",
-                                                                                                        "foo"),
-                                                                                Function.identity (),
-                                                                                x -> Integer.valueOf (x.length ())));
+    aTest = new CommonsWeakHashMap <> (new CommonsWeakHashMap <String, Integer> (new CommonsArrayList <> ("test",
+                                                                                                          "any",
+                                                                                                          "foo"),
+                                                                                 Function.identity (),
+                                                                                 x -> Integer.valueOf (x.length ())));
     assertEquals (3, aTest.size ());
   }
 
@@ -83,6 +83,6 @@ public final class CommonsWeakHashMapTest
     final ICommonsMap <Integer, String> aMapSwapped = aMap.getSwappedKeyValues ();
     assertEquals (aMap.size (), aMapSwapped.size ());
     assertEquals (aMap, aMapSwapped.getSwappedKeyValues ());
-    assertNotNull (new CommonsWeakHashMap<> ().getSwappedKeyValues ());
+    assertNotNull (new CommonsWeakHashMap <> ().getSwappedKeyValues ());
   }
 }

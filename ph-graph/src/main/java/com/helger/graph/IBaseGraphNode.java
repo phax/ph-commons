@@ -37,7 +37,8 @@ import com.helger.commons.collection.impl.ICommonsOrderedSet;
  */
 @MustImplementEqualsAndHashcode
 public interface IBaseGraphNode <NODETYPE extends IBaseGraphNode <NODETYPE, RELATIONTYPE>, RELATIONTYPE extends IBaseGraphRelation <NODETYPE, RELATIONTYPE>>
-                                extends IBaseGraphObject
+                                extends
+                                IBaseGraphObject
 {
   /**
    * Check if this graph node is directly connected to the passed node, either

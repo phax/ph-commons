@@ -44,19 +44,19 @@ public final class BenchmarkStringMultiReplace extends AbstractBenchmarkTask
   {
     final int nRuns = 1000;
     final double javaTime = benchmarkTask (new StringReplace (nRuns));
-    s_aLogger.info ("Time purely in Java:        " + javaTime + " µs");
+    LOGGER.info ("Time purely in Java:        " + javaTime + " µs");
 
     final double systemTime = benchmarkTask (new PatternReplace (nRuns));
-    s_aLogger.info ("Time using pattern replace: " + systemTime + " µs");
+    LOGGER.info ("Time using pattern replace: " + systemTime + " µs");
 
     final double self1Time = benchmarkTask (new SelfReplaceMultiple1 (nRuns));
-    s_aLogger.info ("Time using self replace1:   " + self1Time + " µs");
+    LOGGER.info ("Time using self replace1:   " + self1Time + " µs");
 
     final double self2Time = benchmarkTask (new SelfReplaceMultiple2 (nRuns));
-    s_aLogger.info ("Time using self replace2:   " + self2Time + " µs");
+    LOGGER.info ("Time using self replace2:   " + self2Time + " µs");
 
     final double self3Time = benchmarkTask (new SelfReplaceMultiple3 (nRuns));
-    s_aLogger.info ("Time using self replace3:   " + self3Time + " µs");
+    LOGGER.info ("Time using self replace3:   " + self3Time + " µs");
   }
 
   private static final String SRC = "This is <<a> text";
@@ -151,7 +151,7 @@ public final class BenchmarkStringMultiReplace extends AbstractBenchmarkTask
 
     public void run ()
     {
-      final ICommonsOrderedMap <String, String> aMap = new CommonsLinkedHashMap<> ();
+      final ICommonsOrderedMap <String, String> aMap = new CommonsLinkedHashMap <> ();
       for (int i = 0; i < RSRC.length; ++i)
         aMap.put (RSRC[i], RDST[i]);
 

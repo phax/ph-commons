@@ -39,7 +39,7 @@ import com.helger.xml.sax.CachingSAXInputSource;
 public final class SAXReaderTest
 {
   @SuppressWarnings ("unused")
-  private static final Logger s_aLogger = LoggerFactory.getLogger (SAXReaderTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (SAXReaderTest.class);
 
   @BeforeClass
   public static void bc ()

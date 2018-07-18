@@ -63,7 +63,7 @@ public final class JsonReader
 {
   public static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (JsonReader.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (JsonReader.class);
   private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
 
   // Use the LoggingJsonParseExceptionHandler for maximum backward compatibility
@@ -300,8 +300,8 @@ public final class JsonReader
     final InputStream aIS = aISP.getInputStream ();
     if (aIS == null)
     {
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("Failed to open Json InputStream from " + aISP);
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("Failed to open Json InputStream from " + aISP);
       return false;
     }
     return isValidJson (aIS, aFallbackCharset);

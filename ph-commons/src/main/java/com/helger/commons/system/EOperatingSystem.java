@@ -79,7 +79,7 @@ public enum EOperatingSystem implements IHasDisplayName
    */
   UNKNOWN ("Unknown", false);
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (EOperatingSystem.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (EOperatingSystem.class);
 
   /** The current OS. */
   private static volatile EOperatingSystem s_aInstance = null;
@@ -232,8 +232,8 @@ public enum EOperatingSystem implements IHasDisplayName
       ret = forName (sCurrentOSName);
       s_aInstance = ret;
       if (ret == UNKNOWN)
-        if (s_aLogger.isErrorEnabled ())
-          s_aLogger.error ("Failed to resolve operating system from name '" + sCurrentOSName + "'!!!");
+        if (LOGGER.isErrorEnabled ())
+          LOGGER.error ("Failed to resolve operating system from name '" + sCurrentOSName + "'!!!");
     }
     return ret;
   }

@@ -71,7 +71,7 @@ public class LRUMap <KEYTYPE, VALUETYPE> extends CommonsLinkedHashMap <KEYTYPE, 
   @Nonnull
   public LRUMap <KEYTYPE, VALUETYPE> getClone ()
   {
-    return new LRUMap<> (this);
+    return new LRUMap <> (this);
   }
 
   /**

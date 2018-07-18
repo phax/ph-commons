@@ -47,7 +47,7 @@ import com.helger.commons.state.ESuccess;
 public final class ChannelHelper
 {
   /** The logger to use. */
-  private static final Logger s_aLogger = LoggerFactory.getLogger (ChannelHelper.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (ChannelHelper.class);
 
   // Use version 1 as it seems to be faster
   private static final boolean USE_COPY_V1 = true;
@@ -189,8 +189,8 @@ public final class ChannelHelper
       }
       catch (final IOException ex)
       {
-        if (s_aLogger.isErrorEnabled ())
-          s_aLogger.error ("Failed to release object " + aFileLock, ex instanceof IMockException ? null : ex);
+        if (LOGGER.isErrorEnabled ())
+          LOGGER.error ("Failed to release object " + aFileLock, ex instanceof IMockException ? null : ex);
       }
     }
 

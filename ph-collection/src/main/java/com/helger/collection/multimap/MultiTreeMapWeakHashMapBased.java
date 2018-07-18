@@ -60,6 +60,6 @@ public class MultiTreeMapWeakHashMapBased <KEYTYPE1, KEYTYPE2 extends Comparable
   @ReturnsMutableCopy
   protected CommonsWeakHashMap <KEYTYPE2, VALUETYPE> createNewInnerMap ()
   {
-    return new CommonsWeakHashMap<> ();
+    return new CommonsWeakHashMap <> ();
   }
 }

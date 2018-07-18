@@ -1428,7 +1428,7 @@ public class Matrix implements Serializable, ICloneable <Matrix>
       throw new IOException ("Unexpected EOF on matrix read.");
 
     // Read & store 1st row.
-    final ICommonsList <Double> vD = new CommonsArrayList<> ();
+    final ICommonsList <Double> vD = new CommonsArrayList <> ();
     do
     {
       vD.add (Double.valueOf (aTokenizer.sval));
@@ -1443,7 +1443,7 @@ public class Matrix implements Serializable, ICloneable <Matrix>
       aRow[nCol] = vD.get (nCol).doubleValue ();
     }
 
-    final ICommonsList <double []> v = new CommonsArrayList<> ();
+    final ICommonsList <double []> v = new CommonsArrayList <> ();
     // Start storing rows instead of columns.
     v.add (aRow);
     while (aTokenizer.nextToken () == StreamTokenizer.TT_WORD)

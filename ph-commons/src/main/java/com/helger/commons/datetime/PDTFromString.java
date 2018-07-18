@@ -46,7 +46,7 @@ import com.helger.commons.string.StringHelper;
 @Immutable
 public final class PDTFromString
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (PDTFromString.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (PDTFromString.class);
 
   @PresentForCodeCoverage
   private static final PDTFromString s_aInstance = new PDTFromString ();
@@ -59,15 +59,15 @@ public final class PDTFromString
                                          @Nullable final DateTimeFormatter aDF,
                                          @Nonnull final DateTimeParseException ex)
   {
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Failed to parse " +
-                       sDestType +
-                       " '" +
-                       sValue +
-                       "'" +
-                       (aDF == null ? "" : " with " + aDF) +
-                       ": " +
-                       ex.getMessage ());
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Failed to parse " +
+                    sDestType +
+                    " '" +
+                    sValue +
+                    "'" +
+                    (aDF == null ? "" : " with " + aDF) +
+                    ": " +
+                    ex.getMessage ());
   }
 
   @Nullable

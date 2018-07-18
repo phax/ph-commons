@@ -52,14 +52,14 @@ public final class CollatorHelper
   @ThreadSafe
   private static final class CollatorCache extends Cache <Locale, Collator>
   {
-    private static final Logger s_aLogger = LoggerFactory.getLogger (CollatorCache.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger (CollatorCache.class);
 
     public CollatorCache ()
     {
       super (aLocale -> {
         if (aLocale == null)
         {
-          s_aLogger.error ("Very weird: no locale passed in. Falling back to system locale.");
+          LOGGER.error ("Very weird: no locale passed in. Falling back to system locale.");
           return Collator.getInstance (SystemHelper.getSystemLocale ());
         }
 
@@ -69,17 +69,17 @@ public final class CollatorHelper
         if (aCollator == null)
         {
           final Locale aSystemLocale = SystemHelper.getSystemLocale ();
-          s_aLogger.error ("Failed to get Collator for Locale " +
-                           aLocale +
-                           " - using Collator for syste locale " +
-                           aSystemLocale +
-                           "!");
+          LOGGER.error ("Failed to get Collator for Locale " +
+                        aLocale +
+                        " - using Collator for syste locale " +
+                        aSystemLocale +
+                        "!");
           return Collator.getInstance (aSystemLocale);
         }
         if (!(aCollator instanceof RuleBasedCollator))
         {
-          s_aLogger.warn ("Collator.getInstance did not return a RulleBasedCollator but a " +
-                          aCollator.getClass ().getName ());
+          LOGGER.warn ("Collator.getInstance did not return a RulleBasedCollator but a " +
+                       aCollator.getClass ().getName ());
           return aCollator;
         }
 
@@ -89,7 +89,7 @@ public final class CollatorHelper
           if (!sRules.contains ("<'.'<"))
           {
             // Nothing to replace - use collator as it is
-            s_aLogger.warn ("Failed to identify the Collator rule part to be replaced. Locale used: " + aLocale);
+            LOGGER.warn ("Failed to identify the Collator rule part to be replaced. Locale used: " + aLocale);
             return aCollator;
           }
 

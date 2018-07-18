@@ -55,7 +55,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
   }
 
   public static final boolean DEFAULT_USE_CLASS_HIERARCHY = false;
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MicroTypeConverterRegistry.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MicroTypeConverterRegistry.class);
 
   private static boolean s_bDefaultInstantiated = false;
 
@@ -138,16 +138,16 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
             if (!m_aMap.containsKey (aCurSrcClass))
             {
               m_aMap.put (aCurSrcClass, aConverter);
-              if (s_aLogger.isDebugEnabled ())
-                s_aLogger.debug ("Registered micro type converter for '" + aCurSrcClass.toString () + "'");
+              if (LOGGER.isDebugEnabled ())
+                LOGGER.debug ("Registered micro type converter for '" + aCurSrcClass.toString () + "'");
             }
         }
       }
       else
       {
         m_aMap.put (aClass, aConverter);
-        if (s_aLogger.isDebugEnabled ())
-          s_aLogger.debug ("Registered micro type converter for '" + aClass.toString () + "'");
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("Registered micro type converter for '" + aClass.toString () + "'");
       }
     });
   }
@@ -168,8 +168,8 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
       IMicroTypeConverter <?> ret = m_aMap.get (aDstClass);
       if (ret != null)
       {
-        if (s_aLogger.isTraceEnabled ())
-          s_aLogger.trace ("Using micro type converter " + ret + " for class " + aDstClass + " based on direct match");
+        if (LOGGER.isTraceEnabled ())
+          LOGGER.trace ("Using micro type converter " + ret + " for class " + aDstClass + " based on direct match");
       }
       else
         if (m_bUseClassHierarchy)
@@ -183,13 +183,13 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
               ret = m_aMap.get (aCurDstClass);
               if (ret != null)
               {
-                if (s_aLogger.isTraceEnabled ())
-                  s_aLogger.trace ("Using micro type converter " +
-                                   ret +
-                                   " for class " +
-                                   aDstClass +
-                                   " based on " +
-                                   aCurDstClass);
+                if (LOGGER.isTraceEnabled ())
+                  LOGGER.trace ("Using micro type converter " +
+                                ret +
+                                " for class " +
+                                aDstClass +
+                                " based on " +
+                                aCurDstClass);
                 break;
               }
             }
@@ -233,13 +233,13 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
       // Must be in writeLock to ensure no reads happen during initialization
       for (final IMicroTypeConverterRegistrarSPI aSPI : ServiceLoaderHelper.getAllSPIImplementations (IMicroTypeConverterRegistrarSPI.class))
       {
-        if (s_aLogger.isDebugEnabled ())
-          s_aLogger.debug ("Calling registerMicroTypeConverter on " + aSPI.getClass ().getName ());
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("Calling registerMicroTypeConverter on " + aSPI.getClass ().getName ());
         aSPI.registerMicroTypeConverter (this);
       }
     });
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug (getRegisteredMicroTypeConverterCount () + " micro type converters registered");
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug (getRegisteredMicroTypeConverterCount () + " micro type converters registered");
   }
 }

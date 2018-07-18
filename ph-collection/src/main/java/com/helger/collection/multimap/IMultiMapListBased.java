@@ -32,8 +32,8 @@ import com.helger.commons.state.EChange;
  * @param <VALUETYPE>
  *        Value type
  */
-public interface IMultiMapListBased <KEYTYPE, VALUETYPE>
-                                    extends IMultiMap <KEYTYPE, VALUETYPE, ICommonsList <VALUETYPE>>
+public interface IMultiMapListBased <KEYTYPE, VALUETYPE> extends
+                                    IMultiMap <KEYTYPE, VALUETYPE, ICommonsList <VALUETYPE>>
 {
   /**
    * Add a single value into the container identified by the passed key at the

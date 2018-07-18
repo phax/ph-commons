@@ -73,7 +73,7 @@ import com.helger.xml.util.mime.MimeTypeInfoManager;
  */
 public final class MainReadSharedMimeInfo
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainReadSharedMimeInfo.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainReadSharedMimeInfo.class);
   private static final String NS = "http://www.freedesktop.org/standards/shared-mime-info";
 
   private MainReadSharedMimeInfo ()
@@ -81,7 +81,7 @@ public final class MainReadSharedMimeInfo
 
   public static void main (final String [] args)
   {
-    s_aLogger.info ("Reading shared-mime-info/freedesktop.org.xml");
+    LOGGER.info ("Reading shared-mime-info/freedesktop.org.xml");
     final IMicroDocument aDoc = MicroReader.readMicroXML (new File ("src/test/resources/shared-mime-info/freedesktop.org.xml"));
     if (aDoc == null)
       throw new IllegalStateException ("Failed to read mime type info file!");
@@ -145,17 +145,17 @@ public final class MainReadSharedMimeInfo
       }
     }
 
-    s_aLogger.info ("Read " + aMgr.getAllMimeTypeInfos ().size () + " mime type infos");
+    LOGGER.info ("Read " + aMgr.getAllMimeTypeInfos ().size () + " mime type infos");
 
     // Maps file extension to MIME type
-    s_aLogger.info ("Reading shared-mime-info/fileext-mimetype-mapping-local.xml");
+    LOGGER.info ("Reading shared-mime-info/fileext-mimetype-mapping-local.xml");
     final Map <String, String> FileExtMap = new HashMap <> ();
     if (XMLMapHandler.readMap (new FileSystemResource ("src/test/resources/shared-mime-info/fileext-mimetype-mapping-local.xml"),
                                FileExtMap)
                      .isFailure ())
       throw new InitializationException ("Failed to init file extension to mimetype mapping file");
 
-    s_aLogger.info ("Read " + FileExtMap.size () + " entries");
+    LOGGER.info ("Read " + FileExtMap.size () + " entries");
 
     // Check old data
     for (final Map.Entry <String, String> aEntry : CollectionHelper.getSortedByKey (FileExtMap).entrySet ())
@@ -183,10 +183,10 @@ public final class MainReadSharedMimeInfo
           {
             aMgr.addExtension (aNew.get (0), new ExtensionWithSource (sOldExt, "old"));
             if (false)
-              s_aLogger.info ("Added extension '" + sOldExt + "' to " + sOldMimeType + "!");
+              LOGGER.info ("Added extension '" + sOldExt + "' to " + sOldMimeType + "!");
           }
           else
-            s_aLogger.error (sOldMimeType + ": '" + sOldExt + "' not found in " + aNew + "!");
+            LOGGER.error (sOldMimeType + ": '" + sOldExt + "' not found in " + aNew + "!");
         }
       }
       else
@@ -209,10 +209,10 @@ public final class MainReadSharedMimeInfo
             {
               aMgr.addMimeType (aNew.get (0), new MimeTypeWithSource (aOldMimeType, "old"));
               if (false)
-                s_aLogger.info ("'" + sOldExt + "': " + sOldMimeType + " not found in " + aNew.get (0) + "!");
+                LOGGER.info ("'" + sOldExt + "': " + sOldMimeType + " not found in " + aNew.get (0) + "!");
             }
             else
-              s_aLogger.error ("'" + sOldExt + "': " + sOldMimeType + " not found in any of " + aNew + "!");
+              LOGGER.error ("'" + sOldExt + "': " + sOldMimeType + " not found in any of " + aNew + "!");
           }
         }
         else
@@ -227,17 +227,17 @@ public final class MainReadSharedMimeInfo
                                                    CollectionHelper.newOrderedSet (new ExtensionWithSource (sOldExt)),
                                                    "old"));
           if (false)
-            s_aLogger.info ("Creating new: " + sOldMimeType + " = '" + sOldExt + "'");
+            LOGGER.info ("Creating new: " + sOldMimeType + " = '" + sOldExt + "'");
         }
       }
     }
 
-    s_aLogger.info ("Finally having " + aMgr.getAllMimeTypeInfos ().size () + " mime type infos");
+    LOGGER.info ("Finally having " + aMgr.getAllMimeTypeInfos ().size () + " mime type infos");
 
     if (MicroWriter.writeToFile (aMgr.getAsDocument (), new File ("src/main/resources/codelists/mime-type-info.xml"))
                    .isSuccess ())
-      s_aLogger.info ("done - run mvn license:format !!");
+      LOGGER.info ("done - run mvn license:format !!");
     else
-      s_aLogger.error ("Error writing file");
+      LOGGER.error ("Error writing file");
   }
 }

@@ -38,7 +38,7 @@ import com.helger.security.authentication.subject.IAuthSubject;
 @Immutable
 public final class AuthIdentificationManager
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AuthIdentificationManager.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (AuthIdentificationManager.class);
 
   private AuthIdentificationManager ()
   {}
@@ -61,25 +61,25 @@ public final class AuthIdentificationManager
     final ICredentialValidationResult aValidationResult = AuthCredentialValidatorManager.validateCredentials (aCredentials);
     if (aValidationResult.isFailure ())
     {
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("Credentials have been rejected: " + aCredentials);
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("Credentials have been rejected: " + aCredentials);
       return AuthIdentificationResult.createFailure (aValidationResult);
     }
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Credentials have been accepted: " + aCredentials);
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Credentials have been accepted: " + aCredentials);
 
     // try to get AuthSubject from passed credentials
     final IAuthSubject aSubject = AuthCredentialToSubjectResolverManager.getSubjectFromCredentials (aCredentials);
     if (aSubject != null)
     {
-      if (s_aLogger.isDebugEnabled ())
-        s_aLogger.debug ("Credentials " + aCredentials + " correspond to subject " + aSubject);
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Credentials " + aCredentials + " correspond to subject " + aSubject);
     }
     else
     {
-      if (s_aLogger.isErrorEnabled ())
-        s_aLogger.error ("Failed to resolve credentials " + aCredentials + " to an auth subject!");
+      if (LOGGER.isErrorEnabled ())
+        LOGGER.error ("Failed to resolve credentials " + aCredentials + " to an auth subject!");
     }
 
     // Create the identification element

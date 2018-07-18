@@ -113,10 +113,11 @@ public final class XMLCharsetDeterminator
                                             @Nonnegative final int nOfs,
                                             @Nonnull final Charset aParseCharset)
   {
-    try (final NonBlockingByteArrayInputStream aIS = new NonBlockingByteArrayInputStream (aBytes,
-                                                                                          nOfs,
-                                                                                          aBytes.length - nOfs);
-         final Reader aReader = new InputStreamReader (aIS, aParseCharset))
+    try (
+        final NonBlockingByteArrayInputStream aIS = new NonBlockingByteArrayInputStream (aBytes,
+                                                                                         nOfs,
+                                                                                         aBytes.length - nOfs);
+        final Reader aReader = new InputStreamReader (aIS, aParseCharset))
     {
       final StringBuilder aSB = new StringBuilder ();
       int c;
@@ -217,10 +218,11 @@ public final class XMLCharsetDeterminator
     {
       // Check if a BOM is present
       // Read at maximum 4 bytes (max BOM bytes)
-      try (NonBlockingByteArrayInputStream aIS = new NonBlockingByteArrayInputStream (aBytes,
-                                                                                      0,
-                                                                                      Math.min (EUnicodeBOM.getMaximumByteCount (),
-                                                                                                aBytes.length)))
+      try (
+          NonBlockingByteArrayInputStream aIS = new NonBlockingByteArrayInputStream (aBytes,
+                                                                                     0,
+                                                                                     Math.min (EUnicodeBOM.getMaximumByteCount (),
+                                                                                               aBytes.length)))
       {
         // Check for BOM first
         final InputStreamAndCharset aISC = CharsetHelper.getInputStreamAndCharsetFromBOM (aIS);

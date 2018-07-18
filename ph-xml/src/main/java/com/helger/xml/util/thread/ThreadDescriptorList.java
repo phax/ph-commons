@@ -54,7 +54,7 @@ import com.helger.xml.microdom.MicroElement;
 @NotThreadSafe
 public class ThreadDescriptorList implements IHasMicroNodeRepresentation
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (ThreadDescriptorList.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (ThreadDescriptorList.class);
 
   private final ICommonsList <ThreadDescriptor> m_aList = new CommonsArrayList <> ();
   private String m_sError;
@@ -195,15 +195,15 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
     }
     catch (final Exception ex)
     {
-      s_aLogger.error ("Error collecting all thread descriptors", ex);
+      LOGGER.error ("Error collecting all thread descriptors", ex);
       ret.setError ("Error collecting all thread descriptors: " + _getAsString (ex));
     }
     finally
     {
       final long nMillis = aSW.stopAndGetMillis ();
       if (nMillis > 1000)
-        if (s_aLogger.isWarnEnabled ())
-          s_aLogger.warn ("Took " + nMillis + " ms to get all thread descriptors!");
+        if (LOGGER.isWarnEnabled ())
+          LOGGER.warn ("Took " + nMillis + " ms to get all thread descriptors!");
     }
     return ret;
   }

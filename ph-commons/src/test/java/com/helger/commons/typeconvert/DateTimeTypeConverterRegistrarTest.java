@@ -57,7 +57,7 @@ import com.helger.commons.mutable.MutableShort;
  */
 public final class DateTimeTypeConverterRegistrarTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (DateTimeTypeConverterRegistrarTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (DateTimeTypeConverterRegistrarTest.class);
   private static final Object [] NUMBERS = new Object [] { new AtomicInteger (17),
                                                            new AtomicLong (1234567890),
                                                            new BigDecimal ("11238712367812368712368.32123213"),
@@ -197,8 +197,8 @@ public final class DateTimeTypeConverterRegistrarTest
           }
           else
           {
-            if (s_aLogger.isDebugEnabled ())
-              s_aLogger.debug ("Converting from " + aSrc.getKey ().getName () + " to " + aDst.getName ());
+            if (LOGGER.isDebugEnabled ())
+              LOGGER.debug ("Converting from " + aSrc.getKey ().getName () + " to " + aDst.getName ());
             final Object aDstValue = TypeConverter.convert (aSrc.getValue (), aDst);
             assertNotNull (aDstValue);
           }

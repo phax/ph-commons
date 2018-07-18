@@ -125,7 +125,7 @@ public final class ClassHierarchyCache
     }
   }
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (ClassHierarchyCache.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (ClassHierarchyCache.class);
 
   private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("s_aRWLock")
@@ -151,8 +151,8 @@ public final class ClassHierarchyCache
     if (ret.isUnchanged ())
       return EChange.UNCHANGED;
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Cache was cleared: " + ClassHierarchyCache.class.getName ());
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Cache was cleared: " + ClassHierarchyCache.class.getName ());
     return EChange.CHANGED;
   }
 

@@ -69,7 +69,7 @@ public final class XMLListHandler
   /** Attribute name for the item value */
   public static final String ATTR_VALUE = "value";
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (XMLListHandler.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (XMLListHandler.class);
 
   @PresentForCodeCoverage
   private static final XMLListHandler s_aInstance = new XMLListHandler ();
@@ -143,8 +143,8 @@ public final class XMLListHandler
     }
     catch (final Exception ex)
     {
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("Failed to read list resource '" + aIS + "'", ex);
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("Failed to read list resource '" + aIS + "'", ex);
     }
     finally
     {
@@ -168,19 +168,19 @@ public final class XMLListHandler
       {
         final String sValue = eItem.getAttributeValue (ATTR_VALUE);
         if (sValue == null)
-          s_aLogger.warn ("Ignoring list item because value is null");
+          LOGGER.warn ("Ignoring list item because value is null");
         else
           if (!aTargetList.add (sValue))
           {
-            if (s_aLogger.isWarnEnabled ())
-              s_aLogger.warn ("Ignoring list item '" + sValue + "' because value is already contained");
+            if (LOGGER.isWarnEnabled ())
+              LOGGER.warn ("Ignoring list item '" + sValue + "' because value is already contained");
           }
       }
       return ESuccess.SUCCESS;
     }
     catch (final Exception ex)
     {
-      s_aLogger.warn ("Failed to read list document", ex);
+      LOGGER.warn ("Failed to read list document", ex);
     }
     return ESuccess.FAILURE;
   }

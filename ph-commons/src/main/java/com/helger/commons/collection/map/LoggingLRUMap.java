@@ -45,7 +45,7 @@ import com.helger.commons.string.ToStringGenerator;
 @UseDirectEqualsAndHashCode
 public class LoggingLRUMap <KEYTYPE, VALUETYPE> extends LRUMap <KEYTYPE, VALUETYPE>
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingLRUMap.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (LoggingLRUMap.class);
 
   private String m_sMapName;
 
@@ -84,18 +84,18 @@ public class LoggingLRUMap <KEYTYPE, VALUETYPE> extends LRUMap <KEYTYPE, VALUETY
   protected void onRemoveEldestEntry (@Nonnegative final int nSize,
                                       @Nonnull final Map.Entry <KEYTYPE, VALUETYPE> aEntry)
   {
-    if (s_aLogger.isWarnEnabled ())
-      s_aLogger.warn ("Map" +
-                      (m_sMapName != null ? " '" + m_sMapName + "'" : "") +
-                      " is full with " +
-                      nSize +
-                      " ≥ " +
-                      getMaxSize () +
-                      " items! Removed key (" +
-                      aEntry.getKey () +
-                      ") and value (" +
-                      aEntry.getValue () +
-                      ")");
+    if (LOGGER.isWarnEnabled ())
+      LOGGER.warn ("Map" +
+                   (m_sMapName != null ? " '" + m_sMapName + "'" : "") +
+                   " is full with " +
+                   nSize +
+                   " ≥ " +
+                   getMaxSize () +
+                   " items! Removed key (" +
+                   aEntry.getKey () +
+                   ") and value (" +
+                   aEntry.getValue () +
+                   ")");
   }
 
   @Override

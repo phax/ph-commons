@@ -54,6 +54,6 @@ public class MultiHashMapTreeMapBased <KEYTYPE1, KEYTYPE2 extends Comparable <? 
   @ReturnsMutableCopy
   protected CommonsTreeMap <KEYTYPE2, VALUETYPE> createNewInnerMap ()
   {
-    return new CommonsTreeMap<> ();
+    return new CommonsTreeMap <> ();
   }
 }

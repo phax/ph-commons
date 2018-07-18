@@ -35,7 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public class LoggingInputStream extends WrappedInputStream
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingInputStream.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (LoggingInputStream.class);
 
   private long m_nPosition = 0;
 
@@ -52,29 +52,29 @@ public class LoggingInputStream extends WrappedInputStream
   @OverrideOnDemand
   protected void onRead (final int nBytesRead, final long nNewPosition)
   {
-    if (s_aLogger.isInfoEnabled ())
-      s_aLogger.info ("Read " + nBytesRead + " byte(s); now at " + nNewPosition);
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("Read " + nBytesRead + " byte(s); now at " + nNewPosition);
   }
 
   @OverrideOnDemand
   protected void onSkip (final long nBytesSkipped, final long nNewPosition)
   {
-    if (s_aLogger.isInfoEnabled ())
-      s_aLogger.info ("Skipped " + nBytesSkipped + " byte(s); now at " + nNewPosition);
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("Skipped " + nBytesSkipped + " byte(s); now at " + nNewPosition);
   }
 
   @OverrideOnDemand
   protected void onMark (final int nReadLimit, final long nCurrentPosition)
   {
-    if (s_aLogger.isInfoEnabled ())
-      s_aLogger.info ("Marked at " + nCurrentPosition + " with read-limit of " + nReadLimit);
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("Marked at " + nCurrentPosition + " with read-limit of " + nReadLimit);
   }
 
   @OverrideOnDemand
   protected void onReset (final long nCurrentPosition)
   {
-    if (s_aLogger.isInfoEnabled ())
-      s_aLogger.info ("Reset at " + nCurrentPosition);
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("Reset at " + nCurrentPosition);
   }
 
   @Override

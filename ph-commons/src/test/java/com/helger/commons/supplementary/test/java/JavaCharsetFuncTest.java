@@ -26,20 +26,20 @@ import org.slf4j.LoggerFactory;
 
 public final class JavaCharsetFuncTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (JavaCharsetFuncTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (JavaCharsetFuncTest.class);
 
   @Test
   @Ignore ("Too verbose")
   public void testAllCharsets ()
   {
     for (final Map.Entry <String, Charset> aEntry : Charset.availableCharsets ().entrySet ())
-      s_aLogger.info (aEntry.getKey () + " " + aEntry.getValue ().aliases ());
+      LOGGER.info (aEntry.getKey () + " " + aEntry.getValue ().aliases ());
   }
 
   @Test
   @Ignore ("Too verbose")
   public void testAllCharsetNamess ()
   {
-    s_aLogger.info (Charset.availableCharsets ().keySet ().toString ());
+    LOGGER.info (Charset.availableCharsets ().keySet ().toString ());
   }
 }

@@ -48,7 +48,7 @@ import com.helger.settings.factory.ISettingsFactory;
  */
 public class SettingsPersistenceProperties implements ISettingsPersistence
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (SettingsPersistenceProperties.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (SettingsPersistenceProperties.class);
 
   private final ISettingsFactory <?> m_aSettingsFactory;
 
@@ -119,7 +119,7 @@ public class SettingsPersistenceProperties implements ISettingsPersistence
     }
     catch (final IOException ex)
     {
-      s_aLogger.error ("Failed to write settings to properties file", ex);
+      LOGGER.error ("Failed to write settings to properties file", ex);
       return ESuccess.FAILURE;
     }
     finally

@@ -33,7 +33,7 @@ import com.helger.commons.string.StringHelper;
 
 public final class MagicSquareExampleFuncTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger ("dummy");
+  private static final Logger LOGGER = LoggerFactory.getLogger ("dummy");
 
   /**
    * @param n
@@ -188,6 +188,6 @@ public final class MagicSquareExampleFuncTest
     final double etime = (stop_time.getTime () - start_time.getTime ()) / 1000.;
     aSB.append ("\nElapsed Time = " + fixedWidthDoubletoString (etime, 12, 3) + " seconds\n");
     aSB.append ("Adios\n");
-    s_aLogger.info (aSB.toString ());
+    LOGGER.info (aSB.toString ());
   }
 }

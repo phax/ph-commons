@@ -99,11 +99,11 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public class BasicThreadFactory implements ThreadFactory
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (BasicThreadFactory.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (BasicThreadFactory.class);
 
   private static Thread.UncaughtExceptionHandler s_aDefaultUncaughtExceptionHandler = (t, e) -> {
-    if (s_aLogger.isErrorEnabled ())
-      s_aLogger.error ("Uncaught exception from Thread " + t.getName (), e);
+    if (LOGGER.isErrorEnabled ())
+      LOGGER.error ("Uncaught exception from Thread " + t.getName (), e);
   };
 
   /**

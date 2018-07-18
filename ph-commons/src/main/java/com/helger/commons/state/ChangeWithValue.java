@@ -156,7 +156,7 @@ public class ChangeWithValue <DATATYPE> implements IChangeIndicator, IWrapper <D
   @Nonnull
   public static <DATATYPE> ChangeWithValue <DATATYPE> createChanged (@Nullable final DATATYPE aValue)
   {
-    return new ChangeWithValue<> (EChange.CHANGED, aValue);
+    return new ChangeWithValue <> (EChange.CHANGED, aValue);
   }
 
   /**
@@ -171,6 +171,6 @@ public class ChangeWithValue <DATATYPE> implements IChangeIndicator, IWrapper <D
   @Nonnull
   public static <DATATYPE> ChangeWithValue <DATATYPE> createUnchanged (@Nullable final DATATYPE aValue)
   {
-    return new ChangeWithValue<> (EChange.UNCHANGED, aValue);
+    return new ChangeWithValue <> (EChange.UNCHANGED, aValue);
   }
 }

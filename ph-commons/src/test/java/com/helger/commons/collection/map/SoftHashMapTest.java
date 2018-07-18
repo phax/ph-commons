@@ -35,28 +35,28 @@ import com.helger.commons.mock.CommonsTestHelper;
 
 public final class SoftHashMapTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (SoftHashMapTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (SoftHashMapTest.class);
 
   @Test
   @Ignore ("Travis will fail if this test is run")
   public void testGarbageCollect ()
   {
-    final SoftHashMap <Integer, BigDecimal> map = new SoftHashMap<> ();
+    final SoftHashMap <Integer, BigDecimal> map = new SoftHashMap <> ();
 
     BigDecimal aOne = new BigDecimal ("+1.000");
     final Integer aKey = Integer.valueOf (1);
     map.put (aKey, aOne);
-    s_aLogger.info ("Mapped value: " + map.get (aKey));
+    LOGGER.info ("Mapped value: " + map.get (aKey));
     assertNotNull (map.get (aKey));
     aOne = null;
 
     final Set <Map.Entry <Integer, BigDecimal>> aEntries = map.entrySet ();
     assertEquals (1, aEntries.size ());
 
-    s_aLogger.info ("Filling memory please wait");
+    LOGGER.info ("Filling memory please wait");
     try
     {
-      final List <Object []> allocations = new CommonsArrayList<> ();
+      final List <Object []> allocations = new CommonsArrayList <> ();
       int size;
       while ((size = Math.min (Math.abs ((int) Runtime.getRuntime ().freeMemory ()), Integer.MAX_VALUE)) > 0)
         allocations.add (new Object [size]);
@@ -65,14 +65,14 @@ public final class SoftHashMapTest
     {
       // great!
     }
-    s_aLogger.info ("Mapped value (should be null): " + map.get (aKey));
+    LOGGER.info ("Mapped value (should be null): " + map.get (aKey));
     assertNull (map.get (aKey));
   }
 
   @Test
   public void testEntrySetToArray ()
   {
-    final SoftHashMap <Integer, BigDecimal> aMap = new SoftHashMap<> ();
+    final SoftHashMap <Integer, BigDecimal> aMap = new SoftHashMap <> ();
 
     aMap.put (Integer.valueOf (1), BigDecimal.TEN);
     assertEquals (1, aMap.entrySet ().size ());

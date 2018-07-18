@@ -34,7 +34,7 @@ import com.helger.json.parser.JsonParseException;
 @Immutable
 public class LoggingJsonParseExceptionCallback implements IJsonParseExceptionCallback
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingJsonParseExceptionCallback.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (LoggingJsonParseExceptionCallback.class);
 
   public LoggingJsonParseExceptionCallback ()
   {}
@@ -49,7 +49,7 @@ public class LoggingJsonParseExceptionCallback implements IJsonParseExceptionCal
 
   public void onException (@Nonnull final JsonParseException ex)
   {
-    if (s_aLogger.isErrorEnabled ())
-      s_aLogger.error (createLoggingStringParseError (ex));
+    if (LOGGER.isErrorEnabled ())
+      LOGGER.error (createLoggingStringParseError (ex));
   }
 }

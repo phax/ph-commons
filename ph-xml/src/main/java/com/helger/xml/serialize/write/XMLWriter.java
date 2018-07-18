@@ -53,7 +53,7 @@ public final class XMLWriter
   /** By default no XML namespace map is present */
   public static final NamespaceContext DEFAULT_NAMESPACE_CTX = null;
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (XMLWriter.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (XMLWriter.class);
   private static final IMutableStatisticsHandlerSize s_aSizeHdl = StatisticsManager.getSizeHandler (XMLWriter.class);
 
   @PresentForCodeCoverage
@@ -111,12 +111,12 @@ public final class XMLWriter
     }
     catch (final RuntimeException ex)
     {
-      s_aLogger.error ("Error in XML serialization", ex);
+      LOGGER.error ("Error in XML serialization", ex);
       throw ex;
     }
     catch (final Exception ex)
     {
-      s_aLogger.error ("Error in XML serialization", ex);
+      LOGGER.error ("Error in XML serialization", ex);
     }
     finally
     {
@@ -174,12 +174,12 @@ public final class XMLWriter
     }
     catch (final RuntimeException ex)
     {
-      s_aLogger.error ("Error in XML serialization", ex);
+      LOGGER.error ("Error in XML serialization", ex);
       throw ex;
     }
     catch (final Exception ex)
     {
-      s_aLogger.error ("Error in XML serialization", ex);
+      LOGGER.error ("Error in XML serialization", ex);
     }
     finally
     {
@@ -213,8 +213,8 @@ public final class XMLWriter
     }
     catch (final Exception ex)
     {
-      if (s_aLogger.isErrorEnabled ())
-        s_aLogger.error ("Error serializing DOM node with settings " + aSettings.toString (), ex);
+      if (LOGGER.isErrorEnabled ())
+        LOGGER.error ("Error serializing DOM node with settings " + aSettings.toString (), ex);
     }
     return null;
   }
@@ -253,8 +253,9 @@ public final class XMLWriter
     ValueEnforcer.notNull (aNode, "Node");
     ValueEnforcer.notNull (aSettings, "Settings");
 
-    try (final NonBlockingByteArrayOutputStream aWriter = new NonBlockingByteArrayOutputStream (50 *
-                                                                                                CGlobal.BYTES_PER_KILOBYTE))
+    try (
+        final NonBlockingByteArrayOutputStream aWriter = new NonBlockingByteArrayOutputStream (50 *
+                                                                                               CGlobal.BYTES_PER_KILOBYTE))
     {
       // start serializing
       if (writeToStream (aNode, aWriter, aSettings).isSuccess ())
@@ -262,8 +263,8 @@ public final class XMLWriter
     }
     catch (final Exception ex)
     {
-      if (s_aLogger.isErrorEnabled ())
-        s_aLogger.error ("Error serializing DOM node with settings " + aSettings.toString (), ex);
+      if (LOGGER.isErrorEnabled ())
+        LOGGER.error ("Error serializing DOM node with settings " + aSettings.toString (), ex);
     }
     return null;
   }

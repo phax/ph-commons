@@ -38,7 +38,8 @@ import com.helger.commons.collection.impl.ICommonsList;
 @ThreadSafe
 public abstract class AbstractMultiConcurrentHashMapListBased <KEYTYPE, VALUETYPE> extends
                                                               AbstractMultiConcurrentHashMap <KEYTYPE, VALUETYPE, ICommonsList <VALUETYPE>>
-                                                              implements IMultiMapListBased <KEYTYPE, VALUETYPE>
+                                                              implements
+                                                              IMultiMapListBased <KEYTYPE, VALUETYPE>
 {
   public AbstractMultiConcurrentHashMapListBased ()
   {}

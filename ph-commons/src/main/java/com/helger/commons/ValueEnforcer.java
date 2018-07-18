@@ -46,7 +46,7 @@ import com.helger.commons.equals.EqualsHelper;
 public final class ValueEnforcer
 {
   private static final AtomicBoolean s_aEnabled = new AtomicBoolean (true);
-  private static final Logger s_aLogger = LoggerFactory.getLogger (ValueEnforcer.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (ValueEnforcer.class);
 
   private ValueEnforcer ()
   {}
@@ -69,8 +69,8 @@ public final class ValueEnforcer
   public static void setEnabled (final boolean bEnabled)
   {
     s_aEnabled.set (bEnabled);
-    if (s_aLogger.isInfoEnabled ())
-      s_aLogger.info ("ValueEnforcer checks are now " + (bEnabled ? "enabled" : "disabled"));
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("ValueEnforcer checks are now " + (bEnabled ? "enabled" : "disabled"));
   }
 
   /**

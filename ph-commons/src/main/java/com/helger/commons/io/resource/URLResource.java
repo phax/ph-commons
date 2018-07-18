@@ -54,7 +54,7 @@ public class URLResource implements IReadableResource
   public static final int DEFAULT_READ_TIMEOUT = -1;
 
   @SuppressWarnings ("unused")
-  private static final Logger s_aLogger = LoggerFactory.getLogger (URLResource.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (URLResource.class);
 
   private final URL m_aURL;
 

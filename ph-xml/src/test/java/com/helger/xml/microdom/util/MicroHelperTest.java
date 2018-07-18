@@ -123,8 +123,7 @@ public final class MicroHelperTest
     final DocumentBuilderFactory aDBF = XMLFactory.createDefaultDocumentBuilderFactory ();
     aDBF.setCoalescing (false);
     aDBF.setIgnoringComments (false);
-    final Document doc = aDBF.newDocumentBuilder ()
-                             .parse (new StringInputStream (sXML, StandardCharsets.ISO_8859_1));
+    final Document doc = aDBF.newDocumentBuilder ().parse (new StringInputStream (sXML, StandardCharsets.ISO_8859_1));
     assertNotNull (doc);
     final IMicroNode aNode = MicroHelper.convertToMicroNode (doc);
     assertNotNull (aNode);

@@ -58,7 +58,7 @@ import com.helger.commons.system.EOperatingSystem;
  */
 public class WatchDir implements AutoCloseable
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (WatchDir.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (WatchDir.class);
   private final WatchService m_aWatcher;
   private final Path m_aStartDir;
   private final boolean m_bRecursive;
@@ -76,10 +76,10 @@ public class WatchDir implements AutoCloseable
    */
   private void _registerDir (@Nonnull final Path aDir) throws IOException
   {
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Register directory " +
-                       aDir +
-                       (m_bRecursive && !m_bRegisterRecursiveManually ? " (recursively)" : ""));
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Register directory " +
+                    aDir +
+                    (m_bRecursive && !m_bRegisterRecursiveManually ? " (recursively)" : ""));
 
     final WatchEvent.Kind <?> [] aKinds = new WatchEvent.Kind <?> [] { StandardWatchEventKinds.ENTRY_CREATE,
                                                                        StandardWatchEventKinds.ENTRY_DELETE,
@@ -241,11 +241,11 @@ public class WatchDir implements AutoCloseable
    */
   public void processEvents ()
   {
-    if (s_aLogger.isInfoEnabled ())
-      s_aLogger.info ("Start processing directory change events in '" +
-                      m_aStartDir +
-                      "'" +
-                      (m_bRecursive ? " (recursively)" : ""));
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("Start processing directory change events in '" +
+                   m_aStartDir +
+                   "'" +
+                   (m_bRecursive ? " (recursively)" : ""));
 
     if (m_aCallbacks.isEmpty ())
       throw new IllegalStateException ("No callback registered for watching directory changes in " + m_aStartDir);
@@ -280,8 +280,8 @@ public class WatchDir implements AutoCloseable
       final Path aSrcDir = m_aKeys.get (aKey);
       if (aSrcDir == null)
       {
-        if (s_aLogger.isErrorEnabled ())
-          s_aLogger.error ("WatchKey " + aKey + " not recognized!!");
+        if (LOGGER.isErrorEnabled ())
+          LOGGER.error ("WatchKey " + aKey + " not recognized!!");
         continue;
       }
 
@@ -290,8 +290,8 @@ public class WatchDir implements AutoCloseable
         final WatchEvent.Kind <?> aKind = aEvent.kind ();
         if (aKind == StandardWatchEventKinds.OVERFLOW)
         {
-          if (s_aLogger.isWarnEnabled ())
-            s_aLogger.warn ("Got an overflow event on directory " + aSrcDir);
+          if (LOGGER.isWarnEnabled ())
+            LOGGER.warn ("Got an overflow event on directory " + aSrcDir);
           continue;
         }
 
@@ -312,8 +312,8 @@ public class WatchDir implements AutoCloseable
             else
             {
               eAction = null;
-              if (s_aLogger.isErrorEnabled ())
-                s_aLogger.error ("Unsupported event kind: " + aKind + " on path: '" + aFullEventPath + "'");
+              if (LOGGER.isErrorEnabled ())
+                LOGGER.error ("Unsupported event kind: " + aKind + " on path: '" + aFullEventPath + "'");
             }
 
         if (eAction != null)
@@ -352,8 +352,8 @@ public class WatchDir implements AutoCloseable
       final boolean bValid = aKey.reset ();
       if (!bValid)
       {
-        if (s_aLogger.isInfoEnabled ())
-          s_aLogger.info ("Unregister directory " + aSrcDir);
+        if (LOGGER.isInfoEnabled ())
+          LOGGER.info ("Unregister directory " + aSrcDir);
         m_aKeys.remove (aKey);
 
         // all directories are inaccessible
@@ -362,8 +362,8 @@ public class WatchDir implements AutoCloseable
           break;
       }
     }
-    if (s_aLogger.isInfoEnabled ())
-      s_aLogger.info ("Finished processing directory change events in '" + m_aStartDir + "'");
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("Finished processing directory change events in '" + m_aStartDir + "'");
   }
 
   /**

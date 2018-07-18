@@ -45,7 +45,7 @@ public final class XMLSystemProperties
   public static final String SYSTEM_PROPERTY_JDX_XML_MAX_GENERAL_ENTITY_SIZE_LIMIT = "jdk.xml.maxGeneralEntitySizeLimit";
   public static final String SYSTEM_PROPERTY_JDX_XML_MAX_PARAMETER_ENTITY_SIZE_LIMIT = "jdk.xml.maxParameterEntitySizeLimit";
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (XMLSystemProperties.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (XMLSystemProperties.class);
 
   @PresentForCodeCoverage
   private static final XMLSystemProperties s_aInstance = new XMLSystemProperties ();
@@ -58,7 +58,7 @@ public final class XMLSystemProperties
     // Clear Document Builder factory.
     XMLFactory.reinitialize ();
     DOMReader.reinitialize ();
-    s_aLogger.info ("XML processing system properties changed!");
+    LOGGER.info ("XML processing system properties changed!");
   }
 
   /**

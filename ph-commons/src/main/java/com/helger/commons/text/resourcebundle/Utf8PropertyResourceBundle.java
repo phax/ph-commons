@@ -57,8 +57,6 @@ final class Utf8PropertyResourceBundle extends ResourceBundle
   {
     final String sValue = m_aBundle.getString (sKey);
     // This does the main trick of converting the String to UTF-8
-    return CharsetHelper.getAsStringInOtherCharset (sValue,
-                                                     StandardCharsets.ISO_8859_1,
-                                                     StandardCharsets.UTF_8);
+    return CharsetHelper.getAsStringInOtherCharset (sValue, StandardCharsets.ISO_8859_1, StandardCharsets.UTF_8);
   }
 }

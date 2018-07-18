@@ -68,7 +68,7 @@ import com.helger.xml.serialize.write.XMLWriter;
 public final class DOMReaderTest
 {
   @SuppressWarnings ("unused")
-  private static final Logger s_aLogger = LoggerFactory.getLogger (DOMReaderTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (DOMReaderTest.class);
 
   /**
    * Test method readXMLDOM

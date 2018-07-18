@@ -28,7 +28,8 @@ import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 
 /**
- * Multi map based on {@link WeakHashMap} and {@link CommonsArrayList} values.<br>
+ * Multi map based on {@link WeakHashMap} and {@link CommonsArrayList}
+ * values.<br>
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -37,8 +38,8 @@ import com.helger.commons.collection.impl.ICommonsList;
  *        value type
  */
 @NotThreadSafe
-public class MultiWeakHashMapArrayListBased <KEYTYPE, VALUETYPE>
-                                            extends AbstractMultiWeakHashMapListBased <KEYTYPE, VALUETYPE>
+public class MultiWeakHashMapArrayListBased <KEYTYPE, VALUETYPE> extends
+                                            AbstractMultiWeakHashMapListBased <KEYTYPE, VALUETYPE>
 {
   public MultiWeakHashMapArrayListBased ()
   {}

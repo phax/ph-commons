@@ -51,7 +51,7 @@ public final class FileOperations
    */
   public static final boolean DEFAULT_EXCEPTION_ON_DELETE_ROOT = true;
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (FileOperations.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (FileOperations.class);
 
   private static volatile boolean s_bExceptionOnDeleteRoot = DEFAULT_EXCEPTION_ON_DELETE_ROOT;
 
@@ -514,11 +514,8 @@ public final class FileOperations
 
           if (nBytesToRead != nBytesWritten)
           {
-            if (s_aLogger.isErrorEnabled ())
-              s_aLogger.error ("Failed to copy file. Meant to read " +
-                               nBytesToRead +
-                               " bytes but wrote " +
-                               nBytesWritten);
+            if (LOGGER.isErrorEnabled ())
+              LOGGER.error ("Failed to copy file. Meant to read " + nBytesToRead + " bytes but wrote " + nBytesWritten);
             return ESuccess.FAILURE;
           }
           return ESuccess.SUCCESS;

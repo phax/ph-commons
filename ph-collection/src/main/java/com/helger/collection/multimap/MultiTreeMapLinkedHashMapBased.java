@@ -61,6 +61,6 @@ public class MultiTreeMapLinkedHashMapBased <KEYTYPE1, KEYTYPE2 extends Comparab
   @ReturnsMutableCopy
   protected CommonsLinkedHashMap <KEYTYPE2, VALUETYPE> createNewInnerMap ()
   {
-    return new CommonsLinkedHashMap<> ();
+    return new CommonsLinkedHashMap <> ();
   }
 }

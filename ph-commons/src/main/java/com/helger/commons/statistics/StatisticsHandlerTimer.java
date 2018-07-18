@@ -30,13 +30,13 @@ import org.slf4j.LoggerFactory;
 @ThreadSafe
 public class StatisticsHandlerTimer extends AbstractStatisticsHandlerNumeric implements IMutableStatisticsHandlerTimer
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (StatisticsHandlerTimer.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (StatisticsHandlerTimer.class);
 
   public void addTime (@Nonnegative final long nMillis)
   {
     if (nMillis < 0)
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("A negative value (" + nMillis + ") is added to " + getClass ().getName ());
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("A negative value (" + nMillis + ") is added to " + getClass ().getName ());
     addValue (nMillis);
   }
 }

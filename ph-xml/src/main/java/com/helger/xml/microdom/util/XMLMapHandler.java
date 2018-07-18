@@ -72,7 +72,7 @@ public final class XMLMapHandler
   /** Attribute name for value of a single mapping */
   public static final String ATTR_VALUE = "value";
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (XMLMapHandler.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (XMLMapHandler.class);
 
   @PresentForCodeCoverage
   private static final XMLMapHandler s_aInstance = new XMLMapHandler ();
@@ -144,8 +144,8 @@ public final class XMLMapHandler
     }
     catch (final Exception ex)
     {
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("Failed to read mapping resource '" + aIS + "'", ex);
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("Failed to read mapping resource '" + aIS + "'", ex);
     }
     return ESuccess.FAILURE;
   }
@@ -164,17 +164,17 @@ public final class XMLMapHandler
       {
         final String sName = eMap.getAttributeValue (ATTR_KEY);
         if (sName == null)
-          s_aLogger.warn ("Ignoring mapping element because key is null");
+          LOGGER.warn ("Ignoring mapping element because key is null");
         else
         {
           final String sValue = eMap.getAttributeValue (ATTR_VALUE);
           if (sValue == null)
-            s_aLogger.warn ("Ignoring mapping element because value is null");
+            LOGGER.warn ("Ignoring mapping element because value is null");
           else
           {
             if (aTargetMap.containsKey (sName))
-              if (s_aLogger.isWarnEnabled ())
-                s_aLogger.warn ("Key '" + sName + "' is already contained - overwriting!");
+              if (LOGGER.isWarnEnabled ())
+                LOGGER.warn ("Key '" + sName + "' is already contained - overwriting!");
             aTargetMap.put (sName, sValue);
           }
         }
@@ -183,8 +183,8 @@ public final class XMLMapHandler
     }
     catch (final Exception ex)
     {
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("Failed to read mapping document", ex);
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("Failed to read mapping document", ex);
     }
     return ESuccess.FAILURE;
   }

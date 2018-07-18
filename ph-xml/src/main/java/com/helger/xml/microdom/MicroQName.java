@@ -47,7 +47,7 @@ import com.helger.xml.CXMLRegEx;
 @Immutable
 public final class MicroQName implements IMicroQName, IComparable <MicroQName>
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MicroQName.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MicroQName.class);
 
   private final String m_sNamespaceURI;
   private final String m_sName;
@@ -72,12 +72,12 @@ public final class MicroQName implements IMicroQName, IComparable <MicroQName>
     else
     {
       // Cut the prefix
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("Removing namespace prefix '" +
-                        sName.substring (0, nPrefixEnd) +
-                        "' from micro XML name '" +
-                        sName +
-                        "'");
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("Removing namespace prefix '" +
+                     sName.substring (0, nPrefixEnd) +
+                     "' from micro XML name '" +
+                     sName +
+                     "'");
       m_sName = sName.substring (nPrefixEnd + 1);
     }
 

@@ -40,7 +40,7 @@ public class CmdLineParser
   public static final String PREFIX_SHORT_OPT = "-";
   public static final String PREFIX_LONG_OPT = "--";
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (CmdLineParser.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (CmdLineParser.class);
 
   private static final class MatchedOption
   {
@@ -180,12 +180,12 @@ public class CmdLineParser
 
             final String sValueInArg = sArg.substring (aMatchedOption.m_sMatchedText.length ());
 
-            if (s_aLogger.isDebugEnabled ())
-              s_aLogger.debug ("Matched '" +
-                               aMatchedOption.m_sMatchedText +
-                               "' to " +
-                               _getDisplayName (aOption) +
-                               (sValueInArg.length () > 0 ? "; rest is '" + sValueInArg + "'" : ""));
+            if (LOGGER.isDebugEnabled ())
+              LOGGER.debug ("Matched '" +
+                            aMatchedOption.m_sMatchedText +
+                            "' to " +
+                            _getDisplayName (aOption) +
+                            (sValueInArg.length () > 0 ? "; rest is '" + sValueInArg + "'" : ""));
 
             final int nMinArgs = aOption.getMinArgCount ();
             final int nMaxArgs = aOption.getMaxArgCount ();
@@ -287,8 +287,8 @@ public class CmdLineParser
         }
       }
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Parsed command line args " + Arrays.toString (aArgs) + " to " + ret);
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Parsed command line args " + Arrays.toString (aArgs) + " to " + ret);
     return ret;
   }
 

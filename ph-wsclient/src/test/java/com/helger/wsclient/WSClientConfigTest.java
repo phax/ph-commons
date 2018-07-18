@@ -78,7 +78,7 @@ public final class WSClientConfigTest
   public void testBasic ()
   {
     final WSClientConfig aCfg = new WSClientConfig (URLHelper.getAsURL ("http://www.example.org"));
-    final ICommonsMap <String, Object> aMap = new CommonsHashMap<> ();
+    final ICommonsMap <String, Object> aMap = new CommonsHashMap <> ();
     final BindingProvider aBP = new MockBP (aMap);
     aCfg.applyWSSettingsToBindingProvider (aBP);
     assertEquals (5, aMap.size ());

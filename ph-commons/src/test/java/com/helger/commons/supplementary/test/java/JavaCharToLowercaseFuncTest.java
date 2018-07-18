@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 
 public final class JavaCharToLowercaseFuncTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (JavaCharToLowercaseFuncTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (JavaCharToLowercaseFuncTest.class);
   private static final Locale L_DE = new Locale ("de");
 
   @Test
@@ -40,7 +40,7 @@ public final class JavaCharToLowercaseFuncTest
 
       if (cUp != c)
         if (false)
-          s_aLogger.info ("c(" + (char) c + ") ==> (" + cUp + ")");
+          LOGGER.info ("c(" + (char) c + ") ==> (" + cUp + ")");
     }
   }
 }

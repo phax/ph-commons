@@ -46,7 +46,7 @@ import com.helger.commons.string.ToStringGenerator;
 @ThreadSafe
 public class FileSystemResourceProvider implements IWritableResourceProvider
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (FileSystemResourceProvider.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (FileSystemResourceProvider.class);
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   private final File m_aBasePath;
@@ -70,14 +70,14 @@ public class FileSystemResourceProvider implements IWritableResourceProvider
       ValueEnforcer.isTrue (aBasePath.exists (), () -> "Passed base path '" + aBasePath + "' does not exist!");
       ValueEnforcer.isTrue (aBasePath.isDirectory (), () -> "Passed base path '" + aBasePath + "' is not a directory!");
       if (!aBasePath.canRead ())
-        if (s_aLogger.isWarnEnabled ())
-          s_aLogger.warn ("Cannot read passed base path '" + aBasePath + "'!");
+        if (LOGGER.isWarnEnabled ())
+          LOGGER.warn ("Cannot read passed base path '" + aBasePath + "'!");
       if (!aBasePath.canWrite ())
-        if (s_aLogger.isWarnEnabled ())
-          s_aLogger.warn ("Cannot write passed base path '" + aBasePath + "'!");
+        if (LOGGER.isWarnEnabled ())
+          LOGGER.warn ("Cannot write passed base path '" + aBasePath + "'!");
       if (!aBasePath.canExecute ())
-        if (s_aLogger.isWarnEnabled ())
-          s_aLogger.warn ("Cannot execute in passed base path '" + aBasePath + "'!");
+        if (LOGGER.isWarnEnabled ())
+          LOGGER.warn ("Cannot execute in passed base path '" + aBasePath + "'!");
     }
     m_aBasePath = aBasePath;
   }

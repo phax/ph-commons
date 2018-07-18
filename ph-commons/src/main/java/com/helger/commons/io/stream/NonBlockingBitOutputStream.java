@@ -47,7 +47,7 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public class NonBlockingBitOutputStream implements Closeable, Flushable
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (NonBlockingBitOutputStream.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (NonBlockingBitOutputStream.class);
 
   /**
    * The Java OutputStream that is used to write completed bytes.
@@ -154,8 +154,8 @@ public class NonBlockingBitOutputStream implements Closeable, Flushable
     if (m_nBufferedBitCount > 0)
     {
       if (m_nBufferedBitCount != CGlobal.BITS_PER_BYTE)
-        if (s_aLogger.isDebugEnabled ())
-          s_aLogger.debug ("Flushing BitOutputStream with only " + m_nBufferedBitCount + " bits");
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("Flushing BitOutputStream with only " + m_nBufferedBitCount + " bits");
       m_aOS.write ((byte) m_nBuffer);
       m_nBufferedBitCount = 0;
       m_nBuffer = 0;

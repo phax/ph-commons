@@ -35,15 +35,15 @@ import com.helger.commons.lang.ClassHelper;
 @ThreadSafe
 public class GlobalScope extends AbstractScope implements IGlobalScope
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (GlobalScope.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (GlobalScope.class);
 
   public GlobalScope (@Nonnull @Nonempty final String sScopeID)
   {
     super (sScopeID);
 
-    if (ScopeHelper.debugGlobalScopeLifeCycle (s_aLogger))
-      if (s_aLogger.isInfoEnabled ())
-        s_aLogger.info ("Created global scope '" + sScopeID + "'", ScopeHelper.getDebugStackTrace ());
+    if (ScopeHelper.debugGlobalScopeLifeCycle (LOGGER))
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("Created global scope '" + sScopeID + "'", ScopeHelper.getDebugStackTrace ());
   }
 
   public void initScope ()
@@ -52,18 +52,18 @@ public class GlobalScope extends AbstractScope implements IGlobalScope
   @Override
   protected void preDestroy ()
   {
-    if (ScopeHelper.debugGlobalScopeLifeCycle (s_aLogger))
-      if (s_aLogger.isInfoEnabled ())
-        s_aLogger.info ("Destroying global scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
-                        ScopeHelper.getDebugStackTrace ());
+    if (ScopeHelper.debugGlobalScopeLifeCycle (LOGGER))
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("Destroying global scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
+                     ScopeHelper.getDebugStackTrace ());
   }
 
   @Override
   protected void postDestroy ()
   {
-    if (ScopeHelper.debugGlobalScopeLifeCycle (s_aLogger))
-      if (s_aLogger.isInfoEnabled ())
-        s_aLogger.info ("Destroyed global scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
-                        ScopeHelper.getDebugStackTrace ());
+    if (ScopeHelper.debugGlobalScopeLifeCycle (LOGGER))
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("Destroyed global scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
+                     ScopeHelper.getDebugStackTrace ());
   }
 }

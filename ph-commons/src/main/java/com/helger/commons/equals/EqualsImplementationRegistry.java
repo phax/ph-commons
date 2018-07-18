@@ -75,7 +75,7 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
     }
   }
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (EqualsImplementationRegistry.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (EqualsImplementationRegistry.class);
 
   private static boolean s_bDefaultInstantiated = false;
 
@@ -127,12 +127,12 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
         // Avoid the warning when the passed implementation equals the stored
         // implementation
         if (!EqualsHelper.identityEqual (aOldImpl, aImpl))
-          s_aLogger.warn ("Another equals implementation for class " +
-                          aClass +
-                          " is already registered (" +
-                          aOldImpl.toString () +
-                          ") so it is not overwritten with " +
-                          aImpl.toString ());
+          LOGGER.warn ("Another equals implementation for class " +
+                       aClass +
+                       " is already registered (" +
+                       aOldImpl.toString () +
+                       ") so it is not overwritten with " +
+                       aImpl.toString ());
       }
     });
   }
@@ -215,11 +215,11 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
               {
                 aMatchingImplementation = GenericReflection.uncheckedCast (aImpl);
                 aMatchingClass = aCurClass;
-                if (s_aLogger.isDebugEnabled ())
-                  s_aLogger.debug ("Found hierarchical match with class " +
-                                   aMatchingClass +
-                                   " when searching for " +
-                                   aClass);
+                if (LOGGER.isDebugEnabled ())
+                  LOGGER.debug ("Found hierarchical match with class " +
+                                aMatchingClass +
+                                " when searching for " +
+                                aClass);
                 break;
               }
             }
@@ -267,8 +267,8 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
     }
 
     // No special handler found
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Found no equals implementation for " + aClass);
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Found no equals implementation for " + aClass);
 
     // Definitely no special implementation
     return null;
@@ -323,7 +323,7 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
     for (final IEqualsImplementationRegistrarSPI aRegistrar : ServiceLoaderHelper.getAllSPIImplementations (IEqualsImplementationRegistrarSPI.class))
       aRegistrar.registerEqualsImplementations (this);
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Reinitialized " + EqualsImplementationRegistry.class.getName ());
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Reinitialized " + EqualsImplementationRegistry.class.getName ());
   }
 }

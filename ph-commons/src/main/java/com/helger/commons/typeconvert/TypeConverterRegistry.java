@@ -62,7 +62,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
     private static final TypeConverterRegistry s_aInstance = new TypeConverterRegistry ();
   }
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (TypeConverterRegistry.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (TypeConverterRegistry.class);
 
   private static boolean s_bDefaultInstantiated = false;
 
@@ -133,12 +133,12 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
     ValueEnforcer.isFalse (aConverter instanceof ITypeConverterRule,
                            "Type converter rules must be registered via registerTypeConverterRule");
     if (ClassHelper.areConvertibleClasses (aSrcClass, aDstClass))
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("No type converter needed between " +
-                        aSrcClass +
-                        " and " +
-                        aDstClass +
-                        " because types are convertible!");
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("No type converter needed between " +
+                     aSrcClass +
+                     " and " +
+                     aDstClass +
+                     " because types are convertible!");
 
     // The main class should not already be registered
     final Map <Class <?>, ITypeConverter <?, ?>> aSrcMap = _getOrCreateConverterMap (aSrcClass);
@@ -156,17 +156,17 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
           {
             if (aSrcMap.put (aCurDstClass, aConverter) != null)
             {
-              if (s_aLogger.isWarnEnabled ())
-                s_aLogger.warn ("Overwriting converter from " + aSrcClass + " to " + aCurDstClass);
+              if (LOGGER.isWarnEnabled ())
+                LOGGER.warn ("Overwriting converter from " + aSrcClass + " to " + aCurDstClass);
             }
             else
             {
-              if (s_aLogger.isTraceEnabled ())
-                s_aLogger.trace ("Registered type converter from '" +
-                                 aSrcClass.toString () +
-                                 "' to '" +
-                                 aCurDstClass.toString () +
-                                 "'");
+              if (LOGGER.isTraceEnabled ())
+                LOGGER.trace ("Registered type converter from '" +
+                              aSrcClass.toString () +
+                              "' to '" +
+                              aCurDstClass.toString () +
+                              "'");
             }
           }
       }
@@ -307,12 +307,12 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
           return bExact ? EContinue.BREAK : EContinue.CONTINUE;
         });
         if (aAllConverters.size () > 1)
-          s_aLogger.warn ("The fuzzy type converter resolver returned more than 1 match for the conversion from " +
-                          aSrcClass +
-                          " to " +
-                          aDstClass +
-                          ": " +
-                          aAllConverters);
+          LOGGER.warn ("The fuzzy type converter resolver returned more than 1 match for the conversion from " +
+                       aSrcClass +
+                       " to " +
+                       aDstClass +
+                       ": " +
+                       aAllConverters);
       }
 
       // Iterate and find the first matching type converter
@@ -365,11 +365,11 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
                                                             x -> new CommonsArrayList <> ())
                                           .add (aTypeConverterRule));
 
-    if (s_aLogger.isTraceEnabled ())
-      s_aLogger.trace ("Registered type converter rule " +
-                       ClassHelper.getClassLocalName (aTypeConverterRule) +
-                       " with type " +
-                       aTypeConverterRule.getSubType ());
+    if (LOGGER.isTraceEnabled ())
+      LOGGER.trace ("Registered type converter rule " +
+                    ClassHelper.getClassLocalName (aTypeConverterRule) +
+                    " with type " +
+                    aTypeConverterRule.getSubType ());
   }
 
   @Nonnegative
@@ -393,23 +393,23 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
       // Must be in writeLock to ensure no reads happen during initialization
       for (final ITypeConverterRegistrarSPI aSPI : ServiceLoaderHelper.getAllSPIImplementations (ITypeConverterRegistrarSPI.class))
       {
-        if (s_aLogger.isDebugEnabled ())
-          s_aLogger.debug ("Calling registerTypeConverter on " + aSPI.getClass ().getName ());
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("Calling registerTypeConverter on " + aSPI.getClass ().getName ());
         aSPI.registerTypeConverter (this);
       }
     });
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug (getRegisteredTypeConverterCount () +
-                       " type converters and " +
-                       getRegisteredTypeConverterRuleCount () +
-                       " rules registered");
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug (getRegisteredTypeConverterCount () +
+                    " type converters and " +
+                    getRegisteredTypeConverterRuleCount () +
+                    " rules registered");
   }
 
   public void reinitialize ()
   {
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Reinitializing " + getClass ().getName ());
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Reinitializing " + getClass ().getName ());
 
     _reinitialize ();
   }

@@ -36,9 +36,10 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 @SuppressFBWarnings ("SE_BAD_FIELD")
 public abstract class AbstractSessionSingletonTreeWithUniqueID <KEYTYPE, VALUETYPE> extends AbstractSessionSingleton
-                                                               implements ITreeWithUniqueIDProxy <KEYTYPE, VALUETYPE>
+                                                               implements
+                                                               ITreeWithUniqueIDProxy <KEYTYPE, VALUETYPE>
 {
-  protected final DefaultTreeWithGlobalUniqueID <KEYTYPE, VALUETYPE> m_aTree = new DefaultTreeWithGlobalUniqueID<> ();
+  protected final DefaultTreeWithGlobalUniqueID <KEYTYPE, VALUETYPE> m_aTree = new DefaultTreeWithGlobalUniqueID <> ();
 
   public AbstractSessionSingletonTreeWithUniqueID ()
   {}

@@ -53,7 +53,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
     private static final SerializationConverterRegistry s_aInstance = new SerializationConverterRegistry ();
   }
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (SerializationConverterRegistry.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (SerializationConverterRegistry.class);
 
   private static boolean s_bDefaultInstantiated = false;
 
@@ -105,8 +105,8 @@ public final class SerializationConverterRegistry implements ISerializationConve
           if (!m_aMap.containsKey (aCurSrcClass))
           {
             m_aMap.put (aCurSrcClass, aConverter);
-            if (s_aLogger.isDebugEnabled ())
-              s_aLogger.debug ("Registered serialization converter for '" + aCurSrcClass.toString () + "'");
+            if (LOGGER.isDebugEnabled ())
+              LOGGER.debug ("Registered serialization converter for '" + aCurSrcClass.toString () + "'");
           }
       }
     });
@@ -129,13 +129,13 @@ public final class SerializationConverterRegistry implements ISerializationConve
             ret = m_aMap.get (aCurDstClass);
             if (ret != null)
             {
-              if (s_aLogger.isDebugEnabled ())
-                s_aLogger.debug ("Using serialization converter " +
-                                 ret +
-                                 " for class " +
-                                 aDstClass +
-                                 " based on " +
-                                 aCurDstClass);
+              if (LOGGER.isDebugEnabled ())
+                LOGGER.debug ("Using serialization converter " +
+                              ret +
+                              " for class " +
+                              aDstClass +
+                              " based on " +
+                              aCurDstClass);
               break;
             }
           }
@@ -177,7 +177,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
     for (final ISerializationConverterRegistrarSPI aSPI : ServiceLoaderHelper.getAllSPIImplementations (ISerializationConverterRegistrarSPI.class))
       aSPI.registerSerializationConverter (this);
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug (getRegisteredSerializationConverterCount () + " serialization converters registered");
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug (getRegisteredSerializationConverterCount () + " serialization converters registered");
   }
 }

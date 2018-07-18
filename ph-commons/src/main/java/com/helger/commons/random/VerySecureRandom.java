@@ -40,7 +40,7 @@ import com.helger.commons.timing.StopWatch;
 public final class VerySecureRandom
 {
   public static final int DEFAULT_RE_SEED_INTERVAL = 20;
-  private static final Logger s_aLogger = LoggerFactory.getLogger (VerySecureRandom.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (VerySecureRandom.class);
 
   private static final int SEED_BYTE_COUNT = 16;
   private static final SecureRandom s_aSecureRandom;
@@ -60,22 +60,22 @@ public final class VerySecureRandom
     SecureRandom aSecureRandom;
     try
     {
-      if (s_aLogger.isDebugEnabled ())
-        s_aLogger.debug ("Trying to get SecureRandom: IBMSecureRandom, IBMJCE");
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Trying to get SecureRandom: IBMSecureRandom, IBMJCE");
 
       // IBM JCE
       // http://www.ibm.com/developerworks/java/jdk/security/50/secguides/JceDocs/api_users_guide.html
       aSecureRandom = SecureRandom.getInstance ("IBMSecureRandom", "IBMJCE");
 
-      if (s_aLogger.isDebugEnabled ())
-        s_aLogger.debug ("Using SecureRandom: IBMSecureRandom, IBMJCE");
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Using SecureRandom: IBMSecureRandom, IBMJCE");
     }
     catch (final Exception ex)
     {
       try
       {
-        if (s_aLogger.isDebugEnabled ())
-          s_aLogger.debug ("Trying to get SecureRandom: SHA1PRNG");
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("Trying to get SecureRandom: SHA1PRNG");
 
         // Oracle
         // http://docs.oracle.com/javase/6/docs/technotes/guides/security/crypto/CryptoSpec.html
@@ -83,19 +83,19 @@ public final class VerySecureRandom
         // http://docs.oracle.com/javase/8/docs/technotes/guides/security/crypto/CryptoSpec.html
         aSecureRandom = SecureRandom.getInstance ("SHA1PRNG");
 
-        if (s_aLogger.isDebugEnabled ())
-          s_aLogger.debug ("Using SecureRandom: SHA1PRNG");
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("Using SecureRandom: SHA1PRNG");
       }
       catch (final Exception ex2)
       {
-        if (s_aLogger.isDebugEnabled ())
-          s_aLogger.debug ("Trying to get default SecureRandom");
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("Trying to get default SecureRandom");
 
         // Default
         aSecureRandom = new SecureRandom ();
 
-        if (s_aLogger.isDebugEnabled ())
-          s_aLogger.debug ("Using default SecureRandom");
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("Using default SecureRandom");
       }
     }
     return aSecureRandom;
@@ -103,8 +103,8 @@ public final class VerySecureRandom
 
   static
   {
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Strong SecureRandoms: " + java.security.Security.getProperty ("securerandom.strongAlgorithms"));
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Strong SecureRandoms: " + java.security.Security.getProperty ("securerandom.strongAlgorithms"));
 
     // Find a good description that states how it is done this way:
     // https://www.cigital.com/blog/proper-use-of-javas-securerandom/
@@ -121,8 +121,8 @@ public final class VerySecureRandom
     // Get 128 random bytes
     aSecureRandom.nextBytes (new byte [128]);
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Generating intial seed for VerySecureRandom");
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Generating intial seed for VerySecureRandom");
 
     // Create secure number generators with the random seed
     final byte [] aSeed = aSecureRandom.generateSeed (SEED_BYTE_COUNT);
@@ -179,13 +179,13 @@ public final class VerySecureRandom
     if (nReSeedInterval > 0)
       if ((s_aCounter.incrementAndGet () % nReSeedInterval) == 0)
       {
-        if (s_aLogger.isDebugEnabled ())
-          s_aLogger.debug ("Re-seeding VerySecureRandom");
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("Re-seeding VerySecureRandom");
 
         // Re-seed
         final TimeValue aDuration = StopWatch.runMeasured ( () -> s_aSecureRandom.setSeed (s_aSecureRandom.generateSeed (SEED_BYTE_COUNT)));
         if (aDuration.getAsMillis () > 500)
-          s_aLogger.warn ("Re-seeding VerySecureRandom took too long (" + aDuration.getAsMillis () + " milliseconds)");
+          LOGGER.warn ("Re-seeding VerySecureRandom took too long (" + aDuration.getAsMillis () + " milliseconds)");
       }
 
     return s_aSecureRandom;

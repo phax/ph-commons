@@ -33,7 +33,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public final class BasicThreadFactoryTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (BasicThreadFactoryTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (BasicThreadFactoryTest.class);
 
   @Test
   @SuppressFBWarnings (value = "DLS_DEAD_LOCAL_STORE")
@@ -48,7 +48,7 @@ public final class BasicThreadFactoryTest
       final Thread t = x.newThread ( () -> {
         // nada
         if (false)
-          s_aLogger.info ("In thread '" + Thread.currentThread ().getName () + "'");
+          LOGGER.info ("In thread '" + Thread.currentThread ().getName () + "'");
       });
       assertNotNull (t);
       t.start ();

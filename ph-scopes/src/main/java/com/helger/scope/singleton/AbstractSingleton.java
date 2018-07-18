@@ -60,7 +60,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
   private static final int STATUS_DESTROYED = 4;
 
   private static final int DEFAULT_KEY_LENGTH = 255;
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractSingleton.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (AbstractSingleton.class);
   private static final IMutableStatisticsHandlerKeyedCounter s_aStatsCounterInstantiate = StatisticsManager.getKeyedCounterHandler (AbstractSingleton.class);
 
   protected final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
@@ -251,42 +251,39 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
   @Override
   public final void onBeforeScopeDestruction (@Nonnull final IScope aScopeToBeDestroyed) throws Exception
   {
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("onBeforeScopeDestruction for '" +
-                       toString () +
-                       "' in scope " +
-                       aScopeToBeDestroyed.toString ());
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("onBeforeScopeDestruction for '" + toString () + "' in scope " + aScopeToBeDestroyed.toString ());
 
     // Check init state
     if (isInInstantiation ())
     {
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("Object currently in instantiation is destroyed soon: " + toString ());
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("Object currently in instantiation is destroyed soon: " + toString ());
     }
     else
       if (!isInstantiated ())
       {
-        if (s_aLogger.isWarnEnabled ())
-          s_aLogger.warn ("Object not instantiated is destroyed soon: " + toString ());
+        if (LOGGER.isWarnEnabled ())
+          LOGGER.warn ("Object not instantiated is destroyed soon: " + toString ());
       }
 
     // Check destruction state
     if (isInPreDestruction ())
     {
-      if (s_aLogger.isErrorEnabled ())
-        s_aLogger.error ("Object already in pre destruction is destroyed soon again: " + toString ());
+      if (LOGGER.isErrorEnabled ())
+        LOGGER.error ("Object already in pre destruction is destroyed soon again: " + toString ());
     }
     else
       if (isInDestruction ())
       {
-        if (s_aLogger.isErrorEnabled ())
-          s_aLogger.error ("Object already in destruction is destroyed soon again: " + toString ());
+        if (LOGGER.isErrorEnabled ())
+          LOGGER.error ("Object already in destruction is destroyed soon again: " + toString ());
       }
       else
         if (isDestroyed ())
         {
-          if (s_aLogger.isErrorEnabled ())
-            s_aLogger.error ("Object already destroyed is destroyed soon again: " + toString ());
+          if (LOGGER.isErrorEnabled ())
+            LOGGER.error ("Object already destroyed is destroyed soon again: " + toString ());
         }
 
     setInPreDestruction (true);
@@ -318,38 +315,38 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
   @Override
   public final void onScopeDestruction (@Nonnull final IScope aScopeInDestruction) throws Exception
   {
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("onScopeDestruction for '" + toString () + "' in scope " + aScopeInDestruction.toString ());
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("onScopeDestruction for '" + toString () + "' in scope " + aScopeInDestruction.toString ());
 
     // Check init state
     if (isInInstantiation ())
     {
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("Object currently in instantiation is now destroyed: " + toString ());
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("Object currently in instantiation is now destroyed: " + toString ());
     }
     else
       if (!isInstantiated ())
       {
-        if (s_aLogger.isWarnEnabled ())
-          s_aLogger.warn ("Object not instantiated is now destroyed: " + toString ());
+        if (LOGGER.isWarnEnabled ())
+          LOGGER.warn ("Object not instantiated is now destroyed: " + toString ());
       }
 
     // Check destruction state
     if (!isInPreDestruction ())
     {
-      if (s_aLogger.isErrorEnabled ())
-        s_aLogger.error ("Object should be in pre destruction phase but is not: " + toString ());
+      if (LOGGER.isErrorEnabled ())
+        LOGGER.error ("Object should be in pre destruction phase but is not: " + toString ());
     }
     if (isInDestruction ())
     {
-      if (s_aLogger.isErrorEnabled ())
-        s_aLogger.error ("Object already in destruction is now destroyed again: " + toString ());
+      if (LOGGER.isErrorEnabled ())
+        LOGGER.error ("Object already in destruction is now destroyed again: " + toString ());
     }
     else
       if (isDestroyed ())
       {
-        if (s_aLogger.isErrorEnabled ())
-          s_aLogger.error ("Object already destroyed is now destroyed again: " + toString ());
+        if (LOGGER.isErrorEnabled ())
+          LOGGER.error ("Object already destroyed is now destroyed again: " + toString ());
       }
 
     setInDestruction (true);
@@ -475,8 +472,8 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
     // create new object in passed scope
     try
     {
-      if (s_aLogger.isDebugEnabled ())
-        s_aLogger.debug ("Created singleton for '" + aClass.toString () + "' in scope " + aScope.toString ());
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Created singleton for '" + aClass.toString () + "' in scope " + aScope.toString ());
 
       // Check if class is public, non-abstract etc.
       if (!ClassHelper.isPublicClass (aClass))
@@ -602,12 +599,12 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
     {
       // Just a small note in case we're returning an unusable object
       if (!aInstance.isUsableObject ())
-        if (s_aLogger.isWarnEnabled ())
-          s_aLogger.warn ("Singleton '" +
-                          aClass.getName () +
-                          "' is not usable - please check your calling order: " +
-                          aInstance.toString (),
-                          SingletonHelper.getDebugStackTrace ());
+        if (LOGGER.isWarnEnabled ())
+          LOGGER.warn ("Singleton '" +
+                       aClass.getName () +
+                       "' is not usable - please check your calling order: " +
+                       aInstance.toString (),
+                       SingletonHelper.getDebugStackTrace ());
     }
 
     return aInstance;

@@ -54,14 +54,14 @@ public abstract class AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE extends Abs
 {
   public static class DefaultExceptionHandler implements IExceptionCallback <JAXBException>
   {
-    private static final Logger s_aLogger = LoggerFactory.getLogger (DefaultExceptionHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger (DefaultExceptionHandler.class);
 
     public void onException (@Nonnull final JAXBException ex)
     {
       if (ex instanceof MarshalException)
-        s_aLogger.error ("Marshal exception writing object", ex);
+        LOGGER.error ("Marshal exception writing object", ex);
       else
-        s_aLogger.warn ("JAXB Exception writing object", ex);
+        LOGGER.warn ("JAXB Exception writing object", ex);
     }
   }
 

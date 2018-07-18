@@ -35,7 +35,7 @@ import com.helger.commons.collection.impl.ICommonsSet;
  */
 public final class VerySecureRandomTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (VerySecureRandomTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (VerySecureRandomTest.class);
 
   private static final int MAX_RUNS = 4000;
   private static final int MAX_DUP = 2;
@@ -46,7 +46,7 @@ public final class VerySecureRandomTest
     final SecureRandom aRandom = VerySecureRandom.getInstance ();
     for (int j = 0; j < 2; ++j)
     {
-      s_aLogger.info ("Round " + (j + 1) + " with int");
+      LOGGER.info ("Round " + (j + 1) + " with int");
       final ICommonsSet <Integer> aInts = new CommonsHashSet <> ();
       int nDuplicates = 0;
       for (int i = 0; i < MAX_RUNS; ++i)
@@ -63,7 +63,7 @@ public final class VerySecureRandomTest
       }
       assertTrue (nDuplicates <= MAX_DUP);
 
-      s_aLogger.info ("Round " + (j + 1) + " with long");
+      LOGGER.info ("Round " + (j + 1) + " with long");
       nDuplicates = 0;
       final ICommonsSet <Long> aLongs = new CommonsHashSet <> ();
       for (int i = 0; i < MAX_RUNS; ++i)

@@ -37,7 +37,7 @@ import com.helger.commons.ValueEnforcer;
 @Immutable
 public final class AccessControllerHelper
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AccessControllerHelper.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (AccessControllerHelper.class);
 
   private AccessControllerHelper ()
   {}
@@ -53,7 +53,7 @@ public final class AccessControllerHelper
     }
     catch (final AccessControlException ex)
     {
-      s_aLogger.error ("Failed to execute PrivilegedAction " + aAction, ex);
+      LOGGER.error ("Failed to execute PrivilegedAction " + aAction, ex);
       return null;
     }
   }

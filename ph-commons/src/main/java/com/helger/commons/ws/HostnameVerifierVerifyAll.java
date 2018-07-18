@@ -32,7 +32,7 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public class HostnameVerifierVerifyAll implements HostnameVerifier
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (HostnameVerifierVerifyAll.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (HostnameVerifierVerifyAll.class);
 
   private final boolean m_bDebug;
 
@@ -57,8 +57,8 @@ public class HostnameVerifierVerifyAll implements HostnameVerifier
   public boolean verify (final String sURLHostname, final SSLSession aSession)
   {
     if (m_bDebug)
-      if (s_aLogger.isInfoEnabled ())
-        s_aLogger.info ("Hostname '" + sURLHostname + "' is accepted by default in SSL session " + aSession + "!");
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("Hostname '" + sURLHostname + "' is accepted by default in SSL session " + aSession + "!");
     return true;
   }
 

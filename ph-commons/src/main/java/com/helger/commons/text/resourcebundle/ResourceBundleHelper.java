@@ -43,7 +43,7 @@ import com.helger.commons.system.EJavaVersion;
 @Immutable
 public final class ResourceBundleHelper
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (ResourceBundleHelper.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (ResourceBundleHelper.class);
 
   @PresentForCodeCoverage
   private static final ResourceBundleHelper s_aInstance = new ResourceBundleHelper ();
@@ -167,7 +167,7 @@ public final class ResourceBundleHelper
   public static void clearCache (@Nonnull final ClassLoader aClassLoader)
   {
     ResourceBundle.clearCache (aClassLoader);
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Cache was cleared: " + ResourceBundle.class.getName () + "; classloader=" + aClassLoader);
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Cache was cleared: " + ResourceBundle.class.getName () + "; classloader=" + aClassLoader);
   }
 }

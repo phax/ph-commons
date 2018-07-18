@@ -32,18 +32,13 @@ import org.slf4j.LoggerFactory;
 public class StatisticsHandlerKeyedSize extends AbstractStatisticsHandlerKeyedNumeric implements
                                         IMutableStatisticsHandlerKeyedSize
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (StatisticsHandlerKeyedSize.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (StatisticsHandlerKeyedSize.class);
 
   public void addSize (@Nullable final String sKey, @Nonnegative final long nSize)
   {
     if (nSize < 0)
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("A negative value (" +
-                        nSize +
-                        ") for key '" +
-                        sKey +
-                        "' is added to " +
-                        getClass ().getName ());
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("A negative value (" + nSize + ") for key '" + sKey + "' is added to " + getClass ().getName ());
     addValue (sKey, nSize);
   }
 }

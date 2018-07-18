@@ -36,7 +36,7 @@ import com.helger.xml.transform.XMLTransformerFactory;
 
 public final class MainFindMaskedXMLChars
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainFindMaskedXMLChars.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainFindMaskedXMLChars.class);
 
   private MainFindMaskedXMLChars ()
   {}
@@ -139,7 +139,7 @@ public final class MainFindMaskedXMLChars
     final EXMLSerializeVersion eXMLSerializeVersion = EXMLSerializeVersion.getFromXMLVersionOrThrow (eXMLVersion);
     final int nMax = Character.MAX_VALUE + 1;
 
-    final ICommonsList <Integer> aMaskedE1 = new CommonsArrayList<> ();
+    final ICommonsList <Integer> aMaskedE1 = new CommonsArrayList <> ();
     for (int i = 0; i < nMax; ++i)
       if (!XMLCharHelper.isInvalidXMLNameStartChar (eXMLSerializeVersion, (char) i))
       {
@@ -150,7 +150,7 @@ public final class MainFindMaskedXMLChars
         if (_containsER (aSW.getAsString (), i))
           aMaskedE1.add (Integer.valueOf (i));
       }
-    final ICommonsList <Integer> aMaskedE2 = new CommonsArrayList<> ();
+    final ICommonsList <Integer> aMaskedE2 = new CommonsArrayList <> ();
     for (int i = 0; i < nMax; ++i)
       if (!XMLCharHelper.isInvalidXMLNameChar (eXMLSerializeVersion, (char) i))
       {
@@ -161,7 +161,7 @@ public final class MainFindMaskedXMLChars
         if (_containsER (aSW.getAsString (), i))
           aMaskedE2.add (Integer.valueOf (i));
       }
-    final ICommonsList <Integer> aMaskedAN1 = new CommonsArrayList<> ();
+    final ICommonsList <Integer> aMaskedAN1 = new CommonsArrayList <> ();
     for (int i = 0; i < nMax; ++i)
       if (!XMLCharHelper.isInvalidXMLNameStartChar (eXMLSerializeVersion, (char) i))
       {
@@ -173,7 +173,7 @@ public final class MainFindMaskedXMLChars
         if (_containsER (aSW.getAsString (), i))
           aMaskedAN1.add (Integer.valueOf (i));
       }
-    final ICommonsList <Integer> aMaskedAN2 = new CommonsArrayList<> ();
+    final ICommonsList <Integer> aMaskedAN2 = new CommonsArrayList <> ();
     for (int i = 0; i < nMax; ++i)
       if (!XMLCharHelper.isInvalidXMLNameChar (eXMLSerializeVersion, (char) i))
       {
@@ -185,7 +185,7 @@ public final class MainFindMaskedXMLChars
         if (_containsER (aSW.getAsString (), i))
           aMaskedAN2.add (Integer.valueOf (i));
       }
-    final ICommonsList <Integer> aMaskedAV = new CommonsArrayList<> ();
+    final ICommonsList <Integer> aMaskedAV = new CommonsArrayList <> ();
     for (int i = 0; i < nMax; ++i)
       if (!XMLCharHelper.isInvalidXMLAttributeValueChar (eXMLSerializeVersion, (char) i))
       {
@@ -197,7 +197,7 @@ public final class MainFindMaskedXMLChars
         if (_containsER (aSW.getAsString (), i))
           aMaskedAV.add (Integer.valueOf (i));
       }
-    final ICommonsList <Integer> aMaskedTV = new CommonsArrayList<> ();
+    final ICommonsList <Integer> aMaskedTV = new CommonsArrayList <> ();
     for (int i = 0; i < nMax; ++i)
       if (!XMLCharHelper.isInvalidXMLTextChar (eXMLSerializeVersion, (char) i))
       {
@@ -209,7 +209,7 @@ public final class MainFindMaskedXMLChars
         if (_containsER (aSW.getAsString (), i))
           aMaskedTV.add (Integer.valueOf (i));
       }
-    final ICommonsList <Integer> aMaskedCV = new CommonsArrayList<> ();
+    final ICommonsList <Integer> aMaskedCV = new CommonsArrayList <> ();
     for (int i = 0; i < nMax; ++i)
     {
       final Document aDoc = XMLFactory.newDocument (eXMLVersion);
@@ -221,12 +221,12 @@ public final class MainFindMaskedXMLChars
       if (sXML.indexOf ("<[CDATA[") >= 0 && _containsER (sXML, i))
         aMaskedCV.add (Integer.valueOf (i));
     }
-    s_aLogger.info ("Masked Element Name Start:       " + _getFormatted (aMaskedE1));
-    s_aLogger.info ("Masked Element Name InBetween:   " + _getFormatted (aMaskedE2));
-    s_aLogger.info ("Masked Attribute Name Start:     " + _getFormatted (aMaskedAN1));
-    s_aLogger.info ("Masked Attribute Name InBetween: " + _getFormatted (aMaskedAN2));
-    s_aLogger.info ("Masked Attribute Value: " + _getFormatted (aMaskedAV));
-    s_aLogger.info ("Masked Text Value:      " + _getFormatted (aMaskedTV));
-    s_aLogger.info ("Masked CDATA Value:     " + _getFormatted (aMaskedCV));
+    LOGGER.info ("Masked Element Name Start:       " + _getFormatted (aMaskedE1));
+    LOGGER.info ("Masked Element Name InBetween:   " + _getFormatted (aMaskedE2));
+    LOGGER.info ("Masked Attribute Name Start:     " + _getFormatted (aMaskedAN1));
+    LOGGER.info ("Masked Attribute Name InBetween: " + _getFormatted (aMaskedAN2));
+    LOGGER.info ("Masked Attribute Value: " + _getFormatted (aMaskedAV));
+    LOGGER.info ("Masked Text Value:      " + _getFormatted (aMaskedTV));
+    LOGGER.info ("Masked CDATA Value:     " + _getFormatted (aMaskedCV));
   }
 }

@@ -65,7 +65,7 @@ public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICl
    */
   public MapBasedXPathVariableResolver (@Nullable final Map <String, ?> aVars)
   {
-    m_aMap = new CommonsHashMap<> (aVars);
+    m_aMap = new CommonsHashMap <> (aVars);
   }
 
   /**

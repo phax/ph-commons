@@ -44,13 +44,13 @@ public final class CombinationGeneratorTest
   @Test
   public void testStringCombination ()
   {
-    final ICommonsList <String> aElements = new CommonsArrayList<> (A, B, B, C);
-    final CombinationGenerator <String> x = new CombinationGenerator<> (aElements, 3);
+    final ICommonsList <String> aElements = new CommonsArrayList <> (A, B, B, C);
+    final CombinationGenerator <String> x = new CombinationGenerator <> (aElements, 3);
     assertEquals (BigInteger.valueOf (4), x.getTotalCombinations ());
     assertEquals (BigInteger.valueOf (4), x.getCombinationsLeft ());
 
-    final ICommonsList <ICommonsList <String>> aResultsWithDuplicates = new CommonsArrayList<> ();
-    final ICommonsSet <ICommonsList <String>> aResultsWithoutDuplicates = new CommonsHashSet<> ();
+    final ICommonsList <ICommonsList <String>> aResultsWithDuplicates = new CommonsArrayList <> ();
+    final ICommonsSet <ICommonsList <String>> aResultsWithoutDuplicates = new CommonsHashSet <> ();
     while (x.hasNext ())
     {
       final ICommonsList <String> aResult = x.next ();
@@ -72,13 +72,13 @@ public final class CombinationGeneratorTest
   @Test
   public void testStringCombination2 ()
   {
-    final ICommonsList <String> aElements = new CommonsArrayList<> (A, B, B, C);
-    final CombinationGenerator <String> x = new CombinationGenerator<> (aElements, 0);
+    final ICommonsList <String> aElements = new CommonsArrayList <> (A, B, B, C);
+    final CombinationGenerator <String> x = new CombinationGenerator <> (aElements, 0);
     assertEquals (BigInteger.ONE, x.getTotalCombinations ());
     assertEquals (BigInteger.ONE, x.getCombinationsLeft ());
 
-    final ICommonsList <ICommonsList <String>> aResultsWithDuplicates = new CommonsArrayList<> ();
-    final ICommonsSet <ICommonsList <String>> aResultsWithoutDuplicates = new CommonsHashSet<> ();
+    final ICommonsList <ICommonsList <String>> aResultsWithDuplicates = new CommonsArrayList <> ();
+    final ICommonsSet <ICommonsList <String>> aResultsWithoutDuplicates = new CommonsHashSet <> ();
     while (x.hasNext ())
     {
       final ICommonsList <String> aResult = x.next ();
@@ -102,21 +102,21 @@ public final class CombinationGeneratorTest
     {}
     try
     {
-      new CombinationGenerator<> (new CommonsArrayList <String> (), 3);
+      new CombinationGenerator <> (new CommonsArrayList <String> (), 3);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
     try
     {
-      new CombinationGenerator<> (new CommonsArrayList<> ("a"), 3);
+      new CombinationGenerator <> (new CommonsArrayList <> ("a"), 3);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
     try
     {
-      new CombinationGenerator<> (new CommonsArrayList<> ("a", "b"), -1);
+      new CombinationGenerator <> (new CommonsArrayList <> ("a", "b"), -1);
       fail ();
     }
     catch (final IllegalArgumentException ex)

@@ -37,7 +37,8 @@ import com.helger.tree.withid.ITreeItemWithID;
  *        the implementation item type
  */
 public interface IFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collection <DATATYPE>, ITEMTYPE extends IFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>>
-                                 extends ITreeItemWithID <KEYTYPE, COLLTYPE, ITEMTYPE>
+                                 extends
+                                 ITreeItemWithID <KEYTYPE, COLLTYPE, ITEMTYPE>
 {
   /**
    * @return The globally unique ID of this folder. This can e.g. be an

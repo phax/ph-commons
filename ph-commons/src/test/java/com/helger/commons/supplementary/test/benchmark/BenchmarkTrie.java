@@ -88,30 +88,30 @@ public final class BenchmarkTrie extends AbstractBenchmarkTask
       aStrings.add (StringHelper.getRepeated ("a", 1024));
     }
     final String [] aStringArray = aStrings.toArray (new String [aStrings.size ()]);
-    s_aLogger.info ("Comparing " +
-                    aStrings.size () +
-                    " strings from word list; The longest string is " +
-                    _getMaxStringLength (aStrings) +
-                    " chars!");
+    LOGGER.info ("Comparing " +
+                 aStrings.size () +
+                 " strings from word list; The longest string is " +
+                 _getMaxStringLength (aStrings) +
+                 " chars!");
 
     final AbstractStringMapBase aL1a = new StringMapHashMap (aStringArray);
     final AbstractStringMapBase aL1b = new StringMapTreeMap (aStringArray);
     final AbstractStringMapBase aL2a = new StringMapTST (aStringArray);
-    s_aLogger.info ("Initial check done!");
+    LOGGER.info ("Initial check done!");
 
     double dTime;
 
     dTime = benchmarkTask (aL2a);
-    s_aLogger.info ("StringMapTST: " + LocaleFormatter.getFormatted (dTime, Locale.ENGLISH) + " ns");
-    s_aLogger.info (aL2a.size () + " entries");
+    LOGGER.info ("StringMapTST: " + LocaleFormatter.getFormatted (dTime, Locale.ENGLISH) + " ns");
+    LOGGER.info (aL2a.size () + " entries");
 
     dTime = benchmarkTask (aL1a);
-    s_aLogger.info ("StringMapHashMap: " + LocaleFormatter.getFormatted (dTime, Locale.ENGLISH) + " ns");
-    s_aLogger.info (aL1a.size () + " entries");
+    LOGGER.info ("StringMapHashMap: " + LocaleFormatter.getFormatted (dTime, Locale.ENGLISH) + " ns");
+    LOGGER.info (aL1a.size () + " entries");
 
     dTime = benchmarkTask (aL1b);
-    s_aLogger.info ("StringMapTreeMap: " + LocaleFormatter.getFormatted (dTime, Locale.ENGLISH) + " ns");
-    s_aLogger.info (aL1b.size () + " entries");
+    LOGGER.info ("StringMapTreeMap: " + LocaleFormatter.getFormatted (dTime, Locale.ENGLISH) + " ns");
+    LOGGER.info (aL1b.size () + " entries");
   }
 
   private abstract static class AbstractStringMapBase implements Runnable
@@ -132,7 +132,7 @@ public final class BenchmarkTrie extends AbstractBenchmarkTask
     public final void run ()
     {
       if (false)
-        s_aLogger.info ("run " + getClass ());
+        LOGGER.info ("run " + getClass ());
       final int n = m_aStrings.length;
       for (int i = 0; i < n; ++i)
       {

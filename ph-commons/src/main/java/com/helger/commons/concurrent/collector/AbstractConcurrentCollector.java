@@ -55,7 +55,7 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
    */
   public static final Object STOP_QUEUE_OBJECT = new Object ();
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractConcurrentCollector.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (AbstractConcurrentCollector.class);
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
@@ -108,7 +108,7 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
       }
       catch (final InterruptedException ex)
       {
-        s_aLogger.error ("Failed to submit object to queue", ex);
+        LOGGER.error ("Failed to submit object to queue", ex);
         Thread.currentThread ().interrupt ();
         return ESuccess.FAILURE;
       }
@@ -139,7 +139,7 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
       }
       catch (final InterruptedException ex)
       {
-        s_aLogger.error ("Error stopping queue", ex);
+        LOGGER.error ("Error stopping queue", ex);
         Thread.currentThread ().interrupt ();
         return ESuccess.FAILURE;
       }

@@ -122,16 +122,16 @@ public final class JsonWriterTest
   @Test
   public void testMap ()
   {
-    final ICommonsMap <String, Object> aMap = new CommonsHashMap<> ();
+    final ICommonsMap <String, Object> aMap = new CommonsHashMap <> ();
     aMap.put ("foo", "bar");
     assertEquals ("{\"foo\":\"bar\"}", JsonConverter.convertToJson (aMap).getAsJsonString ());
 
-    final ICommonsNavigableMap <String, Object> aTreeMap = new CommonsTreeMap<> ();
+    final ICommonsNavigableMap <String, Object> aTreeMap = new CommonsTreeMap <> ();
     aTreeMap.put ("foo", "bar");
     aTreeMap.put ("foo2", Integer.valueOf (5));
     assertEquals ("{\"foo\":\"bar\",\"foo2\":5}", JsonConverter.convertToJson (aTreeMap).getAsJsonString ());
 
-    final ICommonsOrderedMap <String, Object> aLinkedMap = new CommonsLinkedHashMap<> ();
+    final ICommonsOrderedMap <String, Object> aLinkedMap = new CommonsLinkedHashMap <> ();
     aLinkedMap.put ("foo", "bar");
     aLinkedMap.put ("foo2", Integer.valueOf (5));
     assertEquals ("{\"foo\":\"bar\",\"foo2\":5}", JsonConverter.convertToJson (aLinkedMap).getAsJsonString ());
@@ -143,8 +143,8 @@ public final class JsonWriterTest
   @Test
   public void testComplex ()
   {
-    final ICommonsList <JsonObject> aObjs = new CommonsArrayList<> ();
-    for (final ICommonsMap <String, String> aRow : new CommonsArrayList<> (CollectionHelper.newMap ("key", "value")))
+    final ICommonsList <JsonObject> aObjs = new CommonsArrayList <> ();
+    for (final ICommonsMap <String, String> aRow : new CommonsArrayList <> (CollectionHelper.newMap ("key", "value")))
     {
       final JsonObject aObj = new JsonObject ();
       for (final Map.Entry <String, String> aEntry : aRow.entrySet ())
@@ -222,16 +222,16 @@ public final class JsonWriterTest
   @Test
   public void testWriteAndReadMap ()
   {
-    final ICommonsMap <String, Object> aMap = new CommonsHashMap<> ();
+    final ICommonsMap <String, Object> aMap = new CommonsHashMap <> ();
     aMap.put ("foo", "bar");
     _testWriteAndRead (aMap);
 
-    final ICommonsNavigableMap <String, Object> aTreeMap = new CommonsTreeMap<> ();
+    final ICommonsNavigableMap <String, Object> aTreeMap = new CommonsTreeMap <> ();
     aTreeMap.put ("foo", "bar");
     aTreeMap.put ("foo2", Integer.valueOf (5));
     _testWriteAndRead (aTreeMap);
 
-    final ICommonsOrderedMap <String, Object> aLinkedMap = new CommonsLinkedHashMap<> ();
+    final ICommonsOrderedMap <String, Object> aLinkedMap = new CommonsLinkedHashMap <> ();
     aLinkedMap.put ("foo", "bar");
     aLinkedMap.put ("foo2", Integer.valueOf (5));
     _testWriteAndRead (aLinkedMap);
@@ -243,44 +243,14 @@ public final class JsonWriterTest
     final String sCRLF = JsonWriterSettings.DEFAULT_NEWLINE_STRING;
     final JsonWriter aWriter = new JsonWriter (new JsonWriterSettings ().setIndentEnabled (true));
     assertEquals ("{}", aWriter.writeAsString (new JsonObject ()));
-    assertEquals ("{" +
-                  sCRLF +
-                  "  \"foo\":\"bar\"" +
-                  sCRLF +
-                  "}",
+    assertEquals ("{" + sCRLF + "  \"foo\":\"bar\"" + sCRLF + "}",
                   aWriter.writeAsString (new JsonObject ().add ("foo", "bar")));
-    assertEquals ("{" +
-                  sCRLF +
-                  "  \"foo\":[" +
-                  sCRLF +
-                  "    1," +
-                  sCRLF +
-                  "    2" +
-                  sCRLF +
-                  "  ]" +
-                  sCRLF +
-                  "}",
+    assertEquals ("{" + sCRLF + "  \"foo\":[" + sCRLF + "    1," + sCRLF + "    2" + sCRLF + "  ]" + sCRLF + "}",
                   aWriter.writeAsString (new JsonObject ().add ("foo", new JsonArray ().add (1).add (2))));
-    assertEquals ("{" +
-                  sCRLF +
-                  "  \"foo\":{" +
-                  sCRLF +
-                  "    \"bar\":\"baz\"" +
-                  sCRLF +
-                  "  }" +
-                  sCRLF +
-                  "}",
+    assertEquals ("{" + sCRLF + "  \"foo\":{" + sCRLF + "    \"bar\":\"baz\"" + sCRLF + "  }" + sCRLF + "}",
                   aWriter.writeAsString (new JsonObject ().add ("foo", new JsonObject ().add ("bar", "baz"))));
     assertEquals ("[]", aWriter.writeAsString (new JsonArray ()));
-    assertEquals ("[" +
-                  sCRLF +
-                  "  {" +
-                  sCRLF +
-                  "    \"foo\":\"bar\"" +
-                  sCRLF +
-                  "  }" +
-                  sCRLF +
-                  "]",
+    assertEquals ("[" + sCRLF + "  {" + sCRLF + "    \"foo\":\"bar\"" + sCRLF + "  }" + sCRLF + "]",
                   aWriter.writeAsString (new JsonArray ().add (new JsonObject ().add ("foo", "bar"))));
   }
 
@@ -292,8 +262,7 @@ public final class JsonWriterTest
     assertEquals ("{\"foo\":\"bar\"}",
                   new JsonWriter (new JsonWriterSettings ().setWriteNewlineAtEnd (false)).writeAsString (new JsonObject ().add ("foo",
                                                                                                                                 "bar")));
-    assertEquals ("{\"foo\":\"bar\"}" +
-                  sCRLF,
+    assertEquals ("{\"foo\":\"bar\"}" + sCRLF,
                   new JsonWriter (new JsonWriterSettings ().setWriteNewlineAtEnd (true)).writeAsString (new JsonObject ().add ("foo",
                                                                                                                                "bar")));
   }

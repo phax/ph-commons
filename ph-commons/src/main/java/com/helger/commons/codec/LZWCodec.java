@@ -124,7 +124,7 @@ public class LZWCodec implements IByteArrayCodec
   protected abstract static class AbstractLZWDictionary
   {
     @SuppressWarnings ("hiding")
-    protected static final Logger s_aLogger = LoggerFactory.getLogger (AbstractLZWDictionary.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger (AbstractLZWDictionary.class);
     /** Maximum index */
     public static final int MAX_CODE = 4096;
     /** Special code to clear the table */
@@ -258,7 +258,7 @@ public class LZWCodec implements IByteArrayCodec
     }
   }
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (LZWCodec.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (LZWCodec.class);
 
   public LZWCodec ()
   {}
@@ -309,12 +309,12 @@ public class LZWCodec implements IByteArrayCodec
 
         if (aDict.getNextFreeCode () == AbstractLZWDictionary.MAX_CODE - 1)
         {
-          if (s_aLogger.isTraceEnabled ())
-            s_aLogger.trace ("Table overflow in encoding -> resetting (codelength=" +
-                             nCodeLength +
-                             ";byteseq#=" +
-                             aByteSeq.length +
-                             ")");
+          if (LOGGER.isTraceEnabled ())
+            LOGGER.trace ("Table overflow in encoding -> resetting (codelength=" +
+                          nCodeLength +
+                          ";byteseq#=" +
+                          aByteSeq.length +
+                          ")");
           aBOS.writeBits (AbstractLZWDictionary.CODE_CLEARTABLE, nCodeLength);
           aDict.reset ();
           nIndex -= aByteSeq.length;
@@ -329,8 +329,8 @@ public class LZWCodec implements IByteArrayCodec
         case 1023:
         case 2047:
           nCodeLength++;
-          if (s_aLogger.isDebugEnabled ())
-            s_aLogger.debug ("EOF char gets a new code length: " + nCodeLength);
+          if (LOGGER.isDebugEnabled ())
+            LOGGER.debug ("EOF char gets a new code length: " + nCodeLength);
           break;
         default:
           break;

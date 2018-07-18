@@ -31,7 +31,8 @@ import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
  */
 @MustImplementEqualsAndHashcode
 public interface IDirectedGraphRelation <NODETYPE extends IDirectedGraphNode <NODETYPE, RELATIONTYPE>, RELATIONTYPE extends IDirectedGraphRelation <NODETYPE, RELATIONTYPE>>
-                                        extends IBaseGraphRelation <NODETYPE, RELATIONTYPE>
+                                        extends
+                                        IBaseGraphRelation <NODETYPE, RELATIONTYPE>
 {
   /**
    * @return The from-node of this relation. Never <code>null</code>.

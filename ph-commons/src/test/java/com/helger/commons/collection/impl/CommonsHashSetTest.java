@@ -34,7 +34,7 @@ public final class CommonsHashSetTest
   @Test
   public void testBasic ()
   {
-    final ICommonsSet <String> aTest = new CommonsHashSet<> ();
+    final ICommonsSet <String> aTest = new CommonsHashSet <> ();
     aTest.add ("aaa");
     aTest.add ("bbb");
     aTest.add ("ccc");
@@ -51,35 +51,35 @@ public final class CommonsHashSetTest
   @Test
   public void testCtor ()
   {
-    CommonsHashSet <String> aTest = new CommonsHashSet<> ();
+    CommonsHashSet <String> aTest = new CommonsHashSet <> ();
     assertEquals (0, aTest.size ());
 
-    aTest = new CommonsHashSet<> (5);
+    aTest = new CommonsHashSet <> (5);
     assertEquals (0, aTest.size ());
 
-    aTest = new CommonsHashSet<> ("a", "b", "c");
+    aTest = new CommonsHashSet <> ("a", "b", "c");
     assertEquals (3, aTest.size ());
 
-    aTest = new CommonsHashSet<> ("only");
+    aTest = new CommonsHashSet <> ("only");
     assertEquals (1, aTest.size ());
 
-    aTest = new CommonsHashSet<> (new CommonsHashSet<> ("a", "b", "c"));
+    aTest = new CommonsHashSet <> (new CommonsHashSet <> ("a", "b", "c"));
     assertEquals (3, aTest.size ());
 
-    aTest = new CommonsHashSet<> (new CommonsArrayList<> ("a", "b", "c"));
+    aTest = new CommonsHashSet <> (new CommonsArrayList <> ("a", "b", "c"));
     assertEquals (3, aTest.size ());
 
-    aTest = new CommonsHashSet<> ((Iterable <String>) new CommonsHashSet<> ("a", "b", "c", "d"));
+    aTest = new CommonsHashSet <> ((Iterable <String>) new CommonsHashSet <> ("a", "b", "c", "d"));
     assertEquals (4, aTest.size ());
 
-    aTest = new CommonsHashSet<> (new CommonsArrayList<> (Integer.valueOf (1), Integer.valueOf (2)),
-                                  x -> x.toString ());
+    aTest = new CommonsHashSet <> (new CommonsArrayList <> (Integer.valueOf (1), Integer.valueOf (2)),
+                                   x -> x.toString ());
     assertEquals (2, aTest.size ());
 
-    aTest = new CommonsHashSet<> ((Iterable <Integer>) new CommonsHashSet<> (Integer.valueOf (1),
-                                                                             Integer.valueOf (2),
-                                                                             Integer.valueOf (4)),
-                                  x -> x.toString ());
+    aTest = new CommonsHashSet <> ((Iterable <Integer>) new CommonsHashSet <> (Integer.valueOf (1),
+                                                                               Integer.valueOf (2),
+                                                                               Integer.valueOf (4)),
+                                   x -> x.toString ());
     assertEquals (3, aTest.size ());
   }
 }

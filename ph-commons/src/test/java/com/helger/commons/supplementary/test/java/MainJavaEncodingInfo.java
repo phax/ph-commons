@@ -29,7 +29,7 @@ import com.helger.commons.system.SystemProperties;
 
 public final class MainJavaEncodingInfo
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainJavaEncodingInfo.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainJavaEncodingInfo.class);
 
   private MainJavaEncodingInfo ()
   {}
@@ -39,13 +39,13 @@ public final class MainJavaEncodingInfo
     for (final Map.Entry <String, String> aEntry : SystemProperties.getAllProperties ()
                                                                    .getSortedByKey (IComparator.getComparatorCollating (Locale.US))
                                                                    .entrySet ())
-      s_aLogger.info (aEntry.getKey () + " == " + aEntry.getValue ());
-    s_aLogger.info ("Default Locale: " + SystemHelper.getSystemLocale ());
-    s_aLogger.info ("All locales:");
+      LOGGER.info (aEntry.getKey () + " == " + aEntry.getValue ());
+    LOGGER.info ("Default Locale: " + SystemHelper.getSystemLocale ());
+    LOGGER.info ("All locales:");
     for (final Locale aLocale : Locale.getAvailableLocales ())
-      s_aLogger.info ("  " + aLocale);
-    s_aLogger.info ("All charsets:");
+      LOGGER.info ("  " + aLocale);
+    LOGGER.info ("All charsets:");
     for (final Map.Entry <String, Charset> aEntry : Charset.availableCharsets ().entrySet ())
-      s_aLogger.info ("  " + aEntry.getKey () + " -- " + aEntry.getValue ().displayName (Locale.US));
+      LOGGER.info ("  " + aEntry.getKey () + " -- " + aEntry.getValue ().displayName (Locale.US));
   }
 }

@@ -39,24 +39,24 @@ public final class NonBlockingStackTest
   @Test
   public void testCtor ()
   {
-    NonBlockingStack <String> st = new NonBlockingStack<> ();
+    NonBlockingStack <String> st = new NonBlockingStack <> ();
     assertTrue (st.isEmpty ());
     assertFalse (st.iterator ().hasNext ());
-    st = new NonBlockingStack<> ("s", "t");
+    st = new NonBlockingStack <> ("s", "t");
     assertEquals (2, st.size ());
     assertEquals ("s", st.firstElement ());
     assertTrue (st.iterator ().hasNext ());
-    st = new NonBlockingStack<> ((String []) null);
+    st = new NonBlockingStack <> ((String []) null);
     assertTrue (st.isEmpty ());
     assertFalse (st.iterator ().hasNext ());
-    st = new NonBlockingStack<> (new CommonsArrayList<> ("s", "t"));
+    st = new NonBlockingStack <> (new CommonsArrayList <> ("s", "t"));
     assertEquals (2, st.size ());
     assertEquals ("s", st.firstElement ());
     assertTrue (st.iterator ().hasNext ());
-    st = new NonBlockingStack<> (new CommonsHashSet <String> ());
+    st = new NonBlockingStack <> (new CommonsHashSet <String> ());
     assertTrue (st.isEmpty ());
     assertFalse (st.iterator ().hasNext ());
-    st = new NonBlockingStack<> (new NonBlockingStack<> ("s", "t"));
+    st = new NonBlockingStack <> (new NonBlockingStack <> ("s", "t"));
     assertEquals (2, st.size ());
     assertEquals ("s", st.firstElement ());
     assertTrue (st.iterator ().hasNext ());
@@ -65,7 +65,7 @@ public final class NonBlockingStackTest
   @Test
   public void testMethods ()
   {
-    final NonBlockingStack <String> aStack = new NonBlockingStack<> ();
+    final NonBlockingStack <String> aStack = new NonBlockingStack <> ();
     assertEquals (0, aStack.size ());
     assertTrue (aStack.isEmpty ());
     aStack.push ("a");
@@ -132,7 +132,7 @@ public final class NonBlockingStackTest
     catch (final EmptyStackException ex)
     {}
 
-    aStack.addAll (new CommonsArrayList<> ("g", "h"));
+    aStack.addAll (new CommonsArrayList <> ("g", "h"));
     assertEquals (2, aStack.size ());
     assertEquals ("g", aStack.firstElement ());
     assertEquals ("h", aStack.peek ());
@@ -141,16 +141,16 @@ public final class NonBlockingStackTest
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new NonBlockingStack <String> (),
                                                                        new NonBlockingStack <String> ());
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new NonBlockingStack<> ("a", "b"),
-                                                                       new NonBlockingStack<> ("a", "b"));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new NonBlockingStack<> (new CommonsArrayList<> ("a",
-                                                                                                                       "b")),
-                                                                       new NonBlockingStack<> (new CommonsArrayList<> ("a",
-                                                                                                                       "b")));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new NonBlockingStack<> (new CommonsArrayList<> ("a",
-                                                                                                                           "b")),
-                                                                           new NonBlockingStack<> (new CommonsArrayList<> ("a")));
-    CommonsTestHelper.testGetClone (new NonBlockingStack<> ("a", "b"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new NonBlockingStack <> ("a", "b"),
+                                                                       new NonBlockingStack <> ("a", "b"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new NonBlockingStack <> (new CommonsArrayList <> ("a",
+                                                                                                                         "b")),
+                                                                       new NonBlockingStack <> (new CommonsArrayList <> ("a",
+                                                                                                                         "b")));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new NonBlockingStack <> (new CommonsArrayList <> ("a",
+                                                                                                                             "b")),
+                                                                           new NonBlockingStack <> (new CommonsArrayList <> ("a")));
+    CommonsTestHelper.testGetClone (new NonBlockingStack <> ("a", "b"));
     CommonsTestHelper.testGetClone (new NonBlockingStack <String> ());
   }
 }

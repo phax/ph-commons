@@ -23,8 +23,8 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.hashcode.IHashCodeGenerator;
 
 /**
- * Implementation of {@link com.helger.graph.IMutableGraphNode} interface
- * with quick and dirty equals and hashCode (on ID only)
+ * Implementation of {@link com.helger.graph.IMutableGraphNode} interface with
+ * quick and dirty equals and hashCode (on ID only)
  *
  * @author Philip Helger
  */

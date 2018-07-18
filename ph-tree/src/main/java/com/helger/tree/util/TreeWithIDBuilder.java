@@ -66,8 +66,8 @@ public final class TreeWithIDBuilder
       if (aParent == null)
       {
         // it is a root item
-        final DefaultTreeItemWithID <KEYTYPE, DATATYPE> aNewItem = aTree.getRootItem ().createChildItem (aCurrentID,
-                                                                                                         aCurrent);
+        final DefaultTreeItemWithID <KEYTYPE, DATATYPE> aNewItem = aTree.getRootItem ()
+                                                                        .createChildItem (aCurrentID, aCurrent);
         aIDMap.put (aCurrentID, aNewItem);
         nMovedToBackCount = 0;
       }
@@ -202,9 +202,9 @@ public final class TreeWithIDBuilder
       for (final DATATYPE aRootObject : aChildrenResolver.getAllChildren (null))
       {
         // it is a root item
-        final DefaultTreeItemWithID <KEYTYPE, DATATYPE> aItem = aTree.getRootItem ().createChildItem (
-                                                                                                      aRootObject.getID (),
-                                                                                                      aRootObject);
+        final DefaultTreeItemWithID <KEYTYPE, DATATYPE> aItem = aTree.getRootItem ()
+                                                                     .createChildItem (aRootObject.getID (),
+                                                                                       aRootObject);
         _buildTreeRecursive (aItem, aChildrenResolver);
       }
     return aTree;

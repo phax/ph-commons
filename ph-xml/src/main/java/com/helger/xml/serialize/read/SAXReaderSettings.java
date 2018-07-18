@@ -53,7 +53,7 @@ import com.helger.xml.EXMLParserProperty;
 @NotThreadSafe
 public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXReaderSettings>
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (SAXReaderSettings.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (SAXReaderSettings.class);
 
   private EntityResolver m_aEntityResolver;
   private DTDHandler m_aDTDHandler;
@@ -204,12 +204,12 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
     if (aPropertyValue != null &&
         eProperty.getValueClass () != null &&
         !eProperty.getValueClass ().isAssignableFrom (aPropertyValue.getClass ()))
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("Setting the XML parser property '" +
-                        eProperty +
-                        "' to a value of " +
-                        aPropertyValue.getClass () +
-                        " will most likely not be interpreted!");
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("Setting the XML parser property '" +
+                     eProperty +
+                     "' to a value of " +
+                     aPropertyValue.getClass () +
+                     " will most likely not be interpreted!");
 
     if (aPropertyValue != null)
       m_aProperties.put (eProperty, aPropertyValue);

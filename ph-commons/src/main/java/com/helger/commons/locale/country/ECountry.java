@@ -34,7 +34,7 @@ import com.helger.commons.text.display.IHasDisplayText;
  *
  * @author Philip Helger
  */
-public enum ECountry implements IHasDisplayText,IHasID <String>
+public enum ECountry implements IHasDisplayText, IHasID <String>
 {
   AD (ECountryName.AD),
   AE (ECountryName.AE),

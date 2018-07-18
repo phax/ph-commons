@@ -39,7 +39,7 @@ import com.helger.commons.log.LogHelper;
 @CodingStyleguideUnaware ("logger too visible by purpose")
 public class LoggingSAXErrorHandler extends AbstractSAXErrorHandler
 {
-  protected static final Logger s_aLogger = LoggerFactory.getLogger (LoggingSAXErrorHandler.class);
+  protected static final Logger LOGGER = LoggerFactory.getLogger (LoggingSAXErrorHandler.class);
 
   public LoggingSAXErrorHandler ()
   {}
@@ -57,6 +57,6 @@ public class LoggingSAXErrorHandler extends AbstractSAXErrorHandler
   @Override
   protected void internalLog (@Nonnull final IErrorLevel aErrorLevel, final SAXParseException aException)
   {
-    LogHelper.log (s_aLogger, aErrorLevel, getErrorMessage (aErrorLevel, aException));
+    LogHelper.log (LOGGER, aErrorLevel, getErrorMessage (aErrorLevel, aException));
   }
 }

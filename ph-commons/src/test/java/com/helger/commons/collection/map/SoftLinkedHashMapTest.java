@@ -39,7 +39,7 @@ import com.helger.commons.mutable.MutableBoolean;
 
 public final class SoftLinkedHashMapTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (SoftLinkedHashMapTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (SoftLinkedHashMapTest.class);
 
   @Test
   @Ignore ("Travis will fail if this test is run")
@@ -51,7 +51,7 @@ public final class SoftLinkedHashMapTest
       @Override
       protected void onEntryRemoved (final Integer aKey)
       {
-        s_aLogger.info ("Removed key " + aKey);
+        LOGGER.info ("Removed key " + aKey);
         aChange.set (true);
       }
 
@@ -59,7 +59,7 @@ public final class SoftLinkedHashMapTest
       protected void onRemoveEldestEntry (@Nonnegative final int nSize,
                                           @Nonnull final Map.Entry <Integer, BigDecimal> aEldest)
       {
-        s_aLogger.info ("Removed eldest entry " + aEldest.getKey ());
+        LOGGER.info ("Removed eldest entry " + aEldest.getKey ());
       }
     };
 
@@ -69,7 +69,7 @@ public final class SoftLinkedHashMapTest
     BigDecimal aOne = new BigDecimal ("+1.000");
     final Integer aKey = Integer.valueOf (1);
     map.put (aKey, aOne);
-    s_aLogger.info ("Mapped value: " + map.get (aKey));
+    LOGGER.info ("Mapped value: " + map.get (aKey));
     assertNotNull (map.get (aKey));
     assertEquals (1, map.size ());
     aOne = null;
@@ -77,10 +77,10 @@ public final class SoftLinkedHashMapTest
     final Set <Map.Entry <Integer, BigDecimal>> aEntries = map.entrySet ();
     assertEquals (1, aEntries.size ());
 
-    s_aLogger.info ("Filling memory please wait");
+    LOGGER.info ("Filling memory please wait");
     try
     {
-      final List <Object []> allocations = new CommonsArrayList<> ();
+      final List <Object []> allocations = new CommonsArrayList <> ();
       int size;
       while ((size = Math.min (Math.abs ((int) Runtime.getRuntime ().freeMemory ()), Integer.MAX_VALUE)) > 0)
         allocations.add (new Object [size]);
@@ -89,7 +89,7 @@ public final class SoftLinkedHashMapTest
     {
       // great!
     }
-    s_aLogger.info ("Mapped value (should be null): " + map.get (aKey));
+    LOGGER.info ("Mapped value (should be null): " + map.get (aKey));
     assertNull (map.get (aKey));
     assertEquals (0, map.size ());
   }
@@ -97,7 +97,7 @@ public final class SoftLinkedHashMapTest
   @Test
   public void testEntrySetToArray ()
   {
-    final SoftLinkedHashMap <Integer, BigDecimal> aMap = new SoftLinkedHashMap<> (17);
+    final SoftLinkedHashMap <Integer, BigDecimal> aMap = new SoftLinkedHashMap <> (17);
 
     aMap.put (Integer.valueOf (1), BigDecimal.TEN);
     assertEquals (1, aMap.entrySet ().size ());

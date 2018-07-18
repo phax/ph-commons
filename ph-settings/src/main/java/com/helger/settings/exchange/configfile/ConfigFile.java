@@ -41,7 +41,7 @@ import com.helger.settings.ISettings;
 @Immutable
 public class ConfigFile implements IGetterByKeyTrait <String>
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (ConfigFile.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (ConfigFile.class);
 
   private final IReadableResource m_aReadResource;
   private final ISettings m_aSettings;
@@ -123,8 +123,8 @@ public class ConfigFile implements IGetterByKeyTrait <String>
         if (sConfigFileValue != null)
         {
           SystemProperties.setPropertyValue (sProperty, sConfigFileValue);
-          if (s_aLogger.isInfoEnabled ())
-            s_aLogger.info ("Set Java system property from configuration: " + sProperty + "=" + sConfigFileValue);
+          if (LOGGER.isInfoEnabled ())
+            LOGGER.info ("Set Java system property from configuration: " + sProperty + "=" + sConfigFileValue);
         }
       }
   }

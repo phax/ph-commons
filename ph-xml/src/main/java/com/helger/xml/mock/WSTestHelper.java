@@ -31,7 +31,7 @@ import com.helger.xml.microdom.serialize.MicroReader;
 
 public final class WSTestHelper
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (WSTestHelper.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (WSTestHelper.class);
 
   private WSTestHelper ()
   {}
@@ -43,13 +43,13 @@ public final class WSTestHelper
     final File aFile = new File (sBaseDir, "sun-jaxws.xml");
     if (aFile.isFile ())
     {
-      s_aLogger.info ("Checking file " + aFile.getAbsolutePath ());
+      LOGGER.info ("Checking file " + aFile.getAbsolutePath ());
 
       final IMicroDocument aDoc = MicroReader.readMicroXML (aFile);
       if (aDoc == null)
       {
         final String sMsg = "The file is invalid XML!";
-        s_aLogger.warn (sMsg);
+        LOGGER.warn (sMsg);
         if (!bContinueOnError)
           throw new IllegalStateException (sMsg);
       }
@@ -74,15 +74,15 @@ public final class WSTestHelper
                                 sName +
                                 "' is invalid - " +
                                 ex.getMessage ();
-            s_aLogger.warn (sMsg);
+            LOGGER.warn (sMsg);
             if (!bContinueOnError)
               throw new IllegalStateException (sMsg);
           }
 
           if (aImplClass != null)
           {
-            if (s_aLogger.isDebugEnabled ())
-              s_aLogger.debug ("Implementation class '" + sImplementation + "' found");
+            if (LOGGER.isDebugEnabled ())
+              LOGGER.debug ("Implementation class '" + sImplementation + "' found");
 
             final WebService aWebService = aImplClass.getAnnotation (WebService.class);
             if (aWebService == null)
@@ -90,7 +90,7 @@ public final class WSTestHelper
               final String sMsg = "The implementation class '" +
                                   sImplementation +
                                   "' is missing the @WebService annotation";
-              s_aLogger.warn (sMsg);
+              LOGGER.warn (sMsg);
               if (!bContinueOnError)
                 throw new IllegalStateException (sMsg);
             }
@@ -112,7 +112,7 @@ public final class WSTestHelper
                                     sImplementation +
                                     "' is invalid - " +
                                     ex.getMessage ();
-                s_aLogger.warn (sMsg);
+                LOGGER.warn (sMsg);
                 if (!bContinueOnError)
                   throw new IllegalStateException (sMsg);
               }
@@ -126,7 +126,7 @@ public final class WSTestHelper
                                       "' of endpoint '" +
                                       sName +
                                       "' is not an interface!";
-                  s_aLogger.warn (sMsg);
+                  LOGGER.warn (sMsg);
                   if (!bContinueOnError)
                     throw new IllegalStateException (sMsg);
                 }

@@ -37,7 +37,7 @@ import com.helger.commons.state.ESuccess;
 @Immutable
 public final class JMXHelper
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (JMXHelper.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (JMXHelper.class);
 
   @SuppressWarnings ("unused")
   private static final JMXHelper s_aInstance = new JMXHelper ();
@@ -58,7 +58,7 @@ public final class JMXHelper
     }
     catch (final JMException ex)
     {
-      s_aLogger.error ("Error registering MBean with name " + aObjectName, ex);
+      LOGGER.error ("Error registering MBean with name " + aObjectName, ex);
       return ESuccess.FAILURE;
     }
   }

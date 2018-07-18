@@ -33,7 +33,7 @@ public final class CommonsLinkedListTest
   @Test
   public void testBasic ()
   {
-    final ICommonsList <String> aTest = new CommonsLinkedList<> ();
+    final ICommonsList <String> aTest = new CommonsLinkedList <> ();
     assertTrue (aTest.isEmpty ());
     aTest.add ("aaa");
     aTest.add ("bbb");
@@ -46,29 +46,29 @@ public final class CommonsLinkedListTest
   @Test
   public void testCtor ()
   {
-    CommonsLinkedList <String> aTest = new CommonsLinkedList<> ();
+    CommonsLinkedList <String> aTest = new CommonsLinkedList <> ();
     assertEquals (0, aTest.size ());
 
-    aTest = new CommonsLinkedList<> ("a", "b", "c");
+    aTest = new CommonsLinkedList <> ("a", "b", "c");
     assertEquals (3, aTest.size ());
 
-    aTest = new CommonsLinkedList<> ("only");
+    aTest = new CommonsLinkedList <> ("only");
     assertEquals (1, aTest.size ());
 
-    aTest = new CommonsLinkedList<> (new CommonsLinkedList<> ("a", "b", "c"));
+    aTest = new CommonsLinkedList <> (new CommonsLinkedList <> ("a", "b", "c"));
     assertEquals (3, aTest.size ());
 
-    aTest = new CommonsLinkedList<> ((Iterable <String>) new CommonsLinkedList<> ("a", "b", "c", "d"));
+    aTest = new CommonsLinkedList <> ((Iterable <String>) new CommonsLinkedList <> ("a", "b", "c", "d"));
     assertEquals (4, aTest.size ());
 
-    aTest = new CommonsLinkedList<> (new CommonsLinkedList<> (Integer.valueOf (1), Integer.valueOf (2)),
-                                     x -> x.toString ());
+    aTest = new CommonsLinkedList <> (new CommonsLinkedList <> (Integer.valueOf (1), Integer.valueOf (2)),
+                                      x -> x.toString ());
     assertEquals (2, aTest.size ());
 
-    aTest = new CommonsLinkedList<> ((Iterable <Integer>) new CommonsLinkedList<> (Integer.valueOf (1),
-                                                                                   Integer.valueOf (2),
-                                                                                   Integer.valueOf (4)),
-                                     x -> x.toString ());
+    aTest = new CommonsLinkedList <> ((Iterable <Integer>) new CommonsLinkedList <> (Integer.valueOf (1),
+                                                                                     Integer.valueOf (2),
+                                                                                     Integer.valueOf (4)),
+                                      x -> x.toString ());
     assertEquals (3, aTest.size ());
   }
 }

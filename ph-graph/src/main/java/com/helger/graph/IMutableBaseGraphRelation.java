@@ -29,7 +29,9 @@ import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
  */
 @MustImplementEqualsAndHashcode
 public interface IMutableBaseGraphRelation <NODETYPE extends IMutableBaseGraphNode <NODETYPE, RELATIONTYPE>, RELATIONTYPE extends IMutableBaseGraphRelation <NODETYPE, RELATIONTYPE>>
-                                           extends IBaseGraphRelation <NODETYPE, RELATIONTYPE>, IMutableBaseGraphObject
+                                           extends
+                                           IBaseGraphRelation <NODETYPE, RELATIONTYPE>,
+                                           IMutableBaseGraphObject
 {
   /* empty */
 }

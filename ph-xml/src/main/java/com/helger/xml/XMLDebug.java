@@ -42,7 +42,7 @@ import com.helger.xml.dom.EXMLDOMNodeType;
  */
 public final class XMLDebug
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (XMLDebug.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (XMLDebug.class);
   private static final ICommonsMap <EXMLDOMFeatureVersion, ICommonsList <String>> s_aSupportedFeatures = new CommonsEnumMap <> (EXMLDOMFeatureVersion.class);
 
   static
@@ -109,8 +109,8 @@ public final class XMLDebug
   {
     for (final Map.Entry <EXMLDOMFeatureVersion, ICommonsList <String>> aEntry : s_aSupportedFeatures.entrySet ())
       for (final String sFeature : aEntry.getValue ())
-        if (s_aLogger.isInfoEnabled ())
-          s_aLogger.info ("DOM " + aEntry.getKey ().getID () + " feature '" + sFeature + "' is present");
+        if (LOGGER.isInfoEnabled ())
+          LOGGER.info ("DOM " + aEntry.getKey ().getID () + " feature '" + sFeature + "' is present");
   }
 
   @Nonnull
@@ -120,8 +120,8 @@ public final class XMLDebug
     if (eNodeType != null)
       return eNodeType.name ();
 
-    if (s_aLogger.isWarnEnabled ())
-      s_aLogger.warn ("Unknown Node type " + nNodeType);
+    if (LOGGER.isWarnEnabled ())
+      LOGGER.warn ("Unknown Node type " + nNodeType);
     return Integer.toString (nNodeType);
   }
 }

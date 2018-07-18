@@ -35,7 +35,7 @@ public final class CommonsTreeMapTest
   @Test
   public void testBasic ()
   {
-    final ICommonsMap <String, String> aTest = new CommonsTreeMap<> ();
+    final ICommonsMap <String, String> aTest = new CommonsTreeMap <> ();
     aTest.put ("aaa", "bla");
     aTest.put ("bbb", "blb");
     aTest.put ("ccc", "blc");
@@ -52,15 +52,15 @@ public final class CommonsTreeMapTest
   @Test
   public void testCtor ()
   {
-    CommonsTreeMap <String, Integer> aTest = new CommonsTreeMap<> ();
+    CommonsTreeMap <String, Integer> aTest = new CommonsTreeMap <> ();
     assertEquals (0, aTest.size ());
-    aTest = new CommonsTreeMap<> (new CommonsArrayList<> ("test", "any", "foo"),
-                                  Function.identity (),
-                                  x -> Integer.valueOf (x.length ()));
+    aTest = new CommonsTreeMap <> (new CommonsArrayList <> ("test", "any", "foo"),
+                                   Function.identity (),
+                                   x -> Integer.valueOf (x.length ()));
     assertEquals (3, aTest.size ());
-    aTest = new CommonsTreeMap<> (new CommonsTreeMap <String, Integer> (new CommonsArrayList<> ("test", "any", "foo"),
-                                                                        Function.identity (),
-                                                                        x -> Integer.valueOf (x.length ())));
+    aTest = new CommonsTreeMap <> (new CommonsTreeMap <String, Integer> (new CommonsArrayList <> ("test", "any", "foo"),
+                                                                         Function.identity (),
+                                                                         x -> Integer.valueOf (x.length ())));
     assertEquals (3, aTest.size ());
   }
 }

@@ -33,7 +33,7 @@ import com.helger.xml.microdom.IMicroNode;
  */
 public class MicroRecursiveIterator implements IIterableIterator <IMicroNode>
 {
-  private final ICommonsList <IMicroNode> m_aOpen = new CommonsArrayList<> ();
+  private final ICommonsList <IMicroNode> m_aOpen = new CommonsArrayList <> ();
 
   public MicroRecursiveIterator (@Nonnull final IMicroNode aNode)
   {

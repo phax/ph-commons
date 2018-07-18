@@ -35,7 +35,7 @@ import com.helger.commons.concurrent.ThreadHelper;
  */
 public final class WatchDirTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (WatchDirTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (WatchDirTest.class);
 
   @Test
   // @Ignore ("Manually tested and considered to be working. Takes too long.")
@@ -45,7 +45,7 @@ public final class WatchDirTest
     final Path aDir = Paths.get (".");
     final boolean bRecursive = true;
 
-    final IWatchDirCallback aCB = (eAction, aPath) -> s_aLogger.info ("CB: " + eAction + " - " + aPath);
+    final IWatchDirCallback aCB = (eAction, aPath) -> LOGGER.info ("CB: " + eAction + " - " + aPath);
 
     try (final WatchDir aWD = new WatchDir (aDir, bRecursive))
     {
@@ -66,7 +66,7 @@ public final class WatchDirTest
   public void testNonRecursive () throws IOException
   {
     // Starting WatchDir
-    final IWatchDirCallback aCB = (eAction, aPath) -> s_aLogger.info ("CB: " + eAction + " - " + aPath);
+    final IWatchDirCallback aCB = (eAction, aPath) -> LOGGER.info ("CB: " + eAction + " - " + aPath);
 
     try (final WatchDir aWatch = WatchDir.createAsyncRunningWatchDir (Paths.get ("."), false, aCB))
     {

@@ -53,7 +53,7 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
    */
   public MapBasedXPathFunctionResolver ()
   {
-    m_aMap = new CommonsLinkedHashMap<> ();
+    m_aMap = new CommonsLinkedHashMap <> ();
   }
 
   /**

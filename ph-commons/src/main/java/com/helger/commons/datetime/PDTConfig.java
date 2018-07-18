@@ -41,7 +41,7 @@ import com.helger.commons.state.ESuccess;
 @ThreadSafe
 public final class PDTConfig
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (PDTConfig.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (PDTConfig.class);
 
   private static ZoneId s_aDefaultZoneId = TimeZone.getDefault ().toZoneId ();
 
@@ -79,7 +79,7 @@ public final class PDTConfig
     catch (final DateTimeException ex)
     {
       // time zone ID is unknown
-      s_aLogger.warn ("Unsupported ZoneId '" + sDateTimeZoneID + "'", ex);
+      LOGGER.warn ("Unsupported ZoneId '" + sDateTimeZoneID + "'", ex);
       return ESuccess.FAILURE;
     }
   }

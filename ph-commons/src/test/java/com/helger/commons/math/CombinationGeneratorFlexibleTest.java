@@ -43,7 +43,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public final class CombinationGeneratorFlexibleTest extends AbstractCombinationGeneratorTestCase
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (CombinationGeneratorFlexibleTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (CombinationGeneratorFlexibleTest.class);
 
   @Test
   @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
@@ -105,12 +105,12 @@ public final class CombinationGeneratorFlexibleTest extends AbstractCombinationG
       // Takes approx. 490ms on PH main machine (2012-01-21)
       // With one element more the time is at approx. 1500ms
       final Set <ICommonsList <String>> aResult = CombinationGeneratorFlexible.getCombinations (HUGE_LIST, true);
-      s_aLogger.info ("Regular: " + aSW.stopAndGetMillis () + " ms with " + aResult.size () + " elements");
+      LOGGER.info ("Regular: " + aSW.stopAndGetMillis () + " ms with " + aResult.size () + " elements");
     }
     catch (final OutOfMemoryError ex)
     {
       // Happens e.g. on Jenkins
-      s_aLogger.error ("Out of memory on test!", ex);
+      LOGGER.error ("Out of memory on test!", ex);
     }
   }
 

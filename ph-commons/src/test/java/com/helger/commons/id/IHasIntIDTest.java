@@ -33,9 +33,9 @@ public final class IHasIntIDTest
   @Test
   public void testAll ()
   {
-    final ICommonsList <? extends IHasIntID> aList = new CommonsArrayList<> (new MockHasIntID (5),
-                                                                             new MockHasIntID (3),
-                                                                             new MockHasIntID (7));
+    final ICommonsList <? extends IHasIntID> aList = new CommonsArrayList <> (new MockHasIntID (5),
+                                                                              new MockHasIntID (3),
+                                                                              new MockHasIntID (7));
     aList.getSortedInline (IHasIntID.getComparatorID ());
     assertEquals (3, aList.get (0).getID ());
     assertEquals (5, aList.get (1).getID ());

@@ -27,8 +27,8 @@ import com.helger.commons.hierarchy.visit.IHierarchyVisitorCallback;
 import com.helger.xml.microdom.IMicroNode;
 
 /**
- * Helper class that visits a {@link com.helger.xml.microdom.IMicroNode}
- * with a callback.
+ * Helper class that visits a {@link com.helger.xml.microdom.IMicroNode} with a
+ * callback.
  *
  * @author Philip Helger
  */

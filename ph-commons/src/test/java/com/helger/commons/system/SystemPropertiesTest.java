@@ -38,7 +38,7 @@ import com.helger.commons.collection.CollectionHelper;
  */
 public final class SystemPropertiesTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (SystemPropertiesTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (SystemPropertiesTest.class);
 
   @Test
   @Ignore ("Too verbose")
@@ -46,7 +46,7 @@ public final class SystemPropertiesTest
   {
     for (final Map.Entry <String, String> aEntry : CollectionHelper.getSortedByKey (SystemProperties.getAllProperties ())
                                                                    .entrySet ())
-      s_aLogger.info ("[all] " + aEntry.getKey () + "=" + aEntry.getValue ());
+      LOGGER.info ("[all] " + aEntry.getKey () + "=" + aEntry.getValue ());
   }
 
   @Test

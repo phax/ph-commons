@@ -247,23 +247,23 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
     // Destination: Date
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (Date.class,
                                                                   aSource -> Date.from (TypeConverter.convert (aSource,
-                                                                                                                          Instant.class)));
+                                                                                                               Instant.class)));
 
     // Destination: MonthDay
     aRegistry.registerTypeConverter (String.class, MonthDay.class, MonthDay::parse);
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MonthDay.class,
                                                                   aSource -> MonthDay.from (TypeConverter.convert (aSource,
-                                                                                                                              LocalDate.class)));
+                                                                                                                   LocalDate.class)));
     // Destination: YearMonth
     aRegistry.registerTypeConverter (String.class, YearMonth.class, YearMonth::parse);
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (YearMonth.class,
                                                                   aSource -> YearMonth.from (TypeConverter.convert (aSource,
-                                                                                                                               LocalDate.class)));
+                                                                                                                    LocalDate.class)));
     // Destination: Year
     aRegistry.registerTypeConverter (String.class, Year.class, Year::parse);
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (Year.class,
                                                                   aSource -> Year.from (TypeConverter.convert (aSource,
-                                                                                                                          LocalDate.class)));
+                                                                                                               LocalDate.class)));
 
     // Destination: Duration
     aRegistry.registerTypeConverter (String.class, Duration.class, Duration::parse);

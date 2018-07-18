@@ -52,7 +52,7 @@ import com.helger.commons.io.stream.StreamHelper;
 @Immutable
 public final class FileChannelHelper
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (FileChannelHelper.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (FileChannelHelper.class);
 
   @PresentForCodeCoverage
   private static final FileChannelHelper s_aInstance = new FileChannelHelper ();
@@ -82,13 +82,13 @@ public final class FileChannelHelper
     try
     {
       final MappedByteBuffer aBuffer = aChannel.map (MapMode.READ_ONLY, 0, aChannel.size ());
-      if (s_aLogger.isInfoEnabled ())
-        s_aLogger.info ("Created memory mapped input stream for " + aFile);
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("Created memory mapped input stream for " + aFile);
       return new ByteBufferInputStream (aBuffer);
     }
     catch (final IOException ex)
     {
-      s_aLogger.warn ("Failed to create memory mapped input stream for " + aFile, ex);
+      LOGGER.warn ("Failed to create memory mapped input stream for " + aFile, ex);
       return null;
     }
   }
@@ -155,8 +155,8 @@ public final class FileChannelHelper
       return aIS;
 
     // Memory mapping failed - return the original input stream
-    if (s_aLogger.isWarnEnabled ())
-      s_aLogger.warn ("Failed to map file " + aFile + ". Falling though to regular FileInputStream");
+    if (LOGGER.isWarnEnabled ())
+      LOGGER.warn ("Failed to map file " + aFile + ". Falling though to regular FileInputStream");
     return aFIS;
   }
 
@@ -168,13 +168,13 @@ public final class FileChannelHelper
     {
       // Maximum is Integer.MAX_VALUE even if a long is taken!
       final MappedByteBuffer aBuffer = aChannel.map (MapMode.READ_WRITE, 0, Integer.MAX_VALUE);
-      if (s_aLogger.isInfoEnabled ())
-        s_aLogger.info ("Created memory mapped output stream for " + aFile);
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("Created memory mapped output stream for " + aFile);
       return new ByteBufferOutputStream (aBuffer, false);
     }
     catch (final IOException ex)
     {
-      s_aLogger.warn ("Failed to create memory mapped output stream for " + aFile, ex);
+      LOGGER.warn ("Failed to create memory mapped output stream for " + aFile, ex);
       return null;
     }
   }
@@ -239,8 +239,8 @@ public final class FileChannelHelper
     final RandomAccessFile aRAF = FileHelper.getRandomAccessFile (aFile, ERandomAccessFileMode.READ_WRITE);
     if (aRAF == null)
     {
-      if (s_aLogger.isErrorEnabled ())
-        s_aLogger.error ("Failed to open random access file " + aFile);
+      if (LOGGER.isErrorEnabled ())
+        LOGGER.error ("Failed to open random access file " + aFile);
       return null;
     }
 
@@ -251,8 +251,8 @@ public final class FileChannelHelper
 
     // Memory mapping failed - return the original output stream
     StreamHelper.close (aRAF);
-    if (s_aLogger.isWarnEnabled ())
-      s_aLogger.warn ("Failed to map file " + aFile + ". Falling though to regular FileOutputStream");
+    if (LOGGER.isWarnEnabled ())
+      LOGGER.warn ("Failed to map file " + aFile + ". Falling though to regular FileOutputStream");
     return FileHelper.getOutputStream (aFile, eAppend);
   }
 }

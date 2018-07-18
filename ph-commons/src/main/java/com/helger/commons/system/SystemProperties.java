@@ -76,7 +76,7 @@ public final class SystemProperties
   // JDK serialization properties
   public static final String SYSTEM_PROPERTY_SUN_IO_SERIALIZATION_EXTENDEDDEBUGINFO = "sun.io.serialization.extendedDebugInfo";
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (SystemProperties.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (SystemProperties.class);
   private static final ICommonsSet <String> s_aWarnedPropertyNames = new CommonsCopyOnWriteArraySet <> ();
 
   @PresentForCodeCoverage
@@ -101,8 +101,8 @@ public final class SystemProperties
       if (ret == null && s_aWarnedPropertyNames.add (sKey))
       {
         // Warn about each property once
-        if (s_aLogger.isWarnEnabled ())
-          s_aLogger.warn ("System property '" + sKey + "' is not set!");
+        if (LOGGER.isWarnEnabled ())
+          LOGGER.warn ("System property '" + sKey + "' is not set!");
       }
     }
     return ret;
@@ -195,8 +195,8 @@ public final class SystemProperties
     {
       final String sOld = IPrivilegedAction.systemSetProperty (sKey, sValue).invokeSafe ();
       bChanged = sOld != null && !sValue.equals (sOld);
-      if (s_aLogger.isDebugEnabled () && bChanged)
-        s_aLogger.debug ("Set system property '" + sKey + "' to '" + sValue + "'");
+      if (LOGGER.isDebugEnabled () && bChanged)
+        LOGGER.debug ("Set system property '" + sKey + "' to '" + sValue + "'");
     }
     // TODO next minor release - change to EChange return type
   }
@@ -215,11 +215,11 @@ public final class SystemProperties
   public static String removePropertyValue (@Nonnull final String sKey)
   {
     final String ret = IPrivilegedAction.systemClearProperty (sKey).invokeSafe ();
-    if (s_aLogger.isDebugEnabled ())
+    if (LOGGER.isDebugEnabled ())
       if (ret != null)
-        s_aLogger.debug ("Removed system property '" + sKey + "' with value '" + ret + "'");
+        LOGGER.debug ("Removed system property '" + sKey + "' with value '" + ret + "'");
       else
-        s_aLogger.debug ("Remove system property '" + sKey + "' failed");
+        LOGGER.debug ("Remove system property '" + sKey + "' failed");
     return ret;
   }
 

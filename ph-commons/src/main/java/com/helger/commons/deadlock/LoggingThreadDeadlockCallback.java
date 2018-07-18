@@ -30,11 +30,11 @@ import com.helger.commons.lang.StackTraceHelper;
  */
 public class LoggingThreadDeadlockCallback implements IThreadDeadlockCallback
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingThreadDeadlockCallback.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (LoggingThreadDeadlockCallback.class);
 
   public void onDeadlockDetected (@Nonnull final ThreadDeadlockInfo [] aDeadlockedThreads)
   {
-    if (s_aLogger.isErrorEnabled ())
+    if (LOGGER.isErrorEnabled ())
     {
       final StringBuilder aMsg = new StringBuilder ();
       aMsg.append (aDeadlockedThreads.length).append (" deadlocked threads:\n");
@@ -48,7 +48,7 @@ public class LoggingThreadDeadlockCallback implements IThreadDeadlockCallback
             .append (StackTraceHelper.getStackAsString (aThread.getStackTrace ()));
       }
 
-      s_aLogger.error (aMsg.toString ());
+      LOGGER.error (aMsg.toString ());
     }
   }
 }

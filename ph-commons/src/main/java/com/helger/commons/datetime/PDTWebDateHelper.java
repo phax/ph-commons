@@ -63,7 +63,7 @@ import com.helger.commons.typeconvert.TypeConverter;
 @Immutable
 public final class PDTWebDateHelper
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (PDTWebDateHelper.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (PDTWebDateHelper.class);
   // "XXX" means "+HH:mm"
   // "XX" means "+HHmm"
   private static final String ZONE_PATTERN1 = "XXX";
@@ -174,19 +174,14 @@ public final class PDTWebDateHelper
       try
       {
         final Temporal ret = aDTF.parse (sDate, aMask.getQuery ());
-        if (s_aLogger.isDebugEnabled ())
-          s_aLogger.debug ("Parsed '" +
-                           sDate +
-                           "' with '" +
-                           aMask.getPattern () +
-                           "' to " +
-                           ret.getClass ().getName ());
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("Parsed '" + sDate + "' with '" + aMask.getPattern () + "' to " + ret.getClass ().getName ());
         return TypeConverter.convert (ret, OffsetDateTime.class);
       }
       catch (final DateTimeParseException ex)
       {
-        if (s_aLogger.isDebugEnabled ())
-          s_aLogger.debug ("Failed to parse '" + sDate + "' with '" + aMask.getPattern () + "': " + ex.getMessage ());
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("Failed to parse '" + sDate + "' with '" + aMask.getPattern () + "': " + ex.getMessage ());
       }
     }
     return null;
@@ -219,19 +214,14 @@ public final class PDTWebDateHelper
       try
       {
         final Temporal ret = aDTF.parse (sDate, aMask.getQuery ());
-        if (s_aLogger.isDebugEnabled ())
-          s_aLogger.debug ("Parsed '" +
-                           sDate +
-                           "' with '" +
-                           aMask.getPattern () +
-                           "' to " +
-                           ret.getClass ().getName ());
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("Parsed '" + sDate + "' with '" + aMask.getPattern () + "' to " + ret.getClass ().getName ());
         return TypeConverter.convert (ret, ZonedDateTime.class);
       }
       catch (final DateTimeParseException ex)
       {
-        if (s_aLogger.isDebugEnabled ())
-          s_aLogger.debug ("Failed to parse '" + sDate + "' with '" + aMask.getPattern () + "': " + ex.getMessage ());
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("Failed to parse '" + sDate + "' with '" + aMask.getPattern () + "': " + ex.getMessage ());
       }
     }
     return null;

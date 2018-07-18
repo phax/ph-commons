@@ -37,7 +37,7 @@ import com.helger.commons.state.EInterrupt;
 @Immutable
 public final class ExecutorServiceHelper
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (ExecutorServiceHelper.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (ExecutorServiceHelper.class);
 
   private ExecutorServiceHelper ()
   {}
@@ -87,8 +87,8 @@ public final class ExecutorServiceHelper
     }
     catch (final InterruptedException ex)
     {
-      if (s_aLogger.isErrorEnabled ())
-        s_aLogger.error ("Error waiting for Executor service " + aES + " to end", ex);
+      if (LOGGER.isErrorEnabled ())
+        LOGGER.error ("Error waiting for Executor service " + aES + " to end", ex);
       Thread.currentThread ().interrupt ();
       return EInterrupt.INTERRUPTED;
     }

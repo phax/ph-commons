@@ -30,7 +30,7 @@ import com.helger.commons.collection.ArrayHelper;
 
 public final class JavaPrinterTrayFinderFuncTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (JavaPrinterTrayFinderFuncTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (JavaPrinterTrayFinderFuncTest.class);
 
   @Test
   public void testListPrinterTrays ()
@@ -38,7 +38,7 @@ public final class JavaPrinterTrayFinderFuncTest
     final PrintService [] aAllServices = PrintServiceLookup.lookupPrintServices (null, null);
     for (final PrintService aService : aAllServices)
     {
-      s_aLogger.info (aService.toString ());
+      LOGGER.info (aService.toString ());
       final Object aAttrs = aService.getSupportedAttributeValues (Media.class,
                                                                   DocFlavor.SERVICE_FORMATTED.PAGEABLE,
                                                                   null);
@@ -46,7 +46,7 @@ public final class JavaPrinterTrayFinderFuncTest
       {
         for (final Media aElement : (Media []) aAttrs)
           if (aElement instanceof MediaTray)
-            s_aLogger.info ("  " + aElement);
+            LOGGER.info ("  " + aElement);
       }
     }
   }

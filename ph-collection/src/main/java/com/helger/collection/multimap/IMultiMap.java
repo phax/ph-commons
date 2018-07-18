@@ -41,8 +41,8 @@ import com.helger.commons.state.EChange;
  * @param <COLLTYPE>
  *        Container type containing value types
  */
-public interface IMultiMap <KEYTYPE, VALUETYPE, COLLTYPE extends ICommonsCollection <VALUETYPE>>
-                           extends ICommonsMap <KEYTYPE, COLLTYPE>
+public interface IMultiMap <KEYTYPE, VALUETYPE, COLLTYPE extends ICommonsCollection <VALUETYPE>> extends
+                           ICommonsMap <KEYTYPE, COLLTYPE>
 {
   /**
    * Get or create the collection of the specified key.

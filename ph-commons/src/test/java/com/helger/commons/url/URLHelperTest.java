@@ -42,7 +42,7 @@ import com.helger.commons.io.stream.StreamHelper;
  */
 public final class URLHelperTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (URLHelperTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (URLHelperTest.class);
 
   @Test
   public void testGetCleanURL ()
@@ -115,12 +115,12 @@ public final class URLHelperTest
     {
       final InputStream aIS = URLHelper.getInputStream (new URL ("http://www.orf.at"), 3000, -1, null, null);
       final byte [] aContent = StreamHelper.getAllBytes (aIS);
-      s_aLogger.info ("Read " + aContent.length + " bytes");
+      LOGGER.info ("Read " + aContent.length + " bytes");
     }
     catch (final Throwable t)
     {
       // ignore
-      s_aLogger.info ("Failed to GET: " + t.getMessage ());
+      LOGGER.info ("Failed to GET: " + t.getMessage ());
     }
   }
 

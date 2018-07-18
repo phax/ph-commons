@@ -43,7 +43,7 @@ import com.helger.matrix.Matrix;
  */
 public final class SimpleGraphTest extends AbstractGraphTestCase
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (SimpleGraphTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (SimpleGraphTest.class);
 
   @Test
   public void testCtor ()
@@ -168,7 +168,7 @@ public final class SimpleGraphTest extends AbstractGraphTestCase
 
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     sg.createIncidenceMatrix ().print (new PrintWriter (aSW), 2, 0);
-    s_aLogger.info (aSW.getAsString ());
+    LOGGER.info (aSW.getAsString ());
   }
 
   @Test

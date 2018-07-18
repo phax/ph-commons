@@ -33,7 +33,7 @@ public final class CommonsVectorTest
   @Test
   public void testBasic ()
   {
-    final ICommonsList <String> aTest = new CommonsVector<> ();
+    final ICommonsList <String> aTest = new CommonsVector <> ();
     assertTrue (aTest.isEmpty ());
     aTest.add ("aaa");
     aTest.add ("bbb");
@@ -46,31 +46,31 @@ public final class CommonsVectorTest
   @Test
   public void testCtor ()
   {
-    CommonsVector <String> aTest = new CommonsVector<> ();
+    CommonsVector <String> aTest = new CommonsVector <> ();
     assertEquals (0, aTest.size ());
 
-    aTest = new CommonsVector<> (5);
+    aTest = new CommonsVector <> (5);
     assertEquals (0, aTest.size ());
 
-    aTest = new CommonsVector<> ("a", "b", "c");
+    aTest = new CommonsVector <> ("a", "b", "c");
     assertEquals (3, aTest.size ());
 
-    aTest = new CommonsVector<> ("only");
+    aTest = new CommonsVector <> ("only");
     assertEquals (1, aTest.size ());
 
-    aTest = new CommonsVector<> (new CommonsVector<> ("a", "b", "c"));
+    aTest = new CommonsVector <> (new CommonsVector <> ("a", "b", "c"));
     assertEquals (3, aTest.size ());
 
-    aTest = new CommonsVector<> ((Iterable <String>) new CommonsVector<> ("a", "b", "c", "d"));
+    aTest = new CommonsVector <> ((Iterable <String>) new CommonsVector <> ("a", "b", "c", "d"));
     assertEquals (4, aTest.size ());
 
-    aTest = new CommonsVector<> (new CommonsVector<> (Integer.valueOf (1), Integer.valueOf (2)), x -> x.toString ());
+    aTest = new CommonsVector <> (new CommonsVector <> (Integer.valueOf (1), Integer.valueOf (2)), x -> x.toString ());
     assertEquals (2, aTest.size ());
 
-    aTest = new CommonsVector<> ((Iterable <Integer>) new CommonsVector<> (Integer.valueOf (1),
-                                                                           Integer.valueOf (2),
-                                                                           Integer.valueOf (4)),
-                                 x -> x.toString ());
+    aTest = new CommonsVector <> ((Iterable <Integer>) new CommonsVector <> (Integer.valueOf (1),
+                                                                             Integer.valueOf (2),
+                                                                             Integer.valueOf (4)),
+                                  x -> x.toString ());
     assertEquals (3, aTest.size ());
   }
 }

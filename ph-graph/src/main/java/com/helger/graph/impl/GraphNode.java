@@ -69,7 +69,7 @@ public class GraphNode extends AbstractBaseGraphObject implements IMutableGraphN
 
     final String sRelationID = aRelation.getID ();
     if (m_aRelations == null)
-      m_aRelations = new CommonsLinkedHashMap<> ();
+      m_aRelations = new CommonsLinkedHashMap <> ();
     else
       if (m_aRelations.containsKey (sRelationID))
         return EChange.UNCHANGED;
@@ -127,7 +127,7 @@ public class GraphNode extends AbstractBaseGraphObject implements IMutableGraphN
   @ReturnsMutableCopy
   public ICommonsOrderedSet <IMutableGraphRelation> getAllRelations ()
   {
-    final ICommonsOrderedSet <IMutableGraphRelation> ret = new CommonsLinkedHashSet<> ();
+    final ICommonsOrderedSet <IMutableGraphRelation> ret = new CommonsLinkedHashSet <> ();
     if (m_aRelations != null)
       ret.addAll (m_aRelations.values ());
     return ret;
@@ -137,7 +137,7 @@ public class GraphNode extends AbstractBaseGraphObject implements IMutableGraphN
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllRelationIDs ()
   {
-    final ICommonsOrderedSet <String> ret = new CommonsLinkedHashSet<> ();
+    final ICommonsOrderedSet <String> ret = new CommonsLinkedHashSet <> ();
     if (m_aRelations != null)
       ret.addAll (m_aRelations.keySet ());
     return ret;
@@ -154,7 +154,7 @@ public class GraphNode extends AbstractBaseGraphObject implements IMutableGraphN
   @ReturnsMutableCopy
   public ICommonsOrderedSet <IMutableGraphNode> getAllRelatedNodes ()
   {
-    final ICommonsOrderedSet <IMutableGraphNode> ret = new CommonsLinkedHashSet<> ();
+    final ICommonsOrderedSet <IMutableGraphNode> ret = new CommonsLinkedHashSet <> ();
     if (m_aRelations != null)
       for (final IMutableGraphRelation aRelation : m_aRelations.values ())
       {
@@ -168,7 +168,7 @@ public class GraphNode extends AbstractBaseGraphObject implements IMutableGraphN
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllRelatedNodeIDs ()
   {
-    final ICommonsOrderedSet <String> ret = new CommonsLinkedHashSet<> ();
+    final ICommonsOrderedSet <String> ret = new CommonsLinkedHashSet <> ();
     if (m_aRelations != null)
       for (final IMutableGraphRelation aRelation : m_aRelations.values ())
       {

@@ -53,7 +53,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
                           ICallbackList <CALLBACKTYPE>,
                           ICloneable <CallbackList <CALLBACKTYPE>>
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (CallbackList.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (CallbackList.class);
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
@@ -180,7 +180,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
       }
       catch (final Exception ex)
       {
-        s_aLogger.error ("Failed to invoke callback " + aCallback, ex);
+        LOGGER.error ("Failed to invoke callback " + aCallback, ex);
       }
   }
 
@@ -197,7 +197,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
       }
       catch (final Exception ex)
       {
-        s_aLogger.error ("Failed to invoke callback " + aCallback, ex);
+        LOGGER.error ("Failed to invoke callback " + aCallback, ex);
       }
     return EContinue.CONTINUE;
   }

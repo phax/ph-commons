@@ -94,7 +94,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends AbstractDAO
 {
   public static final TimeValue DEFAULT_WAITING_TIME = new TimeValue (TimeUnit.SECONDS, 10);
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractWALDAO.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (AbstractWALDAO.class);
 
   private final IMutableStatisticsHandlerCounter m_aStatsCounterInitTotal = StatisticsManager.getCounterHandler (getClass ().getName () +
                                                                                                                  "$init-total");
@@ -407,7 +407,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
     if (sFilename == null)
     {
       // required for testing
-      s_aLogger.warn ("This DAO of class " + getClass ().getName () + " will not be able to read from a file");
+      LOGGER.warn ("This DAO of class " + getClass ().getName () + " will not be able to read from a file");
 
       // do not return - run initialization anyway
     }
@@ -433,7 +433,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
           {
             // initial setup for non-existing file
             if (isDebugLogging ())
-              s_aLogger.info ("Trying to initialize WAL DAO XML file '" + aFinalFile.getAbsolutePath () + "'");
+              LOGGER.info ("Trying to initialize WAL DAO XML file '" + aFinalFile.getAbsolutePath () + "'");
 
             beginWithoutAutoSave ();
             try
@@ -463,12 +463,12 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
           {
             // Read existing file
             if (isDebugLogging ())
-              s_aLogger.info ("Trying to read WAL DAO XML file '" + aFinalFile.getAbsolutePath () + "'");
+              LOGGER.info ("Trying to read WAL DAO XML file '" + aFinalFile.getAbsolutePath () + "'");
 
             m_aStatsCounterReadTotal.increment ();
             aDoc = MicroReader.readMicroXML (aFinalFile);
             if (aDoc == null)
-              s_aLogger.error ("Failed to read DAO XML document from file '" + aFinalFile.getAbsolutePath () + "'");
+              LOGGER.error ("Failed to read DAO XML document from file '" + aFinalFile.getAbsolutePath () + "'");
             else
             {
               // Valid XML - start interpreting
@@ -505,7 +505,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
           else
           {
             // There is something wrong
-            s_aLogger.error ("File '" + aFinalFile.getAbsolutePath () + "' has pending changes after initialRead!");
+            LOGGER.error ("File '" + aFinalFile.getAbsolutePath () + "' has pending changes after initialRead!");
           }
         }
         catch (final Exception ex)
@@ -528,7 +528,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
         final File aWALFile = sWALFilename == null ? null : m_aIO.getFile (sWALFilename);
         if (aWALFile != null && aWALFile.exists ())
         {
-          s_aLogger.info ("Trying to recover from WAL file " + aWALFile.getAbsolutePath ());
+          LOGGER.info ("Trying to recover from WAL file " + aWALFile.getAbsolutePath ());
           boolean bFinishedSuccessful = false;
           boolean bPerformedAtLeastOnRecovery = false;
 
@@ -569,11 +569,11 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
                     {
                       onRecoveryCreate (aElement);
                       bPerformedAtLeastOnRecovery = true;
-                      s_aLogger.info ("[WAL] wal-recovery create " + aElement);
+                      LOGGER.info ("[WAL] wal-recovery create " + aElement);
                     }
                     catch (final RuntimeException ex)
                     {
-                      s_aLogger.error ("[WAL] wal-recovery create " + aElement, ex);
+                      LOGGER.error ("[WAL] wal-recovery create " + aElement, ex);
                       throw ex;
                     }
                     break;
@@ -582,12 +582,12 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
                     {
                       onRecoveryUpdate (aElement);
                       bPerformedAtLeastOnRecovery = true;
-                      s_aLogger.info ("[WAL] wal-recovery update " + aElement);
+                      LOGGER.info ("[WAL] wal-recovery update " + aElement);
                       break;
                     }
                     catch (final RuntimeException ex)
                     {
-                      s_aLogger.error ("[WAL] wal-recovery update " + aElement, ex);
+                      LOGGER.error ("[WAL] wal-recovery update " + aElement, ex);
                       throw ex;
                     }
                   case DELETE:
@@ -595,12 +595,12 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
                     {
                       onRecoveryDelete (aElement);
                       bPerformedAtLeastOnRecovery = true;
-                      s_aLogger.info ("[WAL] wal-recovery delete " + aElement);
+                      LOGGER.info ("[WAL] wal-recovery delete " + aElement);
                       break;
                     }
                     catch (final RuntimeException ex)
                     {
-                      s_aLogger.error ("[WAL] wal-recovery delete " + aElement, ex);
+                      LOGGER.error ("[WAL] wal-recovery delete " + aElement, ex);
                       throw ex;
                     }
                   default:
@@ -609,11 +609,11 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
               }
             }
             bFinishedSuccessful = true;
-            s_aLogger.info ("Successfully finished recovery from WAL file " + aWALFile.getAbsolutePath ());
+            LOGGER.info ("Successfully finished recovery from WAL file " + aWALFile.getAbsolutePath ());
           }
           catch (final Exception ex)
           {
-            s_aLogger.error ("Failed to recover from WAL file " + aWALFile.getAbsolutePath (), ex);
+            LOGGER.error ("Failed to recover from WAL file " + aWALFile.getAbsolutePath (), ex);
             triggerExceptionHandlersRead (ex, false, aWALFile);
             throw new DAOException ("Error the WAL file '" + aWALFile.getAbsolutePath () + "'", ex);
           }
@@ -749,8 +749,8 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
     if (sFilename == null)
     {
       // We're not operating on a file! Required for testing
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("The DAO of class " + getClass ().getName () + " cannot write to a file");
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("The DAO of class " + getClass ().getName () + " cannot write to a file");
       return ESuccess.FAILURE;
     }
 
@@ -762,8 +762,8 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
     }
 
     if (isDebugLogging ())
-      if (s_aLogger.isInfoEnabled ())
-        s_aLogger.info ("Trying to write WAL DAO file '" + sFilename + "'");
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("Trying to write WAL DAO file '" + sFilename + "'");
 
     File aFileNew = null;
     IMicroDocument aDoc = null;
@@ -840,12 +840,12 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
     {
       final String sErrorFilename = aFileNew != null ? aFileNew.getAbsolutePath () : sFilename;
 
-      s_aLogger.error ("The DAO of class " +
-                       getClass ().getName () +
-                       " failed to write the DAO data to '" +
-                       sErrorFilename +
-                       "'",
-                       ex);
+      LOGGER.error ("The DAO of class " +
+                    getClass ().getName () +
+                    " failed to write the DAO data to '" +
+                    sErrorFilename +
+                    "'",
+                    ex);
 
       triggerExceptionHandlersWrite (ex, sErrorFilename, aDoc);
       m_aStatsCounterWriteExceptions.increment ();
@@ -860,12 +860,12 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
       internalSetPendingChanges (false);
     else
     {
-      if (s_aLogger.isErrorEnabled ())
-        s_aLogger.error ("The DAO of class " +
-                         getClass ().getName () +
-                         " still has pending changes after " +
-                         sCallingMethodName +
-                         "!");
+      if (LOGGER.isErrorEnabled ())
+        LOGGER.error ("The DAO of class " +
+                      getClass ().getName () +
+                      " still has pending changes after " +
+                      sCallingMethodName +
+                      "!");
     }
   }
 
@@ -891,7 +891,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
     ValueEnforcer.notEmpty (sWALFilename, "WALFilename");
     final File aWALFile = m_aIO.getFile (sWALFilename);
     if (FileOperationManager.INSTANCE.deleteFile (aWALFile).isFailure ())
-      s_aLogger.error ("Failed to delete WAL file " + aWALFile.getAbsolutePath ());
+      LOGGER.error ("Failed to delete WAL file " + aWALFile.getAbsolutePath ());
   }
 
   /**
@@ -941,7 +941,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
     }
     catch (final Exception ex)
     {
-      s_aLogger.error ("Error writing WAL file " + aWALRes, ex);
+      LOGGER.error ("Error writing WAL file " + aWALRes, ex);
       triggerExceptionHandlersWrite (ex, sWALFilename, (IMicroDocument) null);
     }
     return ESuccess.FAILURE;

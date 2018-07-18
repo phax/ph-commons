@@ -50,7 +50,7 @@ import com.helger.commons.string.StringHelper;
 @Immutable
 public final class EnumHelper
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (EnumHelper.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (EnumHelper.class);
   private static final Object [] NOT_CACHABLE = ArrayHelper.EMPTY_OBJECT_ARRAY;
   private static final SimpleReadWriteLock s_aRWLockInt = new SimpleReadWriteLock ();
   @GuardedBy ("s_aRWLockInt")
@@ -496,8 +496,8 @@ public final class EnumHelper
         return EChange.UNCHANGED;
       s_aIntCache.clear ();
 
-      if (s_aLogger.isDebugEnabled ())
-        s_aLogger.debug ("Cache was cleared: " + EnumHelper.class.getName ());
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Cache was cleared: " + EnumHelper.class.getName ());
       return EChange.CHANGED;
     });
   }

@@ -67,7 +67,7 @@ public class WSClientConfig
   public static final int DEFAULT_REQUEST_TIMEOUT_MS = 5000;
   public static final int DEFAULT_CHUNK_SIZE = -1;
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (WSClientConfig.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (WSClientConfig.class);
 
   private final URL m_aEndpointAddress;
   private SSLSocketFactory m_aSSLSocketFactory;
@@ -95,8 +95,8 @@ public class WSClientConfig
   {
     m_aEndpointAddress = aEndpointAddress;
 
-    if (s_aLogger.isDebugEnabled () && aEndpointAddress != null)
-      s_aLogger.debug ("Using endpoint address '" + m_aEndpointAddress.toExternalForm () + "'");
+    if (LOGGER.isDebugEnabled () && aEndpointAddress != null)
+      LOGGER.debug ("Using endpoint address '" + m_aEndpointAddress.toExternalForm () + "'");
   }
 
   /**
@@ -556,14 +556,14 @@ public class WSClientConfig
       final ClassLoader aThisClassLoader = IPrivilegedAction.getClassLoader (getClass ()).invokeSafe ();
       if (aContextClassLoader == null)
       {
-        s_aLogger.info ("Manually setting thread context class loader to work around MASM0003 bug");
+        LOGGER.info ("Manually setting thread context class loader to work around MASM0003 bug");
         ClassLoaderHelper.setContextClassLoader (aThisClassLoader);
       }
       else
       {
         if (!aContextClassLoader.equals (aThisClassLoader))
         {
-          s_aLogger.warn ("Manually overriding thread context class loader to work around MASM0003 bug");
+          LOGGER.warn ("Manually overriding thread context class loader to work around MASM0003 bug");
           ClassLoaderHelper.setContextClassLoader (aThisClassLoader);
         }
       }

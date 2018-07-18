@@ -79,7 +79,7 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
     }
   }
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (JAXBReaderBuilder.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (JAXBReaderBuilder.class);
 
   private final Class <JAXBTYPE> m_aImplClass;
   private ValidationEventHandler m_aEventHandler = JAXBBuilderDefaultSettings.getDefaultValidationEventHandler ();
@@ -190,7 +190,7 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
     // as we don't have a node, we need to trust the implementation class
     final Schema aSchema = getSchema ();
     if (aSchema == null && isUseSchema ())
-      s_aLogger.warn ("Don't know how to read JAXB document of type " + m_aImplClass.getName ());
+      LOGGER.warn ("Don't know how to read JAXB document of type " + m_aImplClass.getName ());
 
     JAXBTYPE ret = null;
     try

@@ -1613,7 +1613,7 @@ public final class Base64
       {
         // Gzip
         try (GZIPOutputStream gzos = new GZIPOutputStream (b64os);
-             ObjectOutputStream oos = new ObjectOutputStream (gzos))
+            ObjectOutputStream oos = new ObjectOutputStream (gzos))
         {
           oos.writeObject (aSerializableObject);
         }
@@ -1863,7 +1863,7 @@ public final class Base64
       try (final NonBlockingByteArrayOutputStream baos = new NonBlockingByteArrayOutputStream ())
       {
         try (final Base64OutputStream b64os = new Base64OutputStream (baos, ENCODE | nOptions);
-             final GZIPOutputStream gzos = new GZIPOutputStream (b64os))
+            final GZIPOutputStream gzos = new GZIPOutputStream (b64os))
         {
           gzos.write (aSource, nOfs, nLen);
         }
@@ -2236,8 +2236,8 @@ public final class Base64
       if (GZIPInputStream.GZIP_MAGIC == head)
       {
         try (final NonBlockingByteArrayOutputStream baos = new NonBlockingByteArrayOutputStream ();
-             final NonBlockingByteArrayInputStream bais = new NonBlockingByteArrayInputStream (bytes);
-             final GZIPInputStream gzis = new GZIPInputStream (bais))
+            final NonBlockingByteArrayInputStream bais = new NonBlockingByteArrayInputStream (bytes);
+            final GZIPInputStream gzis = new GZIPInputStream (bais))
         {
           final byte [] buffer = new byte [2048];
           int length;

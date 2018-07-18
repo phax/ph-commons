@@ -40,7 +40,7 @@ import com.helger.xml.serialize.write.XMLWriterSettings;
  */
 public final class MicroSerializerTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MicroSerializerTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MicroSerializerTest.class);
 
   @Nonnull
   private IMicroDocument _createLargeDoc (@Nonnull final IMicroDocument doc,
@@ -117,7 +117,7 @@ public final class MicroSerializerTest
       }
       assertFalse (aWriter.isEmpty ());
     }
-    s_aLogger.info ("Average MicroDOM write: " + ((double) nMilliSecs / (nRun - nWarmUpRuns)) + " millisecs");
+    LOGGER.info ("Average MicroDOM write: " + ((double) nMilliSecs / (nRun - nWarmUpRuns)) + " millisecs");
   }
 
   @Test

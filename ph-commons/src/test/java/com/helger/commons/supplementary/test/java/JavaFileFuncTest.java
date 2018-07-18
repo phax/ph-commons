@@ -33,36 +33,36 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class JavaFileFuncTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (JavaFileFuncTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (JavaFileFuncTest.class);
 
   private static void _log (@Nonnull final File f)
   {
-    s_aLogger.info ("Next file:");
-    s_aLogger.info ("  AbsolutePath:  " + f.getAbsolutePath ());
+    LOGGER.info ("Next file:");
+    LOGGER.info ("  AbsolutePath:  " + f.getAbsolutePath ());
     try
     {
-      s_aLogger.info ("  CanonicalPath: " + f.getCanonicalPath ());
+      LOGGER.info ("  CanonicalPath: " + f.getCanonicalPath ());
     }
     catch (final IOException ex)
     {
-      s_aLogger.info ("  CanonicalPath: " + ex.getMessage ());
+      LOGGER.info ("  CanonicalPath: " + ex.getMessage ());
     }
-    s_aLogger.info ("  Name:          " + f.getName ());
-    s_aLogger.info ("  Path:          " + f.getPath ());
-    s_aLogger.info ("  Parent:        " + f.getParent ());
-    s_aLogger.info ("  Parent2:       " + f.getAbsoluteFile ().getParent ());
-    s_aLogger.info ("  Parent3:       " + f.getParentFile ());
-    s_aLogger.info ("  Parent4:       " + f.getAbsoluteFile ().getParentFile ());
-    s_aLogger.info ("  isAbsolute:    " + f.isAbsolute ());
-    s_aLogger.info ("  exists:        " + f.exists ());
+    LOGGER.info ("  Name:          " + f.getName ());
+    LOGGER.info ("  Path:          " + f.getPath ());
+    LOGGER.info ("  Parent:        " + f.getParent ());
+    LOGGER.info ("  Parent2:       " + f.getAbsoluteFile ().getParent ());
+    LOGGER.info ("  Parent3:       " + f.getParentFile ());
+    LOGGER.info ("  Parent4:       " + f.getAbsoluteFile ().getParentFile ());
+    LOGGER.info ("  isAbsolute:    " + f.isAbsolute ());
+    LOGGER.info ("  exists:        " + f.exists ());
     if (f.exists ())
     {
-      s_aLogger.info ("  isDirectory:   " + f.isDirectory ());
-      s_aLogger.info ("  isFile:        " + f.isFile ());
-      s_aLogger.info ("  isHidden:      " + f.isHidden ());
-      s_aLogger.info ("  canRead:       " + f.canRead ());
-      s_aLogger.info ("  canWrite:      " + f.canWrite ());
-      s_aLogger.info ("  canExecute:    " + f.canExecute ());
+      LOGGER.info ("  isDirectory:   " + f.isDirectory ());
+      LOGGER.info ("  isFile:        " + f.isFile ());
+      LOGGER.info ("  isHidden:      " + f.isHidden ());
+      LOGGER.info ("  canRead:       " + f.canRead ());
+      LOGGER.info ("  canWrite:      " + f.canWrite ());
+      LOGGER.info ("  canExecute:    " + f.canExecute ());
     }
   }
 

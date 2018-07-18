@@ -55,13 +55,13 @@ public final class BenchmarkStringCodePoints extends AbstractBenchmarkTask
   {
     final int nRuns = 1000;
     final double t1 = benchmarkTask (new StringHelperIterate (nRuns));
-    s_aLogger.info ("Time using StringHelper:                " + BigDecimal.valueOf (t1).toString () + " us");
+    LOGGER.info ("Time using StringHelper:                " + BigDecimal.valueOf (t1).toString () + " us");
 
     final double t2 = benchmarkTask (new CodePointsForEachOrdered (nRuns));
-    s_aLogger.info ("Time using codePoints().forEachOrdered: " + BigDecimal.valueOf (t2).toString () + " us");
+    LOGGER.info ("Time using codePoints().forEachOrdered: " + BigDecimal.valueOf (t2).toString () + " us");
 
     final double t3 = benchmarkTask (new CodePointsCount (nRuns));
-    s_aLogger.info ("Time using codePoints().count:          " + BigDecimal.valueOf (t3).toString () + " us");
+    LOGGER.info ("Time using codePoints().count:          " + BigDecimal.valueOf (t3).toString () + " us");
   }
 
   private static final class StringHelperIterate implements Runnable

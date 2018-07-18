@@ -29,7 +29,7 @@ import com.helger.commons.lang.EnumHelper;
  *
  * @author Philip Helger
  */
-public enum ETriState implements IHasID <String>,ITriState
+public enum ETriState implements IHasID <String>, ITriState
 {
   TRUE ("true", Boolean.TRUE),
   FALSE ("false", Boolean.FALSE),

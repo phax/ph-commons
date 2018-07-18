@@ -55,7 +55,7 @@ import com.helger.xml.CXMLRegEx;
  */
 public final class MicroElement extends AbstractMicroNodeWithChildren implements IMicroElement
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MicroElement.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MicroElement.class);
 
   private String m_sNamespaceURI;
   private final String m_sTagName;
@@ -78,12 +78,12 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     else
     {
       // Cut the prefix
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("Removing micro element namespace prefix '" +
-                        sTagName.substring (0, nPrefixEnd) +
-                        "' from tag name '" +
-                        sTagName +
-                        "'");
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("Removing micro element namespace prefix '" +
+                     sTagName.substring (0, nPrefixEnd) +
+                     "' from tag name '" +
+                     sTagName +
+                     "'");
       m_sTagName = sTagName.substring (nPrefixEnd + 1);
     }
 

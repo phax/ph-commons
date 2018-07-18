@@ -39,7 +39,7 @@ public final class LRUSetTest
   @Test
   public void testLRUCache ()
   {
-    final LRUSet <Integer> aCache = new LRUSet<> (MAX_SIZE);
+    final LRUSet <Integer> aCache = new LRUSet <> (MAX_SIZE);
     assertTrue (aCache.isEmpty ());
     assertEquals (0, aCache.size ());
     assertEquals (MAX_SIZE, aCache.getMaxSize ());
@@ -86,10 +86,10 @@ public final class LRUSetTest
     aCache.clear ();
     assertEquals (0, aCache.size ());
 
-    final LRUSet <String> ret = new LRUSet<> (4);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ret, new LRUSet<> (4));
+    final LRUSet <String> ret = new LRUSet <> (4);
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ret, new LRUSet <> (4));
     ret.add ("a");
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ret, new LRUSet<> (4));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new LRUSet<> (3), new LRUSet<> (4));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ret, new LRUSet <> (4));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new LRUSet <> (3), new LRUSet <> (4));
   }
 }

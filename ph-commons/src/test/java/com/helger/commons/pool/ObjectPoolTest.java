@@ -34,7 +34,7 @@ import com.helger.commons.concurrent.ThreadHelper;
  */
 public final class ObjectPoolTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (ObjectPoolTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (ObjectPoolTest.class);
 
   @Test
   public void testSimple () throws InterruptedException
@@ -47,7 +47,7 @@ public final class ObjectPoolTest
       {
         try
         {
-          final ObjectPool <String> aOP = new ObjectPool<> (ITEMS, () -> "any");
+          final ObjectPool <String> aOP = new ObjectPool <> (ITEMS, () -> "any");
           for (int i = 0; i < ITEMS; ++i)
             assertEquals ("any", aOP.borrowObject ());
 
@@ -63,9 +63,9 @@ public final class ObjectPoolTest
         }
         catch (final Throwable t)
         {
-          s_aLogger.error ("Failure", t);
+          LOGGER.error ("Failure", t);
         }
-        s_aLogger.info ("Done");
+        LOGGER.info ("Done");
       }
     };
     aThread.start ();

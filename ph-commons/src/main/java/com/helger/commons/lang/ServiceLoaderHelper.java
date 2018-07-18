@@ -43,7 +43,7 @@ import com.helger.commons.collection.impl.ICommonsList;
 @Immutable
 public final class ServiceLoaderHelper
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (ServiceLoaderHelper.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (ServiceLoaderHelper.class);
   private static final AnnotationUsageCache s_aCacheInterface = new AnnotationUsageCache (IsSPIInterface.class);
   private static final AnnotationUsageCache s_aCacheImplementation = new AnnotationUsageCache (IsSPIImplementation.class);
 
@@ -133,14 +133,14 @@ public final class ServiceLoaderHelper
     ValueEnforcer.notNull (aSPIClass, "SPIClass");
     ValueEnforcer.notNull (aClassLoader, "ClassLoader");
 
-    final Logger aRealLogger = aLogger != null ? aLogger : s_aLogger;
+    final Logger aRealLogger = aLogger != null ? aLogger : LOGGER;
 
     if (aRealLogger.isTraceEnabled ())
       aRealLogger.trace ("Trying to retrieve all SPI implementations of " + aSPIClass);
 
     if (!s_aCacheInterface.hasAnnotation (aSPIClass))
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn (aSPIClass + " should have the @IsSPIInterface annotation");
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn (aSPIClass + " should have the @IsSPIInterface annotation");
 
     final ServiceLoader <T> aServiceLoader = ServiceLoader.<T> load (aSPIClass, aClassLoader);
     final ICommonsList <T> ret = new CommonsArrayList <> ();
@@ -155,8 +155,8 @@ public final class ServiceLoaderHelper
       {
         final T aInstance = aIterator.next ();
         if (!s_aCacheImplementation.hasAnnotation (aInstance))
-          if (s_aLogger.isWarnEnabled ())
-            s_aLogger.warn (aInstance + " should have the @IsSPIImplementation annotation");
+          if (LOGGER.isWarnEnabled ())
+            LOGGER.warn (aInstance + " should have the @IsSPIImplementation annotation");
         ret.add (aInstance);
       }
       catch (final Exception ex)
@@ -249,7 +249,7 @@ public final class ServiceLoaderHelper
                                                  @Nonnull final ClassLoader aClassLoader,
                                                  @Nullable final Logger aLogger)
   {
-    final Logger aRealLogger = aLogger != null ? aLogger : s_aLogger;
+    final Logger aRealLogger = aLogger != null ? aLogger : LOGGER;
     final ICommonsList <T> aAll = getAllSPIImplementations (aSPIClass, aClassLoader, aRealLogger);
     if (aAll.isEmpty ())
     {

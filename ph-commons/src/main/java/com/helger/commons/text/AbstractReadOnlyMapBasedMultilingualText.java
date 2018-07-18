@@ -54,7 +54,7 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractHasText implements IMultilingualText
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractReadOnlyMapBasedMultilingualText.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (AbstractReadOnlyMapBasedMultilingualText.class);
   private static final AtomicBoolean s_aConsistencyChecksEnabled = new AtomicBoolean (GlobalDebug.isDebugMode ());
 
   private final ICommonsOrderedMap <Locale, String> m_aTexts;
@@ -103,8 +103,8 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
   {
     // String contains masked newline? warning only!
     if (sValue.contains ("\\n"))
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("Passed string contains a masked newline - replace with an inline one:\n" + sValue);
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("Passed string contains a masked newline - replace with an inline one:\n" + sValue);
 
     if (sValue.contains ("{0}"))
     {

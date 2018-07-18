@@ -58,7 +58,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
   /** By default the resource bundle cache is used */
   public static final boolean DEFAULT_USE_RESOURCE_BUNDLE_CACHE = true;
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (EnumTextResolverWithPropertiesOverrideAndFallback.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (EnumTextResolverWithPropertiesOverrideAndFallback.class);
   private static final IMutableStatisticsHandlerKeyedCounter s_aStatsFailed = StatisticsManager.getKeyedCounterHandler (EnumTextResolverWithPropertiesOverrideAndFallback.class.getName () +
                                                                                                                         "$failed");
 
@@ -183,8 +183,8 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
     s_aStatsFailed.increment (PREFIX_FALLBACK + aContentLocale.toString () + ':' + sID);
     if (GlobalDebug.isDebugMode ())
     {
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("getFallbackString (" + sID + "; " + aContentLocale.toString () + ") failed!");
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("getFallbackString (" + sID + "; " + aContentLocale.toString () + ") failed!");
 
       // Return consistent results
       if (false)
@@ -224,7 +224,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
       m_aResourceBundleCache.clear ();
     });
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Cache was cleared: " + getClass ().getName ());
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Cache was cleared: " + getClass ().getName ());
   }
 }

@@ -563,7 +563,7 @@ public final class CSVReaderTest
   @Test
   public void testIteratorFunctionality () throws IOException
   {
-    final ICommonsList <ICommonsList <String>> expectedResult = new CommonsArrayList<> ();
+    final ICommonsList <ICommonsList <String>> expectedResult = new CommonsArrayList <> ();
     expectedResult.add (CollectionHelper.newList ("a", "b", "c"));
     expectedResult.add (CollectionHelper.newList ("a", "b,b,b", "c"));
     expectedResult.add (CollectionHelper.newList ("", "", ""));

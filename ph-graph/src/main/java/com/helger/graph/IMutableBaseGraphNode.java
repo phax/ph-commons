@@ -32,7 +32,9 @@ import com.helger.commons.state.EChange;
  */
 @MustImplementEqualsAndHashcode
 public interface IMutableBaseGraphNode <NODETYPE extends IMutableBaseGraphNode <NODETYPE, RELATIONTYPE>, RELATIONTYPE extends IMutableBaseGraphRelation <NODETYPE, RELATIONTYPE>>
-                                       extends IBaseGraphNode <NODETYPE, RELATIONTYPE>, IMutableBaseGraphObject
+                                       extends
+                                       IBaseGraphNode <NODETYPE, RELATIONTYPE>,
+                                       IMutableBaseGraphObject
 {
   /**
    * Remove all relations of this node.

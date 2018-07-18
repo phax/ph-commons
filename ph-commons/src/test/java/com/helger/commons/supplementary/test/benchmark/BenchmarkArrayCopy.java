@@ -40,16 +40,16 @@ public final class BenchmarkArrayCopy extends AbstractBenchmarkTask
     for (int i = 1; true; i++)
     {
       final double javaTime = benchmarkTask (new JavaArrayCopy (i));
-      s_aLogger.info ("Time to copy an int[" + i + "] purely in Java: " + javaTime + " us");
+      LOGGER.info ("Time to copy an int[" + i + "] purely in Java: " + javaTime + " us");
 
       final double systemTime = benchmarkTask (new SystemArrayCopy (i));
-      s_aLogger.info ("Time to copy an int[" + i + "] using System.arraycopy: " + systemTime + " us");
+      LOGGER.info ("Time to copy an int[" + i + "] using System.arraycopy: " + systemTime + " us");
 
       if (systemTime < javaTime)
       {
         if (i == 1)
           throw new IllegalStateException (" found that System.arraycopy beats a pure Java copy even for an array of length 1");
-        s_aLogger.info ("System.arraycopy first beats a pure Java copy for int arrays of length = " + i);
+        LOGGER.info ("System.arraycopy first beats a pure Java copy for int arrays of length = " + i);
         break;
       }
     }
@@ -73,7 +73,7 @@ public final class BenchmarkArrayCopy extends AbstractBenchmarkTask
     for (int i = 1; i < 1024 * 1024; i *= 2)
     {
       final double systemTime = benchmarkTask (new SystemArrayCopy (i));
-      s_aLogger.info ("Time to copy an int[" + i + "] using System.arraycopy: " + systemTime + " us");
+      LOGGER.info ("Time to copy an int[" + i + "] using System.arraycopy: " + systemTime + " us");
     }
   }
 

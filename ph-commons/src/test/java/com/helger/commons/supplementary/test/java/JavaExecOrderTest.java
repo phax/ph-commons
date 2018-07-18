@@ -22,12 +22,12 @@ import org.slf4j.LoggerFactory;
 
 public final class JavaExecOrderTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (JavaExecOrderTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (JavaExecOrderTest.class);
 
   @Test
   public void testV1 ()
   {
-    s_aLogger.info ("v1");
+    LOGGER.info ("v1");
     int jjnewStateCnt = 1;
     int startsAt = 2;
     int i;
@@ -35,15 +35,15 @@ public final class JavaExecOrderTest
     {}
     else
     {}
-    s_aLogger.info ("i=" + i);
-    s_aLogger.info ("jjnewStateCnt=" + jjnewStateCnt);
-    s_aLogger.info ("startsAt=" + startsAt);
+    LOGGER.info ("i=" + i);
+    LOGGER.info ("jjnewStateCnt=" + jjnewStateCnt);
+    LOGGER.info ("startsAt=" + startsAt);
   }
 
   @Test
   public void testV2 ()
   {
-    s_aLogger.info ("v2");
+    LOGGER.info ("v2");
     int jjnewStateCnt = 1;
     int startsAt = 2;
     int i;
@@ -54,44 +54,44 @@ public final class JavaExecOrderTest
     {}
     else
     {}
-    s_aLogger.info ("i=" + i);
-    s_aLogger.info ("jjnewStateCnt=" + jjnewStateCnt);
-    s_aLogger.info ("startsAt=" + startsAt);
+    LOGGER.info ("i=" + i);
+    LOGGER.info ("jjnewStateCnt=" + jjnewStateCnt);
+    LOGGER.info ("startsAt=" + startsAt);
   }
 
   private int jjnewStateCnt ()
   {
-    s_aLogger.info ("jjnewStateCnt get");
+    LOGGER.info ("jjnewStateCnt get");
     return 1;
   }
 
   private int startsAt ()
   {
-    s_aLogger.info ("startsAt get");
+    LOGGER.info ("startsAt get");
     return 2;
   }
 
   private int jjnewStateCnt (final int x)
   {
-    s_aLogger.info ("jjnewStateCnt set " + x);
+    LOGGER.info ("jjnewStateCnt set " + x);
     return x;
   }
 
   private int startsAt (final int x)
   {
-    s_aLogger.info ("startsAt set " + x);
+    LOGGER.info ("startsAt set " + x);
     return x;
   }
 
   @Test
   public void testV3 ()
   {
-    s_aLogger.info ("v3");
+    LOGGER.info ("v3");
     int i;
     if ((i = jjnewStateCnt ()) == (startsAt (62 - (jjnewStateCnt (startsAt ())))))
     {}
     else
     {}
-    s_aLogger.info ("result: " + i);
+    LOGGER.info ("result: " + i);
   }
 }

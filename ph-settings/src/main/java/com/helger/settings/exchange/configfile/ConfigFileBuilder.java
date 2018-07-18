@@ -48,7 +48,7 @@ import com.helger.settings.exchange.properties.SettingsPersistenceProperties;
  */
 public class ConfigFileBuilder
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (ConfigFileBuilder.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (ConfigFileBuilder.class);
 
   private ISettingsPersistence m_aSPP = new SettingsPersistenceProperties (TrimmedValueSettings::new);
   private final ICommonsList <String> m_aPaths = new CommonsArrayList <> ();
@@ -187,8 +187,8 @@ public class ConfigFileBuilder
     }
 
     if (aSettings == null)
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("Failed to resolve config file paths: " + m_aPaths);
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("Failed to resolve config file paths: " + m_aPaths);
 
     return new ConfigFile (aSettings != null ? aRes : null, aSettings);
   }

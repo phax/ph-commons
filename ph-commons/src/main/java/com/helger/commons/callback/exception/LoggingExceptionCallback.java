@@ -42,7 +42,7 @@ import com.helger.commons.string.ToStringGenerator;
 @ThreadSafe
 public class LoggingExceptionCallback implements IExceptionCallback <Throwable>, IHasErrorLevel
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingExceptionCallback.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (LoggingExceptionCallback.class);
 
   private IErrorLevel m_aErrorLevel = EErrorLevel.ERROR;
 
@@ -107,7 +107,7 @@ public class LoggingExceptionCallback implements IExceptionCallback <Throwable>,
   {
     final String sLogMessage = getLogMessage (t);
     final boolean bLogException = isLogException (t);
-    LogHelper.log (s_aLogger, m_aErrorLevel, sLogMessage, bLogException ? t : null);
+    LogHelper.log (LOGGER, m_aErrorLevel, sLogMessage, bLogException ? t : null);
   }
 
   @Override

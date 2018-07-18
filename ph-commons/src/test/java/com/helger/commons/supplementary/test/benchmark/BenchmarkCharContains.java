@@ -42,14 +42,14 @@ public final class BenchmarkCharContains
 
   public static final IDoIt s_a2 = s -> s.indexOf ('/') >= 0 || s.indexOf ('\\') >= 0;
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (BenchmarkCharContains.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (BenchmarkCharContains.class);
 
   private BenchmarkCharContains ()
   {}
 
   public static void main (final String [] args)
   {
-    final ICommonsList <String> aStrs = new CommonsArrayList<> ();
+    final ICommonsList <String> aStrs = new CommonsArrayList <> ();
 
     for (int j = 0; j < 100; ++j)
       for (int i = 'a'; i <= 'z'; ++i)
@@ -70,14 +70,14 @@ public final class BenchmarkCharContains
     for (final String s : aStrs)
       nSum1 += s_a1.containsPathSep (s) ? 1 : 0;
     aSW1.stop ();
-    s_aLogger.info ("Version 1 took " + aSW1.getMillis ());
+    LOGGER.info ("Version 1 took " + aSW1.getMillis ());
 
     final StopWatch aSW2 = StopWatch.createdStarted ();
     int nSum2 = 0;
     for (final String s : aStrs)
       nSum2 += s_a2.containsPathSep (s) ? 1 : 0;
     aSW2.stop ();
-    s_aLogger.info ("Version 2 took " + aSW2.getMillis ());
+    LOGGER.info ("Version 2 took " + aSW2.getMillis ());
 
     if (nSum1 != nSum2)
       throw new IllegalStateException ("Dont match! " + nSum1 + " -- " + nSum2);

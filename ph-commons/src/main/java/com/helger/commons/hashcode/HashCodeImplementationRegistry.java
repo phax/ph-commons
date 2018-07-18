@@ -59,7 +59,7 @@ public final class HashCodeImplementationRegistry implements IHashCodeImplementa
     private static final HashCodeImplementationRegistry s_aInstance = new HashCodeImplementationRegistry ();
   }
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (HashCodeImplementationRegistry.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (HashCodeImplementationRegistry.class);
 
   private static boolean s_bDefaultInstantiated = false;
 
@@ -111,12 +111,12 @@ public final class HashCodeImplementationRegistry implements IHashCodeImplementa
         {
           // Avoid the warning when the passed implementation equals the stored
           // implementation
-          s_aLogger.warn ("Another hashCode implementation for class " +
-                          aClass +
-                          " is already registered (" +
-                          aOldImpl.toString () +
-                          ") so it is not overwritten with " +
-                          aImpl.toString ());
+          LOGGER.warn ("Another hashCode implementation for class " +
+                       aClass +
+                       " is already registered (" +
+                       aOldImpl.toString () +
+                       ") so it is not overwritten with " +
+                       aImpl.toString ());
         }
     });
   }
@@ -197,11 +197,11 @@ public final class HashCodeImplementationRegistry implements IHashCodeImplementa
               {
                 aMatchingImplementation = GenericReflection.uncheckedCast (aImpl);
                 aMatchingClass = aCurClass;
-                if (s_aLogger.isDebugEnabled ())
-                  s_aLogger.debug ("Found hierarchical match with class " +
-                                   aMatchingClass +
-                                   " when searching for " +
-                                   aClass);
+                if (LOGGER.isDebugEnabled ())
+                  LOGGER.debug ("Found hierarchical match with class " +
+                                aMatchingClass +
+                                " when searching for " +
+                                aClass);
                 break;
               }
             }
@@ -247,8 +247,8 @@ public final class HashCodeImplementationRegistry implements IHashCodeImplementa
     }
 
     // No special handler found
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Found no hashCode implementation for " + aClass);
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Found no hashCode implementation for " + aClass);
 
     // Definitely no special implementation
     return null;
@@ -277,7 +277,7 @@ public final class HashCodeImplementationRegistry implements IHashCodeImplementa
     for (final IHashCodeImplementationRegistrarSPI aRegistrar : ServiceLoaderHelper.getAllSPIImplementations (IHashCodeImplementationRegistrarSPI.class))
       aRegistrar.registerHashCodeImplementations (this);
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Reinitialized " + HashCodeImplementationRegistry.class.getName ());
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Reinitialized " + HashCodeImplementationRegistry.class.getName ());
   }
 }

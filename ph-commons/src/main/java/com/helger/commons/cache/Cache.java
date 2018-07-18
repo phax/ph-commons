@@ -61,7 +61,7 @@ public class Cache <KEYTYPE, VALUETYPE> implements IMutableCache <KEYTYPE, VALUE
   /** The prefix to be used for statistics elements */
   public static final String STATISTICS_PREFIX = "cache:";
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (Cache.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (Cache.class);
 
   protected final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   private final IFunction <KEYTYPE, VALUETYPE> m_aCacheValueProvider;
@@ -257,8 +257,8 @@ public class Cache <KEYTYPE, VALUETYPE> implements IMutableCache <KEYTYPE, VALUE
       m_aRWLock.writeLock ().unlock ();
     }
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Cache '" + m_sName + "' was cleared");
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Cache '" + m_sName + "' was cleared");
     return EChange.CHANGED;
   }
 

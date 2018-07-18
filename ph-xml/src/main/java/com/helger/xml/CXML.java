@@ -69,7 +69,6 @@ public final class CXML
   public static final char XML_PREFIX_NAMESPACE_SEP = ':';
   /** separator between namespace prefix and element name */
   public static final String XML_PREFIX_NAMESPACE_SEP_STR = Character.toString (XML_PREFIX_NAMESPACE_SEP);
-  
 
   // xml:*
 

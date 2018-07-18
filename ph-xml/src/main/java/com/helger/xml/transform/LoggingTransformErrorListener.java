@@ -39,7 +39,7 @@ import com.helger.commons.log.LogHelper;
 @CodingStyleguideUnaware ("logger too visible by purpose")
 public class LoggingTransformErrorListener extends AbstractTransformErrorListener
 {
-  protected static final Logger s_aLogger = LoggerFactory.getLogger (LoggingTransformErrorListener.class);
+  protected static final Logger LOGGER = LoggerFactory.getLogger (LoggingTransformErrorListener.class);
 
   private final Locale m_aDisplayLocale;
 
@@ -59,6 +59,6 @@ public class LoggingTransformErrorListener extends AbstractTransformErrorListene
   {
     final IErrorLevel aErrorLevel = aResError.getErrorLevel ();
     final String sText = aResError.getAsString (m_aDisplayLocale);
-    LogHelper.log (s_aLogger, aErrorLevel, sText);
+    LogHelper.log (LOGGER, aErrorLevel, sText);
   }
 }

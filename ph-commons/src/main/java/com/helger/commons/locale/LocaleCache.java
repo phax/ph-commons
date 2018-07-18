@@ -54,14 +54,14 @@ public final class LocaleCache
     private static final LocaleCache s_aInstance = new LocaleCache ();
   }
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (LocaleCache.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (LocaleCache.class);
   private static boolean s_bDefaultInstantiated = false;
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
   /** maps a string to a locale. */
   @GuardedBy ("m_aRWLock")
-  private final ICommonsMap <String, Locale> m_aLocales = new CommonsHashMap<> ();
+  private final ICommonsMap <String, Locale> m_aLocales = new CommonsHashMap <> ();
 
   private LocaleCache ()
   {
@@ -214,7 +214,7 @@ public final class LocaleCache
   @ReturnsMutableCopy
   public ICommonsSet <Locale> getAllLanguages ()
   {
-    final ICommonsSet <Locale> ret = new CommonsHashSet<> ();
+    final ICommonsSet <Locale> ret = new CommonsHashSet <> ();
     for (final Locale aLocale : getAllLocales ())
     {
       final String sLanguage = aLocale.getLanguage ();
@@ -324,7 +324,7 @@ public final class LocaleCache
         _initialAdd (new Locale (sLanguage, ""));
     });
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Reinitialized " + LocaleCache.class.getName ());
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Reinitialized " + LocaleCache.class.getName ());
   }
 }

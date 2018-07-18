@@ -55,7 +55,7 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
                                AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE> implements
                                IJAXBWriter <JAXBTYPE>
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (JAXBWriterBuilder.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (JAXBWriterBuilder.class);
 
   private ValidationEventHandler m_aEventHandler = JAXBBuilderDefaultSettings.getDefaultValidationEventHandler ();
   private INamespaceContext m_aNSContext = JAXBBuilderDefaultSettings.getDefaultNamespaceContext ();
@@ -245,14 +245,14 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
       catch (final Exception ex)
       {
         // Might be an IllegalArgumentException or a NoClassDefFoundError
-        if (s_aLogger.isErrorEnabled ())
-          s_aLogger.error ("Failed to set the namespace context " +
-                           m_aNSContext +
-                           ": " +
-                           ex.getClass ().getName () +
-                           " -- " +
-                           ex.getMessage (),
-                           GlobalDebug.isDebugMode () ? ex.getCause () : null);
+        if (LOGGER.isErrorEnabled ())
+          LOGGER.error ("Failed to set the namespace context " +
+                        m_aNSContext +
+                        ": " +
+                        ex.getClass ().getName () +
+                        " -- " +
+                        ex.getMessage (),
+                        GlobalDebug.isDebugMode () ? ex.getCause () : null);
       }
 
     JAXBMarshallerHelper.setFormattedOutput (aMarshaller, m_bFormattedOutput);
@@ -282,11 +282,11 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
     // Avoid class cast exception later on
     if (!m_aDocType.getImplementationClass ().getPackage ().equals (aJAXBDocument.getClass ().getPackage ()))
     {
-      if (s_aLogger.isErrorEnabled ())
-        s_aLogger.error ("You cannot write a '" +
-                         aJAXBDocument.getClass () +
-                         "' as a " +
-                         m_aDocType.getImplementationClass ().getPackage ().getName ());
+      if (LOGGER.isErrorEnabled ())
+        LOGGER.error ("You cannot write a '" +
+                      aJAXBDocument.getClass () +
+                      "' as a " +
+                      m_aDocType.getImplementationClass ().getPackage ().getName ());
       return ESuccess.FAILURE;
     }
 

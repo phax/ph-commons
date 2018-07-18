@@ -35,7 +35,7 @@ public final class CommonsEnumMapTest
   @Test
   public void testBasic ()
   {
-    final ICommonsMap <EChange, String> aTest = new CommonsEnumMap<> (EChange.class);
+    final ICommonsMap <EChange, String> aTest = new CommonsEnumMap <> (EChange.class);
     aTest.put (EChange.UNCHANGED, "blb");
     aTest.put (EChange.CHANGED, "bla");
 
@@ -50,9 +50,9 @@ public final class CommonsEnumMapTest
   @Test
   public void testCtor ()
   {
-    CommonsEnumMap <EChange, Integer> aTest = new CommonsEnumMap<> (EChange.class);
+    CommonsEnumMap <EChange, Integer> aTest = new CommonsEnumMap <> (EChange.class);
     assertEquals (0, aTest.size ());
-    aTest = new CommonsEnumMap<> (new CommonsEnumMap<> (EChange.class));
+    aTest = new CommonsEnumMap <> (new CommonsEnumMap <> (EChange.class));
     assertEquals (0, aTest.size ());
   }
 }

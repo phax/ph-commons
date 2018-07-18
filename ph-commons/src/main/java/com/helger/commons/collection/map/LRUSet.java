@@ -80,7 +80,7 @@ public class LRUSet <ELEMENTTYPE> extends AbstractSet <ELEMENTTYPE> implements I
   @Nonnull
   public LRUSet <ELEMENTTYPE> getClone ()
   {
-    return new LRUSet<> (this);
+    return new LRUSet <> (this);
   }
 
   /**

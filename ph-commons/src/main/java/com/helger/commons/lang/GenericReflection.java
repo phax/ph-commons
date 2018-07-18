@@ -40,7 +40,7 @@ import com.helger.commons.collection.ArrayHelper;
 @Immutable
 public final class GenericReflection
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (GenericReflection.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (GenericReflection.class);
 
   private static final Class <?> [] EMPTY_CLASS_ARRAY = new Class <?> [0];
 
@@ -283,7 +283,7 @@ public final class GenericReflection
          * Catch all exceptions because any exception thrown from the
          * constructor may also end up in this catch block
          */
-        s_aLogger.error ("Failed to instantiate " + aClass, ex);
+        LOGGER.error ("Failed to instantiate " + aClass, ex);
       }
     return null;
   }
@@ -305,7 +305,7 @@ public final class GenericReflection
          * constructor (indirectly invoked by newInstance) may also end up in
          * this catch block
          */
-        s_aLogger.error ("Failed to instantiate '" + sClassName + "'", ex);
+        LOGGER.error ("Failed to instantiate '" + sClassName + "'", ex);
       }
     return null;
   }
@@ -326,7 +326,7 @@ public final class GenericReflection
          * constructor (indirectly invoked by newInstance) may also end up in
          * this catch block
          */
-        s_aLogger.error ("Failed to instantiate '" + sClassName + "'", ex);
+        LOGGER.error ("Failed to instantiate '" + sClassName + "'", ex);
       }
     return null;
   }
@@ -350,7 +350,7 @@ public final class GenericReflection
          * constructor (indirectly invoked by newInstance) may also end up in
          * this catch block
          */
-        s_aLogger.error ("Failed to instantiate '" + sClassName + "' with CL " + aClassLoaderToUse, ex);
+        LOGGER.error ("Failed to instantiate '" + sClassName + "' with CL " + aClassLoaderToUse, ex);
       }
     return null;
   }

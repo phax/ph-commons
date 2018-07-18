@@ -41,7 +41,8 @@ import com.helger.commons.collection.impl.ICommonsSet;
 public abstract class AbstractMultiLinkedHashMapSetBased <KEYTYPE, VALUETYPE, COLLTYPE extends ICommonsSet <VALUETYPE>>
                                                          extends
                                                          AbstractMultiLinkedHashMap <KEYTYPE, VALUETYPE, COLLTYPE>
-                                                         implements IMultiMapSetBased <KEYTYPE, VALUETYPE, COLLTYPE>
+                                                         implements
+                                                         IMultiMapSetBased <KEYTYPE, VALUETYPE, COLLTYPE>
 {
   public AbstractMultiLinkedHashMapSetBased ()
   {}

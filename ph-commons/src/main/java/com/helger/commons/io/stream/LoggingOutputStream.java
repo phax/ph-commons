@@ -35,7 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public class LoggingOutputStream extends WrappedOutputStream
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingOutputStream.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (LoggingOutputStream.class);
 
   private long m_nTotalBytesWritten = 0;
 
@@ -56,8 +56,8 @@ public class LoggingOutputStream extends WrappedOutputStream
   @OverrideOnDemand
   protected void onWrite (@Nonnegative final int nBytesWritten, final long nTotalBytesWritten)
   {
-    if (s_aLogger.isInfoEnabled ())
-      s_aLogger.info ("Wrote " + nBytesWritten + " byte(s); now at " + nTotalBytesWritten);
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("Wrote " + nBytesWritten + " byte(s); now at " + nTotalBytesWritten);
   }
 
   @Override

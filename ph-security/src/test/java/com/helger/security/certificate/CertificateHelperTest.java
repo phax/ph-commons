@@ -142,11 +142,7 @@ public final class CertificateHelperTest
       final char [] aChars = new char [i];
       Arrays.fill (aChars, 'a');
       final String sText = new String (aChars);
-      assertEquals (CertificateHelper.BEGIN_CERTIFICATE +
-                    "\n" +
-                    sText +
-                    "\n" +
-                    CertificateHelper.END_CERTIFICATE,
+      assertEquals (CertificateHelper.BEGIN_CERTIFICATE + "\n" + sText + "\n" + CertificateHelper.END_CERTIFICATE,
                     CertificateHelper.getRFC1421CompliantString (sText, true));
       assertEquals (sText, CertificateHelper.getRFC1421CompliantString (sText, false));
     }

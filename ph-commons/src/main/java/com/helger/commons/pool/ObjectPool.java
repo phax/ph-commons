@@ -43,7 +43,7 @@ import com.helger.commons.state.ESuccess;
 @ThreadSafe
 public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE>
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (ObjectPool.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (ObjectPool.class);
 
   // Lock for this object
   private final SimpleLock m_aLock = new SimpleLock ();
@@ -104,7 +104,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
     catch (final InterruptedException ex)
     {
       // In case of acquisition interruption -> return null
-      s_aLogger.error ("ObjectPool interrupted", ex);
+      LOGGER.error ("ObjectPool interrupted", ex);
       Thread.currentThread ().interrupt ();
       return null;
     }
@@ -142,7 +142,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
           m_aAvailable.release ();
           return ESuccess.SUCCESS;
         }
-      s_aLogger.warn ("Object " + aItem + " is not pooled!");
+      LOGGER.warn ("Object " + aItem + " is not pooled!");
       return ESuccess.FAILURE;
     });
   }

@@ -67,7 +67,7 @@ public class HttpHeaderMap implements
                            ICloneable <HttpHeaderMap>,
                            IClearable
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (HttpHeaderMap.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (HttpHeaderMap.class);
   private final ICommonsOrderedMap <String, ICommonsList <String>> m_aHeaders = new CommonsLinkedHashMap <> ();
 
   /**
@@ -147,8 +147,8 @@ public class HttpHeaderMap implements
     ValueEnforcer.notEmpty (sName, "Name");
     ValueEnforcer.notNull (sValue, "Value");
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Setting HTTP header: '" + sName + "' = '" + sValue + "'");
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Setting HTTP header: '" + sName + "' = '" + sValue + "'");
     _getOrCreateHeaderList (getUnifiedName (sName)).set (sValue);
   }
 
@@ -157,8 +157,8 @@ public class HttpHeaderMap implements
     ValueEnforcer.notEmpty (sName, "Name");
     ValueEnforcer.notNull (sValue, "Value");
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Adding HTTP header: '" + sName + "' = '" + sValue + "'");
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Adding HTTP header: '" + sName + "' = '" + sValue + "'");
     _getOrCreateHeaderList (getUnifiedName (sName)).add (sValue);
   }
 

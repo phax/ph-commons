@@ -136,7 +136,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
     }
   }
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (SafeXMLStreamWriter.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (SafeXMLStreamWriter.class);
   private static final AtomicBoolean s_aDefaultDebugMode = new AtomicBoolean (false);
 
   private final XMLEmitter m_aEmitter;
@@ -275,8 +275,8 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
   protected void debug (@Nonnull final Supplier <String> aSupplier)
   {
     if (m_bDebugMode)
-      if (s_aLogger.isInfoEnabled ())
-        s_aLogger.info (aSupplier.get ());
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info (aSupplier.get ());
   }
 
   @Nonnull

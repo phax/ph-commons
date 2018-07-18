@@ -29,7 +29,7 @@ import com.helger.commons.compare.IComparator;
 
 public final class JavaListAllLocalesFuncTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (JavaListAllLocalesFuncTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (JavaListAllLocalesFuncTest.class);
 
   @Test
   @Ignore ("Too verbose")
@@ -39,12 +39,12 @@ public final class JavaListAllLocalesFuncTest
                                                             IComparator.getComparatorCollating (Locale::getCountry,
                                                                                                 Locale.US)))
       if (aLocale.getCountry ().length () > 0)
-        s_aLogger.info (aLocale.getCountry () +
-                        " " +
-                        aLocale.getDisplayCountry (Locale.US) +
-                        " (" +
-                        aLocale.toString () +
-                        ")");
+        LOGGER.info (aLocale.getCountry () +
+                     " " +
+                     aLocale.getDisplayCountry (Locale.US) +
+                     " (" +
+                     aLocale.toString () +
+                     ")");
   }
 
   @Test
@@ -55,6 +55,6 @@ public final class JavaListAllLocalesFuncTest
       if (aLocale.getLanguage ().equals ("sr") ||
           aLocale.getLanguage ().equals ("sh") ||
           aLocale.getLanguage ().equals ("bs"))
-        s_aLogger.info (aLocale.toString () + ": " + aLocale.getDisplayName (Locale.US));
+        LOGGER.info (aLocale.toString () + ": " + aLocale.getDisplayName (Locale.US));
   }
 }

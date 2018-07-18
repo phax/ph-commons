@@ -49,7 +49,7 @@ public final class ScopeSPIManager
     private static final ScopeSPIManager s_aInstance = new ScopeSPIManager ();
   }
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (ScopeSPIManager.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (ScopeSPIManager.class);
 
   private static boolean s_bDefaultInstantiated = false;
 
@@ -88,8 +88,8 @@ public final class ScopeSPIManager
       m_aRequestSPIs = ServiceLoaderHelper.getAllSPIImplementations (IRequestScopeSPI.class);
     });
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Reinitialized " + ScopeSPIManager.class.getName ());
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Reinitialized " + ScopeSPIManager.class.getName ());
   }
 
   /**
@@ -134,9 +134,9 @@ public final class ScopeSPIManager
       }
       catch (final Exception ex)
       {
-        if (s_aLogger.isErrorEnabled ())
-          s_aLogger.error ("Failed to invoke SPI method onGlobalScopeBegin on " + aSPI + " with scope " + aGlobalScope,
-                           ex instanceof IMockException ? null : ex);
+        if (LOGGER.isErrorEnabled ())
+          LOGGER.error ("Failed to invoke SPI method onGlobalScopeBegin on " + aSPI + " with scope " + aGlobalScope,
+                        ex instanceof IMockException ? null : ex);
       }
   }
 
@@ -149,9 +149,9 @@ public final class ScopeSPIManager
       }
       catch (final Exception ex)
       {
-        if (s_aLogger.isErrorEnabled ())
-          s_aLogger.error ("Failed to invoke SPI method onGlobalScopeEnd on " + aSPI + " with scope " + aGlobalScope,
-                           ex instanceof IMockException ? null : ex);
+        if (LOGGER.isErrorEnabled ())
+          LOGGER.error ("Failed to invoke SPI method onGlobalScopeEnd on " + aSPI + " with scope " + aGlobalScope,
+                        ex instanceof IMockException ? null : ex);
       }
   }
 
@@ -164,12 +164,9 @@ public final class ScopeSPIManager
       }
       catch (final Exception ex)
       {
-        if (s_aLogger.isErrorEnabled ())
-          s_aLogger.error ("Failed to invoke SPI method onSessionScopeBegin on " +
-                           aSPI +
-                           " with scope " +
-                           aSessionScope,
-                           ex instanceof IMockException ? null : ex);
+        if (LOGGER.isErrorEnabled ())
+          LOGGER.error ("Failed to invoke SPI method onSessionScopeBegin on " + aSPI + " with scope " + aSessionScope,
+                        ex instanceof IMockException ? null : ex);
       }
   }
 
@@ -182,9 +179,9 @@ public final class ScopeSPIManager
       }
       catch (final Exception ex)
       {
-        if (s_aLogger.isErrorEnabled ())
-          s_aLogger.error ("Failed to invoke SPI method onSessionScopeEnd on " + aSPI + " with scope " + aSessionScope,
-                           ex instanceof IMockException ? null : ex);
+        if (LOGGER.isErrorEnabled ())
+          LOGGER.error ("Failed to invoke SPI method onSessionScopeEnd on " + aSPI + " with scope " + aSessionScope,
+                        ex instanceof IMockException ? null : ex);
       }
   }
 
@@ -197,12 +194,9 @@ public final class ScopeSPIManager
       }
       catch (final Exception ex)
       {
-        if (s_aLogger.isErrorEnabled ())
-          s_aLogger.error ("Failed to invoke SPI method onRequestScopeBegin on " +
-                           aSPI +
-                           " with scope " +
-                           aRequestScope,
-                           ex instanceof IMockException ? null : ex);
+        if (LOGGER.isErrorEnabled ())
+          LOGGER.error ("Failed to invoke SPI method onRequestScopeBegin on " + aSPI + " with scope " + aRequestScope,
+                        ex instanceof IMockException ? null : ex);
       }
   }
 
@@ -215,9 +209,9 @@ public final class ScopeSPIManager
       }
       catch (final Exception ex)
       {
-        if (s_aLogger.isErrorEnabled ())
-          s_aLogger.error ("Failed to invoke SPI method onRequestScopeEnd on " + aSPI + " with scope " + aRequestScope,
-                           ex instanceof IMockException ? null : ex);
+        if (LOGGER.isErrorEnabled ())
+          LOGGER.error ("Failed to invoke SPI method onRequestScopeEnd on " + aSPI + " with scope " + aRequestScope,
+                        ex instanceof IMockException ? null : ex);
       }
   }
 }

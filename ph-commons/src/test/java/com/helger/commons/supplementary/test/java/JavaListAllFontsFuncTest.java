@@ -26,13 +26,13 @@ import org.slf4j.LoggerFactory;
 
 public final class JavaListAllFontsFuncTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (JavaListAllFontsFuncTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (JavaListAllFontsFuncTest.class);
 
   @Test
   @Ignore ("Too verbose")
   public void testGetAllFonts ()
   {
     for (final Font aFont : GraphicsEnvironment.getLocalGraphicsEnvironment ().getAllFonts ())
-      s_aLogger.info (aFont.toString ());
+      LOGGER.info (aFont.toString ());
   }
 }

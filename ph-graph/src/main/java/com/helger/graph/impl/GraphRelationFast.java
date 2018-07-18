@@ -25,8 +25,8 @@ import com.helger.commons.hashcode.IHashCodeGenerator;
 import com.helger.graph.IMutableGraphNode;
 
 /**
- * Implementation of {@link com.helger.graph.IMutableGraphRelation}
- * interface with quick and dirty equals and hashCode (on ID only)
+ * Implementation of {@link com.helger.graph.IMutableGraphRelation} interface
+ * with quick and dirty equals and hashCode (on ID only)
  *
  * @author Philip Helger
  */

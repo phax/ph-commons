@@ -49,7 +49,7 @@ import com.helger.xml.serialize.write.XMLWriterSettings;
 @Immutable
 public final class MicroWriter
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MicroWriter.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MicroWriter.class);
 
   @PresentForCodeCoverage
   private static final MicroWriter s_aInstance = new MicroWriter ();
@@ -273,8 +273,8 @@ public final class MicroWriter
     }
     catch (final Exception ex)
     {
-      if (s_aLogger.isErrorEnabled ())
-        s_aLogger.error ("Error serializing MicroDOM with settings " + aSettings.toString (), ex);
+      if (LOGGER.isErrorEnabled ())
+        LOGGER.error ("Error serializing MicroDOM with settings " + aSettings.toString (), ex);
     }
     return null;
   }
@@ -313,8 +313,9 @@ public final class MicroWriter
     ValueEnforcer.notNull (aNode, "Node");
     ValueEnforcer.notNull (aSettings, "Settings");
 
-    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (50 *
-                                                                                              CGlobal.BYTES_PER_KILOBYTE))
+    try (
+        final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (50 *
+                                                                                             CGlobal.BYTES_PER_KILOBYTE))
     {
       // start serializing
       if (writeToStream (aNode, aBAOS, aSettings).isSuccess ())
@@ -322,8 +323,8 @@ public final class MicroWriter
     }
     catch (final Exception ex)
     {
-      if (s_aLogger.isErrorEnabled ())
-        s_aLogger.error ("Error serializing MicroDOM with settings " + aSettings.toString (), ex);
+      if (LOGGER.isErrorEnabled ())
+        LOGGER.error ("Error serializing MicroDOM with settings " + aSettings.toString (), ex);
     }
     return null;
   }

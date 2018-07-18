@@ -63,8 +63,8 @@ public final class CollectingTransformErrorListenerTest
     // Try a real transformation
     {
       final Document aDoc = XMLFactory.newDocument ();
-      t1.newTransformer ().transform (TransformSourceFactory.create (new ClassPathResource ("xml/xslt1.xml")),
-                                      new DOMResult (aDoc));
+      t1.newTransformer ()
+        .transform (TransformSourceFactory.create (new ClassPathResource ("xml/xslt1.xml")), new DOMResult (aDoc));
       assertNotNull (aDoc);
       assertNotNull (aDoc.getDocumentElement ());
       assertEquals ("html", aDoc.getDocumentElement ().getTagName ());
@@ -105,8 +105,8 @@ public final class CollectingTransformErrorListenerTest
     // Try a real transformation
     {
       final Document aDoc = XMLFactory.newDocument ();
-      t1.newTransformer ().transform (TransformSourceFactory.create (new ClassPathResource ("xml/xslt1.xml")),
-                                      new DOMResult (aDoc));
+      t1.newTransformer ()
+        .transform (TransformSourceFactory.create (new ClassPathResource ("xml/xslt1.xml")), new DOMResult (aDoc));
       assertNotNull (aDoc);
       assertNotNull (aDoc.getDocumentElement ());
       assertEquals ("html", aDoc.getDocumentElement ().getTagName ());

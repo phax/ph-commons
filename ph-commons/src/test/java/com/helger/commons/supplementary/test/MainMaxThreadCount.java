@@ -29,7 +29,7 @@ import com.helger.commons.concurrent.ThreadHelper;
  */
 public final class MainMaxThreadCount
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainMaxThreadCount.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainMaxThreadCount.class);
 
   private MainMaxThreadCount ()
   {}
@@ -53,7 +53,7 @@ public final class MainMaxThreadCount
     while (true)
     {
       new TestThread ().start ();
-      s_aLogger.info ("Started #" + ++nCount);
+      LOGGER.info ("Started #" + ++nCount);
     }
   }
 }

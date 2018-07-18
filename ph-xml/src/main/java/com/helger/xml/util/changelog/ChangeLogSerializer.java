@@ -69,7 +69,7 @@ import com.helger.xml.microdom.serialize.MicroReader;
 @Immutable
 public final class ChangeLogSerializer
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (ChangeLogSerializer.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (ChangeLogSerializer.class);
   // "u" == year, "y" == year of era
   private static final DateTimeFormatter DF = DateTimeFormatterCache.getDateTimeFormatterStrict ("uuuu-MM-dd");
   private static final String ELEMENT_CHANGELOG = "changelog";
@@ -211,8 +211,8 @@ public final class ChangeLogSerializer
           }
           catch (final DateTimeParseException ex)
           {
-            if (s_aLogger.isWarnEnabled ())
-              s_aLogger.warn ("Failed to parse release date '" + sDate + "'");
+            if (LOGGER.isWarnEnabled ())
+              LOGGER.warn ("Failed to parse release date '" + sDate + "'");
             continue;
           }
           ret.entries ().add (new ChangeLogRelease (aLocalDate, Version.parse (sVersion, false)));
@@ -274,8 +274,8 @@ public final class ChangeLogSerializer
           ret.put (aRes.getAsURI (), aChangeLog);
         else
         {
-          if (s_aLogger.isWarnEnabled ())
-            s_aLogger.warn ("Failed to read changelog from URL " + aURL.toExternalForm ());
+          if (LOGGER.isWarnEnabled ())
+            LOGGER.warn ("Failed to read changelog from URL " + aURL.toExternalForm ());
         }
       }
       return ret;

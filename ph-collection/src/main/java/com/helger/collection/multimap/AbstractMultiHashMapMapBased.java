@@ -40,8 +40,9 @@ import com.helger.commons.collection.impl.ICommonsMap;
  */
 @NotThreadSafe
 public abstract class AbstractMultiHashMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE, MAPTYPE extends ICommonsMap <KEYTYPE2, VALUETYPE>>
-                                                   extends CommonsHashMap <KEYTYPE1, MAPTYPE>
-                                                   implements IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE, MAPTYPE>
+                                                   extends
+                                                   CommonsHashMap <KEYTYPE1, MAPTYPE> implements
+                                                   IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE, MAPTYPE>
 {
   public AbstractMultiHashMapMapBased ()
   {}

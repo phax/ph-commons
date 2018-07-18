@@ -27,7 +27,7 @@ import com.helger.commons.deadlock.ThreadDeadlockDetectionTimer;
 
 public final class MainDeadLock2
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainDeadLock2.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainDeadLock2.class);
 
   private static final class A
   {
@@ -80,9 +80,9 @@ public final class MainDeadLock2
     final Thread t2 = new Thread ((Runnable) () -> a.g (), "t2");
     t1.start ();
     t2.start ();
-    s_aLogger.info ("Waiting");
+    LOGGER.info ("Waiting");
     t1.join ();
     t2.join ();
-    s_aLogger.info ("Success");
+    LOGGER.info ("Success");
   }
 }

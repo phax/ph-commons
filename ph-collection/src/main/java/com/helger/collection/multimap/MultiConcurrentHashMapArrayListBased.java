@@ -28,8 +28,8 @@ import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 
 /**
- * Multi map based on {@link ConcurrentHashMap} and {@link CommonsArrayList} values.
- * <br>
+ * Multi map based on {@link ConcurrentHashMap} and {@link CommonsArrayList}
+ * values. <br>
  * Important note: <code>null</code> keys are not allowed here!
  *
  * @author Philip Helger
@@ -39,8 +39,8 @@ import com.helger.commons.collection.impl.ICommonsList;
  *        value type
  */
 @ThreadSafe
-public class MultiConcurrentHashMapArrayListBased <KEYTYPE, VALUETYPE>
-                                                  extends AbstractMultiConcurrentHashMapListBased <KEYTYPE, VALUETYPE>
+public class MultiConcurrentHashMapArrayListBased <KEYTYPE, VALUETYPE> extends
+                                                  AbstractMultiConcurrentHashMapListBased <KEYTYPE, VALUETYPE>
 {
   public MultiConcurrentHashMapArrayListBased ()
   {}

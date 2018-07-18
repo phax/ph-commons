@@ -170,7 +170,7 @@ public class SuccessWithValue <DATATYPE> implements ISuccessIndicator, IWrapper 
   public static <DATATYPE> SuccessWithValue <DATATYPE> create (@Nonnull final ISuccessIndicator aSuccessIndicator,
                                                                @Nullable final DATATYPE aValue)
   {
-    return new SuccessWithValue<> (aSuccessIndicator, aValue);
+    return new SuccessWithValue <> (aSuccessIndicator, aValue);
   }
 
   /**
@@ -185,7 +185,7 @@ public class SuccessWithValue <DATATYPE> implements ISuccessIndicator, IWrapper 
   @Nonnull
   public static <DATATYPE> SuccessWithValue <DATATYPE> createSuccess (@Nullable final DATATYPE aValue)
   {
-    return new SuccessWithValue<> (ESuccess.SUCCESS, aValue);
+    return new SuccessWithValue <> (ESuccess.SUCCESS, aValue);
   }
 
   /**
@@ -200,6 +200,6 @@ public class SuccessWithValue <DATATYPE> implements ISuccessIndicator, IWrapper 
   @Nonnull
   public static <DATATYPE> SuccessWithValue <DATATYPE> createFailure (@Nullable final DATATYPE aValue)
   {
-    return new SuccessWithValue<> (ESuccess.FAILURE, aValue);
+    return new SuccessWithValue <> (ESuccess.FAILURE, aValue);
   }
 }

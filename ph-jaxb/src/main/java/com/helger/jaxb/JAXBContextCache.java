@@ -48,7 +48,7 @@ public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBCont
     static final JAXBContextCache s_aInstance = new JAXBContextCache ();
   }
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (JAXBContextCache.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (JAXBContextCache.class);
 
   private static boolean s_bDefaultInstantiated = false;
 
@@ -61,10 +61,10 @@ public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBCont
       final ClassLoader aClassLoader = aCacheKey.getClassLoader ();
 
       if (GlobalDebug.isDebugMode ())
-        s_aLogger.info ("Creating JAXB context for package " +
-                        aPackage.getName () +
-                        " using ClassLoader " +
-                        aClassLoader.toString ());
+        LOGGER.info ("Creating JAXB context for package " +
+                     aPackage.getName () +
+                     " using ClassLoader " +
+                     aClassLoader.toString ());
 
       try
       {
@@ -72,9 +72,9 @@ public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBCont
         if (aPackage.getAnnotation (XmlSchema.class) == null &&
             GenericReflection.getClassFromNameSafe (aPackage.getName () + ".ObjectFactory") == null)
         {
-          s_aLogger.warn ("The package " +
-                          aPackage.getName () +
-                          " does not seem to be JAXB generated! Trying to create a JAXBContext anyway.");
+          LOGGER.warn ("The package " +
+                       aPackage.getName () +
+                       " does not seem to be JAXB generated! Trying to create a JAXBContext anyway.");
         }
 
         return JAXBContext.newInstance (aPackage.getName (), aClassLoader);
@@ -86,7 +86,7 @@ public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBCont
                             "'" +
                             " using ClassLoader " +
                             aClassLoader;
-        s_aLogger.error (sMsg + ": " + ex.getMessage ());
+        LOGGER.error (sMsg + ": " + ex.getMessage ());
         throw new IllegalArgumentException (sMsg, ex);
       }
     }, 500, JAXBContextCache.class.getName ());
@@ -180,12 +180,12 @@ public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBCont
 
     // E.g. an internal class - try anyway!
     if (GlobalDebug.isDebugMode ())
-      s_aLogger.info ("Creating JAXB context for class " + aClass.getName ());
+      LOGGER.info ("Creating JAXB context for class " + aClass.getName ());
 
     if (aClassLoader != null)
-      s_aLogger.warn ("Package " +
-                      aPackage.getName () +
-                      " does not seem to be JAXB generated. Therefore a new JAXBContext is created and the provided ClassLoader is ignored!");
+      LOGGER.warn ("Package " +
+                   aPackage.getName () +
+                   " does not seem to be JAXB generated. Therefore a new JAXBContext is created and the provided ClassLoader is ignored!");
 
     try
     {
@@ -196,7 +196,7 @@ public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBCont
     catch (final JAXBException ex)
     {
       final String sMsg = "Failed to create JAXB context for class '" + aClass.getName () + "'";
-      s_aLogger.error (sMsg + ": " + ex.getMessage ());
+      LOGGER.error (sMsg + ": " + ex.getMessage ());
       throw new IllegalArgumentException (sMsg, ex);
     }
   }

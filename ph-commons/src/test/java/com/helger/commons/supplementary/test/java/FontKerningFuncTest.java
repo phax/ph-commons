@@ -53,7 +53,7 @@ import com.helger.commons.system.EOperatingSystem;
  */
 public final class FontKerningFuncTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (JavaPrinterTrayFinderFuncTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (JavaPrinterTrayFinderFuncTest.class);
 
   @Immutable
   public static final class KerningKey
@@ -120,7 +120,7 @@ public final class FontKerningFuncTest
           throw new IOException ("HEAD table not found.");
         if (m_nKernOffset == -1)
         {
-          s_aLogger.info ("No kerning information present!");
+          LOGGER.info ("No kerning information present!");
           m_aKerning = Collections.emptyMap ();
           return;
         }
@@ -197,13 +197,13 @@ public final class FontKerningFuncTest
       _seek (aIS, m_nHeadOffset + 2 * 4 + 2 * 4 + 2);
       m_nUnitsPerEm = _readUnsignedShort (aIS);
       if (false)
-        s_aLogger.info ("Units per EM = " + m_nUnitsPerEm + " @ " + m_nBytePosition);
+        LOGGER.info ("Units per EM = " + m_nUnitsPerEm + " @ " + m_nBytePosition);
     }
 
     private void _readKERN (final InputStream aIS) throws IOException
     {
       if (false)
-        s_aLogger.info ("Going to KERN");
+        LOGGER.info ("Going to KERN");
       _seek (aIS, m_nKernOffset + 2);
       for (int n = _readUnsignedShort (aIS); n > 0; n--)
       {
@@ -216,7 +216,7 @@ public final class FontKerningFuncTest
         k = _readUnsignedShort (aIS);
         _skip (aIS, 3 * 2);
         if (false)
-          s_aLogger.info ("Reading " + k + " kernings");
+          LOGGER.info ("Reading " + k + " kernings");
         while (k-- > 0)
         {
           final int nFirstGlyphCode = _readUnsignedShort (aIS);
@@ -261,7 +261,7 @@ public final class FontKerningFuncTest
     private void _seek (final InputStream aIS, final long position) throws IOException
     {
       if (false)
-        s_aLogger.info ("position=" + position + "; pos=" + m_nBytePosition);
+        LOGGER.info ("position=" + position + "; pos=" + m_nBytePosition);
       StreamHelper.skipFully (aIS, position - m_nBytePosition);
       m_nBytePosition = position;
     }
@@ -292,9 +292,9 @@ public final class FontKerningFuncTest
       final int tCode = aGlyphVector.getGlyphCode (0);
       final int commaCode = aGlyphVector.getGlyphCode (1);
       final Kerning aKerning = new Kerning (new FileInputStream (System.getenv ("windir") + "/fonts/ARIAL.TTF"));
-      s_aLogger.info (Float.toString (aKerning.getValue (tCode, commaCode, nFontSize)));
+      LOGGER.info (Float.toString (aKerning.getValue (tCode, commaCode, nFontSize)));
     }
     else
-      s_aLogger.warn ("Works only on Windows!");
+      LOGGER.warn ("Works only on Windows!");
   }
 }

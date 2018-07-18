@@ -54,6 +54,6 @@ public class MultiHashMapHashMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE> extends
   @ReturnsMutableCopy
   protected CommonsHashMap <KEYTYPE2, VALUETYPE> createNewInnerMap ()
   {
-    return new CommonsHashMap<> ();
+    return new CommonsHashMap <> ();
   }
 }

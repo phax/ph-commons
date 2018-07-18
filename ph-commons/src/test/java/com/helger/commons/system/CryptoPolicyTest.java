@@ -30,19 +30,19 @@ import org.slf4j.LoggerFactory;
  */
 public final class CryptoPolicyTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (CryptoPolicyTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (CryptoPolicyTest.class);
 
   @Test
   public void testIf ()
   {
     if (CryptoPolicy.isUnlimitedStrengthCryptoAvailable ())
     {
-      s_aLogger.info ("Unlimited strength crypto IS available.");
+      LOGGER.info ("Unlimited strength crypto IS available.");
       assertTrue (CryptoPolicy.isUnlimitedStrengthCryptoAvailable ());
     }
     else
     {
-      s_aLogger.warn ("Unlimited strength crypto is NOT available.");
+      LOGGER.warn ("Unlimited strength crypto is NOT available.");
       assertFalse (CryptoPolicy.isUnlimitedStrengthCryptoAvailable ());
     }
   }

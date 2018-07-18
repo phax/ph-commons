@@ -47,7 +47,7 @@ import com.helger.commons.system.SystemHelper;
  */
 public final class HashCodeGeneratorTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (HashCodeGeneratorTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (HashCodeGeneratorTest.class);
 
   private static void _appendFields (final HashCodeGenerator aHC)
   {
@@ -69,12 +69,12 @@ public final class HashCodeGeneratorTest
     aHC.append (BigDecimal.ZERO);
     aHC.append (new StringBuffer ("Hallo"));
     aHC.append (new StringBuilder ("Hallo Welt"));
-    aHC.append (new CommonsHashSet<> ("Hallo", "Welt", "from", "unit", "test"));
+    aHC.append (new CommonsHashSet <> ("Hallo", "Welt", "from", "unit", "test"));
     aHC.append (IteratorHelper.getIterator ("Hallo", "Welt", "from", "unit", "test"));
     aHC.append (IteratorHelper.getEnumeration ("Hallo", "Welt", "from", "unit", "test"));
 
     // Multi values containing null
-    aHC.append (new CommonsHashSet<> ("Hallo", null, null, "unit", "test"));
+    aHC.append (new CommonsHashSet <> ("Hallo", null, null, "unit", "test"));
 
     // Objects null
     aHC.append ((Enum <?>) null);
@@ -94,7 +94,7 @@ public final class HashCodeGeneratorTest
     aHC.append (new short [] { 4701, -32767 });
     aHC.append (EChange.values ());
     aHC.append (new Object [] { EChange.CHANGED, BigDecimal.ONE, "out" });
-    aHC.append (new CommonsArrayList<> (EChange.CHANGED, BigDecimal.ONE, "out"));
+    aHC.append (new CommonsArrayList <> (EChange.CHANGED, BigDecimal.ONE, "out"));
 
     // Arrays as objects
     aHC.append ((Object) new boolean [] { false, true });
@@ -107,7 +107,7 @@ public final class HashCodeGeneratorTest
     aHC.append ((Object) new short [] { 4701, -32767 });
     aHC.append ((Object) EChange.values ());
     aHC.append ((Object) new Object [] { EChange.CHANGED, BigDecimal.ONE, "out" });
-    aHC.append ((Object) new CommonsArrayList<> (EChange.CHANGED, BigDecimal.ONE, "out"));
+    aHC.append ((Object) new CommonsArrayList <> (EChange.CHANGED, BigDecimal.ONE, "out"));
 
     // Array objects filled and containing nulls
     aHC.append (new Enum [] { EChange.CHANGED, null, EChange.UNCHANGED });
@@ -234,7 +234,7 @@ public final class HashCodeGeneratorTest
                                 aSB.toString (),
                                 StandardCharsets.ISO_8859_1);
         b.set (true);
-        s_aLogger.error ("Found match!");
+        LOGGER.error ("Found match!");
       }
     };
 
@@ -254,7 +254,7 @@ public final class HashCodeGeneratorTest
 
       nTries += nThreads;
       if ((nTries % 1000) == 0)
-        s_aLogger.info (nTries + " tries");
+        LOGGER.info (nTries + " tries");
     }
   }
 

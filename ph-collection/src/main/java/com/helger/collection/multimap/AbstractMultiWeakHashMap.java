@@ -39,8 +39,9 @@ import com.helger.commons.collection.impl.ICommonsCollection;
  */
 @NotThreadSafe
 public abstract class AbstractMultiWeakHashMap <KEYTYPE, VALUETYPE, COLLTYPE extends ICommonsCollection <VALUETYPE>>
-                                               extends CommonsWeakHashMap <KEYTYPE, COLLTYPE>
-                                               implements IMultiMap <KEYTYPE, VALUETYPE, COLLTYPE>
+                                               extends
+                                               CommonsWeakHashMap <KEYTYPE, COLLTYPE> implements
+                                               IMultiMap <KEYTYPE, VALUETYPE, COLLTYPE>
 {
   public AbstractMultiWeakHashMap ()
   {}

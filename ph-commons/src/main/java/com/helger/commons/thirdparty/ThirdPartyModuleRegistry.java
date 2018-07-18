@@ -49,7 +49,7 @@ public final class ThirdPartyModuleRegistry
     private static final ThirdPartyModuleRegistry s_aInstance = new ThirdPartyModuleRegistry ();
   }
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (ThirdPartyModuleRegistry.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (ThirdPartyModuleRegistry.class);
   private static boolean s_bDefaultInstantiated = false;
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
@@ -117,7 +117,7 @@ public final class ThirdPartyModuleRegistry
       }
     });
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Reinitialized " + ThirdPartyModuleRegistry.class.getName ());
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Reinitialized " + ThirdPartyModuleRegistry.class.getName ());
   }
 }

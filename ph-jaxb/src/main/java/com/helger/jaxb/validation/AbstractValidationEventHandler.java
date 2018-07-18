@@ -49,7 +49,7 @@ import com.helger.xml.serialize.write.XMLWriter;
 @NotThreadSafe
 public abstract class AbstractValidationEventHandler implements IValidationEventHandler
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractValidationEventHandler.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (AbstractValidationEventHandler.class);
 
   /**
    * Constructor not encapsulating any existing handler.
@@ -77,8 +77,8 @@ public abstract class AbstractValidationEventHandler implements IValidationEvent
       case ValidationEvent.FATAL_ERROR:
         return EErrorLevel.FATAL_ERROR;
       default:
-        if (s_aLogger.isWarnEnabled ())
-          s_aLogger.warn ("Unknown JAXB validation severity: " + nSeverity + "; defaulting to error");
+        if (LOGGER.isWarnEnabled ())
+          LOGGER.warn ("Unknown JAXB validation severity: " + nSeverity + "; defaulting to error");
         return EErrorLevel.ERROR;
     }
   }

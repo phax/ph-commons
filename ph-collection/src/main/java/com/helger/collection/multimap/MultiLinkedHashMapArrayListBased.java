@@ -38,8 +38,8 @@ import com.helger.commons.collection.impl.ICommonsList;
  *        value type
  */
 @NotThreadSafe
-public class MultiLinkedHashMapArrayListBased <KEYTYPE, VALUETYPE>
-                                              extends AbstractMultiLinkedHashMapListBased <KEYTYPE, VALUETYPE>
+public class MultiLinkedHashMapArrayListBased <KEYTYPE, VALUETYPE> extends
+                                              AbstractMultiLinkedHashMapListBased <KEYTYPE, VALUETYPE>
 {
   public MultiLinkedHashMapArrayListBased ()
   {}

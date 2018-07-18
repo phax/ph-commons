@@ -32,7 +32,7 @@ import com.helger.graph.simple.SimpleGraphObjectFastFactory;
 
 public final class DijkstraTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (DijkstraTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (DijkstraTest.class);
   private static final String ATTR_WEIGHT = "weight";
 
   @Test
@@ -68,7 +68,7 @@ public final class DijkstraTest
                                                                                         .getAsInt (ATTR_WEIGHT,
                                                                                                    Integer.MIN_VALUE));
     assertNotNull (r);
-    s_aLogger.info (r.getAsString ());
+    LOGGER.info (r.getAsString ());
     assertEquals (13, r.getResultDistance ());
   }
 
@@ -96,7 +96,7 @@ public final class DijkstraTest
                                                                                         .getAsInt (ATTR_WEIGHT,
                                                                                                    Integer.MIN_VALUE));
     assertNotNull (r);
-    s_aLogger.info (r.getAsString ());
+    LOGGER.info (r.getAsString ());
     assertEquals (5, r.getResultDistance ());
   }
 
@@ -118,10 +118,11 @@ public final class DijkstraTest
     final Dijkstra.Result <IMutableGraphNode> r = Dijkstra.applyDijkstra (g,
                                                                           "1",
                                                                           "6",
-                                                                          x -> x.attrs ().getAsInt (ATTR_WEIGHT,
-                                                                                                    Integer.MIN_VALUE));
+                                                                          x -> x.attrs ()
+                                                                                .getAsInt (ATTR_WEIGHT,
+                                                                                           Integer.MIN_VALUE));
     assertNotNull (r);
-    s_aLogger.info (r.getAsString ());
+    LOGGER.info (r.getAsString ());
     assertEquals (5, r.getResultDistance ());
   }
 
@@ -166,7 +167,7 @@ public final class DijkstraTest
                                                                                         .getAsInt (ATTR_WEIGHT,
                                                                                                    Integer.MIN_VALUE));
     assertNotNull (r);
-    s_aLogger.info (r.getAsString ());
+    LOGGER.info (r.getAsString ());
     assertEquals (24, r.getResultDistance ());
   }
 
@@ -195,15 +196,15 @@ public final class DijkstraTest
     Dijkstra.Result <IMutableGraphNode> r = Dijkstra.applyDijkstra (g,
                                                                     "Barcelona",
                                                                     "Lausanne",
-                                                                    x -> x.attrs ().getAsInt (ATTR_WEIGHT,
-                                                                                              Integer.MIN_VALUE));
+                                                                    x -> x.attrs ()
+                                                                          .getAsInt (ATTR_WEIGHT, Integer.MIN_VALUE));
     assertNotNull (r);
-    s_aLogger.info (r.getAsString ());
+    LOGGER.info (r.getAsString ());
     assertEquals (864, r.getResultDistance ());
 
     r = Dijkstra.applyDijkstra (g, "Lausanne", "Barcelona", x -> x.attrs ().getAsInt (ATTR_WEIGHT, Integer.MIN_VALUE));
     assertNotNull (r);
-    s_aLogger.info (r.getAsString ());
+    LOGGER.info (r.getAsString ());
     assertEquals (864, r.getResultDistance ());
   }
 }

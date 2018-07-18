@@ -30,7 +30,7 @@ import com.helger.commons.collection.impl.CommonsArrayList;
 
 public final class JavaListDigestProviderFuncTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (JavaListDigestProviderFuncTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (JavaListDigestProviderFuncTest.class);
 
   @Test
   @Ignore ("Too verbose")
@@ -38,11 +38,11 @@ public final class JavaListDigestProviderFuncTest
   {
     for (final Provider aElement : new CommonsArrayList <> (Security.getProviders ()).getSortedInline (Comparator.comparing (Provider::getName)))
     {
-      s_aLogger.info ("Provider: '" + aElement + "'");
+      LOGGER.info ("Provider: '" + aElement + "'");
 
       for (final Object sAlgo : CollectionHelper.getSortedByKey (aElement, Comparator.comparing (Object::toString))
                                                 .keySet ())
-        s_aLogger.info ("\t" + sAlgo);
+        LOGGER.info ("\t" + sAlgo);
     }
   }
 }

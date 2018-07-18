@@ -49,24 +49,18 @@ public final class BenchmarkGetCallerClass extends AbstractBenchmarkTask
 
     // Uncomment this and the class below to use it
     // final double t1 = benchmarkTask (new ReflectionMethod (nRuns));
-    // s_aLogger.info ("Time using Reflection: " +
+    // LOGGER.info ("Time using Reflection: " +
     // BigDecimal.valueOf (t1).toString () +
     // " us");
 
     final double t2 = benchmarkTask (new ThreadStackTraceMethod (nRuns));
-    s_aLogger.info ("Time using Thread.currentThread ().getStackTrace (): " +
-                    BigDecimal.valueOf (t2).toString () +
-                    " us");
+    LOGGER.info ("Time using Thread.currentThread ().getStackTrace (): " + BigDecimal.valueOf (t2).toString () + " us");
 
     final double t3 = benchmarkTask (new ThrowableStackTraceMethod (nRuns));
-    s_aLogger.info ("Time using new Throwable ().getStackTrace ()         " +
-                    BigDecimal.valueOf (t3).toString () +
-                    " us");
+    LOGGER.info ("Time using new Throwable ().getStackTrace ()         " + BigDecimal.valueOf (t3).toString () + " us");
 
     final double t4 = benchmarkTask (new SecurityManagerMethod (nRuns));
-    s_aLogger.info ("Time using mySecurityManager.getCallerClassName      " +
-                    BigDecimal.valueOf (t4).toString () +
-                    " us");
+    LOGGER.info ("Time using mySecurityManager.getCallerClassName      " + BigDecimal.valueOf (t4).toString () + " us");
   }
 
   /**

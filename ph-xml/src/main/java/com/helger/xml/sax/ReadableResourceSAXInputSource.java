@@ -40,7 +40,7 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public class ReadableResourceSAXInputSource extends InputSource
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (ReadableResourceSAXInputSource.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (ReadableResourceSAXInputSource.class);
 
   private final IHasInputStream m_aISP;
 
@@ -66,8 +66,8 @@ public class ReadableResourceSAXInputSource extends InputSource
   {
     final InputStream aIS = m_aISP.getInputStream ();
     if (aIS == null)
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("Failed to open input stream for " + m_aISP);
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("Failed to open input stream for " + m_aISP);
     return aIS;
   }
 

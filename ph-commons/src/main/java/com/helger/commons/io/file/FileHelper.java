@@ -70,7 +70,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 @Immutable
 public final class FileHelper
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (FileHelper.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (FileHelper.class);
 
   @PresentForCodeCoverage
   private static final FileHelper s_aInstance = new FileHelper ();
@@ -148,8 +148,8 @@ public final class FileHelper
     if (aParent == null || aParent.exists ())
     {
       if (aParent != null && !aParent.isDirectory ())
-        if (s_aLogger.isWarnEnabled ())
-          s_aLogger.warn ("Parent object specified is not a directory: '" + aParent + "'");
+        if (LOGGER.isWarnEnabled ())
+          LOGGER.warn ("Parent object specified is not a directory: '" + aParent + "'");
       return EChange.UNCHANGED;
     }
 
@@ -376,15 +376,15 @@ public final class FileHelper
     }
     catch (final FileNotFoundException ex)
     {
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("Failed to create output stream for '" +
-                        aFile +
-                        "'; append: " +
-                        eAppend +
-                        ": " +
-                        ex.getClass ().getName () +
-                        " - " +
-                        ex.getMessage ());
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("Failed to create output stream for '" +
+                     aFile +
+                     "'; append: " +
+                     eAppend +
+                     ": " +
+                     ex.getClass ().getName () +
+                     " - " +
+                     ex.getMessage ());
       return null;
     }
   }
@@ -470,8 +470,8 @@ public final class FileHelper
     catch (final IllegalStateException ex)
     {
       // Happens e.g. when the parent directory is " "
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("Failed to create parent directory of '" + aFile + "'", ex);
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("Failed to create parent directory of '" + aFile + "'", ex);
       return EValidity.INVALID;
     }
 
@@ -480,14 +480,14 @@ public final class FileHelper
     final File aParentDir = aFile.getParentFile ();
     if (aParentDir != null && !aParentDir.canWrite ())
     {
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("Parent directory '" +
-                        aParentDir +
-                        "' of '" +
-                        aFile +
-                        "' is not writable for current user '" +
-                        SystemProperties.getUserName () +
-                        "'");
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("Parent directory '" +
+                     aParentDir +
+                     "' of '" +
+                     aFile +
+                     "' is not writable for current user '" +
+                     SystemProperties.getUserName () +
+                     "'");
       return EValidity.INVALID;
     }
 
@@ -652,19 +652,19 @@ public final class FileHelper
     {
       // No content returned
       if (!aDirectory.isDirectory ())
-        s_aLogger.warn ("Cannot list non-directory: " + aDirectory.getAbsolutePath ());
+        LOGGER.warn ("Cannot list non-directory: " + aDirectory.getAbsolutePath ());
       else
         if (!aDirectory.canExecute ())
         {
           // If this happens, the resulting File objects are neither files nor
           // directories (isFile() and isDirectory() both return false!!)
-          s_aLogger.warn ("Existing directory is missing the listing permission: " + aDirectory.getAbsolutePath ());
+          LOGGER.warn ("Existing directory is missing the listing permission: " + aDirectory.getAbsolutePath ());
         }
         else
           if (!aDirectory.canRead ())
-            s_aLogger.warn ("Cannot list directory because of no read-rights: " + aDirectory.getAbsolutePath ());
+            LOGGER.warn ("Cannot list directory because of no read-rights: " + aDirectory.getAbsolutePath ());
           else
-            s_aLogger.warn ("Directory listing failed because of IO error: " + aDirectory.getAbsolutePath ());
+            LOGGER.warn ("Directory listing failed because of IO error: " + aDirectory.getAbsolutePath ());
     }
     else
     {
@@ -672,7 +672,7 @@ public final class FileHelper
       {
         // If this happens, the resulting File objects are neither files nor
         // directories (isFile() and isDirectory() both return false!!)
-        s_aLogger.warn ("Directory is missing the listing permission: " + aDirectory.getAbsolutePath ());
+        LOGGER.warn ("Directory is missing the listing permission: " + aDirectory.getAbsolutePath ());
       }
     }
     return new CommonsArrayList <> (aSelectedContent);
@@ -751,7 +751,7 @@ public final class FileHelper
     }
     catch (final MalformedURLException ex)
     {
-      s_aLogger.warn ("Failed to convert file to URL: " + aFile, ex);
+      LOGGER.warn ("Failed to convert file to URL: " + aFile, ex);
       return null;
     }
   }
@@ -767,7 +767,7 @@ public final class FileHelper
     }
     catch (final MalformedURLException ex)
     {
-      s_aLogger.warn ("Failed to convert file to URL: " + aFile, ex);
+      LOGGER.warn ("Failed to convert file to URL: " + aFile, ex);
       return null;
     }
   }

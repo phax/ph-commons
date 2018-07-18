@@ -39,7 +39,7 @@ public final class GenericReflectionTest
   @Test
   public void testUncheckedCast ()
   {
-    final ICommonsList <String> l = new CommonsArrayList<> ("a", "b");
+    final ICommonsList <String> l = new CommonsArrayList <> ("a", "b");
     final Object o = l;
     final ICommonsList <String> l2 = GenericReflection.uncheckedCast (o);
     assertSame (l, l2);

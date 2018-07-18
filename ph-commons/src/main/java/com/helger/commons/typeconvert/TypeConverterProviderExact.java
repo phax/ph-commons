@@ -43,7 +43,7 @@ public final class TypeConverterProviderExact implements ITypeConverterProvider
   public ITypeConverter <Object, Object> getTypeConverter (@Nonnull final Class <?> aSrcClass,
                                                            @Nonnull final Class <?> aDstClass)
   {
-    return GenericReflection.uncheckedCast (TypeConverterRegistry.getInstance ().getExactConverter (aSrcClass,
-                                                                                                    aDstClass));
+    return GenericReflection.uncheckedCast (TypeConverterRegistry.getInstance ()
+                                                                 .getExactConverter (aSrcClass, aDstClass));
   }
 }

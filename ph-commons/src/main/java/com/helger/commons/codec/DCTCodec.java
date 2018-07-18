@@ -36,7 +36,7 @@ import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
  */
 public class DCTCodec implements IByteArrayDecoder
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (DCTCodec.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (DCTCodec.class);
 
   public DCTCodec ()
   {}
@@ -65,8 +65,8 @@ public class DCTCodec implements IByteArrayDecoder
       aImg = ImageIO.read (new NonBlockingByteArrayInputStream (aEncodedBuffer, nOfs, nLen));
       if (aImg == null)
         throw new DecodeException ("Failed to read image");
-      if (s_aLogger.isDebugEnabled ())
-        s_aLogger.debug ("Read DCT encoded image with " + nLen + " bytes");
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Read DCT encoded image with " + nLen + " bytes");
     }
     catch (final Exception ex)
     {

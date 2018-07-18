@@ -33,12 +33,12 @@ import com.helger.commons.string.StringHelper;
 
 public final class JavaCollatorFuncTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (JavaCollatorFuncTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (JavaCollatorFuncTest.class);
 
   @Test
   public void testCollation () throws ParseException
   {
-    final ICommonsSet <String> aSet = new CommonsHashSet<> ();
+    final ICommonsSet <String> aSet = new CommonsHashSet <> ();
     aSet.add ("a");
     aSet.add ("A");
     aSet.add ("Ä");
@@ -64,18 +64,18 @@ public final class JavaCollatorFuncTest
 
     for (final String s : aSet.getSorted (IComparator.getComparatorCollating (Locale.US)))
     {
-      s_aLogger.info (s);
+      LOGGER.info (s);
     }
-    s_aLogger.info ("-------------------------1");
+    LOGGER.info ("-------------------------1");
 
     final Collator aColl = Collator.getInstance (aLocale);
     aColl.setStrength (Collator.TERTIARY);
     aColl.setDecomposition (Collator.FULL_DECOMPOSITION);
     for (final String s : aSet.getSorted (IComparator.getComparatorCollating (aColl)))
     {
-      s_aLogger.info (s);
+      LOGGER.info (s);
     }
-    s_aLogger.info ("-------------------------2");
+    LOGGER.info ("-------------------------2");
 
     final RuleBasedCollator defaultCollator = (RuleBasedCollator) Collator.getInstance (aLocale);
     final String rules = defaultCollator.getRules ();
@@ -86,8 +86,8 @@ public final class JavaCollatorFuncTest
     collator2.setDecomposition (Collator.FULL_DECOMPOSITION);
     for (final String s : aSet.getSorted (IComparator.getComparatorCollating (collator2)))
     {
-      s_aLogger.info (s);
+      LOGGER.info (s);
     }
-    s_aLogger.info ("-------------------------3");
+    LOGGER.info ("-------------------------3");
   }
 }

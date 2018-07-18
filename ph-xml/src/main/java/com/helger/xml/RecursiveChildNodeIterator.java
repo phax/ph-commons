@@ -59,7 +59,7 @@ public class RecursiveChildNodeIterator implements IIterableIterator <Node>
   {
     ValueEnforcer.notNull (aParent, "Parent");
 
-    final ICommonsList <Node> aNodes = new CommonsArrayList<> ();
+    final ICommonsList <Node> aNodes = new CommonsArrayList <> ();
     _recursiveFillListPrefix (aParent, aNodes);
     m_aIter = aNodes.iterator ();
   }

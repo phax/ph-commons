@@ -42,7 +42,7 @@ import com.helger.commons.typeconvert.TypeConverterException.EReason;
 @Immutable
 public final class TypeConverter
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (TypeConverter.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (TypeConverter.class);
 
   @PresentForCodeCoverage
   private static final TypeConverter s_aInstance = new TypeConverter ();
@@ -469,13 +469,13 @@ public final class TypeConverter
                                                                                                 aUsableDstClass);
     if (aConverter == null)
     {
-      s_aLogger.warn ("No type converter from '" +
-                      aSrcClass.getName () +
-                      "' to '" +
-                      aUsableDstClass.getName () +
-                      "' was found (using provider '" +
-                      aTypeConverterProvider.getClass ().getName () +
-                      "')");
+      LOGGER.warn ("No type converter from '" +
+                   aSrcClass.getName () +
+                   "' to '" +
+                   aUsableDstClass.getName () +
+                   "' was found (using provider '" +
+                   aTypeConverterProvider.getClass ().getName () +
+                   "')");
       throw new TypeConverterException (aSrcClass, aUsableDstClass, EReason.NO_CONVERTER_FOUND);
     }
 
@@ -492,16 +492,16 @@ public final class TypeConverter
     }
     if (aRetVal == null)
     {
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("Type conversion from '" +
-                        aSrcValue +
-                        "' of class '" +
-                        aSrcClass.getName () +
-                        "' to '" +
-                        aUsableDstClass.getName () +
-                        "' with converter '" +
-                        aConverter.toString () +
-                        "' failed; null was returned from converter!");
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("Type conversion from '" +
+                     aSrcValue +
+                     "' of class '" +
+                     aSrcClass.getName () +
+                     "' to '" +
+                     aUsableDstClass.getName () +
+                     "' with converter '" +
+                     aConverter.toString () +
+                     "' failed; null was returned from converter!");
       throw new TypeConverterException (aSrcClass, aUsableDstClass, EReason.CONVERSION_FAILED);
     }
     return aRetVal;

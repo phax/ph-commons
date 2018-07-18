@@ -45,13 +45,14 @@ import com.helger.graph.IMutableBaseGraphRelation;
  */
 @NotThreadSafe
 public abstract class AbstractBaseGraph <NODETYPE extends IMutableBaseGraphNode <NODETYPE, RELATIONTYPE>, RELATIONTYPE extends IMutableBaseGraphRelation <NODETYPE, RELATIONTYPE>>
-                                        extends AbstractBaseGraphObject
-                                        implements IMutableBaseGraph <NODETYPE, RELATIONTYPE>
+                                        extends
+                                        AbstractBaseGraphObject implements
+                                        IMutableBaseGraph <NODETYPE, RELATIONTYPE>
 {
   /** By default this is allowed */
   public static final boolean DEFAULT_CHANGING_CONNECTED_OBJECTS_ALLOWED = true;
 
-  protected final ICommonsOrderedMap <String, NODETYPE> m_aNodes = new CommonsLinkedHashMap<> ();
+  protected final ICommonsOrderedMap <String, NODETYPE> m_aNodes = new CommonsLinkedHashMap <> ();
   private boolean m_bIsChangingConnectedObjectsAllowed = DEFAULT_CHANGING_CONNECTED_OBJECTS_ALLOWED;
 
   public AbstractBaseGraph (@Nullable final String sID)

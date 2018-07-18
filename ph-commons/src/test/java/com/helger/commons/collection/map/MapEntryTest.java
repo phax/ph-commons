@@ -35,7 +35,7 @@ public final class MapEntryTest
   @Test
   public void testCtor ()
   {
-    final MapEntry <String, Object> e = new MapEntry<> ("Key", "value");
+    final MapEntry <String, Object> e = new MapEntry <> ("Key", "value");
     assertEquals ("Key", e.getKey ());
     assertEquals ("value", e.getValue ());
     assertEquals ("value", e.setValue ("new"));

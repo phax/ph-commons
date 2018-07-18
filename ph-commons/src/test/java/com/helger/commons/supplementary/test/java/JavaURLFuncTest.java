@@ -29,22 +29,22 @@ import org.slf4j.LoggerFactory;
 
 public final class JavaURLFuncTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (JavaURLFuncTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (JavaURLFuncTest.class);
 
   private void _log (@Nonnull final URL aURL) throws URISyntaxException
   {
-    s_aLogger.info ("Next URL");
-    s_aLogger.info ("  protocol = " + aURL.getProtocol ());
-    s_aLogger.info ("  authority = " + aURL.getAuthority ());
-    s_aLogger.info ("  host = " + aURL.getHost ());
-    s_aLogger.info ("  port = " + aURL.getPort ());
-    s_aLogger.info ("  defaultPort = " + aURL.getDefaultPort ());
-    s_aLogger.info ("  path = " + aURL.getPath ());
-    s_aLogger.info ("  query = " + aURL.getQuery ());
-    s_aLogger.info ("  file = " + aURL.getFile ());
-    s_aLogger.info ("  ref = " + aURL.getRef ());
-    s_aLogger.info ("  externalForm = " + aURL.toExternalForm ());
-    s_aLogger.info ("  URI          = " + aURL.toURI ().toString ());
+    LOGGER.info ("Next URL");
+    LOGGER.info ("  protocol = " + aURL.getProtocol ());
+    LOGGER.info ("  authority = " + aURL.getAuthority ());
+    LOGGER.info ("  host = " + aURL.getHost ());
+    LOGGER.info ("  port = " + aURL.getPort ());
+    LOGGER.info ("  defaultPort = " + aURL.getDefaultPort ());
+    LOGGER.info ("  path = " + aURL.getPath ());
+    LOGGER.info ("  query = " + aURL.getQuery ());
+    LOGGER.info ("  file = " + aURL.getFile ());
+    LOGGER.info ("  ref = " + aURL.getRef ());
+    LOGGER.info ("  externalForm = " + aURL.toExternalForm ());
+    LOGGER.info ("  URI          = " + aURL.toURI ().toString ());
   }
 
   @Test

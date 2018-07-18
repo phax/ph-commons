@@ -32,7 +32,8 @@ import javax.annotation.Nonnull;
  *        tree item type
  */
 public interface ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>>
-                                        extends Serializable
+                                        extends
+                                        Serializable
 {
   /**
    * Create a root entry.

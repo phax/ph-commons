@@ -48,7 +48,7 @@ import com.helger.xml.namespace.MapBasedNamespaceContext;
  */
 public final class JAXBMarshallerHelperTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (JAXBMarshallerHelperTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (JAXBMarshallerHelperTest.class);
 
   private void _testAll (@Nonnull final Class <?> aClass) throws JAXBException
   {
@@ -118,7 +118,7 @@ public final class JAXBMarshallerHelperTest
       aArc.setVersion ("1.23");
       m.write (aArc, aBAOS);
     }
-    s_aLogger.info (aBAOS.getAsString (StandardCharsets.UTF_8));
+    LOGGER.info (aBAOS.getAsString (StandardCharsets.UTF_8));
     // Must be closed!
     assertTrue ("Not closed!", aClosed.booleanValue ());
   }
@@ -142,7 +142,7 @@ public final class JAXBMarshallerHelperTest
       aArc.setVersion ("1.24");
       m.write (aArc, aBAOS);
     }
-    s_aLogger.info (aBAOS.getAsString (StandardCharsets.UTF_8));
+    LOGGER.info (aBAOS.getAsString (StandardCharsets.UTF_8));
     // Must be closed!
     assertTrue ("Not closed!", aClosed.booleanValue ());
   }

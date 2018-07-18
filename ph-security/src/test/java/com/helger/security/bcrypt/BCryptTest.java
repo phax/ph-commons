@@ -46,7 +46,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class BCryptTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (BCryptTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (BCryptTest.class);
 
   private static final String test_vectors[][] = { { "",
                                                      "$2a$06$DCq7YPn5Rq63x1Lad4cll.",
@@ -115,7 +115,7 @@ public final class BCryptTest
   @Test
   public void testHashpw ()
   {
-    s_aLogger.info ("BCrypt.hashpw(): ");
+    LOGGER.info ("BCrypt.hashpw(): ");
     for (final String [] test_vector : test_vectors)
     {
       final String plain = test_vector[0];
@@ -123,9 +123,9 @@ public final class BCryptTest
       final String expected = test_vector[2];
       final String hashed = BCrypt.hashpw (plain, salt);
       assertEquals (hashed, expected);
-      s_aLogger.info (".");
+      LOGGER.info (".");
     }
-    s_aLogger.info ("");
+    LOGGER.info ("");
   }
 
   /**
@@ -134,10 +134,10 @@ public final class BCryptTest
   @Test
   public void testGensaltInt ()
   {
-    s_aLogger.info ("BCrypt.gensalt(log_rounds):");
+    LOGGER.info ("BCrypt.gensalt(log_rounds):");
     for (int i = 4; i <= 12; i++)
     {
-      s_aLogger.info (" " + Integer.toString (i) + ":");
+      LOGGER.info (" " + Integer.toString (i) + ":");
       for (int j = 0; j < test_vectors.length; j += 4)
       {
         final String plain = test_vectors[j][0];
@@ -145,10 +145,10 @@ public final class BCryptTest
         final String hashed1 = BCrypt.hashpw (plain, salt);
         final String hashed2 = BCrypt.hashpw (plain, hashed1);
         assertEquals (hashed1, hashed2);
-        s_aLogger.info (".");
+        LOGGER.info (".");
       }
     }
-    s_aLogger.info ("");
+    LOGGER.info ("");
   }
 
   /**
@@ -157,7 +157,7 @@ public final class BCryptTest
   @Test
   public void testGensalt ()
   {
-    s_aLogger.info ("BCrypt.gensalt(): ");
+    LOGGER.info ("BCrypt.gensalt(): ");
     for (int i = 0; i < test_vectors.length; i += 4)
     {
       final String plain = test_vectors[i][0];
@@ -165,9 +165,9 @@ public final class BCryptTest
       final String hashed1 = BCrypt.hashpw (plain, salt);
       final String hashed2 = BCrypt.hashpw (plain, hashed1);
       assertEquals (hashed1, hashed2);
-      s_aLogger.info (".");
+      LOGGER.info (".");
     }
-    s_aLogger.info ("");
+    LOGGER.info ("");
   }
 
   /**
@@ -176,15 +176,15 @@ public final class BCryptTest
   @Test
   public void testCheckpw_success ()
   {
-    s_aLogger.info ("BCrypt.checkpw w/ good passwords: ");
+    LOGGER.info ("BCrypt.checkpw w/ good passwords: ");
     for (final String [] test_vector : test_vectors)
     {
       final String plain = test_vector[0];
       final String expected = test_vector[2];
       assertTrue (BCrypt.checkpw (plain, expected));
-      s_aLogger.info (".");
+      LOGGER.info (".");
     }
-    s_aLogger.info ("");
+    LOGGER.info ("");
   }
 
   /**
@@ -193,16 +193,16 @@ public final class BCryptTest
   @Test
   public void testCheckpw_failure ()
   {
-    s_aLogger.info ("BCrypt.checkpw w/ bad passwords: ");
+    LOGGER.info ("BCrypt.checkpw w/ bad passwords: ");
     for (int i = 0; i < test_vectors.length; i++)
     {
       final int broken_index = (i + 4) % test_vectors.length;
       final String plain = test_vectors[i][0];
       final String expected = test_vectors[broken_index][2];
       assertFalse (BCrypt.checkpw (plain, expected));
-      s_aLogger.info (".");
+      LOGGER.info (".");
     }
-    s_aLogger.info ("");
+    LOGGER.info ("");
   }
 
   /**
@@ -211,18 +211,18 @@ public final class BCryptTest
   @Test
   public void testInternationalChars ()
   {
-    s_aLogger.info ("BCrypt.hashpw w/ international chars: ");
+    LOGGER.info ("BCrypt.hashpw w/ international chars: ");
     final String pw1 = "\u2605\u2605\u2605\u2605\u2605\u2605\u2605\u2605";
     final String pw2 = "????????";
 
     final String h1 = BCrypt.hashpw (pw1, BCrypt.gensalt ());
     assertFalse (BCrypt.checkpw (pw2, h1));
-    s_aLogger.info (".");
+    LOGGER.info (".");
 
     final String h2 = BCrypt.hashpw (pw2, BCrypt.gensalt ());
     assertFalse (BCrypt.checkpw (pw1, h2));
-    s_aLogger.info (".");
-    s_aLogger.info ("");
+    LOGGER.info (".");
+    LOGGER.info ("");
   }
 
   @Test

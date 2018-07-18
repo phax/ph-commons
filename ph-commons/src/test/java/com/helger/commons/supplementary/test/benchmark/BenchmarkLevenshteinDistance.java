@@ -67,7 +67,7 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
   private static ICommonsList <String> _readWordList (final IReadableResource aRes,
                                                       final Charset aCharset) throws IOException
   {
-    final ICommonsList <String> ret = new CommonsArrayList<> ();
+    final ICommonsList <String> ret = new CommonsArrayList <> ();
     final NonBlockingBufferedReader aBR = new NonBlockingBufferedReader (new InputStreamReader (aRes.getInputStream (),
                                                                                                 aCharset));
     String sLine;
@@ -112,11 +112,11 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
       aStrings.add (StringHelper.getRepeated ("a", 1024));
     }
     final String [] aStringArray = aStrings.toArray (new String [0]);
-    s_aLogger.info ("Comparing " +
-                    aStrings.size () +
-                    " strings from word list; The longest string is " +
-                    _getMaxStringLength (aStrings) +
-                    " chars!");
+    LOGGER.info ("Comparing " +
+                 aStrings.size () +
+                 " strings from word list; The longest string is " +
+                 _getMaxStringLength (aStrings) +
+                 " chars!");
 
     final LevDist0StringHelper aL0 = new LevDist0StringHelper (aStringArray);
     final AbstractLevDist aL1a = new LevDist1a (aStringArray);
@@ -140,22 +140,22 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
           throw new IllegalArgumentException ("Implementation differences!");
       }
     }
-    s_aLogger.info ("Initial check done!");
+    LOGGER.info ("Initial check done!");
 
     double dTime = benchmarkTask (aL0);
-    s_aLogger.info ("*LevDist0: " + LocaleFormatter.getFormatted (dTime, Locale.ENGLISH) + " ns");
+    LOGGER.info ("*LevDist0: " + LocaleFormatter.getFormatted (dTime, Locale.ENGLISH) + " ns");
 
     dTime = benchmarkTask (aL1a);
-    s_aLogger.info ("LevDist1a: " + LocaleFormatter.getFormatted (dTime, Locale.ENGLISH) + " ns");
+    LOGGER.info ("LevDist1a: " + LocaleFormatter.getFormatted (dTime, Locale.ENGLISH) + " ns");
 
     dTime = benchmarkTask (aL1b);
-    s_aLogger.info ("LevDist1b: " + LocaleFormatter.getFormatted (dTime, Locale.ENGLISH) + " ns");
+    LOGGER.info ("LevDist1b: " + LocaleFormatter.getFormatted (dTime, Locale.ENGLISH) + " ns");
 
     dTime = benchmarkTask (aL2a);
-    s_aLogger.info ("LevDist2a: " + LocaleFormatter.getFormatted (dTime, Locale.ENGLISH) + " ns");
+    LOGGER.info ("LevDist2a: " + LocaleFormatter.getFormatted (dTime, Locale.ENGLISH) + " ns");
 
     dTime = benchmarkTask (aL2b);
-    s_aLogger.info ("LevDist2b: " + LocaleFormatter.getFormatted (dTime, Locale.ENGLISH) + " ns");
+    LOGGER.info ("LevDist2b: " + LocaleFormatter.getFormatted (dTime, Locale.ENGLISH) + " ns");
   }
 
   private static final class LevDist0StringHelper implements Runnable
@@ -201,7 +201,7 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
     public final void run ()
     {
       if (false)
-        s_aLogger.info ("run " + getClass ());
+        LOGGER.info ("run " + getClass ());
       final int n = m_aStrings.length;
       for (int i = 0; i < n - 1; ++i)
       {

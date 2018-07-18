@@ -40,7 +40,7 @@ import com.helger.commons.collection.ArrayHelper;
 @NotThreadSafe
 public class ThreadDeadlockDetector
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (ThreadDeadlockDetector.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (ThreadDeadlockDetector.class);
 
   private final ThreadMXBean m_aMBean = ManagementFactory.getThreadMXBean ();
   private final CallbackList <IThreadDeadlockCallback> m_aCallbacks = new CallbackList <> ();
@@ -89,8 +89,8 @@ public class ThreadDeadlockDetector
       // Invoke all callbacks
       if (m_aCallbacks.isEmpty ())
       {
-        if (s_aLogger.isWarnEnabled ())
-          s_aLogger.warn ("Found a deadlock of " + aThreadInfos.length + " threads but no callbacks are present!");
+        if (LOGGER.isWarnEnabled ())
+          LOGGER.warn ("Found a deadlock of " + aThreadInfos.length + " threads but no callbacks are present!");
       }
       else
         m_aCallbacks.forEach (x -> x.onDeadlockDetected (aThreadInfos));

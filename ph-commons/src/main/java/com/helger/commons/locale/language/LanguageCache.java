@@ -55,7 +55,7 @@ public final class LanguageCache
     private static final LanguageCache s_aInstance = new LanguageCache ();
   }
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (LanguageCache.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (LanguageCache.class);
 
   private static boolean s_bDefaultInstantiated = false;
 
@@ -113,8 +113,8 @@ public final class LanguageCache
 
     final String sValidLanguage = LocaleHelper.getValidLanguageCode (sLanguage);
     if (!containsLanguage (sValidLanguage))
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("Trying to retrieve unsupported language '" + sLanguage + "'");
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("Trying to retrieve unsupported language '" + sLanguage + "'");
     return LocaleCache.getInstance ().getLocale (sValidLanguage, "", "");
   }
 
@@ -190,7 +190,7 @@ public final class LanguageCache
       }
     }
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Reinitialized " + LanguageCache.class.getName ());
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Reinitialized " + LanguageCache.class.getName ());
   }
 }

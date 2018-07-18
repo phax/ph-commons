@@ -35,7 +35,7 @@ public final class CommonsArrayListTest
   @Test
   public void testBasic ()
   {
-    final ICommonsList <String> aTest = new CommonsArrayList<> ();
+    final ICommonsList <String> aTest = new CommonsArrayList <> ();
     assertTrue (aTest.isEmpty ());
     aTest.add ("aaa");
     aTest.add ("bbb");
@@ -48,39 +48,39 @@ public final class CommonsArrayListTest
   @Test
   public void testCtor ()
   {
-    CommonsArrayList <String> aTest = new CommonsArrayList<> ();
+    CommonsArrayList <String> aTest = new CommonsArrayList <> ();
     assertEquals (0, aTest.size ());
 
-    aTest = new CommonsArrayList<> (5);
+    aTest = new CommonsArrayList <> (5);
     assertEquals (0, aTest.size ());
 
-    aTest = new CommonsArrayList<> ("a", "b", "c");
+    aTest = new CommonsArrayList <> ("a", "b", "c");
     assertEquals (3, aTest.size ());
 
-    aTest = new CommonsArrayList<> ("only");
+    aTest = new CommonsArrayList <> ("only");
     assertEquals (1, aTest.size ());
 
-    aTest = new CommonsArrayList<> (new CommonsArrayList<> ("a", "b", "c"));
+    aTest = new CommonsArrayList <> (new CommonsArrayList <> ("a", "b", "c"));
     assertEquals (3, aTest.size ());
 
-    aTest = new CommonsArrayList<> ((Iterable <String>) new CommonsArrayList<> ("a", "b", "c", "d"));
+    aTest = new CommonsArrayList <> ((Iterable <String>) new CommonsArrayList <> ("a", "b", "c", "d"));
     assertEquals (4, aTest.size ());
 
-    aTest = new CommonsArrayList<> (new CommonsArrayList<> (Integer.valueOf (1), Integer.valueOf (2)),
-                                    x -> x.toString ());
+    aTest = new CommonsArrayList <> (new CommonsArrayList <> (Integer.valueOf (1), Integer.valueOf (2)),
+                                     x -> x.toString ());
     assertEquals (2, aTest.size ());
 
-    aTest = new CommonsArrayList<> ((Iterable <Integer>) new CommonsArrayList<> (Integer.valueOf (1),
-                                                                                 Integer.valueOf (2),
-                                                                                 Integer.valueOf (4)),
-                                    x -> x.toString ());
+    aTest = new CommonsArrayList <> ((Iterable <Integer>) new CommonsArrayList <> (Integer.valueOf (1),
+                                                                                   Integer.valueOf (2),
+                                                                                   Integer.valueOf (4)),
+                                     x -> x.toString ());
     assertEquals (3, aTest.size ());
   }
 
   @Test
   public void testForEachBreakable ()
   {
-    final CommonsArrayList <String> aTest = new CommonsArrayList<> ("a", "b", "c");
+    final CommonsArrayList <String> aTest = new CommonsArrayList <> ("a", "b", "c");
     final MutableInt aCounter = new MutableInt (0);
     aTest.forEachBreakable (x -> {
       aCounter.inc ();

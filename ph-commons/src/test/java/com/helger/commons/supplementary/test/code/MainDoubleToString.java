@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class MainDoubleToString
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainDoubleToString.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainDoubleToString.class);
 
   private static final char NO_PREFIX_OR_SUFFIX = '\uFFFF';
   // Hardcode some byte arrays to make them quickly available
@@ -1254,46 +1254,46 @@ public final class MainDoubleToString
     long time1;
     final MainDoubleToString a = new MainDoubleToString ();
 
-    s_aLogger.info ("The " + name);
-    s_aLogger.info ("    " + Arrays.toString (arr));
-    s_aLogger.info ("are appended to a StringBuilder one by one " + repeat + " times.");
+    LOGGER.info ("The " + name);
+    LOGGER.info ("    " + Arrays.toString (arr));
+    LOGGER.info ("are appended to a StringBuilder one by one " + repeat + " times.");
     Runtime.getRuntime ().gc ();
 
-    s_aLogger.info ("Starting test");
+    LOGGER.info ("Starting test");
     time1 = System.currentTimeMillis ();
     StringBuilder s1 = new StringBuilder ();
     for (int i = repeat; i > 0; i--)
       for (int j = arr.length - 1; j >= 0; j--)
         a.append (s1, arr[j]);
     time1 = System.currentTimeMillis () - time1;
-    s_aLogger.info ("  The append        took " + time1 + " milliseconds");
+    LOGGER.info ("  The append        took " + time1 + " milliseconds");
     s1 = null;
     Runtime.getRuntime ().gc ();
 
-    s_aLogger.info ("Starting test");
+    LOGGER.info ("Starting test");
     time1 = System.currentTimeMillis ();
     StringBuilder s2 = new StringBuilder ();
     for (int i = repeat; i > 0; i--)
       for (int j = arr.length - 1; j >= 0; j--)
         a.appendFormatted (s2, arr[j], 4, ',', '.', 3, '-', NO_PREFIX_OR_SUFFIX);
     time1 = System.currentTimeMillis () - time1;
-    s_aLogger.info ("  The format append took " + time1 + " milliseconds");
+    LOGGER.info ("  The format append took " + time1 + " milliseconds");
     s2 = null;
     Runtime.getRuntime ().gc ();
 
-    s_aLogger.info ("Starting test");
+    LOGGER.info ("Starting test");
     StringBuilder s3 = new StringBuilder ();
     time1 = System.currentTimeMillis ();
     for (int i = repeat; i > 0; i--)
       for (int j = arr.length - 1; j >= 0; j--)
         s3.append (arr[j]);
     time1 = System.currentTimeMillis () - time1;
-    s_aLogger.info ("  The StringBuilder took " + time1 + " milliseconds");
+    LOGGER.info ("  The StringBuilder took " + time1 + " milliseconds");
     s3 = null;
     Runtime.getRuntime ().gc ();
 
     StringBuffer sb1 = new StringBuffer ();
-    s_aLogger.info ("Starting test");
+    LOGGER.info ("Starting test");
     time1 = System.currentTimeMillis ();
     final DecimalFormat format = new DecimalFormat ("#,##0.0000",
                                                     DecimalFormatSymbols.getInstance (Locale.getDefault (Category.FORMAT)));
@@ -1302,7 +1302,7 @@ public final class MainDoubleToString
       for (int j = arr.length - 1; j >= 0; j--)
         format.format (arr[j], sb1, f);
     time1 = System.currentTimeMillis () - time1;
-    s_aLogger.info ("  The DecimalFormat took " + time1 + " milliseconds");
+    LOGGER.info ("  The DecimalFormat took " + time1 + " milliseconds");
     sb1 = null;
     Runtime.getRuntime ().gc ();
 
@@ -1339,11 +1339,11 @@ public final class MainDoubleToString
       format.format (arr[j], sb1, f);
     }
 
-    s_aLogger.info ("    " + s1);
-    s_aLogger.info ("    " + s2);
-    s_aLogger.info ("    " + s3);
-    s_aLogger.info ("    " + sb1);
-    s_aLogger.info ("");
+    LOGGER.info ("    " + s1);
+    LOGGER.info ("    " + s2);
+    LOGGER.info ("    " + s3);
+    LOGGER.info ("    " + sb1);
+    LOGGER.info ("");
   }
 
   public void append (final StringBuilder s, final double pd)

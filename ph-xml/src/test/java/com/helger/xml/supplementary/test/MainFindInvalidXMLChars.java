@@ -36,7 +36,7 @@ import com.helger.xml.transform.XMLTransformerFactory;
 
 public final class MainFindInvalidXMLChars
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainFindInvalidXMLChars.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainFindInvalidXMLChars.class);
 
   private MainFindInvalidXMLChars ()
   {}
@@ -98,7 +98,7 @@ public final class MainFindInvalidXMLChars
   {
     final EXMLVersion eXMLVersion = EXMLVersion.XML_10;
     final int nMax = Character.MAX_VALUE + 1;
-    final ICommonsList <Integer> aForbiddenE1 = new CommonsArrayList<> ();
+    final ICommonsList <Integer> aForbiddenE1 = new CommonsArrayList <> ();
     for (int i = 0; i < nMax; ++i)
     {
       final Document aDoc = XMLFactory.newDocument (eXMLVersion);
@@ -114,7 +114,7 @@ public final class MainFindInvalidXMLChars
         aForbiddenE1.add (Integer.valueOf (i));
       }
     }
-    final ICommonsList <Integer> aForbiddenE2 = new CommonsArrayList<> ();
+    final ICommonsList <Integer> aForbiddenE2 = new CommonsArrayList <> ();
     for (int i = 0; i < nMax; ++i)
     {
       final Document aDoc = XMLFactory.newDocument (eXMLVersion);
@@ -130,7 +130,7 @@ public final class MainFindInvalidXMLChars
         aForbiddenE2.add (Integer.valueOf (i));
       }
     }
-    final ICommonsList <Integer> aForbiddenAN1 = new CommonsArrayList<> ();
+    final ICommonsList <Integer> aForbiddenAN1 = new CommonsArrayList <> ();
     for (int i = 0; i < nMax; ++i)
     {
       final Document aDoc = XMLFactory.newDocument (eXMLVersion);
@@ -147,7 +147,7 @@ public final class MainFindInvalidXMLChars
         aForbiddenAN1.add (Integer.valueOf (i));
       }
     }
-    final ICommonsList <Integer> aForbiddenAN2 = new CommonsArrayList<> ();
+    final ICommonsList <Integer> aForbiddenAN2 = new CommonsArrayList <> ();
     for (int i = 0; i < nMax; ++i)
     {
       final Document aDoc = XMLFactory.newDocument (eXMLVersion);
@@ -164,7 +164,7 @@ public final class MainFindInvalidXMLChars
         aForbiddenAN2.add (Integer.valueOf (i));
       }
     }
-    final ICommonsList <Integer> aForbiddenAV = new CommonsArrayList<> ();
+    final ICommonsList <Integer> aForbiddenAV = new CommonsArrayList <> ();
     for (int i = 0; i < nMax; ++i)
     {
       final Document aDoc = XMLFactory.newDocument (eXMLVersion);
@@ -181,7 +181,7 @@ public final class MainFindInvalidXMLChars
         aForbiddenAV.add (Integer.valueOf (i));
       }
     }
-    final ICommonsList <Integer> aForbiddenTV = new CommonsArrayList<> ();
+    final ICommonsList <Integer> aForbiddenTV = new CommonsArrayList <> ();
     for (int i = 0; i < nMax; ++i)
     {
       final Document aDoc = XMLFactory.newDocument (eXMLVersion);
@@ -198,7 +198,7 @@ public final class MainFindInvalidXMLChars
         aForbiddenTV.add (Integer.valueOf (i));
       }
     }
-    final ICommonsList <Integer> aForbiddenCV = new CommonsArrayList<> ();
+    final ICommonsList <Integer> aForbiddenCV = new CommonsArrayList <> ();
     for (int i = 0; i < nMax; ++i)
     {
       final Document aDoc = XMLFactory.newDocument (eXMLVersion);
@@ -215,12 +215,12 @@ public final class MainFindInvalidXMLChars
         aForbiddenCV.add (Integer.valueOf (i));
       }
     }
-    s_aLogger.info ("Forbidden Element Name Start:       " + _getFormatted (aForbiddenE1));
-    s_aLogger.info ("Forbidden Element Name InBetween:   " + _getFormatted (aForbiddenE2));
-    s_aLogger.info ("Forbidden Attribute Name Start:     " + _getFormatted (aForbiddenAN1));
-    s_aLogger.info ("Forbidden Attribute Name InBetween: " + _getFormatted (aForbiddenAN2));
-    s_aLogger.info ("Forbidden Attribute Value: " + _getFormatted (aForbiddenAV));
-    s_aLogger.info ("Forbidden Text Value:      " + _getFormatted (aForbiddenTV));
-    s_aLogger.info ("Forbidden CDATA Value:     " + _getFormatted (aForbiddenCV));
+    LOGGER.info ("Forbidden Element Name Start:       " + _getFormatted (aForbiddenE1));
+    LOGGER.info ("Forbidden Element Name InBetween:   " + _getFormatted (aForbiddenE2));
+    LOGGER.info ("Forbidden Attribute Name Start:     " + _getFormatted (aForbiddenAN1));
+    LOGGER.info ("Forbidden Attribute Name InBetween: " + _getFormatted (aForbiddenAN2));
+    LOGGER.info ("Forbidden Attribute Value: " + _getFormatted (aForbiddenAV));
+    LOGGER.info ("Forbidden Text Value:      " + _getFormatted (aForbiddenTV));
+    LOGGER.info ("Forbidden CDATA Value:     " + _getFormatted (aForbiddenCV));
   }
 }

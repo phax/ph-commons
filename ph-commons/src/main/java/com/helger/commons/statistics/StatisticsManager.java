@@ -56,7 +56,7 @@ public final class StatisticsManager
   private static final ICommonsMap <String, StatisticsHandlerCounter> s_aHdlCounter = new CommonsHashMap <> ();
   private static final ICommonsMap <String, StatisticsHandlerKeyedCounter> s_aHdlKeyedCounter = new CommonsHashMap <> ();
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (StatisticsManager.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (StatisticsManager.class);
 
   @PresentForCodeCoverage
   private static final StatisticsManager s_aInstance = new StatisticsManager ();
@@ -286,7 +286,7 @@ public final class StatisticsManager
     s_aRWLockCounter.writeLocked (s_aHdlCounter::clear);
     s_aRWLockKeyedCounter.writeLocked (s_aHdlKeyedCounter::clear);
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Cache was cleared: " + StatisticsManager.class.getName ());
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Cache was cleared: " + StatisticsManager.class.getName ());
   }
 }

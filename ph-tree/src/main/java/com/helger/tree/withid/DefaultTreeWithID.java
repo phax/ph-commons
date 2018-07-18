@@ -30,8 +30,8 @@ import javax.annotation.concurrent.NotThreadSafe;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class DefaultTreeWithID <KEYTYPE, DATATYPE>
-                               extends BasicTreeWithID <KEYTYPE, DATATYPE, DefaultTreeItemWithID <KEYTYPE, DATATYPE>>
+public class DefaultTreeWithID <KEYTYPE, DATATYPE> extends
+                               BasicTreeWithID <KEYTYPE, DATATYPE, DefaultTreeItemWithID <KEYTYPE, DATATYPE>>
 {
   public DefaultTreeWithID ()
   {

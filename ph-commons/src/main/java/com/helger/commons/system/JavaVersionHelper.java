@@ -49,7 +49,7 @@ public final class JavaVersionHelper
   // 9.0.4 => 4
   public static final int JAVA_MICRO_VERSION;
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (JavaVersionHelper.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (JavaVersionHelper.class);
 
   @Nonnull
   @ReturnsMutableCopy
@@ -147,14 +147,14 @@ public final class JavaVersionHelper
       }
     }
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Java version '" +
-                       sOriginalJavaVersion +
-                       "' split into " +
-                       nMajor +
-                       "." +
-                       nMinor +
-                       (nMicro >= 0 ? "." + nMicro : ""));
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Java version '" +
+                    sOriginalJavaVersion +
+                    "' split into " +
+                    nMajor +
+                    "." +
+                    nMinor +
+                    (nMicro >= 0 ? "." + nMicro : ""));
     return new int [] { nMajor, nMinor, nMicro };
   }
 

@@ -62,7 +62,7 @@ public final class ImageDataManager
     private static final ImageDataManager s_aInstance = new ImageDataManager (1000);
   }
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (ImageDataManager.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (ImageDataManager.class);
   private static final IMutableStatisticsHandlerCache s_aStatsHdl = StatisticsManager.getCacheHandler (ImageDataManager.class);
   private static boolean s_bDefaultInstantiated = false;
 
@@ -110,14 +110,14 @@ public final class ImageDataManager
           aData = new SizeInt (aImage.getWidth (), aImage.getHeight ());
         else
         {
-          if (s_aLogger.isWarnEnabled ())
-            s_aLogger.warn ("Does not seem to be an image resource: " + aRes);
+          if (LOGGER.isWarnEnabled ())
+            LOGGER.warn ("Does not seem to be an image resource: " + aRes);
         }
       }
       else
       {
-        if (s_aLogger.isWarnEnabled ())
-          s_aLogger.warn ("Failed to resolve image resource: " + aRes);
+        if (LOGGER.isWarnEnabled ())
+          LOGGER.warn ("Failed to resolve image resource: " + aRes);
       }
     }
     catch (final UnsatisfiedLinkError | NoClassDefFoundError ex)
@@ -127,25 +127,25 @@ public final class ImageDataManager
       // NoClassDefFoundError: Happened on Ubuntu where library libmawt.so is
       // not present in a follow-up call after the
       // java.lang.UnsatisfiedLinkError error occurred
-      s_aLogger.error ("Seems like no AWT binding is present", ex);
+      LOGGER.error ("Seems like no AWT binding is present", ex);
     }
     catch (final IIOException ex)
     {
-      s_aLogger.error ("Failed to interprete image data from resource " + aRes + ": " + ex.getMessage ());
+      LOGGER.error ("Failed to interprete image data from resource " + aRes + ": " + ex.getMessage ());
     }
     catch (final IOException ex)
     {
-      s_aLogger.error ("Failed to read image data from resource " + aRes, ex);
+      LOGGER.error ("Failed to read image data from resource " + aRes, ex);
     }
     catch (final AccessControlException ex)
     {
       // can be thrown by f.exist!
-      s_aLogger.error ("Whatsoever on " + aRes, ex);
+      LOGGER.error ("Whatsoever on " + aRes, ex);
     }
     catch (final IllegalArgumentException ex)
     {
       // can be thrown by the BMP reader :)
-      s_aLogger.error ("Failed to read image data from resource " + aRes + ": " + ex.getMessage ());
+      LOGGER.error ("Failed to read image data from resource " + aRes + ": " + ex.getMessage ());
     }
     return aData;
   }
@@ -239,8 +239,8 @@ public final class ImageDataManager
       m_aImageData.clear ();
       m_aNonExistingResources.clear ();
 
-      if (s_aLogger.isDebugEnabled ())
-        s_aLogger.debug ("Cache was cleared: " + ImageDataManager.class.getName ());
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Cache was cleared: " + ImageDataManager.class.getName ());
       return EChange.CHANGED;
     });
   }

@@ -43,8 +43,8 @@ public interface IScopeDestructionAware
 
   /**
    * Called when the owning scope is destroyed. You may perform some cleanup
-   * work in here. This is method is called when the scope is already
-   * "in destruction".
+   * work in here. This is method is called when the scope is already "in
+   * destruction".
    *
    * @param aScopeInDestruction
    *        The scope in destruction. Never <code>null</code>.

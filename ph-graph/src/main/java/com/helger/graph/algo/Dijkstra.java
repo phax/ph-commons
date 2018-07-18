@@ -50,7 +50,7 @@ import com.helger.graph.IMutableDirectedGraphRelation;
  */
 public final class Dijkstra
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (Dijkstra.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (Dijkstra.class);
 
   private static final class WorkElement <N extends IMutableBaseGraphNode <N, ?>>
   {
@@ -260,14 +260,14 @@ public final class Dijkstra
     final ICommonsOrderedSet <N> aAllRemainingNodes = new CommonsLinkedHashSet <> (aGraph.getAllNodes ().values ());
 
     if (GlobalDebug.isDebugMode ())
-      if (s_aLogger.isInfoEnabled ())
-        s_aLogger.info ("Starting Dijkstra on directed graph with " +
-                        aAllRemainingNodes.size () +
-                        " nodes starting from '" +
-                        sFromID +
-                        "' and up to '" +
-                        sToID +
-                        "'");
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("Starting Dijkstra on directed graph with " +
+                     aAllRemainingNodes.size () +
+                     " nodes starting from '" +
+                     sFromID +
+                     "' and up to '" +
+                     sToID +
+                     "'");
 
     // Map from to-node-id to element
     final ICommonsOrderedMap <String, WorkElement <N>> aAllMatches = new CommonsLinkedHashMap <> ();
@@ -332,8 +332,8 @@ public final class Dijkstra
         for (final WorkElement <N> e : aRow.getAllElements ())
           aSB.append (e.getAsString ());
         aSB.append (" ==> ").append (aClosest.getAsString ());
-        if (s_aLogger.isInfoEnabled ())
-          s_aLogger.info (aSB.toString ());
+        if (LOGGER.isInfoEnabled ())
+          LOGGER.info (aSB.toString ());
       }
 
       aAllRemainingNodes.remove (aClosest.getToNode ());

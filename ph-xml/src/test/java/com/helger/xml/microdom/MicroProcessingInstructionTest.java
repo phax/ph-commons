@@ -77,15 +77,13 @@ public final class MicroProcessingInstructionTest
     assertFalse (e.isEqualContent (new MicroDocument ()));
 
     assertTrue (new MicroProcessingInstruction ("xyz").isEqualContent (new MicroProcessingInstruction ("xyz")));
-    assertTrue (new MicroProcessingInstruction ("xyz",
-                                                "data").isEqualContent (new MicroProcessingInstruction ("xyz",
-                                                                                                        "data")));
+    assertTrue (new MicroProcessingInstruction ("xyz", "data").isEqualContent (new MicroProcessingInstruction ("xyz",
+                                                                                                               "data")));
     assertFalse (new MicroProcessingInstruction ("xyz").isEqualContent (new MicroProcessingInstruction ("xy")));
     assertFalse (new MicroProcessingInstruction ("xyz", "data").isEqualContent (new MicroProcessingInstruction ("xyz",
                                                                                                                 null)));
-    assertFalse (new MicroProcessingInstruction ("xyz",
-                                                 "data").isEqualContent (new MicroProcessingInstruction ("xyz",
-                                                                                                         "dat")));
+    assertFalse (new MicroProcessingInstruction ("xyz", "data").isEqualContent (new MicroProcessingInstruction ("xyz",
+                                                                                                                "dat")));
 
     try
     {

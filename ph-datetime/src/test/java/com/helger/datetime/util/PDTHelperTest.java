@@ -74,12 +74,12 @@ public final class PDTHelperTest
   public void testGetWeekDaysBetweenl ()
   {
     final Locale aLocale = Locale.GERMANY;
-    final LocalDate aWeekendDate = PDTFactory.getCurrentLocalDate ().with (WeekFields.of (aLocale).dayOfWeek (),
-                                                                           DayOfWeek.SUNDAY.getValue ());
-    final LocalDate aStartDate = PDTFactory.getCurrentLocalDate ().with (WeekFields.of (aLocale).dayOfWeek (),
-                                                                         DayOfWeek.MONDAY.getValue ());
-    final LocalDate aEndDate = PDTFactory.getCurrentLocalDate ().with (WeekFields.of (aLocale).dayOfWeek (),
-                                                                       DayOfWeek.TUESDAY.getValue ());
+    final LocalDate aWeekendDate = PDTFactory.getCurrentLocalDate ()
+                                             .with (WeekFields.of (aLocale).dayOfWeek (), DayOfWeek.SUNDAY.getValue ());
+    final LocalDate aStartDate = PDTFactory.getCurrentLocalDate ()
+                                           .with (WeekFields.of (aLocale).dayOfWeek (), DayOfWeek.MONDAY.getValue ());
+    final LocalDate aEndDate = PDTFactory.getCurrentLocalDate ()
+                                         .with (WeekFields.of (aLocale).dayOfWeek (), DayOfWeek.TUESDAY.getValue ());
     assertEquals (0, PDTHelper.getWeekDays (aWeekendDate, aWeekendDate));
     assertEquals (1, PDTHelper.getWeekDays (aStartDate, aStartDate));
     assertEquals (2, PDTHelper.getWeekDays (aStartDate, aEndDate));

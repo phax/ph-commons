@@ -56,7 +56,7 @@ public final class CertificateHelper
   /** Character set used for String-Certificate conversion */
   public static final Charset CERT_CHARSET = StandardCharsets.ISO_8859_1;
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (CertificateHelper.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (CertificateHelper.class);
 
   @PresentForCodeCoverage
   private static final CertificateHelper s_aInstance = new CertificateHelper ();
@@ -264,8 +264,8 @@ public final class CertificateHelper
       // In some weird configurations, the result string is a hex encoded
       // certificate instead of the string
       // -> Try to work around it
-      if (s_aLogger.isDebugEnabled ())
-        s_aLogger.debug ("Failed to decode provided X.509 certificate string: " + sCertString);
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Failed to decode provided X.509 certificate string: " + sCertString);
 
       String sHexDecodedString;
       try

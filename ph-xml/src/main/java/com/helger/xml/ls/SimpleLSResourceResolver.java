@@ -39,7 +39,7 @@ import com.helger.commons.lang.IHasClassLoader;
  */
 public class SimpleLSResourceResolver extends AbstractLSResourceResolver implements IHasClassLoader
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (SimpleLSResourceResolver.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (SimpleLSResourceResolver.class);
 
   private final WeakReference <ClassLoader> m_aClassLoader;
 
@@ -103,18 +103,18 @@ public class SimpleLSResourceResolver extends AbstractLSResourceResolver impleme
                                                        @Nullable final String sBaseURI) throws Exception
   {
     if (DEBUG_RESOLVE)
-      if (s_aLogger.isInfoEnabled ())
-        s_aLogger.info ("internalResolveResource (" +
-                        sType +
-                        ", " +
-                        sNamespaceURI +
-                        ", " +
-                        sPublicId +
-                        ", " +
-                        sSystemId +
-                        ", " +
-                        sBaseURI +
-                        ")");
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("internalResolveResource (" +
+                     sType +
+                     ", " +
+                     sNamespaceURI +
+                     ", " +
+                     sPublicId +
+                     ", " +
+                     sSystemId +
+                     ", " +
+                     sBaseURI +
+                     ")");
 
     return DefaultResourceResolver.getResolvedResource (sSystemId, sBaseURI, getClassLoader ());
   }

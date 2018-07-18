@@ -25,7 +25,8 @@ package com.helger.commons.mutable;
  *        Real implementation type
  */
 public abstract class AbstractMutableInteger <IMPLTYPE extends AbstractMutableInteger <IMPLTYPE>> extends
-                                             AbstractMutableNumeric <IMPLTYPE> implements IMutableInteger <IMPLTYPE>
+                                             AbstractMutableNumeric <IMPLTYPE> implements
+                                             IMutableInteger <IMPLTYPE>
 {
   /* empty */
 }

@@ -61,7 +61,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
    */
   public static final String DEFAULT_NAMESPACE_PREFIX_PREFIX = "ns";
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractXMLSerializer.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (AbstractXMLSerializer.class);
 
   /**
    * Contains the XML namespace definitions for a single element.
@@ -71,7 +71,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
   protected static final class NamespaceLevel
   {
     @SuppressWarnings ("hiding")
-    private static final Logger s_aLogger = LoggerFactory.getLogger (NamespaceLevel.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger (NamespaceLevel.class);
     private String m_sDefaultNamespaceURI;
     private ICommonsMap <String, String> m_aURL2PrefixMap;
 
@@ -105,30 +105,30 @@ public abstract class AbstractXMLSerializer <NODETYPE>
 
     public void addPrefixNamespaceMapping (@Nullable final String sPrefix, @Nonnull final String sNamespaceURI)
     {
-      if (s_aLogger.isTraceEnabled ())
-        s_aLogger.trace ("Adding namespace mapping " + sPrefix + ":" + sNamespaceURI);
+      if (LOGGER.isTraceEnabled ())
+        LOGGER.trace ("Adding namespace mapping " + sPrefix + ":" + sNamespaceURI);
 
       // namespace prefix uniqueness check
       final String sExistingNamespaceURI = getNamespaceURIOfPrefix (sPrefix);
       if (sExistingNamespaceURI != null && !sExistingNamespaceURI.equals (sNamespaceURI))
-        if (s_aLogger.isWarnEnabled ())
-          s_aLogger.warn ("Overwriting namespace prefix '" +
-                          sPrefix +
-                          "' to use URL '" +
-                          sNamespaceURI +
-                          "' instead of '" +
-                          sExistingNamespaceURI +
-                          "'");
+        if (LOGGER.isWarnEnabled ())
+          LOGGER.warn ("Overwriting namespace prefix '" +
+                       sPrefix +
+                       "' to use URL '" +
+                       sNamespaceURI +
+                       "' instead of '" +
+                       sExistingNamespaceURI +
+                       "'");
 
       if (StringHelper.hasNoText (sPrefix))
       {
         if (m_sDefaultNamespaceURI != null)
-          if (s_aLogger.isWarnEnabled ())
-            s_aLogger.warn ("Overwriting default namespace '" +
-                            m_sDefaultNamespaceURI +
-                            "' with namespace '" +
-                            sNamespaceURI +
-                            "'");
+          if (LOGGER.isWarnEnabled ())
+            LOGGER.warn ("Overwriting default namespace '" +
+                         m_sDefaultNamespaceURI +
+                         "' with namespace '" +
+                         sNamespaceURI +
+                         "'");
         m_sDefaultNamespaceURI = sNamespaceURI;
       }
       else
@@ -489,7 +489,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
           }
         }
         else
-          s_aLogger.error ("XMLWriter settings has putNamespaceContextPrefixesInRoot set, but the NamespaceContext does not implement the IIterableNamespaceContext interface!");
+          LOGGER.error ("XMLWriter settings has putNamespaceContextPrefixesInRoot set, but the NamespaceContext does not implement the IIterableNamespaceContext interface!");
       }
     }
   }

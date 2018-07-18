@@ -26,7 +26,7 @@ import com.helger.graph.simple.SimpleGraph;
 
 public final class KruskalTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (KruskalTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (KruskalTest.class);
   private static final String ATTR_WEIGHT = "weight";
 
   @Test
@@ -51,7 +51,7 @@ public final class KruskalTest
     g.createRelation ("5", "6").attrs ().putIn (ATTR_WEIGHT, 4);
 
     final Kruskal.Result r = Kruskal.applyKruskal (g, ATTR_WEIGHT);
-    s_aLogger.info (r.getAsString ());
+    LOGGER.info (r.getAsString ());
     assertEquals (16, r.getTotalWeight ());
   }
 
@@ -71,7 +71,7 @@ public final class KruskalTest
     g.createRelation ("5", "6").attrs ().putIn (ATTR_WEIGHT, 2);
 
     final Kruskal.Result r = Kruskal.applyKruskal (g, ATTR_WEIGHT);
-    s_aLogger.info (r.getAsString ());
+    LOGGER.info (r.getAsString ());
     assertEquals (8, r.getTotalWeight ());
   }
 
@@ -108,7 +108,7 @@ public final class KruskalTest
     g.createRelation ("I", "H").attrs ().putIn (ATTR_WEIGHT, 11);
 
     final Kruskal.Result r = Kruskal.applyKruskal (g, ATTR_WEIGHT);
-    s_aLogger.info (r.getAsString ());
+    LOGGER.info (r.getAsString ());
     assertEquals (38, r.getTotalWeight ());
   }
 }

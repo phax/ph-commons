@@ -38,7 +38,7 @@ import com.helger.commons.concurrent.SimpleReadWriteLock;
 @ThreadSafe
 public class CollectingLSResourceResolver extends AbstractLSResourceResolver
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (CollectingLSResourceResolver.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (CollectingLSResourceResolver.class);
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
@@ -63,18 +63,18 @@ public class CollectingLSResourceResolver extends AbstractLSResourceResolver
                                       @Nullable final String sBaseURI)
   {
     if (DEBUG_RESOLVE)
-      if (s_aLogger.isInfoEnabled ())
-        s_aLogger.info ("mainResolveResource (" +
-                        sType +
-                        ", " +
-                        sNamespaceURI +
-                        ", " +
-                        sPublicId +
-                        ", " +
-                        sSystemId +
-                        ", " +
-                        sBaseURI +
-                        ")");
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("mainResolveResource (" +
+                     sType +
+                     ", " +
+                     sNamespaceURI +
+                     ", " +
+                     sPublicId +
+                     ", " +
+                     sSystemId +
+                     ", " +
+                     sBaseURI +
+                     ")");
 
     final LSResourceData aData = new LSResourceData (sType, sNamespaceURI, sPublicId, sSystemId, sBaseURI);
     m_aRWLock.writeLocked ( () -> m_aList.add (aData));

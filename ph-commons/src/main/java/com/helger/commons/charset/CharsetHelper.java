@@ -55,7 +55,7 @@ import com.helger.commons.string.StringHelper;
 @Immutable
 public final class CharsetHelper
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (CharsetHelper.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (CharsetHelper.class);
 
   @CodingStyleguideUnaware
   private static final SortedMap <String, Charset> s_aAllCharsets;
@@ -356,8 +356,8 @@ public final class CharsetHelper
         }
         else
         {
-          if (s_aLogger.isDebugEnabled ())
-            s_aLogger.debug ("Found " + eBOM + " on " + aIS.getClass ().getName ());
+          if (LOGGER.isDebugEnabled ())
+            LOGGER.debug ("Found " + eBOM + " on " + aIS.getClass ().getName ());
 
           // Unread the unnecessary parts of the BOM
           final int nBOMBytes = eBOM.getByteCount ();
@@ -372,7 +372,7 @@ public final class CharsetHelper
     }
     catch (final IOException ex)
     {
-      s_aLogger.error ("Failed to determine BOM", ex);
+      LOGGER.error ("Failed to determine BOM", ex);
       throw new UncheckedIOException (ex);
     }
   }

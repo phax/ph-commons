@@ -405,9 +405,7 @@ public class MatrixInt implements Serializable, ICloneable <MatrixInt>
                               @Nonnegative final int nStartColumnIndex,
                               @Nonnegative final int nEndColumnIndex)
   {
-    final MatrixInt aNewMatrix = new MatrixInt (nEndRowIndex -
-                                                nStartRowIndex +
-                                                1,
+    final MatrixInt aNewMatrix = new MatrixInt (nEndRowIndex - nStartRowIndex + 1,
                                                 nEndColumnIndex - nStartColumnIndex + 1);
     final int [] [] aNewArray = aNewMatrix.internalGetArray ();
     for (int nRow = nStartRowIndex; nRow <= nEndRowIndex; nRow++)
@@ -1286,7 +1284,7 @@ public class MatrixInt implements Serializable, ICloneable <MatrixInt>
       throw new IOException ("Unexpected EOF on matrix read.");
 
     // Read & store 1st row.
-    final ICommonsList <Integer> vD = new CommonsArrayList<> ();
+    final ICommonsList <Integer> vD = new CommonsArrayList <> ();
     do
     {
       vD.add (Integer.valueOf (Integer.parseInt (aTokenizer.sval)));
@@ -1301,7 +1299,7 @@ public class MatrixInt implements Serializable, ICloneable <MatrixInt>
       aRow[nCol] = vD.get (nCol).intValue ();
     }
 
-    final ICommonsList <int []> v = new CommonsArrayList<> ();
+    final ICommonsList <int []> v = new CommonsArrayList <> ();
     // Start storing rows instead of columns.
     v.add (aRow);
     while (aTokenizer.nextToken () == StreamTokenizer.TT_WORD)

@@ -49,7 +49,7 @@ public final class SPITestHelper
   /** Project relative path to main SPI directory */
   public static final String MAIN_SERVICES = "src/main/resources/META-INF/services";
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (SPITestHelper.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (SPITestHelper.class);
   private static final AnnotationUsageCache s_aCacheInterface = new AnnotationUsageCache (IsSPIInterface.class);
   private static final AnnotationUsageCache s_aCacheImplementation = new AnnotationUsageCache (IsSPIImplementation.class);
 
@@ -103,8 +103,8 @@ public final class SPITestHelper
         if (aFile.isFile ())
         {
           if (bDoResolve)
-            if (s_aLogger.isInfoEnabled ())
-              s_aLogger.info ("Checking SPI file " + aFile.getAbsolutePath ());
+            if (LOGGER.isInfoEnabled ())
+              LOGGER.info ("Checking SPI file " + aFile.getAbsolutePath ());
           final String sInterfaceClassName = aFile.getName ();
 
           // Check if interface exists
@@ -113,8 +113,8 @@ public final class SPITestHelper
             {
               final Class <?> aInterfaceClass = aCL.loadClass (sInterfaceClassName);
               if (sInterfaceClassName.startsWith ("com.helger.") && !s_aCacheInterface.hasAnnotation (aInterfaceClass))
-                if (s_aLogger.isWarnEnabled ())
-                  s_aLogger.warn (aInterfaceClass + " should have the @IsSPIInterface annotation");
+                if (LOGGER.isWarnEnabled ())
+                  LOGGER.warn (aInterfaceClass + " should have the @IsSPIInterface annotation");
             }
             catch (final Exception ex)
             {
@@ -124,15 +124,16 @@ public final class SPITestHelper
                                   ClassHelper.getClassLocalName (ex) +
                                   " - " +
                                   ex.getMessage ();
-              if (s_aLogger.isWarnEnabled ())
-                s_aLogger.warn (sMsg);
+              if (LOGGER.isWarnEnabled ())
+                LOGGER.warn (sMsg);
               if (eMode.isStrict ())
                 throw new IllegalStateException (sMsg);
             }
 
           // Check content - must be UTF8
-          try (final NonBlockingBufferedReader aReader = new NonBlockingBufferedReader (StreamHelper.createReader (FileHelper.getInputStream (aFile),
-                                                                                                                   StandardCharsets.UTF_8)))
+          try (
+              final NonBlockingBufferedReader aReader = new NonBlockingBufferedReader (StreamHelper.createReader (FileHelper.getInputStream (aFile),
+                                                                                                                  StandardCharsets.UTF_8)))
           {
             int nCount = 0;
             String sLine;
@@ -148,8 +149,8 @@ public final class SPITestHelper
                   {
                     final Class <?> aImplClass = aCL.loadClass (sImplClassName);
                     if (!s_aCacheImplementation.hasAnnotation (aImplClass))
-                      if (s_aLogger.isWarnEnabled ())
-                        s_aLogger.warn (aImplClass + " should have the @IsSPIImplementation annotation");
+                      if (LOGGER.isWarnEnabled ())
+                        LOGGER.warn (aImplClass + " should have the @IsSPIImplementation annotation");
                     ++nCount;
                     aAllImplementations.computeIfAbsent (sInterfaceClassName, x -> new CommonsTreeSet <> ())
                                        .add (sImplClassName);
@@ -158,8 +159,8 @@ public final class SPITestHelper
                   {
                     // Ensure the path name of the currently checked file is
                     // contained in the exception text!
-                    if (s_aLogger.isWarnEnabled ())
-                      s_aLogger.warn ("  Error checking content: " + ex.getMessage ());
+                    if (LOGGER.isWarnEnabled ())
+                      LOGGER.warn ("  Error checking content: " + ex.getMessage ());
                     if (eMode.isStrict ())
                       throw new IllegalStateException ("Error checking SPI file " + aFile.getAbsolutePath (), ex);
                   }
@@ -175,11 +176,11 @@ public final class SPITestHelper
             if (bDoResolve)
             {
               if (nCount == 0)
-                s_aLogger.warn ("  Contains no single valid implementation!");
+                LOGGER.warn ("  Contains no single valid implementation!");
               else
               {
-                if (s_aLogger.isInfoEnabled ())
-                  s_aLogger.info ("  All implementations (" + nCount + ") are valid!");
+                if (LOGGER.isInfoEnabled ())
+                  LOGGER.info ("  All implementations (" + nCount + ") are valid!");
               }
             }
           }

@@ -35,7 +35,7 @@ import com.helger.commons.string.StringHelper;
 public class LoggingInvocationHandler implements InvocationHandler
 {
   public static final boolean DEFAULT_PROXY_RETURN_VALUES = true;
-  private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingInvocationHandler.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (LoggingInvocationHandler.class);
 
   private final Object m_aActualTarget;
   private final String m_sLogPrefix;
@@ -110,24 +110,24 @@ public class LoggingInvocationHandler implements InvocationHandler
                            " (" +
                            _getParameter (aMethod.getParameters (), aArgs) +
                            ")";
-    if (s_aLogger.isInfoEnabled ())
-      s_aLogger.info (sMethod + " - invoke");
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info (sMethod + " - invoke");
     final Object ret = aMethod.invoke (m_aActualTarget, aArgs);
 
     if (aReturnType == Void.TYPE)
     {
-      if (s_aLogger.isInfoEnabled ())
-        s_aLogger.info (sMethod + " - return");
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info (sMethod + " - return");
       return null;
     }
     if (ret == null)
     {
-      if (s_aLogger.isInfoEnabled ())
-        s_aLogger.info (sMethod + " - return null");
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info (sMethod + " - return null");
       return null;
     }
-    if (s_aLogger.isInfoEnabled ())
-      s_aLogger.info (sMethod + " - return " + ret);
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info (sMethod + " - return " + ret);
     if (m_bProxyReturnValues && aReturnType.isInterface ())
     {
       // Proxy result type only if it is an interface

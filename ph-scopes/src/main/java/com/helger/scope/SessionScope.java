@@ -34,16 +34,16 @@ import com.helger.commons.state.EContinue;
 @ThreadSafe
 public class SessionScope extends AbstractScope implements ISessionScope
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (SessionScope.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (SessionScope.class);
 
   public SessionScope (@Nonnull @Nonempty final String sScopeID)
   {
     super (sScopeID);
 
     // Sessions are always displayed to see what's happening
-    if (ScopeHelper.debugSessionScopeLifeCycle (s_aLogger))
-      if (s_aLogger.isInfoEnabled ())
-        s_aLogger.info ("Created session scope '" + sScopeID + "'", ScopeHelper.getDebugStackTrace ());
+    if (ScopeHelper.debugSessionScopeLifeCycle (LOGGER))
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("Created session scope '" + sScopeID + "'", ScopeHelper.getDebugStackTrace ());
   }
 
   public void initScope ()
@@ -52,19 +52,19 @@ public class SessionScope extends AbstractScope implements ISessionScope
   @Override
   protected void preDestroy ()
   {
-    if (ScopeHelper.debugSessionScopeLifeCycle (s_aLogger))
-      if (s_aLogger.isInfoEnabled ())
-        s_aLogger.info ("Destroying session scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
-                        ScopeHelper.getDebugStackTrace ());
+    if (ScopeHelper.debugSessionScopeLifeCycle (LOGGER))
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("Destroying session scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
+                     ScopeHelper.getDebugStackTrace ());
   }
 
   @Override
   protected void postDestroy ()
   {
-    if (ScopeHelper.debugSessionScopeLifeCycle (s_aLogger))
-      if (s_aLogger.isInfoEnabled ())
-        s_aLogger.info ("Destroyed session scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
-                        ScopeHelper.getDebugStackTrace ());
+    if (ScopeHelper.debugSessionScopeLifeCycle (LOGGER))
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("Destroyed session scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
+                     ScopeHelper.getDebugStackTrace ());
   }
 
   @Nonnull

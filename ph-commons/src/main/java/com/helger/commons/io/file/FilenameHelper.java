@@ -88,7 +88,7 @@ public final class FilenameHelper
   /** The prefix used for Unix hidden files */
   public static final char HIDDEN_FILE_PREFIX = '.';
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (FilenameHelper.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (FilenameHelper.class);
 
   /**
    * Illegal characters in Windows file names.<br>
@@ -924,8 +924,8 @@ public final class FilenameHelper
         // Use our method
         // This is most likely an IOException from "File.getCanonicalPath ()"
         // stating "Invalid file path"
-        if (s_aLogger.isWarnEnabled ())
-          s_aLogger.warn ("Using getCleanPath on an invalid file '" + aFile + "' - " + ex.getMessage ());
+        if (LOGGER.isWarnEnabled ())
+          LOGGER.warn ("Using getCleanPath on an invalid file '" + aFile + "' - " + ex.getMessage ());
       }
 
     // Fallback: do it manually
@@ -1220,12 +1220,12 @@ public final class FilenameHelper
     {
       if (!aParentDirectory.isAbsolute ())
       {
-        if (s_aLogger.isErrorEnabled ())
-          s_aLogger.error ("Cannot express absolute child file ('" +
-                           aSubFile +
-                           "') relative to a relative parent file ('" +
-                           aParentDirectory +
-                           "')!");
+        if (LOGGER.isErrorEnabled ())
+          LOGGER.error ("Cannot express absolute child file ('" +
+                        aSubFile +
+                        "') relative to a relative parent file ('" +
+                        aParentDirectory +
+                        "')!");
         return null;
       }
       sRelativeSubPath = getRelativeToParentDirectory (aSubFile, aParentDirectory);

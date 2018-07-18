@@ -80,7 +80,7 @@ public final class MockJAXBArchive
   public List <MockJAXBCollection> getCollection ()
   {
     if (m_aCollection == null)
-      m_aCollection = new CommonsArrayList<> ();
+      m_aCollection = new CommonsArrayList <> ();
     return m_aCollection;
   }
 

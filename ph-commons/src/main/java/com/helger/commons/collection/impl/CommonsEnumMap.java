@@ -31,8 +31,8 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
  * @param <VALUETYPE>
  *        Map value type
  */
-public class CommonsEnumMap <KEYTYPE extends Enum <KEYTYPE>, VALUETYPE> extends EnumMap <KEYTYPE, VALUETYPE>
-                            implements ICommonsMap <KEYTYPE, VALUETYPE>
+public class CommonsEnumMap <KEYTYPE extends Enum <KEYTYPE>, VALUETYPE> extends EnumMap <KEYTYPE, VALUETYPE> implements
+                            ICommonsMap <KEYTYPE, VALUETYPE>
 {
   public CommonsEnumMap (@Nonnull final Class <KEYTYPE> aKeyClass)
   {

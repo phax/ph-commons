@@ -74,18 +74,18 @@ public final class ValueEnforcerTest
   @Test (expected = IllegalArgumentException.class)
   public void testNotEmpty7 ()
   {
-    ValueEnforcer.notEmpty (new CommonsArrayList<> (), "null");
+    ValueEnforcer.notEmpty (new CommonsArrayList <> (), "null");
   }
 
   @Test (expected = IllegalArgumentException.class)
   public void testNotEmpty8 ()
   {
-    ValueEnforcer.notEmpty (new CommonsVector<> (), "null");
+    ValueEnforcer.notEmpty (new CommonsVector <> (), "null");
   }
 
   @Test (expected = IllegalArgumentException.class)
   public void testNotEmpty9 ()
   {
-    ValueEnforcer.notEmpty (new CommonsHashMap<> (), "null");
+    ValueEnforcer.notEmpty (new CommonsHashMap <> (), "null");
   }
 }

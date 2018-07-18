@@ -43,7 +43,7 @@ public final class GraphIterator implements IIterableIterator <IMutableGraphNode
   /**
    * Maps node IDs to node states
    */
-  private final ICommonsSet <String> m_aHandledObjects = new CommonsHashSet<> ();
+  private final ICommonsSet <String> m_aHandledObjects = new CommonsHashSet <> ();
 
   private final Iterator <IMutableGraphNode> m_aIter;
 
@@ -57,7 +57,7 @@ public final class GraphIterator implements IIterableIterator <IMutableGraphNode
     ValueEnforcer.notNull (aStartNode, "startNode");
 
     // Collect all nodes, depth first
-    final ICommonsList <IMutableGraphNode> aList = new CommonsArrayList<> ();
+    final ICommonsList <IMutableGraphNode> aList = new CommonsArrayList <> ();
     _traverseDFS (aStartNode, aList);
     m_aIter = aList.iterator ();
   }

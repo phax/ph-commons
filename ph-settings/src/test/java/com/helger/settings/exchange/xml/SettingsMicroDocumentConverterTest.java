@@ -48,7 +48,7 @@ import com.helger.xml.microdom.serialize.MicroWriter;
  */
 public final class SettingsMicroDocumentConverterTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (SettingsMicroDocumentConverterTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (SettingsMicroDocumentConverterTest.class);
 
   @Test
   public void testConversionWithTypes () throws UnsupportedEncodingException
@@ -81,7 +81,7 @@ public final class SettingsMicroDocumentConverterTest
     final IMicroElement eSrcElement = MicroTypeConverter.convertToMicroElement (aSrc, "root");
     assertNotNull (eSrcElement);
     if (false)
-      s_aLogger.info (MicroWriter.getNodeAsString (eSrcElement));
+      LOGGER.info (MicroWriter.getNodeAsString (eSrcElement));
 
     // From XML
     final ISettings aDst = MicroTypeConverter.convertToNative (eSrcElement, Settings.class);

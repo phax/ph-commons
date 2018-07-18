@@ -28,7 +28,7 @@ import com.helger.commons.collection.PrimitiveCollectionHelper;
  */
 public final class MainCreatePrimitiveCollectionHelperCode
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainCreatePrimitiveCollectionHelperCode.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainCreatePrimitiveCollectionHelperCode.class);
 
   private MainCreatePrimitiveCollectionHelperCode ()
   {}
@@ -91,6 +91,6 @@ public final class MainCreatePrimitiveCollectionHelperCode
                .append ("}\n");
         }
 
-    s_aLogger.info (aSB.toString ());
+    LOGGER.info (aSB.toString ());
   }
 }

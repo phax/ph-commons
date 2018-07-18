@@ -216,8 +216,8 @@ public final class XMLHelper
   {
     if (aStartNode == null)
       return null;
-    return NodeListIterator.createChildNodeIterator (aStartNode).findFirstMapped (filterNodeIsElement (),
-                                                                                  x -> (Element) x);
+    return NodeListIterator.createChildNodeIterator (aStartNode)
+                           .findFirstMapped (filterNodeIsElement (), x -> (Element) x);
   }
 
   /**

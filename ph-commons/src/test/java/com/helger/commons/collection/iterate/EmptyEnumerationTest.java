@@ -34,7 +34,7 @@ public final class EmptyEnumerationTest
   @Test
   public void testAll ()
   {
-    final EmptyEnumeration <String> es = new EmptyEnumeration<> ();
+    final EmptyEnumeration <String> es = new EmptyEnumeration <> ();
     assertFalse (es.hasMoreElements ());
     try
     {

@@ -33,7 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public class RequestScope extends AbstractScope implements IRequestScope
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (RequestScope.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (RequestScope.class);
 
   private final String m_sSessionID;
 
@@ -43,9 +43,9 @@ public class RequestScope extends AbstractScope implements IRequestScope
     m_sSessionID = ValueEnforcer.notEmpty (sSessionID, "SessionID");
 
     // done initialization
-    if (ScopeHelper.debugRequestScopeLifeCycle (s_aLogger))
-      if (s_aLogger.isInfoEnabled ())
-        s_aLogger.info ("Created request scope '" + sScopeID + "'", ScopeHelper.getDebugStackTrace ());
+    if (ScopeHelper.debugRequestScopeLifeCycle (LOGGER))
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("Created request scope '" + sScopeID + "'", ScopeHelper.getDebugStackTrace ());
   }
 
   @Nonnull
@@ -61,19 +61,19 @@ public class RequestScope extends AbstractScope implements IRequestScope
   @Override
   protected void preDestroy ()
   {
-    if (ScopeHelper.debugRequestScopeLifeCycle (s_aLogger))
-      if (s_aLogger.isInfoEnabled ())
-        s_aLogger.info ("Destroying request scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
-                        ScopeHelper.getDebugStackTrace ());
+    if (ScopeHelper.debugRequestScopeLifeCycle (LOGGER))
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("Destroying request scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
+                     ScopeHelper.getDebugStackTrace ());
   }
 
   @Override
   protected void postDestroy ()
   {
-    if (ScopeHelper.debugRequestScopeLifeCycle (s_aLogger))
-      if (s_aLogger.isInfoEnabled ())
-        s_aLogger.info ("Destroyed request scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
-                        ScopeHelper.getDebugStackTrace ());
+    if (ScopeHelper.debugRequestScopeLifeCycle (LOGGER))
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("Destroyed request scope '" + getID () + "' of class " + ClassHelper.getClassLocalName (this),
+                     ScopeHelper.getDebugStackTrace ());
   }
 
   @Override

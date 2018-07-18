@@ -44,7 +44,7 @@ import com.helger.xml.microdom.serialize.MicroWriter;
 
 public final class StaxFuncTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (StaxFuncTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (StaxFuncTest.class);
 
   @Test
   public void testStax () throws XMLStreamException
@@ -52,13 +52,13 @@ public final class StaxFuncTest
     final XMLReporter aReporter = (sMessage,
                                    sErrorType,
                                    aRelatedInformation,
-                                   aLocation) -> s_aLogger.info (sMessage +
-                                                                 " [" +
-                                                                 sErrorType +
-                                                                 "] " +
-                                                                 aRelatedInformation +
-                                                                 " @ " +
-                                                                 SimpleLocation.create (aLocation));
+                                   aLocation) -> LOGGER.info (sMessage +
+                                                              " [" +
+                                                              sErrorType +
+                                                              "] " +
+                                                              aRelatedInformation +
+                                                              " @ " +
+                                                              SimpleLocation.create (aLocation));
 
     final XMLResolver aResolver = (sPublicID, sSystemID, sBaseURI, sNamespace) -> {
       final IReadableResource aResolvedRes = DefaultResourceResolver.getResolvedResource (sSystemID, sBaseURI);
@@ -84,7 +84,7 @@ public final class StaxFuncTest
     final XMLStreamReader aReader = myFactory.createXMLStreamReader (new FileSystemResource ("src/test/resources/xml/xml-entity-public.xml").getInputStream ());
     // document encoding from the XML declaration
     final String encoding = aReader.getEncoding ();
-    s_aLogger.info ("Using encoding " + encoding + " and version " + aReader.getVersion ());
+    LOGGER.info ("Using encoding " + encoding + " and version " + aReader.getVersion ());
 
     // loop through document for XML constructs of interest
     IMicroDocument aDoc = null;
@@ -233,21 +233,21 @@ public final class StaxFuncTest
           // FIXME crap
           final String sPublicId = aReader.getLocalName ();
           final String sSystemId = aReader.getText ();
-          s_aLogger.info ("ENTITY_REFERENCE: " + sPublicId + " / " + sSystemId);
+          LOGGER.info ("ENTITY_REFERENCE: " + sPublicId + " / " + sSystemId);
           break;
         }
         case XMLStreamConstants.ATTRIBUTE:
         {
           // FIXME crap
           final String sText = aReader.getText ();
-          s_aLogger.info ("DTD: " + sText);
+          LOGGER.info ("DTD: " + sText);
           break;
         }
         case XMLStreamConstants.DTD:
         {
           // FIXME crap
           final String sText = aReader.getText ();
-          s_aLogger.info ("DTD: " + sText);
+          LOGGER.info ("DTD: " + sText);
           break;
         }
         case XMLStreamConstants.CDATA:
@@ -272,19 +272,19 @@ public final class StaxFuncTest
         case XMLStreamConstants.NAMESPACE:
         {
           // FIXME crap
-          s_aLogger.info ("NAMESPACE: " + aReader.getNamespaceCount () + "ns");
+          LOGGER.info ("NAMESPACE: " + aReader.getNamespaceCount () + "ns");
           break;
         }
         case XMLStreamConstants.NOTATION_DECLARATION:
         {
           // FIXME crap
-          s_aLogger.info ("NOTATION_DECLARATION: " + aReader.getText () + "ns");
+          LOGGER.info ("NOTATION_DECLARATION: " + aReader.getText () + "ns");
           break;
         }
         case XMLStreamConstants.ENTITY_DECLARATION:
         {
           // FIXME crap
-          s_aLogger.info ("ENTITY_DECLARATION: " + aReader.getText () + "ns");
+          LOGGER.info ("ENTITY_DECLARATION: " + aReader.getText () + "ns");
           break;
         }
         default:
@@ -292,6 +292,6 @@ public final class StaxFuncTest
       }
     }
 
-    s_aLogger.info (MicroWriter.getNodeAsString (aDoc));
+    LOGGER.info (MicroWriter.getNodeAsString (aDoc));
   }
 }

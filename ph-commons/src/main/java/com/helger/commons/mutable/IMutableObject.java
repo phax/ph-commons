@@ -27,8 +27,10 @@ import com.helger.commons.traits.IGenericImplTrait;
  * @param <IMPLTYPE>
  *        Implementation type
  */
-public interface IMutableObject <IMPLTYPE extends IMutableObject <IMPLTYPE>>
-                                extends IComparable <IMPLTYPE>, ICloneable <IMPLTYPE>, IGenericImplTrait <IMPLTYPE>
+public interface IMutableObject <IMPLTYPE extends IMutableObject <IMPLTYPE>> extends
+                                IComparable <IMPLTYPE>,
+                                ICloneable <IMPLTYPE>,
+                                IGenericImplTrait <IMPLTYPE>
 {
   /* empty */
 }

@@ -43,7 +43,7 @@ import com.helger.json.parser.handler.StringAssemblyJsonParserHandler;
  */
 public final class JsonReaderTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (JsonReaderTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (JsonReaderTest.class);
 
   private static void _testReassemble (@Nonnull final String sJson)
   {
@@ -250,15 +250,15 @@ public final class JsonReaderTest
     for (final File f : new FileSystemIterator ("src/test/resources/json"))
       if (f.isFile () && f.getName ().endsWith (".json"))
       {
-        s_aLogger.info ("Reading file " + f.getName ());
+        LOGGER.info ("Reading file " + f.getName ());
         final StopWatch aSW1 = StopWatch.createdStarted ();
         assertTrue ("Failed to parse file: " + f.getName (), JsonReader.isValidJson (f));
-        s_aLogger.info ("  Validation: " + aSW1.stopAndGetMillis () + " ms");
+        LOGGER.info ("  Validation: " + aSW1.stopAndGetMillis () + " ms");
 
         final StopWatch aSW2 = StopWatch.createdStarted ();
         final IJson aJson = JsonReader.readFromFile (f);
         assertNotNull ("Failed to parse: " + f.getAbsolutePath (), aJson);
-        s_aLogger.info ("  Reading: " + aSW2.stopAndGetMillis () + " ms");
+        LOGGER.info ("  Reading: " + aSW2.stopAndGetMillis () + " ms");
       }
   }
 
@@ -268,7 +268,7 @@ public final class JsonReaderTest
     for (final File f : new FileSystemIterator ("src/test/resources/json/fail"))
       if (f.isFile () && f.getName ().endsWith (".json"))
       {
-        s_aLogger.info ("Reading file " + f.getName ());
+        LOGGER.info ("Reading file " + f.getName ());
         assertFalse ("Parsed even if error expected: " + f.getName (), JsonReader.isValidJson (f));
         final IJson aJson = JsonReader.readFromFile (f);
         assertNull ("Parsed even if error expected: " + f.getName (), aJson);

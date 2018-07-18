@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
 @NotThreadSafe
 public class LoggingTransformURIResolver extends AbstractTransformURIResolver
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingTransformURIResolver.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (LoggingTransformURIResolver.class);
 
   public LoggingTransformURIResolver ()
   {
@@ -49,8 +49,8 @@ public class LoggingTransformURIResolver extends AbstractTransformURIResolver
   @Override
   protected Source internalResolve (final String sHref, final String sBase) throws TransformerException
   {
-    if (s_aLogger.isInfoEnabled ())
-      s_aLogger.info ("URIResolver.resolve (" + sHref + ", " + sBase + ")");
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("URIResolver.resolve (" + sHref + ", " + sBase + ")");
     return null;
   }
 }

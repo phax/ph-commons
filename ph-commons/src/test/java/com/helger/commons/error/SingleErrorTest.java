@@ -182,9 +182,7 @@ public final class SingleErrorTest
     assertNull (aErr.getLinkedExceptionCause ());
     assertEquals ("exception msg", aErr.getLinkedExceptionMessage ());
     assertNotNull (aErr.getLinkedExceptionStackTrace ());
-    assertEquals ("[error] [id1] in field @ file.xml(4:13) abc (" +
-                  ex.getClass ().getName () +
-                  ": exception msg)",
+    assertEquals ("[error] [id1] in field @ file.xml(4:13) abc (" + ex.getClass ().getName () + ": exception msg)",
                   aErr.getAsString (aDisplayLocale));
     assertEquals (aErr, SingleError.builder (aErr).build ());
   }

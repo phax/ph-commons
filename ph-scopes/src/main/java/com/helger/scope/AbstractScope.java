@@ -45,7 +45,7 @@ import com.helger.commons.string.ToStringGenerator;
 @ThreadSafe
 public abstract class AbstractScope implements IScope
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (AbstractScope.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (AbstractScope.class);
 
   protected final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   /** ID of the scope */
@@ -133,7 +133,7 @@ public abstract class AbstractScope implements IScope
       }
       catch (final Exception ex)
       {
-        s_aLogger.error ("Failed to call onBeforeScopeDestruction in scope " + getID () + " for " + aValue, ex);
+        LOGGER.error ("Failed to call onBeforeScopeDestruction in scope " + getID () + " for " + aValue, ex);
       }
 
     m_aRWLock.writeLocked ( () -> {
@@ -154,7 +154,7 @@ public abstract class AbstractScope implements IScope
       }
       catch (final Exception ex)
       {
-        s_aLogger.error ("Failed to call onScopeDestruction in scope " + getID () + " for " + aValue, ex);
+        LOGGER.error ("Failed to call onScopeDestruction in scope " + getID () + " for " + aValue, ex);
       }
 
     // Finished destruction process -> remember this

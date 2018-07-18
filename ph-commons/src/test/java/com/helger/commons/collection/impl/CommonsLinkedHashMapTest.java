@@ -35,7 +35,7 @@ public final class CommonsLinkedHashMapTest
   @Test
   public void testBasic ()
   {
-    final ICommonsMap <String, String> aTest = new CommonsLinkedHashMap<> ();
+    final ICommonsMap <String, String> aTest = new CommonsLinkedHashMap <> ();
     aTest.put ("aaa", "bla");
     aTest.put ("bbb", "blb");
     aTest.put ("ccc", "blc");
@@ -52,23 +52,23 @@ public final class CommonsLinkedHashMapTest
   @Test
   public void testCtor ()
   {
-    CommonsLinkedHashMap <String, Integer> aTest = new CommonsLinkedHashMap<> ();
+    CommonsLinkedHashMap <String, Integer> aTest = new CommonsLinkedHashMap <> ();
     assertEquals (0, aTest.size ());
-    aTest = new CommonsLinkedHashMap<> (7_000_123);
+    aTest = new CommonsLinkedHashMap <> (7_000_123);
     assertEquals (0, aTest.size ());
-    aTest = new CommonsLinkedHashMap<> (7_000_123, 0.1f);
+    aTest = new CommonsLinkedHashMap <> (7_000_123, 0.1f);
     assertEquals (0, aTest.size ());
-    aTest = new CommonsLinkedHashMap<> (7_000_123, 0.1f, false);
+    aTest = new CommonsLinkedHashMap <> (7_000_123, 0.1f, false);
     assertEquals (0, aTest.size ());
-    aTest = new CommonsLinkedHashMap<> (new CommonsArrayList<> ("test", "any", "foo"),
-                                        Function.identity (),
-                                        x -> Integer.valueOf (x.length ()));
+    aTest = new CommonsLinkedHashMap <> (new CommonsArrayList <> ("test", "any", "foo"),
+                                         Function.identity (),
+                                         x -> Integer.valueOf (x.length ()));
     assertEquals (3, aTest.size ());
-    aTest = new CommonsLinkedHashMap<> (new CommonsLinkedHashMap <String, Integer> (new CommonsArrayList<> ("test",
-                                                                                                            "any",
-                                                                                                            "foo"),
-                                                                                    Function.identity (),
-                                                                                    x -> Integer.valueOf (x.length ())));
+    aTest = new CommonsLinkedHashMap <> (new CommonsLinkedHashMap <String, Integer> (new CommonsArrayList <> ("test",
+                                                                                                              "any",
+                                                                                                              "foo"),
+                                                                                     Function.identity (),
+                                                                                     x -> Integer.valueOf (x.length ())));
     assertEquals (3, aTest.size ());
   }
 }

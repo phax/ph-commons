@@ -40,7 +40,7 @@ import com.helger.commons.io.stream.StreamHelper;
  */
 public class FlateCodec implements IByteArrayCodec
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (FlateCodec.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (FlateCodec.class);
 
   public FlateCodec ()
   {}
@@ -71,11 +71,12 @@ public class FlateCodec implements IByteArrayCodec
       return;
 
     if (!isZlibHead (aEncodedBuffer, nOfs, nLen))
-      s_aLogger.warn ("ZLib header not found");
+      LOGGER.warn ("ZLib header not found");
 
-    try (final InflaterInputStream aDecodeIS = new InflaterInputStream (new NonBlockingByteArrayInputStream (aEncodedBuffer,
-                                                                                                             nOfs,
-                                                                                                             nLen)))
+    try (
+        final InflaterInputStream aDecodeIS = new InflaterInputStream (new NonBlockingByteArrayInputStream (aEncodedBuffer,
+                                                                                                            nOfs,
+                                                                                                            nLen)))
     {
       if (StreamHelper.copyInputStreamToOutputStream (aDecodeIS, aOS).isFailure ())
         throw new DecodeException ("Failed to flate decode!");

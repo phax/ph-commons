@@ -29,8 +29,9 @@ import com.helger.commons.state.EChange;
  * @param <DATATYPE>
  *        The type of the object use for defining a replacement.
  */
-public interface IMutableExpirableWithReplacement <DATATYPE>
-                                                  extends IMutableExpirable, IExpirableWithReplacement <DATATYPE>
+public interface IMutableExpirableWithReplacement <DATATYPE> extends
+                                                  IMutableExpirable,
+                                                  IExpirableWithReplacement <DATATYPE>
 {
   /**
    * Define a replacement in case this object expires.

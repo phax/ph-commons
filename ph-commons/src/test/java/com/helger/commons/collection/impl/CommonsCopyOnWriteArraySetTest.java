@@ -34,7 +34,7 @@ public final class CommonsCopyOnWriteArraySetTest
   @Test
   public void testBasic ()
   {
-    final ICommonsSet <String> aTest = new CommonsCopyOnWriteArraySet<> ();
+    final ICommonsSet <String> aTest = new CommonsCopyOnWriteArraySet <> ();
     aTest.add ("aaa");
     aTest.add ("bbb");
     aTest.add ("ccc");
@@ -51,32 +51,32 @@ public final class CommonsCopyOnWriteArraySetTest
   @Test
   public void testCtor ()
   {
-    CommonsCopyOnWriteArraySet <String> aTest = new CommonsCopyOnWriteArraySet<> ();
+    CommonsCopyOnWriteArraySet <String> aTest = new CommonsCopyOnWriteArraySet <> ();
     assertEquals (0, aTest.size ());
 
-    aTest = new CommonsCopyOnWriteArraySet<> ("a", "b", "c");
+    aTest = new CommonsCopyOnWriteArraySet <> ("a", "b", "c");
     assertEquals (3, aTest.size ());
 
-    aTest = new CommonsCopyOnWriteArraySet<> ("only");
+    aTest = new CommonsCopyOnWriteArraySet <> ("only");
     assertEquals (1, aTest.size ());
 
-    aTest = new CommonsCopyOnWriteArraySet<> (new CommonsCopyOnWriteArraySet<> ("a", "b", "c"));
+    aTest = new CommonsCopyOnWriteArraySet <> (new CommonsCopyOnWriteArraySet <> ("a", "b", "c"));
     assertEquals (3, aTest.size ());
 
-    aTest = new CommonsCopyOnWriteArraySet<> (new CommonsArrayList<> ("a", "b", "c"));
+    aTest = new CommonsCopyOnWriteArraySet <> (new CommonsArrayList <> ("a", "b", "c"));
     assertEquals (3, aTest.size ());
 
-    aTest = new CommonsCopyOnWriteArraySet<> ((Iterable <String>) new CommonsArrayList<> ("a", "b", "c", "d"));
+    aTest = new CommonsCopyOnWriteArraySet <> ((Iterable <String>) new CommonsArrayList <> ("a", "b", "c", "d"));
     assertEquals (4, aTest.size ());
 
-    aTest = new CommonsCopyOnWriteArraySet<> (new CommonsArrayList<> (Integer.valueOf (1), Integer.valueOf (2)),
-                                              x -> x.toString ());
+    aTest = new CommonsCopyOnWriteArraySet <> (new CommonsArrayList <> (Integer.valueOf (1), Integer.valueOf (2)),
+                                               x -> x.toString ());
     assertEquals (2, aTest.size ());
 
-    aTest = new CommonsCopyOnWriteArraySet<> ((Iterable <Integer>) new CommonsArrayList<> (Integer.valueOf (1),
-                                                                                           Integer.valueOf (2),
-                                                                                           Integer.valueOf (4)),
-                                              x -> x.toString ());
+    aTest = new CommonsCopyOnWriteArraySet <> ((Iterable <Integer>) new CommonsArrayList <> (Integer.valueOf (1),
+                                                                                             Integer.valueOf (2),
+                                                                                             Integer.valueOf (4)),
+                                               x -> x.toString ());
     assertEquals (3, aTest.size ());
   }
 }

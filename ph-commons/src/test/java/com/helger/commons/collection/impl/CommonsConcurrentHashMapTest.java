@@ -37,7 +37,7 @@ public final class CommonsConcurrentHashMapTest
   @Test
   public void testBasic ()
   {
-    final ICommonsMap <String, String> aTest = new CommonsConcurrentHashMap<> ();
+    final ICommonsMap <String, String> aTest = new CommonsConcurrentHashMap <> ();
     aTest.put ("aaa", "bla");
     aTest.put ("bbb", "blb");
     aTest.put ("ccc", "blc");
@@ -54,21 +54,21 @@ public final class CommonsConcurrentHashMapTest
   @Test
   public void testCtor ()
   {
-    CommonsConcurrentHashMap <String, Integer> aTest = new CommonsConcurrentHashMap<> ();
+    CommonsConcurrentHashMap <String, Integer> aTest = new CommonsConcurrentHashMap <> ();
     assertEquals (0, aTest.size ());
-    aTest = new CommonsConcurrentHashMap<> (7_000_123);
+    aTest = new CommonsConcurrentHashMap <> (7_000_123);
     assertEquals (0, aTest.size ());
-    aTest = new CommonsConcurrentHashMap<> (7_000_123, 0.1f);
+    aTest = new CommonsConcurrentHashMap <> (7_000_123, 0.1f);
     assertEquals (0, aTest.size ());
-    aTest = new CommonsConcurrentHashMap<> (new CommonsArrayList<> ("test", "any", "foo"),
-                                            Function.identity (),
-                                            x -> Integer.valueOf (x.length ()));
+    aTest = new CommonsConcurrentHashMap <> (new CommonsArrayList <> ("test", "any", "foo"),
+                                             Function.identity (),
+                                             x -> Integer.valueOf (x.length ()));
     assertEquals (3, aTest.size ());
-    aTest = new CommonsConcurrentHashMap<> (new CommonsConcurrentHashMap <String, Integer> (new CommonsArrayList<> ("test",
-                                                                                                                    "any",
-                                                                                                                    "foo"),
-                                                                                            Function.identity (),
-                                                                                            x -> Integer.valueOf (x.length ())));
+    aTest = new CommonsConcurrentHashMap <> (new CommonsConcurrentHashMap <String, Integer> (new CommonsArrayList <> ("test",
+                                                                                                                      "any",
+                                                                                                                      "foo"),
+                                                                                             Function.identity (),
+                                                                                             x -> Integer.valueOf (x.length ())));
     assertEquals (3, aTest.size ());
   }
 
@@ -82,6 +82,6 @@ public final class CommonsConcurrentHashMapTest
     final ICommonsMap <Integer, String> aMapSwapped = aMap.getSwappedKeyValues ();
     assertEquals (aMap.size (), aMapSwapped.size ());
     assertEquals (aMap, aMapSwapped.getSwappedKeyValues ());
-    assertNotNull (new CommonsConcurrentHashMap<> ().getSwappedKeyValues ());
+    assertNotNull (new CommonsConcurrentHashMap <> ().getSwappedKeyValues ());
   }
 }

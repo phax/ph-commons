@@ -35,7 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public class TrustManagerTrustAll implements X509TrustManager
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (TrustManagerTrustAll.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (TrustManagerTrustAll.class);
 
   private final boolean m_bDebug;
 
@@ -66,15 +66,15 @@ public class TrustManagerTrustAll implements X509TrustManager
   public void checkServerTrusted (final X509Certificate [] aChain, final String sAuthType)
   {
     if (m_bDebug)
-      if (s_aLogger.isInfoEnabled ())
-        s_aLogger.info ("checkServerTrusted (" + Arrays.toString (aChain) + ", " + sAuthType + ")");
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("checkServerTrusted (" + Arrays.toString (aChain) + ", " + sAuthType + ")");
   }
 
   public void checkClientTrusted (final X509Certificate [] aChain, final String sAuthType)
   {
     if (m_bDebug)
-      if (s_aLogger.isInfoEnabled ())
-        s_aLogger.info ("checkClientTrusted (" + Arrays.toString (aChain) + ", " + sAuthType + ")");
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("checkClientTrusted (" + Arrays.toString (aChain) + ", " + sAuthType + ")");
   }
 
   @Override

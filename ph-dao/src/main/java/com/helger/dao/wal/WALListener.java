@@ -67,7 +67,7 @@ public final class WALListener extends AbstractGlobalSingleton
     }
   }
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (WALListener.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (WALListener.class);
 
   // custom ThreadFactory to give the baby a name
   private final ScheduledExecutorService m_aES = Executors.newSingleThreadScheduledExecutor (new BasicThreadFactory.Builder ().setNamingPattern ("WAL-Listener-%d")
@@ -100,10 +100,10 @@ public final class WALListener extends AbstractGlobalSingleton
         {
           // reschedule to perform it now
           m_aES.submit (aItem.m_aRunnable);
-          s_aLogger.info ("Rescheduled DAO writing for " + aEntry.getKey () + " to happen now");
+          LOGGER.info ("Rescheduled DAO writing for " + aEntry.getKey () + " to happen now");
         }
         else
-          s_aLogger.info ("Cannot reschedule DAO writing for " + aEntry.getKey () + " because it is already running");
+          LOGGER.info ("Cannot reschedule DAO writing for " + aEntry.getKey () + " because it is already running");
       }
       // ensure all are cleared
       m_aScheduledItems.clear ();
@@ -138,8 +138,8 @@ public final class WALListener extends AbstractGlobalSingleton
     if (bDoScheduleForWriting)
     {
       // We need to schedule it now
-      if (s_aLogger.isDebugEnabled ())
-        s_aLogger.debug ("Now scheduling writing for DAO " + sKey);
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Now scheduling writing for DAO " + sKey);
 
       // What should be executed upon writing
       final Runnable r = () -> {
@@ -150,8 +150,8 @@ public final class WALListener extends AbstractGlobalSingleton
           // Delete the WAL file
           aDAO._deleteWALFile (sWALFilename);
 
-          if (s_aLogger.isDebugEnabled ())
-            s_aLogger.debug ("Finished scheduled writing for DAO " + sKey);
+          if (LOGGER.isDebugEnabled ())
+            LOGGER.debug ("Finished scheduled writing for DAO " + sKey);
         });
 
         // Remove from the internal set so that another job will be

@@ -61,7 +61,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
 {
   public static final boolean DEFAULT_DESTROY_ALL_SESSIONS_ON_SCOPE_END = true;
   public static final boolean DEFAULT_END_ALL_SESSIONS_ON_SCOPE_END = true;
-  private static final Logger s_aLogger = LoggerFactory.getLogger (ScopeSessionManager.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (ScopeSessionManager.class);
   private static final IMutableStatisticsHandlerCounter s_aUniqueSessionCounter = StatisticsManager.getCounterHandler (ScopeSessionManager.class.getName () +
                                                                                                                        "$UNIQUE_SESSIONS");
 
@@ -126,7 +126,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
     final String sSessionID = aSessionScope.getID ();
     m_aRWLock.writeLocked ( () -> {
       if (m_aSessionScopes.put (sSessionID, aSessionScope) != null)
-        s_aLogger.error ("Overwriting session scope with ID '" + sSessionID + "'");
+        LOGGER.error ("Overwriting session scope with ID '" + sSessionID + "'");
     });
 
     // Init the scope after it was registered
@@ -165,14 +165,14 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
           final ISessionScope aRemovedScope = m_aSessionScopes.remove (sSessionID);
           if (!EqualsHelper.identityEqual (aRemovedScope, aSessionScope))
           {
-            s_aLogger.error ("Ending an unknown session with ID '" + sSessionID + "'");
-            s_aLogger.error ("  Scope to be removed: " + aSessionScope);
-            s_aLogger.error ("  Removed scope:       " + aRemovedScope);
+            LOGGER.error ("Ending an unknown session with ID '" + sSessionID + "'");
+            LOGGER.error ("  Scope to be removed: " + aSessionScope);
+            LOGGER.error ("  Removed scope:       " + aRemovedScope);
           }
           bWLCanDestroyScope = true;
         }
         else
-          s_aLogger.info ("Already destructing session '" + sSessionID + "'");
+          LOGGER.info ("Already destructing session '" + sSessionID + "'");
         return bWLCanDestroyScope;
       });
 
@@ -230,10 +230,10 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
     if (containsAnySession ())
     {
       m_aRWLock.writeLocked ( () -> {
-        s_aLogger.error ("The following " +
-                         m_aSessionScopes.size () +
-                         " session scopes are left over: " +
-                         m_aSessionScopes.toString ());
+        LOGGER.error ("The following " +
+                      m_aSessionScopes.size () +
+                      " session scopes are left over: " +
+                      m_aSessionScopes.toString ());
         m_aSessionScopes.clear ();
       });
     }

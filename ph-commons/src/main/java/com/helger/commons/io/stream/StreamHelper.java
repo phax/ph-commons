@@ -62,7 +62,7 @@ public final class StreamHelper
   public static final int DEFAULT_BUFSIZE = 16 * CGlobal.BYTES_PER_KILOBYTE;
 
   /** The logger to use. */
-  private static final Logger s_aLogger = LoggerFactory.getLogger (StreamHelper.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (StreamHelper.class);
 
   private static final IMutableStatisticsHandlerSize s_aByteSizeHdl = StatisticsManager.getSizeHandler (StreamHelper.class.getName () +
                                                                                                         "$COPY");
@@ -127,8 +127,8 @@ public final class StreamHelper
       catch (final Exception ex)
       {
         if (!isKnownEOFException (ex))
-          s_aLogger.error ("Failed to close object " + aCloseable.getClass ().getName (),
-                           ex instanceof IMockException ? null : ex);
+          LOGGER.error ("Failed to close object " + aCloseable.getClass ().getName (),
+                        ex instanceof IMockException ? null : ex);
       }
     }
     return ESuccess.FAILURE;
@@ -166,8 +166,8 @@ public final class StreamHelper
       catch (final Exception ex)
       {
         if (!isKnownEOFException (ex))
-          s_aLogger.error ("Failed to close object " + aCloseable.getClass ().getName (),
-                           ex instanceof IMockException ? null : ex);
+          LOGGER.error ("Failed to close object " + aCloseable.getClass ().getName (),
+                        ex instanceof IMockException ? null : ex);
       }
     }
 
@@ -197,8 +197,8 @@ public final class StreamHelper
       catch (final IOException ex)
       {
         if (!isKnownEOFException (ex))
-          s_aLogger.error ("Failed to flush object " + aFlushable.getClass ().getName (),
-                           ex instanceof IMockException ? null : ex);
+          LOGGER.error ("Failed to flush object " + aFlushable.getClass ().getName (),
+                        ex instanceof IMockException ? null : ex);
       }
     return ESuccess.FAILURE;
   }
@@ -491,7 +491,7 @@ public final class StreamHelper
     catch (final IOException ex)
     {
       if (!isKnownEOFException (ex))
-        s_aLogger.error ("Failed to copy from stream to stream", ex instanceof IMockException ? null : ex);
+        LOGGER.error ("Failed to copy from stream to stream", ex instanceof IMockException ? null : ex);
     }
     finally
     {
@@ -926,7 +926,7 @@ public final class StreamHelper
     catch (final IOException ex)
     {
       if (!isKnownEOFException (ex))
-        s_aLogger.error ("Failed to copy from reader to writer", ex instanceof IMockException ? null : ex);
+        LOGGER.error ("Failed to copy from reader to writer", ex instanceof IMockException ? null : ex);
     }
     finally
     {
@@ -1218,7 +1218,7 @@ public final class StreamHelper
           }
           catch (final IOException ex)
           {
-            s_aLogger.error ("Failed to read from input stream", ex instanceof IMockException ? null : ex);
+            LOGGER.error ("Failed to read from input stream", ex instanceof IMockException ? null : ex);
           }
         }
     }
@@ -1263,7 +1263,7 @@ public final class StreamHelper
     }
     catch (final IOException ex)
     {
-      s_aLogger.error ("Failed to write to output stream", ex instanceof IMockException ? null : ex);
+      LOGGER.error ("Failed to write to output stream", ex instanceof IMockException ? null : ex);
       return ESuccess.FAILURE;
     }
     finally

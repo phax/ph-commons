@@ -317,7 +317,7 @@ public final class MimeTypeInfo
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllExtensions ()
   {
-    final ICommonsOrderedSet <String> ret = new CommonsLinkedHashSet<> ();
+    final ICommonsOrderedSet <String> ret = new CommonsLinkedHashSet <> ();
     ret.addAllMapped (m_aExtensions, ExtensionWithSource::getExtension);
     return ret;
   }

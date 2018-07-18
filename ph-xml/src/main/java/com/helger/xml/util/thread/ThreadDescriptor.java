@@ -49,7 +49,7 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
 {
   public static final boolean DEFAULT_ENABLE_THREAD_INFO = false;
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (ThreadDescriptor.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (ThreadDescriptor.class);
   private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
   private static final ThreadMXBean THREAD_MX = ManagementFactory.getThreadMXBean ();
 
@@ -101,8 +101,8 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
     }
     catch (final Exception ex)
     {
-      if (s_aLogger.isErrorEnabled ())
-        s_aLogger.error ("Failed to get ThreadInfo for thread " + m_nID + ":", ex);
+      if (LOGGER.isErrorEnabled ())
+        LOGGER.error ("Failed to get ThreadInfo for thread " + m_nID + ":", ex);
     }
     m_aThreadInfo = aThreadInfo;
   }

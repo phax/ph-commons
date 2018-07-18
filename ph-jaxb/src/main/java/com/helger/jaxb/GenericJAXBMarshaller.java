@@ -72,7 +72,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
 {
   public static final boolean DEFAULT_READ_SECURE = true;
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (GenericJAXBMarshaller.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (GenericJAXBMarshaller.class);
 
   private final Class <JAXBTYPE> m_aType;
   private final ICommonsList <ClassPathResource> m_aXSDs = new CommonsArrayList <> ();
@@ -402,8 +402,8 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
   private Unmarshaller _createUnmarshaller (@Nullable final ClassLoader aClassLoader) throws JAXBException
   {
     final Package aPackage = m_aType.getPackage ();
-    final JAXBContext aJAXBContext = m_bUseContextCache ? JAXBContextCache.getInstance ().getFromCache (aPackage,
-                                                                                                        aClassLoader)
+    final JAXBContext aJAXBContext = m_bUseContextCache ? JAXBContextCache.getInstance ()
+                                                                          .getFromCache (aPackage, aClassLoader)
                                                         : JAXBContext.newInstance (aPackage.getName (), aClassLoader);
 
     // create an Unmarshaller
@@ -447,12 +447,12 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
       // call to unmarshal with an UnmarshalException.
       final Throwable aLinked = ((UnmarshalException) ex).getLinkedException ();
       if (aLinked instanceof SAXParseException)
-        s_aLogger.error ("Failed to parse XML document: " + aLinked.getMessage ());
+        LOGGER.error ("Failed to parse XML document: " + aLinked.getMessage ());
       else
-        s_aLogger.error ("Unmarshal exception reading document", ex);
+        LOGGER.error ("Unmarshal exception reading document", ex);
     }
     else
-      s_aLogger.warn ("JAXB Exception reading document", ex);
+      LOGGER.warn ("JAXB Exception reading document", ex);
   }
 
   @Nullable
@@ -506,13 +506,13 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
       catch (final Exception ex)
       {
         // Might be an IllegalArgumentException or a NoClassDefFoundError
-        s_aLogger.error ("Failed to set the namespace context " +
-                         m_aNSContext +
-                         ": " +
-                         ex.getClass ().getName () +
-                         " -- " +
-                         ex.getMessage (),
-                         GlobalDebug.isDebugMode () ? ex.getCause () : null);
+        LOGGER.error ("Failed to set the namespace context " +
+                      m_aNSContext +
+                      ": " +
+                      ex.getClass ().getName () +
+                      " -- " +
+                      ex.getMessage (),
+                      GlobalDebug.isDebugMode () ? ex.getCause () : null);
       }
 
     JAXBMarshallerHelper.setFormattedOutput (aMarshaller, m_bFormattedOutput);
@@ -553,9 +553,9 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
   protected void handleWriteException (@Nonnull final JAXBException ex)
   {
     if (ex instanceof MarshalException)
-      s_aLogger.error ("Marshal exception writing object", ex);
+      LOGGER.error ("Marshal exception writing object", ex);
     else
-      s_aLogger.warn ("JAXB Exception writing object", ex);
+      LOGGER.warn ("JAXB Exception writing object", ex);
   }
 
   @Nonnull

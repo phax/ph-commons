@@ -97,7 +97,7 @@ public final class ObjectNameHelper
   {
     ValueEnforcer.notEmpty (aParams, "Params");
 
-    return create (new Hashtable<> (aParams));
+    return create (new Hashtable <> (aParams));
   }
 
   /**
@@ -141,7 +141,7 @@ public final class ObjectNameHelper
   {
     ValueEnforcer.notNull (aObj, "Object");
 
-    final Hashtable <String, String> aParams = new Hashtable<> ();
+    final Hashtable <String, String> aParams = new Hashtable <> ();
     aParams.put (CJMX.PROPERTY_TYPE, ClassHelper.getClassLocalName (aObj));
     return create (aParams);
   }
@@ -163,7 +163,7 @@ public final class ObjectNameHelper
     ValueEnforcer.notNull (aObj, "Object");
     ValueEnforcer.notNull (sName, "Name");
 
-    final Hashtable <String, String> aParams = new Hashtable<> ();
+    final Hashtable <String, String> aParams = new Hashtable <> ();
     aParams.put (CJMX.PROPERTY_TYPE, ClassHelper.getClassLocalName (aObj));
     aParams.put (CJMX.PROPERTY_NAME, getCleanPropertyValue (sName));
     return create (aParams);

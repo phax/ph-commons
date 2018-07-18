@@ -69,17 +69,17 @@ public final class JavaFileAccessFuncTest
       }
       catch (final Exception ex)
       {
-        s_aLogger.error ("Internal error", ex);
+        LOGGER.error ("Internal error", ex);
       }
     }
   }
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (JavaFileAccessFuncTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (JavaFileAccessFuncTest.class);
 
   private static synchronized void _println (final String s)
   {
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug (s);
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug (s);
   }
 
   private static void _exec (@Nonnull final String... aCmdArray) throws IOException, InterruptedException

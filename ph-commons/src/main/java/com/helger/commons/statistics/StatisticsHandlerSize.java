@@ -30,13 +30,13 @@ import org.slf4j.LoggerFactory;
 @ThreadSafe
 public class StatisticsHandlerSize extends AbstractStatisticsHandlerNumeric implements IMutableStatisticsHandlerSize
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (StatisticsHandlerSize.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (StatisticsHandlerSize.class);
 
   public void addSize (@Nonnegative final long nSize)
   {
     if (nSize < 0)
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("A negative value (" + nSize + ") is added to " + getClass ().getName ());
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("A negative value (" + nSize + ") is added to " + getClass ().getName ());
     addValue (nSize);
   }
 }

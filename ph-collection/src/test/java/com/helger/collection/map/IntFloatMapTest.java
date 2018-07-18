@@ -89,7 +89,7 @@ public final class IntFloatMapTest
   {
     final Random aRandom = RandomHelper.getRandom ();
     final int SIZE = 100 * 1000;
-    final Set <Integer> set = new CommonsHashSet<> (SIZE);
+    final Set <Integer> set = new CommonsHashSet <> (SIZE);
     final int [] vals = new int [SIZE];
     while (set.size () < SIZE)
       set.add (Integer.valueOf (aRandom.nextInt ()));
@@ -125,10 +125,7 @@ public final class IntFloatMapTest
     {
       assertEquals (IntFloatMap.NO_VALUE, map.put (addCnt, addCnt), DELTA);
       addCnt++;
-      assertEquals ("Failed for addCnt = " +
-                    addCnt +
-                    ", ff = " +
-                    fillFactor,
+      assertEquals ("Failed for addCnt = " + addCnt + ", ff = " + fillFactor,
                     IntFloatMap.NO_VALUE,
                     map.put (addCnt, addCnt),
                     DELTA);

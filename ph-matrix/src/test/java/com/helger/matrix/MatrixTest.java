@@ -77,7 +77,7 @@ import com.helger.commons.string.StringHelper;
  **/
 public final class MatrixTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MatrixTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MatrixTest.class);
   private static final File FILE_JAMA_TEST_MATRIX_OUT = new File ("Jamaout");
   private static final double EPSILON = Math.pow (2.0, -52.0);
   private static final DecimalFormatSymbols DFS = DecimalFormatSymbols.getInstance (Locale.US);
@@ -950,7 +950,7 @@ public final class MatrixTest
     {
       try
       {
-        s_aLogger.error ("oops", e);
+        LOGGER.error ("oops", e);
         warningCount = _try_warning (warningCount,
                                      "print()/read()...",
                                      "Formatting error... will try JDK1.1 reformulation...");
@@ -1316,7 +1316,7 @@ public final class MatrixTest
 
   private static void _print (final String s)
   {
-    s_aLogger.info (StringHelper.trimEnd (s, '\n'));
+    LOGGER.info (StringHelper.trimEnd (s, '\n'));
   }
 
   /** Print appropriate messages for successful outcome try **/

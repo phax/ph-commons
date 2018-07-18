@@ -40,7 +40,7 @@ import com.helger.tree.withid.DefaultTreeWithID;
  */
 public final class TreeVisitorTest
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (TreeVisitorTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (TreeVisitorTest.class);
 
   private static void _fillTree (final DefaultTreeItem <String> aParentItem,
                                  final int nLevels,
@@ -84,7 +84,7 @@ public final class TreeVisitorTest
       // Item count is e.g.: 5^4 + 5^3 + 5^2 + 5^1
       // Where 5 is the items-per-level and 4 is the level-count
       final long nExpected = _powSum (nItemsPerLevel, nLevel);
-      s_aLogger.info ("Creating tree with " + nExpected + " items");
+      LOGGER.info ("Creating tree with " + nExpected + " items");
 
       // count at before children
       final MutableInt aMI = new MutableInt (0);
@@ -187,7 +187,7 @@ public final class TreeVisitorTest
       // Item count is e.g.: 5^4 + 5^3 + 5^2 + 5^1
       // Where 5 is the items-per-level and 4 is the level-count
       final long nExpected = _powSum (nItemsPerLevel, nLevel);
-      s_aLogger.info ("Creating tree with " + nExpected + " items");
+      LOGGER.info ("Creating tree with " + nExpected + " items");
 
       // count at before children
       final MutableInt aMI = new MutableInt (0);

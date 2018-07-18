@@ -29,10 +29,10 @@ import org.slf4j.LoggerFactory;
 @Deprecated
 public class LoggingChangeLogSerializerCallback implements IChangeLogSerializerCallback
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingChangeLogSerializerCallback.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (LoggingChangeLogSerializerCallback.class);
 
   public void accept (@Nonnull final String sError)
   {
-    s_aLogger.error (sError);
+    LOGGER.error (sError);
   }
 }

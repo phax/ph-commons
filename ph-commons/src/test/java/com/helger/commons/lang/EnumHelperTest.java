@@ -38,8 +38,8 @@ public final class EnumHelperTest
 {
   public static enum EHasSimpleID implements IHasIntID
   {
-   A,
-   B;
+    A,
+    B;
 
     public int getID ()
     {

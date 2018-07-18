@@ -56,7 +56,7 @@ public final class MimeTypeDeterminator
 
   public static final IMimeType DEFAULT_MIME_TYPE = CMimeType.APPLICATION_OCTET_STREAM;
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MimeTypeDeterminator.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MimeTypeDeterminator.class);
   private static final byte [] MIME_ID_GIF87A = new byte [] { 'G', 'I', 'F', '8', '7', 'a' };
   private static final byte [] MIME_ID_GIF89A = new byte [] { 'G', 'I', 'F', '8', '9', 'a' };
   private static final byte [] MIME_ID_JPG = new byte [] { (byte) 0xff, (byte) 0xd8 };
@@ -270,7 +270,7 @@ public final class MimeTypeDeterminator
       _registerDefaultMimeTypeContents ();
     });
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Reinitialized " + MimeTypeDeterminator.class.getName ());
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Reinitialized " + MimeTypeDeterminator.class.getName ());
   }
 }

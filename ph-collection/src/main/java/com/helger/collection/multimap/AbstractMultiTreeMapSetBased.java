@@ -40,8 +40,9 @@ import com.helger.commons.collection.impl.ICommonsSet;
  */
 @NotThreadSafe
 public abstract class AbstractMultiTreeMapSetBased <KEYTYPE, VALUETYPE, COLLTYPE extends ICommonsSet <VALUETYPE>>
-                                                   extends AbstractMultiTreeMap <KEYTYPE, VALUETYPE, COLLTYPE>
-                                                   implements IMultiMapSetBased <KEYTYPE, VALUETYPE, COLLTYPE>
+                                                   extends
+                                                   AbstractMultiTreeMap <KEYTYPE, VALUETYPE, COLLTYPE> implements
+                                                   IMultiMapSetBased <KEYTYPE, VALUETYPE, COLLTYPE>
 {
   public AbstractMultiTreeMapSetBased ()
   {}

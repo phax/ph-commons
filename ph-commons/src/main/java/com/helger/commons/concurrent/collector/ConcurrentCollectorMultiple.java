@@ -44,7 +44,7 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
 {
   /** The default number of objects to be put in the queue for execution. */
   public static final int DEFAULT_MAX_PERFORM_COUNT = DEFAULT_MAX_QUEUE_SIZE / 2;
-  private static final Logger s_aLogger = LoggerFactory.getLogger (ConcurrentCollectorMultiple.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (ConcurrentCollectorMultiple.class);
 
   @Nonnegative
   private final int m_nMaxPerformCount;
@@ -174,12 +174,12 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
       }
       catch (final Exception ex)
       {
-        s_aLogger.error ("Failed to perform actions on " +
-                         aObjectsToPerform.size () +
-                         " objects with performer " +
-                         m_aPerformer +
-                         " - objects are lost!",
-                         ex);
+        LOGGER.error ("Failed to perform actions on " +
+                      aObjectsToPerform.size () +
+                      " objects with performer " +
+                      m_aPerformer +
+                      " - objects are lost!",
+                      ex);
         return ESuccess.FAILURE;
       }
 
@@ -252,7 +252,7 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
     }
     catch (final Exception ex)
     {
-      s_aLogger.error ("Error taking elements from queue - queue has been interrupted!!!", ex);
+      LOGGER.error ("Error taking elements from queue - queue has been interrupted!!!", ex);
     }
   }
 }

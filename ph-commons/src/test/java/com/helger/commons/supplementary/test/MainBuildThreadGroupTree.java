@@ -23,7 +23,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class MainBuildThreadGroupTree
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (MainBuildThreadGroupTree.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (MainBuildThreadGroupTree.class);
 
   private MainBuildThreadGroupTree ()
   {}
@@ -81,6 +81,6 @@ public final class MainBuildThreadGroupTree
     }
     /* Dump the vector */
     for (final String s : threadInfo)
-      s_aLogger.info (s);
+      LOGGER.info (s);
   }
 }

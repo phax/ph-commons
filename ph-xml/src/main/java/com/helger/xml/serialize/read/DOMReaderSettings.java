@@ -52,7 +52,7 @@ import com.helger.xml.XMLFactory;
 @NotThreadSafe
 public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMReaderSettings
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (DOMReaderSettings.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (DOMReaderSettings.class);
 
   // DocumentBuilderFactory properties
   private boolean m_bNamespaceAware;
@@ -253,12 +253,12 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
         eProperty.getValueClass () != null &&
         !eProperty.getValueClass ().isAssignableFrom (aPropertyValue.getClass ()))
     {
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("Setting the XML parser property '" +
-                        eProperty +
-                        "' to a value of " +
-                        aPropertyValue.getClass () +
-                        " will most likely not be interpreted!");
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("Setting the XML parser property '" +
+                     eProperty +
+                     "' to a value of " +
+                     aPropertyValue.getClass () +
+                     " will most likely not be interpreted!");
     }
 
     if (aPropertyValue != null)
@@ -458,8 +458,8 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     }
     catch (final UnsupportedOperationException ex)
     {
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("DocumentBuilderFactory does not support XML Schema: " + ex.getMessage ());
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("DocumentBuilderFactory does not support XML Schema: " + ex.getMessage ());
     }
     try
     {
@@ -467,8 +467,8 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     }
     catch (final UnsupportedOperationException ex)
     {
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("DocumentBuilderFactory does not support XInclude setting: " + ex.getMessage ());
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("DocumentBuilderFactory does not support XInclude setting: " + ex.getMessage ());
     }
 
     // Apply properties

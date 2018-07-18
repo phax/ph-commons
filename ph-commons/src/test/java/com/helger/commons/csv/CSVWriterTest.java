@@ -85,8 +85,8 @@ public final class CSVWriterTest
   private static String _invokeNoEscapeWriter (final String [] args) throws IOException
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    try (final CSVWriter aWriter = new CSVWriter (aSW).setQuoteChar ('\'')
-                                                      .setEscapeChar (CSVWriter.NO_ESCAPE_CHARACTER))
+    try (
+        final CSVWriter aWriter = new CSVWriter (aSW).setQuoteChar ('\'').setEscapeChar (CSVWriter.NO_ESCAPE_CHARACTER))
     {
       aWriter.writeNext (args);
     }

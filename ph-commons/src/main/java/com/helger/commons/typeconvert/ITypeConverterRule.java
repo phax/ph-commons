@@ -38,14 +38,14 @@ public interface ITypeConverterRule <SRC, DST> extends ITypeConverter <SRC, DST>
    */
   enum ESubType
   {
-    /** Fixed source type and assignable destination type. */
-    FIXED_SRC_ASSIGNABLE_DST,
-    /** Fixed source type and any destination type. */
-    FIXED_SRC_ANY_DST,
-    /** Assignable source type and fixed destination type. */
-    ASSIGNABLE_SRC_FIXED_DST,
-    /** Any source type and fixed destination type. */
-    ANY_SRC_FIXED_DST
+  /** Fixed source type and assignable destination type. */
+  FIXED_SRC_ASSIGNABLE_DST,
+  /** Fixed source type and any destination type. */
+  FIXED_SRC_ANY_DST,
+  /** Assignable source type and fixed destination type. */
+  ASSIGNABLE_SRC_FIXED_DST,
+  /** Any source type and fixed destination type. */
+  ANY_SRC_FIXED_DST
   }
 
   /**

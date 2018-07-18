@@ -39,8 +39,8 @@ import com.helger.commons.collection.impl.ICommonsList;
  *        value type
  */
 @ThreadSafe
-public class MultiConcurrentHashMapVectorBased <KEYTYPE, VALUETYPE>
-                                               extends AbstractMultiConcurrentHashMapListBased <KEYTYPE, VALUETYPE>
+public class MultiConcurrentHashMapVectorBased <KEYTYPE, VALUETYPE> extends
+                                               AbstractMultiConcurrentHashMapListBased <KEYTYPE, VALUETYPE>
 {
   public MultiConcurrentHashMapVectorBased ()
   {}

@@ -30,7 +30,7 @@ import org.w3c.dom.ls.LSResourceResolver;
  */
 public class LoggingLSResourceResolver extends AbstractLSResourceResolver
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingLSResourceResolver.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (LoggingLSResourceResolver.class);
 
   public LoggingLSResourceResolver ()
   {}
@@ -43,18 +43,18 @@ public class LoggingLSResourceResolver extends AbstractLSResourceResolver
                                       @Nullable final String sSystemId,
                                       @Nullable final String sBaseURI)
   {
-    if (s_aLogger.isInfoEnabled ())
-      s_aLogger.info ("mainResolveResource (" +
-                      sType +
-                      ", " +
-                      sNamespaceURI +
-                      ", " +
-                      sPublicId +
-                      ", " +
-                      sSystemId +
-                      ", " +
-                      sBaseURI +
-                      ")");
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("mainResolveResource (" +
+                   sType +
+                   ", " +
+                   sNamespaceURI +
+                   ", " +
+                   sPublicId +
+                   ", " +
+                   sSystemId +
+                   ", " +
+                   sBaseURI +
+                   ")");
     return null;
   }
 }

@@ -41,7 +41,8 @@ import com.helger.commons.state.EChange;
  *        Inner map type
  */
 public interface IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE, MAPTYPE extends ICommonsMap <KEYTYPE2, VALUETYPE>>
-                                   extends ICommonsMap <KEYTYPE1, MAPTYPE>
+                                   extends
+                                   ICommonsMap <KEYTYPE1, MAPTYPE>
 {
   /**
    * Get or create the collection of the specified key.

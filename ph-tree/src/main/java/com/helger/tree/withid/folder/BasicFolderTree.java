@@ -39,8 +39,9 @@ import com.helger.tree.withid.unique.BasicTreeWithGlobalUniqueID;
  */
 @NotThreadSafe
 public class BasicFolderTree <KEYTYPE, DATATYPE, COLLTYPE extends Collection <DATATYPE>, ITEMTYPE extends BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>>
-                             extends BasicTreeWithGlobalUniqueID <KEYTYPE, COLLTYPE, ITEMTYPE>
-                             implements IFolderTree <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>
+                             extends
+                             BasicTreeWithGlobalUniqueID <KEYTYPE, COLLTYPE, ITEMTYPE> implements
+                             IFolderTree <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>
 {
   /**
    * Constructor

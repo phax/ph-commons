@@ -42,7 +42,8 @@ import com.helger.jaxb.validation.CollectingValidationEventHandler;
  */
 @NotThreadSafe
 public class JAXBValidationBuilder <JAXBTYPE, IMPLTYPE extends JAXBValidationBuilder <JAXBTYPE, IMPLTYPE>> extends
-                                   AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE> implements IJAXBValidator <JAXBTYPE>
+                                   AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE> implements
+                                   IJAXBValidator <JAXBTYPE>
 {
   public JAXBValidationBuilder (@Nonnull final IJAXBDocumentType aDocType)
   {

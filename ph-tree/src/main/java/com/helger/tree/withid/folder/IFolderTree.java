@@ -34,7 +34,8 @@ import com.helger.tree.withid.unique.ITreeWithGlobalUniqueID;
  *        the implementation item type
  */
 public interface IFolderTree <KEYTYPE, DATATYPE, COLLTYPE extends Collection <DATATYPE>, ITEMTYPE extends IFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>>
-                             extends ITreeWithGlobalUniqueID <KEYTYPE, COLLTYPE, ITEMTYPE>
+                             extends
+                             ITreeWithGlobalUniqueID <KEYTYPE, COLLTYPE, ITEMTYPE>
 {
   /* empty */
 }

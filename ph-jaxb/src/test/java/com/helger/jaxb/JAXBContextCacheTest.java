@@ -126,8 +126,8 @@ public final class JAXBContextCacheTest
   public void testMarshalStringWithClassLoader () throws JAXBException
   {
     final String sMsg = "Hello world";
-    final JAXBContext aCtx = JAXBContextCache.getInstance ().getFromCache (String.class,
-                                                                           ClassLoaderHelper.getSystemClassLoader ());
+    final JAXBContext aCtx = JAXBContextCache.getInstance ()
+                                             .getFromCache (String.class, ClassLoaderHelper.getSystemClassLoader ());
     final Marshaller m = aCtx.createMarshaller ();
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     m.marshal (new JAXBElement <> (new QName ("element"), String.class, sMsg), aSW);

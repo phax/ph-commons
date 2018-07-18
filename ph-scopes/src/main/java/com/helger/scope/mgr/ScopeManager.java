@@ -65,7 +65,7 @@ public final class ScopeManager
 
   public static final boolean DEFAULT_CREATE_SCOPE = true;
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (ScopeManager.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (ScopeManager.class);
 
   private static final SimpleLock s_aGlobalLock = new SimpleLock ();
 
@@ -105,8 +105,8 @@ public final class ScopeManager
       s_aGlobalScope = aGlobalScope;
 
       aGlobalScope.initScope ();
-      if (ScopeHelper.debugGlobalScopeLifeCycle (s_aLogger))
-        s_aLogger.info ("Global scope '" + aGlobalScope.getID () + "' initialized!", ScopeHelper.getDebugStackTrace ());
+      if (ScopeHelper.debugGlobalScopeLifeCycle (LOGGER))
+        LOGGER.info ("Global scope '" + aGlobalScope.getID () + "' initialized!", ScopeHelper.getDebugStackTrace ());
 
       // Invoke SPIs
       ScopeSPIManager.getInstance ().onGlobalScopeBegin (aGlobalScope);
@@ -182,11 +182,11 @@ public final class ScopeManager
         s_aGlobalScope = null;
 
         // done
-        if (ScopeHelper.debugGlobalScopeLifeCycle (s_aLogger))
-          s_aLogger.info ("Global scope '" + sDestroyedScopeID + "' shut down!", ScopeHelper.getDebugStackTrace ());
+        if (ScopeHelper.debugGlobalScopeLifeCycle (LOGGER))
+          LOGGER.info ("Global scope '" + sDestroyedScopeID + "' shut down!", ScopeHelper.getDebugStackTrace ());
       }
       else
-        s_aLogger.warn ("No global scope present that could be shut down!");
+        LOGGER.warn ("No global scope present that could be shut down!");
     });
   }
 
@@ -297,13 +297,13 @@ public final class ScopeManager
     final IRequestScope aExistingRequestScope = s_aRequestScopeTL.get ();
     if (aExistingRequestScope != null)
     {
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("A request scope is already present - will overwrite it: " + aExistingRequestScope.toString ());
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("A request scope is already present - will overwrite it: " + aExistingRequestScope.toString ());
       if (aExistingRequestScope.isValid ())
       {
         // The scope shall be destroyed here, as this is most probably a
         // programming error!
-        s_aLogger.warn ("Destroying the old request scope before the new one gets initialized!");
+        LOGGER.warn ("Destroying the old request scope before the new one gets initialized!");
         _destroyRequestScope (aExistingRequestScope);
       }
     }
@@ -405,7 +405,7 @@ public final class ScopeManager
       {
         // Happens after an internal redirect happened in a web-application
         // (e.g. for 404 page) for the original scope
-        s_aLogger.warn ("No request scope present that could be ended!");
+        LOGGER.warn ("No request scope present that could be ended!");
       }
     }
     finally

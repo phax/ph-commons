@@ -53,7 +53,7 @@ import com.helger.commons.exception.InitializationException;
 @Immutable
 public final class PDTXMLConverter
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (PDTXMLConverter.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (PDTXMLConverter.class);
   private static final DatatypeFactory s_aDTFactory;
 
   static
@@ -585,10 +585,7 @@ public final class PDTXMLConverter
     }
 
     if (aDate.getTimezone () != aTime.getTimezone ())
-      s_aLogger.warn ("Date and time have different timezones: " +
-                      aDate.getTimezone () +
-                      " vs. " +
-                      aTime.getTimezone ());
+      LOGGER.warn ("Date and time have different timezones: " + aDate.getTimezone () + " vs. " + aTime.getTimezone ());
     return s_aDTFactory.newXMLGregorianCalendar (aDate.getYear (),
                                                  aDate.getMonth (),
                                                  aDate.getDay (),

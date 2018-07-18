@@ -47,7 +47,7 @@ import com.helger.commons.string.StringHelper;
 @Immutable
 public final class XMLTransformerFactory
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (XMLTransformerFactory.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (XMLTransformerFactory.class);
   private static final TransformerFactory s_aDefaultFactory;
 
   static
@@ -155,7 +155,7 @@ public final class XMLTransformerFactory
     }
     catch (final TransformerConfigurationException ex)
     {
-      s_aLogger.error ("Failed to create transformer", ex);
+      LOGGER.error ("Failed to create transformer", ex);
       return null;
     }
   }
@@ -228,7 +228,7 @@ public final class XMLTransformerFactory
     }
     catch (final TransformerConfigurationException ex)
     {
-      s_aLogger.error ("Failed to parse " + aSource, ex);
+      LOGGER.error ("Failed to parse " + aSource, ex);
       return null;
     }
   }
@@ -301,7 +301,7 @@ public final class XMLTransformerFactory
     }
     catch (final TransformerConfigurationException ex)
     {
-      s_aLogger.error ("Failed to parse " + aSource, ex);
+      LOGGER.error ("Failed to parse " + aSource, ex);
       return null;
     }
   }

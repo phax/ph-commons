@@ -55,6 +55,6 @@ public class MultiLinkedHashMapLinkedHashMapBased <KEYTYPE1, KEYTYPE2 extends Co
   @ReturnsMutableCopy
   protected CommonsLinkedHashMap <KEYTYPE2, VALUETYPE> createNewInnerMap ()
   {
-    return new CommonsLinkedHashMap<> ();
+    return new CommonsLinkedHashMap <> ();
   }
 }

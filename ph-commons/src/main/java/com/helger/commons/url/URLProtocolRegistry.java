@@ -54,7 +54,7 @@ public final class URLProtocolRegistry
     private static final URLProtocolRegistry s_aInstance = new URLProtocolRegistry ();
   }
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (URLProtocolRegistry.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (URLProtocolRegistry.class);
 
   private static boolean s_bDefaultInstantiated = false;
 
@@ -99,8 +99,8 @@ public final class URLProtocolRegistry
       m_aProtocols.put (sProtocol, aProtocol);
     });
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug ("Registered new custom URL protocol: " + aProtocol);
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Registered new custom URL protocol: " + aProtocol);
   }
 
   /**
@@ -223,7 +223,7 @@ public final class URLProtocolRegistry
           registerProtocol (aSPIProtocol);
     }
 
-    if (s_aLogger.isDebugEnabled ())
-      s_aLogger.debug (getRegisteredProtocolCount () + " URL protocols registered");
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug (getRegisteredProtocolCount () + " URL protocols registered");
   }
 }

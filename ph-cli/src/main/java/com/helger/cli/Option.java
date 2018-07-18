@@ -115,7 +115,7 @@ public class Option implements IOptionBase
   /** constant that specifies the number of argument values is infinite */
   public static final int INFINITE_VALUES = -1;
 
-  private static final Logger s_aLogger = LoggerFactory.getLogger (Option.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (Option.class);
 
   /** the name of the option */
   private final String m_sShortOpt;
@@ -684,9 +684,9 @@ public class Option implements IOptionBase
         if (m_sArgName != null)
           throw new IllegalStateException ("ArgName may only be provided if at least one argument is present");
         if (m_eMultiplicity.isRequired ())
-          s_aLogger.warn ("Having a required option without an argument may not be what is desired.");
+          LOGGER.warn ("Having a required option without an argument may not be what is desired.");
         if (m_eMultiplicity.isRepeatable ())
-          s_aLogger.warn ("Having a repeatable option without an argument may not be what is desired.");
+          LOGGER.warn ("Having a repeatable option without an argument may not be what is desired.");
         if (m_cValueSep != DEFAULT_VALUE_SEPARATOR)
           throw new IllegalStateException ("ValueSeparator may only be provided if at least one argument is present");
       }

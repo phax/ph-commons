@@ -29,8 +29,8 @@ import com.helger.commons.hierarchy.IHasChildren;
  *        tree item implementation type
  * @author Philip Helger
  */
-public interface IBasicTree <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>>
-                            extends IHasChildren <ITEMTYPE>
+public interface IBasicTree <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> extends
+                            IHasChildren <ITEMTYPE>
 {
   /**
    * @return The root item of the tree. Never <code>null</code>. The root item

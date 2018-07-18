@@ -79,11 +79,11 @@ public enum EXMLIncorrectCharacterHandling
     public void notifyOnInvalidXMLCharacter (@Nonnull @Nonempty final String sText,
                                              @Nonnull final Set <Character> aInvalidChars)
     {
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("XML content contains invalid character data (no replacement): '" +
-                        sText +
-                        "'. Invalid chars are: " +
-                        _getAsString (aInvalidChars));
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("XML content contains invalid character data (no replacement): '" +
+                     sText +
+                     "'. Invalid chars are: " +
+                     _getAsString (aInvalidChars));
     }
   },
 
@@ -111,11 +111,11 @@ public enum EXMLIncorrectCharacterHandling
     public void notifyOnInvalidXMLCharacter (@Nonnull @Nonempty final String sText,
                                              @Nonnull final Set <Character> aInvalidChars)
     {
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("XML content contains invalid character data (will replace): '" +
-                        sText +
-                        "'. Invalid chars are: " +
-                        _getAsString (aInvalidChars));
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("XML content contains invalid character data (will replace): '" +
+                     sText +
+                     "'. Invalid chars are: " +
+                     _getAsString (aInvalidChars));
     }
   };
 
@@ -123,7 +123,7 @@ public enum EXMLIncorrectCharacterHandling
    * The default setting as it was in previous versions of ph-commons
    */
   public static final EXMLIncorrectCharacterHandling DEFAULT = EXMLIncorrectCharacterHandling.WRITE_TO_FILE_NO_LOG;
-  private static final Logger s_aLogger = LoggerFactory.getLogger (EXMLIncorrectCharacterHandling.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (EXMLIncorrectCharacterHandling.class);
 
   private final boolean m_bIsNotifyRequired;
   private final boolean m_bReplaceWithNothing;

@@ -42,7 +42,7 @@ import com.helger.commons.timing.StopWatch;
 @Immutable
 public class FileRelativeIO implements IFileRelativeIO
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (FileRelativeIO.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (FileRelativeIO.class);
 
   private final File m_aBasePath;
 
@@ -50,8 +50,8 @@ public class FileRelativeIO implements IFileRelativeIO
   {
     // Check read/write/execute
     final StopWatch aSW = StopWatch.createdStarted ();
-    if (s_aLogger.isInfoEnabled ())
-      s_aLogger.info ("Checking file access in " + aBasePath);
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("Checking file access in " + aBasePath);
     int nFiles = 0;
     int nDirs = 0;
     for (final File aFile : new FileSystemRecursiveIterator (aBasePath))
@@ -61,8 +61,8 @@ public class FileRelativeIO implements IFileRelativeIO
         if (!aFile.canRead ())
           throw new IllegalArgumentException ("Cannot read file " + aFile);
         if (!aFile.canWrite ())
-          if (s_aLogger.isWarnEnabled ())
-            s_aLogger.warn ("Cannot write file " + aFile);
+          if (LOGGER.isWarnEnabled ())
+            LOGGER.warn ("Cannot write file " + aFile);
         ++nFiles;
       }
       else
@@ -72,30 +72,30 @@ public class FileRelativeIO implements IFileRelativeIO
             throw new IllegalArgumentException ("Cannot read in directory " + aFile);
           if (!aFile.canWrite ())
           {
-            if (s_aLogger.isWarnEnabled ())
-              s_aLogger.warn ("Cannot write in directory " + aFile);
+            if (LOGGER.isWarnEnabled ())
+              LOGGER.warn ("Cannot write in directory " + aFile);
           }
           if (!aFile.canExecute ())
           {
-            if (s_aLogger.isWarnEnabled ())
-              s_aLogger.warn ("Cannot execute in directory " + aFile);
+            if (LOGGER.isWarnEnabled ())
+              LOGGER.warn ("Cannot execute in directory " + aFile);
           }
           ++nDirs;
         }
         else
         {
-          if (s_aLogger.isWarnEnabled ())
-            s_aLogger.warn ("Neither file nor directory: " + aFile);
+          if (LOGGER.isWarnEnabled ())
+            LOGGER.warn ("Neither file nor directory: " + aFile);
         }
 
-    if (s_aLogger.isInfoEnabled ())
-      s_aLogger.info ("Finished checking file access for " +
-                      nFiles +
-                      " files and " +
-                      nDirs +
-                      " directories in " +
-                      aSW.stopAndGetMillis () +
-                      " milliseconds");
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("Finished checking file access for " +
+                   nFiles +
+                   " files and " +
+                   nDirs +
+                   " directories in " +
+                   aSW.stopAndGetMillis () +
+                   " milliseconds");
   }
 
   public FileRelativeIO (@Nonnull final File aBasePath)

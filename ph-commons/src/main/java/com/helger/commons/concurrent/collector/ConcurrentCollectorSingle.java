@@ -37,7 +37,7 @@ import com.helger.commons.lang.GenericReflection;
  */
 public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentCollector <DATATYPE>
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (ConcurrentCollectorSingle.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (ConcurrentCollectorSingle.class);
 
   private IConcurrentPerformer <DATATYPE> m_aPerformer;
 
@@ -114,10 +114,8 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
     }
     catch (final Exception ex)
     {
-      s_aLogger.error ("Failed to perform actions on object with performer " +
-                       m_aPerformer +
-                       " - object has been lost!",
-                       ex);
+      LOGGER.error ("Failed to perform actions on object with performer " + m_aPerformer + " - object has been lost!",
+                    ex);
     }
   }
 
@@ -151,7 +149,7 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
     }
     catch (final Exception ex)
     {
-      s_aLogger.error ("Error taking elements from queue - queue has been interrupted!!!", ex);
+      LOGGER.error ("Error taking elements from queue - queue has been interrupted!!!", ex);
     }
   }
 }

@@ -52,7 +52,7 @@ import com.helger.commons.string.StringHelper;
 @ThreadSafe
 public final class KeyStoreHelper
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (KeyStoreHelper.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (KeyStoreHelper.class);
   private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("s_aRWLock")
   private static IReadableResourceProvider s_aResourceProvider = new ReadableResourceProviderChain (new FileSystemResourceProvider ().setCanReadRelativePaths (true),
@@ -230,8 +230,8 @@ public final class KeyStoreHelper
     }
     catch (final IllegalArgumentException ex)
     {
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("No such key store '" + sKeyStorePath + "': " + ex.getMessage (), ex.getCause ());
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("No such key store '" + sKeyStorePath + "': " + ex.getMessage (), ex.getCause ());
 
       return new LoadedKeyStore (null,
                                  EKeyStoreLoadError.KEYSTORE_LOAD_ERROR_NON_EXISTING,
@@ -242,9 +242,9 @@ public final class KeyStoreHelper
     {
       final boolean bInvalidPW = ex instanceof IOException && ex.getCause () instanceof UnrecoverableKeyException;
 
-      if (s_aLogger.isWarnEnabled ())
-        s_aLogger.warn ("Failed to load key store '" + sKeyStorePath + "': " + ex.getMessage (),
-                        bInvalidPW ? null : ex.getCause ());
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("Failed to load key store '" + sKeyStorePath + "': " + ex.getMessage (),
+                     bInvalidPW ? null : ex.getCause ());
 
       return new LoadedKeyStore (null,
                                  bInvalidPW ? EKeyStoreLoadError.KEYSTORE_INVALID_PASSWORD

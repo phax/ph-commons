@@ -41,8 +41,9 @@ import com.helger.commons.collection.impl.ICommonsMap;
  */
 @NotThreadSafe
 public abstract class AbstractMultiTreeMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE, MAPTYPE extends ICommonsMap <KEYTYPE2, VALUETYPE>>
-                                                   extends CommonsTreeMap <KEYTYPE1, MAPTYPE>
-                                                   implements IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE, MAPTYPE>
+                                                   extends
+                                                   CommonsTreeMap <KEYTYPE1, MAPTYPE> implements
+                                                   IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE, MAPTYPE>
 {
   public AbstractMultiTreeMapMapBased ()
   {}

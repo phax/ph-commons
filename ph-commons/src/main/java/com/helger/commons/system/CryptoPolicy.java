@@ -54,7 +54,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 @ThreadSafe
 public final class CryptoPolicy
 {
-  private static final Logger s_aLogger = LoggerFactory.getLogger (CryptoPolicy.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (CryptoPolicy.class);
   private static final AtomicBoolean s_aChecked = new AtomicBoolean (false);
   private static boolean s_bUnlimitedStrength;
 
@@ -95,18 +95,18 @@ public final class CryptoPolicy
       {
         // This is actually an indeterminate case, but we can't bank on it at
         // least for this (default) provider.
-        s_aLogger.info ("Cipher uses exemption mechanism " + aExempt.getName ());
+        LOGGER.info ("Cipher uses exemption mechanism " + aExempt.getName ());
         return false;
       }
     }
     catch (final InvalidKeyException ex)
     {
-      s_aLogger.info ("Invalid key size - unlimited strength crypto NOT installed!");
+      LOGGER.info ("Invalid key size - unlimited strength crypto NOT installed!");
       return false;
     }
     catch (final Exception ex)
     {
-      s_aLogger.info ("Failed to determine unlimited strength crypto state", ex);
+      LOGGER.info ("Failed to determine unlimited strength crypto state", ex);
       return false;
     }
     return true;

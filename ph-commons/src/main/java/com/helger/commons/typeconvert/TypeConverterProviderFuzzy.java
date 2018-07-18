@@ -43,7 +43,7 @@ public final class TypeConverterProviderFuzzy implements ITypeConverterProvider
   public ITypeConverter <Object, Object> getTypeConverter (@Nonnull final Class <?> aSrcClass,
                                                            @Nonnull final Class <?> aDstClass)
   {
-    return GenericReflection.uncheckedCast (TypeConverterRegistry.getInstance ().getFuzzyConverter (aSrcClass,
-                                                                                                    aDstClass));
+    return GenericReflection.uncheckedCast (TypeConverterRegistry.getInstance ()
+                                                                 .getFuzzyConverter (aSrcClass, aDstClass));
   }
 }
