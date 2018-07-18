@@ -34,6 +34,7 @@ import com.helger.commons.version.Version;
  *
  * @author Philip Helger
  */
+@Deprecated
 public final class ChangeLogReleaseTest
 {
   @Test

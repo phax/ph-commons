@@ -43,6 +43,7 @@ import com.helger.commons.text.ReadOnlyMultilingualText;
  * @author Philip Helger
  */
 @NotThreadSafe
+@Deprecated
 public class ChangeLogEntry extends AbstractChangeLogEntry
 {
   private final ChangeLog m_aChangeLog;
@@ -50,7 +51,7 @@ public class ChangeLogEntry extends AbstractChangeLogEntry
   private final EChangeLogCategory m_eCategory;
   private final boolean m_bIsIncompatible;
   private final IMutableMultilingualText m_aTexts = new MultilingualText ();
-  private final ICommonsList <String> m_aIssues = new CommonsArrayList<> ();
+  private final ICommonsList <String> m_aIssues = new CommonsArrayList <> ();
 
   /**
    * Constructor.

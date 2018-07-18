@@ -39,6 +39,7 @@ import com.helger.commons.text.util.TextHelper;
  *
  * @author Philip Helger
  */
+@Deprecated
 public final class ChangeLogEntryTest
 {
   private static final Locale L_DE = new Locale ("de");

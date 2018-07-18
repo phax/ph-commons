@@ -28,6 +28,7 @@ import com.helger.commons.lang.EnumHelper;
  *
  * @author Philip Helger
  */
+@Deprecated
 public enum EChangeLogCategory implements IHasID <String>
 {
   API ("api"),

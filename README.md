@@ -34,6 +34,7 @@ This project was the following modules:
   * Added new `Commons...Map` constructors with parameters `Map, Function, Function`
   * Added new class `LanguageCache`
   * Added new `CommonsArrayList` static factory methods
+  * Deprecated all the `ChangeLog` classes - they will be moved to ph-less-commons in v9.2
 * v9.1.2 - 2018-06-19
   * Made setters of `WSClientConfig` final
   * Changed method name in `CharsetHelper` from `getCharsetFromNameOrNull` to `getCharsetFromNameOrDefault`

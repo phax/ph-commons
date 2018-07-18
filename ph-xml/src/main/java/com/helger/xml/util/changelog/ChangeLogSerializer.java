@@ -65,6 +65,7 @@ import com.helger.xml.microdom.serialize.MicroReader;
  *
  * @author Philip Helger
  */
+@Deprecated
 @Immutable
 public final class ChangeLogSerializer
 {

@@ -26,6 +26,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
  * @author Philip Helger
  */
 @Immutable
+@Deprecated
 public final class CChangeLog
 {
   /** The namespace used in XML */

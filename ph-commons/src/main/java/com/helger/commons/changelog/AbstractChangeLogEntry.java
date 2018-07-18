@@ -32,6 +32,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
+@Deprecated
 public abstract class AbstractChangeLogEntry implements Serializable
 {
   private final LocalDate m_aLocalDate;

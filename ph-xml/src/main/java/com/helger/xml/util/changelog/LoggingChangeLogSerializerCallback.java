@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Philip Helger
  */
+@Deprecated
 public class LoggingChangeLogSerializerCallback implements IChangeLogSerializerCallback
 {
   private static final Logger s_aLogger = LoggerFactory.getLogger (LoggingChangeLogSerializerCallback.class);

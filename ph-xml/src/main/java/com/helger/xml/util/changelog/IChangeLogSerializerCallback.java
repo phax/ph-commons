@@ -24,6 +24,7 @@ import com.helger.commons.functional.IConsumer;
  *
  * @author Philip Helger
  */
+@Deprecated
 @FunctionalInterface
 public interface IChangeLogSerializerCallback extends IConsumer <String>, ICallback
 {
