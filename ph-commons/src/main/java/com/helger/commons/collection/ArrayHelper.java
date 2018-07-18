@@ -4280,7 +4280,7 @@ public final class ArrayHelper
                                     @Nonnegative final int nSearchOfs,
                                     @Nonnegative final int nSearchLen)
   {
-    if (aSearch == null || nArrayLen <= 0 || nSearchLen <= 0 || nArrayLen < nSearchLen)
+    if (aSearch == null || nArrayLen <= 0 || nArrayLen < nSearchLen)
       return false;
 
     for (int i = 0; i < nSearchLen; i++)
@@ -4319,7 +4319,7 @@ public final class ArrayHelper
                                     @Nonnegative final int nSearchOfs,
                                     @Nonnegative final int nSearchLen)
   {
-    if (aSearch == null || nArrayLen <= 0 || nSearchLen <= 0 || nArrayLen < nSearchLen)
+    if (aSearch == null || nArrayLen <= 0 || nArrayLen < nSearchLen)
       return false;
 
     for (int i = 0; i < nSearchLen; i++)

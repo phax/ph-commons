@@ -1281,6 +1281,7 @@ public final class ArrayHelperTest
     assertTrue (ArrayHelper.startsWith (new byte [] { 0, 1, 2, 3 }, new byte [] { 0, 1 }));
     assertTrue (ArrayHelper.startsWith (new byte [] { 0, 1, 2, 3 }, new byte [] { 0, 1, 2 }));
     assertTrue (ArrayHelper.startsWith (new byte [] { 0, 1, 2, 3 }, new byte [] { 0, 1, 2, 3 }));
+    assertFalse (ArrayHelper.startsWith (new byte [] { 0, 1, 2, 3 }, 3, new byte [] { 0, 1, 2, 3 }));
     assertFalse (ArrayHelper.startsWith (new byte [] { 0, 1, 2, 3 }, new byte [] { 0, 1, 2, 3, 4 }));
     assertFalse (ArrayHelper.startsWith (new byte [] { 0, 1, 2, 3 }, new byte [] { 1, 2, 3 }));
     assertFalse (ArrayHelper.startsWith (new byte [] { 0, 1, 2, 3 }, null));
