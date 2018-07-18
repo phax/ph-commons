@@ -103,7 +103,7 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader
 
   /**
    * Write the relevant part of the byte array onto the provided output stream.
-   * 
+   *
    * @param aOS
    *        The output stream to write to. May not be <code>null</code>.
    * @throws IOException
@@ -112,5 +112,18 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader
   default void writeTo (@Nonnull @WillNotClose final OutputStream aOS) throws IOException
   {
     aOS.write (bytes (), getOffset (), size ());
+  }
+
+  /**
+   * Check if the passed byte array starts with the bytes of this object.
+   *
+   * @param aCmpBytes
+   *        The bytes to compare to. May not be <code>null</code>.
+   * @return <code>true</code> if the passed bytes start with the bytes in this
+   *         object.
+   */
+  default boolean matchesBeginning (@Nonnull final byte [] aCmpBytes)
+  {
+    return ArrayHelper.startsWith (bytes (), aCmpBytes);
   }
 }

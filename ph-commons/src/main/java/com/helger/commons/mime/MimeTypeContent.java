@@ -18,7 +18,6 @@ package com.helger.commons.mime;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Arrays;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -31,6 +30,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.io.ByteArrayWrapper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -42,7 +42,9 @@ import com.helger.commons.string.ToStringGenerator;
 @MustImplementEqualsAndHashcode
 public class MimeTypeContent
 {
-  private final byte [] m_aContentBytes;
+  public static final boolean DEFAULT_COPY_BYTES = true;
+
+  private final ByteArrayWrapper m_aContentBytes;
   private final IMimeType m_aMimeType;
 
   /**
@@ -55,10 +57,28 @@ public class MimeTypeContent
    */
   public MimeTypeContent (@Nonnull @Nonempty final byte [] aContentBytes, @Nonnull final IMimeType aMimeType)
   {
+    this (aContentBytes, DEFAULT_COPY_BYTES, aMimeType);
+  }
+
+  /**
+   * Constructor
+   *
+   * @param aContentBytes
+   *        The beginning bytes. May neither be <code>null</code> nor empty.
+   * @param bCopyBytes
+   *        <code>true</code> to copy the bytes, <code>false</code> to reuse the
+   *        provided instance.
+   * @param aMimeType
+   *        The corresponding mime type. May not be <code>null</code>.
+   */
+  public MimeTypeContent (@Nonnull @Nonempty final byte [] aContentBytes,
+                          final boolean bCopyBytes,
+                          @Nonnull final IMimeType aMimeType)
+  {
     ValueEnforcer.notEmpty (aContentBytes, "ContentBytes");
     ValueEnforcer.notNull (aMimeType, "MimeType");
 
-    m_aContentBytes = ArrayHelper.getCopy (aContentBytes);
+    m_aContentBytes = new ByteArrayWrapper (aContentBytes, bCopyBytes);
     m_aMimeType = aMimeType;
   }
 
@@ -71,7 +91,7 @@ public class MimeTypeContent
   @ReturnsMutableCopy
   public byte [] getAllContentBytes ()
   {
-    return ArrayHelper.getCopy (m_aContentBytes);
+    return m_aContentBytes.getAllBytes ();
   }
 
   /**
@@ -80,7 +100,7 @@ public class MimeTypeContent
   @Nonnegative
   public int getContentByteCount ()
   {
-    return m_aContentBytes.length;
+    return m_aContentBytes.size ();
   }
 
   /**
@@ -94,7 +114,7 @@ public class MimeTypeContent
    */
   public void writeContentBytes (@Nonnull @WillNotClose final OutputStream aOS) throws IOException
   {
-    aOS.write (m_aContentBytes, 0, m_aContentBytes.length);
+    m_aContentBytes.writeTo (aOS);
   }
 
   /**
@@ -107,40 +127,16 @@ public class MimeTypeContent
   }
 
   /**
-   * Main match method
-   *
-   * @param aSrcBytes
-   *        The bytes to compare to this type.
-   * @param nSrcOffset
-   *        The offset within aBytes to start searching
-   * @param aCmpBytes
-   *        The compare bytes of this object.
-   * @return <code>true</code> if the bytes match, <code>false</code> otherwise.
-   */
-  private static boolean _match (@Nonnull final byte [] aSrcBytes,
-                                 @Nonnegative final int nSrcOffset,
-                                 @Nonnull final byte [] aCmpBytes)
-  {
-    final int nEnd = aCmpBytes.length;
-    for (int i = 0; i < nEnd; ++i)
-      if (aSrcBytes[nSrcOffset + i] != aCmpBytes[i])
-        return false;
-    return true;
-  }
-
-  /**
    * Check if the passed byte array starts with the bytes of this object.
    *
-   * @param aBytes
+   * @param aCmpBytes
    *        The bytes to compare to. May not be <code>null</code>.
    * @return <code>true</code> if the passed bytes start with the bytes in this
    *         object.
    */
-  public boolean matchesBeginning (@Nonnull final byte [] aBytes)
+  public boolean matchesBeginning (@Nonnull final byte [] aCmpBytes)
   {
-    ValueEnforcer.notNull (aBytes, "Bytes");
-
-    return aBytes.length >= m_aContentBytes.length && _match (aBytes, 0, m_aContentBytes);
+    return ArrayHelper.startsWith (aCmpBytes, m_aContentBytes.bytes ());
   }
 
   @Override
@@ -151,7 +147,7 @@ public class MimeTypeContent
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final MimeTypeContent rhs = (MimeTypeContent) o;
-    return Arrays.equals (m_aContentBytes, rhs.m_aContentBytes) && m_aMimeType.equals (rhs.m_aMimeType);
+    return m_aContentBytes.equals (rhs.m_aContentBytes) && m_aMimeType.equals (rhs.m_aMimeType);
   }
 
   @Override
@@ -163,8 +159,8 @@ public class MimeTypeContent
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("contentBytes", Arrays.toString (m_aContentBytes))
-                                       .append ("mimeType", m_aMimeType)
+    return new ToStringGenerator (this).append ("ContentBytes", m_aContentBytes)
+                                       .append ("MimeType", m_aMimeType)
                                        .getToString ();
   }
 }

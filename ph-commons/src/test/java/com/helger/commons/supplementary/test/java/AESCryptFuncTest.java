@@ -52,10 +52,8 @@ public final class AESCryptFuncTest
     public AESSecretKey (final byte [] aBytes)
     {
       ValueEnforcer.notNull (aBytes, "Bytes");
-      ValueEnforcer.isTrue (aBytes.length == 16 ||
-                            aBytes.length == 24 ||
-                            aBytes.length == 32,
-                            "Key byte array must be 16, 24 or 32 bytes!");
+      ValueEnforcer.isTrue (aBytes.length == 16 || aBytes.length == 24 || aBytes.length == 32,
+                            () -> "Key byte array must be 16, 24 or 32 bytes but is " + aBytes.length + " bytes!");
       m_aBytes = ArrayHelper.getCopy (aBytes);
     }
 

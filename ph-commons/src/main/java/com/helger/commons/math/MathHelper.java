@@ -1141,14 +1141,14 @@ public final class MathHelper
   public static BigInteger toBigInteger (@Nonnull final Number aNumber)
   {
     ValueEnforcer.notNull (aNumber, "Number");
-    return new BigInteger (aNumber.toString ());
+    return new BigInteger (aNumber.toString (), 10);
   }
 
   @Nonnull
   public static BigInteger toBigInteger (@Nonnull final String sNumber)
   {
     ValueEnforcer.notNull (sNumber, "Number");
-    return new BigInteger (sNumber);
+    return new BigInteger (sNumber, 10);
   }
 
   /**

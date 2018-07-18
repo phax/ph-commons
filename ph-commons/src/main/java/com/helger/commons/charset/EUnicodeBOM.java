@@ -17,7 +17,6 @@
 package com.helger.commons.charset;
 
 import java.nio.charset.Charset;
-import java.util.Arrays;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -27,6 +26,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.io.ByteArrayWrapper;
 
 /**
  * Defines the most common Byte Order Markers for Unicode encoded text files.
@@ -98,14 +98,14 @@ public enum EUnicodeBOM
 
   private static final int MAXIMUM_BOM_BYTE_COUNT = 4;
 
-  private final byte [] m_aBOMBytes;
+  private final ByteArrayWrapper m_aBOMBytes;
   private final String m_sCharsetName;
   private final Charset m_aCharset;
 
   private EUnicodeBOM (@Nonnull @Nonempty final byte [] aBytes, @Nullable final String sCharset)
   {
     ValueEnforcer.isBetweenInclusive (aBytes.length, "Byte count", 1, MAXIMUM_BOM_BYTE_COUNT);
-    m_aBOMBytes = aBytes;
+    m_aBOMBytes = new ByteArrayWrapper (aBytes, false);
     m_sCharsetName = sCharset;
     m_aCharset = CharsetHelper.getCharsetFromNameOrNull (sCharset);
   }
@@ -118,7 +118,7 @@ public enum EUnicodeBOM
   @ReturnsMutableCopy
   public byte [] getAllBytes ()
   {
-    return ArrayHelper.getCopy (m_aBOMBytes);
+    return m_aBOMBytes.getAllBytes ();
   }
 
   /**
@@ -127,7 +127,7 @@ public enum EUnicodeBOM
   @Nonnegative
   public int getByteCount ()
   {
-    return m_aBOMBytes.length;
+    return m_aBOMBytes.size ();
   }
 
   /**
@@ -141,10 +141,9 @@ public enum EUnicodeBOM
    */
   public boolean isPresent (@Nullable final byte [] aBytes)
   {
-    final int nLength = m_aBOMBytes.length;
-    return aBytes != null &&
-           aBytes.length >= nLength &&
-           Arrays.equals (m_aBOMBytes, ArrayHelper.getCopy (aBytes, 0, nLength));
+    if (aBytes == null)
+      return false;
+    return ArrayHelper.startsWith (aBytes, m_aBOMBytes.bytes ());
   }
 
   /**

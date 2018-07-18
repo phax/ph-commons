@@ -22,6 +22,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -33,25 +34,13 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  * @since 9.1.3
  */
+@MustImplementEqualsAndHashcode
 public final class ByteArrayWrapper implements IHasByteArray
 {
-  public static final boolean DEFAULT_COPY_NEEDED = false;
-
   private final byte [] m_aBytes;
   private final int m_nOffset;
   private final int m_nLength;
   private final boolean m_bIsCopy;
-
-  /**
-   * Wrap the whole byte array without copying it.
-   *
-   * @param aBytes
-   *        The byte array to be wrapped. May not be <code>null</code>.
-   */
-  public ByteArrayWrapper (@Nonnull final byte... aBytes)
-  {
-    this (aBytes, 0, aBytes.length, DEFAULT_COPY_NEEDED);
-  }
 
   /**
    * Wrap the whole byte array.
@@ -65,21 +54,6 @@ public final class ByteArrayWrapper implements IHasByteArray
   public ByteArrayWrapper (@Nonnull final byte [] aBytes, final boolean bCopyNeeded)
   {
     this (aBytes, 0, aBytes.length, bCopyNeeded);
-  }
-
-  /**
-   * Wrap the passed byte array or just parts of it.
-   *
-   * @param aBytes
-   *        The byte array to be wrapped. May not be <code>null</code>.
-   * @param nOfs
-   *        Offset. Must be &ge; 0.
-   * @param nLength
-   *        Length. Must be &ge; 0.
-   */
-  public ByteArrayWrapper (@Nonnull final byte [] aBytes, @Nonnegative final int nOfs, @Nonnegative final int nLength)
-  {
-    this (aBytes, nOfs, nLength, DEFAULT_COPY_NEEDED);
   }
 
   /**
@@ -139,20 +113,13 @@ public final class ByteArrayWrapper implements IHasByteArray
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final ByteArrayWrapper rhs = (ByteArrayWrapper) o;
-    return Arrays.equals (m_aBytes, rhs.m_aBytes) &&
-           m_nOffset == rhs.m_nOffset &&
-           m_nLength == rhs.m_nLength &&
-           m_bIsCopy == rhs.m_bIsCopy;
+    return Arrays.equals (m_aBytes, rhs.m_aBytes) && m_nOffset == rhs.m_nOffset && m_nLength == rhs.m_nLength;
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_aBytes)
-                                       .append (m_nOffset)
-                                       .append (m_nLength)
-                                       .append (m_bIsCopy)
-                                       .getHashCode ();
+    return new HashCodeGenerator (this).append (m_aBytes).append (m_nOffset).append (m_nLength).getHashCode ();
   }
 
   @Override

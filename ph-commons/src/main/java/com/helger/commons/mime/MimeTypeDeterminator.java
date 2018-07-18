@@ -82,15 +82,15 @@ public final class MimeTypeDeterminator
   @MustBeLocked (ELockType.WRITE)
   private void _registerDefaultMimeTypeContents ()
   {
-    m_aMimeTypeContents.add (new MimeTypeContent (MIME_ID_GIF87A, CMimeType.IMAGE_GIF));
-    m_aMimeTypeContents.add (new MimeTypeContent (MIME_ID_GIF89A, CMimeType.IMAGE_GIF));
-    m_aMimeTypeContents.add (new MimeTypeContent (MIME_ID_JPG, CMimeType.IMAGE_JPG));
-    m_aMimeTypeContents.add (new MimeTypeContent (MIME_ID_PNG, CMimeType.IMAGE_PNG));
-    m_aMimeTypeContents.add (new MimeTypeContent (MIME_ID_TIFF_MOTOROLLA, CMimeType.IMAGE_TIFF));
-    m_aMimeTypeContents.add (new MimeTypeContent (MIME_ID_TIFF_INTEL, CMimeType.IMAGE_TIFF));
-    m_aMimeTypeContents.add (new MimeTypeContent (MIME_ID_PSD, CMimeType.IMAGE_PSD));
-    m_aMimeTypeContents.add (new MimeTypeContent (MIME_ID_PDF, CMimeType.APPLICATION_PDF));
-    m_aMimeTypeContents.add (new MimeTypeContent (MIME_ID_XLS, CMimeType.APPLICATION_MS_EXCEL));
+    m_aMimeTypeContents.add (new MimeTypeContent (MIME_ID_GIF87A, false, CMimeType.IMAGE_GIF));
+    m_aMimeTypeContents.add (new MimeTypeContent (MIME_ID_GIF89A, false, CMimeType.IMAGE_GIF));
+    m_aMimeTypeContents.add (new MimeTypeContent (MIME_ID_JPG, false, CMimeType.IMAGE_JPG));
+    m_aMimeTypeContents.add (new MimeTypeContent (MIME_ID_PNG, false, CMimeType.IMAGE_PNG));
+    m_aMimeTypeContents.add (new MimeTypeContent (MIME_ID_TIFF_MOTOROLLA, false, CMimeType.IMAGE_TIFF));
+    m_aMimeTypeContents.add (new MimeTypeContent (MIME_ID_TIFF_INTEL, false, CMimeType.IMAGE_TIFF));
+    m_aMimeTypeContents.add (new MimeTypeContent (MIME_ID_PSD, false, CMimeType.IMAGE_PSD));
+    m_aMimeTypeContents.add (new MimeTypeContent (MIME_ID_PDF, false, CMimeType.APPLICATION_PDF));
+    m_aMimeTypeContents.add (new MimeTypeContent (MIME_ID_XLS, false, CMimeType.APPLICATION_MS_EXCEL));
 
     // Add all XML mime types: as the combination of all BOMs and all character
     // encodings as determined by
@@ -110,14 +110,14 @@ public final class MimeTypeDeterminator
     aXMLStuff.add (new byte [] { 0x4c, 0x6f, (byte) 0xa7, (byte) 0x94 });
 
     // Register all types without the BOM
-    aXMLStuff.forEach (aXML -> registerMimeTypeContent (new MimeTypeContent (aXML, CMimeType.TEXT_XML)));
+    aXMLStuff.forEach (aXML -> registerMimeTypeContent (new MimeTypeContent (aXML, false, CMimeType.TEXT_XML)));
 
     // Register all type with the BOM
     for (final EUnicodeBOM eBOM : EUnicodeBOM.values ())
       for (final byte [] aXML : aXMLStuff)
       {
         final byte [] aData = ArrayHelper.getConcatenated (eBOM.getAllBytes (), aXML);
-        registerMimeTypeContent (new MimeTypeContent (aData, CMimeType.TEXT_XML));
+        registerMimeTypeContent (new MimeTypeContent (aData, false, CMimeType.TEXT_XML));
       }
   }
 
