@@ -23,6 +23,7 @@ import static org.junit.Assert.fail;
 
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
+import java.net.PasswordAuthentication;
 import java.net.URL;
 import java.util.Collections;
 import java.util.Iterator;
@@ -106,6 +107,16 @@ public final class EqualsHelperTest
     CommonsAssert.assertEquals (bd1, StringParser.parseBigDecimal ("5.5000"));
     CommonsAssert.assertEquals (bd1, StringParser.parseBigDecimal ("5.50000000000000000"));
     CommonsAssert.assertNotEquals (bd1, bd2);
+  }
+
+  @Test
+  public void testEquals_PasswordAuthentication ()
+  {
+    final PasswordAuthentication o1 = new PasswordAuthentication ("user", "pw".toCharArray ());
+    CommonsAssert.assertEquals (o1, o1);
+    CommonsAssert.assertEquals (o1, new PasswordAuthentication ("user", "pw".toCharArray ()));
+    CommonsAssert.assertNotEquals (o1, new PasswordAuthentication ("user2", "pw".toCharArray ()));
+    CommonsAssert.assertNotEquals (o1, new PasswordAuthentication ("user", "pw2".toCharArray ()));
   }
 
   public void _test (final String s1, final String s2)

@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.net.PasswordAuthentication;
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -251,5 +252,12 @@ public final class DefaultEqualsImplementationRegistrarSPI implements IEqualsImp
     // Special handling for Locale in JDK >= 1.7
     aRegistry.registerEqualsImplementation (Locale.class,
                                             (aObj1, aObj2) -> aObj1.toString ().equals (aObj2.toString ()));
+
+    // Class does not implement equals
+    aRegistry.registerEqualsImplementation (PasswordAuthentication.class,
+                                            (aObj1,
+                                             aObj2) -> EqualsHelper.equals (aObj1.getUserName (),
+                                                                            aObj2.getUserName ()) &&
+                                                       Arrays.equals (aObj1.getPassword (), aObj2.getPassword ()));
   }
 }
