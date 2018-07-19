@@ -159,11 +159,29 @@ public final class CommonsAssert
       assertEquals ("Element [" + i + "] mismatch", x[i], y[i]);
   }
 
+  /**
+   * Like JUnit assertEquals but using {@link EqualsHelper}.
+   *
+   * @param x
+   *        Fist object. May be <code>null</code>
+   * @param y
+   *        Second object. May be <code>null</code>.
+   */
   public static <T> void assertEquals (@Nullable final T x, @Nullable final T y)
   {
     assertEquals ((String) null, x, y);
   }
 
+  /**
+   * Like JUnit assertEquals but using {@link EqualsHelper}.
+   *
+   * @param sUserMsg
+   *        Optional user message. May be <code>null</code>.
+   * @param x
+   *        Fist object. May be <code>null</code>
+   * @param y
+   *        Second object. May be <code>null</code>.
+   */
   public static <T> void assertEquals (@Nullable final String sUserMsg, @Nullable final T x, @Nullable final T y)
   {
     if (!EqualsHelper.equals (x, y))
@@ -175,11 +193,29 @@ public final class CommonsAssert
             (sUserMsg != null && sUserMsg.length () > 0 ? ": " + sUserMsg : ""));
   }
 
+  /**
+   * Like JUnit assertNotEquals but using {@link EqualsHelper}.
+   *
+   * @param x
+   *        Fist object. May be <code>null</code>
+   * @param y
+   *        Second object. May be <code>null</code>.
+   */
   public static <T> void assertNotEquals (@Nullable final T x, @Nullable final T y)
   {
     assertNotEquals ((String) null, x, y);
   }
 
+  /**
+   * Like JUnit assertNotEquals but using {@link EqualsHelper}.
+   *
+   * @param sUserMsg
+   *        Optional user message. May be <code>null</code>.
+   * @param x
+   *        Fist object. May be <code>null</code>
+   * @param y
+   *        Second object. May be <code>null</code>.
+   */
   public static <T> void assertNotEquals (@Nullable final String sUserMsg, @Nullable final T x, @Nullable final T y)
   {
     if (EqualsHelper.equals (x, y))
