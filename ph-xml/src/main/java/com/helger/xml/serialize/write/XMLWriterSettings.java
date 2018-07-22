@@ -539,4 +539,16 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
                                    .setSpaceOnSelfClosedElement (true)
                                    .setPutNamespaceContextPrefixesInRoot (true);
   }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public static XMLWriterSettings createForCanonicalization ()
+  {
+    // TODO some settings are missing
+    return new XMLWriterSettings ().setCharset (StandardCharsets.UTF_8)
+                                   .setNewLineMode (ENewLineMode.UNIX)
+                                   .setUseDoubleQuotesForAttributes (true)
+                                   .setBracketModeDeterminator (new XMLBracketModeDeterminatorXMLC14 ())
+                                   .setPutNamespaceContextPrefixesInRoot (true);
+  }
 }

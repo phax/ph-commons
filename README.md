@@ -28,6 +28,8 @@ This project was the following modules:
 
 ## News and noteworthy
 
+* v9.1.3 - work in progress
+  * Added class `XMLBracketModeDeterminatorXMLC14`
 * v9.1.3 - 2018-07-19
   * Updated to BouncyCastle 1.60
   * Extended `LogHelper` to have overloads with `Supplier<String>`
