@@ -782,8 +782,10 @@ public final class XMLHelper
   @Nonnull
   public static QName getXMLNSAttrQName (@Nullable final String sNSPrefix)
   {
-    if (sNSPrefix != null && sNSPrefix.contains (CXML.XML_PREFIX_NAMESPACE_SEP_STR))
-      throw new IllegalArgumentException ("prefix is invalid: " + sNSPrefix);
+    if (sNSPrefix != null)
+      ValueEnforcer.isFalse (sNSPrefix.contains (CXML.XML_PREFIX_NAMESPACE_SEP_STR),
+                             () -> "prefix is invalid: " + sNSPrefix);
+
     if (sNSPrefix == null || sNSPrefix.equals (XMLConstants.DEFAULT_NS_PREFIX))
     {
       // Default (empty) namespace prefix

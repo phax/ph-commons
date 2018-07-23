@@ -21,7 +21,6 @@ import javax.annotation.Nullable;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
-import org.w3c.dom.Attr;
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
@@ -33,16 +32,10 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
 
-import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.collection.impl.CommonsTreeMap;
-import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsMap;
-import com.helger.commons.compare.CompareHelper;
-import com.helger.commons.functional.IConsumer;
+import com.helger.commons.collection.impl.CommonsLinkedHashMap;
+import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.string.StringHelper;
-import com.helger.xml.CXML;
 import com.helger.xml.EXMLVersion;
-import com.helger.xml.NamedNodeMapIterator;
 import com.helger.xml.XMLHelper;
 
 /**
@@ -200,12 +193,12 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
     final boolean bIndentNext = aNextSibling == null || !XMLHelper.isInlineNode (aNextSibling);
     final boolean bIsFirstChildElement = bHasChildren && !XMLHelper.isInlineNode (aElement.getFirstChild ());
 
-    // get all attributes (sorting is important because the order from
-    // getAttributes is not guaranteed to be consistent!)
-    final ICommonsMap <QName, String> aAttrMap = new CommonsTreeMap <> (CXML.getComparatorQName ());
+    // get all attributes (order is important!)
+    final ICommonsOrderedMap <QName, String> aAttrMap = new CommonsLinkedHashMap <> ();
 
     m_aNSStack.push ();
 
+    // Eventually adds a namespace attribute in the AttrMap
     handlePutNamespaceContextPrefixInRoot (aAttrMap);
 
     try
@@ -216,11 +209,12 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
       if (bEmitNamespaces)
       {
         sElementNamespaceURI = StringHelper.getNotNull (aElement.getNamespaceURI ());
+        // Eventually adds a namespace attribute in the AttrMap
         sElementNSPrefix = m_aNSStack.getElementNamespacePrefixToUse (sElementNamespaceURI, bIsRootElement, aAttrMap);
       }
 
       // Get all attributes
-      final IConsumer <Attr> aAttrEmitter = aAttr -> {
+      XMLHelper.forAllAttributes (aElement, aAttr -> {
         final String sAttrNamespaceURI = StringHelper.getNotNull (aAttr.getNamespaceURI ());
 
         // Ignore all "xmlns" attributes as they are created manually. They are
@@ -231,36 +225,20 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
           final String sAttrValue = aAttr.getValue ();
           String sAttributeNSPrefix = null;
           if (bEmitNamespaces)
+          {
+            // Eventually adds a namespace attribute in the AttrMap
             sAttributeNSPrefix = m_aNSStack.getAttributeNamespacePrefixToUse (sAttrNamespaceURI,
                                                                               sAttrName,
                                                                               sAttrValue,
                                                                               aAttrMap);
+          }
 
           if (sAttributeNSPrefix != null)
             aAttrMap.put (new QName (sAttrNamespaceURI, sAttrName, sAttributeNSPrefix), sAttrValue);
           else
             aAttrMap.put (new QName (sAttrNamespaceURI, sAttrName), sAttrValue);
         }
-      };
-      if (m_aSettings.isOrderAttributes ())
-      {
-        // Convert NamedNodeMap to list
-        final ICommonsList <Attr> aOrderedAttrs = new CommonsArrayList <> (NamedNodeMapIterator.createAttributeIterator (aElement),
-                                                                           x -> (Attr) x);
-        // Sort attributes by namespace URI, than by name
-        aOrderedAttrs.sort ( (a1, a2) -> {
-          int ret = CompareHelper.compare (a1.getNamespaceURI (), a2.getNamespaceURI ());
-          if (ret == 0)
-            ret = a1.getName ().compareTo (a2.getName ());
-          return ret;
-        });
-        aOrderedAttrs.forEach (aAttrEmitter);
-      }
-      else
-      {
-        // Emit in default order
-        XMLHelper.forAllAttributes (aElement, aAttrEmitter);
-      }
+      });
 
       // Determine indent
       final Element aParentElement = aParentNode != null &&

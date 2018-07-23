@@ -723,9 +723,29 @@ public final class XMLWriterTest
     e.setAttribute ("b", "2");
     e.setAttribute ("a", "3");
     // Attributes are ordered automatically in DOM!
-    assertEquals ("<a a='3' b='2' c='1'/>", XMLWriter.getNodeAsString (e, aSettings));
+    assertEquals ("<a a='3' b='2' c='1' />", XMLWriter.getNodeAsString (e, aSettings));
 
-    aSettings = aSettings.setOrderAttributes (true);
-    assertEquals ("<a a='3' b='2' c='1'/>", XMLWriter.getNodeAsString (e, aSettings));
+    aSettings = aSettings.setOrderAttributesAndNamespaces (true);
+    assertEquals ("<a a='3' b='2' c='1' />", XMLWriter.getNodeAsString (e, aSettings));
+  }
+
+  @Test
+  public void testOrderNamespaces ()
+  {
+    XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
+                                                          .setUseDoubleQuotesForAttributes (false);
+
+    // default order
+    final Document aDoc = XMLFactory.newDocument ();
+    final Element e = (Element) aDoc.appendChild (aDoc.createElement ("a"));
+    e.setAttributeNS ("urn:ns3", "c", "1");
+    e.setAttributeNS ("urn:ns2", "b", "2");
+    e.setAttributeNS ("urn:ns1", "a", "3");
+    assertEquals ("<a xmlns='urn:ns1' a='3' xmlns:ns0='urn:ns2' ns0:b='2' xmlns:ns1='urn:ns3' ns1:c='1' />",
+                  XMLWriter.getNodeAsString (e, aSettings));
+
+    aSettings = aSettings.setOrderAttributesAndNamespaces (true);
+    assertEquals ("<a xmlns='urn:ns1' xmlns:ns0='urn:ns2' xmlns:ns1='urn:ns3' a='3' ns0:b='2' ns1:c='1' />",
+                  XMLWriter.getNodeAsString (e, aSettings));
   }
 }

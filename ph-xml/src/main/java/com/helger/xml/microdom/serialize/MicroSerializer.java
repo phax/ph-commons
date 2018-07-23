@@ -16,7 +16,6 @@
  */
 package com.helger.xml.microdom.serialize;
 
-import java.util.Comparator;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -188,8 +187,10 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
     {
       if (m_aSettings.getIndent ().isIndent () && m_aIndent.length () > 0)
         aXMLWriter.onContentElementWhitespace (m_aIndent);
+
       final String sComment = aComment.getData ().toString ();
       aXMLWriter.onComment (sComment);
+
       if (sComment.indexOf ('\n') >= 0)
       {
         // Newline only after multi-line comments
@@ -234,6 +235,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
 
     m_aNSStack.push ();
 
+    // Eventually adds a namespace attribute in the AttrMap
     handlePutNamespaceContextPrefixInRoot (aAttrMap);
 
     try
@@ -244,24 +246,13 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
       if (bEmitNamespaces)
       {
         sElementNamespaceURI = StringHelper.getNotNull (aElement.getNamespaceURI ());
+        // Eventually adds a namespace attribute in the AttrMap
         sElementNSPrefix = m_aNSStack.getElementNamespacePrefixToUse (sElementNamespaceURI, bIsRootElement, aAttrMap);
       }
 
-      // For all attributes (in the correct order)
-      Iterable <? extends IMicroAttribute> aAttrCont;
-      if (aElement.hasNoAttributes ())
-        aAttrCont = null;
-      else
-        if (m_aSettings.isOrderAttributes ())
-        {
-          aAttrCont = aElement.getAllAttributeObjs ()
-                              .getSortedInline (Comparator.comparing (IMicroAttribute::getAttributeQName));
-        }
-        else
-          aAttrCont = aElement.getAttributeObjs ();
-
-      if (aAttrCont != null)
-        for (final IMicroAttribute aAttr : aAttrCont)
+      // For all attributes
+      if (aElement.hasAttributes ())
+        for (final IMicroAttribute aAttr : aElement.getAttributeObjs ())
         {
           final IMicroQName aAttrName = aAttr.getAttributeQName ();
           final String sAttrNamespaceURI = StringHelper.getNotNull (aAttrName.getNamespaceURI ());
@@ -270,6 +261,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
           String sAttrNSPrefix = null;
           if (bEmitNamespaces)
           {
+            // Eventually adds a namespace attribute in the AttrMap
             sAttrNSPrefix = m_aNSStack.getAttributeNamespacePrefixToUse (sAttrNamespaceURI,
                                                                          sAttrName,
                                                                          sAttrValue,

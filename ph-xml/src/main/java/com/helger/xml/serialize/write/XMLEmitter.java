@@ -26,10 +26,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.WillNotClose;
 import javax.annotation.concurrent.NotThreadSafe;
+import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.collection.impl.CommonsTreeMap;
 import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.collection.impl.ICommonsSortedMap;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.xml.CXML;
@@ -63,6 +66,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
   private EXMLSerializeVersion m_eXMLVersion;
   private final char m_cAttrValueBoundary;
   private final EXMLCharMode m_eAttrValueCharMode;
+  private final boolean m_bOrderAttributesAndNamespaces;
 
   /**
    * Define whether nested XML comments throw an exception or not.
@@ -93,6 +97,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
     m_cAttrValueBoundary = aSettings.isUseDoubleQuotesForAttributes () ? '"' : '\'';
     m_eAttrValueCharMode = aSettings.isUseDoubleQuotesForAttributes () ? EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES
                                                                        : EXMLCharMode.ATTRIBUTE_VALUE_SINGLE_QUOTES;
+    m_bOrderAttributesAndNamespaces = aSettings.isOrderAttributesAndNamespaces ();
   }
 
   /**
@@ -573,12 +578,42 @@ public class XMLEmitter implements AutoCloseable, Flushable
 
     if (aAttrs != null && !aAttrs.isEmpty ())
     {
-      // assuming that the order of the passed attributes is consistent!
-      // Emit all attributes
-      for (final Map.Entry <QName, String> aEntry : aAttrs.entrySet ())
+      if (m_bOrderAttributesAndNamespaces)
       {
-        final QName aAttrName = aEntry.getKey ();
-        elementAttr (aAttrName.getPrefix (), aAttrName.getLocalPart (), aEntry.getValue ());
+        // first separate in NS and non-NS attributes
+        // Sort namespace attributes by assigned prefix
+        final ICommonsSortedMap <QName, String> aNamespaceAttrs = new CommonsTreeMap <> (CXML.getComparatorQNameForNamespacePrefix ());
+        final ICommonsSortedMap <QName, String> aNonNamespaceAttrs = new CommonsTreeMap <> (CXML.getComparatorQNameNamespaceURIBeforeLocalPart ());
+        for (final Map.Entry <QName, String> aEntry : aAttrs.entrySet ())
+        {
+          final QName aAttrName = aEntry.getKey ();
+          if (XMLConstants.XMLNS_ATTRIBUTE_NS_URI.equals (aAttrName.getNamespaceURI ()))
+            aNamespaceAttrs.put (aAttrName, aEntry.getValue ());
+          else
+            aNonNamespaceAttrs.put (aAttrName, aEntry.getValue ());
+        }
+        // emit namespace attributes first
+        for (final Map.Entry <QName, String> aEntry : aNamespaceAttrs.entrySet ())
+        {
+          final QName aAttrName = aEntry.getKey ();
+          elementAttr (aAttrName.getPrefix (), aAttrName.getLocalPart (), aEntry.getValue ());
+        }
+        // emit non-namespace attributes afterwards
+        for (final Map.Entry <QName, String> aEntry : aNonNamespaceAttrs.entrySet ())
+        {
+          final QName aAttrName = aEntry.getKey ();
+          elementAttr (aAttrName.getPrefix (), aAttrName.getLocalPart (), aEntry.getValue ());
+        }
+      }
+      else
+      {
+        // assuming that the order of the passed attributes is consistent!
+        // Emit all attributes
+        for (final Map.Entry <QName, String> aEntry : aAttrs.entrySet ())
+        {
+          final QName aAttrName = aEntry.getKey ();
+          elementAttr (aAttrName.getPrefix (), aAttrName.getLocalPart (), aEntry.getValue ());
+        }
       }
     }
 

@@ -71,9 +71,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   /** By default CDATA children are emitted as CDATA */
   public static final boolean DEFAULT_WRITE_CDATA_AS_TEXT = false;
   /** By default the insertion order of attributes is maintained */
-  public static final boolean DEFAULT_ORDER_ATTRIBUTES = false;
-  /** By default the original order namespaces is maintained */
-  public static final boolean DEFAULT_ORDER_NAMESPACES = false;
+  public static final boolean DEFAULT_ORDER_ATTRIBUTES_AND_NAMESPACES = false;
 
   /** The default settings to use */
   public static final IXMLWriterSettings DEFAULT_XML_SETTINGS = new XMLWriterSettings ();
@@ -96,8 +94,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   private boolean m_bEmitNamespaces = DEFAULT_EMIT_NAMESPACES;
   private boolean m_bPutNamespaceContextPrefixesInRoot = DEFAULT_PUT_NAMESPACE_CONTEXT_PREFIXES_IN_ROOT;
   private boolean m_bWriteCDATAAsText = DEFAULT_WRITE_CDATA_AS_TEXT;
-  private boolean m_bOrderAttributes = DEFAULT_ORDER_ATTRIBUTES;
-  private boolean m_bOrderNamespaces = DEFAULT_ORDER_NAMESPACES;
+  private boolean m_bOrderAttributesAndNamespaces = DEFAULT_ORDER_ATTRIBUTES_AND_NAMESPACES;
 
   // Status vars
   private String m_sIndentationStringToString;
@@ -146,8 +143,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     setEmitNamespaces (aOther.isEmitNamespaces ());
     setPutNamespaceContextPrefixesInRoot (aOther.isPutNamespaceContextPrefixesInRoot ());
     setWriteCDATAAsText (aOther.isWriteCDATAAsText ());
-    setOrderAttributes (aOther.isOrderAttributes ());
-    setOrderNamespaces (aOther.isOrderNamespaces ());
+    setOrderAttributesAndNamespaces (aOther.isOrderAttributesAndNamespaces ());
   }
 
   @Nonnull
@@ -448,27 +444,15 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   }
 
   @Nonnull
-  public final XMLWriterSettings setOrderAttributes (final boolean bOrderAttributes)
+  public final XMLWriterSettings setOrderAttributesAndNamespaces (final boolean bOrderAttributesAndNamespaces)
   {
-    m_bOrderAttributes = bOrderAttributes;
+    m_bOrderAttributesAndNamespaces = bOrderAttributesAndNamespaces;
     return this;
   }
 
-  public boolean isOrderAttributes ()
+  public boolean isOrderAttributesAndNamespaces ()
   {
-    return m_bOrderAttributes;
-  }
-
-  @Nonnull
-  public final XMLWriterSettings setOrderNamespaces (final boolean bOrderNamespaces)
-  {
-    m_bOrderNamespaces = bOrderNamespaces;
-    return this;
-  }
-
-  public boolean isOrderNamespaces ()
-  {
-    return m_bOrderNamespaces;
+    return m_bOrderAttributesAndNamespaces;
   }
 
   @Nonnull
@@ -503,8 +487,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
            m_bEmitNamespaces == rhs.m_bEmitNamespaces &&
            m_bPutNamespaceContextPrefixesInRoot == rhs.m_bPutNamespaceContextPrefixesInRoot &&
            m_bWriteCDATAAsText == rhs.m_bWriteCDATAAsText &&
-           m_bOrderAttributes == rhs.m_bOrderAttributes &&
-           m_bOrderNamespaces == rhs.m_bOrderNamespaces;
+           m_bOrderAttributesAndNamespaces == rhs.m_bOrderAttributesAndNamespaces;
   }
 
   @Override
@@ -528,8 +511,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
                                        .append (m_bEmitNamespaces)
                                        .append (m_bPutNamespaceContextPrefixesInRoot)
                                        .append (m_bWriteCDATAAsText)
-                                       .append (m_bOrderAttributes)
-                                       .append (m_bOrderNamespaces)
+                                       .append (m_bOrderAttributesAndNamespaces)
                                        .getHashCode ();
   }
 
@@ -556,8 +538,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
                                        .append ("putNamespaceContextPrefixesInRoot",
                                                 m_bPutNamespaceContextPrefixesInRoot)
                                        .append ("writeCDATAAsText", m_bWriteCDATAAsText)
-                                       .append ("orderAttributes", m_bOrderAttributes)
-                                       .append ("orderNamespaces", m_bOrderNamespaces)
+                                       .append ("orderAttributesAndNamespaces", m_bOrderAttributesAndNamespaces)
                                        .getToString ();
   }
 
@@ -623,7 +604,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
    * <li>Lexicographic order is imposed on the namespace declarations and
    * attributes of each element</li>
    * </ul>
-   * 
+   *
    * @return {@link XMLWriterSettings} for canonicalization
    */
   @Nonnull
@@ -638,9 +619,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
                                    .setNewLineMode (ENewLineMode.UNIX)
                                    .setUseDoubleQuotesForAttributes (true)
                                    .setBracketModeDeterminator (new XMLBracketModeDeterminatorXMLC14 ())
-                                   .setPutNamespaceContextPrefixesInRoot (true)
                                    .setWriteCDATAAsText (true)
-                                   .setOrderAttributes (true)
-                                   .setOrderNamespaces (true);
+                                   .setOrderAttributesAndNamespaces (true);
   }
 }

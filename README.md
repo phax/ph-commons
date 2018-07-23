@@ -31,7 +31,8 @@ This project was the following modules:
 * v9.1.4 - work in progress
   * Added class `XMLBracketModeDeterminatorXMLC14`
   * Added XML write setting `write CDATA as Text`
-  * Added XML write setting `order attributes lexicographically`
+  * Added XML write setting `order attributes and namespaces lexicographically`
+  * XML entities are now emitted as Hexadecimal values instead of numeric (`&#D;` instead of `&#13;`)
 * v9.1.3 - 2018-07-19
   * Updated to BouncyCastle 1.60
   * Extended `LogHelper` to have overloads with `Supplier<String>`

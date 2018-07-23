@@ -230,6 +230,7 @@ public final class XMLTransformerFactoryTest
                                                    new XMLWriterSettings ().setIncorrectCharacterHandling (EXMLIncorrectCharacterHandling.WRITE_TO_FILE_NO_LOG)
                                                                            .setIndent (EXMLSerializeIndent.NONE));
     assertNotNull (sXML);
-    DOMReader.readXMLDOM (sXML);
+    System.out.println (sXML);
+    assertNotNull ("Failed to read: " + sXML, DOMReader.readXMLDOM (sXML));
   }
 }

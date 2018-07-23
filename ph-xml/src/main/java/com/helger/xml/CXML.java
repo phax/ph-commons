@@ -16,13 +16,14 @@
  */
 package com.helger.xml;
 
-import java.util.Comparator;
-
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
+import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.compare.CompareHelper;
+import com.helger.commons.compare.IComparator;
 
 /**
  * This is just a workaround if Xerces is not in the build path. Normally you
@@ -91,8 +92,38 @@ public final class CXML
   {}
 
   @Nonnull
-  public static Comparator <QName> getComparatorQName ()
+  public static IComparator <QName> getComparatorQNameNamespaceURIBeforeLocalPart ()
   {
-    return Comparator.nullsFirst (Comparator.comparing (QName::getNamespaceURI)).thenComparing (QName::getLocalPart);
+    return (o1, o2) -> {
+      int ret = CompareHelper.compare (o1.getNamespaceURI (), o2.getNamespaceURI (), true);
+      if (ret == 0)
+        ret = o1.getLocalPart ().compareTo (o2.getLocalPart ());
+      return ret;
+    };
+  }
+
+  @Nonnull
+  public static IComparator <QName> getComparatorQNameLocalPartBeforeNamespaceURI ()
+  {
+    return (o1, o2) -> {
+      int ret = o1.getLocalPart ().compareTo (o2.getLocalPart ());
+      if (ret == 0)
+        ret = CompareHelper.compare (o1.getNamespaceURI (), o2.getNamespaceURI (), true);
+      return ret;
+    };
+  }
+
+  @Nonnull
+  public static IComparator <QName> getComparatorQNameForNamespacePrefix ()
+  {
+    return (o1, o2) -> {
+      String sPrefix1 = o1.getPrefix ();
+      if (XMLConstants.XMLNS_ATTRIBUTE.equals (sPrefix1))
+        sPrefix1 = o1.getLocalPart ();
+      String sPrefix2 = o2.getPrefix ();
+      if (XMLConstants.XMLNS_ATTRIBUTE.equals (sPrefix2))
+        sPrefix2 = o2.getLocalPart ();
+      return sPrefix1.compareTo (sPrefix2);
+    };
   }
 }

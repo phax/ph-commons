@@ -358,12 +358,14 @@ public abstract class AbstractXMLSerializer <NODETYPE>
         return null;
       }
 
+      // Check if an existing prefix is in use
       String sNSPrefix = _getUsedPrefixOfNamespace (sNamespaceURI);
 
       // Do we need to create a prefix?
       if (sNSPrefix == null && (!bIsRootElement || sNamespaceURI.length () > 0))
       {
-        // Ensure to use the correct prefix (namespace context)
+        // Ensure to use the correct prefix (check if defined in namespace
+        // context)
         sNSPrefix = _getMappedPrefix (sNamespaceURI);
 
         // Do not create a prefix for the root element
@@ -465,11 +467,17 @@ public abstract class AbstractXMLSerializer <NODETYPE>
     return m_aSettings;
   }
 
+  /**
+   * This method handles the case, if all namespace context entries should be
+   * emitted on the root element.
+   * 
+   * @param aAttrMap
+   */
   protected final void handlePutNamespaceContextPrefixInRoot (@Nonnull final Map <QName, String> aAttrMap)
   {
-    if (m_aNSStack.size () == 1 &&
-        m_aSettings.isPutNamespaceContextPrefixesInRoot () &&
-        m_aSettings.isEmitNamespaces ())
+    if (m_aSettings.isEmitNamespaces () &&
+        m_aNSStack.size () == 1 &&
+        m_aSettings.isPutNamespaceContextPrefixesInRoot ())
     {
       // The only place where the namespace context prefixes are added to the
       // root element

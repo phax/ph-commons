@@ -173,22 +173,12 @@ public interface IXMLWriterSettings extends Serializable
   boolean isWriteCDATAAsText ();
 
   /**
-   * Determine if attributes of elements should be emitted in alphabetical order
-   * or not. This is required for XML canonicalization.
+   * Determine if attributes of elements and namespaces should be emitted in
+   * alphabetical order or not. This is required for XML canonicalization.
    *
    * @return <code>true</code> to order attributes, <code>false</code> to keep
    *         the original order.
    * @since 9.1.4
    */
-  boolean isOrderAttributes ();
-
-  /**
-   * Determine if namespaces of elements should be emitted in alphabetical order
-   * or not. This is required for XML canonicalization.
-   *
-   * @return <code>true</code> to order namespaces, <code>false</code> to keep
-   *         the original order.
-   * @since 9.1.4
-   */
-  boolean isOrderNamespaces ();
+  boolean isOrderAttributesAndNamespaces ();
 }

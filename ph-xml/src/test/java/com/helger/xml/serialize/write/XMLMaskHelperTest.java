@@ -40,7 +40,7 @@ public final class XMLMaskHelperTest
                                                               EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
                                                               EXMLIncorrectCharacterHandling.WRITE_TO_FILE_NO_LOG,
                                                               "\u0001")));
-    assertEquals ("&#1;",
+    assertEquals ("&#x1;",
                   new String (XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.XML_11,
                                                               EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
                                                               EXMLIncorrectCharacterHandling.WRITE_TO_FILE_NO_LOG,
@@ -123,7 +123,7 @@ public final class XMLMaskHelperTest
                                                        EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
                                                        EXMLIncorrectCharacterHandling.WRITE_TO_FILE_NO_LOG,
                                                        "1 & \u0001"));
-    assertArrayEquals ("1 &amp; &#1;".toCharArray (),
+    assertArrayEquals ("1 &amp; &#x1;".toCharArray (),
                        XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.XML_11,
                                                        EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
                                                        EXMLIncorrectCharacterHandling.WRITE_TO_FILE_NO_LOG,
@@ -140,7 +140,7 @@ public final class XMLMaskHelperTest
                                                        EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
                                                        EXMLIncorrectCharacterHandling.WRITE_TO_FILE_LOG_WARNING,
                                                        "1 & \u0001"));
-    assertArrayEquals ("1 &amp; &#1;".toCharArray (),
+    assertArrayEquals ("1 &amp; &#x1;".toCharArray (),
                        XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.XML_11,
                                                        EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
                                                        EXMLIncorrectCharacterHandling.WRITE_TO_FILE_LOG_WARNING,
@@ -260,7 +260,7 @@ public final class XMLMaskHelperTest
                                                         EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
                                                         EXMLIncorrectCharacterHandling.WRITE_TO_FILE_NO_LOG,
                                                         "\u0001"));
-    assertEquals (4,
+    assertEquals (5,
                   XMLMaskHelper.getMaskedXMLTextLength (EXMLSerializeVersion.XML_11,
                                                         EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
                                                         EXMLIncorrectCharacterHandling.WRITE_TO_FILE_NO_LOG,
@@ -270,7 +270,7 @@ public final class XMLMaskHelperTest
                                                         EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
                                                         EXMLIncorrectCharacterHandling.WRITE_TO_FILE_NO_LOG,
                                                         "1 & \u0001"));
-    assertEquals (2 + 5 + 1 + 4,
+    assertEquals (2 + 5 + 1 + 5,
                   XMLMaskHelper.getMaskedXMLTextLength (EXMLSerializeVersion.XML_11,
                                                         EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
                                                         EXMLIncorrectCharacterHandling.WRITE_TO_FILE_NO_LOG,

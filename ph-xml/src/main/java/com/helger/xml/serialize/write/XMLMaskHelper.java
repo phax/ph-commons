@@ -317,6 +317,25 @@ public final class XMLMaskHelper
   private static final char [] [] MASK_TEXT_HTML_DQ_REPLACE = new char [MASK_TEXT_HTML_DQ.length] [];
   private static final char [] [] MASK_TEXT_HTML_SQ_REPLACE = new char [MASK_TEXT_HTML_SQ.length] [];
 
+  private static final char [] INT_HEX_UC = "0123456789ABCDEF".toCharArray ();
+
+  @Nonnull
+  public static String getXMLNumericReference (final char n)
+  {
+    final StringBuilder aSB = new StringBuilder (16);
+    aSB.append ("&#x");
+    // Don't use Integer.toString because it delivers lowercase chars
+    if (n > 0xfff)
+      aSB.append (INT_HEX_UC[(n >> 12) & 0xf]);
+    if (n > 0xff)
+      aSB.append (INT_HEX_UC[(n >> 8) & 0xf]);
+    if (n > 0xf)
+      aSB.append (INT_HEX_UC[(n >> 4) & 0xf]);
+    aSB.append (INT_HEX_UC[n & 0xf]);
+    aSB.append (';');
+    return aSB.toString ();
+  }
+
   /**
    * Get the entity reference for the specified character. This returns e.g.
    * &amp;lt; for '&lt;' etc. This method has special handling for &lt;, &gt;,
@@ -341,7 +360,7 @@ public final class XMLMaskHelper
       return "&quot;";
     if (c == APOS)
       return "&apos;";
-    return "&#" + (int) c + ";";
+    return getXMLNumericReference (c);
   }
 
   /**
@@ -370,7 +389,7 @@ public final class XMLMaskHelper
       return "&apos;";
     if (c == '\u2028')
       return "\n";
-    return "&#" + (int) c + ";";
+    return getXMLNumericReference (c);
   }
 
   /**
