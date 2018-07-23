@@ -25,6 +25,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.DevelopersNote;
+import com.helger.commons.annotation.ReturnsImmutableObject;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
@@ -344,6 +345,16 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
   {
     return StringParser.parseLong (getAttributeValue (aAttrName), nDefault);
   }
+
+  /**
+   * Get a iterable objects of all attributes. Is ensured to be not
+   * <code>null</code> if {@link #hasAttributes()} returns <code>true</code>.
+   *
+   * @return May be <code>null</code>.
+   */
+  @Nullable
+  @ReturnsImmutableObject
+  Iterable <? extends IMicroAttribute> getAttributeObjs ();
 
   /**
    * Get a list of all attributes. Is ensured to be not <code>null</code> if

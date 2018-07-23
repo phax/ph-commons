@@ -329,6 +329,28 @@ public final class XMLWriterTest
   }
 
   @Test
+  public void testWriteCDATAAsText ()
+  {
+    final Document doc = XMLFactory.newDocument ();
+    final XMLWriterSettings aXWS = new XMLWriterSettings ().setWriteCDATAAsText (true);
+
+    // Containing the forbidden CDATA end marker
+    Element e = doc.createElement ("a");
+    e.appendChild (doc.createCDATASection ("a]]>b"));
+    assertEquals ("<a>a]]&gt;b</a>" + CRLF, XMLWriter.getNodeAsString (e, aXWS));
+
+    // Containing more than one forbidden CDATA end marker
+    e = doc.createElement ("a");
+    e.appendChild (doc.createCDATASection ("a]]>b]]>c"));
+    assertEquals ("<a>a]]&gt;b]]&gt;c</a>" + CRLF, XMLWriter.getNodeAsString (e, aXWS));
+
+    // Containing a complete CDATA section
+    e = doc.createElement ("a");
+    e.appendChild (doc.createCDATASection ("a<![CDATA[x]]>b"));
+    assertEquals ("<a>a&lt;![CDATA[x]]&gt;b</a>" + CRLF, XMLWriter.getNodeAsString (e, aXWS));
+  }
+
+  @Test
   public void testWithNamespaceContext ()
   {
     final Document aDoc = XMLFactory.newDocument ();
@@ -686,5 +708,24 @@ public final class XMLWriterTest
                   "</html>" +
                   CRLF,
                   XMLWriter.getNodeAsString (aDoc, xs));
+  }
+
+  @Test
+  public void testOrderAttributes ()
+  {
+    XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
+                                                          .setUseDoubleQuotesForAttributes (false);
+
+    // default order
+    final Document aDoc = XMLFactory.newDocument ();
+    final Element e = (Element) aDoc.appendChild (aDoc.createElement ("a"));
+    e.setAttribute ("c", "1");
+    e.setAttribute ("b", "2");
+    e.setAttribute ("a", "3");
+    // Attributes are ordered automatically in DOM!
+    assertEquals ("<a a='3' b='2' c='1'/>", XMLWriter.getNodeAsString (e, aSettings));
+
+    aSettings = aSettings.setOrderAttributes (true);
+    assertEquals ("<a a='3' b='2' c='1'/>", XMLWriter.getNodeAsString (e, aSettings));
   }
 }

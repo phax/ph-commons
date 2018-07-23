@@ -20,15 +20,12 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 import javax.xml.XMLConstants;
-import javax.xml.namespace.QName;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.compare.CompareHelper;
-import com.helger.commons.compare.IComparable;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -45,7 +42,7 @@ import com.helger.xml.CXMLRegEx;
  * @author Philip Helger
  */
 @Immutable
-public final class MicroQName implements IMicroQName, IComparable <MicroQName>
+public final class MicroQName implements IMicroQName
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (MicroQName.class);
 
@@ -114,26 +111,6 @@ public final class MicroQName implements IMicroQName, IComparable <MicroQName>
   public String getName ()
   {
     return m_sName;
-  }
-
-  @Nonnull
-  public QName getAsXMLQName ()
-  {
-    return new QName (m_sNamespaceURI, m_sName);
-  }
-
-  @Nonnull
-  public QName getAsXMLQName (@Nonnull final String sPrefix)
-  {
-    return new QName (m_sNamespaceURI, m_sName, sPrefix);
-  }
-
-  public int compareTo (@Nonnull final MicroQName o)
-  {
-    int ret = CompareHelper.compare (m_sNamespaceURI, o.m_sNamespaceURI);
-    if (ret == 0)
-      ret = m_sName.compareTo (o.m_sName);
-    return ret;
   }
 
   @Override

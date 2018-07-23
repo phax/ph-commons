@@ -227,6 +227,33 @@ public final class MicroWriterTest
   }
 
   @Test
+  public void testWriteCDATAAsText ()
+  {
+    final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
+                                                                .setWriteCDATAAsText (true);
+
+    // Simple CDATA
+    IMicroElement e = new MicroElement ("a");
+    e.appendCDATA ("foobar");
+    assertEquals ("<a>foobar</a>", MicroWriter.getNodeAsString (e, aSettings));
+
+    // Containing the forbidden CDATA end marker
+    e = new MicroElement ("a");
+    e.appendCDATA ("a]]>b");
+    assertEquals ("<a>a]]&gt;b</a>", MicroWriter.getNodeAsString (e, aSettings));
+
+    // Containing more than one forbidden CDATA end marker
+    e = new MicroElement ("a");
+    e.appendCDATA ("a]]>b]]>c");
+    assertEquals ("<a>a]]&gt;b]]&gt;c</a>", MicroWriter.getNodeAsString (e, aSettings));
+
+    // Containing a complete CDATA section
+    e = new MicroElement ("a");
+    e.appendCDATA ("a<![CDATA[x]]>b");
+    assertEquals ("<a>a&lt;![CDATA[x]]&gt;b</a>", MicroWriter.getNodeAsString (e, aSettings));
+  }
+
+  @Test
   public void testWithNamespaceContext ()
   {
     final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
@@ -554,5 +581,23 @@ public final class MicroWriterTest
       final IMicroDocument aDoc2 = MicroReader.readMicroXML (s);
       assertNotNull (aDoc2);
     }
+  }
+
+  @Test
+  public void testOrderAttributes ()
+  {
+    XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
+                                                          .setUseDoubleQuotesForAttributes (false);
+
+    // default order
+    final IMicroElement e = new MicroElement ("a");
+    e.setAttribute ("c", "1");
+    e.setAttribute ("b", "2");
+    e.setAttribute ("a", "3");
+    assertEquals ("<a c='1' b='2' a='3' />", MicroWriter.getNodeAsString (e, aSettings));
+
+    // Lexicographic order
+    aSettings = aSettings.setOrderAttributes (true);
+    assertEquals ("<a a='3' b='2' c='1' />", MicroWriter.getNodeAsString (e, aSettings));
   }
 }

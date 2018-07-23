@@ -16,8 +16,6 @@
  */
 package com.helger.xml.microdom;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.namespace.QName;
@@ -25,6 +23,8 @@ import javax.xml.namespace.QName;
 import com.helger.commons.annotation.MustImplementComparable;
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.compare.CompareHelper;
+import com.helger.commons.compare.IComparable;
 
 /**
  * Represents a simple qualified name. A combination of namespace URI and local
@@ -34,7 +34,7 @@ import com.helger.commons.annotation.Nonempty;
  */
 @MustImplementEqualsAndHashcode
 @MustImplementComparable
-public interface IMicroQName extends Serializable
+public interface IMicroQName extends IComparable <IMicroQName>
 {
   /**
    * Get the namespace URI
@@ -78,11 +78,22 @@ public interface IMicroQName extends Serializable
   @Nonempty
   String getName ();
 
+  default int compareTo (@Nonnull final IMicroQName o)
+  {
+    int ret = CompareHelper.compare (getNamespaceURI (), o.getNamespaceURI ());
+    if (ret == 0)
+      ret = getName ().compareTo (o.getName ());
+    return ret;
+  }
+
   /**
    * @return This micro QName as a regular XML QName using an empty prefix.
    */
   @Nonnull
-  QName getAsXMLQName ();
+  default QName getAsXMLQName ()
+  {
+    return new QName (getNamespaceURI (), getName ());
+  }
 
   /**
    * @param sPrefix
@@ -91,5 +102,8 @@ public interface IMicroQName extends Serializable
    * @return This micro QName as a regular XML QName using the provided prefix.
    */
   @Nonnull
-  QName getAsXMLQName (@Nonnull String sPrefix);
+  default QName getAsXMLQName (@Nonnull final String sPrefix)
+  {
+    return new QName (getNamespaceURI (), getName (), sPrefix);
+  }
 }

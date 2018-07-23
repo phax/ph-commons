@@ -21,6 +21,7 @@ import javax.annotation.Nullable;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
@@ -32,11 +33,16 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.ProcessingInstruction;
 import org.w3c.dom.Text;
 
+import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsTreeMap;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsMap;
+import com.helger.commons.compare.CompareHelper;
+import com.helger.commons.functional.IConsumer;
 import com.helger.commons.string.StringHelper;
 import com.helger.xml.CXML;
 import com.helger.xml.EXMLVersion;
+import com.helger.xml.NamedNodeMapIterator;
 import com.helger.xml.XMLHelper;
 
 /**
@@ -166,9 +172,12 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
     aXMLWriter.onText (aText.getData ());
   }
 
-  private static void _writeCDATA (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final Text aText)
+  private void _writeCDATA (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final Text aText)
   {
-    aXMLWriter.onCDATA (aText.getData ());
+    if (m_aSettings.isWriteCDATAAsText ())
+      aXMLWriter.onText (aText.getData ());
+    else
+      aXMLWriter.onCDATA (aText.getData ());
   }
 
   private void _writeElement (@Nonnull final XMLEmitter aXMLWriter,
@@ -211,7 +220,7 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
       }
 
       // Get all attributes
-      XMLHelper.forAllAttributes (aElement, aAttr -> {
+      final IConsumer <Attr> aAttrEmitter = aAttr -> {
         final String sAttrNamespaceURI = StringHelper.getNotNull (aAttr.getNamespaceURI ());
 
         // Ignore all "xmlns" attributes as they are created manually. They are
@@ -232,7 +241,26 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
           else
             aAttrMap.put (new QName (sAttrNamespaceURI, sAttrName), sAttrValue);
         }
-      });
+      };
+      if (m_aSettings.isOrderAttributes ())
+      {
+        // Convert NamedNodeMap to list
+        final ICommonsList <Attr> aOrderedAttrs = new CommonsArrayList <> (NamedNodeMapIterator.createAttributeIterator (aElement),
+                                                                           x -> (Attr) x);
+        // Sort attributes by namespace URI, than by name
+        aOrderedAttrs.sort ( (a1, a2) -> {
+          int ret = CompareHelper.compare (a1.getNamespaceURI (), a2.getNamespaceURI ());
+          if (ret == 0)
+            ret = a1.getName ().compareTo (a2.getName ());
+          return ret;
+        });
+        aOrderedAttrs.forEach (aAttrEmitter);
+      }
+      else
+      {
+        // Emit in default order
+        XMLHelper.forAllAttributes (aElement, aAttrEmitter);
+      }
 
       // Determine indent
       final Element aParentElement = aParentNode != null &&

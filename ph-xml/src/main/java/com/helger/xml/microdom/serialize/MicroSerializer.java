@@ -16,6 +16,7 @@
  */
 package com.helger.xml.microdom.serialize;
 
+import java.util.Comparator;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -27,6 +28,7 @@ import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.string.StringHelper;
+import com.helger.xml.microdom.IMicroAttribute;
 import com.helger.xml.microdom.IMicroCDATA;
 import com.helger.xml.microdom.IMicroComment;
 import com.helger.xml.microdom.IMicroContainer;
@@ -196,9 +198,12 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
     }
   }
 
-  private static void _writeCDATA (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final IMicroCDATA aCDATA)
+  private void _writeCDATA (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final IMicroCDATA aCDATA)
   {
-    aXMLWriter.onCDATA (aCDATA.getData ().toString ());
+    if (m_aSettings.isWriteCDATAAsText ())
+      aXMLWriter.onText (aCDATA.getData ().toString ());
+    else
+      aXMLWriter.onCDATA (aCDATA.getData ().toString ());
   }
 
   private static boolean _isInlineNode (@Nonnull final IMicroNode aNode)
@@ -243,25 +248,39 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
       }
 
       // For all attributes (in the correct order)
-      aElement.forAllAttributes (aAttr -> {
-        final IMicroQName aAttrName = aAttr.getAttributeQName ();
-        final String sAttrNamespaceURI = StringHelper.getNotNull (aAttrName.getNamespaceURI ());
-        final String sAttrName = aAttrName.getName ();
-        final String sAttrValue = aAttr.getAttributeValue ();
-        String sAttrNSPrefix = null;
-        if (bEmitNamespaces)
+      Iterable <? extends IMicroAttribute> aAttrCont;
+      if (aElement.hasNoAttributes ())
+        aAttrCont = null;
+      else
+        if (m_aSettings.isOrderAttributes ())
         {
-          sAttrNSPrefix = m_aNSStack.getAttributeNamespacePrefixToUse (sAttrNamespaceURI,
-                                                                       sAttrName,
-                                                                       sAttrValue,
-                                                                       aAttrMap);
+          aAttrCont = aElement.getAllAttributeObjs ()
+                              .getSortedInline (Comparator.comparing (IMicroAttribute::getAttributeQName));
         }
-
-        if (sAttrNSPrefix != null)
-          aAttrMap.put (aAttrName.getAsXMLQName (sAttrNSPrefix), sAttrValue);
         else
-          aAttrMap.put (aAttrName.getAsXMLQName (), sAttrValue);
-      });
+          aAttrCont = aElement.getAttributeObjs ();
+
+      if (aAttrCont != null)
+        for (final IMicroAttribute aAttr : aAttrCont)
+        {
+          final IMicroQName aAttrName = aAttr.getAttributeQName ();
+          final String sAttrNamespaceURI = StringHelper.getNotNull (aAttrName.getNamespaceURI ());
+          final String sAttrName = aAttrName.getName ();
+          final String sAttrValue = aAttr.getAttributeValue ();
+          String sAttrNSPrefix = null;
+          if (bEmitNamespaces)
+          {
+            sAttrNSPrefix = m_aNSStack.getAttributeNamespacePrefixToUse (sAttrNamespaceURI,
+                                                                         sAttrName,
+                                                                         sAttrValue,
+                                                                         aAttrMap);
+          }
+
+          if (sAttrNSPrefix != null)
+            aAttrMap.put (aAttrName.getAsXMLQName (sAttrNSPrefix), sAttrValue);
+          else
+            aAttrMap.put (aAttrName.getAsXMLQName (), sAttrValue);
+        }
 
       // Determine indent
       final IMicroElement aParentElement = aParentNode != null && aParentNode.isElement () ? (IMicroElement) aParentNode

@@ -28,8 +28,10 @@ This project was the following modules:
 
 ## News and noteworthy
 
-* v9.1.3 - work in progress
+* v9.1.4 - work in progress
   * Added class `XMLBracketModeDeterminatorXMLC14`
+  * Added XML write setting `write CDATA as Text`
+  * Added XML write setting `order attributes lexicographically`
 * v9.1.3 - 2018-07-19
   * Updated to BouncyCastle 1.60
   * Extended `LogHelper` to have overloads with `Supplier<String>`

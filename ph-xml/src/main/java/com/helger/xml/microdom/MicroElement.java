@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.ReturnsImmutableObject;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
@@ -126,8 +127,17 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   }
 
   @Nullable
+  @ReturnsImmutableObject
+  public Iterable <MicroAttribute> getAttributeObjs ()
+  {
+    if (hasNoAttributes ())
+      return null;
+    return m_aAttrs.values ();
+  }
+
+  @Nullable
   @ReturnsMutableCopy
-  public ICommonsList <? extends IMicroAttribute> getAllAttributeObjs ()
+  public ICommonsList <MicroAttribute> getAllAttributeObjs ()
   {
     if (hasNoAttributes ())
       return null;

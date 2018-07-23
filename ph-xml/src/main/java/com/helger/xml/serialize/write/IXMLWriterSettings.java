@@ -161,4 +161,34 @@ public interface IXMLWriterSettings extends Serializable
    * @return <code>true</code> if it is enabled, <code>false</code> if not.
    */
   boolean isPutNamespaceContextPrefixesInRoot ();
+
+  /**
+   * Check if all CDATA children should be emitted as normal text or not. This
+   * is required for XML canonicalization.
+   *
+   * @return <code>true</code> if CDATA should be written as text,
+   *         <code>false</code> to keep CDATA as it is.
+   * @since 9.1.4
+   */
+  boolean isWriteCDATAAsText ();
+
+  /**
+   * Determine if attributes of elements should be emitted in alphabetical order
+   * or not. This is required for XML canonicalization.
+   *
+   * @return <code>true</code> to order attributes, <code>false</code> to keep
+   *         the original order.
+   * @since 9.1.4
+   */
+  boolean isOrderAttributes ();
+
+  /**
+   * Determine if namespaces of elements should be emitted in alphabetical order
+   * or not. This is required for XML canonicalization.
+   *
+   * @return <code>true</code> to order namespaces, <code>false</code> to keep
+   *         the original order.
+   * @since 9.1.4
+   */
+  boolean isOrderNamespaces ();
 }

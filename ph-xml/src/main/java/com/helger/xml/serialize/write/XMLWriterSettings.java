@@ -68,6 +68,12 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
    * By default namespace context prefixes are put inside the root element
    */
   public static final boolean DEFAULT_PUT_NAMESPACE_CONTEXT_PREFIXES_IN_ROOT = false;
+  /** By default CDATA children are emitted as CDATA */
+  public static final boolean DEFAULT_WRITE_CDATA_AS_TEXT = false;
+  /** By default the insertion order of attributes is maintained */
+  public static final boolean DEFAULT_ORDER_ATTRIBUTES = false;
+  /** By default the original order namespaces is maintained */
+  public static final boolean DEFAULT_ORDER_NAMESPACES = false;
 
   /** The default settings to use */
   public static final IXMLWriterSettings DEFAULT_XML_SETTINGS = new XMLWriterSettings ();
@@ -89,6 +95,9 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   private String m_sIndentationString = DEFAULT_INDENTATION_STRING;
   private boolean m_bEmitNamespaces = DEFAULT_EMIT_NAMESPACES;
   private boolean m_bPutNamespaceContextPrefixesInRoot = DEFAULT_PUT_NAMESPACE_CONTEXT_PREFIXES_IN_ROOT;
+  private boolean m_bWriteCDATAAsText = DEFAULT_WRITE_CDATA_AS_TEXT;
+  private boolean m_bOrderAttributes = DEFAULT_ORDER_ATTRIBUTES;
+  private boolean m_bOrderNamespaces = DEFAULT_ORDER_NAMESPACES;
 
   // Status vars
   private String m_sIndentationStringToString;
@@ -136,6 +145,9 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     setIndentationString (aOther.getIndentationString ());
     setEmitNamespaces (aOther.isEmitNamespaces ());
     setPutNamespaceContextPrefixesInRoot (aOther.isPutNamespaceContextPrefixesInRoot ());
+    setWriteCDATAAsText (aOther.isWriteCDATAAsText ());
+    setOrderAttributes (aOther.isOrderAttributes ());
+    setOrderNamespaces (aOther.isOrderNamespaces ());
   }
 
   @Nonnull
@@ -424,6 +436,42 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   }
 
   @Nonnull
+  public final XMLWriterSettings setWriteCDATAAsText (final boolean bWriteCDATAAsText)
+  {
+    m_bWriteCDATAAsText = bWriteCDATAAsText;
+    return this;
+  }
+
+  public boolean isWriteCDATAAsText ()
+  {
+    return m_bWriteCDATAAsText;
+  }
+
+  @Nonnull
+  public final XMLWriterSettings setOrderAttributes (final boolean bOrderAttributes)
+  {
+    m_bOrderAttributes = bOrderAttributes;
+    return this;
+  }
+
+  public boolean isOrderAttributes ()
+  {
+    return m_bOrderAttributes;
+  }
+
+  @Nonnull
+  public final XMLWriterSettings setOrderNamespaces (final boolean bOrderNamespaces)
+  {
+    m_bOrderNamespaces = bOrderNamespaces;
+    return this;
+  }
+
+  public boolean isOrderNamespaces ()
+  {
+    return m_bOrderNamespaces;
+  }
+
+  @Nonnull
   public XMLWriterSettings getClone ()
   {
     return new XMLWriterSettings (this);
@@ -453,7 +501,10 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
            m_eNewLineMode.equals (rhs.m_eNewLineMode) &&
            m_sIndentationString.equals (rhs.m_sIndentationString) &&
            m_bEmitNamespaces == rhs.m_bEmitNamespaces &&
-           m_bPutNamespaceContextPrefixesInRoot == rhs.m_bPutNamespaceContextPrefixesInRoot;
+           m_bPutNamespaceContextPrefixesInRoot == rhs.m_bPutNamespaceContextPrefixesInRoot &&
+           m_bWriteCDATAAsText == rhs.m_bWriteCDATAAsText &&
+           m_bOrderAttributes == rhs.m_bOrderAttributes &&
+           m_bOrderNamespaces == rhs.m_bOrderNamespaces;
   }
 
   @Override
@@ -476,6 +527,9 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
                                        .append (m_sIndentationString)
                                        .append (m_bEmitNamespaces)
                                        .append (m_bPutNamespaceContextPrefixesInRoot)
+                                       .append (m_bWriteCDATAAsText)
+                                       .append (m_bOrderAttributes)
+                                       .append (m_bOrderNamespaces)
                                        .getHashCode ();
   }
 
@@ -501,6 +555,9 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
                                        .append ("emitNamespaces", m_bEmitNamespaces)
                                        .append ("putNamespaceContextPrefixesInRoot",
                                                 m_bPutNamespaceContextPrefixesInRoot)
+                                       .append ("writeCDATAAsText", m_bWriteCDATAAsText)
+                                       .append ("orderAttributes", m_bOrderAttributes)
+                                       .append ("orderNamespaces", m_bOrderNamespaces)
                                        .getToString ();
   }
 
@@ -540,15 +597,50 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
                                    .setPutNamespaceContextPrefixesInRoot (true);
   }
 
+  /**
+   * The canonical form of an XML document is physical representation of the
+   * document produced by the method described in this specification. The
+   * changes are summarized in the following list:
+   * <ul>
+   * <li>The document is encoded in UTF-8</li>
+   * <li>Line breaks normalized to #xA on input, before parsing</li>
+   * <li>Attribute values are normalized, as if by a validating processor</li>
+   * <li>Character and parsed entity references are replaced</li>
+   * <li>CDATA sections are replaced with their character content</li>
+   * <li>The XML declaration and document type declaration are removed</li>
+   * <li>Empty elements are converted to start-end tag pairs</li>
+   * <li>Whitespace outside of the document element and within start and end
+   * tags is normalized</li>
+   * <li>All whitespace in character content is retained (excluding characters
+   * removed during line feed normalization)</li>
+   * <li>Attribute value delimiters are set to quotation marks (double
+   * quotes)</li>
+   * <li>Special characters in attribute values and character content are
+   * replaced by character references</li>
+   * <li>Superfluous namespace declarations are removed from each element</li>
+   * <li>Default attributes are added to each element</li>
+   * <li>Fixup of xml:base attributes [C14N-Issues] is performed</li>
+   * <li>Lexicographic order is imposed on the namespace declarations and
+   * attributes of each element</li>
+   * </ul>
+   * 
+   * @return {@link XMLWriterSettings} for canonicalization
+   */
   @Nonnull
   @ReturnsMutableCopy
   public static XMLWriterSettings createForCanonicalization ()
   {
     // TODO some settings are missing
-    return new XMLWriterSettings ().setCharset (StandardCharsets.UTF_8)
+    return new XMLWriterSettings ().setSerializeVersion (EXMLSerializeVersion.XML_10)
+                                   .setSerializeXMLDeclaration (EXMLSerializeXMLDeclaration.IGNORE)
+                                   .setSerializeDocType (EXMLSerializeDocType.IGNORE)
+                                   .setCharset (StandardCharsets.UTF_8)
                                    .setNewLineMode (ENewLineMode.UNIX)
                                    .setUseDoubleQuotesForAttributes (true)
                                    .setBracketModeDeterminator (new XMLBracketModeDeterminatorXMLC14 ())
-                                   .setPutNamespaceContextPrefixesInRoot (true);
+                                   .setPutNamespaceContextPrefixesInRoot (true)
+                                   .setWriteCDATAAsText (true)
+                                   .setOrderAttributes (true)
+                                   .setOrderNamespaces (true);
   }
 }
