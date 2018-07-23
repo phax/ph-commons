@@ -1368,28 +1368,28 @@ public class BCrypt
     if (nLen <= 0 || nLen > aToEncode.length)
       throw new IllegalArgumentException ("Invalid len");
 
-    int off = 0;
-    final StringBuilder rs = new StringBuilder ();
-    while (off < nLen)
+    int nOfs = 0;
+    final StringBuilder rs = new StringBuilder (aToEncode.length * 2);
+    while (nOfs < nLen)
     {
-      int c1 = aToEncode[off++] & 0xff;
+      int c1 = aToEncode[nOfs++] & 0xff;
       rs.append (BASE64_CODE[(c1 >> 2) & 0x3f]);
       c1 = (c1 & 0x03) << 4;
-      if (off >= nLen)
+      if (nOfs >= nLen)
       {
         rs.append (BASE64_CODE[c1 & 0x3f]);
         break;
       }
-      int c2 = aToEncode[off++] & 0xff;
+      int c2 = aToEncode[nOfs++] & 0xff;
       c1 |= (c2 >> 4) & 0x0f;
       rs.append (BASE64_CODE[c1 & 0x3f]);
       c1 = (c2 & 0x0f) << 2;
-      if (off >= nLen)
+      if (nOfs >= nLen)
       {
         rs.append (BASE64_CODE[c1 & 0x3f]);
         break;
       }
-      c2 = aToEncode[off++] & 0xff;
+      c2 = aToEncode[nOfs++] & 0xff;
       c1 |= (c2 >> 6) & 0x03;
       rs.append (BASE64_CODE[c1 & 0x3f]);
       rs.append (BASE64_CODE[c2 & 0x3f]);
@@ -1613,25 +1613,25 @@ public class BCrypt
    *        the password to hash
    * @param salt
    *        the binary salt to hash with the password
-   * @param log_rounds
+   * @param nLogRounds
    *        the binary logarithm of the number of rounds of hashing to apply
    * @param cdata
    *        the plaintext to encrypt
    * @return an array containing the binary hashed password
    */
   @Nonnull
-  public byte [] crypt_raw (final byte [] password, final byte [] salt, final int log_rounds, final int [] cdata)
+  public byte [] crypt_raw (final byte [] password, final byte [] salt, final int nLogRounds, final int [] cdata)
   {
-    if (log_rounds < 4 || log_rounds > 30)
+    if (nLogRounds < 4 || nLogRounds > 30)
       throw new IllegalArgumentException ("Bad number of rounds");
     if (salt.length != BCRYPT_SALT_LEN)
       throw new IllegalArgumentException ("Bad salt length");
 
-    final int rounds = 1 << log_rounds;
+    final int nRounds = 1 << nLogRounds;
 
     _init_key ();
     _ekskey (salt, password);
-    for (int i = 0; i != rounds; i++)
+    for (int i = 0; i != nRounds; i++)
     {
       _key (password);
       _key (salt);
