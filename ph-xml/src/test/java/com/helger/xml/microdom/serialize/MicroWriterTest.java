@@ -628,7 +628,8 @@ public final class MicroWriterTest
   {
     final IMicroDocument aDoc = MicroReader.readMicroXML (sSrc,
                                                           new SAXReaderSettings ().setEntityResolver ( (x,
-                                                                                                        y) -> new StringSAXInputSource ("")));
+                                                                                                        y) -> "world.txt".equals (y) ? new StringSAXInputSource ("world")
+                                                                                                                                     : new StringSAXInputSource ("")));
     assertNotNull (aDoc);
 
     final MapBasedNamespaceContext aCtx = new MapBasedNamespaceContext ();
@@ -718,5 +719,18 @@ public final class MicroWriterTest
                         "   <normNames attr=\"A &#xD;&#xA;&#x9; B\"></normNames>\n" +
                         "   <normId id=\"' &#xD;&#xA;&#x9; '\"></normId>\n" +
                         "</doc>\n");
+    _testC14 ("<!DOCTYPE doc [\r\n" +
+              "<!ATTLIST doc attrExtEnt ENTITY #IMPLIED>\r\n" +
+              "<!ENTITY ent1 \"Hello\">\r\n" +
+              "<!ENTITY ent2 SYSTEM \"world.txt\">\r\n" +
+              "<!ENTITY entExt SYSTEM \"earth.gif\" NDATA gif>\r\n" +
+              "<!NOTATION gif SYSTEM \"viewgif.exe\">\r\n" +
+              "]>\r\n" +
+              "<doc attrExtEnt=\"entExt\">\r\n" +
+              "   &ent1;, &ent2;!\r\n" +
+              "</doc>\r\n" +
+              "\r\n" +
+              "<!-- Let world.txt contain \"world\" (excluding the quotes) -->",
+              "<doc attrExtEnt=\"entExt\">\n" + "   Hello, world!\n" + "</doc>\n");
   }
 }
