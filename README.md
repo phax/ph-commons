@@ -33,6 +33,7 @@ This project was the following modules:
   * Added XML write setting `write CDATA as Text`
   * Added XML write setting `order attributes and namespaces lexicographically`
   * XML entities are now emitted as Hexadecimal values instead of numeric (`&#D;` instead of `&#13;`)
+  * Fixed error in `HttpHeaderMap.addAllHeaders` (was not doing what was expected)
 * v9.1.3 - 2018-07-19
   * Updated to BouncyCastle 1.60
   * Extended `LogHelper` to have overloads with `Supplier<String>`

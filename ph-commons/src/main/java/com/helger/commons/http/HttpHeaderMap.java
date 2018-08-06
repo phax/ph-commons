@@ -107,9 +107,9 @@ public class HttpHeaderMap implements
   }
 
   /**
-   * Avoid having header values spanning multiple lines. This has been
-   * deprecated by RFC 7230 and Jetty 9.3 refuses to parse these requests with
-   * HTTP 400 by default.
+   * Avoid having header values spanning multiple lines. This has been deprecated
+   * by RFC 7230 and Jetty 9.3 refuses to parse these requests with HTTP 400 by
+   * default.
    *
    * @param sValue
    *        The source header value. May be <code>null</code>.
@@ -139,27 +139,30 @@ public class HttpHeaderMap implements
   @ReturnsMutableObject
   private ICommonsList <String> _getOrCreateHeaderList (@Nonnull @Nonempty final String sName)
   {
-    return m_aHeaders.computeIfAbsent (sName, x -> new CommonsArrayList <> (2));
+    final String sRealName = getUnifiedName (sName);
+    return m_aHeaders.computeIfAbsent (sRealName, x -> new CommonsArrayList <> (2));
   }
 
-  private void _setHeader (@Nonnull @Nonempty final String sName, @Nonnull final String sValue)
+  @Nonnull
+  private EChange _setHeader (@Nonnull @Nonempty final String sName, @Nonnull final String sValue)
   {
     ValueEnforcer.notEmpty (sName, "Name");
     ValueEnforcer.notNull (sValue, "Value");
 
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("Setting HTTP header: '" + sName + "' = '" + sValue + "'");
-    _getOrCreateHeaderList (getUnifiedName (sName)).set (sValue);
+    return _getOrCreateHeaderList (sName).set (sValue);
   }
 
-  private void _addHeader (@Nonnull @Nonempty final String sName, @Nonnull final String sValue)
+  @Nonnull
+  private EChange _addHeader (@Nonnull @Nonempty final String sName, @Nonnull final String sValue)
   {
     ValueEnforcer.notEmpty (sName, "Name");
     ValueEnforcer.notNull (sValue, "Value");
 
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("Adding HTTP header: '" + sName + "' = '" + sValue + "'");
-    _getOrCreateHeaderList (getUnifiedName (sName)).add (sValue);
+    return _getOrCreateHeaderList (sName).addObject (sValue);
   }
 
   /**
@@ -369,8 +372,8 @@ public class HttpHeaderMap implements
   }
 
   /**
-   * Add all headers from the passed map. Existing headers with the same name
-   * are overwritten.
+   * Add all headers from the passed map. Existing headers with the same name are
+   * overwritten.
    *
    * @param aOther
    *        The header map to add. May not be <code>null</code>.
@@ -382,8 +385,8 @@ public class HttpHeaderMap implements
   }
 
   /**
-   * Add all headers from the passed map. Existing headers with the same name
-   * are extended.
+   * Add all headers from the passed map. Existing headers with the same name are
+   * extended.
    *
    * @param aOther
    *        The header map to add. May not be <code>null</code>.
@@ -391,7 +394,7 @@ public class HttpHeaderMap implements
   public void addAllHeaders (@Nonnull final HttpHeaderMap aOther)
   {
     ValueEnforcer.notNull (aOther, "Other");
-    for (final Map.Entry <String, ICommonsList <String>> aEntry : m_aHeaders.entrySet ())
+    for (final Map.Entry <String, ICommonsList <String>> aEntry : aOther.m_aHeaders.entrySet ())
     {
       final String sKey = aEntry.getKey ();
       for (final String sValue : aEntry.getValue ())
@@ -421,8 +424,8 @@ public class HttpHeaderMap implements
    *
    * @param sName
    *        The name to be searched.
-   * @return The list with all matching values. Never <code>null</code> but
-   *         maybe empty.
+   * @return The list with all matching values. Never <code>null</code> but maybe
+   *         empty.
    */
   @Nonnull
   @ReturnsMutableCopy
