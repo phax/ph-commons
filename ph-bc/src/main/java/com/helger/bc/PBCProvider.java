@@ -36,6 +36,12 @@ import com.helger.commons.exception.InitializationException;
 @Immutable
 public final class PBCProvider
 {
+  /**
+   * Special provider name for the FIPS version of BouncyCastle. As there is no
+   * Maven artefact, the constant is here for the sake of completeness only.
+   */
+  public static final String PROVIDER_NAME_BC_FIPS = "BCFIPS";
+
   // Singleton instance
   private static final Provider PROVIDER;
 
