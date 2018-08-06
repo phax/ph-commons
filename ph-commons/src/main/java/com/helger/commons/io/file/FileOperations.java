@@ -22,6 +22,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
+import java.nio.file.DirectoryNotEmptyException;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
@@ -204,10 +207,20 @@ public final class FileOperations
 
     try
     {
-      // delete may return true even so it internally failed!
-      final EFileIOErrorCode eError = aDir.delete () && !aDir.exists () ? EFileIOErrorCode.NO_ERROR
-                                                                        : EFileIOErrorCode.OPERATION_FAILED;
-      return eError.getAsIOError (EFileIOOperation.DELETE_DIR, aDir);
+      Files.delete (aDir.toPath ());
+      return EFileIOErrorCode.NO_ERROR.getAsIOError (EFileIOOperation.DELETE_DIR, aDir);
+    }
+    catch (final NoSuchFileException ex)
+    {
+      return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.DELETE_DIR, aDir);
+    }
+    catch (final DirectoryNotEmptyException ex)
+    {
+      return EFileIOErrorCode.OPERATION_FAILED.getAsIOError (EFileIOOperation.DELETE_DIR, aDir);
+    }
+    catch (final IOException ex)
+    {
+      return EFileIOErrorCode.IO_ERROR.getAsIOError (EFileIOOperation.DELETE_DIR, aDir);
     }
     catch (final SecurityException ex)
     {
@@ -333,10 +346,20 @@ public final class FileOperations
 
     try
     {
-      // delete may return true even so it internally failed!
-      final EFileIOErrorCode eError = aFile.delete () && !aFile.exists () ? EFileIOErrorCode.NO_ERROR
-                                                                          : EFileIOErrorCode.OPERATION_FAILED;
-      return eError.getAsIOError (EFileIOOperation.DELETE_FILE, aFile);
+      Files.delete (aFile.toPath ());
+      return EFileIOErrorCode.NO_ERROR.getAsIOError (EFileIOOperation.DELETE_FILE, aFile);
+    }
+    catch (final NoSuchFileException ex)
+    {
+      return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.DELETE_FILE, aFile);
+    }
+    catch (final DirectoryNotEmptyException ex)
+    {
+      return EFileIOErrorCode.OPERATION_FAILED.getAsIOError (EFileIOOperation.DELETE_FILE, aFile);
+    }
+    catch (final IOException ex)
+    {
+      return EFileIOErrorCode.IO_ERROR.getAsIOError (EFileIOOperation.DELETE_FILE, aFile);
     }
     catch (final SecurityException ex)
     {

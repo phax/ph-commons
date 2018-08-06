@@ -126,7 +126,7 @@ public class WatchDir implements AutoCloseable
   public WatchDir (@Nonnull final Path aDir, final boolean bRecursive) throws IOException
   {
     ValueEnforcer.notNull (aDir, "Directory");
-    ValueEnforcer.isTrue (Files.isDirectory (aDir), () -> "Provided path is not a directory: " + aDir);
+    ValueEnforcer.isTrue (aDir.toFile ().isDirectory (), () -> "Provided path is not a directory: " + aDir);
 
     m_aWatcher = FileSystems.getDefault ().newWatchService ();
     m_aStartDir = aDir.toRealPath ();

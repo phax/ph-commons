@@ -16,6 +16,7 @@
  */
 package com.helger.commons.io.file;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -259,7 +260,7 @@ public final class PathHelper
     {
       // ignore
     }
-    if (Files.isDirectory (aRealSearchDirectory))
+    if (aRealSearchDirectory.toFile ().isDirectory ())
     {
       Path aParent = aRealStartDirectory;
       while (aParent != null)
@@ -463,7 +464,7 @@ public final class PathHelper
   public static int getDirectoryObjectCount (@Nonnull final Path aDirectory)
   {
     ValueEnforcer.notNull (aDirectory, "Directory");
-    ValueEnforcer.isTrue (Files.isDirectory (aDirectory), "Passed object is not a directory: " + aDirectory);
+    ValueEnforcer.isTrue (aDirectory.toFile ().isDirectory (), "Passed object is not a directory: " + aDirectory);
 
     int ret = 0;
     for (final Path aChild : getDirectoryContent (aDirectory))
@@ -601,7 +602,8 @@ public final class PathHelper
       if (aPathFilter == null)
       {
         // Try some diagnosis...
-        if (!Files.isDirectory (aDirectory))
+        final File aDirectoryFile = aDirectory.toFile ();
+        if (!aDirectoryFile.isDirectory ())
         {
           if (LOGGER.isWarnEnabled ())
             LOGGER.warn ("Cannot list non-directory: " + aDirectory.toAbsolutePath ());
@@ -621,7 +623,7 @@ public final class PathHelper
                 LOGGER.warn ("Cannot list directory because of no read-rights: " + aDirectory.toAbsolutePath ());
             }
             else
-              if (!Files.exists (aDirectory))
+              if (!aDirectoryFile.exists ())
               {
                 if (LOGGER.isWarnEnabled ())
                   LOGGER.warn ("Cannot list non-existing: " + aDirectory.toAbsolutePath ());

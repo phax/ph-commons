@@ -16,6 +16,7 @@
  */
 package com.helger.commons.io.file;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
@@ -253,7 +254,7 @@ public final class PathOperations
     final Path aRealDir = _getUnifiedPath (aDir);
 
     // Does the directory not exist?
-    if (!Files.isDirectory (aRealDir))
+    if (!aRealDir.toFile ().isDirectory ())
       return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.DELETE_DIR, aRealDir);
 
     if (isExceptionOnDeleteRoot ())
@@ -304,7 +305,7 @@ public final class PathOperations
     final Path aRealDir = _getUnifiedPath (aDir);
 
     // Non-existing directory?
-    if (!Files.isDirectory (aRealDir))
+    if (!aRealDir.toFile ().isDirectory ())
       return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.DELETE_DIR_RECURSIVE, aRealDir);
 
     if (isExceptionOnDeleteRoot ())
@@ -322,8 +323,10 @@ public final class PathOperations
     // iterate directory
     for (final Path aChild : PathHelper.getDirectoryContent (aRealDir))
     {
+      final File aChildFile = aChild.toFile ();
+
       // is it a file or a directory or ...
-      if (Files.isDirectory (aChild))
+      if (aChildFile.isDirectory ())
       {
         // Ignore "." and ".." directory
         if (FilenameHelper.isSystemInternalDirectory (aChild))
@@ -335,7 +338,7 @@ public final class PathOperations
           return eCode;
       }
       else
-        if (Files.isRegularFile (aChild))
+        if (aChildFile.isFile ())
         {
           // delete file
           final FileIOError eCode = deleteFile (aChild);
@@ -383,7 +386,7 @@ public final class PathOperations
 
     final Path aRealFile = _getUnifiedPath (aFile);
 
-    if (!Files.isRegularFile (aRealFile))
+    if (!aRealFile.toFile ().isFile ())
       return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.DELETE_FILE, aRealFile);
 
     // Is the parent directory writable?
@@ -434,7 +437,7 @@ public final class PathOperations
     final Path aRealTargetFile = _getUnifiedPath (aTargetFile);
 
     // Does the source file exist?
-    if (!Files.isRegularFile (aRealSourceFile))
+    if (!aRealSourceFile.toFile ().isFile ())
       return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.RENAME_FILE, aRealSourceFile);
 
     // Are source and target different?
@@ -442,7 +445,7 @@ public final class PathOperations
       return EFileIOErrorCode.SOURCE_EQUALS_TARGET.getAsIOError (EFileIOOperation.RENAME_FILE, aRealSourceFile);
 
     // Does the target file already exist?
-    if (Files.exists (aRealTargetFile))
+    if (aRealTargetFile.toFile ().exists ())
       return EFileIOErrorCode.TARGET_ALREADY_EXISTS.getAsIOError (EFileIOOperation.RENAME_FILE, aRealTargetFile);
 
     // Is the source parent directory writable?
@@ -452,7 +455,7 @@ public final class PathOperations
 
     // Is the target parent directory writable?
     final Path aTargetParentDir = aRealTargetFile.getParent ();
-    if (aTargetParentDir != null && Files.exists (aTargetParentDir) && !Files.isWritable (aTargetParentDir))
+    if (aTargetParentDir != null && aTargetParentDir.toFile ().exists () && !Files.isWritable (aTargetParentDir))
       return EFileIOErrorCode.TARGET_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.RENAME_FILE, aRealTargetFile);
 
     // Ensure parent of target directory is present
@@ -480,7 +483,7 @@ public final class PathOperations
     final Path aRealTargetDir = _getUnifiedPath (aTargetDir);
 
     // Does the source directory exist?
-    if (!Files.isDirectory (aRealSourceDir))
+    if (!aRealSourceDir.toFile ().isDirectory ())
       return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.RENAME_DIR, aRealSourceDir);
 
     // Are source and target different?
@@ -488,7 +491,7 @@ public final class PathOperations
       return EFileIOErrorCode.SOURCE_EQUALS_TARGET.getAsIOError (EFileIOOperation.RENAME_DIR, aRealSourceDir);
 
     // Does the target directory already exist?
-    if (Files.exists (aRealTargetDir))
+    if (aRealTargetDir.toFile ().exists ())
       return EFileIOErrorCode.TARGET_ALREADY_EXISTS.getAsIOError (EFileIOOperation.RENAME_DIR, aRealTargetDir);
 
     // Is the source a parent of target?
@@ -504,7 +507,7 @@ public final class PathOperations
 
     // Is the target parent directory writable?
     final Path aTargetParentDir = aRealTargetDir.getParent ();
-    if (aTargetParentDir != null && Files.exists (aTargetParentDir) && !Files.isWritable (aTargetParentDir))
+    if (aTargetParentDir != null && aTargetParentDir.toFile ().exists () && !Files.isWritable (aTargetParentDir))
       return EFileIOErrorCode.TARGET_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.RENAME_DIR, aRealTargetDir);
 
     // Ensure parent of target directory is present
@@ -534,7 +537,7 @@ public final class PathOperations
     final Path aRealTargetFile = _getUnifiedPath (aTargetFile);
 
     // Does the source file exist?
-    if (!Files.isRegularFile (aRealSourceFile))
+    if (!aRealSourceFile.toFile ().isFile ())
       return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.COPY_FILE, aRealSourceFile);
 
     // Are source and target different?
@@ -542,7 +545,7 @@ public final class PathOperations
       return EFileIOErrorCode.SOURCE_EQUALS_TARGET.getAsIOError (EFileIOOperation.COPY_FILE, aRealSourceFile);
 
     // Does the target file already exist?
-    if (Files.exists (aRealTargetFile))
+    if (aRealTargetFile.toFile ().exists ())
       return EFileIOErrorCode.TARGET_ALREADY_EXISTS.getAsIOError (EFileIOOperation.COPY_FILE, aRealTargetFile);
 
     // Is the source file readable?
@@ -551,7 +554,7 @@ public final class PathOperations
 
     // Is the target parent directory writable?
     final Path aTargetParentDir = aRealTargetFile.getParent ();
-    if (aTargetParentDir != null && Files.exists (aTargetParentDir) && !Files.isWritable (aTargetParentDir))
+    if (aTargetParentDir != null && aTargetParentDir.toFile ().exists () && !Files.isWritable (aTargetParentDir))
       return EFileIOErrorCode.TARGET_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.COPY_FILE, aRealTargetFile);
 
     // Ensure the targets parent directory is present
@@ -580,7 +583,7 @@ public final class PathOperations
     final Path aRealTargetDir = _getUnifiedPath (aTargetDir);
 
     // Does the source directory exist?
-    if (!Files.isDirectory (aRealSourceDir))
+    if (!aRealSourceDir.toFile ().isDirectory ())
       return EFileIOErrorCode.SOURCE_DOES_NOT_EXIST.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, aRealSourceDir);
 
     // Are source and target different?
@@ -594,7 +597,7 @@ public final class PathOperations
                                                                       aRealTargetDir);
 
     // Does the target directory already exist?
-    if (Files.exists (aRealTargetDir))
+    if (aRealTargetDir.toFile ().exists ())
       return EFileIOErrorCode.TARGET_ALREADY_EXISTS.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, aRealTargetDir);
 
     // Is the source directory readable?
@@ -603,7 +606,7 @@ public final class PathOperations
 
     // Is the target parent directory writable?
     final Path aTargetParentDir = aRealTargetDir.getParent ();
-    if (aTargetParentDir != null && Files.exists (aTargetParentDir) && !Files.isWritable (aTargetParentDir))
+    if (aTargetParentDir != null && aTargetParentDir.toFile ().exists () && !Files.isWritable (aTargetParentDir))
       return EFileIOErrorCode.TARGET_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE,
                                                                        aRealTargetDir);
 
@@ -616,7 +619,8 @@ public final class PathOperations
 
     for (final Path aChild : PathHelper.getDirectoryContent (aRealSourceDir))
     {
-      if (Files.isDirectory (aChild))
+      final File aChildFile = aChild.toFile ();
+      if (aChildFile.isDirectory ())
       {
         // Skip "." and ".."
         if (FilenameHelper.isSystemInternalDirectory (aChild))
@@ -628,7 +632,7 @@ public final class PathOperations
           return eCode;
       }
       else
-        if (Files.isRegularFile (aChild))
+        if (aChildFile.isFile ())
         {
           // Copy a file
           eCode = copyFile (aChild, aRealTargetDir.resolve (aChild.getFileName ()));
