@@ -84,7 +84,8 @@ public final class StaxFuncTest
     final XMLStreamReader aReader = myFactory.createXMLStreamReader (new FileSystemResource ("src/test/resources/xml/xml-entity-public.xml").getInputStream ());
     // document encoding from the XML declaration
     final String encoding = aReader.getEncoding ();
-    LOGGER.info ("Using encoding " + encoding + " and version " + aReader.getVersion ());
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("Using encoding " + encoding + " and version " + aReader.getVersion ());
 
     // loop through document for XML constructs of interest
     IMicroDocument aDoc = null;

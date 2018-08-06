@@ -20,6 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.nio.charset.StandardCharsets;
 
 import javax.xml.transform.OutputKeys;
@@ -38,7 +39,9 @@ import com.helger.commons.system.ENewLineMode;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.XMLFactory;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
+import com.helger.xml.sax.StringSAXInputSource;
 import com.helger.xml.serialize.read.DOMReader;
+import com.helger.xml.serialize.read.DOMReaderSettings;
 import com.helger.xml.transform.StringStreamResult;
 import com.helger.xml.transform.XMLTransformerFactory;
 
@@ -747,5 +750,115 @@ public final class XMLWriterTest
     aSettings = aSettings.setOrderAttributesAndNamespaces (true);
     assertEquals ("<a xmlns='urn:ns1' xmlns:ns0='urn:ns2' xmlns:ns1='urn:ns3' a='3' ns0:b='2' ns1:c='1' />",
                   XMLWriter.getNodeAsString (e, aSettings));
+  }
+
+  private static void _testC14 (final String sSrc, final String sDst) throws SAXException
+  {
+    final Document aDoc = DOMReader.readXMLDOM (sSrc, new DOMReaderSettings ().setEntityResolver ( (x, y) -> {
+      return "world.txt".equals (new File (y).getName ()) ? new StringSAXInputSource ("world")
+                                                          : new StringSAXInputSource ("");
+    }));
+    assertNotNull (aDoc);
+
+    final MapBasedNamespaceContext aCtx = new MapBasedNamespaceContext ();
+    aCtx.addMapping ("a", "http://www.w3.org");
+    aCtx.addMapping ("b", "http://www.ietf.org");
+    final String sC14 = XMLWriter.getNodeAsString (aDoc,
+                                                   XMLWriterSettings.createForCanonicalization ()
+                                                                    .setIndentationString ("   ")
+                                                                    .setNamespaceContext (aCtx)
+                                                                    .setSerializeComments (EXMLSerializeComments.IGNORE));
+    assertEquals (sDst, sC14);
+  }
+
+  @Test
+  public void testCanonicalization () throws SAXException
+  {
+    _testC14 ("<?xml version=\"1.0\"?>\r\n" +
+              "\r\n" +
+              "<?xml-stylesheet   href=\"doc.xsl\"\r\n" +
+              "   type=\"text/xsl\"   ?>\r\n" +
+              "\r\n" +
+              "<!DOCTYPE doc SYSTEM \"doc.dtd\">\r\n" +
+              "\r\n" +
+              "<doc>Hello, world!<!-- Comment 1 --></doc>\r\n" +
+              "\r\n" +
+              "<?pi-without-data     ?>\r\n" +
+              "\r\n" +
+              "<!-- Comment 2 -->\r\n" +
+              "\r\n" +
+              "<!-- Comment 3 -->",
+              "<?xml-stylesheet href=\"doc.xsl\"\n" +
+                                    "   type=\"text/xsl\"   ?>\n" +
+                                    "<doc>Hello, world!</doc>\n" +
+                                    "<?pi-without-data?>\n");
+    _testC14 ("<!DOCTYPE doc [<!ATTLIST e9 attr CDATA \"default\">]>\r\n" +
+              "<doc>\r\n" +
+              "   <e1   />\r\n" +
+              "   <e2   ></e2>\r\n" +
+              "   <e3   name = \"elem3\"   id=\"elem3\"   />\r\n" +
+              "   <e4   name=\"elem4\"   id=\"elem4\"   ></e4>\r\n" +
+              "   <e5 a:attr=\"out\" b:attr=\"sorted\" attr2=\"all\" attr=\"I'm\"\r\n" +
+              "      xmlns:b=\"http://www.ietf.org\"\r\n" +
+              "      xmlns:a=\"http://www.w3.org\"\r\n" +
+              "      xmlns=\"http://example.org\"/>\r\n" +
+              "   <e6 xmlns=\"\" xmlns:a=\"http://www.w3.org\">\r\n" +
+              "      <e7 xmlns=\"http://www.ietf.org\">\r\n" +
+              "         <e8 xmlns=\"\" xmlns:a=\"http://www.w3.org\">\r\n" +
+              "            <e9 xmlns=\"\" xmlns:a=\"http://www.ietf.org\"/>\r\n" +
+              "         </e8>\r\n" +
+              "      </e7>\r\n" +
+              "   </e6>\r\n" +
+              "</doc>",
+              "<doc>\n" +
+                        "   <e1></e1>\n" +
+                        "   <e2></e2>\n" +
+                        "   <e3 id=\"elem3\" name=\"elem3\"></e3>\n" +
+                        "   <e4 id=\"elem4\" name=\"elem4\"></e4>\n" +
+                        "   <e5 xmlns=\"http://example.org\" xmlns:a=\"http://www.w3.org\" xmlns:b=\"http://www.ietf.org\" attr=\"I'm\" attr2=\"all\" b:attr=\"sorted\" a:attr=\"out\"></e5>\n" +
+                        "   <e6>\n" +
+                        "      <b:e7 xmlns:b=\"http://www.ietf.org\">\n" +
+                        "         <e8>\n" +
+                        "            <e9 attr=\"default\"></e9>\n" +
+                        "         </e8>\n" +
+                        "      </b:e7>\n" +
+                        "   </e6>\n" +
+                        "</doc>\n");
+    _testC14 ("<!DOCTYPE doc [\r\n" +
+              "<!ATTLIST normId id ID #IMPLIED>\r\n" +
+              "<!ATTLIST normNames attr NMTOKENS #IMPLIED>\r\n" +
+              "]>\r\n" +
+              "<doc>\r\n" +
+              "   <text>First line&#x0d;&#10;Second line</text>\r\n" +
+              "   <value>&#x32;</value>\r\n" +
+              "   <compute><![CDATA[value>\"0\" && value<\"10\" ?\"valid\":\"error\"]]></compute>\r\n" +
+              "   <compute expr='value>\"0\" &amp;&amp; value&lt;\"10\" ?\"valid\":\"error\"'>valid</compute>\r\n" +
+              "   <norm attr=' &apos;   &#x20;&#13;&#xa;&#9;   &apos; '/>\r\n" +
+              "   <normNames attr='   A   &#x20;&#13;&#xa;&#9;   B   '/>\r\n" +
+              "   <normId id=' &apos;   &#x20;&#13;&#xa;&#9;   &apos; '/>\r\n" +
+              "</doc>",
+              "<doc>\n" +
+                        "   <text>First line&#xD;\n" +
+                        "Second line</text>\n" +
+                        "   <value>2</value>\n" +
+                        "   <compute>value&gt;\"0\" &amp;&amp; value&lt;\"10\" ?\"valid\":\"error\"</compute>\n" +
+                        "   <compute expr=\"value>&quot;0&quot; &amp;&amp; value&lt;&quot;10&quot; ?&quot;valid&quot;:&quot;error&quot;\">valid</compute>\n" +
+                        "   <norm attr=\" '    &#xD;&#xA;&#x9;   ' \"></norm>\n" +
+                        "   <normNames attr=\"A &#xD;&#xA;&#x9; B\"></normNames>\n" +
+                        "   <normId id=\"' &#xD;&#xA;&#x9; '\"></normId>\n" +
+                        "</doc>\n");
+    _testC14 ("<!DOCTYPE doc [\r\n" +
+              "<!ATTLIST doc attrExtEnt ENTITY #IMPLIED>\r\n" +
+              "<!ENTITY ent1 \"Hello\">\r\n" +
+              "<!ENTITY ent2 SYSTEM \"world.txt\">\r\n" +
+              "<!ENTITY entExt SYSTEM \"earth.gif\" NDATA gif>\r\n" +
+              "<!NOTATION gif SYSTEM \"viewgif.exe\">\r\n" +
+              "]>\r\n" +
+              "<doc attrExtEnt=\"entExt\">\r\n" +
+              "   &ent1;, &ent2;!\r\n" +
+              "</doc>\r\n" +
+              "\r\n" +
+              "<!-- Let world.txt contain \"world\" (excluding the quotes) -->",
+              "<doc attrExtEnt=\"entExt\">\n" + "   Hello, world!\n" + "</doc>\n");
   }
 }

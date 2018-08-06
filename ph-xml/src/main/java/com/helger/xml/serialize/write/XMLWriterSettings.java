@@ -611,7 +611,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   @ReturnsMutableCopy
   public static XMLWriterSettings createForCanonicalization ()
   {
-    // TODO some settings are missing
+    // TODO some Canonicalization settings are missing
     return new XMLWriterSettings ().setSerializeVersion (EXMLSerializeVersion.XML_10)
                                    .setSerializeXMLDeclaration (EXMLSerializeXMLDeclaration.IGNORE)
                                    .setSerializeDocType (EXMLSerializeDocType.IGNORE)
