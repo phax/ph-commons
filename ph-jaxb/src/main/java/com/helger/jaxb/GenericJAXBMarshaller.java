@@ -32,6 +32,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.UnmarshalException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.ValidationEventHandler;
+import javax.xml.namespace.QName;
 import javax.xml.validation.Schema;
 
 import org.slf4j.Logger;
@@ -87,6 +88,23 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
   private String m_sNoNamespaceSchemaLocation = JAXBBuilderDefaultSettings.getDefaultNoNamespaceSchemaLocation ();
   private boolean m_bUseContextCache = JAXBBuilderDefaultSettings.isDefaultUseContextCache ();
   private WeakReference <ClassLoader> m_aClassLoader;
+
+  /**
+   * Constructor without XSD paths.
+   *
+   * @param aType
+   *        The class of the JAXB document implementation type. May not be
+   *        <code>null</code>.
+   * @param aQName
+   *        The qualified name in which the object should be wrapped. May not be
+   *        <code>null</code>.
+   * @since 9.1.5
+   * @see #createSimpleJAXBElement(QName, Class)
+   */
+  public GenericJAXBMarshaller (@Nonnull final Class <JAXBTYPE> aType, @Nonnull final QName aQName)
+  {
+    this (aType, createSimpleJAXBElement (aQName, aType));
+  }
 
   /**
    * Constructor without XSD paths.
@@ -600,5 +618,25 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
                                        .append ("UseContextCache", m_bUseContextCache)
                                        .append ("ClassLoader", m_aClassLoader)
                                        .getToString ();
+  }
+
+  /**
+   * Helper function to create a supplier for {@link JAXBElement} objects.
+   *
+   * @param aQName
+   *        QName to use. May not be <code>null</code>.
+   * @param aClass
+   *        The implementation class to use.
+   * @return Never <code>null</code>.
+   * @param <T>
+   *        the type to wrap
+   * @since 9.1.5
+   * @see #GenericJAXBMarshaller(Class, QName)
+   */
+  @Nonnull
+  public static <T> IFunction <T, JAXBElement <T>> createSimpleJAXBElement (@Nonnull final QName aQName,
+                                                                            @Nonnull final Class <T> aClass)
+  {
+    return aValue -> new JAXBElement <> (aQName, aClass, null, aValue);
   }
 }
