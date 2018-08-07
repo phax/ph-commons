@@ -45,6 +45,7 @@ import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.http.CHttpHeader;
 import com.helger.commons.http.HttpHeaderMap;
 import com.helger.commons.lang.ClassLoaderHelper;
@@ -130,16 +131,36 @@ public class WSClientConfig
   @Nonnull
   public final WSClientConfig setSSLSocketFactoryTrustAll () throws KeyManagementException
   {
+    return setSSLSocketFactoryTrustAll (GlobalDebug.isDebugMode ());
+  }
+
+  /**
+   * Set the {@link SSLSocketFactory} to be used by this client to one that
+   * trusts all servers.
+   *
+   * @param bDebugMode
+   *        <code>true</code> for extended debug logging, <code>false</code> for
+   *        production.
+   * @throws KeyManagementException
+   *         if initializing the SSL context failed
+   * @return this for chaining
+   * @since 9.1.5
+   */
+  @Nonnull
+  public final WSClientConfig setSSLSocketFactoryTrustAll (final boolean bDebugMode) throws KeyManagementException
+  {
     try
     {
       final SSLContext aSSLContext = SSLContext.getInstance ("TLSv1.2");
-      aSSLContext.init (null, new TrustManager [] { new TrustManagerTrustAll () }, VerySecureRandom.getInstance ());
+      aSSLContext.init (null,
+                        new TrustManager [] { new TrustManagerTrustAll (bDebugMode) },
+                        VerySecureRandom.getInstance ());
       final SSLSocketFactory aSF = aSSLContext.getSocketFactory ();
       return setSSLSocketFactory (aSF);
     }
     catch (final NoSuchAlgorithmException ex)
     {
-      throw new IllegalStateException ("TLS is not supported", ex);
+      throw new IllegalStateException ("TLS 1.2 is not supported", ex);
     }
   }
 
@@ -176,7 +197,22 @@ public class WSClientConfig
   @Nonnull
   public final WSClientConfig setHostnameVerifierTrustAll ()
   {
-    return setHostnameVerifier (new HostnameVerifierVerifyAll ());
+    return setHostnameVerifierTrustAll (GlobalDebug.isDebugMode ());
+  }
+
+  /**
+   * Set the {@link HostnameVerifier} to a "trust all" verifier.
+   *
+   * @param bDebugMode
+   *        <code>true</code> for extended debug logging, <code>false</code> for
+   *        production.
+   * @return this for chaining
+   * @since 9.1.5
+   */
+  @Nonnull
+  public final WSClientConfig setHostnameVerifierTrustAll (final boolean bDebugMode)
+  {
+    return setHostnameVerifier (new HostnameVerifierVerifyAll (bDebugMode));
   }
 
   /**

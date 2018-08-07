@@ -28,6 +28,8 @@ This project was the following modules:
 
 ## News and noteworthy
 
+* v9.1.5 - work in progress
+  * Extended `WSClientConfig` API
 * v9.1.4 - 2018-08-06
   * Added class `XMLBracketModeDeterminatorXMLC14`
   * Added XML write setting `write CDATA as Text`
