@@ -70,7 +70,6 @@ public class NonBlockingStringWriter extends Writer implements IHasSize, Seriali
   /**
    * Write a single character.
    */
-
   @Override
   public void write (final int c)
   {
@@ -87,7 +86,6 @@ public class NonBlockingStringWriter extends Writer implements IHasSize, Seriali
    * @param nLen
    *        Number of characters to write
    */
-
   @Override
   public void write (@Nonnull final char [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
@@ -99,7 +97,6 @@ public class NonBlockingStringWriter extends Writer implements IHasSize, Seriali
   /**
    * Write a string.
    */
-
   @Override
   public void write (@Nullable final String sStr)
   {
@@ -116,7 +113,6 @@ public class NonBlockingStringWriter extends Writer implements IHasSize, Seriali
    * @param nLen
    *        Number of characters to write
    */
-
   @Override
   public void write (@Nonnull final String sStr, final int nOfs, final int nLen)
   {
@@ -126,26 +122,23 @@ public class NonBlockingStringWriter extends Writer implements IHasSize, Seriali
   /**
    * Appends the specified character sequence to this writer.
    * <p>
-   * An invocation of this method of the form <tt>out.append(csq)</tt> behaves
-   * in exactly the same way as the invocation
+   * An invocation of this method of the form <tt>out.append(csq)</tt> behaves in
+   * exactly the same way as the invocation
    *
    * <pre>
    * out.write (csq.toString ())
    * </pre>
    * <p>
    * Depending on the specification of <tt>toString</tt> for the character
-   * sequence <tt>csq</tt>, the entire sequence may not be appended. For
-   * instance, invoking the <tt>toString</tt> method of a character buffer will
-   * return a subsequence whose content depends upon the buffer's position and
-   * limit.
+   * sequence <tt>csq</tt>, the entire sequence may not be appended. For instance,
+   * invoking the <tt>toString</tt> method of a character buffer will return a
+   * subsequence whose content depends upon the buffer's position and limit.
    *
    * @param aCS
    *        The character sequence to append. If <tt>csq</tt> is <tt>null</tt>,
-   *        then the four characters <tt>"null"</tt> are appended to this
-   *        writer.
+   *        then the four characters <tt>"null"</tt> are appended to this writer.
    * @return This writer
    */
-
   @Override
   public NonBlockingStringWriter append (final CharSequence aCS)
   {
@@ -160,8 +153,8 @@ public class NonBlockingStringWriter extends Writer implements IHasSize, Seriali
    * Appends a subsequence of the specified character sequence to this writer.
    * <p>
    * An invocation of this method of the form <tt>out.append(csq, start,
-   * end)</tt> when <tt>csq</tt> is not <tt>null</tt>, behaves in exactly the
-   * same way as the invocation
+   * end)</tt> when <tt>csq</tt> is not <tt>null</tt>, behaves in exactly the same
+   * way as the invocation
    *
    * <pre>
    * out.write (csq.subSequence (start, end).toString ())
@@ -169,8 +162,8 @@ public class NonBlockingStringWriter extends Writer implements IHasSize, Seriali
    *
    * @param aCS
    *        The character sequence from which a subsequence will be appended. If
-   *        <tt>csq</tt> is <tt>null</tt>, then characters will be appended as
-   *        if <tt>csq</tt> contained the four characters <tt>"null"</tt>.
+   *        <tt>csq</tt> is <tt>null</tt>, then characters will be appended as if
+   *        <tt>csq</tt> contained the four characters <tt>"null"</tt>.
    * @param nStart
    *        The index of the first character in the subsequence
    * @param nEnd
@@ -182,7 +175,6 @@ public class NonBlockingStringWriter extends Writer implements IHasSize, Seriali
    *         greater than <tt>end</tt>, or <tt>end</tt> is greater than
    *         <tt>csq.length()</tt>
    */
-
   @Override
   public NonBlockingStringWriter append (final CharSequence aCS, final int nStart, final int nEnd)
   {
@@ -205,7 +197,6 @@ public class NonBlockingStringWriter extends Writer implements IHasSize, Seriali
    *        The 16-bit character to append
    * @return This writer
    */
-
   @Override
   public NonBlockingStringWriter append (final char c)
   {
@@ -216,17 +207,15 @@ public class NonBlockingStringWriter extends Writer implements IHasSize, Seriali
   /**
    * Flush the stream.
    */
-
   @Override
   public void flush ()
   {}
 
   /**
-   * Closing a <tt>StringWriter</tt> has no effect. The methods in this class
-   * can be called after the stream has been closed without generating an
+   * Closing a <tt>StringWriter</tt> has no effect. The methods in this class can
+   * be called after the stream has been closed without generating an
    * <tt>IOException</tt>.
    */
-
   @Override
   public void close ()
   {}
