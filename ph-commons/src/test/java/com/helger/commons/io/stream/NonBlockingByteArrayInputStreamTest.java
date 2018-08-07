@@ -35,6 +35,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public final class NonBlockingByteArrayInputStreamTest
 {
+  @SuppressWarnings ("resource")
   @Test
   @SuppressFBWarnings (value = "OS_OPEN_STREAM")
   public void testAll () throws IOException

@@ -40,7 +40,7 @@ import com.helger.xml.mock.MockNullInputStreamProvider;
 public final class CachingSAXInputSourceTest
 {
   @Test
-  public void testAll ()
+  public void testBasic ()
   {
     final IReadableResource aRes = new ClassPathResource ("xml/list.xml");
 
@@ -65,7 +65,12 @@ public final class CachingSAXInputSourceTest
     assertNotNull (StreamHelper.getAllBytes (is.getByteStream ()));
 
     CommonsTestHelper.testToStringImplementation (is);
+  }
 
+  @SuppressWarnings ("unused")
+  @Test
+  public void testCreationError ()
+  {
     try
     {
       new CachingSAXInputSource ((IReadableResource) null);

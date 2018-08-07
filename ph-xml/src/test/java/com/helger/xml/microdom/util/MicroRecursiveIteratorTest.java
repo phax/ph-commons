@@ -35,7 +35,7 @@ import com.helger.xml.microdom.serialize.MicroReader;
 public final class MicroRecursiveIteratorTest
 {
   @Test
-  public void testConvertToMicroNode ()
+  public void testBasic ()
   {
     final String sXML = "<?xml version='1.0'?><root attr='value'>text<child xmlns='http://myns'/><!-- comment --><?stylesheet x y z?></root>";
     final IMicroDocument aDoc = MicroReader.readMicroXML (sXML);
@@ -58,6 +58,12 @@ public final class MicroRecursiveIteratorTest
     }
     catch (final UnsupportedOperationException ex)
     {}
+  }
+
+  @SuppressWarnings ("unused")
+  @Test
+  public void testCreationError ()
+  {
     try
     {
       new MicroRecursiveIterator (null);

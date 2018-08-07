@@ -36,7 +36,7 @@ import com.helger.xml.mock.MockNullInputStreamProvider;
 public final class ReadableResourceSAXInputSourceTest
 {
   @Test
-  public void testAll ()
+  public void testBasic ()
   {
     final IReadableResource aRes = new ClassPathResource ("xml/list.xml");
     final ReadableResourceSAXInputSource is = new ReadableResourceSAXInputSource (aRes);
@@ -44,7 +44,12 @@ public final class ReadableResourceSAXInputSourceTest
     CommonsTestHelper.testToStringImplementation (is);
 
     assertNull (new ReadableResourceSAXInputSource (new MockNullInputStreamProvider (), "sysid").getByteStream ());
+  }
 
+  @SuppressWarnings ("unused")
+  @Test
+  public void testCreationError ()
+  {
     try
     {
       new ReadableResourceSAXInputSource (null);

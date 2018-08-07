@@ -57,121 +57,147 @@ public final class UnicodeFuncTest
   @Test
   public void readerTest () throws IOException
   {
-    final NonBlockingBufferedReader aReader = new NonBlockingBufferedReader (new NonBlockingStringReader (FIRST_STRING));
-    final String sTestString = aReader.readLine ();
-    assertEquals (FIRST_STRING, sTestString);
+    try (final NonBlockingBufferedReader aReader = new NonBlockingBufferedReader (new NonBlockingStringReader (FIRST_STRING)))
+    {
+      final String sTestString = aReader.readLine ();
+      assertEquals (FIRST_STRING, sTestString);
+    }
   }
 
   @Test
   public void writerTest ()
   {
-    final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    aSW.write (FIRST_STRING);
-    assertEquals (FIRST_STRING, aSW.getAsString ());
+    try (final NonBlockingStringWriter aSW = new NonBlockingStringWriter ())
+    {
+      aSW.write (FIRST_STRING);
+      assertEquals (FIRST_STRING, aSW.getAsString ());
+    }
   }
 
   @Test
   public void runUniCodeThroughCSVReader () throws IOException
   {
-    final CSVReader aReader = new CSVReader (new NonBlockingStringReader (COMPOUND_STRING));
-    final ICommonsList <String> aItems = aReader.readNext ();
-    assertEquals (2, aItems.size ());
-    assertEquals (FIRST_STRING, aItems.get (0));
-    assertEquals (SECOND_STRING, aItems.get (1));
-    assertEquals (UNICODE_ARRAY, aItems);
+    try (final CSVReader aReader = new CSVReader (new NonBlockingStringReader (COMPOUND_STRING)))
+    {
+      final ICommonsList <String> aItems = aReader.readNext ();
+      assertEquals (2, aItems.size ());
+      assertEquals (FIRST_STRING, aItems.get (0));
+      assertEquals (SECOND_STRING, aItems.get (1));
+      assertEquals (UNICODE_ARRAY, aItems);
+    }
   }
 
   @Test
-  public void runUniCodeThroughCSVWriter ()
+  public void runUniCodeThroughCSVWriter () throws IOException
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    final CSVWriter aWriter = new CSVWriter (aSW);
-    aWriter.writeNext (UNICODE_ARRAY);
-    assertEquals (COMPOUND_STRING_WITH_QUOTES.trim (), aSW.getAsString ().trim ());
+    try (final CSVWriter aWriter = new CSVWriter (aSW))
+    {
+      aWriter.writeNext (UNICODE_ARRAY);
+      assertEquals (COMPOUND_STRING_WITH_QUOTES.trim (), aSW.getAsString ().trim ());
+    }
   }
 
   @Test
-  public void runASCIIThroughCSVWriter ()
+  public void runASCIIThroughCSVWriter () throws IOException
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    final CSVWriter aWriter = new CSVWriter (aSW);
-    aWriter.writeNext (ASCII_ARRAY);
-    assertEquals (ASCII_STRING_WITH_QUOTES.trim (), aSW.getAsString ().trim ());
+    try (final CSVWriter aWriter = new CSVWriter (aSW))
+    {
+      aWriter.writeNext (ASCII_ARRAY);
+      assertEquals (ASCII_STRING_WITH_QUOTES.trim (), aSW.getAsString ().trim ());
+    }
   }
 
   @Test
   public void writeThenReadAscii () throws IOException
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    final CSVWriter aWriter = new CSVWriter (aSW);
-    aWriter.writeNext (ASCII_ARRAY);
+    try (final CSVWriter aWriter = new CSVWriter (aSW))
+    {
+      aWriter.writeNext (ASCII_ARRAY);
 
-    final CSVReader aReader = new CSVReader (new NonBlockingStringReader (aSW.getAsString ()));
-    final ICommonsList <String> aItems = aReader.readNext ();
-    assertEquals (2, aItems.size ());
-    assertEquals (ASCII_ARRAY, aItems);
+      try (final CSVReader aReader = new CSVReader (new NonBlockingStringReader (aSW.getAsString ())))
+      {
+        final ICommonsList <String> aItems = aReader.readNext ();
+        assertEquals (2, aItems.size ());
+        assertEquals (ASCII_ARRAY, aItems);
+      }
+    }
   }
 
   @Test
   public void writeThenReadTwiceAscii () throws IOException
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    final CSVWriter aWriter = new CSVWriter (aSW);
-    aWriter.writeNext (ASCII_ARRAY);
-    aWriter.writeNext (ASCII_ARRAY);
+    try (final CSVWriter aWriter = new CSVWriter (aSW))
+    {
+      aWriter.writeNext (ASCII_ARRAY);
+      aWriter.writeNext (ASCII_ARRAY);
 
-    final CSVReader aReader = new CSVReader (new NonBlockingStringReader (aSW.getAsString ()));
-    final ICommonsList <ICommonsList <String>> aLines = aReader.readAll ();
-    assertEquals (2, aLines.size ());
+      try (final CSVReader aReader = new CSVReader (new NonBlockingStringReader (aSW.getAsString ())))
+      {
+        final ICommonsList <ICommonsList <String>> aLines = aReader.readAll ();
+        assertEquals (2, aLines.size ());
 
-    ICommonsList <String> aItems = aLines.get (0);
-    assertEquals (2, aItems.size ());
-    assertEquals (ASCII_ARRAY, aItems);
+        ICommonsList <String> aItems = aLines.get (0);
+        assertEquals (2, aItems.size ());
+        assertEquals (ASCII_ARRAY, aItems);
 
-    aItems = aLines.get (1);
-    assertEquals (2, aItems.size ());
-    assertEquals (ASCII_ARRAY, aItems);
+        aItems = aLines.get (1);
+        assertEquals (2, aItems.size ());
+        assertEquals (ASCII_ARRAY, aItems);
+      }
+    }
   }
 
   @Test
   public void writeThenReadTwiceUnicode () throws IOException
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    final CSVWriter aWriter = new CSVWriter (aSW);
-    aWriter.writeNext (UNICODE_ARRAY);
-    aWriter.writeNext (UNICODE_ARRAY);
+    try (final CSVWriter aWriter = new CSVWriter (aSW))
+    {
+      aWriter.writeNext (UNICODE_ARRAY);
+      aWriter.writeNext (UNICODE_ARRAY);
 
-    final CSVReader aReader = new CSVReader (new NonBlockingStringReader (aSW.getAsString ()));
-    final ICommonsList <ICommonsList <String>> aLines = aReader.readAll ();
-    assertEquals (2, aLines.size ());
+      try (final CSVReader aReader = new CSVReader (new NonBlockingStringReader (aSW.getAsString ())))
+      {
+        final ICommonsList <ICommonsList <String>> aLines = aReader.readAll ();
+        assertEquals (2, aLines.size ());
 
-    ICommonsList <String> aItems = aLines.get (0);
-    assertEquals (2, aItems.size ());
-    assertEquals (UNICODE_ARRAY, aItems);
+        ICommonsList <String> aItems = aLines.get (0);
+        assertEquals (2, aItems.size ());
+        assertEquals (UNICODE_ARRAY, aItems);
 
-    aItems = aLines.get (1);
-    assertEquals (2, aItems.size ());
-    assertEquals (UNICODE_ARRAY, aItems);
+        aItems = aLines.get (1);
+        assertEquals (2, aItems.size ());
+        assertEquals (UNICODE_ARRAY, aItems);
+      }
+    }
   }
 
   @Test
   public void writeThenReadTwiceMixedUnicode () throws IOException
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
-    final CSVWriter aWriter = new CSVWriter (aSW);
-    aWriter.writeNext (MIXED_ARRAY);
-    aWriter.writeNext (MIXED_ARRAY);
+    try (final CSVWriter aWriter = new CSVWriter (aSW))
+    {
+      aWriter.writeNext (MIXED_ARRAY);
+      aWriter.writeNext (MIXED_ARRAY);
 
-    final CSVReader aReader = new CSVReader (new NonBlockingStringReader (aSW.getAsString ()));
-    final ICommonsList <ICommonsList <String>> aLines = aReader.readAll ();
-    assertEquals (2, aLines.size ());
+      try (final CSVReader aReader = new CSVReader (new NonBlockingStringReader (aSW.getAsString ())))
+      {
+        final ICommonsList <ICommonsList <String>> aLines = aReader.readAll ();
+        assertEquals (2, aLines.size ());
 
-    ICommonsList <String> aItems = aLines.get (0);
-    assertEquals (4, aItems.size ());
-    assertEquals (MIXED_ARRAY, aItems);
+        ICommonsList <String> aItems = aLines.get (0);
+        assertEquals (4, aItems.size ());
+        assertEquals (MIXED_ARRAY, aItems);
 
-    aItems = aLines.get (1);
-    assertEquals (4, aItems.size ());
-    assertEquals (MIXED_ARRAY, aItems);
+        aItems = aLines.get (1);
+        assertEquals (4, aItems.size ());
+        assertEquals (MIXED_ARRAY, aItems);
+      }
+    }
   }
 }

@@ -58,7 +58,12 @@ public final class NonBlockingStringWriterTest
       assertEquals ("abcdefg0123nullu", aSW.getAsString ());
       aSW.flush ();
     }
+  }
 
+  @Test
+  @SuppressWarnings ("resource")
+  public void testError ()
+  {
     try
     {
       new NonBlockingStringWriter (-1);

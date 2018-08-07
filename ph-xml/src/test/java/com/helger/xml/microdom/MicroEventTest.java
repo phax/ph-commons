@@ -50,6 +50,14 @@ public final class MicroEventTest
     assertNull (e.getSourceNode ());
     assertNull (e.getTargetNode ());
     CommonsTestHelper.testToStringImplementation (e);
+  }
+
+  @SuppressWarnings ("unused")
+  @Test
+  public void testCreationError ()
+  {
+    final IMicroElement e1 = new MicroElement ("a1");
+    final IMicroElement e2 = new MicroElement ("a1");
 
     try
     {

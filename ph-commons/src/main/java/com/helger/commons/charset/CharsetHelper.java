@@ -110,8 +110,7 @@ public final class CharsetHelper
    *
    * @param sCharsetName
    *        The charset to be resolved. May be <code>null</code> or empty.
-   * @return The Charset object or <code>null</code> if no such charset was
-   *         found.
+   * @return The Charset object or <code>null</code> if no such charset was found.
    */
   @Nullable
   public static Charset getCharsetFromNameOrNull (@Nullable final String sCharsetName)
@@ -130,8 +129,7 @@ public final class CharsetHelper
    *        <code>null</code>.
    * @return The Charset object or the provided default if no such charset was
    *         found.
-   * @deprecated Use {@link #getCharsetFromNameOrDefault(String,Charset)}
-   *             instead
+   * @deprecated Use {@link #getCharsetFromNameOrDefault(String,Charset)} instead
    */
   @Deprecated
   @Nullable
@@ -194,8 +192,8 @@ public final class CharsetHelper
   }
 
   /**
-   * Get the number of bytes necessary to represent the passed string as an
-   * UTF-8 string.
+   * Get the number of bytes necessary to represent the passed string as an UTF-8
+   * string.
    *
    * @param s
    *        The string to count the length. May be <code>null</code> or empty.
@@ -212,8 +210,7 @@ public final class CharsetHelper
    * UTF-8 string.
    *
    * @param aChars
-   *        The characters to count the length. May be <code>null</code> or
-   *        empty.
+   *        The characters to count the length. May be <code>null</code> or empty.
    * @return A non-negative value.
    */
   @Nonnegative
@@ -318,15 +315,15 @@ public final class CharsetHelper
   }
 
   /**
-   * If a BOM is present in the {@link InputStream} it is read and if possible
-   * the charset is automatically determined from the BOM.
+   * If a BOM is present in the {@link InputStream} it is read and if possible the
+   * charset is automatically determined from the BOM.
    *
    * @param aIS
    *        The input stream to use. May not be <code>null</code>.
-   * @return Never <code>null</code>. Always use the input stream contained in
-   *         the returned object and never the one passed in as a parameter,
-   *         because the returned IS is a push-back InputStream that has a
-   *         couple of bytes already buffered!
+   * @return Never <code>null</code>. Always use the input stream contained in the
+   *         returned object and never the one passed in as a parameter, because
+   *         the returned IS is a push-back InputStream that has a couple of bytes
+   *         already buffered!
    */
   @Nonnull
   public static InputStreamAndCharset getInputStreamAndCharsetFromBOM (@Nonnull @WillNotClose final InputStream aIS)
@@ -335,6 +332,7 @@ public final class CharsetHelper
 
     // Check for BOM
     final int nMaxBOMBytes = EUnicodeBOM.getMaximumByteCount ();
+    @WillNotClose
     final NonBlockingPushbackInputStream aPIS = new NonBlockingPushbackInputStream (StreamHelper.getBuffered (aIS),
                                                                                     nMaxBOMBytes);
     try
@@ -373,6 +371,7 @@ public final class CharsetHelper
     catch (final IOException ex)
     {
       LOGGER.error ("Failed to determine BOM", ex);
+      StreamHelper.close (aPIS);
       throw new UncheckedIOException (ex);
     }
   }

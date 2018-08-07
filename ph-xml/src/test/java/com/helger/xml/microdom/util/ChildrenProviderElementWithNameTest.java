@@ -45,7 +45,7 @@ public final class ChildrenProviderElementWithNameTest
   }
 
   @Test
-  public void testAll ()
+  public void testBasic ()
   {
     final IMicroDocument aDoc = _buildTestDoc ();
     final IMicroElement aDocElement = aDoc.getDocumentElement ();
@@ -61,7 +61,12 @@ public final class ChildrenProviderElementWithNameTest
     assertTrue (x.hasChildren (aDocElement));
     assertEquals (1, x.getChildCount (aDocElement));
     assertEquals (1, x.getAllChildren (aDocElement).size ());
+  }
 
+  @SuppressWarnings ("unused")
+  @Test
+  public void testCreationError ()
+  {
     try
     {
       new ChildrenProviderElementWithName ("");

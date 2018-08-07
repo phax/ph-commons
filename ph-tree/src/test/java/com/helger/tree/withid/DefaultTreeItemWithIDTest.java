@@ -213,6 +213,7 @@ public final class DefaultTreeItemWithIDTest
     assertEquals ("Welt2", ti.getAllChildren ().get (1).getData ());
   }
 
+  @SuppressWarnings ("unused")
   @Test
   public void testCtor ()
   {

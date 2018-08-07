@@ -63,9 +63,9 @@ public final class JavaFileAccessFuncTest
       {
         final InputStreamReader aISR = new InputStreamReader (m_aIS, StandardCharsets.ISO_8859_1);
         final NonBlockingBufferedReader aBR = new NonBlockingBufferedReader (aISR);
-        String line;
-        while ((line = aBR.readLine ()) != null)
-          _println (m_sCmd + "> " + line);
+        String sLine;
+        while ((sLine = aBR.readLine ()) != null)
+          _println (m_sCmd + "> " + sLine);
       }
       catch (final Exception ex)
       {
