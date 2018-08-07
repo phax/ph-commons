@@ -36,7 +36,7 @@ import com.helger.commons.mock.CommonsTestHelper;
 public final class MicroDocumentTypeTest
 {
   @Test
-  public void testAll ()
+  public void testBasic ()
   {
     final IMicroDocumentType e = new MicroDocumentType ("qname", "pid", "sid");
     assertNotNull (e);
@@ -84,19 +84,24 @@ public final class MicroDocumentTypeTest
 
     try
     {
-      new MicroDocumentType ("", "pid", "sid");
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
-
-    try
-    {
       // Cannot add any child to this node
       e.insertAtIndex (0, new MicroCDATA ("other"));
       fail ();
     }
     catch (final MicroException ex)
+    {}
+  }
+
+  @SuppressWarnings ("unused")
+  @Test
+  public void testError ()
+  {
+    try
+    {
+      new MicroDocumentType ("", "pid", "sid");
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
     {}
   }
 }

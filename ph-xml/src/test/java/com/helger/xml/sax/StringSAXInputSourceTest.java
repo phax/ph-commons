@@ -32,12 +32,17 @@ import com.helger.commons.mock.CommonsTestHelper;
 public final class StringSAXInputSourceTest
 {
   @Test
-  public void testAll ()
+  public void testBasic ()
   {
     final StringSAXInputSource sis = new StringSAXInputSource ("bla foo 90");
     assertEquals ("bla foo 90", StreamHelper.getAllCharactersAsString (sis.getCharacterStream ()));
     CommonsTestHelper.testToStringImplementation (sis);
+  }
 
+  @SuppressWarnings ("unused")
+  @Test
+  public void testCreationError ()
+  {
     try
     {
       new StringSAXInputSource ((char []) null);

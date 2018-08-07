@@ -34,7 +34,7 @@ import org.w3c.dom.Node;
 public final class RecursiveChildNodeIteratorTest
 {
   @Test
-  public void testGetRecursiveChildIter ()
+  public void testBasic ()
   {
     final Document doc = XMLFactory.newDocument ();
 
@@ -69,6 +69,12 @@ public final class RecursiveChildNodeIteratorTest
     }
     catch (final UnsupportedOperationException ex)
     {}
+  }
+
+  @SuppressWarnings ("unused")
+  @Test
+  public void testError ()
+  {
     try
     {
       new RecursiveChildNodeIterator (null);

@@ -40,7 +40,7 @@ import com.helger.xml.mock.MockNullInputStreamProvider;
 public final class ResourceStreamSourceTest
 {
   @Test
-  public void testAll ()
+  public void testBasic ()
   {
     final IReadableResource aRes = new ClassPathResource ("xml/test1.xslt");
     assertTrue (aRes.exists ());
@@ -52,7 +52,12 @@ public final class ResourceStreamSourceTest
     assertNull (src.getPublicId ());
 
     CommonsTestHelper.testToStringImplementation (src);
+  }
 
+  @SuppressWarnings ("unused")
+  @Test
+  public void testCreationError ()
+  {
     try
     {
       new ResourceStreamSource (null);

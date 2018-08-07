@@ -41,7 +41,7 @@ import com.helger.commons.mock.CommonsTestHelper;
 public final class ResourceLSInputTest
 {
   @Test
-  public void testDefault ()
+  public void testBasic ()
   {
     final ResourceLSInput lsi = new ResourceLSInput (new ClassPathResource ("xml/buildinfo.xml"));
     assertNull (lsi.getBaseURI ());
@@ -82,7 +82,12 @@ public final class ResourceLSInputTest
     assertEquals ("str", lsi.getStringData ());
 
     CommonsTestHelper.testToStringImplementation (lsi);
+  }
 
+  @SuppressWarnings ("unused")
+  @Test
+  public void testError ()
+  {
     try
     {
       new ResourceLSInput (null, "sysid");

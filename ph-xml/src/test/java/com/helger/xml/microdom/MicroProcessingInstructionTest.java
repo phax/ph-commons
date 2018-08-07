@@ -28,8 +28,6 @@ import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link MicroProcessingInstruction}.
  *
@@ -38,7 +36,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class MicroProcessingInstructionTest
 {
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testCreation ()
   {
     IMicroProcessingInstruction e = new MicroProcessingInstruction ("xyz");
@@ -84,7 +81,12 @@ public final class MicroProcessingInstructionTest
                                                                                                                 null)));
     assertFalse (new MicroProcessingInstruction ("xyz", "data").isEqualContent (new MicroProcessingInstruction ("xyz",
                                                                                                                 "dat")));
+  }
 
+  @SuppressWarnings ("unused")
+  @Test
+  public void testCreationError ()
+  {
     try
     {
       new MicroProcessingInstruction (null);

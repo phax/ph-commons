@@ -28,8 +28,6 @@ import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  * Test class for class {@link MicroEntityReference}.
  *
@@ -38,7 +36,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public final class MicroEntityReferenceTest
 {
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testCreation ()
   {
     IMicroEntityReference e = new MicroEntityReference ("xyz");
@@ -66,7 +63,12 @@ public final class MicroEntityReferenceTest
 
     assertTrue (new MicroEntityReference ("xyz").isEqualContent (new MicroEntityReference ("xyz")));
     assertFalse (new MicroEntityReference ("xyz").isEqualContent (new MicroEntityReference ("xy")));
+  }
 
+  @SuppressWarnings ("unused")
+  @Test
+  public void testCreationError ()
+  {
     try
     {
       new MicroEntityReference (null);

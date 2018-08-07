@@ -49,31 +49,8 @@ public final class MicroElementTest
   public final TestRule m_aRule = new DebugModeTestRule ();
 
   @Test
-  @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
   public void testCreation ()
   {
-    try
-    {
-      new MicroElement ((String) null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
-    try
-    {
-      new MicroElement ("");
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
-    try
-    {
-      new MicroElement ("space unallowed");
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
-
     IMicroElement e = new MicroElement ("xyz");
     assertNotNull (e);
     assertNull (e.getLocalName ());
@@ -149,6 +126,33 @@ public final class MicroElementTest
     e = new MicroElement ("url", "ns1:element");
     assertEquals ("element", e.getLocalName ());
     assertEquals ("element", e.getTagName ());
+  }
+
+  @SuppressWarnings ("unused")
+  @Test
+  public void testCreationError ()
+  {
+    try
+    {
+      new MicroElement ((String) null);
+      fail ();
+    }
+    catch (final NullPointerException ex)
+    {}
+    try
+    {
+      new MicroElement ("");
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {}
+    try
+    {
+      new MicroElement ("space unallowed");
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {}
   }
 
   @Test

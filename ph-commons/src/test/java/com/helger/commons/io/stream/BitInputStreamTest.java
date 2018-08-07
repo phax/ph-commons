@@ -34,6 +34,7 @@ import com.helger.commons.CGlobal;
  */
 public final class BitInputStreamTest
 {
+  @SuppressWarnings ("resource")
   @Test
   public void testSemantics () throws IOException
   {
@@ -87,19 +88,23 @@ public final class BitInputStreamTest
   public void testReadBitLittleEndian () throws IOException
   {
     final NonBlockingByteArrayInputStream aBAIS = new NonBlockingByteArrayInputStream (new byte [] { (byte) 0x80 });
-    final BitInputStream aBIS = new BitInputStream (aBAIS, ByteOrder.LITTLE_ENDIAN);
-    assertEquals (1, aBIS.readBit ());
-    for (int i = 0; i < 7; ++i)
-      assertEquals (0, aBIS.readBit ());
+    try (final BitInputStream aBIS = new BitInputStream (aBAIS, ByteOrder.LITTLE_ENDIAN))
+    {
+      assertEquals (1, aBIS.readBit ());
+      for (int i = 0; i < 7; ++i)
+        assertEquals (0, aBIS.readBit ());
+    }
   }
 
   @Test
   public void testReadBitBigEndian () throws IOException
   {
     final NonBlockingByteArrayInputStream aBAIS = new NonBlockingByteArrayInputStream (new byte [] { (byte) 0x80 });
-    final BitInputStream aBIS = new BitInputStream (aBAIS, ByteOrder.BIG_ENDIAN);
-    for (int i = 0; i < 7; ++i)
-      assertEquals (0, aBIS.readBit ());
-    assertEquals (1, aBIS.readBit ());
+    try (final BitInputStream aBIS = new BitInputStream (aBAIS, ByteOrder.BIG_ENDIAN))
+    {
+      for (int i = 0; i < 7; ++i)
+        assertEquals (0, aBIS.readBit ());
+      assertEquals (1, aBIS.readBit ());
+    }
   }
 }

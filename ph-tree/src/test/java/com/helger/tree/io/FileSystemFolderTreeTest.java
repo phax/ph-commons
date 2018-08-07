@@ -41,6 +41,7 @@ import com.helger.tree.withid.folder.DefaultFolderTreeItem;
  */
 public final class FileSystemFolderTreeTest
 {
+  @SuppressWarnings ("unused")
   @Test
   public void testCreate ()
   {

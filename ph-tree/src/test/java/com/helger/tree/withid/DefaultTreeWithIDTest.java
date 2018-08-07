@@ -42,7 +42,12 @@ public final class DefaultTreeWithIDTest
     final DefaultTreeWithID <String, String> t2 = new DefaultTreeWithID <> ();
     t2.getRootItem ().createChildItem ("dataid", "data");
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (t, t2);
+  }
 
+  @SuppressWarnings ("unused")
+  @Test
+  public void testError ()
+  {
     try
     {
       new DefaultTreeWithID <String, String> (null);
