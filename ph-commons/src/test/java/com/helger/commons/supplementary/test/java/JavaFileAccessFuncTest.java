@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -32,6 +33,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.FileOperationManager;
@@ -44,27 +47,41 @@ import com.helger.commons.system.SystemProperties;
 
 public final class JavaFileAccessFuncTest
 {
-  private static final class ProcListener extends Thread
+  private static final Logger LOGGER = LoggerFactory.getLogger (JavaFileAccessFuncTest.class);
+
+  private static synchronized void _println (final String s)
+  {
+    LOGGER.info (s);
+  }
+
+  private static final class ProcessOutputListener extends Thread
   {
     private final String m_sCmd;
     private final InputStream m_aIS;
+    private final Charset m_aCharset;
 
-    private ProcListener (final String sCmd, final InputStream aIS)
+    private ProcessOutputListener (@Nonnull final String sWhat,
+                                   @Nonnull final String sCmd,
+                                   @Nonnull final InputStream aIS,
+                                   @Nonnull final Charset aCharset)
     {
-      super ("ProcessListener " + sCmd);
+      super ("POL " + sWhat + " " + sCmd);
       m_sCmd = sCmd;
       m_aIS = aIS;
+      m_aCharset = aCharset;
     }
 
+    @SuppressWarnings ("resource")
     @Override
     public void run ()
     {
+      // Don't close them - will lead to truncated output!
+      final InputStreamReader aISR = new InputStreamReader (m_aIS, m_aCharset);
+      final NonBlockingBufferedReader aBR = new NonBlockingBufferedReader (aISR);
       try
       {
-        final InputStreamReader aISR = new InputStreamReader (m_aIS, StandardCharsets.ISO_8859_1);
-        final NonBlockingBufferedReader aBR = new NonBlockingBufferedReader (aISR);
         String sLine;
-        while ((sLine = aBR.readLine ()) != null)
+        while ((sLine = aBR.readLine ()) != null && !Thread.currentThread ().isInterrupted ())
           _println (m_sCmd + "> " + sLine);
       }
       catch (final Exception ex)
@@ -74,28 +91,29 @@ public final class JavaFileAccessFuncTest
     }
   }
 
-  private static final Logger LOGGER = LoggerFactory.getLogger (JavaFileAccessFuncTest.class);
-
-  private static synchronized void _println (final String s)
+  private static void _exec (@Nonnull @Nonempty final String... aCmdArray) throws IOException, InterruptedException
   {
-    if (LOGGER.isDebugEnabled ())
-      LOGGER.debug (s);
-  }
+    final Charset c = CharsetHelper.getCharsetFromName ("cp1252");
 
-  private static void _exec (@Nonnull final String... aCmdArray) throws IOException, InterruptedException
-  {
     final String sCmd = aCmdArray[0];
     _println (Arrays.toString (aCmdArray));
-    final Process p = Runtime.getRuntime ().exec (aCmdArray);
-    final Thread tIn = new ProcListener ("out " + sCmd, p.getInputStream ());
-    final Thread tErr = new ProcListener ("err " + sCmd, p.getErrorStream ());
-    tIn.start ();
-    tErr.start ();
-    final int nResult = p.waitFor ();
-    tIn.interrupt ();
-    tErr.interrupt ();
-    if (nResult != 0)
-      _println ("  Error code = " + nResult);
+    final ProcessBuilder aPB = new ProcessBuilder (aCmdArray);
+    final Process p = aPB.start ();
+    try (final InputStream aOutIS = p.getInputStream (); final InputStream aErrIS = p.getErrorStream ())
+    {
+      final Thread tIn = new ProcessOutputListener ("[stdout]", sCmd, aOutIS, c);
+      final Thread tErr = new ProcessOutputListener ("[stderr]", sCmd, aErrIS, c);
+      tIn.start ();
+      tErr.start ();
+      final int nResult = p.waitFor ();
+      tIn.interrupt ();
+      tErr.interrupt ();
+      if (nResult != 0)
+        _println ("  Error code = " + nResult);
+      // Wait until done
+      tIn.join (1000);
+      tErr.join (1000);
+    }
   }
 
   @Test
@@ -182,5 +200,10 @@ public final class JavaFileAccessFuncTest
 
       _println ("done");
     }
+    else
+      if (EOperatingSystem.getCurrentOS ().isWindowsBased ())
+      {
+        _exec ("cmd", "/c", "dir");
+      }
   }
 }
