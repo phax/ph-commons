@@ -31,6 +31,7 @@ This project was the following modules:
 * v9.1.5 - work in progress
   * Extended `WSClientConfig` API
   * Extended `GenericJAXBMarshaller` API
+  * Class `IJAXBReader` now tries to set systemID for `IReadableResource`, `File` and `Path` parameters.
 * v9.1.4 - 2018-08-06
   * Added class `XMLBracketModeDeterminatorXMLC14`
   * Added XML write setting `write CDATA as Text`

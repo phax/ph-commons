@@ -40,7 +40,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.charset.CharsetHelper.InputStreamAndCharset;
 import com.helger.commons.io.IHasInputStream;
-import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.stream.ByteBufferInputStream;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
@@ -182,8 +181,8 @@ public interface IJAXBReader <JAXBTYPE>
   {
     ValueEnforcer.notNull (aFile, "File");
 
-    // Ensure to use InputStream for BOM handling
-    return read (FileHelper.getInputStream (aFile));
+    // Use InputSourceFactory to have the systemId if possible
+    return read (InputSourceFactory.create (aFile));
   }
 
   /**
@@ -199,8 +198,8 @@ public interface IJAXBReader <JAXBTYPE>
   {
     ValueEnforcer.notNull (aPath, "Path");
 
-    // Ensure to use InputStream for BOM handling
-    return read (aPath.toFile ());
+    // Use InputSourceFactory to have the systemId if possible
+    return read (InputSourceFactory.create (aPath));
   }
 
   /**
@@ -216,8 +215,8 @@ public interface IJAXBReader <JAXBTYPE>
   {
     ValueEnforcer.notNull (aResource, "Resource");
 
-    // Ensure to use InputStream for BOM handling
-    return read (aResource.getInputStream ());
+    // Use InputSourceFactory to have the systemId if possible
+    return read (InputSourceFactory.create (aResource));
   }
 
   /**
