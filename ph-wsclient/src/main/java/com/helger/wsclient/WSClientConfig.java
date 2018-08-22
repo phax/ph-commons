@@ -121,8 +121,8 @@ public class WSClientConfig
   }
 
   /**
-   * Set the {@link SSLSocketFactory} to be used by this client to one that
-   * trusts all servers.
+   * Set the {@link SSLSocketFactory} to be used by this client to one that trusts
+   * all servers.
    *
    * @throws KeyManagementException
    *         if initializing the SSL context failed
@@ -135,8 +135,8 @@ public class WSClientConfig
   }
 
   /**
-   * Set the {@link SSLSocketFactory} to be used by this client to one that
-   * trusts all servers.
+   * Set the {@link SSLSocketFactory} to be used by this client to one that trusts
+   * all servers.
    *
    * @param bDebugMode
    *        <code>true</code> for extended debug logging, <code>false</code> for
@@ -240,6 +240,16 @@ public class WSClientConfig
   }
 
   /**
+   * @return <code>true</code> if a connection timeout is defined,
+   *         <code>false</code> if not.
+   * @since 9.1.5
+   */
+  public boolean hasConnectionTimeoutMS ()
+  {
+    return m_nConnectionTimeoutMS >= 0;
+  }
+
+  /**
    * Set the connection timeout in milliseconds.
    *
    * @param nConnectionTimeoutMS
@@ -263,6 +273,16 @@ public class WSClientConfig
   }
 
   /**
+   * @return <code>true</code> if a request timeout is defined, <code>false</code>
+   *         if not.
+   * @since 9.1.5
+   */
+  public boolean hasRequestTimeoutMS ()
+  {
+    return m_nRequestTimeoutMS >= 0;
+  }
+
+  /**
    * Set the request timeout in milliseconds.
    *
    * @param nRequestTimeoutMS
@@ -277,8 +297,8 @@ public class WSClientConfig
   }
 
   /**
-   * @return The chunk size in bytes. Default is {@link #DEFAULT_CHUNK_SIZE}.
-   *         Only values &gt; 0 are considered.
+   * @return The chunk size in bytes. Default is {@link #DEFAULT_CHUNK_SIZE}. Only
+   *         values &gt; 0 are considered.
    * @since 8.5.7
    */
   public int getChunkSize ()
@@ -287,12 +307,22 @@ public class WSClientConfig
   }
 
   /**
+   * @return <code>true</code> if a chunk size is defined, <code>false</code> if
+   *         not.
+   * @since 9.1.5
+   */
+  public boolean hasChunkSize ()
+  {
+    return m_nChunkSize >= 0;
+  }
+
+  /**
    * Set the chunk size to enable HTTP chunked encoding.
    *
    * @param nChunkSize
-   *        Number of bytes. Only values &ge; 0 are considered. If the value is
-   *        0 than the JDK default chunk size (Oracle: 4096 bytes) is used.
-   *        Values &lt; 0 mean no chunked encoding!
+   *        Number of bytes. Only values &ge; 0 are considered. If the value is 0
+   *        than the JDK default chunk size (Oracle: 4096 bytes) is used. Values
+   *        &lt; 0 mean no chunked encoding!
    * @return this for chaining
    * @since 8.5.7
    */
@@ -304,8 +334,8 @@ public class WSClientConfig
   }
 
   /**
-   * @return The user name for HTTP Basic Auth. May be <code>null</code>.
-   *         Default is <code>null</code>.
+   * @return The user name for HTTP Basic Auth. May be <code>null</code>. Default
+   *         is <code>null</code>.
    */
   @Nullable
   public String getUserName ()
@@ -430,8 +460,8 @@ public class WSClientConfig
   }
 
   /**
-   * Add a hint that this client understands compressed HTTP content. Disabled
-   * by default.
+   * Add a hint that this client understands compressed HTTP content. Disabled by
+   * default.
    *
    * @param bCompress
    *        <code>true</code> to enable, <code>false</code> to disable.
@@ -538,17 +568,17 @@ public class WSClientConfig
       aRequestContext.put ("com.sun.xml.ws.transport.https.client.hostname.verifier", m_aHostnameVerifier);
       aRequestContext.put ("com.sun.xml.internal.ws.transport.https.client.hostname.verifier", m_aHostnameVerifier);
     }
-    if (m_nConnectionTimeoutMS >= 0)
+    if (hasConnectionTimeoutMS ())
     {
       aRequestContext.put ("com.sun.xml.ws.connect.timeout", Integer.valueOf (m_nConnectionTimeoutMS));
       aRequestContext.put ("com.sun.xml.internal.ws.connect.timeout", Integer.valueOf (m_nConnectionTimeoutMS));
     }
-    if (m_nRequestTimeoutMS >= 0)
+    if (hasRequestTimeoutMS ())
     {
       aRequestContext.put ("com.sun.xml.ws.request.timeout", Integer.valueOf (m_nRequestTimeoutMS));
       aRequestContext.put ("com.sun.xml.internal.ws.request.timeout", Integer.valueOf (m_nRequestTimeoutMS));
     }
-    if (m_nChunkSize >= 0)
+    if (hasChunkSize ())
     {
       aRequestContext.put ("com.sun.xml.ws.transport.http.client.streaming.chunk.size", Integer.valueOf (m_nChunkSize));
       aRequestContext.put ("com.sun.xml.internal.ws.transport.http.client.streaming.chunk.size",
