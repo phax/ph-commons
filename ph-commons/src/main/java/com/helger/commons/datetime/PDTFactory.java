@@ -23,6 +23,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
+import java.time.MonthDay;
 import java.time.OffsetDateTime;
 import java.time.Year;
 import java.time.YearMonth;
@@ -505,10 +506,34 @@ public final class PDTFactory
     return getCurrentLocalDate ().getYear ();
   }
 
-  @Nonnegative
+  @Nonnull
   public static Year getCurrentYearObj ()
   {
     return Year.now (_getZoneId ());
+  }
+
+  @Nonnegative
+  public static int getCurrentMonth ()
+  {
+    return getCurrentLocalDate ().getMonthValue ();
+  }
+
+  @Nonnull
+  public static Month getCurrentMonthObj ()
+  {
+    return getCurrentLocalDate ().getMonth ();
+  }
+
+  @Nonnegative
+  public static int getCurrentDayOfMonth ()
+  {
+    return getCurrentLocalDate ().getDayOfMonth ();
+  }
+
+  @Nonnull
+  public static MonthDay getCurrentMonthDay ()
+  {
+    return MonthDay.now (_getZoneId ());
   }
 
   @Nonnegative
