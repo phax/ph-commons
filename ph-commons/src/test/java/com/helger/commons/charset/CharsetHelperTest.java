@@ -219,4 +219,12 @@ public final class CharsetHelperTest
     assertNotNull (CharsetHelper.getAllCharsets ());
     assertTrue (CharsetHelper.getAllCharsets ().size () > 0);
   }
+
+  @Test
+  public void testToUtf8 ()
+  {
+    final byte [] b = new byte [] { (byte) 0xc3, (byte) 0xa2 };
+    final String s = new String (b, StandardCharsets.UTF_8);
+    assertEquals ("â", s);
+  }
 }
