@@ -218,8 +218,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
    * Custom initialization routine. Called only if the underlying file does not
    * exist yet. This method is only called within a write lock!
    *
-   * @return {@link EChange#CHANGED} if something was modified inside this
-   *         method
+   * @return {@link EChange#CHANGED} if something was modified inside this method
    */
   @Nonnull
   @OverrideOnDemand
@@ -234,8 +233,8 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
    *
    * @param aDoc
    *        The XML document to read from. Never <code>null</code>.
-   * @return {@link EChange#CHANGED} if reading the data changed something in
-   *         the internal structures that requires a writing.
+   * @return {@link EChange#CHANGED} if reading the data changed something in the
+   *         internal structures that requires a writing.
    */
   @Nonnull
   @MustBeLocked (ELockType.WRITE)
@@ -335,8 +334,8 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
 
   /**
    * This method is used upon recovery to convert a stored object to its native
-   * representation. If you overwrite this method, you should consider
-   * overriding {@link #convertNativeToWALString(Serializable)} as well.
+   * representation. If you overwrite this method, you should consider overriding
+   * {@link #convertNativeToWALString(Serializable)} as well.
    *
    * @param sElement
    *        The string representation to be converted. Never <code>null</code>.
@@ -433,7 +432,8 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
           {
             // initial setup for non-existing file
             if (isDebugLogging ())
-              LOGGER.info ("Trying to initialize WAL DAO XML file '" + aFinalFile.getAbsolutePath () + "'");
+              LOGGER.info ("Trying to initialize WAL DAO" +
+                           (aFinalFile == null ? "" : " XML file '" + aFinalFile.getAbsolutePath () + "'"));
 
             beginWithoutAutoSave ();
             try
@@ -461,7 +461,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
           }
           else
           {
-            // Read existing file
+            // Read existing file (aFinalFile must be set)
             if (isDebugLogging ())
               LOGGER.info ("Trying to read WAL DAO XML file '" + aFinalFile.getAbsolutePath () + "'");
 
@@ -513,9 +513,8 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
           triggerExceptionHandlersRead (ex, bIsInitialization, aFinalFile);
           throw new DAOException ("Error " +
                                   (bIsInitialization ? "initializing" : "reading") +
-                                  " the file '" +
-                                  aFinalFile.getAbsolutePath () +
-                                  "'",
+                                  (aFinalFile == null ? "in-memory"
+                                                      : " the file '" + aFinalFile.getAbsolutePath () + "'"),
                                   ex);
         }
 
@@ -657,8 +656,8 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
   {}
 
   /**
-   * Create the XML document that should be saved to the file. This method is
-   * only called within a write lock!
+   * Create the XML document that should be saved to the file. This method is only
+   * called within a write lock!
    *
    * @return The non-<code>null</code> document to write to the file.
    */
@@ -667,8 +666,8 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
   protected abstract IMicroDocument createWriteData ();
 
   /**
-   * Modify the created document by e.g. adding some comment or digital
-   * signature or whatsoever.
+   * Modify the created document by e.g. adding some comment or digital signature
+   * or whatsoever.
    *
    * @param aDoc
    *        The created non-<code>null</code> document.
@@ -870,8 +869,8 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
   }
 
   /**
-   * @return The name of the WAL file of this DAO or <code>null</code> if this
-   *         DAO does not support WAL files.
+   * @return The name of the WAL file of this DAO or <code>null</code> if this DAO
+   *         does not support WAL files.
    */
   @Nullable
   private String _getWALFilename ()
