@@ -16,6 +16,7 @@
  */
 package com.helger.xml.transform;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
@@ -23,6 +24,7 @@ import javax.xml.transform.URIResolver;
 
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resourceresolver.DefaultResourceResolver;
+import com.helger.commons.string.StringHelper;
 import com.helger.xml.ls.SimpleLSResourceResolver;
 
 /**
@@ -33,6 +35,8 @@ import com.helger.xml.ls.SimpleLSResourceResolver;
  */
 public class DefaultTransformURIResolver extends AbstractTransformURIResolver
 {
+  private String m_sDefaultBase;
+
   public DefaultTransformURIResolver ()
   {
     super ();
@@ -43,19 +47,58 @@ public class DefaultTransformURIResolver extends AbstractTransformURIResolver
     super (aWrappedURIResolver);
   }
 
+  /**
+   * @return The default base to be used, if none is present (if <code>null</code>
+   *         or "") in the resolve request. Is <code>null</code> by default.
+   * @since 9.1.5
+   */
+  @Nullable
+  public final String getDefaultBase ()
+  {
+    return m_sDefaultBase;
+  }
+
+  /**
+   * Set the default base to be used, if none is present.
+   *
+   * @param sDefaultBase
+   *        The default base to be used. May be <code>null</code> or empty to
+   *        indicate that no special default base is needed.
+   * @return this for chaining
+   * @since 9.1.5
+   */
+  @Nonnull
+  public final DefaultTransformURIResolver setDefaultBase (@Nullable final String sDefaultBase)
+  {
+    m_sDefaultBase = sDefaultBase;
+    return this;
+  }
+
   @Override
   @Nullable
   protected Source internalResolve (final String sHref, final String sBase) throws TransformerException
   {
+    String sRealBase;
+    if (StringHelper.hasText (sBase))
+      sRealBase = sBase;
+    else
+      if (StringHelper.hasText (m_sDefaultBase))
+        sRealBase = m_sDefaultBase;
+      else
+      {
+        // Neither nor - leave as is
+        sRealBase = sBase;
+      }
+
     try
     {
-      final IReadableResource aRes = DefaultResourceResolver.getResolvedResource (sHref, sBase);
+      final IReadableResource aRes = DefaultResourceResolver.getResolvedResource (sHref, sRealBase);
       if (aRes != null && aRes.exists ())
         return TransformSourceFactory.create (aRes);
     }
     catch (final Exception ex)
     {
-      throw new TransformerException (sHref + "//" + sBase, ex);
+      throw new TransformerException (sHref + "//" + sBase + "//" + sRealBase, ex);
     }
 
     // Nothing to resolve

@@ -34,6 +34,7 @@ This project was the following modules:
   * Class `IJAXBReader` now tries to set systemID for `IReadableResource`, `File` and `Path` parameters.
   * Extended `PDTFactory` slightly
   * Fixed potential NPE when an `AbstractWALDAO` is used without a backing file
+  * `DefaultTransformURIResolver` got the possibility to provide a default base URI if none is present in the call
 * v9.1.4 - 2018-08-06
   * Added class `XMLBracketModeDeterminatorXMLC14`
   * Added XML write setting `write CDATA as Text`
