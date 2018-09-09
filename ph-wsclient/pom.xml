@@ -130,7 +130,7 @@
     <dependency>
       <groupId>org.jvnet.staxex</groupId>
       <artifactId>stax-ex</artifactId>
-      <version>1.7.8</version><!--$NO-MVN-MAN-VER$-->
+      <version>1.8</version><!--$NO-MVN-MAN-VER$-->
     </dependency>
   </dependencies>
 
