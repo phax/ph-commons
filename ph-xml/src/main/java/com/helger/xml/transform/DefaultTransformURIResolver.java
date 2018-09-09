@@ -48,8 +48,9 @@ public class DefaultTransformURIResolver extends AbstractTransformURIResolver
   }
 
   /**
-   * @return The default base to be used, if none is present (if <code>null</code>
-   *         or "") in the resolve request. Is <code>null</code> by default.
+   * @return The default base to be used, if none is present (if
+   *         <code>null</code> or "") in the resolve request. Is
+   *         <code>null</code> by default.
    * @since 9.1.5
    */
   @Nullable
@@ -78,12 +79,18 @@ public class DefaultTransformURIResolver extends AbstractTransformURIResolver
   @Nullable
   protected Source internalResolve (final String sHref, final String sBase) throws TransformerException
   {
-    String sRealBase;
+    final String sRealBase;
     if (StringHelper.hasText (sBase))
+    {
+      // A base was provided - use it
       sRealBase = sBase;
+    }
     else
       if (StringHelper.hasText (m_sDefaultBase))
+      {
+        // No base provided but a default base present - use default base
         sRealBase = m_sDefaultBase;
+      }
       else
       {
         // Neither nor - leave as is
