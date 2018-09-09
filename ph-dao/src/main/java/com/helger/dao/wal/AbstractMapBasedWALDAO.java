@@ -202,25 +202,34 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
 
   @MustBeLocked (ELockType.READ)
   @CodingStyleguideUnaware
-  protected final Collection <IMPLTYPE> getAllSortedByKey ()
+  protected final Collection <IMPLTYPE> internalGetAllSortedByKey ()
   {
     return m_aMap.getSortedByKey (Comparator.naturalOrder ()).values ();
   }
 
+  @Deprecated
+  @MustBeLocked (ELockType.READ)
+  @CodingStyleguideUnaware
+  protected final Collection <IMPLTYPE> getAllSortedByKey ()
+  {
+    return internalGetAllSortedByKey ();
+  }
+
   @Override
   @Nonnull
+  @MustBeLocked (ELockType.READ)
   protected IMicroDocument createWriteData ()
   {
     final IMicroDocument aDoc = new MicroDocument ();
     final IMicroElement eRoot = aDoc.appendElement (ELEMENT_ROOT);
-    for (final IMPLTYPE aItem : getAllSortedByKey ())
+    for (final IMPLTYPE aItem : internalGetAllSortedByKey ())
       eRoot.appendChild (MicroTypeConverter.convertToMicroElement (aItem, ELEMENT_ITEM));
     return aDoc;
   }
 
   @Nonnull
-  @ReturnsMutableObject ("design")
-  public CallbackList <IDAOChangeCallback <INTERFACETYPE>> callbacks ()
+  @ReturnsMutableObject
+  public final CallbackList <IDAOChangeCallback <INTERFACETYPE>> callbacks ()
   {
     return m_aCallbacks;
   }
@@ -286,11 +295,12 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
    *
    * @param aNewItem
    *        The item to be added. May not be <code>null</code>.
-   * @return The passed parameter as-is
+   * @return The passed parameter as-is. Never <code>null</code>.
    * @throws IllegalArgumentException
    *         If an item with the same ID is already contained
    */
   @MustBeLocked (ELockType.WRITE)
+  @Nonnull
   protected final IMPLTYPE internalCreateItem (@Nonnull final IMPLTYPE aNewItem)
   {
     // Add to map
@@ -573,9 +583,18 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
     m_aRWLock.readLocked ( () -> m_aMap.forEachValue (aFilter, aConsumer));
   }
 
+  /**
+   * Same as {@link #getOfID(String)} but the locking must happen on the called
+   * side.
+   *
+   * @param sID
+   *        The ID to search. May be <code>null</code>.
+   * @return <code>null</code> if no such item exists
+   * @since 9.1.5
+   */
   @Nullable
   @MustBeLocked (ELockType.READ)
-  protected final IMPLTYPE getOfIDLocked (@Nullable final String sID)
+  protected final IMPLTYPE internalGetOfID (@Nullable final String sID)
   {
     if (StringHelper.hasNoText (sID))
       return null;
@@ -583,6 +602,21 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
     return m_aMap.get (sID);
   }
 
+  @Deprecated
+  @Nullable
+  @MustBeLocked (ELockType.READ)
+  protected final IMPLTYPE getOfIDLocked (@Nullable final String sID)
+  {
+    return internalGetOfID (sID);
+  }
+
+  /**
+   * Find the element with the provided ID. Locking is done internally.
+   *
+   * @param sID
+   *        The ID to search. May be <code>null</code>.
+   * @return <code>null</code> if no such item exists
+   */
   @Nullable
   @IsLocked (ELockType.READ)
   protected final IMPLTYPE getOfID (@Nullable final String sID)
@@ -595,7 +629,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
 
   /**
    * Get the item at the specified index. This method only returns defined
-   * results if a CommonLinkedHashMap is used for data storage.
+   * results if an ordered map is used for data storage.
    *
    * @param nIndex
    *        The index to retrieve. Should be &ge; 0.
@@ -606,6 +640,15 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   protected final INTERFACETYPE getAtIndex (@Nonnegative final int nIndex)
   {
     return m_aRWLock.readLocked ( () -> CollectionHelper.getAtIndex (m_aMap.values (), nIndex));
+  }
+
+  @MustBeLocked (ELockType.READ)
+  protected final boolean internalContainsWithID (@Nullable final String sID)
+  {
+    if (StringHelper.hasNoText (sID))
+      return false;
+
+    return m_aMap.containsKey (sID);
   }
 
   @IsLocked (ELockType.READ)
