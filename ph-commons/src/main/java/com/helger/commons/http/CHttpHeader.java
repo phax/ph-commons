@@ -100,9 +100,9 @@ public final class CHttpHeader
    * Unavailable) response to indicate how long the service is expected to be
    * unavailable to the requesting client. This field MAY also be used with any
    * 3xx (Redirection) response to indicate the minimum time the user-agent is
-   * asked wait before issuing the redirected request. The value of this field
-   * can be either an HTTP-date or an integer number of seconds (in decimal)
-   * after the time of the response
+   * asked wait before issuing the redirected request. The value of this field can
+   * be either an HTTP-date or an integer number of seconds (in decimal) after the
+   * time of the response
    */
   public static final String RETRY_AFTER = "Retry-After";
 
@@ -146,6 +146,7 @@ public final class CHttpHeader
   public static final String X_CONTENT_SECURITY_POLICY = "X-Content-Security-Policy";
   public static final String X_WEBKIT_CSP = "X-WebKit-CSP";
   public static final String CONTENT_SECURITY_POLICY_REPORT_ONLY = "Content-Security-Policy-Report-Only";
+  public static final String X_CONTENT_SECURITY_POLICY_REPORT_ONLY = "X-Content-Security-Policy-Report-Only";
 
   // WAP-248-UAPROF-20011020-a
   public static final String X_WAP_PROFILE = "X-Wap-Profile";

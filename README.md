@@ -28,200 +28,202 @@ This project was the following modules:
 
 ## News and noteworthy
 
+* v9.1.6 - work in progress
+    * Added `CHttpHeader.X_CONTENT_SECURITY_POLICY_REPORT_ONLY`
 * v9.1.5 - 2018-09-09
-  * Extended `WSClientConfig` API
-  * Extended `GenericJAXBMarshaller` API
-  * Class `IJAXBReader` now tries to set systemID for `IReadableResource`, `File` and `Path` parameters.
-  * Extended `PDTFactory` slightly
-  * Fixed potential NPE when an `AbstractWALDAO` is used without a backing file
-  * `DefaultTransformURIResolver` got the possibility to provide a default base URI if none is present in the call
-  * Improved internal API of `AbstractMapBasedWALDAO`
-  * Updated stax-ex to 1.8
+    * Extended `WSClientConfig` API
+    * Extended `GenericJAXBMarshaller` API
+    * Class `IJAXBReader` now tries to set systemID for `IReadableResource`, `File` and `Path` parameters.
+    * Extended `PDTFactory` slightly
+    * Fixed potential NPE when an `AbstractWALDAO` is used without a backing file
+    * `DefaultTransformURIResolver` got the possibility to provide a default base URI if none is present in the call
+    * Improved internal API of `AbstractMapBasedWALDAO`
+    * Updated stax-ex to 1.8
 * v9.1.4 - 2018-08-06
-  * Added class `XMLBracketModeDeterminatorXMLC14`
-  * Added XML write setting `write CDATA as Text`
-  * Added XML write setting `order attributes and namespaces lexicographically`
-  * XML entities are now emitted as Hexadecimal values instead of numeric (`&#D;` instead of `&#13;`)
-  * Fixed error in `HttpHeaderMap.addAllHeaders` (was not doing what was expected)
+    * Added class `XMLBracketModeDeterminatorXMLC14`
+    * Added XML write setting `write CDATA as Text`
+    * Added XML write setting `order attributes and namespaces lexicographically`
+    * XML entities are now emitted as Hexadecimal values instead of numeric (`&#D;` instead of `&#13;`)
+    * Fixed error in `HttpHeaderMap.addAllHeaders` (was not doing what was expected)
 * v9.1.3 - 2018-07-19
-  * Updated to BouncyCastle 1.60
-  * Extended `LogHelper` to have overloads with `Supplier<String>`
-  * Added new `Commons...Map` constructors with parameters `Map, Function, Function`
-  * Added new class `LanguageCache`
-  * Added new `CommonsArrayList` static factory methods
-  * Deprecated all the `ChangeLog` classes - they will be moved to ph-less-commons in v9.2
-  * Added new interface `IHasByteArray`
-  * Implementing `IHasByteArray` in `ReadableResourceByteArray`, `ByteArrayInputStreamProvider`, `MessageDigestValue`
-  * Added new class `ByteArrayWrapper`
-  * Added new method `NonBlockingByteArrayOutputStream.getBufferOrCopy()` that copies only on demand
-  * Added new `ArrayHelper.startsWith` overloads
-  * Added static factory methods in `CommonsCopyOnWriteArrayList`
-  * The internal logger name was changed from `s_aLogger` to `LOGGER`
-  * Extended `IPrivilegedAction` with new static methods
-  * Added new class `Predicates` with basic typed predicates for primitive types
-  * Added some static `IBooleanPredicate` factory methods
-  * Added `ToStringGenerator.appendPasswordIf` method
-  * Added equals implementation to `PasswordAuthentication`
+    * Updated to BouncyCastle 1.60
+    * Extended `LogHelper` to have overloads with `Supplier<String>`
+    * Added new `Commons...Map` constructors with parameters `Map, Function, Function`
+    * Added new class `LanguageCache`
+    * Added new `CommonsArrayList` static factory methods
+    * Deprecated all the `ChangeLog` classes - they will be moved to ph-less-commons in v9.2
+    * Added new interface `IHasByteArray`
+    * Implementing `IHasByteArray` in `ReadableResourceByteArray`, `ByteArrayInputStreamProvider`, `MessageDigestValue`
+    * Added new class `ByteArrayWrapper`
+    * Added new method `NonBlockingByteArrayOutputStream.getBufferOrCopy()` that copies only on demand
+    * Added new `ArrayHelper.startsWith` overloads
+    * Added static factory methods in `CommonsCopyOnWriteArrayList`
+    * The internal logger name was changed from `s_aLogger` to `LOGGER`
+    * Extended `IPrivilegedAction` with new static methods
+    * Added new class `Predicates` with basic typed predicates for primitive types
+    * Added some static `IBooleanPredicate` factory methods
+    * Added `ToStringGenerator.appendPasswordIf` method
+    * Added equals implementation to `PasswordAuthentication`
 * v9.1.2 - 2018-06-19
-  * Made setters of `WSClientConfig` final
-  * Changed method name in `CharsetHelper` from `getCharsetFromNameOrNull` to `getCharsetFromNameOrDefault`
-  * Added new sub-project `ph-bc` with some common BouncyCastle helper methods
-  * Added OCSP MIME type constants
-  * Extended `XMLTransformerFactory` API to support creating secure instances
-  * Improved code quality based on SonarQube analysis
-  * Removed the Generic type from `IConcurrentCollector`
-  * Added `PropertiesHelper.expandProperties`
-  * Removed empty class `AbstractTreeItemFactory`
+    * Made setters of `WSClientConfig` final
+    * Changed method name in `CharsetHelper` from `getCharsetFromNameOrNull` to `getCharsetFromNameOrDefault`
+    * Added new sub-project `ph-bc` with some common BouncyCastle helper methods
+    * Added OCSP MIME type constants
+    * Extended `XMLTransformerFactory` API to support creating secure instances
+    * Improved code quality based on SonarQube analysis
+    * Removed the Generic type from `IConcurrentCollector`
+    * Added `PropertiesHelper.expandProperties`
+    * Removed empty class `AbstractTreeItemFactory`
 * v9.1.1 - 2018-05-14
-  * Really fixed OSGI ServiceProvider configuration
+    * Really fixed OSGI ServiceProvider configuration
 * v9.1.0 - 2018-05-08
-  * Fixed invalid call in `ValueEnforcer.isEqual`
-  * `AbstractJAXBBuilder` got an explicit possibility to disable XML schema usage
-  * Improved Java version identification by adding support for JEP 223 identifiers
-  * Kicked Travis Java 9 integration - was unable to find a Maven configuration working locally, in Eclipse and in Travis :(
-  * Added `IMicroNode.appendChildren` default methods
-  * Extracted `ph-wsclient` project for later use with Java 9
-  * Added `ICommonsCollection.setAllMapped`
-  * Added class `CommonsMock` - a very simple mocking engine
-  * Added `EMimeContentType.FONT`
-  * Extended `TreeXMLConverter` API to be able to reuse existing trees for filling
-  * Fixed OSGI ServiceProvider configuration
+    * Fixed invalid call in `ValueEnforcer.isEqual`
+    * `AbstractJAXBBuilder` got an explicit possibility to disable XML schema usage
+    * Improved Java version identification by adding support for JEP 223 identifiers
+    * Kicked Travis Java 9 integration - was unable to find a Maven configuration working locally, in Eclipse and in Travis :(
+    * Added `IMicroNode.appendChildren` default methods
+    * Extracted `ph-wsclient` project for later use with Java 9
+    * Added `ICommonsCollection.setAllMapped`
+    * Added class `CommonsMock` - a very simple mocking engine
+    * Added `EMimeContentType.FONT`
+    * Extended `TreeXMLConverter` API to be able to reuse existing trees for filling
+    * Fixed OSGI ServiceProvider configuration
 * v9.0.2 - 2018-03-22
-  * Made setter methods of `JAXB*Builder` final so that they can be called from derived constructors
-  * Improved Java 9 compliance
-  * `EJavaVersion` was changed incompatible to allow support for Java 10 and 11
-  * Added `ELockType.DEPENDS` enum constant
-  * Added some more `MathHelper.toBig(Decimal|Integer)` overloads so that it can be used without thinking 
-  * Different forbidden characters in filenames depending on OS - https://github.com/phax/as2-server/issues/20
-  * Updated to parent POM 1.10.2
+    * Made setter methods of `JAXB*Builder` final so that they can be called from derived constructors
+    * Improved Java 9 compliance
+    * `EJavaVersion` was changed incompatible to allow support for Java 10 and 11
+    * Added `ELockType.DEPENDS` enum constant
+    * Added some more `MathHelper.toBig(Decimal|Integer)` overloads so that it can be used without thinking 
+    * Different forbidden characters in filenames depending on OS - https://github.com/phax/as2-server/issues/20
+    * Updated to parent POM 1.10.2
 * v9.0.1 - 2018-02-01
-  * Minor API adoptions
-  * Updated to BouncyCastle 1.59
-  * XML validation now works with custom locales as well
-  * Added `XPathHelper.createXPathFactorySaxonFirst`
-  * Fixed typo in `XPathHelper` - `createNewXPathExpression` instead of `createNewXPathExpresion`
-  * Updated to parent POM 1.10.0
+    * Minor API adoptions
+    * Updated to BouncyCastle 1.59
+    * XML validation now works with custom locales as well
+    * Added `XPathHelper.createXPathFactorySaxonFirst`
+    * Fixed typo in `XPathHelper` - `createNewXPathExpression` instead of `createNewXPathExpresion`
+    * Updated to parent POM 1.10.0
 * v9.0.0 - 2017-11-05
-  * Changed `com.helger.commons.function` package to `com.helger.commons.functional`
-  * Replaced `IFilter` with `IPredicate`
-  * Replaced `IFilterWithParameter` with `IBiPredicate`
-  * Changed `ManagedExecutorService` to `ExecutorServiceHelper`
-  * Removed class `CCharset` - use `StandardCharsets` instead
-  * Added classes `PathHelper` and `PathOperations`    
-  * Moved class `XMLResourceBundle` to ph-xml
-  * Removed some deprecated `CharsetManager` methods
-  * Reworked `format` package
-  * Removed deprecated 'Mutable*' constructors because of weird defaults
-  * Removed deprecated methods that handle: greater than, greater or equals, lower than and lower or equals
-  * Made `MicroTypeConverter` type-safe
-  * Ensure all `Predicate` usages use `? super`
-  * Ensure all `Consumer` usages use `? super`
-  * Ensure all `Function` usages use `? super`/`? extends` where applicable
-  * Ensure all `Supplier` usages use `? extends`
-  * Moved `ThreadHelper` to package `com.helger.commons.concurrent`
-  * Removed deprecated methods in `SimpleLSResourceResolver`
-  * Removed package `com.helger.commons.io.monitor`
-  * Removed package `com.helger.commons.scope.singletons`
-  * `@ReturnsMutableObject` does not require a value anymore (but you can still pass one of course)
-  * Extracted `ph-scopes` project to lower size of `ph-commons` slightly
-  * Extracted `ph-collection` project to lower size of `ph-commons` slightly
-  * Removed default methods from `IAggregator`
-  * Added reverse interface `ISplitter`
-  * Changed caching API to use a function instead of a protected methods
-  * Integrated `ph-cli` here
-  * Improved and extended traits API
-  * JAXB components can now use a safe way to write XML with special chars
-  * JAXB components can now read XML documents with a BOM
-  * Extracted ph-oton DAO handling into new subproject `ph-dao`
-  * Replaced `SMap` with `StringMap`
-  * An `Automatic-Module-Name` was added after beta 1
-  * Removed support for the application and session application scopes
+    * Changed `com.helger.commons.function` package to `com.helger.commons.functional`
+    * Replaced `IFilter` with `IPredicate`
+    * Replaced `IFilterWithParameter` with `IBiPredicate`
+    * Changed `ManagedExecutorService` to `ExecutorServiceHelper`
+    * Removed class `CCharset` - use `StandardCharsets` instead
+    * Added classes `PathHelper` and `PathOperations`    
+    * Moved class `XMLResourceBundle` to ph-xml
+    * Removed some deprecated `CharsetManager` methods
+    * Reworked `format` package
+    * Removed deprecated 'Mutable*' constructors because of weird defaults
+    * Removed deprecated methods that handle: greater than, greater or equals, lower than and lower or equals
+    * Made `MicroTypeConverter` type-safe
+    * Ensure all `Predicate` usages use `? super`
+    * Ensure all `Consumer` usages use `? super`
+    * Ensure all `Function` usages use `? super`/`? extends` where applicable
+    * Ensure all `Supplier` usages use `? extends`
+    * Moved `ThreadHelper` to package `com.helger.commons.concurrent`
+    * Removed deprecated methods in `SimpleLSResourceResolver`
+    * Removed package `com.helger.commons.io.monitor`
+    * Removed package `com.helger.commons.scope.singletons`
+    * `@ReturnsMutableObject` does not require a value anymore (but you can still pass one of course)
+    * Extracted `ph-scopes` project to lower size of `ph-commons` slightly
+    * Extracted `ph-collection` project to lower size of `ph-commons` slightly
+    * Removed default methods from `IAggregator`
+    * Added reverse interface `ISplitter`
+    * Changed caching API to use a function instead of a protected methods
+    * Integrated `ph-cli` here
+    * Improved and extended traits API
+    * JAXB components can now use a safe way to write XML with special chars
+    * JAXB components can now read XML documents with a BOM
+    * Extracted ph-oton DAO handling into new subproject `ph-dao`
+    * Replaced `SMap` with `StringMap`
+    * An `Automatic-Module-Name` was added after beta 1
+    * Removed support for the application and session application scopes
 * v8.6.6 - 2017-07-12
-  * Extended `CSVWriter` API
-  * `SimpleLSResourceResolver` can now handle fat jars from Spring Boot (issue #8)
-  * Extracted `DefaultResourceResolver` from `SimpleLSResourceResolver` and added in ph-commons
-  * Added rudimentary support for `Path` based APIs
-  * Added `WatchService` based `WatchDir` in favor of `FileMonitor`
+    * Extended `CSVWriter` API
+    * `SimpleLSResourceResolver` can now handle fat jars from Spring Boot (issue #8)
+    * Extracted `DefaultResourceResolver` from `SimpleLSResourceResolver` and added in ph-commons
+    * Added rudimentary support for `Path` based APIs
+    * Added `WatchService` based `WatchDir` in favor of `FileMonitor`
 * v8.6.5 - 2017-05-19
-  * Deprecated all default Mutable* constructors, because the default values were partially confusing
-  * Added new class `DefaultEntityResolver` using a base URL for resolving.
-  * Extracted and renamed classes `PDTZoneID` and `PDTMask`
-  * Extended `ILocalDatePeriod` API
-  * Added additional specialized type converters to `BigDecimal`
-  * Unified naming for methods that handle: greater than, greater or equals, lower than and lower or equals
-  * Added new type converters for `Month`, `DayOfWeek` and `MonthDay`
-  * `RuntimeException`s during type conversion are encapsulated in `TypeConverterException`s.
+    * Deprecated all default Mutable* constructors, because the default values were partially confusing
+    * Added new class `DefaultEntityResolver` using a base URL for resolving.
+    * Extracted and renamed classes `PDTZoneID` and `PDTMask`
+    * Extended `ILocalDatePeriod` API
+    * Added additional specialized type converters to `BigDecimal`
+    * Unified naming for methods that handle: greater than, greater or equals, lower than and lower or equals
+    * Added new type converters for `Month`, `DayOfWeek` and `MonthDay`
+    * `RuntimeException`s during type conversion are encapsulated in `TypeConverterException`s.
 * v8.6.4 - 2017-04-12
-  * Some performance improvements
-  * Fixed error in `StringHelper.replaceMultipleAsString`
-  * Extended `StringHelper` with encode/decode methods    
-  * Added new class `NonBlockingCharArrayWriter`
-  * Deprecated some `CharsetManager` methods
+    * Some performance improvements
+    * Fixed error in `StringHelper.replaceMultipleAsString`
+    * Extended `StringHelper` with encode/decode methods    
+    * Added new class `NonBlockingCharArrayWriter`
+    * Deprecated some `CharsetManager` methods
 * v8.6.3 - 2017-03-28
-  * Deprecated some String-based `FileHelper` APIs
-  * Improved CertificateHelper parsing
-  * Added `IPredicate` - a serializable `Predicate` interface
-  * Added `IBiPredicate` - a serializable `BiPredicate` interface
-  * Added `IBiConsumer` - a serializable `BiConsumer` interface
-  * Added `IBiFunction` - a serializable `BiFunction` interface
-  * Added `IComparable` - a serializable and extended `Comparable` interface
-  * Extended `StringHelper` API
-  * Extended `MicroWriter` API
-  * Extended `XMLWriter` API
-  * Extended `PDTHelper` API
-  * Deprecated `EMonth` and `EDayOfWeek` in favour of JDK `Month` and `DayOfWeek`
+    * Deprecated some String-based `FileHelper` APIs
+    * Improved CertificateHelper parsing
+    * Added `IPredicate` - a serializable `Predicate` interface
+    * Added `IBiPredicate` - a serializable `BiPredicate` interface
+    * Added `IBiConsumer` - a serializable `BiConsumer` interface
+    * Added `IBiFunction` - a serializable `BiFunction` interface
+    * Added `IComparable` - a serializable and extended `Comparable` interface
+    * Extended `StringHelper` API
+    * Extended `MicroWriter` API
+    * Extended `XMLWriter` API
+    * Extended `PDTHelper` API
+    * Deprecated `EMonth` and `EDayOfWeek` in favour of JDK `Month` and `DayOfWeek`
 * v8.6.2 - 2017-02-15
-  * Extended `XMLSystemProperties` API
-  * Allowing `JAXBDocumentType` objects to not have an `@XmlSchema` annotation
-  * Deprecated `CCharset` - use `StandardCharsets` instead
-  * Deprecated ToStringGenerator `toString()` - use `getToString()` instead
+    * Extended `XMLSystemProperties` API
+    * Allowing `JAXBDocumentType` objects to not have an `@XmlSchema` annotation
+    * Deprecated `CCharset` - use `StandardCharsets` instead
+    * Deprecated ToStringGenerator `toString()` - use `getToString()` instead
 * v8.6.1 - 2017-01-23
-  * `*MultilingualText` is now based on ICommonsOrderedMap
-  * Extended `GlobalDebug` API slightly
-  * `JAXBDocumentType` implements equals/hashCode
-  * `WSClientConfig` not using chunked encoding by default
+    * `*MultilingualText` is now based on ICommonsOrderedMap
+    * Extended `GlobalDebug` API slightly
+    * `JAXBDocumentType` implements equals/hashCode
+    * `WSClientConfig` not using chunked encoding by default
 * v8.6.0 - 2017-01-09
-  * Removed deprecated methods
-  * Minor API extensions
+    * Removed deprecated methods
+    * Minor API extensions
 * v8.5.6 - 2016-12-10
-  * Extended APIs
-  * Fixed a nasty bug with date/time formatting due to pattern modifications (introduced in 8.5.5)
+    * Extended APIs
+    * Fixed a nasty bug with date/time formatting due to pattern modifications (introduced in 8.5.5)
 * v8.5.5 - 2016-11-25
-  * Extended APIs
+    * Extended APIs
 * v8.5.4 - 2016-11-08
-  * Fixed a nasty NPE
+    * Fixed a nasty NPE
 * v8.5.3 - 2016-11-08
-  * Added support for `EntityResolver2` in MicroXML parsing
-  * Extended some APIs
+    * Added support for `EntityResolver2` in MicroXML parsing
+    * Extended some APIs
 * v8.5.2 - 2016-09-25
-  * Fixed an error with JAXB context creation if @XMLRootElement was used
-  * Improved consistency of IHasText(WithArgs) and IHasDisplayText(WithArgs) so that they can be used interchangeably
-  * Extended collection API slightly
+    * Fixed an error with JAXB context creation if @XMLRootElement was used
+    * Improved consistency of IHasText(WithArgs) and IHasDisplayText(WithArgs) so that they can be used interchangeably
+    * Extended collection API slightly
 * v8.5.1 - 2016-09-12
-  * Fixed error text retrieval in Single Error; further API extensions and improvements
+    * Fixed error text retrieval in Single Error; further API extensions and improvements
 * v8.5.0 - 2016-09-09
-  * Reworked the error objects so that there is now a single error handling object. The old objects are retained for backwards compatibility.
+    * Reworked the error objects so that there is now a single error handling object. The old objects are retained for backwards compatibility.
 * v8.4.0 - 2016-08-21
-  * Started adding JDK 9 compatibility
-  * Added new interface `IWriteToStream`
-  * Added support for new Message digest and Mac algorithms
-  * Added new functional interfaces (IThrowingSupplier, IThrowingConsumer and IThrowingFunction) with customizable Exception type
-  * Deprecated some legacy interfaces and adapters that may lead to a compiler error (!) 
+    * Started adding JDK 9 compatibility
+    * Added new interface `IWriteToStream`
+    * Added support for new Message digest and Mac algorithms
+    * Added new functional interfaces (IThrowingSupplier, IThrowingConsumer and IThrowingFunction) with customizable Exception type
+    * Deprecated some legacy interfaces and adapters that may lead to a compiler error (!) 
 * v8.3.0 - 2016-08-02
-  * Moved the following sub-projects into this project: ph-datetime, ph-json, ph-charset, ph-graph, ph-matrix and ph-settings
+    * Moved the following sub-projects into this project: ph-datetime, ph-json, ph-charset, ph-graph, ph-matrix and ph-settings
 * v8.2.2 - 2016-07-22
 * v8.2.1 - 2016-07-15
 * v8.2.0 - 2016-07-10
-  * Added new sub-project `ph-security` that contains MessageDigest, HMac, Keystore etc. stuff
+    * Added new sub-project `ph-security` that contains MessageDigest, HMac, Keystore etc. stuff
 * v8.1.0 - 2016-06-26: 
-  * Minor small API optimizations for JAXB.
-  * `ValueEnforcer` supports Supplier` functional interface.
-  * GZIP based readable and writable resources added.
+    * Minor small API optimizations for JAXB.
+    * `ValueEnforcer` supports Supplier` functional interface.
+    * GZIP based readable and writable resources added.
 * v8.0.0 - 2016-06-08: 
-  * It splits the old big ph-commons library into slightly smaller pieces: `ph-commons`, `ph-xml`, `ph-jaxb`, `ph-tree` and `ph-less-commons`.
-  * The first version that requires JDK 8
-  * Multiple API changes to better support functional style
-  * Base32 codec added
+    * It splits the old big ph-commons library into slightly smaller pieces: `ph-commons`, `ph-xml`, `ph-jaxb`, `ph-tree` and `ph-less-commons`.
+    * The first version that requires JDK 8
+    * Multiple API changes to better support functional style
+    * Base32 codec added
 
 ## Maven usage
 Add the following to your pom.xml to use this artifact:
