@@ -31,6 +31,7 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.string.StringHelper;
 import com.helger.xml.EXMLVersion;
@@ -339,8 +340,8 @@ public final class XMLMaskHelper
   /**
    * Get the entity reference for the specified character. This returns e.g.
    * &amp;lt; for '&lt;' etc. This method has special handling for &lt;, &gt;,
-   * &amp;, &quot; and '. All other chars are encoded by their numeric value
-   * (e.g. &amp;#200;)
+   * &amp;, &quot; and '. All other chars are encoded by their numeric value (e.g.
+   * &amp;#200;)
    *
    * @param c
    *        Character to use.
@@ -366,8 +367,8 @@ public final class XMLMaskHelper
   /**
    * Get the entity reference for the specified character. This returns e.g.
    * &amp;lt; for '&lt;' etc. This method has special handling for &lt;, &gt;,
-   * &amp;, &quot; and '. All other chars are encoded by their numeric value
-   * (e.g. &amp;#200;)
+   * &amp;, &quot; and '. All other chars are encoded by their numeric value (e.g.
+   * &amp;#200;)
    *
    * @param c
    *        Character to use.
@@ -705,11 +706,11 @@ public final class XMLMaskHelper
     {
       if (XMLCharHelper.containsInvalidXMLChar (eXMLVersion, eXMLCharMode, aChars, nRealOfs, nRealLen))
       {
-        final ICommonsSet <Character> aAllInvalidChars = XMLCharHelper.getAllInvalidXMLChars (eXMLVersion,
-                                                                                              eXMLCharMode,
-                                                                                              aChars,
-                                                                                              nRealOfs,
-                                                                                              nRealLen);
+        final ICommonsOrderedSet <Character> aAllInvalidChars = XMLCharHelper.getAllInvalidXMLChars (eXMLVersion,
+                                                                                                     eXMLCharMode,
+                                                                                                     aChars,
+                                                                                                     nRealOfs,
+                                                                                                     nRealLen);
         // Here we can convert, because this part should not be called very
         // often
         final String s = new String (aText, nRealOfs, nRealLen);
