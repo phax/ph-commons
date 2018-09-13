@@ -33,6 +33,7 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.lang.ClassHelper;
+import com.helger.commons.math.MathHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.json.serialize.JsonReader;
 import com.helger.json.valueserializer.IJsonValueSerializer;
@@ -270,7 +271,7 @@ public class JsonValue implements IJsonValue
     if (aValue instanceof Short)
       return create (((Short) aValue).shortValue ());
     if (aValue instanceof Float)
-      return create (new BigDecimal (aValue.toString ()).doubleValue ());
+      return create (MathHelper.toBigDecimal ((Float) aValue).doubleValue ());
 
     // New object
     return new JsonValue (aValue);
