@@ -430,6 +430,12 @@ public final class PDTFactory
     return aCalendar == null ? null : aCalendar.toZonedDateTime ().toLocalTime ();
   }
 
+  @Nonnull
+  public static LocalTime createLocalTime (final long nMillis)
+  {
+    return createLocalDateTime (nMillis).toLocalTime ();
+  }
+
   @Nullable
   public static LocalTime createLocalTime (@Nullable final Instant aInstant)
   {
