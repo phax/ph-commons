@@ -1692,6 +1692,7 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  @Deprecated
   public static short isGE0 (final short nValue, final String sName)
   {
     if (isEnabled ())
@@ -1699,6 +1700,7 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  @Deprecated
   public static short isGE0 (final short nValue, @Nonnull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
@@ -1728,6 +1730,7 @@ public final class ValueEnforcer
     return dValue;
   }
 
+  @Deprecated
   public static float isGE0 (final float fValue, final String sName)
   {
     if (isEnabled ())
@@ -1735,6 +1738,7 @@ public final class ValueEnforcer
     return fValue;
   }
 
+  @Deprecated
   public static float isGE0 (final float fValue, @Nonnull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
@@ -1820,6 +1824,7 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  @Deprecated
   public static short isGT0 (final short nValue, final String sName)
   {
     if (isEnabled ())
@@ -1827,6 +1832,7 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  @Deprecated
   public static short isGT0 (final short nValue, @Nonnull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
@@ -1856,6 +1862,7 @@ public final class ValueEnforcer
     return dValue;
   }
 
+  @Deprecated
   public static float isGT0 (final float fValue, final String sName)
   {
     if (isEnabled ())
@@ -1863,6 +1870,7 @@ public final class ValueEnforcer
     return fValue;
   }
 
+  @Deprecated
   public static float isGT0 (final float fValue, @Nonnull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
@@ -1912,6 +1920,98 @@ public final class ValueEnforcer
     return aValue;
   }
 
+  public static int isNE0 (final int nValue, final String sName)
+  {
+    if (isEnabled ())
+      return isNE0 (nValue, () -> sName);
+    return nValue;
+  }
+
+  public static int isNE0 (final int nValue, @Nonnull final Supplier <? extends String> aName)
+  {
+    if (isEnabled ())
+      if (nValue == 0)
+        throw new IllegalArgumentException ("The value of '" +
+                                            aName.get () +
+                                            "' must not be 0! The current value is: " +
+                                            nValue);
+    return nValue;
+  }
+
+  public static long isNE0 (final long nValue, final String sName)
+  {
+    if (isEnabled ())
+      return isNE0 (nValue, () -> sName);
+    return nValue;
+  }
+
+  public static long isNE0 (final long nValue, @Nonnull final Supplier <? extends String> aName)
+  {
+    if (isEnabled ())
+      if (nValue == 0)
+        throw new IllegalArgumentException ("The value of '" +
+                                            aName.get () +
+                                            "' must not be 0! The current value is: " +
+                                            nValue);
+    return nValue;
+  }
+
+  public static double isNE0 (final double dValue, final String sName)
+  {
+    if (isEnabled ())
+      return isNE0 (dValue, () -> sName);
+    return dValue;
+  }
+
+  public static double isNE0 (final double dValue, @Nonnull final Supplier <? extends String> aName)
+  {
+    if (isEnabled ())
+      if (dValue == 0)
+        throw new IllegalArgumentException ("The value of '" +
+                                            aName.get () +
+                                            "' must not be 0! The current value is: " +
+                                            dValue);
+    return dValue;
+  }
+
+  public static BigDecimal isNE0 (final BigDecimal aValue, final String sName)
+  {
+    if (isEnabled ())
+      return isNE0 (aValue, () -> sName);
+    return aValue;
+  }
+
+  public static BigDecimal isNE0 (final BigDecimal aValue, @Nonnull final Supplier <? extends String> aName)
+  {
+    notNull (aValue, aName);
+    if (isEnabled ())
+      if (aValue.compareTo (BigDecimal.ZERO) == 0)
+        throw new IllegalArgumentException ("The value of '" +
+                                            aName.get () +
+                                            "' must not be 0! The current value is: " +
+                                            aValue);
+    return aValue;
+  }
+
+  public static BigInteger isNE0 (final BigInteger aValue, final String sName)
+  {
+    if (isEnabled ())
+      return isNE0 (aValue, () -> sName);
+    return aValue;
+  }
+
+  public static BigInteger isNE0 (final BigInteger aValue, @Nonnull final Supplier <? extends String> aName)
+  {
+    notNull (aValue, aName);
+    if (isEnabled ())
+      if (aValue.compareTo (BigInteger.ZERO) == 0)
+        throw new IllegalArgumentException ("The value of '" +
+                                            aName.get () +
+                                            "' must not be 0! The current value is: " +
+                                            aValue);
+    return aValue;
+  }
+
   public static int isLE0 (final int nValue, final String sName)
   {
     if (isEnabled ())
@@ -1948,6 +2048,7 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  @Deprecated
   public static short isLE0 (final short nValue, final String sName)
   {
     if (isEnabled ())
@@ -1955,6 +2056,7 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  @Deprecated
   public static short isLE0 (final short nValue, @Nonnull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
@@ -1984,6 +2086,7 @@ public final class ValueEnforcer
     return dValue;
   }
 
+  @Deprecated
   public static float isLE0 (final float fValue, final String sName)
   {
     if (isEnabled ())
@@ -1991,6 +2094,7 @@ public final class ValueEnforcer
     return fValue;
   }
 
+  @Deprecated
   public static float isLE0 (final float fValue, @Nonnull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
@@ -2076,6 +2180,7 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  @Deprecated
   public static short isLT0 (final short nValue, final String sName)
   {
     if (isEnabled ())
@@ -2083,6 +2188,7 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  @Deprecated
   public static short isLT0 (final short nValue, @Nonnull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
@@ -2112,6 +2218,7 @@ public final class ValueEnforcer
     return dValue;
   }
 
+  @Deprecated
   public static float isLT0 (final float fValue, final String sName)
   {
     if (isEnabled ())
@@ -2119,6 +2226,7 @@ public final class ValueEnforcer
     return fValue;
   }
 
+  @Deprecated
   public static float isLT0 (final float fValue, @Nonnull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
@@ -2294,6 +2402,7 @@ public final class ValueEnforcer
    *        Upper bound
    * @return The value
    */
+  @Deprecated
   public static short isBetweenInclusive (final short nValue,
                                           final String sName,
                                           final short nLowerBoundInclusive,
@@ -2318,6 +2427,7 @@ public final class ValueEnforcer
    *        Upper bound
    * @return The value
    */
+  @Deprecated
   public static short isBetweenInclusive (final short nValue,
                                           @Nonnull final Supplier <? extends String> aName,
                                           final short nLowerBoundInclusive,
@@ -2406,6 +2516,7 @@ public final class ValueEnforcer
    *        Upper bound
    * @return The value
    */
+  @Deprecated
   public static float isBetweenInclusive (final float fValue,
                                           final String sName,
                                           final float fLowerBoundInclusive,
@@ -2430,6 +2541,7 @@ public final class ValueEnforcer
    *        Upper bound
    * @return The value
    */
+  @Deprecated
   public static float isBetweenInclusive (final float fValue,
                                           @Nonnull final Supplier <? extends String> aName,
                                           final float fLowerBoundInclusive,
@@ -2692,6 +2804,7 @@ public final class ValueEnforcer
    *        Upper bound
    * @return The value
    */
+  @Deprecated
   public static short isBetweenExclusive (final short nValue,
                                           final String sName,
                                           final short nLowerBoundExclusive,
@@ -2716,6 +2829,7 @@ public final class ValueEnforcer
    *        Upper bound
    * @return The value
    */
+  @Deprecated
   public static short isBetweenExclusive (final short nValue,
                                           @Nonnull final Supplier <? extends String> aName,
                                           final short nLowerBoundExclusive,
@@ -2804,6 +2918,7 @@ public final class ValueEnforcer
    *        Upper bound
    * @return The value
    */
+  @Deprecated
   public static float isBetweenExclusive (final float fValue,
                                           final String sName,
                                           final float fLowerBoundExclusive,
@@ -2828,6 +2943,7 @@ public final class ValueEnforcer
    *        Upper bound
    * @return The value
    */
+  @Deprecated
   public static float isBetweenExclusive (final float fValue,
                                           @Nonnull final Supplier <? extends String> aName,
                                           final float fLowerBoundExclusive,

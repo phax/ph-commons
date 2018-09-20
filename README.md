@@ -30,6 +30,8 @@ This project was the following modules:
 
 * v9.1.6 - work in progress
     * Added `CHttpHeader.X_CONTENT_SECURITY_POLICY_REPORT_ONLY`
+    * Added `ValueEnforcer.isNE0` methods
+    * Deprecated `ValueEnforcer` methods for `short` and `float`
 * v9.1.5 - 2018-09-09
     * Extended `WSClientConfig` API
     * Extended `GenericJAXBMarshaller` API
