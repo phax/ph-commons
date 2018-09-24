@@ -572,21 +572,23 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
             while (true)
             {
               // Read action type
-              String sActionType;
+              String sActionTypeID;
               try
               {
-                sActionType = StreamHelper.readSafeUTF (aOIS);
+                sActionTypeID = StreamHelper.readSafeUTF (aOIS);
               }
               catch (final EOFException ex)
               {
                 // End of file
                 break;
               }
-              final EDAOActionType eActionType = EDAOActionType.getFromIDOrThrow (sActionType);
+              final EDAOActionType eActionType = EDAOActionType.getFromIDOrThrow (sActionTypeID);
+
               // Read number of elements
               final int nElements = aOIS.readInt ();
               if (LOGGER.isInfoEnabled ())
                 LOGGER.info ("Trying to recover " + nElements + " " + eActionType + " actions from WAL file");
+
               // Read all elements
               for (int i = 0; i < nElements; ++i)
               {
@@ -599,6 +601,8 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
                   onRecoveryErrorConvertToNative (eActionType, i, sElement);
                   continue;
                 }
+                if (LOGGER.isInfoEnabled ())
+                  LOGGER.info ("Trying to recover object [" + i + "] with " + sElement.length () + " chars");
 
                 switch (eActionType)
                 {
@@ -957,7 +961,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
     ValueEnforcer.notEmpty (sWALFilename, "WALFilename");
     final File aWALFile = m_aIO.getFile (sWALFilename);
     final File aNewFile = new File (aWALFile.getParentFile (),
-                                    aWALFile.getName () + PDTFactory.getCurrentMillis () + ".bup");
+                                    aWALFile.getName () + "." + PDTFactory.getCurrentMillis () + ".bup");
 
     if (FileOperationManager.INSTANCE.renameFile (aWALFile, aNewFile).isFailure ())
       if (LOGGER.isErrorEnabled ())
