@@ -601,8 +601,8 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
                   onRecoveryErrorConvertToNative (eActionType, i, sElement);
                   continue;
                 }
-                if (LOGGER.isInfoEnabled ())
-                  LOGGER.info ("Trying to recover object [" + i + "] with " + sElement.length () + " chars");
+                if (LOGGER.isDebugEnabled ())
+                  LOGGER.debug ("Trying to recover object [" + i + "] with " + sElement.length () + " chars");
 
                 switch (eActionType)
                 {
