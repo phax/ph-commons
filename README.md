@@ -32,6 +32,7 @@ This project was the following modules:
     * Added `CHttpHeader.X_CONTENT_SECURITY_POLICY_REPORT_ONLY`
     * Added `ValueEnforcer.isNE0` methods
     * Deprecated `ValueEnforcer` methods for `short` and `float`
+    * Reworked the `VerySecureRandom` initialization to use a native PRNG for initial seeding
 * v9.1.5 - 2018-09-09
     * Extended `WSClientConfig` API
     * Extended `GenericJAXBMarshaller` API

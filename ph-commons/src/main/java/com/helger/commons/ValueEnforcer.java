@@ -970,8 +970,8 @@ public final class ValueEnforcer
   }
 
   /**
-   * Check that the passed map is neither <code>null</code> nor empty and that
-   * no <code>null</code> key or value is contained.
+   * Check that the passed map is neither <code>null</code> nor empty and that no
+   * <code>null</code> key or value is contained.
    *
    * @param <T>
    *        Type to be checked and returned
@@ -994,8 +994,8 @@ public final class ValueEnforcer
   }
 
   /**
-   * Check that the passed map is neither <code>null</code> nor empty and that
-   * no <code>null</code> key or value is contained.
+   * Check that the passed map is neither <code>null</code> nor empty and that no
+   * <code>null</code> key or value is contained.
    *
    * @param <T>
    *        Type to be checked and returned
@@ -1038,8 +1038,7 @@ public final class ValueEnforcer
    *        The name of the value (e.g. the parameter name)
    * @return The passed value.
    * @throws IllegalArgumentException
-   *         if the passed value is null or a <code>null</code> value is
-   *         contained
+   *         if the passed value is null or a <code>null</code> value is contained
    */
   public static <T> T [] notNullNoNullValue (final T [] aValue, final String sName)
   {
@@ -1060,8 +1059,7 @@ public final class ValueEnforcer
    *        The name of the value (e.g. the parameter name)
    * @return The passed value.
    * @throws IllegalArgumentException
-   *         if the passed value is null or a <code>null</code> value is
-   *         contained
+   *         if the passed value is null or a <code>null</code> value is contained
    */
   public static <T> T [] notNullNoNullValue (final T [] aValue, @Nonnull final Supplier <? extends String> aName)
   {
@@ -1082,8 +1080,8 @@ public final class ValueEnforcer
    *        The name of the value (e.g. the parameter name)
    * @return The passed value.
    * @throws IllegalArgumentException
-   *         if the passed value is <code>null</code> or a <code>null</code>
-   *         value is contained
+   *         if the passed value is <code>null</code> or a <code>null</code> value
+   *         is contained
    */
   public static <T extends Iterable <?>> T notNullNoNullValue (final T aValue, final String sName)
   {
@@ -1104,8 +1102,8 @@ public final class ValueEnforcer
    *        The name of the value (e.g. the parameter name)
    * @return The passed value.
    * @throws IllegalArgumentException
-   *         if the passed value is <code>null</code> or a <code>null</code>
-   *         value is contained
+   *         if the passed value is <code>null</code> or a <code>null</code> value
+   *         is contained
    */
   public static <T extends Iterable <?>> T notNullNoNullValue (final T aValue,
                                                                @Nonnull final Supplier <? extends String> aName)
@@ -1127,8 +1125,8 @@ public final class ValueEnforcer
    *        The name of the value (e.g. the parameter name)
    * @return The passed value.
    * @throws IllegalArgumentException
-   *         if the passed value is <code>null</code> or a <code>null</code>
-   *         value is contained
+   *         if the passed value is <code>null</code> or a <code>null</code> value
+   *         is contained
    */
   @CodingStyleguideUnaware
   public static <T extends Map <?, ?>> T notNullNoNullValue (final T aValue, final String sName)
@@ -1150,8 +1148,8 @@ public final class ValueEnforcer
    *        The name of the value (e.g. the parameter name)
    * @return The passed value.
    * @throws IllegalArgumentException
-   *         if the passed value is <code>null</code> or a <code>null</code>
-   *         value is contained
+   *         if the passed value is <code>null</code> or a <code>null</code> value
+   *         is contained
    */
   @CodingStyleguideUnaware
   public static <T extends Map <?, ?>> T notNullNoNullValue (final T aValue,
@@ -1252,8 +1250,8 @@ public final class ValueEnforcer
   }
 
   /**
-   * Check that the passed map is neither <code>null</code> nor empty and that
-   * no <code>null</code> value is contained.
+   * Check that the passed map is neither <code>null</code> nor empty and that no
+   * <code>null</code> value is contained.
    *
    * @param <T>
    *        Type to be checked and returned
@@ -1275,8 +1273,8 @@ public final class ValueEnforcer
   }
 
   /**
-   * Check that the passed map is neither <code>null</code> nor empty and that
-   * no <code>null</code> value is contained.
+   * Check that the passed map is neither <code>null</code> nor empty and that no
+   * <code>null</code> value is contained.
    *
    * @param <T>
    *        Type to be checked and returned
@@ -1407,8 +1405,8 @@ public final class ValueEnforcer
   }
 
   /**
-   * Check that the passed value is the same as the provided expected value
-   * using <code>==</code> to check comparison.
+   * Check that the passed value is the same as the provided expected value using
+   * <code>==</code> to check comparison.
    *
    * @param <T>
    *        Type to be checked and returned
@@ -1418,8 +1416,8 @@ public final class ValueEnforcer
    *        The name of the value (e.g. the parameter name)
    * @param aExpectedValue
    *        The expected value. May be <code>null</code>.
-   * @return The passed value and maybe <code>null</code> if the expected value
-   *         is null.
+   * @return The passed value and maybe <code>null</code> if the expected value is
+   *         null.
    * @throws IllegalArgumentException
    *         if the passed value is not <code>null</code>.
    */
@@ -1431,8 +1429,8 @@ public final class ValueEnforcer
   }
 
   /**
-   * Check that the passed value is the same as the provided expected value
-   * using <code>==</code> to check comparison.
+   * Check that the passed value is the same as the provided expected value using
+   * <code>==</code> to check comparison.
    *
    * @param <T>
    *        Type to be checked and returned
@@ -1442,8 +1440,8 @@ public final class ValueEnforcer
    *        The name of the value (e.g. the parameter name)
    * @param aExpectedValue
    *        The expected value. May be <code>null</code>.
-   * @return The passed value and maybe <code>null</code> if the expected value
-   *         is <code>null</code>.
+   * @return The passed value and maybe <code>null</code> if the expected value is
+   *         <code>null</code>.
    * @throws IllegalArgumentException
    *         if the passed value is not <code>null</code>.
    */
@@ -1463,8 +1461,8 @@ public final class ValueEnforcer
   }
 
   /**
-   * Check that the passed value is the same as the provided expected value
-   * using <code>equals</code> to check comparison.
+   * Check that the passed value is the same as the provided expected value using
+   * <code>equals</code> to check comparison.
    *
    * @param <T>
    *        Type to be checked and returned
@@ -1474,8 +1472,8 @@ public final class ValueEnforcer
    *        The name of the value (e.g. the parameter name)
    * @param aExpectedValue
    *        The expected value. May be <code>null</code>.
-   * @return The passed value and maybe <code>null</code> if the expected value
-   *         is null.
+   * @return The passed value and maybe <code>null</code> if the expected value is
+   *         null.
    * @throws IllegalArgumentException
    *         if the passed value is not <code>null</code>.
    */
@@ -1487,8 +1485,8 @@ public final class ValueEnforcer
   }
 
   /**
-   * Check that the passed value is the same as the provided expected value
-   * using <code>equals</code> to check comparison.
+   * Check that the passed value is the same as the provided expected value using
+   * <code>equals</code> to check comparison.
    *
    * @param <T>
    *        Type to be checked and returned
@@ -1498,8 +1496,8 @@ public final class ValueEnforcer
    *        The name of the value (e.g. the parameter name)
    * @param aExpectedValue
    *        The expected value. May be <code>null</code>.
-   * @return The passed value and maybe <code>null</code> if the expected value
-   *         is null.
+   * @return The passed value and maybe <code>null</code> if the expected value is
+   *         null.
    * @throws IllegalArgumentException
    *         if the passed value is not <code>null</code>.
    */
@@ -1519,8 +1517,8 @@ public final class ValueEnforcer
   }
 
   /**
-   * Check that the passed value is the same as the provided expected value
-   * using <code>==</code> to check comparison.
+   * Check that the passed value is the same as the provided expected value using
+   * <code>==</code> to check comparison.
    *
    * @param nValue
    *        The First value.
@@ -1538,8 +1536,8 @@ public final class ValueEnforcer
   }
 
   /**
-   * Check that the passed value is the same as the provided expected value
-   * using <code>==</code> to check comparison.
+   * Check that the passed value is the same as the provided expected value using
+   * <code>==</code> to check comparison.
    *
    * @param nValue
    *        The First value.
@@ -1565,8 +1563,8 @@ public final class ValueEnforcer
   }
 
   /**
-   * Check that the passed value is the same as the provided expected value
-   * using <code>==</code> to check comparison.
+   * Check that the passed value is the same as the provided expected value using
+   * <code>==</code> to check comparison.
    *
    * @param nValue
    *        The First value.
@@ -1584,8 +1582,8 @@ public final class ValueEnforcer
   }
 
   /**
-   * Check that the passed value is the same as the provided expected value
-   * using <code>==</code> to check comparison.
+   * Check that the passed value is the same as the provided expected value using
+   * <code>==</code> to check comparison.
    *
    * @param nValue
    *        The First value.
@@ -1611,8 +1609,8 @@ public final class ValueEnforcer
   }
 
   /**
-   * Check that the passed value is the same as the provided expected value
-   * using <code>==</code> to check comparison.
+   * Check that the passed value is the same as the provided expected value using
+   * <code>==</code> to check comparison.
    *
    * @param dValue
    *        The First value.
@@ -1630,8 +1628,8 @@ public final class ValueEnforcer
   }
 
   /**
-   * Check that the passed value is the same as the provided expected value
-   * using <code>==</code> to check comparison.
+   * Check that the passed value is the same as the provided expected value using
+   * <code>==</code> to check comparison.
    *
    * @param dValue
    *        The First value.

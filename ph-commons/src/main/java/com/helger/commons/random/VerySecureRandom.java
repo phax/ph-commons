@@ -16,6 +16,7 @@
  */
 package com.helger.commons.random;
 
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -32,7 +33,27 @@ import com.helger.commons.lang.TimeValue;
 import com.helger.commons.timing.StopWatch;
 
 /**
- * A secure random generator initialized with another secure random generator.
+ * A secure random generator initialized with another secure random
+ * generator.<br>
+ * Using <code>/dev/random</code> may require waiting for the result as it uses
+ * so-called entropy pool, where random data may not be available at the moment.
+ * <code>/dev/urandom</code> returns as many bytes as user requested and thus it
+ * is less random than /dev/random.<br>
+ * <ul>
+ * <li><strong>random</strong> When read, the /dev/random device will only
+ * return random bytes within the estimated number of bits of noise in the
+ * entropy pool. /dev/random should be suitable for uses that need very high
+ * quality randomness such as one-time pad or key generation. When the entropy
+ * pool is empty, reads from /dev/random will block until additional
+ * environmental noise is gathered.</li>
+ * <li><strong>urandom</strong> A read from the /dev/urandom device will not
+ * block waiting for more entropy. As a result, if there is not sufficient
+ * entropy in the entropy pool, the returned values are theoretically vulnerable
+ * to a cryptographic attack on the algorithms used by the driver. Knowledge of
+ * how to do this is not available in the current unclassified literature, but
+ * it is theoretically possible that such an attack may exist. If this is a
+ * concern in your application, use /dev/random instead.</li>
+ * </ul>
  *
  * @author Philip Helger
  */
@@ -42,15 +63,15 @@ public final class VerySecureRandom
   public static final int DEFAULT_RE_SEED_INTERVAL = 20;
   private static final Logger LOGGER = LoggerFactory.getLogger (VerySecureRandom.class);
 
-  private static final int SEED_BYTE_COUNT = 16;
+  private static final int SEED_BYTE_COUNT = 64;
   private static final SecureRandom s_aSecureRandom;
 
   /**
    * Create a new {@link SecureRandom} instance. First the IBM secure random is
    * tried, than the SHA1PRNG secure random and finally if the previous ones
-   * failed, the default instance is used. In certain circumstances (Linux +
-   * some Java version) this initialization takes forever and that's why the
-   * debug statements are added.
+   * failed, the default instance is used. In certain circumstances (Linux + some
+   * Java version; most likely using the blocking '/dev/random') this
+   * initialization takes forever and that's why the debug statements are added.
    *
    * @return A new {@link SecureRandom} instance. Never <code>null</code>.
    */
@@ -108,24 +129,44 @@ public final class VerySecureRandom
 
     // Find a good description that states how it is done this way:
     // https://www.cigital.com/blog/proper-use-of-javas-securerandom/
+    // Updated to
+    // https://www.synopsys.com/blogs/software-security/proper-use-of-javas-securerandom/
 
     // Initialize SecureRandom
     // This is a lengthy operation, to be done only upon
     // initialization of the application. Especial with Java <= 1.5 on Linux
-    // this whole block takes more or less forever.
-    final SecureRandom aSecureRandom = _createSecureRandomInstance ();
-
-    // Seed first with the current time
-    aSecureRandom.setSeed (System.currentTimeMillis ());
-
-    // Get 128 random bytes
-    aSecureRandom.nextBytes (new byte [128]);
+    // this whole block takes more or less forever (when using /dev/random).
+    SecureRandom aNativeRandom;
+    try
+    {
+      // Use configured strong default
+      aNativeRandom = SecureRandom.getInstanceStrong ();
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("SecureRandom.getInstanceStrong () was successful");
+    }
+    catch (final NoSuchAlgorithmException ex)
+    {
+      try
+      {
+        // Use /dev/urandom
+        aNativeRandom = SecureRandom.getInstance ("NativePRNGNonBlocking");
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("SecureRandom.getInstance ('NativePRNGNonBLocking') was successful");
+      }
+      catch (final NoSuchAlgorithmException ex2)
+      {
+        // Fall-fallback
+        aNativeRandom = new SecureRandom ();
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("Falling back to default SecureRandom for initialization");
+      }
+    }
 
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("Generating intial seed for VerySecureRandom");
 
-    // Create secure number generators with the random seed
-    final byte [] aSeed = aSecureRandom.generateSeed (SEED_BYTE_COUNT);
+    // Generate seed
+    final byte [] aSeed = aNativeRandom.generateSeed (SEED_BYTE_COUNT);
 
     // Initialize main secure random
     s_aSecureRandom = _createSecureRandomInstance ();
@@ -185,7 +226,9 @@ public final class VerySecureRandom
         // Re-seed
         final TimeValue aDuration = StopWatch.runMeasured ( () -> s_aSecureRandom.setSeed (s_aSecureRandom.generateSeed (SEED_BYTE_COUNT)));
         if (aDuration.getAsMillis () > 500)
-          LOGGER.warn ("Re-seeding VerySecureRandom took too long (" + aDuration.getAsMillis () + " milliseconds)");
+          LOGGER.warn ("Re-seeding VerySecureRandom took too long (" +
+                       aDuration.getAsMillis () +
+                       " milliseconds) - you may consider using '/dev/urandom'");
       }
 
     return s_aSecureRandom;
