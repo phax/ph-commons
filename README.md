@@ -33,6 +33,7 @@ This project was the following modules:
     * Added `ValueEnforcer.isNE0` methods
     * Deprecated `ValueEnforcer` methods for `short` and `float`
     * Reworked the `VerySecureRandom` initialization to use a native PRNG for initial seeding
+    * Improved customizability of `AbstractWALDAO` in case WAL recovery failed
 * v9.1.5 - 2018-09-09
     * Extended `WSClientConfig` API
     * Extended `GenericJAXBMarshaller` API
