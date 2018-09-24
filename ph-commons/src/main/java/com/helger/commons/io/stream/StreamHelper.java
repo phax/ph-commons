@@ -1618,22 +1618,24 @@ public final class StreamHelper
     return aIS;
   }
 
+  public static final int END_OF_STRING_MARKER = 0xfffdfffd;
+
   /**
    * Because {@link DataOutputStream#writeUTF(String)} has a limit of 64KB this
    * methods provides a similar solution but simply writing the bytes.
    *
    * @param aDO
    *        {@link DataOutput} to write to. May not be <code>null</code>.
-   * @param s
+   * @param sStr
    *        The string to be written. May be <code>null</code>.
    * @throws IOException
    *         on write error
    * @see #readSafeUTF(DataInput)
    */
-  public static void writeSafeUTF (@Nonnull final DataOutput aDO, @Nullable final String s) throws IOException
+  public static void writeSafeUTF (@Nonnull final DataOutput aDO, @Nullable final String sStr) throws IOException
   {
     ValueEnforcer.notNull (aDO, "DataOutput");
-    if (s == null)
+    if (sStr == null)
     {
       // Only write a 0 byte
       // Writing a length of 0 would mean that the differentiation between "null" and
@@ -1642,14 +1644,18 @@ public final class StreamHelper
     }
     else
     {
-      // Non-null indicator
-      aDO.writeByte (1);
-      final byte [] aUTF8Bytes = s.getBytes (StandardCharsets.UTF_8);
+      // Non-null indicator; basically the version of layout how the data was written
+      aDO.writeByte (2);
+
+      final byte [] aUTF8Bytes = sStr.getBytes (StandardCharsets.UTF_8);
 
       // Write number of bytes
       aDO.writeInt (aUTF8Bytes.length);
       // Write main bytes
       aDO.write (aUTF8Bytes);
+
+      // Was added in layout version 2:
+      aDO.writeInt (END_OF_STRING_MARKER);
     }
   }
 
@@ -1671,14 +1677,42 @@ public final class StreamHelper
   {
     ValueEnforcer.notNull (aDI, "DataInput");
 
-    // If the first byte has value "0" it means the whole String is simply null
-    if (aDI.readByte () == 0)
-      return null;
+    final int nLayout = aDI.readByte ();
+    final String ret;
+    switch (nLayout)
+    {
+      case 0:
+      {
+        // If the first byte has value "0" it means the whole String is simply null
+        ret = null;
+        break;
+      }
+      case 1:
+      {
+        // length in UTF-8 bytes followed by the main bytes
+        final int nLength = aDI.readInt ();
+        final byte [] aData = new byte [nLength];
+        aDI.readFully (aData);
+        ret = new String (aData, StandardCharsets.UTF_8);
+        break;
+      }
+      case 2:
+      {
+        // length in UTF-8 bytes followed by the main bytes, than the end of byte marker
+        final int nLength = aDI.readInt ();
+        final byte [] aData = new byte [nLength];
+        aDI.readFully (aData);
+        ret = new String (aData, StandardCharsets.UTF_8);
 
-    // Any other value means, that the length in UTF-8 bytes
-    final int nLength = aDI.readInt ();
-    final byte [] aData = new byte [nLength];
-    aDI.readFully (aData);
-    return new String (aData, StandardCharsets.UTF_8);
+        final int nEndOfString = aDI.readInt ();
+        if (nEndOfString != END_OF_STRING_MARKER)
+          throw new IOException ("Missing end of String marker");
+        break;
+      }
+      default:
+        throw new IOException ("Unsupported string layout version " + nLayout);
+    }
+
+    return ret;
   }
 }
