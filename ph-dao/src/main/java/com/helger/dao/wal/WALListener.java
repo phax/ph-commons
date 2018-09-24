@@ -148,7 +148,7 @@ public final class WALListener extends AbstractGlobalSingleton
           // Main DAO writing
           aDAO._writeToFileAndResetPendingChanges ("ScheduledWriter.run");
           // Delete the WAL file
-          aDAO._deleteWALFile (sWALFilename);
+          aDAO._deleteWALFileAfterProcessing (sWALFilename);
 
           if (LOGGER.isDebugEnabled ())
             LOGGER.debug ("Finished scheduled writing for DAO " + sKey);

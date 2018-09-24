@@ -698,9 +698,9 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
 
           // Finally maintain or delete the WAL file, as the recovery has finished
           if (bRecoveryContainedErrors)
-            _maintainWALFile (sWALFilename);
+            _maintainWALFileAfterProcessing (sWALFilename);
           else
-            _deleteWALFile (sWALFilename);
+            _deleteWALFileAfterProcessing (sWALFilename);
         }
       }
       finally
@@ -956,7 +956,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
    * This method is called if recovery from the WAL file (partially) failed an
    * analysis might be needed.
    */
-  final void _maintainWALFile (@Nonnull @Nonempty final String sWALFilename)
+  final void _maintainWALFileAfterProcessing (@Nonnull @Nonempty final String sWALFilename)
   {
     ValueEnforcer.notEmpty (sWALFilename, "WALFilename");
     final File aWALFile = m_aIO.getFile (sWALFilename);
@@ -964,25 +964,43 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
                                     aWALFile.getName () + "." + PDTFactory.getCurrentMillis () + ".bup");
 
     if (FileOperationManager.INSTANCE.renameFile (aWALFile, aNewFile).isFailure ())
+    {
       if (LOGGER.isErrorEnabled ())
         LOGGER.error ("Failed to rename WAL file '" +
                       aWALFile.getAbsolutePath () +
                       "' to '" +
                       aNewFile.getAbsolutePath () +
                       "'");
+    }
+    else
+    {
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("Maintained WAL file '" +
+                     aWALFile.getAbsolutePath () +
+                     "' as '" +
+                     aNewFile.getAbsolutePath () +
+                     "' for debugging purposes");
+    }
   }
 
   /**
    * This method may only be triggered with valid WAL filenames, as the passed
    * file is deleted!
    */
-  final void _deleteWALFile (@Nonnull @Nonempty final String sWALFilename)
+  final void _deleteWALFileAfterProcessing (@Nonnull @Nonempty final String sWALFilename)
   {
     ValueEnforcer.notEmpty (sWALFilename, "WALFilename");
     final File aWALFile = m_aIO.getFile (sWALFilename);
     if (FileOperationManager.INSTANCE.deleteFile (aWALFile).isFailure ())
+    {
       if (LOGGER.isErrorEnabled ())
         LOGGER.error ("Failed to delete WAL file '" + aWALFile.getAbsolutePath () + "'");
+    }
+    else
+    {
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("Deleted successfully imported WAL file '" + aWALFile.getAbsolutePath () + "'");
+    }
   }
 
   /**
