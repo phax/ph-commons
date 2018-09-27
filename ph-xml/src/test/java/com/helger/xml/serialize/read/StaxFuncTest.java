@@ -61,6 +61,7 @@ public final class StaxFuncTest
                                                               SimpleLocation.create (aLocation));
 
     final XMLResolver aResolver = (sPublicID, sSystemID, sBaseURI, sNamespace) -> {
+      LOGGER.info ("Resolving " + sPublicID + "/" + sSystemID + "/" + sBaseURI + "/" + sNamespace);
       final IReadableResource aResolvedRes = DefaultResourceResolver.getResolvedResource (sSystemID, sBaseURI);
       if (aResolvedRes == null)
         return null;
@@ -68,20 +69,17 @@ public final class StaxFuncTest
     };
 
     // get a factory instance
-    final XMLInputFactory myFactory = XMLInputFactory.newInstance ();
+    final XMLInputFactory aFactory = XMLInputFactory.newInstance ();
     // set error reporter (similar to setting ErrorReporter in SAX)
-    myFactory.setXMLReporter (aReporter);
+    aFactory.setXMLReporter (aReporter);
     // set resolver (similar to setting EntityResolver in SAX)
-    myFactory.setXMLResolver (aResolver);
+    aFactory.setXMLResolver (aResolver);
     // configure the factory, e.g. validating or non-validating
-    try
-    {
-      myFactory.setProperty ("a", "b");
-    }
-    catch (final IllegalArgumentException ex)
-    {}
+    aFactory.setProperty (XMLConstants.ACCESS_EXTERNAL_DTD, Boolean.FALSE.toString ());
+
     // create new XMLStreamReader
-    final XMLStreamReader aReader = myFactory.createXMLStreamReader (new FileSystemResource ("src/test/resources/xml/xml-entity-public.xml").getInputStream ());
+    final XMLStreamReader aReader = aFactory.createXMLStreamReader (new FileSystemResource ("src/test/resources/xml/xml-stax-test.xml").getInputStream ());
+
     // document encoding from the XML declaration
     final String encoding = aReader.getEncoding ();
     if (LOGGER.isInfoEnabled ())
@@ -221,12 +219,12 @@ public final class StaxFuncTest
         }
         case XMLStreamConstants.START_DOCUMENT:
         {
-          // empty
+          // Handled in START_ELEMENT
           break;
         }
         case XMLStreamConstants.END_DOCUMENT:
         {
-          // empty
+          // Nothing to do
           break;
         }
         case XMLStreamConstants.ENTITY_REFERENCE:
@@ -239,16 +237,22 @@ public final class StaxFuncTest
         }
         case XMLStreamConstants.ATTRIBUTE:
         {
-          // FIXME crap
-          final String sText = aReader.getText ();
-          LOGGER.info ("DTD: " + sText);
+          // Not to be called in XML parsing, but maybe used in other scenarios
+          if (LOGGER.isDebugEnabled ())
+          {
+            final String sText = aReader.getText ();
+            LOGGER.debug ("ATTRIBUTE: " + sText);
+          }
           break;
         }
         case XMLStreamConstants.DTD:
         {
-          // FIXME crap
-          final String sText = aReader.getText ();
-          LOGGER.info ("DTD: " + sText);
+          // DTD string is not really of interest to us
+          if (LOGGER.isDebugEnabled ())
+          {
+            final String sText = aReader.getText ();
+            LOGGER.debug ("DTD: " + sText);
+          }
           break;
         }
         case XMLStreamConstants.CDATA:
@@ -273,25 +277,26 @@ public final class StaxFuncTest
         case XMLStreamConstants.NAMESPACE:
         {
           // FIXME crap
-          LOGGER.info ("NAMESPACE: " + aReader.getNamespaceCount () + "ns");
+          LOGGER.info ("NAMESPACE: " + aReader.getNamespaceCount () + " namespaces");
           break;
         }
         case XMLStreamConstants.NOTATION_DECLARATION:
         {
           // FIXME crap
-          LOGGER.info ("NOTATION_DECLARATION: " + aReader.getText () + "ns");
+          LOGGER.info ("NOTATION_DECLARATION: " + aReader.getText ());
           break;
         }
         case XMLStreamConstants.ENTITY_DECLARATION:
         {
           // FIXME crap
-          LOGGER.info ("ENTITY_DECLARATION: " + aReader.getText () + "ns");
+          LOGGER.info ("ENTITY_DECLARATION: " + aReader.getText ());
           break;
         }
         default:
           throw new IllegalStateException ("Invalid event: " + nEvent);
       }
     }
+    aReader.close ();
 
     LOGGER.info (MicroWriter.getNodeAsString (aDoc));
   }
