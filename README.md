@@ -35,6 +35,7 @@ This project was the following modules:
     * Reworked the `VerySecureRandom` initialization to use a native PRNG for initial seeding
     * Improved customizability of `AbstractWALDAO` in case WAL recovery failed
     * Extended `IHas...DateTime` APIs
+    * Fixed OSGI SPI configuration for ph-bc
 * v9.1.5 - 2018-09-09
     * Extended `WSClientConfig` API
     * Extended `GenericJAXBMarshaller` API
