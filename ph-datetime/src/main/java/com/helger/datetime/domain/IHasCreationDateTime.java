@@ -20,7 +20,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import com.helger.commons.ValueEnforcer;
 
 /**
  * Interface for objects having a creation date time.
@@ -53,5 +56,22 @@ public interface IHasCreationDateTime
   {
     final LocalDateTime aLDT = getCreationDateTime ();
     return aLDT == null ? null : aLDT.toLocalTime ();
+  }
+
+  /**
+   * Check if the object was created at the specified local date time. This is
+   * <code>true</code>, if the creation time is &le; than the specified local
+   * date time.
+   *
+   * @param aDT
+   *        The time to check for creation. May not be <code>null</code>.
+   * @return <code>true</code> if this object was created, <code>false</code> if
+   *         not.
+   * @since 9.1.6
+   */
+  default boolean isCreatedAt (@Nonnull final LocalDateTime aDT)
+  {
+    ValueEnforcer.notNull (aDT, "LocalDateTime");
+    return hasCreationDateTime () && getCreationDateTime ().compareTo (aDT) <= 0;
   }
 }

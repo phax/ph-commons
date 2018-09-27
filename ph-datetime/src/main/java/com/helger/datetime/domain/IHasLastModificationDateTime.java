@@ -20,7 +20,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import com.helger.commons.ValueEnforcer;
 
 /**
  * Interface for objects having a last modification date time.
@@ -54,5 +57,22 @@ public interface IHasLastModificationDateTime
   {
     final LocalDateTime aLDT = getLastModificationDateTime ();
     return aLDT == null ? null : aLDT.toLocalTime ();
+  }
+
+  /**
+   * Check if the object was modified at the specified local date time. This is
+   * <code>true</code>, if the modified time is &le; than the specified local
+   * date time.
+   *
+   * @param aDT
+   *        The time to check for modification. May not be <code>null</code>.
+   * @return <code>true</code> if this object was modified, <code>false</code>
+   *         if not.
+   * @since 9.1.6
+   */
+  default boolean isLastModifiedAt (@Nonnull final LocalDateTime aDT)
+  {
+    ValueEnforcer.notNull (aDT, "LocalDateTime");
+    return hasLastModificationDateTime () && getLastModificationDateTime ().compareTo (aDT) <= 0;
   }
 }
