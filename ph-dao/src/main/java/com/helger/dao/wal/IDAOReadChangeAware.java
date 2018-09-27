@@ -26,5 +26,8 @@ package com.helger.dao.wal;
  */
 public interface IDAOReadChangeAware
 {
+  /**
+   * @return <code>true</code> to force writing the changes
+   */
   boolean isReadChanged ();
 }

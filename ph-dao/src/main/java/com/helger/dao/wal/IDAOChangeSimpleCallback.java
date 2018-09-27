@@ -24,7 +24,7 @@ import com.helger.commons.id.IHasID;
 
 /**
  * Simple version of the DAO callback that calls {@link #onChange(IHasID)} for
- * all items.
+ * all actions on all items.
  *
  * @author Philip Helger
  * @param <INTERFACETYPE>

@@ -23,6 +23,13 @@ import javax.annotation.Nonnull;
 import com.helger.commons.callback.ICallback;
 import com.helger.commons.id.IHasID;
 
+/**
+ * Callback interface for DAO stuff
+ *
+ * @author Philip Helger
+ * @param <INTERFACETYPE>
+ *        DAO manager interface type
+ */
 public interface IDAOChangeCallback <INTERFACETYPE extends IHasID <String> & Serializable> extends ICallback
 {
   /**
