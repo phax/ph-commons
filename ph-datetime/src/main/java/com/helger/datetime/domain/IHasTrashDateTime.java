@@ -20,7 +20,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import com.helger.commons.ValueEnforcer;
 
 /**
  * Interface for objects having a trash date time.
@@ -54,5 +57,22 @@ public interface IHasTrashDateTime
   {
     final LocalDateTime aLDT = getTrashDateTime ();
     return aLDT == null ? null : aLDT.toLocalTime ();
+  }
+
+  /**
+   * Check if the object was trashed at the specified local date time. This is
+   * <code>true</code>, if the trashed time is &le; than the specified local
+   * date time.
+   *
+   * @param aDT
+   *        The time to check for trashing. May not be <code>null</code>.
+   * @return <code>true</code> if this object was trashed, <code>false</code> if
+   *         not.
+   * @since 9.1.6
+   */
+  default boolean isTrashedAt (@Nonnull final LocalDateTime aDT)
+  {
+    ValueEnforcer.notNull (aDT, "LocalDateTime");
+    return hasTrashDateTime () && getTrashDateTime ().compareTo (aDT) <= 0;
   }
 }
