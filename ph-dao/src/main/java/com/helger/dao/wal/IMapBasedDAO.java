@@ -96,6 +96,9 @@ public interface IMapBasedDAO <INTERFACETYPE extends IHasID <String>> extends IH
    *        The filter to be applied. May be <code>null</code>.
    * @param aMapper
    *        The mapper to be invoked. May not be <code>null</code>.
+   * @param aConsumer
+   *        The consumer to be invoked for all matches. May not be
+   *        <code>null</code>.
    * @param <RETTYPE>
    *        Return type to which is mapped
    */
