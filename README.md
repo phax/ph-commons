@@ -28,6 +28,8 @@ This project was the following modules:
 
 ## News and noteworthy
 
+* v9.1.7 - work in progress
+    * Added new class `IdentityByteArrayCodec`
 * v9.1.6 - 2018-10-01
     * Added `CHttpHeader.X_CONTENT_SECURITY_POLICY_REPORT_ONLY`
     * Added `ValueEnforcer.isNE0` methods
