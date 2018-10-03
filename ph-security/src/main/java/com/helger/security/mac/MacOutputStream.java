@@ -1,8 +1,25 @@
+/**
+ * Copyright (C) 2014-2018 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.helger.security.mac;
 
 import java.io.IOException;
 import java.io.OutputStream;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.crypto.Mac;
 
@@ -30,16 +47,15 @@ public class MacOutputStream extends WrappedOutputStream
 {
   public static final boolean DEFAULT_ON = true;
 
-  private boolean m_bOn = DEFAULT_ON;
-
   /**
    * The Mac associated with this stream.
    */
   private Mac m_aMac;
 
+  private boolean m_bOn = DEFAULT_ON;
+
   /**
-   * Creates a digest output stream, using the specified output stream and
-   * message digest.
+   * Creates a Mac output stream, using the specified output stream and Mac.
    *
    * @param aOS
    *        the output stream.
@@ -58,6 +74,7 @@ public class MacOutputStream extends WrappedOutputStream
    * @return the Mac associated with this stream.
    * @see #setMac(Mac)
    */
+  @Nonnull
   public final Mac getMac ()
   {
     return m_aMac;
@@ -123,7 +140,9 @@ public class MacOutputStream extends WrappedOutputStream
    * @see Mac#update(byte[], int, int)
    */
   @Override
-  public void write (final byte [] aBuf, final int nOfs, final int nLen) throws IOException
+  public void write (@Nonnull final byte [] aBuf,
+                     @Nonnegative final int nOfs,
+                     @Nonnegative final int nLen) throws IOException
   {
     out.write (aBuf, nOfs, nLen);
     if (m_bOn)
@@ -146,6 +165,10 @@ public class MacOutputStream extends WrappedOutputStream
     m_bOn = bOn;
   }
 
+  /**
+   * @return <code>true</code> if Mac processing is on, <code>false</code> if it
+   *         is off
+   */
   public final boolean isOn ()
   {
     return m_bOn;
