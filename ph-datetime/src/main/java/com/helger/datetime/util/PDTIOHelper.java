@@ -36,7 +36,7 @@ import com.helger.commons.datetime.PDTToString;
 public final class PDTIOHelper
 {
   /** Date pattern suitable for generic sorting */
-  public static final String PATTERN_DATE = "yyyyMMdd";
+  public static final String PATTERN_DATE = "uuuuMMdd";
   /** Time pattern suitable for generic sorting */
   public static final String PATTERN_TIME = "HHmmss";
   /** Date and time pattern suitable for generic sorting */

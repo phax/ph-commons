@@ -25,6 +25,8 @@ import java.time.LocalTime;
 
 import org.junit.Test;
 
+import com.helger.commons.datetime.PDTFromString;
+
 /**
  * Test class for class {@link PDTIOHelper}.
  *
@@ -39,9 +41,22 @@ public final class PDTIOHelperTest
     assertNotNull (PDTIOHelper.getCurrentDateForFilename ());
     assertNotNull (PDTIOHelper.getCurrentTimeForFilename ());
 
-    assertEquals ("20051012_034512",
-                  PDTIOHelper.getLocalDateTimeForFilename (LocalDateTime.of (2005, 10, 12, 3, 45, 12)));
-    assertEquals ("20051012", PDTIOHelper.getDateForFilename (LocalDate.of (2005, 10, 12)));
-    assertEquals ("034512", PDTIOHelper.getTimeForFilename (LocalTime.of (3, 45, 12)));
+    final LocalDateTime aLDT = LocalDateTime.of (2005, 10, 12, 3, 45, 12);
+    assertEquals ("20051012_034512", PDTIOHelper.getLocalDateTimeForFilename (aLDT));
+    assertEquals (aLDT,
+                  PDTFromString.getLocalDateTimeFromString (PDTIOHelper.getLocalDateTimeForFilename (aLDT),
+                                                            PDTIOHelper.PATTERN_DATETIME));
+
+    final LocalDate aLD = LocalDate.of (2005, 10, 12);
+    assertEquals ("20051012", PDTIOHelper.getDateForFilename (aLD));
+    assertEquals (aLD,
+                  PDTFromString.getLocalDateFromString (PDTIOHelper.getDateForFilename (aLD),
+                                                        PDTIOHelper.PATTERN_DATE));
+
+    final LocalTime aLT = LocalTime.of (3, 45, 12);
+    assertEquals ("034512", PDTIOHelper.getTimeForFilename (aLT));
+    assertEquals (aLT,
+                  PDTFromString.getLocalTimeFromString (PDTIOHelper.getTimeForFilename (aLT),
+                                                        PDTIOHelper.PATTERN_TIME));
   }
 }
