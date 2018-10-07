@@ -204,6 +204,7 @@ public interface IJsonArray extends
    * @return <code>true</code> if the value is contained, <code>false</code> if
    *         not.
    */
+  @Deprecated
   default boolean contains (final byte nValue)
   {
     return contains (JsonValue.create (nValue));
@@ -243,6 +244,7 @@ public interface IJsonArray extends
    * @return <code>true</code> if the value is contained, <code>false</code> if
    *         not.
    */
+  @Deprecated
   default boolean contains (final float fValue)
   {
     return contains (JsonValue.create (fValue));
@@ -282,6 +284,7 @@ public interface IJsonArray extends
    * @return <code>true</code> if the value is contained, <code>false</code> if
    *         not.
    */
+  @Deprecated
   default boolean contains (final short nValue)
   {
     return contains (JsonValue.create (nValue));

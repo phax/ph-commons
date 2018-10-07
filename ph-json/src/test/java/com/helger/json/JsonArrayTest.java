@@ -54,6 +54,7 @@ public final class JsonArrayTest
   }
 
   @Test
+  @SuppressWarnings ("deprecation")
   public void testContains ()
   {
     final JsonArray aArray = new JsonArray ();

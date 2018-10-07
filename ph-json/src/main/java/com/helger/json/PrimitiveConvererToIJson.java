@@ -38,7 +38,7 @@ public class PrimitiveConvererToIJson implements IPrimitiveConverterTo <IJson>
   @Nonnull
   public IJson convert (final byte value)
   {
-    return JsonValue.create (value);
+    return convert ((int) value);
   }
 
   @Nonnull
@@ -56,7 +56,7 @@ public class PrimitiveConvererToIJson implements IPrimitiveConverterTo <IJson>
   @Nonnull
   public IJson convert (final float value)
   {
-    return JsonValue.create (value);
+    return convert ((double) value);
   }
 
   @Nonnull
@@ -74,7 +74,7 @@ public class PrimitiveConvererToIJson implements IPrimitiveConverterTo <IJson>
   @Nonnull
   public IJson convert (final short value)
   {
-    return JsonValue.create (value);
+    return convert ((int) value);
   }
 
   @Nonnull

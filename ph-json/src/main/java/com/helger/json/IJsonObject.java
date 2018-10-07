@@ -104,6 +104,7 @@ public interface IJsonObject extends
   }
 
   @Nonnull
+  @Deprecated
   default IJsonObject add (@Nonnull final String sName, final byte nValue)
   {
     return add (sName, JsonValue.create (nValue));
@@ -122,6 +123,7 @@ public interface IJsonObject extends
   }
 
   @Nonnull
+  @Deprecated
   default IJsonObject add (@Nonnull final String sName, final float fValue)
   {
     return add (sName, JsonValue.create (fValue));
@@ -140,6 +142,7 @@ public interface IJsonObject extends
   }
 
   @Nonnull
+  @Deprecated
   default IJsonObject add (@Nonnull final String sName, final short nValue)
   {
     return add (sName, JsonValue.create (nValue));
@@ -343,6 +346,7 @@ public interface IJsonObject extends
    * @return <code>true</code> if the value is contained, <code>false</code> if
    *         not.
    */
+  @Deprecated
   default boolean containsValue (final byte nValue)
   {
     return containsValue (JsonValue.create (nValue));
@@ -382,6 +386,7 @@ public interface IJsonObject extends
    * @return <code>true</code> if the value is contained, <code>false</code> if
    *         not.
    */
+  @Deprecated
   default boolean containsValue (final float fValue)
   {
     return containsValue (JsonValue.create (fValue));
@@ -421,6 +426,7 @@ public interface IJsonObject extends
    * @return <code>true</code> if the value is contained, <code>false</code> if
    *         not.
    */
+  @Deprecated
   default boolean containsValue (final short nValue)
   {
     return containsValue (JsonValue.create (nValue));

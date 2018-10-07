@@ -203,6 +203,7 @@ public class JsonValue implements IJsonValue
   }
 
   @Nonnull
+  @Deprecated
   public static JsonValue create (final byte nValue)
   {
     return create ((int) nValue);
@@ -221,6 +222,7 @@ public class JsonValue implements IJsonValue
   }
 
   @Nonnull
+  @Deprecated
   public static JsonValue create (final float fValue)
   {
     return create (Double.valueOf (fValue));
@@ -247,6 +249,7 @@ public class JsonValue implements IJsonValue
   }
 
   @Nonnull
+  @Deprecated
   public static JsonValue create (final short nValue)
   {
     return create ((int) nValue);
