@@ -17,6 +17,7 @@
 package com.helger.commons.io.stream;
 
 import java.io.FilterOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 
 import javax.annotation.Nonnull;
@@ -41,6 +42,13 @@ public class WrappedOutputStream extends FilterOutputStream
   public final OutputStream getWrappedOutputStream ()
   {
     return out;
+  }
+
+  @Override
+  public void write (@Nonnull final byte [] aBuf, final int nOfs, final int nLen) throws IOException
+  {
+    ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
+    out.write (aBuf, nOfs, nLen);
   }
 
   @Override
