@@ -69,6 +69,14 @@ public class LoggingOutputStream extends WrappedOutputStream
   }
 
   @Override
+  public void write (@Nonnull final byte [] aBuf, final int nOfs, final int nLen) throws IOException
+  {
+    super.write (aBuf, nOfs, nLen);
+    m_nTotalBytesWritten += nLen;
+    onWrite (nLen, m_nTotalBytesWritten);
+  }
+
+  @Override
   public String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ())
