@@ -241,9 +241,8 @@ public class JsonValue implements IJsonValue
   @Nonnull
   public static JsonValue create (final long nValue)
   {
-    // Use cached value
-    if (nValue >= INT_CACHE_MIN && nValue < INT_CACHE_MAX)
-      return NUMERIC[(int) nValue - INT_CACHE_MIN];
+    if (nValue >= Integer.MIN_VALUE && nValue <= Integer.MAX_VALUE)
+      return create ((int) nValue);
 
     return create (Long.valueOf (nValue));
   }

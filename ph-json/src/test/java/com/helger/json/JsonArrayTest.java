@@ -153,7 +153,7 @@ public final class JsonArrayTest
     aArray.addAll ((int []) null);
     assertEquals (19, aArray.size ());
 
-    aArray.addAll (new long [] { 1000, 1001, 1002 });
+    aArray.addAll (new long [] { Integer.MAX_VALUE + 1000L, Integer.MAX_VALUE + 1001L, Integer.MAX_VALUE + 1002L });
     assertEquals (22, aArray.size ());
     aArray.addAll (new long [0]);
     assertEquals (22, aArray.size ());
@@ -271,7 +271,8 @@ public final class JsonArrayTest
     aArray.addAllAt (0, (int []) null);
     assertEquals (19, aArray.size ());
 
-    aArray.addAllAt (0, new long [] { 1000, 1001, 1002 });
+    aArray.addAllAt (0,
+                     new long [] { Integer.MAX_VALUE + 1000L, Integer.MAX_VALUE + 1001L, Integer.MAX_VALUE + 1002L });
     assertEquals (22, aArray.size ());
     aArray.addAllAt (0, new long [0]);
     assertEquals (22, aArray.size ());
@@ -330,12 +331,12 @@ public final class JsonArrayTest
     assertEquals (String.class, aArray.getValueAtIndex (6).getValueClass ());
     assertEquals (Integer.class, aArray.getValueAtIndex (7).getValueClass ());
     assertEquals (BigDecimal.class, aArray.getValueAtIndex (8).getValueClass ());
-    assertEquals (String.class, aArray.getValueAtIndex (3).getValueClass ());
-    assertEquals (Integer.class, aArray.getValueAtIndex (4).getValueClass ());
     assertEquals (BigDecimal.class, aArray.getValueAtIndex (5).getValueClass ());
-    assertEquals (String.class, aArray.getValueAtIndex (0).getValueClass ());
-    assertEquals (Integer.class, aArray.getValueAtIndex (1).getValueClass ());
+    assertEquals (Integer.class, aArray.getValueAtIndex (4).getValueClass ());
+    assertEquals (String.class, aArray.getValueAtIndex (3).getValueClass ());
     assertEquals (BigDecimal.class, aArray.getValueAtIndex (2).getValueClass ());
+    assertEquals (Integer.class, aArray.getValueAtIndex (1).getValueClass ());
+    assertEquals (String.class, aArray.getValueAtIndex (0).getValueClass ());
 
     assertEquals (34, aArray.getClonedValues ().size ());
     CommonsTestHelper.testGetClone (aArray);
