@@ -28,6 +28,9 @@ This project was the following modules:
 
 ## News and noteworthy
 
+* v9.2.0 - planned
+    * Remove all methods deprecated for removal in 9.x
+    * Change `DOMReader.readXMLDOM` to not throw an Exception. Provide a suitable `ErrorHandler` instead.
 * v9.1.7 - work in progress
     * Added new class `IdentityByteArrayCodec`
     * Added new classes `MacInputStream` and `MacOutputStream`
