@@ -37,6 +37,7 @@ This project was the following modules:
     * Deprecated some JSON APIs with `byte`, `short` and `float`
     * Overloaded `WrappedOutputStream.write (byte[],int,int)` for quicker pass-through
     * `JSONValue` handling for `long` values in the `int` range was changed to store `int` internally
+    * Added new `StringHelper.contains(Any|No|Only)` methods for `CharSequence` objects
 * v9.1.6 - 2018-10-01
     * Added `CHttpHeader.X_CONTENT_SECURITY_POLICY_REPORT_ONLY`
     * Added `ValueEnforcer.isNE0` methods

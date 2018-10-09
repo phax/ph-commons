@@ -41,6 +41,7 @@ import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.collection.impl.ICommonsSet;
+import com.helger.commons.functional.ICharPredicate;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -2150,5 +2151,39 @@ public final class StringHelperTest
     assertEquals ("ba", StringHelper.getReverse ("ab"));
     assertEquals (" ba", StringHelper.getReverse ("ab "));
     assertEquals ("cba", StringHelper.getReverse ("abc"));
+  }
+
+  @Test
+  public void testContains ()
+  {
+    assertTrue (StringHelper.containsAny ("aa", x -> x == 'a'));
+    assertTrue (StringHelper.containsAny ("abc", x -> x == 'a'));
+    assertTrue (StringHelper.containsAny ("abc", x -> x == 'b'));
+    assertTrue (StringHelper.containsAny ("abc", (ICharPredicate) null));
+    assertFalse (StringHelper.containsAny ("", (ICharPredicate) null));
+    assertFalse (StringHelper.containsAny (null, (ICharPredicate) null));
+    assertFalse (StringHelper.containsAny ("", x -> x == 'a'));
+    assertFalse (StringHelper.containsAny (null, x -> x == 'a'));
+    assertFalse (StringHelper.containsAny ("abc", x -> x == 'd'));
+
+    assertTrue (StringHelper.containsOnly ("aa", x -> x == 'a'));
+    assertFalse (StringHelper.containsOnly ("abc", x -> x == 'a'));
+    assertFalse (StringHelper.containsOnly ("abc", x -> x == 'b'));
+    assertTrue (StringHelper.containsOnly ("abc", (ICharPredicate) null));
+    assertFalse (StringHelper.containsOnly ("", (ICharPredicate) null));
+    assertFalse (StringHelper.containsOnly (null, (ICharPredicate) null));
+    assertFalse (StringHelper.containsOnly ("", x -> x == 'a'));
+    assertFalse (StringHelper.containsOnly (null, x -> x == 'a'));
+    assertFalse (StringHelper.containsOnly ("abc", x -> x == 'd'));
+
+    assertFalse (StringHelper.containsNone ("aa", x -> x == 'a'));
+    assertFalse (StringHelper.containsNone ("abc", x -> x == 'a'));
+    assertFalse (StringHelper.containsNone ("abc", x -> x == 'b'));
+    assertFalse (StringHelper.containsNone ("abc", (ICharPredicate) null));
+    assertTrue (StringHelper.containsNone ("", (ICharPredicate) null));
+    assertTrue (StringHelper.containsNone (null, (ICharPredicate) null));
+    assertTrue (StringHelper.containsNone ("", x -> x == 'a'));
+    assertTrue (StringHelper.containsNone (null, x -> x == 'a'));
+    assertTrue (StringHelper.containsNone ("abc", x -> x == 'd'));
   }
 }
