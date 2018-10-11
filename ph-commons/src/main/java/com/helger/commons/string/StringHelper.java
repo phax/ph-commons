@@ -180,7 +180,8 @@ public final class StringHelper
    * @param s
    *        The string to check. May be <code>null</code>.
    * @return <code>true</code> if the string is neither <code>null</code> nor
-   *         empty nor consists only of whitespaces, <code>false</code> otherwise
+   *         empty nor consists only of whitespaces, <code>false</code>
+   *         otherwise
    */
   public static boolean hasTextAfterTrim (@Nullable final String s)
   {
@@ -188,8 +189,8 @@ public final class StringHelper
   }
 
   /**
-   * Check if the passed {@link CharSequence} contains any character matching the
-   * provided filter.
+   * Check if the passed {@link CharSequence} contains any character matching
+   * the provided filter.
    *
    * @param aCS
    *        String to check. May be <code>null</code>.
@@ -215,6 +216,33 @@ public final class StringHelper
   }
 
   /**
+   * Check if the passed {@link String} contains any character matching the
+   * provided filter.
+   *
+   * @param sStr
+   *        String to check. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to use. May be <code>null</code>.
+   * @return <code>true</code> if the filter is <code>null</code> and the string
+   *         is not empty. <code>true</code> if the filter is not
+   *         <code>null</code> and at least one character of the string matches
+   *         the filter. <code>false</code> otherwise.
+   * @since 9.1.7
+   */
+  public static boolean containsAny (@Nullable final String sStr, @Nullable final ICharPredicate aFilter)
+  {
+    final int nLen = getLength (sStr);
+    if (aFilter == null)
+      return nLen > 0;
+
+    if (nLen > 0)
+      for (final char c : sStr.toCharArray ())
+        if (aFilter.test (c))
+          return true;
+    return false;
+  }
+
+  /**
    * Check if the passed {@link CharSequence} contains no character matching the
    * provided filter.
    *
@@ -224,8 +252,8 @@ public final class StringHelper
    *        The filter to use. May be <code>null</code>.
    * @return <code>true</code> if the filter is <code>null</code> and the string
    *         is empty. <code>true</code> if the filter is not <code>null</code>
-   *         and no character of the string matches the filter. <code>false</code>
-   *         otherwise.
+   *         and no character of the string matches the filter.
+   *         <code>false</code> otherwise.
    * @since 9.1.7
    */
   public static boolean containsNone (@Nullable final CharSequence aCS, @Nullable final ICharPredicate aFilter)
@@ -237,6 +265,33 @@ public final class StringHelper
     for (int i = 0; i < nLen; ++i)
       if (aFilter.test (aCS.charAt (i)))
         return false;
+    return true;
+  }
+
+  /**
+   * Check if the passed {@link String} contains no character matching the
+   * provided filter.
+   *
+   * @param sStr
+   *        String to check. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to use. May be <code>null</code>.
+   * @return <code>true</code> if the filter is <code>null</code> and the string
+   *         is empty. <code>true</code> if the filter is not <code>null</code>
+   *         and no character of the string matches the filter.
+   *         <code>false</code> otherwise.
+   * @since 9.1.7
+   */
+  public static boolean containsNone (@Nullable final String sStr, @Nullable final ICharPredicate aFilter)
+  {
+    final int nLen = getLength (sStr);
+    if (aFilter == null)
+      return nLen == 0;
+
+    if (nLen > 0)
+      for (final char c : sStr.toCharArray ())
+        if (aFilter.test (c))
+          return false;
     return true;
   }
 
@@ -271,15 +326,45 @@ public final class StringHelper
   }
 
   /**
+   * Check if the passed {@link String} contains only characters matching the
+   * provided filter.
+   *
+   * @param sStr
+   *        String to check. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to use. May be <code>null</code>.
+   * @return <code>true</code> if the filter is <code>null</code> and the string
+   *         is not empty. <code>true</code> if the filter is not
+   *         <code>null</code> and the string has at least one character and all
+   *         characters of the string match the filter. <code>false</code>
+   *         otherwise.
+   * @since 9.1.7
+   */
+  public static boolean containsOnly (@Nullable final String sStr, @Nullable final ICharPredicate aFilter)
+  {
+    final int nLen = getLength (sStr);
+    if (nLen == 0)
+      return false;
+
+    if (aFilter == null)
+      return true;
+
+    for (final char c : sStr.toCharArray ())
+      if (!aFilter.test (c))
+        return false;
+    return true;
+  }
+
+  /**
    * Check if the passed character sequence is only whitespace or not.
    *
    * @param s
-   *        The character sequence to be checked. May not be <code>null</code>.
+   *        The character sequence to be checked. May be <code>null</code>.
    * @return <code>true</code> if the passed sequence is empty or if only
    *         whitespace characters are contained.
    * @see Character#isWhitespace(char)
    */
-  public static boolean isAllWhitespace (@Nonnull final CharSequence s)
+  public static boolean isAllWhitespace (@Nullable final CharSequence s)
   {
     return containsOnly (s, Character::isWhitespace);
   }
@@ -348,13 +433,28 @@ public final class StringHelper
     return getWithLeading (sValue, nChars, '0');
   }
 
+  /**
+   * Get the result string with at least the desired length, and fill the lead
+   * or trail with the provided char
+   *
+   * @param sSrc
+   *        Source string. May be <code>null</code> or empty.
+   * @param nMinLen
+   *        The destination minimum length. Should be &gt; 0 to have an impact.
+   * @param cGap
+   *        The character to use to fill the gap
+   * @param bLeading
+   *        <code>true</code> to fill at the front (like "00" in "007") or at
+   *        the end (like "00" in "700")
+   * @return Never <code>null</code>.
+   */
   @Nonnull
   private static String _getWithLeadingOrTrailing (@Nullable final String sSrc,
-                                                   @Nonnegative final int nLen,
-                                                   final char cFront,
+                                                   @Nonnegative final int nMinLen,
+                                                   final char cGap,
                                                    final boolean bLeading)
   {
-    if (nLen <= 0)
+    if (nMinLen <= 0)
     {
       // Requested length is too short - return as is
       return getNotNull (sSrc, "");
@@ -364,54 +464,55 @@ public final class StringHelper
     if (nSrcLen == 0)
     {
       // Input string is empty
-      return getRepeated (cFront, nLen);
+      return getRepeated (cGap, nMinLen);
     }
 
-    final int nCharsToAdd = nLen - nSrcLen;
+    final int nCharsToAdd = nMinLen - nSrcLen;
     if (nCharsToAdd <= 0)
     {
       // Input string is already longer than requested minimum length
       return sSrc;
     }
 
-    final StringBuilder aSB = new StringBuilder (nLen);
+    final StringBuilder aSB = new StringBuilder (nMinLen);
     if (!bLeading)
       aSB.append (sSrc);
     for (int i = 0; i < nCharsToAdd; ++i)
-      aSB.append (cFront);
+      aSB.append (cGap);
     if (bLeading)
       aSB.append (sSrc);
     return aSB.toString ();
   }
 
   /**
-   * Get a string that is filled at the beginning with the passed character until
-   * the minimum length is reached. If the input string is empty, the result is a
-   * string with the provided len only consisting of the passed characters. If the
-   * input String is longer than the provided length, it is returned unchanged.
+   * Get a string that is filled at the beginning with the passed character
+   * until the minimum length is reached. If the input string is empty, the
+   * result is a string with the provided len only consisting of the passed
+   * characters. If the input String is longer than the provided length, it is
+   * returned unchanged.
    *
    * @param sSrc
    *        Source string. May be <code>null</code>.
-   * @param nLen
+   * @param nMinLen
    *        Minimum length. Should be &gt; 0.
    * @param cFront
    *        The character to be used at the beginning
    * @return A non-<code>null</code> string that has at least nLen chars
    */
   @Nonnull
-  public static String getWithLeading (@Nullable final String sSrc, @Nonnegative final int nLen, final char cFront)
+  public static String getWithLeading (@Nullable final String sSrc, @Nonnegative final int nMinLen, final char cFront)
   {
-    return _getWithLeadingOrTrailing (sSrc, nLen, cFront, true);
+    return _getWithLeadingOrTrailing (sSrc, nMinLen, cFront, true);
   }
 
   /**
-   * Get a string that is filled at the beginning with the passed character until
-   * the minimum length is reached. If the input String is longer than the
+   * Get a string that is filled at the beginning with the passed character
+   * until the minimum length is reached. If the input String is longer than the
    * provided length, it is returned unchanged.
    *
    * @param nValue
    *        Source string. May be <code>null</code>.
-   * @param nLen
+   * @param nMinLen
    *        Minimum length. Should be &gt; 0.
    * @param cFront
    *        The character to be used at the beginning
@@ -419,19 +520,19 @@ public final class StringHelper
    * @see #getWithLeading(String, int, char)
    */
   @Nonnull
-  public static String getWithLeading (final int nValue, @Nonnegative final int nLen, final char cFront)
+  public static String getWithLeading (final int nValue, @Nonnegative final int nMinLen, final char cFront)
   {
-    return _getWithLeadingOrTrailing (Integer.toString (nValue), nLen, cFront, true);
+    return _getWithLeadingOrTrailing (Integer.toString (nValue), nMinLen, cFront, true);
   }
 
   /**
-   * Get a string that is filled at the beginning with the passed character until
-   * the minimum length is reached. If the input String is longer than the
+   * Get a string that is filled at the beginning with the passed character
+   * until the minimum length is reached. If the input String is longer than the
    * provided length, it is returned unchanged.
    *
    * @param nValue
    *        Source string. May be <code>null</code>.
-   * @param nLen
+   * @param nMinLen
    *        Minimum length. Should be &gt; 0.
    * @param cFront
    *        The character to be used at the beginning
@@ -439,29 +540,30 @@ public final class StringHelper
    * @see #getWithLeading(String, int, char)
    */
   @Nonnull
-  public static String getWithLeading (final long nValue, @Nonnegative final int nLen, final char cFront)
+  public static String getWithLeading (final long nValue, @Nonnegative final int nMinLen, final char cFront)
   {
-    return _getWithLeadingOrTrailing (Long.toString (nValue), nLen, cFront, true);
+    return _getWithLeadingOrTrailing (Long.toString (nValue), nMinLen, cFront, true);
   }
 
   /**
    * Get a string that is filled at the end with the passed character until the
    * minimum length is reached. If the input string is empty, the result is a
-   * string with the provided len only consisting of the passed characters. If the
-   * input String is longer than the provided length, it is returned unchanged.
+   * string with the provided len only consisting of the passed characters. If
+   * the input String is longer than the provided length, it is returned
+   * unchanged.
    *
    * @param sSrc
    *        Source string. May be <code>null</code>.
-   * @param nLen
+   * @param nMinLen
    *        Minimum length. Should be &gt; 0.
-   * @param cFront
-   *        The character to be used at the beginning
+   * @param cEnd
+   *        The character to be used at the end
    * @return A non-<code>null</code> string that has at least nLen chars
    */
   @Nonnull
-  public static String getWithTrailing (@Nullable final String sSrc, @Nonnegative final int nLen, final char cFront)
+  public static String getWithTrailing (@Nullable final String sSrc, @Nonnegative final int nMinLen, final char cEnd)
   {
-    return _getWithLeadingOrTrailing (sSrc, nLen, cFront, false);
+    return _getWithLeadingOrTrailing (sSrc, nMinLen, cEnd, false);
   }
 
   /**
@@ -469,8 +571,8 @@ public final class StringHelper
    *
    * @param n
    *        The value to get the hex digit from. Must be between 0 and 15.
-   * @return The hex character (one of 0-9 or a-f), or '\0' if the value could not
-   *         be converted
+   * @return The hex character (one of 0-9 or a-f), or '\0' if the value could
+   *         not be converted
    */
   public static char getHexChar (final int n)
   {
@@ -482,8 +584,8 @@ public final class StringHelper
    *
    * @param n
    *        The value to get the hex digit from. Must be between 0 and 15.
-   * @return The hex character (one of 0-9 or A-F), or '\0' if the value could not
-   *         be converted
+   * @return The hex character (one of 0-9 or A-F), or '\0' if the value could
+   *         not be converted
    */
   public static char getHexCharUpperCase (final int n)
   {
@@ -571,8 +673,8 @@ public final class StringHelper
    *        High hex part
    * @param cLow
    *        Low hex part
-   * @return A value between 0 and 255, or -1 if any input character is not a hex
-   *         char!
+   * @return A value between 0 and 255, or -1 if any input character is not a
+   *         hex char!
    */
   public static int getHexByte (@Nonnegative final char cHigh, @Nonnegative final char cLow)
   {
@@ -616,7 +718,7 @@ public final class StringHelper
       final char c1 = aInput[nOfs + i + 1];
       final int nHexByte = getHexByte (c0, c1);
       if (nHexByte == -1)
-        throw new IllegalArgumentException ("Failed to convert '" + c0 + "' or '" + c1 + "' to a hex value!");
+        throw new IllegalArgumentException ("Failed to convert '" + c0 + "' and '" + c1 + "' to a hex value!");
       ret[nRetIdx++] = (byte) nHexByte;
     }
     return ret;
@@ -776,8 +878,8 @@ public final class StringHelper
   }
 
   /**
-   * Get a concatenated String from all elements of the passed container, without
-   * a separator. Even <code>null</code> elements are added.
+   * Get a concatenated String from all elements of the passed container,
+   * without a separator. Even <code>null</code> elements are added.
    *
    * @param aElements
    *        The container to convert. May be <code>null</code> or empty.
@@ -790,14 +892,14 @@ public final class StringHelper
   }
 
   /**
-   * Get a concatenated String from all elements of the passed container, without
-   * a separator. Even <code>null</code> elements are added.
+   * Get a concatenated String from all elements of the passed container,
+   * without a separator. Even <code>null</code> elements are added.
    *
    * @param aElements
    *        The container to convert. May be <code>null</code> or empty.
    * @param aMapper
-   *        The mapping function to convert from ELEMENTTYPE to String. May not be
-   *        <code>null</code>.
+   *        The mapping function to convert from ELEMENTTYPE to String. May not
+   *        be <code>null</code>.
    * @return The concatenated string.
    * @param <ELEMENTTYPE>
    *        Iterable element type
@@ -818,8 +920,8 @@ public final class StringHelper
 
   /**
    * Get a concatenated String from all elements of the passed container,
-   * separated by the specified separator string. Even <code>null</code> elements
-   * are added.
+   * separated by the specified separator string. Even <code>null</code>
+   * elements are added.
    *
    * @param sSep
    *        The separator to use. May not be <code>null</code>.
@@ -852,16 +954,16 @@ public final class StringHelper
 
   /**
    * Get a concatenated String from all elements of the passed container,
-   * separated by the specified separator string. Even <code>null</code> elements
-   * are added.
+   * separated by the specified separator string. Even <code>null</code>
+   * elements are added.
    *
    * @param sSep
    *        The separator to use. May not be <code>null</code>.
    * @param aElements
    *        The container to convert. May be <code>null</code> or empty.
    * @param aMapper
-   *        The mapping function to convert from ELEMENTTYPE to String. May not be
-   *        <code>null</code>.
+   *        The mapping function to convert from ELEMENTTYPE to String. May not
+   *        be <code>null</code>.
    * @return The concatenated string.
    * @param <ELEMENTTYPE>
    *        The element type of the collection to be imploded
@@ -900,8 +1002,8 @@ public final class StringHelper
    * @param aElements
    *        The container to convert. May be <code>null</code> or empty.
    * @param aMapper
-   *        The mapping function to convert from ELEMENTTYPE to String. May not be
-   *        <code>null</code>.
+   *        The mapping function to convert from ELEMENTTYPE to String. May not
+   *        be <code>null</code>.
    * @return The concatenated string.
    * @param <ELEMENTTYPE>
    *        The element type of the collection to be imploded
@@ -923,8 +1025,8 @@ public final class StringHelper
    *        The separator to use for separating the map entries. May not be
    *        <code>null</code>.
    * @param sSepInner
-   *        The separator to use for separating the key from the value. May not be
-   *        <code>null</code>.
+   *        The separator to use for separating the key from the value. May not
+   *        be <code>null</code>.
    * @param aElements
    *        The map to convert. May be <code>null</code> or empty.
    * @return The concatenated string.
@@ -973,8 +1075,8 @@ public final class StringHelper
    *        The separator to use for separating the map entries. May not be
    *        <code>null</code>.
    * @param sSepInner
-   *        The separator to use for separating the key from the value. May not be
-   *        <code>null</code>.
+   *        The separator to use for separating the key from the value. May not
+   *        be <code>null</code>.
    * @param aElements
    *        The map to convert. May be <code>null</code> or empty.
    * @param aKeyMapper
@@ -1101,8 +1203,8 @@ public final class StringHelper
    * @param aElements
    *        The container to convert. May be <code>null</code> or empty.
    * @param aMapper
-   *        The mapping function to convert from ELEMENTTYPE to String. May not be
-   *        <code>null</code>.
+   *        The mapping function to convert from ELEMENTTYPE to String. May not
+   *        be <code>null</code>.
    * @return The concatenated string.
    * @param <ELEMENTTYPE>
    *        The type of elements to be imploded.
@@ -1130,8 +1232,8 @@ public final class StringHelper
    * @param nLen
    *        The number of elements to implode.
    * @param aMapper
-   *        The mapping function to convert from ELEMENTTYPE to String. May not be
-   *        <code>null</code>.
+   *        The mapping function to convert from ELEMENTTYPE to String. May not
+   *        be <code>null</code>.
    * @return The concatenated string.
    * @param <ELEMENTTYPE>
    *        The type of elements to be imploded.
@@ -1155,8 +1257,8 @@ public final class StringHelper
   }
 
   /**
-   * Get a concatenated String from all elements of the passed array, separated by
-   * the specified separator string.
+   * Get a concatenated String from all elements of the passed array, separated
+   * by the specified separator string.
    *
    * @param sSep
    *        The separator to use. May not be <code>null</code>.
@@ -1174,8 +1276,8 @@ public final class StringHelper
   }
 
   /**
-   * Get a concatenated String from all elements of the passed array, separated by
-   * the specified separator char.
+   * Get a concatenated String from all elements of the passed array, separated
+   * by the specified separator char.
    *
    * @param cSep
    *        The separator to use.
@@ -1193,8 +1295,8 @@ public final class StringHelper
   }
 
   /**
-   * Get a concatenated String from all elements of the passed array, separated by
-   * the specified separator string.
+   * Get a concatenated String from all elements of the passed array, separated
+   * by the specified separator string.
    *
    * @param sSep
    *        The separator to use. May not be <code>null</code>.
@@ -1218,16 +1320,16 @@ public final class StringHelper
   }
 
   /**
-   * Get a concatenated String from all elements of the passed array, separated by
-   * the specified separator string.
+   * Get a concatenated String from all elements of the passed array, separated
+   * by the specified separator string.
    *
    * @param sSep
    *        The separator to use. May not be <code>null</code>.
    * @param aElements
    *        The container to convert. May be <code>null</code> or empty.
    * @param aMapper
-   *        The mapping function to convert from ELEMENTTYPE to String. May not be
-   *        <code>null</code>.
+   *        The mapping function to convert from ELEMENTTYPE to String. May not
+   *        be <code>null</code>.
    * @return The concatenated string.
    * @param <ELEMENTTYPE>
    *        The type of elements to be imploded.
@@ -1247,16 +1349,16 @@ public final class StringHelper
   }
 
   /**
-   * Get a concatenated String from all elements of the passed array, separated by
-   * the specified separator char.
+   * Get a concatenated String from all elements of the passed array, separated
+   * by the specified separator char.
    *
    * @param cSep
    *        The separator to use.
    * @param aElements
    *        The container to convert. May be <code>null</code> or empty.
    * @param aMapper
-   *        The mapping function to convert from ELEMENTTYPE to String. May not be
-   *        <code>null</code>.
+   *        The mapping function to convert from ELEMENTTYPE to String. May not
+   *        be <code>null</code>.
    * @return The concatenated string.
    * @param <ELEMENTTYPE>
    *        The type of elements to be imploded.
@@ -1271,8 +1373,8 @@ public final class StringHelper
   }
 
   /**
-   * Get a concatenated String from all elements of the passed array, separated by
-   * the specified separator char.
+   * Get a concatenated String from all elements of the passed array, separated
+   * by the specified separator char.
    *
    * @param cSep
    *        The separator to use.
@@ -1283,8 +1385,8 @@ public final class StringHelper
    * @param nLen
    *        The number of elements to implode.
    * @param aMapper
-   *        The mapping function to convert from ELEMENTTYPE to String. May not be
-   *        <code>null</code>.
+   *        The mapping function to convert from ELEMENTTYPE to String. May not
+   *        be <code>null</code>.
    * @return The concatenated string.
    * @param <ELEMENTTYPE>
    *        The type of elements to be imploded.
@@ -1301,8 +1403,8 @@ public final class StringHelper
   }
 
   /**
-   * Get a concatenated String from all elements of the passed array, separated by
-   * the specified separator string.
+   * Get a concatenated String from all elements of the passed array, separated
+   * by the specified separator string.
    *
    * @param sSep
    *        The separator to use. May not be <code>null</code>.
@@ -1313,8 +1415,8 @@ public final class StringHelper
    * @param nLen
    *        The number of elements to implode.
    * @param aMapper
-   *        The mapping function to convert from ELEMENTTYPE to String. May not be
-   *        <code>null</code>.
+   *        The mapping function to convert from ELEMENTTYPE to String. May not
+   *        be <code>null</code>.
    * @return The concatenated string.
    * @param <ELEMENTTYPE>
    *        The type of elements to be imploded.
@@ -1347,8 +1449,8 @@ public final class StringHelper
   }
 
   /**
-   * Get a concatenated String from all elements of the passed array, separated by
-   * the specified separator char.
+   * Get a concatenated String from all elements of the passed array, separated
+   * by the specified separator char.
    *
    * @param cSep
    *        The separator to use.
@@ -1396,8 +1498,8 @@ public final class StringHelper
    * @param aElements
    *        The container to convert. May be <code>null</code> or empty.
    * @param aMapper
-   *        The mapping function to convert from ELEMENTTYPE to String. May not be
-   *        <code>null</code>.
+   *        The mapping function to convert from ELEMENTTYPE to String. May not
+   *        be <code>null</code>.
    * @return The concatenated string.
    * @param <ELEMENTTYPE>
    *        Iterable element type
@@ -1429,8 +1531,8 @@ public final class StringHelper
    * @param aElements
    *        The array to convert. May be <code>null</code> or empty.
    * @param aMapper
-   *        The mapping function to convert from ELEMENTTYPE to String. May not be
-   *        <code>null</code>.
+   *        The mapping function to convert from ELEMENTTYPE to String. May not
+   *        be <code>null</code>.
    * @return The concatenated string.
    * @param <ELEMENTTYPE>
    *        Array component type
@@ -1474,8 +1576,8 @@ public final class StringHelper
 
   /**
    * Get a concatenated String from all non-<code>null</code> and non empty
-   * elements of the passed container, separated by the specified separator char.
-   * This the very generic version of
+   * elements of the passed container, separated by the specified separator
+   * char. This the very generic version of
    * {@link #getConcatenatedOnDemand(String, String, String)} for an arbitrary
    * number of elements.
    *
@@ -1503,8 +1605,8 @@ public final class StringHelper
    * @param aElements
    *        The container to convert. May be <code>null</code> or empty.
    * @param aMapper
-   *        The mapping function to convert from ELEMENTTYPE to String. May not be
-   *        <code>null</code>.
+   *        The mapping function to convert from ELEMENTTYPE to String. May not
+   *        be <code>null</code>.
    * @return The concatenated string.
    * @param <ELEMENTTYPE>
    *        The element type of the collection to be imploded
@@ -1539,8 +1641,8 @@ public final class StringHelper
 
   /**
    * Get a concatenated String from all non-<code>null</code> and non empty
-   * elements of the passed container, separated by the specified separator char.
-   * This the very generic version of
+   * elements of the passed container, separated by the specified separator
+   * char. This the very generic version of
    * {@link #getConcatenatedOnDemand(String, String, String)} for an arbitrary
    * number of elements.
    *
@@ -1549,8 +1651,8 @@ public final class StringHelper
    * @param aElements
    *        The container to convert. May be <code>null</code> or empty.
    * @param aMapper
-   *        The mapping function to convert from ELEMENTTYPE to String. May not be
-   *        <code>null</code>.
+   *        The mapping function to convert from ELEMENTTYPE to String. May not
+   *        be <code>null</code>.
    * @return The concatenated string.
    * @param <ELEMENTTYPE>
    *        The element type of the collection to be imploded
@@ -1565,8 +1667,8 @@ public final class StringHelper
   }
 
   /**
-   * Get a concatenated String from all elements of the passed array, separated by
-   * the specified separator string. This the very generic version of
+   * Get a concatenated String from all elements of the passed array, separated
+   * by the specified separator string. This the very generic version of
    * {@link #getConcatenatedOnDemand(String, String, String)} for an arbitrary
    * number of elements.
    *
@@ -1583,8 +1685,8 @@ public final class StringHelper
   }
 
   /**
-   * Get a concatenated String from all elements of the passed array, separated by
-   * the specified separator char. This the very generic version of
+   * Get a concatenated String from all elements of the passed array, separated
+   * by the specified separator char. This the very generic version of
    * {@link #getConcatenatedOnDemand(String, String, String)} for an arbitrary
    * number of elements.
    *
@@ -1601,8 +1703,8 @@ public final class StringHelper
   }
 
   /**
-   * Get a concatenated String from all elements of the passed array, separated by
-   * the specified separator string. This the very generic version of
+   * Get a concatenated String from all elements of the passed array, separated
+   * by the specified separator string. This the very generic version of
    * {@link #getConcatenatedOnDemand(String, String, String)} for an arbitrary
    * number of elements.
    *
@@ -1611,8 +1713,8 @@ public final class StringHelper
    * @param aElements
    *        The container to convert. May be <code>null</code> or empty.
    * @param aMapper
-   *        The mapping function to convert from ELEMENTTYPE to String. May not be
-   *        <code>null</code>.
+   *        The mapping function to convert from ELEMENTTYPE to String. May not
+   *        be <code>null</code>.
    * @return The concatenated string.
    * @param <ELEMENTTYPE>
    *        Array component type
@@ -1632,8 +1734,8 @@ public final class StringHelper
   }
 
   /**
-   * Get a concatenated String from all elements of the passed array, separated by
-   * the specified separator char. This the very generic version of
+   * Get a concatenated String from all elements of the passed array, separated
+   * by the specified separator char. This the very generic version of
    * {@link #getConcatenatedOnDemand(String, String, String)} for an arbitrary
    * number of elements.
    *
@@ -1642,8 +1744,8 @@ public final class StringHelper
    * @param aElements
    *        The container to convert. May be <code>null</code> or empty.
    * @param aMapper
-   *        The mapping function to convert from ELEMENTTYPE to String. May not be
-   *        <code>null</code>.
+   *        The mapping function to convert from ELEMENTTYPE to String. May not
+   *        be <code>null</code>.
    * @return The concatenated string.
    * @param <ELEMENTTYPE>
    *        Array component type
@@ -1658,8 +1760,8 @@ public final class StringHelper
   }
 
   /**
-   * Get a concatenated String from all elements of the passed array, separated by
-   * the specified separator string. This the very generic version of
+   * Get a concatenated String from all elements of the passed array, separated
+   * by the specified separator string. This the very generic version of
    * {@link #getConcatenatedOnDemand(String, String, String)} for an arbitrary
    * number of elements.
    *
@@ -1683,8 +1785,8 @@ public final class StringHelper
   }
 
   /**
-   * Get a concatenated String from all elements of the passed array, separated by
-   * the specified separator char. This the very generic version of
+   * Get a concatenated String from all elements of the passed array, separated
+   * by the specified separator char. This the very generic version of
    * {@link #getConcatenatedOnDemand(String, String, String)} for an arbitrary
    * number of elements.
    *
@@ -1708,8 +1810,8 @@ public final class StringHelper
   }
 
   /**
-   * Get a concatenated String from all elements of the passed array, separated by
-   * the specified separator string. This the very generic version of
+   * Get a concatenated String from all elements of the passed array, separated
+   * by the specified separator string. This the very generic version of
    * {@link #getConcatenatedOnDemand(String, String, String)} for an arbitrary
    * number of elements.
    *
@@ -1722,8 +1824,8 @@ public final class StringHelper
    * @param nLen
    *        The number of elements to implode.
    * @param aMapper
-   *        The mapping function to convert from ELEMENTTYPE to String. May not be
-   *        <code>null</code>.
+   *        The mapping function to convert from ELEMENTTYPE to String. May not
+   *        be <code>null</code>.
    * @return The concatenated string.
    * @param <ELEMENTTYPE>
    *        Array component type
@@ -1761,8 +1863,8 @@ public final class StringHelper
   }
 
   /**
-   * Get a concatenated String from all elements of the passed array, separated by
-   * the specified separator char. This the very generic version of
+   * Get a concatenated String from all elements of the passed array, separated
+   * by the specified separator char. This the very generic version of
    * {@link #getConcatenatedOnDemand(String, String, String)} for an arbitrary
    * number of elements.
    *
@@ -1775,8 +1877,8 @@ public final class StringHelper
    * @param nLen
    *        The number of elements to implode.
    * @param aMapper
-   *        The mapping function to convert from ELEMENTTYPE to String. May not be
-   *        <code>null</code>.
+   *        The mapping function to convert from ELEMENTTYPE to String. May not
+   *        be <code>null</code>.
    * @return The concatenated string.
    * @param <ELEMENTTYPE>
    *        Array component type
@@ -1793,16 +1895,17 @@ public final class StringHelper
   }
 
   /**
-   * Take a concatenated String and return the passed String array of all elements
-   * in the passed string, using specified separator char.
+   * Take a concatenated String and return the passed String array of all
+   * elements in the passed string, using specified separator char.
    *
    * @param cSep
    *        The separator to use.
    * @param sElements
-   *        The concatenated String to convert. May be <code>null</code> or empty.
+   *        The concatenated String to convert. May be <code>null</code> or
+   *        empty.
    * @param nMaxItems
-   *        The maximum number of items to explode. If the passed value is &le; 0
-   *        all items are used. If max items is 1, than the result string is
+   *        The maximum number of items to explode. If the passed value is &le;
+   *        0 all items are used. If max items is 1, than the result string is
    *        returned as is. If max items is larger than the number of elements
    *        found, it has no effect.
    * @return The passed collection and never <code>null</code>.
@@ -1852,13 +1955,14 @@ public final class StringHelper
   }
 
   /**
-   * Take a concatenated String and return the passed String array of all elements
-   * in the passed string, using specified separator char.
+   * Take a concatenated String and return the passed String array of all
+   * elements in the passed string, using specified separator char.
    *
    * @param cSep
    *        The separator to use.
    * @param sElements
-   *        The concatenated String to convert. May be <code>null</code> or empty.
+   *        The concatenated String to convert. May be <code>null</code> or
+   *        empty.
    * @return The passed collection and never <code>null</code>.
    */
   @Nonnull
@@ -1876,15 +1980,16 @@ public final class StringHelper
    * @param cSep
    *        The separator to use.
    * @param sElements
-   *        The concatenated String to convert. May be <code>null</code> or empty.
+   *        The concatenated String to convert. May be <code>null</code> or
+   *        empty.
    * @param nMaxItems
-   *        The maximum number of items to explode. If the passed value is &le; 0
-   *        all items are used. If max items is 1, than the result string is
+   *        The maximum number of items to explode. If the passed value is &le;
+   *        0 all items are used. If max items is 1, than the result string is
    *        returned as is. If max items is larger than the number of elements
    *        found, it has no effect.
    * @param aCollection
-   *        The non-<code>null</code> target collection that should be filled with
-   *        the exploded elements
+   *        The non-<code>null</code> target collection that should be filled
+   *        with the exploded elements
    * @return The passed collection and never <code>null</code>.
    */
   @Nonnull
@@ -1906,7 +2011,8 @@ public final class StringHelper
    * @param cSep
    *        The separator to use.
    * @param sElements
-   *        The concatenated String to convert. May be <code>null</code> or empty.
+   *        The concatenated String to convert. May be <code>null</code> or
+   *        empty.
    * @param aConsumer
    *        The non-<code>null</code> consumer that is invoked for each exploded
    *        element
@@ -1925,10 +2031,11 @@ public final class StringHelper
    * @param cSep
    *        The separator to use.
    * @param sElements
-   *        The concatenated String to convert. May be <code>null</code> or empty.
+   *        The concatenated String to convert. May be <code>null</code> or
+   *        empty.
    * @param nMaxItems
-   *        The maximum number of items to explode. If the passed value is &le; 0
-   *        all items are used. If max items is 1, than the result string is
+   *        The maximum number of items to explode. If the passed value is &le;
+   *        0 all items are used. If max items is 1, than the result string is
    *        returned as is. If max items is larger than the number of elements
    *        found, it has no effect.
    * @param aConsumer
@@ -1970,16 +2077,17 @@ public final class StringHelper
   }
 
   /**
-   * Take a concatenated String and return a {@link ICommonsList} of all elements
-   * in the passed string, using specified separator string.
+   * Take a concatenated String and return a {@link ICommonsList} of all
+   * elements in the passed string, using specified separator string.
    *
    * @param cSep
    *        The separator character to use.
    * @param sElements
-   *        The concatenated String to convert. May be <code>null</code> or empty.
+   *        The concatenated String to convert. May be <code>null</code> or
+   *        empty.
    * @return The {@link ICommonsList} represented by the passed string. Never
-   *         <code>null</code>. If the passed input string is <code>null</code> or
-   *         "" an empty list is returned.
+   *         <code>null</code>. If the passed input string is <code>null</code>
+   *         or "" an empty list is returned.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -1989,21 +2097,22 @@ public final class StringHelper
   }
 
   /**
-   * Take a concatenated String and return a {@link ICommonsList} of all elements
-   * in the passed string, using specified separator string.
+   * Take a concatenated String and return a {@link ICommonsList} of all
+   * elements in the passed string, using specified separator string.
    *
    * @param cSep
    *        The separator character to use.
    * @param sElements
-   *        The concatenated String to convert. May be <code>null</code> or empty.
+   *        The concatenated String to convert. May be <code>null</code> or
+   *        empty.
    * @param nMaxItems
-   *        The maximum number of items to explode. If the passed value is &le; 0
-   *        all items are used. If max items is 1, than the result string is
+   *        The maximum number of items to explode. If the passed value is &le;
+   *        0 all items are used. If max items is 1, than the result string is
    *        returned as is. If max items is larger than the number of elements
    *        found, it has no effect.
    * @return The {@link ICommonsList} represented by the passed string. Never
-   *         <code>null</code>. If the passed input string is <code>null</code> or
-   *         "" an empty list is returned.
+   *         <code>null</code>. If the passed input string is <code>null</code>
+   *         or "" an empty list is returned.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -2026,15 +2135,16 @@ public final class StringHelper
    * @param sSep
    *        The separator to use. May not be <code>null</code>.
    * @param sElements
-   *        The concatenated String to convert. May be <code>null</code> or empty.
+   *        The concatenated String to convert. May be <code>null</code> or
+   *        empty.
    * @param nMaxItems
-   *        The maximum number of items to explode. If the passed value is &le; 0
-   *        all items are used. If max items is 1, than the result string is
+   *        The maximum number of items to explode. If the passed value is &le;
+   *        0 all items are used. If max items is 1, than the result string is
    *        returned as is. If max items is larger than the number of elements
    *        found, it has no effect.
    * @param aCollection
-   *        The non-<code>null</code> target collection that should be filled with
-   *        the exploded elements
+   *        The non-<code>null</code> target collection that should be filled
+   *        with the exploded elements
    * @return The passed collection and never <code>null</code>.
    */
   @Nonnull
@@ -2055,7 +2165,8 @@ public final class StringHelper
    * @param sSep
    *        The separator to use. May not be <code>null</code>.
    * @param sElements
-   *        The concatenated String to convert. May be <code>null</code> or empty.
+   *        The concatenated String to convert. May be <code>null</code> or
+   *        empty.
    * @param aConsumer
    *        The non-<code>null</code> consumer that is invoked for each exploded
    *        element
@@ -2074,10 +2185,11 @@ public final class StringHelper
    * @param sSep
    *        The separator to use. May not be <code>null</code>.
    * @param sElements
-   *        The concatenated String to convert. May be <code>null</code> or empty.
+   *        The concatenated String to convert. May be <code>null</code> or
+   *        empty.
    * @param nMaxItems
-   *        The maximum number of items to explode. If the passed value is &le; 0
-   *        all items are used. If max items is 1, than the result string is
+   *        The maximum number of items to explode. If the passed value is &le;
+   *        0 all items are used. If max items is 1, than the result string is
    *        returned as is. If max items is larger than the number of elements
    *        found, it has no effect.
    * @param aConsumer
@@ -2134,16 +2246,17 @@ public final class StringHelper
   }
 
   /**
-   * Take a concatenated String and return a {@link ICommonsList} of all elements
-   * in the passed string, using specified separator string.
+   * Take a concatenated String and return a {@link ICommonsList} of all
+   * elements in the passed string, using specified separator string.
    *
    * @param sSep
    *        The separator to use. May not be <code>null</code>.
    * @param sElements
-   *        The concatenated String to convert. May be <code>null</code> or empty.
+   *        The concatenated String to convert. May be <code>null</code> or
+   *        empty.
    * @return The {@link ICommonsList} represented by the passed string. Never
-   *         <code>null</code>. If the passed input string is <code>null</code> or
-   *         "" an empty list is returned.
+   *         <code>null</code>. If the passed input string is <code>null</code>
+   *         or "" an empty list is returned.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -2153,21 +2266,22 @@ public final class StringHelper
   }
 
   /**
-   * Take a concatenated String and return a {@link ICommonsList} of all elements
-   * in the passed string, using specified separator string.
+   * Take a concatenated String and return a {@link ICommonsList} of all
+   * elements in the passed string, using specified separator string.
    *
    * @param sSep
    *        The separator to use. May not be <code>null</code>.
    * @param sElements
-   *        The concatenated String to convert. May be <code>null</code> or empty.
+   *        The concatenated String to convert. May be <code>null</code> or
+   *        empty.
    * @param nMaxItems
-   *        The maximum number of items to explode. If the passed value is &le; 0
-   *        all items are used. If max items is 1, than the result string is
+   *        The maximum number of items to explode. If the passed value is &le;
+   *        0 all items are used. If max items is 1, than the result string is
    *        returned as is. If max items is larger than the number of elements
    *        found, it has no effect.
    * @return The {@link ICommonsList} represented by the passed string. Never
-   *         <code>null</code>. If the passed input string is <code>null</code> or
-   *         "" an empty list is returned.
+   *         <code>null</code>. If the passed input string is <code>null</code>
+   *         or "" an empty list is returned.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -2188,10 +2302,11 @@ public final class StringHelper
    * @param sSep
    *        The separator to use. May not be <code>null</code>.
    * @param sElements
-   *        The concatenated String to convert. May be <code>null</code> or empty.
+   *        The concatenated String to convert. May be <code>null</code> or
+   *        empty.
    * @return The {@link Set} represented by the passed string. Never
-   *         <code>null</code>. If the passed input string is <code>null</code> or
-   *         "" an empty list is returned.
+   *         <code>null</code>. If the passed input string is <code>null</code>
+   *         or "" an empty list is returned.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -2201,16 +2316,18 @@ public final class StringHelper
   }
 
   /**
-   * Take a concatenated String and return an ordered {@link CommonsLinkedHashSet}
-   * of all elements in the passed string, using specified separator string.
+   * Take a concatenated String and return an ordered
+   * {@link CommonsLinkedHashSet} of all elements in the passed string, using
+   * specified separator string.
    *
    * @param sSep
    *        The separator to use. May not be <code>null</code>.
    * @param sElements
-   *        The concatenated String to convert. May be <code>null</code> or empty.
+   *        The concatenated String to convert. May be <code>null</code> or
+   *        empty.
    * @return The ordered {@link Set} represented by the passed string. Never
-   *         <code>null</code>. If the passed input string is <code>null</code> or
-   *         "" an empty list is returned.
+   *         <code>null</code>. If the passed input string is <code>null</code>
+   *         or "" an empty list is returned.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -2221,16 +2338,17 @@ public final class StringHelper
   }
 
   /**
-   * Take a concatenated String and return a sorted {@link CommonsTreeSet} of all
-   * elements in the passed string, using specified separator string.
+   * Take a concatenated String and return a sorted {@link CommonsTreeSet} of
+   * all elements in the passed string, using specified separator string.
    *
    * @param sSep
    *        The separator to use. May not be <code>null</code>.
    * @param sElements
-   *        The concatenated String to convert. May be <code>null</code> or empty.
+   *        The concatenated String to convert. May be <code>null</code> or
+   *        empty.
    * @return The sorted {@link Set} represented by the passed string. Never
-   *         <code>null</code>. If the passed input string is <code>null</code> or
-   *         "" an empty list is returned.
+   *         <code>null</code>. If the passed input string is <code>null</code>
+   *         or "" an empty list is returned.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -2248,8 +2366,8 @@ public final class StringHelper
    *        The character to get repeated.
    * @param nRepeats
    *        The number of repetitions to retrieve. May not be &lt; 0.
-   * @return A non-<code>null</code> string containing the string element for the
-   *         given number of times.
+   * @return A non-<code>null</code> string containing the string element for
+   *         the given number of times.
    */
   @Nonnull
   public static String getRepeated (final char cElement, @Nonnegative final int nRepeats)
@@ -2274,8 +2392,8 @@ public final class StringHelper
    *        The string to get repeated. May not be <code>null</code>.
    * @param nRepeats
    *        The number of repetitions to retrieve. May not be &lt; 0.
-   * @return A non-<code>null</code> string containing the string element for the
-   *         given number of times.
+   * @return A non-<code>null</code> string containing the string element for
+   *         the given number of times.
    */
   @Nonnull
   public static String getRepeated (@Nonnull final String sElement, @Nonnegative final int nRepeats)
@@ -2327,8 +2445,8 @@ public final class StringHelper
   }
 
   /**
-   * Concatenate the strings sFront and sEnd by the "sSep" string. If either front
-   * or back is <code>null</code> or empty, the separator is not applied.
+   * Concatenate the strings sFront and sEnd by the "sSep" string. If either
+   * front or back is <code>null</code> or empty, the separator is not applied.
    *
    * @param sFront
    *        Front string. May be <code>null</code>.
@@ -2517,8 +2635,9 @@ public final class StringHelper
    *        The text to search in. May be <code>null</code>.
    * @param sSearch
    *        The text to search for. May be <code>null</code>.
-   * @return The first index of sSearch within sText or {@value #STRING_NOT_FOUND}
-   *         if sSearch was not found or if any parameter was <code>null</code>.
+   * @return The first index of sSearch within sText or
+   *         {@value #STRING_NOT_FOUND} if sSearch was not found or if any
+   *         parameter was <code>null</code>.
    * @see String#indexOf(String)
    */
   public static int getIndexOf (@Nullable final String sText, @Nullable final String sSearch)
@@ -2536,8 +2655,9 @@ public final class StringHelper
    *        The index to start searching in the source string
    * @param sSearch
    *        The text to search for. May be <code>null</code>.
-   * @return The first index of sSearch within sText or {@value #STRING_NOT_FOUND}
-   *         if sSearch was not found or if any parameter was <code>null</code>.
+   * @return The first index of sSearch within sText or
+   *         {@value #STRING_NOT_FOUND} if sSearch was not found or if any
+   *         parameter was <code>null</code>.
    * @see String#indexOf(String,int)
    */
   public static int getIndexOf (@Nullable final String sText,
@@ -2556,8 +2676,9 @@ public final class StringHelper
    *        The text to search in. May be <code>null</code>.
    * @param sSearch
    *        The text to search for. May be <code>null</code>.
-   * @return The last index of sSearch within sText or {@value #STRING_NOT_FOUND}
-   *         if sSearch was not found or if any parameter was <code>null</code>.
+   * @return The last index of sSearch within sText or
+   *         {@value #STRING_NOT_FOUND} if sSearch was not found or if any
+   *         parameter was <code>null</code>.
    * @see String#lastIndexOf(String)
    */
   public static int getLastIndexOf (@Nullable final String sText, @Nullable final String sSearch)
@@ -2575,8 +2696,9 @@ public final class StringHelper
    *        The index to start searching in the source string
    * @param sSearch
    *        The text to search for. May be <code>null</code>.
-   * @return The last index of sSearch within sText or {@value #STRING_NOT_FOUND}
-   *         if sSearch was not found or if any parameter was <code>null</code>.
+   * @return The last index of sSearch within sText or
+   *         {@value #STRING_NOT_FOUND} if sSearch was not found or if any
+   *         parameter was <code>null</code>.
    * @see String#lastIndexOf(String,int)
    */
   public static int getLastIndexOf (@Nullable final String sText,
@@ -2596,8 +2718,9 @@ public final class StringHelper
    *        The text to search in. May be <code>null</code>.
    * @param cSearch
    *        The character to search for. May be <code>null</code>.
-   * @return The first index of sSearch within sText or {@value #STRING_NOT_FOUND}
-   *         if cSearch was not found or if any parameter was <code>null</code>.
+   * @return The first index of sSearch within sText or
+   *         {@value #STRING_NOT_FOUND} if cSearch was not found or if any
+   *         parameter was <code>null</code>.
    * @see String#indexOf(int)
    */
   public static int getIndexOf (@Nullable final String sText, final char cSearch)
@@ -2614,8 +2737,9 @@ public final class StringHelper
    *        The index to start searching in the source string
    * @param cSearch
    *        The character to search for. May be <code>null</code>.
-   * @return The first index of sSearch within sText or {@value #STRING_NOT_FOUND}
-   *         if cSearch was not found or if any parameter was <code>null</code>.
+   * @return The first index of sSearch within sText or
+   *         {@value #STRING_NOT_FOUND} if cSearch was not found or if any
+   *         parameter was <code>null</code>.
    * @see String#indexOf(int,int)
    */
   public static int getIndexOf (@Nullable final String sText, @Nonnegative final int nFromIndex, final char cSearch)
@@ -2631,8 +2755,9 @@ public final class StringHelper
    *        The text to search in. May be <code>null</code>.
    * @param cSearch
    *        The character to search for. May be <code>null</code>.
-   * @return The last index of sSearch within sText or {@value #STRING_NOT_FOUND}
-   *         if cSearch was not found or if any parameter was <code>null</code>.
+   * @return The last index of sSearch within sText or
+   *         {@value #STRING_NOT_FOUND} if cSearch was not found or if any
+   *         parameter was <code>null</code>.
    * @see String#lastIndexOf(int)
    */
   public static int getLastIndexOf (@Nullable final String sText, final char cSearch)
@@ -2649,8 +2774,9 @@ public final class StringHelper
    *        The index to start searching in the source string
    * @param cSearch
    *        The character to search for. May be <code>null</code>.
-   * @return The last index of sSearch within sText or {@value #STRING_NOT_FOUND}
-   *         if cSearch was not found or if any parameter was <code>null</code>.
+   * @return The last index of sSearch within sText or
+   *         {@value #STRING_NOT_FOUND} if cSearch was not found or if any
+   *         parameter was <code>null</code>.
    * @see String#lastIndexOf(int,int)
    */
   public static int getLastIndexOf (@Nullable final String sText, @Nonnegative final int nFromIndex, final char cSearch)
@@ -2668,8 +2794,9 @@ public final class StringHelper
    *        The text to search for. May be <code>null</code>.
    * @param aSortLocale
    *        The locale to be used for case unifying.
-   * @return The first index of sSearch within sText or {@value #STRING_NOT_FOUND}
-   *         if sSearch was not found or if any parameter was <code>null</code>.
+   * @return The first index of sSearch within sText or
+   *         {@value #STRING_NOT_FOUND} if sSearch was not found or if any
+   *         parameter was <code>null</code>.
    * @see String#indexOf(String)
    */
   public static int getIndexOfIgnoreCase (@Nullable final String sText,
@@ -2693,8 +2820,9 @@ public final class StringHelper
    *        The text to search for. May be <code>null</code>.
    * @param aSortLocale
    *        The locale to be used for case unifying.
-   * @return The first index of sSearch within sText or {@value #STRING_NOT_FOUND}
-   *         if sSearch was not found or if any parameter was <code>null</code>.
+   * @return The first index of sSearch within sText or
+   *         {@value #STRING_NOT_FOUND} if sSearch was not found or if any
+   *         parameter was <code>null</code>.
    * @see String#indexOf(String)
    */
   public static int getIndexOfIgnoreCase (@Nullable final String sText,
@@ -2720,8 +2848,9 @@ public final class StringHelper
    *        The text to search for. May be <code>null</code>.
    * @param aSortLocale
    *        The locale to be used for case unifying.
-   * @return The last index of sSearch within sText or {@value #STRING_NOT_FOUND}
-   *         if sSearch was not found or if any parameter was <code>null</code>.
+   * @return The last index of sSearch within sText or
+   *         {@value #STRING_NOT_FOUND} if sSearch was not found or if any
+   *         parameter was <code>null</code>.
    * @see String#lastIndexOf(String)
    */
   public static int getLastIndexOfIgnoreCase (@Nullable final String sText,
@@ -2745,8 +2874,9 @@ public final class StringHelper
    *        The text to search for. May be <code>null</code>.
    * @param aSortLocale
    *        The locale to be used for case unifying.
-   * @return The last index of sSearch within sText or {@value #STRING_NOT_FOUND}
-   *         if sSearch was not found or if any parameter was <code>null</code>.
+   * @return The last index of sSearch within sText or
+   *         {@value #STRING_NOT_FOUND} if sSearch was not found or if any
+   *         parameter was <code>null</code>.
    * @see String#lastIndexOf(String)
    */
   public static int getLastIndexOfIgnoreCase (@Nullable final String sText,
@@ -2772,8 +2902,9 @@ public final class StringHelper
    *        The char to search for. May be <code>null</code>.
    * @param aSortLocale
    *        The locale to be used for case unifying.
-   * @return The first index of sSearch within sText or {@value #STRING_NOT_FOUND}
-   *         if sSearch was not found or if any parameter was <code>null</code>.
+   * @return The first index of sSearch within sText or
+   *         {@value #STRING_NOT_FOUND} if sSearch was not found or if any
+   *         parameter was <code>null</code>.
    * @see String#indexOf(int)
    */
   public static int getIndexOfIgnoreCase (@Nullable final String sText,
@@ -2797,8 +2928,9 @@ public final class StringHelper
    *        The char to search for. May be <code>null</code>.
    * @param aSortLocale
    *        The locale to be used for case unifying.
-   * @return The first index of sSearch within sText or {@value #STRING_NOT_FOUND}
-   *         if sSearch was not found or if any parameter was <code>null</code>.
+   * @return The first index of sSearch within sText or
+   *         {@value #STRING_NOT_FOUND} if sSearch was not found or if any
+   *         parameter was <code>null</code>.
    * @see String#indexOf(int)
    */
   public static int getIndexOfIgnoreCase (@Nullable final String sText,
@@ -2821,8 +2953,9 @@ public final class StringHelper
    *        The char to search for. May be <code>null</code>.
    * @param aSortLocale
    *        The locale to be used for case unifying.
-   * @return The last index of sSearch within sText or {@value #STRING_NOT_FOUND}
-   *         if sSearch was not found or if any parameter was <code>null</code>.
+   * @return The last index of sSearch within sText or
+   *         {@value #STRING_NOT_FOUND} if sSearch was not found or if any
+   *         parameter was <code>null</code>.
    * @see String#lastIndexOf(int)
    */
   public static int getLastIndexOfIgnoreCase (@Nullable final String sText,
@@ -2847,8 +2980,9 @@ public final class StringHelper
    *        The char to search for. May be <code>null</code>.
    * @param aSortLocale
    *        The locale to be used for case unifying.
-   * @return The last index of sSearch within sText or {@value #STRING_NOT_FOUND}
-   *         if sSearch was not found or if any parameter was <code>null</code>.
+   * @return The last index of sSearch within sText or
+   *         {@value #STRING_NOT_FOUND} if sSearch was not found or if any
+   *         parameter was <code>null</code>.
    * @see String#lastIndexOf(int)
    */
   public static int getLastIndexOfIgnoreCase (@Nullable final String sText,
@@ -2935,15 +3069,15 @@ public final class StringHelper
   }
 
   /**
-   * Check if any of the passed searched characters is contained in the input char
-   * array.
+   * Check if any of the passed searched characters is contained in the input
+   * char array.
    *
    * @param aInput
    *        The input char array. May be <code>null</code>.
    * @param aSearchChars
    *        The char array to search. May not be <code>null</code>.
-   * @return <code>true</code> if at least any of the search char is contained in
-   *         the input char array, <code>false</code> otherwise.
+   * @return <code>true</code> if at least any of the search char is contained
+   *         in the input char array, <code>false</code> otherwise.
    */
   public static boolean containsAny (@Nullable final char [] aInput, @Nonnull final char [] aSearchChars)
   {
@@ -2964,8 +3098,8 @@ public final class StringHelper
    *        The input string. May be <code>null</code>.
    * @param aSearchChars
    *        The char array to search. May not be <code>null</code>.
-   * @return <code>true</code> if at least any of the search char is contained in
-   *         the input char array, <code>false</code> otherwise.
+   * @return <code>true</code> if at least any of the search char is contained
+   *         in the input char array, <code>false</code> otherwise.
    */
   public static boolean containsAny (@Nullable final String sInput, @Nonnull final char [] aSearchChars)
   {
@@ -3123,8 +3257,8 @@ public final class StringHelper
    *        The input source string
    * @param sLead
    *        The string to be trimmed of the beginning
-   * @return The trimmed string, or the original input string, if the lead was not
-   *         found
+   * @return The trimmed string, or the original input string, if the lead was
+   *         not found
    * @see #trimEnd(String, String)
    * @see #trimStartAndEnd(String, String)
    * @see #trimStartAndEnd(String, String, String)
@@ -3161,8 +3295,8 @@ public final class StringHelper
    *        The input source string
    * @param cLead
    *        The char to be trimmed of the beginning
-   * @return The trimmed string, or the original input string, if the lead was not
-   *         found
+   * @return The trimmed string, or the original input string, if the lead was
+   *         not found
    * @see #trimEnd(String, String)
    * @see #trimStartAndEnd(String, String)
    * @see #trimStartAndEnd(String, String, String)
@@ -3208,15 +3342,15 @@ public final class StringHelper
   }
 
   /**
-   * Trim the passed tail from the source value. If the source value does not end
-   * with the passed tail, nothing happens.
+   * Trim the passed tail from the source value. If the source value does not
+   * end with the passed tail, nothing happens.
    *
    * @param sSrc
    *        The input source string
    * @param sTail
    *        The string to be trimmed of the end
-   * @return The trimmed string, or the original input string, if the tail was not
-   *         found
+   * @return The trimmed string, or the original input string, if the tail was
+   *         not found
    * @see #trimStart(String, String)
    * @see #trimStartAndEnd(String, String)
    * @see #trimStartAndEnd(String, String, String)
@@ -3246,15 +3380,15 @@ public final class StringHelper
   }
 
   /**
-   * Trim the passed tail from the source value. If the source value does not end
-   * with the passed tail, nothing happens.
+   * Trim the passed tail from the source value. If the source value does not
+   * end with the passed tail, nothing happens.
    *
    * @param sSrc
    *        The input source string
    * @param cTail
    *        The char to be trimmed of the end
-   * @return The trimmed string, or the original input string, if the tail was not
-   *         found
+   * @return The trimmed string, or the original input string, if the tail was
+   *         not found
    * @see #trimStart(String, String)
    * @see #trimStartAndEnd(String, String)
    * @see #trimStartAndEnd(String, String, String)
@@ -3280,8 +3414,8 @@ public final class StringHelper
   }
 
   /**
-   * Trim the passed tail from the source value. If the source value does not end
-   * with the passed tail, nothing happens.
+   * Trim the passed tail from the source value. If the source value does not
+   * end with the passed tail, nothing happens.
    *
    * @param sSrc
    *        The input source string
@@ -3300,8 +3434,8 @@ public final class StringHelper
   }
 
   /**
-   * Trim the passed lead and tail from the source value. If the source value does
-   * not start with the passed trimmed value, nothing happens.
+   * Trim the passed lead and tail from the source value. If the source value
+   * does not start with the passed trimmed value, nothing happens.
    *
    * @param sSrc
    *        The input source string
@@ -3321,9 +3455,9 @@ public final class StringHelper
   }
 
   /**
-   * Trim the passed lead and tail from the source value. If the source value does
-   * not start with the passed lead and does not end with the passed tail, nothing
-   * happens.
+   * Trim the passed lead and tail from the source value. If the source value
+   * does not start with the passed lead and does not end with the passed tail,
+   * nothing happens.
    *
    * @param sSrc
    *        The input source string
@@ -3331,8 +3465,8 @@ public final class StringHelper
    *        The string to be trimmed of the beginning
    * @param sTail
    *        The string to be trimmed of the end
-   * @return The trimmed string, or the original input string, if the lead and the
-   *         tail were not found
+   * @return The trimmed string, or the original input string, if the lead and
+   *         the tail were not found
    * @see #trimStart(String, String)
    * @see #trimEnd(String, String)
    * @see #trimStartAndEnd(String, String)
@@ -3348,8 +3482,8 @@ public final class StringHelper
   }
 
   /**
-   * Trim the passed lead and tail from the source value. If the source value does
-   * not start with the passed trimmed value, nothing happens.
+   * Trim the passed lead and tail from the source value. If the source value
+   * does not start with the passed trimmed value, nothing happens.
    *
    * @param sSrc
    *        The input source string
@@ -3369,9 +3503,9 @@ public final class StringHelper
   }
 
   /**
-   * Trim the passed lead and tail from the source value. If the source value does
-   * not start with the passed lead and does not end with the passed tail, nothing
-   * happens.
+   * Trim the passed lead and tail from the source value. If the source value
+   * does not start with the passed lead and does not end with the passed tail,
+   * nothing happens.
    *
    * @param sSrc
    *        The input source string
@@ -3379,8 +3513,8 @@ public final class StringHelper
    *        The char to be trimmed of the beginning
    * @param cTail
    *        The char to be trimmed of the end
-   * @return The trimmed string, or the original input string, if the lead and the
-   *         tail were not found
+   * @return The trimmed string, or the original input string, if the lead and
+   *         the tail were not found
    * @see #trimStart(String, char)
    * @see #trimEnd(String, char)
    * @see #trimStartAndEnd(String, char)
@@ -3552,19 +3686,20 @@ public final class StringHelper
   }
 
   /**
-   * Same as {@link #replaceAll(String, String, CharSequence)} but allowing for a
-   * <code>null</code> new-value, which is than interpreted as an empty string
+   * Same as {@link #replaceAll(String, String, CharSequence)} but allowing for
+   * a <code>null</code> new-value, which is than interpreted as an empty string
    * instead.
    *
    * @param sInputString
    *        The input string where the text should be replace. If this parameter
    *        is <code>null</code> or empty, no replacement is done.
    * @param sSearchText
-   *        The string to be replaced. May neither be <code>null</code> nor empty.
+   *        The string to be replaced. May neither be <code>null</code> nor
+   *        empty.
    * @param aReplacementText
    *        The string with the replacement. May be <code>null</code> or empty.
-   * @return The input string as is, if the input string is empty or if the string
-   *         to be replaced is not contained.
+   * @return The input string as is, if the input string is empty or if the
+   *         string to be replaced is not contained.
    */
   public static String replaceAllSafe (@Nullable final String sInputString,
                                        @Nonnull final String sSearchText,
@@ -3578,20 +3713,21 @@ public final class StringHelper
    * {@link String#replace(CharSequence, CharSequence)}. The problem with the
    * mentioned {@link String} method is, that is uses internally regular
    * expressions which use a synchronized block to compile the patterns. This
-   * method is inherently thread safe since {@link String} is immutable and we're
-   * operating on different temporary {@link StringBuilder} objects.
+   * method is inherently thread safe since {@link String} is immutable and
+   * we're operating on different temporary {@link StringBuilder} objects.
    *
    * @param sInputString
    *        The input string where the text should be replace. If this parameter
    *        is <code>null</code> or empty, no replacement is done.
    * @param sSearchText
-   *        The string to be replaced. May neither be <code>null</code> nor empty.
+   *        The string to be replaced. May neither be <code>null</code> nor
+   *        empty.
    * @param aReplacementText
-   *        The string with the replacement. May not be <code>null</code> but may
-   *        be empty.
-   * @return The input string as is, if the input string is empty or if the search
-   *         pattern and the replacement are equal or if the string to be replaced
-   *         is not contained.
+   *        The string with the replacement. May not be <code>null</code> but
+   *        may be empty.
+   * @return The input string as is, if the input string is empty or if the
+   *         search pattern and the replacement are equal or if the string to be
+   *         replaced is not contained.
    */
   @Nullable
   public static String replaceAll (@Nullable final String sInputString,
@@ -3644,8 +3780,8 @@ public final class StringHelper
   /**
    * This is a fast replacement for {@link String#replace(char, char)} for
    * characters. The problem with the mentioned String method is, that is uses
-   * internally regular expressions which use a synchronized block to compile the
-   * patterns. This method is inherently thread safe since {@link String} is
+   * internally regular expressions which use a synchronized block to compile
+   * the patterns. This method is inherently thread safe since {@link String} is
    * immutable and we're operating on different temporary {@link StringBuilder}
    * objects.
    *
@@ -3656,9 +3792,9 @@ public final class StringHelper
    *        The character to be replaced.
    * @param cReplacementChar
    *        The character with the replacement.
-   * @return The input string as is, if the input string is empty or if the search
-   *         pattern and the replacement are equal or if the string to be replaced
-   *         is not contained.
+   * @return The input string as is, if the input string is empty or if the
+   *         search pattern and the replacement are equal or if the string to be
+   *         replaced is not contained.
    */
   @Nullable
   public static String replaceAll (@Nullable final String sInputString,
@@ -3700,12 +3836,13 @@ public final class StringHelper
    *        The input string where the text should be replace. If this parameter
    *        is <code>null</code> or empty, no replacement is done.
    * @param sSearchText
-   *        The string to be replaced. May neither be <code>null</code> nor empty.
+   *        The string to be replaced. May neither be <code>null</code> nor
+   *        empty.
    * @param sReplacementText
-   *        The string with the replacement. May not be <code>null</code> but may
-   *        be empty.
-   * @return The input string as is, if the input string is empty or if the string
-   *         to be replaced is not contained.
+   *        The string with the replacement. May not be <code>null</code> but
+   *        may be empty.
+   * @return The input string as is, if the input string is empty or if the
+   *         string to be replaced is not contained.
    */
   @Nullable
   public static String replaceAllRepeatedly (@Nullable final String sInputString,
@@ -3867,8 +4004,8 @@ public final class StringHelper
   /**
    * Specialized version of {@link #replaceMultiple(String, char[], char[][])}
    * where the object where the output should be appended is passed in as a
-   * parameter. This has the advantage, that not length calculation needs to take
-   * place!
+   * parameter. This has the advantage, that not length calculation needs to
+   * take place!
    *
    * @param sInputString
    *        The input string.
@@ -3899,8 +4036,8 @@ public final class StringHelper
   /**
    * Specialized version of {@link #replaceMultiple(String, char[], char[][])}
    * where the object where the output should be appended is passed in as a
-   * parameter. This has the advantage, that not length calculation needs to take
-   * place!
+   * parameter. This has the advantage, that not length calculation needs to
+   * take place!
    *
    * @param aInput
    *        The input char array. May not be <code>null</code>.
@@ -3929,8 +4066,8 @@ public final class StringHelper
   /**
    * Specialized version of {@link #replaceMultiple(String, char[], char[][])}
    * where the object where the output should be appended is passed in as a
-   * parameter. This has the advantage, that not length calculation needs to take
-   * place!
+   * parameter. This has the advantage, that not length calculation needs to
+   * take place!
    *
    * @param aInput
    *        The input char array. May be <code>null</code>.
@@ -4172,8 +4309,8 @@ public final class StringHelper
   }
 
   /**
-   * Perform all string replacements on the input string as defined by the passed
-   * map. All replacements are done using
+   * Perform all string replacements on the input string as defined by the
+   * passed map. All replacements are done using
    * {@link #replaceAll(String,String,CharSequence)} which is ok.
    *
    * @param sInputString
@@ -4198,8 +4335,8 @@ public final class StringHelper
   }
 
   /**
-   * Perform all string replacements on the input string as defined by the passed
-   * map. All replacements are done using
+   * Perform all string replacements on the input string as defined by the
+   * passed map. All replacements are done using
    * {@link #replaceAll(String,String,CharSequence)} which is ok.
    *
    * @param sInputString
@@ -4209,11 +4346,12 @@ public final class StringHelper
    *        The texts to be searched. If <code>null</code> is passed, the input
    *        string is not altered.
    * @param aReplacementTexts
-   *        The texts to be used as the replacements. This array must have exactly
-   *        the same number of elements than the searched texts! If
+   *        The texts to be used as the replacements. This array must have
+   *        exactly the same number of elements than the searched texts! If
    *        <code>null</code> is passed, the input string is not altered.
    * @return <code>null</code> if the input string was <code>null</code>. The
-   *         unmodified input string if no search/replace patterns where provided.
+   *         unmodified input string if no search/replace patterns where
+   *         provided.
    */
   @Nullable
   public static String replaceMultiple (@Nullable final String sInputString,
@@ -4247,8 +4385,8 @@ public final class StringHelper
    *        parameter is <code>null</code> or empty, no removing is done.
    * @param cRemoveChar
    *        The character to be removed.
-   * @return The input string as is, if the input string is empty or if the remove
-   *         char is not contained.
+   * @return The input string as is, if the input string is empty or if the
+   *         remove char is not contained.
    */
   @Nullable
   public static String removeAll (@Nullable final String sInputString, final char cRemoveChar)
@@ -4289,8 +4427,8 @@ public final class StringHelper
    * @param sRemoveString
    *        The String to be removed. May be <code>null</code> or empty in which
    *        case nothing happens.
-   * @return The input string as is, if the input string is empty or if the remove
-   *         string is empty or not contained.
+   * @return The input string as is, if the input string is empty or if the
+   *         remove string is empty or not contained.
    */
   @Nullable
   public static String removeAll (@Nullable final String sInputString, @Nullable final String sRemoveString)
@@ -4367,8 +4505,8 @@ public final class StringHelper
    * @param s
    *        The parameter to be not <code>null</code>.
    * @param sDefaultIfNull
-   *        The value to be used of the first parameter is <code>null</code>. May
-   *        be <code>null</code> but in this case the call to this method is
+   *        The value to be used of the first parameter is <code>null</code>.
+   *        May be <code>null</code> but in this case the call to this method is
    *        obsolete.
    * @return The passed default value if the string is <code>null</code>,
    *         otherwise the input string.
@@ -4401,8 +4539,8 @@ public final class StringHelper
    * @param s
    *        The parameter to be not <code>null</code>.
    * @param sDefaultIfNull
-   *        The value to be used of the first parameter is <code>null</code>. May
-   *        be <code>null</code> but in this case the call to this method is
+   *        The value to be used of the first parameter is <code>null</code>.
+   *        May be <code>null</code> but in this case the call to this method is
    *        obsolete.
    * @return The passed default value if the string is <code>null</code>,
    *         otherwise the input {@link CharSequence}.
@@ -4423,8 +4561,8 @@ public final class StringHelper
    *        The value to be used of the first parameter is <code>null</code> or
    *        empty. May be <code>null</code> but in this case the call to this
    *        method is obsolete.
-   * @return The passed default value if the string is <code>null</code> or empty,
-   *         otherwise the input string.
+   * @return The passed default value if the string is <code>null</code> or
+   *         empty, otherwise the input string.
    */
   @Nullable
   public static String getNotEmpty (@Nullable final String s, @Nullable final String sDefaultIfEmpty)
@@ -4433,8 +4571,9 @@ public final class StringHelper
   }
 
   /**
-   * Get the passed string but never return an empty char sequence. If the passed
-   * parameter is <code>null</code> or empty the second parameter is returned.
+   * Get the passed string but never return an empty char sequence. If the
+   * passed parameter is <code>null</code> or empty the second parameter is
+   * returned.
    *
    * @param s
    *        The parameter to be not <code>null</code> nor empty.
@@ -4442,8 +4581,8 @@ public final class StringHelper
    *        The value to be used of the first parameter is <code>null</code> or
    *        empty. May be <code>null</code> but in this case the call to this
    *        method is obsolete.
-   * @return The passed default value if the char sequence is <code>null</code> or
-   *         empty, otherwise the input char sequence.
+   * @return The passed default value if the char sequence is <code>null</code>
+   *         or empty, otherwise the input char sequence.
    */
   @Nullable
   public static CharSequence getNotEmpty (@Nullable final CharSequence s, @Nullable final CharSequence sDefaultIfEmpty)
@@ -4557,13 +4696,13 @@ public final class StringHelper
   }
 
   /**
-   * Get the passed string where all spaces (white spaces or unicode spaces) have
-   * been removed.
+   * Get the passed string where all spaces (white spaces or unicode spaces)
+   * have been removed.
    *
    * @param sStr
    *        The source string. May be <code>null</code>
-   * @return A non-<code>null</code> string representing the passed string without
-   *         any spaces
+   * @return A non-<code>null</code> string representing the passed string
+   *         without any spaces
    */
   @Nonnull
   public static String getWithoutAnySpaces (@Nullable final String sStr)
@@ -4645,7 +4784,8 @@ public final class StringHelper
    * @param sSearch
    *        The string to search. May be <code>null</code>.
    * @return <code>null</code> if the passed string does not contain the search
-   *         string. If the search string is empty, the empty string is returned.
+   *         string. If the search string is empty, the empty string is
+   *         returned.
    */
   @Nullable
   public static String getUntilFirstIncl (@Nullable final String sStr, @Nullable final String sSearch)
@@ -4661,7 +4801,8 @@ public final class StringHelper
    * @param sSearch
    *        The string to search. May be <code>null</code>.
    * @return <code>null</code> if the passed string does not contain the search
-   *         string. If the search string is empty, the empty string is returned.
+   *         string. If the search string is empty, the empty string is
+   *         returned.
    */
   @Nullable
   public static String getUntilFirstExcl (@Nullable final String sStr, @Nullable final String sSearch)
@@ -4734,7 +4875,8 @@ public final class StringHelper
    * @param sSearch
    *        The string to search. May be <code>null</code>.
    * @return <code>null</code> if the passed string does not contain the search
-   *         string. If the search string is empty, the empty string is returned.
+   *         string. If the search string is empty, the empty string is
+   *         returned.
    */
   @Nullable
   public static String getUntilLastIncl (@Nullable final String sStr, @Nullable final String sSearch)
@@ -4750,7 +4892,8 @@ public final class StringHelper
    * @param sSearch
    *        The string to search. May be <code>null</code>.
    * @return <code>null</code> if the passed string does not contain the search
-   *         string. If the search string is empty, the empty string is returned.
+   *         string. If the search string is empty, the empty string is
+   *         returned.
    */
   @Nullable
   public static String getUntilLastExcl (@Nullable final String sStr, @Nullable final String sSearch)
@@ -5111,9 +5254,9 @@ public final class StringHelper
   }
 
   /**
-   * Encode a char array to a byte array using the provided charset. This does the
-   * same as <code>new String (aCharArray).getBytes (aCharset)</code> just without
-   * the intermediate objects.
+   * Encode a char array to a byte array using the provided charset. This does
+   * the same as <code>new String (aCharArray).getBytes (aCharset)</code> just
+   * without the intermediate objects.
    *
    * @param aCharset
    *        Charset to be used. May not be <code>null</code>.
@@ -5130,9 +5273,9 @@ public final class StringHelper
   }
 
   /**
-   * Encode a char array to a byte array using the provided charset. This does the
-   * same as <code>new String (aCharArray).getBytes (aCharset)</code> just without
-   * the intermediate objects.
+   * Encode a char array to a byte array using the provided charset. This does
+   * the same as <code>new String (aCharArray).getBytes (aCharset)</code> just
+   * without the intermediate objects.
    *
    * @param aCharset
    *        Charset to be used. May not be <code>null</code>.
@@ -5186,8 +5329,8 @@ public final class StringHelper
   }
 
   /**
-   * Decode a byte array to a char array using the provided charset. This does the
-   * same as <code>new String (aByteArray, aCharset)</code> just without the
+   * Decode a byte array to a char array using the provided charset. This does
+   * the same as <code>new String (aByteArray, aCharset)</code> just without the
    * intermediate objects.
    *
    * @param aByteArray
@@ -5204,8 +5347,8 @@ public final class StringHelper
   }
 
   /**
-   * Decode a byte array to a char array using the provided charset. This does the
-   * same as <code>new String (aByteArray, aCharset)</code> just without the
+   * Decode a byte array to a char array using the provided charset. This does
+   * the same as <code>new String (aByteArray, aCharset)</code> just without the
    * intermediate objects.
    *
    * @param aByteArray

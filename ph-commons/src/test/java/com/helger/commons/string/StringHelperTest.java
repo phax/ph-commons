@@ -2154,16 +2154,16 @@ public final class StringHelperTest
   }
 
   @Test
-  public void testContains ()
+  public void testContainsAnyOnlyNoneString ()
   {
     assertTrue (StringHelper.containsAny ("aa", x -> x == 'a'));
     assertTrue (StringHelper.containsAny ("abc", x -> x == 'a'));
     assertTrue (StringHelper.containsAny ("abc", x -> x == 'b'));
     assertTrue (StringHelper.containsAny ("abc", (ICharPredicate) null));
     assertFalse (StringHelper.containsAny ("", (ICharPredicate) null));
-    assertFalse (StringHelper.containsAny (null, (ICharPredicate) null));
+    assertFalse (StringHelper.containsAny ((String) null, (ICharPredicate) null));
     assertFalse (StringHelper.containsAny ("", x -> x == 'a'));
-    assertFalse (StringHelper.containsAny (null, x -> x == 'a'));
+    assertFalse (StringHelper.containsAny ((String) null, x -> x == 'a'));
     assertFalse (StringHelper.containsAny ("abc", x -> x == 'd'));
 
     assertTrue (StringHelper.containsOnly ("aa", x -> x == 'a'));
@@ -2171,9 +2171,9 @@ public final class StringHelperTest
     assertFalse (StringHelper.containsOnly ("abc", x -> x == 'b'));
     assertTrue (StringHelper.containsOnly ("abc", (ICharPredicate) null));
     assertFalse (StringHelper.containsOnly ("", (ICharPredicate) null));
-    assertFalse (StringHelper.containsOnly (null, (ICharPredicate) null));
+    assertFalse (StringHelper.containsOnly ((String) null, (ICharPredicate) null));
     assertFalse (StringHelper.containsOnly ("", x -> x == 'a'));
-    assertFalse (StringHelper.containsOnly (null, x -> x == 'a'));
+    assertFalse (StringHelper.containsOnly ((String) null, x -> x == 'a'));
     assertFalse (StringHelper.containsOnly ("abc", x -> x == 'd'));
 
     assertFalse (StringHelper.containsNone ("aa", x -> x == 'a'));
@@ -2181,9 +2181,58 @@ public final class StringHelperTest
     assertFalse (StringHelper.containsNone ("abc", x -> x == 'b'));
     assertFalse (StringHelper.containsNone ("abc", (ICharPredicate) null));
     assertTrue (StringHelper.containsNone ("", (ICharPredicate) null));
-    assertTrue (StringHelper.containsNone (null, (ICharPredicate) null));
+    assertTrue (StringHelper.containsNone ((String) null, (ICharPredicate) null));
     assertTrue (StringHelper.containsNone ("", x -> x == 'a'));
-    assertTrue (StringHelper.containsNone (null, x -> x == 'a'));
+    assertTrue (StringHelper.containsNone ((String) null, x -> x == 'a'));
     assertTrue (StringHelper.containsNone ("abc", x -> x == 'd'));
+  }
+
+  @Test
+  public void testContainsAnyOnlyNoneCharSequence ()
+  {
+    assertTrue (StringHelper.containsAny ((CharSequence) "aa", x -> x == 'a'));
+    assertTrue (StringHelper.containsAny ((CharSequence) "abc", x -> x == 'a'));
+    assertTrue (StringHelper.containsAny ((CharSequence) "abc", x -> x == 'b'));
+    assertTrue (StringHelper.containsAny ((CharSequence) "abc", (ICharPredicate) null));
+    assertFalse (StringHelper.containsAny ((CharSequence) "", (ICharPredicate) null));
+    assertFalse (StringHelper.containsAny ((CharSequence) null, (ICharPredicate) null));
+    assertFalse (StringHelper.containsAny ((CharSequence) "", x -> x == 'a'));
+    assertFalse (StringHelper.containsAny ((CharSequence) null, x -> x == 'a'));
+    assertFalse (StringHelper.containsAny ((CharSequence) "abc", x -> x == 'd'));
+
+    assertTrue (StringHelper.containsOnly ((CharSequence) "aa", x -> x == 'a'));
+    assertFalse (StringHelper.containsOnly ((CharSequence) "abc", x -> x == 'a'));
+    assertFalse (StringHelper.containsOnly ((CharSequence) "abc", x -> x == 'b'));
+    assertTrue (StringHelper.containsOnly ((CharSequence) "abc", (ICharPredicate) null));
+    assertFalse (StringHelper.containsOnly ((CharSequence) "", (ICharPredicate) null));
+    assertFalse (StringHelper.containsOnly ((CharSequence) null, (ICharPredicate) null));
+    assertFalse (StringHelper.containsOnly ((CharSequence) "", x -> x == 'a'));
+    assertFalse (StringHelper.containsOnly ((CharSequence) null, x -> x == 'a'));
+    assertFalse (StringHelper.containsOnly ((CharSequence) "abc", x -> x == 'd'));
+
+    assertFalse (StringHelper.containsNone ((CharSequence) "aa", x -> x == 'a'));
+    assertFalse (StringHelper.containsNone ((CharSequence) "abc", x -> x == 'a'));
+    assertFalse (StringHelper.containsNone ((CharSequence) "abc", x -> x == 'b'));
+    assertFalse (StringHelper.containsNone ((CharSequence) "abc", (ICharPredicate) null));
+    assertTrue (StringHelper.containsNone ((CharSequence) "", (ICharPredicate) null));
+    assertTrue (StringHelper.containsNone ((CharSequence) null, (ICharPredicate) null));
+    assertTrue (StringHelper.containsNone ((CharSequence) "", x -> x == 'a'));
+    assertTrue (StringHelper.containsNone ((CharSequence) null, x -> x == 'a'));
+    assertTrue (StringHelper.containsNone ((CharSequence) "abc", x -> x == 'd'));
+  }
+
+  @Test
+  public void testIsAllWhitespace ()
+  {
+    assertTrue (StringHelper.isAllWhitespace ("   "));
+    assertTrue (StringHelper.isAllWhitespace (" \t\r\n"));
+    assertTrue (StringHelper.isAllWhitespace ("\n"));
+
+    assertFalse (StringHelper.isAllWhitespace (""));
+    assertFalse (StringHelper.isAllWhitespace (null));
+    assertFalse (StringHelper.isAllWhitespace ("a"));
+    assertFalse (StringHelper.isAllWhitespace ("abc"));
+    assertFalse (StringHelper.isAllWhitespace ("ab c"));
+    assertFalse (StringHelper.isAllWhitespace (" a"));
   }
 }
