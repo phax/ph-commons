@@ -18,13 +18,21 @@ package com.helger.settings.exchange.configfile;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
 import com.helger.settings.Settings;
 
-public final class TrimmedValueSettings extends Settings
+/**
+ * Special {@link Settings} implementation that trims all values before adding
+ * them.
+ *
+ * @author Philip Helger
+ */
+@NotThreadSafe
+public class TrimmedValueSettings extends Settings
 {
   public TrimmedValueSettings (@Nonnull @Nonempty final String sName)
   {

@@ -42,7 +42,7 @@ import com.helger.settings.factory.ISettingsFactory;
 
 /**
  * A special {@link ISettingsPersistence} implementation that reads and writes
- * .properties files.
+ * .properties files. It assumes the ISO-8859-1 charset.
  *
  * @author Philip Helger
  */
@@ -63,10 +63,20 @@ public class SettingsPersistenceProperties implements ISettingsPersistence
   }
 
   @Nonnull
-  public final Charset getCharset ()
+  public Charset getCharset ()
   {
-    // Constant
+    // Constant for Java 8
     return StandardCharsets.ISO_8859_1;
+  }
+
+  /**
+   * @return The settings factory as specified in the constructor. Never
+   *         <code>null</code>.
+   */
+  @Nonnull
+  public final ISettingsFactory <?> getSettingsFactory ()
+  {
+    return m_aSettingsFactory;
   }
 
   @Nonnull

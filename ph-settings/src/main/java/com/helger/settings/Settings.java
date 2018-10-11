@@ -18,6 +18,7 @@ package com.helger.settings;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
@@ -31,6 +32,7 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author philip
  */
+@NotThreadSafe
 public class Settings extends AttributeContainerAny <String> implements ISettings
 {
   private final String m_sName;

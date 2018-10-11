@@ -35,8 +35,8 @@ This project was the following modules:
     * Added new class `IdentityByteArrayCodec`
     * Added new classes `MacInputStream` and `MacOutputStream`
     * Deprecated some JSON APIs with `byte`, `short` and `float`
-    * Overloaded `WrappedOutputStream.write (byte[],int,int)` for quicker pass-through
-    * `JSONValue` handling for `long` values in the `int` range was changed to store `int` internally
+    * Overloaded `WrappedOutputStream.write (byte[],int,int)` for quicker pass-through. Please ensure that all derived classes also overload this method.
+    * `JSONValue` handling for `long` values in the `int` range was changed to store `int` internally. This improves testability independent of the value range.
     * Added new `StringHelper.contains(Any|No|Only)` methods for `CharSequence` objects
 * v9.1.6 - 2018-10-01
     * Added `CHttpHeader.X_CONTENT_SECURITY_POLICY_REPORT_ONLY`

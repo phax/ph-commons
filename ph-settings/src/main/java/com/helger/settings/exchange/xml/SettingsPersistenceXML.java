@@ -79,7 +79,7 @@ public class SettingsPersistenceXML <T extends ISettings> implements ISettingsPe
    *         <code>null</code>.
    */
   @Nonnull
-  public ISettingsFactory <T> getSettingsFactory ()
+  public final ISettingsFactory <T> getSettingsFactory ()
   {
     return m_aSettingsFactory;
   }
@@ -89,7 +89,7 @@ public class SettingsPersistenceXML <T extends ISettings> implements ISettingsPe
    *         <code>null</code>.
    */
   @Nonnull
-  public IXMLWriterSettings getXMLWriterSettings ()
+  public final IXMLWriterSettings getXMLWriterSettings ()
   {
     return m_aXWS;
   }

@@ -17,6 +17,7 @@
 package com.helger.settings;
 
 import javax.annotation.Nonnull;
+import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.cache.Cache;
@@ -27,6 +28,7 @@ import com.helger.settings.factory.ISettingsFactory;
  *
  * @author Philip Helger
  */
+@ThreadSafe
 public class SettingsCache extends Cache <String, ISettings>
 {
   private final ISettingsFactory <?> m_aSettingsFactory;
@@ -41,7 +43,7 @@ public class SettingsCache extends Cache <String, ISettings>
    * @return The settings factory as specified in the constructor.
    */
   @Nonnull
-  public ISettingsFactory <?> getSettingsFactory ()
+  public final ISettingsFactory <?> getSettingsFactory ()
   {
     return m_aSettingsFactory;
   }

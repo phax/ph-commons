@@ -18,6 +18,7 @@ package com.helger.settings;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
@@ -32,6 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
+@NotThreadSafe
 public class SettingsWithDefault extends Settings implements ISettingsWithDefault
 {
   private final ISettings m_aDefaultSettings;
@@ -80,7 +82,7 @@ public class SettingsWithDefault extends Settings implements ISettingsWithDefaul
   }
 
   @Nonnull
-  public ISettings getDefaultSettings ()
+  public final ISettings getDefaultSettings ()
   {
     return m_aDefaultSettings;
   }
@@ -97,7 +99,7 @@ public class SettingsWithDefault extends Settings implements ISettingsWithDefaul
   }
 
   @Nonnull
-  public EChange setAllToDefault ()
+  public final EChange setAllToDefault ()
   {
     EChange eChange = EChange.UNCHANGED;
     for (final String sFieldName : m_aDefaultSettings.keySet ())
@@ -105,7 +107,7 @@ public class SettingsWithDefault extends Settings implements ISettingsWithDefaul
     return eChange;
   }
 
-  public boolean isSetToDefault (@Nullable final String sFieldName)
+  public final boolean isSetToDefault (@Nullable final String sFieldName)
   {
     return containsKeyDirect (sFieldName) &&
            EqualsHelper.equals (getValueDirect (sFieldName), m_aDefaultSettings.getValue (sFieldName));
