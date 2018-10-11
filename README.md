@@ -31,13 +31,13 @@ This project was the following modules:
 * v9.2.0 - planned
     * Remove all methods deprecated for removal in 9.x
     * Change `DOMReader.readXMLDOM` to not throw an Exception. Provide a suitable `ErrorHandler` instead.
-* v9.1.7 - work in progress
+* v9.1.7 - 2018-10-11
     * Added new class `IdentityByteArrayCodec`
     * Added new classes `MacInputStream` and `MacOutputStream`
     * Deprecated some JSON APIs with `byte`, `short` and `float`
     * Overloaded `WrappedOutputStream.write (byte[],int,int)` for quicker pass-through. Please ensure that all derived classes also overload this method.
     * `JSONValue` handling for `long` values in the `int` range was changed to store `int` internally. This improves testability independent of the value range.
-    * Added new `StringHelper.contains(Any|No|Only)` methods for `CharSequence` objects
+    * Added new `StringHelper.contains(Any|No|Only)` methods for `CharSequence` and `String` objects
 * v9.1.6 - 2018-10-01
     * Added `CHttpHeader.X_CONTENT_SECURITY_POLICY_REPORT_ONLY`
     * Added `ValueEnforcer.isNE0` methods
@@ -247,7 +247,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-commons</artifactId>
-  <version>9.1.6</version>
+  <version>9.1.7</version>
 </dependency>
 ```
 
@@ -399,7 +399,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-xml</artifactId>
-  <version>9.1.6</version>
+  <version>9.1.7</version>
 </dependency>
 ```
 
@@ -417,7 +417,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-jaxb</artifactId>
-  <version>9.1.6</version>
+  <version>9.1.7</version>
 </dependency>
 ```
 
@@ -440,7 +440,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-tree</artifactId>
-  <version>9.1.6</version>
+  <version>9.1.7</version>
 </dependency>
 ```
 
@@ -458,7 +458,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-less-commons</artifactId>
-  <version>9.1.6</version>
+  <version>9.1.7</version>
 </dependency>
 ```
 
@@ -471,7 +471,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-json</artifactId>
-  <version>9.1.6</version>
+  <version>9.1.7</version>
 </dependency>
 ```
 
@@ -484,7 +484,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-settings</artifactId>
-  <version>9.1.6</version>
+  <version>9.1.7</version>
 </dependency>
 ```
 
@@ -497,7 +497,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-datetime</artifactId>
-  <version>9.1.6</version>
+  <version>9.1.7</version>
 </dependency>
 ```
 
@@ -510,7 +510,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-graph</artifactId>
-  <version>9.1.6</version>
+  <version>9.1.7</version>
 </dependency>
 ```
 
@@ -523,7 +523,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-matrix</artifactId>
-  <version>9.1.6</version>
+  <version>9.1.7</version>
 </dependency>
 ```
 
@@ -536,7 +536,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-charset</artifactId>
-  <version>9.1.6</version>
+  <version>9.1.7</version>
 </dependency>
 ```
 
@@ -551,7 +551,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-scopes</artifactId>
-  <version>9.1.6</version>
+  <version>9.1.7</version>
 </dependency>
 ```
 
@@ -566,7 +566,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-collection</artifactId>
-  <version>9.1.6</version>
+  <version>9.1.7</version>
 </dependency>
 ```
 
@@ -584,7 +584,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-cli</artifactId>
-  <version>9.1.6</version>
+  <version>9.1.7</version>
 </dependency>
 ```
 
@@ -599,7 +599,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-bc</artifactId>
-  <version>9.1.6</version>
+  <version>9.1.7</version>
 </dependency>
 ```
 
