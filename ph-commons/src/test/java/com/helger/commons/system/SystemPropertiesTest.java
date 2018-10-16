@@ -16,9 +16,11 @@
  */
 package com.helger.commons.system;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -100,5 +102,16 @@ public final class SystemPropertiesTest
     assertTrue (SystemProperties.containsPropertyName ("helger.x"));
     SystemProperties.setPropertyValue ("helger.x", null);
     assertFalse (SystemProperties.containsPropertyName ("helger.x"));
+  }
+
+  @Test
+  public void testGetAllJavaNetSystemProperties ()
+  {
+    final String [] aData1 = SystemProperties.getAllJavaNetSystemProperties ();
+    assertNotNull (aData1);
+    final String [] aData2 = SystemProperties.getAllJavaNetSystemProperties ();
+    assertNotNull (aData2);
+    assertNotSame (aData1, aData2);
+    assertArrayEquals (aData1, aData2);
   }
 }

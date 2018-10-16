@@ -133,6 +133,8 @@ public class ConfigFile implements IGetterByKeyTrait <String>
    * This is a utility method, that applies all Java network/proxy system
    * properties which are present in this configuration file. It does it only
    * when the configuration file was read correctly.
+   * 
+   * @see SystemProperties#getAllJavaNetSystemProperties()
    */
   public void applyAllNetworkSystemProperties ()
   {
