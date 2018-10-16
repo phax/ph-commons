@@ -16,7 +16,12 @@
  */
 package com.helger.commons.system;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.Month;
+
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import org.slf4j.Logger;
@@ -25,6 +30,9 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.CGlobal;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.datetime.PDTFactory;
+import com.helger.commons.datetime.PDTFromString;
+import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.StringParser;
 
 /**
@@ -55,6 +63,22 @@ public final class JavaVersionHelper
   @ReturnsMutableCopy
   static int [] getAsUnifiedVersion (@Nonnull final String sOriginalJavaVersion)
   {
+    return getAsUnifiedVersion (sOriginalJavaVersion, SystemProperties.getJavaRuntimeVersion ());
+  }
+
+  private static final LocalDateTime REFERENCE_DATE = PDTFactory.createLocalDateTime (2018, Month.JANUARY, 1, 0, 0, 0);
+  private static final LocalDateTime ADOPTOPENJDK_BUILD_172 = PDTFactory.createLocalDateTime (2018,
+                                                                                              Month.MAY,
+                                                                                              19,
+                                                                                              0,
+                                                                                              59,
+                                                                                              0);
+
+  @Nonnull
+  @ReturnsMutableCopy
+  static int [] getAsUnifiedVersion (@Nonnull final String sOriginalJavaVersion,
+                                     @Nullable final String sJavaRuntimeVersion)
+  {
     int nMajor = 0;
     int nMinor = 0;
     int nMicro = 0;
@@ -64,6 +88,7 @@ public final class JavaVersionHelper
     {
       // Old up to and including v8. E.g.
       // 1.8.0_144
+      // 1.8.0-adoptopenjdk
 
       // Skip "1."
       s = s.substring (2);
@@ -75,16 +100,74 @@ public final class JavaVersionHelper
       if (nMajor < 0)
         throw new IllegalStateException ("Failed to determine Java major version from '" + sOriginalJavaVersion + "'");
 
-      // Everything after "_"
       final int nUnderscore = s.indexOf ('_');
-      if (nUnderscore < 0)
-        throw new IllegalStateException ("Unexpected Java version string '" + sOriginalJavaVersion + "'");
-      nMinor = StringParser.parseInt (s.substring (nUnderscore + 1), -1);
-      if (nMinor < 0)
-        throw new IllegalStateException ("Failed to determine Java minor version from '" + sOriginalJavaVersion + "'");
+      if (nUnderscore >= 0)
+      {
+        // Everything after "_"
+        nMinor = StringParser.parseInt (s.substring (nUnderscore + 1), -1);
+        if (nMinor < 0)
+          throw new IllegalStateException ("Failed to determine Java minor version from '" +
+                                           sOriginalJavaVersion +
+                                           "'");
 
-      // Micro part is not present
-      nMicro = -1;
+        // Micro part is not present
+        nMicro = -1;
+      }
+      else
+      {
+        final int nDash = s.indexOf ('-');
+        if (nDash >= 0)
+        {
+          // 1.8.0-adoptopenjdk
+
+          // 1.8.0-adoptopenjdk-_2018_05_19_00_59-b00 == b172
+          if (sJavaRuntimeVersion.startsWith (sOriginalJavaVersion))
+          {
+            // Use data as "minor"
+            String sData = sJavaRuntimeVersion.substring (sOriginalJavaVersion.length ());
+            sData = StringHelper.removeAll (sData, '_');
+            sData = StringHelper.removeAll (sData, '-');
+            final int nB = sData.indexOf ('b');
+            if (nB >= 0)
+              sData = sData.substring (0, nB);
+            final LocalDateTime aDateTime = PDTFromString.getLocalDateTimeFromString (sData, "uuuuMMddHHmm");
+            if (aDateTime != null)
+            {
+              // Check known versions
+              if (aDateTime.equals (ADOPTOPENJDK_BUILD_172))
+                nMinor = 172;
+              else
+              {
+                // Minutes since reference date
+                nMinor = Math.toIntExact (Duration.between (REFERENCE_DATE, aDateTime).toMinutes ());
+              }
+            }
+            else
+            {
+              // Open...
+              LOGGER.warn ("Unknown runtime version '" +
+                           sJavaRuntimeVersion +
+                           "' compared to java version '" +
+                           sOriginalJavaVersion);
+              nMinor = -1;
+              nMicro = -1;
+            }
+          }
+          else
+          {
+            // Unknown runtime version
+            LOGGER.warn ("Unknown runtime version '" +
+                         sJavaRuntimeVersion +
+                         "' compared to java version '" +
+                         sOriginalJavaVersion);
+            nMinor = -1;
+            nMicro = -1;
+          }
+        }
+        else
+          throw new IllegalStateException ("Unexpected Java version string '" + sOriginalJavaVersion + "'");
+      }
+
     }
     else
     {
@@ -160,7 +243,8 @@ public final class JavaVersionHelper
 
   static
   {
-    final int [] aParts = getAsUnifiedVersion (SystemProperties.getJavaVersion ());
+    final int [] aParts = getAsUnifiedVersion (SystemProperties.getJavaVersion (),
+                                               SystemProperties.getJavaRuntimeVersion ());
     JAVA_MAJOR_VERSION = aParts[0];
     JAVA_MINOR_VERSION = aParts[1];
     JAVA_MICRO_VERSION = aParts[2];

@@ -94,5 +94,27 @@ public class JavaVersionHelperTest
     assertEquals (9, aParts[0]);
     assertEquals (0, aParts[1]);
     assertEquals (0, aParts[2]);
+
+    aParts = JavaVersionHelper.getAsUnifiedVersion ("1.8.0-adoptopenjdk", "1.8.0-adoptopenjdk-_2018_05_19_00_59-b00");
+    assertNotNull (aParts);
+    assertEquals (3, aParts.length);
+    assertEquals (8, aParts[0]);
+    assertEquals (172, aParts[1]);
+    assertEquals (0, aParts[2]);
+
+    aParts = JavaVersionHelper.getAsUnifiedVersion ("1.8.0-adoptopenjdk", "1.8.0-adoptopenjdk-_2018_05_19_01_59-b00");
+    assertNotNull (aParts);
+    assertEquals (3, aParts.length);
+    assertEquals (8, aParts[0]);
+    // Minutes since 1.1.2018
+    assertEquals (198839, aParts[1]);
+    assertEquals (0, aParts[2]);
+
+    aParts = JavaVersionHelper.getAsUnifiedVersion ("11+28");
+    assertNotNull (aParts);
+    assertEquals (3, aParts.length);
+    assertEquals (11, aParts[0]);
+    assertEquals (0, aParts[1]);
+    assertEquals (0, aParts[2]);
   }
 }

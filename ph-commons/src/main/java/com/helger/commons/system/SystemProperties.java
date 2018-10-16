@@ -51,6 +51,8 @@ public final class SystemProperties
   public static final String SYSTEM_PROPERTY_JAVA_LIBRARY_PATH = "java.library.path";
   public static final String SYSTEM_PROPERTY_JAVA_HOME = "java.home";
   public static final String SYSTEM_PROPERTY_JAVA_IO_TMPDIR = "java.io.tmpdir";
+  public static final String SYSTEM_PROPERTY_JAVA_RUNTIME_NAME = "java.runtime.name";
+  public static final String SYSTEM_PROPERTY_JAVA_RUNTIME_VERSION = "java.runtime.version";
   public static final String SYSTEM_PROPERTY_JAVA_SPECIFICATION_URL = "java.specification.url";
   public static final String SYSTEM_PROPERTY_JAVA_SPECIFICATION_VENDOR = "java.specification.vendor";
   public static final String SYSTEM_PROPERTY_JAVA_SPECIFICATION_VERSION = "java.specification.version";
@@ -223,167 +225,266 @@ public final class SystemProperties
     return ret;
   }
 
+  /**
+   * @return System property value <code>java.version</code>
+   */
   @Nullable
   public static String getJavaVersion ()
   {
     return getPropertyValue (SYSTEM_PROPERTY_JAVA_VERSION);
   }
 
+  /**
+   * @return System property value <code>java.vendor</code>
+   */
   @Nullable
   public static String getJavaVendor ()
   {
     return getPropertyValue (SYSTEM_PROPERTY_JAVA_VENDOR);
   }
 
+  /**
+   * @return System property value <code>java.vendor.url</code>
+   */
   @Nullable
   public static String getJavaVendorURL ()
   {
     return getPropertyValue (SYSTEM_PROPERTY_JAVA_VENDOR_URL);
   }
 
+  /**
+   * @return System property value <code>java.home</code>
+   */
   @Nullable
   public static String getJavaHome ()
   {
     return getPropertyValue (SYSTEM_PROPERTY_JAVA_HOME);
   }
 
+  /**
+   * @return System property value <code>java.class.version</code>
+   */
   @Nullable
   public static String getJavaClassVersion ()
   {
     return getPropertyValue (SYSTEM_PROPERTY_JAVA_CLASS_VERSION);
   }
 
+  /**
+   * @return System property value <code>java.class.path</code>
+   */
   @Nullable
   public static String getJavaClassPath ()
   {
     return getPropertyValue (SYSTEM_PROPERTY_JAVA_CLASS_PATH);
   }
 
+  /**
+   * @return System property value <code>java.library.path</code>
+   */
   @Nullable
   public static String getJavaLibraryPath ()
   {
     return getPropertyValue (SYSTEM_PROPERTY_JAVA_LIBRARY_PATH);
   }
 
+  /**
+   * @return System property value <code>os.name</code>
+   */
   @Nullable
   public static String getOsName ()
   {
     return getPropertyValue (SYSTEM_PROPERTY_OS_NAME);
   }
 
+  /**
+   * @return System property value <code>os.arch</code>
+   */
   @Nullable
   public static String getOsArch ()
   {
     return getPropertyValue (SYSTEM_PROPERTY_OS_ARCH);
   }
 
+  /**
+   * @return System property value <code>os.version</code>
+   */
   @Nullable
   public static String getOsVersion ()
   {
     return getPropertyValue (SYSTEM_PROPERTY_OS_VERSION);
   }
 
+  /**
+   * @return System property value <code>file.separator</code>
+   */
   @Nullable
   public static String getFileSeparator ()
   {
     return getPropertyValue (SYSTEM_PROPERTY_FILE_SEPARATOR);
   }
 
+  /**
+   * @return System property value <code>path.separator</code>
+   */
   @Nullable
   public static String getPathSeparator ()
   {
     return getPropertyValue (SYSTEM_PROPERTY_PATH_SEPARATOR);
   }
 
+  /**
+   * @return System property value <code>line.separator</code>
+   */
   @Nullable
   public static String getLineSeparator ()
   {
     return getPropertyValue (SYSTEM_PROPERTY_LINE_SEPARATOR);
   }
 
+  /**
+   * @return System property value <code>user.name</code>
+   */
   @Nullable
   public static String getUserName ()
   {
     return getPropertyValue (SYSTEM_PROPERTY_USER_NAME);
   }
 
+  /**
+   * @return System property value <code>user.home</code>
+   */
   @Nullable
   public static String getUserHome ()
   {
     return getPropertyValue (SYSTEM_PROPERTY_USER_HOME);
   }
 
+  /**
+   * @return System property value <code>user.dir</code>
+   */
   @Nullable
   public static String getUserDir ()
   {
     return getPropertyValue (SYSTEM_PROPERTY_USER_DIR);
   }
 
+  /**
+   * @return System property value <code>java.vm.name</code>
+   */
   @Nullable
   public static String getJavaVmName ()
   {
     return getPropertyValue (SYSTEM_PROPERTY_JAVA_VM_NAME);
   }
 
+  /**
+   * @return System property value <code>java.vm.specification.version</code>
+   */
   @Nullable
   public static String getJavaVmSpecificationVersion ()
   {
     return getPropertyValue (SYSTEM_PROPERTY_JAVA_VM_SPECIFICATION_VERSION);
   }
 
+  /**
+   * @return System property value <code>java.vm.specification.vendor</code>
+   */
   @Nullable
   public static String getJavaVmSpecificationVendor ()
   {
     return getPropertyValue (SYSTEM_PROPERTY_JAVA_VM_SPECIFICATION_VENDOR);
   }
 
+  /**
+   * @return System property value <code>java.vm.specification.url</code>
+   */
   @Nullable
   public static String getJavaVmSpecificationUrl ()
   {
     return getPropertyValue (SYSTEM_PROPERTY_JAVA_VM_SPECIFICATION_URL);
   }
 
+  /**
+   * @return System property value <code>java.vm.version</code>
+   */
   @Nullable
   public static String getJavaVmVersion ()
   {
     return getPropertyValue (SYSTEM_PROPERTY_JAVA_VM_VERSION);
   }
 
+  /**
+   * @return System property value <code>java.vm.vendor</code>
+   */
   @Nullable
   public static String getJavaVmVendor ()
   {
     return getPropertyValue (SYSTEM_PROPERTY_JAVA_VM_VENDOR);
   }
 
+  /**
+   * @return System property value <code>java.vm.url</code>
+   */
   @Nullable
   public static String getJavaVmUrl ()
   {
     return getPropertyValue (SYSTEM_PROPERTY_JAVA_VM_URL);
   }
 
+  /**
+   * @return System property value <code>java.specification.version</code>
+   */
   @Nullable
   public static String getJavaSpecificationVersion ()
   {
     return getPropertyValue (SYSTEM_PROPERTY_JAVA_SPECIFICATION_VERSION);
   }
 
+  /**
+   * @return System property value <code>java.specification.vendor</code>
+   */
   @Nullable
   public static String getJavaSpecificationVendor ()
   {
     return getPropertyValue (SYSTEM_PROPERTY_JAVA_SPECIFICATION_VENDOR);
   }
 
+  /**
+   * @return System property value <code>java.specification.url</code>
+   */
   @Nullable
   public static String getJavaSpecificationUrl ()
   {
     return getPropertyValue (SYSTEM_PROPERTY_JAVA_SPECIFICATION_URL);
   }
 
+  /**
+   * @return System property value <code>java.io.tmpdir</code>
+   */
   @DevelopersNote ("This property is not part of the language but part of the Sun SDK")
   @Nullable
   public static String getTmpDir ()
   {
     return getPropertyValue (SYSTEM_PROPERTY_JAVA_IO_TMPDIR);
+  }
+
+  /**
+   * @return System property value <code>java.runtime.version</code>
+   */
+  @Nullable
+  public static String getJavaRuntimeVersion ()
+  {
+    return getPropertyValue (SYSTEM_PROPERTY_JAVA_RUNTIME_VERSION);
+  }
+
+  /**
+   * @return System property value <code>java.runtime.version</code>
+   */
+  @Nullable
+  public static String getJavaRuntimeName ()
+  {
+    return getPropertyValue (SYSTEM_PROPERTY_JAVA_RUNTIME_NAME);
   }
 
   /**

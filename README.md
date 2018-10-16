@@ -31,6 +31,9 @@ This project was the following modules:
 * v9.2.0 - planned
     * Remove all methods deprecated for removal in 9.x
     * Change `DOMReader.readXMLDOM` to not throw an Exception. Provide a suitable `ErrorHandler` instead.
+* v9.1.8 - work in progress
+    * Added special support for properties `java.runtime.version` and `java.runtime.name` in class `SystemProperties`
+    * Class `JavaVersionHelper` now supports AdoptOpenJDK versions
 * v9.1.7 - 2018-10-11
     * Added new class `IdentityByteArrayCodec`
     * Added new classes `MacInputStream` and `MacOutputStream`
