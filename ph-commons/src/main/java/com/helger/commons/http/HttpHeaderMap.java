@@ -55,7 +55,8 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * Abstracts HTTP header interface for external usage.
+ * Abstracts HTTP header interface for external usage. Since version 9.1.8
+ * (issue #11) the internal scheme
  *
  * @author Philip Helger
  * @since 9.0.0
@@ -68,6 +69,7 @@ public class HttpHeaderMap implements
                            IClearable
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (HttpHeaderMap.class);
+
   private final ICommonsOrderedMap <String, ICommonsList <String>> m_aHeaders = new CommonsLinkedHashMap <> ();
 
   /**
@@ -101,15 +103,16 @@ public class HttpHeaderMap implements
    */
   @Nonnull
   @Nonempty
+  @Deprecated
   public static String getUnifiedName (@Nonnull @Nonempty final String s)
   {
     return s.toLowerCase (Locale.US);
   }
 
   /**
-   * Avoid having header values spanning multiple lines. This has been deprecated
-   * by RFC 7230 and Jetty 9.3 refuses to parse these requests with HTTP 400 by
-   * default.
+   * Avoid having header values spanning multiple lines. This has been
+   * deprecated by RFC 7230 and Jetty 9.3 refuses to parse these requests with
+   * HTTP 400 by default.
    *
    * @param sValue
    *        The source header value. May be <code>null</code>.
@@ -135,12 +138,35 @@ public class HttpHeaderMap implements
     return m_aHeaders.removeAll ();
   }
 
+  @Nullable
+  @ReturnsMutableObject
+  private Map.Entry <String, ICommonsList <String>> _getHeaderEntry (@Nonnull @Nonempty final String sName)
+  {
+    for (final Map.Entry <String, ICommonsList <String>> aEntry : m_aHeaders.entrySet ())
+      if (aEntry.getKey ().equalsIgnoreCase (sName))
+        return aEntry;
+    return null;
+  }
+
+  @Nullable
+  @ReturnsMutableObject
+  private ICommonsList <String> _getHeaderList (@Nonnull @Nonempty final String sName)
+  {
+    final Map.Entry <String, ICommonsList <String>> aEntry = _getHeaderEntry (sName);
+    return aEntry == null ? null : aEntry.getValue ();
+  }
+
   @Nonnull
   @ReturnsMutableObject
   private ICommonsList <String> _getOrCreateHeaderList (@Nonnull @Nonempty final String sName)
   {
-    final String sRealName = getUnifiedName (sName);
-    return m_aHeaders.computeIfAbsent (sRealName, x -> new CommonsArrayList <> (2));
+    ICommonsList <String> ret = _getHeaderList (sName);
+    if (ret == null)
+    {
+      ret = new CommonsArrayList <> (2);
+      m_aHeaders.put (sName, ret);
+    }
+    return ret;
   }
 
   @Nonnull
@@ -372,8 +398,8 @@ public class HttpHeaderMap implements
   }
 
   /**
-   * Add all headers from the passed map. Existing headers with the same name are
-   * overwritten.
+   * Set all headers from the passed map. Existing headers with the same name
+   * are overwritten. Existing headers are not changed!
    *
    * @param aOther
    *        The header map to add. May not be <code>null</code>.
@@ -381,12 +407,19 @@ public class HttpHeaderMap implements
   public void setAllHeaders (@Nonnull final HttpHeaderMap aOther)
   {
     ValueEnforcer.notNull (aOther, "Other");
-    m_aHeaders.putAll (aOther.m_aHeaders);
+    // Don't use putAll for case sensitivity
+    for (final Map.Entry <String, ICommonsList <String>> aEntry : aOther.m_aHeaders.entrySet ())
+    {
+      final String sKey = aEntry.getKey ();
+      removeHeaders (sKey);
+      for (final String sValue : aEntry.getValue ())
+        addHeader (sKey, sValue);
+    }
   }
 
   /**
-   * Add all headers from the passed map. Existing headers with the same name are
-   * extended.
+   * Add all headers from the passed map. Existing headers with the same name
+   * are extended.
    *
    * @param aOther
    *        The header map to add. May not be <code>null</code>.
@@ -424,8 +457,8 @@ public class HttpHeaderMap implements
    *
    * @param sName
    *        The name to be searched.
-   * @return The list with all matching values. Never <code>null</code> but maybe
-   *         empty.
+   * @return The list with all matching values. Never <code>null</code> but
+   *         maybe empty.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -433,7 +466,7 @@ public class HttpHeaderMap implements
   {
     if (StringHelper.hasText (sName))
     {
-      final ICommonsList <String> aValues = m_aHeaders.get (getUnifiedName (sName));
+      final ICommonsList <String> aValues = _getHeaderList (sName);
       if (aValues != null)
         return aValues.getClone ();
     }
@@ -452,7 +485,7 @@ public class HttpHeaderMap implements
   {
     if (StringHelper.hasText (sName))
     {
-      final ICommonsList <String> aValues = m_aHeaders.get (getUnifiedName (sName));
+      final ICommonsList <String> aValues = _getHeaderList (sName);
       if (aValues != null)
         return aValues.getFirst ();
     }
@@ -473,7 +506,7 @@ public class HttpHeaderMap implements
   {
     if (StringHelper.hasText (sName))
     {
-      final ICommonsList <String> aValues = m_aHeaders.get (getUnifiedName (sName));
+      final ICommonsList <String> aValues = _getHeaderList (sName);
       if (aValues != null)
         return StringHelper.getImploded (sDelimiter, aValues);
     }
@@ -484,7 +517,7 @@ public class HttpHeaderMap implements
   {
     if (StringHelper.hasNoText (sName))
       return false;
-    return m_aHeaders.containsKey (getUnifiedName (sName));
+    return _getHeaderList (sName) != null;
   }
 
   /**
@@ -512,19 +545,23 @@ public class HttpHeaderMap implements
   {
     if (StringHelper.hasNoText (sName))
       return EChange.UNCHANGED;
-    return m_aHeaders.removeObject (getUnifiedName (sName));
+
+    final Map.Entry <String, ICommonsList <String>> aEntry = _getHeaderEntry (sName);
+    if (aEntry != null)
+      return m_aHeaders.removeObject (aEntry.getKey ());
+
+    return EChange.UNCHANGED;
   }
 
   @Nonnull
   public EChange removeHeader (@Nullable final String sName, @Nullable final String sValue)
   {
-    final String sUnifiedName = getUnifiedName (sName);
-    final ICommonsList <String> aValues = m_aHeaders.get (sUnifiedName);
-    final boolean bRemoved = aValues != null && aValues.remove (sValue);
-    if (bRemoved && aValues.isEmpty ())
+    final Map.Entry <String, ICommonsList <String>> aEntry = _getHeaderEntry (sName);
+    final boolean bRemoved = aEntry != null && aEntry.getValue ().remove (sValue);
+    if (bRemoved && aEntry.getValue ().isEmpty ())
     {
       // If the last value was removed, remove the whole header
-      m_aHeaders.remove (sUnifiedName);
+      m_aHeaders.remove (aEntry.getKey ());
     }
 
     return EChange.valueOf (bRemoved);

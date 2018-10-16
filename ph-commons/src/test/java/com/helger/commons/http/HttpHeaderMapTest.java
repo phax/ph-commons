@@ -114,6 +114,10 @@ public final class HttpHeaderMapTest
     assertEquals (1, h.getAllHeaderValues ("key3").size ());
     assertEquals ("val3", h.getAllHeaderValues ("key3").getFirst ());
 
+    assertNotNull (h.getAllHeaderValues ("KEY1"));
+    assertEquals (1, h.getAllHeaderValues ("kEy1").size ());
+    assertEquals ("val1", h.getAllHeaderValues ("keY1").getFirst ());
+
     CommonsTestHelper.testGetClone (h);
     CommonsTestHelper.testDefaultSerialization (h);
   }
@@ -172,8 +176,8 @@ public final class HttpHeaderMapTest
   {
     final HttpHeaderMap h = new HttpHeaderMap ();
     h.addHeader ("key1", "val1");
-    h.addHeader ("key1", "val2");
-    h.addHeader ("key1", "val3");
+    h.addHeader ("KEY1", "val2");
+    h.addHeader ("KEY1", "val3");
 
     final HttpHeaderMap h2 = new HttpHeaderMap ();
     h2.addIntHeader ("key2", 42);
@@ -185,6 +189,32 @@ public final class HttpHeaderMapTest
     assertEquals ("key1: val1", h2.getAllHeaderLines ().get (1));
     assertEquals ("key1: val2", h2.getAllHeaderLines ().get (2));
     assertEquals ("key1: val3", h2.getAllHeaderLines ().get (3));
+
+    CommonsTestHelper.testGetClone (h);
+    CommonsTestHelper.testDefaultSerialization (h);
+    CommonsTestHelper.testGetClone (h2);
+    CommonsTestHelper.testDefaultSerialization (h2);
+  }
+
+  @Test
+  public void testAddAllHeadersPrefilledDifferentCasing ()
+  {
+    final HttpHeaderMap h = new HttpHeaderMap ();
+    // First header defines the casing!
+    h.addHeader ("Key1", "val1");
+    h.addHeader ("KEY1", "val2");
+    h.addHeader ("KEY1", "val3");
+
+    final HttpHeaderMap h2 = new HttpHeaderMap ();
+    h2.addIntHeader ("key2", 42);
+    h2.addAllHeaders (h);
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (h2, h);
+
+    assertEquals (4, h2.getAllHeaderLines ().size ());
+    assertEquals ("key2: 42", h2.getAllHeaderLines ().get (0));
+    assertEquals ("Key1: val1", h2.getAllHeaderLines ().get (1));
+    assertEquals ("Key1: val2", h2.getAllHeaderLines ().get (2));
+    assertEquals ("Key1: val3", h2.getAllHeaderLines ().get (3));
 
     CommonsTestHelper.testGetClone (h);
     CommonsTestHelper.testDefaultSerialization (h);
@@ -241,7 +271,7 @@ public final class HttpHeaderMapTest
     final HttpHeaderMap h = new HttpHeaderMap ();
     h.addHeader ("key1", "val1");
     h.addHeader ("key1", "val2");
-    h.addHeader ("key1", "val3");
+    h.addHeader ("KEY1", "val3");
 
     final HttpHeaderMap h2 = new HttpHeaderMap ();
     h2.addIntHeader ("key2", 42);
@@ -265,11 +295,11 @@ public final class HttpHeaderMapTest
   {
     final HttpHeaderMap h = new HttpHeaderMap ();
     h.addHeader ("key1", "val1");
-    h.addHeader ("key1", "val2");
+    h.addHeader ("Key1", "val2");
     h.addHeader ("key1", "val3");
 
     final HttpHeaderMap h2 = new HttpHeaderMap ();
-    h2.addIntHeader ("key1", 42);
+    h2.addIntHeader ("Key1", 42);
     h2.setAllHeaders (h);
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (h2, h);
 
