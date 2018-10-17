@@ -283,6 +283,8 @@
             <!-- CLI module printing to System.out -->
             <exclude>**/HelpFormatter.class</exclude>
             <exclude>**/BugsTest.class</exclude>
+            <!-- Uses a deprecated TimeZone method -->
+            <exclude>**/PDTFactory.class</exclude>
           </excludes>
         </configuration>
         <!-- local executions are ignored -->
