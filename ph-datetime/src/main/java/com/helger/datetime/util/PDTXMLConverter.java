@@ -104,7 +104,8 @@ public final class PDTXMLConverter
   }
 
   /**
-   * Get the passed date as {@link GregorianCalendar}.
+   * Get the passed date as {@link GregorianCalendar} using the default time
+   * zone.
    *
    * @param aDate
    *        The source date. May be <code>null</code>.
@@ -113,7 +114,7 @@ public final class PDTXMLConverter
   @Nonnull
   public static GregorianCalendar getCalendar (@Nonnull final Date aDate)
   {
-    final GregorianCalendar aCalendar = new GregorianCalendar (PDTConfig.getDefaultTimeZone (),
+    final GregorianCalendar aCalendar = new GregorianCalendar (PDTFactory.getTimeZone (aDate),
                                                                Locale.getDefault (Locale.Category.FORMAT));
     aCalendar.setTime (aDate);
     return aCalendar;
@@ -125,11 +126,44 @@ public final class PDTXMLConverter
    * @param nMillis
    *        Milliseconds since 1.1.1970
    * @return Never <code>null</code>.
+   * @deprecated Use {@link #getCalendarDefaultTimeZone(long)} instead
    */
+  @Deprecated
   @Nonnull
   public static GregorianCalendar getCalendar (final long nMillis)
   {
+    return getCalendarDefaultTimeZone (nMillis);
+  }
+
+  /**
+   * Get the passed milliseconds as {@link GregorianCalendar}.
+   *
+   * @param nMillis
+   *        Milliseconds since 1.1.1970
+   * @return Never <code>null</code>.
+   * @since 9.1.8
+   */
+  @Nonnull
+  public static GregorianCalendar getCalendarDefaultTimeZone (final long nMillis)
+  {
     final GregorianCalendar aCalendar = new GregorianCalendar (PDTConfig.getDefaultTimeZone (),
+                                                               Locale.getDefault (Locale.Category.FORMAT));
+    aCalendar.setTimeInMillis (nMillis);
+    return aCalendar;
+  }
+
+  /**
+   * Get the passed milliseconds as {@link GregorianCalendar}.
+   *
+   * @param nMillis
+   *        Milliseconds since 1.1.1970
+   * @return Never <code>null</code>.
+   * @since 9.1.8
+   */
+  @Nonnull
+  public static GregorianCalendar getCalendarUTC (final long nMillis)
+  {
+    final GregorianCalendar aCalendar = new GregorianCalendar (PDTConfig.getUTCTimeZone (),
                                                                Locale.getDefault (Locale.Category.FORMAT));
     aCalendar.setTimeInMillis (nMillis);
     return aCalendar;
@@ -167,11 +201,12 @@ public final class PDTXMLConverter
   @Nullable
   public static XMLGregorianCalendar getXMLCalendarDate (@Nullable final LocalDate aBase)
   {
-    return aBase == null ? null
-                         : s_aDTFactory.newXMLGregorianCalendarDate (aBase.getYear (),
-                                                                     aBase.getMonth ().getValue (),
-                                                                     aBase.getDayOfMonth (),
-                                                                     DatatypeConstants.FIELD_UNDEFINED);
+    if (aBase == null)
+      return null;
+    return s_aDTFactory.newXMLGregorianCalendarDate (aBase.getYear (),
+                                                     aBase.getMonth ().getValue (),
+                                                     aBase.getDayOfMonth (),
+                                                     DatatypeConstants.FIELD_UNDEFINED);
   }
 
   /**
@@ -185,7 +220,9 @@ public final class PDTXMLConverter
   @Nullable
   public static XMLGregorianCalendar getXMLCalendarDate (@Nullable final Date aBase)
   {
-    return aBase == null ? null : getXMLCalendarDate (getCalendar (aBase));
+    if (aBase == null)
+      return null;
+    return getXMLCalendarDate (getCalendar (aBase));
   }
 
   /**
@@ -199,11 +236,13 @@ public final class PDTXMLConverter
   @Nullable
   public static XMLGregorianCalendar getXMLCalendarDate (@Nullable final GregorianCalendar aBase)
   {
-    return aBase == null ? null
-                         : s_aDTFactory.newXMLGregorianCalendarDate (aBase.get (Calendar.YEAR),
-                                                                     aBase.get (Calendar.MONTH),
-                                                                     aBase.get (Calendar.DAY_OF_MONTH),
-                                                                     getTimezoneOffsetInMinutes (aBase));
+    if (aBase == null)
+      return null;
+    // Month in XMLGregorianCalendar is 1-based! Fix in 9.1.8
+    return s_aDTFactory.newXMLGregorianCalendarDate (aBase.get (Calendar.YEAR),
+                                                     aBase.get (Calendar.MONTH) + 1,
+                                                     aBase.get (Calendar.DAY_OF_MONTH),
+                                                     getTimezoneOffsetInMinutes (aBase));
   }
 
   /**
@@ -326,12 +365,13 @@ public final class PDTXMLConverter
   @Nullable
   public static XMLGregorianCalendar getXMLCalendarTime (@Nullable final LocalTime aBase)
   {
-    return aBase == null ? null
-                         : s_aDTFactory.newXMLGregorianCalendarTime (aBase.getHour (),
-                                                                     aBase.getMinute (),
-                                                                     aBase.getSecond (),
-                                                                     aBase.get (ChronoField.MILLI_OF_SECOND),
-                                                                     DatatypeConstants.FIELD_UNDEFINED);
+    if (aBase == null)
+      return null;
+    return s_aDTFactory.newXMLGregorianCalendarTime (aBase.getHour (),
+                                                     aBase.getMinute (),
+                                                     aBase.getSecond (),
+                                                     aBase.get (ChronoField.MILLI_OF_SECOND),
+                                                     DatatypeConstants.FIELD_UNDEFINED);
   }
 
   /**
@@ -345,7 +385,9 @@ public final class PDTXMLConverter
   @Nullable
   public static XMLGregorianCalendar getXMLCalendarTime (@Nullable final Date aBase)
   {
-    return aBase == null ? null : getXMLCalendarTime (getCalendar (aBase));
+    if (aBase == null)
+      return null;
+    return getXMLCalendarTime (getCalendar (aBase));
   }
 
   /**
@@ -359,12 +401,13 @@ public final class PDTXMLConverter
   @Nullable
   public static XMLGregorianCalendar getXMLCalendarTime (@Nullable final GregorianCalendar aBase)
   {
-    return aBase == null ? null
-                         : s_aDTFactory.newXMLGregorianCalendarTime (aBase.get (Calendar.HOUR_OF_DAY),
-                                                                     aBase.get (Calendar.MINUTE),
-                                                                     aBase.get (Calendar.SECOND),
-                                                                     aBase.get (Calendar.MILLISECOND),
-                                                                     getTimezoneOffsetInMinutes (aBase));
+    if (aBase == null)
+      return null;
+    return s_aDTFactory.newXMLGregorianCalendarTime (aBase.get (Calendar.HOUR_OF_DAY),
+                                                     aBase.get (Calendar.MINUTE),
+                                                     aBase.get (Calendar.SECOND),
+                                                     aBase.get (Calendar.MILLISECOND),
+                                                     getTimezoneOffsetInMinutes (aBase));
   }
 
   /**
@@ -378,12 +421,13 @@ public final class PDTXMLConverter
   @Nullable
   public static XMLGregorianCalendar getXMLCalendarTime (@Nullable final XMLGregorianCalendar aBase)
   {
-    return aBase == null ? null
-                         : s_aDTFactory.newXMLGregorianCalendarTime (aBase.getHour (),
-                                                                     aBase.getMinute (),
-                                                                     aBase.getSecond (),
-                                                                     aBase.getMillisecond (),
-                                                                     aBase.getTimezone ());
+    if (aBase == null)
+      return null;
+    return s_aDTFactory.newXMLGregorianCalendarTime (aBase.getHour (),
+                                                     aBase.getMinute (),
+                                                     aBase.getSecond (),
+                                                     aBase.getMillisecond (),
+                                                     aBase.getTimezone ());
   }
 
   /**
@@ -505,15 +549,16 @@ public final class PDTXMLConverter
   @Nullable
   public static XMLGregorianCalendar getXMLCalendar (@Nullable final LocalDateTime aBase)
   {
-    return aBase == null ? null
-                         : s_aDTFactory.newXMLGregorianCalendar (aBase.getYear (),
-                                                                 aBase.getMonth ().getValue (),
-                                                                 aBase.getDayOfMonth (),
-                                                                 aBase.getHour (),
-                                                                 aBase.getMinute (),
-                                                                 aBase.getSecond (),
-                                                                 aBase.get (ChronoField.MILLI_OF_SECOND),
-                                                                 DatatypeConstants.FIELD_UNDEFINED);
+    if (aBase == null)
+      return null;
+    return s_aDTFactory.newXMLGregorianCalendar (aBase.getYear (),
+                                                 aBase.getMonth ().getValue (),
+                                                 aBase.getDayOfMonth (),
+                                                 aBase.getHour (),
+                                                 aBase.getMinute (),
+                                                 aBase.getSecond (),
+                                                 aBase.get (ChronoField.MILLI_OF_SECOND),
+                                                 DatatypeConstants.FIELD_UNDEFINED);
   }
 
   /**
@@ -526,7 +571,9 @@ public final class PDTXMLConverter
   @Nullable
   public static XMLGregorianCalendar getXMLCalendar (@Nullable final ZonedDateTime aBase)
   {
-    return aBase == null ? null : s_aDTFactory.newXMLGregorianCalendar (GregorianCalendar.from (aBase));
+    if (aBase == null)
+      return null;
+    return s_aDTFactory.newXMLGregorianCalendar (GregorianCalendar.from (aBase));
   }
 
   /**
@@ -539,7 +586,9 @@ public final class PDTXMLConverter
   @Nullable
   public static XMLGregorianCalendar getXMLCalendar (@Nullable final GregorianCalendar aCal)
   {
-    return aCal == null ? null : s_aDTFactory.newXMLGregorianCalendar (aCal);
+    if (aCal == null)
+      return null;
+    return s_aDTFactory.newXMLGregorianCalendar (aCal);
   }
 
   /**
@@ -597,16 +646,30 @@ public final class PDTXMLConverter
   }
 
   /**
-   * Get the passed milli seconds as {@link XMLGregorianCalendar}.
+   * Get the passed milliseconds as {@link XMLGregorianCalendar}.
    *
    * @param nMillis
-   *        Milli seconds since 1.1.1970
+   *        Milliseconds since 1.1.1970
    * @return Never <code>null</code>.
    */
   @Nonnull
   public static XMLGregorianCalendar getXMLCalendar (final long nMillis)
   {
-    return s_aDTFactory.newXMLGregorianCalendar (getCalendar (nMillis));
+    return s_aDTFactory.newXMLGregorianCalendar (getCalendarDefaultTimeZone (nMillis));
+  }
+
+  /**
+   * Get the passed milliseconds as {@link XMLGregorianCalendar}.
+   *
+   * @param nMillis
+   *        Milliseconds since 1.1.1970
+   * @return Never <code>null</code>.
+   * @since 9.1.8
+   */
+  @Nonnull
+  public static XMLGregorianCalendar getXMLCalendarUTC (final long nMillis)
+  {
+    return s_aDTFactory.newXMLGregorianCalendar (getCalendarUTC (nMillis));
   }
 
   /**
@@ -619,7 +682,9 @@ public final class PDTXMLConverter
   @Nullable
   public static XMLGregorianCalendar getXMLCalendar (@Nullable final Date aDate)
   {
-    return aDate == null ? null : s_aDTFactory.newXMLGregorianCalendar (getCalendar (aDate));
+    if (aDate == null)
+      return null;
+    return s_aDTFactory.newXMLGregorianCalendar (getCalendar (aDate));
   }
 
   /**
@@ -633,7 +698,11 @@ public final class PDTXMLConverter
   @Nullable
   public static GregorianCalendar getGregorianCalendar (@Nullable final XMLGregorianCalendar aCal)
   {
-    return aCal == null ? null : aCal.toGregorianCalendar (aCal.getTimeZone (aCal.getTimezone ()), null, null);
+    if (aCal == null)
+      return null;
+    return aCal.toGregorianCalendar (aCal.getTimeZone (aCal.getTimezone ()),
+                                     Locale.getDefault (Locale.Category.FORMAT),
+                                     null);
   }
 
   /**
@@ -646,7 +715,9 @@ public final class PDTXMLConverter
   @Nullable
   public static LocalDate getLocalDate (@Nullable final XMLGregorianCalendar aCal)
   {
-    return aCal == null ? null : getGregorianCalendar (aCal).toZonedDateTime ().toLocalDate ();
+    if (aCal == null)
+      return null;
+    return getGregorianCalendar (aCal).toZonedDateTime ().toLocalDate ();
   }
 
   /**
@@ -659,7 +730,9 @@ public final class PDTXMLConverter
   @Nullable
   public static LocalTime getLocalTime (@Nullable final XMLGregorianCalendar aCal)
   {
-    return aCal == null ? null : getGregorianCalendar (aCal).toZonedDateTime ().toLocalTime ();
+    if (aCal == null)
+      return null;
+    return getGregorianCalendar (aCal).toZonedDateTime ().toLocalTime ();
   }
 
   /**
@@ -672,7 +745,9 @@ public final class PDTXMLConverter
   @Nullable
   public static LocalDateTime getLocalDateTime (@Nullable final XMLGregorianCalendar aCal)
   {
-    return aCal == null ? null : getGregorianCalendar (aCal).toZonedDateTime ().toLocalDateTime ();
+    if (aCal == null)
+      return null;
+    return getGregorianCalendar (aCal).toZonedDateTime ().toLocalDateTime ();
   }
 
   /**
@@ -685,7 +760,9 @@ public final class PDTXMLConverter
   @Nullable
   public static ZonedDateTime getZonedDateTime (@Nullable final XMLGregorianCalendar aCal)
   {
-    return aCal == null ? null : getGregorianCalendar (aCal).toZonedDateTime ();
+    if (aCal == null)
+      return null;
+    return getGregorianCalendar (aCal).toZonedDateTime ();
   }
 
   /**
@@ -703,7 +780,7 @@ public final class PDTXMLConverter
   }
 
   /**
-   * Get the passed {@link XMLGregorianCalendar} as milli seconds.
+   * Get the passed {@link XMLGregorianCalendar} as milliseconds.
    *
    * @param aCal
    *        The source {@link XMLGregorianCalendar}. May be <code>null</code>.

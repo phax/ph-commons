@@ -24,8 +24,13 @@ import static org.junit.Assert.assertNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Month;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoField;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -33,6 +38,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import org.junit.Test;
 
 import com.helger.commons.CGlobal;
+import com.helger.commons.datetime.PDTConfig;
 import com.helger.commons.datetime.PDTFactory;
 
 /**
@@ -72,6 +78,80 @@ public final class PDTXMLConverterTest
     assertNotNull (aLD2);
     assertEquals (aLD, aLD2);
     assertNull (PDTXMLConverter.getLocalDate (null));
+
+  }
+
+  @Test
+  public void testDateToCalendar ()
+  {
+    Date aDate = PDTFactory.createDateForDate (2018, Month.JANUARY, 1);
+    assertEquals ("Mon Jan 01 00:00:00 CET 2018", aDate.toString ());
+
+    GregorianCalendar aCal = PDTXMLConverter.getCalendar (aDate);
+    assertEquals (2018, aCal.get (Calendar.YEAR));
+    assertEquals (Calendar.JANUARY, aCal.get (Calendar.MONTH));
+    assertEquals (1, aCal.get (Calendar.DAY_OF_MONTH));
+
+    aDate = PDTFactory.createDateForDate (2018, Month.DECEMBER, 31);
+    assertEquals ("Mon Dec 31 00:00:00 CET 2018", aDate.toString ());
+
+    aCal = PDTXMLConverter.getCalendar (aDate);
+    assertEquals (2018, aCal.get (Calendar.YEAR));
+    assertEquals (Calendar.DECEMBER, aCal.get (Calendar.MONTH));
+    assertEquals (31, aCal.get (Calendar.DAY_OF_MONTH));
+  }
+
+  @Test
+  public void testCalendarBackAndForth ()
+  {
+    final Date aDate = PDTFactory.createDateForDate (2018, Month.OCTOBER, 31);
+    assertEquals ("Wed Oct 31 00:00:00 CET 2018", aDate.toString ());
+    assertEquals (PDTConfig.getDefaultZoneId ()
+                           .getRules ()
+                           .getOffset (PDTFactory.createLocalDateTime (aDate))
+                           .getTotalSeconds () /
+                  CGlobal.SECONDS_PER_MINUTE,
+                  PDTFactory.getTimezoneOffsetInMinutes (aDate));
+
+    GregorianCalendar c0 = PDTXMLConverter.getCalendar (aDate);
+    assertEquals (2018, c0.get (Calendar.YEAR));
+    // 0-based!
+    assertEquals (Calendar.OCTOBER, c0.get (Calendar.MONTH));
+    assertEquals (31, c0.get (Calendar.DAY_OF_MONTH));
+    assertEquals (0, c0.get (Calendar.HOUR));
+    assertEquals (0, c0.get (Calendar.MINUTE));
+    assertEquals (0, c0.get (Calendar.SECOND));
+    assertEquals (0, c0.get (Calendar.MILLISECOND));
+    assertEquals (60, PDTFactory.getTimezoneOffsetInMinutes (c0));
+
+    final XMLGregorianCalendar c1 = PDTXMLConverter.getXMLCalendarDate (aDate);
+    assertNotNull (c1);
+    assertEquals (2018, c1.getYear ());
+    // 1-based!
+    assertEquals (10, c1.getMonth ());
+    assertEquals (31, c1.getDay ());
+    assertEquals (DatatypeConstants.FIELD_UNDEFINED, c1.getHour ());
+    assertEquals (DatatypeConstants.FIELD_UNDEFINED, c1.getMinute ());
+    assertEquals (DatatypeConstants.FIELD_UNDEFINED, c1.getSecond ());
+    assertEquals (DatatypeConstants.FIELD_UNDEFINED, c1.getMillisecond ());
+    assertEquals (60, c1.getTimezone ());
+
+    c0 = c1.toGregorianCalendar (c1.getTimeZone (c1.getTimezone ()), Locale.getDefault (Locale.Category.FORMAT), null);
+    assertEquals (2018, c0.get (Calendar.YEAR));
+    assertEquals (Calendar.OCTOBER, c0.get (Calendar.MONTH));
+    assertEquals (31, c0.get (Calendar.DAY_OF_MONTH));
+    assertEquals (0, c0.get (Calendar.HOUR));
+    assertEquals (0, c0.get (Calendar.MINUTE));
+    assertEquals (0, c0.get (Calendar.SECOND));
+    assertEquals (0, c0.get (Calendar.MILLISECOND));
+    assertEquals (60, PDTFactory.getTimezoneOffsetInMinutes (c0));
+
+    assertEquals (aDate.getTime (), c1.toGregorianCalendar ().getTime ().getTime ());
+
+    final Date aDate2 = PDTXMLConverter.getDate (c1);
+    assertNotNull (aDate2);
+    assertEquals (aDate.getTime (), aDate2.getTime ());
+    assertEquals (aDate, aDate2);
   }
 
   @Test

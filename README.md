@@ -36,6 +36,8 @@ This project was the following modules:
     * Class `JavaVersionHelper` now supports AdoptOpenJDK versions
     * `HttpHeaderMap` stores the value case sensitive internally and compares case sensitive instead. See issue #11
     * Added `PDTConfig.getUTCTimeZone ()`
+    * Fixed a conversion error from `GregorianCalendar` to `XMLGregorianCalendar` if only the date part is used
+    * Added TimeZone related methods in `PDTFactory`
 * v9.1.7 - 2018-10-11
     * Added new class `IdentityByteArrayCodec`
     * Added new classes `MacInputStream` and `MacOutputStream`
