@@ -85,7 +85,9 @@ public final class PDTXMLConverterTest
   public void testDateToCalendar ()
   {
     Date aDate = PDTFactory.createDateForDate (2018, Month.JANUARY, 1);
-    assertEquals ("Mon Jan 01 00:00:00 CET 2018", aDate.toString ());
+    // Depends on the system timezone
+    if (false)
+      assertEquals ("Mon Jan 01 00:00:00 CET 2018", aDate.toString ());
 
     GregorianCalendar aCal = PDTXMLConverter.getCalendar (aDate);
     assertEquals (2018, aCal.get (Calendar.YEAR));
@@ -93,7 +95,9 @@ public final class PDTXMLConverterTest
     assertEquals (1, aCal.get (Calendar.DAY_OF_MONTH));
 
     aDate = PDTFactory.createDateForDate (2018, Month.DECEMBER, 31);
-    assertEquals ("Mon Dec 31 00:00:00 CET 2018", aDate.toString ());
+    // Depends on the system timezone
+    if (false)
+      assertEquals ("Mon Dec 31 00:00:00 CET 2018", aDate.toString ());
 
     aCal = PDTXMLConverter.getCalendar (aDate);
     assertEquals (2018, aCal.get (Calendar.YEAR));
@@ -105,7 +109,9 @@ public final class PDTXMLConverterTest
   public void testCalendarBackAndForth ()
   {
     final Date aDate = PDTFactory.createDateForDate (2018, Month.OCTOBER, 31);
-    assertEquals ("Wed Oct 31 00:00:00 CET 2018", aDate.toString ());
+    // Depends on the system timezone
+    if (false)
+      assertEquals ("Wed Oct 31 00:00:00 CET 2018", aDate.toString ());
     assertEquals (PDTConfig.getDefaultZoneId ()
                            .getRules ()
                            .getOffset (PDTFactory.createLocalDateTime (aDate))

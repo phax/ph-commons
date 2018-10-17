@@ -506,12 +506,14 @@ public final class PDTFactory
   @Nullable
   public static Date createDate (@Nullable final ZonedDateTime aZDT)
   {
+    // The timezone gets lost here
     return aZDT == null ? null : Date.from (aZDT.toInstant ());
   }
 
   @Nullable
   public static Date createDate (@Nullable final OffsetDateTime aODT)
   {
+    // The timezone gets lost here
     return aODT == null ? null : Date.from (aODT.toInstant ());
   }
 
