@@ -40,6 +40,9 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
+import javax.xml.datatype.XMLGregorianCalendar;
+
+import com.helger.commons.CGlobal;
 
 @Immutable
 public final class PDTFactory
@@ -51,6 +54,44 @@ public final class PDTFactory
   private static ZoneId _getZoneId ()
   {
     return PDTConfig.getDefaultZoneId ();
+  }
+
+  /**
+   * Get the time zone offset to UTC of the passed Date in minutes to be used in
+   * {@link XMLGregorianCalendar}.
+   *
+   * @param aDate
+   *        The date to use. May not be <code>null</code>.
+   * @return 0 for no offset to UTC, the minutes otherwise. Usually in 60minutes
+   *         steps :)
+   */
+  @SuppressWarnings ("deprecation")
+  public static int getTimezoneOffsetInMinutes (@Nonnull final Date aDate)
+  {
+    return -aDate.getTimezoneOffset ();
+  }
+
+  public static long getTimezoneOffsetInMinutes (@Nonnull final GregorianCalendar aCal)
+  {
+    final long nOffsetMillis = aCal.getTimeZone ().getRawOffset ();
+    return nOffsetMillis / CGlobal.MILLISECONDS_PER_MINUTE;
+  }
+
+  @Nonnull
+  public static ZoneId getZoneIdFromOffsetInMinutes (final int nOffsetInMinutes)
+  {
+    final ZoneOffset aZO = ZoneOffset.ofHoursMinutes (nOffsetInMinutes / CGlobal.MINUTES_PER_HOUR,
+                                                      nOffsetInMinutes % CGlobal.MINUTES_PER_HOUR);
+    // Empty prefix means "no special"
+    return ZoneId.ofOffset ("", aZO);
+  }
+
+  @Nonnull
+  public static TimeZone getTimeZone (@Nonnull final Date aDate)
+  {
+    final int nOffsetMin = getTimezoneOffsetInMinutes (aDate);
+    final ZoneId aZI = getZoneIdFromOffsetInMinutes (nOffsetMin);
+    return TimeZone.getTimeZone (aZI);
   }
 
   // To ZonedDateTime
@@ -368,10 +409,10 @@ public final class PDTFactory
     return LocalDate.now (_getZoneId ());
   }
 
-  @Nullable
-  public static LocalDate createLocalDate (final int nYear, @Nonnull final Month eMonth, final int nDay)
+  @Nonnull
+  public static LocalDate createLocalDate (final int nYear, @Nonnull final Month eMonth, final int nDayOfMonth)
   {
-    return LocalDate.of (nYear, eMonth, nDay);
+    return LocalDate.of (nYear, eMonth, nDayOfMonth);
   }
 
   @Nullable
@@ -454,7 +495,7 @@ public final class PDTFactory
     return aLDT == null ? null : aLDT.toLocalTime ();
   }
 
-  @Nullable
+  @Nonnull
   public static LocalTime createLocalTime (final int nHour, final int nMinute, final int nSecond)
   {
     return LocalTime.of (nHour, nMinute, nSecond);
@@ -493,15 +534,39 @@ public final class PDTFactory
   }
 
   @Nonnull
+  public static Date createDateForDate (final int nYear, @Nonnull final Month eMonth, final int nDayOfMonth)
+  {
+    return createDate (createLocalDate (nYear, eMonth, nDayOfMonth));
+  }
+
+  @Nonnull
+  public static Date createDateForTime (final int nHour, final int nMin, final int nSec)
+  {
+    return createDate (createLocalTime (nHour, nMin, nSec));
+  }
+
+  @Nonnull
   public static Calendar createCalendar ()
   {
-    return Calendar.getInstance (TimeZone.getDefault (), Locale.getDefault (Locale.Category.FORMAT));
+    return Calendar.getInstance (PDTConfig.getDefaultTimeZone (), Locale.getDefault (Locale.Category.FORMAT));
+  }
+
+  @Nonnull
+  public static Calendar createCalendarUTC ()
+  {
+    return Calendar.getInstance (PDTConfig.getUTCTimeZone (), Locale.getDefault (Locale.Category.FORMAT));
   }
 
   @Nonnull
   public static GregorianCalendar createGregorianCalendar ()
   {
-    return new GregorianCalendar (TimeZone.getDefault (), Locale.getDefault (Locale.Category.FORMAT));
+    return new GregorianCalendar (PDTConfig.getDefaultTimeZone (), Locale.getDefault (Locale.Category.FORMAT));
+  }
+
+  @Nonnull
+  public static GregorianCalendar createGregorianCalendarUTC ()
+  {
+    return new GregorianCalendar (PDTConfig.getUTCTimeZone (), Locale.getDefault (Locale.Category.FORMAT));
   }
 
   // Misc
