@@ -41,6 +41,9 @@ public final class PDTConfigTest
     assertNotNull (PDTConfig.getUTCZoneId ());
     assertEquals ("Z", PDTConfig.getUTCZoneId ().getId ());
 
+    assertNotNull (PDTConfig.getUTCTimeZone ());
+    assertEquals (0, PDTConfig.getUTCTimeZone ().getRawOffset ());
+
     try
     {
       // Invalid

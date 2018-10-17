@@ -35,6 +35,7 @@ This project was the following modules:
     * Added special support for properties `java.runtime.version` and `java.runtime.name` in class `SystemProperties`
     * Class `JavaVersionHelper` now supports AdoptOpenJDK versions
     * `HttpHeaderMap` stores the value case sensitive internally and compares case sensitive instead. See issue #11
+    * Added `PDTConfig.getUTCTimeZone ()`
 * v9.1.7 - 2018-10-11
     * Added new class `IdentityByteArrayCodec`
     * Added new classes `MacInputStream` and `MacOutputStream`

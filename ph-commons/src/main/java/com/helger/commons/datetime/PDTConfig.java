@@ -109,4 +109,14 @@ public final class PDTConfig
   {
     return TimeZone.getDefault ();
   }
+
+  /**
+   * @return The UTC time zone. Never <code>null</code>.
+   * @since 9.1.8
+   */
+  @Nonnull
+  public static TimeZone getUTCTimeZone ()
+  {
+    return TimeZone.getTimeZone ("UTC");
+  }
 }
