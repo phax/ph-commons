@@ -71,17 +71,34 @@ public final class PDTFactory
     return -aDate.getTimezoneOffset ();
   }
 
-  public static long getTimezoneOffsetInMinutes (@Nonnull final GregorianCalendar aCal)
+  public static int getTimezoneOffsetInMinutes (@Nonnull final GregorianCalendar aCal)
   {
     final long nOffsetMillis = aCal.getTimeZone ().getRawOffset ();
-    return nOffsetMillis / CGlobal.MILLISECONDS_PER_MINUTE;
+    return Math.toIntExact (nOffsetMillis / CGlobal.MILLISECONDS_PER_MINUTE);
+  }
+
+  public static int getTimezoneOffsetInMinutes (@Nonnull final ZoneId aZID, @Nonnull final Instant aAt)
+  {
+    final ZoneOffset aZO = aZID.getRules ().getStandardOffset (aAt);
+    return getTimezoneOffsetInMinutes (aZO);
+  }
+
+  public static int getTimezoneOffsetInMinutes (@Nonnull final ZoneOffset aZO)
+  {
+    return aZO.getTotalSeconds () / CGlobal.SECONDS_PER_MINUTE;
+  }
+
+  @Nonnull
+  public static ZoneOffset getZoneOffsetFromOffsetInMinutes (final int nOffsetInMinutes)
+  {
+    return ZoneOffset.ofHoursMinutes (nOffsetInMinutes / CGlobal.MINUTES_PER_HOUR,
+                                      nOffsetInMinutes % CGlobal.MINUTES_PER_HOUR);
   }
 
   @Nonnull
   public static ZoneId getZoneIdFromOffsetInMinutes (final int nOffsetInMinutes)
   {
-    final ZoneOffset aZO = ZoneOffset.ofHoursMinutes (nOffsetInMinutes / CGlobal.MINUTES_PER_HOUR,
-                                                      nOffsetInMinutes % CGlobal.MINUTES_PER_HOUR);
+    final ZoneOffset aZO = getZoneOffsetFromOffsetInMinutes (nOffsetInMinutes);
     // Empty prefix means "no special"
     return ZoneId.ofOffset ("", aZO);
   }

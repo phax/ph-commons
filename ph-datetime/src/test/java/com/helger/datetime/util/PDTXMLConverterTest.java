@@ -25,6 +25,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoField;
 import java.util.Calendar;
@@ -108,7 +109,9 @@ public final class PDTXMLConverterTest
   @Test
   public void testCalendarBackAndForth ()
   {
+    final ZoneId aZID = PDTConfig.getDefaultZoneId ();
     final Date aDate = PDTFactory.createDateForDate (2018, Month.OCTOBER, 31);
+    final int nOffsetMinutes = PDTFactory.getTimezoneOffsetInMinutes (aZID, aDate.toInstant ());
     // Depends on the system timezone
     if (false)
       assertEquals ("Wed Oct 31 00:00:00 CET 2018", aDate.toString ());
@@ -128,7 +131,7 @@ public final class PDTXMLConverterTest
     assertEquals (0, c0.get (Calendar.MINUTE));
     assertEquals (0, c0.get (Calendar.SECOND));
     assertEquals (0, c0.get (Calendar.MILLISECOND));
-    assertEquals (60, PDTFactory.getTimezoneOffsetInMinutes (c0));
+    assertEquals (nOffsetMinutes, PDTFactory.getTimezoneOffsetInMinutes (c0));
 
     final XMLGregorianCalendar c1 = PDTXMLConverter.getXMLCalendarDate (aDate);
     assertNotNull (c1);
@@ -140,7 +143,9 @@ public final class PDTXMLConverterTest
     assertEquals (DatatypeConstants.FIELD_UNDEFINED, c1.getMinute ());
     assertEquals (DatatypeConstants.FIELD_UNDEFINED, c1.getSecond ());
     assertEquals (DatatypeConstants.FIELD_UNDEFINED, c1.getMillisecond ());
-    assertEquals (60, c1.getTimezone ());
+    // Depends on the system timezone
+    if (false)
+      assertEquals (60, c1.getTimezone ());
 
     c0 = c1.toGregorianCalendar (c1.getTimeZone (c1.getTimezone ()), Locale.getDefault (Locale.Category.FORMAT), null);
     assertEquals (2018, c0.get (Calendar.YEAR));
@@ -150,7 +155,7 @@ public final class PDTXMLConverterTest
     assertEquals (0, c0.get (Calendar.MINUTE));
     assertEquals (0, c0.get (Calendar.SECOND));
     assertEquals (0, c0.get (Calendar.MILLISECOND));
-    assertEquals (60, PDTFactory.getTimezoneOffsetInMinutes (c0));
+    assertEquals (nOffsetMinutes, PDTFactory.getTimezoneOffsetInMinutes (c0));
 
     assertEquals (aDate.getTime (), c1.toGregorianCalendar ().getTime ().getTime ());
 
