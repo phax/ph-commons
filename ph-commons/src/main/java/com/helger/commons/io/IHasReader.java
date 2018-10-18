@@ -20,6 +20,8 @@ import java.io.Reader;
 
 import javax.annotation.Nullable;
 
+import com.helger.commons.io.stream.StreamHelper;
+
 /**
  * A callback interface to retrieve {@link Reader} objects.
  *
@@ -36,4 +38,18 @@ public interface IHasReader
    */
   @Nullable
   Reader getReader ();
+
+  /**
+   * Get a buffered reader to read from the object. Each time this method is
+   * call, a new {@link Reader} needs to be created!
+   *
+   * @return <code>null</code> if resolving failed.
+   * @since 9.1.8
+   */
+  @Nullable
+  default Reader getBufferedReader ()
+  {
+    final Reader aReader = getReader ();
+    return aReader == null ? null : StreamHelper.getBuffered (aReader);
+  }
 }

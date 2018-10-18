@@ -20,6 +20,8 @@ import java.io.Writer;
 
 import javax.annotation.Nullable;
 
+import com.helger.commons.io.stream.StreamHelper;
+
 /**
  * A callback interface to retrieve {@link Writer} objects.
  *
@@ -36,4 +38,18 @@ public interface IHasWriter
    */
   @Nullable
   Writer getWriter ();
+
+  /**
+   * Get a buffered writer to write to an object. Each time this method is call,
+   * a new {@link Writer} needs to be created!
+   *
+   * @return <code>null</code> if resolving failed.
+   * @since 9.1.8
+   */
+  @Nullable
+  default Writer getBufferedWriter ()
+  {
+    final Writer aWriter = getWriter ();
+    return aWriter == null ? null : StreamHelper.getBuffered (aWriter);
+  }
 }

@@ -38,6 +38,8 @@ This project was the following modules:
     * Added `PDTConfig.getUTCTimeZone ()`
     * Fixed a conversion error from `GregorianCalendar` to `XMLGregorianCalendar` if only the date part is used
     * Added TimeZone related methods in `PDTFactory`
+    * Added method `IHasInputStream.getBufferedInputStream()`, `IHasInputStreamAndReader.getBufferedReader()` and `IHasReader.getBufferedReader()`
+    * Added method `IHasOutputStream.getBufferedOutputStream()`, `IHasOutputStreamAndWriter.getBufferedWriter()` and `IHasWriter.getBufferedWriter()`
 * v9.1.7 - 2018-10-11
     * Added new class `IdentityByteArrayCodec`
     * Added new classes `MacInputStream` and `MacOutputStream`

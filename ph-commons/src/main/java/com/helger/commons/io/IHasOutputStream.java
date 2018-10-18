@@ -21,6 +21,8 @@ import java.io.OutputStream;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.io.stream.StreamHelper;
+
 /**
  * A callback interface to retrieve {@link OutputStream} objects.
  *
@@ -40,9 +42,27 @@ public interface IHasOutputStream
   OutputStream getOutputStream (@Nonnull EAppend eAppend);
 
   /**
-   * Check if the {@link OutputStream} from {@link #getOutputStream(EAppend)}
-   * can be qcquired more than once or not.
-   * 
+   * Get the output stream to read from the object. Each time this method is
+   * call, a new {@link OutputStream} needs to be created. Internally invokes
+   * {@link #getOutputStream(EAppend)}.
+   *
+   * @param eAppend
+   *        appending mode. May not be <code>null</code>.
+   * @return <code>null</code> if resolving failed.
+   * @since 9.1.8
+   */
+  @Nullable
+  default OutputStream getBufferedOutputStream (@Nonnull final EAppend eAppend)
+  {
+    final OutputStream aOS = getOutputStream (eAppend);
+    return aOS == null ? null : StreamHelper.getBuffered (aOS);
+  }
+
+  /**
+   * Check if the {@link OutputStream} from {@link #getOutputStream(EAppend)} or
+   * {@link #getBufferedOutputStream(EAppend)} can be acquired more than once or
+   * not.
+   *
    * @return <code>true</code> if the output stream can be acquired more than
    *         once, <code>false</code> if not.
    */

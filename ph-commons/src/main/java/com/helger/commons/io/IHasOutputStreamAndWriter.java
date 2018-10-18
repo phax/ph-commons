@@ -33,7 +33,7 @@ import com.helger.commons.io.stream.StreamHelper;
 public interface IHasOutputStreamAndWriter extends IHasOutputStream
 {
   /**
-   * Get an {@link Writer} based on this output stream provider using the given
+   * Get a {@link Writer} based on this output stream provider using the given
    * charset.
    *
    * @param aCharset
@@ -46,5 +46,22 @@ public interface IHasOutputStreamAndWriter extends IHasOutputStream
   default Writer getWriter (@Nonnull final Charset aCharset, @Nonnull final EAppend eAppend)
   {
     return StreamHelper.createWriter (getOutputStream (eAppend), aCharset);
+  }
+
+  /**
+   * Get a buffered {@link Writer} based on this output stream provider using
+   * the given charset.
+   *
+   * @param aCharset
+   *        The charset to use. May not be <code>null</code>.
+   * @param eAppend
+   *        Appending mode. May not be <code>null</code>.
+   * @return <code>null</code> if no output stream could be retrieved.
+   * @since 9.1.8
+   */
+  @Nullable
+  default Writer getBufferedWriter (@Nonnull final Charset aCharset, @Nonnull final EAppend eAppend)
+  {
+    return StreamHelper.getBuffered (getWriter (aCharset, eAppend));
   }
 }

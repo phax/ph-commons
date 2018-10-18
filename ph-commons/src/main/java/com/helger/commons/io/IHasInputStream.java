@@ -20,6 +20,8 @@ import java.io.InputStream;
 
 import javax.annotation.Nullable;
 
+import com.helger.commons.io.stream.StreamHelper;
+
 /**
  * A callback interface to retrieve {@link InputStream} objects.
  *
@@ -29,7 +31,7 @@ public interface IHasInputStream
 {
   /**
    * Get the input stream to read from the object. Each time this method is
-   * called, a new {@link InputStream} needs to be created!
+   * called, a new {@link InputStream} needs to be created.
    *
    * @return <code>null</code> if resolving failed.
    */
@@ -37,9 +39,24 @@ public interface IHasInputStream
   InputStream getInputStream ();
 
   /**
-   * Check if the {@link InputStream} from {@link #getInputStream()} can be
-   * acquired more than once.
-   * 
+   * Get a buffered input stream to read from the object. Each time this method
+   * is called, a new {@link InputStream} needs to be created. Internally
+   * invokes {@link #getInputStream()}.
+   *
+   * @return <code>null</code> if resolving failed.
+   * @since 9.1.8
+   */
+  @Nullable
+  default InputStream getBufferedInputStream ()
+  {
+    final InputStream aIS = getInputStream ();
+    return aIS == null ? null : StreamHelper.getBuffered (aIS);
+  }
+
+  /**
+   * Check if the {@link InputStream} from {@link #getInputStream()} and
+   * {@link #getBufferedInputStream()} can be acquired more than once.
+   *
    * @return <code>true</code> if the input stream can be acquired more than
    *         once, <code>false</code> if not.
    */

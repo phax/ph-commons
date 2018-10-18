@@ -33,7 +33,7 @@ import com.helger.commons.io.stream.StreamHelper;
 public interface IHasInputStreamAndReader extends IHasInputStream
 {
   /**
-   * Get an {@link Reader} based on this input stream provider using the given
+   * Get a {@link Reader} based on this input stream provider using the given
    * charset.
    *
    * @param aCharset
@@ -44,5 +44,20 @@ public interface IHasInputStreamAndReader extends IHasInputStream
   default Reader getReader (@Nonnull final Charset aCharset)
   {
     return StreamHelper.createReader (getInputStream (), aCharset);
+  }
+
+  /**
+   * Get a buffered {@link Reader} based on this input stream provider using the
+   * given charset.
+   *
+   * @param aCharset
+   *        The charset to use. May not be <code>null</code>.
+   * @return <code>null</code> if no input stream could be retrieved.
+   * @since 9.1.8
+   */
+  @Nullable
+  default Reader getBufferedReader (@Nonnull final Charset aCharset)
+  {
+    return StreamHelper.getBuffered (getReader (aCharset));
   }
 }
