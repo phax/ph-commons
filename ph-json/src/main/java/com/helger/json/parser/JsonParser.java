@@ -69,6 +69,11 @@ public class JsonParser
 
   /** The end of input special value */
   public static final int EOI = -1;
+  public static final boolean DEFAULT_TRACK_POSITION = false;
+  public static final int DEFAULT_TAB_SIZE = 8;
+  public static final boolean DEFAULT_ALWAYS_USE_BIG_NUMBER = false;
+  public static final boolean DEFAULT_REQUIRE_STRING_QUOTES = true;
+  public static final boolean DEFAULT_ALLOW_SPECIAL_CHARS_IN_STRING = false;
 
   private static final int MAX_PUSH_BACK_CHARS = 2;
 
@@ -77,11 +82,11 @@ public class JsonParser
   private final IJsonParserHandler m_aCallback;
 
   // Settings
-  private boolean m_bTrackPosition = false;
-  private int m_nTabSize = 8;
-  private boolean m_bAlwaysUseBigNumber = false;
-  private boolean m_bRequireStringQuotes = true;
-  private boolean m_bAllowSpecialCharsInStrings = false;
+  private boolean m_bTrackPosition = DEFAULT_TRACK_POSITION;
+  private int m_nTabSize = DEFAULT_TAB_SIZE;
+  private boolean m_bAlwaysUseBigNumber = DEFAULT_ALWAYS_USE_BIG_NUMBER;
+  private boolean m_bRequireStringQuotes = DEFAULT_REQUIRE_STRING_QUOTES;
+  private boolean m_bAllowSpecialCharsInStrings = DEFAULT_ALLOW_SPECIAL_CHARS_IN_STRING;
 
   // Status variables
   // Position tracking
