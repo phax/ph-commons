@@ -400,19 +400,24 @@ public final class JsonReader
    * @param aReader
    *        The reader to read from. Should be buffered. May not be
    *        <code>null</code>.
+   * @param aCustomizeCallback
+   *        An optional {@link JsonParser} customization callback. May be
+   *        <code>null</code>.
    * @param aCustomExceptionCallback
    *        A custom handler for unrecoverable errors. May be <code>null</code>.
    * @return <code>null</code> if parsing failed with an unrecoverable error
    *         (and no throwing exception handler is used), or <code>null</code>
    *         if a recoverable error occurred or non-<code>null</code> if parsing
    *         succeeded.
+   * @since 9.1.8
    */
   @Nullable
-  private static IJson _readJson (@Nonnull @WillClose final Reader aReader,
-                                  @Nullable final IJsonParseExceptionCallback aCustomExceptionCallback)
+  public static IJson readJson (@Nonnull @WillClose final Reader aReader,
+                                @Nullable final IJsonParserCustomizeCallback aCustomizeCallback,
+                                @Nullable final IJsonParseExceptionCallback aCustomExceptionCallback)
   {
     final CollectingJsonParserHandler aHandler = new CollectingJsonParserHandler ();
-    if (parseJson (aReader, aHandler, (IJsonParserCustomizeCallback) null, aCustomExceptionCallback).isFailure ())
+    if (parseJson (aReader, aHandler, aCustomizeCallback, aCustomExceptionCallback).isFailure ())
       return null;
     return aHandler.getJson ();
   }
@@ -679,7 +684,7 @@ public final class JsonReader
     try
     {
       final Reader aReader = CharsetHelper.getReaderByBOM (aIS, aFallbackCharset);
-      return _readJson (aReader, aCustomExceptionCallback);
+      return readJson (aReader, (IJsonParserCustomizeCallback) null, aCustomExceptionCallback);
     }
     finally
     {
@@ -719,7 +724,6 @@ public final class JsonReader
     ValueEnforcer.notNull (aReader, "Reader");
 
     // No charset determination, as the Reader already has an implicit Charset
-
-    return _readJson (StreamHelper.getBuffered (aReader), aCustomExceptionCallback);
+    return readJson (StreamHelper.getBuffered (aReader), (IJsonParserCustomizeCallback) null, aCustomExceptionCallback);
   }
 }

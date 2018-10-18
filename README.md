@@ -40,6 +40,7 @@ This project was the following modules:
     * Added TimeZone related methods in `PDTFactory`
     * Added method `IHasInputStream.getBufferedInputStream()`, `IHasInputStreamAndReader.getBufferedReader()` and `IHasReader.getBufferedReader()`
     * Added method `IHasOutputStream.getBufferedOutputStream()`, `IHasOutputStreamAndWriter.getBufferedWriter()` and `IHasWriter.getBufferedWriter()`
+    * Opened `JsonReader` API to add the possibility to pass in an `IJsonParserCustomizeCallback` instance 
 * v9.1.7 - 2018-10-11
     * Added new class `IdentityByteArrayCodec`
     * Added new classes `MacInputStream` and `MacOutputStream`
