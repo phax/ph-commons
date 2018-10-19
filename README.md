@@ -31,6 +31,7 @@ This project was the following modules:
 * v9.2.0 - planned
     * Remove all methods deprecated for removal in 9.x
     * Change `DOMReader.readXMLDOM` to not throw an Exception. Provide a suitable `ErrorHandler` instead.
+    * Clean `IMultilingualText` API (less interfaces, use more `texts()`)
 * v9.1.8 - work in progress
     * Added special support for properties `java.runtime.version` and `java.runtime.name` in class `SystemProperties`
     * Class `JavaVersionHelper` now supports AdoptOpenJDK versions
@@ -40,7 +41,8 @@ This project was the following modules:
     * Added TimeZone related methods in `PDTFactory`
     * Added method `IHasInputStream.getBufferedInputStream()`, `IHasInputStreamAndReader.getBufferedReader()` and `IHasReader.getBufferedReader()`
     * Added method `IHasOutputStream.getBufferedOutputStream()`, `IHasOutputStreamAndWriter.getBufferedWriter()` and `IHasWriter.getBufferedWriter()`
-    * Opened `JsonReader` API to add the possibility to pass in an `IJsonParserCustomizeCallback` instance 
+    * Opened `JsonReader` API to add the possibility to pass in an `IJsonParserCustomizeCallback` instance
+    * Added `IMultilingualText.texts ()` 
 * v9.1.7 - 2018-10-11
     * Added new class `IdentityByteArrayCodec`
     * Added new classes `MacInputStream` and `MacOutputStream`

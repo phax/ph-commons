@@ -196,9 +196,10 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
   }
 
   @Nonnegative
+  @Deprecated
   public final int getLocaleCount ()
   {
-    return m_aTexts.size ();
+    return size ();
   }
 
   public final boolean containsLocale (@Nullable final Locale aLocale)
@@ -220,6 +221,13 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
   public final ICommonsMap <Locale, String> getAllTexts ()
   {
     return m_aTexts.getClone ();
+  }
+
+  @Nonnull
+  @ReturnsMutableObject
+  public final ICommonsOrderedMap <Locale, String> texts ()
+  {
+    return m_aTexts;
   }
 
   @Nonnegative
