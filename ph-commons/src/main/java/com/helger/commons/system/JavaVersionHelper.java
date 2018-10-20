@@ -59,13 +59,6 @@ public final class JavaVersionHelper
 
   private static final Logger LOGGER = LoggerFactory.getLogger (JavaVersionHelper.class);
 
-  @Nonnull
-  @ReturnsMutableCopy
-  static int [] getAsUnifiedVersion (@Nonnull final String sOriginalJavaVersion)
-  {
-    return getAsUnifiedVersion (sOriginalJavaVersion, SystemProperties.getJavaRuntimeVersion ());
-  }
-
   private static final LocalDateTime REFERENCE_DATE = PDTFactory.createLocalDateTime (2018, Month.JANUARY, 1, 0, 0, 0);
   private static final LocalDateTime ADOPTOPENJDK_BUILD_172 = PDTFactory.createLocalDateTime (2018,
                                                                                               Month.MAY,
@@ -73,6 +66,13 @@ public final class JavaVersionHelper
                                                                                               0,
                                                                                               59,
                                                                                               0);
+
+  @Nonnull
+  @ReturnsMutableCopy
+  static int [] getAsUnifiedVersion (@Nonnull final String sOriginalJavaVersion)
+  {
+    return getAsUnifiedVersion (sOriginalJavaVersion, SystemProperties.getJavaRuntimeVersion ());
+  }
 
   @Nonnull
   @ReturnsMutableCopy
