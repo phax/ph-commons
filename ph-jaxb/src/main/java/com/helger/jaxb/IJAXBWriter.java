@@ -41,6 +41,7 @@ import com.helger.commons.io.EAppend;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.resource.IWritableResource;
 import com.helger.commons.io.stream.ByteBufferOutputStream;
+import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.state.ESuccess;
@@ -522,5 +523,22 @@ public interface IJAXBWriter <JAXBTYPE>
       }
       return write (aObject, aBBOS).isFailure () ? null : aBBOS.getAsByteArray ();
     }
+  }
+
+  /**
+   * Write the passed object to a byte array and return the input stream on that
+   * array.
+   *
+   * @param aObject
+   *        The object to be written. May not be <code>null</code>.
+   * @return <code>null</code> if the passed domain object could not be
+   *         converted because of validation errors.
+   * @since 9.1.8
+   */
+  @Nullable
+  default NonBlockingByteArrayInputStream getAsInputStream (@Nonnull final JAXBTYPE aObject)
+  {
+    final byte [] aBytes = getAsBytes (aObject);
+    return aBytes == null ? null : new NonBlockingByteArrayInputStream (aBytes);
   }
 }

@@ -45,6 +45,8 @@ This project was the following modules:
     * Added method `IHasOutputStream.getBufferedOutputStream()`, `IHasOutputStreamAndWriter.getBufferedWriter()` and `IHasWriter.getBufferedWriter()`
     * Opened `JsonReader` API to add the possibility to pass in an `IJsonParserCustomizeCallback` instance
     * Added `IMultilingualText.texts ()` 
+    * Fixed some SpotBugs errors
+    * Added `IJAXBWriter.getAsInputStream(...)`
 * v9.1.7 - 2018-10-11
     * Added new class `IdentityByteArrayCodec`
     * Added new classes `MacInputStream` and `MacOutputStream`
