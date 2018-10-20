@@ -127,8 +127,8 @@ public final class JsonValueTest
     CommonsTestHelper.testDefaultSerialization (JsonValue.create ((byte) 5));
     CommonsTestHelper.testDefaultSerialization (JsonValue.create (Byte.valueOf ((byte) -5)));
     CommonsTestHelper.testDefaultSerialization (JsonValue.create ('x'));
-    CommonsTestHelper.testDefaultSerialization (JsonValue.create (3.14d));
-    CommonsTestHelper.testDefaultSerialization (JsonValue.create (3.14f));
+    CommonsTestHelper.testDefaultSerialization (JsonValue.create (31.4d));
+    CommonsTestHelper.testDefaultSerialization (JsonValue.create (31.4f));
     CommonsTestHelper.testDefaultSerialization (JsonValue.create (Integer.MIN_VALUE));
     CommonsTestHelper.testDefaultSerialization (JsonValue.create (Integer.MAX_VALUE));
     CommonsTestHelper.testDefaultSerialization (JsonValue.create (Integer.valueOf (47)));

@@ -26,6 +26,7 @@ import java.io.StreamTokenizer;
 import java.text.NumberFormat;
 import java.util.Arrays;
 
+import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.WillNotClose;
@@ -640,6 +641,7 @@ public class Matrix implements Serializable, ICloneable <Matrix>
    */
   @Nonnull
   @ReturnsMutableCopy
+  @CheckReturnValue
   public Matrix transpose ()
   {
     final Matrix aNewMatrix = new Matrix (m_nCols, m_nRows);

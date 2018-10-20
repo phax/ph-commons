@@ -21,6 +21,8 @@ import javax.annotation.Nonnull;
 import com.helger.commons.annotation.UsedViaReflection;
 import com.helger.scope.IScope;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Mock implementation of {@link AbstractGlobalSingleton}
  *
@@ -33,6 +35,7 @@ public final class MockGlobalSingleton extends AbstractGlobalSingleton
 
   @Deprecated
   @UsedViaReflection
+  @SuppressFBWarnings ("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
   public MockGlobalSingleton ()
   {
     s_nCtorCount++;

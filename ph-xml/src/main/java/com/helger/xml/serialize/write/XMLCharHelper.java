@@ -28,12 +28,15 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsLinkedHashSet;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * This class contains XML utility methods for character handling.
  *
  * @author Philip Helger
  */
 @Immutable
+@SuppressFBWarnings ("JCIP_FIELD_ISNT_FINAL_IN_IMMUTABLE_CLASS")
 public final class XMLCharHelper
 {
   private static final BitSet INVALID_NAME_START_CHAR_XML10 = new BitSet (0x10000);

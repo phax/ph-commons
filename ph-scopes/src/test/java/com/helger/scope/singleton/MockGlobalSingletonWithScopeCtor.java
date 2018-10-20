@@ -22,6 +22,8 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.UsedViaReflection;
 import com.helger.scope.IScope;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Mock implementation of {@link AbstractGlobalSingleton}
  *
@@ -35,6 +37,7 @@ public final class MockGlobalSingletonWithScopeCtor extends AbstractGlobalSingle
 
   @Deprecated
   @UsedViaReflection
+  @SuppressFBWarnings ("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
   public MockGlobalSingletonWithScopeCtor (@Nonnull final IScope aScope)
   {
     m_aScope = ValueEnforcer.notNull (aScope, "Scope");

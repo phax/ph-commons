@@ -170,6 +170,8 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
   @Nullable
   default String getAttributeValue (@Nullable final String sNamespaceURI, @Nullable final String sAttrName)
   {
+    if (sAttrName == null)
+      return null;
     return getAttributeValue (new MicroQName (sNamespaceURI, sAttrName));
   }
 
@@ -237,6 +239,8 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
                                                              @Nullable final String sAttrName,
                                                              @Nonnull final Class <DSTTYPE> aDstClass)
   {
+    if (sAttrName == null)
+      return null;
     return getAttributeValueWithConversion (new MicroQName (sNamespaceURI, sAttrName), aDstClass);
   }
 

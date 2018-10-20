@@ -37,7 +37,6 @@ public interface IHasID <IDTYPE>
    *
    * @return The ID of this object. May not be <code>null</code>.
    */
-  @Nonnull
   IDTYPE getID ();
 
   @Nonnull

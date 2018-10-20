@@ -67,6 +67,7 @@ public final class SizeDoubleTest
   }
 
   @Test
+  @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED")
   public void testGetBestMatchingSize ()
   {
     final SizeDouble aID = new SizeDouble (320, 240);
@@ -109,6 +110,7 @@ public final class SizeDoubleTest
   }
 
   @Test
+  @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED")
   public void testGetScaled ()
   {
     final SizeDouble aID = new SizeDouble (100, 150);

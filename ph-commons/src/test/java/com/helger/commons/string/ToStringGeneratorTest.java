@@ -77,7 +77,7 @@ public final class ToStringGeneratorTest
     _test (new double [] { Double.MIN_VALUE,
                            1,
                            2,
-                           3.1415,
+                           314.15,
                            Double.MAX_VALUE,
                            Double.NaN,
                            Double.POSITIVE_INFINITY,
@@ -85,7 +85,7 @@ public final class ToStringGeneratorTest
     _test (new float [] { Float.MIN_VALUE,
                           1,
                           2,
-                          3.1415f,
+                          31.415f,
                           Float.MAX_VALUE,
                           Float.NaN,
                           Float.POSITIVE_INFINITY,
@@ -102,7 +102,7 @@ public final class ToStringGeneratorTest
     new ToStringGenerator (this).append ("boolean", true)
                                 .append ("byte", (byte) 1)
                                 .append ("char", 'x')
-                                .append ("double", 3.14)
+                                .append ("double", 31.4)
                                 .append ("float", 47.11f)
                                 .append ("int", 4711)
                                 .append ("long", 12345678901234L)
@@ -117,7 +117,7 @@ public final class ToStringGeneratorTest
                                          new double [] { Double.MIN_VALUE,
                                                          1,
                                                          2,
-                                                         3.1415,
+                                                         314.15,
                                                          Double.MAX_VALUE,
                                                          Double.NaN,
                                                          Double.POSITIVE_INFINITY,
@@ -126,7 +126,7 @@ public final class ToStringGeneratorTest
                                          new float [] { Float.MIN_VALUE,
                                                         1,
                                                         2,
-                                                        3.1415f,
+                                                        31.415f,
                                                         Float.MAX_VALUE,
                                                         Float.NaN,
                                                         Float.POSITIVE_INFINITY,
@@ -147,7 +147,7 @@ public final class ToStringGeneratorTest
                                                   new double [] { Double.MIN_VALUE,
                                                                   1,
                                                                   2,
-                                                                  3.1415,
+                                                                  314.15,
                                                                   Double.MAX_VALUE,
                                                                   Double.NaN,
                                                                   Double.POSITIVE_INFINITY,
@@ -156,7 +156,7 @@ public final class ToStringGeneratorTest
                                                   new float [] { Float.MIN_VALUE,
                                                                  1,
                                                                  2,
-                                                                 3.1415f,
+                                                                 314.15f,
                                                                  Float.MAX_VALUE,
                                                                  Float.NaN,
                                                                  Float.POSITIVE_INFINITY,

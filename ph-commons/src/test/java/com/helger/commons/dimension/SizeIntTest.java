@@ -65,6 +65,7 @@ public final class SizeIntTest
   }
 
   @Test
+  @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED")
   public void testGetBestMatchingSize ()
   {
     final SizeInt aID = new SizeInt (320, 240);
@@ -107,6 +108,7 @@ public final class SizeIntTest
   }
 
   @Test
+  @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED")
   public void testGetScaled ()
   {
     final SizeInt aID = new SizeInt (100, 150);

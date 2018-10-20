@@ -166,7 +166,7 @@ public interface IJsonObject extends
    * @return this for chaining
    */
   @Nonnull
-  default IJsonObject addAll (@Nonnull final IJsonObject aObject)
+  default IJsonObject addAll (@Nullable final IJsonObject aObject)
   {
     if (aObject != null)
       for (final Map.Entry <String, IJson> aEntry : aObject)

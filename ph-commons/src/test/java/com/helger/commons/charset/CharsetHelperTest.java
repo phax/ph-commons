@@ -75,6 +75,7 @@ public final class CharsetHelperTest
   }
 
   @Test
+  @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED")
   public void testGetAsBytesCharset ()
   {
     final String s = "äbc";

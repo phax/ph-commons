@@ -21,6 +21,8 @@ import org.junit.Test;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Test class for class {@link LoggingInvocationHandler}.
  *
@@ -29,6 +31,7 @@ import com.helger.commons.collection.impl.ICommonsList;
 public final class LoggingInvocationHandlerTest
 {
   @Test
+  @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED")
   public void testBasic ()
   {
     final ICommonsList <String> aList = LoggingInvocationHandler.proxying (ICommonsList.class,

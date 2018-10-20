@@ -31,7 +31,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 @Immutable
 public final class AuthCredentialValidatorManager
 {
-  private static ICommonsList <IAuthCredentialValidatorSPI> s_aHdlList;
+  private static final ICommonsList <IAuthCredentialValidatorSPI> s_aHdlList;
 
   static
   {

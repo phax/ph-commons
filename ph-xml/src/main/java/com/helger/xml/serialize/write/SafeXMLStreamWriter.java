@@ -295,7 +295,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
     writeStartDocument (_getSettings ().getCharset (), EXMLVersion.getFromVersionOrNull (sVersion));
   }
 
-  public void writeStartDocument (@Nullable final String sEncoding,
+  public void writeStartDocument (@Nonnull final String sEncoding,
                                   @Nullable final String sVersion) throws XMLStreamException
   {
     writeStartDocument (CharsetHelper.getCharsetFromName (sEncoding), EXMLVersion.getFromVersionOrNull (sVersion));

@@ -62,14 +62,14 @@ public final class EnumHelper
   private EnumHelper ()
   {}
 
-  @Nonnull
+  @Nullable
   public static <ENUMTYPE extends Enum <ENUMTYPE>> ENUMTYPE findFirst (@Nonnull final Class <ENUMTYPE> aClass,
                                                                        @Nullable final Predicate <? super ENUMTYPE> aFilter)
   {
     return findFirst (aClass, aFilter, null);
   }
 
-  @Nonnull
+  @Nullable
   public static <ENUMTYPE extends Enum <ENUMTYPE>> ENUMTYPE findFirst (@Nonnull final Class <ENUMTYPE> aClass,
                                                                        @Nullable final Predicate <? super ENUMTYPE> aFilter,
                                                                        @Nullable final ENUMTYPE eDefault)

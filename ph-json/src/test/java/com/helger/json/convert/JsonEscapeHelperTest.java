@@ -23,6 +23,7 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
+import com.helger.commons.random.VerySecureRandom;
 import com.helger.commons.string.StringHelper;
 import com.helger.json.serialize.JsonReader;
 
@@ -70,7 +71,7 @@ public final class JsonEscapeHelperTest
       final int nStringLength = 123;
       final StringBuilder aTestString = new StringBuilder (nStringLength);
       for (int j = 0; j < nStringLength; ++j)
-        aTestString.append ((char) (Math.random () * Character.MAX_VALUE));
+        aTestString.append ((char) VerySecureRandom.getInstance ().nextInt (Character.MAX_VALUE));
       final String sTestString = aTestString.toString ();
 
       // Escape

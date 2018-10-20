@@ -85,7 +85,7 @@ public class MicroAttribute implements IMicroAttribute
   }
 
   @Override
-  public boolean equals (@Nullable final Object o)
+  public boolean equals (final Object o)
   {
     if (o == this)
       return true;
