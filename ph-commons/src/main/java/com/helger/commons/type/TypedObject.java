@@ -37,8 +37,8 @@ import com.helger.commons.string.ToStringGenerator;
 @Immutable
 public final class TypedObject <IDTYPE extends Serializable> implements ITypedObject <IDTYPE>, Serializable
 {
-  private ObjectType m_aObjectType;
-  private IDTYPE m_aID;
+  private final ObjectType m_aObjectType;
+  private final IDTYPE m_aID;
 
   /**
    * @param aObj

@@ -28,6 +28,8 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.iterate.IterableIterator;
 import com.helger.commons.equals.EqualsHelper;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Test class for class {@link QueueHelper}
  *
@@ -36,6 +38,7 @@ import com.helger.commons.equals.EqualsHelper;
 public final class QueueHelperTest
 {
   @Test
+  @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
   public void testNew ()
   {
     QueueHelper.newQueue ();

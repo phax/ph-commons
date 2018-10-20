@@ -30,6 +30,8 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.string.StringHelper;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * A non-synchronized copy of the class {@link java.io.CharArrayWriter}.<br>
  * It does not use the internal lock object.
@@ -259,7 +261,8 @@ public class NonBlockingCharArrayWriter extends Writer
    *         with care!
    */
   @Nonnull
-  @ReturnsMutableObject ("by design")
+  @ReturnsMutableObject
+  @SuppressFBWarnings ("EI_EXPOSE_REP")
   public char [] directGetBuffer ()
   {
     return m_aBuf;

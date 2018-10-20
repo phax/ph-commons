@@ -53,11 +53,14 @@ import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.mock.CommonsAssert;
 import com.helger.commons.string.StringParser;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Test class for class {@link EqualsHelper}.
  *
  * @author Philip Helger
  */
+@SuppressFBWarnings ("DMI_DOH")
 public final class EqualsHelperTest
 {
   @Test

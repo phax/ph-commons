@@ -29,6 +29,8 @@ import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * A straight forward implementation of {@link IHasByteArray}
  *
@@ -89,6 +91,7 @@ public final class ByteArrayWrapper implements IHasByteArray, Serializable
 
   @Nonnull
   @ReturnsMutableObject
+  @SuppressFBWarnings ("EI_EXPOSE_REP")
   public byte [] bytes ()
   {
     return m_aBytes;

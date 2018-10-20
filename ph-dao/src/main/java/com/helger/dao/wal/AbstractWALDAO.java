@@ -20,6 +20,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
 import java.io.File;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.time.Clock;
@@ -450,269 +451,269 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
     final boolean bIsInitialization = aFile == null || !aFile.exists ();
     final File aFinalFile = aFile;
 
-    m_aRWLock.writeLockedThrowing ( () -> {
+    m_aRWLock.writeLock ().lock ();
+    try
+    {
+      m_bCanWriteWAL = false;
+
+      IMicroDocument aDoc = null;
       try
       {
-        m_bCanWriteWAL = false;
-
-        IMicroDocument aDoc = null;
-        try
+        ESuccess eWriteSuccess = ESuccess.SUCCESS;
+        if (bIsInitialization)
         {
-          ESuccess eWriteSuccess = ESuccess.SUCCESS;
-          if (bIsInitialization)
-          {
-            // initial setup for non-existing file
-            if (isDebugLogging ())
-              if (LOGGER.isInfoEnabled ())
-                LOGGER.info ("Trying to initialize WAL DAO" +
-                             (aFinalFile == null ? "" : " XML file '" + aFinalFile.getAbsolutePath () + "'"));
+          // initial setup for non-existing file
+          if (isDebugLogging ())
+            if (LOGGER.isInfoEnabled ())
+              LOGGER.info ("Trying to initialize WAL DAO" +
+                           (aFinalFile == null ? "" : " XML file '" + aFinalFile.getAbsolutePath () + "'"));
 
+          beginWithoutAutoSave ();
+          try
+          {
+            m_aStatsCounterInitTotal.increment ();
+            final StopWatch aSW = StopWatch.createdStarted ();
+
+            if (onInit ().isChanged ())
+              if (aFinalFile != null)
+                eWriteSuccess = _writeToFile ();
+
+            m_aStatsCounterInitTimer.addTime (aSW.stopAndGetMillis ());
+            m_aStatsCounterInitSuccess.increment ();
+            m_nInitCount++;
+            m_aLastInitDT = PDTFactory.getCurrentLocalDateTime ();
+          }
+          finally
+          {
+            endWithoutAutoSave ();
+            // reset any pending changes, because the initialization should
+            // be read-only. If the implementing class changed something,
+            // the return value of onInit() is what counts
+            internalSetPendingChanges (false);
+          }
+        }
+        else
+        {
+          // Read existing file (aFinalFile must be set)
+          if (isDebugLogging ())
+            if (LOGGER.isInfoEnabled ())
+              LOGGER.info ("Trying to read WAL DAO XML file '" + aFinalFile.getAbsolutePath () + "'");
+
+          m_aStatsCounterReadTotal.increment ();
+          aDoc = MicroReader.readMicroXML (aFinalFile);
+          if (aDoc == null)
+          {
+            if (LOGGER.isErrorEnabled ())
+              LOGGER.error ("Failed to read DAO XML document from file '" + aFinalFile.getAbsolutePath () + "'");
+          }
+          else
+          {
+            // Valid XML - start interpreting
             beginWithoutAutoSave ();
             try
             {
-              m_aStatsCounterInitTotal.increment ();
               final StopWatch aSW = StopWatch.createdStarted ();
 
-              if (onInit ().isChanged ())
-                if (aFinalFile != null)
-                  eWriteSuccess = _writeToFile ();
+              if (onRead (aDoc).isChanged ())
+                eWriteSuccess = _writeToFile ();
 
-              m_aStatsCounterInitTimer.addTime (aSW.stopAndGetMillis ());
-              m_aStatsCounterInitSuccess.increment ();
-              m_nInitCount++;
-              m_aLastInitDT = PDTFactory.getCurrentLocalDateTime ();
+              m_aStatsCounterReadTimer.addTime (aSW.stopAndGetMillis ());
+              m_aStatsCounterReadSuccess.increment ();
+              m_nReadCount++;
+              m_aLastReadDT = PDTFactory.getCurrentLocalDateTime ();
             }
             finally
             {
               endWithoutAutoSave ();
               // reset any pending changes, because the initialization should
               // be read-only. If the implementing class changed something,
-              // the return value of onInit() is what counts
+              // the return value of onRead() is what counts
               internalSetPendingChanges (false);
             }
           }
-          else
-          {
-            // Read existing file (aFinalFile must be set)
-            if (isDebugLogging ())
-              if (LOGGER.isInfoEnabled ())
-                LOGGER.info ("Trying to read WAL DAO XML file '" + aFinalFile.getAbsolutePath () + "'");
-
-            m_aStatsCounterReadTotal.increment ();
-            aDoc = MicroReader.readMicroXML (aFinalFile);
-            if (aDoc == null)
-            {
-              if (LOGGER.isErrorEnabled ())
-                LOGGER.error ("Failed to read DAO XML document from file '" + aFinalFile.getAbsolutePath () + "'");
-            }
-            else
-            {
-              // Valid XML - start interpreting
-              beginWithoutAutoSave ();
-              try
-              {
-                final StopWatch aSW = StopWatch.createdStarted ();
-
-                if (onRead (aDoc).isChanged ())
-                  eWriteSuccess = _writeToFile ();
-
-                m_aStatsCounterReadTimer.addTime (aSW.stopAndGetMillis ());
-                m_aStatsCounterReadSuccess.increment ();
-                m_nReadCount++;
-                m_aLastReadDT = PDTFactory.getCurrentLocalDateTime ();
-              }
-              finally
-              {
-                endWithoutAutoSave ();
-                // reset any pending changes, because the initialization should
-                // be read-only. If the implementing class changed something,
-                // the return value of onRead() is what counts
-                internalSetPendingChanges (false);
-              }
-            }
-          }
-
-          // Check if writing was successful on any of the 2 branches
-          if (eWriteSuccess.isSuccess ())
-          {
-            // Reset any pending changes, since the changes were already saved
-            internalSetPendingChanges (false);
-          }
-          else
-          {
-            // There is something wrong
-            if (LOGGER.isErrorEnabled ())
-              LOGGER.error ("File '" + aFinalFile.getAbsolutePath () + "' has pending changes after initialRead!");
-          }
-        }
-        catch (final Exception ex)
-        {
-          triggerExceptionHandlersRead (ex, bIsInitialization, aFinalFile);
-          throw new DAOException ("Error " +
-                                  (bIsInitialization ? "initializing" : "reading") +
-                                  (aFinalFile == null ? "in-memory"
-                                                      : " the file '" + aFinalFile.getAbsolutePath () + "'"),
-                                  ex);
         }
 
-        // Trigger after read before WAL
-        if (aDoc != null)
-          onBetweenReadAndWAL (aDoc);
-
-        // Check if there is any WAL file to recover
-        final String sWALFilename = _getWALFilename ();
-        final File aWALFile = sWALFilename == null ? null : m_aIO.getFile (sWALFilename);
-        if (aWALFile != null && aWALFile.exists ())
+        // Check if writing was successful on any of the 2 branches
+        if (eWriteSuccess.isSuccess ())
         {
-          if (LOGGER.isInfoEnabled ())
-            LOGGER.info ("Trying to recover from WAL file " + aWALFile.getAbsolutePath ());
-          boolean bPerformedAtLeastOnRecovery = false;
-          boolean bRecoveryContainedErrors = false;
-
-          // Avoid writing the recovery actions to the WAL file again :)
-          try (final DataInputStream aOIS = new DataInputStream (FileHelper.getInputStream (aWALFile)))
-          {
-            while (true)
-            {
-              // Read action type
-              String sActionTypeID;
-              try
-              {
-                sActionTypeID = StreamHelper.readSafeUTF (aOIS);
-              }
-              catch (final EOFException ex)
-              {
-                // End of file
-                break;
-              }
-              final EDAOActionType eActionType = EDAOActionType.getFromIDOrThrow (sActionTypeID);
-
-              // Read number of elements
-              final int nElements = aOIS.readInt ();
-              if (LOGGER.isInfoEnabled ())
-                LOGGER.info ("Trying to recover " + nElements + " " + eActionType + " actions from WAL file");
-
-              // Read all elements
-              for (int i = 0; i < nElements; ++i)
-              {
-                final String sElement = StreamHelper.readSafeUTF (aOIS);
-                final DATATYPE aElement = convertWALStringToNative (sElement);
-                if (aElement == null)
-                {
-                  // Cannot recover, because conversion fails
-                  bRecoveryContainedErrors = true;
-                  onRecoveryErrorConvertToNative (eActionType, i, sElement);
-                  continue;
-                }
-                if (LOGGER.isDebugEnabled ())
-                  LOGGER.debug ("Trying to recover object [" + i + "] with " + sElement.length () + " chars");
-
-                switch (eActionType)
-                {
-                  case CREATE:
-                    try
-                    {
-                      onRecoveryCreate (aElement);
-                      bPerformedAtLeastOnRecovery = true;
-                      if (LOGGER.isInfoEnabled ())
-                        LOGGER.info ("[WAL] wal-recovery create " + aElement);
-                    }
-                    catch (final RuntimeException ex)
-                    {
-                      if (LOGGER.isErrorEnabled ())
-                        LOGGER.error ("[WAL] wal-recovery create " +
-                                      aElement +
-                                      " - " +
-                                      ex.getClass ().getName () +
-                                      ": " +
-                                      ex.getMessage ());
-                      throw ex;
-                    }
-                    break;
-                  case UPDATE:
-                    try
-                    {
-                      onRecoveryUpdate (aElement);
-                      bPerformedAtLeastOnRecovery = true;
-                      if (LOGGER.isInfoEnabled ())
-                        LOGGER.info ("[WAL] wal-recovery update " + aElement);
-                      break;
-                    }
-                    catch (final RuntimeException ex)
-                    {
-                      if (LOGGER.isErrorEnabled ())
-                        LOGGER.error ("[WAL] wal-recovery update " +
-                                      aElement +
-                                      " - " +
-                                      ex.getClass ().getName () +
-                                      ": " +
-                                      ex.getMessage ());
-                      throw ex;
-                    }
-                  case DELETE:
-                    try
-                    {
-                      onRecoveryDelete (aElement);
-                      bPerformedAtLeastOnRecovery = true;
-                      if (LOGGER.isInfoEnabled ())
-                        LOGGER.info ("[WAL] wal-recovery delete " + aElement);
-                      break;
-                    }
-                    catch (final RuntimeException ex)
-                    {
-                      if (LOGGER.isErrorEnabled ())
-                        LOGGER.error ("[WAL] wal-recovery delete " +
-                                      aElement +
-                                      " - " +
-                                      ex.getClass ().getName () +
-                                      ": " +
-                                      ex.getMessage ());
-                      throw ex;
-                    }
-                  default:
-                    throw new IllegalStateException ("Unsupported action type provided: " + eActionType);
-                }
-              }
-            }
-            if (LOGGER.isInfoEnabled ())
-              LOGGER.info ("Successfully finished recovery from WAL file " + aWALFile.getAbsolutePath ());
-          }
-          catch (final Exception ex)
-          {
-            if (LOGGER.isErrorEnabled ())
-              LOGGER.error ("Failed to recover from WAL file '" +
-                            aWALFile.getAbsolutePath () +
-                            "'. Technical details: " +
-                            ex.getClass ().getName () +
-                            ": " +
-                            ex.getMessage ());
-            triggerExceptionHandlersRead (ex, false, aWALFile);
-            throw new DAOException ("Error the WAL file '" + aWALFile.getAbsolutePath () + "'", ex);
-          }
-
-          // Finished recovery successfully
-          // Perform the remaining actions AFTER the WAL input stream was
-          // closed!
-          if (bPerformedAtLeastOnRecovery)
-          {
-            // Write the file without using WAL
-            _writeToFileAndResetPendingChanges ("onRecovery");
-          }
-
-          // Finally maintain or delete the WAL file, as the recovery has
-          // finished
-          if (bRecoveryContainedErrors)
-            _maintainWALFileAfterProcessing (sWALFilename);
-          else
-            _deleteWALFileAfterProcessing (sWALFilename);
+          // Reset any pending changes, since the changes were already saved
+          internalSetPendingChanges (false);
+        }
+        else
+        {
+          // There is something wrong
+          if (LOGGER.isErrorEnabled ())
+            LOGGER.error ("File '" + aFinalFile.getAbsolutePath () + "' has pending changes after initialRead!");
         }
       }
-      finally
+      catch (final Exception ex)
       {
-        // Now a WAL file can be written again
-        m_bCanWriteWAL = true;
+        triggerExceptionHandlersRead (ex, bIsInitialization, aFinalFile);
+        throw new DAOException ("Error " +
+                                (bIsInitialization ? "initializing" : "reading") +
+                                (aFinalFile == null ? "in-memory"
+                                                    : " the file '" + aFinalFile.getAbsolutePath () + "'"),
+                                ex);
       }
-    });
+
+      // Trigger after read before WAL
+      if (aDoc != null)
+        onBetweenReadAndWAL (aDoc);
+
+      // Check if there is any WAL file to recover
+      final String sWALFilename = _getWALFilename ();
+      final File aWALFile = sWALFilename == null ? null : m_aIO.getFile (sWALFilename);
+      if (aWALFile != null && aWALFile.exists ())
+      {
+        if (LOGGER.isInfoEnabled ())
+          LOGGER.info ("Trying to recover from WAL file " + aWALFile.getAbsolutePath ());
+        boolean bPerformedAtLeastOnRecovery = false;
+        boolean bRecoveryContainedErrors = false;
+
+        // Avoid writing the recovery actions to the WAL file again :)
+        try (final DataInputStream aOIS = new DataInputStream (FileHelper.getInputStream (aWALFile)))
+        {
+          while (true)
+          {
+            // Read action type
+            String sActionTypeID;
+            try
+            {
+              sActionTypeID = StreamHelper.readSafeUTF (aOIS);
+            }
+            catch (final EOFException ex)
+            {
+              // End of file
+              break;
+            }
+            final EDAOActionType eActionType = EDAOActionType.getFromIDOrThrow (sActionTypeID);
+
+            // Read number of elements
+            final int nElements = aOIS.readInt ();
+            if (LOGGER.isInfoEnabled ())
+              LOGGER.info ("Trying to recover " + nElements + " " + eActionType + " actions from WAL file");
+
+            // Read all elements
+            for (int i = 0; i < nElements; ++i)
+            {
+              final String sElement = StreamHelper.readSafeUTF (aOIS);
+              final DATATYPE aElement = convertWALStringToNative (sElement);
+              if (aElement == null)
+              {
+                // Cannot recover, because conversion fails
+                bRecoveryContainedErrors = true;
+                onRecoveryErrorConvertToNative (eActionType, i, sElement);
+                continue;
+              }
+              if (LOGGER.isDebugEnabled ())
+                LOGGER.debug ("Trying to recover object [" + i + "] with " + sElement.length () + " chars");
+
+              switch (eActionType)
+              {
+                case CREATE:
+                  try
+                  {
+                    onRecoveryCreate (aElement);
+                    bPerformedAtLeastOnRecovery = true;
+                    if (LOGGER.isInfoEnabled ())
+                      LOGGER.info ("[WAL] wal-recovery create " + aElement);
+                  }
+                  catch (final RuntimeException ex)
+                  {
+                    if (LOGGER.isErrorEnabled ())
+                      LOGGER.error ("[WAL] wal-recovery create " +
+                                    aElement +
+                                    " - " +
+                                    ex.getClass ().getName () +
+                                    ": " +
+                                    ex.getMessage ());
+                    throw ex;
+                  }
+                  break;
+                case UPDATE:
+                  try
+                  {
+                    onRecoveryUpdate (aElement);
+                    bPerformedAtLeastOnRecovery = true;
+                    if (LOGGER.isInfoEnabled ())
+                      LOGGER.info ("[WAL] wal-recovery update " + aElement);
+                    break;
+                  }
+                  catch (final RuntimeException ex)
+                  {
+                    if (LOGGER.isErrorEnabled ())
+                      LOGGER.error ("[WAL] wal-recovery update " +
+                                    aElement +
+                                    " - " +
+                                    ex.getClass ().getName () +
+                                    ": " +
+                                    ex.getMessage ());
+                    throw ex;
+                  }
+                case DELETE:
+                  try
+                  {
+                    onRecoveryDelete (aElement);
+                    bPerformedAtLeastOnRecovery = true;
+                    if (LOGGER.isInfoEnabled ())
+                      LOGGER.info ("[WAL] wal-recovery delete " + aElement);
+                    break;
+                  }
+                  catch (final RuntimeException ex)
+                  {
+                    if (LOGGER.isErrorEnabled ())
+                      LOGGER.error ("[WAL] wal-recovery delete " +
+                                    aElement +
+                                    " - " +
+                                    ex.getClass ().getName () +
+                                    ": " +
+                                    ex.getMessage ());
+                    throw ex;
+                  }
+                default:
+                  throw new IllegalStateException ("Unsupported action type provided: " + eActionType);
+              }
+            }
+          }
+          if (LOGGER.isInfoEnabled ())
+            LOGGER.info ("Successfully finished recovery from WAL file " + aWALFile.getAbsolutePath ());
+        }
+        catch (final IOException | RuntimeException ex)
+        {
+          if (LOGGER.isErrorEnabled ())
+            LOGGER.error ("Failed to recover from WAL file '" +
+                          aWALFile.getAbsolutePath () +
+                          "'. Technical details: " +
+                          ex.getClass ().getName () +
+                          ": " +
+                          ex.getMessage ());
+          triggerExceptionHandlersRead (ex, false, aWALFile);
+          throw new DAOException ("Error the WAL file '" + aWALFile.getAbsolutePath () + "'", ex);
+        }
+
+        // Finished recovery successfully
+        // Perform the remaining actions AFTER the WAL input stream was
+        // closed!
+        if (bPerformedAtLeastOnRecovery)
+        {
+          // Write the file without using WAL
+          _writeToFileAndResetPendingChanges ("onRecovery");
+        }
+
+        // Finally maintain or delete the WAL file, as the recovery has
+        // finished
+        if (bRecoveryContainedErrors)
+          _maintainWALFileAfterProcessing (sWALFilename);
+        else
+          _deleteWALFileAfterProcessing (sWALFilename);
+      }
+    }
+    finally
+    {
+      // Now a WAL file can be written again
+      m_bCanWriteWAL = true;
+      m_aRWLock.writeLock ().unlock ();
+    }
   }
 
   /**
@@ -909,7 +910,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
       m_aLastWriteDT = PDTFactory.getCurrentLocalDateTime ();
       return ESuccess.SUCCESS;
     }
-    catch (final Exception ex)
+    catch (final DAOException | RuntimeException ex)
     {
       final String sErrorFilename = aFileNew != null ? aFileNew.getAbsolutePath () : sFilename;
 

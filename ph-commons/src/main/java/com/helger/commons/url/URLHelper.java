@@ -296,73 +296,79 @@ public final class URLHelper
     ValueEnforcer.notNull (sValue, "Value");
     ValueEnforcer.notNull (aCharset, "Charset");
 
-    final int nLen = sValue.length ();
-    boolean bChanged = false;
-    final StringBuilder aSB = new StringBuilder (nLen * 2);
     NonBlockingCharArrayWriter aCAW = null;
-
-    final char [] aSrcChars = sValue.toCharArray ();
-    int nIndex = 0;
-    while (nIndex < nLen)
+    try
     {
-      char c = aSrcChars[nIndex];
-      if (NO_URL_ENCODE.get (c))
+      final int nLen = sValue.length ();
+      boolean bChanged = false;
+      final StringBuilder aSB = new StringBuilder (nLen * 2);
+
+      final char [] aSrcChars = sValue.toCharArray ();
+      int nIndex = 0;
+      while (nIndex < nLen)
       {
-        if (c == ' ')
+        char c = aSrcChars[nIndex];
+        if (NO_URL_ENCODE.get (c))
         {
-          c = '+';
+          if (c == ' ')
+          {
+            c = '+';
+            bChanged = true;
+          }
+          aSB.append (c);
+          nIndex++;
+        }
+        else
+        {
+          // convert to external encoding before hex conversion
+          if (aCAW == null)
+            aCAW = new NonBlockingCharArrayWriter ();
+          else
+            aCAW.reset ();
+
+          while (true)
+          {
+            aCAW.write (c);
+            /*
+             * If this character represents the start of a Unicode surrogate
+             * pair, then pass in two characters. It's not clear what should be
+             * done if a bytes reserved in the surrogate pairs range occurs
+             * outside of a legal surrogate pair. For now, just treat it as if
+             * it were any other character.
+             */
+            if (Character.isHighSurrogate (c) && nIndex + 1 < nLen)
+            {
+              final char d = aSrcChars[nIndex + 1];
+              if (Character.isLowSurrogate (d))
+              {
+                aCAW.write (d);
+                nIndex++;
+              }
+            }
+            nIndex++;
+            if (nIndex >= nLen)
+              break;
+
+            // Try next char
+            c = aSrcChars[nIndex];
+            if (NO_URL_ENCODE.get (c))
+              break;
+          }
+
+          final byte [] aEncodedBytes = aCAW.toByteArray (aCharset);
+          for (final byte nEncByte : aEncodedBytes)
+          {
+            aSB.append ('%').append (URL_ENCODE_CHARS[(nEncByte >> 4) & 0xF]).append (URL_ENCODE_CHARS[nEncByte & 0xF]);
+          }
           bChanged = true;
         }
-        aSB.append (c);
-        nIndex++;
       }
-      else
-      {
-        // convert to external encoding before hex conversion
-        if (aCAW == null)
-          aCAW = new NonBlockingCharArrayWriter ();
-        else
-          aCAW.reset ();
-
-        while (true)
-        {
-          aCAW.write (c);
-          /*
-           * If this character represents the start of a Unicode surrogate pair,
-           * then pass in two characters. It's not clear what should be done if
-           * a bytes reserved in the surrogate pairs range occurs outside of a
-           * legal surrogate pair. For now, just treat it as if it were any
-           * other character.
-           */
-          if (Character.isHighSurrogate (c) && nIndex + 1 < nLen)
-          {
-            final char d = aSrcChars[nIndex + 1];
-            if (Character.isLowSurrogate (d))
-            {
-              aCAW.write (d);
-              nIndex++;
-            }
-          }
-          nIndex++;
-          if (nIndex >= nLen)
-            break;
-
-          // Try next char
-          c = aSrcChars[nIndex];
-          if (NO_URL_ENCODE.get (c))
-            break;
-        }
-
-        final byte [] aEncodedBytes = aCAW.toByteArray (aCharset);
-        for (final byte nEncByte : aEncodedBytes)
-        {
-          aSB.append ('%').append (URL_ENCODE_CHARS[(nEncByte >> 4) & 0xF]).append (URL_ENCODE_CHARS[nEncByte & 0xF]);
-        }
-        bChanged = true;
-      }
+      return bChanged ? aSB.toString () : sValue;
     }
-
-    return bChanged ? aSB.toString () : sValue;
+    finally
+    {
+      StreamHelper.close (aCAW);
+    }
   }
 
   private static void _initCleanURL ()

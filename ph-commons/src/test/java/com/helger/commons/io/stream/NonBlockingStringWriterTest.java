@@ -62,6 +62,7 @@ public final class NonBlockingStringWriterTest
 
   @Test
   @SuppressWarnings ("resource")
+  @SuppressFBWarnings ("OS_OPEN_STREAM")
   public void testError ()
   {
     try

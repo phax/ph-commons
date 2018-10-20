@@ -20,7 +20,7 @@ import java.util.Enumeration;
 import java.util.NoSuchElementException;
 
 import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -33,7 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @param <ELEMENTTYPE>
  *        The type of object to enumerate.
  */
-@Immutable
+@NotThreadSafe
 public class SingleElementEnumeration <ELEMENTTYPE> implements Enumeration <ELEMENTTYPE>
 {
   private boolean m_bHasMoreElements;

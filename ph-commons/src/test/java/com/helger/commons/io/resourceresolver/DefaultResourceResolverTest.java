@@ -33,11 +33,14 @@ import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resource.URLResource;
 import com.helger.commons.lang.ClassHelper;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Test class for class {@link DefaultResourceResolver}.
  *
  * @author Philip Helger
  */
+@SuppressFBWarnings ("DMI_HARDCODED_ABSOLUTE_FILENAME")
 public final class DefaultResourceResolverTest
 {
   @Test

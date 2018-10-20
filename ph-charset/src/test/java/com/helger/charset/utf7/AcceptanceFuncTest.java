@@ -209,7 +209,7 @@ public final class AcceptanceFuncTest
       pos += in.position ();
       in.compact ();
     }
-    pos += in.position ();
+    // pos += in.position ();
     in.limit (0);
     result = encoder.encode (in, out, true);
     result = encoder.flush (out);
@@ -240,7 +240,7 @@ public final class AcceptanceFuncTest
     result = encoder.encode (in, out, true);
     assertFalse (!result.isOverflow () && in.hasRemaining ());
     CharsetTestHelper.outToSB (out, sb);
-    result = encoder.flush (out);
+    encoder.flush (out);
     CharsetTestHelper.outToSB (out, sb);
     assertEquals (encoded, sb.toString ());
     in.rewind ();

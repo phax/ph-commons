@@ -26,6 +26,8 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * A non-synchronized copy of the class {@link java.io.StringReader}.<br>
  * Note: super class {@link Reader} uses the lock object internally only for
@@ -48,6 +50,7 @@ public class NonBlockingStringReader extends Reader
     this (aChars, 0, aChars.length);
   }
 
+  @SuppressFBWarnings ("EI_EXPOSE_REP2")
   public NonBlockingStringReader (@Nonnull final char [] aChars,
                                   @Nonnegative final int nOfs,
                                   @Nonnegative final int nLen)

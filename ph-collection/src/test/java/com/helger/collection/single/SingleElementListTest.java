@@ -49,6 +49,7 @@ public final class SingleElementListTest
   }
 
   @Test
+  @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
   public void testBasicStartFromEmpty ()
   {
     final SingleElementList <String> aList = new SingleElementList <> ();
@@ -193,6 +194,7 @@ public final class SingleElementListTest
   }
 
   @Test
+  @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
   public void testSubList ()
   {
     final SingleElementList <String> aList = new SingleElementList <> ("init");

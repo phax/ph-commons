@@ -140,17 +140,18 @@ public class HttpHeaderMap implements
 
   @Nullable
   @ReturnsMutableObject
-  private Map.Entry <String, ICommonsList <String>> _getHeaderEntry (@Nonnull @Nonempty final String sName)
+  private Map.Entry <String, ICommonsList <String>> _getHeaderEntry (@Nullable final String sName)
   {
-    for (final Map.Entry <String, ICommonsList <String>> aEntry : m_aHeaders.entrySet ())
-      if (aEntry.getKey ().equalsIgnoreCase (sName))
-        return aEntry;
+    if (StringHelper.hasText (sName))
+      for (final Map.Entry <String, ICommonsList <String>> aEntry : m_aHeaders.entrySet ())
+        if (aEntry.getKey ().equalsIgnoreCase (sName))
+          return aEntry;
     return null;
   }
 
   @Nullable
   @ReturnsMutableObject
-  private ICommonsList <String> _getHeaderList (@Nonnull @Nonempty final String sName)
+  private ICommonsList <String> _getHeaderList (@Nullable final String sName)
   {
     final Map.Entry <String, ICommonsList <String>> aEntry = _getHeaderEntry (sName);
     return aEntry == null ? null : aEntry.getValue ();

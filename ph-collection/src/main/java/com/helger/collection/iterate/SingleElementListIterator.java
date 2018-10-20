@@ -20,7 +20,7 @@ import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
 import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.annotation.UnsupportedOperation;
 import com.helger.commons.equals.EqualsHelper;
@@ -35,7 +35,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @param <ELEMENTTYPE>
  *        The type of the element to be iterated.
  */
-@Immutable
+@NotThreadSafe
 public class SingleElementListIterator <ELEMENTTYPE> implements ListIterator <ELEMENTTYPE>
 {
   private boolean m_bHasNext;

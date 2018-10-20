@@ -34,6 +34,8 @@ import com.helger.commons.io.IWriteToStream;
 import com.helger.commons.lang.IHasSize;
 import com.helger.commons.string.ToStringGenerator;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * A non-synchronized copy of the class {@link java.io.ByteArrayOutputStream}.
  *
@@ -341,6 +343,7 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
    */
   @Nonnull
   @ReturnsMutableObject
+  @SuppressFBWarnings ("EI_EXPOSE_REP")
   public byte [] directGetBuffer ()
   {
     return m_aBuf;

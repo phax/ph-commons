@@ -35,6 +35,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *
  * @author Philip Helger
  */
+@SuppressFBWarnings ("DMI_HARDCODED_ABSOLUTE_FILENAME")
 public final class FilenameHelperTest
 {
   /**

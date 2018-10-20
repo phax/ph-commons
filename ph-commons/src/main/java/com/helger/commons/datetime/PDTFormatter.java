@@ -32,6 +32,8 @@ import com.helger.commons.cache.Cache;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.StringHelper;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Create common {@link DateTimeFormatter} objects used for printing and parsing
  * date and time objects.
@@ -39,6 +41,7 @@ import com.helger.commons.string.StringHelper;
  * @author Philip Helger
  */
 @Immutable
+@SuppressFBWarnings ("JCIP_FIELD_ISNT_FINAL_IN_IMMUTABLE_CLASS")
 public final class PDTFormatter
 {
   /**

@@ -32,6 +32,8 @@ This project was the following modules:
     * Remove all methods deprecated for removal in 9.x
     * Change `DOMReader.readXMLDOM` to not throw an Exception. Provide a suitable `ErrorHandler` instead.
     * Clean `IMultilingualText` API (less interfaces, use more `texts()`)
+    * Remove `Serializable` from `ICommonsIterable`
+    * `SystemProperties.setPropertyValue()` change return type to `EChange`
 * v9.1.8 - work in progress
     * Added special support for properties `java.runtime.version` and `java.runtime.name` in class `SystemProperties`
     * Class `JavaVersionHelper` now supports AdoptOpenJDK versions

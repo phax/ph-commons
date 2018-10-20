@@ -66,16 +66,6 @@ public final class CollatorHelper
         // Collator.getInstance is synchronized and therefore extremely slow ->
         // that's why we put a cache around it!
         final Collator aCollator = Collator.getInstance (aLocale);
-        if (aCollator == null)
-        {
-          final Locale aSystemLocale = SystemHelper.getSystemLocale ();
-          LOGGER.error ("Failed to get Collator for Locale " +
-                        aLocale +
-                        " - using Collator for syste locale " +
-                        aSystemLocale +
-                        "!");
-          return Collator.getInstance (aSystemLocale);
-        }
         if (!(aCollator instanceof RuleBasedCollator))
         {
           LOGGER.warn ("Collator.getInstance did not return a RulleBasedCollator but a " +

@@ -82,7 +82,7 @@ public class StatisticsHandlerKeyedCounter implements IMutableStatisticsHandlerK
     }
   }
 
-  private final transient SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
+  private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   private final AtomicInteger m_aInvocationCount = new AtomicInteger ();
   private final ICommonsMap <String, Value> m_aMap = new CommonsHashMap <> ();
 

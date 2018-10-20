@@ -88,17 +88,20 @@ public class Base64Codec implements IByteArrayCodec
                       @Nonnegative final int nLen,
                       @Nonnull @WillNotClose final OutputStream aOS)
   {
-    try (final Base64InputStream aB64OS = new Base64InputStream (new NonBlockingByteArrayInputStream (aEncodedBuffer,
-                                                                                                      nOfs,
-                                                                                                      nLen)))
-    {
-      if (StreamHelper.copyInputStreamToOutputStream (aB64OS, aOS).isFailure ())
-        throw new DecodeException ("Failed to decode Base64!");
-    }
-    catch (final IOException ex)
-    {
-      throw new DecodeException ("Failed to decode Base64!", ex);
-    }
+    if (aEncodedBuffer != null)
+      try (
+          final NonBlockingByteArrayInputStream aBAOS = new NonBlockingByteArrayInputStream (aEncodedBuffer,
+                                                                                             nOfs,
+                                                                                             nLen);
+          final Base64InputStream aB64OS = new Base64InputStream (aBAOS))
+      {
+        if (StreamHelper.copyInputStreamToOutputStream (aB64OS, aOS).isFailure ())
+          throw new DecodeException ("Failed to decode Base64!");
+      }
+      catch (final IOException ex)
+      {
+        throw new DecodeException ("Failed to decode Base64!", ex);
+      }
   }
 
   @Nullable

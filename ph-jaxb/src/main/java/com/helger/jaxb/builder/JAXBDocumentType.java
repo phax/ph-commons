@@ -178,13 +178,7 @@ public class JAXBDocumentType implements IJAXBDocumentType
   protected Schema createSchema (@Nullable final ClassLoader aClassLoader)
   {
     final ICommonsList <? extends IReadableResource> aXSDRes = getAllXSDResources (aClassLoader);
-    final Schema ret = XMLSchemaCache.getInstanceOfClassLoader (aClassLoader).getSchema (aXSDRes);
-    if (ret == null)
-      throw new IllegalStateException ("Failed to create Schema from " +
-                                       aXSDRes +
-                                       (aClassLoader == null ? " with default class loader"
-                                                             : " using class loader " + aClassLoader));
-    return ret;
+    return XMLSchemaCache.getInstanceOfClassLoader (aClassLoader).getSchema (aXSDRes);
   }
 
   @Nullable

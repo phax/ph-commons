@@ -28,6 +28,7 @@ import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.error.text.ConstantHasErrorText;
 import com.helger.commons.error.text.DynamicHasErrorText;
 import com.helger.commons.error.text.IHasErrorText;
+import com.helger.commons.hashcode.HashCodeCalculator;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.location.ILocation;
 import com.helger.commons.location.SimpleLocation;
@@ -164,7 +165,7 @@ public class SingleError implements IError
   protected void hashCodeLinkedException (@Nonnull final HashCodeGenerator aHCG, @Nullable final Throwable t)
   {
     if (t == null)
-      aHCG.append (t);
+      aHCG.append (HashCodeCalculator.HASHCODE_NULL);
     else
       aHCG.append (t.getClass ()).append (t.getMessage ());
   }

@@ -16,10 +16,6 @@
  */
 package com.helger.security.authentication.subject.user;
 
-import javax.annotation.Nonnull;
-
-import com.helger.commons.annotation.Nonempty;
-
 /**
  * Interface for objects having a user ID.
  *
@@ -28,10 +24,8 @@ import com.helger.commons.annotation.Nonempty;
 public interface IHasUserID
 {
   /**
-   * @return The ID of the user. Must be present.
+   * @return The ID of the user. Presence requirement depends on use case.
    */
-  @Nonnull
-  @Nonempty
   String getUserID ();
 
   /**

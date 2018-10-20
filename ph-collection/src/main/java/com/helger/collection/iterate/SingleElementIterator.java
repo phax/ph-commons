@@ -20,7 +20,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -33,7 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @param <ELEMENTTYPE>
  *        The type of object to iterate.
  */
-@Immutable
+@NotThreadSafe
 public class SingleElementIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYPE>
 {
   private boolean m_bHasNext;

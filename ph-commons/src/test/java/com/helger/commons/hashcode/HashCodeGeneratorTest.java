@@ -56,7 +56,7 @@ public final class HashCodeGeneratorTest
     aHC.append (false);
     aHC.append ((byte) 0x44);
     aHC.append ('ä');
-    aHC.append (3.1415924);
+    aHC.append (31.415924);
     aHC.append (0.00);
     aHC.append (3141.59f);
     aHC.append (0.00f);

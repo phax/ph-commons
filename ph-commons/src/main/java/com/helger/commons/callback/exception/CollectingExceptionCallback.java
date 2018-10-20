@@ -17,7 +17,7 @@
 package com.helger.commons.callback.exception;
 
 import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.string.ToStringGenerator;
 
@@ -29,7 +29,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @param <EXTYPE>
  *        The exception type to be handled
  */
-@Immutable
+@NotThreadSafe
 public class CollectingExceptionCallback <EXTYPE extends Throwable> implements IExceptionCallback <EXTYPE>
 {
   private EXTYPE m_aException;

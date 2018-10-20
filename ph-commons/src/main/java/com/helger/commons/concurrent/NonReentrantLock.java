@@ -23,6 +23,8 @@ import java.util.concurrent.locks.Lock;
 
 import javax.annotation.Nonnull;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Non reentrant lock. Copied from Netty 3.7 sources.
  *
@@ -31,6 +33,7 @@ import javax.annotation.Nonnull;
  */
 public class NonReentrantLock extends AbstractQueuedSynchronizer implements Lock
 {
+  @SuppressFBWarnings ("SE_BAD_FIELD")
   private Thread m_aOwner;
 
   public NonReentrantLock ()
