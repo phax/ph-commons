@@ -34,6 +34,7 @@ This project was the following modules:
     * Clean `IMultilingualText` API (less interfaces, use more `texts()`)
     * Remove `Serializable` from `ICommonsIterable` and `IHasDisplayText` and `IDisplayTextProvider`
     * `SystemProperties.setPropertyValue()` change return type to `EChange`
+    * `JAXBDocumentType` takes `List<ClassPathResource>` instead of String to avoid `ClassLoader` issues
 * v9.1.8 - work in progress
     * Added special support for properties `java.runtime.version` and `java.runtime.name` in class `SystemProperties`
     * Class `JavaVersionHelper` now supports AdoptOpenJDK versions
