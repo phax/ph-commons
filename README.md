@@ -48,6 +48,7 @@ This project was the following modules:
     * Added `IMultilingualText.texts ()` 
     * Fixed some SpotBugs errors
     * Added `IJAXBWriter.getAsInputStream(...)`
+    * Added marker interface `IExplicitlyCloneable<T>`
 * v9.1.7 - 2018-10-11
     * Added new class `IdentityByteArrayCodec`
     * Added new classes `MacInputStream` and `MacOutputStream`
