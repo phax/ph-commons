@@ -51,9 +51,11 @@ public final class ClassLoaderHelper
     return IPrivilegedAction.getSystemClassLoader ().invokeSafe ();
   }
 
-  @Nonnull
+  @Nullable
   public static ClassLoader getContextClassLoader ()
   {
+    // the context ClassLoader for this Thread, or null indicating the system
+    // class loader
     return IPrivilegedAction.getContextClassLoader ().invokeSafe ();
   }
 
@@ -62,15 +64,17 @@ public final class ClassLoaderHelper
     IPrivilegedAction.setContextClassLoader (aClassLoader).invokeSafe ();
   }
 
-  @Nonnull
+  @Nullable
   public static ClassLoader getClassClassLoader (@Nonnull final Class <?> aClass)
   {
+    // If the class represents a primitive type or void, null is returned.
     return IPrivilegedAction.getClassLoader (aClass).invokeSafe ();
   }
 
-  @Nonnull
+  @Nullable
   public static ClassLoader getParentClassLoader (@Nonnull final ClassLoader aClassLoader)
   {
+    // Some implementations mayuse null to represent the bootstrap class loader.
     return IPrivilegedAction.classLoaderGetParent (aClassLoader).invokeSafe ();
   }
 

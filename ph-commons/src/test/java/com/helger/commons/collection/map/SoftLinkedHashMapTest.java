@@ -37,12 +37,15 @@ import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.commons.mutable.MutableBoolean;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class SoftLinkedHashMapTest
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (SoftLinkedHashMapTest.class);
 
   @Test
   @Ignore ("Travis will fail if this test is run")
+  @SuppressFBWarnings ("UC_USELESS_OBJECT")
   public void testBasic ()
   {
     final MutableBoolean aChange = new MutableBoolean (false);
@@ -80,10 +83,10 @@ public final class SoftLinkedHashMapTest
     LOGGER.info ("Filling memory please wait");
     try
     {
-      final List <Object []> allocations = new CommonsArrayList <> ();
-      int size;
-      while ((size = Math.min (Math.abs ((int) Runtime.getRuntime ().freeMemory ()), Integer.MAX_VALUE)) > 0)
-        allocations.add (new Object [size]);
+      final List <Object []> aAllocations = new CommonsArrayList <> ();
+      int nSize;
+      while ((nSize = Math.min (Math.abs ((int) Runtime.getRuntime ().freeMemory ()), Integer.MAX_VALUE)) > 0)
+        aAllocations.add (new Object [nSize]);
     }
     catch (final OutOfMemoryError e)
     {

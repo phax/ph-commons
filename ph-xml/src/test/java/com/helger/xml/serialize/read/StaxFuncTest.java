@@ -63,8 +63,6 @@ public final class StaxFuncTest
     final XMLResolver aResolver = (sPublicID, sSystemID, sBaseURI, sNamespace) -> {
       LOGGER.info ("Resolving " + sPublicID + "/" + sSystemID + "/" + sBaseURI + "/" + sNamespace);
       final IReadableResource aResolvedRes = DefaultResourceResolver.getResolvedResource (sSystemID, sBaseURI);
-      if (aResolvedRes == null)
-        return null;
       return aResolvedRes.getInputStream ();
     };
 

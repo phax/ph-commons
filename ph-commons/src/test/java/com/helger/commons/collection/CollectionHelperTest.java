@@ -1750,6 +1750,7 @@ public final class CollectionHelperTest
    * present
    */
   @Test
+  @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
   public void testNew ()
   {
     newList ();

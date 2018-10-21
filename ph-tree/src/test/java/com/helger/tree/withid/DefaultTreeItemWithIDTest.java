@@ -33,6 +33,8 @@ import com.helger.commons.id.IHasID;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.tree.IBasicTreeItem;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Test class for class {@link DefaultTreeItemWithID}.
  *
@@ -250,6 +252,7 @@ public final class DefaultTreeItemWithIDTest
   }
 
   @Test
+  @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
   public void testInvalid ()
   {
     final DefaultTreeWithID <String, String> t = new DefaultTreeWithID <> ();

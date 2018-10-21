@@ -29,6 +29,8 @@ import org.junit.Test;
 import com.helger.commons.CGlobal;
 import com.helger.commons.mock.CommonsAssert;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Test class for class {@link MathHelper}.
  *
@@ -70,6 +72,7 @@ public final class MathHelperTest
   }
 
   @Test
+  @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
   public void testGetDividedBigDecimal ()
   {
     assertEquals (MathHelper.toBigDecimal (1.5), MathHelper.getDividedBigDecimal (3, 2));

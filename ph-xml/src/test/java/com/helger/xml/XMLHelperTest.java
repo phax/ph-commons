@@ -39,6 +39,8 @@ import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.iterate.IterableIterator;
 import com.helger.xml.xpath.XPathExpressionHelper;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Test class for class {@link XMLHelper}.
  *
@@ -377,6 +379,7 @@ public final class XMLHelperTest
   }
 
   @Test
+  @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
   public void testGetAttributeValue ()
   {
     final Document doc = XMLFactory.newDocument ();

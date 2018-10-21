@@ -32,6 +32,8 @@ import com.helger.commons.locale.LocaleFormatter;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.util.LevenshteinDistance;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Check different levenshtein impolementations.<br>
  *
@@ -172,6 +174,7 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
       m_bSimple = (LV_COST_INSERT == 1 && LV_COST_DELETE == 1 && LV_COST_SUBSTITUTE == 1);
     }
 
+    @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
     public void run ()
     {
       final int n = m_aStrings.length;

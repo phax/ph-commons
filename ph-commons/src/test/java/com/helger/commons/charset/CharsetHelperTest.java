@@ -151,6 +151,7 @@ public final class CharsetHelperTest
     final String s = "ä";
     if (s.length () != 1)
       throw new IllegalStateException ("Seems like the Java Source files were not compiled with UTF-8 encoding!");
+    assertEquals (1, s.length ());
   }
 
   @Test

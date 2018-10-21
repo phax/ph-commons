@@ -168,8 +168,7 @@ public class SimpleLSResourceResolver extends AbstractLSResourceResolver impleme
                                                                            sPublicId,
                                                                            sSystemId,
                                                                            sBaseURI);
-      if (aResolvedResource != null)
-        return new ResourceLSInput (aResolvedResource);
+      return new ResourceLSInput (aResolvedResource);
     }
     catch (final Exception ex)
     {
@@ -186,7 +185,5 @@ public class SimpleLSResourceResolver extends AbstractLSResourceResolver impleme
                                        "'",
                                        ex);
     }
-
-    return null;
   }
 }

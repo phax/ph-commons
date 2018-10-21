@@ -49,6 +49,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * @author Philip Helger
  */
 @Immutable
+@SuppressFBWarnings ("JCIP_FIELD_ISNT_FINAL_IN_IMMUTABLE_CLASS")
 public class JsonValue implements IJsonValue
 {
   /** Special value for "null" */
@@ -69,6 +70,7 @@ public class JsonValue implements IJsonValue
       NUMERIC[i - INT_CACHE_MIN] = new JsonValue (Integer.valueOf (i));
   }
 
+  // Only non-final because of Serialization
   private Object m_aValue;
 
   protected JsonValue (@Nullable final Object aValue)

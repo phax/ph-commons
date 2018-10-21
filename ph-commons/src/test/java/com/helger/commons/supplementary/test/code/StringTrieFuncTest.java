@@ -154,7 +154,7 @@ public final class StringTrieFuncTest <DATATYPE>
       Node <DATATYPE> aCurNode = m_aRoot;
       Node <DATATYPE> aNextNode;
       int nIndex = 0;
-      while (aCurNode != null)
+      while (true)
       {
         final char c = aChars[nIndex];
         final char cNodeChar = aCurNode.m_cChar;

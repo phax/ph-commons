@@ -63,6 +63,7 @@ public final class LoggingInvocationHandlerTest
   {}
 
   @Test
+  @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
   public void testDefaultMethod ()
   {
     LoggingInvocationHandler.proxying (ITest.class, new TestImpl ()).foo ();

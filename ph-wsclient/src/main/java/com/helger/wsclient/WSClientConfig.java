@@ -121,8 +121,8 @@ public class WSClientConfig
   }
 
   /**
-   * Set the {@link SSLSocketFactory} to be used by this client to one that trusts
-   * all servers.
+   * Set the {@link SSLSocketFactory} to be used by this client to one that
+   * trusts all servers.
    *
    * @throws KeyManagementException
    *         if initializing the SSL context failed
@@ -135,8 +135,8 @@ public class WSClientConfig
   }
 
   /**
-   * Set the {@link SSLSocketFactory} to be used by this client to one that trusts
-   * all servers.
+   * Set the {@link SSLSocketFactory} to be used by this client to one that
+   * trusts all servers.
    *
    * @param bDebugMode
    *        <code>true</code> for extended debug logging, <code>false</code> for
@@ -273,8 +273,8 @@ public class WSClientConfig
   }
 
   /**
-   * @return <code>true</code> if a request timeout is defined, <code>false</code>
-   *         if not.
+   * @return <code>true</code> if a request timeout is defined,
+   *         <code>false</code> if not.
    * @since 9.1.5
    */
   public boolean hasRequestTimeoutMS ()
@@ -297,8 +297,8 @@ public class WSClientConfig
   }
 
   /**
-   * @return The chunk size in bytes. Default is {@link #DEFAULT_CHUNK_SIZE}. Only
-   *         values &gt; 0 are considered.
+   * @return The chunk size in bytes. Default is {@link #DEFAULT_CHUNK_SIZE}.
+   *         Only values &gt; 0 are considered.
    * @since 8.5.7
    */
   public int getChunkSize ()
@@ -320,9 +320,9 @@ public class WSClientConfig
    * Set the chunk size to enable HTTP chunked encoding.
    *
    * @param nChunkSize
-   *        Number of bytes. Only values &ge; 0 are considered. If the value is 0
-   *        than the JDK default chunk size (Oracle: 4096 bytes) is used. Values
-   *        &lt; 0 mean no chunked encoding!
+   *        Number of bytes. Only values &ge; 0 are considered. If the value is
+   *        0 than the JDK default chunk size (Oracle: 4096 bytes) is used.
+   *        Values &lt; 0 mean no chunked encoding!
    * @return this for chaining
    * @since 8.5.7
    */
@@ -334,8 +334,8 @@ public class WSClientConfig
   }
 
   /**
-   * @return The user name for HTTP Basic Auth. May be <code>null</code>. Default
-   *         is <code>null</code>.
+   * @return The user name for HTTP Basic Auth. May be <code>null</code>.
+   *         Default is <code>null</code>.
    */
   @Nullable
   public String getUserName ()
@@ -460,8 +460,8 @@ public class WSClientConfig
   }
 
   /**
-   * Add a hint that this client understands compressed HTTP content. Disabled by
-   * default.
+   * Add a hint that this client understands compressed HTTP content. Disabled
+   * by default.
    *
    * @param bCompress
    *        <code>true</code> to enable, <code>false</code> to disable.

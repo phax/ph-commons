@@ -23,11 +23,14 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Dummy class
  *
  * @author Philip Helger
  */
+@SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
 public final class JavaCommonsFuncTest
 {
   class A
