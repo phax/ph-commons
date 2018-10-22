@@ -38,9 +38,9 @@ This project was the following modules:
 * v9.1.8 - work in progress
     * Added special support for properties `java.runtime.version` and `java.runtime.name` in class `SystemProperties`
     * Class `JavaVersionHelper` now supports AdoptOpenJDK versions
-    * `HttpHeaderMap` stores the value case sensitive internally and compares case sensitive instead. See issue #11
+    * `HttpHeaderMap` stores the value case sensitive internally and compares case sensitive instead (issue #11)
     * Added `PDTConfig.getUTCTimeZone ()`
-    * Fixed a conversion error from `GregorianCalendar` to `XMLGregorianCalendar` if only the date part is used
+    * Fixed a conversion error from `GregorianCalendar` to `XMLGregorianCalendar` if only the date part is used (issue #12)
     * Added TimeZone related methods in `PDTFactory`
     * Added method `IHasInputStream.getBufferedInputStream()`, `IHasInputStreamAndReader.getBufferedReader()` and `IHasReader.getBufferedReader()`
     * Added method `IHasOutputStream.getBufferedOutputStream()`, `IHasOutputStreamAndWriter.getBufferedWriter()` and `IHasWriter.getBufferedWriter()`
@@ -48,7 +48,7 @@ This project was the following modules:
     * Added `IMultilingualText.texts ()` 
     * Fixed some SpotBugs errors
     * Added `IJAXBWriter.getAsInputStream(...)`
-    * Added marker interface `IExplicitlyCloneable<T>`
+    * Added new marker interface `IExplicitlyCloneable`
 * v9.1.7 - 2018-10-11
     * Added new class `IdentityByteArrayCodec`
     * Added new classes `MacInputStream` and `MacOutputStream`

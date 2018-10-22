@@ -20,13 +20,14 @@ import javax.annotation.Nonnull;
 
 /**
  * A marker interface for objects using {@link Cloneable} but in a more explicit
- * way.
+ * way. Note: cannot use a type argument for the result of "clone" because
+ * otherwise this interface cannot be used on multiple levels of the inheritance
+ * tree. So implementing classes should just change the return type accordingly.
  *
  * @author Philip Helger
- * @param <T>
- *        The type of this
+ * @since 9.1.8
  */
-public interface IExplicitlyCloneable <T> extends Cloneable
+public interface IExplicitlyCloneable extends Cloneable
 {
   /**
    * Creates and returns a copy of this object. The precise meaning of "copy"
@@ -92,5 +93,5 @@ public interface IExplicitlyCloneable <T> extends Cloneable
    * @see java.lang.Cloneable
    */
   @Nonnull
-  T clone () throws CloneNotSupportedException;
+  Object clone () throws CloneNotSupportedException;
 }
