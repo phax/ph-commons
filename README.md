@@ -35,7 +35,7 @@ This project was the following modules:
     * Remove `Serializable` from `ICommonsIterable` and `IHasDisplayText` and `IDisplayTextProvider`
     * `SystemProperties.setPropertyValue()` change return type to `EChange`
     * `JAXBDocumentType` takes `List<ClassPathResource>` instead of String to avoid `ClassLoader` issues
-* v9.1.8 - work in progress
+* v9.1.8 - 2018-10-23
     * Added special support for properties `java.runtime.version` and `java.runtime.name` in class `SystemProperties`
     * Class `JavaVersionHelper` now supports AdoptOpenJDK versions
     * `HttpHeaderMap` stores the value case sensitive internally and compares case sensitive instead (issue #11)
