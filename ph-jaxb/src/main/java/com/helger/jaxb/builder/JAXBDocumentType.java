@@ -33,7 +33,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.io.resource.IReadableResource;
+import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.xml.schema.XMLSchemaCache;
@@ -48,7 +48,7 @@ import com.helger.xml.schema.XMLSchemaCache;
 public class JAXBDocumentType implements IJAXBDocumentType
 {
   private final Class <?> m_aClass;
-  private final ICommonsList <String> m_aXSDPaths;
+  private final ICommonsList <ClassPathResource> m_aXSDs = new CommonsArrayList <> ();
 
   // Status vars
   private final String m_sNamespaceURI;
@@ -64,7 +64,7 @@ public class JAXBDocumentType implements IJAXBDocumentType
    *        annotation and the package the class resides in must have the
    *        <code>@XmlSchema</code> annotation with a non-null
    *        <code>namespace</code> property!
-   * @param aXSDPaths
+   * @param aXSDs
    *        The classpath relative paths to the XML Schema. May not be
    *        <code>null</code> but maybe empty. If the main XSD imports another
    *        XSD, the imported XSD must come first in the list. So the XSDs
@@ -76,11 +76,18 @@ public class JAXBDocumentType implements IJAXBDocumentType
    *        <code>null</code> indicating that no name mapping is necessary.
    */
   public JAXBDocumentType (@Nonnull final Class <?> aClass,
-                           @Nullable final List <String> aXSDPaths,
+                           @Nullable final List <? extends ClassPathResource> aXSDs,
                            @Nullable final Function <? super String, ? extends String> aTypeToElementNameMapper)
   {
     ValueEnforcer.notNull (aClass, "Class");
-    ValueEnforcer.noNullValue (aXSDPaths, "XSDPaths");
+    if (aXSDs != null)
+    {
+      ValueEnforcer.notEmptyNoNullValue (aXSDs, "XSDs");
+      m_aXSDs.addAll (aXSDs);
+    }
+    for (final ClassPathResource aRes : m_aXSDs)
+      ValueEnforcer.isTrue (aRes.hasClassLoader (),
+                            () -> "ClassPathResource " + aRes + " should define its ClassLoader for OSGI handling!");
 
     // Check whether it is an @XmlType class
     final XmlType aXmlType = aClass.getAnnotation (XmlType.class);
@@ -135,7 +142,6 @@ public class JAXBDocumentType implements IJAXBDocumentType
       throw new IllegalArgumentException ("Failed to determine the local name of the element to be created!");
 
     m_aClass = aClass;
-    m_aXSDPaths = new CommonsArrayList <> (aXSDPaths);
     m_sNamespaceURI = StringHelper.getNotNull (sNamespaceURI);
     m_sLocalName = sLocalName;
   }
@@ -148,9 +154,9 @@ public class JAXBDocumentType implements IJAXBDocumentType
 
   @Nonnull
   @ReturnsMutableCopy
-  public ICommonsList <String> getAllXSDPaths ()
+  public ICommonsList <ClassPathResource> getAllXSDResources ()
   {
-    return m_aXSDPaths.getClone ();
+    return m_aXSDs.getClone ();
   }
 
   @Nonnull
@@ -166,40 +172,18 @@ public class JAXBDocumentType implements IJAXBDocumentType
     return m_sLocalName;
   }
 
-  /**
-   * Create the schema. Overload this method to create the schema differently.
-   * The result of this call may be cached.
-   *
-   * @param aClassLoader
-   *        Optional class loader to use. May be <code>null</code>.
-   * @return A non-<code>null</code> {@link Schema} instance.
-   */
-  @Nonnull
-  protected Schema createSchema (@Nullable final ClassLoader aClassLoader)
-  {
-    final ICommonsList <? extends IReadableResource> aXSDRes = getAllXSDResources (aClassLoader);
-    return XMLSchemaCache.getInstanceOfClassLoader (aClassLoader).getSchema (aXSDRes);
-  }
-
   @Nullable
-  public Schema getSchema (@Nullable final ClassLoader aClassLoader)
+  public Schema getSchema ()
   {
-    if (m_aXSDPaths.isEmpty ())
+    if (m_aXSDs.isEmpty ())
     {
       // No XSD -> no Schema
       return null;
     }
 
-    if (aClassLoader != null)
-    {
-      // Don't cache if a class loader is provided
-      return createSchema (aClassLoader);
-    }
-
     if (m_aCachedSchema == null)
     {
-      // Lazy initialization if no class loader is present
-      m_aCachedSchema = createSchema (null);
+      m_aCachedSchema = XMLSchemaCache.getInstance ().getSchema (m_aXSDs);
     }
     return m_aCachedSchema;
   }
@@ -212,20 +196,20 @@ public class JAXBDocumentType implements IJAXBDocumentType
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final JAXBDocumentType rhs = (JAXBDocumentType) o;
-    return m_aClass.equals (rhs.m_aClass) && m_aXSDPaths.equals (rhs.m_aXSDPaths);
+    return m_aClass.equals (rhs.m_aClass) && m_aXSDs.equals (rhs.m_aXSDs);
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_aClass).append (m_aXSDPaths).getHashCode ();
+    return new HashCodeGenerator (this).append (m_aClass).append (m_aXSDs).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
     return new ToStringGenerator (this).append ("Class", m_aClass)
-                                       .append ("XSDPaths", m_aXSDPaths)
+                                       .append ("XSDPaths", m_aXSDs)
                                        .append ("NamespaceURI", m_sNamespaceURI)
                                        .append ("LocalName", m_sLocalName)
                                        .getToString ();

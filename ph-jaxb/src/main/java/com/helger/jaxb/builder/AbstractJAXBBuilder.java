@@ -137,7 +137,7 @@ public abstract class AbstractJAXBBuilder <IMPLTYPE extends AbstractJAXBBuilder 
   protected final Schema getSchema ()
   {
     if (m_bUseSchema)
-      return m_aDocType.getSchema (getClassLoader ());
+      return m_aDocType.getSchema ();
 
     return null;
   }

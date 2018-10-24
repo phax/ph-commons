@@ -58,7 +58,7 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
 {
   public static class DefaultExceptionHandler implements IExceptionCallback <JAXBException>
   {
-    private static final Logger s_aLogger0 = LoggerFactory.getLogger (DefaultExceptionHandler.class);
+    private static final Logger LOGGER2 = LoggerFactory.getLogger (DefaultExceptionHandler.class);
 
     public void onException (@Nonnull final JAXBException ex)
     {
@@ -70,12 +70,12 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
         // call to unmarshal with an UnmarshalException.
         final Throwable aLinked = ((UnmarshalException) ex).getLinkedException ();
         if (aLinked instanceof SAXParseException)
-          s_aLogger0.error ("Failed to parse XML document: " + aLinked.getMessage ());
+          LOGGER2.error ("Failed to parse XML document: " + aLinked.getMessage ());
         else
-          s_aLogger0.error ("Unmarshal exception reading document", ex);
+          LOGGER2.error ("Unmarshal exception reading document", ex);
       }
       else
-        s_aLogger0.warn ("JAXB Exception reading document", ex);
+        LOGGER2.warn ("JAXB Exception reading document", ex);
     }
   }
 

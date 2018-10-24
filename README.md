@@ -37,9 +37,9 @@ This project was the following modules:
     * `IDisplayTextProvider` is no longer Serializable.
     * `IHasText` is no longer Serializable.
     * Changed return type of `SystemProperties.setPropertyValue()` to `EChange`
+    * `JAXBDocumentType` takes `List<ClassPathResource>` instead of `List<String>` to avoid ClassLoader issues
     * Planned
         * Change `DOMReader.readXMLDOM` to not throw an Exception. Provide a suitable `ErrorHandler` instead.
-        * `JAXBDocumentType` takes `List<ClassPathResource>` instead of String to avoid `ClassLoader` issues
 * v9.1.8 - 2018-10-24
     * Added special support for properties `java.runtime.version` and `java.runtime.name` in class `SystemProperties`
     * Class `JavaVersionHelper` now supports AdoptOpenJDK versions
