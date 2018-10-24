@@ -20,7 +20,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.Iterator;
-import java.util.Locale;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -55,8 +54,12 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * Abstracts HTTP header interface for external usage. Since version 9.1.8
- * (issue #11) the internal scheme
+ * Abstracts HTTP header interface for external usage.<br>
+ * Note: since version 9.1.8 (issue #11) the internal scheme changed and the
+ * original case is stored. Older versions always stored the lower case header
+ * names. The implications are that the casing of the first header is sustained.
+ * So if the first API call uses name "Foo" and the second is "foo" they both
+ * refer to the same header name and "Foo" will be the name that is retrieved.
  *
  * @author Philip Helger
  * @since 9.0.0
@@ -88,25 +91,6 @@ public class HttpHeaderMap implements
   {
     ValueEnforcer.notNull (aOther, "Other");
     m_aHeaders.putAll (aOther.m_aHeaders);
-  }
-
-  /**
-   * Unify the parameter name by lower casing it.<br>
-   * HTTP Header name are case-insensitive<br>
-   * https://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html#sec4.2<br>
-   * HTTP header names must have at least one char<br>
-   * https://www.ietf.org/rfc/rfc0822.txt Chapter 3.2
-   *
-   * @param s
-   *        Name to unify. May neither be <code>null</code> nor empty.
-   * @return The unified name and never <code>null</code>.
-   */
-  @Nonnull
-  @Nonempty
-  @Deprecated
-  public static String getUnifiedName (@Nonnull @Nonempty final String s)
-  {
-    return s.toLowerCase (Locale.US);
   }
 
   /**
