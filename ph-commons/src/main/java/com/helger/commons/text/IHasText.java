@@ -16,7 +16,6 @@
  */
 package com.helger.commons.text;
 
-import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Locale;
 
@@ -34,7 +33,7 @@ import com.helger.commons.text.display.IHasDisplayText;
  * @author Philip Helger
  */
 @FunctionalInterface
-public interface IHasText extends Serializable
+public interface IHasText
 {
   /**
    * Get the text specific for the passed locale. The implementation class MAY

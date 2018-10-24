@@ -16,7 +16,6 @@
  */
 package com.helger.commons.text.display;
 
-import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Locale;
 
@@ -32,7 +31,7 @@ import com.helger.commons.text.IHasText;
  * @author Philip Helger
  */
 @FunctionalInterface
-public interface IHasDisplayText extends Serializable
+public interface IHasDisplayText
 {
   /**
    * @param aContentLocale

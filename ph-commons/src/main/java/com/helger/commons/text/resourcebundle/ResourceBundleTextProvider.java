@@ -16,6 +16,7 @@
  */
 package com.helger.commons.text.resourcebundle;
 
+import java.io.Serializable;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -36,7 +37,7 @@ import com.helger.commons.text.IHasTextWithArgs;
  */
 @Immutable
 @MustImplementEqualsAndHashcode
-public class ResourceBundleTextProvider extends AbstractHasText implements IHasTextWithArgs
+public class ResourceBundleTextProvider extends AbstractHasText implements IHasTextWithArgs, Serializable
 {
   private final ResourceBundleKey m_aResBundleKey;
 

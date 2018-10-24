@@ -16,6 +16,7 @@
  */
 package com.helger.commons.text;
 
+import java.io.Serializable;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -31,7 +32,7 @@ import com.helger.commons.collection.impl.ICommonsOrderedMap;
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
-public interface IMultilingualText extends IHasTextWithArgs
+public interface IMultilingualText extends IHasTextWithArgs, Serializable
 {
   /**
    * @return The Locale to text map. Never <code>null</code>.

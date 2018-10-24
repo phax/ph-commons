@@ -30,11 +30,14 @@ This project was the following modules:
 
 * v9.2.0 - work in progress
     * Undo deprecations of `ValueEnforcer` short and float methods.
+    * Simplified the `IMultilingualText` interface and implementations (backwards incompatible)
+    * Removed all deprecated, unused methods
+    * `ICommonsIterable` is no longer Serializable. Only `ICommonsCollection` is serializable.
+    * `IHasDisplayText` is no longer Serializable.
+    * `IDisplayTextProvider` is no longer Serializable.
+    * `IHasText` is no longer Serializable.
     * Planned
-        * Remove all methods deprecated for removal in 9.x
         * Change `DOMReader.readXMLDOM` to not throw an Exception. Provide a suitable `ErrorHandler` instead.
-        * Clean `IMultilingualText` API (less interfaces, use more `texts()`)
-        * Remove `Serializable` from `ICommonsIterable` and `IHasDisplayText` and `IDisplayTextProvider`
         * `SystemProperties.setPropertyValue()` change return type to `EChange`
         * `JAXBDocumentType` takes `List<ClassPathResource>` instead of String to avoid `ClassLoader` issues
 * v9.1.8 - 2018-10-24

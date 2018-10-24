@@ -16,6 +16,7 @@
  */
 package com.helger.commons.http;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
@@ -69,7 +70,8 @@ public class HttpHeaderMap implements
                            IHasSize,
                            ICommonsIterable <Map.Entry <String, ICommonsList <String>>>,
                            ICloneable <HttpHeaderMap>,
-                           IClearable
+                           IClearable,
+                           Serializable
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (HttpHeaderMap.class);
 

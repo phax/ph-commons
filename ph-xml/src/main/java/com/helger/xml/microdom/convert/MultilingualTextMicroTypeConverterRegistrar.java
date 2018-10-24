@@ -18,6 +18,7 @@ package com.helger.xml.microdom.convert;
 
 import java.util.Comparator;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -30,7 +31,9 @@ import com.helger.commons.text.IMultilingualText;
 import com.helger.commons.text.MultilingualText;
 import com.helger.commons.text.ReadOnlyMultilingualText;
 import com.helger.xml.microdom.IMicroElement;
+import com.helger.xml.microdom.IMicroQName;
 import com.helger.xml.microdom.MicroElement;
+import com.helger.xml.microdom.MicroQName;
 
 /**
  * {@link IMicroTypeConverterRegistrarSPI} implementation for
@@ -45,7 +48,7 @@ public final class MultilingualTextMicroTypeConverterRegistrar implements IMicro
   private abstract static class AbstractMLTConverter <T extends IMultilingualText> implements IMicroTypeConverter <T>
   {
     private static final String ELEMENT_TEXT = "text";
-    private static final String ATTR_LOCALE = "locale";
+    private static final IMicroQName ATTR_LOCALE = new MicroQName ("locale");
 
     @Nonnull
     public final IMicroElement convertToMicroElement (@Nonnull final T aSource,
@@ -53,11 +56,13 @@ public final class MultilingualTextMicroTypeConverterRegistrar implements IMicro
                                                       @Nonnull @Nonempty final String sTagName)
     {
       final IMicroElement eMText = new MicroElement (sNamespaceURI, sTagName);
-      for (final Locale aLocale : aSource.getAllLocales ().getSorted (Comparator.comparing (Locale::toString)))
+      for (final Map.Entry <Locale, String> aEntry : aSource.texts ()
+                                                            .getSortedByKey (Comparator.comparing (Locale::toString))
+                                                            .entrySet ())
       {
         final IMicroElement eText = eMText.appendElement (sNamespaceURI, ELEMENT_TEXT);
-        eText.setAttribute (ATTR_LOCALE, aLocale.toString ());
-        eText.appendText (aSource.getText (aLocale));
+        eText.setAttribute (ATTR_LOCALE, aEntry.getKey ().toString ());
+        eText.appendText (aEntry.getValue ());
       }
       return eMText;
     }

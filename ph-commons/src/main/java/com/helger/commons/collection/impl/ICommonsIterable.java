@@ -16,7 +16,6 @@
  */
 package com.helger.commons.collection.impl;
 
-import java.io.Serializable;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -38,7 +37,7 @@ import com.helger.commons.state.EContinue;
  * @param <ELEMENTTYPE>
  *        The data type to iterate
  */
-public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>, Serializable
+public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>
 {
   /**
    * Special forEach that takes an {@link ObjIntConsumer} which is provided the

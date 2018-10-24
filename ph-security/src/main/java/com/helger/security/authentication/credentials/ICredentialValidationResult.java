@@ -16,6 +16,8 @@
  */
 package com.helger.security.authentication.credentials;
 
+import java.io.Serializable;
+
 import com.helger.commons.state.ISuccessIndicator;
 import com.helger.commons.text.display.IHasDisplayText;
 
@@ -24,7 +26,7 @@ import com.helger.commons.text.display.IHasDisplayText;
  *
  * @author Philip Helger
  */
-public interface ICredentialValidationResult extends ISuccessIndicator, IHasDisplayText
+public interface ICredentialValidationResult extends ISuccessIndicator, IHasDisplayText, Serializable
 {
   /* empty */
 }

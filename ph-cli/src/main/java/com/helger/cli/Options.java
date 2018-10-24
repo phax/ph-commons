@@ -17,6 +17,7 @@
  */
 package com.helger.cli;
 
+import java.io.Serializable;
 import java.util.Iterator;
 
 import javax.annotation.Nonnull;
@@ -34,7 +35,7 @@ import com.helger.commons.collection.impl.ICommonsList;
  *
  * @author Philip Helger
  */
-public class Options implements ICommonsIterable <IOptionBase>
+public class Options implements ICommonsIterable <IOptionBase>, Serializable
 {
   private final ICommonsList <IOptionBase> m_aOptions = new CommonsArrayList <> ();
 

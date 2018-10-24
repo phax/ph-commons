@@ -16,6 +16,7 @@
  */
 package com.helger.commons.collection.impl;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -47,7 +48,8 @@ import com.helger.commons.state.EChange;
 public interface ICommonsCollection <ELEMENTTYPE> extends
                                     Collection <ELEMENTTYPE>,
                                     ICommonsIterable <ELEMENTTYPE>,
-                                    IHasSize
+                                    IHasSize,
+                                    Serializable
 {
   @Nonnull
   @ReturnsMutableCopy

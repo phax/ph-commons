@@ -16,7 +16,6 @@
  */
 package com.helger.commons.text.display;
 
-import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Locale;
 
@@ -34,7 +33,7 @@ import com.helger.commons.compare.IComparator;
  *        The data type to retrieve the display text from
  */
 @FunctionalInterface
-public interface IDisplayTextProvider <DATATYPE> extends Serializable
+public interface IDisplayTextProvider <DATATYPE>
 {
   /**
    * Get the display text of the passed object in the given locale.

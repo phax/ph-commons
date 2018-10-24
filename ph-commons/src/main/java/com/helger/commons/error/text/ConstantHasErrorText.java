@@ -16,6 +16,7 @@
  */
 package com.helger.commons.error.text;
 
+import java.io.Serializable;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -35,7 +36,7 @@ import com.helger.commons.string.ToStringGenerator;
  */
 @Immutable
 @MustImplementEqualsAndHashcode
-public class ConstantHasErrorText implements IHasErrorText
+public class ConstantHasErrorText implements IHasErrorText, Serializable
 {
   private final String m_sText;
 
