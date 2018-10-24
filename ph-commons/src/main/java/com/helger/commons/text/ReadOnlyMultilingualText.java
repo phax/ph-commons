@@ -57,7 +57,7 @@ public class ReadOnlyMultilingualText extends AbstractReadOnlyMapBasedMultilingu
   {
     ValueEnforcer.notNull (aMLT, "MLT");
 
-    for (final Map.Entry <Locale, String> aEntry : aMLT.getAllTexts ().entrySet ())
+    for (final Map.Entry <Locale, String> aEntry : aMLT.texts ().entrySet ())
       internalAddText (aEntry);
   }
 }

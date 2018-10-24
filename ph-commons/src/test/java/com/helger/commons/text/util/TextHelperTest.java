@@ -61,16 +61,16 @@ public final class TextHelperTest
     final MultilingualText aMLT = new MultilingualText ();
     assertTrue (aMLT.setText (Locale.ENGLISH, "Hi").isChanged ());
     assertTrue (aMLT.setText (Locale.GERMAN, "Moin").isChanged ());
-    assertEquals (2, aMLT.size ());
+    assertEquals (2, aMLT.texts ().size ());
 
     final ICommonsList <Locale> aLocaleList = new CommonsArrayList <> ();
     aLocaleList.add (Locale.ENGLISH);
     final MultilingualText aMLT2 = TextHelper.getCopyWithLocales (aMLT, aLocaleList);
-    assertTrue (aMLT2.containsLocale (Locale.ENGLISH));
-    assertFalse (aMLT2.containsLocale (Locale.GERMAN));
+    assertTrue (aMLT2.texts ().containsKey (Locale.ENGLISH));
+    assertFalse (aMLT2.texts ().containsKey (Locale.GERMAN));
 
-    assertTrue (aMLT.containsLocale (Locale.ENGLISH));
-    assertTrue (aMLT.containsLocale (Locale.GERMAN));
+    assertTrue (aMLT.texts ().containsKey (Locale.ENGLISH));
+    assertTrue (aMLT.texts ().containsKey (Locale.GERMAN));
   }
 
   @Test
@@ -78,12 +78,12 @@ public final class TextHelperTest
   {
     final ICommonsMap <String, String> aParamNames = new CommonsHashMap <> ();
     IMultilingualText aMLT = TextHelper.createMultilingualTextFromMap (aParamNames);
-    assertEquals (0, aMLT.size ());
+    assertEquals (0, aMLT.texts ().size ());
 
     aParamNames.put ("de", "x");
     aParamNames.put ("en", "y");
     aMLT = TextHelper.createMultilingualTextFromMap (aParamNames);
-    assertEquals (2, aMLT.size ());
+    assertEquals (2, aMLT.texts ().size ());
     assertEquals ("x", aMLT.getText (L_DE));
     assertEquals ("y", aMLT.getText (L_EN));
   }

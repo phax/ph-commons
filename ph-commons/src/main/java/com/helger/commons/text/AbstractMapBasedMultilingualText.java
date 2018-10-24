@@ -81,7 +81,7 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
   {
     ValueEnforcer.notNull (aContentLocale, "ContentLocale");
 
-    if (containsLocale (aContentLocale))
+    if (texts ().containsKey (aContentLocale))
       return EChange.UNCHANGED;
 
     if (_beforeChange ().isBreak ())
@@ -96,7 +96,7 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
   {
     ValueEnforcer.notNull (aContentLocale, "ContentLocale");
 
-    if (containsLocale (aContentLocale))
+    if (texts ().containsKey (aContentLocale))
     {
       // Text for this locale already contained
       final String sOldText = internalGetText (aContentLocale);
@@ -107,14 +107,13 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
 
       if (_beforeChange ().isBreak ())
         return EChange.UNCHANGED;
-      internalSetText (aContentLocale, sText);
-      _afterChange ();
-      return EChange.CHANGED;
     }
-
-    // New text
-    if (_beforeChange ().isBreak ())
-      return EChange.UNCHANGED;
+    else
+    {
+      // New text
+      if (_beforeChange ().isBreak ())
+        return EChange.UNCHANGED;
+    }
     internalAddText (aContentLocale, sText);
     _afterChange ();
     return EChange.CHANGED;
@@ -127,11 +126,11 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
 
     // Always use locale fallbacks
     for (final Locale aCurrentLocale : LocaleHelper.getCalculatedLocaleListForResolving (aContentLocale))
-      if (super.containsLocale (aCurrentLocale))
+      if (texts ().containsKey (aCurrentLocale))
       {
         if (_beforeChange ().isBreak ())
           return EChange.UNCHANGED;
-        internalRemoveText (aCurrentLocale);
+        texts ().remove (aCurrentLocale);
         _afterChange ();
         return EChange.CHANGED;
       }
@@ -141,10 +140,10 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
   @Nonnull
   public final EChange removeAll ()
   {
-    if (isEmpty () || _beforeChange ().isBreak ())
+    if (texts ().isEmpty () || _beforeChange ().isBreak ())
       return EChange.UNCHANGED;
 
-    internalClear ();
+    texts ().clear ();
     _afterChange ();
     return EChange.CHANGED;
   }
@@ -154,12 +153,12 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
   {
     ValueEnforcer.notNull (aMLT, "MLT");
 
-    if (getAllTexts ().equals (aMLT.getAllTexts ()) || _beforeChange ().isBreak ())
+    if (texts ().equals (aMLT.texts ()) || _beforeChange ().isBreak ())
       return EChange.UNCHANGED;
 
     // Remove all existing texts and assign the new ones
-    internalClear ();
-    for (final Map.Entry <Locale, String> aEntry : aMLT.getAllTexts ().entrySet ())
+    texts ().clear ();
+    for (final Map.Entry <Locale, String> aEntry : aMLT.texts ().entrySet ())
       internalAddText (aEntry);
     _afterChange ();
     return EChange.CHANGED;

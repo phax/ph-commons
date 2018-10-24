@@ -22,12 +22,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
-import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.collection.impl.ICommonsCollection;
-import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
-import com.helger.commons.lang.IHasSize;
 
 /**
  * Read-only interface for a multilingual text
@@ -35,24 +31,15 @@ import com.helger.commons.lang.IHasSize;
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
-public interface IMultilingualText extends IHasTextWithArgs, IHasSize
+public interface IMultilingualText extends IHasTextWithArgs
 {
   /**
-   * @return The locales of this object. May not be <code>null</code>.
+   * @return The Locale to text map. Never <code>null</code>.
+   * @since 9.1.8
    */
   @Nonnull
-  @ReturnsMutableCopy
-  ICommonsCollection <Locale> getAllLocales ();
-
-  /**
-   * Check if the passed locale is directly contained.
-   *
-   * @param aLocale
-   *        The locale to check. May be <code>null</code>.
-   * @return <code>true</code> if the locale is directly contained,
-   *         <code>false</code> if not.
-   */
-  boolean containsLocale (@Nullable Locale aLocale);
+  @ReturnsMutableObject
+  ICommonsOrderedMap <Locale, String> texts ();
 
   /**
    * Check if the passed locale is directly or by fallback contained. The
@@ -65,20 +52,4 @@ public interface IMultilingualText extends IHasTextWithArgs, IHasSize
    *         not.
    */
   boolean containsLocaleWithFallback (@Nullable Locale aLocale);
-
-  /**
-   * @return A map over all contained locale/text pairs. Never <code>null</code>
-   *         .
-   */
-  @Nonnull
-  @ReturnsMutableCopy
-  ICommonsMap <Locale, String> getAllTexts ();
-
-  /**
-   * @return The Locale to text map. Never <code>null</code>.
-   * @since 9.1.8
-   */
-  @Nonnull
-  @ReturnsMutableObject
-  ICommonsOrderedMap <Locale, String> texts ();
 }

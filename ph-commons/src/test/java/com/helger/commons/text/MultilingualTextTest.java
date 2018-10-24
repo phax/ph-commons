@@ -49,12 +49,11 @@ public final class MultilingualTextTest
   public void testCtor ()
   {
     IMutableMultilingualText aMLT = new MultilingualText ();
-    assertEquals (0, aMLT.size ());
-    assertNotNull (aMLT.getAllLocales ());
-    assertTrue (aMLT.getAllLocales ().isEmpty ());
+    assertEquals (0, aMLT.texts ().size ());
+    assertNotNull (aMLT.texts ().keySet ());
 
     aMLT = TextHelper.create_DE_EN ("de", "en");
-    assertEquals (2, aMLT.size ());
+    assertEquals (2, aMLT.texts ().size ());
     assertEquals ("de", aMLT.getText (L_DE));
     assertEquals ("en", aMLT.getText (L_EN));
 
@@ -95,13 +94,13 @@ public final class MultilingualTextTest
     assertTrue (aMLT.addText (Locale.ENGLISH, "Hello").isChanged ());
     assertEquals (1, aNotify.getCallCountBefore ());
     assertEquals (1, aNotify.getCallCountAfter ());
-    assertEquals (1, aMLT.size ());
+    assertEquals (1, aMLT.texts ().size ());
     assertTrue (aMLT.addText (Locale.ENGLISH, "Hello2").isUnchanged ());
     assertEquals (1, aNotify.getCallCountBefore ());
     assertEquals (1, aNotify.getCallCountAfter ());
-    assertEquals (1, aMLT.size ());
-    assertTrue (aMLT.getAllLocales ().contains (Locale.ENGLISH));
-    assertFalse (aMLT.getAllLocales ().contains (Locale.GERMAN));
+    assertEquals (1, aMLT.texts ().size ());
+    assertTrue (aMLT.texts ().containsKey (Locale.ENGLISH));
+    assertFalse (aMLT.texts ().containsKey (Locale.GERMAN));
 
     assertTrue (aMLT.addText (Locale.GERMAN, "Hallo").isChanged ());
     assertEquals (2, aNotify.getCallCountBefore ());
@@ -109,9 +108,9 @@ public final class MultilingualTextTest
     assertTrue (aMLT.addText (Locale.GERMAN, "Hallo2").isUnchanged ());
     assertEquals (2, aNotify.getCallCountBefore ());
     assertEquals (2, aNotify.getCallCountAfter ());
-    assertEquals (2, aMLT.size ());
-    assertTrue (aMLT.getAllLocales ().contains (Locale.ENGLISH));
-    assertTrue (aMLT.getAllLocales ().contains (Locale.GERMAN));
+    assertEquals (2, aMLT.texts ().size ());
+    assertTrue (aMLT.texts ().containsKey (Locale.ENGLISH));
+    assertTrue (aMLT.texts ().containsKey (Locale.GERMAN));
   }
 
   @Test
@@ -129,24 +128,20 @@ public final class MultilingualTextTest
     {}
 
     assertTrue (aMLT.setText (Locale.ENGLISH, "Hello").isChanged ());
-    assertEquals (1, aMLT.size ());
+    assertEquals (1, aMLT.texts ().size ());
     assertFalse (aMLT.setText (Locale.ENGLISH, "Hello").isChanged ());
     assertTrue (aMLT.setText (Locale.ENGLISH, "Hello2").isChanged ());
-    assertEquals (1, aMLT.size ());
-    assertTrue (aMLT.containsLocale (Locale.ENGLISH));
-    assertTrue (aMLT.getAllLocales ().contains (Locale.ENGLISH));
-    assertFalse (aMLT.containsLocale (Locale.GERMAN));
-    assertFalse (aMLT.getAllLocales ().contains (Locale.GERMAN));
+    assertEquals (1, aMLT.texts ().size ());
+    assertTrue (aMLT.texts ().containsKey (Locale.ENGLISH));
+    assertFalse (aMLT.texts ().containsKey (Locale.GERMAN));
     assertEquals ("Hello2", aMLT.getText (Locale.ENGLISH));
     assertNull (aMLT.getText (Locale.GERMAN));
 
     aMLT.setText (Locale.GERMAN, "Hallo");
     aMLT.setText (Locale.GERMAN, "Hallo2");
-    assertEquals (2, aMLT.size ());
-    assertTrue (aMLT.containsLocale (Locale.ENGLISH));
-    assertTrue (aMLT.getAllLocales ().contains (Locale.ENGLISH));
-    assertTrue (aMLT.containsLocale (Locale.GERMAN));
-    assertTrue (aMLT.getAllLocales ().contains (Locale.GERMAN));
+    assertEquals (2, aMLT.texts ().size ());
+    assertTrue (aMLT.texts ().containsKey (Locale.ENGLISH));
+    assertTrue (aMLT.texts ().containsKey (Locale.GERMAN));
     assertEquals ("Hello2", aMLT.getText (Locale.ENGLISH));
     assertEquals ("Hallo2", aMLT.getText (Locale.GERMAN));
   }
@@ -162,7 +157,7 @@ public final class MultilingualTextTest
   public void testRemoveAll ()
   {
     final MultilingualText t = new MultilingualText ();
-    assertTrue (t.isEmpty ());
+    assertTrue (t.texts ().isEmpty ());
     assertTrue (t.removeAll ().isUnchanged ());
     assertTrue (t.setText (L_DE, "de").isChanged ());
     assertTrue (t.removeAll ().isChanged ());
@@ -176,17 +171,17 @@ public final class MultilingualTextTest
 
     // 1 element
     assertTrue (t.assignFrom (new ReadOnlyMultilingualText (CollectionHelper.newMap (L_DE, "de"))).isChanged ());
-    assertEquals (1, t.size ());
-    assertTrue (t.containsLocale (L_DE));
+    assertEquals (1, t.texts ().size ());
+    assertTrue (t.texts ().containsKey (L_DE));
 
     // Assign the exact same content again
     assertFalse (t.assignFrom (new ReadOnlyMultilingualText (CollectionHelper.newMap (L_DE, "de"))).isChanged ());
-    assertEquals (1, t.size ());
-    assertTrue (t.containsLocale (L_DE));
+    assertEquals (1, t.texts ().size ());
+    assertTrue (t.texts ().containsKey (L_DE));
 
     // Assign empty text
     assertTrue (t.assignFrom (new MultilingualText ()).isChanged ());
-    assertEquals (0, t.size ());
+    assertEquals (0, t.texts ().size ());
 
     try
     {
@@ -235,10 +230,10 @@ public final class MultilingualTextTest
   public void testIsEmpty ()
   {
     IMultilingualText aTP = TextHelper.create_DE_EN ("Hallo", "Hello");
-    assertFalse (aTP.isEmpty ());
+    assertFalse (aTP.texts ().isEmpty ());
 
     aTP = new ReadOnlyMultilingualText ();
-    assertTrue (aTP.isEmpty ());
+    assertTrue (aTP.texts ().isEmpty ());
   }
 
   @Test

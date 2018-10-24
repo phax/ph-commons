@@ -47,47 +47,41 @@ public final class ReadOnlyMultilingualTextTest
   public void testCtor ()
   {
     IMultilingualText aMLT = new ReadOnlyMultilingualText ();
-    assertEquals (0, aMLT.size ());
-    assertNotNull (aMLT.getAllLocales ());
-    assertTrue (aMLT.getAllLocales ().isEmpty ());
+    assertEquals (0, aMLT.texts ().size ());
+    assertNotNull (aMLT.texts ().keySet ());
+    assertTrue (aMLT.texts ().isEmpty ());
 
     final Map <Locale, String> aMap = CollectionHelper.newMap (new Locale [] { L_DE, L_EN },
                                                                new String [] { "de", "en" });
     aMLT = new ReadOnlyMultilingualText (aMap);
-    assertEquals (2, aMLT.size ());
-    assertEquals (2, aMLT.getAllLocales ().size ());
-    assertTrue (aMLT.containsLocale (L_DE));
-    assertFalse (aMLT.containsLocale (L_FR));
+    assertEquals (2, aMLT.texts ().size ());
+    assertTrue (aMLT.texts ().containsKey (L_DE));
+    assertFalse (aMLT.texts ().containsKey (L_FR));
     assertTrue (aMLT.containsLocaleWithFallback (L_DE_AT));
     assertTrue (aMLT.containsLocaleWithFallback (L_DE));
     assertFalse (aMLT.containsLocaleWithFallback (L_FR_FR));
     assertFalse (aMLT.containsLocaleWithFallback (L_FR));
-    assertEquals (2, aMLT.getAllTexts ().size ());
 
     final MultilingualText t = new MultilingualText ();
     for (final Map.Entry <Locale, String> aEntry : aMap.entrySet ())
       t.setText (aEntry.getKey (), aEntry.getValue ());
     aMLT = new ReadOnlyMultilingualText (t);
-    assertEquals (2, aMLT.size ());
-    assertEquals (2, aMLT.getAllLocales ().size ());
-    assertTrue (aMLT.containsLocale (L_DE));
-    assertFalse (aMLT.containsLocale (L_FR));
+    assertEquals (2, aMLT.texts ().size ());
+    assertTrue (aMLT.texts ().containsKey (L_DE));
+    assertFalse (aMLT.texts ().containsKey (L_FR));
     assertTrue (aMLT.containsLocaleWithFallback (L_DE_AT));
     assertTrue (aMLT.containsLocaleWithFallback (L_DE));
     assertFalse (aMLT.containsLocaleWithFallback (L_FR_FR));
     assertFalse (aMLT.containsLocaleWithFallback (L_FR));
-    assertEquals (2, aMLT.getAllTexts ().size ());
 
     aMLT = new ReadOnlyMultilingualText (t);
-    assertEquals (2, aMLT.size ());
-    assertEquals (2, aMLT.getAllLocales ().size ());
-    assertTrue (aMLT.containsLocale (L_DE));
-    assertFalse (aMLT.containsLocale (L_FR));
+    assertEquals (2, aMLT.texts ().size ());
+    assertTrue (aMLT.texts ().containsKey (L_DE));
+    assertFalse (aMLT.texts ().containsKey (L_FR));
     assertTrue (aMLT.containsLocaleWithFallback (L_DE_AT));
     assertTrue (aMLT.containsLocaleWithFallback (L_DE));
     assertFalse (aMLT.containsLocaleWithFallback (L_FR_FR));
     assertFalse (aMLT.containsLocaleWithFallback (L_FR));
-    assertEquals (2, aMLT.getAllTexts ().size ());
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aMLT,
                                                                        new ReadOnlyMultilingualText (CollectionHelper.newMap (new Locale [] { L_DE,

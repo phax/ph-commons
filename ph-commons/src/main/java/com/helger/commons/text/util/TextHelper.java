@@ -141,7 +141,7 @@ public final class TextHelper
   {
     final MultilingualText ret = new MultilingualText ();
     for (final Locale aConrentLocale : aContentLocales)
-      if (aMLT.containsLocale (aConrentLocale))
+      if (aMLT.texts ().containsKey (aConrentLocale))
         ret.setText (aConrentLocale, aMLT.getText (aConrentLocale));
     return ret;
   }

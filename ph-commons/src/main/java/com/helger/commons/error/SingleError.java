@@ -285,13 +285,13 @@ public class SingleError implements IError
       if (aMLT == null)
         m_aErrorText = null;
       else
-        if (aMLT.size () == 1)
+        if (aMLT.texts ().size () == 1)
         {
           // If the multilingual text contains only a single locale, use it as a
           // constant value
           // If you don't like this behavior directly call #setErrorText with a
           // DynamicHasErrorText
-          m_aErrorText = ConstantHasErrorText.createOnDemand (aMLT.getAllTexts ().getFirstValue ());
+          m_aErrorText = ConstantHasErrorText.createOnDemand (aMLT.texts ().getFirstValue ());
         }
         else
           m_aErrorText = new DynamicHasErrorText (aMLT);

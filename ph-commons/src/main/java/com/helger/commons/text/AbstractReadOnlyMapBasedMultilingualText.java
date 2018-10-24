@@ -19,10 +19,8 @@ package com.helger.commons.text;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
@@ -31,18 +29,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.CodingStyleguideUnaware;
-import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
-import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
-import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.locale.LocaleHelper;
 import com.helger.commons.regex.RegExHelper;
-import com.helger.commons.state.EChange;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -147,22 +140,11 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
     m_aTexts.put (aContentLocale, sValue);
   }
 
-  @Nonnull
-  protected final EChange internalRemoveText (@Nullable final Locale aContentLocale)
+  @Override
+  @Nullable
+  protected final String internalGetText (@Nonnull final Locale aContentLocale)
   {
-    return m_aTexts.removeObject (aContentLocale);
-  }
-
-  protected final void internalClear ()
-  {
-    m_aTexts.clear ();
-  }
-
-  @Nonnull
-  @ReturnsMutableObject ("Internal use only")
-  protected final ICommonsMap <Locale, String> internalGetMap ()
-  {
-    return m_aTexts;
+    return m_aTexts.get (aContentLocale);
   }
 
   @Override
@@ -173,47 +155,13 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
     return LocaleHelper.getLocaleToUseOrNull (aContentLocale, m_aTexts.keySet ());
   }
 
-  @Override
-  @Nullable
-  protected final String internalGetText (@Nonnull final Locale aContentLocale)
-  {
-    return m_aTexts.get (aContentLocale);
-  }
-
-  @Nonnull
-  @ReturnsMutableObject ("Internal use only")
-  @CodingStyleguideUnaware
-  protected final Set <Locale> internalGetAllLocales ()
-  {
-    return m_aTexts.keySet ();
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public final ICommonsSet <Locale> getAllLocales ()
-  {
-    return m_aTexts.copyOfKeySet ();
-  }
-
-  public final boolean containsLocale (@Nullable final Locale aLocale)
-  {
-    return m_aTexts.containsKey (aLocale);
-  }
-
   public final boolean containsLocaleWithFallback (@Nullable final Locale aContentLocale)
   {
     if (aContentLocale != null)
       for (final Locale aCurrentLocale : LocaleHelper.getCalculatedLocaleListForResolving (aContentLocale))
-        if (containsLocale (aCurrentLocale))
+        if (m_aTexts.containsKey (aCurrentLocale))
           return true;
     return false;
-  }
-
-  @Nonnull
-  @ReturnsMutableCopy
-  public final ICommonsMap <Locale, String> getAllTexts ()
-  {
-    return m_aTexts.getClone ();
   }
 
   @Nonnull
@@ -221,17 +169,6 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
   public final ICommonsOrderedMap <Locale, String> texts ()
   {
     return m_aTexts;
-  }
-
-  @Nonnegative
-  public final int size ()
-  {
-    return m_aTexts.size ();
-  }
-
-  public final boolean isEmpty ()
-  {
-    return m_aTexts.isEmpty ();
   }
 
   @Override
