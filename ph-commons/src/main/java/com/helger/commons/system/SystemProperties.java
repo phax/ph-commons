@@ -36,6 +36,7 @@ import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.lang.PropertiesHelper;
 import com.helger.commons.lang.priviledged.IPrivilegedAction;
+import com.helger.commons.state.EChange;
 
 /**
  * This class wraps all the Java system properties like version number etc.
@@ -184,8 +185,10 @@ public final class SystemProperties
    * @param sValue
    *        The value of the system property. If the value is <code>null</code>
    *        the property is removed.
+   * @return {@link EChange}
    */
-  public static void setPropertyValue (@Nonnull final String sKey, @Nullable final String sValue)
+  @Nonnull
+  public static EChange setPropertyValue (@Nonnull final String sKey, @Nullable final String sValue)
   {
     boolean bChanged;
     if (sValue == null)
@@ -200,7 +203,7 @@ public final class SystemProperties
       if (LOGGER.isDebugEnabled () && bChanged)
         LOGGER.debug ("Set system property '" + sKey + "' to '" + sValue + "'");
     }
-    // TODO next minor release - change to EChange return type
+    return EChange.valueOf (bChanged);
   }
 
   /**
