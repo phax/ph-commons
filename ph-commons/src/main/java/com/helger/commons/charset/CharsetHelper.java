@@ -110,32 +110,13 @@ public final class CharsetHelper
    *
    * @param sCharsetName
    *        The charset to be resolved. May be <code>null</code> or empty.
-   * @return The Charset object or <code>null</code> if no such charset was found.
+   * @return The Charset object or <code>null</code> if no such charset was
+   *         found.
    */
   @Nullable
   public static Charset getCharsetFromNameOrNull (@Nullable final String sCharsetName)
   {
     return getCharsetFromNameOrDefault (sCharsetName, null);
-  }
-
-  /**
-   * Resolve the charset by the specified name. The difference to
-   * {@link Charset#forName(String)} is, that this method throws no exceptions.
-   *
-   * @param sCharsetName
-   *        The charset to be resolved. May be <code>null</code> or empty.
-   * @param aDefault
-   *        the default charset to be returned if none is provided. May be
-   *        <code>null</code>.
-   * @return The Charset object or the provided default if no such charset was
-   *         found.
-   * @deprecated Use {@link #getCharsetFromNameOrDefault(String,Charset)} instead
-   */
-  @Deprecated
-  @Nullable
-  public static Charset getCharsetFromNameOrNull (@Nullable final String sCharsetName, @Nullable final Charset aDefault)
-  {
-    return getCharsetFromNameOrDefault (sCharsetName, aDefault);
   }
 
   /**
@@ -192,8 +173,8 @@ public final class CharsetHelper
   }
 
   /**
-   * Get the number of bytes necessary to represent the passed string as an UTF-8
-   * string.
+   * Get the number of bytes necessary to represent the passed string as an
+   * UTF-8 string.
    *
    * @param s
    *        The string to count the length. May be <code>null</code> or empty.
@@ -210,7 +191,8 @@ public final class CharsetHelper
    * UTF-8 string.
    *
    * @param aChars
-   *        The characters to count the length. May be <code>null</code> or empty.
+   *        The characters to count the length. May be <code>null</code> or
+   *        empty.
    * @return A non-negative value.
    */
   @Nonnegative
@@ -315,15 +297,15 @@ public final class CharsetHelper
   }
 
   /**
-   * If a BOM is present in the {@link InputStream} it is read and if possible the
-   * charset is automatically determined from the BOM.
+   * If a BOM is present in the {@link InputStream} it is read and if possible
+   * the charset is automatically determined from the BOM.
    *
    * @param aIS
    *        The input stream to use. May not be <code>null</code>.
-   * @return Never <code>null</code>. Always use the input stream contained in the
-   *         returned object and never the one passed in as a parameter, because
-   *         the returned IS is a push-back InputStream that has a couple of bytes
-   *         already buffered!
+   * @return Never <code>null</code>. Always use the input stream contained in
+   *         the returned object and never the one passed in as a parameter,
+   *         because the returned IS is a push-back InputStream that has a
+   *         couple of bytes already buffered!
    */
   @Nonnull
   public static InputStreamAndCharset getInputStreamAndCharsetFromBOM (@Nonnull @WillNotClose final InputStream aIS)

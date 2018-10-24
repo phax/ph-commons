@@ -28,7 +28,6 @@ import javax.xml.xpath.XPathFunctionResolver;
 import javax.xml.xpath.XPathVariableResolver;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.lang.ClassLoaderHelper;
@@ -328,17 +327,6 @@ public final class XPathHelper
     return createNewXPathExpression (createNewXPath (aVariableResolver, aFunctionResolver, aNamespaceContext), sXPath);
   }
 
-  @Nonnull
-  @Deprecated
-  @DevelopersNote ("Typo in name")
-  public static XPathExpression createNewXPathExpresion (@Nullable final XPathVariableResolver aVariableResolver,
-                                                         @Nullable final XPathFunctionResolver aFunctionResolver,
-                                                         @Nullable final NamespaceContext aNamespaceContext,
-                                                         @Nonnull @Nonempty final String sXPath)
-  {
-    return createNewXPathExpression (aVariableResolver, aFunctionResolver, aNamespaceContext, sXPath);
-  }
-
   /**
    * Create a new XPath expression for evaluation using the default
    * {@link XPathFactory}.
@@ -356,15 +344,6 @@ public final class XPathHelper
                                                           @Nonnull @Nonempty final String sXPath)
   {
     return createNewXPathExpression (createNewXPath (aVariableResolver), sXPath);
-  }
-
-  @Nonnull
-  @Deprecated
-  @DevelopersNote ("Typo in name")
-  public static XPathExpression createNewXPathExpresion (@Nullable final XPathVariableResolver aVariableResolver,
-                                                         @Nonnull @Nonempty final String sXPath)
-  {
-    return createNewXPathExpression (aVariableResolver, sXPath);
   }
 
   /**
@@ -386,15 +365,6 @@ public final class XPathHelper
     return createNewXPathExpression (createNewXPath (aFunctionResolver), sXPath);
   }
 
-  @Nonnull
-  @Deprecated
-  @DevelopersNote ("Typo in name")
-  public static XPathExpression createNewXPathExpresion (@Nullable final XPathFunctionResolver aFunctionResolver,
-                                                         @Nonnull @Nonempty final String sXPath)
-  {
-    return createNewXPathExpression (aFunctionResolver, sXPath);
-  }
-
   /**
    * Create a new XPath expression for evaluation using the default
    * {@link XPathFactory}.
@@ -414,15 +384,6 @@ public final class XPathHelper
     return createNewXPathExpression (createNewXPath (aNamespaceContext), sXPath);
   }
 
-  @Nonnull
-  @Deprecated
-  @DevelopersNote ("Typo in name")
-  public static XPathExpression createNewXPathExpresion (@Nullable final NamespaceContext aNamespaceContext,
-                                                         @Nonnull @Nonempty final String sXPath)
-  {
-    return createNewXPathExpression (aNamespaceContext, sXPath);
-  }
-
   /**
    * Create a new XPath expression for evaluation using the default
    * {@link XPathFactory}.
@@ -437,14 +398,6 @@ public final class XPathHelper
   public static XPathExpression createNewXPathExpression (@Nonnull @Nonempty final String sXPath)
   {
     return createNewXPathExpression (createNewXPath (), sXPath);
-  }
-
-  @Nonnull
-  @Deprecated
-  @DevelopersNote ("Typo in name")
-  public static XPathExpression createNewXPathExpresion (@Nonnull @Nonempty final String sXPath)
-  {
-    return createNewXPathExpression (sXPath);
   }
 
   /**
@@ -473,14 +426,5 @@ public final class XPathHelper
     {
       throw new IllegalArgumentException ("Failed to compile XPath expression '" + sXPath + "'", ex);
     }
-  }
-
-  @Nonnull
-  @Deprecated
-  @DevelopersNote ("Typo in name")
-  public static XPathExpression createNewXPathExpresion (@Nonnull final XPath aXPath,
-                                                         @Nonnull @Nonempty final String sXPath)
-  {
-    return createNewXPathExpression (aXPath, sXPath);
   }
 }

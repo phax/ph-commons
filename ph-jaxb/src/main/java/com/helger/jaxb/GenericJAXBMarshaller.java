@@ -40,7 +40,6 @@ import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXParseException;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
@@ -157,21 +156,6 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
     // By default this class loader of the type to be marshaled should be used
     // This is important for OSGI application containers and ANT tasks
     m_aClassLoader = new WeakReference <> (aType.getClassLoader ());
-  }
-
-  /**
-   * Set the class loader to be used for XSD schema validation. This method is
-   * optional. Since v9.0.0 a class loader is set by default, so this method is
-   * most likely not needed anymore!
-   *
-   * @param aClassLoader
-   *        The class loader to be used. May be <code>null</code>.
-   */
-  @Deprecated
-  @DevelopersNote ("Deprecated since v9.0.0")
-  public final void setClassLoader (@Nullable final ClassLoader aClassLoader)
-  {
-    m_aClassLoader = new WeakReference <> (aClassLoader);
   }
 
   @Nullable

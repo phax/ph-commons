@@ -104,13 +104,6 @@ public interface IJsonObject extends
   }
 
   @Nonnull
-  @Deprecated
-  default IJsonObject add (@Nonnull final String sName, final byte nValue)
-  {
-    return add (sName, JsonValue.create (nValue));
-  }
-
-  @Nonnull
   default IJsonObject add (@Nonnull final String sName, final char cValue)
   {
     return add (sName, JsonValue.create (cValue));
@@ -123,13 +116,6 @@ public interface IJsonObject extends
   }
 
   @Nonnull
-  @Deprecated
-  default IJsonObject add (@Nonnull final String sName, final float fValue)
-  {
-    return add (sName, JsonValue.create (fValue));
-  }
-
-  @Nonnull
   default IJsonObject add (@Nonnull final String sName, final int nValue)
   {
     return add (sName, JsonValue.create (nValue));
@@ -137,13 +123,6 @@ public interface IJsonObject extends
 
   @Nonnull
   default IJsonObject add (@Nonnull final String sName, final long nValue)
-  {
-    return add (sName, JsonValue.create (nValue));
-  }
-
-  @Nonnull
-  @Deprecated
-  default IJsonObject add (@Nonnull final String sName, final short nValue)
   {
     return add (sName, JsonValue.create (nValue));
   }
@@ -341,20 +320,6 @@ public interface IJsonObject extends
   /**
    * Check if the passed value is directly contained in the object or not.
    *
-   * @param nValue
-   *        The value to be checked for containment.
-   * @return <code>true</code> if the value is contained, <code>false</code> if
-   *         not.
-   */
-  @Deprecated
-  default boolean containsValue (final byte nValue)
-  {
-    return containsValue (JsonValue.create (nValue));
-  }
-
-  /**
-   * Check if the passed value is directly contained in the object or not.
-   *
    * @param cValue
    *        The value to be checked for containment.
    * @return <code>true</code> if the value is contained, <code>false</code> if
@@ -381,20 +346,6 @@ public interface IJsonObject extends
   /**
    * Check if the passed value is directly contained in the object or not.
    *
-   * @param fValue
-   *        The value to be checked for containment.
-   * @return <code>true</code> if the value is contained, <code>false</code> if
-   *         not.
-   */
-  @Deprecated
-  default boolean containsValue (final float fValue)
-  {
-    return containsValue (JsonValue.create (fValue));
-  }
-
-  /**
-   * Check if the passed value is directly contained in the object or not.
-   *
    * @param nValue
    *        The value to be checked for containment.
    * @return <code>true</code> if the value is contained, <code>false</code> if
@@ -414,20 +365,6 @@ public interface IJsonObject extends
    *         not.
    */
   default boolean containsValue (final long nValue)
-  {
-    return containsValue (JsonValue.create (nValue));
-  }
-
-  /**
-   * Check if the passed value is directly contained in the object or not.
-   *
-   * @param nValue
-   *        The value to be checked for containment.
-   * @return <code>true</code> if the value is contained, <code>false</code> if
-   *         not.
-   */
-  @Deprecated
-  default boolean containsValue (final short nValue)
   {
     return containsValue (JsonValue.create (nValue));
   }

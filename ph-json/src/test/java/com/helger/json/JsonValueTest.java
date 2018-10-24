@@ -105,7 +105,6 @@ public final class JsonValueTest
   }
 
   @Test
-  @SuppressWarnings ("deprecation")
   public void testCache ()
   {
     for (int i = Byte.MIN_VALUE; i <= Byte.MAX_VALUE; ++i)
@@ -117,7 +116,6 @@ public final class JsonValueTest
   }
 
   @Test
-  @SuppressWarnings ("deprecation")
   public void testSerialize ()
   {
     CommonsTestHelper.testDefaultSerialization (JsonValue.create (true));

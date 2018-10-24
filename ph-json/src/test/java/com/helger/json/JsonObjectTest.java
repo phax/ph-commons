@@ -38,7 +38,6 @@ import com.helger.commons.mock.CommonsTestHelper;
  */
 public final class JsonObjectTest
 {
-  @SuppressWarnings ("deprecation")
   @Test
   public void testSerialize ()
   {
@@ -81,7 +80,6 @@ public final class JsonObjectTest
   }
 
   @Test
-  @SuppressWarnings ("deprecation")
   public void testContains ()
   {
     final JsonObject aObject = new JsonObject ();

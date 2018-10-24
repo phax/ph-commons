@@ -126,21 +126,6 @@ public final class PDTXMLConverter
    * @param nMillis
    *        Milliseconds since 1.1.1970
    * @return Never <code>null</code>.
-   * @deprecated Use {@link #getCalendarDefaultTimeZone(long)} instead
-   */
-  @Deprecated
-  @Nonnull
-  public static GregorianCalendar getCalendar (final long nMillis)
-  {
-    return getCalendarDefaultTimeZone (nMillis);
-  }
-
-  /**
-   * Get the passed milliseconds as {@link GregorianCalendar}.
-   *
-   * @param nMillis
-   *        Milliseconds since 1.1.1970
-   * @return Never <code>null</code>.
    * @since 9.1.8
    */
   @Nonnull

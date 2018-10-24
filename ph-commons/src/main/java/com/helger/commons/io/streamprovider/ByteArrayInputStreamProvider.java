@@ -22,7 +22,6 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.io.ByteArrayWrapper;
 import com.helger.commons.io.IHasByteArray;
@@ -71,14 +70,6 @@ public class ByteArrayInputStreamProvider implements IHasByteArray, Serializable
   }
 
   @Nonnull
-  @ReturnsMutableCopy
-  @Deprecated
-  public final byte [] getData ()
-  {
-    return getAllBytes ();
-  }
-
-  @Nonnull
   @ReturnsMutableObject
   public final byte [] bytes ()
   {
@@ -89,13 +80,6 @@ public class ByteArrayInputStreamProvider implements IHasByteArray, Serializable
   public final int getOffset ()
   {
     return m_aBytes.getOffset ();
-  }
-
-  @Nonnegative
-  @Deprecated
-  public final int getLength ()
-  {
-    return size ();
   }
 
   @Nonnegative

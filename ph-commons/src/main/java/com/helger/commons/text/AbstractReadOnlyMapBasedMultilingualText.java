@@ -195,13 +195,6 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
     return m_aTexts.copyOfKeySet ();
   }
 
-  @Nonnegative
-  @Deprecated
-  public final int getLocaleCount ()
-  {
-    return size ();
-  }
-
   public final boolean containsLocale (@Nullable final Locale aLocale)
   {
     return m_aTexts.containsKey (aLocale);

@@ -199,20 +199,6 @@ public interface IJsonArray extends
   /**
    * Check if the passed value is directly contained in the array or not.
    *
-   * @param nValue
-   *        The value to be checked for containment.
-   * @return <code>true</code> if the value is contained, <code>false</code> if
-   *         not.
-   */
-  @Deprecated
-  default boolean contains (final byte nValue)
-  {
-    return contains (JsonValue.create (nValue));
-  }
-
-  /**
-   * Check if the passed value is directly contained in the array or not.
-   *
    * @param cValue
    *        The value to be checked for containment.
    * @return <code>true</code> if the value is contained, <code>false</code> if
@@ -239,20 +225,6 @@ public interface IJsonArray extends
   /**
    * Check if the passed value is directly contained in the array or not.
    *
-   * @param fValue
-   *        The value to be checked for containment.
-   * @return <code>true</code> if the value is contained, <code>false</code> if
-   *         not.
-   */
-  @Deprecated
-  default boolean contains (final float fValue)
-  {
-    return contains (JsonValue.create (fValue));
-  }
-
-  /**
-   * Check if the passed value is directly contained in the array or not.
-   *
    * @param nValue
    *        The value to be checked for containment.
    * @return <code>true</code> if the value is contained, <code>false</code> if
@@ -272,20 +244,6 @@ public interface IJsonArray extends
    *         not.
    */
   default boolean contains (final long nValue)
-  {
-    return contains (JsonValue.create (nValue));
-  }
-
-  /**
-   * Check if the passed value is directly contained in the array or not.
-   *
-   * @param nValue
-   *        The value to be checked for containment.
-   * @return <code>true</code> if the value is contained, <code>false</code> if
-   *         not.
-   */
-  @Deprecated
-  default boolean contains (final short nValue)
   {
     return contains (JsonValue.create (nValue));
   }

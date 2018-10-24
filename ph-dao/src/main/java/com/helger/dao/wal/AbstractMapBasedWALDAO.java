@@ -207,14 +207,6 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
     return m_aMap.getSortedByKey (Comparator.naturalOrder ()).values ();
   }
 
-  @Deprecated
-  @MustBeLocked (ELockType.READ)
-  @CodingStyleguideUnaware
-  protected final Collection <IMPLTYPE> getAllSortedByKey ()
-  {
-    return internalGetAllSortedByKey ();
-  }
-
   @Override
   @Nonnull
   @MustBeLocked (ELockType.READ)
@@ -600,14 +592,6 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
       return null;
 
     return m_aMap.get (sID);
-  }
-
-  @Deprecated
-  @Nullable
-  @MustBeLocked (ELockType.READ)
-  protected final IMPLTYPE getOfIDLocked (@Nullable final String sID)
-  {
-    return internalGetOfID (sID);
   }
 
   /**

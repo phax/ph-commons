@@ -75,7 +75,7 @@ public final class DefaultTextResolver extends EnumTextResolverWithPropertiesOve
                                               @Nonnull final IHasTextWithArgs aTP,
                                               @Nonnull final Locale aContentLocale)
   {
-    return getInstance ().getTextWithArgs (aEnum, aTP, aContentLocale);
+    return getTextStatic (aEnum, aTP, aContentLocale);
   }
 
   @Nullable

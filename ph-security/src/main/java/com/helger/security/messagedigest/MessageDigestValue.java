@@ -18,19 +18,16 @@ package com.helger.security.messagedigest;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.Serializable;
 import java.security.MessageDigest;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.WillClose;
-import javax.annotation.WillNotClose;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.ByteArrayWrapper;
@@ -83,19 +80,6 @@ public class MessageDigestValue implements IHasByteArray, Serializable
   }
 
   /**
-   * @return A copy of the message digest bytes. The length depends on the used
-   *         algorithm. Never <code>null</code>.
-   */
-  @Nonnull
-  @Nonempty
-  @ReturnsMutableCopy
-  @Deprecated
-  public byte [] getAllDigestBytes ()
-  {
-    return getAllBytes ();
-  }
-
-  /**
    * @return The message digest bytes. The length depends on the used algorithm.
    *         Never <code>null</code>.
    * @since 9.1.3
@@ -118,20 +102,6 @@ public class MessageDigestValue implements IHasByteArray, Serializable
   public int getOffset ()
   {
     return 0;
-  }
-
-  /**
-   * Write the digest bytes to the specified output stream.
-   *
-   * @param aOS
-   *        The output stream to write to. May not be <code>null</code>.
-   * @throws IOException
-   *         In case of a write error
-   */
-  @Deprecated
-  public void writeDigestBytes (@Nonnull @WillNotClose final OutputStream aOS) throws IOException
-  {
-    m_aBytes.writeTo (aOS);
   }
 
   /**

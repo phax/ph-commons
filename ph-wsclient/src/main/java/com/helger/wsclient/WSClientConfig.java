@@ -22,7 +22,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.OverridingMethodsMustInvokeSuper;
@@ -38,9 +37,7 @@ import javax.xml.ws.handler.MessageContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
@@ -489,42 +486,11 @@ public class WSClientConfig
     return this;
   }
 
-  /**
-   * Add a special handler to modify the transmission on the fly.
-   *
-   * @param aHandler
-   *        The handler to be added. May not be <code>null</code>
-   * @return this for chaining
-   */
-  @Deprecated
-  @Nonnull
-  public final WSClientConfig addHandler (@Nonnull final Handler <? extends MessageContext> aHandler)
-  {
-    ValueEnforcer.notNull (aHandler, "Handler");
-    m_aHandlers.add (aHandler);
-    return this;
-  }
-
   @Nonnull
   @ReturnsMutableObject
   public ICommonsList <Handler <? extends MessageContext>> handlers ()
   {
     return m_aHandlers;
-  }
-
-  @Deprecated
-  @Nonnegative
-  public int getHandlerCount ()
-  {
-    return m_aHandlers.size ();
-  }
-
-  @Deprecated
-  @Nonnull
-  @ReturnsMutableCopy
-  public ICommonsList <Handler <? extends MessageContext>> getAllHandlers ()
-  {
-    return m_aHandlers.getClone ();
   }
 
   /**

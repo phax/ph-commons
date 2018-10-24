@@ -21,6 +21,7 @@ import java.util.Locale;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.text.IHasTextWithArgs;
 import com.helger.commons.text.util.TextHelper;
 
@@ -46,6 +47,7 @@ public interface IHasDisplayTextWithArgs extends IHasDisplayText
    */
   @Nullable
   @Deprecated
+  @DevelopersNote ("Use geDisplayText (Locale) instead")
   default String getDisplayTextWithArgs (@Nonnull final Locale aContentLocale)
   {
     return getDisplayText (aContentLocale);

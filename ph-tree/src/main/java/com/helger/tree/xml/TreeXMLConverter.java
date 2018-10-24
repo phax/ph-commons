@@ -36,7 +36,6 @@ import com.helger.tree.withid.BasicTreeWithID;
 import com.helger.tree.withid.DefaultTreeWithID;
 import com.helger.tree.withid.ITreeItemWithID;
 import com.helger.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
-import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
 import com.helger.xml.microdom.util.ChildrenProviderElementWithName;
@@ -232,27 +231,10 @@ public final class TreeXMLConverter
   }
 
   @Nonnull
-  @Deprecated
-  public static <DATATYPE> DefaultTreeWithGlobalUniqueID <String, DATATYPE> getXMLAsTreeWithUniqueStringID (@Nonnull final IMicroDocument aDoc,
-                                                                                                            @Nonnull final IConverterMicroNodeToTreeItem <? extends DATATYPE> aDataConverter)
-  {
-    return getXMLAsTreeWithUniqueStringID (aDoc.getDocumentElement (), aDataConverter);
-  }
-
-  @Nonnull
   public static <DATATYPE> DefaultTreeWithGlobalUniqueID <String, DATATYPE> getXMLAsTreeWithUniqueStringID (@Nonnull final IMicroElement aElement,
                                                                                                             @Nonnull final IConverterMicroNodeToTreeItem <? extends DATATYPE> aDataConverter)
   {
     return getXMLAsTreeWithUniqueID (aElement, x -> x, aDataConverter);
-  }
-
-  @Nonnull
-  @Deprecated
-  public static <KEYTYPE, DATATYPE> DefaultTreeWithGlobalUniqueID <KEYTYPE, DATATYPE> getXMLAsTreeWithUniqueID (@Nonnull final IMicroDocument aDoc,
-                                                                                                                @Nonnull final Function <? super String, ? extends KEYTYPE> aIDConverter,
-                                                                                                                @Nonnull final IConverterMicroNodeToTreeItem <? extends DATATYPE> aDataConverter)
-  {
-    return getXMLAsTreeWithUniqueID (aDoc.getDocumentElement (), aIDConverter, aDataConverter);
   }
 
   @Nonnull
@@ -263,15 +245,6 @@ public final class TreeXMLConverter
     final DefaultTreeWithGlobalUniqueID <KEYTYPE, DATATYPE> aTree = new DefaultTreeWithGlobalUniqueID <> ();
     fillXMLAsTreeWithID (aElement, aIDConverter, aDataConverter, aTree);
     return aTree;
-  }
-
-  @Nonnull
-  @Deprecated
-  public static <KEYTYPE, DATATYPE> DefaultTreeWithID <KEYTYPE, DATATYPE> getXMLAsTreeWithID (@Nonnull final IMicroDocument aDoc,
-                                                                                              @Nonnull final Function <? super String, ? extends KEYTYPE> aIDConverter,
-                                                                                              @Nonnull final IConverterMicroNodeToTreeItem <? extends DATATYPE> aDataConverter)
-  {
-    return getXMLAsTreeWithID (aDoc.getDocumentElement (), aIDConverter, aDataConverter);
   }
 
   @Nonnull

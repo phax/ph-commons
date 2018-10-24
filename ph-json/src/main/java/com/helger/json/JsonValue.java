@@ -205,13 +205,6 @@ public class JsonValue implements IJsonValue
   }
 
   @Nonnull
-  @Deprecated
-  public static JsonValue create (final byte nValue)
-  {
-    return create ((int) nValue);
-  }
-
-  @Nonnull
   public static JsonValue create (final char cValue)
   {
     return create (Character.toString (cValue));
@@ -221,13 +214,6 @@ public class JsonValue implements IJsonValue
   public static JsonValue create (final double dValue)
   {
     return create (Double.valueOf (dValue));
-  }
-
-  @Nonnull
-  @Deprecated
-  public static JsonValue create (final float fValue)
-  {
-    return create (Double.valueOf (fValue));
   }
 
   @Nonnull
@@ -247,13 +233,6 @@ public class JsonValue implements IJsonValue
       return create ((int) nValue);
 
     return create (Long.valueOf (nValue));
-  }
-
-  @Nonnull
-  @Deprecated
-  public static JsonValue create (final short nValue)
-  {
-    return create ((int) nValue);
   }
 
   @Nonnull

@@ -17,8 +17,6 @@
 package com.helger.matrix;
 
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.Serializable;
@@ -41,7 +39,6 @@ import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.math.MathHelper;
 import com.helger.commons.string.StringHelper;
-import com.helger.commons.system.SystemHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -1266,27 +1263,6 @@ public class Matrix implements Serializable, ICloneable <Matrix>
   }
 
   /**
-   * Print the matrix to stdout. Line the elements up in columns with a
-   * Fortran-like 'Fw.d' style format.
-   *
-   * @param aPS
-   *        PrintStream to write to. May not be <code>null</code>.
-   * @param nWidth
-   *        Column width.
-   * @param nFractionDigits
-   *        Number of digits after the decimal.
-   */
-  @Deprecated
-  public void print (@Nonnull final PrintStream aPS,
-                     @Nonnegative final int nWidth,
-                     @Nonnegative final int nFractionDigits)
-  {
-    print (new PrintWriter (new OutputStreamWriter (aPS, SystemHelper.getSystemCharset ()), true),
-           nWidth,
-           nFractionDigits);
-  }
-
-  /**
    * Print the matrix to the output stream. Line the elements up in columns with
    * a Fortran-like 'Fw.d' style format.
    *
@@ -1307,26 +1283,6 @@ public class Matrix implements Serializable, ICloneable <Matrix>
     format.setMinimumFractionDigits (nFractionDigits);
     format.setGroupingUsed (false);
     print (aPW, format, nWidth + 2);
-  }
-
-  /**
-   * Print the matrix to stdout. Line the elements up in columns. Use the format
-   * object, and right justify within columns of width characters. Note that is
-   * the matrix is to be read back in, you probably will want to use a
-   * NumberFormat that is set to US Locale.
-   *
-   * @param aPS
-   *        PrintStream to write to. May not be <code>null</code>.
-   * @param aFormat
-   *        A Formatting object for individual elements.
-   * @param nWidth
-   *        Field width for each column.
-   * @see java.text.DecimalFormat#setDecimalFormatSymbols
-   */
-  @Deprecated
-  public void print (@Nonnull final PrintStream aPS, @Nonnull final NumberFormat aFormat, @Nonnegative final int nWidth)
-  {
-    print (new PrintWriter (new OutputStreamWriter (aPS, SystemHelper.getSystemCharset ()), true), aFormat, nWidth);
   }
 
   // DecimalFormat is a little disappointing coming from Fortran or C's printf.
