@@ -107,14 +107,15 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
 
       if (_beforeChange ().isBreak ())
         return EChange.UNCHANGED;
+      internalSetText (aContentLocale, sText);
     }
     else
     {
       // New text
       if (_beforeChange ().isBreak ())
         return EChange.UNCHANGED;
+      internalAddText (aContentLocale, sText);
     }
-    internalAddText (aContentLocale, sText);
     _afterChange ();
     return EChange.CHANGED;
   }
