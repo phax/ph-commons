@@ -38,6 +38,7 @@ This project was the following modules:
     * `IHasText` is no longer Serializable.
     * Changed return type of `SystemProperties.setPropertyValue()` to `EChange`
     * `JAXBDocumentType` takes `List<ClassPathResource>` instead of `List<String>` to avoid ClassLoader issues
+    * Changed `PBCProvider` initialization to log a warning instead of throwing an exception
     * Planned
         * Change `DOMReader.readXMLDOM` to not throw an Exception. Provide a suitable `ErrorHandler` instead.
 * v9.1.8 - 2018-10-24
