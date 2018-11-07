@@ -24,9 +24,10 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.exception.InitializationException;
 
 /**
  * One and only BouncyCastle (BC) Provider Provider
@@ -41,6 +42,8 @@ public final class PBCProvider
    * Maven artefact, the constant is here for the sake of completeness only.
    */
   public static final String PROVIDER_NAME_BC_FIPS = "BCFIPS";
+
+  private static final Logger LOGGER = LoggerFactory.getLogger (PBCProvider.class);
 
   // Singleton instance
   private static final Provider PROVIDER;
@@ -58,7 +61,11 @@ public final class PBCProvider
     {
       // Check if existing one is from BC
       if (!(aProvider instanceof BouncyCastleProvider))
-        throw new InitializationException ("Invalid BouncyCastleProvider present!");
+        LOGGER.warn ("Security provider '" +
+                     BouncyCastleProvider.PROVIDER_NAME +
+                     "' is not of type org.bouncycastle.jce.provider.BouncyCastleProvider but it is a '" +
+                     aProvider.getClass ().getName () +
+                     "'");
     }
     PROVIDER = aProvider;
   }
