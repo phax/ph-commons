@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Locale;
+import java.util.function.Function;
 
 import org.junit.Test;
 
@@ -42,6 +43,7 @@ import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.functional.ICharPredicate;
+import com.helger.commons.functional.IThrowingFunction;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -2234,5 +2236,42 @@ public final class StringHelperTest
     assertFalse (StringHelper.isAllWhitespace ("abc"));
     assertFalse (StringHelper.isAllWhitespace ("ab c"));
     assertFalse (StringHelper.isAllWhitespace (" a"));
+  }
+
+  @Test
+  public void testGetQuoted ()
+  {
+    assertEquals ("null", StringHelper.getQuoted (null));
+    assertEquals ("''", StringHelper.getQuoted (""));
+    assertEquals ("'abc'", StringHelper.getQuoted ("abc"));
+    assertEquals ("'aBc'", StringHelper.getQuoted ("aBc"));
+  }
+
+  @Test
+  public void testAppendQuotedSB ()
+  {
+    final Function <String, String> quote = x -> {
+      final StringBuilder aSB = new StringBuilder ();
+      StringHelper.appendQuoted (aSB, x);
+      return aSB.toString ();
+    };
+    assertEquals ("null", quote.apply (null));
+    assertEquals ("''", quote.apply (""));
+    assertEquals ("'abc'", quote.apply ("abc"));
+    assertEquals ("'aBc'", quote.apply ("aBc"));
+  }
+
+  @Test
+  public void testAppendQuotedWriter () throws IOException
+  {
+    final IThrowingFunction <String, String, IOException> quote = x -> {
+      final NonBlockingStringWriter aSB = new NonBlockingStringWriter ();
+      StringHelper.appendQuoted (aSB, x);
+      return aSB.getAsString ();
+    };
+    assertEquals ("null", quote.apply (null));
+    assertEquals ("''", quote.apply (""));
+    assertEquals ("'abc'", quote.apply ("abc"));
+    assertEquals ("'aBc'", quote.apply ("aBc"));
   }
 }
