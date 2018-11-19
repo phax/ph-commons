@@ -30,14 +30,15 @@ jdk:
   - openjdk11
   
 install:
-  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U -P jdeps
+  - mvn help:active-profiles -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U -P jdeps
+  - mvn install              -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U -P jdeps
 
 script:
   - mvn test -B -P coverage sonar:sonar
 
 cache:
   directories:
-  - $HOME/.m2
+    - $HOME/.m2
 
 after_success:
   - mvn deploy --settings travis-settings.xml -DskipTests=true -B -P travis-deploy
