@@ -25,6 +25,7 @@ import static org.junit.Assert.fail;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.text.Normalizer;
 import java.util.Arrays;
 
 import org.junit.Ignore;
@@ -227,6 +228,23 @@ public final class CharsetHelperTest
   {
     final byte [] b = new byte [] { (byte) 0xc3, (byte) 0xa2 };
     final String s = new String (b, StandardCharsets.UTF_8);
+    assertEquals (1, s.length ());
     assertEquals ("â", s);
+  }
+
+  @Test
+  public void testDiacriticOE ()
+  {
+    // Special "Ö"!!!!
+    // Using "COMBINING DIAERESIS"
+    final byte [] b = new byte [] { 'O', (byte) 0xcc, (byte) 0x88 };
+    final String s = new String (b, StandardCharsets.UTF_8);
+    assertEquals (2, s.length ());
+    assertEquals ("Ö", s);
+
+    // Normalize to regular Ö
+    final String sNormalized = Normalizer.normalize (s, Normalizer.Form.NFKC);
+    assertEquals (1, sNormalized.length ());
+    assertEquals ("Ö", sNormalized);
   }
 }
