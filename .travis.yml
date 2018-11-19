@@ -30,8 +30,10 @@ jdk:
   - openjdk11
   
 install:
-  - mvn help:active-profiles -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U -P jdeps
-  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U -P jdeps
+# print active profiles:
+#  - mvn help:active-profiles -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U -P jdeps
+# main build:
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U -P jdeps -e
 
 script:
   - mvn test -B -P coverage sonar:sonar
