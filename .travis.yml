@@ -33,7 +33,8 @@ install:
 # print active profiles:
 #  - mvn help:active-profiles -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U -P jdeps
 # main build:
-  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U -P jdeps -e
+#  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U -P jdeps -e
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U
 
 script:
   - mvn test -B -P coverage sonar:sonar
