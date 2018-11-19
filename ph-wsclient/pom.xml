@@ -68,7 +68,7 @@
     <profile>
       <id>jdk9up</id>
       <activation>
-        <jdk>[1.8,11)</jdk>
+        <jdk>[1.8,9999)</jdk>
       </activation>
       <properties>
         <jaxb.version>2.3.0</jaxb.version>
