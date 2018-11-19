@@ -20,6 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
@@ -73,15 +74,39 @@ public final class EJavaVersionTest
     assertTrue (EJavaVersion.JDK_1_6.isSupportedVersion ());
     assertTrue (EJavaVersion.JDK_1_7.isSupportedVersion ());
 
-    if (EJavaVersion.JDK_1_8.isCurrentVersion () || EJavaVersion.JDK_9.isCurrentVersion ())
+    if (EJavaVersion.JDK_1_8.isCurrentVersion ())
+    {
       assertTrue (EJavaVersion.JDK_1_8.isSupportedVersion ());
-    else
-      assertFalse (EJavaVersion.JDK_1_8.isSupportedVersion ());
-
-    if (EJavaVersion.JDK_9.isCurrentVersion ())
-      assertTrue (EJavaVersion.JDK_9.isSupportedVersion ());
-    else
       assertFalse (EJavaVersion.JDK_9.isSupportedVersion ());
+      assertFalse (EJavaVersion.JDK_10.isSupportedVersion ());
+      assertFalse (EJavaVersion.JDK_11.isSupportedVersion ());
+    }
+    else
+      if (EJavaVersion.JDK_9.isCurrentVersion ())
+      {
+        assertTrue (EJavaVersion.JDK_1_8.isSupportedVersion ());
+        assertTrue (EJavaVersion.JDK_9.isSupportedVersion ());
+        assertFalse (EJavaVersion.JDK_10.isSupportedVersion ());
+        assertFalse (EJavaVersion.JDK_11.isSupportedVersion ());
+      }
+      else
+        if (EJavaVersion.JDK_10.isCurrentVersion ())
+        {
+          assertTrue (EJavaVersion.JDK_1_8.isSupportedVersion ());
+          assertTrue (EJavaVersion.JDK_9.isSupportedVersion ());
+          assertTrue (EJavaVersion.JDK_10.isSupportedVersion ());
+          assertFalse (EJavaVersion.JDK_11.isSupportedVersion ());
+        }
+        else
+          if (EJavaVersion.JDK_11.isCurrentVersion ())
+          {
+            assertTrue (EJavaVersion.JDK_1_8.isSupportedVersion ());
+            assertTrue (EJavaVersion.JDK_9.isSupportedVersion ());
+            assertTrue (EJavaVersion.JDK_10.isSupportedVersion ());
+            assertTrue (EJavaVersion.JDK_11.isSupportedVersion ());
+          }
+          else
+            fail ("Implement me");
   }
 
   @Test

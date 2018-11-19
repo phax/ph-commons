@@ -40,6 +40,7 @@ This project was the following modules:
     * `JAXBDocumentType` takes `List<ClassPathResource>` instead of `List<String>` to avoid ClassLoader issues
     * Changed `PBCProvider` initialization to log a warning instead of throwing an exception
     * Added `StringHelper` methods `getQuoted` and `appendQuoted`
+    * Improved Java 10/Java 11 support
     * Planned
         * Change `DOMReader.readXMLDOM` to not throw an Exception. Provide a suitable `ErrorHandler` instead.
 * v9.1.8 - 2018-10-24
