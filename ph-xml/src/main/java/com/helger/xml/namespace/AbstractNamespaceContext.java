@@ -42,7 +42,7 @@ public abstract class AbstractNamespaceContext implements IIterableNamespaceCont
 
   @Nonnull
   @SuppressWarnings ({ "rawtypes", "unchecked" })
-  @DevelopersNote ("Java 8: Iterator<?>; Java 10: Iterator<String>")
+  @DevelopersNote ("Java 8: Iterator; Java 10: Iterator<String>")
   public final Iterator getPrefixes (@Nonnull final String sNamespaceURI)
   {
     // According to JavaDoc
