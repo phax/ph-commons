@@ -51,10 +51,32 @@
   </developers>
 
   <properties>
-    <jaxb.version>2.2.11</jaxb.version>
-    <!-- Must correspond to jaxws-tools.version in jaxws-maven-plugin POM -->
-    <jaxws.version>2.2.10</jaxws.version>
   </properties>
+
+  <profiles>
+    <profile>
+      <id>jdk8</id>
+      <activation>
+        <jdk>1.8</jdk>
+      </activation>
+      <properties>
+        <jaxb.version>2.2.11</jaxb.version>
+        <!-- Must correspond to jaxws-tools.version in jaxws-maven-plugin POM -->
+        <jaxws.version>2.2.10</jaxws.version>
+      </properties>
+    </profile>
+    <profile>
+      <id>jdk9up</id>
+      <activation>
+        <jdk>[1.8,11)</jdk>
+      </activation>
+      <properties>
+        <jaxb.version>2.3.0</jaxb.version>
+        <!-- Must correspond to jaxws-tools.version in jaxws-maven-plugin POM -->
+        <jaxws.version>2.3.1</jaxws.version>
+      </properties>
+    </profile>
+  </profiles>
 
   <dependencyManagement>
     <dependencies>
@@ -79,6 +101,11 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-commons</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-xml</artifactId>
+      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>javax.xml.bind</groupId>

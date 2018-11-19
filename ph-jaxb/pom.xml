@@ -50,9 +50,26 @@
     </developer>
   </developers>
 
-  <properties>
-    <jaxb.version>2.2.11</jaxb.version>
-  </properties>
+  <profiles>
+    <profile>
+      <id>jdk8</id>
+      <activation>
+        <jdk>1.8</jdk>
+      </activation>
+      <properties>
+        <jaxb.version>2.2.11</jaxb.version>
+      </properties>
+    </profile>
+    <profile>
+      <id>jdk9up</id>
+      <activation>
+        <jdk>[1.8,11)</jdk>
+      </activation>
+      <properties>
+        <jaxb.version>2.3.0</jaxb.version>
+      </properties>
+    </profile>
+  </profiles>
 
   <dependencyManagement>
     <dependencies>

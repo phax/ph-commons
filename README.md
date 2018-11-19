@@ -41,6 +41,8 @@ This project was the following modules:
     * Changed `PBCProvider` initialization to log a warning instead of throwing an exception
     * Added `StringHelper` methods `getQuoted` and `appendQuoted`
     * Improved Java 10/Java 11 support
+    * Moved `CloneHelper.getClonedJAXBElement` to new class `JAXBHelper` in `ph-jaxb` subproject (Java 11 issue)
+    * Moved class `WSTestHelper` to subproject `ph-wsclient` (Java 11 issue)
     * Planned
         * Change `DOMReader.readXMLDOM` to not throw an Exception. Provide a suitable `ErrorHandler` instead.
 * v9.1.8 - 2018-10-24

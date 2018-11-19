@@ -28,6 +28,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Test;
 
 import com.helger.commons.collection.impl.CommonsArrayList;
@@ -40,11 +42,12 @@ import com.helger.commons.lang.GenericReflection;
  */
 public final class WrappedListTest
 {
-  private static <T> void _testList (final List <T> aList, final Class <T> aClass) throws InstantiationException,
-                                                                                   IllegalAccessException,
-                                                                                   NoSuchMethodException,
-                                                                                   SecurityException,
-                                                                                   InvocationTargetException
+  private static <T> void _testList (@Nonnull final List <T> aList,
+                                     @Nonnull final Class <T> aClass) throws InstantiationException,
+                                                                      IllegalAccessException,
+                                                                      NoSuchMethodException,
+                                                                      SecurityException,
+                                                                      InvocationTargetException
   {
     final Constructor <T> aCtor = aClass.getConstructor ();
 
@@ -113,7 +116,8 @@ public final class WrappedListTest
 
     // array
     assertArrayEquals (new Object [] { aCtor.newInstance (), aCtor.newInstance () }, aList.toArray ());
-    assertNotNull (aList.toArray (GenericReflection.uncheckedCast (Array.newInstance (aClass, 27))));
+    final T [] aDest = GenericReflection.uncheckedCast (Array.newInstance (aClass, 27));
+    assertNotNull (aList.toArray (aDest));
     assertTrue (aList.hashCode () > 0);
     assertNotNull (aList.toString ());
   }

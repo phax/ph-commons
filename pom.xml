@@ -234,13 +234,13 @@
   
   <modules>
     <module>ph-commons</module>
-    <module>ph-wsclient</module>
     <module>ph-collection</module>
     <module>ph-scopes</module>
     <module>ph-cli</module>
     <module>ph-bc</module>
     <module>ph-security</module>
     <module>ph-xml</module>
+    <module>ph-wsclient</module>
     <module>ph-jaxb</module>
     <module>ph-json</module>
     <module>ph-tree</module>
