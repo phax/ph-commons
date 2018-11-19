@@ -43,6 +43,7 @@ This project was the following modules:
     * Improved Java 10/Java 11 support
     * Moved `CloneHelper.getClonedJAXBElement` to new class `JAXBHelper` in `ph-jaxb` subproject (Java 11 issue)
     * Moved class `WSTestHelper` to subproject `ph-wsclient` (Java 11 issue)
+    * First version to compile with OracleJDK 11 and OpenJDK 11
     * Planned
         * Change `DOMReader.readXMLDOM` to not throw an Exception. Provide a suitable `ErrorHandler` instead.
 * v9.1.8 - 2018-10-24
