@@ -72,7 +72,7 @@
         <jdk>[9,12)</jdk>
       </activation>
       <properties>
-        <jaxb.version>2.3.1</jaxb.version>
+        <jaxb.version>2.3.0</jaxb.version>
         <!-- Must correspond to jaxws-tools.version in jaxws-maven-plugin POM -->
         <jaxws.version>2.3.1</jaxws.version>
       </properties>
