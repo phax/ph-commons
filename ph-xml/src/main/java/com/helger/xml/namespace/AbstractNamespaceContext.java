@@ -23,6 +23,7 @@ import javax.annotation.Nullable;
 import javax.xml.XMLConstants;
 
 import com.helger.collection.iterate.SingleElementIterator;
+import com.helger.commons.annotation.DevelopersNote;
 import com.helger.commons.collection.iterate.EmptyIterator;
 
 /**
@@ -40,7 +41,9 @@ public abstract class AbstractNamespaceContext implements IIterableNamespaceCont
   protected abstract Iterator <String> getCustomPrefixes (@Nonnull String sNamespaceURI);
 
   @Nonnull
-  public final Iterator <?> getPrefixes (@Nonnull final String sNamespaceURI)
+  @SuppressWarnings ({ "rawtypes", "unchecked" })
+  @DevelopersNote ("Java 8: Iterator<?>; Java 10: Iterator<String>")
+  public final Iterator getPrefixes (@Nonnull final String sNamespaceURI)
   {
     // According to JavaDoc
     if (sNamespaceURI == null)
@@ -50,7 +53,7 @@ public abstract class AbstractNamespaceContext implements IIterableNamespaceCont
     if (sNamespaceURI.equals (XMLConstants.XMLNS_ATTRIBUTE_NS_URI))
       return new SingleElementIterator <> (XMLConstants.XMLNS_ATTRIBUTE);
 
-    final Iterator <?> ret = getCustomPrefixes (sNamespaceURI);
+    final Iterator <String> ret = getCustomPrefixes (sNamespaceURI);
     return ret != null ? ret : new EmptyIterator <> ();
   }
 
