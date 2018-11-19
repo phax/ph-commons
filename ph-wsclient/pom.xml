@@ -76,6 +76,17 @@
         <!-- Must correspond to jaxws-tools.version in jaxws-maven-plugin POM -->
         <jaxws.version>2.3.1</jaxws.version>
       </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jdeps-plugin</artifactId>
+            <configuration>
+              <multiRelease>true</multiRelease>
+            </configuration>      
+          </plugin>
+        </plugins>
+      </build>      
     </profile>
   </profiles>
 
