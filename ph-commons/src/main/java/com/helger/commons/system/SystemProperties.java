@@ -140,10 +140,12 @@ public final class SystemProperties
    *        The key of the system property. May not be <code>null</code>.
    * @param bValue
    *        The value of the system property.
+   * @return {@link EChange}
    */
-  public static void setPropertyValue (@Nonnull final String sKey, final boolean bValue)
+  @Nonnull
+  public static EChange setPropertyValue (@Nonnull final String sKey, final boolean bValue)
   {
-    setPropertyValue (sKey, Boolean.toString (bValue));
+    return setPropertyValue (sKey, Boolean.toString (bValue));
   }
 
   /**
@@ -155,10 +157,12 @@ public final class SystemProperties
    * @param nValue
    *        The value of the system property.
    * @since 8.5.7
+   * @return {@link EChange}
    */
-  public static void setPropertyValue (@Nonnull final String sKey, final int nValue)
+  @Nonnull
+  public static EChange setPropertyValue (@Nonnull final String sKey, final int nValue)
   {
-    setPropertyValue (sKey, Integer.toString (nValue));
+    return setPropertyValue (sKey, Integer.toString (nValue));
   }
 
   /**
@@ -170,10 +174,12 @@ public final class SystemProperties
    * @param nValue
    *        The value of the system property.
    * @since 8.5.7
+   * @return {@link EChange}
    */
-  public static void setPropertyValue (@Nonnull final String sKey, final long nValue)
+  @Nonnull
+  public static EChange setPropertyValue (@Nonnull final String sKey, final long nValue)
   {
-    setPropertyValue (sKey, Long.toString (nValue));
+    return setPropertyValue (sKey, Long.toString (nValue));
   }
 
   /**
