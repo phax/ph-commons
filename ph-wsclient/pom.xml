@@ -50,9 +50,6 @@
     </developer>
   </developers>
 
-  <properties>
-  </properties>
-
   <profiles>
     <profile>
       <id>jdk8</id>
