@@ -234,6 +234,25 @@ public final class EqualsHelper
     return EqualsImplementationRegistry.areEqual (aObj1, aObj2);
   }
 
+  public static <T> boolean equalsCollectionOnly (@Nonnull final Collection <T> aCont1,
+                                                  @Nonnull final Collection <?> aCont2)
+  {
+    if (aCont1.isEmpty () && aCont2.isEmpty ())
+      return true;
+    if (aCont1.size () != aCont2.size ())
+      return false;
+    final Iterator <T> aIter1 = aCont1.iterator ();
+    final Iterator <?> aIter2 = aCont2.iterator ();
+    while (aIter1.hasNext ())
+    {
+      final T aChildObj1 = aIter1.next ();
+      final Object aChildObj2 = aIter2.next ();
+      if (!_areChildrenEqual (aChildObj1, aChildObj2))
+        return false;
+    }
+    return true;
+  }
+
   public static <K, V> boolean equalsMap (@Nonnull final Map <K, V> aCont1, @Nonnull final Map <?, ?> aCont2)
   {
     if (aCont1.size () != aCont2.size ())
@@ -263,14 +282,50 @@ public final class EqualsHelper
     return true;
   }
 
-  public static boolean equalsSet (@Nonnull final Set <?> aCont1, @Nonnull final Set <?> aCont2)
+  public static <T> boolean equalsSet (@Nonnull final Set <T> aCont1, @Nonnull final Set <?> aCont2)
   {
     if (aCont1.size () != aCont2.size ())
       return false;
-    for (final Object aChildObj1 : aCont1)
+    for (final T aChildObj1 : aCont1)
       if (!aCont2.contains (aChildObj1))
         return false;
     return true;
+  }
+
+  public static <T> boolean equalsIterator (@Nonnull final Iterator <T> aIter1, final Iterator <?> aIter2)
+  {
+    while (aIter1.hasNext ())
+    {
+      if (!aIter2.hasNext ())
+      {
+        // Second iterator is shorter
+        return false;
+      }
+      final T aChildObj1 = aIter1.next ();
+      final Object aChildObj2 = aIter2.next ();
+      if (!_areChildrenEqual (aChildObj1, aChildObj2))
+        return false;
+    }
+    // Second iterator is longer?
+    return !aIter2.hasNext ();
+  }
+
+  public static <T> boolean equalsEumeration (@Nonnull final Enumeration <T> aEnum1, final Enumeration <?> aEnum2)
+  {
+    while (aEnum1.hasMoreElements ())
+    {
+      if (!aEnum2.hasMoreElements ())
+      {
+        // Second enumeration is shorter
+        return false;
+      }
+      final Object aChildObj1 = aEnum1.nextElement ();
+      final Object aChildObj2 = aEnum2.nextElement ();
+      if (!_areChildrenEqual (aChildObj1, aChildObj2))
+        return false;
+    }
+    // Second enumeration is longer?
+    return !aEnum2.hasMoreElements ();
   }
 
   /**
@@ -299,8 +354,8 @@ public final class EqualsHelper
     if (aObj1 == null || aObj2 == null)
       return false;
 
-    final ECollectionBaseType eType1 = CollectionHelper.getCollectionBaseTypeOfObject (aObj1);
-    final ECollectionBaseType eType2 = CollectionHelper.getCollectionBaseTypeOfObject (aObj2);
+    final ECollectionBaseType eType1 = CollectionHelper.getCollectionBaseTypeOfClass (aObj1.getClass ());
+    final ECollectionBaseType eType2 = CollectionHelper.getCollectionBaseTypeOfClass (aObj2.getClass ());
     if (eType1 == null)
       throw new IllegalArgumentException ("The first parameter is not a container type: " + aObj1);
     if (eType2 == null)
@@ -319,20 +374,7 @@ public final class EqualsHelper
         // Valid for non-Set collections
         final Collection <?> aCont1 = (Collection <?>) aObj1;
         final Collection <?> aCont2 = (Collection <?>) aObj2;
-        if (aCont1.isEmpty () && aCont2.isEmpty ())
-          return true;
-        if (aCont1.size () != aCont2.size ())
-          return false;
-        final Iterator <?> aIter1 = aCont1.iterator ();
-        final Iterator <?> aIter2 = aCont2.iterator ();
-        while (aIter1.hasNext ())
-        {
-          final Object aChildObj1 = aIter1.next ();
-          final Object aChildObj2 = aIter2.next ();
-          if (!_areChildrenEqual (aChildObj1, aChildObj2))
-            return false;
-        }
-        return true;
+        return equalsCollectionOnly (aCont1, aCont2);
       }
       case SET:
       {
@@ -379,45 +421,19 @@ public final class EqualsHelper
       {
         final Iterator <?> aIter1 = (Iterator <?>) aObj1;
         final Iterator <?> aIter2 = (Iterator <?>) aObj2;
-        while (aIter1.hasNext ())
-        {
-          if (!aIter2.hasNext ())
-          {
-            // Second iterator is shorter
-            return false;
-          }
-          final Object aChildObj1 = aIter1.next ();
-          final Object aChildObj2 = aIter2.next ();
-          if (!_areChildrenEqual (aChildObj1, aChildObj2))
-            return false;
-        }
-        // Second iterator is longer?
-        return !aIter2.hasNext ();
+        return equalsIterator (aIter1, aIter2);
       }
       case ITERABLE:
       {
         final Iterable <?> aIterable1 = (Iterable <?>) aObj1;
         final Iterable <?> aIterable2 = (Iterable <?>) aObj2;
-        return equalsCollection (aIterable1.iterator (), aIterable2.iterator ());
+        return equalsIterator (aIterable1.iterator (), aIterable2.iterator ());
       }
       case ENUMERATION:
       {
         final Enumeration <?> aEnum1 = (Enumeration <?>) aObj1;
         final Enumeration <?> aEnum2 = (Enumeration <?>) aObj2;
-        while (aEnum1.hasMoreElements ())
-        {
-          if (!aEnum2.hasMoreElements ())
-          {
-            // Second enumeration is shorter
-            return false;
-          }
-          final Object aChildObj1 = aEnum1.nextElement ();
-          final Object aChildObj2 = aEnum2.nextElement ();
-          if (!_areChildrenEqual (aChildObj1, aChildObj2))
-            return false;
-        }
-        // Second enumeration is longer?
-        return !aEnum2.hasMoreElements ();
+        return equalsEumeration (aEnum1, aEnum2);
       }
       default:
         throw new IllegalStateException ("Unhandled container type " + eType1 + "!");
@@ -427,9 +443,9 @@ public final class EqualsHelper
   /**
    * This is a sanity method that first calls
    * {@link CollectionHelper#getAsList(Object)} on both objects an than calls
-   * {@link #equalsCollection(Object, Object)} on the collections. This means
-   * that calling this method with the String array ["a", "b"] and the
-   * List&lt;String&gt; ("a", "b") will result in a return value of true.
+   * {@link #equalsCollectionOnly(Collection, Collection)} on the collections.
+   * This means that calling this method with the String array ["a", "b"] and
+   * the List&lt;String&gt; ("a", "b") will result in a return value of true.
    *
    * @param aObj1
    *        The first object to be compared
@@ -453,6 +469,6 @@ public final class EqualsHelper
     final ICommonsList <?> aCollection2 = CollectionHelper.getAsList (aObj2);
 
     // And compare
-    return equalsCollection (aCollection1, aCollection2);
+    return equalsCollectionOnly (aCollection1, aCollection2);
   }
 }

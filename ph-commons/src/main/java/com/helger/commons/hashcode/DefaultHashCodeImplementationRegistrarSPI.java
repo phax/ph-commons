@@ -17,6 +17,7 @@
 package com.helger.commons.hashcode;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Enumeration;
@@ -103,6 +104,14 @@ public final class DefaultHashCodeImplementationRegistrarSPI implements IHashCod
 
     // Special handling for Collection
     aRegistry.registerHashCodeImplementation (Collection.class, x -> {
+      HashCodeGenerator aHC = new HashCodeGenerator (x).append (x.size ());
+      for (final Object aMember : x)
+        aHC = aHC.append (aMember);
+      return aHC.getHashCode ();
+    });
+
+    // Java 10 ArrayList implements equals/hashCode
+    aRegistry.registerHashCodeImplementation (ArrayList.class, x -> {
       HashCodeGenerator aHC = new HashCodeGenerator (x).append (x.size ());
       for (final Object aMember : x)
         aHC = aHC.append (aMember);

@@ -23,6 +23,7 @@ import java.math.RoundingMode;
 import java.net.PasswordAuthentication;
 import java.net.URL;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Enumeration;
@@ -176,6 +177,18 @@ public final class DefaultEqualsImplementationRegistrarSPI implements IEqualsImp
 
     // Special handling for Collection
     aRegistry.registerEqualsImplementation (Collection.class, (aObj1, aObj2) -> {
+      // Size check
+      if (aObj1.size () != aObj2.size ())
+        return false;
+
+      // Content check
+      final Object [] aData1 = aObj1.toArray ();
+      final Object [] aData2 = aObj2.toArray ();
+      return EqualsImplementationRegistry.areEqual (aData1, aData2);
+    });
+
+    // Java 10 ArrayList implements equals
+    aRegistry.registerEqualsImplementation (ArrayList.class, (aObj1, aObj2) -> {
       // Size check
       if (aObj1.size () != aObj2.size ())
         return false;
