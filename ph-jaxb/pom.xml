@@ -50,58 +50,6 @@
     </developer>
   </developers>
 
-  <profiles>
-    <profile>
-      <id>jdk8</id>
-      <activation>
-        <jdk>1.8</jdk>
-      </activation>
-      <properties>
-        <jaxb.version>2.2.11</jaxb.version>
-      </properties>
-    </profile>
-    <profile>
-      <id>jdk9up</id>
-      <activation>
-        <!-- use "12)" to support versions like "11.0.1" -->
-        <jdk>[9,12)</jdk>
-      </activation>
-      <properties>
-        <jaxb.version>2.3.0</jaxb.version>
-      </properties>
-      <dependencies>
-        <dependency>
-          <groupId>javax.activation</groupId>
-          <artifactId>activation</artifactId>
-          <version>1.1.1</version>
-        </dependency>
-      </dependencies>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-jdeps-plugin</artifactId>
-            <configuration>
-              <multiRelease>base</multiRelease>
-            </configuration>      
-          </plugin>
-        </plugins>
-      </build>      
-    </profile>
-  </profiles>
-
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.glassfish.jaxb</groupId>
-        <artifactId>jaxb-bom</artifactId>
-        <version>${jaxb.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
   <dependencies>
     <dependency>
       <groupId>com.helger</groupId>
@@ -111,18 +59,11 @@
       <groupId>com.helger</groupId>
       <artifactId>ph-xml</artifactId>
     </dependency>
-    <!-- The following dependencies are required if external JAXB should be used -->
     <dependency>
-      <groupId>org.glassfish.jaxb</groupId>
-      <artifactId>jaxb-runtime</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.glassfish.jaxb</groupId>
-      <artifactId>jaxb-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.sun.istack</groupId>
-      <artifactId>istack-commons-runtime</artifactId>
+      <groupId>com.helger</groupId>
+      <artifactId>ph-jaxb-pom</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
+      <type>pom</type>
     </dependency>
   </dependencies>
 
