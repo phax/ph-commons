@@ -50,62 +50,6 @@
     </developer>
   </developers>
 
-  <profiles>
-    <profile>
-      <id>jdk8</id>
-      <activation>
-        <jdk>1.8</jdk>
-      </activation>
-      <properties>
-        <jaxb.version>2.2.11</jaxb.version>
-        <!-- Must correspond to jaxws-tools.version in jaxws-maven-plugin POM -->
-        <jaxws.version>2.2.10</jaxws.version>
-      </properties>
-    </profile>
-    <profile>
-      <id>jdk9up</id>
-      <activation>
-        <!-- use "12)" to support versions like "11.0.1" -->
-        <jdk>[9,12)</jdk>
-      </activation>
-      <properties>
-        <jaxb.version>2.3.0</jaxb.version>
-        <!-- Must correspond to jaxws-tools.version in jaxws-maven-plugin POM -->
-        <jaxws.version>2.3.1</jaxws.version>
-      </properties>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-jdeps-plugin</artifactId>
-            <configuration>
-              <multiRelease>base</multiRelease>
-            </configuration>      
-          </plugin>
-        </plugins>
-      </build>      
-    </profile>
-  </profiles>
-
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.glassfish.jaxb</groupId>
-        <artifactId>jaxb-bom</artifactId>
-        <version>${jaxb.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.sun.xml.ws</groupId>
-        <artifactId>jaxws-ri-bom</artifactId>
-        <version>${jaxws.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
   <dependencies>
     <dependency>
       <groupId>com.helger</groupId>
@@ -117,56 +61,10 @@
       <optional>true</optional>
     </dependency>
     <dependency>
-      <groupId>javax.xml.bind</groupId>
-      <artifactId>jaxb-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.glassfish.jaxb</groupId>
-      <artifactId>jaxb-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.glassfish.jaxb</groupId>
-      <artifactId>jaxb-runtime</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.glassfish.jaxb</groupId>
-      <artifactId>txw2</artifactId>
-      <version>${jaxb.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.sun.xml.ws</groupId>
-      <artifactId>jaxws-rt</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>com.sun.xml.bind</groupId>
-          <artifactId>jaxb-core</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>com.sun.xml.bind</groupId>
-          <artifactId>jaxb-impl</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>com.sun.xml.ws</groupId>
-      <artifactId>policy</artifactId>
-    </dependency>    
-    <dependency>
-      <groupId>org.glassfish.gmbal</groupId>
-      <artifactId>gmbal-api-only</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.sun.xml.stream.buffer</groupId>
-      <artifactId>streambuffer</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.glassfish.ha</groupId>
-      <artifactId>ha-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jvnet.staxex</groupId>
-      <artifactId>stax-ex</artifactId>
-      <version>1.8</version><!--$NO-MVN-MAN-VER$-->
+      <groupId>com.helger</groupId>
+      <artifactId>ph-jaxws-pom</artifactId>
+      <version>1.1.0-SNAPSHOT</version>
+      <type>pom</type>
     </dependency>
   </dependencies>
 
