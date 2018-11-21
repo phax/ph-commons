@@ -25,15 +25,16 @@ EJ6d/rZueTk3CkFot4xvFiYjQ+ChgTQw3MJEIZ3K3reB/EEwPVM0oYx8pggn25Z0Q4OA7Pf9jjV+dolP
 K8wBuzwe9c2J1nPDC022lkmiMAnfRrt/rzBkN/LwVY2rsj+/R8Eus4="
   
 install:
-# print active profiles:
-#  - mvn help:active-profiles -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U -P jdeps
-# main build:
-#  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U -P jdeps -e
+#  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U -P jdeps
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -U
 
 cache:
   directories:
     - $HOME/.m2
+
+branches:
+  only:
+    - master
 
 jobs:
   include:
