@@ -35,7 +35,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
@@ -81,20 +80,20 @@ public final class DOMReader
   }
 
   @Nullable
-  public static Document readXMLDOM (@WillClose @Nonnull final InputSource aIS) throws SAXException
+  public static Document readXMLDOM (@WillClose @Nonnull final InputSource aIS)
   {
     return readXMLDOM (aIS, new DOMReaderSettings ());
   }
 
   @Nullable
-  public static Document readXMLDOM (@Nonnull @WillClose final InputStream aIS) throws SAXException
+  public static Document readXMLDOM (@Nonnull @WillClose final InputStream aIS)
   {
     return readXMLDOM (aIS, new DOMReaderSettings ());
   }
 
   @Nullable
   public static Document readXMLDOM (@Nonnull @WillClose final InputStream aIS,
-                                     @Nonnull final IDOMReaderSettings aSettings) throws SAXException
+                                     @Nonnull final IDOMReaderSettings aSettings)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
 
@@ -109,14 +108,14 @@ public final class DOMReader
   }
 
   @Nullable
-  public static Document readXMLDOM (@WillClose @Nonnull final Reader aReader) throws SAXException
+  public static Document readXMLDOM (@WillClose @Nonnull final Reader aReader)
   {
     return readXMLDOM (aReader, new DOMReaderSettings ());
   }
 
   @Nullable
   public static Document readXMLDOM (@WillClose @Nonnull final Reader aReader,
-                                     @Nonnull final IDOMReaderSettings aSettings) throws SAXException
+                                     @Nonnull final IDOMReaderSettings aSettings)
   {
     ValueEnforcer.notNull (aReader, "Reader");
 
@@ -131,118 +130,109 @@ public final class DOMReader
   }
 
   @Nullable
-  public static Document readXMLDOM (@Nonnull final URI aFile) throws SAXException
+  public static Document readXMLDOM (@Nonnull final URI aFile)
   {
     return readXMLDOM (aFile, new DOMReaderSettings ());
   }
 
   @Nullable
-  public static Document readXMLDOM (@Nonnull final URI aFile,
-                                     @Nonnull final IDOMReaderSettings aSettings) throws SAXException
+  public static Document readXMLDOM (@Nonnull final URI aFile, @Nonnull final IDOMReaderSettings aSettings)
   {
     return readXMLDOM (InputSourceFactory.create (aFile), aSettings);
   }
 
   @Nullable
-  public static Document readXMLDOM (@Nonnull final URL aFile) throws SAXException
+  public static Document readXMLDOM (@Nonnull final URL aFile)
   {
     return readXMLDOM (aFile, new DOMReaderSettings ());
   }
 
   @Nullable
-  public static Document readXMLDOM (@Nonnull final URL aFile,
-                                     @Nonnull final IDOMReaderSettings aSettings) throws SAXException
+  public static Document readXMLDOM (@Nonnull final URL aFile, @Nonnull final IDOMReaderSettings aSettings)
   {
     return readXMLDOM (InputSourceFactory.create (aFile), aSettings);
   }
 
   @Nullable
-  public static Document readXMLDOM (@Nonnull final File aFile) throws SAXException
+  public static Document readXMLDOM (@Nonnull final File aFile)
   {
     return readXMLDOM (aFile, new DOMReaderSettings ());
   }
 
   @Nullable
-  public static Document readXMLDOM (@Nonnull final File aFile,
-                                     @Nonnull final IDOMReaderSettings aSettings) throws SAXException
+  public static Document readXMLDOM (@Nonnull final File aFile, @Nonnull final IDOMReaderSettings aSettings)
   {
     return readXMLDOM (InputSourceFactory.create (aFile), aSettings);
   }
 
   @Nullable
-  public static Document readXMLDOM (@Nonnull final Path aPath) throws SAXException
+  public static Document readXMLDOM (@Nonnull final Path aPath)
   {
     return readXMLDOM (aPath, new DOMReaderSettings ());
   }
 
   @Nullable
-  public static Document readXMLDOM (@Nonnull final Path aPath,
-                                     @Nonnull final IDOMReaderSettings aSettings) throws SAXException
+  public static Document readXMLDOM (@Nonnull final Path aPath, @Nonnull final IDOMReaderSettings aSettings)
   {
     return readXMLDOM (InputSourceFactory.create (aPath), aSettings);
   }
 
   @Nullable
-  public static Document readXMLDOM (@Nonnull final IReadableResource aIIS) throws SAXException
+  public static Document readXMLDOM (@Nonnull final IReadableResource aIIS)
   {
     return readXMLDOM (aIIS, new DOMReaderSettings ());
   }
 
   @Nullable
-  public static Document readXMLDOM (@Nonnull final IReadableResource aIIS,
-                                     @Nonnull final IDOMReaderSettings aSettings) throws SAXException
+  public static Document readXMLDOM (@Nonnull final IReadableResource aIIS, @Nonnull final IDOMReaderSettings aSettings)
   {
     return readXMLDOM (InputSourceFactory.create (aIIS), aSettings);
   }
 
   @Nullable
-  public static Document readXMLDOM (@Nonnull final String sXML) throws SAXException
+  public static Document readXMLDOM (@Nonnull final String sXML)
   {
     return readXMLDOM (sXML, new DOMReaderSettings ());
   }
 
   @Nullable
-  public static Document readXMLDOM (@Nonnull final String sXML,
-                                     @Nonnull final IDOMReaderSettings aSettings) throws SAXException
+  public static Document readXMLDOM (@Nonnull final String sXML, @Nonnull final IDOMReaderSettings aSettings)
   {
     return readXMLDOM (InputSourceFactory.create (sXML), aSettings);
   }
 
   @Nullable
-  public static Document readXMLDOM (@Nonnull final CharSequence sXML) throws SAXException
+  public static Document readXMLDOM (@Nonnull final CharSequence sXML)
   {
     return readXMLDOM (sXML, new DOMReaderSettings ());
   }
 
   @Nullable
-  public static Document readXMLDOM (@Nonnull final CharSequence sXML,
-                                     @Nonnull final IDOMReaderSettings aSettings) throws SAXException
+  public static Document readXMLDOM (@Nonnull final CharSequence sXML, @Nonnull final IDOMReaderSettings aSettings)
   {
     return readXMLDOM (InputSourceFactory.create (sXML), aSettings);
   }
 
   @Nullable
-  public static Document readXMLDOM (@Nonnull final ByteBuffer aXML) throws SAXException
+  public static Document readXMLDOM (@Nonnull final ByteBuffer aXML)
   {
     return readXMLDOM (aXML, new DOMReaderSettings ());
   }
 
   @Nullable
-  public static Document readXMLDOM (@Nonnull final ByteBuffer aXML,
-                                     @Nonnull final IDOMReaderSettings aSettings) throws SAXException
+  public static Document readXMLDOM (@Nonnull final ByteBuffer aXML, @Nonnull final IDOMReaderSettings aSettings)
   {
     return readXMLDOM (InputSourceFactory.create (aXML), aSettings);
   }
 
   @Nullable
-  public static Document readXMLDOM (@Nonnull final byte [] aXML) throws SAXException
+  public static Document readXMLDOM (@Nonnull final byte [] aXML)
   {
     return readXMLDOM (aXML, new DOMReaderSettings ());
   }
 
   @Nullable
-  public static Document readXMLDOM (@Nonnull final byte [] aXML,
-                                     @Nonnull final IDOMReaderSettings aSettings) throws SAXException
+  public static Document readXMLDOM (@Nonnull final byte [] aXML, @Nonnull final IDOMReaderSettings aSettings)
   {
     return readXMLDOM (InputSourceFactory.create (aXML), aSettings);
   }
@@ -250,7 +240,7 @@ public final class DOMReader
   @Nullable
   public static Document readXMLDOM (@Nonnull final byte [] aXML,
                                      @Nonnegative final int nOfs,
-                                     @Nonnegative final int nLen) throws SAXException
+                                     @Nonnegative final int nLen)
   {
     return readXMLDOM (aXML, nOfs, nLen, new DOMReaderSettings ());
   }
@@ -259,20 +249,19 @@ public final class DOMReader
   public static Document readXMLDOM (@Nonnull final byte [] aXML,
                                      @Nonnegative final int nOfs,
                                      @Nonnegative final int nLen,
-                                     @Nonnull final IDOMReaderSettings aSettings) throws SAXException
+                                     @Nonnull final IDOMReaderSettings aSettings)
   {
     return readXMLDOM (InputSourceFactory.create (aXML, nOfs, nLen), aSettings);
   }
 
   @Nullable
-  public static Document readXMLDOM (@Nonnull final char [] aXML) throws SAXException
+  public static Document readXMLDOM (@Nonnull final char [] aXML)
   {
     return readXMLDOM (aXML, new DOMReaderSettings ());
   }
 
   @Nullable
-  public static Document readXMLDOM (@Nonnull final char [] aXML,
-                                     @Nonnull final IDOMReaderSettings aSettings) throws SAXException
+  public static Document readXMLDOM (@Nonnull final char [] aXML, @Nonnull final IDOMReaderSettings aSettings)
   {
     return readXMLDOM (InputSourceFactory.create (aXML), aSettings);
   }
@@ -280,7 +269,7 @@ public final class DOMReader
   @Nullable
   public static Document readXMLDOM (@Nonnull final char [] aXML,
                                      @Nonnegative final int nOfs,
-                                     @Nonnegative final int nLen) throws SAXException
+                                     @Nonnegative final int nLen)
   {
     return readXMLDOM (aXML, nOfs, nLen, new DOMReaderSettings ());
   }
@@ -289,14 +278,14 @@ public final class DOMReader
   public static Document readXMLDOM (@Nonnull final char [] aXML,
                                      @Nonnegative final int nOfs,
                                      @Nonnegative final int nLen,
-                                     @Nonnull final IDOMReaderSettings aSettings) throws SAXException
+                                     @Nonnull final IDOMReaderSettings aSettings)
   {
     return readXMLDOM (InputSourceFactory.create (aXML, nOfs, nLen), aSettings);
   }
 
   @Nullable
   public static Document readXMLDOM (@WillClose @Nonnull final InputSource aInputSource,
-                                     @Nonnull final IDOMReaderSettings aSettings) throws SAXException
+                                     @Nonnull final IDOMReaderSettings aSettings)
   {
     ValueEnforcer.notNull (aInputSource, "InputSource");
     ValueEnforcer.notNull (aSettings, "Settings");
@@ -369,9 +358,6 @@ public final class DOMReader
     {
       aSettings.exceptionCallbacks ().forEach (x -> x.onException (ex));
       s_aDomErrorCounterHdl.increment ();
-
-      if (ex instanceof SAXException)
-        throw (SAXException) ex;
     }
     finally
     {

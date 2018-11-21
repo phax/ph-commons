@@ -201,7 +201,7 @@ public final class MicroHelperTest
   }
 
   @Test
-  public void testConvertToMicroElementWithNS () throws SAXException
+  public void testConvertToMicroElementWithNS ()
   {
     final String sNS = "<root xmlns='blafoo'><ns2:element xmlns:ns2='ns2:uri' ns2:attr='value'>content</ns2:element></root>";
     final Document aDoc = DOMReader.readXMLDOM (sNS);

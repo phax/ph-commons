@@ -18,11 +18,10 @@ package com.helger.xml.sax;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.junit.Test;
-import org.xml.sax.SAXException;
 
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.xml.serialize.read.DOMReader;
@@ -36,7 +35,7 @@ import com.helger.xml.serialize.read.DOMReaderSettings;
 public final class CollectingSAXErrorHandlerTest
 {
   @Test
-  public void testAll () throws SAXException
+  public void testAll ()
   {
     CollectingSAXErrorHandler aCEH = new CollectingSAXErrorHandler ();
     assertNotNull (DOMReader.readXMLDOM (new ClassPathResource ("xml/buildinfo.xml"),
@@ -45,13 +44,8 @@ public final class CollectingSAXErrorHandlerTest
     assertNotNull (aCEH.toString ());
 
     aCEH = new CollectingSAXErrorHandler ();
-    try
-    {
-      DOMReader.readXMLDOM (new ClassPathResource ("test1.txt"), new DOMReaderSettings ().setErrorHandler (aCEH));
-      fail ();
-    }
-    catch (final SAXException ex)
-    {}
+    assertNull (DOMReader.readXMLDOM (new ClassPathResource ("test1.txt"),
+                                      new DOMReaderSettings ().setErrorHandler (aCEH)));
     assertFalse (aCEH.getErrorList ().isEmpty ());
   }
 }

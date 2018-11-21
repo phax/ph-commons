@@ -31,7 +31,6 @@ import javax.xml.transform.dom.DOMSource;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
 
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.mock.CommonsTestHelper;
@@ -481,7 +480,7 @@ public final class XMLWriterTest
   }
 
   @Test
-  public void testNumericReferencesXML10 () throws SAXException, TransformerException
+  public void testNumericReferencesXML10 () throws TransformerException
   {
     for (int i = Character.MIN_VALUE; i <= Character.MAX_VALUE; ++i)
       if (!XMLCharHelper.isInvalidXMLTextChar (EXMLSerializeVersion.XML_10, (char) i))
@@ -506,7 +505,7 @@ public final class XMLWriterTest
   }
 
   @Test
-  public void testNumericReferencesXML11 () throws SAXException, TransformerException
+  public void testNumericReferencesXML11 () throws TransformerException
   {
     for (int i = Character.MIN_VALUE; i <= Character.MAX_VALUE; ++i)
       if (!XMLCharHelper.isInvalidXMLTextChar (EXMLSerializeVersion.XML_11, (char) i))
@@ -530,7 +529,7 @@ public final class XMLWriterTest
   }
 
   @Test
-  public void testAttributesWithNamespaces () throws SAXException
+  public void testAttributesWithNamespaces ()
   {
     final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
                                                                 .setCharset (StandardCharsets.ISO_8859_1);
@@ -752,7 +751,7 @@ public final class XMLWriterTest
                   XMLWriter.getNodeAsString (e, aSettings));
   }
 
-  private static void _testC14 (final String sSrc, final String sDst) throws SAXException
+  private static void _testC14 (final String sSrc, final String sDst)
   {
     final Document aDoc = DOMReader.readXMLDOM (sSrc, new DOMReaderSettings ().setEntityResolver ( (x, y) -> {
       return "world.txt".equals (new File (y).getName ()) ? new StringSAXInputSource ("world")
@@ -772,7 +771,7 @@ public final class XMLWriterTest
   }
 
   @Test
-  public void testCanonicalization () throws SAXException
+  public void testCanonicalization ()
   {
     _testC14 ("<?xml version=\"1.0\"?>\r\n" +
               "\r\n" +

@@ -26,7 +26,6 @@ import javax.xml.validation.Schema;
 
 import org.junit.Test;
 import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
 import com.helger.commons.error.list.IErrorList;
 import com.helger.commons.io.resource.ClassPathResource;
@@ -99,7 +98,7 @@ public final class XMLSchemaValidationHelperTest
   }
 
   @Test
-  public void testValidateDOMSource () throws SAXException
+  public void testValidateDOMSource ()
   {
     // Different source type
     Document aDoc = DOMReader.readXMLDOM (XML1);
@@ -137,7 +136,7 @@ public final class XMLSchemaValidationHelperTest
   }
 
   @Test
-  public void testValidateSchemaPresent () throws SAXException
+  public void testValidateSchemaPresent ()
   {
     final Schema aSchema1 = XMLSchemaCache.getInstance ().getSchema (XSD1);
     final Schema aSchema2 = XMLSchemaCache.getInstance ().getSchema (XSD2, XSD1);

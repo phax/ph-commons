@@ -24,7 +24,6 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
 import com.helger.xml.serialize.write.XMLWriter;
 
@@ -36,7 +35,7 @@ import com.helger.xml.serialize.write.XMLWriter;
 public final class DOMInputStreamProviderTest
 {
   @Test
-  public void testSimple () throws SAXException
+  public void testSimple ()
   {
     final Document doc = DOMReader.readXMLDOM ("<?xml version=\"1.0\"?><root />");
     assertNotNull (doc);
