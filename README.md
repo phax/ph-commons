@@ -44,6 +44,7 @@ This project was the following modules:
     * Moved `CloneHelper.getClonedJAXBElement` to new class `JAXBHelper` in `ph-jaxb` subproject (Java 11 issue)
     * Moved class `WSTestHelper` to subproject `ph-wsclient` (Java 11 issue)
     * First version to compile with OracleJDK 11 and OpenJDK 11
+    * Added method `PDTFactory.getCurrentLocalDateTimeMillisOnly ()`
     * Planned
         * Change `DOMReader.readXMLDOM` to not throw an Exception. Provide a suitable `ErrorHandler` instead.
 * v9.1.8 - 2018-10-24

@@ -30,6 +30,7 @@ import java.time.YearMonth;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoField;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -317,6 +318,22 @@ public final class PDTFactory
   public static LocalDateTime getCurrentLocalDateTime ()
   {
     return LocalDateTime.now (_getZoneId ());
+  }
+
+  /**
+   * @return The current local date and time but with micro and nanoseconds set
+   *         to 0, so that only the milliseconds part is present. This is
+   *         helpful for XSD serialization, where only milliseconds granularity
+   *         is available.
+   * @since 9.2.0
+   */
+  @Nonnegative
+  public static LocalDateTime getCurrentLocalDateTimeMillisOnly ()
+  {
+    LocalDateTime aNow = getCurrentLocalDateTime ();
+    // Cut of micro and nano seconds
+    aNow = aNow.withNano (aNow.get (ChronoField.MILLI_OF_SECOND) * 1_000_000);
+    return aNow;
   }
 
   @Nullable
