@@ -20,13 +20,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
-import java.time.temporal.ChronoField;
 
 import javax.annotation.Nonnull;
 
@@ -76,6 +74,7 @@ public final class PDTWebDateHelperTest
 
   private static void _testW3C (@Nonnull final OffsetDateTime aSrc)
   {
+    // The default pattern has no milliseconds!
     final String s = PDTWebDateHelper.getAsStringW3C (aSrc);
     assertNotNull (s);
     final OffsetDateTime aDT2 = PDTWebDateHelper.getDateTimeFromW3C (s);
@@ -113,9 +112,7 @@ public final class PDTWebDateHelperTest
   @Test
   public void testXSDDateTime ()
   {
-    ZonedDateTime aDT = ZonedDateTime.now (Clock.systemUTC ());
-    // Cut everything more specific than millis
-    aDT = aDT.withNano (aDT.get (ChronoField.MILLI_OF_SECOND) * 1_000_000);
+    final ZonedDateTime aDT = PDTFactory.getCurrentZonedDateTimeUTCMillisOnly ();
     final String s = PDTWebDateHelper.getAsStringXSD (aDT);
     assertNotNull (s);
     assertEquals (aDT, PDTWebDateHelper.getDateTimeFromXSD (s));
