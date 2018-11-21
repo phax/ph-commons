@@ -47,6 +47,7 @@ This project was the following modules:
     * Added methods in `PDTFactory` to remove microseconds and nanoseconds from `(Zoned|Offset|Local)DateTime`
     * Added support for silent mode in `AbstractDAO`
     * Changed `DOMReader.readXMLDOM` to not throw an Exception. Provide a suitable `ErrorHandler` instead.
+    * `WrappedCollectingSAXErrorHandler` is now derived from `CollectingSAXErrorHandler`
 * v9.1.8 - 2018-10-24
     * Added special support for properties `java.runtime.version` and `java.runtime.name` in class `SystemProperties`
     * Class `JavaVersionHelper` now supports AdoptOpenJDK versions

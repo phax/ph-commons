@@ -19,29 +19,23 @@ package com.helger.xml.sax;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 
-import org.xml.sax.SAXParseException;
-
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.error.list.ErrorList;
-import com.helger.commons.string.ToStringGenerator;
 
 /**
  * An error handler implementation that stores all warnings, errors and fatal
- * errors.
+ * errors. Derived from {@link CollectingSAXErrorHandler} since v9.2.0.
  *
  * @author Philip Helger
  * @since 8.5.1
  */
 @ThreadSafe
-public class WrappedCollectingSAXErrorHandler extends AbstractSAXErrorHandler
+public class WrappedCollectingSAXErrorHandler extends CollectingSAXErrorHandler
 {
-  private final ErrorList m_aErrorList;
-
   public WrappedCollectingSAXErrorHandler (@Nonnull final ErrorList aErrorList)
   {
-    m_aErrorList = ValueEnforcer.notNull (aErrorList, "ErrorList");
+    super ( () -> ValueEnforcer.notNull (aErrorList, "ErrorList"));
   }
 
   /**
@@ -52,18 +46,6 @@ public class WrappedCollectingSAXErrorHandler extends AbstractSAXErrorHandler
   @ReturnsMutableObject ("design")
   public ErrorList wrappedErrorList ()
   {
-    return m_aErrorList;
-  }
-
-  @Override
-  protected void internalLog (@Nonnull final IErrorLevel aErrorLevel, final SAXParseException aException)
-  {
-    m_aErrorList.add (getSaxParseError (aErrorLevel, aException));
-  }
-
-  @Override
-  public String toString ()
-  {
-    return ToStringGenerator.getDerived (super.toString ()).append ("ErrorList", m_aErrorList).getToString ();
+    return m_aErrors;
   }
 }

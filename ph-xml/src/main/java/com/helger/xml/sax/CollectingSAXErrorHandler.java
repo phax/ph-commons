@@ -44,10 +44,27 @@ public class CollectingSAXErrorHandler extends AbstractSAXErrorHandler
 {
   protected final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
-  private final ErrorList m_aErrors = new ErrorList ();
+  protected final ErrorList m_aErrors;
 
   public CollectingSAXErrorHandler ()
-  {}
+  {
+    this (ErrorList::new);
+  }
+
+  /**
+   * Protected constructor to use a different {@link ErrorList} - e.g. for
+   * existing error lists.
+   *
+   * @param aErrorListProvider
+   *        The error list provider. May not be <code>null</code>.
+   * @since 9.2.0
+   */
+  protected CollectingSAXErrorHandler (@Nonnull final Supplier <ErrorList> aErrorListProvider)
+  {
+    m_aErrors = aErrorListProvider.get ();
+    if (m_aErrors == null)
+      throw new IllegalStateException ("ErrorListProvider returned a null value");
+  }
 
   @Override
   protected void internalLog (@Nonnull final IErrorLevel aErrorLevel, final SAXParseException aException)
