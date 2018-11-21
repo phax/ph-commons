@@ -52,8 +52,12 @@ public class CSVLineReaderKeepCR implements ICSVLineReader
   public String readLine () throws IOException
   {
     final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
-    for (int c = m_aReader.read (); c > -1 && c != '\n'; c = m_aReader.read ())
+    int c = m_aReader.read ();
+    while (c > -1 && c != '\n')
+    {
       aSB.append ((char) c);
+      c = m_aReader.read ();
+    }
 
     return aSB.length () > 0 ? aSB.toString () : null;
   }
