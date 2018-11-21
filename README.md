@@ -45,6 +45,7 @@ This project was the following modules:
     * Moved class `WSTestHelper` to subproject `ph-wsclient` (Java 11 issue)
     * First version to compile with OracleJDK 11 and OpenJDK 11
     * Added methods in `PDTFactory` to remove microseconds and nanoseconds from `(Zoned|Offset|Local)DateTime`
+    * Added support for silent mode in `AbstractDAO`
     * Planned
         * Change `DOMReader.readXMLDOM` to not throw an Exception. Provide a suitable `ErrorHandler` instead.
 * v9.1.8 - 2018-10-24

@@ -40,8 +40,12 @@ public abstract class AbstractDAO implements IDAO
   /** By default auto-save is enabled */
   public static final boolean DEFAULT_AUTO_SAVE_ENABLED = true;
 
-  private static CallbackList <IDAOReadExceptionCallback> s_aExceptionHandlersRead = new CallbackList <> ();
-  private static CallbackList <IDAOWriteExceptionCallback> s_aExceptionHandlersWrite = new CallbackList <> ();
+  private static final CallbackList <IDAOReadExceptionCallback> s_aExceptionHandlersRead = new CallbackList <> ();
+  private static final CallbackList <IDAOWriteExceptionCallback> s_aExceptionHandlersWrite = new CallbackList <> ();
+
+  protected static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
+  @GuardedBy ("s_aRWLock")
+  private static boolean s_bSilentMode = false;
 
   protected final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
@@ -52,12 +56,40 @@ public abstract class AbstractDAO implements IDAO
   @GuardedBy ("m_aRWLock")
   private boolean m_bAutoSaveEnabled = DEFAULT_AUTO_SAVE_ENABLED;
 
+  /**
+   * Enable or disable certain regular log messages.
+   * 
+   * @param bSilentMode
+   *        <code>true</code> to disable logging, <code>false</code> to enable
+   *        logging
+   * @return The previous value of the silent mode.
+   * @since 9.2.0
+   */
+  public static boolean setSilentMode (final boolean bSilentMode)
+  {
+    return s_aRWLock.writeLocked ( () -> {
+      final boolean bOld = s_bSilentMode;
+      s_bSilentMode = bSilentMode;
+      return bOld;
+    });
+  }
+
+  /**
+   * @return <code>true</code> if logging is disabled, <code>false</code> if it
+   *         is enabled.
+   * @since 9.2.0
+   */
+  public static boolean isSilentMode ()
+  {
+    return s_aRWLock.readLocked ( () -> s_bSilentMode);
+  }
+
   protected AbstractDAO ()
   {}
 
   protected static final boolean isDebugLogging ()
   {
-    return GlobalDebug.isDebugMode ();
+    return GlobalDebug.isDebugMode () && !isSilentMode ();
   }
 
   @Nonnull
