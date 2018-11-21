@@ -56,7 +56,7 @@ public class ReadableResourceSAXInputSource extends InputSource
   }
 
   @Nonnull
-  public IHasInputStream getInputStreamProvider ()
+  public final IHasInputStream getInputStreamProvider ()
   {
     return m_aISP;
   }

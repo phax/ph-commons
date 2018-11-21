@@ -64,6 +64,16 @@ public class DefaultEntityResolver implements EntityResolver
     m_sBaseURI = ValueEnforcer.notNull (sBaseURI, "BaseURI");
   }
 
+  /**
+   * @return The base URI from the constructor. Never <code>null</code>.
+   * @since 9.2.0
+   */
+  @Nonnull
+  public final String getBaseURI ()
+  {
+    return m_sBaseURI;
+  }
+
   @Nullable
   public InputSource resolveEntity (@Nullable final String sPublicID,
                                     @Nullable final String sSystemID) throws SAXException, IOException

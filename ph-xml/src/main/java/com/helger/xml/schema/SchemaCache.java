@@ -69,13 +69,13 @@ public class SchemaCache extends Cache <ICommonsList <? extends IReadableResourc
   }
 
   @Nonnull
-  public String getSchemaTypeName ()
+  public final String getSchemaTypeName ()
   {
     return m_sSchemaTypeName;
   }
 
   @Nonnull
-  public SchemaFactory getSchemaFactory ()
+  public final SchemaFactory getSchemaFactory ()
   {
     return m_aSchemaFactory;
   }

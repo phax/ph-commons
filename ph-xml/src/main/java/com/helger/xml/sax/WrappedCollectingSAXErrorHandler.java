@@ -44,7 +44,7 @@ public class WrappedCollectingSAXErrorHandler extends CollectingSAXErrorHandler
    */
   @Nonnull
   @ReturnsMutableObject ("design")
-  public ErrorList wrappedErrorList ()
+  public final ErrorList wrappedErrorList ()
   {
     return m_aErrors;
   }

@@ -65,7 +65,7 @@ public class StringSAXInputSource extends InputSource
   }
 
   @Nonnull
-  public String getText ()
+  public final String getText ()
   {
     return m_sText;
   }
