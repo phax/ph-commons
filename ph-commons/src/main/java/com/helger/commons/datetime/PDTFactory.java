@@ -120,10 +120,54 @@ public final class PDTFactory
     return ZonedDateTime.now (_getZoneId ());
   }
 
+  /**
+   * Get the passed date time but with micro and nanoseconds set to 0, so that
+   * only the milliseconds part is present. This is helpful for XSD
+   * serialization, where only milliseconds granularity is available.
+   *
+   * @param aODT
+   *        Source date time. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>, the local
+   *         date time with microseconds and nanoseconds set to 0 otherwise.
+   * @since 9.2.0
+   */
+  @Nullable
+  public static ZonedDateTime getWithMillisOnly (@Nullable final ZonedDateTime aODT)
+  {
+    return aODT == null ? null : aODT.withNano (aODT.get (ChronoField.MILLI_OF_SECOND) *
+                                                (int) CGlobal.NANOSECONDS_PER_MILLISECOND);
+  }
+
+  /**
+   * @return The current local date and time but with micro and nanoseconds set
+   *         to 0, so that only the milliseconds part is present. This is
+   *         helpful for XSD serialization, where only milliseconds granularity
+   *         is available.
+   * @since 9.2.0
+   */
+  @Nonnegative
+  public static ZonedDateTime getCurrentZonedDateTimeMillisOnly ()
+  {
+    return getWithMillisOnly (getCurrentZonedDateTime ());
+  }
+
   @Nonnull
   public static ZonedDateTime getCurrentZonedDateTimeUTC ()
   {
     return ZonedDateTime.now (ZoneOffset.UTC);
+  }
+
+  /**
+   * @return The current local date and time but with micro and nanoseconds set
+   *         to 0, so that only the milliseconds part is present. This is
+   *         helpful for XSD serialization, where only milliseconds granularity
+   *         is available.
+   * @since 9.2.0
+   */
+  @Nonnegative
+  public static ZonedDateTime getCurrentZonedDateTimeUTCMillisOnly ()
+  {
+    return getWithMillisOnly (getCurrentZonedDateTimeUTC ());
   }
 
   @Nullable
@@ -221,6 +265,37 @@ public final class PDTFactory
   public static OffsetDateTime getCurrentOffsetDateTime ()
   {
     return OffsetDateTime.now (_getZoneId ());
+  }
+
+  /**
+   * Get the passed date time but with micro and nanoseconds set to 0, so that
+   * only the milliseconds part is present. This is helpful for XSD
+   * serialization, where only milliseconds granularity is available.
+   *
+   * @param aODT
+   *        Source date time. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>, the local
+   *         date time with microseconds and nanoseconds set to 0 otherwise.
+   * @since 9.2.0
+   */
+  @Nullable
+  public static OffsetDateTime getWithMillisOnly (@Nullable final OffsetDateTime aODT)
+  {
+    return aODT == null ? null : aODT.withNano (aODT.get (ChronoField.MILLI_OF_SECOND) *
+                                                (int) CGlobal.NANOSECONDS_PER_MILLISECOND);
+  }
+
+  /**
+   * @return The current local date and time but with micro and nanoseconds set
+   *         to 0, so that only the milliseconds part is present. This is
+   *         helpful for XSD serialization, where only milliseconds granularity
+   *         is available.
+   * @since 9.2.0
+   */
+  @Nonnegative
+  public static OffsetDateTime getCurrentOffsetDateTimeMillisOnly ()
+  {
+    return getWithMillisOnly (getCurrentOffsetDateTime ());
   }
 
   @Nullable
@@ -321,6 +396,24 @@ public final class PDTFactory
   }
 
   /**
+   * Get the passed date time but with micro and nanoseconds set to 0, so that
+   * only the milliseconds part is present. This is helpful for XSD
+   * serialization, where only milliseconds granularity is available.
+   *
+   * @param aLDT
+   *        Source date time. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>, the local
+   *         date time with microseconds and nanoseconds set to 0 otherwise.
+   * @since 9.2.0
+   */
+  @Nullable
+  public static LocalDateTime getWithMillisOnly (@Nullable final LocalDateTime aLDT)
+  {
+    return aLDT == null ? null : aLDT.withNano (aLDT.get (ChronoField.MILLI_OF_SECOND) *
+                                                (int) CGlobal.NANOSECONDS_PER_MILLISECOND);
+  }
+
+  /**
    * @return The current local date and time but with micro and nanoseconds set
    *         to 0, so that only the milliseconds part is present. This is
    *         helpful for XSD serialization, where only milliseconds granularity
@@ -330,10 +423,7 @@ public final class PDTFactory
   @Nonnegative
   public static LocalDateTime getCurrentLocalDateTimeMillisOnly ()
   {
-    LocalDateTime aNow = getCurrentLocalDateTime ();
-    // Cut of micro and nano seconds
-    aNow = aNow.withNano (aNow.get (ChronoField.MILLI_OF_SECOND) * 1_000_000);
-    return aNow;
+    return getWithMillisOnly (getCurrentLocalDateTime ());
   }
 
   @Nullable

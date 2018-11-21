@@ -171,7 +171,7 @@ public final class CGlobal
   /**
    * Milliseconds per second (1_000).
    */
-  public static final long MILLISECONDS_PER_SECOND = 1000L;
+  public static final long MILLISECONDS_PER_SECOND = 1_000L;
 
   /**
    * Milliseconds per second (60_000).
@@ -186,7 +186,7 @@ public final class CGlobal
   /**
    * Micro seconds per millisecond (1_000).
    */
-  public static final long MICROSECONDS_PER_MILLISECOND = 1000L;
+  public static final long MICROSECONDS_PER_MILLISECOND = 1_000L;
 
   /**
    * Micro seconds per second (1_000_000).
@@ -196,7 +196,7 @@ public final class CGlobal
   /**
    * Nanoseconds per microsecond (1_000).
    */
-  public static final long NANOSECONDS_PER_MICROSECOND = 1000L;
+  public static final long NANOSECONDS_PER_MICROSECOND = 1_000L;
 
   /**
    * Nanoseconds per millisecond (1_000_000).

@@ -39,12 +39,28 @@ import org.junit.Test;
 public final class PDTFactoryTest
 {
   @Test
-  public void testLocalDate ()
+  public void testCurrent ()
+  {
+    assertNotNull (PDTFactory.getCurrentZonedDateTime ());
+    assertNotNull (PDTFactory.getCurrentZonedDateTimeMillisOnly ());
+    assertNotNull (PDTFactory.getCurrentZonedDateTimeUTC ());
+    assertNotNull (PDTFactory.getCurrentZonedDateTimeUTCMillisOnly ());
+    assertNotNull (PDTFactory.getCurrentOffsetDateTime ());
+    assertNotNull (PDTFactory.getCurrentOffsetDateTimeMillisOnly ());
+    assertNotNull (PDTFactory.getCurrentLocalDateTime ());
+    assertNotNull (PDTFactory.getCurrentLocalDateTimeMillisOnly ());
+    assertNotNull (PDTFactory.getCurrentYearObj ());
+    assertNotNull (PDTFactory.getCurrentYearMonth ());
+  }
+
+  @Test
+  public void testCreateLocalDate ()
   {
     assertNotNull (PDTFactory.createLocalDate (new Date ()));
     assertNotNull (PDTFactory.createLocalDate (new GregorianCalendar (TimeZone.getDefault (), Locale.getDefault ())));
     assertNotNull (PDTFactory.createLocalDate (Instant.ofEpochMilli (1234)));
     assertNotNull (PDTFactory.createLocalDate (PDTFactory.getCurrentLocalDateTime ()));
+    assertNotNull (PDTFactory.createLocalDate (PDTFactory.getCurrentLocalDateTimeMillisOnly ()));
     assertNotNull (PDTFactory.createLocalDate (1234));
     assertNotNull (PDTFactory.createLocalDate (PDTFactory.getCurrentYearObj ()));
     assertNotNull (PDTFactory.createLocalDate (PDTFactory.getCurrentYearMonth ()));
