@@ -28,6 +28,8 @@ This project was the following modules:
 
 ## News and noteworthy
 
+* v9.2.1 - work in progress
+    * Improved API of `JspnParseException` 
 * v9.2.0 - 2018-11-21
     * Undo deprecations of `ValueEnforcer` short and float methods.
     * Simplified the `IMultilingualText` interface and implementations (backwards incompatible)

@@ -18,6 +18,7 @@ package com.helger.json.parser;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * This exception is thrown upon JSON parse error.
@@ -54,11 +55,21 @@ public class JsonParseException extends Exception
   }
 
   /**
+   * @return Token start position. May be <code>null</code>.
+   * @since 9.2.1
+   */
+  @Nullable
+  public final IJsonParsePosition getTokenStartPosition ()
+  {
+    return m_aTokenStart;
+  }
+
+  /**
    * @return The line number where the token started or -1 if position tracking
    *         is disabled.
    */
   @Nonnegative
-  public int getTokenStartLine ()
+  public final int getTokenStartLine ()
   {
     return m_aTokenStart == null ? -1 : m_aTokenStart.getLineNumber ();
   }
@@ -68,9 +79,19 @@ public class JsonParseException extends Exception
    *         tracking is disabled.
    */
   @Nonnegative
-  public int getTokenStartColumn ()
+  public final int getTokenStartColumn ()
   {
     return m_aTokenStart == null ? -1 : m_aTokenStart.getColumnNumber ();
+  }
+
+  /**
+   * @return Error position. May be <code>null</code>.
+   * @since 9.2.1
+   */
+  @Nullable
+  public final IJsonParsePosition getErrorPosition ()
+  {
+    return m_aErrorPos;
   }
 
   /**
@@ -78,7 +99,7 @@ public class JsonParseException extends Exception
    *         is disabled.
    */
   @Nonnegative
-  public int getErrorLine ()
+  public final int getErrorLine ()
   {
     return m_aErrorPos == null ? -1 : m_aErrorPos.getLineNumber ();
   }
@@ -88,7 +109,7 @@ public class JsonParseException extends Exception
    *         tracking is disabled.
    */
   @Nonnegative
-  public int getErrorColumn ()
+  public final int getErrorColumn ()
   {
     return m_aErrorPos == null ? -1 : m_aErrorPos.getColumnNumber ();
   }
@@ -97,7 +118,7 @@ public class JsonParseException extends Exception
    * @return The main error message without the automatically added prefix.
    */
   @Nonnull
-  public String getPureMessage ()
+  public final String getPureMessage ()
   {
     return m_sMessage;
   }
