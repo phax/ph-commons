@@ -24,6 +24,7 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -216,7 +217,8 @@ public final class TypeConverterTest
                                                    EValidity.VALID,
                                                    "Jägalä".getBytes (StandardCharsets.ISO_8859_1),
                                                    new StringBuffer ("Äh ja - wie is das jetzt?"),
-                                                   new StringBuilder ("Thät lüks greyt!") };
+                                                   new StringBuilder ("Thät lüks greyt!"),
+                                                   new File ("foo.bar") };
     for (final Object aSrcValue : aDefinedObjs)
     {
       final String sValue = TypeConverter.convert (aSrcValue, String.class);

@@ -20,6 +20,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
+import java.io.File;
 import java.time.Duration;
 import java.time.Period;
 import java.util.Date;
@@ -93,5 +94,7 @@ public final class MicroTypeConverterTest
     assertNotNull (MicroTypeConverter.convertToMicroElement (PDTFactory.getCurrentLocalTime (), ELEMENT_NAME));
     assertNotNull (MicroTypeConverter.convertToMicroElement (Duration.ofHours (3), ELEMENT_NAME));
     assertNotNull (MicroTypeConverter.convertToMicroElement (Period.ofDays (8), ELEMENT_NAME));
+    new MicroElement ("blub").setAttributeWithConversion ("file", new File ("xyz.txt"));
+    assertNotNull (MicroTypeConverter.convertToMicroElement (new File ("a.bc"), ELEMENT_NAME));
   }
 }

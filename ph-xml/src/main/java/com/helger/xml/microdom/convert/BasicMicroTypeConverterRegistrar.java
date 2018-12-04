@@ -17,8 +17,12 @@
 package com.helger.xml.microdom.convert;
 
 import java.awt.Color;
+import java.io.File;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.net.URI;
+import java.net.URL;
+import java.nio.file.Path;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -123,6 +127,12 @@ public final class BasicMicroTypeConverterRegistrar implements IMicroTypeConvert
                                                  new StringBasedMicroTypeConverter <> (ETriState.class));
     aRegistry.registerMicroElementTypeConverter (EValidity.class,
                                                  new StringBasedMicroTypeConverter <> (EValidity.class));
+
+    // IO stuff
+    aRegistry.registerMicroElementTypeConverter (File.class, new StringBasedMicroTypeConverter <> (File.class));
+    aRegistry.registerMicroElementTypeConverter (Path.class, new StringBasedMicroTypeConverter <> (Path.class));
+    aRegistry.registerMicroElementTypeConverter (URI.class, new StringBasedMicroTypeConverter <> (URI.class));
+    aRegistry.registerMicroElementTypeConverter (URL.class, new StringBasedMicroTypeConverter <> (URL.class));
 
     // Special stuff
     aRegistry.registerMicroElementTypeConverter (Color.class, new ColorMicroTypeConverter ());
