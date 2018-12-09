@@ -35,11 +35,13 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public class FileOperationManager implements IFileOperationManager
 {
-  public static final IFileOperationManager INSTANCE = new FileOperationManager ();
+  public static final IFileOperationManager INSTANCE;
   static
   {
     // Add a logging callback by default
-    ((FileOperationManager) INSTANCE).callbacks ().add (new LoggingFileOperationCallback ());
+    final FileOperationManager aFOM = new FileOperationManager ();
+    aFOM.callbacks ().add (new LoggingFileOperationCallback ());
+    INSTANCE = aFOM;
   }
 
   private FileIOError m_aLastError;
