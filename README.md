@@ -31,6 +31,7 @@ This project was the following modules:
 * v9.2.1 - work in progress
     * Improved API of `JspnParseException` 
     * Added additional default `MicroTypeConverter` registrations (`File`, `Path`, `URL` and `URI`)
+    * Added special implementation of `IHasInputStream` for `NonBlockingByteArrayOutputStream`
 * v9.2.0 - 2018-11-21
     * Undo deprecations of `ValueEnforcer` short and float methods.
     * Simplified the `IMultilingualText` interface and implementations (backwards incompatible)

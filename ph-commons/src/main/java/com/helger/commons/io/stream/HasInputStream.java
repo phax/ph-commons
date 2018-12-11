@@ -41,7 +41,7 @@ public class HasInputStream implements IHasInputStream
 
   /**
    * Constructor
-   * 
+   *
    * @param aISP
    *        {@link InputStream} supplier. May not be <code>null</code>.
    * @param bReadMultiple
@@ -97,5 +97,43 @@ public class HasInputStream implements IHasInputStream
   public static HasInputStream once (@Nonnull final ISupplier <? extends InputStream> aISP)
   {
     return new HasInputStream (aISP, false);
+  }
+
+  private static final class HISNBBAOS implements IHasInputStream
+  {
+    private final NonBlockingByteArrayOutputStream m_aBAOS;
+
+    public HISNBBAOS (@Nonnull final NonBlockingByteArrayOutputStream aBAOS)
+    {
+      m_aBAOS = aBAOS;
+    }
+
+    @Nonnull
+    public InputStream getInputStream ()
+    {
+      return m_aBAOS.getAsInputStream ();
+    }
+
+    public boolean isReadMultiple ()
+    {
+      return true;
+    }
+  }
+
+  /**
+   * Get a special implementation of {@link IHasInputStream} for
+   * {@link NonBlockingByteArrayOutputStream}.
+   *
+   * @param aBAOS
+   *        Source stream. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   * @since .2.1
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public static IHasInputStream create (@Nonnull final NonBlockingByteArrayOutputStream aBAOS)
+  {
+    ValueEnforcer.notNull (aBAOS, "BAOS");
+    return new HISNBBAOS (aBAOS);
   }
 }
