@@ -72,8 +72,8 @@ public class XMLEmitter implements AutoCloseable, Flushable
    * Define whether nested XML comments throw an exception or not.
    *
    * @param bThrowExceptionOnNestedComments
-   *        <code>true</code> to throw an exception, <code>false</code> to
-   *        ignore nested comments.
+   *        <code>true</code> to throw an exception, <code>false</code> to ignore
+   *        nested comments.
    */
   public static void setThrowExceptionOnNestedComments (final boolean bThrowExceptionOnNestedComments)
   {
@@ -81,8 +81,8 @@ public class XMLEmitter implements AutoCloseable, Flushable
   }
 
   /**
-   * @return <code>true</code> if nested XML comments will throw an error.
-   *         Default is {@value #DEFAULT_THROW_EXCEPTION_ON_NESTED_COMMENTS}.
+   * @return <code>true</code> if nested XML comments will throw an error. Default
+   *         is {@value #DEFAULT_THROW_EXCEPTION_ON_NESTED_COMMENTS}.
    */
   public static boolean isThrowExceptionOnNestedComments ()
   {
@@ -214,9 +214,8 @@ public class XMLEmitter implements AutoCloseable, Flushable
    *        The XML version to use. If <code>null</code> is passed,
    *        {@link EXMLVersion#XML_10} will be used.
    * @param sEncoding
-   *        The encoding to be used for this document. It may be
-   *        <code>null</code> but it is strongly recommended to write a correct
-   *        charset.
+   *        The encoding to be used for this document. It may be <code>null</code>
+   *        but it is strongly recommended to write a correct charset.
    * @param bStandalone
    *        if <code>true</code> this is a standalone XML document without a
    *        connection to an existing DTD or XML schema
@@ -224,6 +223,30 @@ public class XMLEmitter implements AutoCloseable, Flushable
   public void onXMLDeclaration (@Nullable final EXMLVersion eXMLVersion,
                                 @Nullable final String sEncoding,
                                 final boolean bStandalone)
+  {
+    onXMLDeclaration (eXMLVersion, sEncoding, bStandalone, true);
+  }
+
+  /**
+   * At the very beginning of the document (XML declaration).
+   *
+   * @param eXMLVersion
+   *        The XML version to use. If <code>null</code> is passed,
+   *        {@link EXMLVersion#XML_10} will be used.
+   * @param sEncoding
+   *        The encoding to be used for this document. It may be <code>null</code>
+   *        but it is strongly recommended to write a correct charset.
+   * @param bStandalone
+   *        if <code>true</code> this is a standalone XML document without a
+   *        connection to an existing DTD or XML schema
+   * @param bWithNewLine
+   *        <code>true</code> to add a newline, <code>false</code> if not
+   * @since 9.2.1
+   */
+  public void onXMLDeclaration (@Nullable final EXMLVersion eXMLVersion,
+                                @Nullable final String sEncoding,
+                                final boolean bStandalone,
+                                final boolean bWithNewLine)
   {
     if (eXMLVersion != null)
     {
@@ -238,12 +261,13 @@ public class XMLEmitter implements AutoCloseable, Flushable
     if (bStandalone)
       _append (" standalone=")._appendAttrValue ("yes");
     _append (PI_END);
-    newLine ();
+    if (bWithNewLine)
+      newLine ();
   }
 
   /**
-   * Write a DTD section. This string represents the entire doctypedecl
-   * production from the XML 1.0 specification.
+   * Write a DTD section. This string represents the entire doctypedecl production
+   * from the XML 1.0 specification.
    *
    * @param sDTD
    *        the DTD to be written. May not be <code>null</code>.
@@ -287,8 +311,8 @@ public class XMLEmitter implements AutoCloseable, Flushable
    * @param sQualifiedName
    *        The qualified element name. May not be <code>null</code>.
    * @param sPublicID
-   *        The optional public ID. May be <code>null</code>. If the public ID
-   *        is not <code>null</code> the system ID must also be set!
+   *        The optional public ID. May be <code>null</code>. If the public ID is
+   *        not <code>null</code> the system ID must also be set!
    * @param sSystemID
    *        The optional system ID. May be <code>null</code>.
    * @return The string DOCTYPE representation.

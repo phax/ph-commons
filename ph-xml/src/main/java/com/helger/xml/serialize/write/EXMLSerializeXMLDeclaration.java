@@ -33,6 +33,8 @@ import com.helger.commons.lang.EnumHelper;
 public enum EXMLSerializeXMLDeclaration implements IHasID <String>
 {
   EMIT ("emit"),
+  /** @since 9.2.1 */
+  EMIT_NO_NEWLINE ("emitnonl"),
   IGNORE ("ignore");
 
   private final String m_sID;

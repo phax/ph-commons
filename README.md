@@ -32,6 +32,7 @@ This project was the following modules:
     * Improved API of `JspnParseException` 
     * Added additional default `MicroTypeConverter` registrations (`File`, `Path`, `URL` and `URI`)
     * Added special implementation of `IHasInputStream` for `NonBlockingByteArrayOutputStream`
+    * Added enum entry `EXMLSerializeXMLDeclaration.EMIT_NO_NEWLINE`
 * v9.2.0 - 2018-11-21
     * Undo deprecations of `ValueEnforcer` short and float methods.
     * Simplified the `IMultilingualText` interface and implementations (backwards incompatible)

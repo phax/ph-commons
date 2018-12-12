@@ -164,8 +164,8 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
   }
 
   /**
-   * @return <code>true</code> if debug mode is enabled, <code>false</code> if
-   *         it is disabled. By default it is disabled.
+   * @return <code>true</code> if debug mode is enabled, <code>false</code> if it
+   *         is disabled. By default it is disabled.
    * @see #setDebugMode(boolean)
    */
   public final boolean isDebugMode ()
@@ -177,8 +177,8 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
    * Enable or disable debug mode
    *
    * @param bDebugMode
-   *        <code>true</code> to enable debug mode, <code>false</code> to
-   *        disable it.
+   *        <code>true</code> to enable debug mode, <code>false</code> to disable
+   *        it.
    * @return this for chaining
    * @see #isDebugMode()
    */

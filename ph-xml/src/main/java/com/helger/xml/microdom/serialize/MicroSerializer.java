@@ -42,6 +42,7 @@ import com.helger.xml.microdom.IMicroText;
 import com.helger.xml.serialize.write.AbstractXMLSerializer;
 import com.helger.xml.serialize.write.EXMLSerializeBracketMode;
 import com.helger.xml.serialize.write.EXMLSerializeIndent;
+import com.helger.xml.serialize.write.EXMLSerializeXMLDeclaration;
 import com.helger.xml.serialize.write.IXMLWriterSettings;
 import com.helger.xml.serialize.write.XMLEmitter;
 import com.helger.xml.serialize.write.XMLWriterSettings;
@@ -109,12 +110,12 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
   }
 
   /**
-   * Special helper method to write a list of nodes. This implementations is
-   * used to avoid calling {@link IMicroNode#getPreviousSibling()} and
+   * Special helper method to write a list of nodes. This implementations is used
+   * to avoid calling {@link IMicroNode#getPreviousSibling()} and
    * {@link IMicroNode#getNextSibling()} since there implementation is compute
    * intensive since the objects are not directly linked. So to avoid this call,
-   * we're manually retrieving the previous and next sibling by their index in
-   * the list.
+   * we're manually retrieving the previous and next sibling by their index in the
+   * list.
    *
    * @param aXMLWriter
    *        The XML writer to use. May not be <code>null</code>.
@@ -143,7 +144,8 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
     if (m_aSettings.getSerializeXMLDeclaration ().isEmit ())
       aXMLWriter.onXMLDeclaration (m_aSettings.getXMLVersion (),
                                    m_aSettings.getCharset ().name (),
-                                   aDocument.isStandalone ());
+                                   aDocument.isStandalone (),
+                                   m_aSettings.getSerializeXMLDeclaration () == EXMLSerializeXMLDeclaration.EMIT);
 
     if (aDocument.hasChildren ())
       _writeNodeList (aXMLWriter, aDocument, aDocument.getAllChildren ());
