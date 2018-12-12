@@ -34,7 +34,13 @@ public final class EXMLSerializeXMLDeclarationTest
   {
     for (final EXMLSerializeXMLDeclaration e : EXMLSerializeXMLDeclaration.values ())
       assertSame (e, EXMLSerializeXMLDeclaration.valueOf (e.name ()));
+
     assertTrue (EXMLSerializeXMLDeclaration.EMIT.isEmit ());
+    assertTrue (EXMLSerializeXMLDeclaration.EMIT_NO_NEWLINE.isEmit ());
     assertFalse (EXMLSerializeXMLDeclaration.IGNORE.isEmit ());
+
+    assertTrue (EXMLSerializeXMLDeclaration.EMIT.isWithNewLine ());
+    assertFalse (EXMLSerializeXMLDeclaration.EMIT_NO_NEWLINE.isWithNewLine ());
+    assertFalse (EXMLSerializeXMLDeclaration.IGNORE.isWithNewLine ());
   }
 }

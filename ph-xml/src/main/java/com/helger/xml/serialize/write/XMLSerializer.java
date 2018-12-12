@@ -121,7 +121,8 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
       final EXMLVersion eXMLVersion = EXMLVersion.getFromVersionOrDefault (sXMLVersion, m_aSettings.getXMLVersion ());
       aXMLWriter.onXMLDeclaration (eXMLVersion,
                                    m_aSettings.getCharset ().name (),
-                                   bIsDocumentStandalone || aDocument.getDoctype () == null);
+                                   bIsDocumentStandalone || aDocument.getDoctype () == null,
+                                   m_aSettings.getSerializeXMLDeclaration ().isWithNewLine ());
     }
 
     _writeNodeList (aXMLWriter, aDocument, aDocument.getChildNodes ());

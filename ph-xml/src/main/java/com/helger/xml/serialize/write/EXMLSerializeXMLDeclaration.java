@@ -56,6 +56,11 @@ public enum EXMLSerializeXMLDeclaration implements IHasID <String>
    */
   public boolean isEmit ()
   {
+    return this == EMIT || this == EMIT_NO_NEWLINE;
+  }
+
+  public boolean isWithNewLine ()
+  {
     return this == EMIT;
   }
 

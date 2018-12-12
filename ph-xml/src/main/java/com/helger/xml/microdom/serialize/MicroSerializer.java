@@ -42,7 +42,6 @@ import com.helger.xml.microdom.IMicroText;
 import com.helger.xml.serialize.write.AbstractXMLSerializer;
 import com.helger.xml.serialize.write.EXMLSerializeBracketMode;
 import com.helger.xml.serialize.write.EXMLSerializeIndent;
-import com.helger.xml.serialize.write.EXMLSerializeXMLDeclaration;
 import com.helger.xml.serialize.write.IXMLWriterSettings;
 import com.helger.xml.serialize.write.XMLEmitter;
 import com.helger.xml.serialize.write.XMLWriterSettings;
@@ -142,10 +141,12 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
   private void _writeDocument (@Nonnull final XMLEmitter aXMLWriter, final IMicroDocument aDocument)
   {
     if (m_aSettings.getSerializeXMLDeclaration ().isEmit ())
+    {
       aXMLWriter.onXMLDeclaration (m_aSettings.getXMLVersion (),
                                    m_aSettings.getCharset ().name (),
                                    aDocument.isStandalone (),
-                                   m_aSettings.getSerializeXMLDeclaration () == EXMLSerializeXMLDeclaration.EMIT);
+                                   m_aSettings.getSerializeXMLDeclaration ().isWithNewLine ());
+    }
 
     if (aDocument.hasChildren ())
       _writeNodeList (aXMLWriter, aDocument, aDocument.getAllChildren ());
