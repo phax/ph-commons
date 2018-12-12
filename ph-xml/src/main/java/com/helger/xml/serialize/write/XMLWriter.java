@@ -254,12 +254,12 @@ public final class XMLWriter
     ValueEnforcer.notNull (aSettings, "Settings");
 
     try (
-        final NonBlockingByteArrayOutputStream aWriter = new NonBlockingByteArrayOutputStream (50 *
+        final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (50 *
                                                                                                CGlobal.BYTES_PER_KILOBYTE))
     {
       // start serializing
-      if (writeToStream (aNode, aWriter, aSettings).isSuccess ())
-        return aWriter.toByteArray ();
+      if (writeToStream (aNode, aBAOS, aSettings).isSuccess ())
+        return aBAOS.toByteArray ();
     }
     catch (final Exception ex)
     {
