@@ -295,12 +295,38 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @Nonnull
   protected final IMPLTYPE internalCreateItem (@Nonnull final IMPLTYPE aNewItem)
   {
+    return internalCreateItem (aNewItem, true);
+  }
+
+  /**
+   * Add an item including invoking the callback. Must only be invoked inside a
+   * write-lock.
+   *
+   * @param aNewItem
+   *        The item to be added. May not be <code>null</code>.
+   * @param bInvokeCallbacks
+   *        <code>true</code> to invoke callbacks, <code>false</code> to not do
+   *        so.
+   * @return The passed parameter as-is. Never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         If an item with the same ID is already contained
+   * @since 9.2.1
+   */
+  @MustBeLocked (ELockType.WRITE)
+  @Nonnull
+  protected final IMPLTYPE internalCreateItem (@Nonnull final IMPLTYPE aNewItem, final boolean bInvokeCallbacks)
+  {
     // Add to map
     _addItem (aNewItem, EDAOActionType.CREATE);
+
     // Trigger save changes
     super.markAsChanged (aNewItem, EDAOActionType.CREATE);
-    // Invoke callbacks
-    m_aCallbacks.forEach (aCB -> aCB.onCreateItem (aNewItem));
+
+    if (bInvokeCallbacks)
+    {
+      // Invoke callbacks
+      m_aCallbacks.forEach (aCB -> aCB.onCreateItem (aNewItem));
+    }
     return aNewItem;
   }
 
@@ -316,12 +342,36 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @MustBeLocked (ELockType.WRITE)
   protected final void internalUpdateItem (@Nonnull final IMPLTYPE aItem)
   {
+    internalUpdateItem (aItem, true);
+  }
+
+  /**
+   * Update an existing item including invoking the callback. Must only be
+   * invoked inside a write-lock.
+   *
+   * @param aItem
+   *        The item to be updated. May not be <code>null</code>.
+   * @param bInvokeCallbacks
+   *        <code>true</code> to invoke callbacks, <code>false</code> to not do
+   *        so.
+   * @throws IllegalArgumentException
+   *         If no item with the same ID is already contained
+   * @since 9.2.1
+   */
+  @MustBeLocked (ELockType.WRITE)
+  protected final void internalUpdateItem (@Nonnull final IMPLTYPE aItem, final boolean bInvokeCallbacks)
+  {
     // Add to map - ensure to overwrite any existing
     _addItem (aItem, EDAOActionType.UPDATE);
+
     // Trigger save changes
     super.markAsChanged (aItem, EDAOActionType.UPDATE);
-    // Invoke callbacks
-    m_aCallbacks.forEach (aCB -> aCB.onUpdateItem (aItem));
+
+    if (bInvokeCallbacks)
+    {
+      // Invoke callbacks
+      m_aCallbacks.forEach (aCB -> aCB.onUpdateItem (aItem));
+    }
   }
 
   /**
@@ -337,6 +387,26 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @Nullable
   protected final IMPLTYPE internalDeleteItem (@Nullable final String sID)
   {
+    return internalDeleteItem (sID, true);
+  }
+
+  /**
+   * Delete the item by removing it from the map. If something was remove the
+   * onDeleteItem callback is invoked. Must only be invoked inside a write-lock.
+   *
+   * @param sID
+   *        The ID to be removed. May be <code>null</code>.
+   * @param bInvokeCallbacks
+   *        <code>true</code> to invoke callbacks, <code>false</code> to not do
+   *        so.
+   * @return The deleted item. If <code>null</code> no such item was found and
+   *         therefore nothing was removed.
+   * @since 9.2.1
+   */
+  @MustBeLocked (ELockType.WRITE)
+  @Nullable
+  protected final IMPLTYPE internalDeleteItem (@Nullable final String sID, final boolean bInvokeCallbacks)
+  {
     if (StringHelper.hasNoText (sID))
       return null;
 
@@ -346,8 +416,12 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
 
     // Trigger save changes
     super.markAsChanged (aDeletedItem, EDAOActionType.DELETE);
-    // Invoke callbacks
-    m_aCallbacks.forEach (aCB -> aCB.onDeleteItem (aDeletedItem));
+
+    if (bInvokeCallbacks)
+    {
+      // Invoke callbacks
+      m_aCallbacks.forEach (aCB -> aCB.onDeleteItem (aDeletedItem));
+    }
     return aDeletedItem;
   }
 
@@ -362,10 +436,32 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @MustBeLocked (ELockType.WRITE)
   protected final void internalMarkItemDeleted (@Nonnull final IMPLTYPE aItem)
   {
+    internalMarkItemDeleted (aItem, true);
+  }
+
+  /**
+   * Mark an item as "deleted" without actually deleting it from the map. This
+   * method only triggers the update action but does not alter the item. Must
+   * only be invoked inside a write-lock.
+   *
+   * @param aItem
+   *        The item that was marked as "deleted"
+   * @param bInvokeCallbacks
+   *        <code>true</code> to invoke callbacks, <code>false</code> to not do
+   *        so.
+   * @since 9.2.1
+   */
+  @MustBeLocked (ELockType.WRITE)
+  protected final void internalMarkItemDeleted (@Nonnull final IMPLTYPE aItem, final boolean bInvokeCallbacks)
+  {
     // Trigger save changes
     super.markAsChanged (aItem, EDAOActionType.UPDATE);
-    // Invoke callbacks
-    m_aCallbacks.forEach (aCB -> aCB.onMarkItemDeleted (aItem));
+
+    if (bInvokeCallbacks)
+    {
+      // Invoke callbacks
+      m_aCallbacks.forEach (aCB -> aCB.onMarkItemDeleted (aItem));
+    }
   }
 
   /**
@@ -379,10 +475,32 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @MustBeLocked (ELockType.WRITE)
   protected final void internalMarkItemUndeleted (@Nonnull final IMPLTYPE aItem)
   {
+    internalMarkItemUndeleted (aItem, true);
+  }
+
+  /**
+   * Mark an item as "no longer deleted" without actually adding it to the map.
+   * This method only triggers the update action but does not alter the item.
+   * Must only be invoked inside a write-lock.
+   *
+   * @param aItem
+   *        The item that was marked as "no longer deleted"
+   * @param bInvokeCallbacks
+   *        <code>true</code> to invoke callbacks, <code>false</code> to not do
+   *        so.
+   * @since 9.2.1
+   */
+  @MustBeLocked (ELockType.WRITE)
+  protected final void internalMarkItemUndeleted (@Nonnull final IMPLTYPE aItem, final boolean bInvokeCallbacks)
+  {
     // Trigger save changes
     super.markAsChanged (aItem, EDAOActionType.UPDATE);
-    // Invoke callbacks
-    m_aCallbacks.forEach (aCB -> aCB.onMarkItemUndeleted (aItem));
+
+    if (bInvokeCallbacks)
+    {
+      // Invoke callbacks
+      m_aCallbacks.forEach (aCB -> aCB.onMarkItemUndeleted (aItem));
+    }
   }
 
   /**
