@@ -21,19 +21,23 @@ import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.ReturnsImmutableObject;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.ICommonsIterable;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resourceprovider.DefaultResourceProvider;
 import com.helger.commons.io.resourceprovider.IReadableResourceProvider;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.system.SystemProperties;
 import com.helger.settings.ISettings;
 import com.helger.settings.exchange.ISettingsPersistence;
@@ -46,13 +50,14 @@ import com.helger.settings.exchange.properties.SettingsPersistenceProperties;
  *
  * @author Philip Helger
  */
+@NotThreadSafe
 public class ConfigFileBuilder
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (ConfigFileBuilder.class);
 
   private ISettingsPersistence m_aSPP = new SettingsPersistenceProperties (TrimmedValueSettings::new);
-  private final ICommonsList <String> m_aPaths = new CommonsArrayList <> ();
   private IReadableResourceProvider m_aResProvider = new DefaultResourceProvider ();
+  private final ICommonsList <String> m_aPaths = new CommonsArrayList <> ();
 
   public ConfigFileBuilder ()
   {}
@@ -69,6 +74,20 @@ public class ConfigFileBuilder
   public ISettingsPersistence getSettingsPersistence ()
   {
     return m_aSPP;
+  }
+
+  @Nonnull
+  public ConfigFileBuilder setResourceProvider (@Nonnull final IReadableResourceProvider aResProvider)
+  {
+    ValueEnforcer.notNull (aResProvider, "ResProvider");
+    m_aResProvider = aResProvider;
+    return this;
+  }
+
+  @Nonnull
+  public IReadableResourceProvider getResourceProvider ()
+  {
+    return m_aResProvider;
   }
 
   @Nonnull
@@ -150,17 +169,10 @@ public class ConfigFileBuilder
   }
 
   @Nonnull
-  public ConfigFileBuilder setResourceProvider (@Nonnull final IReadableResourceProvider aResProvider)
+  @ReturnsImmutableObject
+  public ICommonsIterable <String> getPaths ()
   {
-    ValueEnforcer.notNull (aResProvider, "ResProvider");
-    m_aResProvider = aResProvider;
-    return this;
-  }
-
-  @Nonnull
-  public IReadableResourceProvider getResourceProvider ()
-  {
-    return m_aResProvider;
+    return m_aPaths;
   }
 
   @Nonnull
@@ -198,5 +210,14 @@ public class ConfigFileBuilder
         LOGGER.warn ("Failed to resolve config file paths: " + m_aPaths);
 
     return new ConfigFile (aSettings != null ? aRes : null, aSettings);
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).append ("SettingsPersistencyProvider", m_aSPP)
+                                       .append ("ResourceProvider", m_aResProvider)
+                                       .append ("Paths", m_aPaths)
+                                       .getToString ();
   }
 }
