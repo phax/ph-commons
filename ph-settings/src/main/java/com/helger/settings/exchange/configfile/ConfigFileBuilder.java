@@ -79,6 +79,13 @@ public class ConfigFileBuilder
   }
 
   @Nonnull
+  public ConfigFileBuilder addPathFromEnvVar (@Nonnull @Nonempty final String sEnvVarName)
+  {
+    ValueEnforcer.notEmpty (sEnvVarName, "EnvVarName");
+    return addPath ( () -> System.getenv ().get (sEnvVarName));
+  }
+
+  @Nonnull
   public ConfigFileBuilder addPath (@Nonnull final Supplier <? extends String> aSupplier)
   {
     ValueEnforcer.notNull (aSupplier, "Supplier");
