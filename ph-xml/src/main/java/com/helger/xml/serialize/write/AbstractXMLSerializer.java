@@ -36,8 +36,10 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashMap;
+import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsMap;
+import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.io.stream.NonBlockingBufferedWriter;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
@@ -455,10 +457,30 @@ public abstract class AbstractXMLSerializer <NODETYPE>
    */
   protected final NamespaceStack m_aNSStack;
 
+  private final ICommonsOrderedMap <String, String> m_aRootNSMap = new CommonsLinkedHashMap <> ();
+
   public AbstractXMLSerializer (@Nonnull final IXMLWriterSettings aSettings)
   {
     m_aSettings = ValueEnforcer.notNull (aSettings, "Settings");
-    m_aNSStack = new NamespaceStack (aSettings.getNamespaceContext ());
+
+    final NamespaceContext aNC = aSettings.getNamespaceContext ();
+    m_aNSStack = new NamespaceStack (aNC);
+    if (aSettings.isPutNamespaceContextPrefixesInRoot ())
+    {
+      if (aNC instanceof IIterableNamespaceContext)
+      {
+        // Put all on top-level
+        for (final Map.Entry <String, String> aEntry : ((IIterableNamespaceContext) aNC).getPrefixToNamespaceURIMap ()
+                                                                                        .entrySet ())
+        {
+          final String sNSPrefix = aEntry.getKey ();
+          final String sNamespaceURI = aEntry.getValue ();
+          m_aRootNSMap.put (sNSPrefix, sNamespaceURI);
+        }
+      }
+      else
+        LOGGER.error ("XMLWriter settings has 'putNamespaceContextPrefixesInRoot' set to 'true', but the 'NamespaceContext' instance does not implement the 'IIterableNamespaceContext' interface. This functionality therefore does not work.");
+    }
   }
 
   @Nonnull
@@ -470,7 +492,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
   /**
    * This method handles the case, if all namespace context entries should be
    * emitted on the root element.
-   * 
+   *
    * @param aAttrMap
    */
   protected final void handlePutNamespaceContextPrefixInRoot (@Nonnull final Map <QName, String> aAttrMap)
@@ -481,23 +503,10 @@ public abstract class AbstractXMLSerializer <NODETYPE>
     {
       // The only place where the namespace context prefixes are added to the
       // root element
-      final NamespaceContext aNC = m_aSettings.getNamespaceContext ();
-      if (aNC != null)
+      for (final Map.Entry <String, String> aEntry : m_aRootNSMap.entrySet ())
       {
-        if (aNC instanceof IIterableNamespaceContext)
-        {
-          // Put all on top-level
-          for (final Map.Entry <String, String> aEntry : ((IIterableNamespaceContext) aNC).getPrefixToNamespaceURIMap ()
-                                                                                          .entrySet ())
-          {
-            final String sNSPrefix = aEntry.getKey ();
-            final String sNamespaceURI = aEntry.getValue ();
-            aAttrMap.put (XMLHelper.getXMLNSAttrQName (sNSPrefix), sNamespaceURI);
-            m_aNSStack.addNamespaceMapping (sNSPrefix, sNamespaceURI);
-          }
-        }
-        else
-          LOGGER.error ("XMLWriter settings has putNamespaceContextPrefixesInRoot set, but the NamespaceContext does not implement the IIterableNamespaceContext interface!");
+        aAttrMap.put (XMLHelper.getXMLNSAttrQName (aEntry.getKey ()), aEntry.getValue ());
+        m_aNSStack.addNamespaceMapping (aEntry.getKey (), aEntry.getValue ());
       }
     }
   }
