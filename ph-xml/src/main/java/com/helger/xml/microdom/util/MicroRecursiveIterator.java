@@ -43,7 +43,7 @@ public class MicroRecursiveIterator implements IIterableIterator <IMicroNode>
 
   public boolean hasNext ()
   {
-    return !m_aOpen.isEmpty ();
+    return m_aOpen.isNotEmpty ();
   }
 
   public IMicroNode next ()
