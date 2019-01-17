@@ -40,7 +40,16 @@ public enum EKeyStoreType implements IKeyStoreType
    * in Java 1.9. In Java 1.8 and earlier this is only supported when
    * BouncyCastle is contained.
    */
-  PKCS12 ("PKCS12");
+  PKCS12 ("PKCS12"),
+  /**
+   * The BCFKS key store is designed to be FIPS compliant. It is available in
+   * approved-mode operation and is also capable of storing some secret key
+   * types in addition to public/private keys and certificates. The BCFKS key
+   * store uses PBKDF2 with HMAC SHA512 for password to key conversion and AES
+   * CCM for encryption. Passwords are encoded for conversion into keys using
+   * PKCS#12 format (as in each 16 bit character is converted into 2 bytes).
+   */
+  BCFKS ("BCFKS");
 
   private final String m_sID;
 

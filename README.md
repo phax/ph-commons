@@ -29,12 +29,13 @@ This project was the following modules:
 ## News and noteworthy
 
 * v9.2.1 - work in progress
-    * Improved API of `JspnParseException` 
+    * Improved API of `JsonParseException` 
     * Added additional default `MicroTypeConverter` registrations (`File`, `Path`, `URL` and `URI`)
     * Added special implementation of `IHasInputStream` for `NonBlockingByteArrayOutputStream`
     * Added enum entry `EXMLSerializeXMLDeclaration.EMIT_NO_NEWLINE`
     * Extended internal API of `AbstractMapBasedWALDAO` to allow for not invoking the callbacks
     * Added method `ConfigFileBuilder.addPathFromEnvVar`
+    * Added new keystore type `BCFKS` - see [#13](https://github.com/phax/ph-commons/issues/13)
 * v9.2.0 - 2018-11-21
     * Undo deprecations of `ValueEnforcer` short and float methods.
     * Simplified the `IMultilingualText` interface and implementations (backwards incompatible)
