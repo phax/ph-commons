@@ -33,6 +33,8 @@ import com.helger.graph.IMutableGraphNode;
 @NotThreadSafe
 public class GraphRelationFast extends GraphRelation
 {
+  private static final long serialVersionUID = 1;
+
   // Status vars
   private transient int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 

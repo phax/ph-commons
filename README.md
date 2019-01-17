@@ -36,6 +36,7 @@ This project was the following modules:
     * Extended internal API of `AbstractMapBasedWALDAO` to allow for not invoking the callbacks
     * Added method `ConfigFileBuilder.addPathFromEnvVar`
     * Added new keystore type `BCFKS` - see [#13](https://github.com/phax/ph-commons/issues/13)
+    * Added new constructor for `MapEntry` to take `Map.Entry`
 * v9.2.0 - 2018-11-21
     * Undo deprecations of `ValueEnforcer` short and float methods.
     * Simplified the `IMultilingualText` interface and implementations (backwards incompatible)

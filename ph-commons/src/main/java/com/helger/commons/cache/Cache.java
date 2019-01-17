@@ -186,8 +186,7 @@ public class Cache <KEYTYPE, VALUETYPE> implements IMutableCache <KEYTYPE, VALUE
     return m_aRWLock.readLocked ( () -> getFromCacheNoStatsNotLocked (aKey));
   }
 
-  @Nonnull
-  @OverridingMethodsMustInvokeSuper
+  // Here Nonnull but derived class may be Nullable
   public VALUETYPE getFromCache (final KEYTYPE aKey)
   {
     VALUETYPE aValue = getFromCacheNoStats (aKey);

@@ -18,6 +18,7 @@ package com.helger.commons.collection.map;
 
 import java.util.Map;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
@@ -43,6 +44,11 @@ public class MapEntry <KEYTYPE, VALUETYPE> implements Map.Entry <KEYTYPE, VALUET
 {
   private final KEYTYPE m_aKey;
   private VALUETYPE m_aValue;
+
+  public MapEntry (@Nonnull final Map.Entry <? extends KEYTYPE, ? extends VALUETYPE> aEntry)
+  {
+    this (aEntry.getKey (), aEntry.getValue ());
+  }
 
   public MapEntry (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {

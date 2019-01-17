@@ -34,6 +34,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.map.MapEntry;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.state.EChange;
 
@@ -188,7 +189,11 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default ICommonsSet <Map.Entry <KEYTYPE, VALUETYPE>> copyOfEntrySet ()
   {
-    return new CommonsHashSet <> (entrySet ());
+    // This is contained, because "Map.Entry" instance may get reused internally
+    final ICommonsSet <Map.Entry <KEYTYPE, VALUETYPE>> ret = new CommonsHashSet <> (size ());
+    for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : entrySet ())
+      ret.add (new MapEntry <> (aEntry));
+    return ret;
   }
 
   /**

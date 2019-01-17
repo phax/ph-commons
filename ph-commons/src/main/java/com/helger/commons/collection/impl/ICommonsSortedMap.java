@@ -27,6 +27,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.map.MapEntry;
 
 /**
  * A special {@link SortedMap} based interface with extended functionality based
@@ -76,9 +77,13 @@ public interface ICommonsSortedMap <KEYTYPE, VALUETYPE> extends
   @Override
   @Nonnull
   @ReturnsMutableCopy
-  default ICommonsOrderedSet <Map.Entry <KEYTYPE, VALUETYPE>> copyOfEntrySet ()
+  default ICommonsSortedSet <Map.Entry <KEYTYPE, VALUETYPE>> copyOfEntrySet ()
   {
-    return new CommonsLinkedHashSet <> (entrySet ());
+    // This is contained, because "Map.Entry" instance may get reused internally
+    final ICommonsSortedSet <Map.Entry <KEYTYPE, VALUETYPE>> ret = new CommonsTreeSet <> ();
+    for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : entrySet ())
+      ret.add (new MapEntry <> (aEntry));
+    return ret;
   }
 
   @Override

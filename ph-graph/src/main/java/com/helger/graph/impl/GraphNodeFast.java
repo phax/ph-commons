@@ -31,6 +31,8 @@ import com.helger.commons.hashcode.IHashCodeGenerator;
 @NotThreadSafe
 public class GraphNodeFast extends GraphNode
 {
+  private static final long serialVersionUID = 1;
+
   // Status vars
   private transient int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 

@@ -17,6 +17,7 @@
 package com.helger.matrix;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.io.File;
@@ -1026,7 +1027,7 @@ public final class MatrixIntTest
     {
       fail ("transpose unsuccessful");
     }
-    a.transpose ();
+    assertNotNull (a.transpose ());
     try
     {
       _check (a.norm1 (), columnsummax);
@@ -1084,6 +1085,7 @@ public final class MatrixIntTest
     }
 
     a = new MatrixInt (columnwise, 4);
+    assertNotNull (a);
     assertEquals (0, warningCount);
   }
 

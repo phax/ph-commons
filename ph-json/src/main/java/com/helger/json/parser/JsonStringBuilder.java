@@ -36,6 +36,8 @@ import com.helger.commons.string.ToStringGenerator;
 @NotThreadSafe
 public class JsonStringBuilder implements Serializable
 {
+  private static final long serialVersionUID = 1;
+
   protected char [] m_aBuf;
   protected int m_nLen;
   private transient String m_sCache;

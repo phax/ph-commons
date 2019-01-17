@@ -1040,7 +1040,7 @@ public final class MatrixTest
     {
       fail ("transpose unsuccessful");
     }
-    a.transpose ();
+    assertNotNull (a.transpose ());
     try
     {
       _check (a.norm1 (), columnsummax);

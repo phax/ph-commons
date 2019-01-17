@@ -24,6 +24,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.CollectionHelper;
+import com.helger.commons.collection.map.MapEntry;
 
 /**
  * A special {@link Map} interface for ordered maps (like
@@ -68,7 +69,11 @@ public interface ICommonsOrderedMap <KEYTYPE, VALUETYPE> extends ICommonsMap <KE
   @ReturnsMutableCopy
   default ICommonsOrderedSet <Map.Entry <KEYTYPE, VALUETYPE>> copyOfEntrySet ()
   {
-    return new CommonsLinkedHashSet <> (entrySet ());
+    // This is contained, because "Map.Entry" instance may get reused internally
+    final ICommonsOrderedSet <Map.Entry <KEYTYPE, VALUETYPE>> ret = new CommonsLinkedHashSet <> (size ());
+    for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : entrySet ())
+      ret.add (new MapEntry <> (aEntry));
+    return ret;
   }
 
   @Nullable
