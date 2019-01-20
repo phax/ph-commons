@@ -23,5 +23,33 @@ package com.helger.commons.dimension;
  */
 public interface IHasDimensionLong extends IHasWidthLong, IHasHeightLong
 {
-  /* empty */
+  /**
+   * @return <code>true</code> if width &gt; height, <code>false</code>
+   *         otherwise.
+   * @since 9.2.1
+   */
+  default boolean isLandscape ()
+  {
+    return getWidth () > getHeight ();
+  }
+
+  /**
+   * @return <code>true</code> if height &gt; width, <code>false</code>
+   *         otherwise.
+   * @since 9.2.1
+   */
+  default boolean isPortrait ()
+  {
+    return getHeight () > getWidth ();
+  }
+
+  /**
+   * @return <code>true</code> if width equals height, <code>false</code>
+   *         otherwise.
+   * @since 9.2.1
+   */
+  default boolean isQuadratic ()
+  {
+    return getWidth () == getHeight ();
+  }
 }

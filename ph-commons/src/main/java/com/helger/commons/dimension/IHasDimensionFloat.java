@@ -16,6 +16,9 @@
  */
 package com.helger.commons.dimension;
 
+import com.helger.commons.compare.CompareHelper;
+import com.helger.commons.equals.EqualsHelper;
+
 /**
  * Interface for objects having a width and a height.
  *
@@ -23,5 +26,33 @@ package com.helger.commons.dimension;
  */
 public interface IHasDimensionFloat extends IHasWidthFloat, IHasHeightFloat
 {
-  /* empty */
+  /**
+   * @return <code>true</code> if width &gt; height, <code>false</code>
+   *         otherwise.
+   * @since 9.2.1
+   */
+  default boolean isLandscape ()
+  {
+    return CompareHelper.compare (getWidth (), getHeight ()) > 0;
+  }
+
+  /**
+   * @return <code>true</code> if height &gt; width, <code>false</code>
+   *         otherwise.
+   * @since 9.2.1
+   */
+  default boolean isPortrait ()
+  {
+    return CompareHelper.compare (getHeight (), getWidth ()) > 0;
+  }
+
+  /**
+   * @return <code>true</code> if width equals height, <code>false</code>
+   *         otherwise.
+   * @since 9.2.1
+   */
+  default boolean isQuadratic ()
+  {
+    return EqualsHelper.equals (getWidth (), getHeight ());
+  }
 }
