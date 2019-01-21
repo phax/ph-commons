@@ -18,6 +18,7 @@ package com.helger.commons.mime;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.Serializable;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -40,7 +41,7 @@ import com.helger.commons.string.ToStringGenerator;
  */
 @Immutable
 @MustImplementEqualsAndHashcode
-public class MimeTypeContent
+public class MimeTypeContent implements Serializable
 {
   public static final boolean DEFAULT_COPY_BYTES = true;
 
