@@ -34,11 +34,12 @@ This project was the following modules:
     * Added special implementation of `IHasInputStream` for `NonBlockingByteArrayOutputStream`
     * Added enum entry `EXMLSerializeXMLDeclaration.EMIT_NO_NEWLINE`
     * Extended internal API of `AbstractMapBasedWALDAO` to allow for not invoking the callbacks
-    * Added method `ConfigFileBuilder.addPathFromEnvVar`
+    * Added method `ConfigFileBuilder.addPathFromEnvVar` to get the configuration file path from an environment variable
     * Added new keystore type `BCFKS` - see [#13](https://github.com/phax/ph-commons/issues/13)
     * Added new constructor for `MapEntry` to take `Map.Entry`
     * Added new default methods to classes `IHasDimension*` (isLandscape, isPortrait and isQuadratic)
     * `MimeTypeContent` is now serializable
+    * The OSGI export for submodule `ph-scopes` was corrected (issue #14)
 * v9.2.0 - 2018-11-21
     * Undo deprecations of `ValueEnforcer` short and float methods.
     * Simplified the `IMultilingualText` interface and implementations (backwards incompatible)
