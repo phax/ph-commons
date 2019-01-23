@@ -40,7 +40,7 @@ This project was the following modules:
     * Added new default methods to classes `IHasDimension*` (isLandscape, isPortrait and isQuadratic)
     * `MimeTypeContent` is now serializable
     * The OSGI export for submodule `ph-scopes` was corrected (issue #14)
-    * Added static factory method for `ByteArrayWrapper`
+    * Added static factory methods for `ByteArrayWrapper`
 * v9.2.0 - 2018-11-21
     * Undo deprecations of `ValueEnforcer` short and float methods.
     * Simplified the `IMultilingualText` interface and implementations (backwards incompatible)

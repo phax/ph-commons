@@ -17,6 +17,7 @@
 package com.helger.commons.io;
 
 import java.io.Serializable;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 
 import javax.annotation.Nonnegative;
@@ -168,5 +169,23 @@ public final class ByteArrayWrapper implements IHasByteArray, Serializable
                                          final boolean bCopyNeeded)
   {
     return new ByteArrayWrapper (aBAOS.directGetBuffer (), 0, aBAOS.size (), bCopyNeeded);
+  }
+
+  /**
+   * Wrap the content of a String in a certain charset.
+   *
+   * @param sText
+   *        The String to be wrapped. May not be <code>null</code>.
+   * @param aCharset
+   *        The character set to be used for retrieving the bytes from the
+   *        string. May not be <code>null</code>.
+   * @return ByteArrayWrapper The created instance. Never <code>null</code>.
+   * @since 9.2.1
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public static ByteArrayWrapper create (@Nonnull final String sText, @Nonnull final Charset aCharset)
+  {
+    return new ByteArrayWrapper (sText.getBytes (aCharset), false);
   }
 }
