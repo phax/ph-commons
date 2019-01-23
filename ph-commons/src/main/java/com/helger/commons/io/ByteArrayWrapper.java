@@ -24,9 +24,11 @@ import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.string.ToStringGenerator;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -146,5 +148,25 @@ public final class ByteArrayWrapper implements IHasByteArray, Serializable
                                        .append ("Length", m_nLength)
                                        .append ("IsCopy", m_bIsCopy)
                                        .getToString ();
+  }
+
+  /**
+   * Wrap the content of a {@link NonBlockingByteArrayOutputStream}.
+   *
+   * @param aBAOS
+   *        The output stream to be wrapped. May not be <code>null</code>.
+   * @param bCopyNeeded
+   *        <code>true</code> to copy it (needed if the output stream will be
+   *        modified afterwards), <code>false</code> to reuse the data (if the
+   *        output stream will not be modified afterwards).
+   * @return ByteArrayWrapper The created instance. Never <code>null</code>.
+   * @since 9.2.1
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public static ByteArrayWrapper create (@Nonnull final NonBlockingByteArrayOutputStream aBAOS,
+                                         final boolean bCopyNeeded)
+  {
+    return new ByteArrayWrapper (aBAOS.directGetBuffer (), 0, aBAOS.size (), bCopyNeeded);
   }
 }
