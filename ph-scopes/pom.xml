@@ -69,7 +69,7 @@
         <extensions>true</extensions>
         <configuration>
           <instructions>
-            <Automatic-Module-Name>com.helger.scope</Automatic-Module-Name>
+            <Automatic-Module-Name>com.helger.scopes</Automatic-Module-Name>
             <Export-Package>com.helger.scope.*</Export-Package>
             <Import-Package>!javax.annotation.*,*</Import-Package>
             <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",
