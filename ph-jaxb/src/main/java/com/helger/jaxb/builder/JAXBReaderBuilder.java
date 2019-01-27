@@ -24,20 +24,18 @@ import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.UnmarshalException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.ValidationEventHandler;
 import javax.xml.validation.Schema;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xml.sax.SAXParseException;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.callback.exception.IExceptionCallback;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.jaxb.IJAXBReader;
+import com.helger.jaxb.LoggingJAXBReadExceptionHandler;
 import com.helger.jaxb.validation.LoggingValidationEventHandler;
 
 /**
@@ -54,29 +52,6 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
                                AbstractJAXBBuilder <IMPLTYPE> implements
                                IJAXBReader <JAXBTYPE>
 {
-  public static class DefaultReadExceptionHandler implements IExceptionCallback <JAXBException>
-  {
-    private static final Logger LOGGER2 = LoggerFactory.getLogger (DefaultReadExceptionHandler.class);
-
-    public void onException (@Nonnull final JAXBException ex)
-    {
-      if (ex instanceof UnmarshalException)
-      {
-        // The JAXB specification does not mandate how the JAXB provider
-        // must behave when attempting to unmarshal invalid XML data. In
-        // those cases, the JAXB provider is allowed to terminate the
-        // call to unmarshal with an UnmarshalException.
-        final Throwable aLinked = ((UnmarshalException) ex).getLinkedException ();
-        if (aLinked instanceof SAXParseException)
-          LOGGER2.error ("Failed to parse XML document: " + aLinked.getMessage ());
-        else
-          LOGGER2.error ("Unmarshal exception reading document", ex);
-      }
-      else
-        LOGGER2.warn ("JAXB Exception reading document", ex);
-    }
-  }
-
   private static final Logger LOGGER = LoggerFactory.getLogger (JAXBReaderBuilder.class);
 
   private final Class <JAXBTYPE> m_aImplClass;
@@ -93,7 +68,7 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
   {
     super (aDocType);
     m_aImplClass = ValueEnforcer.notNull (aImplClass, "ImplClass");
-    exceptionCallbacks ().add (new DefaultReadExceptionHandler ());
+    exceptionCallbacks ().add (new LoggingJAXBReadExceptionHandler ());
   }
 
   @Nonnull

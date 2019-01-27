@@ -24,17 +24,13 @@ import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.MarshalException;
 import javax.xml.bind.Marshaller;
 import javax.xml.namespace.QName;
 import javax.xml.validation.Schema;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.callback.exception.IExceptionCallback;
 import com.helger.commons.lang.GenericReflection;
+import com.helger.jaxb.LoggingJAXBWriteExceptionHandler;
 
 /**
  * Abstract builder base class for writing and validating JAXB documents.
@@ -50,25 +46,12 @@ public abstract class AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE extends Abs
                                                  extends
                                                  AbstractJAXBBuilder <IMPLTYPE>
 {
-  public static class DefaultWriteExceptionHandler implements IExceptionCallback <JAXBException>
-  {
-    private static final Logger LOGGER = LoggerFactory.getLogger (DefaultWriteExceptionHandler.class);
-
-    public void onException (@Nonnull final JAXBException ex)
-    {
-      if (ex instanceof MarshalException)
-        LOGGER.error ("Marshal exception writing object", ex);
-      else
-        LOGGER.warn ("JAXB Exception writing object", ex);
-    }
-  }
-
   private Consumer <? super Marshaller> m_aMarshallerCustomizer;
 
   public AbstractWritingJAXBBuilder (@Nonnull final IJAXBDocumentType aDocType)
   {
     super (aDocType);
-    exceptionCallbacks ().add (new DefaultWriteExceptionHandler ());
+    exceptionCallbacks ().add (new LoggingJAXBWriteExceptionHandler ());
   }
 
   @Nullable

@@ -27,9 +27,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.MarshalException;
 import javax.xml.bind.Marshaller;
-import javax.xml.bind.UnmarshalException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.ValidationEventHandler;
 import javax.xml.namespace.QName;
@@ -37,12 +35,14 @@ import javax.xml.validation.Schema;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xml.sax.SAXParseException;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.callback.CallbackList;
+import com.helger.commons.callback.exception.IExceptionCallback;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.debug.GlobalDebug;
@@ -87,6 +87,8 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
   private String m_sNoNamespaceSchemaLocation = JAXBBuilderDefaultSettings.getDefaultNoNamespaceSchemaLocation ();
   private boolean m_bUseContextCache = JAXBBuilderDefaultSettings.isDefaultUseContextCache ();
   private WeakReference <ClassLoader> m_aClassLoader;
+  private final CallbackList <IExceptionCallback <JAXBException>> m_aReadExceptionCallbacks = new CallbackList <> ();
+  private final CallbackList <IExceptionCallback <JAXBException>> m_aWriteExceptionCallbacks = new CallbackList <> ();
 
   /**
    * Constructor without XSD paths.
@@ -156,6 +158,8 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
     // By default this class loader of the type to be marshaled should be used
     // This is important for OSGI application containers and ANT tasks
     m_aClassLoader = new WeakReference <> (aType.getClassLoader ());
+    m_aReadExceptionCallbacks.add (new LoggingJAXBReadExceptionHandler ());
+    m_aWriteExceptionCallbacks.add (new LoggingJAXBWriteExceptionHandler ());
   }
 
   @Nullable
@@ -225,7 +229,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
    * @since 8.5.3
    */
   @Nonnull
-  public EChange setNamespaceContext (@Nullable final INamespaceContext aNSContext)
+  public final EChange setNamespaceContext (@Nullable final INamespaceContext aNSContext)
   {
     if (EqualsHelper.equals (aNSContext, m_aNSContext))
       return EChange.UNCHANGED;
@@ -256,7 +260,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
   }
 
   @Nullable
-  public Charset getCharset ()
+  public final Charset getCharset ()
   {
     return m_aCharset;
   }
@@ -270,7 +274,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
    * @since 8.5.3
    */
   @Nonnull
-  public EChange setCharset (@Nullable final Charset aCharset)
+  public final EChange setCharset (@Nullable final Charset aCharset)
   {
     if (EqualsHelper.equals (aCharset, m_aCharset))
       return EChange.UNCHANGED;
@@ -279,7 +283,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
   }
 
   @Nullable
-  public String getIndentString ()
+  public final String getIndentString ()
   {
     return m_sIndentString;
   }
@@ -293,7 +297,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
    * @since 8.5.3
    */
   @Nonnull
-  public EChange setIndentString (@Nullable final String sIndentString)
+  public final EChange setIndentString (@Nullable final String sIndentString)
   {
     if (EqualsHelper.equals (sIndentString, m_sIndentString))
       return EChange.UNCHANGED;
@@ -302,7 +306,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
   }
 
   @Nullable
-  public String getSchemaLocation ()
+  public final String getSchemaLocation ()
   {
     return m_sSchemaLocation;
   }
@@ -316,7 +320,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
    * @since 8.6.0
    */
   @Nonnull
-  public EChange setSchemaLocation (@Nullable final String sSchemaLocation)
+  public final EChange setSchemaLocation (@Nullable final String sSchemaLocation)
   {
     if (EqualsHelper.equals (sSchemaLocation, m_sSchemaLocation))
       return EChange.UNCHANGED;
@@ -325,7 +329,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
   }
 
   @Nullable
-  public String getNoNamespaceSchemaLocation ()
+  public final String getNoNamespaceSchemaLocation ()
   {
     return m_sNoNamespaceSchemaLocation;
   }
@@ -340,7 +344,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
    * @since 9.0.0
    */
   @Nonnull
-  public EChange setNoNamespaceSchemaLocation (@Nullable final String sNoNamespaceSchemaLocation)
+  public final EChange setNoNamespaceSchemaLocation (@Nullable final String sNoNamespaceSchemaLocation)
   {
     if (EqualsHelper.equals (sNoNamespaceSchemaLocation, m_sNoNamespaceSchemaLocation))
       return EChange.UNCHANGED;
@@ -368,6 +372,28 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
   public final boolean isUseContextCache ()
   {
     return m_bUseContextCache;
+  }
+
+  /**
+   * @return Read exception callbacks. Never <code>null</code>.
+   * @since 9.2.2
+   */
+  @Nonnull
+  @ReturnsMutableObject
+  public final CallbackList <IExceptionCallback <JAXBException>> readExceptionCallbacks ()
+  {
+    return m_aReadExceptionCallbacks;
+  }
+
+  /**
+   * @return Write exception callbacks. Never <code>null</code>.
+   * @since 9.2.2
+   */
+  @Nonnull
+  @ReturnsMutableObject
+  public final CallbackList <IExceptionCallback <JAXBException>> writeExceptionCallbacks ()
+  {
+    return m_aWriteExceptionCallbacks;
   }
 
   /**
@@ -438,25 +464,6 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
     // empty
   }
 
-  @OverrideOnDemand
-  protected void handleReadException (@Nonnull final JAXBException ex)
-  {
-    if (ex instanceof UnmarshalException)
-    {
-      // The JAXB specification does not mandate how the JAXB provider
-      // must behave when attempting to unmarshal invalid XML data. In
-      // those cases, the JAXB provider is allowed to terminate the
-      // call to unmarshal with an UnmarshalException.
-      final Throwable aLinked = ((UnmarshalException) ex).getLinkedException ();
-      if (aLinked instanceof SAXParseException)
-        LOGGER.error ("Failed to parse XML document: " + aLinked.getMessage ());
-      else
-        LOGGER.error ("Unmarshal exception reading document", ex);
-    }
-    else
-      LOGGER.warn ("JAXB Exception reading document", ex);
-  }
-
   @Nullable
   public final JAXBTYPE read (@Nonnull final IJAXBUnmarshaller <JAXBTYPE> aHandler)
   {
@@ -470,7 +477,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
     }
     catch (final JAXBException ex)
     {
-      handleReadException (ex);
+      m_aReadExceptionCallbacks.forEach (x -> x.onException (ex));
     }
     return null;
   }
@@ -551,15 +558,6 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
     // empty
   }
 
-  @OverrideOnDemand
-  protected void handleWriteException (@Nonnull final JAXBException ex)
-  {
-    if (ex instanceof MarshalException)
-      LOGGER.error ("Marshal exception writing object", ex);
-    else
-      LOGGER.warn ("JAXB Exception writing object", ex);
-  }
-
   @Nonnull
   public final ESuccess write (@Nonnull final JAXBTYPE aObject,
                                @Nonnull final IJAXBMarshaller <JAXBTYPE> aMarshallerFunc)
@@ -578,7 +576,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
     }
     catch (final JAXBException ex)
     {
-      handleWriteException (ex);
+      m_aWriteExceptionCallbacks.forEach (x -> x.onException (ex));
     }
     return ESuccess.FAILURE;
   }
@@ -601,6 +599,8 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
                                        .append ("NoNamespaceSchemaLocation", m_sNoNamespaceSchemaLocation)
                                        .append ("UseContextCache", m_bUseContextCache)
                                        .append ("ClassLoader", m_aClassLoader)
+                                       .append ("ReadExceptionHandlers", m_aReadExceptionCallbacks)
+                                       .append ("WriteExceptionHandlers", m_aWriteExceptionCallbacks)
                                        .getToString ();
   }
 
