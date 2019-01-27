@@ -33,8 +33,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.annotation.ReturnsMutableObject;
-import com.helger.commons.callback.CallbackList;
 import com.helger.commons.callback.exception.IExceptionCallback;
 import com.helger.commons.lang.GenericReflection;
 
@@ -52,9 +50,9 @@ public abstract class AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE extends Abs
                                                  extends
                                                  AbstractJAXBBuilder <IMPLTYPE>
 {
-  public static class DefaultExceptionHandler implements IExceptionCallback <JAXBException>
+  public static class DefaultWriteExceptionHandler implements IExceptionCallback <JAXBException>
   {
-    private static final Logger LOGGER = LoggerFactory.getLogger (DefaultExceptionHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger (DefaultWriteExceptionHandler.class);
 
     public void onException (@Nonnull final JAXBException ex)
     {
@@ -65,24 +63,16 @@ public abstract class AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE extends Abs
     }
   }
 
-  private final CallbackList <IExceptionCallback <JAXBException>> m_aExceptionCallbacks = new CallbackList <> ();
   private Consumer <? super Marshaller> m_aMarshallerCustomizer;
 
   public AbstractWritingJAXBBuilder (@Nonnull final IJAXBDocumentType aDocType)
   {
     super (aDocType);
-    m_aExceptionCallbacks.add (new DefaultExceptionHandler ());
-  }
-
-  @Nonnull
-  @ReturnsMutableObject
-  public final CallbackList <IExceptionCallback <JAXBException>> exceptionCallbacks ()
-  {
-    return m_aExceptionCallbacks;
+    exceptionCallbacks ().add (new DefaultWriteExceptionHandler ());
   }
 
   @Nullable
-  public Consumer <? super Marshaller> getMarshallerCustomizer ()
+  public final Consumer <? super Marshaller> getMarshallerCustomizer ()
   {
     return m_aMarshallerCustomizer;
   }

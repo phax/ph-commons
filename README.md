@@ -30,6 +30,7 @@ This project was the following modules:
 
 * v9.2.2 - work in progress
     * Restored the `Automatic-Module-Name` of `com.helger.scopes`
+    * Moved method `exceptionCallbacks` to base class `AbstractJAXBBuilder`
 * v9.2.1 - 2019-01-23
     * Improved API of `JsonParseException` 
     * Added additional default `MicroTypeConverter` registrations (`File`, `Path`, `URL` and `URI`)

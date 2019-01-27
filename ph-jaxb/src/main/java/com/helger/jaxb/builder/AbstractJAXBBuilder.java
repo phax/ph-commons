@@ -27,6 +27,9 @@ import javax.xml.validation.Schema;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
+import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.callback.CallbackList;
+import com.helger.commons.callback.exception.IExceptionCallback;
 import com.helger.commons.lang.IHasClassLoader;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.traits.IGenericImplTrait;
@@ -48,6 +51,7 @@ public abstract class AbstractJAXBBuilder <IMPLTYPE extends AbstractJAXBBuilder 
   private final WeakReference <ClassLoader> m_aClassLoader;
   private boolean m_bUseJAXBContextCache = JAXBBuilderDefaultSettings.isDefaultUseContextCache ();
   private boolean m_bUseSchema = true;
+  private final CallbackList <IExceptionCallback <JAXBException>> m_aExceptionCallbacks = new CallbackList <> ();
 
   public AbstractJAXBBuilder (@Nonnull final IJAXBDocumentType aDocType)
   {
@@ -129,6 +133,13 @@ public abstract class AbstractJAXBBuilder <IMPLTYPE extends AbstractJAXBBuilder 
     return thisAsT ();
   }
 
+  @Nonnull
+  @ReturnsMutableObject
+  public final CallbackList <IExceptionCallback <JAXBException>> exceptionCallbacks ()
+  {
+    return m_aExceptionCallbacks;
+  }
+
   /**
    * @return The XML schema to be used for validating instances. May be
    *         <code>null</code> if no XSDs are present. Also <code>null</code> if
@@ -164,6 +175,7 @@ public abstract class AbstractJAXBBuilder <IMPLTYPE extends AbstractJAXBBuilder 
                                        .appendIfNotNull ("ClassLoader", m_aClassLoader)
                                        .append ("UseJAXBContextCache", m_bUseJAXBContextCache)
                                        .append ("UseSchema", m_bUseSchema)
+                                       .append ("ExceptionHandler", m_aExceptionCallbacks)
                                        .getToString ();
   }
 }
