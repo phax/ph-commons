@@ -465,4 +465,39 @@ public final class TypeConverterTest
     assertEquals ("5", TypeConverter.convert ((short) 5, String.class));
     assertEquals ("-6", TypeConverter.convert ((short) -6, String.class));
   }
+
+  @Test
+  public void testSpecials ()
+  {
+    assertEquals (Integer.valueOf (1), TypeConverter.convert ("1", Integer.class));
+    assertEquals (Integer.valueOf (1), TypeConverter.convert ("00000000000000001", Integer.class));
+    assertEquals (Integer.valueOf (-1), TypeConverter.convert ("-00000000000000001", Integer.class));
+    try
+    {
+      TypeConverter.convert ("a", Integer.class);
+      fail ();
+    }
+    catch (final TypeConverterException ex)
+    {
+      // Expected
+    }
+    try
+    {
+      TypeConverter.convert ("a1", Integer.class);
+      fail ();
+    }
+    catch (final TypeConverterException ex)
+    {
+      // Expected
+    }
+    try
+    {
+      TypeConverter.convert ("1a", Integer.class);
+      fail ();
+    }
+    catch (final TypeConverterException ex)
+    {
+      // Expected
+    }
+  }
 }
