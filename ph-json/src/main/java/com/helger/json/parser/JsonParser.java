@@ -213,11 +213,12 @@ public class JsonParser
   }
 
   /**
-   * Backup the provided char if it is not end of input
+   * Backup the provided char (put it back in the queue for re-reading) if it is
+   * not end of input
    *
    * @param c
    *        char to backup
-   * @throws JsonParseException
+   * @throws IllegalStateException
    *         in case of error
    */
   private void _backupChar (final int c)
