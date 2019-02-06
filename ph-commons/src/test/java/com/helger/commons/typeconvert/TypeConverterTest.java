@@ -469,35 +469,52 @@ public final class TypeConverterTest
   @Test
   public void testSpecials ()
   {
+    // Test 9.2.2 changes
+    assertEquals (Byte.valueOf ((byte) 1), TypeConverter.convert ("1", Byte.class));
+    assertEquals (Byte.valueOf ((byte) 1), TypeConverter.convert ("00000000000000001", Byte.class));
+    assertEquals (Byte.valueOf ((byte) -1), TypeConverter.convert ("-00000000000000001", Byte.class));
+
     assertEquals (Integer.valueOf (1), TypeConverter.convert ("1", Integer.class));
     assertEquals (Integer.valueOf (1), TypeConverter.convert ("00000000000000001", Integer.class));
     assertEquals (Integer.valueOf (-1), TypeConverter.convert ("-00000000000000001", Integer.class));
-    try
+
+    assertEquals (Long.valueOf (1), TypeConverter.convert ("1", Long.class));
+    assertEquals (Long.valueOf (1), TypeConverter.convert ("00000000000000001", Long.class));
+    assertEquals (Long.valueOf (-1), TypeConverter.convert ("-00000000000000001", Long.class));
+
+    assertEquals (Short.valueOf ((short) 1), TypeConverter.convert ("1", Short.class));
+    assertEquals (Short.valueOf ((short) 1), TypeConverter.convert ("00000000000000001", Short.class));
+    assertEquals (Short.valueOf ((short) -1), TypeConverter.convert ("-00000000000000001", Short.class));
+
+    for (final Class <?> aDstClass : new Class <?> [] { Byte.class, Integer.class, Long.class, Short.class })
     {
-      TypeConverter.convert ("a", Integer.class);
-      fail ();
-    }
-    catch (final TypeConverterException ex)
-    {
-      // Expected
-    }
-    try
-    {
-      TypeConverter.convert ("a1", Integer.class);
-      fail ();
-    }
-    catch (final TypeConverterException ex)
-    {
-      // Expected
-    }
-    try
-    {
-      TypeConverter.convert ("1a", Integer.class);
-      fail ();
-    }
-    catch (final TypeConverterException ex)
-    {
-      // Expected
+      try
+      {
+        TypeConverter.convert ("a", aDstClass);
+        fail ();
+      }
+      catch (final TypeConverterException ex)
+      {
+        // Expected
+      }
+      try
+      {
+        TypeConverter.convert ("a1", aDstClass);
+        fail ();
+      }
+      catch (final TypeConverterException ex)
+      {
+        // Expected
+      }
+      try
+      {
+        TypeConverter.convert ("1a", aDstClass);
+        fail ();
+      }
+      catch (final TypeConverterException ex)
+      {
+        // Expected
+      }
     }
   }
 }
