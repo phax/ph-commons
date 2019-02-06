@@ -20,6 +20,7 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -488,6 +489,10 @@ public final class TypeConverterTest
 
     for (final Class <?> aDstClass : new Class <?> [] { Byte.class, Integer.class, Long.class, Short.class })
     {
+      assertNull (TypeConverter.convert ("a", aDstClass, null));
+      assertNull (TypeConverter.convert ("a1", aDstClass, null));
+      assertNull (TypeConverter.convert ("1a", aDstClass, null));
+
       try
       {
         TypeConverter.convert ("a", aDstClass);
