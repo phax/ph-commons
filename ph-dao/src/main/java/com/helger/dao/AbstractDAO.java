@@ -58,7 +58,7 @@ public abstract class AbstractDAO implements IDAO
 
   /**
    * Enable or disable certain regular log messages.
-   * 
+   *
    * @param bSilentMode
    *        <code>true</code> to disable logging, <code>false</code> to enable
    *        logging
@@ -75,8 +75,8 @@ public abstract class AbstractDAO implements IDAO
   }
 
   /**
-   * @return <code>true</code> if logging is disabled, <code>false</code> if it
-   *         is enabled.
+   * @return <code>true</code> if logging is disabled, <code>false</code> if it is
+   *         enabled.
    * @since 9.2.0
    */
   public static boolean isSilentMode ()
@@ -92,6 +92,11 @@ public abstract class AbstractDAO implements IDAO
     return GlobalDebug.isDebugMode () && !isSilentMode ();
   }
 
+  /**
+   * @return The static mutable exception handler list that is invoked for read
+   *         exceptions. Never <code>null</code>. The list applies to ALL DAOs
+   *         since it is static.
+   */
   @Nonnull
   @ReturnsMutableObject
   public static final CallbackList <IDAOReadExceptionCallback> exceptionHandlersRead ()
@@ -99,6 +104,11 @@ public abstract class AbstractDAO implements IDAO
     return s_aExceptionHandlersRead;
   }
 
+  /**
+   * @return The static mutable exception handler list that is invoked for write
+   *         exceptions. Never <code>null</code>. The list applies to ALL DAOs
+   *         since it is static.
+   */
   @Nonnull
   @ReturnsMutableObject
   public static final CallbackList <IDAOWriteExceptionCallback> exceptionHandlersWrite ()
