@@ -59,8 +59,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return The class of the value or <code>null</code> if no value is
-   *         contained.
+   * @return The class of the value or <code>null</code> if no value is contained.
    */
   @Nullable
   default Class <?> getValueClass (@Nullable final KEYTYPE aKey)
@@ -96,8 +95,8 @@ public interface IGetterByKeyTrait <KEYTYPE>
    *
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return The object value casted to the passed class. May be
-   *         <code>null</code> if the contained value is <code>null</code>.
+   * @return The object value casted to the passed class. May be <code>null</code>
+   *         if the contained value is <code>null</code>.
    * @throws ClassCastException
    *         in case the value types are not convertible
    * @param <T>
@@ -115,10 +114,9 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
-   * @return The object value casted to the passed class. May be
-   *         <code>null</code> if the contained value is <code>null</code>.
+   *        The value to be returned if the retrieved value is <code>null</code> .
+   * @return The object value casted to the passed class. May be <code>null</code>
+   *         if the contained value is <code>null</code>.
    * @throws ClassCastException
    *         in case the value types are not convertible
    * @param <T>
@@ -138,8 +136,8 @@ public interface IGetterByKeyTrait <KEYTYPE>
    *        The key to be accessed. May be <code>null</code>.
    * @param aClass
    *        The class to cast to.
-   * @return The object value casted to the passed class. May be
-   *         <code>null</code> if the contained value is <code>null</code>.
+   * @return The object value casted to the passed class. May be <code>null</code>
+   *         if the contained value is <code>null</code>.
    * @throws ClassCastException
    *         in case the value types are not convertible
    * @param <T>
@@ -157,12 +155,11 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @param aClass
    *        The class to cast to.
-   * @return The object value casted to the passed class. May be
-   *         <code>null</code> if the contained value is <code>null</code>.
+   * @return The object value casted to the passed class. May be <code>null</code>
+   *         if the contained value is <code>null</code>.
    * @throws ClassCastException
    *         in case the value types are not convertible
    * @param <T>
@@ -185,8 +182,8 @@ public interface IGetterByKeyTrait <KEYTYPE>
    *        The key to be accessed. May be <code>null</code>.
    * @param aClass
    *        The class to cast to.
-   * @return The object value casted to the passed class. May be
-   *         <code>null</code> if the contained value is <code>null</code>.
+   * @return The object value casted to the passed class. May be <code>null</code>
+   *         if the contained value is <code>null</code>.
    * @throws ClassCastException
    *         in case the value types are not convertible
    * @param <T>
@@ -230,12 +227,11 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @param aClass
    *        The class to cast to.
-   * @return The object value casted to the passed class. May be
-   *         <code>null</code> if the contained value is <code>null</code>.
+   * @return The object value casted to the passed class. May be <code>null</code>
+   *         if the contained value is <code>null</code>.
    * @throws ClassCastException
    *         in case the value types are not convertible
    * @param <T>
@@ -261,8 +257,8 @@ public interface IGetterByKeyTrait <KEYTYPE>
    *        The key to be accessed. May be <code>null</code>.
    * @param aClass
    *        The class to convert to.
-   * @return The object value casted to the passed class. May be
-   *         <code>null</code> if the contained value is <code>null</code>.
+   * @return The object value casted to the passed class. May be <code>null</code>
+   *         if the contained value is <code>null</code>.
    * @throws TypeConverterException
    *         in case of an error
    * @param <T>
@@ -281,13 +277,11 @@ public interface IGetterByKeyTrait <KEYTYPE>
    *        The key to be accessed. May be <code>null</code>.
    * @param aDefault
    *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        or if type conversion fails.
    * @param aClass
-   *        The class to convert to.
-   * @return The object value casted to the passed class. May be
-   *         <code>null</code> if the contained value is <code>null</code>.
-   * @throws TypeConverterException
-   *         in case of an error
+   *        The class to convert to. May not be <code>null</code>.
+   * @return The object value casted to the passed class. May be <code>null</code>
+   *         if the contained value is <code>null</code>.
    * @param <T>
    *        Destination type
    */
@@ -297,11 +291,12 @@ public interface IGetterByKeyTrait <KEYTYPE>
                                    @Nonnull final Class <T> aClass)
   {
     final Object aValue = getValue (aKey);
-    return aValue == null ? aDefault : TypeConverter.convert (aValue, aClass);
+    return aValue == null ? aDefault : TypeConverter.convert (aValue, aClass, aDefault);
   }
 
   default boolean getAsBoolean (@Nullable final KEYTYPE aKey)
   {
+    // throws TypeConverterException if key is null
     return TypeConverter.convertToBoolean (getValue (aKey));
   }
 
@@ -312,6 +307,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
 
   default byte getAsByte (@Nullable final KEYTYPE aKey)
   {
+    // throws TypeConverterException if key is null
     return TypeConverter.convertToByte (getValue (aKey));
   }
 
@@ -322,6 +318,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
 
   default char getAsChar (@Nullable final KEYTYPE aKey)
   {
+    // throws TypeConverterException if key is null
     return TypeConverter.convertToChar (getValue (aKey));
   }
 
@@ -332,6 +329,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
 
   default double getAsDouble (@Nullable final KEYTYPE aKey)
   {
+    // throws TypeConverterException if key is null
     return TypeConverter.convertToDouble (getValue (aKey));
   }
 
@@ -342,6 +340,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
 
   default float getAsFloat (@Nullable final KEYTYPE aKey)
   {
+    // throws TypeConverterException if key is null
     return TypeConverter.convertToFloat (getValue (aKey));
   }
 
@@ -352,6 +351,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
 
   default int getAsInt (@Nullable final KEYTYPE aKey)
   {
+    // throws TypeConverterException if key is null
     return TypeConverter.convertToInt (getValue (aKey));
   }
 
@@ -362,6 +362,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
 
   default long getAsLong (@Nullable final KEYTYPE aKey)
   {
+    // throws TypeConverterException if key is null
     return TypeConverter.convertToLong (getValue (aKey));
   }
 
@@ -372,6 +373,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
 
   default short getAsShort (@Nullable final KEYTYPE aKey)
   {
+    // throws TypeConverterException if key is null
     return TypeConverter.convertToShort (getValue (aKey));
   }
 
@@ -383,26 +385,21 @@ public interface IGetterByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (aKey,String.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Object,Class)
+   * @return <code>getConvertedValue (aKey,null,String.class)</code>
+   * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
   default String getAsString (@Nullable final KEYTYPE aKey)
   {
-    return getConvertedValue (aKey, String.class);
+    return getConvertedValue (aKey, null, String.class);
   }
 
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
    * @param sDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @return <code>getConvertedValue (aKey,sDefault, String.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
    * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
@@ -414,26 +411,21 @@ public interface IGetterByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (aKey,char [].class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Object,Class)
+   * @return <code>getConvertedValue (aKey,null,char [].class)</code>
+   * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
   default char [] getAsCharArray (@Nullable final KEYTYPE aKey)
   {
-    return getConvertedValue (aKey, char [].class);
+    return getConvertedValue (aKey, null, char [].class);
   }
 
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @return <code>getConvertedValue (aKey, aDefault, char[].class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
    * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
@@ -445,26 +437,21 @@ public interface IGetterByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (aKey,BigDecimal.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Object,Class)
+   * @return <code>getConvertedValue (aKey,null,BigDecimal.class)</code>
+   * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
   default BigDecimal getAsBigDecimal (@Nullable final KEYTYPE aKey)
   {
-    return getConvertedValue (aKey, BigDecimal.class);
+    return getConvertedValue (aKey, null, BigDecimal.class);
   }
 
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @return <code>getConvertedValue (aKey,aDefault,BigDecimal.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
    * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
@@ -476,26 +463,21 @@ public interface IGetterByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (aKey,BigInteger.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Object,Class)
+   * @return <code>getConvertedValue (aKey,null,BigInteger.class)</code>
+   * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
   default BigInteger getAsBigInteger (@Nullable final KEYTYPE aKey)
   {
-    return getConvertedValue (aKey, BigInteger.class);
+    return getConvertedValue (aKey, null, BigInteger.class);
   }
 
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @return <code>getConvertedValue (aKey,aDefault,BigInteger.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
    * @see #getConvertedValue(Object,Object, Class)
    */
   @Nullable
@@ -507,26 +489,21 @@ public interface IGetterByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (aKey,LocalDate.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Object,Class)
+   * @return <code>getConvertedValue (aKey,null,LocalDate.class)</code>
+   * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
   default LocalDate getAsLocalDate (@Nullable final KEYTYPE aKey)
   {
-    return getConvertedValue (aKey, LocalDate.class);
+    return getConvertedValue (aKey, null, LocalDate.class);
   }
 
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @return <code>getConvertedValue (aKey,aDefault,LocalDate.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
    * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
@@ -538,26 +515,21 @@ public interface IGetterByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (aKey,LocalTime.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Object,Class)
+   * @return <code>getConvertedValue (aKey,null,LocalTime.class)</code>
+   * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
   default LocalTime getAsLocalTime (@Nullable final KEYTYPE aKey)
   {
-    return getConvertedValue (aKey, LocalTime.class);
+    return getConvertedValue (aKey, null, LocalTime.class);
   }
 
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @return <code>getConvertedValue (aKey,aDefault,LocalTime.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
    * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
@@ -569,26 +541,21 @@ public interface IGetterByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (aKey,LocalDateTime.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Object,Class)
+   * @return <code>getConvertedValue (aKey,null,LocalDateTime.class)</code>
+   * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
   default LocalDateTime getAsLocalDateTime (@Nullable final KEYTYPE aKey)
   {
-    return getConvertedValue (aKey, LocalDateTime.class);
+    return getConvertedValue (aKey, null, LocalDateTime.class);
   }
 
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @return <code>getConvertedValue (aKey,aDefault,LocalDateTime.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
    * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
@@ -600,225 +567,193 @@ public interface IGetterByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (aKey,byte[].class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Object,Class)
+   * @return <code>getConvertedValue (aKey,null,byte[].class)</code>
+   * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
   default byte [] getAsByteArray (@Nullable final KEYTYPE aKey)
   {
-    return getConvertedValue (aKey, byte [].class);
+    return getConvertedValue (aKey, null, byte [].class);
   }
 
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (aKey,Boolean.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Object,Class)
+   * @return <code>getConvertedValue (aKey,null,Boolean.class)</code>
+   * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
   default Boolean getAsBooleanObj (@Nullable final KEYTYPE aKey)
   {
-    return getConvertedValue (aKey, Boolean.class);
+    return getConvertedValue (aKey, null, Boolean.class);
   }
 
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (aKey,Byte.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Object,Class)
+   * @return <code>getConvertedValue (aKey,null,Byte.class)</code>
+   * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
   default Byte getAsByteObj (@Nullable final KEYTYPE aKey)
   {
-    return getConvertedValue (aKey, Byte.class);
+    return getConvertedValue (aKey, null, Byte.class);
   }
 
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (aKey,Character.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Object,Class)
+   * @return <code>getConvertedValue (aKey,null,Character.class)</code>
+   * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
   default Character getAsCharObj (@Nullable final KEYTYPE aKey)
   {
-    return getConvertedValue (aKey, Character.class);
+    return getConvertedValue (aKey, null, Character.class);
   }
 
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (aKey,Double.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Object,Class)
+   * @return <code>getConvertedValue (aKey,null,Double.class)</code>
+   * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
   default Double getAsDoubleObj (@Nullable final KEYTYPE aKey)
   {
-    return getConvertedValue (aKey, Double.class);
+    return getConvertedValue (aKey, null, Double.class);
   }
 
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (aKey,Float.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Object,Class)
+   * @return <code>getConvertedValue (aKey,null,Float.class)</code>
+   * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
   default Float getAsFloatObj (@Nullable final KEYTYPE aKey)
   {
-    return getConvertedValue (aKey, Float.class);
+    return getConvertedValue (aKey, null, Float.class);
   }
 
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (aKey,Integer.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Object,Class)
+   * @return <code>getConvertedValue (aKey,null,Integer.class)</code>
+   * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
   default Integer getAsIntObj (@Nullable final KEYTYPE aKey)
   {
-    return getConvertedValue (aKey, Integer.class);
+    return getConvertedValue (aKey, null, Integer.class);
   }
 
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (aKey,Long.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Object,Class)
+   * @return <code>getConvertedValue (aKey,null,Long.class)</code>
+   * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
   default Long getAsLongObj (@Nullable final KEYTYPE aKey)
   {
-    return getConvertedValue (aKey, Long.class);
+    return getConvertedValue (aKey, null, Long.class);
   }
 
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (aKey,Short.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Object,Class)
+   * @return <code>getConvertedValue (aKey,null,Short.class)</code>
+   * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
   default Short getAsShortObj (@Nullable final KEYTYPE aKey)
   {
-    return getConvertedValue (aKey, Short.class);
+    return getConvertedValue (aKey, null, Short.class);
   }
 
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (aKey,Blob.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Object,Class)
+   * @return <code>getConvertedValue (aKey,null,Blob.class)</code>
+   * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
   default java.sql.Blob getAsSqlBlob (@Nullable final KEYTYPE aKey)
   {
-    return getConvertedValue (aKey, java.sql.Blob.class);
+    return getConvertedValue (aKey, null, java.sql.Blob.class);
   }
 
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (aKey,Clob.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Object,Class)
+   * @return <code>getConvertedValue (aKey,null,Clob.class)</code>
+   * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
   default java.sql.Clob getAsSqlClob (@Nullable final KEYTYPE aKey)
   {
-    return getConvertedValue (aKey, java.sql.Clob.class);
+    return getConvertedValue (aKey, null, java.sql.Clob.class);
   }
 
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (aKey,Date.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Object,Class)
+   * @return <code>getConvertedValue (aKey,null,Date.class)</code>
+   * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
   default java.sql.Date getAsSqlDate (@Nullable final KEYTYPE aKey)
   {
-    return getConvertedValue (aKey, java.sql.Date.class);
+    return getConvertedValue (aKey, null, java.sql.Date.class);
   }
 
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (aKey,NClob.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Object,Class)
+   * @return <code>getConvertedValue (aKey,null,NClob.class)</code>
+   * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
   default java.sql.NClob getAsSqlNClob (@Nullable final KEYTYPE aKey)
   {
-    return getConvertedValue (aKey, java.sql.NClob.class);
+    return getConvertedValue (aKey, null, java.sql.NClob.class);
   }
 
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (aKey,RowId.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Object,Class)
+   * @return <code>getConvertedValue (aKey,null,RowId.class)</code>
+   * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
   default java.sql.RowId getAsSqlRowId (@Nullable final KEYTYPE aKey)
   {
-    return getConvertedValue (aKey, java.sql.RowId.class);
+    return getConvertedValue (aKey, null, java.sql.RowId.class);
   }
 
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (aKey,Time.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Object,Class)
+   * @return <code>getConvertedValue (aKey,null,Time.class)</code>
+   * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
   default java.sql.Time getAsSqlTime (@Nullable final KEYTYPE aKey)
   {
-    return getConvertedValue (aKey, java.sql.Time.class);
+    return getConvertedValue (aKey, null, java.sql.Time.class);
   }
 
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return <code>getConvertedValue (aKey,Timestamp.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Object,Class)
+   * @return <code>getConvertedValue (aKey,null,Timestamp.class)</code>
+   * @see #getConvertedValue(Object,Object,Class)
    */
   @Nullable
   default java.sql.Timestamp getAsSqlTimestamp (@Nullable final KEYTYPE aKey)
   {
-    return getConvertedValue (aKey, java.sql.Timestamp.class);
+    return getConvertedValue (aKey, null, java.sql.Timestamp.class);
   }
 
   /**
@@ -966,8 +901,8 @@ public interface IGetterByKeyTrait <KEYTYPE>
    *        The key to check. May be <code>null</code>.
    * @param sDesiredValue
    *        The value to be matched
-   * @return <code>true</code> if an attribute with the given name is present
-   *         and has the desired value
+   * @return <code>true</code> if an attribute with the given name is present and
+   *         has the desired value
    */
   default boolean hasStringValue (@Nullable final KEYTYPE aKey, @Nullable final String sDesiredValue)
   {
@@ -986,10 +921,10 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @param bDefault
    *        the default value to be returned, if the specified attribute is not
    *        present
-   * @return <code>true</code> if an attribute with the given name is present
-   *         and has the desired value, <code>false</code> if the attribute is
-   *         present but has a different value. If the attribute is not present,
-   *         the default value is returned.
+   * @return <code>true</code> if an attribute with the given name is present and
+   *         has the desired value, <code>false</code> if the attribute is present
+   *         but has a different value. If the attribute is not present, the
+   *         default value is returned.
    */
   default boolean hasStringValue (@Nullable final KEYTYPE aKey,
                                   @Nullable final String sDesiredValue,

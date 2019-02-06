@@ -58,8 +58,7 @@ public interface IGetterByIndexTrait
   /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
-   * @return The class of the value or <code>null</code> if no value is
-   *         contained.
+   * @return The class of the value or <code>null</code> if no value is contained.
    */
   @Nullable
   default Class <?> getValueClass (@Nonnegative final int nIndex)
@@ -95,8 +94,8 @@ public interface IGetterByIndexTrait
    *
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
-   * @return The object value casted to the passed class. May be
-   *         <code>null</code> if the contained value is <code>null</code>.
+   * @return The object value casted to the passed class. May be <code>null</code>
+   *         if the contained value is <code>null</code>.
    * @throws ClassCastException
    *         in case the value types are not convertible
    * @param <T>
@@ -114,10 +113,9 @@ public interface IGetterByIndexTrait
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
-   * @return The object value casted to the passed class. May be
-   *         <code>null</code> if the contained value is <code>null</code>.
+   *        The value to be returned if the retrieved value is <code>null</code> .
+   * @return The object value casted to the passed class. May be <code>null</code>
+   *         if the contained value is <code>null</code>.
    * @throws ClassCastException
    *         in case the value types are not convertible
    * @param <T>
@@ -137,8 +135,8 @@ public interface IGetterByIndexTrait
    *        The index to be accessed. Should be &ge; 0.
    * @param aClass
    *        The class to cast to.
-   * @return The object value casted to the passed class. May be
-   *         <code>null</code> if the contained value is <code>null</code>.
+   * @return The object value casted to the passed class. May be <code>null</code>
+   *         if the contained value is <code>null</code>.
    * @throws ClassCastException
    *         in case the value types are not convertible
    * @param <T>
@@ -156,12 +154,11 @@ public interface IGetterByIndexTrait
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @param aClass
    *        The class to cast to.
-   * @return The object value casted to the passed class. May be
-   *         <code>null</code> if the contained value is <code>null</code>.
+   * @return The object value casted to the passed class. May be <code>null</code>
+   *         if the contained value is <code>null</code>.
    * @throws ClassCastException
    *         in case the value types are not convertible
    * @param <T>
@@ -184,8 +181,8 @@ public interface IGetterByIndexTrait
    *        The index to be accessed. Should be &ge; 0.
    * @param aClass
    *        The class to cast to.
-   * @return The object value casted to the passed class. May be
-   *         <code>null</code> if the contained value is <code>null</code>.
+   * @return The object value casted to the passed class. May be <code>null</code>
+   *         if the contained value is <code>null</code>.
    * @throws ClassCastException
    *         in case the value types are not convertible
    * @param <T>
@@ -228,12 +225,11 @@ public interface IGetterByIndexTrait
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @param aClass
    *        The class to cast to.
-   * @return The object value casted to the passed class. May be
-   *         <code>null</code> if the contained value is <code>null</code>.
+   * @return The object value casted to the passed class. May be <code>null</code>
+   *         if the contained value is <code>null</code>.
    * @throws ClassCastException
    *         in case the value types are not convertible
    * @param <T>
@@ -258,8 +254,8 @@ public interface IGetterByIndexTrait
    *        The index to be accessed. Should be &ge; 0.
    * @param aClass
    *        The class to convert to.
-   * @return The object value casted to the passed class. May be
-   *         <code>null</code> if the contained value is <code>null</code>.
+   * @return The object value casted to the passed class. May be <code>null</code>
+   *         if the contained value is <code>null</code>.
    * @throws TypeConverterException
    *         in case of an error
    * @param <T>
@@ -278,11 +274,11 @@ public interface IGetterByIndexTrait
    *        The index to be accessed. Should be &ge; 0.
    * @param aDefault
    *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        or if type conversion fails.
    * @param aClass
    *        The class to convert to.
-   * @return The object value casted to the passed class. May be
-   *         <code>null</code> if the contained value is <code>null</code>.
+   * @return The object value casted to the passed class. May be <code>null</code>
+   *         if the contained value is <code>null</code>.
    * @throws TypeConverterException
    *         in case of an error
    * @param <T>
@@ -294,11 +290,12 @@ public interface IGetterByIndexTrait
                                    @Nonnull final Class <T> aClass)
   {
     final Object aValue = getValue (nIndex);
-    return aValue == null ? aDefault : TypeConverter.convert (aValue, aClass);
+    return aValue == null ? aDefault : TypeConverter.convert (aValue, aClass, aDefault);
   }
 
   default boolean getAsBoolean (@Nonnegative final int nIndex)
   {
+    // throws TypeConverterException if value is null
     return TypeConverter.convertToBoolean (getValue (nIndex));
   }
 
@@ -309,6 +306,7 @@ public interface IGetterByIndexTrait
 
   default byte getAsByte (@Nonnegative final int nIndex)
   {
+    // throws TypeConverterException if value is null
     return TypeConverter.convertToByte (getValue (nIndex));
   }
 
@@ -319,6 +317,7 @@ public interface IGetterByIndexTrait
 
   default char getAsChar (@Nonnegative final int nIndex)
   {
+    // throws TypeConverterException if value is null
     return TypeConverter.convertToChar (getValue (nIndex));
   }
 
@@ -329,6 +328,7 @@ public interface IGetterByIndexTrait
 
   default double getAsDouble (@Nonnegative final int nIndex)
   {
+    // throws TypeConverterException if value is null
     return TypeConverter.convertToDouble (getValue (nIndex));
   }
 
@@ -339,6 +339,7 @@ public interface IGetterByIndexTrait
 
   default float getAsFloat (@Nonnegative final int nIndex)
   {
+    // throws TypeConverterException if value is null
     return TypeConverter.convertToFloat (getValue (nIndex));
   }
 
@@ -349,6 +350,7 @@ public interface IGetterByIndexTrait
 
   default int getAsInt (@Nonnegative final int nIndex)
   {
+    // throws TypeConverterException if value is null
     return TypeConverter.convertToInt (getValue (nIndex));
   }
 
@@ -359,6 +361,7 @@ public interface IGetterByIndexTrait
 
   default long getAsLong (@Nonnegative final int nIndex)
   {
+    // throws TypeConverterException if value is null
     return TypeConverter.convertToLong (getValue (nIndex));
   }
 
@@ -369,6 +372,7 @@ public interface IGetterByIndexTrait
 
   default short getAsShort (@Nonnegative final int nIndex)
   {
+    // throws TypeConverterException if value is null
     return TypeConverter.convertToShort (getValue (nIndex));
   }
 
@@ -380,26 +384,21 @@ public interface IGetterByIndexTrait
   /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
-   * @return <code>getConvertedValue (nIndex,String.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(int,Class)
+   * @return <code>getConvertedValue (nIndex,null,String.class)</code>
+   * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
   default String getAsString (@Nonnegative final int nIndex)
   {
-    return getConvertedValue (nIndex, String.class);
+    return getConvertedValue (nIndex, null, String.class);
   }
 
   /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
    * @param sDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @return <code>getConvertedValue (nIndex,sDefault, String.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
    * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
@@ -411,26 +410,21 @@ public interface IGetterByIndexTrait
   /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
-   * @return <code>getConvertedValue (nIndex,char[].class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(int,Class)
+   * @return <code>getConvertedValue (nIndex,null,char[].class)</code>
+   * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
   default char [] getAsCharArray (@Nonnegative final int nIndex)
   {
-    return getConvertedValue (nIndex, char [].class);
+    return getConvertedValue (nIndex, null, char [].class);
   }
 
   /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @return <code>getConvertedValue (nIndex,aDefault, char[].class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
    * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
@@ -442,26 +436,21 @@ public interface IGetterByIndexTrait
   /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
-   * @return <code>getConvertedValue (nIndex,BigDecimal.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(int,Class)
+   * @return <code>getConvertedValue (nIndex,null,BigDecimal.class)</code>
+   * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
   default BigDecimal getAsBigDecimal (@Nonnegative final int nIndex)
   {
-    return getConvertedValue (nIndex, BigDecimal.class);
+    return getConvertedValue (nIndex, null, BigDecimal.class);
   }
 
   /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @return <code>getConvertedValue (nIndex,aDefault,BigDecimal.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
    * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
@@ -473,26 +462,21 @@ public interface IGetterByIndexTrait
   /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
-   * @return <code>getConvertedValue (nIndex,BigInteger.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(int,Class)
+   * @return <code>getConvertedValue (nIndex,null,BigInteger.class)</code>
+   * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
   default BigInteger getAsBigInteger (@Nonnegative final int nIndex)
   {
-    return getConvertedValue (nIndex, BigInteger.class);
+    return getConvertedValue (nIndex, null, BigInteger.class);
   }
 
   /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @return <code>getConvertedValue (nIndex,aDefault,BigInteger.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
    * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
@@ -504,26 +488,21 @@ public interface IGetterByIndexTrait
   /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
-   * @return <code>getConvertedValue (nIndex,LocalDate.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(int,Class)
+   * @return <code>getConvertedValue (nIndex,null,LocalDate.class)</code>
+   * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
   default LocalDate getAsLocalDate (@Nonnegative final int nIndex)
   {
-    return getConvertedValue (nIndex, LocalDate.class);
+    return getConvertedValue (nIndex, null, LocalDate.class);
   }
 
   /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @return <code>getConvertedValue (nIndex,aDefault,LocalDate.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
    * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
@@ -535,26 +514,21 @@ public interface IGetterByIndexTrait
   /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
-   * @return <code>getConvertedValue (nIndex,LocalTime.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(int,Class)
+   * @return <code>getConvertedValue (nIndex,null,LocalTime.class)</code>
+   * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
   default LocalTime getAsLocalTime (@Nonnegative final int nIndex)
   {
-    return getConvertedValue (nIndex, LocalTime.class);
+    return getConvertedValue (nIndex, null, LocalTime.class);
   }
 
   /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @return <code>getConvertedValue (nIndex,aDefault,LocalTime.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
    * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
@@ -566,26 +540,21 @@ public interface IGetterByIndexTrait
   /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
-   * @return <code>getConvertedValue (nIndex,LocalDateTime.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(int,Class)
+   * @return <code>getConvertedValue (nIndex,null,LocalDateTime.class)</code>
+   * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
   default LocalDateTime getAsLocalDateTime (@Nonnegative final int nIndex)
   {
-    return getConvertedValue (nIndex, LocalDateTime.class);
+    return getConvertedValue (nIndex, null, LocalDateTime.class);
   }
 
   /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @return <code>getConvertedValue (nIndex,aDefault,LocalDateTime.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
    * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
@@ -597,225 +566,193 @@ public interface IGetterByIndexTrait
   /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
-   * @return <code>getConvertedValue (nIndex,byte[].class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(int,Class)
+   * @return <code>getConvertedValue (nIndex,null,byte[].class)</code>
+   * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
   default byte [] getAsByteArray (@Nonnegative final int nIndex)
   {
-    return getConvertedValue (nIndex, byte [].class);
+    return getConvertedValue (nIndex, null, byte [].class);
   }
 
   /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
-   * @return <code>getConvertedValue (nIndex,Boolean.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(int,Class)
+   * @return <code>getConvertedValue (nIndex,null,Boolean.class)</code>
+   * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
   default Boolean getAsBooleanObj (@Nonnegative final int nIndex)
   {
-    return getConvertedValue (nIndex, Boolean.class);
+    return getConvertedValue (nIndex, null, Boolean.class);
   }
 
   /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
-   * @return <code>getConvertedValue (nIndex,Byte.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(int,Class)
+   * @return <code>getConvertedValue (nIndex,null,Byte.class)</code>
+   * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
   default Byte getAsByteObj (@Nonnegative final int nIndex)
   {
-    return getConvertedValue (nIndex, Byte.class);
+    return getConvertedValue (nIndex, null, Byte.class);
   }
 
   /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
-   * @return <code>getConvertedValue (nIndex,Character.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(int,Class)
+   * @return <code>getConvertedValue (nIndex,null,Character.class)</code>
+   * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
   default Character getAsCharObj (@Nonnegative final int nIndex)
   {
-    return getConvertedValue (nIndex, Character.class);
+    return getConvertedValue (nIndex, null, Character.class);
   }
 
   /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
-   * @return <code>getConvertedValue (nIndex,Double.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(int,Class)
+   * @return <code>getConvertedValue (nIndex,null,Double.class)</code>
+   * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
   default Double getAsDoubleObj (@Nonnegative final int nIndex)
   {
-    return getConvertedValue (nIndex, Double.class);
+    return getConvertedValue (nIndex, null, Double.class);
   }
 
   /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
-   * @return <code>getConvertedValue (nIndex,Float.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(int,Class)
+   * @return <code>getConvertedValue (nIndex,null,Float.class)</code>
+   * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
   default Float getAsFloatObj (@Nonnegative final int nIndex)
   {
-    return getConvertedValue (nIndex, Float.class);
+    return getConvertedValue (nIndex, null, Float.class);
   }
 
   /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
-   * @return <code>getConvertedValue (nIndex,Integer.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(int,Class)
+   * @return <code>getConvertedValue (nIndex,null,Integer.class)</code>
+   * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
   default Integer getAsIntObj (@Nonnegative final int nIndex)
   {
-    return getConvertedValue (nIndex, Integer.class);
+    return getConvertedValue (nIndex, null, Integer.class);
   }
 
   /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
-   * @return <code>getConvertedValue (nIndex,Long.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(int,Class)
+   * @return <code>getConvertedValue (nIndex,null,Long.class)</code>
+   * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
   default Long getAsLongObj (@Nonnegative final int nIndex)
   {
-    return getConvertedValue (nIndex, Long.class);
+    return getConvertedValue (nIndex, null, Long.class);
   }
 
   /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
-   * @return <code>getConvertedValue (nIndex,Short.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(int,Class)
+   * @return <code>getConvertedValue (nIndex,null,Short.class)</code>
+   * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
   default Short getAsShortObj (@Nonnegative final int nIndex)
   {
-    return getConvertedValue (nIndex, Short.class);
+    return getConvertedValue (nIndex, null, Short.class);
   }
 
   /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
-   * @return <code>getConvertedValue (nIndex,Blob.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(int,Class)
+   * @return <code>getConvertedValue (nIndex,null,Blob.class)</code>
+   * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
   default java.sql.Blob getAsSqlBlob (@Nonnegative final int nIndex)
   {
-    return getConvertedValue (nIndex, java.sql.Blob.class);
+    return getConvertedValue (nIndex, null, java.sql.Blob.class);
   }
 
   /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
-   * @return <code>getConvertedValue (nIndex,Clob.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(int,Class)
+   * @return <code>getConvertedValue (nIndex,null,Clob.class)</code>
+   * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
   default java.sql.Clob getAsSqlClob (@Nonnegative final int nIndex)
   {
-    return getConvertedValue (nIndex, java.sql.Clob.class);
+    return getConvertedValue (nIndex, null, java.sql.Clob.class);
   }
 
   /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
-   * @return <code>getConvertedValue (nIndex,Date.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(int,Class)
+   * @return <code>getConvertedValue (nIndex,null,Date.class)</code>
+   * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
   default java.sql.Date getAsSqlDate (@Nonnegative final int nIndex)
   {
-    return getConvertedValue (nIndex, java.sql.Date.class);
+    return getConvertedValue (nIndex, null, java.sql.Date.class);
   }
 
   /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
-   * @return <code>getConvertedValue (nIndex,NClob.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(int,Class)
+   * @return <code>getConvertedValue (nIndex,null,NClob.class)</code>
+   * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
   default java.sql.NClob getAsSqlNClob (@Nonnegative final int nIndex)
   {
-    return getConvertedValue (nIndex, java.sql.NClob.class);
+    return getConvertedValue (nIndex, null, java.sql.NClob.class);
   }
 
   /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
-   * @return <code>getConvertedValue (nIndex,RowId.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(int,Class)
+   * @return <code>getConvertedValue (nIndex,null,RowId.class)</code>
+   * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
   default java.sql.RowId getAsSqlRowId (@Nonnegative final int nIndex)
   {
-    return getConvertedValue (nIndex, java.sql.RowId.class);
+    return getConvertedValue (nIndex, null, java.sql.RowId.class);
   }
 
   /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
-   * @return <code>getConvertedValue (nIndex,Time.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(int,Class)
+   * @return <code>getConvertedValue (nIndex,null,Time.class)</code>
+   * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
   default java.sql.Time getAsSqlTime (@Nonnegative final int nIndex)
   {
-    return getConvertedValue (nIndex, java.sql.Time.class);
+    return getConvertedValue (nIndex, null, java.sql.Time.class);
   }
 
   /**
    * @param nIndex
    *        The index to be accessed. Should be &ge; 0.
-   * @return <code>getConvertedValue (nIndex,Timestamp.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(int,Class)
+   * @return <code>getConvertedValue (nIndex,null,Timestamp.class)</code>
+   * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
   default java.sql.Timestamp getAsSqlTimestamp (@Nonnegative final int nIndex)
   {
-    return getConvertedValue (nIndex, java.sql.Timestamp.class);
+    return getConvertedValue (nIndex, null, java.sql.Timestamp.class);
   }
 
   /**
@@ -963,8 +900,8 @@ public interface IGetterByIndexTrait
    *        The index to be accessed. Should be &ge; 0.
    * @param sDesiredValue
    *        The value to be matched
-   * @return <code>true</code> if an attribute with the given name is present
-   *         and has the desired value
+   * @return <code>true</code> if an attribute with the given name is present and
+   *         has the desired value
    */
   default boolean hasStringValue (@Nonnegative final int nIndex, @Nullable final String sDesiredValue)
   {
@@ -983,10 +920,10 @@ public interface IGetterByIndexTrait
    * @param bDefault
    *        the default value to be returned, if the specified attribute is not
    *        present
-   * @return <code>true</code> if an attribute with the given name is present
-   *         and has the desired value, <code>false</code> if the attribute is
-   *         present but has a different value. If the attribute is not present,
-   *         the default value is returned.
+   * @return <code>true</code> if an attribute with the given name is present and
+   *         has the desired value, <code>false</code> if the attribute is present
+   *         but has a different value. If the attribute is not present, the
+   *         default value is returned.
    */
   default boolean hasStringValue (@Nonnegative final int nIndex,
                                   @Nullable final String sDesiredValue,

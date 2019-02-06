@@ -44,8 +44,7 @@ public interface IGetterDirectTrait
   Object getValue ();
 
   /**
-   * @return The class of the value or <code>null</code> if no value is
-   *         contained.
+   * @return The class of the value or <code>null</code> if no value is contained.
    */
   @Nullable
   default Class <?> getValueClass ()
@@ -75,8 +74,8 @@ public interface IGetterDirectTrait
   /**
    * Get the contained value casted to the return type.
    *
-   * @return The object value casted to the passed class. May be
-   *         <code>null</code> if the contained value is <code>null</code>.
+   * @return The object value casted to the passed class. May be <code>null</code>
+   *         if the contained value is <code>null</code>.
    * @throws ClassCastException
    *         in case the value types are not convertible
    * @param <T>
@@ -92,10 +91,9 @@ public interface IGetterDirectTrait
    * Get the contained value casted to the return type.
    *
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
-   * @return The object value casted to the passed class. May be
-   *         <code>null</code> if the contained value is <code>null</code>.
+   *        The value to be returned if the retrieved value is <code>null</code> .
+   * @return The object value casted to the passed class. May be <code>null</code>
+   *         if the contained value is <code>null</code>.
    * @throws ClassCastException
    *         in case the value types are not convertible
    * @param <T>
@@ -113,8 +111,8 @@ public interface IGetterDirectTrait
    *
    * @param aClass
    *        The class to cast to.
-   * @return The object value casted to the passed class. May be
-   *         <code>null</code> if the contained value is <code>null</code>.
+   * @return The object value casted to the passed class. May be <code>null</code>
+   *         if the contained value is <code>null</code>.
    * @throws ClassCastException
    *         in case the value types are not convertible
    * @param <T>
@@ -130,12 +128,11 @@ public interface IGetterDirectTrait
    * Get the contained value casted to the specified class.
    *
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @param aClass
    *        The class to cast to.
-   * @return The object value casted to the passed class. May be
-   *         <code>null</code> if the contained value is <code>null</code>.
+   * @return The object value casted to the passed class. May be <code>null</code>
+   *         if the contained value is <code>null</code>.
    * @throws ClassCastException
    *         in case the value types are not convertible
    * @param <T>
@@ -153,8 +150,8 @@ public interface IGetterDirectTrait
    *
    * @param aClass
    *        The class to convert to.
-   * @return The object value casted to the passed class. May be
-   *         <code>null</code> if the contained value is <code>null</code>.
+   * @return The object value casted to the passed class. May be <code>null</code>
+   *         if the contained value is <code>null</code>.
    * @throws TypeConverterException
    *         in case of an error
    * @param <T>
@@ -171,13 +168,11 @@ public interface IGetterDirectTrait
    *
    * @param aDefault
    *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        or if type conversion fails.
    * @param aClass
-   *        The class to convert to.
-   * @return The object value casted to the passed class. May be
-   *         <code>null</code> if the contained value is <code>null</code>.
-   * @throws TypeConverterException
-   *         in case of an error
+   *        The class to convert to. May not be <code>null</code>.
+   * @return The object value casted to the passed class. May be <code>null</code>
+   *         if the contained value is <code>null</code>.
    * @param <T>
    *        Destination type
    */
@@ -185,11 +180,12 @@ public interface IGetterDirectTrait
   default <T> T getConvertedValue (@Nullable final T aDefault, @Nonnull final Class <T> aClass)
   {
     final Object aValue = getValue ();
-    return aValue == null ? aDefault : TypeConverter.convert (aValue, aClass);
+    return aValue == null ? aDefault : TypeConverter.convert (aValue, aClass, aDefault);
   }
 
   default boolean getAsBoolean ()
   {
+    // throws TypeConverterException if key is null
     return TypeConverter.convertToBoolean (getValue ());
   }
 
@@ -200,6 +196,7 @@ public interface IGetterDirectTrait
 
   default byte getAsByte ()
   {
+    // throws TypeConverterException if value is null
     return TypeConverter.convertToByte (getValue ());
   }
 
@@ -210,6 +207,7 @@ public interface IGetterDirectTrait
 
   default char getAsChar ()
   {
+    // throws TypeConverterException if value is null
     return TypeConverter.convertToChar (getValue ());
   }
 
@@ -220,6 +218,7 @@ public interface IGetterDirectTrait
 
   default double getAsDouble ()
   {
+    // throws TypeConverterException if value is null
     return TypeConverter.convertToDouble (getValue ());
   }
 
@@ -230,6 +229,7 @@ public interface IGetterDirectTrait
 
   default float getAsFloat ()
   {
+    // throws TypeConverterException if value is null
     return TypeConverter.convertToFloat (getValue ());
   }
 
@@ -240,6 +240,7 @@ public interface IGetterDirectTrait
 
   default int getAsInt ()
   {
+    // throws TypeConverterException if value is null
     return TypeConverter.convertToInt (getValue ());
   }
 
@@ -250,6 +251,7 @@ public interface IGetterDirectTrait
 
   default long getAsLong ()
   {
+    // throws TypeConverterException if value is null
     return TypeConverter.convertToLong (getValue ());
   }
 
@@ -260,6 +262,7 @@ public interface IGetterDirectTrait
 
   default short getAsShort ()
   {
+    // throws TypeConverterException if value is null
     return TypeConverter.convertToShort (getValue ());
   }
 
@@ -269,24 +272,19 @@ public interface IGetterDirectTrait
   }
 
   /**
-   * @return <code>getConvertedValue (String.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Class)
+   * @return <code>getConvertedValue (null, String.class)</code>
+   * @see #getConvertedValue(Object, Class)
    */
   @Nullable
   default String getAsString ()
   {
-    return getConvertedValue (String.class);
+    return getConvertedValue (null, String.class);
   }
 
   /**
    * @param sDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @return <code>getConvertedValue (sDefault, String.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
@@ -296,24 +294,19 @@ public interface IGetterDirectTrait
   }
 
   /**
-   * @return <code>getConvertedValue (char[].class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Class)
+   * @return <code>getConvertedValue (null, char[].class)</code>
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default char [] getAsCharArray ()
   {
-    return getConvertedValue (char [].class);
+    return getConvertedValue (null, char [].class);
   }
 
   /**
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @return <code>getConvertedValue (aDefault, char[].class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
@@ -323,24 +316,19 @@ public interface IGetterDirectTrait
   }
 
   /**
-   * @return <code>getConvertedValue (BigDecimal.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Class)
+   * @return <code>getConvertedValue (null, BigDecimal.class)</code>
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default BigDecimal getAsBigDecimal ()
   {
-    return getConvertedValue (BigDecimal.class);
+    return getConvertedValue (null, BigDecimal.class);
   }
 
   /**
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @return <code>getConvertedValue (sDefault, BigDecimal.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
@@ -350,24 +338,19 @@ public interface IGetterDirectTrait
   }
 
   /**
-   * @return <code>getConvertedValue (BigInteger.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Class)
+   * @return <code>getConvertedValue (null, BigInteger.class)</code>
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default BigInteger getAsBigInteger ()
   {
-    return getConvertedValue (BigInteger.class);
+    return getConvertedValue (null, BigInteger.class);
   }
 
   /**
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @return <code>getConvertedValue (sDefault, BigInteger.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
@@ -377,24 +360,19 @@ public interface IGetterDirectTrait
   }
 
   /**
-   * @return <code>getConvertedValue (LocalDate.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Class)
+   * @return <code>getConvertedValue (null, LocalDate.class)</code>
+   * @see #getConvertedValue(Object, Class)
    */
   @Nullable
   default LocalDate getAsLocalDate ()
   {
-    return getConvertedValue (LocalDate.class);
+    return getConvertedValue (null, LocalDate.class);
   }
 
   /**
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @return <code>getConvertedValue (aDefault, LocalDate.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
@@ -404,24 +382,19 @@ public interface IGetterDirectTrait
   }
 
   /**
-   * @return <code>getConvertedValue (LocalTime.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Class)
+   * @return <code>getConvertedValue (null, LocalTime.class)</code>
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default LocalTime getAsLocalTime ()
   {
-    return getConvertedValue (LocalTime.class);
+    return getConvertedValue (null, LocalTime.class);
   }
 
   /**
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @return <code>getConvertedValue (aDefault, LocalTime.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
@@ -431,221 +404,184 @@ public interface IGetterDirectTrait
   }
 
   /**
-   * @return <code>getConvertedValue (LocalDateTime.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Class)
+   * @return <code>getConvertedValue (null, LocalDateTime.class)</code>
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default LocalDateTime getAsLocalDateTime ()
   {
-    return getConvertedValue (LocalDateTime.class);
+    return getConvertedValue (null, LocalDateTime.class);
   }
 
   /**
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code>
-   *        .
+   *        The value to be returned if the retrieved value is <code>null</code> .
    * @return <code>getConvertedValue (aDefault, LocalDateTime.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default LocalDateTime getAsLocalDateTime (@Nullable final LocalDateTime aDefault)
   {
-    return getConvertedValue (LocalDateTime.class);
+    return getConvertedValue (aDefault, LocalDateTime.class);
   }
 
   /**
-   * @return <code>getConvertedValue (byte[].class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Class)
+   * @return <code>getConvertedValue (null, byte[].class)</code>
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default byte [] getAsByteArray ()
   {
-    return getConvertedValue (byte [].class);
+    return getConvertedValue (null, byte [].class);
   }
 
   /**
-   * @return <code>getConvertedValue (Boolean.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Class)
+   * @return <code>getConvertedValue (null, Boolean.class)</code>
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default Boolean getAsBooleanObj ()
   {
-    return getConvertedValue (Boolean.class);
+    return getConvertedValue (null, Boolean.class);
   }
 
   /**
-   * @return <code>getConvertedValue (Byte.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Class)
+   * @return <code>getConvertedValue (null, Byte.class)</code>
+   * @see #getConvertedValue(Object, Class)
    */
   @Nullable
   default Byte getAsByteObj ()
   {
-    return getConvertedValue (Byte.class);
+    return getConvertedValue (null, Byte.class);
   }
 
   /**
-   * @return <code>getConvertedValue (Character.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Class)
+   * @return <code>getConvertedValue (null, Character.class)</code>
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default Character getAsCharObj ()
   {
-    return getConvertedValue (Character.class);
+    return getConvertedValue (null, Character.class);
   }
 
   /**
-   * @return <code>getConvertedValue (Double.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Class)
+   * @return <code>getConvertedValue (null, Double.class)</code>
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default Double getAsDoubleObj ()
   {
-    return getConvertedValue (Double.class);
+    return getConvertedValue (null, Double.class);
   }
 
   /**
-   * @return <code>getConvertedValue (Float.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Class)
+   * @return <code>getConvertedValue (null, Float.class)</code>
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default Float getAsFloatObj ()
   {
-    return getConvertedValue (Float.class);
+    return getConvertedValue (null, Float.class);
   }
 
   /**
-   * @return <code>getConvertedValue (Integer.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Class)
+   * @return <code>getConvertedValue (null, Integer.class)</code>
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default Integer getAsIntObj ()
   {
-    return getConvertedValue (Integer.class);
+    return getConvertedValue (null, Integer.class);
   }
 
   /**
-   * @return <code>getConvertedValue (Long.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Class)
+   * @return <code>getConvertedValue (null, Long.class)</code>
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default Long getAsLongObj ()
   {
-    return getConvertedValue (Long.class);
+    return getConvertedValue (null, Long.class);
   }
 
   /**
-   * @return <code>getConvertedValue (Short.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Class)
+   * @return <code>getConvertedValue (null, Short.class)</code>
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default Short getAsShortObj ()
   {
-    return getConvertedValue (Short.class);
+    return getConvertedValue (null, Short.class);
   }
 
   /**
-   * @return <code>getConvertedValue (Blob.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Class)
+   * @return <code>getConvertedValue (null, Blob.class)</code>
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default java.sql.Blob getAsSqlBlob ()
   {
-    return getConvertedValue (java.sql.Blob.class);
+    return getConvertedValue (null, java.sql.Blob.class);
   }
 
   /**
-   * @return <code>getConvertedValue (Clob.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Class)
+   * @return <code>getConvertedValue (null, Clob.class)</code>
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default java.sql.Clob getAsSqlClob ()
   {
-    return getConvertedValue (java.sql.Clob.class);
+    return getConvertedValue (null, java.sql.Clob.class);
   }
 
   /**
-   * @return <code>getConvertedValue (Date.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Class)
+   * @return <code>getConvertedValue (null, Date.class)</code>
+   * @see #getConvertedValue(Object, Class)
    */
   @Nullable
   default java.sql.Date getAsSqlDate ()
   {
-    return getConvertedValue (java.sql.Date.class);
+    return getConvertedValue (null, java.sql.Date.class);
   }
 
   /**
-   * @return <code>getConvertedValue (NClob.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Class)
+   * @return <code>getConvertedValue (null, NClob.class)</code>
+   * @see #getConvertedValue(Object, Class)
    */
   @Nullable
   default java.sql.NClob getAsSqlNClob ()
   {
-    return getConvertedValue (java.sql.NClob.class);
+    return getConvertedValue (null, java.sql.NClob.class);
   }
 
   /**
-   * @return <code>getConvertedValue (RowId.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Class)
+   * @return <code>getConvertedValue (null, RowId.class)</code>
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default java.sql.RowId getAsSqlRowId ()
   {
-    return getConvertedValue (java.sql.RowId.class);
+    return getConvertedValue (null, java.sql.RowId.class);
   }
 
   /**
-   * @return <code>getConvertedValue (Time.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Class)
+   * @return <code>getConvertedValue (null, Time.class)</code>
+   * @see #getConvertedValue(Object,Class)
    */
   @Nullable
   default java.sql.Time getAsSqlTime ()
   {
-    return getConvertedValue (java.sql.Time.class);
+    return getConvertedValue (null, java.sql.Time.class);
   }
 
   /**
-   * @return <code>getConvertedValue (Timestamp.class)</code>
-   * @throws TypeConverterException
-   *         in case of an error
-   * @see #getConvertedValue(Class)
+   * @return <code>getConvertedValue (null, Timestamp.class)</code>
+   * @see #getConvertedValue(Object, Class)
    */
   @Nullable
   default java.sql.Timestamp getAsSqlTimestamp ()
   {
-    return getConvertedValue (java.sql.Timestamp.class);
+    return getConvertedValue (null, java.sql.Timestamp.class);
   }
 }

@@ -33,6 +33,7 @@ This project was the following modules:
     * Moved method `exceptionCallbacks` to base class `AbstractJAXBBuilder`
     * Exception handler in `GenericJAXBMarshaller` now based on ´CallbackList` - incompatible change
     * Fixed the conversion from `String` to `Integer`, `Long` and `Short` so that `null` is returned on error (therefore throwing a `TypeConverterException`)
+    * `IGetter*Trait` `getAs...` methods now return `null` on error instead of throwing a `TypeConverterException`
 * v9.2.1 - 2019-01-23
     * Improved API of `JsonParseException` 
     * Added additional default `MicroTypeConverter` registrations (`File`, `Path`, `URL` and `URI`)
