@@ -139,7 +139,16 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
   @ReturnsMutableCopy
   public ICommonsList <CALLBACKTYPE> getAllCallbacks ()
   {
-    return m_aRWLock.readLocked (m_aCallbacks::getCopyAsList);
+    // Happy very often
+    m_aRWLock.readLock ().lock ();
+    try
+    {
+      return m_aCallbacks.getCopyAsList ();
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
+    }
   }
 
   @Nullable
