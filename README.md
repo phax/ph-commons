@@ -28,6 +28,8 @@ This project was the following modules:
 
 ## News and noteworthy
 
+* v9.3.1 - work in progress
+    * Made `IJsonWriterSettings` serializable
 * v9.3.0 - 2019-02-07
     * Restored the `Automatic-Module-Name` of `com.helger.scopes`
     * Moved method `exceptionCallbacks` to base class `AbstractJAXBBuilder`

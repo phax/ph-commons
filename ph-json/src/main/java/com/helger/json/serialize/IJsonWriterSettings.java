@@ -16,6 +16,8 @@
  */
 package com.helger.json.serialize;
 
+import java.io.Serializable;
+
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.Nonempty;
@@ -26,7 +28,7 @@ import com.helger.commons.lang.ICloneable;
  *
  * @author Philip Helger
  */
-public interface IJsonWriterSettings extends ICloneable <IJsonWriterSettings>
+public interface IJsonWriterSettings extends ICloneable <IJsonWriterSettings>, Serializable
 {
   /**
    * @return <code>true</code> if indentation should be enabled,
