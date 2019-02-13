@@ -32,8 +32,8 @@ public final class ThirdPartyModuleProvider_ph_commons implements IThirdPartyMod
 {
   public static final IThirdPartyModule FINDBUGS = new ThirdPartyModule ("FindBugs JSR305 and annotations",
                                                                          "Bill Pugh and David Hovemeyer",
-                                                                         ELicense.LGPL30,
-                                                                         new Version (3, 0, 1, "u2"),
+                                                                         ELicense.APACHE2,
+                                                                         new Version (3, 0, 2),
                                                                          "http://findbugs.sourceforge.net/");
   public static final IThirdPartyModule SLF4J = new ThirdPartyModule ("SLF4J API",
                                                                       "QOS.ch",
