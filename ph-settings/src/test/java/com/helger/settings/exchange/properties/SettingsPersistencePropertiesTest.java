@@ -58,6 +58,9 @@ public final class SettingsPersistencePropertiesTest
     aSrc.putIn ("fieldxf", Period.ofDays (3));
     aSrc.putIn ("fieldxg", "Any byte ärräy".getBytes (StandardCharsets.UTF_8.name ()));
 
+    // null value
+    aSrc.putIn ("fieldnull", null);
+
     final SettingsPersistenceProperties aSPP = new SettingsPersistenceProperties ();
     final String sSrc = aSPP.writeSettings (aSrc);
     assertNotNull (sSrc);

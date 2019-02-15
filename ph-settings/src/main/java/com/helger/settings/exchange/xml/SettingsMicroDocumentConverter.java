@@ -24,6 +24,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.lang.GenericReflection;
+import com.helger.commons.string.StringHelper;
 import com.helger.settings.ISettings;
 import com.helger.settings.factory.ISettingsFactory;
 import com.helger.xml.microdom.IMicroElement;
@@ -37,6 +38,7 @@ public class SettingsMicroDocumentConverter <T extends ISettings> implements IMi
 {
   private static final String ELEMENT_SETTING = "setting";
   private static final IMicroQName ATTR_NAME = new MicroQName ("name");
+  private static final IMicroQName ATTR_IS_NULL = new MicroQName ("is-null");
   private static final IMicroQName ATTR_CLASS = new MicroQName ("class");
   private static final String ELEMENT_VALUE = "value";
 
@@ -75,8 +77,13 @@ public class SettingsMicroDocumentConverter <T extends ISettings> implements IMi
 
       final IMicroElement eSetting = eRoot.appendElement (sNamespaceURI, ELEMENT_SETTING);
       eSetting.setAttribute (ATTR_NAME, sFieldName);
-      eSetting.setAttribute (ATTR_CLASS, aValue.getClass ().getName ());
-      eSetting.appendChild (MicroTypeConverter.convertToMicroElement (aValue, ELEMENT_VALUE));
+      if (aValue != null)
+      {
+        eSetting.setAttribute (ATTR_CLASS, aValue.getClass ().getName ());
+        eSetting.appendChild (MicroTypeConverter.convertToMicroElement (aValue, ELEMENT_VALUE));
+      }
+      else
+        eSetting.setAttribute (ATTR_IS_NULL, true);
     }
     return eRoot;
   }
@@ -89,18 +96,31 @@ public class SettingsMicroDocumentConverter <T extends ISettings> implements IMi
     final T aSettings = m_aSettingFactory.apply (sSettingsName);
 
     // settings are only on the top-level
-    aElement.forAllChildElements (eSetting -> {
+    for (final IMicroElement eSetting : aElement.getAllChildElements ())
+    {
       final String sFieldName = eSetting.getAttributeValue (ATTR_NAME);
-      final String sClass = eSetting.getAttributeValue (ATTR_CLASS);
-      final Class <?> aDestClass = GenericReflection.getClassFromNameSafe (sClass);
-      if (aDestClass == null)
-        throw new IllegalStateException ("Failed to determine class from '" + sClass + "'");
 
-      final Object aValue = MicroTypeConverter.convertToNative (eSetting.getFirstChildElement (ELEMENT_VALUE),
-                                                                aDestClass);
+      final Object aValue;
+      if (eSetting.hasAttribute (ATTR_IS_NULL))
+      {
+        // Special case for null
+        aValue = null;
+      }
+      else
+      {
+        final String sClass = eSetting.getAttributeValue (ATTR_CLASS);
+        if (StringHelper.hasNoText (sClass))
+          throw new IllegalStateException ("The class name is missing for entry '" + sFieldName + "'");
+
+        final Class <?> aDestClass = GenericReflection.getClassFromNameSafe (sClass);
+        if (aDestClass == null)
+          throw new IllegalStateException ("Failed to determine class from '" + sClass + "'");
+
+        aValue = MicroTypeConverter.convertToNative (eSetting.getFirstChildElement (ELEMENT_VALUE), aDestClass);
+      }
       // Use put instead of putIn to avoid that the callbacks are invoked!
       aSettings.put (sFieldName, aValue);
-    });
+    }
     return aSettings;
   }
 }

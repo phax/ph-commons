@@ -849,7 +849,7 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
        * No need to escape embedded and trailing spaces for value, hence pass
        * false to flag.
        */
-      sValue = _saveConvert (sValue, false, bEscapeUnicode);
+      sValue = sValue == null ? "" : _saveConvert (sValue, false, bEscapeUnicode);
 
       aWriter.write (sKey);
       aWriter.write ('=');

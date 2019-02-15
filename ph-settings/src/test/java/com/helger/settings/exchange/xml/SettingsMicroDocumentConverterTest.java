@@ -77,6 +77,9 @@ public final class SettingsMicroDocumentConverterTest
     aNestedSettings.putIn ("e", Clock.systemDefaultZone ().millis ());
     aSrc.putIn ("fieldxh", aNestedSettings);
 
+    // null value
+    aSrc.putIn ("fieldnull", null);
+
     // To XML
     final IMicroElement eSrcElement = MicroTypeConverter.convertToMicroElement (aSrc, "root");
     assertNotNull (eSrcElement);
