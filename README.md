@@ -30,6 +30,7 @@ This project was the following modules:
 
 * v9.3.1 - work in progress
     * Made `IJsonWriterSettings` serializable
+    * Updated to BouncyCastle 1.61
 * v9.3.0 - 2019-02-07
     * Restored the `Automatic-Module-Name` of `com.helger.scopes`
     * Moved method `exceptionCallbacks` to base class `AbstractJAXBBuilder`
