@@ -122,7 +122,16 @@ public final class ScopeSPIManager
   @ReturnsMutableCopy
   public ICommonsList <IRequestScopeSPI> getAllRequestScopeSPIs ()
   {
-    return m_aRWLock.readLocked ( () -> m_aRequestSPIs.getClone ());
+    // Is called very often!
+    m_aRWLock.readLock ().lock ();
+    try
+    {
+      return m_aRequestSPIs.getClone ();
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
+    }
   }
 
   public void onGlobalScopeBegin (@Nonnull final IGlobalScope aGlobalScope)
