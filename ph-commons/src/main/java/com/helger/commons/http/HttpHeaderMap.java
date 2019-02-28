@@ -96,9 +96,9 @@ public class HttpHeaderMap implements
   }
 
   /**
-   * Avoid having header values spanning multiple lines. This has been
-   * deprecated by RFC 7230 and Jetty 9.3 refuses to parse these requests with
-   * HTTP 400 by default.
+   * Avoid having header values spanning multiple lines. This has been deprecated
+   * by RFC 7230 and Jetty 9.3 refuses to parse these requests with HTTP 400 by
+   * default.
    *
    * @param sValue
    *        The source header value. May be <code>null</code>.
@@ -385,8 +385,8 @@ public class HttpHeaderMap implements
   }
 
   /**
-   * Set all headers from the passed map. Existing headers with the same name
-   * are overwritten. Existing headers are not changed!
+   * Set all headers from the passed map. Existing headers with the same name are
+   * overwritten. Existing headers are not changed!
    *
    * @param aOther
    *        The header map to add. May not be <code>null</code>.
@@ -405,8 +405,8 @@ public class HttpHeaderMap implements
   }
 
   /**
-   * Add all headers from the passed map. Existing headers with the same name
-   * are extended.
+   * Add all headers from the passed map. Existing headers with the same name are
+   * extended.
    *
    * @param aOther
    *        The header map to add. May not be <code>null</code>.
@@ -444,8 +444,8 @@ public class HttpHeaderMap implements
    *
    * @param sName
    *        The name to be searched.
-   * @return The list with all matching values. Never <code>null</code> but
-   *         maybe empty.
+   * @return The list with all matching values. Never <code>null</code> but maybe
+   *         empty.
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -572,10 +572,13 @@ public class HttpHeaderMap implements
   }
 
   /**
-   * Invoke the provided consumer for every name/value pair.
+   * Invoke the provided consumer for every name/value pair. The value is
+   * automatically unified since v9.3.1.
    *
    * @param aConsumer
-   *        Consumer to be invoked. May not be <code>null</code>.
+   *        Consumer with key and unified value to be invoked. May not be
+   *        <code>null</code>.
+   * @see #getUnifiedValue(String)
    */
   public void forEachSingleHeader (@Nonnull final BiConsumer <? super String, ? super String> aConsumer)
   {
@@ -583,17 +586,32 @@ public class HttpHeaderMap implements
     {
       final String sKey = aEntry.getKey ();
       for (final String sValue : aEntry.getValue ())
-        aConsumer.accept (sKey, sValue);
+      {
+        final String sUnifiedValue = getUnifiedValue (sValue);
+        aConsumer.accept (sKey, sUnifiedValue);
+      }
     }
   }
 
+  /**
+   * Invoke the provided consumer for every header line. The value is
+   * automatically unified since v9.3.1.
+   *
+   * @param aConsumer
+   *        Consumer with the assembled line to be invoked. May not be
+   *        <code>null</code>.
+   * @see #getUnifiedValue(String)
+   */
   public void forEachHeaderLine (@Nonnull final Consumer <? super String> aConsumer)
   {
     for (final Map.Entry <String, ICommonsList <String>> aEntry : m_aHeaders.entrySet ())
     {
       final String sKey = aEntry.getKey ();
       for (final String sValue : aEntry.getValue ())
-        aConsumer.accept (sKey + ": " + sValue);
+      {
+        final String sHeaderLine = sKey + ": " + getUnifiedValue (sValue);
+        aConsumer.accept (sHeaderLine);
+      }
     }
   }
 
