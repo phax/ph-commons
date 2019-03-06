@@ -28,7 +28,7 @@ This project was the following modules:
 
 ## News and noteworthy
 
-* v9.3.1 - work in progress
+* v9.3.1 - 2019-03-06
     * Made `IJsonWriterSettings` serializable
     * Updated to BouncyCastle 1.61
     * `null` values in settings can be serialized now
@@ -298,11 +298,12 @@ This project was the following modules:
 
 ## Maven usage
 Add the following to your pom.xml to use this artifact:
-```
+
+```xml
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-commons</artifactId>
-  <version>9.3.0</version>
+  <version>9.3.1</version>
 </dependency>
 ```
 
@@ -450,11 +451,12 @@ A special XML reading and writing project.
 
 ## Maven usage
 Add the following to your pom.xml to use this artifact:
-```
+
+```xml
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-xml</artifactId>
-  <version>9.3.0</version>
+  <version>9.3.1</version>
 </dependency>
 ```
 
@@ -468,11 +470,12 @@ A special JAXB helper project. It supports both the JDK included JAXB as well as
 
 ## Maven usage
 Add the following to your pom.xml to use this artifact:
-```
+
+```xml
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-jaxb</artifactId>
-  <version>9.3.0</version>
+  <version>9.3.1</version>
 </dependency>
 ```
 
@@ -491,11 +494,12 @@ A special tree management project.
 
 ## Maven usage
 Add the following to your pom.xml to use this artifact:
-```
+
+```xml
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-tree</artifactId>
-  <version>9.3.0</version>
+  <version>9.3.1</version>
 </dependency>
 ```
 
@@ -509,11 +513,12 @@ A few elements from ph-commons 6 which I'm not really using. But to avoid loss o
 
 ## Maven usage
 Add the following to your pom.xml to use this artifact:
-```
+
+```xml
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-less-commons</artifactId>
-  <version>9.3.0</version>
+  <version>9.3.1</version>
 </dependency>
 ```
 
@@ -522,11 +527,12 @@ Another simple library to read and write JSON documents and streams using a cust
 
 ## Maven usage
 Add the following to your pom.xml to use this artifact:
-```
+
+```xml
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-json</artifactId>
-  <version>9.3.0</version>
+  <version>9.3.1</version>
 </dependency>
 ```
 
@@ -535,11 +541,12 @@ Another simple library to deal with configuration files and settings in general.
 
 ## Maven usage
 Add the following to your pom.xml to use this artifact:
-```
+
+```xml
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-settings</artifactId>
-  <version>9.3.0</version>
+  <version>9.3.1</version>
 </dependency>
 ```
 
@@ -548,11 +555,12 @@ Another library that improves the JDK 8 date time handling with some useful exte
 
 ## Maven usage
 Add the following to your pom.xml to use this artifact:
-```
+
+```xml
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-datetime</artifactId>
-  <version>9.3.0</version>
+  <version>9.3.1</version>
 </dependency>
 ```
 
@@ -561,11 +569,12 @@ Another library to handle all kind of graphs in a generic way.
 
 ## Maven usage
 Add the following to your pom.xml to use this artifact:
-```
+
+```xml
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-graph</artifactId>
-  <version>9.3.0</version>
+  <version>9.3.1</version>
 </dependency>
 ```
 
@@ -574,11 +583,12 @@ Another library to handle matrixes in an easy way including some operations on t
 
 ## Maven usage
 Add the following to your pom.xml to use this artifact:
-```
+
+```xml
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-matrix</artifactId>
-  <version>9.3.0</version>
+  <version>9.3.1</version>
 </dependency>
 ```
 
@@ -587,11 +597,12 @@ This library adds support for the UTF-7 charset via Java extension SPI.
 
 ## Maven usage
 Add the following to your pom.xml to use this artifact:
-```
+
+```xml
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-charset</artifactId>
-  <version>9.3.0</version>
+  <version>9.3.1</version>
 </dependency>
 ```
 
@@ -602,11 +613,12 @@ Contains all the global scope handling as well as the scoped singleton base clas
 ## Maven usage
 
 Add the following to your pom.xml to use this artifact:
-```
+
+```xml
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-scopes</artifactId>
-  <version>9.3.0</version>
+  <version>9.3.1</version>
 </dependency>
 ```
 
@@ -617,11 +629,12 @@ Some special collections not used everywhere (like multi maps etc.)
 ## Maven usage
 
 Add the following to your pom.xml to use this artifact:
-```
+
+```xml
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-collection</artifactId>
-  <version>9.3.0</version>
+  <version>9.3.1</version>
 </dependency>
 ```
 
@@ -635,11 +648,12 @@ Fork of Apache commons-cli 1.4 with cleansing.
 ## Maven usage
 
 Add the following to your pom.xml to use this artifact:
-```
+
+```xml
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-cli</artifactId>
-  <version>9.3.0</version>
+  <version>9.3.1</version>
 </dependency>
 ```
 
@@ -650,11 +664,12 @@ Unified BouncyCastle Provider manager. More stuff to come.
 ## Maven usage
 
 Add the following to your pom.xml to use this artifact:
-```
+
+```xml
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-bc</artifactId>
-  <version>9.3.0</version>
+  <version>9.3.1</version>
 </dependency>
 ```
 
