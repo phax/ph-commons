@@ -54,6 +54,10 @@ import com.helger.commons.timing.StopWatch;
  * it is theoretically possible that such an attack may exist. If this is a
  * concern in your application, use /dev/random instead.</li>
  * </ul>
+ * <p>
+ * Use <code>-Djava.security.egd=file:/dev/./urandom</code> on the commandline
+ * to use urandom
+ * </p>
  *
  * @author Philip Helger
  */
@@ -69,8 +73,8 @@ public final class VerySecureRandom
   /**
    * Create a new {@link SecureRandom} instance. First the IBM secure random is
    * tried, than the SHA1PRNG secure random and finally if the previous ones
-   * failed, the default instance is used. In certain circumstances (Linux + some
-   * Java version; most likely using the blocking '/dev/random') this
+   * failed, the default instance is used. In certain circumstances (Linux +
+   * some Java version; most likely using the blocking '/dev/random') this
    * initialization takes forever and that's why the debug statements are added.
    *
    * @return A new {@link SecureRandom} instance. Never <code>null</code>.
