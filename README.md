@@ -28,6 +28,8 @@ This project was the following modules:
 
 ## News and noteworthy
 
+* v9.3.2 - work in progress
+    * Logging a warning in `VerySecureRandom` if initial seeding takes more than 500 milliseconds 
 * v9.3.1 - 2019-03-06
     * Made `IJsonWriterSettings` serializable
     * Updated to BouncyCastle 1.61

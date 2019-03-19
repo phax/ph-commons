@@ -68,6 +68,7 @@ public final class VerySecureRandom
   private static final Logger LOGGER = LoggerFactory.getLogger (VerySecureRandom.class);
 
   private static final int SEED_BYTE_COUNT = 64;
+  private static final int WARNING_MILLISECONDS_THRESHOLD = 500;
   private static final SecureRandom s_aSecureRandom;
 
   /**
@@ -167,14 +168,22 @@ public final class VerySecureRandom
     }
 
     if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Generating intial seed for VerySecureRandom");
+      LOGGER.debug ("Generating intial seed for VerySecureRandom - " + SEED_BYTE_COUNT + " bytes");
 
+    final StopWatch aSW = StopWatch.createdStarted ();
     // Generate seed
     final byte [] aSeed = aNativeRandom.generateSeed (SEED_BYTE_COUNT);
 
     // Initialize main secure random
     s_aSecureRandom = _createSecureRandomInstance ();
     s_aSecureRandom.setSeed (aSeed);
+
+    final long nDurationMillis = aSW.stopAndGetMillis ();
+    if (nDurationMillis > WARNING_MILLISECONDS_THRESHOLD)
+      if (LOGGER.isWarnEnabled ())
+        LOGGER.warn ("Initially seeding VerySecureRandom took too long (" +
+                     nDurationMillis +
+                     " milliseconds) - you may consider using '/dev/urandom'");
   }
 
   @PresentForCodeCoverage
@@ -229,10 +238,11 @@ public final class VerySecureRandom
 
         // Re-seed
         final TimeValue aDuration = StopWatch.runMeasured ( () -> s_aSecureRandom.setSeed (s_aSecureRandom.generateSeed (SEED_BYTE_COUNT)));
-        if (aDuration.getAsMillis () > 500)
-          LOGGER.warn ("Re-seeding VerySecureRandom took too long (" +
-                       aDuration.getAsMillis () +
-                       " milliseconds) - you may consider using '/dev/urandom'");
+        if (aDuration.getAsMillis () > WARNING_MILLISECONDS_THRESHOLD)
+          if (LOGGER.isWarnEnabled ())
+            LOGGER.warn ("Re-seeding VerySecureRandom took too long (" +
+                         aDuration.getAsMillis () +
+                         " milliseconds) - you may consider using '/dev/urandom'");
       }
 
     return s_aSecureRandom;
