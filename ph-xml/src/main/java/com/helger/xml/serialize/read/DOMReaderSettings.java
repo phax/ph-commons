@@ -227,7 +227,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
 
   public boolean hasAnyProperties ()
   {
-    return !m_aProperties.isEmpty ();
+    return m_aProperties.isNotEmpty ();
   }
 
   @Nullable
@@ -287,10 +287,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
   @Nonnull
   public final EChange removeAllPropertyValues ()
   {
-    if (m_aProperties.isEmpty ())
-      return EChange.UNCHANGED;
-    m_aProperties.clear ();
-    return EChange.CHANGED;
+    return m_aProperties.removeAll ();
   }
 
   @Nullable
@@ -299,6 +296,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return (Locale) getPropertyValue (EXMLParserProperty.GENERAL_LOCALE);
   }
 
+  @Nonnull
   public DOMReaderSettings setLocale (@Nullable final Locale aLocale)
   {
     return setPropertyValue (EXMLParserProperty.GENERAL_LOCALE, aLocale);
@@ -306,7 +304,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
 
   public boolean hasAnyFeature ()
   {
-    return !m_aFeatures.isEmpty ();
+    return m_aFeatures.isNotEmpty ();
   }
 
   @Nullable
@@ -363,10 +361,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
   @Nonnull
   public final EChange removeAllFeatures ()
   {
-    if (m_aFeatures.isEmpty ())
-      return EChange.UNCHANGED;
-    m_aFeatures.clear ();
-    return EChange.CHANGED;
+    return m_aFeatures.removeAll ();
   }
 
   public boolean requiresNewXMLParser ()
@@ -383,8 +378,8 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
         m_bCoalescing != XMLFactory.DEFAULT_DOM_COALESCING ||
         m_aSchema != null ||
         m_bXIncludeAware != XMLFactory.DEFAULT_DOM_XINCLUDE_AWARE ||
-        !m_aProperties.isEmpty () ||
-        !m_aFeatures.isEmpty ())
+        m_aProperties.isNotEmpty () ||
+        m_aFeatures.isNotEmpty ())
       return true;
 
     // Special case for JDK > 1.7.0_45 because of maximum entity expansion

@@ -217,17 +217,12 @@ public final class SAXReaderDefaultSettings
   @Nonnull
   public static EChange removeAllPropertyValues ()
   {
-    return s_aRWLock.writeLocked ( () -> {
-      if (s_aDefaultProperties.isEmpty ())
-        return EChange.UNCHANGED;
-      s_aDefaultProperties.clear ();
-      return EChange.CHANGED;
-    });
+    return s_aRWLock.writeLocked (s_aDefaultProperties::removeAll);
   }
 
   public static boolean hasAnyFeature ()
   {
-    return s_aRWLock.readLocked ( () -> !s_aDefaultFeatures.isEmpty ());
+    return s_aRWLock.readLocked (s_aDefaultFeatures::isNotEmpty);
   }
 
   @Nullable
@@ -286,12 +281,7 @@ public final class SAXReaderDefaultSettings
   @Nonnull
   public static EChange removeAllFeatures ()
   {
-    return s_aRWLock.writeLocked ( () -> {
-      if (s_aDefaultFeatures.isEmpty ())
-        return EChange.UNCHANGED;
-      s_aDefaultFeatures.clear ();
-      return EChange.CHANGED;
-    });
+    return s_aRWLock.writeLocked (s_aDefaultFeatures::removeAll);
   }
 
   public static boolean requiresNewXMLParser ()

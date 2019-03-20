@@ -183,7 +183,7 @@ public final class DOMReaderDefaultSettings
 
   public static boolean hasAnyProperties ()
   {
-    return s_aRWLock.readLocked ( () -> !s_aDefaultProperties.isEmpty ());
+    return s_aRWLock.readLocked (s_aDefaultProperties::isNotEmpty);
   }
 
   @Nullable
@@ -299,12 +299,7 @@ public final class DOMReaderDefaultSettings
   @Nonnull
   public static EChange removeAllFeatures ()
   {
-    return s_aRWLock.writeLocked ( () -> {
-      if (s_aDefaultFeatures.isEmpty ())
-        return EChange.UNCHANGED;
-      s_aDefaultFeatures.clear ();
-      return EChange.CHANGED;
-    });
+    return s_aRWLock.writeLocked (s_aDefaultFeatures::removeAll);
   }
 
   public static boolean requiresNewXMLParser ()
@@ -322,8 +317,8 @@ public final class DOMReaderDefaultSettings
           s_bDefaultCoalescing != XMLFactory.DEFAULT_DOM_COALESCING ||
           s_aDefaultSchema != null ||
           s_bDefaultXIncludeAware != XMLFactory.DEFAULT_DOM_XINCLUDE_AWARE ||
-          !s_aDefaultProperties.isEmpty () ||
-          !s_aDefaultFeatures.isEmpty ())
+          s_aDefaultProperties.isNotEmpty () ||
+          s_aDefaultFeatures.isNotEmpty ())
         return true;
 
       // Special case for JDK > 1.7.0_45 because of maximum entity expansion

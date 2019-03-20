@@ -52,12 +52,13 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
                                AbstractJAXBBuilder <IMPLTYPE> implements
                                IJAXBReader <JAXBTYPE>
 {
+  public static final boolean DEFAULT_READ_SECURE = true;
   private static final Logger LOGGER = LoggerFactory.getLogger (JAXBReaderBuilder.class);
 
   private final Class <JAXBTYPE> m_aImplClass;
   private ValidationEventHandler m_aEventHandler = JAXBBuilderDefaultSettings.getDefaultValidationEventHandler ();
   private Consumer <? super Unmarshaller> m_aUnmarshallerCustomizer;
-  private boolean m_bReadSecure = true;
+  private boolean m_bReadSecure = DEFAULT_READ_SECURE;
 
   public JAXBReaderBuilder (@Nonnull final IJAXBDocumentType aDocType)
   {

@@ -53,9 +53,9 @@ public enum EXMLParserFeature implements IHasName
    * When true: instructs the implementation to process XML securely. This may
    * set limits on XML constructs to avoid conditions such as denial of service
    * attacks.<br>
-   * When false: instructs the implementation to process XML acording the letter
-   * of the XML specifications ingoring security issues such as limits on XML
-   * constructs to avoid conditions such as denial of service attacks.<br>
+   * When false: instructs the implementation to process XML according the
+   * letter of the XML specifications ignoring security issues such as limits on
+   * XML constructs to avoid conditions such as denial of service attacks.<br>
    * Default: false<br>
    * ({@link XMLConstants#FEATURE_SECURE_PROCESSING})
    */
