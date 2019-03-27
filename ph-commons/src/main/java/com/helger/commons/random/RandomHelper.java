@@ -24,6 +24,11 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.helger.commons.system.SystemProperties;
+
 /**
  * A helper class that centrally works around the issue of slow
  * {@link SecureRandom} implementations on certain platforms in certain
@@ -35,7 +40,23 @@ import javax.annotation.concurrent.Immutable;
 @Immutable
 public final class RandomHelper
 {
-  private static final AtomicBoolean s_aUseSecureRandom = new AtomicBoolean (true);
+  private static final Logger LOGGER = LoggerFactory.getLogger (RandomHelper.class);
+  private static final AtomicBoolean s_aUseSecureRandom;
+
+  static
+  {
+    // Since v9.3.2
+    final String sPropValue = SystemProperties.getPropertyValueOrNull ("ph.disable-securerandom");
+    final boolean bUseSecureRandom = sPropValue == null || !"true".equalsIgnoreCase (sPropValue);
+    if (sPropValue != null)
+    {
+      // Log only, if a system property is present
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("Usage of SecureRandom inside ph-* libraries is by default " +
+                     (bUseSecureRandom ? "enabled" : "disabled"));
+    }
+    s_aUseSecureRandom = new AtomicBoolean (bUseSecureRandom);
+  }
 
   private RandomHelper ()
   {}
@@ -43,6 +64,8 @@ public final class RandomHelper
   public static void setUseSecureRandom (final boolean bUseSecureRandom)
   {
     s_aUseSecureRandom.set (bUseSecureRandom);
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("Usage of SecureRandom inside ph-* libraries is now " + (bUseSecureRandom ? "enabled" : "disabled"));
   }
 
   public static boolean isUseSecureRandom ()
@@ -50,6 +73,11 @@ public final class RandomHelper
     return s_aUseSecureRandom.get ();
   }
 
+  /**
+   * @return Either a {@link SecureRandom} (if enabled) or a regular
+   *         {@link Random}. Never <code>null</code>.
+   * @see #isUseSecureRandom()
+   */
   @Nonnull
   public static Random getRandom ()
   {
@@ -58,6 +86,10 @@ public final class RandomHelper
     return new Random ();
   }
 
+  /**
+   * @return Either a {@link SecureRandom} (if enabled) or <code>null</code>.
+   * @see #isUseSecureRandom()
+   */
   @Nullable
   public static SecureRandom getSecureRandom ()
   {

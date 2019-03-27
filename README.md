@@ -29,7 +29,8 @@ This project was the following modules:
 ## News and noteworthy
 
 * v9.3.2 - work in progress
-    * Logging a warning in `VerySecureRandom` if initial seeding takes more than 500 milliseconds 
+    * Logging a warning in `VerySecureRandom` if initial seeding takes more than 500 milliseconds
+    * If the system property `ph.disable-securerandom` with the value of `true` is present, the usage of `SecureRandom` in class `RandomHelper` is disabled by default. Respective logging was added.
 * v9.3.1 - 2019-03-06
     * Made `IJsonWriterSettings` serializable
     * Updated to BouncyCastle 1.61
