@@ -16,7 +16,6 @@
  */
 package com.helger.commons.random;
 
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -59,6 +58,16 @@ import com.helger.commons.timing.StopWatch;
  * <p>
  * Use <code>-Djava.security.egd=file:/dev/./urandom</code> on the commandline
  * to use urandom
+ * </p>
+ * <p>
+ * Find a good description that states how it is done this way:
+ * https://www.cigital.com/blog/proper-use-of-javas-securerandom/ Updated to
+ * https://www.synopsys.com/blogs/software-security/proper-use-of-javas-securerandom/
+ * <br>
+ * Initialize SecureRandom This is a lengthy operation, to be done only upon
+ * initialization of the application. <br>
+ * On Linux SecureRandom.getInstanceStrong () takes more or less forever (when
+ * using /dev/random) - up to 30 minutes until enough entropy is present
  * </p>
  *
  * @author Philip Helger
@@ -122,20 +131,25 @@ public final class VerySecureRandom
     {
       try
       {
+        // Try to use /dev/urandom first - on Linux machines this is preferred
+        // On Windows this throws a NoSuchAlgorithmException
+
         if (LOGGER.isDebugEnabled ())
-          LOGGER.debug ("Trying to get SecureRandom: SHA1PRNG");
+          LOGGER.debug ("Trying to get SecureRandom: NativePRNGNonBlocking");
 
         // Oracle
         // http://docs.oracle.com/javase/6/docs/technotes/guides/security/crypto/CryptoSpec.html
         // http://docs.oracle.com/javase/7/docs/technotes/guides/security/crypto/CryptoSpec.html
         // http://docs.oracle.com/javase/8/docs/technotes/guides/security/crypto/CryptoSpec.html
-        aSecureRandom = SecureRandom.getInstance ("SHA1PRNG");
+        aSecureRandom = SecureRandom.getInstance ("NativePRNGNonBlocking");
 
         if (LOGGER.isDebugEnabled ())
-          LOGGER.debug ("Using SecureRandom: SHA1PRNG");
+          LOGGER.debug ("Using SecureRandom: NativePRNGNonBlocking");
       }
       catch (final Exception ex2)
       {
+        // Fallback for Windows
+
         if (LOGGER.isDebugEnabled ())
           LOGGER.debug ("Trying to get default SecureRandom");
 
@@ -151,34 +165,7 @@ public final class VerySecureRandom
 
   static
   {
-    if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Strong SecureRandoms: " + java.security.Security.getProperty ("securerandom.strongAlgorithms"));
-
-    // Find a good description that states how it is done this way:
-    // https://www.cigital.com/blog/proper-use-of-javas-securerandom/
-    // Updated to
-    // https://www.synopsys.com/blogs/software-security/proper-use-of-javas-securerandom/
-
-    // Initialize SecureRandom
-    // This is a lengthy operation, to be done only upon
-    // initialization of the application. Especial with Java <= 1.5 on Linux
-    // this whole block takes more or less forever (when using /dev/random).
-    SecureRandom aNativeRandom;
-    try
-    {
-      // Try to use /dev/urandom first - on Linux machines this is preferred
-      // On Windows this throws a NoSuchAlgorithmException
-      aNativeRandom = SecureRandom.getInstance ("NativePRNGNonBlocking");
-      if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("SecureRandom.getInstance ('NativePRNGNonBLocking') was successful");
-    }
-    catch (final NoSuchAlgorithmException ex)
-    {
-      // fallback
-      aNativeRandom = new SecureRandom ();
-      if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("Falling back to default SecureRandom for initialization");
-    }
+    final SecureRandom aNativeRandom = _createSecureRandomInstance ();
 
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("Generating intial seed for VerySecureRandom - " + SEED_BYTE_COUNT + " bytes");
