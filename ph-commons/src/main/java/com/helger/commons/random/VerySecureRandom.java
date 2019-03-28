@@ -30,6 +30,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.lang.TimeValue;
+import com.helger.commons.string.StringParser;
+import com.helger.commons.system.SystemProperties;
 import com.helger.commons.timing.StopWatch;
 
 /**
@@ -70,6 +72,26 @@ public final class VerySecureRandom
   private static final int SEED_BYTE_COUNT = 64;
   private static final int WARNING_MILLISECONDS_THRESHOLD = 500;
   private static final SecureRandom s_aSecureRandom;
+  private static final AtomicInteger s_aReSeedInterval = new AtomicInteger (DEFAULT_RE_SEED_INTERVAL);
+  private static final AtomicInteger s_aCounter = new AtomicInteger (0);
+
+  static
+  {
+    // Since v9.3.2
+    final String sPropValue = SystemProperties.getPropertyValueOrNull ("ph.securerandom-reseed-interval");
+    final Integer aReSeedInterval = StringParser.parseIntObj (sPropValue);
+    if (aReSeedInterval != null)
+    {
+      final int nReSeedInterval = aReSeedInterval.intValue ();
+      if (nReSeedInterval >= 0)
+      {
+        // Log only, if a system property is present
+        if (LOGGER.isInfoEnabled ())
+          LOGGER.info ("VerySecureRandom uses by default re-seed interval " + nReSeedInterval);
+        s_aReSeedInterval.set (nReSeedInterval);
+      }
+    }
+  }
 
   /**
    * Create a new {@link SecureRandom} instance. First the IBM secure random is
@@ -174,6 +196,9 @@ public final class VerySecureRandom
     // Generate seed
     final byte [] aSeed = aNativeRandom.generateSeed (SEED_BYTE_COUNT);
 
+    if (LOGGER.isDebugEnabled ())
+      LOGGER.debug ("Finished generating intial seed for VerySecureRandom");
+
     // Initialize main secure random
     s_aSecureRandom = _createSecureRandomInstance ();
     s_aSecureRandom.setSeed (aSeed);
@@ -191,9 +216,6 @@ public final class VerySecureRandom
 
   private VerySecureRandom ()
   {}
-
-  private static final AtomicInteger s_aReSeedInterval = new AtomicInteger (DEFAULT_RE_SEED_INTERVAL);
-  private static final AtomicInteger s_aCounter = new AtomicInteger (0);
 
   /**
    * Set the interval of {@link #getInstance()} calls after which the random
@@ -234,7 +256,7 @@ public final class VerySecureRandom
       if ((s_aCounter.incrementAndGet () % nReSeedInterval) == 0)
       {
         if (LOGGER.isDebugEnabled ())
-          LOGGER.debug ("Re-seeding VerySecureRandom");
+          LOGGER.debug ("Re-seeding VerySecureRandom started");
 
         // Re-seed
         final TimeValue aDuration = StopWatch.runMeasured ( () -> s_aSecureRandom.setSeed (s_aSecureRandom.generateSeed (SEED_BYTE_COUNT)));

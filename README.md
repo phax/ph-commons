@@ -31,6 +31,7 @@ This project was the following modules:
 * v9.3.2 - work in progress
     * Logging a warning in `VerySecureRandom` if initial seeding takes more than 500 milliseconds
     * If the system property `ph.disable-securerandom` with the value of `true` is present, the usage of `SecureRandom` in class `RandomHelper` is disabled by default. Respective logging was added.
+    * The system property `ph.securerandom-reseed-interval` with a numeric value &ge; 0 can be used to set the default "re-seed interval" for class `VerySecureRandom`
 * v9.3.1 - 2019-03-06
     * Made `IJsonWriterSettings` serializable
     * Updated to BouncyCastle 1.61
