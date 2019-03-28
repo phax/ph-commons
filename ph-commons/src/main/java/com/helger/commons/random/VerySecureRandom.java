@@ -166,27 +166,18 @@ public final class VerySecureRandom
     SecureRandom aNativeRandom;
     try
     {
-      // Use configured strong default
-      aNativeRandom = SecureRandom.getInstanceStrong ();
+      // Try to use /dev/urandom first - on Linux machines this is preferred
+      // On Windows this throws a NoSuchAlgorithmException
+      aNativeRandom = SecureRandom.getInstance ("NativePRNGNonBlocking");
       if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("SecureRandom.getInstanceStrong () was successful");
+        LOGGER.debug ("SecureRandom.getInstance ('NativePRNGNonBLocking') was successful");
     }
     catch (final NoSuchAlgorithmException ex)
     {
-      try
-      {
-        // Use /dev/urandom
-        aNativeRandom = SecureRandom.getInstance ("NativePRNGNonBlocking");
-        if (LOGGER.isDebugEnabled ())
-          LOGGER.debug ("SecureRandom.getInstance ('NativePRNGNonBLocking') was successful");
-      }
-      catch (final NoSuchAlgorithmException ex2)
-      {
-        // Fall-fallback
-        aNativeRandom = new SecureRandom ();
-        if (LOGGER.isDebugEnabled ())
-          LOGGER.debug ("Falling back to default SecureRandom for initialization");
-      }
+      // fallback
+      aNativeRandom = new SecureRandom ();
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Falling back to default SecureRandom for initialization");
     }
 
     if (LOGGER.isDebugEnabled ())
