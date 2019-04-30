@@ -28,6 +28,8 @@ This project was the following modules:
 
 ## News and noteworthy
 
+* v9.3.3 - work in progress
+    * Added `ICommonsIterable` methods `findFirstIndex` and `findLastIndex` 
 * v9.3.2 - 2019-03-28
     * Logging a warning in `VerySecureRandom` if initial seeding takes more than 500 milliseconds
     * If the system property `ph.disable-securerandom` with the value of `true` is present, the usage of `SecureRandom` in class `RandomHelper` is disabled by default. Respective logging was added.

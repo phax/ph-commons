@@ -378,4 +378,47 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>
         ret++;
     return ret;
   }
+
+  /**
+   * Find the first index where the provided filter matches.
+   *
+   * @param aFilter
+   *        The filter to use. May not be <code>null</code>.
+   * @return -1 if no element matches the filter, the 0-based index otherwise.
+   * @since 9.3.3
+   */
+  @Nonnegative
+  default int findFirstIndex (@Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
+  {
+    int nIndex = 0;
+    for (final ELEMENTTYPE aElement : this)
+    {
+      if (aFilter.test (aElement))
+        return nIndex;
+      nIndex++;
+    }
+    return -1;
+  }
+
+  /**
+   * Find the last index where the provided filter matches.
+   *
+   * @param aFilter
+   *        The filter to use. May not be <code>null</code>.
+   * @return -1 if no element matches the filter, the 0-based index otherwise.
+   * @since 9.3.3
+   */
+  @Nonnegative
+  default int findLastIndex (@Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
+  {
+    int ret = -1;
+    int nIndex = 0;
+    for (final ELEMENTTYPE aElement : this)
+    {
+      if (aFilter.test (aElement))
+        ret = nIndex;
+      nIndex++;
+    }
+    return ret;
+  }
 }

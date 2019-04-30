@@ -88,4 +88,25 @@ public final class CommonsArrayListTest
     });
     assertEquals (2, aCounter.intValue ());
   }
+
+  @Test
+  public void testFindIndex ()
+  {
+    final ICommonsList <String> aTest = new CommonsArrayList <> ();
+    aTest.add ("a");
+    aTest.add ("b");
+    aTest.add ("c");
+    aTest.add ("b");
+    aTest.add ("a");
+
+    assertEquals (0, aTest.findFirstIndex (x -> x.equals ("a")));
+    assertEquals (1, aTest.findFirstIndex (x -> x.equals ("b")));
+    assertEquals (2, aTest.findFirstIndex (x -> x.equals ("c")));
+    assertEquals (-1, aTest.findFirstIndex (x -> x.equals ("d")));
+
+    assertEquals (4, aTest.findLastIndex (x -> x.equals ("a")));
+    assertEquals (3, aTest.findLastIndex (x -> x.equals ("b")));
+    assertEquals (2, aTest.findLastIndex (x -> x.equals ("c")));
+    assertEquals (-1, aTest.findLastIndex (x -> x.equals ("d")));
+  }
 }
