@@ -41,6 +41,7 @@
     <name>Philip Helger</name>
     <url>http://www.helger.com</url>
   </organization>
+  
   <developers>
     <developer>
       <id>philip</id>
@@ -63,7 +64,7 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-jaxws-pom</artifactId>
-      <version>1.1.0</version>
+      <version>1.1.2</version>
       <type>pom</type>
     </dependency>
   </dependencies>
