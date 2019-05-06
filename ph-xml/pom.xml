@@ -30,6 +30,7 @@
   <description>Java 1.8+ Library with XML handling routines</description>
   <url>https://github.com/phax/ph-commons/ph-xml</url>
   <inceptionYear>2014</inceptionYear>
+
   <licenses>
     <license>
       <name>Apache 2</name>
@@ -37,10 +38,12 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+
   <organization>
     <name>Philip Helger</name>
     <url>http://www.helger.com</url>
   </organization>
+
   <developers>
     <developer>
       <id>philip</id>
@@ -49,6 +52,7 @@
       <url>http://www.helger.com</url>
     </developer>
   </developers>
+
   <dependencies>
     <dependency>
       <groupId>com.helger</groupId>
@@ -76,14 +80,16 @@
         </exclusion>
       </exclusions>
     </dependency>
+
     <!-- OSGI container is required for a test case -->
     <dependency>
       <groupId>org.apache.felix</groupId>
       <artifactId>org.apache.felix.framework</artifactId>
-      <version>6.0.2</version>
+      <version>6.0.3</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
+
   <build>
     <plugins>
       <plugin>
