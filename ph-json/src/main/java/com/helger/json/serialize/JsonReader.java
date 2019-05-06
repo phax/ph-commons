@@ -38,6 +38,7 @@ import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.resource.FileSystemResource;
+import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.NonBlockingStringReader;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.state.ESuccess;
@@ -875,6 +876,41 @@ public final class JsonReader
       ValueEnforcer.notNull (aFallbackCharset, "FallbackCharset");
 
       return setSource (new FileSystemResource (aPath), aFallbackCharset);
+    }
+
+    /**
+     * Use a byte array as JSON source. Assumes UTF-8 as fallback charset.
+     *
+     * @param aBytes
+     *        The byte array containing the JSON to be parsed. May not be
+     *        <code>null</code>.
+     * @return this for chaining
+     * @since 9.3.4
+     */
+    @Nonnull
+    public Builder setSource (@Nonnull final byte [] aBytes)
+    {
+      return setSource (aBytes, JsonReader.DEFAULT_CHARSET);
+    }
+
+    /**
+     * Use a byte array as JSON source with a custom fallback charset.
+     *
+     * @param aBytes
+     *        The byte array containing the JSON to be parsed. May not be
+     *        <code>null</code>.
+     * @param aFallbackCharset
+     *        The fallback charset to be used. May not be <code>null</code>.
+     * @return this for chaining
+     * @since 9.3.4
+     */
+    @Nonnull
+    public Builder setSource (@Nonnull final byte [] aBytes, @Nonnull final Charset aFallbackCharset)
+    {
+      ValueEnforcer.notNull (aBytes, "Bytes");
+      ValueEnforcer.notNull (aFallbackCharset, "FallbackCharset");
+
+      return setSource (new NonBlockingByteArrayInputStream (aBytes), aFallbackCharset);
     }
 
     /**

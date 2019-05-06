@@ -28,6 +28,8 @@ This project was the following modules:
 
 ## News and noteworthy
 
+* v9.3.4 - work in progress
+    * Added new overloads for `JsonReader.Builder.setSource`
 * v9.3.3 - 2019-05-06
     * Added `ICommonsIterable` methods `findFirstIndex` and `findLastIndex`
     * Added support for Java 12
