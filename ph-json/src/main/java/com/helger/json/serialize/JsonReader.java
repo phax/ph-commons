@@ -197,7 +197,9 @@ public final class JsonReader
    *        The file to be parsed. May not be <code>null</code>.
    * @return <code>true</code> if the file can be parsed without error,
    *         <code>false</code> if not
+   * @deprecated Since v9.3.3 - use {@link #builder()} instead.
    */
+  @Deprecated
   public static boolean isValidJson (@Nonnull final File aFile)
   {
     return isValidJson (aFile, DEFAULT_CHARSET);
@@ -217,7 +219,9 @@ public final class JsonReader
    *        present. May not be <code>null</code>.
    * @return <code>true</code> if the file can be parsed without error,
    *         <code>false</code> if not
+   * @deprecated Since v9.3.3 - use {@link #builder()} instead.
    */
+  @Deprecated
   public static boolean isValidJson (@Nonnull final File aFile, @Nonnull final Charset aFallbackCharset)
   {
     return isValidJson (new FileSystemResource (aFile), aFallbackCharset);
@@ -234,7 +238,9 @@ public final class JsonReader
    *        The file to be parsed. May not be <code>null</code>.
    * @return <code>true</code> if the file can be parsed without error,
    *         <code>false</code> if not
+   * @deprecated Since v9.3.3 - use {@link #builder()} instead.
    */
+  @Deprecated
   public static boolean isValidJson (@Nonnull final Path aPath)
   {
     return isValidJson (aPath, DEFAULT_CHARSET);
@@ -254,7 +260,9 @@ public final class JsonReader
    *        present. May not be <code>null</code>.
    * @return <code>true</code> if the file can be parsed without error,
    *         <code>false</code> if not
+   * @deprecated Since v9.3.3 - use {@link #builder()} instead.
    */
+  @Deprecated
   public static boolean isValidJson (@Nonnull final Path aPath, @Nonnull final Charset aFallbackCharset)
   {
     return isValidJson (new FileSystemResource (aPath), aFallbackCharset);
@@ -271,7 +279,9 @@ public final class JsonReader
    *        The resource to be parsed. May not be <code>null</code>.
    * @return <code>true</code> if the file can be parsed without error,
    *         <code>false</code> if not
+   * @deprecated Since v9.3.3 - use {@link #builder()} instead.
    */
+  @Deprecated
   public static boolean isValidJson (@Nonnull final IHasInputStream aISP)
   {
     return isValidJson (aISP, DEFAULT_CHARSET);
@@ -291,7 +301,9 @@ public final class JsonReader
    *        present. May not be <code>null</code>.
    * @return <code>true</code> if the file can be parsed without error,
    *         <code>false</code> if not
+   * @deprecated Since v9.3.3 - use {@link #builder()} instead.
    */
+  @Deprecated
   public static boolean isValidJson (@Nonnull final IHasInputStream aISP, @Nonnull final Charset aFallbackCharset)
   {
     ValueEnforcer.notNull (aISP, "InputStreamProvider");
@@ -319,7 +331,9 @@ public final class JsonReader
    *        <code>null</code>.
    * @return <code>true</code> if the Json is valid according to the version,
    *         <code>false</code> if not
+   * @deprecated Since v9.3.3 - use {@link #builder()} instead.
    */
+  @Deprecated
   public static boolean isValidJson (@Nonnull @WillClose final InputStream aIS)
   {
     return isValidJson (aIS, DEFAULT_CHARSET);
@@ -340,7 +354,9 @@ public final class JsonReader
    *        <code>null</code>.
    * @return <code>true</code> if the Json is valid according to the version,
    *         <code>false</code> if not
+   * @deprecated Since v9.3.3 - use {@link #builder()} instead.
    */
+  @Deprecated
   public static boolean isValidJson (@Nonnull @WillClose final InputStream aIS, @Nonnull final Charset aFallbackCharset)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
@@ -368,7 +384,9 @@ public final class JsonReader
    *        The Json string to scan. May not be <code>null</code>.
    * @return <code>true</code> if the Json is valid according to the version,
    *         <code>false</code> if not
+   * @deprecated Since v9.3.3 - use {@link #builder()} instead.
    */
+  @Deprecated
   public static boolean isValidJson (@Nonnull final String sJson)
   {
     ValueEnforcer.notNull (sJson, "Json");
@@ -386,7 +404,9 @@ public final class JsonReader
    *        The reader to use. May not be <code>null</code>.
    * @return <code>true</code> if the Json is valid according to the version,
    *         <code>false</code> if not
+   * @deprecated Since v9.3.3 - use {@link #builder()} instead.
    */
+  @Deprecated
   public static boolean isValidJson (@Nonnull @WillClose final Reader aReader)
   {
     ValueEnforcer.notNull (aReader, "Reader");
@@ -435,7 +455,7 @@ public final class JsonReader
   @Nullable
   public static IJson readFromString (@Nonnull final String sJson)
   {
-    return readFromReader (new NonBlockingStringReader (sJson), (IJsonParseExceptionCallback) null);
+    return builder ().setSource (sJson).read ();
   }
 
   /**
@@ -449,12 +469,14 @@ public final class JsonReader
    *        unrecoverable parsing errors. May be <code>null</code>.
    * @return <code>null</code> if reading failed, the Json declarations
    *         otherwise.
+   * @deprecated Since v9.3.3 - use {@link #builder()} instead.
    */
   @Nullable
+  @Deprecated
   public static IJson readFromString (@Nonnull final String sJson,
                                       @Nullable final IJsonParseExceptionCallback aCustomExceptionHandler)
   {
-    return readFromReader (new NonBlockingStringReader (sJson), aCustomExceptionHandler);
+    return builder ().setSource (sJson).setCustomExceptionCallback (aCustomExceptionHandler).read ();
   }
 
   /**
@@ -465,11 +487,13 @@ public final class JsonReader
    *        <code>null</code>.
    * @return <code>null</code> if reading failed, the Json declarations
    *         otherwise.
+   * @deprecated Since v9.3.3 - use {@link #builder()} instead.
    */
   @Nullable
+  @Deprecated
   public static IJson readFromFile (@Nonnull final File aFile)
   {
-    return readFromFile (aFile, DEFAULT_CHARSET);
+    return builder ().setSource (aFile).read ();
   }
 
   /**
@@ -483,11 +507,13 @@ public final class JsonReader
    *        <code>null</code>.
    * @return <code>null</code> if reading failed, the Json declarations
    *         otherwise.
+   * @deprecated Since v9.3.3 - use {@link #builder()} instead.
    */
   @Nullable
+  @Deprecated
   public static IJson readFromFile (@Nonnull final File aFile, @Nonnull final Charset aFallbackCharset)
   {
-    return readFromFile (aFile, aFallbackCharset, null);
+    return builder ().setSource (aFile, aFallbackCharset).read ();
   }
 
   /**
@@ -504,13 +530,15 @@ public final class JsonReader
    *        unrecoverable parsing errors. May be <code>null</code>.
    * @return <code>null</code> if reading failed, the Json declarations
    *         otherwise.
+   * @deprecated Since v9.3.3 - use {@link #builder()} instead.
    */
   @Nullable
+  @Deprecated
   public static IJson readFromFile (@Nonnull final File aFile,
                                     @Nonnull final Charset aFallbackCharset,
                                     @Nullable final IJsonParseExceptionCallback aCustomExceptionHandler)
   {
-    return readFromStream (new FileSystemResource (aFile), aFallbackCharset, aCustomExceptionHandler);
+    return builder ().setSource (aFile, aFallbackCharset).setCustomExceptionCallback (aCustomExceptionHandler).read ();
   }
 
   /**
@@ -525,7 +553,7 @@ public final class JsonReader
   @Nullable
   public static IJson readFromPath (@Nonnull final Path aPath)
   {
-    return readFromPath (aPath, DEFAULT_CHARSET);
+    return builder ().setSource (aPath).read ();
   }
 
   /**
@@ -539,11 +567,13 @@ public final class JsonReader
    *        <code>null</code>.
    * @return <code>null</code> if reading failed, the Json declarations
    *         otherwise.
+   * @deprecated Since v9.3.3 - use {@link #builder()} instead.
    */
   @Nullable
+  @Deprecated
   public static IJson readFromPath (@Nonnull final Path aPath, @Nonnull final Charset aFallbackCharset)
   {
-    return readFromPath (aPath, aFallbackCharset, null);
+    return builder ().setSource (aPath, aFallbackCharset).read ();
   }
 
   /**
@@ -560,13 +590,15 @@ public final class JsonReader
    *        unrecoverable parsing errors. May be <code>null</code>.
    * @return <code>null</code> if reading failed, the Json declarations
    *         otherwise.
+   * @deprecated Since v9.3.3 - use {@link #builder()} instead.
    */
   @Nullable
+  @Deprecated
   public static IJson readFromPath (@Nonnull final Path aPath,
                                     @Nonnull final Charset aFallbackCharset,
                                     @Nullable final IJsonParseExceptionCallback aCustomExceptionHandler)
   {
-    return readFromStream (new FileSystemResource (aPath), aFallbackCharset, aCustomExceptionHandler);
+    return builder ().setSource (aPath, aFallbackCharset).setCustomExceptionCallback (aCustomExceptionHandler).read ();
   }
 
   /**
@@ -577,11 +609,13 @@ public final class JsonReader
    *        The input stream provider to use. May not be <code>null</code>.
    * @return <code>null</code> if reading failed, the Json declarations
    *         otherwise.
+   * @deprecated Since v9.3.3 - use {@link #builder()} instead.
    */
   @Nullable
+  @Deprecated
   public static IJson readFromStream (@Nonnull final IHasInputStream aISP)
   {
-    return readFromStream (aISP, DEFAULT_CHARSET);
+    return builder ().setSource (aISP).read ();
   }
 
   /**
@@ -594,11 +628,13 @@ public final class JsonReader
    *        <code>null</code>.
    * @return <code>null</code> if reading failed, the Json declarations
    *         otherwise.
+   * @deprecated Since v9.3.3 - use {@link #builder()} instead.
    */
   @Nullable
+  @Deprecated
   public static IJson readFromStream (@Nonnull final IHasInputStream aISP, @Nonnull final Charset aFallbackCharset)
   {
-    return readFromStream (aISP, aFallbackCharset, null);
+    return builder ().setSource (aISP, aFallbackCharset).read ();
   }
 
   /**
@@ -614,17 +650,15 @@ public final class JsonReader
    *        unrecoverable parsing errors. May be <code>null</code>.
    * @return <code>null</code> if reading failed, the Json declarations
    *         otherwise.
+   * @deprecated Since v9.3.3 - use {@link #builder()} instead.
    */
   @Nullable
+  @Deprecated
   public static IJson readFromStream (@Nonnull final IHasInputStream aISP,
                                       @Nonnull final Charset aFallbackCharset,
                                       @Nullable final IJsonParseExceptionCallback aCustomExceptionHandler)
   {
-    ValueEnforcer.notNull (aISP, "InputStreamProvider");
-    final InputStream aIS = aISP.getInputStream ();
-    if (aIS == null)
-      return null;
-    return readFromStream (aIS, aFallbackCharset, aCustomExceptionHandler);
+    return builder ().setSource (aISP, aFallbackCharset).setCustomExceptionCallback (aCustomExceptionHandler).read ();
   }
 
   /**
@@ -635,11 +669,13 @@ public final class JsonReader
    *        The input stream to use. May not be <code>null</code>.
    * @return <code>null</code> if reading failed, the Json declarations
    *         otherwise.
+   * @deprecated Since v9.3.3 - use {@link #builder()} instead.
    */
   @Nullable
+  @Deprecated
   public static IJson readFromStream (@Nonnull final InputStream aIS)
   {
-    return readFromStream (aIS, DEFAULT_CHARSET);
+    return builder ().setSource (aIS).read ();
   }
 
   /**
@@ -652,11 +688,13 @@ public final class JsonReader
    *        <code>null</code>.
    * @return <code>null</code> if reading failed, the Json declarations
    *         otherwise.
+   * @deprecated Since v9.3.3 - use {@link #builder()} instead.
    */
   @Nullable
+  @Deprecated
   public static IJson readFromStream (@Nonnull final InputStream aIS, @Nonnull final Charset aFallbackCharset)
   {
-    return readFromStream (aIS, aFallbackCharset, null);
+    return builder ().setSource (aIS, aFallbackCharset).read ();
   }
 
   /**
@@ -672,19 +710,17 @@ public final class JsonReader
    *        unrecoverable parsing errors. May be <code>null</code>.
    * @return <code>null</code> if reading failed, the Json declarations
    *         otherwise.
+   * @deprecated Since v9.3.3 - use {@link #builder()} instead.
    */
   @Nullable
+  @Deprecated
   public static IJson readFromStream (@Nonnull final InputStream aIS,
                                       @Nonnull final Charset aFallbackCharset,
                                       @Nullable final IJsonParseExceptionCallback aCustomExceptionCallback)
   {
-    ValueEnforcer.notNull (aIS, "InputStream");
-    ValueEnforcer.notNull (aFallbackCharset, "FallbackCharset");
-
     try
     {
-      final Reader aReader = CharsetHelper.getReaderByBOM (aIS, aFallbackCharset);
-      return readJson (aReader, (IJsonParserCustomizeCallback) null, aCustomExceptionCallback);
+      return builder ().setSource (aIS, aFallbackCharset).setCustomExceptionCallback (aCustomExceptionCallback).read ();
     }
     finally
     {
@@ -699,11 +735,13 @@ public final class JsonReader
    *        The reader to use. May not be <code>null</code>.
    * @return <code>null</code> if reading failed, the Json declarations
    *         otherwise.
+   * @deprecated Since v9.3.3 - use {@link #builder()} instead.
    */
   @Nullable
+  @Deprecated
   public static IJson readFromReader (@Nonnull final Reader aReader)
   {
-    return readFromReader (aReader, null);
+    return builder ().setSource (aReader).read ();
   }
 
   /**
@@ -716,14 +754,271 @@ public final class JsonReader
    *        unrecoverable parsing errors. May be <code>null</code>.
    * @return <code>null</code> if reading failed, the Json declarations
    *         otherwise.
+   * @deprecated Since v9.3.3 - use {@link #builder()} instead.
    */
   @Nullable
+  @Deprecated
   public static IJson readFromReader (@Nonnull final Reader aReader,
                                       @Nullable final IJsonParseExceptionCallback aCustomExceptionCallback)
   {
-    ValueEnforcer.notNull (aReader, "Reader");
+    return builder ().setSource (aReader).setCustomExceptionCallback (aCustomExceptionCallback).read ();
+  }
 
-    // No charset determination, as the Reader already has an implicit Charset
-    return readJson (StreamHelper.getBuffered (aReader), (IJsonParserCustomizeCallback) null, aCustomExceptionCallback);
+  /**
+   * @return Create a new {@link Builder} instance.
+   * @since 9.3.3
+   */
+  @Nonnull
+  public static Builder builder ()
+  {
+    return new Builder ();
+  }
+
+  /**
+   * Factory for JSon reader for different sources. Use {@link #isValidJson()}
+   * to check if the JSON is syntactically correct and {@link #read()} to
+   * convert it to a parsed object.
+   *
+   * @author Philip Helger
+   * @since 9.3.3
+   */
+  public static class Builder implements AutoCloseable
+  {
+    private Reader m_aReader;
+    private IJsonParserCustomizeCallback m_aCustomizeCallback;
+    private IJsonParseExceptionCallback m_aCustomeExceptionCallback;
+
+    public Builder ()
+    {}
+
+    public void close ()
+    {
+      StreamHelper.close (m_aReader);
+    }
+
+    /**
+     * Use a constant JSON string as source
+     *
+     * @param sJson
+     *        The JSON String to be parser. May not be <code>null</code>.
+     * @return this for chaining
+     */
+    @Nonnull
+    public Builder setSource (@Nonnull final String sJson)
+    {
+      ValueEnforcer.notNull (sJson, "Json");
+
+      return setSource (new NonBlockingStringReader (sJson));
+    }
+
+    /**
+     * Use a {@link File} as JSON source. Assumes UTF-8 as fallback charset.
+     *
+     * @param aFile
+     *        The File containing the JSON to be parsed. May not be
+     *        <code>null</code>.
+     * @return this for chaining
+     */
+    @Nonnull
+    public Builder setSource (@Nonnull final File aFile)
+    {
+      return setSource (aFile, JsonReader.DEFAULT_CHARSET);
+    }
+
+    /**
+     * Use a {@link File} as JSON source with a custom fallback charset.
+     *
+     * @param aFile
+     *        The File containing the JSON to be parsed. May not be
+     *        <code>null</code>.
+     * @param aFallbackCharset
+     *        The fallback charset to be used. May not be <code>null</code>.
+     * @return this for chaining
+     */
+    @Nonnull
+    public Builder setSource (@Nonnull final File aFile, @Nonnull final Charset aFallbackCharset)
+    {
+      ValueEnforcer.notNull (aFile, "File");
+      ValueEnforcer.notNull (aFallbackCharset, "FallbackCharset");
+
+      return setSource (new FileSystemResource (aFile), aFallbackCharset);
+    }
+
+    /**
+     * Use a {@link Path} as JSON source. Assumes UTF-8 as fallback charset.
+     *
+     * @param aPath
+     *        The File containing the JSON to be parsed. May not be
+     *        <code>null</code>.
+     * @return this for chaining
+     */
+    @Nonnull
+    public Builder setSource (@Nonnull final Path aPath)
+    {
+      return setSource (aPath, JsonReader.DEFAULT_CHARSET);
+    }
+
+    /**
+     * Use a {@link Path} as JSON source with a custom fallback charset.
+     *
+     * @param aPath
+     *        The File containing the JSON to be parsed. May not be
+     *        <code>null</code>.
+     * @param aFallbackCharset
+     *        The fallback charset to be used. May not be <code>null</code>.
+     * @return this for chaining
+     */
+    @Nonnull
+    public Builder setSource (@Nonnull final Path aPath, @Nonnull final Charset aFallbackCharset)
+    {
+      ValueEnforcer.notNull (aPath, "Path");
+      ValueEnforcer.notNull (aFallbackCharset, "FallbackCharset");
+
+      return setSource (new FileSystemResource (aPath), aFallbackCharset);
+    }
+
+    /**
+     * Use an InputStream provider as JSON source. Assumes UTF-8 as fallback
+     * charset.
+     *
+     * @param aISP
+     *        The InputStream provider to be used. May not be <code>null</code>.
+     * @return this for chaining
+     */
+    @Nonnull
+    public Builder setSource (@Nonnull final IHasInputStream aISP)
+    {
+      return setSource (aISP, JsonReader.DEFAULT_CHARSET);
+    }
+
+    /**
+     * Use an InputStream provider as JSON source with a custom fallback
+     * charset.
+     *
+     * @param aISP
+     *        The InputStream provider to be used. May not be <code>null</code>.
+     * @param aFallbackCharset
+     *        The fallback charset to be used. May not be <code>null</code>.
+     * @return this for chaining
+     */
+    @Nonnull
+    public Builder setSource (@Nonnull final IHasInputStream aISP, @Nonnull final Charset aFallbackCharset)
+    {
+      ValueEnforcer.notNull (aISP, "InputStreamProvider");
+      ValueEnforcer.notNull (aFallbackCharset, "FallbackCharset");
+
+      final InputStream aIS = aISP.getInputStream ();
+      if (aIS != null)
+        setSource (aIS, aFallbackCharset);
+      return this;
+    }
+
+    /**
+     * Use an {@link InputStream} as JSON source. Assumes UTF-8 as fallback
+     * charset.
+     *
+     * @param aIS
+     *        The InputStream to be used. May not be <code>null</code>.
+     * @return this for chaining
+     */
+    @Nonnull
+    public Builder setSource (@Nonnull final InputStream aIS)
+    {
+      return setSource (aIS, JsonReader.DEFAULT_CHARSET);
+    }
+
+    /**
+     * Use an {@link InputStream} as JSON source with a custom fallback charset.
+     *
+     * @param aIS
+     *        The InputStream to be used. May not be <code>null</code>.
+     * @param aFallbackCharset
+     *        The fallback charset to be used. May not be <code>null</code>.
+     * @return this for chaining
+     */
+    @Nonnull
+    public Builder setSource (@Nonnull final InputStream aIS, @Nonnull final Charset aFallbackCharset)
+    {
+      ValueEnforcer.notNull (aIS, "InputStream");
+      ValueEnforcer.notNull (aFallbackCharset, "FallbackCharset");
+
+      final Reader aReader = CharsetHelper.getReaderByBOM (aIS, aFallbackCharset);
+      if (aReader != null)
+        return setSource (aReader);
+
+      return this;
+    }
+
+    /**
+     * Set a {@link Reader} as JSON source. Internally it is ensured, that it is
+     * buffered.
+     *
+     * @param aReader
+     *        The Reader to be used. May not be <code>null</code>.
+     * @return this for chaining
+     */
+    @Nonnull
+    public Builder setSource (@Nonnull final Reader aReader)
+    {
+      ValueEnforcer.notNull (aReader, "Reader");
+      if (m_aReader != null)
+        LOGGER.warn ("Another source is already present - this may cause a resource leak, because the old source is not closed automatically");
+
+      m_aReader = StreamHelper.getBuffered (aReader);
+      return this;
+    }
+
+    /**
+     * Set the optional customizing callback.
+     *
+     * @param aCustomizeCallback
+     *        The customizing callback to be used. May be <code>null</code>.
+     * @return this for chaining
+     */
+    @Nonnull
+    public Builder setCustomizeCallback (@Nullable final IJsonParserCustomizeCallback aCustomizeCallback)
+    {
+      m_aCustomizeCallback = aCustomizeCallback;
+      return this;
+    }
+
+    /**
+     * Set the optional exception callback.
+     *
+     * @param aCustomExceptionCallback
+     *        The exception callback to be used. May be <code>null</code>.
+     * @return this for chaining
+     */
+    @Nonnull
+    public Builder setCustomExceptionCallback (@Nullable final IJsonParseExceptionCallback aCustomExceptionCallback)
+    {
+      m_aCustomeExceptionCallback = aCustomExceptionCallback;
+      return this;
+    }
+
+    /**
+     * Check if the provided source is syntactically correct JSON or not,
+     * without building an object structure.
+     *
+     * @return <code>true</code> if it is valid JSON, <code>false</code> if not
+     */
+    public boolean isValidJson ()
+    {
+      if (m_aReader == null)
+        throw new IllegalStateException ("No source is set.");
+      return JsonReader.parseJson (m_aReader,
+                                   new DoNothingJsonParserHandler (),
+                                   m_aCustomizeCallback,
+                                   m_aCustomeExceptionCallback)
+                       .isSuccess ();
+    }
+
+    @Nullable
+    public IJson read ()
+    {
+      if (m_aReader == null)
+        throw new IllegalStateException ("No source is set.");
+      return JsonReader.readJson (m_aReader, m_aCustomizeCallback, m_aCustomeExceptionCallback);
+    }
   }
 }

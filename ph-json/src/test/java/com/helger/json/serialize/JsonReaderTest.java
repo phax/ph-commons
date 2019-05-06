@@ -147,14 +147,16 @@ public final class JsonReaderTest
                                               "{ \"v\":'ab\"c'}",
                                               "{ 'value':'string'}" })
     {
-      assertTrue ("Failed to parse: " + sJson, JsonReader.isValidJson (sJson));
-      final IJson aJson = JsonReader.readFromString (sJson);
+      assertTrue ("Failed to parse: " + sJson, JsonReader.builder ().setSource (sJson).isValidJson ());
+      final IJson aJson = JsonReader.builder ().setSource (sJson).read ();
       assertNotNull ("Failed to parse: " + sJson, aJson);
       _testReassemble (sJson);
     }
 
-    assertEquals ("\"slashed/value\"", JsonReader.readFromString ("\"slashed/value\"").getAsJsonString ());
-    assertEquals ("\"slashed/value\"", JsonReader.readFromString ("\"slashed\\/value\"").getAsJsonString ());
+    assertEquals ("\"slashed/value\"",
+                  JsonReader.builder ().setSource ("\"slashed/value\"").read ().getAsJsonString ());
+    assertEquals ("\"slashed/value\"",
+                  JsonReader.builder ().setSource ("\"slashed\\/value\"").read ().getAsJsonString ());
   }
 
   @Test
@@ -173,8 +175,8 @@ public final class JsonReaderTest
                                               "  /* a */ {  /* a */ \"name\"  /* a */ :  /* a */ 999  /* a */ }  /* a */",
                                               "  /* a */ {  /* a */ \"name\"  /* a */ :  /* a */ 999  /* a */ , /* a */ \"name2\"  /* a */ :  /* a */ \"string\"  /* a */ }  /* a */" })
     {
-      assertTrue ("Failed to parse: " + sJson, JsonReader.isValidJson (sJson));
-      final IJson aJson = JsonReader.readFromString (sJson);
+      assertTrue ("Failed to parse: " + sJson, JsonReader.builder ().setSource (sJson).isValidJson ());
+      final IJson aJson = JsonReader.builder ().setSource (sJson).read ();
       assertNotNull ("Failed to parse: " + sJson, aJson);
       _testReassemble (sJson);
     }
@@ -238,8 +240,8 @@ public final class JsonReaderTest
                                               "{ a,b:123}",
                                               "{ a]b:123}", })
     {
-      assertFalse ("Parsed even if error expected: " + sJson, JsonReader.isValidJson (sJson));
-      final IJson aJson = JsonReader.readFromString (sJson);
+      assertFalse ("Parsed even if error expected: " + sJson, JsonReader.builder ().setSource (sJson).isValidJson ());
+      final IJson aJson = JsonReader.builder ().setSource (sJson).read ();
       assertNull ("Parsed even if error expected: " + sJson, aJson);
     }
   }
@@ -250,15 +252,20 @@ public final class JsonReaderTest
     for (final File f : new FileSystemIterator ("src/test/resources/json"))
       if (f.isFile () && f.getName ().endsWith (".json"))
       {
-        LOGGER.info ("Reading file " + f.getName ());
-        final StopWatch aSW1 = StopWatch.createdStarted ();
-        assertTrue ("Failed to parse file: " + f.getName (), JsonReader.isValidJson (f));
-        LOGGER.info ("  Validation: " + aSW1.stopAndGetMillis () + " ms");
-
-        final StopWatch aSW2 = StopWatch.createdStarted ();
-        final IJson aJson = JsonReader.readFromFile (f);
-        assertNotNull ("Failed to parse: " + f.getAbsolutePath (), aJson);
-        LOGGER.info ("  Reading: " + aSW2.stopAndGetMillis () + " ms");
+        try (final JsonReader.Builder aBuilder = JsonReader.builder ().setSource (f))
+        {
+          LOGGER.info ("Reading file " + f.getName ());
+          final StopWatch aSW1 = StopWatch.createdStarted ();
+          assertTrue ("Failed to parse file: " + f.getName (), aBuilder.isValidJson ());
+          LOGGER.info ("  Validation: " + aSW1.stopAndGetMillis () + " ms");
+        }
+        try (final JsonReader.Builder aBuilder = JsonReader.builder ().setSource (f))
+        {
+          final StopWatch aSW2 = StopWatch.createdStarted ();
+          final IJson aJson = aBuilder.read ();
+          assertNotNull ("Failed to parse: " + f.getAbsolutePath (), aJson);
+          LOGGER.info ("  Reading: " + aSW2.stopAndGetMillis () + " ms");
+        }
       }
   }
 
@@ -267,11 +274,12 @@ public final class JsonReaderTest
   {
     for (final File f : new FileSystemIterator ("src/test/resources/json/fail"))
       if (f.isFile () && f.getName ().endsWith (".json"))
-      {
-        LOGGER.info ("Reading file " + f.getName ());
-        assertFalse ("Parsed even if error expected: " + f.getName (), JsonReader.isValidJson (f));
-        final IJson aJson = JsonReader.readFromFile (f);
-        assertNull ("Parsed even if error expected: " + f.getName (), aJson);
-      }
+        try (final JsonReader.Builder aBuilder = JsonReader.builder ().setSource (f))
+        {
+          LOGGER.info ("Reading file " + f.getName ());
+          assertFalse ("Parsed even if error expected: " + f.getName (), aBuilder.isValidJson ());
+          final IJson aJson = aBuilder.read ();
+          assertNull ("Parsed even if error expected: " + f.getName (), aJson);
+        }
   }
 }

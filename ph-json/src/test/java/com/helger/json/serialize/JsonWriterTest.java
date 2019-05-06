@@ -161,7 +161,7 @@ public final class JsonWriterTest
     assertNotNull ("Failed: " + aValue, aJson);
     final String sJson = aJson.getAsJsonString ();
     assertNotNull (sJson);
-    final IJson aJsonRead = JsonReader.readFromString (sJson);
+    final IJson aJsonRead = JsonReader.builder ().setSource (sJson).read ();
     assertNotNull ("Failed to read: " + sJson, aJsonRead);
     final String sJsonRead = aJsonRead.getAsJsonString ();
     assertNotNull (sJsonRead);
