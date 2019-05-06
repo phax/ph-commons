@@ -241,6 +241,12 @@ public final class CharsetHelper
     return 0;
   }
 
+  /**
+   * A wrapper that has an {@link InputStream}, an optional Unicode BOM as
+   * {@link EUnicodeBOM} and an optional {@link Charset}.
+   * 
+   * @author Philip Helger
+   */
   public static final class InputStreamAndCharset implements IHasInputStream
   {
     private final InputStream m_aIS;
