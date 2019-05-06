@@ -26,6 +26,8 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import com.helger.settings.exchange.xml.SettingsPersistenceXML;
+
 /**
  * Test class for class {@link ConfigFile}.
  *
@@ -34,9 +36,9 @@ import org.junit.Test;
 public final class ConfigFileTest
 {
   @Test
-  public void testAll ()
+  public void testProperties ()
   {
-    final ConfigFile aCF = new ConfigFileBuilder ().addPath ("config.properties").build ();
+    final ConfigFile aCF = new ConfigFileBuilder ().addPath ("test.properties").build ();
     assertTrue (aCF.isRead ());
     // Existing elements
     assertEquals ("string", aCF.getAsString ("element1"));
@@ -63,7 +65,70 @@ public final class ConfigFileTest
   }
 
   @Test
-  public void testNonExisting ()
+  public void testXML ()
+  {
+    final ConfigFile aCF = new ConfigFileBuilder ().setSettingsPersistence (new SettingsPersistenceXML <> (TrimmedValueSettings::new))
+                                                   .addPath ("test.xml")
+                                                   .build ();
+    assertTrue (aCF.isRead ());
+    // Existing elements
+    assertEquals ("string", aCF.getAsString ("element1"));
+    assertArrayEquals ("string".toCharArray (), aCF.getAsCharArray ("element1"));
+    assertEquals (6, aCF.getAsCharArray ("element1").length);
+
+    assertEquals (2, aCF.getAsInt ("element2", 5));
+
+    assertFalse (aCF.getAsBoolean ("element3", true));
+    assertFalse (aCF.getAsBoolean ("element3"));
+
+    assertEquals ("abc", aCF.getAsString ("element4"));
+
+    // Non-existing elements
+    assertNull (aCF.getAsString ("element1a"));
+    assertNull (aCF.getAsCharArray ("element1a"));
+    assertEquals (5, aCF.getAsInt ("element2a", 5));
+    assertTrue (aCF.getAsBoolean ("element3a", true));
+
+    // All keys
+    assertEquals (5, aCF.getSettings ().size ());
+
+    assertNotNull (aCF.toString ());
+  }
+
+  @Test
+  public void testXMLOld ()
+  {
+    // Read the old layout from before 9.3.2
+    final ConfigFile aCF = new ConfigFileBuilder ().setSettingsPersistence (new SettingsPersistenceXML <> (TrimmedValueSettings::new))
+                                                   .addPath ("test-old.xml")
+                                                   .build ();
+    assertTrue (aCF.isRead ());
+    // Existing elements
+    assertEquals ("string", aCF.getAsString ("element1"));
+    assertArrayEquals ("string".toCharArray (), aCF.getAsCharArray ("element1"));
+    assertEquals (6, aCF.getAsCharArray ("element1").length);
+
+    assertEquals (2, aCF.getAsInt ("element2", 5));
+
+    assertFalse (aCF.getAsBoolean ("element3", true));
+    assertFalse (aCF.getAsBoolean ("element3"));
+
+    assertEquals ("abc", aCF.getAsString ("element4"));
+
+    // Non-existing elements
+    assertNull (aCF.getAsString ("element1a"));
+    assertNull (aCF.getAsCharArray ("element1a"));
+    assertEquals (5, aCF.getAsInt ("element2a", 5));
+    assertTrue (aCF.getAsBoolean ("element3a", true));
+
+    // All keys
+    assertEquals (5, aCF.getSettings ().size ());
+
+    assertNotNull (aCF.toString ());
+  }
+
+  @Test
+  public void testXMLNonExisting ()
   {
     final ConfigFile aCF = new ConfigFileBuilder ().addPath ("non-existent-file.xml").build ();
     assertFalse (aCF.isRead ());

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<settings name="test">
+  <item name="element1" class="java.lang.String"><value>string</value></item>
+  <item name="element2" class="java.lang.Integer"><value>2</value></item>
+  <item name="element3" class="java.lang.Boolean"><value>false</value></item>
+  <!-- The following element has trailing spaces, which are skipped -->
+  <item name="element4" class="java.lang.String"><value> abc  </value></item>  
+  <item name="busdox.net.dns.map.hostname_mapping" class="java.lang.String"><value>1.1.1.1,2.2.2.2=3.3.3.3   4.4.4.4=5.5.5.5:8080  7.7.7.7=    =127.0.0.2</value></item>
+</settings>

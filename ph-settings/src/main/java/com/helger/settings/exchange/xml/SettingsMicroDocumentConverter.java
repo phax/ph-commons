@@ -23,8 +23,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.typeconvert.TypeConverter;
 import com.helger.settings.ISettings;
 import com.helger.settings.factory.ISettingsFactory;
 import com.helger.xml.microdom.IMicroElement;
@@ -32,15 +32,12 @@ import com.helger.xml.microdom.IMicroQName;
 import com.helger.xml.microdom.MicroElement;
 import com.helger.xml.microdom.MicroQName;
 import com.helger.xml.microdom.convert.IMicroTypeConverter;
-import com.helger.xml.microdom.convert.MicroTypeConverter;
 
 public class SettingsMicroDocumentConverter <T extends ISettings> implements IMicroTypeConverter <T>
 {
   private static final String ELEMENT_SETTING = "setting";
   private static final IMicroQName ATTR_NAME = new MicroQName ("name");
   private static final IMicroQName ATTR_IS_NULL = new MicroQName ("is-null");
-  private static final IMicroQName ATTR_CLASS = new MicroQName ("class");
-  private static final String ELEMENT_VALUE = "value";
 
   private final ISettingsFactory <T> m_aSettingFactory;
 
@@ -77,13 +74,13 @@ public class SettingsMicroDocumentConverter <T extends ISettings> implements IMi
 
       final IMicroElement eSetting = eRoot.appendElement (sNamespaceURI, ELEMENT_SETTING);
       eSetting.setAttribute (ATTR_NAME, sFieldName);
-      if (aValue != null)
-      {
-        eSetting.setAttribute (ATTR_CLASS, aValue.getClass ().getName ());
-        eSetting.appendChild (MicroTypeConverter.convertToMicroElement (aValue, ELEMENT_VALUE));
-      }
-      else
+      if (aValue == null)
         eSetting.setAttribute (ATTR_IS_NULL, true);
+      else
+      {
+        final String sValue = TypeConverter.convert (aValue, String.class);
+        eSetting.appendText (sValue);
+      }
     }
     return eRoot;
   }
@@ -93,6 +90,8 @@ public class SettingsMicroDocumentConverter <T extends ISettings> implements IMi
   {
     // Create new settings object
     final String sSettingsName = aElement.getAttributeValue (ATTR_NAME);
+    if (StringHelper.hasNoText (sSettingsName))
+      throw new IllegalStateException ("Settings 'name' is missing or empty");
     final T aSettings = m_aSettingFactory.apply (sSettingsName);
 
     // settings are only on the top-level
@@ -100,26 +99,25 @@ public class SettingsMicroDocumentConverter <T extends ISettings> implements IMi
     {
       final String sFieldName = eSetting.getAttributeValue (ATTR_NAME);
 
-      final Object aValue;
+      final String sValue;
       if (eSetting.hasAttribute (ATTR_IS_NULL))
       {
         // Special case for null
-        aValue = null;
+        sValue = null;
       }
       else
       {
-        final String sClass = eSetting.getAttributeValue (ATTR_CLASS);
-        if (StringHelper.hasNoText (sClass))
-          throw new IllegalStateException ("The class name is missing for entry '" + sFieldName + "'");
-
-        final Class <?> aDestClass = GenericReflection.getClassFromNameSafe (sClass);
-        if (aDestClass == null)
-          throw new IllegalStateException ("Failed to determine class from '" + sClass + "'");
-
-        aValue = MicroTypeConverter.convertToNative (eSetting.getFirstChildElement (ELEMENT_VALUE), aDestClass);
+        // Backwards compatibility
+        final IMicroElement eValue = eSetting.getFirstChildElement ("value");
+        if (eValue != null)
+          sValue = eValue.getTextContent ();
+        else
+          sValue = eSetting.getTextContent ();
       }
-      // Use put instead of putIn to avoid that the callbacks are invoked!
-      aSettings.put (sFieldName, aValue);
+      // Use "put" instead of "putIn" to avoid that the callbacks are invoked!
+      // Use "putIn" to ensure that the custom value modifiers are applied and
+      // that it is consistent with the properties implementation
+      aSettings.putIn (sFieldName, sValue);
     }
     return aSettings;
   }

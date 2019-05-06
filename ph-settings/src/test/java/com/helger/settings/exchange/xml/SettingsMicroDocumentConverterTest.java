@@ -89,10 +89,19 @@ public final class SettingsMicroDocumentConverterTest
     // From XML
     final ISettings aDst = MicroTypeConverter.convertToNative (eSrcElement, Settings.class);
     assertNotNull (aDst);
-    assertEquals (aSrc, aDst);
 
-    // Compare list
-    assertEquals (BigInteger.valueOf (1234), aDst.getValue ("field1a"));
+    // No longer true, because now all values are String
+    if (false)
+    {
+      assertEquals (aSrc, aDst);
+
+      // Compare list
+      assertEquals (BigInteger.valueOf (1234), aDst.getValue ("field1a"));
+    }
+    else
+    {
+      assertEquals ("1234", aDst.getValue ("field1a"));
+    }
 
     final ISettings aDst2 = new Settings (aDst.getName ());
     aDst2.putAllIn (aDst);

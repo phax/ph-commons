@@ -43,6 +43,7 @@ public class TrimmedValueSettings extends Settings
   @Nonnull
   public EChange putIn (@Nonnull @Nonempty final String sFieldName, @Nullable final Object aNewValue)
   {
-    return super.putIn (sFieldName, StringHelper.trim ((String) aNewValue));
+    final String sRealValue = StringHelper.trim ((String) aNewValue);
+    return super.putIn (sFieldName, sRealValue);
   }
 }
