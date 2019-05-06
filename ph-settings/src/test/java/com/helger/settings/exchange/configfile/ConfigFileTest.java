@@ -26,6 +26,8 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import com.helger.settings.exchange.json.SettingsPersistenceJson;
+import com.helger.settings.exchange.properties.SettingsPersistenceProperties;
 import com.helger.settings.exchange.xml.SettingsPersistenceXML;
 
 /**
@@ -60,6 +62,19 @@ public final class ConfigFileTest
 
     // All keys
     assertEquals (5, aCF.getSettings ().size ());
+
+    assertNotNull (aCF.toString ());
+  }
+
+  @Test
+  public void testPropertiesNonExisting ()
+  {
+    final ConfigFile aCF = new ConfigFileBuilder ().setSettingsPersistence (new SettingsPersistenceProperties ())
+                                                   .addPath ("non-existent-file.properties")
+                                                   .build ();
+    assertFalse (aCF.isRead ());
+    assertNull (aCF.getAsString ("any"));
+    assertEquals (0, aCF.getAllEntries ().size ());
 
     assertNotNull (aCF.toString ());
   }
@@ -130,7 +145,59 @@ public final class ConfigFileTest
   @Test
   public void testXMLNonExisting ()
   {
-    final ConfigFile aCF = new ConfigFileBuilder ().addPath ("non-existent-file.xml").build ();
+    final ConfigFile aCF = new ConfigFileBuilder ().setSettingsPersistence (SettingsPersistenceXML.createDefault ())
+                                                   .addPath ("non-existent-file.xml")
+                                                   .build ();
+    assertFalse (aCF.isRead ());
+    assertNull (aCF.getAsString ("any"));
+    assertEquals (0, aCF.getAllEntries ().size ());
+
+    assertNotNull (aCF.toString ());
+  }
+
+  @Test
+  public void testJson ()
+  {
+    final ConfigFile aCF = new ConfigFileBuilder ().setSettingsPersistence (new SettingsPersistenceJson (TrimmedValueSettings::new))
+                                                   .addPath ("test.json")
+                                                   .build ();
+    assertTrue (aCF.isRead ());
+    // Existing elements
+    assertEquals ("string", aCF.getAsString ("element1"));
+    assertArrayEquals ("string".toCharArray (), aCF.getAsCharArray ("element1"));
+    assertEquals (6, aCF.getAsCharArray ("element1").length);
+
+    assertEquals (2, aCF.getAsInt ("element2", 5));
+
+    assertFalse (aCF.getAsBoolean ("element3", true));
+    assertFalse (aCF.getAsBoolean ("element3"));
+
+    assertEquals ("abc", aCF.getAsString ("element4"));
+
+    // Check nested settings
+    assertNull (aCF.getAsString ("element5.network"));
+    assertEquals ("1234", aCF.getAsString ("element5.network.port"));
+    assertEquals ("example.org", aCF.getAsString ("element5.network.host"));
+    assertEquals ("true", aCF.getAsString ("element5.enabled"));
+
+    // Non-existing elements
+    assertNull (aCF.getAsString ("element1a"));
+    assertNull (aCF.getAsCharArray ("element1a"));
+    assertEquals (5, aCF.getAsInt ("element2a", 5));
+    assertTrue (aCF.getAsBoolean ("element3a", true));
+
+    // All keys
+    assertEquals (7, aCF.getSettings ().size ());
+
+    assertNotNull (aCF.toString ());
+  }
+
+  @Test
+  public void testJsonNonExisting ()
+  {
+    final ConfigFile aCF = new ConfigFileBuilder ().setSettingsPersistence (new SettingsPersistenceJson ())
+                                                   .addPath ("non-existent-file.json")
+                                                   .build ();
     assertFalse (aCF.isRead ());
     assertNull (aCF.getAsString ("any"));
     assertEquals (0, aCF.getAllEntries ().size ());

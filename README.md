@@ -33,6 +33,7 @@ This project was the following modules:
     * Added support for Java 12
     * The default XML persistence for configuration files was changed. No more "class" attribute and no nested "value" element needed. The old layout can still be read, but only the new layout is written.
     * The class `JsonReader` now has an explicit `JsonReader.Builder` class to simplify the usage
+    * New class `SettingsPersistenceJson` to be able to read and write settings in JSON format
 * v9.3.2 - 2019-03-28
     * Logging a warning in `VerySecureRandom` if initial seeding takes more than 500 milliseconds
     * If the system property `ph.disable-securerandom` with the value of `true` is present, the usage of `SecureRandom` in class `RandomHelper` is disabled by default. Respective logging was added.

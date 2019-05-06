@@ -14,13 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.settings.exchange.properties;
+package com.helger.settings.exchange.json;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
+import java.util.Comparator;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -31,35 +31,39 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.lang.NonBlockingProperties;
-import com.helger.commons.lang.PropertiesHelper;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.typeconvert.TypeConverter;
+import com.helger.json.IJson;
+import com.helger.json.IJsonObject;
+import com.helger.json.JsonObject;
+import com.helger.json.serialize.JsonReader;
+import com.helger.json.serialize.JsonWriter;
+import com.helger.json.serialize.JsonWriterSettings;
 import com.helger.settings.ISettings;
 import com.helger.settings.exchange.ISettingsPersistence;
 import com.helger.settings.factory.ISettingsFactory;
 
 /**
  * A special {@link ISettingsPersistence} implementation that reads and writes
- * .properties files. It assumes the ISO-8859-1 charset.
+ * .json files. It assumes the ISO-8859-1 charset.
  *
  * @author Philip Helger
  */
-public class SettingsPersistenceProperties implements ISettingsPersistence
+public class SettingsPersistenceJson implements ISettingsPersistence
 {
-  public static final Charset DEFAULT_CHARSET = StandardCharsets.ISO_8859_1;
-  private static final Logger LOGGER = LoggerFactory.getLogger (SettingsPersistenceProperties.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (SettingsPersistenceJson.class);
 
   private final ISettingsFactory <?> m_aSettingsFactory;
-  private Charset m_aCharset = DEFAULT_CHARSET;
+  private Charset m_aCharset = JsonReader.DEFAULT_CHARSET;
 
-  public SettingsPersistenceProperties ()
+  public SettingsPersistenceJson ()
   {
     this (ISettingsFactory.newInstance ());
   }
 
-  public SettingsPersistenceProperties (@Nonnull final ISettingsFactory <?> aSettingsFactory)
+  public SettingsPersistenceJson (@Nonnull final ISettingsFactory <?> aSettingsFactory)
   {
     m_aSettingsFactory = ValueEnforcer.notNull (aSettingsFactory, "SettingsFactory");
   }
@@ -71,16 +75,14 @@ public class SettingsPersistenceProperties implements ISettingsPersistence
   }
 
   /**
-   * Declaratively set the character set to use. This has no immediate effect.
-   * The real charset is determined by the implementation (e.g.
-   * <code>Properties.load</code>).
+   * Set the fallback character set to be used for parsing and writing.
    *
    * @param aCharset
    *        The charset to use. May not be <code>null</code>.
    * @return this for chaining
    */
   @Nonnull
-  public final SettingsPersistenceProperties setCharset (@Nonnull final Charset aCharset)
+  public final SettingsPersistenceJson setCharset (@Nonnull final Charset aCharset)
   {
     ValueEnforcer.notNull (aCharset, "Charset");
     m_aCharset = aCharset;
@@ -104,6 +106,22 @@ public class SettingsPersistenceProperties implements ISettingsPersistence
     return "anonymous";
   }
 
+  private static void _recursiveReadSettings (@Nonnull final String sNamePrefix,
+                                              @Nonnull final IJson aJson,
+                                              @Nonnull final ISettings aSettings)
+  {
+    if (aJson.isValue ())
+      aSettings.putIn (sNamePrefix, aJson.getAsValue ().getAsString ());
+    else
+      if (aJson.isObject ())
+      {
+        for (final Map.Entry <String, IJson> aEntry : aJson.getAsObject ())
+          _recursiveReadSettings (sNamePrefix + "." + aEntry.getKey (), aEntry.getValue (), aSettings);
+      }
+      else
+        throw new IllegalArgumentException ("JSON arrays are not supported in settings");
+  }
+
   @Nonnull
   public ISettings readSettings (@Nonnull @WillClose final InputStream aIS)
   {
@@ -113,11 +131,13 @@ public class SettingsPersistenceProperties implements ISettingsPersistence
     final ISettings aSettings = m_aSettingsFactory.apply (getReadSettingsName ());
 
     // Read the properties file from the input stream
-    final NonBlockingProperties aProps = PropertiesHelper.loadProperties (aIS);
-
-    if (aProps != null)
-      for (final Map.Entry <String, String> aEntry : aProps.entrySet ())
-        aSettings.putIn (aEntry.getKey (), aEntry.getValue ());
+    final IJson aProps = JsonReader.builder ().setSource (aIS, m_aCharset).setCustomizeCallback (aParser -> {
+      aParser.setRequireStringQuotes (false);
+      aParser.setAlwaysUseBigNumber (true);
+    }).read ();
+    if (aProps != null && aProps.isObject ())
+      for (final Map.Entry <String, IJson> aEntry : aProps.getAsObject ())
+        _recursiveReadSettings (aEntry.getKey (), aEntry.getValue (), aSettings);
     return aSettings;
   }
 
@@ -128,26 +148,27 @@ public class SettingsPersistenceProperties implements ISettingsPersistence
 
     try
     {
-      final NonBlockingProperties aProps = new NonBlockingProperties ();
-      // Must not be sorted, as Properties sorts them as it wishes...
-      for (final Map.Entry <String, Object> aEntry : aSettings.entrySet ())
+      final IJsonObject aProps = new JsonObject ();
+      for (final Map.Entry <String, Object> aEntry : CollectionHelper.getSorted (aSettings.entrySet (),
+                                                                                 Comparator.comparing (Map.Entry::getKey)))
       {
         final String sName = aEntry.getKey ();
         final Object aValue = aEntry.getValue ();
-        if (aValue instanceof ISettings)
-          throw new IllegalArgumentException ("When saving settings to a Properties object, it may not contained nested settings! Now the key '" +
-                                              sName +
-                                              "' is mapped to a nested ISettings object!");
         final String sValue = TypeConverter.convert (aValue, String.class);
-        aProps.put (sName, sValue);
+        aProps.add (sName, sValue);
       }
+
+      final JsonWriterSettings aJWS = new JsonWriterSettings ();
+      aJWS.setIndentEnabled (true);
+      aJWS.setQuoteNames (false);
+
       // Does not close the output stream!
-      aProps.store (aOS, aSettings.getName ());
+      new JsonWriter (aJWS).writeToWriterAndClose (aProps, StreamHelper.createWriter (aOS, m_aCharset));
       return ESuccess.SUCCESS;
     }
     catch (final IOException ex)
     {
-      LOGGER.error ("Failed to write settings to properties file", ex);
+      LOGGER.error ("Failed to write settings to JSON file", ex);
       return ESuccess.FAILURE;
     }
     finally
