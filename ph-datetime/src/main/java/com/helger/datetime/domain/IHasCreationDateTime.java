@@ -34,16 +34,28 @@ import com.helger.commons.ValueEnforcer;
 public interface IHasCreationDateTime
 {
   /**
-   * @return The non-<code>null</code> creation date time of the object
+   * @return The maybe <code>null</code> creation date time of the object.
+   *         Usually it is not <code>null</code> but in case this interface is
+   *         needed for legacy objects where the information was not yet stored,
+   *         it may be <code>null</code>.
    */
   @Nullable
   LocalDateTime getCreationDateTime ();
 
+  /**
+   * @return <code>true</code> if a creation date time is present,
+   *         <code>false</code> if not.
+   * @see #getCreationDateTime()
+   */
   default boolean hasCreationDateTime ()
   {
     return getCreationDateTime () != null;
   }
 
+  /**
+   * @return The extracted date from the creation date and time or
+   *         <code>null</code> if no creation date time is present.
+   */
   @Nullable
   default LocalDate getCreationDate ()
   {
@@ -51,6 +63,10 @@ public interface IHasCreationDateTime
     return aLDT == null ? null : aLDT.toLocalDate ();
   }
 
+  /**
+   * @return The extracted time from the creation date and time or
+   *         <code>null</code> if no creation date time is present.
+   */
   @Nullable
   default LocalTime getCreationTime ()
   {
