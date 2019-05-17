@@ -17,8 +17,7 @@
 package com.helger.commons.supplementary.test.benchmark;
 
 import java.math.BigDecimal;
-
-import com.helger.commons.random.RandomHelper;
+import java.util.Random;
 
 /**
  * This code benchmarks the performance of copying an array purely in Java
@@ -40,10 +39,10 @@ public final class BenchmarkBigDecimalEquals extends AbstractBenchmarkTask
 
   private static void _run ()
   {
+    final Random aRandom = new Random ();
     final BigDecimal [] aNums = new BigDecimal [1000];
     for (int i = 0; i < aNums.length; ++i)
-      aNums[i] = BigDecimal.valueOf (RandomHelper.getRandom ().nextDouble () *
-                                     (50 + RandomHelper.getRandom ().nextDouble ()));
+      aNums[i] = BigDecimal.valueOf (aRandom.nextDouble () * (50 + aRandom.nextDouble ()));
     LOGGER.info ("Starting");
 
     final double dTime1 = benchmarkTask (new BigDecimalCompare (aNums));

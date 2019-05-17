@@ -20,13 +20,13 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Random;
 
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
 
 import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.random.RandomHelper;
 
 /**
  * Test class for class {@link ICodec}
@@ -76,7 +76,7 @@ public final class IByteArrayCodecTest
 
     // Get random bytes
     final byte [] aRandomBytes = new byte [256];
-    RandomHelper.getRandom ().nextBytes (aRandomBytes);
+    new Random ().nextBytes (aRandomBytes);
     _testCodec (c, aRandomBytes);
 
     for (int i = 0; i < 256; ++i)

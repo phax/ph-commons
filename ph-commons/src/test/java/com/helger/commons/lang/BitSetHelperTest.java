@@ -24,8 +24,6 @@ import java.util.Random;
 
 import org.junit.Test;
 
-import com.helger.commons.random.RandomHelper;
-
 /**
  * Test class for class {@link BitSetHelper}.
  *
@@ -65,7 +63,7 @@ public final class BitSetHelperTest
     assertEquals (1, aBS.cardinality ());
     assertEquals (0x80000000, BitSetHelper.getExtractedIntValue (aBS));
 
-    final Random aRandom = RandomHelper.getRandom ();
+    final Random aRandom = new Random ();
     for (int i = 0; i < 1024; ++i)
     {
       final int nValue = aRandom.nextInt ();
@@ -96,7 +94,7 @@ public final class BitSetHelperTest
     assertEquals (1, aBS.cardinality ());
     assertEquals (0x8000000000000000L, BitSetHelper.getExtractedLongValue (aBS));
 
-    final Random aRandom = RandomHelper.getRandom ();
+    final Random aRandom = new Random ();
     for (int i = 0; i < 1024; ++i)
     {
       final long nValue = aRandom.nextLong ();

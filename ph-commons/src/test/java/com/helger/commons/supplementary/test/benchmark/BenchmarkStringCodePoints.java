@@ -19,7 +19,6 @@ package com.helger.commons.supplementary.test.benchmark;
 import java.math.BigDecimal;
 import java.util.Random;
 
-import com.helger.commons.random.RandomHelper;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -36,7 +35,7 @@ public final class BenchmarkStringCodePoints extends AbstractBenchmarkTask
   static
   {
     final StringBuilder aSB = new StringBuilder ();
-    final Random r = RandomHelper.getRandom ();
+    final Random r = new Random ();
     for (int i = 0; i < 10_000; ++i)
       aSB.append ((char) r.nextInt (Character.MAX_VALUE));
     s_sText = aSB.toString ();

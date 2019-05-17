@@ -17,6 +17,7 @@
 package com.helger.security.password.salt;
 
 import java.util.Arrays;
+import java.util.Random;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -28,7 +29,6 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
-import com.helger.commons.random.RandomHelper;
 import com.helger.commons.random.VerySecureRandom;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -68,7 +68,7 @@ public final class PasswordSalt implements IPasswordSalt
   {
     ValueEnforcer.isGT0 (nSaltBytes, "SaltBytes");
     m_aBytes = new byte [nSaltBytes];
-    RandomHelper.getRandom ().nextBytes (m_aBytes);
+    new Random ().nextBytes (m_aBytes);
     m_sSalt = StringHelper.getHexEncoded (m_aBytes);
   }
 

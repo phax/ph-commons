@@ -20,6 +20,7 @@ import static org.junit.Assert.assertArrayEquals;
 
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
+import java.util.Random;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
@@ -32,7 +33,6 @@ import org.junit.Test;
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.ArrayHelper;
-import com.helger.commons.random.RandomHelper;
 import com.helger.commons.system.CryptoPolicy;
 
 public final class AESCryptFuncTest
@@ -90,7 +90,7 @@ public final class AESCryptFuncTest
       {
         // Why so ever - create an AES key on our own!
         final byte [] aBytes = new byte [nKeyLengthBytes];
-        RandomHelper.getRandom ().nextBytes (aBytes);
+        new Random ().nextBytes (aBytes);
         return new AESSecretKey (aBytes);
       }
     }

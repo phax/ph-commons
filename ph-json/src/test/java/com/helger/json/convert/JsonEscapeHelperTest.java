@@ -20,10 +20,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Random;
 
 import org.junit.Test;
 
-import com.helger.commons.random.RandomHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.json.serialize.JsonReader;
 
@@ -65,13 +65,14 @@ public final class JsonEscapeHelperTest
   @Test
   public void testArbitrary ()
   {
+    final Random aRandom = new Random ();
     for (int i = 0; i < 100; ++i)
     {
       // Build a random test string
       final int nStringLength = 123;
       final StringBuilder aTestString = new StringBuilder (nStringLength);
       for (int j = 0; j < nStringLength; ++j)
-        aTestString.append ((char) RandomHelper.getRandom ().nextInt (Character.MAX_VALUE));
+        aTestString.append ((char) aRandom.nextInt (Character.MAX_VALUE));
       final String sTestString = aTestString.toString ();
 
       // Escape

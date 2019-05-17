@@ -19,10 +19,9 @@ package com.helger.commons.io.stream;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
+import java.util.Random;
 
 import org.junit.Test;
-
-import com.helger.commons.random.RandomHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -48,7 +47,7 @@ public final class NonBlockingByteArrayOutputStreamTest
 
     final NonBlockingByteArrayOutputStream b = new NonBlockingByteArrayOutputStream ();
     final byte [] buf = new byte [100];
-    RandomHelper.getRandom ().nextBytes (buf);
+    new Random ().nextBytes (buf);
     try
     {
       b.write (null, 0, 10);

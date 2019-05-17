@@ -27,6 +27,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.text.Normalizer;
 import java.util.Arrays;
+import java.util.Random;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -34,7 +35,6 @@ import org.junit.Test;
 import com.helger.commons.io.stream.NonBlockingBufferedReader;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.random.RandomHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -192,6 +192,7 @@ public final class CharsetHelperTest
   @Ignore ("doesn't work reliably")
   public void testGetUTF8ByteCountRandom ()
   {
+    final Random aRandom = new Random ();
     for (int i = 0; i < 1000; i++)
     {
       // Build random String with 20 chars
@@ -199,7 +200,7 @@ public final class CharsetHelperTest
       final StringBuilder aSB = new StringBuilder ();
       for (int x = 0; x < nStringLen; ++x)
       {
-        final int c = RandomHelper.getRandom ().nextInt (Character.MIN_HIGH_SURROGATE);
+        final int c = aRandom.nextInt (Character.MIN_HIGH_SURROGATE);
         aSB.append ((char) c);
       }
 

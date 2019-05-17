@@ -47,7 +47,6 @@ import com.helger.commons.http.CHttpHeader;
 import com.helger.commons.http.HttpHeaderMap;
 import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.commons.lang.priviledged.IPrivilegedAction;
-import com.helger.commons.random.RandomHelper;
 import com.helger.commons.state.ETriState;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.ws.HostnameVerifierVerifyAll;
@@ -149,9 +148,7 @@ public class WSClientConfig
     try
     {
       final SSLContext aSSLContext = SSLContext.getInstance ("TLSv1.2");
-      aSSLContext.init (null,
-                        new TrustManager [] { new TrustManagerTrustAll (bDebugMode) },
-                        RandomHelper.getSecureRandom ());
+      aSSLContext.init (null, new TrustManager [] { new TrustManagerTrustAll (bDebugMode) }, null);
       final SSLSocketFactory aSF = aSSLContext.getSocketFactory ();
       return setSSLSocketFactory (aSF);
     }

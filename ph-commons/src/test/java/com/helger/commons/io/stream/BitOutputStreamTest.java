@@ -29,7 +29,6 @@ import java.util.Random;
 import org.junit.Test;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.random.RandomHelper;
 
 /**
  * Test class for class {@link BitOutputStream}.
@@ -90,7 +89,7 @@ public final class BitOutputStreamTest
   public void testWriteBitLittleEndian () throws IOException
   {
     try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
-         final BitOutputStream aBOS = new BitOutputStream (aBAOS, ByteOrder.LITTLE_ENDIAN))
+        final BitOutputStream aBOS = new BitOutputStream (aBAOS, ByteOrder.LITTLE_ENDIAN))
     {
       assertEquals (ByteOrder.LITTLE_ENDIAN, aBOS.getByteOrder ());
       aBOS.writeBit (1);
@@ -107,7 +106,7 @@ public final class BitOutputStreamTest
   public void testWriteBitBigEndian () throws IOException
   {
     try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
-         final BitOutputStream aBOS = new BitOutputStream (aBAOS, ByteOrder.BIG_ENDIAN))
+        final BitOutputStream aBOS = new BitOutputStream (aBAOS, ByteOrder.BIG_ENDIAN))
     {
       assertEquals (ByteOrder.BIG_ENDIAN, aBOS.getByteOrder ());
       for (int i = 0; i < 7; ++i)
@@ -123,7 +122,7 @@ public final class BitOutputStreamTest
   @Test
   public void testWriteManyLittleEndian () throws IOException
   {
-    final Random aRandom = RandomHelper.getRandom ();
+    final Random aRandom = new Random ();
     for (int i = 0; i < 200; i += 3)
     {
       final byte [] buf = new byte [i * 100];
@@ -162,7 +161,7 @@ public final class BitOutputStreamTest
   @Test
   public void testWriteManyBigEndian () throws IOException
   {
-    final Random aRandom = RandomHelper.getRandom ();
+    final Random aRandom = new Random ();
     for (int i = 0; i < 200; i += 3)
     {
       final byte [] buf = new byte [i * 100];
@@ -202,16 +201,17 @@ public final class BitOutputStreamTest
   @Test
   public void testReadWriteRandom () throws IOException
   {
-    final Random aRandom = RandomHelper.getRandom ();
+    final Random aRandom = new Random ();
     for (int i = 0; i < 200; i += 3)
     {
       final byte [] buf = new byte [i * 100];
       aRandom.nextBytes (buf);
 
-      try (final BitInputStream aBIS = new BitInputStream (new NonBlockingByteArrayInputStream (buf),
-                                                           ByteOrder.LITTLE_ENDIAN);
-           final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
-           final BitOutputStream aBOS = new BitOutputStream (aBAOS, ByteOrder.LITTLE_ENDIAN))
+      try (
+          final BitInputStream aBIS = new BitInputStream (new NonBlockingByteArrayInputStream (buf),
+                                                          ByteOrder.LITTLE_ENDIAN);
+          final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
+          final BitOutputStream aBOS = new BitOutputStream (aBAOS, ByteOrder.LITTLE_ENDIAN))
       {
         int nBitCount = buf.length * 8;
         while (nBitCount > 0)

@@ -21,10 +21,9 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
+import java.util.Random;
 
 import org.junit.Test;
-
-import com.helger.commons.random.RandomHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -41,7 +40,7 @@ public final class NonBlockingByteArrayInputStreamTest
   public void testAll () throws IOException
   {
     final byte [] buf = new byte [100];
-    RandomHelper.getRandom ().nextBytes (buf);
+    new Random ().nextBytes (buf);
     try
     {
       new NonBlockingByteArrayInputStream (null);

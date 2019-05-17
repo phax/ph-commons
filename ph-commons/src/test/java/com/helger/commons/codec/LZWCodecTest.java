@@ -22,10 +22,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Random;
 
 import org.junit.Test;
-
-import com.helger.commons.random.RandomHelper;
 
 /**
  * Test class for class {@link LZWCodec}.
@@ -4362,7 +4361,7 @@ public final class LZWCodecTest
   {
     // check larger buffers with potential overflows
     final byte [] buf = new byte [14200];
-    RandomHelper.getRandom ().nextBytes (buf);
+    new Random ().nextBytes (buf);
     _testEncodeDecode (buf);
   }
 }

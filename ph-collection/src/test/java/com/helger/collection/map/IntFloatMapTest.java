@@ -24,7 +24,6 @@ import java.util.Set;
 import org.junit.Test;
 
 import com.helger.commons.collection.impl.CommonsHashSet;
-import com.helger.commons.random.RandomHelper;
 
 public final class IntFloatMapTest
 {
@@ -87,7 +86,7 @@ public final class IntFloatMapTest
 
   private void _testPutRandom (final float fillFactor)
   {
-    final Random aRandom = RandomHelper.getRandom ();
+    final Random aRandom = new Random ();
     final int SIZE = 100 * 1000;
     final Set <Integer> set = new CommonsHashSet <> (SIZE);
     final int [] vals = new int [SIZE];

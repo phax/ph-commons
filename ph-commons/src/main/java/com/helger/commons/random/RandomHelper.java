@@ -38,6 +38,7 @@ import com.helger.commons.system.SystemProperties;
  * @author Philip Helger
  */
 @Immutable
+@Deprecated
 public final class RandomHelper
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (RandomHelper.class);

@@ -23,6 +23,7 @@ import java.io.Serializable;
 import java.io.StreamTokenizer;
 import java.text.NumberFormat;
 import java.util.Arrays;
+import java.util.Random;
 
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnegative;
@@ -38,7 +39,6 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.math.MathHelper;
-import com.helger.commons.random.RandomHelper;
 import com.helger.commons.string.StringHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -1082,13 +1082,14 @@ public class MatrixInt implements Serializable, ICloneable <MatrixInt>
   @ReturnsMutableCopy
   public static MatrixInt random (@Nonnegative final int nRows, @Nonnegative final int nCols)
   {
+    final Random aRandom = new Random ();
     final MatrixInt aNewMatrix = new MatrixInt (nRows, nCols);
     final int [] [] aNewArray = aNewMatrix.internalGetArray ();
     for (int nRow = 0; nRow < nRows; nRow++)
     {
       final int [] aDstRow = aNewArray[nRow];
       for (int nCol = 0; nCol < nCols; nCol++)
-        aDstRow[nCol] = 1 + RandomHelper.getRandom ().nextInt (100);
+        aDstRow[nCol] = 1 + aRandom.nextInt (100);
     }
     return aNewMatrix;
   }

@@ -25,6 +25,7 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
+import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.Ignore;
@@ -36,7 +37,6 @@ import com.helger.commons.collection.IteratorHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.io.file.SimpleFileIO;
-import com.helger.commons.random.RandomHelper;
 import com.helger.commons.state.EChange;
 import com.helger.commons.system.SystemHelper;
 
@@ -216,7 +216,7 @@ public final class HashCodeGeneratorTest
     final AtomicBoolean b = new AtomicBoolean (false);
     final Runnable r = () -> {
       final byte [] aBytes = new byte [10000];
-      RandomHelper.getRandom ().nextBytes (aBytes);
+      new Random ().nextBytes (aBytes);
       int i = 0;
       try
       {
