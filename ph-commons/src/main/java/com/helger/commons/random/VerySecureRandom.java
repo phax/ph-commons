@@ -16,6 +16,7 @@
  */
 package com.helger.commons.random;
 
+import java.security.ProviderException;
 import java.security.SecureRandom;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -179,7 +180,15 @@ public final class VerySecureRandom
 
     // Initialize main secure random
     s_aSecureRandom = _createSecureRandomInstance ();
-    s_aSecureRandom.setSeed (aSeed);
+    try
+    {
+      s_aSecureRandom.setSeed (aSeed);
+    }
+    catch (final ProviderException ex)
+    {
+      // May happen, if setSeed tries to write to disk
+      LOGGER.error ("Error setting initial seed on SecureRandom", ex);
+    }
 
     final long nDurationMillis = aSW.stopAndGetMillis ();
     if (nDurationMillis > WARNING_MILLISECONDS_THRESHOLD)
