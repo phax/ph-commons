@@ -32,6 +32,7 @@ This project was the following modules:
     * Added new overloads for `JsonReader.Builder.setSource`
     * Catching exception in `VerySecureRandom` initialization - `setSeed` may throw an Exception
     * Deprecated class `RandomHelper` - causes more problems than it solves
+    * Added new method `CertificateHelper.convertStringToCertficateOrNull`
 * v9.3.3 - 2019-05-06
     * Added `ICommonsIterable` methods `findFirstIndex` and `findLastIndex`
     * Added support for Java 12

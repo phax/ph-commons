@@ -284,6 +284,28 @@ public final class CertificateHelper
   }
 
   /**
+   * Convert the passed String to an X.509 certificate, swallowing all errors.
+   * 
+   * @param sCertString
+   *        The certificate string to be parsed.
+   * @return <code>null</code> in case the certificate cannot be converted.
+   * @see #convertStringToCertficate(String)
+   * @since 9.3.4
+   */
+  @Nullable
+  public static X509Certificate convertStringToCertficateOrNull (@Nullable final String sCertString)
+  {
+    try
+    {
+      return convertStringToCertficate (sCertString);
+    }
+    catch (CertificateException | IllegalArgumentException ex)
+    {
+      return null;
+    }
+  }
+
+  /**
    * Convert the passed X.509 certificate string to a byte array.
    *
    * @param sCertificate
