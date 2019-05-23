@@ -36,6 +36,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.base64.Base64;
 import com.helger.commons.collection.ArrayHelper;
+import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.StringInputStream;
 import com.helger.commons.string.StringHelper;
 
@@ -218,6 +219,31 @@ public final class CertificateHelper
     return convertStringToCertficate (new String (aCertBytes, CERT_CHARSET));
   }
 
+  /**
+   * Convert the passed String to an X.509 certificate without converting it to
+   * a String first.
+   *
+   * @param aCertBytes
+   *        The certificate bytes. May be <code>null</code>.
+   * @return <code>null</code> if the passed array is <code>null</code> or empty
+   * @throws CertificateException
+   *         In case the passed bytes[] cannot be converted to an X.509
+   *         certificate.
+   * @since 9.3.4
+   */
+  @Nullable
+  public static X509Certificate convertByteArrayToCertficateDirect (@Nullable final byte [] aCertBytes) throws CertificateException
+  {
+    if (ArrayHelper.isEmpty (aCertBytes))
+    {
+      // No string -> no certificate
+      return null;
+    }
+
+    final CertificateFactory aCertificateFactory = getX509CertificateFactory ();
+    return (X509Certificate) aCertificateFactory.generateCertificate (new NonBlockingByteArrayInputStream (aCertBytes));
+  }
+
   @Nonnull
   private static X509Certificate _str2cert (@Nonnull final String sCertString,
                                             @Nonnull final CertificateFactory aCertificateFactory) throws CertificateException
@@ -285,7 +311,7 @@ public final class CertificateHelper
 
   /**
    * Convert the passed String to an X.509 certificate, swallowing all errors.
-   * 
+   *
    * @param sCertString
    *        The certificate string to be parsed.
    * @return <code>null</code> in case the certificate cannot be converted.
