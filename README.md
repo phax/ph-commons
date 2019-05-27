@@ -34,6 +34,7 @@ This project was the following modules:
     * Deprecated class `RandomHelper` - causes more problems than it solves
     * Added new method `CertificateHelper.convertStringToCertficateOrNull`
     * Added new method `CertificateHelper.convertByteArrayToCertficateDirect`
+    * Added complete list of HTTP response codes constants to `CHttp`
 * v9.3.3 - 2019-05-06
     * Added `ICommonsIterable` methods `findFirstIndex` and `findLastIndex`
     * Added support for Java 12
