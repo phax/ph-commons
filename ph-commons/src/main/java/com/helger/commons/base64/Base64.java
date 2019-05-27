@@ -18,11 +18,7 @@ package com.helger.commons.base64;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.ObjectStreamClass;
 import java.io.OutputStream;
-import java.io.Serializable;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
@@ -43,7 +39,6 @@ import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
-import com.helger.commons.io.stream.StreamHelper;
 
 /**
  * <p>
@@ -104,9 +99,8 @@ import com.helger.commons.io.stream.StreamHelper;
  * Base64.OutputStream closed the Base64 encoding (by padding with equals signs)
  * too soon. Also added an option to suppress the automatic decoding of gzipped
  * streams. Also added experimental support for specifying a class loader when
- * using the
- * {@link #decodeToObject(java.lang.String, int, java.lang.ClassLoader)} method.
- * </li>
+ * using the decodeToObject(java.lang.String, int, java.lang.ClassLoader)
+ * method.</li>
  * <li>v2.3.3 - Changed default char encoding to US-ASCII which reduces the
  * internal Java footprint with its CharEncoders and so forth. Fixed some
  * javadocs that were inconsistent. Removed imports and specified things like
@@ -1338,12 +1332,12 @@ public final class Base64
    * guarantee as to which one will be picked.
    */
   @Nonnull
-  @ReturnsMutableObject ("design")
-  private static byte [] _getAlphabet (final int options)
+  @ReturnsMutableObject
+  private static byte [] _getAlphabet (final int nOptions)
   {
-    if ((options & URL_SAFE) == URL_SAFE)
+    if ((nOptions & URL_SAFE) == URL_SAFE)
       return _URL_SAFE_ALPHABET;
-    if ((options & ORDERED) == ORDERED)
+    if ((nOptions & ORDERED) == ORDERED)
       return _ORDERED_ALPHABET;
     return _STANDARD_ALPHABET;
   }
@@ -1355,12 +1349,12 @@ public final class Base64
    * guarantee as to which one will be picked.
    */
   @Nonnull
-  @ReturnsMutableObject ("design")
-  static byte [] _getDecodabet (final int options)
+  @ReturnsMutableObject
+  static byte [] _getDecodabet (final int nOptions)
   {
-    if ((options & URL_SAFE) == URL_SAFE)
+    if ((nOptions & URL_SAFE) == URL_SAFE)
       return _URL_SAFE_DECODABET;
-    if ((options & ORDERED) == ORDERED)
+    if ((nOptions & ORDERED) == ORDERED)
       return _ORDERED_DECODABET;
     return _STANDARD_DECODABET;
   }
@@ -1538,98 +1532,6 @@ public final class Base64
         encoded.put ((char) (enc4[i] & 0xFF));
       }
     }
-  }
-
-  /**
-   * Serializes an object and returns the Base64-encoded version of that
-   * serialized object.
-   * <p>
-   * As of v 2.3, if the object cannot be serialized or there is another error,
-   * the method will throw an IOException. <b>This is new to v2.3!</b> In
-   * earlier versions, it just returned a null value, but in retrospect that's a
-   * pretty poor way to handle it.
-   * </p>
-   * The object is not GZip-compressed before being encoded.
-   *
-   * @param serializableObject
-   *        The object to encode
-   * @return The Base64-encoded object
-   * @throws IOException
-   *         if there is an error
-   * @throws NullPointerException
-   *         if serializedObject is null
-   * @since 1.4
-   */
-  public static String encodeObject (@Nonnull final Serializable serializableObject) throws IOException
-  {
-    return encodeObject (serializableObject, NO_OPTIONS);
-  }
-
-  /**
-   * Serializes an object and returns the Base64-encoded version of that
-   * serialized object.
-   * <p>
-   * As of v 2.3, if the object cannot be serialized or there is another error,
-   * the method will throw an IOException. <b>This is new to v2.3!</b> In
-   * earlier versions, it just returned a null value, but in retrospect that's a
-   * pretty poor way to handle it.
-   * </p>
-   * The object is not GZip-compressed before being encoded.
-   * <p>
-   * Example options:
-   *
-   * <pre>
-   *   GZIP: gzip-compresses object before encoding it.
-   *   DO_BREAK_LINES: break lines at 76 characters
-   * </pre>
-   * <p>
-   * Example: <code>encodeObject( myObj, Base64.GZIP )</code> or
-   * <p>
-   * Example:
-   * <code>encodeObject( myObj, Base64.GZIP | Base64.DO_BREAK_LINES )</code>
-   *
-   * @param aSerializableObject
-   *        The object to encode
-   * @param nOptions
-   *        Specified options
-   * @return The Base64-encoded object
-   * @see Base64#GZIP
-   * @see Base64#DO_BREAK_LINES
-   * @throws IOException
-   *         if there is an error
-   * @since 2.0
-   */
-  @Nonnull
-  public static String encodeObject (@Nonnull final Serializable aSerializableObject,
-                                     final int nOptions) throws IOException
-  {
-    ValueEnforcer.notNull (aSerializableObject, "Object");
-
-    // ObjectOutputStream -> (GZIP) -> Base64 -> ByteArrayOutputStream
-    final NonBlockingByteArrayOutputStream baos = new NonBlockingByteArrayOutputStream ();
-    try (final Base64OutputStream b64os = new Base64OutputStream (baos, ENCODE | nOptions))
-    {
-      if ((nOptions & GZIP) != 0)
-      {
-        // Gzip
-        try (GZIPOutputStream gzos = new GZIPOutputStream (b64os);
-            ObjectOutputStream oos = new ObjectOutputStream (gzos))
-        {
-          oos.writeObject (aSerializableObject);
-        }
-      }
-      else
-      {
-        // Not gzipped
-        try (ObjectOutputStream oos = new ObjectOutputStream (b64os))
-        {
-          oos.writeObject (aSerializableObject);
-        }
-      }
-    }
-
-    // Return value according to relevant encoding.
-    return baos.getAsString (PREFERRED_ENCODING);
   }
 
   /**
@@ -2257,90 +2159,6 @@ public final class Base64
     }
 
     return bytes;
-  }
-
-  /**
-   * Attempts to decode Base64 data and deserialize a Java Object within.
-   * Returns <code>null</code> if there was an error.
-   *
-   * @param encodedObject
-   *        The Base64 data to decode
-   * @return The decoded and deserialized object
-   * @throws NullPointerException
-   *         if encodedObject is null
-   * @throws IOException
-   *         if there is a general error
-   * @throws ClassNotFoundException
-   *         if the decoded object is of a class that cannot be found by the JVM
-   * @since 1.5
-   */
-  public static Object decodeToObject (@Nonnull final String encodedObject) throws IOException, ClassNotFoundException
-  {
-    return decodeToObject (encodedObject, NO_OPTIONS, null);
-  }
-
-  /**
-   * Attempts to decode Base64 data and deserialize a Java Object within.
-   * Returns <code>null</code> if there was an error. If <code>loader</code> is
-   * not null, it will be the class loader used when deserializing.
-   *
-   * @param encodedObject
-   *        The Base64 data to decode
-   * @param options
-   *        Various parameters related to decoding
-   * @param loader
-   *        Optional class loader to use in deserializing classes.
-   * @return The decoded and deserialized object
-   * @throws NullPointerException
-   *         if encodedObject is null
-   * @throws IOException
-   *         if there is a general error
-   * @throws ClassNotFoundException
-   *         if the decoded object is of a class that cannot be found by the JVM
-   * @since 2.3.4
-   */
-  public static Object decodeToObject (@Nonnull final String encodedObject,
-                                       final int options,
-                                       @Nullable final ClassLoader loader) throws IOException, ClassNotFoundException
-  {
-    // Decode and gunzip if necessary
-    final byte [] objBytes = decode (encodedObject, options);
-
-    ObjectInputStream ois = null;
-    Object obj = null;
-
-    try (final NonBlockingByteArrayInputStream bais = new NonBlockingByteArrayInputStream (objBytes))
-    {
-      // If no custom class loader is provided, use Java's builtin OIS.
-      if (loader == null)
-      {
-        ois = new ObjectInputStream (bais);
-      }
-      else
-      {
-        // Else make a customized object input stream that uses
-        // the provided class loader.
-        ois = new ObjectInputStream (bais)
-        {
-          @Override
-          public Class <?> resolveClass (final ObjectStreamClass streamClass) throws IOException, ClassNotFoundException
-          {
-            final Class <?> c = Class.forName (streamClass.getName (), false, loader);
-            if (c != null)
-              return c;
-            return super.resolveClass (streamClass);
-          }
-        };
-      }
-
-      obj = ois.readObject ();
-    }
-    finally
-    {
-      StreamHelper.close (ois);
-    }
-
-    return obj;
   }
 
   /**

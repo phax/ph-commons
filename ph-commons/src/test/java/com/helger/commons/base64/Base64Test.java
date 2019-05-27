@@ -24,7 +24,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.StandardCharsets;
@@ -37,7 +36,6 @@ import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
-import com.helger.commons.lang.priviledged.IPrivilegedAction;
 
 /**
  * Test class for class {@link Base64}.<br>
@@ -47,35 +45,6 @@ import com.helger.commons.lang.priviledged.IPrivilegedAction;
  */
 public final class Base64Test
 {
-  private static final class TestSerializable implements Serializable
-  {
-    private final int m_nValue;
-    private final String m_sValue;
-
-    public TestSerializable (final int nValue, final String sValue)
-    {
-      m_nValue = nValue;
-      m_sValue = sValue;
-    }
-
-    @Override
-    public boolean equals (final Object o)
-    {
-      if (o == this)
-        return true;
-      if (o == null || !getClass ().equals (o.getClass ()))
-        return false;
-      final TestSerializable rhs = (TestSerializable) o;
-      return m_nValue == rhs.m_nValue && m_sValue.equals (rhs.m_sValue);
-    }
-
-    @Override
-    public int hashCode ()
-    {
-      return 31 * m_nValue + m_sValue.hashCode ();
-    }
-  }
-
   @Test
   public void testEncodeBytes () throws IOException
   {
@@ -96,34 +65,6 @@ public final class Base64Test
     final String sEncoded = Base64.encodeBytes (sSource.getBytes (StandardCharsets.ISO_8859_1), Base64.GZIP);
     final byte [] aDecoded = Base64.decode (sEncoded);
     assertArrayEquals (sSource.getBytes (StandardCharsets.ISO_8859_1), aDecoded);
-  }
-
-  @Test
-  public void testEncodeObject () throws IOException, ClassNotFoundException
-  {
-    final TestSerializable aSource = new TestSerializable (4711, "Sträßle");
-    final String sEncoded = Base64.encodeObject (aSource);
-    TestSerializable aDest = (TestSerializable) Base64.decodeToObject (sEncoded);
-    assertEquals (aSource, aDest);
-    aDest = (TestSerializable) Base64.decodeToObject (sEncoded,
-                                                      Base64.NO_OPTIONS,
-                                                      IPrivilegedAction.getClassLoader (Base64Test.class)
-                                                                       .invokeSafe ());
-    assertEquals (aSource, aDest);
-  }
-
-  @Test
-  public void testEncodeObjectGZIP () throws IOException, ClassNotFoundException
-  {
-    final TestSerializable aSource = new TestSerializable (4711, "Sträßle");
-    final String sEncoded = Base64.encodeObject (aSource, Base64.GZIP);
-    TestSerializable aDest = (TestSerializable) Base64.decodeToObject (sEncoded);
-    assertEquals (aSource, aDest);
-    aDest = (TestSerializable) Base64.decodeToObject (sEncoded,
-                                                      Base64.NO_OPTIONS,
-                                                      IPrivilegedAction.getClassLoader (Base64Test.class)
-                                                                       .invokeSafe ());
-    assertEquals (aSource, aDest);
   }
 
   private byte [] _createData (final int length) throws Exception
