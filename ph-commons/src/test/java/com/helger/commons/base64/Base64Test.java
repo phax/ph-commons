@@ -36,6 +36,7 @@ import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
+import com.helger.commons.string.StringHelper;
 
 /**
  * Test class for class {@link Base64}.<br>
@@ -56,6 +57,22 @@ public final class Base64Test
     final byte [] aSrc = "Hallo Wält".getBytes (StandardCharsets.UTF_8);
     final String sDst = Base64.encodeBytes (aSrc, 0, aSrc.length);
     assertEquals ("Hallo Wält", Base64.safeDecodeAsString (sDst, StandardCharsets.UTF_8));
+  }
+
+  @Test
+  public void testEncodeWithBreakLines ()
+  {
+    final String sSource = StringHelper.getRepeated ('a', 100);
+    String sEncoded = Base64.safeEncodeBytes (sSource.getBytes (StandardCharsets.ISO_8859_1), Base64.DO_BREAK_LINES);
+    assertEquals ("YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFh\n" +
+                  "YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYQ==",
+                  sEncoded);
+
+    sEncoded = Base64.safeEncodeBytes (sSource.getBytes (StandardCharsets.ISO_8859_1),
+                                       Base64.DO_BREAK_LINES | Base64.DO_NEWLINE_CRLF);
+    assertEquals ("YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFh\r\n" +
+                  "YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYQ==",
+                  sEncoded);
   }
 
   @Test

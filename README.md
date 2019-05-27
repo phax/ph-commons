@@ -37,6 +37,7 @@ This project was the following modules:
     * Added complete list of HTTP response codes constants to `CHttp`
     * Added new method `Base64OutputStream.setNewLineBytes`
     * Removed methods `Base64.(encode|decode)Object` for security reasons
+    * Added new option `Base64.DO_NEWLINE_CRLF` to use `\r\n` as newline separator instead of `\n`
 * v9.3.3 - 2019-05-06
     * Added `ICommonsIterable` methods `findFirstIndex` and `findLastIndex`
     * Added support for Java 12

@@ -241,6 +241,12 @@ public final class Base64
    */
   public static final int ORDERED = 32;
 
+  /**
+   * Use "\r\n" instead of "\n" as newline separators. Only relevant, if option
+   * {@link #DO_BREAK_LINES} is also used. Value is 64.
+   */
+  public static final int DO_NEWLINE_CRLF = 64;
+
   /* ******** P R I V A T E F I E L D S ******** */
 
   /** Maximum line length (76) of Base64 output. */
@@ -251,6 +257,9 @@ public final class Base64
 
   /** The new line character (\n) as a byte. */
   public static final byte NEW_LINE = (byte) '\n';
+
+  /** The new line CRLF (\r\n) as a bytes. */
+  public static final byte [] NEW_LINE_CRLF = new byte [] { (byte) '\r', (byte) '\n' };
 
   /** Preferred encoding: US-ASCII */
   public static final Charset PREFERRED_ENCODING = StandardCharsets.US_ASCII;
@@ -1775,7 +1784,8 @@ public final class Base64
 
     // Else, don't compress. Better not to use streams at all then.
     {
-      final boolean breakLines = (nOptions & DO_BREAK_LINES) != 0;
+      final boolean bBreakLines = (nOptions & DO_BREAK_LINES) != 0;
+      final boolean bUseCRLF = (nOptions & DO_NEWLINE_CRLF) != 0;
 
       // int len43 = len * 4 / 3;
       // byte[] outBuff = new byte[ ( len43 ) // Main 4:3
@@ -1784,13 +1794,17 @@ public final class Base64
       // Try to determine more precisely how big the array needs to be.
       // If we get it right, we don't have to do an array copy, and
       // we save a bunch of memory.
-      int encLen = (nLen / 3) * 4 + (nLen % 3 > 0 ? 4 : 0); // Bytes needed for
+      int nEncLen = (nLen / 3) * 4 + (nLen % 3 > 0 ? 4 : 0); // Bytes needed for
       // actual encoding
-      if (breakLines)
+      if (bBreakLines)
       {
-        encLen += encLen / MAX_LINE_LENGTH; // Plus extra newline characters
+        // Plus extra newline characters
+        if (bUseCRLF)
+          nEncLen += (nEncLen / MAX_LINE_LENGTH) * 2;
+        else
+          nEncLen += nEncLen / MAX_LINE_LENGTH;
       }
-      final byte [] outBuff = new byte [encLen];
+      final byte [] outBuff = new byte [nEncLen];
 
       int d = 0;
       int e = 0;
@@ -1801,10 +1815,21 @@ public final class Base64
         _encode3to4 (aSource, d + nOfs, 3, outBuff, e, nOptions);
 
         lineLength += 4;
-        if (breakLines && lineLength >= MAX_LINE_LENGTH)
+        if (bBreakLines && lineLength >= MAX_LINE_LENGTH)
         {
-          outBuff[e + 4] = NEW_LINE;
-          e++;
+          if (bUseCRLF)
+          {
+            for (final byte b : NEW_LINE_CRLF)
+            {
+              outBuff[e + 4] = b;
+              e++;
+            }
+          }
+          else
+          {
+            outBuff[e + 4] = NEW_LINE;
+            e++;
+          }
           lineLength = 0;
         }
       } // end for: each piece of array
