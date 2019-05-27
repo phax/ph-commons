@@ -23,6 +23,9 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
 
+import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.io.stream.WrappedOutputStream;
 
 /**
@@ -49,6 +52,7 @@ public class Base64OutputStream extends WrappedOutputStream
   private final int m_nOptions;
   // Local copies to avoid extra method calls
   private final byte [] m_aDecodabet;
+  private byte [] m_aNewLineBytes = new byte [] { Base64.NEW_LINE };
 
   /**
    * Constructs a {@link Base64OutputStream} in ENCODE mode.
@@ -100,6 +104,21 @@ public class Base64OutputStream extends WrappedOutputStream
   }
 
   /**
+   * Set the newline bytes to be used, so that "\r\n" can be used instead of the
+   * default "\n"
+   *
+   * @param aNewLineBytes
+   *        The newline bytes to be used. May neither be <code>null</code> nor
+   *        empty.
+   * @since 9.3.4
+   */
+  public void setNewLineBytes (@Nonnull @Nonempty final byte [] aNewLineBytes)
+  {
+    ValueEnforcer.notEmpty (aNewLineBytes, "NewLineBytes");
+    m_aNewLineBytes = ArrayHelper.getCopy (aNewLineBytes);
+  }
+
+  /**
    * Writes the byte to the output stream after converting to/from Base64
    * notation. When encoding, bytes are buffered three at a time before the
    * output stream actually gets a write() call. When decoding, bytes are
@@ -131,7 +150,7 @@ public class Base64OutputStream extends WrappedOutputStream
         m_nLineLength += 4;
         if (m_bBreakLines && m_nLineLength >= Base64.MAX_LINE_LENGTH)
         {
-          out.write (Base64.NEW_LINE);
+          out.write (m_aNewLineBytes);
           m_nLineLength = 0;
         }
         m_nPosition = 0;
