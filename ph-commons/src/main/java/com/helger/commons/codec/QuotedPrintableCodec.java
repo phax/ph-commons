@@ -91,7 +91,8 @@ public class QuotedPrintableCodec implements IByteArrayCodec
   }
 
   /**
-   * Encodes byte into its quoted-printable representation.
+   * Encodes byte into its quoted-printable representation. It will always be 3
+   * characters.
    *
    * @param b
    *        byte to encode
