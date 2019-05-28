@@ -36,6 +36,7 @@ import com.helger.commons.io.file.FileOperations;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
+import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -62,17 +63,24 @@ public final class Base64Test
   @Test
   public void testEncodeWithBreakLines ()
   {
-    final String sSource = StringHelper.getRepeated ('a', 100);
-    String sEncoded = Base64.safeEncodeBytes (sSource.getBytes (StandardCharsets.ISO_8859_1), Base64.DO_BREAK_LINES);
+    final byte [] aSource = StringHelper.getRepeated ('a', 100).getBytes (StandardCharsets.ISO_8859_1);
+    String sEncoded = Base64.safeEncodeBytes (aSource, Base64.DO_BREAK_LINES);
     assertEquals ("YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFh\n" +
                   "YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYQ==",
                   sEncoded);
 
-    sEncoded = Base64.safeEncodeBytes (sSource.getBytes (StandardCharsets.ISO_8859_1),
-                                       Base64.DO_BREAK_LINES | Base64.DO_NEWLINE_CRLF);
+    // Check that it can be read again
+    byte [] aReadBytes = StreamHelper.getAllBytes (new Base64InputStream (new NonBlockingByteArrayInputStream (sEncoded.getBytes (Base64.PREFERRED_ENCODING))));
+    assertArrayEquals (aSource, aReadBytes);
+
+    sEncoded = Base64.safeEncodeBytes (aSource, Base64.DO_BREAK_LINES | Base64.DO_NEWLINE_CRLF);
     assertEquals ("YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFh\r\n" +
                   "YWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYQ==",
                   sEncoded);
+
+    // Check that it can be read again
+    aReadBytes = StreamHelper.getAllBytes (new Base64InputStream (new NonBlockingByteArrayInputStream (sEncoded.getBytes (Base64.PREFERRED_ENCODING))));
+    assertArrayEquals (aSource, aReadBytes);
   }
 
   @Test

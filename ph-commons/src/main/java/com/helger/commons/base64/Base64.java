@@ -266,6 +266,7 @@ public final class Base64
 
   // Indicates white space in encoding
   static final byte WHITE_SPACE_ENC = -5;
+
   // Indicates equals sign in encoding
   private static final byte EQUALS_SIGN_ENC = -1;
 
@@ -1800,7 +1801,7 @@ public final class Base64
       {
         // Plus extra newline characters
         if (bUseCRLF)
-          nEncLen += (nEncLen / MAX_LINE_LENGTH) * 2;
+          nEncLen += (nEncLen / MAX_LINE_LENGTH) * NEW_LINE_CRLF.length;
         else
           nEncLen += nEncLen / MAX_LINE_LENGTH;
       }

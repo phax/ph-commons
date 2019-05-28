@@ -91,7 +91,7 @@ public class Base64InputStream extends WrappedInputStream
   public Base64InputStream (@Nonnull final InputStream aIS, final int nOptions)
   {
     super (aIS);
-    m_nOptions = nOptions; // Record for later
+    m_nOptions = nOptions;
     m_bBreakLines = (nOptions & Base64.DO_BREAK_LINES) > 0;
     m_bEncode = (nOptions & Base64.ENCODE) > 0;
     m_nBufferLength = m_bEncode ? 4 : 3;
@@ -156,7 +156,10 @@ public class Base64InputStream extends WrappedInputStream
           } while (b >= 0 && m_aDecodabet[b & 0x7f] <= Base64.WHITE_SPACE_ENC);
 
           if (b < 0)
-            break; // Reads a -1 if end of stream
+          {
+            // Reads a -1 if end of stream
+            break;
+          }
 
           b4[i] = (byte) b;
         }
@@ -175,7 +178,7 @@ public class Base64InputStream extends WrappedInputStream
           {
             // Must have broken out from above.
             throw new IOException ("Improperly padded Base64 input.");
-          } // end
+          }
 
       }
     }
@@ -194,7 +197,8 @@ public class Base64InputStream extends WrappedInputStream
         return '\n';
       }
       {
-        m_nLineLength++; // This isn't important when decoding
+        m_nLineLength++;
+        // This isn't important when decoding
         // but throwing an extra "if" seems
         // just as wasteful.
 
@@ -203,8 +207,9 @@ public class Base64InputStream extends WrappedInputStream
         if (m_nPosition >= m_nBufferLength)
           m_nPosition = -1;
 
-        return b & 0xFF; // This is how you "cast" a byte that's
-                         // intended to be unsigned.
+        // This is how you "cast" a byte that's
+        // intended to be unsigned.
+        return b & 0xFF;
       }
     }
 
@@ -239,6 +244,8 @@ public class Base64InputStream extends WrappedInputStream
       if (nByte >= 0)
         aDest[nOfs + nIndex] = (byte) nByte;
       else
+      {
+        // EOF
         if (nIndex == 0)
         {
           // First byte is not Base64 - nothing read
@@ -249,6 +256,7 @@ public class Base64InputStream extends WrappedInputStream
           // Out of 'for' loop
           break;
         }
+      }
     }
     return nIndex;
   }

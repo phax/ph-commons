@@ -143,8 +143,8 @@ public class Base64OutputStream extends WrappedOutputStream
     {
       m_aBuffer[m_nPosition++] = (byte) theByte;
       if (m_nPosition >= m_nBufferLength)
-      { // Enough to encode.
-
+      {
+        // Enough to encode.
         out.write (Base64._encode3to4 (m_aB4, m_aBuffer, m_nBufferLength, m_nOptions));
 
         m_nLineLength += 4;
@@ -156,9 +156,9 @@ public class Base64OutputStream extends WrappedOutputStream
         m_nPosition = 0;
       }
     }
-    // Else, Decoding
     else
     {
+      // Else, Decoding
       // Meaningful Base64 character?
       if (m_aDecodabet[theByte & 0x7f] > Base64.WHITE_SPACE_ENC)
       {
