@@ -550,8 +550,10 @@ public final class JsonReader
    *        <code>null</code>.
    * @return <code>null</code> if reading failed, the Json declarations
    *         otherwise.
+   * @deprecated Since v9.3.3 - use {@link #builder()} instead.
    */
   @Nullable
+  @Deprecated
   public static IJson readFromPath (@Nonnull final Path aPath)
   {
     return builder ().setSource (aPath).read ();
@@ -1049,6 +1051,12 @@ public final class JsonReader
                        .isSuccess ();
     }
 
+    /**
+     * @return The parsed JSON from the specified source. May be
+     *         <code>null</code> if parsing fails. This method should be invoked
+     *         only once per instance, because the underlying reader is not
+     *         guaranteed to be re-openable.
+     */
     @Nullable
     public IJson read ()
     {
