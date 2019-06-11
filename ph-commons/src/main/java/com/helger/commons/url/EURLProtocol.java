@@ -30,16 +30,16 @@ import com.helger.commons.annotation.Nonempty;
  */
 public enum EURLProtocol implements IURLProtocol
 {
-  /** http (RFC2616). */
+  /** http (RFC 2616). */
   HTTP ("http://"),
 
-  /** https (RFC2818). */
+  /** https (RFC 2818). */
   HTTPS ("https://"),
 
-  /** Local file (RFC1738). */
+  /** Local file (RFC 1738). */
   FILE ("file://"),
 
-  /** ftp (RFC1738). */
+  /** ftp (RFC 1738). */
   FTP ("ftp://"),
 
   /** OSGI bundle */
@@ -48,16 +48,16 @@ public enum EURLProtocol implements IURLProtocol
   /** Skype. */
   CALLTO ("callto:"),
 
-  /** Embedded data (RFC2397). */
+  /** Embedded data (RFC 2397). */
   DATA ("data:"),
 
   /** ftps. */
   FTPS ("ftps://"),
 
-  /** geographic coordinates (RFC5870). */
+  /** geographic coordinates (RFC 5870). */
   GEO ("geo:"),
 
-  /** Gopher (RFC4266). */
+  /** Gopher (RFC 4266). */
   GOPHER ("gopher://"),
 
   /** regular JAR */
@@ -66,22 +66,22 @@ public enum EURLProtocol implements IURLProtocol
   /** JavaScript */
   JAVASCRIPT ("javascript:"),
 
-  /** LDAP (RFC4516). */
+  /** LDAP (RFC 4516). */
   LDAP ("ldap:"),
 
-  /** Email (RFC6068). */
+  /** Email (RFC 6068). */
   MAILTO ("mailto:"),
 
   /** MS Media Server. */
   MMS ("mms:"),
 
-  /** News (RFC5538). */
+  /** News (RFC 5538). */
   NEWS ("news:"),
 
-  /** NNTP (RFC5538). */
+  /** NNTP (RFC 5538). */
   NNTP ("nntp:"),
 
-  /** POP3 (RFC2384). */
+  /** POP3 (RFC 2384). */
   POP ("pop://"),
 
   /** RSync. */
@@ -90,10 +90,10 @@ public enum EURLProtocol implements IURLProtocol
   /** RTMP */
   RTMP ("rtmp://"),
 
-  /** Real time streaming protocol (RFC2326). */
+  /** Real time streaming protocol (RFC 2326). */
   RTSP ("rtsp://"),
 
-  /** Real time streaming protocol (unreliable) (RFC2326). */
+  /** Real time streaming protocol (unreliable) (RFC 2326). */
   RTSPU ("rtspu://"),
 
   /** scp. */
@@ -102,35 +102,41 @@ public enum EURLProtocol implements IURLProtocol
   /** sftp. */
   SFTP ("sftp://"),
 
-  /** shttp (RFC2660). */
+  /** shttp (RFC 2660). */
   SHTTP ("shttp://"),
 
-  /** session initiation protocol (RFC3261). */
+  /** session initiation protocol (RFC 3261). */
   SIP ("sip:"),
 
-  /** secure session initiation protocol (RFC3261). */
+  /** secure session initiation protocol (RFC 3261). */
   SIPS ("sips:"),
 
-  /** Telephone (RFC3966). */
+  /** Telephone (RFC 3966). */
   TEL ("tel:"),
 
-  /** Reference to interactive sessions (RFC4248). */
+  /** Reference to interactive sessions (RFC 4248). */
   TELNET ("telnet://"),
 
-  /** URN (RFC2141) */
+  /** URN (RFC 2141) */
   URN ("urn:"),
 
-  /** Web socket (RFC6455). */
+  /** Web socket (RFC 6455). */
   WS ("ws://"),
 
   /** WebSphere JAR */
   WSJAR ("wsjar:"),
 
-  /** Encrypted web socket (RFC6455). */
+  /** Encrypted web socket (RFC 6455). */
   WSS ("wss://"),
 
   /** ZIP file */
-  ZIP ("zip:");
+  ZIP ("zip:"),
+
+  /** Content ID (RFC 2392) */
+  CID ("cid:"),
+
+  /** Message ID (RFC 2392) */
+  MID ("mid:");
 
   private final String m_sProtocol;
 
