@@ -28,6 +28,8 @@ This project was the following modules:
 
 ## News and noteworthy
 
+* v9.3.5 - work in progress
+    * Updated to BouncyCastle 1.62
 * v9.3.4 - 2019-05-28
     * Added new overloads for `JsonReader.Builder.setSource`
     * Catching exception in `VerySecureRandom` initialization - `setSeed` may throw an Exception
