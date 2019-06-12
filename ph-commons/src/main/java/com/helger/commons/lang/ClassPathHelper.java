@@ -22,6 +22,7 @@ import java.util.function.Consumer;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsArrayList;
@@ -58,7 +59,7 @@ public final class ClassPathHelper
   }
 
   /**
-   * Add all class path entries into the provided target list.
+   * Iterate all class path entries and invoke the provided consumer.
    *
    * @param aConsumer
    *        The target consumer invoked for all entries. May not be
@@ -66,6 +67,7 @@ public final class ClassPathHelper
    */
   public static void forAllClassPathEntries (@Nonnull final Consumer <? super String> aConsumer)
   {
+    ValueEnforcer.notNull (aConsumer, "Consumer");
     StringHelper.explode (SystemProperties.getPathSeparator (), SystemProperties.getJavaClassPath (), aConsumer);
   }
 
