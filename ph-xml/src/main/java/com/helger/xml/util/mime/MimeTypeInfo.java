@@ -16,6 +16,7 @@
  */
 package com.helger.xml.util.mime;
 
+import java.io.Serializable;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -31,6 +32,7 @@ import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.hashcode.IHashCodeGenerator;
 import com.helger.commons.mime.IMimeType;
 import com.helger.commons.mime.MimeTypeParser;
 import com.helger.commons.string.StringHelper;
@@ -45,10 +47,12 @@ import com.helger.commons.string.ToStringGenerator;
 public final class MimeTypeInfo
 {
   @Immutable
-  public static final class MimeTypeWithSource
+  public static final class MimeTypeWithSource implements Serializable
   {
     private final IMimeType m_aMimeType;
     private final String m_sSource;
+    // status vars
+    private transient int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
     public MimeTypeWithSource (@Nonnull final String sMimeType)
     {
@@ -99,7 +103,10 @@ public final class MimeTypeInfo
     @Override
     public int hashCode ()
     {
-      return new HashCodeGenerator (this).append (m_aMimeType).append (m_sSource).getHashCode ();
+      int ret = m_nHashCode;
+      if (ret == IHashCodeGenerator.ILLEGAL_HASHCODE)
+        ret = m_nHashCode = new HashCodeGenerator (this).append (m_aMimeType).append (m_sSource).getHashCode ();
+      return ret;
     }
 
     @Override
@@ -112,10 +119,12 @@ public final class MimeTypeInfo
   }
 
   @Immutable
-  public static final class ExtensionWithSource
+  public static final class ExtensionWithSource implements Serializable
   {
     private final String m_sExt;
     private final String m_sSource;
+    // status vars
+    private transient int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
     public ExtensionWithSource (@Nonnull final String sExt)
     {
@@ -167,7 +176,10 @@ public final class MimeTypeInfo
     @Override
     public int hashCode ()
     {
-      return new HashCodeGenerator (this).append (m_sExt).append (m_sSource).getHashCode ();
+      int ret = m_nHashCode;
+      if (ret == IHashCodeGenerator.ILLEGAL_HASHCODE)
+        ret = m_nHashCode = new HashCodeGenerator (this).append (m_sExt).append (m_sSource).getHashCode ();
+      return ret;
     }
 
     @Override
