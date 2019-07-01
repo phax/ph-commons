@@ -186,12 +186,31 @@ public final class PDTXMLConverter
   @Nullable
   public static XMLGregorianCalendar getXMLCalendarDate (@Nullable final LocalDate aBase)
   {
+    return getXMLCalendarDate (aBase, DatatypeConstants.FIELD_UNDEFINED);
+  }
+
+  /**
+   * Get the passed object as {@link XMLGregorianCalendar} date (without a
+   * time).
+   *
+   * @param aBase
+   *        The source object. May be <code>null</code>.
+   * @param nTimezoneOffsetInMinutes
+   *        Timezone offset in minutes. Use
+   *        {@link DatatypeConstants#FIELD_UNDEFINED} if none is to be used.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   * @since 9.3.5
+   */
+  @Nullable
+  public static XMLGregorianCalendar getXMLCalendarDate (@Nullable final LocalDate aBase,
+                                                         final int nTimezoneOffsetInMinutes)
+  {
     if (aBase == null)
       return null;
     return s_aDTFactory.newXMLGregorianCalendarDate (aBase.getYear (),
                                                      aBase.getMonth ().getValue (),
                                                      aBase.getDayOfMonth (),
-                                                     DatatypeConstants.FIELD_UNDEFINED);
+                                                     nTimezoneOffsetInMinutes);
   }
 
   /**

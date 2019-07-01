@@ -79,6 +79,28 @@ public final class PDTXMLConverterTest
     assertNotNull (aLD2);
     assertEquals (aLD, aLD2);
     assertNull (PDTXMLConverter.getLocalDate (null));
+  }
+
+  @Test
+  public void testLocalDateWithTimezone ()
+  {
+    assertNull (PDTXMLConverter.getXMLCalendarDate ((LocalDate) null));
+    final LocalDate aLD = PDTFactory.getCurrentLocalDate ();
+    final int nOffsetMinutes = 60;
+    final XMLGregorianCalendar c1 = PDTXMLConverter.getXMLCalendarDate (aLD, nOffsetMinutes);
+    assertNotNull (c1);
+    assertEquals (aLD.getYear (), c1.getYear ());
+    assertEquals (aLD.getMonth ().getValue (), c1.getMonth ());
+    assertEquals (aLD.getDayOfMonth (), c1.getDay ());
+    assertEquals (DatatypeConstants.FIELD_UNDEFINED, c1.getHour ());
+    assertEquals (DatatypeConstants.FIELD_UNDEFINED, c1.getMinute ());
+    assertEquals (DatatypeConstants.FIELD_UNDEFINED, c1.getSecond ());
+    assertEquals (DatatypeConstants.FIELD_UNDEFINED, c1.getMillisecond ());
+    assertEquals (nOffsetMinutes, c1.getTimezone ());
+    final LocalDate aLD2 = PDTXMLConverter.getLocalDate (c1);
+    assertNotNull (aLD2);
+    assertEquals (aLD, aLD2);
+    assertNull (PDTXMLConverter.getLocalDate (null));
 
   }
 
