@@ -165,7 +165,16 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
 
   public boolean isEmpty ()
   {
-    return m_aRWLock.readLocked (m_aCallbacks::isEmpty);
+    // Called very often - performance improvement
+    m_aRWLock.readLock ().lock ();
+    try
+    {
+      return m_aCallbacks.isEmpty ();
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
+    }
   }
 
   @Nonnull

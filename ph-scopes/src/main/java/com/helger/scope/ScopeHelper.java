@@ -141,7 +141,16 @@ public final class ScopeHelper
    */
   public static boolean isDebugRequestScopeEnabled ()
   {
-    return s_aRWLock.readLocked ( () -> s_bDebugRequestScope);
+    // Called very often - performance improvement
+    s_aRWLock.readLock ().lock ();
+    try
+    {
+      return s_bDebugRequestScope;
+    }
+    finally
+    {
+      s_aRWLock.readLock ().unlock ();
+    }
   }
 
   /**
