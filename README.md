@@ -33,6 +33,7 @@ This project was the following modules:
     * Added new `EURLProtocol` entries `CID` and `MID` from RFC 2392
     * Minor speed ups in several places
     * Added overload of `PDTXMLConverter.getXMLCalendarDate` with timezone offset in minutes
+    * Added new `JonReader.Builer` overloads
 * v9.3.4 - 2019-05-28
     * Added new overloads for `JsonReader.Builder.setSource`
     * Catching exception in `VerySecureRandom` initialization - `setSeed` may throw an Exception

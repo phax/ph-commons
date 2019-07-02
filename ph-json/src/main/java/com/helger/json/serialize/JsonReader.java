@@ -44,6 +44,9 @@ import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.state.EValidity;
 import com.helger.json.IJson;
+import com.helger.json.IJsonArray;
+import com.helger.json.IJsonObject;
+import com.helger.json.IJsonValue;
 import com.helger.json.parser.IJsonParserCustomizeCallback;
 import com.helger.json.parser.JsonParseException;
 import com.helger.json.parser.JsonParser;
@@ -1063,6 +1066,51 @@ public final class JsonReader
       if (m_aReader == null)
         throw new IllegalStateException ("No source is set.");
       return JsonReader.readJson (m_aReader, m_aCustomizeCallback, m_aCustomeExceptionCallback);
+    }
+
+    /**
+     * @return The parsed JSON array from the specified source. May be
+     *         <code>null</code> if parsing fails or if the parsed JSON is not
+     *         an array. This method should be invoked only once per instance,
+     *         because the underlying reader is not guaranteed to be
+     *         re-openable.
+     * @since 9.3.5
+     */
+    @Nullable
+    public IJsonArray readAsArray ()
+    {
+      final IJson aJson = read ();
+      return aJson == null ? null : aJson.getAsArray ();
+    }
+
+    /**
+     * @return The parsed JSON array from the specified source. May be
+     *         <code>null</code> if parsing fails or if the parsed JSON is not
+     *         an object. This method should be invoked only once per instance,
+     *         because the underlying reader is not guaranteed to be
+     *         re-openable.
+     * @since 9.3.5
+     */
+    @Nullable
+    public IJsonObject readAsObject ()
+    {
+      final IJson aJson = read ();
+      return aJson == null ? null : aJson.getAsObject ();
+    }
+
+    /**
+     * @return The parsed JSON array from the specified source. May be
+     *         <code>null</code> if parsing fails or if the parsed JSON is not a
+     *         value. This method should be invoked only once per instance,
+     *         because the underlying reader is not guaranteed to be
+     *         re-openable.
+     * @since 9.3.5
+     */
+    @Nullable
+    public IJsonValue readAsValue ()
+    {
+      final IJson aJson = read ();
+      return aJson == null ? null : aJson.getAsValue ();
     }
   }
 }
