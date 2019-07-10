@@ -31,6 +31,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.Singleton;
 import com.helger.commons.annotation.VisibleForTesting;
 import com.helger.commons.collection.impl.CommonsHashSet;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.locale.LocaleCache;
@@ -47,7 +48,7 @@ import com.helger.commons.string.StringHelper;
  */
 @ThreadSafe
 @Singleton
-public final class CountryCache
+public class CountryCache
 {
   private static final class SingletonHolder
   {
@@ -55,7 +56,6 @@ public final class CountryCache
   }
 
   private static final Logger LOGGER = LoggerFactory.getLogger (CountryCache.class);
-
   private static boolean s_bDefaultInstantiated = false;
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
@@ -64,7 +64,7 @@ public final class CountryCache
   @GuardedBy ("m_aRWLock")
   private final ICommonsSet <String> m_aCountries = new CommonsHashSet <> ();
 
-  private CountryCache ()
+  protected CountryCache ()
   {
     reinitialize ();
   }
@@ -176,11 +176,12 @@ public final class CountryCache
   /**
    * Reset the cache to the initial state.
    */
-  public void reinitialize ()
+  public final void reinitialize ()
   {
     m_aRWLock.writeLocked (m_aCountries::clear);
 
-    for (final Locale aLocale : LocaleCache.getInstance ().getAllLocales ())
+    final ICommonsList <Locale> aAllLocales = LocaleCache.getInstance ().getAllLocales ();
+    for (final Locale aLocale : aAllLocales)
     {
       final String sCountry = aLocale.getCountry ();
       if (StringHelper.hasText (sCountry))
@@ -188,6 +189,6 @@ public final class CountryCache
     }
 
     if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Reinitialized " + CountryCache.class.getName ());
+      LOGGER.debug ("Reinitialized " + getClass ().getName ());
   }
 }

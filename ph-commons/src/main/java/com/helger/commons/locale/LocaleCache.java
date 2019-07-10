@@ -30,10 +30,10 @@ import com.helger.commons.annotation.ELockType;
 import com.helger.commons.annotation.MustBeLocked;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.Singleton;
-import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.CommonsHashSet;
+import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.collection.impl.ICommonsMap;
+import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.string.StringHelper;
@@ -47,7 +47,7 @@ import com.helger.commons.string.StringHelper;
  */
 @ThreadSafe
 @Singleton
-public final class LocaleCache
+public class LocaleCache
 {
   private static final class SingletonHolder
   {
@@ -61,9 +61,9 @@ public final class LocaleCache
 
   /** maps a string to a locale. */
   @GuardedBy ("m_aRWLock")
-  private final ICommonsMap <String, Locale> m_aLocales = new CommonsHashMap <> ();
+  private final ICommonsOrderedMap <String, Locale> m_aLocales = new CommonsLinkedHashMap <> ();
 
-  private LocaleCache ()
+  protected LocaleCache ()
   {
     reinitialize ();
   }
@@ -304,7 +304,7 @@ public final class LocaleCache
   /**
    * Reset the cache to the initial state.
    */
-  public void reinitialize ()
+  public final void reinitialize ()
   {
     m_aRWLock.writeLocked ( () -> {
       m_aLocales.clear ();
@@ -319,9 +319,15 @@ public final class LocaleCache
 
       // http://forums.sun.com/thread.jspa?threadID=525482&tstart=1411
       for (final String sCountry : Locale.getISOCountries ())
-        _initialAdd (new Locale ("", sCountry));
+      {
+        final Locale aLocale = new Locale ("", sCountry);
+        _initialAdd (aLocale);
+      }
       for (final String sLanguage : Locale.getISOLanguages ())
-        _initialAdd (new Locale (sLanguage, ""));
+      {
+        final Locale aLocale = new Locale (sLanguage, "");
+        _initialAdd (aLocale);
+      }
     });
 
     if (LOGGER.isDebugEnabled ())
