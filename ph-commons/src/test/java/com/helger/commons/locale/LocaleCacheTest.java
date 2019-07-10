@@ -49,6 +49,7 @@ public final class LocaleCacheTest
     assertEquals ("de_AT", LocaleCache.getInstance ().getLocale ("de", "at").toString ());
     assertEquals ("de", LocaleCache.getInstance ().getLocale ("de", null).toString ());
     assertEquals ("_AT", LocaleCache.getInstance ().getLocale (null, "AT").toString ());
+    assertEquals ("_AT", LocaleCache.getInstance ().getLocale (null, "AUT").toString ());
     assertNull (LocaleCache.getInstance ().getLocale (null, null));
 
     assertNotNull (LocaleCache.getInstance ().getLocale ("de", "AT", "Vienna"));

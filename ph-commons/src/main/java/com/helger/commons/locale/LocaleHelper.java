@@ -120,9 +120,19 @@ public final class LocaleHelper
   private static final String LOCALE_ALL_STR = LOCALE_ALL.toString ();
   private static final String LOCALE_INDEPENDENT_STR = LOCALE_INDEPENDENT.toString ();
   private static final LocaleListCache s_aLocaleListCache = new LocaleListCache ();
+  private static final ICommonsMap <String, String> COUNTRY_ISO3TO2 = new CommonsHashMap <> ();
 
   @PresentForCodeCoverage
   private static final LocaleHelper s_aInstance = new LocaleHelper ();
+
+  static
+  {
+    for (final String sISO : Locale.getISOCountries ())
+    {
+      final Locale aLocale = new Locale ("", sISO);
+      COUNTRY_ISO3TO2.put (aLocale.getISO3Country (), aLocale.getCountry ());
+    }
+  }
 
   private LocaleHelper ()
   {}
@@ -382,9 +392,22 @@ public final class LocaleHelper
   @Nullable
   public static String getValidCountryCode (@Nullable final String sCode)
   {
-    if (StringHelper.hasText (sCode) && RegExHelper.stringMatchesPattern ("[a-zA-Z]{2}|[0-9]{3}", sCode))
+    // Allow for 2 or 3 letter codes ("AT" and "AUT")
+    if (StringHelper.hasText (sCode))
     {
-      return sCode.toUpperCase (CGlobal.LOCALE_FIXED_NUMBER_FORMAT);
+      // Allow for 2 letter codes ("AT")
+      if (RegExHelper.stringMatchesPattern ("[a-zA-Z]{2}|[0-9]{3}", sCode))
+      {
+        return sCode.toUpperCase (CGlobal.LOCALE_FIXED_NUMBER_FORMAT);
+      }
+
+      // Allow for 3 letter codes ("AUT")
+      if (RegExHelper.stringMatchesPattern ("[a-zA-Z]{3}", sCode))
+      {
+        final String sAlpha3 = sCode.toUpperCase (CGlobal.LOCALE_FIXED_NUMBER_FORMAT);
+        final String sAlpha2 = COUNTRY_ISO3TO2.get (sAlpha3);
+        return sAlpha2 != null ? sAlpha2 : sAlpha3;
+      }
     }
     return null;
   }

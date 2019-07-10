@@ -58,7 +58,9 @@ public final class CountryCacheTest
     assertNull (CountryCache.getInstance ().getCountry ("A"));
     assertNotNull (CountryCache.getInstance ().getCountry ("AT"));
     assertNotNull (CountryCache.getInstance ().getCountry ("at"));
-    assertNull (CountryCache.getInstance ().getCountry ("AAA"));
+    assertNotNull (CountryCache.getInstance ().getCountry ("AUT"));
+    assertNotNull (CountryCache.getInstance ().getCountry ("aut"));
+    assertNull (CountryCache.getInstance ().getCountry ("AAAA"));
     assertNull (CountryCache.getInstance ().getCountry ("1"));
     assertNull (CountryCache.getInstance ().getCountry ("12"));
     assertNotNull (CountryCache.getInstance ().getCountry ("123"));
@@ -187,5 +189,19 @@ public final class CountryCacheTest
       assertTrue (StringHelper.hasText (aCountry.getCountry ()));
       assertTrue (StringHelper.hasNoText (aCountry.getVariant ()));
     }
+  }
+
+  @Test
+  public void testResolve ()
+  {
+    final CountryCache aCC = CountryCache.getInstance ();
+
+    assertTrue (aCC.containsCountry ("AT"));
+    final Locale c1 = aCC.getCountry ("AT");
+    assertEquals ("Austria", c1.getDisplayCountry (Locale.US));
+
+    assertTrue (aCC.containsCountry ("AUT"));
+    final Locale c2 = aCC.getCountry ("AUT");
+    assertEquals ("Austria", c2.getDisplayCountry (Locale.US));
   }
 }

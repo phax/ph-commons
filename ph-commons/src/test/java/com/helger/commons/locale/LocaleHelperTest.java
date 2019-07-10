@@ -238,7 +238,9 @@ public final class LocaleHelperTest
     assertNull (LocaleHelper.getValidCountryCode ("_de"));
     assertNull (LocaleHelper.getValidCountryCode ("d.e"));
     assertNull (LocaleHelper.getValidCountryCode ("d e"));
-    assertNull (LocaleHelper.getValidCountryCode ("abc"));
+    // Because Alpha3
+    assertNotNull (LocaleHelper.getValidCountryCode ("abc"));
+    assertNull (LocaleHelper.getValidCountryCode ("abcd"));
     assertNull (LocaleHelper.getValidCountryCode ("1234"));
     assertEquals ("DE", LocaleHelper.getValidCountryCode ("De"));
     assertEquals ("123", LocaleHelper.getValidCountryCode ("123"));
