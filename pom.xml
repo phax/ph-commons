@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger</groupId>
     <artifactId>parent-pom</artifactId>
-    <version>1.10.8</version>
+    <version>1.10.9</version>
   </parent>
   <artifactId>ph-commons-parent-pom</artifactId>
   <version>9.3.5-SNAPSHOT</version>
