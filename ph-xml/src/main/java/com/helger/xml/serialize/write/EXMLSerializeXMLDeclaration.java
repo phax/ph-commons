@@ -35,7 +35,7 @@ public enum EXMLSerializeXMLDeclaration implements IHasID <String>
   /** Emit all fields: version, encoding, standalone */
   EMIT ("emit"),
   /** Emit fields: version, encoding */
-  EMIT_NO_STANDLONE ("emitnostandalone"),
+  EMIT_NO_STANDALONE ("emitnostandalone"),
   /**
    * @since 9.2.1
    * @deprecated in 9.3.5 - use the method in IXMLWriterSettings instead
@@ -74,7 +74,7 @@ public enum EXMLSerializeXMLDeclaration implements IHasID <String>
   @Deprecated
   public boolean isWithNewLine ()
   {
-    return this == EMIT || this == EMIT_NO_STANDLONE;
+    return this == EMIT || this == EMIT_NO_STANDALONE;
   }
 
   /**

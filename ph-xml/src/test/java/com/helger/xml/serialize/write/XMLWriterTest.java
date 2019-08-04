@@ -892,7 +892,7 @@ public final class XMLWriterTest
                   s);
 
     aSettings.setNewLineAfterXMLDeclaration (true);
-    aSettings.setSerializeXMLDeclaration (EXMLSerializeXMLDeclaration.EMIT_NO_STANDLONE);
+    aSettings.setSerializeXMLDeclaration (EXMLSerializeXMLDeclaration.EMIT_NO_STANDALONE);
     s = XMLWriter.getNodeAsString (aDoc, aSettings);
     assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
                   CRLF +
