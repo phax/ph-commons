@@ -42,6 +42,7 @@ import com.helger.commons.charset.CharsetHelper;
 import com.helger.commons.collection.NonBlockingStack;
 import com.helger.commons.collection.iterate.CombinedIterator;
 import com.helger.commons.io.stream.StreamHelper;
+import com.helger.commons.state.ETriState;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.xml.EXMLVersion;
@@ -164,8 +165,8 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
   }
 
   /**
-   * @return <code>true</code> if debug mode is enabled, <code>false</code> if it
-   *         is disabled. By default it is disabled.
+   * @return <code>true</code> if debug mode is enabled, <code>false</code> if
+   *         it is disabled. By default it is disabled.
    * @see #setDebugMode(boolean)
    */
   public final boolean isDebugMode ()
@@ -177,8 +178,8 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
    * Enable or disable debug mode
    *
    * @param bDebugMode
-   *        <code>true</code> to enable debug mode, <code>false</code> to disable
-   *        it.
+   *        <code>true</code> to enable debug mode, <code>false</code> to
+   *        disable it.
    * @return this for chaining
    * @see #isDebugMode()
    */
@@ -304,7 +305,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
   public void writeStartDocument (@Nonnull final Charset aEncoding, @Nonnull final EXMLVersion eVersion)
   {
     debug ( () -> "writeStartDocument (" + aEncoding + ", " + eVersion + ")");
-    m_aEmitter.onXMLDeclaration (eVersion, aEncoding.name (), false);
+    m_aEmitter.onXMLDeclaration (eVersion, aEncoding.name (), ETriState.UNDEFINED, true);
   }
 
   public void writeDTD (@Nonnull final String sDTD) throws XMLStreamException
@@ -318,14 +319,15 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
     writeStartElement (null, sLocalName);
   }
 
-  public void writeStartElement (final String sNamespaceURI, final String sLocalName) throws XMLStreamException
+  public void writeStartElement (@Nullable final String sNamespaceURI,
+                                 final String sLocalName) throws XMLStreamException
   {
     writeStartElement (null, sLocalName, sNamespaceURI);
   }
 
-  public void writeStartElement (final String sPrefix,
+  public void writeStartElement (@Nullable final String sPrefix,
                                  final String sLocalName,
-                                 final String sNamespaceURI) throws XMLStreamException
+                                 @Nullable final String sNamespaceURI) throws XMLStreamException
   {
     debug ( () -> "writeStartElement (" + sPrefix + ", " + sLocalName + ", " + sNamespaceURI + ")");
     _elementStartClose ();
@@ -345,14 +347,15 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
     writeEmptyElement (null, sLocalName);
   }
 
-  public void writeEmptyElement (final String sNamespaceURI, final String sLocalName) throws XMLStreamException
+  public void writeEmptyElement (@Nullable final String sNamespaceURI,
+                                 final String sLocalName) throws XMLStreamException
   {
     writeStartElement (null, sLocalName, sNamespaceURI);
   }
 
-  public void writeEmptyElement (final String sPrefix,
+  public void writeEmptyElement (@Nullable final String sPrefix,
                                  final String sLocalName,
-                                 final String sNamespaceURI) throws XMLStreamException
+                                 @Nullable final String sNamespaceURI) throws XMLStreamException
   {
     debug ( () -> "writeEmptyElement (" + sPrefix + ", " + sLocalName + ", " + sNamespaceURI + ")");
     _elementStartClose ();
@@ -372,8 +375,15 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
     writeAttribute (null, sLocalName, sValue);
   }
 
-  public void writeAttribute (final String sPrefix,
-                              final String sNamespaceURI,
+  public void writeAttribute (@Nullable final String sNamespaceURI,
+                              final String sLocalName,
+                              final String sValue) throws XMLStreamException
+  {
+    writeAttribute (null, sNamespaceURI, sLocalName, sValue);
+  }
+
+  public void writeAttribute (@Nullable final String sPrefix,
+                              @Nullable final String sNamespaceURI,
                               final String sLocalName,
                               final String sValue) throws XMLStreamException
   {
@@ -381,13 +391,6 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
     if (!m_bInElementStart)
       throw new IllegalStateException ("No element open");
     m_aEmitter.elementAttr (sPrefix, sLocalName, sValue);
-  }
-
-  public void writeAttribute (final String sNamespaceURI,
-                              final String sLocalName,
-                              final String sValue) throws XMLStreamException
-  {
-    writeAttribute (null, sNamespaceURI, sLocalName, sValue);
   }
 
   public void writeNamespace (@Nullable final String sPrefix,

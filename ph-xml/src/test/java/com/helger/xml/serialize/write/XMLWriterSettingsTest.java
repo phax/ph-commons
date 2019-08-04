@@ -49,6 +49,7 @@ public final class XMLWriterSettingsTest
     IXMLWriterSettings mws = XMLWriterSettings.DEFAULT_XML_SETTINGS;
     assertEquals (EXMLSerializeXMLDeclaration.EMIT, mws.getSerializeXMLDeclaration ());
     assertEquals (EXMLSerializeDocType.EMIT, mws.getSerializeDocType ());
+    assertTrue (mws.isNewLineAfterXMLDeclaration ());
     assertEquals (EXMLSerializeComments.EMIT, mws.getSerializeComments ());
     assertEquals (XMLWriterSettings.DEFAULT_XML_CHARSET, mws.getCharset ().name ());
     assertEquals (EXMLSerializeIndent.INDENT_AND_ALIGN, mws.getIndent ());
@@ -78,6 +79,8 @@ public final class XMLWriterSettingsTest
                                                                            new XMLWriterSettings ().setSerializeXMLDeclaration (EXMLSerializeXMLDeclaration.IGNORE));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
                                                                            new XMLWriterSettings ().setSerializeDocType (EXMLSerializeDocType.IGNORE));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
+                                                                           new XMLWriterSettings ().setNewLineAfterXMLDeclaration (false));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
                                                                            new XMLWriterSettings ().setSerializeComments (EXMLSerializeComments.IGNORE));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
@@ -116,84 +119,90 @@ public final class XMLWriterSettingsTest
       {
         aXWS.setSerializeDocType (eDocType);
         assertEquals (eDocType, aXWS.getSerializeDocType ());
-        for (final EXMLSerializeComments eComments : EXMLSerializeComments.values ())
+        for (final boolean bNewLineAfterXMLDecl : BOOLS)
         {
-          aXWS.setSerializeComments (eComments);
-          assertEquals (eComments, aXWS.getSerializeComments ());
-          for (final EXMLSerializeIndent eIndent : EXMLSerializeIndent.values ())
+          aXWS.setNewLineAfterXMLDeclaration (bNewLineAfterXMLDecl);
+          CommonsAssert.assertEquals (bNewLineAfterXMLDecl, aXWS.isNewLineAfterXMLDeclaration ());
+          for (final EXMLSerializeComments eComments : EXMLSerializeComments.values ())
           {
-            aXWS.setIndent (eIndent);
-            assertEquals (eIndent, aXWS.getIndent ());
-            for (final EXMLIncorrectCharacterHandling eIncorrectCharHandling : EXMLIncorrectCharacterHandling.values ())
+            aXWS.setSerializeComments (eComments);
+            assertEquals (eComments, aXWS.getSerializeComments ());
+            for (final EXMLSerializeIndent eIndent : EXMLSerializeIndent.values ())
             {
-              aXWS.setIncorrectCharacterHandling (eIncorrectCharHandling);
-              assertEquals (eIncorrectCharHandling, aXWS.getIncorrectCharacterHandling ());
-              for (final Charset aCS : CharsetHelper.getAllCharsets ().values ())
+              aXWS.setIndent (eIndent);
+              assertEquals (eIndent, aXWS.getIndent ());
+              for (final EXMLIncorrectCharacterHandling eIncorrectCharHandling : EXMLIncorrectCharacterHandling.values ())
               {
-                aXWS.setCharset (aCS);
-                assertEquals (aCS, aXWS.getCharset ());
-                assertEquals (aCS.name (), aXWS.getCharset ().name ());
-                for (final boolean bUseDoubleQuotesForAttributes : BOOLS)
+                aXWS.setIncorrectCharacterHandling (eIncorrectCharHandling);
+                assertEquals (eIncorrectCharHandling, aXWS.getIncorrectCharacterHandling ());
+                for (final Charset aCS : CharsetHelper.getAllCharsets ().values ())
                 {
-                  aXWS.setUseDoubleQuotesForAttributes (bUseDoubleQuotesForAttributes);
-                  CommonsAssert.assertEquals (bUseDoubleQuotesForAttributes, aXWS.isUseDoubleQuotesForAttributes ());
-                  for (final boolean bSpaceOnSelfClosedElement : BOOLS)
+                  aXWS.setCharset (aCS);
+                  assertEquals (aCS, aXWS.getCharset ());
+                  assertEquals (aCS.name (), aXWS.getCharset ().name ());
+                  for (final boolean bUseDoubleQuotesForAttributes : BOOLS)
                   {
-                    aXWS.setSpaceOnSelfClosedElement (bSpaceOnSelfClosedElement);
-                    CommonsAssert.assertEquals (bSpaceOnSelfClosedElement, aXWS.isSpaceOnSelfClosedElement ());
-                    for (final ENewLineMode eNewlineMode : ENewLineMode.values ())
+                    aXWS.setUseDoubleQuotesForAttributes (bUseDoubleQuotesForAttributes);
+                    CommonsAssert.assertEquals (bUseDoubleQuotesForAttributes, aXWS.isUseDoubleQuotesForAttributes ());
+                    for (final boolean bSpaceOnSelfClosedElement : BOOLS)
                     {
-                      aXWS.setNewLineMode (eNewlineMode);
-                      assertEquals (eNewlineMode, aXWS.getNewLineMode ());
-                      assertTrue (StringHelper.hasText (aXWS.getNewLineString ()));
-                      for (final String sIndentation : new String [] { "\t", "  " })
+                      aXWS.setSpaceOnSelfClosedElement (bSpaceOnSelfClosedElement);
+                      CommonsAssert.assertEquals (bSpaceOnSelfClosedElement, aXWS.isSpaceOnSelfClosedElement ());
+                      for (final ENewLineMode eNewlineMode : ENewLineMode.values ())
                       {
-                        aXWS.setIndentationString (sIndentation);
-                        assertEquals (sIndentation, aXWS.getIndentationString ());
-                        for (final boolean bEmitNamespaces : BOOLS)
+                        aXWS.setNewLineMode (eNewlineMode);
+                        assertEquals (eNewlineMode, aXWS.getNewLineMode ());
+                        assertTrue (StringHelper.hasText (aXWS.getNewLineString ()));
+                        for (final String sIndentation : new String [] { "\t", "  " })
                         {
-                          aXWS.setEmitNamespaces (bEmitNamespaces);
-                          CommonsAssert.assertEquals (bEmitNamespaces, aXWS.isEmitNamespaces ());
-                          for (final boolean bPutNamespaceContextPrefixesInRoot : BOOLS)
+                          aXWS.setIndentationString (sIndentation);
+                          assertEquals (sIndentation, aXWS.getIndentationString ());
+                          for (final boolean bEmitNamespaces : BOOLS)
                           {
-                            aXWS.setPutNamespaceContextPrefixesInRoot (bPutNamespaceContextPrefixesInRoot);
-                            CommonsAssert.assertEquals (bPutNamespaceContextPrefixesInRoot,
-                                                        aXWS.isPutNamespaceContextPrefixesInRoot ());
-                            final XMLWriterSettings aXWS2 = new XMLWriterSettings ().setSerializeXMLDeclaration (eXMLDecl)
-                                                                                    .setSerializeDocType (eDocType)
-                                                                                    .setSerializeComments (eComments)
-                                                                                    .setIndent (eIndent)
-                                                                                    .setIncorrectCharacterHandling (eIncorrectCharHandling)
-                                                                                    .setCharset (aCS)
-                                                                                    .setUseDoubleQuotesForAttributes (bUseDoubleQuotesForAttributes)
-                                                                                    .setSpaceOnSelfClosedElement (bSpaceOnSelfClosedElement)
-                                                                                    .setNewLineMode (eNewlineMode)
-                                                                                    .setIndentationString (sIndentation)
-                                                                                    .setEmitNamespaces (bEmitNamespaces)
-                                                                                    .setPutNamespaceContextPrefixesInRoot (bPutNamespaceContextPrefixesInRoot);
-                            CommonsTestHelper.testEqualsImplementationWithEqualContentObject (aXWS, aXWS2);
-                            CommonsTestHelper.testHashcodeImplementationWithEqualContentObject (aXWS, aXWS2);
-                            // Main time is spent in the "toString" calls - so
-                            // don't test it in the loop
+                            aXWS.setEmitNamespaces (bEmitNamespaces);
+                            CommonsAssert.assertEquals (bEmitNamespaces, aXWS.isEmitNamespaces ());
+                            for (final boolean bPutNamespaceContextPrefixesInRoot : BOOLS)
+                            {
+                              aXWS.setPutNamespaceContextPrefixesInRoot (bPutNamespaceContextPrefixesInRoot);
+                              CommonsAssert.assertEquals (bPutNamespaceContextPrefixesInRoot,
+                                                          aXWS.isPutNamespaceContextPrefixesInRoot ());
+                              final XMLWriterSettings aXWS2 = new XMLWriterSettings ().setSerializeXMLDeclaration (eXMLDecl)
+                                                                                      .setSerializeDocType (eDocType)
+                                                                                      .setSerializeComments (eComments)
+                                                                                      .setIndent (eIndent)
+                                                                                      .setIncorrectCharacterHandling (eIncorrectCharHandling)
+                                                                                      .setCharset (aCS)
+                                                                                      .setUseDoubleQuotesForAttributes (bUseDoubleQuotesForAttributes)
+                                                                                      .setSpaceOnSelfClosedElement (bSpaceOnSelfClosedElement)
+                                                                                      .setNewLineMode (eNewlineMode)
+                                                                                      .setIndentationString (sIndentation)
+                                                                                      .setEmitNamespaces (bEmitNamespaces)
+                                                                                      .setPutNamespaceContextPrefixesInRoot (bPutNamespaceContextPrefixesInRoot);
+                              CommonsTestHelper.testEqualsImplementationWithEqualContentObject (aXWS, aXWS2);
+                              CommonsTestHelper.testHashcodeImplementationWithEqualContentObject (aXWS, aXWS2);
+                              // Main time is spent in the "toString" calls - so
+                              // don't test it in the loop
+                            }
+                            CommonsAssert.assertEquals (bEmitNamespaces, aXWS.isEmitNamespaces ());
                           }
-                          CommonsAssert.assertEquals (bEmitNamespaces, aXWS.isEmitNamespaces ());
+                          assertEquals (sIndentation, aXWS.getIndentationString ());
                         }
-                        assertEquals (sIndentation, aXWS.getIndentationString ());
+                        assertEquals (eNewlineMode, aXWS.getNewLineMode ());
                       }
-                      assertEquals (eNewlineMode, aXWS.getNewLineMode ());
+                      CommonsAssert.assertEquals (bSpaceOnSelfClosedElement, aXWS.isSpaceOnSelfClosedElement ());
                     }
-                    CommonsAssert.assertEquals (bSpaceOnSelfClosedElement, aXWS.isSpaceOnSelfClosedElement ());
+                    CommonsAssert.assertEquals (bUseDoubleQuotesForAttributes, aXWS.isUseDoubleQuotesForAttributes ());
                   }
-                  CommonsAssert.assertEquals (bUseDoubleQuotesForAttributes, aXWS.isUseDoubleQuotesForAttributes ());
+                  assertEquals (aCS, aXWS.getCharset ());
+                  assertEquals (aCS.name (), aXWS.getCharset ().name ());
                 }
-                assertEquals (aCS, aXWS.getCharset ());
-                assertEquals (aCS.name (), aXWS.getCharset ().name ());
+                assertEquals (eIncorrectCharHandling, aXWS.getIncorrectCharacterHandling ());
               }
-              assertEquals (eIncorrectCharHandling, aXWS.getIncorrectCharacterHandling ());
+              assertEquals (eIndent, aXWS.getIndent ());
             }
-            assertEquals (eIndent, aXWS.getIndent ());
+            assertEquals (eComments, aXWS.getSerializeComments ());
           }
-          assertEquals (eComments, aXWS.getSerializeComments ());
+          CommonsAssert.assertEquals (bNewLineAfterXMLDecl, aXWS.isNewLineAfterXMLDeclaration ());
         }
         assertEquals (eDocType, aXWS.getSerializeDocType ());
       }
@@ -206,14 +215,7 @@ public final class XMLWriterSettingsTest
   {
     try
     {
-      new XMLWriterSettings ().setCharset ((Charset) null);
-      fail ();
-    }
-    catch (final NullPointerException ex)
-    {}
-    try
-    {
-      new XMLWriterSettings ().setIndent (null);
+      new XMLWriterSettings ().setSerializeVersion (null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -235,6 +237,20 @@ public final class XMLWriterSettingsTest
     try
     {
       new XMLWriterSettings ().setSerializeComments (null);
+      fail ();
+    }
+    catch (final NullPointerException ex)
+    {}
+    try
+    {
+      new XMLWriterSettings ().setCharset ((Charset) null);
+      fail ();
+    }
+    catch (final NullPointerException ex)
+    {}
+    try
+    {
+      new XMLWriterSettings ().setIndent (null);
       fail ();
     }
     catch (final NullPointerException ex)

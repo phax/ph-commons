@@ -26,6 +26,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
+import com.helger.commons.state.ETriState;
 import com.helger.commons.string.StringHelper;
 import com.helger.xml.microdom.IMicroAttribute;
 import com.helger.xml.microdom.IMicroCDATA;
@@ -109,12 +110,12 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
   }
 
   /**
-   * Special helper method to write a list of nodes. This implementations is used
-   * to avoid calling {@link IMicroNode#getPreviousSibling()} and
+   * Special helper method to write a list of nodes. This implementations is
+   * used to avoid calling {@link IMicroNode#getPreviousSibling()} and
    * {@link IMicroNode#getNextSibling()} since there implementation is compute
    * intensive since the objects are not directly linked. So to avoid this call,
-   * we're manually retrieving the previous and next sibling by their index in the
-   * list.
+   * we're manually retrieving the previous and next sibling by their index in
+   * the list.
    *
    * @param aXMLWriter
    *        The XML writer to use. May not be <code>null</code>.
@@ -138,14 +139,17 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
     }
   }
 
+  @SuppressWarnings ("deprecation")
   private void _writeDocument (@Nonnull final XMLEmitter aXMLWriter, final IMicroDocument aDocument)
   {
     if (m_aSettings.getSerializeXMLDeclaration ().isEmit ())
     {
       aXMLWriter.onXMLDeclaration (m_aSettings.getXMLVersion (),
                                    m_aSettings.getCharset ().name (),
-                                   aDocument.isStandalone (),
-                                   m_aSettings.getSerializeXMLDeclaration ().isWithNewLine ());
+                                   m_aSettings.getSerializeXMLDeclaration ()
+                                              .isEmitStandalone () ? aDocument.getStandalone () : ETriState.UNDEFINED,
+                                   m_aSettings.getSerializeXMLDeclaration ()
+                                              .isWithNewLine () && m_aSettings.isNewLineAfterXMLDeclaration ());
     }
 
     if (aDocument.hasChildren ())

@@ -34,6 +34,7 @@ import org.w3c.dom.Text;
 
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
+import com.helger.commons.state.ETriState;
 import com.helger.commons.string.StringHelper;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.XMLHelper;
@@ -102,16 +103,17 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
     }
   }
 
+  @SuppressWarnings ("deprecation")
   private void _writeDocument (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final Document aDocument)
   {
     if (m_aSettings.getSerializeXMLDeclaration ().isEmit ())
     {
       String sXMLVersion = null;
-      boolean bIsDocumentStandalone = false;
+      ETriState eDocumentStandalone = ETriState.UNDEFINED;
       try
       {
         sXMLVersion = aDocument.getXmlVersion ();
-        bIsDocumentStandalone = aDocument.getXmlStandalone ();
+        eDocumentStandalone = ETriState.valueOf (aDocument.getXmlStandalone ());
       }
       catch (final LinkageError ex)
       {
@@ -121,8 +123,10 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
       final EXMLVersion eXMLVersion = EXMLVersion.getFromVersionOrDefault (sXMLVersion, m_aSettings.getXMLVersion ());
       aXMLWriter.onXMLDeclaration (eXMLVersion,
                                    m_aSettings.getCharset ().name (),
-                                   bIsDocumentStandalone || aDocument.getDoctype () == null,
-                                   m_aSettings.getSerializeXMLDeclaration ().isWithNewLine ());
+                                   m_aSettings.getSerializeXMLDeclaration ().isEmitStandalone () ? eDocumentStandalone
+                                                                                                 : ETriState.UNDEFINED,
+                                   m_aSettings.getSerializeXMLDeclaration ()
+                                              .isWithNewLine () && m_aSettings.isNewLineAfterXMLDeclaration ());
     }
 
     _writeNodeList (aXMLWriter, aDocument, aDocument.getChildNodes ());

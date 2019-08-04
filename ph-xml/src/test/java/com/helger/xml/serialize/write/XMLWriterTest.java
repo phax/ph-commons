@@ -167,7 +167,7 @@ public final class XMLWriterTest
       final String sResult = XMLWriter.getNodeAsString (doc);
       assertEquals ("<?xml version=\"1.0\" encoding=\"" +
                     StandardCharsets.UTF_8.name () +
-                    "\"?>" +
+                    "\" standalone=\"no\"?>" +
                     CRLF +
                     "<!DOCTYPE html PUBLIC \"" +
                     DOCTYPE_XHTML10_QNAME +
@@ -200,7 +200,7 @@ public final class XMLWriterTest
                                                                                 .setIndent (EXMLSerializeIndent.INDENT_AND_ALIGN));
       assertEquals ("<?xml version=\"1.0\" encoding=\"" +
                     StandardCharsets.UTF_8.name () +
-                    "\"?>" +
+                    "\" standalone=\"no\"?>" +
                     CRLF +
                     "<html xmlns=\"" +
                     DOCTYPE_XHTML10_URI +
@@ -227,7 +227,7 @@ public final class XMLWriterTest
                                                                                 .setNewLineMode (ENewLineMode.UNIX));
       assertEquals ("<?xml version=\"1.0\" encoding=\"" +
                     StandardCharsets.UTF_8.name () +
-                    "\"?>\n" +
+                    "\" standalone=\"no\"?>\n" +
                     "<html xmlns=\"" +
                     DOCTYPE_XHTML10_URI +
                     "\">\n" +
@@ -250,7 +250,7 @@ public final class XMLWriterTest
                                                                                 .setIndentationString ("\t"));
       assertEquals ("<?xml version=\"1.0\" encoding=\"" +
                     StandardCharsets.UTF_8.name () +
-                    "\"?>\n" +
+                    "\" standalone=\"no\"?>\n" +
                     "<html xmlns=\"" +
                     DOCTYPE_XHTML10_URI +
                     "\">\n" +
@@ -363,7 +363,7 @@ public final class XMLWriterTest
     final XMLWriterSettings aSettings = new XMLWriterSettings ().setCharset (StandardCharsets.ISO_8859_1)
                                                                 .setIndent (EXMLSerializeIndent.NONE);
     String s = XMLWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>" +
+    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>" +
                   "<root xmlns=\"ns1url\">" +
                   "<ns0:child1 xmlns:ns0=\"ns2url\" />" +
                   "<ns0:child2 xmlns:ns0=\"ns2url\" />" +
@@ -374,7 +374,7 @@ public final class XMLWriterTest
     aCtx.addMapping ("a", "ns1url");
     aSettings.setNamespaceContext (aCtx);
     s = XMLWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>" +
+    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>" +
                   "<a:root xmlns:a=\"ns1url\">" +
                   "<ns0:child1 xmlns:ns0=\"ns2url\" />" +
                   "<ns0:child2 xmlns:ns0=\"ns2url\" />" +
@@ -383,7 +383,7 @@ public final class XMLWriterTest
 
     aCtx.addMapping ("xy", "ns2url");
     s = XMLWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>" +
+    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>" +
                   "<a:root xmlns:a=\"ns1url\">" +
                   "<xy:child1 xmlns:xy=\"ns2url\" />" +
                   "<xy:child2 xmlns:xy=\"ns2url\" />" +
@@ -392,7 +392,7 @@ public final class XMLWriterTest
 
     aSettings.setUseDoubleQuotesForAttributes (false);
     s = XMLWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version='1.0' encoding='ISO-8859-1' standalone='yes'?>" +
+    assertEquals ("<?xml version='1.0' encoding='ISO-8859-1' standalone='no'?>" +
                   "<a:root xmlns:a='ns1url'>" +
                   "<xy:child1 xmlns:xy='ns2url' />" +
                   "<xy:child2 xmlns:xy='ns2url' />" +
@@ -401,7 +401,7 @@ public final class XMLWriterTest
 
     aSettings.setSpaceOnSelfClosedElement (false);
     s = XMLWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version='1.0' encoding='ISO-8859-1' standalone='yes'?>" +
+    assertEquals ("<?xml version='1.0' encoding='ISO-8859-1' standalone='no'?>" +
                   "<a:root xmlns:a='ns1url'>" +
                   "<xy:child1 xmlns:xy='ns2url'/>" +
                   "<xy:child2 xmlns:xy='ns2url'/>" +
@@ -410,7 +410,7 @@ public final class XMLWriterTest
 
     aSettings.setPutNamespaceContextPrefixesInRoot (true);
     s = XMLWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version='1.0' encoding='ISO-8859-1' standalone='yes'?>" +
+    assertEquals ("<?xml version='1.0' encoding='ISO-8859-1' standalone='no'?>" +
                   "<a:root xmlns:a='ns1url' xmlns:xy='ns2url'>" +
                   "<xy:child1/>" +
                   "<xy:child2/>" +
@@ -419,7 +419,7 @@ public final class XMLWriterTest
 
     eRoot.appendChild (aDoc.createElementNS ("ns3url", "zz"));
     s = XMLWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version='1.0' encoding='ISO-8859-1' standalone='yes'?>" +
+    assertEquals ("<?xml version='1.0' encoding='ISO-8859-1' standalone='no'?>" +
                   "<a:root xmlns:a='ns1url' xmlns:xy='ns2url'>" +
                   "<xy:child1/>" +
                   "<xy:child2/>" +
@@ -439,7 +439,7 @@ public final class XMLWriterTest
     final XMLWriterSettings aSettings = new XMLWriterSettings ().setCharset (StandardCharsets.ISO_8859_1)
                                                                 .setIndent (EXMLSerializeIndent.NONE);
     String s = XMLWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>" +
+    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>" +
                   "<root xmlns=\"ns1url\">" +
                   "<ns0:child1 xmlns:ns0=\"ns2url\" />" +
                   "<ns0:child2 xmlns:ns0=\"ns2url\" />" +
@@ -448,7 +448,7 @@ public final class XMLWriterTest
 
     aSettings.setEmitNamespaces (false);
     s = XMLWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>" +
+    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>" +
                   "<root>" +
                   "<child1 />" +
                   "<child2 />" +
@@ -457,7 +457,7 @@ public final class XMLWriterTest
 
     aSettings.setPutNamespaceContextPrefixesInRoot (true);
     s = XMLWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>" +
+    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>" +
                   "<root>" +
                   "<child1 />" +
                   "<child2 />" +
@@ -471,12 +471,12 @@ public final class XMLWriterTest
     Document aDoc = XMLFactory.newDocument (EXMLVersion.XML_10);
     aDoc.appendChild (aDoc.createElement ("any"));
     String sXML = XMLWriter.getNodeAsString (aDoc);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" + CRLF + "<any />" + CRLF, sXML);
+    assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>" + CRLF + "<any />" + CRLF, sXML);
 
     aDoc = XMLFactory.newDocument (EXMLVersion.XML_11);
     aDoc.appendChild (aDoc.createElement ("any"));
     sXML = XMLWriter.getNodeAsString (aDoc);
-    assertEquals ("<?xml version=\"1.1\" encoding=\"UTF-8\" standalone=\"yes\"?>" + CRLF + "<any />" + CRLF, sXML);
+    assertEquals ("<?xml version=\"1.1\" encoding=\"UTF-8\" standalone=\"no\"?>" + CRLF + "<any />" + CRLF, sXML);
   }
 
   @Test
@@ -541,7 +541,7 @@ public final class XMLWriterTest
     e2.setAttributeNS ("ns3url", "attr2", "value2");
 
     String s = XMLWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>" +
+    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>" +
                   "<root xmlns=\"ns1url\">" +
                   "<ns0:child1 xmlns:ns0=\"ns2url\" ns0:attr1=\"value1\" />" +
                   "<ns0:child2 xmlns:ns0=\"ns2url\" xmlns:ns1=\"ns3url\" ns1:attr2=\"value2\" />" +
@@ -551,7 +551,7 @@ public final class XMLWriterTest
 
     aSettings.setEmitNamespaces (false);
     s = XMLWriter.getNodeAsString (aDoc, aSettings);
-    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"yes\"?>" +
+    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\" standalone=\"no\"?>" +
                   "<root>" +
                   "<child1 attr1=\"value1\" />" +
                   "<child2 attr2=\"value2\" />" +
@@ -859,5 +859,49 @@ public final class XMLWriterTest
               "\r\n" +
               "<!-- Let world.txt contain \"world\" (excluding the quotes) -->",
               "<doc attrExtEnt=\"entExt\">\n" + "   Hello, world!\n" + "</doc>\n");
+  }
+
+  @Test
+  public void testXMLDeclaration ()
+  {
+    final Document aDoc = XMLFactory.newDocument ();
+    final Element eRoot = (Element) aDoc.appendChild (aDoc.createElement ("root"));
+    eRoot.appendChild (aDoc.createElement ("child1"));
+
+    final XMLWriterSettings aSettings = new XMLWriterSettings ();
+    String s = XMLWriter.getNodeAsString (aDoc, aSettings);
+    assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>" +
+                  CRLF +
+                  "<root>" +
+                  CRLF +
+                  "  <child1 />" +
+                  CRLF +
+                  "</root>" +
+                  CRLF,
+                  s);
+
+    aSettings.setNewLineAfterXMLDeclaration (false);
+    s = XMLWriter.getNodeAsString (aDoc, aSettings);
+    assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>" +
+                  "<root>" +
+                  CRLF +
+                  "  <child1 />" +
+                  CRLF +
+                  "</root>" +
+                  CRLF,
+                  s);
+
+    aSettings.setNewLineAfterXMLDeclaration (true);
+    aSettings.setSerializeXMLDeclaration (EXMLSerializeXMLDeclaration.EMIT_NO_STANDLONE);
+    s = XMLWriter.getNodeAsString (aDoc, aSettings);
+    assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                  CRLF +
+                  "<root>" +
+                  CRLF +
+                  "  <child1 />" +
+                  CRLF +
+                  "</root>" +
+                  CRLF,
+                  s);
   }
 }

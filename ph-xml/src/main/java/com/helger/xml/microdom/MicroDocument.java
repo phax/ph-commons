@@ -19,7 +19,9 @@ package com.helger.xml.microdom;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.state.ETriState;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -29,10 +31,9 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public final class MicroDocument extends AbstractMicroNodeWithChildren implements IMicroDocument
 {
-  /** By default a document is not standalone */
-  public static final boolean DEFAULT_STANDALONE = false;
+  public static final ETriState DEFAULT_STANDALONE = ETriState.UNDEFINED;
 
-  private boolean m_bIsStandalone = DEFAULT_STANDALONE;
+  private ETriState m_eStandalone = DEFAULT_STANDALONE;
 
   public MicroDocument ()
   {}
@@ -80,14 +81,16 @@ public final class MicroDocument extends AbstractMicroNodeWithChildren implement
     super.onAppendChild (aChildNode);
   }
 
-  public boolean isStandalone ()
+  @Nonnull
+  public ETriState getStandalone ()
   {
-    return m_bIsStandalone;
+    return m_eStandalone;
   }
 
-  public void setStandalone (final boolean bIsStandalone)
+  public void setStandalone (@Nonnull final ETriState eStandalone)
   {
-    m_bIsStandalone = bIsStandalone;
+    ValueEnforcer.notNull (eStandalone, "Standalone");
+    m_eStandalone = eStandalone;
   }
 
   @Nullable
@@ -114,7 +117,7 @@ public final class MicroDocument extends AbstractMicroNodeWithChildren implement
   public IMicroDocument getClone ()
   {
     final MicroDocument ret = new MicroDocument ();
-    ret.setStandalone (m_bIsStandalone);
+    ret.setStandalone (m_eStandalone);
     forAllChildren (aChildNode -> ret.appendChild (aChildNode.getClone ()));
     return ret;
   }
@@ -127,12 +130,12 @@ public final class MicroDocument extends AbstractMicroNodeWithChildren implement
     if (!super.isEqualContent (o))
       return false;
     final MicroDocument rhs = (MicroDocument) o;
-    return m_bIsStandalone == rhs.m_bIsStandalone;
+    return m_eStandalone == rhs.m_eStandalone;
   }
 
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("isStandalone", m_bIsStandalone).getToString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("Standalone", m_eStandalone).getToString ();
   }
 }

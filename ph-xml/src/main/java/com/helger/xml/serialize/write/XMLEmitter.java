@@ -33,6 +33,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.collection.impl.CommonsTreeMap;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsSortedMap;
+import com.helger.commons.state.ETriState;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.xml.CXML;
@@ -62,7 +63,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
 
   private final Writer m_aWriter;
   private final IXMLWriterSettings m_aXMLWriterSettings;
-  // Sratus vars
+  // Status vars
   private EXMLSerializeVersion m_eXMLVersion;
   private final char m_cAttrValueBoundary;
   private final EXMLCharMode m_eAttrValueCharMode;
@@ -72,8 +73,8 @@ public class XMLEmitter implements AutoCloseable, Flushable
    * Define whether nested XML comments throw an exception or not.
    *
    * @param bThrowExceptionOnNestedComments
-   *        <code>true</code> to throw an exception, <code>false</code> to ignore
-   *        nested comments.
+   *        <code>true</code> to throw an exception, <code>false</code> to
+   *        ignore nested comments.
    */
   public static void setThrowExceptionOnNestedComments (final boolean bThrowExceptionOnNestedComments)
   {
@@ -81,8 +82,8 @@ public class XMLEmitter implements AutoCloseable, Flushable
   }
 
   /**
-   * @return <code>true</code> if nested XML comments will throw an error. Default
-   *         is {@value #DEFAULT_THROW_EXCEPTION_ON_NESTED_COMMENTS}.
+   * @return <code>true</code> if nested XML comments will throw an error.
+   *         Default is {@value #DEFAULT_THROW_EXCEPTION_ON_NESTED_COMMENTS}.
    */
   public static boolean isThrowExceptionOnNestedComments ()
   {
@@ -214,17 +215,19 @@ public class XMLEmitter implements AutoCloseable, Flushable
    *        The XML version to use. If <code>null</code> is passed,
    *        {@link EXMLVersion#XML_10} will be used.
    * @param sEncoding
-   *        The encoding to be used for this document. It may be <code>null</code>
-   *        but it is strongly recommended to write a correct charset.
-   * @param bStandalone
+   *        The encoding to be used for this document. It may be
+   *        <code>null</code> but it is strongly recommended to write a correct
+   *        charset.
+   * @param eStandalone
    *        if <code>true</code> this is a standalone XML document without a
    *        connection to an existing DTD or XML schema
    */
+  @Deprecated
   public void onXMLDeclaration (@Nullable final EXMLVersion eXMLVersion,
                                 @Nullable final String sEncoding,
-                                final boolean bStandalone)
+                                @Nonnull final ETriState eStandalone)
   {
-    onXMLDeclaration (eXMLVersion, sEncoding, bStandalone, true);
+    onXMLDeclaration (eXMLVersion, sEncoding, eStandalone, true);
   }
 
   /**
@@ -234,9 +237,10 @@ public class XMLEmitter implements AutoCloseable, Flushable
    *        The XML version to use. If <code>null</code> is passed,
    *        {@link EXMLVersion#XML_10} will be used.
    * @param sEncoding
-   *        The encoding to be used for this document. It may be <code>null</code>
-   *        but it is strongly recommended to write a correct charset.
-   * @param bStandalone
+   *        The encoding to be used for this document. It may be
+   *        <code>null</code> but it is strongly recommended to write a correct
+   *        charset.
+   * @param eStandalone
    *        if <code>true</code> this is a standalone XML document without a
    *        connection to an existing DTD or XML schema
    * @param bWithNewLine
@@ -245,7 +249,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
    */
   public void onXMLDeclaration (@Nullable final EXMLVersion eXMLVersion,
                                 @Nullable final String sEncoding,
-                                final boolean bStandalone,
+                                @Nonnull final ETriState eStandalone,
                                 final boolean bWithNewLine)
   {
     if (eXMLVersion != null)
@@ -255,19 +259,27 @@ public class XMLEmitter implements AutoCloseable, Flushable
       m_eXMLVersion = EXMLSerializeVersion.getFromXMLVersionOrThrow (eXMLVersion);
     }
 
-    _append (PI_START)._append ("xml version=")._appendAttrValue (m_eXMLVersion.getXMLVersionString ());
+    _append (PI_START)._append ("xml");
+
+    // May be null for HTML
+    final String sVersionString = m_eXMLVersion.getXMLVersionString ();
+    if (StringHelper.hasText (sVersionString))
+      _append (" version=")._appendAttrValue (sVersionString);
+
     if (StringHelper.hasText (sEncoding))
       _append (" encoding=")._appendAttrValue (sEncoding);
-    if (bStandalone)
-      _append (" standalone=")._appendAttrValue ("yes");
+
+    if (eStandalone.isDefined ())
+      _append (" standalone=")._appendAttrValue (eStandalone.isTrue () ? "yes" : "no");
+
     _append (PI_END);
     if (bWithNewLine)
       newLine ();
   }
 
   /**
-   * Write a DTD section. This string represents the entire doctypedecl production
-   * from the XML 1.0 specification.
+   * Write a DTD section. This string represents the entire doctypedecl
+   * production from the XML 1.0 specification.
    *
    * @param sDTD
    *        the DTD to be written. May not be <code>null</code>.
@@ -311,8 +323,8 @@ public class XMLEmitter implements AutoCloseable, Flushable
    * @param sQualifiedName
    *        The qualified element name. May not be <code>null</code>.
    * @param sPublicID
-   *        The optional public ID. May be <code>null</code>. If the public ID is
-   *        not <code>null</code> the system ID must also be set!
+   *        The optional public ID. May be <code>null</code>. If the public ID
+   *        is not <code>null</code> the system ID must also be set!
    * @param sSystemID
    *        The optional system ID. May be <code>null</code>.
    * @return The string DOCTYPE representation.

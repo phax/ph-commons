@@ -47,10 +47,26 @@ import com.helger.xml.namespace.MapBasedNamespaceContext;
 public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWriterSettings>
 {
   // Must be before the IXMLWriterSettings constants!
-  /** The default charset is UTF-8 */
-  public static final String DEFAULT_XML_CHARSET = StandardCharsets.UTF_8.name ();
+  /** Default default XML version is 1.0 */
+  public static final EXMLSerializeVersion DEFAULT_XML_SERIALIZE_VERSION = EXMLSerializeVersion.XML_10;
+  /** By default all fields of the XML declaration are emitted */
+  public static final EXMLSerializeXMLDeclaration DEFAULT_SERIALIZE_XML_DECLARATION = EXMLSerializeXMLDeclaration.EMIT;
+  /** By default a newline character is emitted afterwards */
+  public static final boolean DEFAULT_NEW_LINE_AFTER_XML_DECLARATION = true;
+  /** By default the document type is emitted */
+  public static final EXMLSerializeDocType DEFAULT_SERIALIZE_DOC_TYPE = EXMLSerializeDocType.EMIT;
+  /** By default comments are emitted */
+  public static final EXMLSerializeComments DEFAULT_SERIALIZE_COMMENTS = EXMLSerializeComments.EMIT;
+  /** By default the output is indented and aligned (newlines are added) */
+  public static final EXMLSerializeIndent DEFAULT_SERIALIZE_INDENT = EXMLSerializeIndent.INDENT_AND_ALIGN;
+  /**
+   * By default invalid characters are not written and a log message is emitted
+   */
+  public static final EXMLIncorrectCharacterHandling DEFAULT_INCORRECT_CHARACTER_HANDLING = EXMLIncorrectCharacterHandling.DO_NOT_WRITE_LOG_WARNING;
   /** The default charset is UTF-8 */
   public static final Charset DEFAULT_XML_CHARSET_OBJ = StandardCharsets.UTF_8;
+  /** The default charset is UTF-8 */
+  public static final String DEFAULT_XML_CHARSET = DEFAULT_XML_CHARSET_OBJ.name ();
   /** By default double quotes are used to wrap attribute values */
   public static final boolean DEFAULT_USE_DOUBLE_QUOTES_FOR_ATTRIBUTES = true;
   /**
@@ -73,17 +89,17 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   /** By default the insertion order of attributes is maintained */
   public static final boolean DEFAULT_ORDER_ATTRIBUTES_AND_NAMESPACES = false;
 
-  /** The default settings to use */
+  /** The default settings to use - last constant */
   public static final IXMLWriterSettings DEFAULT_XML_SETTINGS = new XMLWriterSettings ();
 
-  private EXMLVersion m_eXMLVersion = EXMLVersion.XML_10;
-  private EXMLSerializeVersion m_eSerializeVersion = EXMLSerializeVersion.XML_10;
-  private EXMLSerializeXMLDeclaration m_eSerializeXMLDecl = EXMLSerializeXMLDeclaration.EMIT;
-  private EXMLSerializeDocType m_eSerializeDocType = EXMLSerializeDocType.EMIT;
-  private EXMLSerializeComments m_eSerializeComments = EXMLSerializeComments.EMIT;
-  private EXMLSerializeIndent m_eIndent = EXMLSerializeIndent.INDENT_AND_ALIGN;
+  private EXMLSerializeVersion m_eSerializeVersion = DEFAULT_XML_SERIALIZE_VERSION;
+  private EXMLSerializeXMLDeclaration m_eSerializeXMLDecl = DEFAULT_SERIALIZE_XML_DECLARATION;
+  private boolean m_bNewLineAfterXMLDeclaration = DEFAULT_NEW_LINE_AFTER_XML_DECLARATION;
+  private EXMLSerializeDocType m_eSerializeDocType = DEFAULT_SERIALIZE_DOC_TYPE;
+  private EXMLSerializeComments m_eSerializeComments = DEFAULT_SERIALIZE_COMMENTS;
+  private EXMLSerializeIndent m_eIndent = DEFAULT_SERIALIZE_INDENT;
   private IXMLIndentDeterminator m_aIndentDeterminator = new XMLIndentDeterminatorXML ();
-  private EXMLIncorrectCharacterHandling m_eIncorrectCharacterHandling = EXMLIncorrectCharacterHandling.DO_NOT_WRITE_LOG_WARNING;
+  private EXMLIncorrectCharacterHandling m_eIncorrectCharacterHandling = DEFAULT_INCORRECT_CHARACTER_HANDLING;
   private Charset m_aCharset = DEFAULT_XML_CHARSET_OBJ;
   private INamespaceContext m_aNamespaceContext = new MapBasedNamespaceContext ();
   private boolean m_bUseDoubleQuotesForAttributes = DEFAULT_USE_DOUBLE_QUOTES_FOR_ATTRIBUTES;
@@ -128,6 +144,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
 
     setSerializeVersion (aOther.getSerializeVersion ());
     setSerializeXMLDeclaration (aOther.getSerializeXMLDeclaration ());
+    setNewLineAfterXMLDeclaration (aOther.isNewLineAfterXMLDeclaration ());
     setSerializeDocType (aOther.getSerializeDocType ());
     setSerializeComments (aOther.getSerializeComments ());
     setIndent (aOther.getIndent ());
@@ -149,7 +166,13 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   @Nonnull
   public EXMLVersion getXMLVersion ()
   {
-    return m_eXMLVersion;
+    return m_eSerializeVersion.getXMLVersionOrDefault (EXMLVersion.XML_10);
+  }
+
+  @Nonnull
+  public EXMLSerializeVersion getSerializeVersion ()
+  {
+    return m_eSerializeVersion;
   }
 
   /**
@@ -163,14 +186,13 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   public final XMLWriterSettings setSerializeVersion (@Nonnull final EXMLSerializeVersion eSerializeVersion)
   {
     m_eSerializeVersion = ValueEnforcer.notNull (eSerializeVersion, "Version");
-    m_eXMLVersion = eSerializeVersion.getXMLVersionOrDefault (EXMLVersion.XML_10);
     return this;
   }
 
   @Nonnull
-  public EXMLSerializeVersion getSerializeVersion ()
+  public EXMLSerializeXMLDeclaration getSerializeXMLDeclaration ()
   {
-    return m_eSerializeVersion;
+    return m_eSerializeXMLDecl;
   }
 
   /**
@@ -187,10 +209,31 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     return this;
   }
 
-  @Nonnull
-  public EXMLSerializeXMLDeclaration getSerializeXMLDeclaration ()
+  public boolean isNewLineAfterXMLDeclaration ()
   {
-    return m_eSerializeXMLDecl;
+    return m_bNewLineAfterXMLDeclaration;
+  }
+
+  /**
+   * Change whether a newline should be printed after the XML declaration or
+   * not.
+   *
+   * @param bNewLineAfterXMLDeclaration
+   *        <code>true</code> to print it, <code>false</code> to not print a new
+   *        line.
+   * @return this for chaining
+   */
+  @Nonnull
+  public final XMLWriterSettings setNewLineAfterXMLDeclaration (final boolean bNewLineAfterXMLDeclaration)
+  {
+    m_bNewLineAfterXMLDeclaration = bNewLineAfterXMLDeclaration;
+    return this;
+  }
+
+  @Nonnull
+  public EXMLSerializeDocType getSerializeDocType ()
+  {
+    return m_eSerializeDocType;
   }
 
   /**
@@ -208,9 +251,9 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   }
 
   @Nonnull
-  public EXMLSerializeDocType getSerializeDocType ()
+  public EXMLSerializeComments getSerializeComments ()
   {
-    return m_eSerializeDocType;
+    return m_eSerializeComments;
   }
 
   /**
@@ -228,9 +271,9 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   }
 
   @Nonnull
-  public EXMLSerializeComments getSerializeComments ()
+  public EXMLSerializeIndent getIndent ()
   {
-    return m_eSerializeComments;
+    return m_eIndent;
   }
 
   /**
@@ -248,9 +291,9 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   }
 
   @Nonnull
-  public EXMLSerializeIndent getIndent ()
+  public IXMLIndentDeterminator getIndentDeterminator ()
   {
-    return m_eIndent;
+    return m_aIndentDeterminator;
   }
 
   /**
@@ -268,9 +311,9 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   }
 
   @Nonnull
-  public IXMLIndentDeterminator getIndentDeterminator ()
+  public EXMLIncorrectCharacterHandling getIncorrectCharacterHandling ()
   {
-    return m_aIndentDeterminator;
+    return m_eIncorrectCharacterHandling;
   }
 
   /**
@@ -288,9 +331,9 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   }
 
   @Nonnull
-  public EXMLIncorrectCharacterHandling getIncorrectCharacterHandling ()
+  public Charset getCharset ()
   {
-    return m_eIncorrectCharacterHandling;
+    return m_aCharset;
   }
 
   /**
@@ -308,9 +351,9 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   }
 
   @Nonnull
-  public Charset getCharset ()
+  public INamespaceContext getNamespaceContext ()
   {
-    return m_aCharset;
+    return m_aNamespaceContext;
   }
 
   /**
@@ -328,29 +371,15 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     return this;
   }
 
-  @Nonnull
-  public INamespaceContext getNamespaceContext ()
-  {
-    return m_aNamespaceContext;
-  }
-
-  @Nonnull
-  public final XMLWriterSettings setUseDoubleQuotesForAttributes (final boolean bUseDoubleQuotesForAttributes)
-  {
-    m_bUseDoubleQuotesForAttributes = bUseDoubleQuotesForAttributes;
-    return this;
-  }
-
   public boolean isUseDoubleQuotesForAttributes ()
   {
     return m_bUseDoubleQuotesForAttributes;
   }
 
   @Nonnull
-  public final XMLWriterSettings setBracketModeDeterminator (@Nonnull final IXMLBracketModeDeterminator aBracketModeDeterminator)
+  public final XMLWriterSettings setUseDoubleQuotesForAttributes (final boolean bUseDoubleQuotesForAttributes)
   {
-    ValueEnforcer.notNull (aBracketModeDeterminator, "BracketModeDeterminator");
-    m_aBracketModeDeterminator = aBracketModeDeterminator;
+    m_bUseDoubleQuotesForAttributes = bUseDoubleQuotesForAttributes;
     return this;
   }
 
@@ -361,9 +390,10 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   }
 
   @Nonnull
-  public final XMLWriterSettings setSpaceOnSelfClosedElement (final boolean bSpaceOnSelfClosedElement)
+  public final XMLWriterSettings setBracketModeDeterminator (@Nonnull final IXMLBracketModeDeterminator aBracketModeDeterminator)
   {
-    m_bSpaceOnSelfClosedElement = bSpaceOnSelfClosedElement;
+    ValueEnforcer.notNull (aBracketModeDeterminator, "BracketModeDeterminator");
+    m_aBracketModeDeterminator = aBracketModeDeterminator;
     return this;
   }
 
@@ -373,9 +403,9 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   }
 
   @Nonnull
-  public final XMLWriterSettings setNewLineMode (@Nonnull final ENewLineMode eNewLineMode)
+  public final XMLWriterSettings setSpaceOnSelfClosedElement (final boolean bSpaceOnSelfClosedElement)
   {
-    m_eNewLineMode = ValueEnforcer.notNull (eNewLineMode, "NewLineMode");
+    m_bSpaceOnSelfClosedElement = bSpaceOnSelfClosedElement;
     return this;
   }
 
@@ -386,17 +416,9 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   }
 
   @Nonnull
-  @Nonempty
-  public String getNewLineString ()
+  public final XMLWriterSettings setNewLineMode (@Nonnull final ENewLineMode eNewLineMode)
   {
-    return m_eNewLineMode.getText ();
-  }
-
-  @Nonnull
-  public final XMLWriterSettings setIndentationString (@Nonnull @Nonempty final String sIndentationString)
-  {
-    m_sIndentationString = ValueEnforcer.notEmpty (sIndentationString, "IndentationString");
-    m_sIndentationStringToString = null;
+    m_eNewLineMode = ValueEnforcer.notNull (eNewLineMode, "NewLineMode");
     return this;
   }
 
@@ -408,9 +430,10 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   }
 
   @Nonnull
-  public final XMLWriterSettings setEmitNamespaces (final boolean bEmitNamespaces)
+  public final XMLWriterSettings setIndentationString (@Nonnull @Nonempty final String sIndentationString)
   {
-    m_bEmitNamespaces = bEmitNamespaces;
+    m_sIndentationString = ValueEnforcer.notEmpty (sIndentationString, "IndentationString");
+    m_sIndentationStringToString = null;
     return this;
   }
 
@@ -420,9 +443,9 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   }
 
   @Nonnull
-  public final XMLWriterSettings setPutNamespaceContextPrefixesInRoot (final boolean bPutNamespaceContextPrefixesInRoot)
+  public final XMLWriterSettings setEmitNamespaces (final boolean bEmitNamespaces)
   {
-    m_bPutNamespaceContextPrefixesInRoot = bPutNamespaceContextPrefixesInRoot;
+    m_bEmitNamespaces = bEmitNamespaces;
     return this;
   }
 
@@ -432,9 +455,9 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   }
 
   @Nonnull
-  public final XMLWriterSettings setWriteCDATAAsText (final boolean bWriteCDATAAsText)
+  public final XMLWriterSettings setPutNamespaceContextPrefixesInRoot (final boolean bPutNamespaceContextPrefixesInRoot)
   {
-    m_bWriteCDATAAsText = bWriteCDATAAsText;
+    m_bPutNamespaceContextPrefixesInRoot = bPutNamespaceContextPrefixesInRoot;
     return this;
   }
 
@@ -444,15 +467,22 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   }
 
   @Nonnull
-  public final XMLWriterSettings setOrderAttributesAndNamespaces (final boolean bOrderAttributesAndNamespaces)
+  public final XMLWriterSettings setWriteCDATAAsText (final boolean bWriteCDATAAsText)
   {
-    m_bOrderAttributesAndNamespaces = bOrderAttributesAndNamespaces;
+    m_bWriteCDATAAsText = bWriteCDATAAsText;
     return this;
   }
 
   public boolean isOrderAttributesAndNamespaces ()
   {
     return m_bOrderAttributesAndNamespaces;
+  }
+
+  @Nonnull
+  public final XMLWriterSettings setOrderAttributesAndNamespaces (final boolean bOrderAttributesAndNamespaces)
+  {
+    m_bOrderAttributesAndNamespaces = bOrderAttributesAndNamespaces;
+    return this;
   }
 
   @Nonnull
@@ -470,8 +500,9 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
       return false;
     final XMLWriterSettings rhs = (XMLWriterSettings) o;
     // namespace context does not necessarily implement equals/hashCode
-    return m_eXMLVersion.equals (rhs.m_eXMLVersion) &&
+    return m_eSerializeVersion.equals (rhs.m_eSerializeVersion) &&
            m_eSerializeXMLDecl.equals (rhs.m_eSerializeXMLDecl) &&
+           m_bNewLineAfterXMLDeclaration == rhs.m_bNewLineAfterXMLDeclaration &&
            m_eSerializeDocType.equals (rhs.m_eSerializeDocType) &&
            m_eSerializeComments.equals (rhs.m_eSerializeComments) &&
            m_eIndent.equals (rhs.m_eIndent) &&
@@ -494,8 +525,9 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   public int hashCode ()
   {
     // namespace context does not necessarily implement equals/hashCode
-    return new HashCodeGenerator (this).append (m_eXMLVersion)
+    return new HashCodeGenerator (this).append (m_eSerializeVersion)
                                        .append (m_eSerializeXMLDecl)
+                                       .append (m_bNewLineAfterXMLDeclaration)
                                        .append (m_eSerializeDocType)
                                        .append (m_eSerializeComments)
                                        .append (m_eIndent)
@@ -520,25 +552,26 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   {
     if (m_sIndentationStringToString == null)
       m_sIndentationStringToString = StringHelper.getHexEncoded (m_sIndentationString.getBytes (StandardCharsets.ISO_8859_1));
-    return new ToStringGenerator (this).append ("xmlVersion", m_eXMLVersion)
-                                       .append ("serializeXMLDecl", m_eSerializeXMLDecl)
-                                       .append ("serializeDocType", m_eSerializeDocType)
-                                       .append ("serializeComments", m_eSerializeComments)
-                                       .append ("indent", m_eIndent)
-                                       .append ("indentDeterminator", m_aIndentDeterminator)
-                                       .append ("incorrectCharHandling", m_eIncorrectCharacterHandling)
-                                       .append ("charset", m_aCharset)
-                                       .append ("namespaceContext", m_aNamespaceContext)
-                                       .append ("doubleQuotesForAttrs", m_bUseDoubleQuotesForAttributes)
-                                       .append ("bracketModeDeterminator", m_aBracketModeDeterminator)
-                                       .append ("spaceOnSelfClosedElement", m_bSpaceOnSelfClosedElement)
-                                       .append ("newlineMode", m_eNewLineMode)
-                                       .append ("indentationString", m_sIndentationStringToString)
-                                       .append ("emitNamespaces", m_bEmitNamespaces)
-                                       .append ("putNamespaceContextPrefixesInRoot",
+    return new ToStringGenerator (this).append ("SerializeVersion", m_eSerializeVersion)
+                                       .append ("SerializeXMLDecl", m_eSerializeXMLDecl)
+                                       .append ("NewLineAfterXMLDeclaration", m_bNewLineAfterXMLDeclaration)
+                                       .append ("SerializeDocType", m_eSerializeDocType)
+                                       .append ("SerializeComments", m_eSerializeComments)
+                                       .append ("Indent", m_eIndent)
+                                       .append ("IndentDeterminator", m_aIndentDeterminator)
+                                       .append ("IncorrectCharHandling", m_eIncorrectCharacterHandling)
+                                       .append ("Charset", m_aCharset)
+                                       .append ("NamespaceContext", m_aNamespaceContext)
+                                       .append ("DoubleQuotesForAttrs", m_bUseDoubleQuotesForAttributes)
+                                       .append ("BracketModeDeterminator", m_aBracketModeDeterminator)
+                                       .append ("SpaceOnSelfClosedElement", m_bSpaceOnSelfClosedElement)
+                                       .append ("NewlineMode", m_eNewLineMode)
+                                       .append ("IndentationString", m_sIndentationStringToString)
+                                       .append ("EmitNamespaces", m_bEmitNamespaces)
+                                       .append ("PutNamespaceContextPrefixesInRoot",
                                                 m_bPutNamespaceContextPrefixesInRoot)
-                                       .append ("writeCDATAAsText", m_bWriteCDATAAsText)
-                                       .append ("orderAttributesAndNamespaces", m_bOrderAttributesAndNamespaces)
+                                       .append ("WriteCDATAAsText", m_bWriteCDATAAsText)
+                                       .append ("OrderAttributesAndNamespaces", m_bOrderAttributesAndNamespaces)
                                        .getToString ();
   }
 

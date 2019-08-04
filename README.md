@@ -35,6 +35,7 @@ This project was the following modules:
     * Added overload of `PDTXMLConverter.getXMLCalendarDate` with timezone offset in minutes
     * Added new `JsonReader.Builer` overloads
     * `LocaleHelper.getValidCountryCode` now convert ISO 3166 Alpha 3 codes to ALpha 2 codes where applicable
+    * Made XML serialization settings on the XML declaration more fine grained
 * v9.3.4 - 2019-05-28
     * Added new overloads for `JsonReader.Builder.setSource`
     * Catching exception in `VerySecureRandom` initialization - `setSeed` may throw an Exception

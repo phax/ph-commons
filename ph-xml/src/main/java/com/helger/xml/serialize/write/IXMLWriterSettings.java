@@ -52,6 +52,13 @@ public interface IXMLWriterSettings extends Serializable
   EXMLSerializeXMLDeclaration getSerializeXMLDeclaration ();
 
   /**
+   * @return <code>true</code> if a newline should be added after the XML
+   *         declaration or not. Defaults to <code>true</code>.
+   * @since 9.3.5
+   */
+  boolean isNewLineAfterXMLDeclaration ();
+
+  /**
    * @return Write document type? Default is <code>true</code>.
    */
   @Nonnull
@@ -133,7 +140,10 @@ public interface IXMLWriterSettings extends Serializable
    */
   @Nonnull
   @Nonempty
-  String getNewLineString ();
+  default String getNewLineString ()
+  {
+    return getNewLineMode ().getText ();
+  }
 
   /**
    * @return The string to be used for indentation of a single level. By default

@@ -29,6 +29,7 @@ import org.junit.Test;
  */
 public final class EXMLSerializeXMLDeclarationTest
 {
+  @SuppressWarnings ("deprecation")
   @Test
   public void testAll ()
   {
@@ -36,11 +37,18 @@ public final class EXMLSerializeXMLDeclarationTest
       assertSame (e, EXMLSerializeXMLDeclaration.valueOf (e.name ()));
 
     assertTrue (EXMLSerializeXMLDeclaration.EMIT.isEmit ());
+    assertTrue (EXMLSerializeXMLDeclaration.EMIT_NO_STANDLONE.isEmit ());
     assertTrue (EXMLSerializeXMLDeclaration.EMIT_NO_NEWLINE.isEmit ());
     assertFalse (EXMLSerializeXMLDeclaration.IGNORE.isEmit ());
 
     assertTrue (EXMLSerializeXMLDeclaration.EMIT.isWithNewLine ());
+    assertTrue (EXMLSerializeXMLDeclaration.EMIT_NO_STANDLONE.isWithNewLine ());
     assertFalse (EXMLSerializeXMLDeclaration.EMIT_NO_NEWLINE.isWithNewLine ());
     assertFalse (EXMLSerializeXMLDeclaration.IGNORE.isWithNewLine ());
+
+    assertTrue (EXMLSerializeXMLDeclaration.EMIT.isEmitStandalone ());
+    assertFalse (EXMLSerializeXMLDeclaration.EMIT_NO_STANDLONE.isEmitStandalone ());
+    assertTrue (EXMLSerializeXMLDeclaration.EMIT_NO_NEWLINE.isEmitStandalone ());
+    assertFalse (EXMLSerializeXMLDeclaration.IGNORE.isEmitStandalone ());
   }
 }
