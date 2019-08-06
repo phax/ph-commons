@@ -259,7 +259,7 @@ public final class Base64
   public static final byte NEW_LINE = (byte) '\n';
 
   /** The new line CRLF (\r\n) as a bytes. */
-  public static final byte [] NEW_LINE_CRLF = new byte [] { (byte) '\r', (byte) '\n' };
+  private static final byte [] NEW_LINE_CRLF = new byte [] { (byte) '\r', (byte) '\n' };
 
   /** Preferred encoding: US-ASCII */
   public static final Charset PREFERRED_ENCODING = StandardCharsets.US_ASCII;
