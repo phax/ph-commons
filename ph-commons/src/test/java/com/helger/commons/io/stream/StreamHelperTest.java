@@ -149,7 +149,8 @@ public final class StreamHelperTest
     assertTrue (StreamHelper.copyInputStreamToOutputStream (aBAIS, aBAOS, new byte [10]).isSuccess ());
     final MutableLong aML = new MutableLong (0);
     aBAIS.reset ();
-    assertTrue (StreamHelper.copyInputStreamToOutputStream (aBAIS, aBAOS, new byte [10], aML).isSuccess ());
+    assertTrue (StreamHelper.copyInputStreamToOutputStream (aBAIS, false, aBAOS, false, new byte [10], null, null, aML)
+                            .isSuccess ());
     assertEquals (aML.longValue (), aInput.length);
 
     // Must be a ByteArrayInputStream so that an IOException can be thrown!
@@ -356,7 +357,8 @@ public final class StreamHelperTest
     assertTrue (StreamHelper.copyReaderToWriter (aBAIS, aBAOS, new char [10]).isSuccess ());
     final MutableLong aML = new MutableLong (0);
     aBAIS = new NonBlockingStringReader (sInput);
-    assertTrue (StreamHelper.copyReaderToWriter (aBAIS, aBAOS, new char [10], aML).isSuccess ());
+    assertTrue (StreamHelper.copyReaderToWriter (aBAIS, false, aBAOS, false, new char [10], null, null, aML)
+                            .isSuccess ());
     assertEquals (aML.longValue (), sInput.length ());
 
     // Must be a ByteArrayReader so that an IOException can be thrown!

@@ -16,27 +16,7 @@
  */
 package com.helger.commons.io.stream;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.DataInput;
-import java.io.DataInputStream;
-import java.io.DataOutput;
-import java.io.DataOutputStream;
-import java.io.EOFException;
-import java.io.Flushable;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Reader;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.io.Writer;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -59,6 +39,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.callback.exception.IExceptionCallback;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.exception.mock.IMockException;
@@ -88,7 +69,6 @@ public final class StreamHelper
                                                                                                         "$COPY");
   private static final IMutableStatisticsHandlerSize s_aCharSizeHdl = StatisticsManager.getSizeHandler (StreamHelper.class.getName () +
                                                                                                         "$COPYCHARS");
-
   @PresentForCodeCoverage
   private static final StreamHelper s_aInstance = new StreamHelper ();
 
@@ -155,8 +135,8 @@ public final class StreamHelper
   }
 
   /**
-   * Close the passed stream by encapsulating the declared {@link IOException}. If
-   * the passed object also implements the {@link Flushable} interface, it is
+   * Close the passed stream by encapsulating the declared {@link IOException}.
+   * If the passed object also implements the {@link Flushable} interface, it is
    * tried to be flushed before it is closed.
    *
    * @param aCloseable
@@ -223,172 +203,16 @@ public final class StreamHelper
     return ESuccess.FAILURE;
   }
 
-  /**
-   * Pass the content of the given input stream to the given output stream. Both
-   * the input stream and the output stream are automatically closed.
-   *
-   * @param aIS
-   *        The input stream to read from. May be <code>null</code>. Automatically
-   *        closed!
-   * @param aOS
-   *        The output stream to write to. May be <code>null</code>. Automatically
-   *        closed!
-   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
-   *         {@link ESuccess#FAILURE}</code> otherwise
-   */
-  @Nonnull
-  public static ESuccess copyInputStreamToOutputStreamAndCloseOS (@WillClose @Nullable final InputStream aIS,
-                                                                  @WillClose @Nullable final OutputStream aOS)
-  {
-    try
-    {
-      return copyInputStreamToOutputStream (aIS, aOS, new byte [DEFAULT_BUFSIZE], (MutableLong) null, (Long) null);
-    }
-    finally
-    {
-      close (aOS);
-    }
-  }
-
-  /**
-   * Pass the content of the given input stream to the given output stream. Both
-   * the input stream and the output stream are automatically closed.
-   *
-   * @param aIS
-   *        The input stream to read from. May be <code>null</code>. Automatically
-   *        closed!
-   * @param aOS
-   *        The output stream to write to. May be <code>null</code>. Automatically
-   *        closed!
-   * @param nLimit
-   *        The maximum number of bytes to be copied to the output stream. Must be
-   *        &ge; 0.
-   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
-   *         {@link ESuccess#FAILURE}</code> otherwise
-   */
-  @Nonnull
-  public static ESuccess copyInputStreamToOutputStreamWithLimitAndCloseOS (@WillClose @Nullable final InputStream aIS,
-                                                                           @WillClose @Nullable final OutputStream aOS,
-                                                                           @Nonnegative final long nLimit)
-  {
-    try
-    {
-      return copyInputStreamToOutputStream (aIS,
-                                            aOS,
-                                            new byte [DEFAULT_BUFSIZE],
-                                            (MutableLong) null,
-                                            Long.valueOf (nLimit));
-    }
-    finally
-    {
-      close (aOS);
-    }
-  }
-
-  /**
-   * Pass the content of the given input stream to the given output stream. The
-   * input stream is automatically closed, whereas the output stream stays open!
-   *
-   * @param aIS
-   *        The input stream to read from. May be <code>null</code>. Automatically
-   *        closed!
-   * @param aOS
-   *        The output stream to write to. May be <code>null</code>. Not
-   *        automatically closed!
-   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
-   *         {@link ESuccess#FAILURE}</code> otherwise
-   */
-  @Nonnull
-  public static ESuccess copyInputStreamToOutputStream (@WillClose @Nullable final InputStream aIS,
-                                                        @WillNotClose @Nullable final OutputStream aOS)
-  {
-    return copyInputStreamToOutputStream (aIS, aOS, new byte [DEFAULT_BUFSIZE], (MutableLong) null, (Long) null);
-  }
-
-  /**
-   * Pass the content of the given input stream to the given output stream. The
-   * input stream is automatically closed, whereas the output stream stays open!
-   *
-   * @param aIS
-   *        The input stream to read from. May be <code>null</code>. Automatically
-   *        closed!
-   * @param aOS
-   *        The output stream to write to. May be <code>null</code>. Not
-   *        automatically closed!
-   * @param aCopyByteCount
-   *        An optional mutable long object that will receive the total number of
-   *        copied bytes. Note: and optional old value is overwritten!
-   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
-   *         {@link ESuccess#FAILURE}</code> otherwise
-   */
-  @Nonnull
-  public static ESuccess copyInputStreamToOutputStream (@WillClose @Nullable final InputStream aIS,
-                                                        @WillNotClose @Nullable final OutputStream aOS,
-                                                        @Nullable final MutableLong aCopyByteCount)
-  {
-    return copyInputStreamToOutputStream (aIS, aOS, new byte [DEFAULT_BUFSIZE], aCopyByteCount, (Long) null);
-  }
-
-  /**
-   * Pass the content of the given input stream to the given output stream. The
-   * input stream is automatically closed, whereas the output stream stays open!
-   *
-   * @param aIS
-   *        The input stream to read from. May be <code>null</code>. Automatically
-   *        closed!
-   * @param aOS
-   *        The output stream to write to. May be <code>null</code>. Not
-   *        automatically closed!
-   * @param nLimit
-   *        The maximum number of bytes to be copied to the output stream. Must be
-   *        &ge; 0.
-   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
-   *         {@link ESuccess#FAILURE}</code> otherwise
-   */
-  @Nonnull
-  public static ESuccess copyInputStreamToOutputStreamWithLimit (@WillClose @Nullable final InputStream aIS,
-                                                                 @WillNotClose @Nullable final OutputStream aOS,
-                                                                 @Nonnegative final long nLimit)
-  {
-    return copyInputStreamToOutputStream (aIS,
-                                          aOS,
-                                          new byte [DEFAULT_BUFSIZE],
-                                          (MutableLong) null,
-                                          Long.valueOf (nLimit));
-  }
-
-  /**
-   * Pass the content of the given input stream to the given output stream. The
-   * input stream is automatically closed, whereas the output stream stays open!
-   *
-   * @param aIS
-   *        The input stream to read from. May be <code>null</code>. Automatically
-   *        closed!
-   * @param aOS
-   *        The output stream to write to. May be <code>null</code>. Not
-   *        automatically closed!
-   * @param aBuffer
-   *        The buffer to use. May not be <code>null</code>.
-   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
-   *         {@link ESuccess#FAILURE}</code> otherwise
-   */
-  @Nonnull
-  public static ESuccess copyInputStreamToOutputStream (@WillClose @Nullable final InputStream aIS,
-                                                        @WillNotClose @Nullable final OutputStream aOS,
-                                                        @Nonnull final byte [] aBuffer)
-  {
-    return copyInputStreamToOutputStream (aIS, aOS, aBuffer, (MutableLong) null, (Long) null);
-  }
-
   @Nonnegative
   private static long _copyInputStreamToOutputStream (@Nonnull @WillNotClose final InputStream aIS,
                                                       @Nonnull @WillNotClose final OutputStream aOS,
                                                       @Nonnull final byte [] aBuffer) throws IOException
   {
+    final int nBufferLength = aBuffer.length;
     long nTotalBytesWritten = 0;
     int nBytesRead;
     // Potentially blocking read
-    while ((nBytesRead = aIS.read (aBuffer, 0, aBuffer.length)) > -1)
+    while ((nBytesRead = aIS.read (aBuffer, 0, nBufferLength)) > -1)
     {
       aOS.write (aBuffer, 0, nBytesRead);
       nTotalBytesWritten += nBytesRead;
@@ -402,13 +226,14 @@ public final class StreamHelper
                                                                @Nonnull final byte [] aBuffer,
                                                                @Nonnegative final long nLimit) throws IOException
   {
+    final int nBufferLength = aBuffer.length;
     long nRest = nLimit;
     long nTotalBytesWritten = 0;
     while (true)
     {
       // if nRest is smaller than aBuffer.length, which is an int, it is safe to
       // cast nRest also to an int!
-      final int nBytesToRead = nRest >= aBuffer.length ? aBuffer.length : (int) nRest;
+      final int nBytesToRead = nRest >= nBufferLength ? nBufferLength : (int) nRest;
       if (nBytesToRead == 0)
         break;
       // Potentially blocking read
@@ -434,56 +259,42 @@ public final class StreamHelper
    * input stream is automatically closed, whereas the output stream stays open!
    *
    * @param aIS
-   *        The input stream to read from. May be <code>null</code>. Automatically
-   *        closed!
+   *        The input stream to read from. May be <code>null</code>.
+   * @param bCloseIS
+   *        <code>true</code> to close the InputStream, <code>false</code> to
+   *        leave it open.
    * @param aOS
-   *        The output stream to write to. May be <code>null</code>. Not
-   *        automatically closed!
+   *        The output stream to write to. May be <code>null</code>.
+   * @param bCloseOS
+   *        <code>true</code> to close the OutputStream, <code>false</code> to
+   *        leave it open.
    * @param aBuffer
    *        The buffer to use. May not be <code>null</code>.
-   * @param aCopyByteCount
-   *        An optional mutable long object that will receive the total number of
-   *        copied bytes. Note: and optional old value is overwritten!
-   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
-   *         {@link ESuccess#FAILURE}</code> otherwise
-   */
-  @Nonnull
-  public static ESuccess copyInputStreamToOutputStream (@WillClose @Nullable final InputStream aIS,
-                                                        @WillNotClose @Nullable final OutputStream aOS,
-                                                        @Nonnull @Nonempty final byte [] aBuffer,
-                                                        @Nullable final MutableLong aCopyByteCount)
-  {
-    return copyInputStreamToOutputStream (aIS, aOS, aBuffer, aCopyByteCount, (Long) null);
-  }
-
-  /**
-   * Pass the content of the given input stream to the given output stream. The
-   * input stream is automatically closed, whereas the output stream stays open!
-   *
-   * @param aIS
-   *        The input stream to read from. May be <code>null</code>. Automatically
-   *        closed!
-   * @param aOS
-   *        The output stream to write to. May be <code>null</code>. Not
-   *        automatically closed!
-   * @param aBuffer
-   *        The buffer to use. May not be <code>null</code>.
-   * @param aCopyByteCount
-   *        An optional mutable long object that will receive the total number of
-   *        copied bytes. Note: and optional old value is overwritten!
    * @param aLimit
-   *        An optional maximum number of bytes to copied from the input stream to
-   *        the output stream. May be <code>null</code> to indicate no limit,
+   *        An optional maximum number of bytes to copied from the input stream
+   *        to the output stream. May be <code>null</code> to indicate no limit,
    *        meaning all bytes are copied.
+   * @param aExceptionCallback
+   *        The Exception callback to be invoked, if an exception occurs. May
+   *        not be <code>null</code>.
+   * @param aCopyByteCount
+   *        An optional mutable long object that will receive the total number
+   *        of copied bytes. Note: and optional old value is overwritten. Note:
+   *        this is only called, if copying was successful, and not in case of
+   *        an exception.
    * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
    *         {@link ESuccess#FAILURE}</code> otherwise
+   * @since 9.3.6
    */
   @Nonnull
-  public static ESuccess copyInputStreamToOutputStream (@WillClose @Nullable final InputStream aIS,
-                                                        @WillNotClose @Nullable final OutputStream aOS,
+  public static ESuccess copyInputStreamToOutputStream (@Nullable final InputStream aIS,
+                                                        final boolean bCloseIS,
+                                                        @Nullable final OutputStream aOS,
+                                                        final boolean bCloseOS,
                                                         @Nonnull @Nonempty final byte [] aBuffer,
-                                                        @Nullable final MutableLong aCopyByteCount,
-                                                        @Nullable final Long aLimit)
+                                                        @Nullable final Long aLimit,
+                                                        @Nullable final IExceptionCallback <IOException> aExceptionCallback,
+                                                        @Nullable final MutableLong aCopyByteCount)
   {
     try
     {
@@ -493,7 +304,7 @@ public final class StreamHelper
       if (aIS != null && aOS != null)
       {
         // both streams are not null
-        long nTotalBytesCopied;
+        final long nTotalBytesCopied;
         if (aLimit == null)
           nTotalBytesCopied = _copyInputStreamToOutputStream (aIS, aOS, aBuffer);
         else
@@ -510,15 +321,264 @@ public final class StreamHelper
     }
     catch (final IOException ex)
     {
-      if (!isKnownEOFException (ex))
-        LOGGER.error ("Failed to copy from stream to stream", ex instanceof IMockException ? null : ex);
+      if (aExceptionCallback != null)
+        aExceptionCallback.onException (ex);
+      else
+        if (!isKnownEOFException (ex))
+          LOGGER.error ("Failed to copy from InputStream to OutputStream", ex instanceof IMockException ? null : ex);
     }
     finally
     {
-      // Ensure input stream is closed, even if output stream is null
-      close (aIS);
+      // Ensure streams are closed under all circumstances
+      if (bCloseIS)
+        close (aIS);
+      if (bCloseOS)
+        close (aOS);
     }
     return ESuccess.FAILURE;
+  }
+
+  /**
+   * @return A newly created copy buffer using {@link #DEFAULT_BUFSIZE}. Never
+   *         <code>null</code>.
+   * @since 9.3.6
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public static byte [] createDefaultCopyBufferBytes ()
+  {
+    return new byte [DEFAULT_BUFSIZE];
+  }
+
+  /**
+   * Pass the content of the given input stream to the given output stream. The
+   * input stream is automatically closed, whereas the output stream stays open!
+   *
+   * @param aIS
+   *        The input stream to read from. May be <code>null</code>.
+   *        Automatically closed!
+   * @param aOS
+   *        The output stream to write to. May be <code>null</code>. Not
+   *        automatically closed!
+   * @param aBuffer
+   *        The buffer to use. May not be <code>null</code>.
+   * @param aCopyByteCount
+   *        An optional mutable long object that will receive the total number
+   *        of copied bytes. Note: and optional old value is overwritten!
+   * @param aLimit
+   *        An optional maximum number of bytes to copied from the input stream
+   *        to the output stream. May be <code>null</code> to indicate no limit,
+   *        meaning all bytes are copied.
+   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
+   *         {@link ESuccess#FAILURE}</code> otherwise
+   */
+  @Nonnull
+  @Deprecated
+  public static ESuccess copyInputStreamToOutputStream (@WillClose @Nullable final InputStream aIS,
+                                                        @WillNotClose @Nullable final OutputStream aOS,
+                                                        @Nonnull @Nonempty final byte [] aBuffer,
+                                                        @Nullable final MutableLong aCopyByteCount,
+                                                        @Nullable final Long aLimit)
+  {
+    return copyInputStreamToOutputStream (aIS, true, aOS, false, aBuffer, aLimit, null, aCopyByteCount);
+  }
+
+  /**
+   * Pass the content of the given input stream to the given output stream. The
+   * input stream is automatically closed, whereas the output stream stays open!
+   *
+   * @param aIS
+   *        The input stream to read from. May be <code>null</code>.
+   *        Automatically closed!
+   * @param aOS
+   *        The output stream to write to. May be <code>null</code>. Not
+   *        automatically closed!
+   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
+   *         {@link ESuccess#FAILURE}</code> otherwise
+   */
+  @Nonnull
+  public static ESuccess copyInputStreamToOutputStream (@WillClose @Nullable final InputStream aIS,
+                                                        @WillNotClose @Nullable final OutputStream aOS)
+  {
+    return copyInputStreamToOutputStream (aIS,
+                                          true,
+                                          aOS,
+                                          false,
+                                          createDefaultCopyBufferBytes (),
+                                          (Long) null,
+                                          null,
+                                          (MutableLong) null);
+  }
+
+  /**
+   * Pass the content of the given input stream to the given output stream. Both
+   * the input stream and the output stream are automatically closed.
+   *
+   * @param aIS
+   *        The input stream to read from. May be <code>null</code>.
+   *        Automatically closed!
+   * @param aOS
+   *        The output stream to write to. May be <code>null</code>.
+   *        Automatically closed!
+   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
+   *         {@link ESuccess#FAILURE}</code> otherwise
+   */
+  @Nonnull
+  public static ESuccess copyInputStreamToOutputStreamAndCloseOS (@WillClose @Nullable final InputStream aIS,
+                                                                  @WillClose @Nullable final OutputStream aOS)
+  {
+    return copyInputStreamToOutputStream (aIS,
+                                          true,
+                                          aOS,
+                                          true,
+                                          createDefaultCopyBufferBytes (),
+                                          (Long) null,
+                                          null,
+                                          (MutableLong) null);
+  }
+
+  /**
+   * Pass the content of the given input stream to the given output stream. The
+   * input stream is automatically closed, whereas the output stream stays open!
+   *
+   * @param aIS
+   *        The input stream to read from. May be <code>null</code>.
+   *        Automatically closed!
+   * @param aOS
+   *        The output stream to write to. May be <code>null</code>. Not
+   *        automatically closed!
+   * @param nLimit
+   *        The maximum number of bytes to be copied to the output stream. Must
+   *        be &ge; 0.
+   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
+   *         {@link ESuccess#FAILURE}</code> otherwise
+   */
+  @Nonnull
+  public static ESuccess copyInputStreamToOutputStreamWithLimit (@WillClose @Nullable final InputStream aIS,
+                                                                 @WillNotClose @Nullable final OutputStream aOS,
+                                                                 @Nonnegative final long nLimit)
+  {
+    return copyInputStreamToOutputStream (aIS,
+                                          true,
+                                          aOS,
+                                          false,
+                                          createDefaultCopyBufferBytes (),
+                                          Long.valueOf (nLimit),
+                                          null,
+                                          (MutableLong) null);
+  }
+
+  /**
+   * Pass the content of the given input stream to the given output stream. Both
+   * the input stream and the output stream are automatically closed.
+   *
+   * @param aIS
+   *        The input stream to read from. May be <code>null</code>.
+   *        Automatically closed!
+   * @param aOS
+   *        The output stream to write to. May be <code>null</code>.
+   *        Automatically closed!
+   * @param nLimit
+   *        The maximum number of bytes to be copied to the output stream. Must
+   *        be &ge; 0.
+   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
+   *         {@link ESuccess#FAILURE}</code> otherwise
+   */
+  @Nonnull
+  public static ESuccess copyInputStreamToOutputStreamWithLimitAndCloseOS (@WillClose @Nullable final InputStream aIS,
+                                                                           @WillClose @Nullable final OutputStream aOS,
+                                                                           @Nonnegative final long nLimit)
+  {
+    return copyInputStreamToOutputStream (aIS,
+                                          true,
+                                          aOS,
+                                          true,
+                                          createDefaultCopyBufferBytes (),
+                                          Long.valueOf (nLimit),
+                                          null,
+                                          (MutableLong) null);
+  }
+
+  /**
+   * Pass the content of the given input stream to the given output stream. The
+   * input stream is automatically closed, whereas the output stream stays open!
+   *
+   * @param aIS
+   *        The input stream to read from. May be <code>null</code>.
+   *        Automatically closed!
+   * @param aOS
+   *        The output stream to write to. May be <code>null</code>. Not
+   *        automatically closed!
+   * @param aCopyByteCount
+   *        An optional mutable long object that will receive the total number
+   *        of copied bytes. Note: and optional old value is overwritten!
+   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
+   *         {@link ESuccess#FAILURE}</code> otherwise
+   */
+  @Nonnull
+  public static ESuccess copyInputStreamToOutputStream (@WillClose @Nullable final InputStream aIS,
+                                                        @WillNotClose @Nullable final OutputStream aOS,
+                                                        @Nullable final MutableLong aCopyByteCount)
+  {
+    return copyInputStreamToOutputStream (aIS,
+                                          true,
+                                          aOS,
+                                          false,
+                                          createDefaultCopyBufferBytes (),
+                                          (Long) null,
+                                          null,
+                                          aCopyByteCount);
+  }
+
+  /**
+   * Pass the content of the given input stream to the given output stream. The
+   * input stream is automatically closed, whereas the output stream stays open!
+   *
+   * @param aIS
+   *        The input stream to read from. May be <code>null</code>.
+   *        Automatically closed!
+   * @param aOS
+   *        The output stream to write to. May be <code>null</code>. Not
+   *        automatically closed!
+   * @param aBuffer
+   *        The buffer to use. May not be <code>null</code>.
+   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
+   *         {@link ESuccess#FAILURE}</code> otherwise
+   */
+  @Nonnull
+  public static ESuccess copyInputStreamToOutputStream (@WillClose @Nullable final InputStream aIS,
+                                                        @WillNotClose @Nullable final OutputStream aOS,
+                                                        @Nonnull final byte [] aBuffer)
+  {
+    return copyInputStreamToOutputStream (aIS, true, aOS, false, aBuffer, (Long) null, null, (MutableLong) null);
+  }
+
+  /**
+   * Pass the content of the given input stream to the given output stream. The
+   * input stream is automatically closed, whereas the output stream stays open!
+   *
+   * @param aIS
+   *        The input stream to read from. May be <code>null</code>.
+   *        Automatically closed!
+   * @param aOS
+   *        The output stream to write to. May be <code>null</code>. Not
+   *        automatically closed!
+   * @param aBuffer
+   *        The buffer to use. May not be <code>null</code>.
+   * @param aCopyByteCount
+   *        An optional mutable long object that will receive the total number
+   *        of copied bytes. Note: and optional old value is overwritten!
+   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
+   *         {@link ESuccess#FAILURE}</code> otherwise
+   */
+  @Nonnull
+  @Deprecated
+  public static ESuccess copyInputStreamToOutputStream (@WillClose @Nullable final InputStream aIS,
+                                                        @WillNotClose @Nullable final OutputStream aOS,
+                                                        @Nonnull @Nonempty final byte [] aBuffer,
+                                                        @Nullable final MutableLong aCopyByteCount)
+  {
+    return copyInputStreamToOutputStream (aIS, true, aOS, false, aBuffer, (Long) null, null, aCopyByteCount);
   }
 
   /**
@@ -543,40 +603,46 @@ public final class StreamHelper
   }
 
   /**
-   * Get a byte buffer with all the available content of the passed input stream.
+   * Get a byte buffer with all the available content of the passed input
+   * stream.
    *
    * @param aIS
    *        The source input stream. May not be <code>null</code>.
    * @return A new {@link NonBlockingByteArrayOutputStream} with all available
-   *         content inside.
+   *         content inside. The Outputstream is already closed. Since v9.3.6
+   *         this method returns <code>null</code> if copying fails.
    */
-  @Nonnull
+  @Nullable
   public static NonBlockingByteArrayOutputStream getCopy (@Nonnull @WillClose final InputStream aIS)
   {
     final int nAvailable = Math.max (DEFAULT_BUFSIZE, getAvailable (aIS));
     final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (nAvailable);
-    copyInputStreamToOutputStreamAndCloseOS (aIS, aBAOS);
+    if (copyInputStreamToOutputStreamAndCloseOS (aIS, aBAOS).isFailure ())
+      return null;
     return aBAOS;
   }
 
   /**
-   * Get a byte buffer with all the available content of the passed input stream.
+   * Get a byte buffer with all the available content of the passed input
+   * stream.
    *
    * @param aIS
    *        The source input stream. May not be <code>null</code>.
    * @param nLimit
-   *        The maximum number of bytes to be copied to the output stream. Must be
-   *        &ge; 0.
+   *        The maximum number of bytes to be copied to the output stream. Must
+   *        be &ge; 0.
    * @return A new {@link NonBlockingByteArrayOutputStream} with all available
-   *         content inside.
+   *         content inside. Since v9.3.6 this method returns <code>null</code>
+   *         if copying fails.
    */
-  @Nonnull
+  @Nullable
   public static NonBlockingByteArrayOutputStream getCopyWithLimit (@Nonnull @WillClose final InputStream aIS,
                                                                    @Nonnegative final long nLimit)
   {
     final int nAvailable = Math.max (DEFAULT_BUFSIZE, getAvailable (aIS));
     final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (nAvailable);
-    copyInputStreamToOutputStreamWithLimitAndCloseOS (aIS, aBAOS, nLimit);
+    if (copyInputStreamToOutputStreamWithLimitAndCloseOS (aIS, aBAOS, nLimit).isFailure ())
+      return null;
     return aBAOS;
   }
 
@@ -585,8 +651,8 @@ public final class StreamHelper
    *
    * @param aISP
    *        The input stream provider to read from. May be <code>null</code> .
-   * @return The byte array or <code>null</code> if the parameter or the resolved
-   *         input stream is <code>null</code>.
+   * @return The byte array or <code>null</code> if the parameter or the
+   *         resolved input stream is <code>null</code>.
    */
   @Nullable
   public static byte [] getAllBytes (@Nullable final IHasInputStream aISP)
@@ -611,8 +677,10 @@ public final class StreamHelper
     if (aIS == null)
       return null;
 
-    try (NonBlockingByteArrayOutputStream aBAOS = getCopy (aIS))
+    try (final NonBlockingByteArrayOutputStream aBAOS = getCopy (aIS))
     {
+      if (aBAOS == null)
+        return null;
       // No need to copy, because the BAOS goes out of scope anyway
       return aBAOS.getBufferOrCopy ();
     }
@@ -657,160 +725,11 @@ public final class StreamHelper
     if (aIS == null)
       return null;
 
-    return getCopy (aIS).getAsString (aCharset);
-  }
+    final NonBlockingByteArrayOutputStream aBAOS = getCopy (aIS);
+    if (aBAOS == null)
+      return null;
 
-  /**
-   * Pass the content of the given reader to the given writer. The reader and the
-   * writer are automatically closed!
-   *
-   * @param aReader
-   *        The reader to read from. May be <code>null</code>. Automatically
-   *        closed!
-   * @param aWriter
-   *        The writer to write to. May be <code>null</code>. Automatically
-   *        closed!
-   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
-   *         {@link ESuccess#FAILURE}</code> otherwise
-   */
-  @Nonnull
-  public static ESuccess copyReaderToWriterAndCloseWriter (@Nullable @WillClose final Reader aReader,
-                                                           @Nullable @WillClose final Writer aWriter)
-  {
-    try
-    {
-      return copyReaderToWriter (aReader, aWriter, new char [DEFAULT_BUFSIZE], (MutableLong) null, (Long) null);
-    }
-    finally
-    {
-      close (aWriter);
-    }
-  }
-
-  /**
-   * Pass the content of the given reader to the given writer. The reader and the
-   * writer are automatically closed!
-   *
-   * @param aReader
-   *        The reader to read from. May be <code>null</code>. Automatically
-   *        closed!
-   * @param aWriter
-   *        The writer to write to. May be <code>null</code>. Automatically
-   *        closed!
-   * @param nLimit
-   *        The maximum number of chars to be copied to the writer. Must be &ge;
-   *        0.
-   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
-   *         {@link ESuccess#FAILURE}</code> otherwise
-   */
-  @Nonnull
-  public static ESuccess copyReaderToWriterWithLimitAndCloseWriter (@Nullable @WillClose final Reader aReader,
-                                                                    @Nullable @WillClose final Writer aWriter,
-                                                                    @Nonnegative final long nLimit)
-  {
-    try
-    {
-      return copyReaderToWriter (aReader,
-                                 aWriter,
-                                 new char [DEFAULT_BUFSIZE],
-                                 (MutableLong) null,
-                                 Long.valueOf (nLimit));
-    }
-    finally
-    {
-      close (aWriter);
-    }
-  }
-
-  /**
-   * Pass the content of the given reader to the given writer. The reader is
-   * automatically closed, whereas the writer stays open!
-   *
-   * @param aReader
-   *        The reader to read from. May be <code>null</code>. Automatically
-   *        closed!
-   * @param aWriter
-   *        The writer to write to. May be <code>null</code>. Not automatically
-   *        closed!
-   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
-   *         {@link ESuccess#FAILURE}</code> otherwise
-   */
-  @Nonnull
-  public static ESuccess copyReaderToWriter (@WillClose @Nullable final Reader aReader,
-                                             @WillNotClose @Nullable final Writer aWriter)
-  {
-    return copyReaderToWriter (aReader, aWriter, new char [DEFAULT_BUFSIZE], (MutableLong) null, (Long) null);
-  }
-
-  /**
-   * Pass the content of the given reader to the given writer. The reader is
-   * automatically closed, whereas the writer stays open!
-   *
-   * @param aReader
-   *        The reader to read from. May be <code>null</code>. Automatically
-   *        closed!
-   * @param aWriter
-   *        The writer to write to. May be <code>null</code>. Not automatically
-   *        closed!
-   * @param aCopyCharCount
-   *        An optional mutable long object that will receive the total number of
-   *        copied characters. Note: and optional old value is overwritten!
-   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
-   *         {@link ESuccess#FAILURE}</code> otherwise
-   */
-  @Nonnull
-  public static ESuccess copyReaderToWriter (@WillClose @Nullable final Reader aReader,
-                                             @WillNotClose @Nullable final Writer aWriter,
-                                             @Nullable final MutableLong aCopyCharCount)
-  {
-    return copyReaderToWriter (aReader, aWriter, new char [DEFAULT_BUFSIZE], aCopyCharCount, (Long) null);
-  }
-
-  /**
-   * Pass the content of the given reader to the given writer. The reader is
-   * automatically closed, whereas the writer stays open!
-   *
-   * @param aReader
-   *        The reader to read from. May be <code>null</code>. Automatically
-   *        closed!
-   * @param aWriter
-   *        The writer to write to. May be <code>null</code>. Not automatically
-   *        closed!
-   * @param aBuffer
-   *        The buffer to use. May not be <code>null</code>.
-   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
-   *         {@link ESuccess#FAILURE}</code> otherwise
-   */
-  @Nonnull
-  public static ESuccess copyReaderToWriter (@WillClose @Nullable final Reader aReader,
-                                             @WillNotClose @Nullable final Writer aWriter,
-                                             @Nonnull final char [] aBuffer)
-  {
-    return copyReaderToWriter (aReader, aWriter, aBuffer, (MutableLong) null, (Long) null);
-  }
-
-  /**
-   * Pass the content of the given reader to the given writer. The reader is
-   * automatically closed, whereas the writer stays open!
-   *
-   * @param aReader
-   *        The reader to read from. May be <code>null</code>. Automatically
-   *        closed!
-   * @param aWriter
-   *        The writer to write to. May be <code>null</code>. Not automatically
-   *        closed!
-   * @param nLimit
-   *        The maximum number of chars to be copied to the writer. Must be &ge;
-   *        0.
-   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
-   *         {@link ESuccess#FAILURE}</code> otherwise
-   */
-  @Nonnull
-  public static ESuccess copyReaderToWriterWithLimit (@WillClose @Nullable final Reader aReader,
-                                                      @WillNotClose @Nullable final Writer aWriter,
-                                                      final long nLimit)
-  {
-    return copyReaderToWriter (aReader, aWriter, new char [DEFAULT_BUFSIZE], (MutableLong) null, Long.valueOf (nLimit));
+    return aBAOS.getAsString (aCharset);
   }
 
   @Nonnegative
@@ -867,26 +786,92 @@ public final class StreamHelper
    * automatically closed, whereas the writer stays open!
    *
    * @param aReader
-   *        The reader to read from. May be <code>null</code>. Automatically
-   *        closed!
+   *        The reader to read from. May be <code>null</code>.
+   * @param bCloseReader
+   *        <code>true</code> to close the reader, <code>false</code> to keep it
+   *        open.
    * @param aWriter
-   *        The writer to write to. May be <code>null</code>. Not automatically
-   *        closed!
+   *        The writer to write to. May be <code>null</code>.
+   * @param bCloseWriter
+   *        <code>true</code> to close the writer, <code>false</code> to keep it
+   *        open.
    * @param aBuffer
    *        The buffer to use. May not be <code>null</code>.
+   * @param aLimit
+   *        An optional maximum number of chars to copied from the reader to the
+   *        writer. May be <code>null</code> to indicate no limit, meaning all
+   *        chars are copied.
+   * @param aExceptionCallback
+   *        The Exception callback to be invoked, if an exception occurs. May
+   *        not be <code>null</code>.
    * @param aCopyCharCount
-   *        An optional mutable long object that will receive the total number of
-   *        copied characters. Note: and optional old value is overwritten!
+   *        An optional mutable long object that will receive the total number
+   *        of copied characters. Note: and optional old value is overwritten!
    * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
    *         {@link ESuccess#FAILURE}</code> otherwise
    */
   @Nonnull
-  public static ESuccess copyReaderToWriter (@WillClose @Nullable final Reader aReader,
-                                             @WillNotClose @Nullable final Writer aWriter,
+  public static ESuccess copyReaderToWriter (@Nullable final Reader aReader,
+                                             final boolean bCloseReader,
+                                             @Nullable final Writer aWriter,
+                                             final boolean bCloseWriter,
                                              @Nonnull @Nonempty final char [] aBuffer,
+                                             @Nullable final Long aLimit,
+                                             @Nullable final IExceptionCallback <IOException> aExceptionCallback,
                                              @Nullable final MutableLong aCopyCharCount)
   {
-    return copyReaderToWriter (aReader, aWriter, aBuffer, aCopyCharCount, (Long) null);
+    try
+    {
+      ValueEnforcer.notEmpty (aBuffer, "Buffer");
+      ValueEnforcer.isTrue (aLimit == null || aLimit.longValue () >= 0, () -> "Limit may not be negative: " + aLimit);
+
+      if (aReader != null && aWriter != null)
+      {
+        // both streams are not null
+        final long nTotalCharsCopied;
+        if (aLimit == null)
+          nTotalCharsCopied = _copyReaderToWriter (aReader, aWriter, aBuffer);
+        else
+          nTotalCharsCopied = _copyReaderToWriterWithLimit (aReader, aWriter, aBuffer, aLimit.longValue ());
+
+        // Add to statistics
+        s_aCharSizeHdl.addSize (nTotalCharsCopied);
+
+        // Remember number of copied characters
+        if (aCopyCharCount != null)
+          aCopyCharCount.set (nTotalCharsCopied);
+        return ESuccess.SUCCESS;
+      }
+    }
+    catch (final IOException ex)
+    {
+      if (aExceptionCallback != null)
+        aExceptionCallback.onException (ex);
+      else
+        if (!isKnownEOFException (ex))
+          LOGGER.error ("Failed to copy from Reader to Writer", ex instanceof IMockException ? null : ex);
+    }
+    finally
+    {
+      // Ensure reader and writer are always closed
+      if (bCloseReader)
+        close (aReader);
+      if (bCloseWriter)
+        close (aWriter);
+    }
+    return ESuccess.FAILURE;
+  }
+
+  /**
+   * @return A newly created copy buffer using {@link #DEFAULT_BUFSIZE}. Never
+   *         <code>null</code>.
+   * @since 9.3.6
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public static char [] createDefaultCopyBufferChars ()
+  {
+    return new char [DEFAULT_BUFSIZE];
   }
 
   /**
@@ -902,8 +887,8 @@ public final class StreamHelper
    * @param aBuffer
    *        The buffer to use. May not be <code>null</code>.
    * @param aCopyCharCount
-   *        An optional mutable long object that will receive the total number of
-   *        copied characters. Note: and optional old value is overwritten!
+   *        An optional mutable long object that will receive the total number
+   *        of copied characters. Note: and optional old value is overwritten!
    * @param aLimit
    *        An optional maximum number of chars to copied from the reader to the
    *        writer. May be <code>null</code> to indicate no limit, meaning all
@@ -918,56 +903,223 @@ public final class StreamHelper
                                              @Nullable final MutableLong aCopyCharCount,
                                              @Nullable final Long aLimit)
   {
-    try
-    {
-      ValueEnforcer.notEmpty (aBuffer, "Buffer");
-      ValueEnforcer.isTrue (aLimit == null || aLimit.longValue () >= 0, () -> "Limit may not be negative: " + aLimit);
-
-      if (aReader != null && aWriter != null)
-      {
-        // both streams are not null
-        final long nTotalCharsCopied = aLimit == null ? _copyReaderToWriter (aReader, aWriter, aBuffer)
-                                                      : _copyReaderToWriterWithLimit (aReader,
-                                                                                      aWriter,
-                                                                                      aBuffer,
-                                                                                      aLimit.longValue ());
-
-        // Add to statistics
-        s_aCharSizeHdl.addSize (nTotalCharsCopied);
-
-        // Remember number of copied characters
-        if (aCopyCharCount != null)
-          aCopyCharCount.set (nTotalCharsCopied);
-        return ESuccess.SUCCESS;
-      }
-    }
-    catch (final IOException ex)
-    {
-      if (!isKnownEOFException (ex))
-        LOGGER.error ("Failed to copy from reader to writer", ex instanceof IMockException ? null : ex);
-    }
-    finally
-    {
-      // Ensure reader is closed, even if writer is null
-      close (aReader);
-    }
-    return ESuccess.FAILURE;
+    return copyReaderToWriter (aReader, true, aWriter, false, aBuffer, aLimit, null, aCopyCharCount);
   }
 
+  /**
+   * Pass the content of the given reader to the given writer. The reader is
+   * automatically closed, whereas the writer stays open!
+   *
+   * @param aReader
+   *        The reader to read from. May be <code>null</code>. Automatically
+   *        closed!
+   * @param aWriter
+   *        The writer to write to. May be <code>null</code>. Not automatically
+   *        closed!
+   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
+   *         {@link ESuccess#FAILURE}</code> otherwise
+   */
   @Nonnull
+  public static ESuccess copyReaderToWriter (@WillClose @Nullable final Reader aReader,
+                                             @WillNotClose @Nullable final Writer aWriter)
+  {
+    return copyReaderToWriter (aReader,
+                               true,
+                               aWriter,
+                               false,
+                               createDefaultCopyBufferChars (),
+                               (Long) null,
+                               null,
+                               (MutableLong) null);
+  }
+
+  /**
+   * Pass the content of the given reader to the given writer. The reader and
+   * the writer are automatically closed!
+   *
+   * @param aReader
+   *        The reader to read from. May be <code>null</code>. Automatically
+   *        closed!
+   * @param aWriter
+   *        The writer to write to. May be <code>null</code>. Automatically
+   *        closed!
+   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
+   *         {@link ESuccess#FAILURE}</code> otherwise
+   */
+  @Nonnull
+  public static ESuccess copyReaderToWriterAndCloseWriter (@Nullable @WillClose final Reader aReader,
+                                                           @Nullable @WillClose final Writer aWriter)
+  {
+    return copyReaderToWriter (aReader,
+                               true,
+                               aWriter,
+                               true,
+                               createDefaultCopyBufferChars (),
+                               (Long) null,
+                               null,
+                               (MutableLong) null);
+  }
+
+  /**
+   * Pass the content of the given reader to the given writer. The reader is
+   * automatically closed, whereas the writer stays open!
+   *
+   * @param aReader
+   *        The reader to read from. May be <code>null</code>. Automatically
+   *        closed!
+   * @param aWriter
+   *        The writer to write to. May be <code>null</code>. Not automatically
+   *        closed!
+   * @param nLimit
+   *        The maximum number of chars to be copied to the writer. Must be &ge;
+   *        0.
+   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
+   *         {@link ESuccess#FAILURE}</code> otherwise
+   */
+  @Nonnull
+  public static ESuccess copyReaderToWriterWithLimit (@WillClose @Nullable final Reader aReader,
+                                                      @WillNotClose @Nullable final Writer aWriter,
+                                                      final long nLimit)
+  {
+    return copyReaderToWriter (aReader,
+                               true,
+                               aWriter,
+                               false,
+                               createDefaultCopyBufferChars (),
+                               Long.valueOf (nLimit),
+                               null,
+                               (MutableLong) null);
+  }
+
+  /**
+   * Pass the content of the given reader to the given writer. The reader and
+   * the writer are automatically closed!
+   *
+   * @param aReader
+   *        The reader to read from. May be <code>null</code>. Automatically
+   *        closed!
+   * @param aWriter
+   *        The writer to write to. May be <code>null</code>. Automatically
+   *        closed!
+   * @param nLimit
+   *        The maximum number of chars to be copied to the writer. Must be &ge;
+   *        0.
+   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
+   *         {@link ESuccess#FAILURE}</code> otherwise
+   */
+  @Nonnull
+  public static ESuccess copyReaderToWriterWithLimitAndCloseWriter (@Nullable @WillClose final Reader aReader,
+                                                                    @Nullable @WillClose final Writer aWriter,
+                                                                    @Nonnegative final long nLimit)
+  {
+    return copyReaderToWriter (aReader,
+                               true,
+                               aWriter,
+                               true,
+                               createDefaultCopyBufferChars (),
+                               Long.valueOf (nLimit),
+                               null,
+                               (MutableLong) null);
+  }
+
+  /**
+   * Pass the content of the given reader to the given writer. The reader is
+   * automatically closed, whereas the writer stays open!
+   *
+   * @param aReader
+   *        The reader to read from. May be <code>null</code>. Automatically
+   *        closed!
+   * @param aWriter
+   *        The writer to write to. May be <code>null</code>. Not automatically
+   *        closed!
+   * @param aCopyCharCount
+   *        An optional mutable long object that will receive the total number
+   *        of copied characters. Note: and optional old value is overwritten!
+   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
+   *         {@link ESuccess#FAILURE}</code> otherwise
+   */
+  @Nonnull
+  public static ESuccess copyReaderToWriter (@WillClose @Nullable final Reader aReader,
+                                             @WillNotClose @Nullable final Writer aWriter,
+                                             @Nullable final MutableLong aCopyCharCount)
+  {
+    return copyReaderToWriter (aReader,
+                               true,
+                               aWriter,
+                               false,
+                               createDefaultCopyBufferChars (),
+                               (Long) null,
+                               null,
+                               (MutableLong) null);
+  }
+
+  /**
+   * Pass the content of the given reader to the given writer. The reader is
+   * automatically closed, whereas the writer stays open!
+   *
+   * @param aReader
+   *        The reader to read from. May be <code>null</code>. Automatically
+   *        closed!
+   * @param aWriter
+   *        The writer to write to. May be <code>null</code>. Not automatically
+   *        closed!
+   * @param aBuffer
+   *        The buffer to use. May not be <code>null</code>.
+   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
+   *         {@link ESuccess#FAILURE}</code> otherwise
+   */
+  @Nonnull
+  public static ESuccess copyReaderToWriter (@WillClose @Nullable final Reader aReader,
+                                             @WillNotClose @Nullable final Writer aWriter,
+                                             @Nonnull final char [] aBuffer)
+  {
+    return copyReaderToWriter (aReader, true, aWriter, false, aBuffer, (Long) null, null, (MutableLong) null);
+  }
+
+  /**
+   * Pass the content of the given reader to the given writer. The reader is
+   * automatically closed, whereas the writer stays open!
+   *
+   * @param aReader
+   *        The reader to read from. May be <code>null</code>. Automatically
+   *        closed!
+   * @param aWriter
+   *        The writer to write to. May be <code>null</code>. Not automatically
+   *        closed!
+   * @param aBuffer
+   *        The buffer to use. May not be <code>null</code>.
+   * @param aCopyCharCount
+   *        An optional mutable long object that will receive the total number
+   *        of copied characters. Note: and optional old value is overwritten!
+   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
+   *         {@link ESuccess#FAILURE}</code> otherwise
+   */
+  @Nonnull
+  @Deprecated
+  public static ESuccess copyReaderToWriter (@WillClose @Nullable final Reader aReader,
+                                             @WillNotClose @Nullable final Writer aWriter,
+                                             @Nonnull @Nonempty final char [] aBuffer,
+                                             @Nullable final MutableLong aCopyCharCount)
+  {
+    return copyReaderToWriter (aReader, true, aWriter, false, aBuffer, (Long) null, null, aCopyCharCount);
+  }
+
+  @Nullable
   public static NonBlockingStringWriter getCopy (@Nonnull @WillClose final Reader aReader)
   {
     final NonBlockingStringWriter aWriter = new NonBlockingStringWriter (DEFAULT_BUFSIZE);
-    copyReaderToWriterAndCloseWriter (aReader, aWriter);
+    if (copyReaderToWriterAndCloseWriter (aReader, aWriter).isFailure ())
+      return null;
     return aWriter;
   }
 
-  @Nonnull
+  @Nullable
   public static NonBlockingStringWriter getCopyWithLimit (@Nonnull @WillClose final Reader aReader,
                                                           @Nonnegative final long nLimit)
   {
     final NonBlockingStringWriter aWriter = new NonBlockingStringWriter (DEFAULT_BUFSIZE);
-    copyReaderToWriterWithLimitAndCloseWriter (aReader, aWriter, nLimit);
+    if (copyReaderToWriterWithLimitAndCloseWriter (aReader, aWriter, nLimit).isFailure ())
+      return null;
     return aWriter;
   }
 
@@ -985,7 +1137,11 @@ public final class StreamHelper
     if (aReader == null)
       return null;
 
-    return getCopy (aReader).getAsCharArray ();
+    final NonBlockingStringWriter aWriter = getCopy (aReader);
+    if (aWriter == null)
+      return null;
+
+    return aWriter.getAsCharArray ();
   }
 
   /**
@@ -1002,19 +1158,23 @@ public final class StreamHelper
     if (aReader == null)
       return null;
 
-    return getCopy (aReader).getAsString ();
+    final NonBlockingStringWriter aWriter = getCopy (aReader);
+    if (aWriter == null)
+      return null;
+
+    return aWriter.getAsString ();
   }
 
   /**
-   * Get the content of the passed Spring resource as one big string in the passed
-   * character set.
+   * Get the content of the passed Spring resource as one big string in the
+   * passed character set.
    *
    * @param aISP
    *        The resource to read. May not be <code>null</code>.
    * @param aCharset
    *        The character set to use. May not be <code>null</code>.
-   * @return <code>null</code> if the resolved input stream is <code>null</code> ,
-   *         the content otherwise.
+   * @return <code>null</code> if the resolved input stream is <code>null</code>
+   *         , the content otherwise.
    */
   @Nullable
   @ReturnsMutableCopy
@@ -1025,22 +1185,22 @@ public final class StreamHelper
   }
 
   /**
-   * Get the content of the passed Spring resource as one big string in the passed
-   * character set.
+   * Get the content of the passed Spring resource as one big string in the
+   * passed character set.
    *
    * @param aISP
    *        The resource to read. May be <code>null</code>.
    * @param aCharset
    *        The character set to use. May not be <code>null</code>.
    * @param nLinesToSkip
-   *        The 0-based index of the first line to read. Pass in 0 to indicate to
-   *        read everything.
+   *        The 0-based index of the first line to read. Pass in 0 to indicate
+   *        to read everything.
    * @param nLinesToRead
    *        The number of lines to read. Pass in {@link CGlobal#ILLEGAL_UINT} to
    *        indicate that all lines should be read. If the number passed here
    *        exceeds the number of lines in the file, nothing happens.
-   * @return <code>null</code> if the resolved input stream is <code>null</code> ,
-   *         the content otherwise.
+   * @return <code>null</code> if the resolved input stream is <code>null</code>
+   *         , the content otherwise.
    */
   @Nullable
   @ReturnsMutableCopy
@@ -1102,8 +1262,8 @@ public final class StreamHelper
    * @param aCharset
    *        The character set to use. May not be <code>null</code>.
    * @param nLinesToSkip
-   *        The 0-based index of the first line to read. Pass in 0 to indicate to
-   *        read everything.
+   *        The 0-based index of the first line to read. Pass in 0 to indicate
+   *        to read everything.
    * @param nLinesToRead
    *        The number of lines to read. Pass in {@link CGlobal#ILLEGAL_UINT} to
    *        indicate that all lines should be read. If the number passed here
@@ -1128,16 +1288,16 @@ public final class StreamHelper
   }
 
   /**
-   * Read the complete content of the passed stream and pass each line separately
-   * to the passed callback.
+   * Read the complete content of the passed stream and pass each line
+   * separately to the passed callback.
    *
    * @param aIS
    *        The input stream to read from. May be <code>null</code>.
    * @param aCharset
    *        The character set to use. May not be <code>null</code>.
    * @param aLineCallback
-   *        The callback that is invoked for all read lines. Each passed line does
-   *        NOT contain the line delimiter!
+   *        The callback that is invoked for all read lines. Each passed line
+   *        does NOT contain the line delimiter!
    */
   public static void readStreamLines (@WillClose @Nullable final InputStream aIS,
                                       @Nonnull @Nonempty final Charset aCharset,
@@ -1191,24 +1351,24 @@ public final class StreamHelper
   }
 
   /**
-   * Read the content of the passed stream line by line and invoking a callback on
-   * all matching lines.
+   * Read the content of the passed stream line by line and invoking a callback
+   * on all matching lines.
    *
    * @param aIS
    *        The input stream to read from. May be <code>null</code>.
    * @param aCharset
    *        The character set to use. May not be <code>null</code>.
    * @param nLinesToSkip
-   *        The 0-based index of the first line to read. Pass in 0 to indicate to
-   *        read everything.
+   *        The 0-based index of the first line to read. Pass in 0 to indicate
+   *        to read everything.
    * @param nLinesToRead
    *        The number of lines to read. Pass in {@link CGlobal#ILLEGAL_UINT} to
    *        indicate that all lines should be read. If the number passed here
    *        exceeds the number of lines in the file, nothing happens.
    * @param aLineCallback
-   *        The callback that is invoked for all read lines. Each passed line does
-   *        NOT contain the line delimiter! Note: it is not invoked for skipped
-   *        lines!
+   *        The callback that is invoked for all read lines. Each passed line
+   *        does NOT contain the line delimiter! Note: it is not invoked for
+   *        skipped lines!
    */
   public static void readStreamLines (@WillClose @Nullable final InputStream aIS,
                                       @Nonnull @Nonempty final Charset aCharset,
@@ -1236,14 +1396,13 @@ public final class StreamHelper
           }
           catch (final IOException ex)
           {
-            LOGGER.error ("Failed to read from input stream", ex instanceof IMockException ? null : ex);
+            LOGGER.error ("Failed to read from reader", ex instanceof IMockException ? null : ex);
           }
         }
     }
     finally
     {
-      // Close input stream in case something went wrong with the buffered
-      // reader.
+      // Close input stream anyway
       close (aIS);
     }
   }
@@ -1252,8 +1411,8 @@ public final class StreamHelper
    * Write bytes to an {@link OutputStream}.
    *
    * @param aOS
-   *        The output stream to write to. May not be <code>null</code>. Is closed
-   *        independent of error or success.
+   *        The output stream to write to. May not be <code>null</code>. Is
+   *        closed independent of error or success.
    * @param aBuf
    *        The byte array from which is to be written. May not be
    *        <code>null</code>.
@@ -1294,8 +1453,8 @@ public final class StreamHelper
    * Write bytes to an {@link OutputStream}.
    *
    * @param aOS
-   *        The output stream to write to. May not be <code>null</code>. Is closed
-   *        independent of error or success.
+   *        The output stream to write to. May not be <code>null</code>. Is
+   *        closed independent of error or success.
    * @param aBuf
    *        The byte array to be written. May not be <code>null</code>.
    * @return {@link ESuccess}
@@ -1310,8 +1469,8 @@ public final class StreamHelper
    * Write bytes to an {@link OutputStream}.
    *
    * @param aOS
-   *        The output stream to write to. May not be <code>null</code>. Is closed
-   *        independent of error or success.
+   *        The output stream to write to. May not be <code>null</code>. Is
+   *        closed independent of error or success.
    * @param sContent
    *        The string to be written. May not be <code>null</code>.
    * @param aCharset
@@ -1475,7 +1634,7 @@ public final class StreamHelper
   public static void readUntilEOF (@Nonnull @WillClose final InputStream aIS,
                                    @Nonnull final ObjIntConsumer <? super byte []> aConsumer) throws IOException
   {
-    readUntilEOF (aIS, new byte [DEFAULT_BUFSIZE], aConsumer);
+    readUntilEOF (aIS, createDefaultCopyBufferBytes (), aConsumer);
   }
 
   public static void readUntilEOF (@Nonnull @WillClose final InputStream aIS,
@@ -1604,8 +1763,8 @@ public final class StreamHelper
       {
         /*
          * This will fail if IS is a FilterInputStream with a <code>null</code>
-         * contained InputStream. This happens e.g. when a JAR URL with a directory that
-         * does not end with a slash is returned.
+         * contained InputStream. This happens e.g. when a JAR URL with a
+         * directory that does not end with a slash is returned.
          */
         aIS.markSupported ();
       }
@@ -1638,13 +1797,15 @@ public final class StreamHelper
     if (sStr == null)
     {
       // Only write a 0 byte
-      // Writing a length of 0 would mean that the differentiation between "null" and
+      // Writing a length of 0 would mean that the differentiation between
+      // "null" and
       // empty string would be lost.
       aDO.writeByte (0);
     }
     else
     {
-      // Non-null indicator; basically the version of layout how the data was written
+      // Non-null indicator; basically the version of layout how the data was
+      // written
       aDO.writeByte (2);
 
       final byte [] aUTF8Bytes = sStr.getBytes (StandardCharsets.UTF_8);
@@ -1683,7 +1844,8 @@ public final class StreamHelper
     {
       case 0:
       {
-        // If the first byte has value "0" it means the whole String is simply null
+        // If the first byte has value "0" it means the whole String is simply
+        // null
         ret = null;
         break;
       }
@@ -1698,7 +1860,8 @@ public final class StreamHelper
       }
       case 2:
       {
-        // length in UTF-8 bytes followed by the main bytes, than the end of byte marker
+        // length in UTF-8 bytes followed by the main bytes, than the end of
+        // byte marker
         final int nLength = aDI.readInt ();
         final byte [] aData = new byte [nLength];
         aDI.readFully (aData);
