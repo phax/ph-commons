@@ -22,13 +22,17 @@ import com.helger.commons.annotation.PresentForCodeCoverage;
 
 /**
  * This class contains the ABNF (RFC 5234 https://tools.ietf.org/html/rfc5234)
- * core rules.
+ * core rules. All checks can be performed for values in the range 0 &le; x &le;
+ * 127.
  *
  * @author Philip Helger
  */
 @Immutable
 public final class ABNF
 {
+  public static final int CHECK_RANGE_MIN_INCL = 0x00;
+  public static final int CHECK_RANGE_MAX_INCL = 0x7f;
+
   private static final int BIT_ALPHA = 0x0001;
   private static final int BIT_BIT = 0x0002;
   private static final int BIT_CHAR = 0x0004;

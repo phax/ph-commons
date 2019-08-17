@@ -30,7 +30,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.string.StringHelper;
 
 /**
- * Encoder and decoder for quoted printable stuff
+ * Encoder and decoder for quoted printable stuff. Uses "=" as the escape char.
  *
  * @author Philip Helger
  */
