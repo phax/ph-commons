@@ -30,7 +30,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.string.StringHelper;
 
 /**
- * Encoder and decoder for URL stuff
+ * Encoder and decoder for URL stuff based on RFC 3986.
  *
  * @author Philip Helger
  */
@@ -42,50 +42,56 @@ public class URLCodec implements IByteArrayCodec
   private static final byte PLUS = '+';
 
   /**
-   * BitSet of www-form-url safe characters. RFC 3986 unreserved characters
+   * BitSet of RFC 3986 unreserved characters
    */
-  private static final BitSet PRINTABLE_CHARS = new BitSet (256);
+  private static final BitSet PRINTABLE_CHARS_RFC3986 = new BitSet (256);
 
   static
   {
     // alpha characters
     for (int i = 'a'; i <= 'z'; i++)
-      PRINTABLE_CHARS.set (i);
+      PRINTABLE_CHARS_RFC3986.set (i);
     for (int i = 'A'; i <= 'Z'; i++)
-      PRINTABLE_CHARS.set (i);
+      PRINTABLE_CHARS_RFC3986.set (i);
     // numeric characters
     for (int i = '0'; i <= '9'; i++)
-      PRINTABLE_CHARS.set (i);
+      PRINTABLE_CHARS_RFC3986.set (i);
     // special chars
-    PRINTABLE_CHARS.set ('-');
-    PRINTABLE_CHARS.set ('_');
-    PRINTABLE_CHARS.set ('.');
-    PRINTABLE_CHARS.set ('~');
+    PRINTABLE_CHARS_RFC3986.set ('-');
+    PRINTABLE_CHARS_RFC3986.set ('_');
+    PRINTABLE_CHARS_RFC3986.set ('.');
+    PRINTABLE_CHARS_RFC3986.set ('~');
     // blank to be replaced with +
-    PRINTABLE_CHARS.set (SPACE);
+    PRINTABLE_CHARS_RFC3986.set (SPACE);
     // Apache Http-client also adds "*" to printable chars
   }
 
   /**
-   * @return A copy of the default bit set to be used.
+   * @return A copy of the default bit set to be used. Never <code>null</code>.
    */
   @Nonnull
   @ReturnsMutableCopy
   public static BitSet getDefaultPrintableChars ()
   {
-    return (BitSet) PRINTABLE_CHARS.clone ();
+    return (BitSet) PRINTABLE_CHARS_RFC3986.clone ();
   }
 
   private final BitSet m_aPrintableChars;
 
   /**
-   * Default constructor with the UTF-8 charset.
+   * Default constructor with the RFC 3986 printable characters.
    */
   public URLCodec ()
   {
-    this (PRINTABLE_CHARS);
+    this (PRINTABLE_CHARS_RFC3986);
   }
 
+  /**
+   * Constructor with an arbitrary set of printable characters.
+   * 
+   * @param aPrintableChars
+   *        The printable character BitSet to use. May not be <code>null</code>.
+   */
   public URLCodec (@Nonnull final BitSet aPrintableChars)
   {
     m_aPrintableChars = (BitSet) aPrintableChars.clone ();
