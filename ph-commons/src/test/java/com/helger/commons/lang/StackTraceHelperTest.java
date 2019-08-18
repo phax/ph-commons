@@ -65,14 +65,17 @@ public final class StackTraceHelperTest
     assertNotNull (StackTraceHelper.getStackAsString (new Exception (), false));
     assertNotNull (StackTraceHelper.getStackAsString (new Exception ().getStackTrace ()));
     assertNotNull (StackTraceHelper.getStackAsString (new Exception ().getStackTrace (), false));
+    assertNotNull (StackTraceHelper.getStackAsString (new Exception ().getStackTrace (), false, "\r\n"));
     assertEquals ("", StackTraceHelper.getStackAsString ((Throwable) null, false));
+    assertEquals ("", StackTraceHelper.getStackAsString ((Throwable) null, false, "\r\n"));
 
     // AppServer stacktrace :)
     final StackTraceElement [] ste = ArrayHelper.newArray (new StackTraceElement ("org.eclipse.jetty.Server",
                                                                                   "start",
                                                                                   "Server.java",
                                                                                   100));
-    assertNotNull (StackTraceHelper.getStackAsString (ste));
+    assertEquals ("  [1 element omitted -- org.eclipse.jetty.Server.start(Server.java:100)]",
+                  StackTraceHelper.getStackAsString (ste));
 
     try
     {
@@ -93,10 +96,12 @@ public final class StackTraceHelperTest
       assertNotNull (StackTraceHelper.getStackAsString (ex));
     }
     assertTrue (StackTraceHelper.containsUnitTestElement (new Exception ().getStackTrace ()));
+
     new Thread ( () -> {
       assertNotNull (StackTraceHelper.getCurrentThreadStackAsString ());
       assertFalse (StackTraceHelper.containsUnitTestElement (new Exception ().getStackTrace ()));
     }).start ();
+
     final StringBuilder aSB = new StringBuilder ();
     StackTraceHelper.appendStackToString (aSB, new Exception ().getStackTrace ());
     assertTrue (aSB.length () > 0);
