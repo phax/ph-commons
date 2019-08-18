@@ -1,3 +1,19 @@
+/**
+ * Copyright (C) 2014-2019 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.helger.commons.codec;
 
 import java.io.IOException;
@@ -48,6 +64,15 @@ public class RFC2616Codec implements ICharArrayCodec
     NON_TOKEN_RFC2616.set ('=');
     NON_TOKEN_RFC2616.set ('{');
     NON_TOKEN_RFC2616.set ('}');
+  }
+
+  public static boolean isToken (@Nullable final String s)
+  {
+    // May not be empty
+    if (s == null)
+      return false;
+
+    return isToken (s.toCharArray ());
   }
 
   public static boolean isToken (@Nullable final char [] aChars)
