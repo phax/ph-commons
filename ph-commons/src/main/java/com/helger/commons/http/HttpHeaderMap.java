@@ -38,6 +38,8 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.ReturnsMutableObject;
+import com.helger.commons.codec.RFC2616Codec;
+import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsIterable;
@@ -96,9 +98,12 @@ public class HttpHeaderMap implements
   }
 
   /**
-   * Avoid having header values spanning multiple lines. This has been deprecated
-   * by RFC 7230 and Jetty 9.3 refuses to parse these requests with HTTP 400 by
-   * default.
+   * Avoid having header values spanning multiple lines. This has been
+   * deprecated by RFC 7230 and Jetty 9.3 refuses to parse these requests with
+   * HTTP 400 by default. <br>
+   * Since v9.3.6 this method also takes care of quoting header values
+   * correctly. If the value does not correspond to a token according to RFC
+   * 2616 chapter 2.2, the value is enclosed in double quotes.
    *
    * @param sValue
    *        The source header value. May be <code>null</code>.
@@ -108,9 +113,57 @@ public class HttpHeaderMap implements
   @Nonnull
   public static String getUnifiedValue (@Nullable final String sValue)
   {
-    final StringBuilder aSB = new StringBuilder ();
-    StringHelper.replaceMultipleTo (sValue, new char [] { '\r', '\n', '\t' }, ' ', aSB);
-    return aSB.toString ();
+    return getUnifiedValue (sValue, true);
+  }
+
+  /**
+   * Avoid having header values spanning multiple lines. This has been
+   * deprecated by RFC 7230 and Jetty 9.3 refuses to parse these requests with
+   * HTTP 400 by default.
+   *
+   * @param sValue
+   *        The source header value. May be <code>null</code>.
+   * @param bQuoteIfNecessary
+   *        <code>true</code> if automatic quoting according to RFC 2616,
+   *        chapter 2.2 should be used if necessary.
+   * @return The unified header value without \r, \n and \t. Never
+   *         <code>null</code>.
+   * @since 9.3.6
+   */
+  @Nonnull
+  public static String getUnifiedValue (@Nullable final String sValue, final boolean bQuoteIfNecessary)
+  {
+    char [] aOneLiner;
+    if (StringHelper.hasText (sValue))
+    {
+      // First replace special characters with space
+      aOneLiner = StringHelper.replaceMultiple (sValue, new char [] { '\r', '\n', '\t' }, ' ');
+    }
+    else
+    {
+      // Nothing to replace anyway
+      aOneLiner = ArrayHelper.EMPTY_CHAR_ARRAY;
+    }
+
+    char [] aQuoted;
+    if (bQuoteIfNecessary)
+    {
+      if (RFC2616Codec.isToken (aOneLiner))
+      {
+        // No need to quote
+        aQuoted = aOneLiner;
+      }
+      else
+      {
+        // Quote is necessary
+        aQuoted = new RFC2616Codec ().getEncoded (aOneLiner);
+      }
+    }
+    else
+      aQuoted = aOneLiner;
+
+    // to string
+    return new String (aQuoted);
   }
 
   /**
@@ -385,8 +438,8 @@ public class HttpHeaderMap implements
   }
 
   /**
-   * Set all headers from the passed map. Existing headers with the same name are
-   * overwritten. Existing headers are not changed!
+   * Set all headers from the passed map. Existing headers with the same name
+   * are overwritten. Existing headers are not changed!
    *
    * @param aOther
    *        The header map to add. May not be <code>null</code>.
@@ -405,8 +458,8 @@ public class HttpHeaderMap implements
   }
 
   /**
-   * Add all headers from the passed map. Existing headers with the same name are
-   * extended.
+   * Add all headers from the passed map. Existing headers with the same name
+   * are extended.
    *
    * @param aOther
    *        The header map to add. May not be <code>null</code>.
@@ -444,8 +497,8 @@ public class HttpHeaderMap implements
    *
    * @param sName
    *        The name to be searched.
-   * @return The list with all matching values. Never <code>null</code> but maybe
-   *         empty.
+   * @return The list with all matching values. Never <code>null</code> but
+   *         maybe empty.
    */
   @Nonnull
   @ReturnsMutableCopy
