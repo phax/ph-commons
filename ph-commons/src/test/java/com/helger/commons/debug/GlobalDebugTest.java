@@ -21,6 +21,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import com.helger.commons.mock.CommonsAssert;
+
 /**
  * Tests for class {@link GlobalDebug}
  *
@@ -60,8 +62,8 @@ public final class GlobalDebugTest
 
     _setToDefault ();
 
-    assertTrue (GlobalDebug.DEFAULT_DEBUG_MODE == GlobalDebug.isDebugMode ());
-    assertTrue (GlobalDebug.DEFAULT_PRODUCTION_MODE == GlobalDebug.isProductionMode ());
+    CommonsAssert.assertEquals (GlobalDebug.DEFAULT_DEBUG_MODE, GlobalDebug.isDebugMode ());
+    CommonsAssert.assertEquals (GlobalDebug.DEFAULT_PRODUCTION_MODE, GlobalDebug.isProductionMode ());
   }
 
   @Test
@@ -85,7 +87,7 @@ public final class GlobalDebugTest
 
     _setToDefault ();
 
-    assertTrue (GlobalDebug.DEFAULT_DEBUG_MODE == GlobalDebug.isDebugMode ());
-    assertTrue (GlobalDebug.DEFAULT_PRODUCTION_MODE == GlobalDebug.isProductionMode ());
+    CommonsAssert.assertEquals (GlobalDebug.DEFAULT_DEBUG_MODE, GlobalDebug.isDebugMode ());
+    CommonsAssert.assertEquals (GlobalDebug.DEFAULT_PRODUCTION_MODE, GlobalDebug.isProductionMode ());
   }
 }

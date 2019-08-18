@@ -46,6 +46,7 @@ import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.datetime.PDTFactory;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.ClassHierarchyCache;
 import com.helger.commons.lang.GenericReflection;
@@ -552,7 +553,7 @@ public final class CommonsMock
         for (final Class <?> aParamClass : c.getParameterTypes ())
         {
           // Avoid infinite recursion
-          if (aParamClass == aClass)
+          if (EqualsHelper.identityEqual (aParamClass, aClass))
             aCtorParams[nParam++] = null;
           else
             aCtorParams[nParam++] = _mock (aParamClass, null, nLevel + 1);
