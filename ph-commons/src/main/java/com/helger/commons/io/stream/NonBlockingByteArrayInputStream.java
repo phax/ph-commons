@@ -129,6 +129,23 @@ public class NonBlockingByteArrayInputStream extends InputStream implements Seri
     this (aBuf, nOfs, nLen, DEFAULT_COPY_NEEDED);
   }
 
+  /**
+   * Creates <code>NonBlockingByteArrayInputStream</code> that uses
+   * <code>aBuf</code> as its buffer array. The initial value of
+   * <code>nOfs</code> is <code>offset</code> and the initial value of
+   * <code>m_nCount</code> is the minimum of <code>nOfs+nLen</code> and
+   * <code>aBuf.length</code>. The buffer's mark is set to the specified offset.
+   *
+   * @param aBuf
+   *        the input buffer.
+   * @param nOfs
+   *        the offset in the buffer of the first byte to read.
+   * @param nLen
+   *        the maximum number of bytes to read from the buffer.
+   * @param bIsCopyNeeded
+   *        <code>true</code> if the provided byte array needs to be copied,
+   *        <code>false</code> if not.
+   */
   @SuppressFBWarnings ({ "EI_EXPOSE_REP2" })
   public NonBlockingByteArrayInputStream (@Nonnull final byte [] aBuf,
                                           @Nonnegative final int nOfs,
