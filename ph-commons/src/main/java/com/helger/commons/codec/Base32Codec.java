@@ -442,7 +442,7 @@ public class Base32Codec implements IByteArrayCodec
   }
 
   @Override
-  public int getEncodedLength (final int nLen)
+  public int getMaximumEncodedLength (final int nLen)
   {
     return MathHelper.getRoundedUp (nLen * 8 / 5, 8);
   }
@@ -589,7 +589,7 @@ public class Base32Codec implements IByteArrayCodec
   }
 
   @Override
-  public int getDecodedLength (final int nLen)
+  public int getMaximumDecodedLength (final int nLen)
   {
     return MathHelper.getRoundedUp (nLen, 8) * 5 / 8;
   }

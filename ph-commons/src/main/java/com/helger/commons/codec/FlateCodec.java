@@ -83,7 +83,7 @@ public class FlateCodec implements IByteArrayCodec
     }
     catch (final IOException ex)
     {
-      throw new DecodeException ("Failed to flate encode", ex);
+      throw new DecodeException ("Failed to flate decode", ex);
     }
   }
 

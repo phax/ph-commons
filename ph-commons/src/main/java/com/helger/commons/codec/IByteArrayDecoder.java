@@ -25,7 +25,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 
 /**
- * Interface for a single decoder.
+ * Interface for a single decoder of bytes.
  *
  * @author Philip Helger
  */
@@ -40,9 +40,26 @@ public interface IByteArrayDecoder extends IDecoder <byte [], byte []>
    * @param nEncodedLen
    *        The encoded length. Always &ge; 0.
    * @return The maximum decoded length. Always &ge; 0.
+   * @deprecated Use {@link #getMaximumDecodedLength(int)} instead
    */
   @Nonnegative
+  @Deprecated
   default int getDecodedLength (@Nonnegative final int nEncodedLen)
+  {
+    return getMaximumDecodedLength (nEncodedLen);
+  }
+
+  /**
+   * Get the maximum decoded length based on the provided encoded length. This
+   * is purely for performance reasons.
+   *
+   * @param nEncodedLen
+   *        The encoded length. Always &ge; 0.
+   * @return The maximum decoded length. Always &ge; 0.
+   * @since 9.3.6
+   */
+  @Nonnegative
+  default int getMaximumDecodedLength (@Nonnegative final int nEncodedLen)
   {
     return nEncodedLen;
   }

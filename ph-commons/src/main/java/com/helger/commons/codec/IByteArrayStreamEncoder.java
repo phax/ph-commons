@@ -28,7 +28,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 
 /**
- * Interface for a single encoder
+ * Interface for a single encoder of bytes, based on streams.
  *
  * @author Philip Helger
  */
@@ -37,7 +37,7 @@ public interface IByteArrayStreamEncoder extends IByteArrayEncoder
 {
   @Nonnegative
   @Override
-  default int getEncodedLength (@Nonnegative final int nDecodedLen)
+  default int getMaximumEncodedLength (@Nonnegative final int nDecodedLen)
   {
     return nDecodedLen;
   }
@@ -125,10 +125,11 @@ public interface IByteArrayStreamEncoder extends IByteArrayEncoder
     if (aDecodedBuffer == null)
       return null;
 
-    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (getEncodedLength (nLen)))
+    try (
+        final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (getMaximumEncodedLength (nLen)))
     {
       encode (aDecodedBuffer, nOfs, nLen, aBAOS);
-      return aBAOS.toByteArray ();
+      return aBAOS.getBufferOrCopy ();
     }
   }
 
@@ -152,7 +153,7 @@ public interface IByteArrayStreamEncoder extends IByteArrayEncoder
       return null;
 
     final byte [] aDecoded = sDecoded.getBytes (aCharset);
-    return getEncoded (aDecoded);
+    return getEncoded (aDecoded, 0, aDecoded.length);
   }
 
   @Nullable
@@ -173,7 +174,8 @@ public interface IByteArrayStreamEncoder extends IByteArrayEncoder
     if (aDecodedBuf == null)
       return null;
 
-    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (getEncodedLength (nLen)))
+    try (
+        final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (getMaximumEncodedLength (nLen)))
     {
       encode (aDecodedBuf, nOfs, nLen, aBAOS);
       return aBAOS.getAsString (aCharset);

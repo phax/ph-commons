@@ -28,7 +28,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 
 /**
- * Interface for a single decoder.
+ * Interface for a single decoder of bytes, based on streams.
  *
  * @author Philip Helger
  */
@@ -98,10 +98,11 @@ public interface IByteArrayStreamDecoder extends IByteArrayDecoder
     if (aEncodedBuffer == null)
       return null;
 
-    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (getDecodedLength (nLen)))
+    try (
+        final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (getMaximumDecodedLength (nLen)))
     {
       decode (aEncodedBuffer, nOfs, nLen, aBAOS);
-      return aBAOS.toByteArray ();
+      return aBAOS.getBufferOrCopy ();
     }
   }
 
@@ -123,7 +124,8 @@ public interface IByteArrayStreamDecoder extends IByteArrayDecoder
     if (aEncodedBuffer == null)
       return null;
 
-    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (getDecodedLength (nLen)))
+    try (
+        final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (getMaximumDecodedLength (nLen)))
     {
       decode (aEncodedBuffer, nOfs, nLen, aBAOS);
       return aBAOS.getAsString (aCharset);
@@ -136,7 +138,8 @@ public interface IByteArrayStreamDecoder extends IByteArrayDecoder
    * @param sEncoded
    *        The string to be decoded. May be <code>null</code>.
    * @param aCharset
-   *        The charset to be used. May not be <code>null</code>.
+   *        The charset to be used for encoding AND decoding. May not be
+   *        <code>null</code>.
    * @return <code>null</code> if the input string is <code>null</code>.
    * @throws DecodeException
    *         in case something goes wrong
@@ -144,10 +147,34 @@ public interface IByteArrayStreamDecoder extends IByteArrayDecoder
   @Nullable
   default String getDecodedAsString (@Nullable final String sEncoded, @Nonnull final Charset aCharset)
   {
+    return getDecodedAsString (sEncoded, aCharset, aCharset);
+  }
+
+  /**
+   * Decode the passed string.
+   *
+   * @param sEncoded
+   *        The string to be decoded. May be <code>null</code>.
+   * @param aEncodedCharset
+   *        The charset to be used for the encoded string. May not be
+   *        <code>null</code>.
+   * @param aDecodedCharset
+   *        The charset to be used for the decoded result string. May not be
+   *        <code>null</code>.
+   * @return <code>null</code> if the input string is <code>null</code>.
+   * @throws DecodeException
+   *         in case something goes wrong
+   * @since 9.3.6
+   */
+  @Nullable
+  default String getDecodedAsString (@Nullable final String sEncoded,
+                                     @Nonnull final Charset aEncodedCharset,
+                                     @Nonnull final Charset aDecodedCharset)
+  {
     if (sEncoded == null)
       return null;
 
-    final byte [] aEncoded = sEncoded.getBytes (aCharset);
-    return getDecodedAsString (aEncoded, 0, aEncoded.length, aCharset);
+    final byte [] aEncoded = sEncoded.getBytes (aEncodedCharset);
+    return getDecodedAsString (aEncoded, 0, aEncoded.length, aDecodedCharset);
   }
 }

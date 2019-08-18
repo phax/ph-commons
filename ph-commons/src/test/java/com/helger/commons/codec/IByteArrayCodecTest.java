@@ -20,7 +20,7 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.annotation.Nonnull;
 
@@ -29,7 +29,7 @@ import org.junit.Test;
 import com.helger.commons.collection.ArrayHelper;
 
 /**
- * Test class for class {@link ICodec}
+ * Test class for class {@link IByteArrayCodec}
  *
  * @author Philip Helger
  */
@@ -52,11 +52,11 @@ public final class IByteArrayCodecTest
     }
 
     // Encode partial
-    final int nBytes = aSrcBytes.length;
-    if (nBytes >= 4)
+    final int nSrcCount = aSrcBytes.length;
+    if (nSrcCount >= 4)
     {
       // Encode
-      final byte [] aEncoded = c.getEncoded (aSrcBytes, 1, nBytes - 2);
+      final byte [] aEncoded = c.getEncoded (aSrcBytes, 1, nSrcCount - 2);
       assertNotNull (c.getClass ().getName (), aEncoded);
 
       // Decode all (of partial)
@@ -64,19 +64,19 @@ public final class IByteArrayCodecTest
       assertNotNull (c.getClass ().getName (), aDecoded);
 
       // Compare all with source
-      assertArrayEquals (c.getClass ().getName (), ArrayHelper.getCopy (aSrcBytes, 1, nBytes - 2), aDecoded);
+      assertArrayEquals (c.getClass ().getName (), ArrayHelper.getCopy (aSrcBytes, 1, nSrcCount - 2), aDecoded);
     }
   }
 
   private void _testCodec (@Nonnull final IByteArrayCodec c)
   {
-    _testCodec (c, new byte [0]);
+    _testCodec (c, ArrayHelper.EMPTY_BYTE_ARRAY);
     _testCodec (c, "Hallo JÜnit".getBytes (StandardCharsets.ISO_8859_1));
     _testCodec (c, "Hallo JÜnit".getBytes (StandardCharsets.UTF_8));
 
     // Get random bytes
     final byte [] aRandomBytes = new byte [256];
-    new Random ().nextBytes (aRandomBytes);
+    ThreadLocalRandom.current ().nextBytes (aRandomBytes);
     _testCodec (c, aRandomBytes);
 
     for (int i = 0; i < 256; ++i)
@@ -103,6 +103,8 @@ public final class IByteArrayCodecTest
     _testCodec (new Base32Codec (false));
     _testCodec (new Base64Codec ());
     _testCodec (new FlateCodec ());
+    _testCodec (new GZIPCodec ());
+    _testCodec (new IdentityByteArrayCodec ());
     _testCodec (new LZWCodec ());
     _testCodec (new QuotedPrintableCodec ());
     _testCodec (new URLCodec ());

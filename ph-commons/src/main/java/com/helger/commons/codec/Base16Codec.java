@@ -43,9 +43,10 @@ public class Base16Codec implements IByteArrayCodec
   {}
 
   @Override
-  public int getEncodedLength (final int nLen)
+  @Nonnegative
+  public int getMaximumEncodedLength (@Nonnegative final int nDecodedLen)
   {
-    return nLen * 2;
+    return nDecodedLen * 2;
   }
 
   public void encode (@Nonnull @WillNotClose final InputStream aDecodedIS,
@@ -77,16 +78,20 @@ public class Base16Codec implements IByteArrayCodec
     if (aDecodedBuffer == null || nLen == 0)
       return;
 
-    try (final NonBlockingByteArrayInputStream aIS = new NonBlockingByteArrayInputStream (aDecodedBuffer, nOfs, nLen))
+    try (final NonBlockingByteArrayInputStream aIS = new NonBlockingByteArrayInputStream (aDecodedBuffer,
+                                                                                          nOfs,
+                                                                                          nLen,
+                                                                                          false))
     {
       encode (aIS, aOS);
     }
   }
 
   @Override
-  public int getDecodedLength (final int nLen)
+  @Nonnegative
+  public int getMaximumDecodedLength (@Nonnegative final int nEncodedLen)
   {
-    return nLen / 2;
+    return nEncodedLen / 2;
   }
 
   public void decode (@Nonnull @WillNotClose final InputStream aEncodedIS,
@@ -97,21 +102,33 @@ public class Base16Codec implements IByteArrayCodec
 
     try
     {
+      long nBytesRead = 0;
       int nByte;
+      // Read high byte
       while ((nByte = aEncodedIS.read ()) != -1)
       {
-        final char cHigh = (char) nByte;
+        nBytesRead++;
+        final char cHigh = (char) (nByte & 0xff);
 
         // Read low byte
         nByte = aEncodedIS.read ();
         if (nByte < 0)
-          throw new DecodeException ("Invalid Base16 encoding. Premature end of input");
-        final char cLow = (char) nByte;
+          throw new DecodeException ("Invalid Base16 encoding. Premature end of input after " +
+                                     nBytesRead +
+                                     " byte(s)");
+        nBytesRead++;
+        final char cLow = (char) (nByte & 0xff);
 
         // Combine
         final int nDecodedValue = StringHelper.getHexByte (cHigh, cLow);
         if (nDecodedValue < 0)
-          throw new DecodeException ("Invalid Base16 encoding for " + (int) cHigh + " and " + (int) cLow);
+          throw new DecodeException ("Invalid Base16 encoding for " +
+                                     (int) cHigh +
+                                     " and " +
+                                     (int) cLow +
+                                     " after " +
+                                     nBytesRead +
+                                     " byte(s)");
 
         // Write
         aOS.write (nDecodedValue);
@@ -131,7 +148,10 @@ public class Base16Codec implements IByteArrayCodec
     if (aEncodedBuffer == null)
       return;
 
-    try (final NonBlockingByteArrayInputStream aIS = new NonBlockingByteArrayInputStream (aEncodedBuffer, nOfs, nLen))
+    try (final NonBlockingByteArrayInputStream aIS = new NonBlockingByteArrayInputStream (aEncodedBuffer,
+                                                                                          nOfs,
+                                                                                          nLen,
+                                                                                          false))
     {
       decode (aIS, aOS);
     }

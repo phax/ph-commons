@@ -45,7 +45,7 @@ public class Base64Codec implements IByteArrayCodec
   {}
 
   @Override
-  public int getEncodedLength (final int nLen)
+  public int getMaximumEncodedLength (final int nLen)
   {
     return MathHelper.getRoundedUp (nLen * 4 / 3, 4);
   }
@@ -86,7 +86,7 @@ public class Base64Codec implements IByteArrayCodec
   }
 
   @Override
-  public int getDecodedLength (final int nLen)
+  public int getMaximumDecodedLength (final int nLen)
   {
     return MathHelper.getRoundedUp (nLen, 4) * 3 / 4;
   }
