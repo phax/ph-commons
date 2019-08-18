@@ -493,7 +493,7 @@ public class HttpHeaderMap implements
   }
 
   /**
-   * Get all header values of a certain header name
+   * Get all header values of a certain header name.
    *
    * @param sName
    *        The name to be searched.
@@ -631,16 +631,34 @@ public class HttpHeaderMap implements
    * @param aConsumer
    *        Consumer with key and unified value to be invoked. May not be
    *        <code>null</code>.
-   * @see #getUnifiedValue(String)
+   * @deprecated Use {@link #forEachSingleHeader(BiConsumer, boolean)} instead
    */
+  @Deprecated
   public void forEachSingleHeader (@Nonnull final BiConsumer <? super String, ? super String> aConsumer)
+  {
+    forEachSingleHeader (aConsumer, true);
+  }
+
+  /**
+   * Invoke the provided consumer for every name/value pair.
+   *
+   * @param aConsumer
+   *        Consumer with key and unified value to be invoked. May not be
+   *        <code>null</code>.
+   * @param bUnifyValue
+   *        <code>true</code> to unify the values, <code>false</code> if not
+   * @see #getUnifiedValue(String)
+   * @since 9.3.6
+   */
+  public void forEachSingleHeader (@Nonnull final BiConsumer <? super String, ? super String> aConsumer,
+                                   final boolean bUnifyValue)
   {
     for (final Map.Entry <String, ICommonsList <String>> aEntry : m_aHeaders.entrySet ())
     {
       final String sKey = aEntry.getKey ();
       for (final String sValue : aEntry.getValue ())
       {
-        final String sUnifiedValue = getUnifiedValue (sValue);
+        final String sUnifiedValue = bUnifyValue ? getUnifiedValue (sValue, true) : sValue;
         aConsumer.accept (sKey, sUnifiedValue);
       }
     }
@@ -654,26 +672,63 @@ public class HttpHeaderMap implements
    *        Consumer with the assembled line to be invoked. May not be
    *        <code>null</code>.
    * @see #getUnifiedValue(String)
+   * @deprecated Use {@link #forEachHeaderLine(Consumer, boolean)} instead
    */
+  @Deprecated
   public void forEachHeaderLine (@Nonnull final Consumer <? super String> aConsumer)
+  {
+    forEachHeaderLine (aConsumer, true);
+  }
+
+  /**
+   * Invoke the provided consumer for every header line.
+   *
+   * @param aConsumer
+   *        Consumer with the assembled line to be invoked. May not be
+   *        <code>null</code>.
+   * @param bUnifyValue
+   *        <code>true</code> to unify the values, <code>false</code> if not
+   * @see #getUnifiedValue(String)
+   * @since 9.3.6
+   */
+  public void forEachHeaderLine (@Nonnull final Consumer <? super String> aConsumer, final boolean bUnifyValue)
   {
     for (final Map.Entry <String, ICommonsList <String>> aEntry : m_aHeaders.entrySet ())
     {
       final String sKey = aEntry.getKey ();
       for (final String sValue : aEntry.getValue ())
       {
-        final String sHeaderLine = sKey + ": " + getUnifiedValue (sValue);
+        final String sHeaderLine = sKey + ": " + (bUnifyValue ? getUnifiedValue (sValue, true) : sValue);
         aConsumer.accept (sHeaderLine);
       }
     }
   }
 
+  /**
+   * @return A list of all header lines with unified values.
+   * @deprecated Use {@link #getAllHeaderLines(boolean)} instead
+   */
+  @Deprecated
   @Nonnull
   @ReturnsMutableCopy
   public ICommonsList <String> getAllHeaderLines ()
   {
+    return getAllHeaderLines (true);
+  }
+
+  /**
+   * Get all header lines as a list of strings.
+   *
+   * @param bUnifyValue
+   *        <code>true</code> to unify the values, <code>false</code> if not
+   * @return Never <code>null</code> but maybe an empty list.
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public ICommonsList <String> getAllHeaderLines (final boolean bUnifyValue)
+  {
     final ICommonsList <String> ret = new CommonsArrayList <> ();
-    forEachHeaderLine (ret::add);
+    forEachHeaderLine (ret::add, bUnifyValue);
     return ret;
   }
 
