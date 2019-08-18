@@ -52,7 +52,7 @@ public class DefaultResourceResolver
 
   private static final Logger LOGGER = LoggerFactory.getLogger (DefaultResourceResolver.class);
 
-  private DefaultResourceResolver ()
+  protected DefaultResourceResolver ()
   {}
 
   public static boolean isDebugResolve ()

@@ -26,7 +26,7 @@ public abstract class AbstractGraphTestCase
   protected static final String ATTR_VALUE = "value";
 
   @Nonnull
-  private static final IMutableDirectedGraphNode _createDGN (final SimpleDirectedGraph aGraph, final int i)
+  private static IMutableDirectedGraphNode _createDGN (final SimpleDirectedGraph aGraph, final int i)
   {
     final IMutableDirectedGraphNode aNode = aGraph.createNode (Integer.toString (i));
     aNode.attrs ().putIn (ATTR_VALUE, Integer.valueOf (i + 1));
@@ -34,7 +34,7 @@ public abstract class AbstractGraphTestCase
   }
 
   @Nonnull
-  private static final IMutableGraphNode _createGN (final SimpleGraph aGraph, final int i)
+  private static IMutableGraphNode _createGN (final SimpleGraph aGraph, final int i)
   {
     final IMutableGraphNode aNode = aGraph.createNode (Integer.toString (i));
     aNode.attrs ().putIn (ATTR_VALUE, Integer.valueOf (i + 1));

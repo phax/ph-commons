@@ -30,6 +30,7 @@
   <description>Special Java 1.8+ Library with security related functionality</description>
   <url>https://github.com/phax/ph-commons/ph-security</url>
   <inceptionYear>2016</inceptionYear>
+  
   <licenses>
     <license>
       <name>Apache 2</name>
@@ -37,10 +38,12 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+  
   <organization>
     <name>Philip Helger</name>
     <url>http://www.helger.com</url>
   </organization>
+  
   <developers>
     <developer>
       <id>philip</id>
@@ -49,6 +52,7 @@
       <url>http://www.helger.com</url>
     </developer>
   </developers>
+  
   <dependencies>
     <dependency>
       <groupId>com.helger</groupId>
@@ -57,14 +61,16 @@
     <dependency>
       <groupId>com.helger</groupId>
       <artifactId>ph-bc</artifactId>
-      <scope>test</scope>
+      <optional>true</optional>
     </dependency>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
+  
   <build>
     <plugins>
       <plugin>

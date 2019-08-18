@@ -108,7 +108,7 @@ public final class HomoglyphBuilder
       while ((sLine = aBR.readLine ()) != null)
       {
         sLine = sLine.trim ();
-        if (sLine.startsWith ("#") || sLine.length () == 0)
+        if (sLine.length () == 0 || sLine.charAt (0) == '#')
           continue;
 
         final IntSet aSet = new IntSet (sLine.length () / 3);

@@ -30,7 +30,6 @@ import org.junit.Test;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.url.URLHelper;
-import com.helger.wsclient.WSClientConfig;
 
 /**
  * Test class for class {@link WSClientConfig}.

@@ -30,6 +30,7 @@ import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.locale.LocaleHelper;
+import com.helger.commons.mock.CommonsAssert;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -119,9 +120,8 @@ public final class LanguageCacheTest
   public void testContainsLanguageByLocale ()
   {
     assertFalse (LanguageCache.getInstance ().containsLanguage ((Locale) null));
-    assertTrue (LanguageCache.getInstance ()
-                             .containsLanguage (LOCALE.getLanguage ()) == LanguageCache.getInstance ()
-                                                                                       .containsLanguage (LOCALE));
+    CommonsAssert.assertEquals (LanguageCache.getInstance ().containsLanguage (LOCALE.getLanguage ()),
+                                LanguageCache.getInstance ().containsLanguage (LOCALE));
   }
 
   @Test

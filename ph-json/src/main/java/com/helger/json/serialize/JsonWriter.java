@@ -135,10 +135,12 @@ public class JsonWriter
         if (bIsIndentEnabled)
           aWriter.write (sNewlineString);
 
-        int nIndex = 0;
+        boolean bFirst = false;
         for (final Map.Entry <String, IJson> aEntry : (IJsonObject) aJson)
         {
-          if (nIndex++ > 0)
+          if (bFirst)
+            bFirst = false;
+          else
           {
             aWriter.write (CJson.ITEM_SEPARATOR);
 

@@ -85,9 +85,9 @@ public final class StaxFuncTest
 
     // loop through document for XML constructs of interest
     IMicroDocument aDoc = null;
-    final IMicroDocumentType m_aDocType = null;
+    final IMicroDocumentType aDocType = null;
     IMicroNode aParent = null;
-    final boolean m_bDTDMode = false;
+    final boolean bDTDMode = false;
     final boolean bSaveIgnorableWhitespaces = false;
     while (aReader.hasNext ())
     {
@@ -98,7 +98,7 @@ public final class StaxFuncTest
         {
           if (aParent == null)
           {
-            aDoc = new MicroDocument (m_aDocType);
+            aDoc = new MicroDocument (aDocType);
             aParent = aDoc;
           }
 
@@ -138,7 +138,7 @@ public final class StaxFuncTest
         {
           if (aParent == null)
           {
-            aDoc = new MicroDocument (m_aDocType);
+            aDoc = new MicroDocument (aDocType);
             aParent = aDoc;
           }
 
@@ -179,12 +179,12 @@ public final class StaxFuncTest
           final String sText = aReader.getText ();
 
           // Ignore comments in DTD
-          if (!m_bDTDMode)
+          if (!bDTDMode)
           {
             // In case the comment comes before the root element....
             if (aParent == null)
             {
-              aDoc = new MicroDocument (m_aDocType);
+              aDoc = new MicroDocument (aDocType);
               aParent = aDoc;
             }
             aParent.appendComment (sText);

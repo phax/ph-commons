@@ -18,6 +18,8 @@ package com.helger.lesscommons.homoglyphs;
 
 import static org.junit.Assert.assertEquals;
 
+import javax.annotation.Nonnull;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,16 +31,17 @@ public final class HomoglyphLogicFuncTest
 {
   private Homoglyph m_aHomoglyph;
 
-  private static IntSet _makeSet (final char... chrs)
+  @Nonnull
+  private static IntSet _makeSet (@Nonnull final char... aChars)
   {
-    final IntSet s = new IntSet (chrs.length);
-    for (final char c : chrs)
+    final IntSet s = new IntSet (aChars.length);
+    for (final char c : aChars)
       s.add (c);
     return s;
   }
 
   @Before
-  public void setup ()
+  public void beforeTest ()
   {
     final ICommonsList <IntSet> s = new CommonsArrayList <> (_makeSet ('1', 'I', 'l', '|'),
                                                              _makeSet ('0', 'O'),

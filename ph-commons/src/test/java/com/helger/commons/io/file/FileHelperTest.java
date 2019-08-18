@@ -234,7 +234,6 @@ public final class FileHelperTest
   @Test
   public void testGetOutputStream ()
   {
-    {}
     try
     {
       FileHelper.getOutputStream ((File) null);

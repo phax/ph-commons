@@ -21,11 +21,9 @@ import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import org.bouncycastle.asn1.DEROctetString;
 import org.bouncycastle.asn1.ocsp.OCSPObjectIdentifiers;
-import org.bouncycastle.asn1.ocsp.OCSPResponseStatus;
 import org.bouncycastle.asn1.x509.Extension;
 import org.bouncycastle.asn1.x509.Extensions;
 import org.bouncycastle.cert.ocsp.BasicOCSPResp;
@@ -44,10 +42,8 @@ import org.bouncycastle.operator.OperatorCreationException;
 import org.bouncycastle.operator.jcajce.JcaDigestCalculatorProviderBuilder;
 
 import com.helger.bc.PBCProvider;
-import com.helger.commons.id.IHasIntID;
-import com.helger.commons.lang.EnumHelper;
 import com.helger.commons.state.ETriState;
-import com.helger.commons.state.ISuccessIndicator;
+import com.helger.security.oscp.EOCSPResponseStatus;
 
 public final class OCSPFuncTest
 {
@@ -87,39 +83,6 @@ public final class OCSPFuncTest
     catch (final OperatorCreationException | CertificateEncodingException ex)
     {
       throw new IllegalStateException (ex);
-    }
-  }
-
-  public static enum EOCSPResponseStatus implements ISuccessIndicator, IHasIntID
-  {
-    SUCCESSFUL (OCSPResponseStatus.SUCCESSFUL),
-    MALFORMED_REQUEST (OCSPResponseStatus.MALFORMED_REQUEST),
-    INTERNAL_ERROR (OCSPResponseStatus.INTERNAL_ERROR),
-    TRY_LATER (OCSPResponseStatus.TRY_LATER),
-    SIG_REQUIRED (OCSPResponseStatus.SIG_REQUIRED),
-    UNAUTHORIZED (OCSPResponseStatus.UNAUTHORIZED);
-
-    private final int m_nValue;
-
-    private EOCSPResponseStatus (final int nValue)
-    {
-      m_nValue = nValue;
-    }
-
-    public int getID ()
-    {
-      return m_nValue;
-    }
-
-    public boolean isSuccess ()
-    {
-      return this == SUCCESSFUL;
-    }
-
-    @Nullable
-    public static EOCSPResponseStatus getFromValueOrNull (final int nID)
-    {
-      return EnumHelper.getFromIDOrNull (EOCSPResponseStatus.class, nID);
     }
   }
 

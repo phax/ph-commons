@@ -226,4 +226,26 @@ public final class CommonsAssert
             ">" +
             (sUserMsg != null && sUserMsg.length () > 0 ? ": " + sUserMsg : ""));
   }
+
+  public static void assertNotEquals (final boolean x, final boolean y)
+  {
+    assertNotEquals ((String) null, x, y);
+  }
+
+  public static void assertNotEquals (final boolean x, @Nonnull final Boolean y)
+  {
+    ValueEnforcer.notNull (y, "y");
+    assertNotEquals ((String) null, x, y.booleanValue ());
+  }
+
+  public static void assertNotEquals (@Nullable final String sUserMsg, final boolean x, final boolean y)
+  {
+    if (x == y)
+      fail ("<" +
+            x +
+            "> is equal to <" +
+            y +
+            ">" +
+            (sUserMsg != null && sUserMsg.length () > 0 ? ": " + sUserMsg : ""));
+  }
 }

@@ -16,10 +16,9 @@
  */
 package com.helger.scope;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
+
+import com.helger.commons.mock.CommonsAssert;
 
 /**
  * Test class for class {@link ScopeHelper}.
@@ -31,17 +30,17 @@ public final class ScopeHelperTest
   @Test
   public void testSettings ()
   {
-    assertTrue (ScopeHelper.DEFAULT_DEBUG_GLOBAL_SCOPE == ScopeHelper.isDebugGlobalScopeEnabled ());
-    assertTrue (ScopeHelper.DEFAULT_DEBUG_SESSION_SCOPE == ScopeHelper.isDebugSessionScopeEnabled ());
-    assertTrue (ScopeHelper.DEFAULT_DEBUG_REQUEST_SCOPE == ScopeHelper.isDebugRequestScopeEnabled ());
+    CommonsAssert.assertEquals (ScopeHelper.DEFAULT_DEBUG_GLOBAL_SCOPE, ScopeHelper.isDebugGlobalScopeEnabled ());
+    CommonsAssert.assertEquals (ScopeHelper.DEFAULT_DEBUG_SESSION_SCOPE, ScopeHelper.isDebugSessionScopeEnabled ());
+    CommonsAssert.assertEquals (ScopeHelper.DEFAULT_DEBUG_REQUEST_SCOPE, ScopeHelper.isDebugRequestScopeEnabled ());
 
     ScopeHelper.setDebugGlobalScopeEnabled (!ScopeHelper.DEFAULT_DEBUG_GLOBAL_SCOPE);
     ScopeHelper.setDebugSessionScopeEnabled (!ScopeHelper.DEFAULT_DEBUG_SESSION_SCOPE);
     ScopeHelper.setDebugRequestScopeEnabled (!ScopeHelper.DEFAULT_DEBUG_REQUEST_SCOPE);
 
-    assertFalse (ScopeHelper.DEFAULT_DEBUG_GLOBAL_SCOPE == ScopeHelper.isDebugGlobalScopeEnabled ());
-    assertFalse (ScopeHelper.DEFAULT_DEBUG_SESSION_SCOPE == ScopeHelper.isDebugSessionScopeEnabled ());
-    assertFalse (ScopeHelper.DEFAULT_DEBUG_REQUEST_SCOPE == ScopeHelper.isDebugRequestScopeEnabled ());
+    CommonsAssert.assertNotEquals (ScopeHelper.DEFAULT_DEBUG_GLOBAL_SCOPE, ScopeHelper.isDebugGlobalScopeEnabled ());
+    CommonsAssert.assertNotEquals (ScopeHelper.DEFAULT_DEBUG_SESSION_SCOPE, ScopeHelper.isDebugSessionScopeEnabled ());
+    CommonsAssert.assertNotEquals (ScopeHelper.DEFAULT_DEBUG_REQUEST_SCOPE, ScopeHelper.isDebugRequestScopeEnabled ());
 
     ScopeHelper.setDebugGlobalScopeEnabled (ScopeHelper.DEFAULT_DEBUG_GLOBAL_SCOPE);
     ScopeHelper.setDebugSessionScopeEnabled (ScopeHelper.DEFAULT_DEBUG_SESSION_SCOPE);

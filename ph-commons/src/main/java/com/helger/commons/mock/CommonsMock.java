@@ -322,7 +322,7 @@ public final class CommonsMock
    *        The class to check
    * @return <code>true</code> for everything except {@link Object}.
    */
-  private static final boolean _canRegister (final Class <?> aClass)
+  private static boolean _canRegister (final Class <?> aClass)
   {
     return aClass != Object.class;
   }
@@ -337,7 +337,7 @@ public final class CommonsMock
    * @param <T>
    *        The type to be mocked
    */
-  public static final <T> void registerStaticConstant (@Nonnull final T aObject)
+  public static <T> void registerStaticConstant (@Nonnull final T aObject)
   {
     registerStatic (MockSupplier.createConstant (aObject));
   }
@@ -356,7 +356,7 @@ public final class CommonsMock
    * @param <T>
    *        The type to be mocked
    */
-  public static final <T> void registerStatic (@Nonnull final Class <T> aClass, @Nonnull final Supplier <T> aSupplier)
+  public static <T> void registerStatic (@Nonnull final Class <T> aClass, @Nonnull final Supplier <T> aSupplier)
   {
     registerStatic (MockSupplier.createNoParams (aClass, aSupplier));
   }
@@ -375,9 +375,9 @@ public final class CommonsMock
    * @param <T>
    *        The type to be mocked
    */
-  public static final <T> void registerStatic (@Nonnull final Class <T> aDstClass,
-                                               @Nonnull final Param [] aParams,
-                                               @Nonnull final Function <IGetterDirectTrait [], T> aSupplier)
+  public static <T> void registerStatic (@Nonnull final Class <T> aDstClass,
+                                         @Nonnull final Param [] aParams,
+                                         @Nonnull final Function <IGetterDirectTrait [], T> aSupplier)
   {
     registerStatic (MockSupplier.create (aDstClass, aParams, aSupplier));
   }
@@ -420,7 +420,7 @@ public final class CommonsMock
    * @param aSupplier
    *        The supplier to be registered. May not be <code>null</code>.
    */
-  public static final void registerStatic (@Nonnull final MockSupplier aSupplier)
+  public static void registerStatic (@Nonnull final MockSupplier aSupplier)
   {
     // Register globally
     _register (aSupplier, s_aStaticSupplier);

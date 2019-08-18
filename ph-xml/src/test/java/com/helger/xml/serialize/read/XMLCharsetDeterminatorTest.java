@@ -24,6 +24,8 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.charset.EUnicodeBOM;
 import com.helger.commons.collection.ArrayHelper;
@@ -33,6 +35,8 @@ import com.helger.commons.string.StringHelper;
 
 public final class XMLCharsetDeterminatorTest
 {
+  private static final Logger LOGGER = LoggerFactory.getLogger (XMLCharsetDeterminatorTest.class);
+
   @Test
   public void testAllCharsetsDoubleQuotes ()
   {
@@ -44,7 +48,7 @@ public final class XMLCharsetDeterminatorTest
       {
         final String sXML = "<?xml version=\"1.0\" encoding=\"" + sAlias + "\"?><!-- " + c.name () + " --><root />";
         if (false)
-          System.out.println (sXML);
+          LOGGER.info (sXML);
         final byte [] aBytes = sXML.getBytes (c);
         final Charset aDetermined = XMLCharsetDeterminator.determineXMLCharset (aBytes);
         assertEquals (c, aDetermined);
@@ -63,7 +67,7 @@ public final class XMLCharsetDeterminatorTest
       {
         final String sXML = "<?xml version=\"1.0\" encoding='" + sAlias + "'?><!-- " + c.name () + " --><root />";
         if (false)
-          System.out.println (sXML);
+          LOGGER.info (sXML);
         final byte [] aBytes = sXML.getBytes (c);
         final Charset aDetermined = XMLCharsetDeterminator.determineXMLCharset (aBytes);
         assertEquals (c, aDetermined);
@@ -84,7 +88,7 @@ public final class XMLCharsetDeterminatorTest
         {
           final String sXML = "<?xml version=\"1.0\" encoding=\"" + sAlias + "\"?><!-- " + c.name () + " --><root />";
           if (false)
-            System.out.println (sXML);
+            LOGGER.info (sXML);
           final byte [] aBytes = sXML.getBytes (c);
           assertFalse ("Charset " + sAlias + " already contains BOM " + eBOM, eBOM.isPresent (aBytes));
 

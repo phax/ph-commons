@@ -18,12 +18,10 @@ package com.helger.wsclient;
 
 import org.junit.Test;
 
-import com.helger.wsclient.WSHelper;
-
 /**
  * Test class for class {@link WSHelper}.
  *
- * @author PEPPOL.AT, BRZ, Philip Helger
+ * @author Philip Helger
  */
 public final class WSHelperTest
 {

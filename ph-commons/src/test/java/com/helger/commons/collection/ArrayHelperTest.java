@@ -1195,21 +1195,21 @@ public final class ArrayHelperTest
   {
     final Function <String, Integer> aMapper = StringParser::parseIntObj;
 
-    Integer [] x = ArrayHelper.newArrayMapped (CollectionHelper.newList ("1", "2", "3"), aMapper, Integer.class);
+    Integer [] x = newArrayMapped (CollectionHelper.newList ("1", "2", "3"), aMapper, Integer.class);
     assertNotNull (x);
     assertEquals (3, x.length);
     assertEquals (1, x[0].intValue ());
     assertEquals (2, x[1].intValue ());
     assertEquals (3, x[2].intValue ());
 
-    x = ArrayHelper.newArrayMapped (new CommonsArrayList <String> (), aMapper, Integer.class);
+    x = newArrayMapped (new CommonsArrayList <String> (), aMapper, Integer.class);
     assertNotNull (x);
     assertEquals (0, x.length);
 
     try
     {
       // List may not be null
-      ArrayHelper.newArrayMapped ((Collection <String>) null, aMapper, Integer.class);
+      newArrayMapped ((Collection <String>) null, aMapper, Integer.class);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -1218,7 +1218,7 @@ public final class ArrayHelperTest
     try
     {
       // Converter may not be null
-      ArrayHelper.newArrayMapped (CollectionHelper.newList ("1", "2", "3"), null, Integer.class);
+      newArrayMapped (CollectionHelper.newList ("1", "2", "3"), null, Integer.class);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -1227,7 +1227,7 @@ public final class ArrayHelperTest
     try
     {
       // Destination class may not be null
-      ArrayHelper.newArrayMapped (CollectionHelper.newList ("1", "2", "3"), aMapper, (Class <Integer>) null);
+      newArrayMapped (CollectionHelper.newList ("1", "2", "3"), aMapper, (Class <Integer>) null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -1239,25 +1239,25 @@ public final class ArrayHelperTest
   {
     final Function <String, Integer> aMapper = StringParser::parseIntObj;
 
-    Integer [] x = ArrayHelper.newArrayMapped (new String [] { "1", "2", "3" }, aMapper, Integer.class);
+    Integer [] x = newArrayMapped (new String [] { "1", "2", "3" }, aMapper, Integer.class);
     assertNotNull (x);
     assertEquals (3, x.length);
     assertEquals (1, x[0].intValue ());
     assertEquals (2, x[1].intValue ());
     assertEquals (3, x[2].intValue ());
 
-    x = ArrayHelper.newArrayMapped (new String [0], aMapper, Integer.class);
+    x = newArrayMapped (new String [0], aMapper, Integer.class);
     assertNotNull (x);
     assertEquals (0, x.length);
 
-    x = ArrayHelper.newArrayMapped ((String []) null, aMapper, Integer.class);
+    x = newArrayMapped ((String []) null, aMapper, Integer.class);
     assertNotNull (x);
     assertEquals (0, x.length);
 
     try
     {
       // Converter may not be null
-      ArrayHelper.newArrayMapped (new String [] { "1", "2", "3" }, null, Integer.class);
+      newArrayMapped (new String [] { "1", "2", "3" }, null, Integer.class);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -1266,7 +1266,7 @@ public final class ArrayHelperTest
     try
     {
       // Destination class may not be null
-      ArrayHelper.newArrayMapped (new String [] { "1", "2", "3" }, aMapper, (Class <Integer>) null);
+      newArrayMapped (new String [] { "1", "2", "3" }, aMapper, (Class <Integer>) null);
       fail ();
     }
     catch (final NullPointerException ex)
@@ -1276,19 +1276,19 @@ public final class ArrayHelperTest
   @Test
   public void testStartsWith ()
   {
-    assertTrue (ArrayHelper.startsWith (new byte [] { 0, 1, 2, 3 }, new byte [] {}));
-    assertTrue (ArrayHelper.startsWith (new byte [] { 0, 1, 2, 3 }, new byte [] { 0 }));
-    assertTrue (ArrayHelper.startsWith (new byte [] { 0, 1, 2, 3 }, new byte [] { 0, 1 }));
-    assertTrue (ArrayHelper.startsWith (new byte [] { 0, 1, 2, 3 }, new byte [] { 0, 1, 2 }));
-    assertTrue (ArrayHelper.startsWith (new byte [] { 0, 1, 2, 3 }, new byte [] { 0, 1, 2, 3 }));
-    assertFalse (ArrayHelper.startsWith (new byte [] { 0, 1, 2, 3 }, 3, new byte [] { 0, 1, 2, 3 }));
-    assertFalse (ArrayHelper.startsWith (new byte [] { 0, 1, 2, 3 }, new byte [] { 0, 1, 2, 3, 4 }));
-    assertFalse (ArrayHelper.startsWith (new byte [] { 0, 1, 2, 3 }, new byte [] { 1, 2, 3 }));
-    assertFalse (ArrayHelper.startsWith (new byte [] { 0, 1, 2, 3 }, null));
+    assertTrue (startsWith (new byte [] { 0, 1, 2, 3 }, new byte [] {}));
+    assertTrue (startsWith (new byte [] { 0, 1, 2, 3 }, new byte [] { 0 }));
+    assertTrue (startsWith (new byte [] { 0, 1, 2, 3 }, new byte [] { 0, 1 }));
+    assertTrue (startsWith (new byte [] { 0, 1, 2, 3 }, new byte [] { 0, 1, 2 }));
+    assertTrue (startsWith (new byte [] { 0, 1, 2, 3 }, new byte [] { 0, 1, 2, 3 }));
+    assertFalse (startsWith (new byte [] { 0, 1, 2, 3 }, 3, new byte [] { 0, 1, 2, 3 }));
+    assertFalse (startsWith (new byte [] { 0, 1, 2, 3 }, new byte [] { 0, 1, 2, 3, 4 }));
+    assertFalse (startsWith (new byte [] { 0, 1, 2, 3 }, new byte [] { 1, 2, 3 }));
+    assertFalse (startsWith (new byte [] { 0, 1, 2, 3 }, null));
 
-    assertFalse (ArrayHelper.startsWith (new byte [] {}, new byte [] { 1, 2, 3 }));
-    assertFalse (ArrayHelper.startsWith (new byte [] {}, new byte [] { 1 }));
-    assertFalse (ArrayHelper.startsWith (new byte [] {}, new byte [] {}));
-    assertFalse (ArrayHelper.startsWith (new byte [] {}, null));
+    assertFalse (startsWith (new byte [] {}, new byte [] { 1, 2, 3 }));
+    assertFalse (startsWith (new byte [] {}, new byte [] { 1 }));
+    assertFalse (startsWith (new byte [] {}, new byte [] {}));
+    assertFalse (startsWith (new byte [] {}, null));
   }
 }

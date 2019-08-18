@@ -1476,29 +1476,33 @@ public class BCrypt
    * @param nOfs
    *        the position in the array of the blocks
    */
-  private final void _encipher (final int [] lr, final int nOfs)
+  private void _encipher (final int [] lr, final int nOfs)
   {
     int l = lr[nOfs];
     int r = lr[nOfs + 1];
 
-    l ^= m_aP[0];
+    // For quicker local access
+    final int [] aS = m_aS;
+    final int [] aP = m_aP;
+
+    l ^= aP[0];
     for (int i = 0; i <= BLOWFISH_NUM_ROUNDS - 2;)
     {
       // Feistel substitution on left word
-      int n = m_aS[(l >> 24) & 0xff];
-      n += m_aS[0x100 | ((l >> 16) & 0xff)];
-      n ^= m_aS[0x200 | ((l >> 8) & 0xff)];
-      n += m_aS[0x300 | (l & 0xff)];
-      r ^= n ^ m_aP[++i];
+      int n = aS[(l >> 24) & 0xff];
+      n += aS[0x100 | ((l >> 16) & 0xff)];
+      n ^= aS[0x200 | ((l >> 8) & 0xff)];
+      n += aS[0x300 | (l & 0xff)];
+      r ^= n ^ aP[++i];
 
       // Feistel substitution on right word
-      n = m_aS[(r >> 24) & 0xff];
-      n += m_aS[0x100 | ((r >> 16) & 0xff)];
-      n ^= m_aS[0x200 | ((r >> 8) & 0xff)];
-      n += m_aS[0x300 | (r & 0xff)];
-      l ^= n ^ m_aP[++i];
+      n = aS[(r >> 24) & 0xff];
+      n += aS[0x100 | ((r >> 16) & 0xff)];
+      n ^= aS[0x200 | ((r >> 8) & 0xff)];
+      n += aS[0x300 | (r & 0xff)];
+      l ^= n ^ aP[++i];
     }
-    lr[nOfs] = r ^ m_aP[BLOWFISH_NUM_ROUNDS + 1];
+    lr[nOfs] = r ^ aP[BLOWFISH_NUM_ROUNDS + 1];
     lr[nOfs + 1] = l;
   }
 
@@ -1511,7 +1515,7 @@ public class BCrypt
    *        a "pointer" (as a one-entry array) to the current offset into data
    * @return the next word of material from data
    */
-  private static int _streamtoword (@Nonnull final byte [] data, @Nonnull final int [] offp)
+  private static int _streamToWord (@Nonnull final byte [] data, @Nonnull final int [] offp)
   {
     int word = 0;
     int off = offp[0];
@@ -1529,7 +1533,7 @@ public class BCrypt
   /**
    * Initialise the Blowfish key schedule
    */
-  private void _init_key ()
+  private void _initKey ()
   {
     m_aP = P_ORIG.clone ();
     m_aS = S_ORIG.clone ();
@@ -1541,7 +1545,7 @@ public class BCrypt
    * @param key
    *        an array containing the key
    */
-  private void _key (final byte [] key)
+  private void _key (@Nonnull final byte [] key)
   {
     final int [] koffp = { 0 };
     final int [] lr = { 0, 0 };
@@ -1549,7 +1553,7 @@ public class BCrypt
     final int slen = m_aS.length;
 
     for (int i = 0; i < plen; i++)
-      m_aP[i] = m_aP[i] ^ _streamtoword (key, koffp);
+      m_aP[i] = m_aP[i] ^ _streamToWord (key, koffp);
 
     for (int i = 0; i < plen; i += 2)
     {
@@ -1578,31 +1582,35 @@ public class BCrypt
    */
   private void _ekskey (@Nonnull final byte [] data, @Nonnull final byte [] key)
   {
+    // For quicker local access
+    final int [] aP = m_aP;
+    final int [] aS = m_aS;
+
     final int [] koffp = { 0 };
     final int [] doffp = { 0 };
     final int [] lr = { 0, 0 };
-    final int plen = m_aP.length;
-    final int slen = m_aS.length;
+    final int plen = aP.length;
+    final int slen = aS.length;
 
     for (int i = 0; i < plen; i++)
-      m_aP[i] = m_aP[i] ^ _streamtoword (key, koffp);
+      aP[i] = aP[i] ^ _streamToWord (key, koffp);
 
     for (int i = 0; i < plen; i += 2)
     {
-      lr[0] ^= _streamtoword (data, doffp);
-      lr[1] ^= _streamtoword (data, doffp);
+      lr[0] ^= _streamToWord (data, doffp);
+      lr[1] ^= _streamToWord (data, doffp);
       _encipher (lr, 0);
-      m_aP[i] = lr[0];
-      m_aP[i + 1] = lr[1];
+      aP[i] = lr[0];
+      aP[i + 1] = lr[1];
     }
 
     for (int i = 0; i < slen; i += 2)
     {
-      lr[0] ^= _streamtoword (data, doffp);
-      lr[1] ^= _streamtoword (data, doffp);
+      lr[0] ^= _streamToWord (data, doffp);
+      lr[1] ^= _streamToWord (data, doffp);
       _encipher (lr, 0);
-      m_aS[i] = lr[0];
-      m_aS[i + 1] = lr[1];
+      aS[i] = lr[0];
+      aS[i + 1] = lr[1];
     }
   }
 
@@ -1629,7 +1637,7 @@ public class BCrypt
 
     final int nRounds = 1 << nLogRounds;
 
-    _init_key ();
+    _initKey ();
     _ekskey (salt, password);
     for (int i = 0; i != nRounds; i++)
     {

@@ -21,7 +21,6 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
-import com.helger.commons.gfx.ImageDataManager;
 import com.helger.commons.io.resource.ClassPathResource;
 
 /**
