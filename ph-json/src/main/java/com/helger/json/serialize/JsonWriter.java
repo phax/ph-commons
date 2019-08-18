@@ -99,11 +99,11 @@ public class JsonWriter
         if (bIsIndentEnabled)
           aWriter.write (sNewlineString);
 
-        boolean bFirst = true;
+        boolean bFirstChild = true;
         for (final IJson aChild : (IJsonArray) aJson)
         {
-          if (bFirst)
-            bFirst = false;
+          if (bFirstChild)
+            bFirstChild = false;
           else
           {
             aWriter.write (CJson.ITEM_SEPARATOR);
@@ -135,11 +135,11 @@ public class JsonWriter
         if (bIsIndentEnabled)
           aWriter.write (sNewlineString);
 
-        boolean bFirst = false;
+        boolean bFirstChild = true;
         for (final Map.Entry <String, IJson> aEntry : (IJsonObject) aJson)
         {
-          if (bFirst)
-            bFirst = false;
+          if (bFirstChild)
+            bFirstChild = false;
           else
           {
             aWriter.write (CJson.ITEM_SEPARATOR);
