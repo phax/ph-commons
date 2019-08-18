@@ -197,7 +197,10 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   /**
    * Creates a newly allocated byte array. Its size is the current size of this
    * output stream and the valid contents of the buffer have been copied into
-   * it.
+   * it.<br>
+   * If you are sure, that this OutputStream is not altered anymore, it maybe
+   * preferred to use {@link #getBufferOrCopy()} because it avoids copying the
+   * internal buffer if the size matches exactly.
    *
    * @return the current contents of this output stream, as a byte array.
    */
