@@ -35,6 +35,7 @@ This project was the following modules:
     * Added new class `RFC2616Codec` to correctly encode and decode HTTP header values
     * Added new option in `HttpHeaderMap.getUnifiedValue` to automatically quote the values if necessary
     * Added new overloads in `StackTraceHelper` to use a custom line separator
+    * Added new methods `CommonsAssert.assertNotEquals(boolean,boolean)`
 * v9.3.5 - 2019-08-04
     * Updated to BouncyCastle 1.62
     * Added new `EURLProtocol` entries `CID` and `MID` from RFC 2392
