@@ -31,6 +31,9 @@ This project was the following modules:
 * v9.3.6 - work in progress
     * Extended the `StreamHelper` API with an even more flexible `copyInputStreamToOutputStream` method
     * `StreamHelper.getCopy[WithLimit]` can now return `null` if copying fails
+    * Added new classes around `com.helger.commons.codec.ICharArrayCodec`
+    * Added new class `RFC2616Codec` to correctly encode and decode HTTP header values
+    * Added new option in `HttpHeaderMap.getUnifiedValue` to automatically quote the values if necessary 
 * v9.3.5 - 2019-08-04
     * Updated to BouncyCastle 1.62
     * Added new `EURLProtocol` entries `CID` and `MID` from RFC 2392
