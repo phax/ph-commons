@@ -83,6 +83,8 @@ public class JsonArray implements IJsonArray
     m_aValues = new CommonsArrayList <> (nInitialSize);
     final String sJson = StreamHelper.readSafeUTF (aOIS);
     final JsonArray aJson = (JsonArray) JsonReader.readFromString (sJson);
+    if (aJson == null)
+      throw new IOException ("Failed to parse JSON array:\n" + sJson);
     m_aValues.addAll (aJson.m_aValues);
   }
 

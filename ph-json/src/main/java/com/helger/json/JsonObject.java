@@ -81,6 +81,8 @@ public class JsonObject implements IJsonObject
     m_aValues = new CommonsLinkedHashMap <> (nInitialSize);
     final String sJson = StreamHelper.readSafeUTF (aOIS);
     final JsonObject aJson = (JsonObject) JsonReader.readFromString (sJson);
+    if (aJson == null)
+      throw new IOException ("Failed to parse JSON object:\n" + sJson);
     m_aValues.putAll (aJson.m_aValues);
   }
 
