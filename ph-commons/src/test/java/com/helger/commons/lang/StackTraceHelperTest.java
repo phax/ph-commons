@@ -75,7 +75,9 @@ public final class StackTraceHelperTest
                                                                                   "Server.java",
                                                                                   100));
     assertEquals ("  [1 element omitted -- org.eclipse.jetty.Server.start(Server.java:100)]",
-                  StackTraceHelper.getStackAsString (ste));
+                  StackTraceHelper.getStackAsString (ste, true));
+    assertEquals ("1.: org.eclipse.jetty.Server.start(Server.java:100)",
+                  StackTraceHelper.getStackAsString (ste, false));
 
     try
     {
