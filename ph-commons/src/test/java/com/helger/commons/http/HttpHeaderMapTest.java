@@ -313,4 +313,29 @@ public final class HttpHeaderMapTest
     CommonsTestHelper.testGetClone (h2);
     CommonsTestHelper.testDefaultSerialization (h2);
   }
+
+  @Test
+  public void testGetUnifiedValues ()
+  {
+    assertEquals ("", HttpHeaderMap.getUnifiedValue ("", false));
+    assertEquals ("\"\"", HttpHeaderMap.getUnifiedValue ("", true));
+
+    assertEquals ("abc", HttpHeaderMap.getUnifiedValue ("abc", false));
+    assertEquals ("abc", HttpHeaderMap.getUnifiedValue ("abc", true));
+
+    assertEquals (" ", HttpHeaderMap.getUnifiedValue (" ", false));
+    assertEquals ("\" \"", HttpHeaderMap.getUnifiedValue (" ", true));
+
+    assertEquals ("line1 line2", HttpHeaderMap.getUnifiedValue ("line1\tline2", false));
+    assertEquals ("\"line1 line2\"", HttpHeaderMap.getUnifiedValue ("line1\tline2", true));
+
+    assertEquals ("line1 line2", HttpHeaderMap.getUnifiedValue ("line1\rline2", false));
+    assertEquals ("\"line1 line2\"", HttpHeaderMap.getUnifiedValue ("line1\rline2", true));
+
+    assertEquals ("line1 line2", HttpHeaderMap.getUnifiedValue ("line1\nline2", false));
+    assertEquals ("\"line1 line2\"", HttpHeaderMap.getUnifiedValue ("line1\nline2", true));
+
+    assertEquals ("line1  line2", HttpHeaderMap.getUnifiedValue ("line1\r\nline2", false));
+    assertEquals ("\"line1  line2\"", HttpHeaderMap.getUnifiedValue ("line1\r\nline2", true));
+  }
 }
