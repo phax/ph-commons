@@ -1789,21 +1789,25 @@ public final class Base64
       final boolean bUseCRLF = (nOptions & DO_NEWLINE_CRLF) != 0;
 
       // int len43 = len * 4 / 3;
-      // byte[] outBuff = new byte[ ( len43 ) // Main 4:3
-      // + ( (len % 3) > 0 ? 4 : 0 ) // Account for padding
-      // + (breakLines ? ( len43 / MAX_LINE_LENGTH ) : 0) ]; // New lines
+      // byte[] outBuff = new byte[ ( len43 )
+      // Main 4:3
+      // + ( (len % 3) > 0 ? 4 : 0 )
+      // Account for padding
+      // + (breakLines ? ( len43 / MAX_LINE_LENGTH ) : 0) ];
+      // New lines
       // Try to determine more precisely how big the array needs to be.
       // If we get it right, we don't have to do an array copy, and
       // we save a bunch of memory.
-      int nEncLen = (nLen / 3) * 4 + (nLen % 3 > 0 ? 4 : 0); // Bytes needed for
-      // actual encoding
+      // Bytes needed for actual encoding
+      int nEncLen = (nLen / 3) * 4 + (nLen % 3 > 0 ? 4 : 0);
       if (bBreakLines)
       {
         // Plus extra newline characters
+        final int nLinesAdded = nEncLen / MAX_LINE_LENGTH;
         if (bUseCRLF)
-          nEncLen += (nEncLen / MAX_LINE_LENGTH) * NEW_LINE_CRLF.length;
+          nEncLen += nLinesAdded * NEW_LINE_CRLF.length;
         else
-          nEncLen += nEncLen / MAX_LINE_LENGTH;
+          nEncLen += nLinesAdded;
       }
       final byte [] outBuff = new byte [nEncLen];
 
