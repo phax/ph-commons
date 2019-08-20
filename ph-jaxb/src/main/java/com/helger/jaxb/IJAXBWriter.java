@@ -71,8 +71,8 @@ public interface IJAXBWriter <JAXBTYPE>
   /**
    * Use the {@link SafeXMLStreamWriter} where applicable to ensure valid XML is
    * created? This is a work around for
-   * https://github.com/javaee/jaxb-v2/issues/614 and
-   * https://github.com/javaee/jaxb-v2/issues/960
+   * https://github.com/eclipse-ee4j/jaxb-ri/issues/614 and
+   * https://github.com/eclipse-ee4j/jaxb-ri/issues/960
    */
   boolean USE_JAXB_CHARSET_FIX = true;
 
