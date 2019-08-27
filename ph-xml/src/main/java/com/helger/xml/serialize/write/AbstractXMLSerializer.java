@@ -494,6 +494,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
    * emitted on the root element.
    *
    * @param aAttrMap
+   *        the attribute map to be filled. May not be <code>null</code>.
    */
   protected final void handlePutNamespaceContextPrefixInRoot (@Nonnull final Map <QName, String> aAttrMap)
   {

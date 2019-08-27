@@ -99,6 +99,8 @@ public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
    *        The mapping function to be executed for all provided elements. May
    *        not be <code>null</code>.
    * @see #addAllMapped(Iterable, Function)
+   * @param <SRCTYPE>
+   *        source data type
    */
   public <SRCTYPE> CommonsArrayList (@Nullable final Collection <? extends SRCTYPE> aValues,
                                      @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
@@ -118,6 +120,8 @@ public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
    *        The mapping function to be executed for all provided elements. May
    *        not be <code>null</code>.
    * @see #addAllMapped(Iterable, Function)
+   * @param <SRCTYPE>
+   *        source data type
    */
   public <SRCTYPE> CommonsArrayList (@Nullable final Iterable <? extends SRCTYPE> aValues,
                                      @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
@@ -165,6 +169,8 @@ public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
    *        The mapping function to be executed for all provided elements. May
    *        not be <code>null</code>.
    * @see #addAllMapped(Object[], Function)
+   * @param <SRCTYPE>
+   *        source data type
    */
   public <SRCTYPE> CommonsArrayList (@Nullable final SRCTYPE [] aValues,
                                      @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
@@ -203,6 +209,8 @@ public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
    *        not.
    * @return The created array list. Never <code>null</code>.
    * @see #addAll(Iterable, Predicate)
+   * @param <ELEMENTTYPE>
+   *        data type to create the list of
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -232,6 +240,10 @@ public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
    *        not be <code>null</code>.
    * @return The created array list. Never <code>null</code>.
    * @see #addAllMapped(Iterable, Predicate, Function)
+   * @param <SRCTYPE>
+   *        source data type
+   * @param <ELEMENTTYPE>
+   *        final data type of the list
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -263,6 +275,10 @@ public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
    * @return The created array list. Never <code>null</code>.
    * @see #addAllMapped(Iterable, Function, Predicate)
    * @since 9.1.3
+   * @param <SRCTYPE>
+   *        source data type
+   * @param <ELEMENTTYPE>
+   *        final data type of the list
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -289,6 +305,8 @@ public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
    *        not.
    * @return The created array list. Never <code>null</code>.
    * @see #addAll(Object[], Predicate)
+   * @param <ELEMENTTYPE>
+   *        data type of the list
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -318,6 +336,10 @@ public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
    *        not be <code>null</code>.
    * @return The created array list. Never <code>null</code>.
    * @see #addAllMapped(Object[], Predicate, Function)
+   * @param <SRCTYPE>
+   *        source data type
+   * @param <ELEMENTTYPE>
+   *        final data type of the list
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -349,6 +371,10 @@ public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
    * @return The created array list. Never <code>null</code>.
    * @see #addAllMapped(Iterable, Function, Predicate)
    * @since 9.1.3
+   * @param <SRCTYPE>
+   *        source data type
+   * @param <ELEMENTTYPE>
+   *        final data type of the list
    */
   @Nonnull
   @ReturnsMutableCopy

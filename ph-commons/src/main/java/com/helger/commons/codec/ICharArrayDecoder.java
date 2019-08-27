@@ -86,8 +86,6 @@ public interface ICharArrayDecoder extends IDecoder <char [], char []>
    *
    * @param sEncoded
    *        The string to be decoded. May be <code>null</code>.
-   * @param aCharset
-   *        The charset to be used. May not be <code>null</code>.
    * @return <code>null</code> if the input string is <code>null</code>.
    * @throws DecodeException
    *         in case something goes wrong

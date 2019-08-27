@@ -88,6 +88,8 @@ public final class CommonsMock
      * @param aDefaultValueSupplier
      *        The default value supplier in case the caller did not provide an
      *        argument. May not be <code>null</code>.
+     * @param <T>
+     *        data type of the parameter
      */
     public <T> Param (@Nonnull @Nonempty final String sParamName,
                       @Nonnull final Class <T> aParamClass,
@@ -140,6 +142,8 @@ public final class CommonsMock
      * @param aDefault
      *        The constant default value to be used. May be <code>null</code>.
      * @return The {@link Param} object and never <code>null</code>.
+     * @param <T>
+     *        data type create the constant of
      */
     @Nonnull
     public static <T> Param createConstant (@Nonnull @Nonempty final String sParamName,

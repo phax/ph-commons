@@ -81,6 +81,8 @@ public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayL
    *        The mapping function to be executed for all provided elements. May
    *        not be <code>null</code>.
    * @see #addAllMapped(Iterable, Function)
+   * @param <SRCTYPE>
+   *        source data type
    */
   public <SRCTYPE> CommonsCopyOnWriteArrayList (@Nullable final Iterable <? extends SRCTYPE> aValues,
                                                 @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
@@ -124,6 +126,8 @@ public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayL
    *        The mapping function to be executed for all provided elements. May
    *        not be <code>null</code>.
    * @see #addAllMapped(Object[], Function)
+   * @param <SRCTYPE>
+   *        source data type
    */
   public <SRCTYPE> CommonsCopyOnWriteArrayList (@Nullable final SRCTYPE [] aValues,
                                                 @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
@@ -162,6 +166,8 @@ public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayL
    * @return The created array list. Never <code>null</code>.
    * @see #addAll(Iterable, Predicate)
    * @since 9.1.3
+   * @param <ELEMENTTYPE>
+   *        data type of the list
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -192,6 +198,10 @@ public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayL
    * @return The created array list. Never <code>null</code>.
    * @see #addAllMapped(Iterable, Predicate, Function)
    * @since 9.1.3
+   * @param <SRCTYPE>
+   *        source data type
+   * @param <ELEMENTTYPE>
+   *        final data type of the list
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -223,6 +233,10 @@ public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayL
    * @return The created array list. Never <code>null</code>.
    * @see #addAllMapped(Iterable, Function, Predicate)
    * @since 9.1.3
+   * @param <SRCTYPE>
+   *        source data type
+   * @param <ELEMENTTYPE>
+   *        final data type of the list
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -250,6 +264,8 @@ public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayL
    * @return The created array list. Never <code>null</code>.
    * @see #addAll(Object[], Predicate)
    * @since 9.1.3
+   * @param <ELEMENTTYPE>
+   *        data type of the list
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -280,6 +296,10 @@ public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayL
    * @return The created array list. Never <code>null</code>.
    * @see #addAllMapped(Object[], Predicate, Function)
    * @since 9.1.3
+   * @param <SRCTYPE>
+   *        source data type
+   * @param <ELEMENTTYPE>
+   *        final data type of the list
    */
   @Nonnull
   @ReturnsMutableCopy
@@ -311,6 +331,10 @@ public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayL
    * @return The created array list. Never <code>null</code>.
    * @see #addAllMapped(Iterable, Function, Predicate)
    * @since 9.1.3
+   * @param <SRCTYPE>
+   *        source data type
+   * @param <ELEMENTTYPE>
+   *        final data type of the list
    */
   @Nonnull
   @ReturnsMutableCopy

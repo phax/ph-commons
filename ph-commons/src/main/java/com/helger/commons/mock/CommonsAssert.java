@@ -166,6 +166,8 @@ public final class CommonsAssert
    *        Fist object. May be <code>null</code>
    * @param y
    *        Second object. May be <code>null</code>.
+   * @param <T>
+   *        data type to compare
    */
   public static <T> void assertEquals (@Nullable final T x, @Nullable final T y)
   {
@@ -181,6 +183,8 @@ public final class CommonsAssert
    *        Fist object. May be <code>null</code>
    * @param y
    *        Second object. May be <code>null</code>.
+   * @param <T>
+   *        data type to compare
    */
   public static <T> void assertEquals (@Nullable final String sUserMsg, @Nullable final T x, @Nullable final T y)
   {
@@ -200,6 +204,8 @@ public final class CommonsAssert
    *        Fist object. May be <code>null</code>
    * @param y
    *        Second object. May be <code>null</code>.
+   * @param <T>
+   *        data type to compare
    */
   public static <T> void assertNotEquals (@Nullable final T x, @Nullable final T y)
   {
@@ -215,6 +221,8 @@ public final class CommonsAssert
    *        Fist object. May be <code>null</code>
    * @param y
    *        Second object. May be <code>null</code>.
+   * @param <T>
+   *        data type to compare
    */
   public static <T> void assertNotEquals (@Nullable final String sUserMsg, @Nullable final T x, @Nullable final T y)
   {
