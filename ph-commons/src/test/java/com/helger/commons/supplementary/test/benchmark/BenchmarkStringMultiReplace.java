@@ -34,7 +34,7 @@ public final class BenchmarkStringMultiReplace extends AbstractBenchmarkTask
   private BenchmarkStringMultiReplace ()
   {}
 
-  public static void main (final String [] aArgs) throws Exception
+  public static void main (final String [] aArgs)
   {
     logSystemInfo ();
     _run ();

@@ -44,7 +44,7 @@ public final class BenchmarkStringCodePoints extends AbstractBenchmarkTask
   private BenchmarkStringCodePoints ()
   {}
 
-  public static void main (final String [] aArgs) throws Exception
+  public static void main (final String [] aArgs)
   {
     logSystemInfo ();
     _run ();

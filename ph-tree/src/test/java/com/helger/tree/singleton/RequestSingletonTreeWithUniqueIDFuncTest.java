@@ -43,7 +43,7 @@ public final class RequestSingletonTreeWithUniqueIDFuncTest
   public final TestRule m_aScopeRule = new ScopeTestRule ();
 
   @Test
-  public void testBasic () throws Exception
+  public void testBasic ()
   {
     assertTrue (AbstractRequestSingleton.getAllRequestSingletons ().isEmpty ());
     assertFalse (AbstractRequestSingleton.isRequestSingletonInstantiated (MockRequestSingletonTreeWithUniqueID.class));

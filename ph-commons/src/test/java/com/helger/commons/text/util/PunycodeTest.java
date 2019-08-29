@@ -27,7 +27,7 @@ import org.junit.Test;
  */
 public final class PunycodeTest
 {
-  private static enum ETest
+  private enum ETest
   {
     A ("Arabic (Egyption)",
        "\u0644\u064A\u0647\u0645\u0627\u0628\u062A\u0643\u0644\u0645\u0648\u0634\u0639\u0631\u0628\u064A\u061F",
@@ -90,7 +90,7 @@ public final class PunycodeTest
   }
 
   @Test
-  public void testPunycode () throws Exception
+  public void testPunycode ()
   {
     for (final ETest e : ETest.values ())
     {

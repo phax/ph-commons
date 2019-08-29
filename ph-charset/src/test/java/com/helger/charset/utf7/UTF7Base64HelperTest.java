@@ -32,7 +32,7 @@ public final class UTF7Base64HelperTest
   private UTF7Base64Helper tested;
 
   @Before
-  public void setUp () throws Exception
+  public void setUp ()
   {
     tested = new UTF7Base64Helper (BASE64_ALPHABET);
   }
@@ -68,7 +68,7 @@ public final class UTF7Base64HelperTest
   }
 
   @Test
-  public void testContains () throws Exception
+  public void testContains ()
   {
     assertTrue (tested.contains ('A'));
     assertTrue (tested.contains ('/'));
@@ -76,7 +76,7 @@ public final class UTF7Base64HelperTest
   }
 
   @Test
-  public void testGetSextet () throws Exception
+  public void testGetSextet ()
   {
     assertEquals (0, tested.getSextet ((byte) 'A'));
     assertEquals (63, tested.getSextet ((byte) '/'));
@@ -84,7 +84,7 @@ public final class UTF7Base64HelperTest
   }
 
   @Test
-  public void testGetChar () throws Exception
+  public void testGetChar ()
   {
     assertEquals ('A', tested.getChar (0));
     assertEquals ('/', tested.getChar (63));

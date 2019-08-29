@@ -43,7 +43,7 @@ public final class RequestSingletonFuncTest
   public final TestRule m_aScopeRule = new ScopeTestRule ();
 
   @Test
-  public void testBasic () throws Exception
+  public void testBasic ()
   {
     assertTrue (AbstractRequestSingleton.getAllRequestSingletons ().isEmpty ());
     assertFalse (AbstractRequestSingleton.isRequestSingletonInstantiated (MockRequestSingleton.class));
@@ -79,7 +79,7 @@ public final class RequestSingletonFuncTest
   }
 
   @Test
-  public void testBasicWithScopeCtor () throws Exception
+  public void testBasicWithScopeCtor ()
   {
     assertTrue (AbstractRequestSingleton.getAllRequestSingletons ().isEmpty ());
     assertFalse (AbstractRequestSingleton.isRequestSingletonInstantiated (MockRequestSingletonWithScopeCtor.class));

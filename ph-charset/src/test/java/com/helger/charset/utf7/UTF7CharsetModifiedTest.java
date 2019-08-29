@@ -33,7 +33,7 @@ import org.junit.Test;
 public final class UTF7CharsetModifiedTest extends AbstractCharsetTestCase
 {
   @Before
-  public void setUp () throws Exception
+  public void setUp ()
   {
     tested = new UTF7CharsetModified ("X-MODIFIED-UTF-7", new String [] {});
   }

@@ -44,7 +44,7 @@ public final class SessionSingletonFuncTest
   public final TestRule m_aScopeRule = new ScopeTestRule ();
 
   @Test
-  public void testBasic () throws Exception
+  public void testBasic ()
   {
     assertTrue (AbstractSessionSingleton.getAllSessionSingletons ().isEmpty ());
     assertFalse (AbstractSessionSingleton.isSessionSingletonInstantiated (MockSessionSingleton.class));
@@ -80,7 +80,7 @@ public final class SessionSingletonFuncTest
   }
 
   @Test
-  public void testBasicWithScopeCtor () throws Exception
+  public void testBasicWithScopeCtor ()
   {
     assertTrue (AbstractSessionSingleton.getAllSessionSingletons ().isEmpty ());
     assertFalse (AbstractSessionSingleton.isSessionSingletonInstantiated (MockSessionSingletonWithScopeCtor.class));

@@ -37,7 +37,7 @@ public final class HelpFormatterTest
   private static final String EOL = System.getProperty ("line.separator");
 
   @Test
-  public void testFindWrapPos () throws Exception
+  public void testFindWrapPos ()
   {
     String text = "This is a test.";
     // text width should be max 8; the wrap position is 7
@@ -150,7 +150,7 @@ public final class HelpFormatterTest
   }
 
   @Test
-  public void testPrintOptions () throws Exception
+  public void testPrintOptions ()
   {
     final StringBuilder sb = new StringBuilder ();
     final HelpFormatter hf = new HelpFormatter ();
@@ -244,7 +244,7 @@ public final class HelpFormatterTest
   }
 
   @Test
-  public void testAutomaticUsage () throws Exception
+  public void testAutomaticUsage ()
   {
     final HelpFormatter hf = new HelpFormatter ();
     Options options = null;
@@ -597,7 +597,7 @@ public final class HelpFormatterTest
   }
 
   @Test
-  public void testHelpWithLongOptSeparator () throws Exception
+  public void testHelpWithLongOptSeparator ()
   {
     final Options options = new Options ();
     options.addOption (Option.builder ("f").args (1).desc ("the file"));
@@ -629,7 +629,7 @@ public final class HelpFormatterTest
   }
 
   @Test
-  public void testUsageWithLongOptSeparator () throws Exception
+  public void testUsageWithLongOptSeparator ()
   {
     final Options options = new Options ().addOption (Option.builder ("f").args (1).desc ("the file"))
                                           .addOption (Option.builder ("s")

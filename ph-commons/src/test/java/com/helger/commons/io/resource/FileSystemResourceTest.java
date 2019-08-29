@@ -138,7 +138,7 @@ public final class FileSystemResourceTest
   }
 
   @Test
-  public void testSerialize () throws Exception
+  public void testSerialize ()
   {
     CommonsTestHelper.testDefaultSerialization (new FileSystemResource ("file.txt"));
   }

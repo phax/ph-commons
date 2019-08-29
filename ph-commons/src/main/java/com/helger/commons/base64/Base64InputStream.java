@@ -251,11 +251,8 @@ public class Base64InputStream extends WrappedInputStream
           // First byte is not Base64 - nothing read
           return -1;
         }
-        else
-        {
-          // Out of 'for' loop
-          break;
-        }
+        // Out of 'for' loop
+        break;
       }
     }
     return nIndex;

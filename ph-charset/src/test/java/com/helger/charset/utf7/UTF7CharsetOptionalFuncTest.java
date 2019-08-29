@@ -24,7 +24,7 @@ import org.junit.Test;
 public final class UTF7CharsetOptionalFuncTest extends AbstractCharsetTestCase
 {
   @Before
-  public void setUp () throws Exception
+  public void setUp ()
   {
     tested = new UTF7Charset ("X-UTF-7-Optional", new String [] {}, true);
   }

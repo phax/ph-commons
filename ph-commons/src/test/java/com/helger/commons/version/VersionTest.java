@@ -721,7 +721,7 @@ public final class VersionTest
   }
 
   @Test
-  public void testSerialization () throws Exception
+  public void testSerialization ()
   {
     CommonsTestHelper.testDefaultSerialization (new Version (1, 2, 3));
     CommonsTestHelper.testDefaultSerialization (Version.parse ("1.2a"));

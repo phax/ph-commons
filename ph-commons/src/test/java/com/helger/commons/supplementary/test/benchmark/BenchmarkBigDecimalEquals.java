@@ -31,7 +31,7 @@ public final class BenchmarkBigDecimalEquals extends AbstractBenchmarkTask
   private BenchmarkBigDecimalEquals ()
   {}
 
-  public static void main (final String [] aArgs) throws Exception
+  public static void main (final String [] aArgs)
   {
     logSystemInfo ();
     _run ();

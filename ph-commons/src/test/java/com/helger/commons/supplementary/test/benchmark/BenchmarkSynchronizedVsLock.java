@@ -34,7 +34,7 @@ public final class BenchmarkSynchronizedVsLock extends AbstractBenchmarkTask
   private BenchmarkSynchronizedVsLock ()
   {}
 
-  public static void main (final String [] aArgs) throws Exception
+  public static void main (final String [] aArgs)
   {
     logSystemInfo ();
     _run ();

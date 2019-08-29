@@ -94,7 +94,7 @@ public final class MainFindInvalidXMLChars
     return ret.toString ();
   }
 
-  public static void main (final String [] args) throws Exception
+  public static void main (final String [] args)
   {
     final EXMLVersion eXMLVersion = EXMLVersion.XML_10;
     final int nMax = Character.MAX_VALUE + 1;

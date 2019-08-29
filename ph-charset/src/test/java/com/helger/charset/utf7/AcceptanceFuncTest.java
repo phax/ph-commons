@@ -40,7 +40,7 @@ public final class AcceptanceFuncTest
   private CharsetEncoder encoder;
 
   @Before
-  public void setUp () throws Exception
+  public void setUp ()
   {
     provider = new UTF7CharsetProviderSPI ();
   }

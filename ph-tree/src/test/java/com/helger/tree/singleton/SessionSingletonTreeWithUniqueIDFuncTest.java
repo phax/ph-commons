@@ -44,7 +44,7 @@ public final class SessionSingletonTreeWithUniqueIDFuncTest
   public final TestRule m_aScopeRule = new ScopeTestRule ();
 
   @Test
-  public void testBasic () throws Exception
+  public void testBasic ()
   {
     assertTrue (AbstractSessionSingleton.getAllSessionSingletons ().isEmpty ());
     assertFalse (AbstractSessionSingleton.isSessionSingletonInstantiated (MockSessionSingletonTreeWithUniqueID.class));

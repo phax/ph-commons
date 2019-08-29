@@ -158,7 +158,7 @@ public final class AESCryptFuncTest
   }
 
   @Test
-  public void testMe () throws Exception
+  public void testMe ()
   {
     final SecretKey aMyKey = AESSecretKey.generateKey ();
 

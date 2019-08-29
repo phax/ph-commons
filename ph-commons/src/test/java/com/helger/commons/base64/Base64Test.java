@@ -92,7 +92,7 @@ public final class Base64Test
     assertArrayEquals (sSource.getBytes (StandardCharsets.ISO_8859_1), aDecoded);
   }
 
-  private byte [] _createData (final int length) throws Exception
+  private byte [] _createData (final int length)
   {
     final byte [] bytes = new byte [length];
     new SecureRandom ().nextBytes (bytes);

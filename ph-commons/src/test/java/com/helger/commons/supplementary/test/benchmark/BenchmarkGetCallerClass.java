@@ -37,7 +37,7 @@ public final class BenchmarkGetCallerClass extends AbstractBenchmarkTask
   private BenchmarkGetCallerClass ()
   {}
 
-  public static void main (final String [] aArgs) throws Exception
+  public static void main (final String [] aArgs)
   {
     logSystemInfo ();
     _run ();

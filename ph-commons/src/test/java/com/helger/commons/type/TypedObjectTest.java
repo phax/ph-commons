@@ -31,7 +31,7 @@ import com.helger.commons.mock.CommonsTestHelper;
 public final class TypedObjectTest
 {
   @Test
-  public void testAll () throws Exception
+  public void testAll ()
   {
     final ObjectType ot1 = new ObjectType ("type1");
     final ObjectType ot2 = new ObjectType ("type2");

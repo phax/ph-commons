@@ -419,7 +419,7 @@ public final class VersionRangeTest
   }
 
   @Test
-  public void testSerialization () throws Exception
+  public void testSerialization ()
   {
     CommonsTestHelper.testDefaultSerialization (VersionRange.parse ("(1.2]"));
     CommonsTestHelper.testDefaultSerialization (VersionRange.parse ("(0)"));

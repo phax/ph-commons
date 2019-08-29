@@ -34,7 +34,7 @@ public final class ObjectTypeTest
 {
   @Test
   @SuppressFBWarnings (value = "NP_NONNULL_PARAM_VIOLATION")
-  public void testAll () throws Exception
+  public void testAll ()
   {
     final ObjectType x = new ObjectType ("any");
     assertEquals ("any", x.getName ());

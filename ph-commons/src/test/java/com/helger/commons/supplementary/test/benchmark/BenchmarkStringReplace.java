@@ -32,7 +32,7 @@ public final class BenchmarkStringReplace extends AbstractBenchmarkTask
   private BenchmarkStringReplace ()
   {}
 
-  public static void main (final String [] aArgs) throws Exception
+  public static void main (final String [] aArgs)
   {
     logSystemInfo ();
     _run ();

@@ -235,7 +235,7 @@ public final class ClassPathResourceTest
   }
 
   @Test
-  public void testDefault () throws Exception
+  public void testDefault ()
   {
     final ClassPathResource aCPISP1a = new ClassPathResource ("folder/test2.txt");
     final ClassPathResource aCPISP1b = new ClassPathResource ("folder/test2.txt");

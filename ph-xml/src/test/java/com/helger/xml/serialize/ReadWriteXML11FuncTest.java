@@ -51,7 +51,7 @@ public final class ReadWriteXML11FuncTest
 {
   private static final XMLWriterSettings XWS_11 = new XMLWriterSettings ().setSerializeVersion (EXMLSerializeVersion.XML_11);
 
-  private static void _generateXmlFile (final String sFilename, @Nonnegative final int nElementCount) throws Exception
+  private static void _generateXmlFile (final String sFilename, @Nonnegative final int nElementCount)
   {
     final IMicroDocument aDoc = new MicroDocument ();
     final IMicroElement eMain = aDoc.appendElement ("main_tag");
@@ -62,7 +62,7 @@ public final class ReadWriteXML11FuncTest
   }
 
   @Test
-  public void testReadingXML11 () throws Exception
+  public void testReadingXML11 ()
   {
     final String sFilename1 = "target/xml11test.xml";
     _generateXmlFile (sFilename1, 2500);
