@@ -294,7 +294,7 @@ public final class DOMReader
     try
     {
       final StopWatch aSW = StopWatch.createdStarted ();
-      DocumentBuilder aDocumentBuilder;
+      final DocumentBuilder aDocumentBuilder;
       boolean bFromPool = false;
       if (aSettings.requiresNewXMLParser ())
       {
@@ -320,7 +320,7 @@ public final class DOMReader
         aSettings.applyToDocumentBuilder (aDocumentBuilder);
 
         // Ensure a collecting error handler is present
-        CollectingSAXErrorHandler aCEH;
+        final CollectingSAXErrorHandler aCEH;
         final ErrorHandler aCustomErrorHandler = aSettings.getErrorHandler ();
         if (aCustomErrorHandler instanceof CollectingSAXErrorHandler)
           aCEH = (CollectingSAXErrorHandler) aCustomErrorHandler;
