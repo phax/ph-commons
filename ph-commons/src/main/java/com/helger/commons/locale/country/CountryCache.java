@@ -74,6 +74,9 @@ public class CountryCache
     return s_bDefaultInstantiated;
   }
 
+  /**
+   * @return The one and only global instances. Never <code>null</code>.
+   */
   @Nonnull
   public static CountryCache getInstance ()
   {
@@ -94,12 +97,30 @@ public class CountryCache
     return m_aRWLock.writeLocked ( () -> m_aCountries.addObject (sValidCountry));
   }
 
+  /**
+   * The normed country locale associated with the provided locale.
+   *
+   * @param aCountry
+   *        Source locale. May be <code>null</code>.
+   * @return <code>null</code> if the source locale is <code>null</code> or if
+   *         the source locale does not contain country information.
+   */
   @Nullable
   public Locale getCountry (@Nullable final Locale aCountry)
   {
     return aCountry == null ? null : getCountry (aCountry.getCountry ());
   }
 
+  /**
+   * Resolve the country from the provided string.<br>
+   * Note: this method may be invoked recursively, if the country code contains
+   * a locale spearator char.
+   *
+   * @param sCountry
+   *        The country code. May be <code>null</code> or empty.
+   * @return <code>null</code> if the provided country code is <code>null</code>
+   *         or empty.
+   */
   @Nullable
   public Locale getCountry (@Nullable final String sCountry)
   {
@@ -115,6 +136,8 @@ public class CountryCache
     if (!containsCountry (sValidCountry))
       if (LOGGER.isWarnEnabled ())
         LOGGER.warn ("Trying to retrieve unsupported country '" + sCountry + "'");
+
+    // And use the locale cache
     return LocaleCache.getInstance ().getLocale ("", sValidCountry, "");
   }
 
@@ -137,7 +160,7 @@ public class CountryCache
   {
     return m_aRWLock.readLocked ( () -> {
       final LocaleCache aLC = LocaleCache.getInstance ();
-      return new CommonsHashSet <> (m_aCountries, sCountry -> aLC.getLocale ("", sCountry, ""));
+      return new CommonsHashSet <> (m_aCountries, x -> aLC.getLocale ("", x, ""));
     });
   }
 
