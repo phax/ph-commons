@@ -27,9 +27,9 @@ import javax.xml.bind.Marshaller;
 import org.xml.sax.helpers.DefaultHandler;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.error.list.IErrorList;
+import com.helger.commons.error.list.ErrorList;
 import com.helger.jaxb.IJAXBValidator;
-import com.helger.jaxb.validation.CollectingValidationEventHandler;
+import com.helger.jaxb.validation.WrappedCollectingValidationEventHandler;
 
 /**
  * Builder class for validating JAXB documents.
@@ -50,10 +50,10 @@ public class JAXBValidationBuilder <JAXBTYPE, IMPLTYPE extends JAXBValidationBui
     super (aDocType);
   }
 
-  @Nonnull
-  public IErrorList validate (@Nonnull final JAXBTYPE aJAXBDocument)
+  public void validate (@Nonnull final JAXBTYPE aJAXBDocument, @Nonnull final ErrorList aErrorList)
   {
     ValueEnforcer.notNull (aJAXBDocument, "JAXBDocument");
+    ValueEnforcer.notNull (aErrorList, "ErrorList");
 
     // Avoid class cast exception later on
     if (!m_aDocType.getImplementationClass ().getPackage ().equals (aJAXBDocument.getClass ().getPackage ()))
@@ -64,7 +64,7 @@ public class JAXBValidationBuilder <JAXBTYPE, IMPLTYPE extends JAXBValidationBui
                                           m_aDocType.getImplementationClass ().getPackage ().getName ());
     }
 
-    final CollectingValidationEventHandler aEventHandler = new CollectingValidationEventHandler ();
+    final WrappedCollectingValidationEventHandler aEventHandler = new WrappedCollectingValidationEventHandler (aErrorList);
     try
     {
       // create a Marshaller
@@ -86,6 +86,5 @@ public class JAXBValidationBuilder <JAXBTYPE, IMPLTYPE extends JAXBValidationBui
     {
       // Should already be contained as an entry in the event handler
     }
-    return aEventHandler.getErrorList ();
   }
 }

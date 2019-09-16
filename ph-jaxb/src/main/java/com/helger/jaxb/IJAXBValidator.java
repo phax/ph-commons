@@ -18,6 +18,7 @@ package com.helger.jaxb;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.error.list.ErrorList;
 import com.helger.commons.error.list.IErrorList;
 
 /**
@@ -48,8 +49,24 @@ public interface IJAXBValidator <JAXBTYPE>
    *
    * @param aJAXBDocument
    *        The JAXB document to be validated. May not be <code>null</code>.
+   * @param aErrorList
+   *        The error list to be filled. May not be <code>null</code>.
+   * @since v9.3.7
+   */
+  void validate (@Nonnull JAXBTYPE aJAXBDocument, @Nonnull ErrorList aErrorList);
+
+  /**
+   * Validate the passed JAXB document.
+   *
+   * @param aJAXBDocument
+   *        The JAXB document to be validated. May not be <code>null</code>.
    * @return The validation results. Never <code>null</code>.
    */
   @Nonnull
-  IErrorList validate (@Nonnull JAXBTYPE aJAXBDocument);
+  default IErrorList validate (@Nonnull final JAXBTYPE aJAXBDocument)
+  {
+    final ErrorList aErrorList = new ErrorList ();
+    validate (aJAXBDocument, aErrorList);
+    return aErrorList;
+  }
 }
