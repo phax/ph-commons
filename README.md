@@ -30,6 +30,7 @@ This project was the following modules:
 
 * v9.3.7 - work in progress
     * Extended `IJAXBValidator` API to have a `validate` method that takes an outside `ErrorList`
+    * Updated to BouncyCastle 1.63
 * v9.3.6 - 2019-08-27
     * Extended the `StreamHelper` API with an even more flexible `copyInputStreamToOutputStream` method
     * `StreamHelper.getCopy[WithLimit]` can now return `null` if copying fails
