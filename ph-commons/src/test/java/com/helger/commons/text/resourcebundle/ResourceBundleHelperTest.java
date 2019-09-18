@@ -40,6 +40,14 @@ public final class ResourceBundleHelperTest
     assertNull (ResourceBundleHelper.getString ("properties/test-iso8859-noway", L_DE, "key1"));
     assertEquals ("äöü", ResourceBundleHelper.getString ("properties/test-iso8859", L_FR, "key1"));
     assertNull (ResourceBundleHelper.getString ("properties/test-iso8859", L_DE, "key-noway"));
+    assertEquals ("abc", ResourceBundleHelper.getString ("properties/test-iso8859", L_DE, "key2"));
+    assertEquals ("colon", ResourceBundleHelper.getString ("properties/test-iso8859", L_DE, "key3"));
+    assertEquals ("a:b", ResourceBundleHelper.getString ("properties/test-iso8859", L_DE, "key4"));
+    assertEquals ("a=b", ResourceBundleHelper.getString ("properties/test-iso8859", L_DE, "key5"));
+    assertEquals ("a#b", ResourceBundleHelper.getString ("properties/test-iso8859", L_DE, "key6"));
+    assertEquals ("a:b", ResourceBundleHelper.getString ("properties/test-iso8859", L_DE, "key7"));
+    assertEquals ("a=b", ResourceBundleHelper.getString ("properties/test-iso8859", L_DE, "key8"));
+    assertEquals ("a#b", ResourceBundleHelper.getString ("properties/test-iso8859", L_DE, "key9"));
   }
 
   @Test
