@@ -212,9 +212,10 @@ public final class Punycode
       int w = 1;
       for (int k = BASE;; k += BASE)
       {
-        if (in > aChars.length)
+        if (in >= aChars.length)
           throw new DecodeException ("Bad input");
-        final int digit = _decode_digit (aChars[in++]);
+        final int digit = _decode_digit (aChars[in]);
+        in++;
         if (digit >= BASE)
           throw new DecodeException ("Bad input");
         if (digit > (Integer.MAX_VALUE - i) / w)
