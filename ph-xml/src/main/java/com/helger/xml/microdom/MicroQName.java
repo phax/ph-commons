@@ -91,21 +91,6 @@ public final class MicroQName implements IMicroQName
     return m_sNamespaceURI;
   }
 
-  public boolean hasNamespaceURI ()
-  {
-    return StringHelper.hasText (m_sNamespaceURI);
-  }
-
-  public boolean hasNoNamespaceURI ()
-  {
-    return StringHelper.hasNoText (m_sNamespaceURI);
-  }
-
-  public boolean hasNamespaceURI (@Nullable final String sNamespaceURI)
-  {
-    return EqualsHelper.equals (m_sNamespaceURI, sNamespaceURI);
-  }
-
   @Nonnull
   @Nonempty
   public String getName ()

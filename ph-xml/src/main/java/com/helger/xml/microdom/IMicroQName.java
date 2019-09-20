@@ -25,6 +25,8 @@ import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.compare.CompareHelper;
 import com.helger.commons.compare.IComparable;
+import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.string.StringHelper;
 
 /**
  * Represents a simple qualified name. A combination of namespace URI and local
@@ -50,7 +52,10 @@ public interface IMicroQName extends IComparable <IMicroQName>
    * @return <code>true</code> if a specified namespace URI is present,
    *         <code>false</code> otherwise
    */
-  boolean hasNamespaceURI ();
+  default boolean hasNamespaceURI ()
+  {
+    return StringHelper.hasText (getNamespaceURI ());
+  }
 
   /**
    * Check if no namespace URI is present.
@@ -58,7 +63,10 @@ public interface IMicroQName extends IComparable <IMicroQName>
    * @return <code>true</code> if no namespace URI is present,
    *         <code>false</code> otherwise
    */
-  boolean hasNoNamespaceURI ();
+  default boolean hasNoNamespaceURI ()
+  {
+    return StringHelper.hasNoText (getNamespaceURI ());
+  }
 
   /**
    * Check if the specified namespace URI is present.
@@ -68,7 +76,10 @@ public interface IMicroQName extends IComparable <IMicroQName>
    * @return <code>true</code> if the specified namespace URI matches the URI of
    *         this name, <code>false</code> otherwise
    */
-  boolean hasNamespaceURI (@Nullable String sNamespaceURI);
+  default boolean hasNamespaceURI (@Nullable final String sNamespaceURI)
+  {
+    return EqualsHelper.equals (sNamespaceURI, getNamespaceURI ());
+  }
 
   /**
    * @return The local name without the namespace URI or the prefix. Never
