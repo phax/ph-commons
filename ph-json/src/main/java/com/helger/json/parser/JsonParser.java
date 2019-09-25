@@ -415,7 +415,7 @@ public class JsonParser
   }
 
   /**
-   * @param EStringQuoteMode
+   * @param eQuoteMode
    *        The quoting mode used. May not be <code>null</code>.
    * @return A pair where the first string is the original read string whereas
    *         the second part is the unescaped read string without leading and
