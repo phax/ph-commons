@@ -38,11 +38,13 @@ import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.IHasOutputStream;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.state.ESuccess;
+import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
 import com.helger.xml.microdom.serialize.MicroReader;
 import com.helger.xml.microdom.serialize.MicroWriter;
+import com.helger.xml.serialize.read.SAXReaderSettings;
 import com.helger.xml.serialize.write.XMLWriterSettings;
 
 /**
@@ -134,7 +136,8 @@ public final class XMLListHandler
     try
     {
       // open file
-      final IMicroDocument aDoc = MicroReader.readMicroXML (aIS);
+      final IMicroDocument aDoc = MicroReader.readMicroXML (aIS,
+                                                            new SAXReaderSettings ().setFeatureValues (EXMLParserFeature.AVOID_XXE_SETTINGS));
       if (aDoc != null)
       {
         readList (aDoc.getDocumentElement (), aTargetList);
