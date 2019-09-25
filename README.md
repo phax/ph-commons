@@ -32,6 +32,7 @@ This project was the following modules:
     * Extended `IJAXBValidator` API to have a `validate` method that takes an outside `ErrorList`
     * Updated to BouncyCastle 1.63
     * Converted some methods in `IMicroQName` to default methods
+    * Extended `HttpHeaderMap` API to make `quote if necessary` customizable
 * v9.3.6 - 2019-08-27
     * Extended the `StreamHelper` API with an even more flexible `copyInputStreamToOutputStream` method
     * `StreamHelper.getCopy[WithLimit]` can now return `null` if copying fails

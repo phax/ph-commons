@@ -75,6 +75,7 @@ public class HttpHeaderMap implements
                            IClearable,
                            Serializable
 {
+  public static final boolean DEFAULT_QUOTE_IF_NECESSARY = true;
   private static final Logger LOGGER = LoggerFactory.getLogger (HttpHeaderMap.class);
 
   private final ICommonsOrderedMap <String, ICommonsList <String>> m_aHeaders = new CommonsLinkedHashMap <> ();
@@ -113,7 +114,7 @@ public class HttpHeaderMap implements
   @Nonnull
   public static String getUnifiedValue (@Nullable final String sValue)
   {
-    return getUnifiedValue (sValue, true);
+    return getUnifiedValue (sValue, DEFAULT_QUOTE_IF_NECESSARY);
   }
 
   /**
@@ -647,18 +648,40 @@ public class HttpHeaderMap implements
    *        <code>null</code>.
    * @param bUnifyValue
    *        <code>true</code> to unify the values, <code>false</code> if not
-   * @see #getUnifiedValue(String)
+   * @see #getUnifiedValue(String,boolean)
    * @since 9.3.6
    */
   public void forEachSingleHeader (@Nonnull final BiConsumer <? super String, ? super String> aConsumer,
                                    final boolean bUnifyValue)
+  {
+    forEachSingleHeader (aConsumer, bUnifyValue, DEFAULT_QUOTE_IF_NECESSARY);
+  }
+
+  /**
+   * Invoke the provided consumer for every name/value pair.
+   *
+   * @param aConsumer
+   *        Consumer with key and unified value to be invoked. May not be
+   *        <code>null</code>.
+   * @param bUnifyValue
+   *        <code>true</code> to unify the values, <code>false</code> if not
+   * @param bQuoteIfNecessary
+   *        <code>true</code> to automatically quote values if it is necessary,
+   *        <code>false</code> to not do it. This is only used, if "unify
+   *        values" is <code>true</code>.
+   * @see #getUnifiedValue(String, boolean)
+   * @since 9.3.7
+   */
+  public void forEachSingleHeader (@Nonnull final BiConsumer <? super String, ? super String> aConsumer,
+                                   final boolean bUnifyValue,
+                                   final boolean bQuoteIfNecessary)
   {
     for (final Map.Entry <String, ICommonsList <String>> aEntry : m_aHeaders.entrySet ())
     {
       final String sKey = aEntry.getKey ();
       for (final String sValue : aEntry.getValue ())
       {
-        final String sUnifiedValue = bUnifyValue ? getUnifiedValue (sValue, true) : sValue;
+        final String sUnifiedValue = bUnifyValue ? getUnifiedValue (sValue, bQuoteIfNecessary) : sValue;
         aConsumer.accept (sKey, sUnifiedValue);
       }
     }
@@ -671,7 +694,7 @@ public class HttpHeaderMap implements
    * @param aConsumer
    *        Consumer with the assembled line to be invoked. May not be
    *        <code>null</code>.
-   * @see #getUnifiedValue(String)
+   * @see #getUnifiedValue(String,boolean)
    * @deprecated Use {@link #forEachHeaderLine(Consumer, boolean)} instead
    */
   @Deprecated
@@ -688,17 +711,39 @@ public class HttpHeaderMap implements
    *        <code>null</code>.
    * @param bUnifyValue
    *        <code>true</code> to unify the values, <code>false</code> if not
-   * @see #getUnifiedValue(String)
+   * @see #getUnifiedValue(String,boolean)
    * @since 9.3.6
    */
   public void forEachHeaderLine (@Nonnull final Consumer <? super String> aConsumer, final boolean bUnifyValue)
+  {
+    forEachHeaderLine (aConsumer, bUnifyValue, DEFAULT_QUOTE_IF_NECESSARY);
+  }
+
+  /**
+   * Invoke the provided consumer for every header line.
+   *
+   * @param aConsumer
+   *        Consumer with the assembled line to be invoked. May not be
+   *        <code>null</code>.
+   * @param bUnifyValue
+   *        <code>true</code> to unify the values, <code>false</code> if not.
+   * @param bQuoteIfNecessary
+   *        <code>true</code> to automatically quote values if it is necessary,
+   *        <code>false</code> to not do it. This is only used, if "unify
+   *        values" is <code>true</code>.
+   * @see #getUnifiedValue(String,boolean)
+   * @since 9.3.7
+   */
+  public void forEachHeaderLine (@Nonnull final Consumer <? super String> aConsumer,
+                                 final boolean bUnifyValue,
+                                 final boolean bQuoteIfNecessary)
   {
     for (final Map.Entry <String, ICommonsList <String>> aEntry : m_aHeaders.entrySet ())
     {
       final String sKey = aEntry.getKey ();
       for (final String sValue : aEntry.getValue ())
       {
-        final String sHeaderLine = sKey + ": " + (bUnifyValue ? getUnifiedValue (sValue, true) : sValue);
+        final String sHeaderLine = sKey + ": " + (bUnifyValue ? getUnifiedValue (sValue, bQuoteIfNecessary) : sValue);
         aConsumer.accept (sHeaderLine);
       }
     }
