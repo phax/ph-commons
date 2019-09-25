@@ -75,7 +75,12 @@ public class HttpHeaderMap implements
                            IClearable,
                            Serializable
 {
+  /** The separator between key and value */
+  public static final String SEPARATOR_KEY_VALUE = ": ";
+
+  /** Default quote if necessary: true */
   public static final boolean DEFAULT_QUOTE_IF_NECESSARY = true;
+
   private static final Logger LOGGER = LoggerFactory.getLogger (HttpHeaderMap.class);
 
   private final ICommonsOrderedMap <String, ICommonsList <String>> m_aHeaders = new CommonsLinkedHashMap <> ();
@@ -743,7 +748,9 @@ public class HttpHeaderMap implements
       final String sKey = aEntry.getKey ();
       for (final String sValue : aEntry.getValue ())
       {
-        final String sHeaderLine = sKey + ": " + (bUnifyValue ? getUnifiedValue (sValue, bQuoteIfNecessary) : sValue);
+        final String sHeaderLine = sKey +
+                                   SEPARATOR_KEY_VALUE +
+                                   (bUnifyValue ? getUnifiedValue (sValue, bQuoteIfNecessary) : sValue);
         aConsumer.accept (sHeaderLine);
       }
     }
@@ -772,8 +779,27 @@ public class HttpHeaderMap implements
   @ReturnsMutableCopy
   public ICommonsList <String> getAllHeaderLines (final boolean bUnifyValue)
   {
+    return getAllHeaderLines (bUnifyValue, DEFAULT_QUOTE_IF_NECESSARY);
+  }
+
+  /**
+   * Get all header lines as a list of strings.
+   *
+   * @param bUnifyValue
+   *        <code>true</code> to unify the values, <code>false</code> if not
+   * @param bQuoteIfNecessary
+   *        <code>true</code> to automatically quote values if it is necessary,
+   *        <code>false</code> to not do it. This is only used, if "unify
+   *        values" is <code>true</code>.
+   * @return Never <code>null</code> but maybe an empty list.
+   * @since 9.3.7
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public ICommonsList <String> getAllHeaderLines (final boolean bUnifyValue, final boolean bQuoteIfNecessary)
+  {
     final ICommonsList <String> ret = new CommonsArrayList <> ();
-    forEachHeaderLine (ret::add, bUnifyValue);
+    forEachHeaderLine (ret::add, bUnifyValue, bQuoteIfNecessary);
     return ret;
   }
 
