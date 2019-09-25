@@ -1407,7 +1407,7 @@ public class BCrypt
    */
   private static byte _char64 (final char x)
   {
-    if (x > BASE64_INDEX.length)
+    if (x >= BASE64_INDEX.length)
       return -1;
     return BASE64_INDEX[x];
   }
