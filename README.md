@@ -28,6 +28,8 @@ This project was the following modules:
 
 ## News and noteworthy
 
+* v9.3.8 - work in progress
+    * Fixed method name in `RFC2616Codec` - `getMaximumEncodedLength` instead of `getEncodedLength`; added `getMaximumDecodedLength`
 * v9.3.7 - 2019-09-25
     * Extended `IJAXBValidator` API to have a `validate` method that takes an outside `ErrorList`
     * Updated to BouncyCastle 1.63

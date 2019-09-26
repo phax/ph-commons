@@ -96,8 +96,25 @@ public class RFC2616Codec implements ICharArrayCodec
   public RFC2616Codec ()
   {}
 
+  /**
+   * Get the maximum encoded length based on the provided decoded length. This
+   * is purely for performance reasons. The name of the method would be better
+   * called "getMaximumEncodedLength".
+   *
+   * @param nDecodedLen
+   *        The decoded length. Always &ge; 0.
+   * @return The maximum encoded length. Always &ge; 0.
+   * @deprecated Use {@link #getMaximumEncodedLength(int)}
+   */
   @Nonnegative
+  @Deprecated
   public int getEncodedLength (@Nonnegative final int nDecodedLen)
+  {
+    return getMaximumEncodedLength (nDecodedLen);
+  }
+
+  @Nonnegative
+  public int getMaximumEncodedLength (@Nonnegative final int nDecodedLen)
   {
     // Worst case: each char needs quoting
     return 1 + 2 * nDecodedLen + 1;
@@ -132,6 +149,13 @@ public class RFC2616Codec implements ICharArrayCodec
     {
       throw new EncodeException ("Failed to encode RFC2616", ex);
     }
+  }
+
+  @Nonnegative
+  public int getMaximumDecodedLength (@Nonnegative final int nEncodedLen)
+  {
+    // Without leading and trailing quote
+    return nEncodedLen - 2;
   }
 
   public void decode (@Nullable final char [] aEncodedBuffer,
