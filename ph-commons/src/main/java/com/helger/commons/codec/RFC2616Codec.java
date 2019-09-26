@@ -154,6 +154,8 @@ public class RFC2616Codec implements ICharArrayCodec
   @Nonnegative
   public int getMaximumDecodedLength (@Nonnegative final int nEncodedLen)
   {
+    if (nEncodedLen < 2)
+      return 0;
     // Without leading and trailing quote
     return nEncodedLen - 2;
   }
