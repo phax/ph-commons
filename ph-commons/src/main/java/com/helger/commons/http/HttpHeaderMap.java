@@ -154,7 +154,7 @@ public class HttpHeaderMap implements
     char [] aQuoted;
     if (bQuoteIfNecessary)
     {
-      if (RFC2616Codec.isToken (aOneLiner))
+      if (RFC2616Codec.isToken (aOneLiner) || RFC2616Codec.isMaybeEncoded (aOneLiner))
       {
         // No need to quote
         aQuoted = aOneLiner;

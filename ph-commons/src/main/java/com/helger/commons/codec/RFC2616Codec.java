@@ -93,6 +93,11 @@ public class RFC2616Codec implements ICharArrayCodec
     return s != null && s.length () >= 2 && s.charAt (0) == QUOTE_CHAR && StringHelper.getLastChar (s) == QUOTE_CHAR;
   }
 
+  public static boolean isMaybeEncoded (@Nullable final char [] s)
+  {
+    return s != null && s.length >= 2 && s[0] == QUOTE_CHAR && s[s.length - 1] == QUOTE_CHAR;
+  }
+
   public RFC2616Codec ()
   {}
 

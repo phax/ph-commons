@@ -30,6 +30,7 @@ This project was the following modules:
 
 * v9.3.8 - work in progress
     * Fixed method name in `RFC2616Codec` - `getMaximumEncodedLength` instead of `getEncodedLength`; added `getMaximumDecodedLength`
+    * Avoid double quoting in `HttpHeaderMap.getUnifiedValue` if the value already seems to be quoted 
 * v9.3.7 - 2019-09-25
     * Extended `IJAXBValidator` API to have a `validate` method that takes an outside `ErrorList`
     * Updated to BouncyCastle 1.63

@@ -364,5 +364,8 @@ public final class HttpHeaderMapTest
 
     assertEquals ("line1  line2", HttpHeaderMap.getUnifiedValue ("line1\r\nline2", false));
     assertEquals ("\"line1  line2\"", HttpHeaderMap.getUnifiedValue ("line1\r\nline2", true));
+
+    // Already quoted
+    assertEquals ("\"ab cd\"", HttpHeaderMap.getUnifiedValue ("\"ab cd\"", true));
   }
 }
