@@ -678,6 +678,7 @@ public final class StringHelperTest
     assertEquals (new CommonsArrayList <> ("a", "b", "", "c"), StringHelper.getExploded ("@", "a@b@@c", 0));
     assertEquals (new CommonsArrayList <> ("a", "b", "", "c"), StringHelper.getExploded ("@", "a@b@@c", -1));
     assertEquals (new CommonsArrayList <> ("a", "b", "", "c"), StringHelper.getExploded ("@", "a@b@@c", -2));
+    assertEquals (new CommonsArrayList <> ("", "b", ""), StringHelper.getExploded ("@", "@b@", -2));
     assertTrue (StringHelper.getExploded ("@", null, 5).isEmpty ());
   }
 
@@ -692,6 +693,7 @@ public final class StringHelperTest
     assertArrayEquals (new String [] { "a", "b", "", "c" }, StringHelper.getExplodedArray ('@', "a@b@@c", 0));
     assertArrayEquals (new String [] { "a", "b", "", "c" }, StringHelper.getExplodedArray ('@', "a@b@@c", -1));
     assertArrayEquals (new String [] { "a", "b", "", "c" }, StringHelper.getExplodedArray ('@', "a@b@@c", -2));
+    assertArrayEquals (new String [] { "", "b", "" }, StringHelper.getExplodedArray ('@', "@b@", -2));
     assertTrue (StringHelper.getExplodedArray ('@', null, 5).length == 0);
   }
 
