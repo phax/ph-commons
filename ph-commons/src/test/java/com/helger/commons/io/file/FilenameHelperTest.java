@@ -84,6 +84,7 @@ public final class FilenameHelperTest
     assertEquals ("ABC", FilenameHelper.getBaseName ("ABC.exe"));
     assertEquals ("c", FilenameHelper.getBaseName ("a/b/c"));
     assertEquals ("c", FilenameHelper.getBaseName ("a/b/c.exe"));
+    assertEquals ("c", FilenameHelper.getBaseName ("c:/a/b/c.exe"));
   }
 
   /**
@@ -100,6 +101,7 @@ public final class FilenameHelperTest
     assertEquals ("exe", FilenameHelper.getExtension ("ABC.exe"));
     assertEquals ("", FilenameHelper.getExtension ("a/b/c"));
     assertEquals ("exe", FilenameHelper.getExtension ("a/b/c.exe"));
+    assertEquals ("exe", FilenameHelper.getExtension ("c:/a/b/c.exe"));
   }
 
   @Test
@@ -112,6 +114,7 @@ public final class FilenameHelperTest
     assertEquals ("exe", FilenameHelper.getExtension (new File ("ABC.exe")));
     assertEquals ("", FilenameHelper.getExtension (new File ("a/b/c")));
     assertEquals ("exe", FilenameHelper.getExtension (new File ("a/b/c.exe")));
+    assertEquals ("exe", FilenameHelper.getExtension (new File ("c:/a/b/c.exe")));
   }
 
   /**
@@ -150,6 +153,7 @@ public final class FilenameHelperTest
     assertEquals ("c.exe", FilenameHelper.getWithoutPath ("a/b\\c.exe"));
     assertEquals ("c.exe", FilenameHelper.getWithoutPath ("a\\b/c.exe"));
     assertEquals ("c.exe", FilenameHelper.getWithoutPath ("a\\b\\c.exe"));
+    assertEquals ("c.exe", FilenameHelper.getWithoutPath ("z:/a\\b\\c.exe"));
   }
 
   /**
@@ -168,6 +172,7 @@ public final class FilenameHelperTest
     assertEquals ("a/b\\", FilenameHelper.getPath ("a/b\\c.exe"));
     assertEquals ("a\\b/", FilenameHelper.getPath ("a\\b/c.exe"));
     assertEquals ("a\\b\\", FilenameHelper.getPath ("a\\b\\c.exe"));
+    assertEquals ("z:\\a\\b\\", FilenameHelper.getPath ("z:\\a\\b\\c.exe"));
   }
 
   /**
@@ -279,13 +284,16 @@ public final class FilenameHelperTest
     // illegal characters
     assertFalse (FilenameHelper.isValidFilenameWithPaths ("ab<c"));
     assertFalse (FilenameHelper.isValidFilenameWithPaths ("ab>c"));
-    if (EOperatingSystem.getCurrentOS ().isWindowsBased ())
-      assertFalse (FilenameHelper.isValidFilenameWithPaths ("ab:c"));
-    else
-      assertTrue (FilenameHelper.isValidFilenameWithPaths ("ab:c"));
     assertFalse (FilenameHelper.isValidFilenameWithPaths ("ab?c"));
     assertFalse (FilenameHelper.isValidFilenameWithPaths ("ab*c"));
     assertFalse (FilenameHelper.isValidFilenameWithPaths ("ab\"c"));
+    if (EOperatingSystem.getCurrentOS ().isWindowsBased ())
+    {
+      assertFalse (FilenameHelper.isValidFilenameWithPaths ("ab:c"));
+      assertTrue (FilenameHelper.isValidFilenameWithPaths ("c:de"));
+    }
+    else
+      assertTrue (FilenameHelper.isValidFilenameWithPaths ("ab:c"));
   }
 
   /**
@@ -326,12 +334,14 @@ public final class FilenameHelperTest
       assertEquals ("ab_c", FilenameHelper.getAsSecureValidFilename ("ab:c"));
       assertEquals ("ab______c", FilenameHelper.getAsSecureValidFilename ("ab<>:?*\"c"));
       assertEquals ("ab______c______d", FilenameHelper.getAsSecureValidFilename ("ab<>:?*\"c<>:?*\"d"));
+      assertEquals ("c_de", FilenameHelper.getAsSecureValidFilename ("c:de"));
     }
     else
     {
       assertEquals ("ab:c", FilenameHelper.getAsSecureValidFilename ("ab:c"));
       assertEquals ("ab__:___c", FilenameHelper.getAsSecureValidFilename ("ab<>:?*\"c"));
       assertEquals ("ab__:___c__:___d", FilenameHelper.getAsSecureValidFilename ("ab<>:?*\"c<>:?*\"d"));
+      assertEquals ("c:de", FilenameHelper.getAsSecureValidFilename ("c:de"));
     }
   }
 
@@ -402,6 +412,7 @@ public final class FilenameHelperTest
     assertFalse (FilenameHelper.startsWithPathSeparatorChar (" "));
     assertFalse (FilenameHelper.startsWithPathSeparatorChar (""));
     assertFalse (FilenameHelper.startsWithPathSeparatorChar (null));
+    assertFalse (FilenameHelper.startsWithPathSeparatorChar ("c:/test.txt"));
   }
 
   /**
@@ -417,6 +428,7 @@ public final class FilenameHelperTest
     assertFalse (FilenameHelper.endsWithPathSeparatorChar (" "));
     assertFalse (FilenameHelper.endsWithPathSeparatorChar (""));
     assertFalse (FilenameHelper.endsWithPathSeparatorChar (null));
+    assertFalse (FilenameHelper.endsWithPathSeparatorChar ("c:/test.txt"));
   }
 
   /**
@@ -432,6 +444,7 @@ public final class FilenameHelperTest
     assertFalse (FilenameHelper.containsPathSeparatorChar (" "));
     assertFalse (FilenameHelper.containsPathSeparatorChar (""));
     assertFalse (FilenameHelper.containsPathSeparatorChar (null));
+    assertTrue (FilenameHelper.containsPathSeparatorChar ("c:/test.txt"));
   }
 
   /**
@@ -626,6 +639,7 @@ public final class FilenameHelperTest
     assertEquals ("/dir/file", FilenameHelper.getCleanPath ("/../dir/file"));
     assertEquals ("../dir/file.x", FilenameHelper.getCleanPath ("../dir/file.x"));
     assertEquals ("/dir/file.x", FilenameHelper.getCleanPath ("/../dir/file.x"));
+    assertEquals ("c:/dir/file.x", FilenameHelper.getCleanPath ("c:/../dir/file.x"));
   }
 
   @Test

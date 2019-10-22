@@ -607,6 +607,8 @@ public final class FilenameHelper
    * <li>If the filename is invalid on Windows platforms it is prefixed with an
    * underscore.</li>
    * </ol>
+   * Note: this method does not handle Windows full path like
+   * "c:\autoexec.bat"<br>
    *
    * @param sFilename
    *        The filename to be made value. May be <code>null</code>.
