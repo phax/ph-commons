@@ -48,6 +48,7 @@ import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.datetime.PDTWebDateHelper;
+import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ICloneable;
 import com.helger.commons.lang.IHasSize;
@@ -169,7 +170,13 @@ public class HttpHeaderMap implements
       aQuoted = aOneLiner;
 
     // to string
-    return new String (aQuoted);
+    final String ret = new String (aQuoted);
+    if (LOGGER.isDebugEnabled ())
+    {
+      if (!EqualsHelper.equals (sValue, ret))
+        LOGGER.debug ("getUnifiedValue('" + sValue + "'," + bQuoteIfNecessary + ") resulted in '" + ret + "'");
+    }
+    return ret;
   }
 
   /**
