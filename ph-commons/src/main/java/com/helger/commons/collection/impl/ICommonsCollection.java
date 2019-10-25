@@ -103,7 +103,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends
   @Nullable
   default ELEMENTTYPE getAtIndex (@Nonnegative final int nIndex, @Nullable final ELEMENTTYPE aDefault)
   {
-    return getAtIndex (null, nIndex, aDefault);
+    return CollectionHelper.getAtIndex (this, nIndex, aDefault);
   }
 
   /**
