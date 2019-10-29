@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
  * Represents an operation that accepts a single {@code char}-valued argument
  * and returns no result. This is the primitive type specialization of
  * {@link Consumer} for {@code char}. Unlike most other functional interfaces,
- * {@code CharConsumer} is expected to operate via side-effects.
+ * {@code ICharConsumer} is expected to operate via side-effects.
  * <p>
  * This is a functional interface whose functional method is
  * {@link #accept(char)}.
