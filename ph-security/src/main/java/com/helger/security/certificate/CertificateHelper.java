@@ -21,7 +21,9 @@ import java.nio.charset.StandardCharsets;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.CertificateException;
+import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateFactory;
+import java.security.cert.CertificateNotYetValidException;
 import java.security.cert.X509Certificate;
 
 import javax.annotation.Nonnull;
@@ -376,6 +378,29 @@ public final class CertificateHelper
     catch (final CertificateEncodingException ex)
     {
       throw new IllegalArgumentException ("Failed to encode certificate " + aCert, ex);
+    }
+  }
+
+  /**
+   * Check if the "not valid before"/"not valid after" of the provided X509
+   * certificate is valid per "now".
+   *
+   * @param aCert
+   *        The certificate to check. May not be <code>null</code>.
+   * @return <code>true</code> if it is valid, <code>false</code> if not.
+   * @since 9.3.8
+   */
+  public static boolean isCertificateValidPerNow (@Nonnull final X509Certificate aCert)
+  {
+    ValueEnforcer.notNull (aCert, "Cert");
+    try
+    {
+      aCert.checkValidity ();
+      return true;
+    }
+    catch (CertificateExpiredException | CertificateNotYetValidException ex)
+    {
+      return false;
     }
   }
 }
