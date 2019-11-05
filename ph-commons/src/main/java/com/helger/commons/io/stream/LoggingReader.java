@@ -85,6 +85,13 @@ public class LoggingReader extends WrappedReader
       LOGGER.info ("Reset at " + nCurrentPosition);
   }
 
+  @OverrideOnDemand
+  protected void onClose (final long nCurrentPosition)
+  {
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("Close at " + nCurrentPosition);
+  }
+
   @Override
   public final int read () throws IOException
   {
@@ -133,6 +140,13 @@ public class LoggingReader extends WrappedReader
   {
     super.reset ();
     onReset (m_nPosition);
+  }
+
+  @Override
+  public final void close () throws IOException
+  {
+    super.close ();
+    onClose (m_nPosition);
   }
 
   @Override

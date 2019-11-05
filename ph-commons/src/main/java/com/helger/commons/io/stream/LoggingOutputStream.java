@@ -65,6 +65,13 @@ public class LoggingOutputStream extends WrappedOutputStream
       LOGGER.info ("Wrote " + nBytesWritten + " byte(s); now at " + nTotalBytesWritten);
   }
 
+  @OverrideOnDemand
+  protected void onClose (final long nTotalBytesWritten)
+  {
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("Close at " + nTotalBytesWritten);
+  }
+
   @Override
   public final void write (final int b) throws IOException
   {
@@ -74,11 +81,18 @@ public class LoggingOutputStream extends WrappedOutputStream
   }
 
   @Override
-  public void write (@Nonnull final byte [] aBuf, final int nOfs, final int nLen) throws IOException
+  public final void write (@Nonnull final byte [] aBuf, final int nOfs, final int nLen) throws IOException
   {
     super.write (aBuf, nOfs, nLen);
     m_nTotalBytesWritten += nLen;
     onWrite (nLen, m_nTotalBytesWritten);
+  }
+
+  @Override
+  public final void close () throws IOException
+  {
+    super.close ();
+    onClose (m_nTotalBytesWritten);
   }
 
   @Override

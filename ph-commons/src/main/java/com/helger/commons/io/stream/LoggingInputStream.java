@@ -84,6 +84,13 @@ public class LoggingInputStream extends WrappedInputStream
       LOGGER.info ("Reset at " + nCurrentPosition);
   }
 
+  @OverrideOnDemand
+  protected void onClose (final long nCurrentPosition)
+  {
+    if (LOGGER.isInfoEnabled ())
+      LOGGER.info ("Close at " + nCurrentPosition);
+  }
+
   @Override
   public final int read () throws IOException
   {
@@ -132,6 +139,13 @@ public class LoggingInputStream extends WrappedInputStream
   {
     super.reset ();
     onReset (m_nPosition);
+  }
+
+  @Override
+  public void close () throws IOException
+  {
+    super.close ();
+    onClose (m_nPosition);
   }
 
   @Override
