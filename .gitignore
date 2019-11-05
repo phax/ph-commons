@@ -10,11 +10,13 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-/target/
-/**/.pmd
-/**/*.iml
+
+target/
+.pmd
+*.iml
 .idea/
-/**/pom.xml.versionsBackup
-/.settings/ 
-/.project 
-/.classpath 
+pom.xml.versionsBackup
+.settings/ 
+.project 
+.classpath 
+ph-xml/felix-cache/
