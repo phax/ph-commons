@@ -963,7 +963,7 @@ public final class JsonReader
      * @return this for chaining
      */
     @Nonnull
-    public Builder setSource (@Nonnull final InputStream aIS)
+    public Builder setSource (@Nonnull @WillClose final InputStream aIS)
     {
       return setSource (aIS, JsonReader.DEFAULT_CHARSET);
     }
@@ -978,7 +978,7 @@ public final class JsonReader
      * @return this for chaining
      */
     @Nonnull
-    public Builder setSource (@Nonnull final InputStream aIS, @Nonnull final Charset aFallbackCharset)
+    public Builder setSource (@Nonnull @WillClose final InputStream aIS, @Nonnull final Charset aFallbackCharset)
     {
       ValueEnforcer.notNull (aIS, "InputStream");
       ValueEnforcer.notNull (aFallbackCharset, "FallbackCharset");
@@ -999,7 +999,7 @@ public final class JsonReader
      * @return this for chaining
      */
     @Nonnull
-    public Builder setSource (@Nonnull final Reader aReader)
+    public Builder setSource (@Nonnull @WillClose final Reader aReader)
     {
       ValueEnforcer.notNull (aReader, "Reader");
       if (m_aReader != null)

@@ -26,8 +26,11 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.io.stream.NonBlockingStringReader;
+import com.helger.commons.io.stream.NonClosingReader;
 import com.helger.json.IJson;
 import com.helger.json.IJsonValue;
 import com.helger.json.parser.handler.CollectingJsonParserHandler;
@@ -40,6 +43,8 @@ import com.helger.json.serialize.JsonReader;
  */
 public final class JsonParserTest
 {
+  private static final Logger LOGGER = LoggerFactory.getLogger (JsonParserTest.class);
+
   @Nullable
   private static IJson _read (@Nonnull final String sJson, @Nullable final IJsonParserCustomizeCallback aCustomizer)
   {
@@ -92,5 +97,31 @@ public final class JsonParserTest
     assertNotNull (sValue);
     assertEquals (1, sValue.length ());
     assertEquals ('\u1234', sValue.charAt (0));
+  }
+
+  @Test
+  public void testReadMultipleObjects ()
+  {
+    final String sJson = "{ 'a': 1}{ 'b':true}";
+
+    try (final NonBlockingStringReader r = new NonBlockingStringReader (sJson))
+    {
+      IJson aJson;
+      int nCount = 0;
+      do
+      {
+        LOGGER.info ("Run " + nCount);
+        aJson = JsonReader.builder ()
+                          .setSource (new NonClosingReader (r))
+                          .setCustomizeCallback (p -> p.setCheckForEOI (false))
+                          .read ();
+        if (aJson != null)
+        {
+          LOGGER.info (aJson.getAsJsonString ());
+          ++nCount;
+        }
+      } while (aJson != null);
+      assertEquals (2, nCount);
+    }
   }
 }

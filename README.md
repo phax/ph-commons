@@ -34,6 +34,8 @@ This project was the following modules:
     * Updated to BouncyCastle 1.64
     * Added new interface `IBooleanConsumer`
     * Added new method `CertificateHelper.isCertificateValidPerNow`
+    * Improved performance of `JsonParser` when position tracking is disabled
+    * Added possibility to read multiple JSON objects from a single source
 * v9.3.7 - 2019-09-25
     * Extended `IJAXBValidator` API to have a `validate` method that takes an outside `ErrorList`
     * Updated to BouncyCastle 1.63
