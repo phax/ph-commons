@@ -19,18 +19,22 @@ package com.helger.json.parser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.io.stream.NonBlockingStringReader;
-import com.helger.commons.io.stream.NonClosingReader;
+import com.helger.commons.io.stream.StringInputStream;
 import com.helger.json.IJson;
 import com.helger.json.IJsonValue;
 import com.helger.json.parser.handler.CollectingJsonParserHandler;
@@ -100,21 +104,38 @@ public final class JsonParserTest
   }
 
   @Test
-  public void testReadMultipleObjects ()
+  public void testReadMultipleObjectsFromReader ()
   {
     final String sJson = "{ 'a': 1}{ 'b':true}";
 
-    try (final NonBlockingStringReader r = new NonBlockingStringReader (sJson))
+    try (final NonBlockingStringReader aReader = new NonBlockingStringReader (sJson))
+    {
+      IJson aJson;
+      int nCount = 0;
+      do
+      {
+        aJson = JsonReader.builderMultiObject ().setSource (aReader).read ();
+        if (aJson != null)
+          ++nCount;
+      } while (aJson != null);
+      assertEquals (2, nCount);
+    }
+  }
+
+  @Test
+  @Ignore
+  public void testReadMultipleObjectsFromStream () throws IOException
+  {
+    final String sJson = "{ 'a': 1}{ 'b':true}";
+
+    try (final InputStream aIS = new StringInputStream (sJson, StandardCharsets.UTF_8))
     {
       IJson aJson;
       int nCount = 0;
       do
       {
         LOGGER.info ("Run " + nCount);
-        aJson = JsonReader.builder ()
-                          .setSource (new NonClosingReader (r))
-                          .setCustomizeCallback (p -> p.setCheckForEOI (false))
-                          .read ();
+        aJson = JsonReader.builderMultiObject ().setSource (aIS).read ();
         if (aJson != null)
           ++nCount;
       } while (aJson != null);

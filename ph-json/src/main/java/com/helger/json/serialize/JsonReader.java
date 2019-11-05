@@ -40,6 +40,7 @@ import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.stream.NonBlockingByteArrayInputStream;
 import com.helger.commons.io.stream.NonBlockingStringReader;
+import com.helger.commons.io.stream.NonClosingReader;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.state.EValidity;
@@ -781,6 +782,21 @@ public final class JsonReader
   }
 
   /**
+   * @return Create a new {@link Builder} instance that is configured to read
+   *         multiple instances. Never <code>null</code>. Use
+   *         {@link Builder#setSource(Reader)} to ensure this works. When using
+   *         {@link InputStream} or the like, there is too much pre read.
+   * @since 9.3.8
+   */
+  @Nonnull
+  public static Builder builderMultiObject ()
+  {
+    return builder ().setDontCloseSource (true)
+                     .setUseBufferedReader (false)
+                     .setCustomizeCallback (p -> p.setCheckForEOI (false));
+  }
+
+  /**
    * Factory for JSon reader for different sources. Use {@link #isValidJson()}
    * to check if the JSON is syntactically correct and {@link #read()} to
    * convert it to a parsed object.
@@ -790,6 +806,8 @@ public final class JsonReader
    */
   public static class Builder implements AutoCloseable
   {
+    private boolean m_bDontCloseSource = false;
+    private boolean m_bUseBufferedReader = true;
     private Reader m_aReader;
     private IJsonParserCustomizeCallback m_aCustomizeCallback;
     private IJsonParseExceptionCallback m_aCustomeExceptionCallback;
@@ -800,6 +818,40 @@ public final class JsonReader
     public void close ()
     {
       StreamHelper.close (m_aReader);
+    }
+
+    /**
+     * Set avoid closing the source stream. This may be helpful when reading
+     * multiple objects. Default is <code>false</code>.
+     *
+     * @param bDontCloseSource
+     *        <code>true</code> to not close the source
+     * @return this for chaining
+     * @since 9.3.8
+     */
+    @Nonnull
+    public Builder setDontCloseSource (final boolean bDontCloseSource)
+    {
+      m_bDontCloseSource = bDontCloseSource;
+      return this;
+    }
+
+    /**
+     * Use a buffered reader or not. If you want to read multiple instances from
+     * a simple {@link InputStream} this should be set to <code>false</code>.
+     * Default is <code>true</code>.
+     *
+     * @param bUseBufferedReader
+     *        <code>true</code> to use it, <code>false</code> to use a
+     *        non-buffered reader.
+     * @return this for chaining
+     * @since 9.3.8
+     */
+    @Nonnull
+    public Builder setUseBufferedReader (final boolean bUseBufferedReader)
+    {
+      m_bUseBufferedReader = bUseBufferedReader;
+      return this;
     }
 
     /**
@@ -1005,7 +1057,15 @@ public final class JsonReader
       if (m_aReader != null)
         LOGGER.warn ("Another source is already present - this may cause a resource leak, because the old source is not closed automatically");
 
-      m_aReader = StreamHelper.getBuffered (aReader);
+      m_aReader = aReader;
+
+      // Use buffered?
+      if (m_bUseBufferedReader)
+        m_aReader = StreamHelper.getBuffered (m_aReader);
+
+      // Don't close?
+      if (m_bDontCloseSource)
+        m_aReader = new NonClosingReader (m_aReader);
       return this;
     }
 
