@@ -62,7 +62,7 @@ public class LoggingWriter extends WrappedWriter
   protected void onWrite (@Nonnegative final int nBytesWritten, final long nTotalBytesWritten)
   {
     if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Wrote " + nBytesWritten + " byte(s); now at " + nTotalBytesWritten);
+      LOGGER.info ("Wrote " + nBytesWritten + " char(s); now at " + nTotalBytesWritten);
   }
 
   @OverrideOnDemand

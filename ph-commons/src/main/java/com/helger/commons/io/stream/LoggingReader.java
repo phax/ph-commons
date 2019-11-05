@@ -61,14 +61,14 @@ public class LoggingReader extends WrappedReader
   protected void onRead (final int nBytesRead, final long nNewPosition)
   {
     if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Read " + nBytesRead + " byte(s); now at " + nNewPosition);
+      LOGGER.info ("Read " + nBytesRead + " char(s); now at " + nNewPosition);
   }
 
   @OverrideOnDemand
   protected void onSkip (final long nBytesSkipped, final long nNewPosition)
   {
     if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Skipped " + nBytesSkipped + " byte(s); now at " + nNewPosition);
+      LOGGER.info ("Skipped " + nBytesSkipped + " char(s); now at " + nNewPosition);
   }
 
   @OverrideOnDemand
