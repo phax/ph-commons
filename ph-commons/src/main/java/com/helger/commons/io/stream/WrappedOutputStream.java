@@ -38,6 +38,10 @@ public class WrappedOutputStream extends FilterOutputStream
     super (ValueEnforcer.notNull (aWrappedOS, "WrappedOutputStream"));
   }
 
+  /**
+   * @return The output stream provided in the constructor. Never
+   *         <code>null</code>.
+   */
   @Nonnull
   public final OutputStream getWrappedOutputStream ()
   {

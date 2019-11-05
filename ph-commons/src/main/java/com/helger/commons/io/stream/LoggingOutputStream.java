@@ -39,13 +39,18 @@ public class LoggingOutputStream extends WrappedOutputStream
 
   private long m_nTotalBytesWritten = 0;
 
+  /**
+   * @param aSourceOS
+   *        The output stream that should be logged. May not be
+   *        <code>null</code>.
+   */
   public LoggingOutputStream (@Nonnull final OutputStream aSourceOS)
   {
     super (aSourceOS);
   }
 
   /**
-   * @return The number of written bytes.
+   * @return The number of written bytes. Always &ge; 0.
    */
   @Nonnegative
   public final long getBytesWritten ()

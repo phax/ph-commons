@@ -32,11 +32,19 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public class WrappedReader extends FilterReader
 {
+  /**
+   * @param aWrappedReader
+   *        The reader to be wrapped. May not be <code>null</code>.
+   */
   public WrappedReader (@Nonnull final Reader aWrappedReader)
   {
     super (ValueEnforcer.notNull (aWrappedReader, "WrappedReader"));
   }
 
+  /**
+   * @return The wrapped reader provided in the constructor. Never
+   *         <code>null</code>.
+   */
   @Nonnull
   public final Reader getWrappedReader ()
   {

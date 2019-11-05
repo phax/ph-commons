@@ -32,11 +32,19 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public class WrappedWriter extends FilterWriter
 {
+  /**
+   * @param aWrappedWriter
+   *        The wrapped writer to use. May not be <code>null</code>.
+   */
   public WrappedWriter (@Nonnull final Writer aWrappedWriter)
   {
     super (ValueEnforcer.notNull (aWrappedWriter, "WrappedWriter"));
   }
 
+  /**
+   * @return The wrapped writer passed in the constructor. Never
+   *         <code>null</code>.
+   */
   @Nonnull
   public final Writer getWrappedWriter ()
   {

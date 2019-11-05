@@ -32,11 +32,19 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public class WrappedInputStream extends FilterInputStream
 {
+  /**
+   * @param aWrappedIS
+   *        The input stream to be wrapped. May not be <code>null</code>.
+   */
   public WrappedInputStream (@Nonnull final InputStream aWrappedIS)
   {
     super (ValueEnforcer.notNull (aWrappedIS, "WrappedInputStream"));
   }
 
+  /**
+   * @return The input stream provided in the constructor. Never
+   *         <code>null</code>.
+   */
   @Nonnull
   public final InputStream getWrappedInputStream ()
   {

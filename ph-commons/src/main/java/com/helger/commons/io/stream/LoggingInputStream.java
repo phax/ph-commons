@@ -39,11 +39,18 @@ public class LoggingInputStream extends WrappedInputStream
 
   private long m_nPosition = 0;
 
+  /**
+   * @param aSourceIS
+   *        The input stream to be logged. May not be <code>null</code>.
+   */
   public LoggingInputStream (@Nonnull final InputStream aSourceIS)
   {
     super (aSourceIS);
   }
 
+  /**
+   * @return The current read position. Always &ge; 0.
+   */
   public final long getPosition ()
   {
     return m_nPosition;
@@ -90,9 +97,9 @@ public class LoggingInputStream extends WrappedInputStream
   }
 
   @Override
-  public final int read (final byte [] b, final int nOffset, final int nLength) throws IOException
+  public final int read (final byte [] aBuf, final int nOffset, final int nLength) throws IOException
   {
-    final int ret = super.read (b, nOffset, nLength);
+    final int ret = super.read (aBuf, nOffset, nLength);
     if (ret != -1)
     {
       m_nPosition += ret;
