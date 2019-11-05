@@ -111,7 +111,7 @@ public class CommonsVector <ELEMENTTYPE> extends Vector <ELEMENTTYPE> implements
   public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> createFiltered (@Nullable final Iterable <? extends ELEMENTTYPE> aValues,
                                                                           @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
-    final CommonsVector <ELEMENTTYPE> ret = new CommonsVector <> (ArrayHelper.getSize (aValues));
+    final CommonsVector <ELEMENTTYPE> ret = new CommonsVector <> (CollectionHelper.getSize (aValues));
     ret.addAll (aValues, aFilter);
     return ret;
   }
@@ -122,7 +122,7 @@ public class CommonsVector <ELEMENTTYPE> extends Vector <ELEMENTTYPE> implements
                                                                                    @Nullable final Predicate <? super SRCTYPE> aFilter,
                                                                                    @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
-    final CommonsVector <ELEMENTTYPE> ret = new CommonsVector <> (ArrayHelper.getSize (aValues));
+    final CommonsVector <ELEMENTTYPE> ret = new CommonsVector <> (CollectionHelper.getSize (aValues));
     ret.addAllMapped (aValues, aFilter, aMapper);
     return ret;
   }
