@@ -11,6 +11,8 @@ import java.util.function.Function;
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.mutable.MutableInt;
@@ -18,6 +20,8 @@ import com.helger.commons.timing.StopWatch;
 
 public class PromiseFuncTest
 {
+  private static final Logger LOGGER = LoggerFactory.getLogger (PromiseFuncTest.class);
+
   public static class Promise
   {
     private final ExecutorService m_aES;
@@ -50,7 +54,7 @@ public class PromiseFuncTest
   {
     final MutableInt aValue = new MutableInt (0);
     final Runnable r = () -> {
-      System.out.println ("testCFRunAsync Thread: " + Thread.currentThread ().getId ());
+      LOGGER.info ("testCFRunAsync Thread: " + Thread.currentThread ().getId ());
       ThreadHelper.sleep (300);
       aValue.inc ();
     };
@@ -65,7 +69,7 @@ public class PromiseFuncTest
   public void testCFApplyAsync () throws Exception
   {
     final Function <MutableInt, MutableInt> f = x -> {
-      System.out.println ("testCFApplyAsync Thread: " + Thread.currentThread ().getId ());
+      LOGGER.info ("testCFApplyAsync Thread: " + Thread.currentThread ().getId ());
       ThreadHelper.sleep (300);
       return new MutableInt (x.intValue () + 1);
     };
@@ -83,7 +87,7 @@ public class PromiseFuncTest
   public void testCFApplySync () throws Exception
   {
     final Function <MutableInt, MutableInt> f = x -> {
-      System.out.println ("testCFApplySync Thread: " + Thread.currentThread ().getId ());
+      LOGGER.info ("testCFApplySync Thread: " + Thread.currentThread ().getId ());
       ThreadHelper.sleep (300);
       return new MutableInt (x.intValue () + 1);
     };
