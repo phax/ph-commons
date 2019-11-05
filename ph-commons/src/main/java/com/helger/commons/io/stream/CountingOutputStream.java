@@ -57,7 +57,7 @@ public class CountingOutputStream extends WrappedOutputStream
    * @return The number of written bytes.
    */
   @Nonnegative
-  public long getBytesWritten ()
+  public final long getBytesWritten ()
   {
     return m_nBytesWritten;
   }
@@ -65,6 +65,6 @@ public class CountingOutputStream extends WrappedOutputStream
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("bytesWritten", m_nBytesWritten).getToString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("BytesWritten", m_nBytesWritten).getToString ();
   }
 }

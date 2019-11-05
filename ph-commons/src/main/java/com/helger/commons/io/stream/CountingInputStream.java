@@ -53,9 +53,9 @@ public class CountingInputStream extends WrappedInputStream
   }
 
   @Override
-  public int read (final byte [] b, final int nOffset, final int nLength) throws IOException
+  public int read (final byte [] aBuf, final int nOffset, final int nLength) throws IOException
   {
-    final int ret = super.read (b, nOffset, nLength);
+    final int ret = super.read (aBuf, nOffset, nLength);
     if (ret != -1)
     {
       m_nBytesRead += ret;
@@ -95,7 +95,7 @@ public class CountingInputStream extends WrappedInputStream
    * @return The number of read bytes.
    */
   @Nonnegative
-  public long getBytesRead ()
+  public final long getBytesRead ()
   {
     return m_nBytesRead;
   }
@@ -105,17 +105,28 @@ public class CountingInputStream extends WrappedInputStream
    *         mark/reset into account)
    */
   @Nonnegative
-  public long getPosition ()
+  public final long getPosition ()
   {
     return m_nPosition;
+  }
+
+  /**
+   * @return The current mark
+   * @since 9.3.8
+   */
+  @Nonnegative
+  public final long getMark ()
+  {
+    return m_nMark;
   }
 
   @Override
   public String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ())
-                            .append ("bytesRead", m_nBytesRead)
-                            .append ("position", m_nPosition)
+                            .append ("BytesRead", m_nBytesRead)
+                            .append ("Position", m_nPosition)
+                            .append ("Mark", m_nMark)
                             .getToString ();
   }
 }
