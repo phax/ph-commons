@@ -29,7 +29,7 @@ import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * A wrapper around an {@link InputStream} that debugs read and skip actions.
+ * A wrapper around an {@link InputStream} that logs read and skip actions.
  *
  * @author Philip Helger
  */
