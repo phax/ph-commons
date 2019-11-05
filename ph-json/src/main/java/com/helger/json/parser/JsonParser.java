@@ -96,6 +96,9 @@ public class JsonParser
   // Position tracking
   private final JsonParsePosition m_aParsePos = new JsonParsePosition ();
   private int m_nBackupChars = 0;
+  // string reading cache
+  private final JsonStringBuilder m_aSB1 = new JsonStringBuilder (256);
+  private final JsonStringBuilder m_aSB2 = new JsonStringBuilder (256);
 
   public JsonParser (@Nonnull @WillNotClose final Reader aReader, @Nonnull final IJsonParserHandler aCallback)
   {
@@ -307,7 +310,8 @@ public class JsonParser
   private void _readComment () throws JsonParseException
   {
     final IJsonParsePosition aStartPos = _getCurrentParsePos ();
-    final JsonStringBuilder aStrComment = new JsonStringBuilder (1024);
+    // Use SB2 because _skipSpaces uses SB1
+    final JsonStringBuilder aStrComment = m_aSB2.reset ();
 
     while (true)
     {
@@ -338,7 +342,7 @@ public class JsonParser
 
   private void _skipSpaces () throws JsonParseException
   {
-    final JsonStringBuilder aStrSpaces = new JsonStringBuilder ();
+    final JsonStringBuilder aStrSpaces = m_aSB1.reset ();
 
     while (true)
     {
@@ -476,8 +480,8 @@ public class JsonParser
   private TwoStrings _readString (@Nonnull final EStringQuoteMode eQuoteMode) throws JsonParseException
   {
     final IJsonParsePosition aStartPos = _getCurrentParsePos ();
-    final JsonStringBuilder aStrStringOriginalContent = new JsonStringBuilder (256);
-    final JsonStringBuilder aStrStringUnescapedContent = new JsonStringBuilder (256);
+    final JsonStringBuilder aStrStringOriginalContent = m_aSB1.reset ();
+    final JsonStringBuilder aStrStringUnescapedContent = m_aSB2.reset ();
 
     final int cQuoteChar = eQuoteMode.getQuoteChar ();
 
@@ -690,7 +694,7 @@ public class JsonParser
   {
     final IJsonParsePosition aStartPos = _getCurrentParsePos ();
 
-    final JsonStringBuilder aStrNumber = new JsonStringBuilder (32);
+    final JsonStringBuilder aStrNumber = m_aSB1.reset ();
     int c = _readChar ();
     if (c == '-')
     {

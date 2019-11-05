@@ -40,6 +40,7 @@ public class JsonStringBuilder implements Serializable
 
   protected char [] m_aBuf;
   protected int m_nLen;
+  // Status vars
   private transient String m_sCache;
 
   public JsonStringBuilder ()
@@ -50,6 +51,7 @@ public class JsonStringBuilder implements Serializable
   public JsonStringBuilder (@Nonnegative final int nCapacity)
   {
     m_aBuf = new char [nCapacity];
+    m_nLen = 0;
   }
 
   private void _expandCapacity (@Nonnegative final int nMinimumCapacity)
@@ -90,9 +92,12 @@ public class JsonStringBuilder implements Serializable
     return m_aBuf[nIndex];
   }
 
-  public void reset ()
+  @Nonnull
+  public JsonStringBuilder reset ()
   {
     m_nLen = 0;
+    m_sCache = null;
+    return this;
   }
 
   public void backup (final int n)
