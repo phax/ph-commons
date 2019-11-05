@@ -116,10 +116,7 @@ public final class JsonParserTest
                           .setCustomizeCallback (p -> p.setCheckForEOI (false))
                           .read ();
         if (aJson != null)
-        {
-          LOGGER.info (aJson.getAsJsonString ());
           ++nCount;
-        }
       } while (aJson != null);
       assertEquals (2, nCount);
     }
