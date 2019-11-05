@@ -19,7 +19,7 @@ package com.helger.commons.state;
 import javax.annotation.Nonnull;
 
 /**
- * Small enum for setter method to identify whether a value has changed or not.
+ * Small enum to identify whether something was handled or not.
  *
  * @author Philip Helger
  * @since 9.0.0
