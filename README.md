@@ -38,6 +38,7 @@ This project was the following modules:
     * Added possibility to read multiple JSON objects from a single source
     * Added new classes `LoggingReader` and `LoggingWriter`
     * Added new classes `CountingReader` and `CountingWriter`
+    * `JsonParser.parse` now returns an enum indicating EOI or not (incompatible change)
 * v9.3.7 - 2019-09-25
     * Extended `IJAXBValidator` API to have a `validate` method that takes an outside `ErrorList`
     * Updated to BouncyCastle 1.63

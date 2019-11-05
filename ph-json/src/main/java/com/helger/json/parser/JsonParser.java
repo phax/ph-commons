@@ -27,6 +27,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.stream.NonBlockingPushbackReader;
+import com.helger.commons.state.EEOI;
 import com.helger.commons.string.StringHelper;
 import com.helger.json.CJson;
 import com.helger.json.parser.handler.IJsonParserHandler;
@@ -891,7 +892,16 @@ public class JsonParser
     m_aCallback.onObjectEnd ();
   }
 
-  private void _readValue () throws JsonParseException
+  /**
+   * Read a single value
+   *
+   * @return {@link EEOI#CONTINUE} if something was read, {@link EEOI#EOI} if
+   *         there was an EOI
+   * @throws JsonParseException
+   *         In case of parse exceptions
+   */
+  @Nonnull
+  private EEOI _readValue () throws JsonParseException
   {
     _skipSpaces ();
 
@@ -950,25 +960,29 @@ public class JsonParser
         _readObject ();
         break;
       case EOI:
-        break;
+        return EEOI.EOI;
       default:
         throw _parseEx (aStartPos, "Syntax error in JSON. Found " + _getPrintableChar (cFirst));
     }
+    return EEOI.NOT_EOI;
   }
 
   /**
    * Main parsing routine
    *
+   * @return {@link EEOI#NOT_EOI} if something was read, {@link EEOI#EOI} if
+   *         there was an EOI
    * @throws JsonParseException
    *         In case a parse error occurs.
    */
-  public void parse () throws JsonParseException
+  @Nonnull
+  public EEOI parse () throws JsonParseException
   {
-    _readValue ();
-
-    if (m_bCheckForEOI)
+    final EEOI eEOI = _readValue ();
+    if (eEOI.isNotEndOfInput () && m_bCheckForEOI)
     {
-      // Check for trailing whitespaces
+      // Non EOF
+      // Check for trailing whitespaces (reads a char)
       _skipSpaces ();
 
       final IJsonParsePosition aStartPos = _getCurrentParsePos ();
@@ -978,5 +992,6 @@ public class JsonParser
       if (c != EOI)
         throw _parseEx (aStartPos, "Invalid character " + _getPrintableChar (c) + " after JSON root object");
     }
+    return eEOI;
   }
 }
