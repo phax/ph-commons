@@ -28,7 +28,7 @@ This project was the following modules:
 
 ## News and noteworthy
 
-* v9.3.8 - work in progress
+* v9.3.8 - 2019-11-07
     * Fixed method name in `RFC2616Codec` - `getMaximumEncodedLength` instead of `getEncodedLength`; added `getMaximumDecodedLength`
     * Avoid double quoting in `HttpHeaderMap.getUnifiedValue` if the value already seems to be quoted 
     * Updated to BouncyCastle 1.64
@@ -41,6 +41,7 @@ This project was the following modules:
     * `JsonParser.parse` now returns an enum indicating EOI or not (incompatible change)
     * Improved performance of JsonParser by reusing buffers internally
     * Added new class `MappedCache` that is a generalization of `Cache`. It adds a mapper to determine the cache key.
+    * New parent POM 1.11.0 updates SLF4J to 1.7.29
 * v9.3.7 - 2019-09-25
     * Extended `IJAXBValidator` API to have a `validate` method that takes an outside `ErrorList`
     * Updated to BouncyCastle 1.63
@@ -358,7 +359,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-commons</artifactId>
-  <version>9.3.7</version>
+  <version>9.3.8</version>
 </dependency>
 ```
 
@@ -511,7 +512,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-xml</artifactId>
-  <version>9.3.7</version>
+  <version>9.3.8</version>
 </dependency>
 ```
 
@@ -530,7 +531,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-jaxb</artifactId>
-  <version>9.3.7</version>
+  <version>9.3.8</version>
 </dependency>
 ```
 
@@ -554,7 +555,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-tree</artifactId>
-  <version>9.3.7</version>
+  <version>9.3.8</version>
 </dependency>
 ```
 
@@ -573,7 +574,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-less-commons</artifactId>
-  <version>9.3.7</version>
+  <version>9.3.8</version>
 </dependency>
 ```
 
@@ -587,7 +588,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-json</artifactId>
-  <version>9.3.7</version>
+  <version>9.3.8</version>
 </dependency>
 ```
 
@@ -601,7 +602,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-settings</artifactId>
-  <version>9.3.7</version>
+  <version>9.3.8</version>
 </dependency>
 ```
 
@@ -615,7 +616,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-datetime</artifactId>
-  <version>9.3.7</version>
+  <version>9.3.8</version>
 </dependency>
 ```
 
@@ -629,7 +630,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-graph</artifactId>
-  <version>9.3.7</version>
+  <version>9.3.8</version>
 </dependency>
 ```
 
@@ -643,7 +644,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-matrix</artifactId>
-  <version>9.3.7</version>
+  <version>9.3.8</version>
 </dependency>
 ```
 
@@ -657,7 +658,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-charset</artifactId>
-  <version>9.3.7</version>
+  <version>9.3.8</version>
 </dependency>
 ```
 
@@ -673,7 +674,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-scopes</artifactId>
-  <version>9.3.7</version>
+  <version>9.3.8</version>
 </dependency>
 ```
 
@@ -689,7 +690,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-collection</artifactId>
-  <version>9.3.7</version>
+  <version>9.3.8</version>
 </dependency>
 ```
 
@@ -708,7 +709,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-cli</artifactId>
-  <version>9.3.7</version>
+  <version>9.3.8</version>
 </dependency>
 ```
 
@@ -724,7 +725,7 @@ Add the following to your pom.xml to use this artifact:
 <dependency>
   <groupId>com.helger</groupId>
   <artifactId>ph-bc</artifactId>
-  <version>9.3.7</version>
+  <version>9.3.8</version>
 </dependency>
 ```
 
