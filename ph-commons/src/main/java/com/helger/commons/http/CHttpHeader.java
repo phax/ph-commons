@@ -70,7 +70,7 @@ public final class CHttpHeader
    */
   public static final String X_FRAME_OPTIONS = "X-Frame-Options";
   /**
-   * Use only X-Frame-Options
+   * @deprecated Use only X-Frame-Options
    */
   @Deprecated
   public static final String FRAME_OPTIONS = "Frame-Options";
@@ -100,9 +100,9 @@ public final class CHttpHeader
    * Unavailable) response to indicate how long the service is expected to be
    * unavailable to the requesting client. This field MAY also be used with any
    * 3xx (Redirection) response to indicate the minimum time the user-agent is
-   * asked wait before issuing the redirected request. The value of this field can
-   * be either an HTTP-date or an integer number of seconds (in decimal) after the
-   * time of the response
+   * asked wait before issuing the redirected request. The value of this field
+   * can be either an HTTP-date or an integer number of seconds (in decimal)
+   * after the time of the response
    */
   public static final String RETRY_AFTER = "Retry-After";
 

@@ -859,6 +859,11 @@ public final class URLHelper
     return null;
   }
 
+  private static boolean _isTimeout (final IOException ex)
+  {
+    return ex instanceof SocketTimeoutException;
+  }
+
   /**
    * Get an input stream from the specified URL. By default caching is disabled.
    * This method only handles GET requests - POST requests are not possible.
@@ -960,7 +965,7 @@ public final class URLHelper
       }
       else
       {
-        if (ex instanceof SocketTimeoutException)
+        if (_isTimeout (ex))
         {
           if (LOGGER.isWarnEnabled ())
             LOGGER.warn ("Timeout to open input stream for '" +

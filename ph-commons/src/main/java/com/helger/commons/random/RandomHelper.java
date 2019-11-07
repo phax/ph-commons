@@ -18,6 +18,7 @@ package com.helger.commons.random;
 
 import java.security.SecureRandom;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.Nonnull;
@@ -36,6 +37,8 @@ import com.helger.commons.system.SystemProperties;
  * decide between {@link VerySecureRandom} and regular {@link Random}.
  *
  * @author Philip Helger
+ * @deprecated Just don't use. Use {@link Random}, {@link ThreadLocalRandom} or
+ *             {@link VerySecureRandom} depending on your needs.
  */
 @Immutable
 @Deprecated

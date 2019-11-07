@@ -145,10 +145,11 @@ public final class JavaVersionHelper
             else
             {
               // Open...
-              LOGGER.warn ("Unknown runtime version '" +
-                           sJavaRuntimeVersion +
-                           "' compared to java version '" +
-                           sOriginalJavaVersion);
+              if (LOGGER.isWarnEnabled ())
+                LOGGER.warn ("Unknown runtime version '" +
+                             sJavaRuntimeVersion +
+                             "' compared to java version '" +
+                             sOriginalJavaVersion);
               nMinor = -1;
               nMicro = -1;
             }
@@ -156,10 +157,11 @@ public final class JavaVersionHelper
           else
           {
             // Unknown runtime version
-            LOGGER.warn ("Unknown runtime version '" +
-                         sJavaRuntimeVersion +
-                         "' compared to java version '" +
-                         sOriginalJavaVersion);
+            if (LOGGER.isWarnEnabled ())
+              LOGGER.warn ("Unknown runtime version '" +
+                           sJavaRuntimeVersion +
+                           "' compared to java version '" +
+                           sOriginalJavaVersion);
             nMinor = -1;
             nMicro = -1;
           }

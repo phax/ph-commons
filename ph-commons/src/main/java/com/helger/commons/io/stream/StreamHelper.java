@@ -106,6 +106,12 @@ public final class StreamHelper
            sClass.equals ("org.apache.catalina.connector.ClientAbortException");
   }
 
+  @Nullable
+  private static Exception _propagate (@Nonnull final Exception ex)
+  {
+    return ex instanceof IMockException ? null : ex;
+  }
+
   /**
    * Close the passed object, without trying to call flush on it.
    *
@@ -127,8 +133,7 @@ public final class StreamHelper
       catch (final Exception ex)
       {
         if (!isKnownEOFException (ex))
-          LOGGER.error ("Failed to close object " + aCloseable.getClass ().getName (),
-                        ex instanceof IMockException ? null : ex);
+          LOGGER.error ("Failed to close object " + aCloseable.getClass ().getName (), _propagate (ex));
       }
     }
     return ESuccess.FAILURE;
@@ -166,8 +171,7 @@ public final class StreamHelper
       catch (final Exception ex)
       {
         if (!isKnownEOFException (ex))
-          LOGGER.error ("Failed to close object " + aCloseable.getClass ().getName (),
-                        ex instanceof IMockException ? null : ex);
+          LOGGER.error ("Failed to close object " + aCloseable.getClass ().getName (), _propagate (ex));
       }
     }
 
@@ -197,8 +201,7 @@ public final class StreamHelper
       catch (final IOException ex)
       {
         if (!isKnownEOFException (ex))
-          LOGGER.error ("Failed to flush object " + aFlushable.getClass ().getName (),
-                        ex instanceof IMockException ? null : ex);
+          LOGGER.error ("Failed to flush object " + aFlushable.getClass ().getName (), _propagate (ex));
       }
     return ESuccess.FAILURE;
   }
@@ -325,7 +328,7 @@ public final class StreamHelper
         aExceptionCallback.onException (ex);
       else
         if (!isKnownEOFException (ex))
-          LOGGER.error ("Failed to copy from InputStream to OutputStream", ex instanceof IMockException ? null : ex);
+          LOGGER.error ("Failed to copy from InputStream to OutputStream", _propagate (ex));
     }
     finally
     {
@@ -371,6 +374,9 @@ public final class StreamHelper
    *        meaning all bytes are copied.
    * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
    *         {@link ESuccess#FAILURE}</code> otherwise
+   * @deprecated Use
+   *             {@link #copyInputStreamToOutputStream(InputStream, boolean, OutputStream, boolean, byte[], Long, IExceptionCallback, MutableLong)}
+   *             instead
    */
   @Nonnull
   @Deprecated
@@ -570,6 +576,9 @@ public final class StreamHelper
    *        of copied bytes. Note: and optional old value is overwritten!
    * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
    *         {@link ESuccess#FAILURE}</code> otherwise
+   * @deprecated Use
+   *             {@link #copyInputStreamToOutputStream(InputStream, boolean, OutputStream, boolean, byte[], Long, IExceptionCallback, MutableLong)}
+   *             instead
    */
   @Nonnull
   @Deprecated
@@ -849,7 +858,7 @@ public final class StreamHelper
         aExceptionCallback.onException (ex);
       else
         if (!isKnownEOFException (ex))
-          LOGGER.error ("Failed to copy from Reader to Writer", ex instanceof IMockException ? null : ex);
+          LOGGER.error ("Failed to copy from Reader to Writer", _propagate (ex));
     }
     finally
     {
@@ -1093,6 +1102,8 @@ public final class StreamHelper
    *        of copied characters. Note: and optional old value is overwritten!
    * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
    *         {@link ESuccess#FAILURE}</code> otherwise
+   * @deprecated Use
+   *             {@link #copyReaderToWriter(Reader, boolean, Writer, boolean, char[], Long, IExceptionCallback, MutableLong)}
    */
   @Nonnull
   @Deprecated
@@ -1396,7 +1407,7 @@ public final class StreamHelper
           }
           catch (final IOException ex)
           {
-            LOGGER.error ("Failed to read from reader", ex instanceof IMockException ? null : ex);
+            LOGGER.error ("Failed to read from reader", _propagate (ex));
           }
         }
     }
@@ -1440,7 +1451,7 @@ public final class StreamHelper
     }
     catch (final IOException ex)
     {
-      LOGGER.error ("Failed to write to output stream", ex instanceof IMockException ? null : ex);
+      LOGGER.error ("Failed to write to output stream", _propagate (ex));
       return ESuccess.FAILURE;
     }
     finally

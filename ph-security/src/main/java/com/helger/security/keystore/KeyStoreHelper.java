@@ -200,6 +200,11 @@ public final class KeyStoreHelper
     return aKeyStore;
   }
 
+  private static boolean _isInvalidPasswordException (@Nonnull final Exception ex)
+  {
+    return ex instanceof IOException && ex.getCause () instanceof UnrecoverableKeyException;
+  }
+
   /**
    * Load the provided key store in a safe manner.
    *
@@ -240,7 +245,7 @@ public final class KeyStoreHelper
     }
     catch (final Exception ex)
     {
-      final boolean bInvalidPW = ex instanceof IOException && ex.getCause () instanceof UnrecoverableKeyException;
+      final boolean bInvalidPW = _isInvalidPasswordException (ex);
 
       if (LOGGER.isWarnEnabled ())
         LOGGER.warn ("Failed to load key store '" + sKeyStorePath + "': " + ex.getMessage (),

@@ -52,6 +52,9 @@ public final class DefaultTextResolver extends EnumTextResolverWithPropertiesOve
     return s_bDefaultInstantiated;
   }
 
+  /**
+   * @return The singleton instance. Never <code>null</code>.
+   */
   @Nonnull
   public static DefaultTextResolver getInstance ()
   {
@@ -60,6 +63,18 @@ public final class DefaultTextResolver extends EnumTextResolverWithPropertiesOve
     return ret;
   }
 
+  /**
+   * Get text
+   * 
+   * @param aEnum
+   *        Enumeration entry. May not be <code>null</code>.
+   * @param aTP
+   *        Text provider. May not be <code>null</code>.
+   * @param aContentLocale
+   *        Locale to use. May not be <code>null</code>.
+   * @return <code>null</code> if the text is not available in the specific
+   *         locale
+   */
   @Nullable
   public static String getTextStatic (@Nonnull final Enum <?> aEnum,
                                       @Nonnull final IHasText aTP,
@@ -68,6 +83,19 @@ public final class DefaultTextResolver extends EnumTextResolverWithPropertiesOve
     return getInstance ().getText (aEnum, aTP, aContentLocale);
   }
 
+  /**
+   * Get text
+   * 
+   * @param aEnum
+   *        Enumeration entry. May not be <code>null</code>.
+   * @param aTP
+   *        Text provider. May not be <code>null</code>.
+   * @param aContentLocale
+   *        Locale to use. May not be <code>null</code>.
+   * @return <code>null</code> if the text is not available in the specific
+   *         locale
+   * @deprecated Use the version without "WithArgs" because there are no args
+   */
   @Nullable
   @Deprecated
   @DevelopersNote ("Use getTextStatic instead when no argument is needed!")
@@ -78,6 +106,21 @@ public final class DefaultTextResolver extends EnumTextResolverWithPropertiesOve
     return getTextStatic (aEnum, aTP, aContentLocale);
   }
 
+  /**
+   * Get text
+   * 
+   * @param aEnum
+   *        Enumeration entry. May not be <code>null</code>.
+   * @param aTP
+   *        Text provider. May not be <code>null</code>.
+   * @param aContentLocale
+   *        Locale to use. May not be <code>null</code>.
+   * @param aArgs
+   *        The arguments to be added for the placeholders. May neither be
+   *        <code>null</code> nor empty.
+   * @return <code>null</code> if the text is not available in the specific
+   *         locale
+   */
   @Nullable
   public static String getTextWithArgsStatic (@Nonnull final Enum <?> aEnum,
                                               @Nonnull final IHasTextWithArgs aTP,

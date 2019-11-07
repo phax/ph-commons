@@ -45,6 +45,7 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader
     return size () == 0;
   }
 
+  @Override
   default boolean isNotEmpty ()
   {
     return size () > 0;

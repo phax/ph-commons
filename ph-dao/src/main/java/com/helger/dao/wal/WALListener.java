@@ -77,6 +77,11 @@ public final class WALListener extends AbstractGlobalSingleton
   @GuardedBy ("m_aRWLock")
   private final ICommonsMap <String, WALListener.WALItem> m_aScheduledItems = new CommonsHashMap <> ();
 
+  /**
+   * Constructor
+   *
+   * @deprecated Called via reflection - don't call it yourself
+   */
   @Deprecated
   @UsedViaReflection
   public WALListener ()

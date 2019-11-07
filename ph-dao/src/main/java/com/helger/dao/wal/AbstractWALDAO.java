@@ -577,7 +577,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
           while (true)
           {
             // Read action type
-            String sActionTypeID;
+            final String sActionTypeID;
             try
             {
               sActionTypeID = StreamHelper.readSafeUTF (aOIS);

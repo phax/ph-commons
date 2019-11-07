@@ -157,7 +157,14 @@ public final class Punycode
           int k = BASE;
           while (true)
           {
-            final int t = k <= bias ? TMIN : k >= bias + TMAX ? TMAX : k - bias;
+            final int t;
+            if (k <= bias)
+              t = TMIN;
+            else
+              if (k >= bias + TMAX)
+                t = TMAX;
+              else
+                t = k - bias;
             if (q < t)
               break;
             aSB.append ((char) _encode_digit (t + (q - t) % (BASE - t), false));
@@ -221,7 +228,14 @@ public final class Punycode
         if (digit > (Integer.MAX_VALUE - i) / w)
           throw new DecodeException ("Overflow");
         i += digit * w;
-        final int t = k <= bias ? TMIN : k >= bias + TMAX ? TMAX : k - bias;
+        final int t;
+        if (k <= bias)
+          t = TMIN;
+        else
+          if (k >= bias + TMAX)
+            t = TMAX;
+          else
+            t = k - bias;
         if (digit < t)
           break;
         if (w > Integer.MAX_VALUE / (BASE - t))

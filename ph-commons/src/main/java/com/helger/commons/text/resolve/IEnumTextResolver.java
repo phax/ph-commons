@@ -48,9 +48,23 @@ public interface IEnumTextResolver
   @Nullable
   String getText (@Nonnull Enum <?> aEnum, @Nonnull IHasText aTP, @Nonnull Locale aContentLocale);
 
+  /**
+   * Get the text of an enumeration item.
+   *
+   * @param aEnum
+   *        The enumeration item to get the unique ID of. May not be
+   *        <code>null</code>.
+   * @param aTP
+   *        The text provider containing the text. May not be <code>null</code>.
+   * @param aContentLocale
+   *        The locale to be used. May not be <code>null</code>.
+   * @return <code>null</code> if no text could be resolved.
+   * @deprecated Use {@link #getText(Enum, IHasText, Locale)} instead when no
+   *             argument is needed
+   */
   @Nullable
   @Deprecated
-  @DevelopersNote ("Use getText instead when no argument is needed!")
+  @DevelopersNote ("Use getText instead when no argument is needed")
   default String getTextWithArgs (@Nonnull final Enum <?> aEnum,
                                   @Nonnull final IHasTextWithArgs aTP,
                                   @Nonnull final Locale aContentLocale)

@@ -122,17 +122,20 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
     return m_aBytes.size ();
   }
 
+  @Override
   public boolean isEmpty ()
   {
     return m_aBytes.isEmpty ();
   }
 
   @Nonnull
+  @Override
   public InputStream getInputStream ()
   {
     return m_aBytes.getInputStream ();
   }
 
+  @Override
   public boolean isReadMultiple ()
   {
     return m_aBytes.isReadMultiple ();

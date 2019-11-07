@@ -271,10 +271,21 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
     m_aMap.put (sID, aItem);
   }
 
+  /**
+   * The super method must be called every time something changed in the DAO. It
+   * triggers the writing to a file if auto-save is active. This method must be
+   * called within a write-lock as it is not locked!
+   *
+   * @param aModifiedElement
+   *        The modified data element. May not be <code>null</code>.
+   * @param eActionType
+   *        The action that was performed. May not be <code>null</code>.
+   * @deprecated Avoid that this method is overridden
+   */
   @Override
   @MustBeLocked (ELockType.WRITE)
   @Deprecated
-  @DevelopersNote ("Avoid that this method is overridden!")
+  @DevelopersNote ("Avoid that this method is overridden")
   protected final void markAsChanged (@Nonnull final IMPLTYPE aModifiedElement,
                                       @Nonnull final EDAOActionType eActionType)
   {

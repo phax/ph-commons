@@ -91,6 +91,7 @@ public class BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collection
   public BasicFolderTreeItem (@Nonnull final ITEMTYPE aParent, @Nonnull final KEYTYPE aDataID)
   {
     super (aParent, aDataID);
+    // Cast is necessary to access the implementation
     m_aKeyCombinator = ((BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>) aParent).m_aKeyCombinator;
   }
 

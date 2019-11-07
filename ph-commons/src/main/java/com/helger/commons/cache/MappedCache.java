@@ -83,7 +83,7 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
   // The main cache. Uses a generic Wrapper to allow to store null values and
   // determine them as such. Lazily created.
   @GuardedBy ("m_aRWLock")
-  private transient ICommonsMap <KEYSTORETYPE, Wrapper <VALUETYPE>> m_aCache;
+  private ICommonsMap <KEYSTORETYPE, Wrapper <VALUETYPE>> m_aCache;
 
   /**
    * Constructor

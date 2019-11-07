@@ -119,6 +119,7 @@ public class RFC2616Codec implements ICharArrayCodec
   }
 
   @Nonnegative
+  @Override
   public int getMaximumEncodedLength (@Nonnegative final int nDecodedLen)
   {
     // Worst case: each char needs quoting
@@ -157,6 +158,7 @@ public class RFC2616Codec implements ICharArrayCodec
   }
 
   @Nonnegative
+  @Override
   public int getMaximumDecodedLength (@Nonnegative final int nEncodedLen)
   {
     if (nEncodedLen < 2)
