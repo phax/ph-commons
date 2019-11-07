@@ -16,8 +16,6 @@
  */
 package com.helger.commons.cache;
 
-import javax.annotation.Nullable;
-
 import com.helger.commons.lang.IHasSize;
 import com.helger.commons.name.IHasName;
 
@@ -33,13 +31,13 @@ import com.helger.commons.name.IHasName;
 public interface ICache <KEYTYPE, VALUETYPE> extends IHasName, IHasSize
 {
   /**
-   * Get the cached value associated with the passed key.
+   * Get the cached value associated with the passed key. If the value is not in
+   * the cache, it might be automatically retrieved from a respective provider.
    *
    * @param aKey
    *        The key to be looked up. May be <code>null</code>able or not -
    *        depends upon the implementation.
    * @return <code>null</code> if no such value is in the cache.
    */
-  @Nullable
   VALUETYPE getFromCache (KEYTYPE aKey);
 }

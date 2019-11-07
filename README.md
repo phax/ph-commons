@@ -40,6 +40,7 @@ This project was the following modules:
     * Added new classes `CountingReader` and `CountingWriter`
     * `JsonParser.parse` now returns an enum indicating EOI or not (incompatible change)
     * Improved performance of JsonParser by reusing buffers internally
+    * Added new class `MappedCache` that is a generalization of `Cache`. It adds a mapper to determine the cache key.
 * v9.3.7 - 2019-09-25
     * Extended `IJAXBValidator` API to have a `validate` method that takes an outside `ErrorList`
     * Updated to BouncyCastle 1.63
