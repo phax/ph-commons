@@ -42,7 +42,7 @@ public class Wrapper <DATATYPE> implements IMutableWrapper <DATATYPE>, ICloneabl
   private DATATYPE m_aObj;
 
   /**
-   * Default constructor.
+   * Default constructor. Wraps a <code>null</code> values.
    */
   public Wrapper ()
   {}
