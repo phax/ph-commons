@@ -267,7 +267,7 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
    * Put a new value into the cache. Use this in derived classes to e.g. prefill
    * the cache with existing values.
    *
-   * @param aCacheKey
+   * @param aKey
    *        The cache key. May be <code>null</code> depending on the cache key
    *        provider.
    * @param aValue
