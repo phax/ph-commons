@@ -25,6 +25,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
@@ -39,6 +42,8 @@ import com.helger.commons.lang.priviledged.IPrivilegedAction;
 @Immutable
 public final class ClassLoaderHelper
 {
+  private static final Logger LOGGER = LoggerFactory.getLogger (ClassLoaderHelper.class);
+
   @PresentForCodeCoverage
   private static final ClassLoaderHelper s_aInstance = new ClassLoaderHelper ();
 
@@ -127,8 +132,33 @@ public final class ClassLoaderHelper
     // Ensure the path does NOT starts with a "/"
     final String sPathWithoutSlash = _getPathWithoutLeadingSlash (sPath);
 
-    // returns null if not found
-    return aClassLoader.getResource (sPathWithoutSlash);
+    try
+    {
+      // returns null if not found
+      return aClassLoader.getResource (sPathWithoutSlash);
+    }
+    catch (final RuntimeException ex)
+    {
+      /**
+       * Source: https://github.com/phax/as2-lib/issues/99
+       *
+       * <pre>
+       * java.lang.IllegalArgumentException: name
+        at sun.misc.URLClassPath$Loader.findResource(URLClassPath.java:703) ~[na:1.8.0_212]
+        at sun.misc.URLClassPath.findResource(URLClassPath.java:225) ~[na:1.8.0_212]
+        at java.net.URLClassLoader$2.run(URLClassLoader.java:572) ~[na:1.8.0_212]
+        at java.net.URLClassLoader$2.run(URLClassLoader.java:570) ~[na:1.8.0_212]
+        at java.security.AccessController.doPrivileged(Native Method) ~[na:1.8.0_212]
+        at java.net.URLClassLoader.findResource(URLClassLoader.java:569) ~[na:1.8.0_212]
+        at org.springframework.boot.loader.LaunchedURLClassLoader.findResource(LaunchedURLClassLoader.java:58) ~[as2-client-0.0.1-SNAPSHOT.jar:0.0.1-SNAPSHOT]
+        at java.lang.ClassLoader.getResource(ClassLoader.java:1096) ~[na:1.8.0_212]
+        at org.apache.catalina.loader.WebappClassLoaderBase.getResource(WebappClassLoaderBase.java:1048) ~[tomcat-embed-core-9.0.26.jar!/:9.0.26]
+        at com.helger.commons.lang.ClassLoaderHelper.getResource(ClassLoaderHelper.java:131) ~[ph-commons-9.3.7.jar!/:9.3.7]
+       * </pre>
+       */
+      LOGGER.warn ("Unexpected runtime exception gathering resource '" + sPathWithoutSlash + "'", ex);
+      return null;
+    }
   }
 
   /**

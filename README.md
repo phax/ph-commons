@@ -28,6 +28,8 @@ This project was the following modules:
 
 ## News and noteworthy
 
+* v9.3.9 - work in progress
+    * Made `ClassLoaderHelper.getResource` more robust
 * v9.3.8 - 2019-11-07
     * Fixed method name in `RFC2616Codec` - `getMaximumEncodedLength` instead of `getEncodedLength`; added `getMaximumDecodedLength`
     * Avoid double quoting in `HttpHeaderMap.getUnifiedValue` if the value already seems to be quoted 
