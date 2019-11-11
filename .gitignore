@@ -19,4 +19,5 @@ pom.xml.versionsBackup
 .settings/ 
 .project 
 .classpath 
+ph-json/citylots.json
 ph-xml/felix-cache/
