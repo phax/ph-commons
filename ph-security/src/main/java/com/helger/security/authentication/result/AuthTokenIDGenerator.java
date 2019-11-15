@@ -16,7 +16,7 @@
  */
 package com.helger.security.authentication.result;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -48,7 +48,7 @@ public final class AuthTokenIDGenerator
   public static String generateNewTokenID (@Nonnegative final int nBytes)
   {
     final byte [] aID = new byte [nBytes];
-    new Random ().nextBytes (aID);
+    ThreadLocalRandom.current ().nextBytes (aID);
     return StringHelper.getHexEncoded (aID);
   }
 }

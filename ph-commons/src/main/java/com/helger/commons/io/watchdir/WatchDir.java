@@ -29,7 +29,7 @@ import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -372,7 +372,8 @@ public class WatchDir implements AutoCloseable
    */
   public void runAsync ()
   {
-    final Thread aThread = new Thread (this::processEvents, "WatchDir-" + m_aStartDir + "-" + new Random ().nextInt ());
+    final Thread aThread = new Thread (this::processEvents,
+                                       "WatchDir-" + m_aStartDir + "-" + ThreadLocalRandom.current ().nextInt ());
     aThread.setDaemon (true);
     aThread.start ();
   }

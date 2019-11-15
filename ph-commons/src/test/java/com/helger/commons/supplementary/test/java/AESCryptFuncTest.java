@@ -20,7 +20,7 @@ import static org.junit.Assert.assertArrayEquals;
 
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
@@ -90,7 +90,7 @@ public final class AESCryptFuncTest
       {
         // Why so ever - create an AES key on our own!
         final byte [] aBytes = new byte [nKeyLengthBytes];
-        new Random ().nextBytes (aBytes);
+        ThreadLocalRandom.current ().nextBytes (aBytes);
         return new AESSecretKey (aBytes);
       }
     }

@@ -19,7 +19,7 @@ package com.helger.commons.url;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
@@ -104,7 +104,7 @@ public interface IURLParameterList <IMPLTYPE extends IURLParameterList <IMPLTYPE
   @Nonnull
   default IMPLTYPE addRandom (@Nonnull @Nonempty final String sName)
   {
-    return add (sName, MathHelper.abs (new Random ().nextLong ()));
+    return add (sName, MathHelper.abs (ThreadLocalRandom.current ().nextLong ()));
   }
 
   /**

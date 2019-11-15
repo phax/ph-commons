@@ -19,7 +19,7 @@ package com.helger.commons.io.stream;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.junit.Test;
 
@@ -47,7 +47,7 @@ public final class NonBlockingByteArrayOutputStreamTest
 
     final NonBlockingByteArrayOutputStream b = new NonBlockingByteArrayOutputStream ();
     final byte [] buf = new byte [100];
-    new Random ().nextBytes (buf);
+    ThreadLocalRandom.current ().nextBytes (buf);
     try
     {
       b.write (null, 0, 10);

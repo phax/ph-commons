@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.junit.Test;
 
@@ -40,7 +40,7 @@ public final class NonBlockingByteArrayInputStreamTest
   public void testAll () throws IOException
   {
     final byte [] buf = new byte [100];
-    new Random ().nextBytes (buf);
+    ThreadLocalRandom.current ().nextBytes (buf);
     try
     {
       new NonBlockingByteArrayInputStream (null);

@@ -22,7 +22,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.junit.Test;
 
@@ -4361,7 +4361,7 @@ public final class LZWCodecTest
   {
     // check larger buffers with potential overflows
     final byte [] buf = new byte [14200];
-    new Random ().nextBytes (buf);
+    ThreadLocalRandom.current ().nextBytes (buf);
     _testEncodeDecode (buf);
   }
 }
