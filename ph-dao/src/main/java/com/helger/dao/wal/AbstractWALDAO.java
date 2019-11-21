@@ -141,13 +141,13 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
   @Nonnull
   private static String _getFilenameNew (@Nonnull final String sFilename)
   {
-    return sFilename + ".new";
+    return sFilename + FILENAME_EXTENSION_NEW;
   }
 
   @Nonnull
   private static String _getFilenamePrev (@Nonnull final String sFilename)
   {
-    return sFilename + ".prev";
+    return sFilename + FILENAME_EXTENSION_PREV;
   }
 
   protected AbstractWALDAO (@Nonnull final Class <DATATYPE> aDataTypeClass,
@@ -167,11 +167,17 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
     {
       try
       {
+        // A ".new" file already exists - previous changes could not be
+        // performed.
         final File aFileNew = getSafeFile (_getFilenameNew (sFilename), EMode.WRITE);
         if (aFileNew.exists ())
-          throw new IllegalStateException ("The temporary WAL file " +
+          throw new IllegalStateException ("The temporary WAL file '" +
                                            aFileNew.getAbsolutePath () +
-                                           " already exists!");
+                                           "' already exists! If the '" +
+                                           FILENAME_EXTENSION_NEW +
+                                           "' file is complete, rename it to match '" +
+                                           sFilename +
+                                           "'. Please resolve this conflict manually.");
       }
       catch (final DAOException ex)
       {
@@ -179,11 +185,17 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
       }
       try
       {
+        // A ".prev" file still exist, meaning the deletion failed. Most likely
+        // this happens together with the ".new" error above
         final File aFilePrev = getSafeFile (_getFilenamePrev (sFilename), EMode.WRITE);
         if (aFilePrev.exists ())
-          throw new IllegalStateException ("The temporary WAL file " +
+          throw new IllegalStateException ("The temporary WAL file '" +
                                            aFilePrev.getAbsolutePath () +
-                                           " already exists!");
+                                           "' already exists! If the target filename '" +
+                                           sFilename +
+                                           "' exists and is complete, you may consider deleting this '" +
+                                           FILENAME_EXTENSION_PREV +
+                                           "' file. Please resolve this conflict manually.");
       }
       catch (final DAOException ex)
       {
@@ -244,6 +256,19 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
   @MustBeLocked (ELockType.WRITE)
   protected abstract EChange onRead (@Nonnull IMicroDocument aDoc);
 
+  /**
+   * Get a {@link File} object for the specified filename that can perform the
+   * respective operation indicated by the "mode" parameter.
+   *
+   * @param sFilename
+   *        Filename to use. May not be <code>null</code>.
+   * @param eMode
+   *        The access mode to be used. May not be <code>null</code>.
+   * @return The created and checked {@link File} if everything is fine,
+   *         otherwise an exception is thrown.
+   * @throws DAOException
+   *         If the requested access mode cannot be provided.
+   */
   @Nonnull
   protected final File getSafeFile (@Nonnull final String sFilename, @Nonnull final EMode eMode) throws DAOException
   {
@@ -251,55 +276,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
     ValueEnforcer.notNull (eMode, "Mode");
 
     final File aFile = m_aIO.getFile (sFilename);
-    if (aFile.exists ())
-    {
-      // file exist -> must be a file!
-      if (!aFile.isFile ())
-        throw new DAOException ("The passed filename '" +
-                                sFilename +
-                                "' is not a file - maybe a directory? Path is '" +
-                                aFile.getAbsolutePath () +
-                                "'");
-
-      switch (eMode)
-      {
-        case READ:
-          // Check for read-rights
-          if (!aFile.canRead ())
-            throw new DAOException ("The DAO of class " +
-                                    getClass ().getName () +
-                                    " has no access rights to read from '" +
-                                    aFile.getAbsolutePath () +
-                                    "'");
-          break;
-        case WRITE:
-          // Check for write-rights
-          if (!aFile.canWrite ())
-            throw new DAOException ("The DAO of class " +
-                                    getClass ().getName () +
-                                    " has no access rights to write to '" +
-                                    aFile.getAbsolutePath () +
-                                    "'");
-          break;
-      }
-    }
-    else
-    {
-      // Ensure the parent directory is present
-      final File aParentDir = aFile.getParentFile ();
-      if (aParentDir != null)
-      {
-        final FileIOError aError = FileOperationManager.INSTANCE.createDirRecursiveIfNotExisting (aParentDir);
-        if (aError.isFailure ())
-          throw new DAOException ("The DAO of class " +
-                                  getClass ().getName () +
-                                  " failed to create parent directory '" +
-                                  aParentDir +
-                                  "': " +
-                                  aError);
-      }
-    }
-
+    checkFileAccess (aFile, eMode);
     return aFile;
   }
 

@@ -16,10 +16,13 @@
  */
 package com.helger.dao;
 
+import java.io.File;
+
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ELockType;
 import com.helger.commons.annotation.MustBeLocked;
 import com.helger.commons.annotation.ReturnsMutableObject;
@@ -27,6 +30,8 @@ import com.helger.commons.callback.CallbackList;
 import com.helger.commons.collection.NonBlockingStack;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.debug.GlobalDebug;
+import com.helger.commons.io.file.FileIOError;
+import com.helger.commons.io.file.FileOperationManager;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -39,6 +44,16 @@ public abstract class AbstractDAO implements IDAO
 {
   /** By default auto-save is enabled */
   public static final boolean DEFAULT_AUTO_SAVE_ENABLED = true;
+  /**
+   * The default extension for an old file that was not yet deleted. Mainly used
+   * in the WAL DAO
+   */
+  public static final String FILENAME_EXTENSION_PREV = ".prev";
+  /**
+   * The default extension for a file that is newly created. Mainly used in the
+   * WAL DAO
+   */
+  public static final String FILENAME_EXTENSION_NEW = ".new";
 
   private static final CallbackList <IDAOReadExceptionCallback> s_aExceptionHandlersRead = new CallbackList <> ();
   private static final CallbackList <IDAOWriteExceptionCallback> s_aExceptionHandlersWrite = new CallbackList <> ();
@@ -75,8 +90,8 @@ public abstract class AbstractDAO implements IDAO
   }
 
   /**
-   * @return <code>true</code> if logging is disabled, <code>false</code> if it is
-   *         enabled.
+   * @return <code>true</code> if logging is disabled, <code>false</code> if it
+   *         is enabled.
    * @since 9.2.0
    */
   public static boolean isSilentMode ()
@@ -190,5 +205,65 @@ public abstract class AbstractDAO implements IDAO
                                        .append ("pendingChanges", m_bPendingChanges)
                                        .append ("autoSaveEnabled", m_bAutoSaveEnabled)
                                        .getToString ();
+  }
+
+  /**
+   * Check the access to the passed file using the specified mode. If the access
+   * is not provided, a {@link DAOException} is thrown. If everything is good,
+   * this method returns without a comment.
+   *
+   * @param aFile
+   *        The file to check. May not be <code>null</code>.
+   * @param eMode
+   *        The access mode. May not be <code>null</code>.
+   * @throws DAOException
+   *         If the requested access mode cannot be provided.
+   */
+  protected static void checkFileAccess (@Nonnull final File aFile, @Nonnull final EMode eMode) throws DAOException
+  {
+    ValueEnforcer.notNull (aFile, "File");
+    ValueEnforcer.notNull (eMode, "Mode");
+
+    final String sFilename = aFile.toString ();
+    if (aFile.exists ())
+    {
+      // file exist -> must be a file!
+      if (!aFile.isFile ())
+        throw new DAOException ("The passed filename '" +
+                                sFilename +
+                                "' is not a file - maybe a directory or a symlink? Path is '" +
+                                aFile.getAbsolutePath () +
+                                "'");
+
+      switch (eMode)
+      {
+        case READ:
+          // Check for read-rights
+          if (!aFile.canRead ())
+            throw new DAOException ("Read access rights from '" + aFile.getAbsolutePath () + "' are missing.");
+          break;
+        case WRITE:
+          // Check for write-rights
+          if (!aFile.canWrite ())
+            throw new DAOException ("Write access rights to '" + aFile.getAbsolutePath () + "' are missing");
+          break;
+      }
+    }
+    else
+    {
+      // Ensure the parent directory is present
+      final File aParentDir = aFile.getParentFile ();
+      if (aParentDir != null)
+      {
+        final FileIOError aError = FileOperationManager.INSTANCE.createDirRecursiveIfNotExisting (aParentDir);
+        if (aError.isFailure ())
+          throw new DAOException ("Failed to create parent directory '" +
+                                  aParentDir +
+                                  "' of '" +
+                                  aFile.getAbsolutePath () +
+                                  "': " +
+                                  aError);
+      }
+    }
   }
 }
