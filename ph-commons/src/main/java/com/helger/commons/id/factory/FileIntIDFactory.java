@@ -25,8 +25,14 @@ import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.ELockType;
+import com.helger.commons.annotation.MustBeLocked;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.io.file.EFileIOErrorCode;
+import com.helger.commons.io.file.EFileIOOperation;
 import com.helger.commons.io.file.FileHelper;
+import com.helger.commons.io.file.FileIOError;
+import com.helger.commons.io.file.FileOperationManager;
 import com.helger.commons.io.file.SimpleFileIO;
 import com.helger.commons.string.StringParser;
 import com.helger.commons.string.ToStringGenerator;
@@ -40,14 +46,14 @@ import com.helger.commons.string.ToStringGenerator;
 public class FileIntIDFactory extends AbstractPersistingIntIDFactory
 {
   /** The charset to use for writing the file */
-  @Nonnull
   public static final Charset CHARSET_TO_USE = StandardCharsets.ISO_8859_1;
+
   /** The default number of values to reserve with a single IO action */
-  @Nonnegative
   public static final int DEFAULT_RESERVE_COUNT = 20;
 
-  @Nonnull
   private final File m_aFile;
+  private final File m_aPrevFile;
+  private final File m_aNewFile;
 
   public FileIntIDFactory (@Nonnull final File aFile)
   {
@@ -58,13 +64,36 @@ public class FileIntIDFactory extends AbstractPersistingIntIDFactory
   {
     super (nReserveCount);
     ValueEnforcer.notNull (aFile, "File");
-    ValueEnforcer.isTrue (FileHelper.canReadAndWriteFile (aFile),
-                          () -> "Cannot read and/or write the file " + aFile + "!");
+
     m_aFile = aFile;
+    m_aPrevFile = new File (aFile.getParentFile (), aFile.getName () + ".prev");
+    m_aNewFile = new File (aFile.getParentFile (), aFile.getName () + ".new");
+
+    if (!FileHelper.canReadAndWriteFile (m_aFile))
+      throw new IllegalArgumentException ("Cannot read and/or write the file " + m_aFile + "!");
+    if (!FileHelper.canReadAndWriteFile (m_aPrevFile))
+      throw new IllegalArgumentException ("Cannot read and/or write the file " + m_aPrevFile + "!");
+    if (!FileHelper.canReadAndWriteFile (m_aNewFile))
+      throw new IllegalArgumentException ("Cannot read and/or write the file " + m_aNewFile + "!");
+
+    if (m_aNewFile.exists ())
+      throw new IllegalStateException ("The temporary ID file '" +
+                                       m_aNewFile.getAbsolutePath () +
+                                       "' already exists! Please use the file with the highest number. Please resolve this conflict manually.");
+    if (m_aPrevFile.exists ())
+      throw new IllegalStateException ("The temporary ID file '" +
+                                       m_aPrevFile.getAbsolutePath () +
+                                       "' already exists! If the ID file '" +
+                                       m_aFile.getAbsolutePath () +
+                                       "' exists and contains a higher number, you may consider deleting this file. Please resolve this conflict manually.");
   }
 
+  /**
+   * @return The {@link File} to write to, as provided in the constructor. Never
+   *         <code>null</code>.
+   */
   @Nonnull
-  public File getFile ()
+  public final File getFile ()
   {
     return m_aFile;
   }
@@ -73,11 +102,48 @@ public class FileIntIDFactory extends AbstractPersistingIntIDFactory
    * Note: this method must only be called from within a locked section!
    */
   @Override
+  @MustBeLocked (ELockType.WRITE)
   protected final int readAndUpdateIDCounter (@Nonnegative final int nReserveCount)
   {
+    // Read the old content
     final String sContent = SimpleFileIO.getFileAsString (m_aFile, CHARSET_TO_USE);
     final int nRead = sContent != null ? StringParser.parseInt (sContent.trim (), 0) : 0;
-    SimpleFileIO.writeFile (m_aFile, Integer.toString (nRead + nReserveCount), CHARSET_TO_USE);
+
+    // Write the new content to the new file
+    // This will fail, if the disk is full
+    SimpleFileIO.writeFile (m_aNewFile, Integer.toString (nRead + nReserveCount), CHARSET_TO_USE);
+
+    FileIOError aIOError;
+    boolean bRenamedToPrev = false;
+    if (m_aFile.exists ())
+    {
+      // Rename the existing file to the prev file
+      aIOError = FileOperationManager.INSTANCE.renameFile (m_aFile, m_aPrevFile);
+      bRenamedToPrev = true;
+    }
+    else
+      aIOError = new FileIOError (EFileIOOperation.RENAME_FILE, EFileIOErrorCode.NO_ERROR);
+    if (aIOError.isSuccess ())
+    {
+      // Rename the new file to the destination file
+      aIOError = FileOperationManager.INSTANCE.renameFile (m_aNewFile, m_aFile);
+      if (aIOError.isSuccess ())
+      {
+        // Finally delete the prev file (may not be existing for fresh
+        // instances)
+        aIOError = FileOperationManager.INSTANCE.deleteFileIfExisting (m_aPrevFile);
+      }
+      else
+      {
+        // 2nd rename failed
+        // -> Revert original rename to stay as consistent as possible
+        if (bRenamedToPrev)
+          FileOperationManager.INSTANCE.renameFile (m_aPrevFile, m_aFile);
+      }
+    }
+    if (aIOError.isFailure ())
+      throw new IllegalStateException ("Error on rename(existing-old)/rename(new-existing)/delete(old): " + aIOError);
+
     return nRead;
   }
 

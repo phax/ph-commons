@@ -17,9 +17,12 @@
 package com.helger.commons.id.factory;
 
 import javax.annotation.Nonnegative;
+import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.ELockType;
+import com.helger.commons.annotation.IsLocked;
 import com.helger.commons.concurrent.SimpleLock;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
@@ -35,19 +38,32 @@ import com.helger.commons.string.ToStringGenerator;
 @ThreadSafe
 public abstract class AbstractPersistingLongIDFactory implements ILongIDFactory
 {
-  private final SimpleLock m_aLock = new SimpleLock ();
+  protected final SimpleLock m_aLock = new SimpleLock ();
   private final int m_nReserveCount;
+  @GuardedBy ("m_aLock")
   private long m_nID = 0L;
+  @GuardedBy ("m_aLock")
   private long m_nLastID = -1L;
 
+  /**
+   * Constructor.
+   *
+   * @param nReserveCount
+   *        The number of IDs to reserve per persistence layer access. Must be
+   *        &gt; 0.
+   */
   public AbstractPersistingLongIDFactory (@Nonnegative final int nReserveCount)
   {
     ValueEnforcer.isGT0 (nReserveCount, "ReserveCount");
     m_nReserveCount = nReserveCount;
   }
 
+  /**
+   * @return The number of IDs to reserve, as provided in the constructor.
+   *         Always &gt; 0.
+   */
   @Nonnegative
-  protected final int getReserveCount ()
+  public final int getReserveCount ()
   {
     // As reserve count is final, we don't need to lock access to it!
     return m_nReserveCount;
@@ -77,6 +93,7 @@ public abstract class AbstractPersistingLongIDFactory implements ILongIDFactory
    *         {@link com.helger.commons.CGlobal#ILLEGAL_ULONG} in case of an
    *         error.
    */
+  @IsLocked (ELockType.WRITE)
   protected abstract long readAndUpdateIDCounter (@Nonnegative int nReserveCount);
 
   /*
@@ -85,7 +102,9 @@ public abstract class AbstractPersistingLongIDFactory implements ILongIDFactory
    */
   public final long getNewID ()
   {
-    return m_aLock.locked ( () -> {
+    m_aLock.lock ();
+    try
+    {
       if (m_nID >= m_nLastID)
       {
         // Read new IDs
@@ -102,8 +121,15 @@ public abstract class AbstractPersistingLongIDFactory implements ILongIDFactory
         m_nID = nNewID;
         m_nLastID = nNewID + m_nReserveCount;
       }
-      return m_nID++;
-    });
+
+      final long ret = m_nID;
+      m_nID++;
+      return ret;
+    }
+    finally
+    {
+      m_aLock.unlock ();
+    }
   }
 
   @Override
@@ -126,9 +152,9 @@ public abstract class AbstractPersistingLongIDFactory implements ILongIDFactory
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("reserveCount", m_nReserveCount)
+    return new ToStringGenerator (this).append ("ReserveCount", m_nReserveCount)
                                        .append ("ID", m_nID)
-                                       .append ("lastID", m_nLastID)
+                                       .append ("LastID", m_nLastID)
                                        .getToString ();
   }
 }

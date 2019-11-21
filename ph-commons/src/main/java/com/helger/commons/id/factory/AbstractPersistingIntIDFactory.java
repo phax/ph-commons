@@ -17,6 +17,7 @@
 package com.helger.commons.id.factory;
 
 import javax.annotation.Nonnegative;
+import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
@@ -37,17 +38,30 @@ import com.helger.commons.string.ToStringGenerator;
 @ThreadSafe
 public abstract class AbstractPersistingIntIDFactory implements IIntIDFactory
 {
-  private final SimpleLock m_aLock = new SimpleLock ();
+  protected final SimpleLock m_aLock = new SimpleLock ();
   private final int m_nReserveCount;
+  @GuardedBy ("m_aLock")
   private int m_nID = 0;
+  @GuardedBy ("m_aLock")
   private int m_nLastID = -1;
 
+  /**
+   * Constructor.
+   *
+   * @param nReserveCount
+   *        The number of IDs to reserve per persistence layer access. Must be
+   *        &gt; 0.
+   */
   public AbstractPersistingIntIDFactory (@Nonnegative final int nReserveCount)
   {
     ValueEnforcer.isGT0 (nReserveCount, "ReserveCount");
     m_nReserveCount = nReserveCount;
   }
 
+  /**
+   * @return The number of IDs to reserve, as provided in the constructor.
+   *         Always &gt; 0.
+   */
   @Nonnegative
   public final int getReserveCount ()
   {
@@ -88,7 +102,9 @@ public abstract class AbstractPersistingIntIDFactory implements IIntIDFactory
    */
   public final int getNewID ()
   {
-    return m_aLock.locked ( () -> {
+    m_aLock.lock ();
+    try
+    {
       if (m_nID >= m_nLastID)
       {
         // Read new IDs
@@ -105,8 +121,14 @@ public abstract class AbstractPersistingIntIDFactory implements IIntIDFactory
         m_nID = nNewID;
         m_nLastID = nNewID + m_nReserveCount;
       }
-      return m_nID++;
-    });
+      final int ret = m_nID;
+      m_nID++;
+      return ret;
+    }
+    finally
+    {
+      m_aLock.unlock ();
+    }
   }
 
   @Override
@@ -129,9 +151,9 @@ public abstract class AbstractPersistingIntIDFactory implements IIntIDFactory
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("reserveCount", m_nReserveCount)
+    return new ToStringGenerator (this).append ("ReserveCount", m_nReserveCount)
                                        .append ("ID", m_nID)
-                                       .append ("lastID", m_nLastID)
+                                       .append ("LastID", m_nLastID)
                                        .getToString ();
   }
 }
