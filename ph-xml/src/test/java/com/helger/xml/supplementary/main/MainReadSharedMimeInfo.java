@@ -18,7 +18,6 @@ package com.helger.xml.supplementary.main;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -26,6 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.impl.CommonsLinkedHashSet;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.exception.InitializationException;
 import com.helger.commons.io.resource.FileSystemResource;
@@ -82,7 +82,7 @@ public final class MainReadSharedMimeInfo
   public static void main (final String [] args)
   {
     LOGGER.info ("Reading shared-mime-info/freedesktop.org.xml");
-    final IMicroDocument aDoc = MicroReader.readMicroXML (new File ("src/test/resources/shared-mime-info/freedesktop.org.xml"));
+    final IMicroDocument aDoc = MicroReader.readMicroXML (new File ("src/test/resources/shared-mime-info/freedesktop.org.xml.in"));
     if (aDoc == null)
       throw new IllegalStateException ("Failed to read mime type info file!");
 
@@ -163,7 +163,7 @@ public final class MainReadSharedMimeInfo
       final String sOldExt = aEntry.getKey ();
       final String sOldMimeType = aEntry.getValue ();
       final MimeType aOldMimeType = MimeTypeParser.parseMimeType (sOldMimeType);
-      List <MimeTypeInfo> aNew;
+      ICommonsList <MimeTypeInfo> aNew;
 
       // First check for Mime Type, as they are unique
       aNew = aMgr.getAllInfosOfMimeType (aOldMimeType);
