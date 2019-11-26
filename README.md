@@ -33,6 +33,7 @@ This project was the following modules:
     * Updated "mime-type-info.xml" list with  shared-mime-info-spec 1.15
     * Moved code from `AbstractWALDAO` down to `AbstractDAO` for later reuse.
     * Reworked `FileIntIDFactory` and `FileLongIDFactory` to be more error resistent.
+    * Added support for the "jrt:" protocol
 * v9.3.8 - 2019-11-07
     * Fixed method name in `RFC2616Codec` - `getMaximumEncodedLength` instead of `getEncodedLength`; added `getMaximumDecodedLength`
     * Avoid double quoting in `HttpHeaderMap.getUnifiedValue` if the value already seems to be quoted 

@@ -136,7 +136,10 @@ public enum EURLProtocol implements IURLProtocol
   CID ("cid:"),
 
   /** Message ID (RFC 2392) */
-  MID ("mid:");
+  MID ("mid:"),
+
+  /** Java Runtime (JEP 220) */
+  JRT ("jrt:");
 
   private final String m_sProtocol;
 
