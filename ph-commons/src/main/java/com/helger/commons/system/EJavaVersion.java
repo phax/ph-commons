@@ -42,7 +42,8 @@ public enum EJavaVersion
   JDK_9 (53.0, 54.0),
   JDK_10 (54.0, 55.0),
   JDK_11 (55.0, 56.0),
-  JDK_12 (56.0, 57.0);
+  JDK_12 (56.0, 57.0),
+  JDK_13 (57.0, 58.0);
 
   /** The current version. */
   private static volatile EJavaVersion s_aInstance = null;
