@@ -35,6 +35,7 @@ This project was the following modules:
     * Reworked `FileIntIDFactory` and `FileLongIDFactory` to be more error resistant.
     * Added support for the "jrt:" protocol
     * Added support for JDK 13
+    * Extended `LocaleCache` with an API to specify what happens if a Locale is not present 
 * v9.3.8 - 2019-11-07
     * Fixed method name in `RFC2616Codec` - `getMaximumEncodedLength` instead of `getEncodedLength`; added `getMaximumDecodedLength`
     * Avoid double quoting in `HttpHeaderMap.getUnifiedValue` if the value already seems to be quoted 

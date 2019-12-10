@@ -41,6 +41,8 @@ public final class LocaleCacheTest
     assertNotNull (LocaleCache.getInstance ().getLocale ("de"));
     assertNotNull (LocaleCache.getInstance ().getLocale ("de_at"));
     assertNotNull (LocaleCache.getInstance ().getLocale ("de_surely_not_known"));
+    assertNull (LocaleCache.getInstance ().getLocaleExt ("en_surely_not_known", null));
+    assertNull (LocaleCache.getInstance ().getLocaleExt ("en_surely_not_known", (k, c, l, v) -> null));
     assertNull (LocaleCache.getInstance ().getLocale (null));
     assertNull (LocaleCache.getInstance ().getLocale (""));
 

@@ -49,6 +49,36 @@ import com.helger.commons.string.StringHelper;
 @Singleton
 public class LocaleCache
 {
+  /**
+   * Internal interface for a callback handler to be invoked, if a non-existing
+   * locale is found.
+   *
+   * @author Philip Helger
+   * @since 9.3.9
+   */
+  @FunctionalInterface
+  public static interface IMissingLocaleHandler
+  {
+    /**
+     * Called if a Locale is not yet present.
+     *
+     * @param sLocaleKey
+     *        The key for the internal map. Never <code>null</code>.
+     * @param sLanguage
+     *        Language to use. Never <code>null</code>.
+     * @param sCountry
+     *        Country to use. Never <code>null</code>.
+     * @param sVariant
+     *        variant to use. Never <code>null</code>.
+     * @return The created Locale or <code>null</code>.
+     */
+    @Nullable
+    Locale onMissingLocale (@Nonnull String sLocaleKey,
+                            @Nonnull String sLanguage,
+                            @Nonnull String sCountry,
+                            @Nonnull String sVariant);
+  }
+
   private static final class SingletonHolder
   {
     private static final LocaleCache s_aInstance = new LocaleCache ();
@@ -62,6 +92,11 @@ public class LocaleCache
   /** maps a string to a locale. */
   @GuardedBy ("m_aRWLock")
   private final ICommonsOrderedMap <String, Locale> m_aLocales = new CommonsLinkedHashMap <> ();
+
+  private final IMissingLocaleHandler m_aMissingLocaleHandlerInsert = (sLocaleKey, l, c, v) -> {
+    // Insert in write lock
+    return m_aRWLock.writeLocked ( () -> m_aLocales.computeIfAbsent (sLocaleKey, k -> new Locale (l, c, v)));
+  };
 
   protected LocaleCache ()
   {
@@ -92,17 +127,35 @@ public class LocaleCache
   @Nullable
   public Locale getLocale (@Nullable final String sLanguage)
   {
+    return getLocaleExt (sLanguage, m_aMissingLocaleHandlerInsert);
+  }
+
+  /**
+   * Get the {@link Locale} object matching the given language.
+   *
+   * @param sLanguage
+   *        The language to use. May be <code>null</code> or empty.
+   * @param aMissingHandler
+   *        An optional handler to be invoked if the provided locale is not yet
+   *        contained. May be <code>null</code>.
+   * @return <code>null</code> if the passed language string is
+   *         <code>null</code> or empty
+   * @since 9.3.9
+   */
+  @Nullable
+  public Locale getLocaleExt (@Nullable final String sLanguage, @Nullable final IMissingLocaleHandler aMissingHandler)
+  {
     if (sLanguage != null && sLanguage.length () > 2)
     {
       // parse
       final String [] aParts = StringHelper.getExplodedArray (LocaleHelper.LOCALE_SEPARATOR, sLanguage, 3);
       if (aParts.length == 3)
-        return getLocale (aParts[0], aParts[1], aParts[2]);
+        return getLocale (aParts[0], aParts[1], aParts[2], aMissingHandler);
       if (aParts.length == 2)
-        return getLocale (aParts[0], aParts[1], "");
+        return getLocale (aParts[0], aParts[1], "", aMissingHandler);
       // else fall through
     }
-    return getLocale (sLanguage, "", "");
+    return getLocale (sLanguage, "", "", aMissingHandler);
   }
 
   /**
@@ -119,6 +172,30 @@ public class LocaleCache
   public Locale getLocale (@Nullable final String sLanguage, @Nullable final String sCountry)
   {
     return getLocale (sLanguage, sCountry, "");
+  }
+
+  /**
+   * Get the {@link Locale} object matching the given locale string
+   *
+   * @param sLanguage
+   *        The language to use. May be <code>null</code> or empty.
+   * @param sCountry
+   *        Optional country to use. May be <code>null</code>.
+   * @param sVariant
+   *        Optional variant. May be <code>null</code>.
+   * @return <code>null</code> if all the passed parameters are
+   *         <code>null</code> or empty
+   */
+  @Nullable
+  public Locale getLocale (@Nullable final String sLanguage,
+                           @Nullable final String sCountry,
+                           @Nullable final String sVariant)
+  {
+    // Try fetching again in writeLock
+    // not yet in cache, create a new one
+    // -> may lead to illegal locales, but simpler than the error handling
+    // for all the possible illegal values
+    return getLocale (sLanguage, sCountry, sVariant, m_aMissingLocaleHandlerInsert);
   }
 
   /**
@@ -157,13 +234,18 @@ public class LocaleCache
    *        Optional country to use. May be <code>null</code>.
    * @param sVariant
    *        Optional variant. May be <code>null</code>.
+   * @param aMissingHandler
+   *        An optional handler to be invoked if the provided locale is not yet
+   *        contained. May be <code>null</code>.
    * @return <code>null</code> if all the passed parameters are
    *         <code>null</code> or empty
+   * @since 9.3.9
    */
   @Nullable
   public Locale getLocale (@Nullable final String sLanguage,
                            @Nullable final String sCountry,
-                           @Nullable final String sVariant)
+                           @Nullable final String sVariant,
+                           @Nullable final IMissingLocaleHandler aMissingHandler)
   {
     final String sRealLanguage = StringHelper.getNotNull (LocaleHelper.getValidLanguageCode (sLanguage));
     final String sRealCountry = StringHelper.getNotNull (LocaleHelper.getValidCountryCode (sCountry));
@@ -176,14 +258,8 @@ public class LocaleCache
     Locale aLocale = m_aRWLock.readLocked ( () -> m_aLocales.get (sLocaleKey));
     if (aLocale == null)
     {
-      // Try fetching again in writeLock
-      // not yet in cache, create a new one
-      // -> may lead to illegal locales, but simpler than the error handling
-      // for all the possible illegal values
-      aLocale = m_aRWLock.writeLocked ( () -> m_aLocales.computeIfAbsent (sLocaleKey,
-                                                                          k -> new Locale (sRealLanguage,
-                                                                                           sRealCountry,
-                                                                                           sRealVariant)));
+      if (aMissingHandler != null)
+        aLocale = aMissingHandler.onMissingLocale (sLocaleKey, sRealLanguage, sRealCountry, sRealVariant);
     }
     return aLocale;
   }
@@ -191,18 +267,17 @@ public class LocaleCache
   /**
    * Get all contained locales except the locales "all" and "independent"
    *
-   * @return a set with all contained locales, except "all" and "independent"
+   * @return a set with all contained locales, except "all" and "independent".
+   *         Never <code>null</code>.
    */
   @Nonnull
   @ReturnsMutableCopy
   public ICommonsList <Locale> getAllLocales ()
   {
-    return m_aRWLock.readLocked ( () -> {
-      final ICommonsList <Locale> ret = m_aLocales.copyOfValues ();
-      ret.remove (LocaleHelper.LOCALE_ALL);
-      ret.remove (LocaleHelper.LOCALE_INDEPENDENT);
-      return ret;
-    });
+    final ICommonsList <Locale> ret = m_aRWLock.readLocked ( () -> m_aLocales.copyOfValues ());
+    ret.remove (LocaleHelper.LOCALE_ALL);
+    ret.remove (LocaleHelper.LOCALE_INDEPENDENT);
+    return ret;
   }
 
   /**
