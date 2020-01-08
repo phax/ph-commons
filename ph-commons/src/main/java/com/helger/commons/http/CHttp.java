@@ -42,17 +42,23 @@ public final class CHttp
   public static final String EOL = "\r\n";
 
   /**
-   * The response codes for HTTP, as of version 1.1.
+   * The response codes for HTTP, as of version 1.1 plus extensions.
    */
 
   /**
    * HTTP Status-Code 100: Continue.
    */
   public static final int HTTP_CONTINUE = 100;
+
   /**
    * HTTP Status-Code 101: Switching Protocols.
    */
   public static final int HTTP_SWITCHING_PROTOCOLS = 101;
+
+  /**
+   * HTTP Status-Code 103: Early Hints.
+   */
+  public static final int HTTP_EARLY_HINTS = 103;
 
   /* 2XX: generally "OK" */
 
@@ -132,6 +138,11 @@ public final class CHttp
    * HTTP Status-Code 307: Temporary Redirect.
    */
   public static final int HTTP_TEMPORARY_REDIRECT = 307;
+
+  /**
+   * HTTP Status-Code 308: Permanent Redirect.
+   */
+  public static final int HTTP_PERMANENT_REDIRECT = 308;
 
   /* 4XX: client error */
 
@@ -230,6 +241,36 @@ public final class CHttp
    */
   public static final int HTTP_IM_A_TEAPOT = 418;
 
+  /**
+   * HTTP Status-Code 422: Unprocessable Entity.
+   */
+  public static final int HTTP_UNPROCESSABLE_ENTITY = 422;
+
+  /**
+   * HTTP Status-Code 426: Upgrade Required.
+   */
+  public static final int HTTP_UPGRADE_REQUIRED = 426;
+
+  /**
+   * HTTP Status-Code 428: Precondition Required.
+   */
+  public static final int HTTP_PRECONDITION_REQUIRED = 428;
+
+  /**
+   * HTTP Status-Code 429: Too Many Requests.
+   */
+  public static final int HTTP_TOO_MANY_REQUESTS = 429;
+
+  /**
+   * HTTP Status-Code 431: Request Header Fields Too Large.
+   */
+  public static final int HTTP_REQUEST_HEADER_FIELDS_TOO_LARGE = 431;
+
+  /**
+   * HTTP Status-Code 451: Unavailable For Legal Reasons.
+   */
+  public static final int HTTP_UNAVAILABLE_FOR_LEGA_REASONS = 451;
+
   /* 5XX: server error */
 
   /**
@@ -262,6 +303,26 @@ public final class CHttp
    */
   public static final int HTTP_VERSION_NOT_SUPPORTED = 505;
 
+  /**
+   * HTTP Status-Code 506: Variant Also Negotiates.
+   */
+  public static final int HTTP_VARIANT_ALSO_NEGOTIATES = 506;
+
+  /**
+   * HTTP Status-Code 507: Insufficient Storage.
+   */
+  public static final int HTTP_INSUFFICIENT_STORAGE = 507;
+
+  /**
+   * HTTP Status-Code 508: Loop Detected.
+   */
+  public static final int HTTP_LOOP_DETECTED = 508;
+
+  /**
+   * HTTP Status-Code 511: Network Authentication Required.
+   */
+  public static final int HTTP_NETWORK_AUTHENTICATION_REQUIRED = 511;
+
   @PresentForCodeCoverage
   private static final CHttp s_aInstance = new CHttp ();
 
@@ -276,12 +337,17 @@ public final class CHttp
     String sMsg;
     switch (nResponseCode)
     {
+      // 1XX
       case HTTP_CONTINUE:
         sMsg = "Continue";
         break;
       case HTTP_SWITCHING_PROTOCOLS:
         sMsg = "Switching Protocols";
         break;
+      case HTTP_EARLY_HINTS:
+        sMsg = "Early Hints";
+        break;
+      // 2XX
       case HTTP_OK:
         sMsg = "OK";
         break;
@@ -303,6 +369,7 @@ public final class CHttp
       case HTTP_PARTIAL_CONTENT:
         sMsg = "Partial Content";
         break;
+      // 3XX
       case HTTP_MULTIPLE_CHOICES:
         sMsg = "Multiple Choices";
         break;
@@ -327,6 +394,10 @@ public final class CHttp
       case HTTP_TEMPORARY_REDIRECT:
         sMsg = "Temporary Redirect";
         break;
+      case HTTP_PERMANENT_REDIRECT:
+        sMsg = "Permanent Redirect";
+        break;
+      // 4xx
       case HTTP_BAD_REQUEST:
         sMsg = "Bad Request";
         break;
@@ -384,6 +455,25 @@ public final class CHttp
       case HTTP_IM_A_TEAPOT:
         sMsg = "I'm a teapot";
         break;
+      case HTTP_UNPROCESSABLE_ENTITY:
+        sMsg = "Unprocessable Entity";
+        break;
+      case HTTP_UPGRADE_REQUIRED:
+        sMsg = "Upgrade Required";
+        break;
+      case HTTP_PRECONDITION_REQUIRED:
+        sMsg = "Precondition Required";
+        break;
+      case HTTP_TOO_MANY_REQUESTS:
+        sMsg = "Too Many Requests";
+        break;
+      case HTTP_REQUEST_HEADER_FIELDS_TOO_LARGE:
+        sMsg = "Request Header Fields Too Large";
+        break;
+      case HTTP_UNAVAILABLE_FOR_LEGA_REASONS:
+        sMsg = "Unavailable For Legal Reasons";
+        break;
+      // 5xx
       case HTTP_INTERNAL_SERVER_ERROR:
         sMsg = "Internal Server Error";
         break;
@@ -401,6 +491,18 @@ public final class CHttp
         break;
       case HTTP_VERSION_NOT_SUPPORTED:
         sMsg = "HTTP Version not supported";
+        break;
+      case HTTP_VARIANT_ALSO_NEGOTIATES:
+        sMsg = "Variant Also Negotiates";
+        break;
+      case HTTP_INSUFFICIENT_STORAGE:
+        sMsg = "Insufficient Storage";
+        break;
+      case HTTP_LOOP_DETECTED:
+        sMsg = "Loop Detected";
+        break;
+      case HTTP_NETWORK_AUTHENTICATION_REQUIRED:
+        sMsg = "Network Authentication Required";
         break;
       default:
         sMsg = "Unknown (" + nResponseCode + ")";

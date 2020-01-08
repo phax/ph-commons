@@ -28,6 +28,8 @@ This project was the following modules:
 
 ## News and noteworthy
 
+* v9.3.10 - work in progress
+    * Added support for additional HTTP status codes (103, 308, 422, 425, 426, 428, 429, 431, 451, 506, 507, 508 and 511)
 * v9.3.9 - 2019-12-11
     * Made `ClassLoaderHelper.getResource` more robust
     * Updated "mime-type-info.xml" list with  shared-mime-info-spec 1.15
