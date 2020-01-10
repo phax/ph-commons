@@ -327,7 +327,7 @@ public final class CertificateHelper
     {
       return convertStringToCertficate (sCertString);
     }
-    catch (CertificateException | IllegalArgumentException ex)
+    catch (final CertificateException | IllegalArgumentException ex)
     {
       return null;
     }
@@ -398,7 +398,7 @@ public final class CertificateHelper
       aCert.checkValidity ();
       return true;
     }
-    catch (CertificateExpiredException | CertificateNotYetValidException ex)
+    catch (final CertificateExpiredException | CertificateNotYetValidException ex)
     {
       return false;
     }
