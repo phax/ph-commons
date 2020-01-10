@@ -222,6 +222,28 @@ public final class CertificateHelper
   }
 
   /**
+   * Convert the passed byte array to an X.509 certificate object.
+   *
+   * @param aCertBytes
+   *        The original certificate bytes. May be <code>null</code> or empty.
+   * @return <code>null</code> if the passed byte array is <code>null</code>,
+   *         empty or not a valid certificate.
+   * @since 9.3.10
+   */
+  @Nullable
+  public static X509Certificate convertByteArrayToCertficateOrNull (@Nullable final byte [] aCertBytes)
+  {
+    try
+    {
+      return convertByteArrayToCertficate (aCertBytes);
+    }
+    catch (final CertificateException ex)
+    {
+      return null;
+    }
+  }
+
+  /**
    * Convert the passed String to an X.509 certificate without converting it to
    * a String first.
    *
