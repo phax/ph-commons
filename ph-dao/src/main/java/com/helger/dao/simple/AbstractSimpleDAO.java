@@ -256,8 +256,8 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
     {
       // required for testing
       if (!isSilentMode ())
-        if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("This DAO of class " + getClass ().getName () + " will not be able to read from a file");
+        if (LOGGER.isInfoEnabled ())
+          LOGGER.info ("This DAO of class " + getClass ().getName () + " will not be able to read from a file");
 
       // do not return - run initialization anyway
     }
@@ -276,7 +276,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
         if (bIsInitialization)
         {
           // initial setup for non-existing file
-          if (isDebugLogging ())
+          if (!isSilentMode ())
             if (LOGGER.isInfoEnabled ())
               LOGGER.info ("Trying to initialize DAO XML file '" + aFinalFile + "'");
 
@@ -307,7 +307,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
         else
         {
           // Read existing file
-          if (isDebugLogging ())
+          if (!isSilentMode ())
             if (LOGGER.isInfoEnabled ())
               LOGGER.info ("Trying to read DAO XML file '" + aFinalFile + "'");
 
@@ -350,8 +350,8 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
           internalSetPendingChanges (false);
         else
         {
-          if (LOGGER.isWarnEnabled ())
-            LOGGER.warn ("File '" + aFinalFile + "' has pending changes after initialRead!");
+          if (LOGGER.isErrorEnabled ())
+            LOGGER.error ("File '" + aFinalFile + "' has pending changes after initialRead!");
         }
       }
       catch (final Exception ex)
@@ -491,8 +491,8 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
     {
       // We're not operating on a file! Required for testing
       if (!isSilentMode ())
-        if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("The DAO of class " + getClass ().getName () + " cannot write to a file");
+        if (LOGGER.isInfoEnabled ())
+          LOGGER.info ("The DAO of class " + getClass ().getName () + " cannot write to a file");
       return ESuccess.FAILURE;
     }
 
@@ -503,7 +503,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
       m_sPreviousFilename = sFilename;
     }
 
-    if (isDebugLogging ())
+    if (!isSilentMode ())
       if (LOGGER.isInfoEnabled ())
         LOGGER.info ("Trying to write DAO file '" + sFilename + "'");
 

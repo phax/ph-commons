@@ -415,8 +415,8 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
     {
       // required for testing
       if (!isSilentMode ())
-        if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("This DAO of class " + getClass ().getName () + " will not be able to read from a file");
+        if (LOGGER.isInfoEnabled ())
+          LOGGER.info ("This DAO of class " + getClass ().getName () + " will not be able to read from a file");
 
       // do not return - run initialization anyway
     }
@@ -441,7 +441,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
         if (bIsInitialization)
         {
           // initial setup for non-existing file
-          if (isDebugLogging ())
+          if (!isSilentMode ())
             if (LOGGER.isInfoEnabled ())
               LOGGER.info ("Trying to initialize WAL DAO" +
                            (aFinalFile == null ? "" : " XML file '" + aFinalFile.getAbsolutePath () + "'"));
@@ -473,7 +473,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
         else
         {
           // Read existing file (aFinalFile must be set)
-          if (isDebugLogging ())
+          if (!isSilentMode ())
             if (LOGGER.isInfoEnabled ())
               LOGGER.info ("Trying to read WAL DAO XML file '" + aFinalFile.getAbsolutePath () + "'");
 
@@ -583,9 +583,9 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
                 onRecoveryErrorConvertToNative (eActionType, i, sElement);
                 continue;
               }
-              if (isDebugLogging ())
-                if (LOGGER.isDebugEnabled ())
-                  LOGGER.debug ("Trying to recover object [" + i + "] with " + sElement.length () + " chars");
+              if (!isSilentMode ())
+                if (LOGGER.isInfoEnabled ())
+                  LOGGER.info ("Trying to recover object [" + i + "] with " + sElement.length () + " chars");
 
               switch (eActionType)
               {
@@ -802,8 +802,9 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
     if (sFilename == null)
     {
       // We're not operating on a file! Required for testing
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("The DAO of class " + getClass ().getName () + " cannot write to a file");
+      if (!isSilentMode ())
+        if (LOGGER.isInfoEnabled ())
+          LOGGER.info ("The DAO of class " + getClass ().getName () + " cannot write to a file");
       return ESuccess.FAILURE;
     }
 
@@ -814,7 +815,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
       m_sPreviousFilename = sFilename;
     }
 
-    if (isDebugLogging ())
+    if (!isSilentMode ())
       if (LOGGER.isInfoEnabled ())
         LOGGER.info ("Trying to write WAL DAO file '" + sFilename + "'");
 

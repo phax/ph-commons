@@ -46,6 +46,12 @@ public final class GlobalDebug
    * By default production mode is disable
    */
   public static final boolean DEFAULT_PRODUCTION_MODE = false;
+  /**
+   * By default silent mode is enabled.
+   * 
+   * @since 9.3.10
+   */
+  public static final boolean DEFAULT_SILENT_MODE = true;
 
   public static final String SYSTEM_PROPERTY_MAIL_DEBUG = "mail.debug";
   public static final String SYSTEM_PROPERTY_JAVA_SECURITY_DEBUG = "java.security.debug";

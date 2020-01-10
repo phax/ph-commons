@@ -31,6 +31,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Singleton;
 import com.helger.commons.cache.Cache;
+import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.state.EChange;
 
@@ -50,9 +51,33 @@ public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBCont
   }
 
   private static final Logger LOGGER = LoggerFactory.getLogger (JAXBContextCache.class);
-  private static final AtomicBoolean SILENT_MODE = new AtomicBoolean (false);
+  private static final AtomicBoolean SILENT_MODE = new AtomicBoolean (GlobalDebug.DEFAULT_SILENT_MODE);
 
   private static boolean s_bDefaultInstantiated = false;
+
+  /**
+   * @return <code>true</code> if logging is disabled, <code>false</code> if it
+   *         is enabled.
+   * @since 9.3.10
+   */
+  public static boolean isSilentMode ()
+  {
+    return SILENT_MODE.get ();
+  }
+
+  /**
+   * Enable or disable certain regular log messages.
+   *
+   * @param bSilentMode
+   *        <code>true</code> to disable logging, <code>false</code> to enable
+   *        logging
+   * @return The previous value of the silent mode.
+   * @since 9.3.10
+   */
+  public static boolean setSilentMode (final boolean bSilentMode)
+  {
+    return SILENT_MODE.getAndSet (bSilentMode);
+  }
 
   private JAXBContextCache ()
   {
@@ -63,10 +88,11 @@ public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBCont
       final ClassLoader aClassLoader = aCacheKey.getClassLoader ();
 
       if (!isSilentMode ())
-        LOGGER.info ("Creating JAXB context for package " +
-                     aPackage.getName () +
-                     " using ClassLoader " +
-                     aClassLoader.toString ());
+        if (LOGGER.isInfoEnabled ())
+          LOGGER.info ("Creating JAXB context for package " +
+                       aPackage.getName () +
+                       " using ClassLoader " +
+                       aClassLoader.toString ());
 
       try
       {
@@ -105,16 +131,6 @@ public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBCont
     final JAXBContextCache ret = SingletonHolder.s_aInstance;
     s_bDefaultInstantiated = true;
     return ret;
-  }
-
-  public static boolean isSilentMode ()
-  {
-    return SILENT_MODE.get ();
-  }
-
-  public static boolean setSilentMode (final boolean bSilentMode)
-  {
-    return SILENT_MODE.getAndSet (bSilentMode);
   }
 
   /**
@@ -192,7 +208,8 @@ public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBCont
 
     // E.g. an internal class - try anyway!
     if (!isSilentMode ())
-      LOGGER.info ("Creating JAXB context for class " + aClass.getName ());
+      if (LOGGER.isInfoEnabled ())
+        LOGGER.info ("Creating JAXB context for class " + aClass.getName ());
 
     if (aClassLoader != null)
       LOGGER.warn ("Package " +
@@ -216,6 +233,7 @@ public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBCont
   @Nonnull
   public EChange removeFromCache (@Nonnull final Package aPackage)
   {
+    ValueEnforcer.notNull (aPackage, "Package");
     return removeFromCache (new JAXBContextCacheKey (aPackage, null));
   }
 }

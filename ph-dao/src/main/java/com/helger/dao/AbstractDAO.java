@@ -17,6 +17,7 @@
 package com.helger.dao;
 
 import java.io.File;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.GuardedBy;
@@ -59,8 +60,7 @@ public abstract class AbstractDAO implements IDAO
   private static final CallbackList <IDAOWriteExceptionCallback> s_aExceptionHandlersWrite = new CallbackList <> ();
 
   protected static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
-  @GuardedBy ("s_aRWLock")
-  private static boolean s_bSilentMode = false;
+  private static final AtomicBoolean SILENT_MODE = new AtomicBoolean (GlobalDebug.DEFAULT_SILENT_MODE);
 
   protected final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
@@ -70,6 +70,16 @@ public abstract class AbstractDAO implements IDAO
   private boolean m_bPendingChanges = false;
   @GuardedBy ("m_aRWLock")
   private boolean m_bAutoSaveEnabled = DEFAULT_AUTO_SAVE_ENABLED;
+
+  /**
+   * @return <code>true</code> if logging is disabled, <code>false</code> if it
+   *         is enabled.
+   * @since 9.2.0
+   */
+  public static boolean isSilentMode ()
+  {
+    return SILENT_MODE.get ();
+  }
 
   /**
    * Enable or disable certain regular log messages.
@@ -82,29 +92,20 @@ public abstract class AbstractDAO implements IDAO
    */
   public static boolean setSilentMode (final boolean bSilentMode)
   {
-    return s_aRWLock.writeLocked ( () -> {
-      final boolean bOld = s_bSilentMode;
-      s_bSilentMode = bSilentMode;
-      return bOld;
-    });
-  }
-
-  /**
-   * @return <code>true</code> if logging is disabled, <code>false</code> if it
-   *         is enabled.
-   * @since 9.2.0
-   */
-  public static boolean isSilentMode ()
-  {
-    return s_aRWLock.readLocked ( () -> s_bSilentMode);
+    return SILENT_MODE.getAndSet (bSilentMode);
   }
 
   protected AbstractDAO ()
   {}
 
+  /**
+   * @return <code>true</code> if not silent mode
+   * @deprecated since 9.3.10 Use <code>!isSilentMode ()</code> instead
+   */
+  @Deprecated
   protected static final boolean isDebugLogging ()
   {
-    return GlobalDebug.isDebugMode () && !isSilentMode ();
+    return !isSilentMode ();
   }
 
   /**
