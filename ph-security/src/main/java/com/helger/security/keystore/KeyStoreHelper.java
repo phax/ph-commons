@@ -271,6 +271,7 @@ public final class KeyStoreHelper
   {
     ValueEnforcer.notNull (aKeyStore, "KeyStore");
     ValueEnforcer.notNull (sKeyStorePath, "KeyStorePath");
+    ValueEnforcer.notNull (aTargetClass, "TargetClass");
 
     if (StringHelper.hasNoText (sKeyStoreKeyAlias))
       return new LoadedKey <> (null, EKeyStoreLoadError.KEY_NO_ALIAS, sKeyStorePath);
@@ -327,7 +328,7 @@ public final class KeyStoreHelper
    * @param aKeyStore
    *        The key store to load the key from. May not be <code>null</code>.
    * @param sKeyStorePath
-   *        Key store path. For nice error messages only. May be
+   *        Key store path. For nice error messages only. May not be
    *        <code>null</code>.
    * @param sKeyStoreKeyAlias
    *        The alias to be resolved in the key store. Must be non-
@@ -352,7 +353,7 @@ public final class KeyStoreHelper
    * @param aKeyStore
    *        The key store to load the key from. May not be <code>null</code>.
    * @param sKeyStorePath
-   *        Key store path. For nice error messages only. May be
+   *        Key store path. For nice error messages only. May not be
    *        <code>null</code>.
    * @param sKeyStoreKeyAlias
    *        The alias to be resolved in the key store. Must be non-
@@ -377,7 +378,7 @@ public final class KeyStoreHelper
    * @param aKeyStore
    *        The key store to load the key from. May not be <code>null</code>.
    * @param sKeyStorePath
-   *        Key store path. For nice error messages only. May be
+   *        Key store path. For nice error messages only. May not be
    *        <code>null</code>.
    * @param sKeyStoreKeyAlias
    *        The alias to be resolved in the key store. Must be non-
