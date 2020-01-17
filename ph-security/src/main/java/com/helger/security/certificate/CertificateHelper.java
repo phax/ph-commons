@@ -265,7 +265,10 @@ public final class CertificateHelper
     }
 
     final CertificateFactory aCertificateFactory = getX509CertificateFactory ();
-    return (X509Certificate) aCertificateFactory.generateCertificate (new NonBlockingByteArrayInputStream (aCertBytes));
+    try (final NonBlockingByteArrayInputStream aBAIS = new NonBlockingByteArrayInputStream (aCertBytes))
+    {
+      return (X509Certificate) aCertificateFactory.generateCertificate (aBAIS);
+    }
   }
 
   @Nonnull
