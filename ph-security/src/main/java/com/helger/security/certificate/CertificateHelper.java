@@ -277,8 +277,10 @@ public final class CertificateHelper
   {
     final String sRealCertString = getRFC1421CompliantString (sCertString, true);
 
-    return (X509Certificate) aCertificateFactory.generateCertificate (new StringInputStream (sRealCertString,
-                                                                                             CERT_CHARSET));
+    try (final StringInputStream aIS = new StringInputStream (sRealCertString, CERT_CHARSET))
+    {
+      return (X509Certificate) aCertificateFactory.generateCertificate (aIS);
+    }
   }
 
   /**
