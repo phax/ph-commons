@@ -16,11 +16,13 @@
  */
 package com.helger.json.serialize;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -159,13 +161,28 @@ public final class JsonWriterTest
   {
     final IJson aJson = JsonConverter.convertToJson (aValue);
     assertNotNull ("Failed: " + aValue, aJson);
-    final String sJson = aJson.getAsJsonString ();
-    assertNotNull (sJson);
-    final IJson aJsonRead = JsonReader.builder ().setSource (sJson).read ();
-    assertNotNull ("Failed to read: " + sJson, aJsonRead);
-    final String sJsonRead = aJsonRead.getAsJsonString ();
-    assertNotNull (sJsonRead);
-    assertEquals (sJson, sJsonRead);
+
+    // Writer/String
+    {
+      final String sJson = aJson.getAsJsonString ();
+      assertNotNull (sJson);
+      final IJson aJsonRead = JsonReader.builder ().setSource (sJson).read ();
+      assertNotNull ("Failed to read: " + sJson, aJsonRead);
+      final String sJsonRead = aJsonRead.getAsJsonString ();
+      assertNotNull (sJsonRead);
+      assertEquals (sJson, sJsonRead);
+    }
+
+    // OutputStream/byte[]
+    {
+      final byte [] aJsonBytes = new JsonWriter ().writeAsByteArray (aJson, StandardCharsets.UTF_16BE);
+      assertNotNull (aJsonBytes);
+      final IJson aJsonRead = JsonReader.builder ().setSource (aJsonBytes, StandardCharsets.UTF_16BE).read ();
+      assertNotNull ("Failed to read: " + aJsonBytes, aJsonRead);
+      final byte [] aJsonBytes2 = new JsonWriter ().writeAsByteArray (aJson, StandardCharsets.UTF_16BE);
+      assertNotNull (aJsonBytes2);
+      assertArrayEquals (aJsonBytes, aJsonBytes2);
+    }
   }
 
   @Test
