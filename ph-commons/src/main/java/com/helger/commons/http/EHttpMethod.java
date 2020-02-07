@@ -76,4 +76,10 @@ public enum EHttpMethod implements IHasName
   {
     return EnumHelper.getFromNameOrNull (EHttpMethod.class, sName);
   }
+
+  @Nullable
+  public static EHttpMethod getFromNameOrDefault (@Nullable final String sName, @Nullable final EHttpMethod eDefault)
+  {
+    return EnumHelper.getFromNameOrDefault (EHttpMethod.class, sName, eDefault);
+  }
 }
