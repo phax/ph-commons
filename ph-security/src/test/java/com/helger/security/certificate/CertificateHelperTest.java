@@ -61,7 +61,7 @@ public final class CertificateHelperTest
                               "5fEWCRE11azbJHFwLJhWC9kXtNHjUStedejV0NxPNO3CBWaAocvmMw==";
     X509Certificate aCert = CertificateHelper.convertStringToCertficate (sValidCert);
     assertNotNull (aCert);
-    assertEquals ("CN=GeoTrust Global CA, O=GeoTrust Inc., C=US", aCert.getIssuerDN ().getName ());
+    assertEquals ("CN=GeoTrust Global CA,O=GeoTrust Inc.,C=US", aCert.getIssuerX500Principal ().getName ());
 
     aCert = CertificateHelper.convertStringToCertficate (sValidCert + "\r\n");
     assertNotNull (aCert);
