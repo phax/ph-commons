@@ -37,6 +37,7 @@ This project was the following modules:
     * Added new method `CertificateHelper.convertStringToPrivateKey`
     * Extended the `JsonWriter` API to also write to an OutputStream
     * Added new methods `EmailAddress.createOnDemand`
+    * `URLHelper.urlEncode` and `URLHelper.urlDecode` now uses `URLCodec`
 * v9.3.9 - 2019-12-11
     * Made `ClassLoaderHelper.getResource` more robust
     * Updated "mime-type-info.xml" list with  shared-mime-info-spec 1.15
