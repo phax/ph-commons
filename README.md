@@ -34,6 +34,7 @@ This project was the following modules:
     * Added new constant `GlobalDebug.DEFAULT_SILENT_MODE` for the default silent mode setting
     * Added new method `CertificateHelper.convertByteArrayToCertficateOrNull`
     * Added new class `PDTDisplayHelper`
+    * Added new methods `EmailAddress.createOnDemand`
 * v9.3.9 - 2019-12-11
     * Made `ClassLoaderHelper.getResource` more robust
     * Updated "mime-type-info.xml" list with  shared-mime-info-spec 1.15
