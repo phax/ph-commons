@@ -22,6 +22,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -175,11 +176,12 @@ public final class JsonWriterTest
 
     // OutputStream/byte[]
     {
-      final byte [] aJsonBytes = new JsonWriter ().writeAsByteArray (aJson, StandardCharsets.UTF_16BE);
+      final Charset aCharset = StandardCharsets.UTF_16BE;
+      final byte [] aJsonBytes = new JsonWriter ().writeAsByteArray (aJson, aCharset);
       assertNotNull (aJsonBytes);
-      final IJson aJsonRead = JsonReader.builder ().setSource (aJsonBytes, StandardCharsets.UTF_16BE).read ();
-      assertNotNull ("Failed to read: " + aJsonBytes, aJsonRead);
-      final byte [] aJsonBytes2 = new JsonWriter ().writeAsByteArray (aJson, StandardCharsets.UTF_16BE);
+      final IJson aJsonRead = JsonReader.builder ().setSource (aJsonBytes, aCharset).read ();
+      assertNotNull ("Failed to read: " + new String (aJsonBytes, aCharset), aJsonRead);
+      final byte [] aJsonBytes2 = new JsonWriter ().writeAsByteArray (aJson, aCharset);
       assertNotNull (aJsonBytes2);
       assertArrayEquals (aJsonBytes, aJsonBytes2);
     }
