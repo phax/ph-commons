@@ -18,6 +18,9 @@ package com.helger.security.certificate;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.security.GeneralSecurityException;
+import java.security.KeyFactory;
+import java.security.PrivateKey;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.CertificateException;
@@ -25,6 +28,7 @@ import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.CertificateNotYetValidException;
 import java.security.cert.X509Certificate;
+import java.security.spec.PKCS8EncodedKeySpec;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -54,6 +58,10 @@ public final class CertificateHelper
   public static final String END_CERTIFICATE = "-----END CERTIFICATE-----";
   public static final String BEGIN_CERTIFICATE_INVALID = "-----BEGINCERTIFICATE-----";
   public static final String END_CERTIFICATE_INVALID = "-----ENDCERTIFICATE-----";
+
+  public static final String BEGIN_PRIVATE_KEY = "-----BEGIN PRIVATE KEY-----";
+  public static final String END_PRIVATE_KEY = "-----END PRIVATE KEY-----";
+
   public static final String CRLF = "\r\n";
 
   /** Character set used for String-Certificate conversion */
@@ -429,5 +437,24 @@ public final class CertificateHelper
     {
       return false;
     }
+  }
+
+  @Nullable
+  public static PrivateKey convertStringToPrivateKey (@Nullable final String sPrivateKey) throws GeneralSecurityException
+  {
+    if (StringHelper.hasNoText (sPrivateKey))
+      return null;
+
+    String sRealPrivateKey = StringHelper.trimStart (sPrivateKey, BEGIN_PRIVATE_KEY);
+    sRealPrivateKey = StringHelper.trimEnd (sRealPrivateKey, END_PRIVATE_KEY);
+    sRealPrivateKey = StringHelper.getWithoutAnySpaces (sRealPrivateKey);
+    final byte [] aPrivateKeyBytes = Base64.safeDecode (sRealPrivateKey);
+    if (aPrivateKeyBytes == null)
+      return null;
+
+    final KeyFactory aKeyFactory = KeyFactory.getInstance ("RSA");
+    final PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec (aPrivateKeyBytes);
+    final PrivateKey aKey = aKeyFactory.generatePrivate (keySpec);
+    return aKey;
   }
 }

@@ -75,8 +75,8 @@ public final class GlobalIDFactory
     return s_aRWLock.writeLocked ( () -> {
       if (EqualsHelper.equals (s_aIntIDFactory, aFactory))
         return EChange.UNCHANGED;
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Setting in-memory int ID factory " + aFactory);
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Setting in-memory int ID factory " + aFactory);
       s_aIntIDFactory = aFactory;
       return EChange.CHANGED;
     });
@@ -99,8 +99,8 @@ public final class GlobalIDFactory
     return s_aRWLock.writeLocked ( () -> {
       if (EqualsHelper.equals (s_aPersistentIntIDFactory, aFactory))
         return EChange.UNCHANGED;
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Setting persistent int ID factory " + aFactory);
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Setting persistent int ID factory " + aFactory);
       s_aPersistentIntIDFactory = aFactory;
       return EChange.CHANGED;
     });
@@ -123,8 +123,8 @@ public final class GlobalIDFactory
     return s_aRWLock.writeLocked ( () -> {
       if (EqualsHelper.equals (s_aLongIDFactory, aFactory))
         return EChange.UNCHANGED;
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Setting in-memory long ID factory " + aFactory);
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Setting in-memory long ID factory " + aFactory);
       s_aLongIDFactory = aFactory;
       return EChange.CHANGED;
     });
@@ -147,8 +147,8 @@ public final class GlobalIDFactory
     return s_aRWLock.writeLocked ( () -> {
       if (EqualsHelper.equals (s_aPersistentLongIDFactory, aFactory))
         return EChange.UNCHANGED;
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Setting persistent long ID factory " + aFactory);
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Setting persistent long ID factory " + aFactory);
       s_aPersistentLongIDFactory = aFactory;
       return EChange.CHANGED;
     });
@@ -171,8 +171,8 @@ public final class GlobalIDFactory
     return s_aRWLock.writeLocked ( () -> {
       if (EqualsHelper.equals (s_aStringIDFactory, aFactory))
         return EChange.UNCHANGED;
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Setting in-memory string ID factory " + aFactory);
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Setting in-memory string ID factory " + aFactory);
       s_aStringIDFactory = aFactory;
       return EChange.CHANGED;
     });
@@ -195,8 +195,8 @@ public final class GlobalIDFactory
     return s_aRWLock.writeLocked ( () -> {
       if (EqualsHelper.equals (s_aPersistentStringIDFactory, aFactory))
         return EChange.UNCHANGED;
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Setting persistent string ID factory " + aFactory);
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Setting persistent string ID factory " + aFactory);
       s_aPersistentStringIDFactory = aFactory;
       return EChange.CHANGED;
     });

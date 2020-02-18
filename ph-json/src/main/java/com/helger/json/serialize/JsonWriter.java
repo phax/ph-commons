@@ -17,7 +17,10 @@
 package com.helger.json.serialize;
 
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.Charset;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -27,7 +30,9 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.io.stream.NonBlockingByteArrayOutputStream;
 import com.helger.commons.io.stream.NonBlockingStringWriter;
+import com.helger.commons.io.stream.NonClosingOutputStream;
 import com.helger.commons.io.stream.StreamHelper;
 import com.helger.commons.string.StringHelper;
 import com.helger.json.CJson;
@@ -185,6 +190,8 @@ public class JsonWriter
 
     if (m_aSettings.isWriteNewlineAtEnd ())
       aWriter.write (m_aSettings.getNewlineString ());
+
+    aWriter.flush ();
   }
 
   public void writeToWriterAndClose (@Nonnull final IJson aJson,
@@ -208,15 +215,98 @@ public class JsonWriter
   {
     ValueEnforcer.notNull (aJson, "Json");
 
-    try
+    try (final NonBlockingStringWriter aWriter = new NonBlockingStringWriter (1024))
     {
-      final NonBlockingStringWriter aWriter = new NonBlockingStringWriter (1024);
-      writeToWriterAndClose (aJson, aWriter);
+      writeToWriter (aJson, aWriter);
       return aWriter.getAsString ();
     }
     catch (final IOException ex)
     {
       throw new IllegalStateException ("NonBlockingStringWriter should never throw IOException!", ex);
+    }
+  }
+
+  /**
+   * Write the JSON to an OutputStream using the provided Charset, and leave the
+   * OutputStream open.
+   *
+   * @param aJson
+   *        The JSON to be written. May not be <code>null</code>.
+   * @param aOS
+   *        The OutputStream to write to. May not be <code>null</code>.
+   * @param aCharset
+   *        The character set to be used. May not be <code>null</code>.
+   * @throws IOException
+   *         On IO error
+   * @since 9.3.10
+   */
+  public void writeToStream (@Nonnull final IJson aJson,
+                             @Nonnull @WillNotClose final OutputStream aOS,
+                             @Nonnull final Charset aCharset) throws IOException
+  {
+    ValueEnforcer.notNull (aJson, "Json");
+    ValueEnforcer.notNull (aOS, "OutputStream");
+    ValueEnforcer.notNull (aCharset, "Charset");
+
+    // Ensure OutputStream stays open
+    try (final Writer aWriter = new OutputStreamWriter (new NonClosingOutputStream (aOS), aCharset))
+    {
+      writeToWriter (aJson, aWriter);
+    }
+  }
+
+  /**
+   * Write the JSON to an OutputStream using the provided Charset, and close the
+   * OutputStream afterwards.
+   *
+   * @param aJson
+   *        The JSON to be written. May not be <code>null</code>.
+   * @param aOS
+   *        The OutputStream to write to. May not be <code>null</code>.
+   * @param aCharset
+   *        The character set to be used. May not be <code>null</code>.
+   * @throws IOException
+   *         On IO error
+   * @since 9.3.10
+   */
+  public void writeToStreamAndClose (@Nonnull final IJson aJson,
+                                     @Nonnull @WillClose final OutputStream aOS,
+                                     @Nonnull final Charset aCharset) throws IOException
+  {
+    ValueEnforcer.notNull (aJson, "Json");
+    ValueEnforcer.notNull (aOS, "OutputStream");
+    ValueEnforcer.notNull (aCharset, "Charset");
+
+    // Ensure OutputStream gets closed as well
+    try (final Writer aWriter = new OutputStreamWriter (aOS, aCharset))
+    {
+      writeToWriter (aJson, aWriter);
+    }
+  }
+
+  /**
+   * Write the JSON to an byte array using the provided Charset.
+   *
+   * @param aJson
+   *        The JSON to be written. May not be <code>null</code>.
+   * @param aCharset
+   *        The character set to be used. May not be <code>null</code>.
+   * @return The created byte array and never <code>null</code>.
+   * @since 9.3.10
+   */
+  @Nonnull
+  public byte [] writeAsByteArray (@Nonnull final IJson aJson, @Nonnull final Charset aCharset)
+  {
+    ValueEnforcer.notNull (aJson, "Json");
+
+    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (1024))
+    {
+      writeToStream (aJson, aBAOS, aCharset);
+      return aBAOS.getBufferOrCopy ();
+    }
+    catch (final IOException ex)
+    {
+      throw new IllegalStateException ("NonBlockingByteArrayOutputStream should never throw IOException!", ex);
     }
   }
 }
