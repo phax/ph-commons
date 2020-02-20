@@ -86,16 +86,13 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>
    *        <code>null</code> this method behaves like
    *        {@link #forEach(Consumer)}.
    * @since 8.5.2
+   * @deprecated Since 9.3.10; use {@link #findAll(Predicate, Consumer)} instead
    */
+  @Deprecated
   default void forEach (@Nonnull final Consumer <? super ELEMENTTYPE> aConsumer,
                         @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
-    if (aFilter == null)
-      forEach (aConsumer);
-    else
-      for (final ELEMENTTYPE aItem : this)
-        if (aFilter.test (aItem))
-          aConsumer.accept (aItem);
+    CollectionHelper.findAll (this, aFilter, aConsumer);
   }
 
   /**
