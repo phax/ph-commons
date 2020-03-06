@@ -70,7 +70,10 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
     {
       m_sDefaultNamespaceURI = aOther.m_sDefaultNamespaceURI;
       m_aPrefix2NS.putAll (aOther.m_aPrefix2NS);
-      m_aNS2Prefix.putAll (aOther.m_aNS2Prefix);
+
+      // putAll is not enough here
+      for (final Map.Entry <String, ICommonsSet <String>> aEntry : aOther.m_aNS2Prefix.entrySet ())
+        m_aNS2Prefix.put (aEntry.getKey (), aEntry.getValue ().getClone ());
     }
   }
 

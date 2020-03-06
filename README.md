@@ -39,6 +39,7 @@ This project was the following modules:
     * Added new methods `EmailAddress.createOnDemand`
     * `URLHelper.urlEncode` and `URLHelper.urlDecode` now uses `URLCodec`
     * Deprecated `ICommonsIterable.forEach` in favour of `findAll`
+    * Fixed a bug in the cloning of `MapBasedNamespaceContext` (see [issue #17](https://github.com/phax/ph-commons/issues/17))
 * v9.3.9 - 2019-12-11
     * Made `ClassLoaderHelper.getResource` more robust
     * Updated "mime-type-info.xml" list with  shared-mime-info-spec 1.15
