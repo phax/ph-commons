@@ -81,6 +81,8 @@ public final class ArrayHelper
   public static final Object [] EMPTY_OBJECT_ARRAY = new Object [0];
   /** Constant empty String array */
   public static final String [] EMPTY_STRING_ARRAY = new String [0];
+  /** Constant empty Class<?> array */
+  public static final Class <?> [] EMPTY_CLASS_ARRAY = new Class <?> [0];
 
   @PresentForCodeCoverage
   private static final ArrayHelper s_aInstance = new ArrayHelper ();
