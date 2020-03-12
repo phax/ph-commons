@@ -52,7 +52,7 @@ public enum ELicense implements ILicense
          "GNU General Public License",
          new Version (2, 0),
          "https://www.gnu.org/licenses/old-licenses/gpl-2.0"),
-  GPL20CP ("gpl20",
+  GPL20CP ("gpl20cp",
            "GNU General Public License with Classpath Exception",
            new Version (2, 0),
            "https://www.gnu.org/software/classpath/license.html"),
