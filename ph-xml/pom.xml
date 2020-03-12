@@ -62,12 +62,14 @@
       <groupId>com.helger</groupId>
       <artifactId>ph-collection</artifactId>
     </dependency>
+    
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <optional>true</optional>
       <scope>compile</scope>
     </dependency>
+    
     <dependency>
       <groupId>dom4j</groupId>
       <artifactId>dom4j</artifactId>
