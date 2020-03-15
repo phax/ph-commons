@@ -24,7 +24,7 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * Abstract base class for an abstract configuration source.
+ * Abstract base class for any configuration source.
  *
  * @author Philip Helger
  */

@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.Nonempty;
 
 /**
- * An abstract configuration source implementation.
+ * An abstract configuration source.
  *
  * @author Philip Helger
  */
