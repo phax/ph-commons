@@ -1,0 +1,15 @@
+{
+  element1: "string",
+  element2: 2,
+  element3: false,
+  /* The following element has trailing spaces, which are skipped */
+  element4: " abc  ",
+  /* Nested element, expanded to 'element5.network.port' etc. */
+  element5: {
+    network: {
+      port: 1234,
+      host: "example.org"
+    },
+    enabled: true
+  }
+}

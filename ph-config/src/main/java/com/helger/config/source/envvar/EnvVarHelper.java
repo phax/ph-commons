@@ -1,3 +1,19 @@
+/**
+ * Copyright (C) 2014-2020 Philip Helger (www.helger.com)
+ * philip[at]helger[dot]com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.helger.config.source.envvar;
 
 import javax.annotation.Nonnull;
@@ -23,7 +39,7 @@ public final class EnvVarHelper
 
   public static boolean isValidFirstChar (final char c)
   {
-    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_';
+    return (c >= 'A' && c <= 'Z') || c == '_';
   }
 
   public static boolean isValidFollowingChar (final char c)
@@ -40,9 +56,10 @@ public final class EnvVarHelper
     int nIndex = 0;
     for (final char c : sName.toCharArray ())
     {
-      // No need to upper case here - handled in System.getenv
-      final boolean bIsValid = nIndex == 0 ? isValidFirstChar (c) : isValidFollowingChar (c);
-      ret.append (bIsValid ? c : cReplacement);
+      // Manually upper case for quicker tests afterwards
+      final char cUpper = Character.toUpperCase (c);
+      final boolean bIsValid = nIndex == 0 ? isValidFirstChar (cUpper) : isValidFollowingChar (cUpper);
+      ret.append (bIsValid ? cUpper : cReplacement);
       nIndex++;
     }
     return ret.toString ();
