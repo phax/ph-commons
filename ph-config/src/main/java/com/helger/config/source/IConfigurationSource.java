@@ -5,6 +5,11 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.Nonempty;
 
+/**
+ * An abstract configuration source implementation.
+ *
+ * @author Philip Helger
+ */
 public interface IConfigurationSource
 {
   /**
@@ -22,10 +27,10 @@ public interface IConfigurationSource
 
   /**
    * Get the configuration value with the provided key.
-   * 
+   *
    * @param sKey
    *        The key to be retrieved. May neither be <code>null</code> nor empty.
-   * @return <code>null</code> if no such value is available
+   * @return <code>null</code> if no such value is available.
    */
   @Nullable
   String getConfigurationValue (@Nonnull @Nonempty String sKey);

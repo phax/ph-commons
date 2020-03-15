@@ -1,24 +1,40 @@
 package com.helger.config.source;
 
 import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.id.IHasID;
+import com.helger.commons.lang.EnumHelper;
 
 /**
- * Defines the type of configuration sources
+ * Defines the type of configuration sources and the respective default
+ * priority.
  *
  * @author Philip Helger
  */
-public enum EConfigSourceType
+public enum EConfigSourceType implements IHasID <String>
 {
-  SYSTEM_PROPERTY (400),
-  ENVIRONMENT_VARIABLE (300),
-  FILE (200),
-  APPLICATION (100);
+  SYSTEM_PROPERTY ("sysprop", 400),
+  ENVIRONMENT_VARIABLE ("envvar", 300),
+  FILE ("file", 200),
+  APPLICATION ("appl", 100);
 
-  private int m_nDefaultPriority;
+  private final String m_sID;
+  private final int m_nDefaultPriority;
 
-  private EConfigSourceType (@Nonnegative final int nDefaultPriority)
+  private EConfigSourceType (@Nonnull @Nonempty final String sID, @Nonnegative final int nDefaultPriority)
   {
+    m_sID = sID;
     m_nDefaultPriority = nDefaultPriority;
+  }
+
+  @Nonnull
+  @Nonempty
+  public String getID ()
+  {
+    return m_sID;
   }
 
   /**
@@ -29,5 +45,11 @@ public enum EConfigSourceType
   public int getDefaultPriority ()
   {
     return m_nDefaultPriority;
+  }
+
+  @Nullable
+  public static EConfigSourceType getFromIDOrNull (@Nullable final String sID)
+  {
+    return EnumHelper.getFromIDOrNull (EConfigSourceType.class, sID);
   }
 }
