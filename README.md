@@ -44,6 +44,7 @@ This project was the following modules:
     * Slightly extended known licenses
     * Updated license URLs to https where applicable
     * New parent POM 1.11.1 updates SLF4J to 1.7.30
+    * `PropertiesHelper` got new APIs with `Charset` to read properties with character sets other than ISO-8859-1
 * v9.3.9 - 2019-12-11
     * Made `ClassLoaderHelper.getResource` more robust
     * Updated "mime-type-info.xml" list with  shared-mime-info-spec 1.15

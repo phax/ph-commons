@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.net.MalformedURLException;
+import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.Properties;
 import java.util.function.Function;
@@ -90,6 +91,14 @@ public final class PropertiesHelper
   }
 
   @Nullable
+  public static NonBlockingProperties loadProperties (@Nonnull final File aFile, @Nonnull final Charset aCharset)
+  {
+    ValueEnforcer.notNull (aFile, "File");
+
+    return loadProperties (new FileSystemResource (aFile), aCharset);
+  }
+
+  @Nullable
   public static NonBlockingProperties loadProperties (@Nonnull final IReadableResource aRes)
   {
     ValueEnforcer.notNull (aRes, "Resource");
@@ -98,6 +107,19 @@ public final class PropertiesHelper
     if (aIS == null)
       return null;
     return loadProperties (aIS);
+  }
+
+  @Nullable
+  public static NonBlockingProperties loadProperties (@Nonnull final IReadableResource aRes,
+                                                      @Nonnull final Charset aCharset)
+  {
+    ValueEnforcer.notNull (aRes, "Resource");
+    ValueEnforcer.notNull (aCharset, "Charset");
+
+    final Reader aReader = aRes.getReader (aCharset);
+    if (aReader == null)
+      return null;
+    return loadProperties (aReader);
   }
 
   @Nullable
