@@ -267,8 +267,8 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
     }
 
     // No special handler found
-    if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Found no equals implementation for " + aClass);
+    if (LOGGER.isTraceEnabled ())
+      LOGGER.trace ("Found no equals implementation for " + aClass);
 
     // Definitely no special implementation
     return null;

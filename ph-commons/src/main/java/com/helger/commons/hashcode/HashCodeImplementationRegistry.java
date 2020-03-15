@@ -247,8 +247,8 @@ public final class HashCodeImplementationRegistry implements IHashCodeImplementa
     }
 
     // No special handler found
-    if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Found no hashCode implementation for " + aClass);
+    if (LOGGER.isTraceEnabled ())
+      LOGGER.trace ("Found no hashCode implementation for " + aClass);
 
     // Definitely no special implementation
     return null;
