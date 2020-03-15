@@ -11,5 +11,19 @@
       host: "example.org"
     },
     enabled: true
-  }
+  },
+  /* Special case: array. Created "element6.count" and "element6.0" etc. */ 
+  element6: [ 17, 43, 56, 12 ],
+  /* Array in Object in Array */
+  element7: [
+    { 
+      key:10, 
+      value:[ "bla", "foo", "bar" ]
+    },
+    "plain value",
+    {
+      key: "hmpf",
+      value:[ "blub", "juhu" ]
+    }
+  ]
 }
