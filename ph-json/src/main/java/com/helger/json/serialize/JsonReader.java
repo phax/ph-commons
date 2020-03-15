@@ -1098,6 +1098,16 @@ public final class JsonReader
     }
 
     /**
+     * @return <code>true</code> if a source is present, <code>false</code> if
+     *         not.
+     * @since 9.3.10
+     */
+    public boolean hasSource ()
+    {
+      return m_aReader != null;
+    }
+
+    /**
      * Check if the provided source is syntactically correct JSON or not,
      * without building an object structure.
      *
