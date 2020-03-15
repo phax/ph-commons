@@ -34,6 +34,16 @@ This project was the following modules:
     * Added new constant `GlobalDebug.DEFAULT_SILENT_MODE` for the default silent mode setting
     * Added new method `CertificateHelper.convertByteArrayToCertficateOrNull`
     * Added new class `PDTDisplayHelper`
+    * Added new method `CertificateHelper.convertStringToPrivateKey`
+    * Extended the `JsonWriter` API to also write to an OutputStream
+    * Added new methods `EmailAddress.createOnDemand`
+    * `URLHelper.urlEncode` and `URLHelper.urlDecode` now uses `URLCodec`
+    * Deprecated `ICommonsIterable.forEach` in favour of `findAll`
+    * Fixed a bug in the cloning of `MapBasedNamespaceContext` (see [issue #17](https://github.com/phax/ph-commons/issues/17))
+    * Added `ArrayHelper.EMPTY_CLASS_ARRAY`
+    * Slightly extended known licenses
+    * Updated license URLs to https where applicable
+    * New parent POM 1.11.1 updates SLF4J to 1.7.30
 * v9.3.9 - 2019-12-11
     * Made `ClassLoaderHelper.getResource` more robust
     * Updated "mime-type-info.xml" list with  shared-mime-info-spec 1.15

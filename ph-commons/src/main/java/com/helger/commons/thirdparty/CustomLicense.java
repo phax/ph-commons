@@ -117,9 +117,9 @@ public class CustomLicense implements ILicense
   public String toString ()
   {
     return new ToStringGenerator (this).append ("ID", m_sID)
-                                       .append ("name", m_sName)
-                                       .appendIfNotNull ("version", m_aVersion)
-                                       .appendIfNotNull ("website", m_sWebSiteURL)
+                                       .append ("Name", m_sName)
+                                       .appendIfNotNull ("Version", m_aVersion)
+                                       .appendIfNotNull ("Website", m_sWebSiteURL)
                                        .getToString ();
   }
 }

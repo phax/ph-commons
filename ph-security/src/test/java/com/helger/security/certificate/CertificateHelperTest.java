@@ -21,10 +21,13 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
+import java.security.GeneralSecurityException;
+import java.security.PrivateKey;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Arrays;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -174,5 +177,13 @@ public final class CertificateHelperTest
                   "123456789012345678901234567890123456789012345678901234567890abcd\n" +
                   "xyz",
                   CertificateHelper.getRFC1421CompliantString (sLong, false, "\n"));
+  }
+
+  @Test
+  @Ignore ("No key present")
+  public void testParsePrivateKey () throws GeneralSecurityException
+  {
+    final PrivateKey pk = CertificateHelper.convertStringToPrivateKey ("test key here");
+    assertNotNull (pk);
   }
 }

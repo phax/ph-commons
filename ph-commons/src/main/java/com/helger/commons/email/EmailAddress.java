@@ -94,4 +94,16 @@ public class EmailAddress implements IEmailAddress
                                        .appendIfNotNull ("personal", m_sPersonal)
                                        .getToString ();
   }
+
+  @Nullable
+  public static EmailAddress createOnDemand (@Nullable final String sAddress)
+  {
+    return StringHelper.hasNoText (sAddress) ? null : new EmailAddress (sAddress);
+  }
+
+  @Nullable
+  public static EmailAddress createOnDemand (@Nullable final String sAddress, @Nullable final String sPersonal)
+  {
+    return StringHelper.hasNoText (sAddress) ? null : new EmailAddress (sAddress, sPersonal);
+  }
 }
