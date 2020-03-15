@@ -25,6 +25,7 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.lang.NonBlockingProperties;
 import com.helger.commons.lang.PropertiesHelper;
+import com.helger.commons.string.ToStringGenerator;
 import com.helger.config.source.IConfigurationSource;
 
 /**
@@ -37,26 +38,50 @@ public class ConfigurationSourcePropertiesFile extends AbstractConfigurationSour
 {
   private final NonBlockingProperties m_aProps;
 
+  /**
+   * Constructor with default priority and default charset
+   *
+   * @param aFile
+   *        File to read from. May not be <code>null</code>.
+   */
   public ConfigurationSourcePropertiesFile (@Nonnull final File aFile)
   {
     this (SOURCE_TYPE.getDefaultPriority (), aFile, (Charset) null);
   }
 
+  /**
+   * Constructor with default priority
+   *
+   * @param aFile
+   *        File to read from. May not be <code>null</code>.
+   * @param aCharset
+   *        Character set to use. May be <code>null</code>.
+   */
   public ConfigurationSourcePropertiesFile (@Nonnull final File aFile, @Nullable final Charset aCharset)
   {
     this (SOURCE_TYPE.getDefaultPriority (), aFile, aCharset);
   }
 
+  /**
+   * Constructor with default charset
+   *
+   * @param nPriority
+   *        Configuration source priority.
+   * @param aFile
+   *        File to read from. May not be <code>null</code>.
+   */
   public ConfigurationSourcePropertiesFile (final int nPriority, @Nonnull final File aFile)
   {
     this (nPriority, aFile, (Charset) null);
   }
 
   /**
+   * Constructor
+   *
    * @param nPriority
    *        Configuration source priority.
    * @param aFile
-   *        File to read from. MAy not be <code>null</code>.
+   *        File to read from. May not be <code>null</code>.
    * @param aCharset
    *        Character set to use. May be <code>null</code>.
    */
@@ -78,5 +103,11 @@ public class ConfigurationSourcePropertiesFile extends AbstractConfigurationSour
   public String getConfigurationValue (@Nonnull @Nonempty final String sKey)
   {
     return m_aProps == null ? null : m_aProps.get (sKey);
+  }
+
+  @Override
+  public String toString ()
+  {
+    return ToStringGenerator.getDerived (super.toString ()).append ("Properties", m_aProps).getToString ();
   }
 }
