@@ -42,7 +42,7 @@ public final class ConfigurationSourceEnvVarTest
     assertSame (EConfigSourceType.ENVIRONMENT_VARIABLE, c.getSourceType ());
     assertEquals (EConfigSourceType.ENVIRONMENT_VARIABLE.getDefaultPriority (), c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
-    // Is that available on Travis?
+    // It is not available on Travis
     if (EOperatingSystem.WINDOWS.isCurrentOS ())
       assertNotNull (c.getConfigurationValue ("OS"));
     assertNull (c.getConfigurationValue ("I really don't know that env var!"));
@@ -58,8 +58,9 @@ public final class ConfigurationSourceEnvVarTest
     assertSame (EConfigSourceType.ENVIRONMENT_VARIABLE, c.getSourceType ());
     assertEquals (1234, c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
-    // Is that available on Travis?
-    assertNotNull (c.getConfigurationValue ("OS"));
+    // It is not available on Travis
+    if (EOperatingSystem.WINDOWS.isCurrentOS ())
+      assertNotNull (c.getConfigurationValue ("OS"));
     assertNull (c.getConfigurationValue ("I really don't know that env var!"));
   }
 }
