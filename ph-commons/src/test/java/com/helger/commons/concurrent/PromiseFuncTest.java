@@ -78,7 +78,8 @@ public class PromiseFuncTest
     CompletableFuture.runAsync (r).thenRunAsync (r).thenRunAsync (r).get ();
     aSW.stop ();
     assertEquals (3, aValue.intValue ());
-    assertTrue (aSW.getMillis () > 900);
+    final long nMillis = aSW.getMillis ();
+    assertTrue ("Took " + nMillis + " ms", nMillis >= 900);
   }
 
   @Test
@@ -96,7 +97,8 @@ public class PromiseFuncTest
                                             .get ();
     aSW.stop ();
     assertEquals (3, aMI.intValue ());
-    assertTrue (aSW.getMillis () > 900);
+    final long nMillis = aSW.getMillis ();
+    assertTrue ("Took " + nMillis + " ms", nMillis >= 900);
   }
 
   @Test
@@ -114,6 +116,7 @@ public class PromiseFuncTest
                                             .get ();
     aSW.stop ();
     assertEquals (3, aMI.intValue ());
-    assertTrue (aSW.getMillis () > 900);
+    final long nMillis = aSW.getMillis ();
+    assertTrue ("Took " + nMillis + " ms", nMillis >= 900);
   }
 }
