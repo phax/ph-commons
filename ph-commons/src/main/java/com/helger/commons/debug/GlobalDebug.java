@@ -49,7 +49,7 @@ public final class GlobalDebug
   /**
    * By default silent mode is enabled.
    * 
-   * @since 9.3.10
+   * @since 9.4.0
    */
   public static final boolean DEFAULT_SILENT_MODE = true;
 

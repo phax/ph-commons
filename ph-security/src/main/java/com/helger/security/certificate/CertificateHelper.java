@@ -236,7 +236,7 @@ public final class CertificateHelper
    *        The original certificate bytes. May be <code>null</code> or empty.
    * @return <code>null</code> if the passed byte array is <code>null</code>,
    *         empty or not a valid certificate.
-   * @since 9.3.10
+   * @since 9.4.0
    */
   @Nullable
   public static X509Certificate convertByteArrayToCertficateOrNull (@Nullable final byte [] aCertBytes)

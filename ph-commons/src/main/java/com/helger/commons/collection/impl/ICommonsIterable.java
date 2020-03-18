@@ -86,7 +86,7 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>
    *        <code>null</code> this method behaves like
    *        {@link #forEach(Consumer)}.
    * @since 8.5.2
-   * @deprecated Since 9.3.10; use {@link #findAll(Predicate, Consumer)} instead
+   * @deprecated Since 9.4.0; use {@link #findAll(Predicate, Consumer)} instead
    */
   @Deprecated
   default void forEach (@Nonnull final Consumer <? super ELEMENTTYPE> aConsumer,

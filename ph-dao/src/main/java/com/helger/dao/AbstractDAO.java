@@ -100,7 +100,7 @@ public abstract class AbstractDAO implements IDAO
 
   /**
    * @return <code>true</code> if not silent mode
-   * @deprecated since 9.3.10 Use <code>!isSilentMode ()</code> instead
+   * @deprecated since 9.4.0 Use <code>!isSilentMode ()</code> instead
    */
   @Deprecated
   protected static final boolean isDebugLogging ()

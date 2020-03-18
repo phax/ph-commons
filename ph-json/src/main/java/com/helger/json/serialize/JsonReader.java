@@ -1100,7 +1100,7 @@ public final class JsonReader
     /**
      * @return <code>true</code> if a source is present, <code>false</code> if
      *         not.
-     * @since 9.3.10
+     * @since 9.4.0
      */
     public boolean hasSource ()
     {

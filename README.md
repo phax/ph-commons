@@ -13,6 +13,7 @@ This project was the following modules:
   * ph-cli - library with commandline parameter definition support; loosely based on commons-cli
   * ph-collection - library with extended collection related classes
   * ph-commons - the most common base library stuff
+  * ph-config - a generic configuration solution supporting different sources of configuration (since 9.4.0)
   * ph-dao - file based DAO library with WAL support
   * ph-datetime - extension library for handling Java date and time special cases
   * ph-graph - generic graph library with directed and undirected graphs
@@ -28,7 +29,7 @@ This project was the following modules:
 
 ## News and noteworthy
 
-* v9.3.10 - work in progress
+* v9.4.0 - work in progress
     * Added support for additional HTTP status codes (103, 308, 422, 425, 426, 428, 429, 431, 451, 506, 507, 508 and 511)
     * `JAXBContextCache` has now a method to switch silent mode on or off
     * Added new constant `GlobalDebug.DEFAULT_SILENT_MODE` for the default silent mode setting
@@ -45,6 +46,7 @@ This project was the following modules:
     * Updated license URLs to https where applicable
     * New parent POM 1.11.1 updates SLF4J to 1.7.30
     * `PropertiesHelper` got new APIs with `Charset` to read properties with character sets other than ISO-8859-1
+    * Started new subproject `ph-config` with a more intelligent configuration handling
 * v9.3.9 - 2019-12-11
     * Made `ClassLoaderHelper.getResource` more robust
     * Updated "mime-type-info.xml" list with  shared-mime-info-spec 1.15

@@ -238,7 +238,7 @@ public class JsonWriter
    *        The character set to be used. May not be <code>null</code>.
    * @throws IOException
    *         On IO error
-   * @since 9.3.10
+   * @since 9.4.0
    */
   public void writeToStream (@Nonnull final IJson aJson,
                              @Nonnull @WillNotClose final OutputStream aOS,
@@ -267,7 +267,7 @@ public class JsonWriter
    *        The character set to be used. May not be <code>null</code>.
    * @throws IOException
    *         On IO error
-   * @since 9.3.10
+   * @since 9.4.0
    */
   public void writeToStreamAndClose (@Nonnull final IJson aJson,
                                      @Nonnull @WillClose final OutputStream aOS,
@@ -292,7 +292,7 @@ public class JsonWriter
    * @param aCharset
    *        The character set to be used. May not be <code>null</code>.
    * @return The created byte array and never <code>null</code>.
-   * @since 9.3.10
+   * @since 9.4.0
    */
   @Nonnull
   public byte [] writeAsByteArray (@Nonnull final IJson aJson, @Nonnull final Charset aCharset)

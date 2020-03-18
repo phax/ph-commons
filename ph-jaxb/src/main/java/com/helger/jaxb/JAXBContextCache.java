@@ -58,7 +58,7 @@ public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBCont
   /**
    * @return <code>true</code> if logging is disabled, <code>false</code> if it
    *         is enabled.
-   * @since 9.3.10
+   * @since 9.4.0
    */
   public static boolean isSilentMode ()
   {
@@ -72,7 +72,7 @@ public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBCont
    *        <code>true</code> to disable logging, <code>false</code> to enable
    *        logging
    * @return The previous value of the silent mode.
-   * @since 9.3.10
+   * @since 9.4.0
    */
   public static boolean setSilentMode (final boolean bSilentMode)
   {
