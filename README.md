@@ -42,11 +42,12 @@ This project was the following modules:
     * Deprecated `ICommonsIterable.forEach` in favour of `findAll`
     * Fixed a bug in the cloning of `MapBasedNamespaceContext` (see [issue #17](https://github.com/phax/ph-commons/issues/17))
     * Added `ArrayHelper.EMPTY_CLASS_ARRAY`
-    * Slightly extended known licenses
+    * Added new predefined licenses (GPL20CP, EPL20 and EDL10)
     * Updated license URLs to https where applicable
     * New parent POM 1.11.1 updates SLF4J to 1.7.30
     * `PropertiesHelper` got new APIs with `Charset` to read properties with character sets other than ISO-8859-1
     * Started new subproject `ph-config` with a more intelligent configuration handling
+    * Added JDK 14 as a known version
 * v9.3.9 - 2019-12-11
     * Made `ClassLoaderHelper.getResource` more robust
     * Updated "mime-type-info.xml" list with  shared-mime-info-spec 1.15
