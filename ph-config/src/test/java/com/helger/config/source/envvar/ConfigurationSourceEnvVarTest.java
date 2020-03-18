@@ -25,6 +25,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.helger.commons.mock.CommonsTestHelper;
+import com.helger.commons.system.EOperatingSystem;
 import com.helger.config.source.EConfigSourceType;
 
 /**
@@ -42,7 +43,8 @@ public final class ConfigurationSourceEnvVarTest
     assertEquals (EConfigSourceType.ENVIRONMENT_VARIABLE.getDefaultPriority (), c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
     // Is that available on Travis?
-    assertNotNull (c.getConfigurationValue ("OS"));
+    if (EOperatingSystem.WINDOWS.isCurrentOS ())
+      assertNotNull (c.getConfigurationValue ("OS"));
     assertNull (c.getConfigurationValue ("I really don't know that env var!"));
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (c, new ConfigurationSourceEnvVar ());
