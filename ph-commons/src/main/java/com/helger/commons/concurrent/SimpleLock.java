@@ -161,8 +161,23 @@ public class SimpleLock extends ReentrantLock
    * @param aSupplier
    *        Callable to be executed. May not be <code>null</code>.
    * @return The return value of the callable. May be <code>null</code>.
+   * @deprecated Since 9.4.0; Use {@link #lockedBoolean(BooleanSupplier)}
+   *             instead
    */
+  @Deprecated
   public boolean locked (@Nonnull final BooleanSupplier aSupplier)
+  {
+    return lockedBoolean (aSupplier);
+  }
+
+  /**
+   * Execute the provided callable in a read lock.
+   *
+   * @param aSupplier
+   *        Callable to be executed. May not be <code>null</code>.
+   * @return The return value of the callable. May be <code>null</code>.
+   */
+  public boolean lockedBoolean (@Nonnull final BooleanSupplier aSupplier)
   {
     ValueEnforcer.notNull (aSupplier, "Supplier");
 
@@ -183,8 +198,22 @@ public class SimpleLock extends ReentrantLock
    * @param aSupplier
    *        Callable to be executed. May not be <code>null</code>.
    * @return The return value of the callable. May be <code>null</code>.
+   * @deprecated Since 9.4.0; Use {@link #lockedDouble(DoubleSupplier)} instead
    */
+  @Deprecated
   public double locked (@Nonnull final DoubleSupplier aSupplier)
+  {
+    return lockedDouble (aSupplier);
+  }
+
+  /**
+   * Execute the provided callable in a read lock.
+   *
+   * @param aSupplier
+   *        Callable to be executed. May not be <code>null</code>.
+   * @return The return value of the callable. May be <code>null</code>.
+   */
+  public double lockedDouble (@Nonnull final DoubleSupplier aSupplier)
   {
     ValueEnforcer.notNull (aSupplier, "Supplier");
 
@@ -205,8 +234,22 @@ public class SimpleLock extends ReentrantLock
    * @param aSupplier
    *        Callable to be executed. May not be <code>null</code>.
    * @return The return value of the callable. May be <code>null</code>.
+   * @deprecated Since 9.4.0; Use {@link #lockedInt(IntSupplier)} instead
    */
+  @Deprecated
   public int locked (@Nonnull final IntSupplier aSupplier)
+  {
+    return lockedInt (aSupplier);
+  }
+
+  /**
+   * Execute the provided callable in a read lock.
+   *
+   * @param aSupplier
+   *        Callable to be executed. May not be <code>null</code>.
+   * @return The return value of the callable. May be <code>null</code>.
+   */
+  public int lockedInt (@Nonnull final IntSupplier aSupplier)
   {
     ValueEnforcer.notNull (aSupplier, "Supplier");
 
@@ -227,8 +270,22 @@ public class SimpleLock extends ReentrantLock
    * @param aSupplier
    *        Callable to be executed. May not be <code>null</code>.
    * @return The return value of the callable. May be <code>null</code>.
+   * @deprecated Since 9.4.0; Use {@link #lockedLong(LongSupplier)} instead
    */
+  @Deprecated
   public long locked (@Nonnull final LongSupplier aSupplier)
+  {
+    return lockedLong (aSupplier);
+  }
+
+  /**
+   * Execute the provided callable in a read lock.
+   *
+   * @param aSupplier
+   *        Callable to be executed. May not be <code>null</code>.
+   * @return The return value of the callable. May be <code>null</code>.
+   */
+  public long lockedLong (@Nonnull final LongSupplier aSupplier)
   {
     ValueEnforcer.notNull (aSupplier, "Supplier");
 

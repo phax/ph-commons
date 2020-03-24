@@ -51,6 +51,8 @@ This project was the following modules:
     * Added silent mode to `TypeConverter`, `CountryCache`, `LanguageCache`, `ObjectPool`, `LocaleCache`
     * Added new `JAXBDocumentType` constructor for more flexible use
     * Changed names of `SimpleReadWriteLock.(read|write)Locked` with primitive suppliers
+    * Changed names of `SimpleLock.locked` with primitive suppliers
+suppliers
 * v9.3.9 - 2019-12-11
     * Made `ClassLoaderHelper.getResource` more robust
     * Updated "mime-type-info.xml" list with  shared-mime-info-spec 1.15
