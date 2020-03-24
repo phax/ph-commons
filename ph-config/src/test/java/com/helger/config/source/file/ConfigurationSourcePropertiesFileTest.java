@@ -27,6 +27,8 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
+import com.helger.commons.io.resource.FileSystemResource;
+import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.config.source.EConfigSourceType;
 
@@ -37,16 +39,16 @@ import com.helger.config.source.EConfigSourceType;
  */
 public final class ConfigurationSourcePropertiesFileTest
 {
-  private static final File f = new File ("src/test/resources/file/test.properties");
+  private static final IReadableResource f = new FileSystemResource (new File ("src/test/resources/file/test.properties"));
 
   @Test
   public void testBasic ()
   {
     final ConfigurationSourcePropertiesFile c = new ConfigurationSourcePropertiesFile (f);
-    assertSame (EConfigSourceType.FILE, c.getSourceType ());
-    assertEquals (EConfigSourceType.FILE.getDefaultPriority (), c.getPriority ());
+    assertSame (EConfigSourceType.RESOURCE, c.getSourceType ());
+    assertEquals (EConfigSourceType.RESOURCE.getDefaultPriority (), c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
-    assertSame (f, c.getFile ());
+    assertSame (f, c.getResource ());
     assertEquals ("string", c.getConfigurationValue ("element1"));
     assertEquals ("2", c.getConfigurationValue ("element2"));
     assertNull (c.getConfigurationValue ("what a mess"));
@@ -56,15 +58,15 @@ public final class ConfigurationSourcePropertiesFileTest
                                                                            new ConfigurationSourcePropertiesFile (1234,
                                                                                                                   f));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c,
-                                                                           new ConfigurationSourcePropertiesFile (new File ("bla")));
+                                                                           new ConfigurationSourcePropertiesFile (new FileSystemResource (new File ("bla"))));
   }
 
   @Test
   public void testExplicitCharset ()
   {
     final ConfigurationSourcePropertiesFile c = new ConfigurationSourcePropertiesFile (f, StandardCharsets.ISO_8859_1);
-    assertSame (EConfigSourceType.FILE, c.getSourceType ());
-    assertEquals (EConfigSourceType.FILE.getDefaultPriority (), c.getPriority ());
+    assertSame (EConfigSourceType.RESOURCE, c.getSourceType ());
+    assertEquals (EConfigSourceType.RESOURCE.getDefaultPriority (), c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
     assertEquals ("string", c.getConfigurationValue ("element1"));
     assertEquals ("2", c.getConfigurationValue ("element2"));
@@ -74,7 +76,7 @@ public final class ConfigurationSourcePropertiesFileTest
   public void testDifferentPriority ()
   {
     final ConfigurationSourcePropertiesFile c = new ConfigurationSourcePropertiesFile (2323, f);
-    assertSame (EConfigSourceType.FILE, c.getSourceType ());
+    assertSame (EConfigSourceType.RESOURCE, c.getSourceType ());
     assertEquals (2323, c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
     assertEquals ("string", c.getConfigurationValue ("element1"));
@@ -87,7 +89,7 @@ public final class ConfigurationSourcePropertiesFileTest
     final ConfigurationSourcePropertiesFile c = new ConfigurationSourcePropertiesFile (2323,
                                                                                        f,
                                                                                        StandardCharsets.ISO_8859_1);
-    assertSame (EConfigSourceType.FILE, c.getSourceType ());
+    assertSame (EConfigSourceType.RESOURCE, c.getSourceType ());
     assertEquals (2323, c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
     assertEquals ("string", c.getConfigurationValue ("element1"));
@@ -97,12 +99,13 @@ public final class ConfigurationSourcePropertiesFileTest
   @Test
   public void testNonExisting ()
   {
-    final File f2 = new File ("bla");
+    final IReadableResource f2 = new FileSystemResource (new File ("bla"));
+    assertFalse (f2.exists ());
     final ConfigurationSourcePropertiesFile c = new ConfigurationSourcePropertiesFile (f2);
-    assertSame (EConfigSourceType.FILE, c.getSourceType ());
-    assertEquals (EConfigSourceType.FILE.getDefaultPriority (), c.getPriority ());
+    assertSame (EConfigSourceType.RESOURCE, c.getSourceType ());
+    assertEquals (EConfigSourceType.RESOURCE.getDefaultPriority (), c.getPriority ());
     assertFalse (c.isInitializedAndUsable ());
-    assertSame (f2, c.getFile ());
+    assertSame (f2, c.getResource ());
     assertNull (c.getConfigurationValue ("element1"));
   }
 }

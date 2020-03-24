@@ -16,16 +16,17 @@
  */
 package com.helger.config.source.file;
 
-import java.io.File;
 import java.nio.charset.Charset;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
+import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.config.source.IConfigurationSource;
 import com.helger.json.IJson;
@@ -39,6 +40,7 @@ import com.helger.json.serialize.JsonReader;
  *
  * @author Philip Helger
  */
+@Immutable
 public class ConfigurationSourceJsonFile extends AbstractConfigurationSourceFile
 {
   public static final char LEVEL_SEPARATOR = '.';
@@ -74,25 +76,25 @@ public class ConfigurationSourceJsonFile extends AbstractConfigurationSourceFile
   /**
    * Constructor with default priority and default charset
    *
-   * @param aFile
-   *        File to read from. May not be <code>null</code>.
+   * @param aRes
+   *        Resource to read from. May not be <code>null</code>.
    */
-  public ConfigurationSourceJsonFile (@Nonnull final File aFile)
+  public ConfigurationSourceJsonFile (@Nonnull final IReadableResource aRes)
   {
-    this (SOURCE_TYPE.getDefaultPriority (), aFile, (Charset) null);
+    this (SOURCE_TYPE.getDefaultPriority (), aRes, (Charset) null);
   }
 
   /**
    * Constructor with default priority
    *
-   * @param aFile
-   *        File to read from. May not be <code>null</code>.
+   * @param aRes
+   *        Resource to read from. May not be <code>null</code>.
    * @param aCharset
    *        Character set to use. May be <code>null</code>.
    */
-  public ConfigurationSourceJsonFile (@Nonnull final File aFile, @Nullable final Charset aCharset)
+  public ConfigurationSourceJsonFile (@Nonnull final IReadableResource aRes, @Nullable final Charset aCharset)
   {
-    this (SOURCE_TYPE.getDefaultPriority (), aFile, aCharset);
+    this (SOURCE_TYPE.getDefaultPriority (), aRes, aCharset);
   }
 
   /**
@@ -100,12 +102,12 @@ public class ConfigurationSourceJsonFile extends AbstractConfigurationSourceFile
    *
    * @param nPriority
    *        Configuration source priority.
-   * @param aFile
-   *        File to read from. May not be <code>null</code>.
+   * @param aRes
+   *        Resource to read from. May not be <code>null</code>.
    */
-  public ConfigurationSourceJsonFile (final int nPriority, @Nonnull final File aFile)
+  public ConfigurationSourceJsonFile (final int nPriority, @Nonnull final IReadableResource aRes)
   {
-    this (nPriority, aFile, (Charset) null);
+    this (nPriority, aRes, (Charset) null);
   }
 
   /**
@@ -113,16 +115,18 @@ public class ConfigurationSourceJsonFile extends AbstractConfigurationSourceFile
    *
    * @param nPriority
    *        Configuration source priority.
-   * @param aFile
-   *        File to read from. May not be <code>null</code>.
+   * @param aRes
+   *        Resource to read from. May not be <code>null</code>.
    * @param aCharset
    *        Character set to use. May be <code>null</code>.
    */
-  public ConfigurationSourceJsonFile (final int nPriority, @Nonnull final File aFile, @Nullable final Charset aCharset)
+  public ConfigurationSourceJsonFile (final int nPriority,
+                                      @Nonnull final IReadableResource aRes,
+                                      @Nullable final Charset aCharset)
   {
-    super (nPriority, aFile);
+    super (nPriority, aRes);
     final JsonReader.Builder aBuilder = JsonReader.builder ()
-                                                  .setSource (aFile,
+                                                  .setSource (aRes,
                                                               aCharset != null ? aCharset : JsonReader.DEFAULT_CHARSET)
                                                   .setCustomizeCallback (aParser -> {
                                                     aParser.setRequireStringQuotes (false);

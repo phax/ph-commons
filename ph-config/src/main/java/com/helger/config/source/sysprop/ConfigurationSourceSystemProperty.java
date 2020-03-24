@@ -18,6 +18,7 @@ package com.helger.config.source.sysprop;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.system.SystemProperties;
@@ -30,6 +31,7 @@ import com.helger.config.source.IConfigurationSource;
  *
  * @author Philip Helger
  */
+@Immutable
 public class ConfigurationSourceSystemProperty extends AbstractConfigurationSource
 {
   public static final EConfigSourceType SOURCE_TYPE = EConfigSourceType.SYSTEM_PROPERTY;

@@ -16,13 +16,14 @@
  */
 package com.helger.config.source.file;
 
-import java.io.File;
 import java.nio.charset.Charset;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.lang.NonBlockingProperties;
 import com.helger.commons.lang.PropertiesHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -34,6 +35,7 @@ import com.helger.config.source.IConfigurationSource;
  *
  * @author Philip Helger
  */
+@Immutable
 public class ConfigurationSourcePropertiesFile extends AbstractConfigurationSourceFile
 {
   private final NonBlockingProperties m_aProps;
@@ -41,25 +43,25 @@ public class ConfigurationSourcePropertiesFile extends AbstractConfigurationSour
   /**
    * Constructor with default priority and default charset
    *
-   * @param aFile
-   *        File to read from. May not be <code>null</code>.
+   * @param aRes
+   *        Resource to read from. May not be <code>null</code>.
    */
-  public ConfigurationSourcePropertiesFile (@Nonnull final File aFile)
+  public ConfigurationSourcePropertiesFile (@Nonnull final IReadableResource aRes)
   {
-    this (SOURCE_TYPE.getDefaultPriority (), aFile, (Charset) null);
+    this (SOURCE_TYPE.getDefaultPriority (), aRes, (Charset) null);
   }
 
   /**
    * Constructor with default priority
    *
-   * @param aFile
-   *        File to read from. May not be <code>null</code>.
+   * @param aRes
+   *        Resource to read from. May not be <code>null</code>.
    * @param aCharset
    *        Character set to use. May be <code>null</code>.
    */
-  public ConfigurationSourcePropertiesFile (@Nonnull final File aFile, @Nullable final Charset aCharset)
+  public ConfigurationSourcePropertiesFile (@Nonnull final IReadableResource aRes, @Nullable final Charset aCharset)
   {
-    this (SOURCE_TYPE.getDefaultPriority (), aFile, aCharset);
+    this (SOURCE_TYPE.getDefaultPriority (), aRes, aCharset);
   }
 
   /**
@@ -67,12 +69,12 @@ public class ConfigurationSourcePropertiesFile extends AbstractConfigurationSour
    *
    * @param nPriority
    *        Configuration source priority.
-   * @param aFile
-   *        File to read from. May not be <code>null</code>.
+   * @param aRes
+   *        Resource to read from. May not be <code>null</code>.
    */
-  public ConfigurationSourcePropertiesFile (final int nPriority, @Nonnull final File aFile)
+  public ConfigurationSourcePropertiesFile (final int nPriority, @Nonnull final IReadableResource aRes)
   {
-    this (nPriority, aFile, (Charset) null);
+    this (nPriority, aRes, (Charset) null);
   }
 
   /**
@@ -80,18 +82,18 @@ public class ConfigurationSourcePropertiesFile extends AbstractConfigurationSour
    *
    * @param nPriority
    *        Configuration source priority.
-   * @param aFile
-   *        File to read from. May not be <code>null</code>.
+   * @param aRes
+   *        Resource to read from. May not be <code>null</code>.
    * @param aCharset
    *        Character set to use. May be <code>null</code>.
    */
   public ConfigurationSourcePropertiesFile (final int nPriority,
-                                            @Nonnull final File aFile,
+                                            @Nonnull final IReadableResource aRes,
                                             @Nullable final Charset aCharset)
   {
-    super (nPriority, aFile);
-    m_aProps = aCharset == null ? PropertiesHelper.loadProperties (aFile)
-                                : PropertiesHelper.loadProperties (aFile, aCharset);
+    super (nPriority, aRes);
+    m_aProps = aCharset == null ? PropertiesHelper.loadProperties (aRes)
+                                : PropertiesHelper.loadProperties (aRes, aCharset);
   }
 
   public boolean isInitializedAndUsable ()

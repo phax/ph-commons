@@ -27,6 +27,8 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
+import com.helger.commons.io.resource.FileSystemResource;
+import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.config.source.EConfigSourceType;
 
@@ -37,16 +39,16 @@ import com.helger.config.source.EConfigSourceType;
  */
 public final class ConfigurationSourceJsonFileTest
 {
-  private static final File f = new File ("src/test/resources/file/test.json");
+  private static final IReadableResource f = new FileSystemResource (new File ("src/test/resources/file/test.json"));
 
   @Test
   public void testBasic ()
   {
     final ConfigurationSourceJsonFile c = new ConfigurationSourceJsonFile (f);
-    assertSame (EConfigSourceType.FILE, c.getSourceType ());
-    assertEquals (EConfigSourceType.FILE.getDefaultPriority (), c.getPriority ());
+    assertSame (EConfigSourceType.RESOURCE, c.getSourceType ());
+    assertEquals (EConfigSourceType.RESOURCE.getDefaultPriority (), c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
-    assertSame (f, c.getFile ());
+    assertSame (f, c.getResource ());
     assertEquals ("string", c.getConfigurationValue ("element1"));
     assertEquals ("2", c.getConfigurationValue ("element2"));
     assertEquals ("1234", c.getConfigurationValue ("element5.network.port"));
@@ -69,15 +71,15 @@ public final class ConfigurationSourceJsonFileTest
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c,
                                                                            new ConfigurationSourceJsonFile (1234, f));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c,
-                                                                           new ConfigurationSourceJsonFile (new File ("bla")));
+                                                                           new ConfigurationSourceJsonFile (new FileSystemResource (new File ("bla"))));
   }
 
   @Test
   public void testExplicitCharset ()
   {
     final ConfigurationSourceJsonFile c = new ConfigurationSourceJsonFile (f, StandardCharsets.ISO_8859_1);
-    assertSame (EConfigSourceType.FILE, c.getSourceType ());
-    assertEquals (EConfigSourceType.FILE.getDefaultPriority (), c.getPriority ());
+    assertSame (EConfigSourceType.RESOURCE, c.getSourceType ());
+    assertEquals (EConfigSourceType.RESOURCE.getDefaultPriority (), c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
     assertEquals ("string", c.getConfigurationValue ("element1"));
     assertEquals ("2", c.getConfigurationValue ("element2"));
@@ -88,7 +90,7 @@ public final class ConfigurationSourceJsonFileTest
   public void testDifferentPriority ()
   {
     final ConfigurationSourceJsonFile c = new ConfigurationSourceJsonFile (2323, f);
-    assertSame (EConfigSourceType.FILE, c.getSourceType ());
+    assertSame (EConfigSourceType.RESOURCE, c.getSourceType ());
     assertEquals (2323, c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
     assertEquals ("string", c.getConfigurationValue ("element1"));
@@ -100,7 +102,7 @@ public final class ConfigurationSourceJsonFileTest
   public void testDifferentPriorityAndExplicitCharset ()
   {
     final ConfigurationSourceJsonFile c = new ConfigurationSourceJsonFile (2323, f, StandardCharsets.ISO_8859_1);
-    assertSame (EConfigSourceType.FILE, c.getSourceType ());
+    assertSame (EConfigSourceType.RESOURCE, c.getSourceType ());
     assertEquals (2323, c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
     assertEquals ("string", c.getConfigurationValue ("element1"));
@@ -111,12 +113,13 @@ public final class ConfigurationSourceJsonFileTest
   @Test
   public void testNonExisting ()
   {
-    final File f2 = new File ("bla");
+    final IReadableResource f2 = new FileSystemResource (new File ("bla"));
+    assertFalse (f2.exists ());
     final ConfigurationSourceJsonFile c = new ConfigurationSourceJsonFile (f2);
-    assertSame (EConfigSourceType.FILE, c.getSourceType ());
-    assertEquals (EConfigSourceType.FILE.getDefaultPriority (), c.getPriority ());
+    assertSame (EConfigSourceType.RESOURCE, c.getSourceType ());
+    assertEquals (EConfigSourceType.RESOURCE.getDefaultPriority (), c.getPriority ());
     assertFalse (c.isInitializedAndUsable ());
-    assertSame (f2, c.getFile ());
+    assertSame (f2, c.getResource ());
     assertNull (c.getConfigurationValue ("element1"));
     assertNull (c.getConfigurationValue ("element2"));
     assertNull (c.getConfigurationValue ("element5.network.port"));

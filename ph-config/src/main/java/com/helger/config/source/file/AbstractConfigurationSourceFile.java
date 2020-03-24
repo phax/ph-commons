@@ -19,6 +19,7 @@ package com.helger.config.source.file;
 import java.io.File;
 
 import javax.annotation.Nonnull;
+import javax.annotation.concurrent.Immutable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +27,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
+import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.config.source.AbstractConfigurationSource;
 import com.helger.config.source.EConfigSourceType;
@@ -37,38 +39,44 @@ import com.helger.config.source.IConfigurationSource;
  *
  * @author Philip Helger
  */
+@Immutable
 public abstract class AbstractConfigurationSourceFile extends AbstractConfigurationSource
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (AbstractConfigurationSourceFile.class);
-  public static final EConfigSourceType SOURCE_TYPE = EConfigSourceType.FILE;
+  public static final EConfigSourceType SOURCE_TYPE = EConfigSourceType.RESOURCE;
 
-  private final File m_aFile;
+  private final IReadableResource m_aRes;
 
-  protected AbstractConfigurationSourceFile (final int nPriority, @Nonnull final File aFile)
+  protected AbstractConfigurationSourceFile (final int nPriority, @Nonnull final IReadableResource aRes)
   {
     super (SOURCE_TYPE, nPriority);
-    ValueEnforcer.notNull (aFile, "File");
-    m_aFile = aFile;
-    if (aFile.isFile ())
+    ValueEnforcer.notNull (aRes, "File");
+    m_aRes = aRes;
+
+    final File aFile = aRes.getAsFile ();
+    if (aFile != null)
     {
-      if (!aFile.canRead ())
-        LOGGER.warn ("The configuration file '" + aFile.getAbsolutePath () + "' exists, but is not readable");
-    }
-    else
-    {
-      // Non existing files are okay
-      if (aFile.isDirectory ())
-        LOGGER.warn ("The configuration file '" + aFile.getAbsolutePath () + "' exists, but is a directory");
+      if (aFile.isFile ())
+      {
+        if (!aFile.canRead ())
+          LOGGER.warn ("The configuration file '" + aFile.getAbsolutePath () + "' exists, but is not readable");
+      }
+      else
+      {
+        // Non existing files are okay
+        if (aFile.isDirectory ())
+          LOGGER.warn ("The configuration file '" + aFile.getAbsolutePath () + "' exists, but is a directory");
+      }
     }
   }
 
   /**
-   * @return The file as passed in the constructor. Never <code>null</code>.
+   * @return The resource as passed in the constructor. Never <code>null</code>.
    */
   @Nonnull
-  public final File getFile ()
+  public final IReadableResource getResource ()
   {
-    return m_aFile;
+    return m_aRes;
   }
 
   @Override
@@ -79,18 +87,18 @@ public abstract class AbstractConfigurationSourceFile extends AbstractConfigurat
     if (!super.equals (o))
       return false;
     final AbstractConfigurationSourceFile rhs = (AbstractConfigurationSourceFile) o;
-    return EqualsHelper.equals (m_aFile, rhs.m_aFile);
+    return EqualsHelper.equals (m_aRes, rhs.m_aRes);
   }
 
   @Override
   public int hashCode ()
   {
-    return HashCodeGenerator.getDerived (super.hashCode ()).append (m_aFile).getHashCode ();
+    return HashCodeGenerator.getDerived (super.hashCode ()).append (m_aRes).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("File", m_aFile).getToString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("File", m_aRes).getToString ();
   }
 }

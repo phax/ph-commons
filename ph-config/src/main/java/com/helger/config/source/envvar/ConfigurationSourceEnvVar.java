@@ -18,6 +18,7 @@ package com.helger.config.source.envvar;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,9 +34,11 @@ import com.helger.config.source.IConfigurationSource;
  *
  * @author Philip Helger
  */
+@Immutable
 public class ConfigurationSourceEnvVar extends AbstractConfigurationSource
 {
   public static final EConfigSourceType SOURCE_TYPE = EConfigSourceType.ENVIRONMENT_VARIABLE;
+
   private static final Logger LOGGER = LoggerFactory.getLogger (ConfigurationSourceEnvVar.class);
 
   public ConfigurationSourceEnvVar ()

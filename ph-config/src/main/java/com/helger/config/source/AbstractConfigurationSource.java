@@ -17,6 +17,7 @@
 package com.helger.config.source;
 
 import javax.annotation.Nonnull;
+import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
@@ -29,6 +30,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
+@Immutable
 public abstract class AbstractConfigurationSource implements IConfigurationSource
 {
   private final EConfigSourceType m_eSourceType;

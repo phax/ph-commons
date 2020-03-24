@@ -20,6 +20,7 @@ import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
@@ -35,6 +36,7 @@ import com.helger.config.source.IConfigurationSource;
  *
  * @author Philip Helger
  */
+@Immutable
 public class ConfigurationSourceFunction extends AbstractConfigurationSource
 {
   public static final EConfigSourceType SOURCE_TYPE = EConfigSourceType.APPLICATION;

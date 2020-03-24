@@ -43,7 +43,7 @@ public enum EConfigSourceType implements IHasID <String>
   /**
    * A configuration value from a file.
    */
-  FILE ("file", 200),
+  RESOURCE ("resource", 200),
   /**
    * A configuration value from any other source inside the application.
    */
