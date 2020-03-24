@@ -16,6 +16,8 @@
  */
 package com.helger.commons.typeconvert;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -25,6 +27,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
+import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.typeconvert.TypeConverterException.EReason;
@@ -43,12 +46,37 @@ import com.helger.commons.typeconvert.TypeConverterException.EReason;
 public final class TypeConverter
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (TypeConverter.class);
+  private static final AtomicBoolean SILENT_MODE = new AtomicBoolean (GlobalDebug.DEFAULT_SILENT_MODE);
 
   @PresentForCodeCoverage
   private static final TypeConverter s_aInstance = new TypeConverter ();
 
   private TypeConverter ()
   {}
+
+  /**
+   * @return <code>true</code> if logging is disabled, <code>false</code> if it
+   *         is enabled.
+   * @since 9.4.0
+   */
+  public static boolean isSilentMode ()
+  {
+    return SILENT_MODE.get ();
+  }
+
+  /**
+   * Enable or disable certain regular log messages.
+   *
+   * @param bSilentMode
+   *        <code>true</code> to disable logging, <code>false</code> to enable
+   *        logging
+   * @return The previous value of the silent mode.
+   * @since 9.4.0
+   */
+  public static boolean setSilentMode (final boolean bSilentMode)
+  {
+    return SILENT_MODE.getAndSet (bSilentMode);
+  }
 
   @Nullable
   public static <DSTTYPE> DSTTYPE convert (final boolean aSrcValue, @Nonnull final Class <DSTTYPE> aDstClass)
@@ -469,13 +497,15 @@ public final class TypeConverter
                                                                                                 aUsableDstClass);
     if (aConverter == null)
     {
-      LOGGER.warn ("No type converter from '" +
-                   aSrcClass.getName () +
-                   "' to '" +
-                   aUsableDstClass.getName () +
-                   "' was found (using provider '" +
-                   aTypeConverterProvider.getClass ().getName () +
-                   "')");
+      if (!isSilentMode ())
+        if (LOGGER.isWarnEnabled ())
+          LOGGER.warn ("No type converter from '" +
+                       aSrcClass.getName () +
+                       "' to '" +
+                       aUsableDstClass.getName () +
+                       "' was found (using provider '" +
+                       aTypeConverterProvider.getClass ().getName () +
+                       "')");
       throw new TypeConverterException (aSrcClass, aUsableDstClass, EReason.NO_CONVERTER_FOUND);
     }
 
@@ -492,16 +522,17 @@ public final class TypeConverter
     }
     if (aRetVal == null)
     {
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Type conversion from '" +
-                     aSrcValue +
-                     "' of class '" +
-                     aSrcClass.getName () +
-                     "' to '" +
-                     aUsableDstClass.getName () +
-                     "' with converter '" +
-                     aConverter.toString () +
-                     "' failed; null was returned from converter!");
+      if (!isSilentMode ())
+        if (LOGGER.isWarnEnabled ())
+          LOGGER.warn ("Type conversion from '" +
+                       aSrcValue +
+                       "' of class '" +
+                       aSrcClass.getName () +
+                       "' to '" +
+                       aUsableDstClass.getName () +
+                       "' with converter '" +
+                       aConverter.toString () +
+                       "' failed; null was returned from converter!");
       throw new TypeConverterException (aSrcClass, aUsableDstClass, EReason.CONVERSION_FAILED);
     }
     return aRetVal;
