@@ -20,6 +20,7 @@ import java.io.IOException;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.WillNotClose;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.io.stream.NonBlockingBufferedReader;
@@ -39,8 +40,9 @@ public class CSVLineReaderNonBlockingBufferedReader implements ICSVLineReader
    *
    * @param aReader
    *        Reader that data will be read from. May not be <code>null</code>.
+   *        Will not be closed in this class.
    */
-  public CSVLineReaderNonBlockingBufferedReader (@Nonnull final NonBlockingBufferedReader aReader)
+  public CSVLineReaderNonBlockingBufferedReader (@Nonnull @WillNotClose final NonBlockingBufferedReader aReader)
   {
     m_aReader = ValueEnforcer.notNull (aReader, "Reader");
   }

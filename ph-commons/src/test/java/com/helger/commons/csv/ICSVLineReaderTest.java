@@ -40,6 +40,7 @@ public final class ICSVLineReaderTest
   private static final String EMPTY_STRING = "";
   private static final String NULL_STRING = null;
 
+  @SuppressWarnings ("resource")
   @Nonnull
   private static ICSVLineReader createLineReaderforString (@Nonnull final String s, final boolean bKeepCR)
   {

@@ -21,6 +21,7 @@ import java.io.Reader;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.WillNotClose;
 
 import com.helger.commons.ValueEnforcer;
 
@@ -42,8 +43,9 @@ public class CSVLineReaderKeepCR implements ICSVLineReader
    *
    * @param aReader
    *        Reader that data will be read from. May not be <code>null</code>.
+   *        Will not be closed in this class.
    */
-  public CSVLineReaderKeepCR (@Nonnull final Reader aReader)
+  public CSVLineReaderKeepCR (@Nonnull @WillNotClose final Reader aReader)
   {
     m_aReader = ValueEnforcer.notNull (aReader, "Reader");
   }
