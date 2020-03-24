@@ -166,7 +166,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
   @Nonnegative
   public int getRegisteredSerializationConverterCount ()
   {
-    return m_aRWLock.readLocked (m_aMap::size);
+    return m_aRWLock.readLockedInt (m_aMap::size);
   }
 
   public void reinitialize ()

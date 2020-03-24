@@ -156,8 +156,23 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @param aSupplier
    *        Callable to be executed. May not be <code>null</code>.
    * @return The return value of the callable. May be <code>null</code>.
+   * @deprecated Since 9.4.0; Use {@link #readLockedBoolean(BooleanSupplier)}
+   *             instead
    */
+  @Deprecated
   public boolean readLocked (@Nonnull final BooleanSupplier aSupplier)
+  {
+    return readLockedBoolean (aSupplier);
+  }
+
+  /**
+   * Execute the provided callable in a read lock.
+   *
+   * @param aSupplier
+   *        Callable to be executed. May not be <code>null</code>.
+   * @return The return value of the callable. May be <code>null</code>.
+   */
+  public boolean readLockedBoolean (@Nonnull final BooleanSupplier aSupplier)
   {
     readLock ().lock ();
     try
@@ -176,8 +191,23 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @param aSupplier
    *        Callable to be executed. May not be <code>null</code>.
    * @return The return value of the callable. May be <code>null</code>.
+   * @deprecated Since 9.4.0; Use {@link #readLockedDouble(DoubleSupplier)}
+   *             instead
    */
+  @Deprecated
   public double readLocked (@Nonnull final DoubleSupplier aSupplier)
+  {
+    return readLockedDouble (aSupplier);
+  }
+
+  /**
+   * Execute the provided callable in a read lock.
+   *
+   * @param aSupplier
+   *        Callable to be executed. May not be <code>null</code>.
+   * @return The return value of the callable. May be <code>null</code>.
+   */
+  public double readLockedDouble (@Nonnull final DoubleSupplier aSupplier)
   {
     readLock ().lock ();
     try
@@ -196,8 +226,22 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @param aSupplier
    *        Callable to be executed. May not be <code>null</code>.
    * @return The return value of the callable. May be <code>null</code>.
+   * @deprecated Since 9.4.0; Use {@link #readLockedInt(IntSupplier)} instead
    */
+  @Deprecated
   public int readLocked (@Nonnull final IntSupplier aSupplier)
+  {
+    return readLockedInt (aSupplier);
+  }
+
+  /**
+   * Execute the provided callable in a read lock.
+   *
+   * @param aSupplier
+   *        Callable to be executed. May not be <code>null</code>.
+   * @return The return value of the callable. May be <code>null</code>.
+   */
+  public int readLockedInt (@Nonnull final IntSupplier aSupplier)
   {
     readLock ().lock ();
     try
@@ -216,8 +260,22 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @param aSupplier
    *        Callable to be executed. May not be <code>null</code>.
    * @return The return value of the callable. May be <code>null</code>.
+   * @deprecated Since 9.4.0; Use {@link #readLockedLong(LongSupplier)} instead
    */
+  @Deprecated
   public long readLocked (@Nonnull final LongSupplier aSupplier)
+  {
+    return readLockedLong (aSupplier);
+  }
+
+  /**
+   * Execute the provided callable in a read lock.
+   *
+   * @param aSupplier
+   *        Callable to be executed. May not be <code>null</code>.
+   * @return The return value of the callable. May be <code>null</code>.
+   */
+  public long readLockedLong (@Nonnull final LongSupplier aSupplier)
   {
     readLock ().lock ();
     try
@@ -328,8 +386,23 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @param aSupplier
    *        Callable to be executed. May not be <code>null</code>.
    * @return The return value of the callable. May be <code>null</code>.
+   * @deprecated Since 9.4.0; Use {@link #writeLockedBoolean(BooleanSupplier)}
+   *             instead
    */
+  @Deprecated
   public boolean writeLocked (@Nonnull final BooleanSupplier aSupplier)
+  {
+    return writeLockedBoolean (aSupplier);
+  }
+
+  /**
+   * Execute the provided callable in a write lock.
+   *
+   * @param aSupplier
+   *        Callable to be executed. May not be <code>null</code>.
+   * @return The return value of the callable. May be <code>null</code>.
+   */
+  public boolean writeLockedBoolean (@Nonnull final BooleanSupplier aSupplier)
   {
     writeLock ().lock ();
     try
@@ -348,8 +421,23 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @param aSupplier
    *        Callable to be executed. May not be <code>null</code>.
    * @return The return value of the callable. May be <code>null</code>.
+   * @deprecated Since 9.4.0; Use {@link #writeLockedDouble(DoubleSupplier)}
+   *             instead
    */
+  @Deprecated
   public double writeLocked (@Nonnull final DoubleSupplier aSupplier)
+  {
+    return writeLockedDouble (aSupplier);
+  }
+
+  /**
+   * Execute the provided callable in a write lock.
+   *
+   * @param aSupplier
+   *        Callable to be executed. May not be <code>null</code>.
+   * @return The return value of the callable. May be <code>null</code>.
+   */
+  public double writeLockedDouble (@Nonnull final DoubleSupplier aSupplier)
   {
     writeLock ().lock ();
     try
@@ -368,8 +456,22 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @param aSupplier
    *        Callable to be executed. May not be <code>null</code>.
    * @return The return value of the callable. May be <code>null</code>.
+   * @deprecated Since 9.4.0; Use {@link #writeLockedInt(IntSupplier)} instead
    */
+  @Deprecated
   public int writeLocked (@Nonnull final IntSupplier aSupplier)
+  {
+    return writeLockedInt (aSupplier);
+  }
+
+  /**
+   * Execute the provided callable in a write lock.
+   *
+   * @param aSupplier
+   *        Callable to be executed. May not be <code>null</code>.
+   * @return The return value of the callable. May be <code>null</code>.
+   */
+  public int writeLockedInt (@Nonnull final IntSupplier aSupplier)
   {
     writeLock ().lock ();
     try
@@ -388,8 +490,22 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @param aSupplier
    *        Callable to be executed. May not be <code>null</code>.
    * @return The return value of the callable. May be <code>null</code>.
+   * @deprecated Since 9.4.0; Use {@link #writeLockedLong(LongSupplier)} instead
    */
+  @Deprecated
   public long writeLocked (@Nonnull final LongSupplier aSupplier)
+  {
+    return writeLockedLong (aSupplier);
+  }
+
+  /**
+   * Execute the provided callable in a write lock.
+   *
+   * @param aSupplier
+   *        Callable to be executed. May not be <code>null</code>.
+   * @return The return value of the callable. May be <code>null</code>.
+   */
+  public long writeLockedLong (@Nonnull final LongSupplier aSupplier)
   {
     writeLock ().lock ();
     try

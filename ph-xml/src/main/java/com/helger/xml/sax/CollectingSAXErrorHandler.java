@@ -70,7 +70,7 @@ public class CollectingSAXErrorHandler extends AbstractSAXErrorHandler
   protected void internalLog (@Nonnull final IErrorLevel aErrorLevel, final SAXParseException aException)
   {
     final IError aError = getSaxParseError (aErrorLevel, aException);
-    m_aRWLock.writeLocked ( () -> m_aErrors.add (aError));
+    m_aRWLock.writeLockedBoolean ( () -> m_aErrors.add (aError));
   }
 
   @Nonnull
@@ -82,7 +82,7 @@ public class CollectingSAXErrorHandler extends AbstractSAXErrorHandler
 
   public boolean containsAtLeastOneError ()
   {
-    return m_aRWLock.readLocked (m_aErrors::containsAtLeastOneError);
+    return m_aRWLock.readLockedBoolean (m_aErrors::containsAtLeastOneError);
   }
 
   /**

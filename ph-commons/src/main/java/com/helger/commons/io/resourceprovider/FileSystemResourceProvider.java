@@ -90,13 +90,13 @@ public class FileSystemResourceProvider implements IWritableResourceProvider
 
   public boolean isCanReadRelativePaths ()
   {
-    return m_aRWLock.readLocked ( () -> m_bCanReadRelativePaths);
+    return m_aRWLock.readLockedBoolean ( () -> m_bCanReadRelativePaths);
   }
 
   @Nonnull
   public FileSystemResourceProvider setCanReadRelativePaths (final boolean bCanReadRelativePaths)
   {
-    m_aRWLock.writeLocked ( () -> m_bCanReadRelativePaths = bCanReadRelativePaths);
+    m_aRWLock.writeLockedBoolean ( () -> m_bCanReadRelativePaths = bCanReadRelativePaths);
     return this;
   }
 

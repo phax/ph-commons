@@ -73,7 +73,7 @@ public final class JAXBBuilderDefaultSettings
    */
   public static void setDefaultUseContextCache (final boolean bUseContextCache)
   {
-    s_aRWLock.writeLocked ( () -> s_bUseContextCache = bUseContextCache);
+    s_aRWLock.writeLockedBoolean ( () -> s_bUseContextCache = bUseContextCache);
   }
 
   /**
@@ -82,7 +82,7 @@ public final class JAXBBuilderDefaultSettings
    */
   public static boolean isDefaultUseContextCache ()
   {
-    return s_aRWLock.readLocked ( () -> s_bUseContextCache);
+    return s_aRWLock.readLockedBoolean ( () -> s_bUseContextCache);
   }
 
   /**
@@ -141,7 +141,7 @@ public final class JAXBBuilderDefaultSettings
    */
   public static void setDefaultFormattedOutput (final boolean bFormattedOutput)
   {
-    s_aRWLock.writeLocked ( () -> s_bFormattedOutput = bFormattedOutput);
+    s_aRWLock.writeLockedBoolean ( () -> s_bFormattedOutput = bFormattedOutput);
   }
 
   /**
@@ -151,7 +151,7 @@ public final class JAXBBuilderDefaultSettings
    */
   public static boolean isDefaultFormattedOutput ()
   {
-    return s_aRWLock.readLocked ( () -> s_bFormattedOutput);
+    return s_aRWLock.readLockedBoolean ( () -> s_bFormattedOutput);
   }
 
   /**

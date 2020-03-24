@@ -99,7 +99,7 @@ public final class ThirdPartyModuleRegistry
   @Nonnegative
   public int getRegisteredThirdPartyModuleCount ()
   {
-    return m_aRWLock.readLocked (m_aModules::size);
+    return m_aRWLock.readLockedInt (m_aModules::size);
   }
 
   public void reinitialize ()

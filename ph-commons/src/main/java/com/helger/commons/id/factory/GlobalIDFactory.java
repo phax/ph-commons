@@ -207,7 +207,7 @@ public final class GlobalIDFactory
    */
   public static int getNewIntID ()
   {
-    return s_aRWLock.readLocked ( () -> {
+    return s_aRWLock.readLockedInt ( () -> {
       if (s_aIntIDFactory == null)
         throw new IllegalStateException ("No in-memory int ID factory has been supplied!");
       return s_aIntIDFactory.getNewID ();
@@ -219,7 +219,7 @@ public final class GlobalIDFactory
    */
   public static int getNewPersistentIntID ()
   {
-    return s_aRWLock.readLocked ( () -> {
+    return s_aRWLock.readLockedInt ( () -> {
       if (s_aPersistentIntIDFactory == null)
         throw new IllegalStateException ("No persistent int ID factory has been supplied. Don't know how to create persistent IDs!");
       return s_aPersistentIntIDFactory.getNewID ();
@@ -231,7 +231,7 @@ public final class GlobalIDFactory
    */
   public static long getNewLongID ()
   {
-    return s_aRWLock.readLocked ( () -> {
+    return s_aRWLock.readLockedLong ( () -> {
       if (s_aLongIDFactory == null)
         throw new IllegalStateException ("No in-memory long ID factory has been supplied!");
       return s_aLongIDFactory.getNewID ();
@@ -243,7 +243,7 @@ public final class GlobalIDFactory
    */
   public static long getNewPersistentLongID ()
   {
-    return s_aRWLock.readLocked ( () -> {
+    return s_aRWLock.readLockedLong ( () -> {
       if (s_aPersistentLongIDFactory == null)
         throw new IllegalStateException ("No persistent long ID factory has been supplied. Don't know how to create persistent IDs!");
       return s_aPersistentLongIDFactory.getNewID ();

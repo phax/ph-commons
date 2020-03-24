@@ -60,7 +60,7 @@ public class DefaultDAOContainer extends AbstractDAOContainer
 
   public boolean containsAny (@Nullable final Predicate <? super IDAO> aFilter)
   {
-    return m_aRWLock.readLocked ( () -> m_aDAOs.containsAny (aFilter));
+    return m_aRWLock.readLockedBoolean ( () -> m_aDAOs.containsAny (aFilter));
   }
 
   @Override

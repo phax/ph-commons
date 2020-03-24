@@ -160,7 +160,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
   @Nonnegative
   public int size ()
   {
-    return m_aRWLock.readLocked (m_aCallbacks::size);
+    return m_aRWLock.readLockedInt (m_aCallbacks::size);
   }
 
   public boolean isEmpty ()

@@ -51,7 +51,7 @@ public class CollectingValidationEventHandler extends AbstractValidationEventHan
   @Override
   protected void onEvent (@Nonnull final IError aEvent)
   {
-    m_aRWLock.writeLocked ( () -> m_aErrors.add (aEvent));
+    m_aRWLock.writeLockedBoolean ( () -> m_aErrors.add (aEvent));
   }
 
   @Nonnull

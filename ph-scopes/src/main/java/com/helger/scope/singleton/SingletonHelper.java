@@ -52,7 +52,7 @@ public final class SingletonHelper
    */
   public static void setDebugConsistency (final boolean bDebugConsistency)
   {
-    s_aRWLock.writeLocked ( () -> s_bDebugConsistency = bDebugConsistency);
+    s_aRWLock.writeLockedBoolean ( () -> s_bDebugConsistency = bDebugConsistency);
   }
 
   /**
@@ -62,7 +62,7 @@ public final class SingletonHelper
    */
   public static boolean isDebugConsistency ()
   {
-    return s_aRWLock.readLocked ( () -> s_bDebugConsistency);
+    return s_aRWLock.readLockedBoolean ( () -> s_bDebugConsistency);
   }
 
   /**
@@ -74,7 +74,7 @@ public final class SingletonHelper
    */
   public static void setDebugWithStackTrace (final boolean bDebugWithStackTrace)
   {
-    s_aRWLock.writeLocked ( () -> s_bDebugWithStackTrace = bDebugWithStackTrace);
+    s_aRWLock.writeLockedBoolean ( () -> s_bDebugWithStackTrace = bDebugWithStackTrace);
   }
 
   /**
@@ -83,7 +83,7 @@ public final class SingletonHelper
    */
   public static boolean isDebugWithStackTrace ()
   {
-    return s_aRWLock.readLocked ( () -> s_bDebugWithStackTrace);
+    return s_aRWLock.readLockedBoolean ( () -> s_bDebugWithStackTrace);
   }
 
   /**

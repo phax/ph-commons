@@ -161,7 +161,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
     {
       final String sSessionID = aSessionScope.getID ();
 
-      final boolean bCanDestroyScope = m_aRWLock.writeLocked ( () -> {
+      final boolean bCanDestroyScope = m_aRWLock.writeLockedBoolean ( () -> {
         boolean bWLCanDestroyScope = false;
         // Only if we're not just in destruction of exactly this session
         if (m_aSessionsInDestruction.add (sSessionID))
@@ -195,7 +195,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
         finally
         {
           // Remove from "in destruction" list
-          m_aRWLock.writeLocked ( () -> m_aSessionsInDestruction.remove (sSessionID));
+          m_aRWLock.writeLockedBoolean ( () -> m_aSessionsInDestruction.remove (sSessionID));
         }
       }
     }
@@ -207,7 +207,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
    */
   public boolean containsAnySession ()
   {
-    return m_aRWLock.readLocked (m_aSessionScopes::isNotEmpty);
+    return m_aRWLock.readLockedBoolean (m_aSessionScopes::isNotEmpty);
   }
 
   /**
@@ -216,7 +216,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
   @Nonnegative
   public int getSessionCount ()
   {
-    return m_aRWLock.readLocked (m_aSessionScopes::size);
+    return m_aRWLock.readLockedInt (m_aSessionScopes::size);
   }
 
   /**
@@ -287,7 +287,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
 
   public final boolean isDestroyAllSessionsOnScopeEnd ()
   {
-    return m_aRWLock.readLocked ( () -> m_bDestroyAllSessionsOnScopeEnd);
+    return m_aRWLock.readLockedBoolean ( () -> m_bDestroyAllSessionsOnScopeEnd);
   }
 
   @Nonnull
@@ -303,7 +303,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
 
   public final boolean isEndAllSessionsOnScopeEnd ()
   {
-    return m_aRWLock.readLocked ( () -> m_bEndAllSessionsOnScopeEnd);
+    return m_aRWLock.readLockedBoolean ( () -> m_bEndAllSessionsOnScopeEnd);
   }
 
   @Nonnull

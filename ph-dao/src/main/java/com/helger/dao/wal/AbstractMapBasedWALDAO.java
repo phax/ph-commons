@@ -625,31 +625,31 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @IsLocked (ELockType.READ)
   public final boolean isNotEmpty ()
   {
-    return m_aRWLock.readLocked (m_aMap::isNotEmpty);
+    return m_aRWLock.readLockedBoolean (m_aMap::isNotEmpty);
   }
 
   @IsLocked (ELockType.READ)
   public final boolean containsAny (@Nullable final Predicate <? super INTERFACETYPE> aFilter)
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.containsAny (m_aMap.values (), aFilter));
+    return m_aRWLock.readLockedBoolean ( () -> CollectionHelper.containsAny (m_aMap.values (), aFilter));
   }
 
   @IsLocked (ELockType.READ)
   public final boolean isEmpty ()
   {
-    return m_aRWLock.readLocked (m_aMap::isEmpty);
+    return m_aRWLock.readLockedBoolean (m_aMap::isEmpty);
   }
 
   @IsLocked (ELockType.READ)
   public final boolean containsNone (@Nullable final Predicate <? super INTERFACETYPE> aFilter)
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.containsNone (m_aMap.values (), aFilter));
+    return m_aRWLock.readLockedBoolean ( () -> CollectionHelper.containsNone (m_aMap.values (), aFilter));
   }
 
   @IsLocked (ELockType.READ)
   public final boolean containsOnly (@Nullable final Predicate <? super INTERFACETYPE> aFilter)
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.containsOnly (m_aMap.values (), aFilter));
+    return m_aRWLock.readLockedBoolean ( () -> CollectionHelper.containsOnly (m_aMap.values (), aFilter));
   }
 
   @IsLocked (ELockType.READ)
@@ -770,7 +770,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
     if (StringHelper.hasNoText (sID))
       return false;
 
-    return m_aRWLock.readLocked ( () -> m_aMap.containsKey (sID));
+    return m_aRWLock.readLockedBoolean ( () -> m_aMap.containsKey (sID));
   }
 
   @IsLocked (ELockType.READ)
@@ -803,13 +803,13 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @Nonnegative
   public final int size ()
   {
-    return m_aRWLock.readLocked (m_aMap::size);
+    return m_aRWLock.readLockedInt (m_aMap::size);
   }
 
   @Nonnegative
   public final int getCount (@Nullable final Predicate <? super INTERFACETYPE> aFilter)
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.getCount (m_aMap.values (), aFilter));
+    return m_aRWLock.readLockedInt ( () -> CollectionHelper.getCount (m_aMap.values (), aFilter));
   }
 
   @Override

@@ -222,7 +222,7 @@ public class CountryCache
     final String sValidCountry = LocaleHelper.getValidCountryCode (sCountry);
     if (sValidCountry == null)
       return false;
-    return m_aRWLock.readLocked ( () -> m_aCountries.contains (sValidCountry));
+    return m_aRWLock.readLockedBoolean ( () -> m_aCountries.contains (sValidCountry));
   }
 
   /**

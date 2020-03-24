@@ -114,7 +114,7 @@ public class StatisticsHandlerKeyedCounter implements IMutableStatisticsHandlerK
   @CheckForSigned
   public long getCount (@Nullable final String sKey)
   {
-    return m_aRWLock.readLocked ( () -> {
+    return m_aRWLock.readLockedLong ( () -> {
       final Value aCount = m_aMap.get (sKey);
       return aCount == null ? CGlobal.ILLEGAL_ULONG : aCount.getCount ();
     });
@@ -123,7 +123,7 @@ public class StatisticsHandlerKeyedCounter implements IMutableStatisticsHandlerK
   @CheckForSigned
   public int getInvocationCount (@Nullable final String sKey)
   {
-    return m_aRWLock.readLocked ( () -> {
+    return m_aRWLock.readLockedInt ( () -> {
       final Value aCount = m_aMap.get (sKey);
       return aCount == null ? CGlobal.ILLEGAL_UINT : aCount.getInvocationCount ();
     });

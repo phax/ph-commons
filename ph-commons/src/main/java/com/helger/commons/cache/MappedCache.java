@@ -405,18 +405,18 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
   @Nonnegative
   public int size ()
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.getSize (m_aCache));
+    return m_aRWLock.readLockedInt ( () -> CollectionHelper.getSize (m_aCache));
   }
 
   public boolean isEmpty ()
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.isEmpty (m_aCache));
+    return m_aRWLock.readLockedBoolean ( () -> CollectionHelper.isEmpty (m_aCache));
   }
 
   @Override
   public boolean isNotEmpty ()
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.isNotEmpty (m_aCache));
+    return m_aRWLock.readLockedBoolean ( () -> CollectionHelper.isNotEmpty (m_aCache));
   }
 
   @Override

@@ -148,7 +148,7 @@ public abstract class AbstractDAO implements IDAO
    */
   public final boolean isAutoSaveEnabled ()
   {
-    return m_aRWLock.readLocked ( () -> m_bAutoSaveEnabled);
+    return m_aRWLock.readLockedBoolean ( () -> m_bAutoSaveEnabled);
   }
 
   @MustBeLocked (ELockType.WRITE)
@@ -171,7 +171,7 @@ public abstract class AbstractDAO implements IDAO
    */
   public final boolean hasPendingChanges ()
   {
-    return m_aRWLock.readLocked ( () -> m_bPendingChanges);
+    return m_aRWLock.readLockedBoolean ( () -> m_bPendingChanges);
   }
 
   public final void beginWithoutAutoSave ()
@@ -186,7 +186,7 @@ public abstract class AbstractDAO implements IDAO
   public final void endWithoutAutoSave ()
   {
     // Restore previous auto save state
-    final boolean bPreviouslyAutoSaveEnabled = m_aRWLock.writeLocked ( () -> {
+    final boolean bPreviouslyAutoSaveEnabled = m_aRWLock.writeLockedBoolean ( () -> {
       final boolean bPreviously = m_aAutoSaveStack.pop ().booleanValue ();
       m_bAutoSaveEnabled = bPreviously;
       return bPreviously;

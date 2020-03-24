@@ -165,7 +165,7 @@ public final class SAXReaderDefaultSettings
 
   public static boolean hasAnyProperties ()
   {
-    return s_aRWLock.readLocked ( () -> !s_aDefaultProperties.isEmpty ());
+    return s_aRWLock.readLockedBoolean ( () -> !s_aDefaultProperties.isEmpty ());
   }
 
   @Nullable
@@ -222,7 +222,7 @@ public final class SAXReaderDefaultSettings
 
   public static boolean hasAnyFeature ()
   {
-    return s_aRWLock.readLocked (s_aDefaultFeatures::isNotEmpty);
+    return s_aRWLock.readLockedBoolean (s_aDefaultFeatures::isNotEmpty);
   }
 
   @Nullable
@@ -286,7 +286,7 @@ public final class SAXReaderDefaultSettings
 
   public static boolean requiresNewXMLParser ()
   {
-    return s_aRWLock.readLocked ( () -> {
+    return s_aRWLock.readLockedBoolean ( () -> {
       // Force a new XML parser?
       if (s_bDefaultRequiresNewXMLParserExplicitly)
         return true;
@@ -309,11 +309,11 @@ public final class SAXReaderDefaultSettings
 
   public static boolean isRequiresNewXMLParserExplicitly ()
   {
-    return s_aRWLock.readLocked ( () -> s_bDefaultRequiresNewXMLParserExplicitly);
+    return s_aRWLock.readLockedBoolean ( () -> s_bDefaultRequiresNewXMLParserExplicitly);
   }
 
   public static void setRequiresNewXMLParserExplicitly (final boolean bDefaultRequiresNewXMLParserExplicitly)
   {
-    s_aRWLock.writeLocked ( () -> s_bDefaultRequiresNewXMLParserExplicitly = bDefaultRequiresNewXMLParserExplicitly);
+    s_aRWLock.writeLockedBoolean ( () -> s_bDefaultRequiresNewXMLParserExplicitly = bDefaultRequiresNewXMLParserExplicitly);
   }
 }

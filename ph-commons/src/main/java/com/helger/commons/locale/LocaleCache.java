@@ -395,7 +395,7 @@ public class LocaleCache
     final String sLocaleKey = _createLocaleKey (sLanguage, sCountry, sVariant);
     if (sLocaleKey.length () == 0)
       return false;
-    return m_aRWLock.readLocked ( () -> m_aLocales.containsKey (sLocaleKey));
+    return m_aRWLock.readLockedBoolean ( () -> m_aLocales.containsKey (sLocaleKey));
   }
 
   @MustBeLocked (ELockType.WRITE)

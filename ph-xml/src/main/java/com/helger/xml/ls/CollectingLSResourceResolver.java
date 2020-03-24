@@ -77,7 +77,7 @@ public class CollectingLSResourceResolver extends AbstractLSResourceResolver
                      ")");
 
     final LSResourceData aData = new LSResourceData (sType, sNamespaceURI, sPublicId, sSystemId, sBaseURI);
-    m_aRWLock.writeLocked ( () -> m_aList.add (aData));
+    m_aRWLock.writeLockedBoolean ( () -> m_aList.add (aData));
     return null;
   }
 }

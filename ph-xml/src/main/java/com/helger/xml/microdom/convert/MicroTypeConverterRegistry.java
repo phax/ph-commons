@@ -221,7 +221,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
   @Nonnegative
   public int getRegisteredMicroTypeConverterCount ()
   {
-    return m_aRWLock.readLocked (m_aMap::size);
+    return m_aRWLock.readLockedInt (m_aMap::size);
   }
 
   public void reinitialize ()

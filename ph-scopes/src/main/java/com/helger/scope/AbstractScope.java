@@ -78,22 +78,22 @@ public abstract class AbstractScope implements IScope
 
   public final boolean isValid ()
   {
-    return m_aRWLock.readLocked ( () -> !m_bInPreDestruction && !m_bInDestruction && !m_bDestroyed);
+    return m_aRWLock.readLockedBoolean ( () -> !m_bInPreDestruction && !m_bInDestruction && !m_bDestroyed);
   }
 
   public final boolean isInPreDestruction ()
   {
-    return m_aRWLock.readLocked ( () -> m_bInPreDestruction);
+    return m_aRWLock.readLockedBoolean ( () -> m_bInPreDestruction);
   }
 
   public final boolean isInDestruction ()
   {
-    return m_aRWLock.readLocked ( () -> m_bInDestruction);
+    return m_aRWLock.readLockedBoolean ( () -> m_bInDestruction);
   }
 
   public final boolean isDestroyed ()
   {
-    return m_aRWLock.readLocked ( () -> m_bDestroyed);
+    return m_aRWLock.readLockedBoolean ( () -> m_bDestroyed);
   }
 
   /**

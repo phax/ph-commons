@@ -94,7 +94,7 @@ public final class JsonValueSerializerRegistry implements IJsonValueSerializerRe
   @Nonnegative
   public int getRegisteredJsonValueSerializerCount ()
   {
-    return m_aRWLock.readLocked (m_aMap::size);
+    return m_aRWLock.readLockedInt (m_aMap::size);
   }
 
   public void reinitialize (@Nullable final ClassLoader aClassLoader)

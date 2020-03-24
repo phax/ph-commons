@@ -117,13 +117,13 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
 
   public boolean isQueueEmpty ()
   {
-    return m_aRWLock.readLocked (m_aQueue::isEmpty);
+    return m_aRWLock.readLockedBoolean (m_aQueue::isEmpty);
   }
 
   @Nonnegative
   public final int getQueueLength ()
   {
-    return m_aRWLock.readLocked (m_aQueue::size);
+    return m_aRWLock.readLockedInt (m_aQueue::size);
   }
 
   @Nonnull
@@ -148,7 +148,7 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
 
   public final boolean isStopped ()
   {
-    return m_aRWLock.readLocked ( () -> m_bStopTakingNewObjects);
+    return m_aRWLock.readLockedBoolean ( () -> m_bStopTakingNewObjects);
   }
 
   @Nonnull
@@ -157,7 +157,7 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
   {
     // Drain all objects to this queue
     final ICommonsList <Object> aDrainedToList = new CommonsArrayList <> ();
-    m_aRWLock.writeLocked ( () -> m_aQueue.drainTo (aDrainedToList));
+    m_aRWLock.writeLockedInt ( () -> m_aQueue.drainTo (aDrainedToList));
 
     // Change data type
     final ICommonsList <DATATYPE> ret = new CommonsArrayList <> ();
@@ -168,7 +168,7 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
       {
         // Re-add the stop object, because loops in derived classes rely on this
         // object
-        m_aRWLock.writeLocked ( () -> m_aQueue.add (aObj));
+        m_aRWLock.writeLockedBoolean ( () -> m_aQueue.add (aObj));
       }
     return ret;
   }

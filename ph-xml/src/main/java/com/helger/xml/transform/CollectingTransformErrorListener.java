@@ -50,7 +50,7 @@ public class CollectingTransformErrorListener extends AbstractTransformErrorList
   @Override
   protected void internalLog (@Nonnull final IError aResError)
   {
-    m_aRWLock.writeLocked ( () -> m_aErrors.add (aResError));
+    m_aRWLock.writeLockedBoolean ( () -> m_aErrors.add (aResError));
   }
 
   @Nonnull

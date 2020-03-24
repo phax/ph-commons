@@ -349,7 +349,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
   @Nonnegative
   public int getRegisteredTypeConverterCount ()
   {
-    return m_aRWLock.readLocked ( () -> {
+    return m_aRWLock.readLockedInt ( () -> {
       int ret = 0;
       for (final Map <Class <?>, ITypeConverter <?, ?>> aMap : m_aConverter.values ())
         ret += aMap.size ();
@@ -361,7 +361,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
   {
     ValueEnforcer.notNull (aTypeConverterRule, "TypeConverterRule");
 
-    m_aRWLock.writeLocked ( () -> m_aRules.computeIfAbsent (aTypeConverterRule.getSubType (),
+    m_aRWLock.writeLockedBoolean ( () -> m_aRules.computeIfAbsent (aTypeConverterRule.getSubType (),
                                                             x -> new CommonsArrayList <> ())
                                           .add (aTypeConverterRule));
 
@@ -375,7 +375,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
   @Nonnegative
   public long getRegisteredTypeConverterRuleCount ()
   {
-    return m_aRWLock.readLocked ( () -> {
+    return m_aRWLock.readLockedInt ( () -> {
       int ret = 0;
       for (final ICommonsList <?> aValue : m_aRules.values ())
         ret += aValue.size ();

@@ -152,7 +152,7 @@ public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisti
   @CheckForSigned
   public final int getInvocationCount (@Nullable final String sKey)
   {
-    return m_aRWLock.readLocked ( () -> {
+    return m_aRWLock.readLockedInt ( () -> {
       final Value aValue = m_aMap.get (sKey);
       return aValue == null ? CGlobal.ILLEGAL_UINT : aValue.getInvocationCount ();
     });
@@ -170,7 +170,7 @@ public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisti
   @CheckForSigned
   public final long getMin (@Nullable final String sKey)
   {
-    return m_aRWLock.readLocked ( () -> {
+    return m_aRWLock.readLockedLong ( () -> {
       final Value aValue = m_aMap.get (sKey);
       return aValue == null ? CGlobal.ILLEGAL_ULONG : aValue.getMin ();
     });
@@ -179,7 +179,7 @@ public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisti
   @CheckForSigned
   public final long getAverage (@Nullable final String sKey)
   {
-    return m_aRWLock.readLocked ( () -> {
+    return m_aRWLock.readLockedLong ( () -> {
       final Value aValue = m_aMap.get (sKey);
       return aValue == null ? CGlobal.ILLEGAL_ULONG : aValue.getAverage ();
     });
@@ -188,7 +188,7 @@ public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisti
   @CheckForSigned
   public long getMax (@Nullable final String sKey)
   {
-    return m_aRWLock.readLocked ( () -> {
+    return m_aRWLock.readLockedLong ( () -> {
       final Value aValue = m_aMap.get (sKey);
       return aValue == null ? CGlobal.ILLEGAL_ULONG : aValue.getMax ();
     });

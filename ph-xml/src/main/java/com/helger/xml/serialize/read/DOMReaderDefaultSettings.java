@@ -102,62 +102,62 @@ public final class DOMReaderDefaultSettings
 
   public static boolean isNamespaceAware ()
   {
-    return s_aRWLock.readLocked ( () -> s_bDefaultNamespaceAware);
+    return s_aRWLock.readLockedBoolean ( () -> s_bDefaultNamespaceAware);
   }
 
   public static void setNamespaceAware (final boolean bNamespaceAware)
   {
-    s_aRWLock.writeLocked ( () -> s_bDefaultNamespaceAware = bNamespaceAware);
+    s_aRWLock.writeLockedBoolean ( () -> s_bDefaultNamespaceAware = bNamespaceAware);
   }
 
   public static boolean isValidating ()
   {
-    return s_aRWLock.readLocked ( () -> s_bDefaultValidating);
+    return s_aRWLock.readLockedBoolean ( () -> s_bDefaultValidating);
   }
 
   public static void setValidating (final boolean bValidating)
   {
-    s_aRWLock.writeLocked ( () -> s_bDefaultValidating = bValidating);
+    s_aRWLock.writeLockedBoolean ( () -> s_bDefaultValidating = bValidating);
   }
 
   public static boolean isIgnoringElementContentWhitespace ()
   {
-    return s_aRWLock.readLocked ( () -> s_bDefaultIgnoringElementContentWhitespace);
+    return s_aRWLock.readLockedBoolean ( () -> s_bDefaultIgnoringElementContentWhitespace);
   }
 
   public static void setIgnoringElementContentWhitespace (final boolean bIgnoringElementContentWhitespace)
   {
-    s_aRWLock.writeLocked ( () -> s_bDefaultIgnoringElementContentWhitespace = bIgnoringElementContentWhitespace);
+    s_aRWLock.writeLockedBoolean ( () -> s_bDefaultIgnoringElementContentWhitespace = bIgnoringElementContentWhitespace);
   }
 
   public static boolean isExpandEntityReferences ()
   {
-    return s_aRWLock.readLocked ( () -> s_bDefaultExpandEntityReferences);
+    return s_aRWLock.readLockedBoolean ( () -> s_bDefaultExpandEntityReferences);
   }
 
   public static void setExpandEntityReferences (final boolean bExpandEntityReferences)
   {
-    s_aRWLock.writeLocked ( () -> s_bDefaultExpandEntityReferences = bExpandEntityReferences);
+    s_aRWLock.writeLockedBoolean ( () -> s_bDefaultExpandEntityReferences = bExpandEntityReferences);
   }
 
   public static boolean isIgnoringComments ()
   {
-    return s_aRWLock.readLocked ( () -> s_bDefaultIgnoringComments);
+    return s_aRWLock.readLockedBoolean ( () -> s_bDefaultIgnoringComments);
   }
 
   public static void setIgnoringComments (final boolean bIgnoringComments)
   {
-    s_aRWLock.writeLocked ( () -> s_bDefaultIgnoringComments = bIgnoringComments);
+    s_aRWLock.writeLockedBoolean ( () -> s_bDefaultIgnoringComments = bIgnoringComments);
   }
 
   public static boolean isCoalescing ()
   {
-    return s_aRWLock.readLocked ( () -> s_bDefaultCoalescing);
+    return s_aRWLock.readLockedBoolean ( () -> s_bDefaultCoalescing);
   }
 
   public static void setCoalescing (final boolean bCoalescing)
   {
-    s_aRWLock.writeLocked ( () -> s_bDefaultCoalescing = bCoalescing);
+    s_aRWLock.writeLockedBoolean ( () -> s_bDefaultCoalescing = bCoalescing);
   }
 
   @Nullable
@@ -173,17 +173,17 @@ public final class DOMReaderDefaultSettings
 
   public static boolean isXIncludeAware ()
   {
-    return s_aRWLock.readLocked ( () -> s_bDefaultXIncludeAware);
+    return s_aRWLock.readLockedBoolean ( () -> s_bDefaultXIncludeAware);
   }
 
   public static void setXIncludeAware (final boolean bXIncludeAware)
   {
-    s_aRWLock.writeLocked ( () -> s_bDefaultXIncludeAware = bXIncludeAware);
+    s_aRWLock.writeLockedBoolean ( () -> s_bDefaultXIncludeAware = bXIncludeAware);
   }
 
   public static boolean hasAnyProperties ()
   {
-    return s_aRWLock.readLocked (s_aDefaultProperties::isNotEmpty);
+    return s_aRWLock.readLockedBoolean (s_aDefaultProperties::isNotEmpty);
   }
 
   @Nullable
@@ -240,7 +240,7 @@ public final class DOMReaderDefaultSettings
 
   public static boolean hasAnyFeature ()
   {
-    return s_aRWLock.readLocked (s_aDefaultFeatures::isNotEmpty);
+    return s_aRWLock.readLockedBoolean (s_aDefaultFeatures::isNotEmpty);
   }
 
   @Nullable
@@ -304,7 +304,7 @@ public final class DOMReaderDefaultSettings
 
   public static boolean requiresNewXMLParser ()
   {
-    return s_aRWLock.readLocked ( () -> {
+    return s_aRWLock.readLockedBoolean ( () -> {
       // Force a new XML parser?
       if (s_bDefaultRequiresNewXMLParserExplicitly)
         return true;
@@ -358,11 +358,11 @@ public final class DOMReaderDefaultSettings
 
   public static boolean isRequiresNewXMLParserExplicitly ()
   {
-    return s_aRWLock.readLocked ( () -> s_bDefaultRequiresNewXMLParserExplicitly);
+    return s_aRWLock.readLockedBoolean ( () -> s_bDefaultRequiresNewXMLParserExplicitly);
   }
 
   public static void setRequiresNewXMLParserExplicitly (final boolean bDefaultRequiresNewXMLParserExplicitly)
   {
-    s_aRWLock.writeLocked ( () -> s_bDefaultRequiresNewXMLParserExplicitly = bDefaultRequiresNewXMLParserExplicitly);
+    s_aRWLock.writeLockedBoolean ( () -> s_bDefaultRequiresNewXMLParserExplicitly = bDefaultRequiresNewXMLParserExplicitly);
   }
 }

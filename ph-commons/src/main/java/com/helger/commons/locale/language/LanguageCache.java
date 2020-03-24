@@ -198,7 +198,7 @@ public final class LanguageCache
     final String sValidLanguage = LocaleHelper.getValidLanguageCode (sLanguage);
     if (sValidLanguage == null)
       return false;
-    return m_aRWLock.readLocked ( () -> m_aLanguages.contains (sValidLanguage));
+    return m_aRWLock.readLockedBoolean ( () -> m_aLanguages.contains (sValidLanguage));
   }
 
   /**

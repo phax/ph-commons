@@ -138,7 +138,7 @@ public final class WALListener extends AbstractGlobalSingleton
     final String sKey = aDAO.getClass ().getName () + "::" + sWALFilename;
 
     // Check if the passed DAO is already scheduled for writing
-    final boolean bDoScheduleForWriting = m_aRWLock.writeLocked ( () -> m_aWaitingDAOs.add (sKey));
+    final boolean bDoScheduleForWriting = m_aRWLock.writeLockedBoolean ( () -> m_aWaitingDAOs.add (sKey));
 
     if (bDoScheduleForWriting)
     {

@@ -169,7 +169,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    */
   public final boolean isInInstantiation ()
   {
-    return m_aRWLock.readLocked ( () -> m_aStatus.get (STATUS_IN_INSTANTIATION));
+    return m_aRWLock.readLockedBoolean ( () -> m_aStatus.get (STATUS_IN_INSTANTIATION));
   }
 
   protected final void setInstantiated (final boolean bInstantiated)
@@ -183,7 +183,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    */
   public final boolean isInstantiated ()
   {
-    return m_aRWLock.readLocked ( () -> m_aStatus.get (STATUS_INSTANTIATED));
+    return m_aRWLock.readLockedBoolean ( () -> m_aStatus.get (STATUS_INSTANTIATED));
   }
 
   protected final void setInPreDestruction (final boolean bInPreDestruction)
@@ -198,7 +198,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    */
   public final boolean isInPreDestruction ()
   {
-    return m_aRWLock.readLocked ( () -> m_aStatus.get (STATUS_IN_PRE_DESTRUCTION));
+    return m_aRWLock.readLockedBoolean ( () -> m_aStatus.get (STATUS_IN_PRE_DESTRUCTION));
   }
 
   protected final void setInDestruction (final boolean bInDestruction)
@@ -213,7 +213,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    */
   public final boolean isInDestruction ()
   {
-    return m_aRWLock.readLocked ( () -> m_aStatus.get (STATUS_IN_DESTRUCTION));
+    return m_aRWLock.readLockedBoolean ( () -> m_aStatus.get (STATUS_IN_DESTRUCTION));
   }
 
   protected final void setDestroyed (final boolean bDestroyed)
@@ -227,7 +227,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    */
   public final boolean isDestroyed ()
   {
-    return m_aRWLock.readLocked ( () -> m_aStatus.get (STATUS_DESTROYED));
+    return m_aRWLock.readLockedBoolean ( () -> m_aStatus.get (STATUS_DESTROYED));
   }
 
   /**

@@ -116,7 +116,7 @@ public final class URLProtocolRegistry
   @Nonnegative
   public int getRegisteredProtocolCount ()
   {
-    return m_aRWLock.readLocked (m_aProtocols::size);
+    return m_aRWLock.readLockedInt (m_aProtocols::size);
   }
 
   /**
