@@ -1,5 +1,7 @@
 package com.helger.config;
 
+import java.nio.charset.StandardCharsets;
+
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
@@ -16,12 +18,16 @@ public final class ConfigFactory
   private static final IConfig DEFAULT_INSTANCE;
   static
   {
-    final MultiConfigurationSourceValueProvider aMCSVP = new MultiConfigurationSourceValueProvider (new ConfigurationSourceSystemProperty (),
-                                                                                                    new ConfigurationSourceEnvVar ());
+    final MultiConfigurationSourceValueProvider aMCSVP = new MultiConfigurationSourceValueProvider ();
+    // Prio 400
+    aMCSVP.addConfigurationSource (new ConfigurationSourceSystemProperty ());
+    // Prio 300
+    aMCSVP.addConfigurationSource (new ConfigurationSourceEnvVar ());
     // TODO
     MultiConfigurationSourceValueProvider.createForClassPath (ClassLoaderHelper.getDefaultClassLoader (),
                                                               "application.json",
-                                                              aURL -> new ConfigurationSourceJson (new URLResource (aURL)));
+                                                              aURL -> new ConfigurationSourceJson (new URLResource (aURL),
+                                                                                                   StandardCharsets.UTF_8));
     DEFAULT_INSTANCE = Config.create (aMCSVP);
   }
 
@@ -31,9 +37,6 @@ public final class ConfigFactory
   @Nonnull
   public static IConfig getDefaultConfig ()
   {
-    MultiConfigurationSourceValueProvider.createForClassPath (ClassLoaderHelper.getDefaultClassLoader (),
-                                                              "application.json",
-                                                              aURL -> new ConfigurationSourceJson (new URLResource (aURL)));
     return DEFAULT_INSTANCE;
   }
 }

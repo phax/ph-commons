@@ -59,12 +59,14 @@ public class MultiConfigurationSourceValueProvider implements IConfigurationValu
         addConfigurationSource (aSource);
   }
 
-  public final void addConfigurationSource (@Nonnull final IConfigurationSource aSource)
+  @Nonnull
+  public final MultiConfigurationSourceValueProvider addConfigurationSource (@Nonnull final IConfigurationSource aSource)
   {
     ValueEnforcer.notNull (aSource, "ConfigSource");
     m_aSources.add (aSource);
     // Ensure entry with highest priority comes first
     m_aSources.sort ( (x, y) -> y.getPriority () - x.getPriority ());
+    return this;
   }
 
   /**
