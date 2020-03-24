@@ -47,6 +47,8 @@ import com.helger.xml.schema.XMLSchemaCache;
 @NotThreadSafe
 public class JAXBDocumentType implements IJAXBDocumentType
 {
+  public static final String JAXB_DEFAULT = "##default";
+
   private final Class <?> m_aClass;
   private final ICommonsList <ClassPathResource> m_aXSDs = new CommonsArrayList <> ();
 
@@ -83,11 +85,10 @@ public class JAXBDocumentType implements IJAXBDocumentType
     if (aXSDs != null)
     {
       ValueEnforcer.notEmptyNoNullValue (aXSDs, "XSDs");
-      m_aXSDs.addAll (aXSDs);
+      for (final ClassPathResource aRes : aXSDs)
+        ValueEnforcer.isTrue (aRes.hasClassLoader (),
+                              () -> "ClassPathResource " + aRes + " should define its ClassLoader for OSGI handling!");
     }
-    for (final ClassPathResource aRes : m_aXSDs)
-      ValueEnforcer.isTrue (aRes.hasClassLoader (),
-                            () -> "ClassPathResource " + aRes + " should define its ClassLoader for OSGI handling!");
 
     // Check whether it is an @XmlType class
     final XmlType aXmlType = aClass.getAnnotation (XmlType.class);
@@ -101,8 +102,7 @@ public class JAXBDocumentType implements IJAXBDocumentType
 
     // The package must have the annotation "XmlSchema" with the corresponding
     // namespace it supports (maybe empty but not null). If the base XSD does
-    // not contain
-    // any namespace URI, the XMLSchema annotation might be missing!
+    // not contain any namespace URI, the XMLSchema annotation might be missing!
     final XmlSchema aXmlSchema = aPackage.getAnnotation (XmlSchema.class);
     if (aXmlSchema != null && aXmlSchema.namespace () == null)
       throw new IllegalArgumentException ("The package '" +
@@ -119,11 +119,11 @@ public class JAXBDocumentType implements IJAXBDocumentType
     {
       // Annotation is present
       sNamespaceURI = aRootElement.namespace ();
-      if ("##default".equals (sNamespaceURI) && aXmlSchema != null)
+      if (JAXB_DEFAULT.equals (sNamespaceURI) && aXmlSchema != null)
         sNamespaceURI = aXmlSchema.namespace ();
 
       sLocalName = aRootElement.name ();
-      if ("##default".equals (sLocalName))
+      if (JAXB_DEFAULT.equals (sLocalName))
         sLocalName = aXmlType.name ();
     }
     else
@@ -142,7 +142,71 @@ public class JAXBDocumentType implements IJAXBDocumentType
       throw new IllegalArgumentException ("Failed to determine the local name of the element to be created!");
 
     m_aClass = aClass;
+    if (aXSDs != null)
+      m_aXSDs.addAll (aXSDs);
     m_sNamespaceURI = StringHelper.getNotNull (sNamespaceURI);
+    m_sLocalName = sLocalName;
+  }
+
+  /**
+   * Simple constructor when you know what you are doing.
+   *
+   * @param aClass
+   *        The JAXB generated class of the root element. May not be
+   *        <code>null</code>. This class must have the <code>@XmlType</code>
+   *        annotation and the package the class resides in must have the
+   *        <code>@XmlSchema</code> annotation with a non-null
+   *        <code>namespace</code> property!
+   * @param aXSDs
+   *        The classpath relative paths to the XML Schema. May not be
+   *        <code>null</code> but maybe empty. If the main XSD imports another
+   *        XSD, the imported XSD must come first in the list. So the XSDs
+   *        without any dependencies must come first!
+   * @param sNamespaceURI
+   *        The namespace URI to use. May be <code>null</code>.
+   * @param sLocalName
+   *        The locale name of the element. May neither be <code>null</code> nor
+   *        empty.
+   * @since 9.4.0
+   */
+  public JAXBDocumentType (@Nonnull final Class <?> aClass,
+                           @Nullable final List <? extends ClassPathResource> aXSDs,
+                           @Nullable final String sNamespaceURI,
+                           @Nonnull @Nonempty final String sLocalName)
+  {
+    ValueEnforcer.notNull (aClass, "Class");
+    if (aXSDs != null)
+    {
+      ValueEnforcer.notEmptyNoNullValue (aXSDs, "XSDs");
+      for (final ClassPathResource aRes : aXSDs)
+        ValueEnforcer.isTrue (aRes.hasClassLoader (),
+                              () -> "ClassPathResource " + aRes + " should define its ClassLoader for OSGI handling!");
+    }
+    ValueEnforcer.notEmpty (sLocalName, "sLocalName");
+
+    // Check whether it is an @XmlType class
+    final XmlType aXmlType = aClass.getAnnotation (XmlType.class);
+    if (aXmlType == null)
+      throw new IllegalArgumentException ("The passed class '" +
+                                          aClass.getName () +
+                                          "' does not have an @XmlType annotation!");
+
+    // Get the package of the passed Class
+    final Package aPackage = aClass.getPackage ();
+
+    // The package must have the annotation "XmlSchema" with the corresponding
+    // namespace it supports (maybe empty but not null). If the base XSD does
+    // not contain any namespace URI, the XMLSchema annotation might be missing!
+    final XmlSchema aXmlSchema = aPackage.getAnnotation (XmlSchema.class);
+    if (aXmlSchema != null && aXmlSchema.namespace () == null)
+      throw new IllegalArgumentException ("The package '" +
+                                          aPackage.getName () +
+                                          "' has no namespace URI in the @XmlSchema annotation!");
+
+    m_aClass = aClass;
+    if (aXSDs != null)
+      m_aXSDs.addAll (aXSDs);
+    m_sNamespaceURI = sNamespaceURI;
     m_sLocalName = sLocalName;
   }
 
