@@ -17,6 +17,7 @@
 package com.helger.commons.locale.country;
 
 import java.util.Locale;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -34,6 +35,7 @@ import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
+import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.locale.LocaleHelper;
 import com.helger.commons.state.EChange;
@@ -56,6 +58,8 @@ public class CountryCache
   }
 
   private static final Logger LOGGER = LoggerFactory.getLogger (CountryCache.class);
+  private static final AtomicBoolean SILENT_MODE = new AtomicBoolean (GlobalDebug.DEFAULT_SILENT_MODE);
+
   private static boolean s_bDefaultInstantiated = false;
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
@@ -67,6 +71,30 @@ public class CountryCache
   protected CountryCache ()
   {
     reinitialize ();
+  }
+
+  /**
+   * @return <code>true</code> if logging is disabled, <code>false</code> if it
+   *         is enabled.
+   * @since 9.4.0
+   */
+  public static boolean isSilentMode ()
+  {
+    return SILENT_MODE.get ();
+  }
+
+  /**
+   * Enable or disable certain regular log messages.
+   *
+   * @param bSilentMode
+   *        <code>true</code> to disable logging, <code>false</code> to enable
+   *        logging
+   * @return The previous value of the silent mode.
+   * @since 9.4.0
+   */
+  public static boolean setSilentMode (final boolean bSilentMode)
+  {
+    return SILENT_MODE.getAndSet (bSilentMode);
   }
 
   public static boolean isInstantiated ()
@@ -91,7 +119,7 @@ public class CountryCache
   {
     ValueEnforcer.notNull (sCountry, "Country");
     final String sValidCountry = LocaleHelper.getValidCountryCode (sCountry);
-    ValueEnforcer.isTrue (sValidCountry != null, () -> "illegal country code '" + sCountry + "'");
+    ValueEnforcer.notNull (sValidCountry, () -> "illegal country code '" + sCountry + "'");
     ValueEnforcer.isTrue (sCountry.equals (sValidCountry), () -> "invalid casing of '" + sCountry + "'");
 
     return m_aRWLock.writeLocked ( () -> m_aCountries.addObject (sValidCountry));
@@ -134,8 +162,9 @@ public class CountryCache
 
     final String sValidCountry = LocaleHelper.getValidCountryCode (sCountry);
     if (!containsCountry (sValidCountry))
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Trying to retrieve unsupported country '" + sCountry + "'");
+      if (!isSilentMode ())
+        if (LOGGER.isWarnEnabled ())
+          LOGGER.warn ("Trying to retrieve unsupported country '" + sCountry + "'");
 
     // And use the locale cache
     return LocaleCache.getInstance ().getLocale ("", sValidCountry, "");
@@ -211,7 +240,8 @@ public class CountryCache
         addCountry (sCountry);
     }
 
-    if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Reinitialized " + getClass ().getName ());
+    if (!isSilentMode ())
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Reinitialized " + getClass ().getName ());
   }
 }

@@ -17,6 +17,7 @@
 package com.helger.commons.locale.language;
 
 import java.util.Locale;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -33,6 +34,7 @@ import com.helger.commons.annotation.VisibleForTesting;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
+import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.locale.LocaleCache;
 import com.helger.commons.locale.LocaleHelper;
 import com.helger.commons.state.EChange;
@@ -56,6 +58,7 @@ public final class LanguageCache
   }
 
   private static final Logger LOGGER = LoggerFactory.getLogger (LanguageCache.class);
+  private static final AtomicBoolean SILENT_MODE = new AtomicBoolean (GlobalDebug.DEFAULT_SILENT_MODE);
 
   private static boolean s_bDefaultInstantiated = false;
 
@@ -68,6 +71,30 @@ public final class LanguageCache
   private LanguageCache ()
   {
     reinitialize ();
+  }
+
+  /**
+   * @return <code>true</code> if logging is disabled, <code>false</code> if it
+   *         is enabled.
+   * @since 9.4.0
+   */
+  public static boolean isSilentMode ()
+  {
+    return SILENT_MODE.get ();
+  }
+
+  /**
+   * Enable or disable certain regular log messages.
+   *
+   * @param bSilentMode
+   *        <code>true</code> to disable logging, <code>false</code> to enable
+   *        logging
+   * @return The previous value of the silent mode.
+   * @since 9.4.0
+   */
+  public static boolean setSilentMode (final boolean bSilentMode)
+  {
+    return SILENT_MODE.getAndSet (bSilentMode);
   }
 
   public static boolean isInstantiated ()
@@ -113,8 +140,9 @@ public final class LanguageCache
 
     final String sValidLanguage = LocaleHelper.getValidLanguageCode (sLanguage);
     if (!containsLanguage (sValidLanguage))
-      if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Trying to retrieve unsupported language '" + sLanguage + "'");
+      if (!isSilentMode ())
+        if (LOGGER.isWarnEnabled ())
+          LOGGER.warn ("Trying to retrieve unsupported language '" + sLanguage + "'");
     return LocaleCache.getInstance ().getLocale (sValidLanguage, "", "");
   }
 
@@ -190,7 +218,8 @@ public final class LanguageCache
       }
     }
 
-    if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Reinitialized " + LanguageCache.class.getName ());
+    if (!isSilentMode ())
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Reinitialized " + LanguageCache.class.getName ());
   }
 }
