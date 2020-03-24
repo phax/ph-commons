@@ -17,16 +17,13 @@
 package com.helger.config.source;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.helger.commons.annotation.Nonempty;
 
 /**
  * An abstract configuration source.
  *
  * @author Philip Helger
  */
-public interface IConfigurationSource
+public interface IConfigurationSource extends IConfigurationValueProvider
 {
   /**
    * @return The configuration source type. Never <code>null</code>.
@@ -46,14 +43,4 @@ public interface IConfigurationSource
    *         be used as a configuration source.
    */
   boolean isInitializedAndUsable ();
-
-  /**
-   * Get the configuration value with the provided key.
-   *
-   * @param sKey
-   *        The key to be retrieved. May neither be <code>null</code> nor empty.
-   * @return <code>null</code> if no such value is available.
-   */
-  @Nullable
-  String getConfigurationValue (@Nonnull @Nonempty String sKey);
 }
