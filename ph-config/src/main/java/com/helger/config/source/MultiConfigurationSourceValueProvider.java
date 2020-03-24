@@ -31,6 +31,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.lang.ClassLoaderHelper;
+import com.helger.commons.lang.ICloneable;
 
 /**
  * An implementation of {@link IConfigurationValueProvider} that supports
@@ -38,9 +39,23 @@ import com.helger.commons.lang.ClassLoaderHelper;
  *
  * @author Philip Helger
  */
-public class MultiConfigurationSourceValueProvider implements IConfigurationValueProvider
+public class MultiConfigurationSourceValueProvider implements
+                                                   IConfigurationValueProvider,
+                                                   ICloneable <MultiConfigurationSourceValueProvider>
 {
-  private final ICommonsList <IConfigurationSource> m_aSources = new CommonsArrayList <> ();
+  private static final class CS
+  {
+    private final IConfigurationValueProvider m_aCVP;
+    private final int m_nPrio;
+
+    public CS (@Nonnull final IConfigurationValueProvider aCVP, final int nPrio)
+    {
+      m_aCVP = aCVP;
+      m_nPrio = nPrio;
+    }
+  }
+
+  private final ICommonsList <CS> m_aSources = new CommonsArrayList <> ();
 
   public MultiConfigurationSourceValueProvider ()
   {}
@@ -63,24 +78,22 @@ public class MultiConfigurationSourceValueProvider implements IConfigurationValu
   public final MultiConfigurationSourceValueProvider addConfigurationSource (@Nonnull final IConfigurationSource aSource)
   {
     ValueEnforcer.notNull (aSource, "ConfigSource");
-    m_aSources.add (aSource);
+    return addConfigurationSource (aSource, aSource.getPriority ());
+  }
+
+  @Nonnull
+  public final MultiConfigurationSourceValueProvider addConfigurationSource (@Nonnull final IConfigurationValueProvider aCVP,
+                                                                             final int nPriority)
+  {
+    ValueEnforcer.notNull (aCVP, "ConfigValueProvider");
+    m_aSources.add (new CS (aCVP, nPriority));
     // Ensure entry with highest priority comes first
-    m_aSources.sort ( (x, y) -> y.getPriority () - x.getPriority ());
+    m_aSources.sort ( (x, y) -> y.m_nPrio - x.m_nPrio);
     return this;
   }
 
-  /**
-   * @return A copy of all configuration sources in the order they are executed.
-   *         Never <code>null</code> but maybe empty.
-   */
-  @Nonnull
-  public final ICommonsList <IConfigurationSource> getAllSources ()
-  {
-    return m_aSources.getClone ();
-  }
-
   @Nonnegative
-  public final int getSourceCount ()
+  public final int getConfigurationSourceCount ()
   {
     return m_aSources.size ();
   }
@@ -89,14 +102,31 @@ public class MultiConfigurationSourceValueProvider implements IConfigurationValu
   public String getConfigurationValue (@Nonnull @Nonempty final String sKey)
   {
     String ret = null;
-    for (final IConfigurationSource aSource : m_aSources)
+    for (final CS aSource : m_aSources)
     {
-      ret = aSource.getConfigurationValue (sKey);
+      ret = aSource.m_aCVP.getConfigurationValue (sKey);
       if (ret != null)
       {
         // Use the first one that is not null
         break;
       }
+    }
+    return ret;
+  }
+
+  @Nonnull
+  public MultiConfigurationSourceValueProvider getClone ()
+  {
+    final MultiConfigurationSourceValueProvider ret = new MultiConfigurationSourceValueProvider ();
+    for (final CS aSource : m_aSources)
+    {
+      if (aSource.m_aCVP instanceof ICloneable <?>)
+      {
+        final IConfigurationValueProvider aCVPClone = (IConfigurationValueProvider) ((ICloneable <?>) aSource.m_aCVP).getClone ();
+        ret.m_aSources.add (new CS (aCVPClone, aSource.m_nPrio));
+      }
+      else
+        ret.m_aSources.add (aSource);
     }
     return ret;
   }

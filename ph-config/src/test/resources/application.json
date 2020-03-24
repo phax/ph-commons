@@ -1,0 +1,5 @@
+{
+  element1: "from-application-json",
+  int: 123456,
+  dbl: 123.45678
+}
