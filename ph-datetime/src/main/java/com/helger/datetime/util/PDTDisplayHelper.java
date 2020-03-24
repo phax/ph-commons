@@ -53,6 +53,7 @@ public final class PDTDisplayHelper
     {
       @Nonnull
       @Nonempty
+      @Override
       public String getYears (@CheckForSigned final int nYears)
       {
         // Use "abs" to ensure it is "1 year" and "-1 year"
@@ -61,6 +62,7 @@ public final class PDTDisplayHelper
 
       @Nonnull
       @Nonempty
+      @Override
       public String getMonths (@CheckForSigned final int nMonths)
       {
         return MathHelper.abs (nMonths) == 1 ? nMonths + " Monat" : nMonths + " Monate";
@@ -68,6 +70,7 @@ public final class PDTDisplayHelper
 
       @Nonnull
       @Nonempty
+      @Override
       public String getDays (@CheckForSigned final int nDays)
       {
         return MathHelper.abs (nDays) == 1 ? nDays + " Tag" : nDays + " Tage";
@@ -75,6 +78,7 @@ public final class PDTDisplayHelper
 
       @Nonnull
       @Nonempty
+      @Override
       public String getHours (@CheckForSigned final long nHours)
       {
         return MathHelper.abs (nHours) == 1 ? nHours + " Stunde" : nHours + " Stunden";
@@ -82,6 +86,7 @@ public final class PDTDisplayHelper
 
       @Nonnull
       @Nonempty
+      @Override
       public String getMinutes (@CheckForSigned final long nMinutes)
       {
         return MathHelper.abs (nMinutes) == 1 ? nMinutes + " Minute" : nMinutes + " Minuten";
@@ -89,12 +94,14 @@ public final class PDTDisplayHelper
 
       @Nonnull
       @Nonempty
+      @Override
       public String getSeconds (@CheckForSigned final long nSeconds)
       {
         return MathHelper.abs (nSeconds) == 1 ? nSeconds + " Sekunde" : nSeconds + " Sekunden";
       }
 
       @Nonnull
+      @Override
       public String getAnd ()
       {
         return " und ";

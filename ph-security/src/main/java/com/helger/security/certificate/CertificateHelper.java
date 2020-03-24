@@ -453,8 +453,7 @@ public final class CertificateHelper
       return null;
 
     final KeyFactory aKeyFactory = KeyFactory.getInstance ("RSA");
-    final PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec (aPrivateKeyBytes);
-    final PrivateKey aKey = aKeyFactory.generatePrivate (keySpec);
-    return aKey;
+    final PKCS8EncodedKeySpec aKeySpec = new PKCS8EncodedKeySpec (aPrivateKeyBytes);
+    return aKeyFactory.generatePrivate (aKeySpec);
   }
 }

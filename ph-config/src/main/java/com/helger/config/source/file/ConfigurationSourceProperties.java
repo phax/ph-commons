@@ -88,8 +88,8 @@ public class ConfigurationSourceProperties extends AbstractConfigurationSourceRe
    *        Character set to use. May be <code>null</code>.
    */
   public ConfigurationSourceProperties (final int nPriority,
-                                            @Nonnull final IReadableResource aRes,
-                                            @Nullable final Charset aCharset)
+                                        @Nonnull final IReadableResource aRes,
+                                        @Nullable final Charset aCharset)
   {
     super (nPriority, aRes);
     m_aProps = aCharset == null ? PropertiesHelper.loadProperties (aRes)
@@ -105,6 +105,20 @@ public class ConfigurationSourceProperties extends AbstractConfigurationSourceRe
   public String getConfigurationValue (@Nonnull @Nonempty final String sKey)
   {
     return m_aProps == null ? null : m_aProps.get (sKey);
+  }
+
+  @Override
+  public boolean equals (final Object o)
+  {
+    // New field, no change
+    return super.equals (o);
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    // New field, no change
+    return super.hashCode ();
   }
 
   @Override

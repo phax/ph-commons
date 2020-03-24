@@ -48,7 +48,7 @@ This project was the following modules:
     * `PropertiesHelper` got new APIs with `Charset` to read properties with character sets other than ISO-8859-1
     * Started new subproject `ph-config` with a more intelligent configuration handling
     * Added JDK 14 as a known version
-    * Added silent mode to `TypeConverter`, `CountryCache`, `LanguageCache`, `ObjectPool`
+    * Added silent mode to `TypeConverter`, `CountryCache`, `LanguageCache`, `ObjectPool`, `LocaleCache`
 * v9.3.9 - 2019-12-11
     * Made `ClassLoaderHelper.getResource` more robust
     * Updated "mime-type-info.xml" list with  shared-mime-info-spec 1.15

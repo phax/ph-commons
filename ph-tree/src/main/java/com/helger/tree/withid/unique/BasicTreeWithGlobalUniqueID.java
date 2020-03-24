@@ -137,6 +137,7 @@ public class BasicTreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends IT
 
   }
 
+  @Override
   public boolean hasChildren (@Nullable final ITEMTYPE aItem)
   {
     return aItem == null ? getRootItem ().hasChildren () : aItem.hasChildren ();

@@ -33,6 +33,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.commons.io.stream.LoggingInputStream;
 import com.helger.commons.io.stream.NonBlockingStringReader;
 import com.helger.commons.io.stream.StringInputStream;
 import com.helger.json.IJson;
@@ -122,13 +123,45 @@ public final class JsonParserTest
     }
   }
 
+  /**
+   * Does not work with InputStream, because the used StreamDecoder reads to
+   * eagerly:
+   *
+   * <pre>
+  StringInputStream(NonBlockingByteArrayInputStream).read(byte[], int, int) line: 216
+  LoggingInputStream(FilterInputStream).read(byte[], int, int) line: 133
+  LoggingInputStream.read(byte[], int, int) line: 109
+  NonBlockingPushbackInputStream(FilterInputStream).read(byte[], int, int) line: 133
+  NonBlockingPushbackInputStream.read(byte[], int, int) line: 197
+  StreamDecoder.readBytes() line: 284 [local variables unavailable]
+  StreamDecoder.implRead(char[], int, int) line: 326
+  StreamDecoder.read(char[], int, int) line: 178
+  StreamDecoder.read0() line: 127 [local variables unavailable]
+  StreamDecoder.read() line: 112 [local variables unavailable]
+  InputStreamReader.read() line: 168 [local variables unavailable]
+  NonClosingReader(FilterReader).read() line: 65
+  NonBlockingPushbackReader(FilterReader).read() line: 65
+  NonBlockingPushbackReader.read() line: 111
+  JsonParser._readChar() line: 240
+  JsonParser._skipSpaces() line: 349
+  JsonParser._readValue() line: 910
+  JsonParser.parse() line: 985
+  JsonReader.parseJson(Reader, IJsonParserHandler, IJsonParserCustomizeCallback, IJsonParseExceptionCallback) line: 156
+  JsonReader.readJson(Reader, IJsonParserCustomizeCallback, IJsonParseExceptionCallback) line: 445
+  JsonReader$Builder.read() line: 1138
+  JsonParserTest.testReadMultipleObjectsFromStream() line: 137
+   * </pre>
+   * 
+   * @throws IOException
+   *         hopefully never
+   */
   @Test
   @Ignore
   public void testReadMultipleObjectsFromStream () throws IOException
   {
     final String sJson = "{ 'a': 1}{ 'b':true}";
 
-    try (final InputStream aIS = new StringInputStream (sJson, StandardCharsets.UTF_8))
+    try (final InputStream aIS = new LoggingInputStream (new StringInputStream (sJson, StandardCharsets.UTF_8)))
     {
       IJson aJson;
       int nCount = 0;

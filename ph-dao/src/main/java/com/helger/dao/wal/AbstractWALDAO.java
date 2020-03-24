@@ -543,8 +543,9 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
       final File aWALFile = sWALFilename == null ? null : m_aIO.getFile (sWALFilename);
       if (aWALFile != null && aWALFile.exists ())
       {
-        if (LOGGER.isInfoEnabled ())
-          LOGGER.info ("Trying to recover from WAL file " + aWALFile.getAbsolutePath ());
+        if (!isSilentMode ())
+          if (LOGGER.isInfoEnabled ())
+            LOGGER.info ("Trying to recover from WAL file " + aWALFile.getAbsolutePath ());
         boolean bPerformedAtLeastOnRecovery = false;
         boolean bRecoveryContainedErrors = false;
 
@@ -568,8 +569,9 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
 
             // Read number of elements
             final int nElements = aOIS.readInt ();
-            if (LOGGER.isInfoEnabled ())
-              LOGGER.info ("Trying to recover " + nElements + " " + eActionType + " actions from WAL file");
+            if (!isSilentMode ())
+              if (LOGGER.isInfoEnabled ())
+                LOGGER.info ("Trying to recover " + nElements + " " + eActionType + " actions from WAL file");
 
             // Read all elements
             for (int i = 0; i < nElements; ++i)
@@ -594,8 +596,9 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
                   {
                     onRecoveryCreate (aElement);
                     bPerformedAtLeastOnRecovery = true;
-                    if (LOGGER.isInfoEnabled ())
-                      LOGGER.info ("[WAL] wal-recovery create " + aElement);
+                    if (!isSilentMode ())
+                      if (LOGGER.isInfoEnabled ())
+                        LOGGER.info ("[WAL] wal-recovery create " + aElement);
                   }
                   catch (final RuntimeException ex)
                   {
@@ -614,8 +617,9 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
                   {
                     onRecoveryUpdate (aElement);
                     bPerformedAtLeastOnRecovery = true;
-                    if (LOGGER.isInfoEnabled ())
-                      LOGGER.info ("[WAL] wal-recovery update " + aElement);
+                    if (!isSilentMode ())
+                      if (LOGGER.isInfoEnabled ())
+                        LOGGER.info ("[WAL] wal-recovery update " + aElement);
                     break;
                   }
                   catch (final RuntimeException ex)
@@ -634,8 +638,9 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
                   {
                     onRecoveryDelete (aElement);
                     bPerformedAtLeastOnRecovery = true;
-                    if (LOGGER.isInfoEnabled ())
-                      LOGGER.info ("[WAL] wal-recovery delete " + aElement);
+                    if (!isSilentMode ())
+                      if (LOGGER.isInfoEnabled ())
+                        LOGGER.info ("[WAL] wal-recovery delete " + aElement);
                     break;
                   }
                   catch (final RuntimeException ex)
@@ -654,8 +659,9 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
               }
             }
           }
-          if (LOGGER.isInfoEnabled ())
-            LOGGER.info ("Successfully finished recovery from WAL file " + aWALFile.getAbsolutePath ());
+          if (!isSilentMode ())
+            if (LOGGER.isInfoEnabled ())
+              LOGGER.info ("Successfully finished recovery from WAL file " + aWALFile.getAbsolutePath ());
         }
         catch (final IOException | RuntimeException ex)
         {
@@ -959,12 +965,13 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
     }
     else
     {
-      if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Maintained WAL file '" +
-                     aWALFile.getAbsolutePath () +
-                     "' as '" +
-                     aNewFile.getAbsolutePath () +
-                     "' for debugging purposes");
+      if (!isSilentMode ())
+        if (LOGGER.isInfoEnabled ())
+          LOGGER.info ("Maintained WAL file '" +
+                       aWALFile.getAbsolutePath () +
+                       "' as '" +
+                       aNewFile.getAbsolutePath () +
+                       "' for debugging purposes");
     }
   }
 

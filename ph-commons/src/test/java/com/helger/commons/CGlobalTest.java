@@ -31,7 +31,7 @@ public final class CGlobalTest
   @Test
   public void testConstants ()
   {
-    assertEquals (1024L, CGlobal.BYTES_PER_KILOBYTE);
+    assertEquals (CGlobal.BYTES_PER_KILOBYTE, 1024L);
     assertEquals (CGlobal.BYTES_PER_MEGABYTE, 1024L * 1024);
     assertEquals (CGlobal.BYTES_PER_GIGABYTE, 1024L * 1024 * 1024);
     assertEquals (CGlobal.BYTES_PER_TERABYTE, 1024L * 1024 * 1024 * 1024);

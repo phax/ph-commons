@@ -77,6 +77,11 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
   @GuardedBy ("m_aRWLock")
   private boolean m_bEndAllSessionsOnScopeEnd = DEFAULT_END_ALL_SESSIONS_ON_SCOPE_END;
 
+  /**
+   * Invoked internally.
+   *
+   * @deprecated Do not call explicitly
+   */
   @Deprecated
   @UsedViaReflection
   public ScopeSessionManager ()
@@ -280,13 +285,13 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
     _checkIfAnySessionsExist ();
   }
 
-  public boolean isDestroyAllSessionsOnScopeEnd ()
+  public final boolean isDestroyAllSessionsOnScopeEnd ()
   {
     return m_aRWLock.readLocked ( () -> m_bDestroyAllSessionsOnScopeEnd);
   }
 
   @Nonnull
-  public EChange setDestroyAllSessionsOnScopeEnd (final boolean bDestroyAllSessionsOnScopeEnd)
+  public final EChange setDestroyAllSessionsOnScopeEnd (final boolean bDestroyAllSessionsOnScopeEnd)
   {
     return m_aRWLock.writeLocked ( () -> {
       if (m_bDestroyAllSessionsOnScopeEnd == bDestroyAllSessionsOnScopeEnd)
@@ -296,13 +301,13 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
     });
   }
 
-  public boolean isEndAllSessionsOnScopeEnd ()
+  public final boolean isEndAllSessionsOnScopeEnd ()
   {
     return m_aRWLock.readLocked ( () -> m_bEndAllSessionsOnScopeEnd);
   }
 
   @Nonnull
-  public EChange setEndAllSessionsOnScopeEnd (final boolean bEndAllSessionsOnScopeEnd)
+  public final EChange setEndAllSessionsOnScopeEnd (final boolean bEndAllSessionsOnScopeEnd)
   {
     return m_aRWLock.writeLocked ( () -> {
       if (m_bEndAllSessionsOnScopeEnd == bEndAllSessionsOnScopeEnd)

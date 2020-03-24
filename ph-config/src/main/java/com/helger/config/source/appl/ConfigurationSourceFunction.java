@@ -91,6 +91,20 @@ public class ConfigurationSourceFunction extends AbstractConfigurationSource
   }
 
   @Override
+  public boolean equals (final Object o)
+  {
+    // New field, no change
+    return super.equals (o);
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    // New field, no change
+    return super.hashCode ();
+  }
+
+  @Override
   public String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ()).append ("ValueProvider", m_aValueProvider).getToString ();

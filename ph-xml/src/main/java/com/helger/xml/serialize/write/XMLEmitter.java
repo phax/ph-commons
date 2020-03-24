@@ -221,6 +221,9 @@ public class XMLEmitter implements AutoCloseable, Flushable
    * @param eStandalone
    *        if <code>true</code> this is a standalone XML document without a
    *        connection to an existing DTD or XML schema
+   * @deprecated Since 9.2.1; Use
+   *             {@link #onXMLDeclaration(EXMLVersion, String, ETriState, boolean)}
+   *             instead
    */
   @Deprecated
   public void onXMLDeclaration (@Nullable final EXMLVersion eXMLVersion,

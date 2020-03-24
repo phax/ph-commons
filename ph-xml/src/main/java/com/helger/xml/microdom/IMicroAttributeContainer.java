@@ -822,6 +822,17 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
     return setAttributeWithConversion (new MicroQName (sAttrName), aAttrValue);
   }
 
+  /**
+   * Set an attribute value of this element.
+   *
+   * @param sAttrName
+   *        Name of the attribute. May neither be <code>null</code> nor empty.
+   * @param sAttrValue
+   *        If the value is <code>null</code> the attribute is removed (if
+   *        present)
+   * @return this
+   * @deprecated Call {@link #setAttribute(String, String)} directly
+   */
   @Deprecated
   @Nonnull
   @DevelopersNote ("No need for setAttributeWithConversion - setAttribute is enough")
@@ -852,6 +863,19 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
     return setAttributeWithConversion (new MicroQName (sNamespaceURI, sAttrName), aAttrValue);
   }
 
+  /**
+   * Set an attribute value of this element.
+   *
+   * @param sNamespaceURI
+   *        Namespace URI to use. May be <code>null</code>.
+   * @param sAttrName
+   *        Name of the attribute. May neither be <code>null</code> nor empty.
+   * @param sAttrValue
+   *        If the value is <code>null</code> the attribute is removed (if
+   *        present)
+   * @return this
+   * @deprecated Call {@link #setAttribute(String, String, String)} directly.
+   */
   @Deprecated
   @Nonnull
   @DevelopersNote ("No need for setAttributeWithConversion - setAttribute is enough")
@@ -882,6 +906,18 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
     return setAttribute (aAttrName, sAttrValue);
   }
 
+  /**
+   * Set an attribute value of this element.
+   *
+   * @param aAttrName
+   *        Qualified name of the attribute. May neither be <code>null</code>
+   *        nor empty.
+   * @param sAttrValue
+   *        If the value is <code>null</code> the attribute is removed (if
+   *        present)
+   * @return this
+   * @deprecated Call {@link #setAttribute(IMicroQName, String)} directly.
+   */
   @Deprecated
   @Nonnull
   @DevelopersNote ("No need for setAttributeWithConversion - setAttribute is enough")

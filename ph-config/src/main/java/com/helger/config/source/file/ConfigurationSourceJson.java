@@ -121,8 +121,8 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
    *        Character set to use. May be <code>null</code>.
    */
   public ConfigurationSourceJson (final int nPriority,
-                                      @Nonnull final IReadableResource aRes,
-                                      @Nullable final Charset aCharset)
+                                  @Nonnull final IReadableResource aRes,
+                                  @Nullable final Charset aCharset)
   {
     super (nPriority, aRes);
     final JsonReader.Builder aBuilder = JsonReader.builder ()
@@ -152,6 +152,20 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
   public String getConfigurationValue (@Nonnull @Nonempty final String sKey)
   {
     return m_aProps == null ? null : m_aProps.get (sKey);
+  }
+
+  @Override
+  public boolean equals (final Object o)
+  {
+    // New field, no change
+    return super.equals (o);
+  }
+
+  @Override
+  public int hashCode ()
+  {
+    // New field, no change
+    return super.hashCode ();
   }
 
   @Override

@@ -61,6 +61,7 @@ public class Settings extends AttributeContainerAny <String> implements ISetting
   }
 
   @Nonnull
+  @Override
   public EChange putIn (@Nonnull @Nonempty final String sName, @Nullable final Object aNewValue)
   {
     // Additional check, that name may not be empty
