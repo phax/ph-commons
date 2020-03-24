@@ -59,7 +59,8 @@ public interface IGetterByKeyTrait <KEYTYPE>
   /**
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return The class of the value or <code>null</code> if no value is contained.
+   * @return The class of the value or <code>null</code> if no value is
+   *         contained.
    */
   @Nullable
   default Class <?> getValueClass (@Nullable final KEYTYPE aKey)
@@ -95,8 +96,8 @@ public interface IGetterByKeyTrait <KEYTYPE>
    *
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
-   * @return The object value casted to the passed class. May be <code>null</code>
-   *         if the contained value is <code>null</code>.
+   * @return The object value casted to the passed class. May be
+   *         <code>null</code> if the contained value is <code>null</code>.
    * @throws ClassCastException
    *         in case the value types are not convertible
    * @param <T>
@@ -114,9 +115,10 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code> .
-   * @return The object value casted to the passed class. May be <code>null</code>
-   *         if the contained value is <code>null</code>.
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
+   * @return The object value casted to the passed class. May be
+   *         <code>null</code> if the contained value is <code>null</code>.
    * @throws ClassCastException
    *         in case the value types are not convertible
    * @param <T>
@@ -136,8 +138,8 @@ public interface IGetterByKeyTrait <KEYTYPE>
    *        The key to be accessed. May be <code>null</code>.
    * @param aClass
    *        The class to cast to.
-   * @return The object value casted to the passed class. May be <code>null</code>
-   *         if the contained value is <code>null</code>.
+   * @return The object value casted to the passed class. May be
+   *         <code>null</code> if the contained value is <code>null</code>.
    * @throws ClassCastException
    *         in case the value types are not convertible
    * @param <T>
@@ -155,11 +157,12 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code> .
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
    * @param aClass
    *        The class to cast to.
-   * @return The object value casted to the passed class. May be <code>null</code>
-   *         if the contained value is <code>null</code>.
+   * @return The object value casted to the passed class. May be
+   *         <code>null</code> if the contained value is <code>null</code>.
    * @throws ClassCastException
    *         in case the value types are not convertible
    * @param <T>
@@ -182,8 +185,8 @@ public interface IGetterByKeyTrait <KEYTYPE>
    *        The key to be accessed. May be <code>null</code>.
    * @param aClass
    *        The class to cast to.
-   * @return The object value casted to the passed class. May be <code>null</code>
-   *         if the contained value is <code>null</code>.
+   * @return The object value casted to the passed class. May be
+   *         <code>null</code> if the contained value is <code>null</code>.
    * @throws ClassCastException
    *         in case the value types are not convertible
    * @param <T>
@@ -227,11 +230,12 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code> .
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
    * @param aClass
    *        The class to cast to.
-   * @return The object value casted to the passed class. May be <code>null</code>
-   *         if the contained value is <code>null</code>.
+   * @return The object value casted to the passed class. May be
+   *         <code>null</code> if the contained value is <code>null</code>.
    * @throws ClassCastException
    *         in case the value types are not convertible
    * @param <T>
@@ -257,8 +261,8 @@ public interface IGetterByKeyTrait <KEYTYPE>
    *        The key to be accessed. May be <code>null</code>.
    * @param aClass
    *        The class to convert to.
-   * @return The object value casted to the passed class. May be <code>null</code>
-   *         if the contained value is <code>null</code>.
+   * @return The object value casted to the passed class. May be
+   *         <code>null</code> if the contained value is <code>null</code>.
    * @throws TypeConverterException
    *         in case of an error
    * @param <T>
@@ -280,8 +284,8 @@ public interface IGetterByKeyTrait <KEYTYPE>
    *        or if type conversion fails.
    * @param aClass
    *        The class to convert to. May not be <code>null</code>.
-   * @return The object value casted to the passed class. May be <code>null</code>
-   *         if the contained value is <code>null</code>.
+   * @return The object value casted to the passed class. May be
+   *         <code>null</code> if the contained value is <code>null</code>.
    * @param <T>
    *        Destination type
    */
@@ -296,7 +300,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
 
   default boolean getAsBoolean (@Nullable final KEYTYPE aKey)
   {
-    // throws TypeConverterException if key is null
+    // throws TypeConverterException if value is null
     return TypeConverter.convertToBoolean (getValue (aKey));
   }
 
@@ -307,7 +311,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
 
   default byte getAsByte (@Nullable final KEYTYPE aKey)
   {
-    // throws TypeConverterException if key is null
+    // throws TypeConverterException if value is null
     return TypeConverter.convertToByte (getValue (aKey));
   }
 
@@ -318,7 +322,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
 
   default char getAsChar (@Nullable final KEYTYPE aKey)
   {
-    // throws TypeConverterException if key is null
+    // throws TypeConverterException if value is null
     return TypeConverter.convertToChar (getValue (aKey));
   }
 
@@ -329,7 +333,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
 
   default double getAsDouble (@Nullable final KEYTYPE aKey)
   {
-    // throws TypeConverterException if key is null
+    // throws TypeConverterException if value is null
     return TypeConverter.convertToDouble (getValue (aKey));
   }
 
@@ -340,7 +344,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
 
   default float getAsFloat (@Nullable final KEYTYPE aKey)
   {
-    // throws TypeConverterException if key is null
+    // throws TypeConverterException if value is null
     return TypeConverter.convertToFloat (getValue (aKey));
   }
 
@@ -351,7 +355,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
 
   default int getAsInt (@Nullable final KEYTYPE aKey)
   {
-    // throws TypeConverterException if key is null
+    // throws TypeConverterException if value is null
     return TypeConverter.convertToInt (getValue (aKey));
   }
 
@@ -362,7 +366,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
 
   default long getAsLong (@Nullable final KEYTYPE aKey)
   {
-    // throws TypeConverterException if key is null
+    // throws TypeConverterException if value is null
     return TypeConverter.convertToLong (getValue (aKey));
   }
 
@@ -373,7 +377,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
 
   default short getAsShort (@Nullable final KEYTYPE aKey)
   {
-    // throws TypeConverterException if key is null
+    // throws TypeConverterException if value is null
     return TypeConverter.convertToShort (getValue (aKey));
   }
 
@@ -398,7 +402,8 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
    * @param sDefault
-   *        The value to be returned if the retrieved value is <code>null</code> .
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
    * @return <code>getConvertedValue (aKey,sDefault, String.class)</code>
    * @see #getConvertedValue(Object,Object,Class)
    */
@@ -424,7 +429,8 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code> .
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
    * @return <code>getConvertedValue (aKey, aDefault, char[].class)</code>
    * @see #getConvertedValue(Object,Object,Class)
    */
@@ -450,7 +456,8 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code> .
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
    * @return <code>getConvertedValue (aKey,aDefault,BigDecimal.class)</code>
    * @see #getConvertedValue(Object,Object,Class)
    */
@@ -476,7 +483,8 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code> .
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
    * @return <code>getConvertedValue (aKey,aDefault,BigInteger.class)</code>
    * @see #getConvertedValue(Object,Object, Class)
    */
@@ -502,7 +510,8 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code> .
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
    * @return <code>getConvertedValue (aKey,aDefault,LocalDate.class)</code>
    * @see #getConvertedValue(Object,Object,Class)
    */
@@ -528,7 +537,8 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code> .
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
    * @return <code>getConvertedValue (aKey,aDefault,LocalTime.class)</code>
    * @see #getConvertedValue(Object,Object,Class)
    */
@@ -554,7 +564,8 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @param aKey
    *        The key to be accessed. May be <code>null</code>.
    * @param aDefault
-   *        The value to be returned if the retrieved value is <code>null</code> .
+   *        The value to be returned if the retrieved value is <code>null</code>
+   *        .
    * @return <code>getConvertedValue (aKey,aDefault,LocalDateTime.class)</code>
    * @see #getConvertedValue(Object,Object,Class)
    */
@@ -901,8 +912,8 @@ public interface IGetterByKeyTrait <KEYTYPE>
    *        The key to check. May be <code>null</code>.
    * @param sDesiredValue
    *        The value to be matched
-   * @return <code>true</code> if an attribute with the given name is present and
-   *         has the desired value
+   * @return <code>true</code> if an attribute with the given name is present
+   *         and has the desired value
    */
   default boolean hasStringValue (@Nullable final KEYTYPE aKey, @Nullable final String sDesiredValue)
   {
@@ -921,10 +932,10 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @param bDefault
    *        the default value to be returned, if the specified attribute is not
    *        present
-   * @return <code>true</code> if an attribute with the given name is present and
-   *         has the desired value, <code>false</code> if the attribute is present
-   *         but has a different value. If the attribute is not present, the
-   *         default value is returned.
+   * @return <code>true</code> if an attribute with the given name is present
+   *         and has the desired value, <code>false</code> if the attribute is
+   *         present but has a different value. If the attribute is not present,
+   *         the default value is returned.
    */
   default boolean hasStringValue (@Nullable final KEYTYPE aKey,
                                   @Nullable final String sDesiredValue,
