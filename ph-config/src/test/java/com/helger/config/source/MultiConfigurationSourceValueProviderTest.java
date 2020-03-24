@@ -55,4 +55,15 @@ public class MultiConfigurationSourceValueProviderTest
     assertEquals ("value3", aMCSVP.getConfigurationValue ("key3"));
     assertNull (aMCSVP.getConfigurationValue ("key4"));
   }
+
+  @Test
+  public void testEmpty ()
+  {
+    final MultiConfigurationSourceValueProvider aMCSVP = new MultiConfigurationSourceValueProvider ();
+    // Resolve
+    assertNull (aMCSVP.getConfigurationValue ("key1"));
+    assertNull (aMCSVP.getConfigurationValue ("key2"));
+    assertNull (aMCSVP.getConfigurationValue ("key3"));
+    assertNull (aMCSVP.getConfigurationValue ("key4"));
+  }
 }

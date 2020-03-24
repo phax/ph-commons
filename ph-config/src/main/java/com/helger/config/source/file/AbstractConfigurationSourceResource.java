@@ -40,14 +40,14 @@ import com.helger.config.source.IConfigurationSource;
  * @author Philip Helger
  */
 @Immutable
-public abstract class AbstractConfigurationSourceFile extends AbstractConfigurationSource
+public abstract class AbstractConfigurationSourceResource extends AbstractConfigurationSource
 {
-  private static final Logger LOGGER = LoggerFactory.getLogger (AbstractConfigurationSourceFile.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (AbstractConfigurationSourceResource.class);
   public static final EConfigSourceType SOURCE_TYPE = EConfigSourceType.RESOURCE;
 
   private final IReadableResource m_aRes;
 
-  protected AbstractConfigurationSourceFile (final int nPriority, @Nonnull final IReadableResource aRes)
+  protected AbstractConfigurationSourceResource (final int nPriority, @Nonnull final IReadableResource aRes)
   {
     super (SOURCE_TYPE, nPriority);
     ValueEnforcer.notNull (aRes, "File");
@@ -86,7 +86,7 @@ public abstract class AbstractConfigurationSourceFile extends AbstractConfigurat
       return true;
     if (!super.equals (o))
       return false;
-    final AbstractConfigurationSourceFile rhs = (AbstractConfigurationSourceFile) o;
+    final AbstractConfigurationSourceResource rhs = (AbstractConfigurationSourceResource) o;
     return EqualsHelper.equals (m_aRes, rhs.m_aRes);
   }
 

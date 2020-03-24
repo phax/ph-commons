@@ -16,6 +16,13 @@
  */
 package com.helger.config.source;
 
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.net.URL;
+import java.util.Enumeration;
+import java.util.function.Function;
+
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -23,6 +30,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.lang.ClassLoaderHelper;
 
 /**
  * An implementation of {@link IConfigurationValueProvider} that supports
@@ -64,9 +72,15 @@ public class MultiConfigurationSourceValueProvider implements IConfigurationValu
    *         Never <code>null</code> but maybe empty.
    */
   @Nonnull
-  public ICommonsList <IConfigurationSource> getAllSources ()
+  public final ICommonsList <IConfigurationSource> getAllSources ()
   {
     return m_aSources.getClone ();
+  }
+
+  @Nonnegative
+  public final int getSourceCount ()
+  {
+    return m_aSources.size ();
   }
 
   @Nullable
@@ -81,6 +95,51 @@ public class MultiConfigurationSourceValueProvider implements IConfigurationValu
         // Use the first one that is not null
         break;
       }
+    }
+    return ret;
+  }
+
+  /**
+   * Load all classpath elements with the same name.
+   *
+   * @param aClassLoader
+   *        The class loader to be used. May not be <code>null</code>.
+   * @param sClassPathElement
+   *        The name of the class path element(s) to load. May not be
+   *        <code>null</code>.
+   * @param aLoader
+   *        The loader that converts all matching URLs to
+   *        {@link IConfigurationSource} objects. With this implementation you
+   *        can differentiate the type of the content.
+   * @return A non-<code>null</code> but may empty
+   *         {@link MultiConfigurationSourceValueProvider}.
+   */
+  @Nonnull
+  public static MultiConfigurationSourceValueProvider createForClassPath (@Nonnull final ClassLoader aClassLoader,
+                                                                          @Nonnull final String sClassPathElement,
+                                                                          @Nonnull final Function <URL, IConfigurationSource> aLoader)
+  {
+    ValueEnforcer.notNull (aClassLoader, "ClassLoader");
+    ValueEnforcer.notNull (sClassPathElement, "ClassPathElement");
+    ValueEnforcer.notNull (aLoader, "Loader");
+
+    final MultiConfigurationSourceValueProvider ret = new MultiConfigurationSourceValueProvider ();
+    try
+    {
+      final Enumeration <URL> aEnum = ClassLoaderHelper.getResources (aClassLoader, sClassPathElement);
+      while (aEnum.hasMoreElements ())
+      {
+        final URL aURL = aEnum.nextElement ();
+
+        final IConfigurationSource aConfigSource = aLoader.apply (aURL);
+        if (aConfigSource == null)
+          throw new IllegalStateException ("Failed to load configration source " + aURL);
+        ret.addConfigurationSource (aConfigSource);
+      }
+    }
+    catch (final IOException ex)
+    {
+      throw new UncheckedIOException (ex);
     }
     return ret;
   }

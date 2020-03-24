@@ -33,18 +33,18 @@ import com.helger.commons.mock.CommonsTestHelper;
 import com.helger.config.source.EConfigSourceType;
 
 /**
- * Test class for class {@link ConfigurationSourceJsonFile}.
+ * Test class for class {@link ConfigurationSourceJson}.
  *
  * @author Philip Helger
  */
-public final class ConfigurationSourceJsonFileTest
+public final class ConfigurationSourceJsonTest
 {
   private static final IReadableResource f = new FileSystemResource (new File ("src/test/resources/file/test.json"));
 
   @Test
   public void testBasic ()
   {
-    final ConfigurationSourceJsonFile c = new ConfigurationSourceJsonFile (f);
+    final ConfigurationSourceJson c = new ConfigurationSourceJson (f);
     assertSame (EConfigSourceType.RESOURCE, c.getSourceType ());
     assertEquals (EConfigSourceType.RESOURCE.getDefaultPriority (), c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
@@ -67,17 +67,17 @@ public final class ConfigurationSourceJsonFileTest
     assertEquals ("plain value", c.getConfigurationValue ("element7.1"));
     assertEquals ("blub", c.getConfigurationValue ("element7.2.value.0"));
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (c, new ConfigurationSourceJsonFile (f));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (c, new ConfigurationSourceJson (f));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c,
-                                                                           new ConfigurationSourceJsonFile (1234, f));
+                                                                           new ConfigurationSourceJson (1234, f));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c,
-                                                                           new ConfigurationSourceJsonFile (new FileSystemResource (new File ("bla"))));
+                                                                           new ConfigurationSourceJson (new FileSystemResource (new File ("bla"))));
   }
 
   @Test
   public void testExplicitCharset ()
   {
-    final ConfigurationSourceJsonFile c = new ConfigurationSourceJsonFile (f, StandardCharsets.ISO_8859_1);
+    final ConfigurationSourceJson c = new ConfigurationSourceJson (f, StandardCharsets.ISO_8859_1);
     assertSame (EConfigSourceType.RESOURCE, c.getSourceType ());
     assertEquals (EConfigSourceType.RESOURCE.getDefaultPriority (), c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
@@ -89,7 +89,7 @@ public final class ConfigurationSourceJsonFileTest
   @Test
   public void testDifferentPriority ()
   {
-    final ConfigurationSourceJsonFile c = new ConfigurationSourceJsonFile (2323, f);
+    final ConfigurationSourceJson c = new ConfigurationSourceJson (2323, f);
     assertSame (EConfigSourceType.RESOURCE, c.getSourceType ());
     assertEquals (2323, c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
@@ -101,7 +101,7 @@ public final class ConfigurationSourceJsonFileTest
   @Test
   public void testDifferentPriorityAndExplicitCharset ()
   {
-    final ConfigurationSourceJsonFile c = new ConfigurationSourceJsonFile (2323, f, StandardCharsets.ISO_8859_1);
+    final ConfigurationSourceJson c = new ConfigurationSourceJson (2323, f, StandardCharsets.ISO_8859_1);
     assertSame (EConfigSourceType.RESOURCE, c.getSourceType ());
     assertEquals (2323, c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
@@ -115,7 +115,7 @@ public final class ConfigurationSourceJsonFileTest
   {
     final IReadableResource f2 = new FileSystemResource (new File ("bla"));
     assertFalse (f2.exists ());
-    final ConfigurationSourceJsonFile c = new ConfigurationSourceJsonFile (f2);
+    final ConfigurationSourceJson c = new ConfigurationSourceJson (f2);
     assertSame (EConfigSourceType.RESOURCE, c.getSourceType ());
     assertEquals (EConfigSourceType.RESOURCE.getDefaultPriority (), c.getPriority ());
     assertFalse (c.isInitializedAndUsable ());

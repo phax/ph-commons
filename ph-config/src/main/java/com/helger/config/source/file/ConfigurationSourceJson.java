@@ -41,7 +41,7 @@ import com.helger.json.serialize.JsonReader;
  * @author Philip Helger
  */
 @Immutable
-public class ConfigurationSourceJsonFile extends AbstractConfigurationSourceFile
+public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
 {
   public static final char LEVEL_SEPARATOR = '.';
   public static final String ARRAY_SUFFIX_COUNT = "$count";
@@ -79,7 +79,7 @@ public class ConfigurationSourceJsonFile extends AbstractConfigurationSourceFile
    * @param aRes
    *        Resource to read from. May not be <code>null</code>.
    */
-  public ConfigurationSourceJsonFile (@Nonnull final IReadableResource aRes)
+  public ConfigurationSourceJson (@Nonnull final IReadableResource aRes)
   {
     this (SOURCE_TYPE.getDefaultPriority (), aRes, (Charset) null);
   }
@@ -92,7 +92,7 @@ public class ConfigurationSourceJsonFile extends AbstractConfigurationSourceFile
    * @param aCharset
    *        Character set to use. May be <code>null</code>.
    */
-  public ConfigurationSourceJsonFile (@Nonnull final IReadableResource aRes, @Nullable final Charset aCharset)
+  public ConfigurationSourceJson (@Nonnull final IReadableResource aRes, @Nullable final Charset aCharset)
   {
     this (SOURCE_TYPE.getDefaultPriority (), aRes, aCharset);
   }
@@ -105,7 +105,7 @@ public class ConfigurationSourceJsonFile extends AbstractConfigurationSourceFile
    * @param aRes
    *        Resource to read from. May not be <code>null</code>.
    */
-  public ConfigurationSourceJsonFile (final int nPriority, @Nonnull final IReadableResource aRes)
+  public ConfigurationSourceJson (final int nPriority, @Nonnull final IReadableResource aRes)
   {
     this (nPriority, aRes, (Charset) null);
   }
@@ -120,7 +120,7 @@ public class ConfigurationSourceJsonFile extends AbstractConfigurationSourceFile
    * @param aCharset
    *        Character set to use. May be <code>null</code>.
    */
-  public ConfigurationSourceJsonFile (final int nPriority,
+  public ConfigurationSourceJson (final int nPriority,
                                       @Nonnull final IReadableResource aRes,
                                       @Nullable final Charset aCharset)
   {

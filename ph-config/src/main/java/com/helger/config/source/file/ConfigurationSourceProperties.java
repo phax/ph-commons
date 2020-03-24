@@ -36,7 +36,7 @@ import com.helger.config.source.IConfigurationSource;
  * @author Philip Helger
  */
 @Immutable
-public class ConfigurationSourcePropertiesFile extends AbstractConfigurationSourceFile
+public class ConfigurationSourceProperties extends AbstractConfigurationSourceResource
 {
   private final NonBlockingProperties m_aProps;
 
@@ -46,7 +46,7 @@ public class ConfigurationSourcePropertiesFile extends AbstractConfigurationSour
    * @param aRes
    *        Resource to read from. May not be <code>null</code>.
    */
-  public ConfigurationSourcePropertiesFile (@Nonnull final IReadableResource aRes)
+  public ConfigurationSourceProperties (@Nonnull final IReadableResource aRes)
   {
     this (SOURCE_TYPE.getDefaultPriority (), aRes, (Charset) null);
   }
@@ -59,7 +59,7 @@ public class ConfigurationSourcePropertiesFile extends AbstractConfigurationSour
    * @param aCharset
    *        Character set to use. May be <code>null</code>.
    */
-  public ConfigurationSourcePropertiesFile (@Nonnull final IReadableResource aRes, @Nullable final Charset aCharset)
+  public ConfigurationSourceProperties (@Nonnull final IReadableResource aRes, @Nullable final Charset aCharset)
   {
     this (SOURCE_TYPE.getDefaultPriority (), aRes, aCharset);
   }
@@ -72,7 +72,7 @@ public class ConfigurationSourcePropertiesFile extends AbstractConfigurationSour
    * @param aRes
    *        Resource to read from. May not be <code>null</code>.
    */
-  public ConfigurationSourcePropertiesFile (final int nPriority, @Nonnull final IReadableResource aRes)
+  public ConfigurationSourceProperties (final int nPriority, @Nonnull final IReadableResource aRes)
   {
     this (nPriority, aRes, (Charset) null);
   }
@@ -87,7 +87,7 @@ public class ConfigurationSourcePropertiesFile extends AbstractConfigurationSour
    * @param aCharset
    *        Character set to use. May be <code>null</code>.
    */
-  public ConfigurationSourcePropertiesFile (final int nPriority,
+  public ConfigurationSourceProperties (final int nPriority,
                                             @Nonnull final IReadableResource aRes,
                                             @Nullable final Charset aCharset)
   {
