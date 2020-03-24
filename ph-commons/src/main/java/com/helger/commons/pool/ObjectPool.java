@@ -18,6 +18,7 @@ package com.helger.commons.pool;
 
 import java.util.Arrays;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -29,6 +30,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.concurrent.SimpleLock;
+import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.functional.ISupplier;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.state.ESuccess;
@@ -44,6 +46,7 @@ import com.helger.commons.state.ESuccess;
 public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE>
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (ObjectPool.class);
+  private static final AtomicBoolean SILENT_MODE = new AtomicBoolean (GlobalDebug.DEFAULT_SILENT_MODE);
 
   // Lock for this object
   private final SimpleLock m_aLock = new SimpleLock ();
@@ -59,6 +62,30 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
 
   // The factory for creating objects
   private final ISupplier <? extends DATATYPE> m_aFactory;
+
+  /**
+   * @return <code>true</code> if logging is disabled, <code>false</code> if it
+   *         is enabled.
+   * @since 9.4.0
+   */
+  public static boolean isSilentMode ()
+  {
+    return SILENT_MODE.get ();
+  }
+
+  /**
+   * Enable or disable certain regular log messages.
+   *
+   * @param bSilentMode
+   *        <code>true</code> to disable logging, <code>false</code> to enable
+   *        logging
+   * @return The previous value of the silent mode.
+   * @since 9.4.0
+   */
+  public static boolean setSilentMode (final boolean bSilentMode)
+  {
+    return SILENT_MODE.getAndSet (bSilentMode);
+  }
 
   /**
    * Create a new object pool for a certain amount of items and a factory that
@@ -86,11 +113,17 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
   public void clearUnusedItems ()
   {
     // Reset all cached items
-    m_aLock.locked ( () -> {
+    m_aLock.lock ();
+    try
+    {
       for (int i = 0; i < m_aItems.length; ++i)
         if (!m_aUsed[i])
           m_aItems[i] = null;
-    });
+    }
+    finally
+    {
+      m_aLock.unlock ();
+    }
   }
 
   @Nullable
@@ -104,12 +137,15 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
     catch (final InterruptedException ex)
     {
       // In case of acquisition interruption -> return null
-      LOGGER.error ("ObjectPool interrupted", ex);
+      if (!isSilentMode ())
+        LOGGER.error ("ObjectPool interrupted", ex);
       Thread.currentThread ().interrupt ();
       return null;
     }
 
-    return m_aLock.locked ( () -> {
+    m_aLock.lock ();
+    try
+    {
       // Find first unused item
       for (int i = 0; i < m_aItems.length; ++i)
         if (!m_aUsed[i])
@@ -126,13 +162,19 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
           return GenericReflection.uncheckedCast (m_aItems[i]);
         }
       throw new IllegalStateException ("Should never be reached!");
-    });
+    }
+    finally
+    {
+      m_aLock.unlock ();
+    }
   }
 
   @Nonnull
   public ESuccess returnObject (@Nonnull final DATATYPE aItem)
   {
-    return m_aLock.locked ( () -> {
+    m_aLock.lock ();
+    try
+    {
       for (int i = 0; i < m_aItems.length; ++i)
         if (m_aUsed[i] && aItem == m_aItems[i])
         {
@@ -142,8 +184,13 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
           m_aAvailable.release ();
           return ESuccess.SUCCESS;
         }
-      LOGGER.warn ("Object " + aItem + " is not pooled!");
+      if (!isSilentMode ())
+        LOGGER.warn ("Object " + aItem + " is not pooled!");
       return ESuccess.FAILURE;
-    });
+    }
+    finally
+    {
+      m_aLock.unlock ();
+    }
   }
 }

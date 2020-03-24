@@ -16,11 +16,6 @@
  */
 package com.helger.commons.pool;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,17 +44,21 @@ public final class ObjectPoolTest
         {
           final ObjectPool <String> aOP = new ObjectPool <> (ITEMS, () -> "any");
           for (int i = 0; i < ITEMS; ++i)
-            assertEquals ("any", aOP.borrowObject ());
+            if (!"any".equals (aOP.borrowObject ()))
+              throw new IllegalStateException ();
 
           // hangs because pool has only 5 objects
-          assertNull (aOP.borrowObject ());
+          if (aOP.borrowObject () != null)
+            throw new IllegalStateException ();
 
           // Start returning
           for (int i = 0; i < ITEMS; ++i)
-            assertTrue (aOP.returnObject ("any").isSuccess ());
+            if (aOP.returnObject ("any").isFailure ())
+              throw new IllegalStateException ();
 
           // Cannot return more than that
-          assertFalse (aOP.returnObject ("any").isSuccess ());
+          if (aOP.returnObject ("any").isSuccess ())
+            throw new IllegalStateException ();
         }
         catch (final Throwable t)
         {
