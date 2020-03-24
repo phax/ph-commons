@@ -17,6 +17,7 @@
 package com.helger.commons.locale;
 
 import java.util.Locale;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -36,6 +37,7 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
+import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.string.StringHelper;
 
 /**
@@ -85,6 +87,8 @@ public class LocaleCache
   }
 
   private static final Logger LOGGER = LoggerFactory.getLogger (LocaleCache.class);
+  private static final AtomicBoolean SILENT_MODE = new AtomicBoolean (GlobalDebug.DEFAULT_SILENT_MODE);
+
   private static boolean s_bDefaultInstantiated = false;
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
@@ -101,6 +105,30 @@ public class LocaleCache
   protected LocaleCache ()
   {
     reinitialize ();
+  }
+
+  /**
+   * @return <code>true</code> if logging is disabled, <code>false</code> if it
+   *         is enabled.
+   * @since 9.4.0
+   */
+  public static boolean isSilentMode ()
+  {
+    return SILENT_MODE.get ();
+  }
+
+  /**
+   * Enable or disable certain regular log messages.
+   *
+   * @param bSilentMode
+   *        <code>true</code> to disable logging, <code>false</code> to enable
+   *        logging
+   * @return The previous value of the silent mode.
+   * @since 9.4.0
+   */
+  public static boolean setSilentMode (final boolean bSilentMode)
+  {
+    return SILENT_MODE.getAndSet (bSilentMode);
   }
 
   public static boolean isInstantiated ()
@@ -405,7 +433,8 @@ public class LocaleCache
       }
     });
 
-    if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Reinitialized " + LocaleCache.class.getName ());
+    if (!isSilentMode ())
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Reinitialized " + LocaleCache.class.getName ());
   }
 }
