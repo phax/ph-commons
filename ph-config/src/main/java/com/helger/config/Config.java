@@ -16,7 +16,8 @@
  */
 package com.helger.config;
 
-import java.util.function.Function;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -28,31 +29,94 @@ import com.helger.config.source.IConfigurationValueProvider;
 /**
  * Default implementation of {@link IConfig}. It is recommended to use
  * {@link ConfigFactory} for accessing {@link IConfig} objects.
- * 
+ *
  * @author Philip Helger
  */
 public class Config implements IConfig
 {
-  private final Function <String, Object> m_aResolver;
+  private final IConfigurationValueProvider m_aCVP;
+  private final BiConsumer <String, String> m_aKeyFoundConsumer;
+  private final Consumer <String> m_aKeyNotFoundConsumer;
 
-  public Config (@Nonnull final Function <String, Object> aResolver)
+  /**
+   * Constructor
+   *
+   * @param aCVP
+   *        The main configuration value resolver. May not be <code>null</code>.
+   * @param aKeyFoundConsumer
+   *        The callback to be invoked if a configuration value was found. The
+   *        parameters are key and value. May be <code>null</code>.
+   * @param aKeyNotFoundConsumer
+   *        The callback to be invoked if a configuration value was <b>not</b>
+   *        found. The parameter is the key. May be <code>null</code>.
+   */
+  public Config (@Nonnull final IConfigurationValueProvider aCVP,
+                 @Nullable final BiConsumer <String, String> aKeyFoundConsumer,
+                 @Nullable final Consumer <String> aKeyNotFoundConsumer)
   {
-    ValueEnforcer.notNull (aResolver, "Resolver");
-    m_aResolver = aResolver;
+    ValueEnforcer.notNull (aCVP, "ConfigurationValueProvider");
+    m_aCVP = aCVP;
+    m_aKeyFoundConsumer = aKeyFoundConsumer;
+    m_aKeyNotFoundConsumer = aKeyNotFoundConsumer;
+  }
+
+  /**
+   * @return The configuration value resolver as provided in the constructor.
+   *         Never <code>null</code>.
+   */
+  @Nonnull
+  public final IConfigurationValueProvider getConfigurationValueProvider ()
+  {
+    return m_aCVP;
+  }
+
+  /**
+   * @return The callback to be invoked if a configuration value was found, as
+   *         provided in the constructor. May be <code>null</code>.
+   */
+  @Nullable
+  public final BiConsumer <String, String> getFoundKeyConsumer ()
+  {
+    return m_aKeyFoundConsumer;
+  }
+
+  /**
+   * @return The callback to be invoked if a configuration value was <b>not</b>
+   *         found, as provided in the constructor. May be <code>null</code>.
+   */
+  @Nullable
+  public final Consumer <String> getKeyNotFoundConsumer ()
+  {
+    return m_aKeyNotFoundConsumer;
   }
 
   @Nullable
-  public Object getValue (@Nullable final String sKey)
+  public String getValue (@Nullable final String sKey)
   {
+    // Resolve value
+    final String ret;
     if (StringHelper.hasNoText (sKey))
-      return null;
-    return m_aResolver.apply (sKey);
+      ret = null;
+    else
+      ret = m_aCVP.getConfigurationValue (sKey);
+
+    // Handle result
+    if (ret != null)
+    {
+      if (m_aKeyFoundConsumer != null)
+        m_aKeyFoundConsumer.accept (sKey, ret);
+    }
+    else
+    {
+      if (m_aKeyNotFoundConsumer != null)
+        m_aKeyNotFoundConsumer.accept (sKey);
+    }
+    return ret;
   }
 
   @Nonnull
   public static Config create (@Nonnull final IConfigurationValueProvider aCVP)
   {
-    ValueEnforcer.notNull (aCVP, "CVP");
-    return new Config (aCVP::getConfigurationValue);
+    return new Config (aCVP, null, null);
   }
 }

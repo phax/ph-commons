@@ -82,13 +82,15 @@ public class MultiConfigurationSourceValueProvider implements
   }
 
   @Nonnull
-  public final MultiConfigurationSourceValueProvider addConfigurationSource (@Nonnull final IConfigurationValueProvider aCVP,
+  public final MultiConfigurationSourceValueProvider addConfigurationSource (@Nullable final IConfigurationValueProvider aCVP,
                                                                              final int nPriority)
   {
-    ValueEnforcer.notNull (aCVP, "ConfigValueProvider");
-    m_aSources.add (new CS (aCVP, nPriority));
-    // Ensure entry with highest priority comes first
-    m_aSources.sort ( (x, y) -> y.m_nPrio - x.m_nPrio);
+    if (aCVP != null)
+    {
+      m_aSources.add (new CS (aCVP, nPriority));
+      // Ensure entry with highest priority comes first
+      m_aSources.sort ( (x, y) -> y.m_nPrio - x.m_nPrio);
+    }
     return this;
   }
 
@@ -143,10 +145,9 @@ public class MultiConfigurationSourceValueProvider implements
    *        The loader that converts all matching URLs to
    *        {@link IConfigurationSource} objects. With this implementation you
    *        can differentiate the type of the content.
-   * @return A non-<code>null</code> but may empty
-   *         {@link MultiConfigurationSourceValueProvider}.
+   * @return May be <code>null</code> if no resource was found.
    */
-  @Nonnull
+  @Nullable
   public static MultiConfigurationSourceValueProvider createForClassPath (@Nonnull final ClassLoader aClassLoader,
                                                                           @Nonnull final String sClassPathElement,
                                                                           @Nonnull final Function <URL, IConfigurationSource> aLoader)
@@ -173,6 +174,9 @@ public class MultiConfigurationSourceValueProvider implements
     {
       throw new UncheckedIOException (ex);
     }
+    if (ret.getConfigurationSourceCount () == 0)
+      return null;
+
     return ret;
   }
 }
