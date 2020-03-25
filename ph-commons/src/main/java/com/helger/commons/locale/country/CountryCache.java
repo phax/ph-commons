@@ -119,7 +119,7 @@ public class CountryCache
   {
     ValueEnforcer.notNull (sCountry, "Country");
     final String sValidCountry = LocaleHelper.getValidCountryCode (sCountry);
-    ValueEnforcer.notNull (sValidCountry, () -> "illegal country code '" + sCountry + "'");
+    ValueEnforcer.isTrue (sValidCountry != null, () -> "illegal country code '" + sCountry + "'");
     ValueEnforcer.isTrue (sCountry.equals (sValidCountry), () -> "invalid casing of '" + sCountry + "'");
 
     return m_aRWLock.writeLocked ( () -> m_aCountries.addObject (sValidCountry));
