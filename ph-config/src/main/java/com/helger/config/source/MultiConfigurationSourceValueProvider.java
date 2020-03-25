@@ -116,6 +116,20 @@ public class MultiConfigurationSourceValueProvider implements
     return ret;
   }
 
+  @Nullable
+  public IConfigurationValueProvider getConfigurationValueProvider (@Nonnull @Nonempty final String sKey)
+  {
+    for (final CS aSource : m_aSources)
+    {
+      if (aSource.m_aCVP.getConfigurationValue (sKey) != null)
+      {
+        // Use the first one that is not null
+        return aSource.m_aCVP;
+      }
+    }
+    return null;
+  }
+
   @Nonnull
   public MultiConfigurationSourceValueProvider getClone ()
   {
