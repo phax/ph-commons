@@ -18,6 +18,7 @@ package com.helger.config;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -34,15 +35,15 @@ import com.helger.config.source.IConfigurationValueProvider;
  */
 public class Config implements IConfig
 {
-  private final IConfigurationValueProvider m_aCVP;
+  private final Function <String, String> m_aValueProvider;
   private final BiConsumer <String, String> m_aKeyFoundConsumer;
   private final Consumer <String> m_aKeyNotFoundConsumer;
 
   /**
    * Constructor
    *
-   * @param aCVP
-   *        The main configuration value resolver. May not be <code>null</code>.
+   * @param aValueProvider
+   *        The main configuration value provider. May not be <code>null</code>.
    * @param aKeyFoundConsumer
    *        The callback to be invoked if a configuration value was found. The
    *        parameters are key and value. May be <code>null</code>.
@@ -50,24 +51,24 @@ public class Config implements IConfig
    *        The callback to be invoked if a configuration value was <b>not</b>
    *        found. The parameter is the key. May be <code>null</code>.
    */
-  public Config (@Nonnull final IConfigurationValueProvider aCVP,
+  public Config (@Nonnull final Function <String, String> aValueProvider,
                  @Nullable final BiConsumer <String, String> aKeyFoundConsumer,
                  @Nullable final Consumer <String> aKeyNotFoundConsumer)
   {
-    ValueEnforcer.notNull (aCVP, "ConfigurationValueProvider");
-    m_aCVP = aCVP;
+    ValueEnforcer.notNull (aValueProvider, "ValueProvider");
+    m_aValueProvider = aValueProvider;
     m_aKeyFoundConsumer = aKeyFoundConsumer;
     m_aKeyNotFoundConsumer = aKeyNotFoundConsumer;
   }
 
   /**
-   * @return The configuration value resolver as provided in the constructor.
+   * @return The configuration value provider as provided in the constructor.
    *         Never <code>null</code>.
    */
   @Nonnull
-  public final IConfigurationValueProvider getConfigurationValueProvider ()
+  public final Function <String, String> getConfigurationValueProvider ()
   {
-    return m_aCVP;
+    return m_aValueProvider;
   }
 
   /**
@@ -98,7 +99,7 @@ public class Config implements IConfig
     if (StringHelper.hasNoText (sKey))
       ret = null;
     else
-      ret = m_aCVP.getConfigurationValue (sKey);
+      ret = m_aValueProvider.apply (sKey);
 
     // Handle result
     if (ret != null)
@@ -117,6 +118,6 @@ public class Config implements IConfig
   @Nonnull
   public static Config create (@Nonnull final IConfigurationValueProvider aCVP)
   {
-    return new Config (aCVP, null, null);
+    return new Config (aCVP::getConfigurationValue, null, null);
   }
 }
