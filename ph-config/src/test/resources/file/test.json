@@ -25,5 +25,7 @@
       key: "hmpf",
       value:[ "blub", "juhu" ]
     }
-  ]
+  ],
+  
+  element7.sub.key : "value"
 }

@@ -30,8 +30,8 @@ import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.config.source.EConfigSourceType;
 import com.helger.config.source.MultiConfigurationSourceValueProvider;
 import com.helger.config.source.envvar.ConfigurationSourceEnvVar;
-import com.helger.config.source.file.ConfigurationSourceJson;
-import com.helger.config.source.file.ConfigurationSourceProperties;
+import com.helger.config.source.res.ConfigurationSourceJson;
+import com.helger.config.source.res.ConfigurationSourceProperties;
 import com.helger.config.source.sysprop.ConfigurationSourceSystemProperty;
 
 @Immutable
