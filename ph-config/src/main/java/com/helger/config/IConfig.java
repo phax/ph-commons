@@ -16,14 +16,25 @@
  */
 package com.helger.config;
 
+import javax.annotation.Nonnull;
+
 import com.helger.commons.traits.IGetterByKeyTrait;
+import com.helger.config.value.IConfigurationValueProviderWithPriorityCallback;
 
 /**
  * Read-only configuration
- * 
+ *
  * @author Philip Helger
  */
 public interface IConfig extends IGetterByKeyTrait <String>
 {
-  /* empty */
+  /**
+   * Enumerate all contained configuration value provider. All items will be
+   * enumerated in the order they are checked, so the ones with highest priority
+   * first.
+   *
+   * @param aCallback
+   *        The callback to invoked. May not be <code>null</code>.
+   */
+  void forEachConfigurationValueProvider (@Nonnull IConfigurationValueProviderWithPriorityCallback aCallback);
 }

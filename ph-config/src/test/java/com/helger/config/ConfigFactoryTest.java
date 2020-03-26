@@ -25,9 +25,16 @@ import javax.annotation.Nonnull;
 
 import org.junit.Test;
 
+import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.math.MathHelper;
 import com.helger.commons.typeconvert.TypeConverterException;
+import com.helger.config.source.envvar.ConfigurationSourceEnvVar;
+import com.helger.config.source.res.ConfigurationSourceJson;
+import com.helger.config.source.res.ConfigurationSourceProperties;
+import com.helger.config.source.sysprop.ConfigurationSourceSystemProperty;
+import com.helger.config.value.IConfigurationValueProvider;
 
 public class ConfigFactoryTest
 {
@@ -56,6 +63,31 @@ public class ConfigFactoryTest
 
     assertTrue (EqualsHelper.equals (MathHelper.toBigDecimal (123.45678), aConfig.getAsBigDecimal ("dbl")));
     assertEquals ("123.45678", aConfig.getAsString ("dbl"));
+
+    // get all
+    final ICommonsList <IConfigurationValueProvider> aCVPs = new CommonsArrayList <> ();
+    aConfig.forEachConfigurationValueProvider ( (cvp, prio) -> aCVPs.add (cvp));
+    assertEquals (7, aCVPs.size ());
+    assertTrue (aCVPs.get (0) instanceof ConfigurationSourceSystemProperty);
+    assertTrue (aCVPs.get (1) instanceof ConfigurationSourceEnvVar);
+    assertTrue (aCVPs.get (2) instanceof ConfigurationSourceJson);
+    assertTrue (((ConfigurationSourceJson) aCVPs.get (2)).getResource ()
+                                                         .getPath ()
+                                                         .endsWith ("private-application.json"));
+    assertTrue (aCVPs.get (3) instanceof ConfigurationSourceProperties);
+    assertTrue (((ConfigurationSourceProperties) aCVPs.get (3)).getResource ()
+                                                               .getPath ()
+                                                               .endsWith ("private-application.properties"));
+    assertTrue (aCVPs.get (4) instanceof ConfigurationSourceJson);
+    assertTrue (((ConfigurationSourceJson) aCVPs.get (4)).getResource ().getPath ().endsWith ("application.json"));
+    assertTrue (aCVPs.get (5) instanceof ConfigurationSourceProperties);
+    assertTrue (((ConfigurationSourceProperties) aCVPs.get (5)).getResource ()
+                                                               .getPath ()
+                                                               .endsWith ("application.properties"));
+    assertTrue (aCVPs.get (6) instanceof ConfigurationSourceProperties);
+    assertTrue (((ConfigurationSourceProperties) aCVPs.get (6)).getResource ()
+                                                               .getPath ()
+                                                               .endsWith ("reference.properties"));
   }
 
   @Test

@@ -24,7 +24,10 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.StringHelper;
+import com.helger.config.source.IConfigurationSource;
+import com.helger.config.source.MultiConfigurationValueProvider;
 import com.helger.config.value.IConfigurationValueProvider;
+import com.helger.config.value.IConfigurationValueProviderWithPriorityCallback;
 
 /**
  * Default implementation of {@link IConfig}. It is recommended to use
@@ -112,6 +115,36 @@ public class Config implements IConfig
         m_aKeyNotFoundConsumer.accept (sKey);
     }
     return ret;
+  }
+
+  public static void forEachConfigurationValueProviderRecursive (@Nonnull final IConfigurationValueProvider aValueProvider,
+                                                                 @Nonnull final IConfigurationValueProviderWithPriorityCallback aCallback)
+  {
+    if (aValueProvider instanceof MultiConfigurationValueProvider)
+    {
+      final MultiConfigurationValueProvider aMulti = (MultiConfigurationValueProvider) aValueProvider;
+      aMulti.forEachConfigurationValueProvider ( (cvp, prio) -> {
+        // Descend
+        forEachConfigurationValueProviderRecursive (cvp, aCallback);
+      });
+    }
+    else
+    {
+      // By default no priority
+      int nPriority = 0;
+      if (aValueProvider instanceof IConfigurationSource)
+      {
+        final IConfigurationSource aSource = (IConfigurationSource) aValueProvider;
+        nPriority = aSource.getPriority ();
+      }
+      aCallback.onConfigurationSource (aValueProvider, nPriority);
+    }
+  }
+
+  public void forEachConfigurationValueProvider (@Nonnull final IConfigurationValueProviderWithPriorityCallback aCallback)
+  {
+    ValueEnforcer.notNull (aCallback, "Callback");
+    forEachConfigurationValueProviderRecursive (m_aValueProvider, aCallback);
   }
 
   @Nonnull
