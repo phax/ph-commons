@@ -28,7 +28,7 @@ import com.helger.commons.io.resourceprovider.FileSystemResourceProvider;
 import com.helger.commons.io.resourceprovider.ReadableResourceProviderChain;
 import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.config.source.EConfigSourceType;
-import com.helger.config.source.MultiConfigurationSourceValueProvider;
+import com.helger.config.source.MultiConfigurationValueProvider;
 import com.helger.config.source.envvar.ConfigurationSourceEnvVar;
 import com.helger.config.source.res.ConfigurationSourceJson;
 import com.helger.config.source.res.ConfigurationSourceProperties;
@@ -40,9 +40,9 @@ public final class ConfigFactory
   private static final IConfig DEFAULT_INSTANCE = Config.create (createDefaultValueProvider ());
 
   @Nonnull
-  public static MultiConfigurationSourceValueProvider createDefaultValueProvider ()
+  public static MultiConfigurationValueProvider createDefaultValueProvider ()
   {
-    final MultiConfigurationSourceValueProvider aMCSVP = new MultiConfigurationSourceValueProvider ();
+    final MultiConfigurationValueProvider aMCSVP = new MultiConfigurationValueProvider ();
     // Prio 400
     aMCSVP.addConfigurationSource (new ConfigurationSourceSystemProperty ());
     // Prio 300
@@ -65,19 +65,19 @@ public final class ConfigFactory
       aMCSVP.addConfigurationSource (new ConfigurationSourceProperties (aRes, StandardCharsets.UTF_8),
                                      nResourceDefaultPrio - 10);
     // Prio 185
-    aMCSVP.addConfigurationSource (MultiConfigurationSourceValueProvider.createForClassPath (ClassLoaderHelper.getDefaultClassLoader (),
+    aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForClassPath (ClassLoaderHelper.getDefaultClassLoader (),
                                                                                              "application.json",
                                                                                              aURL -> new ConfigurationSourceJson (new URLResource (aURL),
                                                                                                                                   StandardCharsets.UTF_8)),
                                    nResourceDefaultPrio - 15);
     // Prio 180
-    aMCSVP.addConfigurationSource (MultiConfigurationSourceValueProvider.createForClassPath (ClassLoaderHelper.getDefaultClassLoader (),
+    aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForClassPath (ClassLoaderHelper.getDefaultClassLoader (),
                                                                                              "application.properties",
                                                                                              aURL -> new ConfigurationSourceProperties (new URLResource (aURL),
                                                                                                                                         StandardCharsets.UTF_8)),
                                    nResourceDefaultPrio - 20);
     // Prio 1
-    aMCSVP.addConfigurationSource (MultiConfigurationSourceValueProvider.createForClassPath (ClassLoaderHelper.getDefaultClassLoader (),
+    aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForClassPath (ClassLoaderHelper.getDefaultClassLoader (),
                                                                                              "reference.properties",
                                                                                              aURL -> new ConfigurationSourceProperties (new URLResource (aURL),
                                                                                                                                         StandardCharsets.UTF_8)),

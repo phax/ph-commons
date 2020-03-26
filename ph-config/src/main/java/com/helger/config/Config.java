@@ -18,14 +18,13 @@ package com.helger.config;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.StringHelper;
-import com.helger.config.source.IConfigurationValueProvider;
+import com.helger.config.value.IConfigurationValueProvider;
 
 /**
  * Default implementation of {@link IConfig}. It is recommended to use
@@ -35,7 +34,7 @@ import com.helger.config.source.IConfigurationValueProvider;
  */
 public class Config implements IConfig
 {
-  private final Function <String, String> m_aValueProvider;
+  private final IConfigurationValueProvider m_aValueProvider;
   private final BiConsumer <String, String> m_aKeyFoundConsumer;
   private final Consumer <String> m_aKeyNotFoundConsumer;
 
@@ -51,7 +50,7 @@ public class Config implements IConfig
    *        The callback to be invoked if a configuration value was <b>not</b>
    *        found. The parameter is the key. May be <code>null</code>.
    */
-  public Config (@Nonnull final Function <String, String> aValueProvider,
+  public Config (@Nonnull final IConfigurationValueProvider aValueProvider,
                  @Nullable final BiConsumer <String, String> aKeyFoundConsumer,
                  @Nullable final Consumer <String> aKeyNotFoundConsumer)
   {
@@ -66,7 +65,7 @@ public class Config implements IConfig
    *         Never <code>null</code>.
    */
   @Nonnull
-  public final Function <String, String> getConfigurationValueProvider ()
+  public final IConfigurationValueProvider getConfigurationValueProvider ()
   {
     return m_aValueProvider;
   }
@@ -99,7 +98,7 @@ public class Config implements IConfig
     if (StringHelper.hasNoText (sKey))
       ret = null;
     else
-      ret = m_aValueProvider.apply (sKey);
+      ret = m_aValueProvider.getConfigurationValue (sKey);
 
     // Handle result
     if (ret != null)
@@ -118,6 +117,6 @@ public class Config implements IConfig
   @Nonnull
   public static Config create (@Nonnull final IConfigurationValueProvider aCVP)
   {
-    return new Config (aCVP::getConfigurationValue, null, null);
+    return new Config (aCVP, null, null);
   }
 }

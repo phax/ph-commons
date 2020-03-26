@@ -26,16 +26,16 @@ import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.config.source.appl.ConfigurationSourceFunction;
 
 /**
- * Test class for class {@link MultiConfigurationSourceValueProvider}.
+ * Test class for class {@link MultiConfigurationValueProvider}.
  *
  * @author Philip Helger
  */
-public class MultiConfigurationSourceValueProviderTest
+public class MultiConfigurationValueProviderTest
 {
   @Test
   public void testBasic ()
   {
-    final MultiConfigurationSourceValueProvider aMCSVP = new MultiConfigurationSourceValueProvider ();
+    final MultiConfigurationValueProvider aMCSVP = new MultiConfigurationValueProvider ();
 
     // Lower priority
     final ICommonsMap <String, String> aMap1 = new CommonsHashMap <> ();
@@ -59,7 +59,7 @@ public class MultiConfigurationSourceValueProviderTest
   @Test
   public void testEmpty ()
   {
-    final MultiConfigurationSourceValueProvider aMCSVP = new MultiConfigurationSourceValueProvider ();
+    final MultiConfigurationValueProvider aMCSVP = new MultiConfigurationValueProvider ();
     // Resolve
     assertNull (aMCSVP.getConfigurationValue ("key1"));
     assertNull (aMCSVP.getConfigurationValue ("key2"));

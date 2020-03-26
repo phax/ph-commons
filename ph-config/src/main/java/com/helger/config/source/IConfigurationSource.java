@@ -18,6 +18,8 @@ package com.helger.config.source;
 
 import javax.annotation.Nonnull;
 
+import com.helger.config.value.IConfigurationValueProvider;
+
 /**
  * An abstract configuration source.
  *

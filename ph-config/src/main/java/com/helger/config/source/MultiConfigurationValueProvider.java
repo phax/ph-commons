@@ -34,6 +34,8 @@ import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.commons.lang.ICloneable;
+import com.helger.config.value.IConfigurationValueProvider;
+import com.helger.config.value.IConfigurationValueProviderWithPriorityCallback;
 
 /**
  * An implementation of {@link IConfigurationValueProvider} that supports
@@ -41,9 +43,9 @@ import com.helger.commons.lang.ICloneable;
  *
  * @author Philip Helger
  */
-public class MultiConfigurationSourceValueProvider implements
-                                                   IConfigurationValueProvider,
-                                                   ICloneable <MultiConfigurationSourceValueProvider>
+public class MultiConfigurationValueProvider implements
+                                             IConfigurationValueProvider,
+                                             ICloneable <MultiConfigurationValueProvider>
 {
   private static final class CS
   {
@@ -57,12 +59,6 @@ public class MultiConfigurationSourceValueProvider implements
     }
   }
 
-  @FunctionalInterface
-  public interface ICVPWithPriorityCallback
-  {
-    void onConfigurationSource (@Nonnull IConfigurationValueProvider aCVP, int nPriority);
-  }
-
   public static final boolean DEFAULT_USE_ONLY_INTIIALIZED_CONFIG_SOURCES = true;
 
   private final ICommonsList <CS> m_aSources = new CommonsArrayList <> ();
@@ -71,7 +67,7 @@ public class MultiConfigurationSourceValueProvider implements
   /**
    * Default constructor without any configuration source.
    */
-  public MultiConfigurationSourceValueProvider ()
+  public MultiConfigurationValueProvider ()
   {}
 
   /**
@@ -83,7 +79,7 @@ public class MultiConfigurationSourceValueProvider implements
    *        <code>null</code> values.
    * @see #addConfigurationSource(IConfigurationSource)
    */
-  public MultiConfigurationSourceValueProvider (@Nullable final List <? extends IConfigurationSource> aSources)
+  public MultiConfigurationValueProvider (@Nullable final List <? extends IConfigurationSource> aSources)
   {
     if (aSources != null)
       for (final IConfigurationSource aSource : aSources)
@@ -99,7 +95,7 @@ public class MultiConfigurationSourceValueProvider implements
    *        <code>null</code> values.
    * @see #addConfigurationSource(IConfigurationSource)
    */
-  public MultiConfigurationSourceValueProvider (@Nullable final IConfigurationSource... aSources)
+  public MultiConfigurationValueProvider (@Nullable final IConfigurationSource... aSources)
   {
     if (aSources != null)
       for (final IConfigurationSource aSource : aSources)
@@ -112,7 +108,7 @@ public class MultiConfigurationSourceValueProvider implements
   }
 
   @Nonnull
-  public final MultiConfigurationSourceValueProvider setUseOnlyInitializedConfigSources (final boolean bUseOnlyInitializedConfigSources)
+  public final MultiConfigurationValueProvider setUseOnlyInitializedConfigSources (final boolean bUseOnlyInitializedConfigSources)
   {
     m_bUseOnlyInitializedConfigSources = bUseOnlyInitializedConfigSources;
     return this;
@@ -126,7 +122,7 @@ public class MultiConfigurationSourceValueProvider implements
    * @return this for chaining
    */
   @Nonnull
-  public final MultiConfigurationSourceValueProvider addConfigurationSource (@Nonnull final IConfigurationSource aSource)
+  public final MultiConfigurationValueProvider addConfigurationSource (@Nonnull final IConfigurationSource aSource)
   {
     ValueEnforcer.notNull (aSource, "ConfigSource");
 
@@ -151,8 +147,8 @@ public class MultiConfigurationSourceValueProvider implements
    * @return this for chaining
    */
   @Nonnull
-  public final MultiConfigurationSourceValueProvider addConfigurationSource (@Nullable final IConfigurationValueProvider aCVP,
-                                                                             final int nPriority)
+  public final MultiConfigurationValueProvider addConfigurationSource (@Nullable final IConfigurationValueProvider aCVP,
+                                                                       final int nPriority)
   {
     if (aCVP != null)
     {
@@ -216,7 +212,7 @@ public class MultiConfigurationSourceValueProvider implements
    * @param aCallback
    *        The callback to be invoked. May not be <code>null</code>.
    */
-  public void forEachConfigurationValueProvider (@Nonnull final ICVPWithPriorityCallback aCallback)
+  public void forEachConfigurationValueProvider (@Nonnull final IConfigurationValueProviderWithPriorityCallback aCallback)
   {
     ValueEnforcer.notNull (aCallback, "aCallback");
 
@@ -225,15 +221,15 @@ public class MultiConfigurationSourceValueProvider implements
   }
 
   /**
-   * Return a deep clone of this {@link MultiConfigurationSourceValueProvider}.
-   * If the contained {@link IConfigurationValueProvider} implements
-   * {@link ICloneable} it is cloned as well.
+   * Return a deep clone of this {@link MultiConfigurationValueProvider}. If the
+   * contained {@link IConfigurationValueProvider} implements {@link ICloneable}
+   * it is cloned as well.
    */
   @Nonnull
   @ReturnsMutableCopy
-  public MultiConfigurationSourceValueProvider getClone ()
+  public MultiConfigurationValueProvider getClone ()
   {
-    final MultiConfigurationSourceValueProvider ret = new MultiConfigurationSourceValueProvider ();
+    final MultiConfigurationValueProvider ret = new MultiConfigurationValueProvider ();
     for (final CS aSource : m_aSources)
     {
       if (aSource.m_aCVP instanceof ICloneable <?>)
@@ -262,15 +258,15 @@ public class MultiConfigurationSourceValueProvider implements
    * @return May be <code>null</code> if no resource was found.
    */
   @Nullable
-  public static MultiConfigurationSourceValueProvider createForClassPath (@Nonnull final ClassLoader aClassLoader,
-                                                                          @Nonnull final String sClassPathElement,
-                                                                          @Nonnull final Function <URL, IConfigurationSource> aLoader)
+  public static MultiConfigurationValueProvider createForClassPath (@Nonnull final ClassLoader aClassLoader,
+                                                                    @Nonnull final String sClassPathElement,
+                                                                    @Nonnull final Function <URL, IConfigurationSource> aLoader)
   {
     ValueEnforcer.notNull (aClassLoader, "ClassLoader");
     ValueEnforcer.notNull (sClassPathElement, "ClassPathElement");
     ValueEnforcer.notNull (aLoader, "Loader");
 
-    final MultiConfigurationSourceValueProvider ret = new MultiConfigurationSourceValueProvider ();
+    final MultiConfigurationValueProvider ret = new MultiConfigurationValueProvider ();
     try
     {
       final Enumeration <URL> aEnum = ClassLoaderHelper.getResources (aClassLoader, sClassPathElement);
