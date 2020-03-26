@@ -134,8 +134,10 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
                                                   .setSource (aRes,
                                                               aCharset != null ? aCharset : JsonReader.DEFAULT_CHARSET)
                                                   .setCustomizeCallback (aParser -> {
-                                                    aParser.setRequireStringQuotes (false);
-                                                    aParser.setAlwaysUseBigNumber (true);
+                                                    aParser.setRequireStringQuotes (false)
+                                                           .setAllowSpecialCharsInStrings (true)
+                                                           .setAlwaysUseBigNumber (true)
+                                                           .setTrackPosition (true);
                                                   })
                                                   .setCustomExceptionCallback (ex -> LOGGER.error ("Failed to parse '" +
                                                                                                    aRes.getPath () +
