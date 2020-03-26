@@ -23,6 +23,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
@@ -45,6 +48,8 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
 {
   public static final char LEVEL_SEPARATOR = '.';
   public static final String ARRAY_SUFFIX_COUNT = "$count";
+
+  private static final Logger LOGGER = LoggerFactory.getLogger (ConfigurationSourceJson.class);
 
   private final ICommonsOrderedMap <String, String> m_aProps;
 
@@ -131,7 +136,11 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
                                                   .setCustomizeCallback (aParser -> {
                                                     aParser.setRequireStringQuotes (false);
                                                     aParser.setAlwaysUseBigNumber (true);
-                                                  });
+                                                  })
+                                                  .setCustomExceptionCallback (ex -> LOGGER.error ("Failed to parse '" +
+                                                                                                   aRes.getPath () +
+                                                                                                   "' to JSON: " +
+                                                                                                   ex.getMessage ()));
     final IJsonObject aProps = aBuilder.hasSource () ? aBuilder.readAsObject () : null;
     if (aProps != null)
     {
