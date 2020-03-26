@@ -52,6 +52,7 @@ This project was the following modules:
     * Added new `JAXBDocumentType` constructor for more flexible use
     * Changed names of `SimpleReadWriteLock.(read|write)Locked` with primitive suppliers
     * Changed names of `SimpleLock.locked` with primitive suppliers
+    * Added `SimpleReadWriteLock.(read|write)LockedGet(Throwing)`
 suppliers
 * v9.3.9 - 2019-12-11
     * Made `ClassLoaderHelper.getResource` more robust
