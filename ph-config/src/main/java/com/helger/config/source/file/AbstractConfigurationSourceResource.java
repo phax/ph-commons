@@ -50,7 +50,7 @@ public abstract class AbstractConfigurationSourceResource extends AbstractConfig
   protected AbstractConfigurationSourceResource (final int nPriority, @Nonnull final IReadableResource aRes)
   {
     super (SOURCE_TYPE, nPriority);
-    ValueEnforcer.notNull (aRes, "File");
+    ValueEnforcer.notNull (aRes, "Resource");
     m_aRes = aRes;
 
     final File aFile = aRes.getAsFile ();
