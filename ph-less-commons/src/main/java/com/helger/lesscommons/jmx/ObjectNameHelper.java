@@ -63,7 +63,7 @@ public final class ObjectNameHelper
     if (sDefaultJMXDomain.indexOf (':') >= 0 || sDefaultJMXDomain.indexOf (' ') >= 0)
       throw new IllegalArgumentException ("defaultJMXDomain contains invalid chars: " + sDefaultJMXDomain);
 
-    s_aRWLock.writeLocked ( () -> s_sDefaultJMXDomain = sDefaultJMXDomain);
+    s_aRWLock.writeLockedGet ( () -> s_sDefaultJMXDomain = sDefaultJMXDomain);
   }
 
   /**
@@ -74,7 +74,7 @@ public final class ObjectNameHelper
   @Nonempty
   public static String getDefaultJMXDomain ()
   {
-    return s_aRWLock.readLocked ( () -> s_sDefaultJMXDomain);
+    return s_aRWLock.readLockedGet ( () -> s_sDefaultJMXDomain);
   }
 
   @Nonnull

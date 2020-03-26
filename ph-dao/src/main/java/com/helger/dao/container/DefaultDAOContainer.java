@@ -55,7 +55,7 @@ public class DefaultDAOContainer extends AbstractDAOContainer
   @ReturnsMutableCopy
   public ICommonsList <IDAO> getAllContainedDAOs ()
   {
-    return m_aRWLock.readLocked (m_aDAOs::getClone);
+    return m_aRWLock.readLockedGet (m_aDAOs::getClone);
   }
 
   public boolean containsAny (@Nullable final Predicate <? super IDAO> aFilter)

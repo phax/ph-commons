@@ -542,7 +542,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   {
     // Use new CommonsArrayList to get the return type to NOT use "? extends
     // INTERFACETYPE"
-    return m_aRWLock.readLocked ( () -> new CommonsArrayList <> (m_aMap.values ()));
+    return m_aRWLock.readLockedGet ( () -> new CommonsArrayList <> (m_aMap.values ()));
   }
 
   @Nonnull
@@ -566,7 +566,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @IsLocked (ELockType.READ)
   protected final Iterable <IMPLTYPE> internalDirectGetAll ()
   {
-    return m_aRWLock.readLocked (m_aMap::values);
+    return m_aRWLock.readLockedGet (m_aMap::values);
   }
 
   @Nonnull
@@ -574,7 +574,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @IsLocked (ELockType.READ)
   protected final ICommonsList <IMPLTYPE> internalGetAll (@Nullable final Predicate <? super IMPLTYPE> aFilter)
   {
-    return m_aRWLock.readLocked ( () -> m_aMap.copyOfValues (aFilter));
+    return m_aRWLock.readLockedGet ( () -> m_aMap.copyOfValues (aFilter));
   }
 
   @IsLocked (ELockType.READ)
@@ -591,7 +591,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   public final <RETTYPE> ICommonsList <RETTYPE> getAllMapped (@Nullable final Predicate <? super INTERFACETYPE> aFilter,
                                                               @Nonnull final Function <? super INTERFACETYPE, ? extends RETTYPE> aMapper)
   {
-    return m_aRWLock.readLocked ( () -> m_aMap.copyOfValuesMapped (aFilter, aMapper));
+    return m_aRWLock.readLockedGet ( () -> m_aMap.copyOfValuesMapped (aFilter, aMapper));
   }
 
   @IsLocked (ELockType.READ)
@@ -610,7 +610,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @Nullable
   public final INTERFACETYPE findFirst (@Nullable final Predicate <? super INTERFACETYPE> aFilter)
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.findFirst (m_aMap.values (), aFilter));
+    return m_aRWLock.readLockedGet ( () -> CollectionHelper.findFirst (m_aMap.values (), aFilter));
   }
 
   @Nullable
@@ -618,7 +618,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   public final <RETTYPE> RETTYPE findFirstMapped (@Nullable final Predicate <? super INTERFACETYPE> aFilter,
                                                   @Nonnull final Function <? super INTERFACETYPE, ? extends RETTYPE> aMapper)
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.findFirstMapped (m_aMap.values (), aFilter, aMapper));
+    return m_aRWLock.readLockedGet ( () -> CollectionHelper.findFirstMapped (m_aMap.values (), aFilter, aMapper));
   }
 
   @Override
@@ -737,7 +737,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
     if (StringHelper.hasNoText (sID))
       return null;
 
-    return m_aRWLock.readLocked ( () -> m_aMap.get (sID));
+    return m_aRWLock.readLockedGet ( () -> m_aMap.get (sID));
   }
 
   /**
@@ -752,7 +752,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @IsLocked (ELockType.READ)
   protected final INTERFACETYPE getAtIndex (@Nonnegative final int nIndex)
   {
-    return m_aRWLock.readLocked ( () -> CollectionHelper.getAtIndex (m_aMap.values (), nIndex));
+    return m_aRWLock.readLockedGet ( () -> CollectionHelper.getAtIndex (m_aMap.values (), nIndex));
   }
 
   @MustBeLocked (ELockType.READ)
@@ -797,7 +797,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @ReturnsMutableCopy
   public final ICommonsSet <String> getAllIDs ()
   {
-    return m_aRWLock.readLocked ((Supplier <ICommonsSet <String>>) m_aMap::copyOfKeySet);
+    return m_aRWLock.readLockedGet ((Supplier <ICommonsSet <String>>) m_aMap::copyOfKeySet);
   }
 
   @Nonnegative

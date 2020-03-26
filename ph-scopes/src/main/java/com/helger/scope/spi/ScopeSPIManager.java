@@ -101,7 +101,7 @@ public final class ScopeSPIManager
   @ReturnsMutableCopy
   public ICommonsList <IGlobalScopeSPI> getAllGlobalScopeSPIs ()
   {
-    return m_aRWLock.readLocked ( () -> m_aGlobalSPIs.getClone ());
+    return m_aRWLock.readLockedGet ( () -> m_aGlobalSPIs.getClone ());
   }
 
   /**
@@ -112,7 +112,7 @@ public final class ScopeSPIManager
   @ReturnsMutableCopy
   public ICommonsList <ISessionScopeSPI> getAllSessionScopeSPIs ()
   {
-    return m_aRWLock.readLocked ( () -> m_aSessionSPIs.getClone ());
+    return m_aRWLock.readLockedGet ( () -> m_aSessionSPIs.getClone ());
   }
 
   /**

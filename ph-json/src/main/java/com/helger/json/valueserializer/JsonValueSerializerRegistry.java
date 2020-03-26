@@ -88,7 +88,7 @@ public final class JsonValueSerializerRegistry implements IJsonValueSerializerRe
   @Nullable
   public IJsonValueSerializer getJsonValueSerializer (@Nullable final Class <?> aSrcClass)
   {
-    return m_aRWLock.readLocked ( () -> m_aMap.get (aSrcClass));
+    return m_aRWLock.readLockedGet ( () -> m_aMap.get (aSrcClass));
   }
 
   @Nonnegative

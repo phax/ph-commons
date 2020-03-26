@@ -163,12 +163,12 @@ public final class DOMReaderDefaultSettings
   @Nullable
   public static Schema getSchema ()
   {
-    return s_aRWLock.readLocked ( () -> s_aDefaultSchema);
+    return s_aRWLock.readLockedGet ( () -> s_aDefaultSchema);
   }
 
   public static void setSchema (@Nullable final Schema aSchema)
   {
-    s_aRWLock.writeLocked ( () -> s_aDefaultSchema = aSchema);
+    s_aRWLock.writeLockedGet ( () -> s_aDefaultSchema = aSchema);
   }
 
   public static boolean isXIncludeAware ()
@@ -192,14 +192,14 @@ public final class DOMReaderDefaultSettings
     if (eProperty == null)
       return null;
 
-    return s_aRWLock.readLocked ( () -> s_aDefaultProperties.get (eProperty));
+    return s_aRWLock.readLockedGet ( () -> s_aDefaultProperties.get (eProperty));
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public static ICommonsMap <EXMLParserProperty, Object> getAllPropertyValues ()
   {
-    return s_aRWLock.readLocked (s_aDefaultProperties::getClone);
+    return s_aRWLock.readLockedGet (s_aDefaultProperties::getClone);
   }
 
   public static void setPropertyValue (@Nonnull final EXMLParserProperty eProperty,
@@ -229,13 +229,13 @@ public final class DOMReaderDefaultSettings
     if (eProperty == null)
       return EChange.UNCHANGED;
 
-    return s_aRWLock.writeLocked ( () -> s_aDefaultProperties.removeObject (eProperty));
+    return s_aRWLock.writeLockedGet ( () -> s_aDefaultProperties.removeObject (eProperty));
   }
 
   @Nonnull
   public static EChange removeAllPropertyValues ()
   {
-    return s_aRWLock.writeLocked (s_aDefaultProperties::removeAll);
+    return s_aRWLock.writeLockedGet (s_aDefaultProperties::removeAll);
   }
 
   public static boolean hasAnyFeature ()
@@ -250,14 +250,14 @@ public final class DOMReaderDefaultSettings
     if (eFeature == null)
       return null;
 
-    return s_aRWLock.readLocked ((Supplier <Boolean>) () -> s_aDefaultFeatures.get (eFeature));
+    return s_aRWLock.readLockedGet ((Supplier <Boolean>) () -> s_aDefaultFeatures.get (eFeature));
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public static ICommonsMap <EXMLParserFeature, Boolean> getAllFeatureValues ()
   {
-    return s_aRWLock.readLocked (s_aDefaultFeatures::getClone);
+    return s_aRWLock.readLockedGet (s_aDefaultFeatures::getClone);
   }
 
   public static void setFeatureValue (@Nonnull final EXMLParserFeature eFeature, final boolean bValue)
@@ -293,13 +293,13 @@ public final class DOMReaderDefaultSettings
     if (eFeature == null)
       return EChange.UNCHANGED;
 
-    return s_aRWLock.writeLocked ( () -> s_aDefaultFeatures.removeObject (eFeature));
+    return s_aRWLock.writeLockedGet ( () -> s_aDefaultFeatures.removeObject (eFeature));
   }
 
   @Nonnull
   public static EChange removeAllFeatures ()
   {
-    return s_aRWLock.writeLocked (s_aDefaultFeatures::removeAll);
+    return s_aRWLock.writeLockedGet (s_aDefaultFeatures::removeAll);
   }
 
   public static boolean requiresNewXMLParser ()
@@ -330,23 +330,23 @@ public final class DOMReaderDefaultSettings
   @Nullable
   public static EntityResolver getEntityResolver ()
   {
-    return s_aRWLock.readLocked ( () -> s_aDefaultEntityResolver);
+    return s_aRWLock.readLockedGet ( () -> s_aDefaultEntityResolver);
   }
 
   public static void setEntityResolver (@Nullable final EntityResolver aEntityResolver)
   {
-    s_aRWLock.writeLocked ( () -> s_aDefaultEntityResolver = aEntityResolver);
+    s_aRWLock.writeLockedGet ( () -> s_aDefaultEntityResolver = aEntityResolver);
   }
 
   @Nullable
   public static ErrorHandler getErrorHandler ()
   {
-    return s_aRWLock.readLocked ( () -> s_aDefaultErrorHandler);
+    return s_aRWLock.readLockedGet ( () -> s_aDefaultErrorHandler);
   }
 
   public static void setErrorHandler (@Nullable final ErrorHandler aErrorHandler)
   {
-    s_aRWLock.writeLocked ( () -> s_aDefaultErrorHandler = aErrorHandler);
+    s_aRWLock.writeLockedGet ( () -> s_aDefaultErrorHandler = aErrorHandler);
   }
 
   @Nonnull

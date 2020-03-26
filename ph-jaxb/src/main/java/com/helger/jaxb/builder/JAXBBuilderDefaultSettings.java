@@ -96,7 +96,7 @@ public final class JAXBBuilderDefaultSettings
    */
   public static void setDefaultValidationEventHandler (@Nullable final ValidationEventHandler aEventHandler)
   {
-    s_aRWLock.writeLocked ( () -> s_aEventHandler = aEventHandler);
+    s_aRWLock.writeLockedGet ( () -> s_aEventHandler = aEventHandler);
   }
 
   /**
@@ -107,7 +107,7 @@ public final class JAXBBuilderDefaultSettings
   @Nullable
   public static ValidationEventHandler getDefaultValidationEventHandler ()
   {
-    return s_aRWLock.readLocked ( () -> s_aEventHandler);
+    return s_aRWLock.readLockedGet ( () -> s_aEventHandler);
   }
 
   /**
@@ -120,7 +120,7 @@ public final class JAXBBuilderDefaultSettings
    */
   public static void setDefaultNamespaceContext (@Nullable final INamespaceContext aNamespaceContext)
   {
-    s_aRWLock.writeLocked ( () -> s_aNamespaceContext = aNamespaceContext);
+    s_aRWLock.writeLockedGet ( () -> s_aNamespaceContext = aNamespaceContext);
   }
 
   /**
@@ -130,7 +130,7 @@ public final class JAXBBuilderDefaultSettings
   @Nullable
   public static INamespaceContext getDefaultNamespaceContext ()
   {
-    return s_aRWLock.readLocked ( () -> s_aNamespaceContext);
+    return s_aRWLock.readLockedGet ( () -> s_aNamespaceContext);
   }
 
   /**
@@ -162,7 +162,7 @@ public final class JAXBBuilderDefaultSettings
    */
   public static void setDefaultCharset (@Nullable final Charset aCharset)
   {
-    s_aRWLock.writeLocked ( () -> s_aCharset = aCharset);
+    s_aRWLock.writeLockedGet ( () -> s_aCharset = aCharset);
   }
 
   /**
@@ -172,7 +172,7 @@ public final class JAXBBuilderDefaultSettings
   @Nullable
   public static Charset getDefaultCharset ()
   {
-    return s_aRWLock.readLocked ( () -> s_aCharset);
+    return s_aRWLock.readLockedGet ( () -> s_aCharset);
   }
 
   /**
@@ -183,7 +183,7 @@ public final class JAXBBuilderDefaultSettings
    */
   public static void setDefaultIndentString (@Nullable final String sIndentString)
   {
-    s_aRWLock.writeLocked ( () -> s_sIndentString = sIndentString);
+    s_aRWLock.writeLockedGet ( () -> s_sIndentString = sIndentString);
   }
 
   /**
@@ -194,7 +194,7 @@ public final class JAXBBuilderDefaultSettings
   @Nullable
   public static String getDefaultIndentString ()
   {
-    return s_aRWLock.readLocked ( () -> s_sIndentString);
+    return s_aRWLock.readLockedGet ( () -> s_sIndentString);
   }
 
   /**
@@ -206,7 +206,7 @@ public final class JAXBBuilderDefaultSettings
    */
   public static void setDefaultSchemaLocation (@Nullable final String sSchemaLocation)
   {
-    s_aRWLock.writeLocked ( () -> s_sSchemaLocation = sSchemaLocation);
+    s_aRWLock.writeLockedGet ( () -> s_sSchemaLocation = sSchemaLocation);
   }
 
   /**
@@ -217,7 +217,7 @@ public final class JAXBBuilderDefaultSettings
   @Nullable
   public static String getDefaultSchemaLocation ()
   {
-    return s_aRWLock.readLocked ( () -> s_sSchemaLocation);
+    return s_aRWLock.readLockedGet ( () -> s_sSchemaLocation);
   }
 
   /**
@@ -230,7 +230,7 @@ public final class JAXBBuilderDefaultSettings
    */
   public static void setDefaultNoNamespaceSchemaLocation (@Nullable final String sNoNamespaceSchemaLocation)
   {
-    s_aRWLock.writeLocked ( () -> s_sNoNamespaceSchemaLocation = sNoNamespaceSchemaLocation);
+    s_aRWLock.writeLockedGet ( () -> s_sNoNamespaceSchemaLocation = sNoNamespaceSchemaLocation);
   }
 
   /**
@@ -241,6 +241,6 @@ public final class JAXBBuilderDefaultSettings
   @Nullable
   public static String getDefaultNoNamespaceSchemaLocation ()
   {
-    return s_aRWLock.readLocked ( () -> s_sNoNamespaceSchemaLocation);
+    return s_aRWLock.readLockedGet ( () -> s_sNoNamespaceSchemaLocation);
   }
 }

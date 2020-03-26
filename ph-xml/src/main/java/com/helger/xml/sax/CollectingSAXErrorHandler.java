@@ -77,7 +77,7 @@ public class CollectingSAXErrorHandler extends AbstractSAXErrorHandler
   @ReturnsMutableCopy
   public IErrorList getErrorList ()
   {
-    return m_aRWLock.readLocked (m_aErrors::getClone);
+    return m_aRWLock.readLockedGet (m_aErrors::getClone);
   }
 
   public boolean containsAtLeastOneError ()
@@ -93,7 +93,7 @@ public class CollectingSAXErrorHandler extends AbstractSAXErrorHandler
   @Nonnull
   public EChange clearResourceErrors ()
   {
-    return m_aRWLock.writeLocked ((Supplier <EChange>) m_aErrors::removeAll);
+    return m_aRWLock.writeLockedGet (m_aErrors::removeAll);
   }
 
   @Override

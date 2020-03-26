@@ -66,7 +66,7 @@ public final class AuthTokenRegistry
   @Nonnull
   public static ESuccess removeToken (@Nonnull final String sTokenID)
   {
-    return s_aRWLock.writeLocked ( () -> {
+    return s_aRWLock.writeLockedGet ( () -> {
       final AuthToken aToken = s_aMap.remove (sTokenID);
       if (aToken == null)
         return ESuccess.FAILURE;
@@ -84,7 +84,7 @@ public final class AuthTokenRegistry
     if (StringHelper.hasNoText (sTokenID))
       return null;
 
-    final AuthToken aToken = s_aRWLock.readLocked ( () -> s_aMap.get (sTokenID));
+    final AuthToken aToken = s_aRWLock.readLockedGet ( () -> s_aMap.get (sTokenID));
     return aToken != null && !aToken.isExpired () ? aToken : null;
   }
 
@@ -118,7 +118,7 @@ public final class AuthTokenRegistry
   {
     ValueEnforcer.notNull (aSubject, "Subject");
 
-    return s_aRWLock.readLocked ( () -> CommonsArrayList.createFiltered (s_aMap.values (),
+    return s_aRWLock.readLockedGet ( () -> CommonsArrayList.createFiltered (s_aMap.values (),
                                                                          aToken -> aToken.getIdentification ()
                                                                                          .hasAuthSubject (aSubject)));
   }

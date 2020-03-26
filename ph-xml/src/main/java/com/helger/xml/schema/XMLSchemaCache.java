@@ -16,8 +16,6 @@
  */
 package com.helger.xml.schema;
 
-import java.util.function.Supplier;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
@@ -126,13 +124,13 @@ public class XMLSchemaCache extends SchemaCache
 
     final String sKey = String.valueOf (aClassLoader);
 
-    XMLSchemaCache aCache = s_aRWLock.readLocked ( () -> s_aPerClassLoaderCache.get (sKey));
+    XMLSchemaCache aCache = s_aRWLock.readLockedGet ( () -> s_aPerClassLoaderCache.get (sKey));
     if (aCache == null)
     {
       // Not found in read-lock
       // Try again in write lock
-      aCache = s_aRWLock.writeLocked ( () -> s_aPerClassLoaderCache.computeIfAbsent (sKey,
-                                                                                     x -> new XMLSchemaCache (new SimpleLSResourceResolver (aClassLoader))));
+      aCache = s_aRWLock.writeLockedGet ( () -> s_aPerClassLoaderCache.computeIfAbsent (sKey,
+                                                                                        x -> new XMLSchemaCache (new SimpleLSResourceResolver (aClassLoader))));
     }
     return aCache;
   }
@@ -140,6 +138,6 @@ public class XMLSchemaCache extends SchemaCache
   @Nonnull
   public static EChange clearPerClassLoaderCache ()
   {
-    return s_aRWLock.writeLocked ((Supplier <EChange>) s_aPerClassLoaderCache::removeAll);
+    return s_aRWLock.writeLockedGet (s_aPerClassLoaderCache::removeAll);
   }
 }

@@ -16,8 +16,6 @@
  */
 package com.helger.scope.mgr;
 
-import java.util.function.Supplier;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -112,7 +110,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
     if (StringHelper.hasNoText (sScopeID))
       return null;
 
-    return m_aRWLock.readLocked ( () -> m_aSessionScopes.get (sScopeID));
+    return m_aRWLock.readLockedGet ( () -> m_aSessionScopes.get (sScopeID));
   }
 
   /**
@@ -227,7 +225,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
   @ReturnsMutableCopy
   public ICommonsList <ISessionScope> getAllSessionScopes ()
   {
-    return m_aRWLock.readLocked ((Supplier <ICommonsList <ISessionScope>>) m_aSessionScopes::copyOfValues);
+    return m_aRWLock.readLockedGet (m_aSessionScopes::copyOfValues);
   }
 
   private void _checkIfAnySessionsExist ()
@@ -293,7 +291,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
   @Nonnull
   public final EChange setDestroyAllSessionsOnScopeEnd (final boolean bDestroyAllSessionsOnScopeEnd)
   {
-    return m_aRWLock.writeLocked ( () -> {
+    return m_aRWLock.writeLockedGet ( () -> {
       if (m_bDestroyAllSessionsOnScopeEnd == bDestroyAllSessionsOnScopeEnd)
         return EChange.UNCHANGED;
       m_bDestroyAllSessionsOnScopeEnd = bDestroyAllSessionsOnScopeEnd;
@@ -309,7 +307,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
   @Nonnull
   public final EChange setEndAllSessionsOnScopeEnd (final boolean bEndAllSessionsOnScopeEnd)
   {
-    return m_aRWLock.writeLocked ( () -> {
+    return m_aRWLock.writeLockedGet ( () -> {
       if (m_bEndAllSessionsOnScopeEnd == bEndAllSessionsOnScopeEnd)
         return EChange.UNCHANGED;
       m_bEndAllSessionsOnScopeEnd = bEndAllSessionsOnScopeEnd;

@@ -146,7 +146,7 @@ public class MimeTypeInfoManager
   @Nonnull
   public EChange clearCache ()
   {
-    return m_aRWLock.writeLocked ( () -> {
+    return m_aRWLock.writeLockedGet ( () -> {
       EChange ret = m_aList.removeAll ();
       if (!m_aMapExt.isEmpty ())
       {
@@ -277,7 +277,7 @@ public class MimeTypeInfoManager
     if (sExtension == null)
       return null;
 
-    return m_aRWLock.readLocked ( () -> {
+    return m_aRWLock.readLockedGet ( () -> {
       ICommonsList <MimeTypeInfo> ret = m_aMapExt.get (sExtension);
       if (ret == null)
       {
@@ -306,7 +306,7 @@ public class MimeTypeInfoManager
     if (aMimeType == null)
       return null;
 
-    final ICommonsList <MimeTypeInfo> ret = m_aRWLock.readLocked ( () -> m_aMapMimeType.get (aMimeType));
+    final ICommonsList <MimeTypeInfo> ret = m_aRWLock.readLockedGet ( () -> m_aMapMimeType.get (aMimeType));
 
     // Create a copy if present
     return ret == null ? null : ret.getClone ();
@@ -320,7 +320,7 @@ public class MimeTypeInfoManager
   @ReturnsMutableCopy
   public ICommonsList <MimeTypeInfo> getAllMimeTypeInfos ()
   {
-    return m_aRWLock.readLocked (m_aList::getClone);
+    return m_aRWLock.readLockedGet (m_aList::getClone);
   }
 
   /**

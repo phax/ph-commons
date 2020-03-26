@@ -173,7 +173,7 @@ public abstract class AbstractScope implements IScope
   public final <T> T runAtomic (@Nonnull final Function <? super IScope, ? extends T> aFunction)
   {
     ValueEnforcer.notNull (aFunction, "Function");
-    return m_aRWLock.writeLocked ( () -> aFunction.apply (this));
+    return m_aRWLock.writeLockedGet ( () -> aFunction.apply (this));
   }
 
   public final void runAtomic (@Nonnull final Consumer <? super IScope> aConsumer)

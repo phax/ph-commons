@@ -16,8 +16,6 @@
  */
 package com.helger.xml.transform;
 
-import java.util.function.Supplier;
-
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
@@ -57,7 +55,7 @@ public class CollectingTransformErrorListener extends AbstractTransformErrorList
   @ReturnsMutableCopy
   public ErrorList getErrorList ()
   {
-    return m_aRWLock.readLocked (m_aErrors::getClone);
+    return m_aRWLock.readLockedGet (m_aErrors::getClone);
   }
 
   /**
@@ -68,7 +66,7 @@ public class CollectingTransformErrorListener extends AbstractTransformErrorList
   @Nonnull
   public EChange clearResourceErrors ()
   {
-    return m_aRWLock.writeLocked ((Supplier <EChange>) m_aErrors::removeAll);
+    return m_aRWLock.writeLockedGet (m_aErrors::removeAll);
   }
 
   @Override

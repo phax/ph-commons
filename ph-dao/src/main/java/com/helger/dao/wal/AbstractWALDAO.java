@@ -765,7 +765,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
   @Nullable
   public final String getLastFilename ()
   {
-    return m_aRWLock.readLocked ( () -> m_sPreviousFilename);
+    return m_aRWLock.readLockedGet ( () -> m_sPreviousFilename);
   }
 
   /**

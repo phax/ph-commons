@@ -67,13 +67,13 @@ public final class KeyStoreHelper
   @Nonnull
   public static IReadableResourceProvider getResourceProvider ()
   {
-    return s_aRWLock.readLocked ( () -> s_aResourceProvider);
+    return s_aRWLock.readLockedGet ( () -> s_aResourceProvider);
   }
 
   public static void setResourceProvider (@Nonnull final IReadableResourceProvider aResourceProvider)
   {
     ValueEnforcer.notNull (aResourceProvider, "ResourceProvider");
-    s_aRWLock.writeLocked ( () -> s_aResourceProvider = aResourceProvider);
+    s_aRWLock.writeLockedGet ( () -> s_aResourceProvider = aResourceProvider);
   }
 
   @Nonnull

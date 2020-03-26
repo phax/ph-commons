@@ -418,7 +418,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
     if (aScope != null)
     {
       final String sSingletonScopeKey = getSingletonScopeKey (aClass);
-      final Object aObject = s_aRWLock.readLocked ( () -> aScope.attrs ().get (sSingletonScopeKey));
+      final Object aObject = s_aRWLock.readLockedGet ( () -> aScope.attrs ().get (sSingletonScopeKey));
       if (aObject != null)
       {
         // Object is in the scope
@@ -539,7 +539,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
     final String sSingletonScopeKey = getSingletonScopeKey (aClass);
 
     // check if already contained in passed scope
-    T aInstance = s_aRWLock.readLocked ( () -> aScope.attrs ().getCastedValue (sSingletonScopeKey));
+    T aInstance = s_aRWLock.readLockedGet ( () -> aScope.attrs ().getCastedValue (sSingletonScopeKey));
     if (aInstance == null || aInstance.isInInstantiation ())
     {
       // Not yet present or just in instantiation

@@ -163,7 +163,7 @@ public final class XMLFactory
   @Nonnull
   public static DocumentBuilderFactory getDocumentBuilderFactory ()
   {
-    return s_aRWLock.readLocked ( () -> s_aDefaultDocBuilderFactory);
+    return s_aRWLock.readLockedGet ( () -> s_aDefaultDocBuilderFactory);
   }
 
   /**
@@ -174,11 +174,11 @@ public final class XMLFactory
   public static DocumentBuilder getDocumentBuilder ()
   {
     // Lazily init
-    final DocumentBuilder ret = s_aRWLock.readLocked ( () -> s_aDefaultDocBuilder);
+    final DocumentBuilder ret = s_aRWLock.readLockedGet ( () -> s_aDefaultDocBuilder);
     if (ret != null)
       return ret;
 
-    return s_aRWLock.writeLocked ( () -> {
+    return s_aRWLock.writeLockedGet ( () -> {
       if (s_aDefaultDocBuilder == null)
         s_aDefaultDocBuilder = createDocumentBuilder (s_aDefaultDocBuilderFactory);
       return s_aDefaultDocBuilder;

@@ -155,7 +155,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
   @Nullable
   public <T> IMicroTypeConverter <T> getConverterToMicroElement (@Nullable final Class <T> aSrcClass)
   {
-    return GenericReflection.uncheckedCast (m_aRWLock.readLocked ( () -> m_aMap.get (aSrcClass)));
+    return GenericReflection.uncheckedCast (m_aRWLock.readLockedGet ( () -> m_aMap.get (aSrcClass)));
   }
 
   @Nullable
@@ -163,7 +163,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
   {
     ValueEnforcer.notNull (aDstClass, "DestClass");
 
-    final IMicroTypeConverter <?> ret2 = m_aRWLock.readLocked ( () -> {
+    final IMicroTypeConverter <?> ret2 = m_aRWLock.readLockedGet ( () -> {
       // Check for an exact match first
       IMicroTypeConverter <?> ret = m_aMap.get (aDstClass);
       if (ret != null)
@@ -210,7 +210,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
   public void iterateAllRegisteredMicroTypeConverters (@Nonnull final IMicroTypeConverterCallback aCallback)
   {
     // Create a static copy of the map (HashMap not weak!)
-    final ICommonsMap <Class <?>, IMicroTypeConverter <?>> aCopy = m_aRWLock.readLocked (m_aMap::getClone);
+    final ICommonsMap <Class <?>, IMicroTypeConverter <?>> aCopy = m_aRWLock.readLockedGet (m_aMap::getClone);
 
     // And iterate the copy
     for (final Map.Entry <Class <?>, IMicroTypeConverter <?>> aEntry : aCopy.entrySet ())
