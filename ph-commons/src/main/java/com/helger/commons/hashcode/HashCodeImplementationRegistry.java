@@ -124,7 +124,7 @@ public final class HashCodeImplementationRegistry implements IHashCodeImplementa
   @Nonnull
   public EChange unregisterHashCodeImplementation (@Nonnull final Class <?> aClass)
   {
-    return m_aRWLock.writeLocked ( () -> m_aMap.removeObject (aClass));
+    return m_aRWLock.writeLockedGet ( () -> m_aMap.removeObject (aClass));
   }
 
   private boolean _isUseDirectHashCode (@Nonnull final Class <?> aClass)
@@ -136,10 +136,10 @@ public final class HashCodeImplementationRegistry implements IHashCodeImplementa
   {
     final String sClassName = aClass.getName ();
 
-    Boolean aImplementsHashCodeItself = m_aRWLock.readLocked ((Supplier <Boolean>) () -> m_aImplementsHashCode.get (sClassName));
+    Boolean aImplementsHashCodeItself = m_aRWLock.readLockedGet ((Supplier <Boolean>) () -> m_aImplementsHashCode.get (sClassName));
     if (aImplementsHashCodeItself == null)
     {
-      aImplementsHashCodeItself = m_aRWLock.writeLocked ((Supplier <Boolean>) () -> {
+      aImplementsHashCodeItself = m_aRWLock.writeLockedGet ((Supplier <Boolean>) () -> {
         // Try again in write lock
         Boolean aWLImplementsHashCodeItself = m_aImplementsHashCode.get (sClassName);
         if (aWLImplementsHashCodeItself == null)

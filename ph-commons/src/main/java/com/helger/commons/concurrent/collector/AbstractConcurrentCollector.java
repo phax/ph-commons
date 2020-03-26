@@ -100,7 +100,7 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
     if (isStopped ())
       throw new IllegalStateException ("The queue is already stopped and does not take any more elements");
 
-    return m_aRWLock.writeLocked ( () -> {
+    return m_aRWLock.writeLockedGet ( () -> {
       try
       {
         m_aQueue.put (aObject);
@@ -129,7 +129,7 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
   @Nonnull
   public final ESuccess stopQueuingNewObjects ()
   {
-    return m_aRWLock.writeLocked ( () -> {
+    return m_aRWLock.writeLockedGet ( () -> {
       try
       {
         // put specific stop queue object

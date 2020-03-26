@@ -18,7 +18,6 @@ package com.helger.commons.statistics;
 
 import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Supplier;
 
 import javax.annotation.CheckForSigned;
 import javax.annotation.Nonnegative;
@@ -108,7 +107,7 @@ public class StatisticsHandlerKeyedCounter implements IMutableStatisticsHandlerK
   @ReturnsMutableCopy
   public ICommonsSet <String> getAllKeys ()
   {
-    return m_aRWLock.readLocked ((Supplier <ICommonsSet <String>>) m_aMap::copyOfKeySet);
+    return m_aRWLock.readLockedGet (m_aMap::copyOfKeySet);
   }
 
   @CheckForSigned

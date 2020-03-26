@@ -86,14 +86,14 @@ public final class ThirdPartyModuleRegistry
   @Nonnull
   public EChange registerThirdPartyModule (@Nonnull final IThirdPartyModule aModule)
   {
-    return m_aRWLock.writeLocked ( () -> _registerThirdPartyModule (aModule));
+    return m_aRWLock.writeLockedGet ( () -> _registerThirdPartyModule (aModule));
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <IThirdPartyModule> getAllRegisteredThirdPartyModules ()
   {
-    return m_aRWLock.readLocked (m_aModules::getClone);
+    return m_aRWLock.readLockedGet (m_aModules::getClone);
   }
 
   @Nonnegative

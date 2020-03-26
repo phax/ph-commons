@@ -67,8 +67,25 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @return The return value of the callable. May be <code>null</code>.
    * @param <T>
    *        Return type
+   * @deprecated Since 9.4.0; Use {@link #readLockedGet(Supplier)} instead
    */
+  @Deprecated
   public <T> T readLocked (@Nonnull final Supplier <? extends T> aSupplier)
+  {
+    return readLockedGet (aSupplier);
+  }
+
+  /**
+   * Execute the provided callable in a read lock. Note: no
+   * nullable/non-nullable can be assumed.
+   *
+   * @param aSupplier
+   *        Callable to be executed. May not be <code>null</code>.
+   * @return The return value of the callable. May be <code>null</code>.
+   * @param <T>
+   *        Return type
+   */
+  public <T> T readLockedGet (@Nonnull final Supplier <? extends T> aSupplier)
   {
     readLock ().lock ();
     try
@@ -136,8 +153,30 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    *        Return type
    * @param <EXTYPE>
    *        Exception type to be thrown
+   * @deprecated Since 9.4.0; Use
+   *             {@link #readLockedGetThrowing(IThrowingSupplier)} instead
    */
+  @Deprecated
   public <T, EXTYPE extends Exception> T readLockedThrowing (@Nonnull final IThrowingSupplier <? extends T, EXTYPE> aCallable) throws EXTYPE
+  {
+    return readLockedGetThrowing (aCallable);
+  }
+
+  /**
+   * Execute the provided callable in a read lock. Note: no
+   * nullable/non-nullable can be assumed.
+   *
+   * @param aCallable
+   *        Callable to be executed. May not be <code>null</code>.
+   * @return The return value of the callable. May be <code>null</code>.
+   * @throws EXTYPE
+   *         If the callable throws the exception
+   * @param <T>
+   *        Return type
+   * @param <EXTYPE>
+   *        Exception type to be thrown
+   */
+  public <T, EXTYPE extends Exception> T readLockedGetThrowing (@Nonnull final IThrowingSupplier <? extends T, EXTYPE> aCallable) throws EXTYPE
   {
     readLock ().lock ();
     try
@@ -339,8 +378,25 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @return The return value of the callable. May be <code>null</code>.
    * @param <T>
    *        Return type
+   * @deprecated Since 9.4.0; Use {@link #writeLockedGet(Supplier)} instead
    */
+  @Deprecated
   public <T> T writeLocked (@Nonnull final Supplier <? extends T> aSupplier)
+  {
+    return writeLockedGet (aSupplier);
+  }
+
+  /**
+   * Execute the provided callable in a write lock. Note: no
+   * nullable/non-nullable can be assumed.
+   *
+   * @param aSupplier
+   *        Callable to be executed. May not be <code>null</code>.
+   * @return The return value of the callable. May be <code>null</code>.
+   * @param <T>
+   *        Return type
+   */
+  public <T> T writeLockedGet (@Nonnull final Supplier <? extends T> aSupplier)
   {
     writeLock ().lock ();
     try
@@ -366,8 +422,30 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    *        Return type
    * @param <EXTYPE>
    *        Exception type to be thrown
+   * @deprecated Since 9.4.0; Use
+   *             {@link #writeLockedGetThrowing(IThrowingSupplier)} instead
    */
+  @Deprecated
   public <T, EXTYPE extends Exception> T writeLockedThrowing (@Nonnull final IThrowingSupplier <? extends T, EXTYPE> aCallable) throws EXTYPE
+  {
+    return writeLockedGetThrowing (aCallable);
+  }
+
+  /**
+   * Execute the provided callable in a write lock. Note: no
+   * nullable/non-nullable can be assumed.
+   *
+   * @param aCallable
+   *        Callable to be executed. May not be <code>null</code>.
+   * @return The return value of the callable. May be <code>null</code>.
+   * @throws EXTYPE
+   *         If the callable throws the exception
+   * @param <T>
+   *        Return type
+   * @param <EXTYPE>
+   *        Exception type to be thrown
+   */
+  public <T, EXTYPE extends Exception> T writeLockedGetThrowing (@Nonnull final IThrowingSupplier <? extends T, EXTYPE> aCallable) throws EXTYPE
   {
     writeLock ().lock ();
     try

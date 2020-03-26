@@ -16,8 +16,6 @@
  */
 package com.helger.commons.url;
 
-import java.util.function.Supplier;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -110,7 +108,7 @@ public final class URLProtocolRegistry
   @ReturnsMutableCopy
   public ICommonsCollection <IURLProtocol> getAllProtocols ()
   {
-    return m_aRWLock.readLocked ((Supplier <ICommonsCollection <IURLProtocol>>) m_aProtocols::copyOfValues);
+    return m_aRWLock.readLockedGet (m_aProtocols::copyOfValues);
   }
 
   @Nonnegative

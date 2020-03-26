@@ -99,7 +99,7 @@ public class LocaleCache
 
   private final IMissingLocaleHandler m_aMissingLocaleHandlerInsert = (sLocaleKey, l, c, v) -> {
     // Insert in write lock
-    return m_aRWLock.writeLocked ( () -> m_aLocales.computeIfAbsent (sLocaleKey, k -> new Locale (l, c, v)));
+    return m_aRWLock.writeLockedGet ( () -> m_aLocales.computeIfAbsent (sLocaleKey, k -> new Locale (l, c, v)));
   };
 
   protected LocaleCache ()
@@ -283,7 +283,7 @@ public class LocaleCache
       return null;
 
     // try to resolve locale
-    Locale aLocale = m_aRWLock.readLocked ( () -> m_aLocales.get (sLocaleKey));
+    Locale aLocale = m_aRWLock.readLockedGet ( () -> m_aLocales.get (sLocaleKey));
     if (aLocale == null)
     {
       if (aMissingHandler != null)
@@ -302,7 +302,7 @@ public class LocaleCache
   @ReturnsMutableCopy
   public ICommonsList <Locale> getAllLocales ()
   {
-    final ICommonsList <Locale> ret = m_aRWLock.readLocked ( () -> m_aLocales.copyOfValues ());
+    final ICommonsList <Locale> ret = m_aRWLock.readLockedGet (m_aLocales::copyOfValues);
     ret.remove (LocaleHelper.LOCALE_ALL);
     ret.remove (LocaleHelper.LOCALE_INDEPENDENT);
     return ret;

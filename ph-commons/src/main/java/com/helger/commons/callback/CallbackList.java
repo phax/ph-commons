@@ -20,7 +20,6 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -74,14 +73,14 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
   @Nonnull
   public EChange set (@Nonnull final CallbackList <CALLBACKTYPE> rhs)
   {
-    return m_aRWLock.writeLocked ( () -> m_aCallbacks.setAll (rhs.m_aCallbacks));
+    return m_aRWLock.writeLockedGet ( () -> m_aCallbacks.setAll (rhs.m_aCallbacks));
   }
 
   @Nonnull
   public EChange set (@Nonnull final CALLBACKTYPE aCallback)
   {
     ValueEnforcer.notNull (aCallback, "Callback");
-    return m_aRWLock.writeLocked ( () -> m_aCallbacks.set (aCallback));
+    return m_aRWLock.writeLockedGet ( () -> m_aCallbacks.set (aCallback));
   }
 
   /**
@@ -96,7 +95,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
   {
     ValueEnforcer.notNull (aCallback, "Callback");
 
-    return m_aRWLock.writeLocked ( () -> m_aCallbacks.addObject (aCallback));
+    return m_aRWLock.writeLockedGet ( () -> m_aCallbacks.addObject (aCallback));
   }
 
   @Nonnull
@@ -105,7 +104,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
   {
     ValueEnforcer.notNullNoNullValue (aCallbacks, "Callbacks");
 
-    return m_aRWLock.writeLocked ( () -> m_aCallbacks.addAll (aCallbacks));
+    return m_aRWLock.writeLockedGet ( () -> m_aCallbacks.addAll (aCallbacks));
   }
 
   /**
@@ -121,7 +120,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
     if (aCallback == null)
       return EChange.UNCHANGED;
 
-    return m_aRWLock.writeLocked ( () -> m_aCallbacks.removeObject (aCallback));
+    return m_aRWLock.writeLockedGet ( () -> m_aCallbacks.removeObject (aCallback));
   }
 
   /**
@@ -132,7 +131,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
   @Nonnull
   public EChange removeAll ()
   {
-    return m_aRWLock.writeLocked ((Supplier <EChange>) m_aCallbacks::removeAll);
+    return m_aRWLock.writeLockedGet (m_aCallbacks::removeAll);
   }
 
   @Nonnull
@@ -154,7 +153,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
   @Nullable
   public CALLBACKTYPE getCallbackAtIndex (@Nonnegative final int nIndex)
   {
-    return m_aRWLock.readLocked ( () -> m_aCallbacks.getAtIndex (nIndex));
+    return m_aRWLock.readLockedGet ( () -> m_aCallbacks.getAtIndex (nIndex));
   }
 
   @Nonnegative
@@ -180,13 +179,13 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
   @Nonnull
   public CallbackList <CALLBACKTYPE> getClone ()
   {
-    return m_aRWLock.readLocked ( () -> new CallbackList <> (this));
+    return m_aRWLock.readLockedGet ( () -> new CallbackList <> (this));
   }
 
   @Nonnull
   public Iterator <CALLBACKTYPE> iterator ()
   {
-    return m_aRWLock.readLocked (m_aCallbacks::iterator);
+    return m_aRWLock.readLockedGet (m_aCallbacks::iterator);
   }
 
   @Override

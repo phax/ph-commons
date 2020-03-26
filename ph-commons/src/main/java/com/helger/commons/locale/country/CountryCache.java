@@ -122,7 +122,7 @@ public class CountryCache
     ValueEnforcer.isTrue (sValidCountry != null, () -> "illegal country code '" + sCountry + "'");
     ValueEnforcer.isTrue (sCountry.equals (sValidCountry), () -> "invalid casing of '" + sCountry + "'");
 
-    return m_aRWLock.writeLocked ( () -> m_aCountries.addObject (sValidCountry));
+    return m_aRWLock.writeLockedGet ( () -> m_aCountries.addObject (sValidCountry));
   }
 
   /**
@@ -177,7 +177,7 @@ public class CountryCache
   @ReturnsMutableCopy
   public ICommonsSet <String> getAllCountries ()
   {
-    return m_aRWLock.readLocked (m_aCountries::getClone);
+    return m_aRWLock.readLockedGet (m_aCountries::getClone);
   }
 
   /**
@@ -187,7 +187,7 @@ public class CountryCache
   @ReturnsMutableCopy
   public ICommonsSet <Locale> getAllCountryLocales ()
   {
-    return m_aRWLock.readLocked ( () -> {
+    return m_aRWLock.readLockedGet ( () -> {
       final LocaleCache aLC = LocaleCache.getInstance ();
       return new CommonsHashSet <> (m_aCountries, x -> aLC.getLocale ("", x, ""));
     });

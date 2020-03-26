@@ -115,7 +115,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
   @Nullable
   public <T> ISerializationConverter <T> getConverter (@Nullable final Class <T> aDstClass)
   {
-    return m_aRWLock.readLocked ( () -> {
+    return m_aRWLock.readLockedGet ( () -> {
       // Check for an exact match first
       ISerializationConverter <?> ret = m_aMap.get (aDstClass);
       if (ret == null)
@@ -155,7 +155,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
   public void iterateAllRegisteredSerializationConverters (@Nonnull final ISerializationConverterCallback aCallback)
   {
     // Create a static (non weak) copy of the map
-    final Map <Class <?>, ISerializationConverter <?>> aCopy = m_aRWLock.readLocked ( () -> new CommonsHashMap <> (m_aMap));
+    final Map <Class <?>, ISerializationConverter <?>> aCopy = m_aRWLock.readLockedGet ( () -> new CommonsHashMap <> (m_aMap));
 
     // And iterate the copy
     for (final Map.Entry <Class <?>, ISerializationConverter <?>> aEntry : aCopy.entrySet ())

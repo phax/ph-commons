@@ -140,7 +140,7 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
   @Nonnull
   public EChange unregisterEqualsImplementation (@Nonnull final Class <?> aClass)
   {
-    return m_aRWLock.writeLocked ( () -> m_aMap.removeObject (aClass));
+    return m_aRWLock.writeLockedGet ( () -> m_aMap.removeObject (aClass));
   }
 
   private boolean _isUseDirectEquals (@Nonnull final Class <?> aClass)
@@ -152,11 +152,11 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
   {
     final String sClassName = aClass.getName ();
 
-    Boolean aImplementsEqualsItself = m_aRWLock.readLocked ((Supplier <Boolean>) () -> m_aImplementsEquals.get (sClassName));
+    Boolean aImplementsEqualsItself = m_aRWLock.readLockedGet ((Supplier <Boolean>) () -> m_aImplementsEquals.get (sClassName));
 
     if (aImplementsEqualsItself == null)
     {
-      aImplementsEqualsItself = m_aRWLock.writeLocked ((Supplier <Boolean>) () -> {
+      aImplementsEqualsItself = m_aRWLock.writeLockedGet ((Supplier <Boolean>) () -> {
         // Try again in write lock
         Boolean aWLImplementsEqualsItself = m_aImplementsEquals.get (sClassName);
         if (aWLImplementsEqualsItself == null)

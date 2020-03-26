@@ -96,13 +96,13 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
   @ReturnsMutableObject ("internal use only")
   private ICommonsMap <Class <?>, ITypeConverter <?, ?>> _getOrCreateConverterMap (@Nonnull final Class <?> aClass)
   {
-    ICommonsMap <Class <?>, ITypeConverter <?, ?>> ret = m_aRWLock.readLocked ( () -> m_aConverter.get (aClass));
+    ICommonsMap <Class <?>, ITypeConverter <?, ?>> ret = m_aRWLock.readLockedGet ( () -> m_aConverter.get (aClass));
 
     if (ret == null)
     {
       // Try again in write lock
       // Weak hash map because key is a class
-      ret = m_aRWLock.writeLocked ( () -> m_aConverter.computeIfAbsent (aClass, k -> new CommonsWeakHashMap <> ()));
+      ret = m_aRWLock.writeLockedGet ( () -> m_aConverter.computeIfAbsent (aClass, k -> new CommonsWeakHashMap <> ()));
     }
     return ret;
   }
@@ -202,7 +202,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
   @Nullable
   ITypeConverter <?, ?> getExactConverter (@Nullable final Class <?> aSrcClass, @Nullable final Class <?> aDstClass)
   {
-    return m_aRWLock.readLocked ( () -> {
+    return m_aRWLock.readLockedGet ( () -> {
       final Map <Class <?>, ITypeConverter <?, ?>> aConverterMap = m_aConverter.get (aSrcClass);
       return aConverterMap == null ? null : aConverterMap.get (aDstClass);
     });
@@ -225,7 +225,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
     if (aSrcClass == null || aDstClass == null)
       return null;
 
-    return m_aRWLock.readLocked ( () -> {
+    return m_aRWLock.readLockedGet ( () -> {
       // Check all rules in the correct order
       for (final Map.Entry <ITypeConverterRule.ESubType, ICommonsList <ITypeConverterRule <?, ?>>> aEntry : m_aRules.entrySet ())
         for (final ITypeConverterRule <?, ?> aRule : aEntry.getValue ())
@@ -295,7 +295,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
     if (aSrcClass == null || aDstClass == null)
       return null;
 
-    return m_aRWLock.readLocked ( () -> {
+    return m_aRWLock.readLockedGet ( () -> {
       if (GlobalDebug.isDebugMode ())
       {
         // Perform a check, whether there is more than one potential converter
@@ -334,7 +334,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
   public void iterateAllRegisteredTypeConverters (@Nonnull final ITypeConverterCallback aCallback)
   {
     // Create a copy of the map
-    final Map <Class <?>, Map <Class <?>, ITypeConverter <?, ?>>> aCopy = m_aRWLock.readLocked ( () -> new CommonsHashMap <> (m_aConverter));
+    final Map <Class <?>, Map <Class <?>, ITypeConverter <?, ?>>> aCopy = m_aRWLock.readLockedGet ( () -> new CommonsHashMap <> (m_aConverter));
 
     // And iterate the copy
     outer: for (final Map.Entry <Class <?>, Map <Class <?>, ITypeConverter <?, ?>>> aSrcEntry : aCopy.entrySet ())

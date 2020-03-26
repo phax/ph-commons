@@ -16,8 +16,6 @@
  */
 package com.helger.commons.statistics;
 
-import java.util.function.Supplier;
-
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 
@@ -77,13 +75,13 @@ public final class StatisticsManager
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
-    StatisticsHandlerCache aHdl = s_aRWLockCache.readLocked ( () -> s_aHdlCache.get (sName));
+    StatisticsHandlerCache aHdl = s_aRWLockCache.readLockedGet ( () -> s_aHdlCache.get (sName));
 
     if (aHdl == null)
     {
       // Try again in write lock
-      aHdl = s_aRWLockCache.writeLocked ( () -> s_aHdlCache.computeIfAbsent (sName,
-                                                                             k -> new StatisticsHandlerCache ()));
+      aHdl = s_aRWLockCache.writeLockedGet ( () -> s_aHdlCache.computeIfAbsent (sName,
+                                                                                k -> new StatisticsHandlerCache ()));
     }
 
     return aHdl;
@@ -94,7 +92,7 @@ public final class StatisticsManager
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllCacheHandler ()
   {
-    return s_aRWLockCache.readLocked ((Supplier <ICommonsSet <String>>) s_aHdlCache::copyOfKeySet);
+    return s_aRWLockCache.readLockedGet (s_aHdlCache::copyOfKeySet);
   }
 
   @Nonnull
@@ -110,11 +108,11 @@ public final class StatisticsManager
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
-    StatisticsHandlerTimer aHdl = s_aRWLockTimer.readLocked ( () -> s_aHdlTimer.get (sName));
+    StatisticsHandlerTimer aHdl = s_aRWLockTimer.readLockedGet ( () -> s_aHdlTimer.get (sName));
     if (aHdl == null)
     {
-      aHdl = s_aRWLockTimer.writeLocked ( () -> s_aHdlTimer.computeIfAbsent (sName,
-                                                                             k -> new StatisticsHandlerTimer ()));
+      aHdl = s_aRWLockTimer.writeLockedGet ( () -> s_aHdlTimer.computeIfAbsent (sName,
+                                                                                k -> new StatisticsHandlerTimer ()));
     }
 
     return aHdl;
@@ -124,7 +122,7 @@ public final class StatisticsManager
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllTimerHandler ()
   {
-    return s_aRWLockTimer.readLocked ((Supplier <ICommonsSet <String>>) s_aHdlTimer::copyOfKeySet);
+    return s_aRWLockTimer.readLockedGet (s_aHdlTimer::copyOfKeySet);
   }
 
   @Nonnull
@@ -140,12 +138,12 @@ public final class StatisticsManager
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
-    StatisticsHandlerKeyedTimer aHdl = s_aRWLockKeyedTimer.readLocked ( () -> s_aHdlKeyedTimer.get (sName));
+    StatisticsHandlerKeyedTimer aHdl = s_aRWLockKeyedTimer.readLockedGet ( () -> s_aHdlKeyedTimer.get (sName));
 
     if (aHdl == null)
     {
-      aHdl = s_aRWLockKeyedTimer.writeLocked ( () -> s_aHdlKeyedTimer.computeIfAbsent (sName,
-                                                                                       k -> new StatisticsHandlerKeyedTimer ()));
+      aHdl = s_aRWLockKeyedTimer.writeLockedGet ( () -> s_aHdlKeyedTimer.computeIfAbsent (sName,
+                                                                                          k -> new StatisticsHandlerKeyedTimer ()));
     }
     return aHdl;
   }
@@ -154,7 +152,7 @@ public final class StatisticsManager
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllKeyedTimerHandler ()
   {
-    return s_aRWLockKeyedTimer.readLocked ((Supplier <ICommonsSet <String>>) s_aHdlKeyedTimer::copyOfKeySet);
+    return s_aRWLockKeyedTimer.readLockedGet (s_aHdlKeyedTimer::copyOfKeySet);
   }
 
   @Nonnull
@@ -170,11 +168,12 @@ public final class StatisticsManager
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
-    StatisticsHandlerSize aHdl = s_aRWLockSize.readLocked ( () -> s_aHdlSize.get (sName));
+    StatisticsHandlerSize aHdl = s_aRWLockSize.readLockedGet ( () -> s_aHdlSize.get (sName));
 
     if (aHdl == null)
     {
-      aHdl = s_aRWLockSize.writeLocked ( () -> s_aHdlSize.computeIfAbsent (sName, k -> new StatisticsHandlerSize ()));
+      aHdl = s_aRWLockSize.writeLockedGet ( () -> s_aHdlSize.computeIfAbsent (sName,
+                                                                              k -> new StatisticsHandlerSize ()));
     }
     return aHdl;
   }
@@ -183,7 +182,7 @@ public final class StatisticsManager
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllSizeHandler ()
   {
-    return s_aRWLockSize.readLocked ((Supplier <ICommonsSet <String>>) s_aHdlSize::copyOfKeySet);
+    return s_aRWLockSize.readLockedGet (s_aHdlSize::copyOfKeySet);
   }
 
   @Nonnull
@@ -199,12 +198,12 @@ public final class StatisticsManager
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
-    StatisticsHandlerKeyedSize aHdl = s_aRWLockKeyedSize.readLocked ( () -> s_aHdlKeyedSize.get (sName));
+    StatisticsHandlerKeyedSize aHdl = s_aRWLockKeyedSize.readLockedGet ( () -> s_aHdlKeyedSize.get (sName));
 
     if (aHdl == null)
     {
-      aHdl = s_aRWLockKeyedSize.writeLocked ( () -> s_aHdlKeyedSize.computeIfAbsent (sName,
-                                                                                     k -> new StatisticsHandlerKeyedSize ()));
+      aHdl = s_aRWLockKeyedSize.writeLockedGet ( () -> s_aHdlKeyedSize.computeIfAbsent (sName,
+                                                                                        k -> new StatisticsHandlerKeyedSize ()));
     }
     return aHdl;
   }
@@ -213,7 +212,7 @@ public final class StatisticsManager
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllKeyedSizeHandler ()
   {
-    return s_aRWLockKeyedSize.readLocked ((Supplier <ICommonsSet <String>>) s_aHdlKeyedSize::copyOfKeySet);
+    return s_aRWLockKeyedSize.readLockedGet (s_aHdlKeyedSize::copyOfKeySet);
   }
 
   @Nonnull
@@ -229,12 +228,12 @@ public final class StatisticsManager
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
-    StatisticsHandlerCounter aHdl = s_aRWLockCounter.readLocked ( () -> s_aHdlCounter.get (sName));
+    StatisticsHandlerCounter aHdl = s_aRWLockCounter.readLockedGet ( () -> s_aHdlCounter.get (sName));
 
     if (aHdl == null)
     {
-      aHdl = s_aRWLockCounter.writeLocked ( () -> s_aHdlCounter.computeIfAbsent (sName,
-                                                                                 k -> new StatisticsHandlerCounter ()));
+      aHdl = s_aRWLockCounter.writeLockedGet ( () -> s_aHdlCounter.computeIfAbsent (sName,
+                                                                                    k -> new StatisticsHandlerCounter ()));
     }
     return aHdl;
   }
@@ -243,7 +242,7 @@ public final class StatisticsManager
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllCounterHandler ()
   {
-    return s_aRWLockCounter.readLocked ((Supplier <ICommonsSet <String>>) s_aHdlCounter::copyOfKeySet);
+    return s_aRWLockCounter.readLockedGet (s_aHdlCounter::copyOfKeySet);
   }
 
   @Nonnull
@@ -259,12 +258,12 @@ public final class StatisticsManager
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
-    StatisticsHandlerKeyedCounter aHdl = s_aRWLockKeyedCounter.readLocked ( () -> s_aHdlKeyedCounter.get (sName));
+    StatisticsHandlerKeyedCounter aHdl = s_aRWLockKeyedCounter.readLockedGet ( () -> s_aHdlKeyedCounter.get (sName));
 
     if (aHdl == null)
     {
-      aHdl = s_aRWLockKeyedCounter.writeLocked ( () -> s_aHdlKeyedCounter.computeIfAbsent (sName,
-                                                                                           k -> new StatisticsHandlerKeyedCounter ()));
+      aHdl = s_aRWLockKeyedCounter.writeLockedGet ( () -> s_aHdlKeyedCounter.computeIfAbsent (sName,
+                                                                                              k -> new StatisticsHandlerKeyedCounter ()));
     }
     return aHdl;
   }
@@ -273,7 +272,7 @@ public final class StatisticsManager
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllKeyedCounterHandler ()
   {
-    return s_aRWLockKeyedCounter.readLocked ((Supplier <ICommonsSet <String>>) s_aHdlKeyedCounter::copyOfKeySet);
+    return s_aRWLockKeyedCounter.readLockedGet (s_aHdlKeyedCounter::copyOfKeySet);
   }
 
   public static void clearCache ()

@@ -119,7 +119,7 @@ public final class LanguageCache
     ValueEnforcer.isTrue (sValidLanguage != null, () -> "illegal language code '" + sLanguage + "'");
     ValueEnforcer.isEqual (sLanguage, sValidLanguage, () -> "invalid casing of '" + sLanguage + "'");
 
-    return m_aRWLock.writeLocked ( () -> m_aLanguages.addObject (sValidLanguage));
+    return m_aRWLock.writeLockedGet ( () -> m_aLanguages.addObject (sValidLanguage));
   }
 
   @Nullable
@@ -153,7 +153,7 @@ public final class LanguageCache
   @ReturnsMutableCopy
   public ICommonsSet <String> getAllLanguages ()
   {
-    return m_aRWLock.readLocked (m_aLanguages::getClone);
+    return m_aRWLock.readLockedGet (m_aLanguages::getClone);
   }
 
   /**
@@ -163,7 +163,7 @@ public final class LanguageCache
   @ReturnsMutableCopy
   public ICommonsSet <Locale> getAllLanguageLocales ()
   {
-    return m_aRWLock.readLocked ( () -> {
+    return m_aRWLock.readLockedGet ( () -> {
       final LocaleCache aLC = LocaleCache.getInstance ();
       return new CommonsHashSet <> (m_aLanguages, sLanguage -> aLC.getLocale (sLanguage, "", ""));
     });

@@ -295,7 +295,7 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
     // null cache keys can never be in the cache
     if (aCacheKey == null)
       return null;
-    return m_aRWLock.readLocked ( () -> getFromCacheNoStatsNotLocked (aCacheKey));
+    return m_aRWLock.readLockedGet ( () -> getFromCacheNoStatsNotLocked (aCacheKey));
   }
 
   /**

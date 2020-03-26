@@ -109,7 +109,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
   @Nullable
   private ResourceBundle _getResourceBundle (@Nonnull @Nonempty final String sBundleName, @Nonnull final Locale aLocale)
   {
-    ResourceBundle ret = m_aRWLock.readLocked ( () -> {
+    ResourceBundle ret = m_aRWLock.readLockedGet ( () -> {
       if (!m_bUseResourceBundleCache)
       {
         // Do not use the cache!
@@ -124,7 +124,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
 
     if (ret == null)
     {
-      ret = m_aRWLock.writeLocked ( () -> {
+      ret = m_aRWLock.writeLockedGet ( () -> {
         // Re-check in write lock
         if (m_aResourceBundleCache.containsKey (sBundleName))
           return m_aResourceBundleCache.get (sBundleName);
@@ -201,7 +201,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
   @ReturnsMutableCopy
   public ICommonsSet <String> getAllUsedOverrideBundleNames ()
   {
-    return m_aRWLock.readLocked (m_aUsedOverrideBundles::getClone);
+    return m_aRWLock.readLockedGet (m_aUsedOverrideBundles::getClone);
   }
 
   /**
@@ -212,7 +212,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
   @ReturnsMutableCopy
   public ICommonsSet <String> getAllUsedFallbackBundleNames ()
   {
-    return m_aRWLock.readLocked (m_aUsedFallbackBundles::getClone);
+    return m_aRWLock.readLockedGet (m_aUsedFallbackBundles::getClone);
   }
 
   public void clearCache ()

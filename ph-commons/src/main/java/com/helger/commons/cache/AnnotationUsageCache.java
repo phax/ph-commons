@@ -108,7 +108,7 @@ public class AnnotationUsageCache implements Serializable
     if (eHas == null)
     {
       // Try again in write-lock
-      eHas = m_aRWLock.writeLocked ( () -> m_aMap.computeIfAbsent (sClassName,
+      eHas = m_aRWLock.writeLockedGet ( () -> m_aMap.computeIfAbsent (sClassName,
                                                                    x -> ETriState.valueOf (aClass.getAnnotation (m_aAnnotationClass) != null)));
     }
     return eHas.isTrue ();
@@ -120,7 +120,7 @@ public class AnnotationUsageCache implements Serializable
 
     final String sClassName = aClass.getName ();
 
-    m_aRWLock.writeLocked ( () -> m_aMap.put (sClassName, ETriState.valueOf (bHasAnnotation)));
+    m_aRWLock.writeLockedGet ( () -> m_aMap.put (sClassName, ETriState.valueOf (bHasAnnotation)));
   }
 
   public void clearCache ()

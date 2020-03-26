@@ -147,7 +147,7 @@ public final class ClassHierarchyCache
   @Nonnull
   public static EChange clearCache ()
   {
-    final EChange ret = s_aRWLock.writeLocked (s_aClassHierarchy::removeAll);
+    final EChange ret = s_aRWLock.writeLockedGet (s_aClassHierarchy::removeAll);
     if (ret.isUnchanged ())
       return EChange.UNCHANGED;
 
@@ -163,12 +163,12 @@ public final class ClassHierarchyCache
     final String sKey = aClass.getName ();
 
     // Get or update from cache
-    ClassList aClassList = s_aRWLock.readLocked ( () -> s_aClassHierarchy.get (sKey));
+    ClassList aClassList = s_aRWLock.readLockedGet ( () -> s_aClassHierarchy.get (sKey));
 
     if (aClassList == null)
     {
       // try again in write lock
-      aClassList = s_aRWLock.writeLocked ( () -> s_aClassHierarchy.computeIfAbsent (sKey, x -> new ClassList (aClass)));
+      aClassList = s_aRWLock.writeLockedGet ( () -> s_aClassHierarchy.computeIfAbsent (sKey, x -> new ClassList (aClass)));
     }
     return aClassList;
   }

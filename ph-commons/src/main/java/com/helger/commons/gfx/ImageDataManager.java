@@ -211,7 +211,7 @@ public final class ImageDataManager
     if (aRes == null)
       return EChange.UNCHANGED;
 
-    return m_aRWLock.writeLocked ( () -> {
+    return m_aRWLock.writeLockedGet ( () -> {
       // Existing resource?
       if (m_aImageData.remove (aRes) != null)
         return EChange.CHANGED;
@@ -232,7 +232,7 @@ public final class ImageDataManager
   @Nonnull
   public EChange clearCache ()
   {
-    return m_aRWLock.writeLocked ( () -> {
+    return m_aRWLock.writeLockedGet ( () -> {
       if (m_aImageData.isEmpty () && m_aNonExistingResources.isEmpty ())
         return EChange.UNCHANGED;
 
@@ -249,13 +249,13 @@ public final class ImageDataManager
   @ReturnsMutableCopy
   public ICommonsMap <IReadableResource, SizeInt> getAllCachedSizes ()
   {
-    return m_aRWLock.readLocked (m_aImageData::getClone);
+    return m_aRWLock.readLockedGet (m_aImageData::getClone);
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public ICommonsSet <IReadableResource> getAllNotExistingResources ()
   {
-    return m_aRWLock.readLocked (m_aNonExistingResources::getClone);
+    return m_aRWLock.readLockedGet (m_aNonExistingResources::getClone);
   }
 }

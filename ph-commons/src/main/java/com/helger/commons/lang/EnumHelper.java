@@ -264,10 +264,10 @@ public final class EnumHelper
     ValueEnforcer.notNull (aClass, "Class");
 
     final String sCacheKey = aClass.getName ();
-    Object [] aCachedData = s_aRWLockInt.readLocked ( () -> s_aIntCache.get (sCacheKey));
+    Object [] aCachedData = s_aRWLockInt.readLockedGet ( () -> s_aIntCache.get (sCacheKey));
     if (aCachedData == null)
     {
-      aCachedData = s_aRWLockInt.writeLocked ( () -> {
+      aCachedData = s_aRWLockInt.writeLockedGet ( () -> {
         // Try again in write lock
         Object [] aWLCachedData = s_aIntCache.get (sCacheKey);
         if (aWLCachedData == null)
@@ -491,7 +491,7 @@ public final class EnumHelper
   @Nonnull
   public static EChange clearCache ()
   {
-    return s_aRWLockInt.writeLocked ( () -> {
+    return s_aRWLockInt.writeLockedGet ( () -> {
       if (s_aIntCache.isEmpty ())
         return EChange.UNCHANGED;
       s_aIntCache.clear ();
