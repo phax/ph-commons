@@ -1,5 +1,7 @@
 {
-  element1: "from-application-json",
+  element0: "from-application-json0",
+  element1: "from-application-json1",
+  element2: "from-application-json2",
   int: 123456,
   dbl: 123.45678
 }

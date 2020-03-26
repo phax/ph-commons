@@ -21,7 +21,11 @@ import java.nio.charset.StandardCharsets;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
+import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resource.URLResource;
+import com.helger.commons.io.resourceprovider.ClassPathResourceProvider;
+import com.helger.commons.io.resourceprovider.FileSystemResourceProvider;
+import com.helger.commons.io.resourceprovider.ReadableResourceProviderChain;
 import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.config.source.EConfigSourceType;
 import com.helger.config.source.MultiConfigurationSourceValueProvider;
@@ -43,18 +47,34 @@ public final class ConfigFactory
     aMCSVP.addConfigurationSource (new ConfigurationSourceSystemProperty ());
     // Prio 300
     aMCSVP.addConfigurationSource (new ConfigurationSourceEnvVar ());
-    // Prio 199
+
+    final int nResourceDefaultPrio = EConfigSourceType.RESOURCE.getDefaultPriority ();
+    // Use existing ones only
+    final ReadableResourceProviderChain aResourceProvider = new ReadableResourceProviderChain (new FileSystemResourceProvider ().setCanReadRelativePaths (true),
+                                                                                               new ClassPathResourceProvider ());
+
+    // Prio 195
+    aMCSVP.addConfigurationSource (new ConfigurationSourceJson (aResourceProvider.getReadableResourceIf ("private-application.json",
+                                                                                                         IReadableResource::exists),
+                                                                StandardCharsets.UTF_8),
+                                   nResourceDefaultPrio - 5);
+    // Prio 190
+    aMCSVP.addConfigurationSource (new ConfigurationSourceProperties (aResourceProvider.getReadableResourceIf ("private-application.properties",
+                                                                                                               IReadableResource::exists),
+                                                                      StandardCharsets.UTF_8),
+                                   nResourceDefaultPrio - 10);
+    // Prio 185
     aMCSVP.addConfigurationSource (MultiConfigurationSourceValueProvider.createForClassPath (ClassLoaderHelper.getDefaultClassLoader (),
                                                                                              "application.json",
                                                                                              aURL -> new ConfigurationSourceJson (new URLResource (aURL),
                                                                                                                                   StandardCharsets.UTF_8)),
-                                   EConfigSourceType.RESOURCE.getDefaultPriority () - 1);
-    // Prio 198
+                                   nResourceDefaultPrio - 15);
+    // Prio 180
     aMCSVP.addConfigurationSource (MultiConfigurationSourceValueProvider.createForClassPath (ClassLoaderHelper.getDefaultClassLoader (),
                                                                                              "application.properties",
                                                                                              aURL -> new ConfigurationSourceProperties (new URLResource (aURL),
                                                                                                                                         StandardCharsets.UTF_8)),
-                                   EConfigSourceType.RESOURCE.getDefaultPriority () - 2);
+                                   nResourceDefaultPrio - 20);
     // Prio 1
     aMCSVP.addConfigurationSource (MultiConfigurationSourceValueProvider.createForClassPath (ClassLoaderHelper.getDefaultClassLoader (),
                                                                                              "reference.properties",

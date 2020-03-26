@@ -33,10 +33,12 @@ public class ConfigFactoryTest
 {
   private void _testDefault (@Nonnull final IConfig aConfig)
   {
-    assertEquals ("from-application-json", aConfig.getAsString ("element1"));
-    assertEquals ("from-application-properties2", aConfig.getAsString ("element2"));
-    assertEquals ("from-reference-properties3", aConfig.getAsString ("element3"));
-    assertNull (aConfig.getAsString ("element4"));
+    assertEquals ("from-private-application-json0", aConfig.getAsString ("element0"));
+    assertEquals ("from-private-application-properties1", aConfig.getAsString ("element1"));
+    assertEquals ("from-application-json2", aConfig.getAsString ("element2"));
+    assertEquals ("from-application-properties3", aConfig.getAsString ("element3"));
+    assertEquals ("from-reference-properties4", aConfig.getAsString ("element4"));
+    assertNull (aConfig.getAsString ("element5"));
 
     assertEquals (-1, aConfig.getAsInt ("element1", -1));
     try

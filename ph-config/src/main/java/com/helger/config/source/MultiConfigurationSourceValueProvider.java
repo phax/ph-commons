@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.net.URL;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.function.Function;
 
 import javax.annotation.Nonnegative;
@@ -28,6 +29,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.lang.ClassLoaderHelper;
@@ -55,18 +57,48 @@ public class MultiConfigurationSourceValueProvider implements
     }
   }
 
-  private final ICommonsList <CS> m_aSources = new CommonsArrayList <> ();
+  @FunctionalInterface
+  public interface ICVPWithPriorityCallback
+  {
+    void onConfigurationSource (@Nonnull IConfigurationValueProvider aCVP, int nPriority);
+  }
 
+  public static final boolean DEFAULT_USE_ONLY_INTIIALIZED_CONFIG_SOURCES = true;
+
+  private final ICommonsList <CS> m_aSources = new CommonsArrayList <> ();
+  private boolean m_bUseOnlyInitializedConfigSources = DEFAULT_USE_ONLY_INTIIALIZED_CONFIG_SOURCES;
+
+  /**
+   * Default constructor without any configuration source.
+   */
   public MultiConfigurationSourceValueProvider ()
   {}
 
-  public MultiConfigurationSourceValueProvider (@Nullable final Iterable <? extends IConfigurationSource> aSources)
+  /**
+   * Constructor with a list of existing configuration sources.
+   *
+   * @param aSources
+   *        The list of existing sources to be added. The order will be
+   *        maintained. May be <code>null</code> but may not contain
+   *        <code>null</code> values.
+   * @see #addConfigurationSource(IConfigurationSource)
+   */
+  public MultiConfigurationSourceValueProvider (@Nullable final List <? extends IConfigurationSource> aSources)
   {
     if (aSources != null)
       for (final IConfigurationSource aSource : aSources)
         addConfigurationSource (aSource);
   }
 
+  /**
+   * Constructor with an array of existing configuration sources.
+   *
+   * @param aSources
+   *        The array of existing sources to be added. The order will be
+   *        maintained. May be <code>null</code> but may not contain
+   *        <code>null</code> values.
+   * @see #addConfigurationSource(IConfigurationSource)
+   */
   public MultiConfigurationSourceValueProvider (@Nullable final IConfigurationSource... aSources)
   {
     if (aSources != null)
@@ -74,13 +106,50 @@ public class MultiConfigurationSourceValueProvider implements
         addConfigurationSource (aSource);
   }
 
+  public final boolean isUseOnlyInitializedConfigSources ()
+  {
+    return m_bUseOnlyInitializedConfigSources;
+  }
+
+  @Nonnull
+  public final MultiConfigurationSourceValueProvider setUseOnlyInitializedConfigSources (final boolean bUseOnlyInitializedConfigSources)
+  {
+    m_bUseOnlyInitializedConfigSources = bUseOnlyInitializedConfigSources;
+    return this;
+  }
+
+  /**
+   * Add a configuration source.
+   *
+   * @param aSource
+   *        The source to be added. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @Nonnull
   public final MultiConfigurationSourceValueProvider addConfigurationSource (@Nonnull final IConfigurationSource aSource)
   {
     ValueEnforcer.notNull (aSource, "ConfigSource");
+
+    if (m_bUseOnlyInitializedConfigSources && !aSource.isInitializedAndUsable ())
+    {
+      // Don't add
+      return this;
+    }
+
     return addConfigurationSource (aSource, aSource.getPriority ());
   }
 
+  /**
+   * Add a configuration value provider and a priority. This method sorts the
+   * list of sources
+   *
+   * @param aCVP
+   *        The configuration value provider to be added. May be
+   *        <code>null</code>.
+   * @param nPriority
+   *        The priority to be used.
+   * @return this for chaining
+   */
   @Nonnull
   public final MultiConfigurationSourceValueProvider addConfigurationSource (@Nullable final IConfigurationValueProvider aCVP,
                                                                              final int nPriority)
@@ -94,6 +163,9 @@ public class MultiConfigurationSourceValueProvider implements
     return this;
   }
 
+  /**
+   * @return The number of contained configuration sources. Always &ge; 0.
+   */
   @Nonnegative
   public final int getConfigurationSourceCount ()
   {
@@ -116,6 +188,14 @@ public class MultiConfigurationSourceValueProvider implements
     return ret;
   }
 
+  /**
+   * Try to find the configuration value provider that delivers the provided
+   * key.
+   *
+   * @param sKey
+   *        The key to search. May not be <code>null</code>.
+   * @return <code>null</code> if the key cannot be resolved.
+   */
   @Nullable
   public IConfigurationValueProvider getConfigurationValueProvider (@Nonnull @Nonempty final String sKey)
   {
@@ -130,7 +210,27 @@ public class MultiConfigurationSourceValueProvider implements
     return null;
   }
 
+  /**
+   * Scan through all added configuration sources and invoke the callback.
+   *
+   * @param aCallback
+   *        The callback to be invoked. May not be <code>null</code>.
+   */
+  public void forEachConfigurationValueProvider (@Nonnull final ICVPWithPriorityCallback aCallback)
+  {
+    ValueEnforcer.notNull (aCallback, "aCallback");
+
+    for (final CS aSource : m_aSources)
+      aCallback.onConfigurationSource (aSource.m_aCVP, aSource.m_nPrio);
+  }
+
+  /**
+   * Return a deep clone of this {@link MultiConfigurationSourceValueProvider}.
+   * If the contained {@link IConfigurationValueProvider} implements
+   * {@link ICloneable} it is cloned as well.
+   */
   @Nonnull
+  @ReturnsMutableCopy
   public MultiConfigurationSourceValueProvider getClone ()
   {
     final MultiConfigurationSourceValueProvider ret = new MultiConfigurationSourceValueProvider ();
@@ -188,8 +288,12 @@ public class MultiConfigurationSourceValueProvider implements
     {
       throw new UncheckedIOException (ex);
     }
+
     if (ret.getConfigurationSourceCount () == 0)
+    {
+      // Avoid returning an empty object
       return null;
+    }
 
     return ret;
   }
