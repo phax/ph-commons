@@ -54,15 +54,16 @@ public final class ConfigFactory
                                                                                                new ClassPathResourceProvider ());
 
     // Prio 195
-    aMCSVP.addConfigurationSource (new ConfigurationSourceJson (aResourceProvider.getReadableResourceIf ("private-application.json",
-                                                                                                         IReadableResource::exists),
-                                                                StandardCharsets.UTF_8),
-                                   nResourceDefaultPrio - 5);
+    IReadableResource aRes = aResourceProvider.getReadableResourceIf ("private-application.json",
+                                                                      IReadableResource::exists);
+    if (aRes != null)
+      aMCSVP.addConfigurationSource (new ConfigurationSourceJson (aRes, StandardCharsets.UTF_8),
+                                     nResourceDefaultPrio - 5);
     // Prio 190
-    aMCSVP.addConfigurationSource (new ConfigurationSourceProperties (aResourceProvider.getReadableResourceIf ("private-application.properties",
-                                                                                                               IReadableResource::exists),
-                                                                      StandardCharsets.UTF_8),
-                                   nResourceDefaultPrio - 10);
+    aRes = aResourceProvider.getReadableResourceIf ("private-application.properties", IReadableResource::exists);
+    if (aRes != null)
+      aMCSVP.addConfigurationSource (new ConfigurationSourceProperties (aRes, StandardCharsets.UTF_8),
+                                     nResourceDefaultPrio - 10);
     // Prio 185
     aMCSVP.addConfigurationSource (MultiConfigurationSourceValueProvider.createForClassPath (ClassLoaderHelper.getDefaultClassLoader (),
                                                                                              "application.json",
