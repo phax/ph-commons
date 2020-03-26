@@ -17,15 +17,16 @@
 package com.helger.commons.io.resourceprovider;
 
 import java.io.InputStream;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.annotation.ReturnsMutableObject;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.hashcode.HashCodeGenerator;
@@ -41,7 +42,7 @@ import com.helger.commons.string.ToStringGenerator;
 @Immutable
 public class ReadableResourceProviderChain implements IReadableResourceProvider
 {
-  protected final ICommonsList <IReadableResourceProvider> m_aReadingResourceProviders;
+  private final ICommonsList <IReadableResourceProvider> m_aReadingResourceProviders;
 
   public ReadableResourceProviderChain (@Nonnull final IReadableResourceProvider... aResProviders)
   {
@@ -58,9 +59,15 @@ public class ReadableResourceProviderChain implements IReadableResourceProvider
   }
 
   @Nonnull
-  @Nonempty
+  @ReturnsMutableObject
+  protected final ICommonsList <IReadableResourceProvider> readingResourceProviders ()
+  {
+    return m_aReadingResourceProviders;
+  }
+
+  @Nonnull
   @ReturnsMutableCopy
-  public ICommonsList <IReadableResourceProvider> getAllContainedReadingResourceProviders ()
+  public final ICommonsList <IReadableResourceProvider> getAllContainedReadingResourceProviders ()
   {
     return m_aReadingResourceProviders.getClone ();
   }
@@ -68,7 +75,7 @@ public class ReadableResourceProviderChain implements IReadableResourceProvider
   public final boolean supportsReading (@Nullable final String sName)
   {
     // Check if any provider can handle this resource
-    return m_aReadingResourceProviders.containsAny (e -> e.supportsReading (sName));
+    return m_aReadingResourceProviders.containsAny (x -> x.supportsReading (sName));
   }
 
   @Nonnull
@@ -83,6 +90,21 @@ public class ReadableResourceProviderChain implements IReadableResourceProvider
                                         sName +
                                         "' by any of " +
                                         m_aReadingResourceProviders);
+  }
+
+  @Nullable
+  public IReadableResource getReadableResourceIf (@Nonnull final String sName,
+                                                  @Nonnull final Predicate <? super IReadableResource> aReturnFilter)
+  {
+    // Use the first resource provider that supports the name
+    for (final IReadableResourceProvider aResProvider : m_aReadingResourceProviders)
+      if (aResProvider.supportsReading (sName))
+      {
+        final IReadableResource aRes = aResProvider.getReadableResource (sName);
+        if (aReturnFilter.test (aRes))
+          return aRes;
+      }
+    return null;
   }
 
   @Override

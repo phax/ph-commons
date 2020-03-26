@@ -17,6 +17,7 @@
 package com.helger.commons.io.resourceprovider;
 
 import java.io.OutputStream;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -90,7 +91,22 @@ public class WritableResourceProviderChain extends ReadableResourceProviderChain
     throw new IllegalArgumentException ("Cannot handle writing '" +
                                         sName +
                                         "' by any of " +
-                                        m_aReadingResourceProviders);
+                                        m_aWritableResourceProviders);
+  }
+
+  @Nullable
+  public IWritableResource getWritableResourceIf (@Nonnull final String sName,
+                                                  @Nonnull final Predicate <? super IWritableResource> aReturnFilter)
+  {
+    // Use the first resource provider that supports the name
+    for (final IWritableResourceProvider aResProvider : m_aWritableResourceProviders)
+      if (aResProvider.supportsWriting (sName))
+      {
+        final IWritableResource aRes = aResProvider.getWritableResource (sName);
+        if (aReturnFilter.test (aRes))
+          return aRes;
+      }
+    return null;
   }
 
   @Override
