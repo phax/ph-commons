@@ -83,18 +83,18 @@ public class FileSystemResourceProvider implements IWritableResourceProvider
   }
 
   @Nullable
-  public File getBasePath ()
+  public final File getBasePath ()
   {
     return m_aBasePath;
   }
 
-  public boolean isCanReadRelativePaths ()
+  public final boolean isCanReadRelativePaths ()
   {
     return m_aRWLock.readLockedBoolean ( () -> m_bCanReadRelativePaths);
   }
 
   @Nonnull
-  public FileSystemResourceProvider setCanReadRelativePaths (final boolean bCanReadRelativePaths)
+  public final FileSystemResourceProvider setCanReadRelativePaths (final boolean bCanReadRelativePaths)
   {
     m_aRWLock.writeLockedBoolean ( () -> m_bCanReadRelativePaths = bCanReadRelativePaths);
     return this;
