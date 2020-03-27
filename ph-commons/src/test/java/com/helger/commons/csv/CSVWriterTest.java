@@ -95,7 +95,7 @@ public final class CSVWriterTest
   }
 
   @Test
-  public void correctlyParseNullString () throws IOException
+  public void testCorrectlyParseNullString () throws IOException
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     try (final CSVWriter aWriter = new CSVWriter (aSW))
@@ -109,7 +109,7 @@ public final class CSVWriterTest
   }
 
   @Test
-  public void correctlyParserNullObject () throws IOException
+  public void testCorrectlyParserNullObject () throws IOException
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     try (final CSVWriter aWriter = new CSVWriter (aSW))
@@ -168,7 +168,7 @@ public final class CSVWriterTest
   }
 
   @Test
-  public void parseLineWithBothEscapeAndQuoteChar () throws IOException
+  public void testParseLineWithBothEscapeAndQuoteChar () throws IOException
   {
     // test quoted line
     final String [] quoteLine = { "This is a 'multiline' entry", "so is \n this" };
@@ -208,7 +208,7 @@ public final class CSVWriterTest
   }
 
   @Test
-  public void parseLineWithNoEscapeCharAndQuotes () throws IOException
+  public void testParseLineWithNoEscapeCharAndQuotes () throws IOException
   {
     final String [] quoteLine = { "This is a \" 'multiline' entry", "so is \n this" };
     final String output = _invokeNoEscapeWriter (quoteLine);
@@ -372,7 +372,7 @@ public final class CSVWriterTest
   }
 
   @Test (expected = IOException.class)
-  public void flushWillThrowIOException () throws IOException
+  public void testFlushWillThrowIOException () throws IOException
   {
     final String [] line = { "Foo", "bar's" };
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
@@ -384,7 +384,7 @@ public final class CSVWriterTest
   }
 
   @Test
-  public void flushQuietlyWillNotThrowException ()
+  public void testFlushQuietlyWillNotThrowException ()
   {
     final String [] line = { "Foo", "bar's" };
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();

@@ -23,10 +23,11 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import com.helger.commons.collection.impl.ICommonsList;
 
 /**
  * Test class for class {@link CSVParser}.
@@ -49,7 +50,7 @@ public final class CSVParserTest
   @Test
   public void testParseLine () throws Exception
   {
-    final List <String> nextItem = m_aParser.parseLine ("This, is, a, test.");
+    final ICommonsList <String> nextItem = m_aParser.parseLine ("This, is, a, test.");
     assertEquals (4, nextItem.size ());
     assertEquals ("This", nextItem.get (0));
     assertEquals (" is", nextItem.get (1));
@@ -58,9 +59,9 @@ public final class CSVParserTest
   }
 
   @Test
-  public void parseSimpleString () throws IOException
+  public void testParseSimpleString () throws IOException
   {
-    final List <String> aNextLine = m_aParser.parseLine ("a,b,c");
+    final ICommonsList <String> aNextLine = m_aParser.parseLine ("a,b,c");
     assertEquals (3, aNextLine.size ());
     assertEquals ("a", aNextLine.get (0));
     assertEquals ("b", aNextLine.get (1));
@@ -69,10 +70,9 @@ public final class CSVParserTest
   }
 
   @Test
-  public void parseSimpleQuotedString () throws IOException
+  public void testParseSimpleQuotedString () throws IOException
   {
-
-    final List <String> aNextLine = m_aParser.parseLine ("\"a\",\"b\",\"c\"");
+    final ICommonsList <String> aNextLine = m_aParser.parseLine ("\"a\",\"b\",\"c\"");
     assertEquals (3, aNextLine.size ());
     assertEquals ("a", aNextLine.get (0));
     assertEquals ("b", aNextLine.get (1));
@@ -81,11 +81,11 @@ public final class CSVParserTest
   }
 
   @Test
-  public void parseSimpleQuotedStringWithSpaces () throws IOException
+  public void testParseSimpleQuotedStringWithSpaces () throws IOException
   {
     final CSVParser parser = new CSVParser ().setStrictQuotes (true).setIgnoreLeadingWhiteSpace (false);
 
-    final List <String> aNextLine = parser.parseLine (" \"a\" , \"b\" , \"c\" ");
+    final ICommonsList <String> aNextLine = parser.parseLine (" \"a\" , \"b\" , \"c\" ");
     assertEquals (3, aNextLine.size ());
     assertEquals ("a", aNextLine.get (0));
     assertEquals ("b", aNextLine.get (1));
@@ -102,8 +102,7 @@ public final class CSVParserTest
   @Test
   public void testParsedLineWithInternalQuota () throws IOException
   {
-
-    final List <String> aNextLine = m_aParser.parseLine ("a,123\"4\"567,c");
+    final ICommonsList <String> aNextLine = m_aParser.parseLine ("a,123\"4\"567,c");
     assertEquals (3, aNextLine.size ());
 
     assertEquals ("123\"4\"567", aNextLine.get (1));
@@ -111,9 +110,9 @@ public final class CSVParserTest
   }
 
   @Test
-  public void parseQuotedStringWithCommas () throws IOException
+  public void testParseQuotedStringWithCommas () throws IOException
   {
-    final List <String> aNextLine = m_aParser.parseLine ("a,\"b,b,b\",c");
+    final ICommonsList <String> aNextLine = m_aParser.parseLine ("a,\"b,b,b\",c");
     assertEquals ("a", aNextLine.get (0));
     assertEquals ("b,b,b", aNextLine.get (1));
     assertEquals ("c", aNextLine.get (2));
@@ -121,11 +120,11 @@ public final class CSVParserTest
   }
 
   @Test
-  public void parseQuotedStringWithDefinedSeperator () throws IOException
+  public void testParseQuotedStringWithDefinedSeperator () throws IOException
   {
     m_aParser = new CSVParser ().setSeparatorChar (':');
 
-    final List <String> aNextLine = m_aParser.parseLine ("a:\"b:b:b\":c");
+    final ICommonsList <String> aNextLine = m_aParser.parseLine ("a:\"b:b:b\":c");
     assertEquals ("a", aNextLine.get (0));
     assertEquals ("b:b:b", aNextLine.get (1));
     assertEquals ("c", aNextLine.get (2));
@@ -133,11 +132,11 @@ public final class CSVParserTest
   }
 
   @Test
-  public void parseQuotedStringWithDefinedSeperatorAndQuote () throws IOException
+  public void testParseQuotedStringWithDefinedSeperatorAndQuote () throws IOException
   {
     m_aParser = new CSVParser ().setSeparatorChar (':').setQuoteChar ('\'');
 
-    final List <String> aNextLine = m_aParser.parseLine ("a:'b:b:b':c");
+    final ICommonsList <String> aNextLine = m_aParser.parseLine ("a:'b:b:b':c");
     assertEquals ("a", aNextLine.get (0));
     assertEquals ("b:b:b", aNextLine.get (1));
     assertEquals ("c", aNextLine.get (2));
@@ -145,9 +144,9 @@ public final class CSVParserTest
   }
 
   @Test
-  public void parseEmptyElements () throws IOException
+  public void testParseEmptyElements () throws IOException
   {
-    final List <String> aNextLine = m_aParser.parseLine (",,");
+    final ICommonsList <String> aNextLine = m_aParser.parseLine (",,");
     assertEquals (3, aNextLine.size ());
     assertEquals ("", aNextLine.get (0));
     assertEquals ("", aNextLine.get (1));
@@ -155,9 +154,9 @@ public final class CSVParserTest
   }
 
   @Test
-  public void parseMultiLinedQuoted () throws IOException
+  public void testParseMultiLinedQuoted () throws IOException
   {
-    final List <String> aNextLine = m_aParser.parseLine ("a,\"PO Box 123,\nKippax,ACT. 2615.\nAustralia\",d.\n");
+    final ICommonsList <String> aNextLine = m_aParser.parseLine ("a,\"PO Box 123,\nKippax,ACT. 2615.\nAustralia\",d.\n");
     assertEquals (3, aNextLine.size ());
     assertEquals ("a", aNextLine.get (0));
     assertEquals ("PO Box 123,\nKippax,ACT. 2615.\nAustralia", aNextLine.get (1));
@@ -165,9 +164,9 @@ public final class CSVParserTest
   }
 
   @Test
-  public void parseMultiLinedQuotedwithCarriageReturns () throws IOException
+  public void testParseMultiLinedQuotedwithCarriageReturns () throws IOException
   {
-    final List <String> aNextLine = m_aParser.parseLine ("a,\"PO Box 123,\r\nKippax,ACT. 2615.\r\nAustralia\",d.\n");
+    final ICommonsList <String> aNextLine = m_aParser.parseLine ("a,\"PO Box 123,\r\nKippax,ACT. 2615.\r\nAustralia\",d.\n");
     assertEquals (3, aNextLine.size ());
     assertEquals ("a", aNextLine.get (0));
     assertEquals ("PO Box 123,\r\nKippax,ACT. 2615.\r\nAustralia", aNextLine.get (1));
@@ -177,8 +176,7 @@ public final class CSVParserTest
   @Test
   public void testADoubleQuoteAsDataElement () throws IOException
   {
-
-    final List <String> aNextLine = m_aParser.parseLine ("a,\"\"\"\",c");// a,"""",c
+    final ICommonsList <String> aNextLine = m_aParser.parseLine ("a,\"\"\"\",c");// a,"""",c
 
     assertEquals (3, aNextLine.size ());
 
@@ -193,7 +191,7 @@ public final class CSVParserTest
   public void testEscapedDoubleQuoteAsDataElement () throws IOException
   {
 
-    final List <String> aNextLine = m_aParser.parseLine ("\"test\",\"this,test,is,good\",\"\\\"test\\\"\",\"\\\"quote\\\"\""); // "test","this,test,is,good","\"test\",\"quote\""
+    final ICommonsList <String> aNextLine = m_aParser.parseLine ("\"test\",\"this,test,is,good\",\"\\\"test\\\"\",\"\\\"quote\\\"\""); // "test","this,test,is,good","\"test\",\"quote\""
 
     assertEquals (4, aNextLine.size ());
 
@@ -205,9 +203,9 @@ public final class CSVParserTest
   }
 
   @Test
-  public void parseQuotedQuoteCharacters () throws IOException
+  public void testParseQuotedQuoteCharacters () throws IOException
   {
-    final List <String> aNextLine = m_aParser.parseLineMulti ("\"Glen \"\"The Man\"\" Smith\",Athlete,Developer\n");
+    final ICommonsList <String> aNextLine = m_aParser.parseLineMulti ("\"Glen \"\"The Man\"\" Smith\",Athlete,Developer\n");
     assertEquals (3, aNextLine.size ());
     assertEquals ("Glen \"The Man\" Smith", aNextLine.get (0));
     assertEquals ("Athlete", aNextLine.get (1));
@@ -215,9 +213,9 @@ public final class CSVParserTest
   }
 
   @Test
-  public void parseMultipleQuotes () throws IOException
+  public void testParseMultipleQuotes () throws IOException
   {
-    final List <String> aNextLine = m_aParser.parseLine ("\"\"\"\"\"\",\"test\"\n"); // """""","test"
+    final ICommonsList <String> aNextLine = m_aParser.parseLine ("\"\"\"\"\"\",\"test\"\n"); // """""","test"
     // representing:
     // "",
     // test
@@ -230,9 +228,9 @@ public final class CSVParserTest
   }
 
   @Test
-  public void parseTrickyString () throws IOException
+  public void testParseTrickyString () throws IOException
   {
-    final List <String> aNextLine = m_aParser.parseLine ("\"a\nb\",b,\"\nd\",e\n");
+    final ICommonsList <String> aNextLine = m_aParser.parseLine ("\"a\nb\",b,\"\nd\",e\n");
     assertEquals (4, aNextLine.size ());
     assertEquals ("a\nb", aNextLine.get (0));
     assertEquals ("b", aNextLine.get (1));
@@ -240,7 +238,7 @@ public final class CSVParserTest
     assertEquals ("e\n", aNextLine.get (3));
   }
 
-  private String setUpMultiLineInsideQuotes ()
+  private String _setUpMultiLineInsideQuotes ()
   {
     final StringBuilder sb = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
 
@@ -253,9 +251,9 @@ public final class CSVParserTest
   public void testAMultiLineInsideQuotes () throws IOException
   {
 
-    final String testString = setUpMultiLineInsideQuotes ();
+    final String testString = _setUpMultiLineInsideQuotes ();
 
-    final List <String> aNextLine = m_aParser.parseLine (testString);
+    final ICommonsList <String> aNextLine = m_aParser.parseLine (testString);
     assertEquals (2, aNextLine.size ());
     assertEquals ("Small test", aNextLine.get (0));
     assertEquals ("This is a test across \ntwo lines.", aNextLine.get (1));
@@ -268,7 +266,7 @@ public final class CSVParserTest
     m_aParser = new CSVParser ().setStrictQuotes (true);
     final String testString = "\"a\",\"b\",\"c\"";
 
-    final List <String> aNextLine = m_aParser.parseLine (testString);
+    final ICommonsList <String> aNextLine = m_aParser.parseLine (testString);
     assertEquals (3, aNextLine.size ());
     assertEquals ("a", aNextLine.get (0));
     assertEquals ("b", aNextLine.get (1));
@@ -281,7 +279,7 @@ public final class CSVParserTest
     m_aParser = new CSVParser ().setStrictQuotes (false);
     final String testString = "\"a\",\"b\",\"c\"";
 
-    final List <String> aNextLine = m_aParser.parseLine (testString);
+    final ICommonsList <String> aNextLine = m_aParser.parseLine (testString);
     assertEquals (3, aNextLine.size ());
     assertEquals ("a", aNextLine.get (0));
     assertEquals ("b", aNextLine.get (1));
@@ -294,7 +292,7 @@ public final class CSVParserTest
     m_aParser = new CSVParser ().setStrictQuotes (true);
     final String testString = " \t      \"a\",\"b\"      \t       ,   \"c\"   ";
 
-    final List <String> aNextLine = m_aParser.parseLine (testString);
+    final ICommonsList <String> aNextLine = m_aParser.parseLine (testString);
     assertEquals (3, aNextLine.size ());
     assertEquals ("a", aNextLine.get (0));
     assertEquals ("b", aNextLine.get (1));
@@ -314,7 +312,7 @@ public final class CSVParserTest
     m_aParser = new CSVParser ().setStrictQuotes (false);
     final String testString = " \t      \"a\",\"b\"      \t       ,   \"c\"   ";
 
-    final List <String> aNextLine = m_aParser.parseLine (testString);
+    final ICommonsList <String> aNextLine = m_aParser.parseLine (testString);
     assertEquals (3, aNextLine.size ());
     assertEquals ("a", aNextLine.get (0));
     assertEquals ("b\"      \t       ", aNextLine.get (1));
@@ -327,7 +325,7 @@ public final class CSVParserTest
     m_aParser = new CSVParser ().setStrictQuotes (true);
     final String testString = "abc',!@#\",\\\"\"   xyz,";
 
-    final List <String> aNextLine = m_aParser.parseLine (testString);
+    final ICommonsList <String> aNextLine = m_aParser.parseLine (testString);
     assertEquals (3, aNextLine.size ());
     assertEquals ("", aNextLine.get (0));
     assertEquals (",\"", aNextLine.get (1));
@@ -340,7 +338,7 @@ public final class CSVParserTest
     m_aParser = new CSVParser ().setIgnoreQuotations (true);
     final String testString = "Bob,test\",Beaumont,TX";
 
-    final List <String> aNextLine = m_aParser.parseLine (testString);
+    final ICommonsList <String> aNextLine = m_aParser.parseLine (testString);
     assertEquals (4, aNextLine.size ());
     assertEquals ("Bob", aNextLine.get (0));
     assertEquals ("test", aNextLine.get (1));
@@ -384,7 +382,7 @@ public final class CSVParserTest
     m_aParser = new CSVParser ().setSeparatorChar (';').setIgnoreQuotations (true);
     final String testString = "RPO;2012;P; ; ; ;SDX;ACCESSORY WHEEL, 16\", ALUMINUM, DESIGN 1";
 
-    final List <String> aNextLine = m_aParser.parseLine (testString);
+    final ICommonsList <String> aNextLine = m_aParser.parseLine (testString);
     assertEquals (8, aNextLine.size ());
     assertEquals ("RPO", aNextLine.get (0));
     assertEquals ("2012", aNextLine.get (1));
@@ -409,7 +407,7 @@ public final class CSVParserTest
   {
     m_aParser = new CSVParser ().setQuoteChar ('\'');
 
-    final List <String> aNextLine = m_aParser.parseLine ("865,0,'AmeriKKKa\\'s_Most_Wanted','',294,0,0,0.734338696798625,'20081002052147',242429208,18448");
+    final ICommonsList <String> aNextLine = m_aParser.parseLine ("865,0,'AmeriKKKa\\'s_Most_Wanted','',294,0,0,0.734338696798625,'20081002052147',242429208,18448");
 
     assertEquals (11, aNextLine.size ());
 
@@ -431,14 +429,13 @@ public final class CSVParserTest
   public void testIssue2859181 () throws IOException
   {
     m_aParser = new CSVParser ().setSeparatorChar (';');
-    final List <String> aNextLine = m_aParser.parseLine ("field1;\\=field2;\"\"\"field3\"\"\""); // field1;\=field2;"""field3"""
+    final ICommonsList <String> aNextLine = m_aParser.parseLine ("field1;\\=field2;\"\"\"field3\"\"\""); // field1;\=field2;"""field3"""
 
     assertEquals (3, aNextLine.size ());
 
     assertEquals ("field1", aNextLine.get (0));
     assertEquals ("=field2", aNextLine.get (1));
     assertEquals ("\"field3\"", aNextLine.get (2));
-
   }
 
   /**
@@ -455,7 +452,7 @@ public final class CSVParserTest
   @Test
   public void testIssue2726363 () throws IOException
   {
-    final List <String> aNextLine = m_aParser.parseLine ("\"804503689\",\"London\",\"\"London\"shop\",\"address\",\"116.453182\",\"39.918884\"");
+    final ICommonsList <String> aNextLine = m_aParser.parseLine ("\"804503689\",\"London\",\"\"London\"shop\",\"address\",\"116.453182\",\"39.918884\"");
 
     assertEquals (6, aNextLine.size ());
 
@@ -465,19 +462,18 @@ public final class CSVParserTest
     assertEquals ("address", aNextLine.get (3));
     assertEquals ("116.453182", aNextLine.get (4));
     assertEquals ("39.918884", aNextLine.get (5));
-
   }
 
   @Test (expected = IOException.class)
-  public void anIOExceptionThrownifStringEndsInsideAQuotedString () throws IOException
+  public void testAnIOExceptionThrownifStringEndsInsideAQuotedString () throws IOException
   {
     m_aParser.parseLine ("This,is a \"bad line to parse.");
   }
 
   @Test
-  public void parseLineMultiAllowsQuotesAcrossMultipleLines () throws IOException
+  public void testParseLineMultiAllowsQuotesAcrossMultipleLines () throws IOException
   {
-    List <String> aNextLine = m_aParser.parseLineMulti ("This,\"is a \"good\" line\\\\ to parse");
+    ICommonsList <String> aNextLine = m_aParser.parseLineMulti ("This,\"is a \"good\" line\\\\ to parse");
 
     assertEquals (1, aNextLine.size ());
     assertEquals ("This", aNextLine.get (0));
@@ -491,9 +487,9 @@ public final class CSVParserTest
   }
 
   @Test
-  public void pendingIsClearedAfterCallToParseLine () throws IOException
+  public void testPendingIsClearedAfterCallToParseLine () throws IOException
   {
-    List <String> aNextLine = m_aParser.parseLineMulti ("This,\"is a \"good\" line\\\\ to parse");
+    ICommonsList <String> aNextLine = m_aParser.parseLineMulti ("This,\"is a \"good\" line\\\\ to parse");
 
     assertEquals (1, aNextLine.size ());
     assertEquals ("This", aNextLine.get (0));
@@ -507,9 +503,9 @@ public final class CSVParserTest
   }
 
   @Test
-  public void returnPendingIfNullIsPassedIntoParseLineMulti () throws IOException
+  public void testReturnPendingIfNullIsPassedIntoParseLineMulti () throws IOException
   {
-    List <String> aNextLine = m_aParser.parseLineMulti ("This,\"is a \"goo\\d\" line\\\\ to parse\\");
+    ICommonsList <String> aNextLine = m_aParser.parseLineMulti ("This,\"is a \"goo\\d\" line\\\\ to parse\\");
 
     assertEquals (1, aNextLine.size ());
     assertEquals ("This", aNextLine.get (0));
@@ -523,10 +519,10 @@ public final class CSVParserTest
   }
 
   @Test
-  public void spacesAtEndOfQuotedStringDoNotCountIfStrictQuotesIsTrue () throws IOException
+  public void testSpacesAtEndOfQuotedStringDoNotCountIfStrictQuotesIsTrue () throws IOException
   {
     final CSVParser parser = new CSVParser ().setStrictQuotes (true);
-    final List <String> aNextLine = parser.parseLine ("\"Line with\", \"spaces at end\"  ");
+    final ICommonsList <String> aNextLine = parser.parseLine ("\"Line with\", \"spaces at end\"  ");
 
     assertEquals (2, aNextLine.size ());
     assertEquals ("Line with", aNextLine.get (0));
@@ -534,20 +530,20 @@ public final class CSVParserTest
   }
 
   @Test
-  public void returnNullWhenNullPassedIn () throws IOException
+  public void testReturnNullWhenNullPassedIn () throws IOException
   {
-    final List <String> aNextLine = m_aParser.parseLine (null);
+    final ICommonsList <String> aNextLine = m_aParser.parseLine (null);
     assertNull (aNextLine);
   }
 
   @Test
-  public void validateEscapeStringBeforeRealTest ()
+  public void testValidateEscapeStringBeforeRealTest ()
   {
     assertEquals (9, ESCAPE_TEST_STRING.length ());
   }
 
   @Test
-  public void whichCharactersAreEscapable ()
+  public void testWhichCharactersAreEscapable ()
   {
     assertTrue (m_aParser.isNextCharacterEscapable (ESCAPE_TEST_STRING, true, 0));
     assertFalse (m_aParser.isNextCharacterEscapable (ESCAPE_TEST_STRING, false, 0));
@@ -569,9 +565,9 @@ public final class CSVParserTest
   }
 
   @Test
-  public void whitespaceBeforeEscape () throws IOException
+  public void testWhitespaceBeforeEscape () throws IOException
   {
-    final List <String> nextItem = m_aParser.parseLine ("\"this\", \"is\",\"a test\""); // "this",
+    final ICommonsList <String> nextItem = m_aParser.parseLine ("\"this\", \"is\",\"a test\""); // "this",
     // "is","a test"
     assertEquals ("this", nextItem.get (0));
     assertEquals ("is", nextItem.get (1));
@@ -582,7 +578,7 @@ public final class CSVParserTest
   public void testIssue2958242WithoutQuotes () throws IOException
   {
     final CSVParser testParser = new CSVParser ().setSeparatorChar ('\t');
-    final List <String> nextItem = testParser.parseLine ("zo\"\"har\"\"at\t10-04-1980\t29\tC:\\\\foo.txt");
+    final ICommonsList <String> nextItem = testParser.parseLine ("zo\"\"har\"\"at\t10-04-1980\t29\tC:\\\\foo.txt");
     assertEquals (4, nextItem.size ());
     assertEquals ("zo\"har\"at", nextItem.get (0));
     assertEquals ("10-04-1980", nextItem.get (1));
@@ -591,39 +587,39 @@ public final class CSVParserTest
   }
 
   @Test (expected = UnsupportedOperationException.class)
-  public void quoteAndEscapeCannotBeTheSame ()
+  public void testQuoteAndEscapeCannotBeTheSame ()
   {
     new CSVParser ().setQuoteChar (CCSV.DEFAULT_QUOTE_CHARACTER).setEscapeChar (CCSV.DEFAULT_QUOTE_CHARACTER);
   }
 
   @Test
-  public void quoteAndEscapeCanBeTheSameIfNull ()
+  public void testQuoteAndEscapeCanBeTheSameIfNull ()
   {
     new CSVParser ().setQuoteChar (CCSV.NULL_CHARACTER).setEscapeChar (CCSV.NULL_CHARACTER);
   }
 
   @Test (expected = UnsupportedOperationException.class)
-  public void separatorCharacterCannotBeNull ()
+  public void testSeparatorCharacterCannotBeNull ()
   {
     new CSVParser ().setSeparatorChar (CCSV.NULL_CHARACTER);
   }
 
   @Test (expected = UnsupportedOperationException.class)
-  public void separatorAndEscapeCannotBeTheSame ()
+  public void testSeparatorAndEscapeCannotBeTheSame ()
   {
     new CSVParser ().setQuoteChar (CCSV.DEFAULT_QUOTE_CHARACTER).setEscapeChar (CCSV.DEFAULT_SEPARATOR);
   }
 
   @Test (expected = UnsupportedOperationException.class)
-  public void separatorAndQuoteCannotBeTheSame ()
+  public void testSeparatorAndQuoteCannotBeTheSame ()
   {
     new CSVParser ().setQuoteChar (CCSV.DEFAULT_SEPARATOR);
   }
 
   @Test
-  public void parserHandlesNullInString () throws IOException
+  public void testParserHandlesNullInString () throws IOException
   {
-    final List <String> aNextLine = m_aParser.parseLine ("because we are using\0 parseLineMulti.");
+    final ICommonsList <String> aNextLine = m_aParser.parseLine ("because we are using\0 parseLineMulti.");
 
     assertEquals (1, aNextLine.size ());
     assertEquals ("because we are using\0 parseLineMulti.", aNextLine.get (0));

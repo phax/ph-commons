@@ -211,7 +211,7 @@ public final class HashCodeGeneratorTest
 
   @Test
   @Ignore ("runs endlessly")
-  public void findIllegalValue () throws InterruptedException
+  public void testFindIllegalValue () throws InterruptedException
   {
     final AtomicBoolean b = new AtomicBoolean (false);
     final Runnable r = () -> {

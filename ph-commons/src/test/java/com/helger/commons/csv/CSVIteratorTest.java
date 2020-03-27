@@ -49,21 +49,21 @@ public final class CSVIteratorTest
   }
 
   @Test (expected = UnsupportedOperationException.class)
-  public void removethrowsUnsupportedOperationException () throws IOException
+  public void testRemovethrowsUnsupportedOperationException () throws IOException
   {
     final CSVIterator aIterator = new CSVIterator (m_aMockReader);
     aIterator.remove ();
   }
 
   @Test
-  public void initialReadReturnsStrings () throws IOException
+  public void testInitialReadReturnsStrings () throws IOException
   {
     final CSVIterator aIterator = new CSVIterator (m_aMockReader);
     assertEquals (STRINGS, aIterator.next ());
   }
 
   @Test
-  public void hasNextWorks () throws IOException
+  public void testHasNextWorks () throws IOException
   {
     // initial read from constructor
     final CSVIterator aIterator = new CSVIterator (m_aMockReader);

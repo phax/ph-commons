@@ -56,7 +56,7 @@ public final class KruskalTest
   }
 
   @Test
-  public void example1a ()
+  public void testExample1a ()
   {
     final SimpleGraph g = new SimpleGraph ();
     for (int i = 1; i <= 6; ++i)
@@ -76,7 +76,7 @@ public final class KruskalTest
   }
 
   @Test
-  public void example2a ()
+  public void testExample2a ()
   {
     final SimpleGraph g = new SimpleGraph ();
     g.createNode ("O");

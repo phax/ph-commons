@@ -28,7 +28,7 @@ import com.helger.commons.collection.impl.ICommonsList;
 
 public final class HomoglyphTest
 {
-  private static Homoglyph s_aHomoglyph;
+  private static final Homoglyph s_aHomoglyph;
   static
   {
     try
@@ -41,11 +41,11 @@ public final class HomoglyphTest
     }
   }
 
-  private void _check (final String text, final String targetWord)
+  private static void _check (final String sText, final String sTargetWord)
   {
-    final ICommonsList <HomoglyphSearchResult> r = s_aHomoglyph.search (text, new CommonsArrayList <> (targetWord));
+    final ICommonsList <HomoglyphSearchResult> r = s_aHomoglyph.search (sText, new CommonsArrayList <> (sTargetWord));
     assertEquals (1, r.size ());
-    assertEquals (targetWord, r.get (0).getWord ());
+    assertEquals (sTargetWord, r.get (0).getWord ());
   }
 
   @Test

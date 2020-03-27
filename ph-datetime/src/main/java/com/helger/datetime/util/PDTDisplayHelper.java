@@ -47,9 +47,9 @@ public final class PDTDisplayHelper
    */
   public interface IPeriodTextProvider
   {
-    static IPeriodTextProvider EN = new IPeriodTextProvider ()
+    IPeriodTextProvider EN = new IPeriodTextProvider ()
     {};
-    static IPeriodTextProvider DE = new IPeriodTextProvider ()
+    IPeriodTextProvider DE = new IPeriodTextProvider ()
     {
       @Nonnull
       @Nonempty

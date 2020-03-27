@@ -37,7 +37,7 @@ public enum EDAOActionType implements IHasID <String>
 
   private final String m_sID;
 
-  private EDAOActionType (@Nonnull @Nonempty final String sID)
+  EDAOActionType (@Nonnull @Nonempty final String sID)
   {
     m_sID = sID;
   }

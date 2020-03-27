@@ -43,7 +43,7 @@ public final class UnicodeFuncTest
   private static final String ASCII_STRING_WITH_QUOTES = "\"foo\",\"bar\"";
 
   @Test
-  public void canParseUnicode () throws IOException
+  public void testCanParseUnicode () throws IOException
   {
     final CSVParser aParser = new CSVParser ();
     final String sSimpleString = COMPOUND_STRING;
@@ -55,7 +55,7 @@ public final class UnicodeFuncTest
   }
 
   @Test
-  public void readerTest () throws IOException
+  public void testReader () throws IOException
   {
     try (final NonBlockingBufferedReader aReader = new NonBlockingBufferedReader (new NonBlockingStringReader (FIRST_STRING)))
     {
@@ -65,7 +65,7 @@ public final class UnicodeFuncTest
   }
 
   @Test
-  public void writerTest ()
+  public void testWriter ()
   {
     try (final NonBlockingStringWriter aSW = new NonBlockingStringWriter ())
     {
@@ -75,7 +75,7 @@ public final class UnicodeFuncTest
   }
 
   @Test
-  public void runUniCodeThroughCSVReader () throws IOException
+  public void testRunUniCodeThroughCSVReader () throws IOException
   {
     try (final CSVReader aReader = new CSVReader (new NonBlockingStringReader (COMPOUND_STRING)))
     {
@@ -88,7 +88,7 @@ public final class UnicodeFuncTest
   }
 
   @Test
-  public void runUniCodeThroughCSVWriter () throws IOException
+  public void testRunUniCodeThroughCSVWriter () throws IOException
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     try (final CSVWriter aWriter = new CSVWriter (aSW))
@@ -99,7 +99,7 @@ public final class UnicodeFuncTest
   }
 
   @Test
-  public void runASCIIThroughCSVWriter () throws IOException
+  public void testRunASCIIThroughCSVWriter () throws IOException
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     try (final CSVWriter aWriter = new CSVWriter (aSW))
@@ -110,7 +110,7 @@ public final class UnicodeFuncTest
   }
 
   @Test
-  public void writeThenReadAscii () throws IOException
+  public void testWriteThenReadAscii () throws IOException
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     try (final CSVWriter aWriter = new CSVWriter (aSW))
@@ -127,7 +127,7 @@ public final class UnicodeFuncTest
   }
 
   @Test
-  public void writeThenReadTwiceAscii () throws IOException
+  public void testWriteThenReadTwiceAscii () throws IOException
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     try (final CSVWriter aWriter = new CSVWriter (aSW))
@@ -152,7 +152,7 @@ public final class UnicodeFuncTest
   }
 
   @Test
-  public void writeThenReadTwiceUnicode () throws IOException
+  public void testWriteThenReadTwiceUnicode () throws IOException
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     try (final CSVWriter aWriter = new CSVWriter (aSW))
@@ -177,7 +177,7 @@ public final class UnicodeFuncTest
   }
 
   @Test
-  public void writeThenReadTwiceMixedUnicode () throws IOException
+  public void testWriteThenReadTwiceMixedUnicode () throws IOException
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     try (final CSVWriter aWriter = new CSVWriter (aSW))

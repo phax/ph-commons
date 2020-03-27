@@ -38,7 +38,7 @@ public enum EAmPm implements IHasIntID
 
   private final int m_nID;
 
-  private EAmPm (final int nID)
+  EAmPm (final int nID)
   {
     m_nID = nID;
   }

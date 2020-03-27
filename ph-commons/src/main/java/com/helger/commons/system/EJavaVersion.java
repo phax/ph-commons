@@ -71,7 +71,7 @@ public enum EJavaVersion
    * @param dMaxVersionExcl
    *        Maximum version (exclusive)
    */
-  private EJavaVersion (@Nonnegative final double dMinVersionIncl, @Nonnegative final double dMaxVersionExcl)
+  EJavaVersion (@Nonnegative final double dMinVersionIncl, @Nonnegative final double dMaxVersionExcl)
   {
     m_dMinVersionIncl = dMinVersionIncl;
     m_dMaxVersionExcl = dMaxVersionExcl;

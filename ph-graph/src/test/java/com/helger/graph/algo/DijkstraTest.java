@@ -73,7 +73,7 @@ public final class DijkstraTest
   }
 
   @Test
-  public void example1aDirected ()
+  public void testExample1aDirected ()
   {
     final SimpleDirectedGraph g = new SimpleDirectedGraph (new SimpleDirectedGraphObjectFastFactory ());
     for (int i = 1; i <= 6; ++i)
@@ -101,7 +101,7 @@ public final class DijkstraTest
   }
 
   @Test
-  public void example1aUndirected ()
+  public void testExample1aUndirected ()
   {
     final SimpleGraph g = new SimpleGraph (new SimpleGraphObjectFastFactory ());
     for (int i = 1; i <= 6; ++i)
@@ -127,7 +127,7 @@ public final class DijkstraTest
   }
 
   @Test
-  public void example2a ()
+  public void testExample2a ()
   {
     final SimpleDirectedGraph g = new SimpleDirectedGraph (new SimpleDirectedGraphObjectFastFactory ());
     g.createNode ("O");

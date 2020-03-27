@@ -52,7 +52,7 @@ public enum EConfigSourceType implements IHasID <String>
   private final String m_sID;
   private final int m_nDefaultPriority;
 
-  private EConfigSourceType (@Nonnull @Nonempty final String sID, @Nonnegative final int nDefaultPriority)
+  EConfigSourceType (@Nonnull @Nonempty final String sID, @Nonnegative final int nDefaultPriority)
   {
     m_sID = sID;
     m_nDefaultPriority = nDefaultPriority;

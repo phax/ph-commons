@@ -49,7 +49,7 @@ public class JsonParser
 
     private char m_cQuote;
 
-    private EStringQuoteMode (final char cQuote)
+    EStringQuoteMode (final char cQuote)
     {
       m_cQuote = cQuote;
     }

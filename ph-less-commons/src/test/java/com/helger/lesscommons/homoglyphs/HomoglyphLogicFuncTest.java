@@ -31,6 +31,16 @@ public final class HomoglyphLogicFuncTest
 {
   private Homoglyph m_aHomoglyph;
 
+  private static void _checkResult (final HomoglyphSearchResult result,
+                                    final int expectedIndex,
+                                    final String expectedWord,
+                                    final String expectedMatch)
+  {
+    assertEquals (expectedIndex, result.getIndex ());
+    assertEquals (expectedWord, result.getWord ());
+    assertEquals (expectedMatch, result.getMatch ());
+  }
+
   @Nonnull
   private static IntSet _makeSet (@Nonnull final char... aChars)
   {
@@ -51,94 +61,84 @@ public final class HomoglyphLogicFuncTest
   }
 
   @Test
-  public void whenTextDoesNotContainAnyTargetWords_thenNoMatchesFound ()
+  public void testWhenTextDoesNotContainAnyTargetWords_thenNoMatchesFound ()
   {
     final ICommonsList <HomoglyphSearchResult> r = m_aHomoglyph.search ("Nothing to see here", "TARGET");
     assertEquals (0, r.size ());
   }
 
   @Test
-  public void whenTextIdenticalToTargetWord_thenMatchFound ()
+  public void testWhenTextIdenticalToTargetWord_thenMatchFound ()
   {
     final ICommonsList <HomoglyphSearchResult> r = m_aHomoglyph.search ("SOIL", "SOIL");
     assertEquals (1, r.size ());
-    checkResult (r.get (0), 0, "SOIL", "SOIL");
+    _checkResult (r.get (0), 0, "SOIL", "SOIL");
   }
 
   @Test
-  public void whenTextContainsTargetWord_thenMatchFound ()
+  public void testWhenTextContainsTargetWord_thenMatchFound ()
   {
     final ICommonsList <HomoglyphSearchResult> r = m_aHomoglyph.search ("I have SOIL in my garden", "SOIL");
     assertEquals (1, r.size ());
-    checkResult (r.get (0), 7, "SOIL", "SOIL");
+    _checkResult (r.get (0), 7, "SOIL", "SOIL");
   }
 
   @Test
-  public void whenTextContainsOneOfTheTargetWords_thenMatchFound ()
+  public void testWhenTextContainsOneOfTheTargetWords_thenMatchFound ()
   {
     final ICommonsList <HomoglyphSearchResult> r = m_aHomoglyph.search ("I have SOIL in my garden",
                                                                         "CHEESE",
                                                                         "SOIL",
                                                                         "FALCONS");
     assertEquals (1, r.size ());
-    checkResult (r.get (0), 7, "SOIL", "SOIL");
+    _checkResult (r.get (0), 7, "SOIL", "SOIL");
   }
 
   @Test
-  public void whenTargetWordContainsHomoglyphs_thenMatchFound ()
+  public void testWhenTargetWordContainsHomoglyphs_thenMatchFound ()
   {
     final ICommonsList <HomoglyphSearchResult> r = m_aHomoglyph.search ("I have 501L in my garden",
                                                                         "CHEESE",
                                                                         "SOIL",
                                                                         "FALCONS");
     assertEquals (1, r.size ());
-    checkResult (r.get (0), 7, "SOIL", "501L");
+    _checkResult (r.get (0), 7, "SOIL", "501L");
   }
 
   @Test
-  public void whenTargetWordIsAtStartOfText_thenMatchFound ()
+  public void testWhenTargetWordIsAtStartOfText_thenMatchFound ()
   {
     final ICommonsList <HomoglyphSearchResult> r = m_aHomoglyph.search ("FALC0N5 fly", "CHEESE", "SOIL", "FALCONS");
     assertEquals (1, r.size ());
-    checkResult (r.get (0), 0, "FALCONS", "FALC0N5");
+    _checkResult (r.get (0), 0, "FALCONS", "FALC0N5");
   }
 
   @Test
-  public void whenTargetWordIsAtEndOfText_thenMatchFound ()
+  public void testWhenTargetWordIsAtEndOfText_thenMatchFound ()
   {
     final ICommonsList <HomoglyphSearchResult> r = m_aHomoglyph.search ("I like FALC0N5", "CHEESE", "SOIL", "FALCONS");
     assertEquals (1, r.size ());
-    checkResult (r.get (0), 7, "FALCONS", "FALC0N5");
+    _checkResult (r.get (0), 7, "FALCONS", "FALC0N5");
   }
 
   @Test
-  public void whenTargetWordHasDifferentCaseInText_thenMatchFound ()
+  public void testWhenTargetWordHasDifferentCaseInText_thenMatchFound ()
   {
     final ICommonsList <HomoglyphSearchResult> r = m_aHomoglyph.search ("I like fALc0N5 fly", "Falcons");
     assertEquals (1, r.size ());
-    checkResult (r.get (0), 7, "Falcons", "fALc0N5");
+    _checkResult (r.get (0), 7, "Falcons", "fALc0N5");
   }
 
   @Test
-  public void whenTargetWordContainsMultipleMatchesWithDifferentHomoglyphs_thenMatchFound ()
+  public void testWhenTargetWordContainsMultipleMatchesWithDifferentHomoglyphs_thenMatchFound ()
   {
     final ICommonsList <HomoglyphSearchResult> r = m_aHomoglyph.search ("I have 501L and FALC0N5 in my garden, I prefer the SO|L",
                                                                         "CHEESE",
                                                                         "SOIL",
                                                                         "FALCONS");
     assertEquals (3, r.size ());
-    checkResult (r.get (0), 7, "SOIL", "501L");
-    checkResult (r.get (1), 51, "SOIL", "SO|L");
-    checkResult (r.get (2), 16, "FALCONS", "FALC0N5");
-  }
-
-  private void checkResult (final HomoglyphSearchResult result,
-                            final int expectedIndex,
-                            final String expectedWord,
-                            final String expectedMatch)
-  {
-    assertEquals (expectedIndex, result.getIndex ());
-    assertEquals (expectedWord, result.getWord ());
-    assertEquals (expectedMatch, result.getMatch ());
+    _checkResult (r.get (0), 7, "SOIL", "501L");
+    _checkResult (r.get (1), 51, "SOIL", "SO|L");
+    _checkResult (r.get (2), 16, "FALCONS", "FALC0N5");
   }
 }

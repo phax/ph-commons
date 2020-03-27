@@ -131,7 +131,7 @@ public final class CSVReaderTest
   }
 
   @Test
-  public void readerCanHandleNullInString () throws IOException
+  public void testReaderCanHandleNullInString () throws IOException
   {
     final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
     aSB.append ("a,\0b,aReader");
@@ -249,7 +249,7 @@ public final class CSVReaderTest
   }
 
   @Test
-  public void parseQuotedStringWithDefinedSeperator () throws IOException
+  public void testParseQuotedStringWithDefinedSeperator () throws IOException
   {
     final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
     aSB.append ("a\tb\tc").append ('\n'); // tab separated case
@@ -344,8 +344,8 @@ public final class CSVReaderTest
   }
 
   /**
-   * Same as testADoubleQuoteAsDataElement but I changed the quotechar to a single
-   * quote.
+   * Same as testADoubleQuoteAsDataElement but I changed the quotechar to a
+   * single quote.
    *
    * @throws IOException
    *         never
@@ -373,8 +373,8 @@ public final class CSVReaderTest
   }
 
   /**
-   * Same as testADoubleQuoteAsDataElement but I changed the quotechar to a single
-   * quote. Also the middle field is empty.
+   * Same as testADoubleQuoteAsDataElement but I changed the quotechar to a
+   * single quote. Also the middle field is empty.
    *
    * @throws IOException
    *         never
@@ -514,7 +514,7 @@ public final class CSVReaderTest
   }
 
   @Test
-  public void bug106ParseLineWithCarriageReturnNewLineStrictQuotes () throws IOException
+  public void testBug106ParseLineWithCarriageReturnNewLineStrictQuotes () throws IOException
   {
     final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
 
@@ -559,7 +559,7 @@ public final class CSVReaderTest
 
   @SuppressWarnings ("resource")
   @Test (expected = UnsupportedOperationException.class)
-  public void quoteAndEscapeMustBeDifferent ()
+  public void testQuoteAndEscapeMustBeDifferent ()
   {
     final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
 
@@ -570,7 +570,7 @@ public final class CSVReaderTest
 
   @Test (expected = UnsupportedOperationException.class)
   @SuppressWarnings ("resource")
-  public void separatorAndEscapeMustBeDifferent ()
+  public void testSeparatorAndEscapeMustBeDifferent ()
   {
     final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
 
@@ -581,7 +581,7 @@ public final class CSVReaderTest
 
   @Test (expected = UnsupportedOperationException.class)
   @SuppressWarnings ("resource")
-  public void separatorAndQuoteMustBeDifferent ()
+  public void testSeparatorAndQuoteMustBeDifferent ()
   {
     final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
 
@@ -619,13 +619,13 @@ public final class CSVReaderTest
   }
 
   @Test
-  public void canCloseReader () throws IOException
+  public void testCanCloseReader () throws IOException
   {
     _createCSVReader ().close ();
   }
 
   @Test
-  public void canCreateIteratorFromReader () throws IOException
+  public void testCanCreateIteratorFromReader () throws IOException
   {
     try (final CSVReader aReader = _createCSVReader ())
     {
@@ -634,7 +634,7 @@ public final class CSVReaderTest
   }
 
   @Test
-  public void attemptToReadCloseStreamReturnsNull () throws IOException
+  public void testAttemptToReadCloseStreamReturnsNull () throws IOException
   {
     @SuppressWarnings ("resource")
     final NonBlockingBufferedReader aBufferedReader = new NonBlockingBufferedReader (new NonBlockingStringReader ("abc"));
@@ -663,7 +663,7 @@ public final class CSVReaderTest
   }
 
   @Test
-  public void issue108ReaderPlaysWellWithChannels () throws IOException
+  public void testIssue108ReaderPlaysWellWithChannels () throws IOException
   {
     final byte [] bytes = "name\r\nvalue\r\n".getBytes ("UTF-8");
     final NonBlockingByteArrayInputStream bais = new NonBlockingByteArrayInputStream (bytes);

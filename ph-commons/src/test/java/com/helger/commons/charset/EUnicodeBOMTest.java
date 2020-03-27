@@ -33,7 +33,7 @@ import com.helger.commons.string.StringHelper;
 public final class EUnicodeBOMTest
 {
   @Test
-  public void testgetSizeInBytes ()
+  public void testGetSizeInBytes ()
   {
     assertEquals (3, EUnicodeBOM.BOM_UTF_8.getByteCount ());
     assertEquals (2, EUnicodeBOM.BOM_UTF_16_BIG_ENDIAN.getByteCount ());

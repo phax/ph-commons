@@ -42,7 +42,7 @@ public final class ICSVLineReaderTest
 
   @SuppressWarnings ("resource")
   @Nonnull
-  private static ICSVLineReader createLineReaderforString (@Nonnull final String s, final boolean bKeepCR)
+  private static ICSVLineReader _createLineReaderforString (@Nonnull final String s, final boolean bKeepCR)
   {
     final NonBlockingStringReader sr = new NonBlockingStringReader (s);
     if (bKeepCR)
@@ -51,44 +51,44 @@ public final class ICSVLineReaderTest
   }
 
   @Test
-  public void lineReaderWillKeepCR () throws IOException
+  public void testLineReaderWillKeepCR () throws IOException
   {
-    final ICSVLineReader keepCRReader = createLineReaderforString (ORIGINAL, true);
+    final ICSVLineReader keepCRReader = _createLineReaderforString (ORIGINAL, true);
     assertEquals (WITH_CR, keepCRReader.readLine ());
   }
 
   @Test
-  public void lineReaderWillRemoveCR () throws IOException
+  public void testLineReaderWillRemoveCR () throws IOException
   {
-    final ICSVLineReader noCRReader = createLineReaderforString (ORIGINAL, false);
+    final ICSVLineReader noCRReader = _createLineReaderforString (ORIGINAL, false);
     assertEquals (NO_CR, noCRReader.readLine ());
   }
 
   @Test
-  public void lineReaderKeepingCRWillHandleStringWithNoLinefeed () throws IOException
+  public void testLineReaderKeepingCRWillHandleStringWithNoLinefeed () throws IOException
   {
-    final ICSVLineReader reader = createLineReaderforString (NO_CR, true);
+    final ICSVLineReader reader = _createLineReaderforString (NO_CR, true);
     assertEquals (NO_CR, reader.readLine ());
   }
 
   @Test
-  public void lineReaderNoCRWillHandleStringWithNoLinefeed () throws IOException
+  public void testLineReaderNoCRWillHandleStringWithNoLinefeed () throws IOException
   {
-    final ICSVLineReader reader = createLineReaderforString (NO_CR, false);
+    final ICSVLineReader reader = _createLineReaderforString (NO_CR, false);
     assertEquals (NO_CR, reader.readLine ());
   }
 
   @Test
-  public void lineReaderKeepingCRWillHandleEmptyString () throws IOException
+  public void testLineReaderKeepingCRWillHandleEmptyString () throws IOException
   {
-    final ICSVLineReader reader = createLineReaderforString (EMPTY_STRING, true);
+    final ICSVLineReader reader = _createLineReaderforString (EMPTY_STRING, true);
     assertEquals (NULL_STRING, reader.readLine ());
   }
 
   @Test
-  public void lineReaderNoCRWillHandleEmptyString () throws IOException
+  public void testLineReaderNoCRWillHandleEmptyString () throws IOException
   {
-    final ICSVLineReader reader = createLineReaderforString (EMPTY_STRING, false);
+    final ICSVLineReader reader = _createLineReaderforString (EMPTY_STRING, false);
     assertEquals (NULL_STRING, reader.readLine ());
   }
 }
