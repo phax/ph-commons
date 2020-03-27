@@ -21,6 +21,9 @@ import java.nio.charset.StandardCharsets;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resource.URLResource;
 import com.helger.commons.io.resourceprovider.ClassPathResourceProvider;
@@ -37,7 +40,15 @@ import com.helger.config.source.sysprop.ConfigurationSourceSystemProperty;
 @Immutable
 public final class ConfigFactory
 {
+  private static final Logger LOGGER = LoggerFactory.getLogger (ConfigFactory.class);
   private static final IConfig DEFAULT_INSTANCE = Config.create (createDefaultValueProvider ());
+
+  static
+  {
+    final int nResourceBased = DEFAULT_INSTANCE.getResourceBasedConfigurationValueProviderCount ();
+    if (nResourceBased == 0)
+      LOGGER.warn ("The default Config instance is based soley on system properties and environment variables. No configuration resources were found.");
+  }
 
   @Nonnull
   public static MultiConfigurationValueProvider createDefaultValueProvider ()
@@ -66,21 +77,21 @@ public final class ConfigFactory
                                      nResourceDefaultPrio - 10);
     // Prio 185
     aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForClassPath (ClassLoaderHelper.getDefaultClassLoader (),
-                                                                                             "application.json",
-                                                                                             aURL -> new ConfigurationSourceJson (new URLResource (aURL),
-                                                                                                                                  StandardCharsets.UTF_8)),
+                                                                                       "application.json",
+                                                                                       aURL -> new ConfigurationSourceJson (new URLResource (aURL),
+                                                                                                                            StandardCharsets.UTF_8)),
                                    nResourceDefaultPrio - 15);
     // Prio 180
     aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForClassPath (ClassLoaderHelper.getDefaultClassLoader (),
-                                                                                             "application.properties",
-                                                                                             aURL -> new ConfigurationSourceProperties (new URLResource (aURL),
-                                                                                                                                        StandardCharsets.UTF_8)),
+                                                                                       "application.properties",
+                                                                                       aURL -> new ConfigurationSourceProperties (new URLResource (aURL),
+                                                                                                                                  StandardCharsets.UTF_8)),
                                    nResourceDefaultPrio - 20);
     // Prio 1
     aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForClassPath (ClassLoaderHelper.getDefaultClassLoader (),
-                                                                                             "reference.properties",
-                                                                                             aURL -> new ConfigurationSourceProperties (new URLResource (aURL),
-                                                                                                                                        StandardCharsets.UTF_8)),
+                                                                                       "reference.properties",
+                                                                                       aURL -> new ConfigurationSourceProperties (new URLResource (aURL),
+                                                                                                                                  StandardCharsets.UTF_8)),
                                    1);
     return aMCSVP;
   }
@@ -88,6 +99,11 @@ public final class ConfigFactory
   private ConfigFactory ()
   {}
 
+  /**
+   * Get the default {@link IConfig} instance. This call has linear effort.
+   *
+   * @return The default configuration to be used. Never <code>null</code>.
+   */
   @Nonnull
   public static IConfig getDefaultConfig ()
   {

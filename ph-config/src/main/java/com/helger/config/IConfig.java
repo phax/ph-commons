@@ -16,9 +16,12 @@
  */
 package com.helger.config;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
+import com.helger.commons.mutable.MutableInt;
 import com.helger.commons.traits.IGetterByKeyTrait;
+import com.helger.config.source.res.IConfigurationSourceResource;
 import com.helger.config.value.IConfigurationValueProviderWithPriorityCallback;
 
 /**
@@ -37,4 +40,19 @@ public interface IConfig extends IGetterByKeyTrait <String>
    *        The callback to invoked. May not be <code>null</code>.
    */
   void forEachConfigurationValueProvider (@Nonnull IConfigurationValueProviderWithPriorityCallback aCallback);
+
+  /**
+   * @return The number of resource based configuration sources contained.
+   *         Always &ge; 0.
+   */
+  @Nonnegative
+  default int getResourceBasedConfigurationValueProviderCount ()
+  {
+    final MutableInt aCount = new MutableInt (0);
+    forEachConfigurationValueProvider ( (cvp, prio) -> {
+      if (cvp instanceof IConfigurationSourceResource)
+        aCount.inc ();
+    });
+    return aCount.intValue ();
+  }
 }

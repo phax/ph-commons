@@ -40,10 +40,12 @@ import com.helger.config.source.IConfigurationSource;
  * @author Philip Helger
  */
 @Immutable
-public abstract class AbstractConfigurationSourceResource extends AbstractConfigurationSource
+public abstract class AbstractConfigurationSourceResource extends AbstractConfigurationSource implements
+                                                          IConfigurationSourceResource
 {
-  private static final Logger LOGGER = LoggerFactory.getLogger (AbstractConfigurationSourceResource.class);
   public static final EConfigSourceType SOURCE_TYPE = EConfigSourceType.RESOURCE;
+
+  private static final Logger LOGGER = LoggerFactory.getLogger (AbstractConfigurationSourceResource.class);
 
   private final IReadableResource m_aRes;
 
@@ -70,9 +72,6 @@ public abstract class AbstractConfigurationSourceResource extends AbstractConfig
     }
   }
 
-  /**
-   * @return The resource as passed in the constructor. Never <code>null</code>.
-   */
   @Nonnull
   public final IReadableResource getResource ()
   {
