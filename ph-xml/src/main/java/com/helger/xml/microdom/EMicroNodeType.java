@@ -47,12 +47,12 @@ public enum EMicroNodeType implements IHasIntID
   private final int m_nID;
   private final short m_nDOMNodeType;
 
-  private EMicroNodeType (final int nID)
+  EMicroNodeType (final int nID)
   {
     this (nID, ILLEGAL_DOM_NODE_TYPE);
   }
 
-  private EMicroNodeType (@Nonnegative final int nID, final short nDOMNodeType)
+  EMicroNodeType (@Nonnegative final int nID, final short nDOMNodeType)
   {
     m_nID = nID;
     m_nDOMNodeType = nDOMNodeType;

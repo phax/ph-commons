@@ -251,9 +251,9 @@ public enum EXMLParserProperty implements IHasName
   private boolean m_bWarnedOnceValidator = false;
   private final String m_sValueClassName;
 
-  private EXMLParserProperty (@Nonnull final EXMLParserPropertyType ePropertyType,
-                              @Nonnull @Nonempty final String sName,
-                              @Nonnull @Nonempty final String sValueClassName)
+  EXMLParserProperty (@Nonnull final EXMLParserPropertyType ePropertyType,
+                      @Nonnull @Nonempty final String sName,
+                      @Nonnull @Nonempty final String sValueClassName)
   {
     m_ePropertyType = ePropertyType;
     m_sName = sName;
@@ -262,9 +262,9 @@ public enum EXMLParserProperty implements IHasName
     m_sValueClassName = sValueClassName;
   }
 
-  private EXMLParserProperty (@Nonnull final EXMLParserPropertyType ePropertyType,
-                              @Nonnull @Nonempty final String sName,
-                              @Nonnull final Class <?> aValueClass)
+  EXMLParserProperty (@Nonnull final EXMLParserPropertyType ePropertyType,
+                      @Nonnull @Nonempty final String sName,
+                      @Nonnull final Class <?> aValueClass)
   {
     m_ePropertyType = ePropertyType;
     m_sName = sName;

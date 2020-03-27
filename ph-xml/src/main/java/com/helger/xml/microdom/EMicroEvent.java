@@ -35,7 +35,7 @@ public enum EMicroEvent implements IHasID <String>
 
   private final String m_sID;
 
-  private EMicroEvent (@Nonnull @Nonempty final String sID)
+  EMicroEvent (@Nonnull @Nonempty final String sID)
   {
     m_sID = sID;
   }

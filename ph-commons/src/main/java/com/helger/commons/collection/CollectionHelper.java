@@ -1010,8 +1010,7 @@ public final class CollectionHelper
   {
     final EnumSet <ELEMENTTYPE> ret = EnumSet.noneOf (aEnumClass);
     if (aValues != null)
-      for (final ELEMENTTYPE aValue : aValues)
-        ret.add (aValue);
+      Collections.addAll (ret, aValues);
     return ret;
   }
 
@@ -1074,7 +1073,8 @@ public final class CollectionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  @SuppressFBWarnings (value = { "NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE" }, justification = "When using the constructor with the Comparator it works with null values!")
+  @SuppressFBWarnings (value = { "NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE" },
+                       justification = "When using the constructor with the Comparator it works with null values!")
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsTreeSet <ELEMENTTYPE> newSortedSet (@Nullable final ELEMENTTYPE aValue)
   {
     final CommonsTreeSet <ELEMENTTYPE> ret = newSortedSet ();

@@ -43,7 +43,7 @@ public enum EMessageDigestAlgorithm
 
   private final String m_sAlgorithm;
 
-  private EMessageDigestAlgorithm (@Nonnull @Nonempty final String sAlgorithm)
+  EMessageDigestAlgorithm (@Nonnull @Nonempty final String sAlgorithm)
   {
     m_sAlgorithm = sAlgorithm;
   }

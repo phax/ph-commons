@@ -576,7 +576,7 @@ public enum EXMLParserFeature implements IHasName
   @CodingStyleguideUnaware
   private boolean m_bWarnedOnce = false;
 
-  private EXMLParserFeature (@Nonnull final EXMLParserFeatureType eType, @Nonnull @Nonempty final String sName)
+  EXMLParserFeature (@Nonnull final EXMLParserFeatureType eType, @Nonnull @Nonempty final String sName)
   {
     m_eType = eType;
     m_sName = sName;

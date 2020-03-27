@@ -116,7 +116,7 @@ public enum EKeyStoreLoadError implements IHasID <String>, IHasDisplayTextWithAr
   private final String m_sID;
   private final EKeyStoreLoadErrorText m_aDisplayText;
 
-  private EKeyStoreLoadError (@Nonnull @Nonempty final String sID, @Nonnull final EKeyStoreLoadErrorText aDisplayText)
+  EKeyStoreLoadError (@Nonnull @Nonempty final String sID, @Nonnull final EKeyStoreLoadErrorText aDisplayText)
   {
     m_sID = sID;
     m_aDisplayText = aDisplayText;

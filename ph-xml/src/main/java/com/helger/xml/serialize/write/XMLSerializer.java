@@ -185,7 +185,7 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
                               @Nullable final Node aNextSibling)
   {
     // use either local name or tag name (depending on namespace prefix)
-    final String sTagName = aElement.getLocalName () != null ? aElement.getLocalName () : aElement.getTagName ();
+    final String sTagName = XMLHelper.getLocalNameOrTagName (aElement);
 
     // May be null!
     final Document aDoc = aElement.getOwnerDocument ();
@@ -226,7 +226,7 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
         // only available when reading via DOM
         if (!XMLConstants.XMLNS_ATTRIBUTE_NS_URI.equals (sAttrNamespaceURI))
         {
-          final String sAttrName = aAttr.getLocalName () != null ? aAttr.getLocalName () : aAttr.getName ();
+          final String sAttrName = XMLHelper.getLocalNameOrName (aAttr);
           final String sAttrValue = aAttr.getValue ();
           String sAttributeNSPrefix = null;
           if (bEmitNamespaces)
@@ -248,10 +248,18 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
       // Determine indent
       final Element aParentElement = aParentNode != null &&
                                      aParentNode.getNodeType () == Node.ELEMENT_NODE ? (Element) aParentNode : null;
-      final String sParentNamespaceURI = aParentElement != null ? aParentNode.getNamespaceURI () : null;
-      final String sParentTagName = aParentElement != null ? aParentElement.getLocalName () != null ? aParentElement.getLocalName ()
-                                                                                                    : aParentElement.getTagName ()
-                                                           : null;
+      final String sParentNamespaceURI;
+      final String sParentTagName;
+      if (aParentElement != null)
+      {
+        sParentNamespaceURI = aParentNode.getNamespaceURI ();
+        sParentTagName = XMLHelper.getLocalNameOrTagName (aParentElement);
+      }
+      else
+      {
+        sParentNamespaceURI = null;
+        sParentTagName = null;
+      }
       final EXMLSerializeIndent eIndentOuter = m_aSettings.getIndentDeterminator ()
                                                           .getIndentOuter (sParentNamespaceURI,
                                                                            sParentTagName,

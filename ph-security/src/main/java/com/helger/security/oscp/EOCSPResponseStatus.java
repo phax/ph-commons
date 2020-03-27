@@ -26,7 +26,7 @@ import com.helger.commons.state.ISuccessIndicator;
 
 /**
  * OSCP response status as enum.
- * 
+ *
  * @author Philip Helger
  */
 public enum EOCSPResponseStatus implements ISuccessIndicator, IHasIntID
@@ -40,7 +40,7 @@ public enum EOCSPResponseStatus implements ISuccessIndicator, IHasIntID
 
   private final int m_nValue;
 
-  private EOCSPResponseStatus (final int nValue)
+  EOCSPResponseStatus (final int nValue)
   {
     m_nValue = nValue;
   }

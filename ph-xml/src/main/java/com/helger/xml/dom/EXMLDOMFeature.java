@@ -48,7 +48,7 @@ public enum EXMLDOMFeature implements IHasID <String>
 
   private final String m_sID;
 
-  private EXMLDOMFeature (@Nonnull @Nonempty final String sID)
+  EXMLDOMFeature (@Nonnull @Nonempty final String sID)
   {
     m_sID = sID;
   }

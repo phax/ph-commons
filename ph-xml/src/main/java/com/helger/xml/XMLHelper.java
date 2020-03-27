@@ -103,6 +103,24 @@ public final class XMLHelper
     return null;
   }
 
+  @Nonnull
+  public static String getLocalNameOrTagName (@Nonnull final Element aElement)
+  {
+    String ret = aElement.getLocalName ();
+    if (ret == null)
+      ret = aElement.getTagName ();
+    return ret;
+  }
+
+  @Nonnull
+  public static String getLocalNameOrName (@Nonnull final Attr aAttr)
+  {
+    String ret = aAttr.getLocalName ();
+    if (ret == null)
+      ret = aAttr.getName ();
+    return ret;
+  }
+
   @Nullable
   public static String getElementName (@Nullable final Node aNode)
   {
@@ -113,10 +131,7 @@ public final class XMLHelper
     }
     if (aNode instanceof Element)
     {
-      String ret = aNode.getLocalName ();
-      if (ret == null)
-        ret = ((Element) aNode).getTagName ();
-      return ret;
+      return getLocalNameOrTagName ((Element) aNode);
     }
     return null;
   }

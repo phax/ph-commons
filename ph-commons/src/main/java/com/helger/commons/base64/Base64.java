@@ -265,7 +265,7 @@ public final class Base64
   public static final Charset PREFERRED_ENCODING = StandardCharsets.US_ASCII;
 
   // Indicates white space in encoding
-  protected static final byte WHITE_SPACE_ENC = -5;
+  static final byte WHITE_SPACE_ENC = -5;
 
   private static final byte EQUALS_SIGN_ENC = -1;
   // Indicates equals sign in encoding

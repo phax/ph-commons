@@ -94,7 +94,7 @@ public enum EXMLDOMNodeType implements IHasIntID
 
   private final int m_nValue;
 
-  private EXMLDOMNodeType (@Nonnegative final short nValue)
+  EXMLDOMNodeType (@Nonnegative final short nValue)
   {
     m_nValue = nValue;
   }

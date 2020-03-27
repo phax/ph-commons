@@ -37,7 +37,7 @@ public enum EXMLVersion
 
   private final String m_sVersion;
 
-  private EXMLVersion (@Nonnull @Nonempty final String sVersion)
+  EXMLVersion (@Nonnull @Nonempty final String sVersion)
   {
     m_sVersion = sVersion;
   }

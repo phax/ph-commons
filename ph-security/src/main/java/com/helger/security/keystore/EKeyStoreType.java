@@ -53,7 +53,7 @@ public enum EKeyStoreType implements IKeyStoreType
 
   private final String m_sID;
 
-  private EKeyStoreType (@Nonnull @Nonempty final String sID)
+  EKeyStoreType (@Nonnull @Nonempty final String sID)
   {
     m_sID = sID;
   }

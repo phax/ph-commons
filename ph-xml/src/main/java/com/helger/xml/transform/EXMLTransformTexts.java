@@ -36,7 +36,7 @@ public enum EXMLTransformTexts implements IHasDisplayText
 
   private final IMultilingualText m_aTP;
 
-  private EXMLTransformTexts (@Nonnull final String sDE, @Nonnull final String sEN)
+  EXMLTransformTexts (@Nonnull final String sDE, @Nonnull final String sEN)
   {
     m_aTP = TextHelper.create_DE_EN (sDE, sEN);
   }

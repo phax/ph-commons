@@ -44,7 +44,7 @@ public enum EMacAlgorithm
 
   private final String m_sAlgorithm;
 
-  private EMacAlgorithm (@Nonnull @Nonempty final String sAlgorithm)
+  EMacAlgorithm (@Nonnull @Nonempty final String sAlgorithm)
   {
     m_sAlgorithm = sAlgorithm;
   }
@@ -98,7 +98,7 @@ public enum EMacAlgorithm
   /**
    * Create a new {@link SecretKeySpec} with this algorithm and the provided key
    * bytes.
-   * 
+   *
    * @param aKey
    *        The key bytes to use. May not be <code>null</code>.
    * @return The new {@link SecretKeySpec}.
