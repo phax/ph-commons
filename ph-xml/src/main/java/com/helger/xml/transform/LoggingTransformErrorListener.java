@@ -25,7 +25,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.error.IError;
 import com.helger.commons.error.level.IErrorLevel;
 import com.helger.commons.log.LogHelper;
@@ -36,10 +35,9 @@ import com.helger.commons.log.LogHelper;
  * @author Philip Helger
  */
 @Immutable
-@CodingStyleguideUnaware ("logger too visible by purpose")
 public class LoggingTransformErrorListener extends AbstractTransformErrorListener
 {
-  protected static final Logger LOGGER = LoggerFactory.getLogger (LoggingTransformErrorListener.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (LoggingTransformErrorListener.class);
 
   private final Locale m_aDisplayLocale;
 

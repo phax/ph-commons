@@ -43,7 +43,7 @@ public final class TypeConverterException extends RuntimeException
     private final int m_nParamCount;
     private final String m_sMsg;
 
-    private EReason (@Nonnegative final int nParamCount, @Nonnull @Nonempty final String sMsg)
+    EReason (@Nonnegative final int nParamCount, @Nonnull @Nonempty final String sMsg)
     {
       m_nParamCount = nParamCount;
       m_sMsg = sMsg;

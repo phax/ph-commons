@@ -35,7 +35,7 @@ public enum ESortOrder implements ISortOrderIndicator
 
   private final int m_nValue;
 
-  private ESortOrder (@Nonnegative final int nValue)
+  ESortOrder (@Nonnegative final int nValue)
   {
     m_nValue = nValue;
   }

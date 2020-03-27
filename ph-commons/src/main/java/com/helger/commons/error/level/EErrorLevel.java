@@ -49,7 +49,7 @@ public enum EErrorLevel implements IErrorLevel
   private final String m_sID;
   private final int m_nNumericLevel;
 
-  private EErrorLevel (@Nonnull @Nonempty final String sID, @Nonnegative final int nNumericLevel)
+  EErrorLevel (@Nonnull @Nonempty final String sID, @Nonnegative final int nNumericLevel)
   {
     m_sID = sID;
     m_nNumericLevel = nNumericLevel;

@@ -47,7 +47,7 @@ public enum EJavaVersion
   JDK_14 (58.0, 59.0);
 
   /** The current version. */
-  private static volatile EJavaVersion s_aInstance = null;
+  private static EJavaVersion s_aInstance = null;
 
   private final double m_dMinVersionIncl;
   private final double m_dMaxVersionExcl;
@@ -56,7 +56,7 @@ public enum EJavaVersion
   /**
    * Constructor for the UNKNOWN element
    */
-  private EJavaVersion ()
+  EJavaVersion ()
   {
     m_dMinVersionIncl = CGlobal.ILLEGAL_DOUBLE;
     m_dMaxVersionExcl = CGlobal.ILLEGAL_DOUBLE;

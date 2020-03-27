@@ -44,7 +44,7 @@ public enum EHttpMethod implements IHasName
 
   private final String m_sName;
 
-  private EHttpMethod (@Nonnull @Nonempty final String sName)
+  EHttpMethod (@Nonnull @Nonempty final String sName)
   {
     m_sName = sName;
   }

@@ -35,7 +35,7 @@ public enum EXMLSerializeComments implements IHasID <String>
 
   private final String m_sID;
 
-  private EXMLSerializeComments (@Nonnull @Nonempty final String sID)
+  EXMLSerializeComments (@Nonnull @Nonempty final String sID)
   {
     m_sID = sID;
   }

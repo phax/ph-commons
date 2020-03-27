@@ -46,7 +46,7 @@ public enum EXMLCharMode implements IHasID <String>
 
   private final String m_sID;
 
-  private EXMLCharMode (@Nonnull @Nonempty final String sID)
+  EXMLCharMode (@Nonnull @Nonempty final String sID)
   {
     m_sID = sID;
   }

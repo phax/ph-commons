@@ -140,10 +140,10 @@ public enum ELicense implements ILicense
    * @param sURL
    *        The URL of the license.
    */
-  private ELicense (@Nonnull @Nonempty final String sID,
-                    @Nonnull @Nonempty final String sName,
-                    @Nullable final Version aVersion,
-                    @Nullable final String sURL)
+  ELicense (@Nonnull @Nonempty final String sID,
+            @Nonnull @Nonempty final String sName,
+            @Nullable final Version aVersion,
+            @Nullable final String sURL)
   {
     m_sID = sID;
     m_sName = sName;

@@ -65,7 +65,7 @@ public enum EFileIOErrorCode implements ISuccessIndicator, IHasIntID
 
   private final int m_nID;
 
-  private EFileIOErrorCode (@Nonnegative final int nID)
+  EFileIOErrorCode (@Nonnegative final int nID)
   {
     m_nID = nID;
   }

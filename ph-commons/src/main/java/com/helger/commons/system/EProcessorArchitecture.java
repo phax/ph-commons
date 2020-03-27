@@ -41,11 +41,11 @@ public enum EProcessorArchitecture
   private static final String SYSTEM_PROPERTY_SUN_ARCH_DATA_MODEL = "sun.arch.data.model";
 
   /** The current architecture. */
-  private static volatile EProcessorArchitecture s_aInstance = null;
+  private static EProcessorArchitecture s_aInstance = null;
 
   private final int m_nBits;
 
-  private EProcessorArchitecture (final int nBits)
+  EProcessorArchitecture (final int nBits)
   {
     if (nBits > 0 && (nBits % CGlobal.BITS_PER_BYTE) != 0)
       throw new IllegalArgumentException ("Passed bit count is illegal: " + nBits);

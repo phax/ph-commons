@@ -38,7 +38,7 @@ public enum ETriState implements IHasID <String>, ITriState
   private final String m_sID;
   private final Boolean m_aBoolean;
 
-  private ETriState (@Nonnull @Nonempty final String sID, @Nullable final Boolean aBoolean)
+  ETriState (@Nonnull @Nonempty final String sID, @Nullable final Boolean aBoolean)
   {
     m_sID = sID;
     m_aBoolean = aBoolean;

@@ -63,7 +63,7 @@ public enum EMimeContentType implements IHasID <String>
    * @param sText
    *        Must be lowercase MIME content type
    */
-  private EMimeContentType (@Nonnull @Nonempty final String sText)
+  EMimeContentType (@Nonnull @Nonempty final String sText)
   {
     m_sText = sText;
   }

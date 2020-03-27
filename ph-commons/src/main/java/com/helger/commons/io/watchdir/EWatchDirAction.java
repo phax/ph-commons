@@ -37,7 +37,7 @@ public enum EWatchDirAction implements IHasID <String>
 
   private final String m_sID;
 
-  private EWatchDirAction (@Nonnull @Nonempty final String sID)
+  EWatchDirAction (@Nonnull @Nonempty final String sID)
   {
     m_sID = sID;
   }

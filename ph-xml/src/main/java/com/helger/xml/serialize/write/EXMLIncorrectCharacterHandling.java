@@ -138,7 +138,7 @@ public enum EXMLIncorrectCharacterHandling
    *        Should the invalid character be replaced with nothing? May only be
    *        <code>true</code> if bIsTestRequired is <code>true</code>
    */
-  private EXMLIncorrectCharacterHandling (final boolean bIsNotifyRequired, final boolean bReplaceWithNothing)
+  EXMLIncorrectCharacterHandling (final boolean bIsNotifyRequired, final boolean bReplaceWithNothing)
   {
     m_bIsNotifyRequired = bIsNotifyRequired;
     m_bReplaceWithNothing = bReplaceWithNothing;

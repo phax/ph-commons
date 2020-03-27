@@ -170,7 +170,8 @@ public final class JsonEscapeHelper
       {
         if (i > nMax - 1)
           throw new IllegalArgumentException ("JSON string ends with escape char");
-        final char cNext = aInput[++i];
+        ++i;
+        final char cNext = aInput[i];
         switch (cNext)
         {
           case '"':
@@ -200,10 +201,14 @@ public final class JsonEscapeHelper
             if (i + 4 > nMax - 1)
               throw new IllegalArgumentException ("JSON unicode escape sequence \\uXXXX is incomplete: " +
                                                   new String (aInput, i - 1, 6));
-            final char cU1 = aInput[++i];
-            final char cU2 = aInput[++i];
-            final char cU3 = aInput[++i];
-            final char cU4 = aInput[++i];
+            ++i;
+            final char cU1 = aInput[i];
+            ++i;
+            final char cU2 = aInput[i];
+            ++i;
+            final char cU3 = aInput[i];
+            ++i;
+            final char cU4 = aInput[i];
             aSB.append ((char) (_hexval (cU1) << 12 | _hexval (cU2) << 8 | _hexval (cU3) << 4 | _hexval (cU4)));
             break;
           }

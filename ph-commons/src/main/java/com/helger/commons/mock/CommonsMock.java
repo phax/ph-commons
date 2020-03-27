@@ -441,7 +441,7 @@ public final class CommonsMock
    * @param <T>
    *        The type to be mocked
    */
-  public final <T> void registerPerInstanceConstant (@Nonnull final T aObject)
+  public <T> void registerPerInstanceConstant (@Nonnull final T aObject)
   {
     registerPerInstance (MockSupplier.createConstant (aObject));
   }
@@ -460,7 +460,7 @@ public final class CommonsMock
    * @param <T>
    *        The type to be mocked
    */
-  public final <T> void registerPerInstance (@Nonnull final Class <T> aClass, @Nonnull final Supplier <T> aSupplier)
+  public <T> void registerPerInstance (@Nonnull final Class <T> aClass, @Nonnull final Supplier <T> aSupplier)
   {
     registerPerInstance (MockSupplier.createNoParams (aClass, aSupplier));
   }
@@ -479,9 +479,9 @@ public final class CommonsMock
    * @param <T>
    *        The type to be mocked
    */
-  public final <T> void registerPerInstance (@Nonnull final Class <T> aDstClass,
-                                             @Nonnull final Param [] aParams,
-                                             @Nonnull final Function <IGetterDirectTrait [], T> aSupplier)
+  public <T> void registerPerInstance (@Nonnull final Class <T> aDstClass,
+                                       @Nonnull final Param [] aParams,
+                                       @Nonnull final Function <IGetterDirectTrait [], T> aSupplier)
   {
     registerPerInstance (MockSupplier.create (aDstClass, aParams, aSupplier));
   }
@@ -492,7 +492,7 @@ public final class CommonsMock
    * @param aSupplier
    *        The supplier to be registered. May not be <code>null</code>.
    */
-  public final void registerPerInstance (@Nonnull final MockSupplier aSupplier)
+  public void registerPerInstance (@Nonnull final MockSupplier aSupplier)
   {
     // Register per-instance
     _register (aSupplier, m_aPerInstanceSupplier);

@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
-import com.helger.commons.concurrent.SimpleLock;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.string.StringHelper;
 import com.helger.scope.GlobalScope;
 import com.helger.scope.IGlobalScope;
@@ -67,11 +67,11 @@ public final class ScopeManager
 
   private static final Logger LOGGER = LoggerFactory.getLogger (ScopeManager.class);
 
-  private static final SimpleLock s_aGlobalLock = new SimpleLock ();
+  private static final SimpleReadWriteLock s_aRWLock = new SimpleReadWriteLock ();
 
   /** Global scope */
-  @GuardedBy ("s_aGlobalLock")
-  private static volatile IGlobalScope s_aGlobalScope;
+  @GuardedBy ("s_aRWLock")
+  private static IGlobalScope s_aGlobalScope;
 
   /** Request scope */
   private static final ThreadLocal <IRequestScope> s_aRequestScopeTL = new ThreadLocal <> ();
@@ -94,7 +94,7 @@ public final class ScopeManager
   {
     ValueEnforcer.notNull (aGlobalScope, "GlobalScope");
 
-    s_aGlobalLock.locked ( () -> {
+    s_aRWLock.writeLocked ( () -> {
       if (s_aGlobalScope != null)
         throw new IllegalStateException ("Another global scope with ID '" +
                                          s_aGlobalScope.getID () +
@@ -138,7 +138,7 @@ public final class ScopeManager
   @Nullable
   public static IGlobalScope getGlobalScopeOrNull ()
   {
-    final IGlobalScope ret = s_aGlobalScope;
+    final IGlobalScope ret = s_aRWLock.readLockedGet ( () -> s_aGlobalScope);
     if (ret != null && ret.isValid ())
       return ret;
     // Return null if it is not set, in destruction or already destroyed
@@ -164,7 +164,7 @@ public final class ScopeManager
    */
   public static void onGlobalEnd ()
   {
-    s_aGlobalLock.locked ( () -> {
+    s_aRWLock.writeLocked ( () -> {
       /**
        * This code removes all attributes set for the global context. This is
        * necessary, since the attributes would survive a Tomcat servlet context

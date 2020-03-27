@@ -75,9 +75,14 @@ public final class CodepointHelper
     for (int i = 0; i < aChars.length; i++)
     {
       final char n = aChars[i];
-      final int c = Character.isHighSurrogate (n) &&
-                    i + 1 < aChars.length &&
-                    Character.isLowSurrogate (aChars[i + 1]) ? Character.toCodePoint (n, aChars[i++]) : (int) n;
+      final int c;
+      if (Character.isHighSurrogate (n) && i + 1 < aChars.length && Character.isLowSurrogate (aChars[i + 1]))
+      {
+        i++;
+        c = Character.toCodePoint (n, aChars[i]);
+      }
+      else
+        c = n;
       if (c < nLow || c > nHigh)
         return false;
     }

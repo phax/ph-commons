@@ -461,7 +461,7 @@ public enum ECountry implements IHasDisplayText, IHasID <String>
   private final boolean m_bIsCountrySub;
   private final Locale m_aCountry;
 
-  private ECountry (@Nonnull final IHasDisplayText eName)
+  ECountry (@Nonnull final IHasDisplayText eName)
   {
     m_sID = name ().toLowerCase (Locale.US);
     // Work around for illegal country code "UK"

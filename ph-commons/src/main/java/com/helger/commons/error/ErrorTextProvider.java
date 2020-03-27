@@ -66,7 +66,7 @@ public class ErrorTextProvider implements IErrorTextProvider, Serializable, IClo
 
     private final String m_sID;
 
-    private EField (@Nonnull @Nonempty final String sID)
+    EField (@Nonnull @Nonempty final String sID)
     {
       m_sID = sID;
     }

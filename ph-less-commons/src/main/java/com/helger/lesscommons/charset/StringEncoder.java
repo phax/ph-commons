@@ -157,7 +157,8 @@ public final class StringEncoder
     }
     if (m_aInChar.hasRemaining ())
       throw new IllegalStateException ();
-    assert m_nReadOffset == sSource.length ();
+    if (m_nReadOffset != sSource.length ())
+      throw new IllegalStateException ();
 
     final CoderResult aResult = m_aEncoder.flush (aDestBuffer);
     if (aResult == CoderResult.OVERFLOW)

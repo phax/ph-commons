@@ -63,7 +63,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
   private static final IMutableStatisticsHandlerCounter s_aUniqueSessionCounter = StatisticsManager.getCounterHandler (ScopeSessionManager.class.getName () +
                                                                                                                        "$UNIQUE_SESSIONS");
 
-  private static volatile ScopeSessionManager s_aInstance = null;
+  private static ScopeSessionManager s_aInstance = null;
 
   /** All contained session scopes. */
   @GuardedBy ("m_aRWLock")

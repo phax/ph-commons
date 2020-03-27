@@ -82,7 +82,7 @@ public enum EOperatingSystem implements IHasDisplayName
   private static final Logger LOGGER = LoggerFactory.getLogger (EOperatingSystem.class);
 
   /** The current OS. */
-  private static volatile EOperatingSystem s_aInstance = null;
+  private static EOperatingSystem s_aInstance = null;
 
   /** The human-readable name for this operating system. */
   private final String m_sDisplayName;
@@ -98,7 +98,7 @@ public enum EOperatingSystem implements IHasDisplayName
    *        <code>true</code> if this OS is Unix based, <code>false</code> if
    *        not
    */
-  private EOperatingSystem (@Nonnull @Nonempty final String sDisplayName, final boolean bUnixBased)
+  EOperatingSystem (@Nonnull @Nonempty final String sDisplayName, final boolean bUnixBased)
   {
     m_sDisplayName = sDisplayName;
     m_bUnixBased = bUnixBased;

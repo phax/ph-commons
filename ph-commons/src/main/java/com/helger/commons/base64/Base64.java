@@ -265,10 +265,10 @@ public final class Base64
   public static final Charset PREFERRED_ENCODING = StandardCharsets.US_ASCII;
 
   // Indicates white space in encoding
-  static final byte WHITE_SPACE_ENC = -5;
+  protected static final byte WHITE_SPACE_ENC = -5;
 
-  // Indicates equals sign in encoding
   private static final byte EQUALS_SIGN_ENC = -1;
+  // Indicates equals sign in encoding
 
   /* ******** S T A N D A R D B A S E 6 4 A L P H A B E T ******** */
 
@@ -1775,7 +1775,7 @@ public final class Base64
       try (final NonBlockingByteArrayOutputStream baos = new NonBlockingByteArrayOutputStream ())
       {
         try (final Base64OutputStream b64os = new Base64OutputStream (baos, ENCODE | nOptions);
-            final GZIPOutputStream gzos = new GZIPOutputStream (b64os))
+             final GZIPOutputStream gzos = new GZIPOutputStream (b64os))
         {
           gzos.write (aSource, nOfs, nLen);
         }
@@ -2168,8 +2168,8 @@ public final class Base64
       if (GZIPInputStream.GZIP_MAGIC == head)
       {
         try (final NonBlockingByteArrayOutputStream baos = new NonBlockingByteArrayOutputStream ();
-            final NonBlockingByteArrayInputStream bais = new NonBlockingByteArrayInputStream (bytes);
-            final GZIPInputStream gzis = new GZIPInputStream (bais))
+             final NonBlockingByteArrayInputStream bais = new NonBlockingByteArrayInputStream (bytes);
+             final GZIPInputStream gzis = new GZIPInputStream (bais))
         {
           final byte [] buffer = new byte [2048];
           int length;

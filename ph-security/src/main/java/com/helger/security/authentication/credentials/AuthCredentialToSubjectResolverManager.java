@@ -36,7 +36,7 @@ import com.helger.security.authentication.subject.IAuthSubject;
 @Immutable
 public final class AuthCredentialToSubjectResolverManager
 {
-  private static volatile ICommonsList <IAuthCredentialToSubjectResolverSPI> s_aHdlList;
+  private static final ICommonsList <IAuthCredentialToSubjectResolverSPI> s_aHdlList;
 
   static
   {

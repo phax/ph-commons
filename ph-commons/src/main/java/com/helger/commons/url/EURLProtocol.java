@@ -143,7 +143,7 @@ public enum EURLProtocol implements IURLProtocol
 
   private final String m_sProtocol;
 
-  private EURLProtocol (@Nonnull @Nonempty final String sProtocol)
+  EURLProtocol (@Nonnull @Nonempty final String sProtocol)
   {
     m_sProtocol = sProtocol;
   }

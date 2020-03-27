@@ -93,11 +93,11 @@ public enum EJVMVendor
   }
 
   /** The current vendor. */
-  private static volatile EJVMVendor s_aInstance = null;
+  private static EJVMVendor s_aInstance = null;
 
   private final boolean m_bIsIt;
 
-  private EJVMVendor ()
+  EJVMVendor ()
   {
     m_bIsIt = determineIfItIsCurrentJVMVendor ();
   }

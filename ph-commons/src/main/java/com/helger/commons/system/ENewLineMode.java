@@ -41,7 +41,7 @@ public enum ENewLineMode
 
   private final String m_sText;
 
-  private ENewLineMode (@Nonnull @Nonempty final String sText)
+  ENewLineMode (@Nonnull @Nonempty final String sText)
   {
     m_sText = sText;
   }

@@ -24,7 +24,6 @@ import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXParseException;
 
 import com.helger.commons.CGlobal;
-import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.error.level.IErrorLevel;
@@ -36,10 +35,9 @@ import com.helger.commons.log.LogHelper;
  * @author Philip Helger
  */
 @Immutable
-@CodingStyleguideUnaware ("logger too visible by purpose")
 public class LoggingSAXErrorHandler extends AbstractSAXErrorHandler
 {
-  protected static final Logger LOGGER = LoggerFactory.getLogger (LoggingSAXErrorHandler.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (LoggingSAXErrorHandler.class);
 
   public LoggingSAXErrorHandler ()
   {}

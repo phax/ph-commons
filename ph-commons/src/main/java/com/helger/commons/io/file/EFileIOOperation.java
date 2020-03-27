@@ -37,7 +37,7 @@ public enum EFileIOOperation
 
   private final int m_nParamCount;
 
-  private EFileIOOperation (@Nonnegative final int nParamCount)
+  EFileIOOperation (@Nonnegative final int nParamCount)
   {
     m_nParamCount = nParamCount;
   }

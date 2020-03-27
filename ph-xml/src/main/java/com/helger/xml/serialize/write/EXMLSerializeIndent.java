@@ -46,7 +46,7 @@ public enum EXMLSerializeIndent implements IHasID <String>
   private final boolean m_bIndent;
   private final boolean m_bAlign;
 
-  private EXMLSerializeIndent (@Nonnull @Nonempty final String sID, final boolean bIndent, final boolean bAlign)
+  EXMLSerializeIndent (@Nonnull @Nonempty final String sID, final boolean bIndent, final boolean bAlign)
   {
     m_sID = sID;
     m_bAlign = bAlign;

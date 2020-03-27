@@ -47,7 +47,7 @@ public enum EXMLSerializeXMLDeclaration implements IHasID <String>
 
   private final String m_sID;
 
-  private EXMLSerializeXMLDeclaration (@Nonnull @Nonempty final String sID)
+  EXMLSerializeXMLDeclaration (@Nonnull @Nonempty final String sID)
   {
     m_sID = sID;
   }

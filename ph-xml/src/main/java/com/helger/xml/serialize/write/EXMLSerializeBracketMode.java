@@ -42,7 +42,7 @@ public enum EXMLSerializeBracketMode implements IHasID <String>
 
   private final String m_sID;
 
-  private EXMLSerializeBracketMode (@Nonnull @Nonempty final String sID)
+  EXMLSerializeBracketMode (@Nonnull @Nonempty final String sID)
   {
     m_sID = sID;
   }

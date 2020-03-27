@@ -47,7 +47,7 @@ public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBCont
 {
   private static final class SingletonHolder
   {
-    static final JAXBContextCache s_aInstance = new JAXBContextCache ();
+    protected static final JAXBContextCache s_aInstance = new JAXBContextCache ();
   }
 
   private static final Logger LOGGER = LoggerFactory.getLogger (JAXBContextCache.class);

@@ -43,7 +43,7 @@ public enum EXMLSerializeVersion implements IHasID <String>
   private final String m_sID;
   private final EXMLVersion m_eXMLVersion;
 
-  private EXMLSerializeVersion (@Nonnull @Nonempty final String sID, @Nullable final EXMLVersion eXMLVersion)
+  EXMLSerializeVersion (@Nonnull @Nonempty final String sID, @Nullable final EXMLVersion eXMLVersion)
   {
     m_sID = sID;
     m_eXMLVersion = eXMLVersion;

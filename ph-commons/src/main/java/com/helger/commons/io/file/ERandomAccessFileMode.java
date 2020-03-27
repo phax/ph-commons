@@ -51,7 +51,7 @@ public enum ERandomAccessFileMode
 
   private final String m_sMode;
 
-  private ERandomAccessFileMode (@Nonnull @Nonempty final String sMode)
+  ERandomAccessFileMode (@Nonnull @Nonempty final String sMode)
   {
     m_sMode = sMode;
   }

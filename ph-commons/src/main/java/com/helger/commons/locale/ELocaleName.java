@@ -40,7 +40,7 @@ public enum ELocaleName implements IHasDisplayText
 
   private final IMultilingualText m_aTP;
 
-  private ELocaleName (@Nonnull final String sDE, @Nonnull final String sEN)
+  ELocaleName (@Nonnull final String sDE, @Nonnull final String sEN)
   {
     m_aTP = TextHelper.create_DE_EN (sDE, sEN);
   }

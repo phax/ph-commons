@@ -36,7 +36,7 @@ public enum EXMLSerializeDocType implements IHasID <String>
 
   private final String m_sID;
 
-  private EXMLSerializeDocType (@Nonnull @Nonempty final String sID)
+  EXMLSerializeDocType (@Nonnull @Nonempty final String sID)
   {
     m_sID = sID;
   }

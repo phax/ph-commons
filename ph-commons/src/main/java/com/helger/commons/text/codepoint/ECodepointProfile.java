@@ -68,7 +68,7 @@ public enum ECodepointProfile
 
   private final IntPredicate m_aFilter;
 
-  private ECodepointProfile (@Nonnull final IntPredicate aFilter)
+  ECodepointProfile (@Nonnull final IntPredicate aFilter)
   {
     m_aFilter = aFilter;
   }

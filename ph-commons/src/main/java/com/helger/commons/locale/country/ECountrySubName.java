@@ -210,7 +210,7 @@ public enum ECountrySubName implements IHasDisplayText
 
   private final IMultilingualText m_aTP;
 
-  private ECountrySubName (@Nonnull final String sDE, @Nonnull final String sEN)
+  ECountrySubName (@Nonnull final String sDE, @Nonnull final String sEN)
   {
     m_aTP = TextHelper.create_DE_EN (sDE, sEN);
   }

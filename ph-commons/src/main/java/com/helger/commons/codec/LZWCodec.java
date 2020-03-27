@@ -123,8 +123,6 @@ public class LZWCodec implements IByteArrayCodec
 
   protected abstract static class AbstractLZWDictionary
   {
-    @SuppressWarnings ("hiding")
-    protected static final Logger LOGGER = LoggerFactory.getLogger (AbstractLZWDictionary.class);
     /** Maximum index */
     public static final int MAX_CODE = 4096;
     /** Special code to clear the table */
