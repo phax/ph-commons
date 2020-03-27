@@ -28,9 +28,9 @@ public interface IConfigurationValueProviderWithPriorityCallback
 {
   /**
    * Invoked for a single configuration value provider.
-   * 
+   *
    * @param aCVP
-   *        The Configuration value provider.
+   *        The Configuration value provider. Never <code>null</code>
    * @param nPriority
    *        The priority it has.
    */
