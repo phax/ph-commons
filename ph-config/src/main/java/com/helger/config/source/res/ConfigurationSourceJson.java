@@ -133,12 +133,10 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
     final JsonReader.Builder aBuilder = JsonReader.builder ()
                                                   .setSource (aRes,
                                                               aCharset != null ? aCharset : JsonReader.DEFAULT_CHARSET)
-                                                  .setCustomizeCallback (aParser -> {
-                                                    aParser.setRequireStringQuotes (false)
-                                                           .setAllowSpecialCharsInStrings (true)
-                                                           .setAlwaysUseBigNumber (true)
-                                                           .setTrackPosition (true);
-                                                  })
+                                                  .setCustomizeCallback (aParser -> aParser.setRequireStringQuotes (false)
+                                                                                           .setAllowSpecialCharsInStrings (true)
+                                                                                           .setAlwaysUseBigNumber (true)
+                                                                                           .setTrackPosition (true))
                                                   .setCustomExceptionCallback (ex -> LOGGER.error ("Failed to parse '" +
                                                                                                    aRes.getPath () +
                                                                                                    "' to JSON: " +

@@ -123,10 +123,9 @@ public class Config implements IConfig
     if (aValueProvider instanceof MultiConfigurationValueProvider)
     {
       final MultiConfigurationValueProvider aMulti = (MultiConfigurationValueProvider) aValueProvider;
-      aMulti.forEachConfigurationValueProvider ( (cvp, prio) -> {
-        // Descend
-        forEachConfigurationValueProviderRecursive (cvp, aCallback);
-      });
+      // Descend recursively
+      aMulti.forEachConfigurationValueProvider ( (cvp, prio) -> forEachConfigurationValueProviderRecursive (cvp,
+                                                                                                            aCallback));
     }
     else
     {

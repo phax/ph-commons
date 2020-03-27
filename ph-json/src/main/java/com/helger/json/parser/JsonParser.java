@@ -610,7 +610,7 @@ public class JsonParser
 
     if (bMustCheck)
     {
-      boolean bIsBig;
+      final boolean bIsBig;
       if (r > -922337203685477580L)
       {
         bIsBig = false;
