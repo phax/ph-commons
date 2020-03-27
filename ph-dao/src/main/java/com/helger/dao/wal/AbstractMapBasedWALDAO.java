@@ -797,7 +797,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @ReturnsMutableCopy
   public final ICommonsSet <String> getAllIDs ()
   {
-    return m_aRWLock.readLockedGet ((Supplier <ICommonsSet <String>>) m_aMap::copyOfKeySet);
+    return m_aRWLock.readLockedGet (m_aMap::copyOfKeySet);
   }
 
   @Nonnegative
