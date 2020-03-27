@@ -766,7 +766,19 @@ Add the following to your pom.xml to use this artifact:
 # ph-config
 
 A multi-source configuration manager, that can use system properties, environment variables, resources and application specific values to work with.
-See `ConfigFactory.
+See `ConfigFactory.getDefaultConfig ()` for the starting point. By default the following configurations sources are scanned in this order:
+1. System properties
+1. Environment variables
+1. a JSON file called `private-application.json` - this is mainly to have an easy way to override settings
+1. a properties file called `private-application.properties` - this is mainly to have an easy way to override settings
+1. all JSON files called `application.json` that are in the classpath
+1. all properties files called `application.properties` that are n the classpath
+1. all properties files called `reference.properties` that are in the classpath
+
+## JSON format
+
+The JSON configuration file must be a single large object so it must start with "{" and end with "}".
+The JSON syntax is a bit relaxed and allows for unquoted names but other than that it is regular JSON.
 
 ## Maven usage
 
@@ -775,7 +787,7 @@ Add the following to your pom.xml to use this artifact:
 ```xml
 <dependency>
   <groupId>com.helger</groupId>
-  <artifactId>ph-bc</artifactId>
+  <artifactId>ph-config</artifactId>
   <version>9.4.0</version>
 </dependency>
 ```
