@@ -110,8 +110,25 @@ public class SimpleLock extends ReentrantLock
    * @return The return value of the callable. May be <code>null</code>.
    * @param <T>
    *        Return type
+   * @deprecated Since 9.4.1; Use {@link #lockedGet(Supplier)} instead
    */
+  @Deprecated
   public <T> T locked (@Nonnull final Supplier <? extends T> aSupplier)
+  {
+    return lockedGet (aSupplier);
+  }
+
+  /**
+   * Execute the provided callable in a read lock. Note: no
+   * nullable/non-nullable can be assumed.
+   *
+   * @param aSupplier
+   *        Callable to be executed. May not be <code>null</code>.
+   * @return The return value of the callable. May be <code>null</code>.
+   * @param <T>
+   *        Return type
+   */
+  public <T> T lockedGet (@Nonnull final Supplier <? extends T> aSupplier)
   {
     ValueEnforcer.notNull (aSupplier, "Supplier");
 
@@ -139,8 +156,30 @@ public class SimpleLock extends ReentrantLock
    *        Return type
    * @param <EXTYPE>
    *        Exception type to be thrown
+   * @deprecated Since 9.4.1; Use {@link #lockedGetThrowing(IThrowingSupplier)}
+   *             instead
    */
+  @Deprecated
   public <T, EXTYPE extends Exception> T lockedThrowing (@Nonnull final IThrowingSupplier <? extends T, EXTYPE> aCallable) throws EXTYPE
+  {
+    return lockedGetThrowing (aCallable);
+  }
+
+  /**
+   * Execute the provided callable in a read lock. Note: no
+   * nullable/non-nullable can be assumed.
+   *
+   * @param aCallable
+   *        Callable to be executed. May not be <code>null</code>.
+   * @return The return value of the callable. May be <code>null</code>.
+   * @throws EXTYPE
+   *         If the callable throws the exception
+   * @param <T>
+   *        Return type
+   * @param <EXTYPE>
+   *        Exception type to be thrown
+   */
+  public <T, EXTYPE extends Exception> T lockedGetThrowing (@Nonnull final IThrowingSupplier <? extends T, EXTYPE> aCallable) throws EXTYPE
   {
     ValueEnforcer.notNull (aCallable, "Callable");
 
