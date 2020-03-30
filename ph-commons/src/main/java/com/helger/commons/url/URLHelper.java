@@ -162,6 +162,7 @@ public final class URLHelper
    *        The value to be decoded. May not be <code>null</code>.
    * @return The decoded value.
    * @see #urlDecode(String, Charset)
+   * @since 9.4.1
    */
   @Nullable
   public static String urlDecodeOrNull (@Nonnull final String sValue)
@@ -179,11 +180,30 @@ public final class URLHelper
    *        The charset to use. May not be <code>null</code>.
    * @return The decoded value or <code>null</code>.
    * @see URLDecoder#decode(String, String)
+   * @since 9.4.1
    */
   @Nullable
   public static String urlDecodeOrNull (@Nullable final String sValue, @Nonnull final Charset aCharset)
   {
     return urlDecodeOrDefault (sValue, aCharset, null);
+  }
+
+  /**
+   * URL-decode the passed value automatically handling charset issues. The used
+   * char set is determined by {@link #CHARSET_URL_OBJ}.
+   *
+   * @param sValue
+   *        The value to be decoded. May not be <code>null</code>.
+   * @param sDefault
+   *        The default value to be returned if decoding fails.
+   * @return The decoded value or the default.
+   * @see #urlDecode(String, Charset)
+   * @since 9.4.1
+   */
+  @Nullable
+  public static String urlDecodeOrDefault (@Nonnull final String sValue, @Nullable final String sDefault)
+  {
+    return urlDecodeOrDefault (sValue, CHARSET_URL_OBJ, sDefault);
   }
 
   /**
@@ -198,6 +218,7 @@ public final class URLHelper
    *        The default value to be returned if decoding fails.
    * @return The decoded value or the default.
    * @see URLDecoder#decode(String, String)
+   * @since 9.4.1
    */
   @Nullable
   public static String urlDecodeOrDefault (@Nullable final String sValue,
