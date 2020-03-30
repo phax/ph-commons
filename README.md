@@ -31,6 +31,7 @@ This project was the following modules:
 
 * v9.4.1 - work in progress
     * Added `SimpleLock.(read|write)LockedGet(Throwing)`
+    * The exception handling of `URLHelper.urlDecode` is now backwards compatible
 * v9.4.0 - 2020-03-27
     * Added support for additional HTTP status codes (103, 308, 422, 425, 426, 428, 429, 431, 451, 506, 507, 508 and 511)
     * `JAXBContextCache` has now a method to switch silent mode on or off

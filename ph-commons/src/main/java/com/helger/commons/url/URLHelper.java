@@ -47,6 +47,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.codec.DecodeException;
 import com.helger.commons.codec.IDecoder;
 import com.helger.commons.codec.IEncoder;
 import com.helger.commons.codec.URLCodec;
@@ -116,6 +117,9 @@ public final class URLHelper
    * @param sValue
    *        The value to be decoded. May not be <code>null</code>.
    * @return The decoded value.
+   * @throws IllegalArgumentException
+   *         if something goes wrong
+   * @see #urlDecode(String, Charset)
    */
   @Nonnull
   public static String urlDecode (@Nonnull final String sValue)
@@ -133,13 +137,22 @@ public final class URLHelper
    * @param aCharset
    *        The charset to use. May not be <code>null</code>.
    * @return The decoded value.
+   * @throws IllegalArgumentException
+   *         if something goes wrong
    * @see URLDecoder#decode(String, String)
    */
   @Nonnull
   public static String urlDecode (@Nonnull final String sValue, @Nonnull final Charset aCharset)
   {
     ValueEnforcer.notNull (sValue, "Value");
-    return URL_CODEC.getDecodedAsString (sValue, aCharset);
+    try
+    {
+      return URL_CODEC.getDecodedAsString (sValue, aCharset);
+    }
+    catch (final DecodeException ex)
+    {
+      throw new IllegalArgumentException (ex);
+    }
   }
 
   /**

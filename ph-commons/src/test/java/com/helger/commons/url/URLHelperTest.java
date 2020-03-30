@@ -21,6 +21,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.InputStream;
@@ -77,6 +78,15 @@ public final class URLHelperTest
     sEnc = URLHelper.urlEncode (sDec, StandardCharsets.ISO_8859_1);
     assertEquals ("%E4%F6%FC", sEnc);
     assertEquals (sDec, URLHelper.urlDecode (sEnc, StandardCharsets.ISO_8859_1));
+
+    // Crappy
+    try
+    {
+      URLHelper.urlDecode ("a%%%b", StandardCharsets.UTF_8);
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {}
   }
 
   @Test
