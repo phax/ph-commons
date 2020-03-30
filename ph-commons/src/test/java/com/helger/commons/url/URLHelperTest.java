@@ -82,11 +82,20 @@ public final class URLHelperTest
     // Crappy
     try
     {
+      URLHelper.urlDecode ("a%%%b");
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {}
+    try
+    {
       URLHelper.urlDecode ("a%%%b", StandardCharsets.UTF_8);
       fail ();
     }
     catch (final IllegalArgumentException ex)
     {}
+    assertNull (URLHelper.urlDecodeOrNull ("a%%%b"));
+    assertNull (URLHelper.urlDecodeOrNull ("a%%%b", StandardCharsets.UTF_8));
   }
 
   @Test

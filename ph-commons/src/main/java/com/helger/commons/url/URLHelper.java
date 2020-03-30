@@ -156,6 +156,47 @@ public final class URLHelper
   }
 
   /**
+   * URL-decode the passed value automatically handling charset issues. The used
+   * char set is determined by {@link #CHARSET_URL_OBJ}.
+   *
+   * @param sValue
+   *        The value to be decoded. May not be <code>null</code>.
+   * @return The decoded value.
+   * @see #urlDecode(String, Charset)
+   */
+  @Nullable
+  public static String urlDecodeOrNull (@Nonnull final String sValue)
+  {
+    return urlDecodeOrNull (sValue, CHARSET_URL_OBJ);
+  }
+
+  /**
+   * URL-decode the passed value automatically handling charset issues. The
+   * implementation is ripped from URLDecoder but does not throw an
+   * UnsupportedEncodingException for nothing.
+   *
+   * @param sValue
+   *        The value to be decoded. May not be <code>null</code>.
+   * @param aCharset
+   *        The charset to use. May not be <code>null</code>.
+   * @return The decoded value.
+   * @see URLDecoder#decode(String, String)
+   */
+  @Nullable
+  public static String urlDecodeOrNull (@Nonnull final String sValue, @Nonnull final Charset aCharset)
+  {
+    ValueEnforcer.notNull (sValue, "Value");
+    try
+    {
+      return URL_CODEC.getDecodedAsString (sValue, aCharset);
+    }
+    catch (final DecodeException ex)
+    {
+      return null;
+    }
+  }
+
+  /**
    * URL-encode the passed value automatically handling charset issues. The used
    * char set is determined by {@link #CHARSET_URL_OBJ}.
    *
