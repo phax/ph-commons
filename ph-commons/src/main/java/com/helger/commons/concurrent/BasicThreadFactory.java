@@ -16,8 +16,8 @@
  */
 package com.helger.commons.concurrent;
 
-import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.Nonnull;
@@ -99,6 +99,35 @@ import com.helger.commons.string.ToStringGenerator;
  */
 public class BasicThreadFactory implements ThreadFactory
 {
+  /**
+   * The default thread factory
+   */
+  static class ExtendedDefaultThreadFactory implements ThreadFactory
+  {
+    private static final AtomicInteger s_aFactoryNumber = new AtomicInteger (1);
+    private final ThreadGroup m_aGroup;
+    private final AtomicInteger m_aThreadNumber = new AtomicInteger (1);
+    private final String m_sNamePrefix;
+
+    ExtendedDefaultThreadFactory (@Nullable final ThreadGroup aTG)
+    {
+      final SecurityManager s = System.getSecurityManager ();
+      m_aGroup = s != null ? s.getThreadGroup () : aTG != null ? aTG : Thread.currentThread ().getThreadGroup ();
+      m_sNamePrefix = "factory-" + s_aFactoryNumber.getAndIncrement () + "-thread-";
+    }
+
+    @Nonnull
+    public Thread newThread (@Nonnull final Runnable r)
+    {
+      final Thread t = new Thread (m_aGroup, r, m_sNamePrefix + m_aThreadNumber.getAndIncrement (), 0);
+      if (t.isDaemon ())
+        t.setDaemon (false);
+      if (t.getPriority () != Thread.NORM_PRIORITY)
+        t.setPriority (Thread.NORM_PRIORITY);
+      return t;
+    }
+  }
+
   private static final Logger LOGGER = LoggerFactory.getLogger (BasicThreadFactory.class);
 
   private static Thread.UncaughtExceptionHandler s_aDefaultUncaughtExceptionHandler = (t, e) -> {
@@ -160,7 +189,7 @@ public class BasicThreadFactory implements ThreadFactory
     m_aThreadCounter = new AtomicLong ();
 
     if (aBuilder.m_aWrappedFactory == null)
-      m_aWrappedFactory = Executors.defaultThreadFactory ();
+      m_aWrappedFactory = new ExtendedDefaultThreadFactory (aBuilder.m_aThreadGroup);
     else
       m_aWrappedFactory = aBuilder.m_aWrappedFactory;
 
@@ -324,6 +353,9 @@ public class BasicThreadFactory implements ThreadFactory
     /** The wrapped factory. */
     private ThreadFactory m_aWrappedFactory;
 
+    /** The ThreadGroup for the default ThreadFactory */
+    private ThreadGroup m_aThreadGroup;
+
     /** The uncaught exception handler. */
     private Thread.UncaughtExceptionHandler m_aUncaughtExceptionHandler = s_aDefaultUncaughtExceptionHandler;
 
@@ -345,7 +377,7 @@ public class BasicThreadFactory implements ThreadFactory
      *
      * @param aWrappedFactory
      *        the wrapped {@code ThreadFactory} (must not be <b>null</b>)
-     * @return a reference to this {@code Builder}
+     * @return this for chaining
      * @throws NullPointerException
      *         if the passed in {@code ThreadFactory} is <b>null</b>
      */
@@ -358,12 +390,28 @@ public class BasicThreadFactory implements ThreadFactory
     }
 
     /**
+     * Sets the {@code ThreadGroup} to be used by the default thread factory. If
+     * {@link #setWrappedFactory(ThreadFactory)} is used, this setting is
+     * useless.
+     *
+     * @param aThreadGroup
+     *        the {@code ThreadGroup} to use. May be <code>null</code>.
+     * @return this for chaining
+     */
+    @Nonnull
+    public final Builder setThreadGroup (@Nullable final ThreadGroup aThreadGroup)
+    {
+      m_aThreadGroup = aThreadGroup;
+      return this;
+    }
+
+    /**
      * Sets the uncaught exception handler for the threads created by the new
      * {@code BasicThreadFactory}.
      *
      * @param aExceptionHandler
      *        the {@code UncaughtExceptionHandler} (must not be <b>null</b>)
-     * @return a reference to this {@code Builder}
+     * @return this for chaining
      * @throws NullPointerException
      *         if the exception handler is <b>null</b>
      */
@@ -383,7 +431,7 @@ public class BasicThreadFactory implements ThreadFactory
      *
      * @param sNamingPattern
      *        the naming pattern (must not be <b>null</b>)
-     * @return a reference to this {@code Builder}
+     * @return this for chaining
      * @throws NullPointerException
      *         if the naming pattern is <b>null</b>
      */
@@ -401,7 +449,7 @@ public class BasicThreadFactory implements ThreadFactory
      *
      * @param nPriority
      *        the priority
-     * @return a reference to this {@code Builder}
+     * @return this for chaining
      */
     @Nonnull
     public final Builder setPriority (final int nPriority)
@@ -416,7 +464,7 @@ public class BasicThreadFactory implements ThreadFactory
      *
      * @param bDaemon
      *        the value of the daemon flag
-     * @return a reference to this {@code Builder}
+     * @return this for chaining
      */
     @Nonnull
     public final Builder setDaemon (final boolean bDaemon)
@@ -433,6 +481,7 @@ public class BasicThreadFactory implements ThreadFactory
     public void reset ()
     {
       m_aWrappedFactory = null;
+      m_aThreadGroup = null;
       m_aUncaughtExceptionHandler = null;
       m_sNamingPattern = null;
       m_nPriority = null;

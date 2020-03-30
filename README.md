@@ -31,6 +31,7 @@ This project was the following modules:
 
 * v9.4.2 - work in progress
     * Reduced write locked section in `ScopeManager.onGlobalEnd` to reduce the possibility of a dead-lock
+    * Made `ThreadGroup` of `BasicThreadFactory` customizable
 * v9.4.1 - 2020-03-30
     * Added `SimpleLock.(read|write)LockedGet(Throwing)`
     * The exception handling of `URLHelper.urlDecode` is now backwards compatible
