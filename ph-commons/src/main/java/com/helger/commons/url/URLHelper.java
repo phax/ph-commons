@@ -129,8 +129,7 @@ public final class URLHelper
 
   /**
    * URL-decode the passed value automatically handling charset issues. The
-   * implementation is ripped from URLDecoder but does not throw an
-   * UnsupportedEncodingException for nothing.
+   * implementation uses {@link URLCodec} to do the hard work.
    *
    * @param sValue
    *        The value to be decoded. May not be <code>null</code>.
@@ -172,8 +171,7 @@ public final class URLHelper
 
   /**
    * URL-decode the passed value automatically handling charset issues. The
-   * implementation is ripped from URLDecoder but does not throw an
-   * UnsupportedEncodingException for nothing.
+   * implementation uses {@link URLCodec} to do the hard work.
    *
    * @param sValue
    *        The value to be decoded. May be <code>null</code>.
@@ -185,6 +183,27 @@ public final class URLHelper
   @Nullable
   public static String urlDecodeOrNull (@Nullable final String sValue, @Nonnull final Charset aCharset)
   {
+    return urlDecodeOrDefault (sValue, aCharset, null);
+  }
+
+  /**
+   * URL-decode the passed value automatically handling charset issues. The
+   * implementation uses {@link URLCodec} to do the hard work.
+   *
+   * @param sValue
+   *        The value to be decoded. May be <code>null</code>.
+   * @param aCharset
+   *        The charset to use. May not be <code>null</code>.
+   * @param sDefault
+   *        The default value to be returned if decoding fails.
+   * @return The decoded value or the default.
+   * @see URLDecoder#decode(String, String)
+   */
+  @Nullable
+  public static String urlDecodeOrDefault (@Nullable final String sValue,
+                                           @Nonnull final Charset aCharset,
+                                           @Nullable final String sDefault)
+  {
     if (sValue != null)
       try
       {
@@ -194,7 +213,7 @@ public final class URLHelper
       {
         // Fall through
       }
-    return null;
+    return sDefault;
   }
 
   /**
