@@ -103,14 +103,15 @@ public final class ScopeManager
                                          "' is not set!");
 
       s_aGlobalScope = aGlobalScope;
-
-      aGlobalScope.initScope ();
-      if (ScopeHelper.debugGlobalScopeLifeCycle (LOGGER))
-        LOGGER.info ("Global scope '" + aGlobalScope.getID () + "' initialized!", ScopeHelper.getDebugStackTrace ());
-
-      // Invoke SPIs
-      ScopeSPIManager.getInstance ().onGlobalScopeBegin (aGlobalScope);
     });
+
+    // Outside of write lock
+    aGlobalScope.initScope ();
+    if (ScopeHelper.debugGlobalScopeLifeCycle (LOGGER))
+      LOGGER.info ("Global scope '" + aGlobalScope.getID () + "' initialized!", ScopeHelper.getDebugStackTrace ());
+
+    // Invoke SPIs
+    ScopeSPIManager.getInstance ().onGlobalScopeBegin (aGlobalScope);
   }
 
   /**
@@ -164,30 +165,35 @@ public final class ScopeManager
    */
   public static void onGlobalEnd ()
   {
-    s_aRWLock.writeLocked ( () -> {
-      /**
-       * This code removes all attributes set for the global context. This is
-       * necessary, since the attributes would survive a Tomcat servlet context
-       * reload if we don't kill them manually.<br>
-       * Global scope variable may be null if onGlobalBegin() was never called!
-       */
-      if (s_aGlobalScope != null)
-      {
-        // Invoke SPI
-        ScopeSPIManager.getInstance ().onGlobalScopeEnd (s_aGlobalScope);
-
-        // Destroy and invalidate scope
-        final String sDestroyedScopeID = s_aGlobalScope.getID ();
-        s_aGlobalScope.destroyScope ();
-        s_aGlobalScope = null;
-
-        // done
-        if (ScopeHelper.debugGlobalScopeLifeCycle (LOGGER))
-          LOGGER.info ("Global scope '" + sDestroyedScopeID + "' shut down!", ScopeHelper.getDebugStackTrace ());
-      }
-      else
-        LOGGER.warn ("No global scope present that could be shut down!");
+    /**
+     * Global scope variable may be null if onGlobalBegin() was never called or
+     * if "onGlobalEnd" was called a second time
+     */
+    final IGlobalScope aGlobalScope = s_aRWLock.writeLockedGet ( () -> {
+      // Do only the minimum in writeLock
+      final IGlobalScope ret = s_aGlobalScope;
+      s_aGlobalScope = null;
+      return ret;
     });
+
+    if (aGlobalScope != null)
+    {
+      // This part should not be within the writelock to avoid a dead lock if
+      // some API accesses the GlobalScope upon shutdown
+
+      // Invoke SPI
+      ScopeSPIManager.getInstance ().onGlobalScopeEnd (aGlobalScope);
+
+      // Destroy and invalidate scope
+      final String sDestroyedScopeID = aGlobalScope.getID ();
+      aGlobalScope.destroyScope ();
+
+      // done
+      if (ScopeHelper.debugGlobalScopeLifeCycle (LOGGER))
+        LOGGER.info ("Global scope '" + sDestroyedScopeID + "' shut down!", ScopeHelper.getDebugStackTrace ());
+    }
+    else
+      LOGGER.warn ("No global scope present that could be shut down!");
   }
 
   // --- session scope ---
