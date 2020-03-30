@@ -82,6 +82,13 @@ public final class URLHelperTest
     // Crappy
     try
     {
+      URLHelper.urlDecode (null);
+      fail ();
+    }
+    catch (final NullPointerException ex)
+    {}
+    try
+    {
       URLHelper.urlDecode ("a%%%b");
       fail ();
     }
@@ -94,6 +101,7 @@ public final class URLHelperTest
     }
     catch (final IllegalArgumentException ex)
     {}
+    assertNull (URLHelper.urlDecodeOrNull (null));
     assertNull (URLHelper.urlDecodeOrNull ("a%%%b"));
     assertNull (URLHelper.urlDecodeOrNull ("a%%%b", StandardCharsets.UTF_8));
   }

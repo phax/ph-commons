@@ -176,24 +176,25 @@ public final class URLHelper
    * UnsupportedEncodingException for nothing.
    *
    * @param sValue
-   *        The value to be decoded. May not be <code>null</code>.
+   *        The value to be decoded. May be <code>null</code>.
    * @param aCharset
    *        The charset to use. May not be <code>null</code>.
-   * @return The decoded value.
+   * @return The decoded value or <code>null</code>.
    * @see URLDecoder#decode(String, String)
    */
   @Nullable
-  public static String urlDecodeOrNull (@Nonnull final String sValue, @Nonnull final Charset aCharset)
+  public static String urlDecodeOrNull (@Nullable final String sValue, @Nonnull final Charset aCharset)
   {
-    ValueEnforcer.notNull (sValue, "Value");
-    try
-    {
-      return URL_CODEC.getDecodedAsString (sValue, aCharset);
-    }
-    catch (final DecodeException ex)
-    {
-      return null;
-    }
+    if (sValue != null)
+      try
+      {
+        return URL_CODEC.getDecodedAsString (sValue, aCharset);
+      }
+      catch (final DecodeException ex)
+      {
+        // Fall through
+      }
+    return null;
   }
 
   /**
