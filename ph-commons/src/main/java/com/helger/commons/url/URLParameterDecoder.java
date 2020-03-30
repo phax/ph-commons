@@ -38,9 +38,19 @@ public class URLParameterDecoder implements IDecoder <String, String>
     m_aCharset = ValueEnforcer.notNull (aCharset, "Charset");
   }
 
+  /**
+   * @return The charset passed in the constructor. Never <code>null</code>.
+   * @since 9.4.1
+   */
+  @Nonnull
+  public final Charset getCharset ()
+  {
+    return m_aCharset;
+  }
+
   @Nullable
   public String getDecoded (@Nullable final String sInput)
   {
-    return sInput == null ? null : URLHelper.urlDecode (sInput, m_aCharset);
+    return URLHelper.urlDecodeOrNull (sInput, m_aCharset);
   }
 }

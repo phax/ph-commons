@@ -38,6 +38,16 @@ public class URLParameterEncoder implements IEncoder <String, String>
     m_aCharset = ValueEnforcer.notNull (aCharset, "Charset");
   }
 
+  /**
+   * @return The charset passed in the constructor. Never <code>null</code>.
+   * @since 9.4.1
+   */
+  @Nonnull
+  public final Charset getCharset ()
+  {
+    return m_aCharset;
+  }
+
   @Nullable
   public String getEncoded (@Nullable final String sInput)
   {
