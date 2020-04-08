@@ -32,11 +32,11 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.Singleton;
 import com.helger.commons.annotation.VisibleForTesting;
 import com.helger.commons.collection.impl.CommonsHashSet;
-import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.locale.LocaleCache;
+import com.helger.commons.locale.LocaleCache.IMissingLocaleHandler;
 import com.helger.commons.locale.LocaleHelper;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
@@ -59,6 +59,7 @@ public class CountryCache
 
   private static final Logger LOGGER = LoggerFactory.getLogger (CountryCache.class);
   private static final AtomicBoolean SILENT_MODE = new AtomicBoolean (GlobalDebug.DEFAULT_SILENT_MODE);
+  private static final LocaleCache.IMissingLocaleHandler MLH_NULL = (k, l, c, v) -> null;
 
   private static boolean s_bDefaultInstantiated = false;
 
@@ -140,9 +141,27 @@ public class CountryCache
   }
 
   /**
+   * The normed country locale associated with the provided locale.
+   *
+   * @param aCountry
+   *        Source locale. May be <code>null</code>.
+   * @param aMissingHandler
+   *        The missing locale handler to be passed to {@link LocaleCache}. May
+   *        be <code>null</code>
+   * @return <code>null</code> if the source locale is <code>null</code> or if
+   *         the source locale does not contain country information.
+   * @since 9.4.2
+   */
+  @Nullable
+  public Locale getCountryExt (@Nullable final Locale aCountry, @Nullable final IMissingLocaleHandler aMissingHandler)
+  {
+    return aCountry == null ? null : getCountryExt (aCountry.getCountry (), aMissingHandler);
+  }
+
+  /**
    * Resolve the country from the provided string.<br>
    * Note: this method may be invoked recursively, if the country code contains
-   * a locale spearator char.
+   * a locale separator char.
    *
    * @param sCountry
    *        The country code. May be <code>null</code> or empty.
@@ -152,13 +171,33 @@ public class CountryCache
   @Nullable
   public Locale getCountry (@Nullable final String sCountry)
   {
+    return getCountryExt (sCountry, MLH_NULL);
+  }
+
+  /**
+   * Resolve the country from the provided string.<br>
+   * Note: this method may be invoked recursively, if the country code contains
+   * a locale separator char.
+   *
+   * @param sCountry
+   *        The country code. May be <code>null</code> or empty.
+   * @param aMissingHandler
+   *        The missing locale handler to be passed to {@link LocaleCache}. May
+   *        be <code>null</code>
+   * @return <code>null</code> if the provided country code is <code>null</code>
+   *         or empty.
+   * @since 9.4.2
+   */
+  @Nullable
+  public Locale getCountryExt (@Nullable final String sCountry, @Nullable final IMissingLocaleHandler aMissingHandler)
+  {
     if (StringHelper.hasNoText (sCountry))
       return null;
 
     // Was something like "_AT" (e.g. the result of getCountry (...).toString
     // ()) passed in? -> indirect recursion
     if (sCountry.indexOf (LocaleHelper.LOCALE_SEPARATOR) >= 0)
-      return getCountry (LocaleCache.getInstance ().getLocale (sCountry));
+      return getCountryExt (LocaleCache.getInstance ().getLocaleExt (sCountry, aMissingHandler), aMissingHandler);
 
     final String sValidCountry = LocaleHelper.getValidCountryCode (sCountry);
     if (!containsCountry (sValidCountry))
@@ -167,7 +206,7 @@ public class CountryCache
           LOGGER.warn ("Trying to retrieve unsupported country '" + sCountry + "'");
 
     // And use the locale cache
-    return LocaleCache.getInstance ().getLocale ("", sValidCountry, "");
+    return LocaleCache.getInstance ().getLocale ("", sValidCountry, "", aMissingHandler);
   }
 
   /**
@@ -189,7 +228,7 @@ public class CountryCache
   {
     return m_aRWLock.readLockedGet ( () -> {
       final LocaleCache aLC = LocaleCache.getInstance ();
-      return new CommonsHashSet <> (m_aCountries, x -> aLC.getLocale ("", x, ""));
+      return new CommonsHashSet <> (m_aCountries, x -> aLC.getLocale ("", x, "", MLH_NULL));
     });
   }
 
@@ -232,8 +271,7 @@ public class CountryCache
   {
     m_aRWLock.writeLocked (m_aCountries::clear);
 
-    final ICommonsList <Locale> aAllLocales = LocaleCache.getInstance ().getAllLocales ();
-    for (final Locale aLocale : aAllLocales)
+    for (final Locale aLocale : LocaleCache.getAllDefaultLocales ())
     {
       final String sCountry = aLocale.getCountry ();
       if (StringHelper.hasText (sCountry))

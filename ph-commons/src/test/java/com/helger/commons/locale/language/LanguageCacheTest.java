@@ -24,6 +24,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Locale;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.helger.commons.collection.impl.CommonsHashSet;
@@ -41,6 +42,14 @@ import com.helger.commons.string.StringHelper;
 public final class LanguageCacheTest
 {
   private static final Locale LOCALE = new Locale ("de", "AT", "");
+
+  @Before
+  public void setup ()
+  {
+    // is always cleaned along with locale cache!
+    LocaleCache.getInstance ().reinitialize ();
+    LanguageCache.getInstance ().reinitialize ();
+  }
 
   @Test
   public void testGetLanguageOfLocale ()
@@ -62,11 +71,11 @@ public final class LanguageCacheTest
     assertNull (LanguageCache.getInstance ().getLanguage ("ABCDEFGHI"));
     assertNull (LanguageCache.getInstance ().getLanguage ("1"));
     assertNull (LanguageCache.getInstance ().getLanguage ("12"));
-    assertNotNull (LanguageCache.getInstance ().getLanguage ("zz"));
+    assertNull (LanguageCache.getInstance ().getLanguage ("zz"));
     assertNull (LanguageCache.getInstance ().getLanguage ("1234"));
 
-    assertNotNull (LanguageCache.getInstance ().getLanguage ("AT"));
-    assertNotNull (LanguageCache.getInstance ().getLanguage ("at"));
+    assertNull (LanguageCache.getInstance ().getLanguage ("AT"));
+    assertNull (LanguageCache.getInstance ().getLanguage ("at"));
     assertNotNull (LanguageCache.getInstance ().getLanguage ("pl"));
     // Returns a valid locale, but emits a warning:
 
@@ -82,8 +91,9 @@ public final class LanguageCacheTest
     for (final String sLocale : LanguageCache.getInstance ().getAllLanguages ())
       assertTrue (LanguageCache.getInstance ().containsLanguage (sLocale));
     assertFalse (LanguageCache.getInstance ().containsLanguage ((String) null));
-    assertFalse (LanguageCache.getInstance ().containsLanguage (LocaleHelper.LOCALE_ALL));
     assertFalse (LanguageCache.getInstance ().containsLanguage ((Locale) null));
+    assertTrue (LanguageCache.getInstance ().containsLanguage (LocaleHelper.LOCALE_ALL));
+    assertTrue (LanguageCache.getInstance ().containsLanguage (LocaleHelper.LOCALE_INDEPENDENT));
   }
 
   @Test (expected = NullPointerException.class)
@@ -128,8 +138,6 @@ public final class LanguageCacheTest
   public void testResetCache ()
   {
     // is always cleaned along with locale cache!
-    LocaleCache.getInstance ().reinitialize ();
-    LanguageCache.getInstance ().reinitialize ();
     final int nCount = LanguageCache.getInstance ().getAllLanguages ().size ();
     LanguageCache.getInstance ().addLanguage ("zzz");
     assertTrue (LanguageCache.getInstance ().containsLanguage ("zzz"));
@@ -157,6 +165,25 @@ public final class LanguageCacheTest
     assertFalse (LanguageCache.getInstance ().containsLanguage ("zzz"));
     LanguageCache.getInstance ().addLanguage ("zzz");
     assertTrue (LanguageCache.getInstance ().containsLanguage ("zzz"));
+  }
+
+  @Test
+  public void testGetAllCountriesString ()
+  {
+    for (final String sLanguage : LanguageCache.getInstance ().getAllLanguages ())
+    {
+      final Locale aLocale = LanguageCache.getInstance ().getLanguage (sLanguage);
+      assertNotNull ("Failed to resolve '" + sLanguage + "'", aLocale);
+    }
+  }
+
+  @Test
+  public void testGetAllCountriesLocale ()
+  {
+    for (final Locale aLocale : LanguageCache.getInstance ().getAllLanguageLocales ())
+    {
+      assertNotNull (aLocale);
+    }
   }
 
   @Test

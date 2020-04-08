@@ -27,14 +27,14 @@ import javax.annotation.concurrent.ThreadSafe;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.helger.commons.annotation.ELockType;
-import com.helger.commons.annotation.MustBeLocked;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.annotation.Singleton;
 import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
+import com.helger.commons.collection.impl.CommonsLinkedHashSet;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
+import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.debug.GlobalDebug;
@@ -99,6 +99,8 @@ public class LocaleCache
 
   private final IMissingLocaleHandler m_aMissingLocaleHandlerInsert = (sLocaleKey, l, c, v) -> {
     // Insert in write lock
+    if (StringHelper.hasNoText (sLocaleKey))
+      return null;
     return m_aRWLock.writeLockedGet ( () -> m_aLocales.computeIfAbsent (sLocaleKey, k -> new Locale (l, c, v)));
   };
 
@@ -279,16 +281,17 @@ public class LocaleCache
     final String sRealCountry = StringHelper.getNotNull (LocaleHelper.getValidCountryCode (sCountry));
     final String sRealVariant = StringHelper.getNotNull (sVariant);
     final String sLocaleKey = _buildLocaleString (sRealLanguage, sRealCountry, sRealVariant);
-    if (sLocaleKey.length () == 0)
-      return null;
 
-    // try to resolve locale
-    Locale aLocale = m_aRWLock.readLockedGet ( () -> m_aLocales.get (sLocaleKey));
-    if (aLocale == null)
+    Locale aLocale = null;
+    if (sLocaleKey.length () > 0)
     {
-      if (aMissingHandler != null)
-        aLocale = aMissingHandler.onMissingLocale (sLocaleKey, sRealLanguage, sRealCountry, sRealVariant);
+      // try to resolve locale
+      aLocale = m_aRWLock.readLockedGet ( () -> m_aLocales.get (sLocaleKey));
     }
+
+    if (aLocale == null && aMissingHandler != null)
+      aLocale = aMissingHandler.onMissingLocale (sLocaleKey, sRealLanguage, sRealCountry, sRealVariant);
+
     return aLocale;
   }
 
@@ -398,10 +401,41 @@ public class LocaleCache
     return m_aRWLock.readLockedBoolean ( () -> m_aLocales.containsKey (sLocaleKey));
   }
 
-  @MustBeLocked (ELockType.WRITE)
-  private void _initialAdd (@Nonnull final Locale aLocale)
+  /**
+   * @return A set of all system default locales. Never <code>null</code>.
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public static ICommonsOrderedSet <Locale> getAllDefaultLocales ()
   {
-    m_aLocales.put (aLocale.toString (), aLocale);
+    final ICommonsOrderedSet <Locale> ret = new CommonsLinkedHashSet <> (1024);
+
+    // add pseudo locales
+    ret.add (LocaleHelper.LOCALE_ALL);
+    ret.add (LocaleHelper.LOCALE_INDEPENDENT);
+
+    // add all predefined languages
+    for (final Locale aLocale : Locale.getAvailableLocales ())
+    {
+      ret.add (aLocale);
+      final String sCountry = aLocale.getCountry ();
+      final String sLanguage = aLocale.getLanguage ();
+      if (StringHelper.hasText (sCountry) && StringHelper.hasText (sLanguage))
+      {
+        // Add as country-only and as language-only locales as well
+        ret.add (new Locale ("", sCountry));
+        ret.add (new Locale (sLanguage, ""));
+      }
+    }
+
+    // http://forums.sun.com/thread.jspa?threadID=525482&tstart=1411
+    for (final String sCountry : Locale.getISOCountries ())
+      ret.add (new Locale ("", sCountry));
+
+    for (final String sLanguage : Locale.getISOLanguages ())
+      ret.add (new Locale (sLanguage, ""));
+
+    return ret;
   }
 
   /**
@@ -409,28 +443,13 @@ public class LocaleCache
    */
   public final void reinitialize ()
   {
+    final ICommonsOrderedSet <Locale> aDefLocales = getAllDefaultLocales ();
+
+    // Update map
     m_aRWLock.writeLocked ( () -> {
       m_aLocales.clear ();
-
-      // add pseudo locales
-      _initialAdd (LocaleHelper.LOCALE_ALL);
-      _initialAdd (LocaleHelper.LOCALE_INDEPENDENT);
-
-      // add all predefined languages
-      for (final Locale aLocale : Locale.getAvailableLocales ())
-        _initialAdd (aLocale);
-
-      // http://forums.sun.com/thread.jspa?threadID=525482&tstart=1411
-      for (final String sCountry : Locale.getISOCountries ())
-      {
-        final Locale aLocale = new Locale ("", sCountry);
-        _initialAdd (aLocale);
-      }
-      for (final String sLanguage : Locale.getISOLanguages ())
-      {
-        final Locale aLocale = new Locale (sLanguage, "");
-        _initialAdd (aLocale);
-      }
+      for (final Locale aLocale : aDefLocales)
+        m_aLocales.put (aLocale.toString (), aLocale);
     });
 
     if (!isSilentMode ())

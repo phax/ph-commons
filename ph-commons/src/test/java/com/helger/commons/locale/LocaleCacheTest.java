@@ -24,6 +24,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Locale;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.helger.commons.string.StringHelper;
@@ -35,6 +36,15 @@ import com.helger.commons.string.StringHelper;
  */
 public final class LocaleCacheTest
 {
+  private static final LocaleCache.IMissingLocaleHandler MLH_NULL = (k, l, c, v) -> null;
+
+  @Before
+  public void setup ()
+  {
+    // is always cleaned along with locale cache!
+    LocaleCache.getInstance ().reinitialize ();
+  }
+
   @Test
   public void testGet ()
   {
@@ -42,9 +52,11 @@ public final class LocaleCacheTest
     assertNotNull (LocaleCache.getInstance ().getLocale ("de_at"));
     assertNotNull (LocaleCache.getInstance ().getLocale ("de_surely_not_known"));
     assertNull (LocaleCache.getInstance ().getLocaleExt ("en_surely_not_known", null));
-    assertNull (LocaleCache.getInstance ().getLocaleExt ("en_surely_not_known", (k, c, l, v) -> null));
+    assertNull (LocaleCache.getInstance ().getLocaleExt ("en_surely_not_known", MLH_NULL));
     assertNull (LocaleCache.getInstance ().getLocale (null));
     assertNull (LocaleCache.getInstance ().getLocale (""));
+    assertNull (LocaleCache.getInstance ().getLocaleExt (null, null));
+    assertNull (LocaleCache.getInstance ().getLocaleExt (null, MLH_NULL));
 
     assertNotNull (LocaleCache.getInstance ().getLocale ("de", "AT"));
     assertEquals ("de_AT", LocaleCache.getInstance ().getLocale ("de", "AT").toString ());
@@ -65,6 +77,10 @@ public final class LocaleCacheTest
   {
     assertNull (LocaleCache.getInstance ().getLocale ("gb result: chosen nickname \"stevenwhitecotton063\"; success;"));
     assertNull (LocaleCache.getInstance ().getLocale ("aa bb"));
+
+    assertNull (LocaleCache.getInstance ()
+                           .getLocaleExt ("foo result: chosen nickname \"stevenwhitecotton063\"; success;", MLH_NULL));
+    assertNull (LocaleCache.getInstance ().getLocaleExt ("aa cc", MLH_NULL));
   }
 
   @Test
@@ -111,7 +127,6 @@ public final class LocaleCacheTest
   @Test
   public void testResetCache ()
   {
-    LocaleCache.getInstance ().reinitialize ();
     final int nCount = LocaleCache.getInstance ().getAllLanguages ().size ();
     LocaleCache.getInstance ().getLocale ("xy");
     assertEquals (nCount + 1, LocaleCache.getInstance ().getAllLanguages ().size ());

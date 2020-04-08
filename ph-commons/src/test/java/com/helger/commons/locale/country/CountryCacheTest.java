@@ -24,6 +24,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Locale;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.helger.commons.collection.impl.CommonsHashSet;
@@ -41,6 +42,14 @@ import com.helger.commons.string.StringHelper;
 public final class CountryCacheTest
 {
   private static final Locale LOCALE = new Locale ("de", "AT", "");
+
+  @Before
+  public void setup ()
+  {
+    // is always cleaned along with locale cache!
+    LocaleCache.getInstance ().reinitialize ();
+    CountryCache.getInstance ().reinitialize ();
+  }
 
   @Test
   public void testGetCountryOfLocale ()
@@ -64,12 +73,13 @@ public final class CountryCacheTest
     assertNull (CountryCache.getInstance ().getCountry ("AAAA"));
     assertNull (CountryCache.getInstance ().getCountry ("1"));
     assertNull (CountryCache.getInstance ().getCountry ("12"));
-    assertNotNull (CountryCache.getInstance ().getCountry ("123"));
+    assertNull (CountryCache.getInstance ().getCountry ("123"));
     assertNull (CountryCache.getInstance ().getCountry ("1234"));
 
     assertNotNull (CountryCache.getInstance ().getCountry ("AT"));
     assertNotNull (CountryCache.getInstance ().getCountry ("at"));
     assertNotNull (CountryCache.getInstance ().getCountry ("pl"));
+    assertNotNull (CountryCache.getInstance ().getCountry ("CS"));
     // Returns a valid locale, but emits a warning:
 
     assertEquals (CountryCache.getInstance ().getCountry ("ch"),
@@ -114,6 +124,7 @@ public final class CountryCacheTest
   public void testAddCountry ()
   {
     assertTrue (CountryCache.getInstance ().addCountry ("YX").isChanged ());
+    assertFalse (CountryCache.getInstance ().addCountry ("YX").isChanged ());
   }
 
   @Test
@@ -127,9 +138,7 @@ public final class CountryCacheTest
   @Test
   public void testResetCache ()
   {
-    // is always cleaned along with locale cache!
-    LocaleCache.getInstance ().reinitialize ();
-    CountryCache.getInstance ().reinitialize ();
+
     final int nCount = CountryCache.getInstance ().getAllCountries ().size ();
     CountryCache.getInstance ().addCountry ("123");
     assertTrue (CountryCache.getInstance ().containsCountry ("123"));
@@ -154,18 +163,28 @@ public final class CountryCacheTest
     assertFalse (CountryCache.getInstance ().containsCountry ("1234"));
     assertTrue (CountryCache.getInstance ().containsCountry ("GB"));
     assertTrue (CountryCache.getInstance ().containsCountry ("gb"));
+    assertTrue (CountryCache.getInstance ().containsCountry ("CS"));
     assertFalse (CountryCache.getInstance ().containsCountry ("123"));
     CountryCache.getInstance ().addCountry ("123");
     assertTrue (CountryCache.getInstance ().containsCountry ("123"));
   }
 
   @Test
-  public void testGetAllCountries ()
+  public void testGetAllCountriesString ()
   {
     for (final String sCountry : CountryCache.getInstance ().getAllCountries ())
     {
       final Locale aLocale = CountryCache.getInstance ().getCountry (sCountry);
       assertNotNull ("Failed to resolve '" + sCountry + "'", aLocale);
+    }
+  }
+
+  @Test
+  public void testGetAllCountriesLocale ()
+  {
+    for (final Locale aLocale : CountryCache.getInstance ().getAllCountryLocales ())
+    {
+      assertNotNull (aLocale);
     }
   }
 

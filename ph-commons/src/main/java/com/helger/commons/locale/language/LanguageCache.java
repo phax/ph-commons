@@ -36,6 +36,7 @@ import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.locale.LocaleCache;
+import com.helger.commons.locale.LocaleCache.IMissingLocaleHandler;
 import com.helger.commons.locale.LocaleHelper;
 import com.helger.commons.state.EChange;
 import com.helger.commons.string.StringHelper;
@@ -59,6 +60,7 @@ public final class LanguageCache
 
   private static final Logger LOGGER = LoggerFactory.getLogger (LanguageCache.class);
   private static final AtomicBoolean SILENT_MODE = new AtomicBoolean (GlobalDebug.DEFAULT_SILENT_MODE);
+  private static final LocaleCache.IMissingLocaleHandler MLH_NULL = (k, l, c, v) -> null;
 
   private static boolean s_bDefaultInstantiated = false;
 
@@ -122,28 +124,84 @@ public final class LanguageCache
     return m_aRWLock.writeLockedGet ( () -> m_aLanguages.addObject (sValidLanguage));
   }
 
+  /**
+   * The normed language locale associated with the provided locale.
+   *
+   * @param aLanguage
+   *        Source locale. May be <code>null</code>.
+   * @return <code>null</code> if the source locale is <code>null</code> or if
+   *         the source locale does not contain language information.
+   */
   @Nullable
   public Locale getLanguage (@Nullable final Locale aLanguage)
   {
     return aLanguage == null ? null : getLanguage (aLanguage.getLanguage ());
   }
 
+  /**
+   * The normed language locale associated with the provided locale.
+   *
+   * @param aLanguage
+   *        Source locale. May be <code>null</code>.
+   * @param aMissingHandler
+   *        The missing locale handler to be passed to {@link LocaleCache}. May
+   *        be <code>null</code>
+   * @return <code>null</code> if the source locale is <code>null</code> or if
+   *         the source locale does not contain language information.
+   * @since 9.4.2
+   */
+  @Nullable
+  public Locale getLanguageExt (@Nullable final Locale aLanguage, @Nullable final IMissingLocaleHandler aMissingHandler)
+  {
+    return aLanguage == null ? null : getLanguageExt (aLanguage.getLanguage (), aMissingHandler);
+  }
+
+  /**
+   * Resolve the language from the provided string.<br>
+   * Note: this method may be invoked recursively, if the language code contains
+   * a locale separator char.
+   *
+   * @param sLanguage
+   *        The language code. May be <code>null</code> or empty.
+   * @return <code>null</code> if the provided language code is
+   *         <code>null</code> or empty.
+   */
   @Nullable
   public Locale getLanguage (@Nullable final String sLanguage)
+  {
+    return getLanguageExt (sLanguage, MLH_NULL);
+  }
+
+  /**
+   * Resolve the language from the provided string.<br>
+   * Note: this method may be invoked recursively, if the language code contains
+   * a locale separator char.
+   *
+   * @param sLanguage
+   *        The language code. May be <code>null</code> or empty.
+   * @param aMissingHandler
+   *        The missing locale handler to be passed to {@link LocaleCache}. May
+   *        be <code>null</code>
+   * @return <code>null</code> if the provided language code is
+   *         <code>null</code> or empty.
+   * @since 9.4.2
+   */
+  @Nullable
+  public Locale getLanguageExt (@Nullable final String sLanguage, @Nullable final IMissingLocaleHandler aMissingHandler)
   {
     if (StringHelper.hasNoText (sLanguage))
       return null;
 
     // Was something like "de_" passed in? -> indirect recursion
     if (sLanguage.indexOf (LocaleHelper.LOCALE_SEPARATOR) >= 0)
-      return getLanguage (LocaleCache.getInstance ().getLocale (sLanguage));
+      return getLanguageExt (LocaleCache.getInstance ().getLocaleExt (sLanguage, aMissingHandler), aMissingHandler);
 
     final String sValidLanguage = LocaleHelper.getValidLanguageCode (sLanguage);
     if (!containsLanguage (sValidLanguage))
       if (!isSilentMode ())
         if (LOGGER.isWarnEnabled ())
           LOGGER.warn ("Trying to retrieve unsupported language '" + sLanguage + "'");
-    return LocaleCache.getInstance ().getLocale (sValidLanguage, "", "");
+    return LocaleCache.getInstance ().getLocale (sValidLanguage, "", "", aMissingHandler);
   }
 
   /**
@@ -165,7 +223,7 @@ public final class LanguageCache
   {
     return m_aRWLock.readLockedGet ( () -> {
       final LocaleCache aLC = LocaleCache.getInstance ();
-      return new CommonsHashSet <> (m_aLanguages, sLanguage -> aLC.getLocale (sLanguage, "", ""));
+      return new CommonsHashSet <> (m_aLanguages, sLanguage -> aLC.getLocale (sLanguage, "", "", MLH_NULL));
     });
   }
 
@@ -208,7 +266,7 @@ public final class LanguageCache
   {
     m_aRWLock.writeLocked (m_aLanguages::clear);
 
-    for (final Locale aLocale : LocaleCache.getInstance ().getAllLocales ())
+    for (final Locale aLocale : LocaleCache.getAllDefaultLocales ())
     {
       final String sLanguage = aLocale.getLanguage ();
       if (StringHelper.hasText (sLanguage))
