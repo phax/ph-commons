@@ -160,7 +160,7 @@ public final class LanguageCacheTest
   }
 
   @Test
-  public void testNoConcurrentModification ()
+  public void testNoConcurrentModificationString ()
   {
     final ICommonsSet <Locale> aLanguages = new CommonsHashSet <> ();
     for (final String sLanguage : LanguageCache.getInstance ().getAllLanguages ())
@@ -176,14 +176,13 @@ public final class LanguageCacheTest
   }
 
   @Test
-  public void testNoConcurrentModification2 ()
+  public void testNoConcurrentModificationLocale ()
   {
-    final ICommonsSet <Locale> aCountries = new CommonsHashSet <> ();
-    assertTrue (LanguageCache.getInstance ().getAllLanguages ().size () > 10);
+    final ICommonsSet <Locale> aLanguages = new CommonsHashSet <> ();
     for (final Locale aLanguage : LanguageCache.getInstance ().getAllLanguageLocales ())
-      aCountries.add (LanguageCache.getInstance ().getLanguage (aLanguage));
+      aLanguages.add (LanguageCache.getInstance ().getLanguage (aLanguage));
 
-    for (final Locale aLanguage : aCountries)
+    for (final Locale aLanguage : aLanguages)
     {
       assertNotNull (aLanguage);
       assertTrue (StringHelper.hasText (aLanguage.getLanguage ()));
