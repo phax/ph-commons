@@ -59,7 +59,6 @@ public class CountryCache
 
   private static final Logger LOGGER = LoggerFactory.getLogger (CountryCache.class);
   private static final AtomicBoolean SILENT_MODE = new AtomicBoolean (GlobalDebug.DEFAULT_SILENT_MODE);
-  private static final LocaleCache.IMissingLocaleHandler MLH_NULL = (k, l, c, v) -> null;
 
   private static boolean s_bDefaultInstantiated = false;
 
@@ -147,7 +146,7 @@ public class CountryCache
    *        Source locale. May be <code>null</code>.
    * @param aMissingHandler
    *        The missing locale handler to be passed to {@link LocaleCache}. May
-   *        be <code>null</code>
+   *        be <code>null</code> to use {@link LocaleCache} default handler.
    * @return <code>null</code> if the source locale is <code>null</code> or if
    *         the source locale does not contain country information.
    * @since 9.4.2
@@ -171,7 +170,7 @@ public class CountryCache
   @Nullable
   public Locale getCountry (@Nullable final String sCountry)
   {
-    return getCountryExt (sCountry, MLH_NULL);
+    return getCountryExt (sCountry, null);
   }
 
   /**
@@ -183,7 +182,7 @@ public class CountryCache
    *        The country code. May be <code>null</code> or empty.
    * @param aMissingHandler
    *        The missing locale handler to be passed to {@link LocaleCache}. May
-   *        be <code>null</code>
+   *        be <code>null</code> to use {@link LocaleCache} default handler.
    * @return <code>null</code> if the provided country code is <code>null</code>
    *         or empty.
    * @since 9.4.2
@@ -194,10 +193,14 @@ public class CountryCache
     if (StringHelper.hasNoText (sCountry))
       return null;
 
+    final LocaleCache aLC = LocaleCache.getInstance ();
+    final IMissingLocaleHandler aMLH = aMissingHandler != null ? aMissingHandler
+                                                               : aLC.getDefaultMissingLocaleHandler ();
+
     // Was something like "_AT" (e.g. the result of getCountry (...).toString
     // ()) passed in? -> indirect recursion
     if (sCountry.indexOf (LocaleHelper.LOCALE_SEPARATOR) >= 0)
-      return getCountryExt (LocaleCache.getInstance ().getLocaleExt (sCountry, aMissingHandler), aMissingHandler);
+      return getCountryExt (aLC.getLocaleExt (sCountry, aMLH), aMLH);
 
     final String sValidCountry = LocaleHelper.getValidCountryCode (sCountry);
     if (!containsCountry (sValidCountry))
@@ -206,7 +209,7 @@ public class CountryCache
           LOGGER.warn ("Trying to retrieve unsupported country '" + sCountry + "'");
 
     // And use the locale cache
-    return LocaleCache.getInstance ().getLocale ("", sValidCountry, "", aMissingHandler);
+    return aLC.getLocale ("", sValidCountry, "", aMLH);
   }
 
   /**
@@ -228,7 +231,7 @@ public class CountryCache
   {
     return m_aRWLock.readLockedGet ( () -> {
       final LocaleCache aLC = LocaleCache.getInstance ();
-      return new CommonsHashSet <> (m_aCountries, x -> aLC.getLocale ("", x, "", MLH_NULL));
+      return new CommonsHashSet <> (m_aCountries, sCountry -> aLC.getLocale ("", sCountry, ""));
     });
   }
 

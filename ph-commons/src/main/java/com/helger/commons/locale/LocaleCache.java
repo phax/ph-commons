@@ -147,6 +147,17 @@ public class LocaleCache
   }
 
   /**
+   * @return The {@link IMissingLocaleHandler} implementation of this instance
+   *         that adds a missing locale to the set. Never <code>null</code>.
+   * @since 9.4.2
+   */
+  @Nonnull
+  public final IMissingLocaleHandler getDefaultMissingLocaleHandler ()
+  {
+    return m_aMissingLocaleHandlerInsert;
+  }
+
+  /**
    * Get the {@link Locale} object matching the given language.
    *
    * @param sLanguage

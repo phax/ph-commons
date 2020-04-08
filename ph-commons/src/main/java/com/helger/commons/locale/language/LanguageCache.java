@@ -60,7 +60,6 @@ public final class LanguageCache
 
   private static final Logger LOGGER = LoggerFactory.getLogger (LanguageCache.class);
   private static final AtomicBoolean SILENT_MODE = new AtomicBoolean (GlobalDebug.DEFAULT_SILENT_MODE);
-  private static final LocaleCache.IMissingLocaleHandler MLH_NULL = (k, l, c, v) -> null;
 
   private static boolean s_bDefaultInstantiated = false;
 
@@ -145,7 +144,7 @@ public final class LanguageCache
    *        Source locale. May be <code>null</code>.
    * @param aMissingHandler
    *        The missing locale handler to be passed to {@link LocaleCache}. May
-   *        be <code>null</code>
+   *        be <code>null</code> to use {@link LocaleCache} default handler.
    * @return <code>null</code> if the source locale is <code>null</code> or if
    *         the source locale does not contain language information.
    * @since 9.4.2
@@ -169,7 +168,7 @@ public final class LanguageCache
   @Nullable
   public Locale getLanguage (@Nullable final String sLanguage)
   {
-    return getLanguageExt (sLanguage, MLH_NULL);
+    return getLanguageExt (sLanguage, null);
   }
 
   /**
@@ -181,7 +180,7 @@ public final class LanguageCache
    *        The language code. May be <code>null</code> or empty.
    * @param aMissingHandler
    *        The missing locale handler to be passed to {@link LocaleCache}. May
-   *        be <code>null</code>
+   *        be <code>null</code> to use {@link LocaleCache} default handler.
    * @return <code>null</code> if the provided language code is
    *         <code>null</code> or empty.
    * @since 9.4.2
@@ -192,16 +191,20 @@ public final class LanguageCache
     if (StringHelper.hasNoText (sLanguage))
       return null;
 
+    final LocaleCache aLC = LocaleCache.getInstance ();
+    final IMissingLocaleHandler aMLH = aMissingHandler != null ? aMissingHandler
+                                                               : aLC.getDefaultMissingLocaleHandler ();
+
     // Was something like "de_" passed in? -> indirect recursion
     if (sLanguage.indexOf (LocaleHelper.LOCALE_SEPARATOR) >= 0)
-      return getLanguageExt (LocaleCache.getInstance ().getLocaleExt (sLanguage, aMissingHandler), aMissingHandler);
+      return getLanguageExt (aLC.getLocaleExt (sLanguage, aMLH), aMLH);
 
     final String sValidLanguage = LocaleHelper.getValidLanguageCode (sLanguage);
     if (!containsLanguage (sValidLanguage))
       if (!isSilentMode ())
         if (LOGGER.isWarnEnabled ())
           LOGGER.warn ("Trying to retrieve unsupported language '" + sLanguage + "'");
-    return LocaleCache.getInstance ().getLocale (sValidLanguage, "", "", aMissingHandler);
+    return aLC.getLocale (sValidLanguage, "", "", aMLH);
   }
 
   /**
@@ -223,7 +226,7 @@ public final class LanguageCache
   {
     return m_aRWLock.readLockedGet ( () -> {
       final LocaleCache aLC = LocaleCache.getInstance ();
-      return new CommonsHashSet <> (m_aLanguages, sLanguage -> aLC.getLocale (sLanguage, "", "", MLH_NULL));
+      return new CommonsHashSet <> (m_aLanguages, sLanguage -> aLC.getLocale (sLanguage, "", ""));
     });
   }
 

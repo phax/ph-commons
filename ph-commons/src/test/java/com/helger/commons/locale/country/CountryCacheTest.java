@@ -73,7 +73,8 @@ public final class CountryCacheTest
     assertNull (CountryCache.getInstance ().getCountry ("AAAA"));
     assertNull (CountryCache.getInstance ().getCountry ("1"));
     assertNull (CountryCache.getInstance ().getCountry ("12"));
-    assertNull (CountryCache.getInstance ().getCountry ("123"));
+    assertNull (CountryCache.getInstance ().getCountryExt ("123", (k, l, c, v) -> null));
+    assertNotNull (CountryCache.getInstance ().getCountry ("123"));
     assertNull (CountryCache.getInstance ().getCountry ("1234"));
 
     assertNotNull (CountryCache.getInstance ().getCountry ("AT"));

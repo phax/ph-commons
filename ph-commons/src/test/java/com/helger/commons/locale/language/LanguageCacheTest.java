@@ -71,11 +71,12 @@ public final class LanguageCacheTest
     assertNull (LanguageCache.getInstance ().getLanguage ("ABCDEFGHI"));
     assertNull (LanguageCache.getInstance ().getLanguage ("1"));
     assertNull (LanguageCache.getInstance ().getLanguage ("12"));
-    assertNull (LanguageCache.getInstance ().getLanguage ("zz"));
+    assertNull (LanguageCache.getInstance ().getLanguageExt ("zz", (k, l, c, v) -> null));
+    assertNotNull (LanguageCache.getInstance ().getLanguage ("zz"));
     assertNull (LanguageCache.getInstance ().getLanguage ("1234"));
 
-    assertNull (LanguageCache.getInstance ().getLanguage ("AT"));
-    assertNull (LanguageCache.getInstance ().getLanguage ("at"));
+    assertNotNull (LanguageCache.getInstance ().getLanguage ("AT"));
+    assertNotNull (LanguageCache.getInstance ().getLanguage ("at"));
     assertNotNull (LanguageCache.getInstance ().getLanguage ("pl"));
     // Returns a valid locale, but emits a warning:
 
