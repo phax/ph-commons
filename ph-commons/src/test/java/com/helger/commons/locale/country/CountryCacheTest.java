@@ -160,7 +160,17 @@ public final class CountryCacheTest
   }
 
   @Test
-  public void testNoConcurrentModification ()
+  public void testGetAllCountries ()
+  {
+    for (final String sCountry : CountryCache.getInstance ().getAllCountries ())
+    {
+      final Locale aLocale = CountryCache.getInstance ().getCountry (sCountry);
+      assertNotNull ("Failed to resolve '" + sCountry + "'", aLocale);
+    }
+  }
+
+  @Test
+  public void testNoConcurrentModificationString ()
   {
     final ICommonsSet <Locale> aCountries = new CommonsHashSet <> ();
     for (final String sCountry : CountryCache.getInstance ().getAllCountries ())
@@ -176,7 +186,7 @@ public final class CountryCacheTest
   }
 
   @Test
-  public void testNoConcurrentModification2 ()
+  public void testNoConcurrentModificationLocale ()
   {
     final ICommonsSet <Locale> aCountries = new CommonsHashSet <> ();
     for (final Locale aCountry : CountryCache.getInstance ().getAllCountryLocales ())
