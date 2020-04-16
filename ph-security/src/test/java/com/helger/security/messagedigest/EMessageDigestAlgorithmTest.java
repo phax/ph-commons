@@ -27,8 +27,12 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.Locale;
+import java.util.concurrent.ThreadLocalRandom;
 
+import org.junit.Ignore;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.commons.codec.Base32Codec;
 import com.helger.commons.string.StringHelper;
@@ -40,6 +44,7 @@ import com.helger.commons.string.StringHelper;
  */
 public final class EMessageDigestAlgorithmTest
 {
+  private static final Logger LOGGER = LoggerFactory.getLogger (EMessageDigestAlgorithmTest.class);
   private static final Charset CHARSET = StandardCharsets.UTF_8;
 
   @Test
@@ -102,5 +107,38 @@ public final class EMessageDigestAlgorithmTest
                                                                          EMessageDigestAlgorithm.SHA_256)
                                                                 .getAllBytes (),
                                               CHARSET));
+  }
+
+  @Test
+  @Ignore ("takes 5 seconds and is only valuable with the output")
+  public void testDistribution ()
+  {
+    final EMessageDigestAlgorithm eAlgo = EMessageDigestAlgorithm.SHA_256;
+    final ThreadLocalRandom aRandom = ThreadLocalRandom.current ();
+    final int nBuckets = 256;
+    final int [] aCount = new int [nBuckets];
+    for (int i = 0; i < nBuckets * 10_000; ++i)
+    {
+      // Get random bytes
+      final byte [] aBytes = new byte [128];
+      aRandom.nextBytes (aBytes);
+
+      // Get message digest
+      final MessageDigest aMD1 = eAlgo.createMessageDigest ();
+      final byte [] aDigest = aMD1.digest (aBytes);
+
+      // Calc bucket index
+      int nSum = 0;
+      for (final byte b : aDigest)
+        nSum += (b & 0xff);
+      final int nBucket = nSum % nBuckets;
+
+      // Count
+      aCount[nBucket]++;
+    }
+    final StringBuilder aSB = new StringBuilder ();
+    for (int i = 0; i < nBuckets; i++)
+      aSB.append ("bucket[" + i + "]: " + aCount[i]).append ('\n');
+    LOGGER.info ("Result:\n" + aSB.toString ());
   }
 }
