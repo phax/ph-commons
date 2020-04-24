@@ -35,6 +35,7 @@ This project was the following modules:
     * Updated to BouncyCastle 1.65
     * The `IMissingLocaleHandler` is now also called in `LocaleHelper.getLocale` if the input strings are all empty
     * Improved the resolution rules for `LocaleCache`, `LanguageCach` and `CountryCache` on edge cases.
+    * Extracted overridable `GenericJAXBMarshaller.getJAXBContext`
 * v9.4.1 - 2020-03-30
     * Added `SimpleLock.(read|write)LockedGet(Throwing)`
     * The exception handling of `URLHelper.urlDecode` is now backwards compatible

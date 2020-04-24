@@ -162,6 +162,16 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
     m_aWriteExceptionCallbacks.add (new LoggingJAXBWriteExceptionHandler ());
   }
 
+  /**
+   * @return The type as passed in the constructor. Never <code>null</code>.
+   * @since v9.4.2
+   */
+  @Nonnull
+  protected final Class <JAXBTYPE> getType ()
+  {
+    return m_aType;
+  }
+
   @Nullable
   public final ClassLoader getClassLoader ()
   {
@@ -419,6 +429,27 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
   }
 
   /**
+   * Create the JAXBContext - cached or uncached.
+   *
+   * @param aClassLoader
+   *        The class loader to be used for XML schema resolving. May be
+   *        <code>null</code>.
+   * @return The created JAXBContext and never <code>null</code>.
+   * @throws JAXBException
+   *         In case creation fails
+   * @since 9.4.2
+   */
+  @Nonnull
+  @OverrideOnDemand
+  protected JAXBContext getJAXBContext (@Nullable final ClassLoader aClassLoader) throws JAXBException
+  {
+    final Package aPackage = m_aType.getPackage ();
+    if (m_bUseContextCache)
+      return JAXBContextCache.getInstance ().getFromCache (aPackage, aClassLoader);
+    return JAXBContext.newInstance (aPackage.getName (), aClassLoader);
+  }
+
+  /**
    * @param aClassLoader
    *        The class loader to be used for XML schema resolving. May be
    *        <code>null</code>.
@@ -429,10 +460,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
   @Nonnull
   private Unmarshaller _createUnmarshaller (@Nullable final ClassLoader aClassLoader) throws JAXBException
   {
-    final Package aPackage = m_aType.getPackage ();
-    final JAXBContext aJAXBContext = m_bUseContextCache ? JAXBContextCache.getInstance ()
-                                                                          .getFromCache (aPackage, aClassLoader)
-                                                        : JAXBContext.newInstance (aPackage.getName (), aClassLoader);
+    final JAXBContext aJAXBContext = getJAXBContext (aClassLoader);
 
     // create an Unmarshaller
     final Unmarshaller aUnmarshaller = aJAXBContext.createUnmarshaller ();
@@ -483,19 +511,18 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
   }
 
   /**
+   * @param aClassLoader
+   *        The class loader to be used for XML schema resolving. May be
+   *        <code>null</code>.
    * @return A marshaller for converting document to XML. Never
    *         <code>null</code>.
    * @throws JAXBException
    *         In case of an error.
    */
   @Nonnull
-  private Marshaller _createMarshaller () throws JAXBException
+  private Marshaller _createMarshaller (@Nullable final ClassLoader aClassLoader) throws JAXBException
   {
-    final Package aPackage = m_aType.getPackage ();
-    final JAXBContext aJAXBContext = m_bUseContextCache ? JAXBContextCache.getInstance ()
-                                                                          .getFromCache (aPackage, getClassLoader ())
-                                                        : JAXBContext.newInstance (aPackage.getName (),
-                                                                                   getClassLoader ());
+    final JAXBContext aJAXBContext = getJAXBContext (aClassLoader);
 
     // create an Unmarshaller
     final Marshaller aMarshaller = aJAXBContext.createMarshaller ();
@@ -567,7 +594,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
 
     try
     {
-      final Marshaller aMarshaller = _createMarshaller ();
+      final Marshaller aMarshaller = _createMarshaller (getClassLoader ());
       customizeMarshaller (aMarshaller);
 
       final JAXBElement <JAXBTYPE> aJAXBElement = m_aJAXBElementWrapper.apply (aObject);
