@@ -34,8 +34,9 @@ This project was the following modules:
     * Made `ThreadGroup` of `BasicThreadFactory` customizable
     * Updated to BouncyCastle 1.65
     * The `IMissingLocaleHandler` is now also called in `LocaleHelper.getLocale` if the input strings are all empty
-    * Improved the resolution rules for `LocaleCache`, `LanguageCach` and `CountryCache` on edge cases.
+    * Improved the resolution rules for `LocaleCache`, `LanguageCache` and `CountryCache` on edge cases.
     * Extracted overridable `GenericJAXBMarshaller.getJAXBContext`
+    * Added possibility to cache `JAXBContext` objects created via classes 
 * v9.4.1 - 2020-03-30
     * Added `SimpleLock.(read|write)LockedGet(Throwing)`
     * The exception handling of `URLHelper.urlDecode` is now backwards compatible
