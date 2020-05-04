@@ -25,6 +25,7 @@ import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.CGlobal;
 import com.helger.commons.ValueEnforcer;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.system.SystemProperties;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -222,6 +223,59 @@ public class NonBlockingBufferedWriter extends Writer
     }
   }
 
+  /**
+   * Remove all content of the buffer.
+   */
+  public void reset ()
+  {
+    m_nNextChar = 0;
+  }
+
+  @Nonnegative
+  public int getSize ()
+  {
+    return m_nNextChar;
+  }
+  
+  @Nonnegative
+  public int getBufferSize ()
+  {
+    return m_aBuf.length;
+  }
+  
+  public boolean isEmpty ()
+  {
+    return m_nNextChar == 0;
+  }
+  
+  /**
+   * Converts input data to a string.
+   *
+   * @return the string.
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  public String getAsString ()
+  {
+    return new String (m_aBuf, 0, m_nNextChar);
+  }
+
+  /**
+   * Converts input data to a string.
+   *
+   * @param nLength
+   *        The number of characters to convert. Must be &le; than
+   *        {@link #getSize()}.
+   * @return the string.
+   */
+  @Nonnull
+  public String getAsString (@Nonnegative final int nLength)
+  {
+    ValueEnforcer.isBetweenInclusive (nLength, "Length", 0, m_nNextChar);
+    return new String (m_aBuf, 0, nLength);
+  }
+
+  
   /**
    * Writes a line separator. The line separator string is defined by the system
    * property <tt>line.separator</tt>, and is not necessarily a single newline
