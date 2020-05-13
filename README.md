@@ -29,6 +29,9 @@ This project was the following modules:
 
 ## News and noteworthy
 
+* v9.4.3 - work in progress
+    * Extended tests - thanks to @dliang2000
+    * Extended `NonBlockingCharArrayWriter` with non-throwing `write` overloads
 * v9.4.2 - 2020-04-25
     * Reduced write locked section in `ScopeManager.onGlobalEnd` to reduce the possibility of a dead-lock
     * Made `ThreadGroup` of `BasicThreadFactory` customizable

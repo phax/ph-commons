@@ -21,10 +21,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.Writer;
-
 import org.junit.Test;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -34,12 +30,12 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *
  * @author Philip Helger
  */
-
-public class NonBlockingCharArrayWriterTest {
+public class NonBlockingCharArrayWriterTest
+{
   @Test
   @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
-  public void testAll () throws IOException
-  { 
+  public void testAll ()
+  {
     try (final NonBlockingCharArrayWriter aCAW = new NonBlockingCharArrayWriter ())
     {
       assertTrue (aCAW.isEmpty ());

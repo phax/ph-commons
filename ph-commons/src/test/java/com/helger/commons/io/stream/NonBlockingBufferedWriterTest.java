@@ -21,9 +21,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.Writer;
 
 import org.junit.Test;
 
@@ -34,12 +32,12 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *
  * @author Philip Helger
  */
-
-public class NonBlockingBufferedWriterTest {
+public class NonBlockingBufferedWriterTest
+{
   @Test
   @SuppressFBWarnings ("TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED")
   public void testAll () throws IOException
-  { 
+  {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     try (final NonBlockingBufferedWriter aBBW = new NonBlockingBufferedWriter (aSW))
     {
@@ -65,11 +63,11 @@ public class NonBlockingBufferedWriterTest {
   @Test
   @SuppressWarnings ("resource")
   @SuppressFBWarnings ("OS_OPEN_STREAM")
-  public void testError ()
+  public void testError () throws IOException
   {
     try
     {
-      final NonBlockingStringWriter aSW = new NonBlockingStringWriter (-1);
+      new NonBlockingStringWriter (-1);
       fail ();
     }
     catch (final IllegalArgumentException ex)
@@ -90,8 +88,6 @@ public class NonBlockingBufferedWriterTest {
     }
     catch (final IllegalArgumentException ex)
     {}
-    catch (final IOException iox)
-    {}
     try
     {
       new NonBlockingBufferedWriter (new NonBlockingStringWriter (-1)).write (ca, 0, -1);
@@ -99,16 +95,12 @@ public class NonBlockingBufferedWriterTest {
     }
     catch (final IllegalArgumentException ex)
     {}
-    catch (final IOException iox)
-    {}
     try
     {
       new NonBlockingBufferedWriter (new NonBlockingStringWriter (-1)).write (ca, 2, 5);
       fail ();
     }
     catch (final IllegalArgumentException ex)
-    {}
-    catch (final IOException iox)
     {}
   }
 }

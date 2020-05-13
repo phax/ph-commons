@@ -20,10 +20,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.io.IOException;
+import java.nio.ByteBuffer;
 
 import org.junit.Test;
-import java.nio.ByteBuffer;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -32,22 +31,22 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *
  * @author Philip Helger
  */
-
-public class ByteBuffersInputStreamTest {
-  @SuppressWarnings ("resource")
+public final class ByteBuffersInputStreamTest
+{
   @Test
+  @SuppressWarnings ("resource")
   @SuppressFBWarnings (value = "OS_OPEN_STREAM")
-  public void testAll () throws IOException
+  public void testAll ()
   {
-    final ByteBuffer buf = ByteBuffer.allocate(100);
     try
     {
-      new ByteBuffersInputStream (null);
+      new ByteBuffersInputStream ((ByteBuffer []) null);
       fail ();
     }
     catch (final NullPointerException ex)
     {}
 
+    final ByteBuffer buf = ByteBuffer.allocate (100);
     final ByteBuffersInputStream bbis = new ByteBuffersInputStream (buf);
     assertEquals (100, bbis.available ());
     bbis.read ();

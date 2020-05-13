@@ -88,6 +88,19 @@ public class NonBlockingCharArrayWriter extends Writer
   }
 
   /**
+   * Writes an array of characters.
+   *
+   * @param aBuf
+   *        Array of characters to be written. May not be <code>null</code>.
+   * @since 9.4.3
+   */
+  @Override
+  public void write (@Nonnull final char [] aBuf)
+  {
+    write (aBuf, 0, aBuf.length);
+  }
+
+  /**
    * Writes characters to the buffer.
    *
    * @param aBuf
@@ -110,6 +123,19 @@ public class NonBlockingCharArrayWriter extends Writer
       System.arraycopy (aBuf, nOfs, m_aBuf, m_nCount, nLen);
       m_nCount = nNewCount;
     }
+  }
+
+  /**
+   * Writes a string.
+   *
+   * @param sStr
+   *        String to be written. May not be <code>null</code>.
+   * @since 9.4.3
+   */
+  @Override
+  public void write (@Nonnull final String sStr)
+  {
+    write (sStr, 0, sStr.length ());
   }
 
   /**

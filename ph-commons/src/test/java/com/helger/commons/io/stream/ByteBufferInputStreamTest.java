@@ -20,17 +20,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.io.EOFException;
-import java.io.IOException;
-import java.nio.ByteOrder;
-import java.util.concurrent.ThreadLocalRandom;
+import java.nio.ByteBuffer;
 
 import org.junit.Test;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
-
-import java.nio.ByteBuffer;
 
 /**
  * Test class for class {@link ByteBufferInputStream}.
@@ -38,15 +32,16 @@ import java.nio.ByteBuffer;
  * @author Philip Helger
  */
 
-public class ByteBufferInputStreamTest {
+public final class ByteBufferInputStreamTest
+{
   @SuppressWarnings ("resource")
   @Test
   @SuppressFBWarnings (value = "OS_OPEN_STREAM")
-  public void testAll () throws IOException
+  public void testAll ()
   {
-    //byte [] bytes = new byte [100];
-    final ByteBuffer buf = ByteBuffer.allocate(100);
-    //ThreadLocalRandom.current ().nextBytes (buf);
+    // byte [] bytes = new byte [100];
+    final ByteBuffer buf = ByteBuffer.allocate (100);
+    // ThreadLocalRandom.current ().nextBytes (buf);
     try
     {
       new ByteBufferInputStream (null);
