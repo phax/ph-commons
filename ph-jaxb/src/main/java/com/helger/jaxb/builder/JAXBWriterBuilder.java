@@ -273,22 +273,10 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
   }
 
   @Nonnull
-  public ESuccess write (@Nonnull final JAXBTYPE aJAXBDocument,
-                         @Nonnull final IJAXBMarshaller <JAXBTYPE> aMarshallerFunc)
+  public ESuccess writeDirect (@Nonnull final JAXBTYPE aJAXBDocument, @Nonnull final IJAXBMarshaller <JAXBTYPE> aMarshallerFunc)
   {
     ValueEnforcer.notNull (aJAXBDocument, "JAXBDocument");
     ValueEnforcer.notNull (aMarshallerFunc, "MarshallerFunc");
-
-    // Avoid class cast exception later on
-    if (!m_aDocType.getImplementationClass ().getPackage ().equals (aJAXBDocument.getClass ().getPackage ()))
-    {
-      if (LOGGER.isErrorEnabled ())
-        LOGGER.error ("You cannot write a '" +
-                      aJAXBDocument.getClass () +
-                      "' as a " +
-                      m_aDocType.getImplementationClass ().getPackage ().getName ());
-      return ESuccess.FAILURE;
-    }
 
     try
     {
@@ -311,6 +299,26 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
     return ESuccess.FAILURE;
   }
 
+  @Nonnull
+  public ESuccess write (@Nonnull final JAXBTYPE aJAXBDocument, @Nonnull final IJAXBMarshaller <JAXBTYPE> aMarshallerFunc)
+  {
+    ValueEnforcer.notNull (aJAXBDocument, "JAXBDocument");
+    ValueEnforcer.notNull (aMarshallerFunc, "MarshallerFunc");
+
+    // Avoid class cast exception later on
+    if (!m_aDocType.getImplementationClass ().getPackage ().equals (aJAXBDocument.getClass ().getPackage ()))
+    {
+      if (LOGGER.isErrorEnabled ())
+        LOGGER.error ("You cannot write a '" +
+                      aJAXBDocument.getClass () +
+                      "' as a " +
+                      m_aDocType.getImplementationClass ().getPackage ().getName ());
+      return ESuccess.FAILURE;
+    }
+
+    return writeDirect (aJAXBDocument, aMarshallerFunc);
+  }
+
   @Override
   public String toString ()
   {
@@ -319,8 +327,7 @@ public class JAXBWriterBuilder <JAXBTYPE, IMPLTYPE extends JAXBWriterBuilder <JA
                             .append ("NamespaceContext", m_aNSContext)
                             .append ("FormattedOutput", m_bFormattedOutput)
                             .append ("Charset", m_aCharset)
-                            .append ("IndentString",
-                                     StringHelper.getHexEncoded (m_sIndentString, StandardCharsets.ISO_8859_1))
+                            .append ("IndentString", StringHelper.getHexEncoded (m_sIndentString, StandardCharsets.ISO_8859_1))
                             .append ("SchemaLocation", m_sSchemaLocation)
                             .append ("NoNamespaceSchemaLocation", m_sNoNamespaceSchemaLocation)
                             .getToString ();
