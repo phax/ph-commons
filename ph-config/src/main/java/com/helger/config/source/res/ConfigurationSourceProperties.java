@@ -23,6 +23,9 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.impl.CommonsLinkedHashMap;
+import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.lang.NonBlockingProperties;
 import com.helger.commons.lang.PropertiesHelper;
@@ -87,13 +90,10 @@ public class ConfigurationSourceProperties extends AbstractConfigurationSourceRe
    * @param aCharset
    *        Character set to use. May be <code>null</code>.
    */
-  public ConfigurationSourceProperties (final int nPriority,
-                                        @Nonnull final IReadableResource aRes,
-                                        @Nullable final Charset aCharset)
+  public ConfigurationSourceProperties (final int nPriority, @Nonnull final IReadableResource aRes, @Nullable final Charset aCharset)
   {
     super (nPriority, aRes);
-    m_aProps = aCharset == null ? PropertiesHelper.loadProperties (aRes)
-                                : PropertiesHelper.loadProperties (aRes, aCharset);
+    m_aProps = aCharset == null ? PropertiesHelper.loadProperties (aRes) : PropertiesHelper.loadProperties (aRes, aCharset);
   }
 
   public boolean isInitializedAndUsable ()
@@ -105,6 +105,13 @@ public class ConfigurationSourceProperties extends AbstractConfigurationSourceRe
   public String getConfigurationValue (@Nonnull @Nonempty final String sKey)
   {
     return m_aProps == null ? null : m_aProps.get (sKey);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public ICommonsOrderedMap <String, String> getAllConfigItems ()
+  {
+    return new CommonsLinkedHashMap <> (m_aProps);
   }
 
   @Override

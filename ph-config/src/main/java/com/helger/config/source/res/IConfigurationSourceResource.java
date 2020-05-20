@@ -18,6 +18,8 @@ package com.helger.config.source.res;
 
 import javax.annotation.Nonnull;
 
+import com.helger.commons.annotation.ReturnsMutableCopy;
+import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.config.source.IConfigurationSource;
 
@@ -33,4 +35,15 @@ public interface IConfigurationSourceResource extends IConfigurationSource
    */
   @Nonnull
   IReadableResource getResource ();
+
+  /**
+   * @return An ordered map of all contained keys and values in this resource.
+   *         The order of the items should follow the order of their declaration
+   *         in the underlying resource. Never <code>null</code> but maybe
+   *         empty.
+   * @since 9.4.3
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  ICommonsOrderedMap <String, String> getAllConfigItems ();
 }

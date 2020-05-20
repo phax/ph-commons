@@ -27,6 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.commons.annotation.Nonempty;
+import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.io.resource.IReadableResource;
@@ -125,14 +126,11 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
    * @param aCharset
    *        Character set to use. May be <code>null</code>.
    */
-  public ConfigurationSourceJson (final int nPriority,
-                                  @Nonnull final IReadableResource aRes,
-                                  @Nullable final Charset aCharset)
+  public ConfigurationSourceJson (final int nPriority, @Nonnull final IReadableResource aRes, @Nullable final Charset aCharset)
   {
     super (nPriority, aRes);
     final JsonReader.Builder aBuilder = JsonReader.builder ()
-                                                  .setSource (aRes,
-                                                              aCharset != null ? aCharset : JsonReader.DEFAULT_CHARSET)
+                                                  .setSource (aRes, aCharset != null ? aCharset : JsonReader.DEFAULT_CHARSET)
                                                   .setCustomizeCallback (aParser -> aParser.setRequireStringQuotes (false)
                                                                                            .setAllowSpecialCharsInStrings (true)
                                                                                            .setAlwaysUseBigNumber (true)
@@ -161,6 +159,13 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
   public String getConfigurationValue (@Nonnull @Nonempty final String sKey)
   {
     return m_aProps == null ? null : m_aProps.get (sKey);
+  }
+
+  @Nonnull
+  @ReturnsMutableCopy
+  public ICommonsOrderedMap <String, String> getAllConfigItems ()
+  {
+    return new CommonsLinkedHashMap <> (m_aProps);
   }
 
   @Override

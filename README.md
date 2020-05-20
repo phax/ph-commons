@@ -34,6 +34,7 @@ This project was the following modules:
     * Extended `NonBlockingCharArrayWriter` with non-throwing `write` overloads
     * Changed `IJsonObject` API to favour `addJson` instead of `add` because of different nullness
     * Deprecated `IHasSchema`
+    * Added `IConfigurationSourceResource.getAllConfigItems`
 * v9.4.2 - 2020-04-25
     * Reduced write locked section in `ScopeManager.onGlobalEnd` to reduce the possibility of a dead-lock
     * Made `ThreadGroup` of `BasicThreadFactory` customizable
