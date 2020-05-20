@@ -24,8 +24,10 @@ import com.helger.commons.annotation.DevelopersNote;
  * A simple interface, indicating that an item has a Schema object.
  *
  * @author Philip Helger
+ * @deprecated Since 9.4.3; use a Consumer instead
  */
 @FunctionalInterface
+@Deprecated
 public interface IHasSchema
 {
   /**

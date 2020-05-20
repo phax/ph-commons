@@ -42,8 +42,14 @@ import com.helger.xml.schema.XMLSchemaValidationHelper;
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
+@SuppressWarnings ("deprecation")
 public interface IJAXBDocumentType extends IHasSchema, Serializable
 {
+  /**
+   * @return The compiled {@link Schema} object.
+   */
+  Schema getSchema ();
+
   /**
    * @return The class implementing this document type. Never <code>null</code>.
    */
