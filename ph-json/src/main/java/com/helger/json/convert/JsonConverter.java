@@ -162,7 +162,7 @@ public final class JsonConverter
           throw new IllegalArgumentException ("Map key '" + aEntry.getKey () + "' could not be converted to a String!");
         // Recursive conversion
         final IJson aValue = convertToJson (aEntry.getValue ());
-        aJsonObject.add (sKey, aValue);
+        aJsonObject.addJson (sKey, aValue);
       }
       return aJsonObject;
     }

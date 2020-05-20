@@ -103,22 +103,17 @@ public final class JsonWriterTest
   @Test
   public void testArray ()
   {
-    assertEquals ("[true,false,true]",
-                  JsonConverter.convertToJson (new boolean [] { true, false, true }).getAsJsonString ());
+    assertEquals ("[true,false,true]", JsonConverter.convertToJson (new boolean [] { true, false, true }).getAsJsonString ());
     assertEquals ("[0,1,2]", JsonConverter.convertToJson (new byte [] { 0, 1, 2 }).getAsJsonString ());
-    assertEquals ("[\"a\",\"b\",\"c\"]",
-                  JsonConverter.convertToJson (new char [] { 'a', 'b', 'c' }).getAsJsonString ());
+    assertEquals ("[\"a\",\"b\",\"c\"]", JsonConverter.convertToJson (new char [] { 'a', 'b', 'c' }).getAsJsonString ());
     assertEquals ("[1.0,2.0,3.0]", JsonConverter.convertToJson (new double [] { 1, 2, 3 }).getAsJsonString ());
     assertEquals ("[1.0,2.0,3.0]", JsonConverter.convertToJson (new float [] { 1, 2, 3 }).getAsJsonString ());
     assertEquals ("[1,2,3]", JsonConverter.convertToJson (new int [] { 1, 2, 3 }).getAsJsonString ());
     assertEquals ("[1,2,3]", JsonConverter.convertToJson (new long [] { 1, 2, 3 }).getAsJsonString ());
     assertEquals ("[1,2,3]", JsonConverter.convertToJson (new short [] { 1, 2, 3 }).getAsJsonString ());
-    assertEquals ("[\"foo\",\"bar\",\"bla\"]",
-                  JsonConverter.convertToJson (new String [] { "foo", "bar", "bla" }).getAsJsonString ());
+    assertEquals ("[\"foo\",\"bar\",\"bla\"]", JsonConverter.convertToJson (new String [] { "foo", "bar", "bla" }).getAsJsonString ());
     assertEquals ("[1,0,10]",
-                  JsonConverter.convertToJson (CollectionHelper.<Object> newList (BigDecimal.ONE,
-                                                                                  BigInteger.ZERO,
-                                                                                  BigDecimal.TEN))
+                  JsonConverter.convertToJson (CollectionHelper.<Object> newList (BigDecimal.ONE, BigInteger.ZERO, BigDecimal.TEN))
                                .getAsJsonString ());
   }
 
@@ -139,8 +134,7 @@ public final class JsonWriterTest
     aLinkedMap.put ("foo2", Integer.valueOf (5));
     assertEquals ("{\"foo\":\"bar\",\"foo2\":5}", JsonConverter.convertToJson (aLinkedMap).getAsJsonString ());
     assertEquals ("{foo:\"bar\",foo2:5}",
-                  JsonConverter.convertToJson (aLinkedMap)
-                               .getAsJsonString (new JsonWriterSettings ().setQuoteNames (false)));
+                  JsonConverter.convertToJson (aLinkedMap).getAsJsonString (new JsonWriterSettings ().setQuoteNames (false)));
   }
 
   @Test
@@ -154,8 +148,7 @@ public final class JsonWriterTest
         aObj.add (aEntry.getKey (), aEntry.getValue ());
       aObjs.add (aObj);
     }
-    assertEquals ("{\"aa\":[{\"key\":\"value\"}]}",
-                  JsonConverter.convertToJson (new JsonObject ().add ("aa", aObjs)).getAsJsonString ());
+    assertEquals ("{\"aa\":[{\"key\":\"value\"}]}", JsonConverter.convertToJson (new JsonObject ().add ("aa", aObjs)).getAsJsonString ());
   }
 
   private void _testWriteAndRead (@Nullable final Object aValue)
@@ -262,12 +255,11 @@ public final class JsonWriterTest
     final String sCRLF = JsonWriterSettings.DEFAULT_NEWLINE_STRING;
     final JsonWriter aWriter = new JsonWriter (new JsonWriterSettings ().setIndentEnabled (true));
     assertEquals ("{}", aWriter.writeAsString (new JsonObject ()));
-    assertEquals ("{" + sCRLF + "  \"foo\":\"bar\"" + sCRLF + "}",
-                  aWriter.writeAsString (new JsonObject ().add ("foo", "bar")));
+    assertEquals ("{" + sCRLF + "  \"foo\":\"bar\"" + sCRLF + "}", aWriter.writeAsString (new JsonObject ().add ("foo", "bar")));
     assertEquals ("{" + sCRLF + "  \"foo\":[" + sCRLF + "    1," + sCRLF + "    2" + sCRLF + "  ]" + sCRLF + "}",
-                  aWriter.writeAsString (new JsonObject ().add ("foo", new JsonArray ().add (1).add (2))));
+                  aWriter.writeAsString (new JsonObject ().addJson ("foo", new JsonArray ().add (1).add (2))));
     assertEquals ("{" + sCRLF + "  \"foo\":{" + sCRLF + "    \"bar\":\"baz\"" + sCRLF + "  }" + sCRLF + "}",
-                  aWriter.writeAsString (new JsonObject ().add ("foo", new JsonObject ().add ("bar", "baz"))));
+                  aWriter.writeAsString (new JsonObject ().addJson ("foo", new JsonObject ().add ("bar", "baz"))));
     assertEquals ("[]", aWriter.writeAsString (new JsonArray ()));
     assertEquals ("[" + sCRLF + "  {" + sCRLF + "    \"foo\":\"bar\"" + sCRLF + "  }" + sCRLF + "]",
                   aWriter.writeAsString (new JsonArray ().add (new JsonObject ().add ("foo", "bar"))));

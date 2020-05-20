@@ -39,21 +39,46 @@ import com.helger.json.convert.JsonConverter;
  *
  * @author Philip Helger
  */
-public interface IJsonObject extends
-                             IJsonCollection,
-                             ICommonsIterable <Map.Entry <String, IJson>>,
-                             IGetterByKeyTrait <String>
+public interface IJsonObject extends IJsonCollection, ICommonsIterable <Map.Entry <String, IJson>>, IGetterByKeyTrait <String>
 {
+  /**
+   * Add a new child JSON with the given name to this object.
+   *
+   * @param sName
+   *        The name of the field. May not be <code>null</code>.
+   * @param aValue
+   *        The JSON object to be added. May not be <code>null</code>.
+   * @return this for chaining
+   * @deprecated Since 9.4.3; Use {@link #addJson(String, IJson)} instead. It
+   *             was renamed because all other "add" methods allow for
+   *             "nullable" parameters whereas this method requires a
+   *             non-<code>null</code> value. By renaming the method the
+   *             non-<code>null</code>ness became more explicit.
+   */
   @Nonnull
-  IJsonObject add (@Nonnull String sName, @Nonnull IJson aValue);
+  @Deprecated
+  default IJsonObject add (@Nonnull final String sName, @Nonnull final IJson aValue)
+  {
+    return addJson (sName, aValue);
+  }
+
+  /**
+   * Add a new child JSON with the given name to this object.
+   *
+   * @param sName
+   *        The name of the field. May not be <code>null</code>.
+   * @param aValue
+   *        The JSON object to be added. May not be <code>null</code>.
+   * @return this for chaining
+   */
+  @Nonnull
+  IJsonObject addJson (@Nonnull String sName, @Nonnull IJson aValue);
 
   @Nonnull
-  default IJsonObject addIf (@Nonnull final String sName,
-                             @Nonnull final IJson aValue,
-                             @Nonnull final Predicate <? super IJson> aFilter)
+  default IJsonObject addIf (@Nonnull final String sName, @Nonnull final IJson aValue, @Nonnull final Predicate <? super IJson> aFilter)
   {
     if (aFilter.test (aValue))
-      add (sName, aValue);
+      addJson (sName, aValue);
     return this;
   }
 
@@ -70,7 +95,7 @@ public interface IJsonObject extends
   default IJsonObject add (@Nonnull final String sName, @Nullable final Object aValue)
   {
     final IJson aJson = JsonConverter.convertToJson (aValue);
-    return add (sName, aJson);
+    return addJson (sName, aJson);
   }
 
   @Nonnull
@@ -82,9 +107,7 @@ public interface IJsonObject extends
   }
 
   @Nonnull
-  default IJsonObject addIf (@Nonnull final String sName,
-                             @Nullable final Object aValue,
-                             @Nonnull final Predicate <? super Object> aFilter)
+  default IJsonObject addIf (@Nonnull final String sName, @Nullable final Object aValue, @Nonnull final Predicate <? super Object> aFilter)
   {
     if (aFilter.test (aValue))
       add (sName, aValue);
@@ -100,31 +123,31 @@ public interface IJsonObject extends
   @Nonnull
   default IJsonObject add (@Nonnull final String sName, final boolean bValue)
   {
-    return add (sName, JsonValue.create (bValue));
+    return addJson (sName, JsonValue.create (bValue));
   }
 
   @Nonnull
   default IJsonObject add (@Nonnull final String sName, final char cValue)
   {
-    return add (sName, JsonValue.create (cValue));
+    return addJson (sName, JsonValue.create (cValue));
   }
 
   @Nonnull
   default IJsonObject add (@Nonnull final String sName, final double dValue)
   {
-    return add (sName, JsonValue.create (dValue));
+    return addJson (sName, JsonValue.create (dValue));
   }
 
   @Nonnull
   default IJsonObject add (@Nonnull final String sName, final int nValue)
   {
-    return add (sName, JsonValue.create (nValue));
+    return addJson (sName, JsonValue.create (nValue));
   }
 
   @Nonnull
   default IJsonObject add (@Nonnull final String sName, final long nValue)
   {
-    return add (sName, JsonValue.create (nValue));
+    return addJson (sName, JsonValue.create (nValue));
   }
 
   @Nonnull
@@ -159,7 +182,7 @@ public interface IJsonObject extends
   {
     if (aMap != null)
       for (final Map.Entry <String, ? extends VALUETYPE> aEntry : aMap.entrySet ())
-        add (aEntry.getKey (), aValueMapper.apply (aEntry.getValue ()));
+        addJson (aEntry.getKey (), aValueMapper.apply (aEntry.getValue ()));
     return this;
   }
 
@@ -170,7 +193,7 @@ public interface IJsonObject extends
   {
     if (aMap != null)
       for (final Map.Entry <? extends KEYTYPE, ? extends VALUETYPE> aEntry : aMap.entrySet ())
-        add (aKeyMapper.apply (aEntry.getKey ()), aValueMapper.apply (aEntry.getValue ()));
+        addJson (aKeyMapper.apply (aEntry.getKey ()), aValueMapper.apply (aEntry.getValue ()));
     return this;
   }
 
@@ -382,15 +405,14 @@ public interface IJsonObject extends
    * @since 8.6.4
    */
   @Nullable
-  default IJson computeIfAbsent (@Nonnull final String sName,
-                                 @Nonnull final Function <? super String, ? extends IJson> aValueProvider)
+  default IJson computeIfAbsent (@Nonnull final String sName, @Nonnull final Function <? super String, ? extends IJson> aValueProvider)
   {
     IJson ret = get (sName);
     if (ret == null)
     {
       ret = aValueProvider.apply (sName);
       if (ret != null)
-        add (sName, ret);
+        addJson (sName, ret);
     }
     return ret;
   }

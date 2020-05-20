@@ -61,9 +61,9 @@ public final class JsonObjectTest
     CommonsTestHelper.testDefaultSerialization (aObject);
     aObject.add ("key9", "This is a string");
     CommonsTestHelper.testDefaultSerialization (aObject);
-    aObject.add ("key10", new JsonArray ().add ("nested").add (0).add (Double.valueOf (12.34)));
+    aObject.addJson ("key10", new JsonArray ().add ("nested").add (0).add (Double.valueOf (12.34)));
     CommonsTestHelper.testDefaultSerialization (aObject);
-    aObject.add ("key11", new JsonObject ().add ("n1", "nested").add ("n2", 0).add ("n3", Double.valueOf (12.34)));
+    aObject.addJson ("key11", new JsonObject ().add ("n1", "nested").add ("n2", 0).add ("n3", Double.valueOf (12.34)));
     CommonsTestHelper.testDefaultSerialization (aObject);
     aObject.add (new MapEntry <> ("key12", "value12"));
     CommonsTestHelper.testDefaultSerialization (aObject);
@@ -113,7 +113,7 @@ public final class JsonObjectTest
     assertTrue (aObject.containsValue ("This is a string"));
     assertFalse (aObject.containsValue ((IJson) null));
 
-    aObject.add ("key4", new JsonArray ().add ("nested").add (0).add (BigDecimal.valueOf (12.34)));
+    aObject.addJson ("key4", new JsonArray ().add ("nested").add (0).add (BigDecimal.valueOf (12.34)));
     assertTrue (aObject.containsValue (5));
     assertTrue (aObject.containsValue (3.1234));
     assertTrue (aObject.containsValue ("This is a string"));
@@ -123,14 +123,12 @@ public final class JsonObjectTest
     assertNotNull (aObject.getAsArray ("key4"));
     assertNull (aObject.getAsObject ("key4"));
 
-    aObject.add ("key5", new JsonObject ().add ("n1", "nested").add ("n2", 0).add ("n3", BigDecimal.valueOf (12.34)));
+    aObject.addJson ("key5", new JsonObject ().add ("n1", "nested").add ("n2", 0).add ("n3", BigDecimal.valueOf (12.34)));
     assertTrue (aObject.containsValue (5));
     assertTrue (aObject.containsValue (3.1234));
     assertTrue (aObject.containsValue ("This is a string"));
     assertTrue (aObject.containsValue (new JsonArray ().add ("nested").add (0).add (BigDecimal.valueOf (12.34))));
-    assertTrue (aObject.containsValue (new JsonObject ().add ("n1", "nested")
-                                                        .add ("n2", 0)
-                                                        .add ("n3", BigDecimal.valueOf (12.34))));
+    assertTrue (aObject.containsValue (new JsonObject ().add ("n1", "nested").add ("n2", 0).add ("n3", BigDecimal.valueOf (12.34))));
     assertFalse (aObject.containsValue ((IJson) null));
     assertNull (aObject.getAsValue ("key5"));
     assertNull (aObject.getAsArray ("key5"));

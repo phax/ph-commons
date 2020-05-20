@@ -59,7 +59,7 @@ public class CollectingJsonParserHandler implements IJsonParserHandler
         if (m_aObjectName.isEmpty ())
           throw new IllegalStateException ("Internal inconsistency - empty object name stack");
 
-      aParent.getAsObject ().add (m_aObjectName.pop (), aValue);
+      aParent.getAsObject ().addJson (m_aObjectName.pop (), aValue);
     }
   }
 

@@ -119,7 +119,7 @@ public class JsonObject implements IJsonObject
   }
 
   @Nonnull
-  public JsonObject add (@Nonnull final String sName, @Nonnull final IJson aValue)
+  public JsonObject addJson (@Nonnull final String sName, @Nonnull final IJson aValue)
   {
     ValueEnforcer.notNull (sName, "Name");
     ValueEnforcer.notNull (aValue, "Value");
