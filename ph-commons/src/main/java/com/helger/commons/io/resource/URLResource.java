@@ -105,11 +105,7 @@ public class URLResource implements IReadableResource
   @Nullable
   public static InputStream getInputStream (@Nonnull final URL aURL)
   {
-    return URLHelper.getInputStream (aURL,
-                                     DEFAULT_CONNECT_TIMEOUT,
-                                     DEFAULT_READ_TIMEOUT,
-                                     null,
-                                     (IMutableWrapper <IOException>) null);
+    return URLHelper.getInputStream (aURL, DEFAULT_CONNECT_TIMEOUT, DEFAULT_READ_TIMEOUT, null, (IMutableWrapper <IOException>) null);
   }
 
   @Nullable
@@ -119,8 +115,7 @@ public class URLResource implements IReadableResource
   }
 
   @Nullable
-  public InputStream getInputStream (@CheckForSigned final int nConnectTimeoutMS,
-                                     @CheckForSigned final int nReadTimeoutMS)
+  public InputStream getInputStream (@CheckForSigned final int nConnectTimeoutMS, @CheckForSigned final int nReadTimeoutMS)
   {
     return getInputStream (nConnectTimeoutMS,
                            nReadTimeoutMS,
@@ -139,10 +134,7 @@ public class URLResource implements IReadableResource
                                      @CheckForSigned final int nReadTimeoutMS,
                                      @Nullable final IMutableWrapper <IOException> aExceptionHolder)
   {
-    return getInputStream (nConnectTimeoutMS,
-                           nReadTimeoutMS,
-                           (Consumer <? super URLConnection>) null,
-                           aExceptionHolder);
+    return getInputStream (nConnectTimeoutMS, nReadTimeoutMS, (Consumer <? super URLConnection>) null, aExceptionHolder);
   }
 
   @Nullable
@@ -196,10 +188,10 @@ public class URLResource implements IReadableResource
     return URLHelper.getAsURI (m_aURL);
   }
 
-  @Nonnull
+  @Nullable
   public File getAsFile ()
   {
-    return URLHelper.getAsFile (m_aURL);
+    return URLHelper.getAsFileOrNull (m_aURL);
   }
 
   @Nonnull

@@ -35,6 +35,7 @@ This project was the following modules:
     * Changed `IJsonObject` API to favour `addJson` instead of `add` because of different nullness
     * Deprecated `IHasSchema`
     * Added `IConfigurationSourceResource.getAllConfigItems`
+    * `URLResource.getAsFile()` is now nullable
 * v9.4.2 - 2020-04-25
     * Reduced write locked section in `ScopeManager.onGlobalEnd` to reduce the possibility of a dead-lock
     * Made `ThreadGroup` of `BasicThreadFactory` customizable
