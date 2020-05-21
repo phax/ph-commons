@@ -119,6 +119,13 @@ public class JsonObject implements IJsonObject
   }
 
   @Nonnull
+  @Deprecated
+  public JsonObject add (@Nonnull final String sName, @Nonnull final IJson aValue)
+  {
+    return addJson (sName, aValue);
+  }
+
+  @Nonnull
   public JsonObject addJson (@Nonnull final String sName, @Nonnull final IJson aValue)
   {
     ValueEnforcer.notNull (sName, "Name");

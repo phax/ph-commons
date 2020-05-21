@@ -57,10 +57,7 @@ public interface IJsonObject extends IJsonCollection, ICommonsIterable <Map.Entr
    */
   @Nonnull
   @Deprecated
-  default IJsonObject add (@Nonnull final String sName, @Nonnull final IJson aValue)
-  {
-    return addJson (sName, aValue);
-  }
+  IJsonObject add (@Nonnull String sName, @Nonnull IJson aValue);
 
   /**
    * Add a new child JSON with the given name to this object.
