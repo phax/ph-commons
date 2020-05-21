@@ -29,7 +29,7 @@ This project was the following modules:
 
 ## News and noteworthy
 
-* v9.4.3 - work in progress
+* v9.4.3 - 2020-05-21
     * Extended tests - thanks to @dliang2000
     * Extended `NonBlockingCharArrayWriter` with non-throwing `write` overloads
     * Changed `IJsonObject` API to favour `addJson` instead of `add` because of different nullness
