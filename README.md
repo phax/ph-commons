@@ -29,6 +29,8 @@ This project was the following modules:
 
 ## News and noteworthy
 
+* v9.4.4 - 2020-05-21
+    * Fixed a backwards compatibility issue with `JsonObject.add(String,IJson)`
 * v9.4.3 - 2020-05-21
     * Extended tests - thanks to @dliang2000
     * Extended `NonBlockingCharArrayWriter` with non-throwing `write` overloads
