@@ -28,6 +28,8 @@ import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.typeconvert.TypeConverter;
 import com.helger.json.IHasJson;
 import com.helger.json.IJson;
+import com.helger.json.IJsonArray;
+import com.helger.json.IJsonObject;
 import com.helger.json.JsonArray;
 import com.helger.json.JsonObject;
 import com.helger.json.JsonValue;
@@ -128,7 +130,7 @@ public final class JsonConverter
       if (aObject instanceof Object [])
       {
         final Object [] aArray = (Object []) aObject;
-        final JsonArray aJsonArray = new JsonArray (aArray.length);
+        final IJsonArray aJsonArray = new JsonArray (aArray.length);
         for (final Object aValue : aArray)
         {
           // Recursive conversion
@@ -142,7 +144,7 @@ public final class JsonConverter
     if (aObject instanceof Collection <?>)
     {
       final Collection <?> aCollection = (Collection <?>) aObject;
-      final JsonArray aJsonArray = new JsonArray (aCollection.size ());
+      final IJsonArray aJsonArray = new JsonArray (aCollection.size ());
       for (final Object aValue : aCollection)
       {
         // Recursive conversion
@@ -154,7 +156,7 @@ public final class JsonConverter
     if (aObject instanceof Map <?, ?>)
     {
       final Map <?, ?> aMap = (Map <?, ?>) aObject;
-      final JsonObject aJsonObject = new JsonObject (aMap.size ());
+      final IJsonObject aJsonObject = new JsonObject (aMap.size ());
       for (final Map.Entry <?, ?> aEntry : aMap.entrySet ())
       {
         final String sKey = TypeConverter.convert (aEntry.getKey (), String.class);
