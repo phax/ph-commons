@@ -118,6 +118,7 @@ public class JsonObject implements IJsonObject
     return m_aValues.entrySet ().iterator ();
   }
 
+  // This implementation is needed for ph-oton 8.2.3
   @Nonnull
   @Deprecated
   public JsonObject add (@Nonnull final String sName, @Nonnull final IJson aValue)
