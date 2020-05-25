@@ -68,8 +68,7 @@ public interface IMapBasedDAO <INTERFACETYPE extends IHasID <String>> extends IH
    *        The consumer to be invoked for all matches. May not be
    *        <code>null</code>.
    */
-  void findAll (@Nullable Predicate <? super INTERFACETYPE> aFilter,
-                @Nonnull Consumer <? super INTERFACETYPE> aConsumer);
+  void findAll (@Nullable Predicate <? super INTERFACETYPE> aFilter, @Nonnull Consumer <? super INTERFACETYPE> aConsumer);
 
   /**
    * Get all contained items matching the provided filter and map them to
@@ -147,6 +146,16 @@ public interface IMapBasedDAO <INTERFACETYPE extends IHasID <String>> extends IH
    * @return <code>true</code> if an item with the provided ID is contained.
    */
   boolean containsWithID (@Nullable String sID);
+
+  /**
+   * Check if all IDs are contained
+   *
+   * @param aIDs
+   *        IDs to check
+   * @return <code>true</code> if all IDs are contained
+   * @since 9.4.5 in the interface
+   */
+  boolean containsAllIDs (@Nullable Iterable <String> aIDs);
 
   /**
    * @return A set with the IDs of all contained items. Never <code>null</code>
