@@ -16,6 +16,8 @@
  */
 package com.helger.dao.wal;
 
+import java.util.function.BiConsumer;
+import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -41,6 +43,16 @@ import com.helger.commons.lang.IHasSize;
 @ThreadSafe
 public interface IMapBasedDAO <INTERFACETYPE extends IHasID <String>> extends IHasSize
 {
+  /**
+   * @param <T>
+   *        Response type.
+   * @return An empty collection of the suitable implementation type.
+   * @since 9.4.5 in the interface
+   */
+  @Nonnull
+  @ReturnsMutableCopy
+  <T> ICommonsList <T> getNone ();
+
   /**
    * @return A list of all contained items. Never <code>null</code>.
    */
@@ -146,6 +158,70 @@ public interface IMapBasedDAO <INTERFACETYPE extends IHasID <String>> extends IH
    * @return <code>true</code> if an item with the provided ID is contained.
    */
   boolean containsWithID (@Nullable String sID);
+
+  /**
+   * Iterate each entry
+   * 
+   * @param aConsumer
+   *        Consumer to use. May be <code>null</code>.
+   * @since 9.4.5 in the interface
+   */
+  void forEach (@Nullable BiConsumer <? super String, ? super INTERFACETYPE> aConsumer);
+
+  /**
+   * Iterate each entry
+   * 
+   * @param aFilter
+   *        Optional filter to limit the entries for which the consumer is
+   *        called. May be <code>null</code>.
+   * @param aConsumer
+   *        Consumer to use. May be <code>null</code>.
+   * @since 9.4.5 in the interface
+   */
+  void forEach (@Nullable BiPredicate <? super String, ? super INTERFACETYPE> aFilter,
+                @Nullable BiConsumer <? super String, ? super INTERFACETYPE> aConsumer);
+
+  /**
+   * Iterate each key
+   * 
+   * @param aConsumer
+   *        Consumer to use. May be <code>null</code>.
+   * @since 9.4.5 in the interface
+   */
+  void forEachKey (@Nullable Consumer <? super String> aConsumer);
+
+  /**
+   * Iterate each key
+   * 
+   * @param aFilter
+   *        Optional filter to limit the entries for which the consumer is
+   *        called. May be <code>null</code>.
+   * @param aConsumer
+   *        Consumer to use. May be <code>null</code>.
+   * @since 9.4.5 in the interface
+   */
+  void forEachKey (@Nullable Predicate <? super String> aFilter, @Nullable Consumer <? super String> aConsumer);
+
+  /**
+   * Iterate each value
+   * 
+   * @param aConsumer
+   *        Consumer to use. May be <code>null</code>.
+   * @since 9.4.5 in the interface
+   */
+  void forEachValue (@Nullable Consumer <? super INTERFACETYPE> aConsumer);
+
+  /**
+   * Iterate each value
+   * 
+   * @param aFilter
+   *        Optional filter to limit the entries for which the consumer is
+   *        called. May be <code>null</code>.
+   * @param aConsumer
+   *        Consumer to use. May be <code>null</code>.
+   * @since 9.4.5 in the interface
+   */
+  void forEachValue (@Nullable Predicate <? super INTERFACETYPE> aFilter, @Nullable Consumer <? super INTERFACETYPE> aConsumer);
 
   /**
    * Check if all IDs are contained
