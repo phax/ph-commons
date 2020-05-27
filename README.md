@@ -31,6 +31,7 @@ This project was the following modules:
 
 * v9.4.5 - work in progress
     * Added missing methods in `IMapBasedDAO`
+    * Added static syntactic sugar methods in `HashCodeGenerator`
 * v9.4.4 - 2020-05-21
     * Fixed a backwards compatibility issue with `JsonObject.add(String,IJson)`
 * v9.4.3 - 2020-05-21
