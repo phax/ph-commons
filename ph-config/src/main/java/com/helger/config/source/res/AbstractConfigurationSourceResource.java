@@ -40,8 +40,7 @@ import com.helger.config.source.IConfigurationSource;
  * @author Philip Helger
  */
 @Immutable
-public abstract class AbstractConfigurationSourceResource extends AbstractConfigurationSource implements
-                                                          IConfigurationSourceResource
+public abstract class AbstractConfigurationSourceResource extends AbstractConfigurationSource implements IConfigurationSourceResource
 {
   public static final EConfigSourceType SOURCE_TYPE = EConfigSourceType.RESOURCE;
 
@@ -98,6 +97,6 @@ public abstract class AbstractConfigurationSourceResource extends AbstractConfig
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("File", m_aRes).getToString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("Resource", m_aRes).getToString ();
   }
 }
