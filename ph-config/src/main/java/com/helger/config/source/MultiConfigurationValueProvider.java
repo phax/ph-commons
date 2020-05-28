@@ -27,6 +27,9 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
@@ -43,9 +46,7 @@ import com.helger.config.value.IConfigurationValueProviderWithPriorityCallback;
  *
  * @author Philip Helger
  */
-public class MultiConfigurationValueProvider implements
-                                             IConfigurationValueProvider,
-                                             ICloneable <MultiConfigurationValueProvider>
+public class MultiConfigurationValueProvider implements IConfigurationValueProvider, ICloneable <MultiConfigurationValueProvider>
 {
   private static final class CS
   {
@@ -60,6 +61,8 @@ public class MultiConfigurationValueProvider implements
   }
 
   public static final boolean DEFAULT_USE_ONLY_INTIIALIZED_CONFIG_SOURCES = true;
+
+  private static final Logger LOGGER = LoggerFactory.getLogger (MultiConfigurationValueProvider.class);
 
   private final ICommonsList <CS> m_aSources = new CommonsArrayList <> ();
   private boolean m_bUseOnlyInitializedConfigSources = DEFAULT_USE_ONLY_INTIIALIZED_CONFIG_SOURCES;
@@ -152,6 +155,9 @@ public class MultiConfigurationValueProvider implements
   {
     if (aCVP != null)
     {
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Adding configuration source " + aCVP + " with priority " + nPriority);
+
       m_aSources.add (new CS (aCVP, nPriority));
       // Ensure entry with highest priority comes first
       m_aSources.sort ( (x, y) -> y.m_nPrio - x.m_nPrio);
