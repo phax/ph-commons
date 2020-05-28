@@ -50,6 +50,32 @@ public final class ConfigFactory
       LOGGER.warn ("The default Config instance is based soley on system properties and environment variables. No configuration resources were found.");
   }
 
+  /**
+   * Create the default configuration value provider, with the following
+   * configuration sources:
+   * <ul>
+   * <li>Query system properties - names are takes "as are" - priority 400.</li>
+   * <li>Environment variables. All non-alphanumeric characters are replaced
+   * with underscores. So e.g. the property 'a.b' resolves to the environment
+   * variable "A_B" - priority 300</li>
+   * <li>A file or classpath entry with the name
+   * <code>private-application.json</code> - priority 195</li>
+   * <li>A file or classpath entry with the name
+   * <code>private-application.properties</code> - priority 190</li>
+   * <li>Than all instances of <code>application.json</code> are looked up on
+   * the classpath (only!). All of them share priority 185</li>
+   * <li>Than all instances of <code>application.properties</code> are looked up
+   * on the classpath (only!). All of them share priority 180</li>
+   * <li>Than all instances of <code>reference.properties</code> are looked up
+   * on the classpath (only!). All of them share priority 1</li>
+   * </ul>
+   * <p>
+   * <b>Note:</b> the default configuration does NOT contain any custom
+   * configuration files.
+   * </p>
+   *
+   * @return A new value provider. Never <code>null</code>.
+   */
   @Nonnull
   public static MultiConfigurationValueProvider createDefaultValueProvider ()
   {
@@ -65,28 +91,29 @@ public final class ConfigFactory
                                                                                                new ClassPathResourceProvider ());
 
     // Prio 195
-    IReadableResource aRes = aResourceProvider.getReadableResourceIf ("private-application.json",
-                                                                      IReadableResource::exists);
+    IReadableResource aRes = aResourceProvider.getReadableResourceIf ("private-application.json", IReadableResource::exists);
     if (aRes != null)
-      aMCSVP.addConfigurationSource (new ConfigurationSourceJson (aRes, StandardCharsets.UTF_8),
-                                     nResourceDefaultPrio - 5);
+      aMCSVP.addConfigurationSource (new ConfigurationSourceJson (aRes, StandardCharsets.UTF_8), nResourceDefaultPrio - 5);
+
     // Prio 190
     aRes = aResourceProvider.getReadableResourceIf ("private-application.properties", IReadableResource::exists);
     if (aRes != null)
-      aMCSVP.addConfigurationSource (new ConfigurationSourceProperties (aRes, StandardCharsets.UTF_8),
-                                     nResourceDefaultPrio - 10);
+      aMCSVP.addConfigurationSource (new ConfigurationSourceProperties (aRes, StandardCharsets.UTF_8), nResourceDefaultPrio - 10);
+
     // Prio 185
     aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForClassPath (ClassLoaderHelper.getDefaultClassLoader (),
                                                                                        "application.json",
                                                                                        aURL -> new ConfigurationSourceJson (new URLResource (aURL),
                                                                                                                             StandardCharsets.UTF_8)),
                                    nResourceDefaultPrio - 15);
+
     // Prio 180
     aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForClassPath (ClassLoaderHelper.getDefaultClassLoader (),
                                                                                        "application.properties",
                                                                                        aURL -> new ConfigurationSourceProperties (new URLResource (aURL),
                                                                                                                                   StandardCharsets.UTF_8)),
                                    nResourceDefaultPrio - 20);
+
     // Prio 1
     aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForClassPath (ClassLoaderHelper.getDefaultClassLoader (),
                                                                                        "reference.properties",
