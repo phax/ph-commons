@@ -32,6 +32,7 @@ This project was the following modules:
 * v9.4.5 - work in progress
     * Added missing methods in `IMapBasedDAO`
     * Added static syntactic sugar methods in `HashCodeGenerator`
+    * The default `IConfig.getInstance()` now also considers system properties `config.resource`, `config.file` and `config.url` or the environment variable alternatives `CONFIG_RESOURCE`, `CONFIG_FILE` and `CONFIG_URL`.
 * v9.4.4 - 2020-05-21
     * Fixed a backwards compatibility issue with `JsonObject.add(String,IJson)`
 * v9.4.3 - 2020-05-21
@@ -791,13 +792,16 @@ Add the following to your pom.xml to use this artifact:
 
 A multi-source configuration manager, that can use system properties, environment variables, resources and application specific values to work with.
 See `ConfigFactory.getDefaultConfig ()` for the starting point. By default the following configurations sources are scanned in this order:
-1. System properties
-1. Environment variables
-1. a JSON file called `private-application.json` - this is mainly to have an easy way to override settings
-1. a properties file called `private-application.properties` - this is mainly to have an easy way to override settings
-1. all JSON files called `application.json` that are in the classpath
-1. all properties files called `application.properties` that are n the classpath
-1. all properties files called `reference.properties` that are in the classpath
+1. System properties - priority 400
+1. Environment variables - priority 300
+1. if the system property `config.resource` or the environment variable `CONFIG_RESOURCE` is present, and it points to an existing classpath resource, it is used - priority 200 or determined by the system property `config.resource.priority` or the environment variable `CONFIG_RESOURCE_PRIORITY`. Note: the file type is determined by the extension and defaults to "properties".
+1. if the system property `config.file` or the environment variable `CONFIG_FILE` is present, and it points to an existing file, it is used - priority 200 or determined by the system property `config.file.priority` or the environment variable `CONFIG_FILE_PRIORITY`. Note: the file type is determined by the extension and defaults to "properties".
+1. if the system property `config.url` or the environment variable `CONFIG_URL` is present, and it points to an existing URL, it is used - priority 200 or determined by the system property `config.url.priority` or the environment variable `CONFIG_URLE_PRIORITY`. Note: the file type is determined by the extension and defaults to "properties".
+1. a JSON file called `private-application.json` - this is mainly to have an easy way to override settings - priority 195.
+1. a properties file called `private-application.properties` - this is mainly to have an easy way to override settings - priority 190.
+1. all JSON files called `application.json` that are in the classpath - priority 185.
+1. all properties files called `application.properties` that are in the classpath - priority 180.
+1. all properties files called `reference.properties` that are in the classpath - priority 1.
 
 ## JSON format
 

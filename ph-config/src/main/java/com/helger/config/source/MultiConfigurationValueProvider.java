@@ -118,7 +118,8 @@ public class MultiConfigurationValueProvider implements IConfigurationValueProvi
   }
 
   /**
-   * Add a configuration source.
+   * Add a configuration source. The priority of the configuration source is
+   * used.
    *
    * @param aSource
    *        The source to be added. May not be <code>null</code>.
@@ -139,8 +140,9 @@ public class MultiConfigurationValueProvider implements IConfigurationValueProvi
   }
 
   /**
-   * Add a configuration value provider and a priority. This method sorts the
-   * list of sources
+   * Add a configuration value provider and a priority. The passed priority
+   * overwrites the priority contained in the value provider. This method sorts
+   * the internal list of sources based on the registered priorities.
    *
    * @param aCVP
    *        The configuration value provider to be added. May be
