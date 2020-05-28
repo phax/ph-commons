@@ -59,13 +59,19 @@ public final class ConfigFactory
   }
 
   /**
-   * Create the default configuration value provider, with the following
-   * configuration sources:
+   * Create a configuration value provider, with the following configuration
+   * sources:
    * <ul>
    * <li>Query system properties - names are takes "as are" - priority 400.</li>
    * <li>Environment variables. All non-alphanumeric characters are replaced
    * with underscores. So e.g. the property 'a.b' resolves to the environment
    * variable "A_B" - priority 300</li>
+   * <li>If a system property <code>config.resource</code> exists and it points
+   * to an existing classpath resource, it is used - priority 200</li>
+   * <li>If a system property <code>config.file</code> exists and it points to
+   * an existing file, it is used - priority 200</li>
+   * <li>If a system property <code>config.url</code> exists and it points to an
+   * existing URL, it is used - priority 200</li>
    * <li>A file or classpath entry with the name
    * <code>private-application.json</code> - priority 195</li>
    * <li>A file or classpath entry with the name

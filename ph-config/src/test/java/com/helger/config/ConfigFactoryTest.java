@@ -22,6 +22,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.File;
+
 import javax.annotation.Nonnull;
 
 import org.junit.Test;
@@ -29,7 +31,9 @@ import org.junit.Test;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.equals.EqualsHelper;
+import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.math.MathHelper;
+import com.helger.commons.system.SystemProperties;
 import com.helger.commons.typeconvert.TypeConverterException;
 import com.helger.config.source.envvar.ConfigurationSourceEnvVar;
 import com.helger.config.source.res.ConfigurationSourceJson;
@@ -38,8 +42,19 @@ import com.helger.config.source.res.IConfigurationSourceResource;
 import com.helger.config.source.sysprop.ConfigurationSourceSystemProperty;
 import com.helger.config.value.IConfigurationValueProvider;
 
-public class ConfigFactoryTest
+/**
+ * Test class for class {@link ConfigFactory}
+ *
+ * @author Philip Helger
+ */
+public final class ConfigFactoryTest
 {
+  static
+  {
+    // Ensure the default is created first
+    ConfigFactory.getDefaultConfig ();
+  }
+
   private void _testDefault (@Nonnull final IConfig aConfig)
   {
     assertEquals ("from-private-application-json0", aConfig.getAsString ("element0"));
@@ -95,5 +110,125 @@ public class ConfigFactoryTest
     _testDefault (Config.create (ConfigFactory.createDefaultValueProvider ()));
     _testDefault (Config.create (ConfigFactory.createDefaultValueProvider ().getClone ()));
     _testDefault (Config.create (ConfigFactory.createDefaultValueProvider ().getClone ().getClone ()));
+  }
+
+  @Test
+  public void testSysPropConfigResourceJson ()
+  {
+    SystemProperties.setPropertyValue ("config.resource", "sysprops/resource.json");
+    try
+    {
+      final IConfig aConfig = Config.create (ConfigFactory.createDefaultValueProvider ());
+      assertEquals ("from-sysprop-resource-json0", aConfig.getAsString ("element0"));
+      assertEquals ("from-private-application-properties1", aConfig.getAsString ("element1"));
+      assertEquals ("from-application-json2", aConfig.getAsString ("element2"));
+      assertEquals ("from-application-properties3", aConfig.getAsString ("element3"));
+      assertEquals ("from-reference-properties4", aConfig.getAsString ("element4"));
+      assertNull (aConfig.getAsString ("element5"));
+    }
+    finally
+    {
+      SystemProperties.removePropertyValue ("config.resource");
+    }
+  }
+
+  @Test
+  public void testSysPropConfigResourceProperties ()
+  {
+    SystemProperties.setPropertyValue ("config.resource", "sysprops/resource.properties");
+    try
+    {
+      final IConfig aConfig = Config.create (ConfigFactory.createDefaultValueProvider ());
+      assertEquals ("from-sysprop-resource-properties0", aConfig.getAsString ("element0"));
+      assertEquals ("from-private-application-properties1", aConfig.getAsString ("element1"));
+      assertEquals ("from-application-json2", aConfig.getAsString ("element2"));
+      assertEquals ("from-application-properties3", aConfig.getAsString ("element3"));
+      assertEquals ("from-reference-properties4", aConfig.getAsString ("element4"));
+      assertNull (aConfig.getAsString ("element5"));
+    }
+    finally
+    {
+      SystemProperties.removePropertyValue ("config.resource");
+    }
+  }
+
+  @Test
+  public void testSysPropFileResourceJson ()
+  {
+    SystemProperties.setPropertyValue ("config.file", new File ("src/test/resources/sysprops/file.json").getAbsolutePath ());
+    try
+    {
+      final IConfig aConfig = Config.create (ConfigFactory.createDefaultValueProvider ());
+      assertEquals ("from-sysprop-file-json0", aConfig.getAsString ("element0"));
+      assertEquals ("from-private-application-properties1", aConfig.getAsString ("element1"));
+      assertEquals ("from-application-json2", aConfig.getAsString ("element2"));
+      assertEquals ("from-application-properties3", aConfig.getAsString ("element3"));
+      assertEquals ("from-reference-properties4", aConfig.getAsString ("element4"));
+      assertNull (aConfig.getAsString ("element5"));
+    }
+    finally
+    {
+      SystemProperties.removePropertyValue ("config.file");
+    }
+  }
+
+  @Test
+  public void testSysPropFileResourceProperties ()
+  {
+    SystemProperties.setPropertyValue ("config.file", new File ("src/test/resources/sysprops/file.properties").getAbsolutePath ());
+    try
+    {
+      final IConfig aConfig = Config.create (ConfigFactory.createDefaultValueProvider ());
+      assertEquals ("from-sysprop-file-properties0", aConfig.getAsString ("element0"));
+      assertEquals ("from-private-application-properties1", aConfig.getAsString ("element1"));
+      assertEquals ("from-application-json2", aConfig.getAsString ("element2"));
+      assertEquals ("from-application-properties3", aConfig.getAsString ("element3"));
+      assertEquals ("from-reference-properties4", aConfig.getAsString ("element4"));
+      assertNull (aConfig.getAsString ("element5"));
+    }
+    finally
+    {
+      SystemProperties.removePropertyValue ("config.file");
+    }
+  }
+
+  @Test
+  public void testSysPropConfigUrlJson ()
+  {
+    SystemProperties.setPropertyValue ("config.url", new ClassPathResource ("sysprops/url.json").getAsURL ().toExternalForm ());
+    try
+    {
+      final IConfig aConfig = Config.create (ConfigFactory.createDefaultValueProvider ());
+      assertEquals ("from-sysprop-url-json0", aConfig.getAsString ("element0"));
+      assertEquals ("from-private-application-properties1", aConfig.getAsString ("element1"));
+      assertEquals ("from-application-json2", aConfig.getAsString ("element2"));
+      assertEquals ("from-application-properties3", aConfig.getAsString ("element3"));
+      assertEquals ("from-reference-properties4", aConfig.getAsString ("element4"));
+      assertNull (aConfig.getAsString ("element5"));
+    }
+    finally
+    {
+      SystemProperties.removePropertyValue ("config.url");
+    }
+  }
+
+  @Test
+  public void testSysPropConfigUrlProperties ()
+  {
+    SystemProperties.setPropertyValue ("config.url", new ClassPathResource ("sysprops/url.properties").getAsURL ().toExternalForm ());
+    try
+    {
+      final IConfig aConfig = Config.create (ConfigFactory.createDefaultValueProvider ());
+      assertEquals ("from-sysprop-url-properties0", aConfig.getAsString ("element0"));
+      assertEquals ("from-private-application-properties1", aConfig.getAsString ("element1"));
+      assertEquals ("from-application-json2", aConfig.getAsString ("element2"));
+      assertEquals ("from-application-properties3", aConfig.getAsString ("element3"));
+      assertEquals ("from-reference-properties4", aConfig.getAsString ("element4"));
+      assertNull (aConfig.getAsString ("element5"));
+    }
+    finally
+    {
+      SystemProperties.removePropertyValue ("config.url");
+    }
   }
 }
