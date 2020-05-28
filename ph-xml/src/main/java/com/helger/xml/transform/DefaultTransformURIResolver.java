@@ -25,6 +25,7 @@ import javax.xml.transform.URIResolver;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resourceresolver.DefaultResourceResolver;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.string.ToStringGenerator;
 import com.helger.xml.ls.SimpleLSResourceResolver;
 
 /**
@@ -110,5 +111,11 @@ public class DefaultTransformURIResolver extends AbstractTransformURIResolver
 
     // Nothing to resolve
     return null;
+  }
+
+  @Override
+  public String toString ()
+  {
+    return ToStringGenerator.getDerived (super.toString ()).appendIfNotNull ("DefaultBase", m_sDefaultBase).getToString ();
   }
 }
