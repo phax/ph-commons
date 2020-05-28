@@ -21,6 +21,7 @@ import javax.annotation.Nonnull;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.io.resource.IReadableResource;
+import com.helger.commons.state.ESuccess;
 import com.helger.config.source.IConfigurationSource;
 
 /**
@@ -35,6 +36,17 @@ public interface IConfigurationSourceResource extends IConfigurationSource
    */
   @Nonnull
   IReadableResource getResource ();
+
+  /**
+   * Try to reload the configuration source from the configured resource. The
+   * reloading should be an atomic operation and be thread-safe.
+   *
+   * @return {@link ESuccess#SUCCESS} if the resource was found and loaded,
+   *         {@link ESuccess#FAILURE} otherwise.
+   * @since 9.4.5
+   */
+  @Nonnull
+  ESuccess reload ();
 
   /**
    * @return An ordered map of all contained keys and values in this resource.

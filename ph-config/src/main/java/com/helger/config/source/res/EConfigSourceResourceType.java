@@ -30,6 +30,7 @@ import com.helger.commons.string.StringHelper;
  * Defines the type of configuration source resources.
  *
  * @author Philip Helger
+ * @since 9.4.5
  */
 public enum EConfigSourceResourceType
 {
@@ -46,6 +47,9 @@ public enum EConfigSourceResourceType
     m_aFactory = aFactory;
   }
 
+  /**
+   * @return The extension to be used. This does NOT contain the dot.
+   */
   @Nonnull
   @Nonempty
   public String getExtension ()

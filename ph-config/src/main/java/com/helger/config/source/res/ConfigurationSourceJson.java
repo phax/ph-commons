@@ -21,7 +21,8 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.GuardedBy;
+import javax.annotation.concurrent.ThreadSafe;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +31,9 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.io.resource.IReadableResource;
+import com.helger.commons.state.ESuccess;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.config.source.IConfigurationSource;
 import com.helger.json.IJson;
@@ -44,7 +47,7 @@ import com.helger.json.serialize.JsonReader;
  *
  * @author Philip Helger
  */
-@Immutable
+@ThreadSafe
 public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
 {
   public static final char LEVEL_SEPARATOR = '.';
@@ -52,7 +55,10 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
 
   private static final Logger LOGGER = LoggerFactory.getLogger (ConfigurationSourceJson.class);
 
-  private final ICommonsOrderedMap <String, String> m_aProps;
+  private final Charset m_aCharset;
+  private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
+  @GuardedBy ("m_aRWLock")
+  private ICommonsOrderedMap <String, String> m_aProps;
 
   private static void _recursiveFlattenJson (@Nonnull final String sNamePrefix,
                                              @Nonnull final IJson aJson,
@@ -77,6 +83,29 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
           nIndex++;
         }
       }
+  }
+
+  @Nullable
+  private static ICommonsOrderedMap <String, String> _load (@Nonnull final IReadableResource aRes, @Nonnull final Charset aCharset)
+  {
+    final JsonReader.Builder aBuilder = JsonReader.builder ()
+                                                  .setSource (aRes, aCharset)
+                                                  .setCustomizeCallback (aParser -> aParser.setRequireStringQuotes (false)
+                                                                                           .setAllowSpecialCharsInStrings (true)
+                                                                                           .setAlwaysUseBigNumber (true)
+                                                                                           .setTrackPosition (true))
+                                                  .setCustomExceptionCallback (ex -> LOGGER.error ("Failed to parse '" +
+                                                                                                   aRes.getPath () +
+                                                                                                   "' to JSON: " +
+                                                                                                   ex.getMessage ()));
+    final IJsonObject aProps = aBuilder.hasSource () ? aBuilder.readAsObject () : null;
+    if (aProps == null)
+      return null;
+
+    final ICommonsOrderedMap <String, String> ret = new CommonsLinkedHashMap <> ();
+    for (final Map.Entry <String, IJson> aEntry : aProps)
+      _recursiveFlattenJson (aEntry.getKey (), aEntry.getValue (), ret);
+    return ret;
   }
 
   /**
@@ -129,43 +158,45 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
   public ConfigurationSourceJson (final int nPriority, @Nonnull final IReadableResource aRes, @Nullable final Charset aCharset)
   {
     super (nPriority, aRes);
-    final JsonReader.Builder aBuilder = JsonReader.builder ()
-                                                  .setSource (aRes, aCharset != null ? aCharset : JsonReader.DEFAULT_CHARSET)
-                                                  .setCustomizeCallback (aParser -> aParser.setRequireStringQuotes (false)
-                                                                                           .setAllowSpecialCharsInStrings (true)
-                                                                                           .setAlwaysUseBigNumber (true)
-                                                                                           .setTrackPosition (true))
-                                                  .setCustomExceptionCallback (ex -> LOGGER.error ("Failed to parse '" +
-                                                                                                   aRes.getPath () +
-                                                                                                   "' to JSON: " +
-                                                                                                   ex.getMessage ()));
-    final IJsonObject aProps = aBuilder.hasSource () ? aBuilder.readAsObject () : null;
-    if (aProps != null)
-    {
-      m_aProps = new CommonsLinkedHashMap <> ();
-      for (final Map.Entry <String, IJson> aEntry : aProps)
-        _recursiveFlattenJson (aEntry.getKey (), aEntry.getValue (), m_aProps);
-    }
-    else
-      m_aProps = null;
+    m_aCharset = aCharset != null ? aCharset : JsonReader.DEFAULT_CHARSET;
+    m_aProps = _load (aRes, m_aCharset);
+  }
+
+  /**
+   * @return The charset used to load the JSON. Never <code>null</code>.
+   */
+  @Nonnull
+  public final Charset getCharset ()
+  {
+    return m_aCharset;
   }
 
   public boolean isInitializedAndUsable ()
   {
-    return m_aProps != null;
+    return m_aRWLock.readLockedBoolean ( () -> m_aProps != null);
+  }
+
+  @Nonnull
+  public ESuccess reload ()
+  {
+    // Main load
+    final ICommonsOrderedMap <String, String> aProps = _load (getResource (), m_aCharset);
+    // Replace in write-lock
+    m_aRWLock.writeLockedGet ( () -> m_aProps = aProps);
+    return ESuccess.valueOf (aProps != null);
   }
 
   @Nullable
   public String getConfigurationValue (@Nonnull @Nonempty final String sKey)
   {
-    return m_aProps == null ? null : m_aProps.get (sKey);
+    return m_aRWLock.readLockedGet ( () -> m_aProps == null ? null : m_aProps.get (sKey));
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public ICommonsOrderedMap <String, String> getAllConfigItems ()
   {
-    return new CommonsLinkedHashMap <> (m_aProps);
+    return m_aRWLock.readLockedGet ( () -> new CommonsLinkedHashMap <> (m_aProps));
   }
 
   @Override

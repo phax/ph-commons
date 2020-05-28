@@ -20,15 +20,18 @@ import java.nio.charset.Charset;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.annotation.concurrent.Immutable;
+import javax.annotation.concurrent.GuardedBy;
+import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
+import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.lang.NonBlockingProperties;
 import com.helger.commons.lang.PropertiesHelper;
+import com.helger.commons.state.ESuccess;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.config.source.IConfigurationSource;
 
@@ -38,10 +41,21 @@ import com.helger.config.source.IConfigurationSource;
  *
  * @author Philip Helger
  */
-@Immutable
+@ThreadSafe
 public class ConfigurationSourceProperties extends AbstractConfigurationSourceResource
 {
-  private final NonBlockingProperties m_aProps;
+  private final Charset m_aCharset;
+  private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
+  @GuardedBy ("m_aRWLock")
+  private NonBlockingProperties m_aProps;
+
+  @Nullable
+  private static NonBlockingProperties _load (@Nonnull final IReadableResource aRes, @Nullable final Charset aCharset)
+  {
+    if (aCharset == null)
+      return PropertiesHelper.loadProperties (aRes);
+    return PropertiesHelper.loadProperties (aRes, aCharset);
+  }
 
   /**
    * Constructor with default priority and default charset
@@ -93,25 +107,45 @@ public class ConfigurationSourceProperties extends AbstractConfigurationSourceRe
   public ConfigurationSourceProperties (final int nPriority, @Nonnull final IReadableResource aRes, @Nullable final Charset aCharset)
   {
     super (nPriority, aRes);
-    m_aProps = aCharset == null ? PropertiesHelper.loadProperties (aRes) : PropertiesHelper.loadProperties (aRes, aCharset);
+    m_aCharset = aCharset;
+    m_aProps = _load (aRes, aCharset);
+  }
+
+  /**
+   * @return The charset used to load the properties. May be <code>null</code>.
+   */
+  @Nullable
+  public final Charset getCharset ()
+  {
+    return m_aCharset;
   }
 
   public boolean isInitializedAndUsable ()
   {
-    return m_aProps != null;
+    return m_aRWLock.readLockedBoolean ( () -> m_aProps != null);
+  }
+
+  @Nonnull
+  public ESuccess reload ()
+  {
+    // Main load
+    final NonBlockingProperties aProps = _load (getResource (), m_aCharset);
+    // Replace in write-lock
+    m_aRWLock.writeLockedGet ( () -> m_aProps = aProps);
+    return ESuccess.valueOf (aProps != null);
   }
 
   @Nullable
   public String getConfigurationValue (@Nonnull @Nonempty final String sKey)
   {
-    return m_aProps == null ? null : m_aProps.get (sKey);
+    return m_aRWLock.readLockedGet ( () -> m_aProps == null ? null : m_aProps.get (sKey));
   }
 
   @Nonnull
   @ReturnsMutableCopy
   public ICommonsOrderedMap <String, String> getAllConfigItems ()
   {
-    return new CommonsLinkedHashMap <> (m_aProps);
+    return m_aRWLock.readLockedGet ( () -> new CommonsLinkedHashMap <> (m_aProps));
   }
 
   @Override
