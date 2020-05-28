@@ -16,6 +16,7 @@
  */
 package com.helger.config;
 
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 import javax.annotation.Nonnull;
@@ -24,17 +25,24 @@ import javax.annotation.concurrent.Immutable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.commons.io.file.FilenameHelper;
+import com.helger.commons.io.resource.ClassPathResource;
+import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resource.URLResource;
 import com.helger.commons.io.resourceprovider.ClassPathResourceProvider;
 import com.helger.commons.io.resourceprovider.FileSystemResourceProvider;
 import com.helger.commons.io.resourceprovider.ReadableResourceProviderChain;
 import com.helger.commons.lang.ClassLoaderHelper;
+import com.helger.commons.string.StringHelper;
+import com.helger.commons.system.SystemProperties;
+import com.helger.commons.url.URLHelper;
 import com.helger.config.source.EConfigSourceType;
 import com.helger.config.source.MultiConfigurationValueProvider;
 import com.helger.config.source.envvar.ConfigurationSourceEnvVar;
 import com.helger.config.source.res.ConfigurationSourceJson;
 import com.helger.config.source.res.ConfigurationSourceProperties;
+import com.helger.config.source.res.EConfigSourceResourceType;
 import com.helger.config.source.sysprop.ConfigurationSourceSystemProperty;
 
 @Immutable
@@ -86,6 +94,48 @@ public final class ConfigFactory
     aMCSVP.addConfigurationSource (new ConfigurationSourceEnvVar ());
 
     final int nResourceDefaultPrio = EConfigSourceType.RESOURCE.getDefaultPriority ();
+
+    // Prio 200 - external files
+    {
+      final String sConfigResource = SystemProperties.getPropertyValueOrNull ("config.resource");
+      if (StringHelper.hasText (sConfigResource))
+      {
+        final EConfigSourceResourceType eResType = EConfigSourceResourceType.getFromExtensionOrDefault (FilenameHelper.getExtension (sConfigResource),
+                                                                                                        EConfigSourceResourceType.PROPERTIES);
+        final ClassPathResource aRes = new ClassPathResource (sConfigResource);
+        if (aRes.exists ())
+          aMCSVP.addConfigurationSource (eResType.createConfigurationSource (aRes), nResourceDefaultPrio);
+      }
+    }
+
+    {
+      final String sConfigFile = SystemProperties.getPropertyValueOrNull ("config.file");
+      if (StringHelper.hasText (sConfigFile))
+      {
+        final EConfigSourceResourceType eResType = EConfigSourceResourceType.getFromExtensionOrDefault (FilenameHelper.getExtension (sConfigFile),
+                                                                                                        EConfigSourceResourceType.PROPERTIES);
+        final FileSystemResource aRes = new FileSystemResource (sConfigFile);
+        if (aRes.exists ())
+          aMCSVP.addConfigurationSource (eResType.createConfigurationSource (aRes), nResourceDefaultPrio);
+      }
+    }
+
+    {
+      final String sConfigURL = SystemProperties.getPropertyValueOrNull ("config.url");
+      if (StringHelper.hasText (sConfigURL))
+      {
+        final EConfigSourceResourceType eResType = EConfigSourceResourceType.getFromExtensionOrDefault (FilenameHelper.getExtension (sConfigURL),
+                                                                                                        EConfigSourceResourceType.PROPERTIES);
+        final URL aURL = URLHelper.getAsURL (sConfigURL);
+        if (aURL != null)
+        {
+          final URLResource aRes = new URLResource (aURL);
+          if (aRes.exists ())
+            aMCSVP.addConfigurationSource (eResType.createConfigurationSource (aRes), nResourceDefaultPrio);
+        }
+      }
+    }
+
     // Use existing ones only
     final ReadableResourceProviderChain aResourceProvider = new ReadableResourceProviderChain (new FileSystemResourceProvider ().setCanReadRelativePaths (true),
                                                                                                new ClassPathResourceProvider ());
