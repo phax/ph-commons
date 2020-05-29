@@ -33,6 +33,7 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.concurrent.ExecutorServiceHelper;
 import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.lang.ICloneable;
+import com.helger.commons.lang.IExplicitlyCloneable;
 import com.helger.commons.lang.StackTraceHelper;
 import com.helger.commons.serialize.SerializationHelper;
 import com.helger.commons.string.StringHelper;
@@ -252,9 +253,33 @@ public final class CommonsTestHelper
   {
     final Object aClone = aCloneable.getClone ();
     _assertNotNull ("Clone returned a null object", aClone);
-    _assertTrue ("Clone returned a different class than the original one",
-                 aClone.getClass ().equals (aCloneable.getClass ()));
+    _assertTrue ("Clone returned a different class than the original one", aClone.getClass ().equals (aCloneable.getClass ()));
     testDefaultImplementationWithEqualContentObject (aCloneable, aClone);
+  }
+
+  /**
+   * Test if the implementation {@link IExplicitlyCloneable} is OK. It creates a
+   * clone and than uses
+   * {@link #testDefaultImplementationWithEqualContentObject(Object, Object)} to
+   * check for equality.
+   *
+   * @param aCloneable
+   *        The cloneable object to test
+   * @since 9.4.5
+   */
+  public static void testClone (@Nonnull final IExplicitlyCloneable aCloneable)
+  {
+    try
+    {
+      final Object aClone = aCloneable.clone ();
+      _assertNotNull ("Clone returned a null object", aClone);
+      _assertTrue ("Clone returned a different class than the original one", aClone.getClass ().equals (aCloneable.getClass ()));
+      testDefaultImplementationWithEqualContentObject (aCloneable, aClone);
+    }
+    catch (final CloneNotSupportedException ex)
+    {
+      throw new IllegalStateException ();
+    }
   }
 
   /**
@@ -265,8 +290,7 @@ public final class CommonsTestHelper
    * @param aRunnable
    *        The runnable to execute. May not be <code>null</code>.
    */
-  public static void testInParallel (@Nonnegative final int nCalls,
-                                     @Nonnull final IThrowingRunnable <? extends Exception> aRunnable)
+  public static void testInParallel (@Nonnegative final int nCalls, @Nonnull final IThrowingRunnable <? extends Exception> aRunnable)
   {
     ValueEnforcer.isGE0 (nCalls, "Calls");
     ValueEnforcer.notNull (aRunnable, "Runnable");
