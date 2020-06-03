@@ -48,6 +48,7 @@ import com.helger.config.source.sysprop.ConfigurationSourceSystemProperty;
 public final class ConfigFactory
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (ConfigFactory.class);
+  private static final EConfigSourceResourceType FALLBACK_SOURCE_TYPE = EConfigSourceResourceType.PROPERTIES;
   /**
    * Use this configuration internally to resolve the properties used for the
    * default instance. Therefore the initialization order is critical.
@@ -73,6 +74,7 @@ public final class ConfigFactory
    * </ul>
    *
    * @return A new value provider. Never <code>null</code>.
+   * @since 9.4.5
    */
   @Nonnull
   public static MultiConfigurationValueProvider createValueProviderSystemOnly ()
@@ -94,14 +96,20 @@ public final class ConfigFactory
    * with underscores. So e.g. the property 'a.b' resolves to the environment
    * variable "A_B" - priority 300</li>
    * <li>If a system property <code>config.resource</code> exists and it points
-   * to an existing classpath resource, it is used - priority 200 or determined
-   * by system property <code>config.resource.priority</code></li>
+   * to an existing classpath resource, the first one matching is used -
+   * priority 200 or determined by system property
+   * <code>config.resource.priority</code> (since v9.4.5)</li>
+   * <li>If a system property <code>config.resources</code> (note the trailing
+   * "s") exists and it points to an existing classpath resource, all matching
+   * ones are used - priority 200 or determined by system property
+   * <code>config.resources.priority</code> (also see the "s") (since
+   * v9.4.5)</li>
    * <li>If a system property <code>config.file</code> exists and it points to
    * an existing file, it is used - priority 200 or determined by system
-   * property <code>config.file.priority</code></li>
+   * property <code>config.file.priority</code> (since v9.4.5)</li>
    * <li>If a system property <code>config.url</code> exists and it points to an
    * existing URL, it is used - priority 200 or determined by system property
-   * <code>config.url.priority</code></li>
+   * <code>config.url.priority</code> (since v9.4.5)</li>
    * <li>A file or classpath entry with the name
    * <code>private-application.json</code> - priority 195</li>
    * <li>A file or classpath entry with the name
@@ -133,11 +141,12 @@ public final class ConfigFactory
 
     // Prio 200 - external files
     {
+      // Load one only
       final String sConfigResource = SYSTEM_ONLY.getAsString ("config.resource");
       if (StringHelper.hasText (sConfigResource))
       {
         final EConfigSourceResourceType eResType = EConfigSourceResourceType.getFromExtensionOrDefault (FilenameHelper.getExtension (sConfigResource),
-                                                                                                        EConfigSourceResourceType.PROPERTIES);
+                                                                                                        FALLBACK_SOURCE_TYPE);
         final ClassPathResource aRes = new ClassPathResource (sConfigResource);
         if (aRes.exists ())
         {
@@ -149,11 +158,27 @@ public final class ConfigFactory
     }
 
     {
+      // Load all
+      final String sConfigResources = SYSTEM_ONLY.getAsString ("config.resources");
+      if (StringHelper.hasText (sConfigResources))
+      {
+        // Take priority from system property
+        final int nPriority = SYSTEM_ONLY.getAsInt ("config.resources.priority", nResourceDefaultPrio);
+        final EConfigSourceResourceType eResType = EConfigSourceResourceType.getFromExtensionOrDefault (FilenameHelper.getExtension (sConfigResources),
+                                                                                                        FALLBACK_SOURCE_TYPE);
+        aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForClassPath (ClassLoaderHelper.getDefaultClassLoader (),
+                                                                                           sConfigResources,
+                                                                                           aURL -> eResType.createConfigurationSource (new URLResource (aURL))),
+                                       nPriority);
+      }
+    }
+
+    {
       final String sConfigFile = SYSTEM_ONLY.getAsString ("config.file");
       if (StringHelper.hasText (sConfigFile))
       {
         final EConfigSourceResourceType eResType = EConfigSourceResourceType.getFromExtensionOrDefault (FilenameHelper.getExtension (sConfigFile),
-                                                                                                        EConfigSourceResourceType.PROPERTIES);
+                                                                                                        FALLBACK_SOURCE_TYPE);
         final FileSystemResource aRes = new FileSystemResource (sConfigFile);
         if (aRes.exists ())
         {
@@ -169,7 +194,7 @@ public final class ConfigFactory
       if (StringHelper.hasText (sConfigURL))
       {
         final EConfigSourceResourceType eResType = EConfigSourceResourceType.getFromExtensionOrDefault (FilenameHelper.getExtension (sConfigURL),
-                                                                                                        EConfigSourceResourceType.PROPERTIES);
+                                                                                                        FALLBACK_SOURCE_TYPE);
         final URL aURL = URLHelper.getAsURL (sConfigURL);
         if (aURL != null)
         {
@@ -226,7 +251,7 @@ public final class ConfigFactory
 
   /**
    * Get a special {@link IConfig} instance that is only intended to be used to
-   * setup other config instances. USually you are looking for
+   * setup other config instances. Usually you are looking for
    * {@link #getDefaultConfig()}.
    *
    * @return The system configuration to be used. Never <code>null</code>.
@@ -236,13 +261,16 @@ public final class ConfigFactory
   @Nonnull
   public static IConfig getSystemConfig ()
   {
-    return DEFAULT_INSTANCE;
+    return SYSTEM_ONLY;
   }
 
   /**
-   * Get the default {@link IConfig} instance. This call has linear effort.
+   * Get the default {@link IConfig} instance. This call has linear effort. See
+   * {@link #createDefaultValueProvider()} on the resolutions that are
+   * attempted.
    *
    * @return The default configuration to be used. Never <code>null</code>.
+   * @see #createDefaultValueProvider()
    */
   @Nonnull
   public static IConfig getDefaultConfig ()
