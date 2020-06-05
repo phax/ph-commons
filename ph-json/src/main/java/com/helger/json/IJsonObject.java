@@ -233,7 +233,13 @@ public interface IJsonObject extends IJsonCollection, ICommonsIterable <Map.Entr
   default Object getValue (@Nullable final String sName)
   {
     final IJson aJson = get (sName);
-    return aJson != null ? aJson.getAsValue ().getValue () : null;
+    if (aJson != null)
+    {
+      final IJsonValue aValue = aJson.getAsValue ();
+      if (aValue != null)
+        return aValue.getValue ();
+    }
+    return null;
   }
 
   /**
