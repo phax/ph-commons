@@ -32,9 +32,10 @@ This project was the following modules:
 * v9.4.5 - work in progress
     * Added missing methods in `IMapBasedDAO`
     * Added static syntactic sugar methods in `HashCodeGenerator`
-    * The default `IConfig.getInstance()` now also considers system properties `config.resource`, `config.file` and `config.url` or the environment variable alternatives `CONFIG_RESOURCE`, `CONFIG_FILE` and `CONFIG_URL`.
-    * Added `reload` to resource-based configuration sources
+    * The default `ConfigFactory.getDefaultInstance()` now also considers system properties `config.resource`, `config.resources`, `config.file` and `config.url` or the environment variable alternatives `CONFIG_RESOURCE`, `CONFIG_RESOURCES`, `CONFIG_FILE` and `CONFIG_URL`.
+    * Added possibility to `reload` for resource-based configuration sources
     * Fixed a potential NPE in `IJsonObject.getValue (String)`
+    * Added `EqualsHelper.equalsCustom` using a `BiPredicate`
 * v9.4.4 - 2020-05-21
     * Fixed a backwards compatibility issue with `JsonObject.add(String,IJson)`
 * v9.4.3 - 2020-05-21

@@ -109,8 +109,7 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
     return ret;
   }
 
-  public <T> void registerEqualsImplementation (@Nonnull final Class <T> aClass,
-                                                @Nonnull final IEqualsImplementation <T> aImpl)
+  public <T> void registerEqualsImplementation (@Nonnull final Class <T> aClass, @Nonnull final IEqualsImplementation <T> aImpl)
   {
     ValueEnforcer.notNull (aClass, "Class");
     ValueEnforcer.notNull (aImpl, "Implementation");
@@ -216,10 +215,7 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
                 aMatchingImplementation = GenericReflection.uncheckedCast (aImpl);
                 aMatchingClass = aCurClass;
                 if (LOGGER.isDebugEnabled ())
-                  LOGGER.debug ("Found hierarchical match with class " +
-                                aMatchingClass +
-                                " when searching for " +
-                                aClass);
+                  LOGGER.debug ("Found hierarchical match with class " + aMatchingClass + " when searching for " + aClass);
                 break;
               }
             }
@@ -297,7 +293,7 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
     final IEqualsImplementation <T> aImpl = getInstance ().getBestMatchingEqualsImplementation (GenericReflection.uncheckedCast (aClass1));
 
     // Start the main equals check
-    boolean bAreEqual;
+    final boolean bAreEqual;
     if (aImpl == null)
     {
       // No special implementation found

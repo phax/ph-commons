@@ -21,11 +21,13 @@ import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.BiPredicate;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.ECollectionBaseType;
@@ -234,8 +236,7 @@ public final class EqualsHelper
     return EqualsImplementationRegistry.areEqual (aObj1, aObj2);
   }
 
-  public static <T> boolean equalsCollectionOnly (@Nonnull final Collection <T> aCont1,
-                                                  @Nonnull final Collection <?> aCont2)
+  public static <T> boolean equalsCollectionOnly (@Nonnull final Collection <T> aCont1, @Nonnull final Collection <?> aCont2)
   {
     if (aCont1.isEmpty () && aCont2.isEmpty ())
       return true;
@@ -336,9 +337,9 @@ public final class EqualsHelper
    * invoked to test for equality!
    *
    * @param aObj1
-   *        The first container
+   *        The first container. May be <code>null</code>.
    * @param aObj2
-   *        The second container
+   *        The second container. May be <code>null</code>.
    * @return <code>true</code> if both objects are the same, or if they have the
    *         same meta type and have the same content.
    * @throws IllegalArgumentException
@@ -395,8 +396,7 @@ public final class EqualsHelper
         // Check if it is an array of collections (e.g. List<String>[])
         final Class <?> aComponentClass1 = aObj1.getClass ().getComponentType ();
         final Class <?> aComponentClass2 = aObj2.getClass ().getComponentType ();
-        if (CollectionHelper.isCollectionClass (aComponentClass1) &&
-            CollectionHelper.isCollectionClass (aComponentClass2))
+        if (CollectionHelper.isCollectionClass (aComponentClass1) && CollectionHelper.isCollectionClass (aComponentClass2))
         {
           // Special handling for arrays of containers
           final Object [] aArray1 = (Object []) aObj1;
@@ -448,9 +448,9 @@ public final class EqualsHelper
    * the List&lt;String&gt; ("a", "b") will result in a return value of true.
    *
    * @param aObj1
-   *        The first object to be compared
+   *        The first object to be compared. May be <code>null</code>.
    * @param aObj2
-   *        The second object to be compared
+   *        The second object to be compared. May be <code>null</code>.
    * @return <code>true</code> if the contents are equal, <code>false</code>
    *         otherwise
    */
@@ -470,5 +470,37 @@ public final class EqualsHelper
 
     // And compare
     return equalsCollectionOnly (aCollection1, aCollection2);
+  }
+
+  /**
+   * Perform an equals check with a custom predicate that is only invoked, if
+   * both objects are non-<code>null</code>.
+   *
+   * @param <T>
+   *        parameter type
+   * @param aObj1
+   *        The first object to be compared. May be <code>null</code>.
+   * @param aObj2
+   *        The second object to be compared. May be <code>null</code>.
+   * @param aPredicate
+   *        The predicate to be invoked, if both objects are
+   *        non-<code>null</code>. May not be <code>null</code>.
+   * @return <code>true</code> if the contents are equal, <code>false</code>
+   *         otherwise
+   * @since 9.4.5
+   */
+  public static <T> boolean equalsCustom (@Nullable final T aObj1, @Nullable final T aObj2, @Nonnull final BiPredicate <T, T> aPredicate)
+  {
+    ValueEnforcer.notNull (aPredicate, "Predicate");
+
+    // Same object - check first
+    if (identityEqual (aObj1, aObj2))
+      return true;
+
+    // Is only one value null?
+    if (aObj1 == null || aObj2 == null)
+      return false;
+
+    return aPredicate.test (aObj1, aObj2);
   }
 }
