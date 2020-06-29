@@ -25,6 +25,7 @@ import com.helger.commons.system.SystemProperties;
 import com.helger.config.source.AbstractConfigurationSource;
 import com.helger.config.source.EConfigSourceType;
 import com.helger.config.source.IConfigurationSource;
+import com.helger.config.value.ConfiguredValue;
 
 /**
  * Default implementation of {@link IConfigurationSource} for system properties.
@@ -53,9 +54,10 @@ public class ConfigurationSourceSystemProperty extends AbstractConfigurationSour
   }
 
   @Nullable
-  public String getConfigurationValue (@Nonnull @Nonempty final String sKey)
+  public ConfiguredValue getConfigurationValue (@Nonnull @Nonempty final String sKey)
   {
     // Uses PrivilegedAction internally
-    return SystemProperties.getPropertyValueOrNull (sKey);
+    final String sValue = SystemProperties.getPropertyValueOrNull (sKey);
+    return sValue == null ? null : new ConfiguredValue (this, sValue);
   }
 }

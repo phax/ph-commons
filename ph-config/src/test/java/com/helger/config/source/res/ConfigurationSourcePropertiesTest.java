@@ -49,13 +49,12 @@ public final class ConfigurationSourcePropertiesTest
     assertEquals (EConfigSourceType.RESOURCE.getDefaultPriority (), c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
     assertSame (f, c.getResource ());
-    assertEquals ("string", c.getConfigurationValue ("element1"));
-    assertEquals ("2", c.getConfigurationValue ("element2"));
+    assertEquals ("string", c.getConfigurationValue ("element1").getValue ());
+    assertEquals ("2", c.getConfigurationValue ("element2").getValue ());
     assertNull (c.getConfigurationValue ("what a mess"));
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (c, new ConfigurationSourceProperties (f));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c,
-                                                                           new ConfigurationSourceProperties (1234, f));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c, new ConfigurationSourceProperties (1234, f));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c,
                                                                            new ConfigurationSourceProperties (new FileSystemResource (new File ("bla"))));
   }
@@ -67,8 +66,8 @@ public final class ConfigurationSourcePropertiesTest
     assertSame (EConfigSourceType.RESOURCE, c.getSourceType ());
     assertEquals (EConfigSourceType.RESOURCE.getDefaultPriority (), c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
-    assertEquals ("string", c.getConfigurationValue ("element1"));
-    assertEquals ("2", c.getConfigurationValue ("element2"));
+    assertEquals ("string", c.getConfigurationValue ("element1").getValue ());
+    assertEquals ("2", c.getConfigurationValue ("element2").getValue ());
   }
 
   @Test
@@ -78,8 +77,8 @@ public final class ConfigurationSourcePropertiesTest
     assertSame (EConfigSourceType.RESOURCE, c.getSourceType ());
     assertEquals (2323, c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
-    assertEquals ("string", c.getConfigurationValue ("element1"));
-    assertEquals ("2", c.getConfigurationValue ("element2"));
+    assertEquals ("string", c.getConfigurationValue ("element1").getValue ());
+    assertEquals ("2", c.getConfigurationValue ("element2").getValue ());
   }
 
   @Test
@@ -89,8 +88,8 @@ public final class ConfigurationSourcePropertiesTest
     assertSame (EConfigSourceType.RESOURCE, c.getSourceType ());
     assertEquals (2323, c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
-    assertEquals ("string", c.getConfigurationValue ("element1"));
-    assertEquals ("2", c.getConfigurationValue ("element2"));
+    assertEquals ("string", c.getConfigurationValue ("element1").getValue ());
+    assertEquals ("2", c.getConfigurationValue ("element2").getValue ());
   }
 
   @Test

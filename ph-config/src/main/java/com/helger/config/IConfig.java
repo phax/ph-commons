@@ -18,10 +18,12 @@ package com.helger.config;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.helger.commons.mutable.MutableInt;
 import com.helger.commons.traits.IGetterByKeyTrait;
 import com.helger.config.source.res.IConfigurationSourceResource;
+import com.helger.config.value.ConfiguredValue;
 import com.helger.config.value.IConfigurationValueProviderWithPriorityCallback;
 
 /**
@@ -31,6 +33,18 @@ import com.helger.config.value.IConfigurationValueProviderWithPriorityCallback;
  */
 public interface IConfig extends IGetterByKeyTrait <String>
 {
+  /**
+   * Get the configured value, which is the combination of the matching
+   * configuration source and the value, for the provided key.
+   * 
+   * @param sKey
+   *        The configuration key to look up.
+   * @return <code>null</code> if no such configuration value is available.
+   * @since 9.4.5
+   */
+  @Nullable
+  ConfiguredValue getConfiguredValue (@Nullable String sKey);
+
   /**
    * Enumerate all contained configuration value provider. All items will be
    * enumerated in the order they are checked, so the ones with highest priority

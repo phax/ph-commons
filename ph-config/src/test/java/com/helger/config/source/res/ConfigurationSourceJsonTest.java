@@ -49,25 +49,25 @@ public final class ConfigurationSourceJsonTest
     assertEquals (EConfigSourceType.RESOURCE.getDefaultPriority (), c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
     assertSame (f, c.getResource ());
-    assertEquals ("string", c.getConfigurationValue ("element1"));
-    assertEquals ("2", c.getConfigurationValue ("element2"));
-    assertEquals ("1234", c.getConfigurationValue ("element5.network.port"));
+    assertEquals ("string", c.getConfigurationValue ("element1").getValue ());
+    assertEquals ("2", c.getConfigurationValue ("element2").getValue ());
+    assertEquals ("1234", c.getConfigurationValue ("element5.network.port").getValue ());
     assertNull (c.getConfigurationValue ("what a mess"));
 
     // Check array
-    assertEquals ("4", c.getConfigurationValue ("element6.$count"));
-    assertEquals ("17", c.getConfigurationValue ("element6.0"));
-    assertEquals ("12", c.getConfigurationValue ("element6.3"));
+    assertEquals ("4", c.getConfigurationValue ("element6.$count").getValue ());
+    assertEquals ("17", c.getConfigurationValue ("element6.0").getValue ());
+    assertEquals ("12", c.getConfigurationValue ("element6.3").getValue ());
 
-    assertEquals ("3", c.getConfigurationValue ("element7.$count"));
-    assertEquals ("10", c.getConfigurationValue ("element7.0.key"));
+    assertEquals ("3", c.getConfigurationValue ("element7.$count").getValue ());
+    assertEquals ("10", c.getConfigurationValue ("element7.0.key").getValue ());
     assertNull (c.getConfigurationValue ("element7.0.value"));
-    assertEquals ("3", c.getConfigurationValue ("element7.0.value.$count"));
-    assertEquals ("bar", c.getConfigurationValue ("element7.0.value.2"));
-    assertEquals ("plain value", c.getConfigurationValue ("element7.1"));
-    assertEquals ("blub", c.getConfigurationValue ("element7.2.value.0"));
+    assertEquals ("3", c.getConfigurationValue ("element7.0.value.$count").getValue ());
+    assertEquals ("bar", c.getConfigurationValue ("element7.0.value.2").getValue ());
+    assertEquals ("plain value", c.getConfigurationValue ("element7.1").getValue ());
+    assertEquals ("blub", c.getConfigurationValue ("element7.2.value.0").getValue ());
     // Check additional
-    assertEquals ("value", c.getConfigurationValue ("element7.sub.key"));
+    assertEquals ("value", c.getConfigurationValue ("element7.sub.key").getValue ());
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (c, new ConfigurationSourceJson (f));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c, new ConfigurationSourceJson (1234, f));
@@ -82,9 +82,9 @@ public final class ConfigurationSourceJsonTest
     assertSame (EConfigSourceType.RESOURCE, c.getSourceType ());
     assertEquals (EConfigSourceType.RESOURCE.getDefaultPriority (), c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
-    assertEquals ("string", c.getConfigurationValue ("element1"));
-    assertEquals ("2", c.getConfigurationValue ("element2"));
-    assertEquals ("1234", c.getConfigurationValue ("element5.network.port"));
+    assertEquals ("string", c.getConfigurationValue ("element1").getValue ());
+    assertEquals ("2", c.getConfigurationValue ("element2").getValue ());
+    assertEquals ("1234", c.getConfigurationValue ("element5.network.port").getValue ());
   }
 
   @Test
@@ -94,9 +94,9 @@ public final class ConfigurationSourceJsonTest
     assertSame (EConfigSourceType.RESOURCE, c.getSourceType ());
     assertEquals (2323, c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
-    assertEquals ("string", c.getConfigurationValue ("element1"));
-    assertEquals ("2", c.getConfigurationValue ("element2"));
-    assertEquals ("1234", c.getConfigurationValue ("element5.network.port"));
+    assertEquals ("string", c.getConfigurationValue ("element1").getValue ());
+    assertEquals ("2", c.getConfigurationValue ("element2").getValue ());
+    assertEquals ("1234", c.getConfigurationValue ("element5.network.port").getValue ());
   }
 
   @Test
@@ -106,9 +106,9 @@ public final class ConfigurationSourceJsonTest
     assertSame (EConfigSourceType.RESOURCE, c.getSourceType ());
     assertEquals (2323, c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
-    assertEquals ("string", c.getConfigurationValue ("element1"));
-    assertEquals ("2", c.getConfigurationValue ("element2"));
-    assertEquals ("1234", c.getConfigurationValue ("element5.network.port"));
+    assertEquals ("string", c.getConfigurationValue ("element1").getValue ());
+    assertEquals ("2", c.getConfigurationValue ("element2").getValue ());
+    assertEquals ("1234", c.getConfigurationValue ("element5.network.port").getValue ());
   }
 
   @Test

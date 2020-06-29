@@ -36,6 +36,8 @@ This project was the following modules:
     * Added possibility to `reload` for resource-based configuration sources
     * Fixed a potential NPE in `IJsonObject.getValue (String)`
     * Added `EqualsHelper.equalsCustom` using a `BiPredicate`
+    * Extended `IConfig` API to receive the `IConfigurationSource` AND the value to determine the source of the configuration value (backwards incompatible change)
+    * Changed the handling of the `Consumers` in the `Config` implementation in a backward incompatible way (setters vs. constructor, new parameter type) 
 * v9.4.4 - 2020-05-21
     * Fixed a backwards compatibility issue with `JsonObject.add(String,IJson)`
 * v9.4.3 - 2020-05-21

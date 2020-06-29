@@ -36,5 +36,5 @@ public interface IConfigurationValueProvider
    * @return <code>null</code> if no such value is available.
    */
   @Nullable
-  String getConfigurationValue (@Nonnull @Nonempty String sKey);
+  ConfiguredValue getConfigurationValue (@Nonnull @Nonempty String sKey);
 }

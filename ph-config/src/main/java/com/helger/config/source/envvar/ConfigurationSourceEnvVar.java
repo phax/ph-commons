@@ -27,6 +27,7 @@ import com.helger.commons.annotation.Nonempty;
 import com.helger.config.source.AbstractConfigurationSource;
 import com.helger.config.source.EConfigSourceType;
 import com.helger.config.source.IConfigurationSource;
+import com.helger.config.value.ConfiguredValue;
 
 /**
  * Default implementation of {@link IConfigurationSource} for environment
@@ -58,18 +59,19 @@ public class ConfigurationSourceEnvVar extends AbstractConfigurationSource
   }
 
   @Nullable
-  public String getConfigurationValue (@Nonnull @Nonempty final String sKey)
+  public ConfiguredValue getConfigurationValue (@Nonnull @Nonempty final String sKey)
   {
     // Unify the naming to the environment conventions
     final String sRealName = EnvVarHelper.getUnifiedSysEnvName (sKey, EnvVarHelper.DEFAULT_REPLACEMENT_CHAR);
+    String sValue = null;
     try
     {
-      return System.getenv (sRealName);
+      sValue = System.getenv (sRealName);
     }
     catch (final SecurityException ex)
     {
       LOGGER.error ("Security violation accessing environment variable '" + sRealName + "'", ex);
-      return null;
     }
+    return sValue == null ? null : new ConfiguredValue (this, sValue);
   }
 }

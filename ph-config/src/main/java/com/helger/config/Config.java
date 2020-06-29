@@ -26,6 +26,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.StringHelper;
 import com.helger.config.source.IConfigurationSource;
 import com.helger.config.source.MultiConfigurationValueProvider;
+import com.helger.config.value.ConfiguredValue;
 import com.helger.config.value.IConfigurationValueProvider;
 import com.helger.config.value.IConfigurationValueProviderWithPriorityCallback;
 
@@ -38,29 +39,19 @@ import com.helger.config.value.IConfigurationValueProviderWithPriorityCallback;
 public class Config implements IConfig
 {
   private final IConfigurationValueProvider m_aValueProvider;
-  private final BiConsumer <String, String> m_aKeyFoundConsumer;
-  private final Consumer <String> m_aKeyNotFoundConsumer;
+  private BiConsumer <String, ConfiguredValue> m_aKeyFoundConsumer;
+  private Consumer <String> m_aKeyNotFoundConsumer;
 
   /**
    * Constructor
    *
    * @param aValueProvider
    *        The main configuration value provider. May not be <code>null</code>.
-   * @param aKeyFoundConsumer
-   *        The callback to be invoked if a configuration value was found. The
-   *        parameters are key and value. May be <code>null</code>.
-   * @param aKeyNotFoundConsumer
-   *        The callback to be invoked if a configuration value was <b>not</b>
-   *        found. The parameter is the key. May be <code>null</code>.
    */
-  public Config (@Nonnull final IConfigurationValueProvider aValueProvider,
-                 @Nullable final BiConsumer <String, String> aKeyFoundConsumer,
-                 @Nullable final Consumer <String> aKeyNotFoundConsumer)
+  public Config (@Nonnull final IConfigurationValueProvider aValueProvider)
   {
     ValueEnforcer.notNull (aValueProvider, "ValueProvider");
     m_aValueProvider = aValueProvider;
-    m_aKeyFoundConsumer = aKeyFoundConsumer;
-    m_aKeyNotFoundConsumer = aKeyNotFoundConsumer;
   }
 
   /**
@@ -74,18 +65,32 @@ public class Config implements IConfig
   }
 
   /**
-   * @return The callback to be invoked if a configuration value was found, as
-   *         provided in the constructor. May be <code>null</code>.
+   * @return The callback to be invoked if a configuration value was found. May
+   *         be <code>null</code>.
    */
   @Nullable
-  public final BiConsumer <String, String> getFoundKeyConsumer ()
+  public final BiConsumer <String, ConfiguredValue> getFoundKeyConsumer ()
   {
     return m_aKeyFoundConsumer;
   }
 
   /**
+   * @param aKeyFoundConsumer
+   *        The callback to be invoked if a configuration value was found. The
+   *        parameters are key and value. May be <code>null</code>.
+   * @return this for chaining
+   * @since 9.4.5
+   */
+  @Nullable
+  public final Config setFoundKeyConsumer (@Nullable final BiConsumer <String, ConfiguredValue> aKeyFoundConsumer)
+  {
+    m_aKeyFoundConsumer = aKeyFoundConsumer;
+    return this;
+  }
+
+  /**
    * @return The callback to be invoked if a configuration value was <b>not</b>
-   *         found, as provided in the constructor. May be <code>null</code>.
+   *         found. May be <code>null</code>.
    */
   @Nullable
   public final Consumer <String> getKeyNotFoundConsumer ()
@@ -93,17 +98,31 @@ public class Config implements IConfig
     return m_aKeyNotFoundConsumer;
   }
 
+  /**
+   * @param aKeyNotFoundConsumer
+   *        The callback to be invoked if a configuration value was <b>not</b>
+   *        found. The parameter is the key. May be <code>null</code>.
+   * @return this for chaining
+   * @since 9.4.5
+   */
   @Nullable
-  public String getValue (@Nullable final String sKey)
+  public final Config setKeyNotFoundConsumer (@Nullable final Consumer <String> aKeyNotFoundConsumer)
+  {
+    m_aKeyNotFoundConsumer = aKeyNotFoundConsumer;
+    return this;
+  }
+
+  @Nullable
+  public ConfiguredValue getConfiguredValue (@Nullable final String sKey)
   {
     // Resolve value
-    final String ret;
+    final ConfiguredValue ret;
     if (StringHelper.hasNoText (sKey))
       ret = null;
     else
       ret = m_aValueProvider.getConfigurationValue (sKey);
 
-    // Handle result
+    // Call consumers if configured
     if (ret != null)
     {
       if (m_aKeyFoundConsumer != null)
@@ -117,6 +136,13 @@ public class Config implements IConfig
     return ret;
   }
 
+  @Nullable
+  public String getValue (@Nullable final String sKey)
+  {
+    final ConfiguredValue aCV = getConfiguredValue (sKey);
+    return aCV == null ? null : aCV.getValue ();
+  }
+
   public static void forEachConfigurationValueProviderRecursive (@Nonnull final IConfigurationValueProvider aValueProvider,
                                                                  @Nonnull final IConfigurationValueProviderWithPriorityCallback aCallback)
   {
@@ -124,8 +150,7 @@ public class Config implements IConfig
     {
       final MultiConfigurationValueProvider aMulti = (MultiConfigurationValueProvider) aValueProvider;
       // Descend recursively
-      aMulti.forEachConfigurationValueProvider ( (cvp, prio) -> forEachConfigurationValueProviderRecursive (cvp,
-                                                                                                            aCallback));
+      aMulti.forEachConfigurationValueProvider ( (cvp, prio) -> forEachConfigurationValueProviderRecursive (cvp, aCallback));
     }
     else
     {
@@ -149,6 +174,6 @@ public class Config implements IConfig
   @Nonnull
   public static Config create (@Nonnull final IConfigurationValueProvider aCVP)
   {
-    return new Config (aCVP, null, null);
+    return new Config (aCVP);
   }
 }

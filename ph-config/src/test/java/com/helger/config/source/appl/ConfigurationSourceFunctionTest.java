@@ -49,13 +49,11 @@ public final class ConfigurationSourceFunctionTest
     assertSame (EConfigSourceType.APPLICATION, c.getSourceType ());
     assertEquals (EConfigSourceType.APPLICATION.getDefaultPriority (), c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
-    assertEquals ("value1", c.getConfigurationValue ("key1"));
+    assertEquals ("value1", c.getConfigurationValue ("key1").getValue ());
     assertNull (c.getConfigurationValue ("I really don't know that key!"));
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (c, new ConfigurationSourceFunction (MAP::get));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c,
-                                                                           new ConfigurationSourceFunction (9797,
-                                                                                                            MAP::get));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c, new ConfigurationSourceFunction (9797, MAP::get));
   }
 
   @Test
@@ -65,7 +63,7 @@ public final class ConfigurationSourceFunctionTest
     assertSame (EConfigSourceType.APPLICATION, c.getSourceType ());
     assertEquals (9797, c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
-    assertEquals ("value1", c.getConfigurationValue ("key1"));
+    assertEquals ("value1", c.getConfigurationValue ("key1").getValue ());
     assertNull (c.getConfigurationValue ("I really don't know that key!"));
   }
 }

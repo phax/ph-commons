@@ -34,6 +34,7 @@ import com.helger.commons.lang.PropertiesHelper;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.config.source.IConfigurationSource;
+import com.helger.config.value.ConfiguredValue;
 
 /**
  * Implementation of {@link IConfigurationSource} for properties file based
@@ -136,9 +137,10 @@ public class ConfigurationSourceProperties extends AbstractConfigurationSourceRe
   }
 
   @Nullable
-  public String getConfigurationValue (@Nonnull @Nonempty final String sKey)
+  public ConfiguredValue getConfigurationValue (@Nonnull @Nonempty final String sKey)
   {
-    return m_aRWLock.readLockedGet ( () -> m_aProps == null ? null : m_aProps.get (sKey));
+    final String sValue = m_aRWLock.readLockedGet ( () -> m_aProps == null ? null : m_aProps.get (sKey));
+    return sValue == null ? null : new ConfiguredValue (this, sValue);
   }
 
   @Nonnull

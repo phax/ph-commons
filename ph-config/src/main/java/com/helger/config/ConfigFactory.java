@@ -44,6 +44,11 @@ import com.helger.config.source.res.ConfigurationSourceProperties;
 import com.helger.config.source.res.EConfigSourceResourceType;
 import com.helger.config.source.sysprop.ConfigurationSourceSystemProperty;
 
+/**
+ * Factory for creating {@link IConfig} objects.
+ * 
+ * @author Philip Helger
+ */
 @Immutable
 public final class ConfigFactory
 {

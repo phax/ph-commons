@@ -37,6 +37,7 @@ import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.commons.lang.ICloneable;
+import com.helger.config.value.ConfiguredValue;
 import com.helger.config.value.IConfigurationValueProvider;
 import com.helger.config.value.IConfigurationValueProviderWithPriorityCallback;
 
@@ -177,9 +178,9 @@ public class MultiConfigurationValueProvider implements IConfigurationValueProvi
   }
 
   @Nullable
-  public String getConfigurationValue (@Nonnull @Nonempty final String sKey)
+  public ConfiguredValue getConfigurationValue (@Nonnull @Nonempty final String sKey)
   {
-    String ret = null;
+    ConfiguredValue ret = null;
     for (final CS aSource : m_aSources)
     {
       ret = aSource.m_aCVP.getConfigurationValue (sKey);
@@ -190,28 +191,6 @@ public class MultiConfigurationValueProvider implements IConfigurationValueProvi
       }
     }
     return ret;
-  }
-
-  /**
-   * Try to find the configuration value provider that delivers the provided
-   * key.
-   *
-   * @param sKey
-   *        The key to search. May not be <code>null</code>.
-   * @return <code>null</code> if the key cannot be resolved.
-   */
-  @Nullable
-  public IConfigurationValueProvider getConfigurationValueProvider (@Nonnull @Nonempty final String sKey)
-  {
-    for (final CS aSource : m_aSources)
-    {
-      if (aSource.m_aCVP.getConfigurationValue (sKey) != null)
-      {
-        // Use the first one that is not null
-        return aSource.m_aCVP;
-      }
-    }
-    return null;
   }
 
   /**

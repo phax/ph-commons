@@ -28,6 +28,7 @@ import com.helger.commons.string.ToStringGenerator;
 import com.helger.config.source.AbstractConfigurationSource;
 import com.helger.config.source.EConfigSourceType;
 import com.helger.config.source.IConfigurationSource;
+import com.helger.config.value.ConfiguredValue;
 
 /**
  * Default implementation of {@link IConfigurationSource} for application based
@@ -85,9 +86,10 @@ public class ConfigurationSourceFunction extends AbstractConfigurationSource
   }
 
   @Nullable
-  public String getConfigurationValue (@Nonnull @Nonempty final String sKey)
+  public ConfiguredValue getConfigurationValue (@Nonnull @Nonempty final String sKey)
   {
-    return m_aValueProvider.apply (sKey);
+    final String sValue = m_aValueProvider.apply (sKey);
+    return sValue == null ? null : new ConfiguredValue (this, sValue);
   }
 
   @Override

@@ -50,9 +50,9 @@ public class MultiConfigurationValueProviderTest
     aMCSVP.addConfigurationSource (new ConfigurationSourceFunction (111, aMap2::get));
 
     // Resolve
-    assertEquals ("value2", aMCSVP.getConfigurationValue ("key1"));
-    assertEquals ("value2", aMCSVP.getConfigurationValue ("key2"));
-    assertEquals ("value3", aMCSVP.getConfigurationValue ("key3"));
+    assertEquals ("value2", aMCSVP.getConfigurationValue ("key1").getValue ());
+    assertEquals ("value2", aMCSVP.getConfigurationValue ("key2").getValue ());
+    assertEquals ("value3", aMCSVP.getConfigurationValue ("key3").getValue ());
     assertNull (aMCSVP.getConfigurationValue ("key4"));
   }
 
