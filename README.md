@@ -29,7 +29,7 @@ This project was the following modules:
 
 ## News and noteworthy
 
-* v9.4.5 - work in progress
+* v9.4.5 - 2020-06-29
     * Added missing methods in `IMapBasedDAO`
     * Added static syntactic sugar methods in `HashCodeGenerator`
     * The default `ConfigFactory.getDefaultInstance()` now also considers system properties `config.resource`, `config.resources`, `config.file` and `config.url` or the environment variable alternatives `CONFIG_RESOURCE`, `CONFIG_RESOURCES`, `CONFIG_FILE` and `CONFIG_URL`.
@@ -808,6 +808,9 @@ See `ConfigFactory.getDefaultConfig ()` for the starting point. By default the f
 1. all JSON files called `application.json` that are in the classpath - priority 185.
 1. all properties files called `application.properties` that are in the classpath - priority 180.
 1. all properties files called `reference.properties` that are in the classpath - priority 1.
+
+* Note: the default configuration does NOT contain any custom configuration files.
+* Note: JSON and Properties files are expected to be UTF-8 encoded
 
 ## JSON format
 

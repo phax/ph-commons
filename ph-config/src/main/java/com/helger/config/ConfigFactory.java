@@ -46,7 +46,7 @@ import com.helger.config.source.sysprop.ConfigurationSourceSystemProperty;
 
 /**
  * Factory for creating {@link IConfig} objects.
- * 
+ *
  * @author Philip Helger
  */
 @Immutable
@@ -129,6 +129,9 @@ public final class ConfigFactory
    * <p>
    * <b>Note:</b> the default configuration does NOT contain any custom
    * configuration files.
+   * </p>
+   * <p>
+   * <b>Note:</b> JSON and Properties files are expected to be UTF-8 encoded.
    * </p>
    *
    * @return A new value provider. Never <code>null</code>.
