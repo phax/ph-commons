@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger</groupId>
     <artifactId>ph-commons-parent-pom</artifactId>
-    <version>9.4.5</version>
+    <version>9.4.6-SNAPSHOT</version>
   </parent>
   <artifactId>ph-wsclient</artifactId>
   <packaging>bundle</packaging>
