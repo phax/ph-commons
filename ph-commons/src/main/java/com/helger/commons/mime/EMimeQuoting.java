@@ -80,8 +80,7 @@ public enum EMimeQuoting
     public String getQuotedString (@Nonnull @Nonempty final String sUnquotedString)
     {
       // Use a special BitSet
-      return new QuotedPrintableCodec (PRINTABLE_QUOTED_PRINTABLE).getEncodedAsString (sUnquotedString,
-                                                                                       StandardCharsets.UTF_8);
+      return new QuotedPrintableCodec (PRINTABLE_QUOTED_PRINTABLE).getEncodedAsString (sUnquotedString, StandardCharsets.UTF_8);
     }
 
     @Override
@@ -148,6 +147,10 @@ public enum EMimeQuoting
   @Nonempty
   public abstract String getUnquotedString (@Nonnull @Nonempty String sQuotedString);
 
+  /**
+   * @return <code>true</code> if this == {@link #QUOTED_STRING},
+   *         <code>false</code> otherwise.
+   */
   public boolean isQuotedString ()
   {
     return this == EMimeQuoting.QUOTED_STRING;

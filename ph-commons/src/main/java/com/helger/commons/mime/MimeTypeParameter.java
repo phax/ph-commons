@@ -45,14 +45,13 @@ public class MimeTypeParameter implements Serializable
    *        Parameter name. Must neither be <code>null</code> nor empty and must
    *        match {@link MimeTypeParser#isToken(String)}.
    * @param sValue
-   *        The value to use. May neither be <code>null</code> nor empty. Must
-   *        not be a valid MIME token.
+   *        The value to use. May not be <code>null</code>. Must not be a valid
+   *        MIME token.
    */
-  public MimeTypeParameter (@Nonnull @Nonempty final String sAttribute, @Nonnull @Nonempty final String sValue)
+  public MimeTypeParameter (@Nonnull @Nonempty final String sAttribute, @Nonnull final String sValue)
   {
-    if (!MimeTypeParser.isToken (sAttribute))
-      throw new IllegalArgumentException ("MimeType parameter name is not a valid token: " + sAttribute);
-    ValueEnforcer.notEmpty (sValue, "Value");
+    ValueEnforcer.isTrue (MimeTypeParser.isToken (sAttribute), () -> "MimeType parameter name is not a valid token: " + sAttribute);
+    ValueEnforcer.notNull (sValue, "Value");
 
     m_sAttribute = sAttribute;
     m_sValue = sValue;
@@ -71,11 +70,10 @@ public class MimeTypeParameter implements Serializable
   }
 
   /**
-   * @return The value of the parameter. Neither <code>null</code> nor empty. No
-   *         quoting or escaping is applied to this value!
+   * @return The value of the parameter. Never <code>null</code>. No quoting or
+   *         escaping is applied to this value!
    */
   @Nonnull
-  @Nonempty
   public String getValue ()
   {
     return m_sValue;
@@ -124,9 +122,9 @@ public class MimeTypeParameter implements Serializable
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("attribute", m_sAttribute)
-                                       .append ("value", m_sValue)
-                                       .append ("valueRequiresQuoting", m_bValueRequiresQuoting)
+    return new ToStringGenerator (this).append ("Attribute", m_sAttribute)
+                                       .append ("Value", m_sValue)
+                                       .append ("ValueRequiresQuoting", m_bValueRequiresQuoting)
                                        .getToString ();
   }
 }

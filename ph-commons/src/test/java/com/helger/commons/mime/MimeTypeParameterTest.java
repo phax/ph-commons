@@ -39,17 +39,26 @@ public final class MimeTypeParameterTest
     assertEquals ("iso-8859-1", p.getValue ());
     assertFalse (p.isValueRequiringQuoting ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (p,
-                                                                       new MimeTypeParameter ("charset", "iso-8859-1"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (p,
-                                                                           new MimeTypeParameter ("charsetname",
-                                                                                                  "iso-8859-1"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (p,
-                                                                           new MimeTypeParameter ("charset", "utf-8"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (p, new MimeTypeParameter ("charset", "iso-8859-1"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (p, new MimeTypeParameter ("charsetname", "iso-8859-1"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (p, new MimeTypeParameter ("charset", "utf-8"));
 
     p = new MimeTypeParameter ("charset", "foo bar");
     assertEquals ("charset", p.getAttribute ());
     assertEquals ("foo bar", p.getValue ());
     assertTrue (p.isValueRequiringQuoting ());
+  }
+
+  @Test
+  public void testEmptyValue ()
+  {
+    final MimeTypeParameter p = new MimeTypeParameter ("charset", "");
+    assertEquals ("charset", p.getAttribute ());
+    assertEquals ("", p.getValue ());
+    assertTrue (p.isValueRequiringQuoting ());
+
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (p, new MimeTypeParameter ("charset", ""));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (p, new MimeTypeParameter ("charsetname", "iso-8859-1"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (p, new MimeTypeParameter ("charset", "utf-8"));
   }
 }

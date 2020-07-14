@@ -177,12 +177,12 @@ public class MimeType implements IMimeType, IComparable <MimeType>
    *        Parameter name. Must neither be <code>null</code> nor empty and must
    *        match {@link MimeTypeParser#isToken(String)}.
    * @param sValue
-   *        The value to use. May neither be <code>null</code> nor empty. Must
-   *        not be a valid MIME token.
+   *        The value to use. May not be <code>null</code>. Must not be a valid
+   *        MIME token.
    * @return this
    */
   @Nonnull
-  public MimeType addParameter (@Nonnull @Nonempty final String sAttribute, @Nonnull @Nonempty final String sValue)
+  public MimeType addParameter (@Nonnull @Nonempty final String sAttribute, @Nonnull final String sValue)
   {
     return addParameter (new MimeTypeParameter (sAttribute, sValue));
   }
@@ -341,10 +341,7 @@ public class MimeType implements IMimeType, IComparable <MimeType>
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_eContentType)
-                                       .append (m_sContentSubType)
-                                       .append (m_aParameters)
-                                       .getHashCode ();
+    return new HashCodeGenerator (this).append (m_eContentType).append (m_sContentSubType).append (m_aParameters).getHashCode ();
   }
 
   @Override

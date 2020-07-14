@@ -79,6 +79,12 @@ public final class MimeTypeParserTest
     assertSame (EMimeContentType.TEXT, mt.getContentType ());
     assertEquals ("x", mt.getContentSubType ());
     assertEquals ("text/x;param1=x;param2=y", mt.getAsString ());
+
+    mt = MimeTypeParser.parseMimeType ("application/soap+xml; action=\"\";charset=utf-8");
+    assertNotNull (mt);
+    assertSame (EMimeContentType.APPLICATION, mt.getContentType ());
+    assertEquals ("soap+xml", mt.getContentSubType ());
+    assertEquals ("application/soap+xml;action=\"\";charset=utf-8", mt.getAsString ());
   }
 
   @Test
@@ -87,7 +93,17 @@ public final class MimeTypeParserTest
     final String [] aValid = new String [] { "text/x",
                                              "text/x;",
                                              "text/x;         ",
+                                             "text/x;param1=",
+                                             "text/x;param1= ",
+                                             "text/x;param1 =",
+                                             "text/x;param1 = ",
+                                             "text/x;param1 = ;",
                                              "text/x; param1=x",
+                                             "text/x;param1 =x;",
+                                             "text/x;param1 =x;param2=",
+                                             "text/x;param1 =x;param2= ",
+                                             "text/x;param1 =x;param2 =",
+                                             "text/x;param1 =x;param2 = ",
                                              "text/x;param1=x;param2=y",
                                              " text / x ; param1 = x ; param2 = y " };
     for (final EMimeQuoting eQuoting : EMimeQuoting.values ())
@@ -132,17 +148,7 @@ public final class MimeTypeParserTest
                                                "text/x;param1",
                                                "text/x; param1",
                                                "text/x;param1 ",
-                                               "text/x;param1=",
-                                               "text/x;param1= ",
-                                               "text/x;param1 =",
-                                               "text/x;param1 = ",
-                                               "text/x;param1 = ;",
-                                               "text/x;param1 =x;",
-                                               "text/x;param1 =x;param2",
-                                               "text/x;param1 =x;param2=",
-                                               "text/x;param1 =x;param2= ",
-                                               "text/x;param1 =x;param2 =",
-                                               "text/x;param1 =x;param2 = " };
+                                               "text/x;param1 =x;param2", };
     for (final EMimeQuoting eQuoting : EMimeQuoting.values ())
       for (final String sInvalid : aInvalid)
       {
@@ -152,7 +158,9 @@ public final class MimeTypeParserTest
           fail ("'" + sInvalid + "' should not be parsable with quoting " + eQuoting + "! Got " + aMT);
         }
         catch (final MimeTypeParserException ex)
-        {}
+        {
+          // expected
+        }
       }
   }
 
@@ -187,7 +195,9 @@ public final class MimeTypeParserTest
         fail ("'" + sInvalid + "' should not be parsable with quoting " + EMimeQuoting.QUOTED_STRING + "! Got " + aMT);
       }
       catch (final MimeTypeParserException ex)
-      {}
+      {
+        // expected
+      }
     }
   }
 
@@ -228,15 +238,17 @@ public final class MimeTypeParserTest
       try
       {
         final MimeType aMT = MimeTypeParser.parseMimeType (sInvalid, EMimeQuoting.QUOTED_PRINTABLE);
-        fail ("'" +
-              sInvalid +
-              "' should not be parsable with quoting " +
-              EMimeQuoting.QUOTED_PRINTABLE +
-              "! Got " +
-              aMT);
+        fail ("'" + sInvalid + "' should not be parsable with quoting " + EMimeQuoting.QUOTED_PRINTABLE + "! Got " + aMT);
       }
       catch (final MimeTypeParserException ex)
       {}
     }
+  }
+
+  @Test
+  public void testEmptyValue ()
+  {
+    final MimeType aMT = MimeTypeParser.parseMimeType ("application/soap+xml; action=\"\";charset=utf-8");
+    assertEquals ("application/soap+xml;action=\"\";charset=utf-8", aMT.getAsString ());
   }
 }

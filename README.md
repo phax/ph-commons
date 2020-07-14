@@ -29,6 +29,8 @@ This project was the following modules:
 
 ## News and noteworthy
 
+* v9.4.6 - work in progress
+    * Allow empty MIME type parameter values
 * v9.4.5 - 2020-06-29
     * Added missing methods in `IMapBasedDAO`
     * Added static syntactic sugar methods in `HashCodeGenerator`
