@@ -29,7 +29,7 @@ This project was the following modules:
 
 ## News and noteworthy
 
-* v9.4.6 - work in progress
+* v9.4.6 - 2020-07-15
     * Allow empty MIME type parameter values
     * `MimeTypeParser.safeParseMimeType` does an RFC 2616 decoding if necessary
     * Updated to BouncyCastle 1.66
