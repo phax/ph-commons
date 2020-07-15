@@ -50,7 +50,7 @@ public final class MimeTypeParserTest
   }
 
   @Test
-  public void testCreateFromString ()
+  public void testParseMimeType ()
   {
     IMimeType mt;
     assertNull (MimeTypeParser.parseMimeType (null));
@@ -85,6 +85,25 @@ public final class MimeTypeParserTest
     assertSame (EMimeContentType.APPLICATION, mt.getContentType ());
     assertEquals ("soap+xml", mt.getContentSubType ());
     assertEquals ("application/soap+xml;action=\"\";charset=utf-8", mt.getAsString ());
+  }
+
+  @Test
+  public void testSafeParseMimeType ()
+  {
+    IMimeType mt;
+
+    mt = MimeTypeParser.safeParseMimeType ("\"application/soap+xml; action=\\\"\\\";charset=utf-8\"");
+    assertNotNull (mt);
+    assertSame (EMimeContentType.APPLICATION, mt.getContentType ());
+    assertEquals ("soap+xml", mt.getContentSubType ());
+    assertEquals ("application/soap+xml;action=\"\";charset=utf-8", mt.getAsString ());
+
+    mt = MimeTypeParser.safeParseMimeType ("\"multipart/related;    boundary=\\\"----=_Part_90_1525910090.1594769036819\\\";    type=\\\"application/soap+xml\\\"; charset=UTF-8\"");
+    assertNotNull (mt);
+    assertSame (EMimeContentType.MULTIPART, mt.getContentType ());
+    assertEquals ("related", mt.getContentSubType ());
+    assertEquals ("multipart/related;boundary=\"----=_Part_90_1525910090.1594769036819\";type=\"application/soap+xml\";charset=UTF-8",
+                  mt.getAsString ());
   }
 
   @Test

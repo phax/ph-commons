@@ -20,11 +20,15 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.codec.DecodeException;
+import com.helger.commons.codec.RFC2616Codec;
 import com.helger.commons.collection.ArrayHelper;
 import com.helger.commons.string.StringHelper;
 
@@ -36,10 +40,11 @@ import com.helger.commons.string.StringHelper;
 @Immutable
 public final class MimeTypeParser
 {
+  private static final Logger LOGGER = LoggerFactory.getLogger (MimeTypeParser.class);
+  private static final char [] TSPECIAL = new char [] { '(', ')', '<', '>', '@', ',', ';', ':', '\\', '"', '/', '[', ']', '?', '=' };
+
   @PresentForCodeCoverage
   private static final MimeTypeParser s_aInstance = new MimeTypeParser ();
-
-  private static final char [] TSPECIAL = new char [] { '(', ')', '<', '>', '@', ',', ';', ':', '\\', '"', '/', '[', ']', '?', '=' };
 
   private MimeTypeParser ()
   {}
@@ -212,7 +217,7 @@ public final class MimeTypeParser
         while (nIndex < nMax && !MimeTypeParser.isTokenChar (aParamChars[nIndex]))
           ++nIndex;
 
-        // Semicolon at the end - resillience
+        // Semicolon at the end - resilience
         if (false)
           if (nIndex == nMax)
             throw new MimeTypeParserException ("Another parameter was indicated but none was found: " + sParameters);
@@ -351,7 +356,8 @@ public final class MimeTypeParser
    * default quoting algorithm {@link CMimeType#DEFAULT_QUOTING} is used to
    * unquote strings. Compared to {@link #parseMimeType(String)} this method
    * swallows all {@link MimeTypeParserException} and simply returns
-   * <code>null</code>.
+   * <code>null</code>. Additionally if the string is RFC 2616 encoded, it is
+   * decoded before parsing (since 9.4.6).
    *
    * @param sMimeType
    *        The string representation to be converted. May be <code>null</code>.
@@ -361,22 +367,16 @@ public final class MimeTypeParser
   @Nullable
   public static MimeType safeParseMimeType (@Nullable final String sMimeType)
   {
-    try
-    {
-      return parseMimeType (sMimeType, CMimeType.DEFAULT_QUOTING);
-    }
-    catch (final MimeTypeParserException ex)
-    {
-      return null;
-    }
+    return safeParseMimeType (sMimeType, CMimeType.DEFAULT_QUOTING);
   }
 
   /**
    * Try to convert the string representation of a MIME type to an object. The
    * default quoting algorithm {@link CMimeType#DEFAULT_QUOTING} is used to
-   * un-quote strings. Compared to {@link #parseMimeType(String, EMimeQuoting)}
+   * unquote strings. Compared to {@link #parseMimeType(String, EMimeQuoting)}
    * this method swallows all {@link MimeTypeParserException} and simply returns
-   * <code>null</code>.
+   * <code>null</code>. Additionally if the string is RFC 2616 encoded, it is
+   * decoded before parsing (since 9.4.6).
    *
    * @param sMimeType
    *        The string representation to be converted. May be <code>null</code>.
@@ -385,17 +385,36 @@ public final class MimeTypeParser
    *        not be <code>null</code>.
    * @return <code>null</code> if the parsed string is empty or not a valid mime
    *         type.
+   * @since 9.4.6
    */
   @Nullable
   public static MimeType safeParseMimeType (@Nullable final String sMimeType, @Nonnull final EMimeQuoting eQuotingAlgorithm)
   {
+    String sRealMimeType = sMimeType;
+    if (RFC2616Codec.isMaybeEncoded (sRealMimeType))
+    {
+      // Check if it is encoded with double quotes
+      try
+      {
+        sRealMimeType = new RFC2616Codec ().getDecodedAsString (sRealMimeType);
+      }
+      catch (final DecodeException ex)
+      {
+        // Ignore and continue with the original one
+      }
+    }
+
     try
     {
-      return parseMimeType (sMimeType, eQuotingAlgorithm);
+      return parseMimeType (sRealMimeType, eQuotingAlgorithm);
     }
     catch (final MimeTypeParserException ex)
     {
-      return null;
+      if ("*".equals (sRealMimeType))
+        return new MimeType (EMimeContentType._STAR, "*");
     }
+    if (LOGGER.isWarnEnabled ())
+      LOGGER.warn ("Unparsable MIME type '" + sMimeType + "'");
+    return null;
   }
 }

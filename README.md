@@ -31,6 +31,7 @@ This project was the following modules:
 
 * v9.4.6 - work in progress
     * Allow empty MIME type parameter values
+    * `MimeTypeParser.safeParseMimeType` does an RFC 2616 decoding if necessary
 * v9.4.5 - 2020-06-29
     * Added missing methods in `IMapBasedDAO`
     * Added static syntactic sugar methods in `HashCodeGenerator`
