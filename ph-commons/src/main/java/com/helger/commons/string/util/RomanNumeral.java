@@ -49,19 +49,7 @@ public final class RomanNumeral implements Serializable
    */
   private static final int [] NUMBERS = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
 
-  private static final String [] ROMAN_LETTERS = { "M",
-                                                   "CM",
-                                                   "D",
-                                                   "CD",
-                                                   "C",
-                                                   "XC",
-                                                   "L",
-                                                   "XL",
-                                                   "X",
-                                                   "IX",
-                                                   "V",
-                                                   "IV",
-                                                   "I" };
+  private static final String [] ROMAN_LETTERS = { "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
 
   /** The number represented by this Roman numeral. */
   private final int m_nValue;

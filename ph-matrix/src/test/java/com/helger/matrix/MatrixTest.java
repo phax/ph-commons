@@ -99,18 +99,11 @@ public final class MatrixTest
     final double [] [] rvals = { { 1., 4., 7. }, { 2., 5., 8., 11. }, { 3., 6., 9., 12. } };
     final double [] [] pvals = { { 4., 1., 1. }, { 1., 2., 3. }, { 1., 3., 6. } };
     final double [] [] ivals = { { 1., 0., 0., 0. }, { 0., 1., 0., 0. }, { 0., 0., 1., 0. } };
-    final double [] [] evals = { { 0., 1., 0., 0. },
-                                 { 1., 0., 2.e-7, 0. },
-                                 { 0., -2.e-7, 0., 1. },
-                                 { 0., 0., 1., 0. } };
+    final double [] [] evals = { { 0., 1., 0., 0. }, { 1., 0., 2.e-7, 0. }, { 0., -2.e-7, 0., 1. }, { 0., 0., 1., 0. } };
     final double [] [] square = { { 166., 188., 210. }, { 188., 214., 240. }, { 210., 240., 270. } };
     final double [] [] sqSolution = { { 13. }, { 15. } };
     final double [] [] condmat = { { 1., 3. }, { 7., 9. } };
-    final double [] [] badeigs = { { 0, 0, 0, 0, 0 },
-                                   { 0, 0, 0, 0, 1 },
-                                   { 0, 0, 0, 1, 0 },
-                                   { 1, 1, 0, 0, 1 },
-                                   { 1, 0, 1, 0, 1 } };
+    final double [] [] badeigs = { { 0, 0, 0, 0, 0 }, { 0, 0, 0, 0, 1 }, { 0, 0, 0, 1, 0 }, { 1, 1, 0, 0, 1 }, { 1, 0, 1, 0, 1 } };
     final int rows = 3;
     final int cols = 4;
     /*
@@ -326,8 +319,7 @@ public final class MatrixTest
     }
     try
     {
-      if (b.get (b.getRowDimension () - 1,
-                 b.getColumnDimension () - 1) != avals[b.getRowDimension () - 1][b.getColumnDimension () - 1])
+      if (b.get (b.getRowDimension () - 1, b.getColumnDimension () - 1) != avals[b.getRowDimension () - 1][b.getColumnDimension () - 1])
       {
         fail ("Matrix entry (i,j) not successfully retreived");
       }
@@ -951,9 +943,7 @@ public final class MatrixTest
       try
       {
         LOGGER.error ("oops", e);
-        warningCount = _try_warning (warningCount,
-                                     "print()/read()...",
-                                     "Formatting error... will try JDK1.1 reformulation...");
+        warningCount = _try_warning (warningCount, "print()/read()...", "Formatting error... will try JDK1.1 reformulation...");
         final DecimalFormat fmt = new DecimalFormat ("0.0000", DFS);
         try (final PrintWriter aPW = FileHelper.getPrintWriter (FILE_JAMA_TEST_MATRIX_OUT, StandardCharsets.UTF_8))
         {
@@ -1143,8 +1133,7 @@ public final class MatrixTest
     final double [] singularvalues = SVD.getSingularValues ();
     try
     {
-      _check (b.cond (),
-              singularvalues[0] / singularvalues[Math.min (b.getRowDimension (), b.getColumnDimension ()) - 1]);
+      _check (b.cond (), singularvalues[0] / singularvalues[Math.min (b.getRowDimension (), b.getColumnDimension ()) - 1]);
       _try_success ("cond()...", "");
     }
     catch (final RuntimeException e)
@@ -1269,10 +1258,7 @@ public final class MatrixTest
       return;
     if (Math.abs (x - y) > 10 * EPSILON * Math.max (Math.abs (x), Math.abs (y)))
     {
-      throw new IllegalArgumentException ("The difference x-y is too large: x = " +
-                                          Double.toString (x) +
-                                          "  y = " +
-                                          Double.toString (y));
+      throw new IllegalArgumentException ("The difference x-y is too large: x = " + Double.toString (x) + "  y = " + Double.toString (y));
     }
   }
 

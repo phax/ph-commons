@@ -46,8 +46,7 @@ public final class SystemPropertiesTest
   @Ignore ("Too verbose")
   public void testPrintAll ()
   {
-    for (final Map.Entry <String, String> aEntry : CollectionHelper.getSortedByKey (SystemProperties.getAllProperties ())
-                                                                   .entrySet ())
+    for (final Map.Entry <String, String> aEntry : CollectionHelper.getSortedByKey (SystemProperties.getAllProperties ()).entrySet ())
       LOGGER.info ("[all] " + aEntry.getKey () + "=" + aEntry.getValue ());
   }
 

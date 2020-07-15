@@ -56,8 +56,7 @@ public final class RandomHelper
     {
       // Log only, if a system property is present
       if (LOGGER.isInfoEnabled ())
-        LOGGER.info ("Usage of SecureRandom inside ph-* libraries is by default " +
-                     (bUseSecureRandom ? "enabled" : "disabled"));
+        LOGGER.info ("Usage of SecureRandom inside ph-* libraries is by default " + (bUseSecureRandom ? "enabled" : "disabled"));
     }
     s_aUseSecureRandom = new AtomicBoolean (bUseSecureRandom);
   }

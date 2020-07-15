@@ -93,8 +93,7 @@ public final class HashCodeImplementationRegistry implements IHashCodeImplementa
     return ret;
   }
 
-  public <T> void registerHashCodeImplementation (@Nonnull final Class <T> aClass,
-                                                  @Nonnull final IHashCodeImplementation <T> aImpl)
+  public <T> void registerHashCodeImplementation (@Nonnull final Class <T> aClass, @Nonnull final IHashCodeImplementation <T> aImpl)
   {
     ValueEnforcer.notNull (aClass, "Class");
     ValueEnforcer.notNull (aImpl, "Implementation");
@@ -198,10 +197,7 @@ public final class HashCodeImplementationRegistry implements IHashCodeImplementa
                 aMatchingImplementation = GenericReflection.uncheckedCast (aImpl);
                 aMatchingClass = aCurClass;
                 if (LOGGER.isDebugEnabled ())
-                  LOGGER.debug ("Found hierarchical match with class " +
-                                aMatchingClass +
-                                " when searching for " +
-                                aClass);
+                  LOGGER.debug ("Found hierarchical match with class " + aMatchingClass + " when searching for " + aClass);
                 break;
               }
             }

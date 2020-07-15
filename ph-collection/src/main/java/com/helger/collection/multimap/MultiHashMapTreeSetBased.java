@@ -48,8 +48,7 @@ public class MultiHashMapTreeSetBased <KEYTYPE, VALUETYPE extends Comparable <? 
     super (aKey, aValue);
   }
 
-  public MultiHashMapTreeSetBased (@Nullable final KEYTYPE aKey,
-                                   @Nullable final ICommonsNavigableSet <VALUETYPE> aCollection)
+  public MultiHashMapTreeSetBased (@Nullable final KEYTYPE aKey, @Nullable final ICommonsNavigableSet <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }

@@ -48,8 +48,8 @@ import com.helger.jaxb.validation.LoggingValidationEventHandler;
  *        The implementation class implementing this abstract class.
  */
 @NotThreadSafe
-public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JAXBTYPE, IMPLTYPE>> extends
-                               AbstractJAXBBuilder <IMPLTYPE> implements
+public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JAXBTYPE, IMPLTYPE>> extends AbstractJAXBBuilder <IMPLTYPE>
+                               implements
                                IJAXBReader <JAXBTYPE>
 {
   public static final boolean DEFAULT_READ_SECURE = true;
@@ -172,9 +172,7 @@ public class JAXBReaderBuilder <JAXBTYPE, IMPLTYPE extends JAXBReaderBuilder <JA
       final JAXBElement <JAXBTYPE> aElement = aHandler.doUnmarshal (aUnmarshaller, m_aImplClass);
       ret = aElement.getValue ();
       if (ret == null)
-        throw new IllegalStateException ("Failed to read JAXB document of class " +
-                                         m_aImplClass.getName () +
-                                         " - without exception!");
+        throw new IllegalStateException ("Failed to read JAXB document of class " + m_aImplClass.getName () + " - without exception!");
     }
     catch (final JAXBException ex)
     {

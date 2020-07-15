@@ -67,8 +67,7 @@ public class FilterIterator <ELEMENTTYPE> implements IIterableIterator <ELEMENTT
    * @param aFilter
    *        The filter to be applied. May not be <code>null</code>.
    */
-  public FilterIterator (@Nonnull final Iterator <? extends ELEMENTTYPE> aBaseIter,
-                         @Nonnull final IPredicate <? super ELEMENTTYPE> aFilter)
+  public FilterIterator (@Nonnull final Iterator <? extends ELEMENTTYPE> aBaseIter, @Nonnull final IPredicate <? super ELEMENTTYPE> aFilter)
   {
     m_aBaseIter = ValueEnforcer.notNull (aBaseIter, "BaseIterator");
     m_aFilter = ValueEnforcer.notNull (aFilter, "Filter");
@@ -83,8 +82,7 @@ public class FilterIterator <ELEMENTTYPE> implements IIterableIterator <ELEMENTT
    * @param aFilter
    *        The filter to be applied. May not be <code>null</code>.
    */
-  public FilterIterator (@Nonnull final Iterable <? extends ELEMENTTYPE> aBaseCont,
-                         @Nonnull final IPredicate <? super ELEMENTTYPE> aFilter)
+  public FilterIterator (@Nonnull final Iterable <? extends ELEMENTTYPE> aBaseCont, @Nonnull final IPredicate <? super ELEMENTTYPE> aFilter)
   {
     ValueEnforcer.notNull (aBaseCont, "BaseContainer");
     m_aBaseIter = aBaseCont.iterator ();

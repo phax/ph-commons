@@ -72,9 +72,7 @@ public class RFC1522BCodec extends AbstractRFC1522Codec
   @Override
   @Nullable
   @ReturnsMutableCopy
-  protected byte [] getEncoded (@Nullable final byte [] aDecodedBuffer,
-                                @Nonnegative final int nOfs,
-                                @Nonnegative final int nLen)
+  protected byte [] getEncoded (@Nullable final byte [] aDecodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     return Base64.safeEncodeBytesToBytes (aDecodedBuffer, nOfs, nLen);
   }
@@ -82,9 +80,7 @@ public class RFC1522BCodec extends AbstractRFC1522Codec
   @Override
   @Nullable
   @ReturnsMutableCopy
-  protected byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
-                                @Nonnegative final int nOfs,
-                                @Nonnegative final int nLen)
+  protected byte [] getDecoded (@Nullable final byte [] aEncodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     return Base64.safeDecode (aEncodedBuffer, nOfs, nLen);
   }

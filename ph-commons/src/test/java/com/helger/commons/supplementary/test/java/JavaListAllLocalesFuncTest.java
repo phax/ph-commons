@@ -36,25 +36,16 @@ public final class JavaListAllLocalesFuncTest
   public void testListAllCountries ()
   {
     for (final Locale aLocale : CollectionHelper.getSorted (Locale.getAvailableLocales (),
-                                                            IComparator.getComparatorCollating (Locale::getCountry,
-                                                                                                Locale.US)))
+                                                            IComparator.getComparatorCollating (Locale::getCountry, Locale.US)))
       if (aLocale.getCountry ().length () > 0)
-        LOGGER.info (aLocale.getCountry () +
-                     " " +
-                     aLocale.getDisplayCountry (Locale.US) +
-                     " (" +
-                     aLocale.toString () +
-                     ")");
+        LOGGER.info (aLocale.getCountry () + " " + aLocale.getDisplayCountry (Locale.US) + " (" + aLocale.toString () + ")");
   }
 
   @Test
   public void testListAllSerbianCountries ()
   {
-    for (final Locale aLocale : CollectionHelper.getSorted (Locale.getAvailableLocales (),
-                                                            Comparator.comparing (Locale::toString)))
-      if (aLocale.getLanguage ().equals ("sr") ||
-          aLocale.getLanguage ().equals ("sh") ||
-          aLocale.getLanguage ().equals ("bs"))
+    for (final Locale aLocale : CollectionHelper.getSorted (Locale.getAvailableLocales (), Comparator.comparing (Locale::toString)))
+      if (aLocale.getLanguage ().equals ("sr") || aLocale.getLanguage ().equals ("sh") || aLocale.getLanguage ().equals ("bs"))
         LOGGER.info (aLocale.toString () + ": " + aLocale.getDisplayName (Locale.US));
   }
 }

@@ -144,8 +144,6 @@ public class ConfigFile implements IGetterByKeyTrait <String>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("ReadResource", m_aReadResource)
-                                       .append ("Settings", m_aSettings)
-                                       .getToString ();
+    return new ToStringGenerator (this).append ("ReadResource", m_aReadResource).append ("Settings", m_aSettings).getToString ();
   }
 }

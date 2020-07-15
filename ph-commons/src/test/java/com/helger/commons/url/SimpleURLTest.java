@@ -56,10 +56,8 @@ public final class SimpleURLTest
     _checkAsStringNoEncode ("?upper=LOWER&äöü=aou");
 
     // asString results in slightly different but semantically equivalent URLs
-    assertEquals ("http://www.helger.com/",
-                  new SimpleURL ("http://www.helger.com/?").getAsStringWithoutEncodedParameters ());
-    assertEquals ("http://www.helger.com/#anchor",
-                  new SimpleURL ("http://www.helger.com/?#anchor").getAsStringWithoutEncodedParameters ());
+    assertEquals ("http://www.helger.com/", new SimpleURL ("http://www.helger.com/?").getAsStringWithoutEncodedParameters ());
+    assertEquals ("http://www.helger.com/#anchor", new SimpleURL ("http://www.helger.com/?#anchor").getAsStringWithoutEncodedParameters ());
   }
 
   private static void _checkAsStringEncodeDefault (final String sHref)
@@ -86,9 +84,7 @@ public final class SimpleURLTest
 
   private static void _checkAsStringEncodeISO88591 (final String sHref)
   {
-    assertEquals (sHref,
-                  new SimpleURL (sHref,
-                                 StandardCharsets.ISO_8859_1).getAsStringWithEncodedParameters (StandardCharsets.ISO_8859_1));
+    assertEquals (sHref, new SimpleURL (sHref, StandardCharsets.ISO_8859_1).getAsStringWithEncodedParameters (StandardCharsets.ISO_8859_1));
   }
 
   @Test
@@ -131,15 +127,13 @@ public final class SimpleURLTest
     _checkAsEncodedString ("/?x=y&ab=cd");
     _checkAsEncodedString ("http://www.helger.com/?this&that&thatalso");
     _checkAsEncodedString ("?this&that&thatalso");
-    _checkAsEncodedString ("http://www.helger.com/?upper=LOWER&äöü=aou",
-                           "http://www.helger.com/?upper=LOWER&%C3%A4%C3%B6%C3%BC=aou");
+    _checkAsEncodedString ("http://www.helger.com/?upper=LOWER&äöü=aou", "http://www.helger.com/?upper=LOWER&%C3%A4%C3%B6%C3%BC=aou");
     _checkAsEncodedString ("http://www.helger.com/?upper=LOWER&äöü=aou#anchor",
                            "http://www.helger.com/?upper=LOWER&%C3%A4%C3%B6%C3%BC=aou#anchor");
     _checkAsEncodedString ("?upper=LOWER&äöü=aou", "?upper=LOWER&%C3%A4%C3%B6%C3%BC=aou");
 
     // asString results in slightly different but semantically equivalent URLs
-    assertEquals ("http://www.helger.com/",
-                  new SimpleURL ("http://www.helger.com/?").getAsStringWithEncodedParameters ());
+    assertEquals ("http://www.helger.com/", new SimpleURL ("http://www.helger.com/?").getAsStringWithEncodedParameters ());
   }
 
   @Test

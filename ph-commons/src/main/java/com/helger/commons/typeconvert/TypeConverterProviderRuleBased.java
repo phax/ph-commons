@@ -40,10 +40,8 @@ public final class TypeConverterProviderRuleBased implements ITypeConverterProvi
   }
 
   @Nullable
-  public ITypeConverter <Object, Object> getTypeConverter (@Nonnull final Class <?> aSrcClass,
-                                                           @Nonnull final Class <?> aDstClass)
+  public ITypeConverter <Object, Object> getTypeConverter (@Nonnull final Class <?> aSrcClass, @Nonnull final Class <?> aDstClass)
   {
-    return GenericReflection.uncheckedCast (TypeConverterRegistry.getInstance ()
-                                                                 .getRuleBasedConverter (aSrcClass, aDstClass));
+    return GenericReflection.uncheckedCast (TypeConverterRegistry.getInstance ().getRuleBasedConverter (aSrcClass, aDstClass));
   }
 }

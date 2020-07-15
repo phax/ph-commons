@@ -177,8 +177,7 @@ public final class MicroHelper
       {
         final Element aElement = (Element) aNode;
         final String sNamespaceURI = aElement.getNamespaceURI ();
-        final IMicroElement eElement = sNamespaceURI != null ? new MicroElement (sNamespaceURI,
-                                                                                 aElement.getLocalName ())
+        final IMicroElement eElement = sNamespaceURI != null ? new MicroElement (sNamespaceURI, aElement.getLocalName ())
                                                              : new MicroElement (aElement.getTagName ());
         XMLHelper.forAllAttributes (aElement, aAttr -> {
           final String sAttrNamespaceURI = aAttr.getNamespaceURI ();
@@ -249,8 +248,7 @@ public final class MicroHelper
    *         element does not contain any text.
    */
   @Nullable
-  public static String getChildTextContent (@Nonnull final IMicroElement eParentElement,
-                                            @Nonnull final String sChildElementName)
+  public static String getChildTextContent (@Nonnull final IMicroElement eParentElement, @Nonnull final String sChildElementName)
   {
     final IMicroElement eChildElement = eParentElement.getFirstChildElement (sChildElementName);
     return eChildElement != null ? eChildElement.getTextContent () : null;
@@ -269,8 +267,7 @@ public final class MicroHelper
    *         element does not contain any text.
    */
   @Nullable
-  public static String getChildTextContentTrimmed (@Nonnull final IMicroElement eParentElement,
-                                                   @Nonnull final String sChildElementName)
+  public static String getChildTextContentTrimmed (@Nonnull final IMicroElement eParentElement, @Nonnull final String sChildElementName)
   {
     final IMicroElement eChildElement = eParentElement.getFirstChildElement (sChildElementName);
     return eChildElement != null ? eChildElement.getTextContentTrimmed () : null;

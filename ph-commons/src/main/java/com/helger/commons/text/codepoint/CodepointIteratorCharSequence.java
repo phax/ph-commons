@@ -33,9 +33,7 @@ public class CodepointIteratorCharSequence extends AbstractCodepointIterator
     this (aBuffer, 0, aBuffer.length ());
   }
 
-  public CodepointIteratorCharSequence (@Nonnull final CharSequence aBuffer,
-                                        @Nonnegative final int nOfs,
-                                        @Nonnegative final int nLen)
+  public CodepointIteratorCharSequence (@Nonnull final CharSequence aBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     m_aBuffer = ValueEnforcer.notNull (aBuffer, "Buffer");
     m_nPosition = ValueEnforcer.isGE0 (nOfs, "Offset");

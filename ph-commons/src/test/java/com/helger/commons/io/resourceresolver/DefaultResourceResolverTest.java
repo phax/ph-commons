@@ -47,8 +47,7 @@ public final class DefaultResourceResolverTest
   public void testBasic () throws IOException
   {
     final String sBaseDir = new File (".").getCanonicalFile ().getAbsolutePath () + File.separatorChar;
-    final String sBaseDirParent = new File (".").getCanonicalFile ().getParentFile ().getAbsolutePath () +
-                                  File.separatorChar;
+    final String sBaseDirParent = new File (".").getCanonicalFile ().getParentFile ().getAbsolutePath () + File.separatorChar;
 
     IReadableResource aRes;
 
@@ -70,8 +69,7 @@ public final class DefaultResourceResolverTest
     assertEquals ("http://www.helger.com/dir/file.txt", aRes.getPath ());
 
     // system ID is a fixed URL
-    aRes = DefaultResourceResolver.getResolvedResource ("http://www.example.org/file.txt",
-                                                        "http://www.helger.com/abc/");
+    aRes = DefaultResourceResolver.getResolvedResource ("http://www.example.org/file.txt", "http://www.helger.com/abc/");
     assertTrue (aRes instanceof URLResource);
     assertEquals ("http://www.example.org/file.txt", aRes.getPath ());
 

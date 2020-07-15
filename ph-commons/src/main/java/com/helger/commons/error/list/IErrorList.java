@@ -104,8 +104,7 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
    */
   default boolean hasEntryForField (@Nullable final String sSearchFieldName, @Nullable final IErrorLevel aErrorLevel)
   {
-    return aErrorLevel != null &&
-           containsAny (x -> x.hasErrorFieldName (sSearchFieldName) && x.hasErrorLevel (aErrorLevel));
+    return aErrorLevel != null && containsAny (x -> x.hasErrorFieldName (sSearchFieldName) && x.hasErrorLevel (aErrorLevel));
   }
 
   /**
@@ -223,8 +222,7 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
   @ReturnsMutableCopy
   default IErrorList getListOfFieldsRegExp (@Nonnull @Nonempty @RegEx final String sRegExp)
   {
-    return getSubList (x -> x.hasErrorFieldName () &&
-                            RegExHelper.stringMatchesPattern (sRegExp, x.getErrorFieldName ()));
+    return getSubList (x -> x.hasErrorFieldName () && RegExHelper.stringMatchesPattern (sRegExp, x.getErrorFieldName ()));
   }
 
   /**

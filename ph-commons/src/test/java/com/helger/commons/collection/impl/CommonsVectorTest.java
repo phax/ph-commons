@@ -67,9 +67,7 @@ public final class CommonsVectorTest
     aTest = new CommonsVector <> (new CommonsVector <> (Integer.valueOf (1), Integer.valueOf (2)), x -> x.toString ());
     assertEquals (2, aTest.size ());
 
-    aTest = new CommonsVector <> ((Iterable <Integer>) new CommonsVector <> (Integer.valueOf (1),
-                                                                             Integer.valueOf (2),
-                                                                             Integer.valueOf (4)),
+    aTest = new CommonsVector <> ((Iterable <Integer>) new CommonsVector <> (Integer.valueOf (1), Integer.valueOf (2), Integer.valueOf (4)),
                                   x -> x.toString ());
     assertEquals (3, aTest.size ());
   }

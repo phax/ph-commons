@@ -91,11 +91,7 @@ public final class PDTFormatter
     @Override
     public int hashCode ()
     {
-      return new HashCodeGenerator (this).append (m_eDTType)
-                                         .append (m_aLocale)
-                                         .append (m_eStyle)
-                                         .append (m_eMode)
-                                         .getHashCode ();
+      return new HashCodeGenerator (this).append (m_eDTType).append (m_aLocale).append (m_eStyle).append (m_eMode).getHashCode ();
     }
   }
 
@@ -225,8 +221,7 @@ public final class PDTFormatter
    * @return The modified date time formatter. Never <code>null</code>.
    */
   @Nonnull
-  public static DateTimeFormatter getWithLocale (@Nonnull final DateTimeFormatter aFormatter,
-                                                 @Nullable final Locale aDisplayLocale)
+  public static DateTimeFormatter getWithLocale (@Nonnull final DateTimeFormatter aFormatter, @Nullable final Locale aDisplayLocale)
   {
     DateTimeFormatter ret = aFormatter;
     if (aDisplayLocale != null)
@@ -235,8 +230,7 @@ public final class PDTFormatter
   }
 
   @Nonnull
-  private static DateTimeFormatter _getFormatter (@Nonnull final CacheKey aCacheKey,
-                                                  @Nullable final Locale aDisplayLocale)
+  private static DateTimeFormatter _getFormatter (@Nonnull final CacheKey aCacheKey, @Nullable final Locale aDisplayLocale)
   {
     final DateTimeFormatter aFormatter = s_aParserCache.getFromCache (aCacheKey);
     return getWithLocale (aFormatter, aDisplayLocale);

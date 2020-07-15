@@ -209,8 +209,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *         if the value cannot be converted
    */
   @Nullable
-  default <DSTTYPE> DSTTYPE getAttributeValueWithConversion (@Nullable final String sAttrName,
-                                                             @Nonnull final Class <DSTTYPE> aDstClass)
+  default <DSTTYPE> DSTTYPE getAttributeValueWithConversion (@Nullable final String sAttrName, @Nonnull final Class <DSTTYPE> aDstClass)
   {
     return getAttributeValueWithConversion ((String) null, sAttrName, aDstClass);
   }
@@ -262,17 +261,14 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *         if the value cannot be converted
    */
   @Nullable
-  <DSTTYPE> DSTTYPE getAttributeValueWithConversion (@Nullable IMicroQName aAttrName,
-                                                     @Nonnull Class <DSTTYPE> aDstClass);
+  <DSTTYPE> DSTTYPE getAttributeValueWithConversion (@Nullable IMicroQName aAttrName, @Nonnull Class <DSTTYPE> aDstClass);
 
   default boolean getAttributeValueAsBool (@Nullable final String sAttrName, final boolean bDefault)
   {
     return StringParser.parseBool (getAttributeValue (sAttrName), bDefault);
   }
 
-  default boolean getAttributeValueAsBool (@Nullable final String sNamespaceURI,
-                                           @Nullable final String sAttrName,
-                                           final boolean bDefault)
+  default boolean getAttributeValueAsBool (@Nullable final String sNamespaceURI, @Nullable final String sAttrName, final boolean bDefault)
   {
     return StringParser.parseBool (getAttributeValue (sNamespaceURI, sAttrName), bDefault);
   }
@@ -287,9 +283,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
     return StringParser.parseDouble (getAttributeValue (sAttrName), dDefault);
   }
 
-  default double getAttributeValueAsDouble (@Nullable final String sNamespaceURI,
-                                            @Nullable final String sAttrName,
-                                            final double dDefault)
+  default double getAttributeValueAsDouble (@Nullable final String sNamespaceURI, @Nullable final String sAttrName, final double dDefault)
   {
     return StringParser.parseDouble (getAttributeValue (sNamespaceURI, sAttrName), dDefault);
   }
@@ -304,9 +298,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
     return StringParser.parseFloat (getAttributeValue (sAttrName), fDefault);
   }
 
-  default float getAttributeValueAsFloat (@Nullable final String sNamespaceURI,
-                                          @Nullable final String sAttrName,
-                                          final float fDefault)
+  default float getAttributeValueAsFloat (@Nullable final String sNamespaceURI, @Nullable final String sAttrName, final float fDefault)
   {
     return StringParser.parseFloat (getAttributeValue (sNamespaceURI, sAttrName), fDefault);
   }
@@ -321,9 +313,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
     return StringParser.parseInt (getAttributeValue (sAttrName), nDefault);
   }
 
-  default int getAttributeValueAsInt (@Nullable final String sNamespaceURI,
-                                      @Nullable final String sAttrName,
-                                      final int nDefault)
+  default int getAttributeValueAsInt (@Nullable final String sNamespaceURI, @Nullable final String sAttrName, final int nDefault)
   {
     return StringParser.parseInt (getAttributeValue (sNamespaceURI, sAttrName), nDefault);
   }
@@ -338,9 +328,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
     return StringParser.parseLong (getAttributeValue (sAttrName), nDefault);
   }
 
-  default long getAttributeValueAsLong (@Nullable final String sNamespaceURI,
-                                        @Nullable final String sAttrName,
-                                        final long nDefault)
+  default long getAttributeValueAsLong (@Nullable final String sNamespaceURI, @Nullable final String sAttrName, final long nDefault)
   {
     return StringParser.parseLong (getAttributeValue (sNamespaceURI, sAttrName), nDefault);
   }
@@ -448,9 +436,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @return this
    */
   @Nonnull
-  default IMPLTYPE setAttribute (@Nullable final String sNamespaceURI,
-                                 @Nonnull final String sAttrName,
-                                 @Nullable final String sAttrValue)
+  default IMPLTYPE setAttribute (@Nullable final String sNamespaceURI, @Nonnull final String sAttrName, @Nullable final String sAttrValue)
   {
     return setAttribute (new MicroQName (sNamespaceURI, sAttrName), sAttrValue);
   }
@@ -520,8 +506,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @return this
    */
   @Nonnull
-  default IMPLTYPE setAttribute (@Nonnull final IMicroQName aAttrName,
-                                 @Nonnull final IHasAttributeValue aAttrValueProvider)
+  default IMPLTYPE setAttribute (@Nonnull final IMicroQName aAttrName, @Nonnull final IHasAttributeValue aAttrValueProvider)
   {
     ValueEnforcer.notNull (aAttrValueProvider, "AttrValueProvider");
     return setAttribute (aAttrName, aAttrValueProvider.getAttrValue ());
@@ -562,9 +547,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @return this
    */
   @Nonnull
-  default IMPLTYPE setAttribute (@Nullable final String sNamespaceURI,
-                                 @Nonnull final String sAttrName,
-                                 final boolean bAttrValue)
+  default IMPLTYPE setAttribute (@Nullable final String sNamespaceURI, @Nonnull final String sAttrName, final boolean bAttrValue)
   {
     return setAttribute (sNamespaceURI, sAttrName, Boolean.toString (bAttrValue));
   }
@@ -619,9 +602,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @return this
    */
   @Nonnull
-  default IMPLTYPE setAttribute (@Nullable final String sNamespaceURI,
-                                 @Nonnull final String sAttrName,
-                                 final double dAttrValue)
+  default IMPLTYPE setAttribute (@Nullable final String sNamespaceURI, @Nonnull final String sAttrName, final double dAttrValue)
   {
     return setAttribute (sNamespaceURI, sAttrName, Double.toString (dAttrValue));
   }
@@ -673,9 +654,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @return this
    */
   @Nonnull
-  default IMPLTYPE setAttribute (@Nullable final String sNamespaceURI,
-                                 @Nonnull final String sAttrName,
-                                 final float fAttrValue)
+  default IMPLTYPE setAttribute (@Nullable final String sNamespaceURI, @Nonnull final String sAttrName, final float fAttrValue)
   {
     return setAttribute (sNamespaceURI, sAttrName, Float.toString (fAttrValue));
   }
@@ -727,9 +706,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @return this
    */
   @Nonnull
-  default IMPLTYPE setAttribute (@Nullable final String sNamespaceURI,
-                                 @Nonnull final String sAttrName,
-                                 final int nAttrValue)
+  default IMPLTYPE setAttribute (@Nullable final String sNamespaceURI, @Nonnull final String sAttrName, final int nAttrValue)
   {
     return setAttribute (sNamespaceURI, sAttrName, Integer.toString (nAttrValue));
   }
@@ -780,9 +757,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @return this
    */
   @Nonnull
-  default IMPLTYPE setAttribute (@Nullable final String sNamespaceURI,
-                                 @Nonnull final String sAttrName,
-                                 final long nAttrValue)
+  default IMPLTYPE setAttribute (@Nullable final String sNamespaceURI, @Nonnull final String sAttrName, final long nAttrValue)
   {
     return setAttribute (sNamespaceURI, sAttrName, Long.toString (nAttrValue));
   }

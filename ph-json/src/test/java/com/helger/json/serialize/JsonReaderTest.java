@@ -153,10 +153,8 @@ public final class JsonReaderTest
       _testReassemble (sJson);
     }
 
-    assertEquals ("\"slashed/value\"",
-                  JsonReader.builder ().setSource ("\"slashed/value\"").read ().getAsJsonString ());
-    assertEquals ("\"slashed/value\"",
-                  JsonReader.builder ().setSource ("\"slashed\\/value\"").read ().getAsJsonString ());
+    assertEquals ("\"slashed/value\"", JsonReader.builder ().setSource ("\"slashed/value\"").read ().getAsJsonString ());
+    assertEquals ("\"slashed/value\"", JsonReader.builder ().setSource ("\"slashed\\/value\"").read ().getAsJsonString ());
   }
 
   @Test

@@ -45,9 +45,7 @@ public class FlateCodec implements IByteArrayCodec
   public FlateCodec ()
   {}
 
-  public static boolean isZlibHead (@Nonnull final byte [] buf,
-                                    @Nonnegative final int nOfs,
-                                    @Nonnegative final int nLen)
+  public static boolean isZlibHead (@Nonnull final byte [] buf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     if (nLen >= 2)
     {
@@ -73,10 +71,7 @@ public class FlateCodec implements IByteArrayCodec
     if (!isZlibHead (aEncodedBuffer, nOfs, nLen))
       LOGGER.warn ("ZLib header not found");
 
-    try (
-        final InflaterInputStream aDecodeIS = new InflaterInputStream (new NonBlockingByteArrayInputStream (aEncodedBuffer,
-                                                                                                            nOfs,
-                                                                                                            nLen)))
+    try (final InflaterInputStream aDecodeIS = new InflaterInputStream (new NonBlockingByteArrayInputStream (aEncodedBuffer, nOfs, nLen)))
     {
       if (StreamHelper.copyInputStreamToOutputStream (aDecodeIS, aOS).isFailure ())
         throw new DecodeException ("Failed to flate decode!");
@@ -97,8 +92,7 @@ public class FlateCodec implements IByteArrayCodec
 
     try (final DeflaterOutputStream aEncodeOS = new DeflaterOutputStream (new NonClosingOutputStream (aOS)))
     {
-      if (StreamHelper.copyInputStreamToOutputStream (new NonBlockingByteArrayInputStream (aDecodedBuffer, nOfs, nLen),
-                                                      aEncodeOS)
+      if (StreamHelper.copyInputStreamToOutputStream (new NonBlockingByteArrayInputStream (aDecodedBuffer, nOfs, nLen), aEncodeOS)
                       .isFailure ())
         throw new EncodeException ("Failed to flate encode!");
     }

@@ -127,18 +127,13 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
     ValueEnforcer.isTrue (ClassHelper.isPublic (aSrcClass), () -> "Source " + aSrcClass + " is no public class!");
     ValueEnforcer.notNull (aDstClass, "DstClass");
     ValueEnforcer.isTrue (ClassHelper.isPublic (aDstClass), () -> "Destination " + aDstClass + " is no public class!");
-    ValueEnforcer.isFalse (aSrcClass.equals (aDstClass),
-                           "Source and destination class are equal and therefore no converter is required.");
+    ValueEnforcer.isFalse (aSrcClass.equals (aDstClass), "Source and destination class are equal and therefore no converter is required.");
     ValueEnforcer.notNull (aConverter, "Converter");
     ValueEnforcer.isFalse (aConverter instanceof ITypeConverterRule,
                            "Type converter rules must be registered via registerTypeConverterRule");
     if (ClassHelper.areConvertibleClasses (aSrcClass, aDstClass))
       if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("No type converter needed between " +
-                     aSrcClass +
-                     " and " +
-                     aDstClass +
-                     " because types are convertible!");
+        LOGGER.warn ("No type converter needed between " + aSrcClass + " and " + aDstClass + " because types are convertible!");
 
     // The main class should not already be registered
     final Map <Class <?>, ITypeConverter <?, ?>> aSrcMap = _getOrCreateConverterMap (aSrcClass);
@@ -162,11 +157,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
             else
             {
               if (LOGGER.isTraceEnabled ())
-                LOGGER.trace ("Registered type converter from '" +
-                              aSrcClass.toString () +
-                              "' to '" +
-                              aCurDstClass.toString () +
-                              "'");
+                LOGGER.trace ("Registered type converter from '" + aSrcClass.toString () + "' to '" + aCurDstClass.toString () + "'");
             }
           }
       }
@@ -361,9 +352,8 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
   {
     ValueEnforcer.notNull (aTypeConverterRule, "TypeConverterRule");
 
-    m_aRWLock.writeLockedBoolean ( () -> m_aRules.computeIfAbsent (aTypeConverterRule.getSubType (),
-                                                            x -> new CommonsArrayList <> ())
-                                          .add (aTypeConverterRule));
+    m_aRWLock.writeLockedBoolean ( () -> m_aRules.computeIfAbsent (aTypeConverterRule.getSubType (), x -> new CommonsArrayList <> ())
+                                                 .add (aTypeConverterRule));
 
     if (LOGGER.isTraceEnabled ())
       LOGGER.trace ("Registered type converter rule " +

@@ -385,8 +385,7 @@ public class Option implements IOptionBase
                                        .appendIfNotNull ("Description", m_sDescription)
                                        .appendIf ("MinArgs", m_nMinArgs, this::hasMinArgs)
                                        .appendIf ("MaxArgs",
-                                                  m_nMaxArgs == INFINITE_VALUES ? "infinite"
-                                                                                : Integer.toString (m_nMaxArgs),
+                                                  m_nMaxArgs == INFINITE_VALUES ? "infinite" : Integer.toString (m_nMaxArgs),
                                                   this::canHaveArgs)
                                        .appendIfNotNull ("ArgName", m_sArgName)
                                        .append ("Multiplicity", m_eMultiplicity)
@@ -530,8 +529,7 @@ public class Option implements IOptionBase
     @Nonnull
     public Builder maxArgs (final int nMaxArgs)
     {
-      ValueEnforcer.isTrue (nMaxArgs == INFINITE_VALUES || nMaxArgs >= 0,
-                            () -> "MaxArgs must be " + INFINITE_VALUES + " or >= 0!");
+      ValueEnforcer.isTrue (nMaxArgs == INFINITE_VALUES || nMaxArgs >= 0, () -> "MaxArgs must be " + INFINITE_VALUES + " or >= 0!");
       m_nMaxArgs = nMaxArgs;
       return this;
     }

@@ -70,8 +70,7 @@ public final class ConstantHasTextWithArgsTest
   {
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ConstantHasTextWithArgs ("any"),
                                                                        new ConstantHasTextWithArgs ("any"));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ConstantHasTextWithArgs (""),
-                                                                       new ConstantHasTextWithArgs (""));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ConstantHasTextWithArgs (""), new ConstantHasTextWithArgs (""));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ConstantHasTextWithArgs ("any"),
                                                                            new ConstantHasTextWithArgs ("anyy"));
   }

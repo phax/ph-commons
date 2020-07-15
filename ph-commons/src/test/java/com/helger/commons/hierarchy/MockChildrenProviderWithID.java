@@ -18,8 +18,7 @@ package com.helger.commons.hierarchy;
 
 import javax.annotation.Nullable;
 
-public final class MockChildrenProviderWithID extends MockChildrenProvider implements
-                                              IChildrenProviderWithID <String, MockHasChildren>
+public final class MockChildrenProviderWithID extends MockChildrenProvider implements IChildrenProviderWithID <String, MockHasChildren>
 {
   @Nullable
   public MockHasChildren getChildWithID (@Nullable final MockHasChildren aCurrent, final String aID)

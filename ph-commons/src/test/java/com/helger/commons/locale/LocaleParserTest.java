@@ -99,10 +99,8 @@ public final class LocaleParserTest
     assertEquals (aBD1M, LocaleParser.parseBigDecimal ("1.000.000", L_DE, CGlobal.BIGDEC_MINUS_ONE));
     assertEquals (aBD1M, LocaleParser.parseBigDecimal ("1,000,000", L_EN, CGlobal.BIGDEC_MINUS_ONE));
     assertEquals (aBD1M, LocaleParser.parseBigDecimal ("1,000,000", (DecimalFormat) NumberFormat.getInstance (L_EN)));
-    assertEquals (new BigDecimal ("1234567.8901"),
-                  LocaleParser.parseBigDecimal ("1.234.567,8901", L_DE, CGlobal.BIGDEC_MINUS_ONE));
-    assertEquals (CGlobal.BIGDEC_MINUS_ONE,
-                  LocaleParser.parseBigDecimal ("... und denken", L_EN, CGlobal.BIGDEC_MINUS_ONE));
+    assertEquals (new BigDecimal ("1234567.8901"), LocaleParser.parseBigDecimal ("1.234.567,8901", L_DE, CGlobal.BIGDEC_MINUS_ONE));
+    assertEquals (CGlobal.BIGDEC_MINUS_ONE, LocaleParser.parseBigDecimal ("... und denken", L_EN, CGlobal.BIGDEC_MINUS_ONE));
     final ChoiceFormat aCF = new ChoiceFormat ("-1#negative|0#zero|1.0#one");
     assertEquals (BigDecimal.valueOf (0.0), LocaleParser.parseBigDecimal ("zero", aCF, CGlobal.BIGDEC_MINUS_ONE));
 

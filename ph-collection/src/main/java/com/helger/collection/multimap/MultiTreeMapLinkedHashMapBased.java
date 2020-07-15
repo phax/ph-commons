@@ -26,8 +26,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 
-public class MultiTreeMapLinkedHashMapBased <KEYTYPE1, KEYTYPE2 extends Comparable <? super KEYTYPE2>, VALUETYPE>
-                                            extends
+public class MultiTreeMapLinkedHashMapBased <KEYTYPE1, KEYTYPE2 extends Comparable <? super KEYTYPE2>, VALUETYPE> extends
                                             AbstractMultiTreeMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE, ICommonsOrderedMap <KEYTYPE2, VALUETYPE>>
 {
   public MultiTreeMapLinkedHashMapBased ()
@@ -38,9 +37,7 @@ public class MultiTreeMapLinkedHashMapBased <KEYTYPE1, KEYTYPE2 extends Comparab
     super (aComparator);
   }
 
-  public MultiTreeMapLinkedHashMapBased (@Nonnull final KEYTYPE1 aKey,
-                                         @Nonnull final KEYTYPE2 aInnerKey,
-                                         @Nullable final VALUETYPE aValue)
+  public MultiTreeMapLinkedHashMapBased (@Nonnull final KEYTYPE1 aKey, @Nonnull final KEYTYPE2 aInnerKey, @Nullable final VALUETYPE aValue)
   {
     super (aKey, aInnerKey, aValue);
   }

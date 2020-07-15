@@ -50,8 +50,7 @@ public interface IValidationEventHandler extends ValidationEventHandler, Seriali
    * @since 8.6.0
    */
   @Nonnull
-  static IValidationEventHandler and (@Nullable final ValidationEventHandler aFirst,
-                                      @Nullable final ValidationEventHandler aSecond)
+  static IValidationEventHandler and (@Nullable final ValidationEventHandler aFirst, @Nullable final ValidationEventHandler aSecond)
   {
     if (aFirst != null)
     {

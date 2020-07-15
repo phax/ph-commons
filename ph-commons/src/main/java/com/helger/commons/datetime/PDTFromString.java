@@ -60,14 +60,7 @@ public final class PDTFromString
                                          @Nonnull final DateTimeParseException ex)
   {
     if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Failed to parse " +
-                    sDestType +
-                    " '" +
-                    sValue +
-                    "'" +
-                    (aDF == null ? "" : " with " + aDF) +
-                    ": " +
-                    ex.getMessage ());
+      LOGGER.debug ("Failed to parse " + sDestType + " '" + sValue + "'" + (aDF == null ? "" : " with " + aDF) + ": " + ex.getMessage ());
   }
 
   @Nullable
@@ -77,8 +70,7 @@ public final class PDTFromString
   }
 
   @Nullable
-  public static ZonedDateTime getZonedDateTimeFromString (@Nullable final String sValue,
-                                                          @Nonnull final DateTimeFormatter aDF)
+  public static ZonedDateTime getZonedDateTimeFromString (@Nullable final String sValue, @Nonnull final DateTimeFormatter aDF)
   {
     ValueEnforcer.notNull (aDF, "DateTimeFormatter");
 
@@ -98,9 +90,7 @@ public final class PDTFromString
   public static LocalDate getLocalDateFromString (@Nullable final String sValue, @Nullable final Locale aParseLocale)
   {
     return getLocalDateFromString (sValue,
-                                   PDTFormatter.getFormatterDate (PDTFormatter.DEFAULT_STYLE,
-                                                                  aParseLocale,
-                                                                  EDTFormatterMode.PARSE));
+                                   PDTFormatter.getFormatterDate (PDTFormatter.DEFAULT_STYLE, aParseLocale, EDTFormatterMode.PARSE));
   }
 
   @Nullable
@@ -127,8 +117,7 @@ public final class PDTFromString
   }
 
   @Nullable
-  public static LocalDateTime getLocalDateTimeFromString (@Nullable final String sValue,
-                                                          @Nullable final Locale aParseLocale)
+  public static LocalDateTime getLocalDateTimeFromString (@Nullable final String sValue, @Nullable final Locale aParseLocale)
   {
     return getLocalDateTimeFromString (sValue,
                                        PDTFormatter.getFormatterDateTime (PDTFormatter.DEFAULT_STYLE,
@@ -137,8 +126,7 @@ public final class PDTFromString
   }
 
   @Nullable
-  public static LocalDateTime getLocalDateTimeFromString (@Nullable final String sValue,
-                                                          @Nonnull final DateTimeFormatter aDF)
+  public static LocalDateTime getLocalDateTimeFromString (@Nullable final String sValue, @Nonnull final DateTimeFormatter aDF)
   {
     ValueEnforcer.notNull (aDF, "DateTimeFormatter");
 
@@ -164,9 +152,7 @@ public final class PDTFromString
   public static LocalTime getLocalTimeFromString (@Nullable final String sValue, @Nullable final Locale aParseLocale)
   {
     return getLocalTimeFromString (sValue,
-                                   PDTFormatter.getFormatterTime (PDTFormatter.DEFAULT_STYLE,
-                                                                  aParseLocale,
-                                                                  EDTFormatterMode.PARSE));
+                                   PDTFormatter.getFormatterTime (PDTFormatter.DEFAULT_STYLE, aParseLocale, EDTFormatterMode.PARSE));
   }
 
   @Nullable

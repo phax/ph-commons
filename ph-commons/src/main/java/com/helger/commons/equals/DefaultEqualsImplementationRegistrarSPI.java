@@ -76,12 +76,10 @@ public final class DefaultEqualsImplementationRegistrarSPI implements IEqualsImp
     aRegistry.registerEqualsImplementation (Float.class, (aObj1, aObj2) -> aObj1.compareTo (aObj2) == 0);
 
     // StringBuffer does not implement equals!
-    aRegistry.registerEqualsImplementation (StringBuffer.class,
-                                            (aObj1, aObj2) -> aObj1.toString ().equals (aObj2.toString ()));
+    aRegistry.registerEqualsImplementation (StringBuffer.class, (aObj1, aObj2) -> aObj1.toString ().equals (aObj2.toString ()));
 
     // StringBuilder does not implement equals!
-    aRegistry.registerEqualsImplementation (StringBuilder.class,
-                                            (aObj1, aObj2) -> aObj1.toString ().equals (aObj2.toString ()));
+    aRegistry.registerEqualsImplementation (StringBuilder.class, (aObj1, aObj2) -> aObj1.toString ().equals (aObj2.toString ()));
 
     // Node does not implement equals
     aRegistry.registerEqualsImplementation (Node.class, (aObj1, aObj2) -> {
@@ -124,8 +122,7 @@ public final class DefaultEqualsImplementationRegistrarSPI implements IEqualsImp
      * "http://michaelscharf.blogspot.com/2006/11/javaneturlequals-and-hashcode-make.html"
      * >Click here for details</a>
      */
-    aRegistry.registerEqualsImplementation (URL.class,
-                                            (aObj1, aObj2) -> aObj1.toExternalForm ().equals (aObj2.toExternalForm ()));
+    aRegistry.registerEqualsImplementation (URL.class, (aObj1, aObj2) -> aObj1.toExternalForm ().equals (aObj2.toExternalForm ()));
 
     // AtomicBoolean does not implement equals!
     aRegistry.registerEqualsImplementation (AtomicBoolean.class, (aObj1, aObj2) -> aObj1.get () == aObj2.get ());
@@ -263,14 +260,11 @@ public final class DefaultEqualsImplementationRegistrarSPI implements IEqualsImp
     });
 
     // Special handling for Locale in JDK >= 1.7
-    aRegistry.registerEqualsImplementation (Locale.class,
-                                            (aObj1, aObj2) -> aObj1.toString ().equals (aObj2.toString ()));
+    aRegistry.registerEqualsImplementation (Locale.class, (aObj1, aObj2) -> aObj1.toString ().equals (aObj2.toString ()));
 
     // Class does not implement equals
     aRegistry.registerEqualsImplementation (PasswordAuthentication.class,
-                                            (aObj1,
-                                             aObj2) -> EqualsHelper.equals (aObj1.getUserName (),
-                                                                            aObj2.getUserName ()) &&
-                                                       Arrays.equals (aObj1.getPassword (), aObj2.getPassword ()));
+                                            (aObj1, aObj2) -> EqualsHelper.equals (aObj1.getUserName (), aObj2.getUserName ()) &&
+                                                              Arrays.equals (aObj1.getPassword (), aObj2.getPassword ()));
   }
 }

@@ -37,7 +37,7 @@ public class CodepointIteratorReadableByteChannel extends CodepointIteratorByteB
   private static ByteBuffer _convert (@Nonnull @WillClose final ReadableByteChannel aChannel) throws IOException
   {
     try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
-        final WritableByteChannel aOutChannel = Channels.newChannel (aBAOS))
+         final WritableByteChannel aOutChannel = Channels.newChannel (aBAOS))
     {
       final ByteBuffer buf = ByteBuffer.allocate (1024);
       while (aChannel.read (buf) > 0)

@@ -32,9 +32,7 @@ import com.helger.commons.annotation.Nonempty;
  */
 final class UTF7CharsetModified extends AbstractUTF7StyleCharset
 {
-  private static final String MODIFIED_BASE64_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
-                                                         "abcdefghijklmnopqrstuvwxyz" +
-                                                         "0123456789+,";
+  private static final String MODIFIED_BASE64_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz" + "0123456789+,";
 
   UTF7CharsetModified (@Nonnull @Nonempty final String sName, @Nullable final String [] aAliases)
   {

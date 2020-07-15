@@ -33,8 +33,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
  * @param <ELEMENTTYPE>
  *        Set element type
  */
-public class CommonsCopyOnWriteArraySet <ELEMENTTYPE> extends CopyOnWriteArraySet <ELEMENTTYPE> implements
-                                        ICommonsSet <ELEMENTTYPE>
+public class CommonsCopyOnWriteArraySet <ELEMENTTYPE> extends CopyOnWriteArraySet <ELEMENTTYPE> implements ICommonsSet <ELEMENTTYPE>
 {
   public CommonsCopyOnWriteArraySet ()
   {}

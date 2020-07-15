@@ -35,10 +35,7 @@ public final class UnicodeFuncTest
   private static final String FIRST_STRING = "ä";
   private static final String SECOND_STRING = "ö";
   private static final ICommonsList <String> UNICODE_ARRAY = new CommonsArrayList <> (FIRST_STRING, SECOND_STRING);
-  private static final ICommonsList <String> MIXED_ARRAY = new CommonsArrayList <> ("eins, 1",
-                                                                                    "ichi",
-                                                                                    FIRST_STRING,
-                                                                                    SECOND_STRING);
+  private static final ICommonsList <String> MIXED_ARRAY = new CommonsArrayList <> ("eins, 1", "ichi", FIRST_STRING, SECOND_STRING);
   private static final ICommonsList <String> ASCII_ARRAY = new CommonsArrayList <> ("foo", "bar");
   private static final String ASCII_STRING_WITH_QUOTES = "\"foo\",\"bar\"";
 

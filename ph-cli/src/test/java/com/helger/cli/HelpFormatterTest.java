@@ -109,8 +109,7 @@ public final class HelpFormatterTest
     // single line padded text 2
     final int width = 53;
     final int padding = 24;
-    final String text = "  -p,--period <PERIOD>  PERIOD is time duration of form " +
-                        "DATE[-DATE] where DATE has form YYYY[MM[DD]]";
+    final String text = "  -p,--period <PERIOD>  PERIOD is time duration of form " + "DATE[-DATE] where DATE has form YYYY[MM[DD]]";
     final String expected = "  -p,--period <PERIOD>  PERIOD is time duration of" +
                             EOL +
                             "                        form DATE[-DATE] where DATE" +
@@ -167,13 +166,7 @@ public final class HelpFormatterTest
     assertEquals ("simple non-wrapped option", expected, sb.toString ());
 
     int nextLineTabStop = leftPad + descPad + "-a".length ();
-    expected = lpad +
-               "-a" +
-               dpad +
-               "aaaa aaaa aaaa" +
-               EOL +
-               HelpFormatter.createPadding (nextLineTabStop) +
-               "aaaa aaaa";
+    expected = lpad + "-a" + dpad + "aaaa aaaa aaaa" + EOL + HelpFormatter.createPadding (nextLineTabStop) + "aaaa aaaa";
     sb.setLength (0);
     hf.renderOptions (sb, nextLineTabStop + 17, options, leftPad, descPad);
     assertEquals ("simple wrapped option", expected, sb.toString ());
@@ -185,13 +178,7 @@ public final class HelpFormatterTest
     assertEquals ("long non-wrapped option", expected, sb.toString ());
 
     nextLineTabStop = leftPad + descPad + "-a,--aaa".length ();
-    expected = lpad +
-               "-a,--aaa" +
-               dpad +
-               "dddd dddd" +
-               EOL +
-               HelpFormatter.createPadding (nextLineTabStop) +
-               "dddd dddd";
+    expected = lpad + "-a,--aaa" + dpad + "dddd dddd" + EOL + HelpFormatter.createPadding (nextLineTabStop) + "dddd dddd";
     sb.setLength (0);
     hf.renderOptions (sb, 25, options, leftPad, descPad);
     assertEquals ("long wrapped option", expected, sb.toString ());
@@ -466,17 +453,7 @@ public final class HelpFormatterTest
     {
       formatter.printHelp (new PrintWriter (out), 80, "foobar", header, options, 2, 2, footer, true);
 
-      assertEquals ("usage: foobar" +
-                    EOL +
-                    "  Header1" +
-                    EOL +
-                    "  Header2" +
-                    EOL +
-                    EOL +
-                    "  Footer1" +
-                    EOL +
-                    "  Footer2" +
-                    EOL,
+      assertEquals ("usage: foobar" + EOL + "  Header1" + EOL + "  Header2" + EOL + EOL + "  Footer1" + EOL + "  Footer2" + EOL,
                     out.getAsString ());
     }
   }
@@ -512,14 +489,8 @@ public final class HelpFormatterTest
     // related to Bugzilla #27635 (CLI-26)
     final Option help = Option.builder ("h").longOpt ("help").desc ("print this message").build ();
     final Option version = Option.builder ("v").longOpt ("version").desc ("print version information").build ();
-    final Option newRun = Option.builder ("n")
-                                .longOpt ("new")
-                                .desc ("Create NLT cache entries only for new items")
-                                .build ();
-    final Option trackerRun = Option.builder ("t")
-                                    .longOpt ("tracker")
-                                    .desc ("Create NLT cache entries only for tracker items")
-                                    .build ();
+    final Option newRun = Option.builder ("n").longOpt ("new").desc ("Create NLT cache entries only for new items").build ();
+    final Option trackerRun = Option.builder ("t").longOpt ("tracker").desc ("Create NLT cache entries only for tracker items").build ();
     final Option timeLimit = Option.builder ("l")
                                    .longOpt ("limit")
                                    .args (1)
@@ -532,12 +503,7 @@ public final class HelpFormatterTest
                              .valueSeparator ('=')
                              .desc ("Age (in days) of cache item before being recomputed")
                              .build ();
-    final Option server = Option.builder ("s")
-                                .longOpt ("server")
-                                .args (1)
-                                .valueSeparator ('=')
-                                .desc ("The NLT server address")
-                                .build ();
+    final Option server = Option.builder ("s").longOpt ("server").args (1).valueSeparator ('=').desc ("The NLT server address").build ();
     final Option numResults = Option.builder ("r")
                                     .longOpt ("results")
                                     .args (1)
@@ -632,11 +598,7 @@ public final class HelpFormatterTest
   public void testUsageWithLongOptSeparator ()
   {
     final Options options = new Options ().addOption (Option.builder ("f").args (1).desc ("the file"))
-                                          .addOption (Option.builder ("s")
-                                                            .longOpt ("size")
-                                                            .desc ("the size")
-                                                            .args (1)
-                                                            .argName ("SIZE"))
+                                          .addOption (Option.builder ("s").longOpt ("size").desc ("the size").args (1).argName ("SIZE"))
                                           .addOption (Option.builder (null).longOpt ("age").desc ("the age").args (1));
 
     final HelpFormatter formatter = new HelpFormatter ();

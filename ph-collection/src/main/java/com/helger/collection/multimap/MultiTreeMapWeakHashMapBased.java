@@ -37,15 +37,12 @@ public class MultiTreeMapWeakHashMapBased <KEYTYPE1, KEYTYPE2 extends Comparable
     super (aComparator);
   }
 
-  public MultiTreeMapWeakHashMapBased (@Nonnull final KEYTYPE1 aKey,
-                                       @Nonnull final KEYTYPE2 aInnerKey,
-                                       @Nullable final VALUETYPE aValue)
+  public MultiTreeMapWeakHashMapBased (@Nonnull final KEYTYPE1 aKey, @Nonnull final KEYTYPE2 aInnerKey, @Nullable final VALUETYPE aValue)
   {
     super (aKey, aInnerKey, aValue);
   }
 
-  public MultiTreeMapWeakHashMapBased (@Nullable final KEYTYPE1 aKey,
-                                       @Nullable final Map <? extends KEYTYPE2, ? extends VALUETYPE> aValue)
+  public MultiTreeMapWeakHashMapBased (@Nullable final KEYTYPE1 aKey, @Nullable final Map <? extends KEYTYPE2, ? extends VALUETYPE> aValue)
   {
     super (aKey, aValue);
   }

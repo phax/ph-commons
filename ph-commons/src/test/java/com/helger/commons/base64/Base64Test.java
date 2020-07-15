@@ -196,9 +196,7 @@ public final class Base64Test
     try
     {
       assertFalse (FileHelper.existsFile (f2));
-      SimpleFileIO.writeFile (f1,
-                              Base64.safeEncode ("Hallo Wält", StandardCharsets.UTF_8)
-                                    .getBytes (StandardCharsets.ISO_8859_1));
+      SimpleFileIO.writeFile (f1, Base64.safeEncode ("Hallo Wält", StandardCharsets.UTF_8).getBytes (StandardCharsets.ISO_8859_1));
       Base64.decodeFileToFile (f1.getAbsolutePath (), f2.getAbsoluteFile ());
       assertTrue (FileHelper.existsFile (f2));
       final String sDecoded = SimpleFileIO.getFileAsString (f2, StandardCharsets.UTF_8);
@@ -236,11 +234,7 @@ public final class Base64Test
     final ByteBuffer aSrc = ByteBuffer.wrap ("Hallo Wält".getBytes (StandardCharsets.UTF_8));
     final ByteBuffer aDst = ByteBuffer.allocate (aSrc.capacity () * 2);
     Base64.encode (aSrc, aDst);
-    assertEquals ("Hallo Wält",
-                  Base64.safeDecodeAsString (aDst.array (),
-                                             aDst.arrayOffset (),
-                                             aDst.position (),
-                                             StandardCharsets.UTF_8));
+    assertEquals ("Hallo Wält", Base64.safeDecodeAsString (aDst.array (), aDst.arrayOffset (), aDst.position (), StandardCharsets.UTF_8));
   }
 
   @Test
@@ -266,12 +260,9 @@ public final class Base64Test
     final String sSource = "dgMP$";
     final String sEncoded = Base64.safeEncode (sSource, StandardCharsets.ISO_8859_1);
     assertArrayEquals (sSource.getBytes (StandardCharsets.ISO_8859_1), Base64.safeDecode (sEncoded));
-    assertArrayEquals (sSource.getBytes (StandardCharsets.ISO_8859_1),
-                       Base64.safeDecode (sEncoded.getBytes (StandardCharsets.ISO_8859_1)));
+    assertArrayEquals (sSource.getBytes (StandardCharsets.ISO_8859_1), Base64.safeDecode (sEncoded.getBytes (StandardCharsets.ISO_8859_1)));
     assertEquals (sSource, Base64.safeDecodeAsString (sEncoded, StandardCharsets.ISO_8859_1));
-    assertEquals (sSource,
-                  Base64.safeDecodeAsString (sEncoded.getBytes (StandardCharsets.ISO_8859_1),
-                                             StandardCharsets.ISO_8859_1));
+    assertEquals (sSource, Base64.safeDecodeAsString (sEncoded.getBytes (StandardCharsets.ISO_8859_1), StandardCharsets.ISO_8859_1));
   }
 
   @Test

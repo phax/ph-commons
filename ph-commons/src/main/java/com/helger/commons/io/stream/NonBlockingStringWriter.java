@@ -122,21 +122,23 @@ public class NonBlockingStringWriter extends Writer implements IHasSize, Seriali
   /**
    * Appends the specified character sequence to this writer.
    * <p>
-   * An invocation of this method of the form <tt>out.append(csq)</tt> behaves in
-   * exactly the same way as the invocation
+   * An invocation of this method of the form <tt>out.append(csq)</tt> behaves
+   * in exactly the same way as the invocation
    *
    * <pre>
    * out.write (csq.toString ())
    * </pre>
    * <p>
    * Depending on the specification of <tt>toString</tt> for the character
-   * sequence <tt>csq</tt>, the entire sequence may not be appended. For instance,
-   * invoking the <tt>toString</tt> method of a character buffer will return a
-   * subsequence whose content depends upon the buffer's position and limit.
+   * sequence <tt>csq</tt>, the entire sequence may not be appended. For
+   * instance, invoking the <tt>toString</tt> method of a character buffer will
+   * return a subsequence whose content depends upon the buffer's position and
+   * limit.
    *
    * @param aCS
    *        The character sequence to append. If <tt>csq</tt> is <tt>null</tt>,
-   *        then the four characters <tt>"null"</tt> are appended to this writer.
+   *        then the four characters <tt>"null"</tt> are appended to this
+   *        writer.
    * @return This writer
    */
   @Override
@@ -153,8 +155,8 @@ public class NonBlockingStringWriter extends Writer implements IHasSize, Seriali
    * Appends a subsequence of the specified character sequence to this writer.
    * <p>
    * An invocation of this method of the form <tt>out.append(csq, start,
-   * end)</tt> when <tt>csq</tt> is not <tt>null</tt>, behaves in exactly the same
-   * way as the invocation
+   * end)</tt> when <tt>csq</tt> is not <tt>null</tt>, behaves in exactly the
+   * same way as the invocation
    *
    * <pre>
    * out.write (csq.subSequence (start, end).toString ())
@@ -162,8 +164,8 @@ public class NonBlockingStringWriter extends Writer implements IHasSize, Seriali
    *
    * @param aCS
    *        The character sequence from which a subsequence will be appended. If
-   *        <tt>csq</tt> is <tt>null</tt>, then characters will be appended as if
-   *        <tt>csq</tt> contained the four characters <tt>"null"</tt>.
+   *        <tt>csq</tt> is <tt>null</tt>, then characters will be appended as
+   *        if <tt>csq</tt> contained the four characters <tt>"null"</tt>.
    * @param nStart
    *        The index of the first character in the subsequence
    * @param nEnd
@@ -212,8 +214,8 @@ public class NonBlockingStringWriter extends Writer implements IHasSize, Seriali
   {}
 
   /**
-   * Closing a <tt>StringWriter</tt> has no effect. The methods in this class can
-   * be called after the stream has been closed without generating an
+   * Closing a <tt>StringWriter</tt> has no effect. The methods in this class
+   * can be called after the stream has been closed without generating an
    * <tt>IOException</tt>.
    */
   @Override

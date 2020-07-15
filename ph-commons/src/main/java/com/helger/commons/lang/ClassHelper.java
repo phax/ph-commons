@@ -60,8 +60,7 @@ public final class ClassHelper
     _registerPrimitiveMapping (short.class, Short.class);
   }
 
-  private static void _registerPrimitiveMapping (@Nonnull final Class <?> aPrimitiveType,
-                                                 @Nonnull final Class <?> aPrimitiveWrapperType)
+  private static void _registerPrimitiveMapping (@Nonnull final Class <?> aPrimitiveType, @Nonnull final Class <?> aPrimitiveWrapperType)
   {
     PRIMITIVE_TO_WRAPPER.put (aPrimitiveType, aPrimitiveWrapperType);
     WRAPPER_TO_PRIMITIVE.put (aPrimitiveWrapperType, aPrimitiveType);

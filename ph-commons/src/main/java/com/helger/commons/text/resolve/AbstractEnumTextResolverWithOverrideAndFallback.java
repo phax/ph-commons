@@ -102,9 +102,7 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
   protected abstract String internalGetFallbackString (@Nonnull String sID, @Nonnull Locale aContentLocale);
 
   @Nullable
-  public final String getText (@Nonnull final Enum <?> aEnum,
-                               @Nonnull final IHasText aTP,
-                               @Nonnull final Locale aContentLocale)
+  public final String getText (@Nonnull final Enum <?> aEnum, @Nonnull final IHasText aTP, @Nonnull final Locale aContentLocale)
   {
     // Get the unique text element ID
     final String sID = EnumHelper.getEnumID (aEnum);

@@ -197,8 +197,7 @@ public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBCont
    * @since v9.4.2
    */
   @Nullable
-  public JAXBContext getFromCache (@Nonnull final ICommonsList <Class <?>> aClasses,
-                                   @Nullable final Map <String, ?> aProperties)
+  public JAXBContext getFromCache (@Nonnull final ICommonsList <Class <?>> aClasses, @Nullable final Map <String, ?> aProperties)
   {
     ValueEnforcer.notEmptyNoNullValue (aClasses, "Classes");
     return getFromCache (new JAXBContextCacheKey (aClasses, aProperties));
@@ -223,8 +222,7 @@ public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBCont
   }
 
   @Nonnull
-  public EChange removeFromCache (@Nonnull final ICommonsList <Class <?>> aClasses,
-                                  @Nullable final Map <String, ?> aProperties)
+  public EChange removeFromCache (@Nonnull final ICommonsList <Class <?>> aClasses, @Nullable final Map <String, ?> aProperties)
   {
     return removeFromCache (new JAXBContextCacheKey (aClasses, aProperties));
   }

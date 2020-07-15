@@ -143,8 +143,6 @@ public class ParsedCmdLine implements Serializable, IGetterByKeyTrait <String>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("Params", m_aParams)
-                                       .append ("UnknownTokens", m_aUnknownTokens)
-                                       .getToString ();
+    return new ToStringGenerator (null).append ("Params", m_aParams).append ("UnknownTokens", m_aUnknownTokens).getToString ();
   }
 }

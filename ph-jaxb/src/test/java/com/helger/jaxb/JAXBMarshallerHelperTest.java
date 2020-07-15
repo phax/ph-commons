@@ -86,8 +86,7 @@ public final class JAXBMarshallerHelperTest
     // Namespace prefix mapper
     assertNull (JAXBMarshallerHelper.getSunNamespacePrefixMapper (aMarshaller));
     JAXBMarshallerHelper.setSunNamespacePrefixMapper (aMarshaller,
-                                                      new MapBasedNamespaceContext ().addMapping ("p1",
-                                                                                                  "http://www.helger.com/namespace1")
+                                                      new MapBasedNamespaceContext ().addMapping ("p1", "http://www.helger.com/namespace1")
                                                                                      .addMapping ("p2",
                                                                                                   "http://www.helger.com/namespace2"));
     assertNotNull (JAXBMarshallerHelper.getSunNamespacePrefixMapper (aMarshaller));

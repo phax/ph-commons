@@ -66,10 +66,7 @@ public class NodeListIterator implements IIterableIterator <Node>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("NodeList", m_aNL)
-                                       .append ("Max", m_nMax)
-                                       .append ("Index", m_nIndex)
-                                       .getToString ();
+    return new ToStringGenerator (this).append ("NodeList", m_aNL).append ("Max", m_nMax).append ("Index", m_nIndex).getToString ();
   }
 
   @Nonnull

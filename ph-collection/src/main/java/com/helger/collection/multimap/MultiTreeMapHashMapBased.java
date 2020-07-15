@@ -37,9 +37,7 @@ public class MultiTreeMapHashMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE> extends
     super (aComparator);
   }
 
-  public MultiTreeMapHashMapBased (@Nonnull final KEYTYPE1 aKey,
-                                   @Nonnull final KEYTYPE2 aInnerKey,
-                                   @Nullable final VALUETYPE aValue)
+  public MultiTreeMapHashMapBased (@Nonnull final KEYTYPE1 aKey, @Nonnull final KEYTYPE2 aInnerKey, @Nullable final VALUETYPE aValue)
   {
     super (aKey, aInnerKey, aValue);
   }

@@ -196,8 +196,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
   }
 
   @Nonnull
-  public final SAXReaderSettings setPropertyValue (@Nonnull final EXMLParserProperty eProperty,
-                                                   @Nullable final Object aPropertyValue)
+  public final SAXReaderSettings setPropertyValue (@Nonnull final EXMLParserProperty eProperty, @Nullable final Object aPropertyValue)
   {
     ValueEnforcer.notNull (eProperty, "Property");
 
@@ -279,8 +278,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
   }
 
   @Nonnull
-  public final SAXReaderSettings setFeatureValue (@Nonnull final EXMLParserFeature eFeature,
-                                                  @Nullable final Boolean aValue)
+  public final SAXReaderSettings setFeatureValue (@Nonnull final EXMLParserFeature eFeature, @Nullable final Boolean aValue)
   {
     ValueEnforcer.notNull (eFeature, "Feature");
 

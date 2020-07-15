@@ -38,8 +38,7 @@ public class DirectedGraphRelationFast extends DirectedGraphRelation
   // Status vars
   private transient int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
-  public DirectedGraphRelationFast (@Nonnull final IMutableDirectedGraphNode aFrom,
-                                    @Nonnull final IMutableDirectedGraphNode aTo)
+  public DirectedGraphRelationFast (@Nonnull final IMutableDirectedGraphNode aFrom, @Nonnull final IMutableDirectedGraphNode aTo)
   {
     super (aFrom, aTo);
   }

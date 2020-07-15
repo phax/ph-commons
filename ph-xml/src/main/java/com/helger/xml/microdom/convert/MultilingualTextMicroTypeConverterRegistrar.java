@@ -56,9 +56,7 @@ public final class MultilingualTextMicroTypeConverterRegistrar implements IMicro
                                                       @Nonnull @Nonempty final String sTagName)
     {
       final IMicroElement eMText = new MicroElement (sNamespaceURI, sTagName);
-      for (final Map.Entry <Locale, String> aEntry : aSource.texts ()
-                                                            .getSortedByKey (Comparator.comparing (Locale::toString))
-                                                            .entrySet ())
+      for (final Map.Entry <Locale, String> aEntry : aSource.texts ().getSortedByKey (Comparator.comparing (Locale::toString)).entrySet ())
       {
         final IMicroElement eText = eMText.appendElement (sNamespaceURI, ELEMENT_TEXT);
         eText.setAttribute (ATTR_LOCALE, aEntry.getKey ().toString ());
@@ -102,8 +100,7 @@ public final class MultilingualTextMicroTypeConverterRegistrar implements IMicro
   public void registerMicroTypeConverter (@Nonnull final IMicroTypeConverterRegistry aRegistry)
   {
     // Register the read-only version first!
-    aRegistry.registerMicroElementTypeConverter (ReadOnlyMultilingualText.class,
-                                                 new ReadOnlyMultilingualTextConverter ());
+    aRegistry.registerMicroElementTypeConverter (ReadOnlyMultilingualText.class, new ReadOnlyMultilingualTextConverter ());
 
     // Register the writable version afterwards!
     aRegistry.registerMicroElementTypeConverter (MultilingualText.class, new MultilingualTextConverter ());

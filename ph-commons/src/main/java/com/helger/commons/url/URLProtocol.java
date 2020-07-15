@@ -103,8 +103,6 @@ public class URLProtocol implements IURLProtocol
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("protocol", m_sProtocol)
-                                       .append ("queryParams", m_bAllowsForQueryParameters)
-                                       .getToString ();
+    return new ToStringGenerator (this).append ("protocol", m_sProtocol).append ("queryParams", m_bAllowsForQueryParameters).getToString ();
   }
 }

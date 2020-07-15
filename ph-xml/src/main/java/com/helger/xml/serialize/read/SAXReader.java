@@ -61,8 +61,7 @@ public final class SAXReader
                                                                                                                      "$error");
 
   // In practice no more than 5 readers are required (even 3 would be enough)
-  private static final IMutableObjectPool <org.xml.sax.XMLReader> s_aSAXPool = new ObjectPool <> (5,
-                                                                                                  new SAXReaderFactory ());
+  private static final IMutableObjectPool <org.xml.sax.XMLReader> s_aSAXPool = new ObjectPool <> (5, new SAXReaderFactory ());
 
   @PresentForCodeCoverage
   private static final SAXReader s_aInstance = new SAXReader ();
@@ -95,8 +94,7 @@ public final class SAXReader
   }
 
   @Nonnull
-  public static ESuccess readXMLSAX (@Nonnull final IReadableResource aResource,
-                                     @Nonnull final ISAXReaderSettings aSettings)
+  public static ESuccess readXMLSAX (@Nonnull final IReadableResource aResource, @Nonnull final ISAXReaderSettings aSettings)
   {
     return readXMLSAX (InputSourceFactory.create (aResource), aSettings);
   }
@@ -150,8 +148,7 @@ public final class SAXReader
   }
 
   @Nonnull
-  public static ESuccess readXMLSAX (@Nonnull @WillClose final InputStream aIS,
-                                     @Nonnull final ISAXReaderSettings aSettings)
+  public static ESuccess readXMLSAX (@Nonnull @WillClose final InputStream aIS, @Nonnull final ISAXReaderSettings aSettings)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
 
@@ -166,8 +163,7 @@ public final class SAXReader
   }
 
   @Nonnull
-  public static ESuccess readXMLSAX (@Nonnull @WillClose final Reader aReader,
-                                     @Nonnull final ISAXReaderSettings aSettings)
+  public static ESuccess readXMLSAX (@Nonnull @WillClose final Reader aReader, @Nonnull final ISAXReaderSettings aSettings)
   {
     ValueEnforcer.notNull (aReader, "Reader");
 
@@ -197,8 +193,7 @@ public final class SAXReader
    *         {@link ESuccess#FAILURE} otherwise
    */
   @Nonnull
-  public static ESuccess readXMLSAX (@WillClose @Nonnull final InputSource aIS,
-                                     @Nonnull final ISAXReaderSettings aSettings)
+  public static ESuccess readXMLSAX (@WillClose @Nonnull final InputSource aIS, @Nonnull final ISAXReaderSettings aSettings)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
     ValueEnforcer.notNull (aSettings, "Settings");

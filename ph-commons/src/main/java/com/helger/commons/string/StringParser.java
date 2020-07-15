@@ -374,9 +374,7 @@ public final class StringParser
    *         value.
    */
   @Nullable
-  public static Byte parseByteObj (@Nullable final Object aObject,
-                                   @Nonnegative final int nRadix,
-                                   @Nullable final Byte aDefault)
+  public static Byte parseByteObj (@Nullable final Object aObject, @Nonnegative final int nRadix, @Nullable final Byte aDefault)
   {
     if (aObject == null)
       return aDefault;
@@ -432,9 +430,7 @@ public final class StringParser
    *         value.
    */
   @Nullable
-  public static Byte parseByteObj (@Nullable final String sStr,
-                                   @Nonnegative final int nRadix,
-                                   @Nullable final Byte aDefault)
+  public static Byte parseByteObj (@Nullable final String sStr, @Nonnegative final int nRadix, @Nullable final Byte aDefault)
   {
     if (sStr != null && sStr.length () > 0)
       try
@@ -824,9 +820,7 @@ public final class StringParser
    *         value.
    */
   @Nullable
-  public static Integer parseIntObj (@Nullable final Object aObject,
-                                     @Nonnegative final int nRadix,
-                                     @Nullable final Integer aDefault)
+  public static Integer parseIntObj (@Nullable final Object aObject, @Nonnegative final int nRadix, @Nullable final Integer aDefault)
   {
     if (aObject == null)
       return aDefault;
@@ -882,9 +876,7 @@ public final class StringParser
    *         value.
    */
   @Nullable
-  public static Integer parseIntObj (@Nullable final String sStr,
-                                     @Nonnegative final int nRadix,
-                                     @Nullable final Integer aDefault)
+  public static Integer parseIntObj (@Nullable final String sStr, @Nonnegative final int nRadix, @Nullable final Integer aDefault)
   {
     if (sStr != null && sStr.length () > 0)
       try
@@ -949,9 +941,7 @@ public final class StringParser
    * @since 9.0.0
    */
   @Nullable
-  public static Long parseUnsignedIntObj (@Nullable final String sStr,
-                                          @Nonnegative final int nRadix,
-                                          @Nullable final Long aDefault)
+  public static Long parseUnsignedIntObj (@Nullable final String sStr, @Nonnegative final int nRadix, @Nullable final Long aDefault)
   {
     if (sStr != null && sStr.length () > 0)
       try
@@ -1093,9 +1083,7 @@ public final class StringParser
    *         value.
    */
   @Nullable
-  public static Long parseLongObj (@Nullable final Object aObject,
-                                   @Nonnegative final int nRadix,
-                                   @Nullable final Long aDefault)
+  public static Long parseLongObj (@Nullable final Object aObject, @Nonnegative final int nRadix, @Nullable final Long aDefault)
   {
     if (aObject == null)
       return aDefault;
@@ -1151,9 +1139,7 @@ public final class StringParser
    *         value.
    */
   @Nullable
-  public static Long parseLongObj (@Nullable final String sStr,
-                                   @Nonnegative final int nRadix,
-                                   @Nullable final Long aDefault)
+  public static Long parseLongObj (@Nullable final String sStr, @Nonnegative final int nRadix, @Nullable final Long aDefault)
   {
     if (sStr != null && sStr.length () > 0)
       try
@@ -1295,9 +1281,7 @@ public final class StringParser
    *         value.
    */
   @Nullable
-  public static Short parseShortObj (@Nullable final Object aObject,
-                                     @Nonnegative final int nRadix,
-                                     @Nullable final Short aDefault)
+  public static Short parseShortObj (@Nullable final Object aObject, @Nonnegative final int nRadix, @Nullable final Short aDefault)
   {
     if (aObject == null)
       return aDefault;
@@ -1353,9 +1337,7 @@ public final class StringParser
    *         value.
    */
   @Nullable
-  public static Short parseShortObj (@Nullable final String sStr,
-                                     @Nonnegative final int nRadix,
-                                     @Nullable final Short aDefault)
+  public static Short parseShortObj (@Nullable final String sStr, @Nonnegative final int nRadix, @Nullable final Short aDefault)
   {
     if (sStr != null && sStr.length () > 0)
       try
@@ -1436,9 +1418,7 @@ public final class StringParser
    *         value.
    */
   @Nullable
-  public static BigInteger parseBigInteger (@Nullable final String sStr,
-                                            @Nonnegative final int nRadix,
-                                            @Nullable final BigInteger aDefault)
+  public static BigInteger parseBigInteger (@Nullable final String sStr, @Nonnegative final int nRadix, @Nullable final BigInteger aDefault)
   {
     if (sStr != null && sStr.length () > 0)
       try

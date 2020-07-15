@@ -542,12 +542,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
       catch (final Exception ex)
       {
         // Might be an IllegalArgumentException or a NoClassDefFoundError
-        LOGGER.error ("Failed to set the namespace context " +
-                      m_aNSContext +
-                      ": " +
-                      ex.getClass ().getName () +
-                      " -- " +
-                      ex.getMessage (),
+        LOGGER.error ("Failed to set the namespace context " + m_aNSContext + ": " + ex.getClass ().getName () + " -- " + ex.getMessage (),
                       GlobalDebug.isDebugMode () ? ex.getCause () : null);
       }
 
@@ -586,8 +581,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
   }
 
   @Nonnull
-  public final ESuccess write (@Nonnull final JAXBTYPE aObject,
-                               @Nonnull final IJAXBMarshaller <JAXBTYPE> aMarshallerFunc)
+  public final ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull final IJAXBMarshaller <JAXBTYPE> aMarshallerFunc)
   {
     ValueEnforcer.notNull (aObject, "Object");
     ValueEnforcer.notNull (aMarshallerFunc, "MarshallerFunc");
@@ -619,9 +613,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
                                        .append ("FormattedOutput", m_bFormattedOutput)
                                        .append ("NSContext", m_aNSContext)
                                        .append ("Charset", m_aCharset)
-                                       .append ("IndentString",
-                                                StringHelper.getHexEncoded (m_sIndentString,
-                                                                            StandardCharsets.ISO_8859_1))
+                                       .append ("IndentString", StringHelper.getHexEncoded (m_sIndentString, StandardCharsets.ISO_8859_1))
                                        .append ("SchemaLocation", m_sSchemaLocation)
                                        .append ("NoNamespaceSchemaLocation", m_sNoNamespaceSchemaLocation)
                                        .append ("UseContextCache", m_bUseContextCache)
@@ -645,8 +637,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
    * @see #GenericJAXBMarshaller(Class, QName)
    */
   @Nonnull
-  public static <T> IFunction <T, JAXBElement <T>> createSimpleJAXBElement (@Nonnull final QName aQName,
-                                                                            @Nonnull final Class <T> aClass)
+  public static <T> IFunction <T, JAXBElement <T>> createSimpleJAXBElement (@Nonnull final QName aQName, @Nonnull final Class <T> aClass)
   {
     return aValue -> new JAXBElement <> (aQName, aClass, null, aValue);
   }

@@ -232,9 +232,7 @@ public class Base64InputStream extends WrappedInputStream
    * @since 1.3
    */
   @Override
-  public int read (@Nonnull final byte [] aDest,
-                   @Nonnegative final int nOfs,
-                   @Nonnegative final int nLen) throws IOException
+  public int read (@Nonnull final byte [] aDest, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
   {
     int nIndex = 0;
     for (; nIndex < nLen; nIndex++)

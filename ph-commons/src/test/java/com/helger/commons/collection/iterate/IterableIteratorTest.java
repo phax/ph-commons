@@ -41,10 +41,7 @@ public final class IterableIteratorTest
   public void testBasic ()
   {
     assertSame (IterableIterator.createEmpty (), IterableIterator.createEmpty ());
-    IIterableIterator <String> iit = new IterableIterator <> (ArrayHelper.newArray ("Hallo",
-                                                                                    "Welt",
-                                                                                    "from",
-                                                                                    "Copenhagen"));
+    IIterableIterator <String> iit = new IterableIterator <> (ArrayHelper.newArray ("Hallo", "Welt", "from", "Copenhagen"));
     assertNotNull (iit);
     assertNotNull (iit.iterator ());
     assertTrue (iit.hasNext ());
@@ -55,13 +52,8 @@ public final class IterableIteratorTest
     iit.remove ();
 
     assertEquals (3, CollectionHelper.newList (new IterableIterator <> (new String [] { "a", "b", "c" })).size ());
-    assertEquals (3,
-                  CollectionHelper.newList (new IterableIterator <> (CollectionHelper.newList ("a", "b", "c")))
-                                  .size ());
-    assertEquals (3,
-                  CollectionHelper.newList (new IterableIterator <> (CollectionHelper.newList ("a", "b", "c")
-                                                                                     .iterator ()))
-                                  .size ());
+    assertEquals (3, CollectionHelper.newList (new IterableIterator <> (CollectionHelper.newList ("a", "b", "c"))).size ());
+    assertEquals (3, CollectionHelper.newList (new IterableIterator <> (CollectionHelper.newList ("a", "b", "c").iterator ())).size ());
     CommonsTestHelper.testToStringImplementation (iit);
 
     try

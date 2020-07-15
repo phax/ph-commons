@@ -69,8 +69,7 @@ public final class CommonsCopyOnWriteArraySetTest
     aTest = new CommonsCopyOnWriteArraySet <> ((Iterable <String>) new CommonsArrayList <> ("a", "b", "c", "d"));
     assertEquals (4, aTest.size ());
 
-    aTest = new CommonsCopyOnWriteArraySet <> (new CommonsArrayList <> (Integer.valueOf (1), Integer.valueOf (2)),
-                                               x -> x.toString ());
+    aTest = new CommonsCopyOnWriteArraySet <> (new CommonsArrayList <> (Integer.valueOf (1), Integer.valueOf (2)), x -> x.toString ());
     assertEquals (2, aTest.size ());
 
     aTest = new CommonsCopyOnWriteArraySet <> ((Iterable <Integer>) new CommonsArrayList <> (Integer.valueOf (1),

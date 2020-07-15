@@ -87,8 +87,7 @@ public class StatisticsVisitorCallbackToXML implements IStatisticsVisitorCallbac
     {
       final IMicroElement eKeyedTimer = m_eRoot.appendElement (StatisticsExporter.ELEMENT_KEYEDTIMER)
                                                .setAttribute (StatisticsExporter.ATTR_NAME, sName)
-                                               .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT,
-                                                              aHandler.getInvocationCount ());
+                                               .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT, aHandler.getInvocationCount ());
       for (final String sKey : aHandler.getAllKeys ().getSorted (Comparator.naturalOrder ()))
       {
         eKeyedTimer.appendElement (StatisticsExporter.ELEMENT_KEY)
@@ -122,8 +121,7 @@ public class StatisticsVisitorCallbackToXML implements IStatisticsVisitorCallbac
     {
       final IMicroElement eKeyedSize = m_eRoot.appendElement (StatisticsExporter.ELEMENT_KEYEDSIZE)
                                               .setAttribute (StatisticsExporter.ATTR_NAME, sName)
-                                              .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT,
-                                                             aHandler.getInvocationCount ());
+                                              .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT, aHandler.getInvocationCount ());
       for (final String sKey : aHandler.getAllKeys ().getSorted (Comparator.naturalOrder ()))
       {
         eKeyedSize.appendElement (StatisticsExporter.ELEMENT_KEY)
@@ -154,8 +152,7 @@ public class StatisticsVisitorCallbackToXML implements IStatisticsVisitorCallbac
     {
       final IMicroElement eKeyedCounter = m_eRoot.appendElement (StatisticsExporter.ELEMENT_KEYEDCOUNTER)
                                                  .setAttribute (StatisticsExporter.ATTR_NAME, sName)
-                                                 .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT,
-                                                                aHandler.getInvocationCount ());
+                                                 .setAttribute (StatisticsExporter.ATTR_INVOCATIONCOUNT, aHandler.getInvocationCount ());
       for (final String sKey : aHandler.getAllKeys ().getSorted (Comparator.naturalOrder ()))
       {
         eKeyedCounter.appendElement (StatisticsExporter.ELEMENT_KEY)

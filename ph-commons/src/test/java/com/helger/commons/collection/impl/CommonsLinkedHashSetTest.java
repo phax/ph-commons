@@ -72,8 +72,7 @@ public final class CommonsLinkedHashSetTest
     aTest = new CommonsLinkedHashSet <> ((Iterable <String>) new CommonsLinkedHashSet <> ("a", "b", "c", "d"));
     assertEquals (4, aTest.size ());
 
-    aTest = new CommonsLinkedHashSet <> (new CommonsArrayList <> (Integer.valueOf (1), Integer.valueOf (2)),
-                                         x -> x.toString ());
+    aTest = new CommonsLinkedHashSet <> (new CommonsArrayList <> (Integer.valueOf (1), Integer.valueOf (2)), x -> x.toString ());
     assertEquals (2, aTest.size ());
 
     aTest = new CommonsLinkedHashSet <> ((Iterable <Integer>) new CommonsLinkedHashSet <> (Integer.valueOf (1),

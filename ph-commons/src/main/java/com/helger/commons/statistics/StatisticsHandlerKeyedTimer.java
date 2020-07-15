@@ -29,8 +29,7 @@ import org.slf4j.LoggerFactory;
  * @author Philip Helger
  */
 @ThreadSafe
-public class StatisticsHandlerKeyedTimer extends AbstractStatisticsHandlerKeyedNumeric implements
-                                         IMutableStatisticsHandlerKeyedTimer
+public class StatisticsHandlerKeyedTimer extends AbstractStatisticsHandlerKeyedNumeric implements IMutableStatisticsHandlerKeyedTimer
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (StatisticsHandlerKeyedTimer.class);
 

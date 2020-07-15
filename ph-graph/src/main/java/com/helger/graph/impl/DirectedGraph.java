@@ -47,8 +47,7 @@ import com.helger.matrix.Matrix;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode, IMutableDirectedGraphRelation>
-                           implements
+public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode, IMutableDirectedGraphRelation> implements
                            IMutableDirectedGraph
 {
   private final IMutableDirectedGraphObjectFactory m_aFactory;

@@ -146,9 +146,7 @@ public class DelegatingCodepointIterator implements ICodepointIterator
   }
 
   @Nonnull
-  public CodepointIteratorRestricted restrict (@Nonnull final IntPredicate aFilter,
-                                               final boolean bScanning,
-                                               final boolean bInvert)
+  public CodepointIteratorRestricted restrict (@Nonnull final IntPredicate aFilter, final boolean bScanning, final boolean bInvert)
   {
     return m_aInternal.restrict (aFilter, bScanning, bInvert);
   }

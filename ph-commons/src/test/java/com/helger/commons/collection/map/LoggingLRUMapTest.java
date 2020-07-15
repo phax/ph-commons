@@ -38,12 +38,9 @@ public final class LoggingLRUMapTest
     assertNull (c.getMapName ());
     c.setMapName ("name");
     assertEquals ("name", c.getMapName ());
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (c,
-                                                                       new LoggingLRUMap <String, String> (5).setMapName ("name"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c,
-                                                                           new LoggingLRUMap <String, String> (5).setMapName ("name2"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c,
-                                                                           new LoggingLRUMap <String, String> (6).setMapName ("name"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (c, new LoggingLRUMap <String, String> (5).setMapName ("name"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c, new LoggingLRUMap <String, String> (5).setMapName ("name2"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c, new LoggingLRUMap <String, String> (6).setMapName ("name"));
 
     // Check overflow
     for (int i = 0; i < c.getMaxSize () + 1; ++i)

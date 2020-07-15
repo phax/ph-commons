@@ -37,10 +37,8 @@ import com.helger.commons.collection.impl.ICommonsSet;
  *        Set type containing value types
  */
 @NotThreadSafe
-public abstract class AbstractMultiWeakHashMapSetBased <KEYTYPE, VALUETYPE, COLLTYPE extends ICommonsSet <VALUETYPE>>
-                                                       extends
-                                                       AbstractMultiWeakHashMap <KEYTYPE, VALUETYPE, COLLTYPE>
-                                                       implements
+public abstract class AbstractMultiWeakHashMapSetBased <KEYTYPE, VALUETYPE, COLLTYPE extends ICommonsSet <VALUETYPE>> extends
+                                                       AbstractMultiWeakHashMap <KEYTYPE, VALUETYPE, COLLTYPE> implements
                                                        IMultiMapSetBased <KEYTYPE, VALUETYPE, COLLTYPE>
 {
   public AbstractMultiWeakHashMapSetBased ()

@@ -171,11 +171,9 @@ public final class SizeHelper
   private static void _checkConvertibility (@Nonnull final BigInteger aSize)
   {
     if (aSize.compareTo (CGlobal.BIGINT_MAX_LONG) > 0)
-      throw new IllegalArgumentException ("The passed BigInteger is too large to be converted into a long value: " +
-                                          aSize.toString ());
+      throw new IllegalArgumentException ("The passed BigInteger is too large to be converted into a long value: " + aSize.toString ());
     if (aSize.compareTo (CGlobal.BIGINT_MIN_LONG) < 0)
-      throw new IllegalArgumentException ("The passed BigInteger is too small to be converted into a long value: " +
-                                          aSize.toString ());
+      throw new IllegalArgumentException ("The passed BigInteger is too small to be converted into a long value: " + aSize.toString ());
   }
 
   /**
@@ -218,11 +216,9 @@ public final class SizeHelper
   private static void _checkConvertibility (@Nonnull final BigDecimal aSize)
   {
     if (aSize.compareTo (CGlobal.BIGDEC_MAX_LONG) > 0)
-      throw new IllegalArgumentException ("The passed BigDecimal is too large to be converted into a long value: " +
-                                          aSize.toString ());
+      throw new IllegalArgumentException ("The passed BigDecimal is too large to be converted into a long value: " + aSize.toString ());
     if (aSize.compareTo (CGlobal.BIGDEC_MIN_LONG) < 0)
-      throw new IllegalArgumentException ("The passed BigDecimal is too small to be converted into a long value: " +
-                                          aSize.toString ());
+      throw new IllegalArgumentException ("The passed BigDecimal is too small to be converted into a long value: " + aSize.toString ());
   }
 
   /**

@@ -87,9 +87,7 @@ public final class WSTestHelper
             final WebService aWebService = aImplClass.getAnnotation (WebService.class);
             if (aWebService == null)
             {
-              final String sMsg = "The implementation class '" +
-                                  sImplementation +
-                                  "' is missing the @WebService annotation";
+              final String sMsg = "The implementation class '" + sImplementation + "' is missing the @WebService annotation";
               LOGGER.warn (sMsg);
               if (!bContinueOnError)
                 throw new IllegalStateException (sMsg);

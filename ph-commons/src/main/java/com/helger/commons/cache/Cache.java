@@ -37,8 +37,7 @@ public class Cache <KEYTYPE, VALUETYPE> extends MappedCache <KEYTYPE, KEYTYPE, V
 {
   public static final boolean DEFAULT_ALLOW_NULL_VALUES = false;
 
-  public Cache (@Nonnull final IFunction <KEYTYPE, VALUETYPE> aCacheValueProvider,
-                @Nonnull @Nonempty final String sCacheName)
+  public Cache (@Nonnull final IFunction <KEYTYPE, VALUETYPE> aCacheValueProvider, @Nonnull @Nonempty final String sCacheName)
   {
     this (aCacheValueProvider, NO_MAX_SIZE, sCacheName);
   }

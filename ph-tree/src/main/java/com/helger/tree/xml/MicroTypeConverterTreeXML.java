@@ -51,8 +51,7 @@ public final class MicroTypeConverterTreeXML <DATATYPE> implements IConverterTre
    *        The data type class - required for reading. May be in an interface
    *        as well.
    */
-  public MicroTypeConverterTreeXML (@Nonnull @Nonempty final String sElementName,
-                                    @Nonnull final Class <? extends DATATYPE> aNativeClass)
+  public MicroTypeConverterTreeXML (@Nonnull @Nonempty final String sElementName, @Nonnull final Class <? extends DATATYPE> aNativeClass)
   {
     this (null, sElementName, aNativeClass);
   }

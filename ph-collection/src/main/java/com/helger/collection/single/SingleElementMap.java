@@ -179,9 +179,7 @@ public class SingleElementMap <KEYTYPE, VALUETYPE> implements ICommonsMap <KEYTY
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final SingleElementMap <?, ?> rhs = (SingleElementMap <?, ?>) o;
-    return m_bHasElement == rhs.m_bHasElement &&
-           EqualsHelper.equals (m_aKey, rhs.m_aKey) &&
-           EqualsHelper.equals (m_aValue, rhs.m_aValue);
+    return m_bHasElement == rhs.m_bHasElement && EqualsHelper.equals (m_aKey, rhs.m_aKey) && EqualsHelper.equals (m_aValue, rhs.m_aValue);
   }
 
   @Override

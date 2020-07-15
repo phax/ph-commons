@@ -135,8 +135,7 @@ public final class LevenshteinDistance
       for (int i = 0; i < nLen1; i++)
       {
         final int nSubstCost = aStr1[i] == ch2 ? 0 : nCostSubstitution;
-        aCurRow[i + 1] = Math.min (Math.min (aCurRow[i] + nCostInsert, aPrevRow[i + 1] + nCostDelete),
-                                   aPrevRow[i] + nSubstCost);
+        aCurRow[i + 1] = Math.min (Math.min (aCurRow[i] + nCostInsert, aPrevRow[i + 1] + nCostDelete), aPrevRow[i] + nSubstCost);
       }
 
       // swap current distance counts to 'previous row' distance counts
@@ -243,12 +242,6 @@ public final class LevenshteinDistance
     if (nCostInsert == 1 && nCostDelete == 1 && nCostSubstitution == 1)
       return _getDistance111 (sStr1.toCharArray (), nLen1, sStr2.toCharArray (), nLen2);
 
-    return _getDistance (sStr1.toCharArray (),
-                         nLen1,
-                         sStr2.toCharArray (),
-                         nLen2,
-                         nCostInsert,
-                         nCostDelete,
-                         nCostSubstitution);
+    return _getDistance (sStr1.toCharArray (), nLen1, sStr2.toCharArray (), nLen2, nCostInsert, nCostDelete, nCostSubstitution);
   }
 }

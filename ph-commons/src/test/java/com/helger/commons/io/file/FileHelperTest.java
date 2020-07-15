@@ -70,8 +70,7 @@ public final class FileHelperTest
     // Existing folder
     assertTrue (FileHelper.ensureParentDirectoryIsPresent (new File ("src")).isUnchanged ());
     // Existing file
-    assertTrue (FileHelper.ensureParentDirectoryIsPresent (ClassPathResource.getAsFile ("streamutils-lines"))
-                          .isUnchanged ());
+    assertTrue (FileHelper.ensureParentDirectoryIsPresent (ClassPathResource.getAsFile ("streamutils-lines")).isUnchanged ());
 
     // Non existing object
     try
@@ -209,10 +208,8 @@ public final class FileHelperTest
     assertNull (FileHelper.getSecureFile (null));
     assertEquals (new File ("abc.txt").getAbsoluteFile (), FileHelper.getSecureFile (new File ("abc.txt")));
     assertEquals (new File ("abc.txt").getAbsoluteFile (), FileHelper.getSecureFile (new File ("abc.txt\u0000.txx")));
-    assertEquals (new File ("abc/abc.txt").getAbsoluteFile (),
-                  FileHelper.getSecureFile (new File ("abc/abc.txt\u0000.txx")));
-    assertEquals (new File ("abc.txt").getAbsoluteFile (),
-                  FileHelper.getSecureFile (new File ("any/../abc.txt\u0000.txx")));
+    assertEquals (new File ("abc/abc.txt").getAbsoluteFile (), FileHelper.getSecureFile (new File ("abc/abc.txt\u0000.txx")));
+    assertEquals (new File ("abc.txt").getAbsoluteFile (), FileHelper.getSecureFile (new File ("any/../abc.txt\u0000.txx")));
   }
 
   @Test

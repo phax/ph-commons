@@ -51,9 +51,7 @@ public class NonBlockingStringReader extends Reader
   }
 
   @SuppressFBWarnings ("EI_EXPOSE_REP2")
-  public NonBlockingStringReader (@Nonnull final char [] aChars,
-                                  @Nonnegative final int nOfs,
-                                  @Nonnegative final int nLen)
+  public NonBlockingStringReader (@Nonnull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (aChars, nOfs, nLen);
     m_aChars = aChars;
@@ -122,9 +120,7 @@ public class NonBlockingStringReader extends Reader
    */
   @Override
   @CheckForSigned
-  public int read (@Nonnull final char [] aBuf,
-                   @Nonnegative final int nOfs,
-                   @Nonnegative final int nLen) throws IOException
+  public int read (@Nonnull final char [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
   {
     _ensureOpen ();
     ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);

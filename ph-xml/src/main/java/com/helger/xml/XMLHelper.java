@@ -231,8 +231,7 @@ public final class XMLHelper
   {
     if (aStartNode == null)
       return null;
-    return NodeListIterator.createChildNodeIterator (aStartNode)
-                           .findFirstMapped (filterNodeIsElement (), x -> (Element) x);
+    return NodeListIterator.createChildNodeIterator (aStartNode).findFirstMapped (filterNodeIsElement (), x -> (Element) x);
   }
 
   /**
@@ -261,8 +260,7 @@ public final class XMLHelper
    * @return <code>null</code> if the parent element has no such child element.
    */
   @Nullable
-  public static Element getFirstChildElementOfName (@Nullable final Node aStartNode,
-                                                    @Nonnull @Nonempty final String sTagName)
+  public static Element getFirstChildElementOfName (@Nullable final Node aStartNode, @Nonnull @Nonempty final String sTagName)
   {
     if (aStartNode == null)
       return null;
@@ -288,8 +286,7 @@ public final class XMLHelper
   {
     if (aStartNode == null)
       return null;
-    return new ChildElementIterator (aStartNode).findFirst (filterElementWithNamespaceAndLocalName (sNamespaceURI,
-                                                                                                    sLocalName));
+    return new ChildElementIterator (aStartNode).findFirst (filterElementWithNamespaceAndLocalName (sNamespaceURI, sLocalName));
   }
 
   @Nonnull
@@ -373,15 +370,13 @@ public final class XMLHelper
   }
 
   @Nonnegative
-  public static int getDirectChildElementCount (@Nullable final Element aParent,
-                                                @Nonnull @Nonempty final String sTagName)
+  public static int getDirectChildElementCount (@Nullable final Element aParent, @Nonnull @Nonempty final String sTagName)
   {
     return aParent == null ? 0 : CollectionHelper.getSize (getChildElementIterator (aParent, sTagName));
   }
 
   @Nonnegative
-  public static int getDirectChildElementCountNoNS (@Nullable final Element aParent,
-                                                    @Nonnull @Nonempty final String sTagName)
+  public static int getDirectChildElementCountNoNS (@Nullable final Element aParent, @Nonnull @Nonempty final String sTagName)
   {
     return aParent == null ? 0 : CollectionHelper.getSize (getChildElementIteratorNoNS (aParent, sTagName));
   }
@@ -397,8 +392,7 @@ public final class XMLHelper
                                                   @Nullable final String sNamespaceURI,
                                                   @Nonnull @Nonempty final String sLocalName)
   {
-    return aParent == null ? 0
-                           : CollectionHelper.getSize (getChildElementIteratorNS (aParent, sNamespaceURI, sLocalName));
+    return aParent == null ? 0 : CollectionHelper.getSize (getChildElementIteratorNS (aParent, sNamespaceURI, sLocalName));
   }
 
   /**
@@ -477,8 +471,7 @@ public final class XMLHelper
                                                                        @Nullable final String sNamespaceURI,
                                                                        @Nonnull @Nonempty final String sLocalName)
   {
-    return new ChildElementIterator (aStartNode).withFilter (filterElementWithNamespaceAndLocalName (sNamespaceURI,
-                                                                                                     sLocalName));
+    return new ChildElementIterator (aStartNode).withFilter (filterElementWithNamespaceAndLocalName (sNamespaceURI, sLocalName));
   }
 
   /**
@@ -691,9 +684,7 @@ public final class XMLHelper
    *         value otherwise
    */
   @Nullable
-  public static String getAttributeValue (@Nonnull final Element aElement,
-                                          @Nonnull final String sAttrName,
-                                          @Nullable final String sDefault)
+  public static String getAttributeValue (@Nonnull final Element aElement, @Nonnull final String sAttrName, @Nullable final String sDefault)
   {
     final Attr aAttr = aElement.getAttributeNode (sAttrName);
     return aAttr == null ? sDefault : aAttr.getValue ();
@@ -770,8 +761,7 @@ public final class XMLHelper
     return ret;
   }
 
-  public static void forAllAttributes (@Nullable final Element aSrcNode,
-                                       @Nonnull final Consumer <? super Attr> aConsumer)
+  public static void forAllAttributes (@Nullable final Element aSrcNode, @Nonnull final Consumer <? super Attr> aConsumer)
   {
     NamedNodeMapIterator.createAttributeIterator (aSrcNode).forEach (x -> aConsumer.accept ((Attr) x));
   }
@@ -798,8 +788,7 @@ public final class XMLHelper
   public static QName getXMLNSAttrQName (@Nullable final String sNSPrefix)
   {
     if (sNSPrefix != null)
-      ValueEnforcer.isFalse (sNSPrefix.contains (CXML.XML_PREFIX_NAMESPACE_SEP_STR),
-                             () -> "prefix is invalid: " + sNSPrefix);
+      ValueEnforcer.isFalse (sNSPrefix.contains (CXML.XML_PREFIX_NAMESPACE_SEP_STR), () -> "prefix is invalid: " + sNSPrefix);
 
     if (sNSPrefix == null || sNSPrefix.equals (XMLConstants.DEFAULT_NS_PREFIX))
     {

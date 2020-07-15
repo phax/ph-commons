@@ -26,8 +26,7 @@ import com.helger.commons.annotation.OverrideOnDemand;
  * @param <IMPLTYPE>
  *        Real implementation type
  */
-public abstract class AbstractMutableNumeric <IMPLTYPE extends AbstractMutableNumeric <IMPLTYPE>> extends Number
-                                             implements
+public abstract class AbstractMutableNumeric <IMPLTYPE extends AbstractMutableNumeric <IMPLTYPE>> extends Number implements
                                              IMutableNumeric <IMPLTYPE>
 {
   /**

@@ -41,10 +41,8 @@ public final class DOMReaderDefaultSettingsTest
     CommonsAssert.assertEquals (XMLFactory.DEFAULT_DOM_VALIDATING, DOMReaderDefaultSettings.isValidating ());
     CommonsAssert.assertEquals (XMLFactory.DEFAULT_DOM_IGNORING_ELEMENT_CONTENT_WHITESPACE,
                                 DOMReaderDefaultSettings.isIgnoringElementContentWhitespace ());
-    CommonsAssert.assertEquals (XMLFactory.DEFAULT_DOM_EXPAND_ENTITY_REFERENCES,
-                                DOMReaderDefaultSettings.isExpandEntityReferences ());
-    CommonsAssert.assertEquals (XMLFactory.DEFAULT_DOM_IGNORING_COMMENTS,
-                                DOMReaderDefaultSettings.isIgnoringComments ());
+    CommonsAssert.assertEquals (XMLFactory.DEFAULT_DOM_EXPAND_ENTITY_REFERENCES, DOMReaderDefaultSettings.isExpandEntityReferences ());
+    CommonsAssert.assertEquals (XMLFactory.DEFAULT_DOM_IGNORING_COMMENTS, DOMReaderDefaultSettings.isIgnoringComments ());
     CommonsAssert.assertEquals (XMLFactory.DEFAULT_DOM_COALESCING, DOMReaderDefaultSettings.isCoalescing ());
     assertNull (DOMReaderDefaultSettings.getSchema ());
     CommonsAssert.assertEquals (XMLFactory.DEFAULT_DOM_XINCLUDE_AWARE, DOMReaderDefaultSettings.isXIncludeAware ());

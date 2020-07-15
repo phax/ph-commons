@@ -61,11 +61,7 @@ public class ASCIIHexCodec implements IByteArrayStreamDecoder
 
         final byte nDecByte = (byte) StringHelper.getHexValue ((char) nEncByte);
         if (nDecByte == CGlobal.ILLEGAL_UINT)
-          throw new DecodeException ("Failed to convert byte '" +
-                                     nEncByte +
-                                     "/" +
-                                     ((char) nEncByte) +
-                                     "' to hex value in ASCIIHexDecode");
+          throw new DecodeException ("Failed to convert byte '" + nEncByte + "/" + ((char) nEncByte) + "' to hex value in ASCIIHexDecode");
         if (bFirstByte)
           nFirstByte = nDecByte;
         else

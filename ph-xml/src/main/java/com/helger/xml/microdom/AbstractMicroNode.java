@@ -134,8 +134,7 @@ public abstract class AbstractMicroNode implements IMicroNode
   }
 
   @Nullable
-  public final <NODETYPE extends IMicroNode> NODETYPE insertAtIndex (@Nonnegative final int nIndex,
-                                                                     @Nullable final NODETYPE aChildNode)
+  public final <NODETYPE extends IMicroNode> NODETYPE insertAtIndex (@Nonnegative final int nIndex, @Nullable final NODETYPE aChildNode)
   {
     if (aChildNode != null)
       onInsertAtIndex (nIndex, (AbstractMicroNode) aChildNode);
@@ -238,8 +237,7 @@ public abstract class AbstractMicroNode implements IMicroNode
   }
 
   @Override
-  public void forAllChildren (@Nonnull final Predicate <? super IMicroNode> aFilter,
-                              @Nonnull final Consumer <? super IMicroNode> aConsumer)
+  public void forAllChildren (@Nonnull final Predicate <? super IMicroNode> aFilter, @Nonnull final Consumer <? super IMicroNode> aConsumer)
   {
     // empty
   }
@@ -460,8 +458,7 @@ public abstract class AbstractMicroNode implements IMicroNode
 
     if (m_aEventTargets == null)
       m_aEventTargets = new CommonsEnumMap <> (EMicroEvent.class);
-    final CallbackList <IMicroEventTarget> aSet = m_aEventTargets.computeIfAbsent (eEventType,
-                                                                                   k -> new CallbackList <> ());
+    final CallbackList <IMicroEventTarget> aSet = m_aEventTargets.computeIfAbsent (eEventType, k -> new CallbackList <> ());
     return EChange.valueOf (aSet.add (aTarget));
   }
 
@@ -497,8 +494,7 @@ public abstract class AbstractMicroNode implements IMicroNode
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).appendIfNotNull ("ParentNodeName",
-                                                         m_aParentNode == null ? null : m_aParentNode.getNodeName ())
+    return new ToStringGenerator (this).appendIfNotNull ("ParentNodeName", m_aParentNode == null ? null : m_aParentNode.getNodeName ())
                                        .appendIfNotNull ("EventTargets", m_aEventTargets)
                                        .getToString ();
   }

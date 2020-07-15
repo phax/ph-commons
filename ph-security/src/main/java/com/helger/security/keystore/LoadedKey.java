@@ -40,9 +40,7 @@ public class LoadedKey <T extends KeyStore.Entry> implements ISuccessIndicator
   private final EKeyStoreLoadError m_eError;
   private final String [] m_aErrorParams;
 
-  public LoadedKey (@Nullable final T aKeyEntry,
-                    @Nullable final EKeyStoreLoadError eError,
-                    @Nullable final String... aErrorParams)
+  public LoadedKey (@Nullable final T aKeyEntry, @Nullable final EKeyStoreLoadError eError, @Nullable final String... aErrorParams)
   {
     m_aKeyEntry = aKeyEntry;
     m_eError = eError;

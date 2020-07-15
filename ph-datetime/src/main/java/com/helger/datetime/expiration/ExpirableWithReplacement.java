@@ -41,8 +41,7 @@ public class ExpirableWithReplacement <DATATYPE> implements IMutableExpirableWit
   public ExpirableWithReplacement ()
   {}
 
-  public ExpirableWithReplacement (@Nullable final LocalDateTime aExpirationDateTime,
-                                   @Nullable final DATATYPE aReplacement)
+  public ExpirableWithReplacement (@Nullable final LocalDateTime aExpirationDateTime, @Nullable final DATATYPE aReplacement)
   {
     m_aExpirationDateTime = aExpirationDateTime;
     m_aReplacement = aReplacement;

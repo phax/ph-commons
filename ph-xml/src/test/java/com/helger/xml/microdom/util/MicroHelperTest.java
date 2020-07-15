@@ -163,8 +163,7 @@ public final class MicroHelperTest
     y.appendElement ("a");
     assertEquals (CGlobal.BIGINT_100, MicroHelper.getChildTextContentWithConversion (e, "y", BigInteger.class));
     y.appendCDATA ("234");
-    assertEquals (BigInteger.valueOf (100234),
-                  MicroHelper.getChildTextContentWithConversion (e, "y", BigInteger.class));
+    assertEquals (BigInteger.valueOf (100234), MicroHelper.getChildTextContentWithConversion (e, "y", BigInteger.class));
   }
 
   @Test
@@ -196,8 +195,7 @@ public final class MicroHelperTest
     y.appendElement ("a");
     assertEquals (CGlobal.BIGINT_100, MicroHelper.getChildTextContentWithConversion (e, sNSURI, "y", BigInteger.class));
     y.appendCDATA ("234");
-    assertEquals (BigInteger.valueOf (100234),
-                  MicroHelper.getChildTextContentWithConversion (e, sNSURI, "y", BigInteger.class));
+    assertEquals (BigInteger.valueOf (100234), MicroHelper.getChildTextContentWithConversion (e, sNSURI, "y", BigInteger.class));
   }
 
   @Test

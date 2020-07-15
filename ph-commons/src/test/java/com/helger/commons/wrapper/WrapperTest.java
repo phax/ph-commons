@@ -70,7 +70,6 @@ public final class WrapperTest
     {}
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new Wrapper <> ("any"), new Wrapper <> ("any"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Wrapper <> ("any"),
-                                                                           new Wrapper <> ("other"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Wrapper <> ("any"), new Wrapper <> ("other"));
   }
 }

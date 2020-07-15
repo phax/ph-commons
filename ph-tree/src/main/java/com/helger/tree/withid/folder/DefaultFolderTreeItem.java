@@ -56,8 +56,7 @@ public class DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collecti
    * @param aDataID
    *        The ID of the new item. May not be <code>null</code>.
    */
-  public DefaultFolderTreeItem (@Nonnull final DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE> aParent,
-                                @Nonnull final KEYTYPE aDataID)
+  public DefaultFolderTreeItem (@Nonnull final DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE> aParent, @Nonnull final KEYTYPE aDataID)
   {
     super (aParent, aDataID);
   }

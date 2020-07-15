@@ -502,8 +502,7 @@ public final class StringParserTest
     assertEquals (BigInteger.valueOf (16), StringParser.parseBigInteger ("10", 16));
     assertNull (StringParser.parseBigInteger ("abc"));
     assertEquals (BigInteger.ONE, StringParser.parseBigInteger ("1", aDefault));
-    assertEquals (new BigInteger ("46278643279823467687565723"),
-                  StringParser.parseBigInteger ("46278643279823467687565723"));
+    assertEquals (new BigInteger ("46278643279823467687565723"), StringParser.parseBigInteger ("46278643279823467687565723"));
     assertEquals (aDefault, StringParser.parseBigInteger ("abc", aDefault));
     assertEquals (aDefault, StringParser.parseBigInteger ((String) null, aDefault));
     assertEquals (aDefault, StringParser.parseBigInteger ("", aDefault));
@@ -521,8 +520,7 @@ public final class StringParserTest
     assertEquals (BigDecimal.ONE, StringParser.parseBigDecimal ("1"));
     assertNull (StringParser.parseBigDecimal ("abc"));
     assertEquals (BigDecimal.ONE, StringParser.parseBigDecimal ("1", aDefault));
-    assertEquals (new BigDecimal ("46278643279.823467687565723"),
-                  StringParser.parseBigDecimal ("46278643279.823467687565723"));
+    assertEquals (new BigDecimal ("46278643279.823467687565723"), StringParser.parseBigDecimal ("46278643279.823467687565723"));
     assertEquals (aDefault, StringParser.parseBigDecimal ("abc", aDefault));
     assertEquals (aDefault, StringParser.parseBigDecimal ((String) null, aDefault));
     assertEquals (aDefault, StringParser.parseBigDecimal ("", aDefault));

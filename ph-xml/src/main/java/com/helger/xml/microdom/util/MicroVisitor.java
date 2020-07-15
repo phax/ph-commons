@@ -50,8 +50,7 @@ public final class MicroVisitor
    * @param aCallback
    *        The callback to call. May not be <code>null</code>.
    */
-  public static void visit (@Nonnull final IMicroNode aNode,
-                            @Nonnull final IHierarchyVisitorCallback <? super IMicroNode> aCallback)
+  public static void visit (@Nonnull final IMicroNode aNode, @Nonnull final IHierarchyVisitorCallback <? super IMicroNode> aCallback)
   {
     ValueEnforcer.notNull (aNode, "Node");
     ChildrenProviderHierarchyVisitor.visitFrom (aNode, aCallback, false);

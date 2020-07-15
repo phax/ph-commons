@@ -78,11 +78,7 @@ public abstract class AbstractMemoryReadableResource implements IMemoryReadableR
   @UnsupportedOperation
   public IReadableResource getReadableCloneForPath (@Nonnull final String sPath)
   {
-    throw new UnsupportedOperationException ("Cannot clone in-memory resource '" +
-                                             m_sResourceID +
-                                             "' for path '" +
-                                             sPath +
-                                             "'");
+    throw new UnsupportedOperationException ("Cannot clone in-memory resource '" + m_sResourceID + "' for path '" + sPath + "'");
   }
 
   @Override

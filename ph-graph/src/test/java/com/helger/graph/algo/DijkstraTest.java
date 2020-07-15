@@ -65,8 +65,7 @@ public final class DijkstraTest
                                                                                   "O",
                                                                                   "T",
                                                                                   x -> x.attrs ()
-                                                                                        .getAsInt (ATTR_WEIGHT,
-                                                                                                   Integer.MIN_VALUE));
+                                                                                        .getAsInt (ATTR_WEIGHT, Integer.MIN_VALUE));
     assertNotNull (r);
     LOGGER.info (r.getAsString ());
     assertEquals (13, r.getResultDistance ());
@@ -93,8 +92,7 @@ public final class DijkstraTest
                                                                                   "1",
                                                                                   "6",
                                                                                   x -> x.attrs ()
-                                                                                        .getAsInt (ATTR_WEIGHT,
-                                                                                                   Integer.MIN_VALUE));
+                                                                                        .getAsInt (ATTR_WEIGHT, Integer.MIN_VALUE));
     assertNotNull (r);
     LOGGER.info (r.getAsString ());
     assertEquals (5, r.getResultDistance ());
@@ -118,9 +116,7 @@ public final class DijkstraTest
     final Dijkstra.Result <IMutableGraphNode> r = Dijkstra.applyDijkstra (g,
                                                                           "1",
                                                                           "6",
-                                                                          x -> x.attrs ()
-                                                                                .getAsInt (ATTR_WEIGHT,
-                                                                                           Integer.MIN_VALUE));
+                                                                          x -> x.attrs ().getAsInt (ATTR_WEIGHT, Integer.MIN_VALUE));
     assertNotNull (r);
     LOGGER.info (r.getAsString ());
     assertEquals (5, r.getResultDistance ());
@@ -164,8 +160,7 @@ public final class DijkstraTest
                                                                                   "O",
                                                                                   "T",
                                                                                   x -> x.attrs ()
-                                                                                        .getAsInt (ATTR_WEIGHT,
-                                                                                                   Integer.MIN_VALUE));
+                                                                                        .getAsInt (ATTR_WEIGHT, Integer.MIN_VALUE));
     assertNotNull (r);
     LOGGER.info (r.getAsString ());
     assertEquals (24, r.getResultDistance ());
@@ -196,8 +191,7 @@ public final class DijkstraTest
     Dijkstra.Result <IMutableGraphNode> r = Dijkstra.applyDijkstra (g,
                                                                     "Barcelona",
                                                                     "Lausanne",
-                                                                    x -> x.attrs ()
-                                                                          .getAsInt (ATTR_WEIGHT, Integer.MIN_VALUE));
+                                                                    x -> x.attrs ().getAsInt (ATTR_WEIGHT, Integer.MIN_VALUE));
     assertNotNull (r);
     LOGGER.info (r.getAsString ());
     assertEquals (864, r.getResultDistance ());

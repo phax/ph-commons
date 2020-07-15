@@ -80,8 +80,7 @@ public final class StatisticsManager
     if (aHdl == null)
     {
       // Try again in write lock
-      aHdl = s_aRWLockCache.writeLockedGet ( () -> s_aHdlCache.computeIfAbsent (sName,
-                                                                                k -> new StatisticsHandlerCache ()));
+      aHdl = s_aRWLockCache.writeLockedGet ( () -> s_aHdlCache.computeIfAbsent (sName, k -> new StatisticsHandlerCache ()));
     }
 
     return aHdl;
@@ -111,8 +110,7 @@ public final class StatisticsManager
     StatisticsHandlerTimer aHdl = s_aRWLockTimer.readLockedGet ( () -> s_aHdlTimer.get (sName));
     if (aHdl == null)
     {
-      aHdl = s_aRWLockTimer.writeLockedGet ( () -> s_aHdlTimer.computeIfAbsent (sName,
-                                                                                k -> new StatisticsHandlerTimer ()));
+      aHdl = s_aRWLockTimer.writeLockedGet ( () -> s_aHdlTimer.computeIfAbsent (sName, k -> new StatisticsHandlerTimer ()));
     }
 
     return aHdl;
@@ -142,8 +140,7 @@ public final class StatisticsManager
 
     if (aHdl == null)
     {
-      aHdl = s_aRWLockKeyedTimer.writeLockedGet ( () -> s_aHdlKeyedTimer.computeIfAbsent (sName,
-                                                                                          k -> new StatisticsHandlerKeyedTimer ()));
+      aHdl = s_aRWLockKeyedTimer.writeLockedGet ( () -> s_aHdlKeyedTimer.computeIfAbsent (sName, k -> new StatisticsHandlerKeyedTimer ()));
     }
     return aHdl;
   }
@@ -172,8 +169,7 @@ public final class StatisticsManager
 
     if (aHdl == null)
     {
-      aHdl = s_aRWLockSize.writeLockedGet ( () -> s_aHdlSize.computeIfAbsent (sName,
-                                                                              k -> new StatisticsHandlerSize ()));
+      aHdl = s_aRWLockSize.writeLockedGet ( () -> s_aHdlSize.computeIfAbsent (sName, k -> new StatisticsHandlerSize ()));
     }
     return aHdl;
   }
@@ -202,8 +198,7 @@ public final class StatisticsManager
 
     if (aHdl == null)
     {
-      aHdl = s_aRWLockKeyedSize.writeLockedGet ( () -> s_aHdlKeyedSize.computeIfAbsent (sName,
-                                                                                        k -> new StatisticsHandlerKeyedSize ()));
+      aHdl = s_aRWLockKeyedSize.writeLockedGet ( () -> s_aHdlKeyedSize.computeIfAbsent (sName, k -> new StatisticsHandlerKeyedSize ()));
     }
     return aHdl;
   }
@@ -232,8 +227,7 @@ public final class StatisticsManager
 
     if (aHdl == null)
     {
-      aHdl = s_aRWLockCounter.writeLockedGet ( () -> s_aHdlCounter.computeIfAbsent (sName,
-                                                                                    k -> new StatisticsHandlerCounter ()));
+      aHdl = s_aRWLockCounter.writeLockedGet ( () -> s_aHdlCounter.computeIfAbsent (sName, k -> new StatisticsHandlerCounter ()));
     }
     return aHdl;
   }

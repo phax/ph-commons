@@ -56,7 +56,6 @@ public final class URLResourceProviderTest
   @Test
   public void testEqualsAndHashcode ()
   {
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new URLResourceProvider (),
-                                                                       new URLResourceProvider ());
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new URLResourceProvider (), new URLResourceProvider ());
   }
 }

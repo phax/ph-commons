@@ -39,15 +39,7 @@ public final class CXMLRegEx
   private static final String EXTENDER = "(?:\u00C2\u00B7|\u00CB[\u0090\u0091]|\u00CE\u0087|\u00D9\u0080|\u00E0(?:\u00B9\u0086|\u00BB\u0086)|\u00E3(?:\u0080[\u0085\u00B1-\u00B5]|\u0082[\u009D\u009E]|\u0083[\u00BC-\u00BE]))";
   private static final String COMBININGCHAR = "(?:\u00CC[\u0080-\u00BF]|\u00CD[\u0080-\u0085\u00A0\u00A1]|\u00D2[\u0083-\u0086]|\u00D6[\u0091-\u00A1\u00A3-\u00B9\u00BB-\u00BD\u00BF]|\u00D7[\u0081\u0082\u0084]|\u00D9[\u008B-\u0092\u00B0]|\u00DB[\u0096-\u00A4\u00A7\u00A8\u00AA-\u00AD]|\u00E0(?:\u00A4[\u0081-\u0083\u00BC\u00BE\u00BF]|\u00A5[\u0080-\u008D\u0091-\u0094\u00A2\u00A3]|\u00A6[\u0081-\u0083\u00BC\u00BE\u00BF]|\u00A7[\u0080-\u0084\u0087\u0088\u008B-\u008D\u0097\u00A2\u00A3]|\u00A8[\u0082\u00BC\u00BE\u00BF]|\u00A9[\u0080-\u0082\u0087\u0088\u008B-\u008D\u00B0\u00B1]|\u00AA[\u0081-\u0083\u00BC\u00BE\u00BF]|\u00AB[\u0080-\u0085\u0087-\u0089\u008B-\u008D]|\u00AC[\u0081-\u0083\u00BC\u00BE\u00BF]|\u00AD[\u0080-\u0083\u0087\u0088\u008B-\u008D\u0096\u0097]|\u00AE[\u0082\u0083\u00BE\u00BF]|\u00AF[\u0080-\u0082\u0086-\u0088\u008A-\u008D\u0097]|\u00B0[\u0081-\u0083\u00BE\u00BF]|\u00B1[\u0080-\u0084\u0086-\u0088\u008A-\u008D\u0095\u0096]|\u00B2[\u0082\u0083\u00BE\u00BF]|\u00B3[\u0080-\u0084\u0086-\u0088\u008A-\u008D\u0095\u0096]|\u00B4[\u0082\u0083\u00BE\u00BF]|\u00B5[\u0080-\u0083\u0086-\u0088\u008A-\u008D\u0097]|\u00B8[\u00B1\u00B4-\u00BA]|\u00B9[\u0087-\u008E]|\u00BA[\u00B1\u00B4-\u00B9\u00BB\u00BC]|\u00BB[\u0088-\u008D]|\u00BC[\u0098\u0099\u00B5\u00B7\u00B9\u00BE\u00BF]|\u00BD[\u00B1-\u00BF]|\u00BE[\u0080-\u0084\u0086-\u008B\u0090-\u0095\u0097\u0099-\u00AD\u00B1-\u00B7\u00B9])|\u00E2\u0083[\u0090-\u009C\u00A1]|\u00E3(?:\u0080[\u00AA-\u00AF]|\u0082[\u0099\u009A]))";
   private static final String LETTER = "(?:" + BASECHAR + "|" + IDEOGRAPHIC + ")";
-  private static final String NAMECHAR = "(?:[-._:]|" +
-                                         LETTER +
-                                         "|" +
-                                         DIGIT +
-                                         "|" +
-                                         COMBININGCHAR +
-                                         "|" +
-                                         EXTENDER +
-                                         ")";
+  private static final String NAMECHAR = "(?:[-._:]|" + LETTER + "|" + DIGIT + "|" + COMBININGCHAR + "|" + EXTENDER + ")";
 
   private static final String NAME = "(?:(?:[:_]|" + LETTER + ")" + NAMECHAR + "*)";
   private static final String NMTOKEN = "(?:" + NAMECHAR + "+)";
@@ -59,15 +51,7 @@ public final class CXMLRegEx
   private static final String ATTVALUE = "(?:\"(?:[^\\&<]*|" + REFERENCE + ")\"|'(?:[^'&<]|" + REFERENCE + ")*')";
 
   // Same as NameChar without the ":"
-  private static final String NCNAMECHAR = "(?:[-._]|" +
-                                           LETTER +
-                                           "|" +
-                                           DIGIT +
-                                           "|" +
-                                           COMBININGCHAR +
-                                           "|" +
-                                           EXTENDER +
-                                           ")";
+  private static final String NCNAMECHAR = "(?:[-._]|" + LETTER + "|" + DIGIT + "|" + COMBININGCHAR + "|" + EXTENDER + ")";
 
   // Same as Name without the colons
   private static final String NCNAME = "(?:(?:_|" + LETTER + ")" + NCNAMECHAR + "*)";

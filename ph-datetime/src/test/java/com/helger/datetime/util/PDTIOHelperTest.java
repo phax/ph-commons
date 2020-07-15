@@ -44,19 +44,14 @@ public final class PDTIOHelperTest
     final LocalDateTime aLDT = LocalDateTime.of (2005, 10, 12, 3, 45, 12);
     assertEquals ("20051012_034512", PDTIOHelper.getLocalDateTimeForFilename (aLDT));
     assertEquals (aLDT,
-                  PDTFromString.getLocalDateTimeFromString (PDTIOHelper.getLocalDateTimeForFilename (aLDT),
-                                                            PDTIOHelper.PATTERN_DATETIME));
+                  PDTFromString.getLocalDateTimeFromString (PDTIOHelper.getLocalDateTimeForFilename (aLDT), PDTIOHelper.PATTERN_DATETIME));
 
     final LocalDate aLD = LocalDate.of (2005, 10, 12);
     assertEquals ("20051012", PDTIOHelper.getDateForFilename (aLD));
-    assertEquals (aLD,
-                  PDTFromString.getLocalDateFromString (PDTIOHelper.getDateForFilename (aLD),
-                                                        PDTIOHelper.PATTERN_DATE));
+    assertEquals (aLD, PDTFromString.getLocalDateFromString (PDTIOHelper.getDateForFilename (aLD), PDTIOHelper.PATTERN_DATE));
 
     final LocalTime aLT = LocalTime.of (3, 45, 12);
     assertEquals ("034512", PDTIOHelper.getTimeForFilename (aLT));
-    assertEquals (aLT,
-                  PDTFromString.getLocalTimeFromString (PDTIOHelper.getTimeForFilename (aLT),
-                                                        PDTIOHelper.PATTERN_TIME));
+    assertEquals (aLT, PDTFromString.getLocalTimeFromString (PDTIOHelper.getTimeForFilename (aLT), PDTIOHelper.PATTERN_TIME));
   }
 }

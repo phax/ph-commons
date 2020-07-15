@@ -406,14 +406,7 @@ public final class StreamHelper
   public static ESuccess copyInputStreamToOutputStream (@WillClose @Nullable final InputStream aIS,
                                                         @WillNotClose @Nullable final OutputStream aOS)
   {
-    return copyInputStreamToOutputStream (aIS,
-                                          true,
-                                          aOS,
-                                          false,
-                                          createDefaultCopyBufferBytes (),
-                                          (Long) null,
-                                          null,
-                                          (MutableLong) null);
+    return copyInputStreamToOutputStream (aIS, true, aOS, false, createDefaultCopyBufferBytes (), (Long) null, null, (MutableLong) null);
   }
 
   /**
@@ -433,14 +426,7 @@ public final class StreamHelper
   public static ESuccess copyInputStreamToOutputStreamAndCloseOS (@WillClose @Nullable final InputStream aIS,
                                                                   @WillClose @Nullable final OutputStream aOS)
   {
-    return copyInputStreamToOutputStream (aIS,
-                                          true,
-                                          aOS,
-                                          true,
-                                          createDefaultCopyBufferBytes (),
-                                          (Long) null,
-                                          null,
-                                          (MutableLong) null);
+    return copyInputStreamToOutputStream (aIS, true, aOS, true, createDefaultCopyBufferBytes (), (Long) null, null, (MutableLong) null);
   }
 
   /**
@@ -526,14 +512,7 @@ public final class StreamHelper
                                                         @WillNotClose @Nullable final OutputStream aOS,
                                                         @Nullable final MutableLong aCopyByteCount)
   {
-    return copyInputStreamToOutputStream (aIS,
-                                          true,
-                                          aOS,
-                                          false,
-                                          createDefaultCopyBufferBytes (),
-                                          (Long) null,
-                                          null,
-                                          aCopyByteCount);
+    return copyInputStreamToOutputStream (aIS, true, aOS, false, createDefaultCopyBufferBytes (), (Long) null, null, aCopyByteCount);
   }
 
   /**
@@ -706,8 +685,7 @@ public final class StreamHelper
    *         input stream is <code>null</code>.
    */
   @Nullable
-  public static String getAllBytesAsString (@Nullable final IHasInputStream aISP,
-                                            @Nonnull @Nonempty final Charset aCharset)
+  public static String getAllBytesAsString (@Nullable final IHasInputStream aISP, @Nonnull @Nonempty final Charset aCharset)
   {
     if (aISP == null)
       return null;
@@ -726,8 +704,7 @@ public final class StreamHelper
    *         <code>null</code>.
    */
   @Nullable
-  public static String getAllBytesAsString (@Nullable @WillClose final InputStream aIS,
-                                            @Nonnull @Nonempty final Charset aCharset)
+  public static String getAllBytesAsString (@Nullable @WillClose final InputStream aIS, @Nonnull @Nonempty final Charset aCharset)
   {
     ValueEnforcer.notNull (aCharset, "Charset");
 
@@ -929,17 +906,9 @@ public final class StreamHelper
    *         {@link ESuccess#FAILURE}</code> otherwise
    */
   @Nonnull
-  public static ESuccess copyReaderToWriter (@WillClose @Nullable final Reader aReader,
-                                             @WillNotClose @Nullable final Writer aWriter)
+  public static ESuccess copyReaderToWriter (@WillClose @Nullable final Reader aReader, @WillNotClose @Nullable final Writer aWriter)
   {
-    return copyReaderToWriter (aReader,
-                               true,
-                               aWriter,
-                               false,
-                               createDefaultCopyBufferChars (),
-                               (Long) null,
-                               null,
-                               (MutableLong) null);
+    return copyReaderToWriter (aReader, true, aWriter, false, createDefaultCopyBufferChars (), (Long) null, null, (MutableLong) null);
   }
 
   /**
@@ -959,14 +928,7 @@ public final class StreamHelper
   public static ESuccess copyReaderToWriterAndCloseWriter (@Nullable @WillClose final Reader aReader,
                                                            @Nullable @WillClose final Writer aWriter)
   {
-    return copyReaderToWriter (aReader,
-                               true,
-                               aWriter,
-                               true,
-                               createDefaultCopyBufferChars (),
-                               (Long) null,
-                               null,
-                               (MutableLong) null);
+    return copyReaderToWriter (aReader, true, aWriter, true, createDefaultCopyBufferChars (), (Long) null, null, (MutableLong) null);
   }
 
   /**
@@ -1052,14 +1014,7 @@ public final class StreamHelper
                                              @WillNotClose @Nullable final Writer aWriter,
                                              @Nullable final MutableLong aCopyCharCount)
   {
-    return copyReaderToWriter (aReader,
-                               true,
-                               aWriter,
-                               false,
-                               createDefaultCopyBufferChars (),
-                               (Long) null,
-                               null,
-                               (MutableLong) null);
+    return copyReaderToWriter (aReader, true, aWriter, false, createDefaultCopyBufferChars (), (Long) null, null, (MutableLong) null);
   }
 
   /**
@@ -1125,8 +1080,7 @@ public final class StreamHelper
   }
 
   @Nullable
-  public static NonBlockingStringWriter getCopyWithLimit (@Nonnull @WillClose final Reader aReader,
-                                                          @Nonnegative final long nLimit)
+  public static NonBlockingStringWriter getCopyWithLimit (@Nonnull @WillClose final Reader aReader, @Nonnegative final long nLimit)
   {
     final NonBlockingStringWriter aWriter = new NonBlockingStringWriter (DEFAULT_BUFSIZE);
     if (copyReaderToWriterWithLimitAndCloseWriter (aReader, aWriter, nLimit).isFailure ())
@@ -1189,8 +1143,7 @@ public final class StreamHelper
    */
   @Nullable
   @ReturnsMutableCopy
-  public static ICommonsList <String> readStreamLines (@Nullable final IHasInputStream aISP,
-                                                       @Nonnull final Charset aCharset)
+  public static ICommonsList <String> readStreamLines (@Nullable final IHasInputStream aISP, @Nonnull final Charset aCharset)
   {
     return readStreamLines (aISP, aCharset, 0, CGlobal.ILLEGAL_UINT);
   }
@@ -1392,8 +1345,7 @@ public final class StreamHelper
       ValueEnforcer.notNull (aCharset, "Charset");
       ValueEnforcer.isGE0 (nLinesToSkip, "LinesToSkip");
       final boolean bReadAllLines = nLinesToRead == CGlobal.ILLEGAL_UINT;
-      ValueEnforcer.isTrue (bReadAllLines || nLinesToRead >= 0,
-                            () -> "Line count may not be that negative: " + nLinesToRead);
+      ValueEnforcer.isTrue (bReadAllLines || nLinesToRead >= 0, () -> "Line count may not be that negative: " + nLinesToRead);
       ValueEnforcer.notNull (aLineCallback, "LineCallback");
 
       // Start the action only if there is something to read

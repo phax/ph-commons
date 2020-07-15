@@ -364,12 +364,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
                                                  @Nonnull final String sElement)
   {
     if (LOGGER.isErrorEnabled ())
-      LOGGER.error ("Action [" +
-                    eActionType +
-                    "][" +
-                    i +
-                    "]: failed to convert the following element to native:\n" +
-                    sElement);
+      LOGGER.error ("Action [" + eActionType + "][" + i + "]: failed to convert the following element to native:\n" + sElement);
   }
 
   /**
@@ -529,8 +524,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
         triggerExceptionHandlersRead (ex, bIsInitialization, aFinalFile);
         throw new DAOException ("Error " +
                                 (bIsInitialization ? "initializing" : "reading") +
-                                (aFinalFile == null ? "in-memory"
-                                                    : " the file '" + aFinalFile.getAbsolutePath () + "'"),
+                                (aFinalFile == null ? "in-memory" : " the file '" + aFinalFile.getAbsolutePath () + "'"),
                                 ex);
       }
 
@@ -603,12 +597,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
                   catch (final RuntimeException ex)
                   {
                     if (LOGGER.isErrorEnabled ())
-                      LOGGER.error ("[WAL] wal-recovery create " +
-                                    aElement +
-                                    " - " +
-                                    ex.getClass ().getName () +
-                                    ": " +
-                                    ex.getMessage ());
+                      LOGGER.error ("[WAL] wal-recovery create " + aElement + " - " + ex.getClass ().getName () + ": " + ex.getMessage ());
                     throw ex;
                   }
                   break;
@@ -625,12 +614,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
                   catch (final RuntimeException ex)
                   {
                     if (LOGGER.isErrorEnabled ())
-                      LOGGER.error ("[WAL] wal-recovery update " +
-                                    aElement +
-                                    " - " +
-                                    ex.getClass ().getName () +
-                                    ": " +
-                                    ex.getMessage ());
+                      LOGGER.error ("[WAL] wal-recovery update " + aElement + " - " + ex.getClass ().getName () + ": " + ex.getMessage ());
                     throw ex;
                   }
                 case DELETE:
@@ -646,12 +630,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
                   catch (final RuntimeException ex)
                   {
                     if (LOGGER.isErrorEnabled ())
-                      LOGGER.error ("[WAL] wal-recovery delete " +
-                                    aElement +
-                                    " - " +
-                                    ex.getClass ().getName () +
-                                    ": " +
-                                    ex.getMessage ());
+                      LOGGER.error ("[WAL] wal-recovery delete " + aElement + " - " + ex.getClass ().getName () + ": " + ex.getMessage ());
                     throw ex;
                   }
                 default:
@@ -738,8 +717,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
   {
     final IMicroComment aComment = new MicroComment ("This file was generated automatically - do NOT modify!\n" +
                                                      "Written at " +
-                                                     PDTToString.getAsString (ZonedDateTime.now (Clock.systemUTC ()),
-                                                                              Locale.US));
+                                                     PDTToString.getAsString (ZonedDateTime.now (Clock.systemUTC ()), Locale.US));
     final IMicroElement eRoot = aDoc.getDocumentElement ();
     // Add a small comment
     if (eRoot != null)
@@ -901,12 +879,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
       final String sErrorFilename = aFileNew != null ? aFileNew.getAbsolutePath () : sFilename;
 
       if (LOGGER.isErrorEnabled ())
-        LOGGER.error ("The DAO of class " +
-                      getClass ().getName () +
-                      " failed to write the DAO data to '" +
-                      sErrorFilename +
-                      "'",
-                      ex);
+        LOGGER.error ("The DAO of class " + getClass ().getName () + " failed to write the DAO data to '" + sErrorFilename + "'", ex);
 
       triggerExceptionHandlersWrite (ex, sErrorFilename, aDoc);
       m_aStatsCounterWriteExceptions.increment ();
@@ -922,11 +895,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
     else
     {
       if (LOGGER.isErrorEnabled ())
-        LOGGER.error ("The DAO of class " +
-                      getClass ().getName () +
-                      " still has pending changes after " +
-                      sCallingMethodName +
-                      "!");
+        LOGGER.error ("The DAO of class " + getClass ().getName () + " still has pending changes after " + sCallingMethodName + "!");
     }
   }
 
@@ -951,17 +920,12 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
   {
     ValueEnforcer.notEmpty (sWALFilename, "WALFilename");
     final File aWALFile = m_aIO.getFile (sWALFilename);
-    final File aNewFile = new File (aWALFile.getParentFile (),
-                                    aWALFile.getName () + "." + PDTFactory.getCurrentMillis () + ".bup");
+    final File aNewFile = new File (aWALFile.getParentFile (), aWALFile.getName () + "." + PDTFactory.getCurrentMillis () + ".bup");
 
     if (FileOperationManager.INSTANCE.renameFile (aWALFile, aNewFile).isFailure ())
     {
       if (LOGGER.isErrorEnabled ())
-        LOGGER.error ("Failed to rename WAL file '" +
-                      aWALFile.getAbsolutePath () +
-                      "' to '" +
-                      aNewFile.getAbsolutePath () +
-                      "'");
+        LOGGER.error ("Failed to rename WAL file '" + aWALFile.getAbsolutePath () + "' to '" + aNewFile.getAbsolutePath () + "'");
     }
     else
     {
@@ -1096,8 +1060,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
   }
 
   @MustBeLocked (ELockType.WRITE)
-  protected final void markAsChanged (@Nonnull final List <DATATYPE> aModifiedElements,
-                                      @Nonnull final EDAOActionType eActionType)
+  protected final void markAsChanged (@Nonnull final List <DATATYPE> aModifiedElements, @Nonnull final EDAOActionType eActionType)
   {
     ValueEnforcer.notNull (aModifiedElements, "ModifiedElements");
     ValueEnforcer.notNull (eActionType, "ActionType");

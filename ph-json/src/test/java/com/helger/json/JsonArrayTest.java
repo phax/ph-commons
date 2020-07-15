@@ -95,9 +95,7 @@ public final class JsonArrayTest
     assertTrue (aArray.contains (3.1234));
     assertTrue (aArray.contains ("This is a string"));
     assertTrue (aArray.contains (new JsonArray ().add ("nested").add (0).add (BigDecimal.valueOf (12.34))));
-    assertTrue (aArray.contains (new JsonObject ().add ("n1", "nested")
-                                                  .add ("n2", 0)
-                                                  .add ("n3", BigDecimal.valueOf (12.34))));
+    assertTrue (aArray.contains (new JsonObject ().add ("n1", "nested").add ("n2", 0).add ("n3", BigDecimal.valueOf (12.34))));
     assertFalse (aArray.contains ((IJson) null));
   }
 
@@ -166,9 +164,7 @@ public final class JsonArrayTest
     aArray.addAll ((short []) null);
     assertEquals (25, aArray.size ());
 
-    aArray.addAll (new Object [] { "xyz",
-                                   Integer.valueOf (7),
-                                   new BigDecimal ("11111111111111111111111111111111111122222.4") });
+    aArray.addAll (new Object [] { "xyz", Integer.valueOf (7), new BigDecimal ("11111111111111111111111111111111111122222.4") });
     assertEquals (28, aArray.size ());
     aArray.addAll (new Object [0]);
     assertEquals (28, aArray.size ());
@@ -177,9 +173,7 @@ public final class JsonArrayTest
     aArray.addAll ((Iterable <Object>) null);
     assertEquals (28, aArray.size ());
 
-    aArray.addAll (new JsonArray ().add ("xyz")
-                                   .add (7)
-                                   .add (new BigDecimal ("11111111111111111111111111111111111122222.4")));
+    aArray.addAll (new JsonArray ().add ("xyz").add (7).add (new BigDecimal ("11111111111111111111111111111111111122222.4")));
     assertEquals (31, aArray.size ());
     aArray.addAll (new JsonArray ());
     assertEquals (31, aArray.size ());
@@ -270,8 +264,7 @@ public final class JsonArrayTest
     aArray.addAllAt (0, (int []) null);
     assertEquals (19, aArray.size ());
 
-    aArray.addAllAt (0,
-                     new long [] { Integer.MAX_VALUE + 1000L, Integer.MAX_VALUE + 1001L, Integer.MAX_VALUE + 1002L });
+    aArray.addAllAt (0, new long [] { Integer.MAX_VALUE + 1000L, Integer.MAX_VALUE + 1001L, Integer.MAX_VALUE + 1002L });
     assertEquals (22, aArray.size ());
     aArray.addAllAt (0, new long [0]);
     assertEquals (22, aArray.size ());
@@ -285,10 +278,7 @@ public final class JsonArrayTest
     aArray.addAllAt (0, (short []) null);
     assertEquals (25, aArray.size ());
 
-    aArray.addAllAt (0,
-                     new Object [] { "xyz",
-                                     Integer.valueOf (7),
-                                     new BigDecimal ("11111111111111111111111111111111111122222.4") });
+    aArray.addAllAt (0, new Object [] { "xyz", Integer.valueOf (7), new BigDecimal ("11111111111111111111111111111111111122222.4") });
     assertEquals (28, aArray.size ());
     aArray.addAllAt (0, new Object [0]);
     assertEquals (28, aArray.size ());
@@ -297,10 +287,7 @@ public final class JsonArrayTest
     aArray.addAllAt (0, (Iterable <Object>) null);
     assertEquals (28, aArray.size ());
 
-    aArray.addAllAt (0,
-                     new JsonArray ().add ("xyz")
-                                     .add (7)
-                                     .add (new BigDecimal ("11111111111111111111111111111111111122222.4")));
+    aArray.addAllAt (0, new JsonArray ().add ("xyz").add (7).add (new BigDecimal ("11111111111111111111111111111111111122222.4")));
     assertEquals (31, aArray.size ());
     aArray.addAllAt (0, new JsonArray ());
     assertEquals (31, aArray.size ());

@@ -42,8 +42,7 @@ public final class TypeConverterProviderBestMatch implements ITypeConverterProvi
   }
 
   @Nullable
-  public ITypeConverter <Object, Object> getTypeConverter (@Nonnull final Class <?> aSrcClass,
-                                                           @Nonnull final Class <?> aDstClass)
+  public ITypeConverter <Object, Object> getTypeConverter (@Nonnull final Class <?> aSrcClass, @Nonnull final Class <?> aDstClass)
   {
     final TypeConverterRegistry aTCR = TypeConverterRegistry.getInstance ();
 

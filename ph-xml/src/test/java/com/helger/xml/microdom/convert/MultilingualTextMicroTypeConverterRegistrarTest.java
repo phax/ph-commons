@@ -69,8 +69,7 @@ public final class MultilingualTextMicroTypeConverterRegistrarTest
     final IMicroElement aElement = MicroTypeConverter.convertToMicroElement (aMLT, "mtext");
     assertNotNull (aElement);
 
-    final ReadOnlyMultilingualText aMLT2 = MicroTypeConverter.convertToNative (aElement,
-                                                                               ReadOnlyMultilingualText.class);
+    final ReadOnlyMultilingualText aMLT2 = MicroTypeConverter.convertToNative (aElement, ReadOnlyMultilingualText.class);
     assertEquals (aMLT, aMLT2);
     assertNull (MicroTypeConverter.convertToNative (null, ReadOnlyMultilingualText.class));
 
@@ -87,8 +86,7 @@ public final class MultilingualTextMicroTypeConverterRegistrarTest
 
     // The result must be a ReadonlyMultiLingualText because it is the first
     // registered converter
-    final ReadOnlyMultilingualText aMLT2 = MicroTypeConverter.convertToNative (aElement,
-                                                                               ReadOnlyMultilingualText.class);
+    final ReadOnlyMultilingualText aMLT2 = MicroTypeConverter.convertToNative (aElement, ReadOnlyMultilingualText.class);
     assertEquals (new ReadOnlyMultilingualText (aMLT), aMLT2);
     assertNull (MicroTypeConverter.convertToNative (null, AbstractReadOnlyMapBasedMultilingualText.class));
 

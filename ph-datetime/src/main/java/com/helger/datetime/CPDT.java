@@ -57,8 +57,7 @@ public final class CPDT
    */
   public static final ZonedDateTime NULL_DATETIME = ZonedDateTime.ofInstant (Instant.EPOCH, ZoneId.systemDefault ());
   /** Default null date time : 1.1.1970 00:00:00.000 with the UTC timezone! */
-  public static final ZonedDateTime NULL_DATETIME_UTC = ZonedDateTime.ofInstant (Instant.EPOCH,
-                                                                                 ZoneOffset.UTC.normalized ());
+  public static final ZonedDateTime NULL_DATETIME_UTC = ZonedDateTime.ofInstant (Instant.EPOCH, ZoneOffset.UTC.normalized ());
   /** Default empty period */
   public static final Period NULL_PERIOD = Period.ZERO;
   /** Default empty duration */

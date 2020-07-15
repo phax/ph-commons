@@ -88,9 +88,7 @@ public interface ITypeConverterRegistry
                                                                                      @Nonnull final Class <DST> aDstClass,
                                                                                      @Nonnull final IFunction <? super SRC, ? extends DST> aConverter)
   {
-    registerTypeConverterRule (new TypeConverterRuleAssignableSourceFixedDestination <> (aSrcClass,
-                                                                                         aDstClass,
-                                                                                         aConverter));
+    registerTypeConverterRule (new TypeConverterRuleAssignableSourceFixedDestination <> (aSrcClass, aDstClass, aConverter));
   }
 
   default <SRC> void registerTypeConverterRuleFixedSourceAnyDestination (@Nonnull final Class <SRC> aSrcClass,
@@ -103,8 +101,6 @@ public interface ITypeConverterRegistry
                                                                                      @Nonnull final Class <DST> aDstClass,
                                                                                      @Nonnull final IFunction <? super SRC, ? extends DST> aConverter)
   {
-    registerTypeConverterRule (new TypeConverterRuleFixedSourceAssignableDestination <> (aSrcClass,
-                                                                                         aDstClass,
-                                                                                         aConverter));
+    registerTypeConverterRule (new TypeConverterRuleFixedSourceAssignableDestination <> (aSrcClass, aDstClass, aConverter));
   }
 }

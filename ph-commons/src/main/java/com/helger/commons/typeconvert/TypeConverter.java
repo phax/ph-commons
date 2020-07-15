@@ -493,8 +493,7 @@ public final class TypeConverter
                                             @Nonnull final Object aSrcValue)
   {
     // try to find matching converter
-    final ITypeConverter <Object, Object> aConverter = aTypeConverterProvider.getTypeConverter (aSrcClass,
-                                                                                                aUsableDstClass);
+    final ITypeConverter <Object, Object> aConverter = aTypeConverterProvider.getTypeConverter (aSrcClass, aUsableDstClass);
     if (aConverter == null)
     {
       if (!isSilentMode ())

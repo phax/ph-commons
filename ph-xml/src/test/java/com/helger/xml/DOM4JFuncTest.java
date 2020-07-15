@@ -49,8 +49,7 @@ public final class DOM4JFuncTest
   public void testMisc2 ()
   {
     final DOMDocument aXML = new DOMDocument ();
-    final Node aChild = aXML.appendChild (new DOMElement ("rootElement",
-                                                          new DOMNamespace ("xyz", "http://www.example.org")));
+    final Node aChild = aXML.appendChild (new DOMElement ("rootElement", new DOMNamespace ("xyz", "http://www.example.org")));
     aChild.appendChild (new DOMText ("anyText"));
     aChild.appendChild (new DOMEntityReference ("abc"));
 

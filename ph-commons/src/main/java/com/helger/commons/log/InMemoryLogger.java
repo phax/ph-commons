@@ -84,9 +84,7 @@ public class InMemoryLogger implements IHasErrorLevels <LogMessage>, IHasSize, I
     log (eErrorLevel, aMsg, null);
   }
 
-  public void log (@Nonnull final IErrorLevel eErrorLevel,
-                   @Nonnull final Serializable aMsg,
-                   @Nullable final Throwable t)
+  public void log (@Nonnull final IErrorLevel eErrorLevel, @Nonnull final Serializable aMsg, @Nullable final Throwable t)
   {
     final LogMessage aLogMessage = createLogMessage (eErrorLevel, aMsg, t);
     if (aLogMessage != null)

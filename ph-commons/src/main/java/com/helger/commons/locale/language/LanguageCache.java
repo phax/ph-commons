@@ -192,8 +192,7 @@ public final class LanguageCache
       return null;
 
     final LocaleCache aLC = LocaleCache.getInstance ();
-    final IMissingLocaleHandler aMLH = aMissingHandler != null ? aMissingHandler
-                                                               : aLC.getDefaultMissingLocaleHandler ();
+    final IMissingLocaleHandler aMLH = aMissingHandler != null ? aMissingHandler : aLC.getDefaultMissingLocaleHandler ();
 
     // Was something like "de_" passed in? -> indirect recursion
     if (sLanguage.indexOf (LocaleHelper.LOCALE_SEPARATOR) >= 0)

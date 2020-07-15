@@ -92,8 +92,7 @@ public final class PDTFactory
   @Nonnull
   public static ZoneOffset getZoneOffsetFromOffsetInMinutes (final int nOffsetInMinutes)
   {
-    return ZoneOffset.ofHoursMinutes (nOffsetInMinutes / CGlobal.MINUTES_PER_HOUR,
-                                      nOffsetInMinutes % CGlobal.MINUTES_PER_HOUR);
+    return ZoneOffset.ofHoursMinutes (nOffsetInMinutes / CGlobal.MINUTES_PER_HOUR, nOffsetInMinutes % CGlobal.MINUTES_PER_HOUR);
   }
 
   @Nonnull
@@ -134,8 +133,7 @@ public final class PDTFactory
   @Nullable
   public static ZonedDateTime getWithMillisOnly (@Nullable final ZonedDateTime aODT)
   {
-    return aODT == null ? null : aODT.withNano (aODT.get (ChronoField.MILLI_OF_SECOND) *
-                                                (int) CGlobal.NANOSECONDS_PER_MILLISECOND);
+    return aODT == null ? null : aODT.withNano (aODT.get (ChronoField.MILLI_OF_SECOND) * (int) CGlobal.NANOSECONDS_PER_MILLISECOND);
   }
 
   /**
@@ -281,8 +279,7 @@ public final class PDTFactory
   @Nullable
   public static OffsetDateTime getWithMillisOnly (@Nullable final OffsetDateTime aODT)
   {
-    return aODT == null ? null : aODT.withNano (aODT.get (ChronoField.MILLI_OF_SECOND) *
-                                                (int) CGlobal.NANOSECONDS_PER_MILLISECOND);
+    return aODT == null ? null : aODT.withNano (aODT.get (ChronoField.MILLI_OF_SECOND) * (int) CGlobal.NANOSECONDS_PER_MILLISECOND);
   }
 
   /**
@@ -409,8 +406,7 @@ public final class PDTFactory
   @Nullable
   public static LocalDateTime getWithMillisOnly (@Nullable final LocalDateTime aLDT)
   {
-    return aLDT == null ? null : aLDT.withNano (aLDT.get (ChronoField.MILLI_OF_SECOND) *
-                                                (int) CGlobal.NANOSECONDS_PER_MILLISECOND);
+    return aLDT == null ? null : aLDT.withNano (aLDT.get (ChronoField.MILLI_OF_SECOND) * (int) CGlobal.NANOSECONDS_PER_MILLISECOND);
   }
 
   /**

@@ -158,11 +158,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
   {
     try
     {
-      XMLMaskHelper.maskXMLTextTo (m_eXMLVersion,
-                                   eXMLCharMode,
-                                   m_aXMLWriterSettings.getIncorrectCharacterHandling (),
-                                   sValue,
-                                   m_aWriter);
+      XMLMaskHelper.maskXMLTextTo (m_eXMLVersion, eXMLCharMode, m_aXMLWriterSettings.getIncorrectCharacterHandling (), sValue, m_aWriter);
       return this;
     }
     catch (final IOException ex)
@@ -512,10 +508,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
    *        <code>false</code> if not. The <code>false</code> case is especially
    *        interesting for HTML inline JS and CSS code.
    */
-  public void onText (@Nonnull final char [] aText,
-                      @Nonnegative final int nOfs,
-                      @Nonnegative final int nLen,
-                      final boolean bEscape)
+  public void onText (@Nonnull final char [] aText, @Nonnegative final int nOfs, @Nonnegative final int nLen, final boolean bEscape)
   {
     if (bEscape)
       _appendMasked (EXMLCharMode.TEXT, aText, nOfs, nLen);
@@ -568,9 +561,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
     _appendMasked (EXMLCharMode.ELEMENT_NAME, sTagName);
   }
 
-  public void elementAttr (@Nullable final String sAttrNamespacePrefix,
-                           @Nonnull final String sAttrName,
-                           @Nonnull final String sAttrValue)
+  public void elementAttr (@Nullable final String sAttrNamespacePrefix, @Nonnull final String sAttrName, @Nonnull final String sAttrValue)
   {
     _append (' ');
     if (StringHelper.hasText (sAttrNamespacePrefix))

@@ -48,8 +48,7 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     // MutableBigDecimal
     aRegistry.registerTypeConverter (MutableBigDecimal.class, BigDecimal.class, MutableBigDecimal::getAsBigDecimal);
     aRegistry.registerTypeConverter (BigDecimal.class, MutableBigDecimal.class, MutableBigDecimal::new);
-    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableBigDecimal.class,
-                                                                  MutableBigDecimal::getAsBigDecimal);
+    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableBigDecimal.class, MutableBigDecimal::getAsBigDecimal);
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableBigDecimal.class,
                                                                   aSource -> new MutableBigDecimal (TypeConverter.convert (aSource,
                                                                                                                            BigDecimal.class)));
@@ -57,8 +56,7 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     // MutableBigInteger
     aRegistry.registerTypeConverter (MutableBigInteger.class, BigInteger.class, MutableBigInteger::getAsBigInteger);
     aRegistry.registerTypeConverter (BigInteger.class, MutableBigInteger.class, MutableBigInteger::new);
-    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableBigInteger.class,
-                                                                  MutableBigInteger::getAsBigInteger);
+    aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableBigInteger.class, MutableBigInteger::getAsBigInteger);
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableBigInteger.class,
                                                                   aSource -> new MutableBigInteger (TypeConverter.convert (aSource,
                                                                                                                            BigInteger.class)));
@@ -76,8 +74,7 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     aRegistry.registerTypeConverter (Byte.class, MutableByte.class, MutableByte::new);
     aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableByte.class, MutableByte::getAsByte);
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableByte.class,
-                                                                  aSource -> new MutableByte (TypeConverter.convert (aSource,
-                                                                                                                     Byte.class)));
+                                                                  aSource -> new MutableByte (TypeConverter.convert (aSource, Byte.class)));
 
     // MutableChar
     aRegistry.registerTypeConverter (MutableChar.class, Character.class, MutableChar::getAsCharacter);
@@ -116,8 +113,7 @@ public final class MutableTypeConverterRegistrar implements ITypeConverterRegist
     aRegistry.registerTypeConverter (Long.class, MutableLong.class, MutableLong::new);
     aRegistry.registerTypeConverterRuleFixedSourceAnyDestination (MutableLong.class, MutableLong::getAsLong);
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (MutableLong.class,
-                                                                  aSource -> new MutableLong (TypeConverter.convert (aSource,
-                                                                                                                     Long.class)));
+                                                                  aSource -> new MutableLong (TypeConverter.convert (aSource, Long.class)));
 
     // MutableShort
     aRegistry.registerTypeConverter (MutableShort.class, Short.class, MutableShort::getAsShort);

@@ -197,9 +197,7 @@ public final class MicroWriterTest
       aSettings.setSerializeVersion (eVersion);
       final String sXML = MicroWriter.getNodeAsString (aDoc, aSettings);
       assertNotNull (sXML);
-      assertTrue (sXML.contains ("version=\"" +
-                                 eVersion.getXMLVersionOrDefault (EXMLVersion.XML_10).getVersion () +
-                                 "\""));
+      assertTrue (sXML.contains ("version=\"" + eVersion.getXMLVersionOrDefault (EXMLVersion.XML_10).getVersion () + "\""));
     }
   }
 
@@ -232,8 +230,7 @@ public final class MicroWriterTest
   @Test
   public void testWriteCDATAAsText ()
   {
-    final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
-                                                                .setWriteCDATAAsText (true);
+    final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE).setWriteCDATAAsText (true);
 
     // Simple CDATA
     IMicroElement e = new MicroElement ("a");
@@ -589,8 +586,7 @@ public final class MicroWriterTest
   @Test
   public void testOrderAttributes ()
   {
-    XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
-                                                          .setUseDoubleQuotesForAttributes (false);
+    XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE).setUseDoubleQuotesForAttributes (false);
 
     // default order
     final IMicroElement e = new MicroElement ("a");
@@ -607,8 +603,7 @@ public final class MicroWriterTest
   @Test
   public void testOrderNamespaces ()
   {
-    XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
-                                                          .setUseDoubleQuotesForAttributes (false);
+    XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE).setUseDoubleQuotesForAttributes (false);
 
     // default order
     final IMicroElement e = new MicroElement ("urn:stringdefault", "a");

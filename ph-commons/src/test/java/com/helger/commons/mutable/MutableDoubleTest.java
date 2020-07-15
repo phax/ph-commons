@@ -84,10 +84,8 @@ public final class MutableDoubleTest
     x.set (1);
     assertTrue (x.isGT0 ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MutableDouble (3.1234),
-                                                                       new MutableDouble (3.1234));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MutableDouble (3.1234),
-                                                                           new MutableDouble (3.123));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MutableDouble (3.1234), new MutableDouble (3.1234));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MutableDouble (3.1234), new MutableDouble (3.123));
     CommonsTestHelper.testGetClone (new MutableDouble (47.11));
   }
 }

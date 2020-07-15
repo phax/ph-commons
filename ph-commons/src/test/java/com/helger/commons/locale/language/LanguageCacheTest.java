@@ -55,8 +55,7 @@ public final class LanguageCacheTest
   public void testGetLanguageOfLocale ()
   {
     assertNull (LanguageCache.getInstance ().getLanguage ((Locale) null));
-    assertEquals (LanguageCache.getInstance ().getLanguage (LOCALE.getLanguage ()),
-                  LanguageCache.getInstance ().getLanguage (LOCALE));
+    assertEquals (LanguageCache.getInstance ().getLanguage (LOCALE.getLanguage ()), LanguageCache.getInstance ().getLanguage (LOCALE));
   }
 
   @Test
@@ -80,15 +79,11 @@ public final class LanguageCacheTest
     assertNotNull (LanguageCache.getInstance ().getLanguage ("pl"));
     // Returns a valid locale, but emits a warning:
 
+    assertEquals (LanguageCache.getInstance ().getLanguage ("de"), LanguageCache.getInstance ().getLanguage (new Locale ("de", "ch")));
+    assertEquals (LocaleCache.getInstance ().getLocale ("de", "", ""), LanguageCache.getInstance ().getLanguage ("de_"));
+    assertEquals (LocaleCache.getInstance ().getLocale ("de", "", ""), LanguageCache.getInstance ().getLanguage ("de_AT"));
     assertEquals (LanguageCache.getInstance ().getLanguage ("de"),
-                  LanguageCache.getInstance ().getLanguage (new Locale ("de", "ch")));
-    assertEquals (LocaleCache.getInstance ().getLocale ("de", "", ""),
-                  LanguageCache.getInstance ().getLanguage ("de_"));
-    assertEquals (LocaleCache.getInstance ().getLocale ("de", "", ""),
-                  LanguageCache.getInstance ().getLanguage ("de_AT"));
-    assertEquals (LanguageCache.getInstance ().getLanguage ("de"),
-                  LanguageCache.getInstance ()
-                               .getLanguage (LanguageCache.getInstance ().getLanguage ("de").toString ()));
+                  LanguageCache.getInstance ().getLanguage (LanguageCache.getInstance ().getLanguage ("de").toString ()));
     for (final String sLocale : LanguageCache.getInstance ().getAllLanguages ())
       assertTrue (LanguageCache.getInstance ().containsLanguage (sLocale));
     assertFalse (LanguageCache.getInstance ().containsLanguage ((String) null));

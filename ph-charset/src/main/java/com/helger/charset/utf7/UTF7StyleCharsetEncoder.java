@@ -54,9 +54,7 @@ final class UTF7StyleCharsetEncoder extends CharsetEncoder
   private int m_nBitsToOutput;
   private int m_nSextet;
 
-  UTF7StyleCharsetEncoder (@Nonnull final AbstractUTF7StyleCharset aCharset,
-                           @Nonnull final UTF7Base64Helper aBase64,
-                           final boolean bStrict)
+  UTF7StyleCharsetEncoder (@Nonnull final AbstractUTF7StyleCharset aCharset, @Nonnull final UTF7Base64Helper aBase64, final boolean bStrict)
   {
     super (aCharset, AVG_BYTES_PER_CHAR, MAX_BYTES_PER_CHAR);
     m_aCharset = aCharset;

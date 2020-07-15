@@ -101,8 +101,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
     }
   }
 
-  public <T> void registerMicroElementTypeConverter (@Nonnull final Class <T> aClass,
-                                                     @Nonnull final IMicroTypeConverter <T> aConverter)
+  public <T> void registerMicroElementTypeConverter (@Nonnull final Class <T> aClass, @Nonnull final IMicroTypeConverter <T> aConverter)
   {
     _registerMicroElementTypeConverter (aClass, aConverter);
   }
@@ -117,8 +116,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
    * @param aConverter
    *        The type converter from and to XML
    */
-  private <T> void _registerMicroElementTypeConverter (@Nonnull final Class <T> aClass,
-                                                       @Nonnull final IMicroTypeConverter <T> aConverter)
+  private <T> void _registerMicroElementTypeConverter (@Nonnull final Class <T> aClass, @Nonnull final IMicroTypeConverter <T> aConverter)
   {
     ValueEnforcer.notNull (aClass, "Class");
     ValueEnforcer.notNull (aConverter, "Converter");
@@ -184,12 +182,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
               if (ret != null)
               {
                 if (LOGGER.isTraceEnabled ())
-                  LOGGER.trace ("Using micro type converter " +
-                                ret +
-                                " for class " +
-                                aDstClass +
-                                " based on " +
-                                aCurDstClass);
+                  LOGGER.trace ("Using micro type converter " + ret + " for class " + aDstClass + " based on " + aCurDstClass);
                 break;
               }
             }

@@ -481,15 +481,11 @@ public class CSVParser implements Serializable
    *        current index in line
    * @return true if the following character is a quote
    */
-  private boolean _isNextCharacterEscapedQuote (@Nonnull final String sNextLine,
-                                                final boolean bInQuotes,
-                                                final int nIndex)
+  private boolean _isNextCharacterEscapedQuote (@Nonnull final String sNextLine, final boolean bInQuotes, final int nIndex)
   {
     // 1. we are in quotes, therefore there can be escaped quotes in here.
     // 2. there is indeed another character to check.
-    return bInQuotes &&
-           sNextLine.length () > (nIndex + 1) &&
-           _isCharacterQuoteCharacter (sNextLine.charAt (nIndex + 1));
+    return bInQuotes && sNextLine.length () > (nIndex + 1) && _isCharacterQuoteCharacter (sNextLine.charAt (nIndex + 1));
   }
 
   /**
@@ -544,9 +540,7 @@ public class CSVParser implements Serializable
    *        current index in line
    * @return <code>true</code> if the following character is a quote
    */
-  protected boolean isNextCharacterEscapable (@Nonnull final String sNextLine,
-                                              final boolean bInQuotes,
-                                              final int nIndex)
+  protected boolean isNextCharacterEscapable (@Nonnull final String sNextLine, final boolean bInQuotes, final int nIndex)
   {
     // we are in quotes, therefore there can be escaped quotes in here.
     // there is indeed another character to check.

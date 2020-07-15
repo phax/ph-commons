@@ -117,8 +117,7 @@ public final class BitSetHelper
     ValueEnforcer.notNull (aBS, "BitSet");
 
     final int nMax = aBS.length ();
-    ValueEnforcer.isTrue (nMax <= CGlobal.BITS_PER_INT,
-                          () -> "Can extract only up to " + CGlobal.BITS_PER_INT + " bits");
+    ValueEnforcer.isTrue (nMax <= CGlobal.BITS_PER_INT, () -> "Can extract only up to " + CGlobal.BITS_PER_INT + " bits");
 
     int ret = 0;
     for (int i = nMax - 1; i >= 0; --i)
@@ -144,8 +143,7 @@ public final class BitSetHelper
     ValueEnforcer.notNull (aBS, "BitSet");
 
     final int nMax = aBS.length ();
-    ValueEnforcer.isTrue (nMax <= CGlobal.BITS_PER_LONG,
-                          () -> "Can extract only up to " + CGlobal.BITS_PER_LONG + " bits");
+    ValueEnforcer.isTrue (nMax <= CGlobal.BITS_PER_LONG, () -> "Can extract only up to " + CGlobal.BITS_PER_LONG + " bits");
 
     long ret = 0;
     for (int i = nMax - 1; i >= 0; --i)

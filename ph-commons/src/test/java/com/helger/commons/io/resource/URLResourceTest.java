@@ -94,8 +94,7 @@ public final class URLResourceTest
     final URL aNoNExistingURL = FileHelper.getAsURL (new File ("pom2.xml"));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ur, new URLResource (aFileURL));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ur, ur.getReadableCloneForPath (aFileURL));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ur,
-                                                                       ur.getReadableCloneForPath (aFileURL.toExternalForm ()));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ur, ur.getReadableCloneForPath (aFileURL.toExternalForm ()));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ur, new URLResource (aNoNExistingURL));
 
     assertNotNull (URLHelper.getAsFile (aFileURL));

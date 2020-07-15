@@ -70,8 +70,7 @@ public interface IJAXBReader <JAXBTYPE>
   interface IJAXBUnmarshaller <JAXBTYPE>
   {
     @Nonnull
-    JAXBElement <JAXBTYPE> doUnmarshal (@Nonnull Unmarshaller aUnmarshaller,
-                                        @Nonnull Class <JAXBTYPE> aClass) throws JAXBException;
+    JAXBElement <JAXBTYPE> doUnmarshal (@Nonnull Unmarshaller aUnmarshaller, @Nonnull Class <JAXBTYPE> aClass) throws JAXBException;
   }
 
   /**

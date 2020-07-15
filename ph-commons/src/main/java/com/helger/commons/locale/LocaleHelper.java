@@ -305,8 +305,7 @@ public final class LocaleHelper
   }
 
   @Nullable
-  public static Locale getLocaleToUseOrNull (@Nonnull final Locale aRequestLocale,
-                                             @Nonnull final Collection <Locale> aAvailableLocales)
+  public static Locale getLocaleToUseOrNull (@Nonnull final Locale aRequestLocale, @Nonnull final Collection <Locale> aAvailableLocales)
   {
     return getLocaleToUseOrFallback (aRequestLocale, aAvailableLocales, null);
   }
@@ -381,8 +380,7 @@ public final class LocaleHelper
   @Nullable
   public static String getValidLanguageCode (@Nullable final String sCode)
   {
-    if (StringHelper.hasText (sCode) &&
-        (RegExHelper.stringMatchesPattern ("[a-zA-Z]{2,8}", sCode) || isSpecialLocaleCode (sCode)))
+    if (StringHelper.hasText (sCode) && (RegExHelper.stringMatchesPattern ("[a-zA-Z]{2,8}", sCode) || isSpecialLocaleCode (sCode)))
     {
       return sCode.toLowerCase (CGlobal.LOCALE_FIXED_NUMBER_FORMAT);
     }

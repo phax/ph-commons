@@ -84,8 +84,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
     return ret;
   }
 
-  public <T> void registerSerializationConverter (@Nonnull final Class <T> aClass,
-                                                  @Nonnull final ISerializationConverter <T> aConverter)
+  public <T> void registerSerializationConverter (@Nonnull final Class <T> aClass, @Nonnull final ISerializationConverter <T> aConverter)
   {
     ValueEnforcer.notNull (aClass, "Class");
     ValueEnforcer.notNull (aConverter, "Converter");
@@ -130,12 +129,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
             if (ret != null)
             {
               if (LOGGER.isDebugEnabled ())
-                LOGGER.debug ("Using serialization converter " +
-                              ret +
-                              " for class " +
-                              aDstClass +
-                              " based on " +
-                              aCurDstClass);
+                LOGGER.debug ("Using serialization converter " + ret + " for class " + aDstClass + " based on " + aCurDstClass);
               break;
             }
           }

@@ -29,9 +29,7 @@ public final class MockMarshallerExternal extends GenericJAXBMarshaller <com.hel
     // No XSD available
     super (com.helger.jaxb.mock.external.MockJAXBArchive.class,
            null,
-           x -> new JAXBElement <> (new QName ("urn:test:external", "any"),
-                                    com.helger.jaxb.mock.external.MockJAXBArchive.class,
-                                    x));
+           x -> new JAXBElement <> (new QName ("urn:test:external", "any"), com.helger.jaxb.mock.external.MockJAXBArchive.class, x));
     setFormattedOutput (true);
     setNamespaceContext (new MapBasedNamespaceContext ().addMapping ("def", "urn:test:external"));
   }

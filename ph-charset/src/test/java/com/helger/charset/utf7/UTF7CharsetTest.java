@@ -152,8 +152,7 @@ public final class UTF7CharsetTest extends AbstractCharsetTestCase
   @Test
   public void testEncodeSimple () throws Exception
   {
-    assertEquals ("abcdefghijklmnopqrstuvwxyz",
-                  CharsetTestHelper.asString (tested.encode ("abcdefghijklmnopqrstuvwxyz")));
+    assertEquals ("abcdefghijklmnopqrstuvwxyz", CharsetTestHelper.asString (tested.encode ("abcdefghijklmnopqrstuvwxyz")));
     assertEquals (" \r\t\n", CharsetTestHelper.asString (tested.encode (" \r\t\n")));
   }
 

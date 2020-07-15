@@ -43,8 +43,7 @@ import com.helger.tree.IBasicTreeItem;
 @Immutable
 public final class TreeVisitor
 {
-  public static class HierarchyVisitorCallbackWithConversion <ITEMTYPE, DATATYPE> extends
-                                                             DefaultHierarchyVisitorCallback <ITEMTYPE>
+  public static class HierarchyVisitorCallbackWithConversion <ITEMTYPE, DATATYPE> extends DefaultHierarchyVisitorCallback <ITEMTYPE>
   {
     private final IHierarchyVisitorCallback <? super DATATYPE> m_aDataCallback;
     private final IFunction <? super ITEMTYPE, ? extends DATATYPE> m_aConverter;
@@ -164,8 +163,6 @@ public final class TreeVisitor
     ValueEnforcer.notNull (aDataCallback, "DataCallback");
 
     // Wrap callback
-    visitTreeItem (aTreeItem,
-                   aChildrenProvider,
-                   new HierarchyVisitorCallbackWithConversion <> (aDataCallback, ITEMTYPE::getData));
+    visitTreeItem (aTreeItem, aChildrenProvider, new HierarchyVisitorCallbackWithConversion <> (aDataCallback, ITEMTYPE::getData));
   }
 }

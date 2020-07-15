@@ -51,8 +51,7 @@ public class CountingFileOutputStream extends FileOutputStream
     this (aFile, DEFAULT_APPEND);
   }
 
-  public CountingFileOutputStream (@Nonnull final File aFile,
-                                   @Nonnull final EAppend eAppend) throws FileNotFoundException
+  public CountingFileOutputStream (@Nonnull final File aFile, @Nonnull final EAppend eAppend) throws FileNotFoundException
   {
     super (aFile, eAppend.isAppend ());
     s_aWriteFilesHdl.increment ();
@@ -63,8 +62,7 @@ public class CountingFileOutputStream extends FileOutputStream
     this (sFilename, DEFAULT_APPEND);
   }
 
-  public CountingFileOutputStream (@Nonnull final String sFilename,
-                                   @Nonnull final EAppend eAppend) throws FileNotFoundException
+  public CountingFileOutputStream (@Nonnull final String sFilename, @Nonnull final EAppend eAppend) throws FileNotFoundException
   {
     super (sFilename, eAppend.isAppend ());
     s_aWriteFilesHdl.increment ();

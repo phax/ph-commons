@@ -25,16 +25,13 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 
-public class MultiHashMapLinkedHashMapBased <KEYTYPE1, KEYTYPE2 extends Comparable <? super KEYTYPE2>, VALUETYPE>
-                                            extends
+public class MultiHashMapLinkedHashMapBased <KEYTYPE1, KEYTYPE2 extends Comparable <? super KEYTYPE2>, VALUETYPE> extends
                                             AbstractMultiHashMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE, ICommonsOrderedMap <KEYTYPE2, VALUETYPE>>
 {
   public MultiHashMapLinkedHashMapBased ()
   {}
 
-  public MultiHashMapLinkedHashMapBased (@Nonnull final KEYTYPE1 aKey,
-                                         @Nonnull final KEYTYPE2 aInnerKey,
-                                         @Nullable final VALUETYPE aValue)
+  public MultiHashMapLinkedHashMapBased (@Nonnull final KEYTYPE1 aKey, @Nonnull final KEYTYPE2 aInnerKey, @Nullable final VALUETYPE aValue)
   {
     super (aKey, aInnerKey, aValue);
   }

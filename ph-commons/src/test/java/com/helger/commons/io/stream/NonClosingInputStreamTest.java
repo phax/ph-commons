@@ -63,8 +63,7 @@ public final class NonClosingInputStreamTest
   public void testNonClosing ()
   {
     final MockCloseCountingInputStream aX = new MockCloseCountingInputStream (new NonBlockingByteArrayInputStream ("abc".getBytes (StandardCharsets.ISO_8859_1)));
-    StreamHelper.copyInputStreamToOutputStream (new NonClosingInputStream (aX),
-                                                new NonBlockingByteArrayOutputStream ());
+    StreamHelper.copyInputStreamToOutputStream (new NonClosingInputStream (aX), new NonBlockingByteArrayOutputStream ());
     assertEquals (0, aX.getCloseCount ());
   }
 }

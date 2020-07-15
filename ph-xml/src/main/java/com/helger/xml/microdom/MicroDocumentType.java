@@ -41,9 +41,7 @@ public final class MicroDocumentType extends AbstractMicroNode implements IMicro
     this (rhs.getQualifiedName (), rhs.getPublicID (), rhs.getSystemID ());
   }
 
-  public MicroDocumentType (@Nonnull final String sQualifiedName,
-                            @Nullable final String sPublicID,
-                            @Nullable final String sSystemID)
+  public MicroDocumentType (@Nonnull final String sQualifiedName, @Nullable final String sPublicID, @Nullable final String sSystemID)
   {
     ValueEnforcer.notEmpty (sQualifiedName, "QualifiedName");
     // publicID is null if an inline DTD is contained

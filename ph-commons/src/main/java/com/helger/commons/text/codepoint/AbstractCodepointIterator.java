@@ -218,9 +218,7 @@ public abstract class AbstractCodepointIterator implements ICodepointIterator
   }
 
   @Nonnull
-  public CodepointIteratorRestricted restrict (@Nonnull final IntPredicate aFilter,
-                                               final boolean bScanning,
-                                               final boolean bInvert)
+  public CodepointIteratorRestricted restrict (@Nonnull final IntPredicate aFilter, final boolean bScanning, final boolean bInvert)
   {
     return new CodepointIteratorRestricted (this, aFilter, bScanning, bInvert);
   }

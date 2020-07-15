@@ -322,9 +322,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @Nonnull
-  default IMicroText appendText (@Nonnull final char [] aChars,
-                                 @Nonnegative final int nOfs,
-                                 @Nonnegative final int nLen)
+  default IMicroText appendText (@Nonnull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     return appendChild (new MicroText (aChars, nOfs, nLen, false));
   }
@@ -393,9 +391,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @Nonnull
-  default IMicroText appendIgnorableWhitespaceText (@Nonnull final char [] aChars,
-                                                    @Nonnegative final int nOfs,
-                                                    @Nonnegative final int nLen)
+  default IMicroText appendIgnorableWhitespaceText (@Nonnull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     return appendChild (new MicroText (aChars, nOfs, nLen, true));
   }
@@ -445,9 +441,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @Nonnull
-  default IMicroCDATA appendCDATA (@Nonnull final char [] aChars,
-                                   @Nonnegative final int nOfs,
-                                   @Nonnegative final int nLen)
+  default IMicroCDATA appendCDATA (@Nonnull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     return appendChild (new MicroCDATA (aChars, nOfs, nLen));
   }
@@ -516,9 +510,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @Nonnull
-  default IMicroComment appendComment (@Nonnull final char [] aChars,
-                                       @Nonnegative final int nOfs,
-                                       @Nonnegative final int nLen)
+  default IMicroComment appendComment (@Nonnull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     return appendChild (new MicroComment (aChars, nOfs, nLen));
   }
@@ -603,8 +595,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @Nonnull
-  default IMicroProcessingInstruction appendProcessingInstruction (@Nonnull @Nonempty final String sTarget,
-                                                                   @Nullable final String sData)
+  default IMicroProcessingInstruction appendProcessingInstruction (@Nonnull @Nonempty final String sTarget, @Nullable final String sData)
   {
     return appendChild (new MicroProcessingInstruction (sTarget, sData));
   }

@@ -81,7 +81,7 @@ public final class UTF7CharsetProviderSPITest
   public void testIterator ()
   {
     final Iterator <Charset> iterator = tested.charsets ();
-    final ICommonsSet <Charset> found = new CommonsHashSet<> ();
+    final ICommonsSet <Charset> found = new CommonsHashSet <> ();
     while (iterator.hasNext ())
       found.add (iterator.next ());
     assertEquals (3, found.size ());

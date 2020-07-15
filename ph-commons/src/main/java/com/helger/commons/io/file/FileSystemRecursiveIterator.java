@@ -86,8 +86,7 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
    *        An optional filter that controls, into which sub-directories this
    *        iterator should descend to. May be <code>null</code>.
    */
-  public FileSystemRecursiveIterator (@Nonnull final String sBaseDir,
-                                      @Nullable final IPredicate <File> aRecursionFilter)
+  public FileSystemRecursiveIterator (@Nonnull final String sBaseDir, @Nullable final IPredicate <File> aRecursionFilter)
   {
     this (new File (sBaseDir), aRecursionFilter);
   }

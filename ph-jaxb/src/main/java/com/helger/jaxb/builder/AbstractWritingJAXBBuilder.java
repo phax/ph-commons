@@ -42,8 +42,7 @@ import com.helger.jaxb.LoggingJAXBWriteExceptionHandler;
  *        The implementation class implementing this abstract class.
  */
 @NotThreadSafe
-public abstract class AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE extends AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE>>
-                                                 extends
+public abstract class AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE extends AbstractWritingJAXBBuilder <JAXBTYPE, IMPLTYPE>> extends
                                                  AbstractJAXBBuilder <IMPLTYPE>
 {
   private Consumer <? super Marshaller> m_aMarshallerCustomizer;

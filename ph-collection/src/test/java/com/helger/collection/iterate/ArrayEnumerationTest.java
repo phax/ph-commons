@@ -113,17 +113,9 @@ public final class ArrayEnumerationTest
 
     // equals...
     ae = new ArrayEnumeration <> ("Hallo", "Welt", "from", "Copenhagen");
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ae,
-                                                                       new ArrayEnumeration <> ("Hallo",
-                                                                                                "Welt",
-                                                                                                "from",
-                                                                                                "Copenhagen"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ae,
-                                                                           new ArrayEnumeration <> ("Hallo",
-                                                                                                    "Welt",
-                                                                                                    "from"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ae,
-                                                                           new ArrayEnumeration <> (Integer.valueOf (5)));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ae, new ArrayEnumeration <> ("Hallo", "Welt", "from", "Copenhagen"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ae, new ArrayEnumeration <> ("Hallo", "Welt", "from"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (ae, new ArrayEnumeration <> (Integer.valueOf (5)));
     // Different index
     final ArrayEnumeration <String> ae2 = new ArrayEnumeration <> ("Hallo", "Welt", "from", "Copenhagen");
     ae2.nextElement ();

@@ -63,9 +63,7 @@ public interface IMicroTypeConverter <T>
    *         specified namespace and tag name otherwise.
    */
   @Nullable
-  IMicroElement convertToMicroElement (@Nonnull T aObject,
-                                       @Nullable String sNamespaceURI,
-                                       @Nonnull @Nonempty String sTagName);
+  IMicroElement convertToMicroElement (@Nonnull T aObject, @Nullable String sNamespaceURI, @Nonnull @Nonempty String sTagName);
 
   /**
    * Convert the passed object to a native element.

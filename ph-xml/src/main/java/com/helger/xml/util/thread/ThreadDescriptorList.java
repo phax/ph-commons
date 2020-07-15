@@ -188,8 +188,7 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
       {
         final StackTraceElement [] aStackTrace = aEntry.getValue ();
         final String sStackTrace = ArrayHelper.isEmpty (aStackTrace) ? "No stack trace available!\n"
-                                                                     : StackTraceHelper.getStackAsString (aStackTrace,
-                                                                                                          false);
+                                                                     : StackTraceHelper.getStackAsString (aStackTrace, false);
         ret.addDescriptor (new ThreadDescriptor (aEntry.getKey (), sStackTrace));
       }
     }

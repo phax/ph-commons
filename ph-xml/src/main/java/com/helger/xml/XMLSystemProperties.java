@@ -362,8 +362,7 @@ public final class XMLSystemProperties
    */
   public static void setXMLMaxGeneralEntitySizeLimit (@Nullable final String sMaxGeneralEntitySizeLimit)
   {
-    SystemProperties.setPropertyValue (SYSTEM_PROPERTY_JDX_XML_MAX_GENERAL_ENTITY_SIZE_LIMIT,
-                                       sMaxGeneralEntitySizeLimit);
+    SystemProperties.setPropertyValue (SYSTEM_PROPERTY_JDX_XML_MAX_GENERAL_ENTITY_SIZE_LIMIT, sMaxGeneralEntitySizeLimit);
     _onSystemPropertyChange ();
   }
 
@@ -434,8 +433,7 @@ public final class XMLSystemProperties
    */
   public static void setXMLMaxParameterEntitySizeLimit (@Nullable final String sMaxParameterEntitySizeLimit)
   {
-    SystemProperties.setPropertyValue (SYSTEM_PROPERTY_JDX_XML_MAX_PARAMETER_ENTITY_SIZE_LIMIT,
-                                       sMaxParameterEntitySizeLimit);
+    SystemProperties.setPropertyValue (SYSTEM_PROPERTY_JDX_XML_MAX_PARAMETER_ENTITY_SIZE_LIMIT, sMaxParameterEntitySizeLimit);
     _onSystemPropertyChange ();
   }
 

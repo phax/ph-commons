@@ -138,10 +138,8 @@ public final class JsonValueTest
     CommonsTestHelper.testDefaultSerialization (JsonValue.create ("Test"));
     CommonsTestHelper.testDefaultSerialization (JsonValue.create ("bla\r\nfoo\r\nfasel"));
     CommonsTestHelper.testDefaultSerialization (JsonValue.create (new BigInteger ("123456789012345678901234567890")));
-    CommonsTestHelper.testDefaultSerialization (JsonValue.create (BigInteger.valueOf (Long.MIN_VALUE)
-                                                                            .subtract (BigInteger.ONE)));
-    CommonsTestHelper.testDefaultSerialization (JsonValue.create (BigInteger.valueOf (Long.MAX_VALUE)
-                                                                            .add (BigInteger.ONE)));
+    CommonsTestHelper.testDefaultSerialization (JsonValue.create (BigInteger.valueOf (Long.MIN_VALUE).subtract (BigInteger.ONE)));
+    CommonsTestHelper.testDefaultSerialization (JsonValue.create (BigInteger.valueOf (Long.MAX_VALUE).add (BigInteger.ONE)));
     CommonsTestHelper.testDefaultSerialization (JsonValue.create (new BigDecimal ("123456789012345678901234567890.8")));
   }
 

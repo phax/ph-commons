@@ -31,10 +31,7 @@ public final class EMimeQuotingTest
   @Test
   public void testAll ()
   {
-    final String [] aTest = new String [] { "http://www.helger.com",
-                                            "äöü",
-                                            "1234567890!\"§$%&/()0",
-                                            "bla foo fasel :;,.'*+" };
+    final String [] aTest = new String [] { "http://www.helger.com", "äöü", "1234567890!\"§$%&/()0", "bla foo fasel :;,.'*+" };
 
     for (final EMimeQuoting e : EMimeQuoting.values ())
       if (e != EMimeQuoting.QUOTED_STRING)

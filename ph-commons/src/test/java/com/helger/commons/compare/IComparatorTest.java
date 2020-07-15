@@ -45,18 +45,11 @@ public final class IComparatorTest
   {
     final List <String> l = CollectionHelper.newList ("a", null, "c");
     assertEquals (3, CollectionHelper.getSorted (l, IComparator.getComparatorCollating (Locale.US)).size ());
-    assertEquals (3,
-                  CollectionHelper.getSorted (l, IComparator.getComparatorCollating (Locale.US).reversed ()).size ());
+    assertEquals (3, CollectionHelper.getSorted (l, IComparator.getComparatorCollating (Locale.US).reversed ()).size ());
     assertEquals (3, CollectionHelper.getSorted (l, IComparator.getComparatorCollating (L_EN)).size ());
     assertEquals (3, CollectionHelper.getSorted (l, IComparator.getComparatorCollating (L_FR).reversed ()).size ());
-    assertEquals (3,
-                  CollectionHelper.getSorted (l, IComparator.getComparatorCollating (Collator.getInstance (L_FR)))
-                                  .size ());
-    assertEquals (3,
-                  CollectionHelper.getSorted (l,
-                                              IComparator.getComparatorCollating (Collator.getInstance (L_FR))
-                                                         .reversed ())
-                                  .size ());
+    assertEquals (3, CollectionHelper.getSorted (l, IComparator.getComparatorCollating (Collator.getInstance (L_FR))).size ());
+    assertEquals (3, CollectionHelper.getSorted (l, IComparator.getComparatorCollating (Collator.getInstance (L_FR)).reversed ()).size ());
     CommonsTestHelper.testToStringImplementation (IComparator.getComparatorCollating (Locale.US));
 
     try

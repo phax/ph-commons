@@ -101,8 +101,7 @@ public class QuotedPrintableCodec implements IByteArrayCodec
    * @throws IOException
    *         In case writing to the OutputStream failed
    */
-  public static final void writeEncodeQuotedPrintableByte (final int b,
-                                                           @Nonnull final OutputStream aOS) throws IOException
+  public static final void writeEncodeQuotedPrintableByte (final int b, @Nonnull final OutputStream aOS) throws IOException
   {
     final char cHigh = StringHelper.getHexCharUpperCase ((b >> 4) & 0xF);
     final char cLow = StringHelper.getHexCharUpperCase (b & 0xF);

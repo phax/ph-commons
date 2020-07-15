@@ -74,8 +74,7 @@ import com.helger.xml.microdom.convert.MicroTypeConverter;
  *        Implementation type to be handled
  */
 @ThreadSafe
-public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <String> & Serializable, IMPLTYPE extends INTERFACETYPE>
-                                             extends
+public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <String> & Serializable, IMPLTYPE extends INTERFACETYPE> extends
                                              AbstractWALDAO <IMPLTYPE> implements
                                              IMapBasedDAO <INTERFACETYPE>
 {
@@ -241,8 +240,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   private void _addItem (@Nonnull final IMPLTYPE aItem, @Nonnull final EDAOActionType eActionType)
   {
     ValueEnforcer.notNull (aItem, "Item");
-    ValueEnforcer.isTrue (eActionType == EDAOActionType.CREATE || eActionType == EDAOActionType.UPDATE,
-                          "Invalid action type provided!");
+    ValueEnforcer.isTrue (eActionType == EDAOActionType.CREATE || eActionType == EDAOActionType.UPDATE, "Invalid action type provided!");
 
     final String sID = aItem.getID ();
     final IMPLTYPE aOldItem = m_aMap.get (sID);
@@ -286,8 +284,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @MustBeLocked (ELockType.WRITE)
   @Deprecated
   @DevelopersNote ("Avoid that this method is overridden")
-  protected final void markAsChanged (@Nonnull final IMPLTYPE aModifiedElement,
-                                      @Nonnull final EDAOActionType eActionType)
+  protected final void markAsChanged (@Nonnull final IMPLTYPE aModifiedElement, @Nonnull final EDAOActionType eActionType)
   {
     super.markAsChanged (aModifiedElement, eActionType);
   }
@@ -600,10 +597,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
                                              @Nonnull final Consumer <? super RETTYPE> aConsumer)
   {
     // (Runnable) cast for Java 9
-    m_aRWLock.readLocked ((Runnable) () -> CollectionHelper.findAllMapped (m_aMap.values (),
-                                                                           aFilter,
-                                                                           aMapper,
-                                                                           aConsumer));
+    m_aRWLock.readLocked ((Runnable) () -> CollectionHelper.findAllMapped (m_aMap.values (), aFilter, aMapper, aConsumer));
   }
 
   @IsLocked (ELockType.READ)
@@ -672,8 +666,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   @IsLocked (ELockType.READ)
-  public final void forEachKey (@Nullable final Predicate <? super String> aFilter,
-                                @Nullable final Consumer <? super String> aConsumer)
+  public final void forEachKey (@Nullable final Predicate <? super String> aFilter, @Nullable final Consumer <? super String> aConsumer)
   {
     m_aRWLock.readLocked ( () -> m_aMap.forEachKey (aFilter, aConsumer));
   }

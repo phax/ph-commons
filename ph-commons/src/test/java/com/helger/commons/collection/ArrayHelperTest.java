@@ -461,8 +461,7 @@ public final class ArrayHelperTest
     assertNull (getAsObjectArray (null));
     assertNull (getAsObjectArray (new CommonsArrayList <String> ()));
     assertArrayEquals (new Object [] { "Hallo" }, getAsObjectArray (CollectionHelper.newList ("Hallo")));
-    assertArrayEquals (new Object [] { "Hallo", "Welt" },
-                       getAsObjectArray (CollectionHelper.newList ("Hallo", "Welt")));
+    assertArrayEquals (new Object [] { "Hallo", "Welt" }, getAsObjectArray (CollectionHelper.newList ("Hallo", "Welt")));
     assertArrayEquals (new Object [] { I1, "Welt" }, getAsObjectArray (CollectionHelper.<Object> newList (I1, "Welt")));
   }
 
@@ -520,16 +519,12 @@ public final class ArrayHelperTest
     }
 
     {
-      assertArrayEquals (new boolean [] { false, false, true },
-                         getConcatenated (new boolean [] { false, false }, new boolean [] { true }));
-      assertArrayEquals (new boolean [] { false, false },
-                         getConcatenated (new boolean [] { false, false }, (boolean []) null));
+      assertArrayEquals (new boolean [] { false, false, true }, getConcatenated (new boolean [] { false, false }, new boolean [] { true }));
+      assertArrayEquals (new boolean [] { false, false }, getConcatenated (new boolean [] { false, false }, (boolean []) null));
       assertArrayEquals (new boolean [] { true }, getConcatenated ((boolean []) null, new boolean [] { true }));
-      assertArrayEquals (new boolean [] { false, false, true },
-                         getConcatenated (new boolean [] { false, false }, true));
+      assertArrayEquals (new boolean [] { false, false, true }, getConcatenated (new boolean [] { false, false }, true));
       assertArrayEquals (new boolean [] { true }, getConcatenated ((boolean []) null, true));
-      assertArrayEquals (new boolean [] { false, false, true },
-                         getConcatenated (false, new boolean [] { false, true }));
+      assertArrayEquals (new boolean [] { false, false, true }, getConcatenated (false, new boolean [] { false, true }));
       assertArrayEquals (new boolean [] { false }, getConcatenated (false, (boolean []) null));
     }
 
@@ -566,15 +561,11 @@ public final class ArrayHelperTest
       assertArrayEquals (new double [] { 1, 2, 3 },
                          getConcatenated (new double [] { 1, 2 }, 3),
                          CommonsAssert.DOUBLE_ALLOWED_ROUNDING_DIFFERENCE);
-      assertArrayEquals (new double [] { 3 },
-                         getConcatenated ((double []) null, 3),
-                         CommonsAssert.DOUBLE_ALLOWED_ROUNDING_DIFFERENCE);
+      assertArrayEquals (new double [] { 3 }, getConcatenated ((double []) null, 3), CommonsAssert.DOUBLE_ALLOWED_ROUNDING_DIFFERENCE);
       assertArrayEquals (new double [] { 1, 2, 3 },
                          getConcatenated (1, new double [] { 2, 3 }),
                          CommonsAssert.DOUBLE_ALLOWED_ROUNDING_DIFFERENCE);
-      assertArrayEquals (new double [] { 1 },
-                         getConcatenated (1, (double []) null),
-                         CommonsAssert.DOUBLE_ALLOWED_ROUNDING_DIFFERENCE);
+      assertArrayEquals (new double [] { 1 }, getConcatenated (1, (double []) null), CommonsAssert.DOUBLE_ALLOWED_ROUNDING_DIFFERENCE);
     }
 
     {
@@ -590,15 +581,11 @@ public final class ArrayHelperTest
       assertArrayEquals (new float [] { 1, 2, 3 },
                          getConcatenated (new float [] { 1, 2 }, 3),
                          CommonsAssert.FLOAT_ALLOWED_ROUNDING_DIFFERENCE);
-      assertArrayEquals (new float [] { 3 },
-                         getConcatenated ((float []) null, 3),
-                         CommonsAssert.FLOAT_ALLOWED_ROUNDING_DIFFERENCE);
+      assertArrayEquals (new float [] { 3 }, getConcatenated ((float []) null, 3), CommonsAssert.FLOAT_ALLOWED_ROUNDING_DIFFERENCE);
       assertArrayEquals (new float [] { 1, 2, 3 },
                          getConcatenated (1, new float [] { 2, 3 }),
                          CommonsAssert.FLOAT_ALLOWED_ROUNDING_DIFFERENCE);
-      assertArrayEquals (new float [] { 1 },
-                         getConcatenated (1, (float []) null),
-                         CommonsAssert.FLOAT_ALLOWED_ROUNDING_DIFFERENCE);
+      assertArrayEquals (new float [] { 1 }, getConcatenated (1, (float []) null), CommonsAssert.FLOAT_ALLOWED_ROUNDING_DIFFERENCE);
     }
 
     {

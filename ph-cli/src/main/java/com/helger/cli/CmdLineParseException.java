@@ -43,9 +43,7 @@ public class CmdLineParseException extends Exception
    * @param sMessage
    *        the detail message
    */
-  public CmdLineParseException (@Nonnull final ECmdLineParseError eError,
-                                @Nonnull final Option aOption,
-                                @Nonnull final String sMessage)
+  public CmdLineParseException (@Nonnull final ECmdLineParseError eError, @Nonnull final Option aOption, @Nonnull final String sMessage)
   {
     super (sMessage);
     m_eError = eError;

@@ -78,8 +78,7 @@ public final class FileSystemResourceTest
       assertTrue (aRes.getResourceID ().endsWith ("pom.xml"));
       assertTrue (aRes.getPath ().endsWith ("pom.xml"));
 
-      aRes = new FileSystemResource (new File (FilenameHelper.WINDOWS_UNC_PREFIX_LOCAL2 +
-                                               new File ("pom.xml").getAbsolutePath ()));
+      aRes = new FileSystemResource (new File (FilenameHelper.WINDOWS_UNC_PREFIX_LOCAL2 + new File ("pom.xml").getAbsolutePath ()));
       assertTrue (aRes.exists ());
       assertTrue (aRes.getResourceID ().endsWith ("pom.xml"));
       assertTrue (aRes.getPath ().endsWith ("pom.xml"));

@@ -68,8 +68,7 @@ public final class IntegrationFuncTest
   @Test
   public void testWriteRead () throws IOException
   {
-    final String [] [] data = new String [] [] { { "hello, a test", "one nested \" test" },
-                                                 { "\"\"", "test", null, "8" } };
+    final String [] [] data = new String [] [] { { "hello, a test", "one nested \" test" }, { "\"\"", "test", null, "8" } };
     final Charset aCharset = StandardCharsets.UTF_8;
 
     try (final CSVWriter writer = new CSVWriter (new OutputStreamWriter (new FileOutputStream (m_aTempFile), aCharset)))

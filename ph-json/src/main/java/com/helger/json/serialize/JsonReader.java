@@ -117,8 +117,7 @@ public final class JsonReader
    * @return {@link ESuccess}
    */
   @Nonnull
-  public static ESuccess parseJson (@Nonnull @WillClose final Reader aReader,
-                                    @Nonnull final IJsonParserHandler aParserHandler)
+  public static ESuccess parseJson (@Nonnull @WillClose final Reader aReader, @Nonnull final IJsonParserHandler aParserHandler)
   {
     return parseJson (aReader, aParserHandler, (IJsonParserCustomizeCallback) null, (IJsonParseExceptionCallback) null);
   }
@@ -184,10 +183,7 @@ public final class JsonReader
   private static EValidity _validateJson (@Nonnull @WillClose final Reader aReader)
   {
     // Force silent parsing :)
-    final ESuccess eSuccess = parseJson (aReader,
-                                         new DoNothingJsonParserHandler (),
-                                         (IJsonParserCustomizeCallback) null,
-                                         ex -> {});
+    final ESuccess eSuccess = parseJson (aReader, new DoNothingJsonParserHandler (), (IJsonParserCustomizeCallback) null, ex -> {});
     return EValidity.valueOf (eSuccess.isSuccess ());
   }
 
@@ -478,8 +474,7 @@ public final class JsonReader
    */
   @Nullable
   @Deprecated
-  public static IJson readFromString (@Nonnull final String sJson,
-                                      @Nullable final IJsonParseExceptionCallback aCustomExceptionHandler)
+  public static IJson readFromString (@Nonnull final String sJson, @Nullable final IJsonParseExceptionCallback aCustomExceptionHandler)
   {
     return builder ().setSource (sJson).setCustomExceptionCallback (aCustomExceptionHandler).read ();
   }
@@ -765,8 +760,7 @@ public final class JsonReader
    */
   @Nullable
   @Deprecated
-  public static IJson readFromReader (@Nonnull final Reader aReader,
-                                      @Nullable final IJsonParseExceptionCallback aCustomExceptionCallback)
+  public static IJson readFromReader (@Nonnull final Reader aReader, @Nullable final IJsonParseExceptionCallback aCustomExceptionCallback)
   {
     return builder ().setSource (aReader).setCustomExceptionCallback (aCustomExceptionCallback).read ();
   }
@@ -791,9 +785,7 @@ public final class JsonReader
   @Nonnull
   public static Builder builderMultiObject ()
   {
-    return builder ().setDontCloseSource (true)
-                     .setUseBufferedReader (false)
-                     .setCustomizeCallback (p -> p.setCheckForEOI (false));
+    return builder ().setDontCloseSource (true).setUseBufferedReader (false).setCustomizeCallback (p -> p.setCheckForEOI (false));
   }
 
   /**
@@ -1117,10 +1109,7 @@ public final class JsonReader
     {
       if (m_aReader == null)
         throw new IllegalStateException ("No source is set.");
-      return JsonReader.parseJson (m_aReader,
-                                   new DoNothingJsonParserHandler (),
-                                   m_aCustomizeCallback,
-                                   m_aCustomeExceptionCallback)
+      return JsonReader.parseJson (m_aReader, new DoNothingJsonParserHandler (), m_aCustomizeCallback, m_aCustomeExceptionCallback)
                        .isSuccess ();
     }
 

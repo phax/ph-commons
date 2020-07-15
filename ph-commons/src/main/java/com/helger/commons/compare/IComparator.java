@@ -54,15 +54,13 @@ public interface IComparator <DATATYPE> extends Comparator <DATATYPE>, Serializa
   }
 
   @Nonnull
-  static <T> Comparator <T> getComparatorCollating (@Nonnull final Function <? super T, String> aMapper,
-                                                    @Nullable final Locale aSortLocale)
+  static <T> Comparator <T> getComparatorCollating (@Nonnull final Function <? super T, String> aMapper, @Nullable final Locale aSortLocale)
   {
     return Comparator.<T, String> comparing (aMapper, getComparatorCollating (aSortLocale));
   }
 
   @Nonnull
-  static <T> Comparator <T> getComparatorCollating (@Nonnull final Function <? super T, String> aMapper,
-                                                    @Nonnull final Collator aCollator)
+  static <T> Comparator <T> getComparatorCollating (@Nonnull final Function <? super T, String> aMapper, @Nonnull final Collator aCollator)
   {
     return Comparator.<T, String> comparing (aMapper, getComparatorCollating (aCollator));
   }

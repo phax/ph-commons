@@ -41,10 +41,7 @@ public final class ArrayIteratorTest
   @Test
   public void testAll ()
   {
-    final ArrayIterator <String> ae = new ArrayIterator <> (ArrayHelper.newArray ("Hallo",
-                                                                                  "Welt",
-                                                                                  "from",
-                                                                                  "Copenhagen"));
+    final ArrayIterator <String> ae = new ArrayIterator <> (ArrayHelper.newArray ("Hallo", "Welt", "from", "Copenhagen"));
     for (int i = 0; i < 10; ++i)
       assertTrue (ae.hasNext ());
     assertEquals ("Hallo", ae.next ());
@@ -111,10 +108,7 @@ public final class ArrayIteratorTest
   @Test
   public void testStdMethods ()
   {
-    final ArrayIterator <String> ae = new ArrayIterator <> (ArrayHelper.newArray ("Hallo",
-                                                                                  "Welt",
-                                                                                  "from",
-                                                                                  "Copenhagen"));
+    final ArrayIterator <String> ae = new ArrayIterator <> (ArrayHelper.newArray ("Hallo", "Welt", "from", "Copenhagen"));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (ae,
                                                                        new ArrayIterator <> (ArrayHelper.newArray ("Hallo",
                                                                                                                    "Welt",

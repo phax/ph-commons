@@ -46,8 +46,7 @@ public class SimpleGraphObjectFastFactory implements IMutableGraphObjectFactory
   }
 
   @Nonnull
-  public IMutableGraphRelation createRelation (@Nonnull final IMutableGraphNode aFrom,
-                                               @Nonnull final IMutableGraphNode aTo)
+  public IMutableGraphRelation createRelation (@Nonnull final IMutableGraphNode aFrom, @Nonnull final IMutableGraphNode aTo)
   {
     return new GraphRelationFast (aFrom, aTo);
   }

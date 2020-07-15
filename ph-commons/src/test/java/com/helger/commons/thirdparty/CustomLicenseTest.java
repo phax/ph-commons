@@ -50,16 +50,9 @@ public final class CustomLicenseTest
     assertNull (cl2.getVersion ());
     assertNull (cl2.getURL ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (cl2,
-                                                                       new CustomLicense ("cl1",
-                                                                                          "License",
-                                                                                          null,
-                                                                                          null));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (cl2, new CustomLicense ("cl1", "License", null, null));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (cl,
-                                                                       new CustomLicense ("cl1",
-                                                                                          "License",
-                                                                                          Version.parse ("1.2"),
-                                                                                          "url"));
+                                                                       new CustomLicense ("cl1", "License", Version.parse ("1.2"), "url"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (cl,
                                                                            new CustomLicense ("cl12",
                                                                                               "License",
@@ -75,11 +68,7 @@ public final class CustomLicenseTest
                                                                                               "License",
                                                                                               Version.parse ("1.1"),
                                                                                               "url"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (cl,
-                                                                           new CustomLicense ("cl1",
-                                                                                              "License",
-                                                                                              null,
-                                                                                              "url"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (cl, new CustomLicense ("cl1", "License", null, "url"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (cl,
                                                                            new CustomLicense ("cl1",
                                                                                               "License",

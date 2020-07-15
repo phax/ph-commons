@@ -32,8 +32,7 @@ import com.helger.commons.state.EChange;
  * @param <VALUETYPE>
  *        Value type
  */
-public interface IMultiMapListBased <KEYTYPE, VALUETYPE> extends
-                                    IMultiMap <KEYTYPE, VALUETYPE, ICommonsList <VALUETYPE>>
+public interface IMultiMapListBased <KEYTYPE, VALUETYPE> extends IMultiMap <KEYTYPE, VALUETYPE, ICommonsList <VALUETYPE>>
 {
   /**
    * Add a single value into the container identified by the passed key at the
@@ -48,9 +47,7 @@ public interface IMultiMapListBased <KEYTYPE, VALUETYPE> extends
    * @return {@link EChange}
    */
   @Nonnull
-  default EChange putSingle (@Nonnull final KEYTYPE aKey,
-                             @Nullable final VALUETYPE aValue,
-                             @Nonnegative final int nIndex)
+  default EChange putSingle (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue, @Nonnegative final int nIndex)
   {
     getOrCreate (aKey).add (nIndex, aValue);
     return EChange.CHANGED;

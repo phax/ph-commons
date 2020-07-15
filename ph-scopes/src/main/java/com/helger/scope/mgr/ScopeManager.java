@@ -325,8 +325,7 @@ public final class ScopeManager
   }
 
   @Nonnull
-  public static IRequestScope onRequestBegin (@Nonnull @Nonempty final String sScopeID,
-                                              @Nonnull @Nonempty final String sSessionID)
+  public static IRequestScope onRequestBegin (@Nonnull @Nonempty final String sScopeID, @Nonnull @Nonempty final String sSessionID)
   {
     return onRequestBegin (sScopeID, sSessionID, RequestScope::new);
   }

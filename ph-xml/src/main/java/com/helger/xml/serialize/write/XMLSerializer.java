@@ -88,9 +88,7 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
                     throw new IllegalArgumentException ("Passed node type " + nNodeType + " is not yet supported");
   }
 
-  private void _writeNodeList (@Nonnull final XMLEmitter aXMLWriter,
-                               @Nonnull final Node aParentNode,
-                               @Nonnull final NodeList aChildren)
+  private void _writeNodeList (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final Node aParentNode, @Nonnull final NodeList aChildren)
   {
     final int nLastIndex = aChildren.getLength () - 1;
     for (int nIndex = 0; nIndex <= nLastIndex; ++nIndex)
@@ -138,14 +136,12 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
       aXMLWriter.onDocumentType (aDocType.getName (), aDocType.getPublicId (), aDocType.getSystemId ());
   }
 
-  private static void _writeProcessingInstruction (@Nonnull final XMLEmitter aXMLWriter,
-                                                   @Nonnull final ProcessingInstruction aPI)
+  private static void _writeProcessingInstruction (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final ProcessingInstruction aPI)
   {
     aXMLWriter.onProcessingInstruction (aPI.getTarget (), aPI.getData ());
   }
 
-  private static void _writeEntityReference (@Nonnull final XMLEmitter aXMLWriter,
-                                             @Nonnull final EntityReference aEntRef)
+  private static void _writeEntityReference (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final EntityReference aEntRef)
   {
     aXMLWriter.onEntityReference (aEntRef.getNodeName ());
   }
@@ -232,10 +228,7 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
           if (bEmitNamespaces)
           {
             // Eventually adds a namespace attribute in the AttrMap
-            sAttributeNSPrefix = m_aNSStack.getAttributeNamespacePrefixToUse (sAttrNamespaceURI,
-                                                                              sAttrName,
-                                                                              sAttrValue,
-                                                                              aAttrMap);
+            sAttributeNSPrefix = m_aNSStack.getAttributeNamespacePrefixToUse (sAttrNamespaceURI, sAttrName, sAttrValue, aAttrMap);
           }
 
           if (sAttributeNSPrefix != null)
@@ -246,8 +239,7 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
       });
 
       // Determine indent
-      final Element aParentElement = aParentNode != null &&
-                                     aParentNode.getNodeType () == Node.ELEMENT_NODE ? (Element) aParentNode : null;
+      final Element aParentElement = aParentNode != null && aParentNode.getNodeType () == Node.ELEMENT_NODE ? (Element) aParentNode : null;
       final String sParentNamespaceURI;
       final String sParentTagName;
       if (aParentElement != null)
@@ -269,10 +261,7 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
                                                                            bHasChildren,
                                                                            m_aSettings.getIndent ());
       final EXMLSerializeBracketMode eBracketMode = m_aSettings.getBracketModeDeterminator ()
-                                                               .getBracketMode (sElementNamespaceURI,
-                                                                                sTagName,
-                                                                                aAttrMap,
-                                                                                bHasChildren);
+                                                               .getBracketMode (sElementNamespaceURI, sTagName, aAttrMap, bHasChildren);
 
       // Indent?
       if (eIndentOuter.isIndent () && m_aIndent.length () > 0 && bIndentPrev)

@@ -113,8 +113,7 @@ public final class CombinationGeneratorFlexible <DATATYPE>
                                                         final boolean bAllowEmpty,
                                                         @Nonnull final Consumer <? super ICommonsList <DATATYPE>> aCallback)
   {
-    new CombinationGeneratorFlexible <DATATYPE> (aElements.size (), bAllowEmpty).iterateAllCombinations (aElements,
-                                                                                                         aCallback);
+    new CombinationGeneratorFlexible <DATATYPE> (aElements.size (), bAllowEmpty).iterateAllCombinations (aElements, aCallback);
   }
 
   @Nonnull

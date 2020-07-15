@@ -39,9 +39,7 @@ import com.helger.commons.collection.map.MapEntry;
  * @param <VALUETYPE>
  *        Map value type
  */
-public interface ICommonsSortedMap <KEYTYPE, VALUETYPE> extends
-                                   SortedMap <KEYTYPE, VALUETYPE>,
-                                   ICommonsMap <KEYTYPE, VALUETYPE>
+public interface ICommonsSortedMap <KEYTYPE, VALUETYPE> extends SortedMap <KEYTYPE, VALUETYPE>, ICommonsMap <KEYTYPE, VALUETYPE>
 {
   /**
    * Create a new {@link CommonsTreeMap}.

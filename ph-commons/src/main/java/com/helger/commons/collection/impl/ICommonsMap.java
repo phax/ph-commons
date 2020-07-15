@@ -434,8 +434,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    * @see #forEachKey(Consumer)
    * @see #forEach(BiPredicate, BiConsumer)
    */
-  default void forEachKey (@Nullable final Predicate <? super KEYTYPE> aFilter,
-                           @Nonnull final Consumer <? super KEYTYPE> aConsumer)
+  default void forEachKey (@Nullable final Predicate <? super KEYTYPE> aFilter, @Nonnull final Consumer <? super KEYTYPE> aConsumer)
   {
     if (aFilter == null)
       forEachKey (aConsumer);
@@ -454,8 +453,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    * @see #forEachValue(Consumer)
    * @see #forEach(BiPredicate, BiConsumer)
    */
-  default void forEachValue (@Nullable final Predicate <? super VALUETYPE> aFilter,
-                             @Nonnull final Consumer <? super VALUETYPE> aConsumer)
+  default void forEachValue (@Nullable final Predicate <? super VALUETYPE> aFilter, @Nonnull final Consumer <? super VALUETYPE> aConsumer)
   {
     if (aFilter == null)
       forEachValue (aConsumer);
@@ -537,9 +535,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    *        The value predicate to be checked before insertion. May not be
    *        <code>null</code>.
    */
-  default void putIf (@Nonnull final KEYTYPE aKey,
-                      @Nullable final VALUETYPE aValue,
-                      @Nonnull final Predicate <? super VALUETYPE> aFilter)
+  default void putIf (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue, @Nonnull final Predicate <? super VALUETYPE> aFilter)
   {
     ValueEnforcer.notNull (aFilter, "Filter");
     if (aFilter.test (aValue))

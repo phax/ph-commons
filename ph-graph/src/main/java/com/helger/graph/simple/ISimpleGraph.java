@@ -57,7 +57,5 @@ public interface ISimpleGraph extends IMutableGraph
    * @return The created graph relation and never <code>null</code>.
    */
   @Nonnull
-  IMutableGraphRelation createRelation (@Nonnull @Nonempty String sRelationID,
-                                        @Nonnull String sFromNodeID,
-                                        @Nonnull String sToNodeID);
+  IMutableGraphRelation createRelation (@Nonnull @Nonempty String sRelationID, @Nonnull String sFromNodeID, @Nonnull String sToNodeID);
 }

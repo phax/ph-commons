@@ -534,12 +534,7 @@ public final class StringHelperTest
   @Test
   public void testImplodeMap ()
   {
-    final ICommonsOrderedMap <String, String> aMap = CollectionHelper.newOrderedMap ("a",
-                                                                                     "true",
-                                                                                     "b",
-                                                                                     "true",
-                                                                                     "c",
-                                                                                     "false");
+    final ICommonsOrderedMap <String, String> aMap = CollectionHelper.newOrderedMap ("a", "true", "b", "true", "c", "false");
     assertEquals ("atruebtruecfalse", StringHelper.getImploded ("", "", aMap));
     assertEquals ("atrue,btrue,cfalse", StringHelper.getImploded (",", "", aMap));
     assertEquals ("a,trueb,truec,false", StringHelper.getImploded ("", ",", aMap));
@@ -1622,17 +1617,11 @@ public final class StringHelperTest
     assertArrayEquals ("bb".toCharArray (),
                        StringHelper.replaceMultiple ("a", new char [] { 'a' }, new char [] [] { "bb".toCharArray () }));
     assertArrayEquals ("bbbb".toCharArray (),
-                       StringHelper.replaceMultiple ("aa",
-                                                     new char [] { 'a' },
-                                                     new char [] [] { "bb".toCharArray () }));
+                       StringHelper.replaceMultiple ("aa", new char [] { 'a' }, new char [] [] { "bb".toCharArray () }));
     assertArrayEquals ("cdc".toCharArray (),
-                       StringHelper.replaceMultiple ("cdc",
-                                                     new char [] { 'a' },
-                                                     new char [] [] { "bb".toCharArray () }));
+                       StringHelper.replaceMultiple ("cdc", new char [] { 'a' }, new char [] [] { "bb".toCharArray () }));
     assertArrayEquals ("cbbc".toCharArray (),
-                       StringHelper.replaceMultiple ("cac",
-                                                     new char [] { 'a' },
-                                                     new char [] [] { "bb".toCharArray () }));
+                       StringHelper.replaceMultiple ("cac", new char [] { 'a' }, new char [] [] { "bb".toCharArray () }));
     assertArrayEquals ("ddbbdd".toCharArray (),
                        StringHelper.replaceMultiple ("cac",
                                                      new char [] { 'a', 'c' },
@@ -1689,24 +1678,15 @@ public final class StringHelperTest
     assertEquals ("cbbc", aSW.getAsString ());
 
     aSW = new NonBlockingStringWriter ();
-    StringHelper.replaceMultipleTo ("cac",
-                                    new char [] { 'a', 'c' },
-                                    new char [] [] { "bb".toCharArray (), "dd".toCharArray () },
-                                    aSW);
+    StringHelper.replaceMultipleTo ("cac", new char [] { 'a', 'c' }, new char [] [] { "bb".toCharArray (), "dd".toCharArray () }, aSW);
     assertEquals ("ddbbdd", aSW.getAsString ());
 
     aSW = new NonBlockingStringWriter ();
-    StringHelper.replaceMultipleTo ("<cac>",
-                                    new char [] { 'a', 'c' },
-                                    new char [] [] { "bb".toCharArray (), "dd".toCharArray () },
-                                    aSW);
+    StringHelper.replaceMultipleTo ("<cac>", new char [] { 'a', 'c' }, new char [] [] { "bb".toCharArray (), "dd".toCharArray () }, aSW);
     assertEquals ("<ddbbdd>", aSW.getAsString ());
 
     aSW = new NonBlockingStringWriter ();
-    StringHelper.replaceMultipleTo ("",
-                                    new char [] { 'a', 'c' },
-                                    new char [] [] { "bb".toCharArray (), "dd".toCharArray () },
-                                    aSW);
+    StringHelper.replaceMultipleTo ("", new char [] { 'a', 'c' }, new char [] [] { "bb".toCharArray (), "dd".toCharArray () }, aSW);
     assertEquals ("", aSW.getAsString ());
 
     aSW = new NonBlockingStringWriter ();

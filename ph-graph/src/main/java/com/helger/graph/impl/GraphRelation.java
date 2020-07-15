@@ -45,9 +45,7 @@ public class GraphRelation extends AbstractBaseGraphObject implements IMutableGr
     this (null, aNode1, aNode2);
   }
 
-  public GraphRelation (@Nullable final String sID,
-                        @Nonnull final IMutableGraphNode aNode1,
-                        @Nonnull final IMutableGraphNode aNode2)
+  public GraphRelation (@Nullable final String sID, @Nonnull final IMutableGraphNode aNode1, @Nonnull final IMutableGraphNode aNode2)
   {
     super (sID);
     ValueEnforcer.notNull (aNode1, "Node1");
@@ -112,9 +110,6 @@ public class GraphRelation extends AbstractBaseGraphObject implements IMutableGr
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ())
-                            .append ("node1", m_aNode1)
-                            .append ("node2", m_aNode2)
-                            .getToString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("node1", m_aNode1).append ("node2", m_aNode2).getToString ();
   }
 }

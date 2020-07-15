@@ -685,22 +685,16 @@ public final class VersionTest
   @Test
   public void testHashCode ()
   {
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, "4"),
-                                                                       new Version (1, 2, 3, "4"));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, "4"),
-                                                                       Version.parse ("1.2.3.4"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, "4"), new Version (1, 2, 3, "4"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new Version (1, 2, 3, "4"), Version.parse ("1.2.3.4"));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new Version (1), Version.parse ("1"));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (Version.parse ("1"), Version.parse ("   1"));
 
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, "4"),
-                                                                           new Version (1, 2, 3));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, "4"),
-                                                                           new Version (1, 2, 3, "5"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, "4"),
-                                                                           Version.parse ("1.3.3.4"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, "4"), new Version (1, 2, 3));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, "4"), new Version (1, 2, 3, "5"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Version (1, 2, 3, "4"), Version.parse ("1.3.3.4"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new Version (2), Version.parse ("1"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (Version.parse ("1"),
-                                                                           Version.parse ("   11"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (Version.parse ("1"), Version.parse ("   11"));
   }
 
   @Test

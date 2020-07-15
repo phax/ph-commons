@@ -60,8 +60,7 @@ public interface IKeyStoreType extends IHasID <String>, Serializable
    *            provider list.
    */
   @Nonnull
-  default KeyStore getKeyStore (@Nonnull @Nonempty final String sProvider) throws KeyStoreException,
-                                                                           NoSuchProviderException
+  default KeyStore getKeyStore (@Nonnull @Nonempty final String sProvider) throws KeyStoreException, NoSuchProviderException
   {
     return KeyStore.getInstance (getID (), sProvider);
   }

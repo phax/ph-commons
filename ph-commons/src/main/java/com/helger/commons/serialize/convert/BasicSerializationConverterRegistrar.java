@@ -43,8 +43,7 @@ public final class BasicSerializationConverterRegistrar implements ISerializatio
 
   private static final class SerializationConverterBufferedImage implements ISerializationConverter <BufferedImage>
   {
-    public void writeConvertedObject (@Nonnull final BufferedImage aSourceObject,
-                                      @Nonnull final ObjectOutputStream aOOS) throws IOException
+    public void writeConvertedObject (@Nonnull final BufferedImage aSourceObject, @Nonnull final ObjectOutputStream aOOS) throws IOException
     {
       ImageIO.write (aSourceObject, "png", aOOS);
     }
@@ -57,8 +56,7 @@ public final class BasicSerializationConverterRegistrar implements ISerializatio
 
   private static final class SerializationConverterCharset implements ISerializationConverter <Charset>
   {
-    public void writeConvertedObject (@Nonnull final Charset aSourceObject,
-                                      @Nonnull final ObjectOutputStream aOOS) throws IOException
+    public void writeConvertedObject (@Nonnull final Charset aSourceObject, @Nonnull final ObjectOutputStream aOOS) throws IOException
     {
       StreamHelper.writeSafeUTF (aOOS, aSourceObject.name ());
     }

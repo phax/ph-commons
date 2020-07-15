@@ -75,10 +75,7 @@ public class LocaleCache
      * @return The created Locale or <code>null</code>.
      */
     @Nullable
-    Locale onMissingLocale (@Nonnull String sLocaleKey,
-                            @Nonnull String sLanguage,
-                            @Nonnull String sCountry,
-                            @Nonnull String sVariant);
+    Locale onMissingLocale (@Nonnull String sLocaleKey, @Nonnull String sLanguage, @Nonnull String sCountry, @Nonnull String sVariant);
   }
 
   private static final class SingletonHolder
@@ -228,9 +225,7 @@ public class LocaleCache
    *         <code>null</code> or empty
    */
   @Nullable
-  public Locale getLocale (@Nullable final String sLanguage,
-                           @Nullable final String sCountry,
-                           @Nullable final String sVariant)
+  public Locale getLocale (@Nullable final String sLanguage, @Nullable final String sCountry, @Nullable final String sVariant)
   {
     // Try fetching again in writeLock
     // not yet in cache, create a new one
@@ -252,9 +247,7 @@ public class LocaleCache
    * @return String
    */
   @Nonnull
-  private static String _buildLocaleString (@Nonnull final String sLanguage,
-                                            @Nonnull final String sCountry,
-                                            @Nonnull final String sVariant)
+  private static String _buildLocaleString (@Nonnull final String sLanguage, @Nonnull final String sCountry, @Nonnull final String sVariant)
   {
     final StringBuilder aLocaleSB = new StringBuilder ();
     if (sLanguage.length () > 0)
@@ -402,9 +395,7 @@ public class LocaleCache
    * @return <code>true</code> if it is in the cache, <code>false</code>
    *         otherwise.
    */
-  public boolean containsLocale (@Nullable final String sLanguage,
-                                 @Nullable final String sCountry,
-                                 @Nullable final String sVariant)
+  public boolean containsLocale (@Nullable final String sLanguage, @Nullable final String sCountry, @Nullable final String sVariant)
   {
     final String sLocaleKey = _createLocaleKey (sLanguage, sCountry, sVariant);
     if (sLocaleKey.length () == 0)

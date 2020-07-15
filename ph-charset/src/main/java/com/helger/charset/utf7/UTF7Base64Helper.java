@@ -68,9 +68,7 @@ final class UTF7Base64Helper
   {
     m_aAlphabet = sAlphabet.toCharArray ();
     if (sAlphabet.length () != ALPHABET_LENGTH)
-      throw new IllegalArgumentException ("alphabet has incorrect length (should be 64, not " +
-                                          sAlphabet.length () +
-                                          ")");
+      throw new IllegalArgumentException ("alphabet has incorrect length (should be 64, not " + sAlphabet.length () + ")");
     m_aInverseAlphabet = new int [128];
     Arrays.fill (m_aInverseAlphabet, -1);
     for (int i = 0; i < m_aAlphabet.length; i++)

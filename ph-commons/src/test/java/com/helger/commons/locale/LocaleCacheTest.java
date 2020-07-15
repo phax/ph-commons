@@ -78,8 +78,7 @@ public final class LocaleCacheTest
     assertNull (LocaleCache.getInstance ().getLocale ("gb result: chosen nickname \"stevenwhitecotton063\"; success;"));
     assertNull (LocaleCache.getInstance ().getLocale ("aa bb"));
 
-    assertNull (LocaleCache.getInstance ()
-                           .getLocaleExt ("foo result: chosen nickname \"stevenwhitecotton063\"; success;", MLH_NULL));
+    assertNull (LocaleCache.getInstance ().getLocaleExt ("foo result: chosen nickname \"stevenwhitecotton063\"; success;", MLH_NULL));
     assertNull (LocaleCache.getInstance ().getLocaleExt ("aa cc", MLH_NULL));
   }
 

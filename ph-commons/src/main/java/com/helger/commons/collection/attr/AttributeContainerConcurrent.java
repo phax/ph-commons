@@ -40,8 +40,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        Value type
  */
 @ThreadSafe
-public class AttributeContainerConcurrent <KEYTYPE, VALUETYPE> extends CommonsConcurrentHashMap <KEYTYPE, VALUETYPE>
-                                          implements
+public class AttributeContainerConcurrent <KEYTYPE, VALUETYPE> extends CommonsConcurrentHashMap <KEYTYPE, VALUETYPE> implements
                                           IAttributeContainer <KEYTYPE, VALUETYPE>
 {
   private final CallbackList <IBeforeSetValueCallback <KEYTYPE, VALUETYPE>> m_aBeforeCallbacks = new CallbackList <> ();

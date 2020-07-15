@@ -52,8 +52,7 @@ public final class ResourceBundleHelper
   {}
 
   @Nullable
-  public static ResourceBundle getResourceBundle (@Nonnull final String sBundleName,
-                                                  @Nonnull final Locale aContentLocale)
+  public static ResourceBundle getResourceBundle (@Nonnull final String sBundleName, @Nonnull final Locale aContentLocale)
   {
     return getResourceBundle (sBundleName, aContentLocale, ClassLoaderHelper.getDefaultClassLoader ());
   }
@@ -74,8 +73,7 @@ public final class ResourceBundleHelper
   }
 
   @Nullable
-  public static ResourceBundle getUtf8ResourceBundle (@Nonnull final String sBundleName,
-                                                      @Nonnull final Locale aContentLocale)
+  public static ResourceBundle getUtf8ResourceBundle (@Nonnull final String sBundleName, @Nonnull final Locale aContentLocale)
   {
     return getUtf8ResourceBundle (sBundleName, aContentLocale, ClassLoaderHelper.getDefaultClassLoader ());
   }
@@ -101,8 +99,7 @@ public final class ResourceBundleHelper
   }
 
   @Nullable
-  public static String getString (@Nullable final ResourceBundle aResourceBundle,
-                                  @Nonnull @PropertyKey final String sKey)
+  public static String getString (@Nullable final ResourceBundle aResourceBundle, @Nonnull @PropertyKey final String sKey)
   {
     if (aResourceBundle != null)
       try

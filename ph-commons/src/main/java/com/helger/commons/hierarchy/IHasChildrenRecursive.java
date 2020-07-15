@@ -29,8 +29,7 @@ import javax.annotation.Nonnull;
  * @param <CHILDTYPE>
  *        The type of the children.
  */
-public interface IHasChildrenRecursive <CHILDTYPE extends IHasChildrenRecursive <CHILDTYPE>> extends
-                                       IHasChildren <CHILDTYPE>
+public interface IHasChildrenRecursive <CHILDTYPE extends IHasChildrenRecursive <CHILDTYPE>> extends IHasChildren <CHILDTYPE>
 {
   default void forAllChildrenRecursive (@Nonnull final Consumer <? super CHILDTYPE> aConsumer)
   {

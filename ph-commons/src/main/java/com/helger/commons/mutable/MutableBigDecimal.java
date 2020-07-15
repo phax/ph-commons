@@ -165,17 +165,13 @@ public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal
   }
 
   @Nonnull
-  public BigDecimal divide (final long nDivisor,
-                            @Nonnegative final int nScale,
-                            @Nonnull final RoundingMode eRoundingMode)
+  public BigDecimal divide (final long nDivisor, @Nonnegative final int nScale, @Nonnull final RoundingMode eRoundingMode)
   {
     return divide (MathHelper.toBigDecimal (nDivisor), nScale, eRoundingMode);
   }
 
   @Nonnull
-  public BigDecimal divide (final double dDivisor,
-                            @Nonnegative final int nScale,
-                            @Nonnull final RoundingMode eRoundingMode)
+  public BigDecimal divide (final double dDivisor, @Nonnegative final int nScale, @Nonnull final RoundingMode eRoundingMode)
   {
     return divide (MathHelper.toBigDecimal (dDivisor), nScale, eRoundingMode);
   }
@@ -190,9 +186,7 @@ public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal
   }
 
   @Nonnull
-  public BigDecimal divide (@Nonnull final BigDecimal aDivisor,
-                            @Nonnegative final int nScale,
-                            @Nonnull final RoundingMode eRoundingMode)
+  public BigDecimal divide (@Nonnull final BigDecimal aDivisor, @Nonnegative final int nScale, @Nonnull final RoundingMode eRoundingMode)
   {
     ValueEnforcer.notNull (aDivisor, "Divisor");
     m_aValue = m_aValue.divide (aDivisor, nScale, eRoundingMode);

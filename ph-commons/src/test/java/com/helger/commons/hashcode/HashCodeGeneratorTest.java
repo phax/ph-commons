@@ -190,11 +190,9 @@ public final class HashCodeGeneratorTest
     assertEquals (0, BigDecimal.ZERO.hashCode ());
     // -> That's why there is a special "null" handling in the HashCodeGenerator
     assertFalse (new HashCodeGenerator (this).append (BigDecimal.ZERO)
-                                             .getHashCode () == new HashCodeGenerator (this).append ((BigDecimal) null)
-                                                                                            .getHashCode ());
+                                             .getHashCode () == new HashCodeGenerator (this).append ((BigDecimal) null).getHashCode ());
     // Check that array class and native class don't have the same hash code
-    assertNotEquals (new HashCodeGenerator (new Byte [1]).getHashCode (),
-                     new HashCodeGenerator (Byte.valueOf ((byte) 0)).getHashCode ());
+    assertNotEquals (new HashCodeGenerator (new Byte [1]).getHashCode (), new HashCodeGenerator (Byte.valueOf ((byte) 0)).getHashCode ());
 
     // Check that the derived hash code is not modified
     final int nHashCode = new HashCodeGenerator (this).append (123).getHashCode ();

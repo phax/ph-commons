@@ -122,9 +122,7 @@ public class NonBlockingByteArrayInputStream extends InputStream implements Seri
    * @param nLen
    *        the maximum number of bytes to read from the buffer.
    */
-  public NonBlockingByteArrayInputStream (@Nonnull final byte [] aBuf,
-                                          @Nonnegative final int nOfs,
-                                          @Nonnegative final int nLen)
+  public NonBlockingByteArrayInputStream (@Nonnull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     this (aBuf, nOfs, nLen, DEFAULT_COPY_NEEDED);
   }

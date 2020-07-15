@@ -94,8 +94,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    * @throws ClassNotFoundException
    *         In case reading failed
    */
-  protected final void readAbstractSingletonFields (@Nonnull final ObjectInputStream aOIS) throws IOException,
-                                                                                           ClassNotFoundException
+  protected final void readAbstractSingletonFields (@Nonnull final ObjectInputStream aOIS) throws IOException, ClassNotFoundException
   {
     m_aStatus = (BitSet) aOIS.readObject ();
   }
@@ -124,8 +123,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
         }
 
         // Special handling when deserializing from a stream
-        if (aStackTraceElement.getClassName ().equals (ObjectInputStream.class.getName ()) &&
-            sMethodName.equals ("readOrdinaryObject"))
+        if (aStackTraceElement.getClassName ().equals (ObjectInputStream.class.getName ()) && sMethodName.equals ("readOrdinaryObject"))
         {
           bFound = true;
           break;
@@ -466,8 +464,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    *         If instantiation failed
    */
   @Nonnull
-  private static <T extends AbstractSingleton> T _instantiateSingleton (@Nonnull final Class <T> aClass,
-                                                                        @Nonnull final IScope aScope)
+  private static <T extends AbstractSingleton> T _instantiateSingleton (@Nonnull final Class <T> aClass, @Nonnull final IScope aScope)
   {
     // create new object in passed scope
     try
@@ -508,10 +505,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
     }
     catch (final Exception ex)
     {
-      throw new IllegalStateException ("Error instantiating singleton of class " +
-                                       aClass.getName () +
-                                       " in scope " +
-                                       aScope.toString (),
+      throw new IllegalStateException ("Error instantiating singleton of class " + aClass.getName () + " in scope " + aScope.toString (),
                                        ex);
     }
   }
@@ -530,8 +524,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    * @return The singleton object and never <code>null</code>.
    */
   @Nonnull
-  public static final <T extends AbstractSingleton> T getSingleton (@Nonnull final IScope aScope,
-                                                                    @Nonnull final Class <T> aClass)
+  public static final <T extends AbstractSingleton> T getSingleton (@Nonnull final IScope aScope, @Nonnull final Class <T> aClass)
   {
     ValueEnforcer.notNull (aScope, "aScope");
     ValueEnforcer.notNull (aClass, "Class");
@@ -600,10 +593,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
       // Just a small note in case we're returning an unusable object
       if (!aInstance.isUsableObject ())
         if (LOGGER.isWarnEnabled ())
-          LOGGER.warn ("Singleton '" +
-                       aClass.getName () +
-                       "' is not usable - please check your calling order: " +
-                       aInstance.toString (),
+          LOGGER.warn ("Singleton '" + aClass.getName () + "' is not usable - please check your calling order: " + aInstance.toString (),
                        SingletonHelper.getDebugStackTrace ());
     }
 

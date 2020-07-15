@@ -134,8 +134,7 @@ public interface IHasChildren <CHILDTYPE>
    *        The consumer to be invoked for all children matching the filter. May
    *        not be <code>null</code>.
    */
-  default void forAllChildren (@Nonnull final Predicate <? super CHILDTYPE> aFilter,
-                               @Nonnull final Consumer <? super CHILDTYPE> aConsumer)
+  default void forAllChildren (@Nonnull final Predicate <? super CHILDTYPE> aFilter, @Nonnull final Consumer <? super CHILDTYPE> aConsumer)
   {
     if (hasChildren ())
       getChildren ().findAll (aFilter, aConsumer);

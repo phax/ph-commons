@@ -49,8 +49,7 @@ public class MultiLinkedHashMapTreeSetBased <KEYTYPE, VALUETYPE extends Comparab
     super (aKey, aValue);
   }
 
-  public MultiLinkedHashMapTreeSetBased (@Nullable final KEYTYPE aKey,
-                                         @Nullable final ICommonsNavigableSet <VALUETYPE> aCollection)
+  public MultiLinkedHashMapTreeSetBased (@Nullable final KEYTYPE aKey, @Nullable final ICommonsNavigableSet <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }

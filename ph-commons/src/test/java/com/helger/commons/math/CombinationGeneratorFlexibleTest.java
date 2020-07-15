@@ -125,8 +125,7 @@ public final class CombinationGeneratorFlexibleTest extends AbstractCombinationG
     CombinationGenerator.addAllPermutations (aInputList, aInputList.size (), aSimplePermutations);
 
     // Flexible combination generator
-    final ICommonsSet <ICommonsList <String>> aFlexiblePermutations = CombinationGeneratorFlexible.getCombinations (aInputList,
-                                                                                                                    true);
+    final ICommonsSet <ICommonsList <String>> aFlexiblePermutations = CombinationGeneratorFlexible.getCombinations (aInputList, true);
     assertTrue (aFlexiblePermutations.size () >= aSimplePermutations.size ());
 
     // Now the assumptions: I assume that all permutations from the flexible

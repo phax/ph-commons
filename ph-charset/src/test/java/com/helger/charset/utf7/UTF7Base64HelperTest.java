@@ -26,9 +26,7 @@ import org.junit.Test;
 
 public final class UTF7Base64HelperTest
 {
-  private static final String BASE64_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
-                                                "abcdefghijklmnopqrstuvwxyz" +
-                                                "0123456789+/";
+  private static final String BASE64_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz" + "0123456789+/";
   private UTF7Base64Helper tested;
 
   @Before

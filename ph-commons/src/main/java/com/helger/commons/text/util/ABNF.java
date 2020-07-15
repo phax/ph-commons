@@ -102,18 +102,8 @@ public final class ABNF
                                                      BIT_CHAR | BIT_VCHAR,
                                                      BIT_CHAR | BIT_VCHAR,
                                                      // 0x30-0x3f
-                                                     BIT_BIT |
-                                                                           BIT_CHAR |
-                                                                           BIT_DIGIT |
-                                                                           BIT_HEXDIGIT |
-                                                                           BIT_VCHAR |
-                                                                           BIT_HEXDIGIT_CI,
-                                                     BIT_BIT |
-                                                                                            BIT_CHAR |
-                                                                                            BIT_DIGIT |
-                                                                                            BIT_HEXDIGIT |
-                                                                                            BIT_VCHAR |
-                                                                                            BIT_HEXDIGIT_CI,
+                                                     BIT_BIT | BIT_CHAR | BIT_DIGIT | BIT_HEXDIGIT | BIT_VCHAR | BIT_HEXDIGIT_CI,
+                                                     BIT_BIT | BIT_CHAR | BIT_DIGIT | BIT_HEXDIGIT | BIT_VCHAR | BIT_HEXDIGIT_CI,
                                                      BIT_CHAR | BIT_DIGIT | BIT_HEXDIGIT | BIT_VCHAR | BIT_HEXDIGIT_CI,
                                                      BIT_CHAR | BIT_DIGIT | BIT_HEXDIGIT | BIT_VCHAR | BIT_HEXDIGIT_CI,
                                                      BIT_CHAR | BIT_DIGIT | BIT_HEXDIGIT | BIT_VCHAR | BIT_HEXDIGIT_CI,

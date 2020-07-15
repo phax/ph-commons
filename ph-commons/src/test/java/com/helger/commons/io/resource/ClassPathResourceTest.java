@@ -241,18 +241,15 @@ public final class ClassPathResourceTest
     final ClassPathResource aCPISP1b = new ClassPathResource ("folder/test2.txt");
     final ClassPathResource aCPISP2 = new ClassPathResource ("folder/test1.txt");
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aCPISP1a, aCPISP1b);
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aCPISP1a,
-                                                                       new ClassPathResource ("cp:folder/test2.txt"));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aCPISP1a,
-                                                                       new ClassPathResource ("classpath:folder/test2.txt"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aCPISP1a, new ClassPathResource ("cp:folder/test2.txt"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aCPISP1a, new ClassPathResource ("classpath:folder/test2.txt"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aCPISP1a, aCPISP2);
     CommonsTestHelper.testDefaultSerialization (aCPISP1a);
     CommonsTestHelper.testDefaultSerialization (new ClassPathResource ("folder/test2.txt"));
     try
     {
       // Can't serialize with class loader
-      CommonsTestHelper.testDefaultSerialization (new ClassPathResource ("folder/test2.txt",
-                                                                         ClassLoaderHelper.getDefaultClassLoader ()));
+      CommonsTestHelper.testDefaultSerialization (new ClassPathResource ("folder/test2.txt", ClassLoaderHelper.getDefaultClassLoader ()));
       fail ();
     }
     catch (final IllegalArgumentException ex)

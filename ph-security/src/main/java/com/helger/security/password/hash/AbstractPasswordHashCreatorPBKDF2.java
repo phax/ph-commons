@@ -93,10 +93,7 @@ public abstract class AbstractPasswordHashCreatorPBKDF2 extends AbstractPassword
     ValueEnforcer.notNull (aSalt, "Salt");
     ValueEnforcer.notNull (sPlainTextPassword, "PlainTextPassword");
 
-    final byte [] aDigest = pbkdf2 (sPlainTextPassword.toCharArray (),
-                                    aSalt.getSaltBytes (),
-                                    m_nIterations,
-                                    m_nHashBytes);
+    final byte [] aDigest = pbkdf2 (sPlainTextPassword.toCharArray (), aSalt.getSaltBytes (), m_nIterations, m_nHashBytes);
     return StringHelper.getHexEncoded (aDigest);
   }
 }

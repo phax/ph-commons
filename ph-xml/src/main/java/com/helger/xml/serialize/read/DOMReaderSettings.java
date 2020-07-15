@@ -244,8 +244,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
   }
 
   @Nonnull
-  public final DOMReaderSettings setPropertyValue (@Nonnull final EXMLParserProperty eProperty,
-                                                   @Nullable final Object aPropertyValue)
+  public final DOMReaderSettings setPropertyValue (@Nonnull final EXMLParserProperty eProperty, @Nullable final Object aPropertyValue)
   {
     ValueEnforcer.notNull (eProperty, "Property");
 
@@ -330,8 +329,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
   }
 
   @Nonnull
-  public final DOMReaderSettings setFeatureValue (@Nonnull final EXMLParserFeature eFeature,
-                                                  @Nullable final Boolean aValue)
+  public final DOMReaderSettings setFeatureValue (@Nonnull final EXMLParserFeature eFeature, @Nullable final Boolean aValue)
   {
     ValueEnforcer.notNull (eFeature, "Feature");
 

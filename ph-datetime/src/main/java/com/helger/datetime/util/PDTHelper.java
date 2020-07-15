@@ -169,9 +169,7 @@ public final class PDTHelper
     return x.getYear () == y.getYear () && x.getDayOfYear () == y.getDayOfYear ();
   }
 
-  public static boolean isSameYearAndWeek (@Nonnull final LocalDate x,
-                                           @Nonnull final LocalDate y,
-                                           @Nonnull final Locale aLocale)
+  public static boolean isSameYearAndWeek (@Nonnull final LocalDate x, @Nonnull final LocalDate y, @Nonnull final Locale aLocale)
   {
     return x.getYear () == y.getYear () && getWeekOfWeekBasedYear (x, aLocale) == getWeekOfWeekBasedYear (y, aLocale);
   }
@@ -343,8 +341,7 @@ public final class PDTHelper
   }
 
   @Nonnull
-  public static OffsetDateTime getMax (@Nonnull final OffsetDateTime aDateTime1,
-                                       @Nonnull final OffsetDateTime aDateTime2)
+  public static OffsetDateTime getMax (@Nonnull final OffsetDateTime aDateTime1, @Nonnull final OffsetDateTime aDateTime2)
   {
     return aDateTime1.isAfter (aDateTime2) ? aDateTime1 : aDateTime2;
   }
@@ -374,8 +371,7 @@ public final class PDTHelper
   }
 
   @Nonnull
-  public static OffsetDateTime getMin (@Nonnull final OffsetDateTime aDateTime1,
-                                       @Nonnull final OffsetDateTime aDateTime2)
+  public static OffsetDateTime getMin (@Nonnull final OffsetDateTime aDateTime1, @Nonnull final OffsetDateTime aDateTime2)
   {
     return aDateTime1.isBefore (aDateTime2) ? aDateTime1 : aDateTime2;
   }

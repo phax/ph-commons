@@ -200,8 +200,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
       if (nLevel > 0)
       {
         if (m_aElementStateStack.peek ().m_nTextBasedContentCount == 0)
-          m_aEmitter.onContentElementWhitespace (StringHelper.getRepeated (m_aEmitter.getXMLWriterSettings ()
-                                                                                     .getIndentationString (),
+          m_aEmitter.onContentElementWhitespace (StringHelper.getRepeated (m_aEmitter.getXMLWriterSettings ().getIndentationString (),
                                                                            nLevel));
       }
     }
@@ -217,8 +216,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
       if (nLevel > 0)
       {
         if (m_aElementStateStack.peek ().m_nTextBasedContentCount == 0)
-          m_aEmitter.onContentElementWhitespace (StringHelper.getRepeated (m_aEmitter.getXMLWriterSettings ()
-                                                                                     .getIndentationString (),
+          m_aEmitter.onContentElementWhitespace (StringHelper.getRepeated (m_aEmitter.getXMLWriterSettings ().getIndentationString (),
                                                                            nLevel));
       }
     }
@@ -296,8 +294,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
     writeStartDocument (_getSettings ().getCharset (), EXMLVersion.getFromVersionOrNull (sVersion));
   }
 
-  public void writeStartDocument (@Nonnull final String sEncoding,
-                                  @Nullable final String sVersion) throws XMLStreamException
+  public void writeStartDocument (@Nonnull final String sEncoding, @Nullable final String sVersion) throws XMLStreamException
   {
     writeStartDocument (CharsetHelper.getCharsetFromName (sEncoding), EXMLVersion.getFromVersionOrNull (sVersion));
   }
@@ -319,8 +316,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
     writeStartElement (null, sLocalName);
   }
 
-  public void writeStartElement (@Nullable final String sNamespaceURI,
-                                 final String sLocalName) throws XMLStreamException
+  public void writeStartElement (@Nullable final String sNamespaceURI, final String sLocalName) throws XMLStreamException
   {
     writeStartElement (null, sLocalName, sNamespaceURI);
   }
@@ -347,8 +343,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
     writeEmptyElement (null, sLocalName);
   }
 
-  public void writeEmptyElement (@Nullable final String sNamespaceURI,
-                                 final String sLocalName) throws XMLStreamException
+  public void writeEmptyElement (@Nullable final String sNamespaceURI, final String sLocalName) throws XMLStreamException
   {
     writeStartElement (null, sLocalName, sNamespaceURI);
   }
@@ -375,9 +370,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
     writeAttribute (null, sLocalName, sValue);
   }
 
-  public void writeAttribute (@Nullable final String sNamespaceURI,
-                              final String sLocalName,
-                              final String sValue) throws XMLStreamException
+  public void writeAttribute (@Nullable final String sNamespaceURI, final String sLocalName, final String sValue) throws XMLStreamException
   {
     writeAttribute (null, sNamespaceURI, sLocalName, sValue);
   }
@@ -393,8 +386,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
     m_aEmitter.elementAttr (sPrefix, sLocalName, sValue);
   }
 
-  public void writeNamespace (@Nullable final String sPrefix,
-                              @Nonnull final String sNamespaceURI) throws XMLStreamException
+  public void writeNamespace (@Nullable final String sPrefix, @Nonnull final String sNamespaceURI) throws XMLStreamException
   {
     debug ( () -> "writeNamespace (" + sPrefix + ", " + sNamespaceURI + ")");
     if (!m_bInElementStart)
@@ -510,8 +502,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
     writeProcessingInstruction (sTarget, null);
   }
 
-  public void writeProcessingInstruction (@Nonnull final String sTarget,
-                                          @Nullable final String sData) throws XMLStreamException
+  public void writeProcessingInstruction (@Nonnull final String sTarget, @Nullable final String sData) throws XMLStreamException
   {
     debug ( () -> "writeProcessingInstruction (" + sTarget + ", " + sData + ")");
     _elementStartClose ();
@@ -590,8 +581,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable
   }
 
   @Nonnull
-  public static SafeXMLStreamWriter create (@Nonnull @WillCloseWhenClosed final Writer aWriter,
-                                            @Nonnull final IXMLWriterSettings aSettings)
+  public static SafeXMLStreamWriter create (@Nonnull @WillCloseWhenClosed final Writer aWriter, @Nonnull final IXMLWriterSettings aSettings)
   {
     return new SafeXMLStreamWriter (new XMLEmitter (aWriter, aSettings));
   }

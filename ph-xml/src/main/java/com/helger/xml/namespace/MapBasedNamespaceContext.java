@@ -115,11 +115,7 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
     ValueEnforcer.notNull (sPrefix, "Prefix");
     ValueEnforcer.notNull (sNamespaceURI, "NamespaceURI");
     if (!bAllowOverwrite && m_aPrefix2NS.containsKey (sPrefix))
-      throw new IllegalArgumentException ("The prefix '" +
-                                          sPrefix +
-                                          "' is already registered to '" +
-                                          m_aPrefix2NS.get (sPrefix) +
-                                          "'!");
+      throw new IllegalArgumentException ("The prefix '" + sPrefix + "' is already registered to '" + m_aPrefix2NS.get (sPrefix) + "'!");
 
     if (sPrefix.equals (XMLConstants.DEFAULT_NS_PREFIX))
       m_sDefaultNamespaceURI = sNamespaceURI;
@@ -333,10 +329,7 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_sDefaultNamespaceURI)
-                                       .append (m_aPrefix2NS)
-                                       .append (m_aNS2Prefix)
-                                       .getHashCode ();
+    return new HashCodeGenerator (this).append (m_sDefaultNamespaceURI).append (m_aPrefix2NS).append (m_aNS2Prefix).getHashCode ();
   }
 
   @Override

@@ -39,8 +39,7 @@ import com.helger.commons.collection.impl.ICommonsList;
  *        value type
  */
 @ThreadSafe
-public class MultiConcurrentHashMapArrayListBased <KEYTYPE, VALUETYPE> extends
-                                                  AbstractMultiConcurrentHashMapListBased <KEYTYPE, VALUETYPE>
+public class MultiConcurrentHashMapArrayListBased <KEYTYPE, VALUETYPE> extends AbstractMultiConcurrentHashMapListBased <KEYTYPE, VALUETYPE>
 {
   public MultiConcurrentHashMapArrayListBased ()
   {}
@@ -50,8 +49,7 @@ public class MultiConcurrentHashMapArrayListBased <KEYTYPE, VALUETYPE> extends
     super (aKey, aValue);
   }
 
-  public MultiConcurrentHashMapArrayListBased (@Nonnull final KEYTYPE aKey,
-                                               @Nonnull final ICommonsList <VALUETYPE> aCollection)
+  public MultiConcurrentHashMapArrayListBased (@Nonnull final KEYTYPE aKey, @Nonnull final ICommonsList <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }

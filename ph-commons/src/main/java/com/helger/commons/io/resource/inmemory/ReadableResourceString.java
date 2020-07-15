@@ -37,11 +37,8 @@ public class ReadableResourceString extends ReadableResourceByteArray
     this (null, sString, aCharset);
   }
 
-  public ReadableResourceString (@Nullable final String sResourceID,
-                                 @Nonnull final String sString,
-                                 @Nonnull final Charset aCharset)
+  public ReadableResourceString (@Nullable final String sResourceID, @Nonnull final String sString, @Nonnull final Charset aCharset)
   {
-    super (StringHelper.hasText (sResourceID) ? sResourceID : "String[" + aCharset.name () + "]",
-           sString.getBytes (aCharset));
+    super (StringHelper.hasText (sResourceID) ? sResourceID : "String[" + aCharset.name () + "]", sString.getBytes (aCharset));
   }
 }

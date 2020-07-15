@@ -61,8 +61,7 @@ public class SettingsPersistenceXML <T extends ISettings> implements ISettingsPe
     this (aSettingsFactory, XMLWriterSettings.DEFAULT_XML_SETTINGS);
   }
 
-  public SettingsPersistenceXML (@Nonnull final ISettingsFactory <T> aSettingsFactory,
-                                 @Nonnull final IXMLWriterSettings aXWS)
+  public SettingsPersistenceXML (@Nonnull final ISettingsFactory <T> aSettingsFactory, @Nonnull final IXMLWriterSettings aXWS)
   {
     m_aSettingsFactory = ValueEnforcer.notNull (aSettingsFactory, "SettingsFactory");
     m_aXWS = aXWS;

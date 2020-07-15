@@ -150,8 +150,7 @@ public final class MicroReaderTest
                           "</content>";
     final IMicroDocument docXHTML = MicroReader.readMicroXML (new NonBlockingStringReader (sXHTML));
     assertNotNull (docXHTML);
-    final String sResult = MicroWriter.getNodeAsString (docXHTML,
-                                                        new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE));
+    final String sResult = MicroWriter.getNodeAsString (docXHTML, new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE));
 
     assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
                   "<content>" +
@@ -357,8 +356,7 @@ public final class MicroReaderTest
                                                                  .setContentHandler (aHdl)
                                                                  .setErrorHandler (aHdl)
                                                                  .setLexicalHandler (aHdl);
-    assertTrue (SAXReader.readXMLSAX (InputSourceFactory.create (ClassPathResource.getInputStream ("xml/xml-entity-public.xml")),
-                                      aSettings)
+    assertTrue (SAXReader.readXMLSAX (InputSourceFactory.create (ClassPathResource.getInputStream ("xml/xml-entity-public.xml")), aSettings)
                          .isSuccess ());
     assertNotNull (aHdl.getDocument ());
 

@@ -129,8 +129,7 @@ public final class JavaDecimalFormatFuncTest
     else
       assertEquals ("#,##0.00 ", patternWithoutCurSym);
 
-    curFormat = new DecimalFormat (patternWithoutCurSym,
-                                   DecimalFormatSymbols.getInstance (CGlobal.LOCALE_FIXED_NUMBER_FORMAT));
+    curFormat = new DecimalFormat (patternWithoutCurSym, DecimalFormatSymbols.getInstance (CGlobal.LOCALE_FIXED_NUMBER_FORMAT));
     if (EJavaVersion.JDK_9.isSupportedVersion ())
       assertEquals ("3.12\u00A0", curFormat.format (3.1234));
     else

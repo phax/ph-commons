@@ -72,16 +72,12 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     if (m_aIncoming != null)
     {
       if (m_aIncoming.containsKey (aNewRelation.getID ()))
-        throw new IllegalArgumentException ("The passed relation (" +
-                                            aNewRelation +
-                                            ") is already contained as an incoming relation");
+        throw new IllegalArgumentException ("The passed relation (" + aNewRelation + ") is already contained as an incoming relation");
 
       // check if the relation from-node is already contained
       for (final IMutableDirectedGraphRelation aRelation : m_aIncoming.values ())
         if (aRelation.getFrom () == aNewRelation.getFrom ())
-          throw new IllegalArgumentException ("The from-node of the passed relation (" +
-                                              aNewRelation +
-                                              ") is already contained");
+          throw new IllegalArgumentException ("The from-node of the passed relation (" + aNewRelation + ") is already contained");
     }
     else
     {
@@ -169,15 +165,11 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     if (m_aOutgoing != null)
     {
       if (m_aOutgoing.containsKey (aNewRelation.getID ()))
-        throw new IllegalArgumentException ("The passed relation " +
-                                            aNewRelation +
-                                            " is already contained as an outgoing relation");
+        throw new IllegalArgumentException ("The passed relation " + aNewRelation + " is already contained as an outgoing relation");
       // check if the relation to-node is already contained
       for (final IMutableDirectedGraphRelation aRelation : m_aOutgoing.values ())
         if (aRelation.getTo () == aNewRelation.getTo ())
-          throw new IllegalArgumentException ("The to-node of the passed relation " +
-                                              aNewRelation +
-                                              " is already contained");
+          throw new IllegalArgumentException ("The to-node of the passed relation " + aNewRelation + " is already contained");
     }
     else
     {

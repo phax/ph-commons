@@ -51,8 +51,7 @@ public final class ReadOnlyMultilingualTextTest
     assertNotNull (aMLT.texts ().keySet ());
     assertTrue (aMLT.texts ().isEmpty ());
 
-    final Map <Locale, String> aMap = CollectionHelper.newMap (new Locale [] { L_DE, L_EN },
-                                                               new String [] { "de", "en" });
+    final Map <Locale, String> aMap = CollectionHelper.newMap (new Locale [] { L_DE, L_EN }, new String [] { "de", "en" });
     aMLT = new ReadOnlyMultilingualText (aMap);
     assertEquals (2, aMLT.texts ().size ());
     assertTrue (aMLT.texts ().containsKey (L_DE));
@@ -88,8 +87,7 @@ public final class ReadOnlyMultilingualTextTest
                                                                                                                                               L_EN },
                                                                                                                               new String [] { "de",
                                                                                                                                               "en" })));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ReadOnlyMultilingualText (),
-                                                                       new ReadOnlyMultilingualText ());
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ReadOnlyMultilingualText (), new ReadOnlyMultilingualText ());
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aMLT, new ReadOnlyMultilingualText ());
 
     try

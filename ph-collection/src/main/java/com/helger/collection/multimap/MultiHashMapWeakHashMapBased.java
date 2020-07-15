@@ -31,15 +31,12 @@ public class MultiHashMapWeakHashMapBased <KEYTYPE1, KEYTYPE2 extends Comparable
   public MultiHashMapWeakHashMapBased ()
   {}
 
-  public MultiHashMapWeakHashMapBased (@Nonnull final KEYTYPE1 aKey,
-                                       @Nonnull final KEYTYPE2 aInnerKey,
-                                       @Nullable final VALUETYPE aValue)
+  public MultiHashMapWeakHashMapBased (@Nonnull final KEYTYPE1 aKey, @Nonnull final KEYTYPE2 aInnerKey, @Nullable final VALUETYPE aValue)
   {
     super (aKey, aInnerKey, aValue);
   }
 
-  public MultiHashMapWeakHashMapBased (@Nullable final KEYTYPE1 aKey,
-                                       @Nullable final Map <? extends KEYTYPE2, ? extends VALUETYPE> aValue)
+  public MultiHashMapWeakHashMapBased (@Nullable final KEYTYPE1 aKey, @Nullable final Map <? extends KEYTYPE2, ? extends VALUETYPE> aValue)
   {
     super (aKey, aValue);
   }

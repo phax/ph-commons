@@ -90,9 +90,7 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
    *        <code>true</code> to keep carriage returns in data read,
    *        <code>false</code> otherwise
    */
-  public CSVReader (@Nonnull @WillCloseWhenClosed final Reader aReader,
-                    @Nonnull final CSVParser aParser,
-                    final boolean bKeepCR)
+  public CSVReader (@Nonnull @WillCloseWhenClosed final Reader aReader, @Nonnull final CSVParser aParser, final boolean bKeepCR)
   {
     ValueEnforcer.notNull (aReader, "Reader");
     ValueEnforcer.notNull (aParser, "Parser");

@@ -28,9 +28,7 @@ import javax.annotation.Nonnull;
  * @param <IMPLTYPE>
  *        Implementation type
  */
-public interface IMutableNumeric <IMPLTYPE extends IMutableNumeric <IMPLTYPE>> extends
-                                 IMutableObject <IMPLTYPE>,
-                                 INumber
+public interface IMutableNumeric <IMPLTYPE extends IMutableNumeric <IMPLTYPE>> extends IMutableObject <IMPLTYPE>, INumber
 {
   /**
    * @return <code>true</code> if the value is 0

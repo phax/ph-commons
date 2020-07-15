@@ -39,9 +39,7 @@ public final class JavaPrinterTrayFinderFuncTest
     for (final PrintService aService : aAllServices)
     {
       LOGGER.info (aService.toString ());
-      final Object aAttrs = aService.getSupportedAttributeValues (Media.class,
-                                                                  DocFlavor.SERVICE_FORMATTED.PAGEABLE,
-                                                                  null);
+      final Object aAttrs = aService.getSupportedAttributeValues (Media.class, DocFlavor.SERVICE_FORMATTED.PAGEABLE, null);
       if (ArrayHelper.isArray (aAttrs))
       {
         for (final Media aElement : (Media []) aAttrs)

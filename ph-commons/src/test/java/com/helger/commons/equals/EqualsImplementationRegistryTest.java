@@ -59,7 +59,6 @@ public final class EqualsImplementationRegistryTest
     CommonsAssert.assertEquals (ArrayHelper.newArray (d1), ArrayHelper.newArray (d2));
 
     // 2 level array
-    CommonsAssert.assertEquals (ArrayHelper.newArray (ArrayHelper.newArray (d1)),
-                                ArrayHelper.newArray (ArrayHelper.newArray (d2)));
+    CommonsAssert.assertEquals (ArrayHelper.newArray (ArrayHelper.newArray (d1)), ArrayHelper.newArray (ArrayHelper.newArray (d2)));
   }
 }

@@ -37,8 +37,7 @@ public final class StringInputStreamTest
   {
     final String sTestString = "test äöü 123 - This counts!";
     final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
-    StreamHelper.copyInputStreamToOutputStream (new StringInputStream (sTestString, StandardCharsets.ISO_8859_1),
-                                                aBAOS);
+    StreamHelper.copyInputStreamToOutputStream (new StringInputStream (sTestString, StandardCharsets.ISO_8859_1), aBAOS);
     assertEquals (sTestString, aBAOS.getAsString (StandardCharsets.ISO_8859_1));
     aBAOS.reset ();
     final Charset aCS = CharsetHelper.getCharsetFromName ("UTF-16");

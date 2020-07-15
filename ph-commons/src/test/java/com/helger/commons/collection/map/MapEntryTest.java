@@ -51,13 +51,9 @@ public final class MapEntryTest
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MapEntry <String, Object> ("Key", "value"),
                                                                        new MapEntry <String, Object> ("Key", "value"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MapEntry <String, Object> ("Key",
-                                                                                                          "value"),
-                                                                           new MapEntry <String, Object> ("Key",
-                                                                                                          "value2"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MapEntry <String, Object> ("Key",
-                                                                                                          "value"),
-                                                                           new MapEntry <String, Object> ("Key2",
-                                                                                                          "value"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MapEntry <String, Object> ("Key", "value"),
+                                                                           new MapEntry <String, Object> ("Key", "value2"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MapEntry <String, Object> ("Key", "value"),
+                                                                           new MapEntry <String, Object> ("Key2", "value"));
   }
 }

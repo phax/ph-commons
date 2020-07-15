@@ -509,8 +509,7 @@ public final class RegExHelperTest
     assertArrayEquals (new String [] { "all", "o" }, RegExHelper.getAllMatchingGroupValues ("H([al]+)(.)", "Hallo"));
     assertArrayEquals (new String [] { "all", "o" }, RegExHelper.getAllMatchingGroupValues ("H([ael]+)(.)", "Hallo"));
     assertArrayEquals (new String [] { "ell", "o" }, RegExHelper.getAllMatchingGroupValues ("H([ael]+)(.)", "Hello"));
-    assertArrayEquals (new String [] { "allall", "o" },
-                       RegExHelper.getAllMatchingGroupValues ("H([ael]+)(.).*", "Hallallodrio"));
+    assertArrayEquals (new String [] { "allall", "o" }, RegExHelper.getAllMatchingGroupValues ("H([ael]+)(.).*", "Hallallodrio"));
 
     // With a repeat indicator -> last match
     assertArrayEquals (new String [] { "l" }, RegExHelper.getAllMatchingGroupValues ("H([al]){1,3}o", "Hallo"));
@@ -523,12 +522,10 @@ public final class RegExHelperTest
     // With nested groups
     assertArrayEquals (new String [] { "allallo", "allall", "o" },
                        RegExHelper.getAllMatchingGroupValues ("H(([ael]+)(.)).*", "Hallallodrio"));
-    assertArrayEquals (new String [] { "allall", "o" },
-                       RegExHelper.getAllMatchingGroupValues ("H(?:([ael]+)(.)).*", "Hallallodrio"));
+    assertArrayEquals (new String [] { "allall", "o" }, RegExHelper.getAllMatchingGroupValues ("H(?:([ael]+)(.)).*", "Hallallodrio"));
 
     // With a non-capturing group
-    assertArrayEquals (new String [] { "o" },
-                       RegExHelper.getAllMatchingGroupValues ("H(?:[ael]+)(.).*", "Hallallodrio"));
+    assertArrayEquals (new String [] { "o" }, RegExHelper.getAllMatchingGroupValues ("H(?:[ael]+)(.).*", "Hallallodrio"));
 
     // With only non-capturing groups
     assertArrayEquals (new String [] {}, RegExHelper.getAllMatchingGroupValues ("H(?:[ael]+)(?:.).*", "Hallallodrio"));
@@ -538,8 +535,7 @@ public final class RegExHelperTest
     assertArrayEquals (new String [] {}, RegExHelper.getAllMatchingGroupValues ("H.llo", "Hello"));
 
     // With a back reference
-    assertArrayEquals (new String [] { "H", "allo", "H" },
-                       RegExHelper.getAllMatchingGroupValues ("(.)(.+)(\\1)", "HalloH"));
+    assertArrayEquals (new String [] { "H", "allo", "H" }, RegExHelper.getAllMatchingGroupValues ("(.)(.+)(\\1)", "HalloH"));
     assertArrayEquals (new String [] { "H", "H" }, RegExHelper.getAllMatchingGroupValues ("(.).+(\\1).*", "HalloHH"));
   }
 }

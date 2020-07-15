@@ -100,9 +100,7 @@ public final class TypeConverterException extends RuntimeException
    *        The reason code why the transformation failed. May not be
    *        <code>null</code>.
    */
-  public TypeConverterException (@Nonnull final Class <?> aSrcClass,
-                                 @Nonnull final Class <?> aDstClass,
-                                 @Nonnull final EReason eReason)
+  public TypeConverterException (@Nonnull final Class <?> aSrcClass, @Nonnull final Class <?> aDstClass, @Nonnull final EReason eReason)
   {
     this (aSrcClass, aDstClass, eReason, null);
   }

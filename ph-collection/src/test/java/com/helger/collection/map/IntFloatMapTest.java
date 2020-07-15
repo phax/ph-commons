@@ -124,10 +124,7 @@ public final class IntFloatMapTest
     {
       assertEquals (IntFloatMap.NO_VALUE, map.put (addCnt, addCnt), DELTA);
       addCnt++;
-      assertEquals ("Failed for addCnt = " + addCnt + ", ff = " + fillFactor,
-                    IntFloatMap.NO_VALUE,
-                    map.put (addCnt, addCnt),
-                    DELTA);
+      assertEquals ("Failed for addCnt = " + addCnt + ", ff = " + fillFactor, IntFloatMap.NO_VALUE, map.put (addCnt, addCnt), DELTA);
       addCnt++;
       assertEquals (removeCnt, map.remove (removeCnt), DELTA);
       removeCnt++;

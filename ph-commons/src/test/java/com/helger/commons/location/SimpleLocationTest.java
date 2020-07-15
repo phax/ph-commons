@@ -50,10 +50,8 @@ public final class SimpleLocationTest
     assertEquals (7, re.getColumnNumber ());
     assertEquals ("xx(5:7)", re.getAsString ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new SimpleLocation ("xx"),
-                                                                       new SimpleLocation ("xx"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SimpleLocation ("xx"),
-                                                                           new SimpleLocation ("xx2"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new SimpleLocation ("xx"), new SimpleLocation ("xx"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SimpleLocation ("xx"), new SimpleLocation ("xx2"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SimpleLocation ("xx", 0, 1),
                                                                            new SimpleLocation ("xx", 1, 1));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SimpleLocation ("xx", 0, 1),

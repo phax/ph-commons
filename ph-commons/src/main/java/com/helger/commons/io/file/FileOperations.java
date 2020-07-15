@@ -425,8 +425,7 @@ public final class FileOperations
 
     try
     {
-      final EFileIOErrorCode eError = aSourceFile.renameTo (aTargetFile) ? EFileIOErrorCode.NO_ERROR
-                                                                         : EFileIOErrorCode.OPERATION_FAILED;
+      final EFileIOErrorCode eError = aSourceFile.renameTo (aTargetFile) ? EFileIOErrorCode.NO_ERROR : EFileIOErrorCode.OPERATION_FAILED;
       return eError.getAsIOError (EFileIOOperation.RENAME_FILE, aSourceFile, aTargetFile);
     }
     catch (final SecurityException ex)
@@ -464,9 +463,7 @@ public final class FileOperations
 
     // Is the source a parent of target?
     if (FileHelper.isParentDirectory (aSourceDir, aTargetDir))
-      return EFileIOErrorCode.TARGET_IS_CHILD_OF_SOURCE.getAsIOError (EFileIOOperation.RENAME_DIR,
-                                                                      aSourceDir,
-                                                                      aTargetDir);
+      return EFileIOErrorCode.TARGET_IS_CHILD_OF_SOURCE.getAsIOError (EFileIOOperation.RENAME_DIR, aSourceDir, aTargetDir);
 
     // Is the source parent directory writable?
     final File aSourceParentDir = aSourceDir.getParentFile ();
@@ -483,8 +480,7 @@ public final class FileOperations
 
     try
     {
-      final EFileIOErrorCode eError = aSourceDir.renameTo (aTargetDir) ? EFileIOErrorCode.NO_ERROR
-                                                                       : EFileIOErrorCode.OPERATION_FAILED;
+      final EFileIOErrorCode eError = aSourceDir.renameTo (aTargetDir) ? EFileIOErrorCode.NO_ERROR : EFileIOErrorCode.OPERATION_FAILED;
       return eError.getAsIOError (EFileIOOperation.RENAME_DIR, aSourceDir, aTargetDir);
     }
     catch (final SecurityException ex)
@@ -656,8 +652,7 @@ public final class FileOperations
       // Streams are slower but more interoperable
       eSuccess = _copyFileViaStreams (aSourceFile, aTargetFile);
     }
-    final EFileIOErrorCode eError = eSuccess.isSuccess () ? EFileIOErrorCode.NO_ERROR
-                                                          : EFileIOErrorCode.OPERATION_FAILED;
+    final EFileIOErrorCode eError = eSuccess.isSuccess () ? EFileIOErrorCode.NO_ERROR : EFileIOErrorCode.OPERATION_FAILED;
     return eError.getAsIOError (EFileIOOperation.COPY_FILE, aSourceFile, aTargetFile);
   }
 
@@ -687,9 +682,7 @@ public final class FileOperations
 
     // Is the source a parent of target?
     if (FileHelper.isParentDirectory (aSourceDir, aTargetDir))
-      return EFileIOErrorCode.TARGET_IS_CHILD_OF_SOURCE.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE,
-                                                                      aSourceDir,
-                                                                      aTargetDir);
+      return EFileIOErrorCode.TARGET_IS_CHILD_OF_SOURCE.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, aSourceDir, aTargetDir);
 
     // Does the target directory already exist?
     if (aTargetDir.exists ())

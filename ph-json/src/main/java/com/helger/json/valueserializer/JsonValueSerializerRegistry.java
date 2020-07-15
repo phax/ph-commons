@@ -69,8 +69,7 @@ public final class JsonValueSerializerRegistry implements IJsonValueSerializerRe
     return s_aInstance;
   }
 
-  public void registerJsonValueSerializer (@Nonnull final Class <?> aClass,
-                                           @Nonnull final IJsonValueSerializer aValueSerializer)
+  public void registerJsonValueSerializer (@Nonnull final Class <?> aClass, @Nonnull final IJsonValueSerializer aValueSerializer)
   {
     ValueEnforcer.notNull (aClass, "Class");
     ValueEnforcer.notNull (aValueSerializer, "ValueSerializer");

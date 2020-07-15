@@ -39,9 +39,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        Second type.
  */
 @NotThreadSafe
-public final class Pair <DATA1TYPE, DATA2TYPE> implements
-                        IMutablePair <DATA1TYPE, DATA2TYPE>,
-                        ICloneable <Pair <DATA1TYPE, DATA2TYPE>>
+public final class Pair <DATA1TYPE, DATA2TYPE> implements IMutablePair <DATA1TYPE, DATA2TYPE>, ICloneable <Pair <DATA1TYPE, DATA2TYPE>>
 {
   private DATA1TYPE m_aFirst;
   private DATA2TYPE m_aSecond;

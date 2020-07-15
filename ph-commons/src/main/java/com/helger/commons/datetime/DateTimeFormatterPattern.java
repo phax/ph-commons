@@ -48,16 +48,13 @@ public final class DateTimeFormatterPattern
   // Status vars
   private transient int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
-  public DateTimeFormatterPattern (@Nonnull @Nonempty final String sPattern,
-                                   @Nonnull final ResolverStyle eResolverStyle)
+  public DateTimeFormatterPattern (@Nonnull @Nonempty final String sPattern, @Nonnull final ResolverStyle eResolverStyle)
   {
     ValueEnforcer.notEmpty (sPattern, "RegEx");
     ValueEnforcer.notNull (eResolverStyle, "ResolverStyle");
     m_sPattern = sPattern;
     m_eResolverStyle = eResolverStyle;
-    m_aFormatter = new DateTimeFormatterBuilder ().appendPattern (sPattern)
-                                                  .toFormatter ()
-                                                  .withResolverStyle (m_eResolverStyle);
+    m_aFormatter = new DateTimeFormatterBuilder ().appendPattern (sPattern).toFormatter ().withResolverStyle (m_eResolverStyle);
   }
 
   /**
@@ -113,8 +110,6 @@ public final class DateTimeFormatterPattern
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("Pattern", m_sPattern)
-                                       .append ("ResolverStyle", m_eResolverStyle)
-                                       .getToString ();
+    return new ToStringGenerator (this).append ("Pattern", m_sPattern).append ("ResolverStyle", m_eResolverStyle).getToString ();
   }
 }

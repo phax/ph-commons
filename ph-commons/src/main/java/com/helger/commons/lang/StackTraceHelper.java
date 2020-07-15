@@ -112,8 +112,7 @@ public final class StackTraceHelper
     }
   }
 
-  public static void appendStackToString (@Nonnull final StringBuilder aSB,
-                                          @Nonnull final StackTraceElement [] aStackTraceElements)
+  public static void appendStackToString (@Nonnull final StringBuilder aSB, @Nonnull final StackTraceElement [] aStackTraceElements)
   {
     appendStackToString (aSB, aStackTraceElements, DEFAULT_LINE_SEPARATOR);
   }
@@ -279,12 +278,7 @@ public final class StackTraceHelper
       return "";
 
     // convert call stack to string
-    final StringBuilder aCallStack = _getRecursiveStackAsStringBuilder (t,
-                                                                        null,
-                                                                        null,
-                                                                        1,
-                                                                        bOmitCommonStackTraceElements,
-                                                                        sLineSeparator);
+    final StringBuilder aCallStack = _getRecursiveStackAsStringBuilder (t, null, null, 1, bOmitCommonStackTraceElements, sLineSeparator);
 
     // avoid having a separator at the end -> remove if present
     if (sLineSeparator.length () > 0)

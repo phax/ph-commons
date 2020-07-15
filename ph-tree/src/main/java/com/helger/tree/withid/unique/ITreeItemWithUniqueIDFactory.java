@@ -36,8 +36,7 @@ import com.helger.tree.withid.ITreeItemWithIDFactory;
  *        tree item type
  * @author Philip Helger
  */
-public interface ITreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>>
-                                              extends
+public interface ITreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> extends
                                               ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE>
 {
   /**

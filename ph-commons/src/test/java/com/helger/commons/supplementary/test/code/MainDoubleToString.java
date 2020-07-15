@@ -63,72 +63,10 @@ public final class MainDoubleToString
                                             { '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0' },
                                             { '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0' },
                                             { '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0' },
-                                            { '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0' },
-                                            { '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0' },
-                                            { '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0' },
-                                            { '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0',
-                                              '0' },
+                                            { '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0' },
+                                            { '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0' },
+                                            { '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0' },
+                                            { '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0' },
                                             { '0',
                                               '0',
                                               '0',
@@ -1170,8 +1108,7 @@ public final class MainDoubleToString
     // It works. What else can I say.
     final long doubleToLongBits = Double.doubleToLongBits (d);
     // 0.301029995663981 = log10(2)
-    int magnitude = (int) ((((doubleToLongBits & DoubleExpMask) >> DoubleExpShift) - DoubleExpBias) *
-                           0.301029995663981);
+    int magnitude = (int) ((((doubleToLongBits & DoubleExpMask) >> DoubleExpShift) - DoubleExpBias) * 0.301029995663981);
 
     if (magnitude < -323)
       magnitude = -323;
@@ -1298,8 +1235,7 @@ public final class MainDoubleToString
     StringBuffer sb1 = new StringBuffer ();
     LOGGER.info ("Starting test");
     time1 = System.currentTimeMillis ();
-    final DecimalFormat format = new DecimalFormat ("#,##0.0000",
-                                                    DecimalFormatSymbols.getInstance (Locale.getDefault (Category.FORMAT)));
+    final DecimalFormat format = new DecimalFormat ("#,##0.0000", DecimalFormatSymbols.getInstance (Locale.getDefault (Category.FORMAT)));
     final FieldPosition f = new FieldPosition (0);
     for (int i = repeat; i > 0; i--)
       for (int j = arr.length - 1; j >= 0; j--)

@@ -89,8 +89,7 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>
    * @deprecated Since 9.4.0; use {@link #findAll(Predicate, Consumer)} instead
    */
   @Deprecated
-  default void forEach (@Nonnull final Consumer <? super ELEMENTTYPE> aConsumer,
-                        @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
+  default void forEach (@Nonnull final Consumer <? super ELEMENTTYPE> aConsumer, @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     CollectionHelper.findAll (this, aFilter, aConsumer);
   }
@@ -105,8 +104,7 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>
    *        The consumer to be invoked for all matching elements. May not be
    *        <code>null</code>.
    */
-  default void findAll (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                        @Nonnull final Consumer <? super ELEMENTTYPE> aConsumer)
+  default void findAll (@Nullable final Predicate <? super ELEMENTTYPE> aFilter, @Nonnull final Consumer <? super ELEMENTTYPE> aConsumer)
   {
     CollectionHelper.findAll (this, aFilter, aConsumer);
   }
@@ -231,8 +229,7 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>
    * @see #findFirst(Predicate)
    */
   @Nullable
-  default ELEMENTTYPE findFirst (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                 @Nullable final ELEMENTTYPE aDefault)
+  default ELEMENTTYPE findFirst (@Nullable final Predicate <? super ELEMENTTYPE> aFilter, @Nullable final ELEMENTTYPE aDefault)
   {
     return CollectionHelper.findFirst (this, aFilter, aDefault);
   }

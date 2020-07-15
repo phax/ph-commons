@@ -46,14 +46,9 @@ public final class MimeTypeTest
     assertEquals ("text/junit", mt.getAsString ());
     assertEquals ("text/junit", mt.getAsStringWithoutParameters ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (mt,
-                                                                       new MimeType (EMimeContentType.TEXT, "junit"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mt,
-                                                                           new MimeType (EMimeContentType.APPLICATION,
-                                                                                         "junit"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mt,
-                                                                           new MimeType (EMimeContentType.TEXT,
-                                                                                         "testng"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (mt, new MimeType (EMimeContentType.TEXT, "junit"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mt, new MimeType (EMimeContentType.APPLICATION, "junit"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mt, new MimeType (EMimeContentType.TEXT, "testng"));
     CommonsTestHelper.testGetClone (mt);
     CommonsTestHelper.testDefaultSerialization (mt);
 
@@ -114,12 +109,9 @@ public final class MimeTypeTest
 
     mt.addParameter ("param2", "foo bar");
     assertEquals ("text/junit;charset=iso-8859-1;param1=value;param2=\"foo bar\"", mt.getAsString ());
-    assertEquals ("text/junit;charset=iso-8859-1;param1=value;param2=\"foo bar\"",
-                  mt.getAsString (EMimeQuoting.QUOTED_STRING));
-    assertEquals ("text/junit;charset=iso-8859-1;param1=value;param2=foo=20bar",
-                  mt.getAsString (EMimeQuoting.QUOTED_PRINTABLE));
-    assertEquals ("text/junit;charset=iso-8859-1;param1=value;param2=foo%20bar",
-                  mt.getAsString (EMimeQuoting.URL_ESCAPE));
+    assertEquals ("text/junit;charset=iso-8859-1;param1=value;param2=\"foo bar\"", mt.getAsString (EMimeQuoting.QUOTED_STRING));
+    assertEquals ("text/junit;charset=iso-8859-1;param1=value;param2=foo=20bar", mt.getAsString (EMimeQuoting.QUOTED_PRINTABLE));
+    assertEquals ("text/junit;charset=iso-8859-1;param1=value;param2=foo%20bar", mt.getAsString (EMimeQuoting.URL_ESCAPE));
     assertEquals ("text/junit", mt.getAsStringWithoutParameters ());
     assertTrue (mt.hasAnyParameters ());
     assertEquals (3, mt.getParameterCount ());

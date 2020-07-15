@@ -326,11 +326,7 @@ public final class Version implements IComparable <Version>
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_nMajor)
-                                       .append (m_nMinor)
-                                       .append (m_nMicro)
-                                       .append (m_sQualifier)
-                                       .getHashCode ();
+    return new HashCodeGenerator (this).append (m_nMajor).append (m_nMinor).append (m_nMicro).append (m_sQualifier).getHashCode ();
   }
 
   @Override

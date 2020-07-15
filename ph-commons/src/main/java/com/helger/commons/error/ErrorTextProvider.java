@@ -158,10 +158,8 @@ public class ErrorTextProvider implements IErrorTextProvider, Serializable, IClo
                                                                            .addItem (EField.ERROR_FIELD_NAME, "in $")
                                                                            .addItem (EField.ERROR_LOCATION, "@ $")
                                                                            .addItem (EField.ERROR_TEXT, "$")
-                                                                           .addItem (EField.ERROR_LINKED_EXCEPTION_CLASS,
-                                                                                     "($:")
-                                                                           .addItem (EField.ERROR_LINKED_EXCEPTION_MESSAGE,
-                                                                                     "$)")
+                                                                           .addItem (EField.ERROR_LINKED_EXCEPTION_CLASS, "($:")
+                                                                           .addItem (EField.ERROR_LINKED_EXCEPTION_MESSAGE, "$)")
                                                                            .setFieldSeparator (" ");
 
   private final ICommonsList <IFormattableItem> m_aItems;
@@ -377,8 +375,6 @@ public class ErrorTextProvider implements IErrorTextProvider, Serializable, IClo
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("Items", m_aItems)
-                                       .append ("FieldSeparator", m_sFieldSep)
-                                       .getToString ();
+    return new ToStringGenerator (this).append ("Items", m_aItems).append ("FieldSeparator", m_sFieldSep).getToString ();
   }
 }

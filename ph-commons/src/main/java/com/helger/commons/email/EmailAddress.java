@@ -52,8 +52,7 @@ public class EmailAddress implements IEmailAddress
   public EmailAddress (@Nonnull final String sAddress, @Nullable final String sPersonal)
   {
     ValueEnforcer.notNull (sAddress, "EmailAddress");
-    ValueEnforcer.isTrue (EmailAddressHelper.isValid (sAddress),
-                          () -> "The passed email address '" + sAddress + "' is illegal!");
+    ValueEnforcer.isTrue (EmailAddressHelper.isValid (sAddress), () -> "The passed email address '" + sAddress + "' is illegal!");
     m_sAddress = EmailAddressHelper.getUnifiedEmailAddress (sAddress);
     m_sPersonal = StringHelper.hasNoText (sPersonal) ? null : sPersonal;
   }
@@ -90,9 +89,7 @@ public class EmailAddress implements IEmailAddress
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("address", m_sAddress)
-                                       .appendIfNotNull ("personal", m_sPersonal)
-                                       .getToString ();
+    return new ToStringGenerator (null).append ("address", m_sAddress).appendIfNotNull ("personal", m_sPersonal).getToString ();
   }
 
   @Nullable

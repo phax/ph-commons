@@ -75,7 +75,6 @@ public final class StringInputStreamProviderTest
   @Test
   public void testSerialization ()
   {
-    CommonsTestHelper.testDefaultSerialization (new StringInputStreamProvider ("Hallo Weltäöü",
-                                                                               StandardCharsets.UTF_8));
+    CommonsTestHelper.testDefaultSerialization (new StringInputStreamProvider ("Hallo Weltäöü", StandardCharsets.UTF_8));
   }
 }

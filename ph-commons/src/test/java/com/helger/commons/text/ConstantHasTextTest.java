@@ -59,11 +59,8 @@ public final class ConstantHasTextTest
   @Test
   public void testStandard ()
   {
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ConstantHasText ("any"),
-                                                                       new ConstantHasText ("any"));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ConstantHasText (""),
-                                                                       new ConstantHasText (""));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ConstantHasText ("any"),
-                                                                           new ConstantHasText ("anyy"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ConstantHasText ("any"), new ConstantHasText ("any"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ConstantHasText (""), new ConstantHasText (""));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ConstantHasText ("any"), new ConstantHasText ("anyy"));
   }
 }

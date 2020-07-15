@@ -114,8 +114,7 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
     }
     catch (final Exception ex)
     {
-      LOGGER.error ("Failed to perform actions on object with performer " + m_aPerformer + " - object has been lost!",
-                    ex);
+      LOGGER.error ("Failed to perform actions on object with performer " + m_aPerformer + " - object has been lost!", ex);
     }
   }
 

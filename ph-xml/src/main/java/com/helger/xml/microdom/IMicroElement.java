@@ -221,8 +221,7 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
    */
   @Nonnull
   @ReturnsMutableCopy
-  default ICommonsList <IMicroElement> getAllChildElements (@Nullable final String sNamespaceURI,
-                                                            @Nullable final String sLocalName)
+  default ICommonsList <IMicroElement> getAllChildElements (@Nullable final String sNamespaceURI, @Nullable final String sLocalName)
   {
     return getAllChildElements (filterNamespaceURIAndName (sNamespaceURI, sLocalName));
   }
@@ -360,8 +359,7 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
     forAllChildElements (null, aConsumer);
   }
 
-  void forAllChildElements (@Nullable Predicate <? super IMicroElement> aFilter,
-                            @Nonnull Consumer <? super IMicroElement> aConsumer);
+  void forAllChildElements (@Nullable Predicate <? super IMicroElement> aFilter, @Nonnull Consumer <? super IMicroElement> aConsumer);
 
   @Nonnull
   default EContinue forAllChildElementsBreakable (@Nonnull final Function <? super IMicroElement, EContinue> aConsumer)
@@ -398,7 +396,6 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
     if (StringHelper.hasNoText (sNamespaceURI))
       return filterName (sTagOrLocalName);
 
-    return aChildElement -> aChildElement.hasNamespaceURI (sNamespaceURI) &&
-                            aChildElement.hasLocalName (sTagOrLocalName);
+    return aChildElement -> aChildElement.hasNamespaceURI (sNamespaceURI) && aChildElement.hasLocalName (sTagOrLocalName);
   }
 }

@@ -360,8 +360,7 @@ public final class CSVWriterTest
     final String WRITE_FILE = "target/myfile.csv";
     final String [] nextLine = new String [] { "aaaa", "bbbb", "cccc", "dddd" };
 
-    try (final Writer fileWriter = new NonClosingWriter (new OutputStreamWriter (new FileOutputStream (WRITE_FILE),
-                                                                                 CHARSET)))
+    try (final Writer fileWriter = new NonClosingWriter (new OutputStreamWriter (new FileOutputStream (WRITE_FILE), CHARSET)))
     {
       @SuppressWarnings ("resource")
       final CSVWriter writer = new CSVWriter (fileWriter);

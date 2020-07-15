@@ -82,8 +82,7 @@ public final class GenericReflection
    * @return <code>null</code> if the class could not be resolved
    */
   @Nullable
-  public static <DATATYPE> Class <DATATYPE> getClassFromNameSafe (@Nonnull final ClassLoader aClassLoader,
-                                                                  @Nonnull final String sName)
+  public static <DATATYPE> Class <DATATYPE> getClassFromNameSafe (@Nonnull final ClassLoader aClassLoader, @Nonnull final String sName)
   {
     ValueEnforcer.notNull (aClassLoader, "ClassLoader");
     try
@@ -216,10 +215,7 @@ public final class GenericReflection
                                                                                              InvocationTargetException,
                                                                                              ClassNotFoundException
   {
-    return GenericReflection.<RETURNTYPE> invokeStaticMethod (getClassFromName (sClassName),
-                                                              sMethodName,
-                                                              aArgClasses,
-                                                              aArgs);
+    return GenericReflection.<RETURNTYPE> invokeStaticMethod (getClassFromName (sClassName), sMethodName, aArgClasses, aArgs);
   }
 
   @Nullable
@@ -311,8 +307,7 @@ public final class GenericReflection
   }
 
   @Nullable
-  public static <DATATYPE> DATATYPE newInstance (@Nullable final String sClassName,
-                                                 @Nullable final Class <? extends DATATYPE> aDesiredType)
+  public static <DATATYPE> DATATYPE newInstance (@Nullable final String sClassName, @Nullable final Class <? extends DATATYPE> aDesiredType)
   {
     if (sClassName != null && aDesiredType != null)
       try
@@ -339,9 +334,7 @@ public final class GenericReflection
     if (sClassName != null && aDesiredType != null && aClassLoaderToUse != null)
       try
       {
-        return aDesiredType.cast (Class.forName (sClassName, true, aClassLoaderToUse)
-                                       .getDeclaredConstructor ()
-                                       .newInstance ());
+        return aDesiredType.cast (Class.forName (sClassName, true, aClassLoaderToUse).getDeclaredConstructor ().newInstance ());
       }
       catch (final Exception ex)
       {

@@ -40,11 +40,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public final class FileSystemCharStreamProvider implements
-                                                IInputStreamProvider,
-                                                IOutputStreamProvider,
-                                                IReaderProvider,
-                                                IWriterProvider
+public final class FileSystemCharStreamProvider implements IInputStreamProvider, IOutputStreamProvider, IReaderProvider, IWriterProvider
 {
   private final FileSystemByteStreamProvider m_aByteStreamResolver;
   private final Charset m_aCharset;
@@ -116,8 +112,6 @@ public final class FileSystemCharStreamProvider implements
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("byteStreamResolver", m_aByteStreamResolver)
-                                       .append ("charset", m_aCharset)
-                                       .getToString ();
+    return new ToStringGenerator (this).append ("byteStreamResolver", m_aByteStreamResolver).append ("charset", m_aCharset).getToString ();
   }
 }

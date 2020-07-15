@@ -33,8 +33,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
  *        Key type
  */
 @NotThreadSafe
-public class AttributeContainerAny <KEYTYPE> extends AttributeContainer <KEYTYPE, Object> implements
-                                   IAttributeContainerAny <KEYTYPE>
+public class AttributeContainerAny <KEYTYPE> extends AttributeContainer <KEYTYPE, Object> implements IAttributeContainerAny <KEYTYPE>
 {
   public AttributeContainerAny ()
   {

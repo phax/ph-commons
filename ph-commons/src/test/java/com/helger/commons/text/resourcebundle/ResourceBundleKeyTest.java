@@ -52,18 +52,12 @@ public final class ResourceBundleKeyTest
     catch (final IllegalArgumentException ex)
     {}
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ResourceBundleKey ("properties/test-iso8859",
-                                                                                              "key1"),
-                                                                       new ResourceBundleKey ("properties/test-iso8859",
-                                                                                              "key1"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceBundleKey ("properties/test-iso8859",
-                                                                                                  "key1"),
-                                                                           new ResourceBundleKey ("properties/test-iso8859-1",
-                                                                                                  "key1"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceBundleKey ("properties/test-iso8859",
-                                                                                                  "key1"),
-                                                                           new ResourceBundleKey ("properties/test-iso8859",
-                                                                                                  "key2"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ResourceBundleKey ("properties/test-iso8859", "key1"),
+                                                                       new ResourceBundleKey ("properties/test-iso8859", "key1"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceBundleKey ("properties/test-iso8859", "key1"),
+                                                                           new ResourceBundleKey ("properties/test-iso8859-1", "key1"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceBundleKey ("properties/test-iso8859", "key1"),
+                                                                           new ResourceBundleKey ("properties/test-iso8859", "key2"));
 
     ResourceBundleHelper.clearCache ();
   }

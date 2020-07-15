@@ -142,9 +142,7 @@ public final class FileIOErrorTest
   @Test
   public void testCtor4 ()
   {
-    final FileIOError e = new FileIOError (EFileIOOperation.COPY_FILE,
-                                           EFileIOErrorCode.SOURCE_DOES_NOT_EXIST,
-                                           new MockException ());
+    final FileIOError e = new FileIOError (EFileIOOperation.COPY_FILE, EFileIOErrorCode.SOURCE_DOES_NOT_EXIST, new MockException ());
     assertSame (EFileIOOperation.COPY_FILE, e.getOperation ());
     assertSame (EFileIOErrorCode.SOURCE_DOES_NOT_EXIST, e.getErrorCode ());
     assertNull (e.getFile1 ());

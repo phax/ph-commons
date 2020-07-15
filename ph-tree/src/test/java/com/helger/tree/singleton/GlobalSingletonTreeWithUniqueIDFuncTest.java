@@ -51,8 +51,7 @@ public final class GlobalSingletonTreeWithUniqueIDFuncTest
     final MockGlobalSingletonTreeWithUniqueID a = MockGlobalSingletonTreeWithUniqueID.getInstance ();
     assertNotNull (a);
     assertTrue (AbstractGlobalSingleton.isGlobalSingletonInstantiated (MockGlobalSingletonTreeWithUniqueID.class));
-    assertSame (a,
-                AbstractGlobalSingleton.getGlobalSingletonIfInstantiated (MockGlobalSingletonTreeWithUniqueID.class));
+    assertSame (a, AbstractGlobalSingleton.getGlobalSingletonIfInstantiated (MockGlobalSingletonTreeWithUniqueID.class));
 
     final MockGlobalSingletonTreeWithUniqueID b = MockGlobalSingletonTreeWithUniqueID.getInstance ();
     assertSame (a, b);

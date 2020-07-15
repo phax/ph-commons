@@ -112,11 +112,7 @@ public abstract class AbstractPersistingLongIDFactory implements ILongIDFactory
 
         // the existing ID may not be < than the previously used ID!
         if (m_nLastID >= 0 && nNewID < m_nID)
-          throw new IllegalStateException ("The read value " +
-                                           nNewID +
-                                           " is smaller than the last known ID " +
-                                           m_nID +
-                                           "!");
+          throw new IllegalStateException ("The read value " + nNewID + " is smaller than the last known ID " + m_nID + "!");
 
         m_nID = nNewID;
         m_nLastID = nNewID + m_nReserveCount;

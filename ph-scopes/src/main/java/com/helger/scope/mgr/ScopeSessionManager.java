@@ -233,10 +233,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
     if (containsAnySession ())
     {
       m_aRWLock.writeLocked ( () -> {
-        LOGGER.error ("The following " +
-                      m_aSessionScopes.size () +
-                      " session scopes are left over: " +
-                      m_aSessionScopes.toString ());
+        LOGGER.error ("The following " + m_aSessionScopes.size () + " session scopes are left over: " + m_aSessionScopes.toString ());
         m_aSessionScopes.clear ();
       });
     }

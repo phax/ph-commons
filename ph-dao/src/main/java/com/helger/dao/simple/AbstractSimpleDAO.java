@@ -357,12 +357,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
       catch (final Exception ex)
       {
         triggerExceptionHandlersRead (ex, bIsInitialization, aFinalFile);
-        throw new DAOException ("Error " +
-                                (bIsInitialization ? "initializing" : "reading") +
-                                " the file '" +
-                                aFinalFile +
-                                "'",
-                                ex);
+        throw new DAOException ("Error " + (bIsInitialization ? "initializing" : "reading") + " the file '" + aFinalFile + "'", ex);
       }
     });
   }
@@ -404,8 +399,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
   {
     final IMicroComment aComment = new MicroComment ("This file was generated automatically - do NOT modify!\n" +
                                                      "Written at " +
-                                                     PDTToString.getAsString (ZonedDateTime.now (Clock.systemUTC ()),
-                                                                              Locale.US));
+                                                     PDTToString.getAsString (ZonedDateTime.now (Clock.systemUTC ()), Locale.US));
     final IMicroElement eRoot = aDoc.getDocumentElement ();
     // Add a small comment
     if (eRoot != null)
@@ -554,12 +548,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
       final String sErrorFilename = aFile != null ? aFile.getAbsolutePath () : sFilename;
 
       if (LOGGER.isErrorEnabled ())
-        LOGGER.error ("The DAO of class " +
-                      getClass ().getName () +
-                      " failed to write the DAO data to '" +
-                      sErrorFilename +
-                      "'",
-                      ex);
+        LOGGER.error ("The DAO of class " + getClass ().getName () + " failed to write the DAO data to '" + sErrorFilename + "'", ex);
 
       triggerExceptionHandlersWrite (ex, sErrorFilename, aDoc);
       m_aStatsCounterWriteExceptions.increment ();
@@ -585,9 +574,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
       else
       {
         if (LOGGER.isErrorEnabled ())
-          LOGGER.error ("The DAO of class " +
-                        getClass ().getName () +
-                        " still has pending changes after markAsChanged!");
+          LOGGER.error ("The DAO of class " + getClass ().getName () + " still has pending changes after markAsChanged!");
       }
     }
   }
@@ -607,9 +594,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
         else
         {
           if (LOGGER.isErrorEnabled ())
-            LOGGER.error ("The DAO of class " +
-                          getClass ().getName () +
-                          " still has pending changes after writeToFileOnPendingChanges!");
+            LOGGER.error ("The DAO of class " + getClass ().getName () + " still has pending changes after writeToFileOnPendingChanges!");
         }
       });
     }

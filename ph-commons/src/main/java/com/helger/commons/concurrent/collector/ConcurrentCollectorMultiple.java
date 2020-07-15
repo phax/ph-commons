@@ -76,10 +76,7 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
     super (nMaxQueueSize);
     ValueEnforcer.isGT0 (nMaxPerformCount, "MaxPerformCount");
     ValueEnforcer.isTrue (nMaxPerformCount <= nMaxQueueSize,
-                          () -> "max perform size is illegal " +
-                                nMaxPerformCount +
-                                " - must be <= queue size " +
-                                nMaxQueueSize);
+                          () -> "max perform size is illegal " + nMaxPerformCount + " - must be <= queue size " + nMaxQueueSize);
     m_nMaxPerformCount = nMaxPerformCount;
   }
 
@@ -104,8 +101,7 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
    *        The maximum number of objects to be put in the list for execution.
    *        Must be &gt; 0.
    */
-  public ConcurrentCollectorMultiple (@Nonnull final BlockingQueue <Object> aQueue,
-                                      @Nonnegative final int nMaxPerformCount)
+  public ConcurrentCollectorMultiple (@Nonnull final BlockingQueue <Object> aQueue, @Nonnegative final int nMaxPerformCount)
   {
     super (aQueue);
     m_nMaxPerformCount = ValueEnforcer.isGT0 (nMaxPerformCount, "MaxPerformCount");

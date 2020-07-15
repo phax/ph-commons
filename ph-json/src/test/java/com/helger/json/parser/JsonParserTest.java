@@ -65,8 +65,7 @@ public final class JsonParserTest
     final String sJson = "5";
 
     assertEquals (Integer.class, ((IJsonValue) _read (sJson, null)).getValueClass ());
-    assertEquals (BigInteger.class,
-                  ((IJsonValue) _read (sJson, aParser -> aParser.setAlwaysUseBigNumber (true))).getValueClass ());
+    assertEquals (BigInteger.class, ((IJsonValue) _read (sJson, aParser -> aParser.setAlwaysUseBigNumber (true))).getValueClass ());
   }
 
   @Test
@@ -75,8 +74,7 @@ public final class JsonParserTest
     final String sJson = "5.1";
 
     assertEquals (Double.class, ((IJsonValue) _read (sJson, null)).getValueClass ());
-    assertEquals (BigDecimal.class,
-                  ((IJsonValue) _read (sJson, aParser -> aParser.setAlwaysUseBigNumber (true))).getValueClass ());
+    assertEquals (BigDecimal.class, ((IJsonValue) _read (sJson, aParser -> aParser.setAlwaysUseBigNumber (true))).getValueClass ());
   }
 
   @Test

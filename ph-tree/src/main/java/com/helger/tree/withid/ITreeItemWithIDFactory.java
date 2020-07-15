@@ -31,8 +31,7 @@ import javax.annotation.Nonnull;
  * @param <ITEMTYPE>
  *        tree item type
  */
-public interface ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>>
-                                        extends
+public interface ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> extends
                                         Serializable
 {
   /**

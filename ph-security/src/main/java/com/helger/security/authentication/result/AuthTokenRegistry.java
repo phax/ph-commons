@@ -48,8 +48,7 @@ public final class AuthTokenRegistry
   {}
 
   @Nonnull
-  public static IAuthToken createToken (@Nonnull final IAuthIdentification aIdentification,
-                                        @Nonnegative final int nExpirationSeconds)
+  public static IAuthToken createToken (@Nonnull final IAuthIdentification aIdentification, @Nonnegative final int nExpirationSeconds)
   {
     final AuthToken aToken = new AuthToken (aIdentification, nExpirationSeconds);
     final String sTokenID = aToken.getID ();
@@ -119,8 +118,8 @@ public final class AuthTokenRegistry
     ValueEnforcer.notNull (aSubject, "Subject");
 
     return s_aRWLock.readLockedGet ( () -> CommonsArrayList.createFiltered (s_aMap.values (),
-                                                                         aToken -> aToken.getIdentification ()
-                                                                                         .hasAuthSubject (aSubject)));
+                                                                            aToken -> aToken.getIdentification ()
+                                                                                            .hasAuthSubject (aSubject)));
   }
 
   /**

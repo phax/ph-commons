@@ -42,10 +42,7 @@ public class UTF7CharsetProviderSPI extends CharsetProvider
   private static final String UTF7_NAME = "UTF-7";
   private static final String UTF7_O_NAME = "X-UTF-7-OPTIONAL";
   private static final String UTF7_M_NAME = "X-MODIFIED-UTF-7";
-  private static final String [] UTF7_ALIASES = new String [] { "UNICODE-1-1-UTF-7",
-                                                                "CSUNICODE11UTF7",
-                                                                "X-RFC2152",
-                                                                "X-RFC-2152" };
+  private static final String [] UTF7_ALIASES = new String [] { "UNICODE-1-1-UTF-7", "CSUNICODE11UTF7", "X-RFC2152", "X-RFC-2152" };
   private static final String [] UTF7_O_ALIASES = new String [] { "X-RFC2152-OPTIONAL", "X-RFC-2152-OPTIONAL" };
   private static final String [] UTF7_M_ALIASES = new String [] { "X-IMAP-MODIFIED-UTF-7",
                                                                   "X-IMAP4-MODIFIED-UTF7",
@@ -60,7 +57,7 @@ public class UTF7CharsetProviderSPI extends CharsetProvider
 
   public UTF7CharsetProviderSPI ()
   {
-    m_aCharsets = new CommonsArrayList<> (CHARSET_UTF7, CHARSET_UTF7_M, CHARSET_UTF7_O);
+    m_aCharsets = new CommonsArrayList <> (CHARSET_UTF7, CHARSET_UTF7_M, CHARSET_UTF7_O);
   }
 
   /**

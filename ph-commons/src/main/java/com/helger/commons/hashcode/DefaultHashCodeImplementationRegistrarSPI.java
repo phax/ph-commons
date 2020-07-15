@@ -135,7 +135,6 @@ public final class DefaultHashCodeImplementationRegistrarSPI implements IHashCod
     });
 
     // Special handling for File
-    aRegistry.registerHashCodeImplementation (File.class,
-                                              x -> FilenameHelper.getCleanPath (x.getAbsoluteFile ()).hashCode ());
+    aRegistry.registerHashCodeImplementation (File.class, x -> FilenameHelper.getCleanPath (x.getAbsoluteFile ()).hashCode ());
   }
 }

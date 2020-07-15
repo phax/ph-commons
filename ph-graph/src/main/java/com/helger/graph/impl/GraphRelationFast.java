@@ -43,9 +43,7 @@ public class GraphRelationFast extends GraphRelation
     super (aFrom, aTo);
   }
 
-  public GraphRelationFast (@Nullable final String sID,
-                            @Nonnull final IMutableGraphNode aFrom,
-                            @Nonnull final IMutableGraphNode aTo)
+  public GraphRelationFast (@Nullable final String sID, @Nonnull final IMutableGraphNode aFrom, @Nonnull final IMutableGraphNode aTo)
   {
     super (sID, aFrom, aTo);
   }

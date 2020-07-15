@@ -139,9 +139,6 @@ public final class XMLResourceBundle extends ResourceBundle
                                                 @Nonnull final Locale aLocale,
                                                 @Nonnull final ClassLoader aClassLoader)
   {
-    return (XMLResourceBundle) ResourceBundle.getBundle (sBaseName,
-                                                         aLocale,
-                                                         aClassLoader,
-                                                         new XMLResourceBundleControl ());
+    return (XMLResourceBundle) ResourceBundle.getBundle (sBaseName, aLocale, aClassLoader, new XMLResourceBundleControl ());
   }
 }

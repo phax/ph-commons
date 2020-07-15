@@ -86,8 +86,7 @@ public final class AuthIdentificationManager
     final AuthIdentification aIdentification = new AuthIdentification (aSubject);
 
     // create the token (without expiration seconds)
-    final IAuthToken aNewAuthToken = AuthTokenRegistry.createToken (aIdentification,
-                                                                    IAuthToken.EXPIRATION_SECONDS_INFINITE);
+    final IAuthToken aNewAuthToken = AuthTokenRegistry.createToken (aIdentification, IAuthToken.EXPIRATION_SECONDS_INFINITE);
     return AuthIdentificationResult.createSuccess (aNewAuthToken);
   }
 }

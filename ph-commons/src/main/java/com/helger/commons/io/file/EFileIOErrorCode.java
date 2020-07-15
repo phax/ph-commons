@@ -126,9 +126,7 @@ public enum EFileIOErrorCode implements ISuccessIndicator, IHasIntID
    * @return The new {@link FileIOError} and never <code>null</code>.
    */
   @Nonnull
-  public FileIOError getAsIOError (@Nonnull final EFileIOOperation eOperation,
-                                   @Nonnull final File aFile1,
-                                   @Nonnull final File aFile2)
+  public FileIOError getAsIOError (@Nonnull final EFileIOOperation eOperation, @Nonnull final File aFile1, @Nonnull final File aFile2)
   {
     if (eOperation.getParamCount () < 2)
       throw new IllegalStateException ("The operation " + eOperation + " expects only one parameter!");
@@ -149,9 +147,7 @@ public enum EFileIOErrorCode implements ISuccessIndicator, IHasIntID
    * @return The new {@link FileIOError} and never <code>null</code>.
    */
   @Nonnull
-  public FileIOError getAsIOError (@Nonnull final EFileIOOperation eOperation,
-                                   @Nonnull final Path aFile1,
-                                   @Nonnull final Path aFile2)
+  public FileIOError getAsIOError (@Nonnull final EFileIOOperation eOperation, @Nonnull final Path aFile1, @Nonnull final Path aFile2)
   {
     if (eOperation.getParamCount () < 2)
       throw new IllegalStateException ("The operation " + eOperation + " expects only one parameter!");
@@ -178,8 +174,7 @@ public enum EFileIOErrorCode implements ISuccessIndicator, IHasIntID
    * @return The non-<code>null</code> {@link FileIOError}.
    */
   @Nonnull
-  public static FileIOError getSecurityAsIOError (@Nonnull final EFileIOOperation eOperation,
-                                                  @Nonnull final SecurityException ex)
+  public static FileIOError getSecurityAsIOError (@Nonnull final EFileIOOperation eOperation, @Nonnull final SecurityException ex)
   {
     return new FileIOError (eOperation, EFileIOErrorCode.SECURITY_ERROR, ex);
   }
@@ -210,8 +205,7 @@ public enum EFileIOErrorCode implements ISuccessIndicator, IHasIntID
    * @return The non-<code>null</code> {@link FileIOError}.
    */
   @Nonnull
-  public static FileIOError getAsIOError (@Nonnull final EFileIOOperation eOperation,
-                                          @Nonnull final UncheckedIOException ex)
+  public static FileIOError getAsIOError (@Nonnull final EFileIOOperation eOperation, @Nonnull final UncheckedIOException ex)
   {
     return new FileIOError (eOperation, EFileIOErrorCode.IO_ERROR, ex);
   }

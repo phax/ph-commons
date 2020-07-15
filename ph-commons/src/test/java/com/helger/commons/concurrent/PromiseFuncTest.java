@@ -91,10 +91,7 @@ public class PromiseFuncTest
       return new MutableInt (x.intValue () + 1);
     };
     final StopWatch aSW = StopWatch.createdStarted ();
-    final MutableInt aMI = CompletableFuture.supplyAsync ( () -> f.apply (new MutableInt (0)))
-                                            .thenApplyAsync (f)
-                                            .thenApplyAsync (f)
-                                            .get ();
+    final MutableInt aMI = CompletableFuture.supplyAsync ( () -> f.apply (new MutableInt (0))).thenApplyAsync (f).thenApplyAsync (f).get ();
     aSW.stop ();
     assertEquals (3, aMI.intValue ());
     final long nMillis = aSW.getMillis ();
@@ -110,10 +107,7 @@ public class PromiseFuncTest
       return new MutableInt (x.intValue () + 1);
     };
     final StopWatch aSW = StopWatch.createdStarted ();
-    final MutableInt aMI = CompletableFuture.supplyAsync ( () -> f.apply (new MutableInt (0)))
-                                            .thenApply (f)
-                                            .thenApply (f)
-                                            .get ();
+    final MutableInt aMI = CompletableFuture.supplyAsync ( () -> f.apply (new MutableInt (0))).thenApply (f).thenApply (f).get ();
     aSW.stop ();
     assertEquals (3, aMI.intValue ());
     final long nMillis = aSW.getMillis ();

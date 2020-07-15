@@ -38,10 +38,7 @@ public final class JAXBHelperTest
   @Test
   public void testClone ()
   {
-    final JAXBElement <String> aJE = new JAXBElement <> (new QName ("urn:example.org", "test"),
-                                                         String.class,
-                                                         null,
-                                                         "any");
+    final JAXBElement <String> aJE = new JAXBElement <> (new QName ("urn:example.org", "test"), String.class, null, "any");
     final JAXBElement <String> aClone = JAXBHelper.getClonedJAXBElement (aJE);
     assertNotNull (aClone);
     assertNotSame (aJE, aClone);
@@ -52,10 +49,7 @@ public final class JAXBHelperTest
   @Test
   public void testCloneWithScope ()
   {
-    final JAXBElement <String> aJE = new JAXBElement <> (new QName ("urn:example.org", "test2"),
-                                                         String.class,
-                                                         JAXBHelperTest.class,
-                                                         "any");
+    final JAXBElement <String> aJE = new JAXBElement <> (new QName ("urn:example.org", "test2"), String.class, JAXBHelperTest.class, "any");
     final JAXBElement <String> aClone = JAXBHelper.getClonedJAXBElement (aJE);
     assertNotNull (aClone);
     assertNotSame (aJE, aClone);

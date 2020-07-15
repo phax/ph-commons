@@ -126,9 +126,7 @@ public class NonBlockingPushbackReader extends FilterReader
    *            If an I/O error occurs
    */
   @Override
-  public int read (@Nonnull final char [] aBuf,
-                   @Nonnegative final int nOfs,
-                   @Nonnegative final int nLen) throws IOException
+  public int read (@Nonnull final char [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
   {
     ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
     _ensureOpen ();
@@ -200,9 +198,7 @@ public class NonBlockingPushbackReader extends FilterReader
    *            If there is insufficient room in the pushback buffer, or if some
    *            other I/O error occurs
    */
-  public void unread (@Nonnull final char [] aBuf,
-                      @Nonnegative final int nOfs,
-                      @Nonnegative final int nLen) throws IOException
+  public void unread (@Nonnull final char [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
   {
     ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
     _ensureOpen ();

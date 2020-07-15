@@ -87,16 +87,13 @@ public class DefaultResourceResolver
    *         In case the file resolution (to an absolute file) fails.
    */
   @Nonnull
-  public static IReadableResource getResolvedResource (@Nullable final String sSystemId,
-                                                       @Nullable final String sBaseURI)
+  public static IReadableResource getResolvedResource (@Nullable final String sSystemId, @Nullable final String sBaseURI)
   {
     return getResolvedResource (sSystemId, sBaseURI, (ClassLoader) null);
   }
 
   @Nonnull
-  private static ClassPathResource _resolveClassPathResource (final String sSystemId,
-                                                              final String sBaseURI,
-                                                              final ClassLoader aClassLoader)
+  private static ClassPathResource _resolveClassPathResource (final String sSystemId, final String sBaseURI, final ClassLoader aClassLoader)
   {
     // Skip leading "cp:" or "classpath:"
     final String sBaseURIWithoutPrefix = ClassPathResource.getWithoutClassPathPrefix (sBaseURI);
@@ -105,8 +102,7 @@ public class DefaultResourceResolver
     final File aBaseFile = new File (sBaseURIWithoutPrefix).getParentFile ();
 
     // Concatenate the path with the URI to search
-    final String sNewPath = FilenameHelper.getCleanPath (aBaseFile == null ? sSystemId
-                                                                           : aBaseFile.getPath () + '/' + sSystemId);
+    final String sNewPath = FilenameHelper.getCleanPath (aBaseFile == null ? sSystemId : aBaseFile.getPath () + '/' + sSystemId);
 
     final ClassPathResource ret = new ClassPathResource (sNewPath, aClassLoader);
     if (isDebugResolve ())
@@ -143,8 +139,7 @@ public class DefaultResourceResolver
     final File aBaseFile = new File (sBasePath).getParentFile ();
 
     // Concatenate the path with the URI to search
-    final String sNewPath = FilenameHelper.getCleanPath (aBaseFile == null ? sSystemId
-                                                                           : aBaseFile.getPath () + '/' + sSystemId);
+    final String sNewPath = FilenameHelper.getCleanPath (aBaseFile == null ? sSystemId : aBaseFile.getPath () + '/' + sSystemId);
 
     String sAggregatedPath;
     if (sPrefix.endsWith ("/") && sNewPath.startsWith ("/"))
@@ -163,8 +158,7 @@ public class DefaultResourceResolver
   }
 
   @Nonnull
-  private static URLResource _resolveURLResource (final String sSystemId,
-                                                  final URL aBaseURL) throws MalformedURLException
+  private static URLResource _resolveURLResource (final String sSystemId, final URL aBaseURL) throws MalformedURLException
   {
     // Take only the path
     String sBasePath = aBaseURL.getPath ();

@@ -313,8 +313,7 @@ public final class MatrixIntTest
     }
     try
     {
-      if (b.get (b.getRowDimension () - 1,
-                 b.getColumnDimension () - 1) != avals[b.getRowDimension () - 1][b.getColumnDimension () - 1])
+      if (b.get (b.getRowDimension () - 1, b.getColumnDimension () - 1) != avals[b.getRowDimension () - 1][b.getColumnDimension () - 1])
       {
         fail ("MatrixInt entry (i,j) not successfully retreived");
       }
@@ -938,9 +937,7 @@ public final class MatrixIntTest
       try
       {
         LOGGER.error ("oops", e);
-        warningCount = _try_warning (warningCount,
-                                     "print()/read()...",
-                                     "Formatting error... will try JDK1.1 reformulation...");
+        warningCount = _try_warning (warningCount, "print()/read()...", "Formatting error... will try JDK1.1 reformulation...");
         final DecimalFormat fmt = new DecimalFormat ("0", DFS);
         try (final PrintWriter aPW = FileHelper.getPrintWriter (FILE_JAMA_TEST_MATRIX_OUT, StandardCharsets.UTF_8))
         {
@@ -1101,10 +1098,7 @@ public final class MatrixIntTest
       return;
     if (Math.abs (x - y) > 10 * EPSILON * Math.max (Math.abs (x), Math.abs (y)))
     {
-      throw new IllegalArgumentException ("The difference x-y is too large: x = " +
-                                          Double.toString (x) +
-                                          "  y = " +
-                                          Double.toString (y));
+      throw new IllegalArgumentException ("The difference x-y is too large: x = " + Double.toString (x) + "  y = " + Double.toString (y));
     }
   }
 

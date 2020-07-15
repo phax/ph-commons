@@ -137,12 +137,8 @@ public class JsonWriterSettings implements IJsonWriterSettings
   public String toString ()
   {
     return new ToStringGenerator (this).append ("IndentEnabled", m_bIndentEnabled)
-                                       .append ("IndentString",
-                                                StringHelper.getHexEncoded (m_sIndentString,
-                                                                            StandardCharsets.ISO_8859_1))
-                                       .append ("NewlineString",
-                                                StringHelper.getHexEncoded (m_sNewlineString,
-                                                                            StandardCharsets.ISO_8859_1))
+                                       .append ("IndentString", StringHelper.getHexEncoded (m_sIndentString, StandardCharsets.ISO_8859_1))
+                                       .append ("NewlineString", StringHelper.getHexEncoded (m_sNewlineString, StandardCharsets.ISO_8859_1))
                                        .append ("WriteNewlineAtEnd", m_bWriteNewlineAtEnd)
                                        .append ("QuoteNames", m_bQuoteNames)
                                        .getToString ();

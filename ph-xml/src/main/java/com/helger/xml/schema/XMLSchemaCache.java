@@ -77,8 +77,7 @@ public class XMLSchemaCache extends SchemaCache
     this ((ErrorHandler) null, aResourceResolver);
   }
 
-  public XMLSchemaCache (@Nullable final ErrorHandler aErrorHandler,
-                         @Nullable final LSResourceResolver aResourceResolver)
+  public XMLSchemaCache (@Nullable final ErrorHandler aErrorHandler, @Nullable final LSResourceResolver aResourceResolver)
   {
     this (createXSDSchemaFactory (), aErrorHandler, aResourceResolver);
   }
