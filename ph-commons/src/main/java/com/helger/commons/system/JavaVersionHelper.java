@@ -60,12 +60,7 @@ public final class JavaVersionHelper
   private static final Logger LOGGER = LoggerFactory.getLogger (JavaVersionHelper.class);
 
   private static final LocalDateTime REFERENCE_DATE = PDTFactory.createLocalDateTime (2018, Month.JANUARY, 1, 0, 0, 0);
-  private static final LocalDateTime ADOPTOPENJDK_BUILD_172 = PDTFactory.createLocalDateTime (2018,
-                                                                                              Month.MAY,
-                                                                                              19,
-                                                                                              0,
-                                                                                              59,
-                                                                                              0);
+  private static final LocalDateTime ADOPTOPENJDK_BUILD_172 = PDTFactory.createLocalDateTime (2018, Month.MAY, 19, 0, 59, 0);
 
   @Nonnull
   @ReturnsMutableCopy
@@ -76,8 +71,7 @@ public final class JavaVersionHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  static int [] getAsUnifiedVersion (@Nonnull final String sOriginalJavaVersion,
-                                     @Nullable final String sJavaRuntimeVersion)
+  static int [] getAsUnifiedVersion (@Nonnull final String sOriginalJavaVersion, @Nullable final String sJavaRuntimeVersion)
   {
     int nMajor = 0;
     int nMinor = 0;
@@ -106,9 +100,7 @@ public final class JavaVersionHelper
         // Everything after "_"
         nMinor = StringParser.parseInt (s.substring (nUnderscore + 1), -1);
         if (nMinor < 0)
-          throw new IllegalStateException ("Failed to determine Java minor version from '" +
-                                           sOriginalJavaVersion +
-                                           "'");
+          throw new IllegalStateException ("Failed to determine Java minor version from '" + sOriginalJavaVersion + "'");
 
         // Micro part is not present
         nMicro = -1;
@@ -146,10 +138,7 @@ public final class JavaVersionHelper
             {
               // Open...
               if (LOGGER.isWarnEnabled ())
-                LOGGER.warn ("Unknown runtime version '" +
-                             sJavaRuntimeVersion +
-                             "' compared to java version '" +
-                             sOriginalJavaVersion);
+                LOGGER.warn ("Unknown runtime version '" + sJavaRuntimeVersion + "' compared to java version '" + sOriginalJavaVersion);
               nMinor = -1;
               nMicro = -1;
             }
@@ -158,10 +147,7 @@ public final class JavaVersionHelper
           {
             // Unknown runtime version
             if (LOGGER.isWarnEnabled ())
-              LOGGER.warn ("Unknown runtime version '" +
-                           sJavaRuntimeVersion +
-                           "' compared to java version '" +
-                           sOriginalJavaVersion);
+              LOGGER.warn ("Unknown runtime version '" + sJavaRuntimeVersion + "' compared to java version '" + sOriginalJavaVersion);
             nMinor = -1;
             nMicro = -1;
           }
@@ -217,36 +203,25 @@ public final class JavaVersionHelper
         else
           nMinor = StringParser.parseInt (s.substring (nFirstDot + 1, nSecondDot), -1);
         if (nMinor < 0)
-          throw new IllegalStateException ("Failed to determine Java minor version from '" +
-                                           sOriginalJavaVersion +
-                                           "'");
+          throw new IllegalStateException ("Failed to determine Java minor version from '" + sOriginalJavaVersion + "'");
 
         if (nSecondDot >= 0)
         {
           nMicro = StringParser.parseInt (s.substring (nSecondDot + 1), -1);
           if (nMicro < 0)
-            throw new IllegalStateException ("Failed to determine Java micro version from '" +
-                                             sOriginalJavaVersion +
-                                             "'");
+            throw new IllegalStateException ("Failed to determine Java micro version from '" + sOriginalJavaVersion + "'");
         }
       }
     }
 
     if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Java version '" +
-                    sOriginalJavaVersion +
-                    "' split into " +
-                    nMajor +
-                    "." +
-                    nMinor +
-                    (nMicro >= 0 ? "." + nMicro : ""));
+      LOGGER.debug ("Java version '" + sOriginalJavaVersion + "' split into " + nMajor + "." + nMinor + (nMicro >= 0 ? "." + nMicro : ""));
     return new int [] { nMajor, nMinor, nMicro };
   }
 
   static
   {
-    final int [] aParts = getAsUnifiedVersion (SystemProperties.getJavaVersion (),
-                                               SystemProperties.getJavaRuntimeVersion ());
+    final int [] aParts = getAsUnifiedVersion (SystemProperties.getJavaVersion (), SystemProperties.getJavaRuntimeVersion ());
     JAVA_MAJOR_VERSION = aParts[0];
     JAVA_MINOR_VERSION = aParts[1];
     JAVA_MICRO_VERSION = aParts[2];

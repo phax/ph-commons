@@ -44,9 +44,7 @@ final class UTF7StyleCharsetDecoder extends CharsetDecoder
   private boolean m_bJustShifted;
   private boolean m_bJustUnshifted;
 
-  UTF7StyleCharsetDecoder (final AbstractUTF7StyleCharset aCharset,
-                           final UTF7Base64Helper aBase64,
-                           final boolean bStrict)
+  UTF7StyleCharsetDecoder (final AbstractUTF7StyleCharset aCharset, final UTF7Base64Helper aBase64, final boolean bStrict)
   {
     super (aCharset, 0.6f, 1.0f);
     m_aBase64 = aBase64;

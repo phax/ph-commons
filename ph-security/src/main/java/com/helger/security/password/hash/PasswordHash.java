@@ -97,10 +97,7 @@ public final class PasswordHash implements Serializable
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_sAlgorithmName)
-                                       .append (m_aSalt)
-                                       .append (m_sPasswordHashValue)
-                                       .getHashCode ();
+    return new HashCodeGenerator (this).append (m_sAlgorithmName).append (m_aSalt).append (m_sPasswordHashValue).getHashCode ();
   }
 
   @Override

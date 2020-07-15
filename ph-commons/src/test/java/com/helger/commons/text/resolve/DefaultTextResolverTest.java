@@ -88,12 +88,8 @@ public final class DefaultTextResolverTest
     assertNull (EText.TEXT2.getDisplayText (aSR));
 
     // Check bundle names
-    assertTrue (DefaultTextResolver.getInstance ()
-                                   .getAllUsedOverrideBundleNames ()
-                                   .contains ("properties/override-de"));
-    assertFalse (DefaultTextResolver.getInstance ()
-                                    .getAllUsedOverrideBundleNames ()
-                                    .contains ("properties/override-en"));
+    assertTrue (DefaultTextResolver.getInstance ().getAllUsedOverrideBundleNames ().contains ("properties/override-de"));
+    assertFalse (DefaultTextResolver.getInstance ().getAllUsedOverrideBundleNames ().contains ("properties/override-en"));
     assertFalse (DefaultTextResolver.getInstance ().getAllUsedFallbackBundleNames ().contains ("properties/sr_RS"));
   }
 

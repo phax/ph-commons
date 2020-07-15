@@ -45,9 +45,7 @@ public class JAXBNamespacePrefixMapper extends NamespacePrefixMapper
 
   @Override
   @Nullable
-  public String getPreferredPrefix (@Nonnull final String sNamespaceUri,
-                                    @Nullable final String sSuggestion,
-                                    final boolean bRequirePrefix)
+  public String getPreferredPrefix (@Nonnull final String sNamespaceUri, @Nullable final String sSuggestion, final boolean bRequirePrefix)
   {
     final String sPrefix = m_aNC.getPrefix (sNamespaceUri);
     if (sPrefix != null)

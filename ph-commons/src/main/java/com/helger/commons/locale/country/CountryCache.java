@@ -194,8 +194,7 @@ public class CountryCache
       return null;
 
     final LocaleCache aLC = LocaleCache.getInstance ();
-    final IMissingLocaleHandler aMLH = aMissingHandler != null ? aMissingHandler
-                                                               : aLC.getDefaultMissingLocaleHandler ();
+    final IMissingLocaleHandler aMLH = aMissingHandler != null ? aMissingHandler : aLC.getDefaultMissingLocaleHandler ();
 
     // Was something like "_AT" (e.g. the result of getCountry (...).toString
     // ()) passed in? -> indirect recursion

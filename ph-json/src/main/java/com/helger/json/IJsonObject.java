@@ -49,24 +49,6 @@ public interface IJsonObject extends IJsonCollection, ICommonsIterable <Map.Entr
    * @param aValue
    *        The JSON object to be added. May not be <code>null</code>.
    * @return this for chaining
-   * @deprecated Since 9.4.3; Use {@link #addJson(String, IJson)} instead. It
-   *             was renamed because all other "add" methods allow for
-   *             "nullable" parameters whereas this method requires a
-   *             non-<code>null</code> value. By renaming the method the
-   *             non-<code>null</code>ness became more explicit.
-   */
-  @Nonnull
-  @Deprecated
-  IJsonObject add (@Nonnull String sName, @Nonnull IJson aValue);
-
-  /**
-   * Add a new child JSON with the given name to this object.
-   *
-   * @param sName
-   *        The name of the field. May not be <code>null</code>.
-   * @param aValue
-   *        The JSON object to be added. May not be <code>null</code>.
-   * @return this for chaining
    */
   @Nonnull
   IJsonObject addJson (@Nonnull String sName, @Nonnull IJson aValue);

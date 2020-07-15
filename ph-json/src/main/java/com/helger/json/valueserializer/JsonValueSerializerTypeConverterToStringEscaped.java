@@ -47,8 +47,7 @@ public final class JsonValueSerializerTypeConverterToStringEscaped implements IJ
     return s_aInstance;
   }
 
-  public void appendAsJsonString (@Nullable final Object aValue,
-                                  @Nonnull @WillNotClose final Writer aWriter) throws IOException
+  public void appendAsJsonString (@Nullable final Object aValue, @Nonnull @WillNotClose final Writer aWriter) throws IOException
   {
     ValueEnforcer.notNull (aWriter, "Writer");
 

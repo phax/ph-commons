@@ -42,12 +42,11 @@ import com.helger.commons.lang.GenericReflection;
  */
 public final class WrappedListTest
 {
-  private static <T> void _testList (@Nonnull final List <T> aList,
-                                     @Nonnull final Class <T> aClass) throws InstantiationException,
-                                                                      IllegalAccessException,
-                                                                      NoSuchMethodException,
-                                                                      SecurityException,
-                                                                      InvocationTargetException
+  private static <T> void _testList (@Nonnull final List <T> aList, @Nonnull final Class <T> aClass) throws InstantiationException,
+                                                                                                     IllegalAccessException,
+                                                                                                     NoSuchMethodException,
+                                                                                                     SecurityException,
+                                                                                                     InvocationTargetException
   {
     final Constructor <T> aCtor = aClass.getConstructor ();
 

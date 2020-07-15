@@ -48,9 +48,7 @@ public class FileIOError implements ISuccessIndicator, Serializable
     this (eOperation, eCode, null, null, null);
   }
 
-  public FileIOError (@Nonnull final EFileIOOperation eOperation,
-                      @Nonnull final EFileIOErrorCode eCode,
-                      @Nonnull final File aFile1)
+  public FileIOError (@Nonnull final EFileIOOperation eOperation, @Nonnull final EFileIOErrorCode eCode, @Nonnull final File aFile1)
   {
     this (eOperation, eCode, ValueEnforcer.notNull (aFile1, "File1"), null, null);
   }

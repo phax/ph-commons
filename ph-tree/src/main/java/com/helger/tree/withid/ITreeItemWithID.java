@@ -39,8 +39,7 @@ import com.helger.tree.IBasicTreeItem;
  * @param <ITEMTYPE>
  *        The implementation type.
  */
-public interface ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>>
-                                 extends
+public interface ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> extends
                                  IBasicTreeItem <DATATYPE, ITEMTYPE>,
                                  IHasID <KEYTYPE>
 {

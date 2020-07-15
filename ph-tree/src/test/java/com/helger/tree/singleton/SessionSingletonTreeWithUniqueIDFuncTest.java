@@ -53,8 +53,7 @@ public final class SessionSingletonTreeWithUniqueIDFuncTest
     final MockSessionSingletonTreeWithUniqueID a = MockSessionSingletonTreeWithUniqueID.getInstance ();
     assertNotNull (a);
     assertTrue (AbstractSessionSingleton.isSessionSingletonInstantiated (MockSessionSingletonTreeWithUniqueID.class));
-    assertSame (a,
-                AbstractSessionSingleton.getSessionSingletonIfInstantiated (MockSessionSingletonTreeWithUniqueID.class));
+    assertSame (a, AbstractSessionSingleton.getSessionSingletonIfInstantiated (MockSessionSingletonTreeWithUniqueID.class));
 
     final MockSessionSingletonTreeWithUniqueID b = MockSessionSingletonTreeWithUniqueID.getInstance ();
     assertSame (a, b);

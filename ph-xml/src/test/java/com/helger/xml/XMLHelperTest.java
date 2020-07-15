@@ -137,9 +137,7 @@ public final class XMLHelperTest
   {
     final Document doc = _getTestDoc ();
     final String sExpectedTagName = "e";
-    final Iterator <Element> it = XMLHelper.getChildElementIteratorNS (doc.getDocumentElement (),
-                                                                       TEST_NS,
-                                                                       sExpectedTagName);
+    final Iterator <Element> it = XMLHelper.getChildElementIteratorNS (doc.getDocumentElement (), TEST_NS, sExpectedTagName);
     int nCount = 0;
     while (it.hasNext ())
     {

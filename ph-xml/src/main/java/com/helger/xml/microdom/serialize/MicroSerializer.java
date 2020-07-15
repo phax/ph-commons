@@ -103,9 +103,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
         _writeContainer (aXMLWriter, aParentNode, (IMicroContainer) aNode);
         break;
       default:
-        throw new IllegalArgumentException ("Passed node type " +
-                                            aNode.getClass ().getName () +
-                                            " is not yet supported");
+        throw new IllegalArgumentException ("Passed node type " + aNode.getClass ().getName () + " is not yet supported");
     }
   }
 
@@ -139,17 +137,15 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
     }
   }
 
-  @SuppressWarnings ("deprecation")
   private void _writeDocument (@Nonnull final XMLEmitter aXMLWriter, final IMicroDocument aDocument)
   {
     if (m_aSettings.getSerializeXMLDeclaration ().isEmit ())
     {
       aXMLWriter.onXMLDeclaration (m_aSettings.getXMLVersion (),
                                    m_aSettings.getCharset ().name (),
-                                   m_aSettings.getSerializeXMLDeclaration ()
-                                              .isEmitStandalone () ? aDocument.getStandalone () : ETriState.UNDEFINED,
-                                   m_aSettings.getSerializeXMLDeclaration ()
-                                              .isWithNewLine () && m_aSettings.isNewLineAfterXMLDeclaration ());
+                                   m_aSettings.getSerializeXMLDeclaration ().isEmitStandalone () ? aDocument.getStandalone ()
+                                                                                                 : ETriState.UNDEFINED,
+                                   m_aSettings.isNewLineAfterXMLDeclaration ());
     }
 
     if (aDocument.hasChildren ())
@@ -162,8 +158,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
       aXMLWriter.onDocumentType (aDocType.getQualifiedName (), aDocType.getPublicID (), aDocType.getSystemID ());
   }
 
-  private static void _writeProcessingInstruction (@Nonnull final XMLEmitter aXMLWriter,
-                                                   @Nonnull final IMicroProcessingInstruction aPI)
+  private static void _writeProcessingInstruction (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final IMicroProcessingInstruction aPI)
   {
     aXMLWriter.onProcessingInstruction (aPI.getTarget (), aPI.getData ());
   }
@@ -177,8 +172,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
       _writeNodeList (aXMLWriter, aParentNode, aContainer.getAllChildren ());
   }
 
-  private static void _writeEntityReference (@Nonnull final XMLEmitter aXMLWriter,
-                                             @Nonnull final IMicroEntityReference aEntRef)
+  private static void _writeEntityReference (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final IMicroEntityReference aEntRef)
   {
     aXMLWriter.onEntityReference (aEntRef.getName ());
   }
@@ -269,10 +263,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
           if (bEmitNamespaces)
           {
             // Eventually adds a namespace attribute in the AttrMap
-            sAttrNSPrefix = m_aNSStack.getAttributeNamespacePrefixToUse (sAttrNamespaceURI,
-                                                                         sAttrName,
-                                                                         sAttrValue,
-                                                                         aAttrMap);
+            sAttrNSPrefix = m_aNSStack.getAttributeNamespacePrefixToUse (sAttrNamespaceURI, sAttrName, sAttrValue, aAttrMap);
           }
 
           if (sAttrNSPrefix != null)
@@ -282,8 +273,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
         }
 
       // Determine indent
-      final IMicroElement aParentElement = aParentNode != null && aParentNode.isElement () ? (IMicroElement) aParentNode
-                                                                                           : null;
+      final IMicroElement aParentElement = aParentNode != null && aParentNode.isElement () ? (IMicroElement) aParentNode : null;
       final String sParentNamespaceURI = aParentElement != null ? aParentElement.getNamespaceURI () : null;
       final String sParentTagName = aParentElement != null ? aParentElement.getTagName () : null;
       final EXMLSerializeIndent eIndentOuter = m_aSettings.getIndentDeterminator ()
@@ -300,10 +290,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
         aXMLWriter.onContentElementWhitespace (m_aIndent);
 
       final EXMLSerializeBracketMode eBracketMode = m_aSettings.getBracketModeDeterminator ()
-                                                               .getBracketMode (sElementNamespaceURI,
-                                                                                sTagName,
-                                                                                aAttrMap,
-                                                                                bHasChildren);
+                                                               .getBracketMode (sElementNamespaceURI, sTagName, aAttrMap, bHasChildren);
 
       aXMLWriter.onElementStart (sElementNSPrefix, sTagName, aAttrMap, eBracketMode);
 

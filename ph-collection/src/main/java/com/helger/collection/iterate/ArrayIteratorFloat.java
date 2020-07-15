@@ -53,9 +53,7 @@ public final class ArrayIteratorFloat
    * @param nLength
    *        Length. Must be &ge; 0.
    */
-  public ArrayIteratorFloat (@Nonnull final float [] aArray,
-                             @Nonnegative final int nOfs,
-                             @Nonnegative final int nLength)
+  public ArrayIteratorFloat (@Nonnull final float [] aArray, @Nonnegative final int nOfs, @Nonnegative final int nLength)
   {
     ValueEnforcer.isArrayOfsLen (aArray, nOfs, nLength);
     m_aArray = ArrayHelper.getCopy (aArray, nOfs, nLength);
@@ -93,9 +91,7 @@ public final class ArrayIteratorFloat
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("array", Arrays.toString (m_aArray))
-                                       .append ("index", m_nIndex)
-                                       .getToString ();
+    return new ToStringGenerator (this).append ("array", Arrays.toString (m_aArray)).append ("index", m_nIndex).getToString ();
   }
 
   @Nonnull

@@ -496,9 +496,7 @@ public final class PathOperations
 
     // Is the source a parent of target?
     if (PathHelper.isParentDirectory (aRealSourceDir, aRealTargetDir))
-      return EFileIOErrorCode.TARGET_IS_CHILD_OF_SOURCE.getAsIOError (EFileIOOperation.RENAME_DIR,
-                                                                      aRealSourceDir,
-                                                                      aRealTargetDir);
+      return EFileIOErrorCode.TARGET_IS_CHILD_OF_SOURCE.getAsIOError (EFileIOOperation.RENAME_DIR, aRealSourceDir, aRealTargetDir);
 
     // Is the source parent directory writable?
     final Path aSourceParentDir = aRealSourceDir.getParent ();
@@ -592,9 +590,7 @@ public final class PathOperations
 
     // Is the source a parent of target?
     if (PathHelper.isParentDirectory (aRealSourceDir, aRealTargetDir))
-      return EFileIOErrorCode.TARGET_IS_CHILD_OF_SOURCE.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE,
-                                                                      aRealSourceDir,
-                                                                      aRealTargetDir);
+      return EFileIOErrorCode.TARGET_IS_CHILD_OF_SOURCE.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, aRealSourceDir, aRealTargetDir);
 
     // Does the target directory already exist?
     if (aRealTargetDir.toFile ().exists ())
@@ -607,8 +603,7 @@ public final class PathOperations
     // Is the target parent directory writable?
     final Path aTargetParentDir = aRealTargetDir.getParent ();
     if (aTargetParentDir != null && aTargetParentDir.toFile ().exists () && !Files.isWritable (aTargetParentDir))
-      return EFileIOErrorCode.TARGET_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE,
-                                                                       aRealTargetDir);
+      return EFileIOErrorCode.TARGET_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, aRealTargetDir);
 
     FileIOError eCode;
 

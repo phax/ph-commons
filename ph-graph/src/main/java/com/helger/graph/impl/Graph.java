@@ -148,8 +148,7 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
   }
 
   @Nonnull
-  public IMutableGraphRelation createRelation (@Nonnull final IMutableGraphNode aFrom,
-                                               @Nonnull final IMutableGraphNode aTo)
+  public IMutableGraphRelation createRelation (@Nonnull final IMutableGraphNode aFrom, @Nonnull final IMutableGraphNode aTo)
   {
     return _connect (m_aFactory.createRelation (aFrom, aTo));
   }

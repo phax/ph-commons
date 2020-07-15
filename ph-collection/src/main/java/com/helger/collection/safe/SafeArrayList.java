@@ -94,8 +94,7 @@ public class SafeArrayList <ELEMENTTYPE> extends CommonsArrayList <ELEMENTTYPE>
   }
 
   @Nullable
-  public ELEMENTTYPE computeIfAbsent (@Nonnegative final int nIndex,
-                                      @Nonnull final Supplier <? extends ELEMENTTYPE> aFactory)
+  public ELEMENTTYPE computeIfAbsent (@Nonnegative final int nIndex, @Nonnull final Supplier <? extends ELEMENTTYPE> aFactory)
   {
     _ensureSize (nIndex);
     ELEMENTTYPE ret = super.get (nIndex);

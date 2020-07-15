@@ -169,9 +169,7 @@ public class NonBlockingPushbackInputStream extends FilterInputStream
    * @see java.io.InputStream#read(byte[], int, int)
    */
   @Override
-  public int read (@Nonnull final byte [] aBuf,
-                   @Nonnegative final int nOfs,
-                   @Nonnegative final int nLen) throws IOException
+  public int read (@Nonnull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
   {
     ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
     _ensureOpen ();
@@ -241,9 +239,7 @@ public class NonBlockingPushbackInputStream extends FilterInputStream
    *            by invoking its {@link #close()} method.
    * @since JDK1.1
    */
-  public void unread (@Nonnull final byte [] aBuf,
-                      @Nonnegative final int nOfs,
-                      @Nonnegative final int nLen) throws IOException
+  public void unread (@Nonnull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
   {
     ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
     _ensureOpen ();

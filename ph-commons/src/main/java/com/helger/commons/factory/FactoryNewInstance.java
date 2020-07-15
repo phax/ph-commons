@@ -45,9 +45,7 @@ public class FactoryNewInstance <DATATYPE> implements ISupplier <DATATYPE>
   {
     if (bCheckInstancable)
       ValueEnforcer.isTrue (ClassHelper.isInstancableClass (aClass),
-                            () -> "The passed class '" +
-                                  aClass +
-                                  "' is not instancable or doesn't have a public no-argument constructor!");
+                            () -> "The passed class '" + aClass + "' is not instancable or doesn't have a public no-argument constructor!");
     m_aClass = aClass;
   }
 
@@ -93,8 +91,7 @@ public class FactoryNewInstance <DATATYPE> implements ISupplier <DATATYPE>
   }
 
   @Nonnull
-  public static <DATATYPE> FactoryNewInstance <DATATYPE> create (@Nullable final Class <DATATYPE> aClass,
-                                                                 final boolean bCheckInstancable)
+  public static <DATATYPE> FactoryNewInstance <DATATYPE> create (@Nullable final Class <DATATYPE> aClass, final boolean bCheckInstancable)
   {
     return new FactoryNewInstance <> (aClass, bCheckInstancable);
   }

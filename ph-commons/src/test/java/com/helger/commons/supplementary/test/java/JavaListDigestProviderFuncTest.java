@@ -40,8 +40,7 @@ public final class JavaListDigestProviderFuncTest
     {
       LOGGER.info ("Provider: '" + aElement + "'");
 
-      for (final Object sAlgo : CollectionHelper.getSortedByKey (aElement, Comparator.comparing (Object::toString))
-                                                .keySet ())
+      for (final Object sAlgo : CollectionHelper.getSortedByKey (aElement, Comparator.comparing (Object::toString)).keySet ())
         LOGGER.info ("\t" + sAlgo);
     }
   }

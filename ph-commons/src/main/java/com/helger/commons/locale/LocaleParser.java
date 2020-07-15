@@ -62,9 +62,7 @@ public final class LocaleParser
   }
 
   @Nullable
-  public static Number parse (@Nullable final String sStr,
-                              @Nonnull final NumberFormat aNF,
-                              @Nullable final Number aDefault)
+  public static Number parse (@Nullable final String sStr, @Nonnull final NumberFormat aNF, @Nullable final Number aDefault)
   {
     ValueEnforcer.notNull (aNF, "NumberFormat");
 
@@ -94,9 +92,7 @@ public final class LocaleParser
     return aNum == null ? fDefault : aNum.floatValue ();
   }
 
-  public static double parseDouble (@Nullable final String sStr,
-                                    @Nonnull final Locale aParseLocale,
-                                    final double dDefault)
+  public static double parseDouble (@Nullable final String sStr, @Nonnull final Locale aParseLocale, final double dDefault)
   {
     return parseDouble (sStr, NumberFormat.getInstance (aParseLocale), dDefault);
   }

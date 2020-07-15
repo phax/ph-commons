@@ -61,9 +61,7 @@ public class CommonsLinkedHashMap <KEYTYPE, VALUETYPE> extends LinkedHashMap <KE
       putAll (aMap);
   }
 
-  public CommonsLinkedHashMap (@Nonnegative final int nInitialCapacity,
-                               final float fLoadFactor,
-                               final boolean bAccessOrder)
+  public CommonsLinkedHashMap (@Nonnegative final int nInitialCapacity, final float fLoadFactor, final boolean bAccessOrder)
   {
     super (nInitialCapacity, fLoadFactor, bAccessOrder);
   }

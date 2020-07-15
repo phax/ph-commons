@@ -52,8 +52,7 @@ public final class RequestSingletonTreeWithUniqueIDFuncTest
     final MockRequestSingletonTreeWithUniqueID a = MockRequestSingletonTreeWithUniqueID.getInstance ();
     assertNotNull (a);
     assertTrue (AbstractRequestSingleton.isRequestSingletonInstantiated (MockRequestSingletonTreeWithUniqueID.class));
-    assertSame (a,
-                AbstractRequestSingleton.getRequestSingletonIfInstantiated (MockRequestSingletonTreeWithUniqueID.class));
+    assertSame (a, AbstractRequestSingleton.getRequestSingletonIfInstantiated (MockRequestSingletonTreeWithUniqueID.class));
 
     final MockRequestSingletonTreeWithUniqueID b = MockRequestSingletonTreeWithUniqueID.getInstance ();
     assertSame (a, b);

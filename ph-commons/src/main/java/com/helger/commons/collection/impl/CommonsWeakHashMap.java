@@ -37,8 +37,7 @@ import com.helger.commons.collection.CollectionHelper;
  * @param <VALUETYPE>
  *        Map value type
  */
-public class CommonsWeakHashMap <KEYTYPE, VALUETYPE> extends WeakHashMap <KEYTYPE, VALUETYPE> implements
-                                ICommonsMap <KEYTYPE, VALUETYPE>
+public class CommonsWeakHashMap <KEYTYPE, VALUETYPE> extends WeakHashMap <KEYTYPE, VALUETYPE> implements ICommonsMap <KEYTYPE, VALUETYPE>
 {
   public CommonsWeakHashMap ()
   {}

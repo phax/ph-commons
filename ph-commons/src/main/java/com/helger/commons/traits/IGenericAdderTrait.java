@@ -39,8 +39,7 @@ import com.helger.commons.CGlobal;
  * @param <IMPLTYPE>
  *        The implementation type for chaining API
  */
-public interface IGenericAdderTrait <ELEMENTTYPE extends Serializable, IMPLTYPE extends IGenericAdderTrait <ELEMENTTYPE, IMPLTYPE>>
-                                    extends
+public interface IGenericAdderTrait <ELEMENTTYPE extends Serializable, IMPLTYPE extends IGenericAdderTrait <ELEMENTTYPE, IMPLTYPE>> extends
                                     IHasPrimitiveConverter <ELEMENTTYPE>,
                                     IGenericImplTrait <IMPLTYPE>
 {
@@ -283,8 +282,7 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends Serializable, IMPLTYPE 
   }
 
   @Nonnull
-  default <T> IMPLTYPE addAllMapped (@Nullable final T [] aValues,
-                                     @Nonnull final Function <? super T, ? extends ELEMENTTYPE> aMapper)
+  default <T> IMPLTYPE addAllMapped (@Nullable final T [] aValues, @Nonnull final Function <? super T, ? extends ELEMENTTYPE> aMapper)
   {
     if (aValues != null)
       for (final T aValue : aValues)

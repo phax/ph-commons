@@ -72,11 +72,7 @@ public final class MainFindInvalidXMLChars
           if (nFirst == nLast)
             ret.append ("(c == 0x" + Integer.toString (nFirst, nRadix) + ")");
           else
-            ret.append ("(c >= 0x" +
-                        Integer.toString (nFirst, nRadix) +
-                        " && c <= 0x" +
-                        Integer.toString (nLast, nRadix) +
-                        ")");
+            ret.append ("(c >= 0x" + Integer.toString (nFirst, nRadix) + " && c <= 0x" + Integer.toString (nLast, nRadix) + ")");
           nFirst = nLast = nValue;
         }
       ++nIndex;
@@ -85,11 +81,7 @@ public final class MainFindInvalidXMLChars
     {
       if (ret.length () > 0)
         ret.append (" || ");
-      ret.append ("(c >= 0x" +
-                  Integer.toString (nFirst, nRadix) +
-                  " && c <= 0x" +
-                  Integer.toString (nLast, nRadix) +
-                  ")");
+      ret.append ("(c >= 0x" + Integer.toString (nFirst, nRadix) + " && c <= 0x" + Integer.toString (nLast, nRadix) + ")");
     }
     return ret.toString ();
   }

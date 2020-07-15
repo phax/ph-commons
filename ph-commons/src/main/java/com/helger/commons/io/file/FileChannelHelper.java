@@ -76,8 +76,7 @@ public final class FileChannelHelper
   }
 
   @Nullable
-  private static InputStream _getMappedInputStream (@Nonnull @WillNotClose final FileChannel aChannel,
-                                                    @Nonnull final File aFile)
+  private static InputStream _getMappedInputStream (@Nonnull @WillNotClose final FileChannel aChannel, @Nonnull final File aFile)
   {
     try
     {
@@ -161,8 +160,7 @@ public final class FileChannelHelper
   }
 
   @Nullable
-  private static OutputStream _getMappedOutputStream (@Nonnull @WillNotClose final FileChannel aChannel,
-                                                      @Nonnull final File aFile)
+  private static OutputStream _getMappedOutputStream (@Nonnull @WillNotClose final FileChannel aChannel, @Nonnull final File aFile)
   {
     try
     {

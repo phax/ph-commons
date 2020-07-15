@@ -353,11 +353,9 @@ public final class PathOperationsTest
       _expectedSuccess (PathOperations.copyFile (aPath, aPath2));
       assertTrue (Files.isRegularFile (aPath));
       assertTrue (Files.isRegularFile (aPath2));
-      assertArrayEquals (SimpleFileIO.getAllFileBytes (aPath.toFile ()),
-                         SimpleFileIO.getAllFileBytes (aPath2.toFile ()));
+      assertArrayEquals (SimpleFileIO.getAllFileBytes (aPath.toFile ()), SimpleFileIO.getAllFileBytes (aPath2.toFile ()));
       _expectedError (PathOperations.copyFile (aPath, aPath), EFileIOErrorCode.SOURCE_EQUALS_TARGET);
-      _expectedError (PathOperations.copyFile (aPath, Paths.get ("target/../" + aPath.toString ())),
-                      EFileIOErrorCode.SOURCE_EQUALS_TARGET);
+      _expectedError (PathOperations.copyFile (aPath, Paths.get ("target/../" + aPath.toString ())), EFileIOErrorCode.SOURCE_EQUALS_TARGET);
       _expectedError (PathOperations.copyFile (aPath, Paths.get ("dirnonexisting/../" + aPath.toString ())),
                       EFileIOErrorCode.SOURCE_EQUALS_TARGET);
     }
@@ -393,15 +391,11 @@ public final class PathOperationsTest
       _expectedError (PathOperations.copyDirRecursive (fDir, fDir), EFileIOErrorCode.SOURCE_DOES_NOT_EXIST);
       _expectedSuccess (PathOperations.createDir (fDir));
       _expectedError (PathOperations.copyDirRecursive (fDir, fDir), EFileIOErrorCode.SOURCE_EQUALS_TARGET);
-      _expectedError (PathOperations.copyDirRecursive (Paths.get ("xx/..").resolve (fDir), fDir),
-                      EFileIOErrorCode.SOURCE_EQUALS_TARGET);
-      _expectedError (PathOperations.copyDirRecursive (fDir, Paths.get ("xx/..").resolve (fDir)),
-                      EFileIOErrorCode.SOURCE_EQUALS_TARGET);
+      _expectedError (PathOperations.copyDirRecursive (Paths.get ("xx/..").resolve (fDir), fDir), EFileIOErrorCode.SOURCE_EQUALS_TARGET);
+      _expectedError (PathOperations.copyDirRecursive (fDir, Paths.get ("xx/..").resolve (fDir)), EFileIOErrorCode.SOURCE_EQUALS_TARGET);
       _expectedError (PathOperations.copyDirRecursive (fDir, Paths.get (".")), EFileIOErrorCode.TARGET_ALREADY_EXISTS);
-      _expectedError (PathOperations.copyDirRecursive (fDir, fDir.resolve ("bla")),
-                      EFileIOErrorCode.TARGET_IS_CHILD_OF_SOURCE);
-      _expectedError (PathOperations.copyDirRecursive (fDir, Paths.get ("target")),
-                      EFileIOErrorCode.TARGET_ALREADY_EXISTS);
+      _expectedError (PathOperations.copyDirRecursive (fDir, fDir.resolve ("bla")), EFileIOErrorCode.TARGET_IS_CHILD_OF_SOURCE);
+      _expectedError (PathOperations.copyDirRecursive (fDir, Paths.get ("target")), EFileIOErrorCode.TARGET_ALREADY_EXISTS);
 
       for (int i = 1; i <= 10; ++i)
         SimpleFileIO.writeFile (fDir.resolve ("file" + i).toFile (), "Hallo", StandardCharsets.ISO_8859_1);
@@ -475,9 +469,7 @@ public final class PathOperationsTest
       _expectedSuccess (PathOperations.createDir (aDir));
       for (int i = 0; i < 10; ++i)
       {
-        SimpleFileIO.writeFile (aDir.resolve ("test" + i).toFile (),
-                                "Inhalt von file test" + i,
-                                StandardCharsets.ISO_8859_1);
+        SimpleFileIO.writeFile (aDir.resolve ("test" + i).toFile (), "Inhalt von file test" + i, StandardCharsets.ISO_8859_1);
         _expectedSuccess (PathOperations.createDir (aDir.resolve ("subdir" + i)));
         SimpleFileIO.writeFile (aDir.resolve ("subdir" + i + "/test" + i).toFile (),
                                 "Inhalt von file subdir/test" + i,
@@ -507,8 +499,7 @@ public final class PathOperationsTest
   @Test
   public void testDeleteFile ()
   {
-    _expectedError (PathOperations.deleteFile (Paths.get ("warum sollte es diese Datei geben")),
-                    EFileIOErrorCode.SOURCE_DOES_NOT_EXIST);
+    _expectedError (PathOperations.deleteFile (Paths.get ("warum sollte es diese Datei geben")), EFileIOErrorCode.SOURCE_DOES_NOT_EXIST);
     final Path f = Paths.get ("delfile.test");
     try
     {

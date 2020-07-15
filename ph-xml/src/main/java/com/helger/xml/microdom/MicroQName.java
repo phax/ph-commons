@@ -70,11 +70,7 @@ public final class MicroQName implements IMicroQName
     {
       // Cut the prefix
       if (LOGGER.isWarnEnabled ())
-        LOGGER.warn ("Removing namespace prefix '" +
-                     sName.substring (0, nPrefixEnd) +
-                     "' from micro XML name '" +
-                     sName +
-                     "'");
+        LOGGER.warn ("Removing namespace prefix '" + sName.substring (0, nPrefixEnd) + "' from micro XML name '" + sName + "'");
       m_sName = sName.substring (nPrefixEnd + 1);
     }
 
@@ -121,8 +117,6 @@ public final class MicroQName implements IMicroQName
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).appendIfNotNull ("NamespaceURI", m_sNamespaceURI)
-                                       .append ("Name", m_sName)
-                                       .getToString ();
+    return new ToStringGenerator (null).appendIfNotNull ("NamespaceURI", m_sNamespaceURI).append ("Name", m_sName).getToString ();
   }
 }

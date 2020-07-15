@@ -75,8 +75,7 @@ public class DefaultEntityResolver implements EntityResolver
   }
 
   @Nullable
-  public InputSource resolveEntity (@Nullable final String sPublicID,
-                                    @Nullable final String sSystemID) throws SAXException, IOException
+  public InputSource resolveEntity (@Nullable final String sPublicID, @Nullable final String sSystemID) throws SAXException, IOException
   {
     final IReadableResource aResolvedRes = DefaultResourceResolver.getResolvedResource (sSystemID, m_sBaseURI);
     return InputSourceFactory.create (aResolvedRes);

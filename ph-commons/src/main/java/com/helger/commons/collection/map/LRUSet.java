@@ -58,8 +58,7 @@ public class LRUSet <ELEMENTTYPE> extends AbstractSet <ELEMENTTYPE> implements I
     }
 
     @Override
-    protected void onRemoveEldestEntry (@Nonnegative final int nSize,
-                                        @Nonnull final Map.Entry <ELEMENTTYPE, Boolean> aEldest)
+    protected void onRemoveEldestEntry (@Nonnegative final int nSize, @Nonnull final Map.Entry <ELEMENTTYPE, Boolean> aEldest)
     {
       LRUSet.this.onRemoveEldestEntry (nSize, aEldest.getKey ());
     }

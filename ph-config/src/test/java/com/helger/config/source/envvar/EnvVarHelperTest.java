@@ -37,7 +37,6 @@ public final class EnvVarHelperTest
     assertEquals ("_ABC", EnvVarHelper.getUnifiedSysEnvName ("0ABC", '_'));
     assertEquals ("_123", EnvVarHelper.getUnifiedSysEnvName ("0123", '_'));
     assertEquals ("____", EnvVarHelper.getUnifiedSysEnvName ("0?*#", '_'));
-    assertEquals ("I_REALLY_DON_T_KNOW_THAT_ENV_VAR_",
-                  EnvVarHelper.getUnifiedSysEnvName ("I really don't know that env var!", '_'));
+    assertEquals ("I_REALLY_DON_T_KNOW_THAT_ENV_VAR_", EnvVarHelper.getUnifiedSysEnvName ("I really don't know that env var!", '_'));
   }
 }

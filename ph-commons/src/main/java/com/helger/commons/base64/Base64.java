@@ -1934,8 +1934,7 @@ public final class Base64
       // Two ways to do the same thing. Don't know which way I like best.
       // int outBuff = ( ( DECODABET[ source[ srcOffset ] ] << 24 ) >>> 6 )
       // | ( ( DECODABET[ source[ srcOffset + 1] ] << 24 ) >>> 12 );
-      final int outBuff = ((aDecodabet[source[srcOffset]] & 0xFF) << 18) |
-                          ((aDecodabet[source[srcOffset + 1]] & 0xFF) << 12);
+      final int outBuff = ((aDecodabet[source[srcOffset]] & 0xFF) << 18) | ((aDecodabet[source[srcOffset + 1]] & 0xFF) << 12);
 
       destination[destOffset] = (byte) (outBuff >>> 16);
       return 1;
@@ -2046,10 +2045,7 @@ public final class Base64
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static byte [] decode (@Nonnull final byte [] aSource,
-                                final int nOfs,
-                                final int nLen,
-                                final int nOptions) throws IOException
+  public static byte [] decode (@Nonnull final byte [] aSource, final int nOfs, final int nLen, final int nOptions) throws IOException
   {
     // Lots of error checking and exception throwing
     ValueEnforcer.isArrayOfsLen (aSource, nOfs, nLen);
@@ -2057,9 +2053,7 @@ public final class Base64
     if (nLen == 0)
       return ArrayHelper.EMPTY_BYTE_ARRAY;
 
-    ValueEnforcer.isTrue (nLen >= 4,
-                          () -> "Base64-encoded string must have at least four characters, but length specified was " +
-                                nLen);
+    ValueEnforcer.isTrue (nLen >= 4, () -> "Base64-encoded string must have at least four characters, but length specified was " + nLen);
 
     final byte [] aDecodabet = _getDecodabet (nOptions);
 
@@ -2461,9 +2455,7 @@ public final class Base64
    */
   @Nullable
   @ReturnsMutableCopy
-  public static byte [] safeDecode (@Nullable final byte [] aEncodedBytes,
-                                    @Nonnegative final int nOfs,
-                                    @Nonnegative final int nLen)
+  public static byte [] safeDecode (@Nullable final byte [] aEncodedBytes, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     return safeDecode (aEncodedBytes, nOfs, nLen, DONT_GUNZIP);
   }
@@ -2594,9 +2586,7 @@ public final class Base64
 
   @Nullable
   @ReturnsMutableCopy
-  public static byte [] safeEncodeBytesToBytes (@Nullable final byte [] aDecoded,
-                                                @Nonnegative final int nOfs,
-                                                @Nonnegative final int nLen)
+  public static byte [] safeEncodeBytesToBytes (@Nullable final byte [] aDecoded, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     return safeEncodeBytesToBytes (aDecoded, nOfs, nLen, NO_OPTIONS);
   }
@@ -2638,9 +2628,7 @@ public final class Base64
 
   @Nullable
   @ReturnsMutableCopy
-  public static String safeEncodeBytes (@Nullable final byte [] aDecoded,
-                                        @Nonnegative final int nOfs,
-                                        @Nonnegative final int nLen)
+  public static String safeEncodeBytes (@Nullable final byte [] aDecoded, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     return safeEncodeBytes (aDecoded, nOfs, nLen, NO_OPTIONS);
   }

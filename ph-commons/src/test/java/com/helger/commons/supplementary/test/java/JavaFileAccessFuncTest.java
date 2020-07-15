@@ -141,9 +141,7 @@ public final class JavaFileAccessFuncTest
                       final int nModeOwn = (bReadOwner ? 4 : 0) | (bWriteOwner ? 2 : 0) | (bExec ? 1 : 0);
                       final int nModeGroup = (bReadGroup ? 4 : 0) | (bWriteGroup ? 2 : 0) | (bExec ? 1 : 0);
                       final int nModeOther = (bReadOther ? 4 : 0) | (bWriteOther ? 2 : 0) | (bExec ? 1 : 0);
-                      final String sMod = Integer.toString (nModeOwn) +
-                                          Integer.toString (nModeGroup) +
-                                          Integer.toString (nModeOther);
+                      final String sMod = Integer.toString (nModeOwn) + Integer.toString (nModeGroup) + Integer.toString (nModeOther);
                       final String sPrefix = "ph-commons-";
 
                       final File fFile = new File (fTempDir, sPrefix + sMod + ".dat");

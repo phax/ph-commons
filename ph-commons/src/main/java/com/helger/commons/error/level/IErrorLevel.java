@@ -33,11 +33,7 @@ import com.helger.commons.state.ISuccessIndicator;
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
-public interface IErrorLevel extends
-                             IHasID <String>,
-                             ISuccessIndicator,
-                             IErrorIndicator,
-                             ISeverityComparable <IErrorLevel>
+public interface IErrorLevel extends IHasID <String>, ISuccessIndicator, IErrorIndicator, ISeverityComparable <IErrorLevel>
 {
   /**
    * @return The numeric level of this error level. Must be &ge; 0. The higher

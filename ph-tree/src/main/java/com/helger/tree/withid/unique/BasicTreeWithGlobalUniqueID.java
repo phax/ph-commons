@@ -44,8 +44,7 @@ import com.helger.tree.withid.ITreeItemWithID;
  *        tree item type
  */
 @NotThreadSafe
-public class BasicTreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>>
-                                         extends
+public class BasicTreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> extends
                                          BasicTreeWithID <KEYTYPE, DATATYPE, ITEMTYPE> implements
                                          ITreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE>
 {
@@ -125,8 +124,7 @@ public class BasicTreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends IT
     return EChange.CHANGED;
   }
 
-  public final boolean isItemSameOrDescendant (@Nullable final KEYTYPE aParentItemID,
-                                               @Nullable final KEYTYPE aChildItemID)
+  public final boolean isItemSameOrDescendant (@Nullable final KEYTYPE aParentItemID, @Nullable final KEYTYPE aChildItemID)
   {
     final ITEMTYPE aSearchParent = getItemWithID (aParentItemID);
     if (aSearchParent == null)

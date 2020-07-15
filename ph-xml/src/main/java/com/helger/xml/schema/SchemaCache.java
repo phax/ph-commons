@@ -57,9 +57,7 @@ public class SchemaCache extends Cache <ICommonsList <? extends IReadableResourc
                       @Nullable final ErrorHandler aErrorHandler,
                       @Nullable final LSResourceResolver aResourceResolver)
   {
-    super (aKey -> createSchema (aSchemaFactory, sSchemaTypeName, aKey),
-           500,
-           SchemaCache.class.getName () + "$" + sSchemaTypeName);
+    super (aKey -> createSchema (aSchemaFactory, sSchemaTypeName, aKey), 500, SchemaCache.class.getName () + "$" + sSchemaTypeName);
     ValueEnforcer.notNull (sSchemaTypeName, "SchemaTypeName");
     ValueEnforcer.notNull (aSchemaFactory, "SchemaFactory");
     m_sSchemaTypeName = sSchemaTypeName;
@@ -109,10 +107,7 @@ public class SchemaCache extends Cache <ICommonsList <? extends IReadableResourc
     {
       final Schema ret = aSchemaFactory.newSchema (aSources);
       if (ret == null)
-        throw new IllegalStateException ("Failed to create " +
-                                         sSchemaTypeName +
-                                         " schema from " +
-                                         aResources.toString ());
+        throw new IllegalStateException ("Failed to create " + sSchemaTypeName + " schema from " + aResources.toString ());
       return ret;
     }
     catch (final SAXException ex)

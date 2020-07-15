@@ -94,8 +94,7 @@ public class SafeVector <ELEMENTTYPE> extends CommonsVector <ELEMENTTYPE>
   }
 
   @Nullable
-  public synchronized ELEMENTTYPE computeIfAbsent (@Nonnegative final int nIndex,
-                                                   @Nonnull final Supplier <? extends ELEMENTTYPE> aFactory)
+  public synchronized ELEMENTTYPE computeIfAbsent (@Nonnegative final int nIndex, @Nonnull final Supplier <? extends ELEMENTTYPE> aFactory)
   {
     _ensureSize (nIndex);
     ELEMENTTYPE ret = super.get (nIndex);

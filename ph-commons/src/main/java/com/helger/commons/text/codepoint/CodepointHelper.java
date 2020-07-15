@@ -487,10 +487,7 @@ public final class CodepointHelper
 
   public static boolean isPctEnc (final int codepoint)
   {
-    return codepoint == '%' ||
-           Character.isDigit (codepoint) ||
-           inRange (codepoint, 'A', 'F') ||
-           inRange (codepoint, 'a', 'f');
+    return codepoint == '%' || Character.isDigit (codepoint) || inRange (codepoint, 'A', 'F') || inRange (codepoint, 'a', 'f');
   }
 
   public static boolean isMark (final int codepoint)
@@ -509,11 +506,7 @@ public final class CodepointHelper
 
   public static boolean isUnreserved (final int codepoint)
   {
-    return Character.isLetterOrDigit (codepoint) ||
-           codepoint == '-' ||
-           codepoint == '.' ||
-           codepoint == '_' ||
-           codepoint == '~';
+    return Character.isLetterOrDigit (codepoint) || codepoint == '-' || codepoint == '.' || codepoint == '_' || codepoint == '~';
   }
 
   public static boolean isReserved (final int codepoint)
@@ -624,9 +617,7 @@ public final class CodepointHelper
 
   public static boolean is_iprivate (final int codepoint)
   {
-    return inRange (codepoint, '\uE000', '\uF8FF') ||
-           inRange (codepoint, 0xF0000, 0xFFFFD) ||
-           inRange (codepoint, 0x100000, 0x10FFFD);
+    return inRange (codepoint, '\uE000', '\uF8FF') || inRange (codepoint, 0xF0000, 0xFFFFD) || inRange (codepoint, 0x100000, 0x10FFFD);
   }
 
   public static boolean is_iunreserved (final int codepoint)
@@ -658,12 +649,7 @@ public final class CodepointHelper
 
   public static boolean is_iquery (final int codepoint)
   {
-    return is_ipchar (codepoint) ||
-           is_iprivate (codepoint) ||
-           codepoint == ';' ||
-           codepoint == '/' ||
-           codepoint == '?' ||
-           codepoint == '%';
+    return is_ipchar (codepoint) || is_iprivate (codepoint) || codepoint == ';' || codepoint == '/' || codepoint == '?' || codepoint == '%';
   }
 
   public static boolean is_ifragment (final int codepoint)

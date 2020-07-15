@@ -116,8 +116,7 @@ public final class RegExHelper
    *         since the text parameter is checked first.
    */
   @Nonnull
-  public static ICommonsList <String> getSplitToList (@Nullable final CharSequence sText,
-                                                      @Nonnull @RegEx final String sRegEx)
+  public static ICommonsList <String> getSplitToList (@Nullable final CharSequence sText, @Nonnull @RegEx final String sRegEx)
   {
     return new CommonsArrayList <> (getSplitToArray (sText, sRegEx));
   }
@@ -182,9 +181,7 @@ public final class RegExHelper
    * @see Pattern#compile(String, int)
    */
   @Nonnull
-  public static Matcher getMatcher (@Nonnull @RegEx final String sRegEx,
-                                    @Nonnegative final int nOptions,
-                                    @Nonnull final String sValue)
+  public static Matcher getMatcher (@Nonnull @RegEx final String sRegEx, @Nonnegative final int nOptions, @Nonnull final String sValue)
   {
     ValueEnforcer.notNull (sValue, "Value");
 

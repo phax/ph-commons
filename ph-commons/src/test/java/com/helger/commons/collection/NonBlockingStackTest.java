@@ -139,16 +139,12 @@ public final class NonBlockingStackTest
     assertEquals ("h", aStack.pop ());
     assertEquals ("g", aStack.pop ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new NonBlockingStack <String> (),
-                                                                       new NonBlockingStack <String> ());
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new NonBlockingStack <String> (), new NonBlockingStack <String> ());
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new NonBlockingStack <> ("a", "b"),
                                                                        new NonBlockingStack <> ("a", "b"));
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new NonBlockingStack <> (new CommonsArrayList <> ("a",
-                                                                                                                         "b")),
-                                                                       new NonBlockingStack <> (new CommonsArrayList <> ("a",
-                                                                                                                         "b")));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new NonBlockingStack <> (new CommonsArrayList <> ("a",
-                                                                                                                             "b")),
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new NonBlockingStack <> (new CommonsArrayList <> ("a", "b")),
+                                                                       new NonBlockingStack <> (new CommonsArrayList <> ("a", "b")));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new NonBlockingStack <> (new CommonsArrayList <> ("a", "b")),
                                                                            new NonBlockingStack <> (new CommonsArrayList <> ("a")));
     CommonsTestHelper.testGetClone (new NonBlockingStack <> ("a", "b"));
     CommonsTestHelper.testGetClone (new NonBlockingStack <String> ());

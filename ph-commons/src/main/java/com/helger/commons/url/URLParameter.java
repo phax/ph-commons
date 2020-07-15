@@ -108,8 +108,7 @@ public class URLParameter implements Serializable
     return m_sValue.equals (sValue);
   }
 
-  public void appendTo (@Nonnull final StringBuilder aSB,
-                        @Nullable final IEncoder <String, String> aQueryParameterEncoder)
+  public void appendTo (@Nonnull final StringBuilder aSB, @Nullable final IEncoder <String, String> aQueryParameterEncoder)
   {
     // Name
     if (aQueryParameterEncoder != null)

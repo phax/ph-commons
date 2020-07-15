@@ -42,9 +42,7 @@ public final class Utf8ResourceBundleTest
   {
     assertNotNull (Utf8ResourceBundle.getBundle ("properties/test-utf8"));
     assertNotNull (Utf8ResourceBundle.getBundle ("properties/test-utf8", L_DE));
-    final ResourceBundle rb = Utf8ResourceBundle.getBundle ("properties/test-utf8",
-                                                            L_DE,
-                                                            ClassLoaderHelper.getDefaultClassLoader ());
+    final ResourceBundle rb = Utf8ResourceBundle.getBundle ("properties/test-utf8", L_DE, ClassLoaderHelper.getDefaultClassLoader ());
     assertNotNull (rb);
     assertTrue (rb instanceof Utf8PropertyResourceBundle);
     assertEquals (2, CollectionHelper.newList (rb.getKeys ()).size ());

@@ -31,8 +31,7 @@ import com.helger.commons.collection.impl.ICommonsCollection;
  *        The data type of the child objects.
  */
 @Immutable
-public class ChildrenProviderHasChildren <CHILDTYPE extends IHasChildren <CHILDTYPE>> implements
-                                         IChildrenProvider <CHILDTYPE>
+public class ChildrenProviderHasChildren <CHILDTYPE extends IHasChildren <CHILDTYPE>> implements IChildrenProvider <CHILDTYPE>
 {
   @Override
   public final boolean hasChildren (@Nullable final CHILDTYPE aCurrent)

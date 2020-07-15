@@ -203,8 +203,7 @@ public class SingleError implements IError
    * @param <IMPLTYPE>
    *        Implementation type
    */
-  public abstract static class AbstractBuilder <T extends SingleError, IMPLTYPE extends AbstractBuilder <T, IMPLTYPE>>
-                                               implements
+  public abstract static class AbstractBuilder <T extends SingleError, IMPLTYPE extends AbstractBuilder <T, IMPLTYPE>> implements
                                                IGenericImplTrait <IMPLTYPE>
   {
     public static final IErrorLevel DEFAULT_ERROR_LEVEL = EErrorLevel.ERROR;
@@ -330,12 +329,7 @@ public class SingleError implements IError
     @Nonnull
     public SingleError build ()
     {
-      return new SingleError (m_aErrorLevel,
-                              m_sErrorID,
-                              m_sErrorFieldName,
-                              m_aErrorLocation,
-                              m_aErrorText,
-                              m_aLinkedException);
+      return new SingleError (m_aErrorLevel, m_sErrorID, m_sErrorFieldName, m_aErrorLocation, m_aErrorText, m_aLinkedException);
     }
   }
 

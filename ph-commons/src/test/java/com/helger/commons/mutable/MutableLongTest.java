@@ -85,10 +85,8 @@ public final class MutableLongTest
     x.set (1);
     assertTrue (x.isGT0 ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MutableLong (-7000),
-                                                                       new MutableLong (-7000));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MutableLong (600),
-                                                                           new MutableLong (700));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new MutableLong (-7000), new MutableLong (-7000));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new MutableLong (600), new MutableLong (700));
     CommonsTestHelper.testGetClone (new MutableLong (Long.MIN_VALUE));
   }
 }

@@ -80,9 +80,6 @@ public class HomoglyphSearchResult implements Serializable
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("Index", m_nIndex)
-                                       .append ("Match", m_sMatch)
-                                       .append ("Word", m_sWord)
-                                       .getToString ();
+    return new ToStringGenerator (this).append ("Index", m_nIndex).append ("Match", m_sMatch).append ("Word", m_sWord).getToString ();
   }
 }

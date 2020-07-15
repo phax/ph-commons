@@ -109,8 +109,7 @@ public class SettingsWithDefault extends Settings implements ISettingsWithDefaul
 
   public final boolean isSetToDefault (@Nullable final String sFieldName)
   {
-    return containsKeyDirect (sFieldName) &&
-           EqualsHelper.equals (getValueDirect (sFieldName), m_aDefaultSettings.getValue (sFieldName));
+    return containsKeyDirect (sFieldName) && EqualsHelper.equals (getValueDirect (sFieldName), m_aDefaultSettings.getValue (sFieldName));
   }
 
   @Override
@@ -133,8 +132,6 @@ public class SettingsWithDefault extends Settings implements ISettingsWithDefaul
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ())
-                            .append ("DefaultSettings", m_aDefaultSettings)
-                            .getToString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("DefaultSettings", m_aDefaultSettings).getToString ();
   }
 }

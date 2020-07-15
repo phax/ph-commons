@@ -106,11 +106,7 @@ public class CustomLicense implements ILicense
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_sID)
-                                       .append (m_sName)
-                                       .append (m_aVersion)
-                                       .append (m_sWebSiteURL)
-                                       .getHashCode ();
+    return new HashCodeGenerator (this).append (m_sID).append (m_sName).append (m_aVersion).append (m_sWebSiteURL).getHashCode ();
   }
 
   @Override

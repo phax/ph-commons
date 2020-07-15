@@ -48,9 +48,7 @@ public class GZIPCodec implements IByteArrayCodec
     if (aEncodedBuffer == null || nLen == 0)
       return;
 
-    try (final GZIPInputStream aDecodeIS = new GZIPInputStream (new NonBlockingByteArrayInputStream (aEncodedBuffer,
-                                                                                                     nOfs,
-                                                                                                     nLen)))
+    try (final GZIPInputStream aDecodeIS = new GZIPInputStream (new NonBlockingByteArrayInputStream (aEncodedBuffer, nOfs, nLen)))
     {
       if (StreamHelper.copyInputStreamToOutputStream (aDecodeIS, aOS).isFailure ())
         throw new DecodeException ("Failed to GZIP decode!");
@@ -71,8 +69,7 @@ public class GZIPCodec implements IByteArrayCodec
 
     try (final GZIPOutputStream aEncodeOS = new GZIPOutputStream (new NonClosingOutputStream (aOS)))
     {
-      if (StreamHelper.copyInputStreamToOutputStream (new NonBlockingByteArrayInputStream (aDecodedBuffer, nOfs, nLen),
-                                                      aEncodeOS)
+      if (StreamHelper.copyInputStreamToOutputStream (new NonBlockingByteArrayInputStream (aDecodedBuffer, nOfs, nLen), aEncodeOS)
                       .isFailure ())
         throw new EncodeException ("Failed to GZIP encode!");
     }

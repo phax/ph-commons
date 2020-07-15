@@ -65,7 +65,7 @@ public final class DefaultTextResolver extends EnumTextResolverWithPropertiesOve
 
   /**
    * Get text
-   * 
+   *
    * @param aEnum
    *        Enumeration entry. May not be <code>null</code>.
    * @param aTP
@@ -76,16 +76,14 @@ public final class DefaultTextResolver extends EnumTextResolverWithPropertiesOve
    *         locale
    */
   @Nullable
-  public static String getTextStatic (@Nonnull final Enum <?> aEnum,
-                                      @Nonnull final IHasText aTP,
-                                      @Nonnull final Locale aContentLocale)
+  public static String getTextStatic (@Nonnull final Enum <?> aEnum, @Nonnull final IHasText aTP, @Nonnull final Locale aContentLocale)
   {
     return getInstance ().getText (aEnum, aTP, aContentLocale);
   }
 
   /**
    * Get text
-   * 
+   *
    * @param aEnum
    *        Enumeration entry. May not be <code>null</code>.
    * @param aTP
@@ -94,7 +92,8 @@ public final class DefaultTextResolver extends EnumTextResolverWithPropertiesOve
    *        Locale to use. May not be <code>null</code>.
    * @return <code>null</code> if the text is not available in the specific
    *         locale
-   * @deprecated Use the version without "WithArgs" because there are no args
+   * @deprecated Don't call this; Use the version without "WithArgs" because
+   *             there are no args
    */
   @Nullable
   @Deprecated
@@ -108,7 +107,7 @@ public final class DefaultTextResolver extends EnumTextResolverWithPropertiesOve
 
   /**
    * Get text
-   * 
+   *
    * @param aEnum
    *        Enumeration entry. May not be <code>null</code>.
    * @param aTP

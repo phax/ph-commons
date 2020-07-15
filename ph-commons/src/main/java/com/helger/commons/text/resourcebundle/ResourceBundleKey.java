@@ -40,8 +40,7 @@ public class ResourceBundleKey implements Serializable
   private final String m_sBundleName;
   private final String m_sKey;
 
-  public ResourceBundleKey (@Nonnull @Nonempty final String sBundleName,
-                            @Nonnull @Nonempty @PropertyKey final String sKey)
+  public ResourceBundleKey (@Nonnull @Nonempty final String sBundleName, @Nonnull @Nonempty @PropertyKey final String sKey)
   {
     m_sBundleName = ValueEnforcer.notEmpty (sBundleName, "BundleName");
     m_sKey = ValueEnforcer.notEmpty (sKey, "Key");

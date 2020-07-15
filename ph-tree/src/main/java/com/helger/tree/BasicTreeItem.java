@@ -51,8 +51,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *        tree item implementation type
  */
 @NotThreadSafe
-public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> implements
-                           ITreeItem <DATATYPE, ITEMTYPE>
+public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> implements ITreeItem <DATATYPE, ITEMTYPE>
 {
   // item factory
   private final ITreeItemFactory <DATATYPE, ITEMTYPE> m_aFactory;

@@ -116,10 +116,7 @@ public final class PDTFormatPatterns
   @Nonnull
   public static String getPatternDateTime (@Nonnull final FormatStyle eStyle, @Nonnull final Locale aDisplayLocale)
   {
-    return DateTimeFormatterBuilder.getLocalizedDateTimePattern (eStyle,
-                                                                 eStyle,
-                                                                 IsoChronology.INSTANCE,
-                                                                 aDisplayLocale);
+    return DateTimeFormatterBuilder.getLocalizedDateTimePattern (eStyle, eStyle, IsoChronology.INSTANCE, aDisplayLocale);
   }
 
   @Nonnull

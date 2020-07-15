@@ -70,8 +70,7 @@ public final class AuthIdentification implements IAuthIdentification
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final AuthIdentification rhs = (AuthIdentification) o;
-    return EqualsHelper.equals (m_aAuthSubject, rhs.m_aAuthSubject) &&
-           m_aIdentificationDT.equals (rhs.m_aIdentificationDT);
+    return EqualsHelper.equals (m_aAuthSubject, rhs.m_aAuthSubject) && m_aIdentificationDT.equals (rhs.m_aIdentificationDT);
   }
 
   @Override

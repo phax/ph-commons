@@ -53,9 +53,7 @@ public final class MicroDocumentTest
     assertTrue (e.isEqualContent (e.getClone ()));
     assertSame (EMicroNodeType.DOCUMENT, e.getType ());
     assertTrue (new MicroDocument ().isEqualContent (new MicroDocument ()));
-    assertFalse (new MicroDocument ().isEqualContent (new MicroDocument (new MicroDocumentType ("any",
-                                                                                                "public",
-                                                                                                "system"))));
+    assertFalse (new MicroDocument ().isEqualContent (new MicroDocument (new MicroDocumentType ("any", "public", "system"))));
 
     // Clone with children
     e.appendElement ("root");

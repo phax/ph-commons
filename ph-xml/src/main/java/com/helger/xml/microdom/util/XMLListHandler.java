@@ -127,8 +127,7 @@ public final class XMLListHandler
    *         other error occurred.
    */
   @Nonnull
-  public static ESuccess readList (@Nonnull @WillClose final InputStream aIS,
-                                   @Nonnull final Collection <String> aTargetList)
+  public static ESuccess readList (@Nonnull @WillClose final InputStream aIS, @Nonnull final Collection <String> aTargetList)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
     ValueEnforcer.notNull (aTargetList, "TargetList");
@@ -158,8 +157,7 @@ public final class XMLListHandler
   }
 
   @Nonnull
-  public static ESuccess readList (@Nonnull final IMicroElement aParentElement,
-                                   @Nonnull final Collection <String> aTargetList)
+  public static ESuccess readList (@Nonnull final IMicroElement aParentElement, @Nonnull final Collection <String> aTargetList)
   {
     ValueEnforcer.notNull (aParentElement, "ParentElement");
     ValueEnforcer.notNull (aTargetList, "TargetList");
@@ -204,8 +202,7 @@ public final class XMLListHandler
   }
 
   @Nonnull
-  public static ESuccess writeList (@Nonnull final Collection <String> aCollection,
-                                    @Nonnull final IHasOutputStream aOSP)
+  public static ESuccess writeList (@Nonnull final Collection <String> aCollection, @Nonnull final IHasOutputStream aOSP)
   {
     ValueEnforcer.notNull (aOSP, "OutputStreamProvider");
 
@@ -225,8 +222,7 @@ public final class XMLListHandler
    *         {@link ESuccess#FAILURE} otherwise.
    */
   @Nonnull
-  public static ESuccess writeList (@Nonnull final Collection <String> aCollection,
-                                    @Nonnull @WillClose final OutputStream aOS)
+  public static ESuccess writeList (@Nonnull final Collection <String> aCollection, @Nonnull @WillClose final OutputStream aOS)
   {
     ValueEnforcer.notNull (aCollection, "Collection");
     ValueEnforcer.notNull (aOS, "OutputStream");

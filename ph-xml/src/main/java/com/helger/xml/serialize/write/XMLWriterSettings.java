@@ -568,8 +568,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
                                        .append ("NewlineMode", m_eNewLineMode)
                                        .append ("IndentationString", m_sIndentationStringToString)
                                        .append ("EmitNamespaces", m_bEmitNamespaces)
-                                       .append ("PutNamespaceContextPrefixesInRoot",
-                                                m_bPutNamespaceContextPrefixesInRoot)
+                                       .append ("PutNamespaceContextPrefixesInRoot", m_bPutNamespaceContextPrefixesInRoot)
                                        .append ("WriteCDATAAsText", m_bWriteCDATAAsText)
                                        .append ("OrderAttributesAndNamespaces", m_bOrderAttributesAndNamespaces)
                                        .getToString ();

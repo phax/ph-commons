@@ -160,19 +160,13 @@ public final class URLHelperTest
     assertNull (URLHelper.getQueryParametersAsString ((URLParameterList) null, enc));
     assertNull (URLHelper.getQueryParametersAsString (new URLParameterList (), enc));
     assertEquals ("a=b", URLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b"), enc));
-    assertEquals ("a=b&c=d",
-                  URLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b").add ("c", "d"), enc));
+    assertEquals ("a=b&c=d", URLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b").add ("c", "d"), enc));
     assertEquals ("a=b&c=d&e=f+g",
-                  URLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b")
-                                                                               .add ("c", "d")
-                                                                               .add ("e", "f g"),
-                                                        enc));
-    assertEquals ("a=b&c=d%26e",
-                  URLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b").add ("c", "d&e"), enc));
+                  URLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b").add ("c", "d").add ("e", "f g"), enc));
+    assertEquals ("a=b&c=d%26e", URLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b").add ("c", "d&e"), enc));
 
     // Using identity encoder
-    assertEquals ("a=b&c=d&e",
-                  URLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b").add ("c", "d&e"), null));
+    assertEquals ("a=b&c=d&e", URLHelper.getQueryParametersAsString (new URLParameterList ().add ("a", "b").add ("c", "d&e"), null));
   }
 
   @Test

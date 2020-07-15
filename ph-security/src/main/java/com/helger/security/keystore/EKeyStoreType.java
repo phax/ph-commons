@@ -78,8 +78,7 @@ public enum EKeyStoreType implements IKeyStoreType
   }
 
   @Nullable
-  public static EKeyStoreType getFromIDCaseInsensitiveOrDefault (@Nullable final String sID,
-                                                                 @Nullable final EKeyStoreType eDefault)
+  public static EKeyStoreType getFromIDCaseInsensitiveOrDefault (@Nullable final String sID, @Nullable final EKeyStoreType eDefault)
   {
     return EnumHelper.getFromIDCaseInsensitiveOrDefault (EKeyStoreType.class, sID, eDefault);
   }

@@ -49,8 +49,7 @@ public class MultiLinkedHashMapLinkedHashSetBased <KEYTYPE, VALUETYPE> extends
     super (aKey, aValue);
   }
 
-  public MultiLinkedHashMapLinkedHashSetBased (@Nullable final KEYTYPE aKey,
-                                               @Nullable final ICommonsOrderedSet <VALUETYPE> aCollection)
+  public MultiLinkedHashMapLinkedHashSetBased (@Nullable final KEYTYPE aKey, @Nullable final ICommonsOrderedSet <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }

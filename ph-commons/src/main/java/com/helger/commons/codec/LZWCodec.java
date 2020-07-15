@@ -150,8 +150,7 @@ public class LZWCodec implements IByteArrayCodec
     {
       ValueEnforcer.notNull (aByteSeq, "ByteSeq");
       if (m_nFreeCode == m_aTab.length)
-        throw bForEncode ? new EncodeException ("LZW encode table overflow")
-                         : new DecodeException ("LZW decode table overflow");
+        throw bForEncode ? new EncodeException ("LZW encode table overflow") : new DecodeException ("LZW decode table overflow");
 
       // Add this new String to the table
       m_aTab[m_nFreeCode] = aByteSeq;
@@ -308,11 +307,7 @@ public class LZWCodec implements IByteArrayCodec
         if (aDict.getNextFreeCode () == AbstractLZWDictionary.MAX_CODE - 1)
         {
           if (LOGGER.isTraceEnabled ())
-            LOGGER.trace ("Table overflow in encoding -> resetting (codelength=" +
-                          nCodeLength +
-                          ";byteseq#=" +
-                          aByteSeq.length +
-                          ")");
+            LOGGER.trace ("Table overflow in encoding -> resetting (codelength=" + nCodeLength + ";byteseq#=" + aByteSeq.length + ")");
           aBOS.writeBits (AbstractLZWDictionary.CODE_CLEARTABLE, nCodeLength);
           aDict.reset ();
           nIndex -= aByteSeq.length;
@@ -347,8 +342,7 @@ public class LZWCodec implements IByteArrayCodec
     }
   }
 
-  public void decode (@Nonnull @WillNotClose final InputStream aEncodedIS,
-                      @Nonnull @WillNotClose final OutputStream aOS)
+  public void decode (@Nonnull @WillNotClose final InputStream aEncodedIS, @Nonnull @WillNotClose final OutputStream aOS)
   {
     ValueEnforcer.notNull (aEncodedIS, "EncodedInputStream");
     ValueEnforcer.notNull (aOS, "OutputStream");
@@ -399,10 +393,7 @@ public class LZWCodec implements IByteArrayCodec
               if (nCode == nNextFreeCode)
                 aByteSeq = ArrayHelper.getConcatenated (aPrevByteSeq, aPrevByteSeq[0]);
               else
-                throw new DecodeException ("Error decoding LZW: unexpected code " +
-                                           nCode +
-                                           " while next free code is " +
-                                           nNextFreeCode);
+                throw new DecodeException ("Error decoding LZW: unexpected code " + nCode + " while next free code is " + nNextFreeCode);
             aOS.write (aByteSeq);
             aDict.addEntry (ArrayHelper.getConcatenated (aPrevByteSeq, aByteSeq[0]), false);
             aPrevByteSeq = aByteSeq;

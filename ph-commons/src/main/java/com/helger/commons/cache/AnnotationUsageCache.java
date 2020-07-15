@@ -109,7 +109,7 @@ public class AnnotationUsageCache implements Serializable
     {
       // Try again in write-lock
       eHas = m_aRWLock.writeLockedGet ( () -> m_aMap.computeIfAbsent (sClassName,
-                                                                   x -> ETriState.valueOf (aClass.getAnnotation (m_aAnnotationClass) != null)));
+                                                                      x -> ETriState.valueOf (aClass.getAnnotation (m_aAnnotationClass) != null)));
     }
     return eHas.isTrue ();
   }
@@ -131,8 +131,6 @@ public class AnnotationUsageCache implements Serializable
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("annotationClass", m_aAnnotationClass)
-                                       .append ("map", m_aMap)
-                                       .getToString ();
+    return new ToStringGenerator (this).append ("annotationClass", m_aAnnotationClass).append ("map", m_aMap).getToString ();
   }
 }

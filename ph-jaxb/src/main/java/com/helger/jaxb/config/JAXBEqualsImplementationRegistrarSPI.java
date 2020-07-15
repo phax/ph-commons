@@ -41,12 +41,9 @@ public final class JAXBEqualsImplementationRegistrarSPI implements IEqualsImplem
                                             (aObj1,
                                              aObj2) -> EqualsImplementationRegistry.areEqual (aObj1.getDeclaredType (),
                                                                                               aObj2.getDeclaredType ()) &&
-                                                       EqualsImplementationRegistry.areEqual (aObj1.getName (),
-                                                                                              aObj2.getName ()) &&
-                                                       EqualsImplementationRegistry.areEqual (aObj1.getScope (),
-                                                                                              aObj2.getScope ()) &&
+                                                       EqualsImplementationRegistry.areEqual (aObj1.getName (), aObj2.getName ()) &&
+                                                       EqualsImplementationRegistry.areEqual (aObj1.getScope (), aObj2.getScope ()) &&
                                                        EqualsHelper.equals (aObj1.isNil (), aObj2.isNil ()) &&
-                                                       EqualsImplementationRegistry.areEqual (aObj1.getValue (),
-                                                                                              aObj2.getValue ()));
+                                                       EqualsImplementationRegistry.areEqual (aObj1.getValue (), aObj2.getValue ()));
   }
 }

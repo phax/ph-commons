@@ -132,8 +132,7 @@ public final class CharsetHelper
    *         found.
    */
   @Nullable
-  public static Charset getCharsetFromNameOrDefault (@Nullable final String sCharsetName,
-                                                     @Nullable final Charset aDefault)
+  public static Charset getCharsetFromNameOrDefault (@Nullable final String sCharsetName, @Nullable final Charset aDefault)
   {
     if (StringHelper.hasText (sCharsetName))
       try
@@ -253,9 +252,7 @@ public final class CharsetHelper
     private final EUnicodeBOM m_eBOM;
     private final Charset m_aCharset;
 
-    public InputStreamAndCharset (@Nonnull final InputStream aIS,
-                                  @Nullable final EUnicodeBOM eBOM,
-                                  @Nullable final Charset aCharset)
+    public InputStreamAndCharset (@Nonnull final InputStream aIS, @Nullable final EUnicodeBOM eBOM, @Nullable final Charset aCharset)
     {
       m_aIS = aIS;
       m_eBOM = eBOM;
@@ -321,8 +318,7 @@ public final class CharsetHelper
     // Check for BOM
     final int nMaxBOMBytes = EUnicodeBOM.getMaximumByteCount ();
     @WillNotClose
-    final NonBlockingPushbackInputStream aPIS = new NonBlockingPushbackInputStream (StreamHelper.getBuffered (aIS),
-                                                                                    nMaxBOMBytes);
+    final NonBlockingPushbackInputStream aPIS = new NonBlockingPushbackInputStream (StreamHelper.getBuffered (aIS), nMaxBOMBytes);
     try
     {
       // Try to read as many bytes as necessary to determine all supported BOMs
@@ -365,8 +361,7 @@ public final class CharsetHelper
   }
 
   @Nonnull
-  public static InputStreamReader getReaderByBOM (@Nonnull final InputStream aIS,
-                                                  @Nonnull final Charset aFallbackCharset)
+  public static InputStreamReader getReaderByBOM (@Nonnull final InputStream aIS, @Nonnull final Charset aFallbackCharset)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
     ValueEnforcer.notNull (aFallbackCharset, "FallbackCharset");

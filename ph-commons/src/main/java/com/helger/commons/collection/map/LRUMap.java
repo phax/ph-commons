@@ -93,8 +93,7 @@ public class LRUMap <KEYTYPE, VALUETYPE> extends CommonsLinkedHashMap <KEYTYPE, 
    *        The map entry that is removed. Never <code>null</code>.
    */
   @OverrideOnDemand
-  protected void onRemoveEldestEntry (@Nonnegative final int nSize,
-                                      @Nonnull final Map.Entry <KEYTYPE, VALUETYPE> aEldest)
+  protected void onRemoveEldestEntry (@Nonnegative final int nSize, @Nonnull final Map.Entry <KEYTYPE, VALUETYPE> aEldest)
   {}
 
   @Override

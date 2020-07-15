@@ -58,12 +58,9 @@ public final class SizeDoubleTest
     catch (final IllegalArgumentException ex)
     {}
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new SizeDouble (320, 240),
-                                                                       new SizeDouble (320, 240));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SizeDouble (320, 240),
-                                                                           new SizeDouble (321, 240));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SizeDouble (320, 240),
-                                                                           new SizeDouble (320, 241));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new SizeDouble (320, 240), new SizeDouble (320, 240));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SizeDouble (320, 240), new SizeDouble (321, 240));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SizeDouble (320, 240), new SizeDouble (320, 241));
   }
 
   @Test

@@ -88,8 +88,7 @@ public final class RequestSingletonFuncTest
     final MockRequestSingletonWithScopeCtor a = MockRequestSingletonWithScopeCtor.getInstance ();
     assertNotNull (a);
     assertTrue (AbstractRequestSingleton.isRequestSingletonInstantiated (MockRequestSingletonWithScopeCtor.class));
-    assertSame (a,
-                AbstractRequestSingleton.getRequestSingletonIfInstantiated (MockRequestSingletonWithScopeCtor.class));
+    assertSame (a, AbstractRequestSingleton.getRequestSingletonIfInstantiated (MockRequestSingletonWithScopeCtor.class));
     assertNotNull (a.getScope ());
     assertEquals (0, a.get ());
     a.inc ();

@@ -32,8 +32,7 @@ public class CodepointIteratorRestricted extends DelegatingCodepointIterator
   private final boolean m_bScanningOnly;
   private final boolean m_bInvert;
 
-  public CodepointIteratorRestricted (@Nonnull final AbstractCodepointIterator aInternal,
-                                      @Nonnull final IntPredicate aFilter)
+  public CodepointIteratorRestricted (@Nonnull final AbstractCodepointIterator aInternal, @Nonnull final IntPredicate aFilter)
   {
     this (aInternal, aFilter, false);
   }

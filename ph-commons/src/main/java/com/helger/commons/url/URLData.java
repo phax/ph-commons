@@ -88,9 +88,7 @@ public class URLData implements ISimpleURL
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final URLData rhs = (URLData) o;
-    return m_sPath.equals (rhs.m_sPath) &&
-           m_aParams.equals (rhs.m_aParams) &&
-           EqualsHelper.equals (m_sAnchor, rhs.m_sAnchor);
+    return m_sPath.equals (rhs.m_sPath) && m_aParams.equals (rhs.m_aParams) && EqualsHelper.equals (m_sAnchor, rhs.m_sAnchor);
   }
 
   @Override

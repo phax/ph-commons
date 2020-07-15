@@ -33,8 +33,7 @@ import com.helger.commons.id.IHasID;
  * @param <CHILDTYPE>
  *        The data type of the child objects.
  */
-public class ChildrenProviderHasChildrenWithID <KEYTYPE, CHILDTYPE extends IHasChildren <CHILDTYPE> & IHasID <KEYTYPE>>
-                                               extends
+public class ChildrenProviderHasChildrenWithID <KEYTYPE, CHILDTYPE extends IHasChildren <CHILDTYPE> & IHasID <KEYTYPE>> extends
                                                ChildrenProviderHasChildren <CHILDTYPE> implements
                                                IChildrenProviderWithID <KEYTYPE, CHILDTYPE>
 {

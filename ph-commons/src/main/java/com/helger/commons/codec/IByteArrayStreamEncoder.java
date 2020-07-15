@@ -77,10 +77,7 @@ public interface IByteArrayStreamEncoder extends IByteArrayEncoder
    * @throws EncodeException
    *         In case something goes wrong
    */
-  void encode (@Nullable byte [] aDecodedBuffer,
-               @Nonnegative int nOfs,
-               @Nonnegative int nLen,
-               @Nonnull @WillNotClose OutputStream aOS);
+  void encode (@Nullable byte [] aDecodedBuffer, @Nonnegative int nOfs, @Nonnegative int nLen, @Nonnull @WillNotClose OutputStream aOS);
 
   /**
    * Encode a byte array.
@@ -118,15 +115,12 @@ public interface IByteArrayStreamEncoder extends IByteArrayEncoder
    */
   @Nullable
   @ReturnsMutableCopy
-  default byte [] getEncoded (@Nullable final byte [] aDecodedBuffer,
-                              @Nonnegative final int nOfs,
-                              @Nonnegative final int nLen)
+  default byte [] getEncoded (@Nullable final byte [] aDecodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     if (aDecodedBuffer == null)
       return null;
 
-    try (
-        final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (getMaximumEncodedLength (nLen)))
+    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (getMaximumEncodedLength (nLen)))
     {
       encode (aDecodedBuffer, nOfs, nLen, aBAOS);
       return aBAOS.getBufferOrCopy ();
@@ -174,8 +168,7 @@ public interface IByteArrayStreamEncoder extends IByteArrayEncoder
     if (aDecodedBuf == null)
       return null;
 
-    try (
-        final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (getMaximumEncodedLength (nLen)))
+    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (getMaximumEncodedLength (nLen)))
     {
       encode (aDecodedBuf, nOfs, nLen, aBAOS);
       return aBAOS.getAsString (aCharset);

@@ -50,7 +50,6 @@ public final class MockHasDisplayText implements IHasDisplayText
   @Nonnull
   public static MockHasDisplayText createDE_EN (@Nullable final String sDE, @Nullable final String sEN)
   {
-    return new MockHasDisplayText (CollectionHelper.newMap (new Locale [] { TextHelper.DE, TextHelper.EN },
-                                                            new String [] { sDE, sEN }));
+    return new MockHasDisplayText (CollectionHelper.newMap (new Locale [] { TextHelper.DE, TextHelper.EN }, new String [] { sDE, sEN }));
   }
 }

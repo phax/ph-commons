@@ -331,9 +331,7 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
    * @return String decoded from the buffer's contents.
    */
   @Nonnull
-  public String getAsString (@Nonnegative final int nOfs,
-                             @Nonnegative final int nLength,
-                             @Nonnull final Charset aCharset)
+  public String getAsString (@Nonnegative final int nOfs, @Nonnegative final int nLength, @Nonnull final Charset aCharset)
   {
     ValueEnforcer.isGE0 (nOfs, "Index");
     ValueEnforcer.isBetweenInclusive (nLength, "Length", 0, m_nCount);
@@ -401,8 +399,6 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("Buf#", ArrayHelper.getSize (m_aBuf))
-                                       .append ("Count", m_nCount)
-                                       .getToString ();
+    return new ToStringGenerator (this).append ("Buf#", ArrayHelper.getSize (m_aBuf)).append ("Count", m_nCount).getToString ();
   }
 }

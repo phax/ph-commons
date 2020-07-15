@@ -158,11 +158,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
   {
     try
     {
-      XMLMaskHelper.maskXMLTextTo (m_eXMLVersion,
-                                   eXMLCharMode,
-                                   m_aXMLWriterSettings.getIncorrectCharacterHandling (),
-                                   sValue,
-                                   m_aWriter);
+      XMLMaskHelper.maskXMLTextTo (m_eXMLVersion, eXMLCharMode, m_aXMLWriterSettings.getIncorrectCharacterHandling (), sValue, m_aWriter);
       return this;
     }
     catch (final IOException ex)
@@ -206,31 +202,6 @@ public class XMLEmitter implements AutoCloseable, Flushable
     if (m_aXMLWriterSettings.getIndent ().isAlign ())
       _append (m_aXMLWriterSettings.getNewLineString ());
     return this;
-  }
-
-  /**
-   * At the very beginning of the document (XML declaration).
-   *
-   * @param eXMLVersion
-   *        The XML version to use. If <code>null</code> is passed,
-   *        {@link EXMLVersion#XML_10} will be used.
-   * @param sEncoding
-   *        The encoding to be used for this document. It may be
-   *        <code>null</code> but it is strongly recommended to write a correct
-   *        charset.
-   * @param eStandalone
-   *        if <code>true</code> this is a standalone XML document without a
-   *        connection to an existing DTD or XML schema
-   * @deprecated Since 9.2.1; Use
-   *             {@link #onXMLDeclaration(EXMLVersion, String, ETriState, boolean)}
-   *             instead
-   */
-  @Deprecated
-  public void onXMLDeclaration (@Nullable final EXMLVersion eXMLVersion,
-                                @Nullable final String sEncoding,
-                                @Nonnull final ETriState eStandalone)
-  {
-    onXMLDeclaration (eXMLVersion, sEncoding, eStandalone, true);
   }
 
   /**
@@ -512,10 +483,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
    *        <code>false</code> if not. The <code>false</code> case is especially
    *        interesting for HTML inline JS and CSS code.
    */
-  public void onText (@Nonnull final char [] aText,
-                      @Nonnegative final int nOfs,
-                      @Nonnegative final int nLen,
-                      final boolean bEscape)
+  public void onText (@Nonnull final char [] aText, @Nonnegative final int nOfs, @Nonnegative final int nLen, final boolean bEscape)
   {
     if (bEscape)
       _appendMasked (EXMLCharMode.TEXT, aText, nOfs, nLen);
@@ -568,9 +536,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
     _appendMasked (EXMLCharMode.ELEMENT_NAME, sTagName);
   }
 
-  public void elementAttr (@Nullable final String sAttrNamespacePrefix,
-                           @Nonnull final String sAttrName,
-                           @Nonnull final String sAttrValue)
+  public void elementAttr (@Nullable final String sAttrNamespacePrefix, @Nonnull final String sAttrName, @Nonnull final String sAttrValue)
   {
     _append (' ');
     if (StringHelper.hasText (sAttrNamespacePrefix))

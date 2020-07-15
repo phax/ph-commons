@@ -123,9 +123,7 @@ public final class IntIntMapTest
     {
       assertEquals (0, map.put (addCnt, addCnt));
       addCnt++;
-      assertEquals ("Failed for addCnt = " + addCnt + ", ff = " + fillFactor,
-                    IntIntMap.NO_VALUE,
-                    map.put (addCnt, addCnt));
+      assertEquals ("Failed for addCnt = " + addCnt + ", ff = " + fillFactor, IntIntMap.NO_VALUE, map.put (addCnt, addCnt));
       addCnt++;
       assertEquals (removeCnt, map.remove (removeCnt));
       removeCnt++;

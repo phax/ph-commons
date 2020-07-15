@@ -122,8 +122,7 @@ public final class BasicMicroTypeConverterRegistrarTest
     }
 
     // These object don't implement equals!
-    final Object [] aDefinedObjsStringEquals = new Object [] { new StringBuilder ("string builder"),
-                                                               new StringBuffer ("string buffer") };
+    final Object [] aDefinedObjsStringEquals = new Object [] { new StringBuilder ("string builder"), new StringBuffer ("string buffer") };
     for (final Object aObj : aDefinedObjsStringEquals)
     {
       // Convert to XML

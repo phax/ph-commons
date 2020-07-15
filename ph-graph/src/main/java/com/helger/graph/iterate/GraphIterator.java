@@ -62,8 +62,7 @@ public final class GraphIterator implements IIterableIterator <IMutableGraphNode
     m_aIter = aList.iterator ();
   }
 
-  private void _traverseDFS (@Nonnull final IMutableGraphNode aStartNode,
-                             @Nonnull final ICommonsList <IMutableGraphNode> aList)
+  private void _traverseDFS (@Nonnull final IMutableGraphNode aStartNode, @Nonnull final ICommonsList <IMutableGraphNode> aList)
   {
     m_aHandledObjects.add (aStartNode.getID ());
     aList.add (aStartNode);

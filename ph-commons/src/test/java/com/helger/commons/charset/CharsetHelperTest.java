@@ -96,17 +96,10 @@ public final class CharsetHelperTest
   public void testGetAsStringInOtherCharsetCharset ()
   {
     final String s = "äbc";
-    assertEquals (3,
-                  CharsetHelper.getAsStringInOtherCharset (s, StandardCharsets.ISO_8859_1, StandardCharsets.UTF_8)
-                               .length ());
-    assertEquals (4,
-                  CharsetHelper.getAsStringInOtherCharset (s, StandardCharsets.UTF_8, StandardCharsets.ISO_8859_1)
-                               .length ());
+    assertEquals (3, CharsetHelper.getAsStringInOtherCharset (s, StandardCharsets.ISO_8859_1, StandardCharsets.UTF_8).length ());
+    assertEquals (4, CharsetHelper.getAsStringInOtherCharset (s, StandardCharsets.UTF_8, StandardCharsets.ISO_8859_1).length ());
     assertNull (CharsetHelper.getAsStringInOtherCharset (null, StandardCharsets.ISO_8859_1, StandardCharsets.UTF_8));
-    assertEquals (s,
-                  CharsetHelper.getAsStringInOtherCharset (s,
-                                                           StandardCharsets.ISO_8859_1,
-                                                           StandardCharsets.ISO_8859_1));
+    assertEquals (s, CharsetHelper.getAsStringInOtherCharset (s, StandardCharsets.ISO_8859_1, StandardCharsets.ISO_8859_1));
     assertEquals (s, CharsetHelper.getAsStringInOtherCharset (s, StandardCharsets.UTF_8, StandardCharsets.UTF_8));
 
     try
@@ -140,8 +133,7 @@ public final class CharsetHelperTest
     assertEquals (sAlpha, aReader.readLine ());
     StreamHelper.close (aReader);
 
-    aReader = new NonBlockingBufferedReader (new InputStreamReader (new NonBlockingByteArrayInputStream (b),
-                                                                    StandardCharsets.UTF_8));
+    aReader = new NonBlockingBufferedReader (new InputStreamReader (new NonBlockingByteArrayInputStream (b), StandardCharsets.UTF_8));
     assertEquals (sAlpha, aReader.readLine ());
     StreamHelper.close (aReader);
   }

@@ -222,8 +222,7 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
    *        The cache value. May not be <code>null</code>.
    */
   @MustBeLocked (ELockType.WRITE)
-  protected final void putInCacheNotLocked (@Nonnull final KEYSTORETYPE aCacheKey,
-                                            @Nonnull final Wrapper <VALUETYPE> aCacheValue)
+  protected final void putInCacheNotLocked (@Nonnull final KEYSTORETYPE aCacheKey, @Nonnull final Wrapper <VALUETYPE> aCacheValue)
   {
     ValueEnforcer.notNull (aCacheKey, "CacheKey");
     ValueEnforcer.notNull (aCacheValue, "CacheValue");

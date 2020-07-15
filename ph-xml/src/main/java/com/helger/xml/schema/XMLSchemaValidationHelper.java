@@ -56,8 +56,7 @@ public final class XMLSchemaValidationHelper
   }
 
   @Nonnull
-  public static IErrorList validate (@Nonnull @Nonempty final IReadableResource [] aSchemas,
-                                     @Nonnull final IReadableResource aXML)
+  public static IErrorList validate (@Nonnull @Nonempty final IReadableResource [] aSchemas, @Nonnull final IReadableResource aXML)
   {
     ValueEnforcer.notNull (aXML, "XML");
 
@@ -107,9 +106,7 @@ public final class XMLSchemaValidationHelper
    *         If XSD validation failed with an exception
    * @since 8.5.3
    */
-  public static void validate (@Nonnull final Schema aSchema,
-                               @Nonnull final Source aXML,
-                               @Nonnull final ErrorList aErrorList)
+  public static void validate (@Nonnull final Schema aSchema, @Nonnull final Source aXML, @Nonnull final ErrorList aErrorList)
   {
     validate (aSchema, aXML, aErrorList, (Locale) null);
   }

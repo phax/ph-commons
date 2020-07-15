@@ -98,18 +98,9 @@ public final class ThirdPartyModuleTest
   @Test
   public void testStd ()
   {
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ThirdPartyModule ("displayname",
-                                                                                             "owner",
-                                                                                             ELicense.APACHE1),
-                                                                       new ThirdPartyModule ("displayname",
-                                                                                             "owner",
-                                                                                             ELicense.APACHE1));
-    final ThirdPartyModule mod = new ThirdPartyModule ("displayname",
-                                                       "owner",
-                                                       ELicense.APACHE1,
-                                                       Version.parse ("1.1"),
-                                                       "url",
-                                                       true);
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ThirdPartyModule ("displayname", "owner", ELicense.APACHE1),
+                                                                       new ThirdPartyModule ("displayname", "owner", ELicense.APACHE1));
+    final ThirdPartyModule mod = new ThirdPartyModule ("displayname", "owner", ELicense.APACHE1, Version.parse ("1.1"), "url", true);
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (mod,
                                                                        new ThirdPartyModule ("displayname",
                                                                                              "owner",

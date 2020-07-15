@@ -36,12 +36,12 @@ import com.helger.commons.collection.impl.ICommonsList;
  */
 public abstract class AbstractUTF7StyleCharset extends Charset
 {
-  private static final ICommonsList <String> CONTAINED = new CommonsArrayList<> ("US-ASCII",
-                                                                                 "ISO-8859-1",
-                                                                                 "UTF-8",
-                                                                                 "UTF-16",
-                                                                                 "UTF-16LE",
-                                                                                 "UTF-16BE");
+  private static final ICommonsList <String> CONTAINED = new CommonsArrayList <> ("US-ASCII",
+                                                                                  "ISO-8859-1",
+                                                                                  "UTF-8",
+                                                                                  "UTF-16",
+                                                                                  "UTF-16LE",
+                                                                                  "UTF-16BE");
   private final boolean m_bStrict;
   private final UTF7Base64Helper m_aBase64;
 

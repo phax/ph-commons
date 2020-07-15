@@ -55,10 +55,8 @@ public final class EMessageDigestAlgorithmTest
       assertTrue (StringHelper.hasText (eAlgo.getAlgorithm ()));
       assertNotNull (eAlgo.createMessageDigest ());
       assertSame (eAlgo, EMessageDigestAlgorithm.getFromStringIgnoreCase (eAlgo.getAlgorithm ()));
-      assertSame (eAlgo,
-                  EMessageDigestAlgorithm.getFromStringIgnoreCase (eAlgo.getAlgorithm ().toLowerCase (Locale.US)));
-      assertSame (eAlgo,
-                  EMessageDigestAlgorithm.getFromStringIgnoreCase (eAlgo.getAlgorithm ().toUpperCase (Locale.US)));
+      assertSame (eAlgo, EMessageDigestAlgorithm.getFromStringIgnoreCase (eAlgo.getAlgorithm ().toLowerCase (Locale.US)));
+      assertSame (eAlgo, EMessageDigestAlgorithm.getFromStringIgnoreCase (eAlgo.getAlgorithm ().toUpperCase (Locale.US)));
       assertSame (eAlgo, EMessageDigestAlgorithm.valueOf (eAlgo.name ()));
     }
     assertNull (EMessageDigestAlgorithm.getFromStringIgnoreCase (null));
@@ -98,13 +96,11 @@ public final class EMessageDigestAlgorithmTest
                                                                 .getAllBytes (),
                                               CHARSET));
     assertEquals ("XJ4BNP4PAHH6UQKBIDPF3LRCEOYAGYNDSYLXVHFUCD7WD4QACWWQ",
-                  aBase32.getEncodedAsString (MessageDigestValue.create ("abc".getBytes (CHARSET),
-                                                                         EMessageDigestAlgorithm.SHA_256)
+                  aBase32.getEncodedAsString (MessageDigestValue.create ("abc".getBytes (CHARSET), EMessageDigestAlgorithm.SHA_256)
                                                                 .getAllBytes (),
                                               CHARSET));
     assertEquals ("WXKAIXB7IZX2SH7CZRVL46JDFINFPTPRAT32E3TRNYFB4J4J354A",
-                  aBase32.getEncodedAsString (MessageDigestValue.create ("ABC".getBytes (CHARSET),
-                                                                         EMessageDigestAlgorithm.SHA_256)
+                  aBase32.getEncodedAsString (MessageDigestValue.create ("ABC".getBytes (CHARSET), EMessageDigestAlgorithm.SHA_256)
                                                                 .getAllBytes (),
                                               CHARSET));
   }

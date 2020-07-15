@@ -42,10 +42,7 @@ public class LoggingThreadDeadlockCallback implements IThreadDeadlockCallback
       {
         final Thread aThread = aThreadInformation.getThread ();
 
-        aMsg.append ('\n')
-            .append (aThread.toString ())
-            .append (":\n")
-            .append (StackTraceHelper.getStackAsString (aThread));
+        aMsg.append ('\n').append (aThread.toString ()).append (":\n").append (StackTraceHelper.getStackAsString (aThread));
       }
 
       LOGGER.error (aMsg.toString ());

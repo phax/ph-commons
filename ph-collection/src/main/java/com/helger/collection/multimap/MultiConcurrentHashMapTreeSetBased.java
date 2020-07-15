@@ -49,8 +49,7 @@ public class MultiConcurrentHashMapTreeSetBased <KEYTYPE, VALUETYPE extends Comp
     super (aKey, aValue);
   }
 
-  public MultiConcurrentHashMapTreeSetBased (@Nonnull final KEYTYPE aKey,
-                                             @Nonnull final ICommonsNavigableSet <VALUETYPE> aCollection)
+  public MultiConcurrentHashMapTreeSetBased (@Nonnull final KEYTYPE aKey, @Nonnull final ICommonsNavigableSet <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }

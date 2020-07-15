@@ -44,16 +44,14 @@ public final class JsonValueSerializerEscaped implements IJsonValueSerializer
     return s_aInstance;
   }
 
-  public static void appendEscapedJsonString (@Nonnull final String sValue,
-                                              @Nonnull @WillNotClose final Writer aWriter) throws IOException
+  public static void appendEscapedJsonString (@Nonnull final String sValue, @Nonnull @WillNotClose final Writer aWriter) throws IOException
   {
     aWriter.write ('"');
     JsonEscapeHelper.jsonEscapeToWriter (sValue, aWriter);
     aWriter.write ('"');
   }
 
-  public void appendAsJsonString (@Nullable final Object aValue,
-                                  @Nonnull @WillNotClose final Writer aWriter) throws IOException
+  public void appendAsJsonString (@Nullable final Object aValue, @Nonnull @WillNotClose final Writer aWriter) throws IOException
   {
     appendEscapedJsonString (String.valueOf (aValue), aWriter);
   }

@@ -68,8 +68,7 @@ public final class CollatorHelper
         final Collator aCollator = Collator.getInstance (aLocale);
         if (!(aCollator instanceof RuleBasedCollator))
         {
-          LOGGER.warn ("Collator.getInstance did not return a RulleBasedCollator but a " +
-                       aCollator.getClass ().getName ());
+          LOGGER.warn ("Collator.getInstance did not return a RulleBasedCollator but a " + aCollator.getClass ().getName ());
           return aCollator;
         }
 

@@ -85,9 +85,7 @@ public class URLParameterList extends CommonsArrayList <URLParameter> implements
 
   public boolean contains (@Nullable final String sName, @Nullable final String sValue)
   {
-    return sName != null &&
-           sValue != null &&
-           containsAny (aParam -> aParam.hasName (sName) && aParam.hasValue (sValue));
+    return sName != null && sValue != null && containsAny (aParam -> aParam.hasName (sName) && aParam.hasValue (sValue));
   }
 
   @Nonnull
@@ -131,8 +129,7 @@ public class URLParameterList extends CommonsArrayList <URLParameter> implements
   public ICommonsOrderedMap <String, ICommonsList <String>> getAsMultiMap ()
   {
     final ICommonsOrderedMap <String, ICommonsList <String>> ret = new CommonsLinkedHashMap <> ();
-    forEach (aParam -> ret.computeIfAbsent (aParam.getName (), x -> new CommonsArrayList <> ())
-                          .add (aParam.getValue ()));
+    forEach (aParam -> ret.computeIfAbsent (aParam.getName (), x -> new CommonsArrayList <> ()).add (aParam.getValue ()));
     return ret;
   }
 

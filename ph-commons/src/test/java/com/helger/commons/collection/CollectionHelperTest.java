@@ -415,8 +415,7 @@ public final class CollectionHelperTest
     catch (final IllegalArgumentException ex)
     {}
 
-    SortedMap <Integer, String> aSortedMap = newSortedMap (new Integer [] { I2, I4 },
-                                                           new String [] { "Hallo", "Welt" });
+    SortedMap <Integer, String> aSortedMap = newSortedMap (new Integer [] { I2, I4 }, new String [] { "Hallo", "Welt" });
     assertNotNull (aSortedMap);
     assertEquals (2, aSortedMap.size ());
     assertNotNull (aSortedMap.get (I2));
@@ -1280,8 +1279,7 @@ public final class CollectionHelperTest
     assertNull (getFilteredMap (null, newList ("a")));
     assertNull (getFilteredMap (newMap ("a", "value-of-a"), null));
 
-    final Map <String, String> aFilteredMap = getFilteredMap (newMap ("a", "value-of-a", "b", "value-of-b"),
-                                                              newList ("a"));
+    final Map <String, String> aFilteredMap = getFilteredMap (newMap ("a", "value-of-a", "b", "value-of-b"), newList ("a"));
     assertNotNull (aFilteredMap);
     assertEquals (1, aFilteredMap.size ());
     assertTrue (aFilteredMap.containsKey ("a"));
@@ -1617,8 +1615,7 @@ public final class CollectionHelperTest
   @Test
   public void testNewObjectListFromArray ()
   {
-    assertNotNull (newObjectListFromArray (new Integer [] { Integer.valueOf (2), Integer.valueOf (0x7f) },
-                                           Integer.class));
+    assertNotNull (newObjectListFromArray (new Integer [] { Integer.valueOf (2), Integer.valueOf (0x7f) }, Integer.class));
     assertNotNull (newObjectListFromArray (new boolean [] { true, false }, boolean.class));
     assertNotNull (newObjectListFromArray (new byte [] { (byte) 2, (byte) 0x7f }, byte.class));
     assertNotNull (newObjectListFromArray (new char [] { 'a', 'Z' }, char.class));

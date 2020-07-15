@@ -35,8 +35,7 @@ import com.helger.commons.collection.CollectionHelper;
  * @param <ELEMENTTYPE>
  *        Set element type
  */
-public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTYPE> implements
-                                  ICommonsOrderedSet <ELEMENTTYPE>
+public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTYPE> implements ICommonsOrderedSet <ELEMENTTYPE>
 {
   public CommonsLinkedHashSet ()
   {}

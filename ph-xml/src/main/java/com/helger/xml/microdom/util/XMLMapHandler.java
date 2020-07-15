@@ -126,8 +126,7 @@ public final class XMLMapHandler
    *         {@link ESuccess#FAILURE} otherwise.
    */
   @Nonnull
-  public static ESuccess readMap (@Nonnull @WillClose final InputStream aIS,
-                                  @Nonnull final Map <String, String> aTargetMap)
+  public static ESuccess readMap (@Nonnull @WillClose final InputStream aIS, @Nonnull final Map <String, String> aTargetMap)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
     ValueEnforcer.notNull (aTargetMap, "TargetMap");
@@ -151,8 +150,7 @@ public final class XMLMapHandler
   }
 
   @Nonnull
-  public static ESuccess readMap (@Nonnull final IMicroElement aParentElement,
-                                  @Nonnull final Map <String, String> aTargetMap)
+  public static ESuccess readMap (@Nonnull final IMicroElement aParentElement, @Nonnull final Map <String, String> aTargetMap)
   {
     ValueEnforcer.notNull (aParentElement, "ParentElement");
     ValueEnforcer.notNull (aTargetMap, "TargetMap");

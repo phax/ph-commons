@@ -99,8 +99,7 @@ public enum EErrorLevel implements IErrorLevel
   }
 
   @Nullable
-  public static EErrorLevel getFromIDCaseInsensitiveOrDefault (@Nullable final String sID,
-                                                               @Nullable final EErrorLevel eDefault)
+  public static EErrorLevel getFromIDCaseInsensitiveOrDefault (@Nullable final String sID, @Nullable final EErrorLevel eDefault)
   {
     return EnumHelper.getFromIDCaseInsensitiveOrDefault (EErrorLevel.class, sID, eDefault);
   }

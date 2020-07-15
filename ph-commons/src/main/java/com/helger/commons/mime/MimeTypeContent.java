@@ -72,9 +72,7 @@ public class MimeTypeContent implements Serializable
    * @param aMimeType
    *        The corresponding mime type. May not be <code>null</code>.
    */
-  public MimeTypeContent (@Nonnull @Nonempty final byte [] aContentBytes,
-                          final boolean bCopyBytes,
-                          @Nonnull final IMimeType aMimeType)
+  public MimeTypeContent (@Nonnull @Nonempty final byte [] aContentBytes, final boolean bCopyBytes, @Nonnull final IMimeType aMimeType)
   {
     ValueEnforcer.notEmpty (aContentBytes, "ContentBytes");
     ValueEnforcer.notNull (aMimeType, "MimeType");
@@ -160,8 +158,6 @@ public class MimeTypeContent implements Serializable
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("ContentBytes", m_aContentBytes)
-                                       .append ("MimeType", m_aMimeType)
-                                       .getToString ();
+    return new ToStringGenerator (this).append ("ContentBytes", m_aContentBytes).append ("MimeType", m_aMimeType).getToString ();
   }
 }

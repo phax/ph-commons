@@ -457,9 +457,7 @@ public class Matrix implements Serializable, ICloneable <Matrix>
    */
   @Nonnull
   @ReturnsMutableCopy
-  public Matrix getMatrix (@Nonnegative final int nStartRowIndex,
-                           @Nonnegative final int nEndRowIndex,
-                           @Nonnull final int [] aCols)
+  public Matrix getMatrix (@Nonnegative final int nStartRowIndex, @Nonnegative final int nEndRowIndex, @Nonnull final int [] aCols)
   {
     final Matrix aNewMatrix = new Matrix (nEndRowIndex - nStartRowIndex + 1, aCols.length);
     final double [] [] aNewArray = aNewMatrix.internalGetArray ();
@@ -487,9 +485,7 @@ public class Matrix implements Serializable, ICloneable <Matrix>
    */
   @Nonnull
   @ReturnsMutableCopy
-  public Matrix getMatrix (@Nonnull final int [] aRows,
-                           @Nonnegative final int nStartColumnIndex,
-                           @Nonnegative final int nEndColumnIndex)
+  public Matrix getMatrix (@Nonnull final int [] aRows, @Nonnegative final int nStartColumnIndex, @Nonnegative final int nEndColumnIndex)
   {
     final Matrix aNewMatrix = new Matrix (aRows.length, nEndColumnIndex - nStartColumnIndex + 1);
     final double [] [] aNewArray = aNewMatrix.internalGetArray ();
@@ -1273,9 +1269,7 @@ public class Matrix implements Serializable, ICloneable <Matrix>
    * @param nFractionDigits
    *        Number of digits after the decimal.
    */
-  public void print (@Nonnull final PrintWriter aPW,
-                     @Nonnegative final int nWidth,
-                     @Nonnegative final int nFractionDigits)
+  public void print (@Nonnull final PrintWriter aPW, @Nonnegative final int nWidth, @Nonnegative final int nFractionDigits)
   {
     final NumberFormat format = NumberFormat.getInstance (CGlobal.DEFAULT_LOCALE);
     format.setMinimumIntegerDigits (1);

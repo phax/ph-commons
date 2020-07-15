@@ -54,8 +54,7 @@ public interface IHasDisplayText
   }
 
   @Nonnull
-  static Comparator <IHasDisplayText> getComparatorCollating (@Nonnull final Locale aContentLocale,
-                                                              @Nullable final Locale aSortLocale)
+  static Comparator <IHasDisplayText> getComparatorCollating (@Nonnull final Locale aContentLocale, @Nullable final Locale aSortLocale)
   {
     return IComparator.getComparatorCollating (x -> x.getDisplayText (aContentLocale), aSortLocale);
   }

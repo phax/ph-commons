@@ -30,7 +30,6 @@ public final class JavaMessageFormatFuncTest
   {
     assertEquals ("Hallo Welt!", new MessageFormat ("Hallo {0}!", Locale.US).format (new Object [] { "Welt" }));
     assertEquals ("Hallo Welt!", new MessageFormat ("{1} {0}!", Locale.US).format (new Object [] { "Welt", "Hallo" }));
-    assertEquals ("Hallo 17!",
-                  new MessageFormat ("Hallo {0}!", Locale.US).format (new Object [] { Integer.valueOf (17) }));
+    assertEquals ("Hallo 17!", new MessageFormat ("Hallo {0}!", Locale.US).format (new Object [] { Integer.valueOf (17) }));
   }
 }

@@ -54,8 +54,7 @@ public final class PDTFromStringTest
     assertNotNull (aDTF);
     aLDT = PDTFromString.getLocalDateTimeFromString ("2009/03/28 15:06:34", aDTF);
     assertNotNull (aLDT);
-    assertEquals ("2009/03/28 15:06:34",
-                  aDTF.format (PDTFactory.createLocalDateTime (2009, Month.MARCH, 28, 15, 6, 34)));
+    assertEquals ("2009/03/28 15:06:34", aDTF.format (PDTFactory.createLocalDateTime (2009, Month.MARCH, 28, 15, 6, 34)));
 
     // 'y' instead of 'u'
     // y == year of era
@@ -64,8 +63,7 @@ public final class PDTFromStringTest
     assertNotNull (aDTF);
     aLDT = PDTFromString.getLocalDateTimeFromString ("2009/03/28 15:06:34", aDTF);
     assertNull (aLDT);
-    assertEquals ("2009/03/28 15:06:34",
-                  aDTF.format (PDTFactory.createLocalDateTime (2009, Month.MARCH, 28, 15, 6, 34)));
+    assertEquals ("2009/03/28 15:06:34", aDTF.format (PDTFactory.createLocalDateTime (2009, Month.MARCH, 28, 15, 6, 34)));
   }
 
   @Test
@@ -99,23 +97,20 @@ public final class PDTFromStringTest
   @Test
   public void testLocalDateFromString ()
   {
-    assertEquals (LocalDate.of (2000, Month.JULY, 6),
-                  PDTFromString.getLocalDateFromString ("2000.07.06", "uuuu.MM.dd"));
+    assertEquals (LocalDate.of (2000, Month.JULY, 6), PDTFromString.getLocalDateFromString ("2000.07.06", "uuuu.MM.dd"));
     assertNull (PDTFromString.getLocalDateFromString ("2000.07.06 abc", "uuuu.MM.dd"));
     assertNull (PDTFromString.getLocalDateFromString (null, "uuuu.MM.dd"));
     // No February 30th
     assertNull (PDTFromString.getLocalDateFromString ("2000.02.30", "uuuu.MM.dd"));
 
     // test after year 2018 for the milliseconds since 1970 issue
-    assertEquals (LocalDate.of (2038, Month.JANUARY, 20),
-                  PDTFromString.getLocalDateFromString ("20.01.2038", Locale.GERMANY));
+    assertEquals (LocalDate.of (2038, Month.JANUARY, 20), PDTFromString.getLocalDateFromString ("20.01.2038", Locale.GERMANY));
     assertEquals (LocalDate.of (2038, Month.JANUARY, 20),
                   PDTFromString.getLocalDateFromString ("20.01.2038",
                                                         PDTFormatter.getFormatterDate (PDTFormatter.DEFAULT_STYLE,
                                                                                        Locale.GERMANY,
                                                                                        EDTFormatterMode.PARSE)));
-    assertEquals (LocalDate.of (2938, Month.JANUARY, 20),
-                  PDTFromString.getLocalDateFromString ("20.01.2938", Locale.GERMANY));
+    assertEquals (LocalDate.of (2938, Month.JANUARY, 20), PDTFromString.getLocalDateFromString ("20.01.2938", Locale.GERMANY));
 
     try
     {

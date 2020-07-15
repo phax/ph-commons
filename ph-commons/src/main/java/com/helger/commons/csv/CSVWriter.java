@@ -438,9 +438,7 @@ public class CSVWriter implements Closeable, Flushable
    *        Array Length. Must be &ge; 0.
    * @see #isApplyQuotesToAll()
    */
-  public void writeNext (@Nullable final String [] aNextLine,
-                         @Nonnegative final int nOfs,
-                         @Nonnegative final int nLength)
+  public void writeNext (@Nullable final String [] aNextLine, @Nonnegative final int nOfs, @Nonnegative final int nLength)
   {
     writeNext (aNextLine, nOfs, nLength, m_bApplyQuotesToAll);
   }

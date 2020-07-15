@@ -49,8 +49,7 @@ public class MessageDigestValue implements IHasByteArray, Serializable
   private final EMessageDigestAlgorithm m_eAlgorithm;
   private final ByteArrayWrapper m_aBytes;
 
-  public MessageDigestValue (@Nonnull final EMessageDigestAlgorithm eAlgorithm,
-                             @Nonnull @Nonempty final byte [] aDigestBytes)
+  public MessageDigestValue (@Nonnull final EMessageDigestAlgorithm eAlgorithm, @Nonnull @Nonempty final byte [] aDigestBytes)
   {
     this (eAlgorithm, aDigestBytes, DEFAULT_COPY_NEEDED);
   }
@@ -150,8 +149,7 @@ public class MessageDigestValue implements IHasByteArray, Serializable
    * @return Never <code>null</code>.
    */
   @Nonnull
-  public static MessageDigestValue create (@Nonnull final byte [] aBytes,
-                                           @Nonnull final EMessageDigestAlgorithm eAlgorithm)
+  public static MessageDigestValue create (@Nonnull final byte [] aBytes, @Nonnull final EMessageDigestAlgorithm eAlgorithm)
   {
     final MessageDigest aMD = eAlgorithm.createMessageDigest ();
     aMD.update (aBytes);

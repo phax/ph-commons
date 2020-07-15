@@ -151,8 +151,7 @@ public final class ScopeSPIManager
       catch (final Exception ex)
       {
         if (LOGGER.isErrorEnabled ())
-          LOGGER.error ("Failed to invoke SPI method onGlobalScopeBegin on " + aSPI + " with scope " + aGlobalScope,
-                        _propagate (ex));
+          LOGGER.error ("Failed to invoke SPI method onGlobalScopeBegin on " + aSPI + " with scope " + aGlobalScope, _propagate (ex));
       }
   }
 
@@ -166,8 +165,7 @@ public final class ScopeSPIManager
       catch (final Exception ex)
       {
         if (LOGGER.isErrorEnabled ())
-          LOGGER.error ("Failed to invoke SPI method onGlobalScopeEnd on " + aSPI + " with scope " + aGlobalScope,
-                        _propagate (ex));
+          LOGGER.error ("Failed to invoke SPI method onGlobalScopeEnd on " + aSPI + " with scope " + aGlobalScope, _propagate (ex));
       }
   }
 
@@ -181,8 +179,7 @@ public final class ScopeSPIManager
       catch (final Exception ex)
       {
         if (LOGGER.isErrorEnabled ())
-          LOGGER.error ("Failed to invoke SPI method onSessionScopeBegin on " + aSPI + " with scope " + aSessionScope,
-                        _propagate (ex));
+          LOGGER.error ("Failed to invoke SPI method onSessionScopeBegin on " + aSPI + " with scope " + aSessionScope, _propagate (ex));
       }
   }
 
@@ -196,8 +193,7 @@ public final class ScopeSPIManager
       catch (final Exception ex)
       {
         if (LOGGER.isErrorEnabled ())
-          LOGGER.error ("Failed to invoke SPI method onSessionScopeEnd on " + aSPI + " with scope " + aSessionScope,
-                        _propagate (ex));
+          LOGGER.error ("Failed to invoke SPI method onSessionScopeEnd on " + aSPI + " with scope " + aSessionScope, _propagate (ex));
       }
   }
 
@@ -211,8 +207,7 @@ public final class ScopeSPIManager
       catch (final Exception ex)
       {
         if (LOGGER.isErrorEnabled ())
-          LOGGER.error ("Failed to invoke SPI method onRequestScopeBegin on " + aSPI + " with scope " + aRequestScope,
-                        _propagate (ex));
+          LOGGER.error ("Failed to invoke SPI method onRequestScopeBegin on " + aSPI + " with scope " + aRequestScope, _propagate (ex));
       }
   }
 
@@ -226,8 +221,7 @@ public final class ScopeSPIManager
       catch (final Exception ex)
       {
         if (LOGGER.isErrorEnabled ())
-          LOGGER.error ("Failed to invoke SPI method onRequestScopeEnd on " + aSPI + " with scope " + aRequestScope,
-                        _propagate (ex));
+          LOGGER.error ("Failed to invoke SPI method onRequestScopeEnd on " + aSPI + " with scope " + aRequestScope, _propagate (ex));
       }
   }
 }

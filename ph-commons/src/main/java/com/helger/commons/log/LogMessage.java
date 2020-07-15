@@ -42,9 +42,7 @@ public class LogMessage implements IHasErrorLevelComparable <LogMessage>
   private final Serializable m_aMsg;
   private final Throwable m_aThrowable;
 
-  public LogMessage (@Nonnull final IErrorLevel aErrorLevel,
-                     @Nonnull final Serializable aMsg,
-                     @Nullable final Throwable aThrowable)
+  public LogMessage (@Nonnull final IErrorLevel aErrorLevel, @Nonnull final Serializable aMsg, @Nullable final Throwable aThrowable)
   {
     this (PDTFactory.getCurrentLocalDateTime (), aErrorLevel, aMsg, aThrowable);
   }

@@ -82,9 +82,6 @@ public final class FormatterMinLengthAddTrailing extends AbstractFormatterString
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ())
-                            .append ("minLength", m_nMinLength)
-                            .append ("fill", m_cFill)
-                            .getToString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("minLength", m_nMinLength).append ("fill", m_cFill).getToString ();
   }
 }

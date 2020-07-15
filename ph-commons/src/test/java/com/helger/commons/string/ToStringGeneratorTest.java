@@ -82,14 +82,7 @@ public final class ToStringGeneratorTest
                            Double.NaN,
                            Double.POSITIVE_INFINITY,
                            Double.NEGATIVE_INFINITY });
-    _test (new float [] { Float.MIN_VALUE,
-                          1,
-                          2,
-                          31.415f,
-                          Float.MAX_VALUE,
-                          Float.NaN,
-                          Float.POSITIVE_INFINITY,
-                          Float.NEGATIVE_INFINITY });
+    _test (new float [] { Float.MIN_VALUE, 1, 2, 31.415f, Float.MAX_VALUE, Float.NaN, Float.POSITIVE_INFINITY, Float.NEGATIVE_INFINITY });
     _test (new int [] { Integer.MIN_VALUE, 1, 2, 1415, Integer.MAX_VALUE });
     _test (new long [] { Long.MIN_VALUE, 1, 2, 1415, Long.MAX_VALUE });
     _test (new short [] { Short.MIN_VALUE, 1, 2, 1415, Short.MAX_VALUE });
@@ -111,8 +104,7 @@ public final class ToStringGeneratorTest
                                 .appendPassword ("pwfield")
                                 .append ("boolean[]", new boolean [] { true, false, true })
                                 .append ("byte[]", new byte [] { Byte.MIN_VALUE, 1, 2, 3, Byte.MAX_VALUE })
-                                .append ("char[]",
-                                         new char [] { Character.MIN_VALUE, 'x', 'y', 'Z', Character.MAX_VALUE })
+                                .append ("char[]", new char [] { Character.MIN_VALUE, 'x', 'y', 'Z', Character.MAX_VALUE })
                                 .append ("double[]",
                                          new double [] { Double.MIN_VALUE,
                                                          1,
@@ -137,12 +129,7 @@ public final class ToStringGeneratorTest
                                 .append ("String[]", new String [] { "a", "b", "c" })
                                 .appendIfNotNull ("boolean[]", new boolean [] { true, false, true })
                                 .appendIfNotNull ("byte[]", new byte [] { Byte.MIN_VALUE, 1, 2, 3, Byte.MAX_VALUE })
-                                .appendIfNotNull ("char[]",
-                                                  new char [] { Character.MIN_VALUE,
-                                                                'x',
-                                                                'y',
-                                                                'Z',
-                                                                Character.MAX_VALUE })
+                                .appendIfNotNull ("char[]", new char [] { Character.MIN_VALUE, 'x', 'y', 'Z', Character.MAX_VALUE })
                                 .appendIfNotNull ("double[]",
                                                   new double [] { Double.MIN_VALUE,
                                                                   1,
@@ -161,11 +148,9 @@ public final class ToStringGeneratorTest
                                                                  Float.NaN,
                                                                  Float.POSITIVE_INFINITY,
                                                                  Float.NEGATIVE_INFINITY })
-                                .appendIfNotNull ("int[]",
-                                                  new int [] { Integer.MIN_VALUE, 1, 2, 1415, Integer.MAX_VALUE })
+                                .appendIfNotNull ("int[]", new int [] { Integer.MIN_VALUE, 1, 2, 1415, Integer.MAX_VALUE })
                                 .appendIfNotNull ("long[]", new long [] { Long.MIN_VALUE, 1, 2, 1415, Long.MAX_VALUE })
-                                .appendIfNotNull ("short[]",
-                                                  new short [] { Short.MIN_VALUE, 1, 2, 1415, Short.MAX_VALUE })
+                                .appendIfNotNull ("short[]", new short [] { Short.MIN_VALUE, 1, 2, 1415, Short.MAX_VALUE })
                                 .appendIfNotNull ("String[]", new String [] { "a", "b", "c" })
                                 .appendIfNotNull ("boolean[]", (boolean []) null)
                                 .appendIfNotNull ("byte[]", (byte []) null)

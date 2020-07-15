@@ -199,11 +199,7 @@ public final class CmdLineParserTest
   @Test
   public void testParseUndefinedActions () throws CmdLineParseException
   {
-    final Options aOptions = new Options ().addOption (Option.builder ("D")
-                                                             .longOpt ("def")
-                                                             .args (2)
-                                                             .valueSeparator ('=')
-                                                             .build ());
+    final Options aOptions = new Options ().addOption (Option.builder ("D").longOpt ("def").args (2).valueSeparator ('=').build ());
     final CmdLineParser p = new CmdLineParser (aOptions);
 
     ParsedCmdLine aPCL = p.parse (new String [] { "-foo", "-bar" });
@@ -254,11 +250,7 @@ public final class CmdLineParserTest
   @Test
   public void testParseRequired () throws CmdLineParseException
   {
-    final Options aOptions = new Options ().addOption (Option.builder ("D")
-                                                             .args (2)
-                                                             .valueSeparator ('=')
-                                                             .required (true)
-                                                             .build ());
+    final Options aOptions = new Options ().addOption (Option.builder ("D").args (2).valueSeparator ('=').required (true).build ());
     final CmdLineParser p = new CmdLineParser (aOptions);
 
     try
@@ -279,11 +271,7 @@ public final class CmdLineParserTest
   @Test
   public void testParseNotRepeatable () throws CmdLineParseException
   {
-    final Options aOptions = new Options ().addOption (Option.builder ("D")
-                                                             .args (2)
-                                                             .valueSeparator ('=')
-                                                             .repeatable (false)
-                                                             .build ());
+    final Options aOptions = new Options ().addOption (Option.builder ("D").args (2).valueSeparator ('=').repeatable (false).build ());
     final CmdLineParser p = new CmdLineParser (aOptions);
 
     try

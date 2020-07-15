@@ -198,9 +198,7 @@ public final class MimeTypeDeterminator
    *         <code>null</code>.
    */
   @Nullable
-  public IMimeType getMimeTypeFromString (@Nullable final String s,
-                                          @Nonnull final Charset aCharset,
-                                          @Nullable final IMimeType aDefault)
+  public IMimeType getMimeTypeFromString (@Nullable final String s, @Nonnull final Charset aCharset, @Nullable final IMimeType aDefault)
   {
     return getMimeTypeFromBytes (s == null ? null : s.getBytes (aCharset), aDefault);
   }

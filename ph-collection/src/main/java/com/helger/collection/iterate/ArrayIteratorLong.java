@@ -91,8 +91,6 @@ public final class ArrayIteratorLong
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("array", Arrays.toString (m_aArray))
-                                       .append ("index", m_nIndex)
-                                       .getToString ();
+    return new ToStringGenerator (this).append ("array", Arrays.toString (m_aArray)).append ("index", m_nIndex).getToString ();
   }
 }

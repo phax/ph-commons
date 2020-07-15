@@ -36,8 +36,7 @@ import com.helger.commons.collection.impl.ICommonsList;
  */
 @NotThreadSafe
 public abstract class AbstractMultiHashMapListBased <KEYTYPE, VALUETYPE> extends
-                                                    AbstractMultiHashMap <KEYTYPE, VALUETYPE, ICommonsList <VALUETYPE>>
-                                                    implements
+                                                    AbstractMultiHashMap <KEYTYPE, VALUETYPE, ICommonsList <VALUETYPE>> implements
                                                     IMultiMapListBased <KEYTYPE, VALUETYPE>
 {
   public AbstractMultiHashMapListBased ()
@@ -48,8 +47,7 @@ public abstract class AbstractMultiHashMapListBased <KEYTYPE, VALUETYPE> extends
     putSingle (aKey, aValue);
   }
 
-  public AbstractMultiHashMapListBased (@Nullable final KEYTYPE aKey,
-                                        @Nullable final ICommonsList <VALUETYPE> aCollection)
+  public AbstractMultiHashMapListBased (@Nullable final KEYTYPE aKey, @Nullable final ICommonsList <VALUETYPE> aCollection)
   {
     put (aKey, aCollection);
   }

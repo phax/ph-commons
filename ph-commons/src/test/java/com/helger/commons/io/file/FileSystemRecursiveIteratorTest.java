@@ -89,8 +89,7 @@ public final class FileSystemRecursiveIteratorTest
       it.next ();
 
     // With two filter2
-    it = new FileSystemRecursiveIterator (new File (".")).withFilter (IFileFilter.fileOnly ()
-                                                                                 .and (IFileFilter.fileOnly ()));
+    it = new FileSystemRecursiveIterator (new File (".")).withFilter (IFileFilter.fileOnly ().and (IFileFilter.fileOnly ()));
     assertNotNull (it);
     assertTrue (it.hasNext ());
     while (it.hasNext ())

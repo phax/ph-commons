@@ -40,8 +40,7 @@ public class DirectedGraphRelation extends AbstractBaseGraphObject implements IM
   private final IMutableDirectedGraphNode m_aFrom;
   private final IMutableDirectedGraphNode m_aTo;
 
-  public DirectedGraphRelation (@Nonnull final IMutableDirectedGraphNode aFrom,
-                                @Nonnull final IMutableDirectedGraphNode aTo)
+  public DirectedGraphRelation (@Nonnull final IMutableDirectedGraphNode aFrom, @Nonnull final IMutableDirectedGraphNode aTo)
   {
     this (null, aFrom, aTo);
   }
@@ -125,9 +124,6 @@ public class DirectedGraphRelation extends AbstractBaseGraphObject implements IM
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ())
-                            .append ("from", m_aFrom)
-                            .append ("to", m_aTo)
-                            .getToString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("from", m_aFrom).append ("to", m_aTo).getToString ();
   }
 }

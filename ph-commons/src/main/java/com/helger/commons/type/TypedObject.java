@@ -127,8 +127,7 @@ public final class TypedObject <IDTYPE extends Serializable> implements ITypedOb
    * @return new {@link TypedObject}
    */
   @Nonnull
-  public static <IDTYPE extends Serializable> TypedObject <IDTYPE> create (@Nonnull final ObjectType aObjectType,
-                                                                           @Nonnull final IDTYPE aID)
+  public static <IDTYPE extends Serializable> TypedObject <IDTYPE> create (@Nonnull final ObjectType aObjectType, @Nonnull final IDTYPE aID)
   {
     return new TypedObject <> (aObjectType, aID);
   }

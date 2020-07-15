@@ -41,7 +41,7 @@ public interface IHasTextWithArgs extends IHasText
    * @param aContentLocale
    *        The locale to use. May not be <code>null</code>.
    * @return <code>null</code> if no text for the given locale was found.
-   * @deprecated Use {@link #getText(Locale)} instead!
+   * @deprecated Don't call this; Use {@link #getText(Locale)} instead!
    */
   @Nullable
   @Deprecated

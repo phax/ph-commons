@@ -61,8 +61,7 @@ public final class CommonsLinkedListTest
     aTest = new CommonsLinkedList <> ((Iterable <String>) new CommonsLinkedList <> ("a", "b", "c", "d"));
     assertEquals (4, aTest.size ());
 
-    aTest = new CommonsLinkedList <> (new CommonsLinkedList <> (Integer.valueOf (1), Integer.valueOf (2)),
-                                      x -> x.toString ());
+    aTest = new CommonsLinkedList <> (new CommonsLinkedList <> (Integer.valueOf (1), Integer.valueOf (2)), x -> x.toString ());
     assertEquals (2, aTest.size ());
 
     aTest = new CommonsLinkedList <> ((Iterable <Integer>) new CommonsLinkedList <> (Integer.valueOf (1),

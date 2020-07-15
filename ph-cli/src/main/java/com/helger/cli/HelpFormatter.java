@@ -53,9 +53,7 @@ import com.helger.commons.system.ENewLineMode;
  *                                 .withArgName ("FILE")
  *                                 .isRequired ()
  *                                 .create ('f'));
- * options.addOption (OptionBuilder.withLongOpt ("version")
- *                                 .withDescription ("Print the version of the application")
- *                                 .create ('v'));
+ * options.addOption (OptionBuilder.withLongOpt ("version").withDescription ("Print the version of the application").create ('v'));
  * options.addOption (OptionBuilder.withLongOpt ("help").create ('h'));
  *
  * String header = "Do something useful with an input file\n\n";
@@ -410,9 +408,7 @@ public class HelpFormatter
    * @param bAutoUsage
    *        whether to print an automatically generated usage statement
    */
-  public void printHelp (@Nonnull @Nonempty final String sCmdLineSyntax,
-                         @Nonnull final Options aOptions,
-                         final boolean bAutoUsage)
+  public void printHelp (@Nonnull @Nonempty final String sCmdLineSyntax, @Nonnull final Options aOptions, final boolean bAutoUsage)
   {
     printHelp (getWidth (), sCmdLineSyntax, null, aOptions, null, bAutoUsage);
   }
@@ -511,15 +507,7 @@ public class HelpFormatter
                          final boolean bAutoUsage)
   {
     final PrintWriter aPW = new PrintWriter (System.out);
-    printHelp (aPW,
-               nWidth,
-               sCmdLineSyntax,
-               sHeader,
-               aOptions,
-               getLeftPadding (),
-               getDescPadding (),
-               sFooter,
-               bAutoUsage);
+    printHelp (aPW, nWidth, sCmdLineSyntax, sHeader, aOptions, getLeftPadding (), getDescPadding (), sFooter, bAutoUsage);
     aPW.flush ();
   }
 
@@ -623,10 +611,7 @@ public class HelpFormatter
    * @param aOptions
    *        The command line Options
    */
-  public void printUsage (@Nonnull final PrintWriter aPW,
-                          final int nWidth,
-                          final String sAppName,
-                          final Options aOptions)
+  public void printUsage (@Nonnull final PrintWriter aPW, final int nWidth, final String sAppName, final Options aOptions)
   {
     // initialise the string buffer
     final StringBuilder aSB = new StringBuilder (getSyntaxPrefix ()).append (sAppName).append (' ');
@@ -814,10 +799,7 @@ public class HelpFormatter
    * @param sText
    *        The text to be written to the PrintWriter
    */
-  public void printWrapped (@Nonnull final PrintWriter aPW,
-                            final int nWidth,
-                            final int nNextLineTabStop,
-                            @Nonnull final String sText)
+  public void printWrapped (@Nonnull final PrintWriter aPW, final int nWidth, final int nNextLineTabStop, @Nonnull final String sText)
   {
     final StringBuilder aSB = new StringBuilder (sText.length ());
 
@@ -936,10 +918,7 @@ public class HelpFormatter
    *        The text to be rendered.
    * @return the StringBuilder with the rendered Options contents.
    */
-  protected StringBuilder renderWrappedText (final StringBuilder aSB,
-                                             final int nWidth,
-                                             final int nNextLineTabStop,
-                                             final String sText)
+  protected StringBuilder renderWrappedText (final StringBuilder aSB, final int nWidth, final int nNextLineTabStop, final String sText)
   {
     String text = sText;
     int pos = findWrapPos (text, nWidth, 0);
@@ -996,10 +975,7 @@ public class HelpFormatter
    * @return The provided {@link StringBuilder}
    */
   @Nonnull
-  private StringBuilder _renderWrappedTextBlock (final StringBuilder aSB,
-                                                 final int nWidth,
-                                                 final int nNextLineTabStop,
-                                                 final String sText)
+  private StringBuilder _renderWrappedTextBlock (final StringBuilder aSB, final int nWidth, final int nNextLineTabStop, final String sText)
   {
     try (final NonBlockingBufferedReader in = new NonBlockingBufferedReader (new NonBlockingStringReader (sText)))
     {

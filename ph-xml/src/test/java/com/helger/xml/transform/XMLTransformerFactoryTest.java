@@ -156,8 +156,7 @@ public final class XMLTransformerFactoryTest
     assertNotNull (t1);
 
     // Read valid XSLT
-    t1 = XMLTransformerFactory.newTemplates (fac,
-                                             new CachingTransformStreamSource (new ClassPathResource ("xml/test1.xslt")));
+    t1 = XMLTransformerFactory.newTemplates (fac, new CachingTransformStreamSource (new ClassPathResource ("xml/test1.xslt")));
     assertNotNull (t1);
 
     // Read valid XSLT (with import)

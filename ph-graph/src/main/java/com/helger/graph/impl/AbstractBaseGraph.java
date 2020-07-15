@@ -111,8 +111,7 @@ public abstract class AbstractBaseGraph <NODETYPE extends IMutableBaseGraphNode 
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final AbstractBaseGraph <?, ?> rhs = (AbstractBaseGraph <?, ?>) o;
-    return m_aNodes.equals (rhs.m_aNodes) &&
-           m_bIsChangingConnectedObjectsAllowed == rhs.m_bIsChangingConnectedObjectsAllowed;
+    return m_aNodes.equals (rhs.m_aNodes) && m_bIsChangingConnectedObjectsAllowed == rhs.m_bIsChangingConnectedObjectsAllowed;
   }
 
   @Override

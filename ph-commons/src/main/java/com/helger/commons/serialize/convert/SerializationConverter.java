@@ -45,8 +45,7 @@ public final class SerializationConverter
   private SerializationConverter ()
   {}
 
-  public static <T> void writeConvertedObject (@Nullable final T aObject,
-                                               @Nonnull final ObjectOutputStream aOOS) throws IOException
+  public static <T> void writeConvertedObject (@Nullable final T aObject, @Nonnull final ObjectOutputStream aOOS) throws IOException
   {
     ValueEnforcer.notNull (aOOS, "ObjectOutputStream");
 
@@ -56,8 +55,7 @@ public final class SerializationConverter
     {
       // Lookup converter
       final Class <T> aSrcClass = GenericReflection.uncheckedCast (aObject.getClass ());
-      final ISerializationConverter <T> aConverter = SerializationConverterRegistry.getInstance ()
-                                                                                   .getConverter (aSrcClass);
+      final ISerializationConverter <T> aConverter = SerializationConverterRegistry.getInstance ().getConverter (aSrcClass);
       if (aConverter == null)
         throw new TypeConverterException (aSrcClass, EReason.NO_CONVERTER_FOUND_SINGLE);
 
@@ -82,8 +80,7 @@ public final class SerializationConverter
     }
 
     // Lookup converter
-    final ISerializationConverter <DSTTYPE> aConverter = SerializationConverterRegistry.getInstance ()
-                                                                                       .getConverter (aDstClass);
+    final ISerializationConverter <DSTTYPE> aConverter = SerializationConverterRegistry.getInstance ().getConverter (aDstClass);
     if (aConverter == null)
       throw new TypeConverterException (aDstClass, EReason.NO_CONVERTER_FOUND_SINGLE);
 

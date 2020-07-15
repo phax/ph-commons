@@ -84,10 +84,7 @@ public class FormatterStringSkipPrefixAndSuffix extends AbstractFormatterString
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ())
-                            .append ("Prefix", m_sPrefix)
-                            .append ("Suffix", m_sSuffix)
-                            .getToString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("Prefix", m_sPrefix).append ("Suffix", m_sSuffix).getToString ();
   }
 
   @Nonnull

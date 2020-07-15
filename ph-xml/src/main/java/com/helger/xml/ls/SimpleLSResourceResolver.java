@@ -163,11 +163,7 @@ public class SimpleLSResourceResolver extends AbstractLSResourceResolver impleme
     try
     {
       // Try to get the resource
-      final IReadableResource aResolvedResource = internalResolveResource (sType,
-                                                                           sNamespaceURI,
-                                                                           sPublicId,
-                                                                           sSystemId,
-                                                                           sBaseURI);
+      final IReadableResource aResolvedResource = internalResolveResource (sType, sNamespaceURI, sPublicId, sSystemId, sBaseURI);
       return new ResourceLSInput (aResolvedResource);
     }
     catch (final Exception ex)

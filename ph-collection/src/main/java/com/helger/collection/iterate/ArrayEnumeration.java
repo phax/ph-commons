@@ -66,9 +66,7 @@ public class ArrayEnumeration <ELEMENTTYPE> implements Enumeration <ELEMENTTYPE>
    * @param nLength
    *        The maximum number of elements to be iterated.
    */
-  public ArrayEnumeration (@Nonnull final ELEMENTTYPE [] aArray,
-                           @Nonnegative final int nStartIndex,
-                           @Nonnegative final int nLength)
+  public ArrayEnumeration (@Nonnull final ELEMENTTYPE [] aArray, @Nonnegative final int nStartIndex, @Nonnegative final int nLength)
   {
     ValueEnforcer.notNull (aArray, "Array");
     ValueEnforcer.isGE0 (nStartIndex, "StartIndex");

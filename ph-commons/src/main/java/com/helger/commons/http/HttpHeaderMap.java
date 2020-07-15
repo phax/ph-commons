@@ -638,21 +638,6 @@ public class HttpHeaderMap implements
   }
 
   /**
-   * Invoke the provided consumer for every name/value pair. The value is
-   * automatically unified since v9.3.1.
-   *
-   * @param aConsumer
-   *        Consumer with key and unified value to be invoked. May not be
-   *        <code>null</code>.
-   * @deprecated Use {@link #forEachSingleHeader(BiConsumer, boolean)} instead
-   */
-  @Deprecated
-  public void forEachSingleHeader (@Nonnull final BiConsumer <? super String, ? super String> aConsumer)
-  {
-    forEachSingleHeader (aConsumer, true);
-  }
-
-  /**
    * Invoke the provided consumer for every name/value pair.
    *
    * @param aConsumer
@@ -663,8 +648,7 @@ public class HttpHeaderMap implements
    * @see #getUnifiedValue(String,boolean)
    * @since 9.3.6
    */
-  public void forEachSingleHeader (@Nonnull final BiConsumer <? super String, ? super String> aConsumer,
-                                   final boolean bUnifyValue)
+  public void forEachSingleHeader (@Nonnull final BiConsumer <? super String, ? super String> aConsumer, final boolean bUnifyValue)
   {
     forEachSingleHeader (aConsumer, bUnifyValue, DEFAULT_QUOTE_IF_NECESSARY);
   }
@@ -697,22 +681,6 @@ public class HttpHeaderMap implements
         aConsumer.accept (sKey, sUnifiedValue);
       }
     }
-  }
-
-  /**
-   * Invoke the provided consumer for every header line. The value is
-   * automatically unified since v9.3.1.
-   *
-   * @param aConsumer
-   *        Consumer with the assembled line to be invoked. May not be
-   *        <code>null</code>.
-   * @see #getUnifiedValue(String,boolean)
-   * @deprecated Use {@link #forEachHeaderLine(Consumer, boolean)} instead
-   */
-  @Deprecated
-  public void forEachHeaderLine (@Nonnull final Consumer <? super String> aConsumer)
-  {
-    forEachHeaderLine (aConsumer, true);
   }
 
   /**
@@ -755,24 +723,10 @@ public class HttpHeaderMap implements
       final String sKey = aEntry.getKey ();
       for (final String sValue : aEntry.getValue ())
       {
-        final String sHeaderLine = sKey +
-                                   SEPARATOR_KEY_VALUE +
-                                   (bUnifyValue ? getUnifiedValue (sValue, bQuoteIfNecessary) : sValue);
+        final String sHeaderLine = sKey + SEPARATOR_KEY_VALUE + (bUnifyValue ? getUnifiedValue (sValue, bQuoteIfNecessary) : sValue);
         aConsumer.accept (sHeaderLine);
       }
     }
-  }
-
-  /**
-   * @return A list of all header lines with unified values.
-   * @deprecated Use {@link #getAllHeaderLines(boolean)} instead
-   */
-  @Deprecated
-  @Nonnull
-  @ReturnsMutableCopy
-  public ICommonsList <String> getAllHeaderLines ()
-  {
-    return getAllHeaderLines (true);
   }
 
   /**

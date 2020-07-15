@@ -49,16 +49,13 @@ public final class StaxFuncTest
   @Test
   public void testStax () throws XMLStreamException
   {
-    final XMLReporter aReporter = (sMessage,
-                                   sErrorType,
-                                   aRelatedInformation,
-                                   aLocation) -> LOGGER.info (sMessage +
-                                                              " [" +
-                                                              sErrorType +
-                                                              "] " +
-                                                              aRelatedInformation +
-                                                              " @ " +
-                                                              SimpleLocation.create (aLocation));
+    final XMLReporter aReporter = (sMessage, sErrorType, aRelatedInformation, aLocation) -> LOGGER.info (sMessage +
+                                                                                                         " [" +
+                                                                                                         sErrorType +
+                                                                                                         "] " +
+                                                                                                         aRelatedInformation +
+                                                                                                         " @ " +
+                                                                                                         SimpleLocation.create (aLocation));
 
     final XMLResolver aResolver = (sPublicID, sSystemID, sBaseURI, sNamespace) -> {
       LOGGER.info ("Resolving " + sPublicID + "/" + sSystemID + "/" + sBaseURI + "/" + sNamespace);

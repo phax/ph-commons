@@ -76,10 +76,8 @@ public final class KeyStoreHelperTest
 
     final X509CertificateHolder aCertHolder = new JcaX509v1CertificateBuilder (new X500Principal ("CN=Test Certificate"),
                                                                                BigInteger.valueOf (System.currentTimeMillis ()),
-                                                                               new Date (System.currentTimeMillis () -
-                                                                                         50000),
-                                                                               new Date (System.currentTimeMillis () +
-                                                                                         50000),
+                                                                               new Date (System.currentTimeMillis () - 50000),
+                                                                               new Date (System.currentTimeMillis () + 50000),
                                                                                new X500Principal ("CN=Test Certificate"),
                                                                                aPublicKey).build (aContentSigner);
     // Convert to JCA X509Certificate
@@ -107,8 +105,7 @@ public final class KeyStoreHelperTest
 
     // Load from absolute file path
     ks = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS,
-                                            new ClassPathResource ("keystores/keystore-no-pw.jks").getAsFile ()
-                                                                                                  .getAbsolutePath (),
+                                            new ClassPathResource ("keystores/keystore-no-pw.jks").getAsFile ().getAbsolutePath (),
                                             (String) null);
     assertEquals (JKS, ks.getType ());
     assertEquals (1, CollectionHelper.getSize (ks.aliases ()));
@@ -120,8 +117,7 @@ public final class KeyStoreHelperTest
     ks = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS,
                                             new ClassPathResource ("keystores/keystore-no-pw.jks").getAsFile ()
                                                                                                   .getAbsolutePath ()
-                                                                                                  .substring (sBasePath.length () +
-                                                                                                              1),
+                                                                                                  .substring (sBasePath.length () + 1),
                                             (String) null);
     assertEquals (JKS, ks.getType ());
     assertEquals (1, CollectionHelper.getSize (ks.aliases ()));
@@ -140,8 +136,7 @@ public final class KeyStoreHelperTest
 
     // Load from absolute file path
     ks = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS,
-                                            new ClassPathResource ("keystores/keystore-pw-peppol.jks").getAsFile ()
-                                                                                                      .getAbsolutePath (),
+                                            new ClassPathResource ("keystores/keystore-pw-peppol.jks").getAsFile ().getAbsolutePath (),
                                             (String) null);
     assertEquals (1, CollectionHelper.getSize (ks.aliases ()));
     assertTrue (ks.containsAlias ("1"));
@@ -152,8 +147,7 @@ public final class KeyStoreHelperTest
     ks = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS,
                                             new ClassPathResource ("keystores/keystore-pw-peppol.jks").getAsFile ()
                                                                                                       .getAbsolutePath ()
-                                                                                                      .substring (sBasePath.length () +
-                                                                                                                  1),
+                                                                                                      .substring (sBasePath.length () + 1),
                                             (String) null);
     assertEquals (1, CollectionHelper.getSize (ks.aliases ()));
     assertTrue (ks.containsAlias ("1"));
@@ -248,9 +242,7 @@ public final class KeyStoreHelperTest
   public void testLoadPeppolTrustStoreProduction () throws Exception
   {
     // Load trust store
-    final KeyStore aTrustStore = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS,
-                                                                    "keystores/truststore-peppol-prod.jks",
-                                                                    "peppol");
+    final KeyStore aTrustStore = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS, "keystores/truststore-peppol-prod.jks", "peppol");
     assertNotNull (aTrustStore);
 
     // Additionally the STS certificate is contained
@@ -272,9 +264,7 @@ public final class KeyStoreHelperTest
   public void testLoadPeppolTrustStorePilot () throws Exception
   {
     // Load trust store
-    final KeyStore aTrustStore = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS,
-                                                                    "keystores/truststore-peppol-pilot.jks",
-                                                                    "peppol");
+    final KeyStore aTrustStore = KeyStoreHelper.loadKeyStoreDirect (EKeyStoreType.JKS, "keystores/truststore-peppol-pilot.jks", "peppol");
     assertNotNull (aTrustStore);
 
     // Additionally the STS certificate is contained
@@ -287,10 +277,8 @@ public final class KeyStoreHelperTest
 
     final X509Certificate aCertAPOld = (X509Certificate) aTrustStore.getCertificate (TRUSTSTORE_PILOT_ALIAS_AP);
     final String sIssuerName = aCertAPOld.getIssuerX500Principal ().getName ();
-    assertEquals ("CN=PEPPOL Root TEST CA,OU=FOR TEST PURPOSES ONLY,O=NATIONAL IT AND TELECOM AGENCY,C=DK",
-                  sIssuerName);
+    assertEquals ("CN=PEPPOL Root TEST CA,OU=FOR TEST PURPOSES ONLY,O=NATIONAL IT AND TELECOM AGENCY,C=DK", sIssuerName);
     final String sSubjectName = aCertAPOld.getSubjectX500Principal ().getName ();
-    assertEquals ("CN=PEPPOL ACCESS POINT TEST CA,OU=FOR TEST PURPOSES ONLY,O=NATIONAL IT AND TELECOM AGENCY,C=DK",
-                  sSubjectName);
+    assertEquals ("CN=PEPPOL ACCESS POINT TEST CA,OU=FOR TEST PURPOSES ONLY,O=NATIONAL IT AND TELECOM AGENCY,C=DK", sSubjectName);
   }
 }

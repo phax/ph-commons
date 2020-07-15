@@ -226,10 +226,8 @@ public final class DirectedGraphNodeTest
   @Test
   public void testStdMethods ()
   {
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new DirectedGraphNode ("id0"),
-                                                                       new DirectedGraphNode ("id0"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new DirectedGraphNode ("id0"),
-                                                                           new DirectedGraphNode ("id1"));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new DirectedGraphNode ("id0"), new DirectedGraphNode ("id0"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new DirectedGraphNode ("id0"), new DirectedGraphNode ("id1"));
     final DirectedGraphNode n1 = new DirectedGraphNode ("id0");
     n1.attrs ().putIn ("a", "b");
     final DirectedGraphNode n2 = new DirectedGraphNode ("id0");

@@ -97,10 +97,8 @@ public final class XMLWriterSettingsTest
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
                                                                            new XMLWriterSettings ().setNewLineMode (ENewLineMode.DEFAULT == ENewLineMode.WINDOWS ? ENewLineMode.UNIX
                                                                                                                                                                  : ENewLineMode.WINDOWS));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                           new XMLWriterSettings ().setIndentationString ("\t"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                           new XMLWriterSettings ().setEmitNamespaces (false));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws, new XMLWriterSettings ().setIndentationString ("\t"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws, new XMLWriterSettings ().setEmitNamespaces (false));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mws,
                                                                            new XMLWriterSettings ().setPutNamespaceContextPrefixesInRoot (true));
   }
@@ -164,8 +162,7 @@ public final class XMLWriterSettingsTest
                             for (final boolean bPutNamespaceContextPrefixesInRoot : BOOLS)
                             {
                               aXWS.setPutNamespaceContextPrefixesInRoot (bPutNamespaceContextPrefixesInRoot);
-                              CommonsAssert.assertEquals (bPutNamespaceContextPrefixesInRoot,
-                                                          aXWS.isPutNamespaceContextPrefixesInRoot ());
+                              CommonsAssert.assertEquals (bPutNamespaceContextPrefixesInRoot, aXWS.isPutNamespaceContextPrefixesInRoot ());
                               final XMLWriterSettings aXWS2 = new XMLWriterSettings ().setSerializeXMLDeclaration (eXMLDecl)
                                                                                       .setSerializeDocType (eDocType)
                                                                                       .setSerializeComments (eComments)

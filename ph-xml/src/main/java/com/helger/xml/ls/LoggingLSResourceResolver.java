@@ -44,17 +44,7 @@ public class LoggingLSResourceResolver extends AbstractLSResourceResolver
                                       @Nullable final String sBaseURI)
   {
     if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("mainResolveResource (" +
-                   sType +
-                   ", " +
-                   sNamespaceURI +
-                   ", " +
-                   sPublicId +
-                   ", " +
-                   sSystemId +
-                   ", " +
-                   sBaseURI +
-                   ")");
+      LOGGER.info ("mainResolveResource (" + sType + ", " + sNamespaceURI + ", " + sPublicId + ", " + sSystemId + ", " + sBaseURI + ")");
     return null;
   }
 }

@@ -65,10 +65,7 @@ public final class AuthCredentialValidatorManager
       {
         final ICredentialValidationResult aResult = aHdl.validateCredentials (aCredentials);
         if (aResult == null)
-          throw new IllegalStateException ("validateCredentials returned a null object from " +
-                                           aHdl +
-                                           " for credentials " +
-                                           aCredentials);
+          throw new IllegalStateException ("validateCredentials returned a null object from " + aHdl + " for credentials " + aCredentials);
         if (aResult.isSuccess ())
         {
           // This validator successfully validated the passed credentials

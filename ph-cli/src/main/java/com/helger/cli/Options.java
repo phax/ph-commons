@@ -73,14 +73,10 @@ public class Options implements ICommonsIterable <IOptionBase>, Serializable
     ValueEnforcer.notNull (aOption, "Option");
     if (aOption.hasShortOpt ())
       ValueEnforcer.isNull (_getFromName (aOption.getShortOpt ()),
-                            () -> "Another option with the short name '" +
-                                  aOption.getShortOpt () +
-                                  "' is already contained!");
+                            () -> "Another option with the short name '" + aOption.getShortOpt () + "' is already contained!");
     if (aOption.hasLongOpt ())
       ValueEnforcer.isNull (_getFromName (aOption.getLongOpt ()),
-                            () -> "Another option with the longs name '" +
-                                  aOption.getLongOpt () +
-                                  "' is already contained!");
+                            () -> "Another option with the longs name '" + aOption.getLongOpt () + "' is already contained!");
   }
 
   @Nonnull

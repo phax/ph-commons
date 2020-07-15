@@ -95,9 +95,7 @@ public final class StringTrieFuncTest <DATATYPE>
 
   // return subtrie corresponding to given key
   @Nullable
-  private Node <DATATYPE> _get (@Nullable final Node <DATATYPE> aNode,
-                                @Nonnull @Nonempty final char [] aKey,
-                                @Nonnegative final int nIndex)
+  private Node <DATATYPE> _get (@Nullable final Node <DATATYPE> aNode, @Nonnull @Nonempty final char [] aKey, @Nonnegative final int nIndex)
   {
     if (aNode != null)
     {
@@ -238,9 +236,7 @@ public final class StringTrieFuncTest <DATATYPE>
   }
 
   // all keys in subtrie rooted at x with given prefix
-  private void _collect (@Nullable final Node <DATATYPE> aNode,
-                         @Nonnull final String sPrefix,
-                         @Nonnull final List <String> aList)
+  private void _collect (@Nullable final Node <DATATYPE> aNode, @Nonnull final String sPrefix, @Nonnull final List <String> aList)
   {
     if (aNode != null)
     {

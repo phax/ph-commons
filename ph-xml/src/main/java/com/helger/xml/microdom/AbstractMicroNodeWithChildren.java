@@ -77,8 +77,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   }
 
   @Override
-  protected final void onInsertBefore (@Nonnull final AbstractMicroNode aChildNode,
-                                       @Nonnull final IMicroNode aSuccessor)
+  protected final void onInsertBefore (@Nonnull final AbstractMicroNode aChildNode, @Nonnull final IMicroNode aSuccessor)
   {
     if (aChildNode.isDocument ())
       throw new MicroException ("Cannot add document to nodes");
@@ -92,8 +91,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   }
 
   @Override
-  protected final void onInsertAfter (@Nonnull final AbstractMicroNode aChildNode,
-                                      @Nonnull final IMicroNode aPredecessor)
+  protected final void onInsertAfter (@Nonnull final AbstractMicroNode aChildNode, @Nonnull final IMicroNode aPredecessor)
   {
     if (aChildNode.isDocument ())
       throw new MicroException ("Cannot add document to nodes");

@@ -76,9 +76,7 @@ public class FileOperationManager implements IFileOperationManager
       // Invoke callback
       if (aLastError.isSuccess ())
       {
-        m_aCallbacks.forEach (x -> x.onSuccess (aLastError.getOperation (),
-                                                aLastError.getFile1 (),
-                                                aLastError.getFile2 ()));
+        m_aCallbacks.forEach (x -> x.onSuccess (aLastError.getOperation (), aLastError.getFile1 (), aLastError.getFile2 ()));
       }
       else
       {
@@ -206,8 +204,6 @@ public class FileOperationManager implements IFileOperationManager
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("LastError", m_aLastError)
-                                       .append ("Callback", m_aCallbacks)
-                                       .getToString ();
+    return new ToStringGenerator (this).append ("LastError", m_aLastError).append ("Callback", m_aCallbacks).getToString ();
   }
 }

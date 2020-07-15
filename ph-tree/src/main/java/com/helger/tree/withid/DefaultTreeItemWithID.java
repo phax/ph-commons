@@ -53,8 +53,7 @@ public class DefaultTreeItemWithID <KEYTYPE, DATATYPE> extends
    * @param aDataID
    *        The ID of the new item. May not be <code>null</code>.
    */
-  public DefaultTreeItemWithID (@Nonnull final DefaultTreeItemWithID <KEYTYPE, DATATYPE> aParent,
-                                @Nonnull final KEYTYPE aDataID)
+  public DefaultTreeItemWithID (@Nonnull final DefaultTreeItemWithID <KEYTYPE, DATATYPE> aParent, @Nonnull final KEYTYPE aDataID)
   {
     super (aParent, aDataID);
   }

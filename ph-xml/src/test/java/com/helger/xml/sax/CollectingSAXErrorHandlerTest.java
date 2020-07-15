@@ -38,14 +38,12 @@ public final class CollectingSAXErrorHandlerTest
   public void testAll ()
   {
     CollectingSAXErrorHandler aCEH = new CollectingSAXErrorHandler ();
-    assertNotNull (DOMReader.readXMLDOM (new ClassPathResource ("xml/buildinfo.xml"),
-                                         new DOMReaderSettings ().setErrorHandler (aCEH)));
+    assertNotNull (DOMReader.readXMLDOM (new ClassPathResource ("xml/buildinfo.xml"), new DOMReaderSettings ().setErrorHandler (aCEH)));
     assertTrue (aCEH.getErrorList ().isEmpty ());
     assertNotNull (aCEH.toString ());
 
     aCEH = new CollectingSAXErrorHandler ();
-    assertNull (DOMReader.readXMLDOM (new ClassPathResource ("test1.txt"),
-                                      new DOMReaderSettings ().setErrorHandler (aCEH)));
+    assertNull (DOMReader.readXMLDOM (new ClassPathResource ("test1.txt"), new DOMReaderSettings ().setErrorHandler (aCEH)));
     assertFalse (aCEH.getErrorList ().isEmpty ());
   }
 }

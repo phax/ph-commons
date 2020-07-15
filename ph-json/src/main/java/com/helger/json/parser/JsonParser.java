@@ -739,8 +739,7 @@ public class JsonParser
         c = _readChar ();
       }
       if (!bDecimalDigits)
-        throw _parseEx (aStartPos,
-                        "Missing digits after decimal point in JSON Number '" + aStrNumber.getAsString () + "'");
+        throw _parseEx (aStartPos, "Missing digits after decimal point in JSON Number '" + aStrNumber.getAsString () + "'");
     }
 
     final boolean bHasExponent = c == 'e' || c == 'E';
@@ -769,8 +768,7 @@ public class JsonParser
         c = _readChar ();
       }
       if (!bExponentDigits)
-        throw _parseEx (aStartPos,
-                        "Missing digits after exponent sign in JSON Number '" + aStrNumber.getAsString () + "'");
+        throw _parseEx (aStartPos, "Missing digits after exponent sign in JSON Number '" + aStrNumber.getAsString () + "'");
     }
 
     // Backup last (unused) char

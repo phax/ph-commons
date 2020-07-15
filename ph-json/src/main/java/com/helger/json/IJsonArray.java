@@ -35,11 +35,7 @@ import com.helger.commons.traits.IPrimitiveConverterTo;
  *
  * @author Philip Helger
  */
-public interface IJsonArray extends
-                            IJsonCollection,
-                            ICommonsIterable <IJson>,
-                            IGetterByIndexTrait,
-                            IGenericAdderTrait <IJson, IJsonArray>
+public interface IJsonArray extends IJsonCollection, ICommonsIterable <IJson>, IGetterByIndexTrait, IGenericAdderTrait <IJson, IJsonArray>
 {
   @Nonnull
   default IPrimitiveConverterTo <IJson> getPrimitiveConverterTo ()

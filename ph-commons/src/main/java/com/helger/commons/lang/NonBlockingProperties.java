@@ -517,10 +517,7 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
    * chars to their original forms
    */
   @Nonnull
-  private static String _loadConvert (@Nonnull final char [] aIn,
-                                      final int nOfs,
-                                      final int nLen,
-                                      @Nonnull final char [] aConvBuf)
+  private static String _loadConvert (@Nonnull final char [] aIn, final int nOfs, final int nLen, @Nonnull final char [] aConvBuf)
   {
     int nCurOfs = nOfs;
     char [] aOut;
@@ -683,8 +680,7 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
     return aSB.toString ();
   }
 
-  private static void _writeComments (@Nonnull @WillNotClose final Writer aWriter,
-                                      @Nonnull final String sComments) throws IOException
+  private static void _writeComments (@Nonnull @WillNotClose final Writer aWriter, @Nonnull final String sComments) throws IOException
   {
     aWriter.write ("#");
     final int nLen = sComments.length ();
@@ -714,8 +710,7 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
           if (c == '\r' && nCurrent != nLen - 1 && sComments.charAt (nCurrent + 1) == '\n')
             nCurrent++;
 
-          if (nCurrent == nLen - 1 ||
-              (sComments.charAt (nCurrent + 1) != '#' && sComments.charAt (nCurrent + 1) != '!'))
+          if (nCurrent == nLen - 1 || (sComments.charAt (nCurrent + 1) != '#' && sComments.charAt (nCurrent + 1) != '!'))
             aWriter.write ("#");
         }
         nLast = nCurrent + 1;

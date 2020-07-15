@@ -39,8 +39,7 @@ import com.helger.tree.withid.ITreeWithID;
  * @param <ITEMTYPE>
  *        The type of the tree item that will be stored in this tree.
  */
-public interface ITreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>>
-                                         extends
+public interface ITreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> extends
                                          ITreeWithID <KEYTYPE, DATATYPE, ITEMTYPE>,
                                          IChildrenProviderWithID <KEYTYPE, ITEMTYPE>
 {

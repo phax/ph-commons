@@ -46,8 +46,7 @@ public class DynamicHasErrorTextWithArgs implements IHasErrorText
   private final IHasText m_aParentText;
   private final Object [] m_aArgs;
 
-  public DynamicHasErrorTextWithArgs (@Nonnull final IHasDisplayText aParentText,
-                                      @Nonnull @Nonempty final Object... aArgs)
+  public DynamicHasErrorTextWithArgs (@Nonnull final IHasDisplayText aParentText, @Nonnull @Nonempty final Object... aArgs)
   {
     this (aParentText.getAsHasText (), aArgs);
   }

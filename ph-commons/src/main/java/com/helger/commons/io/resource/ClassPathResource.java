@@ -169,8 +169,7 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
    */
   public static boolean isExplicitClassPathResource (@Nullable final String sName)
   {
-    return StringHelper.startsWith (sName, CLASSPATH_PREFIX_LONG) ||
-           StringHelper.startsWith (sName, CLASSPATH_PREFIX_SHORT);
+    return StringHelper.startsWith (sName, CLASSPATH_PREFIX_LONG) || StringHelper.startsWith (sName, CLASSPATH_PREFIX_SHORT);
   }
 
   @Nullable
@@ -248,8 +247,7 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
    *         specified class loader.
    */
   @Nullable
-  public static InputStream getInputStream (@Nonnull @Nonempty final String sPath,
-                                            @Nonnull final ClassLoader aClassLoader)
+  public static InputStream getInputStream (@Nonnull @Nonempty final String sPath, @Nonnull final ClassLoader aClassLoader)
   {
     final URL aURL = ClassLoaderHelper.getResource (aClassLoader, sPath);
     return _getInputStream (sPath, aURL, (ClassLoader) null);

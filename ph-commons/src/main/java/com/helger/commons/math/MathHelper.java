@@ -149,9 +149,7 @@ public final class MathHelper
     return getLongDivided (nDividend, nDivisor, RoundingMode.FLOOR);
   }
 
-  public static long getLongDivided (final long nDividend,
-                                     final long nDivisor,
-                                     @Nonnull final RoundingMode eRoundingMode)
+  public static long getLongDivided (final long nDividend, final long nDivisor, @Nonnull final RoundingMode eRoundingMode)
   {
     return toBigDecimal (nDividend).divide (toBigDecimal (nDivisor), eRoundingMode).longValue ();
   }
@@ -1000,8 +998,7 @@ public final class MathHelper
                                             @Nonnegative final int nScale,
                                             @Nonnull final RoundingMode eRoundingMode)
   {
-    return aBase.multiply (CGlobal.BIGDEC_100.subtract (aPercentage))
-                .divide (CGlobal.BIGDEC_100, nScale, eRoundingMode);
+    return aBase.multiply (CGlobal.BIGDEC_100.subtract (aPercentage)).divide (CGlobal.BIGDEC_100, nScale, eRoundingMode);
   }
 
   /**

@@ -83,8 +83,7 @@ public final class GraphNodeTest
   public void testStdMethods ()
   {
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new GraphNode ("id0"), new GraphNode ("id0"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new GraphNode ("id0"),
-                                                                           new GraphNode ("id1"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new GraphNode ("id0"), new GraphNode ("id1"));
     final GraphNode n1 = new GraphNode ("id0");
     n1.attrs ().putIn ("a", "b");
     final GraphNode n2 = new GraphNode ("id0");

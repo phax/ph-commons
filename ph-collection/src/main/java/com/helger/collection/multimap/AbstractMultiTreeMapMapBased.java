@@ -53,15 +53,12 @@ public abstract class AbstractMultiTreeMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYP
     super (aComparator);
   }
 
-  public AbstractMultiTreeMapMapBased (@Nonnull final KEYTYPE1 aKey,
-                                       @Nonnull final KEYTYPE2 aInnerKey,
-                                       @Nullable final VALUETYPE aValue)
+  public AbstractMultiTreeMapMapBased (@Nonnull final KEYTYPE1 aKey, @Nonnull final KEYTYPE2 aInnerKey, @Nullable final VALUETYPE aValue)
   {
     putSingle (aKey, aInnerKey, aValue);
   }
 
-  public AbstractMultiTreeMapMapBased (@Nullable final KEYTYPE1 aKey,
-                                       @Nullable final Map <? extends KEYTYPE2, ? extends VALUETYPE> aValue)
+  public AbstractMultiTreeMapMapBased (@Nullable final KEYTYPE1 aKey, @Nullable final Map <? extends KEYTYPE2, ? extends VALUETYPE> aValue)
   {
     final MAPTYPE aMap = createNewInnerMap ();
     aMap.putAll (aValue);

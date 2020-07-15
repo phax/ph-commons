@@ -112,9 +112,7 @@ public final class MimeTypeInfo
     @Override
     public String toString ()
     {
-      return new ToStringGenerator (this).append ("mimeType", m_aMimeType)
-                                         .appendIfNotNull ("source", m_sSource)
-                                         .getToString ();
+      return new ToStringGenerator (this).append ("mimeType", m_aMimeType).appendIfNotNull ("source", m_sSource).getToString ();
     }
   }
 
@@ -185,9 +183,7 @@ public final class MimeTypeInfo
     @Override
     public String toString ()
     {
-      return new ToStringGenerator (this).append ("extension", m_sExt)
-                                         .appendIfNotNull ("source", m_sSource)
-                                         .getToString ();
+      return new ToStringGenerator (this).append ("extension", m_sExt).appendIfNotNull ("source", m_sSource).getToString ();
     }
   }
 

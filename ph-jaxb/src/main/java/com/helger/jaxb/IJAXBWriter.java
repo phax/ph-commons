@@ -340,8 +340,7 @@ public interface IJAXBWriter <JAXBTYPE>
   {
     if (USE_JAXB_CHARSET_FIX && aResult instanceof StreamResult)
     {
-      LoggerFactory.getLogger (IJAXBWriter.class)
-                   .warn ("Potentially invalid XML is created by using StreamResult object: {}", aResult);
+      LoggerFactory.getLogger (IJAXBWriter.class).warn ("Potentially invalid XML is created by using StreamResult object: {}", aResult);
     }
 
     return write (aObject, (m, e) -> m.marshal (e, aResult));
@@ -375,8 +374,7 @@ public interface IJAXBWriter <JAXBTYPE>
    * @return {@link ESuccess}
    */
   @Nonnull
-  default ESuccess write (@Nonnull final JAXBTYPE aObject,
-                          @Nonnull @WillClose final javax.xml.stream.XMLStreamWriter aWriter)
+  default ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull @WillClose final javax.xml.stream.XMLStreamWriter aWriter)
   {
     // No need for charset fix, because it is up to the XMLStreamWriter, if it
     // is converting to a byte[] or not.
@@ -493,9 +491,7 @@ public interface IJAXBWriter <JAXBTYPE>
     {
       if (USE_JAXB_CHARSET_FIX)
       {
-        return write (aObject,
-                      SafeXMLStreamWriter.create (aBBOS, getXMLWriterSettings ())).isFailure () ? null
-                                                                                                : aBBOS.getBuffer ();
+        return write (aObject, SafeXMLStreamWriter.create (aBBOS, getXMLWriterSettings ())).isFailure () ? null : aBBOS.getBuffer ();
       }
       return write (aObject, aBBOS).isFailure () ? null : aBBOS.getBuffer ();
     }
@@ -517,9 +513,7 @@ public interface IJAXBWriter <JAXBTYPE>
     {
       if (USE_JAXB_CHARSET_FIX)
       {
-        return write (aObject,
-                      SafeXMLStreamWriter.create (aBBOS, getXMLWriterSettings ())).isFailure () ? null
-                                                                                                : aBBOS.getAsByteArray ();
+        return write (aObject, SafeXMLStreamWriter.create (aBBOS, getXMLWriterSettings ())).isFailure () ? null : aBBOS.getAsByteArray ();
       }
       return write (aObject, aBBOS).isFailure () ? null : aBBOS.getAsByteArray ();
     }

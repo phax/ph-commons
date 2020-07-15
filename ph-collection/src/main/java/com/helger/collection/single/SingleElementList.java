@@ -274,10 +274,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
     if (!m_bHasElement)
       return aDest;
     if (m_aElement != null && !aDest.getClass ().getComponentType ().isAssignableFrom (m_aElement.getClass ()))
-      throw new ArrayStoreException ("The array class " +
-                                     aDest.getClass () +
-                                     " cannot store the item of class " +
-                                     m_aElement.getClass ());
+      throw new ArrayStoreException ("The array class " + aDest.getClass () + " cannot store the item of class " + m_aElement.getClass ());
     final ARRAYELEMENTTYPE [] ret = aDest.length < 1 ? ArrayHelper.newArraySameType (aDest, 1) : aDest;
     ret[0] = GenericReflection.uncheckedCast (m_aElement);
     if (ret.length > 1)
@@ -305,8 +302,6 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("hasElement", m_bHasElement)
-                                       .append ("element", m_aElement)
-                                       .getToString ();
+    return new ToStringGenerator (this).append ("hasElement", m_bHasElement).append ("element", m_aElement).getToString ();
   }
 }

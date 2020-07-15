@@ -236,18 +236,18 @@ public class NonBlockingBufferedWriter extends Writer
   {
     return m_nNextChar;
   }
-  
+
   @Nonnegative
   public int getBufferSize ()
   {
     return m_aBuf.length;
   }
-  
+
   public boolean isEmpty ()
   {
     return m_nNextChar == 0;
   }
-  
+
   /**
    * Converts input data to a string.
    *
@@ -275,7 +275,6 @@ public class NonBlockingBufferedWriter extends Writer
     return new String (m_aBuf, 0, nLength);
   }
 
-  
   /**
    * Writes a line separator. The line separator string is defined by the system
    * property <tt>line.separator</tt>, and is not necessarily a single newline

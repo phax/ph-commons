@@ -40,9 +40,7 @@ public interface IFileOperationCallback extends ICallback
    * @param aFile2
    *        The second file worked upon. May be <code>null</code>.
    */
-  default void onSuccess (@Nonnull final EFileIOOperation eOperation,
-                          @Nonnull final File aFile1,
-                          @Nullable final File aFile2)
+  default void onSuccess (@Nonnull final EFileIOOperation eOperation, @Nonnull final File aFile1, @Nullable final File aFile2)
   {}
 
   /**

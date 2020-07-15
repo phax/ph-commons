@@ -110,8 +110,7 @@ public final class PropertiesHelper
   }
 
   @Nullable
-  public static NonBlockingProperties loadProperties (@Nonnull final IReadableResource aRes,
-                                                      @Nonnull final Charset aCharset)
+  public static NonBlockingProperties loadProperties (@Nonnull final IReadableResource aRes, @Nonnull final Charset aCharset)
   {
     ValueEnforcer.notNull (aRes, "Resource");
     ValueEnforcer.notNull (aCharset, "Charset");
@@ -194,8 +193,7 @@ public final class PropertiesHelper
    * @since 9.1.2
    */
   @Nullable
-  public static String expandProperties (@Nullable final String sValue,
-                                         @Nonnull final Function <String, String> aValueProvider)
+  public static String expandProperties (@Nullable final String sValue, @Nonnull final Function <String, String> aValueProvider)
   {
     ValueEnforcer.notNull (aValueProvider, "ValueProvider");
 

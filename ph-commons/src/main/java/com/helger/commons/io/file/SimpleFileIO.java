@@ -116,8 +116,7 @@ public final class SimpleFileIO
    *         installed, the {@link SecurityManager#checkRead(String) checkRead}
    *         method is invoked to check read access to the file.
    */
-  public static List <String> readAllLines (@Nonnull final Path aPath,
-                                            @Nonnull final Charset aCharset) throws IOException
+  public static List <String> readAllLines (@Nonnull final Path aPath, @Nonnull final Charset aCharset) throws IOException
   {
     try (NonBlockingBufferedReader reader = PathHelper.getBufferedReader (aPath, aCharset))
     {
@@ -178,9 +177,7 @@ public final class SimpleFileIO
    * @param aTargetList
    *        The target list to be filled. May not be <code>null</code>.
    */
-  public static void readFileLines (@Nullable final File aFile,
-                                    @Nonnull final Charset aCharset,
-                                    @Nonnull final List <String> aTargetList)
+  public static void readFileLines (@Nullable final File aFile, @Nonnull final Charset aCharset, @Nonnull final List <String> aTargetList)
   {
     if (aFile != null)
       StreamHelper.readStreamLines (FileHelper.getInputStream (aFile), aCharset, aTargetList);
@@ -224,9 +221,7 @@ public final class SimpleFileIO
   }
 
   @Nonnull
-  public static ESuccess writeFile (@Nonnull final File aFile,
-                                    @Nonnull final String sContent,
-                                    @Nonnull final Charset aCharset)
+  public static ESuccess writeFile (@Nonnull final File aFile, @Nonnull final String sContent, @Nonnull final Charset aCharset)
   {
     final OutputStream aFOS = FileHelper.getOutputStream (aFile);
     return aFOS == null ? ESuccess.FAILURE : StreamHelper.writeStream (aFOS, sContent, aCharset);

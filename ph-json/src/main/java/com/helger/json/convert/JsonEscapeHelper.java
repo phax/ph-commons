@@ -45,14 +45,7 @@ public final class JsonEscapeHelper
    * single quotes must NOT be escaped in valid JSON (See http://www.json.org/)
    */
   private static final char [] CHARS_TO_MASK = new char [] { '\0', '"', '\\', '\b', '\t', '\n', '\r', '\f' };
-  private static final String [] REPLACEMENT_STRINGS = new String [] { "\\u0000",
-                                                                       "\\\"",
-                                                                       "\\\\",
-                                                                       "\\b",
-                                                                       "\\t",
-                                                                       "\\n",
-                                                                       "\\r",
-                                                                       "\\f" };
+  private static final String [] REPLACEMENT_STRINGS = new String [] { "\\u0000", "\\\"", "\\\\", "\\b", "\\t", "\\n", "\\r", "\\f" };
 
   static
   {
@@ -118,8 +111,7 @@ public final class JsonEscapeHelper
     }
   }
 
-  public static void jsonEscapeToWriter (@Nonnull final char [] aInput,
-                                         @Nonnull @WillNotClose final Writer aWriter) throws IOException
+  public static void jsonEscapeToWriter (@Nonnull final char [] aInput, @Nonnull @WillNotClose final Writer aWriter) throws IOException
   {
     ValueEnforcer.notNull (aInput, "Input");
     ValueEnforcer.notNull (aWriter, "Writer");
@@ -134,8 +126,7 @@ public final class JsonEscapeHelper
     }
   }
 
-  public static void jsonEscapeToWriter (@Nullable final String sInput,
-                                         @Nonnull @WillNotClose final Writer aWriter) throws IOException
+  public static void jsonEscapeToWriter (@Nullable final String sInput, @Nonnull @WillNotClose final Writer aWriter) throws IOException
   {
     ValueEnforcer.notNull (aWriter, "Writer");
 
@@ -199,8 +190,7 @@ public final class JsonEscapeHelper
           {
             // The parser ensures we get 4 chars!
             if (i + 4 > nMax - 1)
-              throw new IllegalArgumentException ("JSON unicode escape sequence \\uXXXX is incomplete: " +
-                                                  new String (aInput, i - 1, 6));
+              throw new IllegalArgumentException ("JSON unicode escape sequence \\uXXXX is incomplete: " + new String (aInput, i - 1, 6));
             ++i;
             final char cU1 = aInput[i];
             ++i;
@@ -213,11 +203,7 @@ public final class JsonEscapeHelper
             break;
           }
           default:
-            throw new IllegalArgumentException ("Unexpected JSON escape sequence: \\" +
-                                                cNext +
-                                                " (" +
-                                                (int) cNext +
-                                                ")");
+            throw new IllegalArgumentException ("Unexpected JSON escape sequence: \\" + cNext + " (" + (int) cNext + ")");
         }
       }
       else

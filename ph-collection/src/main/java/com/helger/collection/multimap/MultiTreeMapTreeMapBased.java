@@ -37,15 +37,12 @@ public class MultiTreeMapTreeMapBased <KEYTYPE1, KEYTYPE2 extends Comparable <? 
     super (aComparator);
   }
 
-  public MultiTreeMapTreeMapBased (@Nonnull final KEYTYPE1 aKey,
-                                   @Nonnull final KEYTYPE2 aInnerKey,
-                                   @Nullable final VALUETYPE aValue)
+  public MultiTreeMapTreeMapBased (@Nonnull final KEYTYPE1 aKey, @Nonnull final KEYTYPE2 aInnerKey, @Nullable final VALUETYPE aValue)
   {
     super (aKey, aInnerKey, aValue);
   }
 
-  public MultiTreeMapTreeMapBased (@Nullable final KEYTYPE1 aKey,
-                                   @Nullable final Map <? extends KEYTYPE2, ? extends VALUETYPE> aValue)
+  public MultiTreeMapTreeMapBased (@Nullable final KEYTYPE1 aKey, @Nullable final Map <? extends KEYTYPE2, ? extends VALUETYPE> aValue)
   {
     super (aKey, aValue);
   }

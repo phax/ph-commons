@@ -282,9 +282,7 @@ public final class FontKerningFuncTest
       final Font aFont = Font.getFont (aTextAttributes);
 
       final char [] aChars = "T,".toCharArray ();
-      final GlyphVector aGlyphVector = aFont.layoutGlyphVector (new FontRenderContext (new AffineTransform (),
-                                                                                       false,
-                                                                                       true),
+      final GlyphVector aGlyphVector = aFont.layoutGlyphVector (new FontRenderContext (new AffineTransform (), false, true),
                                                                 aChars,
                                                                 0,
                                                                 aChars.length,

@@ -71,9 +71,7 @@ public final class ByteBufferHelper
    * @return The amount of data transferred. Always &ge; 0.
    */
   @Nonnegative
-  public static int transfer (@Nonnull final ByteBuffer aSrcBuffer,
-                              @Nonnull final ByteBuffer aDstBuffer,
-                              final boolean bNeedsFlip)
+  public static int transfer (@Nonnull final ByteBuffer aSrcBuffer, @Nonnull final ByteBuffer aDstBuffer, final boolean bNeedsFlip)
   {
     ValueEnforcer.notNull (aSrcBuffer, "SourceBuffer");
     ValueEnforcer.notNull (aDstBuffer, "DestinationBuffer");

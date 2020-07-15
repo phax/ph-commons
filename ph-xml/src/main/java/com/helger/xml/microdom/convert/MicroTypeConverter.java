@@ -47,8 +47,7 @@ public final class MicroTypeConverter
   {}
 
   @Nullable
-  public static <T> IMicroElement convertToMicroElement (@Nullable final T aObject,
-                                                         @Nonnull @Nonempty final String sTagName)
+  public static <T> IMicroElement convertToMicroElement (@Nullable final T aObject, @Nonnull @Nonempty final String sTagName)
   {
     // Use a null namespace
     return convertToMicroElement (aObject, null, sTagName);
@@ -66,8 +65,7 @@ public final class MicroTypeConverter
 
     // Lookup converter
     final Class <T> aSrcClass = GenericReflection.uncheckedCast (aObject.getClass ());
-    final IMicroTypeConverter <T> aConverter = MicroTypeConverterRegistry.getInstance ()
-                                                                         .getConverterToMicroElement (aSrcClass);
+    final IMicroTypeConverter <T> aConverter = MicroTypeConverterRegistry.getInstance ().getConverterToMicroElement (aSrcClass);
     if (aConverter == null)
       throw new TypeConverterException (aSrcClass, IMicroElement.class, EReason.NO_CONVERTER_FOUND);
 
@@ -79,8 +77,7 @@ public final class MicroTypeConverter
   }
 
   @Nullable
-  public static <DSTTYPE> DSTTYPE convertToNative (@Nullable final IMicroElement aElement,
-                                                   @Nonnull final Class <DSTTYPE> aDstClass)
+  public static <DSTTYPE> DSTTYPE convertToNative (@Nullable final IMicroElement aElement, @Nonnull final Class <DSTTYPE> aDstClass)
   {
     return convertToNative (aElement, aDstClass, null);
   }
@@ -96,8 +93,7 @@ public final class MicroTypeConverter
       return aNullValue;
 
     // Lookup converter
-    final IMicroTypeConverter <DSTTYPE> aConverter = MicroTypeConverterRegistry.getInstance ()
-                                                                               .getConverterToNative (aDstClass);
+    final IMicroTypeConverter <DSTTYPE> aConverter = MicroTypeConverterRegistry.getInstance ().getConverterToNative (aDstClass);
     if (aConverter == null)
       throw new TypeConverterException (IMicroElement.class, aDstClass, EReason.NO_CONVERTER_FOUND);
 

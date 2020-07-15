@@ -102,9 +102,7 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
    * @return {@link EChange}
    */
   @Nonnull
-  public EChange addUniqueFunction (@Nonnull final QName aName,
-                                    @Nonnegative final int nArity,
-                                    @Nonnull final XPathFunction aFunction)
+  public EChange addUniqueFunction (@Nonnull final QName aName, @Nonnegative final int nArity, @Nonnull final XPathFunction aFunction)
   {
     ValueEnforcer.notNull (aFunction, "Function");
 

@@ -366,8 +366,7 @@ public final class PathHelper
   }
 
   @Nullable
-  public static NonBlockingBufferedOutputStream getBufferedOutputStream (@Nonnull final Path aFile,
-                                                                         @Nonnull final EAppend eAppend)
+  public static NonBlockingBufferedOutputStream getBufferedOutputStream (@Nonnull final Path aFile, @Nonnull final EAppend eAppend)
   {
     ValueEnforcer.notNull (aFile, "File");
     ValueEnforcer.notNull (eAppend, "Append");
@@ -379,9 +378,7 @@ public final class PathHelper
   }
 
   @Nullable
-  public static Writer getWriter (@Nonnull final Path aFile,
-                                  @Nonnull final EAppend eAppend,
-                                  @Nonnull final Charset aCharset)
+  public static Writer getWriter (@Nonnull final Path aFile, @Nonnull final EAppend eAppend, @Nonnull final Charset aCharset)
   {
     ValueEnforcer.notNull (aFile, "Path");
     ValueEnforcer.notNull (aCharset, "Charset");

@@ -44,8 +44,7 @@ import com.helger.tree.withid.unique.AbstractTreeItemWithUniqueIDFactory;
 @NotThreadSafe
 public abstract class AbstractFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE extends Collection <DATATYPE>, ITEMTYPE extends BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>>
                                                     extends
-                                                    AbstractTreeItemWithUniqueIDFactory <KEYTYPE, COLLTYPE, ITEMTYPE>
-                                                    implements
+                                                    AbstractTreeItemWithUniqueIDFactory <KEYTYPE, COLLTYPE, ITEMTYPE> implements
                                                     IFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>
 {
   private final IAggregator <KEYTYPE, KEYTYPE> m_aKeyCombinator;
@@ -102,8 +101,6 @@ public abstract class AbstractFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ())
-                            .appendIfNotNull ("keyCombinator", m_aKeyCombinator)
-                            .getToString ();
+    return ToStringGenerator.getDerived (super.toString ()).appendIfNotNull ("keyCombinator", m_aKeyCombinator).getToString ();
   }
 }

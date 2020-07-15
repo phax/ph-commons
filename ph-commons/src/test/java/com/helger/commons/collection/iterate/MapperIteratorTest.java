@@ -40,8 +40,7 @@ public final class MapperIteratorTest
   @Test
   public void testGetIteratorWithConversion ()
   {
-    final Iterator <Integer> it = new MapperIterator <> (CollectionHelper.newList ("100", "-25"),
-                                                         StringParser::parseIntObj);
+    final Iterator <Integer> it = new MapperIterator <> (CollectionHelper.newList ("100", "-25"), StringParser::parseIntObj);
     assertNotNull (it);
     assertTrue (it.hasNext ());
     assertEquals (Integer.valueOf (100), it.next ());

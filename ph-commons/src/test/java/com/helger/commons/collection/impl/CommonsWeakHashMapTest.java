@@ -65,9 +65,7 @@ public final class CommonsWeakHashMapTest
                                        Function.identity (),
                                        x -> Integer.valueOf (x.length ()));
     assertEquals (3, aTest.size ());
-    aTest = new CommonsWeakHashMap <> (new CommonsWeakHashMap <String, Integer> (new CommonsArrayList <> ("test",
-                                                                                                          "any",
-                                                                                                          "foo"),
+    aTest = new CommonsWeakHashMap <> (new CommonsWeakHashMap <String, Integer> (new CommonsArrayList <> ("test", "any", "foo"),
                                                                                  Function.identity (),
                                                                                  x -> Integer.valueOf (x.length ())));
     assertEquals (3, aTest.size ());

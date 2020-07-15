@@ -76,17 +76,14 @@ public class WatchDir implements AutoCloseable
   private void _registerDir (@Nonnull final Path aDir) throws IOException
   {
     if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Register directory " +
-                    aDir +
-                    (m_bRecursive && !m_bRegisterRecursiveManually ? " (recursively)" : ""));
+      LOGGER.debug ("Register directory " + aDir + (m_bRecursive && !m_bRegisterRecursiveManually ? " (recursively)" : ""));
 
     final WatchEvent.Kind <?> [] aKinds = new WatchEvent.Kind <?> [] { StandardWatchEventKinds.ENTRY_CREATE,
                                                                        StandardWatchEventKinds.ENTRY_DELETE,
                                                                        StandardWatchEventKinds.ENTRY_MODIFY };
 
     // throws exception when using with modifiers even if null
-    final WatchKey aKey = m_aModifiers != null ? aDir.register (m_aWatcher, aKinds, m_aModifiers)
-                                               : aDir.register (m_aWatcher, aKinds);
+    final WatchKey aKey = m_aModifiers != null ? aDir.register (m_aWatcher, aKinds, m_aModifiers) : aDir.register (m_aWatcher, aKinds);
     m_aKeys.put (aKey, aDir);
   }
 
@@ -241,10 +238,7 @@ public class WatchDir implements AutoCloseable
   public void processEvents ()
   {
     if (LOGGER.isInfoEnabled ())
-      LOGGER.info ("Start processing directory change events in '" +
-                   m_aStartDir +
-                   "'" +
-                   (m_bRecursive ? " (recursively)" : ""));
+      LOGGER.info ("Start processing directory change events in '" + m_aStartDir + "'" + (m_bRecursive ? " (recursively)" : ""));
 
     if (m_aCallbacks.isEmpty ())
       throw new IllegalStateException ("No callback registered for watching directory changes in " + m_aStartDir);
@@ -372,8 +366,7 @@ public class WatchDir implements AutoCloseable
    */
   public void runAsync ()
   {
-    final Thread aThread = new Thread (this::processEvents,
-                                       "WatchDir-" + m_aStartDir + "-" + ThreadLocalRandom.current ().nextInt ());
+    final Thread aThread = new Thread (this::processEvents, "WatchDir-" + m_aStartDir + "-" + ThreadLocalRandom.current ().nextInt ());
     aThread.setDaemon (true);
     aThread.start ();
   }

@@ -124,10 +124,7 @@ public final class IntDoubleMapTest
     {
       assertEquals (IntDoubleMap.NO_VALUE, map.put (addCnt, addCnt), DELTA);
       addCnt++;
-      assertEquals ("Failed for addCnt = " + addCnt + ", ff = " + fillFactor,
-                    IntDoubleMap.NO_VALUE,
-                    map.put (addCnt, addCnt),
-                    DELTA);
+      assertEquals ("Failed for addCnt = " + addCnt + ", ff = " + fillFactor, IntDoubleMap.NO_VALUE, map.put (addCnt, addCnt), DELTA);
       addCnt++;
       assertEquals (removeCnt, map.remove (removeCnt), DELTA);
       removeCnt++;

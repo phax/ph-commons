@@ -79,7 +79,6 @@ public final class GraphObjectIDFactory
   @Nonempty
   public static String createNewGraphObjectID ()
   {
-    return s_aRWLock.readLockedGet ( () -> s_aIDFactory != null ? s_aIDFactory.getNewID ()
-                                                             : GlobalIDFactory.getNewStringID ());
+    return s_aRWLock.readLockedGet ( () -> s_aIDFactory != null ? s_aIDFactory.getNewID () : GlobalIDFactory.getNewStringID ());
   }
 }

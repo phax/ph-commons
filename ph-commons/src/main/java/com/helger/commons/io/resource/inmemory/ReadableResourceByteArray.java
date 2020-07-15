@@ -46,9 +46,7 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
     this (null, aBytes, DEFAULT_COPY_NEEDED);
   }
 
-  public ReadableResourceByteArray (@Nonnull final byte [] aBytes,
-                                    @Nonnegative final int nOfs,
-                                    @Nonnegative final int nLen)
+  public ReadableResourceByteArray (@Nonnull final byte [] aBytes, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     this (null, aBytes, nOfs, nLen, DEFAULT_COPY_NEEDED);
   }
@@ -79,9 +77,7 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
     this (sResourceID, aBytes, nOfs, nLen, DEFAULT_COPY_NEEDED);
   }
 
-  public ReadableResourceByteArray (@Nullable final String sResourceID,
-                                    @Nonnull final byte [] aBytes,
-                                    final boolean bCopyNeeded)
+  public ReadableResourceByteArray (@Nullable final String sResourceID, @Nonnull final byte [] aBytes, final boolean bCopyNeeded)
   {
     this (sResourceID, aBytes, 0, aBytes.length, bCopyNeeded);
   }

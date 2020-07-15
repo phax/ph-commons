@@ -286,9 +286,7 @@ public final class CompareHelper
     return aComp.compare (aObj1, aObj2);
   }
 
-  public static int compare (@Nullable final String sStr1,
-                             @Nullable final String sStr2,
-                             @Nonnull final Locale aSortLocale)
+  public static int compare (@Nullable final String sStr1, @Nullable final String sStr2, @Nonnull final Locale aSortLocale)
   {
     // Legacy behavior: null values come first
     return compare (sStr1, sStr2, aSortLocale, DEFAULT_NULL_VALUES_COME_FIRST);
@@ -302,9 +300,7 @@ public final class CompareHelper
     return compare (sStr1, sStr2, CollatorHelper.getCollatorSpaceBeforeDot (aSortLocale), bNullValuesComeFirst);
   }
 
-  public static int compare (@Nullable final String sStr1,
-                             @Nullable final String sStr2,
-                             @Nonnull final Collator aCollator)
+  public static int compare (@Nullable final String sStr1, @Nullable final String sStr2, @Nonnull final Collator aCollator)
   {
     // Legacy behavior: null values come first
     return compare (sStr1, sStr2, aCollator, DEFAULT_NULL_VALUES_COME_FIRST);
@@ -332,9 +328,7 @@ public final class CompareHelper
   }
 
   @SuppressFBWarnings ({ "ES_COMPARING_PARAMETER_STRING_WITH_EQ" })
-  public static int compareIgnoreCase (@Nullable final String sStr1,
-                                       @Nullable final String sStr2,
-                                       final boolean bNullValuesComeFirst)
+  public static int compareIgnoreCase (@Nullable final String sStr1, @Nullable final String sStr2, final boolean bNullValuesComeFirst)
   {
     if (EqualsHelper.identityEqual (sStr1, sStr2))
       return 0;

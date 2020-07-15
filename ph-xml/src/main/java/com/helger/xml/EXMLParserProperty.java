@@ -144,9 +144,7 @@ public enum EXMLParserProperty implements IHasName
    * instance if the document contains a name which is longer than the input
    * buffer.
    */
-  GENERAL_INPUT_BUFFER_SIZE (EXMLParserPropertyType.GENERAL,
-                             "http://apache.org/xml/properties/input-buffer-size",
-                             Integer.class),
+  GENERAL_INPUT_BUFFER_SIZE (EXMLParserPropertyType.GENERAL, "http://apache.org/xml/properties/input-buffer-size", Integer.class),
   /**
    * The locale to use for reporting errors and warnings. When the value of this
    * property is null the platform default returned from
@@ -189,18 +187,14 @@ public enum EXMLParserProperty implements IHasName
    * default document factory, the deferred node expansion feature does not
    * work.
    */
-  DOM_DOCUMENT_CLASS_NAME (EXMLParserPropertyType.DOM,
-                           "http://apache.org/xml/properties/dom/document-class-name",
-                           String.class),
+  DOM_DOCUMENT_CLASS_NAME (EXMLParserPropertyType.DOM, "http://apache.org/xml/properties/dom/document-class-name", String.class),
 
   /** The handler for DTD declarations. */
   SAX_DECLARATION_HANDLER (EXMLParserPropertyType.SAX,
                            "http://xml.org/sax/properties/declaration-handler",
                            org.xml.sax.ext.DeclHandler.class),
   /** The handler for lexical parsing events. */
-  SAX_LEXICAL_HANDLER (EXMLParserPropertyType.SAX,
-                       "http://xml.org/sax/properties/lexical-handler",
-                       org.xml.sax.ext.LexicalHandler.class),
+  SAX_LEXICAL_HANDLER (EXMLParserPropertyType.SAX, "http://xml.org/sax/properties/lexical-handler", org.xml.sax.ext.LexicalHandler.class),
   /**
    * The DOM node currently being visited, if SAX is being used as a DOM
    * iterator. If the parser recognizes and supports this property but is not
@@ -220,9 +214,7 @@ public enum EXMLParserProperty implements IHasName
    * The Schema language to be used. E.g.
    * <code>http://www.w3.org/2001/XMLSchema</code>.
    */
-  JAXP_SCHEMA_LANGUAGE (EXMLParserPropertyType.GENERAL,
-                        "http://java.sun.com/xml/jaxp/properties/schemaLanguage",
-                        String.class),
+  JAXP_SCHEMA_LANGUAGE (EXMLParserPropertyType.GENERAL, "http://java.sun.com/xml/jaxp/properties/schemaLanguage", String.class),
   /**
    * Sets the location of the schema. This is the one of most interest. It
    * accepts many values, such as:
@@ -236,9 +228,7 @@ public enum EXMLParserProperty implements IHasName
    * application accepts documents that can conform to different schemas.</li>
    * </ul>
    */
-  JAXP_SCHEMA_SORUCE (EXMLParserPropertyType.GENERAL,
-                      "http://java.sun.com/xml/jaxp/properties/schemaSource",
-                      Object.class);
+  JAXP_SCHEMA_SORUCE (EXMLParserPropertyType.GENERAL, "http://java.sun.com/xml/jaxp/properties/schemaSource", Object.class);
 
   private static final Logger LOGGER = LoggerFactory.getLogger (EXMLParserProperty.class);
 

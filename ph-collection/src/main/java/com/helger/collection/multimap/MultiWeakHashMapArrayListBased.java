@@ -38,8 +38,7 @@ import com.helger.commons.collection.impl.ICommonsList;
  *        value type
  */
 @NotThreadSafe
-public class MultiWeakHashMapArrayListBased <KEYTYPE, VALUETYPE> extends
-                                            AbstractMultiWeakHashMapListBased <KEYTYPE, VALUETYPE>
+public class MultiWeakHashMapArrayListBased <KEYTYPE, VALUETYPE> extends AbstractMultiWeakHashMapListBased <KEYTYPE, VALUETYPE>
 {
   public MultiWeakHashMapArrayListBased ()
   {}
@@ -49,8 +48,7 @@ public class MultiWeakHashMapArrayListBased <KEYTYPE, VALUETYPE> extends
     super (aKey, aValue);
   }
 
-  public MultiWeakHashMapArrayListBased (@Nonnull final KEYTYPE aKey,
-                                         @Nullable final ICommonsList <VALUETYPE> aCollection)
+  public MultiWeakHashMapArrayListBased (@Nonnull final KEYTYPE aKey, @Nullable final ICommonsList <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }

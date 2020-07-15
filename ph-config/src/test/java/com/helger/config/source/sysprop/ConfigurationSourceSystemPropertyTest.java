@@ -46,8 +46,7 @@ public final class ConfigurationSourceSystemPropertyTest
     assertNull (c.getConfigurationValue ("I really don't know that system property!"));
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (c, new ConfigurationSourceSystemProperty ());
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c,
-                                                                           new ConfigurationSourceSystemProperty (1234));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c, new ConfigurationSourceSystemProperty (1234));
   }
 
   @Test

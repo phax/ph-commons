@@ -49,8 +49,7 @@ public class MultiConcurrentHashMapLinkedHashSetBased <KEYTYPE, VALUETYPE> exten
     super (aKey, aValue);
   }
 
-  public MultiConcurrentHashMapLinkedHashSetBased (@Nonnull final KEYTYPE aKey,
-                                                   @Nonnull final ICommonsOrderedSet <VALUETYPE> aCollection)
+  public MultiConcurrentHashMapLinkedHashSetBased (@Nonnull final KEYTYPE aKey, @Nonnull final ICommonsOrderedSet <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }

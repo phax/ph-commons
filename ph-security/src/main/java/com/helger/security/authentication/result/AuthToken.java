@@ -116,8 +116,7 @@ public final class AuthToken implements IAuthToken
     if (!m_bExpired && isExpirationPossible ())
     {
       // Only if expiration is defined
-      if (Duration.between (m_aLastAccessDT, PDTFactory.getCurrentLocalDateTime ())
-                  .getSeconds () > m_nExpirationSeconds)
+      if (Duration.between (m_aLastAccessDT, PDTFactory.getCurrentLocalDateTime ()).getSeconds () > m_nExpirationSeconds)
         m_bExpired = true;
     }
     return m_bExpired;

@@ -165,8 +165,7 @@ public final class ByteArrayWrapper implements IHasByteArray, Serializable
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static ByteArrayWrapper create (@Nonnull final NonBlockingByteArrayOutputStream aBAOS,
-                                         final boolean bCopyNeeded)
+  public static ByteArrayWrapper create (@Nonnull final NonBlockingByteArrayOutputStream aBAOS, final boolean bCopyNeeded)
   {
     return new ByteArrayWrapper (aBAOS.directGetBuffer (), 0, aBAOS.size (), bCopyNeeded);
   }

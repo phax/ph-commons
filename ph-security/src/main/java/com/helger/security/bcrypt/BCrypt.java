@@ -1137,12 +1137,7 @@ public class BCrypt
   // bcrypt IV: "OrpheanBeholderScryDoubt". The C implementation calls
   // this "ciphertext", but it is really plaintext or an IV. We keep
   // the name to make code comparison easier.
-  private static final int [] BF_CRYPT_CIPHERTEXT = { 0x4f727068,
-                                                      0x65616e42,
-                                                      0x65686f6c,
-                                                      0x64657253,
-                                                      0x63727944,
-                                                      0x6f756274 };
+  private static final int [] BF_CRYPT_CIPHERTEXT = { 0x4f727068, 0x65616e42, 0x65686f6c, 0x64657253, 0x63727944, 0x6f756274 };
 
   // Table for Base64 encoding
   private static final char [] BASE64_CODE = { '.',

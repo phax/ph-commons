@@ -126,11 +126,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
       {
         if (m_sDefaultNamespaceURI != null)
           if (LOGGER.isWarnEnabled ())
-            LOGGER.warn ("Overwriting default namespace '" +
-                         m_sDefaultNamespaceURI +
-                         "' with namespace '" +
-                         sNamespaceURI +
-                         "'");
+            LOGGER.warn ("Overwriting default namespace '" + m_sDefaultNamespaceURI + "' with namespace '" + sNamespaceURI + "'");
         m_sDefaultNamespaceURI = sNamespaceURI;
       }
       else
@@ -470,8 +466,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
       if (aNC instanceof IIterableNamespaceContext)
       {
         // Put all on top-level
-        for (final Map.Entry <String, String> aEntry : ((IIterableNamespaceContext) aNC).getPrefixToNamespaceURIMap ()
-                                                                                        .entrySet ())
+        for (final Map.Entry <String, String> aEntry : ((IIterableNamespaceContext) aNC).getPrefixToNamespaceURIMap ().entrySet ())
         {
           final String sNSPrefix = aEntry.getKey ();
           final String sNamespaceURI = aEntry.getValue ();
@@ -498,9 +493,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
    */
   protected final void handlePutNamespaceContextPrefixInRoot (@Nonnull final Map <QName, String> aAttrMap)
   {
-    if (m_aSettings.isEmitNamespaces () &&
-        m_aNSStack.size () == 1 &&
-        m_aSettings.isPutNamespaceContextPrefixesInRoot ())
+    if (m_aSettings.isEmitNamespaces () && m_aNSStack.size () == 1 && m_aSettings.isPutNamespaceContextPrefixesInRoot ())
     {
       // The only place where the namespace context prefixes are added to the
       // root element
@@ -520,8 +513,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
 
   @Nonnull
   @OverrideOnDemand
-  protected XMLEmitter createXMLEmitter (@Nonnull @WillNotClose final Writer aWriter,
-                                         @Nonnull final IXMLWriterSettings aSettings)
+  protected XMLEmitter createXMLEmitter (@Nonnull @WillNotClose final Writer aWriter, @Nonnull final IXMLWriterSettings aSettings)
   {
     return new XMLEmitter (aWriter, aSettings);
   }
@@ -547,8 +539,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
     ValueEnforcer.notNull (aOS, "OutputStream");
 
     // Create a writer for the passed output stream
-    final NonBlockingBufferedWriter aWriter = new NonBlockingBufferedWriter (StreamHelper.createWriter (aOS,
-                                                                                                        m_aSettings.getCharset ()));
+    final NonBlockingBufferedWriter aWriter = new NonBlockingBufferedWriter (StreamHelper.createWriter (aOS, m_aSettings.getCharset ()));
     // Inside the other write method, the writer must be flushed!
     write (aNode, aWriter);
     // Do not close the writer!

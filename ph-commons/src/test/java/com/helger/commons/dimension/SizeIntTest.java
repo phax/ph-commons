@@ -58,10 +58,8 @@ public final class SizeIntTest
     {}
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new SizeInt (320, 240), new SizeInt (320, 240));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SizeInt (320, 240),
-                                                                           new SizeInt (321, 240));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SizeInt (320, 240),
-                                                                           new SizeInt (320, 241));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SizeInt (320, 240), new SizeInt (321, 240));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new SizeInt (320, 240), new SizeInt (320, 241));
   }
 
   @Test

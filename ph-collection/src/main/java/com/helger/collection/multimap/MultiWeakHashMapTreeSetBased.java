@@ -48,8 +48,7 @@ public class MultiWeakHashMapTreeSetBased <KEYTYPE, VALUETYPE extends Comparable
     super (aKey, aValue);
   }
 
-  public MultiWeakHashMapTreeSetBased (@Nonnull final KEYTYPE aKey,
-                                       @Nullable final ICommonsNavigableSet <VALUETYPE> aCollection)
+  public MultiWeakHashMapTreeSetBased (@Nonnull final KEYTYPE aKey, @Nullable final ICommonsNavigableSet <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }

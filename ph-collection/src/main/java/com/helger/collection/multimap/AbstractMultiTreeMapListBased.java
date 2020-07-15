@@ -38,8 +38,7 @@ import com.helger.commons.collection.impl.ICommonsList;
  */
 @NotThreadSafe
 public abstract class AbstractMultiTreeMapListBased <KEYTYPE, VALUETYPE> extends
-                                                    AbstractMultiTreeMap <KEYTYPE, VALUETYPE, ICommonsList <VALUETYPE>>
-                                                    implements
+                                                    AbstractMultiTreeMap <KEYTYPE, VALUETYPE, ICommonsList <VALUETYPE>> implements
                                                     IMultiMapListBased <KEYTYPE, VALUETYPE>
 {
   public AbstractMultiTreeMapListBased ()
@@ -55,8 +54,7 @@ public abstract class AbstractMultiTreeMapListBased <KEYTYPE, VALUETYPE> extends
     super (aKey, aValue);
   }
 
-  public AbstractMultiTreeMapListBased (@Nullable final KEYTYPE aKey,
-                                        @Nullable final ICommonsList <VALUETYPE> aCollection)
+  public AbstractMultiTreeMapListBased (@Nullable final KEYTYPE aKey, @Nullable final ICommonsList <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }

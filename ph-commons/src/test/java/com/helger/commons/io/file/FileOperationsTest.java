@@ -175,8 +175,7 @@ public final class FileOperationsTest
     }
 
     // Invalid directory name
-    _expectedError (FileOperations.createDirRecursiveIfNotExisting (new File ("\0")),
-                    EFileIOErrorCode.OPERATION_FAILED);
+    _expectedError (FileOperations.createDirRecursiveIfNotExisting (new File ("\0")), EFileIOErrorCode.OPERATION_FAILED);
 
     try
     {
@@ -297,8 +296,7 @@ public final class FileOperationsTest
       _expectedError (FileOperations.renameFile (aFile, aFile2), EFileIOErrorCode.SOURCE_DOES_NOT_EXIST);
       _expectedSuccess (FileOperations.renameFile (aFile2, aFile));
       _expectedError (FileOperations.renameFile (aFile, aFile), EFileIOErrorCode.SOURCE_EQUALS_TARGET);
-      _expectedError (FileOperations.renameFile (aFile, new File ("target/../" + aFile.getName ())),
-                      EFileIOErrorCode.SOURCE_EQUALS_TARGET);
+      _expectedError (FileOperations.renameFile (aFile, new File ("target/../" + aFile.getName ())), EFileIOErrorCode.SOURCE_EQUALS_TARGET);
       _expectedError (FileOperations.renameFile (aFile, new File ("dirnonexisting/../" + aFile.getName ())),
                       EFileIOErrorCode.SOURCE_EQUALS_TARGET);
     }
@@ -347,8 +345,7 @@ public final class FileOperationsTest
       assertTrue (FileHelper.existsFile (aFile2));
       assertArrayEquals (SimpleFileIO.getAllFileBytes (aFile), SimpleFileIO.getAllFileBytes (aFile2));
       _expectedError (FileOperations.copyFile (aFile, aFile), EFileIOErrorCode.SOURCE_EQUALS_TARGET);
-      _expectedError (FileOperations.copyFile (aFile, new File ("target/../" + aFile.getName ())),
-                      EFileIOErrorCode.SOURCE_EQUALS_TARGET);
+      _expectedError (FileOperations.copyFile (aFile, new File ("target/../" + aFile.getName ())), EFileIOErrorCode.SOURCE_EQUALS_TARGET);
       _expectedError (FileOperations.copyFile (aFile, new File ("dirnonexisting/../" + aFile.getName ())),
                       EFileIOErrorCode.SOURCE_EQUALS_TARGET);
     }
@@ -384,13 +381,10 @@ public final class FileOperationsTest
       _expectedError (FileOperations.copyDirRecursive (fDir, fDir), EFileIOErrorCode.SOURCE_DOES_NOT_EXIST);
       _expectedSuccess (FileOperations.createDir (fDir));
       _expectedError (FileOperations.copyDirRecursive (fDir, fDir), EFileIOErrorCode.SOURCE_EQUALS_TARGET);
-      _expectedError (FileOperations.copyDirRecursive (fDir, new File ("xx/..", fDir.getName ())),
-                      EFileIOErrorCode.SOURCE_EQUALS_TARGET);
+      _expectedError (FileOperations.copyDirRecursive (fDir, new File ("xx/..", fDir.getName ())), EFileIOErrorCode.SOURCE_EQUALS_TARGET);
       _expectedError (FileOperations.copyDirRecursive (fDir, new File (".")), EFileIOErrorCode.TARGET_ALREADY_EXISTS);
-      _expectedError (FileOperations.copyDirRecursive (fDir, new File (fDir, "bla")),
-                      EFileIOErrorCode.TARGET_IS_CHILD_OF_SOURCE);
-      _expectedError (FileOperations.copyDirRecursive (fDir, new File ("target")),
-                      EFileIOErrorCode.TARGET_ALREADY_EXISTS);
+      _expectedError (FileOperations.copyDirRecursive (fDir, new File (fDir, "bla")), EFileIOErrorCode.TARGET_IS_CHILD_OF_SOURCE);
+      _expectedError (FileOperations.copyDirRecursive (fDir, new File ("target")), EFileIOErrorCode.TARGET_ALREADY_EXISTS);
 
       for (int i = 1; i <= 10; ++i)
         SimpleFileIO.writeFile (new File (fDir, "file" + i), "Hallo", StandardCharsets.ISO_8859_1);
@@ -494,8 +488,7 @@ public final class FileOperationsTest
   @Test
   public void testDeleteFile ()
   {
-    _expectedError (FileOperations.deleteFile (new File ("warum sollte es diese Datei geben")),
-                    EFileIOErrorCode.SOURCE_DOES_NOT_EXIST);
+    _expectedError (FileOperations.deleteFile (new File ("warum sollte es diese Datei geben")), EFileIOErrorCode.SOURCE_DOES_NOT_EXIST);
     final File f = new File ("delfile.test");
     try
     {

@@ -70,14 +70,10 @@ public final class StackTraceHelperTest
     assertEquals ("", StackTraceHelper.getStackAsString ((Throwable) null, false, "\r\n"));
 
     // AppServer stacktrace :)
-    final StackTraceElement [] ste = ArrayHelper.newArray (new StackTraceElement ("org.eclipse.jetty.Server",
-                                                                                  "start",
-                                                                                  "Server.java",
-                                                                                  100));
+    final StackTraceElement [] ste = ArrayHelper.newArray (new StackTraceElement ("org.eclipse.jetty.Server", "start", "Server.java", 100));
     assertEquals ("  [1 element omitted -- org.eclipse.jetty.Server.start(Server.java:100)]",
                   StackTraceHelper.getStackAsString (ste, true));
-    assertEquals ("1.: org.eclipse.jetty.Server.start(Server.java:100)",
-                  StackTraceHelper.getStackAsString (ste, false));
+    assertEquals ("1.: org.eclipse.jetty.Server.start(Server.java:100)", StackTraceHelper.getStackAsString (ste, false));
 
     try
     {

@@ -40,7 +40,5 @@ public interface IDAOWriteExceptionCallback extends ICallback
    *        the content that should be written to the file. Never
    *        <code>null</code>.
    */
-  void onDAOWriteException (@Nonnull Throwable t,
-                            @Nonnull IReadableResource aResource,
-                            @Nonnull CharSequence aFileContent);
+  void onDAOWriteException (@Nonnull Throwable t, @Nonnull IReadableResource aResource, @Nonnull CharSequence aFileContent);
 }

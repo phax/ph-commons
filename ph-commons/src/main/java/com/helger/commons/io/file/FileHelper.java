@@ -396,8 +396,7 @@ public final class FileHelper
   }
 
   @Nullable
-  public static NonBlockingBufferedOutputStream getBufferedOutputStream (@Nonnull final File aFile,
-                                                                         @Nonnull final EAppend eAppend)
+  public static NonBlockingBufferedOutputStream getBufferedOutputStream (@Nonnull final File aFile, @Nonnull final EAppend eAppend)
   {
     ValueEnforcer.notNull (aFile, "File");
     ValueEnforcer.notNull (eAppend, "Append");
@@ -415,9 +414,7 @@ public final class FileHelper
   }
 
   @Nullable
-  public static OutputStreamWriter getWriter (@Nonnull final File aFile,
-                                              @Nonnull final EAppend eAppend,
-                                              @Nonnull final Charset aCharset)
+  public static OutputStreamWriter getWriter (@Nonnull final File aFile, @Nonnull final EAppend eAppend, @Nonnull final Charset aCharset)
   {
     ValueEnforcer.notNull (aFile, "File");
     ValueEnforcer.notNull (aCharset, "Charset");
@@ -453,9 +450,7 @@ public final class FileHelper
   }
 
   @Nullable
-  public static PrintWriter getPrintWriter (@Nonnull final File aFile,
-                                            @Nonnull final EAppend eAppend,
-                                            @Nonnull final Charset aCharset)
+  public static PrintWriter getPrintWriter (@Nonnull final File aFile, @Nonnull final EAppend eAppend, @Nonnull final Charset aCharset)
   {
     return new PrintWriter (getBufferedWriter (aFile, eAppend, aCharset));
   }
@@ -495,15 +490,13 @@ public final class FileHelper
   }
 
   @Nullable
-  public static RandomAccessFile getRandomAccessFile (@Nonnull final String sFilename,
-                                                      @Nonnull final ERandomAccessFileMode eMode)
+  public static RandomAccessFile getRandomAccessFile (@Nonnull final String sFilename, @Nonnull final ERandomAccessFileMode eMode)
   {
     return getRandomAccessFile (new File (sFilename), eMode);
   }
 
   @Nullable
-  public static RandomAccessFile getRandomAccessFile (@Nonnull final File aFile,
-                                                      @Nonnull final ERandomAccessFileMode eMode)
+  public static RandomAccessFile getRandomAccessFile (@Nonnull final File aFile, @Nonnull final ERandomAccessFileMode eMode)
   {
     ValueEnforcer.notNull (aFile, "File");
     ValueEnforcer.notNull (eMode, "Mode");
@@ -645,8 +638,7 @@ public final class FileHelper
 
   @Nonnull
   @ReturnsMutableCopy
-  private static ICommonsList <File> _getDirectoryContent (@Nonnull final File aDirectory,
-                                                           @Nullable final File [] aSelectedContent)
+  private static ICommonsList <File> _getDirectoryContent (@Nonnull final File aDirectory, @Nullable final File [] aSelectedContent)
   {
     if (aSelectedContent == null)
     {
@@ -709,8 +701,7 @@ public final class FileHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static ICommonsList <File> getDirectoryContent (@Nonnull final File aDirectory,
-                                                         @Nonnull final FilenameFilter aFilenameFilter)
+  public static ICommonsList <File> getDirectoryContent (@Nonnull final File aDirectory, @Nonnull final FilenameFilter aFilenameFilter)
   {
     ValueEnforcer.notNull (aDirectory, "Directory");
     ValueEnforcer.notNull (aFilenameFilter, "FilenameFilter");
@@ -731,8 +722,7 @@ public final class FileHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static ICommonsList <File> getDirectoryContent (@Nonnull final File aDirectory,
-                                                         @Nonnull final FileFilter aFileFilter)
+  public static ICommonsList <File> getDirectoryContent (@Nonnull final File aDirectory, @Nonnull final FileFilter aFileFilter)
   {
     ValueEnforcer.notNull (aDirectory, "Directory");
     ValueEnforcer.notNull (aFileFilter, "FileFilter");

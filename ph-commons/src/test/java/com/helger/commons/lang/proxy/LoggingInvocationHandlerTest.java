@@ -34,8 +34,7 @@ public final class LoggingInvocationHandlerTest
   @SuppressFBWarnings ("RV_RETURN_VALUE_IGNORED")
   public void testBasic ()
   {
-    final ICommonsList <String> aList = LoggingInvocationHandler.proxying (ICommonsList.class,
-                                                                           new CommonsArrayList <> ());
+    final ICommonsList <String> aList = LoggingInvocationHandler.proxying (ICommonsList.class, new CommonsArrayList <> ());
     aList.add ("a");
     aList.add ("b");
     aList.subList (0, 1).isEmpty ();

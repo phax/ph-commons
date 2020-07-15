@@ -159,9 +159,7 @@ public final class AcceptanceFuncTest
     return decoded.toString ();
   }
 
-  private void _verifyChunkedInDecode (final int i,
-                                       final String encoded,
-                                       final String decoded) throws UnsupportedEncodingException
+  private void _verifyChunkedInDecode (final int i, final String encoded, final String decoded) throws UnsupportedEncodingException
   {
     final ByteBuffer in = ByteBuffer.allocate (i);
     final CharBuffer out = CharBuffer.allocate (decoded.length () + 5);
@@ -189,9 +187,7 @@ public final class AcceptanceFuncTest
     assertEquals ("for length: " + i, decoded, out.toString ());
   }
 
-  private void _verifyChunkedInEncode (final int i,
-                                       final String decoded,
-                                       final String encoded) throws UnsupportedEncodingException
+  private void _verifyChunkedInEncode (final int i, final String decoded, final String encoded) throws UnsupportedEncodingException
   {
     final CharBuffer in = CharBuffer.allocate (i);
     final ByteBuffer out = ByteBuffer.allocate (encoded.length () + 40);
@@ -218,9 +214,7 @@ public final class AcceptanceFuncTest
     assertEquals ("for length: " + i, encoded, CharsetTestHelper.asString (out));
   }
 
-  private void _verifyChunkedOutEncode (final int i,
-                                        final CharBuffer in,
-                                        final String encoded) throws UnsupportedEncodingException
+  private void _verifyChunkedOutEncode (final int i, final CharBuffer in, final String encoded) throws UnsupportedEncodingException
   {
     final ByteBuffer out = ByteBuffer.allocate (i);
     int encodeCount = 0;

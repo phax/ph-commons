@@ -169,9 +169,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    *        Destination type
    */
   @Nullable
-  default <T> T getCastedValue (@Nullable final KEYTYPE aKey,
-                                @Nullable final T aDefault,
-                                @Nonnull final Class <T> aClass)
+  default <T> T getCastedValue (@Nullable final KEYTYPE aKey, @Nullable final T aDefault, @Nonnull final Class <T> aClass)
   {
     final Object aValue = getValue (aKey);
     return aValue == null ? aDefault : aClass.cast (aValue);
@@ -216,9 +214,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    *        The value that was retrieved and cannot be casted to the class
    * @since 9.0.1
    */
-  default void onSafeCastError (@Nullable final KEYTYPE aKey,
-                                @Nonnull final Class <?> aClass,
-                                @Nonnull final Object aValue)
+  default void onSafeCastError (@Nullable final KEYTYPE aKey, @Nonnull final Class <?> aClass, @Nonnull final Object aValue)
   {
     // empty
   }
@@ -243,9 +239,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @see #getSafeCastedValue(Object, Class)
    */
   @Nullable
-  default <T> T getSafeCastedValue (@Nullable final KEYTYPE aKey,
-                                    @Nullable final T aDefault,
-                                    @Nonnull final Class <T> aClass)
+  default <T> T getSafeCastedValue (@Nullable final KEYTYPE aKey, @Nullable final T aDefault, @Nonnull final Class <T> aClass)
   {
     final Object aValue = getValue (aKey);
     final T ret = aValue != null && aClass.isAssignableFrom (aValue.getClass ()) ? aClass.cast (aValue) : aDefault;
@@ -290,9 +284,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    *        Destination type
    */
   @Nullable
-  default <T> T getConvertedValue (@Nullable final KEYTYPE aKey,
-                                   @Nullable final T aDefault,
-                                   @Nonnull final Class <T> aClass)
+  default <T> T getConvertedValue (@Nullable final KEYTYPE aKey, @Nullable final T aDefault, @Nonnull final Class <T> aClass)
   {
     final Object aValue = getValue (aKey);
     return aValue == null ? aDefault : TypeConverter.convert (aValue, aClass, aDefault);
@@ -841,8 +833,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @return <code>aDefault</code> if no such attribute value exists
    */
   @Nullable
-  default ICommonsList <String> getAsStringList (@Nullable final KEYTYPE aKey,
-                                                 @Nullable final ICommonsList <String> aDefault)
+  default ICommonsList <String> getAsStringList (@Nullable final KEYTYPE aKey, @Nullable final ICommonsList <String> aDefault)
   {
     final Object aValue = getValue (aKey);
     if (aValue != null)
@@ -884,8 +875,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @return <code>aDefault</code> if no such attribute value exists
    */
   @Nullable
-  default ICommonsOrderedSet <String> getAsStringSet (@Nullable final KEYTYPE aKey,
-                                                      @Nullable final ICommonsOrderedSet <String> aDefault)
+  default ICommonsOrderedSet <String> getAsStringSet (@Nullable final KEYTYPE aKey, @Nullable final ICommonsOrderedSet <String> aDefault)
   {
     final Object aValue = getValue (aKey);
     if (aValue != null)
@@ -937,9 +927,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    *         present but has a different value. If the attribute is not present,
    *         the default value is returned.
    */
-  default boolean hasStringValue (@Nullable final KEYTYPE aKey,
-                                  @Nullable final String sDesiredValue,
-                                  final boolean bDefault)
+  default boolean hasStringValue (@Nullable final KEYTYPE aKey, @Nullable final String sDesiredValue, final boolean bDefault)
   {
     final String sValue = getAsString (aKey);
     return sValue == null ? bDefault : sValue.equals (sDesiredValue);

@@ -31,15 +31,12 @@ public class MultiHashMapHashMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE> extends
   public MultiHashMapHashMapBased ()
   {}
 
-  public MultiHashMapHashMapBased (@Nonnull final KEYTYPE1 aKey,
-                                   @Nonnull final KEYTYPE2 aInnerKey,
-                                   @Nullable final VALUETYPE aValue)
+  public MultiHashMapHashMapBased (@Nonnull final KEYTYPE1 aKey, @Nonnull final KEYTYPE2 aInnerKey, @Nullable final VALUETYPE aValue)
   {
     super (aKey, aInnerKey, aValue);
   }
 
-  public MultiHashMapHashMapBased (@Nullable final KEYTYPE1 aKey,
-                                   @Nullable final Map <? extends KEYTYPE2, ? extends VALUETYPE> aValue)
+  public MultiHashMapHashMapBased (@Nullable final KEYTYPE1 aKey, @Nullable final Map <? extends KEYTYPE2, ? extends VALUETYPE> aValue)
   {
     super (aKey, aValue);
   }

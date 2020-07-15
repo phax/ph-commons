@@ -34,23 +34,6 @@ public interface IByteArrayDecoder extends IDecoder <byte [], byte []>
 {
   /**
    * Get the maximum decoded length based on the provided encoded length. This
-   * is purely for performance reasons. The name of the method would be better
-   * called "getMaximumDecodedLength".
-   *
-   * @param nEncodedLen
-   *        The encoded length. Always &ge; 0.
-   * @return The maximum decoded length. Always &ge; 0.
-   * @deprecated Use {@link #getMaximumDecodedLength(int)} instead
-   */
-  @Nonnegative
-  @Deprecated
-  default int getDecodedLength (@Nonnegative final int nEncodedLen)
-  {
-    return getMaximumDecodedLength (nEncodedLen);
-  }
-
-  /**
-   * Get the maximum decoded length based on the provided encoded length. This
    * is purely for performance reasons.
    *
    * @param nEncodedLen

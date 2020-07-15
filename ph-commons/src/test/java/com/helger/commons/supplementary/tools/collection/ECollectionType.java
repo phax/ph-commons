@@ -35,9 +35,7 @@ enum ECollectionType
   final String m_sSuffix;
   final String m_sUnmodifiableClassName;
 
-  private ECollectionType (@Nonnull final String sClassName,
-                           @Nonnull final String sUnmodifiableClassName,
-                           @Nonnull final String sSuffix)
+  private ECollectionType (@Nonnull final String sClassName, @Nonnull final String sUnmodifiableClassName, @Nonnull final String sSuffix)
   {
     m_sClassName = sClassName;
     m_sSuffix = sSuffix;

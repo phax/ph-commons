@@ -41,9 +41,7 @@ public class StringReaderProvider implements IHasReader, Serializable
     this (new String (aChars));
   }
 
-  public StringReaderProvider (@Nonnull final char [] aChars,
-                               @Nonnegative final int nOfs,
-                               @Nonnegative final int nLength)
+  public StringReaderProvider (@Nonnull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLength)
   {
     this (new String (aChars, nOfs, nLength));
   }

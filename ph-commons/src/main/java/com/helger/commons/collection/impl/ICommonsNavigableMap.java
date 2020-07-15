@@ -33,9 +33,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
  * @param <VALUETYPE>
  *        Map value type
  */
-public interface ICommonsNavigableMap <KEYTYPE, VALUETYPE> extends
-                                      NavigableMap <KEYTYPE, VALUETYPE>,
-                                      ICommonsSortedMap <KEYTYPE, VALUETYPE>
+public interface ICommonsNavigableMap <KEYTYPE, VALUETYPE> extends NavigableMap <KEYTYPE, VALUETYPE>, ICommonsSortedMap <KEYTYPE, VALUETYPE>
 {
   @Override
   @Nonnull

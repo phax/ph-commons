@@ -85,20 +85,14 @@ public class LoggingInvocationHandler implements InvocationHandler
         final Object aArg = aArgs[i];
         if (aSB.length () > 0)
           aSB.append (", ");
-        aSB.append (aParam.getType ().getSimpleName ())
-           .append (' ')
-           .append (aParam.getName ())
-           .append (" = ")
-           .append (aArg);
+        aSB.append (aParam.getType ().getSimpleName ()).append (' ').append (aParam.getName ()).append (" = ").append (aArg);
       }
     }
     return aSB.toString ();
   }
 
   @Nullable
-  public Object invoke (@Nonnull final Object aProxy,
-                        @Nonnull final Method aMethod,
-                        @Nonnull final Object [] aArgs) throws Throwable
+  public Object invoke (@Nonnull final Object aProxy, @Nonnull final Method aMethod, @Nonnull final Object [] aArgs) throws Throwable
   {
     final Class <?> aReturnType = aMethod.getReturnType ();
     final String sMethod = m_sLogPrefix +

@@ -131,9 +131,8 @@ public final class SPITestHelper
             }
 
           // Check content - must be UTF8
-          try (
-              final NonBlockingBufferedReader aReader = new NonBlockingBufferedReader (StreamHelper.createReader (FileHelper.getInputStream (aFile),
-                                                                                                                  StandardCharsets.UTF_8)))
+          try (final NonBlockingBufferedReader aReader = new NonBlockingBufferedReader (StreamHelper.createReader (FileHelper.getInputStream (aFile),
+                                                                                                                   StandardCharsets.UTF_8)))
           {
             int nCount = 0;
             String sLine;
@@ -152,8 +151,7 @@ public final class SPITestHelper
                       if (LOGGER.isWarnEnabled ())
                         LOGGER.warn (aImplClass + " should have the @IsSPIImplementation annotation");
                     ++nCount;
-                    aAllImplementations.computeIfAbsent (sInterfaceClassName, x -> new CommonsTreeSet <> ())
-                                       .add (sImplClassName);
+                    aAllImplementations.computeIfAbsent (sInterfaceClassName, x -> new CommonsTreeSet <> ()).add (sImplClassName);
                   }
                   catch (final Exception ex)
                   {
@@ -168,8 +166,7 @@ public final class SPITestHelper
                 else
                 {
                   ++nCount;
-                  aAllImplementations.computeIfAbsent (sInterfaceClassName, x -> new CommonsTreeSet <> ())
-                                     .add (sImplClassName);
+                  aAllImplementations.computeIfAbsent (sInterfaceClassName, x -> new CommonsTreeSet <> ()).add (sImplClassName);
                 }
               }
             }

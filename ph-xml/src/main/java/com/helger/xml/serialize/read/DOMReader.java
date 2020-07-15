@@ -65,8 +65,7 @@ public final class DOMReader
                                                                                                                      "$DOMERRORS");
 
   // In practice no more than 5 readers are required (even 3 would be enough)
-  private static final ObjectPool <DocumentBuilder> s_aDOMPool = new ObjectPool <> (5,
-                                                                                    XMLFactory::createDocumentBuilder);
+  private static final ObjectPool <DocumentBuilder> s_aDOMPool = new ObjectPool <> (5, XMLFactory::createDocumentBuilder);
 
   @PresentForCodeCoverage
   private static final DOMReader s_aInstance = new DOMReader ();
@@ -92,8 +91,7 @@ public final class DOMReader
   }
 
   @Nullable
-  public static Document readXMLDOM (@Nonnull @WillClose final InputStream aIS,
-                                     @Nonnull final IDOMReaderSettings aSettings)
+  public static Document readXMLDOM (@Nonnull @WillClose final InputStream aIS, @Nonnull final IDOMReaderSettings aSettings)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
 
@@ -114,8 +112,7 @@ public final class DOMReader
   }
 
   @Nullable
-  public static Document readXMLDOM (@WillClose @Nonnull final Reader aReader,
-                                     @Nonnull final IDOMReaderSettings aSettings)
+  public static Document readXMLDOM (@WillClose @Nonnull final Reader aReader, @Nonnull final IDOMReaderSettings aSettings)
   {
     ValueEnforcer.notNull (aReader, "Reader");
 
@@ -238,9 +235,7 @@ public final class DOMReader
   }
 
   @Nullable
-  public static Document readXMLDOM (@Nonnull final byte [] aXML,
-                                     @Nonnegative final int nOfs,
-                                     @Nonnegative final int nLen)
+  public static Document readXMLDOM (@Nonnull final byte [] aXML, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     return readXMLDOM (aXML, nOfs, nLen, new DOMReaderSettings ());
   }
@@ -267,9 +262,7 @@ public final class DOMReader
   }
 
   @Nullable
-  public static Document readXMLDOM (@Nonnull final char [] aXML,
-                                     @Nonnegative final int nOfs,
-                                     @Nonnegative final int nLen)
+  public static Document readXMLDOM (@Nonnull final char [] aXML, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     return readXMLDOM (aXML, nOfs, nLen, new DOMReaderSettings ());
   }
@@ -284,8 +277,7 @@ public final class DOMReader
   }
 
   @Nullable
-  public static Document readXMLDOM (@WillClose @Nonnull final InputSource aInputSource,
-                                     @Nonnull final IDOMReaderSettings aSettings)
+  public static Document readXMLDOM (@WillClose @Nonnull final InputSource aInputSource, @Nonnull final IDOMReaderSettings aSettings)
   {
     ValueEnforcer.notNull (aInputSource, "InputSource");
     ValueEnforcer.notNull (aSettings, "Settings");

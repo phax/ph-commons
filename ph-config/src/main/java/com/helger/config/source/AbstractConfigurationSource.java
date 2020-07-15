@@ -82,8 +82,6 @@ public abstract class AbstractConfigurationSource implements IConfigurationSourc
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("SourceType", m_eSourceType)
-                                       .append ("Priority", m_nPriority)
-                                       .getToString ();
+    return new ToStringGenerator (this).append ("SourceType", m_eSourceType).append ("Priority", m_nPriority).getToString ();
   }
 }

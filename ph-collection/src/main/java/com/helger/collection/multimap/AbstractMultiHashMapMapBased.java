@@ -47,15 +47,12 @@ public abstract class AbstractMultiHashMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYP
   public AbstractMultiHashMapMapBased ()
   {}
 
-  public AbstractMultiHashMapMapBased (@Nonnull final KEYTYPE1 aKey,
-                                       @Nonnull final KEYTYPE2 aInnerKey,
-                                       @Nullable final VALUETYPE aValue)
+  public AbstractMultiHashMapMapBased (@Nonnull final KEYTYPE1 aKey, @Nonnull final KEYTYPE2 aInnerKey, @Nullable final VALUETYPE aValue)
   {
     putSingle (aKey, aInnerKey, aValue);
   }
 
-  public AbstractMultiHashMapMapBased (@Nullable final KEYTYPE1 aKey,
-                                       @Nullable final Map <? extends KEYTYPE2, ? extends VALUETYPE> aValue)
+  public AbstractMultiHashMapMapBased (@Nullable final KEYTYPE1 aKey, @Nullable final Map <? extends KEYTYPE2, ? extends VALUETYPE> aValue)
   {
     final MAPTYPE aMap = createNewInnerMap ();
     aMap.putAll (aValue);

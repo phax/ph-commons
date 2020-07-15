@@ -38,8 +38,7 @@ import com.helger.commons.collection.impl.ICommonsList;
  *        value type
  */
 @NotThreadSafe
-public class MultiLinkedHashMapVectorBased <KEYTYPE, VALUETYPE> extends
-                                           AbstractMultiLinkedHashMapListBased <KEYTYPE, VALUETYPE>
+public class MultiLinkedHashMapVectorBased <KEYTYPE, VALUETYPE> extends AbstractMultiLinkedHashMapListBased <KEYTYPE, VALUETYPE>
 {
   public MultiLinkedHashMapVectorBased ()
   {}
@@ -49,8 +48,7 @@ public class MultiLinkedHashMapVectorBased <KEYTYPE, VALUETYPE> extends
     super (aKey, aValue);
   }
 
-  public MultiLinkedHashMapVectorBased (@Nullable final KEYTYPE aKey,
-                                        @Nullable final ICommonsList <VALUETYPE> aCollection)
+  public MultiLinkedHashMapVectorBased (@Nullable final KEYTYPE aKey, @Nullable final ICommonsList <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }

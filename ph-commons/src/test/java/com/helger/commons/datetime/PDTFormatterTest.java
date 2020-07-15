@@ -109,9 +109,7 @@ public final class PDTFormatterTest
   @Test
   public void testLeadingZero ()
   {
-    DateTimeFormatter aFormatter = PDTFormatter.getFormatterDate (PDTFormatter.DEFAULT_STYLE,
-                                                                  Locale.GERMANY,
-                                                                  EDTFormatterMode.PARSE);
+    DateTimeFormatter aFormatter = PDTFormatter.getFormatterDate (PDTFormatter.DEFAULT_STYLE, Locale.GERMANY, EDTFormatterMode.PARSE);
     assertEquals (LocalDate.of (2015, Month.FEBRUARY, 1),
                   aFormatter.withResolverStyle (ResolverStyle.LENIENT).parse ("1.2.2015", LocalDate::from));
     assertEquals (LocalDate.of (2015, Month.FEBRUARY, 1), aFormatter.parse ("1.2.2015", LocalDate::from));
@@ -120,17 +118,13 @@ public final class PDTFormatterTest
     if (EJavaVersion.JDK_9.isSupportedVersion ())
     {
       // Assume CLDR - the "," was added!
-      assertEquals (LocalDateTime.of (2015, Month.FEBRUARY, 1, 3, 45, 1),
-                    aFormatter.parse ("01.02.2015, 03:45:01", LocalDateTime::from));
-      assertEquals (LocalDateTime.of (2015, Month.FEBRUARY, 1, 3, 45, 1),
-                    aFormatter.parse ("1.2.2015, 3:45:1", LocalDateTime::from));
+      assertEquals (LocalDateTime.of (2015, Month.FEBRUARY, 1, 3, 45, 1), aFormatter.parse ("01.02.2015, 03:45:01", LocalDateTime::from));
+      assertEquals (LocalDateTime.of (2015, Month.FEBRUARY, 1, 3, 45, 1), aFormatter.parse ("1.2.2015, 3:45:1", LocalDateTime::from));
     }
     else
     {
-      assertEquals (LocalDateTime.of (2015, Month.FEBRUARY, 1, 3, 45, 1),
-                    aFormatter.parse ("01.02.2015 03:45:01", LocalDateTime::from));
-      assertEquals (LocalDateTime.of (2015, Month.FEBRUARY, 1, 3, 45, 1),
-                    aFormatter.parse ("1.2.2015 3:45:1", LocalDateTime::from));
+      assertEquals (LocalDateTime.of (2015, Month.FEBRUARY, 1, 3, 45, 1), aFormatter.parse ("01.02.2015 03:45:01", LocalDateTime::from));
+      assertEquals (LocalDateTime.of (2015, Month.FEBRUARY, 1, 3, 45, 1), aFormatter.parse ("1.2.2015 3:45:1", LocalDateTime::from));
     }
   }
 
@@ -149,27 +143,18 @@ public final class PDTFormatterTest
 
     // de-de
     assertEquals ("Sonntag, 1. Februar 2015",
-                  PDTFormatter.getFormatterDate (FormatStyle.FULL, Locale.GERMANY, EDTFormatterMode.PRINT)
-                              .format (aDate));
+                  PDTFormatter.getFormatterDate (FormatStyle.FULL, Locale.GERMANY, EDTFormatterMode.PRINT).format (aDate));
     assertEquals ("1. Februar 2015",
-                  PDTFormatter.getFormatterDate (FormatStyle.LONG, Locale.GERMANY, EDTFormatterMode.PRINT)
-                              .format (aDate));
-    assertEquals ("01.02.2015",
-                  PDTFormatter.getFormatterDate (FormatStyle.MEDIUM, Locale.GERMANY, EDTFormatterMode.PRINT)
-                              .format (aDate));
-    assertEquals ("01.02.15",
-                  PDTFormatter.getFormatterDate (FormatStyle.SHORT, Locale.GERMANY, EDTFormatterMode.PRINT)
-                              .format (aDate));
+                  PDTFormatter.getFormatterDate (FormatStyle.LONG, Locale.GERMANY, EDTFormatterMode.PRINT).format (aDate));
+    assertEquals ("01.02.2015", PDTFormatter.getFormatterDate (FormatStyle.MEDIUM, Locale.GERMANY, EDTFormatterMode.PRINT).format (aDate));
+    assertEquals ("01.02.15", PDTFormatter.getFormatterDate (FormatStyle.SHORT, Locale.GERMANY, EDTFormatterMode.PRINT).format (aDate));
 
     // en-us
     assertEquals ("Sunday, February 1, 2015",
                   PDTFormatter.getFormatterDate (FormatStyle.FULL, Locale.US, EDTFormatterMode.PRINT).format (aDate));
-    assertEquals ("February 1, 2015",
-                  PDTFormatter.getFormatterDate (FormatStyle.LONG, Locale.US, EDTFormatterMode.PRINT).format (aDate));
-    assertEquals ("Feb 1, 2015",
-                  PDTFormatter.getFormatterDate (FormatStyle.MEDIUM, Locale.US, EDTFormatterMode.PRINT).format (aDate));
-    assertEquals ("2/1/15",
-                  PDTFormatter.getFormatterDate (FormatStyle.SHORT, Locale.US, EDTFormatterMode.PRINT).format (aDate));
+    assertEquals ("February 1, 2015", PDTFormatter.getFormatterDate (FormatStyle.LONG, Locale.US, EDTFormatterMode.PRINT).format (aDate));
+    assertEquals ("Feb 1, 2015", PDTFormatter.getFormatterDate (FormatStyle.MEDIUM, Locale.US, EDTFormatterMode.PRINT).format (aDate));
+    assertEquals ("2/1/15", PDTFormatter.getFormatterDate (FormatStyle.SHORT, Locale.US, EDTFormatterMode.PRINT).format (aDate));
   }
 
   @Test
@@ -182,8 +167,7 @@ public final class PDTFormatterTest
         final String sPrinted = PDTFormatter.getFormatterDate (eStyle, aLocale, EDTFormatterMode.PRINT).format (aDate);
         assertNotNull (sPrinted);
 
-        final LocalDate aParsed = PDTFormatter.getFormatterDate (eStyle, aLocale, EDTFormatterMode.PARSE)
-                                              .parse (sPrinted, LocalDate::from);
+        final LocalDate aParsed = PDTFormatter.getFormatterDate (eStyle, aLocale, EDTFormatterMode.PARSE).parse (sPrinted, LocalDate::from);
         assertNotNull (aParsed);
         assertEquals (aDate, aParsed);
       }

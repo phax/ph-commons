@@ -48,8 +48,7 @@ public class MultiWeakHashMapLinkedHashSetBased <KEYTYPE, VALUETYPE> extends
     super (aKey, aValue);
   }
 
-  public MultiWeakHashMapLinkedHashSetBased (@Nonnull final KEYTYPE aKey,
-                                             @Nullable final ICommonsOrderedSet <VALUETYPE> aCollection)
+  public MultiWeakHashMapLinkedHashSetBased (@Nonnull final KEYTYPE aKey, @Nullable final ICommonsOrderedSet <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }

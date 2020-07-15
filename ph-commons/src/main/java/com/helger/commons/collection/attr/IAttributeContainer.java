@@ -46,9 +46,7 @@ import com.helger.commons.traits.IGetterByKeyTrait;
  * @param <VALUETYPE>
  *        Value type
  */
-public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends
-                                     ICommonsMap <KEYTYPE, VALUETYPE>,
-                                     IGetterByKeyTrait <KEYTYPE>
+public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends ICommonsMap <KEYTYPE, VALUETYPE>, IGetterByKeyTrait <KEYTYPE>
 {
   @FunctionalInterface
   public static interface IBeforeSetValueCallback <KEYTYPE, VALUETYPE> extends ICallback

@@ -34,8 +34,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
  * @param <ELEMENTTYPE>
  *        List element type
  */
-public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayList <ELEMENTTYPE> implements
-                                         ICommonsList <ELEMENTTYPE>
+public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYPE>
 {
   /**
    * Create a new empty array list.

@@ -32,8 +32,7 @@ import com.helger.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
  * @param <VALUETYPE>
  *        Tree value type
  */
-public abstract class AbstractGlobalSingletonTreeWithUniqueID <KEYTYPE, VALUETYPE> extends AbstractGlobalSingleton
-                                                              implements
+public abstract class AbstractGlobalSingletonTreeWithUniqueID <KEYTYPE, VALUETYPE> extends AbstractGlobalSingleton implements
                                                               ITreeWithUniqueIDProxy <KEYTYPE, VALUETYPE>
 {
   protected final DefaultTreeWithGlobalUniqueID <KEYTYPE, VALUETYPE> m_aTree = new DefaultTreeWithGlobalUniqueID <> ();

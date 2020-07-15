@@ -206,8 +206,7 @@ public final class ClassLoaderHelper
    *         specified class loader.
    */
   @Nullable
-  public static InputStream getResourceAsStream (@Nonnull final ClassLoader aClassLoader,
-                                                 @Nonnull @Nonempty final String sPath)
+  public static InputStream getResourceAsStream (@Nonnull final ClassLoader aClassLoader, @Nonnull @Nonempty final String sPath)
   {
     ValueEnforcer.notNull (aClassLoader, "ClassLoader");
     ValueEnforcer.notEmpty (sPath, "Path");

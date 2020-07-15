@@ -102,9 +102,7 @@ public class ByteBufferOutputStream extends OutputStream implements IWriteToStre
    * @param nLen
    *        Number of bytes to wrap. Must be &ge; 0.
    */
-  public ByteBufferOutputStream (@Nonnull final byte [] aArray,
-                                 @Nonnegative final int nOfs,
-                                 @Nonnegative final int nLen)
+  public ByteBufferOutputStream (@Nonnull final byte [] aArray, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     this (ByteBuffer.wrap (aArray, nOfs, nLen), false);
   }
@@ -297,10 +295,7 @@ public class ByteBufferOutputStream extends OutputStream implements IWriteToStre
    *        <code>true</code> to compact the buffer afterwards,
    *        <code>false</code> otherwise.
    */
-  public void writeTo (@Nonnull final byte [] aBuf,
-                       @Nonnegative final int nOfs,
-                       @Nonnegative final int nLen,
-                       final boolean bCompactBuffer)
+  public void writeTo (@Nonnull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen, final boolean bCompactBuffer)
   {
     ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
 

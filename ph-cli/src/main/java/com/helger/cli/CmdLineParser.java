@@ -131,8 +131,7 @@ public class CmdLineParser
   }
 
   @Nonnull
-  public static ParsedCmdLine parseStatic (@Nonnull final Options aOptions,
-                                           @Nullable final String [] aArgs) throws CmdLineParseException
+  public static ParsedCmdLine parseStatic (@Nonnull final Options aOptions, @Nullable final String [] aArgs) throws CmdLineParseException
   {
     ValueEnforcer.notNull (aOptions, "Options");
 
@@ -271,9 +270,7 @@ public class CmdLineParser
           if (!ret.hasOption (aOption))
             throw new CmdLineParseException (ECmdLineParseError.REQUIRED_OPTION_IS_MISSING,
                                              aOption,
-                                             "The option " +
-                                                      _getDisplayName (aOption) +
-                                                      " is required but is missing!");
+                                             "The option " + _getDisplayName (aOption) + " is required but is missing!");
         }
         else
         {
@@ -281,9 +278,7 @@ public class CmdLineParser
           if (!ret.hasOption (aOptionGroup))
             throw new CmdLineParseException (ECmdLineParseError.REQUIRED_OPTION_IS_MISSING,
                                              aOptionGroup,
-                                             "An option of " +
-                                                           _getDisplayName (aOptionGroup) +
-                                                           " is required but is missing!");
+                                             "An option of " + _getDisplayName (aOptionGroup) + " is required but is missing!");
         }
       }
 

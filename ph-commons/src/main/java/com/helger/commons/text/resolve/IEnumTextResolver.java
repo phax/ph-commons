@@ -59,15 +59,13 @@ public interface IEnumTextResolver
    * @param aContentLocale
    *        The locale to be used. May not be <code>null</code>.
    * @return <code>null</code> if no text could be resolved.
-   * @deprecated Use {@link #getText(Enum, IHasText, Locale)} instead when no
-   *             argument is needed
+   * @deprecated Don't call this; Use {@link #getText(Enum, IHasText, Locale)}
+   *             instead when no argument is needed
    */
   @Nullable
   @Deprecated
   @DevelopersNote ("Use getText instead when no argument is needed")
-  default String getTextWithArgs (@Nonnull final Enum <?> aEnum,
-                                  @Nonnull final IHasTextWithArgs aTP,
-                                  @Nonnull final Locale aContentLocale)
+  default String getTextWithArgs (@Nonnull final Enum <?> aEnum, @Nonnull final IHasTextWithArgs aTP, @Nonnull final Locale aContentLocale)
   {
     return getText (aEnum, aTP, aContentLocale);
   }

@@ -74,9 +74,7 @@ public final class EqualsHashcodeFuncTest
     _testEqualsHashcode (new long [] { 1, 2, 3 });
     _testEqualsHashcode (new short [] { 1, 2, 3 });
     _testEqualsHashcode (new String [] { "foo", "bar", "bla" });
-    _testEqualsHashcode (new CommonsArrayList <> (Double.valueOf (3.1234),
-                                                  Double.valueOf (4.1415),
-                                                  Double.valueOf (5.1415)));
+    _testEqualsHashcode (new CommonsArrayList <> (Double.valueOf (3.1234), Double.valueOf (4.1415), Double.valueOf (5.1415)));
   }
 
   @Test

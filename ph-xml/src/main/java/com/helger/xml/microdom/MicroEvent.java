@@ -35,9 +35,7 @@ public final class MicroEvent implements IMicroEvent
   private final IMicroNode m_aSourceNode;
   private final IMicroNode m_aTargetNode;
 
-  public MicroEvent (@Nonnull final EMicroEvent eEventType,
-                     @Nullable final IMicroNode aSourceNode,
-                     @Nullable final IMicroNode aTargetNode)
+  public MicroEvent (@Nonnull final EMicroEvent eEventType, @Nullable final IMicroNode aSourceNode, @Nullable final IMicroNode aTargetNode)
   {
     m_eEventType = ValueEnforcer.notNull (eEventType, "EventType");
     m_aSourceNode = aSourceNode;

@@ -82,8 +82,7 @@ public final class ServiceLoaderHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <T> ICommonsList <T> getAllSPIImplementations (@Nonnull final Class <T> aSPIClass,
-                                                               @Nonnull final ClassLoader aClassLoader)
+  public static <T> ICommonsList <T> getAllSPIImplementations (@Nonnull final Class <T> aSPIClass, @Nonnull final ClassLoader aClassLoader)
   {
     return getAllSPIImplementations (aSPIClass, aClassLoader, null);
   }
@@ -102,8 +101,7 @@ public final class ServiceLoaderHelper
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static <T> ICommonsList <T> getAllSPIImplementations (@Nonnull final Class <T> aSPIClass,
-                                                               @Nullable final Logger aLogger)
+  public static <T> ICommonsList <T> getAllSPIImplementations (@Nonnull final Class <T> aSPIClass, @Nullable final Logger aLogger)
   {
     return getAllSPIImplementations (aSPIClass, ClassLoaderHelper.getDefaultClassLoader (), aLogger);
   }
@@ -203,8 +201,7 @@ public final class ServiceLoaderHelper
    *         <code>null</code>.
    */
   @Nullable
-  public static <T> T getFirstSPIImplementation (@Nonnull final Class <T> aSPIClass,
-                                                 @Nonnull final ClassLoader aClassLoader)
+  public static <T> T getFirstSPIImplementation (@Nonnull final Class <T> aSPIClass, @Nonnull final ClassLoader aClassLoader)
   {
     return getFirstSPIImplementation (aSPIClass, aClassLoader, null);
   }

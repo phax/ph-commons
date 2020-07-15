@@ -52,7 +52,5 @@ public interface IMutableGraphRelationFactory
    * @return The created graph relation and never <code>null</code>.
    */
   @Nonnull
-  IMutableGraphRelation createRelation (@Nullable String sID,
-                                        @Nonnull IMutableGraphNode aFrom,
-                                        @Nonnull IMutableGraphNode aTo);
+  IMutableGraphRelation createRelation (@Nullable String sID, @Nonnull IMutableGraphNode aFrom, @Nonnull IMutableGraphNode aTo);
 }

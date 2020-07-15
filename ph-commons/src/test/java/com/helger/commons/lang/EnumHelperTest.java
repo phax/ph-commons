@@ -71,10 +71,8 @@ public final class EnumHelperTest
       assertNull (EnumHelper.getFromIDOrNull (EErrorLevel.class, e.getID () + 'X'));
       assertNull (EnumHelper.getFromIDOrNull (EErrorLevel.class, 'X' + e.getID ()));
       assertSame (e, EnumHelper.getFromIDOrDefault (EErrorLevel.class, e.getID (), EErrorLevel.INFO));
-      assertSame (EErrorLevel.INFO,
-                  EnumHelper.getFromIDOrDefault (EErrorLevel.class, e.getID () + 'X', EErrorLevel.INFO));
-      assertSame (EErrorLevel.INFO,
-                  EnumHelper.getFromIDOrDefault (EErrorLevel.class, 'X' + e.getID (), EErrorLevel.INFO));
+      assertSame (EErrorLevel.INFO, EnumHelper.getFromIDOrDefault (EErrorLevel.class, e.getID () + 'X', EErrorLevel.INFO));
+      assertSame (EErrorLevel.INFO, EnumHelper.getFromIDOrDefault (EErrorLevel.class, 'X' + e.getID (), EErrorLevel.INFO));
       assertSame (e, EnumHelper.getFromIDOrThrow (EErrorLevel.class, e.getID ()));
     }
 
@@ -104,17 +102,11 @@ public final class EnumHelperTest
       assertNull (EnumHelper.getFromIDCaseInsensitiveOrNull (EErrorLevel.class, 'X' + e.getID ()));
       assertSame (e, EnumHelper.getFromIDCaseInsensitiveOrDefault (EErrorLevel.class, e.getID (), EErrorLevel.INFO));
       assertSame (e,
-                  EnumHelper.getFromIDCaseInsensitiveOrDefault (EErrorLevel.class,
-                                                                e.getID ().toLowerCase (Locale.US),
-                                                                EErrorLevel.INFO));
+                  EnumHelper.getFromIDCaseInsensitiveOrDefault (EErrorLevel.class, e.getID ().toLowerCase (Locale.US), EErrorLevel.INFO));
       assertSame (e,
-                  EnumHelper.getFromIDCaseInsensitiveOrDefault (EErrorLevel.class,
-                                                                e.getID ().toUpperCase (Locale.US),
-                                                                EErrorLevel.INFO));
-      assertSame (EErrorLevel.INFO,
-                  EnumHelper.getFromIDCaseInsensitiveOrDefault (EErrorLevel.class, e.getID () + 'X', EErrorLevel.INFO));
-      assertSame (EErrorLevel.INFO,
-                  EnumHelper.getFromIDCaseInsensitiveOrDefault (EErrorLevel.class, 'X' + e.getID (), EErrorLevel.INFO));
+                  EnumHelper.getFromIDCaseInsensitiveOrDefault (EErrorLevel.class, e.getID ().toUpperCase (Locale.US), EErrorLevel.INFO));
+      assertSame (EErrorLevel.INFO, EnumHelper.getFromIDCaseInsensitiveOrDefault (EErrorLevel.class, e.getID () + 'X', EErrorLevel.INFO));
+      assertSame (EErrorLevel.INFO, EnumHelper.getFromIDCaseInsensitiveOrDefault (EErrorLevel.class, 'X' + e.getID (), EErrorLevel.INFO));
       assertSame (e, EnumHelper.getFromIDCaseInsensitiveOrThrow (EErrorLevel.class, e.getID ()));
     }
 

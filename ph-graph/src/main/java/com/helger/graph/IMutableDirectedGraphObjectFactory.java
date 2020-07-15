@@ -22,9 +22,7 @@ package com.helger.graph;
  *
  * @author Philip Helger
  */
-public interface IMutableDirectedGraphObjectFactory extends
-                                                    IMutableDirectedGraphNodeFactory,
-                                                    IMutableDirectedGraphRelationFactory
+public interface IMutableDirectedGraphObjectFactory extends IMutableDirectedGraphNodeFactory, IMutableDirectedGraphRelationFactory
 {
   /* empty */
 }

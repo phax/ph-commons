@@ -101,8 +101,7 @@ public final class FormatableObjectTest
 
     aFO = new FormatableObject <> ("Any",
                                    FormatterStringPrefixAndSuffix.createWithBrackets ()
-                                                                 .andThen (new FormatterMinLengthAddTrailing (10,
-                                                                                                              '@')));
+                                                                 .andThen (new FormatterMinLengthAddTrailing (10, '@')));
     assertEquals ("Any", aFO.getValue ());
     assertEquals ("[Any]@@@@@", aFO.getAsString ());
     CommonsTestHelper.testToStringImplementation (aFO);
@@ -143,14 +142,10 @@ public final class FormatableObjectTest
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new FormatterStringPrefixAndSuffix ("p", "s"),
                                                                        new FormatterStringPrefixAndSuffix ("p", "s"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new FormatterStringPrefixAndSuffix ("p",
-                                                                                                               "s"),
-                                                                           new FormatterStringPrefixAndSuffix ("p",
-                                                                                                               "ss"));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new FormatterStringPrefixAndSuffix ("p",
-                                                                                                               "s"),
-                                                                           new FormatterStringPrefixAndSuffix ("pp",
-                                                                                                               "s"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new FormatterStringPrefixAndSuffix ("p", "s"),
+                                                                           new FormatterStringPrefixAndSuffix ("p", "ss"));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new FormatterStringPrefixAndSuffix ("p", "s"),
+                                                                           new FormatterStringPrefixAndSuffix ("pp", "s"));
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (FormatterStringPrefixAndSuffix.createPrefixOnly ("p"),
                                                                        FormatterStringPrefixAndSuffix.createPrefixOnly ("p"));

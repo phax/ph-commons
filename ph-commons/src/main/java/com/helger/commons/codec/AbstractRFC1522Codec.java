@@ -103,15 +103,11 @@ public abstract class AbstractRFC1522Codec implements ICodec <String>
 
   @Nullable
   @ReturnsMutableCopy
-  protected abstract byte [] getEncoded (@Nullable final byte [] aDecodedBuffer,
-                                         @Nonnegative final int nOfs,
-                                         @Nonnegative final int nLen);
+  protected abstract byte [] getEncoded (@Nullable final byte [] aDecodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen);
 
   @Nullable
   @ReturnsMutableCopy
-  protected abstract byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
-                                         @Nonnegative final int nOfs,
-                                         @Nonnegative final int nLen);
+  protected abstract byte [] getDecoded (@Nullable final byte [] aEncodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen);
 
   /**
    * Applies an RFC 1522 compliant encoding scheme to the given string of text
@@ -169,10 +165,8 @@ public abstract class AbstractRFC1522Codec implements ICodec <String>
     if (sEncodedText == null)
       return null;
 
-    ValueEnforcer.isTrue (sEncodedText.startsWith (PREFIX),
-                          "RFC 1522 violation: malformed encoded content. Prefix missing.");
-    ValueEnforcer.isTrue (sEncodedText.endsWith (POSTFIX),
-                          "RFC 1522 violation: malformed encoded content. Postfix missing.");
+    ValueEnforcer.isTrue (sEncodedText.startsWith (PREFIX), "RFC 1522 violation: malformed encoded content. Prefix missing.");
+    ValueEnforcer.isTrue (sEncodedText.endsWith (POSTFIX), "RFC 1522 violation: malformed encoded content. Postfix missing.");
 
     int nFrom = PREFIX.length ();
     final int nTerminator = sEncodedText.length () - POSTFIX.length ();

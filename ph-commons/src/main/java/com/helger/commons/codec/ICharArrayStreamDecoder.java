@@ -70,10 +70,7 @@ public interface ICharArrayStreamDecoder extends ICharArrayDecoder
    * @throws DecodeException
    *         in case something goes wrong
    */
-  void decode (@Nullable char [] aEncodedBuffer,
-               @Nonnegative int nOfs,
-               @Nonnegative int nLen,
-               @Nonnull @WillNotClose Writer aWriter);
+  void decode (@Nullable char [] aEncodedBuffer, @Nonnegative int nOfs, @Nonnegative int nLen, @Nonnull @WillNotClose Writer aWriter);
 
   /**
    * Decode a char array.
@@ -91,9 +88,7 @@ public interface ICharArrayStreamDecoder extends ICharArrayDecoder
    */
   @Nullable
   @ReturnsMutableCopy
-  default char [] getDecoded (@Nullable final char [] aEncodedBuffer,
-                              @Nonnegative final int nOfs,
-                              @Nonnegative final int nLen)
+  default char [] getDecoded (@Nullable final char [] aEncodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     if (aEncodedBuffer == null)
       return null;
@@ -115,9 +110,7 @@ public interface ICharArrayStreamDecoder extends ICharArrayDecoder
   }
 
   @Nullable
-  default String getDecodedAsString (@Nullable final char [] aEncodedBuffer,
-                                     @Nonnegative final int nOfs,
-                                     @Nonnegative final int nLen)
+  default String getDecodedAsString (@Nullable final char [] aEncodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     if (aEncodedBuffer == null)
       return null;

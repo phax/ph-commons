@@ -131,8 +131,7 @@ public class NonBlockingBitInputStream implements Closeable
       m_nNextBitIndex = 0;
     }
 
-    final int nSelectorBit = m_bHighOrderBitFirst ? (1 << (CGlobal.BITS_PER_BYTE - 1 - m_nNextBitIndex))
-                                                  : (1 << m_nNextBitIndex);
+    final int nSelectorBit = m_bHighOrderBitFirst ? (1 << (CGlobal.BITS_PER_BYTE - 1 - m_nNextBitIndex)) : (1 << m_nNextBitIndex);
     final int nBitValue = m_nBuffer & nSelectorBit;
     m_nNextBitIndex++;
 

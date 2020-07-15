@@ -48,8 +48,7 @@ public class FormatableObject <DATATYPE> implements IFormatableObject <DATATYPE>
    * @param aFormatter
    *        The optional formatter to use. May be <code>null</code>.
    */
-  public FormatableObject (@Nullable final DATATYPE aValue,
-                           @Nullable final IFunction <? super DATATYPE, ? extends String> aFormatter)
+  public FormatableObject (@Nullable final DATATYPE aValue, @Nullable final IFunction <? super DATATYPE, ? extends String> aFormatter)
   {
     m_aValue = aValue;
     m_aFormatter = aFormatter;
@@ -87,8 +86,6 @@ public class FormatableObject <DATATYPE> implements IFormatableObject <DATATYPE>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("value", m_aValue)
-                                       .appendIfNotNull ("formatter", m_aFormatter)
-                                       .getToString ();
+    return new ToStringGenerator (this).append ("value", m_aValue).appendIfNotNull ("formatter", m_aFormatter).getToString ();
   }
 }

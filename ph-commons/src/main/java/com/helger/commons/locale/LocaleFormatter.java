@@ -177,8 +177,7 @@ public final class LocaleFormatter
    * @return The formatted string.
    */
   @Nonnull
-  public static String getFormattedWithAllFractionDigits (@Nonnull final BigDecimal aValue,
-                                                          @Nonnull final Locale aDisplayLocale)
+  public static String getFormattedWithAllFractionDigits (@Nonnull final BigDecimal aValue, @Nonnull final Locale aDisplayLocale)
   {
     ValueEnforcer.notNull (aValue, "Value");
     ValueEnforcer.notNull (aDisplayLocale, "DisplayLocale");

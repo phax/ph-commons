@@ -49,8 +49,7 @@ public abstract class AbstractMultiConcurrentHashMapListBased <KEYTYPE, VALUETYP
     super (aKey, aValue);
   }
 
-  public AbstractMultiConcurrentHashMapListBased (@Nonnull final KEYTYPE aKey,
-                                                  @Nonnull final ICommonsList <VALUETYPE> aCollection)
+  public AbstractMultiConcurrentHashMapListBased (@Nonnull final KEYTYPE aKey, @Nonnull final ICommonsList <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }

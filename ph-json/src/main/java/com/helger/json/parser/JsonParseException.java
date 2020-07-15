@@ -43,12 +43,7 @@ public class JsonParseException extends Exception
                              @Nonnull final IJsonParsePosition aErrorPos,
                              @Nonnull final String sMessage)
   {
-    super ("Json parse error " +
-           aErrorPos.getAsString () +
-           " for token starting at " +
-           aTokenStart.getAsString () +
-           ": " +
-           sMessage);
+    super ("Json parse error " + aErrorPos.getAsString () + " for token starting at " + aTokenStart.getAsString () + ": " + sMessage);
     m_aTokenStart = aTokenStart;
     m_aErrorPos = aErrorPos;
     m_sMessage = sMessage;

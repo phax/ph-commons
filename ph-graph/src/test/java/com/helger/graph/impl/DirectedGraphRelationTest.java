@@ -76,8 +76,6 @@ public final class DirectedGraphRelationTest
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new DirectedGraphRelation (nf, nt),
                                                                            new DirectedGraphRelation (nf, nt));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new DirectedGraphRelation ("id1", nf, nt),
-                                                                           new DirectedGraphRelation ("id1",
-                                                                                                      nf,
-                                                                                                      new DirectedGraphNode ()));
+                                                                           new DirectedGraphRelation ("id1", nf, new DirectedGraphNode ()));
   }
 }

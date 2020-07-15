@@ -302,8 +302,7 @@ public final class CollectionHelper
   @CodingStyleguideUnaware
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> NavigableSet <ELEMENTTYPE> makeUnmodifiableNotNull (@Nullable final NavigableSet <ELEMENTTYPE> aNavigableSet)
   {
-    return aNavigableSet == null ? Collections.emptyNavigableSet ()
-                                 : Collections.unmodifiableNavigableSet (aNavigableSet);
+    return aNavigableSet == null ? Collections.emptyNavigableSet () : Collections.unmodifiableNavigableSet (aNavigableSet);
   }
 
   @Nonnull
@@ -311,8 +310,7 @@ public final class CollectionHelper
   @CodingStyleguideUnaware
   public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> NavigableMap <KEYTYPE, VALUETYPE> makeUnmodifiableNotNull (@Nullable final NavigableMap <KEYTYPE, VALUETYPE> aNavigableMap)
   {
-    return aNavigableMap == null ? Collections.emptyNavigableMap ()
-                                 : Collections.unmodifiableNavigableMap (aNavigableMap);
+    return aNavigableMap == null ? Collections.emptyNavigableMap () : Collections.unmodifiableNavigableMap (aNavigableMap);
   }
 
   /**
@@ -460,11 +458,7 @@ public final class CollectionHelper
 
     // Check for identical size
     if (nKeys != nValues)
-      throw new IllegalArgumentException ("The passed arrays have different length (" +
-                                          nKeys +
-                                          " keys and " +
-                                          nValues +
-                                          " values)!");
+      throw new IllegalArgumentException ("The passed arrays have different length (" + nKeys + " keys and " + nValues + " values)!");
 
     // Are both empty?
     if (nKeys == 0)
@@ -486,11 +480,7 @@ public final class CollectionHelper
 
     // Check for identical size
     if (nKeys != nValues)
-      throw new IllegalArgumentException ("The passed arrays have different length (" +
-                                          nKeys +
-                                          " keys and " +
-                                          nValues +
-                                          " values)!");
+      throw new IllegalArgumentException ("The passed arrays have different length (" + nKeys + " keys and " + nValues + " values)!");
 
     // Are both empty?
     if (nKeys == 0)
@@ -651,11 +641,7 @@ public final class CollectionHelper
 
     // Check for identical size
     if (nKeys != nValues)
-      throw new IllegalArgumentException ("The passed arrays have different length (" +
-                                          nKeys +
-                                          " keys and " +
-                                          nValues +
-                                          " values)!");
+      throw new IllegalArgumentException ("The passed arrays have different length (" + nKeys + " keys and " + nValues + " values)!");
 
     // Are both empty?
     if (nKeys == 0)
@@ -677,11 +663,7 @@ public final class CollectionHelper
 
     // Check for identical size
     if (nKeys != nValues)
-      throw new IllegalArgumentException ("The passed arrays have different length (" +
-                                          nKeys +
-                                          " keys and " +
-                                          nValues +
-                                          " values)!");
+      throw new IllegalArgumentException ("The passed arrays have different length (" + nKeys + " keys and " + nValues + " values)!");
 
     // Are both empty?
     if (nKeys == 0)
@@ -1919,8 +1901,7 @@ public final class CollectionHelper
    * @see #removeAtIndex(List, int)
    */
   @Nullable
-  public static <ELEMENTTYPE> ELEMENTTYPE removeAndReturnElementAtIndex (@Nullable final List <ELEMENTTYPE> aList,
-                                                                         final int nIndex)
+  public static <ELEMENTTYPE> ELEMENTTYPE removeAndReturnElementAtIndex (@Nullable final List <ELEMENTTYPE> aList, final int nIndex)
   {
     if (aList == null || nIndex < 0 || nIndex >= aList.size ())
       return null;
@@ -2208,8 +2189,7 @@ public final class CollectionHelper
 
   @Nullable
   @ReturnsMutableCopy
-  public static CommonsArrayList <?> newObjectListFromArray (@Nullable final Object aValue,
-                                                             @Nonnull final Class <?> aComponentType)
+  public static CommonsArrayList <?> newObjectListFromArray (@Nullable final Object aValue, @Nonnull final Class <?> aComponentType)
   {
     if (aValue == null)
       return null;
@@ -2616,8 +2596,7 @@ public final class CollectionHelper
    *        The type of elements on the list.
    */
   @Nullable
-  public static <ELEMENTTYPE> ELEMENTTYPE getAtIndex (@Nullable final List <? extends ELEMENTTYPE> aList,
-                                                      final int nIndex)
+  public static <ELEMENTTYPE> ELEMENTTYPE getAtIndex (@Nullable final List <? extends ELEMENTTYPE> aList, final int nIndex)
   {
     return getAtIndex (aList, nIndex, null);
   }

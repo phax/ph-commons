@@ -32,18 +32,14 @@ import com.helger.commons.annotation.Nonempty;
  */
 final class UTF7Charset extends AbstractUTF7StyleCharset
 {
-  private static final String BASE64_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
-                                                "abcdefghijklmnopqrstuvwxyz" +
-                                                "0123456789+/";
+  private static final String BASE64_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz" + "0123456789+/";
   private static final String SET_D = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'(),-./:?";
   private static final String SET_OPTIONAL = "!\"#$%&*;<=>@[]^_`{|}";
   private static final String RULE_3 = " \t\r\n";
 
   private final String m_sDirectlyEncoded;
 
-  UTF7Charset (@Nonnull @Nonempty final String sName,
-               @Nullable final String [] aAliases,
-               final boolean bIncludeOptional)
+  UTF7Charset (@Nonnull @Nonempty final String sName, @Nullable final String [] aAliases, final boolean bIncludeOptional)
   {
     super (sName, aAliases, BASE64_ALPHABET, false);
     if (bIncludeOptional)

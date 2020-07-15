@@ -950,11 +950,7 @@ public class EigenvalueDecomposition implements Serializable
                 {
                   vr = EPSILON *
                        norm *
-                       (MathHelper.abs (w) +
-                        MathHelper.abs (q) +
-                        MathHelper.abs (x) +
-                        MathHelper.abs (y) +
-                        MathHelper.abs (z));
+                       (MathHelper.abs (w) + MathHelper.abs (q) + MathHelper.abs (x) + MathHelper.abs (y) + MathHelper.abs (z));
                 }
                 _cdiv (x * r - z * ra + q * sa, x * s - z * sa - q * ra, vr, vi);
                 m_aHessenBerg[i][n - 1] = m_dCdivr;

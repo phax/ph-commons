@@ -64,8 +64,7 @@ public class CombinationGenerator <DATATYPE> implements IIterableIterator <IComm
    *        the number of slots to use (must not be greater than the element
    *        count!)
    */
-  public CombinationGenerator (@Nonnull @Nonempty final ICommonsList <DATATYPE> aElements,
-                               @Nonnegative final int nSlotCount)
+  public CombinationGenerator (@Nonnull @Nonempty final ICommonsList <DATATYPE> aElements, @Nonnegative final int nSlotCount)
   {
     ValueEnforcer.notEmpty (aElements, "Elements");
     ValueEnforcer.isBetweenInclusive (nSlotCount, "SlotCount", 0, aElements.size ());
@@ -133,8 +132,7 @@ public class CombinationGenerator <DATATYPE> implements IIterableIterator <IComm
       throw new NoSuchElementException ();
 
     // Not for the very first item, as the first item is the original order
-    final boolean bFirstItem = m_bUseLong ? m_nCombinationsLeft == m_nTotalCombinations
-                                          : m_aCombinationsLeft.equals (m_aTotalCombinations);
+    final boolean bFirstItem = m_bUseLong ? m_nCombinationsLeft == m_nTotalCombinations : m_aCombinationsLeft.equals (m_aTotalCombinations);
     if (!bFirstItem)
     {
       final int nElementCount = m_aElements.length;

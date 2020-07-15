@@ -49,8 +49,7 @@ public interface IDisplayTextProvider <DATATYPE>
   String getDisplayText (@Nullable DATATYPE aObject, @Nonnull Locale aContentLocale);
 
   @Nonnull
-  default Comparator <DATATYPE> getComparatorCollating (@Nonnull final Locale aContentLocale,
-                                                        @Nullable final Locale aSortLocale)
+  default Comparator <DATATYPE> getComparatorCollating (@Nonnull final Locale aContentLocale, @Nullable final Locale aSortLocale)
   {
     return IComparator.getComparatorCollating (x -> getDisplayText (x, aContentLocale), aSortLocale);
   }

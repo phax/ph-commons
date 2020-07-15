@@ -153,10 +153,8 @@ public final class RoundHelperTest
     assertEquals ("1.50", RoundHelper.getFormattedFix2 (1.4999, Locale.US));
     assertEquals ("1.50", RoundHelper.getFormattedFix2 (1.5, Locale.US));
     assertEquals (Double.toString (Double.NaN), RoundHelper.getFormattedFix (Double.NaN, 0, Locale.US));
-    assertEquals (Double.toString (Double.POSITIVE_INFINITY),
-                  RoundHelper.getFormattedFix (Double.POSITIVE_INFINITY, 0, Locale.US));
-    assertEquals (Double.toString (Double.NEGATIVE_INFINITY),
-                  RoundHelper.getFormattedFix (Double.NEGATIVE_INFINITY, 0, Locale.US));
+    assertEquals (Double.toString (Double.POSITIVE_INFINITY), RoundHelper.getFormattedFix (Double.POSITIVE_INFINITY, 0, Locale.US));
+    assertEquals (Double.toString (Double.NEGATIVE_INFINITY), RoundHelper.getFormattedFix (Double.NEGATIVE_INFINITY, 0, Locale.US));
   }
 
   @Test

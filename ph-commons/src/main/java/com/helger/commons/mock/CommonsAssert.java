@@ -65,12 +65,7 @@ public final class CommonsAssert
   public static void assertEquals (@Nullable final String sUserMsg, final boolean x, final boolean y)
   {
     if (x != y)
-      fail ("<" +
-            x +
-            "> is not equal to <" +
-            y +
-            ">" +
-            (sUserMsg != null && sUserMsg.length () > 0 ? ": " + sUserMsg : ""));
+      fail ("<" + x + "> is not equal to <" + y + ">" + (sUserMsg != null && sUserMsg.length () > 0 ? ": " + sUserMsg : ""));
   }
 
   public static void assertEquals (final double x, final double y)
@@ -89,12 +84,7 @@ public final class CommonsAssert
     // Do not call MathHelper.abs in here, because this class should be as close
     // to the runtime as possible!
     if (Double.compare (x, y) != 0 && Math.abs (x - y) > DOUBLE_ALLOWED_ROUNDING_DIFFERENCE)
-      fail ("<" +
-            x +
-            "> is not equal to <" +
-            y +
-            ">" +
-            (sUserMsg != null && sUserMsg.length () > 0 ? ": " + sUserMsg : ""));
+      fail ("<" + x + "> is not equal to <" + y + ">" + (sUserMsg != null && sUserMsg.length () > 0 ? ": " + sUserMsg : ""));
   }
 
   public static void assertEquals (final float x, final float y)
@@ -113,12 +103,7 @@ public final class CommonsAssert
     // Do not call MathHelper.abs in here, because this class should be as close
     // to the runtime as possible!
     if (Float.compare (x, y) != 0 && Math.abs (x - y) > FLOAT_ALLOWED_ROUNDING_DIFFERENCE)
-      fail ("<" +
-            x +
-            "> is not equal to <" +
-            y +
-            ">" +
-            (sUserMsg != null && sUserMsg.length () > 0 ? ": " + sUserMsg : ""));
+      fail ("<" + x + "> is not equal to <" + y + ">" + (sUserMsg != null && sUserMsg.length () > 0 ? ": " + sUserMsg : ""));
   }
 
   public static void assertEquals (@Nullable final float [] x, @Nullable final float [] y)
@@ -189,12 +174,7 @@ public final class CommonsAssert
   public static <T> void assertEquals (@Nullable final String sUserMsg, @Nullable final T x, @Nullable final T y)
   {
     if (!EqualsHelper.equals (x, y))
-      fail ("<" +
-            x +
-            "> is not equal to <" +
-            y +
-            ">" +
-            (sUserMsg != null && sUserMsg.length () > 0 ? ": " + sUserMsg : ""));
+      fail ("<" + x + "> is not equal to <" + y + ">" + (sUserMsg != null && sUserMsg.length () > 0 ? ": " + sUserMsg : ""));
   }
 
   /**
@@ -227,12 +207,7 @@ public final class CommonsAssert
   public static <T> void assertNotEquals (@Nullable final String sUserMsg, @Nullable final T x, @Nullable final T y)
   {
     if (EqualsHelper.equals (x, y))
-      fail ("<" +
-            x +
-            "> is equal to <" +
-            y +
-            ">" +
-            (sUserMsg != null && sUserMsg.length () > 0 ? ": " + sUserMsg : ""));
+      fail ("<" + x + "> is equal to <" + y + ">" + (sUserMsg != null && sUserMsg.length () > 0 ? ": " + sUserMsg : ""));
   }
 
   public static void assertNotEquals (final boolean x, final boolean y)
@@ -249,11 +224,6 @@ public final class CommonsAssert
   public static void assertNotEquals (@Nullable final String sUserMsg, final boolean x, final boolean y)
   {
     if (x == y)
-      fail ("<" +
-            x +
-            "> is equal to <" +
-            y +
-            ">" +
-            (sUserMsg != null && sUserMsg.length () > 0 ? ": " + sUserMsg : ""));
+      fail ("<" + x + "> is equal to <" + y + ">" + (sUserMsg != null && sUserMsg.length () > 0 ? ": " + sUserMsg : ""));
   }
 }

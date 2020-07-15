@@ -73,11 +73,7 @@ public final class SerializationHelper
     }
     catch (final IOException ex)
     {
-      throw new IllegalArgumentException ("Failed to write serializable object " +
-                                          aData +
-                                          " of type " +
-                                          aData.getClass ().getName (),
-                                          ex);
+      throw new IllegalArgumentException ("Failed to write serializable object " + aData + " of type " + aData.getClass ().getName (), ex);
     }
   }
 

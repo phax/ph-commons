@@ -41,10 +41,7 @@ public final class JAXBHelper
       return null;
 
     final DATATYPE aClonedValue = CloneHelper.getClonedValue (aObj.getValue ());
-    final JAXBElement <DATATYPE> ret = new JAXBElement <> (aObj.getName (),
-                                                           aObj.getDeclaredType (),
-                                                           aObj.getScope (),
-                                                           aClonedValue);
+    final JAXBElement <DATATYPE> ret = new JAXBElement <> (aObj.getName (), aObj.getDeclaredType (), aObj.getScope (), aClonedValue);
     ret.setNil (aObj.isNil ());
     return ret;
   }

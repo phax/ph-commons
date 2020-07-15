@@ -62,10 +62,8 @@ public final class LocaleFormatterTest
   @Test
   public void testGetFormattedBigInteger ()
   {
-    assertEquals ("9.223.372.036.854.775.807",
-                  LocaleFormatter.getFormatted (BigInteger.valueOf (Long.MAX_VALUE), L_DE));
-    assertEquals ("9,223,372,036,854,775,807",
-                  LocaleFormatter.getFormatted (BigInteger.valueOf (Long.MAX_VALUE), L_EN));
+    assertEquals ("9.223.372.036.854.775.807", LocaleFormatter.getFormatted (BigInteger.valueOf (Long.MAX_VALUE), L_DE));
+    assertEquals ("9,223,372,036,854,775,807", LocaleFormatter.getFormatted (BigInteger.valueOf (Long.MAX_VALUE), L_EN));
     assertEquals ("9.223.372.036.854.775.808",
                   LocaleFormatter.getFormatted (BigInteger.valueOf (Long.MAX_VALUE).add (BigInteger.ONE), L_DE));
     assertEquals ("9,223,372,036,854,775,808",

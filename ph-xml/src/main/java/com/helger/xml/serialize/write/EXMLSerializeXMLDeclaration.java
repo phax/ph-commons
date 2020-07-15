@@ -36,12 +36,6 @@ public enum EXMLSerializeXMLDeclaration implements IHasID <String>
   EMIT ("emit"),
   /** Emit fields: version, encoding */
   EMIT_NO_STANDALONE ("emitnostandalone"),
-  /**
-   * @since 9.2.1
-   * @deprecated in 9.3.5 - use the method in IXMLWriterSettings instead
-   */
-  @Deprecated
-  EMIT_NO_NEWLINE ("emitnonl"),
   /** Do not emit any XML declaration at all */
   IGNORE ("ignore");
 
@@ -68,22 +62,12 @@ public enum EXMLSerializeXMLDeclaration implements IHasID <String>
   }
 
   /**
-   * @return <code>true</code> if a new line should be emitted afterwards
-   * @deprecated in 9.3.5 - use the method in IXMLWriterSettings instead
-   */
-  @Deprecated
-  public boolean isWithNewLine ()
-  {
-    return this == EMIT || this == EMIT_NO_STANDALONE;
-  }
-
-  /**
    * @return <code>true</code> if the "standalone" part of the XML declaration
    *         should be printed or not.
    */
   public boolean isEmitStandalone ()
   {
-    return this == EMIT || this == EMIT_NO_NEWLINE;
+    return this == EMIT;
   }
 
   @Nullable

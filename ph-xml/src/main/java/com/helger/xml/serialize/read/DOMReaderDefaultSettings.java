@@ -202,8 +202,7 @@ public final class DOMReaderDefaultSettings
     return s_aRWLock.readLockedGet (s_aDefaultProperties::getClone);
   }
 
-  public static void setPropertyValue (@Nonnull final EXMLParserProperty eProperty,
-                                       @Nullable final Object aPropertyValue)
+  public static void setPropertyValue (@Nonnull final EXMLParserProperty eProperty, @Nullable final Object aPropertyValue)
   {
     ValueEnforcer.notNull (eProperty, "Property");
 

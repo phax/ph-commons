@@ -40,8 +40,7 @@ import com.helger.commons.state.EChange;
  * @param <MAPTYPE>
  *        Inner map type
  */
-public interface IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE, MAPTYPE extends ICommonsMap <KEYTYPE2, VALUETYPE>>
-                                   extends
+public interface IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE, MAPTYPE extends ICommonsMap <KEYTYPE2, VALUETYPE>> extends
                                    ICommonsMap <KEYTYPE1, MAPTYPE>
 {
   /**
@@ -68,9 +67,7 @@ public interface IMultiMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE, MAPTYPE exten
    * @return {@link EChange}
    */
   @Nonnull
-  default EChange putSingle (@Nonnull final KEYTYPE1 aKey,
-                             @Nonnull final KEYTYPE2 aInnerKey,
-                             @Nullable final VALUETYPE aValue)
+  default EChange putSingle (@Nonnull final KEYTYPE1 aKey, @Nonnull final KEYTYPE2 aInnerKey, @Nullable final VALUETYPE aValue)
   {
     return EChange.valueOf (getOrCreate (aKey).put (aInnerKey, aValue) != null);
   }

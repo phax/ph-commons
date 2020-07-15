@@ -49,8 +49,7 @@ public abstract class AbstractMultiLinkedHashMapListBased <KEYTYPE, VALUETYPE> e
     putSingle (aKey, aValue);
   }
 
-  public AbstractMultiLinkedHashMapListBased (@Nullable final KEYTYPE aKey,
-                                              @Nullable final ICommonsList <VALUETYPE> aCollection)
+  public AbstractMultiLinkedHashMapListBased (@Nullable final KEYTYPE aKey, @Nullable final ICommonsList <VALUETYPE> aCollection)
   {
     put (aKey, aCollection);
   }

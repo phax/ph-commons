@@ -55,8 +55,7 @@ public class MultiTreeMapLinkedHashSetBased <KEYTYPE, VALUETYPE> extends
     super (aKey, aValue);
   }
 
-  public MultiTreeMapLinkedHashSetBased (@Nullable final KEYTYPE aKey,
-                                         @Nullable final ICommonsOrderedSet <VALUETYPE> aCollection)
+  public MultiTreeMapLinkedHashSetBased (@Nullable final KEYTYPE aKey, @Nullable final ICommonsOrderedSet <VALUETYPE> aCollection)
   {
     super (aKey, aCollection);
   }

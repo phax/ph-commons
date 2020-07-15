@@ -42,8 +42,8 @@ public interface IHasDisplayTextWithArgs extends IHasDisplayText
    * @return The display text of the object in the given locale. May be
    *         <code>null</code> if the text could not be resolved in the passed
    *         locale.
-   * @deprecated Use {@link #getDisplayText(Locale)} if no parameters are
-   *             present
+   * @deprecated Don't call this; Use {@link #getDisplayText(Locale)} if no
+   *             parameters are present
    */
   @Nullable
   @Deprecated

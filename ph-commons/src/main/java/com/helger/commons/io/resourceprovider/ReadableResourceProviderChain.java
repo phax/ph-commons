@@ -86,10 +86,7 @@ public class ReadableResourceProviderChain implements IReadableResourceProvider
     for (final IReadableResourceProvider aResProvider : m_aReadingResourceProviders)
       if (aResProvider.supportsReading (sName))
         return aResProvider.getReadableResource (sName);
-    throw new IllegalArgumentException ("Cannot handle reading '" +
-                                        sName +
-                                        "' by any of " +
-                                        m_aReadingResourceProviders);
+    throw new IllegalArgumentException ("Cannot handle reading '" + sName + "' by any of " + m_aReadingResourceProviders);
   }
 
   @Nullable

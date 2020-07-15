@@ -82,7 +82,6 @@ public final class DefaultResourceProviderTest
   @Test
   public void testEqualsAndHashcode ()
   {
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new DefaultResourceProvider (),
-                                                                       new DefaultResourceProvider ());
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new DefaultResourceProvider (), new DefaultResourceProvider ());
   }
 }

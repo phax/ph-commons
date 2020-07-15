@@ -194,8 +194,7 @@ public class JsonWriter
     aWriter.flush ();
   }
 
-  public void writeToWriterAndClose (@Nonnull final IJson aJson,
-                                     @Nonnull @WillClose final Writer aWriter) throws IOException
+  public void writeToWriterAndClose (@Nonnull final IJson aJson, @Nonnull @WillClose final Writer aWriter) throws IOException
   {
     ValueEnforcer.notNull (aJson, "Json");
     ValueEnforcer.notNull (aWriter, "Writer");

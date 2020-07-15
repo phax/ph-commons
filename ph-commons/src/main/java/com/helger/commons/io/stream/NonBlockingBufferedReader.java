@@ -591,7 +591,6 @@ public class NonBlockingBufferedReader extends Reader
         throw new NoSuchElementException ();
       }
     };
-    return StreamSupport.stream (Spliterators.spliteratorUnknownSize (aIter, Spliterator.ORDERED | Spliterator.NONNULL),
-                                 false);
+    return StreamSupport.stream (Spliterators.spliteratorUnknownSize (aIter, Spliterator.ORDERED | Spliterator.NONNULL), false);
   }
 }

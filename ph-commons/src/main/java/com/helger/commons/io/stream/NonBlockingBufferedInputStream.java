@@ -250,9 +250,7 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
    * Read characters into a portion of an array, reading from the underlying
    * stream at most once if necessary.
    */
-  private int _read1 (@Nonnull final byte [] aBuf,
-                      @Nonnegative final int nOfs,
-                      @Nonnegative final int nLen) throws IOException
+  private int _read1 (@Nonnull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
   {
     int nAvail = m_nCount - m_nPos;
     if (nAvail <= 0)

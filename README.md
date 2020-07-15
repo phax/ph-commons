@@ -29,6 +29,8 @@ This project was the following modules:
 
 ## News and noteworthy
 
+* v10.0.0 - work in progress
+    * Removed deprecated methods
 * v9.4.6 - 2020-07-15
     * Allow empty MIME type parameter values
     * `MimeTypeParser.safeParseMimeType` does an RFC 2616 decoding if necessary

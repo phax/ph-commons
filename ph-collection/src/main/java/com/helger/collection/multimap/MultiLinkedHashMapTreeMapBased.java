@@ -25,16 +25,13 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsTreeMap;
 import com.helger.commons.collection.impl.ICommonsSortedMap;
 
-public class MultiLinkedHashMapTreeMapBased <KEYTYPE1, KEYTYPE2 extends Comparable <? super KEYTYPE2>, VALUETYPE>
-                                            extends
+public class MultiLinkedHashMapTreeMapBased <KEYTYPE1, KEYTYPE2 extends Comparable <? super KEYTYPE2>, VALUETYPE> extends
                                             AbstractMultiLinkedHashMapMapBased <KEYTYPE1, KEYTYPE2, VALUETYPE, ICommonsSortedMap <KEYTYPE2, VALUETYPE>>
 {
   public MultiLinkedHashMapTreeMapBased ()
   {}
 
-  public MultiLinkedHashMapTreeMapBased (@Nonnull final KEYTYPE1 aKey,
-                                         @Nonnull final KEYTYPE2 aInnerKey,
-                                         @Nullable final VALUETYPE aValue)
+  public MultiLinkedHashMapTreeMapBased (@Nonnull final KEYTYPE1 aKey, @Nonnull final KEYTYPE2 aInnerKey, @Nullable final VALUETYPE aValue)
   {
     super (aKey, aInnerKey, aValue);
   }

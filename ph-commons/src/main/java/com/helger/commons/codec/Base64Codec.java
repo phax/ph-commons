@@ -78,9 +78,7 @@ public class Base64Codec implements IByteArrayCodec
   @Nullable
   @ReturnsMutableCopy
   @Override
-  public byte [] getEncoded (@Nullable final byte [] aDecodedBuffer,
-                             @Nonnegative final int nOfs,
-                             @Nonnegative final int nLen)
+  public byte [] getEncoded (@Nullable final byte [] aDecodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     return Base64.safeEncodeBytesToBytes (aDecodedBuffer, nOfs, nLen);
   }
@@ -104,11 +102,8 @@ public class Base64Codec implements IByteArrayCodec
                       @Nonnull @WillNotClose final OutputStream aOS)
   {
     if (aEncodedBuffer != null)
-      try (
-          final NonBlockingByteArrayInputStream aBAIS = new NonBlockingByteArrayInputStream (aEncodedBuffer,
-                                                                                             nOfs,
-                                                                                             nLen);
-          final Base64InputStream aB64IS = createBase64InputStream (aBAIS))
+      try (final NonBlockingByteArrayInputStream aBAIS = new NonBlockingByteArrayInputStream (aEncodedBuffer, nOfs, nLen);
+           final Base64InputStream aB64IS = createBase64InputStream (aBAIS))
       {
         if (StreamHelper.copyInputStreamToOutputStream (aB64IS, aOS).isFailure ())
           throw new DecodeException ("Failed to decode Base64 to OutputStream");
@@ -122,9 +117,7 @@ public class Base64Codec implements IByteArrayCodec
   @Nullable
   @ReturnsMutableCopy
   @Override
-  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
-                             @Nonnegative final int nOfs,
-                             @Nonnegative final int nLen)
+  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     return Base64.safeDecode (aEncodedBuffer, nOfs, nLen);
   }

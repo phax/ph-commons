@@ -75,11 +75,8 @@ public final class GraphRelationTest
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new GraphRelation ("id1", nf, nt),
                                                                        new GraphRelation ("id1", nf, nt));
     // different IDs
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new GraphRelation (nf, nt),
-                                                                           new GraphRelation (nf, nt));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new GraphRelation (nf, nt), new GraphRelation (nf, nt));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new GraphRelation ("id1", nf, nt),
-                                                                           new GraphRelation ("id1",
-                                                                                              nf,
-                                                                                              new GraphNode ()));
+                                                                           new GraphRelation ("id1", nf, new GraphNode ()));
   }
 }

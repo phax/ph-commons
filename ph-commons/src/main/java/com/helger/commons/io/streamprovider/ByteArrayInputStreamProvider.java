@@ -48,9 +48,7 @@ public class ByteArrayInputStreamProvider implements IHasByteArray, Serializable
     this (aData, 0, aData.length, bCopyNeeded);
   }
 
-  public ByteArrayInputStreamProvider (@Nonnull final byte [] aData,
-                                       @Nonnegative final int nOfs,
-                                       @Nonnegative final int nLen)
+  public ByteArrayInputStreamProvider (@Nonnull final byte [] aData, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     this (aData, nOfs, nLen, DEFAULT_COPY_NEEDED);
   }

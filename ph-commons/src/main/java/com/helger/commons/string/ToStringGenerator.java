@@ -57,10 +57,7 @@ import com.helger.commons.functional.ICharPredicate;
  * &#064;Override
  * public String toString ()
  * {
- *   return ToStringGenerator.getDerived (super.toString ())
- *                           .append (&quot;member3&quot;, member3)
- *                           .append (&quot;member4&quot;, member4)
- *                           .toString ();
+ *   return ToStringGenerator.getDerived (super.toString ()).append (&quot;member3&quot;, member3).append (&quot;member4&quot;, member4).toString ();
  * }
  * </pre>
  *
@@ -336,81 +333,61 @@ public final class ToStringGenerator
   }
 
   @Nonnull
-  public ToStringGenerator appendIf (@Nonnull final String sField,
-                                     final boolean bValue,
-                                     @Nonnull final IBooleanPredicate aFilter)
+  public ToStringGenerator appendIf (@Nonnull final String sField, final boolean bValue, @Nonnull final IBooleanPredicate aFilter)
   {
     return aFilter.test (bValue) ? append (sField, bValue) : this;
   }
 
   @Nonnull
-  public ToStringGenerator appendIf (@Nonnull final String sField,
-                                     final boolean bValue,
-                                     @Nonnull final BooleanSupplier aFilter)
+  public ToStringGenerator appendIf (@Nonnull final String sField, final boolean bValue, @Nonnull final BooleanSupplier aFilter)
   {
     return aFilter.getAsBoolean () ? append (sField, bValue) : this;
   }
 
   @Nonnull
-  public ToStringGenerator appendIf (@Nonnull final String sField,
-                                     final char cValue,
-                                     @Nonnull final ICharPredicate aFilter)
+  public ToStringGenerator appendIf (@Nonnull final String sField, final char cValue, @Nonnull final ICharPredicate aFilter)
   {
     return aFilter.test (cValue) ? append (sField, cValue) : this;
   }
 
   @Nonnull
-  public ToStringGenerator appendIf (@Nonnull final String sField,
-                                     final char cValue,
-                                     @Nonnull final BooleanSupplier aFilter)
+  public ToStringGenerator appendIf (@Nonnull final String sField, final char cValue, @Nonnull final BooleanSupplier aFilter)
   {
     return aFilter.getAsBoolean () ? append (sField, cValue) : this;
   }
 
   @Nonnull
-  public ToStringGenerator appendIf (@Nonnull final String sField,
-                                     final int nValue,
-                                     @Nonnull final IntPredicate aFilter)
+  public ToStringGenerator appendIf (@Nonnull final String sField, final int nValue, @Nonnull final IntPredicate aFilter)
   {
     return aFilter.test (nValue) ? append (sField, nValue) : this;
   }
 
   @Nonnull
-  public ToStringGenerator appendIf (@Nonnull final String sField,
-                                     final int nValue,
-                                     @Nonnull final BooleanSupplier aFilter)
+  public ToStringGenerator appendIf (@Nonnull final String sField, final int nValue, @Nonnull final BooleanSupplier aFilter)
   {
     return aFilter.getAsBoolean () ? append (sField, nValue) : this;
   }
 
   @Nonnull
-  public ToStringGenerator appendIf (@Nonnull final String sField,
-                                     final long nValue,
-                                     @Nonnull final LongPredicate aFilter)
+  public ToStringGenerator appendIf (@Nonnull final String sField, final long nValue, @Nonnull final LongPredicate aFilter)
   {
     return aFilter.test (nValue) ? append (sField, nValue) : this;
   }
 
   @Nonnull
-  public ToStringGenerator appendIf (@Nonnull final String sField,
-                                     final long nValue,
-                                     @Nonnull final BooleanSupplier aFilter)
+  public ToStringGenerator appendIf (@Nonnull final String sField, final long nValue, @Nonnull final BooleanSupplier aFilter)
   {
     return aFilter.getAsBoolean () ? append (sField, nValue) : this;
   }
 
   @Nonnull
-  public ToStringGenerator appendIf (@Nonnull final String sField,
-                                     final double dValue,
-                                     @Nonnull final DoublePredicate aFilter)
+  public ToStringGenerator appendIf (@Nonnull final String sField, final double dValue, @Nonnull final DoublePredicate aFilter)
   {
     return aFilter.test (dValue) ? append (sField, dValue) : this;
   }
 
   @Nonnull
-  public ToStringGenerator appendIf (@Nonnull final String sField,
-                                     final double dValue,
-                                     @Nonnull final BooleanSupplier aFilter)
+  public ToStringGenerator appendIf (@Nonnull final String sField, final double dValue, @Nonnull final BooleanSupplier aFilter)
   {
     return aFilter.getAsBoolean () ? append (sField, dValue) : this;
   }
@@ -424,9 +401,7 @@ public final class ToStringGenerator
   }
 
   @Nonnull
-  public <T> ToStringGenerator appendIf (@Nonnull final String sField,
-                                         @Nullable final T aValue,
-                                         @Nonnull final BooleanSupplier aFilter)
+  public <T> ToStringGenerator appendIf (@Nonnull final String sField, @Nullable final T aValue, @Nonnull final BooleanSupplier aFilter)
   {
     return aFilter.getAsBoolean () ? append (sField, aValue) : this;
   }
@@ -455,7 +430,7 @@ public final class ToStringGenerator
   }
 
   /**
-   * @deprecated Use {@link #getToString()} instead
+   * @deprecated Don't call this; Use {@link #getToString()} instead
    */
   @Override
   @Nonnull

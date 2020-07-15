@@ -126,9 +126,7 @@ public final class CloneHelper
     final Class <?> aClass = aObject.getClass ();
 
     // special handling for immutable objects without equals or clone
-    if (ClassHelper.isPrimitiveWrapperType (aClass) ||
-        aObject instanceof String ||
-        aClass.getAnnotation (Immutable.class) != null)
+    if (ClassHelper.isPrimitiveWrapperType (aClass) || aObject instanceof String || aClass.getAnnotation (Immutable.class) != null)
       return aObject;
 
     // generic clone

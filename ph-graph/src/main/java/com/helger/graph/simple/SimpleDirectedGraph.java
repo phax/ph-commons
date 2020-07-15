@@ -44,8 +44,7 @@ public class SimpleDirectedGraph extends DirectedGraph implements ISimpleDirecte
   }
 
   @Nonnull
-  public IMutableDirectedGraphRelation createRelation (@Nonnull final String sFromNodeID,
-                                                       @Nonnull final String sToNodeID)
+  public IMutableDirectedGraphRelation createRelation (@Nonnull final String sFromNodeID, @Nonnull final String sToNodeID)
   {
     final IMutableDirectedGraphNode aFromNode = getNodeOfID (sFromNodeID);
     if (aFromNode == null)

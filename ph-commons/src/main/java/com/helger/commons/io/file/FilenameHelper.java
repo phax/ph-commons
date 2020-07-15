@@ -97,9 +97,8 @@ public final class FilenameHelper
   private static final char [] ILLEGAL_CHARACTERS_WINDOWS = { 0, '<', '>', '?', '*', ':', '|', '"' };
   private static final char [] ILLEGAL_CHARACTERS_OTHERS = { 0, '<', '>', '?', '*', '|', '"' };
   // separate by OS - allow ":" as name part on Linux
-  private static final char [] ILLEGAL_CHARACTERS = EOperatingSystem.getCurrentOS ()
-                                                                    .isWindowsBased () ? ILLEGAL_CHARACTERS_WINDOWS
-                                                                                       : ILLEGAL_CHARACTERS_OTHERS;
+  private static final char [] ILLEGAL_CHARACTERS = EOperatingSystem.getCurrentOS ().isWindowsBased () ? ILLEGAL_CHARACTERS_WINDOWS
+                                                                                                       : ILLEGAL_CHARACTERS_OTHERS;
 
   /**
    * see http://www.w3.org/TR/widgets/#zip-relative <br>
@@ -308,8 +307,8 @@ public final class FilenameHelper
    */
   public static int getIndexOfLastSeparator (@Nullable final String sFilename)
   {
-    return sFilename == null ? CGlobal.ILLEGAL_UINT : Math.max (sFilename.lastIndexOf (UNIX_SEPARATOR),
-                                                                sFilename.lastIndexOf (WINDOWS_SEPARATOR));
+    return sFilename == null ? CGlobal.ILLEGAL_UINT
+                             : Math.max (sFilename.lastIndexOf (UNIX_SEPARATOR), sFilename.lastIndexOf (WINDOWS_SEPARATOR));
   }
 
   /**
@@ -439,8 +438,7 @@ public final class FilenameHelper
   @Nullable
   public static String getPathUsingUnixSeparator (@Nullable final String sAbsoluteFilename)
   {
-    return sAbsoluteFilename == null ? null
-                                     : StringHelper.replaceAll (sAbsoluteFilename, WINDOWS_SEPARATOR, UNIX_SEPARATOR);
+    return sAbsoluteFilename == null ? null : StringHelper.replaceAll (sAbsoluteFilename, WINDOWS_SEPARATOR, UNIX_SEPARATOR);
   }
 
   /**
@@ -471,8 +469,7 @@ public final class FilenameHelper
   @Nullable
   public static String getPathUsingWindowsSeparator (@Nullable final String sAbsoluteFilename)
   {
-    return sAbsoluteFilename == null ? null
-                                     : StringHelper.replaceAll (sAbsoluteFilename, UNIX_SEPARATOR, WINDOWS_SEPARATOR);
+    return sAbsoluteFilename == null ? null : StringHelper.replaceAll (sAbsoluteFilename, UNIX_SEPARATOR, WINDOWS_SEPARATOR);
   }
 
   /**
@@ -486,11 +483,9 @@ public final class FilenameHelper
    * @return <code>true</code> if they are equal, <code>false</code> otherwise.
    * @see #getPathUsingUnixSeparator(String)
    */
-  public static boolean isEqualIgnoreFileSeparator (@Nullable final String sAbsoluteFilename1,
-                                                    @Nullable final String sAbsoluteFilename2)
+  public static boolean isEqualIgnoreFileSeparator (@Nullable final String sAbsoluteFilename1, @Nullable final String sAbsoluteFilename2)
   {
-    return EqualsHelper.equals (getPathUsingUnixSeparator (sAbsoluteFilename1),
-                                getPathUsingUnixSeparator (sAbsoluteFilename2));
+    return EqualsHelper.equals (getPathUsingUnixSeparator (sAbsoluteFilename1), getPathUsingUnixSeparator (sAbsoluteFilename2));
   }
 
   /**
@@ -1209,8 +1204,7 @@ public final class FilenameHelper
    * @see #getCleanPath(File)
    */
   @Nullable
-  public static String getAbsoluteWithEnsuredParentDirectory (@Nonnull final File aParentDirectory,
-                                                              @Nonnull final String sFilePath)
+  public static String getAbsoluteWithEnsuredParentDirectory (@Nonnull final File aParentDirectory, @Nonnull final String sFilePath)
   {
     ValueEnforcer.notNull (aParentDirectory, "ParentDirectory");
     ValueEnforcer.notNull (sFilePath, "FilePath");

@@ -71,11 +71,7 @@ final class MapHelper
   {
     final long s = Math.max (2, nextPowerOfTwo ((long) Math.ceil (nExpected / fLoadFactor)));
     if (s > (1 << 30))
-      throw new IllegalArgumentException ("Too large (" +
-                                          nExpected +
-                                          " expected elements with load factor " +
-                                          fLoadFactor +
-                                          ")");
+      throw new IllegalArgumentException ("Too large (" + nExpected + " expected elements with load factor " + fLoadFactor + ")");
     return (int) s;
   }
 

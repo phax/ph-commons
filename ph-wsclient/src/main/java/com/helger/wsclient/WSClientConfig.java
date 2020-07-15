@@ -544,8 +544,7 @@ public class WSClientConfig
     if (hasChunkSize ())
     {
       aRequestContext.put ("com.sun.xml.ws.transport.http.client.streaming.chunk.size", Integer.valueOf (m_nChunkSize));
-      aRequestContext.put ("com.sun.xml.internal.ws.transport.http.client.streaming.chunk.size",
-                           Integer.valueOf (m_nChunkSize));
+      aRequestContext.put ("com.sun.xml.internal.ws.transport.http.client.streaming.chunk.size", Integer.valueOf (m_nChunkSize));
     }
     if (StringHelper.hasText (m_sUserName))
     {

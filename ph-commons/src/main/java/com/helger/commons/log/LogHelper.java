@@ -73,8 +73,7 @@ public final class LogHelper
   {}
 
   @Nonnull
-  public static IFuncIsLoggingEnabled getFuncIsEnabled (@Nonnull final Logger aLogger,
-                                                        @Nonnull final IErrorLevel aErrorLevel)
+  public static IFuncIsLoggingEnabled getFuncIsEnabled (@Nonnull final Logger aLogger, @Nonnull final IErrorLevel aErrorLevel)
   {
     ValueEnforcer.notNull (aLogger, "Logger");
     ValueEnforcer.notNull (aErrorLevel, "ErrorLevel");
@@ -115,8 +114,7 @@ public final class LogHelper
    * @return <code>true</code> if the respective log level is allowed,
    *         <code>false</code> if not
    */
-  public static boolean isEnabled (@Nonnull final Class <?> aLoggingClass,
-                                   @Nonnull final IHasErrorLevel aErrorLevelProvider)
+  public static boolean isEnabled (@Nonnull final Class <?> aLoggingClass, @Nonnull final IHasErrorLevel aErrorLevelProvider)
   {
     return isEnabled (LoggerFactory.getLogger (aLoggingClass), aErrorLevelProvider.getErrorLevel ());
   }
@@ -217,9 +215,7 @@ public final class LogHelper
    * @param sMsg
    *        The message to log. May not be <code>null</code>.
    */
-  public static void log (@Nonnull final Logger aLogger,
-                          @Nonnull final IHasErrorLevel aErrorLevelProvider,
-                          @Nonnull final String sMsg)
+  public static void log (@Nonnull final Logger aLogger, @Nonnull final IHasErrorLevel aErrorLevelProvider, @Nonnull final String sMsg)
   {
     log (aLogger, aErrorLevelProvider.getErrorLevel (), sMsg, null);
   }
@@ -254,9 +250,7 @@ public final class LogHelper
    * @param sMsg
    *        The message to log. May not be <code>null</code>.
    */
-  public static void log (@Nonnull final Class <?> aLoggingClass,
-                          @Nonnull final IErrorLevel aErrorLevel,
-                          @Nonnull final String sMsg)
+  public static void log (@Nonnull final Class <?> aLoggingClass, @Nonnull final IErrorLevel aErrorLevel, @Nonnull final String sMsg)
   {
     log (aLoggingClass, aErrorLevel, sMsg, null);
   }
@@ -291,9 +285,7 @@ public final class LogHelper
    * @param sMsg
    *        The message to log. May not be <code>null</code>.
    */
-  public static void log (@Nonnull final Logger aLogger,
-                          @Nonnull final IErrorLevel aErrorLevel,
-                          @Nonnull final String sMsg)
+  public static void log (@Nonnull final Logger aLogger, @Nonnull final IErrorLevel aErrorLevel, @Nonnull final String sMsg)
   {
     log (aLogger, aErrorLevel, sMsg, null);
   }

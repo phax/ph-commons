@@ -49,8 +49,7 @@ public final class ResourceBundleTextProviderTest
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ResourceBundleTextProvider (key),
                                                                        new ResourceBundleTextProvider (key));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (new ResourceBundleTextProvider (key),
-                                                                       new ResourceBundleTextProvider ("properties/test-iso8859",
-                                                                                                       "key1"));
+                                                                       new ResourceBundleTextProvider ("properties/test-iso8859", "key1"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceBundleTextProvider (key),
                                                                            new ResourceBundleTextProvider ("properties/test-iso8859",
                                                                                                            "key2"));

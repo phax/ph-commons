@@ -340,8 +340,8 @@ public final class XMLMaskHelper
   /**
    * Get the entity reference for the specified character. This returns e.g.
    * &amp;lt; for '&lt;' etc. This method has special handling for &lt;, &gt;,
-   * &amp;, &quot; and '. All other chars are encoded by their numeric value (e.g.
-   * &amp;#200;)
+   * &amp;, &quot; and '. All other chars are encoded by their numeric value
+   * (e.g. &amp;#200;)
    *
    * @param c
    *        Character to use.
@@ -367,8 +367,8 @@ public final class XMLMaskHelper
   /**
    * Get the entity reference for the specified character. This returns e.g.
    * &amp;lt; for '&lt;' etc. This method has special handling for &lt;, &gt;,
-   * &amp;, &quot; and '. All other chars are encoded by their numeric value (e.g.
-   * &amp;#200;)
+   * &amp;, &quot; and '. All other chars are encoded by their numeric value
+   * (e.g. &amp;#200;)
    *
    * @param c
    *        Character to use.
@@ -455,8 +455,7 @@ public final class XMLMaskHelper
 
   @Nullable
   @ReturnsMutableObject ("internal use only")
-  private static char [] _findSourceMap (@Nonnull final EXMLSerializeVersion eXMLVersion,
-                                         @Nonnull final EXMLCharMode eXMLCharMode)
+  private static char [] _findSourceMap (@Nonnull final EXMLSerializeVersion eXMLVersion, @Nonnull final EXMLCharMode eXMLCharMode)
   {
     switch (eXMLVersion)
     {
@@ -506,8 +505,7 @@ public final class XMLMaskHelper
 
   @Nullable
   @ReturnsMutableObject ("internal use only")
-  private static char [] [] _findReplaceMap (@Nonnull final EXMLSerializeVersion eXMLVersion,
-                                             @Nonnull final EXMLCharMode eXMLCharMode)
+  private static char [] [] _findReplaceMap (@Nonnull final EXMLSerializeVersion eXMLVersion, @Nonnull final EXMLCharMode eXMLCharMode)
   {
     switch (eXMLVersion)
     {
@@ -601,9 +599,7 @@ public final class XMLMaskHelper
     {
       if (XMLCharHelper.containsInvalidXMLChar (eXMLVersion, eXMLCharMode, aChars))
       {
-        final ICommonsSet <Character> aAllInvalidChars = XMLCharHelper.getAllInvalidXMLChars (eXMLVersion,
-                                                                                              eXMLCharMode,
-                                                                                              aChars);
+        final ICommonsSet <Character> aAllInvalidChars = XMLCharHelper.getAllInvalidXMLChars (eXMLVersion, eXMLCharMode, aChars);
         eIncorrectCharHandling.notifyOnInvalidXMLCharacter (s, aAllInvalidChars);
         if (eIncorrectCharHandling.isReplaceWithNothing ())
         {
@@ -631,10 +627,7 @@ public final class XMLMaskHelper
                                             @Nonnull final EXMLIncorrectCharacterHandling eIncorrectCharHandling,
                                             @Nullable final String s)
   {
-    return getMaskedXMLTextLength (EXMLSerializeVersion.getFromXMLVersionOrThrow (eXMLVersion),
-                                   eXMLCharMode,
-                                   eIncorrectCharHandling,
-                                   s);
+    return getMaskedXMLTextLength (EXMLSerializeVersion.getFromXMLVersionOrThrow (eXMLVersion), eXMLCharMode, eIncorrectCharHandling, s);
   }
 
   @Nonnegative
@@ -649,12 +642,9 @@ public final class XMLMaskHelper
     char [] aChars = s.toCharArray ();
 
     // 1. do incorrect character handling
-    if (eIncorrectCharHandling.isTestRequired () &&
-        XMLCharHelper.containsInvalidXMLChar (eXMLVersion, eXMLCharMode, aChars))
+    if (eIncorrectCharHandling.isTestRequired () && XMLCharHelper.containsInvalidXMLChar (eXMLVersion, eXMLCharMode, aChars))
     {
-      final ICommonsSet <Character> aAllInvalidChars = XMLCharHelper.getAllInvalidXMLChars (eXMLVersion,
-                                                                                            eXMLCharMode,
-                                                                                            aChars);
+      final ICommonsSet <Character> aAllInvalidChars = XMLCharHelper.getAllInvalidXMLChars (eXMLVersion, eXMLCharMode, aChars);
       eIncorrectCharHandling.notifyOnInvalidXMLCharacter (s, aAllInvalidChars);
       if (eIncorrectCharHandling.isReplaceWithNothing ())
       {

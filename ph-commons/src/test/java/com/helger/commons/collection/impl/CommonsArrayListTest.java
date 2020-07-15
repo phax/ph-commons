@@ -66,8 +66,7 @@ public final class CommonsArrayListTest
     aTest = new CommonsArrayList <> ((Iterable <String>) new CommonsArrayList <> ("a", "b", "c", "d"));
     assertEquals (4, aTest.size ());
 
-    aTest = new CommonsArrayList <> (new CommonsArrayList <> (Integer.valueOf (1), Integer.valueOf (2)),
-                                     x -> x.toString ());
+    aTest = new CommonsArrayList <> (new CommonsArrayList <> (Integer.valueOf (1), Integer.valueOf (2)), x -> x.toString ());
     assertEquals (2, aTest.size ());
 
     aTest = new CommonsArrayList <> ((Iterable <Integer>) new CommonsArrayList <> (Integer.valueOf (1),

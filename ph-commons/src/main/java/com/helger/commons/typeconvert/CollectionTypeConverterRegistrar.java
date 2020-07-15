@@ -133,104 +133,56 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
     });
 
     // boolean[]
-    aRegistry.registerTypeConverter (boolean [].class,
-                                     CommonsArrayList.class,
-                                     PrimitiveCollectionHelper::newPrimitiveList);
-    aRegistry.registerTypeConverter (boolean [].class,
-                                     CommonsHashSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveSet);
-    aRegistry.registerTypeConverter (boolean [].class,
-                                     CommonsLinkedHashSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveOrderedSet);
-    aRegistry.registerTypeConverter (boolean [].class,
-                                     CommonsTreeSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveSortedSet);
+    aRegistry.registerTypeConverter (boolean [].class, CommonsArrayList.class, PrimitiveCollectionHelper::newPrimitiveList);
+    aRegistry.registerTypeConverter (boolean [].class, CommonsHashSet.class, PrimitiveCollectionHelper::newPrimitiveSet);
+    aRegistry.registerTypeConverter (boolean [].class, CommonsLinkedHashSet.class, PrimitiveCollectionHelper::newPrimitiveOrderedSet);
+    aRegistry.registerTypeConverter (boolean [].class, CommonsTreeSet.class, PrimitiveCollectionHelper::newPrimitiveSortedSet);
 
     // byte[]
     aRegistry.registerTypeConverter (byte [].class, String.class, Base64::encodeBytes);
     aRegistry.registerTypeConverter (String.class, byte [].class, Base64::safeDecode);
-    aRegistry.registerTypeConverter (byte [].class,
-                                     CommonsArrayList.class,
-                                     PrimitiveCollectionHelper::newPrimitiveList);
+    aRegistry.registerTypeConverter (byte [].class, CommonsArrayList.class, PrimitiveCollectionHelper::newPrimitiveList);
     aRegistry.registerTypeConverter (byte [].class, CommonsHashSet.class, PrimitiveCollectionHelper::newPrimitiveSet);
-    aRegistry.registerTypeConverter (byte [].class,
-                                     CommonsLinkedHashSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveOrderedSet);
-    aRegistry.registerTypeConverter (byte [].class,
-                                     CommonsTreeSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveSortedSet);
+    aRegistry.registerTypeConverter (byte [].class, CommonsLinkedHashSet.class, PrimitiveCollectionHelper::newPrimitiveOrderedSet);
+    aRegistry.registerTypeConverter (byte [].class, CommonsTreeSet.class, PrimitiveCollectionHelper::newPrimitiveSortedSet);
 
     // char[]
     aRegistry.registerTypeConverter (char [].class, String.class, String::new);
     aRegistry.registerTypeConverter (String.class, char [].class, String::toCharArray);
-    aRegistry.registerTypeConverter (char [].class,
-                                     CommonsArrayList.class,
-                                     PrimitiveCollectionHelper::newPrimitiveList);
+    aRegistry.registerTypeConverter (char [].class, CommonsArrayList.class, PrimitiveCollectionHelper::newPrimitiveList);
     aRegistry.registerTypeConverter (char [].class, CommonsHashSet.class, PrimitiveCollectionHelper::newPrimitiveSet);
-    aRegistry.registerTypeConverter (char [].class,
-                                     CommonsLinkedHashSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveOrderedSet);
-    aRegistry.registerTypeConverter (char [].class,
-                                     CommonsTreeSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveSortedSet);
+    aRegistry.registerTypeConverter (char [].class, CommonsLinkedHashSet.class, PrimitiveCollectionHelper::newPrimitiveOrderedSet);
+    aRegistry.registerTypeConverter (char [].class, CommonsTreeSet.class, PrimitiveCollectionHelper::newPrimitiveSortedSet);
 
     // double[]
-    aRegistry.registerTypeConverter (double [].class,
-                                     CommonsArrayList.class,
-                                     PrimitiveCollectionHelper::newPrimitiveList);
+    aRegistry.registerTypeConverter (double [].class, CommonsArrayList.class, PrimitiveCollectionHelper::newPrimitiveList);
     aRegistry.registerTypeConverter (double [].class, CommonsHashSet.class, PrimitiveCollectionHelper::newPrimitiveSet);
-    aRegistry.registerTypeConverter (double [].class,
-                                     CommonsLinkedHashSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveOrderedSet);
-    aRegistry.registerTypeConverter (double [].class,
-                                     CommonsTreeSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveSortedSet);
+    aRegistry.registerTypeConverter (double [].class, CommonsLinkedHashSet.class, PrimitiveCollectionHelper::newPrimitiveOrderedSet);
+    aRegistry.registerTypeConverter (double [].class, CommonsTreeSet.class, PrimitiveCollectionHelper::newPrimitiveSortedSet);
 
     // float[]
-    aRegistry.registerTypeConverter (float [].class,
-                                     CommonsArrayList.class,
-                                     PrimitiveCollectionHelper::newPrimitiveList);
+    aRegistry.registerTypeConverter (float [].class, CommonsArrayList.class, PrimitiveCollectionHelper::newPrimitiveList);
     aRegistry.registerTypeConverter (float [].class, CommonsHashSet.class, PrimitiveCollectionHelper::newPrimitiveSet);
-    aRegistry.registerTypeConverter (float [].class,
-                                     CommonsLinkedHashSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveOrderedSet);
-    aRegistry.registerTypeConverter (float [].class,
-                                     CommonsTreeSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveSortedSet);
+    aRegistry.registerTypeConverter (float [].class, CommonsLinkedHashSet.class, PrimitiveCollectionHelper::newPrimitiveOrderedSet);
+    aRegistry.registerTypeConverter (float [].class, CommonsTreeSet.class, PrimitiveCollectionHelper::newPrimitiveSortedSet);
 
     // int[]
     aRegistry.registerTypeConverter (int [].class, CommonsArrayList.class, PrimitiveCollectionHelper::newPrimitiveList);
     aRegistry.registerTypeConverter (int [].class, CommonsHashSet.class, PrimitiveCollectionHelper::newPrimitiveSet);
-    aRegistry.registerTypeConverter (int [].class,
-                                     CommonsLinkedHashSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveOrderedSet);
-    aRegistry.registerTypeConverter (int [].class,
-                                     CommonsTreeSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveSortedSet);
+    aRegistry.registerTypeConverter (int [].class, CommonsLinkedHashSet.class, PrimitiveCollectionHelper::newPrimitiveOrderedSet);
+    aRegistry.registerTypeConverter (int [].class, CommonsTreeSet.class, PrimitiveCollectionHelper::newPrimitiveSortedSet);
 
     // long[]
-    aRegistry.registerTypeConverter (long [].class,
-                                     CommonsArrayList.class,
-                                     PrimitiveCollectionHelper::newPrimitiveList);
+    aRegistry.registerTypeConverter (long [].class, CommonsArrayList.class, PrimitiveCollectionHelper::newPrimitiveList);
     aRegistry.registerTypeConverter (long [].class, CommonsHashSet.class, PrimitiveCollectionHelper::newPrimitiveSet);
-    aRegistry.registerTypeConverter (long [].class,
-                                     CommonsLinkedHashSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveOrderedSet);
-    aRegistry.registerTypeConverter (long [].class,
-                                     CommonsTreeSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveSortedSet);
+    aRegistry.registerTypeConverter (long [].class, CommonsLinkedHashSet.class, PrimitiveCollectionHelper::newPrimitiveOrderedSet);
+    aRegistry.registerTypeConverter (long [].class, CommonsTreeSet.class, PrimitiveCollectionHelper::newPrimitiveSortedSet);
 
     // short[]
-    aRegistry.registerTypeConverter (short [].class,
-                                     CommonsArrayList.class,
-                                     PrimitiveCollectionHelper::newPrimitiveList);
+    aRegistry.registerTypeConverter (short [].class, CommonsArrayList.class, PrimitiveCollectionHelper::newPrimitiveList);
     aRegistry.registerTypeConverter (short [].class, CommonsHashSet.class, PrimitiveCollectionHelper::newPrimitiveSet);
-    aRegistry.registerTypeConverter (short [].class,
-                                     CommonsLinkedHashSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveOrderedSet);
-    aRegistry.registerTypeConverter (short [].class,
-                                     CommonsTreeSet.class,
-                                     PrimitiveCollectionHelper::newPrimitiveSortedSet);
+    aRegistry.registerTypeConverter (short [].class, CommonsLinkedHashSet.class, PrimitiveCollectionHelper::newPrimitiveOrderedSet);
+    aRegistry.registerTypeConverter (short [].class, CommonsTreeSet.class, PrimitiveCollectionHelper::newPrimitiveSortedSet);
 
     // To array
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (boolean [].class, aSource -> {

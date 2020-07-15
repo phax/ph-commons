@@ -32,7 +32,6 @@ import com.helger.commons.error.list.IErrorList;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.IReadableResource;
 import com.helger.xml.EXMLParserProperty;
-import com.helger.xml.schema.IHasSchema;
 import com.helger.xml.schema.XMLSchemaValidationHelper;
 
 /**
@@ -42,8 +41,7 @@ import com.helger.xml.schema.XMLSchemaValidationHelper;
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
-@SuppressWarnings ("deprecation")
-public interface IJAXBDocumentType extends IHasSchema, Serializable
+public interface IJAXBDocumentType extends Serializable
 {
   /**
    * @return The compiled {@link Schema} object.
