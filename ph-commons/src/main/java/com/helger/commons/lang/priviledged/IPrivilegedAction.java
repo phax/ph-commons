@@ -19,6 +19,8 @@ package com.helger.commons.lang.priviledged;
 import java.net.Authenticator;
 import java.net.ProxySelector;
 import java.security.PrivilegedAction;
+import java.security.Provider;
+import java.security.Security;
 import java.util.Properties;
 
 import javax.annotation.Nonnull;
@@ -45,16 +47,29 @@ public interface IPrivilegedAction <T> extends PrivilegedAction <T>
   @Nullable
   default T invokeSafe ()
   {
+    return invokeSafe (this);
+  }
+
+  /**
+   * @param aPA
+   *        The privileged action to run. May not be <code>null</code>.
+   * @return The result of {@link #run()} dependent if a system manager is
+   *         installed or not.
+   * @since 9.4.7
+   */
+  @Nullable
+  static <T> T invokeSafe (@Nonnull final IPrivilegedAction <T> aPA)
+  {
     if (System.getSecurityManager () == null)
     {
       // No need to use AccessController
-      return run ();
+      return aPA.run ();
     }
-    return AccessControllerHelper.call (this);
+    return AccessControllerHelper.call (aPA);
   }
 
   @Nonnull
-  static IPrivilegedAction <Object> asVoid (@Nonnull final Runnable aRunnable)
+  static IPrivilegedAction <Void> asVoid (@Nonnull final Runnable aRunnable)
   {
     return () -> {
       aRunnable.run ();
@@ -81,7 +96,7 @@ public interface IPrivilegedAction <T> extends PrivilegedAction <T>
   }
 
   @Nonnull
-  static IPrivilegedAction <Object> setContextClassLoader (@Nonnull final ClassLoader aClassLoader)
+  static IPrivilegedAction <Void> setContextClassLoader (@Nonnull final ClassLoader aClassLoader)
   {
     ValueEnforcer.notNull (aClassLoader, "ClassLoader");
     return asVoid ( () -> Thread.currentThread ().setContextClassLoader (aClassLoader));
@@ -128,14 +143,53 @@ public interface IPrivilegedAction <T> extends PrivilegedAction <T>
   }
 
   @Nonnull
-  static IPrivilegedAction <Object> proxySelectorSetDefault (@Nullable final ProxySelector aProxySelector)
+  static IPrivilegedAction <Void> proxySelectorSetDefault (@Nullable final ProxySelector aProxySelector)
   {
     return asVoid ( () -> ProxySelector.setDefault (aProxySelector));
   }
 
   @Nonnull
-  static IPrivilegedAction <Object> authenticatorSetDefault (@Nullable final Authenticator aAuthenticator)
+  static IPrivilegedAction <Void> authenticatorSetDefault (@Nullable final Authenticator aAuthenticator)
   {
     return asVoid ( () -> Authenticator.setDefault (aAuthenticator));
+  }
+
+  @Nonnull
+  static IPrivilegedAction <Provider []> securityGetProviders ()
+  {
+    return Security::getProviders;
+  }
+
+  @Nonnull
+  static IPrivilegedAction <Provider []> securityGetProviders (@Nonnull final String sFilter)
+  {
+    ValueEnforcer.notNull (sFilter, "Filter");
+    return () -> Security.getProviders (sFilter);
+  }
+
+  @Nonnull
+  static IPrivilegedAction <Provider> securityGetProvider (@Nonnull final String sName)
+  {
+    return () -> Security.getProvider (sName);
+  }
+
+  @Nonnull
+  static IPrivilegedAction <Integer> securityAddProvider (@Nonnull final Provider aProvider)
+  {
+    ValueEnforcer.notNull (aProvider, "Provider");
+    return () -> Integer.valueOf (Security.addProvider (aProvider));
+  }
+
+  @Nonnull
+  static IPrivilegedAction <Integer> securityInsertProviderAt (@Nonnull final Provider aProvider, final int nIndex)
+  {
+    ValueEnforcer.notNull (aProvider, "Provider");
+    return () -> Integer.valueOf (Security.insertProviderAt (aProvider, nIndex));
+  }
+
+  @Nonnull
+  static IPrivilegedAction <Void> securityRemoveProvider (@Nonnull final String sName)
+  {
+    return asVoid ( () -> Security.removeProvider (sName));
   }
 }
