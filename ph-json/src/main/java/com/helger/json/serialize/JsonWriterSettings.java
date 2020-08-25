@@ -42,7 +42,14 @@ public class JsonWriterSettings implements IJsonWriterSettings
   public static final boolean DEFAULT_QUOTE_NAMES = true;
 
   // Must be after all default values!!
+  /** Default settings space optimized */
   public static final IJsonWriterSettings DEFAULT_SETTINGS = new JsonWriterSettings ();
+  /**
+   * Default settings using indentation.
+   *
+   * @since 9.4.7
+   */
+  public static final IJsonWriterSettings DEFAULT_SETTINGS_FORMATTED = new JsonWriterSettings ().setIndentEnabled (true);
 
   private boolean m_bIndentEnabled = DEFAULT_INDENT_ENABLED;
   private String m_sIndentString = DEFAULT_INDENT_STRING;
