@@ -25,6 +25,9 @@ import javax.annotation.Nullable;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.ICommonsIterable;
 import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.collection.iterate.FilterIterator;
+import com.helger.commons.collection.iterate.IIterableIterator;
+import com.helger.commons.collection.iterate.MapperIterator;
 import com.helger.commons.state.EChange;
 import com.helger.commons.traits.IGenericAdderTrait;
 import com.helger.commons.traits.IGetterByIndexTrait;
@@ -242,6 +245,36 @@ public interface IJsonArray extends IJsonCollection, ICommonsIterable <IJson>, I
   default boolean contains (final long nValue)
   {
     return contains (JsonValue.create (nValue));
+  }
+
+  /**
+   * @return An iterator that only iterates over child arrays.
+   * @since 9.4.7
+   */
+  @Nonnull
+  default IIterableIterator <IJsonArray> iteratorArrays ()
+  {
+    return new MapperIterator <> (new FilterIterator <> (this, IJson::isArray), IJson::getAsArray);
+  }
+
+  /**
+   * @return An iterator that only iterates over child objects.
+   * @since 9.4.7
+   */
+  @Nonnull
+  default IIterableIterator <IJsonObject> iteratorObjects ()
+  {
+    return new MapperIterator <> (new FilterIterator <> (this, IJson::isObject), IJson::getAsObject);
+  }
+
+  /**
+   * @return An iterator that only iterates over child values.
+   * @since 9.4.7
+   */
+  @Nonnull
+  default IIterableIterator <IJsonValue> iteratorValues ()
+  {
+    return new MapperIterator <> (new FilterIterator <> (this, IJson::isValue), IJson::getAsValue);
   }
 
   /**

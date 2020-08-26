@@ -31,6 +31,7 @@ This project was the following modules:
 
 * v9.4.7 - work in progress
     * Extended `IPrivilegedAction` API for `Security` provider APIs
+    * Extended `IJsonArray` API to iterate only child arrays, objects or values
 * v9.4.6 - 2020-07-15
     * Allow empty MIME type parameter values
     * `MimeTypeParser.safeParseMimeType` does an RFC 2616 decoding if necessary
