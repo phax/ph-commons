@@ -33,6 +33,8 @@ This project was the following modules:
     * Extended `IPrivilegedAction` API for `Security` provider APIs
     * Extended `IJsonArray` API to iterate only child arrays, objects or values
     * Scope debugging no longer activates itself if the log level is set to debug
+    * Extended `PDTWebDateHelper` to handle `LocalTime` values as well
+    * Added predefined JAXB adapters in package `com.helger.jaxb.adapter`
 * v9.4.6 - 2020-07-15
     * Allow empty MIME type parameter values
     * `MimeTypeParser.safeParseMimeType` does an RFC 2616 decoding if necessary
