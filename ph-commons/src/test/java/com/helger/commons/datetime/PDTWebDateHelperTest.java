@@ -143,6 +143,8 @@ public final class PDTWebDateHelperTest
     assertEquals (aDT, PDTWebDateHelper.getLocalTimeFromXSD (s));
     assertNull (PDTWebDateHelper.getAsStringXSD ((LocalTime) null));
     assertNotNull (PDTWebDateHelper.getLocalTimeFromXSD ("11:30:00.0Z"));
+    assertNotNull (PDTWebDateHelper.getLocalTimeFromXSD ("09:15:23.0-05:00"));
+    assertNotNull (PDTWebDateHelper.getLocalTimeFromXSD ("09:15:23-05:00"));
   }
 
   @Test

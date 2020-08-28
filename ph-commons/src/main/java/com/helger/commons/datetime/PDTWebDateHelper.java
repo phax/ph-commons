@@ -485,6 +485,9 @@ public final class PDTWebDateHelper
                                               * 9 here
                                               */
                                              .appendFraction (MILLI_OF_SECOND, 1, 9, true)
+                                             .optionalEnd ()
+                                             // Timezone can occur without
+                                             // milliseconds
                                              .optionalStart ()
                                              .appendOffsetId ()
                                              .optionalStart ()
