@@ -23,7 +23,7 @@
   <parent>
     <groupId>com.helger</groupId>
     <artifactId>ph-commons-parent-pom</artifactId>
-    <version>9.4.7</version>
+    <version>9.4.8-SNAPSHOT</version>
   </parent>
   <artifactId>ph-cli</artifactId>
   <packaging>bundle</packaging>
