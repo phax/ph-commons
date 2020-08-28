@@ -468,6 +468,8 @@ public final class PDTWebDateHelper
 
   static
   {
+    // From the XSD spec:
+    // hh ':' mm ':' ss ('.' s+)? (zzzzzz)?
     MY_TIME = new DateTimeFormatterBuilder ().parseCaseInsensitive ()
                                              .appendValue (HOUR_OF_DAY, 2)
                                              .appendLiteral (':')
@@ -478,9 +480,11 @@ public final class PDTWebDateHelper
                                              .optionalStart ()
                                              /*
                                               * This is different compared to
-                                              * ISO_LOCAL_TIME
+                                              * ISO_LOCAL_TIME. The maximum is
+                                              * unbounded, but we are limited to
+                                              * 9 here
                                               */
-                                             .appendFraction (MILLI_OF_SECOND, 1, 3, true)
+                                             .appendFraction (MILLI_OF_SECOND, 1, 9, true)
                                              .optionalStart ()
                                              .appendOffsetId ()
                                              .optionalStart ()
