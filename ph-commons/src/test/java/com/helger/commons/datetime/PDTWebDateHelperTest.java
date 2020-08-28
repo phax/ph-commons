@@ -114,6 +114,7 @@ public final class PDTWebDateHelperTest
   @Test
   public void testXSDDateTime ()
   {
+    // Millis only for Java 11+
     final ZonedDateTime aDT = PDTFactory.getCurrentZonedDateTimeUTCMillisOnly ();
     final String s = PDTWebDateHelper.getAsStringXSD (aDT);
     assertNotNull (s);
@@ -135,7 +136,8 @@ public final class PDTWebDateHelperTest
   @Test
   public void testXSDLocalTime ()
   {
-    final LocalTime aDT = PDTFactory.getCurrentLocalTime ();
+    // Millis only for Java 11+
+    final LocalTime aDT = PDTFactory.getCurrentLocalTimeMillisOnly ();
     final String s = PDTWebDateHelper.getAsStringXSD (aDT);
     assertNotNull (s);
     assertEquals (aDT, PDTWebDateHelper.getLocalTimeFromXSD (s));
@@ -146,10 +148,10 @@ public final class PDTWebDateHelperTest
   @Test
   public void testXSDLocalDateTime ()
   {
-    final LocalDateTime d = PDTFactory.createLocalDateTime (2011, Month.JULY, 6, 12, 34);
+    LocalDateTime d = PDTFactory.createLocalDateTime (2011, Month.JULY, 6, 12, 34);
     String s = PDTWebDateHelper.getAsStringXSD (d);
     assertEquals ("2011-07-06T12:34:00.0", s);
-    final LocalDateTime d2 = PDTWebDateHelper.getLocalDateTimeFromXSD (s);
+    LocalDateTime d2 = PDTWebDateHelper.getLocalDateTimeFromXSD (s);
     assertEquals (d, d2);
 
     final ZonedDateTime z = d.atZone (ZoneOffset.ofHours (2));
@@ -157,5 +159,13 @@ public final class PDTWebDateHelperTest
     assertEquals ("2011-07-06T12:34:00.0+02:00", s);
     final ZonedDateTime z2 = PDTWebDateHelper.getDateTimeFromXSD (s);
     assertEquals (z, z2);
+
+    // Current time last
+    // Millis only for Java 11+
+    d = PDTFactory.getCurrentLocalDateTimeMillisOnly ();
+    s = PDTWebDateHelper.getAsStringXSD (d);
+    assertNotNull (s);
+    d2 = PDTWebDateHelper.getLocalDateTimeFromXSD (s);
+    assertEquals (d, d2);
   }
 }
