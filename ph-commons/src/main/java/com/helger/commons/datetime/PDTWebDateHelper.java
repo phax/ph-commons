@@ -480,7 +480,7 @@ public final class PDTWebDateHelper
                                               * This is different compared to
                                               * ISO_LOCAL_TIME
                                               */
-                                             .appendFraction (MILLI_OF_SECOND, 3, 3, true)
+                                             .appendFraction (MILLI_OF_SECOND, 1, 3, true)
                                              .optionalStart ()
                                              .appendOffsetId ()
                                              .optionalStart ()
@@ -551,7 +551,7 @@ public final class PDTWebDateHelper
   @Nonnull
   public static DateTimeFormatter getXSDFormatterDate ()
   {
-    return DateTimeFormatter.ISO_DATE.withZone (ZoneOffset.UTC);
+    return DateTimeFormatter.ISO_DATE;
   }
 
   @Nullable
@@ -569,7 +569,7 @@ public final class PDTWebDateHelper
   @Nonnull
   public static DateTimeFormatter getXSDFormatterTime ()
   {
-    return MY_TIME.withZone (ZoneOffset.UTC);
+    return MY_TIME;
   }
 
   @Nullable
