@@ -33,7 +33,7 @@ public final class XMLSystemPropertiesTest
     assertEquals (64000, XMLSystemProperties.getXMLEntityExpansionLimit ());
     assertEquals (10000, XMLSystemProperties.getXMLElementAttributeLimit ());
     assertEquals (5000, XMLSystemProperties.getXMLMaxOccur ());
-    assertEquals (5 * (int) 10E7, XMLSystemProperties.getXMLTotalEntitySizeLimit ());
+    assertEquals (5 * (long) 10E7, XMLSystemProperties.getXMLTotalEntitySizeLimit ());
     assertEquals (0, XMLSystemProperties.getXMLMaxGeneralEntitySizeLimit ());
     assertEquals (0, XMLSystemProperties.getXMLMaxParameterEntitySizeLimit ());
   }

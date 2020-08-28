@@ -317,7 +317,7 @@ public class NonBlockingPushbackReader extends FilterReader
     {
       if (nRealSkip <= nBufAvail)
       {
-        m_nBufPos += nRealSkip;
+        m_nBufPos += (int) nRealSkip;
         return nRealSkip;
       }
       m_nBufPos = m_aBuf.length;
