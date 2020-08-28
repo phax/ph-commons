@@ -29,7 +29,7 @@ This project was the following modules:
 
 ## News and noteworthy
 
-* v9.4.7 - work in progress
+* v9.4.7 - 2020-08-28
     * Extended `IPrivilegedAction` API for `Security` provider APIs
     * Extended `IJsonArray` API to iterate only child arrays, objects or values
     * Scope debugging no longer activates itself if the log level is set to debug
