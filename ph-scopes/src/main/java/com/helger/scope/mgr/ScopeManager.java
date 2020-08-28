@@ -107,7 +107,7 @@ public final class ScopeManager
 
     // Outside of write lock
     aGlobalScope.initScope ();
-    if (ScopeHelper.debugGlobalScopeLifeCycle (LOGGER))
+    if (ScopeHelper.isDebugGlobalScopeLifeCycle (LOGGER))
       LOGGER.info ("Global scope '" + aGlobalScope.getID () + "' initialized!", ScopeHelper.getDebugStackTrace ());
 
     // Invoke SPIs
@@ -189,7 +189,7 @@ public final class ScopeManager
       aGlobalScope.destroyScope ();
 
       // done
-      if (ScopeHelper.debugGlobalScopeLifeCycle (LOGGER))
+      if (ScopeHelper.isDebugGlobalScopeLifeCycle (LOGGER))
         LOGGER.info ("Global scope '" + sDestroyedScopeID + "' shut down!", ScopeHelper.getDebugStackTrace ());
     }
     else

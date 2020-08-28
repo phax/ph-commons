@@ -182,13 +182,26 @@ public final class ScopeHelper
    *        The logger to check.
    * @return <code>true</code> if global scope creation/deletion should be
    *         logged, <code>false</code> otherwise.
+   * @deprecated Use {@link #isDebugGlobalScopeLifeCycle(Logger)} instead
    */
+  @Deprecated
   public static boolean debugGlobalScopeLifeCycle (@Nonnull final Logger aLogger)
   {
-    // Also debug scopes, if debug logging is enabled
-    if (aLogger.isDebugEnabled ())
-      return true;
+    return isDebugGlobalScopeLifeCycle (aLogger);
+  }
 
+  /**
+   * This is a just a helper method to determine whether global scope
+   * creation/deletion issues should be logged or not.
+   *
+   * @param aLogger
+   *        The logger to check.
+   * @return <code>true</code> if global scope creation/deletion should be
+   *         logged, <code>false</code> otherwise.
+   * @since 9.4.7
+   */
+  public static boolean isDebugGlobalScopeLifeCycle (@Nonnull final Logger aLogger)
+  {
     return (isLifeCycleDebuggingEnabled () || isDebugGlobalScopeEnabled ()) && aLogger.isInfoEnabled ();
   }
 
@@ -200,13 +213,26 @@ public final class ScopeHelper
    *        The logger to check.
    * @return <code>true</code> if session scope creation/deletion should be
    *         logged, <code>false</code> otherwise.
+   * @deprecated Use {@link #isDebugSessionScopeLifeCycle(Logger)} instead
    */
+  @Deprecated
   public static boolean debugSessionScopeLifeCycle (@Nonnull final Logger aLogger)
   {
-    // Also debug scopes, if debug logging is enabled
-    if (aLogger.isDebugEnabled ())
-      return true;
+    return isDebugSessionScopeLifeCycle (aLogger);
+  }
 
+  /**
+   * This is a just a helper method to determine whether session scope
+   * creation/deletion issues should be logged or not.
+   *
+   * @param aLogger
+   *        The logger to check.
+   * @return <code>true</code> if session scope creation/deletion should be
+   *         logged, <code>false</code> otherwise.
+   * @since 9.4.7
+   */
+  public static boolean isDebugSessionScopeLifeCycle (@Nonnull final Logger aLogger)
+  {
     return (isLifeCycleDebuggingEnabled () || isDebugSessionScopeEnabled ()) && aLogger.isInfoEnabled ();
   }
 
@@ -218,15 +244,37 @@ public final class ScopeHelper
    *        The logger to check.
    * @return <code>true</code> if request scope creation/deletion should be
    *         logged, <code>false</code> otherwise.
+   * @deprecated Use {@link #isDebugRequestScopeLifeCycle(Logger)} instead
    */
+  @Deprecated
   public static boolean debugRequestScopeLifeCycle (@Nonnull final Logger aLogger)
   {
-    // Also debug scopes, if debug logging is enabled
-    if (aLogger.isDebugEnabled ())
-      return true;
+    return isDebugRequestScopeLifeCycle (aLogger);
+  }
 
+  /**
+   * This is a just a helper method to determine whether request scope
+   * creation/deletion issues should be logged or not.
+   *
+   * @param aLogger
+   *        The logger to check.
+   * @return <code>true</code> if request scope creation/deletion should be
+   *         logged, <code>false</code> otherwise.
+   * @since 9.4.7
+   */
+  public static boolean isDebugRequestScopeLifeCycle (@Nonnull final Logger aLogger)
+  {
     return (isLifeCycleDebuggingEnabled () || isDebugRequestScopeEnabled ()) && aLogger.isInfoEnabled ();
   }
+
+  /**
+   * The exception used for receiving scope debug stack traces
+   *
+   * @author Philip Helger
+   * @since 9.4.7
+   */
+  public static class DebugScopeException extends Exception
+  {}
 
   /**
    * @return An exception with the current stack trace or <code>null</code> if
@@ -236,6 +284,6 @@ public final class ScopeHelper
   @Nullable
   public static Throwable getDebugStackTrace ()
   {
-    return isDebugWithStackTrace () ? new Exception () : null;
+    return isDebugWithStackTrace () ? new DebugScopeException () : null;
   }
 }
