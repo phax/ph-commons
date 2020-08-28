@@ -22,8 +22,10 @@ import static org.junit.Assert.assertNull;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.Month;
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
 import javax.annotation.Nonnull;
@@ -130,12 +132,28 @@ public final class PDTWebDateHelperTest
   }
 
   @Test
+  public void testXSDLocalTime ()
+  {
+    final LocalTime aDT = PDTFactory.getCurrentLocalTime ();
+    final String s = PDTWebDateHelper.getAsStringXSD (aDT);
+    assertNotNull (s);
+    assertEquals (aDT, PDTWebDateHelper.getLocalTimeFromXSD (s));
+    assertNull (PDTWebDateHelper.getAsStringXSD ((LocalTime) null));
+  }
+
+  @Test
   public void testXSDLocalDateTime ()
   {
     final LocalDateTime d = PDTFactory.createLocalDateTime (2011, Month.JULY, 6, 12, 34);
-    final String s = PDTWebDateHelper.getAsStringXSD (d);
+    String s = PDTWebDateHelper.getAsStringXSD (d);
     assertEquals ("2011-07-06T12:34:00.000", s);
     final LocalDateTime d2 = PDTWebDateHelper.getLocalDateTimeFromXSD (s);
     assertEquals (d, d2);
+
+    final ZonedDateTime z = d.atZone (ZoneOffset.ofHours (2));
+    s = PDTWebDateHelper.getAsStringXSD (z);
+    assertEquals ("2011-07-06T12:34:00.000+02:00", s);
+    final ZonedDateTime z2 = PDTWebDateHelper.getDateTimeFromXSD (s);
+    assertEquals (z, z2);
   }
 }
