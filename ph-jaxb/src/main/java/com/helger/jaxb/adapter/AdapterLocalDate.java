@@ -21,7 +21,6 @@ import java.time.LocalDate;
 import javax.annotation.Nullable;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.datetime.PDTWebDateHelper;
 
 /**
@@ -32,7 +31,6 @@ import com.helger.commons.datetime.PDTWebDateHelper;
  * @author Philip Helger
  * @since 9.4.7
  */
-@CodingStyleguideUnaware
 public class AdapterLocalDate extends XmlAdapter <String, LocalDate>
 {
   @Override
