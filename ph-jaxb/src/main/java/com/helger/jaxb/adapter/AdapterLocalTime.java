@@ -26,8 +26,8 @@ import com.helger.commons.annotation.CodingStyleguideUnaware;
 import com.helger.commons.datetime.PDTWebDateHelper;
 
 /**
- * XML Adapter between LocalDateTime and String. Use it in your binding file
- * like this:<br>
+ * XML Adapter between LocalTime and String. Use it in your binding file like
+ * this:<br>
  * <code>&lt;xjc:javaType name="java.time.LocalTime" xmlType="xsd:time" adapter="com.helger.jaxb.adapter.AdapterLocalTime" /&gt;</code>
  *
  * @author Philip Helger
