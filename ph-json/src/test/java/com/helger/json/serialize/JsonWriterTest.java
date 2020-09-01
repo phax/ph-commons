@@ -253,7 +253,7 @@ public final class JsonWriterTest
   public void testIndent ()
   {
     final String sCRLF = JsonWriterSettings.DEFAULT_NEWLINE_STRING;
-    final JsonWriter aWriter = new JsonWriter (new JsonWriterSettings ().setIndentEnabled (true));
+    final JsonWriter aWriter = new JsonWriter (JsonWriterSettings.DEFAULT_SETTINGS_FORMATTED);
     assertEquals ("{}", aWriter.writeAsString (new JsonObject ()));
     assertEquals ("{" + sCRLF + "  \"foo\":\"bar\"" + sCRLF + "}", aWriter.writeAsString (new JsonObject ().add ("foo", "bar")));
     assertEquals ("{" + sCRLF + "  \"foo\":[" + sCRLF + "    1," + sCRLF + "    2" + sCRLF + "  ]" + sCRLF + "}",
