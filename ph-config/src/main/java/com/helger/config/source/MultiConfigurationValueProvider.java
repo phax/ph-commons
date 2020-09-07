@@ -37,6 +37,7 @@ import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.commons.lang.ICloneable;
+import com.helger.commons.string.ToStringGenerator;
 import com.helger.config.value.ConfiguredValue;
 import com.helger.config.value.IConfigurationValueProvider;
 import com.helger.config.value.IConfigurationValueProviderWithPriorityCallback;
@@ -52,12 +53,18 @@ public class MultiConfigurationValueProvider implements IConfigurationValueProvi
   private static final class CS
   {
     private final IConfigurationValueProvider m_aCVP;
-    private final int m_nPrio;
+    private final int m_nPriority;
 
     public CS (@Nonnull final IConfigurationValueProvider aCVP, final int nPrio)
     {
       m_aCVP = aCVP;
-      m_nPrio = nPrio;
+      m_nPriority = nPrio;
+    }
+
+    @Override
+    public String toString ()
+    {
+      return new ToStringGenerator (null).append ("CVP", m_aCVP).append ("Priority", m_nPriority).getToString ();
     }
   }
 
@@ -163,7 +170,7 @@ public class MultiConfigurationValueProvider implements IConfigurationValueProvi
 
       m_aSources.add (new CS (aCVP, nPriority));
       // Ensure entry with highest priority comes first
-      m_aSources.sort ( (x, y) -> y.m_nPrio - x.m_nPrio);
+      m_aSources.sort ( (x, y) -> y.m_nPriority - x.m_nPriority);
     }
     return this;
   }
@@ -204,7 +211,7 @@ public class MultiConfigurationValueProvider implements IConfigurationValueProvi
     ValueEnforcer.notNull (aCallback, "aCallback");
 
     for (final CS aSource : m_aSources)
-      aCallback.onConfigurationSource (aSource.m_aCVP, aSource.m_nPrio);
+      aCallback.onConfigurationSource (aSource.m_aCVP, aSource.m_nPriority);
   }
 
   /**
@@ -222,7 +229,7 @@ public class MultiConfigurationValueProvider implements IConfigurationValueProvi
       if (aSource.m_aCVP instanceof ICloneable <?>)
       {
         final IConfigurationValueProvider aCVPClone = (IConfigurationValueProvider) ((ICloneable <?>) aSource.m_aCVP).getClone ();
-        ret.m_aSources.add (new CS (aCVPClone, aSource.m_nPrio));
+        ret.m_aSources.add (new CS (aCVPClone, aSource.m_nPriority));
       }
       else
         ret.m_aSources.add (aSource);
