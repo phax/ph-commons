@@ -24,6 +24,7 @@ import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.string.StringHelper;
+import com.helger.commons.string.ToStringGenerator;
 import com.helger.config.source.IConfigurationSource;
 import com.helger.config.source.MultiConfigurationValueProvider;
 import com.helger.config.value.ConfiguredValue;
@@ -169,6 +170,15 @@ public class Config implements IConfig
   {
     ValueEnforcer.notNull (aCallback, "Callback");
     forEachConfigurationValueProviderRecursive (m_aValueProvider, aCallback);
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (this).append ("ValueProvider", m_aValueProvider)
+                                       .append ("KeyFoundConsumer", m_aKeyFoundConsumer)
+                                       .append ("KeyNotFoundConsumer", m_aKeyNotFoundConsumer)
+                                       .getToString ();
   }
 
   @Nonnull
