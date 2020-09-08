@@ -99,6 +99,18 @@ public final class ConfigFactory
   }
 
   /**
+   * @return A new instance of {@link ReadableResourceProviderChain} used to
+   *         resolve resource based configuration items.
+   * @since 9.4.8
+   */
+  @Nonnull
+  public static ReadableResourceProviderChain createDefaultResourceProviderChain ()
+  {
+    return new ReadableResourceProviderChain (new FileSystemResourceProvider ().setCanReadRelativePaths (true),
+                                              new ClassPathResourceProvider ());
+  }
+
+  /**
    * Create a configuration value provider, with the following configuration
    * sources:
    * <ul>
@@ -224,8 +236,7 @@ public final class ConfigFactory
     }
 
     // Use existing ones only
-    final ReadableResourceProviderChain aResourceProvider = new ReadableResourceProviderChain (new FileSystemResourceProvider ().setCanReadRelativePaths (true),
-                                                                                               new ClassPathResourceProvider ());
+    final ReadableResourceProviderChain aResourceProvider = createDefaultResourceProviderChain ();
 
     // Prio 195
     IReadableResource aRes = aResourceProvider.getReadableResourceIf ("private-application.json", IReadableResource::exists);
