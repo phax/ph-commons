@@ -54,9 +54,12 @@ public final class ConfigFactory
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (ConfigFactory.class);
   private static final EConfigSourceResourceType FALLBACK_SOURCE_TYPE = EConfigSourceResourceType.PROPERTIES;
+
   /**
    * Use this configuration internally to resolve the properties used for the
-   * default instance. Therefore the initialization order is critical.
+   * default instance. The "system only" resolver considers system properties
+   * and environment variables only.<br>
+   * Initialization order is critical - this one must be first.
    */
   private static final IConfig SYSTEM_ONLY = Config.create (createValueProviderSystemOnly ());
   private static final IConfig DEFAULT_INSTANCE = Config.create (createDefaultValueProvider ());
@@ -65,7 +68,10 @@ public final class ConfigFactory
   {
     final int nResourceBased = DEFAULT_INSTANCE.getResourceBasedConfigurationValueProviderCount ();
     if (nResourceBased == 0)
-      LOGGER.warn ("The default Config instance is based soley on system properties and environment variables. No configuration resources were found.");
+    {
+      // Small consistency check
+      LOGGER.info ("The default Config instance is based soley on system properties and environment variables. No configuration resources were found.");
+    }
   }
 
   /**
