@@ -51,6 +51,12 @@ import com.helger.config.source.sysprop.ConfigurationSourceSystemProperty;
 @Immutable
 public final class ConfigFactory
 {
+  public static final int PRIVATE_APPLICATION_JSON_PRIORITY = EConfigSourceType.RESOURCE.getDefaultPriority () - 5;
+  public static final int PRIVATE_APPLICATION_PROPERTIES_PRIORITY = EConfigSourceType.RESOURCE.getDefaultPriority () - 10;
+  public static final int APPLICATION_JSON_PRIORITY = EConfigSourceType.RESOURCE.getDefaultPriority () - 15;
+  public static final int APPLICATION_PROPERTIES_PRIORITY = EConfigSourceType.RESOURCE.getDefaultPriority () - 20;
+  public static final int REFERENCE_PROPERTIES_PRIORITY = 1;
+
   private static final Logger LOGGER = LoggerFactory.getLogger (ConfigFactory.class);
   private static final EConfigSourceResourceType FALLBACK_SOURCE_TYPE = EConfigSourceResourceType.PROPERTIES;
 
@@ -242,7 +248,7 @@ public final class ConfigFactory
                                                                                             aURL -> new ConfigurationSourceJson (new URLResource (aURL),
                                                                                                                                  StandardCharsets.UTF_8),
                                                                                             true),
-                                   nResourceDefaultPrio - 5);
+                                   PRIVATE_APPLICATION_JSON_PRIORITY);
 
     // Prio 190, incl. files
     aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForAllOccurrances (aCL,
@@ -250,7 +256,7 @@ public final class ConfigFactory
                                                                                             aURL -> new ConfigurationSourceProperties (new URLResource (aURL),
                                                                                                                                        StandardCharsets.UTF_8),
                                                                                             true),
-                                   nResourceDefaultPrio - 10);
+                                   PRIVATE_APPLICATION_PROPERTIES_PRIORITY);
 
     // Prio 185, incl. files
     aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForAllOccurrances (aCL,
@@ -258,7 +264,7 @@ public final class ConfigFactory
                                                                                             aURL -> new ConfigurationSourceJson (new URLResource (aURL),
                                                                                                                                  StandardCharsets.UTF_8),
                                                                                             true),
-                                   nResourceDefaultPrio - 15);
+                                   APPLICATION_JSON_PRIORITY);
 
     // Prio 180, incl. files
     aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForAllOccurrances (aCL,
@@ -266,7 +272,7 @@ public final class ConfigFactory
                                                                                             aURL -> new ConfigurationSourceProperties (new URLResource (aURL),
                                                                                                                                        StandardCharsets.UTF_8),
                                                                                             true),
-                                   nResourceDefaultPrio - 20);
+                                   APPLICATION_PROPERTIES_PRIORITY);
 
     // Prio 1
     aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForAllOccurrances (aCL,
@@ -274,7 +280,7 @@ public final class ConfigFactory
                                                                                             aURL -> new ConfigurationSourceProperties (new URLResource (aURL),
                                                                                                                                        StandardCharsets.UTF_8),
                                                                                             true),
-                                   1);
+                                   REFERENCE_PROPERTIES_PRIORITY);
     return aMCSVP;
   }
 
