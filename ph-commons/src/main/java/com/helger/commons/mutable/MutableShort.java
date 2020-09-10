@@ -112,7 +112,7 @@ public class MutableShort extends AbstractMutableInteger <MutableShort>
 
   public int inc (final int nDelta)
   {
-    m_nValue += nDelta;
+    m_nValue = (short) (m_nValue + nDelta);
     onAfterChange ();
     return m_nValue;
   }

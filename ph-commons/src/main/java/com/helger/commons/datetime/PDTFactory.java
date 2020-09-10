@@ -585,6 +585,35 @@ public final class PDTFactory
     return LocalTime.now (_getZoneId ());
   }
 
+  /**
+   * Get the passed time but with micro and nanoseconds set to 0, so that only
+   * the milliseconds part is present. This is helpful for XSD serialization,
+   * where only milliseconds granularity is available.
+   *
+   * @param aLT
+   *        Source time. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>, the local
+   *         time with microseconds and nanoseconds set to 0 otherwise.
+   * @since 9.4.7
+   */
+  @Nullable
+  public static LocalTime getWithMillisOnly (@Nullable final LocalTime aLT)
+  {
+    return aLT == null ? null : aLT.withNano (aLT.get (ChronoField.MILLI_OF_SECOND) * (int) CGlobal.NANOSECONDS_PER_MILLISECOND);
+  }
+
+  /**
+   * @return The current local time but with micro and nanoseconds set to 0, so
+   *         that only the milliseconds part is present. This is helpful for XSD
+   *         serialization, where only milliseconds granularity is available.
+   * @since 9.4.7
+   */
+  @Nonnegative
+  public static LocalTime getCurrentLocalTimeMillisOnly ()
+  {
+    return getWithMillisOnly (getCurrentLocalTime ());
+  }
+
   @Nullable
   public static LocalTime createLocalTime (@Nullable final GregorianCalendar aCalendar)
   {

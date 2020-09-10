@@ -372,7 +372,7 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
     }
 
     final long nSkipped = nAvail < nBytesToSkip ? nAvail : nBytesToSkip;
-    m_nPos += nSkipped;
+    m_nPos += (int) nSkipped;
     return nSkipped;
   }
 

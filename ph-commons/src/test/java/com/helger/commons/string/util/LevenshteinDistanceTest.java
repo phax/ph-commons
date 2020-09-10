@@ -109,7 +109,7 @@ public final class LevenshteinDistanceTest
     assertEquals (abc.length, LevenshteinDistance.getDistance (null, abc, 1, 1, 1));
     assertEquals (abc.length, LevenshteinDistance.getDistance (abc, _empty, 1, 1, 1));
     assertEquals (abc.length, LevenshteinDistance.getDistance (abc, null, 1, 1, 1));
-    assertEquals (abc.length * 2, LevenshteinDistance.getDistance (abc, null, 2, 1, 1));
+    assertEquals (abc.length * 2L, LevenshteinDistance.getDistance (abc, null, 2, 1, 1));
     assertEquals (abc.length, LevenshteinDistance.getDistance (abc, null, 1, 2, 2));
 
     assertEquals (1, LevenshteinDistance.getDistance (abc, abcd));

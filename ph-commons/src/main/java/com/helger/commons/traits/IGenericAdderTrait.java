@@ -16,7 +16,6 @@
  */
 package com.helger.commons.traits;
 
-import java.io.Serializable;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -32,14 +31,15 @@ import com.helger.commons.CGlobal;
  *
  * @author Philip Helger
  * @param <ELEMENTTYPE>
- *        The element type to be added. Must implement Serializable as a hack,
- *        so that the APIs <code>add(Object)</code> and
+ *        The element type to be added. Must implement IAddableByTrait as a
+ *        hack, so that the APIs <code>add(Object)</code> and
  *        <code>add(ELEMENTTYPE)</code> can co-exist. Otherwise there would be a
  *        problem with type erasure.
  * @param <IMPLTYPE>
  *        The implementation type for chaining API
  */
-public interface IGenericAdderTrait <ELEMENTTYPE extends Serializable, IMPLTYPE extends IGenericAdderTrait <ELEMENTTYPE, IMPLTYPE>> extends
+public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTYPE extends IGenericAdderTrait <ELEMENTTYPE, IMPLTYPE>>
+                                    extends
                                     IHasPrimitiveConverter <ELEMENTTYPE>,
                                     IGenericImplTrait <IMPLTYPE>
 {

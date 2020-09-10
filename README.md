@@ -31,6 +31,18 @@ This project was the following modules:
 
 * v10.0.0 - work in progress
     * Removed deprecated methods
+* v9.4.8 - work in progress
+    * Added new JAXB Adapter class `AdapterZonedDateTime`
+    * Added a new factory method in `ConfigFactory`.
+    * Default configuration source loading is now more consistent and behaves identical for all predefined filenames.
+    * Extended `IConfig` API to easily reload all resource based configuration files
+    * New interface `IAddableByTrait` to be used as the constraint for the element type of `IGenericAdderTrait`
+* v9.4.7 - 2020-08-28
+    * Extended `IPrivilegedAction` API for `Security` provider APIs
+    * Extended `IJsonArray` API to iterate only child arrays, objects or values
+    * Scope debugging no longer activates itself if the log level is set to debug
+    * Extended `PDTWebDateHelper` to handle `LocalTime` values as well
+    * Added predefined JAXB adapters in package `com.helger.jaxb.adapter`
 * v9.4.6 - 2020-07-15
     * Allow empty MIME type parameter values
     * `MimeTypeParser.safeParseMimeType` does an RFC 2616 decoding if necessary
@@ -806,7 +818,7 @@ See `ConfigFactory.getDefaultConfig ()` for the starting point. By default the f
 1. System properties - priority 400
 1. Environment variables - priority 300
 1. if the system property `config.resource` or the environment variable `CONFIG_RESOURCE` is present, and it points to an existing classpath resource, the first one matching is used - priority 200 or determined by the system property `config.resource.priority` or the environment variable `CONFIG_RESOURCE_PRIORITY`. Note: the file type is determined by the extension and defaults to "properties".
-1. if the system property `config.resources` (not the trailing "s") or the environment variable `CONFIG_RESOURCES` is present, and it points to an existing classpath resource, all matching ones are used - priority 200 or determined by the system property `config.resources.priority` (also note the trailing "s") or the environment variable `CONFIG_RESOURCES_PRIORITY`. Note: the file type is determined by the extension and defaults to "properties".
+1. if the system property `config.resources` (note the trailing "s") or the environment variable `CONFIG_RESOURCES` is present, and it points to an existing classpath resource, all matching ones are used - priority 200 or determined by the system property `config.resources.priority` (also note the trailing "s") or the environment variable `CONFIG_RESOURCES_PRIORITY`. Note: the file type is determined by the extension and defaults to "properties".
 1. if the system property `config.file` or the environment variable `CONFIG_FILE` is present, and it points to an existing file, it is used - priority 200 or determined by the system property `config.file.priority` or the environment variable `CONFIG_FILE_PRIORITY`. Note: the file type is determined by the extension and defaults to "properties".
 1. if the system property `config.url` or the environment variable `CONFIG_URL` is present, and it points to an existing URL, it is used - priority 200 or determined by the system property `config.url.priority` or the environment variable `CONFIG_URL_PRIORITY`. Note: the file type is determined by the extension and defaults to "properties".
 1. a JSON file called `private-application.json` - this is mainly to have an easy way to override settings - priority 195.

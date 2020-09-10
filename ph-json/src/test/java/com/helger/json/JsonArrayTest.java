@@ -27,6 +27,7 @@ import java.math.BigDecimal;
 import org.junit.Test;
 
 import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -353,5 +354,56 @@ public final class JsonArrayTest
     assertNotNull (new JsonArray ().getAsArray ());
     assertNull (new JsonObject ().getAsArray ());
     assertNull (JsonValue.create (true).getAsArray ());
+  }
+
+  @Test
+  public void testIteratorArrays ()
+  {
+    final JsonArray aArray = new JsonArray ();
+    aArray.add (5);
+    aArray.add (new JsonObject ().add ("key", "value"));
+    aArray.add (new JsonArray ().add ("nested"));
+    aArray.add ("foo");
+    aArray.add (new JsonObject ().add ("key2", 17));
+    aArray.add (new JsonArray ().add (43));
+
+    final ICommonsList <IJsonArray> a1 = new CommonsArrayList <> (aArray.iteratorArrays ());
+    assertEquals (2, a1.size ());
+    assertEquals (new JsonArray ().add ("nested"), a1.get (0));
+    assertEquals (new JsonArray ().add (43), a1.get (1));
+  }
+
+  @Test
+  public void testIteratorObjects ()
+  {
+    final JsonArray aArray = new JsonArray ();
+    aArray.add (5);
+    aArray.add (new JsonObject ().add ("key", "value"));
+    aArray.add (new JsonArray ().add ("nested"));
+    aArray.add ("foo");
+    aArray.add (new JsonObject ().add ("key2", 17));
+    aArray.add (new JsonArray ().add (43));
+
+    final ICommonsList <IJsonObject> a1 = new CommonsArrayList <> (aArray.iteratorObjects ());
+    assertEquals (2, a1.size ());
+    assertEquals (new JsonObject ().add ("key", "value"), a1.get (0));
+    assertEquals (new JsonObject ().add ("key2", 17), a1.get (1));
+  }
+
+  @Test
+  public void testIteratorValues ()
+  {
+    final JsonArray aArray = new JsonArray ();
+    aArray.add (5);
+    aArray.add (new JsonObject ().add ("key", "value"));
+    aArray.add (new JsonArray ().add ("nested"));
+    aArray.add ("foo");
+    aArray.add (new JsonObject ().add ("key2", 17));
+    aArray.add (new JsonArray ().add (43));
+
+    final ICommonsList <IJsonValue> a1 = new CommonsArrayList <> (aArray.iteratorValues ());
+    assertEquals (2, a1.size ());
+    assertEquals (JsonValue.create (5), a1.get (0));
+    assertEquals (JsonValue.create ("foo"), a1.get (1));
   }
 }

@@ -112,7 +112,7 @@ public class MutableByte extends AbstractMutableInteger <MutableByte>
 
   public int inc (final int nDelta)
   {
-    m_nValue += nDelta;
+    m_nValue = (byte) (m_nValue + nDelta);
     onAfterChange ();
     return m_nValue;
   }

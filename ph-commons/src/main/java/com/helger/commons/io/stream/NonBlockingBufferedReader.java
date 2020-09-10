@@ -418,7 +418,7 @@ public class NonBlockingBufferedReader extends Reader
       final int d = m_nChars - m_nNextCharIndex;
       if (nRest <= d)
       {
-        m_nNextCharIndex += nRest;
+        m_nNextCharIndex += (int) nRest;
         nRest = 0;
         break;
       }

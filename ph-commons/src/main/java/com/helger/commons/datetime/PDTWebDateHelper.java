@@ -24,6 +24,7 @@ import static java.time.temporal.ChronoField.SECOND_OF_MINUTE;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
@@ -462,51 +463,68 @@ public final class PDTWebDateHelper
     return getAsStringW3C (aNow);
   }
 
+  private static final DateTimeFormatter MY_TIME;
   public static final DateTimeFormatter XSD_DATE_TIME;
 
   static
   {
+    // From the XSD spec:
+    // hh ':' mm ':' ss ('.' s+)? (zzzzzz)?
+    MY_TIME = new DateTimeFormatterBuilder ().parseCaseInsensitive ()
+                                             .appendValue (HOUR_OF_DAY, 2)
+                                             .appendLiteral (':')
+                                             .appendValue (MINUTE_OF_HOUR, 2)
+                                             .optionalStart ()
+                                             .appendLiteral (':')
+                                             .appendValue (SECOND_OF_MINUTE, 2)
+                                             .optionalStart ()
+                                             /*
+                                              * This is different compared to
+                                              * ISO_LOCAL_TIME. The maximum is
+                                              * unbounded, but we are limited to
+                                              * 9 here
+                                              */
+                                             .appendFraction (MILLI_OF_SECOND, 1, 9, true)
+                                             .optionalEnd ()
+                                             // Timezone can occur without
+                                             // milliseconds
+                                             .optionalStart ()
+                                             .appendOffsetId ()
+                                             .optionalStart ()
+                                             .appendLiteral ('[')
+                                             .parseCaseSensitive ()
+                                             .appendZoneRegionId ()
+                                             .appendLiteral (']')
+                                             .toFormatter ()
+                                             .withResolverStyle (ResolverStyle.STRICT)
+                                             .withChronology (IsoChronology.INSTANCE);
     XSD_DATE_TIME = new DateTimeFormatterBuilder ().parseCaseInsensitive ()
                                                    .append (DateTimeFormatter.ISO_LOCAL_DATE)
                                                    .appendLiteral ('T')
-                                                   .appendValue (HOUR_OF_DAY, 2)
-                                                   .appendLiteral (':')
-                                                   .appendValue (MINUTE_OF_HOUR, 2)
-                                                   .optionalStart ()
-                                                   .appendLiteral (':')
-                                                   .appendValue (SECOND_OF_MINUTE, 2)
-                                                   .optionalStart ()
-                                                   /*
-                                                    * This is different compared
-                                                    * to ISO_LOCAL_TIME
-                                                    */
-                                                   .appendFraction (MILLI_OF_SECOND, 3, 3, true)
-                                                   .optionalStart ()
-                                                   .appendOffsetId ()
-                                                   .optionalStart ()
-                                                   .appendLiteral ('[')
-                                                   .parseCaseSensitive ()
-                                                   .appendZoneRegionId ()
-                                                   .appendLiteral (']')
+                                                   .append (MY_TIME)
                                                    .toFormatter ()
                                                    .withResolverStyle (ResolverStyle.STRICT)
                                                    .withChronology (IsoChronology.INSTANCE);
   }
 
   @Nonnull
-  public static DateTimeFormatter getXSDFormatterDateTime (@Nonnull final ZoneId aZoneID)
+  public static DateTimeFormatter getXSDFormatterDateTime (@Nullable final ZoneId aOverrideZoneID)
   {
-    return XSD_DATE_TIME.withZone (aZoneID);
+    DateTimeFormatter ret = XSD_DATE_TIME;
+    if (aOverrideZoneID != null)
+      ret = ret.withZone (aOverrideZoneID);
+    return ret;
   }
 
   @Nullable
   public static ZonedDateTime getDateTimeFromXSD (@Nullable final String sValue)
   {
-    return getDateTimeFromXSD (sValue, ZoneOffset.UTC);
+    // No override zone ID is needed
+    return getDateTimeFromXSD (sValue, null);
   }
 
   @Nullable
-  public static ZonedDateTime getDateTimeFromXSD (@Nullable final String sValue, @Nonnull final ZoneId aZoneID)
+  public static ZonedDateTime getDateTimeFromXSD (@Nullable final String sValue, @Nullable final ZoneId aZoneID)
   {
     return PDTFromString.getZonedDateTimeFromString (sValue, getXSDFormatterDateTime (aZoneID));
   }
@@ -540,7 +558,7 @@ public final class PDTWebDateHelper
   @Nonnull
   public static DateTimeFormatter getXSDFormatterDate ()
   {
-    return DateTimeFormatter.ISO_DATE.withZone (ZoneOffset.UTC);
+    return DateTimeFormatter.ISO_DATE;
   }
 
   @Nullable
@@ -553,5 +571,23 @@ public final class PDTWebDateHelper
   public static String getAsStringXSD (@Nullable final LocalDate aLD)
   {
     return aLD == null ? null : getXSDFormatterDate ().format (aLD);
+  }
+
+  @Nonnull
+  public static DateTimeFormatter getXSDFormatterTime ()
+  {
+    return MY_TIME;
+  }
+
+  @Nullable
+  public static LocalTime getLocalTimeFromXSD (@Nullable final String sValue)
+  {
+    return PDTFromString.getLocalTimeFromString (sValue, getXSDFormatterTime ());
+  }
+
+  @Nullable
+  public static String getAsStringXSD (@Nullable final LocalTime aLT)
+  {
+    return aLT == null ? null : getXSDFormatterTime ().format (aLT);
   }
 }

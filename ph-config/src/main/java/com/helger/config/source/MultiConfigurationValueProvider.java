@@ -34,9 +34,13 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsArrayList;
+import com.helger.commons.collection.impl.CommonsHashSet;
 import com.helger.commons.collection.impl.ICommonsList;
+import com.helger.commons.collection.impl.ICommonsSet;
+import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.commons.lang.ICloneable;
+import com.helger.commons.string.ToStringGenerator;
 import com.helger.config.value.ConfiguredValue;
 import com.helger.config.value.IConfigurationValueProvider;
 import com.helger.config.value.IConfigurationValueProviderWithPriorityCallback;
@@ -52,12 +56,18 @@ public class MultiConfigurationValueProvider implements IConfigurationValueProvi
   private static final class CS
   {
     private final IConfigurationValueProvider m_aCVP;
-    private final int m_nPrio;
+    private final int m_nPriority;
 
     public CS (@Nonnull final IConfigurationValueProvider aCVP, final int nPrio)
     {
       m_aCVP = aCVP;
-      m_nPrio = nPrio;
+      m_nPriority = nPrio;
+    }
+
+    @Override
+    public String toString ()
+    {
+      return new ToStringGenerator (null).append ("CVP", m_aCVP).append ("Priority", m_nPriority).getToString ();
     }
   }
 
@@ -163,7 +173,7 @@ public class MultiConfigurationValueProvider implements IConfigurationValueProvi
 
       m_aSources.add (new CS (aCVP, nPriority));
       // Ensure entry with highest priority comes first
-      m_aSources.sort ( (x, y) -> y.m_nPrio - x.m_nPrio);
+      m_aSources.sort ( (x, y) -> y.m_nPriority - x.m_nPriority);
     }
     return this;
   }
@@ -204,7 +214,7 @@ public class MultiConfigurationValueProvider implements IConfigurationValueProvi
     ValueEnforcer.notNull (aCallback, "aCallback");
 
     for (final CS aSource : m_aSources)
-      aCallback.onConfigurationSource (aSource.m_aCVP, aSource.m_nPrio);
+      aCallback.onConfigurationSource (aSource.m_aCVP, aSource.m_nPriority);
   }
 
   /**
@@ -222,7 +232,7 @@ public class MultiConfigurationValueProvider implements IConfigurationValueProvi
       if (aSource.m_aCVP instanceof ICloneable <?>)
       {
         final IConfigurationValueProvider aCVPClone = (IConfigurationValueProvider) ((ICloneable <?>) aSource.m_aCVP).getClone ();
-        ret.m_aSources.add (new CS (aCVPClone, aSource.m_nPrio));
+        ret.m_aSources.add (new CS (aCVPClone, aSource.m_nPriority));
       }
       else
         ret.m_aSources.add (aSource);
@@ -249,27 +259,87 @@ public class MultiConfigurationValueProvider implements IConfigurationValueProvi
                                                                     @Nonnull final String sClassPathElement,
                                                                     @Nonnull final Function <URL, IConfigurationSource> aLoader)
   {
+    return createForAllOccurrances (aClassLoader, sClassPathElement, aLoader, false);
+  }
+
+  /**
+   * Load all classpath elements and files with the same name.
+   *
+   * @param aClassLoader
+   *        The class loader to be used. May not be <code>null</code>.
+   * @param sPathName
+   *        The name of the class path element(s) to load. May not be
+   *        <code>null</code>.
+   * @param aLoader
+   *        The loader that converts all matching URLs to
+   *        {@link IConfigurationSource} objects. With this implementation you
+   *        can differentiate the type of the content.
+   * @param bCheckForFile
+   *        <code>true</code> to also check for a file with the same name.
+   * @return May be <code>null</code> if no resource was found.
+   */
+  @Nullable
+  public static MultiConfigurationValueProvider createForAllOccurrances (@Nonnull final ClassLoader aClassLoader,
+                                                                         @Nonnull final String sPathName,
+                                                                         @Nonnull final Function <URL, IConfigurationSource> aLoader,
+                                                                         final boolean bCheckForFile)
+  {
     ValueEnforcer.notNull (aClassLoader, "ClassLoader");
-    ValueEnforcer.notNull (sClassPathElement, "ClassPathElement");
+    ValueEnforcer.notNull (sPathName, "ClassPathElement");
     ValueEnforcer.notNull (aLoader, "Loader");
 
+    final ICommonsSet <String> aUsedURLs = new CommonsHashSet <> ();
     final MultiConfigurationValueProvider ret = new MultiConfigurationValueProvider ();
     try
     {
-      final Enumeration <URL> aEnum = ClassLoaderHelper.getResources (aClassLoader, sClassPathElement);
+      final Enumeration <URL> aEnum = ClassLoaderHelper.getResources (aClassLoader, sPathName);
       while (aEnum.hasMoreElements ())
       {
         final URL aURL = aEnum.nextElement ();
 
+        if (!aUsedURLs.add (aURL.toExternalForm ()))
+        {
+          LOGGER.warn ("Ignoring duplicate configuration source URL '" + aURL.toExternalForm () + "'");
+          continue;
+        }
+
+        if (LOGGER.isDebugEnabled ())
+          LOGGER.debug ("Try to load configuration source from '" + aURL.toExternalForm () + "'");
+
         final IConfigurationSource aConfigSource = aLoader.apply (aURL);
         if (aConfigSource == null)
-          throw new IllegalStateException ("Failed to load configration source " + aURL);
+          throw new IllegalStateException ("Failed to load configration source '" + aURL.toExternalForm () + "'");
+
         ret.addConfigurationSource (aConfigSource);
       }
     }
     catch (final IOException ex)
     {
       throw new UncheckedIOException (ex);
+    }
+
+    if (bCheckForFile)
+    {
+      // Check for file system as well
+      final FileSystemResource aRes = new FileSystemResource (sPathName);
+      if (aRes.exists ())
+      {
+        final URL aURL = aRes.getAsURL ();
+        if (!aUsedURLs.add (aURL.toExternalForm ()))
+        {
+          LOGGER.warn ("Ignoring duplicate configuration source URL '" + aURL.toExternalForm () + "'");
+        }
+        else
+        {
+          if (LOGGER.isDebugEnabled ())
+            LOGGER.debug ("Try to load configuration source from '" + aURL.toExternalForm () + "'");
+
+          final IConfigurationSource aConfigSource = aLoader.apply (aURL);
+          if (aConfigSource == null)
+            throw new IllegalStateException ("Failed to load configration source '" + aURL.toExternalForm () + "'");
+          ret.addConfigurationSource (aConfigSource);
+        }
+      }
     }
 
     if (ret.getConfigurationSourceCount () == 0)

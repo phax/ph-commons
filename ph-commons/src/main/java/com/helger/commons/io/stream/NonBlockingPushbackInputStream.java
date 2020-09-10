@@ -331,7 +331,7 @@ public class NonBlockingPushbackInputStream extends FilterInputStream
     {
       if (nRealSkip <= nBufAvail)
       {
-        m_nBufPos += nRealSkip;
+        m_nBufPos += (int) nRealSkip;
         return nRealSkip;
       }
       m_nBufPos = m_aBuf.length;

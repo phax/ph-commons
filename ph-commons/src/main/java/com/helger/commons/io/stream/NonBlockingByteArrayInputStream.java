@@ -240,7 +240,7 @@ public class NonBlockingByteArrayInputStream extends InputStream implements Seri
     final long nSkip = m_nPos + n > m_nCount ? m_nCount - m_nPos : n;
     if (nSkip <= 0)
       return 0;
-    m_nPos += nSkip;
+    m_nPos += (int) nSkip;
     return nSkip;
   }
 

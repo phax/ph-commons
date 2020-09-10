@@ -23,6 +23,7 @@ import javax.xml.namespace.QName;
 
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Comment;
+import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;
 import org.w3c.dom.Element;
@@ -112,10 +113,11 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
         sXMLVersion = aDocument.getXmlVersion ();
         eDocumentStandalone = ETriState.valueOf (aDocument.getXmlStandalone ());
       }
-      catch (final LinkageError ex)
+      catch (final LinkageError | DOMException ex)
       {
-        // Happens e.g. in dom4j 1.6.1:
+        // LinkageError Happens e.g. in dom4j 1.6.1:
         // AbstractMethodError: getXmlVersion and getXmlStandalone
+        // DOMException in dom4j 2.0.3
       }
       final EXMLVersion eXMLVersion = EXMLVersion.getFromVersionOrDefault (sXMLVersion, m_aSettings.getXMLVersion ());
       aXMLWriter.onXMLDeclaration (eXMLVersion,

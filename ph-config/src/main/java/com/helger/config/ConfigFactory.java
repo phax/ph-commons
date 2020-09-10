@@ -28,7 +28,6 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.io.file.FilenameHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.io.resource.FileSystemResource;
-import com.helger.commons.io.resource.IReadableResource;
 import com.helger.commons.io.resource.URLResource;
 import com.helger.commons.io.resourceprovider.ClassPathResourceProvider;
 import com.helger.commons.io.resourceprovider.FileSystemResourceProvider;
@@ -52,11 +51,20 @@ import com.helger.config.source.sysprop.ConfigurationSourceSystemProperty;
 @Immutable
 public final class ConfigFactory
 {
+  public static final int PRIVATE_APPLICATION_JSON_PRIORITY = EConfigSourceType.RESOURCE.getDefaultPriority () - 5;
+  public static final int PRIVATE_APPLICATION_PROPERTIES_PRIORITY = EConfigSourceType.RESOURCE.getDefaultPriority () - 10;
+  public static final int APPLICATION_JSON_PRIORITY = EConfigSourceType.RESOURCE.getDefaultPriority () - 15;
+  public static final int APPLICATION_PROPERTIES_PRIORITY = EConfigSourceType.RESOURCE.getDefaultPriority () - 20;
+  public static final int REFERENCE_PROPERTIES_PRIORITY = 1;
+
   private static final Logger LOGGER = LoggerFactory.getLogger (ConfigFactory.class);
   private static final EConfigSourceResourceType FALLBACK_SOURCE_TYPE = EConfigSourceResourceType.PROPERTIES;
+
   /**
    * Use this configuration internally to resolve the properties used for the
-   * default instance. Therefore the initialization order is critical.
+   * default instance. The "system only" resolver considers system properties
+   * and environment variables only.<br>
+   * Initialization order is critical - this one must be first.
    */
   private static final IConfig SYSTEM_ONLY = Config.create (createValueProviderSystemOnly ());
   private static final IConfig DEFAULT_INSTANCE = Config.create (createDefaultValueProvider ());
@@ -65,7 +73,10 @@ public final class ConfigFactory
   {
     final int nResourceBased = DEFAULT_INSTANCE.getResourceBasedConfigurationValueProviderCount ();
     if (nResourceBased == 0)
-      LOGGER.warn ("The default Config instance is based soley on system properties and environment variables. No configuration resources were found.");
+    {
+      // Small consistency check
+      LOGGER.info ("The default Config instance is based soley on system properties and environment variables. No configuration resources were found.");
+    }
   }
 
   /**
@@ -90,6 +101,18 @@ public final class ConfigFactory
     // Prio 300
     aMCSVP.addConfigurationSource (new ConfigurationSourceEnvVar ());
     return aMCSVP;
+  }
+
+  /**
+   * @return A new instance of {@link ReadableResourceProviderChain} used to
+   *         resolve resource based configuration items.
+   * @since 9.4.8
+   */
+  @Nonnull
+  public static ReadableResourceProviderChain createDefaultResourceProviderChain ()
+  {
+    return new ReadableResourceProviderChain (new FileSystemResourceProvider ().setCanReadRelativePaths (true),
+                                              new ClassPathResourceProvider ());
   }
 
   /**
@@ -146,6 +169,7 @@ public final class ConfigFactory
     aMCSVP.addConfigurationSource (new ConfigurationSourceEnvVar ());
 
     final int nResourceDefaultPrio = EConfigSourceType.RESOURCE.getDefaultPriority ();
+    final ClassLoader aCL = ClassLoaderHelper.getDefaultClassLoader ();
 
     // Prio 200 - external files
     {
@@ -174,7 +198,8 @@ public final class ConfigFactory
         final int nPriority = SYSTEM_ONLY.getAsInt ("config.resources.priority", nResourceDefaultPrio);
         final EConfigSourceResourceType eResType = EConfigSourceResourceType.getFromExtensionOrDefault (FilenameHelper.getExtension (sConfigResources),
                                                                                                         FALLBACK_SOURCE_TYPE);
-        aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForClassPath (ClassLoaderHelper.getDefaultClassLoader (),
+        // Classpath only
+        aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForClassPath (aCL,
                                                                                            sConfigResources,
                                                                                            aURL -> eResType.createConfigurationSource (new URLResource (aURL))),
                                        nPriority);
@@ -217,40 +242,45 @@ public final class ConfigFactory
       }
     }
 
-    // Use existing ones only
-    final ReadableResourceProviderChain aResourceProvider = new ReadableResourceProviderChain (new FileSystemResourceProvider ().setCanReadRelativePaths (true),
-                                                                                               new ClassPathResourceProvider ());
+    // Prio 195, incl. files
+    aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForAllOccurrances (aCL,
+                                                                                            "private-application.json",
+                                                                                            aURL -> new ConfigurationSourceJson (new URLResource (aURL),
+                                                                                                                                 StandardCharsets.UTF_8),
+                                                                                            true),
+                                   PRIVATE_APPLICATION_JSON_PRIORITY);
 
-    // Prio 195
-    IReadableResource aRes = aResourceProvider.getReadableResourceIf ("private-application.json", IReadableResource::exists);
-    if (aRes != null)
-      aMCSVP.addConfigurationSource (new ConfigurationSourceJson (aRes, StandardCharsets.UTF_8), nResourceDefaultPrio - 5);
+    // Prio 190, incl. files
+    aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForAllOccurrances (aCL,
+                                                                                            "private-application.properties",
+                                                                                            aURL -> new ConfigurationSourceProperties (new URLResource (aURL),
+                                                                                                                                       StandardCharsets.UTF_8),
+                                                                                            true),
+                                   PRIVATE_APPLICATION_PROPERTIES_PRIORITY);
 
-    // Prio 190
-    aRes = aResourceProvider.getReadableResourceIf ("private-application.properties", IReadableResource::exists);
-    if (aRes != null)
-      aMCSVP.addConfigurationSource (new ConfigurationSourceProperties (aRes, StandardCharsets.UTF_8), nResourceDefaultPrio - 10);
+    // Prio 185, incl. files
+    aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForAllOccurrances (aCL,
+                                                                                            "application.json",
+                                                                                            aURL -> new ConfigurationSourceJson (new URLResource (aURL),
+                                                                                                                                 StandardCharsets.UTF_8),
+                                                                                            true),
+                                   APPLICATION_JSON_PRIORITY);
 
-    // Prio 185
-    aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForClassPath (ClassLoaderHelper.getDefaultClassLoader (),
-                                                                                       "application.json",
-                                                                                       aURL -> new ConfigurationSourceJson (new URLResource (aURL),
-                                                                                                                            StandardCharsets.UTF_8)),
-                                   nResourceDefaultPrio - 15);
-
-    // Prio 180
-    aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForClassPath (ClassLoaderHelper.getDefaultClassLoader (),
-                                                                                       "application.properties",
-                                                                                       aURL -> new ConfigurationSourceProperties (new URLResource (aURL),
-                                                                                                                                  StandardCharsets.UTF_8)),
-                                   nResourceDefaultPrio - 20);
+    // Prio 180, incl. files
+    aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForAllOccurrances (aCL,
+                                                                                            "application.properties",
+                                                                                            aURL -> new ConfigurationSourceProperties (new URLResource (aURL),
+                                                                                                                                       StandardCharsets.UTF_8),
+                                                                                            true),
+                                   APPLICATION_PROPERTIES_PRIORITY);
 
     // Prio 1
-    aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForClassPath (ClassLoaderHelper.getDefaultClassLoader (),
-                                                                                       "reference.properties",
-                                                                                       aURL -> new ConfigurationSourceProperties (new URLResource (aURL),
-                                                                                                                                  StandardCharsets.UTF_8)),
-                                   1);
+    aMCSVP.addConfigurationSource (MultiConfigurationValueProvider.createForAllOccurrances (aCL,
+                                                                                            "reference.properties",
+                                                                                            aURL -> new ConfigurationSourceProperties (new URLResource (aURL),
+                                                                                                                                       StandardCharsets.UTF_8),
+                                                                                            true),
+                                   REFERENCE_PROPERTIES_PRIORITY);
     return aMCSVP;
   }
 
