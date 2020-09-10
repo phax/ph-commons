@@ -33,6 +33,7 @@ This project was the following modules:
     * Added new JAXB Adapter class `AdapterZonedDateTime`
     * Added a new factory method in `ConfigFactory`.
     * Default configuration source loading is now more consistent and behaves identical for all predefined filenames.
+    * Extended `IConfig` API to easily reload all resource based configuration files
 * v9.4.7 - 2020-08-28
     * Extended `IPrivilegedAction` API for `Security` provider APIs
     * Extended `IJsonArray` API to iterate only child arrays, objects or values

@@ -21,7 +21,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.mutable.MutableInt;
+import com.helger.commons.state.ESuccess;
 import com.helger.commons.traits.IGetterByKeyTrait;
+import com.helger.commons.wrapper.Wrapper;
 import com.helger.config.source.res.IConfigurationSourceResource;
 import com.helger.config.value.ConfiguredValue;
 import com.helger.config.value.IConfigurationValueProviderWithPriorityCallback;
@@ -36,7 +38,7 @@ public interface IConfig extends IGetterByKeyTrait <String>
   /**
    * Get the configured value, which is the combination of the matching
    * configuration source and the value, for the provided key.
-   * 
+   *
    * @param sKey
    *        The configuration key to look up.
    * @return <code>null</code> if no such configuration value is available.
@@ -68,5 +70,23 @@ public interface IConfig extends IGetterByKeyTrait <String>
         aCount.inc ();
     });
     return aCount.intValue ();
+  }
+
+  /**
+   * Reload the configuration from all resource based sources.
+   *
+   * @return {@link ESuccess#SUCCESS} if all could be reloaded,
+   *         {@link ESuccess#FAILURE} if at least one failed.
+   * @since 9.4.8
+   */
+  @Nonnull
+  default ESuccess reloadAllResourceBasedConfigurationValues ()
+  {
+    final Wrapper <ESuccess> ret = new Wrapper <> (ESuccess.SUCCESS);
+    forEachConfigurationValueProvider ( (cvp, prio) -> {
+      if (cvp instanceof IConfigurationSourceResource)
+        ret.set (ret.get ().or (((IConfigurationSourceResource) cvp).reload ()));
+    });
+    return ret.get ();
   }
 }
