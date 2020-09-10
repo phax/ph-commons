@@ -17,6 +17,7 @@
 package com.helger.xml.namespace;
 
 import javax.annotation.Nonnull;
+import javax.xml.namespace.NamespaceContext;
 
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 import com.helger.commons.annotation.ReturnsMutableCopy;
@@ -29,7 +30,7 @@ import com.helger.commons.collection.impl.ICommonsMap;
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
-public interface IIterableNamespaceContext extends INamespaceContext
+public interface IIterableNamespaceContext extends NamespaceContext
 {
   /**
    * Get all contained mappings.

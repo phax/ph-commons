@@ -21,10 +21,11 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.function.Supplier;
+
 import org.junit.Test;
 
 import com.helger.commons.annotation.UsedViaReflection;
-import com.helger.commons.functional.ISupplier;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -55,7 +56,7 @@ public final class FactoryNewInstanceTest
   public void testGetNewInstanceFactory ()
   {
     // test with a valid class
-    ISupplier <?> aFactory = FactoryNewInstance.create (FactoryNewInstanceTest.class);
+    Supplier <?> aFactory = FactoryNewInstance.create (FactoryNewInstanceTest.class);
     assertNotNull (aFactory);
     assertNotNull (aFactory.get ());
 
@@ -79,7 +80,7 @@ public final class FactoryNewInstanceTest
   public void testGetNewInstanceFactorySafe ()
   {
     // test with a valid class
-    final ISupplier <?> aFactory = FactoryNewInstance.create (FactoryNewInstanceTest.class, true);
+    final Supplier <?> aFactory = FactoryNewInstance.create (FactoryNewInstanceTest.class, true);
     assertNotNull (aFactory);
     assertNotNull (aFactory.get ());
 

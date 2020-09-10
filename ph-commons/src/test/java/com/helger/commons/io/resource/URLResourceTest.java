@@ -146,10 +146,4 @@ public final class URLResourceTest
     catch (final IllegalArgumentException ex)
     {}
   }
-
-  @Test
-  public void testSerialize () throws Exception
-  {
-    CommonsTestHelper.testDefaultSerialization (new URLResource ("http://www.helger.com"));
-  }
 }

@@ -16,7 +16,6 @@
  */
 package com.helger.commons.callback;
 
-import java.io.Serializable;
 import java.util.Iterator;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -49,10 +48,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        The callback type.
  */
 @ThreadSafe
-public class CallbackList <CALLBACKTYPE extends ICallback> implements
-                          ICallbackList <CALLBACKTYPE>,
-                          ICloneable <CallbackList <CALLBACKTYPE>>,
-                          Serializable
+public class CallbackList <CALLBACKTYPE extends ICallback> implements ICallbackList <CALLBACKTYPE>, ICloneable <CallbackList <CALLBACKTYPE>>
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (CallbackList.class);
 

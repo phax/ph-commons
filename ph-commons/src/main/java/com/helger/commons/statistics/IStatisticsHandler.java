@@ -16,8 +16,6 @@
  */
 package com.helger.commons.statistics;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnegative;
 
 /**
@@ -25,7 +23,7 @@ import javax.annotation.Nonnegative;
  *
  * @author Philip Helger
  */
-public interface IStatisticsHandler extends Serializable
+public interface IStatisticsHandler
 {
   /**
    * @return The number of times this statistics hander was invoked.

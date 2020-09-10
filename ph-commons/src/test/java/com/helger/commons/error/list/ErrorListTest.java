@@ -43,9 +43,6 @@ import org.junit.Test;
 
 import com.helger.commons.error.SingleError;
 import com.helger.commons.error.level.EErrorLevel;
-import com.helger.commons.exception.mock.MockIOException;
-import com.helger.commons.location.SimpleLocation;
-import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link ErrorList}.
@@ -140,8 +137,6 @@ public final class ErrorListTest
     assertEquals (0, aList.getListOfFieldsRegExp ("field\\d").size ());
     assertEquals (1, aList.getGroupedByID ().size ());
     assertEquals (1, aList.getGroupedByFieldName ().size ());
-
-    CommonsTestHelper.testDefaultSerialization (aList);
   }
 
   @Test
@@ -247,8 +242,6 @@ public final class ErrorListTest
     assertEquals (1, aList.getGroupedByID ().size ());
     assertEquals (2, aList.getGroupedByFieldName ().size ());
 
-    CommonsTestHelper.testDefaultSerialization (aList);
-
     // Clear list
     assertTrue (aList.removeAll ().isChanged ());
     assertFalse (aList.removeAll ().isChanged ());
@@ -276,30 +269,6 @@ public final class ErrorListTest
     assertEquals (0, aList.getListOfFieldsRegExp ("field\\d").size ());
     assertEquals (0, aList.getGroupedByID ().size ());
     assertEquals (0, aList.getGroupedByFieldName ().size ());
-  }
-
-  @Test
-  public void testSerialize ()
-  {
-    final ErrorList aList = new ErrorList ();
-    CommonsTestHelper.testDefaultSerialization (aList);
-
-    aList.add (SingleError.builderInfo ()
-                          .setErrorID ("test-1")
-                          .setErrorFieldName ("field1")
-                          .setErrorText ("TestInfo")
-                          .setErrorLocation (new SimpleLocation ("here.xml", 17, 3))
-                          .build ());
-    CommonsTestHelper.testDefaultSerialization (aList);
-
-    aList.add (SingleError.builderInfo ()
-                          .setErrorID ("test-2")
-                          .setErrorFieldName ("field1")
-                          .setErrorText ("TestInfo")
-                          .setErrorLocation (new SimpleLocation ("here.xml", 17, 3))
-                          .setLinkedException (new MockIOException ("Mock"))
-                          .build ());
-    CommonsTestHelper.testDefaultSerialization (aList);
   }
 
   @Test

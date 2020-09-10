@@ -42,8 +42,5 @@ public final class TypedObjectTest
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (t1, TypedObject.create (t1));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (t1, TypedObject.create (ot1, "id2"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (t1, TypedObject.create (ot2, "id1"));
-
-    // Serialization
-    CommonsTestHelper.testDefaultSerialization (t1);
   }
 }

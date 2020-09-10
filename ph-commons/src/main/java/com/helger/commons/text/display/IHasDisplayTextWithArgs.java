@@ -27,9 +27,6 @@ import com.helger.commons.text.util.TextHelper;
 
 /**
  * Base interface for objects that have a locale <b>dependent</b> display name.
- * <br>
- * Since version 8.5.2 this interface inherits from IHasDisplayText and is
- * therefore Serializable. This was done to align it with IHasTextWithArgs
  *
  * @author Philip Helger
  */

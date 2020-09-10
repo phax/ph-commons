@@ -16,7 +16,6 @@
  */
 package com.helger.commons.datetime;
 
-import java.io.Serializable;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 
@@ -35,7 +34,7 @@ import com.helger.commons.collection.impl.ICommonsList;
  * @author Philip Helger
  * @since 8.6.5
  */
-public class PDTZoneID implements Serializable
+public class PDTZoneID
 {
   private static ICommonsList <PDTZoneID> s_aZIS = new CommonsArrayList <> ();
 

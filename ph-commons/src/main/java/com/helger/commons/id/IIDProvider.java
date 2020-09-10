@@ -16,8 +16,6 @@
  */
 package com.helger.commons.id;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 
 /**
@@ -30,7 +28,7 @@ import javax.annotation.Nonnull;
  *        Key type
  */
 @FunctionalInterface
-public interface IIDProvider <VALUETYPE, IDTYPE> extends Serializable
+public interface IIDProvider <VALUETYPE, IDTYPE>
 {
   /**
    * Get the ID of the passed object.

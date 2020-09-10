@@ -19,23 +19,23 @@ package com.helger.commons.io.file;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FilenameFilter;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.functional.IPredicate;
 import com.helger.commons.regex.RegExHelper;
 
 /**
  * Abstract interface that collects {@link FileFilter}, {@link FilenameFilter}
- * and {@link IPredicate}.
+ * and {@link Predicate}.
  *
  * @author Philip Helger
  */
 @FunctionalInterface
-public interface IFileFilter extends FileFilter, FilenameFilter, IPredicate <File>
+public interface IFileFilter extends FileFilter, FilenameFilter, Predicate <File>
 {
   default boolean accept (@Nullable final File aFile)
   {

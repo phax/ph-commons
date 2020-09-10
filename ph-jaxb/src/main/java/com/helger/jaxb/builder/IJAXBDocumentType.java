@@ -16,7 +16,6 @@
  */
 package com.helger.jaxb.builder;
 
-import java.io.Serializable;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -41,7 +40,7 @@ import com.helger.xml.schema.XMLSchemaValidationHelper;
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
-public interface IJAXBDocumentType extends Serializable
+public interface IJAXBDocumentType
 {
   /**
    * @return The compiled {@link Schema} object.

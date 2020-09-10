@@ -16,20 +16,21 @@
  */
 package com.helger.commons.factory;
 
+import java.util.function.Supplier;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.functional.ISupplier;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.lang.ClassHelper;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
- * Implementation of {@link ISupplier} that always creates a new instance via
+ * Implementation of {@link Supplier} that always creates a new instance via
  * reflection
  *
  * @author Philip Helger
@@ -37,7 +38,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        The return type of the factory
  */
 @Immutable
-public class FactoryNewInstance <DATATYPE> implements ISupplier <DATATYPE>
+public class FactoryNewInstance <DATATYPE> implements Supplier <DATATYPE>
 {
   private final Class <? extends DATATYPE> m_aClass;
 

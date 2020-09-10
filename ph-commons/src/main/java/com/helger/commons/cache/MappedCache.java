@@ -16,6 +16,8 @@
  */
 package com.helger.commons.cache;
 
+import java.util.function.Function;
+
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -39,7 +41,6 @@ import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.map.SoftHashMap;
 import com.helger.commons.collection.map.SoftLinkedHashMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
-import com.helger.commons.functional.IFunction;
 import com.helger.commons.state.EChange;
 import com.helger.commons.statistics.IMutableStatisticsHandlerCache;
 import com.helger.commons.statistics.IMutableStatisticsHandlerCounter;
@@ -74,8 +75,8 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
   private final IMutableStatisticsHandlerCounter m_aStatsCountClear;
 
   protected final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
-  private final IFunction <KEYTYPE, KEYSTORETYPE> m_aCacheKeyProvider;
-  private final IFunction <KEYTYPE, VALUETYPE> m_aValueProvider;
+  private final Function <KEYTYPE, KEYSTORETYPE> m_aCacheKeyProvider;
+  private final Function <KEYTYPE, VALUETYPE> m_aValueProvider;
   private final int m_nMaxSize;
   private final String m_sName;
   private final boolean m_bAllowNullValues;
@@ -106,8 +107,8 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
    *        <code>true</code> if <code>null</code> values are allowed to be in
    *        the cache, <code>false</code> if not.
    */
-  public MappedCache (@Nonnull final IFunction <KEYTYPE, KEYSTORETYPE> aCacheKeyProvider,
-                      @Nonnull final IFunction <KEYTYPE, VALUETYPE> aValueProvider,
+  public MappedCache (@Nonnull final Function <KEYTYPE, KEYSTORETYPE> aCacheKeyProvider,
+                      @Nonnull final Function <KEYTYPE, VALUETYPE> aValueProvider,
                       final int nMaxSize,
                       @Nonnull @Nonempty final String sCacheName,
                       final boolean bAllowNullValues)
@@ -133,7 +134,7 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
    * @since 9.3.8
    */
   @Nonnull
-  protected final IFunction <KEYTYPE, KEYSTORETYPE> getCacheKeyProvider ()
+  protected final Function <KEYTYPE, KEYSTORETYPE> getCacheKeyProvider ()
   {
     return m_aCacheKeyProvider;
   }
@@ -144,7 +145,7 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
    * @since 9.3.8
    */
   @Nonnull
-  protected final IFunction <KEYTYPE, VALUETYPE> getValueProvider ()
+  protected final Function <KEYTYPE, VALUETYPE> getValueProvider ()
   {
     return m_aValueProvider;
   }

@@ -16,8 +16,6 @@
  */
 package com.helger.security.authentication.result;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -31,7 +29,7 @@ import com.helger.security.authentication.credentials.ICredentialValidationResul
  *
  * @author Philip Helger
  */
-public class AuthIdentificationResult implements ISuccessIndicator, Serializable
+public class AuthIdentificationResult implements ISuccessIndicator
 {
   private final IAuthToken m_aAuthToken;
   private final ICredentialValidationResult m_aCredentialValidationFailure;

@@ -16,8 +16,9 @@
  */
 package com.helger.commons.aggregate;
 
+import java.util.function.Function;
+
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.functional.IFunction;
 
 /**
  * Splits an input object to a list of output objects (change 1 to n).
@@ -30,7 +31,7 @@ import com.helger.commons.functional.IFunction;
  * @since 9.0.0
  */
 @FunctionalInterface
-public interface ISplitter <SRCTYPE, DSTTYPE> extends IFunction <SRCTYPE, ICommonsList <DSTTYPE>>
+public interface ISplitter <SRCTYPE, DSTTYPE> extends Function <SRCTYPE, ICommonsList <DSTTYPE>>
 {
   /* empty */
 }

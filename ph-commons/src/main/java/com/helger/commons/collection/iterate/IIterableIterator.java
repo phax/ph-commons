@@ -17,12 +17,12 @@
 package com.helger.commons.collection.iterate;
 
 import java.util.Iterator;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
 
 import com.helger.commons.collection.impl.ICommonsIterable;
-import com.helger.commons.functional.IFunction;
-import com.helger.commons.functional.IPredicate;
 
 /**
  * This is a merged interface of {@link Iterator} and {@link Iterable} for
@@ -41,13 +41,13 @@ public interface IIterableIterator <ELEMENTTYPE> extends ICommonsIterable <ELEME
   }
 
   @Nonnull
-  default IIterableIterator <ELEMENTTYPE> withFilter (@Nonnull final IPredicate <? super ELEMENTTYPE> aFilter)
+  default IIterableIterator <ELEMENTTYPE> withFilter (@Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
   {
     return new FilterIterator <> (this, aFilter);
   }
 
   @Nonnull
-  default <DSTTYPE> IIterableIterator <DSTTYPE> withMapper (@Nonnull final IFunction <? super ELEMENTTYPE, ? extends DSTTYPE> aMapper)
+  default <DSTTYPE> IIterableIterator <DSTTYPE> withMapper (@Nonnull final Function <? super ELEMENTTYPE, ? extends DSTTYPE> aMapper)
   {
     return new MapperIterator <> (this, aMapper);
   }

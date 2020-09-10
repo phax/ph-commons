@@ -19,7 +19,6 @@ package com.helger.matrix;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Reader;
-import java.io.Serializable;
 import java.io.StreamTokenizer;
 import java.text.NumberFormat;
 import java.util.Arrays;
@@ -91,7 +90,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *         Technology.
  * @version 5 August 1998
  */
-public class MatrixInt implements Serializable, ICloneable <MatrixInt>
+public class MatrixInt implements ICloneable <MatrixInt>
 {
   /**
    * Array for internal storage of elements.

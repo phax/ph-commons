@@ -17,8 +17,6 @@
  */
 package com.helger.cli;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -419,7 +417,7 @@ public class Option implements IOptionBase
    * Option option = Option.builder ("a").required (true).longOpt ("arg-name").build ();
    * </pre>
    */
-  public static class Builder implements Serializable
+  public static class Builder
   {
     /** the name of the option */
     private final String m_sShortOpt;

@@ -16,9 +16,10 @@
  */
 package com.helger.commons.typeconvert;
 
+import java.util.function.Function;
+
 import javax.annotation.Nonnull;
 
-import com.helger.commons.functional.IFunction;
 import com.helger.commons.typeconvert.rule.TypeConverterRuleAnySourceFixedDestination;
 import com.helger.commons.typeconvert.rule.TypeConverterRuleAssignableSourceFixedDestination;
 import com.helger.commons.typeconvert.rule.TypeConverterRuleFixedSourceAnyDestination;
@@ -79,27 +80,27 @@ public interface ITypeConverterRegistry
   void registerTypeConverterRule (@Nonnull ITypeConverterRule <?, ?> aTypeConverterRule);
 
   default <DST> void registerTypeConverterRuleAnySourceFixedDestination (@Nonnull final Class <DST> aDstClass,
-                                                                         @Nonnull final IFunction <? super Object, ? extends DST> aConverter)
+                                                                         @Nonnull final Function <? super Object, ? extends DST> aConverter)
   {
     registerTypeConverterRule (new TypeConverterRuleAnySourceFixedDestination <> (aDstClass, aConverter));
   }
 
   default <SRC, DST> void registerTypeConverterRuleAssignableSourceFixedDestination (@Nonnull final Class <SRC> aSrcClass,
                                                                                      @Nonnull final Class <DST> aDstClass,
-                                                                                     @Nonnull final IFunction <? super SRC, ? extends DST> aConverter)
+                                                                                     @Nonnull final Function <? super SRC, ? extends DST> aConverter)
   {
     registerTypeConverterRule (new TypeConverterRuleAssignableSourceFixedDestination <> (aSrcClass, aDstClass, aConverter));
   }
 
   default <SRC> void registerTypeConverterRuleFixedSourceAnyDestination (@Nonnull final Class <SRC> aSrcClass,
-                                                                         @Nonnull final IFunction <? super SRC, ? extends Object> aInBetweenConverter)
+                                                                         @Nonnull final Function <? super SRC, ? extends Object> aInBetweenConverter)
   {
     registerTypeConverterRule (new TypeConverterRuleFixedSourceAnyDestination <> (aSrcClass, aInBetweenConverter));
   }
 
   default <SRC, DST> void registerTypeConverterRuleFixedSourceAssignableDestination (@Nonnull final Class <SRC> aSrcClass,
                                                                                      @Nonnull final Class <DST> aDstClass,
-                                                                                     @Nonnull final IFunction <? super SRC, ? extends DST> aConverter)
+                                                                                     @Nonnull final Function <? super SRC, ? extends DST> aConverter)
   {
     registerTypeConverterRule (new TypeConverterRuleFixedSourceAssignableDestination <> (aSrcClass, aDstClass, aConverter));
   }

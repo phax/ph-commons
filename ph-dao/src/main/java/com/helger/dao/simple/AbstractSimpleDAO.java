@@ -22,6 +22,7 @@ import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.Locale;
+import java.util.function.Supplier;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -37,7 +38,6 @@ import com.helger.commons.annotation.MustBeLocked;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.datetime.PDTToString;
-import com.helger.commons.functional.ISupplier;
 import com.helger.commons.io.file.FileHelper;
 import com.helger.commons.io.file.FileIOError;
 import com.helger.commons.io.file.FileOperationManager;
@@ -96,7 +96,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
                                                                                                               "$write");
 
   private final IFileRelativeIO m_aIO;
-  private final ISupplier <String> m_aFilenameProvider;
+  private final Supplier <String> m_aFilenameProvider;
   private String m_sPreviousFilename;
   private int m_nInitCount = 0;
   private LocalDateTime m_aLastInitDT;
@@ -105,7 +105,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
   private int m_nWriteCount = 0;
   private LocalDateTime m_aLastWriteDT;
 
-  protected AbstractSimpleDAO (@Nonnull final IFileRelativeIO aIO, @Nonnull final ISupplier <String> aFilenameProvider)
+  protected AbstractSimpleDAO (@Nonnull final IFileRelativeIO aIO, @Nonnull final Supplier <String> aFilenameProvider)
   {
     m_aIO = ValueEnforcer.notNull (aIO, "IO");
     m_aFilenameProvider = ValueEnforcer.notNull (aFilenameProvider, "FilenameProvider");
@@ -126,7 +126,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
    *         <code>null</code>.
    */
   @Nonnull
-  public final ISupplier <String> getFilenameProvider ()
+  public final Supplier <String> getFilenameProvider ()
   {
     return m_aFilenameProvider;
   }

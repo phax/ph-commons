@@ -16,8 +16,6 @@
  */
 package com.helger.dao.wal;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 
 import com.helger.commons.callback.ICallback;
@@ -30,7 +28,7 @@ import com.helger.commons.id.IHasID;
  * @param <INTERFACETYPE>
  *        DAO manager interface type
  */
-public interface IDAOChangeCallback <INTERFACETYPE extends IHasID <String> & Serializable> extends ICallback
+public interface IDAOChangeCallback <INTERFACETYPE extends IHasID <String>> extends ICallback
 {
   /**
    * Called after a new item was created.

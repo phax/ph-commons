@@ -16,7 +16,6 @@
  */
 package com.helger.commons.text;
 
-import java.io.Serializable;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -38,7 +37,7 @@ import com.helger.commons.string.ToStringGenerator;
  */
 @Immutable
 @MustImplementEqualsAndHashcode
-public class ConstantHasTextWithArgs extends AbstractHasText implements IHasTextWithArgs, Serializable
+public class ConstantHasTextWithArgs extends AbstractHasText implements IHasTextWithArgs
 {
   private final String m_sFixedText;
 

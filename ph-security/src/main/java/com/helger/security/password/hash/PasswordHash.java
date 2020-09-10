@@ -16,8 +16,6 @@
  */
 package com.helger.security.password.hash;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -35,7 +33,7 @@ import com.helger.security.password.salt.IPasswordSalt;
  * @author Philip Helger
  */
 @Immutable
-public final class PasswordHash implements Serializable
+public final class PasswordHash
 {
   private final String m_sAlgorithmName;
   private final IPasswordSalt m_aSalt;
@@ -103,9 +101,9 @@ public final class PasswordHash implements Serializable
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("algorithmName", m_sAlgorithmName)
-                                       .appendIfNotNull ("salt", m_aSalt)
-                                       .append ("passwordHashValue", m_sPasswordHashValue)
+    return new ToStringGenerator (this).append ("AlgorithmName", m_sAlgorithmName)
+                                       .appendIfNotNull ("Salt", m_aSalt)
+                                       .append ("PasswordHashValue", m_sPasswordHashValue)
                                        .getToString ();
   }
 }

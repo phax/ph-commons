@@ -16,7 +16,6 @@
  */
 package com.helger.matrix;
 
-import java.io.Serializable;
 import java.util.Arrays;
 
 import javax.annotation.Nonnull;
@@ -43,7 +42,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * computed from this decomposition.
  * </P>
  */
-public class SingularValueDecomposition implements Serializable
+public class SingularValueDecomposition
 {
   private static final double EPSILON = Math.pow (2.0, -52.0);
   private static final double TINY = Math.pow (2.0, -966.0);

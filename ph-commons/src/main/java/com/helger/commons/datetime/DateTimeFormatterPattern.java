@@ -32,8 +32,7 @@ import com.helger.commons.string.ToStringGenerator;
 
 /**
  * This class encapsulates a String pattern and a set of options to be used in
- * parsing. <br>
- * Note: cannot be Serializable because DateTimeFormatter is not Serializable
+ * parsing.
  *
  * @author Philip Helger
  */

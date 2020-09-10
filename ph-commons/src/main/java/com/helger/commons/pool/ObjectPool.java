@@ -19,6 +19,7 @@ package com.helger.commons.pool;
 import java.util.Arrays;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Supplier;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -31,7 +32,6 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.concurrent.SimpleLock;
 import com.helger.commons.debug.GlobalDebug;
-import com.helger.commons.functional.ISupplier;
 import com.helger.commons.lang.GenericReflection;
 import com.helger.commons.state.ESuccess;
 
@@ -61,7 +61,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
   private final boolean [] m_aUsed;
 
   // The factory for creating objects
-  private final ISupplier <? extends DATATYPE> m_aFactory;
+  private final Supplier <? extends DATATYPE> m_aFactory;
 
   /**
    * @return <code>true</code> if logging is disabled, <code>false</code> if it
@@ -98,7 +98,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
    *        factory may not create <code>null</code> objects, as this leads to
    *        an error!
    */
-  public ObjectPool (@Nonnegative final int nItemCount, @Nonnull final ISupplier <? extends DATATYPE> aFactory)
+  public ObjectPool (@Nonnegative final int nItemCount, @Nonnull final Supplier <? extends DATATYPE> aFactory)
   {
     ValueEnforcer.isGT0 (nItemCount, "ItemCount");
     ValueEnforcer.notNull (aFactory, "Factory");

@@ -16,7 +16,6 @@
  */
 package com.helger.commons.regex;
 
-import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -39,7 +38,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public final class RegExPattern implements Serializable
+public final class RegExPattern
 {
   private static final AtomicBoolean s_aCheckConsistencyEnabled = new AtomicBoolean (false);
 

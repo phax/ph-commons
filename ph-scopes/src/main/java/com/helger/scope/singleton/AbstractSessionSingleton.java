@@ -19,7 +19,6 @@ package com.helger.scope.singleton;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -38,7 +37,7 @@ import com.helger.scope.mgr.ScopeManager;
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
-public abstract class AbstractSessionSingleton extends AbstractSingleton implements Serializable
+public abstract class AbstractSessionSingleton extends AbstractSingleton
 {
   protected AbstractSessionSingleton ()
   {}

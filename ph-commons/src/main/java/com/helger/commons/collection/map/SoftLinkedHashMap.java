@@ -18,6 +18,7 @@ package com.helger.commons.collection.map;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -25,7 +26,6 @@ import javax.annotation.Nonnull;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsLinkedHashMap;
-import com.helger.commons.functional.IPredicate;
 import com.helger.commons.hashcode.HashCodeGenerator;
 
 /**
@@ -50,7 +50,7 @@ public class SoftLinkedHashMap <K, V> extends AbstractSoftMap <K, V>
     // Note: 0.75f is the same as HashMap.DEFAULT_LOAD_FACTOR
     private static final float DEFAULT_LOAD_FACTOR = 0.75f;
 
-    private IPredicate <? super Map.Entry <K, V>> m_aFilter;
+    private Predicate <? super Map.Entry <K, V>> m_aFilter;
 
     public InternalLinkedHashMap (@Nonnegative final int nMaxSize)
     {

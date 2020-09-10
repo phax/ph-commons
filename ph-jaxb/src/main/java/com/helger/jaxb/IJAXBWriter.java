@@ -30,6 +30,7 @@ import javax.annotation.WillClose;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.namespace.NamespaceContext;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.transform.Result;
 import javax.xml.transform.stream.StreamResult;
@@ -51,7 +52,6 @@ import com.helger.xml.XMLFactory;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.serialize.MicroSAXHandler;
-import com.helger.xml.namespace.INamespaceContext;
 import com.helger.xml.serialize.write.EXMLIncorrectCharacterHandling;
 import com.helger.xml.serialize.write.EXMLSerializeIndent;
 import com.helger.xml.serialize.write.IXMLWriterSettings;
@@ -82,7 +82,7 @@ public interface IJAXBWriter <JAXBTYPE>
    * @since 8.5.3 in this interface
    */
   @Nullable
-  INamespaceContext getNamespaceContext ();
+  NamespaceContext getNamespaceContext ();
 
   /**
    * @return <code>true</code> if the JAXB output should be formatted. Default

@@ -16,7 +16,6 @@
  */
 package com.helger.commons.statistics;
 
-import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -43,7 +42,7 @@ import com.helger.commons.string.ToStringGenerator;
 @ThreadSafe
 public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisticsHandlerKeyedNumeric
 {
-  private static final class Value implements Serializable
+  private static final class Value
   {
     private int m_nInvocationCount;
     private long m_nMin;

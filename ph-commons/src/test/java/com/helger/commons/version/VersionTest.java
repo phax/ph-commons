@@ -713,11 +713,4 @@ public final class VersionTest
     assertTrue (new Version (1, 2).isLE (new Version (1, 2)));
     assertTrue (new Version (1, 2).isLE (new Version (1, 3)));
   }
-
-  @Test
-  public void testSerialization ()
-  {
-    CommonsTestHelper.testDefaultSerialization (new Version (1, 2, 3));
-    CommonsTestHelper.testDefaultSerialization (Version.parse ("1.2a"));
-  }
 }

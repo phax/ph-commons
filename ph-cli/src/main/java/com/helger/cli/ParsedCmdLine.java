@@ -17,7 +17,6 @@
  */
 package com.helger.cli;
 
-import java.io.Serializable;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -42,7 +41,7 @@ import com.helger.commons.traits.IGetterByKeyTrait;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class ParsedCmdLine implements Serializable, IGetterByKeyTrait <String>
+public class ParsedCmdLine implements IGetterByKeyTrait <String>
 {
   private final ICommonsOrderedMap <IOptionBase, ICommonsList <String>> m_aParams = new CommonsLinkedHashMap <> ();
   private final ICommonsList <String> m_aUnknownTokens = new CommonsArrayList <> ();

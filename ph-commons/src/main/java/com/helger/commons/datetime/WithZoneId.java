@@ -16,7 +16,6 @@
  */
 package com.helger.commons.datetime;
 
-import java.io.Serializable;
 import java.time.ZoneId;
 
 import javax.annotation.Nonnull;
@@ -31,7 +30,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  * @since 9.0.0
  */
-public class WithZoneId implements Serializable
+public class WithZoneId
 {
   private final String m_sStr;
   private final ZoneId m_aZoneId;

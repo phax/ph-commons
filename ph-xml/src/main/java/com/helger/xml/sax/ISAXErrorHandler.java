@@ -16,8 +16,6 @@
  */
 package com.helger.xml.sax;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -31,7 +29,7 @@ import org.xml.sax.SAXParseException;
  * @author Philip Helger
  * @since 8.5.1
  */
-public interface ISAXErrorHandler extends ErrorHandler, Serializable
+public interface ISAXErrorHandler extends ErrorHandler
 {
   @Nonnull
   default ISAXErrorHandler andThen (@Nullable final ErrorHandler aOther)

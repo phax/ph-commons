@@ -91,7 +91,6 @@ public final class MapBasedNamespaceContextTest
     assertEquals ("http://default", c.getNamespaceURI (XMLConstants.DEFAULT_NS_PREFIX));
 
     CommonsTestHelper.testToStringImplementation (c);
-    CommonsTestHelper.testDefaultSerialization (c);
   }
 
   @Test

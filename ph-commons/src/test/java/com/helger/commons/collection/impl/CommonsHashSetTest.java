@@ -44,7 +44,6 @@ public final class CommonsHashSetTest
     assertEquals ("bbb", aSortedKeys.getAtIndex (1));
     assertEquals ("ccc", aSortedKeys.getAtIndex (2));
 
-    CommonsTestHelper.testDefaultSerialization (aTest);
     CommonsTestHelper.testGetClone (aTest);
   }
 

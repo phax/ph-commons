@@ -16,8 +16,6 @@
  */
 package com.helger.xml.transform;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.transform.ErrorListener;
@@ -29,7 +27,7 @@ import javax.xml.transform.TransformerException;
  * @author Philip Helger
  * @since 8.5.1
  */
-public interface ITransformErrorListener extends ErrorListener, Serializable
+public interface ITransformErrorListener extends ErrorListener
 {
   @Nonnull
   default ITransformErrorListener andThen (@Nullable final ErrorListener aOther)

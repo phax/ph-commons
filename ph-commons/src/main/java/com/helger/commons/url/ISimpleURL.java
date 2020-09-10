@@ -16,7 +16,6 @@
  */
 package com.helger.commons.url;
 
-import java.io.Serializable;
 import java.net.URI;
 import java.net.URL;
 import java.nio.charset.Charset;
@@ -35,7 +34,7 @@ import com.helger.commons.string.StringHelper;
  *
  * @author Philip Helger
  */
-public interface ISimpleURL extends Serializable
+public interface ISimpleURL
 {
   /**
    * @return The protocol used. May be <code>null</code> for an unknown

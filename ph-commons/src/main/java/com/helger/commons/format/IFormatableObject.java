@@ -16,9 +16,9 @@
  */
 package com.helger.commons.format;
 
-import javax.annotation.Nullable;
+import java.util.function.Function;
 
-import com.helger.commons.functional.IFunction;
+import javax.annotation.Nullable;
 
 /**
  * Basic interface for special objects having a certain string representation.
@@ -42,7 +42,7 @@ public interface IFormatableObject <DATATYPE>
    *         <code>null</code>.
    */
   @Nullable
-  IFunction <? super DATATYPE, ? extends String> getFormatter ();
+  Function <? super DATATYPE, ? extends String> getFormatter ();
 
   /**
    * Get the value converted to a string with the specified formatter.
@@ -53,7 +53,7 @@ public interface IFormatableObject <DATATYPE>
   @Nullable
   default String getAsString ()
   {
-    IFunction <? super DATATYPE, ? extends String> aFormatter = getFormatter ();
+    Function <? super DATATYPE, ? extends String> aFormatter = getFormatter ();
     if (aFormatter == null)
       aFormatter = String::valueOf;
     return aFormatter.apply (getValue ());

@@ -16,7 +16,6 @@
  */
 package com.helger.xml.serialize.write;
 
-import java.io.Serializable;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -33,7 +32,7 @@ import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
-public interface IXMLIndentDeterminator extends Serializable
+public interface IXMLIndentDeterminator
 {
   /**
    * Determine the outer indentation mode (before the start tag and after the

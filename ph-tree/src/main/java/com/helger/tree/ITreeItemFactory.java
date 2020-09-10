@@ -16,8 +16,6 @@
  */
 package com.helger.tree;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 
 /**
@@ -29,7 +27,7 @@ import javax.annotation.Nonnull;
  * @param <ITEMTYPE>
  *        item implementation type
  */
-public interface ITreeItemFactory <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> extends Serializable
+public interface ITreeItemFactory <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>>
 {
   /**
    * Create a root entry.

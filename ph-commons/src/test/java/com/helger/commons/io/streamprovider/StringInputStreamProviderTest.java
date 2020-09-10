@@ -25,7 +25,6 @@ import java.nio.charset.StandardCharsets;
 import org.junit.Test;
 
 import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link StringInputStreamProvider}.
@@ -70,11 +69,5 @@ public final class StringInputStreamProviderTest
     // No BOM is emitted!
     aBytes = StreamHelper.getAllBytes (new StringInputStreamProvider ("abc", StandardCharsets.UTF_8));
     assertArrayEquals (new byte [] { 'a', 'b', 'c' }, aBytes);
-  }
-
-  @Test
-  public void testSerialization ()
-  {
-    CommonsTestHelper.testDefaultSerialization (new StringInputStreamProvider ("Hallo Weltäöü", StandardCharsets.UTF_8));
   }
 }

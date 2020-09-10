@@ -16,10 +16,11 @@
  */
 package com.helger.commons.typeconvert.rule;
 
+import java.util.function.Function;
+
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.functional.IFunction;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.typeconvert.TypeConverter;
 
@@ -34,12 +35,12 @@ import com.helger.commons.typeconvert.TypeConverter;
 public class TypeConverterRuleFixedSourceAnyDestination <SRC> extends AbstractTypeConverterRule <SRC, Object>
 {
   private final Class <SRC> m_aSrcClass;
-  private final IFunction <? super SRC, ? extends Object> m_aInBetweenConverter;
+  private final Function <? super SRC, ? extends Object> m_aInBetweenConverter;
   // Status vars
   private transient Class <?> m_aEffectiveDstClass;
 
   public TypeConverterRuleFixedSourceAnyDestination (@Nonnull final Class <SRC> aSrcClass,
-                                                     @Nonnull final IFunction <? super SRC, ? extends Object> aInBetweenConverter)
+                                                     @Nonnull final Function <? super SRC, ? extends Object> aInBetweenConverter)
   {
     super (ESubType.FIXED_SRC_ANY_DST);
     m_aSrcClass = ValueEnforcer.notNull (aSrcClass, "SrcClass");

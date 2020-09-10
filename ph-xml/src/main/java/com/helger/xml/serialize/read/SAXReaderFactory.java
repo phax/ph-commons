@@ -16,6 +16,8 @@
  */
 package com.helger.xml.serialize.read;
 
+import java.util.function.Supplier;
+
 import javax.annotation.Nonnull;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
@@ -24,10 +26,9 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.XMLReaderFactory;
 
 import com.helger.commons.exception.InitializationException;
-import com.helger.commons.functional.ISupplier;
 import com.helger.commons.system.SystemProperties;
 
-public final class SAXReaderFactory implements ISupplier <org.xml.sax.XMLReader>
+public final class SAXReaderFactory implements Supplier <org.xml.sax.XMLReader>
 {
   @Nonnull
   public org.xml.sax.XMLReader get ()

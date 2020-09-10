@@ -39,7 +39,6 @@ public final class CommonsVectorTest
     aTest.add ("bbb");
     aTest.add ("ccc");
 
-    CommonsTestHelper.testDefaultSerialization (aTest);
     CommonsTestHelper.testGetClone (aTest);
   }
 

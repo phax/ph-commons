@@ -16,7 +16,6 @@
  */
 package com.helger.commons.collection.impl;
 
-import java.io.Serializable;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -47,10 +46,7 @@ import com.helger.commons.state.EChange;
  * @param <VALUETYPE>
  *        Map value type
  */
-public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
-                             Map <KEYTYPE, VALUETYPE>,
-                             ICloneable <ICommonsMap <KEYTYPE, VALUETYPE>>,
-                             Serializable
+public interface ICommonsMap <KEYTYPE, VALUETYPE> extends Map <KEYTYPE, VALUETYPE>, ICloneable <ICommonsMap <KEYTYPE, VALUETYPE>>
 {
   /**
    * Create a new empty map. Overwrite this if you don't want to use

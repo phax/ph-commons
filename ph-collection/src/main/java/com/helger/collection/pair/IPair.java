@@ -16,8 +16,6 @@
  */
 package com.helger.collection.pair;
 
-import java.io.Serializable;
-
 /**
  * Represents a basic read-only pair.
  *
@@ -27,7 +25,7 @@ import java.io.Serializable;
  * @param <DATA2TYPE>
  *        Second type.
  */
-public interface IPair <DATA1TYPE, DATA2TYPE> extends Serializable
+public interface IPair <DATA1TYPE, DATA2TYPE>
 {
   /**
    * @return The first element. May be <code>null</code> depending on the

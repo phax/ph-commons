@@ -32,7 +32,6 @@ import java.nio.charset.StandardCharsets;
 import org.junit.Test;
 
 import com.helger.commons.io.stream.StreamHelper;
-import com.helger.commons.lang.ClassLoaderHelper;
 import com.helger.commons.mock.CommonsTestHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -244,16 +243,6 @@ public final class ClassPathResourceTest
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aCPISP1a, new ClassPathResource ("cp:folder/test2.txt"));
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (aCPISP1a, new ClassPathResource ("classpath:folder/test2.txt"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (aCPISP1a, aCPISP2);
-    CommonsTestHelper.testDefaultSerialization (aCPISP1a);
-    CommonsTestHelper.testDefaultSerialization (new ClassPathResource ("folder/test2.txt"));
-    try
-    {
-      // Can't serialize with class loader
-      CommonsTestHelper.testDefaultSerialization (new ClassPathResource ("folder/test2.txt", ClassLoaderHelper.getDefaultClassLoader ()));
-      fail ();
-    }
-    catch (final IllegalArgumentException ex)
-    {}
   }
 
   @Test

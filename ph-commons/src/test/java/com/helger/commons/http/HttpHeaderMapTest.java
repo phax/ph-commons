@@ -52,7 +52,6 @@ public final class HttpHeaderMapTest
 
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (h, new HttpHeaderMap ());
     CommonsTestHelper.testGetClone (h);
-    CommonsTestHelper.testDefaultSerialization (h);
   }
 
   @Test
@@ -80,7 +79,6 @@ public final class HttpHeaderMapTest
     assertEquals ("val1", h.getAllHeaderValues ("key1").getFirst ());
 
     CommonsTestHelper.testGetClone (h);
-    CommonsTestHelper.testDefaultSerialization (h);
   }
 
   @Test
@@ -129,7 +127,6 @@ public final class HttpHeaderMapTest
     assertEquals ("val1", h.getAllHeaderValues ("keY1").getFirst ());
 
     CommonsTestHelper.testGetClone (h);
-    CommonsTestHelper.testDefaultSerialization (h);
   }
 
   @Test
@@ -165,7 +162,6 @@ public final class HttpHeaderMapTest
     assertEquals ("val3", h.getAllHeaderValues ("key1").get (2));
 
     CommonsTestHelper.testGetClone (h);
-    CommonsTestHelper.testDefaultSerialization (h);
   }
 
   @Test
@@ -181,9 +177,7 @@ public final class HttpHeaderMapTest
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (h2, h);
 
     CommonsTestHelper.testGetClone (h);
-    CommonsTestHelper.testDefaultSerialization (h);
     CommonsTestHelper.testGetClone (h2);
-    CommonsTestHelper.testDefaultSerialization (h2);
   }
 
   @Test
@@ -212,9 +206,7 @@ public final class HttpHeaderMapTest
     assertEquals ("key1: val3", h2.getAllHeaderLines (false).get (3));
 
     CommonsTestHelper.testGetClone (h);
-    CommonsTestHelper.testDefaultSerialization (h);
     CommonsTestHelper.testGetClone (h2);
-    CommonsTestHelper.testDefaultSerialization (h2);
   }
 
   @Test
@@ -244,9 +236,7 @@ public final class HttpHeaderMapTest
     assertEquals ("Key1: val3", h2.getAllHeaderLines (false).get (3));
 
     CommonsTestHelper.testGetClone (h);
-    CommonsTestHelper.testDefaultSerialization (h);
     CommonsTestHelper.testGetClone (h2);
-    CommonsTestHelper.testDefaultSerialization (h2);
   }
 
   @Test
@@ -269,9 +259,7 @@ public final class HttpHeaderMapTest
     assertEquals ("key1: val3", h2.getAllHeaderLines (true).get (3));
 
     CommonsTestHelper.testGetClone (h);
-    CommonsTestHelper.testDefaultSerialization (h);
     CommonsTestHelper.testGetClone (h2);
-    CommonsTestHelper.testDefaultSerialization (h2);
   }
 
   @Test
@@ -287,9 +275,7 @@ public final class HttpHeaderMapTest
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (h2, h);
 
     CommonsTestHelper.testGetClone (h);
-    CommonsTestHelper.testDefaultSerialization (h);
     CommonsTestHelper.testGetClone (h2);
-    CommonsTestHelper.testDefaultSerialization (h2);
   }
 
   @Test
@@ -312,9 +298,7 @@ public final class HttpHeaderMapTest
     assertEquals ("key1: val3", h2.getAllHeaderLines (true).get (3));
 
     CommonsTestHelper.testGetClone (h);
-    CommonsTestHelper.testDefaultSerialization (h);
     CommonsTestHelper.testGetClone (h2);
-    CommonsTestHelper.testDefaultSerialization (h2);
   }
 
   @Test
@@ -336,9 +320,7 @@ public final class HttpHeaderMapTest
     assertEquals ("key1: val3", h2.getAllHeaderLines (true).get (2));
 
     CommonsTestHelper.testGetClone (h);
-    CommonsTestHelper.testDefaultSerialization (h);
     CommonsTestHelper.testGetClone (h2);
-    CommonsTestHelper.testDefaultSerialization (h2);
   }
 
   @Test

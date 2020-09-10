@@ -16,7 +16,6 @@
  */
 package com.helger.commons.statistics;
 
-import java.io.Serializable;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.annotation.CheckForSigned;
@@ -43,7 +42,7 @@ import com.helger.commons.string.ToStringGenerator;
 public class StatisticsHandlerKeyedCounter implements IMutableStatisticsHandlerKeyedCounter
 {
   @NotThreadSafe
-  private static final class Value implements Serializable
+  private static final class Value
   {
     private int m_nInvocationCount;
     private long m_nCount;

@@ -16,8 +16,6 @@
  */
 package com.helger.json;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -34,7 +32,7 @@ import com.helger.json.serialize.JsonWriterSettings;
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
-public interface IJson extends ICloneable <IJson>, Serializable, IAddableByTrait
+public interface IJson extends ICloneable <IJson>, IAddableByTrait
 {
   /**
    * @return <code>true</code> if it is an array and can be case to

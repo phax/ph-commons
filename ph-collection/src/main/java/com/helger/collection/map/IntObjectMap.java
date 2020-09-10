@@ -16,7 +16,6 @@
  */
 package com.helger.collection.map;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.function.IntFunction;
 
@@ -41,7 +40,7 @@ import com.helger.commons.lang.IHasSize;
  *        Element type
  */
 @NotThreadSafe
-public class IntObjectMap <T> implements IHasSize, Serializable
+public class IntObjectMap <T> implements IHasSize
 {
   private static final int FREE_KEY = 0;
 

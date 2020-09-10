@@ -22,13 +22,13 @@ import java.io.EOFException;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.Serializable;
 import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -48,7 +48,6 @@ import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.datetime.PDTFactory;
 import com.helger.commons.datetime.PDTToString;
-import com.helger.commons.functional.ISupplier;
 import com.helger.commons.io.EAppend;
 import com.helger.commons.io.file.EFileIOErrorCode;
 import com.helger.commons.io.file.EFileIOOperation;
@@ -92,7 +91,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *        The data type to be serialized
  */
 @ThreadSafe
-public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends AbstractDAO
+public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
 {
   public static final TimeValue DEFAULT_WAITING_TIME = new TimeValue (TimeUnit.SECONDS, 10);
   private static final Logger LOGGER = LoggerFactory.getLogger (AbstractWALDAO.class);
@@ -124,7 +123,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
 
   private final Class <DATATYPE> m_aDataTypeClass;
   private final IFileRelativeIO m_aIO;
-  private final ISupplier <String> m_aFilenameProvider;
+  private final Supplier <String> m_aFilenameProvider;
   private String m_sPreviousFilename;
   private int m_nInitCount = 0;
   private LocalDateTime m_aLastInitDT;
@@ -152,7 +151,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
 
   protected AbstractWALDAO (@Nonnull final Class <DATATYPE> aDataTypeClass,
                             @Nonnull final IFileRelativeIO aIO,
-                            @Nonnull final ISupplier <String> aFilenameProvider)
+                            @Nonnull final Supplier <String> aFilenameProvider)
   {
     m_aDataTypeClass = ValueEnforcer.notNull (aDataTypeClass, "DataTypeClass");
     m_aIO = ValueEnforcer.notNull (aIO, "DAOIO");
@@ -224,7 +223,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
    *         <code>null</code>.
    */
   @Nonnull
-  public final ISupplier <String> getFilenameProvider ()
+  public final Supplier <String> getFilenameProvider ()
   {
     return m_aFilenameProvider;
   }
@@ -316,7 +315,7 @@ public abstract class AbstractWALDAO <DATATYPE extends Serializable> extends Abs
   /**
    * This method is used upon recovery to convert a stored object to its native
    * representation. If you overwrite this method, you should consider
-   * overriding {@link #convertNativeToWALString(Serializable)} as well.
+   * overriding {@link #convertNativeToWALString(Object)} as well.
    *
    * @param sElement
    *        The string representation to be converted. Never <code>null</code>.

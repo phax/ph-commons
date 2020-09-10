@@ -33,8 +33,6 @@ import com.helger.graph.IMutableDirectedGraphNode;
 @NotThreadSafe
 public class DirectedGraphRelationFast extends DirectedGraphRelation
 {
-  private static final long serialVersionUID = 1;
-
   // Status vars
   private transient int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 

@@ -22,9 +22,9 @@ import javax.annotation.Nullable;
 import javax.annotation.concurrent.GuardedBy;
 import javax.annotation.concurrent.ThreadSafe;
 import javax.xml.bind.ValidationEventHandler;
+import javax.xml.namespace.NamespaceContext;
 
 import com.helger.commons.concurrent.SimpleReadWriteLock;
-import com.helger.xml.namespace.INamespaceContext;
 import com.helger.xml.serialize.write.XMLWriterSettings;
 
 /**
@@ -49,7 +49,7 @@ public final class JAXBBuilderDefaultSettings
   @GuardedBy ("s_aRWLock")
   private static ValidationEventHandler s_aEventHandler;
   @GuardedBy ("s_aRWLock")
-  private static INamespaceContext s_aNamespaceContext;
+  private static NamespaceContext s_aNamespaceContext;
   @GuardedBy ("s_aRWLock")
   private static boolean s_bFormattedOutput = DEFAULT_FORMATTED_OUTPUT;
   @GuardedBy ("s_aRWLock")
@@ -73,7 +73,7 @@ public final class JAXBBuilderDefaultSettings
    */
   public static void setDefaultUseContextCache (final boolean bUseContextCache)
   {
-    s_aRWLock.writeLockedBoolean ( () -> s_bUseContextCache = bUseContextCache);
+    s_aRWLock.writeLocked ( () -> s_bUseContextCache = bUseContextCache);
   }
 
   /**
@@ -96,7 +96,7 @@ public final class JAXBBuilderDefaultSettings
    */
   public static void setDefaultValidationEventHandler (@Nullable final ValidationEventHandler aEventHandler)
   {
-    s_aRWLock.writeLockedGet ( () -> s_aEventHandler = aEventHandler);
+    s_aRWLock.writeLocked ( () -> s_aEventHandler = aEventHandler);
   }
 
   /**
@@ -118,9 +118,9 @@ public final class JAXBBuilderDefaultSettings
    *        The namespace context to be used by default. May be
    *        <code>null</code>.
    */
-  public static void setDefaultNamespaceContext (@Nullable final INamespaceContext aNamespaceContext)
+  public static void setDefaultNamespaceContext (@Nullable final NamespaceContext aNamespaceContext)
   {
-    s_aRWLock.writeLockedGet ( () -> s_aNamespaceContext = aNamespaceContext);
+    s_aRWLock.writeLocked ( () -> s_aNamespaceContext = aNamespaceContext);
   }
 
   /**
@@ -128,7 +128,7 @@ public final class JAXBBuilderDefaultSettings
    *         default.
    */
   @Nullable
-  public static INamespaceContext getDefaultNamespaceContext ()
+  public static NamespaceContext getDefaultNamespaceContext ()
   {
     return s_aRWLock.readLockedGet ( () -> s_aNamespaceContext);
   }
@@ -141,7 +141,7 @@ public final class JAXBBuilderDefaultSettings
    */
   public static void setDefaultFormattedOutput (final boolean bFormattedOutput)
   {
-    s_aRWLock.writeLockedBoolean ( () -> s_bFormattedOutput = bFormattedOutput);
+    s_aRWLock.writeLocked ( () -> s_bFormattedOutput = bFormattedOutput);
   }
 
   /**
@@ -162,7 +162,7 @@ public final class JAXBBuilderDefaultSettings
    */
   public static void setDefaultCharset (@Nullable final Charset aCharset)
   {
-    s_aRWLock.writeLockedGet ( () -> s_aCharset = aCharset);
+    s_aRWLock.writeLocked ( () -> s_aCharset = aCharset);
   }
 
   /**
@@ -183,7 +183,7 @@ public final class JAXBBuilderDefaultSettings
    */
   public static void setDefaultIndentString (@Nullable final String sIndentString)
   {
-    s_aRWLock.writeLockedGet ( () -> s_sIndentString = sIndentString);
+    s_aRWLock.writeLocked ( () -> s_sIndentString = sIndentString);
   }
 
   /**
@@ -206,7 +206,7 @@ public final class JAXBBuilderDefaultSettings
    */
   public static void setDefaultSchemaLocation (@Nullable final String sSchemaLocation)
   {
-    s_aRWLock.writeLockedGet ( () -> s_sSchemaLocation = sSchemaLocation);
+    s_aRWLock.writeLocked ( () -> s_sSchemaLocation = sSchemaLocation);
   }
 
   /**
@@ -230,7 +230,7 @@ public final class JAXBBuilderDefaultSettings
    */
   public static void setDefaultNoNamespaceSchemaLocation (@Nullable final String sNoNamespaceSchemaLocation)
   {
-    s_aRWLock.writeLockedGet ( () -> s_sNoNamespaceSchemaLocation = sNoNamespaceSchemaLocation);
+    s_aRWLock.writeLocked ( () -> s_sNoNamespaceSchemaLocation = sNoNamespaceSchemaLocation);
   }
 
   /**

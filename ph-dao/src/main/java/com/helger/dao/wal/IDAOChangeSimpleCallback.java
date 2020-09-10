@@ -16,8 +16,6 @@
  */
 package com.helger.dao.wal;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 
 import com.helger.commons.id.IHasID;
@@ -30,7 +28,7 @@ import com.helger.commons.id.IHasID;
  * @param <INTERFACETYPE>
  *        The interface typed used by the DAO.
  */
-public interface IDAOChangeSimpleCallback <INTERFACETYPE extends IHasID <String> & Serializable> extends IDAOChangeCallback <INTERFACETYPE>
+public interface IDAOChangeSimpleCallback <INTERFACETYPE extends IHasID <String>> extends IDAOChangeCallback <INTERFACETYPE>
 {
   /**
    * Called after an item was created, deleted or changed.

@@ -16,8 +16,6 @@
  */
 package com.helger.commons.name;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -29,7 +27,7 @@ import javax.annotation.Nullable;
  *        The data type to retrieve the name from
  */
 @FunctionalInterface
-public interface INameProvider <DATATYPE> extends Serializable
+public interface INameProvider <DATATYPE>
 {
   /**
    * Get the name of the passed object.

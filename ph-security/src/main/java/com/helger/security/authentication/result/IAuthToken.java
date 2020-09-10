@@ -16,7 +16,6 @@
  */
 package com.helger.security.authentication.result;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.annotation.Nonnegative;
@@ -30,7 +29,7 @@ import com.helger.commons.id.IHasID;
  *
  * @author Philip Helger
  */
-public interface IAuthToken extends IHasID <String>, Serializable
+public interface IAuthToken extends IHasID <String>
 {
   /** The value indicating, that a token never expires */
   int EXPIRATION_SECONDS_INFINITE = 0;

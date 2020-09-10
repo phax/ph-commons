@@ -20,19 +20,21 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.function.Predicate;
+
 import org.junit.Test;
 
 /**
- * Test class for class {@link IPredicate}
+ * Test class for class {@link Predicate}
  *
  * @author Philip Helger
  */
-public final class IPredicateFuncTest
+public final class PredicatesTest
 {
   @Test
   public void testAll ()
   {
-    final IPredicate <String> aFilter = IPredicate.all ();
+    final Predicate <String> aFilter = Predicates.all ();
     assertNotNull (aFilter);
     assertTrue (aFilter.test (null));
     assertTrue (aFilter.test (""));
@@ -42,7 +44,7 @@ public final class IPredicateFuncTest
   @Test
   public void testNone ()
   {
-    final IPredicate <String> aFilter = IPredicate.none ();
+    final Predicate <String> aFilter = Predicates.none ();
     assertNotNull (aFilter);
     assertFalse (aFilter.test (null));
     assertFalse (aFilter.test (""));
@@ -52,7 +54,7 @@ public final class IPredicateFuncTest
   @Test
   public void testNotNull ()
   {
-    final IPredicate <String> aFilter = IPredicate.notNull ();
+    final Predicate <String> aFilter = Predicates.notNull ();
     assertNotNull (aFilter);
     assertFalse (aFilter.test (null));
     assertTrue (aFilter.test (""));
@@ -62,7 +64,7 @@ public final class IPredicateFuncTest
   @Test
   public void testIsNull ()
   {
-    final IPredicate <String> aFilter = IPredicate.isNull ();
+    final Predicate <String> aFilter = Predicates.isNull ();
     assertNotNull (aFilter);
     assertTrue (aFilter.test (null));
     assertFalse (aFilter.test (""));
@@ -72,13 +74,13 @@ public final class IPredicateFuncTest
   @Test
   public void testNegate ()
   {
-    IPredicate <String> aFilter = IPredicate.<String> notNull ().negate ();
+    Predicate <String> aFilter = Predicates.<String> notNull ().negate ();
     assertNotNull (aFilter);
     assertTrue (aFilter.test (null));
     assertFalse (aFilter.test (""));
     assertFalse (aFilter.test ("bla bla bla"));
 
-    aFilter = IPredicate.<String> isNull ().negate ();
+    aFilter = Predicates.<String> isNull ().negate ();
     assertNotNull (aFilter);
     assertFalse (aFilter.test (null));
     assertTrue (aFilter.test (""));

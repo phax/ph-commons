@@ -16,7 +16,6 @@
  */
 package com.helger.collection.map;
 
-import java.io.Serializable;
 import java.util.function.IntConsumer;
 
 import javax.annotation.Nonnull;
@@ -31,7 +30,7 @@ import com.helger.commons.lang.IHasSize;
  * @since 9.0.0
  */
 @NotThreadSafe
-public class IntSet implements IHasSize, Serializable
+public class IntSet implements IHasSize
 {
   private final IntObjectMap <Boolean> m_aMap;
 

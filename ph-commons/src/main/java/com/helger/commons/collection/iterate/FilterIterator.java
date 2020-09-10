@@ -18,12 +18,12 @@ package com.helger.commons.collection.iterate;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.functional.IPredicate;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -39,7 +39,7 @@ public class FilterIterator <ELEMENTTYPE> implements IIterableIterator <ELEMENTT
   // base iterator
   private final Iterator <? extends ELEMENTTYPE> m_aBaseIter;
   // the filter to use
-  private final IPredicate <? super ELEMENTTYPE> m_aFilter;
+  private final Predicate <? super ELEMENTTYPE> m_aFilter;
 
   // status values
   private ELEMENTTYPE m_aCurrent;
@@ -54,7 +54,7 @@ public class FilterIterator <ELEMENTTYPE> implements IIterableIterator <ELEMENTT
    *        The filter to be applied. May not be <code>null</code>.
    */
   public FilterIterator (@Nonnull final IIterableIterator <? extends ELEMENTTYPE> aBaseIter,
-                         @Nonnull final IPredicate <? super ELEMENTTYPE> aFilter)
+                         @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
   {
     this (aBaseIter.iterator (), aFilter);
   }
@@ -67,7 +67,7 @@ public class FilterIterator <ELEMENTTYPE> implements IIterableIterator <ELEMENTT
    * @param aFilter
    *        The filter to be applied. May not be <code>null</code>.
    */
-  public FilterIterator (@Nonnull final Iterator <? extends ELEMENTTYPE> aBaseIter, @Nonnull final IPredicate <? super ELEMENTTYPE> aFilter)
+  public FilterIterator (@Nonnull final Iterator <? extends ELEMENTTYPE> aBaseIter, @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
   {
     m_aBaseIter = ValueEnforcer.notNull (aBaseIter, "BaseIterator");
     m_aFilter = ValueEnforcer.notNull (aFilter, "Filter");
@@ -82,7 +82,7 @@ public class FilterIterator <ELEMENTTYPE> implements IIterableIterator <ELEMENTT
    * @param aFilter
    *        The filter to be applied. May not be <code>null</code>.
    */
-  public FilterIterator (@Nonnull final Iterable <? extends ELEMENTTYPE> aBaseCont, @Nonnull final IPredicate <? super ELEMENTTYPE> aFilter)
+  public FilterIterator (@Nonnull final Iterable <? extends ELEMENTTYPE> aBaseCont, @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
   {
     ValueEnforcer.notNull (aBaseCont, "BaseContainer");
     m_aBaseIter = aBaseCont.iterator ();
@@ -94,7 +94,7 @@ public class FilterIterator <ELEMENTTYPE> implements IIterableIterator <ELEMENTT
    * @return The filter as specified in the constructor.
    */
   @Nonnull
-  public IPredicate <? super ELEMENTTYPE> getFilter ()
+  public Predicate <? super ELEMENTTYPE> getFilter ()
   {
     return m_aFilter;
   }

@@ -20,6 +20,7 @@ import java.lang.ref.WeakReference;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -30,6 +31,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.ValidationEventHandler;
+import javax.xml.namespace.NamespaceContext;
 import javax.xml.namespace.QName;
 import javax.xml.validation.Schema;
 
@@ -47,7 +49,6 @@ import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.debug.GlobalDebug;
 import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.functional.IFunction;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.lang.IHasClassLoader;
 import com.helger.commons.state.EChange;
@@ -56,7 +57,6 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.jaxb.builder.JAXBBuilderDefaultSettings;
 import com.helger.jaxb.validation.IValidationEventHandlerFactory;
-import com.helger.xml.namespace.INamespaceContext;
 import com.helger.xml.schema.XMLSchemaCache;
 
 /**
@@ -76,11 +76,11 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
 
   private final Class <JAXBTYPE> m_aType;
   private final ICommonsList <ClassPathResource> m_aXSDs = new CommonsArrayList <> ();
-  private final IFunction <? super JAXBTYPE, ? extends JAXBElement <JAXBTYPE>> m_aJAXBElementWrapper;
+  private final Function <? super JAXBTYPE, ? extends JAXBElement <JAXBTYPE>> m_aJAXBElementWrapper;
   private IValidationEventHandlerFactory m_aVEHFactory;
   private boolean m_bReadSecure = DEFAULT_READ_SECURE;
   private boolean m_bFormattedOutput = JAXBBuilderDefaultSettings.isDefaultFormattedOutput ();
-  private INamespaceContext m_aNSContext = JAXBBuilderDefaultSettings.getDefaultNamespaceContext ();
+  private NamespaceContext m_aNSContext = JAXBBuilderDefaultSettings.getDefaultNamespaceContext ();
   private Charset m_aCharset = JAXBBuilderDefaultSettings.getDefaultCharset ();
   private String m_sIndentString = JAXBBuilderDefaultSettings.getDefaultIndentString ();
   private String m_sSchemaLocation = JAXBBuilderDefaultSettings.getDefaultSchemaLocation ();
@@ -120,7 +120,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
    *        <code>null</code>.
    */
   public GenericJAXBMarshaller (@Nonnull final Class <JAXBTYPE> aType,
-                                @Nonnull final IFunction <? super JAXBTYPE, ? extends JAXBElement <JAXBTYPE>> aWrapper)
+                                @Nonnull final Function <? super JAXBTYPE, ? extends JAXBElement <JAXBTYPE>> aWrapper)
   {
     this (aType, null, aWrapper);
   }
@@ -142,7 +142,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
    */
   public GenericJAXBMarshaller (@Nonnull final Class <JAXBTYPE> aType,
                                 @Nullable final List <? extends ClassPathResource> aXSDs,
-                                @Nonnull final IFunction <? super JAXBTYPE, ? extends JAXBElement <JAXBTYPE>> aJAXBElementWrapper)
+                                @Nonnull final Function <? super JAXBTYPE, ? extends JAXBElement <JAXBTYPE>> aJAXBElementWrapper)
   {
     m_aType = ValueEnforcer.notNull (aType, "Type");
     if (aXSDs != null)
@@ -225,7 +225,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
   }
 
   @Nullable
-  public final INamespaceContext getNamespaceContext ()
+  public final NamespaceContext getNamespaceContext ()
   {
     return m_aNSContext;
   }
@@ -239,7 +239,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
    * @since 8.5.3
    */
   @Nonnull
-  public final EChange setNamespaceContext (@Nullable final INamespaceContext aNSContext)
+  public final EChange setNamespaceContext (@Nullable final NamespaceContext aNSContext)
   {
     if (EqualsHelper.equals (aNSContext, m_aNSContext))
       return EChange.UNCHANGED;
@@ -637,7 +637,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
    * @see #GenericJAXBMarshaller(Class, QName)
    */
   @Nonnull
-  public static <T> IFunction <T, JAXBElement <T>> createSimpleJAXBElement (@Nonnull final QName aQName, @Nonnull final Class <T> aClass)
+  public static <T> Function <T, JAXBElement <T>> createSimpleJAXBElement (@Nonnull final QName aQName, @Nonnull final Class <T> aClass)
   {
     return aValue -> new JAXBElement <> (aQName, aClass, null, aValue);
   }

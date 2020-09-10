@@ -135,10 +135,4 @@ public final class FileSystemResourceTest
       FileOperations.deleteFile (f);
     }
   }
-
-  @Test
-  public void testSerialize ()
-  {
-    CommonsTestHelper.testDefaultSerialization (new FileSystemResource ("file.txt"));
-  }
 }

@@ -39,7 +39,6 @@ public final class CommonsCopyOnWriteArrayListTest
     aTest.add ("bbb");
     aTest.add ("ccc");
 
-    CommonsTestHelper.testDefaultSerialization (aTest);
     CommonsTestHelper.testGetClone (aTest);
   }
 

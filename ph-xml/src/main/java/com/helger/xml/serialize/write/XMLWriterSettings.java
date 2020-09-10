@@ -22,6 +22,7 @@ import java.nio.charset.StandardCharsets;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
+import javax.xml.namespace.NamespaceContext;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
@@ -33,7 +34,6 @@ import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.system.ENewLineMode;
 import com.helger.xml.EXMLVersion;
-import com.helger.xml.namespace.INamespaceContext;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
 
 /**
@@ -101,7 +101,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   private IXMLIndentDeterminator m_aIndentDeterminator = new XMLIndentDeterminatorXML ();
   private EXMLIncorrectCharacterHandling m_eIncorrectCharacterHandling = DEFAULT_INCORRECT_CHARACTER_HANDLING;
   private Charset m_aCharset = DEFAULT_XML_CHARSET_OBJ;
-  private INamespaceContext m_aNamespaceContext = new MapBasedNamespaceContext ();
+  private NamespaceContext m_aNamespaceContext = new MapBasedNamespaceContext ();
   private boolean m_bUseDoubleQuotesForAttributes = DEFAULT_USE_DOUBLE_QUOTES_FOR_ATTRIBUTES;
   private IXMLBracketModeDeterminator m_aBracketModeDeterminator = new XMLBracketModeDeterminatorXML ();
   private boolean m_bSpaceOnSelfClosedElement = DEFAULT_SPACE_ON_SELF_CLOSED_ELEMENT;
@@ -351,7 +351,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   }
 
   @Nonnull
-  public INamespaceContext getNamespaceContext ()
+  public NamespaceContext getNamespaceContext ()
   {
     return m_aNamespaceContext;
   }
@@ -364,7 +364,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
    * @return this
    */
   @Nonnull
-  public final XMLWriterSettings setNamespaceContext (@Nullable final INamespaceContext aNamespaceContext)
+  public final XMLWriterSettings setNamespaceContext (@Nullable final NamespaceContext aNamespaceContext)
   {
     // A namespace context must always be present, to resolve default namespaces
     m_aNamespaceContext = aNamespaceContext != null ? aNamespaceContext : new MapBasedNamespaceContext ();

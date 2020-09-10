@@ -16,7 +16,6 @@
  */
 package com.helger.commons.timing;
 
-import java.io.Serializable;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.concurrent.TimeUnit;
@@ -38,7 +37,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class StopWatch implements IStoppable, Serializable
+public class StopWatch implements IStoppable
 {
   private long m_nStartDT = 0;
   private long m_nDurationNanos = 0;

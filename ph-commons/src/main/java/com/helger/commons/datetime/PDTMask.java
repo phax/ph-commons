@@ -16,7 +16,6 @@
  */
 package com.helger.commons.datetime;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
@@ -40,16 +39,12 @@ import com.helger.commons.string.ToStringGenerator;
  *        Temporal type to use.
  * @since 8.6.5
  */
-public class PDTMask <T extends Temporal & Serializable> implements Serializable
+public class PDTMask <T extends Temporal>
 {
-  // Typedef
-  protected static interface ITemporalQuery <R> extends TemporalQuery <R>, Serializable
-  {}
-
   private final String m_sPattern;
   private final TemporalQuery <T> m_aQuery;
 
-  protected PDTMask (@Nonnull @Nonempty final String sPattern, @Nonnull final ITemporalQuery <T> aQuery)
+  protected PDTMask (@Nonnull @Nonempty final String sPattern, @Nonnull final TemporalQuery <T> aQuery)
   {
     ValueEnforcer.notEmpty (sPattern, "Pattern");
     ValueEnforcer.notNull (aQuery, "Query");

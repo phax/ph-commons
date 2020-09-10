@@ -16,21 +16,22 @@
  */
 package com.helger.commons.format;
 
+import java.util.function.Function;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.annotation.OverrideOnDemand;
-import com.helger.commons.functional.IFunction;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.typeconvert.TypeConverter;
 
 /**
- * Base implementation class of the {@link IFunction} interface that provides
- * the common functionality.
+ * Base implementation class of the {@link Function} interface that provides the
+ * common functionality.
  *
  * @author Philip Helger
  */
-public abstract class AbstractFormatterString implements IFunction <Object, String>
+public abstract class AbstractFormatterString implements Function <Object, String>
 {
   /**
    * Default constructor

@@ -17,13 +17,13 @@
 package com.helger.commons.io.stream;
 
 import java.io.InputStream;
+import java.util.function.Supplier;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.functional.ISupplier;
 import com.helger.commons.io.IHasInputStream;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -36,7 +36,7 @@ import com.helger.commons.string.ToStringGenerator;
 @Immutable
 public class HasInputStream implements IHasInputStream
 {
-  private final ISupplier <? extends InputStream> m_aISP;
+  private final Supplier <? extends InputStream> m_aISP;
   private final boolean m_bReadMultiple;
 
   /**
@@ -49,7 +49,7 @@ public class HasInputStream implements IHasInputStream
    *        (e.g. from a byte[]) or <code>false</code> if it can be invoked only
    *        once (e.g. from an open socket).
    */
-  public HasInputStream (@Nonnull final ISupplier <? extends InputStream> aISP, final boolean bReadMultiple)
+  public HasInputStream (@Nonnull final Supplier <? extends InputStream> aISP, final boolean bReadMultiple)
   {
     m_aISP = ValueEnforcer.notNull (aISP, "ISP");
     m_bReadMultiple = bReadMultiple;
@@ -80,7 +80,7 @@ public class HasInputStream implements IHasInputStream
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static HasInputStream multiple (@Nonnull final ISupplier <? extends InputStream> aISP)
+  public static HasInputStream multiple (@Nonnull final Supplier <? extends InputStream> aISP)
   {
     return new HasInputStream (aISP, true);
   }
@@ -94,7 +94,7 @@ public class HasInputStream implements IHasInputStream
    */
   @Nonnull
   @ReturnsMutableCopy
-  public static HasInputStream once (@Nonnull final ISupplier <? extends InputStream> aISP)
+  public static HasInputStream once (@Nonnull final Supplier <? extends InputStream> aISP)
   {
     return new HasInputStream (aISP, false);
   }

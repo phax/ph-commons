@@ -16,9 +16,11 @@
  */
 package com.helger.commons.functional;
 
+import java.util.Objects;
 import java.util.function.DoublePredicate;
 import java.util.function.IntPredicate;
 import java.util.function.LongPredicate;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
@@ -36,128 +38,152 @@ public final class Predicates
   {}
 
   @Nonnull
+  public static <DATATYPE> Predicate <DATATYPE> all ()
+  {
+    return x -> true;
+  }
+
+  @Nonnull
+  public static <DATATYPE> Predicate <DATATYPE> none ()
+  {
+    return x -> false;
+  }
+
+  @Nonnull
+  public static <DATATYPE> Predicate <DATATYPE> notNull ()
+  {
+    return Objects::nonNull;
+  }
+
+  @Nonnull
+  public static <DATATYPE> Predicate <DATATYPE> isNull ()
+  {
+    return Objects::isNull;
+  }
+
+  @Nonnull
   public static ICharPredicate charIsEQ0 ()
   {
-    return n -> n == 0;
+    return x -> x == 0;
   }
 
   @Nonnull
   public static ICharPredicate charIsNE0 ()
   {
-    return n -> n != 0;
+    return x -> x != 0;
   }
 
   @Nonnull
   public static ICharPredicate charIsGT0 ()
   {
-    return n -> n > 0;
+    return x -> x > 0;
   }
 
   @Nonnull
   public static DoublePredicate doubleIsLT0 ()
   {
-    return n -> n < 0;
+    return x -> x < 0;
   }
 
   @Nonnull
   public static DoublePredicate doubleIsLE0 ()
   {
-    return n -> n <= 0;
+    return x -> x <= 0;
   }
 
   @Nonnull
   public static DoublePredicate doubleIsEQ0 ()
   {
-    return n -> n == 0;
+    return x -> x == 0;
   }
 
   @Nonnull
   public static DoublePredicate doubleIsNE0 ()
   {
-    return n -> n != 0;
+    return x -> x != 0;
   }
 
   @Nonnull
   public static DoublePredicate doubleIsGE0 ()
   {
-    return n -> n >= 0;
+    return x -> x >= 0;
   }
 
   @Nonnull
   public static DoublePredicate doubleIsGT0 ()
   {
-    return n -> n > 0;
+    return x -> x > 0;
   }
 
   @Nonnull
   public static IntPredicate intIsLT0 ()
   {
-    return n -> n < 0;
+    return x -> x < 0;
   }
 
   @Nonnull
   public static IntPredicate intIsLE0 ()
   {
-    return n -> n <= 0;
+    return x -> x <= 0;
   }
 
   @Nonnull
   public static IntPredicate intIsEQ0 ()
   {
-    return n -> n == 0;
+    return x -> x == 0;
   }
 
   @Nonnull
   public static IntPredicate intIsNE0 ()
   {
-    return n -> n != 0;
+    return x -> x != 0;
   }
 
   @Nonnull
   public static IntPredicate intIsGE0 ()
   {
-    return n -> n >= 0;
+    return x -> x >= 0;
   }
 
   @Nonnull
   public static IntPredicate intIsGT0 ()
   {
-    return n -> n > 0;
+    return x -> x > 0;
   }
 
   @Nonnull
   public static LongPredicate longIsLT0 ()
   {
-    return n -> n < 0;
+    return x -> x < 0;
   }
 
   @Nonnull
   public static LongPredicate longIsLE0 ()
   {
-    return n -> n <= 0;
+    return x -> x <= 0;
   }
 
   @Nonnull
   public static LongPredicate longIsEQ0 ()
   {
-    return n -> n == 0;
+    return x -> x == 0;
   }
 
   @Nonnull
   public static LongPredicate longIsNE0 ()
   {
-    return n -> n != 0;
+    return x -> x != 0;
   }
 
   @Nonnull
   public static LongPredicate longIsGE0 ()
   {
-    return n -> n >= 0;
+    return x -> x >= 0;
   }
 
   @Nonnull
   public static LongPredicate longIsGT0 ()
   {
-    return n -> n > 0;
+    return x -> x > 0;
   }
 }

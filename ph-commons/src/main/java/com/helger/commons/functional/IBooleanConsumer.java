@@ -16,7 +16,6 @@
  */
 package com.helger.commons.functional;
 
-import java.io.Serializable;
 import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
@@ -35,7 +34,7 @@ import javax.annotation.Nullable;
  * @since 9.3.8
  */
 @FunctionalInterface
-public interface IBooleanConsumer extends Serializable
+public interface IBooleanConsumer
 {
   /**
    * Performs this operation on the given argument.

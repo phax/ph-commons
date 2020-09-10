@@ -16,7 +16,6 @@
  */
 package com.helger.commons.io;
 
-import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
@@ -41,7 +40,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * @since 9.1.3
  */
 @MustImplementEqualsAndHashcode
-public final class ByteArrayWrapper implements IHasByteArray, Serializable
+public final class ByteArrayWrapper implements IHasByteArray
 {
   private final byte [] m_aBytes;
   private final int m_nOffset;

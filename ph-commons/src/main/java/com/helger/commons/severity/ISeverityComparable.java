@@ -16,8 +16,6 @@
  */
 package com.helger.commons.severity;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 
 /**
@@ -27,7 +25,7 @@ import javax.annotation.Nonnull;
  * @param <IMPLTYPE>
  *        The implementation type
  */
-public interface ISeverityComparable <IMPLTYPE extends ISeverityComparable <IMPLTYPE>> extends Serializable
+public interface ISeverityComparable <IMPLTYPE extends ISeverityComparable <IMPLTYPE>>
 {
   /**
    * Check if this object is of the same level (= equal important) than the

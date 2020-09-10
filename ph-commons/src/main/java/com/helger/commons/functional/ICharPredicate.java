@@ -16,8 +16,6 @@
  */
 package com.helger.commons.functional;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 
 import com.helger.commons.ValueEnforcer;
@@ -34,7 +32,7 @@ import com.helger.commons.ValueEnforcer;
  * @since 9.0.0
  */
 @FunctionalInterface
-public interface ICharPredicate extends Serializable
+public interface ICharPredicate
 {
   /**
    * Evaluates this predicate on the given argument.

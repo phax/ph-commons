@@ -16,8 +16,6 @@
  */
 package com.helger.lesscommons.homoglyphs;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
@@ -33,7 +31,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public class HomoglyphSearchResult implements Serializable
+public class HomoglyphSearchResult
 {
   private final int m_nIndex;
   private final String m_sMatch;

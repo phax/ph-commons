@@ -16,7 +16,6 @@
  */
 package com.helger.commons.io.streamprovider;
 
-import java.io.Serializable;
 import java.nio.charset.Charset;
 
 import javax.annotation.Nonnull;
@@ -32,7 +31,7 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public class ByteArrayOutputStreamProvider implements IHasOutputStreamAndWriter, Serializable
+public class ByteArrayOutputStreamProvider implements IHasOutputStreamAndWriter
 {
   private final NonBlockingByteArrayOutputStream m_aOS = new NonBlockingByteArrayOutputStream ();
 

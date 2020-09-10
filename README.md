@@ -31,6 +31,8 @@ This project was the following modules:
 
 * v10.0.0 - work in progress
     * Removed deprecated methods
+    * Removed `Serializable` from base interfaces
+    * Removed the serializable functional specializations (`IFunction`, `ISupplier`, `IConsumer`, `IPredicate`, `IBiConsumer`, `IBiFunction`, `IBiPredicate`, `NamespaceContext`)
 * v9.4.8 - work in progress
     * Added new JAXB Adapter class `AdapterZonedDateTime`
     * Added a new factory method in `ConfigFactory`.

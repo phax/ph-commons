@@ -16,7 +16,6 @@
  */
 package com.helger.commons.functional;
 
-import java.io.Serializable;
 import java.util.function.Function;
 
 /**
@@ -33,7 +32,7 @@ import java.util.function.Function;
  * @since 9.0.0
  */
 @FunctionalInterface
-public interface IFloatFunction <R> extends Serializable
+public interface IFloatFunction <R>
 {
   /**
    * Applies this function to the given argument.

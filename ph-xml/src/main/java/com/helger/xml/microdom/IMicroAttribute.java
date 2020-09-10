@@ -16,8 +16,6 @@
  */
 package com.helger.xml.microdom;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.namespace.QName;
@@ -30,7 +28,7 @@ import com.helger.commons.state.EChange;
  *
  * @author Philip Helger
  */
-public interface IMicroAttribute extends Serializable, ICloneable <IMicroAttribute>
+public interface IMicroAttribute extends ICloneable <IMicroAttribute>
 {
   /**
    * Get the namespace URI of this attribute

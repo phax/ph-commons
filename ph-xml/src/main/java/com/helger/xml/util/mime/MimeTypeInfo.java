@@ -16,7 +16,6 @@
  */
 package com.helger.xml.util.mime;
 
-import java.io.Serializable;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -47,7 +46,7 @@ import com.helger.commons.string.ToStringGenerator;
 public final class MimeTypeInfo
 {
   @Immutable
-  public static final class MimeTypeWithSource implements Serializable
+  public static final class MimeTypeWithSource
   {
     private final IMimeType m_aMimeType;
     private final String m_sSource;
@@ -117,12 +116,12 @@ public final class MimeTypeInfo
   }
 
   @Immutable
-  public static final class ExtensionWithSource implements Serializable
+  public static final class ExtensionWithSource
   {
     private final String m_sExt;
     private final String m_sSource;
     // status vars
-    private transient int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
+    private int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
     public ExtensionWithSource (@Nonnull final String sExt)
     {

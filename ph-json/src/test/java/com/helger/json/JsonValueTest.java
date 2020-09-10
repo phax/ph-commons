@@ -24,12 +24,9 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import org.junit.Test;
-
-import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link JsonValue}.
@@ -113,34 +110,6 @@ public final class JsonValueTest
       assertNotNull (JsonValue.create (i));
     for (long i = -200; i < 200; ++i)
       assertNotNull (JsonValue.create (i));
-  }
-
-  @Test
-  public void testSerialize ()
-  {
-    CommonsTestHelper.testDefaultSerialization (JsonValue.create (true));
-    CommonsTestHelper.testDefaultSerialization (JsonValue.create (false));
-    CommonsTestHelper.testDefaultSerialization (JsonValue.create (Boolean.TRUE));
-    CommonsTestHelper.testDefaultSerialization (JsonValue.create (Boolean.FALSE));
-    CommonsTestHelper.testDefaultSerialization (JsonValue.create ((byte) 5));
-    CommonsTestHelper.testDefaultSerialization (JsonValue.create (Byte.valueOf ((byte) -5)));
-    CommonsTestHelper.testDefaultSerialization (JsonValue.create ('x'));
-    CommonsTestHelper.testDefaultSerialization (JsonValue.create (31.4d));
-    CommonsTestHelper.testDefaultSerialization (JsonValue.create (31.4f));
-    CommonsTestHelper.testDefaultSerialization (JsonValue.create (Integer.MIN_VALUE));
-    CommonsTestHelper.testDefaultSerialization (JsonValue.create (Integer.MAX_VALUE));
-    CommonsTestHelper.testDefaultSerialization (JsonValue.create (Integer.valueOf (47)));
-    CommonsTestHelper.testDefaultSerialization (JsonValue.create (Long.MIN_VALUE));
-    CommonsTestHelper.testDefaultSerialization (JsonValue.create (Long.MAX_VALUE));
-    CommonsTestHelper.testDefaultSerialization (JsonValue.create (Long.valueOf (Long.MAX_VALUE)));
-    CommonsTestHelper.testDefaultSerialization (JsonValue.create ((short) 815));
-    CommonsTestHelper.testDefaultSerialization (JsonValue.create (Short.valueOf ((short) 815)));
-    CommonsTestHelper.testDefaultSerialization (JsonValue.create ("Test"));
-    CommonsTestHelper.testDefaultSerialization (JsonValue.create ("bla\r\nfoo\r\nfasel"));
-    CommonsTestHelper.testDefaultSerialization (JsonValue.create (new BigInteger ("123456789012345678901234567890")));
-    CommonsTestHelper.testDefaultSerialization (JsonValue.create (BigInteger.valueOf (Long.MIN_VALUE).subtract (BigInteger.ONE)));
-    CommonsTestHelper.testDefaultSerialization (JsonValue.create (BigInteger.valueOf (Long.MAX_VALUE).add (BigInteger.ONE)));
-    CommonsTestHelper.testDefaultSerialization (JsonValue.create (new BigDecimal ("123456789012345678901234567890.8")));
   }
 
   @Test
