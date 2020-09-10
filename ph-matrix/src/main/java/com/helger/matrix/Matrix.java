@@ -19,6 +19,7 @@ package com.helger.matrix;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Reader;
+import java.io.Serializable;
 import java.io.StreamTokenizer;
 import java.text.NumberFormat;
 import java.util.Arrays;
@@ -89,7 +90,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *         Technology.
  * @version 5 August 1998
  */
-public class Matrix implements ICloneable <Matrix>
+public class Matrix implements ICloneable <Matrix>, Serializable
 {
   /**
    * Array for internal storage of elements.
