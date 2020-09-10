@@ -29,7 +29,7 @@ This project was the following modules:
 
 ## News and noteworthy
 
-* v9.4.8 - work in progress
+* v9.4.8 - 2020-09-10
     * Added new JAXB Adapter class `AdapterZonedDateTime`
     * Added a new factory method in `ConfigFactory`.
     * Default configuration source loading is now more consistent and behaves identical for all predefined filenames.
