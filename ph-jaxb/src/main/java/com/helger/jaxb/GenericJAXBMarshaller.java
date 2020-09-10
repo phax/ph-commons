@@ -48,10 +48,8 @@ import com.helger.commons.callback.exception.IExceptionCallback;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.debug.GlobalDebug;
-import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.io.resource.ClassPathResource;
 import com.helger.commons.lang.IHasClassLoader;
-import com.helger.commons.state.EChange;
 import com.helger.commons.state.ESuccess;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
@@ -184,10 +182,13 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
    *
    * @param aVEHFactory
    *        The new factory to be used. May be <code>null</code>.
+   * @return this for chaining
    */
-  public final void setValidationEventHandlerFactory (@Nullable final IValidationEventHandlerFactory aVEHFactory)
+  @Nonnull
+  public final GenericJAXBMarshaller <JAXBTYPE> setValidationEventHandlerFactory (@Nullable final IValidationEventHandlerFactory aVEHFactory)
   {
     m_aVEHFactory = aVEHFactory;
+    return this;
   }
 
   /**
@@ -213,15 +214,13 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
    * @param bReadSecure
    *        <code>true</code> to read secure, <code>false</code> to disable
    *        secure reading.
-   * @return {@link EChange}
+   * @return this for chaining
    */
   @Nonnull
-  public final EChange setReadSecure (final boolean bReadSecure)
+  public final GenericJAXBMarshaller <JAXBTYPE> setReadSecure (final boolean bReadSecure)
   {
-    if (bReadSecure == m_bReadSecure)
-      return EChange.UNCHANGED;
     m_bReadSecure = bReadSecure;
-    return EChange.CHANGED;
+    return this;
   }
 
   @Nullable
@@ -235,16 +234,14 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
    *
    * @param aNSContext
    *        The namespace context to be used. May be <code>null</code>.
-   * @return {@link EChange}
+   * @return this for chaining
    * @since 8.5.3
    */
   @Nonnull
-  public final EChange setNamespaceContext (@Nullable final NamespaceContext aNSContext)
+  public final GenericJAXBMarshaller <JAXBTYPE> setNamespaceContext (@Nullable final NamespaceContext aNSContext)
   {
-    if (EqualsHelper.equals (aNSContext, m_aNSContext))
-      return EChange.UNCHANGED;
     m_aNSContext = aNSContext;
-    return EChange.CHANGED;
+    return this;
   }
 
   public final boolean isFormattedOutput ()
@@ -257,16 +254,14 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
    *
    * @param bWriteFormatted
    *        <code>true</code> to write formatted output.
-   * @return {@link EChange}
+   * @return this for chaining
    * @since 8.5.3
    */
   @Nonnull
-  public final EChange setFormattedOutput (final boolean bWriteFormatted)
+  public final GenericJAXBMarshaller <JAXBTYPE> setFormattedOutput (final boolean bWriteFormatted)
   {
-    if (bWriteFormatted == m_bFormattedOutput)
-      return EChange.UNCHANGED;
     m_bFormattedOutput = bWriteFormatted;
-    return EChange.CHANGED;
+    return this;
   }
 
   @Nullable
@@ -280,16 +275,14 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
    *
    * @param aCharset
    *        The charset to be used by default. May be <code>null</code>.
-   * @return {@link EChange}
+   * @return this for chaining
    * @since 8.5.3
    */
   @Nonnull
-  public final EChange setCharset (@Nullable final Charset aCharset)
+  public final GenericJAXBMarshaller <JAXBTYPE> setCharset (@Nullable final Charset aCharset)
   {
-    if (EqualsHelper.equals (aCharset, m_aCharset))
-      return EChange.UNCHANGED;
     m_aCharset = aCharset;
-    return EChange.CHANGED;
+    return this;
   }
 
   @Nullable
@@ -303,16 +296,14 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
    *
    * @param sIndentString
    *        The indent string to be used. May be <code>null</code>.
-   * @return {@link EChange}
+   * @return this for chaining
    * @since 8.5.3
    */
   @Nonnull
-  public final EChange setIndentString (@Nullable final String sIndentString)
+  public final GenericJAXBMarshaller <JAXBTYPE> setIndentString (@Nullable final String sIndentString)
   {
-    if (EqualsHelper.equals (sIndentString, m_sIndentString))
-      return EChange.UNCHANGED;
     m_sIndentString = sIndentString;
-    return EChange.CHANGED;
+    return this;
   }
 
   @Nullable
@@ -326,16 +317,14 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
    *
    * @param sSchemaLocation
    *        The schema location to be used. May be <code>null</code>.
-   * @return {@link EChange}
+   * @return this for chaining
    * @since 8.6.0
    */
   @Nonnull
-  public final EChange setSchemaLocation (@Nullable final String sSchemaLocation)
+  public final GenericJAXBMarshaller <JAXBTYPE> setSchemaLocation (@Nullable final String sSchemaLocation)
   {
-    if (EqualsHelper.equals (sSchemaLocation, m_sSchemaLocation))
-      return EChange.UNCHANGED;
     m_sSchemaLocation = sSchemaLocation;
-    return EChange.CHANGED;
+    return this;
   }
 
   @Nullable
@@ -350,16 +339,19 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
    * @param sNoNamespaceSchemaLocation
    *        The no namespace schema location to be used. May be
    *        <code>null</code>.
-   * @return {@link EChange}
+   * @return this for chaining
    * @since 9.0.0
    */
   @Nonnull
-  public final EChange setNoNamespaceSchemaLocation (@Nullable final String sNoNamespaceSchemaLocation)
+  public final GenericJAXBMarshaller <JAXBTYPE> setNoNamespaceSchemaLocation (@Nullable final String sNoNamespaceSchemaLocation)
   {
-    if (EqualsHelper.equals (sNoNamespaceSchemaLocation, m_sNoNamespaceSchemaLocation))
-      return EChange.UNCHANGED;
     m_sNoNamespaceSchemaLocation = sNoNamespaceSchemaLocation;
-    return EChange.CHANGED;
+    return this;
+  }
+
+  public final boolean isUseContextCache ()
+  {
+    return m_bUseContextCache;
   }
 
   /**
@@ -368,20 +360,13 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements IHasClassLoader, IJAXBR
    *
    * @param bUseContextCache
    *        <code>true</code> to use it (default), <code>false</code> if not.
-   * @return {@link EChange}
+   * @return this for chaining
    */
   @Nonnull
-  public final EChange setUseContextCache (final boolean bUseContextCache)
+  public final GenericJAXBMarshaller <JAXBTYPE> setUseContextCache (final boolean bUseContextCache)
   {
-    if (bUseContextCache == m_bUseContextCache)
-      return EChange.UNCHANGED;
     m_bUseContextCache = bUseContextCache;
-    return EChange.CHANGED;
-  }
-
-  public final boolean isUseContextCache ()
-  {
-    return m_bUseContextCache;
+    return this;
   }
 
   /**
