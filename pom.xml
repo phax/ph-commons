@@ -25,7 +25,7 @@
     <version>1.11.2</version>
   </parent>
   <artifactId>ph-commons-parent-pom</artifactId>
-  <version>9.4.8-SNAPSHOT</version>
+  <version>9.4.8</version>
   <packaging>pom</packaging>
   <name>ph-commons-parent-pom</name>
   <description>Base POM to build the ph-commons projects</description>
@@ -44,7 +44,7 @@
     <connection>scm:git:git@github.com:phax/ph-commons.git</connection>
     <developerConnection>scm:git:git@github.com:phax/ph-commons.git</developerConnection>
     <url>http://github.com/phax/ph-commons</url>
-    <tag>HEAD</tag>
+    <tag>ph-commons-parent-pom-9.4.8</tag>
   </scm>
 
   <organization>
