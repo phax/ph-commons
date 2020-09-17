@@ -29,6 +29,9 @@ This project was the following modules:
 
 ## News and noteworthy
 
+* v9.5.0 - 2020-09-17
+    * Updated to JAXB 2.3.3 - https://eclipse-ee4j.github.io/jaxb-ri/
+    * Updated to JAXWS 2.3.3 - https://eclipse-ee4j.github.io/metro-jax-ws/
 * v9.4.8 - 2020-09-10
     * Added new JAXB Adapter class `AdapterZonedDateTime`
     * Added a new factory method in `ConfigFactory`.
