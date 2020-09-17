@@ -304,9 +304,9 @@ public class NonBlockingByteArrayInputStream extends InputStream implements Seri
   }
 
   /**
-   * Closing a <tt>NonBlockingByteArrayInputStream</tt> has no effect. The
+   * Closing a <code>NonBlockingByteArrayInputStream</code> has no effect. The
    * methods in this class can be called after the stream has been closed
-   * without generating an <tt>IOException</tt>.
+   * without generating an <code>IOException</code>.
    */
   @Override
   public void close ()

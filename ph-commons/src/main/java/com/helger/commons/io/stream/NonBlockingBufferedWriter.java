@@ -190,10 +190,11 @@ public class NonBlockingBufferedWriter extends Writer
   /**
    * Writes a portion of a String.
    * <p>
-   * If the value of the <tt>len</tt> parameter is negative then no characters
-   * are written. This is contrary to the specification of this method in the
-   * {@linkplain java.io.Writer#write(java.lang.String,int,int) superclass},
-   * which requires that an {@link IndexOutOfBoundsException} be thrown.
+   * If the value of the <code>len</code> parameter is negative then no
+   * characters are written. This is contrary to the specification of this
+   * method in the {@linkplain java.io.Writer#write(java.lang.String,int,int)
+   * superclass}, which requires that an {@link IndexOutOfBoundsException} be
+   * thrown.
    *
    * @param s
    *        String to be written
@@ -277,8 +278,8 @@ public class NonBlockingBufferedWriter extends Writer
 
   /**
    * Writes a line separator. The line separator string is defined by the system
-   * property <tt>line.separator</tt>, and is not necessarily a single newline
-   * ('\n') character.
+   * property <code>line.separator</code>, and is not necessarily a single
+   * newline ('\n') character.
    *
    * @exception IOException
    *            If an I/O error occurs
