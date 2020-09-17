@@ -60,11 +60,11 @@ import com.helger.commons.system.ENewLineMode;
  * <code>NonBlockingProperties</code> object that contains a non-
  * <code>String</code> key.
  * <p>
- * The {@link #load(java.io.Reader) load(Reader)} <tt>/</tt>
+ * The {@link #load(java.io.Reader) load(Reader)} <code>/</code>
  * {@link #store(java.io.Writer, java.lang.String) store(Writer, String)}
  * methods load and store properties from and to a character based stream in a
  * simple line-oriented format specified below. The
- * {@link #load(java.io.InputStream) load(InputStream)} <tt>/</tt>
+ * {@link #load(java.io.InputStream) load(InputStream)} <code>/</code>
  * {@link #store(java.io.OutputStream, java.lang.String) store(OutputStream,
  * String)} methods work the same way as the load(Reader)/store(Writer, String)
  * pair, except the input/output stream is encoded in ISO 8859-1 character
@@ -120,15 +120,15 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
   }
 
   /**
-   * Calls the <tt>Hashtable</tt> method <code>put</code>. Provided for
-   * parallelism with the <tt>getProperty</tt> method. Enforces use of strings
-   * for property keys and values. The value returned is the result of the
-   * <tt>Hashtable</tt> call to <code>put</code>.
+   * Calls the <code>Hashtable</code> method <code>put</code>. Provided for
+   * parallelism with the <code>getProperty</code> method. Enforces use of
+   * strings for property keys and values. The value returned is the result of
+   * the <code>Hashtable</code> call to <code>put</code>.
    *
    * @param sKey
    *        the key to be placed into this property list.
    * @param sValue
-   *        the value corresponding to <tt>key</tt>.
+   *        the value corresponding to <code>key</code>.
    * @return the previous value of the specified key in this property list, or
    *         <code>null</code> if it did not have one.
    * @see #getProperty
@@ -249,9 +249,8 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
    * is the empty string <code>""</code>.
    * </p>
    * <p>
-   * <a name="unicodeescapes"></a> Characters in keys and elements can be
-   * represented in escape sequences similar to those used for character and
-   * string literals (see <a href=
+   * Characters in keys and elements can be represented in escape sequences
+   * similar to those used for character and string literals (see <a href=
    * "http://java.sun.com/docs/books/jls/third_edition/html/lexical.html#3.3" >
    * &sect;3.3</a> and <a href=
    * "http://java.sun.com/docs/books/jls/third_edition/html/lexical.html#3.10.6"
@@ -765,7 +764,7 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
    *        a description of the property list.
    * @exception IOException
    *            if writing this property list to the specified output stream
-   *            throws an <tt>IOException</tt>.
+   *            throws an <code>IOException</code>.
    * @exception ClassCastException
    *            if this <code>Properties</code> object contains any keys or
    *            values that are not <code>Strings</code>.
@@ -811,7 +810,7 @@ public class NonBlockingProperties extends CommonsLinkedHashMap <String, String>
    *        a description of the property list.
    * @exception IOException
    *            if writing this property list to the specified output stream
-   *            throws an <tt>IOException</tt>.
+   *            throws an <code>IOException</code>.
    * @exception ClassCastException
    *            if this <code>Properties</code> object contains any keys or
    *            values that are not <code>Strings</code>.

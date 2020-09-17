@@ -37,14 +37,14 @@ public enum ERandomAccessFileMode
    */
   READ_WRITE ("rw"),
   /**
-   * Open for reading and writing, as with <tt>"rw"</tt>, and also require that
-   * every update to the file's content or metadata be written synchronously to
-   * the underlying storage device.
+   * Open for reading and writing, as with <code>"rw"</code>, and also require
+   * that every update to the file's content or metadata be written
+   * synchronously to the underlying storage device.
    */
   READ_WRITE_SYNCHRONOUSLY ("rws"),
   /**
-   * Open for reading and writing, as with <tt>"rw"</tt>, and also require that
-   * every update to the file's content be written synchronously to the
+   * Open for reading and writing, as with <code>"rw"</code>, and also require
+   * that every update to the file's content be written synchronously to the
    * underlying storage device.
    */
   READ_WRITE_SYNCHRONOUSLY_ONLY_CONTENT ("rwd");

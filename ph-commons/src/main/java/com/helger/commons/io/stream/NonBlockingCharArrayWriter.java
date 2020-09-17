@@ -179,23 +179,23 @@ public class NonBlockingCharArrayWriter extends Writer
   /**
    * Appends the specified character sequence to this writer.
    * <p>
-   * An invocation of this method of the form <tt>out.append(csq)</tt> behaves
-   * in exactly the same way as the invocation
+   * An invocation of this method of the form <code>out.append(csq)</code>
+   * behaves in exactly the same way as the invocation
    *
    * <pre>
    * out.write (csq.toString ())
    * </pre>
    * <p>
-   * Depending on the specification of <tt>toString</tt> for the character
-   * sequence <tt>csq</tt>, the entire sequence may not be appended. For
-   * instance, invoking the <tt>toString</tt> method of a character buffer will
-   * return a subsequence whose content depends upon the buffer's position and
-   * limit.
+   * Depending on the specification of <code>toString</code> for the character
+   * sequence <code>csq</code>, the entire sequence may not be appended. For
+   * instance, invoking the <code>toString</code> method of a character buffer
+   * will return a subsequence whose content depends upon the buffer's position
+   * and limit.
    *
    * @param csq
-   *        The character sequence to append. If <tt>csq</tt> is <tt>null</tt>,
-   *        then the four characters <tt>"null"</tt> are appended to this
-   *        writer.
+   *        The character sequence to append. If <code>csq</code> is
+   *        <code>null</code>, then the four characters <code>"null"</code> are
+   *        appended to this writer.
    * @return This writer
    */
   @Override
@@ -209,9 +209,9 @@ public class NonBlockingCharArrayWriter extends Writer
   /**
    * Appends a subsequence of the specified character sequence to this writer.
    * <p>
-   * An invocation of this method of the form <tt>out.append(csq, start,
-   * end)</tt> when <tt>csq</tt> is not <tt>null</tt>, behaves in exactly the
-   * same way as the invocation
+   * An invocation of this method of the form <code>out.append(csq, start,
+   * end)</code> when <code>csq</code> is not <code>null</code>, behaves in
+   * exactly the same way as the invocation
    *
    * <pre>
    * out.write (csq.subSequence (start, end).toString ())
@@ -219,8 +219,9 @@ public class NonBlockingCharArrayWriter extends Writer
    *
    * @param csq
    *        The character sequence from which a subsequence will be appended. If
-   *        <tt>csq</tt> is <tt>null</tt>, then characters will be appended as
-   *        if <tt>csq</tt> contained the four characters <tt>"null"</tt>.
+   *        <code>csq</code> is <code>null</code>, then characters will be
+   *        appended as if <code>csq</code> contained the four characters
+   *        <code>"null"</code>.
    * @param start
    *        The index of the first character in the subsequence
    * @param end
@@ -228,9 +229,9 @@ public class NonBlockingCharArrayWriter extends Writer
    *        subsequence
    * @return This writer
    * @throws IndexOutOfBoundsException
-   *         If <tt>start</tt> or <tt>end</tt> are negative, <tt>start</tt> is
-   *         greater than <tt>end</tt>, or <tt>end</tt> is greater than
-   *         <tt>csq.length()</tt>
+   *         If <code>start</code> or <code>end</code> are negative,
+   *         <code>start</code> is greater than <code>end</code>, or
+   *         <code>end</code> is greater than <code>csq.length()</code>
    */
   @Override
   public NonBlockingCharArrayWriter append (@Nullable final CharSequence csq, final int start, final int end)
@@ -243,8 +244,8 @@ public class NonBlockingCharArrayWriter extends Writer
   /**
    * Appends the specified character to this writer.
    * <p>
-   * An invocation of this method of the form <tt>out.append(c)</tt> behaves in
-   * exactly the same way as the invocation
+   * An invocation of this method of the form <code>out.append(c)</code> behaves
+   * in exactly the same way as the invocation
    *
    * <pre>
    * out.write (c)

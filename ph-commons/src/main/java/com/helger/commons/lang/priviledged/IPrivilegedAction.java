@@ -55,6 +55,8 @@ public interface IPrivilegedAction <T> extends PrivilegedAction <T>
    *        The privileged action to run. May not be <code>null</code>.
    * @return The result of {@link #run()} dependent if a system manager is
    *         installed or not.
+   * @param <T>
+   *        The return type of the privileged action
    * @since 9.4.7
    */
   @Nullable

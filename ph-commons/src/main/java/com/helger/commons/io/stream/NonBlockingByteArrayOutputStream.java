@@ -268,8 +268,8 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   /**
    * Converts the buffer's contents into a string by decoding the bytes using
    * the specified {@link java.nio.charset.Charset charsetName}. The length of
-   * the new <tt>String</tt> is a function of the charset, and hence may not be
-   * equal to the length of the byte array.
+   * the new <code>String</code> is a function of the charset, and hence may not
+   * be equal to the length of the byte array.
    * <p>
    * This method always replaces malformed-input and unmappable-character
    * sequences with this charset's default replacement string. The
@@ -289,8 +289,8 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   /**
    * Converts the buffer's contents into a string by decoding the bytes using
    * the specified {@link java.nio.charset.Charset charsetName}. The length of
-   * the new <tt>String</tt> is a function of the charset, and hence may not be
-   * equal to the length of the byte array.
+   * the new <code>String</code> is a function of the charset, and hence may not
+   * be equal to the length of the byte array.
    * <p>
    * This method always replaces malformed-input and unmappable-character
    * sequences with this charset's default replacement string. The
@@ -313,8 +313,8 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   /**
    * Converts the buffer's contents into a string by decoding the bytes using
    * the specified {@link java.nio.charset.Charset charsetName}. The length of
-   * the new <tt>String</tt> is a function of the charset, and hence may not be
-   * equal to the length of the byte array.
+   * the new <code>String</code> is a function of the charset, and hence may not
+   * be equal to the length of the byte array.
    * <p>
    * This method always replaces malformed-input and unmappable-character
    * sequences with this charset's default replacement string. The
@@ -367,9 +367,10 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   }
 
   /**
-   * Closing a <tt>ByteArrayOutputStream</tt> has no effect. The methods in this
-   * class can be called after the stream has been closed without generating an
-   * <tt>IOException</tt>. This operation does nothing on this class.
+   * Closing a <code>ByteArrayOutputStream</code> has no effect. The methods in
+   * this class can be called after the stream has been closed without
+   * generating an <code>IOException</code>. This operation does nothing on this
+   * class.
    */
   @Override
   public void close ()
