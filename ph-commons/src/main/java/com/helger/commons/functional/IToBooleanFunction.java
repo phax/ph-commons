@@ -16,8 +16,6 @@
  */
 package com.helger.commons.functional;
 
-import java.io.Serializable;
-
 /**
  * Represents a function that produces a boolean-valued result. This is the
  * {@code boolean}-producing primitive specialization for
@@ -32,7 +30,7 @@ import java.io.Serializable;
  * @since 8.0.0
  */
 @FunctionalInterface
-public interface IToBooleanFunction <T> extends Serializable
+public interface IToBooleanFunction <T>
 {
   /**
    * Applies this function to the given argument.

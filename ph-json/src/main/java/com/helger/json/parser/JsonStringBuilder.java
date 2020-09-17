@@ -16,7 +16,6 @@
  */
 package com.helger.json.parser;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Arrays;
@@ -34,14 +33,12 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class JsonStringBuilder implements Serializable
+public class JsonStringBuilder
 {
-  private static final long serialVersionUID = 1;
-
   protected char [] m_aBuf;
   protected int m_nLen;
   // Status vars
-  private transient String m_sCache;
+  private String m_sCache;
 
   public JsonStringBuilder ()
   {

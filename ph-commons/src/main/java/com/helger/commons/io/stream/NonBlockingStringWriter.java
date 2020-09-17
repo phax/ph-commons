@@ -16,7 +16,6 @@
  */
 package com.helger.commons.io.stream;
 
-import java.io.Serializable;
 import java.io.Writer;
 
 import javax.annotation.Nonnegative;
@@ -38,7 +37,7 @@ import com.helger.commons.lang.IHasSize;
  * @see java.io.StringWriter
  */
 @NotThreadSafe
-public class NonBlockingStringWriter extends Writer implements IHasSize, Serializable
+public class NonBlockingStringWriter extends Writer implements IHasSize
 {
   private final StringBuilder m_aSB;
 
@@ -277,7 +276,7 @@ public class NonBlockingStringWriter extends Writer implements IHasSize, Seriali
 
   /**
    * @return the buffer's current value as a string.
-   * @deprecated Use getAsString instead
+   * @deprecated Don't call this; use getAsString instead
    */
   @Override
   @Deprecated

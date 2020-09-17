@@ -16,8 +16,6 @@
  */
 package com.helger.commons.io.streamprovider;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
@@ -32,7 +30,7 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public class ByteArrayInputStreamProvider implements IHasByteArray, Serializable
+public class ByteArrayInputStreamProvider implements IHasByteArray
 {
   public static final boolean DEFAULT_COPY_NEEDED = false;
 

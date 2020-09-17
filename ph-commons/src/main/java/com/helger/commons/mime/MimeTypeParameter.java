@@ -16,8 +16,6 @@
  */
 package com.helger.commons.mime;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
@@ -32,7 +30,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public class MimeTypeParameter implements Serializable
+public class MimeTypeParameter
 {
   private final String m_sAttribute;
   private final String m_sValue;

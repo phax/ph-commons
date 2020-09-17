@@ -16,8 +16,6 @@
  */
 package com.helger.security.password.salt;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
@@ -30,7 +28,7 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
-public interface IPasswordSalt extends Serializable
+public interface IPasswordSalt
 {
   /**
    * @return The number of salt bytes used. Always &gt; 0.

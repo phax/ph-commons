@@ -38,23 +38,6 @@ import com.helger.commons.mock.CommonsTestHelper;
 public final class JsonArrayTest
 {
   @Test
-  public void testSerialize ()
-  {
-    final JsonArray aArray = new JsonArray ();
-    CommonsTestHelper.testDefaultSerialization (aArray);
-    aArray.add (5);
-    CommonsTestHelper.testDefaultSerialization (aArray);
-    aArray.add (3.1234);
-    CommonsTestHelper.testDefaultSerialization (aArray);
-    aArray.add ("This is a string");
-    CommonsTestHelper.testDefaultSerialization (aArray);
-    aArray.add (new JsonArray ().add ("nested").add (0).add (Double.valueOf (12.34)));
-    CommonsTestHelper.testDefaultSerialization (aArray);
-    aArray.add (new JsonObject ().add ("n1", "nested").add ("n2", 0).add ("n3", Double.valueOf (12.34)));
-    CommonsTestHelper.testDefaultSerialization (aArray);
-  }
-
-  @Test
   public void testContains ()
   {
     final JsonArray aArray = new JsonArray ();

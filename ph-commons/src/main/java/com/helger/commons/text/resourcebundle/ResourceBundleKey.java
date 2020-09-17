@@ -16,7 +16,6 @@
  */
 package com.helger.commons.text.resourcebundle;
 
-import java.io.Serializable;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -35,7 +34,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public class ResourceBundleKey implements Serializable
+public class ResourceBundleKey
 {
   private final String m_sBundleName;
   private final String m_sKey;

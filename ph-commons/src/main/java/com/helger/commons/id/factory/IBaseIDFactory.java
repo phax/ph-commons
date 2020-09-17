@@ -16,8 +16,6 @@
  */
 package com.helger.commons.id.factory;
 
-import java.io.Serializable;
-
 import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
 
 /**
@@ -27,7 +25,7 @@ import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
-public interface IBaseIDFactory extends Serializable
+public interface IBaseIDFactory
 {
   /* empty */
 }

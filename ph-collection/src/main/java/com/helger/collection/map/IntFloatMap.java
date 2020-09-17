@@ -16,7 +16,6 @@
  */
 package com.helger.collection.map;
 
-import java.io.Serializable;
 import java.util.Arrays;
 
 import javax.annotation.CheckForSigned;
@@ -36,7 +35,7 @@ import com.helger.commons.lang.IHasSize;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class IntFloatMap implements IHasSize, Serializable
+public class IntFloatMap implements IHasSize
 {
   /**
    * Represents a function that accepts an key-type argument and produces a
@@ -46,7 +45,7 @@ public class IntFloatMap implements IHasSize, Serializable
    * {@link #apply(int)}.
    */
   @FunctionalInterface
-  public interface IKeyToValueFunction extends Serializable
+  public interface IKeyToValueFunction
   {
     /**
      * Applies this function to the given argument.

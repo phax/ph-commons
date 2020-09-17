@@ -16,11 +16,12 @@
  */
 package com.helger.commons.cache;
 
+import java.util.function.Function;
+
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.ThreadSafe;
 
 import com.helger.commons.annotation.Nonempty;
-import com.helger.commons.functional.IFunction;
 
 /**
  * The default implementation of {@link ICache} and {@link IMutableCache}. Since
@@ -37,19 +38,19 @@ public class Cache <KEYTYPE, VALUETYPE> extends MappedCache <KEYTYPE, KEYTYPE, V
 {
   public static final boolean DEFAULT_ALLOW_NULL_VALUES = false;
 
-  public Cache (@Nonnull final IFunction <KEYTYPE, VALUETYPE> aCacheValueProvider, @Nonnull @Nonempty final String sCacheName)
+  public Cache (@Nonnull final Function <KEYTYPE, VALUETYPE> aCacheValueProvider, @Nonnull @Nonempty final String sCacheName)
   {
     this (aCacheValueProvider, NO_MAX_SIZE, sCacheName);
   }
 
-  public Cache (@Nonnull final IFunction <KEYTYPE, VALUETYPE> aCacheValueProvider,
+  public Cache (@Nonnull final Function <KEYTYPE, VALUETYPE> aCacheValueProvider,
                 final int nMaxSize,
                 @Nonnull @Nonempty final String sCacheName)
   {
     this (aCacheValueProvider, nMaxSize, sCacheName, DEFAULT_ALLOW_NULL_VALUES);
   }
 
-  public Cache (@Nonnull final IFunction <KEYTYPE, VALUETYPE> aCacheValueProvider,
+  public Cache (@Nonnull final Function <KEYTYPE, VALUETYPE> aCacheValueProvider,
                 final int nMaxSize,
                 @Nonnull @Nonempty final String sCacheName,
                 final boolean bAllowNullValues)

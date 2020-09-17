@@ -23,7 +23,7 @@
   <parent>
     <groupId>com.helger</groupId>
     <artifactId>ph-commons-parent-pom</artifactId>
-    <version>9.5.1-SNAPSHOT</version>
+    <version>10.0.0-SNAPSHOT</version>
   </parent>
   <artifactId>ph-bc</artifactId>
   <packaging>bundle</packaging>
@@ -31,6 +31,7 @@
   <description>BouncyCastle common use case wrapper</description>
   <url>https://github.com/phax/ph-commons/ph-bc</url>
   <inceptionYear>2018</inceptionYear>
+  
   <licenses>
     <license>
       <name>Apache 2</name>
@@ -38,10 +39,12 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+  
   <organization>
     <name>Philip Helger</name>
     <url>http://www.helger.com</url>
   </organization>
+  
   <developers>
     <developer>
       <id>philip</id>
@@ -50,6 +53,7 @@
       <url>http://www.helger.com</url>
     </developer>
   </developers>
+  
   <dependencies>
     <dependency>
       <groupId>com.helger</groupId>
@@ -68,6 +72,7 @@
       <groupId>org.bouncycastle</groupId>
       <artifactId>bcpkix-jdk15on</artifactId>
     </dependency>
+    
     <dependency>
       <groupId>org.bouncycastle</groupId>
       <artifactId>bcmail-jdk15on</artifactId>
@@ -79,6 +84,7 @@
       <optional>true</optional>
     </dependency>
   </dependencies>
+  
   <build>
     <plugins>
       <plugin>

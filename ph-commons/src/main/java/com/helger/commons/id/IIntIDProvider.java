@@ -16,8 +16,6 @@
  */
 package com.helger.commons.id;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 
 /**
@@ -27,7 +25,7 @@ import javax.annotation.Nonnull;
  * @param <VALUETYPE>
  *        Object type
  */
-public interface IIntIDProvider <VALUETYPE> extends Serializable
+public interface IIntIDProvider <VALUETYPE>
 {
   /**
    * Get the ID of the passed object.

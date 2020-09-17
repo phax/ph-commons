@@ -16,8 +16,6 @@
  */
 package com.helger.commons.mime;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -36,7 +34,7 @@ import com.helger.commons.lang.ICloneable;
  */
 @MustImplementEqualsAndHashcode
 @MustImplementComparable
-public interface IMimeType extends ICloneable <IMimeType>, Serializable
+public interface IMimeType extends ICloneable <IMimeType>
 {
   /**
    * @return The content type. Never <code>null</code>.

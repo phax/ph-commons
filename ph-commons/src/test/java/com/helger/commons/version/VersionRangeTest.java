@@ -411,11 +411,4 @@ public final class VersionRangeTest
     CommonsTestHelper.testDefaultImplementationWithEqualContentObject (VersionRange.parse ("(1.2]"), VersionRange.parse ("(1.2]"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (VersionRange.parse ("(1.2]"), VersionRange.parse ("(1.2)"));
   }
-
-  @Test
-  public void testSerialization ()
-  {
-    CommonsTestHelper.testDefaultSerialization (VersionRange.parse ("(1.2]"));
-    CommonsTestHelper.testDefaultSerialization (VersionRange.parse ("(0)"));
-  }
 }

@@ -34,13 +34,13 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
 import com.helger.commons.annotation.IsSPIImplementation;
 import com.helger.commons.datetime.PDTFactory;
-import com.helger.commons.functional.IFunction;
 import com.helger.commons.string.StringParser;
 
 /**
@@ -105,7 +105,7 @@ public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegis
                                                                          aSource -> new Date (aSource.longValue ()));
 
     // Destination: Instant
-    final IFunction <? super Number, ? extends Instant> fToInstant = aSource -> Instant.ofEpochMilli (aSource.longValue ());
+    final Function <? super Number, ? extends Instant> fToInstant = aSource -> Instant.ofEpochMilli (aSource.longValue ());
     aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (Number.class, Instant.class, fToInstant);
     aRegistry.registerTypeConverter (String.class, Instant.class, Instant::parse);
     aRegistry.registerTypeConverter (Date.class, Instant.class, Date::toInstant);

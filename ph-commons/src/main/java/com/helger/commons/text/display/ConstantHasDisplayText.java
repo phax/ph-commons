@@ -16,7 +16,6 @@
  */
 package com.helger.commons.text.display;
 
-import java.io.Serializable;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -38,7 +37,7 @@ import com.helger.commons.string.ToStringGenerator;
  */
 @Immutable
 @MustImplementEqualsAndHashcode
-public class ConstantHasDisplayText implements IHasDisplayText, Serializable
+public class ConstantHasDisplayText implements IHasDisplayText
 {
   private final String m_sFixedText;
 

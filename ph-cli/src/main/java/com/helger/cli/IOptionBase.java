@@ -17,14 +17,12 @@
  */
 package com.helger.cli;
 
-import java.io.Serializable;
-
 /**
  * Base interface for {@link Option} and {@link OptionGroup}.
  *
  * @author Philip Helger
  */
-public interface IOptionBase extends Serializable
+public interface IOptionBase
 {
   /**
    * @return <code>true</code> if this element is required, <code>false</code>

@@ -16,11 +16,12 @@
  */
 package com.helger.commons.format;
 
+import java.util.function.Function;
+
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.NotThreadSafe;
 
 import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.functional.IFunction;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -38,7 +39,7 @@ public class FormatableObject <DATATYPE> implements IFormatableObject <DATATYPE>
   private final DATATYPE m_aValue;
 
   /** The optional formatter to use. */
-  private final IFunction <? super DATATYPE, ? extends String> m_aFormatter;
+  private final Function <? super DATATYPE, ? extends String> m_aFormatter;
 
   /**
    * Init the field with a value.
@@ -48,7 +49,7 @@ public class FormatableObject <DATATYPE> implements IFormatableObject <DATATYPE>
    * @param aFormatter
    *        The optional formatter to use. May be <code>null</code>.
    */
-  public FormatableObject (@Nullable final DATATYPE aValue, @Nullable final IFunction <? super DATATYPE, ? extends String> aFormatter)
+  public FormatableObject (@Nullable final DATATYPE aValue, @Nullable final Function <? super DATATYPE, ? extends String> aFormatter)
   {
     m_aValue = aValue;
     m_aFormatter = aFormatter;
@@ -61,7 +62,7 @@ public class FormatableObject <DATATYPE> implements IFormatableObject <DATATYPE>
   }
 
   @Nullable
-  public IFunction <? super DATATYPE, ? extends String> getFormatter ()
+  public Function <? super DATATYPE, ? extends String> getFormatter ()
   {
     return m_aFormatter;
   }

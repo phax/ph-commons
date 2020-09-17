@@ -16,8 +16,6 @@
  */
 package com.helger.commons.compare;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 
 /**
@@ -29,7 +27,7 @@ import javax.annotation.Nonnull;
  *        The data type to be compared
  * @since 8.6.3
  */
-public interface IComparable <DATATYPE> extends Comparable <DATATYPE>, Serializable
+public interface IComparable <DATATYPE> extends Comparable <DATATYPE>
 {
   /**
    * @param aOther

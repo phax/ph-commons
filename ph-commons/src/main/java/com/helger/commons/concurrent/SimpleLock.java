@@ -110,23 +110,6 @@ public class SimpleLock extends ReentrantLock
    * @return The return value of the callable. May be <code>null</code>.
    * @param <T>
    *        Return type
-   * @deprecated Since 9.4.1; Use {@link #lockedGet(Supplier)} instead
-   */
-  @Deprecated
-  public <T> T locked (@Nonnull final Supplier <? extends T> aSupplier)
-  {
-    return lockedGet (aSupplier);
-  }
-
-  /**
-   * Execute the provided callable in a read lock. Note: no
-   * nullable/non-nullable can be assumed.
-   *
-   * @param aSupplier
-   *        Callable to be executed. May not be <code>null</code>.
-   * @return The return value of the callable. May be <code>null</code>.
-   * @param <T>
-   *        Return type
    */
   public <T> T lockedGet (@Nonnull final Supplier <? extends T> aSupplier)
   {
@@ -141,28 +124,6 @@ public class SimpleLock extends ReentrantLock
     {
       unlock ();
     }
-  }
-
-  /**
-   * Execute the provided callable in a read lock. Note: no
-   * nullable/non-nullable can be assumed.
-   *
-   * @param aCallable
-   *        Callable to be executed. May not be <code>null</code>.
-   * @return The return value of the callable. May be <code>null</code>.
-   * @throws EXTYPE
-   *         If the callable throws the exception
-   * @param <T>
-   *        Return type
-   * @param <EXTYPE>
-   *        Exception type to be thrown
-   * @deprecated Since 9.4.1; Use {@link #lockedGetThrowing(IThrowingSupplier)}
-   *             instead
-   */
-  @Deprecated
-  public <T, EXTYPE extends Exception> T lockedThrowing (@Nonnull final IThrowingSupplier <? extends T, EXTYPE> aCallable) throws EXTYPE
-  {
-    return lockedGetThrowing (aCallable);
   }
 
   /**
@@ -200,21 +161,6 @@ public class SimpleLock extends ReentrantLock
    * @param aSupplier
    *        Callable to be executed. May not be <code>null</code>.
    * @return The return value of the callable. May be <code>null</code>.
-   * @deprecated Since 9.4.0; Use {@link #lockedBoolean(BooleanSupplier)}
-   *             instead
-   */
-  @Deprecated
-  public boolean locked (@Nonnull final BooleanSupplier aSupplier)
-  {
-    return lockedBoolean (aSupplier);
-  }
-
-  /**
-   * Execute the provided callable in a read lock.
-   *
-   * @param aSupplier
-   *        Callable to be executed. May not be <code>null</code>.
-   * @return The return value of the callable. May be <code>null</code>.
    */
   public boolean lockedBoolean (@Nonnull final BooleanSupplier aSupplier)
   {
@@ -229,20 +175,6 @@ public class SimpleLock extends ReentrantLock
     {
       unlock ();
     }
-  }
-
-  /**
-   * Execute the provided callable in a read lock.
-   *
-   * @param aSupplier
-   *        Callable to be executed. May not be <code>null</code>.
-   * @return The return value of the callable. May be <code>null</code>.
-   * @deprecated Since 9.4.0; Use {@link #lockedDouble(DoubleSupplier)} instead
-   */
-  @Deprecated
-  public double locked (@Nonnull final DoubleSupplier aSupplier)
-  {
-    return lockedDouble (aSupplier);
   }
 
   /**
@@ -273,20 +205,6 @@ public class SimpleLock extends ReentrantLock
    * @param aSupplier
    *        Callable to be executed. May not be <code>null</code>.
    * @return The return value of the callable. May be <code>null</code>.
-   * @deprecated Since 9.4.0; Use {@link #lockedInt(IntSupplier)} instead
-   */
-  @Deprecated
-  public int locked (@Nonnull final IntSupplier aSupplier)
-  {
-    return lockedInt (aSupplier);
-  }
-
-  /**
-   * Execute the provided callable in a read lock.
-   *
-   * @param aSupplier
-   *        Callable to be executed. May not be <code>null</code>.
-   * @return The return value of the callable. May be <code>null</code>.
    */
   public int lockedInt (@Nonnull final IntSupplier aSupplier)
   {
@@ -301,20 +219,6 @@ public class SimpleLock extends ReentrantLock
     {
       unlock ();
     }
-  }
-
-  /**
-   * Execute the provided callable in a read lock.
-   *
-   * @param aSupplier
-   *        Callable to be executed. May not be <code>null</code>.
-   * @return The return value of the callable. May be <code>null</code>.
-   * @deprecated Since 9.4.0; Use {@link #lockedLong(LongSupplier)} instead
-   */
-  @Deprecated
-  public long locked (@Nonnull final LongSupplier aSupplier)
-  {
-    return lockedLong (aSupplier);
   }
 
   /**

@@ -363,42 +363,6 @@ public final class StreamHelper
    * @param aOS
    *        The output stream to write to. May be <code>null</code>. Not
    *        automatically closed!
-   * @param aBuffer
-   *        The buffer to use. May not be <code>null</code>.
-   * @param aCopyByteCount
-   *        An optional mutable long object that will receive the total number
-   *        of copied bytes. Note: and optional old value is overwritten!
-   * @param aLimit
-   *        An optional maximum number of bytes to copied from the input stream
-   *        to the output stream. May be <code>null</code> to indicate no limit,
-   *        meaning all bytes are copied.
-   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
-   *         {@link ESuccess#FAILURE}</code> otherwise
-   * @deprecated Use
-   *             {@link #copyInputStreamToOutputStream(InputStream, boolean, OutputStream, boolean, byte[], Long, IExceptionCallback, MutableLong)}
-   *             instead
-   */
-  @Nonnull
-  @Deprecated
-  public static ESuccess copyInputStreamToOutputStream (@WillClose @Nullable final InputStream aIS,
-                                                        @WillNotClose @Nullable final OutputStream aOS,
-                                                        @Nonnull @Nonempty final byte [] aBuffer,
-                                                        @Nullable final MutableLong aCopyByteCount,
-                                                        @Nullable final Long aLimit)
-  {
-    return copyInputStreamToOutputStream (aIS, true, aOS, false, aBuffer, aLimit, null, aCopyByteCount);
-  }
-
-  /**
-   * Pass the content of the given input stream to the given output stream. The
-   * input stream is automatically closed, whereas the output stream stays open!
-   *
-   * @param aIS
-   *        The input stream to read from. May be <code>null</code>.
-   *        Automatically closed!
-   * @param aOS
-   *        The output stream to write to. May be <code>null</code>. Not
-   *        automatically closed!
    * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
    *         {@link ESuccess#FAILURE}</code> otherwise
    */
@@ -536,37 +500,6 @@ public final class StreamHelper
                                                         @Nonnull final byte [] aBuffer)
   {
     return copyInputStreamToOutputStream (aIS, true, aOS, false, aBuffer, (Long) null, null, (MutableLong) null);
-  }
-
-  /**
-   * Pass the content of the given input stream to the given output stream. The
-   * input stream is automatically closed, whereas the output stream stays open!
-   *
-   * @param aIS
-   *        The input stream to read from. May be <code>null</code>.
-   *        Automatically closed!
-   * @param aOS
-   *        The output stream to write to. May be <code>null</code>. Not
-   *        automatically closed!
-   * @param aBuffer
-   *        The buffer to use. May not be <code>null</code>.
-   * @param aCopyByteCount
-   *        An optional mutable long object that will receive the total number
-   *        of copied bytes. Note: and optional old value is overwritten!
-   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
-   *         {@link ESuccess#FAILURE}</code> otherwise
-   * @deprecated Use
-   *             {@link #copyInputStreamToOutputStream(InputStream, boolean, OutputStream, boolean, byte[], Long, IExceptionCallback, MutableLong)}
-   *             instead
-   */
-  @Nonnull
-  @Deprecated
-  public static ESuccess copyInputStreamToOutputStream (@WillClose @Nullable final InputStream aIS,
-                                                        @WillNotClose @Nullable final OutputStream aOS,
-                                                        @Nonnull @Nonempty final byte [] aBuffer,
-                                                        @Nullable final MutableLong aCopyByteCount)
-  {
-    return copyInputStreamToOutputStream (aIS, true, aOS, false, aBuffer, (Long) null, null, aCopyByteCount);
   }
 
   /**
@@ -1038,36 +971,6 @@ public final class StreamHelper
                                              @Nonnull final char [] aBuffer)
   {
     return copyReaderToWriter (aReader, true, aWriter, false, aBuffer, (Long) null, null, (MutableLong) null);
-  }
-
-  /**
-   * Pass the content of the given reader to the given writer. The reader is
-   * automatically closed, whereas the writer stays open!
-   *
-   * @param aReader
-   *        The reader to read from. May be <code>null</code>. Automatically
-   *        closed!
-   * @param aWriter
-   *        The writer to write to. May be <code>null</code>. Not automatically
-   *        closed!
-   * @param aBuffer
-   *        The buffer to use. May not be <code>null</code>.
-   * @param aCopyCharCount
-   *        An optional mutable long object that will receive the total number
-   *        of copied characters. Note: and optional old value is overwritten!
-   * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
-   *         {@link ESuccess#FAILURE}</code> otherwise
-   * @deprecated Use
-   *             {@link #copyReaderToWriter(Reader, boolean, Writer, boolean, char[], Long, IExceptionCallback, MutableLong)}
-   */
-  @Nonnull
-  @Deprecated
-  public static ESuccess copyReaderToWriter (@WillClose @Nullable final Reader aReader,
-                                             @WillNotClose @Nullable final Writer aWriter,
-                                             @Nonnull @Nonempty final char [] aBuffer,
-                                             @Nullable final MutableLong aCopyCharCount)
-  {
-    return copyReaderToWriter (aReader, true, aWriter, false, aBuffer, (Long) null, null, aCopyCharCount);
   }
 
   @Nullable

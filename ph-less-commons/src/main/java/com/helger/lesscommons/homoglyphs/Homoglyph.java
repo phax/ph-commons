@@ -16,7 +16,6 @@
  */
 package com.helger.lesscommons.homoglyphs;
 
-import java.io.Serializable;
 import java.nio.IntBuffer;
 
 import javax.annotation.Nonnegative;
@@ -44,7 +43,7 @@ import com.helger.commons.string.StringHelper;
  * @author Philip Helger
  */
 @Immutable
-public class Homoglyph implements Serializable
+public class Homoglyph
 {
   // Map from char to all other chars that are homoglyphs
   private final IntObjectMap <IntSet> m_aLookup = new IntObjectMap <> ();

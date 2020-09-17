@@ -28,7 +28,6 @@ import com.helger.commons.annotation.ReturnsMutableCopy;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.functional.IPredicate;
 import com.helger.commons.mutable.MutableInt;
 import com.helger.commons.state.EChange;
 import com.helger.commons.state.EContinue;
@@ -378,20 +377,20 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
   IMicroElement getClone ();
 
   @Nonnull
-  static IPredicate <? super IMicroElement> filterNamespaceURI (@Nullable final String sNamespaceURI)
+  static Predicate <? super IMicroElement> filterNamespaceURI (@Nullable final String sNamespaceURI)
   {
     return aChildElement -> aChildElement.hasNamespaceURI (sNamespaceURI);
   }
 
   @Nonnull
-  static IPredicate <? super IMicroElement> filterName (@Nullable final String sTagOrLocalName)
+  static Predicate <? super IMicroElement> filterName (@Nullable final String sTagOrLocalName)
   {
     return aChildElement -> aChildElement.hasTagName (sTagOrLocalName);
   }
 
   @Nonnull
-  static IPredicate <? super IMicroElement> filterNamespaceURIAndName (@Nullable final String sNamespaceURI,
-                                                                       @Nullable final String sTagOrLocalName)
+  static Predicate <? super IMicroElement> filterNamespaceURIAndName (@Nullable final String sNamespaceURI,
+                                                                      @Nullable final String sTagOrLocalName)
   {
     if (StringHelper.hasNoText (sNamespaceURI))
       return filterName (sTagOrLocalName);

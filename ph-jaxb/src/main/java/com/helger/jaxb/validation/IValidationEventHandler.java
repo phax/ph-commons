@@ -16,8 +16,6 @@
  */
 package com.helger.jaxb.validation;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.xml.bind.ValidationEventHandler;
@@ -30,7 +28,7 @@ import javax.xml.bind.ValidationEventHandler;
  * @since 8.5.1
  */
 @FunctionalInterface
-public interface IValidationEventHandler extends ValidationEventHandler, Serializable
+public interface IValidationEventHandler extends ValidationEventHandler
 {
   @Nonnull
   default IValidationEventHandler andThen (@Nullable final ValidationEventHandler aOther)

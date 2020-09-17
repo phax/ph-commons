@@ -43,7 +43,6 @@ public final class CommonsEnumMapTest
     assertEquals (EChange.CHANGED, aSortedKeys.getAtIndex (0));
     assertEquals (EChange.UNCHANGED, aSortedKeys.getAtIndex (1));
 
-    CommonsTestHelper.testDefaultSerialization (aTest);
     CommonsTestHelper.testGetClone (aTest);
   }
 

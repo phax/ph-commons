@@ -16,7 +16,6 @@
  */
 package com.helger.datetime.period;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.annotation.Nonnull;
@@ -29,7 +28,7 @@ import com.helger.datetime.domain.IHasStartAndEnd;
  *
  * @author Philip Helger
  */
-public interface ILocalDatePeriod extends Serializable, IHasStartAndEnd <LocalDate>
+public interface ILocalDatePeriod extends IHasStartAndEnd <LocalDate>
 {
   /**
    * Check if the provided date is inside this period, assuming that start and

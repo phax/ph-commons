@@ -16,8 +16,6 @@
  */
 package com.helger.commons.codec;
 
-import java.io.Serializable;
-
 import javax.annotation.Nullable;
 
 /**
@@ -30,7 +28,7 @@ import javax.annotation.Nullable;
  *        Destination data type
  */
 @FunctionalInterface
-public interface IEncoder <SRCTYPE, DSTTYPE> extends Serializable
+public interface IEncoder <SRCTYPE, DSTTYPE>
 {
   /**
    * Encode the passed source object

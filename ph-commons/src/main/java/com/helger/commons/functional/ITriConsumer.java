@@ -16,7 +16,6 @@
  */
 package com.helger.commons.functional;
 
-import java.io.Serializable;
 import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
@@ -40,7 +39,7 @@ import javax.annotation.Nullable;
  * @since 8.0.0
  */
 @FunctionalInterface
-public interface ITriConsumer <T, U, V> extends Serializable
+public interface ITriConsumer <T, U, V>
 {
   /**
    * Performs this operation on the given arguments.

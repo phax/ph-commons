@@ -59,8 +59,8 @@ public interface IEnumTextResolver
    * @param aContentLocale
    *        The locale to be used. May not be <code>null</code>.
    * @return <code>null</code> if no text could be resolved.
-   * @deprecated Use {@link #getText(Enum, IHasText, Locale)} instead when no
-   *             argument is needed
+   * @deprecated Don't call this; Use {@link #getText(Enum, IHasText, Locale)}
+   *             instead when no argument is needed
    */
   @Nullable
   @Deprecated

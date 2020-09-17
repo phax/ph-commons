@@ -16,7 +16,6 @@
  */
 package com.helger.commons.collection.iterate;
 
-import java.io.Serializable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -32,7 +31,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        The pseudo element type to iterate
  */
 @Immutable
-public class EmptyIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYPE>, Serializable
+public class EmptyIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYPE>
 {
   public boolean hasNext ()
   {

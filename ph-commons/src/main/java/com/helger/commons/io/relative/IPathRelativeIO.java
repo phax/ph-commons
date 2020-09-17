@@ -18,7 +18,6 @@ package com.helger.commons.io.relative;
 
 import java.io.InputStream;
 import java.io.Reader;
-import java.io.Serializable;
 import java.nio.charset.Charset;
 
 import javax.annotation.Nonnull;
@@ -32,7 +31,7 @@ import com.helger.commons.io.resource.IReadableResource;
  *
  * @author Philip Helger
  */
-public interface IPathRelativeIO extends Serializable
+public interface IPathRelativeIO
 {
   /**
    * @return The base path. May be a file path, a URL or whatever. Never

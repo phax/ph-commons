@@ -91,7 +91,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *         Technology.
  * @version 5 August 1998
  */
-public class MatrixInt implements Serializable, ICloneable <MatrixInt>
+public class MatrixInt implements ICloneable <MatrixInt>, Serializable
 {
   /**
    * Array for internal storage of elements.

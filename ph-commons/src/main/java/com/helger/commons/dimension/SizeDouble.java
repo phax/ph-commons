@@ -16,8 +16,6 @@
  */
 package com.helger.commons.dimension;
 
-import java.io.Serializable;
-
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -34,7 +32,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public class SizeDouble implements IHasDimensionDouble, Serializable
+public class SizeDouble implements IHasDimensionDouble
 {
   private final double m_dWidth;
   private final double m_dHeight;

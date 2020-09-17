@@ -18,6 +18,7 @@ package com.helger.commons.io.file;
 
 import java.io.File;
 import java.util.NoSuchElementException;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -28,7 +29,6 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.OverrideOnDemand;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.iterate.IIterableIterator;
-import com.helger.commons.functional.IPredicate;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -46,7 +46,7 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
 {
   private final int m_nStartLevel;
   private int m_nLevel = 0;
-  private final IPredicate <File> m_aRecursionFilter;
+  private final Predicate <File> m_aRecursionFilter;
   private final ICommonsList <File> m_aFilesLeft;
 
   @Nonnegative
@@ -63,7 +63,7 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
    */
   public FileSystemRecursiveIterator (@Nonnull final String sBaseDir)
   {
-    this (new File (sBaseDir), (IPredicate <File>) null);
+    this (new File (sBaseDir), (Predicate <File>) null);
   }
 
   /**
@@ -74,7 +74,7 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
    */
   public FileSystemRecursiveIterator (@Nonnull final File aBaseDir)
   {
-    this (aBaseDir, (IPredicate <File>) null);
+    this (aBaseDir, (Predicate <File>) null);
   }
 
   /**
@@ -86,7 +86,7 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
    *        An optional filter that controls, into which sub-directories this
    *        iterator should descend to. May be <code>null</code>.
    */
-  public FileSystemRecursiveIterator (@Nonnull final String sBaseDir, @Nullable final IPredicate <File> aRecursionFilter)
+  public FileSystemRecursiveIterator (@Nonnull final String sBaseDir, @Nullable final Predicate <File> aRecursionFilter)
   {
     this (new File (sBaseDir), aRecursionFilter);
   }
@@ -100,7 +100,7 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
    *        An optional filter that controls, into which sub-directories this
    *        iterator should descend to. May be <code>null</code>.
    */
-  public FileSystemRecursiveIterator (@Nonnull final File aBaseDir, @Nullable final IPredicate <File> aRecursionFilter)
+  public FileSystemRecursiveIterator (@Nonnull final File aBaseDir, @Nullable final Predicate <File> aRecursionFilter)
   {
     ValueEnforcer.notNull (aBaseDir, "BaseDirectory");
     m_nStartLevel = _getLevel (aBaseDir);
@@ -115,7 +115,7 @@ public class FileSystemRecursiveIterator implements IIterableIterator <File>
   }
 
   @Nullable
-  public IPredicate <File> getRecursionFilter ()
+  public Predicate <File> getRecursionFilter ()
   {
     return m_aRecursionFilter;
   }

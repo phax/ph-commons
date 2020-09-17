@@ -16,8 +16,6 @@
  */
 package com.helger.matrix;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
@@ -38,7 +36,7 @@ import com.helger.commons.math.MathHelper;
  * equations. This will fail if isNonsingular() returns false.
  * </p>
  */
-public class LUDecomposition implements Serializable
+public class LUDecomposition
 {
   /**
    * Array for internal storage of decomposition.

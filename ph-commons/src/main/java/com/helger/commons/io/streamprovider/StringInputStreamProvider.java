@@ -19,7 +19,6 @@ package com.helger.commons.io.streamprovider;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.nio.charset.Charset;
 
 import javax.annotation.Nonnegative;
@@ -40,7 +39,7 @@ import com.helger.commons.string.ToStringGenerator;
  *
  * @author Philip Helger
  */
-public class StringInputStreamProvider implements IHasInputStreamAndReader, IHasReader, Serializable
+public class StringInputStreamProvider implements IHasInputStreamAndReader, IHasReader
 {
   private String m_sData;
   private Charset m_aCharset;

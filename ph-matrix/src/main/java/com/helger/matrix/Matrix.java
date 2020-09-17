@@ -90,7 +90,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  *         Technology.
  * @version 5 August 1998
  */
-public class Matrix implements Serializable, ICloneable <Matrix>
+public class Matrix implements ICloneable <Matrix>, Serializable
 {
   /**
    * Array for internal storage of elements.

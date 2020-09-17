@@ -28,13 +28,11 @@ import com.helger.commons.equals.EqualsHelper;
 import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.string.ToStringGenerator;
 import com.helger.commons.text.IHasText;
-import com.helger.commons.text.IMultilingualText;
 import com.helger.commons.text.display.IHasDisplayText;
 
 /**
- * A implementation of {@link IHasErrorText} based on {@link IMultilingualText}
- * because this class is Serializable and implements equals/hashCode. Cannot be
- * a lambda expression because equals/hashCode is required!
+ * A implementation of {@link IHasErrorText} based on {@link IHasText}. Cannot
+ * be a lambda expression because equals/hashCode is required!
  *
  * @author Philip Helger
  */

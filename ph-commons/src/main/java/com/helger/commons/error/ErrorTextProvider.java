@@ -16,7 +16,6 @@
  */
 package com.helger.commons.error;
 
-import java.io.Serializable;
 import java.util.Locale;
 
 import javax.annotation.Nonnull;
@@ -44,7 +43,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @since 8.5.1
  */
 @NotThreadSafe
-public class ErrorTextProvider implements IErrorTextProvider, Serializable, ICloneable <ErrorTextProvider>
+public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorTextProvider>
 {
   public static final char PLACEHOLDER = '$';
   public static final String PLACEHOLDER_STR = Character.toString (PLACEHOLDER);
@@ -95,7 +94,7 @@ public class ErrorTextProvider implements IErrorTextProvider, Serializable, IClo
    *
    * @author Philip Helger
    */
-  public static interface IFormattableItem extends Serializable
+  public static interface IFormattableItem
   {
     @Nonnull
     EField getField ();

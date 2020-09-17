@@ -16,7 +16,6 @@
  */
 package com.helger.security.authentication.result;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.annotation.Nonnull;
@@ -32,7 +31,7 @@ import com.helger.security.authentication.subject.IAuthSubject;
  *
  * @author Philip Helger
  */
-public interface IAuthIdentification extends ISuccessIndicator, Serializable
+public interface IAuthIdentification extends ISuccessIndicator
 {
   /**
    * @return The identified subject. May be <code>null</code> if no subject

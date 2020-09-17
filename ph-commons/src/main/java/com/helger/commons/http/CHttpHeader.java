@@ -70,11 +70,6 @@ public final class CHttpHeader
    */
   public static final String X_FRAME_OPTIONS = "X-Frame-Options";
   /**
-   * @deprecated Use only X-Frame-Options
-   */
-  @Deprecated
-  public static final String FRAME_OPTIONS = "Frame-Options";
-  /**
    * https://www.owasp.org/index.php/List_of_useful_HTTP_headers<br>
    * e.g. X-XSS-Protection: 1; mode=block
    */

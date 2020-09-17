@@ -17,7 +17,6 @@
 package com.helger.commons.io.stream;
 
 import java.io.InputStream;
-import java.io.Serializable;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -33,7 +32,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * @author Philip Helger
  * @see java.io.ByteArrayInputStream
  */
-public class NonBlockingByteArrayInputStream extends InputStream implements Serializable
+public class NonBlockingByteArrayInputStream extends InputStream
 {
   public static final boolean DEFAULT_COPY_NEEDED = false;
 

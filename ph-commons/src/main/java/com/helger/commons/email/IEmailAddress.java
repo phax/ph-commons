@@ -16,8 +16,6 @@
  */
 package com.helger.commons.email;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -29,7 +27,7 @@ import com.helger.commons.string.StringHelper;
  *
  * @author Philip Helger
  */
-public interface IEmailAddress extends IHasDisplayName, Serializable
+public interface IEmailAddress extends IHasDisplayName
 {
   /**
    * @return The main email address. May not be <code>null</code>.

@@ -16,8 +16,6 @@
  */
 package com.helger.xml.microdom;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -28,7 +26,7 @@ import javax.annotation.Nullable;
  *
  * @author Philip Helger
  */
-public interface IMicroDataAware extends Serializable
+public interface IMicroDataAware
 {
   /**
    * @return The currently assigned character data. May not be <code>null</code>

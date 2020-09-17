@@ -16,7 +16,6 @@
  */
 package com.helger.collection.map;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.function.IntUnaryOperator;
 
@@ -36,7 +35,7 @@ import com.helger.commons.lang.IHasSize;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class IntIntMap implements IHasSize, Serializable
+public class IntIntMap implements IHasSize
 {
   private static final int FREE_KEY = 0;
 

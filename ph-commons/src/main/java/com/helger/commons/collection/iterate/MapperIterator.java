@@ -17,12 +17,12 @@
 package com.helger.commons.collection.iterate;
 
 import java.util.Iterator;
+import java.util.function.Function;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import com.helger.commons.ValueEnforcer;
-import com.helger.commons.functional.IFunction;
 import com.helger.commons.string.ToStringGenerator;
 
 /**
@@ -40,7 +40,7 @@ public class MapperIterator <SRCTYPE, ELEMENTTYPE> implements IIterableIterator 
   // base iterator
   private final Iterator <? extends SRCTYPE> m_aBaseIter;
   // the converter to use
-  private final IFunction <? super SRCTYPE, ? extends ELEMENTTYPE> m_aConverter;
+  private final Function <? super SRCTYPE, ? extends ELEMENTTYPE> m_aConverter;
 
   /**
    * Constructor.
@@ -51,7 +51,7 @@ public class MapperIterator <SRCTYPE, ELEMENTTYPE> implements IIterableIterator 
    *        The converter to be used. May not be <code>null</code>.
    */
   public MapperIterator (@Nonnull final IIterableIterator <? extends SRCTYPE> aBaseIter,
-                         @Nonnull final IFunction <? super SRCTYPE, ? extends ELEMENTTYPE> aConverter)
+                         @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aConverter)
   {
     this (aBaseIter.iterator (), aConverter);
   }
@@ -65,7 +65,7 @@ public class MapperIterator <SRCTYPE, ELEMENTTYPE> implements IIterableIterator 
    *        The converter to be used. May not be <code>null</code>.
    */
   public MapperIterator (@Nonnull final Iterable <? extends SRCTYPE> aBaseCont,
-                         @Nonnull final IFunction <? super SRCTYPE, ? extends ELEMENTTYPE> aConverter)
+                         @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aConverter)
   {
     this (aBaseCont.iterator (), aConverter);
   }
@@ -79,7 +79,7 @@ public class MapperIterator <SRCTYPE, ELEMENTTYPE> implements IIterableIterator 
    *        The converter to be used. May not be <code>null</code>.
    */
   public MapperIterator (@Nonnull final Iterator <? extends SRCTYPE> aBaseIter,
-                         @Nonnull final IFunction <? super SRCTYPE, ? extends ELEMENTTYPE> aConverter)
+                         @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aConverter)
   {
     m_aBaseIter = ValueEnforcer.notNull (aBaseIter, "BaseIterator");
     m_aConverter = ValueEnforcer.notNull (aConverter, "Filter");
@@ -89,7 +89,7 @@ public class MapperIterator <SRCTYPE, ELEMENTTYPE> implements IIterableIterator 
    * @return The converter as specified in the constructor.
    */
   @Nonnull
-  public IFunction <? super SRCTYPE, ? extends ELEMENTTYPE> getConverter ()
+  public Function <? super SRCTYPE, ? extends ELEMENTTYPE> getConverter ()
   {
     return m_aConverter;
   }

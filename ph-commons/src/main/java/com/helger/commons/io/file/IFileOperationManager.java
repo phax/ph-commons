@@ -17,7 +17,6 @@
 package com.helger.commons.io.file;
 
 import java.io.File;
-import java.io.Serializable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -28,7 +27,7 @@ import javax.annotation.Nullable;
  *
  * @author Philip Helger
  */
-public interface IFileOperationManager extends Serializable
+public interface IFileOperationManager
 {
   /**
    * @return The last error that occurred. May be <code>null</code> if no action

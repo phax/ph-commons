@@ -806,7 +806,8 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *        If the value is <code>null</code> the attribute is removed (if
    *        present)
    * @return this
-   * @deprecated Call {@link #setAttribute(String, String)} directly
+   * @deprecated Don't call this; Call {@link #setAttribute(String, String)}
+   *             directly
    */
   @Deprecated
   @Nonnull
@@ -849,7 +850,8 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *        If the value is <code>null</code> the attribute is removed (if
    *        present)
    * @return this
-   * @deprecated Call {@link #setAttribute(String, String, String)} directly.
+   * @deprecated Don't call this; Call
+   *             {@link #setAttribute(String, String, String)} directly.
    */
   @Deprecated
   @Nonnull
@@ -891,7 +893,8 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *        If the value is <code>null</code> the attribute is removed (if
    *        present)
    * @return this
-   * @deprecated Call {@link #setAttribute(IMicroQName, String)} directly.
+   * @deprecated Don't call this; Call
+   *             {@link #setAttribute(IMicroQName, String)} directly.
    */
   @Deprecated
   @Nonnull

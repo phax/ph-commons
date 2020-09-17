@@ -16,15 +16,13 @@
  */
 package com.helger.commons.mutable;
 
-import java.io.Serializable;
-
 /**
  * Base interface comparable to {@link Number} - but an interface and not an
  * abstract class.
- * 
+ *
  * @author Philip Helger
  */
-public interface INumber extends Serializable
+public interface INumber
 {
   /**
    * Returns the value of the specified number as an {@code int}, which may

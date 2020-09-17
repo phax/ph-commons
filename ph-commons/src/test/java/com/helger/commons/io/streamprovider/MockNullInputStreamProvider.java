@@ -17,13 +17,12 @@
 package com.helger.commons.io.streamprovider;
 
 import java.io.InputStream;
-import java.io.Serializable;
 
 import javax.annotation.Nullable;
 
 import com.helger.commons.io.IHasInputStream;
 
-public final class MockNullInputStreamProvider implements IHasInputStream, Serializable
+public final class MockNullInputStreamProvider implements IHasInputStream
 {
   @Nullable
   public InputStream getInputStream ()

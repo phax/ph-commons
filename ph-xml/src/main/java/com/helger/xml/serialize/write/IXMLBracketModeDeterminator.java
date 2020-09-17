@@ -16,7 +16,6 @@
  */
 package com.helger.xml.serialize.write;
 
-import java.io.Serializable;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -33,7 +32,7 @@ import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
-public interface IXMLBracketModeDeterminator extends Serializable
+public interface IXMLBracketModeDeterminator
 {
   /**
    * Determine the bracket mode for an XML element.

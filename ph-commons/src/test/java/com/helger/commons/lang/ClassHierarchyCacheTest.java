@@ -20,7 +20,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.io.Serializable;
 import java.util.Collection;
 
 import org.junit.Test;
@@ -55,13 +54,12 @@ public final class ClassHierarchyCacheTest
 
     // More sophisticated static class (with interfaces)
     aHierarchy = ClassHierarchyCache.getClassHierarchy (TypedObject.class);
-    assertTrue (aHierarchy.size () >= 6);
+    assertTrue (aHierarchy.size () >= 5);
     assertTrue (aHierarchy.contains (TypedObject.class));
     assertTrue (aHierarchy.contains (IHasObjectType.class));
     assertTrue (aHierarchy.contains (ITypedObject.class));
     assertTrue (aHierarchy.contains (IHasID.class));
     assertTrue (aHierarchy.contains (Object.class));
-    assertTrue (aHierarchy.contains (Serializable.class));
 
     try
     {

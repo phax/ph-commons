@@ -17,7 +17,6 @@
 package com.helger.commons.io.resource;
 
 import java.io.File;
-import java.io.Serializable;
 import java.net.URL;
 
 import javax.annotation.Nonnull;
@@ -31,7 +30,7 @@ import com.helger.commons.annotation.MustImplementEqualsAndHashcode;
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
-public interface IResourceBase extends Serializable
+public interface IResourceBase
 {
   /**
    * @return A non-<code>null</code> resource ID used e.g. for system IDs in XML

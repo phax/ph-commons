@@ -16,7 +16,6 @@
  */
 package com.helger.dao.wal;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.function.BiConsumer;
@@ -48,7 +47,7 @@ import com.helger.commons.collection.impl.CommonsLinkedHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsSet;
-import com.helger.commons.functional.IPredicate;
+import com.helger.commons.functional.Predicates;
 import com.helger.commons.id.IHasID;
 import com.helger.commons.io.relative.IFileRelativeIO;
 import com.helger.commons.lang.ClassHelper;
@@ -74,7 +73,7 @@ import com.helger.xml.microdom.convert.MicroTypeConverter;
  *        Implementation type to be handled
  */
 @ThreadSafe
-public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <String> & Serializable, IMPLTYPE extends INTERFACETYPE> extends
+public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <String>, IMPLTYPE extends INTERFACETYPE> extends
                                              AbstractWALDAO <IMPLTYPE> implements
                                              IMapBasedDAO <INTERFACETYPE>
 {
@@ -90,7 +89,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   {
     private boolean m_bDoInitialRead = true;
     private Supplier <ICommonsMap <String, IMPLTYPE>> m_aMapSupplier = CommonsHashMap::new;
-    private IPredicate <IMicroElement> m_aReadElementFilter = IPredicate.all ();
+    private Predicate <IMicroElement> m_aReadElementFilter = Predicates.all ();
 
     @Nonnull
     public InitSettings <IMPLTYPE> setDoInitialRead (final boolean bDoInitialRead)
@@ -113,7 +112,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
     }
 
     @Nonnull
-    public InitSettings <IMPLTYPE> setReadElementFilter (@Nonnull final IPredicate <IMicroElement> aReadElementFilter)
+    public InitSettings <IMPLTYPE> setReadElementFilter (@Nonnull final Predicate <IMicroElement> aReadElementFilter)
     {
       m_aReadElementFilter = ValueEnforcer.notNull (aReadElementFilter, "ReadElementFilter");
       return this;
@@ -126,7 +125,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @GuardedBy ("m_aRWLock")
   private final ICommonsMap <String, IMPLTYPE> m_aMap;
   private final CallbackList <IDAOChangeCallback <INTERFACETYPE>> m_aCallbacks = new CallbackList <> ();
-  private final IPredicate <IMicroElement> m_aReadElementFilter;
+  private final Predicate <IMicroElement> m_aReadElementFilter;
 
   /**
    * Default constructor. Automatically tries to read the file in the

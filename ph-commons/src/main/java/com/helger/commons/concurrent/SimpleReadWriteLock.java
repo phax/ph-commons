@@ -67,23 +67,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @return The return value of the callable. May be <code>null</code>.
    * @param <T>
    *        Return type
-   * @deprecated Since 9.4.0; Use {@link #readLockedGet(Supplier)} instead
-   */
-  @Deprecated
-  public <T> T readLocked (@Nonnull final Supplier <? extends T> aSupplier)
-  {
-    return readLockedGet (aSupplier);
-  }
-
-  /**
-   * Execute the provided callable in a read lock. Note: no
-   * nullable/non-nullable can be assumed.
-   *
-   * @param aSupplier
-   *        Callable to be executed. May not be <code>null</code>.
-   * @return The return value of the callable. May be <code>null</code>.
-   * @param <T>
-   *        Return type
    */
   public <T> T readLockedGet (@Nonnull final Supplier <? extends T> aSupplier)
   {
@@ -153,28 +136,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    *        Return type
    * @param <EXTYPE>
    *        Exception type to be thrown
-   * @deprecated Since 9.4.0; Use
-   *             {@link #readLockedGetThrowing(IThrowingSupplier)} instead
-   */
-  @Deprecated
-  public <T, EXTYPE extends Exception> T readLockedThrowing (@Nonnull final IThrowingSupplier <? extends T, EXTYPE> aCallable) throws EXTYPE
-  {
-    return readLockedGetThrowing (aCallable);
-  }
-
-  /**
-   * Execute the provided callable in a read lock. Note: no
-   * nullable/non-nullable can be assumed.
-   *
-   * @param aCallable
-   *        Callable to be executed. May not be <code>null</code>.
-   * @return The return value of the callable. May be <code>null</code>.
-   * @throws EXTYPE
-   *         If the callable throws the exception
-   * @param <T>
-   *        Return type
-   * @param <EXTYPE>
-   *        Exception type to be thrown
    */
   public <T, EXTYPE extends Exception> T readLockedGetThrowing (@Nonnull final IThrowingSupplier <? extends T, EXTYPE> aCallable) throws EXTYPE
   {
@@ -187,21 +148,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
     {
       readLock ().unlock ();
     }
-  }
-
-  /**
-   * Execute the provided callable in a read lock.
-   *
-   * @param aSupplier
-   *        Callable to be executed. May not be <code>null</code>.
-   * @return The return value of the callable. May be <code>null</code>.
-   * @deprecated Since 9.4.0; Use {@link #readLockedBoolean(BooleanSupplier)}
-   *             instead
-   */
-  @Deprecated
-  public boolean readLocked (@Nonnull final BooleanSupplier aSupplier)
-  {
-    return readLockedBoolean (aSupplier);
   }
 
   /**
@@ -230,21 +176,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @param aSupplier
    *        Callable to be executed. May not be <code>null</code>.
    * @return The return value of the callable. May be <code>null</code>.
-   * @deprecated Since 9.4.0; Use {@link #readLockedDouble(DoubleSupplier)}
-   *             instead
-   */
-  @Deprecated
-  public double readLocked (@Nonnull final DoubleSupplier aSupplier)
-  {
-    return readLockedDouble (aSupplier);
-  }
-
-  /**
-   * Execute the provided callable in a read lock.
-   *
-   * @param aSupplier
-   *        Callable to be executed. May not be <code>null</code>.
-   * @return The return value of the callable. May be <code>null</code>.
    */
   public double readLockedDouble (@Nonnull final DoubleSupplier aSupplier)
   {
@@ -265,20 +196,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @param aSupplier
    *        Callable to be executed. May not be <code>null</code>.
    * @return The return value of the callable. May be <code>null</code>.
-   * @deprecated Since 9.4.0; Use {@link #readLockedInt(IntSupplier)} instead
-   */
-  @Deprecated
-  public int readLocked (@Nonnull final IntSupplier aSupplier)
-  {
-    return readLockedInt (aSupplier);
-  }
-
-  /**
-   * Execute the provided callable in a read lock.
-   *
-   * @param aSupplier
-   *        Callable to be executed. May not be <code>null</code>.
-   * @return The return value of the callable. May be <code>null</code>.
    */
   public int readLockedInt (@Nonnull final IntSupplier aSupplier)
   {
@@ -291,20 +208,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
     {
       readLock ().unlock ();
     }
-  }
-
-  /**
-   * Execute the provided callable in a read lock.
-   *
-   * @param aSupplier
-   *        Callable to be executed. May not be <code>null</code>.
-   * @return The return value of the callable. May be <code>null</code>.
-   * @deprecated Since 9.4.0; Use {@link #readLockedLong(LongSupplier)} instead
-   */
-  @Deprecated
-  public long readLocked (@Nonnull final LongSupplier aSupplier)
-  {
-    return readLockedLong (aSupplier);
   }
 
   /**
@@ -378,23 +281,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @return The return value of the callable. May be <code>null</code>.
    * @param <T>
    *        Return type
-   * @deprecated Since 9.4.0; Use {@link #writeLockedGet(Supplier)} instead
-   */
-  @Deprecated
-  public <T> T writeLocked (@Nonnull final Supplier <? extends T> aSupplier)
-  {
-    return writeLockedGet (aSupplier);
-  }
-
-  /**
-   * Execute the provided callable in a write lock. Note: no
-   * nullable/non-nullable can be assumed.
-   *
-   * @param aSupplier
-   *        Callable to be executed. May not be <code>null</code>.
-   * @return The return value of the callable. May be <code>null</code>.
-   * @param <T>
-   *        Return type
    */
   public <T> T writeLockedGet (@Nonnull final Supplier <? extends T> aSupplier)
   {
@@ -407,28 +293,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
     {
       writeLock ().unlock ();
     }
-  }
-
-  /**
-   * Execute the provided callable in a write lock. Note: no
-   * nullable/non-nullable can be assumed.
-   *
-   * @param aCallable
-   *        Callable to be executed. May not be <code>null</code>.
-   * @return The return value of the callable. May be <code>null</code>.
-   * @throws EXTYPE
-   *         If the callable throws the exception
-   * @param <T>
-   *        Return type
-   * @param <EXTYPE>
-   *        Exception type to be thrown
-   * @deprecated Since 9.4.0; Use
-   *             {@link #writeLockedGetThrowing(IThrowingSupplier)} instead
-   */
-  @Deprecated
-  public <T, EXTYPE extends Exception> T writeLockedThrowing (@Nonnull final IThrowingSupplier <? extends T, EXTYPE> aCallable) throws EXTYPE
-  {
-    return writeLockedGetThrowing (aCallable);
   }
 
   /**
@@ -464,21 +328,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @param aSupplier
    *        Callable to be executed. May not be <code>null</code>.
    * @return The return value of the callable. May be <code>null</code>.
-   * @deprecated Since 9.4.0; Use {@link #writeLockedBoolean(BooleanSupplier)}
-   *             instead
-   */
-  @Deprecated
-  public boolean writeLocked (@Nonnull final BooleanSupplier aSupplier)
-  {
-    return writeLockedBoolean (aSupplier);
-  }
-
-  /**
-   * Execute the provided callable in a write lock.
-   *
-   * @param aSupplier
-   *        Callable to be executed. May not be <code>null</code>.
-   * @return The return value of the callable. May be <code>null</code>.
    */
   public boolean writeLockedBoolean (@Nonnull final BooleanSupplier aSupplier)
   {
@@ -491,21 +340,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
     {
       writeLock ().unlock ();
     }
-  }
-
-  /**
-   * Execute the provided callable in a write lock.
-   *
-   * @param aSupplier
-   *        Callable to be executed. May not be <code>null</code>.
-   * @return The return value of the callable. May be <code>null</code>.
-   * @deprecated Since 9.4.0; Use {@link #writeLockedDouble(DoubleSupplier)}
-   *             instead
-   */
-  @Deprecated
-  public double writeLocked (@Nonnull final DoubleSupplier aSupplier)
-  {
-    return writeLockedDouble (aSupplier);
   }
 
   /**
@@ -534,20 +368,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @param aSupplier
    *        Callable to be executed. May not be <code>null</code>.
    * @return The return value of the callable. May be <code>null</code>.
-   * @deprecated Since 9.4.0; Use {@link #writeLockedInt(IntSupplier)} instead
-   */
-  @Deprecated
-  public int writeLocked (@Nonnull final IntSupplier aSupplier)
-  {
-    return writeLockedInt (aSupplier);
-  }
-
-  /**
-   * Execute the provided callable in a write lock.
-   *
-   * @param aSupplier
-   *        Callable to be executed. May not be <code>null</code>.
-   * @return The return value of the callable. May be <code>null</code>.
    */
   public int writeLockedInt (@Nonnull final IntSupplier aSupplier)
   {
@@ -560,20 +380,6 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
     {
       writeLock ().unlock ();
     }
-  }
-
-  /**
-   * Execute the provided callable in a write lock.
-   *
-   * @param aSupplier
-   *        Callable to be executed. May not be <code>null</code>.
-   * @return The return value of the callable. May be <code>null</code>.
-   * @deprecated Since 9.4.0; Use {@link #writeLockedLong(LongSupplier)} instead
-   */
-  @Deprecated
-  public long writeLocked (@Nonnull final LongSupplier aSupplier)
-  {
-    return writeLockedLong (aSupplier);
   }
 
   /**

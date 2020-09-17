@@ -16,7 +16,6 @@
  */
 package com.helger.commons.name;
 
-import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Locale;
 
@@ -34,7 +33,7 @@ import com.helger.commons.compare.IComparator;
  *        The data type to retrieve the display name from
  */
 @FunctionalInterface
-public interface IDisplayNameProvider <DATATYPE> extends Serializable
+public interface IDisplayNameProvider <DATATYPE>
 {
   /**
    * Get the name of the passed object.

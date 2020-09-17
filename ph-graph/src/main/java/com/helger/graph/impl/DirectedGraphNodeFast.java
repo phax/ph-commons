@@ -31,8 +31,6 @@ import com.helger.commons.hashcode.IHashCodeGenerator;
 @NotThreadSafe
 public class DirectedGraphNodeFast extends DirectedGraphNode
 {
-  private static final long serialVersionUID = 1;
-
   // Status vars
   private transient int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 

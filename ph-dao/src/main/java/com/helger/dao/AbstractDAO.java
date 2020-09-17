@@ -99,16 +99,6 @@ public abstract class AbstractDAO implements IDAO
   {}
 
   /**
-   * @return <code>true</code> if not silent mode
-   * @deprecated since 9.4.0 Use <code>!isSilentMode ()</code> instead
-   */
-  @Deprecated
-  protected static final boolean isDebugLogging ()
-  {
-    return !isSilentMode ();
-  }
-
-  /**
    * @return The static mutable exception handler list that is invoked for read
    *         exceptions. Never <code>null</code>. The list applies to ALL DAOs
    *         since it is static.

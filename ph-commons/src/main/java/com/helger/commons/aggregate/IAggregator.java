@@ -17,11 +17,11 @@
 package com.helger.commons.aggregate;
 
 import java.util.Collection;
+import java.util.function.Function;
 
 import javax.annotation.Nullable;
 
 import com.helger.commons.collection.impl.CommonsArrayList;
-import com.helger.commons.functional.IFunction;
 
 /**
  * Aggregate a list of input objects to a single output object (change n to 1).
@@ -33,7 +33,7 @@ import com.helger.commons.functional.IFunction;
  *        The output type.
  */
 @FunctionalInterface
-public interface IAggregator <SRCTYPE, DSTTYPE> extends IFunction <Collection <SRCTYPE>, DSTTYPE>
+public interface IAggregator <SRCTYPE, DSTTYPE> extends Function <Collection <SRCTYPE>, DSTTYPE>
 {
   /**
    * Aggregate a array of input objects to a single output object.

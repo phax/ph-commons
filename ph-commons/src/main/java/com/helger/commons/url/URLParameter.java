@@ -16,8 +16,6 @@
  */
 package com.helger.commons.url;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
@@ -36,13 +34,13 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public class URLParameter implements Serializable
+public class URLParameter
 {
   private final String m_sName;
   private final String m_sValue;
 
   // Status vars
-  private transient int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
+  private int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
   public URLParameter (@Nonnull @Nonempty final String sName)
   {

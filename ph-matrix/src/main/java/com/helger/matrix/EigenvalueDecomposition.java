@@ -16,7 +16,6 @@
  */
 package com.helger.matrix;
 
-import java.io.Serializable;
 import java.util.Arrays;
 
 import javax.annotation.Nonnull;
@@ -43,7 +42,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * V.times(D). The matrix V may be badly conditioned, or even singular, so the
  * validity of the equation A = V*D*inverse(V) depends upon V.cond().
  **/
-public class EigenvalueDecomposition implements Serializable
+public class EigenvalueDecomposition
 {
   private static final double EPSILON = Math.pow (2.0, -52.0);
 

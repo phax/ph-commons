@@ -16,7 +16,6 @@
  */
 package com.helger.security.keystore;
 
-import java.io.Serializable;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchProviderException;
@@ -33,7 +32,7 @@ import com.helger.commons.id.IHasID;
  * @author Philip Helger
  * @since 9.0.0
  */
-public interface IKeyStoreType extends IHasID <String>, Serializable
+public interface IKeyStoreType extends IHasID <String>
 {
   /**
    * @return A Key store object of this type. Never <code>null</code>.

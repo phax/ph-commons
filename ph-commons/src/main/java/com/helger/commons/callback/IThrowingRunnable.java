@@ -16,8 +16,6 @@
  */
 package com.helger.commons.callback;
 
-import java.io.Serializable;
-
 /**
  * A simple interface that looks like {@link java.lang.Runnable} but may throw
  * an exception on its execution.<br>
@@ -29,7 +27,7 @@ import java.io.Serializable;
  *        Exception type to be thrown
  */
 @FunctionalInterface
-public interface IThrowingRunnable <EXTYPE extends Throwable> extends Serializable
+public interface IThrowingRunnable <EXTYPE extends Throwable>
 {
   /**
    * Run it.

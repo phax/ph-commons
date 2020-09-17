@@ -102,7 +102,6 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
     }
   }
 
-  @SuppressWarnings ("deprecation")
   private void _writeDocument (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final Document aDocument)
   {
     if (m_aSettings.getSerializeXMLDeclaration ().isEmit ())
@@ -125,8 +124,7 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
                                    m_aSettings.getCharset ().name (),
                                    m_aSettings.getSerializeXMLDeclaration ().isEmitStandalone () ? eDocumentStandalone
                                                                                                  : ETriState.UNDEFINED,
-                                   m_aSettings.getSerializeXMLDeclaration ()
-                                              .isWithNewLine () && m_aSettings.isNewLineAfterXMLDeclaration ());
+                                   m_aSettings.isNewLineAfterXMLDeclaration ());
     }
 
     _writeNodeList (aXMLWriter, aDocument, aDocument.getChildNodes ());

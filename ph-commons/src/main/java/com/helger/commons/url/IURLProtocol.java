@@ -16,8 +16,6 @@
  */
 package com.helger.commons.url;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -29,7 +27,7 @@ import com.helger.commons.annotation.Nonempty;
  *
  * @author Philip Helger
  */
-public interface IURLProtocol extends Serializable
+public interface IURLProtocol
 {
   /**
    * @return The underlying text representation of the protocol.

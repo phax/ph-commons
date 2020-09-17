@@ -16,7 +16,6 @@
  */
 package com.helger.commons.cache;
 
-import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -42,7 +41,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @ThreadSafe
-public class AnnotationUsageCache implements Serializable
+public class AnnotationUsageCache
 {
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   private final Class <? extends Annotation> m_aAnnotationClass;

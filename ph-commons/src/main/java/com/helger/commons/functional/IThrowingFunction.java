@@ -16,7 +16,6 @@
  */
 package com.helger.commons.functional;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 import javax.annotation.Nonnull;
@@ -37,7 +36,7 @@ import javax.annotation.Nonnull;
  * @since 8.3.1
  */
 @FunctionalInterface
-public interface IThrowingFunction <T, R, EXTYPE extends Throwable> extends Serializable
+public interface IThrowingFunction <T, R, EXTYPE extends Throwable>
 {
   /**
    * Applies this function to the given argument.

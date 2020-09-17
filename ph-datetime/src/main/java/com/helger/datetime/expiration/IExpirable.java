@@ -16,7 +16,6 @@
  */
 package com.helger.datetime.expiration;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.annotation.Nonnull;
@@ -29,7 +28,7 @@ import com.helger.commons.datetime.PDTFactory;
  *
  * @author Philip Helger
  */
-public interface IExpirable extends Serializable
+public interface IExpirable
 {
   /**
    * @return The date time when the object will expire/expired. May be

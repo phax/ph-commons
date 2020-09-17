@@ -16,8 +16,6 @@
  */
 package com.helger.commons.location;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -31,7 +29,7 @@ import com.helger.commons.string.StringHelper;
  * @author Philip Helger
  */
 @MustImplementEqualsAndHashcode
-public interface ILocation extends Serializable
+public interface ILocation
 {
   /** Constant for an illegal row or column number */
   int ILLEGAL_NUMBER = CGlobal.ILLEGAL_UINT;

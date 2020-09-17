@@ -16,8 +16,6 @@
  */
 package com.helger.commons.string.util;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.NotThreadSafe;
@@ -31,7 +29,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class StringScanner implements Serializable
+public class StringScanner
 {
   private final String m_sInput;
   private final int m_nMaxIndex;

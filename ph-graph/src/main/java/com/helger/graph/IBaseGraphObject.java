@@ -16,8 +16,6 @@
  */
 package com.helger.graph;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.ReturnsMutableObject;
@@ -29,7 +27,7 @@ import com.helger.commons.id.IHasID;
  *
  * @author Philip Helger
  */
-public interface IBaseGraphObject extends IHasID <String>, Serializable
+public interface IBaseGraphObject extends IHasID <String>
 {
   /**
    * @return The attributes of this graph object. Never <code>null</code>.

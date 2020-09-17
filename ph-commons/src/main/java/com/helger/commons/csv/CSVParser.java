@@ -33,7 +33,6 @@ package com.helger.commons.csv;
  */
 
 import java.io.IOException;
-import java.io.Serializable;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -51,7 +50,7 @@ import com.helger.commons.string.StringHelper;
  * @author Rainer Pruy
  * @author Philip Helger
  */
-public class CSVParser implements Serializable
+public class CSVParser
 {
   /**
    * This is the character that the {@link CSVParser} will treat as the

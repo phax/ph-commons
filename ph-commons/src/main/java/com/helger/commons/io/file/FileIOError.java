@@ -17,7 +17,6 @@
 package com.helger.commons.io.file;
 
 import java.io.File;
-import java.io.Serializable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -35,7 +34,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public class FileIOError implements ISuccessIndicator, Serializable
+public class FileIOError implements ISuccessIndicator
 {
   private final EFileIOOperation m_eOperation;
   private final EFileIOErrorCode m_eCode;

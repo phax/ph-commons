@@ -46,9 +46,6 @@ public final class ObjectTypeTest
     assertEquals (+1, y.compareTo (x));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (x, y);
 
-    // Serialization
-    CommonsTestHelper.testDefaultSerialization (x);
-
     try
     {
       // null not allowed

@@ -18,7 +18,6 @@ package com.helger.security.messagedigest;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Serializable;
 import java.security.MessageDigest;
 
 import javax.annotation.Nonnegative;
@@ -42,7 +41,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public class MessageDigestValue implements IHasByteArray, Serializable
+public class MessageDigestValue implements IHasByteArray
 {
   public static final boolean DEFAULT_COPY_NEEDED = true;
 

@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger</groupId>
     <artifactId>ph-commons-parent-pom</artifactId>
-    <version>9.5.1-SNAPSHOT</version>
+    <version>10.0.0-SNAPSHOT</version>
   </parent>
   <artifactId>ph-dao</artifactId>
   <packaging>bundle</packaging>

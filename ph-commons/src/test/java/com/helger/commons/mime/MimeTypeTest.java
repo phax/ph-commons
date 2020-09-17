@@ -50,11 +50,9 @@ public final class MimeTypeTest
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mt, new MimeType (EMimeContentType.APPLICATION, "junit"));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (mt, new MimeType (EMimeContentType.TEXT, "testng"));
     CommonsTestHelper.testGetClone (mt);
-    CommonsTestHelper.testDefaultSerialization (mt);
 
     mt.addParameter ("charset", StandardCharsets.UTF_8.name ());
     CommonsTestHelper.testGetClone (mt);
-    CommonsTestHelper.testDefaultSerialization (mt);
 
     try
     {

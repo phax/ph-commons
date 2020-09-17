@@ -19,7 +19,6 @@ package com.helger.commons.io.stream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.Serializable;
 import java.nio.charset.Charset;
 
 import javax.annotation.Nonnegative;
@@ -42,7 +41,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * @author Philip Helger
  * @see java.io.ByteArrayOutputStream
  */
-public class NonBlockingByteArrayOutputStream extends OutputStream implements IHasSize, IWriteToStream, Serializable
+public class NonBlockingByteArrayOutputStream extends OutputStream implements IHasSize, IWriteToStream
 {
   /**
    * The buffer where data is stored.

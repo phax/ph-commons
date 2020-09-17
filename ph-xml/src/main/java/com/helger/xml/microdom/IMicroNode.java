@@ -16,7 +16,6 @@
  */
 package com.helger.xml.microdom;
 
-import java.io.Serializable;
 import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
@@ -47,8 +46,7 @@ public interface IMicroNode extends
                             ICloneable <IMicroNode>,
                             IHasChildrenSorted <IMicroNode>,
                             IHasChildrenRecursive <IMicroNode>,
-                            IHasParent <IMicroNode>,
-                            Serializable
+                            IHasParent <IMicroNode>
 {
   /**
    * @return Just an abstract name that depends on the implementing class. For

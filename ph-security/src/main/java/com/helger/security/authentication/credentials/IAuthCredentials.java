@@ -16,15 +16,13 @@
  */
 package com.helger.security.authentication.credentials;
 
-import java.io.Serializable;
-
 /**
  * This interface is the base interface for authentication credentials to check
  * against a principal. This can e.g. be username and password.
  *
  * @author Philip Helger
  */
-public interface IAuthCredentials extends Serializable
+public interface IAuthCredentials
 {
   /* empty */
 }

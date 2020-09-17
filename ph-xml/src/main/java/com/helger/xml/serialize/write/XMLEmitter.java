@@ -217,31 +217,6 @@ public class XMLEmitter implements AutoCloseable, Flushable
    * @param eStandalone
    *        if <code>true</code> this is a standalone XML document without a
    *        connection to an existing DTD or XML schema
-   * @deprecated Since 9.2.1; Use
-   *             {@link #onXMLDeclaration(EXMLVersion, String, ETriState, boolean)}
-   *             instead
-   */
-  @Deprecated
-  public void onXMLDeclaration (@Nullable final EXMLVersion eXMLVersion,
-                                @Nullable final String sEncoding,
-                                @Nonnull final ETriState eStandalone)
-  {
-    onXMLDeclaration (eXMLVersion, sEncoding, eStandalone, true);
-  }
-
-  /**
-   * At the very beginning of the document (XML declaration).
-   *
-   * @param eXMLVersion
-   *        The XML version to use. If <code>null</code> is passed,
-   *        {@link EXMLVersion#XML_10} will be used.
-   * @param sEncoding
-   *        The encoding to be used for this document. It may be
-   *        <code>null</code> but it is strongly recommended to write a correct
-   *        charset.
-   * @param eStandalone
-   *        if <code>true</code> this is a standalone XML document without a
-   *        connection to an existing DTD or XML schema
    * @param bWithNewLine
    *        <code>true</code> to add a newline, <code>false</code> if not
    * @since 9.2.1

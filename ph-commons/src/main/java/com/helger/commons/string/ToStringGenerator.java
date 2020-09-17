@@ -430,7 +430,7 @@ public final class ToStringGenerator
   }
 
   /**
-   * @deprecated Use {@link #getToString()} instead
+   * @deprecated Don't call this; Use {@link #getToString()} instead
    */
   @Override
   @Nonnull

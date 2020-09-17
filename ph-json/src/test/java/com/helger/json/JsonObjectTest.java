@@ -23,13 +23,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
-import java.util.function.Function;
 
 import org.junit.Test;
-
-import com.helger.commons.collection.attr.StringMap;
-import com.helger.commons.collection.map.MapEntry;
-import com.helger.commons.mock.CommonsTestHelper;
 
 /**
  * Test class for class {@link JsonObject}.
@@ -38,47 +33,6 @@ import com.helger.commons.mock.CommonsTestHelper;
  */
 public final class JsonObjectTest
 {
-  @Test
-  public void testSerialize ()
-  {
-    final JsonObject aObject = new JsonObject ();
-    CommonsTestHelper.testDefaultSerialization (aObject);
-    aObject.add ("key1", true);
-    CommonsTestHelper.testDefaultSerialization (aObject);
-    aObject.add ("key2", (byte) 3);
-    CommonsTestHelper.testDefaultSerialization (aObject);
-    aObject.add ("key3", 'x');
-    CommonsTestHelper.testDefaultSerialization (aObject);
-    aObject.add ("key4", 50);
-    CommonsTestHelper.testDefaultSerialization (aObject);
-    aObject.add ("key5", 51L);
-    CommonsTestHelper.testDefaultSerialization (aObject);
-    aObject.add ("key6", (short) 52);
-    CommonsTestHelper.testDefaultSerialization (aObject);
-    aObject.add ("key7", 3.1234);
-    CommonsTestHelper.testDefaultSerialization (aObject);
-    aObject.add ("key8", 3.1235f);
-    CommonsTestHelper.testDefaultSerialization (aObject);
-    aObject.add ("key9", "This is a string");
-    CommonsTestHelper.testDefaultSerialization (aObject);
-    aObject.addJson ("key10", new JsonArray ().add ("nested").add (0).add (Double.valueOf (12.34)));
-    CommonsTestHelper.testDefaultSerialization (aObject);
-    aObject.addJson ("key11", new JsonObject ().add ("n1", "nested").add ("n2", 0).add ("n3", Double.valueOf (12.34)));
-    CommonsTestHelper.testDefaultSerialization (aObject);
-    aObject.add (new MapEntry <> ("key12", "value12"));
-    CommonsTestHelper.testDefaultSerialization (aObject);
-
-    final JsonObject aObject2 = new JsonObject ();
-    aObject2.addAll (aObject);
-    CommonsTestHelper.testDefaultSerialization (aObject2);
-    aObject2.addAll (new StringMap ().add ("a", "b").add ("c", "d"));
-    CommonsTestHelper.testDefaultSerialization (aObject2);
-    aObject2.addAllMapped (new StringMap ().add ("a", "b").add ("c", "d"), JsonValue::create);
-    CommonsTestHelper.testDefaultSerialization (aObject2);
-    aObject2.addAllMapped (new StringMap ().add ("e", "f").add ("g", "h"), Function.identity (), JsonValue::create);
-    CommonsTestHelper.testDefaultSerialization (aObject2);
-  }
-
   @Test
   public void testContains ()
   {

@@ -18,6 +18,7 @@ package com.helger.xml;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -46,7 +47,6 @@ import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsOrderedMap;
 import com.helger.commons.collection.iterate.IIterableIterator;
 import com.helger.commons.equals.EqualsHelper;
-import com.helger.commons.functional.IPredicate;
 import com.helger.commons.string.StringHelper;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -173,46 +173,46 @@ public final class XMLHelper
   }
 
   @Nonnull
-  public static IPredicate <? super Node> filterNodeIsElement ()
+  public static Predicate <? super Node> filterNodeIsElement ()
   {
     return x -> x != null && x.getNodeType () == Node.ELEMENT_NODE;
   }
 
   @Nonnull
-  public static IPredicate <? super Element> filterElementWithNamespace ()
+  public static Predicate <? super Element> filterElementWithNamespace ()
   {
     return x -> x != null && StringHelper.hasText (x.getNamespaceURI ());
   }
 
   @Nonnull
-  public static IPredicate <? super Element> filterElementWithoutNamespace ()
+  public static Predicate <? super Element> filterElementWithoutNamespace ()
   {
     return x -> x != null && hasNoNamespaceURI (x);
   }
 
   @Nonnull
-  public static IPredicate <? super Element> filterElementWithNamespace (@Nullable final String sNamespaceURI)
+  public static Predicate <? super Element> filterElementWithNamespace (@Nullable final String sNamespaceURI)
   {
     return x -> x != null && hasNamespaceURI (x, sNamespaceURI);
   }
 
   @Nonnull
-  public static IPredicate <? super Element> filterElementWithNamespaceAndLocalName (@Nullable final String sNamespaceURI,
-                                                                                     @Nonnull @Nonempty final String sLocalName)
+  public static Predicate <? super Element> filterElementWithNamespaceAndLocalName (@Nullable final String sNamespaceURI,
+                                                                                    @Nonnull @Nonempty final String sLocalName)
   {
     ValueEnforcer.notEmpty (sLocalName, "LocalName");
     return x -> x != null && hasNamespaceURI (x, sNamespaceURI) && x.getLocalName ().equals (sLocalName);
   }
 
   @Nonnull
-  public static IPredicate <? super Element> filterElementWithTagName (@Nonnull @Nonempty final String sTagName)
+  public static Predicate <? super Element> filterElementWithTagName (@Nonnull @Nonempty final String sTagName)
   {
     ValueEnforcer.notEmpty (sTagName, "TagName");
     return x -> EqualsHelper.equals (getElementName (x), sTagName);
   }
 
   @Nonnull
-  public static IPredicate <? super Element> filterElementWithTagNameNoNS (@Nonnull @Nonempty final String sTagName)
+  public static Predicate <? super Element> filterElementWithTagNameNoNS (@Nonnull @Nonempty final String sTagName)
   {
     ValueEnforcer.notEmpty (sTagName, "TagName");
     return x -> hasNoNamespaceURI (x) && x.getTagName ().equals (sTagName);

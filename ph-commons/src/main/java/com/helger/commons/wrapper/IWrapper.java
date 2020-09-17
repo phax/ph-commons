@@ -16,7 +16,7 @@
  */
 package com.helger.commons.wrapper;
 
-import java.io.Serializable;
+import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
 
@@ -28,7 +28,7 @@ import javax.annotation.Nullable;
  *        The type of the wrapped object.
  */
 @FunctionalInterface
-public interface IWrapper <DATATYPE> extends Serializable
+public interface IWrapper <DATATYPE> extends Supplier <DATATYPE>
 {
   /**
    * @return The currently wrapped object. May be <code>null</code>.

@@ -137,7 +137,6 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
     }
   }
 
-  @SuppressWarnings ("deprecation")
   private void _writeDocument (@Nonnull final XMLEmitter aXMLWriter, final IMicroDocument aDocument)
   {
     if (m_aSettings.getSerializeXMLDeclaration ().isEmit ())
@@ -146,8 +145,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
                                    m_aSettings.getCharset ().name (),
                                    m_aSettings.getSerializeXMLDeclaration ().isEmitStandalone () ? aDocument.getStandalone ()
                                                                                                  : ETriState.UNDEFINED,
-                                   m_aSettings.getSerializeXMLDeclaration ()
-                                              .isWithNewLine () && m_aSettings.isNewLineAfterXMLDeclaration ());
+                                   m_aSettings.isNewLineAfterXMLDeclaration ());
     }
 
     if (aDocument.hasChildren ())

@@ -76,25 +76,6 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>
   }
 
   /**
-   * Special forEach that takes an additional filter so that the consumer is
-   * only invoked for elements matching the provided filter.
-   *
-   * @param aConsumer
-   *        The consumer to use. May not be <code>null</code>.
-   * @param aFilter
-   *        The filter to be applied. May be <code>null</code>. If the filter is
-   *        <code>null</code> this method behaves like
-   *        {@link #forEach(Consumer)}.
-   * @since 8.5.2
-   * @deprecated Since 9.4.0; use {@link #findAll(Predicate, Consumer)} instead
-   */
-  @Deprecated
-  default void forEach (@Nonnull final Consumer <? super ELEMENTTYPE> aConsumer, @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
-  {
-    CollectionHelper.findAll (this, aFilter, aConsumer);
-  }
-
-  /**
    * Find all elements matching the supplied filter and invoke the provided
    * consumer for each matching element.
    *

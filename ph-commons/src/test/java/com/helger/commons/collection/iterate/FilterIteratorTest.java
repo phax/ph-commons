@@ -27,13 +27,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 import org.junit.Test;
 
 import com.helger.commons.collection.CollectionHelper;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.ICommonsList;
-import com.helger.commons.functional.IPredicate;
+import com.helger.commons.functional.Predicates;
 import com.helger.commons.mock.CommonsTestHelper;
 
 /**
@@ -51,7 +52,7 @@ public final class FilterIteratorTest
   {
     final List <String> aList = CollectionHelper.newList ("i1", "i2");
     final Iterator <String> it = aList.iterator ();
-    final IPredicate <String> aFilter = IPredicate.notNull ();
+    final Predicate <String> aFilter = Predicates.notNull ();
 
     try
     {
@@ -88,7 +89,7 @@ public final class FilterIteratorTest
   public void testConstructorIterable ()
   {
     final ICommonsList <String> aList = new CommonsArrayList <> ("i1", "i2");
-    final IPredicate <String> aFilter = IPredicate.notNull ();
+    final Predicate <String> aFilter = Predicates.notNull ();
 
     try
     {

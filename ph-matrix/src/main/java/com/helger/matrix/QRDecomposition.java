@@ -16,8 +16,6 @@
  */
 package com.helger.matrix;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
@@ -36,7 +34,7 @@ import com.helger.commons.math.MathHelper;
  * simultaneous linear equations. This will fail if isFullRank() returns false.
  * </P>
  */
-public class QRDecomposition implements Serializable
+public class QRDecomposition
 {
   /**
    * Array for internal storage of decomposition.

@@ -16,8 +16,6 @@
  */
 package com.helger.xml.ls;
 
-import java.io.Serializable;
-
 import javax.annotation.Nullable;
 import javax.annotation.concurrent.Immutable;
 
@@ -31,7 +29,7 @@ import com.helger.commons.string.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public class LSResourceData implements Serializable
+public class LSResourceData
 {
   private final String m_sType;
   private final String m_sNamespaceURI;

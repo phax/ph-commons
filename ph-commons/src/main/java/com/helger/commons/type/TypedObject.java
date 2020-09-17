@@ -16,8 +16,6 @@
  */
 package com.helger.commons.type;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 
@@ -35,7 +33,7 @@ import com.helger.commons.string.ToStringGenerator;
  *        The type of the ID.
  */
 @Immutable
-public final class TypedObject <IDTYPE extends Serializable> implements ITypedObject <IDTYPE>, Serializable
+public final class TypedObject <IDTYPE> implements ITypedObject <IDTYPE>
 {
   private final ObjectType m_aObjectType;
   private final IDTYPE m_aID;
@@ -110,7 +108,7 @@ public final class TypedObject <IDTYPE extends Serializable> implements ITypedOb
    * @return new {@link TypedObject}
    */
   @Nonnull
-  public static <IDTYPE extends Serializable> TypedObject <IDTYPE> create (@Nonnull final ITypedObject <IDTYPE> aObj)
+  public static <IDTYPE> TypedObject <IDTYPE> create (@Nonnull final ITypedObject <IDTYPE> aObj)
   {
     return new TypedObject <> (aObj);
   }
@@ -127,7 +125,7 @@ public final class TypedObject <IDTYPE extends Serializable> implements ITypedOb
    * @return new {@link TypedObject}
    */
   @Nonnull
-  public static <IDTYPE extends Serializable> TypedObject <IDTYPE> create (@Nonnull final ObjectType aObjectType, @Nonnull final IDTYPE aID)
+  public static <IDTYPE> TypedObject <IDTYPE> create (@Nonnull final ObjectType aObjectType, @Nonnull final IDTYPE aID)
   {
     return new TypedObject <> (aObjectType, aID);
   }

@@ -16,7 +16,6 @@
  */
 package com.helger.commons.collection.impl;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -45,7 +44,7 @@ import com.helger.commons.state.EChange;
  * @param <ELEMENTTYPE>
  *        The data type stored in the collection
  */
-public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYPE>, ICommonsIterable <ELEMENTTYPE>, IHasSize, Serializable
+public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYPE>, ICommonsIterable <ELEMENTTYPE>, IHasSize
 {
   @Nonnull
   @ReturnsMutableCopy

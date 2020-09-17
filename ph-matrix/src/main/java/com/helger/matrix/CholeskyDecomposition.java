@@ -16,8 +16,6 @@
  */
 package com.helger.matrix;
 
-import java.io.Serializable;
-
 import javax.annotation.Nonnull;
 
 import com.helger.commons.annotation.ReturnsMutableCopy;
@@ -33,7 +31,7 @@ import com.helger.commons.equals.EqualsHelper;
  * a partial decomposition and sets an internal flag that may be queried by the
  * isSPD() method.
  */
-public class CholeskyDecomposition implements Serializable
+public class CholeskyDecomposition
 {
   /**
    * Array for internal storage of decomposition.
