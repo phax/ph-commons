@@ -30,10 +30,13 @@ This project was the following modules:
 ## News and noteworthy
 
 * v10.0.0 - work in progress
+    * Changed Maven groupId from `com.helger` to `com.helger.commons`
     * Removed deprecated methods
     * Removed `Serializable` from base interfaces
     * Removed the serializable functional specializations (`IFunction`, `ISupplier`, `IConsumer`, `IPredicate`, `IBiConsumer`, `IBiFunction`, `IBiPredicate`, `NamespaceContext`)
     * `GenericJAXBMarshaller` now has a chaining API
+* v9.5.1 - 2020-09-18
+    * Build with Java 1.8 instead of Java 11 because of binary incompatibility with `ByteBuffer.flip()` signature
 * v9.5.0 - 2020-09-17
     * Updated to JAXB 2.3.3 - https://eclipse-ee4j.github.io/jaxb-ri/
     * Updated to JAXWS 2.3.3 - https://eclipse-ee4j.github.io/metro-jax-ws/

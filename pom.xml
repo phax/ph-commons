@@ -24,6 +24,7 @@
     <artifactId>parent-pom</artifactId>
     <version>1.11.2</version>
   </parent>
+  <groupId>com.helger.commons</groupId>
   <artifactId>ph-commons-parent-pom</artifactId>
   <version>10.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
@@ -114,97 +115,97 @@
       </dependency>
 
       <dependency>
-        <groupId>com.helger</groupId>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-commons</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.helger</groupId>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-wsclient</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.helger</groupId>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-collection</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.helger</groupId>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-scopes</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.helger</groupId>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-cli</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.helger</groupId>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-bc</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.helger</groupId>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-security</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.helger</groupId>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-xml</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.helger</groupId>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-jaxb</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.helger</groupId>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-json</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.helger</groupId>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-tree</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.helger</groupId>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-matrix</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.helger</groupId>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-graph</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.helger</groupId>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-datetime</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.helger</groupId>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-settings</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.helger</groupId>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-config</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.helger</groupId>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-charset</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.helger</groupId>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-less-commons</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.helger</groupId>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-dao</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -279,7 +280,7 @@
         <configuration>
           <signaturesArtifacts>
             <signaturesArtifact>
-              <groupId>com.helger</groupId>
+              <groupId>com.helger.commons</groupId>
               <artifactId>ph-forbidden-apis</artifactId>
               <version>1.1.1</version>
               <type>jar</type>
