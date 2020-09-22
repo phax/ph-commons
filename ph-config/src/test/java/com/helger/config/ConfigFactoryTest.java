@@ -17,6 +17,7 @@
 package com.helger.config;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -88,15 +89,23 @@ public final class ConfigFactoryTest
     assertTrue (aCVPs.get (0) instanceof ConfigurationSourceSystemProperty);
     assertTrue (aCVPs.get (1) instanceof ConfigurationSourceEnvVar);
     assertTrue (aCVPs.get (2) instanceof ConfigurationSourceJson);
-    assertTrue (((ConfigurationSourceJson) aCVPs.get (2)).getResource ().getPath ().endsWith ("private-application.json"));
+    assertTrue (((ConfigurationSourceJson) aCVPs.get (2)).getResource ()
+                                                         .getPath ()
+                                                         .endsWith ("private-application.json"));
     assertTrue (aCVPs.get (3) instanceof ConfigurationSourceProperties);
-    assertTrue (((ConfigurationSourceProperties) aCVPs.get (3)).getResource ().getPath ().endsWith ("private-application.properties"));
+    assertTrue (((ConfigurationSourceProperties) aCVPs.get (3)).getResource ()
+                                                               .getPath ()
+                                                               .endsWith ("private-application.properties"));
     assertTrue (aCVPs.get (4) instanceof ConfigurationSourceJson);
     assertTrue (((ConfigurationSourceJson) aCVPs.get (4)).getResource ().getPath ().endsWith ("application.json"));
     assertTrue (aCVPs.get (5) instanceof ConfigurationSourceProperties);
-    assertTrue (((ConfigurationSourceProperties) aCVPs.get (5)).getResource ().getPath ().endsWith ("application.properties"));
+    assertTrue (((ConfigurationSourceProperties) aCVPs.get (5)).getResource ()
+                                                               .getPath ()
+                                                               .endsWith ("application.properties"));
     assertTrue (aCVPs.get (6) instanceof ConfigurationSourceProperties);
-    assertTrue (((ConfigurationSourceProperties) aCVPs.get (6)).getResource ().getPath ().endsWith ("reference.properties"));
+    assertTrue (((ConfigurationSourceProperties) aCVPs.get (6)).getResource ()
+                                                               .getPath ()
+                                                               .endsWith ("reference.properties"));
 
     for (final IConfigurationValueProvider aCVP : aCVPs)
       if (aCVP instanceof IConfigurationSourceResource)
@@ -110,6 +119,47 @@ public final class ConfigFactoryTest
     _testDefault (Config.create (ConfigFactory.createDefaultValueProvider ()));
     _testDefault (Config.create (ConfigFactory.createDefaultValueProvider ().getClone ()));
     _testDefault (Config.create (ConfigFactory.createDefaultValueProvider ().getClone ().getClone ()));
+  }
+
+  @Test
+  public void testSystemPropertyBoolean ()
+  {
+    // Not present -> null -> default
+    assertTrue (ConfigFactory.getDefaultConfig ().getAsBoolean ("key.key2", true));
+    assertFalse (ConfigFactory.getDefaultConfig ().getAsBoolean ("key.key2", false));
+
+    // Set to true
+    SystemProperties.setPropertyValue ("key.key2", true);
+    try
+    {
+      assertTrue (ConfigFactory.getDefaultConfig ().getAsBoolean ("key.key2"));
+    }
+    finally
+    {
+      SystemProperties.removePropertyValue ("key.key2");
+    }
+
+    // Set to false
+    SystemProperties.setPropertyValue ("key.key2", false);
+    try
+    {
+      assertFalse (ConfigFactory.getDefaultConfig ().getAsBoolean ("key.key2"));
+    }
+    finally
+    {
+      SystemProperties.removePropertyValue ("key.key2");
+    }
+
+    // Set to non-boolean
+    SystemProperties.setPropertyValue ("key.key2", "bla");
+    try
+    {
+      assertFalse (ConfigFactory.getDefaultConfig ().getAsBoolean ("key.key2"));
+    }
+    finally
+    {
+      SystemProperties.removePropertyValue ("key.key2");
+    }
   }
 
   @Test
@@ -155,7 +205,8 @@ public final class ConfigFactoryTest
   @Test
   public void testSysPropFileResourceJson ()
   {
-    SystemProperties.setPropertyValue ("config.file", new File ("src/test/resources/sysprops/file.json").getAbsolutePath ());
+    SystemProperties.setPropertyValue ("config.file",
+                                       new File ("src/test/resources/sysprops/file.json").getAbsolutePath ());
     try
     {
       final IConfig aConfig = Config.create (ConfigFactory.createDefaultValueProvider ());
@@ -175,7 +226,8 @@ public final class ConfigFactoryTest
   @Test
   public void testSysPropFileResourceProperties ()
   {
-    SystemProperties.setPropertyValue ("config.file", new File ("src/test/resources/sysprops/file.properties").getAbsolutePath ());
+    SystemProperties.setPropertyValue ("config.file",
+                                       new File ("src/test/resources/sysprops/file.properties").getAbsolutePath ());
     try
     {
       final IConfig aConfig = Config.create (ConfigFactory.createDefaultValueProvider ());
@@ -195,7 +247,8 @@ public final class ConfigFactoryTest
   @Test
   public void testSysPropConfigUrlJson ()
   {
-    SystemProperties.setPropertyValue ("config.url", new ClassPathResource ("sysprops/url.json").getAsURL ().toExternalForm ());
+    SystemProperties.setPropertyValue ("config.url",
+                                       new ClassPathResource ("sysprops/url.json").getAsURL ().toExternalForm ());
     try
     {
       final IConfig aConfig = Config.create (ConfigFactory.createDefaultValueProvider ());
@@ -215,7 +268,8 @@ public final class ConfigFactoryTest
   @Test
   public void testSysPropConfigUrlProperties ()
   {
-    SystemProperties.setPropertyValue ("config.url", new ClassPathResource ("sysprops/url.properties").getAsURL ().toExternalForm ());
+    SystemProperties.setPropertyValue ("config.url",
+                                       new ClassPathResource ("sysprops/url.properties").getAsURL ().toExternalForm ());
     try
     {
       final IConfig aConfig = Config.create (ConfigFactory.createDefaultValueProvider ());
