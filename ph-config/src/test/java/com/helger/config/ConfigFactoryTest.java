@@ -64,6 +64,8 @@ public final class ConfigFactoryTest
     assertEquals ("from-application-properties3", aConfig.getAsString ("element3"));
     assertEquals ("from-reference-properties4", aConfig.getAsString ("element4"));
     assertNull (aConfig.getAsString ("element5"));
+    assertTrue (aConfig.getAsBoolean ("element.boolean.t", false));
+    assertFalse (aConfig.getAsBoolean ("element.boolean.f", true));
 
     assertEquals (-1, aConfig.getAsInt ("element1", -1));
     try

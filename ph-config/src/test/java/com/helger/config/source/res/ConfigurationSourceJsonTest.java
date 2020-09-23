@@ -39,16 +39,16 @@ import com.helger.config.source.EConfigSourceType;
  */
 public final class ConfigurationSourceJsonTest
 {
-  private static final IReadableResource f = new FileSystemResource (new File ("src/test/resources/file/test.json"));
+  private static final IReadableResource RES = new FileSystemResource (new File ("src/test/resources/file/test.json"));
 
   @Test
   public void testBasic ()
   {
-    final ConfigurationSourceJson c = new ConfigurationSourceJson (f);
+    final ConfigurationSourceJson c = new ConfigurationSourceJson (RES);
     assertSame (EConfigSourceType.RESOURCE, c.getSourceType ());
     assertEquals (EConfigSourceType.RESOURCE.getDefaultPriority (), c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
-    assertSame (f, c.getResource ());
+    assertSame (RES, c.getResource ());
     assertEquals ("string", c.getConfigurationValue ("element1").getValue ());
     assertEquals ("2", c.getConfigurationValue ("element2").getValue ());
     assertEquals ("1234", c.getConfigurationValue ("element5.network.port").getValue ());
@@ -69,8 +69,8 @@ public final class ConfigurationSourceJsonTest
     // Check additional
     assertEquals ("value", c.getConfigurationValue ("element7.sub.key").getValue ());
 
-    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (c, new ConfigurationSourceJson (f));
-    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c, new ConfigurationSourceJson (1234, f));
+    CommonsTestHelper.testDefaultImplementationWithEqualContentObject (c, new ConfigurationSourceJson (RES));
+    CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c, new ConfigurationSourceJson (1234, RES));
     CommonsTestHelper.testDefaultImplementationWithDifferentContentObject (c,
                                                                            new ConfigurationSourceJson (new FileSystemResource (new File ("bla"))));
   }
@@ -78,7 +78,7 @@ public final class ConfigurationSourceJsonTest
   @Test
   public void testExplicitCharset ()
   {
-    final ConfigurationSourceJson c = new ConfigurationSourceJson (f, StandardCharsets.ISO_8859_1);
+    final ConfigurationSourceJson c = new ConfigurationSourceJson (RES, StandardCharsets.ISO_8859_1);
     assertSame (EConfigSourceType.RESOURCE, c.getSourceType ());
     assertEquals (EConfigSourceType.RESOURCE.getDefaultPriority (), c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
@@ -90,7 +90,7 @@ public final class ConfigurationSourceJsonTest
   @Test
   public void testDifferentPriority ()
   {
-    final ConfigurationSourceJson c = new ConfigurationSourceJson (2323, f);
+    final ConfigurationSourceJson c = new ConfigurationSourceJson (2323, RES);
     assertSame (EConfigSourceType.RESOURCE, c.getSourceType ());
     assertEquals (2323, c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
@@ -102,7 +102,7 @@ public final class ConfigurationSourceJsonTest
   @Test
   public void testDifferentPriorityAndExplicitCharset ()
   {
-    final ConfigurationSourceJson c = new ConfigurationSourceJson (2323, f, StandardCharsets.ISO_8859_1);
+    final ConfigurationSourceJson c = new ConfigurationSourceJson (2323, RES, StandardCharsets.ISO_8859_1);
     assertSame (EConfigSourceType.RESOURCE, c.getSourceType ());
     assertEquals (2323, c.getPriority ());
     assertTrue (c.isInitializedAndUsable ());
