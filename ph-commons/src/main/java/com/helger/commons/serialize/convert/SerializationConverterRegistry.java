@@ -32,7 +32,6 @@ import org.slf4j.LoggerFactory;
 import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Singleton;
 import com.helger.commons.collection.impl.CommonsHashMap;
-import com.helger.commons.collection.impl.CommonsWeakHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.ClassHierarchyCache;
@@ -61,7 +60,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
 
   // WeakHashMap because key is a class
   @GuardedBy ("m_aRWLock")
-  private final ICommonsMap <Class <?>, ISerializationConverter <?>> m_aMap = new CommonsWeakHashMap <> ();
+  private final ICommonsMap <Class <?>, ISerializationConverter <?>> m_aMap = new CommonsHashMap <> ();
 
   private SerializationConverterRegistry ()
   {

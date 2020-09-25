@@ -34,7 +34,6 @@ import com.helger.commons.annotation.Singleton;
 import com.helger.commons.collection.impl.CommonsArrayList;
 import com.helger.commons.collection.impl.CommonsHashMap;
 import com.helger.commons.collection.impl.CommonsTreeMap;
-import com.helger.commons.collection.impl.CommonsWeakHashMap;
 import com.helger.commons.collection.impl.ICommonsList;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsSortedMap;
@@ -70,7 +69,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
 
   // Use a weak hash map, because the key is a class
   @GuardedBy ("m_aRWLock")
-  private final ICommonsMap <Class <?>, ICommonsMap <Class <?>, ITypeConverter <?, ?>>> m_aConverter = new CommonsWeakHashMap <> ();
+  private final ICommonsMap <Class <?>, ICommonsMap <Class <?>, ITypeConverter <?, ?>>> m_aConverter = new CommonsHashMap <> ();
   @GuardedBy ("m_aRWLock")
   private final ICommonsSortedMap <ITypeConverterRule.ESubType, ICommonsList <ITypeConverterRule <?, ?>>> m_aRules = new CommonsTreeMap <> ();
 
@@ -102,7 +101,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
     {
       // Try again in write lock
       // Weak hash map because key is a class
-      ret = m_aRWLock.writeLockedGet ( () -> m_aConverter.computeIfAbsent (aClass, k -> new CommonsWeakHashMap <> ()));
+      ret = m_aRWLock.writeLockedGet ( () -> m_aConverter.computeIfAbsent (aClass, k -> new CommonsHashMap <> ()));
     }
     return ret;
   }
