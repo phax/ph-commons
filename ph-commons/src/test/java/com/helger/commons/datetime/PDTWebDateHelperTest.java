@@ -143,6 +143,11 @@ public final class PDTWebDateHelperTest
     assertEquals (aDT, PDTWebDateHelper.getLocalTimeFromXSD (s));
     assertNull (PDTWebDateHelper.getAsStringXSD ((LocalTime) null));
     assertNotNull (PDTWebDateHelper.getLocalTimeFromXSD ("11:30:00.0Z"));
+    assertNotNull (PDTWebDateHelper.getLocalTimeFromXSD ("09:15:23.123-05:00"));
+    assertNotNull (PDTWebDateHelper.getLocalTimeFromXSD ("09:15:23.12-05:00"));
+    assertNotNull (PDTWebDateHelper.getLocalTimeFromXSD ("09:15:23.1-05:00"));
+    assertNotNull (PDTWebDateHelper.getLocalTimeFromXSD ("09:15:23.000-05:00"));
+    assertNotNull (PDTWebDateHelper.getLocalTimeFromXSD ("09:15:23.00-05:00"));
     assertNotNull (PDTWebDateHelper.getLocalTimeFromXSD ("09:15:23.0-05:00"));
     assertNotNull (PDTWebDateHelper.getLocalTimeFromXSD ("09:15:23-05:00"));
   }
@@ -169,5 +174,9 @@ public final class PDTWebDateHelperTest
     assertNotNull (s);
     d2 = PDTWebDateHelper.getLocalDateTimeFromXSD (s);
     assertEquals (d, d2);
+
+    assertNotNull (PDTWebDateHelper.getLocalDateTimeFromXSD ("2020-09-18T16:40:34.078"));
+    assertNotNull (PDTWebDateHelper.getLocalDateTimeFromXSD ("2020-09-18T16:40:34.07"));
+    assertNotNull (PDTWebDateHelper.getLocalDateTimeFromXSD ("2020-09-18T16:40:34.17"));
   }
 }
