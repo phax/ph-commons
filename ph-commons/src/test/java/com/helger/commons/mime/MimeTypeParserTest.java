@@ -50,7 +50,7 @@ public final class MimeTypeParserTest
   }
 
   @Test
-  public void testParseMimeType ()
+  public void testParseMimeType () throws MimeTypeParserException
   {
     IMimeType mt;
     assertNull (MimeTypeParser.parseMimeType (null));
@@ -107,7 +107,7 @@ public final class MimeTypeParserTest
   }
 
   @Test
-  public void testParseValid ()
+  public void testParseValid () throws MimeTypeParserException
   {
     final String [] aValid = new String [] { "text/x",
                                              "text/x;",
@@ -138,7 +138,7 @@ public final class MimeTypeParserTest
   }
 
   @Test
-  public void testParseValidURLEscape ()
+  public void testParseValidURLEscape () throws MimeTypeParserException
   {
     final String [] aValid = new String [] { "text/x;param1=%2c%2c%2c%2c%2c%2c",
                                              "text/x;param1=%2c%2c%2c%2c%2c%2c;param2=%2c%2c%2c%2c%2c%2c",
@@ -265,7 +265,7 @@ public final class MimeTypeParserTest
   }
 
   @Test
-  public void testEmptyValue ()
+  public void testEmptyValue () throws MimeTypeParserException
   {
     final MimeType aMT = MimeTypeParser.parseMimeType ("application/soap+xml; action=\"\";charset=utf-8");
     assertEquals ("application/soap+xml;action=\"\";charset=utf-8", aMT.getAsString ());

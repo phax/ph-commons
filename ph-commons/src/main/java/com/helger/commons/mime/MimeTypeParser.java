@@ -117,7 +117,7 @@ public final class MimeTypeParser
 
   private static void _parseAndAddParameters (@Nonnull final MimeType aMimeType,
                                               @Nonnull @Nonempty final String sParameters,
-                                              @Nonnull final EMimeQuoting eQuotingAlgorithm)
+                                              @Nonnull final EMimeQuoting eQuotingAlgorithm) throws MimeTypeParserException
   {
     if (eQuotingAlgorithm.isQuotedString ())
     {
@@ -273,7 +273,7 @@ public final class MimeTypeParser
    *         In case of an error
    */
   @Nullable
-  public static MimeType parseMimeType (@Nullable final String sMimeType)
+  public static MimeType parseMimeType (@Nullable final String sMimeType) throws MimeTypeParserException
   {
     return parseMimeType (sMimeType, CMimeType.DEFAULT_QUOTING);
   }
@@ -293,7 +293,8 @@ public final class MimeTypeParser
    *         In case of an error
    */
   @Nullable
-  public static MimeType parseMimeType (@Nullable final String sMimeType, @Nonnull final EMimeQuoting eQuotingAlgorithm)
+  public static MimeType parseMimeType (@Nullable final String sMimeType,
+                                        @Nonnull final EMimeQuoting eQuotingAlgorithm) throws MimeTypeParserException
   {
     ValueEnforcer.notNull (eQuotingAlgorithm, "QuotingAlgorithm");
 

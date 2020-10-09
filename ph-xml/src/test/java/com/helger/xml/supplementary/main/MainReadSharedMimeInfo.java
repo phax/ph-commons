@@ -31,6 +31,7 @@ import com.helger.commons.exception.InitializationException;
 import com.helger.commons.io.resource.FileSystemResource;
 import com.helger.commons.mime.MimeType;
 import com.helger.commons.mime.MimeTypeParser;
+import com.helger.commons.mime.MimeTypeParserException;
 import com.helger.commons.regex.RegExHelper;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
@@ -79,7 +80,7 @@ public final class MainReadSharedMimeInfo
   private MainReadSharedMimeInfo ()
   {}
 
-  public static void main (final String [] args)
+  public static void main (final String [] args) throws MimeTypeParserException
   {
     LOGGER.info ("Reading shared-mime-info/freedesktop.org.xml");
     final IMicroDocument aDoc = MicroReader.readMicroXML (new File ("src/test/resources/shared-mime-info/freedesktop.org.xml.in"));

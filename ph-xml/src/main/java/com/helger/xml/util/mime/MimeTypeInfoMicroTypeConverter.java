@@ -40,6 +40,7 @@ import com.helger.commons.collection.impl.CommonsLinkedHashSet;
 import com.helger.commons.collection.impl.ICommonsOrderedSet;
 import com.helger.commons.mime.MimeType;
 import com.helger.commons.mime.MimeTypeParser;
+import com.helger.commons.mime.MimeTypeParserException;
 import com.helger.commons.string.StringHelper;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
@@ -91,9 +92,16 @@ public final class MimeTypeInfoMicroTypeConverter implements IMicroTypeConverter
     final ICommonsOrderedSet <MimeTypeWithSource> aMimeTypes = new CommonsLinkedHashSet <> ();
     for (final IMicroElement eMimeType : aElement.getAllChildElements (ELEMENT_MIMETYPE))
     {
-      final MimeType aMimeType = MimeTypeParser.parseMimeType (eMimeType.getTextContentTrimmed ());
-      final String sSource = eMimeType.getAttributeValue (ATTR_SOURCE);
-      aMimeTypes.add (new MimeTypeWithSource (aMimeType, sSource));
+      try
+      {
+        final MimeType aMimeType = MimeTypeParser.parseMimeType (eMimeType.getTextContentTrimmed ());
+        final String sSource = eMimeType.getAttributeValue (ATTR_SOURCE);
+        aMimeTypes.add (new MimeTypeWithSource (aMimeType, sSource));
+      }
+      catch (final MimeTypeParserException ex)
+      {
+        throw new IllegalStateException ("Failed to parse MIME type", ex);
+      }
     }
 
     final String sComment = MicroHelper.getChildTextContent (aElement, ELEMENT_COMMENT);

@@ -34,6 +34,7 @@ import com.helger.commons.hashcode.HashCodeGenerator;
 import com.helger.commons.hashcode.IHashCodeGenerator;
 import com.helger.commons.mime.IMimeType;
 import com.helger.commons.mime.MimeTypeParser;
+import com.helger.commons.mime.MimeTypeParserException;
 import com.helger.commons.string.StringHelper;
 import com.helger.commons.string.ToStringGenerator;
 
@@ -53,7 +54,7 @@ public final class MimeTypeInfo
     // status vars
     private transient int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
-    public MimeTypeWithSource (@Nonnull final String sMimeType)
+    public MimeTypeWithSource (@Nonnull final String sMimeType) throws MimeTypeParserException
     {
       this (MimeTypeParser.parseMimeType (sMimeType), (String) null);
     }

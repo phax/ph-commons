@@ -20,11 +20,12 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
- * Exception for errors that occur during MIME type parsing.
+ * Exception for errors that occur during MIME type parsing.<br>
+ * Since v10 it is a checked exception
  *
  * @author Philip Helger
  */
-public class MimeTypeParserException extends RuntimeException
+public class MimeTypeParserException extends Exception
 {
   public MimeTypeParserException (@Nonnull final String sMsg)
   {
