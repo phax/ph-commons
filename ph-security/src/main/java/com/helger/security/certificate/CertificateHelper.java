@@ -389,6 +389,32 @@ public final class CertificateHelper
   }
 
   /**
+   * Get the provided certificate as a byte array.
+   *
+   * @param aCert
+   *        The certificate to encode. May not be <code>null</code>.
+   * @return The byte array
+   * @throws IllegalArgumentException
+   *         If the certificate could not be encoded. Cause is a
+   *         {@link CertificateEncodingException}.
+   * @since 10.0.0
+   */
+  @Nonnull
+  @Nonempty
+  public static byte [] getEncodedCertificate (@Nonnull final Certificate aCert)
+  {
+    ValueEnforcer.notNull (aCert, "Cert");
+    try
+    {
+      return aCert.getEncoded ();
+    }
+    catch (final CertificateEncodingException ex)
+    {
+      throw new IllegalArgumentException ("Failed to encode certificate " + aCert, ex);
+    }
+  }
+
+  /**
    * Get the provided certificate as PEM (Base64) encoded String.
    *
    * @param aCert

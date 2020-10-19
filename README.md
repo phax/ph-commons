@@ -36,6 +36,7 @@ This project was the following modules:
     * Removed the serializable functional specializations (`IFunction`, `ISupplier`, `IConsumer`, `IPredicate`, `IBiConsumer`, `IBiFunction`, `IBiPredicate`, `NamespaceContext`)
     * `GenericJAXBMarshaller` now has a chaining API
     * Made `MimeTypeParserException` a checked Exception
+    * Added `CertificateHelper.getEncodedCertificate()`
 * v9.5.1 - 2020-09-18
     * Build with Java 1.8 instead of Java 11 because of binary incompatibility with `ByteBuffer.flip()` signature
 * v9.5.0 - 2020-09-17
