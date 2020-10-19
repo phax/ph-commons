@@ -138,7 +138,7 @@ public class HttpHeaderMap implements
   @Nonnull
   public static String getUnifiedValue (@Nullable final String sValue, final boolean bQuoteIfNecessary)
   {
-    char [] aOneLiner;
+    final char [] aOneLiner;
     if (StringHelper.hasText (sValue))
     {
       // First replace special characters with space
@@ -150,7 +150,7 @@ public class HttpHeaderMap implements
       aOneLiner = ArrayHelper.EMPTY_CHAR_ARRAY;
     }
 
-    char [] aQuoted;
+    final char [] aQuoted;
     if (bQuoteIfNecessary)
     {
       if (RFC2616Codec.isToken (aOneLiner) || RFC2616Codec.isMaybeEncoded (aOneLiner))
@@ -190,7 +190,7 @@ public class HttpHeaderMap implements
 
   @Nullable
   @ReturnsMutableObject
-  private Map.Entry <String, ICommonsList <String>> _getHeaderEntry (@Nullable final String sName)
+  private Map.Entry <String, ICommonsList <String>> _getHeaderEntryCaseInsensitive (@Nullable final String sName)
   {
     if (StringHelper.hasText (sName))
       for (final Map.Entry <String, ICommonsList <String>> aEntry : m_aHeaders.entrySet ())
@@ -201,9 +201,9 @@ public class HttpHeaderMap implements
 
   @Nullable
   @ReturnsMutableObject
-  private ICommonsList <String> _getHeaderList (@Nullable final String sName)
+  private ICommonsList <String> _getHeaderListCaseInsensitive (@Nullable final String sName)
   {
-    final Map.Entry <String, ICommonsList <String>> aEntry = _getHeaderEntry (sName);
+    final Map.Entry <String, ICommonsList <String>> aEntry = _getHeaderEntryCaseInsensitive (sName);
     return aEntry == null ? null : aEntry.getValue ();
   }
 
@@ -211,7 +211,7 @@ public class HttpHeaderMap implements
   @ReturnsMutableObject
   private ICommonsList <String> _getOrCreateHeaderList (@Nonnull @Nonempty final String sName)
   {
-    ICommonsList <String> ret = _getHeaderList (sName);
+    ICommonsList <String> ret = _getHeaderListCaseInsensitive (sName);
     if (ret == null)
     {
       ret = new CommonsArrayList <> (2);
@@ -517,7 +517,7 @@ public class HttpHeaderMap implements
   {
     if (StringHelper.hasText (sName))
     {
-      final ICommonsList <String> aValues = _getHeaderList (sName);
+      final ICommonsList <String> aValues = _getHeaderListCaseInsensitive (sName);
       if (aValues != null)
         return aValues.getClone ();
     }
@@ -525,10 +525,11 @@ public class HttpHeaderMap implements
   }
 
   /**
-   * Get the first header value of a certain header name
+   * Get the first header value of a certain header name. The matching of the
+   * name happens case insensitive.
    *
    * @param sName
-   *        The name to be searched.
+   *        The name to be searched. May be <code>null</code>.
    * @return The first matching value or <code>null</code>.
    */
   @Nullable
@@ -536,7 +537,7 @@ public class HttpHeaderMap implements
   {
     if (StringHelper.hasText (sName))
     {
-      final ICommonsList <String> aValues = _getHeaderList (sName);
+      final ICommonsList <String> aValues = _getHeaderListCaseInsensitive (sName);
       if (aValues != null)
         return aValues.getFirst ();
     }
@@ -544,7 +545,8 @@ public class HttpHeaderMap implements
   }
 
   /**
-   * Get the header value as a combination of all contained values
+   * Get the header value as a combination of all contained values. The matching
+   * of the name happens case insensitive.
    *
    * @param sName
    *        The header name to retrieve. May be <code>null</code>.
@@ -557,7 +559,7 @@ public class HttpHeaderMap implements
   {
     if (StringHelper.hasText (sName))
     {
-      final ICommonsList <String> aValues = _getHeaderList (sName);
+      final ICommonsList <String> aValues = _getHeaderListCaseInsensitive (sName);
       if (aValues != null)
         return StringHelper.getImploded (sDelimiter, aValues);
     }
@@ -568,7 +570,7 @@ public class HttpHeaderMap implements
   {
     if (StringHelper.hasNoText (sName))
       return false;
-    return _getHeaderList (sName) != null;
+    return _getHeaderListCaseInsensitive (sName) != null;
   }
 
   /**
@@ -597,7 +599,7 @@ public class HttpHeaderMap implements
     if (StringHelper.hasNoText (sName))
       return EChange.UNCHANGED;
 
-    final Map.Entry <String, ICommonsList <String>> aEntry = _getHeaderEntry (sName);
+    final Map.Entry <String, ICommonsList <String>> aEntry = _getHeaderEntryCaseInsensitive (sName);
     if (aEntry != null)
       return m_aHeaders.removeObject (aEntry.getKey ());
 
@@ -607,7 +609,7 @@ public class HttpHeaderMap implements
   @Nonnull
   public EChange removeHeader (@Nullable final String sName, @Nullable final String sValue)
   {
-    final Map.Entry <String, ICommonsList <String>> aEntry = _getHeaderEntry (sName);
+    final Map.Entry <String, ICommonsList <String>> aEntry = _getHeaderEntryCaseInsensitive (sName);
     final boolean bRemoved = aEntry != null && aEntry.getValue ().remove (sValue);
     if (bRemoved && aEntry.getValue ().isEmpty ())
     {
