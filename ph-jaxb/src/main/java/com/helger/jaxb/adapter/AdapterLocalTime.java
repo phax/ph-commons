@@ -35,14 +35,16 @@ import com.helger.commons.datetime.PDTWebDateHelper;
 public class AdapterLocalTime extends XmlAdapter <String, LocalTime>
 {
   @Override
-  public LocalTime unmarshal (@Nullable final String value)
+  public LocalTime unmarshal (@Nullable final String sValue)
   {
-    return PDTWebDateHelper.getLocalTimeFromXSD (value);
+    if (sValue == null)
+      return null;
+    return PDTWebDateHelper.getLocalTimeFromXSD (sValue.trim ());
   }
 
   @Override
-  public String marshal (@Nullable final LocalTime value)
+  public String marshal (@Nullable final LocalTime aValue)
   {
-    return PDTWebDateHelper.getAsStringXSD (value);
+    return PDTWebDateHelper.getAsStringXSD (aValue);
   }
 }

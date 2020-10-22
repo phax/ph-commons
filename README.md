@@ -29,6 +29,9 @@ This project was the following modules:
 
 ## News and noteworthy
 
+* v9.5.3 - 2020-10-22
+    * Reverting the changes from 9.5.2
+    * Made the JAXB DateTime adapter classes more resilient by trimming the input string
 * v9.5.2 - 2020-09-25
     * Experimental release that uses `CommonsHashMap` instead of `CommonsWeakHashMap` for all registries having `Class<?>` as the key
 * v9.5.1 - 2020-09-18
