@@ -35,14 +35,16 @@ import com.helger.commons.datetime.PDTWebDateHelper;
 public class AdapterZonedDateTime extends XmlAdapter <String, ZonedDateTime>
 {
   @Override
-  public ZonedDateTime unmarshal (@Nullable final String value)
+  public ZonedDateTime unmarshal (@Nullable final String sValue)
   {
-    return PDTWebDateHelper.getDateTimeFromXSD (value);
+    if (sValue == null)
+      return null;
+    return PDTWebDateHelper.getDateTimeFromXSD (sValue.trim ());
   }
 
   @Override
-  public String marshal (@Nullable final ZonedDateTime value)
+  public String marshal (@Nullable final ZonedDateTime aValue)
   {
-    return PDTWebDateHelper.getAsStringXSD (value);
+    return PDTWebDateHelper.getAsStringXSD (aValue);
   }
 }

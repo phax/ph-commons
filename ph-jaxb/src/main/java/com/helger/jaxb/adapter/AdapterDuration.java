@@ -32,14 +32,16 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 public class AdapterDuration extends XmlAdapter <String, Duration>
 {
   @Override
-  public Duration unmarshal (@Nullable final String value)
+  public Duration unmarshal (@Nullable final String sValue)
   {
-    return value != null ? Duration.parse (value) : null;
+    if (sValue == null)
+      return null;
+    return Duration.parse (sValue.trim ());
   }
 
   @Override
-  public String marshal (@Nullable final Duration value)
+  public String marshal (@Nullable final Duration aValue)
   {
-    return value != null ? value.toString () : null;
+    return aValue != null ? aValue.toString () : null;
   }
 }
