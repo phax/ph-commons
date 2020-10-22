@@ -33,6 +33,7 @@ import com.helger.commons.annotation.Singleton;
 import com.helger.commons.annotation.UseDirectEqualsAndHashCode;
 import com.helger.commons.cache.AnnotationUsageCache;
 import com.helger.commons.collection.impl.CommonsHashMap;
+import com.helger.commons.collection.impl.CommonsWeakHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.concurrent.SimpleReadWriteLock;
 import com.helger.commons.lang.ClassHelper;
@@ -82,7 +83,7 @@ public final class EqualsImplementationRegistry implements IEqualsImplementation
 
   // Use a weak hash map, because the key is a class
   @GuardedBy ("m_aRWLock")
-  private final ICommonsMap <Class <?>, IEqualsImplementation <?>> m_aMap = new CommonsHashMap <> ();
+  private final ICommonsMap <Class <?>, IEqualsImplementation <?>> m_aMap = new CommonsWeakHashMap <> ();
 
   // Cache for classes where direct implementation should be used
   private final AnnotationUsageCache m_aDirectEquals = new AnnotationUsageCache (UseDirectEqualsAndHashCode.class);

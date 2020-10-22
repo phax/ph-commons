@@ -30,7 +30,7 @@ import com.helger.commons.ValueEnforcer;
 import com.helger.commons.annotation.Nonempty;
 import com.helger.commons.annotation.PresentForCodeCoverage;
 import com.helger.commons.annotation.ReturnsMutableCopy;
-import com.helger.commons.collection.impl.CommonsHashMap;
+import com.helger.commons.collection.impl.CommonsWeakHashMap;
 import com.helger.commons.collection.impl.ICommonsMap;
 import com.helger.commons.collection.impl.ICommonsSet;
 import com.helger.commons.io.stream.StreamHelper;
@@ -45,8 +45,8 @@ import com.helger.commons.string.StringHelper;
 public final class ClassHelper
 {
   // WeakHashMap because class is used as a key
-  private static final ICommonsMap <Class <?>, Class <?>> PRIMITIVE_TO_WRAPPER = new CommonsHashMap <> (8);
-  private static final ICommonsMap <Class <?>, Class <?>> WRAPPER_TO_PRIMITIVE = new CommonsHashMap <> (8);
+  private static final ICommonsMap <Class <?>, Class <?>> PRIMITIVE_TO_WRAPPER = new CommonsWeakHashMap <> (8);
+  private static final ICommonsMap <Class <?>, Class <?>> WRAPPER_TO_PRIMITIVE = new CommonsWeakHashMap <> (8);
 
   static
   {
