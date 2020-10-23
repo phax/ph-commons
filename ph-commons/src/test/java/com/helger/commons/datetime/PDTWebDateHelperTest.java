@@ -178,7 +178,10 @@ public final class PDTWebDateHelperTest
     assertNotNull (PDTWebDateHelper.getLocalDateTimeFromXSD ("2020-09-18T16:40:34.078"));
     assertNotNull (PDTWebDateHelper.getLocalDateTimeFromXSD ("2020-09-18T16:40:34.07"));
     assertNotNull (PDTWebDateHelper.getLocalDateTimeFromXSD ("2020-09-18T16:40:34.0"));
+    assertNotNull (PDTWebDateHelper.getLocalDateTimeFromXSD ("2020-09-18T16:40:34.178"));
+    assertNotNull (PDTWebDateHelper.getLocalDateTimeFromXSD ("2020-09-18T16:40:34.17"));
     assertNotNull (PDTWebDateHelper.getLocalDateTimeFromXSD ("2020-09-18T16:40:34.1"));
+    // With trailing Z
     assertNotNull (PDTWebDateHelper.getLocalDateTimeFromXSD ("2020-09-18T16:40:34.078Z"));
     assertNotNull (PDTWebDateHelper.getLocalDateTimeFromXSD ("2020-09-18T16:40:34.07Z"));
     assertNotNull (PDTWebDateHelper.getLocalDateTimeFromXSD ("2020-09-18T16:40:34.0Z"));
