@@ -22,6 +22,9 @@ import java.time.LocalTime;
 import javax.annotation.Nullable;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.datetime.PDTWebDateHelper;
 
 /**
@@ -34,12 +37,18 @@ import com.helger.commons.datetime.PDTWebDateHelper;
  */
 public class AdapterLocalTime extends XmlAdapter <String, LocalTime>
 {
+  private static final Logger LOGGER = LoggerFactory.getLogger (AdapterLocalTime.class);
+
   @Override
   public LocalTime unmarshal (@Nullable final String sValue)
   {
     if (sValue == null)
       return null;
-    return PDTWebDateHelper.getLocalTimeFromXSD (sValue.trim ());
+
+    final LocalTime ret = PDTWebDateHelper.getLocalTimeFromXSD (sValue.trim ());
+    if (ret == null)
+      LOGGER.warn ("Failed to parse '" + sValue + "' to a LocalTime");
+    return ret;
   }
 
   @Override

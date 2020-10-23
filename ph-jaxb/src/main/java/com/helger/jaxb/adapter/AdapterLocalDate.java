@@ -21,6 +21,9 @@ import java.time.LocalDate;
 import javax.annotation.Nullable;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.datetime.PDTWebDateHelper;
 
 /**
@@ -33,12 +36,18 @@ import com.helger.commons.datetime.PDTWebDateHelper;
  */
 public class AdapterLocalDate extends XmlAdapter <String, LocalDate>
 {
+  private static final Logger LOGGER = LoggerFactory.getLogger (AdapterLocalDate.class);
+
   @Override
   public LocalDate unmarshal (@Nullable final String sValue)
   {
     if (sValue == null)
       return null;
-    return PDTWebDateHelper.getLocalDateFromXSD (sValue.trim ());
+
+    final LocalDate ret = PDTWebDateHelper.getLocalDateFromXSD (sValue.trim ());
+    if (ret == null)
+      LOGGER.warn ("Failed to parse '" + sValue + "' to a LocalDate");
+    return ret;
   }
 
   @Override

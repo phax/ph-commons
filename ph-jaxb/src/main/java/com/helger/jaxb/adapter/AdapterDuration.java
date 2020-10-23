@@ -21,6 +21,9 @@ import java.time.Duration;
 import javax.annotation.Nullable;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * XML Adapter between Duration and String. Use it in your binding file like
  * this:<br>
@@ -31,12 +34,18 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
  */
 public class AdapterDuration extends XmlAdapter <String, Duration>
 {
+  private static final Logger LOGGER = LoggerFactory.getLogger (AdapterDuration.class);
+
   @Override
   public Duration unmarshal (@Nullable final String sValue)
   {
     if (sValue == null)
       return null;
-    return Duration.parse (sValue.trim ());
+
+    final Duration ret = Duration.parse (sValue.trim ());
+    if (ret == null)
+      LOGGER.warn ("Failed to parse '" + sValue + "' to a Duration");
+    return ret;
   }
 
   @Override

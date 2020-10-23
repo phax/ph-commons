@@ -22,6 +22,9 @@ import java.time.ZonedDateTime;
 import javax.annotation.Nullable;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.helger.commons.datetime.PDTWebDateHelper;
 
 /**
@@ -34,12 +37,18 @@ import com.helger.commons.datetime.PDTWebDateHelper;
  */
 public class AdapterZonedDateTime extends XmlAdapter <String, ZonedDateTime>
 {
+  private static final Logger LOGGER = LoggerFactory.getLogger (AdapterZonedDateTime.class);
+
   @Override
   public ZonedDateTime unmarshal (@Nullable final String sValue)
   {
     if (sValue == null)
       return null;
-    return PDTWebDateHelper.getDateTimeFromXSD (sValue.trim ());
+
+    final ZonedDateTime ret = PDTWebDateHelper.getDateTimeFromXSD (sValue.trim ());
+    if (ret == null)
+      LOGGER.warn ("Failed to parse '" + sValue + "' to a ZonedDateTime");
+    return ret;
   }
 
   @Override
